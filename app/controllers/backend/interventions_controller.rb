@@ -23,13 +23,13 @@ class Backend::InterventionsController < BackendController
 
   # INDEX
 
-  list do |t|
+  list(order: "started_at DESC") do |t|
     t.column :procedure, url: true
     t.column :name, through: :production, url: true
     t.column :name, through: :incident, url: true
     t.column :state
     t.column :casting
-    # t.action :play
+    t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
 

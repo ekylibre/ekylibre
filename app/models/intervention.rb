@@ -60,6 +60,8 @@ class Intervention < Ekylibre::Record::Base
 
   delegate :storage, to: :production_support
 
+  accepts_nested_attributes_for :casts, :operations
+
   # @TODO in progress - need to .all parent procedure to have the name of the procedure_nature
 
   scope :of_nature, lambda { |*natures|

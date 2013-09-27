@@ -25,10 +25,14 @@ module Procedo
         hash[variable.attr("name").to_s] = Variable.new(self, variable)
         hash
       end
-      @operations = element.xpath("xmlns:operations/xmlns:operation").collect do |operation|
-        Operation.new(self, operation)
+      @operations = element.xpath("xmlns:operations/xmlns:operation").inject({}) do |hash, operation|
+        hash[operation.attr("id").to_i] = Operation.new(self, operation)
+        hash
       end
-      unless @operations.size == @operations.map(&:id).uniq.size
+      # @operations = element.xpath("xmlns:operations/xmlns:operation").collect do |operation|
+      #   Operation.new(self, operation)
+      # end
+      unless @operations.keys.size == element.xpath("xmlns:operations/xmlns:operation").size
         raise NotUniqueIdentifier.new("Each operation must have a unique identifier (#{procedure.name}-#{procedure.version})")
       end
     end
@@ -39,9 +43,6 @@ module Procedo
 
     # Returns true if the procedure nature match one of the given natures
     def of_nature?(*natures)
-      puts "> " + self.natures.inspect
-      puts "& " + natures.inspect
-      puts "= " + (self.natures & natures).inspect
       (self.natures & natures).any?
     end
 

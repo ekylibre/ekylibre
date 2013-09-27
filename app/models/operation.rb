@@ -47,6 +47,8 @@ class Operation < Ekylibre::Record::Base
 
   before_validation(:on => :create) do
     self.started_at ||= Time.now
+    # TODO Remove following line!!!
+    self.stopped_at ||= self.started_at
     if self.started_at and self.stopped_at
       self.duration = (self.stopped_at - self.started_at).to_i
     end
@@ -54,6 +56,10 @@ class Operation < Ekylibre::Record::Base
 
   after_save do
     self.intervention.save!
+  end
+
+  def reference
+    self.intervention.reference.operations[self.position]
   end
 
 end

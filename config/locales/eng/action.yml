@@ -276,7 +276,7 @@ eng:
       new: "Add a new incoming payment"
       show: "Incoming payment %{number} of %{entity}"
     backend/interventions:
-      # edit: "Modifier l’intervention %{name} N°%{id}"
+      # edit: "Modifier l’intervention %{procedure_name} N°%{id}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
       # show: "%{procedure_name} N°%{id}"

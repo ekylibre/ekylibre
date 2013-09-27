@@ -75,6 +75,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :variant, :class_name => "ProductNatureVariant"
   has_many :incidents, :class_name => "Incident", :as => :target
   has_many :indicator_data, :class_name => "ProductIndicatorDatum", :dependent => :destroy
+  has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
   has_many :groups, :through => :memberships
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
   has_many :operation_tasks, :foreign_key => :subject_id

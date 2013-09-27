@@ -1395,6 +1395,7 @@ arb:
     # initial_number: "Numéro initial"
     integer_value: "قيمة العدد الصحيح"
     # intervention: "Intervention"
+    # intervention_casts: "Intervention casts"
     # interventions: "Interventions"
     introduction: "المقدمة"
     inventories: "عمليات الجرد" #?

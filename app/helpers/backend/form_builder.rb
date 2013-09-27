@@ -44,7 +44,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     input_id = model.name.underscore + "-" + association.to_s + "-input"
 
     return input(reflection.foreign_key, options.merge(:wrapper => :append, :reflection => reflection)) do
-      self.input_field(reflection.foreign_key, 'data-selector' => @template.url_for(choices), :id => input_id, 'data-selector-new-item' => @template.url_for(new_url)) +
+      self.input_field(reflection.foreign_key, as: :string, 'data-selector' => @template.url_for(choices), :id => input_id, 'data-selector-new-item' => @template.url_for(new_url)) +
         # @template.link_to(('<span class="icon"></span><span class="text">' + @template.send(:h, 'labels.new'.t) + '</span>').html_safe, new_url, 'data-new-item' => input_id, :class => 'btn btn-new') +
         "".html_safe
     end

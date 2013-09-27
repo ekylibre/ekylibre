@@ -9,6 +9,7 @@
             selector.attr("autocomplete", "off");
             if (selector.prop("dropDownButton") === undefined) {
                 button = $("<a href='#" + selector.attr("id") + "' rel='dropdown' class='selector-dropdown'><i></i></a>");
+                button.prop("selector", selector);
                 selector.after(button);
                 selector.prop("lastSearch", selector.val());
                 selector.prop("dropDownButton", button);
@@ -249,7 +250,7 @@
 
     $(document).on("click", 'a.selector-dropdown[rel="dropdown"][href]', function (event) {
         var element = $(this), selector, menu;
-        selector = $(element.attr("href"));
+        selector = element.prop("selector"); //$(element.attr("href"));
         menu = selector.prop("dropDownMenu");
         if (menu.is(":visible")) {
             menu.hide();
@@ -261,7 +262,7 @@
 
     $(document).on("blur focusout", 'a.selector-dropdown[rel="dropdown"][href]', function (event) {
         var element = $(this), selector, menu;
-        selector = $(element.attr("href"));
+        selector = element.prop("selector"); //$(element.attr("href"));
         setTimeout(function () {
             $.EkylibreSelector.closeMenu(selector);
         }, 300);

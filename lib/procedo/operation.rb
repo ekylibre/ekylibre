@@ -24,6 +24,11 @@ module Procedo
       @duration.nil?
     end
 
+    def human_name
+      "Operation ##{self.id}"
+    end
+
+
   end
 
 end

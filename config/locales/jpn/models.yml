@@ -724,6 +724,7 @@ jpn:
     # initial_number: "Numéro initial"
     # integer_value: "Valeur entière"
     # intervention: "Intervention"
+    # intervention_casts: "Intervention casts"
     # interventions: "Interventions"
     # introduction: "Introduction"
     # inventory: "Inventaire"

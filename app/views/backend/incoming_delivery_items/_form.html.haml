@@ -1,17 +1,17 @@
--variant = (f.object.product ? f.object.product_variant : ProductNatureVariant.find(f.object.product_nature_variant_id))
+- variant = (f.object.product ? f.object.product_variant : ProductNatureVariant.find(f.object.product_nature_variant_id))
 .subform
   .subform-title
-    %h3=variant.name
+    %h3= variant.name
     .remove
-      =link_to("#", "data-remove-closest" => ".subform") do
+      = link_to("#", "data-remove-closest" => ".subform") do
         %i.icon-remove
-    -#unless variant.individual
-      =f.input :quantity # , :indicator => variant.indicator
-    =f.input :product_nature_variant_id, :as => :hidden
+    - #unless variant.individual
+      = f.input :quantity # , :indicator => variant.indicator
+    = f.input :product_nature_variant_id, :as => :hidden
   .subform-fields
-    -if model = variant.matching_model
-      -iv = "@#{model.name.underscore}".to_sym
-      -instance_variable_set(iv, f.object.product || model.new(:variant_id => variant.id))
-      =f.backend_fields_for(:product, instance_variable_get(iv)) do |p|
-        =p.hidden_field(:type)
-        =render "backend/#{model.name.tableize}/form", :f => p
+    - if model = variant.matching_model
+      - iv = "@#{model.name.underscore}".to_sym
+      - instance_variable_set(iv, f.object.product || model.new(:variant_id => variant.id))
+      = f.backend_fields_for(:product, instance_variable_get(iv)) do |p|
+        = p.hidden_field(:type)
+        = render "backend/#{model.name.tableize}/form", :f => p

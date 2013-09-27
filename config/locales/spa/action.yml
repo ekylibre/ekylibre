@@ -287,7 +287,7 @@ spa:
       # show: "Encaissement n°%{number} de %{entity}"
     backend/interfacers: #?
     backend/interventions:
-      # edit: "Modifier l’intervention %{name} N°%{id}"
+      # edit: "Modifier l’intervention %{procedure_name} N°%{id}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
       # show: "%{procedure_name} N°%{id}"

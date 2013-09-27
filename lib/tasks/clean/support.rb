@@ -150,6 +150,8 @@ module CleanSupport
           actions << 'up'
           actions << 'down'
         elsif line.match(/^\s*manage_restfully/)
+          actions << 'show'
+          actions << 'index'
           actions << 'new'
           actions << 'create'
           actions << 'edit'
@@ -163,7 +165,7 @@ module CleanSupport
         end
       end
 
-      return actions
+      return actions.uniq
     end
 
     def actions_hash

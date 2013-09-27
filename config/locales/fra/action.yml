@@ -11,13 +11,13 @@ fra:
       mark: "Lettrage du compte\_: %{number} - %{name}"
       new: "Créer un nouveau compte"
       reconciliation: "Lettrage de comptes"
-      show: "Compte\_: %{number} - %{name}" #?
+      show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
     backend/activities:
       edit: "Modifier une activité\_: %{name} "
-      index: "Activités" #?
+      index: "Activités"
       new: "Nouvelle activité"
-      show: "%{name}" #?
+      show: "%{name}"
     backend/affairs:
       attach: "Associer une transaction"
       detach: "Dissocier une transaction"
@@ -52,6 +52,7 @@ fra:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
       new: "Ajouter une zone postale"
+      # show: "Show backend/area"
     backend/assets:
       cede: "Céder l’immobilisation" #?
       depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}" #?
@@ -92,10 +93,14 @@ fra:
       show: "%{nature}\_: %{name}"
     backend/catalog_prices:
       # edit: "Edit backend/catalog price"
+      # index: "Index backend/catalog price"
       # new: "New backend/catalog price"
+      # show: "Show backend/catalog price"
     backend/catalogs:
       # edit: "Edit backend/catalog"
+      # index: "Index backend/catalog"
       # new: "New backend/catalog"
+      # show: "Show backend/catalog"
     backend/cells/bank_chart_cells:
       # show: "Show backend/cells/bank chart cell"
     backend/cells/calendar_cells:
@@ -143,7 +148,9 @@ fra:
       show: "Parcelle culturale\_: %{name}"
     backend/custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
+      # index: "Index backend/custom field choice"
       new: " Création d’une option pour une liste de choix"
+      # show: "Show backend/custom field choice"
     backend/custom_fields:
       edit: "Modifier le champ personnalisé\_: %{name}"
       index: "Champs personnalisés"
@@ -173,6 +180,7 @@ fra:
       edit: "Modifier la zone administrative\_: %{name}"
       index: "Zones administratives"
       new: "Ajouter une zone administrative"
+      # show: "Show backend/district"
     backend/document_archives:
       show: "Voir l'archive\_: %{name} "
     backend/document_templates:
@@ -181,6 +189,7 @@ fra:
       load: "Charger les modèles de document par défaut"
       new: "Création d’un modèle de document"
       print: "Imprimer un exemple" #?
+      # show: "Show backend/document template"
     backend/documents:
       edit: "Modifier le document"
       index: "Gestion électronique des documents"
@@ -199,31 +208,36 @@ fra:
       show: "Fiche\_: %{full_name}"
     backend/entity_addresses:
       edit: "Modifier une coordonnée"
+      # index: "Index backend/entity address"
       new: "Ajouter une coordonnée"
       show: "Coordonnée"
     backend/entity_links:
       edit: "Modifier le lien"
+      # index: "Index backend/entity link"
       new: "Ajout d’un nouveau lien"
       show: "Lien"
     backend/equipments:
       edit: "Modifier l’équipement\_: %{name}"
-      index: "Équipements" #?
+      index: "Équipements"
       new: "Ajouter un nouvel équipement"
-      show: "Équipement %{name}" #?
+      show: "Équipement %{name}"
     backend/establishments:
       edit: "Modifier l’établissement\_: %{name}"
       index: "Établissements"
       new: "Ajout d’un nouvel etablissement"
+      # show: "Show backend/establishment"
     backend/event_natures:
       # edit: "Edit backend/event nature"
       # index: "Index backend/event nature"
       # new: "New backend/event nature"
+      # show: "Show backend/event nature"
     backend/events:
       # autocomplete_for_place: "Autocomplete for place backend/event"
       # change_minutes: "Change minutes backend/event"
       # edit: "Edit backend/event"
       # index: "Index backend/event"
       # new: "New backend/event"
+      # show: "Show backend/event"
     backend/financial_years:
       close: "Clôturer l’exercice %{code}"
       compute_balances: "Calculer la balance de l’exercice"
@@ -234,42 +248,46 @@ fra:
       show: "Exercice comptable %{code}"
     backend/gaps:
       # edit: "Edit backend/gap"
+      # index: "Index backend/gap"
       # new: "New backend/gap"
+      # show: "Show backend/gap"
     backend/helps:
       index: "Aide"
       show: "Voir l'aide"
       toggle: "Basculer l'aide"
     backend/incidents:
       edit: "Modifier l’incident\_: %{name} (%{nature})"
-      index: "Incidents" #?
+      index: "Incidents"
       new: "Nouvel incident"
-      show: "Incident %{name} (%{nature})" #?
+      show: "Incident %{name} (%{nature})"
     backend/incoming_deliveries:
       confirm: "Confirmer l’arrivée de l’approvisionnement"
       edit: "Modifier l’approvisionnement: %{number}"
-      index: "Approvisionnements" #?
+      index: "Approvisionnements"
       new: "Enregistrer un nouvel approvisionnement"
-      show: "Approvisionnement %{number} ( %{reference_number} )" #?
+      show: "Approvisionnement %{number} ( %{reference_number} )"
     backend/incoming_delivery_items:
       new: "Nouvel item"
     backend/incoming_delivery_modes:
       edit: "Modifier le mode d’approvisionnement: %{name}"
       index: "Modes d’approvisionnement"
       new: "Créer un mode d’approvisionnement"
+      # show: "Show backend/incoming delivery mode"
     backend/incoming_payment_modes:
       edit: "Modifier le mode d’encaissement\_: %{name}"
       index: "Modes d’encaissement"
       new: "Ajouter un nouveau mode d’encaissement"
+      # show: "Show backend/incoming payment mode"
     backend/incoming_payments:
       edit: "Modifier l’encaissement n°%{number}"
       index: "Encaissements"
       new: "Ajout d’un nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
     backend/interventions:
-      edit: "Modifier l’intervention %{name} N°%{id}"
-      index: "Interventions" #?
+      edit: "Modifier l’intervention %{procedure_name} N°%{id}"
+      index: "Interventions"
       new: "Nouvelle intervention"
-      show: "%{procedure_name} N°%{id}" #?
+      show: "%{procedure_name} N°%{id}"
     backend/inventories:
       edit: "Modifier l’inventaire"
       index: "Inventaires"
@@ -318,7 +336,9 @@ fra:
       show: "Parcelle %{name}"
     backend/legal_entities:
       # edit: "Edit backend/legal entity"
+      # index: "Index backend/legal entity"
       # new: "New backend/legal entity"
+      # show: "Show backend/legal entity"
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"
@@ -336,6 +356,7 @@ fra:
       edit: "Modifier la responsabilité"
       index: "Responsabilités"
       new: "Créer une responsabilité"
+      # show: "Show backend/mandate"
     backend/matters:
       edit: "Modifier la matière\_: %{name}"
       index: "Matières"
@@ -358,7 +379,9 @@ fra:
       statistics: "Mes statistiques" #?
     backend/observations:
       edit: "Modifier une observation"
+      # index: "Index backend/observation"
       new: "Ajouter une observation"
+      # show: "Show backend/observation"
     backend/operation_tasks:
       # edit: "Edit backend/operation task"
       # index: "Index backend/operation task"
@@ -377,17 +400,19 @@ fra:
       show: "Matière organique\_: %{name}"
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
-      index: "Livraisons sortantes" #?
+      index: "Livraisons sortantes"
       new: "Ajouter une livraison sortante"
-      show: "Livraison sortante\_: %{number}" #?
+      show: "Livraison sortante\_: %{number}"
     backend/outgoing_delivery_modes:
       edit: "Modifier le mode de livraison\_: %{name}"
       index: "Modes de livraison"
       new: "Ajout d’un nouveau mode de livraison"
+      # show: "Show backend/outgoing delivery mode"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
       new: "Ajouter un mode de décaissement"
+      # show: "Show backend/outgoing payment mode"
     backend/outgoing_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
@@ -405,10 +430,10 @@ fra:
       show: "Produit phytosanitaire\_: %{name}"
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
-      index: "Cutures" #?
+      index: "Cutures"
       new: "Nouvelle culture"
       # picture: "Picture backend/plant"
-      show: "Culture\_: %{name}" #?
+      show: "Culture\_: %{name}"
     backend/preferences:
       edit: "Modifier les préférences"
       index: "Préférences"
@@ -454,9 +479,9 @@ fra:
       # show: "Show backend/product nature variant indicator datum"
     backend/product_nature_variants:
       edit: "Modifier la variante de produit\_: %{name}"
-      index: "Variantes de produits" #?
+      index: "Variantes de produits"
       new: "Nouvelle variante de produit"
-      show: "Variante de produit\_: %{name}" #?
+      show: "Variante de produit\_: %{name}"
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
       index: "Type de produits"
@@ -484,9 +509,9 @@ fra:
       # show: "Show backend/production support"
     backend/productions:
       edit: "Modifier la production\_: %{name}"
-      index: "Productions" #?
+      index: "Productions"
       new: "Nouvelle production"
-      show: "Production\_: %{name}" #?
+      show: "Production\_: %{name}"
     backend/products:
       edit: "Modifier un produit"
       index: "Produits"
@@ -496,6 +521,7 @@ fra:
       edit: "Modifier la profession\_: %{name}"
       index: "Professions"
       new: "Ajouter une nouvelle profession"
+      # show: "Show backend/profession"
     backend/purchase_items:
       edit: "Modifier une ligne de la commande"
       new: "Ajouter un produit à la commande"
@@ -548,9 +574,10 @@ fra:
       statistics: "Statistiques  de ventes"
     backend/sequences:
       edit: "Modifier la séquence\_: %{name}"
-      index: "Séquences" #?
+      index: "Séquences"
       load: "Charger les séquences manquantes"
       new: "Création d’une nouvelle séquence"
+      # show: "Show backend/sequence"
     backend/services:
       # edit: "Edit backend/service"
       # index: "Index backend/service"
@@ -574,12 +601,13 @@ fra:
       edit: "Modifier le type d’abonnement\_: %{name}"
       index: "Types d’abonnements"
       new: "Ajouter un type d’abonnement"
-      show: "Type d’abonnement\_: %{name}" #?
+      show: "Type d’abonnement\_: %{name}"
     backend/subscriptions:
       coordinates: "Rafraîchir les coordonnées et la période"
       edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
       index: "Abonnements"
       new: "Création d’un abonnement"
+      # show: "Show backend/subscription"
     backend/tax_declarations:
       edit: "Créer une déclaration" #?
       index: "Déclaration de TVA" #?
@@ -589,10 +617,12 @@ fra:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
       new: "Ajouter une nouvelle taxe"
+      # show: "Show backend/tax"
     backend/teams:
       # edit: "Edit backend/team"
       # index: "Index backend/team"
       # new: "New backend/team"
+      # show: "Show backend/team"
     backend/transports:
       deliveries: "Livraisons du transport" #?
       delivery_delete: "Retirer la livraison du transport" #?
@@ -609,9 +639,9 @@ fra:
       unlock: "Déverrouiller l’utilisateur"
     backend/workers:
       edit: "Modifier l'équipier %{name}"
-      index: "Equipiers" #?
+      index: "Equipiers"
       new: "Nouvel équipier"
-      show: "Equipier %{name}" #?
+      show: "Equipier %{name}"
     public:
       index: "Accueil"
   controllers:

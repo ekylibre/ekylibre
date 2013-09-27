@@ -34,15 +34,14 @@
 #
 
 class InterventionCast < Ekylibre::Record::Base
-  # attr_accessible :nomen, :target_id, :procedure_id, :role, :measure_quantity, :indicator, :measure_unit
+  belongs_to :intervention, :inverse_of => :casts
+  belongs_to :actor, class_name: "Product", inverse_of: :intervention_casts
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :variable, :allow_nil => true, :maximum => 255
   validates_length_of :roles, :allow_nil => true, :maximum => 320
   validates_presence_of :intervention, :variable
   #]VALIDATORS]
-  belongs_to :intervention, :inverse_of => :casts
-  belongs_to :actor, :class_name => "Product"
   # composed_of :quantity, :class_name => "Measure", :mapping => [%w(measure_quantity value), %w(measure_unit unit)]
 
   delegate :name, :to => :actor, :prefix => true
@@ -54,8 +53,8 @@ class InterventionCast < Ekylibre::Record::Base
     where("roles = ?", role.to_s)
   }
 
-  #def name
-   # self.procedure.reference.hash[self.procedure.uid].variables[self.nomen].human_name
-  #end
+  def reference
+    self.intervention.reference.variables[self.variable]
+  end
 
 end
