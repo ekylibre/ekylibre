@@ -23,11 +23,11 @@ class Backend::CashTransfersController < BackendController
   unroll
 
   list do |t|
-    t.column :number, :url => true
+    t.column :number, url: true
     t.column :emission_amount,  :currency => :emission_currency
-    t.column :name, :through => :emission_cash, :url => true
+    t.column :name, through: :emission_cash, url: true
     t.column :reception_amount, :currency => :reception_currency
-    t.column :name, :through => :reception_cash, :url => true
+    t.column :name, through: :reception_cash, url: true
     t.column :created_on
     t.column :description
     t.action :edit

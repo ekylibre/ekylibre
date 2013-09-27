@@ -4,7 +4,7 @@ class Backend::CampaignsController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :closed
   end
 

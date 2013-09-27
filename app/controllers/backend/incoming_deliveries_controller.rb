@@ -25,23 +25,23 @@ class Backend::IncomingDeliveriesController < BackendController
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
   list do |t|
-    t.column :number, :url => true
+    t.column :number, url: true
     t.column :reference_number
     # t.column :description
     # t.column :weight
     t.column :received_at
-    t.column :name, :through => :mode
-    t.column :number, :through => :purchase, :url => true
+    t.column :name, through: :mode
+    t.column :number, through: :purchase, url: true
     # t.action :confirm, :method => :post, :if => :confirmable?, 'data-confirm'  =>  :are_you_sure
     t.action :edit
     t.action :destroy
   end
 
   # Liste des items d'une appro
-  list(:items, :model => :incoming_delivery_items, :conditions => {delivery_id: ['params[:id]']}, :order => "created_at DESC") do |t|
-    t.column :name, :through => :product, :url => true
+  list(:items, :model => :incoming_delivery_items, :conditions => {delivery_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
+    t.column :name, through: :product, url: true
     t.column :quantity
-    t.column :name, :through => :purchase_item, :url => true
+    t.column :name, through: :purchase_item, url: true
     t.column :created_at
   end
 

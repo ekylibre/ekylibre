@@ -24,14 +24,14 @@ class Backend::EntitiesController < BackendController
 
   autocomplete_for :origin
 
-  # # list(:select => {[:addresses, :mail_line_6] => :item_6}, :conditions => search_conditions(:entities, :entities => [:number, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.number") do |t|
-  # list(:select => {[:addresses, :coordinate] => :coordinate}, :conditions => search_conditions(:entities, :entities => [:number, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.last_name, entities.first_name") do |t|
-  list(:conditions => search_conditions(:entities, :entities => [:number, :full_name]), :order => "entities.last_name, entities.first_name") do |t| # , :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)" # , :addresses => [:coordinate]
+  # # list(:select => {[:addresses, :mail_line_6] => :item_6}, :conditions => deprecated_search_conditions(:entities, :entities => [:number, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.number") do |t|
+  # list(:select => {[:addresses, :coordinate] => :coordinate}, :conditions => deprecated_search_conditions(:entities, :entities => [:number, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.last_name, entities.first_name") do |t|
+  list(:conditions => deprecated_search_conditions(:entities, :entities => [:number, :full_name]), :order => "entities.last_name, entities.first_name") do |t| # , :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)" # , :addresses => [:coordinate]
     t.column :active, :datatype => :boolean
-    t.column :number, :url => true
+    t.column :number, url: true
     t.column :nature
-    t.column :last_name, :url => true
-    t.column :first_name, :url => true
+    t.column :last_name, url: true
+    t.column :first_name, url: true
     # t.column :coordinate # :item_6
     # t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
@@ -51,41 +51,41 @@ class Backend::EntitiesController < BackendController
   #   t.column :email
   #   t.column :website
   #   t.column :by_default
-  #   t.column :number, :through => :entity, :url => true
+  #   t.column :number, through: :entity, url: true
   #   t.action :edit
   #   t.action :destroy
   # end
 
   # TODO: Filter meetings with participations , :conditions => {:entity_id => ['session[:current_entity_id]']}
   list(:event_participations, :order => "created_at DESC") do |t|
-    t.column :name, :through => :event
+    t.column :name, through: :event
     t.column :state
-    # t.column :label, :through => :responsible, :url => true
+    # t.column :label, through: :responsible, url: true
     # t.column :duration
     # t.column :place
-    t.column :started_at, :through => :event
+    t.column :started_at, through: :event
     t.action :edit
     t.action :destroy
   end
 
   list(:incoming_payments, :conditions => {:payer_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t| # , :line_class => "(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)"
-    t.column :number, :url => true
+    t.column :number, url: true
     t.column :paid_on
-    t.column :label, :through => :responsible
-    t.column :name, :through => :mode
+    t.column :label, through: :responsible
+    t.column :name, through: :mode
     t.column :bank_name
     t.column :bank_check_number
     # t.column :used_amount, :currency => "RECORD.mode.cash.currency"
-    t.column :amount, :currency => true, :url => true
-    t.column :number, :through => :deposit, :url => true
+    t.column :amount, currency: true, url: true
+    t.column :number, through: :deposit, url: true
     t.action :edit, :if => "RECORD.deposit.nil\?"
     t.action :destroy, :if => :destroyable?
   end
 
   list(:links, :model => :entity_links, :conditions => ['#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)', ['session[:current_entity_id]'], ['session[:current_entity_id]']], :per_page => 5) do |t|
-    t.column :description, :through => :entity_1, :url => true
+    t.column :description, through: :entity_1, url: true
     t.column :nature
-    t.column :description, :through => :entity_2, :url => true
+    t.column :description, through: :entity_2, url: true
     t.column :description
     t.action :edit
     t.action :destroy
@@ -109,33 +109,33 @@ class Backend::EntitiesController < BackendController
   end
 
   list(:outgoing_payments, :conditions => {:payee_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t| # , :line_class => "(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)"
-    t.column :number, :url => true
+    t.column :number, url: true
     t.column :paid_on
-    t.column :label, :through => :responsible
-    t.column :name, :through => :mode
+    t.column :label, through: :responsible
+    t.column :name, through: :mode
     t.column :bank_check_number
     # t.column :used_amount, :currency => "RECORD.mode.cash.currency"
-    t.column :amount, :currency => true, :url => true
+    t.column :amount, currency: true, url: true
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
 
   list(:purchases, :model => :purchase, :conditions => {:supplier_id => ['session[:current_entity_id]']}, :line_class => 'RECORD.status') do |t|
-    t.column :number, :url => true
+    t.column :number, url: true
     t.column :created_on
     t.column :invoiced_on
-    t.column :address, :through => :delivery_address
+    t.column :address, through: :delivery_address
     t.column :state_label
-    # t.column :paid_amount, :currency => true
-    t.column :amount, :currency => true
+    # t.column :paid_amount, currency: true
+    t.column :amount, currency: true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
 
   list(:sales, :conditions => {:client_id => ['session[:current_entity_id]']}, :children => :items, :per_page => 5, :order => "created_on DESC") do |t| # , :line_class => 'RECORD.tags'
-    t.column :number, :url => true, :children => :label
-    t.column :full_name, :through => :responsible, :children => false
+    t.column :number, url: true, :children => :label
+    t.column :full_name, through: :responsible, :children => false
     t.column :created_on, :children => false
     t.column :state_label, :children => false
     # t.column :paid_amount, :currency => {:body => true, :children => "RECORD.sale.currency"}, :children => false
@@ -148,11 +148,11 @@ class Backend::EntitiesController < BackendController
 
   # list(:subscriptions, :conditions => {:subscriber_id => ['session[:current_entity_id]']}, :order => 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')") do |t|
     # t.column :number
-    # t.column :name, :through => :nature
+    # t.column :name, through: :nature
     # t.column :start
     # t.column :finish
-    # t.column :number, :through => :sale, :url => true
-    # t.column :coordinate, :through => :address
+    # t.column :number, through: :sale, url: true
+    # t.column :coordinate, through: :address
     # t.column :quantity, :datatype => :decimal
     # t.column :suspended
     # t.action :edit

@@ -24,13 +24,13 @@ class Backend::EventsController < BackendController
 
   autocomplete_for :place
 
-  list(:conditions => light_search_conditions(:events => [:duration, :place, :name, :description, :started_at], :event_natures => [:name]), :order => "started_at DESC") do |t| # , :joins => {:responsible => {}, :entity => [:nature]} # , :users => [:first_name, :last_name, :name], :entities => [:full_name]
-    # t.column :full_name, :through => :entity, :url => true
+  list(:conditions => search_conditions(:events => [:duration, :place, :name, :description, :started_at], :event_natures => [:name]), :order => "started_at DESC") do |t| # , :joins => {:responsible => {}, :entity => [:nature]} # , :users => [:first_name, :last_name, :name], :entities => [:full_name]
+    # t.column :full_name, through: :entity, url: true
     t.column :name
     t.column :duration
     t.column :place
-    # t.column :label, :through => :responsible, :url => true
-    t.column :name, :through => :nature
+    # t.column :label, through: :responsible, url: true
+    t.column :name, through: :nature
     t.column :started_at
     t.action :edit
     t.action :destroy

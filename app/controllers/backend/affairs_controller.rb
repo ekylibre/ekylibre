@@ -20,8 +20,8 @@
 class Backend::AffairsController < BackendController
 
   list do |t|
-    t.column :debit, :currency => true
-    t.column :credit, :currency => true
+    t.column :debit, currency: true
+    t.column :credit, currency: true
     t.column :closed
   end
 

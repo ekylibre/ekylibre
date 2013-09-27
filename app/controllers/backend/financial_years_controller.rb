@@ -22,10 +22,10 @@ class Backend::FinancialYearsController < BackendController
   unroll
 
   list(:order => "started_on DESC") do |t|
-    t.column :code, :url => true
+    t.column :code, url: true
     t.column :closed
-    t.column :started_on, :url => true
-    t.column :stopped_on, :url => true
+    t.column :started_on, url: true
+    t.column :stopped_on, url: true
     t.column :currency
     # t.column :currency_precision
     # t.action :close, :if => '!RECORD.closed and RECORD.closable?'
@@ -38,17 +38,17 @@ class Backend::FinancialYearsController < BackendController
   end
 
   list(:account_balances, :joins => :account, :conditions => {:financial_year_id => ['session[:current_financial_year_id]']}, :order => "number") do |t|
-    t.column :number, :through => :account, :url => true
-    t.column :name, :through => :account, :url => true
+    t.column :number, through: :account, url: true
+    t.column :name, through: :account, url: true
     t.column :local_debit, :currency => "RECORD.financial_year.currency"
     t.column :local_credit, :currency => "RECORD.financial_year.currency"
   end
 
   list(:asset_depreciations, :conditions => {:financial_year_id => ['session[:current_financial_year_id]']}) do |t|
-    t.column :name, :through => :asset, :url => true
+    t.column :name, through: :asset, url: true
     t.column :started_on
     t.column :stopped_on
-    t.column :amount, :currency => true
+    t.column :amount, currency: true
   end
 
   # Displays details of one financial year selected with +params[:id]+

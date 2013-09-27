@@ -23,7 +23,7 @@ class Backend::ProductProcessPhasesController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :name, :through=>:process, :url=>true
     t.column :nature
     t.column :phase_delay

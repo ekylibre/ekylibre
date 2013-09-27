@@ -23,7 +23,7 @@ class Backend::ProductGroupsController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
@@ -32,7 +32,7 @@ class Backend::ProductGroupsController < BackendController
 
 # content product list of the consider product
   list(:content_product, :model => :product_localizations, :conditions => ["container_id = ? ",['session[:current_product_group_id]']], :order => "started_at DESC") do |t|
-    t.column :name, :through => :product, :url => true
+    t.column :name, through: :product, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause
@@ -42,7 +42,7 @@ class Backend::ProductGroupsController < BackendController
 
   # localization of the consider product
   list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_product_group_id]']], :order => "started_at DESC") do |t|
-    t.column :name, :through => :container, :url => true
+    t.column :name, through: :container, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause
@@ -52,14 +52,14 @@ class Backend::ProductGroupsController < BackendController
 
   # groups of the consider product
   list(:group, :model => :product_memberships, :conditions => [" member_id = ? ",['session[:current_product_group_id]']], :order => "started_at DESC") do |t|
-    t.column :name, :through =>:group, :url => true
+    t.column :name, through: :group, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
   # members of the consider product
   list(:member, :model => :product_memberships, :conditions => [" group_id = ? ",['session[:current_product_group_id]']], :order => "started_at ASC") do |t|
-    t.column :name, :through => :member, :url => true
+    t.column :name, through: :member, url: true
     t.column :started_at
     t.column :stopped_at
   end
@@ -73,7 +73,7 @@ class Backend::ProductGroupsController < BackendController
 
   # incidents of the consider product
   list(:incident, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Animal'",['session[:current_product_group_id]']], :order => "observed_at DESC") do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :nature
     t.column :observed_at
     t.column :gravity

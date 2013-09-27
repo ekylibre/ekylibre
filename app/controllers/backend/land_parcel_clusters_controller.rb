@@ -4,7 +4,7 @@ class Backend::LandParcelClustersController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :work_number
     t.column :identification_number
     #t.column :real_quantity

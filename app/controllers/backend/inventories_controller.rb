@@ -24,7 +24,7 @@ class Backend::InventoriesController < BackendController
   list do |t|
     t.column :created_on
     t.column :changes_reflected
-    t.column :label, :through => :responsible, :url => true
+    t.column :label, through: :responsible, url: true
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :reflect, :if => :reflectable?, :image => "action", 'data-confirm' => :are_you_sure
@@ -39,10 +39,10 @@ class Backend::InventoriesController < BackendController
     end
   end
 
-  list(:items, :model => :inventory_items, :conditions => {:inventory_id => ['params[:id]'] }, :order => :id) do |t|
-    # t.column :name, :through => :building, :url => true
-    t.column :name, :through => :product, :url => true
-    t.column :serial_number, :through => :product
+  list(:items, :model => :inventory_items, :conditions => {:inventory_id => 'params[:id]'.c }, :order => :id) do |t|
+    # t.column :name, through: :building, url: true
+    t.column :name, through: :product, url: true
+    t.column :serial_number, through: :product
     t.column :theoric_quantity, :precision => 3
     t.column :quantity, :precision => 3
     t.column :unit
@@ -59,18 +59,18 @@ class Backend::InventoriesController < BackendController
   end
 
   list(:items_create, :model => :products, :pagination => :none, :order => "#{ProductNature.table_name}.name") do |t|
-    # t.column :name, :through => :building, :url => true
-    t.column :name, :url => true
-    t.column :serial_number, :through => :tracking
+    # t.column :name, through: :building, url: true
+    t.column :name, url: true
+    t.column :serial_number, through: :tracking
     t.column :quantity, :precision => 3
     t.column :unit
     t.text_field :quantity
   end
 
   list(:items_update, :model => :inventory_items, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Building.table_name}.name, #{ProductNature.table_name}.name") do |t|
-    # t.column :name, :through => :building, :url => true
-    t.column :name, :trough => :product, :url => true
-    t.column :serial_number, :through => :product
+    # t.column :name, through: :building, url: true
+    t.column :name, :trough => :product, url: true
+    t.column :serial_number, through: :product
     t.column :theoric_quantity, :precision => 3
     t.text_field :quantity
   end

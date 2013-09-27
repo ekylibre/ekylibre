@@ -25,8 +25,8 @@ class Backend::PlantsController < BackendController
   unroll
 
   list(:conditions => {external: false}) do |t|
-    t.column :work_number, :url => true
-    t.column :name, :url => true
+    t.column :work_number, url: true
+    t.column :name, url: true
     t.column :born_at
     t.action :edit
     t.action :destroy, :if => :destroyable?
@@ -34,7 +34,7 @@ class Backend::PlantsController < BackendController
 
   # Liste du lieu de la plante considérée
   list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, :through => :container, :url => true
+    t.column :name, through: :container, url: true
     t.column :nature
     t.column :started_at
     t.column :stopped_at
@@ -50,7 +50,7 @@ class Backend::PlantsController < BackendController
 
   # Liste des incidents de la plante considérée
   list(:incidents, :conditions => {target_id: 'params[:id]'.c, target_type: 'Plant'}, :order => "observed_at DESC") do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :nature
     t.column :observed_at
     t.column :gravity
@@ -58,8 +58,8 @@ class Backend::PlantsController < BackendController
     t.column :state
   end
 
-  list(:intervention_casts, :conditions => {actor_id: ['params[:id]']}) do |t|
-    t.column :name, through: :intervention, :url => true
+  list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
+    t.column :name, through: :intervention, url: true
     t.column :roles
     t.column :variable
     t.column :started_at, through: :intervention

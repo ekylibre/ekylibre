@@ -56,7 +56,7 @@ module ActiveList
              else
                "#{record}.#{@name}"
              end
-      return code
+      return code.c
     end
 
     # Code for exportation
@@ -65,16 +65,15 @@ module ActiveList
       if self.datatype == :boolean
         datum = "(#{datum} ? ::I18n.translate('list.export.true_value') : ::I18n.translate('list.export.false_value'))"
       elsif self.datatype == :date
-        datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
+        datum = "(#{datum}.nil? ? '' : #{datum}.l)"
       elsif self.datatype == :decimal and not noview
         currency = nil
         if currency = self.options[:currency]
           currency = currency[:body] if currency.is_a?(Hash)
           currency = :currency if currency.is_a?(TrueClass)
-          currency = "RECORD.#{currency}" if currency.is_a?(Symbol)
-          raise Exception.new("Option :currency is not valid. Hash, Symbol or true/false") unless currency.is_a?(String)
+          currency = "#{record}.#{currency}".c if currency.is_a?(Symbol)
         end
-        datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}#{', :currency=>'+currency.gsub(/RECORD/, record) if currency}))"
+        datum = "(#{datum}.nil? ? '' : #{datum}.l(#{'currency: ' + currency.inspect if currency}))"
       elsif @name.to_s.match(/(^|\_)currency$/) and self.datatype == :string and self.limit == 3
         datum = "(#{datum}.nil? ? '' : ::I18n.currency_label(#{datum}))"
       elsif @name == :country and  self.datatype == :string and self.limit == 2

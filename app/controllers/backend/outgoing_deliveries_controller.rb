@@ -23,16 +23,16 @@ class Backend::OutgoingDeliveriesController < BackendController
 
   unroll
 
-  list(:conditions => light_search_conditions(:outgoing_deliveries => [:number, :reference_number, :weight], :entities => [:full_name, :code])) do |t|
-    t.column :number, :url => true
-    t.column :number, :through => :transport, :url => true
-    t.column :full_name, :through => :transporter, :url => true
+  list(:conditions => search_conditions(:outgoing_deliveries => [:number, :reference_number, :weight], :entities => [:full_name, :code])) do |t|
+    t.column :number, url: true
+    t.column :number, through: :transport, url: true
+    t.column :full_name, through: :transporter, url: true
     t.column :reference_number
     t.column :description
     t.column :planned_at
     #t.column :moved_on
-    t.column :name, :through => :mode
-    # t.column :number, :through => :sale, :url => true
+    t.column :name, through: :mode
+    # t.column :number, through: :sale, url: true
     #t.column :weight
     #t.column :amount
     t.action :edit
@@ -40,10 +40,10 @@ class Backend::OutgoingDeliveriesController < BackendController
   end
 
   list(:items, :model => :outgoing_delivery_items, :conditions => {:delivery_id => ['session[:current_outgoing_delivery_id]']}) do |t|
-    t.column :name, :through => :product, :url => true
-    t.column :work_number, :through => :product
+    t.column :name, through: :product, url: true
+    t.column :work_number, through: :product
     t.column :quantity
-    # t.column :name, :through => :building, :url => true
+    # t.column :name, through: :building, url: true
   end
 
 end

@@ -24,7 +24,7 @@ class Backend::CustomFieldsController < BackendController
 
   list(:order => "customized_type, position") do |t|
     t.column :customized_type
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :nature
     t.column :required
     t.column :active

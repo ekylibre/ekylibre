@@ -5,8 +5,8 @@ class Backend::AnalyticRepartitionsController < BackendController
 
   list do |t|
     t.column :affected_on
-    t.column :name, :through => :production, :url => true
-    #t.column :id, :through => :journal_entry_item, :url => true
+    t.column :name, through: :production, url: true
+    #t.column :id, through: :journal_entry_item, url: true
     t.column :state
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit

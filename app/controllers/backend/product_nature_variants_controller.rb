@@ -24,22 +24,22 @@ class Backend::ProductNatureVariantsController < BackendController
 
   list do |t|
     t.column :name, url: true
-    t.column :name, :through => :nature, url: true
+    t.column :name, through: :nature, url: true
     t.column :unit_name
     t.column :frozen_indicators
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:prices, :model => :catalog_prices, :conditions => {variant_id: ['params[:id]']}, :order => "started_at DESC") do |t|
+  list(:prices, :model => :catalog_prices, :conditions => {variant_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
     t.column :amount, url: true, currency: true
     t.column :all_taxes_included
     t.column :started_at
     t.column :stopped_at
-    t.column :name, :through => :catalog, url: true
+    t.column :name, through: :catalog, url: true
   end
 
-  list(:products, :conditions => {variant_id: ['params[:id]']}, :order => "born_at DESC") do |t|
+  list(:products, :conditions => {variant_id: 'params[:id]'.c}, :order => "born_at DESC") do |t|
     t.column :name, url: true
     t.column :identification_number
     t.column :born_at

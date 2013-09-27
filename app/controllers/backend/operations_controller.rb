@@ -23,14 +23,14 @@ class Backend::OperationsController < BackendController
   unroll :label => '{id}'
 
   list(:order => "id DESC") do |t|
-    # t.column :name, :url => true
-    # t.column :name, :through => :nature
+    # t.column :name, url: true
+    # t.column :name, through: :nature
     t.column :started_at
     t.column :stopped_at
     #t.column :planned_on
     #t.column :moved_on
     #t.column :tools_list
-    # t.column :name, :through => :target
+    # t.column :name, through: :target
     #t.column :duration
     t.action :edit
     t.action :destroy
@@ -42,16 +42,16 @@ class Backend::OperationsController < BackendController
 
 
   # list(:uses, :model => :operation_uses, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "id") do |t|
-  #   t.column :name, :through => :tool, :url => true
+  #   t.column :name, through: :tool, url: true
   # end
 
   # list(:items, :model => :operation_items, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "direction") do |t|
   #   t.column :direction
-  #   # t.column :name, :through => :building, :url => true
-  #   t.column :name, :through => :product, :url => true
+  #   # t.column :name, through: :building, url: true
+  #   t.column :name, through: :product, url: true
   #   t.column :quantity
-  #   t.column :label, :through => :unit
-  #   t.column :serial_number, :through => :product
+  #   t.column :label, through: :unit
+  #   t.column :serial_number, through: :product
   #   t.column :density_label
   # end
 
@@ -112,8 +112,8 @@ class Backend::OperationsController < BackendController
 
   # list(:unvalidateds, :model => :operations, :conditions => {:confirmed => false}, :order => "id DESC") do |t|
   #   # t.column :name
-  #   t.column :name, :through => :nature
-  #   # t.column :name, :through => :target
+  #   t.column :name, through: :nature
+  #   # t.column :name, through: :target
   #   # t.column :planned_on
   #   t.text_field :moved_on, :value => 'Date.today', :size => 10
   #   t.check_box :validated, :value => '!RECORD.confirmed?'

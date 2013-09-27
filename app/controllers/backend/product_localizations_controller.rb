@@ -4,8 +4,8 @@ class Backend::ProductLocalizationsController < BackendController
   # unroll # Not necessary for now
 
   list do |t|
-    t.column :name, :through => :container, :url => true
-    t.column :name, :through => :product, :url => true
+    t.column :name, through: :container, url: true
+    t.column :name, through: :product, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause

@@ -24,12 +24,12 @@ class Backend::CashesController < BackendController
   unroll
 
   list(:order => :name) do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :nature
     t.column :currency
     t.column :country
-    t.column :number, :through => :account, :url => true
-    t.column :name, :through => :journal, :url => true
+    t.column :number, through: :account, url: true
+    t.column :name, through: :journal, url: true
     t.action :edit
     t.action :destroy
   end
@@ -39,7 +39,7 @@ class Backend::CashesController < BackendController
   end
 
   list(:bank_statements, :conditions => {:cash_id => ['session[:current_cash_id]']}, :order => "started_on DESC") do |t|
-    t.column :number, :url => true
+    t.column :number, url: true
     t.column :started_on
     t.column :stopped_on
     t.column :credit, :currency => "RECORD.cash.currency"
@@ -47,11 +47,11 @@ class Backend::CashesController < BackendController
   end
 
   list(:deposits, :conditions => {:cash_id => ['session[:current_cash_id]']}, :order => "created_on DESC") do |t|
-    t.column :number, :url => true
+    t.column :number, url: true
     t.column :created_on
     t.column :payments_count
     t.column :amount, :currency => "RECORD.cash.currency"
-    t.column :name, :through => :mode
+    t.column :name, through: :mode
     t.column :description
   end
 

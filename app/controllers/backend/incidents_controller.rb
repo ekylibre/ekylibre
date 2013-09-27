@@ -7,10 +7,10 @@ class Backend::IncidentsController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :nature
     t.column :observed_at
-    # t.column :name, :through => :target, :url => true
+    # t.column :name, through: :target, url: true
     t.column :gravity
     t.column :priority
     t.column :state
@@ -19,8 +19,8 @@ class Backend::IncidentsController < BackendController
   end
 
 
-  list(:interventions, :conditions => {incident_id: ['params[:id]']}, :order => "created_at DESC") do |t|
-    t.column :nomen, :url => true
+  list(:interventions, :conditions => {incident_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
+    t.column :nomen, url: true
     t.column :created_at
     t.column :natures
     t.column :state

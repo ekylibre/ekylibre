@@ -23,7 +23,7 @@ class Backend::ProductProcessesController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :variety
     t.column :nature
     t.column :description

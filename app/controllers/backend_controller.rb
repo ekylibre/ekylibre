@@ -605,7 +605,7 @@ class BackendController < BaseController
 
 
 
-  def self.search_conditions(model_name, columns)
+  def self.deprecated_search_conditions(model_name, columns)
     model = model_name.to_s.classify.constantize
     columns = [columns] if [String, Symbol].include? columns.class
     columns = columns.collect{|k,v| v.collect{|x| "#{k}.#{x}"}} if columns.is_a? Hash
@@ -626,14 +626,21 @@ class BackendController < BaseController
     code
   end
 
-  def self.light_search_conditions(search={}, options={})
+  # search is a hash like {table: [columns...]}
+  def self.search_conditions(search = {}, options={})
     conditions = options[:conditions] || 'c'
-    options[:except] ||= []
+    options[:except]  ||= []
     options[:filters] ||= {}
     variable ||= options[:variable] || "params[:q]"
     tables = search.keys.select{|t| !options[:except].include? t}
     code = "\n#{conditions} = ['1=1']\n"
-    columns = search.collect{|t, cs| cs.collect{|c| "#{ActiveRecord::Base.connection.quote_table_name(t.is_a?(Symbol) ? t.to_s.classify.constantize.table_name : t)}.#{ActiveRecord::Base.connection.quote_column_name(c)}"}}.flatten
+    columns = search.collect do |table, filtered_columns|
+      filtered_columns.collect do |column|
+        ActiveRecord::Base.connection.quote_table_name(table.is_a?(Symbol) ? table.to_s.classify.constantize.table_name : table) +
+        "." +
+        ActiveRecord::Base.connection.quote_column_name(column)
+      end
+    end.flatten
     code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
     code << "  kw = '%'+kw+'%'\n"
     filters = columns.collect do |x|

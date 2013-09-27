@@ -25,9 +25,9 @@ class Backend::OutgoingPaymentModesController < BackendController
 
   list(:order => :position) do |t|
     t.column :name
-    t.column :name, :through => :cash, :url => true
+    t.column :name, through: :cash, url: true
     t.column :with_accounting
-    t.column :name, :through => :attorney_journal, :url => true
+    t.column :name, through: :attorney_journal, url: true
     t.action :up,   :method => :post, :unless => :first?
     t.action :down, :method => :post, :unless => :last?
     t.action :edit

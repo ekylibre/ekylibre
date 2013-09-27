@@ -4,7 +4,7 @@ class Backend::ProductLinksController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
   end
 
   # Displays the main page with the list of product_links

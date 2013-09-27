@@ -23,9 +23,9 @@ class Backend::JournalEntriesController < BackendController
 
   list(:items, :model => :journal_entry_items, :conditions => {:entry_id => ['session[:current_journal_entry_id]']}, :order => "entry_id DESC, position") do |t|
     t.column :name
-    t.column :number, :through => :account, :url => true
-    t.column :name, :through => :account, :url => true
-    t.column :number, :through => :bank_statement, :url => true
+    t.column :number, through: :account, url: true
+    t.column :name, through: :account, url: true
+    t.column :number, through: :bank_statement, url: true
     t.column :real_debit, :currency => "RECORD.entry.real_currency"
     t.column :real_credit, :currency => "RECORD.entry.real_currency"
     t.column :debit, :currency => "RECORD.entry.financial_year.currency"

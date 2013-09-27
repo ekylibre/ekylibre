@@ -4,7 +4,7 @@ class Backend::BuildingDivisionsController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :identification_number
     t.column :work_number
     t.column :description
@@ -14,7 +14,7 @@ class Backend::BuildingDivisionsController < BackendController
 
   # Liste des produits présent dans cette localisation
   list(:content_product, :model => :product_localizations, :conditions => ["container_id = ? ",['session[:current_building_division_id]']], :order => "started_at DESC") do |t|
-    t.column :name, :through => :product, :url => true
+    t.column :name, through: :product, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause

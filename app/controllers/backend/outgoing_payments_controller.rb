@@ -23,7 +23,7 @@ class Backend::OutgoingPaymentsController < BackendController
   unroll
 
   def self.outgoing_payments_conditions(options={})
-    code = search_conditions(:outgoing_payments, :outgoing_payments => [:amount, :bank_check_number, :number], :entities => [:code, :full_name])+"||=[]\n"
+    code = deprecated_search_conditions(:outgoing_payments, :outgoing_payments => [:amount, :bank_check_number, :number], :entities => [:code, :full_name])+"||=[]\n"
     code << "if session[:outgoing_payment_state] == 'undelivered'\n"
     code << "  c[0] += ' AND delivered=?'\n"
     code << "  c << false\n"
@@ -38,14 +38,14 @@ class Backend::OutgoingPaymentsController < BackendController
   end
 
   list(:conditions => outgoing_payments_conditions, :joins => :payee, :order => "to_bank_on DESC") do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
-    t.column :number, :url => true
-    t.column :full_name, :through => :payee, :url => true
+    t.column :number, url: true
+    t.column :full_name, through: :payee, url: true
     t.column :paid_on
-    t.column :amount, :currency => true, :url => true
-    t.column :name, :through => :mode
+    t.column :amount, currency: true, url: true
+    t.column :name, through: :mode
     t.column :bank_check_number
     t.column :to_bank_on
-    # t.column :label, :through => :responsible
+    # t.column :label, through: :responsible
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
@@ -57,11 +57,11 @@ class Backend::OutgoingPaymentsController < BackendController
   end
 
   # list(:purchases, :conditions => ["#{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['session[:current_outgoing_payment_id]']]) do |t|
-  #   t.column :number, :url => true
-  #   t.column :description, :through => :supplier, :url => true
+  #   t.column :number, url: true
+  #   t.column :description, through: :supplier, url: true
   #   t.column :created_on
-  #   t.column :pretax_amount, :currency => true
-  #   t.column :amount, :currency => true
+  #   t.column :pretax_amount, currency: true
+  #   t.column :amount, currency: true
   # end
 
   # Displays details of one outgoing payment selected with +params[:id]+

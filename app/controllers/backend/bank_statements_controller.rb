@@ -23,8 +23,8 @@ class Backend::BankStatementsController < BackendController
   unroll
 
   list(:order => "started_on DESC") do |t|
-    t.column :name, :through => :cash, :url => true
-    t.column :number, :url => true
+    t.column :name, through: :cash, url: true
+    t.column :number, url: true
     t.column :started_on
     t.column :stopped_on
     t.column :debit, :currency => "RECORD.cash.currency"
@@ -46,11 +46,11 @@ class Backend::BankStatementsController < BackendController
   end
 
   list(:items, :model => :journal_entry_items, :conditions => {:bank_statement_id => ['session[:current_bank_statement_id]']}, :order => "entry_id") do |t|
-    t.column :name, :through => :journal, :url => true
-    t.column :number, :through => :entry, :url => true
-    t.column :created_on, :through => :entry, :datatype => :date, :label => :column
+    t.column :name, through: :journal, url: true
+    t.column :number, through: :entry, url: true
+    t.column :created_on, through: :entry, :datatype => :date, :label => :column
     t.column :name
-    t.column :number, :through => :account, :url => true
+    t.column :number, through: :account, url: true
     t.column :debit, :currency => "RECORD.entry.financial_year.currency"
     t.column :credit, :currency => "RECORD.entry.financial_year.currency"
   end

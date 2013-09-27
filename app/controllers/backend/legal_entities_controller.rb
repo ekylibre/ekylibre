@@ -4,7 +4,7 @@ class Backend::LegalEntitiesController < Backend::EntitiesController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
   end
 
 end

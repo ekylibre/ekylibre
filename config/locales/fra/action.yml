@@ -484,7 +484,7 @@ fra:
       # show: "Show backend/production support"
     backend/productions:
       edit: "Modifier la production\_: %{name}"
-      index: "Productions"
+      index: "Productions" #?
       new: "Nouvelle production"
       show: "Production\_: %{name}" #?
     backend/products:

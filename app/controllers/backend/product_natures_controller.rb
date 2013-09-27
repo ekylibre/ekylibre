@@ -25,7 +25,7 @@ class Backend::ProductNaturesController < BackendController
   # management -> product_conditions
   def self.product_natures_conditions(options={})
     code = ""
-    code = light_search_conditions(:product_natures => [:number, :name, :commercial_name, :description, :commercial_description])+"\n"
+    code = search_conditions(:product_natures => [:number, :name, :commercial_name, :description, :commercial_description])+"\n"
     code += "if session[:product_nature_state] == 'active'\n"
     code += "  c[0] += ' AND active = ?'\n"
     code += "  c << true\n"
@@ -56,8 +56,8 @@ class Backend::ProductNaturesController < BackendController
 
 
   #list(:prices, :model => :catalog_prices, :conditions => {:variant_id => ['session[:product_nature_id]'], :active => true}) do |t|
-    #t.column :name, :through => :supplier, :url => true
-    #t.column :name, :through => :listing, :url => true
+    #t.column :name, through: :supplier, url: true
+    #t.column :name, through: :listing, url: true
     #t.column :assignment_pretax_amount, :currency  =>  true
     #t.column :amount, :currency  =>  true
     #t.column :by_default
@@ -68,11 +68,11 @@ class Backend::ProductNaturesController < BackendController
 
   #list(:product_moves, :conditions => {:product_id  => ['session[:product_id]']}, :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
     #t.column :name
-    # t.column :name, :through => :origin
-    # t.column :name, :through => :building, :url => true
-    # t.column :name, :through => :tracking, :url => true
+    # t.column :name, through: :origin
+    # t.column :name, through: :building, url: true
+    # t.column :name, through: :tracking, url: true
     #t.column :quantity
-    #t.column :label, :through => :unit
+    #t.column :label, through: :unit
     #t.column :mode
     # t.column :planned_on
     # t.column :moved_on
@@ -80,8 +80,8 @@ class Backend::ProductNaturesController < BackendController
   #end
 
   # list(:product_stocks, :conditions => ['#{ProductStock.table_name}.product_id = ?', ['session[:product_id]']], :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
-  #   # t.column :name, :through => :building, :url => true
-  #   t.column :name, :through => :product, :url => true
+  #   # t.column :name, through: :building, url: true
+  #   t.column :name, through: :product, url: true
   #   t.column :minimal_quantity
   #   t.column :maximal_quantity
   #   # t.column :critic_quantity_min

@@ -25,8 +25,8 @@ class Backend::MattersController < BackendController
   unroll
 
   list do |t|
-    t.column :work_number, :url => true
-    t.column :name, :url => true
+    t.column :work_number, url: true
+    t.column :name, url: true
     t.column :born_at
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
@@ -45,7 +45,7 @@ class Backend::MattersController < BackendController
 
   # Liste des lieux de la matière considérée
   list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_matter_id]']], :order => "started_at DESC") do |t|
-    t.column :name, :through => :container, :url => true
+    t.column :name, through: :container, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause
@@ -55,7 +55,7 @@ class Backend::MattersController < BackendController
 
   # Liste des groupes de la matière considérée
   list(:group, :model => :product_memberships, :conditions => [" member_id = ? ",['session[:current_matter_id]']], :order => "started_at DESC") do |t|
-    t.column :name, :through =>:group, :url => true
+    t.column :name, through: :group, url: true
     t.column :started_at
     t.column :stopped_at
   end

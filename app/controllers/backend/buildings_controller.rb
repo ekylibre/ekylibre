@@ -23,10 +23,10 @@ class Backend::BuildingsController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :description
-    # t.column :name, :through => :establishment
-    # t.column :name, :through => :parent, :url => true
+    # t.column :name, through: :establishment
+    # t.column :name, through: :parent, url: true
     #t.column :reservoir
     t.action :edit
     t.action :destroy
@@ -34,7 +34,7 @@ class Backend::BuildingsController < BackendController
 
     # Liste des animaux d'un groupe d'animaux considéré
   list(:building_division, :model => :product_memberships, :conditions => [" group_id = ? ",['session[:current_building_id]']], :order => "started_at ASC") do |t|
-    t.column :name, :through => :member, :url => true
+    t.column :name, through: :member, url: true
     t.column :started_at
     t.column :stopped_at
   end
@@ -49,17 +49,17 @@ class Backend::BuildingsController < BackendController
   #   t.column :planned_on
   #   t.column :moved_on
   #   t.column :quantity
-  #   t.column :label, :through => :unit
-  #   t.column :name, :through => :product, :url => true
+  #   t.column :label, through: :unit
+  #   t.column :name, through: :product, url: true
   #   t.column :virtual
   #   # t.action :edit, :if => 'RECORD.generated != true'
   #   # t.action :destroy,:if => 'RECORD.generated != true'
   # end
 
   # list(:product_stocks, :conditions => {:building_id => ['session[:current_building_id]']}, :order => "quantity DESC") do |t|
-  #   t.column :name, :through => :product,:url => true
-  #   # t.column :name, :through => :tracking, :url => true
-  #   t.column :weight, :through => :product, :label => :column
+  #   t.column :name, through: :product,url: true
+  #   # t.column :name, through: :tracking, url: true
+  #   t.column :weight, through: :product, :label => :column
   #   t.column :quantity_max
   #   t.column :quantity_min
   #   t.column :critic_quantity_min

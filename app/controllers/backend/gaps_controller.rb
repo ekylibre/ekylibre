@@ -25,6 +25,6 @@ class Backend::GapsController < BackendController
   list do |t|
     t.column :name, through: :entity, url: true
     t.column :direction
-    t.column :amount, :currency => true
+    t.column :amount, currency: true
   end
 end

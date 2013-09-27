@@ -26,7 +26,7 @@ class Backend::SalesController < BackendController
   # management -> sales_conditions
   def self.sales_conditions
     code = ""
-    code = search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name]) + " ||= []\n"
+    code = deprecated_search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name]) + " ||= []\n"
     code << "unless session[:sale_state].blank?\n"
     code << "  if session[:sale_state] == 'all'\n"
     code << "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
@@ -47,11 +47,11 @@ class Backend::SalesController < BackendController
     t.column :number, :url => {:action => :show, :step => :default}
     t.column :created_on
     t.column :invoiced_on
-    t.column :label, :through => :client, :url => true
-    t.column :label, :through => :responsible
+    t.column :label, through: :client, url: true
+    t.column :label, through: :responsible
     t.column :description
     t.column :state_label
-    t.column :amount, :currency => true
+    t.column :amount, currency: true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit, :if => 'RECORD.draft? '
     t.action :cancel, :if => 'RECORD.cancelable? '
@@ -75,17 +75,17 @@ class Backend::SalesController < BackendController
   end
 
   list(:credits, :model => :sales, :conditions => {:origin_id => ['session[:current_sale_id]'] }, :children => :items) do |t|
-    t.column :number, :url => true, :children => :designation
-    t.column :full_name, :through => :client, :children => false
+    t.column :number, url: true, :children => :designation
+    t.column :full_name, through: :client, :children => false
     t.column :created_on, :children => false
-    t.column :pretax_amount, :currency => true
-    t.column :amount, :currency => true
+    t.column :pretax_amount, currency: true
+    t.column :amount, currency: true
   end
 
   list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
     t.column :number, :children => :product_name
-    t.column :last_name, :through => :transporter, :children => false, :url => true
-    t.column :coordinate, :through => :address, :children => false
+    t.column :last_name, through: :transporter, :children => false, url: true
+    t.column :coordinate, through: :address, :children => false
     # t.column :planned_on, :children => false
     # t.column :moved_on, :children => false
     t.column :quantity, :datatype => :decimal
@@ -96,22 +96,22 @@ class Backend::SalesController < BackendController
   end
 
   # list(:payment_uses, :model => :incoming_payment_uses, :conditions => ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", ['session[:current_sale_id]'], 'Sale']) do |t|
-  #   t.column :number, :through => :payment, :url => true
-  #   t.column :amount, :currency => "RECORD.payment.currency", :through => :payment, :label => "payment_amount", :url => true
+  #   t.column :number, through: :payment, url: true
+  #   t.column :amount, :currency => "RECORD.payment.currency", through: :payment, :label => "payment_amount", url: true
   #   t.column :amount, :currency => "RECORD.payment.currency"
   #   t.column :payment_way
-  #   t.column :scheduled, :through => :payment, :datatype => :boolean, :label => :column
+  #   t.column :scheduled, through: :payment, :datatype => :boolean, :label => :column
   #   t.column :downpayment
-  #   # t.column :paid_on, :through => :payment, :label => :column, :datatype => :date
-  #   t.column :to_bank_on, :through => :payment, :label => :column, :datatype => :date
+  #   # t.column :paid_on, through: :payment, :label => :column, :datatype => :date
+  #   t.column :to_bank_on, through: :payment, :label => :column, :datatype => :date
   #   t.action :destroy
   # end
 
   list(:subscriptions, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
     t.column :number
-    t.column :name, :through => :nature
-    t.column :full_name, :through => :subscriber, :url => true
-    t.column :coordinate, :through => :address
+    t.column :name, through: :nature
+    t.column :full_name, through: :subscriber, url: true
+    t.column :coordinate, through: :address
     t.column :start
     t.column :finish
     t.column :quantity
@@ -120,8 +120,8 @@ class Backend::SalesController < BackendController
   end
 
   list(:undelivered_items, :model => :sale_items, :conditions => {:sale_id => ['session[:current_sale_id]'], :reduction_origin_id => nil}) do |t|
-    t.column :name, :through => :variant
-    t.column :pretax_amount, :currency => "RECORD.price.currency", :through => :price
+    t.column :name, through: :variant
+    t.column :pretax_amount, :currency => "RECORD.price.currency", through: :price
     t.column :quantity
     #t.column :unit
     t.column :pretax_amount, :currency => "RECORD.price.currency"
@@ -129,12 +129,12 @@ class Backend::SalesController < BackendController
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, :model => :sale_items, :conditions => {:sale_id => ['params[:id]']}, :order => :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:variant, :subscriptions]) do |t|
-    # t.column :name, :through => :variant
+  list(:items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c}, :order => :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:variant, :subscriptions]) do |t|
+    # t.column :name, through: :variant
     # t.column :position
     t.column :label
     #t.column :annotation
-    # t.column :serial_number, :through => :variant, :url => true
+    # t.column :serial_number, through: :variant, url: true
     t.column :quantity
     t.column :indicator
     t.column :unit_price_amount
@@ -202,8 +202,8 @@ class Backend::SalesController < BackendController
   list(:creditable_items, :model => :sale_items, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
     t.column :label
     t.column :annotation
-    t.column :name, :through => :variant
-    t.column :amount, :through => :price, :label => :column
+    t.column :name, through: :variant
+    t.column :amount, through: :price, :label => :column
     t.column :quantity
     t.column :credited_quantity, :datatype => :decimal
     t.check_box  :validated, :value => "true", :label => 'OK'

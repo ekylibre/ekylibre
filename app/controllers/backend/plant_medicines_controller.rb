@@ -5,7 +5,7 @@ class Backend::PlantMedicinesController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :created_at
   end
 

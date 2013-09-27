@@ -4,10 +4,10 @@ class Backend::PrescriptionsController < BackendController
   unroll
 
   list do |t|
-    t.column :reference_number, :url => true
+    t.column :reference_number, url: true
     t.column :delivered_on
-    t.column :name, :through =>:prescriptor, :url => true
-    t.column :name, :through =>:document, :url => true
+    t.column :name, through: :prescriptor, url: true
+    t.column :name, through: :document, url: true
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

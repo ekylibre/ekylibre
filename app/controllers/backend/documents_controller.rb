@@ -23,11 +23,11 @@ class Backend::DocumentsController < BackendController
   respond_to :html, :json, :xml
 
   list do |t|
-    t.column :number, :url => true
-    t.column :name, :url => true
+    t.column :number, url: true
+    t.column :name, url: true
     t.column :nature
-    # t.column :name, :through => :origin
-    # t.column :name, :through => :template
+    # t.column :name, through: :origin
+    # t.column :name, through: :template
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
@@ -35,9 +35,9 @@ class Backend::DocumentsController < BackendController
   def index
   end
 
-  list(:archives, :model => :document_archive, :conditions => {:document_id => ['params[:id]']}) do |t|
-    t.column :archived_at, :url => true
-    t.column :name, :through => :template
+  list(:archives, :model => :document_archive, :conditions => {:document_id => 'params[:id]'.c}) do |t|
+    t.column :archived_at, url: true
+    t.column :name, through: :template
     t.column :file_pages_count
     t.column :file_file_size
     t.action :destroy, :if => :destroyable?

@@ -4,7 +4,7 @@ class Backend::ProductNatureVariantIndicatorDataController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
   end
 
   # Displays the main page with the list of product_nature_variant_indicator_data.

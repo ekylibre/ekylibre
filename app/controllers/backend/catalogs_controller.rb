@@ -23,20 +23,20 @@ class Backend::CatalogsController < BackendController
   manage_restfully
 
   list do |t|
-    t.column :code, :url => true
-    t.column :name, :url => true
+    t.column :code, url: true
+    t.column :name, url: true
     t.column :description
     t.column :by_default
     t.action :edit
     t.action :destroy
   end
 
-  list(:prices, :model => :catalog_prices, :conditions => {:active => true, :catalog_id => ['params[:id]']}) do |t|
-    t.column :name, :through => :variant, :url => true
+  list(:prices, :model => :catalog_prices, :conditions => {:active => true, :catalog_id => 'params[:id]'.c}) do |t|
+    t.column :name, through: :variant, url: true
     # t.column :pretax_amount
     t.column :amount
     t.column :all_taxes_included
-    # t.column :name, :through => :tax
+    # t.column :name, through: :tax
     t.action :destroy
   end
 

@@ -20,21 +20,19 @@
         <task do="[cropper] moves-to [culture]"/>
         <!-- le chauffeur et la moissonneuse se déplace vers le lieu à récolter -->
       </operation>
-      <loop>
-        <operation id="300">
-          <!-- tant que le [cropper] travaille (? = sous-entendu la moissonneuse tourne,le conducteur roule, le batteur tourne) les sub-task tournent -->
-          <task do="[culture] produces [grains]"/>
-          <task do="[culture] produces [straw]"/>
-          <!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
-          <task do="[grains] moves-in [cropper]"/>
-          <!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
-          <task do="[straw] moves-to [culture]"/>
-          <task do="[culture] dies"/>
-        </operation>
-        <operation id="400" duration="4 minutes">
-          <task do="[grains] is-delivered"/>
-        </operation>
-      </loop>
+      <operation id="300">
+        <!-- tant que le [cropper] travaille (? = sous-entendu la moissonneuse tourne,le conducteur roule, le batteur tourne) les sub-task tournent -->
+        <task do="[culture] produces [grains]"/>
+        <task do="[culture] produces [straw]"/>
+        <!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+        <task do="[grains] moves-in [cropper]"/>
+        <!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+        <task do="[straw] moves-to [culture]"/>
+        <task do="[culture] dies"/>
+      </operation>
+      <operation id="400" duration="4 minutes">
+        <task do="[grains] is-delivered"/>
+      </operation>
       <operation id="500" duration="18 minutes">
         <task do="[cropper] moves-in-default-storage"/>
       </operation>        

@@ -22,10 +22,10 @@ class Backend::UsersController < BackendController
   unroll
 
   list(:order => "locked, last_name", :line_class => "(RECORD.locked ? 'critic' : '')") do |t|
-    t.column :full_name, :url => true
-    t.column :first_name, :url => true
-    t.column :last_name, :url => true
-    t.column :name, :through => :role, :url => {:action => :edit}
+    t.column :full_name, url: true
+    t.column :first_name, url: true
+    t.column :last_name, url: true
+    t.column :name, through: :role, :url => {:action => :edit}
     t.column :administrator
     t.column :employed
     t.action :locked, :actions => {"true" => {:action => :unlock}, "false" => {:action => :lock}}, :method => :post, :if => 'RECORD.id != current_user.id'

@@ -22,33 +22,33 @@ class Backend::DashboardsController < BackendController
   list(:my_future_events, model: :events, :conditions => ['started_at >= CURRENT_TIMESTAMP'], :order => "started_at ASC", :per_page => 10) do |t|
     t.column :name
     t.column :started_at
-    # t.column :full_name, :through => :entity, :url => true
-    t.column :name, :through => :nature
+    # t.column :full_name, through: :entity, url: true
+    t.column :name, through: :nature
     t.column :duration
     t.column :place
-    # t.column :label, :through => :responsible, :url => true
+    # t.column :label, through: :responsible, url: true
   end
 
   list(:recent_events, model: :events, :conditions => ['started_at < CURRENT_TIMESTAMP'], :order => "started_at DESC", :per_page => 10) do |t|
     t.column :name
     t.column :started_at
-    # t.column :full_name, :through => :entity, :url => true
-    t.column :name, :through => :nature
+    # t.column :full_name, through: :entity, url: true
+    t.column :name, through: :nature
     t.column :duration
     t.column :place
-    # t.column :label, :through => :responsible, :url => true
+    # t.column :label, through: :responsible, url: true
   end
 
   # list(:critic_stocks, :model => :product_stocks, :conditions => ['#{ProductStock.table_name}.virtual_quantity <= #{ProductStock.table_name}.quantity_min AND NOT (#{ProductStock.table_name}.virtual_quantity=0 AND #{ProductStock.table_name}.quantity=0 AND #{ProductStock.table_name}.tracking_id IS NOT NULL)'] , :line_class => 'RECORD.state', :order => 'virtual_quantity/(2*quantity_min+0.01)') do |t|
-  #   t.column :name, :through => :product, :url => true
-  #   t.column :name, :through => :building, :url => true
-  #   t.column :serial_number, :through => :product, :url => true
+  #   t.column :name, through: :product, url: true
+  #   t.column :name, through: :building, url: true
+  #   t.column :serial_number, through: :product, url: true
   #   t.column :critic_quantity_min
   #   t.column :quantity_min
   #   t.column :quantity_max
   #   t.column :virtual_quantity
   #   t.column :quantity
-  #   t.column :name, :through => :unit
+  #   t.column :name, through: :unit
   # end
 
 

@@ -101,22 +101,20 @@ module ActiveList
             style = style.gsub(/RECORD/, record)+"+" if style.match(/RECORD/)
             style << "'"
             if nature!=:children or (not column.options[:children].is_a? FalseClass and nature==:children)
-              datum = column.datum_code(record, nature==:children)
+              datum = column.datum_code(record, nature == :children)
               if column.datatype == :boolean
                 datum = "content_tag(:div, '', :class=>'checkbox-'+("+datum.to_s+" ? 'true' : 'false'))"
               end
               if [:date, :datetime, :timestamp].include? column.datatype
-                datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
+                datum = "(#{datum}.nil? ? '' : #{datum}.l)"
               end
               if !column.options[:currency].is_a?(FalseClass) and currency = column.options[:currency]
                 currency = currency[nature] if currency.is_a?(Hash)
                 currency = :currency if currency.is_a?(TrueClass)
-                currency = "RECORD.#{currency}" if currency.is_a?(Symbol)
-                raise Exception.new("Option :currency is not valid. Hash, Symbol or true/false") unless currency.is_a?(String)
-                currency.gsub!(/RECORD/, record)
-                datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}, :currency => #{currency}))"
+                currency = "#{record}.#{currency}".c if currency.is_a?(Symbol)
+                datum = "(#{datum}.nil? ? '' : #{datum}.l(currency: #{currency.inspect}))"
               elsif column.datatype == :decimal
-                datum = "(#{datum}.nil? ? '' : ::I18n.localize(#{datum}))"
+                datum = "(#{datum}.nil? ? '' : #{datum}.l)"
               elsif column.enumerize?
                 datum = "(#{datum}.nil? ? '' : #{datum}.text)"
               end

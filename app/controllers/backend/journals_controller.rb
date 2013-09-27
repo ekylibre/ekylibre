@@ -30,12 +30,12 @@ class Backend::JournalsController < BackendController
     search_options = {}
     filter = {JournalEntryItem.table_name => [:name, :debit, :credit]}
     unless options[:with_items]
-      code << light_search_conditions(filter, :conditions => "cjel")+"\n"
+      code << search_conditions(filter, :conditions => "cjel")+"\n"
       search_options[:filters] = {"#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryItem.table_name} WHERE '+cjel[0]+')" => "cjel[1..-1]"}
       filter.delete(JournalEntryItem.table_name)
     end
     filter[JournalEntry.table_name] = [:number, :debit, :credit]
-    code << light_search_conditions(filter, search_options)
+    code << search_conditions(filter, search_options)
     if options[:with_journals]
       code << "\n"
       code << journals_crit("params")
@@ -56,10 +56,10 @@ class Backend::JournalsController < BackendController
   end
 
   list(:items, :model => :journal_entry_items, :conditions => journal_entries_conditions, :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
-    t.column :number, :through => :entry, :url => true
-    t.column :printed_on, :through => :entry, :datatype => :date
-    t.column :number, :through => :account, :url => true
-    t.column :name, :through => :account, :url => true
+    t.column :number, through: :entry, url: true
+    t.column :printed_on, through: :entry, :datatype => :date
+    t.column :number, through: :account, url: true
+    t.column :name, through: :account, url: true
     t.column :name
     t.column :state_label
     t.column :real_debit, :currency => :real_currency
@@ -67,7 +67,7 @@ class Backend::JournalsController < BackendController
   end
 
   list(:entries, :model => :journal_entries, :conditions => journal_entries_conditions, :order => "created_at DESC") do |t|
-    t.column :number, :url => true
+    t.column :number, url: true
     t.column :printed_on
     t.column :state_label
     t.column :real_debit, :currency => :real_currency
@@ -77,9 +77,9 @@ class Backend::JournalsController < BackendController
   end
 
   list(:mixed, :model => :journal_entries, :conditions => journal_entries_conditions, :children => :items, :order => "created_at DESC", :per_page => 10) do |t|
-    t.column :number, :url => true, :children => :name
+    t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
-    # t.column :label, :through => :account, :url => {:action => :account}
+    # t.column :label, through: :account, :url => {:action => :account}
     t.column :state_label
     t.column :real_debit, :currency => {:body => :real_currency, :children => "RECORD.entry.real_currency"}
     t.column :real_credit, :currency => {:body => :real_currency, :children => "RECORD.entry.real_currency"}
@@ -88,8 +88,8 @@ class Backend::JournalsController < BackendController
   end
 
   list(:order => :code) do |t|
-    t.column :name, :url => true
-    t.column :code, :url => true
+    t.column :name, url: true
+    t.column :code, url: true
     t.column :nature
     t.column :currency
     t.column :closed_on
@@ -152,11 +152,11 @@ class Backend::JournalsController < BackendController
 
 
   list(:draft_items, :model => :journal_entry_items, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
-    t.column :name, :through => :journal, :url => true
-    t.column :number, :through => :entry, :url => true
-    t.column :printed_on, :through => :entry, :datatype => :date
-    t.column :number, :through => :account, :url => true
-    t.column :name, :through => :account, :url => true
+    t.column :name, through: :journal, url: true
+    t.column :number, through: :entry, url: true
+    t.column :printed_on, through: :entry, :datatype => :date
+    t.column :number, through: :account, url: true
+    t.column :name, through: :account, url: true
     t.column :name
     t.column :debit, :currency => "RECORD.entry.financial_year.currency"
     t.column :credit, :currency => "RECORD.entry.financial_year.currency"
@@ -229,7 +229,7 @@ class Backend::JournalsController < BackendController
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
     code = ""
-    code << light_search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit]}, :conditions => "c")+"\n"
+    code << search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit]}, :conditions => "c")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     code << accounts_range_crit("params")
@@ -240,10 +240,10 @@ class Backend::JournalsController < BackendController
   end
 
   list(:general_ledger, :model => :journal_entry_items, :conditions => general_ledger_conditions, :joins => [:entry, :account], :order => "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
-    t.column :number, :through => :account, :url => true
-    t.column :name, :through => :account, :url => true
-    t.column :number, :through => :entry, :url => true
-    t.column :printed_on, :through => :entry, :datatype => :date
+    t.column :number, through: :account, url: true
+    t.column :name, through: :account, url: true
+    t.column :number, through: :entry, url: true
+    t.column :printed_on, through: :entry, :datatype => :date
     t.column :name
     t.column :debit, :currency => "RECORD.entry.financial_year.currency"
     t.column :credit, :currency => "RECORD.entry.financial_year.currency"

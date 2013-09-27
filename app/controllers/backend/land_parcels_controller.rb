@@ -23,7 +23,7 @@ class Backend::LandParcelsController < BackendController
   unroll
 
   list() do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :identification_number
     t.column :work_number
     #t.column :description
@@ -42,9 +42,9 @@ class Backend::LandParcelsController < BackendController
   end
 
   # list(:operations, :conditions => {:target_type => LandParcel.name, :target_id => ['session[:current_land_parcel]']}, :order => "planned_on ASC") do |t|
-  #   t.column :name, :url => true
-  #   t.column :name, :through => :nature
-  #   t.column :label, :through => :responsible, :url => true
+  #   t.column :name, url: true
+  #   t.column :name, through: :nature
+  #   t.column :label, through: :responsible, url: true
   #   t.column :planned_on
   #   t.column :moved_on
   #   t.column :equipments_list

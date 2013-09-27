@@ -24,12 +24,12 @@ class Backend::AreasController < BackendController
 
   autocomplete_for :name
 
-  list(:conditions => search_conditions(:areas, :areas => [:postcode, :name]), :order => :name) do |t|
+  list(:conditions => deprecated_search_conditions(:areas, :areas => [:postcode, :name]), :order => :name) do |t|
     t.column :name
     t.column :postcode
     t.column :city
     t.column :code
-    t.column :name, :through => :district
+    t.column :name, through: :district
     t.column :country
     t.action :edit
     t.action :destroy

@@ -22,18 +22,18 @@ class Backend::PurchasesController < BackendController
 
   unroll
 
-  list(:conditions => search_conditions(:purchase, :purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), :joins => :supplier, :line_class => 'RECORD.state', :order => "created_on DESC, number DESC") do |t|
+  list(:conditions => deprecated_search_conditions(:purchase, :purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), :joins => :supplier, :line_class => 'RECORD.state', :order => "created_on DESC, number DESC") do |t|
     t.column :number, :url => {:action => :show, :step => :default}
     t.column :reference_number, :url => {:action => :show, :step => :products}
     t.column :created_on
     # t.column :planned_on
     # t.column :moved_on
-    t.column :full_name, :through => :supplier, :url => true
+    t.column :full_name, through: :supplier, url: true
     t.column :description
     # t.column :shipped
     t.column :state_label
-    # t.column :paid_amount, :currency => true
-    t.column :amount, :currency => true
+    # t.column :paid_amount, currency: true
+    t.column :amount, currency: true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
@@ -45,36 +45,36 @@ class Backend::PurchasesController < BackendController
   end
 
 
-  list(:deliveries, :model => :incoming_deliveries, :children => :items, :conditions => {:purchase_id => ['params[:id]']}) do |t|
-    t.column :coordinate, :through => :address, :children => :product_name
+  list(:deliveries, :model => :incoming_deliveries, :children => :items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
+    t.column :coordinate, through: :address, :children => :product_name
     t.column :planned_on, :children => false
     t.column :moved_on, :children => false
     t.column :quantity, :datatype => :decimal
-    t.column :pretax_amount, :currency => true
-    t.column :amount, :currency => true
+    t.column :pretax_amount, currency: true
+    t.column :amount, currency: true
     t.action :edit, :if => :order?
     t.action :destroy, :if => :order?
   end
 
-  list(:undelivered_items, :model => :purchase_items, :conditions => {:purchase_id => ['params[:id]']}) do |t|
-    t.column :name, :through => :variant
-    # t.column :pretax_amount, :currency => true, :through => :price
+  list(:undelivered_items, :model => :purchase_items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
+    t.column :name, through: :variant
+    # t.column :pretax_amount, currency: true, through: :price
     t.column :quantity
     t.column :unit
-    t.column :pretax_amount, :currency => true
-    t.column :amount, :currency => true
+    t.column :pretax_amount, currency: true
+    t.column :amount, currency: true
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, :model => :purchase_items, :conditions => {:purchase_id => ['params[:id]']}) do |t|
-    t.column :name, :through => :variant, :url => true
+  list(:items, :model => :purchase_items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
+    t.column :name, through: :variant, url: true
     t.column :annotation
     t.column :tracking_serial
     t.column :quantity
     t.column :unit
-    # t.column :pretax_amount, :currency => true, :through => :price
-    t.column :pretax_amount, :currency => true
-    t.column :amount, :currency => true
+    # t.column :pretax_amount, currency: true, through: :price
+    t.column :pretax_amount, currency: true
+    t.column :amount, currency: true
     t.action :edit, :if => :draft?
     t.action :destroy, :if => :draft?
   end

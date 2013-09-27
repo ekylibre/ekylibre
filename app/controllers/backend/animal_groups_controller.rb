@@ -6,7 +6,7 @@ class Backend::AnimalGroupsController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url => true
+    t.column :name, url: true
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
@@ -15,14 +15,14 @@ class Backend::AnimalGroupsController < BackendController
 
   # Liste des animaux d'un groupe d'animaux considéré
   list(:animals, :model => :product_memberships, :conditions => [" group_id = ? ",['session[:current_animal_group_id]']], :order => "started_at ASC") do |t|
-    t.column :name, :through => :member, :url => true
+    t.column :name, through: :member, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
   # Liste des lieux du groupe d'animaux considéré
   list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_animal_group_id]']], :order => "started_at DESC") do |t|
-    t.column :name, :through => :container, :url => true
+    t.column :name, through: :container, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause

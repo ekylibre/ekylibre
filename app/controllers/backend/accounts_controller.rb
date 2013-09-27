@@ -24,7 +24,7 @@ class Backend::AccountsController < BackendController
 
   def self.accounts_conditions
     code  = ""
-    code << light_search_conditions(Account.table_name => [:name, :number, :description])
+    code << search_conditions(Account.table_name => [:name, :number, :description])
     code << "[0] += ' AND number LIKE ?'\n"
     code << "c << params[:prefix].to_s+'%'\n"
     code << "unless params[:period].blank?\n"
@@ -36,8 +36,8 @@ class Backend::AccountsController < BackendController
   end
 
   list(:conditions => accounts_conditions, :order => "number ASC", :per_page => 20) do |t|
-    t.column :number, :url => true
-    t.column :name, :url => true
+    t.column :number, url: true
+    t.column :name, url: true
     t.column :reconcilable
     t.column :description
     t.action :edit
@@ -50,7 +50,7 @@ class Backend::AccountsController < BackendController
 
   def self.account_moves_conditions(options={})
     code = ""
-    code << light_search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit], :journal_entry => [:number]}, :conditions => "c", :variable => "params[:b]")+"\n"
+    code << search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit], :journal_entry => [:number]}, :conditions => "c", :variable => "params[:b]")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     # code << journals_crit("params")
@@ -61,26 +61,26 @@ class Backend::AccountsController < BackendController
   end
 
   list(:journal_entry_items, :joins => :entry, :conditions => account_moves_conditions, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
-    t.column :name, :through => :journal, :url => true
-    t.column :number, :through => :entry, :url => true
-    t.column :printed_on, :through => :entry, :datatype => :date, :label => :column
+    t.column :name, through: :journal, url: true
+    t.column :number, through: :entry, url: true
+    t.column :printed_on, through: :entry, :datatype => :date, :label => :column
     t.column :name
     t.column :state_label
     t.column :letter
-    t.column :debit, :currency => true
-    t.column :credit, :currency => true
+    t.column :debit, currency: true
+    t.column :credit, currency: true
   end
 
-  list(:entities, :conditions => ["? IN (client_account_id, supplier_account_id)", ['params[:id]']], :order => "created_at DESC") do |t| # , attorney_account_id
-    t.column :code, :url => true
-    t.column :full_name, :url => true
-    t.column :label, :through => :client_account, :url => true
-    t.column :label, :through => :supplier_account, :url => true
-    # t.column :label, :through => :attorney_account, :url => true
+  list(:entities, :conditions => ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], :order => "created_at DESC") do |t| # , attorney_account_id
+    t.column :code, url: true
+    t.column :full_name, url: true
+    t.column :label, through: :client_account, url: true
+    t.column :label, through: :supplier_account, url: true
+    # t.column :label, through: :attorney_account, url: true
   end
 
   def self.account_reconciliation_conditions
-    code  = search_conditions(:accounts, :accounts => [:name, :number, :description], :journal_entries => [:number], JournalEntryItem.table_name => [:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
+    code  = deprecated_search_conditions(:accounts, :accounts => [:name, :number, :description], :journal_entries => [:number], JournalEntryItem.table_name => [:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
     code << "c << true\n"
     code << "c[0] += ' AND "+JournalEntryItem.connection.length(JournalEntryItem.connection.trim("COALESCE(letter, \\'\\')"))+" = 0'\n"
     code << "c"
@@ -88,9 +88,9 @@ class Backend::AccountsController < BackendController
   end
 
   list(:reconciliation, :model => :journal_entry_items, :joins => [:entry, :account], :conditions => account_reconciliation_conditions, :order => "accounts.number, journal_entries.printed_on") do |t|
-    t.column :number, :through => :account, :url => {:action => :mark}
-    t.column :name, :through => :account, :url => {:action => :mark}
-    t.column :number, :through => :entry
+    t.column :number, through: :account, :url => {:action => :mark}
+    t.column :name, through: :account, :url => {:action => :mark}
+    t.column :number, through: :entry
     t.column :name
     t.column :debit, :currency => "RECORD.entry.financial_year.currency"
     t.column :credit, :currency => "RECORD.entry.financial_year.currency"
