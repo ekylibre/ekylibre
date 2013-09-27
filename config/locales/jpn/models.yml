@@ -62,6 +62,8 @@ jpn:
         # received: "Reçu"
         # to_bank_on: "À encaisser le"
       incoming_payment_use: #?
+      intervention:
+        # storage: "Support"
       inventory_item:
         # quantity: "Quantité constatée"
       inventory_line: #?
@@ -191,6 +193,8 @@ jpn:
         # maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)"
         # name: "Nom d’utilisateur"
       vegetal: #?
+      worker:
+        # variety: "Qualification"
     errors:
       messages:
         # accepted: "%{attribute} doit être accepté"
@@ -720,6 +724,7 @@ jpn:
     # initial_number: "Numéro initial"
     # integer_value: "Valeur entière"
     # intervention: "Intervention"
+    # interventions: "Interventions"
     # introduction: "Introduction"
     # inventory: "Inventaire"
     # inventory_items: "Lignes d’inventaire"
@@ -1198,6 +1203,18 @@ jpn:
         # sowing: "Semis"
         # superficial_plowing: "Hersage"
         # wheat_crop: "Culture de blé (standard)"
+      procedure:
+        # animal_birth: "Naissance d’un animal"
+        # animal_treatment: "Traitement animal"
+        # calving_one: "Vêlage unique"
+        # calving_twin: "Vêlage jumeaux"
+        # chemical_treatment: "Traitement chimique"
+        # grains_harvest: "Moisson"
+        # mineral_fertilizing: "Fertilisation minérale"
+        # organic_fertilizing: "Fertilisation organique"
+        # plowing: "Labour"
+        # raking: "Hersage"
+        # sowing: "Semis"
       state:
         # done: "Réalisée"
         # in_progress: "En cours"

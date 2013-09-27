@@ -57,8 +57,9 @@ eng:
         amount: "Amount"
         received: "Received"
         to_bank_on: "To bank on"
-      intervention:  #?
+      intervention:
         provisional: "Provisional" #?
+        # storage: "Support"
       inventory_item:
         quantity: "Found quantity"
       journal_entry_item:
@@ -231,6 +232,8 @@ eng:
         name: "User name"
         reduction_percent: "Authorized percentage of discount (%)" #?
       vegetal: #?
+      worker:
+        # variety: "Qualification"
     errors:
       messages:
         accepted: "%{attribute} must be accepted"
@@ -959,6 +962,7 @@ eng:
     input_conveyors: "Input conveyors" #?
     integer_value: "Integer value"
     # intervention: "Intervention"
+    # interventions: "Interventions"
     introduction: "Introduction"
     inventories: "Inventories" #?
     inventory: "Inventory"
@@ -1581,6 +1585,18 @@ eng:
         # sowing: "Semis"
         # superficial_plowing: "Hersage"
         # wheat_crop: "Culture de blé (standard)"
+      procedure:
+        # animal_birth: "Naissance d’un animal"
+        # animal_treatment: "Traitement animal"
+        # calving_one: "Vêlage unique"
+        # calving_twin: "Vêlage jumeaux"
+        # chemical_treatment: "Traitement chimique"
+        # grains_harvest: "Moisson"
+        # mineral_fertilizing: "Fertilisation minérale"
+        # organic_fertilizing: "Fertilisation organique"
+        # plowing: "Labour"
+        # raking: "Hersage"
+        # sowing: "Semis"
       state:
         done: "Done"
         in_progress: "In progress"

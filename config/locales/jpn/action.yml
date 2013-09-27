@@ -108,6 +108,7 @@ jpn:
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
+    backend/cells/last_interventions_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -245,10 +246,10 @@ jpn:
       # new: "Ajout d’un nouvel encaissement"
       # show: "Encaissement n°%{number} de %{entity}"
     backend/interventions:
-      # edit: "Modifier l’intervention %{name}"
+      # edit: "Modifier l’intervention %{name} N°%{id}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
-      # show: "Intervention n°%{id}"
+      # show: "%{procedure_name} N°%{id}"
     backend/inventories:
       # edit: "Modifier l’inventaire"
       # index: "Inventaires"
@@ -560,7 +561,11 @@ jpn:
       # show: "Utilisateur\_: %{first_name} %{last_name} (%{name})"
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?
-    backend/workers: #?
+    backend/workers:
+      # edit: "Modifier l'équipier %{name}"
+      # index: "Equipiers"
+      # new: "Nouvel équipier"
+      # show: "Equipier %{name}"
     backend/working_sets: #?
     public:
       # index: "Accueil"
@@ -798,6 +803,7 @@ jpn:
     cash_tabbox:
       # bank_statements: "Relevés de compte"
       # deposits: "Remises en banque"
+    # casts: "Intervenants"
     # catalog: "Description pour catalogue"
     # category: "Catégorie"
     # category_name: "Catégorie"
@@ -1030,6 +1036,7 @@ jpn:
     # last_entities: "Derniers tiers"
     # last_events: "Derniers évènements"
     # last_incoming_deliveries: "Derniers approvisionnements"
+    # last_interventions: "Dernières interventions"
     # last_milk_result: "Dernières analyses de lait"
     # last_outgoing_deliveries: "Dernières livraisons"
     # last_payment_amount: "Montant du dernier encaissement"
@@ -1416,6 +1423,7 @@ jpn:
     # stocks: "Stocks"
     # stocks_preferences: "Gestion des stocks"
     # stop: "Jusqu’au"
+    # storage: "Support"
     # string_case: "Options pour le texte"
     # string_options: "Indicateur de type Texte"
     # subject: "Sujet"

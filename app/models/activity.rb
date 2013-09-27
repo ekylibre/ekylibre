@@ -74,9 +74,9 @@ class Activity < Ekylibre::Record::Base
   def shape_area(*campaigns)
     return productions.of_campaign(campaigns).map(&:shape_area).compact.sum
   end
-  
+
   def is_of_family?(family)
     Nomen::ActivityFamilies.all(family).include?(self.family.to_s)
   end
-  
+
 end

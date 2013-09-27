@@ -18,37 +18,25 @@
 #
 
 class Backend::EquipmentsController < BackendController
+
   manage_restfully
 
   unroll
 
-  # list(:operations, :model => :operation_uses, :conditions => {:equipment_id => ['session[:current_equipment_id]']}, :order => "created_at ASC") do |t|
-  #   t.column :name,       :through => :operation, :label => :column, :url => true
-  #   t.column :planned_on, :through => :operation, :label => :column, :datatype => :date
-  #   t.column :moved_on,   :through => :operation, :label => :column
-  #   t.column :equipments_list, :through => :operation, :label => :column
-  #   t.column :duration,   :through => :operation, :label => :column
-  # end
-
   list(:order => "name") do |t|
     t.column :name, :url => true
-    # t.column :name, :through => :nature # , :url => true
-    # t.column :purchased_on, :datatype => :date
-    # t.column :ceded_on, :datatype => :date
+    t.column :name, :through => :nature, :url => true
+    t.column :born_at, :datatype => :date
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
 
-  # Displays the main page with the list of equipments
-  def index
+  list(:intervention_casts, :conditions => {actor_id: ['params[:id]']}) do |t|
+    t.column :name, through: :intervention, :url => true
+    t.column :roles
+    t.column :variable
+    t.column :started_at, through: :intervention
+    t.column :stopped_at, through: :intervention
   end
-
-  # Displays details of one equipment selected with +params[:id]+
-  def show
-    return unless @equipment = find_and_check
-    session[:current_equipment_id] = @equipment.id
-    t3e @equipment.attributes
-  end
-
 
 end

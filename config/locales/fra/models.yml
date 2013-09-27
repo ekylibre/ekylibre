@@ -51,6 +51,8 @@ fra:
         amount: "Montant"
         received: "Reçu"
         to_bank_on: "À encaisser le"
+      intervention:
+        storage: "Support"
       inventory_item:
         quantity: "Quantité constatée"
       journal_entry_item:
@@ -146,6 +148,8 @@ fra:
         locked: "Compte verrouillé"
         maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)"
         name: "Nom d’utilisateur"
+      worker:
+        variety: "Qualification"
     errors:
       messages:
         accepted: "%{attribute} doit être accepté"
@@ -698,7 +702,7 @@ fra:
     initial_number: "Numéro initial"
     integer_value: "Valeur entière"
     intervention: "Intervention"
-    # interventions: "Interventions"
+    interventions: "Interventions"
     introduction: "Introduction"
     inventory: "Inventaire"
     inventory_items: "Lignes d’inventaire" #?
@@ -1206,6 +1210,18 @@ fra:
         sowing: "Semis"
         superficial_plowing: "Hersage"
         wheat_crop: "Culture de blé (standard)"
+      procedure:
+        animal_birth: "Naissance d’un animal"
+        animal_treatment: "Traitement animal"
+        calving_one: "Vêlage unique"
+        calving_twin: "Vêlage jumeaux"
+        chemical_treatment: "Traitement chimique"
+        grains_harvest: "Moisson"
+        mineral_fertilizing: "Fertilisation minérale"
+        organic_fertilizing: "Fertilisation organique"
+        plowing: "Labour"
+        raking: "Hersage"
+        sowing: "Semis"
       state:
         done: "Réalisée"
         in_progress: "En cours"

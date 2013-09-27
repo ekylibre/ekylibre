@@ -27,6 +27,3 @@
       - if procedures.any?
         - for procedure in Procedo.procedures_of_nature(nature.name.to_sym)
           = link_to(procedure.human_name, {procedure: procedure.name}, class: "btn")
-
-
-

@@ -2,9 +2,8 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-triticum_aestivum" hierarchical="true">
     <items>
-      <item name="caphorn">
-	       <attribute name="europa-tsn" value="421"/>
-      </item>
+      <item name="apache"/>
+      <item name="caphorn"/>
     </items>
   </nomenclature>
 </nomenclatures>

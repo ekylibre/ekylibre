@@ -121,7 +121,7 @@ class ProductNature < Ekylibre::Record::Base
       self.indicators << " population"
     end
     self.indicators = self.indicators_array.map(&:name).sort.join(", ")
-    self.abilities  = self.abilities_array.map(&:name).sort.join(", ")
+    self.abilities  = self.abilities_array.sort.join(", ")
     self.storable = false unless self.deliverable?
     self.subscription_nature_id = nil unless self.subscribing?
     return true

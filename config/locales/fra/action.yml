@@ -116,12 +116,12 @@ fra:
       # show: "Show backend/cells/last events cell"
     backend/cells/last_incoming_deliveries_cells:
       # show: "Show backend/cells/last incoming deliveries cell"
+    backend/cells/last_interventions_cells:
+      # show: "Show backend/cells/last interventions cell"
     backend/cells/last_milk_result_cells:
       # show: "Show backend/cells/last milk result cell"
     backend/cells/last_outgoing_deliveries_cells:
       # show: "Show backend/cells/last outgoing deliveries cell"
-    backend/cells/last_procedures_cells:
-      # show: "Show backend/cells/last procedures cell"
     backend/cells/last_products_cells:
       # show: "Show backend/cells/last products cell"
     backend/cells/placeholder_cells:
@@ -207,9 +207,9 @@ fra:
       show: "Lien"
     backend/equipments:
       edit: "Modifier l’équipement\_: %{name}"
-      index: "Équipements"
+      index: "Équipements" #?
       new: "Ajouter un nouvel équipement"
-      show: "Équipement %{name}"
+      show: "Équipement %{name}" #?
     backend/establishments:
       edit: "Modifier l’établissement\_: %{name}"
       index: "Établissements"
@@ -608,10 +608,10 @@ fra:
       show: "Utilisateur\_: %{first_name} %{last_name} (%{name})"
       unlock: "Déverrouiller l’utilisateur"
     backend/workers:
-      # edit: "Edit backend/worker"
-      # index: "Index backend/worker"
-      # new: "New backend/worker"
-      # show: "Show backend/worker"
+      edit: "Modifier l'équipier %{name}"
+      index: "Equipiers" #?
+      new: "Nouvel équipier"
+      show: "Equipier %{name}" #?
     public:
       index: "Accueil"
   controllers:
@@ -647,9 +647,9 @@ fra:
     # backend/cells/last_entities_cells: "Backend/cells/last entities cells"
     # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_incoming_deliveries_cells: "Backend/cells/last incoming deliveries cells"
+    # backend/cells/last_interventions_cells: "Backend/cells/last interventions cells"
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_outgoing_deliveries_cells: "Backend/cells/last outgoing deliveries cells"
-    # backend/cells/last_procedures_cells: "Backend/cells/last procedures cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
     # backend/cells/placeholder_cells: "Backend/cells/placeholder cells"
     # backend/cells/product_bar_cells: "Backend/cells/product bar cells"
@@ -915,6 +915,7 @@ fra:
     cash_tabbox:
       bank_statements: "Relevés de compte"
       deposits: "Remises en banque"
+    casts: "Intervenants"
     catalog: "Description pour catalogue"
     category: "Catégorie"
     category_name: "Catégorie"
@@ -1527,6 +1528,7 @@ fra:
     stocks: "Stocks"
     stocks_preferences: "Gestion des stocks"
     stop: "Jusqu’au"
+    storage: "Support"
     string_case: "Options pour le texte"
     string_options: "Indicateur de type Texte"
     subject: "Sujet"

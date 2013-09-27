@@ -2,9 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-asteraceae" hierarchical="true">
     <items>
-      <item name="helianthus">
-	       <attribute name="itis-tsn" value="36611"/>
-      </item>
+      <item name="helianthus" itis-tsn="36611"/>
     </items>
   </nomenclature>
 </nomenclatures>

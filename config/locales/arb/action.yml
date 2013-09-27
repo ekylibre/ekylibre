@@ -115,6 +115,7 @@ arb:
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
+    backend/cells/last_interventions_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -308,10 +309,10 @@ arb:
       show: "دفعة رقم%{number} من %{entity}"
     backend/interfacers: #?
     backend/interventions:
-      # edit: "Modifier l’intervention %{name}"
+      # edit: "Modifier l’intervention %{name} N°%{id}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
-      # show: "Intervention n°%{id}"
+      # show: "%{procedure_name} N°%{id}"
     backend/inventories:
       edit: "تعديل الجرد"
       index: "الجرد"
@@ -719,7 +720,11 @@ arb:
       statistics: "احصائياتي" #?
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?
-    backend/workers: #?
+    backend/workers:
+      # edit: "Modifier l'équipier %{name}"
+      # index: "Equipiers"
+      # new: "Nouvel équipier"
+      # show: "Equipier %{name}"
     backend/working_sets: #?
     public:
       # index: "Accueil"
@@ -996,6 +1001,7 @@ arb:
       # bank_statements: "Relevés de compte"
       # deposits: "Remises en banque"
     cash_update: "تعديل الخزينة" #?
+    # casts: "Intervenants"
     catalog: "مواصفات للفهرس"
     # category: "Catégorie"
     # category_name: "Catégorie"
@@ -1276,6 +1282,7 @@ arb:
     # last_entities: "Derniers tiers"
     # last_events: "Derniers évènements"
     # last_incoming_deliveries: "Derniers approvisionnements"
+    # last_interventions: "Dernières interventions"
     # last_milk_result: "Dernières analyses de lait"
     # last_outgoing_deliveries: "Dernières livraisons"
     # last_payment_amount: "Montant du dernier encaissement"
@@ -1725,6 +1732,7 @@ arb:
     stocks: "ادارة الاسهم"
     # stocks_preferences: "Gestion des stocks"
     stop: "لغاية"
+    # storage: "Support"
     string_case: "خيارات للنص"
     # string_options: "Indicateur de type Texte"
     subject: "الموضوع"

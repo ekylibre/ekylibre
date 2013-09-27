@@ -362,8 +362,10 @@ Ekylibre::Application.routes.draw do
     resources :equipments do
       collection do
         get :list
-        get :list_operations
         get :unroll
+      end
+      member do
+        get :list_intervention_casts
       end
     end
     resources :establishments do
@@ -987,6 +989,9 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :unroll
+      end
+      member do
+        get :list_intervention_casts
       end
     end
 

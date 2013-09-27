@@ -255,6 +255,8 @@ arb:
         amount: "قيمة المخصصة للبيع" #?
         expense_id: "تكلفة" #?
         updated_at: "تم تحديثها في" #?
+      intervention:
+        # storage: "Support"
       inventory:  #?
         comment: "تعليق" #?
         created_on: "اكتمل يوم" #?
@@ -696,6 +698,8 @@ arb:
         # maximal_grantable_reduction_percentage: "Taux de réduction autorisé (%)"
         name: "اسم المستخدم"
       vegetal: #?
+      worker:
+        # variety: "Qualification"
     errors:
       messages:
         accepted: "%{attribute} يجب أن تكون مقبولة"
@@ -1391,6 +1395,7 @@ arb:
     # initial_number: "Numéro initial"
     integer_value: "قيمة العدد الصحيح"
     # intervention: "Intervention"
+    # interventions: "Interventions"
     introduction: "المقدمة"
     inventories: "عمليات الجرد" #?
     inventory: "عملية الجرد"
@@ -2022,6 +2027,18 @@ arb:
         # sowing: "Semis"
         # superficial_plowing: "Hersage"
         # wheat_crop: "Culture de blé (standard)"
+      procedure:
+        # animal_birth: "Naissance d’un animal"
+        # animal_treatment: "Traitement animal"
+        # calving_one: "Vêlage unique"
+        # calving_twin: "Vêlage jumeaux"
+        # chemical_treatment: "Traitement chimique"
+        # grains_harvest: "Moisson"
+        # mineral_fertilizing: "Fertilisation minérale"
+        # organic_fertilizing: "Fertilisation organique"
+        # plowing: "Labour"
+        # raking: "Hersage"
+        # sowing: "Semis"
       state:
         # done: "Réalisée"
         # in_progress: "En cours"

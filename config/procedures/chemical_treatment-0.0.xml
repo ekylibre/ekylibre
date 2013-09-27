@@ -3,7 +3,7 @@
   <procedure name="chemical_treatment" natures="treatment" version="0.0" status="frozen">
     <variables>
       <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="tractor" variety="equipment" abilities="tow(sprayer)"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
+      <variable name="tractor" variety="equipment" abilities="catch(sprayer)"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="molecule" variety="phytosanitary"/>
       <variable name="molecule_to_spray" same-nature-of="molecule" parameter="false" new="quantity=?"/>
       <variable name="sprayer" variety="equipment" abilities="spray" />
