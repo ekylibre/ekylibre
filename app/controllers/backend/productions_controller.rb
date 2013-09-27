@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 class Backend::ProductionsController < BackendController
-  manage_restfully(:t3e => {:name => 'RECORD.name'})
+  manage_restfully(:t3e => {:name => :name})
 
   unroll
 
