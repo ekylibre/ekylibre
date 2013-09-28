@@ -131,8 +131,8 @@ class Intervention < Ekylibre::Record::Base
     reference = self.reference
     rep = reference.spread_time(duration)
     for op in reference.operations
-      d = op.duration || rep
-      self.operations.create!(started_at: started_at, stopped_at: started_at + d, position: op.id)
+      d = rep
+      self.operations.create!(started_at: started_at, stopped_at: started_at + d, position: op[id.to_i])
       started_at += d
     end
     self.reload
