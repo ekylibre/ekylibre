@@ -79,7 +79,11 @@ module Procedo
 
     # Returns the spread duration for operation with unknown duration
     def spread_time(duration)
-      return (duration - self.fixed_duration).to_d / self.operations.count
+      is_durations = []
+      self.operations.each do |id, operation|
+        is_durations << operation.no_duration?
+      end
+      return (duration - self.fixed_duration).to_d / is_durations.size
     end
 
 
