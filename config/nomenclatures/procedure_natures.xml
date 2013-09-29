@@ -8,14 +8,12 @@
     <items>
       <item name="animal_feeding" roles="input, target, doer"/>
       <item name="animal_illness_treatment" roles="input, target, doer"/>
-      <item name="animal_fertilisation" roles="input, target, doer"/>
       <item name="animal_production" roles="target, output"/>
       <item name="viviparous_birth" roles="target, output"/>
       <item name="oviparous_birth" roles="target, output"/>
       <item name="harvest" roles="target, output"/>
-      <item name="feeding" roles="input, target"/>
       <item name="tillage" roles="target"/>
-      <item name="plant_feeding" roles="input, target"/>
+      <item name="plant_fertilisation" roles="input, target"/>
       <item name="plant_illness_treatment" roles="input, target"/>
       <item name="soil_enrichment" roles="input, target"/>
       <item name="soil_cleaning" roles="target"/>

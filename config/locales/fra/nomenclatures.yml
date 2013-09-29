@@ -880,11 +880,12 @@ fra:
         vie: "Vietnamien"
     procedure_natures:
       items:
-        animal_cares: "Soin animaliers"
-        enrichment: "Amendement"
-        feeding: "Alimentation"
-        production: "Production"
-        reproduction: "Reproduction"
+        animal_feeding: "Alimentation des animaux"
+        animal_illness_treatment: "Traitement des maladies animales"
+        animal_production: "Productions animales"
+        soil_enrichment: "Amendement"
+        viviparous_birth: "Reproduction (vivipare)"
+        oviparous_birth: "Reproduction (ovipare)"
         technical_guide: "Itinéraire technique"
         tillage: "Travail du sol"
         treatment: "Traitement"
