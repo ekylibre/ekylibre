@@ -22,8 +22,8 @@
           <sections for="production" in="cultivable_land_parcel.productions.of_campaign(campaign)" of-type="record">
             <title name="name" of="production"/>
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="intervention" in="production.interventions.real.of_nature(:soil_enrichment).with_cast(:soil_enrichment, cultivable_land_parcel)" of-type="record">
-              <variable name="actor" value="intervention.casts.of_role(:soil_enrichment).first.actor"/>
+            <sections for="intervention" in="production.interventions.real.of_nature(:soil_enrichment).with_cast(:soil_enrichment_target, cultivable_land_parcel)" of-type="record">
+              <variable name="actor" value="intervention.casts.of_role(:soil_enrichment_target).first.actor"/>
               <title name="name" of="intervention"/>
               <property name="id" of="intervention" level="api"/>
               <property name="started_at" of="intervention" type="datetime"/>
@@ -36,7 +36,7 @@
                 <property name="state" level="api"/>
                 <property name="description"/>
               </section> 
-              <matrix name="inputs" for="input" in="intervention.casts.of_role(:soil_enrichment)">
+              <matrix name="inputs" for="input" in="intervention.casts.of_role(:soil_enrichment_input)">
                 <cell name="id" of="input" level="api"/>
                 <within of="input.actor">
                   <cell name="name"/>
@@ -50,8 +50,8 @@
               </matrix>
             </sections>
             <!-- looking for all provisionnal soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="provisionnal_intervention" in="production.interventions.provisional.of_nature(:soil_enrichment).with_cast(:soil_enrichment, cultivable_land_parcel)" of-type="record">
-              <variable name="actor" value="provisionnal_intervention.casts.of_role(:soil_enrichment).first.actor"/>
+            <sections for="provisionnal_intervention" in="production.interventions.provisional.of_nature(:soil_enrichment_target).with_cast(:soil_enrichment, cultivable_land_parcel)" of-type="record">
+              <variable name="actor" value="provisionnal_intervention.casts.of_role(:soil_enrichment_target).first.actor"/>
               <title name="name" of="provisionnal_intervention"/>
               <property name="id" of="provisionnal_intervention" level="api"/>
               <property name="started_at" of="provisionnal_intervention" type="datetime"/>
@@ -64,7 +64,7 @@
                 <property name="state" level="api"/>
                 <property name="description"/>
               </section> 
-              <matrix name="inputs" for="input" in="provisionnal_intervention.casts.of_role(:soil_enrichment)">
+              <matrix name="inputs" for="input" in="provisionnal_intervention.casts.of_role(:soil_enrichment_input)">
                 <cell name="id" of="input" level="api"/>
                 <within of="input.actor">
                   <cell name="name"/>
