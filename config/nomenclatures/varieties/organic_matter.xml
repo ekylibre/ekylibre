@@ -3,6 +3,7 @@
     <items>
       <item name="meat" derivative_of="animal"/>
       <item name="milk" derivative_of="mammalia"/>
+      <item name="manure" derivative_of="mammalia"/>
       <item name="plant_food" derivative_of="plant"/>
       <item name="mineral_food" derivative_of="mineral_matter"/>
       <item name="seed" derivative_of="plant"/>

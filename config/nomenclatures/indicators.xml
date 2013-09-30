@@ -59,9 +59,9 @@
       <item name="tp_index" datatype="measure" unit="unity"/>
       <item name="tb_index" datatype="measure" unit="unity"/>
       <!-- for fertilization plant's -->
-      <item name="nitrogen_concentration" datatype="measure" unit="kilogram_per_hectogram"/>
-      <item name="potassium_concentration" datatype="measure" unit="kilogram_per_hectogram"/>
-      <item name="phosphorus_concentration" datatype="measure" unit="kilogram_per_hectogram"/>
+      <item name="nitrogen_concentration" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
+      <item name="potassium_concentration" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
+      <item name="phosphorus_concentration" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
     </items>
   </nomenclature>
 </nomenclatures>

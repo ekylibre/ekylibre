@@ -77,6 +77,7 @@
       
       <!-- mass_density -->
       <item name="unity_per_kilogram"     dimension="mass_density" symbol="u/kg"  coefficients="kg-1"                    a="1"/>
+      <item name="kilogram_per_hundred_kilogram"     dimension="mass_density" symbol="kg/100kg"  coefficients="100kg-1"                    a="0.01"/>      
       <item name="thousand_per_kilogram"  dimension="mass_density" symbol="ku/kg" coefficients="1000*kg-1"               a="0.001"/>
       <item name="thousand_per_hectogram" dimension="mass_density" symbol="ku/hg" coefficients="1000*0.1kg-1"            a="0.0001"/>
       <!-- <item name="kilogram_per_hectogram" dimension="mass_density" symbol="kg/100kg" coefficients="1*0.1kg-1"            a="0.0001"/> -->

@@ -81,10 +81,21 @@ demo :interventions do
 
   nature = ProductNature.find_or_create_by!(name: "Travailleur", variety: "worker")
   variant = nature.variants.find_or_create_by!(name: "Technicien", unit_name: "Personne")
+  # add some mad but efficient workers
   Worker.find_or_create_by!(number: 'BURISU', name: 'Brice TEXIER', variant: variant)
   Worker.find_or_create_by!(number: 'IONOSPHERE', name: 'David JOULIN', variant: variant)
   Worker.find_or_create_by!(number: 'CHEF_PIEGE', name: 'Yvan JOULIN', variant: variant)
-
+  # add some well-configure indicator on MineralMatter product for demo data in fertilization
+  for fertilizer_product in MineralMatter.of_variety(:mineral_matter).can("fertilize")
+    fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hundred_kilogram)
+    fertilizer_product.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hundred_kilogram)
+    fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hundred_kilogram)
+  end
+  for fertilizer_product in OrganicMatter.of_variety(:manure).derivative_of(:bos).can("fertilize")
+    fertilizer_product.is_measured!(:nitrogen_concentration, 0.65.in_kilogram_per_hundred_kilogram)
+    fertilizer_product.is_measured!(:potassium_concentration, 0.3.in_kilogram_per_hundred_kilogram)
+    fertilizer_product.is_measured!(:phosphorus_concentration, 0.11.kilogram_per_hundred_kilogram)
+  end
 
   Ekylibre::fixturize :cultural_interventions do |w|
     for production in Production.all
@@ -102,18 +113,18 @@ demo :interventions do
               i.add_cast(variable: 'driver', actor: Worker.all.sample)
               i.add_cast(variable: 'tractor', actor: Product.can("tow(plower)").all.sample)
               i.add_cast(variable: 'plower', actor: Product.can("plow").all.sample)
-              i.add_cast(variable: 'land_parcel', actor: land_parcel)
+              i.add_cast(variable: 'land_parcel', actor: land_parcel, roles: "plowing-target")
             end
 
             # Sowing 15-10-N -> 30-10-N
             int = Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, :range => 15, support: support) do |i|
               i.add_cast(variable: 'seeds', actor: Product.of_variety("seed").derivative_of(variety).all.sample)
-              i.add_cast(variable: 'seeds_to_sow', quantity: 20)
+              i.add_cast(variable: 'seeds_to_sow', quantity: 20, roles: "sowing-input")
               i.add_cast(variable: 'sower', actor: Product.can("sow").all.sample)
               i.add_cast(variable: 'driver', actor: Worker.all.sample)
               i.add_cast(variable: 'tractor', actor: Product.can("tow(sower)").all.sample)
-              i.add_cast(variable: 'land_parcel', actor: land_parcel)
-              i.add_cast(variable: 'culture')
+              i.add_cast(variable: 'land_parcel', actor: land_parcel, roles: "sowing-target")
+              i.add_cast(variable: 'culture', roles: "sowing-output")
             end
 
             culture = int.casts.find_by(variable: 'culture').actor rescue nil
@@ -121,22 +132,22 @@ demo :interventions do
             # Fertilizing  01-03-M -> 31-03-M
             Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'fertilizer', actor: Product.of_variety(:mineral_matter).all.sample)
-              i.add_cast(variable: 'fertilizer_to_spread', quantity: 20)
+              i.add_cast(variable: 'fertilizer_to_spread', quantity: 20, roles: "soil_enrichment-input")
               i.add_cast(variable: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
               i.add_cast(variable: 'driver', actor: Worker.all.sample)
               i.add_cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
-              i.add_cast(variable: 'land_parcel', actor: land_parcel)
+              i.add_cast(variable: 'land_parcel', actor: land_parcel, roles: "soil_enrichment-target")
             end
 
             if w.count.modulo(3).zero? # AND NOT prairie
               # Treatment herbicide 01-04 30-04
               Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: support) do |i|
                 i.add_cast(variable: 'molecule', actor: Product.can("kill(plant)").all.sample)
-                i.add_cast(variable: 'molecule_to_spread', quantity: 20)
+                i.add_cast(variable: 'molecule_to_spread', quantity: 20, roles: "plant_illness_treatment-input")
                 i.add_cast(variable: 'sprayer', actor: Product.can("spray").all.sample)
                 i.add_cast(variable: 'driver', actor: Worker.all.sample)
                 i.add_cast(variable: 'tractor', actor: Product.can("catch").all.sample)
-                i.add_cast(variable: 'land_parcel', actor: land_parcel)
+                i.add_cast(variable: 'culture', actor: culture, roles: "plant_illness_treatment-target")
               end
             end
 
@@ -150,9 +161,9 @@ demo :interventions do
               i.add_cast(variable: 'trailer', actor: Product.can("store(grain)").all.sample)
               i.add_cast(variable: 'cropper', actor: Product.can("harvest(poaceae)").all.sample)
               i.add_cast(variable: 'cropper_driver', actor: other)
-              i.add_cast(variable: 'culture',  actor: culture)
-              i.add_cast(variable: 'grains')
-              i.add_cast(variable: 'straw')
+              i.add_cast(variable: 'culture',  actor: culture, roles: "harvest-target")
+              i.add_cast(variable: 'grains', roles: "harvest-output")
+              i.add_cast(variable: 'straw', roles: "harvest-output")
             end
           end
           w.check_point
@@ -172,10 +183,10 @@ demo :interventions do
           if support.storage.is_a?(AnimalGroup)
             for animal in support.storage.members_at()
               Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5) do |i|
-                  i.add_cast(variable: 'animal', actor: animal)
+                  i.add_cast(variable: 'animal', actor: animal, roles: "animal_illness_treatment-target")
                   i.add_cast(variable: 'person', actor: Worker.all.sample)
                   i.add_cast(variable: 'molecule', actor: AnimalMedicine.can("care(bos)").all.sample)
-                  i.add_cast(variable: 'molecule_to_give', quantity: 20)
+                  i.add_cast(variable: 'molecule_to_give', quantity: 20, roles: "animal_illness_treatment-input")
               end
             end
           end

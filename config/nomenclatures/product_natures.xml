@@ -428,7 +428,7 @@
             charge_account="fertilizer_expenses"
             product_account="revenues"
             stock_account="fertilizer_stock"
-            variety="organic_matter"
+            variety="manure"
             derivative_of="animal"
             purchasable="true"
             saleable="true"
