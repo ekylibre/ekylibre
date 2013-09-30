@@ -56,7 +56,7 @@ class Backend::ProductionsController < BackendController
   list(:interventions, :conditions => {production_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
     # t.column :name
     t.column :procedure, url: true
-    t.column :name, through: :production_support, url: true
+    #t.column :name, through: :storage, url: true
     t.column :state
     t.column :name, through: :incident, url: true
     t.column :started_at
