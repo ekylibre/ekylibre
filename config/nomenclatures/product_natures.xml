@@ -544,7 +544,7 @@
             unit_name="hectare"
             frozen_indicators="net_surface_area: 1.00hectare"
             abilities="consume(water), consume(seed), produce(plant)"
-            indicators="shape, net_surface_area, sowable, in_production, ground_appearance"
+            indicators="shape, net_surface_area, geographic_coordinate, sowable, in_production, ground_appearance"
             />
       <item name="land_parcel_cluster"
             variety="land_parcel_cluster"
@@ -568,7 +568,7 @@
             unit_name="hectare"
             frozen_indicators="net_surface_area: 1.00hectare"
             abilities=""
-            indicators="shape, net_surface_area"
+            indicators="shape, net_surface_area, geographic_coordinate"
             />
       <item name="animal_building"
             asset_account="building_assets"
@@ -583,7 +583,7 @@
             frozen_indicators="population: 1unity"
             population_counting="unitary"
             abilities="store(building_division)"
-            indicators="net_surface_area, shape"
+            indicators="net_surface_area, shape, geographic_coordinate"
             />
       <item name="building"
             asset_account="building_assets"
@@ -598,7 +598,7 @@
             frozen_indicators="population: 1unity"
             population_counting="unitary"
             abilities="store(building_division)"
-            indicators="net_surface_area, shape"
+            indicators="net_surface_area, shape, geographic_coordinate"
             />
       <item name="office_building"
             asset_account="building_assets"
@@ -613,7 +613,7 @@
             frozen_indicators="population: 1unity"
             population_counting="unitary"
             abilities="store(building_division)"
-            indicators="net_surface_area, shape"
+            indicators="net_surface_area, shape, geographic_coordinate"
             />
       <item name="screed_building"
             asset_account="general_installation_assets"
@@ -628,7 +628,7 @@
             frozen_indicators="population: 1unity"
             population_counting="unitary"
             abilities="store(building_division)"
-            indicators="net_surface_area, shape"
+            indicators="net_surface_area, shape, geographic_coordinate"
             />
       <item name="building_division"
             variety="building_division"
@@ -640,7 +640,7 @@
             frozen_indicators="population: 1unity"
             population_counting="unitary"
             abilities="store(product)"
-            indicators="net_surface_area, shape"
+            indicators="net_surface_area, shape, geographic_coordinate"
             />
       <item name="tractor"
             asset_account="equipment_assets"
