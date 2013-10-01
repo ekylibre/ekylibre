@@ -44,7 +44,7 @@ class Campaign < Ekylibre::Record::Base
   #]VALIDATORS]
 
   # default_scope -> { where(:closed => false).order(:name) }
-  scope :currents, -> { }
+  scope :currents, -> { where(:closed => false).order(:name) }
 
   def shape_area
     return self.productions.collect{|p| p.shape_area.to_s.to_f}.sum

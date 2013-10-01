@@ -403,8 +403,8 @@
             depreciable="false"
             storable="true"
             population_counting="decimal"
-            unit_name="ton"
-            frozen_indicators="net_weight: 1.00ton"
+            unit_name="big bag"
+            frozen_indicators="net_weight: 400kilogram"
             abilities="fertilize"
             indicators="population, net_weight"
             />

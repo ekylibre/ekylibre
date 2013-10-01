@@ -134,7 +134,7 @@ demo :interventions do
             fertilizer = Product.of_variety(:mineral_matter).all.sample
             Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'fertilizer', actor: fertilizer)
-              i.add_cast(variable: 'fertilizer_to_spread', actor: fertilizer, quantity: 20, roles: "soil_enrichment_input")
+              i.add_cast(variable: 'fertilizer_to_spread', actor: fertilizer, quantity: 1 + rand(3), roles: "soil_enrichment_input")
               i.add_cast(variable: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
               i.add_cast(variable: 'driver', actor: Worker.all.sample)
               i.add_cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
@@ -146,7 +146,7 @@ demo :interventions do
             organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample
             Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'fertilizer', actor: organic_fertilizer)
-              i.add_cast(variable: 'fertilizer_to_spread', actor: organic_fertilizer, quantity: 20, roles: "soil_enrichment_input")
+              i.add_cast(variable: 'fertilizer_to_spread', actor: organic_fertilizer, quantity: 8 + rand(20), roles: "soil_enrichment_input")
               i.add_cast(variable: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
               i.add_cast(variable: 'driver', actor: Worker.all.sample)
               i.add_cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
