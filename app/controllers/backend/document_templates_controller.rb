@@ -21,14 +21,15 @@ class Backend::DocumentTemplatesController < BackendController
   manage_restfully :language => "Preference[:language]".c
 
   unroll
-
+  
+  # FIXME :language.to_s waiting for method
   list(:order => :name) do |t|
     t.column :active
     t.column :name
     t.column :nature
     t.column :by_default
     t.column :archiving
-    t.column :language
+    t.column :language.to_s
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
