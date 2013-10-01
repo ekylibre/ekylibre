@@ -188,10 +188,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
         x.define_singleton_method(:created_at) do
           created_at
         end
-        product_id = self.id
+        variant_id = self.id
         x.define_singleton_method(:variant_id) do
           variant_id
         end
+        return x
       end
     end
     return nil
