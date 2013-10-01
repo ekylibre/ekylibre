@@ -37,7 +37,7 @@ ActiveRecord::Base.transaction do
   f = File.open(picture_company)
   firm = LegalEntity.create!(:nature => "company", :language => language, :last_name => company, :currency => currency, :of_company => true, :picture => f)
   f.close
-  firm.addresses.create!(:canal => "mail", :mail_line_2 => "", :mail_line_3 => "", :mail_line_4 => "", :mail_line_5 => "", :mail_line_6 => "", :by_default => true)
+  firm.addresses.create!(:canal => :mail, :mail_line_4 => "8 rue du bouil bleu", :mail_line_6 => "17250 SAINT-PORCHAIRE", :mail_country => "fr", :by_default => true)
 
   user.administrator = true
   user.language = language
