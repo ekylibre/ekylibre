@@ -6,3 +6,6 @@
 'Ammonitrate 33 big bag','chemical_fertilizer',,'2013-01-01','mineral_matter',,,'Population : 2.47 ; net_weight : 600kg',
 'Fumier de l''exploitation','organic_fertilizer',,'2013-01-01','manure','bos',,'Population : 4.55 ; net_weight : 1000kg',
 'Axial Pratic','herbicide',,'2013-01-01','herbicide',,,'Population : 50 ; net_volume : 1l',
+'Riflexine','animal_medicine',,'2013-01-01','animal_medicine',,,'Population : 40 ; net_volume : 10ml ; meat_withdrawal_period : 5day ; milk_withdrawal_period : 6day',
+'Actilact','animal_medicine',,'2013-01-01','animal_medicine',,,'Population : 150 ; net_weight : 100g ; meat_withdrawal_period : 0day ; milk_withdrawal_period : 0day',
+'Acetal','animal_medicine',,'2013-01-01','animal_medicine',,,'Population : 4 ; net_volume : 1l ; meat_withdrawal_period : 0day ; milk_withdrawal_period : 0day',

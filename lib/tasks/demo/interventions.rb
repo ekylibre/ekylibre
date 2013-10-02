@@ -197,14 +197,16 @@ demo :interventions do
         for support in production.supports
           if support.storage.is_a?(AnimalGroup)
             for animal in support.storage.members_at()
+              medicine_product = AnimalMedicine.can("care(bos)").all.sample
               Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5) do |i|
                   i.add_cast(variable: 'animal', actor: animal, roles: :animal_illness_treatment_target)
-                  i.add_cast(variable: 'person', actor: Worker.all.sample)
-                  i.add_cast(variable: 'molecule', actor: AnimalMedicine.can("care(bos)").all.sample)
-                  i.add_cast(variable: 'molecule_to_give', quantity: 20, roles: :animal_illness_treatment_input)
+                  i.add_cast(variable: 'person', actor: Worker.all.sample, roles: :animal_illness_treatment_doer)
+                  i.add_cast(variable: 'molecule', actor: medicine_product)
+                  i.add_cast(variable: 'molecule_to_give', actor: medicine_product, quantity: 1 + rand(3), roles: :animal_illness_treatment_input)
               end
             end
-          end
+            w.check_point
+          end 
         end
       end
     end
