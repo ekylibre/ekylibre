@@ -105,7 +105,6 @@ Ekylibre::Application.routes.draw do
         post :unmark
       end
     end
-
     resources :activities do
       collection do
         get :list
@@ -127,24 +126,27 @@ Ekylibre::Application.routes.draw do
     resources :animal_groups do
       collection do
         get :list
-        get :list_animals
-        get :list_place
         get :unroll
       end
-    end
+        member do
+          get :list_animals
+          get :list_places
+          match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+        end
+     end
     resources :animals do
       collection do
         get :list
         get :unroll
       end
-      member do
-        get :list_childrens
-        get :list_places
-        get :list_groups
-        get :list_incidents
-        get :list_indicators
-        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
-      end
+        member do
+          get :list_childrens
+          get :list_places
+          get :list_groups
+          get :list_incidents
+          get :list_indicators
+          match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+        end
     end
     resources :animal_medicines do
       collection do
