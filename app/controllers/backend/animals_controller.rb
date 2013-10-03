@@ -48,7 +48,7 @@ class Backend::AnimalsController < Backend::ProductsController
   end
 
    # Liste des enfants de l'animal considéré
-  list(:children, :model => :animals, :conditions => [" mother_id = ? OR father_id = ? ",['session[:current_animal_id]'],['session[:current_animal_id]']], :order => "born_at DESC") do |t|
+  list(:childrens, :model => :animals, :conditions => [" mother_id = ? OR father_id = ? ",'params[:id]'.c,'params[:id]'.c], :order => "born_at DESC") do |t|
     t.column :name, url: true
     t.column :born_at
     t.column :sex
@@ -56,7 +56,7 @@ class Backend::AnimalsController < Backend::ProductsController
   end
 
   # Liste des lieux de l'animal considéré
-  list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "started_at DESC") do |t|
+  list(:places, :model => :product_localizations, :conditions => [" product_id = ? ",'params[:id]'.c], :order => "started_at DESC") do |t|
     t.column :name, through: :container, url: true
     t.column :nature
     t.column :started_at
@@ -66,21 +66,21 @@ class Backend::AnimalsController < Backend::ProductsController
   end
 
   # Liste des groupes de l'animal considéré
-  list(:group, :model => :product_memberships, :conditions => [" member_id = ? ",['session[:current_animal_id]']], :order => "started_at DESC") do |t|
+  list(:groups, :model => :product_memberships, :conditions => [" member_id = ? ",'params[:id]'.c], :order => "started_at DESC") do |t|
     t.column :name, through: :group, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
   # Liste des indicateurs de l'animal considéré
-  list(:indicator, :model => :product_indicator_data, :conditions => [" product_id = ? ",['session[:current_animal_id]']], :order => "created_at DESC") do |t|
+  list(:indicators, :model => :product_indicator_data, :conditions => [" product_id = ? ",'params[:id]'.c], :order => "created_at DESC") do |t|
     t.column :indicator
     t.column :measured_at
     t.column :value
   end
 
   # Liste des incidents de l'animal considéré
-  list(:incident, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Product'",['session[:current_animal_id]']], :order => "observed_at DESC") do |t|
+  list(:incidents, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Animal'",'params[:id]'.c], :order => "observed_at DESC") do |t|
     t.column :name, url: true
     t.column :nature
     t.column :observed_at
@@ -99,22 +99,10 @@ class Backend::AnimalsController < Backend::ProductsController
            respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :variant, :nature, :variety, :owner,
                                                    {:indicator_data => {}},
                                                    {:memberships => {:include =>:group}},
-                                                    {:product_localizations => {:include =>:container}}])
-    # respond_to do |format|
-    #   format.html do
-    #     session[:current_animal_id] = @animal.id
-    #     t3e @animal, :nature_name => @animal.nature_name
-    #   end
-    #   format.xml {render xml: @animal, :include => [:father, :mother, :nature, :variety, :indicator_data,
-    #                                                 {:memberships => {:group => nil}},
-    #                                                 {:product_localizations => {:container => nil}}
-    #                                                ]}
-    #   format.pdf {respond_with @animal, :include => [:father, :mother, :nature, :variety, :indicator_data,
-    #                                                  {:memberships => {:group => nil}},
-    #                                                  {:product_localizations => {:container => nil}}
-    #                                                 ]}
-    # end
+                                                   {:product_localizations => {:include =>:container}}])
+
   end
+
 
   def picture
     return unless @animal = find_and_check

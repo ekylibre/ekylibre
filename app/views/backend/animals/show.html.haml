@@ -19,7 +19,6 @@
       - if @animal.born_at
         .info
           %span.title= Animal.human_attribute_name(:age)
-          -#%span.value=distance_of_time_in_words(@animal.born_at, (@animal.dead_at||Time.now)) rescue @animal.born_at.l
           %span.value
             :ruby
               seconds = (@animal.dead_at||Time.now) - @animal.born_at
@@ -27,12 +26,15 @@
               if (seconds/1.year).floor > 0
                 vals << "labels.x_years".t(:count => (seconds/1.year).floor)
                 seconds -= 1.year * (seconds/1.year).floor
+              end
               if (seconds/1.month).floor > 0
                 vals << "labels.x_months".t(:count => (seconds/1.month).floor)
                 seconds -= 1.month * (seconds/1.month).floor
+              end
               if (seconds/1.day).floor > 0
                 vals << "labels.x_days".t(:count => (seconds/1.day).floor)
                 seconds -= 1.day * (seconds/1.day).floor
+              end
             = vals.to_sentence
       - if @animal.mother
         .info
@@ -52,10 +54,9 @@
       = attributes_list(@animal) do |l| # liste des champs à afficher
         - l.attribute :name
         - l.attribute :variety, :url => true
-        - #l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
         - l.attribute :born_at
         - l.attribute :dead_at
-        - #l.attribute :sex.value, :through => :indicator_data
+        - l.attribute :sex, :through => :indicator_data
         - l.attribute :mother, :url => true
         - l.attribute :father, :url => true
         - l.attribute :identification_number
@@ -64,8 +65,8 @@
 
   - b.tabbox do
 
-    - b.cell(:children) do
-      = list(:children)
+    - b.cell(:childrens) do
+      = list(:childrens)
     - b.cell(:places) do
       = list(:places)
     - b.cell(:groups) do
@@ -78,4 +79,3 @@
       = list(:incidents)
     - b.cell(tl(:x_indicators, :count => @animal.indicator_data.count)) do
       = list(:indicators)
-

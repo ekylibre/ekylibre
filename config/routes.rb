@@ -135,14 +135,14 @@ Ekylibre::Application.routes.draw do
     resources :animals do
       collection do
         get :list
-        get :list_children
-        get :list_place
-        get :list_group
-        get :list_incident
-        get :list_indicator
         get :unroll
       end
       member do
+        get :list_childrens
+        get :list_places
+        get :list_groups
+        get :list_incidents
+        get :list_indicators
         match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
       end
     end
