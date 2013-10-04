@@ -72,7 +72,7 @@ class Backend::AccountsController < BackendController
   end
 
   list(:entities, :conditions => ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], :order => "created_at DESC") do |t| # , attorney_account_id
-    t.column :code, url: true
+    t.column :activity_code, url: true
     t.column :full_name, url: true
     t.column :label, through: :client_account, url: true
     t.column :label, through: :supplier_account, url: true
