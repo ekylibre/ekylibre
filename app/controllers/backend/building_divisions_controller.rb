@@ -13,7 +13,7 @@ class Backend::BuildingDivisionsController < BackendController
   end
 
   # Liste des produits présent dans cette localisation
-  list(:content_product, :model => :product_localizations, :conditions => ["container_id = ? ",['session[:current_building_division_id]']], :order => "started_at DESC") do |t|
+  list(:content_products, :model => :product_localizations, :conditions => ["container_id = ? ",'params[:id]'.c], :order => "started_at DESC") do |t|
     t.column :name, through: :product, url: true
     t.column :nature
     t.column :started_at

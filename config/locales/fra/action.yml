@@ -820,6 +820,7 @@ fra:
     account_name: "Compte comptable"
     account_number: "N°Compte"
     account_others_assets: "Divers"
+    area_measure: "Superficie"
     account_provision: "Provisions pour risques et charges"
     account_supplier_to_create: "— Créer automatiquement un compte fournisseur —"
     account_tabbox:

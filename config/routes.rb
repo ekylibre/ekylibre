@@ -206,8 +206,10 @@ Ekylibre::Application.routes.draw do
     resources :building_divisions do
       collection do
         get :list
-        get :list_content_product
         get :unroll
+      end
+      member do
+        get :list_content_products
       end
     end
 
