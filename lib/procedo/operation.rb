@@ -23,7 +23,7 @@ module Procedo
     def no_duration?
       @duration.nil?
     end
-    
+
     def human_name
       "Operation ##{self.id}"
     end

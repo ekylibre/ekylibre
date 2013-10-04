@@ -75,7 +75,7 @@ class Backend::JournalsController < BackendController
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
-  
+
   # FIXME RECORD.real_currency does not exist
   list(:mixed, :model => :journal_entries, :conditions => journal_entries_conditions, :children => :items, :order => "created_at DESC", :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
@@ -87,7 +87,7 @@ class Backend::JournalsController < BackendController
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
-  
+
   #FIXME undefined method `human_name' for nil:NilClass
   list(:order => :code) do |t|
     t.column :name, url: true
@@ -240,7 +240,7 @@ class Backend::JournalsController < BackendController
     # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
     return code # .gsub(/\s*\n\s*/, ";")
   end
-  
+
   # FIXME RECORD.real_currency does not exist
   list(:general_ledger, :model => :journal_entry_items, :conditions => general_ledger_conditions, :joins => [:entry, :account], :order => "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
     t.column :number, through: :account, url: true

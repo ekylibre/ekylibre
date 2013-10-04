@@ -2280,6 +2280,7 @@ module Ekylibre
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
     products: HashWithIndifferentAccess.new(
+      _test: Ekylibre::Record::Column.new(:_test, :text).freeze,
       active: Ekylibre::Record::Column.new(:active, :boolean, null: false).freeze,
       address_id: Ekylibre::Record::Column.new(:address_id, :integer).freeze,
       asset_id: Ekylibre::Record::Column.new(:asset_id, :integer).freeze,

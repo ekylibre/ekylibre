@@ -224,15 +224,17 @@ eng:
       edit: "Edit the establishment: %{name}"
       index: "Establishments"
       new: "Add a new establishment"
-    backend/event_natures:  #?
-      edit: "Edit thee event type: %{name}" #?
-      index: "Event types" #?
-      new: "Add a new event type" #?
-    backend/events:  #?
+    backend/event_natures:
+      edit: "Edit thee event type: %{name}"
+      index: "Event types"
+      new: "Add a new event type"
+      # show: "Type d'évènement\_: %{name}"
+    backend/events:
       change_minutes: "Change minutes for event" #?
-      edit: "Edit the event" #?
-      index: "Events" #?
-      new: "Add a new event" #?
+      edit: "Edit the event"
+      index: "Events"
+      new: "Add a new event"
+      # show: "Evènement\_: %{name}"
     backend/financial_years:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
@@ -275,6 +277,7 @@ eng:
       index: "Incoming payments"
       new: "Add a new incoming payment"
       show: "Incoming payment %{number} of %{entity}"
+    backend/intervention_casts: #?
     backend/interventions:
       # edit: "Modifier l’intervention %{procedure_name} N°%{id}"
       # index: "Interventions"
@@ -823,6 +826,7 @@ eng:
     are_you_sure_you_want_to_delete_delivery: "Are you sure you want to remove the delivery of transport?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
+    # area_measure: "Superficie"
     area_x: "%{name} (%{postcode})"
     # assessable_operations: "Opérations imposables (H.T)"
     assets: "Assets management"

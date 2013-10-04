@@ -20,7 +20,7 @@
 class Backend::JournalEntriesController < BackendController
 
   unroll
-  
+
   # FIXME Currency RECORD.entry.real_currency does not exist.
   list(:items, :model => :journal_entry_items, :conditions => {:entry_id => ['session[:current_journal_entry_id]']}, :order => "entry_id DESC, position") do |t|
     t.column :name
@@ -32,7 +32,7 @@ class Backend::JournalEntriesController < BackendController
     t.column :debit#, :currency => "RECORD.entry.financial_year.currency"
     t.column :credit#, :currency => "RECORD.entry.financial_year.currency"
   end
-  
+
     # FIXME RECORD.real_currency does not exist
   list( :children => :items, :order => "created_at DESC", :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
@@ -43,7 +43,7 @@ class Backend::JournalEntriesController < BackendController
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
-  
+
   # Displays the main page with the list of journal_entries
   def index
   end

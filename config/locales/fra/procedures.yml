@@ -1,19 +1,19 @@
 fra:
   procedures:
     animal_birth: "Naissance d’un animal"
+    animal_treatment: "Traitement animal"
     calving_one: "Vêlage unique"
     calving_twin: "Vêlage jumeaux"
     chemical_treatment: "Traitement chimique"
+    grains_harvest: "Moisson"
     mineral_fertilizing: "Fertilisation minérale"
     organic_fertilizing: "Fertilisation organique"
     plant_grinding: "Broyage de végétaux"
     plowing: "Labour"
-    grains_harvest: "Moisson"
+    raking: "Hersage"
     sowing: "Semis"
     superficial_plowing: "Hersage"
     wheat_crop: "Culture de blé (standard)"
-    animal_treatment: "Traitement animal"
-    raking: "Hersage"
   variables:
     cropper: "Moissonneuse batteuse"
     cropper_driver: "Conducteur de moissonneuse batteuse"

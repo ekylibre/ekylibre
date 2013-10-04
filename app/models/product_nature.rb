@@ -324,8 +324,8 @@ class ProductNature < Ekylibre::Record::Base
         variant = nature.variants.create!(:active => true, :unit_name => item.unit_name)
         if !item.frozen_indicators.to_s.blank?
           # transform "population: 1unity, net_weight :5ton" in a hash
-          h_frozen_indicators = item.frozen_indicators.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|     
-            h[i.first.strip.downcase.to_sym] = i.second 
+          h_frozen_indicators = item.frozen_indicators.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+            h[i.first.strip.downcase.to_sym] = i.second
             h
             }
           # create frozen indicator for each pair indicator, value ":population => 1unity"

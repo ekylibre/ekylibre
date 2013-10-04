@@ -83,7 +83,7 @@ module Ekylibre::Record
             code << "  self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{expr}) FROM \#{Product.indicator_table_name(:#{indicator})} WHERE id = \#{datum.id}\")#{'.to_d rescue 0' unless attr.to_s =~ /^as\_/}\n"
             code << "end\n"
           end
-          
+
           # add a method to convert polygon to point
           # TODO : change geometry_value to a variable :column
           for attr in [:centroid, :point_on_surface]
@@ -92,7 +92,7 @@ module Ekylibre::Record
             code << "  self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(geometry_value) FROM \#{Product.indicator_table_name(:#{indicator})} WHERE id = \#{datum.id}\")\n"
             code << "end\n"
           end
-          
+
 
           code << "def #{indicator}_width(options = {})\n"
           code << "  return (self.#{indicator}_x_max(options) - self.#{indicator}_x_min(options))\n"

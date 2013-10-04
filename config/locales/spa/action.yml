@@ -240,8 +240,16 @@ spa:
       edit: "Modificacion del establecimiento : %{name}"
       index: "Establecimientos"
       new: "Añadido de un nuevo establecimiento"
-    backend/event_natures: #?
-    backend/events: #?
+    backend/event_natures:
+      # edit: "Modifier le type d'évènement\_: %{name}"
+      # index: "Types d'évènement"
+      # new: "Nouveau type d'évènement"
+      # show: "Type d'évènement\_: %{name}"
+    backend/events:
+      # edit: "Modifier l'évènement\_: %{name}"
+      # index: "Evènements"
+      # new: "Nouvel évènement"
+      # show: "Evènement\_: %{name}"
     backend/finances: #?
     backend/financial_years:
       close: "Cerrado de ejercicio"
@@ -286,6 +294,7 @@ spa:
       # new: "Ajout d’un nouvel encaissement"
       # show: "Encaissement n°%{number} de %{entity}"
     backend/interfacers: #?
+    backend/intervention_casts: #?
     backend/interventions:
       # edit: "Modifier l’intervention %{procedure_name} N°%{id}"
       # index: "Interventions"
@@ -853,6 +862,7 @@ spa:
     # are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
     # are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer la vente ?"
     are_you_sure_you_want_to_send_mails: "Esta seguro querer enviar este correo electronico?'"
+    # area_measure: "Superficie"
     # area_x: "%{name} (%{postcode})"
     assessable_operations: "Operaciones imponibles (H.T)"
     # assets: "Immo. - Emprunts"

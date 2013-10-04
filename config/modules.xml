@@ -993,14 +993,21 @@
       <item name="activities">
         <page to="backend/activities#list_productions"/>
       </item>
+      <item name="animal_groups">
+        <page to="backend/animal_groups#list_places"/>
+      </item>
       <item name="animals">
-        <page to="backend/animals#list_incident"/>
+        <page to="backend/animals#list_childrens"/>
+        <page to="backend/animals#list_groups"/>
+        <page to="backend/animals#list_incidents"/>
+        <page to="backend/animals#list_indicators"/>
+        <page to="backend/animals#list_places"/>
       </item>
       <item name="areas">
         <page to="backend/areas#show"/>
       </item>
       <item name="building_divisions">
-        <page to="backend/building_divisions#list_content_product"/>
+        <page to="backend/building_divisions#list_content_products"/>
       </item>
       <item name="buildings">
         <page to="backend/buildings#list_building_division"/>
@@ -1173,9 +1180,22 @@
         <page to="backend/interfacers#unroll"/>
         <page to="backend/interfacers#unroll_options"/>
       </item>
+      <item name="intervention_casts">
+        <page to="backend/intervention_casts#index"/>
+        <page to="backend/intervention_casts#create"/>
+        <page to="backend/intervention_casts#destroy"/>
+        <page to="backend/intervention_casts#edit"/>
+        <page to="backend/intervention_casts#new"/>
+        <page to="backend/intervention_casts#show"/>
+        <page to="backend/intervention_casts#update"/>
+      </item>
       <item name="interventions">
         <page to="backend/interventions#list_casts"/>
         <page to="backend/interventions#list_operations"/>
+      </item>
+      <item name="journal_entries">
+        <page to="backend/journal_entries#index"/>
+        <page to="backend/journal_entries#list"/>
       </item>
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>

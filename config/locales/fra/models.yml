@@ -430,7 +430,7 @@ fra:
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
     attorney_journal: "Journal mandataire"
-    attorneys: "Mandataires"
+    attorneys: "Mandataires" #?
     attribute_name: "Nom de l’attribut"
     # authentication_token: "Authentication token"
     # author: "Author"
@@ -783,9 +783,11 @@ fra:
     measure_value_unit: "Measure value unit"
     measure_value_value: "Measure value value"
     measured_at: "Mesuré à"
+    meat_withdrawal_period: "Délai d'attente (viande)" #?
     member: "Membre"
     members: "Membres"
     memberships: "Membres du groupe"
+    milk_withdrawal_period: "Délai d'attente (lait)" #?
     minimal_length: "Longueur minimale"
     minimal_quantity: "Minimal quantity" #?
     minimal_value: "Valeur minimale"
@@ -804,11 +806,8 @@ fra:
     nature: "Type"
     nature_name: "Nature name"
     # natures: "Natures"
+    net_volume: "Volume net" #?
     net_weight: "Masse nette" #?
-    net_volume: "Volume net"
-    prescriptor: "Prescripteur"
-    milk_withdrawal_period: "Délai d'attente (lait)"
-    meat_withdrawal_period: "Délai d'attente (viande)"
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
     nodes: "Nœuds d’extraction"
@@ -895,7 +894,7 @@ fra:
     postcode: "Code postal"
     preferences: "Préférences"
     # prescription: "Prescription"
-    # prescriptor: "Prescriptor"
+    prescriptor: "Prescripteur"
     pretax_amount: "Montant HT"
     pretax_amount_generation: "Pretax amount generation" #?
     price: "Prix"
@@ -1066,7 +1065,7 @@ fra:
     unconfirmed_email: "E-mail non confirmé"
     undelivered_quantity: "Reste à livrer"
     unit: "Unité"
-    # unit_name: "Unit name"
+    unit_name: "Unit name"
     unit_price_amount: "Unit price amount"
     # unlock_token: "Unlock token"
     unlocked_payments: "Paiement non verrouillés"
@@ -1227,11 +1226,53 @@ fra:
         plowing: "Labour"
         raking: "Hersage"
         sowing: "Semis"
+      procedures:
+        animal_birth: "Naissance d’un animal"
+        animal_treatment: "Traitement animal"
+        calving_one: "Vêlage unique"
+        calving_twin: "Vêlage jumeaux"
+        chemical_treatment: "Traitement chimique"
+        grains_harvest: "Moisson"
+        mineral_fertilizing: "Fertilisation minérale"
+        organic_fertilizing: "Fertilisation organique"
+        plant_grinding: "Broyage de végétaux"
+        plowing: "Labour"
+        raking: "Hersage"
+        sowing: "Semis"
+        superficial_plowing: "Hersage"
+        wheat_crop: "Culture de blé (standard)"
       state:
         done: "Réalisée"
         in_progress: "En cours"
         squeezed: "Non réalisée"
         undone: "Pas encore réalisée"
+    intervention_cast:
+      variable:
+        cropper: "Moissonneuse batteuse"
+        cropper_driver: "Conducteur de moissonneuse batteuse"
+        culture: "Culture"
+        driver: "Conducteur"
+        fertilizer: "Engrais"
+        fertilizer_to_spread: "Engrais à épandre"
+        grains: "Grains"
+        grinder: "Broyeur"
+        harrow: "Herse"
+        land_parcel: "Parcelle"
+        manure: "Fumier"
+        manure_to_spread: "Fumier à épandre"
+        molecule: "Molécule"
+        mother_animal: "Mère"
+        plant: "Plantes, Culture"
+        plow: "Charrue"
+        seeder: "Semoir"
+        seeds: "Semences"
+        seeds_to_sow: "Semence à semer"
+        silo: "Silo"
+        sower: "Semoir"
+        spreader: "Épandeur"
+        straw: "Paille"
+        tractor: "Tracteur"
+        trailer: "Remorque"
     journal:
       nature:
         bank: "Banque"

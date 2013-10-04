@@ -1053,9 +1053,11 @@ eng:
     # measure_value_unit: "Measure value unit"
     # measure_value_value: "Measure value value"
     # measured_at: "Mesuré à"
+    # meat_withdrawal_period: "Délai d'attente (viande)"
     member: "Member"
     members: "Members"
     # memberships: "Membres du groupe"
+    # milk_withdrawal_period: "Délai d'attente (lait)"
     min_duration: "Min duration" #?
     # minimal_length: "Longueur minimale"
     # minimal_quantity: "Minimal quantity"
@@ -1076,6 +1078,7 @@ eng:
     nature_code: "Type code" #?
     nature_label: "Type label" #?
     nature_name: "Nature name"
+    # net_volume: "Volume net"
     net_weight: "Net weight (kg)"
     nic: "Nic"
     node: "Node"
@@ -1170,6 +1173,7 @@ eng:
     preferences: "Preferences"
     pregnant: "Pregnant" #?
     prescriptions: "Prescriptions" #?
+    # prescriptor: "Prescripteur"
     pretax_amount: "Pre-tax amount"
     pretax_amount_generation: "Pretax amount generation"
     price: "Price"
@@ -1183,6 +1187,7 @@ eng:
     process: "Process"
     producer: "Producer"
     product: "Product"
+    # product_account: "Compte de produit"
     product_categories: "Product categories" #?
     product_components: "Product components" #?
     product_events: "Product events"
@@ -1369,6 +1374,7 @@ eng:
     target: "Target"
     target_quantity: "Target quantity" #?
     target_type: "Target type"
+    # tasks: "Tâches"
     tax: "Tax"
     tax_declarations: "Tax declarations" #?
     taxes: "Taxes" #?
@@ -1408,6 +1414,7 @@ eng:
     undelivered_quantity: "Undelivered quantity"
     unique_tracking: "Unique tracking" #?
     unit: "Unit"
+    # unit_name: "Unit name"
     # unit_price_amount: "Unit price amount"
     unit_quantity: "Unit quantity" #?
     units: "Units" #?
@@ -1435,6 +1442,8 @@ eng:
     users: "Users"
     uses: "Uses" #?
     value: "Value"
+    # variable: "Variable"
+    # variable_indicators: "Indicateurs d'une variable"
     variables: "Variables"
     variant: "Variant"
     variants: "Variants"
@@ -1442,6 +1451,7 @@ eng:
     vat_number: "Vat number"
     # vat_subjected: "Assujetti à la TVA"
     vat_submissive: "Vat submissive" #?
+    # verb: "Verbe"
     virtual: "Virtual" #?
     virtual_quantity: "Virtual quantity" #?
     waiting_deliveries: "Waiting deliveries"
@@ -1598,11 +1608,53 @@ eng:
         # plowing: "Labour"
         # raking: "Hersage"
         # sowing: "Semis"
+      procedures:
+        # animal_birth: "Naissance d’un animal"
+        # animal_treatment: "Traitement animal"
+        # calving_one: "Vêlage unique"
+        # calving_twin: "Vêlage jumeaux"
+        # chemical_treatment: "Traitement chimique"
+        # grains_harvest: "Moisson"
+        # mineral_fertilizing: "Fertilisation minérale"
+        # organic_fertilizing: "Fertilisation organique"
+        # plant_grinding: "Broyage de végétaux"
+        # plowing: "Labour"
+        # raking: "Hersage"
+        # sowing: "Semis"
+        # superficial_plowing: "Hersage"
+        # wheat_crop: "Culture de blé (standard)"
       state:
         done: "Done"
         in_progress: "In progress"
         squeezed: "Squeezed"
         undone: "Undone"
+    intervention_cast:
+      variable:
+        # cropper: "Moissonneuse batteuse"
+        # cropper_driver: "Conducteur de moissonneuse batteuse"
+        # culture: "Culture"
+        # driver: "Conducteur"
+        # fertilizer: "Engrais"
+        # fertilizer_to_spread: "Engrais à épandre"
+        # grains: "Grains"
+        # grinder: "Broyeur"
+        # harrow: "Herse"
+        # land_parcel: "Parcelle"
+        # manure: "Fumier"
+        # manure_to_spread: "Fumier à épandre"
+        # molecule: "Molécule"
+        # mother_animal: "Mère"
+        # plant: "Plantes, Culture"
+        # plow: "Charrue"
+        # seeder: "Semoir"
+        # seeds: "Semences"
+        # seeds_to_sow: "Semence à semer"
+        # silo: "Silo"
+        # sower: "Semoir"
+        # spreader: "Épandeur"
+        # straw: "Paille"
+        # tractor: "Tracteur"
+        # trailer: "Remorque"
     journal:
       nature:
         bank: "Bank"

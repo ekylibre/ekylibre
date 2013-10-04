@@ -4,7 +4,7 @@
   -t.close @journal if @journal.closable?
   -t.reopen @journal if @journal.reopenable?
   -t.new(:params => {:controller => :journal_entries, :journal_id => @journal.id})
-  
+
 
 =beehive do |b|
   -b.tabbox do

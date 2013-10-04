@@ -1500,9 +1500,11 @@ arb:
     # measure_value_unit: "Measure value unit"
     # measure_value_value: "Measure value value"
     # measured_at: "Mesuré à"
+    # meat_withdrawal_period: "Délai d'attente (viande)"
     # member: "Membre"
     # members: "Membres"
     # memberships: "Membres du groupe"
+    # milk_withdrawal_period: "Délai d'attente (lait)"
     min_duration: "(دقيقة (دقائق" #?
     # minimal_length: "Longueur minimale"
     # minimal_quantity: "Minimal quantity"
@@ -1525,6 +1527,7 @@ arb:
     nature_id: "نوع" #?
     nature_label: "طبيعة الملصق" #?
     # nature_name: "Nature name"
+    # net_volume: "Volume net"
     # net_weight: "Masse nette"
     nic: "واجهة بطاقة الشبكة"
     node: "العقدة"
@@ -1623,6 +1626,7 @@ arb:
     position: "الوضع"
     postcode: "الرمز البريدي"
     preferences: "الاعدادات"
+    # prescriptor: "Prescripteur"
     # pretax_amount: "Montant HT"
     # pretax_amount_generation: "Pretax amount generation"
     price: "سعر الكلفة"
@@ -1638,6 +1642,7 @@ arb:
     producer: "المنتج"
     producer_id: "المنتج" #?
     product: "الانتاج"
+    # product_account: "Compte de produit"
     product_categories: "فئات المنتج" #?
     product_category: "الفئة" #?
     product_category_id: "فئة" #?
@@ -1828,6 +1833,7 @@ arb:
     target: "الهدف"
     target_id: "الهدف" #?
     target_type: "نوع الهدف"
+    # tasks: "Tâches"
     tax: "الضريبة"
     tax_declarations: "الاعلان عن الضرائب" #?
     tax_id: "الضريبة" #?
@@ -1864,6 +1870,7 @@ arb:
     undelivered_quantity: "يبقى للتسليم"
     unit: "الوحدة"
     unit_id: "وحدة" #?
+    # unit_name: "Unit name"
     # unit_price_amount: "Unit price amount"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
@@ -1887,6 +1894,8 @@ arb:
     uses: "المعدات المستخدمة" #?
     value: "القيمة"
     value_format: "التصميم" #?
+    # variable: "Variable"
+    # variable_indicators: "Indicateurs d'une variable"
     # variables: "Variables"
     # variant: "Variante"
     # variants: "Variantes"
@@ -1894,6 +1903,7 @@ arb:
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
     # vat_subjected: "Assujetti à la TVA"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
+    # verb: "Verbe"
     virtual: "عملي" #?
     virtual_quantity: "الاسهم العملية" #?
     # waiting_deliveries: "Livraisons en attente"
@@ -2040,11 +2050,53 @@ arb:
         # plowing: "Labour"
         # raking: "Hersage"
         # sowing: "Semis"
+      procedures:
+        # animal_birth: "Naissance d’un animal"
+        # animal_treatment: "Traitement animal"
+        # calving_one: "Vêlage unique"
+        # calving_twin: "Vêlage jumeaux"
+        # chemical_treatment: "Traitement chimique"
+        # grains_harvest: "Moisson"
+        # mineral_fertilizing: "Fertilisation minérale"
+        # organic_fertilizing: "Fertilisation organique"
+        # plant_grinding: "Broyage de végétaux"
+        # plowing: "Labour"
+        # raking: "Hersage"
+        # sowing: "Semis"
+        # superficial_plowing: "Hersage"
+        # wheat_crop: "Culture de blé (standard)"
       state:
         # done: "Réalisée"
         # in_progress: "En cours"
         # squeezed: "Non réalisée"
         # undone: "Pas encore réalisée"
+    intervention_cast:
+      variable:
+        # cropper: "Moissonneuse batteuse"
+        # cropper_driver: "Conducteur de moissonneuse batteuse"
+        # culture: "Culture"
+        # driver: "Conducteur"
+        # fertilizer: "Engrais"
+        # fertilizer_to_spread: "Engrais à épandre"
+        # grains: "Grains"
+        # grinder: "Broyeur"
+        # harrow: "Herse"
+        # land_parcel: "Parcelle"
+        # manure: "Fumier"
+        # manure_to_spread: "Fumier à épandre"
+        # molecule: "Molécule"
+        # mother_animal: "Mère"
+        # plant: "Plantes, Culture"
+        # plow: "Charrue"
+        # seeder: "Semoir"
+        # seeds: "Semences"
+        # seeds_to_sow: "Semence à semer"
+        # silo: "Silo"
+        # sower: "Semoir"
+        # spreader: "Épandeur"
+        # straw: "Paille"
+        # tractor: "Tracteur"
+        # trailer: "Remorque"
     journal:
       nature:
         # bank: "Banque"

@@ -140,7 +140,7 @@ demo :interventions do
               i.add_cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
               i.add_cast(variable: 'land_parcel', actor: land_parcel, roles: "soil_enrichment_target")
             end
-            
+
             # Organic Fertilizing  01-03-M -> 31-03-M
             # TODO remove actor on variable with roles xxxx_input when running procedure will create new product
             organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample
@@ -206,7 +206,7 @@ demo :interventions do
               end
             end
             w.check_point
-          end 
+          end
         end
       end
     end

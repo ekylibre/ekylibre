@@ -283,6 +283,11 @@ fra:
       index: "Encaissements"
       new: "Ajout d’un nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
+    backend/intervention_casts:
+      # edit: "Edit backend/intervention cast"
+      # index: "Index backend/intervention cast"
+      # new: "New backend/intervention cast"
+      # show: "Show backend/intervention cast"
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{id}"
       index: "Interventions"
@@ -295,6 +300,7 @@ fra:
       show: "Inventaire %{number}"
     backend/journal_entries:
       edit: "Modifier l’écriture\_: %{number}"
+      # index: "Index backend/journal entry"
       new: "Ajouter une écriture"
       show: "Écriture\_: %{number}"
     backend/journal_entry_items:
@@ -715,6 +721,7 @@ fra:
     backend/incoming_payment_modes: "Modes d’encaissement"
     backend/incoming_payments: "Encaissements"
     backend/interfacers: "Interfaceurs"
+    # backend/intervention_casts: "Backend/intervention casts"
     # backend/interventions: "Backend/interventions"
     backend/inventories: "Inventaires"
     backend/inventory_items: "Lignes d’inventaires"
@@ -820,7 +827,6 @@ fra:
     account_name: "Compte comptable"
     account_number: "N°Compte"
     account_others_assets: "Divers"
-    area_measure: "Superficie"
     account_provision: "Provisions pour risques et charges"
     account_supplier_to_create: "— Créer automatiquement un compte fournisseur —"
     account_tabbox:
@@ -902,6 +908,7 @@ fra:
     are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
     are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer la vente ?"
     are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails ?"
+    area_measure: "Superficie"
     area_x: "%{name} (%{postcode})"
     assessable_operations: "Opérations imposables (H.T)"
     assets: "Immo. - Emprunts"

@@ -22,7 +22,7 @@ class Backend::CashesController < BackendController
 
 
   unroll
-  
+
   #FIXME undefined method `human_name' for nil:NilClass
   list(:order => :name) do |t|
     t.column :name, url: true
