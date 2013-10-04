@@ -32,6 +32,21 @@ class Backend::JournalEntriesController < BackendController
     t.column :debit#, :currency => "RECORD.entry.financial_year.currency"
     t.column :credit#, :currency => "RECORD.entry.financial_year.currency"
   end
+  
+    # FIXME RECORD.real_currency does not exist
+  list( :children => :items, :order => "created_at DESC", :per_page => 10) do |t|
+    t.column :number, url: true, :children => :name
+    t.column :printed_on, :datatype => :date, :children => false
+    t.column :state_label
+    t.column :real_debit#, :currency => {:body => :real_currency, :children => "RECORD.real_currency"}
+    t.column :real_credit#, :currency => {:body => :real_currency, :children => "RECORD.real_currency"}
+    t.action :edit, :if => :updateable?
+    t.action :destroy, :if => :destroyable?
+  end
+  
+  # Displays the main page with the list of journal_entries
+  def index
+  end
 
 
   # Displays details of one journal entry selected with +params[:id]+

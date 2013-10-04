@@ -87,12 +87,13 @@ class Backend::JournalsController < BackendController
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
-
+  
+  #FIXME undefined method `human_name' for nil:NilClass
   list(:order => :code) do |t|
     t.column :name, url: true
     t.column :code, url: true
     t.column :nature
-    t.column :currency
+    #t.column :currency
     t.column :closed_on
     # t.action :document_print, :url => {:code => :JOURNAL, :journal => "RECORD.id"}
     t.action :close, :if => 'RECORD.closable?(Date.today)', :image => :unlock
@@ -151,7 +152,7 @@ class Backend::JournalsController < BackendController
   end
 
 
-
+  # FIXME RECORD.real_currency does not exist
   list(:draft_items, :model => :journal_entry_items, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :name, through: :journal, url: true
     t.column :number, through: :entry, url: true
@@ -159,8 +160,8 @@ class Backend::JournalsController < BackendController
     t.column :number, through: :account, url: true
     t.column :name, through: :account, url: true
     t.column :name
-    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
-    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :debit#, :currency => "RECORD.entry.financial_year.currency"
+    t.column :credit#, :currency => "RECORD.entry.financial_year.currency"
   end
 
   # this method lists all the entries generated in draft mode.
@@ -239,15 +240,16 @@ class Backend::JournalsController < BackendController
     # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
     return code # .gsub(/\s*\n\s*/, ";")
   end
-
+  
+  # FIXME RECORD.real_currency does not exist
   list(:general_ledger, :model => :journal_entry_items, :conditions => general_ledger_conditions, :joins => [:entry, :account], :order => "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
     t.column :number, through: :account, url: true
     t.column :name, through: :account, url: true
     t.column :number, through: :entry, url: true
     t.column :printed_on, through: :entry, :datatype => :date
     t.column :name
-    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
-    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :debit#, :currency => "RECORD.entry.financial_year.currency"
+    t.column :credit#, :currency => "RECORD.entry.financial_year.currency"
   end
 
   def general_ledger
