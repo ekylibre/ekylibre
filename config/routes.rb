@@ -503,6 +503,7 @@ Ekylibre::Application.routes.draw do
     end
     resources :journal_entries do
       collection do
+        get :list
         get :list_items
       end
     end
