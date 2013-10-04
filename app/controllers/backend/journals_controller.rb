@@ -75,14 +75,15 @@ class Backend::JournalsController < BackendController
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
-
+  
+  # FIXME RECORD.real_currency does not exist
   list(:mixed, :model => :journal_entries, :conditions => journal_entries_conditions, :children => :items, :order => "created_at DESC", :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     # t.column :label, through: :account, :url => {:action => :account}
     t.column :state_label
-    t.column :real_debit, :currency => {:body => :real_currency, :children => "RECORD.entry.real_currency"}
-    t.column :real_credit, :currency => {:body => :real_currency, :children => "RECORD.entry.real_currency"}
+    t.column :real_debit#, :currency => {:body => :real_currency, :children => "RECORD.real_currency"}
+    t.column :real_credit#, :currency => {:body => :real_currency, :children => "RECORD.real_currency"}
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
