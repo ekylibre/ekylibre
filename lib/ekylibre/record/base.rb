@@ -50,7 +50,7 @@ module Ekylibre::Record
     # Returns a relation for the old record in DB
     def old_record
       return nil if self.new_record?
-      return self.class.where(:id => self.id).first
+      return self.class.find_by(id: self.id)
     end
 
     # Returns the definition of custom fields of the object

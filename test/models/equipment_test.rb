@@ -20,7 +20,6 @@
 #
 # == Table: products
 #
-#  _test                    :text
 #  active                   :boolean          not null
 #  address_id               :integer
 #  asset_id                 :integer
