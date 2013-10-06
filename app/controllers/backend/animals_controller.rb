@@ -89,7 +89,13 @@ class Backend::AnimalsController < Backend::ProductsController
     t.column :state
   end
 
-
+  list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
+    t.column :name, through: :intervention, url: true
+    t.column :roles
+    t.column :variable
+    t.column :started_at, through: :intervention
+    t.column :stopped_at, through: :intervention
+  end
 
   # Show one animal with params_id
   def show

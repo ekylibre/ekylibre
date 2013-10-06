@@ -19,3 +19,7 @@
       =list(:content_products)
     -b.cell(:productions) do
       =list(:productions)
+    - b.cell(:interventions) do
+      = toolbar do |t|
+        - t.new(:params =>{:controller => :interventions, :target_id => @cultivable_land_parcel.id})
+      = list(:intervention_casts)

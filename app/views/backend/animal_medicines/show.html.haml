@@ -5,3 +5,11 @@
   -b.cell do
     =attributes_list(@animal_medicine) do |l|
       -l.attribute :name
+
+  - b.tabbox do
+    - b.cell(:interventions) do
+      = toolbar do |t|
+        - t.new(:params =>{:controller => :interventions})
+      = list(:intervention_casts)
+    - b.cell(tl(:x_indicators, :count => @animal_medicine.indicator_data.count)) do
+      = list(:indicators)
