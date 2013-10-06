@@ -140,11 +140,12 @@ Ekylibre::Application.routes.draw do
         get :unroll
       end
       member do
-        get :list_childrens
+        get :list_children
         get :list_places
         get :list_groups
         get :list_incidents
         get :list_indicators
+        get :list_intervention_casts
         match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
       end
     end
@@ -152,6 +153,10 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :unroll
+      end
+      member do
+        get :list_intervention_casts
+        get :list_indicators
       end
     end
     resources :affairs do
@@ -264,6 +269,7 @@ Ekylibre::Application.routes.draw do
       member do
         get :list_contained_products
         get :list_productions
+        get :list_intervention_casts
       end
     end
     resources :custom_fields do
@@ -684,6 +690,10 @@ Ekylibre::Application.routes.draw do
       collection do
         get :list
         get :unroll
+      end
+      member do
+        get :list_intervention_casts
+        get :list_indicators
       end
     end
     resources :preferences do

@@ -65,8 +65,8 @@
 
   - b.tabbox do
 
-    - b.cell(:childrens) do
-      = list(:childrens)
+    - b.cell(:children) do
+      = list(:children)
     - b.cell(:places) do
       = list(:places)
     - b.cell(:groups) do
@@ -77,5 +77,9 @@
       = toolbar do |t|
         - t.new(:params =>{:controller => :incidents, :target_id => @animal.id, :target_type => @animal.class.name})
       = list(:incidents)
+    - b.cell(:interventions) do
+      = toolbar do |t|
+        - t.new(:params =>{:controller => :interventions, :target_id => @animal.id})
+      = list(:intervention_casts)
     - b.cell(tl(:x_indicators, :count => @animal.indicator_data.count)) do
       = list(:indicators)

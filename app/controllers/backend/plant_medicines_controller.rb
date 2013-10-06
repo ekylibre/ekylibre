@@ -8,24 +8,24 @@ class Backend::PlantMedicinesController < BackendController
     t.column :name, url: true
     t.column :created_at
   end
-
-  # Displays the main page with the list of animal_medicines.
-  def index
-    respond_to do |format|
-      format.html
-      format.xml  { render :xml => PlantMedicine.all }
-      format.json { render :json => PlantMedicine.all }
-    end
+  
+  list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
+    t.column :name, through: :intervention, url: true
+    t.column :roles
+    t.column :variable
+    t.column :started_at, through: :intervention
+    t.column :stopped_at, through: :intervention
   end
-
-  # Displays the page for one animal_medicine.
-  def show
-    return unless @plant_medicine = find_and_check
-    respond_to do |format|
-      format.html { t3e(@plant_medicine) }
-      format.xml  { render :xml => @plant_medicine }
-      format.json { render :json => @plant_medicine }
-    end
+  
+    # Liste des indicateurs de l'animal considéré
+  list(:indicators, :model => :product_indicator_data, :conditions => [" product_id = ? ",'params[:id]'.c], :order => "created_at DESC") do |t|
+    t.column :indicator
+    t.column :measured_at
+    t.column :value
   end
+  
+  #INDEX
+  
+  #SHOW
 
 end

@@ -5,3 +5,13 @@
   -b.cell do
     =attributes_list(@plant_medicine) do |l|
       -l.attribute :name
+      -l.attribute :nature
+      -l.attribute :variant
+      
+  - b.tabbox do
+    - b.cell(:interventions) do
+      = toolbar do |t|
+        - t.new(:params =>{:controller => :interventions})
+      = list(:intervention_casts)
+    - b.cell(tl(:x_indicators, :count => @plant_medicine.indicator_data.count)) do
+      = list(:indicators)

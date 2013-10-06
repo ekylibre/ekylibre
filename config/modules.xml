@@ -320,6 +320,26 @@
         <page to="backend/products#unroll"/>
         <page to="backend/products#update"/>
       </item>
+      <item name="organic_matters">
+        <page to="backend/organic_matters#index"/>
+        <page to="backend/organic_matters#create"/>
+        <page to="backend/organic_matters#destroy"/>
+        <page to="backend/organic_matters#edit"/>
+        <page to="backend/organic_matters#list"/>
+        <page to="backend/organic_matters#new"/>
+        <page to="backend/organic_matters#show"/>
+        <page to="backend/organic_matters#update"/>
+      </item>
+      <item name="mineral_matters">
+        <page to="backend/mineral_matters#index"/>
+        <page to="backend/mineral_matters#create"/>
+        <page to="backend/mineral_matters#destroy"/>
+        <page to="backend/mineral_matters#edit"/>
+        <page to="backend/mineral_matters#list"/>
+        <page to="backend/mineral_matters#new"/>
+        <page to="backend/mineral_matters#show"/>
+        <page to="backend/mineral_matters#update"/>
+      </item>
       <item name="product_groups">
         <page to="backend/product_groups#index"/>
         <page to="backend/product_groups#create"/>

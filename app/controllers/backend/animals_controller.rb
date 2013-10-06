@@ -48,7 +48,7 @@ class Backend::AnimalsController < Backend::ProductsController
   end
 
    # Liste des enfants de l'animal considéré
-  list(:childrens, :model => :animals, :conditions => [" mother_id = ? OR father_id = ? ",'params[:id]'.c,'params[:id]'.c], :order => "born_at DESC") do |t|
+  list(:children, :model => :animals, :conditions => ["mother_id = ? OR father_id = ?", 'params[:id]'.c, 'params[:id]'.c], :order => "born_at DESC") do |t|
     t.column :name, url: true
     t.column :born_at
     t.column :sex
@@ -56,7 +56,7 @@ class Backend::AnimalsController < Backend::ProductsController
   end
 
   # Liste des lieux de l'animal considéré
-  list(:places, :model => :product_localizations, :conditions => [" product_id = ? ",'params[:id]'.c], :order => "started_at DESC") do |t|
+  list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
     t.column :name, through: :container, url: true
     t.column :nature
     t.column :started_at
@@ -66,21 +66,21 @@ class Backend::AnimalsController < Backend::ProductsController
   end
 
   # Liste des groupes de l'animal considéré
-  list(:groups, :model => :product_memberships, :conditions => [" member_id = ? ",'params[:id]'.c], :order => "started_at DESC") do |t|
+  list(:groups, :model => :product_memberships, :conditions => {member_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
     t.column :name, through: :group, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
   # Liste des indicateurs de l'animal considéré
-  list(:indicators, :model => :product_indicator_data, :conditions => [" product_id = ? ",'params[:id]'.c], :order => "created_at DESC") do |t|
+  list(:indicators, :model => :product_indicator_data, :conditions => {product_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
     t.column :indicator
     t.column :measured_at
     t.column :value
   end
 
   # Liste des incidents de l'animal considéré
-  list(:incidents, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Animal'",'params[:id]'.c], :order => "observed_at DESC") do |t|
+  list(:incidents, :model => :incidents, :conditions => {target_id: 'params[:id]'.c, target_type: 'Animal'}, :order => "observed_at DESC") do |t|
     t.column :name, url: true
     t.column :nature
     t.column :observed_at
@@ -89,7 +89,13 @@ class Backend::AnimalsController < Backend::ProductsController
     t.column :state
   end
 
-
+  list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
+    t.column :name, through: :intervention, url: true
+    t.column :roles
+    t.column :variable
+    t.column :started_at, through: :intervention
+    t.column :stopped_at, through: :intervention
+  end
 
   # Show one animal with params_id
   def show
