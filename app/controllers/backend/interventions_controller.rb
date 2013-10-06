@@ -29,6 +29,7 @@ class Backend::InterventionsController < BackendController
     t.column :name, through: :incident, url: true
     t.column :state
     t.column :casting
+    t.column :started_at
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
