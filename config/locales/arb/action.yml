@@ -754,7 +754,6 @@ arb:
     # backend/dashboards: "Tableaux de bord"
     backend/delays: "مهلة" #?
     backend/departments: "الوظائف/المهام" #?
-    # backend/deposit_items: "Lignes de remise en banque"
     backend/deposits: "اقتطاعات البنك"
     backend/districts: "المناطق الادارية"
     backend/document_templates: "نماذج الوثيقة"
@@ -1608,6 +1607,7 @@ arb:
     reflect: "يعكس"
     refresh: "تحديث"
     register: "تسجيل شركة جديدة" #?
+    # related_people: "En lien avec"
     relations: "ادارة علاقات العملاء / والمموليين" #?
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
@@ -1878,7 +1878,10 @@ arb:
       one: "رابط واحد"
       other: "%{count} روابط اخرى"
       zero: "ولا رابط"
-    x_events: #?
+    x_events:
+      # one: "%{count} évènement"
+      # other: "%{count} évènements"
+      # zero: "0 évènement"
     x_events_of_nature_y:
       # one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       # other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
@@ -1902,10 +1905,7 @@ arb:
       one: "تفويض واحد"
       other: "%{count} تفويض اخر"
       zero: "ولا اية تفويض"
-    x_meetings:
-      # one: "%{count} évènement"
-      # other: "%{count} évènements"
-      # zero: "0 évènement"
+    x_meetings: #?
     x_months:
       # one: "%{count} mois"
       # other: "%{count} mois"

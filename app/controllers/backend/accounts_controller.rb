@@ -24,7 +24,7 @@ class Backend::AccountsController < BackendController
 
   def self.accounts_conditions
     code  = ""
-    code << search_conditions(Account.table_name => [:name, :number, :description])
+    code << search_conditions(accounts: [:name, :number, :description])
     code << "[0] += ' AND number LIKE ?'\n"
     code << "c << params[:prefix].to_s+'%'\n"
     code << "unless params[:period].blank?\n"
@@ -32,7 +32,7 @@ class Backend::AccountsController < BackendController
     code << "end\n"
     code << "c\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    return code
+    return code.c
   end
 
   list(:conditions => accounts_conditions, :order => "number ASC", :per_page => 20) do |t|
@@ -41,7 +41,7 @@ class Backend::AccountsController < BackendController
     t.column :reconcilable
     t.column :description
     t.action :edit
-    t.action :destroy, :if => "RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of accounts
@@ -50,14 +50,14 @@ class Backend::AccountsController < BackendController
 
   def self.account_moves_conditions(options={})
     code = ""
-    code << search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit], :journal_entry => [:number]}, :conditions => "c", :variable => "params[:b]")+"\n"
+    code << search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit], :journal_entry => [:number]}, :conditions => "c", :variable => "params[:b]".c)+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     # code << journals_crit("params")
-    code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id=?'\n"
+    code << "c[0] << ' AND #{JournalEntryItem.table_name}.account_id = ?'\n"
     code << "c << params[:id]\n"
     code << "c\n"
-    return code
+    return code.c
   end
 
   list(:journal_entry_items, :joins => :entry, :conditions => account_moves_conditions, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
@@ -80,11 +80,11 @@ class Backend::AccountsController < BackendController
   end
 
   def self.account_reconciliation_conditions
-    code  = deprecated_search_conditions(:accounts, :accounts => [:name, :number, :description], :journal_entries => [:number], JournalEntryItem.table_name => [:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
+    code  = search_conditions(:accounts => [:name, :number, :description], :journal_entries => [:number], JournalEntryItem.table_name => [:name, :debit, :credit])+"[0] += ' AND accounts.reconcilable = ?'\n"
     code << "c << true\n"
-    code << "c[0] += ' AND "+JournalEntryItem.connection.length(JournalEntryItem.connection.trim("COALESCE(letter, \\'\\')"))+" = 0'\n"
+    code << "c[0] += ' AND " + JournalEntryItem.connection.length(JournalEntryItem.connection.trim("COALESCE(letter, \\'\\')")) + " = 0'\n"
     code << "c"
-    return code
+    return code.c
   end
 
   list(:reconciliation, :model => :journal_entry_items, :joins => [:entry, :account], :conditions => account_reconciliation_conditions, :order => "accounts.number, journal_entries.printed_on") do |t|
@@ -92,12 +92,11 @@ class Backend::AccountsController < BackendController
     t.column :name, through: :account, :url => {:action => :mark}
     t.column :number, through: :entry
     t.column :name
-    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
-    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :debit, currency: true
+    t.column :credit, currency: true
   end
 
   def reconciliation
-    session[:account_key] = params[:q]
   end
 
   def mark

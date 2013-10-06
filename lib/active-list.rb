@@ -1,11 +1,4 @@
-require 'fastercsv'
-require 'csv'
-require 'action_dispatch'
-require 'rails'
-require 'compass'
-
-module ActiveList #:nodoc:
-
+module ActiveList
 
   CSV = (::CSV.const_defined?(:Reader) ? ::FasterCSV : ::CSV).freeze
 
@@ -25,8 +18,9 @@ module ActiveList #:nodoc:
 end
 
 # Compass registration
-Compass::Frameworks.register('active-list', :path => ActiveList.compass_extension_path)
+# Compass::Frameworks.register('active-list', :path => ActiveList.compass_extension_path)
 
+require "active-list/helpers"
 require "active-list/definition"
 require "active-list/generator"
 require "active-list/action_pack"

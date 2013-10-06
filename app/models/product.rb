@@ -311,13 +311,13 @@ class Product < Ekylibre::Record::Base
     else
       if datum = self.indicator(indicator.name.to_s, :at => measured_at)
         x = datum.value
-        x.define_singleton_method(:measured_at) do
-          measured_at
-        end
-        product_id = self.id
-        x.define_singleton_method(:product_id) do
-          product_id
-        end
+        # x.define_singleton_method(:measured_at) do
+        #   measured_at
+        # end
+        # product_id = self.id
+        # x.define_singleton_method(:product_id) do
+        #   product_id
+        # end
         return x
       end
     end

@@ -37,7 +37,7 @@ class Backend::TransportsController < BackendController
   end
 
 
-  list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:transport_id => ['session[:current_transport_id]']}) do |t|
+  list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:transport_id => 'params[:id]'.c}) do |t|
     t.column :coordinate, through: :address, :children => :product_name
     t.column :planned_at, :children => false
     #t.column :moved_on, :children => false
@@ -49,42 +49,41 @@ class Backend::TransportsController < BackendController
     t.column :weight, :children => false
   end
 
-  # Displays details of one transport selected with +params[:id]+
-  def show
-    return unless @transport = find_and_check(:transports)
-    respond_to do |format|
-      format.html do
-        session[:current_transport_id] = @transport.id
-        t3e @transport.attributes
-      end
-      format.pdf { render_print_transport(@transport) }
-    end
-  end
+  # # Displays details of one transport selected with +params[:id]+
+  # def show
+  #   return unless @transport = find_and_check(:transports)
+  #   respond_to do |format|
+  #     format.html do
+  #       t3e @transport.attributes
+  #     end
+  #     format.pdf { render_print_transport(@transport) }
+  #   end
+  # end
 
   def self.transportable_deliveries_conditions()
     code  = ""
-    code += "c = [\"1=1\"]\n"
-    code += "if session[:current_transport_id].to_i > 0\n"
-    code += "  c[0] += ' AND (transport_id = ? OR (transport_id IS NULL'\n"
-    code += "  c << session[:current_transport_id].to_i\n"
-    code += "  if session[:current_transporter_id].to_i > 0\n"
-    code += "    c[0] += ' AND (transporter_id = ? OR transporter_id IS NULL)'\n"
-    code += "    c << session[:current_transporter_id].to_i\n"
-    code += "  end\n"
-    code += "  c[0] += '))'\n"
-    code += "elsif not session[:current_transporter_id].to_i.zero?\n"
-    code += "  c[0] += ' AND (transporter_id = ? OR transporter_id IS NULL)'\n"
-    code += "  c << session[:current_transporter_id].to_i\n"
-    code += "else\n"
-    code += "  c[0] += ' AND transporter_id IS NULL'\n"
-    code += "end\n"
+    code << "c = [\"1=1\"]\n"
+    code << "if session[:current_transport_id].to_i > 0\n"
+    code << "  c[0] += ' AND (transport_id = ? OR (transport_id IS NULL'\n"
+    code << "  c << session[:current_transport_id].to_i\n"
+    code << "  if session[:current_transporter_id].to_i > 0\n"
+    code << "    c[0] += ' AND (transporter_id = ? OR transporter_id IS NULL)'\n"
+    code << "    c << session[:current_transporter_id].to_i\n"
+    code << "  end\n"
+    code << "  c[0] += '))'\n"
+    code << "elsif not session[:current_transporter_id].to_i.zero?\n"
+    code << "  c[0] += ' AND (transporter_id = ? OR transporter_id IS NULL)'\n"
+    code << "  c << session[:current_transporter_id].to_i\n"
+    code << "else\n"
+    code << "  c[0] += ' AND transporter_id IS NULL'\n"
+    code << "end\n"
 
-    code += "c\n"
-    return code
+    code << "c\n"
+    return code.c
   end
 
-  list(:transportable_deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => transportable_deliveries_conditions, :pagination => :none, :order => :planned_at, :line_class => "(RECORD.planned_at<Date.today ? 'critic' : RECORD.planned_at.to_date == Date.today ? 'warning' : '')") do |t|
-    t.check_box :selected, :value => '(session[:current_transport_id].to_i.zero? ? RECORD.planned_at <= Date.today : RECORD.transport_id == session[:current_transport_id])'
+  list(:transportable_deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => transportable_deliveries_conditions, :pagination => :none, :order => :planned_at, :line_class => "(RECORD.planned_at<Date.today ? 'critic' : RECORD.planned_at.to_date == Date.today ? 'warning' : '')".c) do |t|
+    t.check_box :selected, :value => '(session[:current_transport_id].to_i.zero? ? RECORD.planned_at <= Date.today : RECORD.transport_id == session[:current_transport_id])'.c
     t.column :coordinate, through: :address, :children => :product_name
     t.column :planned_at, :children => false
     #t.column :moved_on, :children => false

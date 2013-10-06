@@ -126,6 +126,9 @@ class Entity < Ekylibre::Record::Base
   scope :suppliers,    -> { where(:supplier => true) }
   scope :transporters, -> { where(:transporter => true) }
   scope :clients,      -> { where(:client => true) }
+  scope :related_to, lambda { |entity|
+    where("id IN (SELECT entity_2_id FROM #{EntityLink.table_name} WHERE entity_1_id = ?) OR id IN (SELECT entity_1_id FROM #{EntityLink.table_name} WHERE entity_2_id = ?)", entity.id, entity.id)
+  }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
@@ -275,6 +278,13 @@ class Entity < Ekylibre::Record::Base
 
   def default_mail_coordinate
     self.default_address ? self.default_address.coordinate : '[NoDefaultEntityAddressError]'
+  end
+
+  def is_linked_to!(entity, options = {})
+    nature = options[:as] || :undefined
+    unless self.direct_links.actives.where(nature: nature.to_s, entity_2_id: entity.id).any?
+      self.direct_links.create!(nature: nature.to_s, entity_2_id: entity.id)
+    end
   end
 
   def maximal_reduction_percentage(computed_on = Date.today)

@@ -96,7 +96,7 @@ class Preference < Ekylibre::Record::Base
 
   def self.get(name)
     name = name.to_s
-    preference = Preference.find_by_name(name)
+    preference = Preference.find_by(name: name)
     if preference.nil? and self.reference.has_key?(name)
       preference = self.new
       preference.name = name

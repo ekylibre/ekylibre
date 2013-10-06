@@ -1,16 +1,16 @@
-=main_toolbar do |t|
-  -t.edit @matter
-  -t.destroy(@matter, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @matter.destroyable?
+= main_toolbar do |t|
+  - t.edit @matter
+  - t.destroy(@matter, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @matter.destroyable?
 
-=beehive do |b|
-  -b.tabbox do
-    -b.cell :general do
-      -if @matter.picture.exists?
-        .picture=image_tag(@matter.picture.url(:identity))
+= beehive do |b|
+  - b.tabbox do
+    - b.cell :general do
+      - if @matter.picture.exists?
+        .picture= image_tag(@matter.picture.url(:identity))
       .info
-        %span.title=Matter.human_attribute_name(:work_number)
-        %span.value=@matter.work_number
-      -if @matter.born_at
+        %span.title= Matter.human_attribute_name(:work_number)
+        %span.value= @matter.work_number
+      - if @matter.born_at
         .info
           %span.title=Matter.human_attribute_name(:age)
           -#%span.value=distance_of_time_in_words(@animal.born_at, (@animal.dead_at||Time.now)) rescue @animal.born_at.l
@@ -28,8 +28,8 @@
               -seconds -= 1.day * (seconds/1.day).floor
             =vals.to_sentence
 
-    -b.cell :details do
-      =attributes_list(@matter) do |l| # liste des champs à afficher
+    - b.cell :details do
+      = attributes_list(@matter) do |l| # liste des champs à afficher
         -l.attribute :name
         -l.attribute :variety, :url => true
         -#l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
@@ -38,9 +38,9 @@
         -l.attribute :identification_number
         -l.attribute :description
 
-  -b.tabbox do
-    -b.cell(:places) do
-      =list(:place)
-    -b.cell(:groups) do
-      =list(:group)
+  - b.tabbox do
+    - b.cell(:places) do
+      = list(:places)
+    - b.cell(:groups) do
+      = list(:groups)
 

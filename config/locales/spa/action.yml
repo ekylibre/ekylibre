@@ -681,7 +681,6 @@ spa:
     # backend/dashboards: "Tableaux de bord"
     backend/delays: "plazos" #?
     backend/departments: "Servicios" #?
-    # backend/deposit_items: "Lignes de remise en banque"
     backend/deposits: "Aposto en banco"
     # backend/districts: "Zones administratives"
     backend/document_templates: "Modelos de documento"
@@ -1439,6 +1438,7 @@ spa:
     # reflect: "Refléter"
     # refresh: "Rafraîchir"
     register: "Crear una nueva compañía" #?
+    # related_people: "En lien avec"
     relations: "Relaciones clientos/abastecedores" #?
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
@@ -1689,7 +1689,10 @@ spa:
       # one: "%{count} lien"
       # other: "%{count} liens"
       # zero: "0 lien"
-    x_events: #?
+    x_events:
+      # one: "%{count} évènement"
+      # other: "%{count} évènements"
+      # zero: "0 évènement"
     x_events_of_nature_y:
       # one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       # other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
@@ -1713,10 +1716,7 @@ spa:
       # one: "%{count} responsabilité"
       # other: "%{count} responsabilités "
       # zero: "0 responsabilité"
-    x_meetings:
-      # one: "%{count} évènement"
-      # other: "%{count} évènements"
-      # zero: "0 évènement"
+    x_meetings: #?
     x_months:
       # one: "%{count} mois"
       # other: "%{count} mois"

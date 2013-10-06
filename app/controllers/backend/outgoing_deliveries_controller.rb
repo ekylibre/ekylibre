@@ -39,7 +39,7 @@ class Backend::OutgoingDeliveriesController < BackendController
     t.action :destroy
   end
 
-  list(:items, :model => :outgoing_delivery_items, :conditions => {:delivery_id => ['session[:current_outgoing_delivery_id]']}) do |t|
+  list(:items, :model => :outgoing_delivery_items, :conditions => {:delivery_id => 'params[:id]'.c}) do |t|
     t.column :name, through: :product, url: true
     t.column :work_number, through: :product
     t.column :quantity

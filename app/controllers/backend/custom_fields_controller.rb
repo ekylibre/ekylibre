@@ -18,7 +18,7 @@
 #
 
 class Backend::CustomFieldsController < BackendController
-  manage_restfully :redirect_to => '(@custom_field.choice? ? {:action => :show, :id => "id"} : :back)'.c
+  manage_restfully :redirect_to => '(RECORD.choice? ? {:action => :show, :id => "id"} : :back)'.c
   manage_restfully_list
   unroll
 
@@ -35,24 +35,13 @@ class Backend::CustomFieldsController < BackendController
     t.action :show, :image => :menulist, :if => :choice?
   end
 
-  # Displays the main page with the list of custom fields
-  def index
-  end
-
-  list(:choices, :model => :custom_field_choices, :conditions => {:custom_field_id => ['session[:current_custom_field_id]']}, :order => 'position') do |t|
+  list(:choices, :model => :custom_field_choices, :conditions => {custom_field_id: 'params[:id]'.c}, :order => 'position') do |t|
     t.column :name
     t.column :value
     t.action :up, :unless => :first?, :method => :post
     t.action :down, :unless => :last?, :method => :post
     t.action :edit
     t.action :destroy, :if => :destroyable?
-  end
-
-  # Displays details of one custom field selected with +params[:id]+
-  def show
-    return unless @custom_field = find_and_check(:custom_field)
-    session[:current_custom_field_id] = @custom_field.id
-    t3e @custom_field.attributes
   end
 
   # Sort.all choices by name

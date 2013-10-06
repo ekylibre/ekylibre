@@ -40,7 +40,7 @@ class Backend::DepositsController < BackendController
   end
 
 
-  list(:payments, :model => :incoming_payments, :conditions => {:deposit_id => ['session[:deposit_id]']}, :pagination => :none, :order => :number) do |t|
+  list(:payments, :model => :incoming_payments, :conditions => {deposit_id: 'params[:id]'.c}, :pagination => :none, :order => :number) do |t|
     t.column :number, url: true
     t.column :full_name, through: :payer, url: true
     t.column :bank_name
@@ -63,7 +63,7 @@ class Backend::DepositsController < BackendController
   end
 
 
-  list(:depositable_payments, :model => :incoming_payments, :conditions => ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", ['session[:deposit_id]'], ['session[:payment_mode_id]']], :pagination => :none, :order => "to_bank_on, created_at", :line_class => "((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')") do |t|
+  list(:depositable_payments, :model => :incoming_payments, :conditions => ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", 'session[:deposit_id]'.c, 'session[:payment_mode_id]'.c], :pagination => :none, :order => "to_bank_on, created_at", :line_class => "((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')".c) do |t|
     t.column :number, url: true
     t.column :full_name, through: :payer, url: true
     t.column :bank_name
@@ -71,8 +71,8 @@ class Backend::DepositsController < BackendController
     t.column :bank_check_number
     t.column :paid_on
     t.column :label, through: :responsible
-    t.column :amount, :currency => "RECORD.mode.cash.currency"
-    t.check_box :to_deposit, :value => '(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))', :label => tc(:to_deposit)
+    t.column :amount, currency: true
+    t.check_box :to_deposit, :value => '(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))'.c, :label => tc(:to_deposit)
   end
 
   def new
@@ -137,7 +137,7 @@ class Backend::DepositsController < BackendController
     t.column :amount
     t.column :payments_count
     t.column :name, through: :cash, url: true
-    t.check_box :validated, :value => 'RECORD.created_on<=Date.today-(15)'
+    t.check_box :validated, :value => 'RECORD.created_on<=Date.today-(15)'.c
   end
 
   def unvalidateds

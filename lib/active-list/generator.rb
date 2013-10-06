@@ -19,6 +19,10 @@ module ActiveList
       @options[:records_variable_name]
     end
 
+    def controller
+      @options[:controller]
+    end
+
     def renderer
       ActiveList.renderers[@options[:renderer]]
     end
@@ -33,7 +37,7 @@ module ActiveList
       code << "      if request.xhr?\n"
       code << self.renderer.remote_update_code(self).gsub(/^/, '        ')
       code << "      else\n"
-      code << "        render(:inline=>'<%=#{self.view_method_name}-%>', :layout=>true)\n"
+      code << "        render(inline: '<%=#{self.view_method_name}-%>', layout: true)\n"
       code << "      end\n"
       code << "    end\n"
       for format, exporter in ActiveList.exporters
@@ -44,6 +48,11 @@ module ActiveList
       code << "  end\n"
       code << "end\n"
       # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
+      if Rails.env.development?
+        file = Rails.root.join("tmp", "code", "active-list", "controllers", self.controller.controller_path, self.controller_method_name + ".rb")
+        FileUtils.mkdir_p(file.dirname)
+        File.write(file, code)
+      end
       return code
     end
 
@@ -54,6 +63,11 @@ module ActiveList
       code << self.renderer.build_table_code(self).gsub(/^/, '  ')
       code << "end\n"
       # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
+      if Rails.env.development?
+        file = Rails.root.join("tmp", "code", "active-list", "views", self.controller.controller_path, self.view_method_name + ".rb")
+        FileUtils.mkdir_p(file.dirname)
+        File.write(file, code)
+      end
       return code
     end
 

@@ -21,41 +21,26 @@ class Backend::JournalEntriesController < BackendController
 
   unroll
 
-  # FIXME Currency RECORD.entry.real_currency does not exist.
-  list(:items, :model => :journal_entry_items, :conditions => {:entry_id => ['session[:current_journal_entry_id]']}, :order => "entry_id DESC, position") do |t|
-    t.column :name
-    t.column :number, through: :account, url: true
-    t.column :name, through: :account, url: true
-    t.column :number, through: :bank_statement, url: true
-    t.column :real_debit#, :currency => "RECORD.entry.real_currency"
-    t.column :real_credit#, :currency => "RECORD.entry.real_currency"
-    t.column :debit#, :currency => "RECORD.entry.financial_year.currency"
-    t.column :credit#, :currency => "RECORD.entry.financial_year.currency"
-  end
-
-    # FIXME RECORD.real_currency does not exist
   list( :children => :items, :order => "created_at DESC", :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     t.column :state_label
-    t.column :real_debit#, :currency => {:body => :real_currency, :children => "RECORD.real_currency"}
-    t.column :real_credit#, :currency => {:body => :real_currency, :children => "RECORD.real_currency"}
+    t.column :real_debit,  currency: :real_currency
+    t.column :real_credit, currency: :real_currency
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
 
-  # Displays the main page with the list of journal_entries
-  def index
+  list(:items, :model => :journal_entry_items, :conditions => {:entry_id => 'params[:id]'.c}, :order => "entry_id DESC, position") do |t|
+    t.column :name
+    t.column :number, through: :account, url: true
+    t.column :name, through: :account, url: true
+    t.column :number, through: :bank_statement, url: true
+    t.column :real_debit,  currency: :real_currency
+    t.column :real_credit, currency: :real_currency
+    t.column :debit,  currency: true
+    t.column :credit, currency: true
   end
-
-
-  # Displays details of one journal entry selected with +params[:id]+
-  def show
-    return unless @journal_entry = find_and_check(:journal_entry)
-    session[:current_journal_entry_id] = @journal_entry.id
-    t3e @journal_entry.attributes
-  end
-
 
   def new
     return unless @journal = find_and_check(:journal, params[:journal_id])

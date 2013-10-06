@@ -108,22 +108,23 @@ module ActiveList
 
 
     def sanitize_condition(value)
-      if value.is_a? Array
-        if value.size==1 and value[0].is_a? String
-          value[0].to_s
-        else
-          value.inspect
-        end
-      elsif value.is_a? Code
-        value.inspect
-      elsif value.is_a? String
-        '"'+value.gsub('"','\"')+'"'
-      elsif [Date, DateTime].include? value.class
-        '"'+value.to_formatted_s(:db)+'"'
+      # if value.is_a? Array
+      #   # if value.size==1 and value[0].is_a? String
+      #   #   value[0].to_s
+      #   # else
+      #   value.inspect
+      #   # end
+      # elsif value.is_a? Code
+      #   value.inspect
+      # elsif value.is_a? String
+      #   '"' + value.gsub('"', '\"') + '"'
+      # els
+      if [Date, DateTime].include? value.class
+        '"' + value.to_formatted_s(:db) + '"'
       elsif value.is_a? NilClass
         'nil'
       else
-        value.to_s
+        value.inspect
       end
     end
 

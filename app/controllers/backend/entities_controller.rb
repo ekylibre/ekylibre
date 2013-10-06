@@ -24,40 +24,16 @@ class Backend::EntitiesController < BackendController
 
   autocomplete_for :origin
 
-  # # list(:select => {[:addresses, :mail_line_6] => :item_6}, :conditions => deprecated_search_conditions(:entities, :entities => [:number, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.number") do |t|
-  # list(:select => {[:addresses, :coordinate] => :coordinate}, :conditions => deprecated_search_conditions(:entities, :entities => [:number, :full_name], :addresses => [:coordinate]), :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)", :order => "entities.last_name, entities.first_name") do |t|
-  list(:conditions => deprecated_search_conditions(:entities, :entities => [:number, :full_name]), :order => "entities.last_name, entities.first_name") do |t| # , :joins => "LEFT JOIN #{EntityAddress.table_name} AS addresses ON (entities.id = addresses.entity_id AND addresses.deleted_at IS NULL)" # , :addresses => [:coordinate]
+  list(:conditions => search_conditions(:entities => [:number, :full_name]), :order => "entities.last_name, entities.first_name") do |t|
     t.column :active, :datatype => :boolean
     t.column :number, url: true
     t.column :nature
     t.column :last_name, url: true
     t.column :first_name, url: true
-    # t.column :coordinate # :item_6
-    # t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
-    # t.action :destroy, :if => :destroyable?
   end
 
-  # Displays the main page with the list of entities
-  def index
-    session[:entity_key] = params[:q]
-  end
-
-  # list(:addresses, :model => :entity_addresses, :conditions => ['deleted_at IS NULL AND (entity_id = ? OR entity_id IN ( SELECT entity_1_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON (#{EntityLinkNature.table_name}.propagate_addresses = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id AND stopped_at IS NULL) WHERE (entity_1_id = ? OR entity_2_id = ?)) OR entity_id IN (SELECT entity_2_id FROM #{EntityLink.table_name} INNER JOIN #{EntityLinkNature.table_name} ON #{EntityLinkNature.table_name}.propagate_addresses = ? AND #{EntityLink.table_name}.nature_id = #{EntityLinkNature.table_name}.id  AND stopped_at IS NULL WHERE (entity_1_id = ? OR entity_2_id = ?)))', ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'], true, ['session[:current_entity_id]'], ['session[:current_entity_id]'] ]) do |t|
-  #   t.column :address, :url => {:action => :edit}
-  #   t.column :phone
-  #   t.column :fax
-  #   t.column :mobile
-  #   t.column :email
-  #   t.column :website
-  #   t.column :by_default
-  #   t.column :number, through: :entity, url: true
-  #   t.action :edit
-  #   t.action :destroy
-  # end
-
-  # TODO: Filter meetings with participations , :conditions => {:entity_id => ['session[:current_entity_id]']}
-  list(:event_participations, :order => "created_at DESC") do |t|
+  list(:event_participations, :conditions => {participant_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
     t.column :name, through: :event
     t.column :state
     # t.column :label, through: :responsible, url: true
@@ -68,21 +44,20 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:incoming_payments, :conditions => {:payer_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t| # , :line_class => "(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)"
+  list(:incoming_payments, :conditions => {payer_id: 'params[:id]'.c}, :order => "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
     t.column :label, through: :responsible
     t.column :name, through: :mode
     t.column :bank_name
     t.column :bank_check_number
-    # t.column :used_amount, :currency => "RECORD.mode.cash.currency"
     t.column :amount, currency: true, url: true
     t.column :number, through: :deposit, url: true
-    t.action :edit, :if => "RECORD.deposit.nil\?"
+    t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:links, :model => :entity_links, :conditions => ['#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)', ['session[:current_entity_id]'], ['session[:current_entity_id]']], :per_page => 5) do |t|
+  list(:links, :model => :entity_links, :conditions => ['#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)', 'params[:id]'.c, 'params[:id]'.c], :per_page => 5) do |t|
     t.column :description, through: :entity_1, url: true
     t.column :nature
     t.column :description, through: :entity_2, url: true
@@ -91,7 +66,7 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:mandates, :conditions => {:entity_id => ['session[:current_entity_id]']}) do |t|
+  list(:mandates, :conditions => {entity_id: 'params[:id]'.c}) do |t|
     t.column :title
     t.column :organization, :url => {:controller => :mandates, :action => :index}
     t.column :family
@@ -101,76 +76,60 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:observations, :conditions => {:subject_id => ['session[:current_entity_id]'], :subject_type => "Entity"}, :per_page => 5) do |t| # , :line_class => 'RECORD.status'
+  list(:observations, :conditions => {subject_id: 'params[:id]'.c, subject_type: ["Entity", "LegalEntity", "Person"]}, line_class: :status, per_page: 5) do |t|
     t.column :content
     t.column :importance
     t.action :edit
     t.action :destroy
   end
 
-  list(:outgoing_payments, :conditions => {:payee_id => ['session[:current_entity_id]']}, :order => "created_at DESC") do |t| # , :line_class => "(RECORD.used_amount!=RECORD.amount ? 'warning' : nil)"
+  list(:outgoing_payments, :conditions => {:payee_id => 'params[:id]'.c}, :order => "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
     t.column :label, through: :responsible
     t.column :name, through: :mode
     t.column :bank_check_number
-    # t.column :used_amount, :currency => "RECORD.mode.cash.currency"
     t.column :amount, currency: true, url: true
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:purchases, :model => :purchase, :conditions => {:supplier_id => ['session[:current_entity_id]']}, :line_class => 'RECORD.status') do |t|
+  list(:purchases, :conditions => {:supplier_id => 'params[:id]'.c}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :created_on
     t.column :invoiced_on
     t.column :address, through: :delivery_address
     t.column :state_label
-    # t.column :paid_amount, currency: true
     t.column :amount, currency: true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:sales, :conditions => {:client_id => ['session[:current_entity_id]']}, :children => :items, :per_page => 5, :order => "created_on DESC") do |t| # , :line_class => 'RECORD.tags'
+  list(:sales, :conditions => {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, :order => "created_on DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true, :children => :label
     t.column :full_name, through: :responsible, :children => false
     t.column :created_on, :children => false
     t.column :state_label, :children => false
-    # t.column :paid_amount, :currency => {:body => true, :children => "RECORD.sale.currency"}, :children => false
-    t.column :amount, :currency => {:body => true, :children => "RECORD.sale.currency"}
+    t.column :amount, currency: true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :duplicate, :method => :post
-    t.action :edit, :if => "RECORD.draft? "
-    t.action :destroy, :if => "RECORD.aborted? "
+    t.action :edit, :if => :draft?
+    t.action :destroy, :if => :aborted?
   end
 
-  # list(:subscriptions, :conditions => {:subscriber_id => ['session[:current_entity_id]']}, :order => 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')") do |t|
-    # t.column :number
-    # t.column :name, through: :nature
-    # t.column :start
-    # t.column :finish
-    # t.column :number, through: :sale, url: true
-    # t.column :coordinate, through: :address
-    # t.column :quantity, :datatype => :decimal
-    # t.column :suspended
-    # t.action :edit
-    # t.action :destroy
-  # end
 
-  # Displays details of one entity selected with +params[:id]+
-  def show
-    return unless @entity = find_and_check(:entity)
-    respond_to do |format|
-      format.html do
-        session[:current_entity_id] = @entity.id
-        session[:my_entity] = params[:id]
-        t3e @entity.attributes
-        @key = ""
-      end
-      format.pdf { render_print_entity(@entity) }
-    end
+  list(:subscriptions, :conditions => {subscriber_id:  'params[:id]'.c}, :order => 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')".c) do |t|
+    t.column :number
+    t.column :name, through: :nature
+    t.column :start
+    t.column :finish
+    t.column :number, through: :sale, url: true
+    t.column :coordinate, through: :address
+    t.column :quantity, :datatype => :decimal
+    t.column :suspended
+    t.action :edit
+    t.action :destroy
   end
 
 

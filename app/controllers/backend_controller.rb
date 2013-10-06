@@ -24,7 +24,6 @@ class BackendController < BaseController
   # # before_filter :identify
   before_filter :themize
   # after_filter  :historize
-  # # attr_accessor :current_user
   layout :dialog_or_not
 
   include Userstamp
@@ -264,12 +263,12 @@ class BackendController < BaseController
     response.headers["Cache-Control"] = 'no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0'
   end
 
-  # Load @current_user
-  def identify()
-    # Load current_user if connected
-    @current_user = nil
-    @current_user = User.find(:first, :conditions => {:id => session[:user_id]}, :readonly => true) if session[:user_id]
-  end
+  # # Load current user
+  # def identify()
+  #   # Load current_user if connected
+  #   @current_user = nil
+  #   @current_user = User.find_by(id: session[:user_id]).readonly if session[:user_id]
+  # end
 
   def themize()
     # TODO: Dynamic theme choosing
@@ -296,11 +295,11 @@ class BackendController < BaseController
       return false
     end
 
-    # Set session variables and check state
-    session[:last_page] ||= {}
-    if request.get? and not request.xhr? and not [:sessions, :help].include?(self.controller_name.to_sym)
-      session[:last_url] = request.path
-    end
+    # # Set session variables and check state
+    # session[:last_page] ||= {}
+    # if request.get? and not request.xhr? and not [:sessions, :help].include?(self.controller_name.to_sym)
+    #   session[:last_url] = request.path
+    # end
 
     # # Check expiration
     # if !session[:last_query].is_a?(Integer)
@@ -340,20 +339,20 @@ class BackendController < BaseController
 
 
 
-  # Fill the history array
-  def historize()
-    if @current_user and request.get? and not request.xhr? and params[:format].blank?
-      session[:history] = [] unless session[:history].is_a? Array
-      session[:history].delete_if { |h| h[:path] == request.path }
-      session[:history].insert(0, {:title => self.human_action_name, :path => request.path}) # :url => request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
-      session[:history].delete_at(30)
-    end
-  end
+  # # Fill the history array
+  # def historize()
+  #   if @current_user and request.get? and not request.xhr? and params[:format].blank?
+  #     session[:history] = [] unless session[:history].is_a? Array
+  #     session[:history].delete_if { |h| h[:path] == request.path }
+  #     session[:history].insert(0, {:title => self.human_action_name, :path => request.path}) # :url => request.url, :reverse => Ekylibre.menu.page(self.controller_name, self.action_name)
+  #     session[:history].delete_at(30)
+  #   end
+  # end
 
 
 
   def search_article(article = nil)
-    session[:help_history] = [] unless session[:help_history].is_a? [].class
+    # session[:help_history] = [] unless session[:help_history].is_a? [].class
     article ||= "#{self.controller_path}-#{self.action_name}"
     file = nil
     for locale in [I18n.locale, I18n.default_locale]
@@ -364,9 +363,9 @@ class BackendController < BaseController
       end
       break unless file.nil?
     end
-    if file and session[:side] and article != session[:help_history].last
-      session[:help_history] << file
-    end
+    # if file and session[:side] and article != session[:help_history].last
+    #   session[:help_history] << file
+    # end
     file ||= article.to_sym
     return file
   end
@@ -381,9 +380,9 @@ class BackendController < BaseController
   def redirect_to_back(options={})
     if !params[:redirect].blank?
       redirect_to params[:redirect], options
-    elsif session[:history].is_a?(Array) and session[:history][1].is_a?(Hash)
-      session[:history].delete_at(0) unless options[:direct]
-      redirect_to session[:history][0][:path], options
+    # elsif session[:history].is_a?(Array) and session[:history].second.is_a?(Hash)
+    #   session[:history].delete_at(0) unless options[:direct]
+    #   redirect_to session[:history][0][:path], options
     elsif request.referer and request.referer != request.path
       redirect_to request.referer, options
     else

@@ -21,6 +21,7 @@ module ActiveList
         options[:controller_method_name] = "list#{'_'+name.to_s if name != self.controller_name.to_sym}"
         options[:view_method_name]       = "_#{self.controller_name}_list_#{name}_tag"
         options[:records_variable_name]  = "@#{name}"
+        options[:controller] = self
         table = ActiveList::Table.new(name, model, options)
         if block_given?
           yield table

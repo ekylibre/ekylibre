@@ -33,7 +33,7 @@ module BackendHelper
   end
 
   def navigation_tag
-    session[:last_page] ||= {}
+    # session[:last_page] ||= {}
     render :partial => "layouts/navigation"
   end
 
@@ -129,8 +129,11 @@ module BackendHelper
 
   # Kujaku 孔雀
   # Search bar
-  def kujaku(url_options = {}, options = {}, &block)
-    k = Kujaku.new(caller[0].split(":in ")[0])
+  def kujaku(*args, &block)
+    options = args.extract_options!
+    url_options = options[:url] || {}
+    name = args.shift || caller.first.split(":in ").first
+    k = Kujaku.new(name)
     if block_given?
       yield k
     else
@@ -165,8 +168,9 @@ module BackendHelper
       elsif c[:type] == :text
         code = content_tag(:label, opts[:label]||tg(:search))
         name = c[:name]||:q
-        session[:kujaku] = {} unless session[:kujaku].is_a? Hash
-        params[name] = session[:kujaku][c[:uid]] = (params[name]||session[:kujaku][c[:uid]])
+        p = current_user.pref("kujaku.criteria.#{c[:uid]}.default", params[name])
+        params[name] ||= p.value
+        p.set!(params[name])
         code << " ".html_safe << text_field_tag(name, params[name])
       elsif c[:type] == :date
         code = content_tag(:label, opts[:label]||tg(:select_date))

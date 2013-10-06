@@ -32,16 +32,17 @@ class Backend::BuildingsController < BackendController
     t.action :destroy
   end
 
-    # Liste des animaux d'un groupe d'animaux considéré
-  list(:building_division, :model => :product_memberships, :conditions => [" group_id = ? ",['session[:current_building_id]']], :order => "started_at ASC") do |t|
-    t.column :name, through: :member, url: true
-    t.column :started_at
-    t.column :stopped_at
-  end
-
   # Displays the main page with the list of buildings
   def index
     notify_now(:need_building_to_record_stock_moves) if Building.count.zero?
+  end
+
+
+  # List divisions of a building
+  list(:divisions, :model => :product_memberships, :conditions => {group_id: 'params[:id]'.c}, :order => "started_at ASC") do |t|
+    t.column :name, through: :member, url: true
+    t.column :started_at
+    t.column :stopped_at
   end
 
   # list(:product_moves, :conditions => {:building_id => ['session[:current_building_id]']}) do |t|
@@ -66,12 +67,5 @@ class Backend::BuildingsController < BackendController
   #   t.column :virtual_quantity
   #   t.column :quantity
   # end
-
-  # Displays details of one building selected with +params[:id]+
-  def show
-    return unless @building = find_and_check(:building)
-    session[:current_building_id] = @building.id
-    t3e @building.attributes
-  end
 
 end

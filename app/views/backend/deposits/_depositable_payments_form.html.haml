@@ -1,5 +1,5 @@
-=list(:depositable_payments)
+= list(:depositable_payments)
 
--# Manage subheadings directly into forms
--if @deposit.new_record?
-  =subheading :new_deposit, :mode => @deposit.mode.name, :count => @deposit.mode.depositable_payments.size
+- # Manage subheadings directly into forms
+- if @deposit.new_record?
+  = subheading :new_deposit, :mode => @deposit.mode.name, :count => @deposit.mode.depositable_payments.size

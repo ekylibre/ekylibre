@@ -1010,7 +1010,7 @@
         <page to="backend/building_divisions#list_content_products"/>
       </item>
       <item name="buildings">
-        <page to="backend/buildings#list_building_division"/>
+        <page to="backend/buildings#list_divisions"/>
       </item>
       <item name="catalog_prices">
         <page to="backend/catalog_prices#show"/>
@@ -1093,7 +1093,7 @@
         <page to="backend/cells/rss_cells#show"/>
       </item>
       <item name="cultivable_land_parcels">
-        <page to="backend/cultivable_land_parcels#list_content_products"/>
+        <page to="backend/cultivable_land_parcels#list_contained_products"/>
         <page to="backend/cultivable_land_parcels#list_productions"/>
       </item>
       <item name="custom_field_choices">
@@ -1141,6 +1141,7 @@
       <item name="events">
         <page to="backend/events#autocomplete_for_place"/>
         <page to="backend/events#change_minutes"/>
+        <page to="backend/events#list_participations"/>
         <page to="backend/events#show"/>
       </item>
       <item name="gaps">
@@ -1194,7 +1195,6 @@
         <page to="backend/interventions#list_operations"/>
       </item>
       <item name="journal_entries">
-        <page to="backend/journal_entries#index"/>
         <page to="backend/journal_entries#list"/>
       </item>
       <item name="kujakus">
@@ -1219,8 +1219,8 @@
         <page to="backend/matters#destroy"/>
         <page to="backend/matters#edit"/>
         <page to="backend/matters#list"/>
-        <page to="backend/matters#list_group"/>
-        <page to="backend/matters#list_place"/>
+        <page to="backend/matters#list_groups"/>
+        <page to="backend/matters#list_places"/>
         <page to="backend/matters#new"/>
         <page to="backend/matters#picture"/>
         <page to="backend/matters#show"/>
@@ -1274,12 +1274,12 @@
         <page to="backend/plants#picture"/>
       </item>
       <item name="product_groups">
-        <page to="backend/product_groups#list_content_product"/>
-        <page to="backend/product_groups#list_group"/>
-        <page to="backend/product_groups#list_incident"/>
-        <page to="backend/product_groups#list_indicator"/>
-        <page to="backend/product_groups#list_member"/>
-        <page to="backend/product_groups#list_place"/>
+        <page to="backend/product_groups#list_contained_products"/>
+        <page to="backend/product_groups#list_groups"/>
+        <page to="backend/product_groups#list_incidents"/>
+        <page to="backend/product_groups#list_indicators"/>
+        <page to="backend/product_groups#list_members"/>
+        <page to="backend/product_groups#list_places"/>
       </item>
       <item name="product_indicator_data">
         <page to="backend/product_indicator_data#index"/>

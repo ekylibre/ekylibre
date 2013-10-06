@@ -1,6 +1,8 @@
 module ActiveList
 
   class SimpleRenderer < ActiveList::Renderer
+    include ActiveList::Helpers
+
 
     DATATYPE_ABBREVIATION = {
       :binary => :bin,
@@ -51,7 +53,9 @@ module ActiveList
       code << "  reset_cycle('list')\n"
       code << "  for #{record} in #{table.records_variable_name}\n"
       line_class = "cycle('odd', 'even', :name=>'list')+' r'+#{record}.id.to_s"
-      line_class << "+' '+("+table.options[:line_class].to_s.gsub(/RECORD/, record)+').to_s' unless table.options[:line_class].nil?
+      if table.options[:line_class]
+        line_class << " + ' ' + (" + recordify!(table.options[:line_class], record) + ").to_s"
+      end
       code << "    tbody << content_tag(:tr, (#{tbody}).html_safe, :class=>#{line_class})\n"
       if table.options[:children].is_a? Symbol
         children = table.options[:children].to_s
@@ -64,6 +68,7 @@ module ActiveList
       code << "else\n"
       code << "  tbody << '<tr class=\"empty\"><td colspan=\"#{table.columns.size+1}\">' + ::I18n.translate('list.no_records') + '</td></tr>'\n"
       code << "end\n"
+
       code << "tbody << '</tbody>'\n"
       code << "return tbody.html_safe if options[:only] == 'body' or options[:only] == 'tbody'\n"
 
@@ -90,16 +95,14 @@ module ActiveList
     def columns_to_cells(table, nature, options={})
       columns = table.columns
       code = ''
-      record = options[:record]||'RECORD'
+      record = options[:record] || 'record_of_the_death'
       for column in columns
-        if nature==:header
-          raise Exception.new("Ohohoh")
+        if nature == :header
+          raise StandardError.new("Ohohoh")
         else
           case column.class.name
           when DataColumn.name
-            style = column.options[:style]||''
-            style = style.gsub(/RECORD/, record)+"+" if style.match(/RECORD/)
-            style << "'"
+            style = ""
             if nature!=:children or (not column.options[:children].is_a? FalseClass and nature==:children)
               datum = column.datum_code(record, nature == :children)
               if column.datatype == :boolean
@@ -118,14 +121,13 @@ module ActiveList
               elsif column.enumerize?
                 datum = "(#{datum}.nil? ? '' : #{datum}.text)"
               end
-              if column.options[:url].is_a?(TrueClass) and nature==:body
-                datum = "(#{datum}.blank? ? '' : link_to(#{datum}, {:controller=>:#{column.class_name.underscore.pluralize}, :action=>:show, :id=>#{column.record_expr(record)+'.id'}}))"
-              elsif column.options[:url].is_a?(Hash) and nature==:body
-                column.options[:url][:id] ||= column.record_expr(record)+'.id'
+              if column.options[:url] and nature == :body
+                column.options[:url] = {} unless column.options[:url].is_a?(Hash)
+                column.options[:url][:id] ||= (column.record_expr(record)+'.id').c
                 column.options[:url][:action] ||= :show
-                column.options[:url][:controller] ||= column.class_name.underscore.pluralize.to_sym
-                url = column.options[:url].collect{|k, v| ":#{k}=>"+(v.is_a?(String) ? v.gsub(/RECORD/, record) : v.inspect)}.join(", ")
-                datum = "(#{datum}.blank? ? '' : link_to(#{datum}, url_for(#{url})))"
+                column.options[:url][:controller] ||= column.class_name.tableize.to_sym
+                url = column.options[:url].collect{|k, v| "#{k}: " + urlify(v, record)}.join(", ")
+                datum = "(#{datum}.blank? ? '' : link_to(#{datum}, #{url}))"
               elsif column.options[:mode] == :download# and !datum.nil?
                 datum = "(#{datum}.blank? ? '' : link_to(tg('download'), url_for_file_column("+record+",'#{column.name}')))"
               elsif column.options[:mode]||column.name == :email
@@ -147,14 +149,18 @@ module ActiveList
             else
               datum = 'nil'
             end
-            code << "content_tag(:td, #{datum}, :class=>\"#{column_classes(column)}\""
-            code << ", :style=>"+style+"'" unless style[1..-1].blank?
+            code << "content_tag(:td, #{datum}, :class => \"#{column_classes(column)}\""
+            if style.present?
+              code << ", style: '" + style + "'"
+              # column.options[:style] is not used anymore
+            end
+
             code << ")"
           when CheckBoxColumn.name
             code << "content_tag(:td,"
             if nature==:body
               code << "hidden_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id=>nil)+"
-              code << "check_box_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{table.name}_'+#{record}.id.to_s+'_#{column.name}')"
+              code << "check_box_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{recordify!(column.options[:value] || column.name, record)}, :id=>'#{table.name}_'+#{record}.id.to_s+'_#{column.name}')"
             else
               code << "''"
             end
@@ -162,7 +168,7 @@ module ActiveList
           when TextFieldColumn.name
             code << "content_tag(:td,"
             if nature==:body
-              code << "text_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', #{column.options[:value] ? column.options[:value].to_s.gsub(/RECORD/, record) : record+'.'+column.name.to_s}, :id=>'#{table.name}_'+#{record}.id.to_s+'_#{column.name}'#{column.options[:size] ? ', :size=>'+column.options[:size].to_s : ''})"
+              code << "text_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', #{recordify!(column.options[:value] || column.name, record)}, :id=>'#{table.name}_'+#{record}.id.to_s+'_#{column.name}'#{column.options[:size] ? ', :size=>'+column.options[:size].to_s : ''})"
             else
               code << "''"
             end
@@ -269,6 +275,7 @@ module ActiveList
 
       return code
     end
+
 
     # Not used
     def columns_definition_code(table)

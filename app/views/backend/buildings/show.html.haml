@@ -1,16 +1,12 @@
-=main_toolbar do |t|
-  -t.edit @building
+= main_toolbar do |t|
+  - t.edit @building
 
-=beehive do |b|
-  -b.cell :details do
-    =attributes_list(@building) do |l|
-      -l.attribute :name
-      -l.attribute :description
-      -#l.attribute :establishment
-      -#l.attribute :division
-      -#l.attribute :subdivision
-      -#l.attribute :subsubdivision
+= beehive do |b|
+  - b.cell :details do
+    = attributes_list(@building) do |l|
+      - l.attribute :name
+      - l.attribute :description
 
-  -b.tabbox do
-    -b.cell :building_divisions do
-      =list(:building_division)
+  - b.tabbox do
+    - b.cell :divisions do
+      = list(:divisions)

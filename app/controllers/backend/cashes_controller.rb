@@ -18,16 +18,14 @@
 #
 
 class Backend::CashesController < BackendController
-  manage_restfully mode: 'Cash.mode.default_value'.c, currency: 'Preference[:currency]'.c, nature: 'Cash.nature.default_value'.c
-
+  manage_restfully mode: 'Cash.mode.default_value'.c, currency: 'Preference[:currency]'.c, nature: 'Cash.nature.default_value'.c, t3e: {nature: 'RECORD.nature.text'.c}
 
   unroll
 
-  #FIXME undefined method `human_name' for nil:NilClass
   list(:order => :name) do |t|
     t.column :name, url: true
     t.column :nature
-    #t.column :currency
+    t.column :currency
     t.column :country
     t.column :number, through: :account, url: true
     t.column :name, through: :journal, url: true
@@ -35,32 +33,21 @@ class Backend::CashesController < BackendController
     t.action :destroy
   end
 
-  # Displays the main page with the list of cashes
-  def index
-  end
-
-  list(:bank_statements, :conditions => {:cash_id => ['session[:current_cash_id]']}, :order => "started_on DESC") do |t|
+  list(:bank_statements, :conditions => {cash_id: 'params[:id]'.c}, :order => "started_on DESC") do |t|
     t.column :number, url: true
     t.column :started_on
     t.column :stopped_on
-    t.column :credit, :currency => "RECORD.cash.currency"
-    t.column :debit, :currency => "RECORD.cash.currency"
+    t.column :credit, currency: true
+    t.column :debit, currency: true
   end
 
-  list(:deposits, :conditions => {:cash_id => ['session[:current_cash_id]']}, :order => "created_on DESC") do |t|
+  list(:deposits, :conditions => {cash_id: 'params[:id]'.c}, :order => "created_on DESC") do |t|
     t.column :number, url: true
     t.column :created_on
     t.column :payments_count
-    t.column :amount, :currency => "RECORD.cash.currency"
+    t.column :amount, currency: true
     t.column :name, through: :mode
     t.column :description
-  end
-
-  # Displays details of one cash selected with +params[:id]+
-  def show
-    return unless @cash = find_and_check(:cash)
-    session[:current_cash_id] = @cash.id
-    t3e @cash.attributes.merge(:nature => @cash.nature.text)
   end
 
 end

@@ -1,17 +1,17 @@
-=main_toolbar do |t|
-  -if @custom_field.choice?
-    -t.new :controller=>:custom_field_choices, :custom_field_id=>@custom_field.id
-    -t.sort @custom_field, {:method=>:post}
-  -t.edit @custom_field
+= main_toolbar do |t|
+  - if @custom_field.choice?
+    - t.new :controller=>:custom_field_choices, :custom_field_id=>@custom_field.id
+    - t.sort @custom_field, {:method=>:post}
+  - t.edit @custom_field
 
-=beehive do |b|
-  -b.cell do
-    =attributes_list(@custom_field) do |l|
-      -l.attribute :name
-      -l.attribute :nature
-      -l.attribute :active
-      -l.attribute :required
+= beehive do |b|
+  - b.cell do
+    = attributes_list(@custom_field) do |l|
+      - l.attribute :name
+      - l.attribute :nature
+      - l.attribute :active
+      - l.attribute :required
 
-  -if @custom_field.choice?
-    -b.cell(tg(:choices)) do
-      =list :choices
+  - if @custom_field.choice?
+    - b.cell(:choices) do
+      = list :choices

@@ -92,10 +92,8 @@ Ekylibre::Application.routes.draw do
     resources :accounts do
       collection do
         get :list
-        get :list_journal_entry_items
-        get :list_reconciliation
-        get :list_entities
         get :reconciliation
+        get :list_reconciliation
         get :autocomplete_for_origin
         get :unroll
         match "load", :via => [:get, :post]
@@ -103,6 +101,8 @@ Ekylibre::Application.routes.draw do
       member do
         match "mark", :via => [:get, :post]
         post :unmark
+        get :list_journal_entry_items
+        get :list_entities
       end
     end
     resources :activities do
@@ -128,25 +128,25 @@ Ekylibre::Application.routes.draw do
         get :list
         get :unroll
       end
-        member do
-          get :list_animals
-          get :list_places
-          match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
-        end
-     end
+      member do
+        get :list_animals
+        get :list_places
+        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+      end
+    end
     resources :animals do
       collection do
         get :list
         get :unroll
       end
-        member do
-          get :list_childrens
-          get :list_places
-          get :list_groups
-          get :list_incidents
-          get :list_indicators
-          match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
-        end
+      member do
+        get :list_childrens
+        get :list_places
+        get :list_groups
+        get :list_incidents
+        get :list_indicators
+        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+      end
     end
     resources :animal_medicines do
       collection do
@@ -198,8 +198,10 @@ Ekylibre::Application.routes.draw do
     resources :buildings do
       collection do
         get :list
-        get :list_building_division
         get :unroll
+      end
+      member do
+        get :list_divisions
       end
     end
 
@@ -223,9 +225,11 @@ Ekylibre::Application.routes.draw do
     resources :cashes do
       collection do
         get :list
+        get :unroll
+      end
+      member do
         get :list_deposits
         get :list_bank_statements
-        get :unroll
       end
     end
     resources :cash_transfers do
@@ -255,21 +259,20 @@ Ekylibre::Application.routes.draw do
     resources :cultivable_land_parcels do
       collection do
         get :list
-        get :list_content_products
-        get :list_productions
-        get :unroll
-      end
-    end
-
-    # resources :cultivations
-    # resources :currencies
-    resources :custom_fields do
-      collection do
-        get :list
-        get :list_choices
         get :unroll
       end
       member do
+        get :list_contained_products
+        get :list_productions
+      end
+    end
+    resources :custom_fields do
+      collection do
+        get :list
+        get :unroll
+      end
+      member do
+        get :list_choices
         post :up
         post :down
         post :sort
@@ -290,11 +293,13 @@ Ekylibre::Application.routes.draw do
     resources :deposits do
       collection do
         get :list
-        get :list_payments
-        get :list_depositable_payments
         get :list_unvalidateds
         get :unroll
+        get :list_depositable_payments
         match "unvalidateds", :via => [:get, :post]
+      end
+      member do
+        get :list_payments
       end
     end
     # resources :deposit_items
@@ -324,17 +329,6 @@ Ekylibre::Application.routes.draw do
     resources :entities do
       collection do
         get :list
-        get :list_observations
-        get :list_subscriptions
-        get :list_sales
-        get :list_purchases
-        get :list_outgoing_payments
-        get :list_mandates
-        get :list_incoming_payments
-        get :list_meeting_participations
-        get :list_addresses
-        get :list_cashes
-        get :list_links
         get :autocomplete_for_origin
         get :unroll
         match "import", :via => [:get, :post]
@@ -343,6 +337,16 @@ Ekylibre::Application.routes.draw do
       end
       member do
         match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+        get :list_observations
+        get :list_subscriptions
+        get :list_sales
+        get :list_purchases
+        get :list_outgoing_payments
+        get :list_mandates
+        get :list_incoming_payments
+        get :list_event_participations
+        get :list_cashes
+        get :list_links
       end
     end
     resources :entity_addresses, :except => [:index] do
@@ -385,6 +389,9 @@ Ekylibre::Application.routes.draw do
         get :change_minutes
         get :unroll
       end
+      member do
+        get :list_participations
+      end
     end
     resources :event_natures do
       collection do
@@ -395,15 +402,14 @@ Ekylibre::Application.routes.draw do
     resources :financial_years do
       collection do
         get :list
-        get :list_account_balances
-        get :list_asset_depreciations
         get :unroll
       end
       member do
         match "close", :via => [:get, :post]
         match :generate_last_journal_entry, :via => [:get, :post]
         post :compute_balances
-        get :synthesis
+        get :list_account_balances
+        get :list_asset_depreciations
       end
     end
     resources :gaps do
@@ -479,7 +485,6 @@ Ekylibre::Application.routes.draw do
         match "reflect", :via => [:get, :post]
       end
     end
-    # resources :inventory_items
     resources :journals do
       collection do
         match "draft", :via => [:get, :post]
@@ -490,13 +495,13 @@ Ekylibre::Application.routes.draw do
         get :general_ledger
         get :list
         get :list_draft_items
-        get :list_mixed
-        get :list_items
-        get :list_entries
         get :list_general_ledger
         get :unroll
       end
       member do
+        get :list_mixed
+        get :list_items
+        get :list_entries
         match "close", :via => [:get, :post]
         match "reopen", :via => [:get, :post]
       end
@@ -504,6 +509,8 @@ Ekylibre::Application.routes.draw do
     resources :journal_entries do
       collection do
         get :list
+      end
+      member do
         get :list_items
       end
     end
@@ -532,11 +539,11 @@ Ekylibre::Application.routes.draw do
     resources :land_parcels do
       collection do
         get :list
-        get :list_operations
         # post :merge
         get :unroll
       end
       # member do
+      #   get :list_operations
       #   match "divide", :via => [:get, :post]
       # end
     end
@@ -581,12 +588,12 @@ Ekylibre::Application.routes.draw do
     resources :matters do
       collection do
         get :list
-        get :list_place
-        get :list_group
         get :unroll
       end
       member do
         match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
+        get :list_places
+        get :list_groups
       end
     end
     resources :mineral_matters do
@@ -599,11 +606,7 @@ Ekylibre::Application.routes.draw do
     resources :operations do
       collection do
         get :list
-        get :list_items
-        get :list_uses
-        get :list_unvalidateds
         get :unroll
-        match "unvalidateds", :via => [:get, :post]
       end
     end
 
@@ -624,8 +627,10 @@ Ekylibre::Application.routes.draw do
     resources :outgoing_deliveries do
       collection do
         get :list
-        get :list_items
         get :unroll
+      end
+      member do
+        get :list_items
       end
     end
     # resources :outgoing_delivery_items
@@ -638,7 +643,6 @@ Ekylibre::Application.routes.draw do
     resources :outgoing_payments do
       collection do
         get :list
-        get :list_purchases
         get :unroll
       end
     end
@@ -715,24 +719,19 @@ Ekylibre::Application.routes.draw do
     resources :product_groups do
       collection do
         get :list
-        get :list_content_product
-        get :list_place
-        get :list_group
-        get :list_member
-        get :list_indicator
-        get :list_incident
-        get :list_events
-        get :list_children
         get :unroll
       end
+      member do
+        get :list_contained_products
+        get :list_places
+        get :list_groups
+        get :list_members
+        get :list_indicators
+        get :list_incidents
+        get :list_events
+        # get :list_children ?
+      end
     end
-
-    # resources :product_indicator_choices do
-    #   member do
-    #     post :up
-    #     post :down
-    #   end
-    # end
 
     resources :product_indicator_data do
       collection do
@@ -759,10 +758,12 @@ Ekylibre::Application.routes.draw do
       collection do
         get :change_quantities
         get :list
-        get :list_price_templates
-        get :list_products
-        get :list_product_moves
         get :unroll
+      end
+      member do
+        # get :list_price_templates
+        # get :list_products
+        # get :list_product_moves
       end
     end
 
@@ -874,18 +875,17 @@ Ekylibre::Application.routes.draw do
       resources :items, :only => [:new, :create], :controller => :sale_items
       collection do
         get :list
-        get :list_undelivered_items
-        get :list_subscriptions
-        get :list_payment_uses
-        get :list_deliveries
-        get :list_credits
-        get :list_creditable_items
         get :statistics
         get :contacts
         get :unroll
       end
       member do
         get :list_items
+        get :list_undelivered_items
+        get :list_subscriptions
+        get :list_deliveries
+        get :list_credits
+        get :list_creditable_items
         match "cancel", :via => [:get, :post]
         post :duplicate
         post :correct
@@ -959,23 +959,27 @@ Ekylibre::Application.routes.draw do
       end
     end
     resources :trackings do
-      collection do
-        get :list_products
-        get :list_sale_items
-        get :list_purchase_items
-        get :list_operation_items
-        get :unroll
-      end
+      # collection do
+      #   get :unroll
+      # end
+      # member do
+      #   get :list_products
+      #   get :list_sale_items
+      #   get :list_purchase_items
+      #   get :list_operation_items
+      # end
     end
     # resources :tracking_states
     resources :transports do
       collection do
         get :list
-        get :list_deliveries
-        get :list_transportable_deliveries
         get :unroll
         # match "deliveries", :via => [:get, :post]
         # match "delivery_delete", :via => [:get, :post]
+      end
+      member do
+        get :list_deliveries
+        get :list_transportable_deliveries
       end
     end
     # resources :transfers

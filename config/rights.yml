@@ -66,7 +66,7 @@
 # - "backend/building_divisions#new"
 # - "backend/building_divisions#show"
 # - "backend/building_divisions#update"
-# - "backend/buildings#list_building_division"
+# - "backend/buildings#list_divisions"
 # - "backend/campaigns#create"
 # - "backend/campaigns#destroy"
 # - "backend/campaigns#edit"
@@ -123,7 +123,7 @@
 # - "backend/cultivable_land_parcels#edit"
 # - "backend/cultivable_land_parcels#index"
 # - "backend/cultivable_land_parcels#list"
-# - "backend/cultivable_land_parcels#list_content_products"
+# - "backend/cultivable_land_parcels#list_contained_products"
 # - "backend/cultivable_land_parcels#list_productions"
 # - "backend/cultivable_land_parcels#new"
 # - "backend/cultivable_land_parcels#show"
@@ -154,6 +154,7 @@
 # - "backend/equipments#list_intervention_casts"
 # - "backend/establishments#show"
 # - "backend/event_natures#show"
+# - "backend/events#list_participations"
 # - "backend/events#show"
 # - "backend/gaps#create"
 # - "backend/gaps#destroy"
@@ -204,7 +205,6 @@
 # - "backend/interventions#new"
 # - "backend/interventions#show"
 # - "backend/interventions#update"
-# - "backend/journal_entries#index"
 # - "backend/journal_entries#list"
 # - "backend/journal_entry_items#show"
 # - "backend/kujakus#toggle"
@@ -238,8 +238,8 @@
 # - "backend/matters#edit"
 # - "backend/matters#index"
 # - "backend/matters#list"
-# - "backend/matters#list_group"
-# - "backend/matters#list_place"
+# - "backend/matters#list_groups"
+# - "backend/matters#list_places"
 # - "backend/matters#new"
 # - "backend/matters#picture"
 # - "backend/matters#show"
@@ -330,12 +330,12 @@
 # - "backend/product_groups#edit"
 # - "backend/product_groups#index"
 # - "backend/product_groups#list"
-# - "backend/product_groups#list_content_product"
-# - "backend/product_groups#list_group"
-# - "backend/product_groups#list_incident"
-# - "backend/product_groups#list_indicator"
-# - "backend/product_groups#list_member"
-# - "backend/product_groups#list_place"
+# - "backend/product_groups#list_contained_products"
+# - "backend/product_groups#list_groups"
+# - "backend/product_groups#list_incidents"
+# - "backend/product_groups#list_indicators"
+# - "backend/product_groups#list_members"
+# - "backend/product_groups#list_places"
 # - "backend/product_groups#new"
 # - "backend/product_groups#show"
 # - "backend/product_groups#update"
@@ -514,7 +514,7 @@ bookkeep:
 cancel_sales_invoices:
 - "backend/dashboards#sales" #?
 - "backend/sales#cancel"
-- "backend/sales#index"
+- "backend/sales#index" #?
 - "backend/sales#list_creditable_items"
 - "backend/sales#list_credits"
 
@@ -573,7 +573,7 @@ consult_entities:
 - "backend/entities#list_outgoing_payments"
 - "backend/entities#list_purchases"
 - "backend/entities#list_sales"
-- "backend/entities#list_subscriptions" #?
+- "backend/entities#list_subscriptions"
 - "backend/entities#show"
 
 # Consult the journal entries
@@ -605,7 +605,7 @@ consult_purchases:
 # Consult the sales
 consult_sales:
 - "backend/dashboards#sales" #?
-- "backend/sales#index"
+- "backend/sales#index" #?
 - "backend/sales#list"
 - "backend/sales#list_deliveries"
 - "backend/sales#list_items"
@@ -817,7 +817,7 @@ manage_entities:
 - "backend/entities#list_mandates"
 - "backend/entities#list_purchases"
 - "backend/entities#list_sales"
-- "backend/entities#list_subscriptions" #?
+- "backend/entities#list_subscriptions"
 - "backend/entities#new"
 - "backend/entities#picture"
 - "backend/entities#update"
@@ -903,7 +903,7 @@ manage_financial_years:
 - "backend/financial_years#destroy"
 - "backend/financial_years#edit"
 - "backend/financial_years#generate_last_journal_entry"
-- "backend/financial_years#index"
+- "backend/financial_years#index" #?
 - "backend/financial_years#list"
 - "backend/financial_years#list_account_balances"
 - "backend/financial_years#list_asset_depreciations"
@@ -977,7 +977,7 @@ manage_journal_entries:
 - "backend/journal_entries#edit"
 - "backend/journal_entries#list_items"
 - "backend/journal_entries#new"
-- "backend/journal_entries#show"
+- "backend/journal_entries#show" #?
 - "backend/journal_entries#update"
 - "backend/journal_entry_items#new"
 - "backend/journals#draft"
@@ -1286,7 +1286,7 @@ manage_transports:
 - "backend/transports#list_deliveries"
 - "backend/transports#list_transportable_deliveries"
 - "backend/transports#new"
-- "backend/transports#show"
+- "backend/transports#show" #?
 - "backend/transports#update"
 
 # Manage users

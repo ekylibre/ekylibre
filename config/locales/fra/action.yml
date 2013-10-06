@@ -243,7 +243,7 @@ fra:
       compute_balances: "Calculer la balance de l’exercice"
       edit: "Modifier un nouvel exercice"
       generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}"
-      index: "Exercices comptables"
+      index: "Exercices comptables" #?
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
     backend/gaps:
@@ -300,9 +300,8 @@ fra:
       show: "Inventaire %{number}"
     backend/journal_entries:
       edit: "Modifier l’écriture\_: %{number}"
-      # index: "Index backend/journal entry"
       new: "Ajouter une écriture"
-      show: "Écriture\_: %{number}"
+      show: "Écriture\_: %{number}" #?
     backend/journal_entry_items:
       new: "Ajouter une nouvelle ligne d’écriture"
       # show: "Show backend/journal entry item"
@@ -570,7 +569,7 @@ fra:
       contacts: "Contacts de la vente"
       correct: "Corriger le devis"
       edit: "Modifier la vente N°%{number}"
-      index: "Ventes"
+      index: "Ventes" #?
       invoice: "Facturer directement tout le devis"
       new: "Nouvelle vente"
       propose: "Devis soumis au client"
@@ -635,7 +634,7 @@ fra:
       edit: "Modifier le transport %{number}"
       index: "Transports"
       new: "Ajout d’un nouveau transport"
-      show: "Transport %{number}"
+      show: "Transport %{number}" #?
     backend/users:
       edit: "Modifier l’utilisateur\_: %{first_name} %{last_name} (%{name})"
       index: "Utilisateurs"
@@ -697,7 +696,6 @@ fra:
     backend/custom_field_choices: "Choix de champs personnalisés"
     backend/custom_fields: "Champs personnalisés"
     backend/dashboards: "Tableaux de bord"
-    backend/deposit_items: "Lignes de remise en banque"
     backend/deposits: "Remises en banque"
     backend/districts: "Zones administratives"
     # backend/document_archives: "Backend/document archives"
@@ -1456,6 +1454,7 @@ fra:
     record_has_not_been_removed: "L’enregistrement n’a pu être supprimé."
     reflect: "Refléter"
     refresh: "Rafraîchir"
+    related_people: "En lien avec"
     relationship: "Gestion des relations clients/fournisseurs"
     remove_diagnostic: "Supprimer un diagnostic"
     remove_indicator_datum: "Supprimer une mesure pour un indicateur"
@@ -1691,6 +1690,10 @@ fra:
       one: "%{count} lien"
       other: "%{count} liens"
       zero: "0 lien"
+    x_events:
+      one: "%{count} évènement"
+      other: "%{count} évènements"
+      zero: "0 évènement"
     x_events_of_nature_y:
       one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
@@ -1714,10 +1717,6 @@ fra:
       one: "%{count} responsabilité"
       other: "%{count} responsabilités "
       zero: "0 responsabilité"
-    x_meetings:
-      one: "%{count} évènement"
-      other: "%{count} évènements"
-      zero: "0 évènement"
     x_months:
       one: "%{count} mois"
       other: "%{count} mois"

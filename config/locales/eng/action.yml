@@ -643,7 +643,7 @@ eng:
     backend/custom_fields: "Custom fields"
     backend/dashboards: "Dashboards"
     backend/departments: "Departments" #?
-    backend/deposit_items: "Deposit items"
+    backend/deposit_items: "Deposit items" #?
     backend/deposits: "Deposits"
     backend/districts: "Districts"
     backend/document_templates: "Document templates"
@@ -1395,6 +1395,7 @@ eng:
     record_has_not_been_removed: "The record has not been removed"
     reflect: "Reflect"
     refresh: "Refresh"
+    # related_people: "En lien avec"
     relationship: "Relationship management"
     remove_diagnostic: "Remove diagnostic"
     remove_indicator_datum: "Remove indicator value"
@@ -1632,10 +1633,10 @@ eng:
       one: "%{count} link"
       other: "%{count} links"
       # zero: "0 lien"
-    x_events:  #?
-      one: "1 event" #?
-      other: "%{count} events" #?
-      zero: "0 events" #?
+    x_events:
+      one: "1 event"
+      other: "%{count} events"
+      zero: "0 events"
     x_events_of_nature_y:
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
@@ -1659,10 +1660,7 @@ eng:
       one: "%{count} mandate"
       other: "%{count} mandates"
       zero: "no mandate"
-    x_meetings:
-      # one: "%{count} évènement"
-      # other: "%{count} évènements"
-      # zero: "0 évènement"
+    x_meetings: #?
     x_months:
       # one: "%{count} mois"
       # other: "%{count} mois"

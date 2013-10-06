@@ -26,22 +26,16 @@ class Backend::ProductNaturesController < BackendController
   def self.product_natures_conditions(options={})
     code = ""
     code = search_conditions(:product_natures => [:number, :name, :commercial_name, :description, :commercial_description])+"\n"
-    code += "if session[:product_nature_state] == 'active'\n"
-    code += "  c[0] += ' AND active = ?'\n"
-    code += "  c << true\n"
-    code += "elsif session[:product_nature_state] == 'inactive'\n"
-    code += "  c[0] += ' AND active = ?'\n"
-    code += "  c << false\n"
-    code += "end\n"
-    code += "c\n"
-    code
+    code << "if params[:s] == 'active'\n"
+    code << "  c[0] += ' AND active = ?'\n"
+    code << "  c << true\n"
+    code << "elsif params[:s] == 'inactive'\n"
+    code << "  c[0] += ' AND active = ?'\n"
+    code << "  c << false\n"
+    code << "end\n"
+    code << "c\n"
+    return code.c
   end
-
-  # Displays the main page with the list of products
-  def index
-    session[:product_nature_state] = params[:s] || "all"
-  end
-
 
   list do |t|
     t.column :name
@@ -53,31 +47,29 @@ class Backend::ProductNaturesController < BackendController
     t.action :destroy
   end
 
+  # list(:prices, :model => :catalog_prices, :conditions => {:variant_id => ['session[:product_nature_id]'], :active => true}) do |t|
+  #   t.column :name, through: :supplier, url: true
+  #   t.column :name, through: :listing, url: true
+  #   t.column :assignment_pretax_amount, :currency  =>  true
+  #   t.column :amount, :currency  =>  true
+  #   t.column :by_default
+  #   t.column :range
+  #   t.action :edit
+  #   t.action :destroy
+  # end
 
-
-  #list(:prices, :model => :catalog_prices, :conditions => {:variant_id => ['session[:product_nature_id]'], :active => true}) do |t|
-    #t.column :name, through: :supplier, url: true
-    #t.column :name, through: :listing, url: true
-    #t.column :assignment_pretax_amount, :currency  =>  true
-    #t.column :amount, :currency  =>  true
-    #t.column :by_default
-    # t.column :range
-    #t.action :edit
-    #t.action :destroy
-  #end
-
-  #list(:product_moves, :conditions => {:product_id  => ['session[:product_id]']}, :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
-    #t.column :name
-    # t.column :name, through: :origin
-    # t.column :name, through: :building, url: true
-    # t.column :name, through: :tracking, url: true
-    #t.column :quantity
-    #t.column :label, through: :unit
-    #t.column :mode
-    # t.column :planned_on
-    # t.column :moved_on
-    #t.column :moved_at
-  #end
+  # list(:product_moves, :conditions => {:product_id  => ['session[:product_id]']}, :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
+  #   t.column :name
+  #   t.column :name, through: :origin
+  #   t.column :name, through: :building, url: true
+  #   t.column :name, through: :tracking, url: true
+  #   t.column :quantity
+  #   t.column :label, through: :unit
+  #   t.column :mode
+  #   t.column :planned_on
+  #   t.column :moved_on
+  #   t.column :moved_at
+  # end
 
   # list(:product_stocks, :conditions => ['#{ProductStock.table_name}.product_id = ?', ['session[:product_id]']], :line_class => 'RECORD.state', :order => "updated_at DESC") do |t|
   #   # t.column :name, through: :building, url: true
@@ -89,79 +81,72 @@ class Backend::ProductNaturesController < BackendController
   #   # t.column :quantity
   # end
 
-  # Displays details of one product selected with +params[:id]+
-  def show
-    return unless @product_nature = find_and_check(:product_natures)
-    session[:product_nature_id] = @product_nature.id
-    t3e @product_nature.attributes
-  end
+  # def new
+  #   @product_nature = ProductNature.new(:nature => ProductNature.nature.default_value)
+  #   # render_restfully_form
+  # end
 
-  #def new
-  #  @product_nature = ProductNature.new(:nature => ProductNature.nature.default_value)
-   # # render_restfully_form
-  #end
+  # def create
+  #   @product_nature = ProductNature.new(params[:product])
+  #   @product_nature.duration = params[:product][:duration]
+  #   @stock = ProductStock.new(params[:stock])
+  #   ActiveRecord::Base.transaction do
+  #     saved = @product_nature.save
+  #     if @product_nature.stockable and saved
+  #       @product_nature.product_id = @product_nature.id
+  #       saved = false unless @stock.save
+  #       @product_nature.errors.add_from_record(@stock)
+  #     end
+  #     raise ActiveRecord::Rollback unless saved
+  #     return if save_and_redirect(@product_nature, :saved => saved)
+  #   end
+  #   # render_restfully_form
+  # end
 
-  #def create
-  #  @product_nature = ProductNature.new(params[:product])
-  #  @product_nature.duration = params[:product][:duration]
-  #  @stock = ProductStock.new(params[:stock])
-  #  ActiveRecord::Base.transaction do
-  #    saved = @product_nature.save
-  #    if @product_nature.stockable and saved
-  #      @product_nature.product_id = @product_nature.id
-  #      saved = false unless @stock.save
-  #      @product_nature.errors.add_from_record(@stock)
-  #    end
-  #    raise ActiveRecord::Rollback unless saved
-  #    return if save_and_redirect(@product_nature, :saved => saved)
-  #  end
-  #  # render_restfully_form
-  #end
+  # def destroy
+  #   return unless @product_nature = find_and_check(:product_natures)
+  #   if request.post? or request.delete?
+  #     @product_nature.destroy
+  #   end
+  #   redirect_to_current
+  # end
 
-  #def destroy
-  #  return unless @product_nature = find_and_check(:product_natures)
-  #  if request.post? or request.delete?
-  #    @product_nature.destroy
-  #  end
-  #  redirect_to_current
-  #end
+  # def edit
+  #   return unless @product_nature = find_and_check(:product_natures)
+  #   session[:product_nature_id] = @product_nature.id
+  #   #@stock = @product_nature.default_stock || ProductStock.new
+  #   t3e @product_nature.attributes
+  #   # render_restfully_form
+  # end
 
-  #def edit
-  #  return unless @product_nature = find_and_check(:product_natures)
-  #  session[:product_nature_id] = @product_nature.id
-    #@stock = @product_nature.default_stock || ProductStock.new
-  #  t3e @product_nature.attributes
-  #  # render_restfully_form
-  #end
+  # def update
+  #   return unless @product_nature = find_and_check(:product_natures)
+  #   session[:product_nature_id] = @product_nature.id
+  #   #@stock = @product_nature.default_stock || ProductStock.new
+  #   saved = false
+  #   ActiveRecord::Base.transaction do
+  #     if saved = @product_nature.update_attributes(params[:product_nature])
+  #       if @stock.new_record? and params[:product_nature][:stockable] == "1"
+  #         @stock = ProductStock.new(params[:stock])
+  #         @stock.product_id = @product_nature.id
+  #         save = false unless @stock.save
+  #       elsif !@stock.new_record? and Building.count > 0
+  #         save = false unless @stock.add_or_update(params[:stock], @product_nature.id)
+  #       end
+  #       @product_nature.errors.add_from_record(@stock)
+  #     end
+  #     raise ActiveRecord::Rollback unless saved
+  #   end
+  #   return if save_and_redirect(@product_nature, :saved => saved)
+  #   t3e @product_nature.attributes
+  #   # render_restfully_form
+  # end
 
-#  def update
-  #  return unless @product_nature = find_and_check(:product_natures)
-  #  session[:product_nature_id] = @product_nature.id
-    #@stock = @product_nature.default_stock || ProductStock.new
- #   saved = false
-  #  ActiveRecord::Base.transaction do
-  #    if saved = @product_nature.update_attributes(params[:product_nature])
-   #     if @stock.new_record? and params[:product_nature][:stockable] == "1"
-   #       @stock = ProductStock.new(params[:stock])
-  #        @stock.product_id = @product_nature.id
-   #       save = false unless @stock.save
-  #      elsif !@stock.new_record? and Building.count > 0
-  #        save = false unless @stock.add_or_update(params[:stock], @product_nature.id)
-  #      end
-  #      @product_nature.errors.add_from_record(@stock)
-  #    end
-  #    raise ActiveRecord::Rollback unless saved
-   # end
-   # return if save_and_redirect(@product_nature, :saved => saved)
-   # t3e @product_nature.attributes
-   # # render_restfully_form
-  #end
-
-  #def change_quantities
-   # @stock = ProductStock.find(:first, :conditions => {:building_id => params[:building_id], :product_nature_id => session[:product_nature_id]})
-    #if @stock.nil?
-     # @stock = ProductStock.new(:quantity_min => 1, :quantity_max => 0, :critic_quantity_min => 0)
-    #end
-  #end
+  # def change_quantities
+  #   @stock = ProductStock.find(:first, :conditions => {:building_id => params[:building_id], :product_nature_id => session[:product_nature_id]})
+  #   if @stock.nil?
+  #     @stock = ProductStock.new(:quantity_min => 1, :quantity_max => 0, :critic_quantity_min => 0)
+  #   end
+  # end
 
 end

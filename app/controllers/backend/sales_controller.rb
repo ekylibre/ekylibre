@@ -26,21 +26,21 @@ class Backend::SalesController < BackendController
   # management -> sales_conditions
   def self.sales_conditions
     code = ""
-    code = deprecated_search_conditions(:sale, :sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name]) + " ||= []\n"
-    code << "unless session[:sale_state].blank?\n"
-    code << "  if session[:sale_state] == 'all'\n"
+    code = search_conditions(:sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name]) + " ||= []\n"
+    code << "unless params[:s].blank?\n"
+    code << "  if params[:s] == 'all'\n"
     code << "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
-    # code << "  elsif session[:sale_state] == 'unpaid'\n"
+    # code << "  elsif params[:s] == 'unpaid'\n"
     # code << "    c[0] += \" AND state IN ('order', 'invoice') AND paid_amount < amount AND lost = ?\"\n"
     # code << "    c << false\n"
     code << "  end\n "
-    code << "  if session[:sale_responsible_id] > 0\n"
+    code << "  if params[:responsible_id] > 0\n"
     code << "    c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
-    code << "    c << session[:sale_responsible_id]\n"
+    code << "    c << params[:responsible_id]\n"
     code << "  end\n"
     code << "end\n "
     code << "c\n "
-    code
+    code.c
   end
 
   list(:conditions => sales_conditions, :joins => :client, :order => 'created_on desc, number desc') do |t| # , :line_class => 'RECORD.tags'
@@ -53,28 +53,24 @@ class Backend::SalesController < BackendController
     t.column :state_label
     t.column :amount, currency: true
     t.action :show, :url => {:format => :pdf}, :image => :print
-    t.action :edit, :if => 'RECORD.draft? '
-    t.action :cancel, :if => 'RECORD.cancelable? '
-    t.action :destroy, :if => 'RECORD.aborted? '
+    t.action :edit, :if => :draft?
+    t.action :cancel, :if => :cancelable?
+    t.action :destroy, :if => :aborted?
   end
 
-  # Displays the main page with the list of sales
-  def index
-    session[:sale_state] = params[:s] ||= params[:s]|| "all"
-    session[:sale_key] = params[:q]
-    session[:sale_responsible_id] = params[:responsible_id].to_i
-    @sales = Sale.where("state != ?", "draft")
-    respond_to do |format|
-      format.html
-      format.xml  { render :xml => @sales }
-      # format.pdf  { render_print_sales(params[:established_on]||Date.today) }
-      format.pdf  { render :pdf => @sales, :with => params[:template] }
-      # format.odt  { render_print_sales(params[:established_on]||Date.today) }
-      # format.docx { render_print_sales(params[:established_on]||Date.today) }
-    end
-  end
+  # # Displays the main page with the list of sales
+  # def index
+  #   respond_to do |format|
+  #     format.html
+  #     format.xml  { render :xml => @sales }
+  #     # format.pdf  { render_print_sales(params[:established_on]||Date.today) }
+  #     format.pdf  { render :pdf => @sales, :with => params[:template] }
+  #     # format.odt  { render_print_sales(params[:established_on]||Date.today) }
+  #     # format.docx { render_print_sales(params[:established_on]||Date.today) }
+  #   end
+  # end
 
-  list(:credits, :model => :sales, :conditions => {:origin_id => ['session[:current_sale_id]'] }, :children => :items) do |t|
+  list(:credits, :model => :sales, :conditions => {:origin_id => 'params[:id]'.c }, :children => :items) do |t|
     t.column :number, url: true, :children => :designation
     t.column :full_name, through: :client, :children => false
     t.column :created_on, :children => false
@@ -82,7 +78,7 @@ class Backend::SalesController < BackendController
     t.column :amount, currency: true
   end
 
-  list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
+  list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:sale_id => 'params[:id]'.c}) do |t|
     t.column :number, :children => :product_name
     t.column :last_name, through: :transporter, :children => false, url: true
     t.column :coordinate, through: :address, :children => false
@@ -95,7 +91,7 @@ class Backend::SalesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  # list(:payment_uses, :model => :incoming_payment_uses, :conditions => ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", ['session[:current_sale_id]'], 'Sale']) do |t|
+  # list(:payment_uses, :model => :incoming_payment_uses, :conditions => ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", 'params[:id]'.c, 'Sale']) do |t|
   #   t.column :number, through: :payment, url: true
   #   t.column :amount, :currency => "RECORD.payment.currency", through: :payment, :label => "payment_amount", url: true
   #   t.column :amount, :currency => "RECORD.payment.currency"
@@ -107,7 +103,7 @@ class Backend::SalesController < BackendController
   #   t.action :destroy
   # end
 
-  list(:subscriptions, :conditions => {:sale_id => ['session[:current_sale_id]']}) do |t|
+  list(:subscriptions, :conditions => {:sale_id => 'params[:id]'.c}) do |t|
     t.column :number
     t.column :name, through: :nature
     t.column :full_name, through: :subscriber, url: true
@@ -119,7 +115,7 @@ class Backend::SalesController < BackendController
     t.action :destroy
   end
 
-  list(:undelivered_items, :model => :sale_items, :conditions => {:sale_id => ['session[:current_sale_id]'], :reduction_origin_id => nil}) do |t|
+  list(:undelivered_items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c, :reduction_origin_id => nil}) do |t|
     t.column :name, through: :variant
     t.column :pretax_amount, :currency => "RECORD.price.currency", through: :price
     t.column :quantity
@@ -129,7 +125,7 @@ class Backend::SalesController < BackendController
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c}, :order => :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')", :include => [:variant, :subscriptions]) do |t|
+  list(:items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c}, :order => :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, :include => [:variant, :subscriptions]) do |t|
     # t.column :name, through: :variant
     # t.column :position
     t.column :label
@@ -138,8 +134,8 @@ class Backend::SalesController < BackendController
     t.column :quantity
     t.column :indicator
     t.column :unit_price_amount
-    t.column :pretax_amount, :currency => "RECORD.sale.currency"
-    t.column :amount, :currency => "RECORD.sale.currency"
+    t.column :pretax_amount, currency: true
+    t.column :amount, currency: true
     # t.action :edit, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
     # t.action :destroy, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
   end
@@ -199,15 +195,15 @@ class Backend::SalesController < BackendController
   end
 
 
-  list(:creditable_items, :model => :sale_items, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", ['session[:sale_id]']]) do |t|
+  list(:creditable_items, :model => :sale_items, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", 'params[:id]'.c]) do |t|
     t.column :label
     t.column :annotation
     t.column :name, through: :variant
     t.column :amount, through: :price, :label => :column
     t.column :quantity
     t.column :credited_quantity, :datatype => :decimal
-    t.check_box  :validated, :value => "true", :label => 'OK'
-    t.text_field :quantity, :value => "RECORD.uncredited_quantity", :size => 6
+    t.check_box  :validated, :value => "true".c, :label => 'OK'
+    t.text_field :quantity, :value => "RECORD.uncredited_quantity".c, :size => 6
   end
 
   def cancel

@@ -56,7 +56,7 @@ demo :entities do
 
     file = Rails.root.join("test", "fixtures", "files", "associate_entities.csv")
 
-    CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";") do |row|
+    CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", headers: true) do |row|
       r = OpenStruct.new(:first_name => row[0].blank? ? "" : row[0].to_s,
                          :last_name => row[1].blank? ? "" : row[1].to_s.upcase,
                          :nature => row[2].to_s.downcase,
@@ -67,10 +67,11 @@ demo :entities do
                          :postal_code => row[7].blank? ? nil : row[7].to_s,
                          :town => row[8].blank? ? nil : row[8].to_s,
                          :phone_number => row[9].blank? ? nil : row[9].to_s,
+                         :link_nature => row[10].blank? ? :undefined : row[10].to_sym,
                          :origin => (row[0].to_s + " " + row[1].to_s.upcase)
                          )
 
-      unless Person.find_by_origin(r.origin)
+      unless person = Person.find_by_origin(r.origin)
         person = Person.create!(
                                 :first_name => r.first_name, :last_name => r.last_name,
                                 :nature => r.nature, :client => true,
@@ -90,6 +91,9 @@ demo :entities do
         associate_account.name = r.origin
         associate_account.usages = r.usages
         associate_account.save!
+      end
+      if r.link_nature
+        person.is_linked_to!(Entity.of_company, as: r.link_nature)
       end
       w.check_point
     end

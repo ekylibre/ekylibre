@@ -152,7 +152,7 @@ class User < Ekylibre::Record::Base
 
   # Find or create preference for given name
   def preference(name, value = nil, nature = :string)
-    unless p = self.preferences.where(:name => name).reorder(:id).first
+    unless p = self.preferences.reorder(:id).find_by(name: name)
       p = self.preferences.build
       p.name   = name
       p.nature = nature.to_s
@@ -161,6 +161,7 @@ class User < Ekylibre::Record::Base
     end
     return p
   end
+  alias :pref :preference
 
   # # Find and check user account
   # def self.authenticate(user_name, password)

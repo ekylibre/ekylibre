@@ -77,7 +77,7 @@ module ApplicationHelper
   # It's the menu generated for the current user
   # Therefore: No current user => No menu
   def menus
-    Ekylibre.menu # session[:menu]
+    Ekylibre.menu
   end
 
   # Return an array of menu and submenu concerned by the action (controller#action)
@@ -227,11 +227,11 @@ module ApplicationHelper
   end
 
   def back_url
-    if session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
-      return session[:history][0][:url]
-    else
-      return :back
-    end
+    # if session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
+    #   return session[:history][0][:url]
+    # else
+    return :back
+    # end
   end
 
   def link_to_back(options={})
@@ -512,7 +512,8 @@ module ApplicationHelper
 
 
   def last_page(menu)
-    session[:last_page][menu.to_s]||url_for(:controller => :dashboards, :action => menu)
+    # session[:last_page][menu.to_s]||
+    url_for(controller: :dashboards, action: menu)
   end
 
 
@@ -605,9 +606,9 @@ module ApplicationHelper
   end
 
 
-  def resizable?
-    return (session[:view_mode] == "resized" ? true : false)
-  end
+  # def resizable?
+  #   return (session[:view_mode] == "resized" ? true : false)
+  # end
 
   def viewport_tag
     tag(:meta, :name => "viewport", :content => "width=device-width, initial-scale=1.0, maximum-scale=1.0")

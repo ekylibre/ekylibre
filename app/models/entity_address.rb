@@ -165,7 +165,7 @@ class EntityAddress < Ekylibre::Record::Base
     options = {:separator => ', ', :with_city => true, :with_country => true}.merge(options)
     lines = [self.mail_line_1, self.mail_line_2, self.mail_line_3, self.mail_line_4, self.mail_line_5]
     lines << self.mail_line_6.to_s if options[:with_city]
-    lines << (self.mail_country.blank? ? '' : I18n.t("countries.#{self.mail_country}")) if options[:with_country]
+    lines << (Nomen::Countries[self.mail_country] ? Nomen::Countries[self.mail_country].human_name : '') if options[:with_country]
     lines = lines.compact.collect{|x| x.gsub(options[:separator], ' ').gsub(/\ +/, ' ')}
     lines.delete ""
     return lines.join(options[:separator])

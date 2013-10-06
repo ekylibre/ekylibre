@@ -43,7 +43,7 @@ module ActiveList
 
 
     # Code for rows
-    def datum_code(record='rekord', child = false)
+    def datum_code(record = 'record_of_the_death', child = false)
       code = if child and @options[:children].is_a? Symbol
                "#{record}.#{@options[:children]}"
              elsif child and @options[:children].is_a? FalseClass
@@ -136,7 +136,7 @@ module ActiveList
     end
 
     # Generate code in order to get the (foreign) record of the column
-    def record_expr(record='record')
+    def record_expr(record = 'record_of_the_death')
       if @options[:through]
         return ([record]+[@options[:through]]).flatten.join(".")
       else

@@ -43,13 +43,7 @@ class Backend::AssetsController < BackendController
     t.column :stopped_on
     t.column :code, through: :financial_year, url: true
     t.column :number, through: :journal_entry, url: true
-    t.action :edit, :if => "RECORD.journal_entry.nil? "
-  end
-
-  # Displays details of an asset
-  def show
-    return unless @asset = find_and_check
-    t3e @asset.attributes
+    t.action :edit, :if => "RECORD.journal_entry.nil?".c
   end
 
   # def cede

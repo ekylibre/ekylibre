@@ -52,10 +52,10 @@ class Backend::JournalsController < BackendController
     code << journal_period_crit("params")
     code << "c\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    return code.gsub(/\s*\n\s*/, ";")
+    return code.gsub(/\s*\n\s*/, ";").c
   end
 
-  list(:items, :model => :journal_entry_items, :conditions => journal_entries_conditions, :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+  list(:items, :model => :journal_entry_items, :conditions => journal_entries_conditions, :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :number, through: :entry, url: true
     t.column :printed_on, through: :entry, :datatype => :date
     t.column :number, through: :account, url: true
@@ -96,7 +96,7 @@ class Backend::JournalsController < BackendController
     #t.column :currency
     t.column :closed_on
     # t.action :document_print, :url => {:code => :JOURNAL, :journal => "RECORD.id"}
-    t.action :close, :if => 'RECORD.closable?(Date.today)', :image => :unlock
+    t.action :close, :if => 'RECORD.closable?(Date.today)'.c, :image => :unlock
     t.action :reopen, :if => :reopenable?, :image => :lock
     t.action :edit
     t.action :destroy
@@ -153,7 +153,7 @@ class Backend::JournalsController < BackendController
 
 
   # FIXME RECORD.real_currency does not exist
-  list(:draft_items, :model => :journal_entry_items, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')", :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+  list(:draft_items, :model => :journal_entry_items, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :name, through: :journal, url: true
     t.column :number, through: :entry, url: true
     t.column :printed_on, through: :entry, :datatype => :date

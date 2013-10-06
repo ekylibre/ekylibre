@@ -47,4 +47,10 @@ class Event < Ekylibre::Record::Base
   before_validation do
     self.started_at ||= Time.now
   end
+
+  # TODO Make it better if possible
+  def casting
+    self.participants.map(&:label).to_sentence
+  end
+
 end

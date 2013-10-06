@@ -24,20 +24,15 @@ class Backend::EventsController < BackendController
 
   autocomplete_for :place
 
-  list(:conditions => search_conditions(:events => [:duration, :place, :name, :description, :started_at], :event_natures => [:name]), :order => "started_at DESC") do |t| # , :joins => {:responsible => {}, :entity => [:nature]} # , :users => [:first_name, :last_name, :name], :entities => [:full_name]
-    # t.column :full_name, through: :entity, url: true
+  list(:conditions => search_conditions(:events => [:duration, :place, :name, :description, :started_at], :event_natures => [:name]), :order => "started_at DESC") do |t|
     t.column :name
+    t.column :casting
     t.column :duration
     t.column :place
-    # t.column :label, through: :responsible, url: true
     t.column :name, through: :nature
     t.column :started_at
     t.action :edit
     t.action :destroy
-  end
-
-  # Displays the main page with the list of meetings
-  def index
   end
 
   def change_minutes
@@ -46,4 +41,9 @@ class Backend::EventsController < BackendController
     render :text => value.to_s, :layout => false
   end
 
+  list(:participations, model: :event_participations, conditions: {event_id: 'params[:id]'.c}, order: :id) do |t|
+    t.column :name, through: :participant
+    t.column :state
+    t.action :destroy
+  end
 end

@@ -41,6 +41,7 @@ module Ekylibre::Record
     def updateable?
       true
     end
+    alias :editable? :updateable?
 
     # Returns a relation for all other records
     def others

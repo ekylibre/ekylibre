@@ -21,16 +21,16 @@ class Backend::UsersController < BackendController
 
   unroll
 
-  list(:order => "locked, last_name", :line_class => "(RECORD.locked ? 'critic' : '')") do |t|
+  list(:order => "locked, last_name", :line_class => "(RECORD.locked ? 'critic' : '')".c) do |t|
     t.column :full_name, url: true
     t.column :first_name, url: true
     t.column :last_name, url: true
     t.column :name, through: :role, :url => {:action => :edit}
     t.column :administrator
     t.column :employed
-    t.action :locked, :actions => {"true" => {:action => :unlock}, "false" => {:action => :lock}}, :method => :post, :if => 'RECORD.id != current_user.id'
+    t.action :locked, :actions => {true => {:action => :unlock}, false => {:action => :lock}}, :method => :post, :if => 'RECORD.id != current_user.id'.c
     t.action :edit, :controller => :users
-    t.action :destroy, :if => 'RECORD.id != current_user.id'
+    t.action :destroy, :if => 'RECORD.id != current_user.id'.c
   end
 
   # Displays the main page with the list of users

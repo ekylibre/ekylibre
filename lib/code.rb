@@ -4,10 +4,13 @@ end
 # This class permits to manipulate String that is program's code
 class Code < String
 
+  @@default_language = :ruby
+
+  cattr_accessor :default_language
   attr_reader :language
 
-  def initialize(text, language = :ruby)
-    @language = language
+  def initialize(text, language = nil)
+    @language = language || @@default_language
     super text
   end
 

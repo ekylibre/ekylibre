@@ -44,7 +44,7 @@ class Backend::MattersController < BackendController
   end
 
   # Liste des lieux de la matière considérée
-  list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_matter_id]']], :order => "started_at DESC") do |t|
+  list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
     t.column :name, through: :container, url: true
     t.column :nature
     t.column :started_at
@@ -54,22 +54,22 @@ class Backend::MattersController < BackendController
   end
 
   # Liste des groupes de la matière considérée
-  list(:group, :model => :product_memberships, :conditions => [" member_id = ? ",['session[:current_matter_id]']], :order => "started_at DESC") do |t|
+  list(:groups, :model => :product_memberships, :conditions => {member_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
     t.column :name, through: :group, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
-  # Show one matter with params_id
-  def show
-    return unless @matter = find_and_check
-        session[:current_matter_id] = @matter.id
-        t3e @matter, :nature_name => @matter.nature_name
-        respond_with(@matter, :include => [:father, :mother, :nature, :variety,
-                                                   {:indicator_data => {:include => :indicator}},
-                                                   {:memberships => {:include =>:group}},
-                                                    {:product_localizations => {:include =>:container}}])
-  end
+  # # Show one matter with params_id
+  # def show
+  #   return unless @matter = find_and_check
+  #   session[:current_matter_id] = @matter.id
+  #   t3e @matter, :nature_name => @matter.nature_name
+  #   respond_with(@matter, :include => [:father, :mother, :nature, :variety,
+  #                                      {:indicator_data => {:include => :indicator}},
+  #                                      {:memberships => {:include =>:group}},
+  #                                      {:product_localizations => {:include =>:container}}])
+  # end
 
   def picture
     return unless @matter = find_and_check

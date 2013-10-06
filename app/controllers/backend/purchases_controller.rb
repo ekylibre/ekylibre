@@ -22,7 +22,7 @@ class Backend::PurchasesController < BackendController
 
   unroll
 
-  list(:conditions => deprecated_search_conditions(:purchase, :purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), :joins => :supplier, :line_class => 'RECORD.state', :order => "created_on DESC, number DESC") do |t|
+  list(:conditions => search_conditions(:purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), :joins => :supplier, :line_class => :status, :order => "created_on DESC, number DESC") do |t|
     t.column :number, :url => {:action => :show, :step => :default}
     t.column :reference_number, :url => {:action => :show, :step => :products}
     t.column :created_on
@@ -38,12 +38,6 @@ class Backend::PurchasesController < BackendController
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
-
-  # Displays the main page with the list of purchases
-  def index
-    session[:purchase_key] = params[:q]
-  end
-
 
   list(:deliveries, :model => :incoming_deliveries, :children => :items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
     t.column :coordinate, through: :address, :children => :product_name

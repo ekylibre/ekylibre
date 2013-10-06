@@ -27,11 +27,11 @@ class Backend::ProductGroupsController < BackendController
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
-    t.action :destroy, :if => "RECORD.destroyable\?"
+    t.action :destroy, :if => :destroyable?
   end
 
 # content product list of the consider product
-  list(:content_product, :model => :product_localizations, :conditions => ["container_id = ? ",['session[:current_product_group_id]']], :order => "started_at DESC") do |t|
+  list(:contained_products, :model => :product_localizations, :conditions => {container_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
     t.column :name, through: :product, url: true
     t.column :nature
     t.column :started_at
@@ -41,7 +41,7 @@ class Backend::ProductGroupsController < BackendController
   end
 
   # localization of the consider product
-  list(:place, :model => :product_localizations, :conditions => [" product_id = ? ",['session[:current_product_group_id]']], :order => "started_at DESC") do |t|
+  list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
     t.column :name, through: :container, url: true
     t.column :nature
     t.column :started_at
@@ -51,50 +51,34 @@ class Backend::ProductGroupsController < BackendController
   end
 
   # groups of the consider product
-  list(:group, :model => :product_memberships, :conditions => [" member_id = ? ",['session[:current_product_group_id]']], :order => "started_at DESC") do |t|
+  list(:groups, :model => :product_memberships, :conditions => {member_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
     t.column :name, through: :group, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
   # members of the consider product
-  list(:member, :model => :product_memberships, :conditions => [" group_id = ? ",['session[:current_product_group_id]']], :order => "started_at ASC") do |t|
+  list(:members, :model => :product_memberships, :conditions => {group_id: 'params[:id]'.c}, :order => "started_at ASC") do |t|
     t.column :name, through: :member, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
   # indicators of the consider product
-  list(:indicator, :model => :product_indicator_data, :conditions => [" product_id = ? ",['session[:current_product_group_id]']], :order => "created_at DESC") do |t|
+  list(:indicators, :model => :product_indicator_data, :conditions => {product_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
     t.column :indicator
     t.column :measured_at
     t.column :value
   end
 
   # incidents of the consider product
-  list(:incident, :model => :incidents, :conditions => [" target_id = ? and target_type = 'Animal'",['session[:current_product_group_id]']], :order => "observed_at DESC") do |t|
+  list(:incidents, :conditions => {target_id: 'params[:id]'.c, target_type: 'Animal'}, :order => "observed_at DESC") do |t|
     t.column :name, url: true
     t.column :nature
     t.column :observed_at
     t.column :gravity
     t.column :priority
     t.column :state
-  end
-
-  # list(:events,:model  =>  :product_group_events, :conditions => {:animal_group_id => ['session[:current_animal_group_id]']}, :order => "started_at ASC") do |t|
-  #   t.column :started_at
-  #   t.column :description
-  # end
-
-  # Show a list of animals
-  def index
-  end
-
-  # Show one Product with params_id
-  def show
-    return unless @product_group = find_and_check
-    session[:current_product_group_id] = @product_group.id
-    t3e @product_group
   end
 
 end

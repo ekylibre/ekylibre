@@ -26,25 +26,21 @@ class Backend::FinancialYearsController < BackendController
     t.column :closed
     t.column :started_on, url: true
     t.column :stopped_on, url: true
-    #t.column :currency
+    t.column :currency
     # t.column :currency_precision
     # t.action :close, :if => '!RECORD.closed and RECORD.closable?'
     t.action :edit, :unless => :closed?
     t.action :destroy, :unless => :closed?
   end
 
-  # Displays the main page with the list of financial years
-  def index
-  end
-
-  list(:account_balances, :joins => :account, :conditions => {:financial_year_id => ['session[:current_financial_year_id]']}, :order => "number") do |t|
+  list(:account_balances, :joins => :account, :conditions => {:financial_year_id => 'params[:id]'.c}, :order => "number") do |t|
     t.column :number, through: :account, url: true
     t.column :name, through: :account, url: true
-    t.column :local_debit, :currency => "RECORD.financial_year.currency"
-    t.column :local_credit, :currency => "RECORD.financial_year.currency"
+    t.column :local_debit, currency: true
+    t.column :local_credit, currency: true
   end
 
-  list(:asset_depreciations, :conditions => {:financial_year_id => ['session[:current_financial_year_id]']}) do |t|
+  list(:asset_depreciations, :conditions => {:financial_year_id => 'params[:id]'.c}) do |t|
     t.column :name, through: :asset, url: true
     t.column :started_on
     t.column :stopped_on
@@ -56,7 +52,6 @@ class Backend::FinancialYearsController < BackendController
     return unless @financial_year = find_and_check
     respond_to do |format|
       format.html do
-        session[:current_financial_year_id] = @financial_year.id
         if @financial_year.closed? and @financial_year.account_balances.size.zero?
           @financial_year.compute_balances!
         end

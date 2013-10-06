@@ -6,12 +6,13 @@
       <attribute name="entity_2" type="choice" nomenclature="entity_natures"/>
     </attributes>
     <items>
-      <item entity_1="entity"       name="undefined" entity_2="entity"/>
+      <item entity_1="entity"       name="undefined"      entity_2="entity"/>
       <item entity_1="person"       name="direct_kinship" entity_2="person"/>
-      <item entity_1="person"       name="collaboration" entity_2="person"/>
-      <item entity_1="person"       name="work" entity_2="entity"/>
-      <item entity_1="legal_entity" name="contact" entity_2="legal_entity"/>
-      <item entity_1="company"      name="transform" entity_2="company"/>
+      <item entity_1="person"       name="collaboration"  entity_2="person"/>
+      <item entity_1="person"       name="management"     entity_2="legal_entity"/>
+      <item entity_1="person"       name="work"           entity_2="entity"/>
+      <item entity_1="legal_entity" name="contact"        entity_2="legal_entity"/>
+      <item entity_1="company"      name="transform"      entity_2="company"/>
     </items>
   </nomenclature>
 </nomenclatures>

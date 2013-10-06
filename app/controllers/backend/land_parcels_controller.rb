@@ -38,10 +38,10 @@ class Backend::LandParcelsController < BackendController
 
   # Displays the main page with the list of land parcels
   def index
-    session[:viewed_on] = params[:viewed_on] = params[:viewed_on].to_date rescue Date.today
+    # session[:viewed_on] = params[:viewed_on] = params[:viewed_on].to_date rescue Date.today
   end
 
-  # list(:operations, :conditions => {:target_type => LandParcel.name, :target_id => ['session[:current_land_parcel]']}, :order => "planned_on ASC") do |t|
+  # list(:operations, :conditions => {:target_type => LandParcel.name, :target_id => 'params[:id]'.c}, :order => "planned_on ASC") do |t|
   #   t.column :name, url: true
   #   t.column :name, through: :nature
   #   t.column :label, through: :responsible, url: true
@@ -52,13 +52,6 @@ class Backend::LandParcelsController < BackendController
   #   t.action :edit
   #   t.action :destroy
   # end
-
-  # Displays details of one land parcel selected with +params[:id]+
-  def show
-    return unless @land_parcel = find_and_check(:land_parcels)
-    session[:current_land_parcel] = @land_parcel.id
-    t3e @land_parcel.attributes
-  end
 
   # def divide
   #   return unless @land_parcel = find_and_check(:land_parcel)
