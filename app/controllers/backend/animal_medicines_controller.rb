@@ -11,7 +11,7 @@ class Backend::AnimalMedicinesController < BackendController
     t.column :milk_withdrawal_period
     t.column :meat_withdrawal_period
   end
-  
+
   list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
     t.column :name, through: :intervention, url: true
     t.column :roles
@@ -19,7 +19,7 @@ class Backend::AnimalMedicinesController < BackendController
     t.column :started_at, through: :intervention
     t.column :stopped_at, through: :intervention
   end
-  
+
     # Liste des indicateurs de l'animal considéré
   list(:indicators, :model => :product_indicator_data, :conditions => [" product_id = ? ",'params[:id]'.c], :order => "created_at DESC") do |t|
     t.column :indicator

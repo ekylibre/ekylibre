@@ -1016,11 +1016,15 @@
       <item name="animal_groups">
         <page to="backend/animal_groups#list_places"/>
       </item>
+      <item name="animal_medicines">
+        <page to="backend/animal_medicines#list_indicators"/>
+        <page to="backend/animal_medicines#list_intervention_casts"/>
+      </item>
       <item name="animals">
-        <page to="backend/animals#list_childrens"/>
         <page to="backend/animals#list_groups"/>
         <page to="backend/animals#list_incidents"/>
         <page to="backend/animals#list_indicators"/>
+        <page to="backend/animals#list_intervention_casts"/>
         <page to="backend/animals#list_places"/>
       </item>
       <item name="areas">
@@ -1114,6 +1118,7 @@
       </item>
       <item name="cultivable_land_parcels">
         <page to="backend/cultivable_land_parcels#list_contained_products"/>
+        <page to="backend/cultivable_land_parcels#list_intervention_casts"/>
         <page to="backend/cultivable_land_parcels#list_productions"/>
       </item>
       <item name="custom_field_choices">
@@ -1256,35 +1261,19 @@
         <page to="backend/medicines#show"/>
         <page to="backend/medicines#update"/>
       </item>
-      <item name="mineral_matters">
-        <page to="backend/mineral_matters#index"/>
-        <page to="backend/mineral_matters#create"/>
-        <page to="backend/mineral_matters#destroy"/>
-        <page to="backend/mineral_matters#edit"/>
-        <page to="backend/mineral_matters#list"/>
-        <page to="backend/mineral_matters#new"/>
-        <page to="backend/mineral_matters#show"/>
-        <page to="backend/mineral_matters#update"/>
-      </item>
       <item name="observations">
         <page to="backend/observations#index"/>
         <page to="backend/observations#show"/>
-      </item>
-      <item name="organic_matters">
-        <page to="backend/organic_matters#index"/>
-        <page to="backend/organic_matters#create"/>
-        <page to="backend/organic_matters#destroy"/>
-        <page to="backend/organic_matters#edit"/>
-        <page to="backend/organic_matters#list"/>
-        <page to="backend/organic_matters#new"/>
-        <page to="backend/organic_matters#show"/>
-        <page to="backend/organic_matters#update"/>
       </item>
       <item name="outgoing_delivery_modes">
         <page to="backend/outgoing_delivery_modes#show"/>
       </item>
       <item name="outgoing_payment_modes">
         <page to="backend/outgoing_payment_modes#show"/>
+      </item>
+      <item name="plant_medicines">
+        <page to="backend/plant_medicines#list_indicators"/>
+        <page to="backend/plant_medicines#list_intervention_casts"/>
       </item>
       <item name="plants">
         <page to="backend/plants#list_incidents"/>
