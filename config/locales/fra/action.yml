@@ -654,7 +654,6 @@ fra:
     # application: "Application"
     # authentication/passwords: "Authentication/passwords"
     authentication/sessions: "Sessions"
-    backend/account_balances: "Soldes de comptes"
     backend/accounts: "Plan de comptes"
     backend/activities: "Activités"
     backend/affairs: "Affaires"

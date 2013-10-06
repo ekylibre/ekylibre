@@ -661,7 +661,6 @@ spa:
       # index: "Accueil"
   controllers:
     authentication/sessions: "Autenticación"
-    # backend/account_balances: "Soldes de comptes"
     backend/accountancy: "Contabilidad" #?
     backend/accounts: "Plan de cuento"
     # backend/activities: "Activités"

@@ -733,7 +733,6 @@ arb:
       # index: "Accueil"
   controllers:
     # authentication/sessions: "Sessions"
-    # backend/account_balances: "Soldes de comptes"
     backend/accountancy: "المحاسبة" #?
     backend/accounts: "مخطط الحساب"
     # backend/activities: "Activités"

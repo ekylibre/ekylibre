@@ -625,7 +625,7 @@ eng:
       index: "Home"
   controllers:
     authentication/sessions: "Sessions"
-    backend/account_balances: "Account balances"
+    backend/account_balances: "Account balances" #?
     backend/accounts: "Plan of accounts"
     backend/activities: "Activities"
     backend/affairs: "Affairs"

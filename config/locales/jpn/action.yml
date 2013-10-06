@@ -581,7 +581,6 @@ jpn:
   controllers:
     authentication: "認証" #?
     # authentication/sessions: "Sessions"
-    # backend/account_balances: "Soldes de comptes"
     # backend/accounts: "Plan de comptes"
     # backend/activities: "Activités"
     # backend/affairs: "Affaires"
