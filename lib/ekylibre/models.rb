@@ -1239,7 +1239,7 @@ module Ekylibre
       country: Ekylibre::Record::Column.new(:country, :string, limit: 2).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
-      currency: Ekylibre::Record::Column.new(:currency, :string, limit: 3).freeze,
+      currency: Ekylibre::Record::Column.new(:currency, :string, limit: 3, null: false).freeze,
       iban: Ekylibre::Record::Column.new(:iban, :string, limit: 34).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       journal_id: Ekylibre::Record::Column.new(:journal_id, :integer, null: false).freeze,

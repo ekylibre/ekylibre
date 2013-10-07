@@ -31,7 +31,7 @@
 #  country              :string(2)
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  currency             :string(3)
+#  currency             :string(3)        not null
 #  iban                 :string(34)
 #  id                   :integer          not null, primary key
 #  journal_id           :integer          not null
