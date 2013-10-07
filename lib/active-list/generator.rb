@@ -81,7 +81,7 @@ module ActiveList
       # Session values
       # code << "session[:list] = {} unless session[:list].is_a? Hash\n"
       # code << "session[:list][:#{self.view_method_name}] = {} unless session[:list][:#{self.view_method_name}].is_a? Hash\n"
-      code << "list_params = YAML::load(current_user.pref('list.#{self.view_method_name}', YAML::dump({})))\n"
+      code << "list_params = YAML::load(current_user.pref('list.#{self.view_method_name}', YAML::dump({})).value)\n"
       code << "list_params = {} unless list_params.is_a?(Hash)\n"
       code << "list_params[:hidden_columns] = [] unless list_params[:hidden_columns].is_a? Array\n"
       for parameter, convertor in @parameters.sort{|a,b| a[0].to_s <=> b[0].to_s}
