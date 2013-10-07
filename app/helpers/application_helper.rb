@@ -117,24 +117,13 @@ module ApplicationHelper
 
   def number_to_accountancy(value)
     number = value.to_f
-    if number.zero?
-      return ''
-    else
-      number_to_currency(number, :precision => 2, :format => '%n', :delimiter => '&nbsp;', :separator => ',')
-    end
+    return (number.zero? ? '' : number.l)
   end
 
   def number_to_management(value)
     number = value.to_f
-    number_to_currency(number, :precision => 2, :format => '%n', :delimiter => '&nbsp;', :separator => ',')
+    return number.l
   end
-
-  # Take an extra argument which will translate
-  def number_to_money(amount, currency, options={})
-    return unless amount and currency
-    return currency.to_currency.localize(amount, options)
-  end
-
 
   # def locale_selector
   #   # , :selected => ::I18n.locale)

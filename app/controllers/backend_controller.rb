@@ -605,11 +605,12 @@ class BackendController < BaseController
 
 
   def self.deprecated_search_conditions(model_name, columns)
+    ActiveSupport::Deprecation.warn("Use search_conditions instead of deprecated_search_conditions")
     model = model_name.to_s.classify.constantize
     columns = [columns] if [String, Symbol].include? columns.class
     columns = columns.collect{|k,v| v.collect{|x| "#{k}.#{x}"}} if columns.is_a? Hash
     columns.flatten!
-    raise Exception.new("Bad columns: "+columns.inspect) unless columns.is_a? Array
+    raise ArgumentError.new("Bad columns: "+columns.inspect) unless columns.is_a? Array
     code = ""
     code << "c = ['1=1']\n"
     code << "session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"
@@ -666,7 +667,7 @@ class BackendController < BaseController
 
   # accountancy -> accounts_range_crit
   def self.accounts_range_crit(variable, conditions='c')
-    variable = "session[:#{variable}]" unless variable.is_a? String
+    variable = "params[:#{variable}]" unless variable.is_a? String
     code = ""
     # code << "ac, #{variable}[:accounts] = \n"
     code << "#{conditions}[0] += ' AND '+Account.range_condition(#{variable}[:accounts])\n"
@@ -701,7 +702,7 @@ class BackendController < BaseController
 
   # accountancy -> journal_entries_states_crit
   def self.journal_entries_states_crit(variable, conditions='c')
-    variable = "session[:#{variable}]" unless variable.is_a? String
+    variable = "params[:#{variable}]" unless variable.is_a? String
     code = ""
     code << "#{conditions}[0] += ' AND '+JournalEntry.state_condition(#{variable}[:states])\n"
     return code
@@ -709,7 +710,7 @@ class BackendController < BaseController
 
   # accountancy -> journal_period_crit
   def self.journal_period_crit(variable, conditions='c')
-    variable = "session[:#{variable}]" unless variable.is_a? String
+    variable = "params[:#{variable}]" unless variable.is_a? String
     code = ""
     code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
     return code
@@ -717,7 +718,7 @@ class BackendController < BaseController
 
   # accountancy -> journals_crit
   def self.journals_crit(variable, conditions='c')
-    variable = "session[:#{variable}]" unless variable.is_a? String
+    variable = "params[:#{variable}]" unless variable.is_a? String
     code = ""
     code << "#{conditions}[0] += ' AND '+JournalEntry.journal_condition(#{variable}[:journals])\n"
     return code
@@ -752,10 +753,10 @@ class BackendController < BaseController
   # management -> prices_conditions
   def self.prices_conditions(options={})
     code = "conditions=[]\n"
-    code << "if session[:supplier_id] == 0 \n "
+    code << "if params[:supplier_id] == 0 \n "
     code << " conditions = ['#{ProductPriceTemplate.table_name}.active = ?', true] \n "
     code << "else \n "
-    code << " conditions = ['#{ProductPriceTemplate.table_name}.supplier_id = ? AND #{ProductPriceTemplate.table_name}.active = ?', session[:supplier_id], true]"
+    code << " conditions = ['#{ProductPriceTemplate.table_name}.supplier_id = ? AND #{ProductPriceTemplate.table_name}.active = ?', params[:supplier_id], true]"
     code << "end \n "
     code << "conditions \n "
     code

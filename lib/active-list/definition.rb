@@ -27,6 +27,13 @@ module ActiveList
       return id
     end
 
+    # def new_column_id
+    #   @current_column_id ||= 0
+    #   id = @current_column_id.to_s(36).to_sym
+    #   @current_column_id += 1
+    #   return id
+    # end
+
     def model_columns
       @model.columns_definition.values
     end
@@ -70,7 +77,7 @@ module ActiveList
       @options = options
       # @column  = @table.model.columns.detect{|c| c.name.to_s == @name.to_s }
       @column  = @table.model.columns_definition[@name.to_s]
-      @id = @table.new_id
+      @id = name # @table.new_column_id(name, options)
     end
 
     def header_code

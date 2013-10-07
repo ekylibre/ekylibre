@@ -1,5 +1,4 @@
 # Unused actions in rights
-# - "authentication/sessions#renew"
 # - "backend/activities#create"
 # - "backend/activities#destroy"
 # - "backend/activities#edit"
@@ -209,6 +208,7 @@
 # - "backend/interventions#new"
 # - "backend/interventions#show"
 # - "backend/interventions#update"
+# - "backend/journal_entries#index"
 # - "backend/journal_entries#list"
 # - "backend/journal_entry_items#show"
 # - "backend/kujakus#toggle"
@@ -983,7 +983,7 @@ manage_journal_entries:
 - "backend/journal_entries#edit"
 - "backend/journal_entries#list_items"
 - "backend/journal_entries#new"
-- "backend/journal_entries#show" #?
+- "backend/journal_entries#show"
 - "backend/journal_entries#update"
 - "backend/journal_entry_items#new"
 - "backend/journals#draft"

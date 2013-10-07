@@ -76,7 +76,7 @@ demo :entities do
         person = klass.create!(
                                 :first_name => r.first_name,
                                 :last_name => r.last_name,
-                                :nature => r.nature, 
+                                :nature => r.nature,
                                 :client => true,
                                 :client_account_id => Account.get(r.client_account_number, :name => r.origin),
                                 :origin => r.origin,

@@ -53,7 +53,11 @@
 #  updater_id                :integer
 #
 
-
+# What are the differents columns:
+#   * (credit|debit|balance) are in currency of the journal
+#   * real_(credit|debit|balance) are in currency of the financial year
+#   * absolute_(credit|debit|balance) are in currency of the company
+#   * cumulated_absolute_(credit|debit)are in currency of the company too
 class JournalEntryItem < Ekylibre::Record::Base
   # attr_accessible :entry_id, :journal_id, :real_credit, :real_debit, :account_id, :name
   attr_readonly :entry_id, :journal_id, :state

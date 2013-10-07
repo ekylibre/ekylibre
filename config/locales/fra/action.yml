@@ -3,7 +3,7 @@ fra:
     authentication/sessions:
       destroy: "Se déconnecter" #?
       new: "Connexion" #?
-      renew: "Renouveller la session"
+      renew: "Renouveller la session" #?
     backend/accounts:
       edit: "Modifier le compte\_: %{number} - %{name}"
       index: "Plan de comptes"
@@ -300,8 +300,9 @@ fra:
       show: "Inventaire %{number}"
     backend/journal_entries:
       edit: "Modifier l’écriture\_: %{number}"
+      # index: "Index backend/journal entry"
       new: "Ajouter une écriture"
-      show: "Écriture\_: %{number}" #?
+      show: "Écriture\_: %{number}"
     backend/journal_entry_items:
       new: "Ajouter une nouvelle ligne d’écriture"
       # show: "Show backend/journal entry item"

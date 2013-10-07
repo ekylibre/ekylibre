@@ -18,28 +18,38 @@
 #
 
 class Backend::JournalEntriesController < BackendController
+  manage_restfully
 
   unroll
 
-  list( :children => :items, :order => "created_at DESC", :per_page => 10) do |t|
+  list(:children => :items, :order => "created_at DESC", :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     t.column :state_label
     t.column :real_debit,  currency: :real_currency
     t.column :real_credit, currency: :real_currency
+    t.column :debit,  currency: true, hidden: true
+    t.column :credit, currency: true, hidden: true
+    t.column :absolute_debit,  currency: true, hidden: true
+    t.column :absolute_credit, currency: true, hidden: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
 
   list(:items, :model => :journal_entry_items, :conditions => {:entry_id => 'params[:id]'.c}, :order => "entry_id DESC, position") do |t|
     t.column :name
-    t.column :number, through: :account, url: true
-    t.column :name, through: :account, url: true
-    t.column :number, through: :bank_statement, url: true
+    t.column  account: :number, url: true
+    t.column  account: :name, url: true
+    t.column :bank_statement, url: true, hidden: true
+    # t.column :number, through: :account, url: true
+    # t.column :name, through: :account, url: true
+    # t.column :number, through: :bank_statement, url: true, hidden: true
     t.column :real_debit,  currency: :real_currency
     t.column :real_credit, currency: :real_currency
-    t.column :debit,  currency: true
-    t.column :credit, currency: true
+    t.column :debit,  currency: true, hidden: true
+    t.column :credit, currency: true, hidden: true
+    t.column :absolute_debit,  currency: true, hidden: true
+    t.column :absolute_credit, currency: true, hidden: true
   end
 
   def new

@@ -1,111 +1,107 @@
-=sale_steps if params[:step]
+= sale_steps if params[:step]
 
-=main_toolbar do |t|
-  -if @sale.invoice?
-    -t.export do |e|
-      -e.sales_invoice @sale.number, @sale
-    -t.cancel(@sale) if @sale.cancelable?
-  -elsif @sale.order?
-    -t.export do |e|
-      -e.sales_order @sale.number, @sale
-  -elsif @sale.estimate?
-    -t.export do |e|
-      -e.sales_estimate @sale.number, @sale
-  -elsif @sale.draft?
-    -t.export do |e|
-      -e.sales_estimate @sale.number, @sale
-  -t.edit @sale if @sale.draft?
-  -if @sale.can_confirm?
-    -t.confirm @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
-  -if @sale.can_propose?
-    -t.propose_and_invoice @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
-  -if @sale.can_invoice?
-    -t.invoice @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
-  -for event in [:propose, :correct, :refuse]
-    -t.send(event, @sale, :method => :post, "data-confirm" => tc(:are_you_sure)) if @sale.send("can_#{event}?")
-  -t.abort(@sale, :method => :post, "data-confirm" => tc(:are_you_sure)) if @sale.can_abort?
+= main_toolbar do |t|
+  - t.export do |e|
+    - if @sale.invoice?
+      - e.sales_invoice @sale.number, @sale
+    - elsif @sale.order?
+      - e.sales_order @sale.number, @sale
+    - elsif @sale.estimate? or @sale.draft?
+      - e.sales_estimate @sale.number, @sale
+  - if @sale.invoice?
+    - t.cancel(@sale) if @sale.cancelable?
+  - t.edit @sale if @sale.draft?
+  - if @sale.can_confirm?
+    - t.confirm @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
+  - if @sale.can_propose?
+    - t.propose_and_invoice @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
+  - if @sale.can_invoice?
+    - t.invoice @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
+  - for event in [:propose, :correct, :refuse]
+    - t.send(event, @sale, :method => :post, "data-confirm" => tc(:are_you_sure)) if @sale.send("can_#{event}?")
+  - t.abort(@sale, :method => :post, "data-confirm" => tc(:are_you_sure)) if @sale.can_abort?
 
-=beehive do |b|
+= beehive do |b|
 
-  -b.tabbox do
-    -if ["products", "summary", ""].include? params[:step].to_s
-      -b.cell Sale.human_attribute_name(:items) do
-        -#.select-product
-          %span="labels.add_product".t
+  - b.tabbox do
+    - if ["products", "summary", ""].include? params[:step].to_s
+      - b.cell Sale.human_attribute_name(:items) do
+        - #.select-product
+          %span= "labels.add_product".t
           %span.selector
-            =selector_tag("sale_item[product_id]", {:controller => :products, :action => :unroll_saleables}, {})
-          =button_tag(tl(:add), :class => "btn")
-        -# @sale_item = @sale.items.new
-        -# if @sale.draft?
-          =toolbar do |t|
-            -t.new(:controller => :sale_items, :sale_id => @sale.id)
-          =render :partial => "backend/sale_items/row_form"
-        =list :items do
+            = selector_tag("sale_item[product_id]", {:controller => :products, :action => :unroll_saleables}, {})
+          = button_tag(tl(:add), :class => "btn")
+        - # @sale_item = @sale.items.new
+        - # if @sale.draft?
+          = toolbar do |t|
+            - t.new(:controller => :sale_items, :sale_id => @sale.id)
+          = render :partial => "backend/sale_items/row_form"
+        = list :items do
           %tr.total
             %th{:colspan => 5}=tc :total
-            %td=number_to_money(@sale.pretax_amount, @sale.currency)
-            %td=number_to_money(@sale.amount, @sale.currency)
+            %td= @sale.pretax_amount.l(currency: @sale.currency)
+            %td= @sale.amount.l(currency: @sale.currency)
             %th{:colspan => 3}
 
-    -b.cell do
-      =attributes_list(@sale) do |l|
-        -l.attribute :client, :label => :label, :url => true
-        -l.attribute :number
-        -l.attribute :initial_number if @sale.invoice?
-        -l.attribute :state_label
-        -l.attribute :responsible, :label => :full_name
-        -l.attribute :created_on
-        -l.attribute :confirmed_on if @sale.confirmed_on?
-        -l.attribute :invoiced_on if @sale.invoiced_on?
-        -l.attribute :origin, :url => true if @sale.invoice? and @sale.origin
-        -l.attribute :payment_delay, :label => :name
-        -l.attribute :nature
-        -l.attribute :currency unless @sale.currency == Entity.of_company.currency
-        -l.attribute :description unless @sale.description.blank?
-        -l.attribute :address, :label => :coordinate
-        -l.attribute :delivery_address, :label => :coordinate
-        -l.attribute :invoice_address, :label => :coordinate
-        -l.attribute(:journal_entry, :url => true) if @sale.journal_entry
-        -l.attribute :letter_format
-        -if @sale.letter_format?
-          -l.attribute :subject
-          -l.attribute :function_title
-          -l.attribute :introduction, :field => :textarea
-          -l.attribute :conclusion, :field => :textarea
+    - b.cell do
+      = attributes_list(@sale) do |l|
+        - l.attribute :client, :label => :label, :url => true
+        - l.attribute :number
+        - l.attribute :initial_number if @sale.invoice?
+        - l.attribute :state_label
+        - l.attribute :responsible, :label => :full_name
+        - l.attribute :created_on
+        - l.attribute :confirmed_on if @sale.confirmed_on?
+        - l.attribute :invoiced_on if @sale.invoiced_on?
+        - l.attribute :origin, :url => true if @sale.invoice? and @sale.origin
+        - l.attribute :payment_delay, :label => :name
+        - l.attribute :nature
+        - l.attribute :currency unless @sale.currency == Entity.of_company.currency
+        - l.attribute :description unless @sale.description.blank?
+        - l.attribute :address, :label => :coordinate
+        - l.attribute :delivery_address, :label => :coordinate
+        - l.attribute :invoice_address, :label => :coordinate
+        - l.attribute(:journal_entry, :url => true) if @sale.journal_entry
+        - l.attribute :letter_format
+        - if @sale.letter_format?
+          - l.attribute :subject
+          - l.attribute :function_title
+          - l.attribute :introduction, :field => :textarea
+          - l.attribute :conclusion, :field => :textarea
 
 
 
-    -if @sale.subscriptions.size>0
-      -b.cell tl(:x_subscriptions, :count => @sale.subscriptions.count) do
-        -if @sale.draft?
-          =toolbar do |t|
-            -for item in @sale.items.includes(:product, :reduction_origin)
-              -if item.product.nature.subscribing? and not item.reduction_origin
-                -t.link :add_subscription_for_sale_item, {:action => :new, :controller => :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
-        =list :subscriptions
+    - if @sale.subscriptions.size>0
+      - b.cell tl(:x_subscriptions, :count => @sale.subscriptions.count) do
+        - if @sale.draft?
+          = toolbar do |t|
+            - for item in @sale.items.includes(:product, :reduction_origin)
+              - if item.product.nature.subscribing? and not item.reduction_origin
+                - t.link :add_subscription_for_sale_item, {:action => :new, :controller => :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
+        = list :subscriptions
 
 
-  -if ["products", "summary", ""].include? params[:step].to_s
-    -b.cell Sale.human_attribute_name(:affair) do
-      -#unless @sale.affair.closed?
-        =toolbar do |t|
-          -#t.new(:controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})
-          -for payment in @sale.usable_payments
-            -#t.link(tl("use_incoming_payment", :payment => payment.label), {:action => :create, :controller => :incoming_payment_uses, :incoming_payment_use => {:expense_type => @sale.class.name, :expense_id => @sale.id, :payment_id => payment.id}}, :method => :post)
-      =affair_of(@sale)
+  - if ["products", "summary", ""].include? params[:step].to_s
+    - b.cell Sale.human_attribute_name(:affair) do
+      - #unless @sale.affair.closed?
+        = toolbar do |t|
+          - #t.new(:controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})
+          - for payment in @sale.usable_payments
+            - #t.link(tl("use_incoming_payment", :payment => payment.label), {:action => :create, :controller => :incoming_payment_uses, :incoming_payment_use => {:expense_type => @sale.class.name, :expense_id => @sale.id, :payment_id => payment.id}}, :method => :post)
+      = affair_of(@sale)
 
 
-  -if ["deliveries", ""].include? params[:step].to_s
-    -if @sale.deliverable?
-      -b.cell tc(:undelivered) do
-        =toolbar do |t|
-          -t.new :controller => :outgoing_deliveries, :sale_id => @sale.id
-        =list :undelivered_items
-      -if @sale.deliveries.count > 0
-        -b.cell Sale.human_attribute_name("deliveries") do
-          =list :deliveries
+  - if ["deliveries", ""].include? params[:step].to_s
+    - if @sale.deliverable?
+      - b.cell tc(:undelivered) do
+        = toolbar do |t|
+          - t.new :controller => :outgoing_deliveries, :sale_id => @sale.id
+        = list :undelivered_items
+      - if @sale.deliveries.count > 0
+        - b.cell Sale.human_attribute_name("deliveries") do
+          = list :deliveries
 
-  -if ["products", "summary", ""].include? params[:step].to_s and @sale.credits.size > 0
-    -b.cell tc(:credits) do
-      =list :credits
+  - if ["products", "summary", ""].include? params[:step].to_s and @sale.credits.size > 0
+    - b.cell :credits do
+      = list :credits
 
