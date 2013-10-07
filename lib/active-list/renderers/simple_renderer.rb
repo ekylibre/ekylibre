@@ -138,11 +138,11 @@ module ActiveList
               elsif column.name==:color
                 style << "background: #'+"+column.datum_code(record)+"+';"
               elsif column.name.to_s.match(/(^|\_)currency$/) and column.datatype == :string and column.limit == 3
-                datum = "(#{datum}.blank? ? '' : Nomen::Languages[#{datum}].human_name)"
+                datum = "(Nomen::Currencies[#{datum}] ? Nomen::Currencies[#{datum}].human_name : #{datum})"
               elsif column.name==:language and column.datatype == :string and column.limit <= 8
-                datum = "(#{datum}.blank? ? '' :  + Nomen::Languages[#{datum}].human_name)"
+                datum = "(Nomen::Languages[#{datum}]  ? Nomen::Languages[#{datum}].human_name : #{datum})"
               elsif column.name==:country and  column.datatype == :string and column.limit <= 8
-                datum = "(#{datum}.blank? ? '' : (image_tag('countries/'+#{datum}.to_s+'.png') + ' ' + Nomen::Countries[#{datum}].human_name).html_safe)"
+                datum = "(Nomen::Countries[#{datum}]  ? (image_tag('countries/'+#{datum}.to_s+'.png') + ' ' + Nomen::Countries[#{datum}].human_name).html_safe : #{datum})"
               elsif column.datatype == :string
                 datum = "h("+datum+")"
               end
