@@ -26,7 +26,7 @@ class Backend::SalesController < BackendController
   # management -> sales_conditions
   def self.sales_conditions
     code = ""
-    code = search_conditions(:sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:code, :full_name]) + " ||= []\n"
+    code = search_conditions(:sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:number, :full_name]) + " ||= []\n"
     code << "unless params[:s].blank?\n"
     code << "  if params[:s] == 'all'\n"
     code << "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
@@ -34,7 +34,7 @@ class Backend::SalesController < BackendController
     # code << "    c[0] += \" AND state IN ('order', 'invoice') AND paid_amount < amount AND lost = ?\"\n"
     # code << "    c << false\n"
     code << "  end\n "
-    code << "  if params[:responsible_id] > 0\n"
+    code << "  if params[:responsible_id].to_i > 0\n"
     code << "    c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
     code << "    c << params[:responsible_id]\n"
     code << "  end\n"
