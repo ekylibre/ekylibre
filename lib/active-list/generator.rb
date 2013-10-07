@@ -46,6 +46,9 @@ module ActiveList
         code << "    end\n"
       end
       code << "  end\n"
+      # Save preferences of user
+      code << "  p = current_user.pref('list.#{self.view_method_name}', YAML::dump(list_params))\n"
+      code << "  p.set! YAML::dump(list_params)\n"
       code << "end\n"
       # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
       if Rails.env.development?
@@ -76,9 +79,10 @@ module ActiveList
       code  = "options = {} unless options.is_a? Hash\n"
       code << "options = (params||{}).merge(options)\n"
       # Session values
-      code << "session[:list] = {} unless session[:list].is_a? Hash\n"
-      code << "session[:list][:#{self.view_method_name}] = {} unless session[:list][:#{self.view_method_name}].is_a? Hash\n"
-      code << "list_params = session[:list][:#{self.view_method_name}]\n"
+      # code << "session[:list] = {} unless session[:list].is_a? Hash\n"
+      # code << "session[:list][:#{self.view_method_name}] = {} unless session[:list][:#{self.view_method_name}].is_a? Hash\n"
+      code << "list_params = YAML::load(current_user.pref('list.#{self.view_method_name}', YAML::dump({})))\n"
+      code << "list_params = {} unless list_params.is_a?(Hash)\n"
       code << "list_params[:hidden_columns] = [] unless list_params[:hidden_columns].is_a? Array\n"
       for parameter, convertor in @parameters.sort{|a,b| a[0].to_s <=> b[0].to_s}
         expr = "options.delete('#{self.name}_#{parameter}') || options.delete('#{parameter}') || list_params[:#{parameter}]"
