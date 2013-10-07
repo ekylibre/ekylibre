@@ -24,7 +24,7 @@ class Backend::AnimalsController < Backend::ProductsController
 
   unroll
 
-  list(:conditions => {:external => false}) do |t|
+  list() do |t|
     t.column :work_number, url: true
     t.column :name, url: true
     t.column :born_at
@@ -102,10 +102,10 @@ class Backend::AnimalsController < Backend::ProductsController
     return unless @animal = find_and_check
     session[:current_animal_id] = @animal.id
     t3e @animal, :nature_name => @animal.nature_name
-           respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :variant, :nature, :variety, :owner,
+           respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :variant, :nature, :variety,
                                                    {:indicator_data => {}},
                                                    {:memberships => {:include =>:group}},
-                                                   {:product_localizations => {:include =>:container}}])
+                                                   {:localizations => {:include =>:container}}])
 
   end
 

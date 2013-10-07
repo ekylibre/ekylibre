@@ -91,7 +91,7 @@ demo :deliveries do
 
         product_model = product_nature.matching_model
         incoming_item = Product.find_by_variant_id_and_created_at(product_nature_variant.id, r.ordered_on)
-        incoming_item ||= product_model.create!(:owner => Entity.of_company, :identification_number => r.order_number, :variant => product_nature_variant, :born_at => r.ordered_on, :created_at => r.ordered_on)
+        incoming_item ||= product_model.create!(:initial_owner => Entity.of_company, :identification_number => r.order_number, :variant => product_nature_variant, :born_at => r.ordered_on, :created_at => r.ordered_on)
 
         incoming_item.is_measured!(:population, r.quantity.in_unity, :at => Time.now)
         if product_nature.present? and incoming_item.present?

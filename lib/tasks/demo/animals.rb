@@ -27,7 +27,7 @@ demo :animals do
                   {:name => "Taurillons", :work_number => "TAUR", :description => "Taurillons vendus entre 21 et 26 mois"}
                  ]
       unless AnimalGroup.find_by_work_number(group[:work_number])
-        AnimalGroup.create!({:active => true, :variant_id => herd.id}.merge(group))
+        AnimalGroup.create!({ :variant_id => herd.id}.merge(group))
       end
       w.check_point
     end
@@ -76,7 +76,7 @@ demo :animals do
         f = File.open(photo_v)
         animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number,
                                 :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :owner_id => Entity.of_company.id
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v
                                 )
         f.close
         # set default indicators
@@ -89,7 +89,7 @@ demo :animals do
         animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
         animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
         # place the current animal in the default group with born_at
-        if place_v and group_vlib/aggeratio.rb
+        if place_v and group_v
           ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
           ProductMembership.create!(:member_id => animal.id, :group_id => group_v.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
         end
@@ -100,7 +100,7 @@ demo :animals do
         animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :owner_id => Entity.of_company.id
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v
                                 )
         f.close
         # set default indicators
@@ -126,7 +126,7 @@ demo :animals do
         animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :owner_id => Entity.of_company.id
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v
                                 )
         f.close
         # set default indicators
@@ -153,7 +153,7 @@ demo :animals do
         animal = Animal.create!(:variant_id => cow_vl.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :owner_id => Entity.of_company.id
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v
                                 )
         f.close
         # set default indicators
@@ -181,7 +181,7 @@ demo :animals do
         animal = Animal.create!(:variant_id => cow_taur.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :owner_id => Entity.of_company.id
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v
                                 )
         f.close
         # set default indicators
@@ -207,9 +207,6 @@ demo :animals do
       w.check_point
 
     end
-    # set active all animals who is alive
-    Animal.where(:dead_at => nil).update_all(:active => true)
-
 
   end
 
@@ -230,7 +227,7 @@ demo :animals do
                          :tb => row[11].to_f
                          )
       # case = TAUREAU REPRO
-      animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :active => true, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
+      animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :initial_owner => Entity.where(:of_company => false).all.sample)
       # set default indicators
       animal.is_measured!(:sex, :male)
       animal.is_measured!(:population, 1.in_unity)
@@ -239,7 +236,8 @@ demo :animals do
       animal.is_measured!(:inel_index, r.inel.in_unity, :at => now)
       animal.is_measured!(:tp_index,   r.tp.in_unity,   :at => now)
       animal.is_measured!(:tb_index,   r.tb.in_unity,   :at => now)
-
+      # put in an external localization
+      ProductLocalization.create!(:nature => :exterior, :product_id => animal.id, :arrival_cause => :other)
       w.check_point
 
     end
@@ -267,7 +265,7 @@ demo :animals do
           unless r.mother_identification_number.blank?
           # case = VL
           animal_mother = Animal.create!(:variant_id => cow_vl.id, :name => r.mother_name, :variety => "bos",
-                                         :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :owner_id => Entity.of_company.id
+                                         :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :initial_owner => Entity.of_company
                                          )
 
           # set default indicators
@@ -285,7 +283,7 @@ demo :animals do
         else
           unless r.father_identification_number.blank?
           # case = TAUREAU REPRO
-          animal_father = Animal.create!(:variant_id => cow_trepro.id, :name => r.father_name, :variety => "bos", :identification_number => r.father_identification_number, :external => true, :owner_id => Entity.where(:of_company => false).all.sample.id)
+          animal_father = Animal.create!(:variant_id => cow_trepro.id, :name => r.father_name, :variety => "bos", :identification_number => r.father_identification_number, :initial_owner => Entity.where(:of_company => false).all.sample)
           # set default indicators
           animal_father.is_measured!(:sex, :male)
           animal_father.is_measured!(:population, 1.in_unity)

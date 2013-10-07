@@ -60,7 +60,6 @@ class Backend::ProductsController < BackendController
     t.column :name, url: true
     t.column :name, through: :variant
     t.column :variety
-    t.column :full_name, through: :owner
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit

@@ -1842,7 +1842,9 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "type"
     t.string   "name",                                                                          null: false
     t.string   "number",                                                                        null: false
-    t.boolean  "active",                                                        default: false, null: false
+    t.integer  "initial_container_id"
+    t.string   "initial_arrival_cause",    limit: 120
+    t.integer  "initial_owner_id"
     t.string   "variety",                  limit: 120,                                          null: false
     t.string   "derivative_of",            limit: 120
     t.integer  "variant_id",                                                                    null: false
@@ -1856,8 +1858,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "picture_file_size"
     t.string   "picture_content_type"
     t.datetime "picture_updated_at"
-    t.boolean  "external",                                                      default: false, null: false
-    t.integer  "owner_id",                                                                      null: false
     t.string   "identification_number"
     t.string   "work_number"
     t.integer  "father_id"
@@ -1888,7 +1888,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "products", ["name"], :name => "index_products_on_name"
   add_index "products", ["nature_id"], :name => "index_products_on_nature_id"
   add_index "products", ["number"], :name => "index_products_on_number", :unique => true
-  add_index "products", ["owner_id"], :name => "index_products_on_owner_id"
   add_index "products", ["parent_id"], :name => "index_products_on_parent_id"
   add_index "products", ["tracking_id"], :name => "index_products_on_tracking_id"
   add_index "products", ["type"], :name => "index_products_on_type"

@@ -1075,7 +1075,9 @@ class CreateBase < ActiveRecord::Migration
       t.string     :type
       t.string     :name,                                                                          null: false
       t.string     :number,                                                                        null: false
-      t.boolean    :active,                                                        default: false, null: false
+      t.references :initial_container
+      t.string     :initial_arrival_cause,     limit: 120
+      t.references :initial_owner
       t.string     :variety,                  limit: 120,                                          null: false
       t.string     :derivative_of,            limit: 120
       t.references :variant,                                                                       null: false, index: true
@@ -1089,8 +1091,6 @@ class CreateBase < ActiveRecord::Migration
       t.integer    :picture_file_size
       t.string     :picture_content_type
       t.datetime   :picture_updated_at
-      t.boolean    :external,                                                      default: false, null: false
-      t.references :owner,                                                                         null: false, index: true
       t.string     :identification_number
       t.string     :work_number
       t.references :father,                                                                                     index: true

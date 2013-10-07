@@ -958,7 +958,10 @@ eng:
     indirect_links: "Indirect links"
     # individual: "Individual"
     indivisible: "Indivisible" #?
+    # initial_arrival_cause: "Initial arrival cause"
+    # initial_container: "Initial container"
     initial_number: "Initial number"
+    # initial_owner: "Initial owner"
     input_conveyors: "Input conveyors" #?
     integer_value: "Integer value"
     # intervention: "Intervention"
@@ -1013,6 +1016,7 @@ eng:
     local_count: "Local count"
     local_credit: "Local credit"
     local_debit: "Local debit"
+    # localizations: "Localizations"
     location: "Location" #?
     lock_version: "Version"
     locked: "Locked"
@@ -1118,6 +1122,7 @@ eng:
     output_conveyors: "Output conveyors"
     owner: "Owner"
     owner_type: "Owner type"
+    # ownerships: "Ownerships"
     paid: "Paid"
     paid_account: "Account paid" #?
     paid_amount: "Paid amount"

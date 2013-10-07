@@ -644,7 +644,7 @@ fra:
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
     expression: "Expression"
-    external: "Externe à l’exploitation"
+    external: "Externe à l’exploitation" #?
     failed_attempts: "Tentatives de connexions échouées"
     family: "Famille"
     father: "Père"
@@ -699,7 +699,10 @@ fra:
     indirect_links: "Liens indirects"
     individual: "Individual" #?
     # initial: "Initial"
+    initial_arrival_cause: "Initial arrival cause"
+    initial_container: "Initial container"
     initial_number: "Numéro initial"
+    initial_owner: "Initial owner"
     integer_value: "Valeur entière"
     intervention: "Intervention"
     intervention_casts: "Intervention casts"
@@ -746,6 +749,7 @@ fra:
     local_count: "Population"
     local_credit: "Crédit"
     local_debit: "Débit"
+    localizations: "Localizations"
     lock_version: "Version"
     locked: "Verrouillé"
     locked_at: "Verrouillé à"
@@ -847,6 +851,7 @@ fra:
     owner: "Propriétaire"
     # owner_object: "Owner object"
     owner_type: "Nature du propriétaire"
+    ownerships: "Ownerships"
     paid: "Réglée" #?
     paid_amount: "Montant payé"
     paid_on: "Réglé le"
@@ -910,7 +915,7 @@ fra:
     product: "Produit"
     product_account: "Compte de produit"
     product_events: "Product events"
-    product_localizations: "Product localizations"
+    product_localizations: "Product localizations" #?
     product_moves: "Product moves"
     product_nature: "Product nature"
     production: "Production"

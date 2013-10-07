@@ -1392,7 +1392,10 @@ arb:
     # indicators: "Indicators"
     indirect_links: "روابط مباشرة"
     # individual: "Individual"
+    # initial_arrival_cause: "Initial arrival cause"
+    # initial_container: "Initial container"
     # initial_number: "Numéro initial"
+    # initial_owner: "Initial owner"
     integer_value: "قيمة العدد الصحيح"
     # intervention: "Intervention"
     # intervention_casts: "Intervention casts"
@@ -1460,6 +1463,7 @@ arb:
     local_count: "عدد السكان المحليين"
     local_credit: "الائتمان"
     local_debit: "الدين المحلي"
+    # localizations: "Localizations"
     lock_version: "الاصدار"
     locked: "مقفل"
     # locked_at: "Verrouillé à"
@@ -1570,6 +1574,7 @@ arb:
     owner: "المالك"
     owner_id: "مالك" #?
     owner_type: "طبيعة المالك"
+    # ownerships: "Ownerships"
     paid: "سددت"
     paid_account: "سددت القيمة الضريبية الاضافية" #?
     paid_account_id: "سددت القيمة الضريبية الاضافية" #?

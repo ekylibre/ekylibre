@@ -34,7 +34,7 @@ demo :sales do
 
     ble = OrganicMatter.find_by_work_number("BLE_2011")
     ble ||= OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "organic_matter", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
-                                :born_at => "2011-07-14", :owner_id => Entity.of_company.id) #
+                                :born_at => "2011-07-14", :initial_owner => Entity.of_company) #
     # Sale nature
     sale_nature   = SaleNature.actives.first
     sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
@@ -93,7 +93,7 @@ demo :sales do
     cow_price_template_taxes = Tax.all
 
     animal = Animal.find_by(:work_number => "8926")
-    animal ||= Animal.create!(:variant_id => cow.id, :name => "Isere", :variety => "bos", :identification_number => "1735138926", :work_number => "8926", :born_at => "2013-04-14", :owner_id => Entity.of_company.id) #
+    animal ||= Animal.create!(:variant_id => cow.id, :name => "Isere", :variety => "bos", :identification_number => "1735138926", :work_number => "8926", :born_at => "2013-04-14", :initial_owner => Entity.of_company) #
     # Sale nature
     sale_nature   = SaleNature.actives.first
     sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)

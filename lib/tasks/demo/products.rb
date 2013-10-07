@@ -35,8 +35,7 @@ demo :products do
       end
 
       # create the equipment
-      equipment = Equipment.create!(:variant_id => variant.id, :active => true, :external => r.external,
-                                    :name => r.name, :born_at => r.born_at, :owner_id => owner.id )
+      equipment = Equipment.create!(:variant_id => variant.id, :name => r.name, :born_at => r.born_at, :initial_owner => owner )
 
       # create indicators linked to equipment
       for indicator, value in r.indicators
@@ -83,8 +82,8 @@ demo :products do
       end
 
       # create the product
-      product = pmodel.create!(:variant_id => variant.id, :active => true, :external => r.external,
-                                    :name => r.name, :born_at => r.born_at, :owner_id => owner.id, :variety => r.variety, :derivative_of => r.derivative_of )
+      product = pmodel.create!(:variant_id => variant.id,
+                                    :name => r.name, :born_at => r.born_at, :initial_owner => owner, :variety => r.variety, :derivative_of => r.derivative_of )
 
       # create indicators linked to equipment
       for indicator, value in r.indicators

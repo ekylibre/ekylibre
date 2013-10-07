@@ -16,7 +16,7 @@ demo :land_parcels do
                                                         :work_number => record.attributes['NUMERO'].to_s,
                                                         :variety => "land_parcel_cluster",
                                                         :born_at => Date.civil(record.attributes['CAMPAGNE'], 1, 1),
-                                                        :owner_id => Entity.of_company.id,
+                                                        :initial_owner => Entity.of_company,
                                                         :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
         land_parcel_cluster.is_measured!(:shape, record.geometry, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
         ind_area = land_parcel_cluster.shape_area
@@ -60,7 +60,7 @@ demo :land_parcels do
                                                               :work_number => r.land_parcel_group_work_number,
                                                               :variety => "cultivable_land_parcel",
                                                               :born_at => Time.now,
-                                                              :owner_id => Entity.of_company.id,
+                                                              :initial_owner => Entity.of_company,
                                                               :identification_number => r.land_parcel_group_work_number)
         if r.land_parcel_group_shape
           cultural_land_parcel.is_measured!(:shape, r.land_parcel_group_shape, :at => Time.now)
@@ -76,7 +76,7 @@ demo :land_parcels do
                                            :work_number => r.land_parcel_work_number,
                                            :variety => "land_parcel",
                                            :born_at => Time.now,
-                                           :owner_id => Entity.of_company.id,
+                                           :initial_owner => Entity.of_company,
                                            :identification_number => r.land_parcel_work_number)
         if r.land_parcel_shape
           land_parcel.is_measured!(:shape, r.land_parcel_shape, :at => Time.now)

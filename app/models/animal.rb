@@ -21,7 +21,6 @@
 #
 # == Table: products
 #
-#  active                   :boolean          not null
 #  address_id               :integer
 #  asset_id                 :integer
 #  born_at                  :datetime
@@ -35,16 +34,17 @@
 #  default_storage_id       :integer
 #  derivative_of            :string(120)
 #  description              :text
-#  external                 :boolean          not null
 #  father_id                :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
+#  initial_arrival_cause    :string(120)
+#  initial_container_id     :integer
+#  initial_owner_id         :integer
 #  lock_version             :integer          default(0), not null
 #  mother_id                :integer
 #  name                     :string(255)      not null
 #  nature_id                :integer          not null
 #  number                   :string(255)      not null
-#  owner_id                 :integer          not null
 #  parent_id                :integer
 #  picture_content_type     :string(255)
 #  picture_file_name        :string(255)

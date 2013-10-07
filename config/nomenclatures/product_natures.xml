@@ -32,7 +32,7 @@
             purchasable="false"
             saleable="false"
             depreciable="false"
-            storable="true"
+            storable="false"
             stock_account="long_time_animal_stock"
             population_counting="unitary"
             unit_name="head"

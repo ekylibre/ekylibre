@@ -29,7 +29,7 @@
               <property name="id" of="intervention" level="api"/>
               <property name="started_at" of="intervention" type="datetime"/>
               <property name="stopped_at" of="intervention" type="datetime"/>
-              <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60*24)).round(2)"/>
+              <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
               <section name="incident" of="intervention.incident">
                 <property name="id" level="api"/>
                 <property name="name"/>
@@ -61,7 +61,7 @@
               <property name="id" of="provisionnal_intervention" level="api"/>
               <property name="started_at" of="provisionnal_intervention" type="datetime"/>
               <property name="stopped_at" of="provisionnal_intervention" type="datetime"/>
-              <property name="duration" value="((provisionnal_intervention.stopped_at - provisionnal_intervention.started_at).to_d/(60*60*24)).round(2)"/>
+              <property name="duration" value="((provisionnal_intervention.stopped_at - provisionnal_intervention.started_at).to_d/(60*60)).round(2)"/>
               <section name="incident" of="provisionnal_intervention.incident">
                 <property name="id" level="api"/>
                 <property name="name"/>
