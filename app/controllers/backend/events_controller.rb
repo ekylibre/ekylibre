@@ -29,7 +29,7 @@ class Backend::EventsController < BackendController
     t.column :casting
     t.column :duration
     t.column :place
-    t.column :name, through: :nature
+    t.column :nature => :name
     t.column :started_at
     t.action :edit
     t.action :destroy
@@ -42,7 +42,7 @@ class Backend::EventsController < BackendController
   end
 
   list(:participations, model: :event_participations, conditions: {event_id: 'params[:id]'.c}, order: :id) do |t|
-    t.column :name, through: :participant
+    t.column :participant => :full_name
     t.column :state
     t.action :destroy
   end

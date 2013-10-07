@@ -4,13 +4,13 @@ class Backend::CatalogPricesController < BackendController
   unroll
 
   list do |t|
-    t.column :name, through: :variant, url: true
+    t.column :variant => :name, url: true
     t.column :amount
     t.column :started_at
     t.column :stopped_at
-    t.column :name, through: :reference_tax, url: true
+    t.column :reference_tax => :name, url: true
     t.column :all_taxes_included
-    t.column :name, through: :catalog, url: true
+    t.column :catalog => :name, url: true
     t.action :edit
     t.action :destroy, if: :destroyable?
   end

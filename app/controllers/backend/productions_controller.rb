@@ -36,7 +36,7 @@ class Backend::ProductionsController < BackendController
 
   list(:conditions => productions_conditions, :joins => [:activity, :product_nature, :campaign]) do |t|
     t.column :name, url: true
-    t.column :name,through: :activity, url: true
+    t.column :activity => :name, url: true
     # t.column :name,through: :campaign, url: true
     # t.column :name,through: :product_nature, url: true
     t.column :state_label

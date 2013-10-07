@@ -30,8 +30,8 @@ class Backend::IncomingDeliveriesController < BackendController
     # t.column :description
     # t.column :weight
     t.column :received_at
-    t.column :name, through: :mode
-    t.column :number, through: :purchase, url: true
+    t.column :mode => :name
+    t.column :purchase => :number, url: true
     # t.action :confirm, :method => :post, :if => :confirmable?, 'data-confirm'  =>  :are_you_sure
     t.action :edit
     t.action :destroy
@@ -39,9 +39,9 @@ class Backend::IncomingDeliveriesController < BackendController
 
   # Liste des items d'une appro
   list(:items, :model => :incoming_delivery_items, :conditions => {delivery_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
-    t.column :name, through: :product, url: true
+    t.column :product => :name, url: true
     t.column :quantity
-    t.column :name, through: :purchase_item, url: true
+    t.column :purchase_item => :name, url: true
     t.column :created_at
   end
 

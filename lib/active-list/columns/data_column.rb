@@ -19,13 +19,16 @@ module ActiveList
     # Add a new method in Table which permit to define data columns
     def column(*args)
       options = args.extract_options!
-      unless name = args.shift
+      name = args.shift
+      options[:label_method] ||= name
+      if name.blank?
         pair = options.first
         name = pair.map(&:to_s).join("_").to_sym
         options[:through]      = pair.first
         options[:label_method] = pair.second
+      elsif options[:through]
+        name = "#{options[:through]}_#{name}".to_sym
       end
-      options[:label_method] ||= name
       @columns << DataColumn.new(self, name, options)
     end
 

@@ -23,21 +23,13 @@ class Backend::PurchaseNaturesController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url=>true
+    t.column :name, url: true
     t.column :active
     t.column :currency
     t.column :with_accounting
-    t.column :name, :through=>:journal, :url=>true
+    t.column :journal => :name, url: true
     t.action :edit
     t.action :destroy
   end
 
-  # Displays the main page with the list of purchase natures
-  def index
-  end
-
-  def show
-    return unless @purchase_nature = find_and_check
-    t3e @purchase_nature
-  end
 end

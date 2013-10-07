@@ -25,23 +25,13 @@ class Backend::CashTransfersController < BackendController
   list do |t|
     t.column :number, url: true
     t.column :emission_amount,  :currency => :emission_currency
-    t.column :name, through: :emission_cash, url: true
+    t.column :emission_cash => :name, url: true
     t.column :reception_amount, :currency => :reception_currency
-    t.column :name, through: :reception_cash, url: true
+    t.column :reception_cash => :name, url: true
     t.column :created_on
     t.column :description
     t.action :edit
     t.action :destroy
-  end
-
-  # Displays the main page with the list of cash transfers
-  def index
-  end
-
-  # Displays details of one cash transfer selected with +params[:id]+
-  def show
-    return unless @cash_transfer = find_and_check
-    t3e @cash_transfer.attributes
   end
 
 end

@@ -47,8 +47,8 @@ class Backend::SalesController < BackendController
     t.column :number, :url => {:action => :show, :step => :default}
     t.column :created_on
     t.column :invoiced_on
-    t.column :label, through: :client, url: true
-    t.column :label, through: :responsible
+    t.column :client => :label, url: true
+    t.column :responsible => :label
     t.column :description
     t.column :state_label
     t.column :amount, currency: true
@@ -105,7 +105,7 @@ class Backend::SalesController < BackendController
 
   list(:subscriptions, :conditions => {:sale_id => 'params[:id]'.c}) do |t|
     t.column :number
-    t.column :name, through: :nature
+    t.column :nature => :name
     t.column :full_name, through: :subscriber, url: true
     t.column :coordinate, through: :address
     t.column :start
@@ -119,8 +119,8 @@ class Backend::SalesController < BackendController
     t.column :name, through: :variant
     t.column :pretax_amount, :currency => true, through: :price
     t.column :quantity
-    #t.column :unit
-    t.column :pretax_amount, :currency => true
+    #  t.column :unit
+    # t.column :pretax_amount, :currency => true
     t.column :amount
     t.column :undelivered_quantity, :datatype => :decimal
   end
@@ -200,7 +200,7 @@ class Backend::SalesController < BackendController
     t.column :annotation
     t.column :name, through: :variant
     t.column :amount, through: :price, :label => :column
-    t.column :quantity
+    # t.column :quantity
     t.column :credited_quantity, :datatype => :decimal
     t.check_box  :validated, :value => "true".c, :label => 'OK'
     t.text_field :quantity, :value => "RECORD.uncredited_quantity".c, :size => 6

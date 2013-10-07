@@ -62,7 +62,7 @@ class Backend::InventoriesController < BackendController
     # t.column :name, through: :building, url: true
     t.column :name, url: true
     t.column :serial_number, through: :tracking
-    t.column :quantity, :precision => 3
+    # t.column :quantity, :precision => 3
     t.column :unit
     t.text_field :quantity
   end

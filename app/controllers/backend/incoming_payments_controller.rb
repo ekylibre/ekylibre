@@ -23,7 +23,7 @@ class Backend::IncomingPaymentsController < BackendController
   unroll
 
   def self.incoming_payments_conditions(options={})
-    code = deprecated_search_conditions(:incoming_payments, :incoming_payments => [:amount, :bank_check_number, :number, :bank_account_number], :entities => [:code, :full_name])+"||=[]\n"
+    code = deprecated_search_conditions(:incoming_payments, :incoming_payments => [:amount, :bank_check_number, :number, :bank_account_number], :entities => [:number, :full_name])+"||=[]\n"
     code << "if session[:incoming_payment_state] == 'unreceived'\n"
     code << "  c[0] += ' AND received=?'\n"
     code << "  c << false\n"
@@ -44,10 +44,10 @@ class Backend::IncomingPaymentsController < BackendController
     t.column :full_name, through: :payer, url: true
     t.column :paid_on
     t.column :amount, currency: true, url: true
-    t.column :name, through: :mode
+    t.column :mode => :name
     t.column :bank_check_number
     t.column :to_bank_on
-    t.column :number, through: :deposit, url: true
+    t.column :deposit => :number, url: true
     t.action :edit, :unless => :deposit?
     t.action :destroy, :if => :destroyable?
   end

@@ -61,7 +61,7 @@ class Backend::AccountsController < BackendController
   end
 
   list(:journal_entry_items, :joins => :entry, :conditions => account_moves_conditions, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
-    t.column :name, through: :journal, url: true
+    t.column :journal => :name, url: true
     t.column :number, through: :entry, url: true
     t.column :printed_on, through: :entry, :datatype => :date, :label => :column
     t.column :name
@@ -74,8 +74,8 @@ class Backend::AccountsController < BackendController
   list(:entities, :conditions => ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], :order => "created_at DESC") do |t| # , attorney_account_id
     t.column :activity_code, url: true
     t.column :full_name, url: true
-    t.column :label, through: :client_account, url: true
-    t.column :label, through: :supplier_account, url: true
+    t.column :client_account => :label, url: true
+    t.column :supplier_account => :label, url: true
     # t.column :label, through: :attorney_account, url: true
   end
 
@@ -88,9 +88,9 @@ class Backend::AccountsController < BackendController
   end
 
   list(:reconciliation, :model => :journal_entry_items, :joins => [:entry, :account], :conditions => account_reconciliation_conditions, :order => "accounts.number, journal_entries.printed_on") do |t|
-    t.column :number, through: :account, :url => {:action => :mark}
-    t.column :name, through: :account, :url => {:action => :mark}
-    t.column :number, through: :entry
+    t.column :account => :number, :url => {:action => :mark}
+    t.column :account => :name, :url => {:action => :mark}
+    t.column :entry_number
     t.column :name
     t.column :debit, currency: true
     t.column :credit, currency: true

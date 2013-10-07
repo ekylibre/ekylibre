@@ -25,7 +25,7 @@ class Backend::EquipmentsController < BackendController
 
   list(:order => "name") do |t|
     t.column :name, url: true
-    t.column :name, through: :nature, url: true
+    t.column :nature => :name, url: true
     t.column :born_at, :datatype => :date
     t.action :edit
     t.action :destroy, :if => :destroyable?

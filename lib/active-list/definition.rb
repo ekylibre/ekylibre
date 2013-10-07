@@ -67,7 +67,7 @@ module ActiveList
       @table   = table
       @name    = name.to_sym
       if @table.columns.detect{|c| c.name == @name}
-        raise ArgumentError.new("Column name must be unique. #{name.inspect} is already used in #{@table.name}") 
+        raise ArgumentError.new("Column name must be unique. #{name.inspect} is already used in #{@table.name}")
       end
       @options = options
       if @options.has_key?(:through)
