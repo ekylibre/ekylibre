@@ -33,8 +33,26 @@
 #  updater_id   :integer
 #
 class ProductOwnership < Ekylibre::Record::Base
+  belongs_to :owner, :class_name => "Entity"
+  belongs_to :product
+  enumerize :nature, :in => [:unknown, :own, :other], :default => :unknown, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :allow_nil => true, :maximum => 255
-  validates_presence_of :nature
+  validates_presence_of :nature, :product
   #]VALIDATORS]
+
+  before_validation do
+    self.nature = (self.owner.blank? ? :unknown : (self.owner == Entity.of_company) ? :own : :other)
+  end
+
+  def move_to(owner,moved_at = Time.now)
+    self.class.transaction do
+      self.class.create!(owner: owner, product_id: self.product_id, started_at: moved_at, stopped_at: self.stopped_at)
+      self.stopped_at = moved_at
+      self.save!
+    end
+  end
+
+
+
 end

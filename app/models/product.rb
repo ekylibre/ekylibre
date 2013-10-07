@@ -21,7 +21,6 @@
 #
 # == Table: products
 #
-#  active                   :boolean          not null
 #  address_id               :integer
 #  asset_id                 :integer
 #  born_at                  :datetime
@@ -35,10 +34,12 @@
 #  default_storage_id       :integer
 #  derivative_of            :string(120)
 #  description              :text
-#  external                 :boolean          not null
 #  father_id                :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
+#  initial_arrival_cause    :string(120)
+#  initial_container_id     :integer
+#  initial_owner_id         :integer
 #  lock_version             :integer          default(0), not null
 #  mother_id                :integer
 #  name                     :string(255)      not null
@@ -68,6 +69,8 @@ class Product < Ekylibre::Record::Base
   belongs_to :nature, :class_name => "ProductNature"
   belongs_to :asset
   belongs_to :tracking
+  belongs_to :initial_container, :class_name => "Product"
+  belongs_to :initial_owner, :class_name => "Entity"
   belongs_to :content_nature, :class_name => "ProductNature"
   belongs_to :father, :class_name => "Product"
   belongs_to :mother, :class_name => "Product"
@@ -79,7 +82,8 @@ class Product < Ekylibre::Record::Base
   has_many :groups, :through => :memberships
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
   has_many :operation_tasks, :foreign_key => :subject_id
-  has_many :product_localizations
+  has_many :localizations, :class_name => "ProductLocalization", :foreign_key => :product_id
+  has_many :ownerships, :class_name => "ProductOwnership", :foreign_key => :product_id
   has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id, :inverse_of => :storage
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -149,15 +153,15 @@ class Product < Ekylibre::Record::Base
     joins(:nature).where(query.join(" OR "), *parameters)
   }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
-  scope :deliverables, -> { where(active: true, external: false).joins(:nature).merge(ProductNature.stockables) }
+  scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :production_supports,  -> { where(variety: ["cultivable_land_parcel"]) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_numericality_of :content_maximal_quantity, :allow_nil => true
-  validates_length_of :derivative_of, :variety, :allow_nil => true, :maximum => 120
+  validates_length_of :derivative_of, :initial_arrival_cause, :variety, :allow_nil => true, :maximum => 120
   validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :external, :reservoir, :in => [true, false]
+  validates_inclusion_of :reservoir, :in => [true, false]
   validates_presence_of :content_maximal_quantity, :name, :nature, :number, :owner, :variant, :variety
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name, :owner
@@ -172,6 +176,7 @@ class Product < Ekylibre::Record::Base
   delegate :abilities, :abilities_array, :indicators, :indicators_array, :unit_name, :to => :variant
 
   after_initialize :choose_default_name
+  after_create :set_initial_values
   before_validation :set_default_values, :on => :create
 
   validate do
@@ -179,9 +184,9 @@ class Product < Ekylibre::Record::Base
       # puts Nomen::Varieties.all(self.variant_variety).inspect
       errors.add(:variety, :invalid) unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_s)
     end
-    if self.external
-      errors.add(:owner_id, :invalid) unless self.owner_id != Entity.of_company.id
-    end
+    #if self.external
+    #  errors.add(:owner_id, :invalid) unless self.owner_id != Entity.of_company.id
+    #end
   end
 
   class << self
@@ -199,6 +204,19 @@ class Product < Ekylibre::Record::Base
   # TODO: Removes this ASAP
   def deliverable?
     false
+  end
+
+
+  # Add a member to the group
+  def set_initial_values
+      # add first owner on a product
+      if self.initial_owner
+        self.ownerships.create!(owner: self.initial_owner)
+      end
+      # add first localization on a product
+      if self.initial_container and self.initial_arrival_cause
+        self.localizations.create!(container: self.initial_container, started_at: self.born_at, arrival_cause: self.initial_arrival_cause)
+      end
   end
 
 

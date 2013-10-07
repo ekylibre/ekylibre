@@ -1842,7 +1842,9 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "type"
     t.string   "name",                                                                          null: false
     t.string   "number",                                                                        null: false
-    t.boolean  "active",                                                        default: false, null: false
+    t.integer  "initial_container_id"
+    t.string   "initial_arrival_cause",    limit: 120
+    t.integer  "initial_owner_id"
     t.string   "variety",                  limit: 120,                                          null: false
     t.string   "derivative_of",            limit: 120
     t.integer  "variant_id",                                                                    null: false
@@ -1856,7 +1858,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "picture_file_size"
     t.string   "picture_content_type"
     t.datetime "picture_updated_at"
-    t.boolean  "external",                                                      default: false, null: false
     t.integer  "owner_id",                                                                      null: false
     t.string   "identification_number"
     t.string   "work_number"
