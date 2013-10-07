@@ -1007,9 +1007,6 @@
   </module>
   <undefined-module>
     <group>
-      <item name="sessions">
-        <page to="authentication/sessions#renew"/>
-      </item>
       <item name="activities">
         <page to="backend/activities#list_productions"/>
       </item>
@@ -1220,6 +1217,7 @@
         <page to="backend/interventions#list_operations"/>
       </item>
       <item name="journal_entries">
+        <page to="backend/journal_entries#index"/>
         <page to="backend/journal_entries#list"/>
       </item>
       <item name="kujakus">

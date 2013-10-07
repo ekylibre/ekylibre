@@ -718,7 +718,7 @@ fra:
     item_listing_node: "Nœud de l’élément"
     item_nature: "Nature de l’élément"
     item_value: "Valeur de l’élément"
-    items: "Éléments de nœud d’extraction"
+    items: "Éléments"
     journal: "Journal"
     journal_entries: "Écritures"
     journal_entry: "Écriture"

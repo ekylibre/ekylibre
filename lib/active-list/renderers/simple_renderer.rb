@@ -56,7 +56,7 @@ module ActiveList
       if table.options[:line_class]
         line_class << " + ' ' + (" + recordify!(table.options[:line_class], record) + ").to_s"
       end
-      code << "    tbody << content_tag(:tr, (#{tbody}).html_safe, :class=>#{line_class})\n"
+      code << "    tbody << content_tag(:tr, (#{tbody}).html_safe, :class => #{line_class})\n"
       if table.options[:children].is_a? Symbol
         children = table.options[:children].to_s
         child_tbody = columns_to_cells(table, :children, :record=>child)
@@ -101,7 +101,7 @@ module ActiveList
           raise StandardError.new("Ohohoh")
         else
           case column.class.name
-          when DataColumn.name
+          when "DataColumn"
             style = ""
             if nature!=:children or (not column.options[:children].is_a? FalseClass and nature==:children)
               datum = column.datum_code(record, nature == :children)

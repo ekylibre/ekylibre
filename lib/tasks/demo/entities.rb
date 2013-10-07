@@ -9,7 +9,7 @@ demo :entities do
 
     CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
       r = OpenStruct.new(:account => Account.get(row[0]),
-                         :entry_number => row[4].to_s.strip.upcase.to_s.gsub(/[^A-Z0-9]/, ''),
+                         :entry_number => row[4].to_s.strip.mb_chars.upcase.to_s.gsub(/[^A-Z0-9]/, ''),
                          :entity_name => row[5])
 
       if r.account.number.match(/^401/)
@@ -58,7 +58,7 @@ demo :entities do
 
     CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", headers: true) do |row|
       r = OpenStruct.new(:first_name => row[0].blank? ? "" : row[0].to_s,
-                         :last_name => row[1].blank? ? "" : row[1].to_s.upcase,
+                         :last_name => row[1].blank? ? "" : row[1].to_s,
                          :nature => row[2].to_s.downcase,
                          :client_account_number => row[3].to_s,
                          :supplier_account_number => row[4].to_s,
@@ -68,13 +68,16 @@ demo :entities do
                          :town => row[8].blank? ? nil : row[8].to_s,
                          :phone_number => row[9].blank? ? nil : row[9].to_s,
                          :link_nature => row[10].blank? ? :undefined : row[10].to_sym,
-                         :origin => (row[0].to_s + " " + row[1].to_s.upcase)
+                         :origin => (row[0].to_s + " " + row[1].to_s)
                          )
 
-      unless person = Person.find_by_origin(r.origin)
-        person = Person.create!(
-                                :first_name => r.first_name, :last_name => r.last_name,
-                                :nature => r.nature, :client => true,
+      klass = r.nature.camelcase.constantize
+      unless person = klass.find_by_origin(r.origin)
+        person = klass.create!(
+                                :first_name => r.first_name,
+                                :last_name => r.last_name,
+                                :nature => r.nature,
+                                :client => true,
                                 :client_account_id => Account.get(r.client_account_number, :name => r.origin),
                                 :origin => r.origin,
                                 :supplier => true,

@@ -30,13 +30,13 @@
           - currency = currencies[0].currency
           %tr.total
             %th{:colspan => 6}= tc(:total)
-            %td.value= number_to_money(totals[:debit], currency)
-            %td.value= number_to_money(totals[:credit], currency)
+            %td.value= totals[:debit].l(currency: currency)
+            %td.value= totals[:credit].l(currency: currency)
             %th
           %tr.total
             %th{:colspan => 6}= tc(:balance)
-            %td.value= number_to_money(totals[:balance_debit], currency)
-            %td.value= number_to_money(totals[:balance_credit], currency)
+            %td.value= totals[:balance_debit].l(currency: currency)
+            %td.value= totals[:balance_credit].l(currency: currency)
             %th
     - b.cell(:entities) do
       = list(:entities)
