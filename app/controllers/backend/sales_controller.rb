@@ -115,12 +115,12 @@ class Backend::SalesController < BackendController
     t.action :destroy
   end
 
-  list(:undelivered_items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c, :reduction_origin_id => nil}) do |t|
+  list(:undelivered_items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c, :reduced_item_id => nil}) do |t|
     t.column :name, through: :variant
-    t.column :pretax_amount, :currency => "RECORD.price.currency", through: :price
+    t.column :pretax_amount, :currency => true, through: :price
     t.column :quantity
     #t.column :unit
-    t.column :pretax_amount, :currency => "RECORD.price.currency"
+    t.column :pretax_amount, :currency => true
     t.column :amount
     t.column :undelivered_quantity, :datatype => :decimal
   end
