@@ -24,7 +24,7 @@ class Backend::PlantsController < BackendController
 
   unroll
 
-  list(:conditions => {external: false}) do |t|
+  list() do |t|
     t.column :work_number, url: true
     t.column :name, url: true
     t.column :born_at

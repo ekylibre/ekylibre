@@ -45,7 +45,6 @@
 #  name                     :string(255)      not null
 #  nature_id                :integer          not null
 #  number                   :string(255)      not null
-#  owner_id                 :integer          not null
 #  parent_id                :integer
 #  picture_content_type     :string(255)
 #  picture_file_name        :string(255)
@@ -66,6 +65,7 @@ class Product < Ekylibre::Record::Base
   enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
   enumerize :content_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
   enumerize :content_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
+  enumerize :initial_arrival_cause, :in => [:birth, :housing, :other, :purchase], :default => :birth, :predicates =>{prefix: true}
   belongs_to :nature, :class_name => "ProductNature"
   belongs_to :asset
   belongs_to :tracking
@@ -74,7 +74,6 @@ class Product < Ekylibre::Record::Base
   belongs_to :content_nature, :class_name => "ProductNature"
   belongs_to :father, :class_name => "Product"
   belongs_to :mother, :class_name => "Product"
-  belongs_to :owner, :class_name => "Entity"
   belongs_to :variant, :class_name => "ProductNatureVariant"
   has_many :incidents, :class_name => "Incident", :as => :target
   has_many :indicator_data, :class_name => "ProductIndicatorDatum", :dependent => :destroy
@@ -162,9 +161,9 @@ class Product < Ekylibre::Record::Base
   validates_length_of :derivative_of, :initial_arrival_cause, :variety, :allow_nil => true, :maximum => 120
   validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :reservoir, :in => [true, false]
-  validates_presence_of :content_maximal_quantity, :name, :nature, :number, :owner, :variant, :variety
+  validates_presence_of :content_maximal_quantity, :name, :nature, :number, :variant, :variety
   #]VALIDATORS]
-  validates_presence_of :nature, :variant, :name, :owner
+  validates_presence_of :nature, :variant, :name
 
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :allow_destroy => true#, :reject_if => :all_blank,
@@ -207,12 +206,10 @@ class Product < Ekylibre::Record::Base
   end
 
 
-  # Add a member to the group
+  # set initial owner and localization
   def set_initial_values
       # add first owner on a product
-      if self.initial_owner
-        self.ownerships.create!(owner: self.initial_owner)
-      end
+      self.ownerships.create!(owner: self.initial_owner)
       # add first localization on a product
       if self.initial_container and self.initial_arrival_cause
         self.localizations.create!(container: self.initial_container, started_at: self.born_at, arrival_cause: self.initial_arrival_cause)
@@ -244,9 +241,6 @@ class Product < Ekylibre::Record::Base
 
   # Sets nature and variety from variant
   def set_default_values
-    unless self.external
-      self.owner_id = Entity.of_company.id
-    end
     if self.variant
       self.nature    = self.variant.nature
       self.variety ||= self.variant_variety

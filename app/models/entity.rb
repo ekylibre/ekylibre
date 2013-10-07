@@ -93,6 +93,7 @@ class Entity < Ekylibre::Record::Base
   has_many :incoming_payments, :foreign_key => :payer_id, :inverse_of => :payer
   has_many :indirect_links, :class_name => "EntityLink", :foreign_key => :entity_2_id
   has_many :mandates
+  has_many :ownerships, :class_name => "ProductOwnership", :foreign_key => :powner_id
   has_many :observations, :as => :subject
   has_many :participations, :class_name => "EventParticipation", :foreign_key => :participant_id
   has_many :prices, :class_name => "ProductPriceTemplate"

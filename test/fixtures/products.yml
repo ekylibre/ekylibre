@@ -44,7 +44,6 @@
 #  name                     :string(255)      not null
 #  nature_id                :integer          not null
 #  number                   :string(255)      not null
-#  owner_id                 :integer          not null
 #  parent_id                :integer
 #  picture_content_type     :string(255)
 #  picture_file_name        :string(255)
@@ -70,7 +69,6 @@
 #   name: "Lorem ipsum"
 #   nature_id: 1
 #   number: "Lorem ipsum"
-#   owner_id: 1
 #   reservoir: true
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
@@ -84,11 +82,9 @@ products_001:
   creator_id: 1
   born_at: 2009-07-19
   id: 1
-  external: true
   name: "Lorem ipsum 1"
   nature_id: 1
   number: "0001"
-  owner_id: 1
   type: 'Product'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -100,11 +96,9 @@ products_002:
   creator_id: 1
   born_at: 2009-07-31
   id: 2
-  external: true
   name: "Lorem ipsum 2"
   nature_id: 1
   number: "0002"
-  owner_id: 1
   type: 'Product'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -119,7 +113,6 @@ buildings_001:
   type: 'Building'
   nature_id: 4
   number: "0003"
-  owner_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   variant_id: 4
@@ -133,7 +126,6 @@ buildings_002:
   type: 'Building'
   nature_id: 4
   number: "0004"
-  owner_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   variant_id: 4
@@ -147,7 +139,6 @@ buildings_003:
   type: 'Building'
   nature_id: 4
   number: "0005"
-  owner_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   variant_id: 4
@@ -161,7 +152,6 @@ land_parcels_001:
   name: "Lorem ipsum"
   nature_id: 1
   number: "0006"
-  owner_id: 1
   # shape: 'MULTIPOLYGON(((235670.354215375 894016.780856,235668.324215375 894025.050856,235681.154215375 894028.210856,235683.184215375 894019.940856,235670.354215375 894016.780856)))'
   type: 'LandParcel'
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -177,7 +167,6 @@ land_parcels_002:
   name: "Lorem ipsum"
   nature_id: 1
   number: "0007"
-  owner_id: 1
   # shape: 'MULTIPOLYGON(((235670.354215375 894016.780856,235668.324215375 894025.050856,235681.154215375 894028.210856,235683.184215375 894019.940856,235670.354215375 894016.780856)))'
   type: 'LandParcel'
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -192,7 +181,6 @@ equipments_001:
   name: "Tractor"
   nature_id: 1
   number: "0008"
-  owner_id: 1
   type: 'Equipment'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -206,7 +194,6 @@ equipments_002:
   name: "Useless tractor"
   nature_id: 1
   number: "0009"
-  owner_id: 1
   type: 'Equipment'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -220,7 +207,6 @@ animals_001:
   name: "IONOSPHERE"
   nature_id: 1
   number: "0010"
-  owner_id: 1
   type: 'Animal'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -234,7 +220,6 @@ animals_002:
   name: "ISABELLE"
   nature_id: 1
   number: "0011"
-  owner_id: 1
   type: 'Animal'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -248,7 +233,6 @@ matters_001:
   name: "Sand"
   nature_id: 1
   number: "0012"
-  owner_id: 1
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -262,7 +246,6 @@ matters_002:
   name: "Book"
   nature_id: 1
   number: "0013"
-  owner_id: 1
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -276,7 +259,6 @@ matters_003:
   name: "Iron grid"
   nature_id: 1
   number: "0014"
-  owner_id: 1
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -290,7 +272,6 @@ matters_004:
   name: "Deuterium"
   nature_id: 1
   number: "0015"
-  owner_id: 1
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -304,7 +285,6 @@ matters_005:
   name: "Oxygen"
   nature_id: 1
   number: "0016"
-  owner_id: 1
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -318,7 +298,6 @@ product_groups_001:
   name: "Troupeau 1"
   nature_id: 1
   number: "0017"
-  owner_id: 1
   type: 'ProductGroup'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -333,7 +312,6 @@ product_groups_001:
   name: "Troupeau 1"
   nature_id: 1
   number: "0018"
-  owner_id: 1
   type: 'ProductGroup'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -348,7 +326,6 @@ product_groups_001:
   name: "Troupeau 1"
   nature_id: 1
   number: "0019"
-  owner_id: 1
   type: 'ProductGroup'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1

@@ -1091,7 +1091,6 @@ class CreateBase < ActiveRecord::Migration
       t.integer    :picture_file_size
       t.string     :picture_content_type
       t.datetime   :picture_updated_at
-      t.references :owner,                                                                         null: false, index: true
       t.string     :identification_number
       t.string     :work_number
       t.references :father,                                                                                     index: true

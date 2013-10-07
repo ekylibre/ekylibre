@@ -1858,7 +1858,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "picture_file_size"
     t.string   "picture_content_type"
     t.datetime "picture_updated_at"
-    t.integer  "owner_id",                                                                      null: false
     t.string   "identification_number"
     t.string   "work_number"
     t.integer  "father_id"
@@ -1889,7 +1888,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "products", ["name"], :name => "index_products_on_name"
   add_index "products", ["nature_id"], :name => "index_products_on_nature_id"
   add_index "products", ["number"], :name => "index_products_on_number", :unique => true
-  add_index "products", ["owner_id"], :name => "index_products_on_owner_id"
   add_index "products", ["parent_id"], :name => "index_products_on_parent_id"
   add_index "products", ["tracking_id"], :name => "index_products_on_tracking_id"
   add_index "products", ["type"], :name => "index_products_on_type"
