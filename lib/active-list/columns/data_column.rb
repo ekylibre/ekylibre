@@ -12,12 +12,16 @@ module ActiveList
       @columns.select{|c| c.is_a? DataColumn}
     end
 
+    def hidden_columns
+      self.data_columns.select{|c| c.options[:hidden] }
+    end
+
     # Add a new method in Table which permit to define data columns
     def column(*args)
       options = args.extract_options!
       unless name = args.shift
         pair = options.first
-        name = pair.map(&:to_s).join.to_sym
+        name = pair.map(&:to_s).join("_").to_sym
         options[:through]      = pair.first
         options[:label_method] = pair.second
       end

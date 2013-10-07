@@ -30,16 +30,17 @@ class Backend::JournalEntriesController < BackendController
     t.column :real_credit, currency: :real_currency
     t.column :debit,  currency: true, hidden: true
     t.column :credit, currency: true, hidden: true
-    t.column :absolute_debit,  currency: true, hidden: true
-    t.column :absolute_credit, currency: true, hidden: true
+    t.column :absolute_debit,  currency: :absolute_currency, hidden: true
+    t.column :absolute_credit, currency: :absolute_currency, hidden: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
 
   list(:items, :model => :journal_entry_items, :conditions => {:entry_id => 'params[:id]'.c}, :order => "entry_id DESC, position") do |t|
     t.column :name
-    t.column  account: :number, url: true
-    t.column  account: :name, url: true
+    t.column :account, url: true
+    t.column :account => :number, url: true
+    t.column :account => :name, url: true
     t.column :bank_statement, url: true, hidden: true
     # t.column :number, through: :account, url: true
     # t.column :name, through: :account, url: true
@@ -48,8 +49,8 @@ class Backend::JournalEntriesController < BackendController
     t.column :real_credit, currency: :real_currency
     t.column :debit,  currency: true, hidden: true
     t.column :credit, currency: true, hidden: true
-    t.column :absolute_debit,  currency: true, hidden: true
-    t.column :absolute_credit, currency: true, hidden: true
+    t.column :absolute_debit,  currency: :absolute_currency, hidden: true
+    t.column :absolute_credit, currency: :absolute_currency, hidden: true
   end
 
   def new

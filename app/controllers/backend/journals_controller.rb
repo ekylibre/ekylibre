@@ -56,22 +56,31 @@ class Backend::JournalsController < BackendController
   end
 
   list(:items, :model => :journal_entry_items, :conditions => journal_entries_conditions, :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
-    t.column :number, through: :entry, url: true
+    t.column :entry => :number, url: true
     t.column :printed_on, through: :entry, :datatype => :date
-    t.column :number, through: :account, url: true
-    t.column :name, through: :account, url: true
+    t.column :account, url: true
+    t.column :account => :number, url: true, hidden: true
+    t.column :account => :name, url: true, hidden: true
     t.column :name
     t.column :state_label
-    t.column :real_debit, :currency => :real_currency
-    t.column :real_credit, :currency => :real_currency
+    t.column :real_debit,  currency: :real_currency
+    t.column :real_credit, currency: :real_currency
+    t.column :debit,  currency: true, hidden: true
+    t.column :credit, currency: true, hidden: true
+    t.column :absolute_debit,  currency: :absolute_currency, hidden: true
+    t.column :absolute_credit, currency: :absolute_currency, hidden: true
   end
 
   list(:entries, :model => :journal_entries, :conditions => journal_entries_conditions, :order => "created_at DESC") do |t|
     t.column :number, url: true
     t.column :printed_on
     t.column :state_label
-    t.column :real_debit, :currency => :real_currency
-    t.column :real_credit, :currency => :real_currency
+    t.column :real_debit,  currency: :real_currency
+    t.column :real_credit, currency: :real_currency
+    t.column :debit,  currency: true, hidden: true
+    t.column :credit, currency: true, hidden: true
+    t.column :absolute_debit,  currency: :absolute_currency, hidden: true
+    t.column :absolute_credit, currency: :absolute_currency, hidden: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
@@ -82,8 +91,12 @@ class Backend::JournalsController < BackendController
     t.column :printed_on, :datatype => :date, :children => false
     # t.column :label, through: :account, :url => {:action => :account}
     t.column :state_label
-    t.column :real_debit#, :currency => {:body => :real_currency, :children => "RECORD.real_currency"}
-    t.column :real_credit#, :currency => {:body => :real_currency, :children => "RECORD.real_currency"}
+    t.column :real_debit,  currency: :real_currency
+    t.column :real_credit, currency: :real_currency
+    t.column :debit,  currency: true, hidden: true
+    t.column :credit, currency: true, hidden: true
+    t.column :absolute_debit,  currency: :absolute_currency, hidden: true
+    t.column :absolute_credit, currency: :absolute_currency, hidden: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
@@ -154,14 +167,19 @@ class Backend::JournalsController < BackendController
 
   # FIXME RECORD.real_currency does not exist
   list(:draft_items, :model => :journal_entry_items, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
-    t.column :name, through: :journal, url: true
-    t.column :number, through: :entry, url: true
-    t.column :printed_on, through: :entry, :datatype => :date
-    t.column :number, through: :account, url: true
-    t.column :name, through: :account, url: true
+    t.column :journal => :name, url: true
+    t.column :entry_number, url: true
+    t.column :printed_on, :datatype => :date
+    t.column :account, url: true
+    t.column :account => :number, url: true, hidden: true
+    t.column :account => :name, url: true, hidden: true
     t.column :name
-    t.column :debit#, :currency => "RECORD.entry.financial_year.currency"
-    t.column :credit#, :currency => "RECORD.entry.financial_year.currency"
+    t.column :real_debit,  currency: :real_currency, hidden: true
+    t.column :real_credit, currency: :real_currency, hidden: true
+    t.column :debit,  currency: true
+    t.column :credit, currency: true
+    t.column :absolute_debit,  currency: :absolute_currency, hidden: true
+    t.column :absolute_credit, currency: :absolute_currency, hidden: true
   end
 
   # this method lists all the entries generated in draft mode.
@@ -238,18 +256,23 @@ class Backend::JournalsController < BackendController
     code << journals_crit("params")
     code << "c\n"
     # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
-    return code # .gsub(/\s*\n\s*/, ";")
+    return code.c # .gsub(/\s*\n\s*/, ";")
   end
 
   # FIXME RECORD.real_currency does not exist
   list(:general_ledger, :model => :journal_entry_items, :conditions => general_ledger_conditions, :joins => [:entry, :account], :order => "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
-    t.column :number, through: :account, url: true
-    t.column :name, through: :account, url: true
-    t.column :number, through: :entry, url: true
-    t.column :printed_on, through: :entry, :datatype => :date
+    t.column :account, url: true
+    t.column :account => :number, url: true, hidden: true
+    t.column :account => :name, url: true, hidden: true
+    t.column :entry_number, url: true
+    t.column :printed_on
     t.column :name
-    t.column :debit#, :currency => "RECORD.entry.financial_year.currency"
-    t.column :credit#, :currency => "RECORD.entry.financial_year.currency"
+    t.column :real_debit,  currency: :real_currency, hidden: true
+    t.column :real_credit, currency: :real_currency, hidden: true
+    t.column :debit,  currency: true, hidden: true
+    t.column :credit, currency: true, hidden: true
+    t.column :absolute_debit,  currency: :absolute_currency
+    t.column :absolute_credit, currency: :absolute_currency
   end
 
   def general_ledger

@@ -14,25 +14,17 @@ module ActiveList
       @options[:per_page] = 20 if @options[:per_page].to_i <= 0
       @options[:page] = 1 if @options[:page].to_i <= 0
       @columns = []
-      @current_id = 0
-      @id = @@current_id.to_s(36).to_sym
-      @@current_id += 1
+      @id = ActiveList.new_uid
       @parameters = {:sort => :to_s, :dir => :to_s}
       @parameters.merge!(:page => :to_i, :per_page => :to_i) if self.paginate?
     end
 
-    def new_id
-      id = @@current_id.to_s(36).to_sym
-      @@current_id += 1
+    def new_column_id
+      @current_column_id ||= 0
+      id = @current_column_id.to_s(36).to_sym
+      @current_column_id += 1
       return id
     end
-
-    # def new_column_id
-    #   @current_column_id ||= 0
-    #   id = @current_column_id.to_s(36).to_sym
-    #   @current_column_id += 1
-    #   return id
-    # end
 
     def model_columns
       @model.columns_definition.values
@@ -68,16 +60,24 @@ module ActiveList
 
 
   class Column
-    attr_accessor :name, :options, :table
+    attr_accessor :name, :options, :table, :label_method
     attr_reader :id
 
     def initialize(table, name, options={})
       @table   = table
-      @name    = name
+      @name    = name.to_sym
+      if @table.columns.detect{|c| c.name == @name}
+        raise ArgumentError.new("Column name must be unique. #{name.inspect} is already used in #{@table.name}") 
+      end
       @options = options
-      # @column  = @table.model.columns.detect{|c| c.name.to_s == @name.to_s }
+      if @options.has_key?(:through)
+        unless @options[:through].is_a?(Symbol)
+          raise ArgumentError, "Option :through must be a Symbol"
+        end
+      end
+      @label_method = @options.delete(:label_method) || @name
       @column  = @table.model.columns_definition[@name.to_s]
-      @id = name # @table.new_column_id(name, options)
+      @id = ActiveList.new_uid
     end
 
     def header_code
@@ -94,13 +94,15 @@ module ActiveList
 
     # Unique identifier of the column in the application
     def unique_id
-      "#{@table.name}-#{@id}"
+      "#{@table.name}-#{@name}"
     end
 
     # Uncommon but simple identifier for CSS class uses
-    def simple_id
-      "_#{@table.id}_#{@id}"
+    def short_id
+      @id
     end
+
+    alias :sort_id :name
 
   end
 

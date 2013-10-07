@@ -3,12 +3,12 @@ module ActiveList
   class Table
 
     # Add a new method in Table which permit to define text_field columns
-    def text_field(name, options={})
+    def text_field(name, options = {})
       @columns << TextFieldColumn.new(self, name, options)
     end
 
     # Add a new method in Table which permit to define check_box columns
-    def check_box(name, options={})
+    def check_box(name, options = {})
       @columns << CheckBoxColumn.new(self, name, options)
     end
 

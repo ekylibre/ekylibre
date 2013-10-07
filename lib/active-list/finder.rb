@@ -9,12 +9,7 @@ module ActiveList
       # Check order
       unless self.options.keys.include?(:order)
         columns = self.table_columns
-        if columns.size > 0
-          self.options[:order] = columns[0][:name].to_s # self.model.connection.quote_column_name(columns[0].name.to_s)
-        else
-          # raise ArgumentError.new("Option :order is needed for the list :#{self.name}")
-          self.options[:order] = "id DESC"
-        end
+        self.options[:order] = (columns.size > 0 ? columns.first[:name].to_s : "id DESC")
       end
 
       # Find data
@@ -26,23 +21,23 @@ module ActiveList
       #.references(#{self.includes_hash.inspect})
 
       code = ""
-      code << "#{self.records_variable_name}_count = #{query_code}.count\n"
+      code << "#{var_name(:count)} = #{query_code}.count\n"
       if paginate
-        code << "#{self.records_variable_name}_limit = (list_params[:per_page]||25).to_i\n"
-        code << "#{self.records_variable_name}_page = (list_params[:page]||1).to_i\n"
-        code << "#{self.records_variable_name}_page = 1 if #{self.records_variable_name}_page < 1\n"
-        code << "#{self.records_variable_name}_offset = (#{self.records_variable_name}_page-1)*#{self.records_variable_name}_limit\n"
-        code << "#{self.records_variable_name}_last = (#{self.records_variable_name}_count.to_f/#{self.records_variable_name}_limit).ceil.to_i\n"
-        code << "#{self.records_variable_name}_last = 1 if #{self.records_variable_name}_last < 1\n"
-        code << "return #{self.view_method_name}(options.merge(:page=>1)) if 1 > #{self.records_variable_name}_page\n"
-        code << "return #{self.view_method_name}(options.merge(:page=>#{self.records_variable_name}_last)) if #{self.records_variable_name}_page > #{self.records_variable_name}_last\n"
+        code << "#{var_name(:limit)}  = (#{var_name(:params)}[:per_page]||25).to_i\n"
+        code << "#{var_name(:page)}   = (#{var_name(:params)}[:page]||1).to_i\n"
+        code << "#{var_name(:page)}   = 1 if #{var_name(:page)} < 1\n"
+        code << "#{var_name(:offset)} = (#{var_name(:page)}-1)*#{var_name(:limit)}\n"
+        code << "#{var_name(:last)}   = (#{var_name(:count)}.to_f/#{var_name(:limit)}).ceil.to_i\n"
+        code << "#{var_name(:last)}   = 1 if #{var_name(:last)} < 1\n"
+        code << "return #{self.view_method_name}(options.merge(page: 1)) if 1 > #{var_name(:page)}\n"
+        code << "return #{self.view_method_name}(options.merge(page: #{var_name(:last)})) if #{var_name(:page)} > #{var_name(:last)}\n"
       end
       code << "#{self.records_variable_name} = #{query_code}"
       if paginate
-        code << ".offset(#{self.records_variable_name}_offset)"
-        code << ".limit(#{self.records_variable_name}_limit)"
+        code << ".offset(#{var_name(:offset)})"
+        code << ".limit(#{var_name(:limit)})"
       end
-      code << ".reorder(order)||{}\n"
+      code << ".reorder(#{var_name(:order)})||{}\n"
       return code
     end
 
@@ -53,12 +48,7 @@ module ActiveList
       hash = {}
       for column in self.columns
         if through = column.options[:through]
-          through = [through] unless through.is_a? Array
-          h = hash
-          for x in through
-            h[x] = {} unless h[x].is_a? Hash
-            h = h[x]
-          end
+          hash[through] ||= {}
         end
       end
       return hash
@@ -73,22 +63,25 @@ module ActiveList
       when Array
         case conditions[0]
         when String  # SQL
-          code += '["'+conditions[0].to_s+'"'
-          code += ', '+conditions[1..-1].collect{|p| sanitize_condition(p)}.join(', ') if conditions.size>1
-          code += ']'
+          code << '[' + conditions.first.inspect
+          code << conditions[1..-1].collect{|p| ", " + sanitize_condition(p)}.join if conditions.size > 1
+          code << ']'
         when Symbol # Method
-          code += conditions[0].to_s+'('
-          code += conditions[1..-1].collect{|p| sanitize_condition(p)}.join(', ') if conditions.size>1
-          code += ')'
+          raise "What?"
+          code << conditions.first.to_s + '('
+          code << conditions[1..-1].collect{|p| sanitize_condition(p)}.join(', ') if conditions.size > 1
+          code << ')'
         else
           raise ArgumentError.new("First element of an Array can only be String or Symbol.")
         end
       when Hash # SQL
-        code += '{'+conditions.collect{|key, value| ':'+key.to_s+'=>'+sanitize_condition(value)}.join(',')+'}'
+        code << '{' + conditions.collect{|key, value| key.to_s + ': ' + sanitize_condition(value)}.join(',') + '}'
       when Symbol # Method
-        code += conditions.to_s+"(options)"
+        code << conditions.to_s + "(options)"
+      when Code
+        code << "(" + conditions.gsub(/\s*\n\s*/, ';') + ")"
       when String
-        code += "("+conditions.gsub(/\s*\n\s*/,';')+")"
+        code << conditions.inspect
       else
         raise ArgumentError.new("Unsupported type for conditions: #{conditions.inspect}")
       end
@@ -103,7 +96,7 @@ module ActiveList
       if self.options[:select]
         code << self.options[:select].collect{|k, v| ", #{k[0].to_s+'.'+k[1].to_s} AS #{v}" }.join
       end
-      return "'"+code+"'"
+      return ("'" + code + "'").c
     end
 
 

@@ -19,21 +19,21 @@
 
 class Backend::DashboardsController < BackendController
 
-  list(:my_future_events, model: :events, :conditions => ['started_at >= CURRENT_TIMESTAMP'], :order => "started_at ASC", :per_page => 10) do |t|
+  list(:my_future_events, model: :events, :conditions => 'started_at >= CURRENT_TIMESTAMP', :order => "started_at ASC", :per_page => 10) do |t|
     t.column :name
     t.column :started_at
     # t.column :full_name, through: :entity, url: true
-    t.column :name, through: :nature
+    t.column :nature => :name
     t.column :duration
     t.column :place
     # t.column :label, through: :responsible, url: true
   end
 
-  list(:recent_events, model: :events, :conditions => ['started_at < CURRENT_TIMESTAMP'], :order => "started_at DESC", :per_page => 10) do |t|
+  list(:recent_events, model: :events, :conditions => 'started_at < CURRENT_TIMESTAMP', :order => "started_at DESC", :per_page => 10) do |t|
     t.column :name
     t.column :started_at
     # t.column :full_name, through: :entity, url: true
-    t.column :name, through: :nature
+    t.column :nature => :name
     t.column :duration
     t.column :place
     # t.column :label, through: :responsible, url: true
