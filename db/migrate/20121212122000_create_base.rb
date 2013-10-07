@@ -178,7 +178,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :iban,                 limit: 34
       t.string   :spaced_iban,          limit: 42
       # t.boolean  :by_default,                      default: false,          null: false
-      t.string   :currency,             limit: 3
+      t.string   :currency,             limit: 3, null: false
       t.string   :country,              limit: 2
       t.stamps
     end

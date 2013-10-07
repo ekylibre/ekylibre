@@ -31,7 +31,7 @@
 #  country              :string(2)
 #  created_at           :datetime         not null
 #  creator_id           :integer
-#  currency             :string(3)
+#  currency             :string(3)        not null
 #  iban                 :string(34)
 #  id                   :integer          not null, primary key
 #  journal_id           :integer          not null
@@ -70,7 +70,7 @@ class Cash < Ekylibre::Record::Base
   validates_length_of :spaced_iban, :allow_nil => true, :maximum => 42
   validates_length_of :bank_name, :allow_nil => true, :maximum => 50
   validates_length_of :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :mode, :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :account, :journal, :mode, :name, :nature
+  validates_presence_of :account, :currency, :journal, :mode, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :mode, :in => self.mode.values
   validates_inclusion_of :nature, :in => self.nature.values

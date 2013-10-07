@@ -303,7 +303,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "bank_identifier_code", limit: 11
     t.string   "iban",                 limit: 34
     t.string   "spaced_iban",          limit: 42
-    t.string   "currency",             limit: 3
+    t.string   "currency",             limit: 3,                           null: false
     t.string   "country",              limit: 2
     t.datetime "created_at",                                               null: false
     t.datetime "updated_at",                                               null: false
