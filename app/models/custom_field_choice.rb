@@ -47,8 +47,10 @@ class CustomFieldChoice < Ekylibre::Record::Base
   before_validation do
     self.value ||= self.name.to_s.codeize # if self.value.blank?
     self.value = self.value.mb_chars.downcase.gsub(/[[:space:]\_]+/, '-').gsub(/(^\-+|\-+$)/, '')[0..62]
-    while self.custom_field.choices.where(:value => self.value).where("id != ?", self.id || 0).count > 0
-      self.value.succ!
+    if self.custom_field
+      while self.custom_field.choices.where(:value => self.value).where("id != ?", self.id || 0).count > 0
+        self.value.succ!
+      end
     end
   end
 
