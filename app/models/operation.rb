@@ -41,10 +41,26 @@ class Operation < Ekylibre::Record::Base
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
   validates_presence_of :intervention, :started_at, :stopped_at
   #]VALIDATORS]
-
+  
   # default_scope -> { order(:started_at) }
   scope :unvalidateds, -> { where(:confirmed => false) }
-
+  
+  scope :of_campaign, lambda { |*campaigns|
+    campaigns.flatten!
+    for campaign in campaigns
+      raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+    end
+    joins(intervention: :production).merge(Production.of_campaign(campaigns))
+  }
+  
+  scope :of_activities, lambda { |*activities|
+    activities.flatten!
+    for activity in activities
+      raise ArgumentError.new("Expected Activity, got #{activity.class.name}:#{activity.inspect}") unless activity.is_a?(Activity)
+    end
+    joins(intervention: :production).merge(Production.of_activities(activities))
+  }
+  
   before_validation(:on => :create) do
     self.started_at ||= Time.now
     # TODO Remove following line!!!
@@ -61,6 +77,22 @@ class Operation < Ekylibre::Record::Base
   def reference
     self.intervention.reference.operations[self.position]
   end
+  
+  def self.averages_of_periods(column = :duration, reference_date_column = :started_at, period = :month)
+    self.calculate_in_periods(:avg, column, reference_date_column, period)
+  end
+
+  def self.sums_of_periods(column = :duration, reference_date_column = :started_at, period = :month)
+    self.calculate_in_periods(:sum, column, reference_date_column, period)
+  end
+
+  def self.calculate_in_periods(operation, column, reference_date_column, period = :month)
+    period = :doy if period == :day
+    operation_date_column = "#{Operation.table_name}.#{reference_date_column}"
+    expr = "EXTRACT(YEAR FROM #{operation_date_column})*1000 + EXTRACT(#{period} FROM #{operation_date_column})"
+    self.group(expr).reorder(expr).select("#{expr} AS expr, #{operation}(#{column}) AS #{column}")
+  end
+  
 
 end
 

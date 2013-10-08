@@ -26,13 +26,14 @@
       <item name="incoming_delivery_docket" category="exploitation"/>
       <item name="outgoing_delivery_docket" category="exploitation"/>
       <item name="outgoing_delivery_journal" category="exploitation"/>
-
+      
       <item name="animal_sheet" category="animal_farming"/>
       <item name="animal_list" category="animal_farming"/>
       <item name="prescription" category="sanitary"/>
       <item name="veterinary_booklet" category="sanitary"/>
       <item name="manure_management_plan" category="land_parcel_management"/>
-            
+      <item name="activity_margin" category="exploitation"/>
+      
       <item name="entity_sheet" category="exploitation"/>
     </items>
   </nomenclature>
