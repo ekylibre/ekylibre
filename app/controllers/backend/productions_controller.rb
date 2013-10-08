@@ -29,16 +29,16 @@ class Backend::ProductionsController < BackendController
     code << "    c << params[:product_nature_id].to_i\n"
     code << "  end\n"
     code << "c\n "
-    code
+    return code.c
   end
 
 
 
   list(:conditions => productions_conditions, :joins => [:activity, :product_nature, :campaign]) do |t|
     t.column :name, url: true
-    t.column :activity => :name, url: true
-    # t.column :name,through: :campaign, url: true
-    # t.column :name,through: :product_nature, url: true
+    t.column :activity, url: true
+    t.column :campaign, url: true
+    t.column :product_nature, url: true
     t.column :state_label
     t.action :edit, :if => :draft?
     # t.action :print, :if => :validated?
