@@ -1138,6 +1138,7 @@ arb:
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     edit: "تعديل"
     ekylibre: "www.ekylibre.org"
+    # elapsed_interventions_times_by_activities: "Temps passé par activité"
     # email: "Email:"
     employee_name: "الموظف"
     end: "لغاية"
