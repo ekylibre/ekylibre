@@ -23,13 +23,13 @@ class Backend::DocumentTemplatesController < BackendController
   unroll
 
   # FIXME :language.to_s waiting for method
-  list(:order => :name) do |t|
+  list(order: :name) do |t|
     t.column :active
     t.column :name
     t.column :nature
     t.column :by_default
     t.column :archiving
-    t.column :language.to_s
+    t.column :language
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

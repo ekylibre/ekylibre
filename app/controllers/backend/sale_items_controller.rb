@@ -78,7 +78,7 @@ class Backend::SaleItemsController < BackendController
   def edit
     return unless @sale_item = find_and_check(:sale_item)
     @sale = @sale_item.sale
-    t3e :product => @sale_item.product.name
+    t3e :product => @sale_item.variant_name
     # render_restfully_form
   end
 

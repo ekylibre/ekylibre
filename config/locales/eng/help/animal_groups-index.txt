@@ -4,7 +4,7 @@
 
 Here, you can [[>backend/animal_groups#new|create]] , change and view your animal's groups.
 
->>> To record an event related to an animal's group (feeding, weighing, treatment, buying, selling,...), you have to [[>backend/procedures#new|create]]
->>> {{icon:plus}} a new procedure
+>>> To record an event related to an animal's group (feeding, weighing, treatment, buying, selling,...), you have to [[>backend/interventions#new|create]]
+>>> {{icon:plus}} a new intervention
 
-!!! While no animal's group intervene in any indicators, procedures, purchases, sales,...it could be deleted.
+!!! While no animal's group intervene in any indicators, interventions, purchases, sales,...it could be deleted.

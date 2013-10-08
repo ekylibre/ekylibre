@@ -1949,7 +1949,7 @@ spa:
     # backend/logs: "{observed_at}"
     # backend/matters: "{name} - {work_number}"
     # backend/observations: "{content}"
-    # backend/operations: "{nature} ({created_at})"
+    # backend/operations: "{position} ({started_at})"
     # backend/plants: "{name} - {work_number}"
     # backend/product_indicators: "{id}"
     # backend/product_memberships: "{started_at}"

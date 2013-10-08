@@ -51,7 +51,7 @@ class PurchaseItem < Ekylibre::Record::Base
   # belongs_to :price, class_name: "CatalogPrice"
   belongs_to :variant, class_name: "ProductNatureVariant"
   belongs_to :tax
-  enumerize :unit, :in => Nomen::Units.all
+  # enumerize :unit, :in => Nomen::Units.all
   has_many :delivery_items, class_name: "IncomingDeliveryItem", :foreign_key => :purchase_item_id
 
   # accepts_nested_attributes_for :price
@@ -91,7 +91,7 @@ class PurchaseItem < Ekylibre::Record::Base
         product_nature.save!
       end
       self.account_id = product_nature.charge_account_id
-      self.unit ||= self.price.product_nature.unit
+      # self.unit ||= self.price.product_nature.unit
       # self.product_id = self.price.product_nature_id
       self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
       self.amount = (self.price.amount*self.quantity).round(2)
@@ -133,7 +133,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   def name
-    options = {:product => self.product.name, :unit => self.unit.name, :quantity => quantity.to_s, :amount => self.price.amount, :currency => self.price.currency.name}
+    options = {:product => self.product.name, :quantity => quantity.to_s, :amount => self.price.amount, :currency => self.price.currency.name} # , :unit => self.unit.name
     if self.tracking
       options[:tracking] = self.tracking.name
       tc(:name_with_tracking, options)

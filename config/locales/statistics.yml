@@ -7,11 +7,7 @@ eng:
     translation_rate: 0.7699343339587242
 fra:
   statistics:
-<<<<<<< HEAD
-    translation_rate: 0.9441860465116279
-=======
     translation_rate: 0.9441984056687334
->>>>>>> 231dd6c4bb2fe8feab19f30ef0e17fcc86b9483d
 jpn:
   statistics:
     translation_rate: 0.13860225140712945

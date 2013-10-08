@@ -36,7 +36,7 @@ class Backend::IncomingPaymentsController < BackendController
     # code << "  c[0] += ' AND used_amount != amount'\n"
     code << "end\n"
     code << "c\n"
-    return code
+    return code.c
   end
 
   list(:conditions => incoming_payments_conditions, :joins => :payer, :order => "to_bank_on DESC") do |t|

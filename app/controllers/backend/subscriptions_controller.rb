@@ -39,7 +39,7 @@ class Backend::SubscriptionsController < BackendController
     code << "  end\n"
     code << "end\n"
     code << "conditions\n"
-    code
+    return code.c
   end
 
   list(:conditions => subscriptions_conditions, :order =>  "id DESC") do |t|

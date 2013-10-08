@@ -23,12 +23,12 @@ class Backend::BankStatementsController < BackendController
   unroll
 
   list(:order => "started_on DESC") do |t|
-    t.column :cash, url: true
     t.column :number, url: true
+    t.column :cash,   url: true
     t.column :started_on
     t.column :stopped_on
-    t.column :debit, :currency: true
-    t.column :credit, :currency: true
+    t.column :debit,  currency: true
+    t.column :credit, currency: true
     t.action :point
     t.action :edit
     t.action :destroy

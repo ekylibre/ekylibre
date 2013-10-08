@@ -28,7 +28,7 @@ class Backend::CashTransfersController < BackendController
     t.column :emission_cash, url: true
     t.column :reception_amount, :currency => :reception_currency
     t.column :reception_cash, url: true
-    t.column :created_on
+    t.column :transfered_on
     t.column :description
     t.action :edit
     t.action :destroy

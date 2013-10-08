@@ -62,8 +62,8 @@ class ProductNature < Ekylibre::Record::Base
   belongs_to :product_account, :class_name => "Account"
   belongs_to :stock_account, :class_name => "Account"
   belongs_to :subscription_nature
-  has_and_belongs_to_many :sale_taxes, class_name: "Tax" # , join_table: 'product_natures_sale_taxes'
-  has_and_belongs_to_many :purchase_taxes, class_name: "Tax" # , join_table: 'product_natures_purchase_taxes'
+  has_and_belongs_to_many :sale_taxes, class_name: "Tax", join_table: :product_natures_sale_taxes
+  has_and_belongs_to_many :purchase_taxes, class_name: "Tax", join_table: :product_natures_purchase_taxes
   # has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
   #has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductPriceTemplate"
   has_many :subscriptions, :foreign_key => :product_nature_id

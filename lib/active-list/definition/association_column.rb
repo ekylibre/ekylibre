@@ -22,11 +22,10 @@ module ActiveList
           raise UnknownReflection, "Reflection #{reflection_name} cannot be found for #{table.model.name}."
         end
         unless @label_method = @options.delete(:label_method)
-          foreign_model = @reflection.class_name.constantize.new
-          unless @label_method = [:full_name, :label, :name, :number, :coordinate].detect do |m|
-              foreign_model.respond_to?(m)
-            end
-            raise ArgumentError, ":label_method option must be given for association #{name} (#{foreign_model.name}). (#{foreign_model.instance_methods.to_sentence})"
+          columns = @reflection.class_name.constantize.columns_definition.keys.map(&:to_sym)
+          columns += @reflection.class_name.constantize.instance_methods.map(&:to_sym)
+          unless @label_method = [:full_name, :label, :name, :number, :coordinate].detect{|m| columns.include?(m)}
+            raise ArgumentError, ":label_method option must be given for association #{name}. (#{columns.inspect})"
           end
         end
       end

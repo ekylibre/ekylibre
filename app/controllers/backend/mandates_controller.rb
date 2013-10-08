@@ -28,21 +28,21 @@ class Backend::MandatesController < BackendController
 
   def self.mandates_conditions(options={})
     code = ""
-    code += "conditions = ['1=1']\n"
-    code += "if session[:mandates].is_a? Hash\n"
-    code += "  unless session[:mandates][:organization].blank?\n"
-    code += "    conditions[0] += ' AND organization = ?'\n"
-    code += "    conditions << session[:mandates][:organization]\n"
-    code += "  end\n"
-    code += "  unless session[:mandates][:viewed_on].blank?\n"
-    code += "    conditions[0] += ' AND (? BETWEEN COALESCE(started_on, stopped_on, ?)  AND COALESCE(stopped_on, ?) )'\n"
-    code += "    conditions << session[:mandates][:viewed_on]\n"
-    code += "    conditions << session[:mandates][:viewed_on]\n"
-    code += "    conditions << session[:mandates][:viewed_on]\n"
-    code += "  end\n"
-    code += "end\n"
-    code += "conditions\n"
-    code
+    code << "conditions = ['1=1']\n"
+    code << "if session[:mandates].is_a? Hash\n"
+    code << "  unless session[:mandates][:organization].blank?\n"
+    code << "    conditions[0] += ' AND organization = ?'\n"
+    code << "    conditions << session[:mandates][:organization]\n"
+    code << "  end\n"
+    code << "  unless session[:mandates][:viewed_on].blank?\n"
+    code << "    conditions[0] += ' AND (? BETWEEN COALESCE(started_on, stopped_on, ?)  AND COALESCE(stopped_on, ?) )'\n"
+    code << "    conditions << session[:mandates][:viewed_on]\n"
+    code << "    conditions << session[:mandates][:viewed_on]\n"
+    code << "    conditions << session[:mandates][:viewed_on]\n"
+    code << "  end\n"
+    code << "end\n"
+    code << "conditions\n"
+    return code.c
   end
 
   list(:conditions => mandates_conditions) do |t|

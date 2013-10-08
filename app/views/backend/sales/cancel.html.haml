@@ -1,17 +1,17 @@
--if !session[:errors].nil?
-  -if !session[:errors].empty?
+- if !session[:errors].nil?
+  - if !session[:errors].empty?
     .errorExplanation
-      %h2=session[:errors].size.to_s+" erreur(s) ont empéché l'enregistrement"
+      %h2= session[:errors].size.to_s+" erreur(s) ont empéché l'enregistrement"
       %p Il y a eu des problèmes avec les champs suivantes :
       %ul
-        -for error in session[:errors]
-          %li=error.to_s
+        - for error in session[:errors]
+          %li= error.to_s
 
-=error_messages('sale', :object=>@credit) if @credit
+= error_messages('sale', :object=>@credit) if @credit
 
-=form_tag() do
-  =field_set :cancellation do
-    =field Sale.human_attribute_name(:repsonsible), selector(:sale, :responsible, {:action => :unroll_employees, :controller => :users})
-    =list :creditable_items
-  =form_actions do
-    =submit_tag(tc('validate'))
+= form_tag() do
+  = field_set :cancellation do
+    = field Sale.human_attribute_name(:repsonsible), selector(:sale, :responsible, {:action => :unroll, :scope => :employees, :controller => :users})
+    = list :creditable_items
+  = form_actions do
+    = submit_tag(tc('validate'))

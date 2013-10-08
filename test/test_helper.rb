@@ -134,11 +134,13 @@ class ActionController::TestCase
         action_name = action.to_s
         mode = if action_name.match(/^(index|new)$/) # GET without ID
                  :index
-               elsif action_name.match(/^(show|edit|picture|list\_\w+)$/) # GET with ID
+               elsif action_name.match(/^(show|edit|picture)$/) # GET with ID
                  :show
+               elsif action_name.match(/^(list\_\w+)$/) # GET with ID
+                 :list_somethings
                elsif action_name.match(/^(create|load)$/) # POST without ID
                  :create
-               elsif action_name.match(/^(update)$/) # PUT with ID
+               elsif action_name.match(/^(update)$/) # PATCH with ID
                  :update
                elsif action_name.match(/^(destroy)$/) # DELETE with ID
                  :destroy
@@ -199,6 +201,12 @@ class ActionController::TestCase
         code << "    get :#{action}, :id => #{record}.id\n"
         code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
         code << "    assert_not_nil assigns(:#{record})\n"
+      elsif mode == :list_somethings
+        code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+        code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
+        code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+        code << "    get :#{action}, :id => #{record}.id\n"
+        code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
       elsif mode == :create
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"

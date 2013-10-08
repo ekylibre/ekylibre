@@ -1,7 +1,7 @@
-=@cash_transfer.errors.inspect
-=field_set do
-  =f.input :created_on
-  =f.referenced_association :emitter_cash
-  =f.input :emitter_amount
-  =f.referenced_association :receiver_cash
-  =f.input :description, :field => :text
+= f.object.errors.inspect if f.object.errors
+= field_set do
+  = f.input :transfered_on
+  = f.referenced_association :emitter_cash
+  = f.input :emitter_amount
+  = f.referenced_association :receiver_cash
+  = f.input :description, :field => :text

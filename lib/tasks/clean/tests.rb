@@ -53,16 +53,22 @@ end
 desc "Analyze test files and report"
 task :tests => :environment do
   log = File.open(Rails.root.join("log", "clean-tests.log"), "wb")
+  log.write(">> Init\n")
 
   print " - Tests: "
   errors = {:models => 0, :controllers => 0, :helpers => 0, :fixtures => 0}
   source = nil
+  log.write(">> Search models\n")
   models      = CleanSupport.models_in_file
+  log.write(">> Search controllers\n")
   controllers = CleanSupport.controllers_in_file
+
+  log.write(">> Start!\n")
 
   # Check model test files
   files = Dir.glob(Rails.root.join("test", "models", "**", "*.rb")).map(&:to_s)
   for model in models
+    log.write("> #{model}\n")
     class_name = "#{model.name}Test"
     file = Rails.root.join("test", "models", class_name.underscore + ".rb")
     if File.exist?(file)
@@ -101,6 +107,7 @@ task :tests => :environment do
   # Check helper test files
   files = Dir.glob(Rails.root.join("test", "helpers", "**", "*_test.rb")).map(&:to_s)
   for helper_name in CleanSupport.helpers_in_file.to_a
+    log.write("> #{helper_name}\n")
     test_class_name = (helper_name + "_test").classify
     file = Rails.root.join("test", "helpers", (test_class_name + ".rb").underscore)
     if File.exist?(file)
@@ -139,6 +146,7 @@ task :tests => :environment do
   # Check controller test files
   files = Dir.glob(Rails.root.join("test", "controllers", "**", "*.rb")).collect{|f| f.to_s}
   for controller in controllers
+    log.write("> #{controller}\n")
     class_name = "#{controller.name}Test"
     file = Rails.root.join("test", "controllers", class_name.underscore + ".rb")
     if File.exist?(file)
@@ -175,6 +183,7 @@ task :tests => :environment do
   yaml = nil
   files = Dir.glob(Rails.root.join("test", "fixtures", "*.yml")).collect{|f| f.to_s}
   for model in models
+    log.write("> fixtures #{model}\n")
     file = Rails.root.join("test", "fixtures", model.table_name + ".yml")
     if File.exist?(file)
       begin
