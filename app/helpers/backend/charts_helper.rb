@@ -69,6 +69,14 @@ module Backend::ChartsHelper
     eval(code)
   end
 
+  def normalize_serie(values, x_values, default = 0.0)
+     data = []
+     for x in x_values
+       data << (values[x] || default).to_s.to_f
+     end
+     return data
+  end
+
 end
 
 class ::Hash

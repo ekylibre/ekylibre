@@ -132,6 +132,13 @@ class Production < Ekylibre::Record::Base
       return 0.0
     end
   end
-
+  
+  def duration
+    if self.interventions.count > 0
+      return self.interventions.map(&:duration).compact.sum
+    else
+      return 0
+    end
+  end
 
 end
