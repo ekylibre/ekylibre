@@ -112,6 +112,7 @@ spa:
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
+    backend/cells/elapsed_interventions_times_by_activities_cells: #?
     backend/cells/elevage_rss_cells: #?
     backend/cells/expense_chart_cells: #?
     backend/cells/last_entities_cells: #?
@@ -1037,6 +1038,7 @@ spa:
     # duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     # edit: "Modifier"
     ekylibre: "www.ekylibre.org"
+    # elapsed_interventions_times_by_activities: "Temps passé par activité"
     # email: "Email:"
     # employee_name: "Employé"
     end: "al"

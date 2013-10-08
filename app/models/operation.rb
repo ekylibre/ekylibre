@@ -41,10 +41,10 @@ class Operation < Ekylibre::Record::Base
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
   validates_presence_of :intervention, :started_at, :stopped_at
   #]VALIDATORS]
-  
+
   # default_scope -> { order(:started_at) }
   scope :unvalidateds, -> { where(:confirmed => false) }
-  
+
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
     for campaign in campaigns
@@ -52,7 +52,7 @@ class Operation < Ekylibre::Record::Base
     end
     joins(intervention: :production).merge(Production.of_campaign(campaigns))
   }
-  
+
   scope :of_activities, lambda { |*activities|
     activities.flatten!
     for activity in activities
@@ -60,7 +60,7 @@ class Operation < Ekylibre::Record::Base
     end
     joins(intervention: :production).merge(Production.of_activities(activities))
   }
-  
+
   before_validation(:on => :create) do
     self.started_at ||= Time.now
     # TODO Remove following line!!!
@@ -77,7 +77,7 @@ class Operation < Ekylibre::Record::Base
   def reference
     self.intervention.reference.operations[self.position]
   end
-  
+
   def self.averages_of_periods(column = :duration, reference_date_column = :started_at, period = :month)
     self.calculate_in_periods(:avg, column, reference_date_column, period)
   end
@@ -92,7 +92,7 @@ class Operation < Ekylibre::Record::Base
     expr = "EXTRACT(YEAR FROM #{operation_date_column})*1000 + EXTRACT(#{period} FROM #{operation_date_column})"
     self.group(expr).reorder(expr).select("#{expr} AS expr, #{operation}(#{column}) AS #{column}")
   end
-  
+
 
 end
 

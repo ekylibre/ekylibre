@@ -100,6 +100,7 @@
 # - "backend/cells/cropping_plan_cells#show"
 # - "backend/cells/cropping_plan_on_cultivable_land_parcels_cells#show"
 # - "backend/cells/currents_stocks_by_product_nature_cells#show"
+# - "backend/cells/elapsed_interventions_times_by_activities_cells#show"
 # - "backend/cells/expense_chart_cells#show"
 # - "backend/cells/last_entities_cells#list"
 # - "backend/cells/last_entities_cells#show"

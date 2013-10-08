@@ -109,7 +109,7 @@ class SaleItem < Ekylibre::Record::Base
 
   def self.calculate_in_periods(operation, column, reference_date_column, period = :month)
     period = :doy if period == :day
-    expr = "EXTRACT(YEAR FROM #{reference_date_column})*100 + EXTRACT(#{period} FROM #{reference_date_column})"
+    expr = "EXTRACT(YEAR FROM #{reference_date_column})*1000 + EXTRACT(#{period} FROM #{reference_date_column})"
     self.joins(:sale).group(expr).order(expr).select("#{expr} AS expr, #{operation}(#{SaleItem.table_name}.#{column}) AS #{column}")  # calculate(operation, column) # .select("(#{expr}) expr, #{operation}(#{SaleItem.table_name}.#{column}) #{column}")
   end
 

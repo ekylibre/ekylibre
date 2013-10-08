@@ -113,6 +113,8 @@ fra:
       # show: "Show backend/cells/cropping plan on cultivable land parcels cell"
     backend/cells/currents_stocks_by_product_nature_cells:
       # show: "Show backend/cells/currents stocks by product nature cell"
+    backend/cells/elapsed_interventions_times_by_activities_cells:
+      # show: "Show backend/cells/elapsed interventions times by activities cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
     backend/cells/last_entities_cells:
@@ -678,6 +680,7 @@ fra:
     # backend/cells/cropping_plan_cells: "Backend/cells/cropping plan cells"
     # backend/cells/cropping_plan_on_cultivable_land_parcels_cells: "Backend/cells/cropping plan on cultivable land parcels cells"
     # backend/cells/currents_stocks_by_product_nature_cells: "Backend/cells/currents stocks by product nature cells"
+    # backend/cells/elapsed_interventions_times_by_activities_cells: "Backend/cells/elapsed interventions times by activities cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
     # backend/cells/last_entities_cells: "Backend/cells/last entities cells"
     # backend/cells/last_events_cells: "Backend/cells/last events cells"
@@ -1067,6 +1070,7 @@ fra:
     duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
     edit: "Modifier"
     ekylibre: "www.ekylibre.org"
+    elapsed_interventions_times_by_activities: "Temps passé par activité"
     email: "Email:"
     employee_name: "Employé"
     end: "au"
