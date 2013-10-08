@@ -623,7 +623,7 @@ class BackendController < BaseController
     code << "c += [#{(['kw']*columns.size).join(',')}]"
     code << "}\n"
     code << "c"
-    code
+    code.c
   end
 
   # search is a hash like {table: [columns...]}
@@ -661,7 +661,7 @@ class BackendController < BaseController
     code << "  #{conditions} += #{values}\n"
     code << "end\n"
     code << "#{conditions}"
-    return code
+    return code.c
   end
 
 
@@ -671,7 +671,7 @@ class BackendController < BaseController
     code = ""
     # code << "ac, #{variable}[:accounts] = \n"
     code << "#{conditions}[0] += ' AND '+Account.range_condition(#{variable}[:accounts])\n"
-    return code
+    return code.c
   end
 
   # accountancy -> crit_params
@@ -696,7 +696,7 @@ class BackendController < BaseController
     code << journals_crit("params")
     code << "c\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
-    return code # .gsub(/\s*\n\s*/, ";")
+    return code.c # .gsub(/\s*\n\s*/, ";")
   end
 
 
@@ -705,7 +705,7 @@ class BackendController < BaseController
     variable = "params[:#{variable}]" unless variable.is_a? String
     code = ""
     code << "#{conditions}[0] += ' AND '+JournalEntry.state_condition(#{variable}[:states])\n"
-    return code
+    return code.c
   end
 
   # accountancy -> journal_period_crit
@@ -713,7 +713,7 @@ class BackendController < BaseController
     variable = "params[:#{variable}]" unless variable.is_a? String
     code = ""
     code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
-    return code
+    return code.c
   end
 
   # accountancy -> journals_crit
@@ -721,7 +721,7 @@ class BackendController < BaseController
     variable = "params[:#{variable}]" unless variable.is_a? String
     code = ""
     code << "#{conditions}[0] += ' AND '+JournalEntry.journal_condition(#{variable}[:journals])\n"
-    return code
+    return code.c
   end
 
   # management -> moved_conditions
@@ -734,7 +734,7 @@ class BackendController < BaseController
     code << "  c[0] += ' AND moved_on IS NOT NULL'\n"
     code << "end\n"
     code << "c\n"
-    return code
+    return code.c
   end
 
   # management -> shipping_conditions
@@ -747,7 +747,7 @@ class BackendController < BaseController
     code << "  c[0] += ' AND sent_at IS NOT NULL'\n"
     code << "end\n"
     code << "c\n"
-    return code
+    return code.c
   end
 
   # management -> prices_conditions
@@ -759,7 +759,7 @@ class BackendController < BaseController
     code << " conditions = ['#{ProductPriceTemplate.table_name}.supplier_id = ? AND #{ProductPriceTemplate.table_name}.active = ?', params[:supplier_id], true]"
     code << "end \n "
     code << "conditions \n "
-    code
+    return code.c
   end
 
 end

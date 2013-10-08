@@ -59,6 +59,8 @@ class Deposit < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :responsible, :cash
 
+  delegate :currency, to: :cash
+
   # default_scope -> { order(:number) }
   scope :unvalidateds, -> { where(:locked => false) }
 
