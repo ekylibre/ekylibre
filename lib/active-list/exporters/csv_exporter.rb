@@ -1,5 +1,5 @@
 module ActiveList
-  
+
   module Exporters
 
     class CsvExporter < AbstractExporter

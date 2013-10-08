@@ -34,10 +34,6 @@ class Backend::DocumentTemplatesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  # Displays the main page with the list of document templates
-  def index
-  end
-
   # Loads ou reloads.all managed document templates
   def load
     DocumentTemplate.load_defaults

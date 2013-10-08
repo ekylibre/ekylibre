@@ -26,27 +26,19 @@ class Backend::DocumentsController < BackendController
     t.column :number, url: true
     t.column :name, url: true
     t.column :nature
-    # t.column :name, through: :origin
-    # t.column :name, through: :template
+    t.column :archives_count, hidden: true
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
 
-  def index
-  end
-
   list(:archives, :model => :document_archive, :conditions => {:document_id => 'params[:id]'.c}) do |t|
     t.column :archived_at, url: true
-    t.column :name, through: :template
+    t.column :template
     t.column :file_pages_count
     t.column :file_file_size
+    t.column :file_content_text, hidden: true
+    t.column :file_fingerprint, hidden: true
     t.action :destroy, :if => :destroyable?
-  end
-
-  def show
-    @document = find_and_check
-    t3e @document
-    respond_with @document
   end
 
 end

@@ -25,17 +25,13 @@ class Backend::OutgoingPaymentModesController < BackendController
 
   list(:order => :position) do |t|
     t.column :name
-    t.column :name, through: :cash, url: true
+    t.column :cash, url: true
     t.column :with_accounting
-    t.column :name, through: :attorney_journal, url: true
+    t.column :attorney_journal, url: true
     t.action :up,   :method => :post, :unless => :first?
     t.action :down, :method => :post, :unless => :last?
     t.action :edit
     t.action :destroy, :if => :destroyable?
-  end
-
-  # Displays the main page with the list of outgoing payment modes
-  def index
   end
 
 end

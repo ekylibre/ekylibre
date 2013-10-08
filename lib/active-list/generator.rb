@@ -4,7 +4,7 @@ module ActiveList
   class Generator
 
     attr_accessor :table, :controller, :controller_method_name, :view_method_name, :records_variable_name
-    
+
     def initialize(*args, &block)
       options = args.extract_options!
       @controller = options[:controller]

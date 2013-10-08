@@ -25,7 +25,7 @@ class Backend::SequencesController < BackendController
   list do |t|
     t.column :name
     t.column :compute
-    t.column :number_format, :class=>:code
+    t.column :number_format, :class => :code
     t.column :usage
     t.column :period
     t.action :edit

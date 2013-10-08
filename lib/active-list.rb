@@ -21,7 +21,7 @@ module ActiveList
   autoload :Renderers,  'active-list/renderers'
   autoload :Exporters,  'active-list/exporters'
   autoload :Generator,  'active-list/generator'
-  autoload :ActionPack, 'active-list/action_pack' 
+  autoload :ActionPack, 'active-list/action_pack'
 end
 
 ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)

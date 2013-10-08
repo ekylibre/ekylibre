@@ -32,7 +32,7 @@ class Backend::CatalogsController < BackendController
   end
 
   list(:prices, :model => :catalog_prices, :conditions => {:active => true, :catalog_id => 'params[:id]'.c}) do |t|
-    t.column :name, through: :variant, url: true
+    t.column :variant, url: true
     # t.column :pretax_amount
     t.column :amount
     t.column :all_taxes_included

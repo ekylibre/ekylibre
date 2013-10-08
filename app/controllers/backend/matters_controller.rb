@@ -45,7 +45,7 @@ class Backend::MattersController < BackendController
 
   # Liste des lieux de la matière considérée
   list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :container, url: true
+    t.column :container, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause
@@ -55,7 +55,7 @@ class Backend::MattersController < BackendController
 
   # Liste des groupes de la matière considérée
   list(:groups, :model => :product_memberships, :conditions => {member_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :group, url: true
+    t.column :group, url: true
     t.column :started_at
     t.column :stopped_at
   end

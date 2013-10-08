@@ -1028,7 +1028,7 @@
         <page to="backend/areas#show"/>
       </item>
       <item name="building_divisions">
-        <page to="backend/building_divisions#list_content_products"/>
+        <page to="backend/building_divisions#list_contained_products"/>
       </item>
       <item name="buildings">
         <page to="backend/buildings#list_divisions"/>
@@ -1064,6 +1064,9 @@
       </item>
       <item name="currents_stocks_by_product_nature_cells">
         <page to="backend/cells/currents_stocks_by_product_nature_cells#show"/>
+      </item>
+      <item name="elapsed_interventions_times_by_activities_cells">
+        <page to="backend/cells/elapsed_interventions_times_by_activities_cells#show"/>
       </item>
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
@@ -1288,15 +1291,6 @@
         <page to="backend/product_groups#list_members"/>
         <page to="backend/product_groups#list_places"/>
       </item>
-      <item name="product_indicator_data">
-        <page to="backend/product_indicator_data#index"/>
-        <page to="backend/product_indicator_data#create"/>
-        <page to="backend/product_indicator_data#destroy"/>
-        <page to="backend/product_indicator_data#edit"/>
-        <page to="backend/product_indicator_data#new"/>
-        <page to="backend/product_indicator_data#show"/>
-        <page to="backend/product_indicator_data#update"/>
-      </item>
       <item name="product_links">
         <page to="backend/product_links#index"/>
         <page to="backend/product_links#create"/>
@@ -1322,6 +1316,7 @@
         <page to="backend/product_memberships#create"/>
         <page to="backend/product_memberships#destroy"/>
         <page to="backend/product_memberships#edit"/>
+        <page to="backend/product_memberships#list"/>
         <page to="backend/product_memberships#new"/>
         <page to="backend/product_memberships#show"/>
         <page to="backend/product_memberships#update"/>

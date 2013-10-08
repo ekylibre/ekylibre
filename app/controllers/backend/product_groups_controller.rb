@@ -32,7 +32,7 @@ class Backend::ProductGroupsController < BackendController
 
 # content product list of the consider product
   list(:contained_products, :model => :product_localizations, :conditions => {container_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :product, url: true
+    t.column :product, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause
@@ -42,7 +42,7 @@ class Backend::ProductGroupsController < BackendController
 
   # localization of the consider product
   list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :container, url: true
+    t.column :container, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause
@@ -52,14 +52,14 @@ class Backend::ProductGroupsController < BackendController
 
   # groups of the consider product
   list(:groups, :model => :product_memberships, :conditions => {member_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :group, url: true
+    t.column :group, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
   # members of the consider product
   list(:members, :model => :product_memberships, :conditions => {group_id: 'params[:id]'.c}, :order => "started_at ASC") do |t|
-    t.column :name, through: :member, url: true
+    t.column :member, url: true
     t.column :started_at
     t.column :stopped_at
   end

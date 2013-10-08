@@ -36,14 +36,15 @@
 
 
 class BankStatement < Ekylibre::Record::Base
-  # attr_accessible :cash_id, :number, :started_on, :stopped_on
+  belongs_to :cash
+  has_many :items, :dependent=>:nullify, :class_name=>"JournalEntryItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :credit, :debit, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_presence_of :cash, :credit, :debit, :number, :started_on, :stopped_on
   #]VALIDATORS]
-  belongs_to :cash
-  has_many :items, :dependent=>:nullify, :class_name=>"JournalEntryItem"
+
+  delegate :currency, to: :cash
 
   before_validation do
     self.debit  = self.items.sum(:real_debit)

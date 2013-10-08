@@ -18,18 +18,6 @@
 #
 
 class Backend::ProductIndicatorDataController < BackendController
-  manage_restfully
-
-  unroll
-
- # Show a list of animals
-  def index
-  end
-
-  # Show one Product with params_id
-  def show
-    return unless @product_indicator_datum = find_and_check
-    session[:current_product_indicator_datum_id] = @product_indicator_datum.id
-    t3e @product_indicator_datum
-  end
+  # manage_restfully
+  # unroll
 end

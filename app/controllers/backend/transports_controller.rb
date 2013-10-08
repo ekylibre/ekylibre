@@ -20,12 +20,12 @@
 class Backend::TransportsController < BackendController
   unroll
 
-  list(:children => :deliveries, :conditions => search_conditions(:transports => [:number, :description], :entities => [:code, :full_name])) do |t|
+  list(:children => :deliveries, :conditions => search_conditions(:transports => [:number, :description], :entities => [:number, :full_name])) do |t|
     t.column :number, url: true
     t.column :description
     #t.column :created_on, :children => :planned_on
     #t.column :transport_on, :children => :moved_on
-    t.column :full_name, through: :transporter, :children => :default_mail_coordinate, url: true
+    t.column :transporter, label_method: :full_name, :children => :default_mail_coordinate, url: true
     t.column :weight
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
@@ -38,15 +38,15 @@ class Backend::TransportsController < BackendController
 
 
   list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:transport_id => 'params[:id]'.c}) do |t|
-    t.column :coordinate, through: :address, :children => :product_name
-    t.column :planned_at, :children => false
-    #t.column :moved_on, :children => false
-    t.column :number, url: true, :children => false
-    # t.column :number, through: :sale, url: true, :children => false
+    t.column :address, label_method: :coordinate, :children => :product_name
+    t.column :planned_at, children: false
+    #t.column :moved_on, children: false
+    t.column :number, url: true, children: false
+    # t.column :number, through: :sale, url: true, children: false
     #t.column :quantity
     #t.column :pretax_amount
     #t.column :amount
-    t.column :weight, :children => false
+    t.column :weight, children: false
   end
 
   # # Displays details of one transport selected with +params[:id]+
@@ -84,20 +84,20 @@ class Backend::TransportsController < BackendController
 
   list(:transportable_deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => transportable_deliveries_conditions, :pagination => :none, :order => :planned_at, :line_class => "(RECORD.planned_at<Date.today ? 'critic' : RECORD.planned_at.to_date == Date.today ? 'warning' : '')".c) do |t|
     t.check_box :selected, :value => '(session[:current_transport_id].to_i.zero? ? RECORD.planned_at <= Date.today : RECORD.transport_id == session[:current_transport_id])'.c
-    t.column :coordinate, through: :address, :children => :product_name
-    t.column :planned_at, :children => false
-    #t.column :moved_on, :children => false
-    t.column :number, url: true, :children => false
-    # t.column :number, through: :sale, url: true, :children => false
-    t.column :last_name, through: :transporter, :children => false, url: true
+    t.column :address, label_method: :coordinate, :children => :product_name
+    t.column :planned_at, children: false
+    #t.column :moved_on, children: false
+    t.column :number, url: true, children: false
+    # t.column :number, through: :sale, url: true, children: false
+    t.column :transporter, children: false, url: true
     #t.column :quantity
     #t.column :pretax_amount
     #t.column :amount
-    t.column :weight, :children => false
+    t.column :weight, children: false
   end
 
   def new
-    @transport = Transport.new(:transport_on => Date.today, :responsible_id => @current_user.id, :transporter_id => params[:transporter_id], :responsible_id => @current_user.id)
+    @transport = Transport.new(:transport_on => Date.today, :responsible_id => current_user.id, :transporter_id => params[:transporter_id], :responsible_id => current_user.id)
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
     if request.xhr?

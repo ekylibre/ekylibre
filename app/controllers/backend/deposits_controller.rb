@@ -25,8 +25,8 @@ class Backend::DepositsController < BackendController
     t.column :number, url: true
     t.column :amount, currency: true, url: true
     t.column :payments_count
-    t.column :name, through: :cash, url: true
-    t.column :label, through: :responsible
+    t.column :cash, url: true
+    t.column :responsible
     t.column :created_on
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
@@ -42,7 +42,7 @@ class Backend::DepositsController < BackendController
 
   list(:payments, :model => :incoming_payments, :conditions => {deposit_id: 'params[:id]'.c}, :pagination => :none, :order => :number) do |t|
     t.column :number, url: true
-    t.column :full_name, through: :payer, url: true
+    t.column :payer, url: true
     t.column :bank_name
     t.column :bank_account_number
     t.column :bank_check_number
@@ -55,7 +55,6 @@ class Backend::DepositsController < BackendController
     return unless @deposit = find_and_check(:deposit)
     respond_to do |format|
       format.html do
-        session[:deposit_id] = @deposit.id
         t3e @deposit.attributes
       end
       format.pdf { render_print_deposit(@deposit) }
@@ -65,12 +64,12 @@ class Backend::DepositsController < BackendController
 
   list(:depositable_payments, :model => :incoming_payments, :conditions => ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", 'session[:deposit_id]'.c, 'session[:payment_mode_id]'.c], :pagination => :none, :order => "to_bank_on, created_at", :line_class => "((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')".c) do |t|
     t.column :number, url: true
-    t.column :full_name, through: :payer, url: true
+    t.column :payer, url: true
     t.column :bank_name
     t.column :bank_account_number
     t.column :bank_check_number
     t.column :paid_on
-    t.column :label, through: :responsible
+    t.column :responsible
     t.column :amount, currency: true
     t.check_box :to_deposit, :value => '(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))'.c, :label => tc(:to_deposit)
   end
@@ -136,7 +135,7 @@ class Backend::DepositsController < BackendController
     t.column :created_on
     t.column :amount
     t.column :payments_count
-    t.column :name, through: :cash, url: true
+    t.column :cash, url: true
     t.check_box :validated, :value => 'RECORD.created_on<=Date.today-(15)'.c
   end
 

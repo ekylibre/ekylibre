@@ -39,7 +39,7 @@ class Backend::OutgoingPaymentsController < BackendController
 
   list(:conditions => outgoing_payments_conditions, :joins => :payee, :order => "to_bank_on DESC") do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
     t.column :number, url: true
-    t.column :payee, label_method: :full_name, url: true
+    t.column :payee, url: true
     t.column :paid_on
     t.column :amount, currency: true, url: true
     t.column :mode

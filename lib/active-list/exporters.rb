@@ -10,7 +10,7 @@ module ActiveList
     autoload :AbstractExporter,                'active-list/exporters/abstract_exporter'
     autoload :OpenDocumentSpreadsheetExporter, 'active-list/exporters/open_document_spreadsheet_exporter'
     autoload :CsvExporter,                     'active-list/exporters/csv_exporter'
-    autoload :ExcelCsvExporter,                'active-list/exporters/excel_csv_exporter'    
+    autoload :ExcelCsvExporter,                'active-list/exporters/excel_csv_exporter'
   end
 
   mattr_reader :exporters

@@ -30,8 +30,4 @@ class Backend::OutgoingDeliveryModesController < BackendController
     t.action :destroy
   end
 
-  # Displays the main page with the list of outgoing delivery modes
-  def index
-  end
-
 end

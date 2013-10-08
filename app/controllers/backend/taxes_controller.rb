@@ -28,14 +28,10 @@ class Backend::TaxesController < BackendController
     t.column :nature
     t.column :included
     t.column :reductible
-    t.column :label, through: :deduction_account, url: true
-    t.column :label, through: :collect_account, url: true
+    t.column :deduction_account, url: true
+    t.column :collect_account, url: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
-  end
-
-  # Displays the main page with the list of taxes
-  def index
   end
 
 end

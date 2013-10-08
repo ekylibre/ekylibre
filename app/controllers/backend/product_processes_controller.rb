@@ -33,15 +33,4 @@ class Backend::ProductProcessesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  # Show a list
-  def index
-  end
-
-  # Show one Processes with params_id
-  def show
-    return unless @product_process = find_and_check
-    session[:current_product_process_id] = @product_process.id
-    t3e @product_process
-  end
-
 end

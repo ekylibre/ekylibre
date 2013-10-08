@@ -49,7 +49,7 @@ class Backend::SubscriptionsController < BackendController
     t.column :mail_line_4, through: :address, :label => :column
     t.column :mail_line_5, through: :address, :label => :column
     t.column :mail_line_6, through: :address, :label => :column
-    t.column :name, through: :product_nature
+    t.column :product_nature
     t.column :quantity
     t.column :start
     t.column :finish

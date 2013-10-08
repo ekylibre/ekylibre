@@ -23,28 +23,19 @@ class Backend::SaleNaturesController < BackendController
   unroll
 
   list do |t|
-    t.column :name, :url=>true
+    t.column :name, url: true
     t.column :active
     t.column :currency
-    # t.column :name, :through=>:expiration, :url=>true
-    # t.column :name, :through=>:payment_delay, :url=>true
+    # t.column :name, :through=>:expiration, url: true
+    # t.column :name, :through=>:payment_delay, url: true
     t.column :downpayment
     # t.column :downpayment_minimum
     # t.column :downpayment_percentage
     t.column :with_accounting
-    t.column :name, :through=>:journal, :url=>true
+    t.column :journal, url: true
     #t.column :description
     t.action :edit
     t.action :destroy
-  end
-
-  # Displays the main page with the list of sale natures
-  def index
-  end
-
-  def show
-    return unless @sale_nature = find_and_check
-    t3e @sale_nature
   end
 
 end

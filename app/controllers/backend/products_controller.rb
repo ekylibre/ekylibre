@@ -58,7 +58,7 @@ class Backend::ProductsController < BackendController
     t.column :active
     t.column :number, url: true
     t.column :name, url: true
-    t.column :name, through: :variant
+    t.column :variant
     t.column :variety
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
@@ -73,7 +73,7 @@ class Backend::ProductsController < BackendController
 
   # content product list of the consider product
   list(:contained_products, :model => :product_localizations, :conditions => {container_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :product, url: true
+    t.column :product, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause
@@ -83,7 +83,7 @@ class Backend::ProductsController < BackendController
 
   # localization of the consider product
   list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :container, url: true
+    t.column :container, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause
@@ -93,14 +93,14 @@ class Backend::ProductsController < BackendController
 
   # groups of the consider product
   list(:groups, :model => :product_memberships, :conditions => {member_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :group, url: true
+    t.column :group, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
   # members of the consider product
   list(:members, :model => :product_memberships, :conditions => {group_id: 'params[:id]'.c}, :order => "started_at ASC") do |t|
-    t.column :name, through: :member, url: true
+    t.column :member, url: true
     t.column :started_at
     t.column :stopped_at
   end
@@ -124,7 +124,7 @@ class Backend::ProductsController < BackendController
 
   # incidents of the consider product
   list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
-    t.column :name, through: :intervention, url: true
+    t.column :intervention, url: true
     t.column :roles
     t.column :variable
     t.column :started_at, through: :intervention

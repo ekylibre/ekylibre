@@ -113,6 +113,8 @@ fra:
       # show: "Show backend/cells/cropping plan on cultivable land parcels cell"
     backend/cells/currents_stocks_by_product_nature_cells:
       # show: "Show backend/cells/currents stocks by product nature cell"
+    backend/cells/elapsed_interventions_times_by_activities_cells:
+      # show: "Show backend/cells/elapsed interventions times by activities cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
     backend/cells/last_entities_cells:
@@ -243,7 +245,7 @@ fra:
       compute_balances: "Calculer la balance de l’exercice"
       edit: "Modifier un nouvel exercice"
       generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}"
-      index: "Exercices comptables" #?
+      index: "Exercices comptables"
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
     backend/gaps:
@@ -456,10 +458,10 @@ fra:
       new: "Créer un groupe"
       show: "Groupe\_: %{name}"
     backend/product_indicator_data:
-      edit: "Modifier la valeur d’un indicateur"
-      index: "Indicateurs Produits"
-      new: "Nouvelle valeur d’indicateur pour un produit"
-      show: "Valeurs"
+      edit: "Modifier la valeur d’un indicateur" #?
+      index: "Indicateurs Produits" #?
+      new: "Nouvelle valeur d’indicateur pour un produit" #?
+      show: "Valeurs" #?
     backend/product_links:
       # edit: "Edit backend/product link"
       # index: "Index backend/product link"
@@ -678,6 +680,7 @@ fra:
     # backend/cells/cropping_plan_cells: "Backend/cells/cropping plan cells"
     # backend/cells/cropping_plan_on_cultivable_land_parcels_cells: "Backend/cells/cropping plan on cultivable land parcels cells"
     # backend/cells/currents_stocks_by_product_nature_cells: "Backend/cells/currents stocks by product nature cells"
+    # backend/cells/elapsed_interventions_times_by_activities_cells: "Backend/cells/elapsed interventions times by activities cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
     # backend/cells/last_entities_cells: "Backend/cells/last entities cells"
     # backend/cells/last_events_cells: "Backend/cells/last events cells"
@@ -1848,7 +1851,7 @@ fra:
     no_template_journal_by_id: "Pas de modèle journal" #?
     no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
     no_unvalidated_operations: "Aucun travail à réaliser"
-    password_successfully_changed: "Votre mot de passe a été mis à jour avec succès"
+    password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
     prices_import_succeeded: "Vos données ont été correctement importées" #?
     print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
     purchase_already_invoiced: "Achat déjà facturé"

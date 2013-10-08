@@ -34,7 +34,7 @@ class Backend::PlantsController < BackendController
 
   # Liste du lieu de la plante considérée
   list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :container, url: true
+    t.column :container, url: true
     t.column :nature
     t.column :started_at
     t.column :stopped_at
@@ -59,7 +59,7 @@ class Backend::PlantsController < BackendController
   end
 
   list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
-    t.column :name, through: :intervention, url: true
+    t.column :intervention, url: true
     t.column :roles
     t.column :variable
     t.column :started_at, through: :intervention

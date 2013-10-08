@@ -24,7 +24,7 @@ class Backend::ProductNatureVariantsController < BackendController
 
   list do |t|
     t.column :name, url: true
-    t.column :nature => :name, url: true
+    t.column :nature, url: true
     t.column :unit_name
     t.column :frozen_indicators
     t.action :edit
@@ -36,7 +36,7 @@ class Backend::ProductNatureVariantsController < BackendController
     t.column :all_taxes_included
     t.column :started_at
     t.column :stopped_at
-    t.column :catalog => :name, url: true
+    t.column :catalog, url: true
   end
 
   list(:products, :conditions => {variant_id: 'params[:id]'.c}, :order => "born_at DESC") do |t|

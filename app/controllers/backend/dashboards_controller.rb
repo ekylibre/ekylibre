@@ -22,7 +22,7 @@ class Backend::DashboardsController < BackendController
   list(:my_future_events, model: :events, :conditions => 'started_at >= CURRENT_TIMESTAMP', :order => "started_at ASC", :per_page => 10) do |t|
     t.column :name
     t.column :started_at
-    t.association :nature
+    t.column :nature
     # t.association :participants, url: true
     t.column :duration
     t.column :place
@@ -31,7 +31,7 @@ class Backend::DashboardsController < BackendController
   list(:recent_events, model: :events, :conditions => 'started_at < CURRENT_TIMESTAMP', :order => "started_at DESC", :per_page => 10) do |t|
     t.column :name
     t.column :started_at
-    t.association :nature
+    t.column :nature
     # t.association :participants, url: true
     t.column :duration
     t.column :place

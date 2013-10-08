@@ -23,12 +23,12 @@ class Backend::BankStatementsController < BackendController
   unroll
 
   list(:order => "started_on DESC") do |t|
-    t.column :name, through: :cash, url: true
+    t.column :cash, url: true
     t.column :number, url: true
     t.column :started_on
     t.column :stopped_on
-    t.column :debit, :currency => "RECORD.cash.currency"
-    t.column :credit, :currency => "RECORD.cash.currency"
+    t.column :debit, :currency: true
+    t.column :credit, :currency: true
     t.action :point
     t.action :edit
     t.action :destroy
@@ -45,22 +45,16 @@ class Backend::BankStatementsController < BackendController
     notify_now(:x_unpointed_journal_entry_items, :count => JournalEntryItem.where("bank_statement_id IS NULL and account_id IN (?)", cashes.map(&:account_id)).count)
   end
 
-  list(:items, :model => :journal_entry_items, :conditions => {:bank_statement_id => ['session[:current_bank_statement_id]']}, :order => "entry_id") do |t|
-    t.column :name, through: :journal, url: true
-    t.column :number, through: :entry, url: true
-    t.column :created_on, through: :entry, :datatype => :date, :label => :column
+  list(:items, :model => :journal_entry_items, :conditions => {bank_statement_id: 'params[:id]'.c}, :order => "entry_id") do |t|
+    t.column :journal, url: true
+    t.column :entry_number, url: true
+    t.column :printed_on
     t.column :name
-    t.column :number, through: :account, url: true
-    t.column :debit, :currency => "RECORD.entry.financial_year.currency"
-    t.column :credit, :currency => "RECORD.entry.financial_year.currency"
+    t.column :account, url: true
+    t.column :debit, currency: true
+    t.column :credit, currency: true
   end
 
-  # Displays details of one bank statement selected with +params[:id]+
-  def show
-    return unless @bank_statement = find_and_check(:bank_statement)
-    session[:current_bank_statement_id] = @bank_statement.id
-    t3e @bank_statement.attributes
-  end
 
   def point
     session[:statement] = params[:id]  if request.get?

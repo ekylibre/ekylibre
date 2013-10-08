@@ -4,7 +4,7 @@ module ActiveList
 
     class AbstractRenderer
       attr_reader :generator, :table
-      
+
       def initialize(generator)
         @generator = generator
         @table = generator.table

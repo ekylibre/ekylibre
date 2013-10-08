@@ -1,3 +1,22 @@
+# coding: utf-8
+# == License
+# Ekylibre - Simple ERP
+# Copyright (C) 2008-2013 David Joulin, Brice Texier
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 class Backend::AnalyticRepartitionsController < BackendController
   manage_restfully
 
@@ -5,8 +24,8 @@ class Backend::AnalyticRepartitionsController < BackendController
 
   list do |t|
     t.column :affected_on
-    t.column :name, through: :production, url: true
-    #t.column :id, through: :journal_entry_item, url: true
+    t.column :production, url: true
+    # t.column :journal_entry_item, url: true
     t.column :state
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
@@ -24,16 +43,6 @@ class Backend::AnalyticRepartitionsController < BackendController
       format.html
       format.xml  { render :xml => AnalyticRepartition.all }
       format.json { render :json => AnalyticRepartition.all }
-    end
-  end
-
-  # Displays the page for one analytic_repartition.
-  def show
-    return unless @analytic_repartition = find_and_check
-    respond_to do |format|
-      format.html { t3e(@analytic_repartition) }
-      format.xml  { render :xml => @analytic_repartition }
-      format.json { render :json => @analytic_repartition }
     end
   end
 

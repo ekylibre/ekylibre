@@ -23,8 +23,8 @@ class Backend::AssetsController < BackendController
   unroll
 
   list do |t|
-    t.column :number, :url=>true
-    t.column :name, :url=>true
+    t.column :number, url: true
+    t.column :name, url: true
     t.column :depreciable_amount, currency: true
     t.column :started_on
     t.column :stopped_on
@@ -41,8 +41,8 @@ class Backend::AssetsController < BackendController
     t.column :depreciated_amount, currency: true
     t.column :started_on
     t.column :stopped_on
-    t.column :code, through: :financial_year, url: true
-    t.column :number, through: :journal_entry, url: true
+    t.column :financial_year, url: true
+    t.column :journal_entry, url: true
     t.action :edit, :if => "RECORD.journal_entry.nil?".c
   end
 

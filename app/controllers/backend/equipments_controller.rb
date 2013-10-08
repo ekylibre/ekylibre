@@ -23,16 +23,16 @@ class Backend::EquipmentsController < BackendController
 
   unroll
 
-  list(:order => "name") do |t|
+  list(order: :name) do |t|
     t.column :name, url: true
-    t.column :nature => :name, url: true
+    t.column :nature, url: true
     t.column :born_at, :datatype => :date
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
 
   list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
-    t.column :name, through: :intervention, url: true
+    t.column :intervention, url: true
     t.column :roles
     t.column :variable
     t.column :started_at, through: :intervention

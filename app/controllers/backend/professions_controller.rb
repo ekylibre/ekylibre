@@ -22,17 +22,13 @@ class Backend::ProfessionsController < BackendController
 
   unroll
 
-  list(:order=>:name) do |t|
+  list(order: :name) do |t|
     t.column :name
     t.column :code
     t.column :rome
     t.column :commercial
     t.action :edit
     t.action :destroy
-  end
-
-  # Displays the main page with the list of professions
-  def index
   end
 
 end

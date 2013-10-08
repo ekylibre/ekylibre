@@ -1,14 +1,17 @@
 module ActiveList
 
   module Definition
-    
+
     class AssociationColumn < DataColumn
 
       attr_reader :label_method, :reflection
 
       def initialize(table, name, options = {})
         super(table, name, options)
-        reflection_name = (@options.delete(:through) || @name).to_sym
+        unless @options[:through]
+          raise ArgumentError, "Option :through must be given"
+        end
+        reflection_name = @options.delete(:through).to_sym
         if @reflection = @table.model.reflect_on_association(reflection_name)
           if @reflection.macro == :belongs_to
             # Do some stuff
@@ -20,15 +23,13 @@ module ActiveList
         end
         unless @label_method = @options.delete(:label_method)
           foreign_model = @reflection.class_name.constantize.new
-          unless @label_method = [:label, :name, :number].detect do |m| 
+          unless @label_method = [:full_name, :label, :name, :number, :coordinate].detect do |m|
               foreign_model.respond_to?(m)
             end
             raise ArgumentError, ":label_method option must be given for association #{name} (#{foreign_model.name}). (#{foreign_model.instance_methods.to_sentence})"
           end
         end
       end
-
-
 
 
       # Code for rows

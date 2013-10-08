@@ -27,8 +27,8 @@ class Backend::CashesController < BackendController
     t.column :nature
     t.column :currency
     t.column :country
-    t.column :account => :number, url: true
-    t.column :journal => :name, url: true
+    t.column :account, url: true
+    t.column :journal, url: true
     t.action :edit
     t.action :destroy
   end
@@ -46,7 +46,7 @@ class Backend::CashesController < BackendController
     t.column :created_on
     t.column :payments_count
     t.column :amount, currency: true
-    t.column :mode => :name
+    t.column :mode
     t.column :description
   end
 

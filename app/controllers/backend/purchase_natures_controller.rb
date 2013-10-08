@@ -27,7 +27,7 @@ class Backend::PurchaseNaturesController < BackendController
     t.column :active
     t.column :currency
     t.column :with_accounting
-    t.column :journal => :name, url: true
+    t.column :journal, url: true
     t.action :edit
     t.action :destroy
   end

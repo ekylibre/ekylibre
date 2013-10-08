@@ -23,18 +23,14 @@ class Backend::SubscriptionNaturesController < BackendController
   unroll
 
   list(:children => :products) do |t|
-    t.column :name, :url => {:id => 'nil', :action => :index, :controller => :subscriptions, :nature_id => "RECORD.id"}
-    t.column :nature, :children => false
-    t.column :actual_number, :children => false
-    t.column :reduction_percentage, :children => false
+    t.column :name, :url => {:id => 'nil', :action => :index, :controller => :subscriptions, :nature_id => "RECORD.id".c}
+    t.column :nature, children: false
+    t.column :actual_number, children: false
+    t.column :reduction_percentage, children: false
     t.action :increment, :method => :post, :if => :quantity?
     t.action :decrement, :method => :post, :if => :quantity?
     t.action :edit
     t.action :destroy, :if => :destroyable?
-  end
-
-  # Displays the main page with the list of subscription natures
-  def index
   end
 
   def decrement

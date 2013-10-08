@@ -22,15 +22,8 @@ class Backend::ProductMembershipsController < BackendController
 
   unroll
 
- # Show a list of animals
-  def index
+  list do |t|
+    t.column :group, url: true
+    t.column :member, url: true
   end
-
-  # Show one Product with params_id
-  def show
-    return unless @product_group_passing = find_and_check
-    session[:current_product_group_passing_id] = @product_group_passing.id
-    t3e @product_group_passing
-  end
-
 end

@@ -59,8 +59,8 @@ class Backend::JournalsController < BackendController
     t.column :entry => :number, url: true
     t.column :printed_on, through: :entry, :datatype => :date
     t.column :account, url: true
-    t.column :account => :number, url: true, hidden: true
-    t.column :account => :name, url: true, hidden: true
+    t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
+    t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
     t.column :name
     t.column :state_label
     t.column :real_debit,  currency: :real_currency
@@ -167,12 +167,12 @@ class Backend::JournalsController < BackendController
 
   # FIXME RECORD.real_currency does not exist
   list(:draft_items, :model => :journal_entry_items, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
-    t.column :journal => :name, url: true
+    t.column :journal, url: true
     t.column :entry_number, url: true
     t.column :printed_on, :datatype => :date
     t.column :account, url: true
-    t.column :account => :number, url: true, hidden: true
-    t.column :account => :name, url: true, hidden: true
+    t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
+    t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
     t.column :name
     t.column :real_debit,  currency: :real_currency, hidden: true
     t.column :real_credit, currency: :real_currency, hidden: true
@@ -262,8 +262,8 @@ class Backend::JournalsController < BackendController
   # FIXME RECORD.real_currency does not exist
   list(:general_ledger, :model => :journal_entry_items, :conditions => general_ledger_conditions, :joins => [:entry, :account], :order => "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
     t.column :account, url: true
-    t.column :account => :number, url: true, hidden: true
-    t.column :account => :name, url: true, hidden: true
+    t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
+    t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
     t.column :entry_number, url: true
     t.column :printed_on
     t.column :name

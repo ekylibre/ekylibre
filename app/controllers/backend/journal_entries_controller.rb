@@ -39,8 +39,8 @@ class Backend::JournalEntriesController < BackendController
   list(:items, :model => :journal_entry_items, :conditions => {:entry_id => 'params[:id]'.c}, :order => "entry_id DESC, position") do |t|
     t.column :name
     t.column :account, url: true
-    t.column :account => :number, url: true
-    t.column :account => :name, url: true
+    t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
+    t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
     t.column :bank_statement, url: true, hidden: true
     # t.column :number, through: :account, url: true
     # t.column :name, through: :account, url: true

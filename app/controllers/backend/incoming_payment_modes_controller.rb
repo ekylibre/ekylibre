@@ -26,11 +26,11 @@ class Backend::IncomingPaymentModesController < BackendController
   # TODO: Adds detail_payments and attorney_journal
   list(:order => :position) do |t|
     t.column :name
-    t.column :name, through: :cash, url: true
+    t.column :cash, url: true
     t.column :with_accounting
     t.column :with_deposit
-    t.column :label, through: :depositables_account, url: true
-    t.column :name,  through: :depositables_journal, url: true
+    t.column :depositables_account, url: true
+    t.column :depositables_journal, url: true
     t.column :with_commission
     t.action :up,   :method => :post, :unless => :first?
     t.action :down, :method => :post, :unless => :last?
@@ -45,10 +45,6 @@ class Backend::IncomingPaymentModesController < BackendController
       payment.update_attributes(:commission_account_id => nil, :commission_amount => nil)
     end
     redirect_to :action => :index
-  end
-
-  # Displays the main page with the list of incoming payment modes
-  def index
   end
 
 end

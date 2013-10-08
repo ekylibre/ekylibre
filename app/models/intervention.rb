@@ -67,7 +67,7 @@ class Intervention < Ekylibre::Record::Base
   scope :of_nature, lambda { |*natures|
     where("natures ~ E?", natures.sort.map { |nature| "\\\\m#{nature.to_s.gsub(/\W/, '')}\\\\M" }.join(".*"))
   }
-  
+
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
     for campaign in campaigns
@@ -75,7 +75,7 @@ class Intervention < Ekylibre::Record::Base
     end
     joins(:production).merge(Production.of_campaign(campaigns))
   }
-  
+
   scope :of_activities, lambda { |*activities|
     activities.flatten!
     for activity in activities
@@ -83,8 +83,8 @@ class Intervention < Ekylibre::Record::Base
     end
     joins(:production).merge(Production.of_activities(activities))
   }
-  
-  
+
+
   # scope :of_nature, lambda { |nature|
   #   raise ArgumentError.new("Unknown nature #{nature.inspect}") unless Nomen::ProcedureNatures[nature]
   #   where("natures ~ E?", "\\\\m#{nature}\\\\M")
@@ -133,7 +133,7 @@ class Intervention < Ekylibre::Record::Base
   def name
     reference.human_name
   end
-  
+
   # Returns total duration of an intervention
   def duration
     if self.operations.count > 0
@@ -142,7 +142,7 @@ class Intervention < Ekylibre::Record::Base
       return 0
     end
   end
-  
+
   def valid_for_run?(started_at, duration)
     if self.reference.minimal_duration < duration
       raise ArgumentError.new("The intervention cannot last less than the minimum")

@@ -40,15 +40,15 @@ class Backend::SalesController < BackendController
     code << "  end\n"
     code << "end\n "
     code << "c\n "
-    code.c
+    return code.c
   end
 
   list(:conditions => sales_conditions, :joins => :client, :order => 'created_on desc, number desc') do |t| # , :line_class => 'RECORD.tags'
     t.column :number, :url => {:action => :show, :step => :default}
     t.column :created_on
     t.column :invoiced_on
-    t.column :client => :label, url: true
-    t.column :responsible => :label
+    t.column :client, url: true
+    t.column :responsible
     t.column :description
     t.column :state_label
     t.column :amount, currency: true
@@ -72,18 +72,18 @@ class Backend::SalesController < BackendController
 
   list(:credits, :model => :sales, :conditions => {:origin_id => 'params[:id]'.c }, :children => :items) do |t|
     t.column :number, url: true, :children => :designation
-    t.column :full_name, through: :client, :children => false
-    t.column :created_on, :children => false
+    t.column :client, children: false
+    t.column :created_on, children: false
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
   end
 
   list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:sale_id => 'params[:id]'.c}) do |t|
     t.column :number, :children => :product_name
-    t.column :last_name, through: :transporter, :children => false, url: true
-    t.column :coordinate, through: :address, :children => false
-    # t.column :planned_on, :children => false
-    # t.column :moved_on, :children => false
+    t.column :transporter, children: false, url: true
+    t.column :address, label_method: :coordinate, children: false
+    # t.column :planned_on, children: false
+    # t.column :moved_on, children: false
     t.column :quantity, :datatype => :decimal
     # t.column :pretax_amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
     # t.column :amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
@@ -105,9 +105,9 @@ class Backend::SalesController < BackendController
 
   list(:subscriptions, :conditions => {:sale_id => 'params[:id]'.c}) do |t|
     t.column :number
-    t.column :nature => :name
-    t.column :full_name, through: :subscriber, url: true
-    t.column :coordinate, through: :address
+    t.column :nature
+    t.column :subscriber, url: true
+    t.column :address
     t.column :start
     t.column :finish
     t.column :quantity
@@ -117,7 +117,7 @@ class Backend::SalesController < BackendController
 
   list(:undelivered_items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c, :reduced_item_id => nil}) do |t|
     t.column :name, through: :variant
-    t.column :pretax_amount, :currency => true, through: :price
+    t.column :pretax_amount, currency: true, through: :price
     t.column :quantity
     #  t.column :unit
     # t.column :pretax_amount, :currency => true
@@ -198,8 +198,8 @@ class Backend::SalesController < BackendController
   list(:creditable_items, :model => :sale_items, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", 'params[:id]'.c]) do |t|
     t.column :label
     t.column :annotation
-    t.column :name, through: :variant
-    t.column :amount, through: :price, :label => :column
+    t.column :variant
+    t.column :price_amount, through: :price, label_method: :amount
     # t.column :quantity
     t.column :credited_quantity, :datatype => :decimal
     t.check_box  :validated, :value => "true".c, :label => 'OK'

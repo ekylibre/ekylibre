@@ -18,6 +18,7 @@
 #
 
 class Backend::FinancialYearsController < BackendController
+  manage_restfully
 
   unroll
 
@@ -34,14 +35,15 @@ class Backend::FinancialYearsController < BackendController
   end
 
   list(:account_balances, :joins => :account, :conditions => {:financial_year_id => 'params[:id]'.c}, :order => "number") do |t|
-    t.column :number, through: :account, url: true
-    t.column :name, through: :account, url: true
+    t.column :account, url: true
+    t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
+    t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
     t.column :local_debit, currency: true
     t.column :local_credit, currency: true
   end
 
   list(:asset_depreciations, :conditions => {:financial_year_id => 'params[:id]'.c}) do |t|
-    t.column :name, through: :asset, url: true
+    t.column :asset, url: true
     t.column :started_on
     t.column :stopped_on
     t.column :amount, currency: true

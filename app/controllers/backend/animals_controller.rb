@@ -30,8 +30,8 @@ class Backend::AnimalsController < Backend::ProductsController
     t.column :born_at
     t.column :sex
     t.column :net_weight
-    t.column :name, through: :mother, url: true
-    t.column :name, through: :father, url: true
+    t.column :mother, url: true
+    t.column :father, url: true
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
@@ -57,7 +57,7 @@ class Backend::AnimalsController < Backend::ProductsController
 
   # Liste des lieux de l'animal considéré
   list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :container, url: true
+    t.column :container, url: true
     t.column :nature
     t.column :started_at
     t.column :arrival_cause
@@ -67,7 +67,7 @@ class Backend::AnimalsController < Backend::ProductsController
 
   # Liste des groupes de l'animal considéré
   list(:groups, :model => :product_memberships, :conditions => {member_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :name, through: :group, url: true
+    t.column :group, url: true
     t.column :started_at
     t.column :stopped_at
   end
@@ -90,7 +90,7 @@ class Backend::AnimalsController < Backend::ProductsController
   end
 
   list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
-    t.column :name, through: :intervention, url: true
+    t.column :intervention, url: true
     t.column :roles
     t.column :variable
     t.column :started_at, through: :intervention

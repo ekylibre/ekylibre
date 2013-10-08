@@ -80,7 +80,7 @@ class Measure
   def convert(unit)
     Measure.new(self.to_d(unit), unit)
   end
-  
+
   def round(ndigits=0)
     Measure.new(self.to_d.round(ndigits), self.unit)
   end

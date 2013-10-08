@@ -1,3 +1,22 @@
+# coding: utf-8
+# == License
+# Ekylibre - Simple ERP
+# Copyright (C) 2008-2013 David Joulin, Brice Texier
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+
 class Backend::LandParcelGroupsController < BackendController
   manage_restfully
 
@@ -9,25 +28,6 @@ class Backend::LandParcelGroupsController < BackendController
     t.column :identification_number
     #t.column :real_quantity
     #t.column :unit
-  end
-
-  # Displays the main page with the list of land_parcel_groups.
-  def index
-    respond_to do |format|
-      format.html
-      format.xml  { render :xml => LandParcelGroup.all }
-      format.json { render :json => LandParcelGroup.all }
-    end
-  end
-
-  # Displays the page for one land_parcel_group.
-  def show
-    return unless @land_parcel_group = find_and_check
-    respond_to do |format|
-      format.html { t3e(@land_parcel_group) }
-      format.xml  { render :xml => @land_parcel_group }
-      format.json { render :json => @land_parcel_group }
-    end
   end
 
 end

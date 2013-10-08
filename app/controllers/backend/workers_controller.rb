@@ -8,7 +8,7 @@ class Backend::WorkersController < Backend::EquipmentsController
   end
 
   list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
-    t.column :name, through: :intervention, url: true
+    t.column :intervention
     t.column :roles
     t.column :variable
     t.column :started_at, through: :intervention

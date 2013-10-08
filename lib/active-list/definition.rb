@@ -1,6 +1,6 @@
 module ActiveList
 
-  module Definition 
+  module Definition
     autoload :Table,             'active-list/definition/table'
     autoload :AbstractColumn,    'active-list/definition/abstract_column'
     autoload :DataColumn,        'active-list/definition/data_column'

@@ -61,21 +61,25 @@ class Backend::AccountsController < BackendController
   end
 
   list(:journal_entry_items, :joins => :entry, :conditions => account_moves_conditions, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
-    t.column :journal => :name, url: true
-    t.column :number, through: :entry, url: true
-    t.column :printed_on, through: :entry, :datatype => :date, :label => :column
+    t.column :journal, url: true
+    t.column :entry_number, url: true
+    t.column :printed_on, :datatype => :date, :label => :column
     t.column :name
     t.column :state_label
     t.column :letter
-    t.column :debit, currency: true
-    t.column :credit, currency: true
+    t.column :real_debit,  currency: :real_currency, hidden: true
+    t.column :real_credit, currency: :real_currency, hidden: true
+    t.column :debit,  currency: true, hidden: true
+    t.column :credit, currency: true, hidden: true
+    t.column :absolute_debit,  currency: :absolute_currency
+    t.column :absolute_credit, currency: :absolute_currency
   end
 
   list(:entities, :conditions => ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], :order => "created_at DESC") do |t| # , attorney_account_id
     t.column :activity_code, url: true
     t.column :full_name, url: true
-    t.column :client_account => :label, url: true
-    t.column :supplier_account => :label, url: true
+    t.column :client_account, url: true
+    t.column :supplier_account, url: true
     # t.column :label, through: :attorney_account, url: true
   end
 
@@ -88,12 +92,16 @@ class Backend::AccountsController < BackendController
   end
 
   list(:reconciliation, :model => :journal_entry_items, :joins => [:entry, :account], :conditions => account_reconciliation_conditions, :order => "accounts.number, journal_entries.printed_on") do |t|
-    t.column :account => :number, :url => {:action => :mark}
-    t.column :account => :name, :url => {:action => :mark}
+    t.column :account_number, through: :account, label_method: :number, :url => {:action => :mark}
+    t.column :account_name, through: :account, label_method: :name, :url => {:action => :mark}
     t.column :entry_number
     t.column :name
-    t.column :debit, currency: true
-    t.column :credit, currency: true
+    t.column :real_debit,  currency: :real_currency, hidden: true
+    t.column :real_credit, currency: :real_currency, hidden: true
+    t.column :debit,  currency: true, hidden: true
+    t.column :credit, currency: true, hidden: true
+    t.column :absolute_debit,  currency: :absolute_currency
+    t.column :absolute_credit, currency: :absolute_currency
   end
 
   def reconciliation

@@ -20,9 +20,10 @@
 class Backend::OperationsController < BackendController
   manage_restfully
 
-  unroll :label => '{id}'
+  unroll
 
-  list(:order => "id DESC") do |t|
+  list do |t|
+    t.column :intervention
     # t.column :name, url: true
     # t.column :name, through: :nature
     t.column :started_at
@@ -32,13 +33,11 @@ class Backend::OperationsController < BackendController
     #t.column :tools_list
     # t.column :name, through: :target
     #t.column :duration
+    t.column :casting
     t.action :edit
     t.action :destroy
   end
 
-  # Displays the main page with the list of operations
-  def index
-  end
 
 
   # list(:uses, :model => :operation_uses, :conditions => {:operation_id => ['session[:current_operation_id]']}, :order => "id") do |t|

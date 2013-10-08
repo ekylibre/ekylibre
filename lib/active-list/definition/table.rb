@@ -70,16 +70,30 @@ module ActiveList
         add :action, name, options
       end
 
+      # # Add a new method in Table which permit to define data columns
+      # def attribute(name, options = {})
+      #   add :attribute, name, options
+      # end
+
+      # # Add a column referencing an association
+      # def association(name, options = {})
+      #   options[:through] ||= name
+      #   add :association, name, options
+      # end
+
       # Add a new method in Table which permit to define data columns
-      def attribute(name, options = {})
-        add :attribute, name, options
+      def column(name, options = {})
+        if @model.reflect_on_association(name)
+          options[:through] ||= name
+          add :association, name, options
+        elsif @model.reflect_on_association(options[:through])
+          options[:label_method] ||= name
+          add :association, name, options
+        else
+          add :attribute, name, options
+        end
       end
-      alias :column :attribute
-      
-      # Add a column referencing an association
-      def association(name, options = {})
-        add :association, name, options
-      end
+
 
 
       def load_default_columns

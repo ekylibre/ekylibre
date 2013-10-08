@@ -34,12 +34,12 @@ class Backend::EntitiesController < BackendController
   end
 
   list(:event_participations, :conditions => {participant_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
-    t.association :event
+    t.column :event
     t.column :state
     # t.column :label, through: :responsible, url: true
     # t.column :duration
     # t.column :place
-    t.association :started_at, through: :event
+    t.column :started_at, through: :event
     t.action :edit
     t.action :destroy
   end
@@ -47,20 +47,20 @@ class Backend::EntitiesController < BackendController
   list(:incoming_payments, :conditions => {payer_id: 'params[:id]'.c}, :order => "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
-    t.association :responsible
-    t.association :mode
+    t.column :responsible
+    t.column :mode
     t.column :bank_name
     t.column :bank_check_number
     t.column :amount, currency: true, url: true
-    t.association :deposit, url: true
+    t.column :deposit, url: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
 
   list(:links, :model => :entity_links, :conditions => ['#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)', 'params[:id]'.c, 'params[:id]'.c], :per_page => 5) do |t|
-    t.column :description, through: :entity_1, url: true
+    t.column :entity_1, url: true
     t.column :nature
-    t.column :description, through: :entity_2, url: true
+    t.column :entity_2, url: true
     t.column :description
     t.action :edit
     t.action :destroy
@@ -86,8 +86,8 @@ class Backend::EntitiesController < BackendController
   list(:outgoing_payments, :conditions => {:payee_id => 'params[:id]'.c}, :order => "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
-    t.column :label, through: :responsible
-    t.column :name, through: :mode
+    t.column :responsible
+    t.column :mode
     t.column :bank_check_number
     t.column :amount, currency: true, url: true
     t.action :edit
@@ -98,7 +98,7 @@ class Backend::EntitiesController < BackendController
     t.column :number, url: true
     t.column :created_on
     t.column :invoiced_on
-    t.column :address, through: :delivery_address
+    t.column :delivery_address
     t.column :state_label
     t.column :amount, currency: true
     t.action :show, :url => {:format => :pdf}, :image => :print
@@ -108,7 +108,7 @@ class Backend::EntitiesController < BackendController
 
   list(:sales, :conditions => {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, :order => "created_on DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true, :children => :label
-    t.column :full_name, through: :responsible, :children => false
+    t.column :responsible, :children => false
     t.column :created_on, :children => false
     t.column :state_label, :children => false
     t.column :amount, currency: true
@@ -121,11 +121,11 @@ class Backend::EntitiesController < BackendController
 
   list(:subscriptions, :conditions => {subscriber_id:  'params[:id]'.c}, :order => 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')".c) do |t|
     t.column :number
-    t.column :name, through: :nature
+    t.column :nature
     t.column :start
     t.column :finish
-    t.column :number, through: :sale, url: true
-    t.column :coordinate, through: :address
+    t.column :sale, url: true
+    t.column :address
     t.column :quantity, :datatype => :decimal
     t.column :suspended
     t.action :edit

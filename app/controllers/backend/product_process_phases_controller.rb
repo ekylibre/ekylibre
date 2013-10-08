@@ -24,7 +24,7 @@ class Backend::ProductProcessPhasesController < BackendController
 
   list do |t|
     t.column :name, url: true
-    t.column :name, :through=>:process, :url=>true
+    t.column :process, url: true
     t.column :nature
     t.column :phase_delay
     t.column :position
@@ -32,17 +32,6 @@ class Backend::ProductProcessPhasesController < BackendController
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
-  end
-
-  # Show a list
-  def index
-  end
-
-  # Show one Processes with params_id
-  def show
-    return unless @product_process_phase = find_and_check
-    session[:current_product_process_phase_id] = @product_process_phase.id
-    t3e @product_process_phase
   end
 
 end

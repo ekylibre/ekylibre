@@ -28,7 +28,7 @@ class Backend::PurchasesController < BackendController
     t.column :created_on
     # t.column :planned_on
     # t.column :moved_on
-    t.column :full_name, through: :supplier, url: true
+    t.column :supplier, url: true
     t.column :description
     # t.column :shipped
     t.column :state_label
@@ -40,7 +40,7 @@ class Backend::PurchasesController < BackendController
   end
 
   list(:deliveries, :model => :incoming_deliveries, :children => :items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
-    t.column :coordinate, through: :address, :children => :product_name
+    t.column :address, :children => :product_name
     t.column :planned_on, :children => false
     t.column :moved_on, :children => false
     t.column :quantity, :datatype => :decimal
@@ -51,7 +51,7 @@ class Backend::PurchasesController < BackendController
   end
 
   list(:undelivered_items, :model => :purchase_items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
-    t.column :name, through: :variant
+    t.column :variant
     # t.column :pretax_amount, currency: true, through: :price
     t.column :quantity
     t.column :unit
@@ -61,7 +61,7 @@ class Backend::PurchasesController < BackendController
   end
 
   list(:items, :model => :purchase_items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
-    t.column :name, through: :variant, url: true
+    t.column :variant, url: true
     t.column :annotation
     t.column :tracking_serial
     t.column :quantity

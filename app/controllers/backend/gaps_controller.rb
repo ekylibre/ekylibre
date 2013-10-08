@@ -23,7 +23,7 @@ class Backend::GapsController < BackendController
   unroll
 
   list do |t|
-    t.column :name, through: :entity, url: true
+    t.column :entity, url: true
     t.column :direction
     t.column :amount, currency: true
   end

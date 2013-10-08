@@ -1,7 +1,7 @@
 module ActiveList
 
   module Definition
-    
+
     class AttributeColumn < DataColumn
 
       attr_reader :column

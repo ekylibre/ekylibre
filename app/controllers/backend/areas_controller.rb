@@ -29,7 +29,7 @@ class Backend::AreasController < BackendController
     t.column :postcode
     t.column :city
     t.column :code
-    t.column :name, through: :district
+    t.column :district
     t.column :country
     t.action :edit
     t.action :destroy

@@ -1,7 +1,7 @@
 module ActiveList
 
   module Renderers
-    
+
     class SimpleRenderer < AbstractRenderer
       include ActiveList::Helpers
 
