@@ -134,7 +134,7 @@ class ActionController::TestCase
         action_name = action.to_s
         mode = if action_name.match(/^(index|new)$/) # GET without ID
                  :index
-               elsif action_name.match(/^(show|edit|picture)$/) # GET with ID
+               elsif action_name.match(/^(show|edit|picture|list\_\w+)$/) # GET with ID
                  :show
                elsif action_name.match(/^(create|load)$/) # POST without ID
                  :create
@@ -142,7 +142,7 @@ class ActionController::TestCase
                  :update
                elsif action_name.match(/^(destroy)$/) # DELETE with ID
                  :destroy
-               elsif action_name.match(/^list(_\w+)?$/) # GET list
+               elsif action_name.match(/^list$/) # GET list
                  :list
                elsif action_name.match(/^(duplicate|up|down|lock|unlock|increment|decrement|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)$/) # POST with ID
                  :touch
