@@ -64,11 +64,6 @@ GEM
     beardley-core (5.2.0.1)
     beardley-groovy (1.7.5.1)
     beardley-xml (0.0.0)
-    better_errors (1.0.1)
-      coderay (>= 1.0.0)
-      erubis (>= 2.6.6)
-    binding_of_caller (0.7.2)
-      debug_inspector (>= 0.0.1)
     builder (3.1.4)
     calendar_helper (0.2.6)
       open4
@@ -94,7 +89,7 @@ GEM
     cocoon (1.2.1)
     code_analyzer (0.4.3)
       sexp_processor
-    coderay (1.1.0)
+    coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0.beta, < 5.0)
@@ -115,11 +110,9 @@ GEM
       term-ansicolor
       thor
     curb (0.8.5)
-    daemons (1.1.9)
     database_cleaner (1.1.1)
     dbf (2.0.6)
       fastercsv (~> 1.5.4)
-    debug_inspector (0.0.2)
     devise (3.1.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -134,7 +127,6 @@ GEM
     enumerize (0.7.0)
       activesupport (>= 3.2)
     erubis (2.7.0)
-    eventmachine (1.0.3)
     exception_notification (4.0.1)
       actionmailer (>= 3.0.4)
       activesupport (>= 3.0.4)
@@ -187,6 +179,7 @@ GEM
     jquery-ui-rails (4.0.5)
       railties (>= 3.1.0)
     json (1.8.0)
+    kgio (2.8.1)
     launchy (2.3.0)
       addressable (~> 2.3)
     libv8 (3.16.14.3)
@@ -241,11 +234,10 @@ GEM
     prawn (0.12.0)
       pdf-reader (>= 0.9.0)
       ttfunk (~> 1.0.2)
-    pry (0.9.6)
-      coderay (>= 0.9.8)
-      method_source (>= 0.6.5)
-      ruby_parser (>= 2.0.5)
-      slop (~> 2.1.0)
+    pry (0.9.12.2)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.4)
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
@@ -274,6 +266,7 @@ GEM
       activesupport (= 4.0.0)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
+    raindrops (0.12.0)
     rake (10.1.0)
     rdoc (3.12.2)
       json (~> 1.4)
@@ -297,8 +290,6 @@ GEM
     ruby-filemagic (0.4.2)
     ruby-progressbar (1.2.0)
     ruby-rc4 (0.1.5)
-    ruby_parser (3.2.2)
-      sexp_processor (~> 4.1)
     rubyntlm (0.3.4)
     rubyzip (0.9.9)
     sass (3.2.12)
@@ -333,7 +324,7 @@ GEM
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
     simplecov-html (0.7.1)
-    slop (2.1.0)
+    slop (3.4.6)
     sneaky-save (0.0.4)
       activerecord (>= 3.2.0)
     spinach (0.8.6)
@@ -358,10 +349,6 @@ GEM
     therubyracer (0.12.0)
       libv8 (~> 3.16.14.0)
       ref
-    thin (1.6.0)
-      daemons (>= 1.0.9)
-      eventmachine (>= 1.0.0)
-      rack (>= 1.5.0)
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
@@ -380,6 +367,10 @@ GEM
     unf (0.1.2)
       unf_ext
     unf_ext (0.0.6)
+    unicorn (4.6.3)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
     wasabi (3.2.0)
@@ -400,8 +391,6 @@ DEPENDENCIES
   awesome_nested_set (~> 3.0.0.rc1)
   awesome_print
   beardley
-  better_errors
-  binding_of_caller
   calendar_helper (~> 0.2.5)
   capybara
   capybara-screenshot
@@ -456,6 +445,6 @@ DEPENDENCIES
   spinach-rails
   state_machine
   therubyracer
-  thin
   turbolinks
   uglifier (>= 1.3.0)
+  unicorn

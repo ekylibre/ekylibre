@@ -34,12 +34,12 @@ class Backend::EntitiesController < BackendController
   end
 
   list(:event_participations, :conditions => {participant_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
-    t.column :name, through: :event
+    t.association :event
     t.column :state
     # t.column :label, through: :responsible, url: true
     # t.column :duration
     # t.column :place
-    t.column :started_at, through: :event
+    t.association :started_at, through: :event
     t.action :edit
     t.action :destroy
   end
@@ -47,12 +47,12 @@ class Backend::EntitiesController < BackendController
   list(:incoming_payments, :conditions => {payer_id: 'params[:id]'.c}, :order => "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
-    t.column :label, through: :responsible
-    t.column :name, through: :mode
+    t.association :responsible
+    t.association :mode
     t.column :bank_name
     t.column :bank_check_number
     t.column :amount, currency: true, url: true
-    t.column :number, through: :deposit, url: true
+    t.association :deposit, url: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end

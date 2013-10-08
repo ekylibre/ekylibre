@@ -127,14 +127,14 @@ gem 'agric'
 group :development do
   # gem 'rack-mini-profiler'
   gem 'quiet_assets'
-  gem 'better_errors'
-  gem 'binding_of_caller'
+  # gem 'better_errors'
+  # gem 'binding_of_caller'
   gem 'rails_best_practices'
   # Project Management / Model
   gem 'railroady'
   # gem 'rails-erd', github: "burisu/rails-erd"
 
-  gem 'thin'
+  gem 'unicorn'
 end
 
 group :development, :test do

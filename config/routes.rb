@@ -290,12 +290,6 @@ Ekylibre::Application.routes.draw do
         post :down
       end
     end
-    resources :teams do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
     resources :deposits do
       collection do
         get :list
@@ -963,6 +957,12 @@ Ekylibre::Application.routes.draw do
     end
     # resources :tax_declarations
     resources :taxes do
+      collection do
+        get :list
+        get :unroll
+      end
+    end
+    resources :teams do
       collection do
         get :list
         get :unroll

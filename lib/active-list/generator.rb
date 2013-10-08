@@ -1,38 +1,37 @@
 # encoding: UTF-8
-require "active-list/finder"
-require "active-list/exporters"
-require "active-list/renderers"
-
 module ActiveList
 
-  class Table
+  class Generator
 
-    def view_method_name
-      @options[:view_method_name]
-    end
-
-    def controller_method_name
-      @options[:controller_method_name]
-    end
-
-    def records_variable_name
-      @options[:records_variable_name]
+    attr_accessor :table, :controller, :controller_method_name, :view_method_name, :records_variable_name
+    
+    def initialize(*args, &block)
+      options = args.extract_options!
+      @controller = options[:controller]
+      name = args.shift || @controller.controller_name.to_sym
+      model = (options[:model]||name).to_s.classify.constantize
+      @controller_method_name = "list#{'_'+name.to_s if name != @controller.controller_name.to_sym}"
+      @view_method_name       = "_#{@controller.controller_name}_list_#{name}_tag"
+      @records_variable_name  = "@#{name}"
+      @table = ActiveList::Definition::Table.new(name, model, options)
+      if block_given?
+        yield @table
+      else
+        @table.load_default_columns
+      end
+      @parameters = {:sort => :to_s, :dir => :to_s}
+      @parameters.merge!(:page => :to_i, :per_page => :to_i) if @table.paginate?
     end
 
     def var_name(name)
       "the_#{name}"
     end
 
-    def controller
-      @options[:controller]
-    end
-
     def renderer
-      ActiveList.renderers[@options[:renderer]].new(self)
+      ActiveList::Renderers[@table.options[:renderer]].new(self)
     end
 
-
-    def generate_controller_method_code
+    def controller_method_code
       code  = "# encoding: utf-8\n"
       code << "def #{self.controller_method_name}\n"
       code << self.session_initialization_code.dig
@@ -44,9 +43,9 @@ module ActiveList
       code << "        render(inline: '<%=#{self.view_method_name}-%>', layout: true)\n"
       code << "      end\n"
       code << "    end\n"
-      for format, exporter in ActiveList.exporters
+      for format, exporter in ActiveList::Exporters.hash
         code << "    format.#{format} do\n"
-        code << exporter.send_data_code(self).dig(3)
+        code << exporter.new(self).send_data_code.dig(3)
         code << "    end\n"
       end
       code << "  end\n"
@@ -63,7 +62,7 @@ module ActiveList
       return code
     end
 
-    def generate_view_method_code
+    def view_method_code
       code  = "# encoding: utf-8\n"
       code << "def #{self.view_method_name}(options={}, &block)\n"
       code << self.session_initialization_code.dig
@@ -82,29 +81,28 @@ module ActiveList
     def session_initialization_code
       code  = "options = {} unless options.is_a? Hash\n"
       code << "options.update(params)\n"
-      # Session values
-      # code << "session[:list] = {} unless session[:list].is_a? Hash\n"
-      # code << "session[:list][:#{self.view_method_name}] = {} unless session[:list][:#{self.view_method_name}].is_a? Hash\n"
       code << "#{var_name(:params)} = YAML::load(current_user.pref('list.#{self.view_method_name}', YAML::dump({})).value)\n"
       code << "#{var_name(:params)} = {} unless #{var_name(:params)}.is_a?(Hash)\n"
       code << "unless #{var_name(:params)}[:hidden_columns].is_a? Array\n"
-      code << "  #{var_name(:params)}[:hidden_columns] = #{self.hidden_columns.map(&:name).map(&:to_s).inspect}\n"
+      code << "  #{var_name(:params)}[:hidden_columns] = #{@table.hidden_columns.map(&:name).map(&:to_s).inspect}\n"
       code << "end\n"
       for parameter, convertor in @parameters.sort{|a,b| a[0].to_s <=> b[0].to_s}
-        expr = "options.delete('#{self.name}_#{parameter}') || options.delete('#{parameter}') || #{var_name(:params)}[:#{parameter}]"
-        expr += " || #{@options[parameter]}" unless @options[parameter].blank?
+        expr = "options.delete('#{@table.name}_#{parameter}') || options.delete('#{parameter}') || #{var_name(:params)}[:#{parameter}]"
+        expr += " || #{@table.options[parameter]}" unless @table.options[parameter].blank?
         code << "#{var_name(:params)}[:#{parameter}] = (#{expr}).#{convertor}\n"
       end
       # Order
-      code << "#{var_name(:order)} = #{self.options[:order] ? self.options[:order].inspect : 'nil'}\n"
-      code << "if col = {"+self.sortable_columns.collect{|c| "#{c.sort_id}: '#{c.name}'"}.join(', ')+"}[#{var_name(:params)}[:sort]]\n"
+      code << "#{var_name(:order)} = #{@table.options[:order] ? @table.options[:order].inspect : 'nil'}\n"
+      code << "if col = {" + @table.sortable_columns.collect{|c| "#{c.sort_id}: '#{c.name}'"}.join(', ') + "}[#{var_name(:params)}[:sort]]\n"
       code << "  #{var_name(:params)}[:dir] = 'ASC' unless #{var_name(:params)}[:dir] == 'asc' or #{var_name(:params)}[:dir] == 'desc'\n"
-      code << "  order = #{@model.name}.connection.quote_column_name(col) + ' ' + #{var_name(:params)}[:dir]\n"
+      code << "  order = #{@table.model.name}.connection.quote_column_name(col) + ' ' + #{var_name(:params)}[:dir]\n"
       code << "end\n"
 
       return code
     end
 
-
   end
+
 end
+
+require "active-list/generator/finder"

@@ -28,10 +28,10 @@ class ApplicationController < ActionController::Base
 
   attr_accessor :current_theme
 
-  # Permits to redirect
-  def after_sign_in_path_for(resource)
-    backend_root_url(:locale => params[:locale])
-  end
+  # # Permits to redirect
+  # def after_sign_in_path_for(resource)
+  #   backend_root_url(:locale => params[:locale])
+  # end
 
   def self.human_name
     ::I18n.translate("controllers." + self.controller_path)

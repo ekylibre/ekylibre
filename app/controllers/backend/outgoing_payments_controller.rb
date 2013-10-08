@@ -23,52 +23,31 @@ class Backend::OutgoingPaymentsController < BackendController
   unroll
 
   def self.outgoing_payments_conditions(options={})
-    code = deprecated_search_conditions(:outgoing_payments, :outgoing_payments => [:amount, :bank_check_number, :number], :entities => [:code, :full_name])+"||=[]\n"
-    code << "if session[:outgoing_payment_state] == 'undelivered'\n"
+    code = search_conditions(:outgoing_payments => [:amount, :bank_check_number, :number], :entities => [:number, :full_name]) + " ||= []\n"
+    code << "if params[:s] == 'undelivered'\n"
     code << "  c[0] += ' AND delivered=?'\n"
     code << "  c << false\n"
-    code << "elsif session[:outgoing_payment_state] == 'waiting'\n"
+    code << "elsif params[:s] == 'waiting'\n"
     code << "  c[0] += ' AND to_bank_on > ?'\n"
     code << "  c << Date.today\n"
-    code << "elsif session[:outgoing_payment_state] == 'unparted'\n"
+    code << "elsif params[:s] == 'unparted'\n"
     # code << "  c[0] += ' AND used_amount != amount'\n"
     code << "end\n"
     code << "c\n"
-    return code
+    return code.c
   end
 
   list(:conditions => outgoing_payments_conditions, :joins => :payee, :order => "to_bank_on DESC") do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
     t.column :number, url: true
-    t.column :full_name, through: :payee, url: true
+    t.column :payee, label_method: :full_name, url: true
     t.column :paid_on
     t.column :amount, currency: true, url: true
-    t.column :name, through: :mode
+    t.column :mode
     t.column :bank_check_number
     t.column :to_bank_on
     # t.column :label, through: :responsible
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
-  end
-
-  # Displays the main page with the list of outgoing payments
-  def index
-    session[:outgoing_payment_state] = params[:s] || "all"
-    session[:outgoing_payment_key]   = params[:q] || ""
-  end
-
-  # list(:purchases, :conditions => ["#{Purchase.table_name}.id IN (SELECT expense_id FROM #{OutgoingPaymentUse.table_name} WHERE payment_id=?)", ['session[:current_outgoing_payment_id]']]) do |t|
-  #   t.column :number, url: true
-  #   t.column :description, through: :supplier, url: true
-  #   t.column :created_on
-  #   t.column :pretax_amount, currency: true
-  #   t.column :amount, currency: true
-  # end
-
-  # Displays details of one outgoing payment selected with +params[:id]+
-  def show
-    return unless @outgoing_payment = find_and_check(:outgoing_payment)
-    session[:current_outgoing_payment_id] = @outgoing_payment.id
-    t3e :number => @outgoing_payment.number, :payee => @outgoing_payment.payee.full_name
   end
 
 end

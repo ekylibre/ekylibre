@@ -3,14 +3,10 @@ module ActiveList
   CSV = (::CSV.const_defined?(:Reader) ? ::FasterCSV : ::CSV).freeze
 
   def self.version
-    "4.2.3"
+    "5.0.0"
   end
 
   VERSION = self.version.freeze
-
-  def self.assets_path
-    File.join(File.dirname(__FILE__), "assets", "images")
-  end
 
   # Build and returns a short UID
   def self.new_uid
@@ -20,13 +16,13 @@ module ActiveList
     return uid
   end
 
+  autoload :Helpers,    'active-list/helpers'
+  autoload :Definition, 'active-list/definition'
+  autoload :Renderers,  'active-list/renderers'
+  autoload :Exporters,  'active-list/exporters'
+  autoload :Generator,  'active-list/generator'
+  autoload :ActionPack, 'active-list/action_pack' 
 end
 
-require "active-list/helpers"
-require "active-list/definition"
-require "active-list/generator"
-require "active-list/action_pack"
-
-
-::ActionController::Base.send(:include, ActiveList::ActionController)
-::ActionView::Base.send(:include, ActiveList::ViewsHelper)
+::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)
+::ActionView::Base.send(:include, ActiveList::ActionPack::ViewsHelper)

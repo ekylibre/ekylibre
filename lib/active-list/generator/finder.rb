@@ -1,22 +1,22 @@
 module ActiveList
 
   # Manage data query
-  class Table
+  class Generator
 
     # Generate select code for the table taking all parameters in account
     def select_data_code(options = {})
-      paginate = (options.has_key?(:paginate) ? options[:paginate] : self.paginate?)
+      paginate = (options.has_key?(:paginate) ? options[:paginate] : @table.paginate?)
       # Check order
-      unless self.options.keys.include?(:order)
-        columns = self.table_columns
-        self.options[:order] = (columns.size > 0 ? columns.first[:name].to_s : "id DESC")
+      unless @table.options.keys.include?(:order)
+        columns = @table.table_columns
+        @table.options[:order] = (columns.size > 0 ? columns.first[:name].to_s : "id DESC")
       end
 
       # Find data
-      query_code = "#{self.model.name}"
+      query_code = "#{@table.model.name}"
       query_code << ".select(#{self.select_code})" if self.select_code
-      query_code << ".where(#{self.conditions_code})" unless self.options[:conditions].blank?
-      query_code << ".joins(#{self.options[:joins].inspect})" unless self.options[:joins].blank?
+      query_code << ".where(#{self.conditions_code})" unless @table.options[:conditions].blank?
+      query_code << ".joins(#{@table.options[:joins].inspect})" unless @table.options[:joins].blank?
       query_code << ".includes(#{self.includes_hash.inspect})" unless self.includes_hash.empty?
       #.references(#{self.includes_hash.inspect})
 
@@ -46,7 +46,7 @@ module ActiveList
     # Compute includes Hash
     def includes_hash
       hash = {}
-      for column in self.columns
+      for column in @table.columns
         if through = column.options[:through]
           hash[through] ||= {}
         end
@@ -57,7 +57,7 @@ module ActiveList
 
     # Generate the code from a conditions option
     def conditions_code
-      conditions = self.options[:conditions]
+      conditions = @table.options[:conditions]
       code = ''
       case conditions
       when Array
@@ -89,12 +89,12 @@ module ActiveList
     end
 
     def select_code
-      return nil unless self.options[:distinct] or self.options[:select]
+      return nil unless @table.options[:distinct] or @table.options[:select]
       code  = ""
-      code << "DISTINCT " if self.options[:distinct]
-      code << "#{self.model.table_name}.*"
-      if self.options[:select]
-        code << self.options[:select].collect{|k, v| ", #{k[0].to_s+'.'+k[1].to_s} AS #{v}" }.join
+      code << "DISTINCT " if @table.options[:distinct]
+      code << "#{@table.model.table_name}.*"
+      if @table.options[:select]
+        code << @table.options[:select].collect{|k, v| ", #{k[0].to_s+'.'+k[1].to_s} AS #{v}" }.join
       end
       return ("'" + code + "'").c
     end
