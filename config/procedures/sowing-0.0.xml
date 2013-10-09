@@ -2,16 +2,13 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="sowing" natures="sowing" version="0.0" status="frozen">
     <variables>
-      <variable name="seeds" variety="plant" abilities="germinate"/>
-      <variable name="seeds_to_sow" same-variant-of="seeds" parameter="false" new="quantity=?" roles="sowing-input"/>
-      <variable name="sower" abilities="sow" />
-      <!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
-      <variable name="driver" variety="worker"/>
-      <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="tractor" abilities="tow"/>
-      <!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="land_parcel" variety="cultivable_land_parcel" roles="sowing-target"/>
-      <variable name="culture" variety="plant" roles="sowing-culture"/>
+      <variable name="seeds"        variety="seed" derivative-of="plant" abilities="germinate"/>
+      <variable name="seeds_to_sow" nature=":seeds" new="true" roles="sowing-input"/>
+      <variable name="sower"        abilities="sow"/>
+      <variable name="driver"       variety="worker" abilities="drive(equipment), move"/>
+      <variable name="tractor"      abilities="tow(equipment)"/>
+      <variable name="land_parcel"  variety="cultivable_land_parcel" roles="sowing-target"/>
+      <variable name="culture"      variety="derivative-of:seeds" new="true" roles="sowing-output"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
