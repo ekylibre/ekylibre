@@ -21,14 +21,14 @@
 # == Table: journal_entries
 #
 #  absolute_credit    :decimal(19, 4)   default(0.0), not null
-#  absolute_currency  :string(3)
+#  absolute_currency  :string(3)        not null
 #  absolute_debit     :decimal(19, 4)   default(0.0), not null
 #  balance            :decimal(19, 4)   default(0.0), not null
 #  created_at         :datetime         not null
 #  created_on         :date             not null
 #  creator_id         :integer
 #  credit             :decimal(19, 4)   default(0.0), not null
-#  currency           :string(3)
+#  currency           :string(3)        not null
 #  debit              :decimal(19, 4)   default(0.0), not null
 #  financial_year_id  :integer
 #  id                 :integer          not null, primary key
@@ -37,7 +37,7 @@
 #  number             :string(255)      not null
 #  printed_on         :date             not null
 #  real_credit        :decimal(19, 4)   default(0.0), not null
-#  real_currency      :string(3)
+#  real_currency      :string(3)        not null
 #  real_currency_rate :decimal(19, 10)  default(0.0), not null
 #  real_debit         :decimal(19, 4)   default(0.0), not null
 #  resource_id        :integer
@@ -68,7 +68,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates_length_of :absolute_currency, :currency, :real_currency, :allow_nil => true, :maximum => 3
   validates_length_of :state, :allow_nil => true, :maximum => 30
   validates_length_of :number, :resource_type, :allow_nil => true, :maximum => 255
-  validates_presence_of :absolute_credit, :absolute_debit, :balance, :created_on, :credit, :debit, :journal, :number, :printed_on, :real_credit, :real_currency_rate, :real_debit, :state
+  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :balance, :created_on, :credit, :currency, :debit, :journal, :number, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
   validates_presence_of :real_currency
   validates_format_of :number, :with => /\A[\dA-Z]+\z/

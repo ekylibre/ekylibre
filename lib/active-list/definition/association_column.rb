@@ -35,17 +35,21 @@ module ActiveList
       def datum_code(record = 'record_of_the_death', child = false)
         code = ""
         if child
-          if @options[:children].is_a?(Symbol)
-            code = "#{record}.#{@options[:children]}"
-          end
+          code = "nil"
+          # if @options[:children].is_a?(FalseClass)
+          #   code = "nil"
+          # else
+          #   code = "#{record}.#{table.options[:children]}.#{@reflection.name}.#{@options[:children] || @label_method}"
+          # end
         else
-          code = "#{record}.#{@name}"
+          code = "(#{record}.#{@reflection.name} ? #{record}.#{@reflection.name}.#{@label_method} : nil)"
         end
         return code.c
       end
 
-
-
+      def class_name
+        return @reflection.class_name
+      end
 
     end
 

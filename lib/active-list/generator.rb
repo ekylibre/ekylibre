@@ -93,9 +93,9 @@ module ActiveList
       end
       # Order
       code << "#{var_name(:order)} = #{@table.options[:order] ? @table.options[:order].inspect : 'nil'}\n"
-      code << "if col = {" + @table.sortable_columns.collect{|c| "#{c.sort_id}: '#{c.name}'"}.join(', ') + "}[#{var_name(:params)}[:sort]]\n"
+      code << "if #{var_name(:col)} = {" + @table.sortable_columns.collect{|c| "'#{c.sort_id}' => '#{c.name}'"}.join(', ') + "}[#{var_name(:params)}[:sort]]\n"
       code << "  #{var_name(:params)}[:dir] = 'ASC' unless #{var_name(:params)}[:dir] == 'asc' or #{var_name(:params)}[:dir] == 'desc'\n"
-      code << "  order = #{@table.model.name}.connection.quote_column_name(col) + ' ' + #{var_name(:params)}[:dir]\n"
+      code << "  #{var_name(:order)} = #{@table.model.name}.connection.quote_column_name(#{var_name(:col)}) + ' ' + #{var_name(:params)}[:dir]\n"
       code << "end\n"
 
       return code

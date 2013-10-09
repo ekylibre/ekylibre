@@ -12,23 +12,6 @@ module ActiveList
         end
       end
 
-      # Code for rows
-      def datum_code(record = 'record_of_the_death', child = false)
-        code = if child and @options[:children].is_a? Symbol
-                 "#{record}.#{@options[:children]}"
-               elsif child and @options[:children].is_a? FalseClass
-                 "nil"
-               elsif through = @options[:through] and !child
-                 through = [through] unless through.is_a?(Array)
-                 foreign_record = record
-                 through.each { |x| foreign_record += '.'+x.to_s }
-                 "(#{foreign_record}.#{@name} rescue nil)"
-               else
-                 "#{record}.#{@name}"
-               end
-        return code.c
-      end
-
       # Code for exportation
       def exporting_datum_code(record='record_of_the_death', noview=false)
         datum = self.datum_code(record)
@@ -44,12 +27,12 @@ module ActiveList
             currency = "#{record}.#{currency}".c if currency.is_a?(Symbol)
           end
           datum = "(#{datum}.nil? ? '' : #{datum}.l(#{'currency: ' + currency.inspect if currency}))"
-        elsif @name.to_s.match(/(^|\_)currency$/) and self.datatype == :string and self.limit == 3
-          datum = "(#{datum}.nil? ? '' : ::I18n.currency_label(#{datum}))"
-        elsif @name == :country and  self.datatype == :string and self.limit == 2
-          datum = "(#{datum}.nil? ? '' : ::I18n.translate('countries.'+#{datum}))"
-        elsif @name == :language and self.datatype == :string and self.limit <= 8
-          datum = "(#{datum}.nil? ? '' : ::I18n.translate('languages.'+#{datum}))"
+        elsif @name.to_s.match(/(^|\_)currency$/) and self.datatype == :string
+          datum = "(Nomen::Currencies[#{datum}] ? Nomen::Currencies[#{datum}].human_name : '')"
+        elsif @name.to_s.match(/(^|\_)country$/) and  self.datatype == :string
+          datum = "(Nomen::Countries[#{datum}] ? Nomen::Countries[#{datum}].human_name : '')"
+        elsif @name.to_s.match(/(^|\_)language$/) and self.datatype == :string
+          datum = "(Nomen::Languages[#{datum}] ? Nomen::Languages[#{datum}].human_name : '')"
         elsif self.enumerize?
           datum = "(#{datum}.nil? ? '' : #{datum}.text)"
         end
@@ -79,19 +62,6 @@ module ActiveList
       # Returns the size/length of the column if the column is in the database
       def limit
         @column[:limit] if @column
-      end
-
-
-      # Returns the class name of the used model
-      def class_name
-        klass = self.table.model
-        if through = @options[:through]
-          through = [through] unless through.is_a? Array
-          for ref in through
-            klass = klass.reflections[ref].class_name.constantize
-          end
-        end
-        return klass.name
       end
 
       # Defines if column is exportable

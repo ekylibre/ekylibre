@@ -59,12 +59,12 @@ module ActiveList
           code = "link_to(content_tag(:i) + h('#{action}'.tl), "+url+", "+code+")"
         end
         if @options[:if]
-          code = "if " + recordify!(@options[:if], record) + "\n" + code.dig + "\nend"
+          code = "if " + recordify!(@options[:if], record) + "\n" + code.dig + "end"
         end
         if @options[:unless]
-          code = "unless " + recordify!(@options[:unless], record) + "\n" + code.dig + "\nend"
+          code = "unless " + recordify!(@options[:unless], record) + "\n" + code.dig + "end"
         end
-        code
+        code.c
       end
     end
 

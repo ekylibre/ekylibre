@@ -24,7 +24,7 @@
 #  code                  :string(20)       not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
-#  currency              :string(3)
+#  currency              :string(3)        not null
 #  currency_precision    :integer
 #  id                    :integer          not null, primary key
 #  last_journal_entry_id :integer
@@ -47,7 +47,7 @@ class FinancialYear < Ekylibre::Record::Base
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :code, :allow_nil => true, :maximum => 20
   validates_inclusion_of :closed, :in => [true, false]
-  validates_presence_of :code, :started_on, :stopped_on
+  validates_presence_of :code, :currency, :started_on, :stopped_on
   #]VALIDATORS]
   validates_uniqueness_of :code
   validates_presence_of :currency

@@ -21,14 +21,14 @@
 # == Table: journal_entries
 #
 #  absolute_credit    :decimal(19, 4)   default(0.0), not null
-#  absolute_currency  :string(3)
+#  absolute_currency  :string(3)        not null
 #  absolute_debit     :decimal(19, 4)   default(0.0), not null
 #  balance            :decimal(19, 4)   default(0.0), not null
 #  created_at         :datetime         not null
 #  created_on         :date             not null
 #  creator_id         :integer
 #  credit             :decimal(19, 4)   default(0.0), not null
-#  currency           :string(3)
+#  currency           :string(3)        not null
 #  debit              :decimal(19, 4)   default(0.0), not null
 #  financial_year_id  :integer
 #  id                 :integer          not null, primary key
@@ -37,7 +37,7 @@
 #  number             :string(255)      not null
 #  printed_on         :date             not null
 #  real_credit        :decimal(19, 4)   default(0.0), not null
-#  real_currency      :string(3)
+#  real_currency      :string(3)        not null
 #  real_currency_rate :decimal(19, 10)  default(0.0), not null
 #  real_debit         :decimal(19, 4)   default(0.0), not null
 #  resource_id        :integer
@@ -51,18 +51,21 @@
 #
 # journal_entries_001:
 #   absolute_credit: 0
+#   absolute_currency: "Lorem ipsum"
 #   absolute_debit: 0
 #   balance: 0
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   created_on: 2009-07-19
 #   creator_id: 1
 #   credit: 0
+#   currency: "Lorem ipsum"
 #   debit: 0
 #   id: 1
 #   journal_id: 1
 #   number: "Lorem ipsum"
 #   printed_on: 2009-07-19
 #   real_credit: 0
+#   real_currency: "Lorem ipsum"
 #   real_currency_rate: 0
 #   real_debit: 0
 #   state: "Lorem ipsum"
@@ -70,11 +73,15 @@
 #   updater_id: 1
 #
 journal_entries_001:
+  absolute_credit: 0
+  absolute_currency: "EUR"
+  absolute_debit: 0
   created_at: 2009-07-19 19:13:59 +02:00
   created_on: 2007-07-22
   creator_id: 1
   credit: 0
   debit: 0
+  currency: 'EUR'
   financial_year_id: 1
   id: 1
   journal_id: 1
@@ -89,12 +96,16 @@ journal_entries_001:
   state: draft
 
 journal_entries_002:
+  absolute_credit: 0
+  absolute_currency: "EUR"
+  absolute_debit: 0
   created_at: 2009-07-19 19:13:59 +02:00
   created_on: 2009-07-19
   creator_id: 1
   financial_year_id: 1
   credit: 0
   debit: 0
+  currency: 'EUR'
   id: 2
   journal_id: 1
   number: "XYZ0002"
@@ -108,12 +119,16 @@ journal_entries_002:
   state: draft
 
 journal_entries_003:
+  absolute_credit: 0
+  absolute_currency: "EUR"
+  absolute_debit: 0
   created_at: 2009-07-19 19:13:59 +02:00
   created_on: 2009-07-19
   creator_id: 1
   financial_year_id: 1
   credit: 0
   debit: 0
+  currency: 'EUR'
   id: 3
   journal_id: 1
   number: "XYZ0003"
@@ -127,11 +142,15 @@ journal_entries_003:
   state: draft
 
 journal_entries_004:
+  absolute_credit: 0
+  absolute_currency: "EUR"
+  absolute_debit: 0
   created_at: 2009-07-19 19:13:59 +02:00
   created_on: 2009-07-19
   creator_id: 1
   credit: 0
   debit: 0
+  currency: 'EUR'
   financial_year_id: 1
   id: 4
   journal_id: 1

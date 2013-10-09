@@ -33,7 +33,7 @@
 #  created_on          :date             not null
 #  creator_id          :integer
 #  credit              :boolean          not null
-#  currency            :string(3)
+#  currency            :string(3)        not null
 #  delivery_address_id :integer
 #  description         :text
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
@@ -91,7 +91,7 @@ class Sale < Ekylibre::Record::Base
   validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 60
   validates_length_of :expiration_delay, :function_title, :payment_delay, :reference_number, :subject, :allow_nil => true, :maximum => 255
   validates_inclusion_of :credit, :has_downpayment, :letter_format, :in => [true, false]
-  validates_presence_of :amount, :client, :created_on, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
+  validates_presence_of :amount, :client, :created_on, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature
   validates_presence_of :invoiced_on, :if => :invoice?
@@ -161,6 +161,7 @@ class Sale < Ekylibre::Record::Base
       self.payment_delay ||= self.nature.payment_delay
       self.has_downpayment = self.nature.downpayment if self.has_downpayment.nil?
       self.downpayment_amount ||= (self.amount * self.nature.downpayment_percentage * 0.01) if self.amount >= self.nature.downpayment_minimum
+      self.currency ||= self.nature.currency
     end
     true
   end
@@ -419,7 +420,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   def usable_payments
-    self.client.incoming_payments.where("COALESCE(used_amount, 0)<COALESCE(amount, 0)").joins(:mode => :cash).where("currency=?", self.currency).order("to_bank_on")
+    self.client.incoming_payments.where("COALESCE(used_amount, 0)<COALESCE(amount, 0)").joins(:mode => :cash).where(currency: self.currency).order("to_bank_on")
   end
 
   # Build general sales condition for the sale order

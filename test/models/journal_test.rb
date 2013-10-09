@@ -24,7 +24,7 @@
 #  code         :string(4)        not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  currency     :string(3)
+#  currency     :string(3)        not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null

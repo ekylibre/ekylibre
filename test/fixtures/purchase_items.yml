@@ -25,7 +25,7 @@
 #  annotation        :text
 #  created_at        :datetime         not null
 #  creator_id        :integer
-#  currency          :string(3)
+#  currency          :string(3)        not null
 #  id                :integer          not null, primary key
 #  indicator         :string(120)      not null
 #  label             :text
@@ -48,6 +48,7 @@
 #   amount: 0
 #   created_at: 2009-07-19 19:13:59 +02:00
 #   creator_id: 1
+#   currency: "Lorem ipsum"
 #   id: 1
 #   indicator: "Lorem ipsum"
 #   pretax_amount: 0
@@ -66,6 +67,7 @@ purchase_items_001:
   pretax_amount: 0
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
+  currency: "EUR"
   id: 1
   indicator: 'population'
   purchase_id: 1
@@ -82,6 +84,7 @@ purchase_items_002:
   pretax_amount: 0
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
+  currency: "EUR"
   id: 2
   indicator: 'population'
   purchase_id: 1
@@ -98,6 +101,7 @@ purchase_items_003:
   pretax_amount: 0
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
+  currency: "EUR"
   id: 3
   indicator: 'population'
   purchase_id: 2
@@ -114,6 +118,7 @@ purchase_items_004:
   pretax_amount: 10
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
+  currency: "EUR"
   id: 4
   indicator: 'population'
   purchase_id: 3
@@ -130,6 +135,7 @@ purchase_items_005:
   pretax_amount: 26
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
+  currency: "EUR"
   id: 5
   indicator: 'population'
   purchase_id: 3

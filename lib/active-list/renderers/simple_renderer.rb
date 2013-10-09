@@ -43,14 +43,12 @@ module ActiveList
         # colgroup = columns_definition_code
         header = header_code
         extras = extras_code
-        tbody = columns_to_cells(:body, record: record)
 
         code  = generator.select_data_code
         code << "#{var_name(:tbody)} = '<tbody data-total=\"'+#{var_name(:count)}.to_s+'\""
         if table.paginate?
           code << " data-per-page=\"'+#{var_name(:limit)}.to_s+'\""
           code << " data-pages-count=\"'+#{var_name(:last)}.to_s+'\""
-          # code << " data-page-label=\"'+::I18n.translate('list.pagination.showing_x_to_y_of_total', :x => (#{var_name(:offset)} + 1), :y => (#{var_name(:offset)}+#{var_name(:limit)}), :total => #{var_name(:count)})+'\""
         end
         code << ">'\n"
         code << "if #{var_name(:count)} > 0\n"
@@ -60,14 +58,17 @@ module ActiveList
         if table.options[:line_class]
           line_class << " + ' ' + (" + recordify!(table.options[:line_class], record) + ").to_s"
         end
-        code << "    #{var_name(:tbody)} << content_tag(:tr, (#{tbody}).html_safe, :class => #{line_class})\n"
-        if table.options[:children].is_a? Symbol
-          children = table.options[:children].to_s
-          child_tbody = columns_to_cells(:children, :record => child)
-          code << "    for #{child} in #{record}.#{children}\n"
-          code << "      #{var_name(:tbody)} << content_tag(:tr, (#{child_tbody}).html_safe, {:class => #{line_class}+' child'})\n"
-          code << "    end\n"
-        end
+        code << "    #{var_name(:tbody)} << content_tag(:tr, class: #{line_class}) do\n"
+        code << columns_to_cells(:body, record: record).dig(3)
+        code << "    end\n"
+        # if table.options[:children].is_a? Symbol
+        #   children = table.options[:children].to_s
+        #   code << "    for #{child} in #{record}.#{children}\n"
+        #   code << "      #{var_name(:tbody)} << content_tag(:tr, :class => #{line_class}+' child') do\n"
+        #   code << columns_to_cells(:children, table.children, record: child).dig(4)
+        #   code << "      end\n"
+        #   code << "    end\n"
+        # end
         code << "  end\n"
         code << "else\n"
         code << "  #{var_name(:tbody)} << '<tr class=\"empty\"><td colspan=\"#{table.columns.size+1}\">' + ::I18n.translate('list.no_records') + '</td></tr>'\n"
@@ -97,100 +98,84 @@ module ActiveList
 
 
       def columns_to_cells(nature, options={})
-        columns = table.columns
         code = ''
         record = options[:record] || 'record_of_the_death'
-        for column in columns
-          if nature == :header
-            raise StandardError.new("Ohohoh")
-          else
-            case column.class.name
-            when ActiveList::Definition::DataColumn.name
-              style = ""
-              if nature != :children or (not column.options[:children].is_a? FalseClass and nature == :children)
-                datum = column.datum_code(record, nature == :children)
-                if column.datatype == :boolean
-                  datum = "content_tag(:div, '', :class => 'checkbox-'+("+datum.to_s+" ? 'true' : 'false'))"
-                end
-                if [:date, :datetime, :timestamp].include? column.datatype
-                  datum = "(#{datum}.nil? ? '' : #{datum}.l)"
-                end
-                if !column.options[:currency].is_a?(FalseClass) and currency = column.options[:currency]
-                  currency = currency[nature] if currency.is_a?(Hash)
-                  currency = :currency if currency.is_a?(TrueClass)
-                  currency = "#{record}.#{currency}".c if currency.is_a?(Symbol)
-                  datum = "(#{datum}.nil? ? '' : #{datum}.l(currency: #{currency.inspect}))"
-                elsif column.datatype == :decimal
-                  datum = "(#{datum}.nil? ? '' : #{datum}.l)"
-                elsif column.enumerize?
-                  datum = "(#{datum}.nil? ? '' : #{datum}.text)"
-                end
-                if column.options[:url] and nature == :body
-                  column.options[:url] = {} unless column.options[:url].is_a?(Hash)
-                  column.options[:url][:id] ||= (column.record_expr(record)+'.id').c
-                  column.options[:url][:action] ||= :show
-                  column.options[:url][:controller] ||= column.class_name.tableize.to_sym
-                  url = column.options[:url].collect{|k, v| "#{k}: " + urlify(v, record)}.join(", ")
-                  datum = "(#{datum}.blank? ? '' : link_to(#{datum}, #{url}))"
-                  # elsif column.options[:mode] == :download
-                  #   datum = "(#{datum}.blank? ? '' : link_to(tg('download'), url_for_file_column("+record+",'#{column.name}')))"
-                elsif column.options[:mode]||column.label_method == :email
-                  # datum = 'link_to('+datum+', "mailto:#{'+datum+'}")'
-                  datum = "(#{datum}.blank? ? '' : mail_to(#{datum}))"
-                elsif column.options[:mode]||column.label_method == :website
-                  datum = "(#{datum}.blank? ? '' : link_to("+datum+", "+datum+"))"
-                elsif column.label_method == :color
-                  style << "background: #'+"+column.datum_code(record)+"+';"
-                elsif column.label_method.to_s.match(/(^|\_)currency$/) and column.datatype == :string
-                  datum = "(Nomen::Currencies[#{datum}] ? Nomen::Currencies[#{datum}].human_name : #{datum})"
-                elsif column.label_method.to_s.match(/(^|\_)language$/) and column.datatype == :string
-                  datum = "(Nomen::Languages[#{datum}]  ? Nomen::Languages[#{datum}].human_name : #{datum})"
-                elsif column.label_method.to_s.match(/(^|\_)country$/)  and column.datatype == :string
-                  datum = "(Nomen::Countries[#{datum}]  ? (image_tag('countries/' + #{datum}.to_s + '.png') + ' ' + Nomen::Countries[#{datum}].human_name).html_safe : #{datum})"
-                elsif column.datatype == :string
-                  datum = "h(" + datum + ")"
-                end
-              else
-                datum = 'nil'
-              end
-              code << "content_tag(:td, #{datum}, :class => \"#{column_classes(column)}\""
-              if style.present?
-                code << ", style: '" + style + "'"
-                # column.options[:style] is not used anymore
-              end
-              code << ")"
-            when ActiveList::Definition::CheckBoxColumn.name
-              code << "content_tag(:td,"
-              if nature == :body
-                code << "hidden_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id => nil)+"
-                code << "check_box_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{recordify!(column.options[:value] || column.name, record)}, :id => '#{table.name}_'+#{record}.id.to_s+'_#{column.name}')"
-              else
-                code << "''"
-              end
-              code << ", :class => \"#{column_classes(column)}\")"
-            when ActiveList::Definition::TextFieldColumn.name
-              code << "content_tag(:td,"
-              if nature == :body
-                code << "text_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', #{recordify!(column.options[:value] || column.name, record)}, :id => '#{table.name}_'+#{record}.id.to_s+'_#{column.name}'#{column.options[:size] ? ', :size => '+column.options[:size].to_s : ''})"
-              else
-                code << "''"
-              end
-              code << ", :class => \"#{column_classes(column)}\")"
-            when ActiveList::Definition::ActionColumn.name
-              code << "content_tag(:td, "+(nature == :body ? column.operation(record) : "''")+", :class => \"#{column_classes(column)}\")"
+        unless [:body, :children].include?(nature)
+          raise ArgumentError, "Nature is invalid"
+        end
+        for column in table.columns
+          value_code = ""
+          if column.is_a? ActiveList::Definition::EmptyColumn
+            value_code = 'nil'
+          elsif column.is_a? ActiveList::Definition::DataColumn
+            if column.options[:children].is_a? FalseClass and nature == :children
+              value_code = 'nil'
             else
-              code << "content_tag(:td, '&#160;&#8709;&#160;'.html_safe)"
+              value_code = column.datum_code(record, nature == :children)
+              if column.datatype == :boolean
+                value_code = "content_tag(:div, '', :class => 'checkbox-'+("+value_code.to_s+" ? 'true' : 'false'))"
+              elsif [:date, :datetime, :timestamp].include? column.datatype
+                value_code = "(#{value_code}.nil? ? '' : #{value_code}.l)"
+              end
+              if !column.options[:currency].is_a?(FalseClass) and currency = column.options[:currency]
+                currency = currency[nature] if currency.is_a?(Hash)
+                currency = :currency if currency.is_a?(TrueClass)
+                currency = "#{record}.#{currency}".c if currency.is_a?(Symbol)
+                value_code = "(#{value_code}.nil? ? '' : #{value_code}.l(currency: #{currency.inspect}))"
+              elsif column.datatype == :decimal
+                value_code = "(#{value_code}.nil? ? '' : #{value_code}.l)"
+              elsif column.enumerize?
+                value_code = "(#{value_code}.nil? ? '' : #{value_code}.text)"
+              end
+              if column.options[:url] and nature == :body
+                column.options[:url] = {} unless column.options[:url].is_a?(Hash)
+                column.options[:url][:id] ||= (column.record_expr(record)+'.id').c
+                column.options[:url][:action] ||= :show
+                column.options[:url][:controller] ||= column.class_name.tableize.to_sym
+                url = column.options[:url].collect{|k, v| "#{k}: " + urlify(v, record)}.join(", ")
+                value_code = "(#{value_code}.blank? ? '' : link_to(#{value_code}, #{url}))"
+              elsif column.options[:mode]||column.label_method == :email
+                value_code = "(#{value_code}.blank? ? '' : mail_to(#{value_code}))"
+              elsif column.options[:mode]||column.label_method == :website
+                value_code = "(#{value_code}.blank? ? '' : link_to("+value_code+", "+value_code+"))"
+              elsif column.label_method == :color
+                value_code = "content_tag(:div, #{column.datum_code(record)}, style: 'background: #'+"+column.datum_code(record)+")"
+              elsif column.label_method.to_s.match(/(^|\_)currency$/) and column.datatype == :string
+                value_code = "(Nomen::Currencies[#{value_code}] ? Nomen::Currencies[#{value_code}].human_name : #{value_code})"
+              elsif column.label_method.to_s.match(/(^|\_)language$/) and column.datatype == :string
+                value_code = "(Nomen::Languages[#{value_code}]  ? Nomen::Languages[#{value_code}].human_name : #{value_code})"
+              elsif column.label_method.to_s.match(/(^|\_)country$/)  and column.datatype == :string
+                value_code = "(Nomen::Countries[#{value_code}]  ? (image_tag('countries/' + #{value_code}.to_s + '.png') + ' ' + Nomen::Countries[#{value_code}].human_name).html_safe : #{value_code})"
+              elsif column.datatype == :string
+                value_code = "h(" + value_code + ")"
+              end
             end
-            code   << "+\n        " #  unless code.blank?
+          elsif column.is_a?(ActiveList::Definition::CheckBoxColumn)
+            if nature == :body
+              value_code << "hidden_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id => nil) + \n"
+              value_code << "check_box_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{recordify!(column.options[:value] || column.name, record)}, :id => '#{table.name}_'+#{record}.id.to_s+'_#{column.name}')"
+            else
+              value_code << "nil"
+            end
+          elsif column.is_a?(ActiveList::Definition::TextFieldColumn)
+            value_code = (nature == :body ? "text_field_tag('#{table.name}[' + #{record}.id.to_s + '][#{column.name}]', #{recordify!(column.options[:value] || column.name, record)}, id: '#{table.name}_'+#{record}.id.to_s + '_#{column.name}'#{column.options[:size] ? ', size: ' + column.options[:size].to_s : ''})" : "nil")
+          elsif column.is_a?(ActiveList::Definition::ActionColumn)
+            value_code = (nature == :body ? column.operation(record) : "nil")
+          else
+            value_code = "'&#160;&#8709;&#160;'.html_safe"
           end
+          code << "content_tag(:td, :class => \"#{column_classes(column)}\") do\n"
+          code << value_code.dig
+          code << "end +\n"
         end
-        if nature == :header
-          code << "'<th class=\"spe\">#{menu_code}</th>'"
-        else
-          code << "content_tag(:td)"
-        end
+        # if nature == :header
+        #   code << "'<th class=\"spe\">#{menu_code}</th>'"
+        # else
+        #   code << "content_tag(:td)"
+        # end
 
-        return code
+        code << "content_tag(:td)"
+        return code.c
       end
 
 

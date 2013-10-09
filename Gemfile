@@ -135,6 +135,7 @@ group :development do
   # gem 'rails-erd', github: "burisu/rails-erd"
 
   gem 'unicorn'
+  gem 'thin'
 end
 
 group :development, :test do

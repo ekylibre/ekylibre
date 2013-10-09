@@ -26,7 +26,7 @@
 #  charges_account_id      :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  currency                :string(3)
+#  currency                :string(3)        not null
 #  current_amount          :decimal(19, 4)
 #  depreciable_amount      :decimal(19, 4)   not null
 #  depreciated_amount      :decimal(19, 4)   not null
@@ -65,7 +65,7 @@ class Asset < Ekylibre::Record::Base
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :depreciation_method, :name, :number, :allow_nil => true, :maximum => 255
-  validates_presence_of :allocation_account, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
+  validates_presence_of :allocation_account, :currency, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
   #]VALIDATORS]
   validates_uniqueness_of :name
   validates_inclusion_of :depreciation_method, :in => self.depreciation_method.values

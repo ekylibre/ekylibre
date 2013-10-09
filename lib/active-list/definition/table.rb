@@ -36,6 +36,10 @@ module ActiveList
         @columns.select{|c| c.exportable?}
       end
 
+      def children
+        @columns.map(&:child)
+      end
+
       def paginate?
         @paginate
       end

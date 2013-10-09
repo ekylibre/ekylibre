@@ -25,7 +25,7 @@
 #  annotation        :text
 #  created_at        :datetime         not null
 #  creator_id        :integer
-#  currency          :string(3)
+#  currency          :string(3)        not null
 #  id                :integer          not null, primary key
 #  indicator         :string(120)      not null
 #  label             :text
@@ -65,7 +65,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates_numericality_of :amount, :pretax_amount, :quantity, :unit_price_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :indicator, :allow_nil => true, :maximum => 120
-  validates_presence_of :account, :amount, :indicator, :pretax_amount, :purchase, :quantity, :tax, :unit_price_amount, :variant
+  validates_presence_of :account, :amount, :currency, :indicator, :pretax_amount, :purchase, :quantity, :tax, :unit_price_amount, :variant
   #]VALIDATORS]
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
   # validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
