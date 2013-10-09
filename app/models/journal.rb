@@ -24,7 +24,7 @@
 #  code         :string(4)        not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  currency     :string(3)
+#  currency     :string(3)        not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
@@ -46,7 +46,7 @@ class Journal < Ekylibre::Record::Base
   validates_length_of :code, :allow_nil => true, :maximum => 4
   validates_length_of :nature, :allow_nil => true, :maximum => 30
   validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_presence_of :closed_on, :code, :name, :nature
+  validates_presence_of :closed_on, :code, :currency, :name, :nature
   #]VALIDATORS]
   validates_uniqueness_of :code
   validates_uniqueness_of :name

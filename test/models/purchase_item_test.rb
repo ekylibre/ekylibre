@@ -25,7 +25,7 @@
 #  annotation        :text
 #  created_at        :datetime         not null
 #  creator_id        :integer
-#  currency          :string(3)
+#  currency          :string(3)        not null
 #  id                :integer          not null, primary key
 #  indicator         :string(120)      not null
 #  label             :text

@@ -197,7 +197,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "depreciable_amount",                precision: 19, scale: 4,             null: false
     t.decimal  "depreciated_amount",                precision: 19, scale: 4,             null: false
     t.string   "depreciation_method",                                                    null: false
-    t.string   "currency",                limit: 3
+    t.string   "currency",                limit: 3,                                      null: false
     t.decimal  "current_amount",                    precision: 19, scale: 4
     t.integer  "charges_account_id"
     t.decimal  "depreciation_percentage",           precision: 19, scale: 4
@@ -729,7 +729,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "closed",                           default: false, null: false
     t.date     "started_on",                                       null: false
     t.date     "stopped_on",                                       null: false
-    t.string   "currency",              limit: 3
+    t.string   "currency",              limit: 3,                  null: false
     t.integer  "currency_precision"
     t.integer  "last_journal_entry_id"
     t.datetime "created_at",                                       null: false
@@ -1041,15 +1041,15 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.date     "printed_on",                                                            null: false
     t.decimal  "real_debit",                    precision: 19, scale: 4,  default: 0.0, null: false
     t.decimal  "real_credit",                   precision: 19, scale: 4,  default: 0.0, null: false
-    t.string   "real_currency",      limit: 3
+    t.string   "real_currency",      limit: 3,                                          null: false
     t.decimal  "real_currency_rate",            precision: 19, scale: 10, default: 0.0, null: false
     t.decimal  "debit",                         precision: 19, scale: 4,  default: 0.0, null: false
     t.decimal  "credit",                        precision: 19, scale: 4,  default: 0.0, null: false
     t.decimal  "balance",                       precision: 19, scale: 4,  default: 0.0, null: false
-    t.string   "currency",           limit: 3
+    t.string   "currency",           limit: 3,                                          null: false
     t.decimal  "absolute_debit",                precision: 19, scale: 4,  default: 0.0, null: false
     t.decimal  "absolute_credit",               precision: 19, scale: 4,  default: 0.0, null: false
-    t.string   "absolute_currency",  limit: 3
+    t.string   "absolute_currency",  limit: 3,                                          null: false
     t.datetime "created_at",                                                            null: false
     t.datetime "updated_at",                                                            null: false
     t.integer  "creator_id"
@@ -1115,7 +1115,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "name",                                null: false
     t.string   "code",         limit: 4,              null: false
     t.date     "closed_on",                           null: false
-    t.string   "currency",     limit: 3
+    t.string   "currency",     limit: 3,              null: false
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "creator_id"
@@ -1920,7 +1920,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "amount",                        precision: 19, scale: 4, default: 0.0, null: false
     t.integer  "tax_id",                                                               null: false
     t.string   "indicator",         limit: 120,                                        null: false
-    t.string   "currency",          limit: 3
+    t.string   "currency",          limit: 3,                                          null: false
     t.text     "label"
     t.text     "annotation"
     t.integer  "position"
@@ -1946,7 +1946,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "active",                    default: true,  null: false
     t.string   "name"
     t.text     "description"
-    t.string   "currency",        limit: 3
+    t.string   "currency",        limit: 3,                 null: false
     t.boolean  "with_accounting",           default: false, null: false
     t.integer  "journal_id"
     t.boolean  "by_default",                default: false, null: false
@@ -1980,7 +1980,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "state",               limit: 60
     t.date     "confirmed_on"
     t.integer  "responsible_id"
-    t.string   "currency",            limit: 3
+    t.string   "currency",            limit: 3,                                         null: false
     t.integer  "nature_id"
     t.integer  "affair_id"
     t.datetime "created_at",                                                            null: false
@@ -2027,7 +2027,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "amount",                           precision: 19, scale: 4, default: 0.0, null: false
     t.integer  "tax_id"
     t.string   "indicator",            limit: 120,                                        null: false
-    t.string   "currency",             limit: 3
+    t.string   "currency",             limit: 3,                                          null: false
     t.text     "label"
     t.text     "annotation"
     t.integer  "position"
@@ -2119,7 +2119,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.date     "payment_on"
     t.integer  "origin_id"
     t.string   "initial_number",      limit: 60
-    t.string   "currency",            limit: 3
+    t.string   "currency",            limit: 3,                                           null: false
     t.integer  "affair_id"
     t.string   "expiration_delay"
     t.string   "payment_delay",                                                           null: false

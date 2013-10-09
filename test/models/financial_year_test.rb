@@ -24,7 +24,7 @@
 #  code                  :string(20)       not null
 #  created_at            :datetime         not null
 #  creator_id            :integer
-#  currency              :string(3)
+#  currency              :string(3)        not null
 #  currency_precision    :integer
 #  id                    :integer          not null, primary key
 #  last_journal_entry_id :integer

@@ -112,7 +112,7 @@ class CreateBase < ActiveRecord::Migration
       t.decimal  :depreciable_amount,                precision: 19, scale: 4,             null: false
       t.decimal  :depreciated_amount,                precision: 19, scale: 4,             null: false
       t.string   :depreciation_method,                                                    null: false
-      t.string   :currency,                limit: 3
+      t.string   :currency,                limit: 3,                                      null: false
       t.decimal  :current_amount,                    precision: 19, scale: 4
       t.references :charges_account
       t.decimal  :depreciation_percentage,           precision: 19, scale: 4
@@ -178,7 +178,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :iban,                 limit: 34
       t.string   :spaced_iban,          limit: 42
       # t.boolean  :by_default,                      default: false,          null: false
-      t.string   :currency,             limit: 3, null: false
+      t.string   :currency,             limit: 3,                           null: false
       t.string   :country,              limit: 2
       t.stamps
     end
@@ -432,7 +432,7 @@ class CreateBase < ActiveRecord::Migration
       t.boolean    :closed,                           default: false, null: false
       t.date       :started_on,                                       null: false
       t.date       :stopped_on,                                       null: false
-      t.string     :currency,              limit: 3
+      t.string     :currency,              limit: 3,                  null: false
       t.integer    :currency_precision
       t.references :last_journal_entry,                                            index: true
       t.stamps
@@ -616,15 +616,15 @@ class CreateBase < ActiveRecord::Migration
       t.date       :printed_on,                                                            null: false
       t.decimal    :real_debit,                    precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal    :real_credit,                   precision: 19, scale: 4,  default: 0.0, null: false
-      t.string     :real_currency,      limit: 3
+      t.string     :real_currency,      limit: 3,                                          null: false
       t.decimal    :real_currency_rate,            precision: 19, scale: 10, default: 0.0, null: false
       t.decimal    :debit,                         precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal    :credit,                        precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal    :balance,                       precision: 19, scale: 4,  default: 0.0, null: false
-      t.string     :currency,           limit: 3
+      t.string     :currency,           limit: 3,                                          null: false
       t.decimal    :absolute_debit,                precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal    :absolute_credit,               precision: 19, scale: 4,  default: 0.0, null: false
-      t.string     :absolute_currency,  limit: 3
+      t.string     :absolute_currency,  limit: 3,                                          null: false
       t.stamps
     end
 
@@ -664,7 +664,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :name,                                null: false
       t.string   :code,         limit: 4,              null: false
       t.date     :closed_on,                           null: false
-      t.string   :currency,     limit: 3
+      t.string   :currency,     limit: 3,              null: false
       t.stamps
     end
 
@@ -1126,7 +1126,7 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :amount,            precision: 19, scale: 4, default: 0.0, null: false
       t.references :tax,                                                      null: false, index: true
       t.string     :indicator,         limit: 120,                            null: false
-      t.string     :currency,          limit: 3
+      t.string     :currency,          limit: 3,                              null: false
       t.text       :label
       t.text       :annotation
       t.integer    :position
@@ -1144,7 +1144,7 @@ class CreateBase < ActiveRecord::Migration
       t.boolean    :active,                    default: true,  null: false
       t.string     :name
       t.text       :description
-      t.string     :currency,        limit: 3
+      t.string     :currency,        limit: 3,                 null: false
       t.boolean    :with_accounting,           default: false, null: false
       t.references :journal,                                                index: true
       t.boolean    :by_default,                default: false, null: false
@@ -1168,7 +1168,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :state,               limit: 60
       t.date       :confirmed_on
       t.references :responsible
-      t.string     :currency,            limit: 3
+      t.string     :currency,            limit: 3,                                         null: false
       t.references :nature
       t.references :affair
       t.stamps
@@ -1197,7 +1197,7 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :amount,               precision: 19, scale: 4, default: 0.0, null: false
       t.references :tax,                                                                      index: true
       t.string     :indicator,            limit: 120,                            null: false
-      t.string     :currency,             limit: 3
+      t.string     :currency,             limit: 3,                              null: false
       t.text       :label
       t.text       :annotation
       t.integer    :position
@@ -1262,7 +1262,7 @@ class CreateBase < ActiveRecord::Migration
       t.date       :payment_on
       t.references :origin
       t.string     :initial_number,      limit: 60
-      t.string     :currency,            limit: 3
+      t.string     :currency,            limit: 3,                                           null: false
       t.references :affair
       t.string     :expiration_delay
       t.string     :payment_delay,                                                           null: false

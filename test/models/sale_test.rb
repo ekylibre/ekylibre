@@ -32,7 +32,7 @@
 #  created_on          :date             not null
 #  creator_id          :integer
 #  credit              :boolean          not null
-#  currency            :string(3)
+#  currency            :string(3)        not null
 #  delivery_address_id :integer
 #  description         :text
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null

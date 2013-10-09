@@ -21,14 +21,14 @@
 # == Table: journal_entries
 #
 #  absolute_credit    :decimal(19, 4)   default(0.0), not null
-#  absolute_currency  :string(3)
+#  absolute_currency  :string(3)        not null
 #  absolute_debit     :decimal(19, 4)   default(0.0), not null
 #  balance            :decimal(19, 4)   default(0.0), not null
 #  created_at         :datetime         not null
 #  created_on         :date             not null
 #  creator_id         :integer
 #  credit             :decimal(19, 4)   default(0.0), not null
-#  currency           :string(3)
+#  currency           :string(3)        not null
 #  debit              :decimal(19, 4)   default(0.0), not null
 #  financial_year_id  :integer
 #  id                 :integer          not null, primary key
@@ -37,7 +37,7 @@
 #  number             :string(255)      not null
 #  printed_on         :date             not null
 #  real_credit        :decimal(19, 4)   default(0.0), not null
-#  real_currency      :string(3)
+#  real_currency      :string(3)        not null
 #  real_currency_rate :decimal(19, 10)  default(0.0), not null
 #  real_debit         :decimal(19, 4)   default(0.0), not null
 #  resource_id        :integer

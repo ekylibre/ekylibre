@@ -14,7 +14,7 @@ module ActiveList
       # Code for rows
       def datum_code(record = 'record_of_the_death', child = false)
         code = ""
-        if child 
+        if child
           if @options[:children].is_a?(FalseClass)
             code = "nil"
           else

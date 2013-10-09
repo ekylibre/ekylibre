@@ -26,7 +26,7 @@
 #  created_at           :datetime         not null
 #  creator_id           :integer
 #  credited_item_id     :integer
-#  currency             :string(3)
+#  currency             :string(3)        not null
 #  id                   :integer          not null, primary key
 #  indicator            :string(120)      not null
 #  label                :text
@@ -84,7 +84,7 @@ class SaleItem < Ekylibre::Record::Base
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_price_amount, :allow_nil => true
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :indicator, :allow_nil => true, :maximum => 120
-  validates_presence_of :amount, :indicator, :pretax_amount, :price, :quantity, :reduction_percentage, :sale, :variant
+  validates_presence_of :amount, :currency, :indicator, :pretax_amount, :price, :quantity, :reduction_percentage, :sale, :variant
   #]VALIDATORS]
   validates_presence_of :tax
   validates_numericality_of :quantity, greater_than_or_equal_to: 0, :unless => :reduced_item

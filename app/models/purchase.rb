@@ -27,7 +27,7 @@
 #  created_at          :datetime         not null
 #  created_on          :date
 #  creator_id          :integer
-#  currency            :string(3)
+#  currency            :string(3)        not null
 #  delivery_address_id :integer
 #  description         :text
 #  id                  :integer          not null, primary key
@@ -66,7 +66,7 @@ class Purchase < Ekylibre::Record::Base
   validates_length_of :currency, :allow_nil => true, :maximum => 3
   validates_length_of :number, :state, :allow_nil => true, :maximum => 60
   validates_length_of :reference_number, :allow_nil => true, :maximum => 255
-  validates_presence_of :amount, :number, :payee, :pretax_amount, :supplier
+  validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
   #]VALIDATORS]
   validates_presence_of :planned_on, :created_on, :currency, :state, :nature
   validates_uniqueness_of :number

@@ -27,7 +27,7 @@
 #  created_at          :datetime         not null
 #  created_on          :date
 #  creator_id          :integer
-#  currency            :string(3)
+#  currency            :string(3)        not null
 #  delivery_address_id :integer
 #  description         :text
 #  id                  :integer          not null, primary key

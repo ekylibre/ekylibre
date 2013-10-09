@@ -109,7 +109,7 @@ module ActiveList
             value_code = 'nil'
           elsif column.is_a? ActiveList::Definition::DataColumn
             if column.options[:children].is_a? FalseClass and nature == :children
-              value_code = 'nil'              
+              value_code = 'nil'
             else
               value_code = column.datum_code(record, nature == :children)
               if column.datatype == :boolean
@@ -139,7 +139,7 @@ module ActiveList
               elsif column.options[:mode]||column.label_method == :website
                 value_code = "(#{value_code}.blank? ? '' : link_to("+value_code+", "+value_code+"))"
               elsif column.label_method == :color
-                value_code = "content_tag(:div, #{column.datum_code(record)}, style: 'background: #'+"+column.datum_code(record)+")"                
+                value_code = "content_tag(:div, #{column.datum_code(record)}, style: 'background: #'+"+column.datum_code(record)+")"
               elsif column.label_method.to_s.match(/(^|\_)currency$/) and column.datatype == :string
                 value_code = "(Nomen::Currencies[#{value_code}] ? Nomen::Currencies[#{value_code}].human_name : #{value_code})"
               elsif column.label_method.to_s.match(/(^|\_)language$/) and column.datatype == :string

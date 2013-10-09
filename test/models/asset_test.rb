@@ -26,7 +26,7 @@
 #  charges_account_id      :integer
 #  created_at              :datetime         not null
 #  creator_id              :integer
-#  currency                :string(3)
+#  currency                :string(3)        not null
 #  current_amount          :decimal(19, 4)
 #  depreciable_amount      :decimal(19, 4)   not null
 #  depreciated_amount      :decimal(19, 4)   not null
