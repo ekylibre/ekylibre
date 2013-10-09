@@ -2,6 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-poaceae" hierarchical="true">
     <items>
+      <item name="poa" itis-tsn="11111"/>
       <item name="triticum_aestivum" itis-tsn="42237"/>
       <item name="triticum_durum" itis-tsn="42240"/>
       <item name="triticum_spelta" itis-tsn="42243"/>

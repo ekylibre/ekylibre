@@ -235,7 +235,7 @@
       <item name="temporary_meadow_crop"
             product_account="plant_derivatives_revenues"
             stock_account="short_cycle_cultures_advances"
-            variety="poaceae"
+            variety="poa"
             purchasable="false"
             saleable="true"
             depreciable="false"
@@ -247,7 +247,7 @@
             indicators="net_surface_area, plant_life_state, plant_reproduction_state"
             />
       <item name="fallow_crop"
-            variety="poaceae"
+            variety="poa"
             purchasable="false"
             saleable="false"
             depreciable="false"

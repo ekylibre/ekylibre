@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="straw_bunching" natures="transformation" version="0.0" status="frozen">
+    <variables>
+      <variable name="tractor" variety="equipment" />
+      <variable name="baler_driver" variety="worker" abilities="cropper_driving" />
+      <variable name="baler" type="equipment" abilities="bunch" />
+      <variable name="culture" />
+      <variable name="straw" variety="straw" roles="transformation-input" />
+      <variable name="straw_bales" variety="straw" same-derivative-of="straw" new="quantity=?, unit=?" roles="transformation-output" />
+    </variables>
+    <operations>
+      <operation id="100" duration="4 minutes">
+        <task do="[baler_driver] moves-in [baler]"/>
+      </operation>
+      <operation id="200" duration="18 minutes">
+        <task do="[baler] moves-to [culture]"/>
+      </operation>
+      <operation id="300">
+        <task do="[baler] consume [straw]"/>
+        <task do="[baler] produces [straw_bales]"/>
+        <task do="[straw_bales] moves-to [culture]"/>
+      </operation>
+      <operation id="400" duration="18 minutes">
+        <task do="[baler] moves-in-default-storage"/>
+      </operation>        
+      <operation id="500" duration="4 minutes">
+        <task do="[baler_driver] moves-in-default-storage"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

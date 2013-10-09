@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="plant_mowing" natures="harvest" version="0.0" status="frozen">
+    <variables>
+      <variable name="tractor" variety="equipment" />
+      <variable name="mower_driver" variety="worker" abilities="cropper_driving" />
+      <variable name="mower" type="equipment" abilities="mow_down" />
+      <variable name="culture" variety="plant" roles="harvest-target"/>
+      <variable name="straw" same-variety-of="culture" derivative= "straw" new="quantity=?, unit=?" roles="harvest-output"/>
+    </variables>
+    <operations>
+      <operation id="100" duration="4 minutes">
+        <task do="[mower_driver] moves-in [mower]"/>
+      </operation>
+      <operation id="200" duration="18 minutes">
+        <task do="[mower] moves-to [culture]"/>
+      </operation>
+      <operation id="300">
+        <task do="[mower] consume [culture]"/>
+        <task do="[mower] produces [straw]"/>
+        <task do="[straw] moves-to [culture]"/>
+      </operation>
+      <operation id="400" duration="18 minutes">
+        <task do="[mower] moves-in-default-storage"/>
+      </operation>        
+      <operation id="500" duration="4 minutes">
+        <task do="[mower_driver] moves-in-default-storage"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

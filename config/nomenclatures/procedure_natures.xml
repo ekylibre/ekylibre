@@ -12,6 +12,7 @@
       <item name="viviparous_birth" roles="target, output"/>
       <item name="oviparous_birth" roles="target, output"/>
       <item name="harvest" roles="target, output"/>
+      <item name="transformation" roles="input, output"/>
       <item name="tillage" roles="target"/>
       <item name="plant_fertilisation" roles="input, target"/>
       <item name="plant_illness_treatment" roles="input, target"/>

@@ -27,7 +27,8 @@
             <cell name="production_support" value="intervention.production_support.storage.name" of-type="record"/>
             <cell name="started_at" of="intervention" type="datetime"/>
             <cell name="duration" value="intervention.duration.in_second.convert(:hour).round(2)" type="number"/>
-            <cell name="cost" value="intervention.cost" type="money"/>
+            <cell name="input_cost" value="intervention.cost(:input)" type="money"/>
+            <cell name="equipment_cost" value="intervention.cost(:equipment)" type="money"/>
           </matrix>          
         </sections>
       </sections>

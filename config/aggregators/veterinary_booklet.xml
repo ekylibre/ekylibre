@@ -13,8 +13,8 @@
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
         <sections for="intervention" in="campaign.interventions.of_nature(:animal_illness_treatment)">
-          <variable name="target" value="intervention.casts.of_role(:animal_illness_treatment_target).first.actor"/>
-          <variable name="worker" value="intervention.casts.of_role(:animal_illness_treatment_doer).first.actor"/>
+          <variable name="target" value="intervention.casts.of_role(:'animal_illness_treatment-target').first.actor"/>
+          <variable name="worker" value="intervention.casts.of_role(:'animal_illness_treatment-doer').first.actor"/>
           <title name="name" of="intervention"/>
           <property name="id" of="intervention" level="api"/>
           <property name="started_at" of="intervention" type="datetime"/>
@@ -45,7 +45,7 @@
             <title name="reference_number"/>
             <property name="prescriptor_name"/>
           </section>
-          <matrix name="inputs" for="input" in="intervention.casts.of_role(:animal_illness_treatment_input)">
+          <matrix name="inputs" for="input" in="intervention.casts.of_role(:'animal_illness_treatment-input')">
             <variable name="meat_withdrawal_period" value="input.actor.meat_withdrawal_period"/>
             <variable name="milk_withdrawal_period" value="input.actor.milk_withdrawal_period"/>
             <cell name="id" of="input" level="api"/>
