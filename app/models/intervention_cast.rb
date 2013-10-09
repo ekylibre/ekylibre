@@ -51,7 +51,7 @@ class InterventionCast < Ekylibre::Record::Base
     #for nature in natures
       #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
     #end
-    where("roles ~ E?", role.to_s)
+    where("roles ~ E?", "\\\\m#{role}\\\\M")
   }
   
   # multiply evaluated_price of an actor(product) and used quantity in this cast
