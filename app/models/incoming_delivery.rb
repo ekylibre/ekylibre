@@ -77,6 +77,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   #   nil
   # end
 
+
   def execute(received_at = Time.now)
     self.class.transaction do
       self.update_attributes(:received_at => received_at)

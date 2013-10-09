@@ -37,7 +37,7 @@
 
 
 class Catalog < Ekylibre::Record::Base
-  enumerize :usage, in: [:purchase, :sale, :stock], default: :sale
+  enumerize :usage, in: [:purchase, :sale, :stock, :cost], default: :sale
   has_many :active_prices, -> { where(:active => true) }, :class_name => "CatalogPrice"
   has_many :prices, :class_name => "CatalogPrice", dependent: :destroy, inverse_of: :catalog
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

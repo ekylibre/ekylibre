@@ -1433,6 +1433,12 @@ fra:
     catalog:
       default:
         name: "Par défaut"
+      sale:
+        name: "Catalogue de vente"
+      cost:
+        name: "Catalogue de coût d'utilisation"
+      purchase:
+        name: "Catalogue d'achat"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} encaissement %{mode} %{description}"
