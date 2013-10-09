@@ -20,6 +20,7 @@
 #
 # == Table: campaigns
 #
+#  _annee       :decimal(, )
 #  closed       :boolean          not null
 #  closed_at    :datetime
 #  created_at   :datetime         not null

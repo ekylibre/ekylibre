@@ -27,12 +27,12 @@ demo :products do
       # find or import from nomenclature the correct ProductNature
       product_nature = ProductNature.find_by(:nomen => r.nature_nomen) || ProductNature.import_from_nomenclature(r.nature_nomen)
       variant = product_nature.default_variant
-      
+
       # create a price
       if r.unit_price
         variant.prices.create!(catalog_id: Catalog.where(usage: :cost).first.id, all_taxes_included: false, amount: r.unit_price, currency: "EUR", indicator: r.indicator_price.to_s)
       end
-      
+
       # create the owner if not exist
       if r.external == true
         owner = Entity.where(:last_name => r.owner_name.to_s).first
@@ -80,12 +80,12 @@ demo :products do
       product_nature = ProductNature.find_by(:nomen => r.nature_nomen) || ProductNature.import_from_nomenclature(r.nature_nomen)
       variant = product_nature.default_variant
       pmodel = product_nature.matching_model
-      
+
       # create a price
       if r.unit_price
         variant.prices.create!(catalog_id: Catalog.where(usage: :cost).first.id, all_taxes_included: false, amount: r.unit_price, currency: "EUR")
       end
-      
+
       # create the owner if not exist
       if r.external == true
         owner = Entity.where(:last_name => r.owner_name.to_s).first

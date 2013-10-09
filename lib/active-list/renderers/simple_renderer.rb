@@ -99,18 +99,20 @@ module ActiveList
 
       def columns_to_cells(nature, options={})
         code = ''
-        record = options[:record] || 'record_of_the_death'
         unless [:body, :children].include?(nature)
           raise ArgumentError, "Nature is invalid"
         end
+
         for column in table.columns
           value_code = ""
+          record = options[:record] || 'record_of_the_death'
           if column.is_a? ActiveList::Definition::EmptyColumn
             value_code = 'nil'
           elsif column.is_a? ActiveList::Definition::DataColumn
             if column.options[:children].is_a? FalseClass and nature == :children
               value_code = 'nil'
             else
+              # record = "#{record}.#{column.reflection.name}" if column.is_a?(ActiveList::Definition::AssociationColumn)
               value_code = column.datum_code(record, nature == :children)
               if column.datatype == :boolean
                 value_code = "content_tag(:div, '', :class => 'checkbox-'+("+value_code.to_s+" ? 'true' : 'false'))"
@@ -149,6 +151,8 @@ module ActiveList
               elsif column.datatype == :string
                 value_code = "h(" + value_code + ")"
               end
+
+              value_code = "if #{record}\n" + value_code.dig + "end" if column.is_a?(ActiveList::Definition::AssociationColumn)
             end
           elsif column.is_a?(ActiveList::Definition::CheckBoxColumn)
             if nature == :body

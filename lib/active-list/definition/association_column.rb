@@ -51,6 +51,10 @@ module ActiveList
         return @reflection.class_name
       end
 
+      def record_expr(record = 'record_of_the_death')
+        return "#{record}.#{@reflection.name}"
+      end
+
     end
 
   end

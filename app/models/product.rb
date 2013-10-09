@@ -259,7 +259,7 @@ class Product < Ekylibre::Record::Base
   def price(options = {})
     return CatalogPrice.price(self, options)
   end
-  
+
   # Returns an evaluated price (without taxes) for the product in an intervention context
   # options could contains a parameter :at for the datetime of a catalog price
   # unit_price in a purchase context
@@ -273,7 +273,7 @@ class Product < Ekylibre::Record::Base
     incoming_purchase_item = incoming_item.purchase_item if incoming_item
     outgoing_item = OutgoingDeliveryItem.where(:product_id => self.id).first
     outgoing_sale_item = outgoing_item.sale_item if outgoing_item
-    
+
     if incoming_purchase_item
       # search a price in purchase item via incoming item price
       price = incoming_purchase_item.unit_price_amount
@@ -289,7 +289,7 @@ class Product < Ekylibre::Record::Base
         price = price_object.amount
       end
     end
-    return price   
+    return price
   end
 
   # Add an operation for the product

@@ -2276,8 +2276,14 @@ arb:
     cash_transfer:
       # bookkeep: "[%{resource} %{number}] De %{emission} à %{reception} %{description}"
     catalog:
+      cost:
+        # name: "Catalogue de coût d'utilisation"
       default:
         # name: "Par défaut"
+      purchase:
+        # name: "Catalogue d'achat"
+      sale:
+        # name: "Catalogue de vente"
     company:  #?
       cant_find_document_template: "لا يمكن العثور على نموذج مطابق للوثيقة" #?
       default: #?

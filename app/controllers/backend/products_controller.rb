@@ -55,10 +55,10 @@ class Backend::ProductsController < BackendController
   # end
 
   list do |t|
-    t.column :active
+    # t.column :active
     t.column :number, url: true
     t.column :name, url: true
-    t.column :variant
+    t.column :variant, url: true
     t.column :variety
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print

@@ -1,20 +1,20 @@
-=main_toolbar do |t|
-  -t.edit @product_nature_variant
+= main_toolbar do |t|
+  - t.edit resource
 
-=beehive do |b|
-  -b.cell do
-    =attributes_list(@product_nature_variant) do |l|
-      -l.attribute :name
-      -l.attribute :commercial_name
-      -l.attribute :unit_name
-      -if @product_nature_variant.picture.exists?
-        =image_tag(@product_nature_variant.picture.url(:thumb))
+= beehive do |b|
+  - b.cell do
+    = attributes_list(resource) do |l|
+      - l.attribute :name
+      - l.attribute :commercial_name
+      - l.attribute :unit_name
+      - if resource.picture.exists?
+        = image_tag(resource.picture.url(:thumb))
 
-  -b.tabbox do
-    -b.cell(:products) do
-      =list(:products)
-    -b.cell(:prices) do
-      =toolbar do |t|
-        -t.new_sales_price(:params => {:controller => :product_prices, :action => :new, :mode => :sales, :variant_id => @product_nature_variant.id}) if @product_nature_variant.saleable?
-        -t.new_purchase_price(:params => {:controller => :product_prices, :action => :new, :mode => :purchases, :variant_id => @product_nature_variant.id}) if @product_nature_variant.purchasable?
-      =list(:prices)
+  - b.tabbox do
+    - b.cell(:products) do
+      = list(:products)
+    -# b.cell(:prices) do
+      = toolbar do |t|
+        - t.new_sales_price(:params => {:controller => :product_prices, :action => :new, :mode => :sales, :variant_id => resource.id}) if resource.saleable?
+        - t.new_purchase_price(:params => {:controller => :product_prices, :action => :new, :mode => :purchases, :variant_id => resource.id}) if resource.purchasable?
+      = list(:prices)

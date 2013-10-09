@@ -109,7 +109,7 @@ module Ekylibre::Record
       @scopes = []
 
       # Permits to consider something and something_id like the same
-      def scope_with_registration(name, body = {}, &block)
+      def scope_with_registration(name, body, &block)
         @scopes ||= []
         @scopes << name.to_sym
         scope_without_registration(name, body, &block)

@@ -96,8 +96,8 @@ demo :interventions do
     fertilizer_product.is_measured!(:potassium_concentration, 0.3.in_kilogram_per_hundred_kilogram)
     fertilizer_product.is_measured!(:phosphorus_concentration, 0.11.in_kilogram_per_hundred_kilogram)
   end
-  
-  
+
+
   # interventions for all poaceae
   Ekylibre::fixturize :cultural_interventions do |w|
     for production in Production.all
@@ -185,8 +185,8 @@ demo :interventions do
           for support in production.supports
             land_parcel = support.storage
             if area = land_parcel.shape_area
-              coeff = (area.to_s.to_f / 10000.0) / 6.0         
-              
+              coeff = (area.to_s.to_f / 10000.0) / 6.0
+
               Booker.intervene(:plant_mowing, year, 6, 6, 2.8 * coeff, support: support) do |i|
                 i.add_cast(variable: 'mower_driver', actor: bob)
                 i.add_cast(variable: 'tractor', quantity: 2.8 * coeff, actor: Product.can("tow(trail)").all.sample, roles: 'harvest-equipment')
@@ -194,7 +194,7 @@ demo :interventions do
                 i.add_cast(variable: 'culture', roles: 'harvest-target')
                 i.add_cast(variable: 'straw', roles: 'harvest-output')
               end
-                        
+
               # Harvest 01-07-M 30-07-M
               bob = Worker.all.sample
               other = Worker.where("id != ?", bob.id).all.sample
@@ -211,7 +211,7 @@ demo :interventions do
         end
       end
     end
-  
+
   # interventions for cereals
   Ekylibre::fixturize :cereals_interventions do |w|
     for production in Production.all
@@ -244,7 +244,7 @@ demo :interventions do
       end
     end
   end
-  
+
   Ekylibre::fixturize :animal_interventions do |w|
     for production in Production.all
       variety = production.product_nature.variety

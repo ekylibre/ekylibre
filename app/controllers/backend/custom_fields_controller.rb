@@ -23,8 +23,8 @@ class Backend::CustomFieldsController < BackendController
   unroll
 
   list(:order => "customized_type, position") do |t|
-    t.column :customized_type
     t.column :name, url: true
+    t.column :customized_type, sort: true
     t.column :nature
     t.column :required
     t.column :active

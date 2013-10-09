@@ -77,11 +77,7 @@ module ActiveList
 
       # Generate code in order to get the (foreign) record of the column
       def record_expr(record = 'record_of_the_death')
-        if @options[:through]
-          return ([record]+[@options[:through]]).flatten.join(".")
-        else
-          return record
-        end
+        return record
       end
 
     end

@@ -53,7 +53,7 @@ class InterventionCast < Ekylibre::Record::Base
     #end
     where("roles ~ E?", "\\\\m#{role}\\\\M")
   }
-  
+
   # multiply evaluated_price of an actor(product) and used quantity in this cast
   def cost
     if self.actor and !self.quantity.blank? and !self.evaluated_price.blank?
@@ -62,7 +62,7 @@ class InterventionCast < Ekylibre::Record::Base
       return nil
     end
   end
-  
+
   def reference
     self.intervention.reference.variables[self.variable]
   end

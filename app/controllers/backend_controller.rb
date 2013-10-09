@@ -440,6 +440,8 @@ class BackendController < BaseController
         named_url = base_url + "_url"
         url = named_url if instance_methods(true).include?(named_url.to_sym)
       end
+    elsif url.is_a?(Code)
+      url.gsub!(/RECORD/, '@' + record_name)
     end
 
 
