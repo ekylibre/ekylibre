@@ -23,7 +23,7 @@ class Backend::EntityLinksController < BackendController
 
   def show
     link = EntityLink.find(params[:id])
-    redirect_to :controller => :entities, :id => link.entity_id
+    redirect_to :controller => :entities, :id => link.entity_1_id
   end
 
 end

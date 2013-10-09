@@ -24,21 +24,21 @@
 = beehive do |b|
 
   - b.tabbox do
-    - if ["products", "summary", ""].include? params[:step].to_s
+    - if ["products", "summary", ""].include?(params[:step].to_s)
       - b.cell Sale.human_attribute_name(:items) do
-        - #.select-product
+        -#.select-product
           %span= "labels.add_product".t
           %span.selector
             = selector_tag("sale_item[product_id]", {:controller => :products, :action => :unroll_saleables}, {})
           = button_tag(tl(:add), :class => "btn")
-        - # @sale_item = @sale.items.new
-        - # if @sale.draft?
+        -# @sale_item = @sale.items.new
+        -# if @sale.draft?
           = toolbar do |t|
             - t.new(:controller => :sale_items, :sale_id => @sale.id)
           = render :partial => "backend/sale_items/row_form"
         = list :items do
           %tr.total
-            %th{:colspan => 5}=tc :total
+            %th{:colspan => 5}= tc(:total)
             %td= @sale.pretax_amount.l(currency: @sale.currency)
             %td= @sale.amount.l(currency: @sale.currency)
             %th{:colspan => 3}
@@ -71,7 +71,7 @@
 
 
 
-    - if @sale.subscriptions.size>0
+    - if @sale.subscriptions.any?
       - b.cell tl(:x_subscriptions, :count => @sale.subscriptions.count) do
         - if @sale.draft?
           = toolbar do |t|
@@ -80,18 +80,12 @@
                 - t.link :add_subscription_for_sale_item, {:action => :new, :controller => :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
         = list :subscriptions
 
-
-  - if ["products", "summary", ""].include? params[:step].to_s
-    - b.cell Sale.human_attribute_name(:affair) do
-      - #unless @sale.affair.closed?
-        = toolbar do |t|
-          - #t.new(:controller => :incoming_payment_uses, :expense_type => :sale, :expense_id => @sale.id, :i18n => {:label => @sale.label})
-          - for payment in @sale.usable_payments
-            - #t.link(tl("use_incoming_payment", :payment => payment.label), {:action => :create, :controller => :incoming_payment_uses, :incoming_payment_use => {:expense_type => @sale.class.name, :expense_id => @sale.id, :payment_id => payment.id}}, :method => :post)
+  - if ["products", "summary", ""].include?(params[:step].to_s)
+    - b.cell(Sale.human_attribute_name(:affair)) do
       = affair_of(@sale)
 
 
-  - if ["deliveries", ""].include? params[:step].to_s
+  - if ["deliveries", ""].include?(params[:step].to_s)
     - if @sale.deliverable?
       - b.cell tc(:undelivered) do
         = toolbar do |t|
@@ -101,7 +95,6 @@
         - b.cell Sale.human_attribute_name("deliveries") do
           = list :deliveries
 
-  - if ["products", "summary", ""].include? params[:step].to_s and @sale.credits.size > 0
+  - if ["products", "summary", ""].include?(params[:step].to_s) and @sale.credits.any?
     - b.cell :credits do
       = list :credits
-

@@ -117,12 +117,12 @@ class Backend::SalesController < BackendController
 
   list(:undelivered_items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c, :reduced_item_id => nil}) do |t|
     t.column :name, through: :variant
-    t.column :pretax_amount, currency: true, through: :price
+    # t.column :pretax_amount, currency: true, through: :price
     t.column :quantity
-    #  t.column :unit
+    # t.column :unit
     # t.column :pretax_amount, :currency => true
     t.column :amount
-    t.column :undelivered_quantity, :datatype => :decimal
+    # t.column :undelivered_quantity, :datatype => :decimal
   end
 
   list(:items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c}, :order => :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, :include => [:variant, :subscriptions]) do |t|

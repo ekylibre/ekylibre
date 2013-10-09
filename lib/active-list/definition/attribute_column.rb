@@ -14,9 +14,11 @@ module ActiveList
       # Code for rows
       def datum_code(record = 'record_of_the_death', child = false)
         code = ""
-        if child
-          if @options[:children].is_a?(Symbol)
-            code = "#{record}.#{@options[:children]}"
+        if child 
+          if @options[:children].is_a?(FalseClass)
+            code = "nil"
+          else
+            code = "#{record}.#{table.options[:children]}.#{@options[:children] || @name}"
           end
         else
           code = "#{record}.#{@name}"
@@ -28,7 +30,10 @@ module ActiveList
         @name
       end
 
-
+      # Returns the class name of the used model
+      def class_name
+        return self.table.model.name
+      end
 
     end
 

@@ -3,6 +3,7 @@ module ActiveList
   module Definition
     autoload :Table,             'active-list/definition/table'
     autoload :AbstractColumn,    'active-list/definition/abstract_column'
+    autoload :EmptyColumn,       'active-list/definition/empty_column'
     autoload :DataColumn,        'active-list/definition/data_column'
     autoload :AttributeColumn,   'active-list/definition/attribute_column'
     autoload :AssociationColumn, 'active-list/definition/association_column'

@@ -33,11 +33,12 @@ module ActiveList
         code << "return #{self.view_method_name}(options.merge(page: #{var_name(:last)})) if #{var_name(:page)} > #{var_name(:last)}\n"
       end
       code << "#{self.records_variable_name} = #{query_code}"
+      code << ".reorder(#{var_name(:order)})"
       if paginate
         code << ".offset(#{var_name(:offset)})"
         code << ".limit(#{var_name(:limit)})"
       end
-      code << ".reorder(#{var_name(:order)})||{}\n"
+      code << " || {}\n"
       return code
     end
 
