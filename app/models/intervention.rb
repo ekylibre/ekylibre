@@ -142,7 +142,18 @@ class Intervention < Ekylibre::Record::Base
       return 0
     end
   end
-
+  
+  # sum all intervention_cast total_cost of a particular role (see ProcedureNature nomenclature for more details)
+  def cost(role = :input)
+    if self.casts.of_role(role).count > 0
+      self.casts.of_role(role).where.not(actor_id: nil).map(&:cost).compact.sum
+    else
+      return 0
+    end
+  end
+  
+  
+  
   def valid_for_run?(started_at, duration)
     if self.reference.minimal_duration < duration
       raise ArgumentError.new("The intervention cannot last less than the minimum")

@@ -135,7 +135,7 @@ class CatalogPrice < Ekylibre::Record::Base
   # Give a price for a given product
   # Options are: :pretax_amount, :amount,
   # :template, :supplier, :at, :listing
-  def self.price(product, options = {})
+  def price(product, options = {})
     company = Entity.of_company
     filter = {
       :variant_id => product.variant_id
@@ -146,7 +146,7 @@ class CatalogPrice < Ekylibre::Record::Base
     if prices.count.zero?
       # prices = [self.create!({:tax_id => Tax.first.id, :pretax_amount => filter[:pretax_amount], :amount => filter[:amount]}.merge(filter))]
       # .alling private method for creating a price for given product (Product or ProductNatureVariant) with given options
-      prices = new_price.(product, options)
+      prices = new_price(product, options)
       return prices
     end
     # request return at least one price, we return the first

@@ -259,6 +259,38 @@ class Product < Ekylibre::Record::Base
   def price(options = {})
     return CatalogPrice.price(self, options)
   end
+  
+  # Returns an evaluated price (without taxes) for the product in an intervention context
+  # options could contains a parameter :at for the datetime of a catalog price
+  # unit_price in a purchase context
+  # or unit_price in a sale context
+  # or unit_price in catalog price
+  def evaluated_price(options = {})
+    filter = {
+      :variant_id => self.variant_id
+    }
+    incoming_item = IncomingDeliveryItem.where(:product_id => self.id).first
+    incoming_purchase_item = incoming_item.purchase_item if incoming_item
+    outgoing_item = OutgoingDeliveryItem.where(:product_id => self.id).first
+    outgoing_sale_item = outgoing_item.sale_item if outgoing_item
+    
+    if incoming_purchase_item
+      # search a price in purchase item via incoming item price
+      price = incoming_purchase_item.unit_price_amount
+    elsif outgoing_sale_item
+      # search a price in sale item via outgoing item price
+      price = outgoing_sale_item.unit_price_amount
+    elsif price_object = CatalogPrice.actives_at(options[:at] || Time.now).where(filter).first
+      # search a price in catalog price
+      if price_object.all_taxes_included == true
+        tax = Tax.find(price_object.reference_tax_id)
+        price = tax.pretax_amount_of(price_object.amount)
+      else
+        price = price_object.amount
+      end
+    end
+    return price   
+  end
 
   # Add an operation for the product
   def operate(action, *args)

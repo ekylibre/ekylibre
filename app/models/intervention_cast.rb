@@ -45,6 +45,7 @@ class InterventionCast < Ekylibre::Record::Base
   # composed_of :quantity, :class_name => "Measure", :mapping => [%w(measure_quantity value), %w(measure_unit unit)]
 
   delegate :name, :to => :actor, :prefix => true
+  delegate :evaluated_price, :to => :actor
 
   scope :of_role, lambda { |role|
     #for nature in natures
@@ -52,7 +53,16 @@ class InterventionCast < Ekylibre::Record::Base
     #end
     where("roles ~ E?", role.to_s)
   }
-
+  
+  # multiply evaluated_price of an actor(product) and used quantity in this cast
+  def cost
+    if self.actor and !self.quantity.blank? and !self.evaluated_price.blank?
+      self.evaluated_price * self.quantity
+    else
+      return nil
+    end
+  end
+  
   def reference
     self.intervention.reference.variables[self.variable]
   end
