@@ -161,6 +161,7 @@ class Sale < Ekylibre::Record::Base
       self.payment_delay ||= self.nature.payment_delay
       self.has_downpayment = self.nature.downpayment if self.has_downpayment.nil?
       self.downpayment_amount ||= (self.amount * self.nature.downpayment_percentage * 0.01) if self.amount >= self.nature.downpayment_minimum
+      self.currency ||= self.nature.currency
     end
     true
   end
@@ -419,7 +420,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   def usable_payments
-    self.client.incoming_payments.where("COALESCE(used_amount, 0)<COALESCE(amount, 0)").joins(:mode => :cash).where("currency=?", self.currency).order("to_bank_on")
+    self.client.incoming_payments.where("COALESCE(used_amount, 0)<COALESCE(amount, 0)").joins(:mode => :cash).where(currency: self.currency).order("to_bank_on")
   end
 
   # Build general sales condition for the sale order

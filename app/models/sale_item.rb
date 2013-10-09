@@ -125,6 +125,7 @@ class SaleItem < Ekylibre::Record::Base
     if self.price
       self.indicator = self.price.indicator
       self.unit_price_amount ||= self.price.amount
+      self.currency = self.price.currency
       amount = self.quantity * self.unit_price_amount
       if self.tax
         tax_amount = self.tax.compute(amount, self.all_taxes_included?)
