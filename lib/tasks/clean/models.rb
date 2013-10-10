@@ -43,10 +43,11 @@ task :models => :environment do
   schema_code << Ekylibre::Record::Base.connection.tables.sort.collect do |table|
     table_code  = "#{table}: HashWithIndifferentAccess.new(\n"
     table_code << Ekylibre::Record::Base.connection.columns(table).sort{|a,b| a.name <=> b.name }.collect do |column|
+      next if column.name =~ /\A\_/
       column_code  = "#{column.name}: Ekylibre::Record::Column.new(:#{column.name}, :#{column.type}"
       if column.type == :decimal
-        column_code << ", precision: #{column.precision}"
-        column_code << ", scale: #{column.scale}"
+        column_code << ", precision: #{column.precision}" if column.precision
+        column_code << ", scale: #{column.scale}" if column.scale
       end
       if column.type == :string and column.limit.to_i != 255
         column_code << ", limit: #{column.limit}"

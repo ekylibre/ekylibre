@@ -1224,7 +1224,6 @@ module Ekylibre
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
     campaigns: HashWithIndifferentAccess.new(
-      _annee: Ekylibre::Record::Column.new(:_annee, :decimal, precision: , scale: ).freeze,
       closed: Ekylibre::Record::Column.new(:closed, :boolean, null: false).freeze,
       closed_at: Ekylibre::Record::Column.new(:closed_at, :datetime).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
