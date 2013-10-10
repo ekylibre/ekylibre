@@ -22,6 +22,9 @@
 
 module Ekylibre::Record
 
+  class Scope < Struct.new(:name, :arity)
+  end
+
   class Base < ActiveRecord::Base
     self.abstract_class = true
 
@@ -108,10 +111,19 @@ module Ekylibre::Record
       attr_reader :scopes
       @scopes = []
 
+      def simple_scopes
+        @scopes.select{|x| x.arity.zero? }
+      end
+
+      def complex_scopes
+        @scopes.select{|x| !x.arity.zero? }
+      end
+
       # Permits to consider something and something_id like the same
       def scope_with_registration(name, body, &block)
         @scopes ||= []
-        @scopes << name.to_sym
+        arity = body.arity rescue nil
+        @scopes << Scope.new(name.to_sym, arity)
         scope_without_registration(name, body, &block)
       end
       alias_method_chain :scope, :registration

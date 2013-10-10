@@ -10,7 +10,7 @@
         - f.object.casts.new(variable: name) unless variable.new?
     = f.backend_fields_for :casts do |v|
       = v.input :variable, as: :hidden
-      = v.referenced_association :actor, label: v.object.reference.human_name
+      = v.referenced_association :actor, label: v.object.reference.human_name, source: {scope: v.object.reference.scope_hash}
 
   = field_set :operations do
     - if f.object.operations.empty? or f.object.new_record?

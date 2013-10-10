@@ -9,24 +9,37 @@ Ekylibre::Application.routes.draw do
   # No namespace because authentication is for all sides
   devise_for :users, :path => "authentication", :module => :authentication
 
+  concern :unroll do
+    # get "unroll/:scope", action: :unroll, on: :collection
+    get :unroll, on: :collection
+  end
+
+  concern :picture do
+    match "picture(/:style)", via: :get, action: :picture, as: :picture, on: :member
+  end
+
+  concern :list do
+    get :list, on: :collection
+  end
+
   # Backend
   namespace :backend do
 
-    resource :myself, :path => "me", :only => [:show]
-    resource :settings, :only => [:edit, :update] do
+    resource :myself, :path => "me", only: [:show]
+    resource :settings, only: [:edit, :update] do
       member do
         get :about
         get :backups
         post :backup
         post :restore
-        match "import", :via => [:get, :post]
+        match "import", via: [:get, :post]
       end
     end
 
     # Permits to use dynamic dashboards
     # dashboards
 
-    resource :dashboards, :only => [] do
+    resource :dashboards, only: [] do
       collection do
         for mod in [:relationship, :accountancy, :trade, :stocks, :production, :tools, :settings]
           get mod
@@ -38,108 +51,88 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :helps, :only => [:index, :show] do
+    resources :helps, only: [:index, :show] do
       collection do
         post :toggle
       end
     end
 
     namespace :cells do
-      resource :collected_taxes_cell, :only => :show
-      resource :currents_stocks_by_product_nature_cell, :only => :show
-      resource :cropping_plan_cell, :only => :show
-      resource :elapsed_interventions_times_by_activities_cell, :only => :show
-      resource :cropping_plan_on_cultivable_land_parcels_cell, :only => :show
-      resource :product_bar_cell, :only => :show
-      resource :purchases_bar_cell, :only => :show
-      resource :purchases_expense_bar_cell, :only => :show
-      resource :placeholder_cell, :only => :show
-      resource :production_cropping_plan_cell, :only => :show
-      resource :revenus_by_product_nature_cell, :only => :show
-      resource :rss_cell, :only => :show
-      resource :last_entities_cell, :only => :show do
-        get :list, :on => :collection
+      resource :collected_taxes_cell, only: :show
+      resource :currents_stocks_by_product_nature_cell, only: :show
+      resource :cropping_plan_cell, only: :show
+      resource :elapsed_interventions_times_by_activities_cell, only: :show
+      resource :cropping_plan_on_cultivable_land_parcels_cell, only: :show
+      resource :product_bar_cell, only: :show
+      resource :purchases_bar_cell, only: :show
+      resource :purchases_expense_bar_cell, only: :show
+      resource :placeholder_cell, only: :show
+      resource :production_cropping_plan_cell, only: :show
+      resource :revenus_by_product_nature_cell, only: :show
+      resource :rss_cell, only: :show
+      resource :last_entities_cell, only: :show do
+        get :list, on: :collection
       end
-      resource :last_events_cell, :only => :show do
-        get :list, :on => :collection
+      resource :last_events_cell, only: :show do
+        get :list, on: :collection
       end
-      resource :last_incoming_deliveries_cell, :only => :show do
-        get :list, :on => :collection
+      resource :last_incoming_deliveries_cell, only: :show do
+        get :list, on: :collection
       end
-      resource :last_outgoing_deliveries_cell, :only => :show do
-        get :list, :on => :collection
+      resource :last_outgoing_deliveries_cell, only: :show do
+        get :list, on: :collection
       end
-      resource :last_interventions_cell, :only => :show do
-        get :list, :on => :collection
+      resource :last_interventions_cell, only: :show do
+        get :list, on: :collection
       end
-      resource :bank_chart_cell, :only => :show do
-        get :list, :on => :collection
+      resource :bank_chart_cell, only: :show do
+        get :list, on: :collection
       end
-      resource :expense_chart_cell, :only => :show do
-        get :list, :on => :collection
+      resource :expense_chart_cell, only: :show do
+        get :list, on: :collection
       end
-      resource :last_milk_result_cell, :only => :show do
-        get :list, :on => :collection
+      resource :last_milk_result_cell, only: :show do
+        get :list, on: :collection
       end
-      resource :last_products_cell, :only => :show do
-        get :list, :on => :collection
+      resource :last_products_cell, only: :show do
+        get :list, on: :collection
       end
-      resource :calendar_cell, :only => :show do
-        get :list, :on => :collection
+      resource :calendar_cell, only: :show do
+        get :list, on: :collection
       end
     end
 
     # resources :account_balances
-    resources :accounts do
+    resources :accounts, concerns: [:list, :unroll] do
       collection do
-        get :list
         get :reconciliation
         get :list_reconciliation
         get :autocomplete_for_origin
-        get :unroll
-        match "load", :via => [:get, :post]
+        match "load", via: [:get, :post]
       end
       member do
-        match "mark", :via => [:get, :post]
+        match "mark", via: [:get, :post]
         post :unmark
         get :list_journal_entry_items
         get :list_entities
       end
     end
-    resources :activities do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :activities, concerns: [:list, :unroll] do
       member do
         get :list_productions
       end
     end
 
-    resources :aggregators, :only => [:index, :show]
+    resources :aggregators, only: [:index, :show]
 
-    resources :analytic_repartitions do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :animal_groups do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :analytic_repartitions, concerns: [:list, :unroll]
+    resources :animal_groups, concerns: [:list, :picture, :unroll] do
       member do
         get :list_animals
         get :list_places
-        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
       end
     end
-    resources :animals do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :animals, concerns: [:list, :picture, :unroll] do
       member do
         get :list_children
         get :list_places
@@ -147,41 +140,27 @@ Ekylibre::Application.routes.draw do
         get :list_incidents
         get :list_indicators
         get :list_intervention_casts
-        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
       end
     end
-    resources :animal_medicines do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :animal_medicines, concerns: [:list, :unroll] do
       member do
         get :list_intervention_casts
         get :list_indicators
       end
     end
-    resources :affairs do
-      collection do
-        get :list
-      end
+    resources :affairs, concerns: [:list] do
       member do
         get :select
         post :attach
         delete :detach
       end
     end
-    resources :areas do
+    resources :areas, concerns: [:list, :unroll] do
       collection do
-        get :list
         get :autocomplete_for_name
-        get :unroll
       end
     end
-    resources :assets, :path => "financial_assets" do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :assets, :path => "financial_assets", concerns: [:list, :unroll] do
       member do
         get :cede
         get :sell
@@ -189,95 +168,54 @@ Ekylibre::Application.routes.draw do
         get :list_depreciations
       end
     end
-    # resources :asset_depreciations # , :except => [:index]
-    resources :bank_statements do
+    # resources :asset_depreciations # , except: [:index]
+    resources :bank_statements, concerns: [:list, :unroll] do
       collection do
-        get :list
         get :list_items
-        get :unroll
       end
       member do
-        match "point", :via => [:get, :post]
+        match "point", via: [:get, :post]
       end
     end
 
-    resources :buildings do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :buildings, concerns: [:list, :unroll] do
       member do
         get :list_divisions
       end
     end
 
-    resources :building_divisions do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :building_divisions, concerns: [:list, :unroll] do
       member do
-        get :list_content_products
+        get :list_contained_products
       end
     end
 
-    resources :campaigns do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :campaigns, concerns: [:list, :unroll]
 
-    resources :cashes do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :cashes, concerns: [:list, :unroll] do
       member do
         get :list_deposits
         get :list_bank_statements
       end
     end
-    resources :cash_transfers do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :cash_transfers, concerns: [:list, :unroll]
 
-    resources :catalogs do
-      collection do
-        get :unroll
-        get :list
-      end
+    resources :catalogs, concerns: [:list, :unroll] do
       member do
         get :list_prices
       end
     end
 
-    resources :catalog_prices do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :catalog_prices, concerns: [:list, :unroll]
 
-    resources :cultivable_land_parcels do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :cultivable_land_parcels, concerns: [:list, :unroll] do
       member do
         get :list_contained_products
         get :list_productions
         get :list_intervention_casts
       end
     end
-    resources :custom_fields do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :custom_fields, concerns: [:list, :unroll] do
       member do
         get :list_choices
         post :up
@@ -285,59 +223,43 @@ Ekylibre::Application.routes.draw do
         post :sort
       end
     end
-    resources :custom_field_choices do
+    resources :custom_field_choices, concerns: [:list, :unroll] do
       member do
         post :up
         post :down
       end
     end
-    resources :deposits do
+    resources :deposits, concerns: [:list, :unroll] do
       collection do
-        get :list
         get :list_unvalidateds
-        get :unroll
         get :list_depositable_payments
-        match "unvalidateds", :via => [:get, :post]
+        match "unvalidateds", via: [:get, :post]
       end
       member do
         get :list_payments
       end
     end
     # resources :deposit_items
-    resources :districts do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :districts, concerns: [:list, :unroll]
     resources :document_archives
-    resources :document_templates do
+    resources :document_templates, concerns: [:list, :unroll] do
       collection do
-        get :list
         post :load
-        get :unroll
       end
     end
-    resources :documents do
+    resources :documents, concerns: [:list, :unroll] do
       member do
         get :list_archives
       end
-      collection do
-        get :list
-        get :unroll
-      end
     end
-    resources :entities do
+    resources :entities, concerns: [:list, :picture, :unroll] do
       collection do
-        get :list
         get :autocomplete_for_origin
-        get :unroll
-        match "import", :via => [:get, :post]
-        match "export", :via => [:get, :post]
-        match "merge", :via => [:get, :post]
+        match "import", via: [:get, :post]
+        match "export", via: [:get, :post]
+        match "merge", via: [:get, :post]
       end
       member do
-        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
         get :list_observations
         get :list_subscriptions
         get :list_sales
@@ -350,112 +272,64 @@ Ekylibre::Application.routes.draw do
         get :list_links
       end
     end
-    resources :entity_addresses, :except => [:index] do
+    resources :entity_addresses, except: [:index], concerns: [:list, :unroll] do
       collection do
-        get :unroll
       end
     end
-    resources :entity_links, :except => [:index]
-    # resources :entity_link_natures do
+    resources :entity_links, except: [:index]
+    # resources :entity_link_natures, concerns: [:list, :unroll] do
     #   collection do
     #     get :unroll
     #     get :list
     #   end
     # end
-    # resources :entity_natures do
+    # resources :entity_natures, concerns: [:list, :unroll] do
     #   collection do
     #     get :unroll
     #     get :list
     #   end
     # end
-    resources :equipments do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :equipments, concerns: [:list, :unroll] do
       member do
         get :list_intervention_casts
       end
     end
-    resources :establishments do
+    resources :establishments, concerns: [:list, :unroll]
+    resources :events, concerns: [:list, :unroll] do
       collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :events do
-      collection do
-        get :list
         get :autocomplete_for_place
         get :change_minutes
-        get :unroll
       end
       member do
         get :list_participations
       end
     end
-    resources :event_natures do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :financial_years do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :event_natures, concerns: [:list, :unroll]
+    resources :financial_years, concerns: [:list, :unroll] do
       member do
-        match "close", :via => [:get, :post]
-        match :generate_last_journal_entry, :via => [:get, :post]
+        match "close", via: [:get, :post]
+        match :generate_last_journal_entry, via: [:get, :post]
         post :compute_balances
         get :list_account_balances
         get :list_asset_depreciations
       end
     end
-    resources :gaps do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :incidents do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :gaps, concerns: [:list, :unroll]
+    resources :incidents, concerns: [:list, :unroll] do
       member do
         get :list_interventions
       end
     end
-    resources :incoming_deliveries do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :incoming_deliveries, concerns: [:list, :unroll] do
       member do
         get :list_items
-        match "confirm", :via => [:get, :post]
+        match "confirm", via: [:get, :post]
       end
     end
-    resources :incoming_delivery_items, :only => [:new]
-    resources :incoming_delivery_modes do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :incoming_payments do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :incoming_payment_modes do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :incoming_delivery_items, only: [:new]
+    resources :incoming_delivery_modes, concerns: [:list, :unroll]
+    resources :incoming_payments, concerns: [:list, :unroll]
+    resources :incoming_payment_modes, concerns: [:list, :unroll] do
       member do
         post :up
         post :down
@@ -463,217 +337,109 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :interventions do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :interventions, concerns: [:list, :unroll] do
       member do
         get :list_casts
         get :list_operations
       end
     end
 
-    resources :inventories do
+    resources :inventories, concerns: [:list, :unroll] do
       collection do
-        get :list
         get :list_items
         get :list_items_create
         get :list_items_update
-        get :unroll
       end
       member do
-        match "reflect", :via => [:get, :post]
+        match "reflect", via: [:get, :post]
       end
     end
-    resources :journals do
+    resources :journals, concerns: [:list, :unroll] do
       collection do
-        match "draft", :via => [:get, :post]
-        match "bookkeep", :via => [:get, :put, :post]
-        match "import", :via => [:get, :post]
+        match "draft", via: [:get, :post]
+        match "bookkeep", via: [:get, :put, :post]
+        match "import", via: [:get, :post]
         get :reports
         get :balance
         get :general_ledger
-        get :list
         get :list_draft_items
         get :list_general_ledger
-        get :unroll
       end
       member do
         get :list_mixed
         get :list_items
         get :list_entries
-        match "close", :via => [:get, :post]
-        match "reopen", :via => [:get, :post]
+        match "close", via: [:get, :post]
+        match "reopen", via: [:get, :post]
       end
     end
-    resources :journal_entries do
-      collection do
-        get :list
-      end
+    resources :journal_entries, concerns: [:list, :unroll] do
       member do
         get :list_items
       end
     end
-    resources :journal_entry_items, :only => [:new, :show] do
+    resources :journal_entry_items, only: [:new, :show], concerns: [:list, :unroll] do
       collection do
-        get :unroll
       end
     end
-    resources :kujakus, :only => [] do
+    resources :kujakus, only: [], concerns: [:list, :unroll] do
       member do
         post :toggle
       end
     end
-    resources :land_parcel_clusters do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :land_parcel_groups do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :land_parcels do
-      collection do
-        get :list
-        # post :merge
-        get :unroll
-      end
-      # member do
-      #   get :list_operations
-      #   match "divide", :via => [:get, :post]
-      # end
-    end
-    resources :legal_entities do
-      member do
-        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
-      end
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    # resources :listing_node_items
+    resources :land_parcel_clusters, concerns: [:list, :unroll]
+    resources :land_parcel_groups, concerns: [:list, :unroll]
+    resources :land_parcels, concerns: [:list, :unroll]
+    resources :legal_entities, concerns: [:list, :picture, :unroll]
     resources :listing_nodes
-    resources :listings do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :listings, concerns: [:list, :unroll] do
       member do
         get :extract
         post :duplicate
-        match "mail", :via => [:get, :post]
+        match "mail", via: [:get, :post]
       end
     end
-    resources :logs do
+    resources :logs, concerns: [:list, :unroll]
+    resources :mandates, concerns: [:list, :unroll] do
       collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :mandates do
-      collection do
-        get :list
         get :autocomplete_for_family
         get :autocomplete_for_organization
         get :autocomplete_for_title
-        get :unroll
-        match "configure", :via => [:get, :post]
+        match "configure", via: [:get, :post]
       end
     end
-    resources :matters do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :matters, concerns: [:list, :picture, :unroll] do
       member do
-        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
         get :list_places
         get :list_groups
       end
     end
-    resources :mineral_matters do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :mineral_matters, concerns: [:list, :unroll]
     resources :observations
-    resources :operations do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :operations, concerns: [:list, :unroll]
 
-    resources :organic_matters do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :organic_matters, concerns: [:list, :unroll]
 
-    resources :operation_tasks do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :operation_tasks, concerns: [:list, :unroll]
 
-    resources :outgoing_deliveries do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :outgoing_deliveries, concerns: [:list, :unroll] do
       member do
         get :list_items
       end
     end
     # resources :outgoing_delivery_items
-    resources :outgoing_delivery_modes do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :outgoing_payments do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :outgoing_payment_modes do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :outgoing_delivery_modes, concerns: [:list, :unroll]
+    resources :outgoing_payments, concerns: [:list, :unroll]
+    resources :outgoing_payment_modes, concerns: [:list, :unroll] do
       member do
         post :up
         post :down
       end
     end
-    resources :outgoing_payment_uses
 
-    resources :people do
-      member do
-        match "picture(/:style)", :via => :get, :action => :picture, :as => :picture
-      end
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :people, concerns: [:list, :picture, :unroll]
 
-    resources :plants do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :plants, concerns: [:list, :unroll] do
       member do
         get :list_intervention_casts
         get :list_indicators
@@ -681,35 +447,17 @@ Ekylibre::Application.routes.draw do
         get :list_places
       end
     end
-    resources :plant_medicines do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :plant_medicines, concerns: [:list, :unroll] do
       member do
         get :list_intervention_casts
         get :list_indicators
       end
     end
-    resources :preferences do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :preferences, concerns: [:list, :unroll]
 
-    resources :prescriptions do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :prescriptions, concerns: [:list, :unroll]
 
-    resources :products do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :products, concerns: [:list, :unroll] do
       member do
         get :list_contained_products
         get :list_groups
@@ -721,11 +469,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_groups do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :product_groups, concerns: [:list, :unroll] do
       member do
         get :list_contained_products
         get :list_places
@@ -738,32 +482,15 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_indicator_data do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :product_indicator_data # , concerns: [:list, :unroll]
 
-    resources :product_links do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :product_links, concerns: [:list, :unroll]
 
-    resources :product_localizations do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :product_localizations, concerns: [:list, :unroll]
 
-    resources :product_natures do
+    resources :product_natures, concerns: [:list, :unroll] do
       collection do
         get :change_quantities
-        get :list
-        get :unroll
       end
       member do
         # get :list_price_templates
@@ -772,79 +499,32 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_nature_variants do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :product_nature_variants, concerns: [:list, :unroll] do
       member do
         get :list_products
         get :list_prices
       end
     end
 
-    resources :product_nature_variant_indicator_data do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :product_nature_variant_indicator_data #, concerns: [:list, :unroll]
 
-    resources :product_ownerships do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :product_ownerships, concerns: [:list, :unroll]
 
-    resources :product_processes do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :product_processes, concerns: [:list, :unroll]
 
-    resources :product_process_phases do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :productions do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :product_process_phases # , concerns: [:list, :unroll]
+    resources :productions, concerns: [:list, :unroll] do
       member do
         get :list_supports
         get :list_interventions
       end
     end
 
-    resources :production_supports do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :professions do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :purchase_items, :except => [:index]
-    resources :purchase_natures do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :purchases do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :production_supports, concerns: [:list, :unroll]
+    resources :professions, concerns: [:list, :unroll]
+    resources :purchase_items, except: [:index]
+    resources :purchase_natures, concerns: [:list, :unroll]
+    resources :purchases, concerns: [:list, :unroll] do
       member do
         get :list_items
         get :list_undelivered_items
@@ -857,32 +537,18 @@ Ekylibre::Application.routes.draw do
         post :refuse
       end
     end
-    resources :roles do
+    resources :roles, concerns: [:list, :unroll]
+    resources :sale_items, except: [:index], concerns: [:list, :unroll] do
       collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :sale_items, :except => [:index] do
-      collection do
-        get :list
         get :detail
-        get :unroll
       end
     end
-    resources :sale_natures do
+    resources :sale_natures, concerns: [:list, :unroll]
+    resources :sales, concerns: [:list, :unroll] do
+      resources :items, only: [:new, :create], controller: :sale_items
       collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :sales do
-      resources :items, :only => [:new, :create], :controller => :sale_items
-      collection do
-        get :list
         get :statistics
         get :contacts
-        get :unroll
       end
       member do
         get :list_items
@@ -891,7 +557,7 @@ Ekylibre::Application.routes.draw do
         get :list_deliveries
         get :list_credits
         get :list_creditable_items
-        match "cancel", :via => [:get, :post]
+        match "cancel", via: [:get, :post]
         post :duplicate
         post :correct
         post :propose
@@ -902,74 +568,46 @@ Ekylibre::Application.routes.draw do
         post :propose_and_invoice
       end
     end
-    resources :sequences do
+    resources :sequences, concerns: [:list, :unroll] do
       collection do
-        get :list
         post :load
-        get :unroll
       end
     end
-    resources :services do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :settlements do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
+    resources :services, concerns: [:list, :unroll]
+    resources :settlements, concerns: [:list, :unroll]
     # resources :product_moves
-    # resources :product_transfers do
+    # resources :product_transfers, concerns: [:list, :unroll] do
     #   collection do
     #     get :list
     #     get :list_confirm
     #     get :unroll
-    #     match "confirm_all", :via => [:get, :post]
+    #     match "confirm_all", via: [:get, :post]
     #   end
     #   member do
-    #     match "confirm", :via => [:get, :post]
+    #     match "confirm", via: [:get, :post]
     #   end
     # end
-    resources :snippets, :only => [] do
+    resources :snippets, only: [] do
       member do
         post :toggle
       end
     end
-    resources :subscription_natures do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :subscription_natures, concerns: [:list, :unroll] do
       member do
         post :increment
         post :decrement
       end
     end
-    resources :subscriptions do
+    resources :subscriptions, concerns: [:list, :unroll] do
       collection do
-        get :list
-        get :unroll
         get :coordinates
         get :message
       end
     end
     # resources :tax_declarations
-    resources :taxes do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :teams do
-      collection do
-        get :list
-        get :unroll
-      end
-    end
-    resources :trackings do
+    resources :taxes, concerns: [:list, :unroll]
+    resources :teams, concerns: [:list, :unroll]
+    resources :trackings, concerns: [:list, :unroll] do
       # collection do
       #   get :unroll
       # end
@@ -981,12 +619,10 @@ Ekylibre::Application.routes.draw do
       # end
     end
     # resources :tracking_states
-    resources :transports do
+    resources :transports, concerns: [:list, :unroll] do
       collection do
-        get :list
-        get :unroll
-        # match "deliveries", :via => [:get, :post]
-        # match "delivery_delete", :via => [:get, :post]
+        # match "deliveries", via: [:get, :post]
+        # match "delivery_delete", via: [:get, :post]
       end
       member do
         get :list_deliveries
@@ -994,22 +630,14 @@ Ekylibre::Application.routes.draw do
       end
     end
     # resources :transfers
-    resources :users do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :users, concerns: [:list, :unroll] do
       member do
         post :lock
         post :unlock
       end
     end
 
-    resources :workers do
-      collection do
-        get :list
-        get :unroll
-      end
+    resources :workers, concerns: [:list, :unroll] do
       member do
         get :list_intervention_casts
       end
