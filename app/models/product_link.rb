@@ -26,6 +26,8 @@
 #  creator_id        :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
+#  move_id           :integer
+#  move_type         :string(255)
 #  operation_task_id :integer
 #  started_at        :datetime
 #  stopped_at        :datetime
@@ -34,9 +36,11 @@
 #
 class ProductLink < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :move_type, :allow_nil => true, :maximum => 255
   validates_presence_of :carried, :carrier
   #]VALIDATORS]
   belongs_to :carrier, :class_name => 'Product'
   belongs_to :carried, :class_name => 'Product'
+  belongs_to :operation_task
   belongs_to :operation_task
 end

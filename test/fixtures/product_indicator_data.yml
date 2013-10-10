@@ -33,7 +33,10 @@
 #  measure_value_unit  :string(255)
 #  measure_value_value :decimal(19, 4)
 #  measured_at         :datetime         not null
+#  move_id             :integer
+#  move_type           :string(255)
 #  multi_polygon_value :spatial({:srid=>
+#  operation_task_id   :integer
 #  point_value         :spatial({:srid=>
 #  product_id          :integer          not null
 #  string_value        :text

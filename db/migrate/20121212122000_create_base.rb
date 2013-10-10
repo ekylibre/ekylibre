@@ -568,6 +568,7 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :interventions do |t|
+      t.references :ressource,      polymorphic: true, index: true
       t.references :provisional_intervention,                                 index: true
       t.references :production_support,                                       index: true
       t.boolean    :provisional,                 default: false, null: false
@@ -799,7 +800,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :sale_item,                                                        index: true
       t.decimal    :quantity,     precision: 19, scale: 4, default: 1.0, null: false
       t.references :product,                                             null: false, index: true
-      # t.references :move,                                                           index: true
+      t.references :source_product,                                      null: false, index: true
       t.stamps
     end
 
@@ -873,12 +874,14 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_indicator_data do |t|
       t.references :product,                                                                                    null: false, index: true
+      t.references :move,      polymorphic: true, index: true
       t.string     :indicator,                                                                                  null: false
       t.string     :indicator_datatype,                                                                         null: false
       t.datetime   :measured_at,                                                                                null: false
       t.decimal    :decimal_value,                                     precision: 19, scale: 4
       t.decimal    :measure_value_value,                               precision: 19, scale: 4
       t.string     :measure_value_unit
+      t.references :operation_task,                          index: true
       t.text       :string_value
       t.boolean    :boolean_value,                                                              default: false, null: false
       t.string     :choice_value
@@ -891,6 +894,7 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_links do |t|
+      t.references :move,      polymorphic: true, index: true
       t.references :carrier,                    null: false, index: true
       t.references :carried,                    null: false, index: true
       t.datetime   :started_at
@@ -902,6 +906,7 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_localizations do |t|
+      t.references :move,      polymorphic: true, index: true
       t.references :product,                     null: false, index: true
       t.string     :nature,                      null: false
       t.references :container,                                index: true
@@ -916,6 +921,7 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_memberships do |t|
+      t.references :move,      polymorphic: true, index: true
       t.references :member,                      null: false, index: true
       t.references :group,                       null: false, index: true
       t.datetime   :started_at,                  null: false
@@ -1016,9 +1022,11 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_ownerships do |t|
+      t.references :move,      polymorphic: true, index: true
       t.references :product,                  null: false, index: true
       t.string     :nature,                   null: false
       t.references :owner,                                 index: true
+      t.references :operation_task,                          index: true
       t.datetime   :started_at
       t.datetime   :stopped_at
       t.stamps

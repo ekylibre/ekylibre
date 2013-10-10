@@ -1519,6 +1519,7 @@ arb:
     mode_id: "طريقة تسديد دفعة" #?
     # mother: "Mère"
     # move: "Move"
+    # move_type: "Move type"
     # moved_at: "Fait à"
     moved_on: "انجز يوم"
     # moves: "Mouvements"
@@ -1552,6 +1553,7 @@ arb:
     operation_items: "الواردات/الصادرات"
     # operation_nature: "Type d’operation"
     operation_natures: "انواع العمل"
+    # operation_task: "Operation task"
     # operation_tasks: "Operation tasks"
     operation_uses: "استخدامات الاداة"
     operations: "الاعمال"

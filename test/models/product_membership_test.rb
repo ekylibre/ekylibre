@@ -26,6 +26,8 @@
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
 #  member_id         :integer          not null
+#  move_id           :integer
+#  move_type         :string(255)
 #  operation_task_id :integer
 #  started_at        :datetime         not null
 #  stopped_at        :datetime

@@ -15,3 +15,12 @@
 .info
   %span.title= Intervention.human_attribute_name(:state)
   %span.value= @intervention.state.text
+.info
+  %span.title= :input_evaluated_cost.tl
+  %span.value= @intervention.cost(:input)
+.info
+  %span.title= :equipment_evaluated_cost.tl
+  %span.value= @intervention.cost(:equipment)
+.info
+  %span.title= :doer_evaluated_cost.tl
+  %span.value= @intervention.cost(:doer)

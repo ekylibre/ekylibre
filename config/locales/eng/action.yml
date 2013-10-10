@@ -981,6 +981,7 @@ eng:
     document: "Document"
     document_natures: "Document types"
     document_templates: "Document templates"
+    # doer_evaluated_cost: "Coût main d'oeuvre"
     dont_use_journal: "-- Do not use journal --"
     down: "Down"
     down_to_level: "Down to level"
@@ -1008,6 +1009,7 @@ eng:
     entity_update: "Person update" #?
     entries: "Entries"
     entries_to_point: "Entries pointing to"
+    # equipment_evaluated_cost: "Coût équipements"
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
     error_sale_already_paid: "The sale is already paid"
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
@@ -1086,6 +1088,7 @@ eng:
     indicators: "Indicators"
     info: "General parameters"
     infos: "Product and quantity"
+    # input_evaluated_cost: "Coût intrants"
     insert_actual_password: "Enter your actual password"
     insert_password: "Enter your new password"
     # international_normal_vat_collected: "Taux normal à 8,5%"

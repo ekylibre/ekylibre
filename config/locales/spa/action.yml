@@ -1025,6 +1025,7 @@ spa:
     document_natures: "Tipos de documentos"
     document_template_create: "Crear un modelo de documento" #?
     document_templates: "Modelos de documentos"
+    # doer_evaluated_cost: "Coût main d'oeuvre"
     dont_use_journal: "-- No utilizar el periodico --"
     # down: "Descendre"
     down_to_level: "Detallar hasta el nivel"
@@ -1050,6 +1051,7 @@ spa:
     # entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
+    # equipment_evaluated_cost: "Coût équipements"
     error_no_file: "Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones."
     # error_sale_already_paid: "La vente a déjà été payée en totalité"
     # errors_explanation: "Il y a des erreurs dans le fichier. Si vous ne corrigez pas les problèmes, les lignes erronées ne seront pas prises en compte lors de l’importation"
@@ -1127,6 +1129,7 @@ spa:
     # indicators: "Indicateurs"
     # info: "Information\_: %{value}"
     infos: "Informar las caracteristicas de la entrega"
+    # input_evaluated_cost: "Coût intrants"
     insert_actual_password: "Coja su contraseña actual"
     insert_password: "Coja su nueva contraseña"
     international_normal_vat_collected: "Tasa normal a 8,5%"

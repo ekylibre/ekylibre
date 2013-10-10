@@ -32,6 +32,8 @@
 #  production_support_id       :integer
 #  provisional                 :boolean          not null
 #  provisional_intervention_id :integer
+#  ressource_id                :integer
+#  ressource_type              :string(255)
 #  started_at                  :datetime
 #  state                       :string(255)      not null
 #  stopped_at                  :datetime
@@ -41,6 +43,7 @@
 
 class Intervention < Ekylibre::Record::Base
   attr_readonly :procedure, :production_id
+  belongs_to :ressource , :polymorphic => true
   belongs_to :production, inverse_of: :interventions
   belongs_to :production_support
   belongs_to :incident
@@ -51,7 +54,7 @@ class Intervention < Ekylibre::Record::Base
   enumerize :procedure, :in => Procedo.names.sort
   enumerize :state, :in => [:undone, :squeezed, :in_progress, :done], :default => :undone
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :natures, :procedure, :state, :allow_nil => true, :maximum => 255
+  validates_length_of :natures, :procedure, :ressource_type, :state, :allow_nil => true, :maximum => 255
   validates_inclusion_of :provisional, :in => [true, false]
   validates_presence_of :natures, :procedure, :production, :state
   #]VALIDATORS]

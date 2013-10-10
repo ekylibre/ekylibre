@@ -27,6 +27,8 @@
 #  departure_cause   :string(255)
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
+#  move_id           :integer
+#  move_type         :string(255)
 #  nature            :string(255)      not null
 #  operation_task_id :integer
 #  product_id        :integer          not null
@@ -39,12 +41,13 @@
 class ProductLocalization < Ekylibre::Record::Base
   # attr_accessible :container_id, :product_id, :started_at, :stopped_at, :nature, :arrival_cause, :departure_cause
   belongs_to :container, :class_name => "Product"
+  belongs_to :operation_task
   belongs_to :product
   enumerize :nature, :in => [:transfer, :interior, :exterior], :default => :interior, :predicates => true
   enumerize :arrival_cause, :in => [:birth, :housing, :other, :purchase], :default => :birth, :predicates =>{prefix: true}
   enumerize :departure_cause, :in => [:death, :consumption, :other, :sale], :default => :sale, :predicates => {prefix: true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :arrival_cause, :departure_cause, :nature, :allow_nil => true, :maximum => 255
+  validates_length_of :arrival_cause, :departure_cause, :move_type, :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :nature, :product
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values

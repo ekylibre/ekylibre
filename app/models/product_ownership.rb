@@ -20,24 +20,28 @@
 #
 # == Table: product_ownerships
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  nature       :string(255)      not null
-#  owner_id     :integer
-#  product_id   :integer          not null
-#  started_at   :datetime
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  move_id           :integer
+#  move_type         :string(255)
+#  nature            :string(255)      not null
+#  operation_task_id :integer
+#  owner_id          :integer
+#  product_id        :integer          not null
+#  started_at        :datetime
+#  stopped_at        :datetime
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 class ProductOwnership < Ekylibre::Record::Base
   belongs_to :owner, :class_name => "Entity"
   belongs_to :product
+  belongs_to :operation_task
   enumerize :nature, :in => [:unknown, :own, :other], :default => :unknown, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nature, :allow_nil => true, :maximum => 255
+  validates_length_of :move_type, :nature, :allow_nil => true, :maximum => 255
   validates_presence_of :nature, :product
   #]VALIDATORS]
 
