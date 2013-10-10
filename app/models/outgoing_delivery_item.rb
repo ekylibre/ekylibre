@@ -51,11 +51,22 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   #]VALIDATORS]
 
   #acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
-  sums :delivery, :items, :pretax_amount, :amount, "(item.product.weight||0)*item.quantity" => :weight
+  sums :delivery, :items, "(item.product.net_weight.convert(:kilogram).to_f*item.quantity rescue 0)" => :weight
 
   before_validation do
     if self.sale_item
       self.source_product_id  = self.sale_item.product_id
+    end
+    
+    if self.source_product
+      maximum = self.source_product.population || 0
+      if self.quantity == maximum
+        # deliver all the product source_product == product
+        self.product = self.source_product
+      else
+        # deliver a part of the product (need to part-with) source_product <> product
+        # @TODO part source_product into (product, self.quantity) and (source_product, self.source_product.population - self.quantity)
+      end
     end
     true
   end
@@ -63,20 +74,20 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   validate(:on => :create) do
     if self.source_product
       maximum = self.source_product.population || 0
-      errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.source_product.variant.unit_name, :product => self.source_product_name) if (self.quantity > maximum)
+      errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.source_product.variant.unit_name, :product => self.source_product_name) if (self.quantity > maximum)  
     end
     true
   end
 
   validate(:on => :update) do
-    old_self = self.class.find(self.id)
-    maximum = self.undelivered_quantity + old_self.quantity
-    errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
+    old_self = self.old_record
+    maximum = self.product.population || 0
+    errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.variant.unit_name, :product => self.product_name) if (self.quantity > maximum)
   end
 
-  def undelivered_quantity
-    self.sale_item.undelivered_quantity
-  end
+  #def undelivered_quantity
+  # self.sale_item.undelivered_quantity
+  #end
 
   def source_product_name
     self.source_product.name

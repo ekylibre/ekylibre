@@ -181,20 +181,21 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         fs << self.input(:variety, :collection => varieties)
 
         # error message for indicators
-        fs << @object.errors.inspect
+        fs << @object.errors.inspect if @object.errors.any?
 
         # Adds owner fields
        if @object.new_record?
           external = @template.params[:external].to_s
           if external == "true"
-            fs << self.input(:external, :value => true, :as => :hidden)
-            fs << self.referenced_association(:owner)
+            #fs << self.input(:external, :value => true, :as => :hidden)
+            fs << self.referenced_association(:initial_owner)
           elsif external == "false"
-            fs << self.input(:external, :value => false, :as => :hidden)
+            fs << self.referenced_association(:initial_owner, :as => :hidden, :value => Entity.of_company )
+            #fs << self.input(:external, :value => false, :as => :hidden)
           else
-            id = rand(1_000_000).to_s(36) + Time.now.to_i.to_s(36)
-            fs << self.input(:external, :show => "##{id}")
-            fs << self.referenced_association(:owner, :wrapper_html => {:id => id})
+            #id = rand(1_000_000).to_s(36) + Time.now.to_i.to_s(36)
+            #fs << self.input(:external, :show => "##{id}")
+            fs << self.referenced_association(:initial_owner)
           end
         end
 
@@ -224,7 +225,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           for indicator in indicators
             datum = @object.indicator_data.new(:indicator => indicator.name)
             # error message for indicators
-            fs << datum.errors.inspect
+            fs << datum.errors.inspect if datum.errors.any?
             fs << self.backend_fields_for(:indicator_data, datum) do |indfi|
               fsi = "".html_safe
               if indicator.datatype == :measure
@@ -237,7 +238,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
               elsif indicator.datatype == :choice
                 fsi << indfi.input("#{indicator.datatype}_value", :collection => indicator.choices, :label => indicator.human_name)
               else
-                fsi << indfi.input("#{indicator.datatype}_value", :label => indicator.human_name)
+                fsi << indfi.input("#{indicator.datatype}_value", :as => :string, :label => indicator.human_name)
               end
               fsi
             end
