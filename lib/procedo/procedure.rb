@@ -21,7 +21,7 @@ module Procedo
       @version = element.attr("version").to_s
       @natures = element.attr('natures').to_s.strip.split(/[\s\,]+/).compact.map(&:to_sym)
       raise MissingAttribute.new("Attribute 'version' must be given for a <procedure>") if @version.blank?
-      @variables = element.xpath("xmlns:variables/xmlns:variable").inject({}) do |hash, variable|
+      @variables = element.xpath("xmlns:variables/xmlns:variable").inject(HashWithIndifferentAccess.new) do |hash, variable|
         hash[variable.attr("name").to_s] = Variable.new(self, variable)
         hash
       end

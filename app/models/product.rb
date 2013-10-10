@@ -101,10 +101,10 @@ class Product < Ekylibre::Record::Base
   scope :derivative_of, lambda { |*varieties|
     where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
-  # scope :of_variety, lambda { |*varieties| joins(:nature).merge(ProductNature.of_variety(*varieties)) }
-  # scope :derivative_of, lambda { |nature| joins(:nature).merge(ProductNature.derivative_of(nature)) }
+  scope :can, lambda { |*abilities|
+    where(:nature_id => ProductNature.can(*abilities))
+  }
 
-  # for a product_nature
   scope :of_nature, lambda { |nature|
     where(:nature_id => nature.id)
   }
@@ -120,37 +120,38 @@ class Product < Ekylibre::Record::Base
     end
     where(conditions.join(" AND "))
   }
-  scope :can, lambda { |*abilities|
-    query = []
-    parameters = []
-    for ability in abilities.flatten.join(', ').strip.split(/[\s\,]+/)
-      if ability =~ /\(.*\)\z/
-        params = ability.split(/\s*[\(\,\)]\s*/)
-        ability = params.shift.to_sym
-        item = Nomen::Abilities[ability]
-        raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
-        for p in item.parameters
-          v = params.shift
-          if p == :variety
-            raise ArgumentError.new("Unknown variety: #{v.inspect}") unless child = Nomen::Varieties[v]
-            q = []
-            for variety in child.self_and_parents
-              q << "abilities ~ E?"
-              parameters << "\\\\m#{ability}\\\\(#{variety.name}\\\\)\\\\Y"
-            end
-            query << "(" + q.join(" OR ") + ")"
-          else
-            raise StandardError.new("Unknown type of parameter for an ability: #{p.inspect}")
-          end
-        end
-      else
-        raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
-        query << "abilities ~ E?"
-        parameters << "\\\\m#{ability}\\\\M"
-      end
-    end
-    joins(:nature).where(query.join(" OR "), *parameters)
-  }
+
+  # scope :can, lambda { |*abilities|
+  #   query = []
+  #   parameters = []
+  #   for ability in abilities.flatten.join(', ').strip.split(/[\s\,]+/)
+  #     if ability =~ /\(.*\)\z/
+  #       params = ability.split(/\s*[\(\,\)]\s*/)
+  #       ability = params.shift.to_sym
+  #       item = Nomen::Abilities[ability]
+  #       raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
+  #       for p in item.parameters
+  #         v = params.shift
+  #         if p == :variety
+  #           raise ArgumentError.new("Unknown variety: #{v.inspect}") unless child = Nomen::Varieties[v]
+  #           q = []
+  #           for variety in child.self_and_parents
+  #             q << "abilities ~ E?"
+  #             parameters << "\\\\m#{ability}\\\\(#{variety.name}\\\\)\\\\Y"
+  #           end
+  #           query << "(" + q.join(" OR ") + ")"
+  #         else
+  #           raise StandardError.new("Unknown type of parameter for an ability: #{p.inspect}")
+  #         end
+  #       end
+  #     else
+  #       raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
+  #       query << "abilities ~ E?"
+  #       parameters << "\\\\m#{ability}\\\\M"
+  #     end
+  #   end
+  #   joins(:nature).where(query.join(" OR "), *parameters)
+  # }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :production_supports,  -> { where(variety: ["cultivable_land_parcel"]) }

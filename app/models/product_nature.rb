@@ -104,12 +104,40 @@ class ProductNature < Ekylibre::Record::Base
   scope :derivative_of, Proc.new { |*varieties|
     where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
-  # scope :of_variety, Proc.new { |*varieties| where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq) }
 
-  # scope :derivative_of, lambda { |nature|
-  #   raise ArgumentError.new("Expected Product Nature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProductNature)
-  #   where(:derivative_of => nature.variety)
-  # }
+  scope :can, Proc.new { |*abilities|
+    query = []
+    parameters = []
+    for ability in abilities.flatten.join(', ').strip.split(/[\s\,]+/)
+      if ability =~ /\(.*\)\z/
+        params = ability.split(/\s*[\(\,\)]\s*/)
+        ability = params.shift.to_sym
+        item = Nomen::Abilities[ability]
+        raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
+        for p in item.parameters
+          v = params.shift
+          if p == :variety
+            raise ArgumentError.new("Unknown variety: #{v.inspect}") unless child = Nomen::Varieties[v]
+            q = []
+            for variety in child.self_and_parents
+              q << "abilities ~ E?"
+              parameters << "\\\\m#{ability}\\\\(#{variety.name}\\\\)\\\\Y"
+            end
+            query << "(" + q.join(" OR ") + ")"
+          else
+            raise StandardError.new("Unknown type of parameter for an ability: #{p.inspect}")
+          end
+        end
+      else
+        raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
+        query << "abilities ~ E?"
+        parameters << "\\\\m#{ability}\\\\M"
+      end
+    end
+    where(query.join(" OR "), *parameters)
+  }
+
+
 
   before_validation do
     if self.derivative_of

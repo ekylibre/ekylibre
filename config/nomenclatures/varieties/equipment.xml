@@ -3,10 +3,12 @@
   <nomenclature name="varieties-equipment" hierarchical="true">
     <items>
       <item name="tractor"/>
-      <item name="trail"/>
+      <item name="trailer"/>
       <item name="worker"/>
       <item name="plower"/>
       <item name="sower"/>
+      <item name="mower"/>
+      <item name="baler"/>
       <item name="spreader"/>
       <item name="sprayer"/>
       <item name="harvest"/>

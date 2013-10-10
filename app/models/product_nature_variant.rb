@@ -77,6 +77,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :of_variety, Proc.new { |*varieties|
     where(:nature_id => ProductNature.of_variety(*varieties))
   }
+  scope :derivative_of, Proc.new { |*varieties|
+    where(:nature_id => ProductNature.derivative_of(*varieties))
+  }
+  scope :can, Proc.new { |*abilities|
+    where(:nature_id => ProductNature.can(*abilities))
+  }
 
   scope :of_natures, lambda { |*natures|
     natures.flatten!

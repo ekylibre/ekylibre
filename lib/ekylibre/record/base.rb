@@ -108,21 +108,22 @@ module Ekylibre::Record
         Ekylibre.schema[self.table_name]
       end
 
-      attr_reader :scopes
-      @scopes = []
+      def scopes
+        @scopes ||= []
+      end
 
       def simple_scopes
-        @scopes.select{|x| x.arity.zero? }
+        scopes.select{|x| x.arity.zero? }
       end
 
       def complex_scopes
-        @scopes.select{|x| !x.arity.zero? }
+        scopes.select{|x| !x.arity.zero? }
       end
 
       # Permits to consider something and something_id like the same
       def scope_with_registration(name, body, &block)
         @scopes ||= []
-        arity = body.arity rescue nil
+        arity = body.arity rescue 0
         @scopes << Scope.new(name.to_sym, arity)
         scope_without_registration(name, body, &block)
       end

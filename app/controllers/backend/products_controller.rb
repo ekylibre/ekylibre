@@ -24,36 +24,6 @@ class Backend::ProductsController < BackendController
 
   unroll
 
-  # def unroll
-  #   conditions = []
-  #   keys = params[:q].to_s.strip.mb_chars.downcase.normalize.split(/[\\s\\,]+/)
-  #   if params[:id]
-  #     conditions = {:id => params[:id]}
-  #     searchable_columns = columns.delete_if{ |c| c[:column].type == :boolean }
-  #   elsif keys.size > 0
-  #     conditions[0] = '('
-  #     keys.each_with_index do |key, index|
-  #       conditions[0] << ') AND (' if index > 0
-  #       conditions[0] << [:name, :description].collect{|column| "LOWER(CAST(#{column} AS VARCHAR)) LIKE ?"}.join(' OR ')
-  #       conditions += [ "%" + key + "%" ]*2
-  #     end
-  #     conditions[0] << ')'
-  #   end
-  #   items = Product.where(conditions)
-  #   unless params[:variety].blank?
-  #     items = items.where(:variety => params[:variety])
-  #   end
-  #   unless params[:abilities].blank?
-  #     items = items.where("nature_id IN (SELECT product_nature_id FROM product_nature_abilities WHERE nature IN (?))", params[:abilities].strip.split(/[\s\,]+/))
-  #   end
-
-  #   respond_to do |format|
-  #     format.html { render :file => "tmp/cache/unroll/backend/products/__default__.html.haml", :locals => { :items => items, :keys => keys, :search => params[:q].to_s.capitalize.strip }, :layout => false }
-  #     format.json { render :json => items.collect{|item| {:label => item.label, :id => item.id}}.to_json }
-  #     format.xml  { render  :xml => items.collect{|item| {:label => item.label, :id => item.id}}.to_xml }
-  #   end
-  # end
-
   list do |t|
     # t.column :active
     t.column :number, url: true

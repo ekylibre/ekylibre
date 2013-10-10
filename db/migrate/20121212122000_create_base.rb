@@ -519,46 +519,40 @@ class CreateBase < ActiveRecord::Migration
     add_index :incoming_payment_modes, :depositables_journal_id
 
     create_table :incoming_payments do |t|
-      t.date     :paid_on
-      t.decimal  :amount,                          precision: 19, scale: 4,                        null: false
-      t.references :mode,                                                                          null: false
-      t.string   :bank_name
-      t.string   :bank_check_number
-      t.string   :bank_account_number
-      t.references :payer
-      t.date     :to_bank_on,                                               default: '0001-01-01', null: false
-      t.references :deposit
-      t.references :responsible
-      t.boolean  :scheduled,                                                default: false,        null: false
-      t.boolean  :received,                                                 default: true,         null: false
-      t.string   :number
-      t.date     :created_on
-      t.datetime :accounted_at
-      t.text     :receipt
-      t.references :journal_entry
-      t.references :commission_account
-      t.decimal  :commission_amount,               precision: 19, scale: 4, default: 0.0,          null: false
-      t.string   :currency,              limit: 3,                                                 null: false
-      t.boolean  :downpayment,                                              default: true,         null: false
-      t.references :affair
+      t.date       :paid_on
+      t.decimal    :amount,                          precision: 19, scale: 4,                        null: false
+      t.references :mode,                                                                            null: false, index: true
+      t.string     :bank_name
+      t.string     :bank_check_number
+      t.string     :bank_account_number
+      t.references :payer,                                                                                        index: true
+      t.date       :to_bank_on,                                               default: '0001-01-01', null: false
+      t.references :deposit,                                                                                      index: true
+      t.references :responsible,                                                                                  index: true
+      t.boolean    :scheduled,                                                default: false,        null: false
+      t.boolean    :received,                                                 default: true,         null: false
+      t.string     :number
+      t.date       :created_on
+      t.datetime   :accounted_at
+      t.text       :receipt
+      t.references :journal_entry,                                                                                index: true
+      t.references :commission_account,                                                                           index: true
+      t.decimal    :commission_amount,               precision: 19, scale: 4, default: 0.0,          null: false
+      t.string     :currency,              limit: 3,                                                 null: false
+      t.boolean    :downpayment,                                              default: true,         null: false
+      t.references :affair,                                                                                       index: true
       t.stamps
+      t.index      :accounted_at
     end
-    add_index :incoming_payments, :accounted_at
-    add_index :incoming_payments, :affair_id
-    add_index :incoming_payments, :commission_account_id
-    add_index :incoming_payments, :deposit_id
-    add_index :incoming_payments, :journal_entry_id
-    add_index :incoming_payments, :mode_id
-    add_index :incoming_payments, :payer_id
-    add_index :incoming_payments, :responsible_id
 
     create_table :intervention_casts do |t|
       t.references :intervention,                                          null: false, index: true
       t.references :actor,                                                              index: true
+      t.references :variant,                                                            index: true
+      t.decimal    :quantity,           precision: 19, scale: 4
       # t.string     :indicator,                                             null: false
       # t.string     :measure_unit,                                          null: false
       # t.decimal    :measure_quantity, precision: 19, scale: 4,             null: false
-      t.decimal    :quantity,           precision: 19, scale: 4
       # t.string     :procedure_nature,                                      null: false
       t.string     :roles,              limit: 320
       t.string     :variable,                                              null: false
@@ -568,7 +562,7 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :interventions do |t|
-      t.references :ressource,      polymorphic: true, index: true
+      t.references :ressource,                polymorphic: true,              index: true
       t.references :provisional_intervention,                                 index: true
       t.references :production_support,                                       index: true
       t.boolean    :provisional,                 default: false, null: false
@@ -602,8 +596,8 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :theoric_quantity, precision: 19, scale: 4,           null: false
       t.decimal    :quantity,         precision: 19, scale: 4,           null: false
       t.references :inventory,                                           null: false, index: true
-      t.references :tracking, index: true
-      t.references :move, index: true
+      t.references :tracking,                                                         index: true
+      t.references :move,                                                             index: true
       t.stamps
     end
 
@@ -670,8 +664,8 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :listing_node_items do |t|
-      t.references :node,                               null: false, index: true
-      t.string     :nature,       limit: 10,            null: false
+      t.references :node,                              null: false, index: true
+      t.string     :nature,       limit: 10,           null: false
       t.text       :value
       t.stamps
     end

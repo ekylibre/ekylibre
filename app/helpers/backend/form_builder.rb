@@ -31,14 +31,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     return self.association(association) if options[:field] == :hidden
 
     choices = options[:source] || {}
-    # # choices = {:action => "unroll_#{choices.to_s}".to_sym} unless choices.is_a?(Hash)
     choices = {:scope => choices} if choices.is_a?(Symbol)
-    # choices[:scope] = options[:source] if options[:source]
     choices[:action] ||= :unroll
     choices[:controller] ||= reflection.class_name.underscore.pluralize
-
-    puts ">> " + choices.inspect
-    # raise choices.inspect 
 
     new_url = {}
     new_url[:controller] ||= choices[:controller]
@@ -48,10 +43,32 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     input_id = model.name.underscore + "-" + association.to_s + "-input"
 
     return input(reflection.foreign_key, options.merge(:wrapper => :append, :reflection => reflection)) do
-      self.input_field(reflection.foreign_key, as: :string, 'data-selector' => @template.url_for(choices), :id => input_id, 'data-selector-new-item' => @template.url_for(new_url)) +
-        # @template.link_to(('<span class="icon"></span><span class="text">' + @template.send(:h, 'labels.new'.t) + '</span>').html_safe, new_url, 'data-new-item' => input_id, :class => 'btn btn-new') +
-        "".html_safe
+      self.input_field(reflection.foreign_key, as: :string, 'data-selector' => @template.url_for(choices), :id => input_id, 'data-selector-new-item' => @template.url_for(new_url))
     end
+  end
+
+  # Display a selector with "new" button
+  def referenced_association_field(association, options = {}, &block)
+    reflection = find_association_reflection(association)
+    raise "Association #{association.inspect} not found" unless reflection
+    raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to") if reflection.macro != :belongs_to
+
+    return self.association(association) if options[:field] == :hidden
+
+    choices = options[:source] || {}
+    choices = {:scope => choices} if choices.is_a?(Symbol)
+    choices[:action] ||= :unroll
+    choices[:controller] ||= reflection.class_name.underscore.pluralize
+
+    new_url = {}
+    new_url[:controller] ||= choices[:controller]
+    new_url[:action] ||= :new
+
+    model = @object.class
+    input_id = model.name.underscore + "-" + association.to_s + "-input"
+
+    # return input(reflection.foreign_key, options.merge(:wrapper => :append, :reflection => reflection)) do
+    return self.input_field(reflection.foreign_key, as: :string, 'data-selector' => @template.url_for(choices), :id => input_id, 'data-selector-new-item' => @template.url_for(new_url))
   end
 
   # Adds nested association support

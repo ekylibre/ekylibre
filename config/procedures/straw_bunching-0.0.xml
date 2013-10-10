@@ -2,29 +2,39 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="straw_bunching" natures="transformation" version="0.0" status="frozen">
     <variables>
-      <variable name="tractor" variety="equipment" />
-      <variable name="baler_driver" variety="worker" abilities="cropper_driving" />
-      <variable name="baler" type="equipment" abilities="bunch" />
-      <variable name="culture" />
-      <variable name="straw" variety="straw" roles="transformation-input" />
-      <variable name="straw_bales" variety="straw" same-derivative-of="straw" new="quantity=?, unit=?" roles="transformation-output" />
+      <variable name="tractor"        variety="equipment" />
+      <variable name="baler_driver"   variety="worker"    abilities="move, drive(equipment)"/>
+      <variable name="baler"          variety="equipment" abilities="bunch"/>
+      <variable name="straw_to_bunch" variety="straw" roles="transformation-input" />
+      <variable name="straw_bales"    variety="straw" derivative_of=":straw_to_bunch" new="true" roles="transformation-output" />
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
-        <task do="[baler_driver] moves-in [baler]"/>
+        <task do="[baler_driver] moves-in [tractor]"/>
       </operation>
-      <operation id="200" duration="18 minutes">
-        <task do="[baler] moves-to [culture]"/>
+      <operation id="200" duration="7 minutes">
+        <task do="[tractor] moves-to [baler]"/>
       </operation>
-      <operation id="300">
-        <task do="[baler] consume [straw]"/>
-        <task do="[baler] produces [straw_bales]"/>
-        <task do="[straw_bales] moves-to [culture]"/>
+      <operation id="300" duration="4 minutes">
+        <task do="[tractor] catches [baler]"/>
       </operation>
       <operation id="400" duration="18 minutes">
-        <task do="[baler] moves-in-default-storage"/>
+        <task do="[baler] moves-to [straw_to_bunch]"/>
+      </operation>
+      <operation id="500">
+        <task do="[baler] consumes [straw_to_bunch]"/>
+        <task do="[baler] produces [straw_bales]"/>
+      </operation>
+      <operation id="600" duration="18 minutes">
+        <task do="[tractor] moves-in-default-storage-of [baler]"/>
       </operation>        
-      <operation id="500" duration="4 minutes">
+      <operation id="700" duration="7 minutes">
+        <task do="[tractor] releases [baler]"/>
+      </operation>        
+      <operation id="800" duration="4 minutes">
+        <task do="[tractor] moves-in-default-storage"/>
+      </operation>        
+      <operation id="900" duration="4 minutes">
         <task do="[baler_driver] moves-in-default-storage"/>
       </operation>
     </operations>

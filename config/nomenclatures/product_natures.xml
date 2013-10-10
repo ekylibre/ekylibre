@@ -661,7 +661,7 @@
             asset_account="equipment_assets"
             charge_account="equipment_expenses"
             product_account="sales_assets_revenues"
-            variety="trail"
+            variety="trailer"
             purchasable="true"
             saleable="true"
             depreciable="true"

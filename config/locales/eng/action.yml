@@ -1464,6 +1464,7 @@ eng:
       all: "All"
       current: "Current"
       unpaid: "Unpaid"
+    # same_variant_as_x: "Même variante de produit que %{x}"
     save: "Save"
     # save_and_go_to_x: "Enregistrer et passer à «\_%{x}\_»"
     save_in_draft: "Save as draft"
@@ -1571,6 +1572,7 @@ eng:
     # unit_price_amount_with_taxes: "PU TTC"
     # units_load: "Charger les unités de base manquantes"
     unknown_condition: "Unknown condition"
+    # unknown_variant: "Variante de produit inconnue"
     unlock: "Unlock"
     unpaid: "Unpaid"
     unpaid_amount: "Unpaid amount"
@@ -1897,6 +1899,7 @@ eng:
       all: "{started_at}" #? String excepted (Hash:{:all=>"{started_at}"})
     backend/product_nature_prices:  #? String excepted (Hash:{:all=>"{amount} {currency} / {pretax_amount} {currency}"})
       all: "{amount} {currency} / {pretax_amount} {currency}" #? String excepted (Hash:{:all=>"{amount} {currency} / {pretax_amount} {currency}"})
+    # backend/product_nature_variants: "{name} ({unit_name})"
     backend/product_natures:  #? String excepted (Hash:{:all=>"{name}"})
       all: "{name}" #? String excepted (Hash:{:all=>"{name}"})
     backend/product_transfers:  #? String excepted (Hash:{:all=>"{id}"})

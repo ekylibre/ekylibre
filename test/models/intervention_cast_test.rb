@@ -31,6 +31,7 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  variable        :string(255)      not null
+#  variant_id      :integer
 #
 require 'test_helper'
 

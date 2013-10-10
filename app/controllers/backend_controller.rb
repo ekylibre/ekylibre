@@ -65,17 +65,22 @@ class BackendController < BaseController
     end
 
     columns = []
-    item_label = label.inspect.gsub(/\{[a-z\_]+(\:\%?X\%?)?\}/) do |word|
+    item_label = label.inspect.gsub(/\{\!?[a-z\_]+(\:\%?X\%?)?\}/) do |word|
       ca = word[1..-2].split(":")
-      column = model.columns_definition[ca[0]]
-      raise Exception.new("Unknown column #{ca[0]} for #{model.name}") unless column
-      columns << column.options.merge(filter: ca[1]|| "X%")
-      i = "item.#{column[:name]}"
+      name = ca.first
+      if name =~ /\A\!/
+        name.gsub!(/\A\!/, '')
+      else
+        unless column = model.columns_definition[name]
+          raise StandardError, "Unknown column #{name} for #{model.name}"
+        end
+        columns << column.options.merge(filter: ca.second || "X%")
+      end
+      i = "item.#{name}"
       "\" + (#{i}.nil? ? '' : #{i}.l) + \""
     end
     item_label.gsub!(/\A\"\"\s*\+\s*/, '')
     item_label.gsub!(/\s*\+\s*\"\"\z/, '')
-
 
     fill_in = (options.has_key?(:fill_in) ? options[:fill_in] : columns.size == 1 ? columns.first[:name] : model.columns_definition["name"] ? :name : nil)
     fill_in = fill_in.to_sym unless fill_in.nil?

@@ -7,10 +7,19 @@
   = field_set :casting do
     - if f.object.new_record?
       - for name, variable in procedure.variables
-        - f.object.casts.new(variable: name) unless variable.new?
+        - f.object.casts.new(variable: name)
     = f.backend_fields_for :casts do |v|
+      - reference = v.object.reference
       = v.input :variable, as: :hidden
-      = v.referenced_association :actor, label: v.object.reference.human_name, source: {scope: v.object.reference.scope_hash}
+      - if reference.new?
+        = v.input("sqdd_value_value", :wrapper => :append, :value => 0, :class => :inline, label: reference.human_name) do
+          = v.input_field :quantity
+          - if reference.known_variant?
+            %label= reference.variant_indication
+          - else
+            = v.referenced_association_field :variant, source: {scope: reference.scope_hash}
+      - else
+        = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash}
 
   = field_set :operations do
     - if f.object.operations.empty? or f.object.new_record?

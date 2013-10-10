@@ -416,7 +416,8 @@ module Ekylibre
       :actor_id => :product,
       :creator_id => :user,
       :intervention_id => :intervention,
-      :updater_id => :user
+      :updater_id => :user,
+      :variant_id => :product_nature_variant
     },
     :inventory => {
       :creator_id => :user,
@@ -1724,7 +1725,8 @@ module Ekylibre
       roles: Ekylibre::Record::Column.new(:roles, :string, limit: 320).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze,
-      variable: Ekylibre::Record::Column.new(:variable, :string, null: false).freeze
+      variable: Ekylibre::Record::Column.new(:variable, :string, null: false).freeze,
+      variant_id: Ekylibre::Record::Column.new(:variant_id, :integer).freeze
     ).freeze,
     interventions: HashWithIndifferentAccess.new(
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,

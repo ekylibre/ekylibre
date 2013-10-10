@@ -934,6 +934,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "intervention_casts", force: true do |t|
     t.integer  "intervention_id",                                                  null: false
     t.integer  "actor_id"
+    t.integer  "variant_id"
     t.decimal  "quantity",                    precision: 19, scale: 4
     t.string   "roles",           limit: 320
     t.string   "variable",                                                         null: false
@@ -951,6 +952,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "intervention_casts", ["updated_at"], :name => "index_intervention_casts_on_updated_at"
   add_index "intervention_casts", ["updater_id"], :name => "index_intervention_casts_on_updater_id"
   add_index "intervention_casts", ["variable"], :name => "index_intervention_casts_on_variable"
+  add_index "intervention_casts", ["variant_id"], :name => "index_intervention_casts_on_variant_id"
 
   create_table "interventions", force: true do |t|
     t.integer  "ressource_id"

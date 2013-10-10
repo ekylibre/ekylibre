@@ -31,11 +31,13 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #  variable        :string(255)      not null
+#  variant_id      :integer
 #
 
 class InterventionCast < Ekylibre::Record::Base
   belongs_to :intervention, :inverse_of => :casts
   belongs_to :actor, class_name: "Product", inverse_of: :intervention_casts
+  belongs_to :variant, class_name: "ProductNatureVariant"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, :allow_nil => true
   validates_length_of :variable, :allow_nil => true, :maximum => 255
@@ -44,15 +46,25 @@ class InterventionCast < Ekylibre::Record::Base
   #]VALIDATORS]
   # composed_of :quantity, :class_name => "Measure", :mapping => [%w(measure_quantity value), %w(measure_unit unit)]
 
-  delegate :name, :to => :actor, :prefix => true
-  delegate :evaluated_price, :to => :actor
+  delegate :name, to: :actor, prefix: true
+  delegate :evaluated_price, to: :actor
 
   scope :of_role, lambda { |role|
-    #for nature in natures
-      #raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
-    #end
+    # for nature in natures
+    #   raise ArgumentError.new("Expected ProcedureNature, got #{nature.class.name}:#{nature.inspect}") unless nature.is_a?(ProcedureNature)
+    # end
     where("roles ~ E?", "\\\\m#{role}\\\\M")
   }
+
+  before_validation do
+    if self.reference
+      self.roles = self.reference.roles.join(', ')
+    end
+  end
+
+  validate do
+    errors.add(:variable, :invalid) unless self.reference
+  end
 
   # multiply evaluated_price of an actor(product) and used quantity in this cast
   def cost
