@@ -50,7 +50,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   belongs_to :transporter, :class_name => "Entity"
   has_many :items, :class_name => "OutgoingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy, :inverse_of => :delivery
   has_many :interventions, :class_name => "Intervention", :as => :ressource
-  has_many :product_moves, :as => :origin, :dependent => :destroy
+  #has_many :product_moves, :as => :origin, :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :weight, :allow_nil => true
   validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
@@ -80,7 +80,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
 
   after_initialize do
     if self.new_record?
-      self.mode ||= OutgoingDeliveryMode.by_default
+      self.mode ||= mode ||= OutgoingDeliveryMode.by_defaultOutgoingDeliveryMode.by_default
     end
   end
 

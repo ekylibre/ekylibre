@@ -28,12 +28,11 @@ class Backend::OutgoingDeliveriesController < BackendController
     t.column :transport, url: true
     t.column :transporter, url: true
     t.column :reference_number
-    t.column :description
-    t.column :planned_at
+    t.column :sent_at
     #t.column :moved_on
     t.column :mode
-    # t.column :number, through: :sale, url: true
-    #t.column :weight
+    #t.column :number, through: :sale, url: true
+    t.column :weight
     #t.column :amount
     t.action :edit
     t.action :destroy
