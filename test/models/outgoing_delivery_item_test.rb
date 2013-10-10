@@ -20,16 +20,17 @@
 #
 # == Table: outgoing_delivery_items
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  delivery_id  :integer          not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  product_id   :integer          not null
-#  quantity     :decimal(19, 4)   default(1.0), not null
-#  sale_item_id :integer
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at        :datetime         not null
+#  creator_id        :integer
+#  delivery_id       :integer          not null
+#  id                :integer          not null, primary key
+#  lock_version      :integer          default(0), not null
+#  product_id        :integer          not null
+#  quantity          :decimal(19, 4)   default(1.0), not null
+#  sale_item_id      :integer
+#  source_product_id :integer          not null
+#  updated_at        :datetime         not null
+#  updater_id        :integer
 #
 
 

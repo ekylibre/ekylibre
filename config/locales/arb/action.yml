@@ -1126,6 +1126,7 @@ arb:
     document_natures: "نوع الوثيقة"
     document_template_create: "انشاء نموذج للوثيقة" #?
     document_templates: "نموذج الوثائق"
+    # doer_evaluated_cost: "Coût main d'oeuvre"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى"
@@ -1158,6 +1159,7 @@ arb:
     entity_update: "تعديل الملف" #?
     entries: "السجلات"
     entries_to_point: "اعداد المدخلات"
+    # equipment_evaluated_cost: "Coût équipements"
     error_no_file: "عدم توفر المساعدة في هذا الجزء من الطلب (%{article}).لم يتم كتابة التعليمات حتى الان.يمكنك زيارة موقعنا الالكتروني للمزيد من الاستفسار."
     # error_sale_already_paid: "La vente a déjà été payée en totalité"
     errors_explanation: "هنالك أخطاء في الملف. اذا لم تقم بتصحيحها فان خطوط الاخطاء لن تأخذ بعين الاعتبار اثناء الاستيراد"
@@ -1247,6 +1249,7 @@ arb:
     # indicators: "Indicateurs"
     info: "معرفة المعلومات عن وسائل النقل"
     infos: "معرفة خصائص النظام"
+    # input_evaluated_cost: "Coût intrants"
     insert_actual_password: "أدخل كلمة المرور الحالية"
     insert_password: "أدخل كلمة المرور الجديدة"
     international_normal_vat_collected: "معدل ضريبة القيمة المضافة الدولية العادية %8.5"

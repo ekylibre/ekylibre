@@ -49,6 +49,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   belongs_to :transport
   belongs_to :transporter, :class_name => "Entity"
   has_many :items, :class_name => "OutgoingDeliveryItem", :foreign_key => :delivery_id, :dependent => :destroy, :inverse_of => :delivery
+  has_many :interventions, :class_name => "Intervention", :as => :ressource
   has_many :product_moves, :as => :origin, :dependent => :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :weight, :allow_nil => true

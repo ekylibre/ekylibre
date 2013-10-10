@@ -32,6 +32,8 @@
 #  production_support_id       :integer
 #  provisional                 :boolean          not null
 #  provisional_intervention_id :integer
+#  ressource_id                :integer
+#  ressource_type              :string(255)
 #  started_at                  :datetime
 #  state                       :string(255)      not null
 #  stopped_at                  :datetime

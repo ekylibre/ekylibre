@@ -800,6 +800,7 @@ fra:
     mode: "Mode"
     mother: "Mère"
     move: "Move"
+    move_type: "Move type"
     moved_at: "Fait à" #?
     moved_on: "Fait le"
     moves: "Mouvements" #?
@@ -830,7 +831,7 @@ fra:
     operation_items: "Intrants/sortants" #?
     operation_nature: "Type d’operation" #?
     operation_natures: "Types de travail" #?
-    # operation_task: "Operation task"
+    operation_task: "Operation task"
     operation_tasks: "Operation tasks"
     operation_uses: "Utilisations d’outil" #?
     operations: "Travaux"
@@ -982,6 +983,8 @@ fra:
     resource: "Origine"
     resource_type: "Origine"
     responsible: "Responsable"
+    # ressource: "Ressource"
+    # ressource_type: "Ressource type"
     rgt: "Limite droite"
     rights: "Droits"
     role: "Rôle de base"
@@ -1011,6 +1014,7 @@ fra:
     siren: "N° SIREN"
     soundex: "Soundex" #?
     source: "Source"
+    # source_product: "Source product"
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
     start: "Début"
