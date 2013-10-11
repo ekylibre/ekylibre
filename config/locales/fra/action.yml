@@ -1673,6 +1673,7 @@ fra:
     weight: "Poids"
     with_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes...)"
+    x_of_y: "%{x} de %{y}"
     x_cashes:
       one: "1 compte bancaire"
       other: "%{count} comptes bancaires"

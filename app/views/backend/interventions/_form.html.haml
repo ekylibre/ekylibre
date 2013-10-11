@@ -40,18 +40,24 @@
     nature = Nomen::ProcedureNatures[params[:procedure_nature]]
     natures += (nature ? nature.children : Nomen::ProcedureNatures.roots)
     natures.delete_if{|n| Procedo.procedures_of_nature_and_its_children(n.name).empty?}
+    can_go = false
 
   .proposal-list
     - if natures.any?
       - for n in natures
-        - procedures = Procedo.procedures_of_nature(n.name.to_sym)
+        - procedures = Procedo.procedures_of_nature(n.name.to_sym).sort{|a,b| a.human_name <=> b.human_name}
         - if procedures.size == 1
           - procedure = procedures.first
+          - can_go = true
           = link_to(procedure.human_name, {procedure: procedure.name}, class: "btn")
         - else
           = link_to(n.human_name, {procedure_nature: n.name}, class: "btn btn-important")
     - if nature
       - procedures = Procedo.procedures_of_nature(nature.name.to_sym)
       - if procedures.any?
-        - for procedure in Procedo.procedures_of_nature(nature.name.to_sym)
+        - can_go = true
+        - for procedure in Procedo.procedures_of_nature(nature.name.to_sym).sort{|a,b| a.human_name <=> b.human_name}
           = link_to(procedure.human_name, {procedure: procedure.name}, class: "btn")
+  -# if can_go
+    = field_set :duration do
+      %p OK

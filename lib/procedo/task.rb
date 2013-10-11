@@ -44,6 +44,10 @@ module Procedo
       "{product} parts-with {parted}" =>               :division,
       "{parted} is separated from {product}" =>        :division,
       "{parted} is-separated-from {product}" =>        :division,
+      # Browse
+      "{browser} acts on {browsed}" =>                 :browsing,
+      "{browser} acts-on {browsed}" =>                 :browsing,
+      "{browser} browses {browsed}" =>                 :browsing,
       # Indicators
       "{indicator} is measured" =>                     :simple_measure,
       "{reporter} measures {indicator}" =>             :measure,
@@ -103,13 +107,13 @@ module Procedo
 
     def human_parameters
       @parameters.inject({}) do |hash, pair|
-        hash[pair.first] = pair.human_name
+        hash[pair.first] = pair.second.human_name
         hash
       end
     end
 
     def human_expression
-      return "procedo.tasks.#{@action.name}".t(human_parameters)
+      return "procedo.actions.#{@action.type}".t(human_parameters)
     end
 
   end

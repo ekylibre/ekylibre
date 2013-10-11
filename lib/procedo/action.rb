@@ -18,6 +18,7 @@ module Procedo
       owner_change: {owner: :entity, product: :product},
       merging: {product: :product, merged: :product},
       division: {product: :product, parted: :product},
+      browsing: {browser: :product, browsed: :product},
       simple_measure: {indicator: :indicator},
       measure: {indicator: :indicator, reporter: :product},
       assisted_measure: {indicator: :indicator, reporter: :product, tool: :product},
@@ -57,7 +58,7 @@ module Procedo
         # "\\[(?<#{actor}>#{e})\\]"
         "((?<#{actor}>#{e})|\\[(?<#{actor}>#{e})\\])"
       end + "\\z"
-      puts "#{@expression}: " + exp
+      # puts "#{@expression}: " + exp
       @pattern = Regexp.new(exp)
     end
 
