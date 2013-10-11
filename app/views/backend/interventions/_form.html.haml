@@ -12,10 +12,10 @@
       - reference = v.object.reference
       = v.input :variable, as: :hidden
       - if reference.new?
-        = v.input("sqdd_value_value", :wrapper => :append, :value => 0, :class => :inline, label: reference.human_name) do
+        = v.input("actor", :wrapper => :append, :value => 0, wrapper_html: {class: "inline special"}, label: reference.human_name) do
           = v.input_field :quantity
           - if reference.known_variant?
-            %label= reference.variant_indication
+            %span.add-on= reference.variant_indication
           - else
             = v.referenced_association_field :variant, source: {scope: reference.scope_hash}
       - else
@@ -27,7 +27,7 @@
         - f.object.operations.new(position: id)
     = f.backend_fields_for :operations do |v|
       = v.input :position, as: :hidden
-      = v.input :started_at, label: v.object.reference.human_name
+      = v.input :started_at, label: v.object.reference.human_name, hint: v.object.reference.human_expressions.to_sentence
       -# = v.input :stopped_at, label: v.object.reference.human_name
 
   - if f.object.errors.count > 0

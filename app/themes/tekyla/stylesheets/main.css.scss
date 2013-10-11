@@ -1119,10 +1119,10 @@ $controls-margin-left: round($label-width * 1.1);
   // @include clearfix;
   clear: both;
   .control-label {
-    width: $label-width;
+    max-width: $label-width;
     @include float(left);
     line-height: round(1.4*$fs-normal);
-    margin: round($fs-normal/4) 0;
+    margin: round($fs-normal/4) $default-gap;
     @include display(block);
     @include ellipsis;
     &.required {
@@ -1132,7 +1132,7 @@ $controls-margin-left: round($label-width * 1.1);
       }
     }
   }
-  width: 100%;
+  width: auto;
   .controls {
     @include margin-left($controls-margin-left);
     max-width: 100% - $controls-margin-left;
@@ -1142,10 +1142,26 @@ $controls-margin-left: round($label-width * 1.1);
     .input-append {
       width: 100%;
     }
+    .help-block {
+      margin-top: round(0.3 * $default-gap);
+      font-size: $fs-small;
+      font-style: italic;
+      line-height: 1.3em;
+      em {
+        font-style: normal;
+      }
+    }
   }
 //  &.selector .controls .input {
 //    @include toolbar;
 //   }
+  &.hidden {
+    display: none;
+  }
+  &.special {
+    background: #CE8;
+    @include border-radius($default-border-radius);
+  }
 }
 
 .input-append {
@@ -1587,9 +1603,6 @@ $form-actions-height: 48px;
   }
 }
 
-.control-group.hidden {
-  display: none;
-}
 .nested-fields {
   position: relative;
   .nested-remove {

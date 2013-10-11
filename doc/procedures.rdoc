@@ -25,6 +25,9 @@ These are many types of task depending on what we want to do.
     * [product-1] goes-into [product-2]
     * [product-1] goes-out  [product-2]
 
+  * Ownership:
+    * [product-1] is-owned-by [entity]
+
   * Merge/split:
     * [product-1] merges-with [product-2]*
     * [product-1] parts-with  [product-2]

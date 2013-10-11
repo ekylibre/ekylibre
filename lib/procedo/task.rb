@@ -5,7 +5,19 @@ module Procedo
 
     def initialize(operation, element)
       @operation = operation
-      @expression = element.attr("do")
+      if element.has_attribute?("do")
+        @expression = element.attr("do").to_s
+      else
+        raise MissingAttribute, "Attribute 'do' is mandatory"
+      end
+    end
+
+    def procedure
+      @operation.procedure
+    end
+
+    def human_expression
+      return @expression
     end
 
   end

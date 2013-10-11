@@ -153,7 +153,7 @@ a.btn, button {
   & + & {
     @include margin-left($default-gap);
   }
-  > button, > a, > a.button, > a.btn, > input, > select {
+  > button, > a, > a.button, > a.btn, > input, > select, & > .add-on {
     @include border-radius(0);
     @include margin-left(-1 * $menu-border-width);
     z-index: 1;
@@ -180,6 +180,19 @@ a.btn, button {
 @mixin button-toolbar($group: ".btn-group") {
 }
 
+.add-on {
+  padding: round($fs-normal * 0.2) round($fs-normal * 0.4);
+  @include box-sizing(content-box);
+  @include border-radius($default-border-radius);
+  font-size: $fs-normal;
+  line-height: round(1.4 * $fs-normal);
+  height: round(1.4 * $fs-normal);
+  vertical-align: middle;
+  cursor: default;
+  border: $menu-border;
+  background: #EEE;
+  @include inline-block;
+}
 
 
 @mixin toolbar($group: ".btn-group") {

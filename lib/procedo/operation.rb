@@ -28,6 +28,10 @@ module Procedo
       "Operation ##{self.id}"
     end
 
+    # Returns an array of humanized expression
+    def human_expressions
+      return @tasks.map(&:human_expression)
+    end
 
   end
 
