@@ -11,7 +11,7 @@
     </variables>
     <operations>
       <operation id="100">
-        <task do="[driver] drives [grinder]"/>
+        <!-- <task do="[driver] drives [grinder]"/> -->
         <task do="[grinder] consumes [plant]"/>
         <task do="[grinder] produces [grinded]"/>
         <task do="[land_parcel] consumes [grinded]"/>
