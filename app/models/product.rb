@@ -215,6 +215,13 @@ class Product < Ekylibre::Record::Base
       if self.initial_container and self.initial_arrival_cause
         self.localizations.create!(container: self.initial_container, started_at: self.born_at, arrival_cause: self.initial_arrival_cause)
       end
+      # add first frozen indicator on a product from his variant
+      if self.variant
+        for frozen_indicator in self.variant.frozen_indicators.to_s.strip.split(",")
+          indicator = self.variant.indicator(frozen_indicator.to_s) if self.variant.frozen?(frozen_indicator.to_s)
+          self.is_measured!(indicator.indicator, indicator.value)
+        end
+      end
   end
 
 
