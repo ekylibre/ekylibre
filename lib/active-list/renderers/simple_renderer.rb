@@ -148,8 +148,8 @@ module ActiveList
                 value_code = "(Nomen::Languages[#{value_code}]  ? Nomen::Languages[#{value_code}].human_name : #{value_code})"
               elsif column.label_method.to_s.match(/(^|\_)country$/)  and column.datatype == :string
                 value_code = "(Nomen::Countries[#{value_code}]  ? (image_tag('countries/' + #{value_code}.to_s + '.png') + ' ' + Nomen::Countries[#{value_code}].human_name).html_safe : #{value_code})"
-              elsif column.datatype == :string
-                value_code = "h(" + value_code + ")"
+              else # if column.datatype == :string
+                value_code = "h(" + value_code + ".to_s)"
               end
 
               value_code = "if #{record}\n" + value_code.dig + "end" if column.is_a?(ActiveList::Definition::AssociationColumn)
