@@ -540,9 +540,9 @@
             saleable="true"
             depreciable="true"
             storable="false"
-            population_counting="decimal"
-            unit_name="hectare"
-            frozen_indicators="net_surface_area: 1.00hectare"
+            population_counting="unitary"
+            unit_name="land_parcel"
+            frozen_indicators="population: 1unity"
             abilities="consume(water), consume(seed), produce(plant)"
             indicators="shape, net_surface_area, geographic_coordinate, sowable, in_production, ground_appearance"
             />

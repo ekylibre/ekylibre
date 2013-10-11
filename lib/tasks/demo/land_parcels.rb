@@ -20,7 +20,9 @@ demo :land_parcels do
                                                         :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
         land_parcel_cluster.is_measured!(:shape, record.geometry, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
         ind_area = land_parcel_cluster.shape_area
-        land_parcel_cluster.is_measured!(:net_surface_area, ind_area.in_square_meter.convert(:hectare), :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
+        land_parcel_cluster.is_measured!(:population, ind_area.in_square_meter.convert(:hectare), :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))    
+        
+        
         # puts "Record number #{record.index}:"
         # puts "  Geometry: #{record.geometry.as_text}"
         # puts "  Attributes: #{record.attributes.inspect}"
@@ -65,7 +67,7 @@ demo :land_parcels do
         if r.land_parcel_group_shape
           cultural_land_parcel.is_measured!(:shape, r.land_parcel_group_shape, :at => Time.now)
           ind_area = cultural_land_parcel.shape_area
-          cultural_land_parcel.is_measured!(:net_surface_area, ind_area.in_square_meter.convert(:hectare), :at => Time.now)
+          cultural_land_parcel.is_measured!(:population, ind_area.in_square_meter.convert(:hectare), :at => Time.now)
           ind_area_to_point = cultural_land_parcel.shape_centroid
           cultural_land_parcel.is_measured!(:geographic_coordinate, ind_area_to_point)
         end

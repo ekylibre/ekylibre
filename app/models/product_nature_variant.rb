@@ -157,14 +157,24 @@ class ProductNatureVariant < Ekylibre::Record::Base
     datum.save!
     return datum
   end
-
-
+  
   # Return the indicator datum
   def indicator(indicator, options = {})
     created_at = options[:at] || Time.now
     return self.indicator_data.where(:indicator => indicator.to_s).where("created_at <= ?", created_at).reorder("created_at DESC").first
   end
-
+  
+  # check if a variant has an indicator which is frozen or not
+  def frozen?(indicator)
+    frozen_indicator = self.indicator(indicator)
+    if frozen_indicator.computation_method == "frozen"
+      return true
+    else
+      return false
+    end
+  end
+  
+  
   # Returns indicators for a set of product
   def self.indicator(name, options = {})
     created_at = options[:at] || Time.now

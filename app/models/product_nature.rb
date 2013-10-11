@@ -350,16 +350,19 @@ class ProductNature < Ekylibre::Record::Base
     if nature.variants.count.zero?
       if item.unit_name
         variant = nature.variants.create!(:active => true, :unit_name => item.unit_name)
-        if !item.frozen_indicators.to_s.blank?
+        if !item.frozen_indicators.to_s.blank?        
           # transform "population: 1unity, net_weight :5ton" in a hash
           h_frozen_indicators = item.frozen_indicators.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
             h[i.first.strip.downcase.to_sym] = i.second
             h
             }
           # create frozen indicator for each pair indicator, value ":population => 1unity"
+          frozen_indicators = []
           for indicator, value in h_frozen_indicators
             variant.is_measured!(indicator, value)
+            frozen_indicators << indicator.to_s
           end
+          variant.update!(:frozen_indicators => frozen_indicators.join(","))
         end
       else
         raise ArgumentError.new("The unit_name #{item.unit_name.inspect} of product_nature #{item.name} is not known")
