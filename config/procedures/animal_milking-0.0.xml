@@ -4,13 +4,13 @@
   <procedure name="animal_milking" natures="animal_production" version="0.0" status="frozen">
     <variables>
       <variable name="animal" variety="animal" abilities="produce"/>
-      <variable name="product" variety="milk" new="quantity=?"/>
+      <variable name="milk" variety="milk" new="quantity=?"/>
       <variable name="person" variety="worker"/>
     </variables>
     <operations>
       <operation id="100">
         <task do="[person] moves-to [animal]"/>
-        <task do="[animal] produce [product]"/>
+        <task do="[animal] produces [milk]"/>
       </operation>
     </operations>        
   </procedure>

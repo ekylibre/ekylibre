@@ -16,7 +16,7 @@
         <task do="[mower] moves-to [culture]"/>
       </operation>
       <operation id="300">
-        <task do="[mower] consume [culture]"/>
+        <task do="[mower] consumes [culture]"/>
         <task do="[mower] produces [straw]"/>
         <task do="[straw] moves-to [culture]"/>
       </operation>

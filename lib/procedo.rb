@@ -8,6 +8,12 @@ module Procedo
   class NotUniqueIdentifier < StandardError
   end
 
+  class InvalidExpression < StandardError
+  end
+ 
+  class AmbiguousExpression < InvalidExpression
+  end
+
   XMLNS = "http://www.ekylibre.org/XML/2013/procedures".freeze
   NS_SEPARATOR = "-"
 
@@ -15,6 +21,8 @@ module Procedo
   autoload :Variable,  'procedo/variable'
   autoload :Operation, 'procedo/operation'
   autoload :Task,      'procedo/task'
+  autoload :Action,    'procedo/action'
+  autoload :Indicator, 'procedo/indicator'
 
   @@list = HashWithIndifferentAccess.new
 

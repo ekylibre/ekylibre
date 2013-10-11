@@ -13,7 +13,7 @@
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
-        <task do="[cropper-driver] moves-in [cropper]"/>
+        <task do="[cropper_driver] moves-in [cropper]"/>
         <!-- le chauffeur se déplace vers la moissonneuse et rentre dedant (?) -->
       </operation>
       <operation id="200" duration="18 minutes">
@@ -37,7 +37,7 @@
         <task do="[cropper] moves-in-default-storage"/>
       </operation>        
       <operation id="600" duration="4 minutes">
-        <task do="[cropper-driver] moves-in-default-storage"/>
+        <task do="[cropper_driver] moves-in-default-storage"/>
       </operation>
     </operations>
   </procedure>

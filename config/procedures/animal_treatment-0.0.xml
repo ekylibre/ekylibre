@@ -11,11 +11,11 @@
     <operations>
       <operation id="100">
         <task do="[caregiver] moves-to [animal]"/>
-        <task do="[caregiver] measure [animal] at animal_disease_state"/>
+        <task do="[caregiver] measures [animal:animal_disease_state]"/>
       </operation>
       <operation id="200" duration="10 minutes">
         <task do="[molecule] parts-with [molecule_to_give]"/>
-        <task do="[animal] consume [molecule_to_give]"/>    
+        <task do="[animal] consumes [molecule_to_give]"/>    
       </operation>
     </operations>        
   </procedure>
