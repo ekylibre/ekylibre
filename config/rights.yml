@@ -207,6 +207,7 @@
 # - "backend/interventions#list_casts"
 # - "backend/interventions#list_operations"
 # - "backend/interventions#new"
+# - "backend/interventions#run"
 # - "backend/interventions#show"
 # - "backend/interventions#update"
 # - "backend/journal_entries#index"

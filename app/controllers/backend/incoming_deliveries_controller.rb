@@ -32,7 +32,7 @@ class Backend::IncomingDeliveriesController < BackendController
     t.column :received_at
     t.column :mode
     t.column :purchase, url: true
-    # t.action :confirm, :method => :post, :if => :confirmable?, 'data-confirm'  =>  :are_you_sure
+    # t.action :confirm, :method => :post, :if => :confirmable?, confirm: true
     t.action :edit
     t.action :destroy
   end

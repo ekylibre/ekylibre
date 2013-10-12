@@ -23,22 +23,25 @@ class Backend::InterventionsController < BackendController
 
   # INDEX
 
-  list(order: "started_at DESC") do |t|
+  list(order: "started_at DESC", line_class: :status) do |t|
     t.column :procedure, url: true
     t.column :production, url: true
     t.column :incident, url: true
-    t.column :state
+    t.column :state, hidden: true
     t.column :casting
     t.column :started_at
-    t.action :edit, :if => :updateable?
-    t.action :destroy, :if => :destroyable?
+    t.action :run, if: :runnable?, method: :post, confirm: true
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
   end
 
   # SHOW
 
   list(:casts, :model => :intervention_casts, :conditions => {intervention_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
-    t.column :variable
+    t.column :variable_name
     t.column :actor, url: true
+    t.column :quantity
+    t.column :variant, url: true
     # t.column :indicator
     # t.column :measure_quantity
     # t.column :measure_unit
@@ -46,12 +49,19 @@ class Backend::InterventionsController < BackendController
 
   list(:operations, :conditions => {intervention_id: 'params[:id]'.c}, :order => "started_at") do |t|
     t.column :position
+    t.column :description
     # t.column :name, url: true
     # t.column :description
     # t.column :duration
     t.column :started_at
     t.column :stopped_at
     t.column :duration
+  end
+
+  def run
+    return unless intervention = find_and_check
+    intervention.run!
+    redirect_to backend_intervention_url(intervention)
   end
 
 end

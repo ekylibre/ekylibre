@@ -93,6 +93,9 @@ class Operation < Ekylibre::Record::Base
     self.group(expr).reorder(expr).select("#{expr} AS expr, #{operation}(#{column}) AS #{column}")
   end
 
+  def description
+    self.reference.human_expressions.to_sentence
+  end
 
 end
 

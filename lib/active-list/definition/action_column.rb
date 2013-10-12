@@ -12,12 +12,13 @@ module ActiveList
 
       def operation(record = 'record_of_the_death')
         @options[:method] = :delete if @name.to_s == "destroy" and !@options.has_key?(:method)
-        @options[:confirm] = :are_you_sure_you_want_to_delete if @name.to_s == "destroy" and !@options.has_key?(:confirm)
+        @options[:confirm] ||= :are_you_sure_you_want_to_delete if @name.to_s == "destroy" and !@options.has_key?(:confirm)
         @options[:if] ||= :destroyable? if @name.to_s == "destroy"
         @options[:if] ||= :editable? if @name.to_s == "edit"
+        @options[:confirm] = :are_you_sure if @options[:confirm].is_a?(TrueClass)
         link_options = ""
-        if @options['data-confirm'] or @options[:confirm]
-          link_options << ", 'data-confirm' => #{(@options['data-confirm']||@options[:confirm]).inspect}.tl"
+        if @options[:confirm]
+          link_options << ", 'data-confirm' => #{(@options[:confirm]).inspect}.tl"
         end
         if @options['data-method'] or @options[:method]
           link_options << ", :method => h('#{(@options['data-method']||@options[:method])}')"

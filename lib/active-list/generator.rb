@@ -84,7 +84,7 @@ module ActiveList
       code << "#{var_name(:params)} = YAML::load(current_user.pref('list.#{self.view_method_name}', YAML::dump({})).value)\n"
       code << "#{var_name(:params)} = {} unless #{var_name(:params)}.is_a?(Hash)\n"
       code << "unless #{var_name(:params)}[:hidden_columns].is_a? Array\n"
-      code << "  #{var_name(:params)}[:hidden_columns] = #{@table.hidden_columns.map(&:name).map(&:to_s).inspect}\n"
+      code << "  #{var_name(:params)}[:hidden_columns] = #{@table.hidden_columns.map(&:name).map(&:to_sym).inspect}\n"
       code << "end\n"
       for parameter, convertor in @parameters.sort{|a,b| a[0].to_s <=> b[0].to_s}
         expr = "options.delete('#{@table.name}_#{parameter}') || options.delete('#{parameter}') || #{var_name(:params)}[:#{parameter}]"
