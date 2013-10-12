@@ -46,12 +46,6 @@ module ActiveList
 
 
       def enumerize?
-        unless @options[:through]
-          self.table.model.send(@name).send(:values)
-          return true
-        end
-        return false
-      rescue
         return false
       end
 

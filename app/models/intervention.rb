@@ -49,16 +49,17 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :incident
   belongs_to :prescription
   belongs_to :provisional_intervention, class_name: "Intervention"
-  has_many :casts, :class_name => "InterventionCast", inverse_of: :intervention
+  has_many :casts, -> { order(:variable) }, class_name: "InterventionCast", inverse_of: :intervention
   has_many :operations, inverse_of: :intervention
   enumerize :procedure, :in => Procedo.names.sort
-  enumerize :state, :in => [:undone, :squeezed, :in_progress, :done], :default => :undone
+  enumerize :state, :in => [:undone, :squeezed, :in_progress, :done], :default => :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :natures, :procedure, :ressource_type, :state, :allow_nil => true, :maximum => 255
   validates_inclusion_of :provisional, :in => [true, false]
   validates_presence_of :natures, :procedure, :production, :state
   #]VALIDATORS]
   validates_inclusion_of :procedure, :in => self.procedure.values
+  validates_presence_of  :started_at, :stopped_at
 
 
   delegate :storage, to: :production_support
@@ -107,19 +108,24 @@ class Intervention < Ekylibre::Record::Base
     if p = self.reference
       self.natures = p.natures.sort.join(" ")
     end
-    if op = self.operations.reorder("started_at").first
-      self.started_at = op.started_at
-    end
-    if op = self.operations.reorder("stopped_at DESC").first
-      self.stopped_at = op.stopped_at
-    end
+    # if op = self.operations.reorder("started_at").first
+    #   self.started_at = op.started_at
+    # end
+    # if op = self.operations.reorder("stopped_at DESC").first
+    #   self.stopped_at = op.stopped_at
+    # end
     self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
   end
 
   validate do
-   if self.production_support and self.production
-     errors.add(:production_id, :invalid) if self.production_support.production != self.production
-   end
+    if self.production_support and self.production
+      errors.add(:production_id, :invalid) if self.production_support.production != self.production
+    end
+    if self.started_at and self.stopped_at
+      if self.stopped_at <= self.started_at
+        errors.add(:stopped_at, :greater_than, count: self.stopped_at.l)
+      end
+    end
   end
 
 
@@ -139,11 +145,12 @@ class Intervention < Ekylibre::Record::Base
 
   # Returns total duration of an intervention
   def duration
-    if self.operations.count > 0
-      self.operations.map(&:duration).compact.sum
-    else
-      return 0
-    end
+    # if self.operations.count > 0
+    #   self.operations.map(&:duration).compact.sum
+    # else
+    #   return 0
+    # end
+    return (self.stopped_at - self.started_at)
   end
 
   # sum all intervention_cast total_cost of a particular role (see ProcedureNature nomenclature for more details)
@@ -155,30 +162,68 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
+  # def valid_for_run?(started_at, duration)
+  #   if self.reference.minimal_duration < duration
+  #     raise ArgumentError, "The intervention cannot last less than the minimum"
+  #   end
+  #   for op in self.reference.operations
 
+  #   end
+  # end
 
-  def valid_for_run?(started_at, duration)
-    if self.reference.minimal_duration < duration
-      raise ArgumentError.new("The intervention cannot last less than the minimum")
-    end
-    for op in self.reference.operations
-
-    end
+  def status
+    (self.runnable? ? :waiting : self.state)
   end
 
-  def run!(period)
-    started_at = period[:started_at]
-    duration = period[:duration]
-    reference = self.reference
-    rep = reference.spread_time(duration)
-    for id, operation in reference.operations
-      d = operation.duration || rep
-      self.operations.create!(started_at: started_at, stopped_at: started_at + d, position: id.to_i)
-      started_at += d
+  def runnable?
+    return false unless self.undone?
+    valid = true
+    for variable in self.reference.variables.values
+      valid = false unless cast = self.casts.find_by(variable: variable.name)
+      valid = false unless cast.runnable?
     end
-    self.reload
-    self.state = :done
-    self.save!
+    return valid
+  end
+
+  # Run the procedure
+  def run!(period = {})
+    # TODO raise something unless runnable?
+    # raise StandardError unless self.runnable?
+    self.class.transaction do
+      self.state = :in_progress
+      self.save!
+      started_at = period[:started_at] ||= self.started_at
+      duration   = period[:duration]  ||= (self.stopped_at - self.started_at)
+      reference = self.reference
+      rep = reference.spread_time(duration)
+      for id, operation in reference.operations
+        d = operation.duration || rep
+        self.operations.create!(started_at: started_at, stopped_at: started_at + d, position: id.to_i)
+        started_at += d
+      end
+      for variable in reference.variables.values
+        next unless variable.new?
+        if cast = self.casts.find_by(variable: variable.name)
+          if variable.known_variant?
+            if ref = self.casts.find_by(variable: variable.variant_variable.name)
+              cast.variant = ref.variant
+              cast.save!
+            end
+          end
+          if cast.variant and cast.quantity
+            cast.actor = Product.new(variant: cast.variant)
+            cast.actor.save!
+            cast.actor.is_measured!(:population, cast.quantity)
+            cast.save!
+          end
+        end
+      end
+      self.reload
+      self.started_at = period[:started_at]
+      self.stopped_at = started_at
+      self.state = :done
+      self.save!
+    end
   end
 
   def add_cast(attributes)

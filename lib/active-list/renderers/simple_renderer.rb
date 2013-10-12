@@ -22,7 +22,7 @@ module ActiveList
 
       def remote_update_code
         code  = "if params[:column] and params[:visibility]\n"
-        code << "  column = params[:column].to_s\n"
+        code << "  column = params[:column].to_sym\n"
         # Removes potentially unwanted columns
         code << "  #{var_name(:params)}[:hidden_columns].delete_if{|c| !#{table.data_columns.map(&:name).inspect}.include?(c)}\n"
         code << "  #{var_name(:params)}[:hidden_columns].delete(column) if params[:visibility] == 'shown'\n"
@@ -52,13 +52,12 @@ module ActiveList
         end
         code << ">'\n"
         code << "if #{var_name(:count)} > 0\n"
-        code << "  reset_cycle('list')\n"
         code << "  for #{record} in #{generator.records_variable_name}\n"
-        line_class = "cycle('odd', 'even', :name => 'list')+' r'+#{record}.id.to_s"
+        line_class = ""
         if table.options[:line_class]
-          line_class << " + ' ' + (" + recordify!(table.options[:line_class], record) + ").to_s"
+          line_class = ", class: (" + recordify!(table.options[:line_class], record) + ").to_s"
         end
-        code << "    #{var_name(:tbody)} << content_tag(:tr, class: #{line_class}) do\n"
+        code << "    #{var_name(:tbody)} << content_tag(:tr, id: 'r' + #{record}.id.to_s#{line_class}) do\n"
         code << columns_to_cells(:body, record: record).dig(3)
         code << "    end\n"
         # if table.options[:children].is_a? Symbol
@@ -281,7 +280,7 @@ module ActiveList
       def column_classes(column, without_id = false, without_interpolation = false)
         classes, conds = [], []
         conds << [:sor, "#{var_name(:params)}[:sort] == '#{column.sort_id}'".c] if column.sortable?
-        conds << [:hidden, "#{var_name(:params)}[:hidden_columns].include?('#{column.name}')".c] if column.is_a? ActiveList::Definition::DataColumn
+        conds << [:hidden, "#{var_name(:params)}[:hidden_columns].include?(:#{column.name})".c] if column.is_a? ActiveList::Definition::DataColumn
         classes << column.options[:class].to_s.strip unless column.options[:class].blank?
         classes << column.short_id unless without_id
         if column.is_a? ActiveList::Definition::ActionColumn

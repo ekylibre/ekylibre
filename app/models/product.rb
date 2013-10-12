@@ -209,19 +209,19 @@ class Product < Ekylibre::Record::Base
 
   # set initial owner and localization
   def set_initial_values
-      # add first owner on a product
-      self.ownerships.create!(owner: self.initial_owner)
-      # add first localization on a product
-      if self.initial_container and self.initial_arrival_cause
-        self.localizations.create!(container: self.initial_container, started_at: self.born_at, arrival_cause: self.initial_arrival_cause)
+    # add first owner on a product
+    self.ownerships.create!(owner: self.initial_owner)
+    # add first localization on a product
+    if self.initial_container and self.initial_arrival_cause
+      self.localizations.create!(container: self.initial_container, started_at: self.born_at, arrival_cause: self.initial_arrival_cause)
+    end
+    # add first frozen indicator on a product from his variant
+    if self.variant
+      for frozen_indicator in self.variant.frozen_indicators.to_s.strip.split(",")
+        indicator = self.variant.indicator(frozen_indicator.to_s) if self.variant.frozen?(frozen_indicator.to_s)
+        self.is_measured!(indicator.indicator, indicator.value)
       end
-      # add first frozen indicator on a product from his variant
-      if self.variant
-        for frozen_indicator in self.variant.frozen_indicators.to_s.strip.split(",")
-          indicator = self.variant.indicator(frozen_indicator.to_s) if self.variant.frozen?(frozen_indicator.to_s)
-          self.is_measured!(indicator.indicator, indicator.value)
-        end
-      end
+    end
   end
 
 
@@ -300,14 +300,14 @@ class Product < Ekylibre::Record::Base
     return price
   end
 
-  # Add an operation for the product
-  def operate(action, *args)
-    options = (args[-1].is_a?(Hash) ? options.delete_at(-1) : {})
-    if operand = (args[0].is_a?(Product) ? args[0] : nil)
-      options[:operand] = operand
-    end
-    return self.operations.create(options)
-  end
+  # # Add an operation for the product
+  # def operate(action, *args)
+  #   options = (args[-1].is_a?(Hash) ? options.delete_at(-1) : {})
+  #   if operand = (args[0].is_a?(Product) ? args[0] : nil)
+  #     options[:operand] = operand
+  #   end
+  #   return self.operations.create(options)
+  # end
 
   # Returns groups of the product at a given time (or now by default)
   def groups_at(viewed_at = nil)
@@ -351,7 +351,7 @@ class Product < Ekylibre::Record::Base
   # :interpolate and :datum options are incompatible
   def method_missing(method_name, *args)
     return super unless Nomen::Indicators.all.include?(method_name.to_s)
-    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    options = args.extract_options!
     measured_at = args.shift || options[:at] || Time.now
     indicator = Nomen::Indicators.items[method_name]
 

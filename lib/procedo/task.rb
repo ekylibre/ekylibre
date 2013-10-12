@@ -71,7 +71,7 @@ module Procedo
         raise MissingAttribute, "Attribute 'do' is mandatory"
       end
       @action = nil
-      
+
       for action in ACTIONS
         if action.match(@expression)
           if @action

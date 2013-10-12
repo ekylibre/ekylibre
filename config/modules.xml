@@ -1218,6 +1218,7 @@
       <item name="interventions">
         <page to="backend/interventions#list_casts"/>
         <page to="backend/interventions#list_operations"/>
+        <page to="backend/interventions#run"/>
       </item>
       <item name="journal_entries">
         <page to="backend/journal_entries#index"/>

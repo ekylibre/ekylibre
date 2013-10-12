@@ -48,6 +48,7 @@ class InterventionCast < Ekylibre::Record::Base
 
   delegate :name, to: :actor, prefix: true
   delegate :evaluated_price, to: :actor
+  delegate :started_at, :stopped_at, to: :intervention
 
   scope :of_role, lambda { |role|
     # for nature in natures
@@ -59,6 +60,10 @@ class InterventionCast < Ekylibre::Record::Base
   before_validation do
     if self.reference
       self.roles = self.reference.roles.join(', ')
+    end
+    if self.actor.is_a?(Product)
+      self.variant  ||= self.actor.variant
+      self.quantity ||= self.actor.population(at: self.started_at)
     end
   end
 
@@ -77,6 +82,23 @@ class InterventionCast < Ekylibre::Record::Base
 
   def reference
     self.intervention.reference.variables[self.variable]
+  end
+
+  def variable_name
+    self.reference.human_name
+  end
+
+  # Define if the cast is valid for run
+  def runnable?
+    if self.reference.new?
+      if self.reference.known_variant?
+        return self.quantity.present?
+      else
+        return (self.variant and self.quantity.present?)
+      end
+    else
+      return self.actor
+    end
   end
 
 end

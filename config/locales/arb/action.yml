@@ -1920,6 +1920,7 @@ arb:
       one: "ملاحظة واحدة"
       other: "%{count} ملاحظات اخرى"
       zero: "ولا اية ملاحظة"
+    # x_of_y: "%{x} de %{y}"
     x_operations:
       one: "عمل واحد"
       other: "%{count} اعمال اخرى"

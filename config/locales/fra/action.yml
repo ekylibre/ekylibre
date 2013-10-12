@@ -294,6 +294,7 @@ fra:
       edit: "Modifier l’intervention %{procedure_name} N°%{id}"
       index: "Interventions"
       new: "Nouvelle intervention"
+      # run: "Run backend/intervention"
       show: "%{procedure_name} N°%{id}"
     backend/inventories:
       edit: "Modifier l’inventaire"
@@ -1673,7 +1674,6 @@ fra:
     weight: "Poids"
     with_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes...)"
-    x_of_y: "%{x} de %{y}"
     x_cashes:
       one: "1 compte bancaire"
       other: "%{count} comptes bancaires"
@@ -1735,6 +1735,7 @@ fra:
       one: "%{count} observation"
       other: "%{count} observations"
       zero: "0 observation"
+    x_of_y: "%{x} de %{y}"
     x_operations:
       one: "%{count} travail"
       other: "%{count} travaux"

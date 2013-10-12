@@ -1047,7 +1047,8 @@ eng:
         # technician: "Technicien"
         # temporary_meadow_crop: "Culture de prairie temporaire"
         tractor: "Tractor"
-        trail: "Trail"
+        trail: "Trail" #?
+        # trailer: "Remorque"
         wheat_crop: "Wheat crop"
         # wheat_grain: "Grain de blé"
         young_cow: "Young cow" #?

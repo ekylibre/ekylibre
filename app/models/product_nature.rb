@@ -54,9 +54,10 @@
 
 class ProductNature < Ekylibre::Record::Base
   # attr_accessible :abilities, :active, :derivative_of, :description, :depreciable, :indicators, :purchasable, :saleable, :asset_account_id, :name, :nomen, :number, :population_counting, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :subscribing, :variety
-  enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
+  enumerize :variety,       in: Nomen::Varieties.all
+  enumerize :derivative_of, in: Nomen::Varieties.all
   # Be careful with the fact that it depends directly on the nomenclature definition
-  enumerize :population_counting, :in => Nomen::ProductNatures.attributes[:population_counting].choices, :predicates => {:prefix => true}, :default => Nomen::ProductNatures.attributes[:population_counting].choices.first
+  enumerize :population_counting, in: Nomen::ProductNatures.attributes[:population_counting].choices, :predicates => {:prefix => true}, :default => Nomen::ProductNatures.attributes[:population_counting].choices.first
   belongs_to :asset_account, :class_name => "Account"
   belongs_to :charge_account, :class_name => "Account"
   belongs_to :product_account, :class_name => "Account"
@@ -350,7 +351,7 @@ class ProductNature < Ekylibre::Record::Base
     if nature.variants.count.zero?
       if item.unit_name
         variant = nature.variants.create!(:active => true, :unit_name => item.unit_name)
-        if !item.frozen_indicators.to_s.blank?        
+        if !item.frozen_indicators.to_s.blank?
           # transform "population: 1unity, net_weight :5ton" in a hash
           h_frozen_indicators = item.frozen_indicators.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
             h[i.first.strip.downcase.to_sym] = i.second

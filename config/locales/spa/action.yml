@@ -1731,6 +1731,7 @@ spa:
       # one: "%{count} observation"
       # other: "%{count} observations"
       # zero: "0 observation"
+    # x_of_y: "%{x} de %{y}"
     x_operations:
       # one: "%{count} travail"
       # other: "%{count} travaux"

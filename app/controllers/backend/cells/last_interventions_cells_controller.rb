@@ -3,8 +3,9 @@ class Backend::Cells::LastInterventionsCellsController < Backend::CellsControlle
   def show
     @intervention = Intervention.last
     production = Production.find(@intervention.production_id)
-    if target = @intervention.casts.of_role(:target).first.actor_id
-      container = Product.find(target)
+    targets = @intervention.casts.of_role(:target)
+    if targets.any? and target = targets.first.actor
+      container = target
       # if container.is_a?(CultivableLandParcel)
       #   @container = container.class.find(container.id)
       if container.is_a?(Plant)

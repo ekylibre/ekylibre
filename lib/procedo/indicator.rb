@@ -1,7 +1,7 @@
 module Procedo
 
   class Indicator
-    
+
     attr_reader :task, :stakeholder, :indicator, :value
 
     def initialize(task, stakeholder, indicator, value = nil)

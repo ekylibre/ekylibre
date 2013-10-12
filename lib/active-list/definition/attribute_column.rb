@@ -4,11 +4,12 @@ module ActiveList
 
     class AttributeColumn < DataColumn
 
-      attr_reader :column
+      attr_reader :column, :label_method
 
       def initialize(table, name, options = {})
         super(table, name, options)
-        @column  = @table.model.columns_definition[@name.to_s]
+        @label_method = (options[:label_method] || @name).to_sym
+        @column  = @table.model.columns_definition[@label_method.to_s]
       end
 
       # Code for rows
@@ -18,22 +19,26 @@ module ActiveList
           if @options[:children].is_a?(FalseClass)
             code = "nil"
           else
-            code = "#{record}.#{table.options[:children]}.#{@options[:children] || @name}"
+            code = "#{record}.#{table.options[:children]}.#{@options[:children] || @label_method}"
           end
         else
-          code = "#{record}.#{@name}"
+          code = "#{record}.#{@label_method}"
         end
         return code.c
-      end
-
-      def label_method
-        @name
       end
 
       # Returns the class name of the used model
       def class_name
         return self.table.model.name
       end
+
+      def enumerize?
+        self.table.model.send(@label_method).send(:values)
+        return true
+      rescue
+        return false
+      end
+
 
     end
 

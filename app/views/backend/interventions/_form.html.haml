@@ -1,11 +1,14 @@
+
 -# if !f.object.new_record? or procedure = Procedo[params[:procedure]]
 - if procedure = f.object.reference
   = field_set do
     = f.input :procedure, as: :hidden
     = f.referenced_association :production
+    = f.input :started_at
+    = f.input :stopped_at
 
   = field_set :casting do
-    - if f.object.new_record?
+    - if f.object.new_record? and f.object.casts.empty?
       - for name, variable in procedure.variables
         - f.object.casts.new(variable: name)
     = f.backend_fields_for :casts do |v|
@@ -21,7 +24,7 @@
       - else
         = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash}
 
-  = field_set :operations do
+  -# field_set :operations do
     - if f.object.operations.empty? or f.object.new_record?
       - for id, operation in procedure.operations
         - f.object.operations.new(position: id)

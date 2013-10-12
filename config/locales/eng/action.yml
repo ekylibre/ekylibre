@@ -1675,6 +1675,7 @@ eng:
       one: "%{count} observation"
       other: "%{count} observations"
       # zero: "0 observation"
+    # x_of_y: "%{x} de %{y}"
     x_operations:
       one: "1 operation"
       other: "%{count} operations"

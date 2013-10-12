@@ -1,4 +1,4 @@
-- if @campaign
+- if @campaign and Operation.of_campaign(@campaign).any?
   :ruby
     #
     started_on = Operation.of_campaign(@campaign).reorder(:started_at).first.started_at.to_date
