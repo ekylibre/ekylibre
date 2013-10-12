@@ -6,12 +6,12 @@
 
     if activities.count > 0
       activities_serie = activities.collect do |activity|
-        { name: activity.name, y: activity.shape_area(@campaigns).to_s.to_f*0.0001, id: activity.id, url: backend_activity_path(activity), color: cycle(*Backend::ChartsHelper::COLORS) }
+        { name: activity.name, y: activity.area(@campaigns).to_s.to_f, id: activity.id, url: backend_activity_path(activity), color: cycle(*Backend::ChartsHelper::COLORS) }
       end
       productions_serie = Production.of_campaign(@campaigns).of_activities(activities).order("activity_id, id").collect do |production|
         campaigns[production.campaign.name] ||= 0.in_hectare
-        campaigns[production.campaign.name] += production.shape_area.in_square_meter
-        { name: production.name, y: production.shape_area.to_s.to_f*0.0001, url: backend_production_path(production), color: ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3) }
+        campaigns[production.campaign.name] += production.area.in_hectare
+        { name: production.name, y: production.area.to_s.to_f, url: backend_production_path(production), color: ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3) }
       end
     end
 

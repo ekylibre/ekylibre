@@ -318,6 +318,17 @@ class Product < Ekylibre::Record::Base
     self.picture.path(style)
   end
 
+  def area(unit = :hectare, at = Time.now)
+    pop = self.population(:at => at)
+    if self.variant.indicator(:net_surface_area)
+      area = self.net_surface_area(:at => at).convert(unit)
+    else
+      area = self.shape_area(:at => at).in_square_meter.convert(unit)
+    end
+    # What a clean method to_s.to_d but needed because a little bug : Measure can't be coerced into BigDecimal
+    total = area.to_s.to_d * pop.to_s.to_d
+    return total
+  end
 
   # Measure a product for a given indicator
   def is_measured!(indicator, value, options = {})

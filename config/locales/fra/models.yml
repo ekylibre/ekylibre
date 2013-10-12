@@ -23,6 +23,8 @@ fra:
         content_maximal_quantity: "Quantité maximale supportée"
         content_nature: "Type de Produit contenu"
         variety: "Type"
+      cultivable_land_parcel:
+        area: "Superficie"
       document:
         filename: "Fichier"
       document_template:
