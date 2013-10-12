@@ -27,6 +27,7 @@ class Backend::PlantsController < BackendController
   list() do |t|
     t.column :work_number, url: true
     t.column :name, url: true
+    t.column :localize_in
     t.column :born_at
     t.action :edit
     t.action :destroy, :if => :destroyable?
@@ -45,7 +46,6 @@ class Backend::PlantsController < BackendController
     t.column :indicator
     t.column :measured_at
     t.column :value
-    t.column :measure_unit
   end
 
   # Liste des incidents de la plante considérée

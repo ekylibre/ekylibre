@@ -26,6 +26,7 @@ class Backend::EquipmentsController < BackendController
   list(order: :name) do |t|
     t.column :name, url: true
     t.column :nature, url: true
+    t.column :localize_in
     t.column :born_at, :datatype => :date
     t.action :edit
     t.action :destroy, :if => :destroyable?

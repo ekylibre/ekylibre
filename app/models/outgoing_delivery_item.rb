@@ -51,7 +51,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   #]VALIDATORS]
 
   #acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
-  sums :delivery, :items, "(item.product.net_weight.convert(:kilogram).to_f*item.quantity rescue 0)" => :weight
+  sums :delivery, :items, "item.product.weight" => :weight
 
   before_validation do
     if self.sale_item

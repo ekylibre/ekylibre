@@ -35,6 +35,7 @@ class Backend::AnimalGroupsController < BackendController
   # Liste des animaux d'un groupe d'animaux considéré
   list(:animals, :model => :product_memberships, :conditions => {group_id: 'params[:id]'.c}, :order => "started_at ASC") do |t|
     t.column :member, url: true
+    t.column :localize_in
     t.column :started_at
     t.column :stopped_at
   end

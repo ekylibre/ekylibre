@@ -313,6 +313,13 @@ class Product < Ekylibre::Record::Base
   def groups_at(viewed_at = nil)
     ProductGroup.groups_of(self, viewed_at || Time.now)
   end
+  
+  # Returns the current localization of the product at a given time (or now by default)
+  def localize_in(at = Time.now)
+    if self.localizations.where("started_at <= ?",at).count > 0
+      return self.localizations.where("started_at <= ?",at).reorder('started_at DESC').first.container.name
+    end
+  end
 
   def picture_path(style=:original)
     self.picture.path(style)
@@ -329,6 +336,17 @@ class Product < Ekylibre::Record::Base
     total = area.to_s.to_d * pop.to_s.to_d
     return total
   end
+  
+  def weight(unit = :kilogram, at = Time.now)
+    pop = self.population(:at => at)
+    if self.net_weight
+      weight = self.net_weight(:at => at).convert(unit)
+    end
+    # What a clean method to_s.to_d but needed because a little bug : Measure can't be coerced into BigDecimal
+    total = weight.to_s.to_d * pop.to_s.to_d
+    return total
+  end
+  
 
   # Measure a product for a given indicator
   def is_measured!(indicator, value, options = {})

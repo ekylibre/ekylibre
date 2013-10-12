@@ -29,7 +29,8 @@ class Backend::AnimalsController < Backend::ProductsController
     t.column :name, url: true
     t.column :born_at
     t.column :sex
-    t.column :net_weight
+    t.column :weight
+    t.column :localize_in
     t.column :mother, url: true
     t.column :father, url: true
     t.action :show, :url => {:format => :pdf}, :image => :print
