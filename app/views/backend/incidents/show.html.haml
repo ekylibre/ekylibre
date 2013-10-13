@@ -8,7 +8,7 @@
       - l.attribute :target, :url => true
 
   - b.tabbox do
-    - b.cell(:procedures) do
+    - b.cell(:interventions) do
       = toolbar do |t|
-        - t.new(:params => {:controller => :procedures, :incident_id => @incident.id})
-      = list(:procedures)
+        - t.new(:params => {:controller => :interventions, :incident_id => @incident.id})
+      = list(:interventions)

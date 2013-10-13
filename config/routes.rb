@@ -82,6 +82,12 @@ Ekylibre::Application.routes.draw do
       resource :last_outgoing_deliveries_cell, only: :show do
         get :list, on: :collection
       end
+      resource :last_incidents_cell, only: :show do
+        get :list, on: :collection
+      end
+      resource :last_document_archives_cell, only: :show do
+        get :list, on: :collection
+      end
       resource :last_interventions_cell, only: :show do
         get :list, on: :collection
       end
