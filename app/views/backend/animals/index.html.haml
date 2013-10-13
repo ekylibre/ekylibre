@@ -3,4 +3,8 @@
   -t.export do |e|
     -e.animal_list Time.now.to_s, @animals
   -t.new
-=list
+=beehive(:stock) do |b|
+  - b.cell do
+    = list
+  - b.tabbox do
+    - b.cell :currents_stocks_by_product_nature, :params => {variety: 'animal'}
