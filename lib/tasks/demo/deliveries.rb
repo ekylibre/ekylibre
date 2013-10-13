@@ -168,10 +168,11 @@ demo :deliveries do
     ##############################################################################
 
     # import an outgoing_deliveries_journal in PDF"
-    document = Document.create!(:key => "20130724_outgoing_001", :name => "outgoing_001", :nature => "outgoing_delivery_journal" )
-    File.open(Rails.root.join("test", "fixtures", "files", "releve_apports.pdf"),"rb") do |f|
-      document.archive(f.read, :pdf)
-    end
+    # bug in demo server for instance 
+    #document = Document.create!(:key => "20130724_outgoing_001", :name => "outgoing_001", :nature => "outgoing_delivery_journal" )
+    #File.open(Rails.root.join("test", "fixtures", "files", "releve_apports.pdf"),"rb") do |f|
+    #  document.archive(f.read, :pdf)
+    #end
 
   end
 

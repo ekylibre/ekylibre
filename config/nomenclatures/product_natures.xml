@@ -830,10 +830,10 @@
             saleable="true"
             depreciable="false"
             storable="false"
-            unit_name="unit"
+            unit_name="person"
             frozen_indicators="population: 1unity"
             population_counting="unitary"
-            abilities="drive(equipment)"
+            abilities="drive(equipment), move"
             indicators="population, geographic_coordinate"
             />
       <item name="manager"
@@ -844,10 +844,10 @@
             saleable="true"
             depreciable="false"
             storable="false"
-            unit_name="unit"
+            unit_name="person"
             frozen_indicators="population: 1unity"
             population_counting="unitary"
-            abilities="drive(equipment), manage(worker)"
+            abilities="drive(equipment), manage(worker), move"
             indicators="population, geographic_coordinate"
             />
     </items>

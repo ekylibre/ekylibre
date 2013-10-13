@@ -81,8 +81,7 @@ demo :interventions do
 
   end
 
-  nature = ProductNature.find_or_create_by!(name: "Travailleur", variety: "worker")
-  variant = nature.variants.find_or_create_by!(name: "Technicien", unit_name: "Personne")
+  variant = ProductNature.import_from_nomenclature(:technician).default_variant
   # add some mad but efficient workers
   Worker.find_or_create_by!(number: 'BURISU', name: 'Brice TEXIER', variant: variant)
   Worker.find_or_create_by!(number: 'IONOSPHERE', name: 'David JOULIN', variant: variant)
