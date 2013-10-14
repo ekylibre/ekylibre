@@ -75,7 +75,7 @@ class Backend::AnimalsController < Backend::ProductsController
 
   # Liste des indicateurs de l'animal considéré
   list(:indicators, :model => :product_indicator_data, :conditions => {product_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
-    t.column :indicator
+    t.column :indicator_name
     t.column :measured_at
     t.column :value
   end
