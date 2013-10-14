@@ -10,9 +10,9 @@
     <variables>
       <variable name="manure" variety="organic_matter" abilities="fertilize(plant)"/>
       <variable name="manure_to_spread" same-nature-of="manure" parameter="false" new="quantity=?" role="soil_enrichment-input"/>
-      <variable name="spreader" abilities="spreading(organic_matter)" /><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
-      <variable name="driver" variety="worker"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="tractor" variety="equipment" abilities="tow,catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
+      <variable name="spreader" abilities="spreading(organic_matter)" roles="soil_enrichment-equipment"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
+      <variable name="driver" variety="worker" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
+      <variable name="tractor" variety="equipment" abilities="tow,catch" roles="soil_enrichment-equipment"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="land_parcel" variety="land_parcel" role="soil_enrichment-target"/>
     </variables>
     <operations>        

@@ -11,14 +11,14 @@
       <item name="animal_production" roles="target, output"/>
       <item name="viviparous_birth" roles="target, output"/>
       <item name="oviparous_birth" roles="target, output"/>
-      <item name="harvest" roles="target, output"/>
+      <item name="harvest" roles="target, output, doer"/>
       <item name="transformation" roles="input, output"/>
       <item name="tillage" roles="target"/>
       <item name="plant_fertilisation" roles="input, target"/>
-      <item name="plant_illness_treatment" roles="input, target"/>
+      <item name="plant_illness_treatment" roles="input, target, doer"/>
       <item name="soil_enrichment" roles="input, target"/>
       <item name="soil_cleaning" roles="target"/>
-      <item name="sowing" roles="input, target, output"/>
+      <item name="sowing" roles="input, target, output, doer"/>
       <item name="pruning" roles="target"/>
       <item name="grinding" roles="input, output"/>
       <item name="growth_control" roles="target"/>
