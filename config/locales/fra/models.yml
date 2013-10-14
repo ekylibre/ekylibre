@@ -1400,6 +1400,7 @@ fra:
         number: "Pas de périodicité"
         year: "Année"
       usage:
+        animals: "Numérotation des animaux"
         assets: "Numérotation des immobilisations"
         cash_transfers: "Numérotation des virements internes"
         deposits: "Numérotation des remises en banque"
@@ -1408,6 +1409,7 @@ fra:
         incoming_payments: "Numérotation des encaissements"
         outgoing_deliveries: "Numérotation des bons de livraisons"
         outgoing_payments: "Numérotation des décaissements"
+        plants: "Numérotation des cultures"
         purchases: "Numérotation des achats"
         sales: "Numérotation des ventes"
         sales_invoices: "Numérotation des factures"
@@ -1640,6 +1642,7 @@ fra:
         name: "Vente standard"
     sequence:
       default:
+        animals: "ANI[year|4][number|4]"
         assets: "I[number|7]"
         cash_transfers: "VI[year|4][number|4]"
         deposits: "B[year|4][number|4]"
@@ -1648,6 +1651,7 @@ fra:
         incoming_payments: "R[year|4][number|6]"
         outgoing_deliveries: "BL[year|4][number|6]"
         outgoing_payments: "D[year|4][number|4]"
+        plants: "PLANT[year|4][number|4]"
         products: "P[number|11]"
         purchases: "A[year|4][month|2][number|6]"
         sales: "V[year|4][month|2][number|6]"
