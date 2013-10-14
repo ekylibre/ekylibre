@@ -73,8 +73,15 @@ class InterventionCast < Ekylibre::Record::Base
 
   # multiply evaluated_price of an actor(product) and used quantity in this cast
   def cost
-    if self.actor and !self.quantity.blank? and !self.evaluated_price.blank?
-      self.evaluated_price * self.quantity
+    if self.actor and !self.evaluated_price.blank?
+      if !self.quantity.blank?
+        # case INPUT
+        self.evaluated_price * self.quantity
+      else
+        # case EQUIPEMENT, DOER
+        duration = (self.stopped_at - self.started_at).in_second.convert(:hour).round(2)
+        self.evaluated_price * duration.to_s.to_f
+      end
     else
       return nil
     end
