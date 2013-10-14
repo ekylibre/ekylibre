@@ -211,8 +211,25 @@ class Intervention < Ekylibre::Record::Base
             end
           end
           if cast.variant and cast.quantity
-            cast.actor = Product.new(variant: cast.variant)
-            cast.actor.save!
+            # match correct class model
+            product_model = cast.variant.nature.matching_model
+            # @TODO refactorize when a more powerfull system works
+            # try to simply attribute a localization on a new culture from sowing 
+            # sowing case
+            if cast.roles == "sowing-output" and cast.variable == "culture"
+              container = self.casts.where(variable: "land_parcel").first.actor
+              arrival_cause = :birth
+            # harvesting grain case
+            elsif cast.roles == "harvest-output" and cast.variable == "grains"
+              container = self.casts.where(variable: "culture").first.actor
+              arrival_cause = :birth
+            # harvesting straw case
+            elsif cast.roles == "harvest-output" and cast.variable == "straw"
+              container = self.casts.where(variable: "culture").first.actor
+              arrival_cause = :birth
+            end
+            # create a product with correct type
+            cast.actor = product_model.create!(variant: cast.variant, born_at: started_at, initial_owner: Entity.of_company ,initial_container: container, initial_arrival_cause: arrival_cause)
             cast.actor.is_measured!(:population, cast.quantity)
             cast.save!
           end
