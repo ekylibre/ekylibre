@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::PeopleController < Backend::EntitiesController
-  manage_restfully
+  manage_restfully :t3e => {:name => :name}
 
   unroll
 
