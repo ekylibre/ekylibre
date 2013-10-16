@@ -2,10 +2,10 @@
   =f.input :last_name
   =f.input :first_name
   =f.input :language, :choices => :languages
-  =f.input :user_name
+  -# =f.input :user_name
   =f.input :password
   =f.input :password_confirmation
-  =f.input :admin, :hide => :rights
+  =f.input :administrator, :hide => :rights
   =f.input :employed, :show => :employee
 
 =field_set(:employee) do
@@ -19,5 +19,5 @@
   -# input :reduction_percent
   -# input :free_price
   -# input :credits
-  -partial :rights, :depend_on => :role
+  -# partial :rights, :depend_on => :role
   -# #rights{"data-refresh"=>url_for(:action=>:new, :mode=>:rights), "data-refresh-mode"=>"update"}
