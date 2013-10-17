@@ -85,7 +85,7 @@ class Production < Ekylibre::Record::Base
     event :correct do
       transition :validated => :draft
     end
-    
+
     event :abort do
       transition :draft => :aborted
     end
@@ -101,7 +101,7 @@ class Production < Ekylibre::Record::Base
     event :close do
       transition :started => :closed
     end
-    
+
   end
 
   before_validation(:on => :create) do

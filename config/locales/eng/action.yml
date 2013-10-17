@@ -92,8 +92,16 @@ eng:
       index: "Cashes"
       new: "Add a new cash"
       show: "%{nature}: %{name}"
-    backend/catalog_prices: #?
-    backend/catalogs: #?
+    backend/catalog_prices:
+      # edit: "Modifier un prix"
+      # index: "Prix"
+      # new: "Nouveau prix"
+      # show: "Prix"
+    backend/catalogs:
+      # edit: "Modifier le catalogue de prix\_: %{name}"
+      # index: "Catalogue de prix"
+      # new: "Nouveau catalogue de prix"
+      # show: "Catalogue de prix\_: %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
     backend/cells/collected_taxes_cells: #?
@@ -1016,6 +1024,7 @@ eng:
     entries: "Entries"
     entries_to_point: "Entries pointing to"
     # equipment_evaluated_cost: "Coût équipements"
+    # equipments: "Equipements"
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
     error_sale_already_paid: "The sale is already paid"
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."

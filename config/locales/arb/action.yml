@@ -99,8 +99,16 @@ arb:
       index: "الخزينة"
       new: "التسجيل لخزينة جديدة"
       show: "%{nature_label} : %{name}"
-    backend/catalog_prices: #?
-    backend/catalogs: #?
+    backend/catalog_prices:
+      # edit: "Modifier un prix"
+      # index: "Prix"
+      # new: "Nouveau prix"
+      # show: "Prix"
+    backend/catalogs:
+      # edit: "Modifier le catalogue de prix\_: %{name}"
+      # index: "Catalogue de prix"
+      # new: "Nouveau catalogue de prix"
+      # show: "Catalogue de prix\_: %{name}"
     backend/cells/bank_chart_cells: #?
     backend/cells/calendar_cells: #?
     backend/cells/collected_taxes_cells: #?
@@ -1166,6 +1174,7 @@ arb:
     entries: "السجلات"
     entries_to_point: "اعداد المدخلات"
     # equipment_evaluated_cost: "Coût équipements"
+    # equipments: "Equipements"
     error_no_file: "عدم توفر المساعدة في هذا الجزء من الطلب (%{article}).لم يتم كتابة التعليمات حتى الان.يمكنك زيارة موقعنا الالكتروني للمزيد من الاستفسار."
     # error_sale_already_paid: "La vente a déjà été payée en totalité"
     errors_explanation: "هنالك أخطاء في الملف. اذا لم تقم بتصحيحها فان خطوط الاخطاء لن تأخذ بعين الاعتبار اثناء الاستيراد"
