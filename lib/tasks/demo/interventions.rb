@@ -81,19 +81,6 @@ demo :interventions do
 
   end
 
-  # add some well-configure indicator on MineralMatter product for demo data in fertilization
-  for fertilizer_product in MineralMatter.of_variety(:mineral_matter).can("fertilize")
-    fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hundred_kilogram)
-    fertilizer_product.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hundred_kilogram)
-    fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hundred_kilogram)
-  end
-  for fertilizer_product in OrganicMatter.of_variety(:manure).derivative_of(:bos).can("fertilize")
-    fertilizer_product.is_measured!(:nitrogen_concentration, 0.65.in_kilogram_per_hundred_kilogram)
-    fertilizer_product.is_measured!(:potassium_concentration, 0.3.in_kilogram_per_hundred_kilogram)
-    fertilizer_product.is_measured!(:phosphorus_concentration, 0.11.in_kilogram_per_hundred_kilogram)
-  end
-
-
   # interventions for all poaceae
   Ekylibre::fixturize :cultural_interventions do |w|
     for production in Production.all
@@ -129,11 +116,18 @@ demo :interventions do
 
             # Fertilizing  01-03-M -> 31-03-M
             # TODO remove actor on variable with roles xxxx_input when running procedure will create new product
+              # add some well-configure indicator on MineralMatter product for demo data in fertilization
+            for fertilizer_product in MineralMatter.of_variety(:mineral_matter).can("fertilize")
+              fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hundred_kilogram)
+              fertilizer_product.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hundred_kilogram)
+              fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hundred_kilogram)
+            end
+                        
             fertilizer = Product.of_variety(:mineral_matter).all.sample
             Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'fertilizer', actor: fertilizer)
-              i.add_cast(variable: 'fertilizer_to_spread', actor: fertilizer, quantity: 1 + rand(3))
-              i.add_cast(variable: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample, quantity: i.duration.to_f)
+              i.add_cast(variable: 'fertilizer_to_spread', actor: fertilizer, quantity: 0.4 + rand(0.6))
+              i.add_cast(variable: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
               i.add_cast(variable: 'driver', actor: Worker.all.sample)
               i.add_cast(variable: 'tractor', actor: Product.can("tow(spreader)").all.sample)
               i.add_cast(variable: 'land_parcel', actor: land_parcel)
@@ -141,6 +135,12 @@ demo :interventions do
 
             # Organic Fertilizing  01-03-M -> 31-03-M
             # TODO remove actor on variable with roles xxxx_input when running procedure will create new product
+            for fertilizer_product in OrganicMatter.of_variety(:manure).derivative_of(:bos).can("fertilize")
+              fertilizer_product.is_measured!(:nitrogen_concentration, 0.65.in_kilogram_per_hundred_kilogram)
+              fertilizer_product.is_measured!(:potassium_concentration, 0.3.in_kilogram_per_hundred_kilogram)
+              fertilizer_product.is_measured!(:phosphorus_concentration, 0.11.in_kilogram_per_hundred_kilogram)
+            end
+            
             organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample
             Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'manure',      actor: organic_fertilizer)
@@ -156,7 +156,7 @@ demo :interventions do
               molecule = Product.can("kill(plant)").all.sample
               Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: support) do |i|
                 i.add_cast(variable: 'molecule', actor: molecule)
-                i.add_cast(variable: 'molecule_to_spray', actor: molecule, quantity: 20)
+                i.add_cast(variable: 'molecule_to_spray', actor: molecule, quantity: rand(15))
                 i.add_cast(variable: 'sprayer',  actor: Product.can("spray").all.sample)
                 i.add_cast(variable: 'driver',   actor: Worker.all.sample)
                 i.add_cast(variable: 'tractor',  actor: Product.can("catch").all.sample)

@@ -61,7 +61,7 @@ class Backend::ProductionsController < BackendController
     t.column :state_label
     t.action :edit, :if => :draft?
     # t.action :print, :if => :validated?
-    t.action :destroy, :if => :aborted?
+    t.action :destroy, :if => :destroyable?
   end
 
   # List supports for one production

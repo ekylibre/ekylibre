@@ -52,7 +52,7 @@ class Campaign < Ekylibre::Record::Base
 
   acts_as_numbered :number, :readonly => false
   # default_scope -> { where(:closed => false).order(:name) }
-  scope :currents, -> { where(:closed => false).reorder('harvest_year ASC') }
+  scope :currents, -> { where(:closed => false).reorder(:harvest_year) }
 
   protect(:on => :destroy) do
     self.productions.count.zero? and self.interventions.count.zero?

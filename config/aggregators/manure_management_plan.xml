@@ -15,8 +15,8 @@
         <sections for="cultivable_land_parcel" in="CultivableLandParcel.of_campaign(campaign)" of-type="record">
           <title name="name" of="cultivable_land_parcel"/>
           <property name="work_number" of="cultivable_land_parcel"/>
-          <property name="net_surface_area" of="cultivable_land_parcel" type="measure"/>
-          <property name="net_surface_area_in_hectare" value="net_surface_area.convert(:hectare).value" of="cultivable_land_parcel" type="measure" level="api"/>
+          <property name="area" of="cultivable_land_parcel" type="measure"/>
+          <property name="area_in_hectare" value="area" of="cultivable_land_parcel" type="measure" level="api"/>
           <property name="id" of="cultivable_land_parcel" level="api"/>
           <property name="shape_svg" of="cultivable_land_parcel" type="svg" level="api"/>
           <!-- looking for all Production in current cultivable_land_parcel and campaign -->
@@ -41,8 +41,8 @@
                 <cell name="id" of="input" level="api"/>
                 <within of="input.actor">
                   <cell name="name"/>
-                  <cell name="unitary_quantity" value="variant.net_weight" type="measure"/>
-                  <cell name="unitary_quantity_in_kilogram" value="variant.net_weight.convert(:kilogram).value" level="api"/>
+                  <cell name="unitary_quantity" value="net_weight" type="measure"/>
+                  <cell name="unitary_quantity_in_kilogram" value="net_weight.convert(:kilogram).value" level="api"/>
                   <cell name="unit_name"/>
                   <cell name="nature_name"/>
                   <cell name="nitrogen_concentration" type="measure"/>
@@ -51,7 +51,7 @@
                   <cell name="variety" level="api"/>
                 </within>
                 <cell name="quantity" of="input" type="measure"/>
-                <cell name="quantity_in_kilogram" value="input.actor.variant.net_weight.convert(:kilogram).value * input.quantity"/>
+                <cell name="quantity_in_kilogram" value="input.actor.net_weight.convert(:kilogram).value * input.quantity"/>
               </matrix>
             </sections>
             <!-- looking for all provisionnal soil_enrichment Procedure in current production and with cultivable land parcel in target -->
