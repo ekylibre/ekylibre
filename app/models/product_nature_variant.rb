@@ -57,7 +57,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_presence_of :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name
   #]VALIDATORS]
 
-  delegate :variety, :matching_model, :indicators_array, :population_frozen?, :population_modulo, :to => :nature
+  delegate :variety, :derivative_of, :matching_model, :indicators_array, :population_frozen?, :population_modulo, :to => :nature
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :prices, :reject_if => :all_blank, :allow_destroy => true
