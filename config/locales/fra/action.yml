@@ -92,15 +92,15 @@ fra:
       new: "Enregistrer une nouvelle trésorerie"
       show: "%{nature}\_: %{name}"
     backend/catalog_prices:
-      # edit: "Edit backend/catalog price"
-      # index: "Index backend/catalog price"
-      # new: "New backend/catalog price"
-      # show: "Show backend/catalog price"
+      edit: "Modifier un prix"
+      index: "Prix"
+      new: "Nouveau prix"
+      show: "Prix"
     backend/catalogs:
-      # edit: "Edit backend/catalog"
-      # index: "Index backend/catalog"
-      # new: "New backend/catalog"
-      # show: "Show backend/catalog"
+      edit: "Modifier le catalogue de prix\_: %{name}"
+      index: "Catalogue de prix"
+      new: "Nouveau catalogue de prix"
+      show: "Catalogue de prix\_: %{name}"
     backend/cells/bank_chart_cells:
       # show: "Show backend/cells/bank chart cell"
     backend/cells/calendar_cells:
@@ -1094,6 +1094,7 @@ fra:
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
+    equipments: "Equipements"
     equipment_evaluated_cost: "Coût équipements"
     error_no_file: "Aucune aide n’est disponible pour cette partie de l’application (%{article}). L’aide n’a pas encore été rédigée. Vous pouvez consulter le site en ligne pour plus d’informations."
     error_sale_already_paid: "La vente a déjà été payée en totalité"
