@@ -139,7 +139,9 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :campaigns do |t|
       t.string   :name,                         null: false
-      t.string   :description
+      t.text     :description
+      t.string   :number,       limit: 60,      null: false
+      t.integer  :harvest_year, limit: 4
       t.boolean  :closed,       default: false, null: false
       t.datetime :closed_at
       t.stamps

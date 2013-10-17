@@ -196,7 +196,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :campaigns, concerns: [:list, :unroll]
+    resources :campaigns, concerns: [:list, :unroll] do
+      member do
+        get :list_productions
+      end
+    end
 
     resources :cashes, concerns: [:list, :unroll] do
       member do

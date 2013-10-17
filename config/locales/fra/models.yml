@@ -23,6 +23,8 @@ fra:
         content_maximal_quantity: "Quantité maximale supportée"
         content_nature: "Type de Produit contenu"
         variety: "Type"
+      campaign:
+        harvest_year: "Année de récolte"
       cultivable_land_parcel:
         area: "Superficie"
       document:
@@ -419,7 +421,7 @@ fra:
     # archives: "Archives"
     # archives_count: "Archives count"
     archiving: "Méthode d’archivage"
-    area: "Zone postale" #?
+    area: "Zone postale"
     areas: "Zones postales"
     arrival_cause: "Cause d’entrée"
     arrived_on: "Date d’entrée"
@@ -678,6 +680,7 @@ fra:
     gravity: "Gravité"
     group: "Groupe"
     groups: "Groupes"
+    # harvest_year: "Harvest year"
     has_downpayment: "A un acompte"
     # horizontal_rotation: "Horizontal rotation"
     iban: "IBAN"
@@ -1342,12 +1345,6 @@ fra:
         square_meter: "mètre carré"
         unity: "unité"
     product_indicator_datum:
-      nature:
-        boolean: "Case à cocher"
-        choice: "Liste de choix"
-        decimal: "Chiffre (décimal)"
-        measure: "Mesure"
-        string: "Texte"
       indicator:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
@@ -1380,6 +1377,12 @@ fra:
         tp_index: "Index génétique Taux protéïque"
         urea_concentration: "Teneur moyenne en urée"
         usage_duration: "Durée d'utilisation"
+      nature:
+        boolean: "Case à cocher"
+        choice: "Liste de choix"
+        decimal: "Chiffre (décimal)"
+        measure: "Mesure"
+        string: "Texte"
     product_localization:
       arrival_cause:
         birth: "Naissance"
@@ -1430,6 +1433,7 @@ fra:
       usage:
         animals: "Numérotation des animaux"
         assets: "Numérotation des immobilisations"
+        campaigns: "Numérotation des campagnes de productions"
         cash_transfers: "Numérotation des virements internes"
         deposits: "Numérotation des remises en banque"
         entities: "Numérotation des personnes"
@@ -1672,6 +1676,7 @@ fra:
       default:
         animals: "ANI[year|4][number|4]"
         assets: "I[number|7]"
+        campaigns: "CAMP[number|4]"
         cash_transfers: "VI[year|4][number|4]"
         deposits: "B[year|4][number|4]"
         entities: "[number|8]"

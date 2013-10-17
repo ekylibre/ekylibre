@@ -242,15 +242,17 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "bank_statements", ["updater_id"], :name => "index_bank_statements_on_updater_id"
 
   create_table "campaigns", force: true do |t|
-    t.string   "name",                         null: false
-    t.string   "description"
-    t.boolean  "closed",       default: false, null: false
+    t.string   "name",                                    null: false
+    t.text     "description"
+    t.string   "number",       limit: 60,                 null: false
+    t.integer  "harvest_year"
+    t.boolean  "closed",                  default: false, null: false
     t.datetime "closed_at"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0,     null: false
+    t.integer  "lock_version",            default: 0,     null: false
   end
 
   add_index "campaigns", ["created_at"], :name => "index_campaigns_on_created_at"

@@ -1238,10 +1238,12 @@ module Ekylibre
       closed_at: Ekylibre::Record::Column.new(:closed_at, :datetime).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
-      description: Ekylibre::Record::Column.new(:description, :string).freeze,
+      description: Ekylibre::Record::Column.new(:description, :text).freeze,
+      harvest_year: Ekylibre::Record::Column.new(:harvest_year, :integer).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
+      number: Ekylibre::Record::Column.new(:number, :string, limit: 60, null: false).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
