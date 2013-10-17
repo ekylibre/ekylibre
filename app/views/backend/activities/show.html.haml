@@ -11,4 +11,6 @@
 
   - b.tabbox do
     - b.cell(:productions) do
+      = toolbar do |t|
+        - t.new(:params =>{:controller => :productions, :activity_id => @activity.id})
       = list(:productions)
