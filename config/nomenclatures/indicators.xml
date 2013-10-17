@@ -39,6 +39,9 @@
       <item name="animal_disease_state" datatype="choice" choices="healthy, sick"/>
       <item name="plant_life_state" datatype="choice" choices="germination, tillering, bolting, maturity, senescence"/>
       <item name="plant_reproduction_state" datatype="choice" choices="swelling, heading, flowering, grain_maturity, grain_senescence"/>
+      <!-- for product analysis -->
+      <item name="dry_matter_rate" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
+      <item name="water_rate" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
       <!-- for milk analysis -->
       <item name="total_bacteria_concentration" datatype="measure" unit="thousand_per_milliliter"/>
       <item name="inhibitors_presence" datatype="choice" choices="negative, positive"/>

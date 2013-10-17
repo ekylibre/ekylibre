@@ -3,10 +3,10 @@
   <procedure name="plowing" natures="plowing" version="0.0" status="frozen">
     <variables>
       <!-- paramètre réprésentant des objets de type Humain qui possède la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="driver" variety="worker"/>
+      <variable name="driver" variety="worker" roles="plowing-doer"/>
       <!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="tractor" abilities="tow"/>
-      <variable name="land_parcel" variety="land_parcel" roles="tillage-target"/>
+      <variable name="tractor" abilities="tow(plower)"/>
+      <variable name="land_parcel" variety="cultivable_land_parcel" roles="plowing-target"/>
       <variable name="plow"  abilities="plow"/>
     </variables>
     <operations>

@@ -145,7 +145,7 @@ demo :interventions do
             Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'manure',      actor: organic_fertilizer)
               i.add_cast(variable: 'manure_to_spread', actor: organic_fertilizer, quantity: 1.2)
-              i.add_cast(variable: 'spreader',    actor: Product.can("spread(mineral_matter)").all.sample)
+              i.add_cast(variable: 'spreader',    actor: Product.can("spread(organic_matter)").all.sample)
               i.add_cast(variable: 'driver',      actor: Worker.all.sample)
               i.add_cast(variable: 'tractor',     actor: Product.can("tow(spreader)").all.sample)
               i.add_cast(variable: 'land_parcel', actor: land_parcel)

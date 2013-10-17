@@ -27,7 +27,7 @@
 
   <nomenclature name="procedure_natures-tillage">
     <items>
-      <item name="plowing" roles="target"/>
+      <item name="plowing" roles="target, doer"/>
       <item name="raking" roles="target"/>
       <item name="hoeing" roles="target"/>
       <item name="cultipacking" roles="target"/>
