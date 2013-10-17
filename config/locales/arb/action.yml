@@ -113,8 +113,10 @@ arb:
     backend/cells/elapsed_interventions_times_by_activities_cells: #?
     backend/cells/elevage_rss_cells: #?
     backend/cells/expense_chart_cells: #?
+    backend/cells/last_document_archives_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_incidents_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_interventions_cells: #?
     backend/cells/last_milk_result_cells: #?
@@ -933,10 +935,12 @@ arb:
     # analytics: "Analytiques"
     # animal: "Animal"
     # animal_bar: "Animaux par lot"
+    # animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
     animal_group_tabbox:
       # animals: "Animaux du lot"
       # cares: "Soins réalisés sur le lot"
     # animal_identification: "Identification animale"
+    # animal_life_state: "Phase du bioprocessus de vie d’un animal"
     # animal_pie: "Animaux par lot"
     # animal_productions: "Productions animales"
     animal_tabbox:
@@ -1008,6 +1012,7 @@ arb:
     catalog: "مواصفات للفهرس"
     # category: "Catégorie"
     # category_name: "Catégorie"
+    # cells_concentration: "Dénombrement des cellules somatiques"
     centralize: "مركزية حسابات المحاسب"
     centralized_account: "مركزية الحسابات %{name}"
     change_price: "تغيير وحدة السعر"
@@ -1030,6 +1035,7 @@ arb:
     # close_financial_year: "Clôturer l’exercice"
     # close_journal: "Clôturer le journal"
     closed: "مغلق"
+    # clostridial_spores_concentration: "Concentration en spores butyriques"
     code: "الرمز" #?
     # collected_taxes: "TVA déductibles / collectées"
     column: "البيانات"
@@ -1186,6 +1192,7 @@ arb:
     # export_backup: "Export d’un fichier de sauvegarde"
     # exportation: "Exportation"
     extract: "يستخرج"
+    # fat_matters_concentration: "Teneur en matières grasses"
     # fax: "Fax"
     file_nature: "نوع الملف"
     file_to_download: "ملف الاستيراد"
@@ -1203,6 +1210,7 @@ arb:
     format_date:
       iso: "(السنة-الشهر-اليوم)"
     free_purchases: "المشتريات مجانية"
+    # freezing_point_temperature: "Point de solidification"
     from: "من"
     from_date: "من تاريخ" #?
     # full_name: "Client"
@@ -1215,6 +1223,7 @@ arb:
     give_discount: "منح خصومات"
     go: "صلاحية"
     graph_statistics: "رسومات احصائية"
+    # ground_appearance: "Aspect du sol"
     # group: "Groupe"
     # groups: "Groupes"
     help: "المساعدة"
@@ -1226,10 +1235,12 @@ arb:
       zero: "" #?
     iban: "رقم الحساب المصرفي الدولي (IBAN)"
     identification: "اسم ورمز المنتج"
+    # immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
     import: "استيراد"
     # import_backup: "Import de fichier de sauvegarde"
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
+    # in_production: "En production"
     # incidents: "Incidents"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
@@ -1247,8 +1258,10 @@ arb:
     index: "العودة الى دليل ادارة الاعمال" #?
     indicator: "لوحة التحكم"
     # indicators: "Indicateurs"
+    # inel_index: "Index génétique INEL"
     info: "معرفة المعلومات عن وسائل النقل"
     infos: "معرفة خصائص النظام"
+    # inhibitors_presence: "Présence de résidus d’inhibiteurs"
     # input_evaluated_cost: "Coût intrants"
     insert_actual_password: "أدخل كلمة المرور الحالية"
     insert_password: "أدخل كلمة المرور الجديدة"
@@ -1262,6 +1275,7 @@ arb:
     invoiced_amount: "قيمة الفاتورة"
     # invoices_only: "Utiliser seulement les factures"
     # is: "Est"
+    # isu_index: "Index génétique ISU"
     # items: "Éléments"
     journal: "دفتراليومية"
     journal_detail: "اغلق في %{closed_on}"
@@ -1312,6 +1326,7 @@ arb:
     line: "سطر رقم%{index} :"
     line_stock: "مكان التخزين: %{building}, الكمية المتوفرة: %{virtual_q}"
     lines: "تصميم خطوط البيع" #?
+    # lipolysis: "Lipolyse"
     # list: "Liste"
     listing_create: "انشاء استخراج جديد" #?
     listing_extract: "قائمة الاستخراج"
@@ -1329,6 +1344,8 @@ arb:
       one: "البريد الالكتروني"
       other: "%{count} بريد الكتروني اخر"
       zero: "ولا بريد الكتروني "
+    # mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère"
+    # mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
     management: "ادارة الاعمال"
     management_index: "دليل ادارة الاعمال"
     mandate_create: "انشاء تفويض" #?
@@ -1338,6 +1355,7 @@ arb:
     manual_period: "من %{start} الى %{finish}"
     # map: "Carte"
     # measure_options: "Indicateur de type mesure"
+    # meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"
     # medicines: "Remèdes"
     meeting: "المقابلة(X)مكان"
@@ -1379,6 +1397,7 @@ arb:
       trade: "التجارة"
     merge: "دمج"
     # meteo: "Météo"
+    # milk_withdrawal_period: "Période d'attente avant remise en vente de lait"
     missing_help: "صفحات مفقودة"
     # mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
     # mobile: "Portable"
@@ -1415,7 +1434,10 @@ arb:
     nb_years: "عدد السنوات عامة"
     # need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions"
     # need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant"
+    # net_surface_area: "Surface net"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة"
+    # net_volume: "Volume net"
+    # net_weight: "Poids net"
     new: "انشاء دفعة جديدة"
     new_deposit:
       # one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
@@ -1533,10 +1555,13 @@ arb:
     # placeholder: "Espace réservé"
     # places: "Lieux"
     planned_on: "قرر يوم"
+    # plant_life_state: "Phase du bioprocessus de vie d’un végétal"
     # plant_medicines: "Produits phytosanitaires"
     # plant_productions: "Productions végétales"
+    # plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
     # play: "Éxécuter"
     # please_wait: "Merci de patienter..."
+    # population: "Population"
     # preferences: "Préférences"
     # pretax_amount: "Montant HT"
     previous: "السابق"
@@ -1582,6 +1607,7 @@ arb:
       # all: "Tous"
       # inactive: "Inactifs"
     # profitability: "Rentabilité"
+    # protein_matters_concentration: "Teneur en matières protéïques"
     purchase: "الطلب"
     purchase_create: "اضافة شراء جديد" #?
     # purchase_items: "Lignes de l’achat"
@@ -1623,6 +1649,7 @@ arb:
     # reopen_journal: "Déclôturer le journal"
     report: "Informations communes"
     reported_balance: "ارجاء الرصيد"
+    # reproductor: "Reproducteur"
     reservoir: "الاحتياطي"
     reservoir_informations: "معلومات عن خزان الاحتياطي"
     reservoirs_create: "اضافة خزان احتياطي" #?
@@ -1726,11 +1753,14 @@ arb:
     sequences: "التسلسل" #?
     sequences_load: "تحميل التسلسلات المفقودة"
     # set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
+    # sex: "Sexe"
+    # shape: "Forme"
     ship: "بشريطة"
     # show: "Afficher"
     # sign_out: "Se déconnecter"
     simplified: "نظام واقعي مبسط"
     source: "مصدر البيانات"
+    # sowable: "Semable"
     start: "ابتداء من"
     state: "الحالة"
     stock_max: "الحد الاقصى للاسهم"
@@ -1767,6 +1797,7 @@ arb:
     # target: "Cible"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
+    # temperature: "Température"
     theoric_quantity: "الكمية النظرية"
     # third_informations: "Informations tierces"
     # time_zone: "Fuseau horaire"
@@ -1782,12 +1813,14 @@ arb:
     # tools_list: "Liste d’outils"
     total: "المجموع"
     total_amount: "صافي اجمالي الكمية"
+    # total_bacteria_concentration: "Dénombrement des germes totaux"
     # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "فواتير المبلغ الاجمالي"
     # total_paid_amount: "Montant total payé"
     total_quantity: "مجموع الكمية"
     # total_unpaid_amount: "Montant total impayé"
     totals: "(المجموع (صلاحية العينات والمسودات"
+    # tp_index: "Index génétique Taux protéïque"
     tracking: "المسار"
     transfer: "اجراء النقل"
     # transport: "Transport"
@@ -1800,6 +1833,7 @@ arb:
       # shipped: "Expédié"
       # waiting: "En attente"
     # treatment: "Traitement"
+    # true: "Vrai"
     unavailable:  #?
       entity: "السجل المطلوب غير متاح" #?
       financial_year: "السنة المالية غير متوفرة %{value}" #?
@@ -1831,7 +1865,9 @@ arb:
     update: "تعديل"
     update_params: "تعديل البحث"
     upload: "تحميل الملفات"
+    # urea_concentration: "Teneur moyenne en urée"
     # usage: "Utilisation"
+    # usage_duration: "Durée d'utilisation"
     # use_incoming_payment: "Rattacher l’encaissement %{payment}"
     use_renew: "اختر دفتر يومي للتقارير الجديدة"
     used_accounts: "الحسابات المستخدمة فقط" #?

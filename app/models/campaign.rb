@@ -49,20 +49,20 @@ class Campaign < Ekylibre::Record::Base
 
   validates :harvest_year, length: {is: 4}, :allow_nil => true
   before_validation :set_default_values, :on => :create
-  
+
   acts_as_numbered :number, :readonly => false
   # default_scope -> { where(:closed => false).order(:name) }
   scope :currents, -> { where(:closed => false).reorder('harvest_year ASC') }
-    
+
   protect(:on => :destroy) do
     self.productions.count.zero? and self.interventions.count.zero?
   end
-  
+
   # Sets name
   def set_default_values
     self.name = self.harvest_year.to_s if self.name.blank? and self.harvest_year
   end
-  
+
   def shape_area
     return self.productions.collect{|p| p.shape_area.to_s.to_f}.sum
   end

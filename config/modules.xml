@@ -1033,6 +1033,9 @@
       <item name="buildings">
         <page to="backend/buildings#list_divisions"/>
       </item>
+      <item name="campaigns">
+        <page to="backend/campaigns#list_productions"/>
+      </item>
       <item name="catalog_prices">
         <page to="backend/catalog_prices#show"/>
       </item>
@@ -1071,6 +1074,10 @@
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
       </item>
+      <item name="last_document_archives_cells">
+        <page to="backend/cells/last_document_archives_cells#list"/>
+        <page to="backend/cells/last_document_archives_cells#show"/>
+      </item>
       <item name="last_entities_cells">
         <page to="backend/cells/last_entities_cells#list"/>
         <page to="backend/cells/last_entities_cells#show"/>
@@ -1078,6 +1085,10 @@
       <item name="last_events_cells">
         <page to="backend/cells/last_events_cells#list"/>
         <page to="backend/cells/last_events_cells#show"/>
+      </item>
+      <item name="last_incidents_cells">
+        <page to="backend/cells/last_incidents_cells#list"/>
+        <page to="backend/cells/last_incidents_cells#show"/>
       </item>
       <item name="last_incoming_deliveries_cells">
         <page to="backend/cells/last_incoming_deliveries_cells#list"/>

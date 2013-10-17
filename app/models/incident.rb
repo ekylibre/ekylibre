@@ -62,7 +62,7 @@ class Incident < Ekylibre::Record::Base
   def has_procedure?
     self.procedures.count > 0
   end
-  
+
   def status
     self.state
   end

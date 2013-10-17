@@ -70,13 +70,13 @@ class IndicatorDatum < Ekylibre::Record::Base
     # return nil if self.indicator.blank?
     Nomen::Indicators.items[self.indicator].datatype.to_sym
   end
-  
+
   def indicator_name
     self.indicator.tl
   end
-  
+
   def indicator_value
     self.value.tl
   end
-  
+
 end

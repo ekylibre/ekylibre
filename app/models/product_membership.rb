@@ -45,9 +45,9 @@ class ProductMembership < Ekylibre::Record::Base
   validates_length_of :move_type, :allow_nil => true, :maximum => 255
   validates_presence_of :group, :member, :started_at
   #]VALIDATORS]
-  
+
   delegate :localize_in, :to => :member
-  
+
   validate do
     # TODO Checks that no time overlaps can occur and that it works
     #errors.add(:started_at, :invalid) unless self.similars.where("stopped_at IS NULL AND (started_at IS NOT NULL OR started_at <=?)", self.started_at).count.zero?

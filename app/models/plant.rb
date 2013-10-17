@@ -65,15 +65,15 @@ class Plant < Bioproduct
 
   #validates_uniqueness_of :name, :identification_number
   before_validation :set_name_and_number, :on => :create
-  
+
   # acts_as_numbered :work_number, :readonly => false
-  
+
   # Sets nature and variety from variant
   def set_name_and_number
     if self.initial_container and self.variant
       self.name = self.variant.name + " - " + self.initial_container.name if self.name.blank?
       self.work_number = "PLANT-" + self.born_at.to_s if self.work_number.blank?
     end
-  end 
+  end
 
 end

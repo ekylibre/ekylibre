@@ -29,7 +29,7 @@ class Backend::CampaignsController < BackendController
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
-  
+
     # List of productions for one campaign
   list(:productions, :conditions => {campaign_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
     t.column :name, url: true

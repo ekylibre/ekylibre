@@ -100,7 +100,7 @@ class Backend::UsersController < BackendController
     @user.save
     redirect_to_current
   end
-  
+
   protected
 
   def user_params()

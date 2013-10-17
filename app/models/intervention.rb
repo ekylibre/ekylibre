@@ -214,7 +214,7 @@ class Intervention < Ekylibre::Record::Base
             # match correct class model
             product_model = cast.variant.nature.matching_model
             # @TODO refactorize when a more powerfull system works
-            # try to simply attribute a localization on a new culture from sowing 
+            # try to simply attribute a localization on a new culture from sowing
             # sowing case
             if cast.roles == "sowing-output" and cast.variable == "culture"
               container = self.casts.where(variable: "land_parcel").first.actor

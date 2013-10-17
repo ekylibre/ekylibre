@@ -115,8 +115,10 @@ spa:
     backend/cells/elapsed_interventions_times_by_activities_cells: #?
     backend/cells/elevage_rss_cells: #?
     backend/cells/expense_chart_cells: #?
+    backend/cells/last_document_archives_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
+    backend/cells/last_incidents_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_interventions_cells: #?
     backend/cells/last_milk_result_cells: #?
@@ -843,10 +845,12 @@ spa:
     # analytics: "Analytiques"
     # animal: "Animal"
     # animal_bar: "Animaux par lot"
+    # animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
     animal_group_tabbox:
       # animals: "Animaux du lot"
       # cares: "Soins réalisés sur le lot"
     # animal_identification: "Identification animale"
+    # animal_life_state: "Phase du bioprocessus de vie d’un animal"
     # animal_pie: "Animaux par lot"
     # animal_productions: "Productions animales"
     animal_tabbox:
@@ -915,6 +919,7 @@ spa:
     # catalog: "Description pour catalogue"
     # category: "Catégorie"
     # category_name: "Catégorie"
+    # cells_concentration: "Dénombrement des cellules somatiques"
     centralize: "Cuentos contables centralizadores"
     centralized_account: "Cuento centralizador %{name}"
     # change_price: "Changer le prix unitaire"
@@ -937,6 +942,7 @@ spa:
     # close_financial_year: "Clôturer l’exercice"
     # close_journal: "Clôturer le journal"
     closed: "Cerrados"
+    # clostridial_spores_concentration: "Concentration en spores butyriques"
     code: "Codigo" #?
     # collected_taxes: "TVA déductibles / collectées"
     # column: "Donnée"
@@ -1073,6 +1079,7 @@ spa:
     # export_backup: "Export d’un fichier de sauvegarde"
     # exportation: "Exportation"
     # extract: "Extraire"
+    # fat_matters_concentration: "Teneur en matières grasses"
     # fax: "Fax"
     file_nature: "Tipo de fichero"
     # file_to_download: "Fichier à importer"
@@ -1090,6 +1097,7 @@ spa:
     format_date:
       # iso: "(AAAA-MM-JJ)"
     free_purchases: "Compras en franquisia"
+    # freezing_point_temperature: "Point de solidification"
     from: "Expedidor"
     # full_name: "Client"
     # future_events: "Futurs événements"
@@ -1101,6 +1109,7 @@ spa:
     # give_discount: "Octroyer une remise"
     # go: "Valider"
     # graph_statistics: "Statistiques graphiques"
+    # ground_appearance: "Aspect du sol"
     # group: "Groupe"
     # groups: "Groupes"
     help: "Ayuda"
@@ -1111,9 +1120,11 @@ spa:
       # other: "Temps d’utilisation total\_: %{count} heures"
     iban: "Numero de cuento bancario internacional (IBAN)"
     # identification: "Identification"
+    # immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
     import: "Importación de un  fichero de salvaguardia"
     # import_backup: "Import de fichier de sauvegarde"
     # importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
+    # in_production: "En production"
     # incidents: "Incidents"
     # include_blank: "— Aucune organisation —"
     income_statement: "cuentos de résultos"
@@ -1127,8 +1138,10 @@ spa:
       # waiting: "À encaisser plus tard"
     # indicator: "Indicateur"
     # indicators: "Indicateurs"
+    # inel_index: "Index génétique INEL"
     # info: "Information\_: %{value}"
     infos: "Informar las caracteristicas de la entrega"
+    # inhibitors_presence: "Présence de résidus d’inhibiteurs"
     # input_evaluated_cost: "Coût intrants"
     insert_actual_password: "Coja su contraseña actual"
     insert_password: "Coja su nueva contraseña"
@@ -1142,6 +1155,7 @@ spa:
     # invoiced_amount: "Montant facturé"
     # invoices_only: "Utiliser seulement les factures"
     # is: "Est"
+    # isu_index: "Index génétique ISU"
     # items: "Éléments"
     journal: "Periodico"
     journal_detail: "Cerrado al %{fecha de cerrado}"
@@ -1188,6 +1202,7 @@ spa:
       title: "Catégorias de tercios"
     # line: "Ligne n°%{index}\_:"
     # line_stock: "Lieu de stockage: %{building}, quantité disponible: %{virtual_q}"
+    # lipolysis: "Lipolyse"
     # list: "Liste"
     listing_create: "Craer una nueva extracción" #?
     listing_extract: "Ejecutar la extracción"
@@ -1205,6 +1220,8 @@ spa:
       one: "1 correro electronico"
       other: "%{count} correos electronicos"
       zero: "Ningun correo electronico"
+    # mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère"
+    # mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
     management: "Administración comercial"
     # management_index: "Index de la gestion commerciale"
     # mandates_fields: "Vous devez saisir au moins une valeur dans l’un des champs"
@@ -1213,6 +1230,7 @@ spa:
     manual_period: "del %{empezo} al %{termino}"
     # map: "Carte"
     # measure_options: "Indicateur de type mesure"
+    # meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"
     # medicines: "Remèdes"
     # meeting: "Lieu(x) de rencontre"
@@ -1239,6 +1257,7 @@ spa:
       # trade: "Achats/Ventes"
     # merge: "Fusionner"
     # meteo: "Météo"
+    # milk_withdrawal_period: "Période d'attente avant remise en vente de lait"
     missing_help: "La página no existe"
     # mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
     # mobile: "Portable"
@@ -1274,7 +1293,10 @@ spa:
     nb_years: "Nombre de años en el historico"
     # need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions"
     # need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant"
+    # net_surface_area: "Surface net"
     net_vat_amount: "TVA neta deuda"
+    # net_volume: "Volume net"
+    # net_weight: "Poids net"
     # new: "Nouveau..."
     new_deposit:
       # one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
@@ -1379,10 +1401,13 @@ spa:
     # placeholder: "Espace réservé"
     # places: "Lieux"
     # planned_on: "Date prévisionnelle"
+    # plant_life_state: "Phase du bioprocessus de vie d’un végétal"
     # plant_medicines: "Produits phytosanitaires"
     # plant_productions: "Productions végétales"
+    # plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
     # play: "Éxécuter"
     # please_wait: "Merci de patienter..."
+    # population: "Population"
     # preferences: "Préférences"
     # pretax_amount: "Montant HT"
     # previous: "Précédent"
@@ -1421,6 +1446,7 @@ spa:
       # all: "Tous"
       # inactive: "Inactifs"
     # profitability: "Rentabilité"
+    # protein_matters_concentration: "Teneur en matières protéïques"
     # purchase: "Achat"
     # purchase_items: "Lignes de l’achat"
     purchase_steps:
@@ -1454,6 +1480,7 @@ spa:
     # reopen_journal: "Déclôturer le journal"
     report: "Informaciones comunes"
     reported_balance: "Credito a rendir"
+    # reproductor: "Reproducteur"
     reservoir: "Deposito"
     reservoir_informations: "Informaciones sobre el deposito"
     reservoirs_create: "Añadir un deposito" #?
@@ -1548,12 +1575,15 @@ spa:
     sequences: "Séquencias" #?
     sequences_load: "Cargar las secuencias faltantes"
     # set_reconcilable_new_but_existing_third_accounts: "Rendre lettrables les nouveaux comptes tiers déjà existants"
+    # sex: "Sexe"
+    # shape: "Forme"
     shelf: "Categoria" #?
     # ship: "Prévue le"
     # show: "Afficher"
     # sign_out: "Se déconnecter"
     simplified: "Regimen del real simplificado"
     source: "Fuente de datos"
+    # sowable: "Semable"
     start: "Del"
     # state: "État"
     # stock_max: "Stock maximum"
@@ -1587,6 +1617,7 @@ spa:
     # target: "Cible"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
+    # temperature: "Température"
     theoric_quantity: "cantidad teorica"
     # third_informations: "Informations tierces"
     # time_zone: "Fuseau horaire"
@@ -1600,12 +1631,14 @@ spa:
     # tools_list: "Liste d’outils"
     total: "Total"
     total_amount: "Total importe HT"
+    # total_bacteria_concentration: "Dénombrement des germes totaux"
     # total_in_currency: "Total (%{currency})"
     total_invoiced_amount: "Total importe facturado"
     # total_paid_amount: "Montant total payé"
     total_quantity: "Quantidad total"
     # total_unpaid_amount: "Montant total impayé"
     totals: "Totales (piezas validas y niebla)"
+    # tp_index: "Index génétique Taux protéïque"
     # tracking: "Lot"
     # transfer: "Effectuer les transferts"
     # transport: "Transport"
@@ -1617,6 +1650,7 @@ spa:
       # shipped: "Expédié"
       # waiting: "En attente"
     # treatment: "Traitement"
+    # true: "Vrai"
     # undelivered: "Reste à livrer"
     # undeposited: "Non remis en banque"
     # uninvoiced_amount: "Montant non facturé"
@@ -1643,7 +1677,9 @@ spa:
     # update: "Modifier"
     # update_params: "Modifier la recherche"
     upload: "Séleccionar el fichero de salvaguardia a cargar"
+    # urea_concentration: "Teneur moyenne en urée"
     # usage: "Utilisation"
+    # usage_duration: "Durée d'utilisation"
     # use_incoming_payment: "Rattacher l’encaissement %{payment}"
     use_renew: "Seleccionar un periodico para los aplazamientos de nuevo"
     used_accounts: "Cuentos utilozados unico" #?
