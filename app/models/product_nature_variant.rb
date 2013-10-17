@@ -74,6 +74,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
   }
 
   # default_scope -> { order(:name) }
+  
+  scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
+  scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
+  
   scope :of_variety, Proc.new { |*varieties|
     where(:nature_id => ProductNature.of_variety(*varieties))
   }
