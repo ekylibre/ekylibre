@@ -307,8 +307,7 @@
     </group>
   </module>
   <module name="stocks" icon="truck">
-    <group name="stocks" icon="box">
-      <!-- @TODO : box icon -->
+    <group name="stocks" icon="matter">
       <item name="stocks">
         <page to="backend/products#index"/>
         <page to="backend/products#show"/>
@@ -531,7 +530,7 @@
         <page to="backend/plant_medicines#update"/>
       </item>
     </group>
-    <group name="land_parcels" icon="land_parcel">
+    <group name="land_parcels" icon="land-parcels">
       <item name="cultivable_land_parcels">
         <page to="backend/cultivable_land_parcels#index"/>
         <page to="backend/cultivable_land_parcels#create"/>
