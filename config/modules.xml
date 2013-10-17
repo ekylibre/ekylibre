@@ -531,7 +531,7 @@
         <page to="backend/plant_medicines#update"/>
       </item>
     </group>
-    <group name="land_parcels" icon="land_parcels">
+    <group name="land_parcels" icon="land_parcel">
       <item name="cultivable_land_parcels">
         <page to="backend/cultivable_land_parcels#index"/>
         <page to="backend/cultivable_land_parcels#create"/>
@@ -543,7 +543,7 @@
         <page to="backend/cultivable_land_parcels#update"/>
       </item>
     </group>
-    <group name="tools" icon="tractor">
+    <group name="equipments" icon="tractor">
       <item name="equipments">
         <page to="backend/equipments#index"/>
         <page to="backend/equipments#create"/>

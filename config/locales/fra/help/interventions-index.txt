@@ -1,9 +1,13 @@
 ====== Interventions ======
 
-Les interventions permettent de saisir des opérations, évènements et indicateurs dans un cadre méthodologique et réglementaire.
+Les interventions permettent de saisir des opérations, évènements et indicateurs au sein d'un cadre méthodologique.
 
-Elles utilisent diverses nomenclatures métiers et enregistrent les éléments de traçabilité précis lié aux produits.
+Elles utilisent diverses nomenclatures métiers et enregistrent les éléments de traçabilité précis lié aux produits (changement de localisation, production, consommation...)
 
 !!! Une intervention s'effectue dans le cadre d'une [[>backend/productions|production]].
 
->>> Ex : Semis de blé sur la parcelle culturale "Les grands pièces" dans le cadre de la production "Blé tendre 2013"
+>>> Ex 1 : Semis de blé sur la parcelle culturale "Les grands pièces" dans le cadre de la production "Blé tendre 2013"
+
+>>> Ex 2 : Alimentation de mon troupeau de vache dans le cadre de la production "Bovins Lait 2013"
+
+!!! Il faut executer une intervention après l'avoir saisie pour que les intrants, extrants... soient réellement mouvementés

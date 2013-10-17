@@ -40,6 +40,7 @@ class Backend::InterventionsController < BackendController
   list(:casts, :model => :intervention_casts, :conditions => {intervention_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
     t.column :variable_name
     t.column :actor, url: true
+    t.column :roles
     t.column :quantity
     t.column :variant, url: true
     # t.column :indicator
