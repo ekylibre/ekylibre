@@ -33,6 +33,7 @@ class Backend::CustomFieldsController < BackendController
     t.action :down, :method => :post, :unless => :last?
     t.action :edit
     t.action :show, :image => :menulist, :if => :choice?
+    t.action :destroy, :if => :destroyable?
   end
 
   list(:choices, :model => :custom_field_choices, :conditions => {custom_field_id: 'params[:id]'.c}, :order => 'position') do |t|
