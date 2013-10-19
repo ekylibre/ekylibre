@@ -4,7 +4,7 @@
     series = []
     categories = {}
 
-    product_natures = ProductNature.of_variety(@variety.to_s).where(:storable => true).order(:id)
+    product_natures = ProductNature.stockables.of_variety(@variety.to_s).order(:id)
 
     if product_natures.count > 0
       product_natures_serie = product_natures.collect do |product_nature|

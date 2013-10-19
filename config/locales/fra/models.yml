@@ -1116,12 +1116,12 @@ fra:
   enumerize:
     activity:
       family:
-        animal: "Animale"
-        none: "Aucune"
-        perenne_vegetal: "Culture pérenne"
-        processing: "Transformation"
+        oilseed_crops: "Oléagineux"
+        maize_crops: "Maïs"
+        straw_cereal_crops: "Céréales"
+        cattle_farming: "Elevage bovins"
         service: "Service"
-        vegetal: "Culture annuelle"
+        sales: "Commercialisation"
       nature:
         auxiliary: "Auxiliaire"
         main: "Principal"

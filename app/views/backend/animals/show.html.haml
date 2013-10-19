@@ -77,7 +77,7 @@
       = toolbar do |t|
         - t.new(:params =>{:controller => :incidents, :target_id => @animal.id, :target_type => @animal.class.name})
       = list(:incidents)
-    - b.cell(:interventions) do
+    - b.cell(tl(:x_intervention_casts, :count => @animal.intervention_casts.count)) do
       = toolbar do |t|
         - t.new(:params =>{:controller => :interventions, :target_id => @animal.id})
       = list(:intervention_casts)
