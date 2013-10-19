@@ -11,7 +11,7 @@ gem 'activerecord-postgis-adapter'
 # gem 'squeel'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.1'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -70,7 +70,7 @@ gem "calendar_helper", "~> 0.2.5"
 # Models helpers
 gem 'acts_as_list'
 gem 'state_machine'
-gem 'awesome_nested_set', '~> 3.0.0.rc1'
+gem 'awesome_nested_set', '~> 3.0.0.rc2'
 gem 'enumerize'
 gem 'sneaky-save'
 # gem 'paper_trail'
@@ -84,7 +84,7 @@ gem 'paperclip'
 gem 'paperclip-document'
 
 # Forms
-gem 'simple_form', '~> 3.0.0.rc'
+gem 'simple_form', '~> 3.0.0'
 gem 'cocoon'
 
 # I18n and localeapp
@@ -93,10 +93,10 @@ gem 'i18n-complements'
 # gem 'localeapp'
 
 # XML Parsing/Writing, HTML extraction
-gem 'nokogiri'
+gem 'nokogiri', '~> 1.6.0'
 gem 'libxml-ruby', :require => 'libxml'
 gem 'mechanize'
-gem 'savon', '~> 2.2'
+gem 'savon', '~> 2.2.0'
 
 # Reporting
 # gem 'thinreports-rails'
@@ -107,17 +107,17 @@ gem 'prawn', '~> 0.12.0'
 # Import/Export
 gem 'fastercsv'
 gem 'rgeo-shapefile'
-gem 'rubyzip', '< 1.0.0', require: 'zip/zip' # Needed for selenium
+#gem 'rubyzip', '< 1.0.0', require: 'zip/zip' # Needed for selenium
 gem 'ofx-parser'
 
 # Demo data
 gem 'ffaker'
 
 # Reading RSS feeds
-gem 'feedzirra', '~> 0.2.0.rc2'
+gem 'feedzirra', '~> 0.2.1'
 
 # Compass
-gem 'compass', '~> 0.13.alpha.4'
+gem 'compass', '~> 0.13.alpha.7'
 gem 'compass-rails', github: 'Compass/compass-rails', branch: 'rails4-hack' # '~> 2.0.alpha.0'
 gem 'oily_png'
 
