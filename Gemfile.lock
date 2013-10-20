@@ -448,7 +448,7 @@ DEPENDENCIES
   routing-filter (~> 0.4.0.pre)
   rspec-expectations
   sass-rails (~> 4.0.1)
-  savon (~> 2.2.0)
+  savon (= 2.2.0)
   sdoc
   selenium-webdriver
   shoulda-context
