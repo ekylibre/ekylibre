@@ -34,8 +34,8 @@ class Backend::OutgoingDeliveriesController < BackendController
     #t.column :number, through: :sale, url: true
     t.column :weight
     #t.column :amount
-    t.action :edit
-    t.action :destroy
+    t.action :edit, :if => :updateable?
+    t.action :destroy, :if => :destroyable?
   end
 
   list(:items, :model => :outgoing_delivery_items, :conditions => {:delivery_id => 'params[:id]'.c}) do |t|

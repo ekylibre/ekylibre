@@ -74,13 +74,18 @@ class OutgoingDelivery < Ekylibre::Record::Base
   end
 
   protect(:on => :update) do
-    return false unless self.send_at.nil?
+    return false unless self.sent_at.nil?
+    return true
+  end
+  
+  protect(:on => :destroy) do
+    return false unless self.sent_at.nil?
     return true
   end
 
   after_initialize do
     if self.new_record?
-      self.mode ||= mode ||= OutgoingDeliveryMode.by_defaultOutgoingDeliveryMode.by_default
+      self.mode ||= mode ||= OutgoingDeliveryMode.by_default
     end
   end
 
