@@ -63,9 +63,10 @@ class Backend::PurchasesController < BackendController
   list(:items, :model => :purchase_items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
     t.column :variant, url: true
     t.column :annotation
-    t.column :tracking_serial
+    #t.column :tracking_serial
     t.column :quantity
-    t.column :unit
+    t.column :unit_price_amount
+    t.column :indicator
     # t.column :pretax_amount, currency: true, through: :price
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true

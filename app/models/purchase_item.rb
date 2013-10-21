@@ -43,7 +43,6 @@
 
 
 class PurchaseItem < Ekylibre::Record::Base
-  acts_as_list :scope => :purchase
   # attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :price_amount, :purchase_id, :tax_id, :unit
   belongs_to :account
   # belongs_to :building, :foreign_key => :warehouse_id
@@ -57,7 +56,9 @@ class PurchaseItem < Ekylibre::Record::Base
   # accepts_nested_attributes_for :price
   delegate :purchased?, :draft?, :order?, :supplier, :to => :purchase
   # delegate :currency, :to => :price
-
+  delegate :subscribing?, :deliverable?, :to => :product_nature, :prefix => true
+  
+  acts_as_list :scope => :purchase
   acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
   sums :purchase, :items, :pretax_amount, :amount
 
@@ -72,78 +73,92 @@ class PurchaseItem < Ekylibre::Record::Base
 
 
   before_validation do
-    check_reservoir = true
-    # self.building_id = Building.first.id if Building.count == 1
-
-    # if not self.price and self.product and self.purchase
-    #   self.price = self.product.price(:supplier => self.purchase.supplier)
-    # end
-    if self.price_amount and self.tax # and not self.price
-      self.price = self.product.price(:pretax_amount => self.price_amount, :tax => self.tax, :supplier => self.supplier)
-    else
-      self.price = self.product.price(:supplier => self.supplier)
-    end
-
-    if self.price
-      product_nature = self.price.product_nature
+    if self.variant
+      product_nature = self.variant.nature
       if product_nature.charge_account.nil?
         product_nature.charge_account = Account.find_in_chart(:charges)
         product_nature.save!
       end
       self.account_id = product_nature.charge_account_id
-      # self.unit ||= self.price.product_nature.unit
-      # self.product_id = self.price.product_nature_id
-      self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
-      self.amount = (self.price.amount*self.quantity).round(2)
-      self.price_amount ||= self.price.pretax_amount
-      self.tax ||= self.price.tax
+      self.label ||= self.variant.commercial_name
+      self.currency ||= Preference.get(:currency).value
+      self.indicator ||= :population.to_s
     end
+    
+    
+    
+    #check_reservoir = true
+    # self.building_id  tc(:name, options) = Building.first.id if Building.count == 1
+
+    # if not self.price and self.product and self.purchase
+    #   self.price = self.product.price(:supplier => self.purchase.supplier)
+    # end
+    # if self.pretax_amount and self.tax # and not self.price
+      # self.unit_price_amount = self.variant.price(:pretax_amount => self.pretax_amount, :tax => self.tax, :supplier => self.supplier)
+    # else
+      # self.unit_price_amount = self.variant.price(:supplier => self.supplier)
+    # end
+
+    # if self.variant
+      # product_nature = self.variant.nature
+      # if product_nature.charge_account.nil?
+        # product_nature.charge_account = Account.find_in_chart(:charges)
+        # product_nature.save!
+      # end
+      # self.account_id = product_nature.charge_account_id
+      # # self.unit ||= self.price.product_nature.unit
+      # # self.product_id = self.price.product_nature_id
+      # self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
+      # self.amount = (self.price.amount*self.quantity).round(2)
+      # self.price_amount ||= self.price.pretax_amount
+      # self.tax ||= self.price.tax
+    # end
     # @TODO : to change dixit Burisu
     #if self.building
-    # if self.building.reservoir && self.building.product_id != self.product_id
+    # if self.bufind_in_chartilding.reservoir && self.building.product_id != self.product_id
     #    check_reservoir = false
     #    errors.add(:building_id, :building_can_not_receive_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name)
     #  end
     #end
 
-    self.tracking_serial = self.tracking_serial.to_s.strip
-    unless self.tracking_serial.blank?
-      producer = self.purchase.supplier
-      unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
-        tracking = Tracking.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
-        tracking = Tracking.create!(:name => self.tracking_serial, :product_id => self.product_id, :producer_id => producer.id) if tracking.nil?
-        self.tracking_id = tracking.id
-      end
-      self.tracking_serial.upper!
-    end
-
-    check_reservoir
+    # self.tracking_serial = self.tracking_serial.to_s.strip
+    # unless self.tracking_serial.blank?
+      # producer = self.purchase.supplier
+      # unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
+        # tracking = Tracking.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
+        # tracking = Tracking.create!(:name => self.tracking_serial, :product_id => self.product_id, :producer_id => producer.id) if tracking.nil?
+        # self.tracking_id = tracking.id
+      # end
+      # self.tracking_serial.upper!
+    # end
+# 
+    # check_reservoir
   end
 
   validate do
     # Validate that tracking serial is not used for a different product
-    producer = self.purchase.supplier
-    unless self.tracking_serial.blank?
-      errors.add(:tracking_serial, :serial_already_used_with_an_other_product) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
-    end
-    if self.price and self.purchase
-      errors.add(:price_id, :invalid) if self.price.currency != self.purchase.currency
-    end
-    errors.add(:quantity, :invalid) if self.quantity.zero?
+    # producer = self.purchase.supplier
+    # unless self.tracking_serial.blank?
+      # errors.add(:tracking_serial, :serial_already_used_with_an_other_product) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
+    # end
+    # if self.price and self.purchase
+      # errors.add(:price_id, :invalid) if self.price.currency != self.purchase.currency
+    # end
+    # errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
-  def name
-    options = {:product => self.product.name, :quantity => quantity.to_s, :amount => self.price.amount, :currency => self.price.currency.name} # , :unit => self.unit.name
-    if self.tracking
-      options[:tracking] = self.tracking.name
-      tc(:name_with_tracking, options)
-    else
-      tc(:name, options)
-    end
-  end
+  #def name
+  #  options = {:product => self.product.name, :quantity => quantity.to_s, :amount => self.price.amount, :currency => self.price.currency.name} # , :unit => self.unit.name
+  #  if self.tracking
+   #   options[:tracking] = self.tracking.name
+  #    tc(:name_with_tracking, options)
+  #  else
+  #    tc(:name, options)
+  # end
+  # end
 
   def product_name
-    self.product.name
+    self.variant.name
   end
 
   def taxes_amount
@@ -162,7 +177,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   def label
-    self.product.name
+    self.variant.name
   end
 
 end
