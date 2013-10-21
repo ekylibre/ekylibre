@@ -18,7 +18,7 @@
 #
 
 class Backend::IncomingPaymentsController < BackendController
-  manage_restfully :to_bank_on => "Date.today".c, :paid_on => "Date.today".c, :responsible_id => "current_user.id".c, t3e: {payer: "RECORD.payer.full_name".c}
+  manage_restfully :to_bank_on => "Date.today".c, :paid_on => "Date.today".c, :responsible_id => "current_user.id".c, t3e: {payer: "RECORD.payer.full_name".c, entity: "RECORD.payer.full_name".c , number: "RECORD.number".c}
 
   unroll
 
