@@ -43,9 +43,6 @@ GEM
     agric (1.0.0)
       railties (>= 3.2, < 5.0)
       sass-rails
-    akami (1.2.0)
-      gyoku (>= 0.4.0)
-      nokogiri (>= 1.4.0)
     arel (4.0.0)
     atomic (1.1.14)
     awesome_nested_set (3.0.0.rc.2)
@@ -152,8 +149,6 @@ GEM
       jquery-ui-rails (>= 4)
       rails (>= 3.2)
     gherkin-ruby (0.3.0)
-    gyoku (1.0.0)
-      builder (>= 2.1.2)
     haml (4.0.3)
       tilt
     hashery (2.1.1)
@@ -161,8 +156,6 @@ GEM
     hpricot (0.8.6)
     http-cookie (1.0.2)
       domain_name (~> 0.5)
-    httpi (2.0.2)
-      rack
     i18n (0.6.5)
     i18n-complements (0.0.10)
       i18n (>= 0.6)
@@ -210,7 +203,6 @@ GEM
     net-http-persistent (2.9)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
-    nori (2.1.0)
     ntlm-http (0.1.1)
     ofx-parser (1.1.0)
       hpricot (>= 0.6)
@@ -306,14 +298,6 @@ GEM
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
-    savon (2.2.0)
-      akami (~> 1.2.0)
-      builder (>= 2.1.2)
-      gyoku (~> 1.0.0)
-      httpi (~> 2.0.2)
-      nokogiri (>= 1.4.0)
-      nori (~> 2.1.0)
-      wasabi (~> 3.1.0)
     sax-machine (0.2.1)
       nokogiri (~> 1.6.0)
     sdoc (0.3.20)
@@ -386,9 +370,6 @@ GEM
       raindrops (~> 0.7)
     warden (1.2.3)
       rack (>= 1.0)
-    wasabi (3.1.0)
-      httpi (~> 2.0)
-      nokogiri (>= 1.4.0)
     webrobots (0.1.1)
     websocket (1.0.7)
     xpath (2.0.0)
@@ -448,7 +429,6 @@ DEPENDENCIES
   routing-filter (~> 0.4.0.pre)
   rspec-expectations
   sass-rails (~> 4.0.1)
-  savon (= 2.2.0)
   sdoc
   selenium-webdriver
   shoulda-context

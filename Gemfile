@@ -96,7 +96,7 @@ gem 'i18n-complements'
 gem 'nokogiri', '~> 1.6.0'
 gem 'libxml-ruby', :require => 'libxml'
 gem 'mechanize'
-gem 'savon', '= 2.2.0'
+# gem 'savon', '= 2.2.0' # waiting for SOAP and EDE Webservices
 
 # Reporting
 # gem 'thinreports-rails'
