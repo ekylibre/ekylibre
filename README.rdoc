@@ -3,6 +3,13 @@
 Ekylibre is a simple enterprise management web application written with Ruby on Rails framework.
 More details can be found at in the doc directory or on the official website http://ekylibre.org.
 
+== Code status
+
+{<img src="https://api.travis-ci.org/ekylibre/ekylibre.png?branch=master"/>}[https://travis-ci.org/ekylibre/ekylibre]
+{<img src="https://gemnasium.com/ekylibre/ekylibre.png"/>}[https://gemnasium.com/ekylibre/ekylibre]
+{<img src="https://codeclimate.com/github/ekylibre/ekylibre.png" />}[https://codeclimate.com/github/ekylibre/ekylibre]
+{<img src="https://coveralls.io/repos/ekylibre/ekylibre/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/ekylibre]
+
 == Guides
 
 You can learn how to contribute in Ekylibre by following our official french guide
@@ -45,7 +52,7 @@ This a short explanation on installation steps for developers:
       wget http://download.osgeo.org/postgis/source/postgis-2.1.0.tar.gz && tar xzvf postgis-2.1.0.tar.gz && cd postgis-2.1.0 && ./configure && make && sudo make install
 * Install Ruby 1.9.3 or later. If your distribution isn't up-to-date, see {RVM}[https://rvm.io] or {RBenv}[https://github.com/sstephenson/rbenv] to install the good version, else:
     sudo apt-get install ruby1.9.1 ruby1.9.1-dev
-  or
+  Or in one line ,compiling from source:
   	wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz && tar xzvf ruby-2.0.0-p247.tar.gz && cd ruby-2.0.0-p247 && ./configure && make && sudo make install
 * Configure a normal user for DB and an admin user for PostgreSQL which can add PostGIS extension and updates config/database.yml
 * Install bundler with rubygems:
@@ -76,13 +83,6 @@ We encourage you to contribute to Ekylibre.
 Some additional tools are needed to manipulate some images of the project:
 
     sudo apt-get install icoutils inkscape
-
-== Code status
-
-{<img src="https://api.travis-ci.org/ekylibre/ekylibre.png?branch=master"/>}[https://travis-ci.org/ekylibre/ekylibre]
-{<img src="https://gemnasium.com/ekylibre/ekylibre.png"/>}[https://gemnasium.com/ekylibre/ekylibre]
-{<img src="https://codeclimate.com/github/ekylibre/ekylibre.png" />}[https://codeclimate.com/github/ekylibre/ekylibre]
-{<img src="https://coveralls.io/repos/ekylibre/ekylibre/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/ekylibre/ekylibre]
 
 == See also
 
