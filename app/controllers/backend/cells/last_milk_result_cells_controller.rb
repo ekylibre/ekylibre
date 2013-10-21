@@ -13,6 +13,7 @@ class Backend::Cells::LastMilkResultCellsController < Backend::CellsController
   end
 
   def show
+    @campaign = Campaign.currents.reorder('harvest_year DESC').first
   end
 
 end

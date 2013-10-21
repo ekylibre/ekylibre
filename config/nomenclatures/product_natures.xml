@@ -76,7 +76,7 @@
             charge_account="raw_material_expenses"
             product_account="animal_derivatives_revenues"
             stock_account="animal_derivative_stock"
-            variety="organic_matter"
+            variety="milk"
             derivative_of="mammalia"
             purchasable="true"
             saleable="true"
