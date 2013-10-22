@@ -1174,6 +1174,7 @@ fra:
       waiting: "À encaisser plus tard"
     indicator: "Indicateur"
     indicators: "Indicateurs"
+    indicator_value: "Valeur de l'indicateur"
     inel_index: "Index génétique INEL"
     info: "Information\_: %{value}"
     infos: "Information générales"

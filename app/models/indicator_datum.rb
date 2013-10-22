@@ -75,8 +75,4 @@ class IndicatorDatum < Ekylibre::Record::Base
     self.indicator.tl
   end
 
-  def indicator_value
-    self.value.tl
-  end
-
 end

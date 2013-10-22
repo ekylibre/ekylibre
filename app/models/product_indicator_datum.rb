@@ -57,11 +57,11 @@ class ProductIndicatorDatum < IndicatorDatum
     where("measured_at BETWEEN ? AND ?", started_on, stopped_on)
   }
   
-  def self.averages_of_periods(column = :value, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
+  def self.averages_of_periods(column = :valeur, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
     self.calculate_in_periods(:avg, column, reference_date_column, period, dtype)
   end
 
-  def self.sums_of_periods(column = :value, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
+  def self.sums_of_periods(column = :valeur, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
     self.calculate_in_periods(:sum, column, reference_date_column, period, dtype)
   end
   

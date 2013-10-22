@@ -1,6 +1,8 @@
 - if @campaign
   :ruby
     #
+    # We have the two last campaign ex: (2012, 2013) for comparing results
+    #
     started_on = Date.new(@campaign.harvest_year.to_f, 01, 01)
     stopped_on = Date.new(@campaign.harvest_year.to_f, 12, 31)
 
@@ -15,12 +17,12 @@
     #
     #  data for bar chart indicator and by month
     #
-    bar_indicators = [ :total_bacteria_concentration, :cells_concentration ]
+    bar_indicators = [ :total_bacteria_concentration, :cells_concentration , :clostridial_spores_concentration]
     for indicator in bar_indicators
       items = ProductIndicatorDatum.where(:indicator => indicator).measured_between(started_on, stopped_on)
       if items.count > 0
         item_h = items.averages_of_periods().sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.value.to_d
+          hash[pair.expr.to_i.to_s] = pair.valeur.to_s.to_d
           hash
         end
         series << {type: 'column', name: indicator.tl, data: normalize_serie(item_h, categories.keys) }
@@ -30,18 +32,22 @@
     #
     #  data for bar chart indicator and by month
     #
-    spline_indicators = [:fat_matters_concentration, :protein_matters_concentration]
+    spline_indicators = [:fat_matters_concentration, :protein_matters_concentration, :urea_concentration]
     for indicator in spline_indicators
       items = ProductIndicatorDatum.where(:indicator => indicator.to_s).measured_between(started_on, stopped_on)
       if items.count > 0
         item_h = items.averages_of_periods().sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.value.to_d
+          hash[pair.expr.to_i.to_s] = pair.valeur.to_d
           hash
         end
         series << {type: 'spline', name: indicator.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
       end
     end
-
-  = column_chart(series, y_axis: {title: {text: :pretax_amount.tl}}, x_axis: { categories: categories.values}, legend: {})
+    
+    #@TODO waiting for a array method for jsonize key in helper in order to make multiple Y AXIS
+    # ex : y_axis: [{{title: {text: "matter_concentration"}}, {{title: {text: "cell_concentration"}, opposite: true}]
+    #
+    
+  = column_chart(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, x_axis: { categories: categories.values}, legend: {})
 - else
   %strong= :no_data.tl
