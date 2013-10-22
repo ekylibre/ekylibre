@@ -752,6 +752,7 @@ eng:
         # land_parcel_management: "Conduite de la parcelle"
     document_natures:
       items:
+        # activity_margin: "Interventions par activité"
         # manure_management_plan: "Plan de fumure"
         # veterinary_booklet: "Carnet vétérinaire"
     entity_natures:

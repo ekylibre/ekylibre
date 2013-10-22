@@ -77,7 +77,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
     return false unless self.sent_at.nil?
     return true
   end
-  
+
   protect(:on => :destroy) do
     return false unless self.sent_at.nil?
     return true

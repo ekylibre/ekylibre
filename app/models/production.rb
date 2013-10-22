@@ -103,11 +103,11 @@ class Production < Ekylibre::Record::Base
     end
 
   end
-  
+
   protect(:on => :destroy) do
     self.interventions.count.zero? and self.repartitions.count.zero?
   end
-  
+
   before_validation(:on => :create) do
     self.state ||= self.class.state_machine.initial_state(self)
   end

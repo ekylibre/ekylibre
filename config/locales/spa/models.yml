@@ -1106,12 +1106,12 @@ spa:
   enumerize:
     activity:
       family:
-        # animal: "Animale"
-        # none: "Aucune"
-        # perenne_vegetal: "Culture pérenne"
-        # processing: "Transformation"
+        # cattle_farming: "Elevage bovins"
+        # maize_crops: "Maïs"
+        # oilseed_crops: "Oléagineux"
+        # sales: "Commercialisation"
         # service: "Service"
-        # vegetal: "Culture annuelle"
+        # straw_cereal_crops: "Céréales"
       nature:
         # auxiliary: "Auxiliaire"
         # main: "Principal"

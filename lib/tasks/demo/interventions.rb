@@ -122,7 +122,7 @@ demo :interventions do
               fertilizer_product.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hundred_kilogram)
               fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hundred_kilogram)
             end
-                        
+
             fertilizer = Product.of_variety(:mineral_matter).all.sample
             Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'fertilizer', actor: fertilizer)
@@ -140,7 +140,7 @@ demo :interventions do
               fertilizer_product.is_measured!(:potassium_concentration, 0.3.in_kilogram_per_hundred_kilogram)
               fertilizer_product.is_measured!(:phosphorus_concentration, 0.11.in_kilogram_per_hundred_kilogram)
             end
-            
+
             organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample
             Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'manure',      actor: organic_fertilizer)

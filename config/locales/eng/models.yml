@@ -1483,12 +1483,17 @@ eng:
   enumerize:
     activity:
       family:
-        animal: "Animal"
-        none: "None"
-        perenne_vegetal: "Pluri-annual plant"
-        processing: "Processing"
+        animal: "Animal" #?
+        # cattle_farming: "Elevage bovins"
+        # maize_crops: "Maïs"
+        none: "None" #?
+        # oilseed_crops: "Oléagineux"
+        perenne_vegetal: "Pluri-annual plant" #?
+        processing: "Processing" #?
+        # sales: "Commercialisation"
         service: "Service"
-        vegetal: "Annual plant"
+        # straw_cereal_crops: "Céréales"
+        vegetal: "Annual plant" #?
       nature:
         auxiliary: "Auxiliary"
         main: "Main"

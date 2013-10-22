@@ -107,7 +107,7 @@ class IncomingPayment < Ekylibre::Record::Base
   protect(:on => :update) do
     self.deposit.nil? or not self.deposit.locked
   end
-  
+
   def deposit?
     if self.deposit
       return true

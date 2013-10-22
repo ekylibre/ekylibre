@@ -1035,6 +1035,7 @@ jpn:
       # unreceived: "Non reçus"
       # waiting: "À encaisser plus tard"
     # indicator: "Indicateur"
+    # indicator_value: "Valeur de l'indicateur"
     # indicators: "Indicateurs"
     # inel_index: "Index génétique INEL"
     # info: "Information\_: %{value}"
@@ -1626,6 +1627,10 @@ jpn:
       # one: "%{count} indicateur"
       # other: "%{count} indicateurs"
       # zero: "0 indicateur"
+    x_intervention_casts:
+      # one: "%{count} intervention"
+      # other: "%{count} interventions"
+      # zero: "aucune intervention"
     x_items_remain_on_y:
       # one: "%{count} élément restant."
       # other: "%{count} éléments non visibles. Affinez votre recherche."

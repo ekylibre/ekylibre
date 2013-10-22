@@ -57,7 +57,7 @@ class PurchaseItem < Ekylibre::Record::Base
   delegate :purchased?, :draft?, :order?, :supplier, :to => :purchase
   # delegate :currency, :to => :price
   delegate :subscribing?, :deliverable?, :to => :product_nature, :prefix => true
-  
+
   acts_as_list :scope => :purchase
   acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
   sums :purchase, :items, :pretax_amount, :amount
@@ -84,9 +84,9 @@ class PurchaseItem < Ekylibre::Record::Base
       self.currency ||= Preference.get(:currency).value
       self.indicator ||= :population.to_s
     end
-    
-    
-    
+
+
+
     #check_reservoir = true
     # self.building_id  tc(:name, options) = Building.first.id if Building.count == 1
 
@@ -131,7 +131,7 @@ class PurchaseItem < Ekylibre::Record::Base
       # end
       # self.tracking_serial.upper!
     # end
-# 
+#
     # check_reservoir
   end
 

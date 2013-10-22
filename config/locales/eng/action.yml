@@ -1105,6 +1105,7 @@ eng:
       unreceived: "Unreceived"
       waiting: "To deposit later"
     indicator: "Indicators"
+    # indicator_value: "Valeur de l'indicateur"
     indicators: "Indicators"
     # inel_index: "Index génétique INEL"
     info: "General parameters"
@@ -1701,6 +1702,10 @@ eng:
       one: "%{count} indicator"
       other: "%{count} indicators"
       zero: "No indicator"
+    x_intervention_casts:
+      # one: "%{count} intervention"
+      # other: "%{count} interventions"
+      # zero: "aucune intervention"
     x_items_remain_on_y:
       # one: "%{count} élément restant."
       # other: "%{count} éléments non visibles. Affinez votre recherche."

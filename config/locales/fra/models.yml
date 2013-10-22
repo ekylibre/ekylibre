@@ -1116,12 +1116,12 @@ fra:
   enumerize:
     activity:
       family:
-        oilseed_crops: "Oléagineux"
-        maize_crops: "Maïs"
-        straw_cereal_crops: "Céréales"
         cattle_farming: "Elevage bovins"
-        service: "Service"
+        maize_crops: "Maïs"
+        oilseed_crops: "Oléagineux"
         sales: "Commercialisation"
+        service: "Service"
+        straw_cereal_crops: "Céréales"
       nature:
         auxiliary: "Auxiliaire"
         main: "Principal"
