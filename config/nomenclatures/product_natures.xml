@@ -404,7 +404,7 @@
             storable="true"
             population_counting="decimal"
             unit_name="big bag de 600 kg"
-            frozen_indicators="net_weight: 600kilogram"
+            frozen_indicators="net_weight: 600kilogram, nitrogen_concentration: 33.00kg/100kg, potassium_concentration: 27.00kg/100kg, phosphorus_concentration: 33.00kg/100kg"
             abilities="fertilize"
             indicators="population"
             />
@@ -420,7 +420,7 @@
             storable="true"
             population_counting="decimal"
             unit_name="tonne"
-            frozen_indicators="net_weight: 1.00ton"
+            frozen_indicators="net_weight: 1.00ton, nitrogen_concentration: 0.65kg/100kg, potassium_concentration: 0.30kg/100kg, phosphorus_concentration: 0.11kg/100kg"
             abilities="fertilize"
             indicators="population"
             />
@@ -436,7 +436,7 @@
             storable="true"
             population_counting="decimal"
             unit_name="tonne"
-            frozen_indicators="net_weight: 1.00ton"
+            frozen_indicators="net_weight: 1.00ton, nitrogen_concentration: 0.65kg/100kg, potassium_concentration: 0.30kg/100kg, phosphorus_concentration: 0.11kg/100kg"
             abilities="fertilize"
             indicators="population"
             />
@@ -483,9 +483,9 @@
             storable="true"
             population_counting="decimal"
             unit_name="dose de 10ml"
-            frozen_indicators="net_volume: 10ml"
+            frozen_indicators="net_volume: 10ml, meat_withdrawal_period: 0day, milk_withdrawal_period: 0day"
             abilities="kill(bacteria,virus,fungus), care(animal)"
-            indicators="population, net_weight, net_volume"
+            indicators="population, net_weight"
             />
       <item name="spread_renting"
             charge_account="equipment_rent_expenses"
