@@ -143,7 +143,7 @@ GEM
       nokogiri (~> 1.6.0)
       sax-machine (~> 0.2.1)
     ffaker (1.20.0)
-    ffi (1.9.1)
+    ffi (1.9.0)
     formize (1.1.2)
       jquery-rails (>= 3)
       jquery-ui-rails (>= 4)
