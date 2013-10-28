@@ -53,7 +53,7 @@ This a short explanation on installation steps for developers:
 * Install Ruby 1.9.3 or later. If your distribution isn't up-to-date, see {RVM}[https://rvm.io] or {RBenv}[https://github.com/sstephenson/rbenv] to install the good version, else:
     sudo apt-get install ruby1.9.1 ruby1.9.1-dev
   Or in one line ,compiling from source:
-  	wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz && tar xzvf ruby-2.0.0-p247.tar.gz && cd ruby-2.0.0-p247 && ./configure && make && sudo make install
+    wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz && tar xzvf ruby-2.0.0-p247.tar.gz && cd ruby-2.0.0-p247 && ./configure && make && sudo make install
 * Configure a normal user for DB and an admin user for PostgreSQL which can add PostGIS extension and updates config/database.yml
 * Install bundler with rubygems:
     gem install bundler
