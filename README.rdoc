@@ -17,7 +17,7 @@ https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre.
 
 == Installation
 
-Update with Ubuntu 13.10x64 / Ruby 2.0
+This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...).
 
 This a short explanation on installation steps for developers:
 * Before all, install all distribution dependencies:
@@ -52,7 +52,7 @@ This a short explanation on installation steps for developers:
       wget http://download.osgeo.org/postgis/source/postgis-2.1.0.tar.gz && tar xzvf postgis-2.1.0.tar.gz && cd postgis-2.1.0 && ./configure && make && sudo make install
 * Install Ruby 1.9.3 or later. If your distribution isn't up-to-date, see {RVM}[https://rvm.io] or {RBenv}[https://github.com/sstephenson/rbenv] to install the good version, else:
     sudo apt-get install ruby1.9.1 ruby1.9.1-dev
-  Or in one line ,compiling from source:
+  Or compile it from source. In one line:
     wget ftp://ftp.ruby-lang.org/pub/ruby/2.0/ruby-2.0.0-p247.tar.gz && tar xzvf ruby-2.0.0-p247.tar.gz && cd ruby-2.0.0-p247 && ./configure && make && sudo make install
 * Configure a normal user for DB and an admin user for PostgreSQL which can add PostGIS extension and updates config/database.yml
 * Install bundler with rubygems:
@@ -82,7 +82,7 @@ We encourage you to contribute to Ekylibre.
 
 Some additional tools are needed to manipulate some images of the project:
 
-    sudo apt-get install icoutils inkscape
+  sudo apt-get install icoutils inkscape
 
 == See also
 
