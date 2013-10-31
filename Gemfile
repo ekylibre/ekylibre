@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.15'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -13,8 +13,8 @@ gem 'nokogiri', '~> 1.5.7'
 
 gem 'haml'
 gem 'fastercsv'
-gem 'libxml-ruby', :require=>'libxml'
-gem 'rubyzip', :require=>'zip/zip'
+gem 'libxml-ruby', require: 'libxml'
+gem 'rubyzip', '< 1.0.0', require: 'zip/zip'
 gem 'exception_notification'
 gem 'state_machine'
 gem 'i18n-complements'

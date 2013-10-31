@@ -92,7 +92,8 @@ case "$1" in
 	    a2dismod passenger
 	fi
 
-	${gem} install rake passenger --no-ri --no-rdoc -v '~> 3.0'
+	${gem} install rake --no-ri --no-rdoc
+	${gem} install passenger --no-ri --no-rdoc -v '~> 3.0'
 
 	version=`passenger-config --version`
 	passenger-install-apache2-module -a

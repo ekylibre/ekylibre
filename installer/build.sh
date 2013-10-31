@@ -54,7 +54,8 @@ do
 done
 shift `expr $OPTIND - 1`
 
-builds_ref="source debian win32"
+# win32 is removed from default builds
+builds_ref="source debian"
 builds=${builds_ref}
 if [ ! -z "$*" ]; then
     builds=$*
