@@ -213,7 +213,7 @@ class Intervention < Ekylibre::Record::Base
           if cast.variant and cast.quantity
             # match correct class model
             product_model = cast.variant.nature.matching_model
-            # @TODO refactorize when a more powerfull system works
+            # @TODO refactorize when a more powerful system works
             # try to simply attribute a localization on a new culture from sowing
             # sowing case
             if cast.roles == "sowing-output" and cast.variable == "culture"
@@ -229,7 +229,7 @@ class Intervention < Ekylibre::Record::Base
               arrival_cause = :birth
             end
             # create a product with correct type
-            cast.actor = product_model.create!(variant: cast.variant, born_at: started_at, initial_owner: Entity.of_company ,initial_container: container, initial_arrival_cause: arrival_cause)
+            cast.actor = product_model.create!(variant: cast.variant, born_at: started_at, initial_owner: Entity.of_company, initial_container: container, initial_arrival_cause: arrival_cause)
             cast.actor.is_measured!(:population, cast.quantity)
             cast.save!
           end
