@@ -118,9 +118,9 @@ demo :interventions do
             # TODO remove actor on variable with roles xxxx_input when running procedure will create new product
               # add some well-configure indicator on MineralMatter product for demo data in fertilization
             for fertilizer_product in MineralMatter.of_variety(:mineral_matter).can("fertilize")
-              fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.in_kilogram_per_hundred_kilogram)
-              fertilizer_product.is_measured!(:potassium_concentration, 33.00.in_kilogram_per_hundred_kilogram)
-              fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.in_kilogram_per_hundred_kilogram)
+              fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.in_percent)
+              fertilizer_product.is_measured!(:potassium_concentration, 33.00.in_percent)
+              fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.in_percent)
             end
 
             fertilizer = Product.of_variety(:mineral_matter).all.sample
@@ -136,9 +136,9 @@ demo :interventions do
             # Organic Fertilizing  01-03-M -> 31-03-M
             # TODO remove actor on variable with roles xxxx_input when running procedure will create new product
             for fertilizer_product in OrganicMatter.of_variety(:manure).derivative_of(:bos).can("fertilize")
-              fertilizer_product.is_measured!(:nitrogen_concentration, 0.65.in_kilogram_per_hundred_kilogram)
-              fertilizer_product.is_measured!(:potassium_concentration, 0.3.in_kilogram_per_hundred_kilogram)
-              fertilizer_product.is_measured!(:phosphorus_concentration, 0.11.in_kilogram_per_hundred_kilogram)
+              fertilizer_product.is_measured!(:nitrogen_concentration, 0.65.in_percent)
+              fertilizer_product.is_measured!(:potassium_concentration, 0.3.in_percent)
+              fertilizer_product.is_measured!(:phosphorus_concentration, 0.11.in_percent)
             end
 
             organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample

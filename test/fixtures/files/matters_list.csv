@@ -3,7 +3,7 @@
 'Semence de blé tendre CAPHORN','seed',,'2013-01-01','seed','caphorn',,'Population : 6 ; net_weight : 40kg',,'89.58'
 'Semence de tournesol','seed',,'2013-01-01','seed','helianthus',,'Population : 2 ; net_weight : 40kg',,'85.69'
 'Semence de blé tendre APACHE','seed',,'2013-01-01','seed','apache',,'Population : 6 ; net_weight : 40kg',,'79.65'
-'Ammonitrate 33 big bag','chemical_fertilizer',,'2013-01-01','mineral_matter',,,'Population : 2.47 ; net_weight : 600kg ; nitrogen_concentration : 27.00kg/100kg ; potassium_concentration : 33.00kg/100kg ; phosphorus_concentration : 33.00kg/100kg',,387
+'Ammonitrate 33 big bag','chemical_fertilizer',,'2013-01-01','mineral_matter',,,'Population : 2.47 ; net_weight : 600kg ; nitrogen_concentration : 27.00% ; potassium_concentration : 33.00% ; phosphorus_concentration : 33.00%',,387
 'Fumier de l''exploitation','organic_fertilizer',,'2013-01-01','manure','bos',,'Population : 4.55 ; net_weight : 1000kg',,650
 'Axial Pratic','herbicide',,'2013-01-01','herbicide',,,'Population : 50 ; net_volume : 1l',,'23.33'
 'Riflexine','animal_medicine',,'2013-01-01','animal_medicine',,,'Population : 40 ; net_volume : 10ml ; meat_withdrawal_period : 5day ; milk_withdrawal_period : 6day',,4
