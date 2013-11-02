@@ -13,6 +13,10 @@
 
 ActiveRecord::Schema.define(version: 20121212122000) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+  enable_extension "postgis"
+
   create_table "account_balances", force: true do |t|
     t.integer  "account_id",                                               null: false
     t.integer  "financial_year_id",                                        null: false

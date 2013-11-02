@@ -404,7 +404,7 @@
             storable="true"
             population_counting="decimal"
             unit_name="big bag de 600 kg"
-            frozen_indicators="net_weight: 600kilogram, nitrogen_concentration: 33%, potassium_concentration: 27%, phosphorus_concentration: 33%"
+            frozen_indicators="net_weight: 600kilogram, nitrogen_concentration: 33percent, potassium_concentration: 27percent, phosphorus_concentration: 33percent"
             abilities="fertilize"
             indicators="population"
             />
@@ -420,7 +420,7 @@
             storable="true"
             population_counting="decimal"
             unit_name="tonne"
-            frozen_indicators="net_weight: 1.00ton, nitrogen_concentration: 0.65%, potassium_concentration: 0.30%, phosphorus_concentration: 0.11%"
+            frozen_indicators="net_weight: 1.00ton, nitrogen_concentration: 0.65percent, potassium_concentration: 0.30percent, phosphorus_concentration: 0.11percent"
             abilities="fertilize"
             indicators="population"
             />
@@ -436,7 +436,7 @@
             storable="true"
             population_counting="decimal"
             unit_name="tonne"
-            frozen_indicators="net_weight: 1.00ton, nitrogen_concentration: 0.65%, potassium_concentration: 0.30%, phosphorus_concentration: 0.11%"
+            frozen_indicators="net_weight: 1.00ton, nitrogen_concentration: 0.65percent, potassium_concentration: 0.30percent, phosphorus_concentration: 0.11percent"
             abilities="fertilize"
             indicators="population"
             />
