@@ -121,7 +121,7 @@ class Account < Ekylibre::Record::Base
   end
 
   class << self
-
+    
     # Create an account with its number (and name)
     # Account#get(number[, name][, options])
     def get(*args)
@@ -157,7 +157,23 @@ class Account < Ekylibre::Record::Base
     def find_in_chart(usage)
       return self.of_usage(usage).first
     end
-
+    
+    # Find all account matching with the regexp in a String
+    # 123 will take.all accounts 123*
+    # ^456 will remove.all accounts 456*
+    def finds_with_regexpr(expr)
+      normals, excepts = ["(XD)"], []
+      for prefix in expr.strip.split(/\s*[\,\s]+\s*/)
+        code = prefix.gsub(/(^(\-|\^)|[CDX]+$)/, '')
+        excepts   << code if prefix.match(/^\^\d+$/)
+        normals   << code if prefix.match(/^\-?\d+[CDX]?$/)
+      end
+      conditions = ''      
+      conditions << "("+normals.sort.collect{|c| "number LIKE '#{c}%'"}.join(" OR ")+")" if normals.size > 0
+      conditions << " AND NOT ("+excepts.sort.collect{|c| "number LIKE '#{c}%'"}.join(" OR ")+")" if excepts.size > 0
+      self.where(conditions)
+    end
+    
     # Find or create an account with its name in chart if not exist in DB
     def find_or_create_in_chart(usage)
       if account = find_in_chart(usage)
@@ -395,7 +411,7 @@ class Account < Ekylibre::Record::Base
 
   def journal_entry_items_calculate(column, started_on, stopped_on, operation=:sum)
     column = (column == :balance ? "#{JournalEntryItem.table_name}.real_debit - #{JournalEntryItem.table_name}.real_credit" : "#{JournalEntryItem.table_name}.real_#{column}")
-    self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).calculate(operation, column)
+    self.journal_entry_items.where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).calculate(operation, column)
   end
 
 

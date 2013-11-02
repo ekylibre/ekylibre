@@ -17,6 +17,7 @@
       <item name="balance_sheet" category="exploitation"/>
       <item name="income_statement" category="exploitation"/>
       <item name="journal" category="exploitation"/>
+      <item name="profit_and_loss_statement" category="exploitation"/>
       <item name="general_journal" category="exploitation"/>
       <item name="general_ledger" category="exploitation"/>
       <item name="trial_balance" category="exploitation"/>

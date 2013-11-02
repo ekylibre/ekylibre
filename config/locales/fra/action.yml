@@ -1473,6 +1473,7 @@ fra:
       all: "Tous"
       inactive: "Inactifs"
     profitability: "Rentabilité"
+    profit_and_loss_statement: "Compte de résultat"
     protein_matters_concentration: "Teneur en matières protéïques"
     purchase: "Achat"
     purchase_items: "Lignes de l’achat"
