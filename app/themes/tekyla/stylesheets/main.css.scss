@@ -767,7 +767,7 @@ form.search {
 //  @include respond-to(large) {
 //    @include column-count(4);
 //  }
-  $label-width: 40%;
+  $attribute-label-width: 40%;
   margin: 0 $default-gap 1em;
   &:last-child {
     margin-bottom: 0;
@@ -784,12 +784,12 @@ form.search {
     }
     dt {
       @include item-label;
-      width: 0.95*$label-width;
+      width: 0.95*$attribute-label-width;
       @include float(left);
       @include ellipsis;
     }
     dd {
-      @include margin-left($label-width);
+      @include margin-left($attribute-label-width);
       .checkbox-true, .checkbox-false {
         display: inline;
         vertical-align: middle;

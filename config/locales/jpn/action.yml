@@ -1846,7 +1846,7 @@ jpn:
     # various_journal: "Journal des opérations diverses par défaut"
   unroll:
     # backend/accounts: "{number}. {name}"
-    # backend/activities: "{name} ({family}/{nature})"
+    # backend/activities: "{name}"
     backend/activity_repartitions: #?
     # backend/analytic_repartitions: "{id}"
     # backend/animals: "{name} - {work_number}"
