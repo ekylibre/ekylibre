@@ -63,3 +63,5 @@ capybara*.html
 *.jasper
 *.jrxml
 *.jrtx
+
+/.ruby-version
