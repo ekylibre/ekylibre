@@ -121,7 +121,7 @@ class Account < Ekylibre::Record::Base
   end
 
   class << self
-    
+
     # Create an account with its number (and name)
     # Account#get(number[, name][, options])
     def get(*args)
@@ -157,7 +157,7 @@ class Account < Ekylibre::Record::Base
     def find_in_chart(usage)
       return self.of_usage(usage).first
     end
-    
+
     # Find all account matching with the regexp in a String
     # 123 will take.all accounts 123*
     # ^456 will remove.all accounts 456*
@@ -168,12 +168,12 @@ class Account < Ekylibre::Record::Base
         excepts   << code if prefix.match(/^\^\d+$/)
         normals   << code if prefix.match(/^\-?\d+[CDX]?$/)
       end
-      conditions = ''      
+      conditions = ''
       conditions << "("+normals.sort.collect{|c| "number LIKE '#{c}%'"}.join(" OR ")+")" if normals.size > 0
       conditions << " AND NOT ("+excepts.sort.collect{|c| "number LIKE '#{c}%'"}.join(" OR ")+")" if excepts.size > 0
       self.where(conditions)
     end
-    
+
     # Find or create an account with its name in chart if not exist in DB
     def find_or_create_in_chart(usage)
       if account = find_in_chart(usage)

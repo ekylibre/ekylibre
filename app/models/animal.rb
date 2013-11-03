@@ -40,6 +40,7 @@
 #  initial_arrival_cause    :string(120)
 #  initial_container_id     :integer
 #  initial_owner_id         :integer
+#  initial_population       :decimal(19, 4)   default(0.0)
 #  lock_version             :integer          default(0), not null
 #  mother_id                :integer
 #  name                     :string(255)      not null

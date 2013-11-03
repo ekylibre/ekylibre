@@ -1455,6 +1455,7 @@ spa:
       # active: "Actifs"
       # all: "Tous"
       # inactive: "Inactifs"
+    # profit_and_loss_statement: "Compte de résultat"
     # profitability: "Rentabilité"
     # protein_matters_concentration: "Teneur en matières protéïques"
     # purchase: "Achat"

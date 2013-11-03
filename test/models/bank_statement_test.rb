@@ -24,6 +24,7 @@
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  credit       :decimal(19, 4)   default(0.0), not null
+#  currency     :string(3)        not null
 #  debit        :decimal(19, 4)   default(0.0), not null
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null

@@ -88,11 +88,6 @@ class Intervention < Ekylibre::Record::Base
     joins(:production).merge(Production.of_activities(activities))
   }
 
-
-  # scope :of_nature, lambda { |nature|
-  #   raise ArgumentError.new("Unknown nature #{nature.inspect}") unless Nomen::ProcedureNatures[nature]
-  #   where("natures ~ E?", "\\\\m#{nature}\\\\M")
-  # }
   scope :provisional, -> { where(provisional: true) }
   scope :real, -> { where(provisional: false) }
 

@@ -1413,6 +1413,7 @@ eng:
       active: "Active"
       all: "All"
       inactive: "Inactive"
+    # profit_and_loss_statement: "Compte de résultat"
     profitability: "Profitability"
     # protein_matters_concentration: "Teneur en matières protéïques"
     purchase: "Purchase"

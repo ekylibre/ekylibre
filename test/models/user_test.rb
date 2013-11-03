@@ -23,7 +23,7 @@
 #  administrator                          :boolean          default(TRUE), not null
 #  arrived_on                             :date
 #  authentication_token                   :string(255)
-#  commercial                             :boolean
+#  commercial                             :boolean          not null
 #  confirmation_sent_at                   :datetime
 #  confirmation_token                     :string(255)
 #  confirmed_at                           :datetime
@@ -32,7 +32,6 @@
 #  current_sign_in_at                     :datetime
 #  current_sign_in_ip                     :string(255)
 #  departed_at                            :datetime
-#  department_id                          :integer
 #  description                            :text
 #  email                                  :string(255)      not null
 #  employed                               :boolean          not null
@@ -59,6 +58,7 @@
 #  rights                                 :text
 #  role_id                                :integer          not null
 #  sign_in_count                          :integer          default(0)
+#  team_id                                :integer
 #  unconfirmed_email                      :string(255)
 #  unlock_token                           :string(255)
 #  updated_at                             :datetime         not null

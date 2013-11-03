@@ -40,6 +40,7 @@
 #  initial_arrival_cause    :string(120)
 #  initial_container_id     :integer
 #  initial_owner_id         :integer
+#  initial_population       :decimal(19, 4)   default(0.0)
 #  lock_version             :integer          default(0), not null
 #  mother_id                :integer
 #  name                     :string(255)      not null
@@ -158,7 +159,7 @@ class Product < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_numericality_of :content_maximal_quantity, :allow_nil => true
+  validates_numericality_of :content_maximal_quantity, :initial_population, :allow_nil => true
   validates_length_of :derivative_of, :initial_arrival_cause, :variety, :allow_nil => true, :maximum => 120
   validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :reservoir, :in => [true, false]

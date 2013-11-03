@@ -335,6 +335,7 @@ fra:
       observation: "Observation"
       operation: "Opération"
       operation_task: "Tâche"
+      # operation_task_cast: "Operation task cast"
       organic_matter: "Matière organique"
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
@@ -402,7 +403,8 @@ fra:
     # active_prices: "Active prices"
     activity: "Activité"
     activity_code: "Code APE/NAF"
-    # actor: "Actor"
+    actor: "Actor"
+    # actor_type: "Actor type"
     actual_number: "Numéro en cours"
     address: "Adresse"
     addresses: "Adresses"
@@ -582,7 +584,7 @@ fra:
     delivery_items: "Lignes de livraison"
     delivery_modes: "Modes de livraison" #?
     departed_at: "Parti le"
-    department: "Service"
+    department: "Service" #?
     departments: "Services" #?
     departure_cause: "Causes de sortie"
     deposit: "Remise en banque"
@@ -647,7 +649,7 @@ fra:
     expired_on: "Date d’expiration"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
-    expression: "Expression"
+    expression: "Expression" #?
     external: "Externe à l’exploitation" #?
     failed_attempts: "Tentatives de connexions échouées"
     family: "Famille"
@@ -708,6 +710,7 @@ fra:
     initial_container: "Initial container"
     initial_number: "Numéro initial"
     initial_owner: "Initial owner"
+    initial_population: "Initial population"
     integer_value: "Valeur entière"
     intervention: "Intervention"
     intervention_casts: "Intervention casts"
@@ -831,8 +834,7 @@ fra:
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier"
     old_password: "Mot de passe actuel"
-    # operand_quantity: "Operand quantity"
-    operation: "Travail" #?
+    operation: "Travail"
     operation_items: "Intrants/sortants" #?
     operation_nature: "Type d’operation" #?
     operation_natures: "Types de travail" #?
@@ -1055,8 +1057,10 @@ fra:
     suspended: "Suspendu"
     target: "Cible"
     target_type: "Type de cible"
+    # task: "Task"
     tasks: "Tâches"
     tax: "Taxe"
+    # team: "Team"
     template: "Modèle"
     theoric_quantity: "Quantité théorique"
     # third: "Third"
@@ -1103,7 +1107,7 @@ fra:
     variety: "Variété"
     vat_number: "Numéro de TVA intra-communautaire"
     vat_subjected: "Assujetti à la TVA"
-    verb: "Verbe"
+    verb: "Verbe" #?
     waiting_deliveries: "Livraisons en attente"
     webpass: "Mot de passe web" #?
     websites: "Sites web"

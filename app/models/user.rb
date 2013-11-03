@@ -24,7 +24,7 @@
 #  administrator                          :boolean          default(TRUE), not null
 #  arrived_on                             :date
 #  authentication_token                   :string(255)
-#  commercial                             :boolean
+#  commercial                             :boolean          not null
 #  confirmation_sent_at                   :datetime
 #  confirmation_token                     :string(255)
 #  confirmed_at                           :datetime
@@ -33,7 +33,6 @@
 #  current_sign_in_at                     :datetime
 #  current_sign_in_ip                     :string(255)
 #  departed_at                            :datetime
-#  department_id                          :integer
 #  description                            :text
 #  email                                  :string(255)      not null
 #  employed                               :boolean          not null
@@ -60,6 +59,7 @@
 #  rights                                 :text
 #  role_id                                :integer          not null
 #  sign_in_count                          :integer          default(0)
+#  team_id                                :integer
 #  unconfirmed_email                      :string(255)
 #  unlock_token                           :string(255)
 #  updated_at                             :datetime         not null
@@ -69,7 +69,7 @@
 class User < Ekylibre::Record::Base
   # attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :employed
   attr_readonly :person_id
-  belongs_to :department, :class_name => "Team"
+  belongs_to :team
   belongs_to :establishment
   belongs_to :person
   belongs_to :role
@@ -89,7 +89,7 @@ class User < Ekylibre::Record::Base
   validates_numericality_of :maximal_grantable_reduction_percentage, :allow_nil => true
   validates_length_of :language, :allow_nil => true, :maximum => 3
   validates_length_of :authentication_token, :confirmation_token, :current_sign_in_ip, :email, :employment, :encrypted_password, :first_name, :last_name, :last_sign_in_ip, :office, :reset_password_token, :unconfirmed_email, :unlock_token, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :administrator, :employed, :locked, :in => [true, false]
+  validates_inclusion_of :administrator, :commercial, :employed, :locked, :in => [true, false]
   validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage, :role
   #]VALIDATORS]
   # validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.encrypted_password.blank? and e.loggable?}

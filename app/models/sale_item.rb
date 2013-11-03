@@ -72,9 +72,10 @@ class SaleItem < Ekylibre::Record::Base
   delegate :all_taxes_included?, :to => :price
   delegate :name, :to => :tax, :prefix => true
   delegate :nature, :name, :to => :variant, :prefix => true
-  alias :product_nature :variant_nature
   delegate :subscribing?, :deliverable?, :to => :product_nature, :prefix => true
+  delegate :entity_id, to: :address, prefix: true
 
+  alias :product_nature :variant_nature
 
   acts_as_list :scope => :sale
   acts_as_stockable :mode => :virtual, :if => :sold?
@@ -246,7 +247,7 @@ class SaleItem < Ekylibre::Record::Base
     end
     subscription.quantity   ||= 1
     subscription.address_id ||= self.sale.delivery_address_id
-    subscription.entity_id  ||= subscription.address.entity_id if subscription.address
+    subscription.entity_id  ||= subscription.address_entity_id if subscription.address
     subscription
   end
 

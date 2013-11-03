@@ -2,3 +2,5 @@ spa:
   aggregators:
     parameters:
       # campaigns: "Campagne"
+    sections:
+      # profits: "Produits d'exploitation (1)"

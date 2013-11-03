@@ -581,6 +581,7 @@ eng:
     active_prices: "Active prices" #?
     activity: "Activity"
     activity_code: "Activity code"
+    # actor: "Actor"
     actual_number: "Actual number"
     address: "Address"
     addresses: "Addresses"
@@ -966,6 +967,7 @@ eng:
     # initial_container: "Initial container"
     initial_number: "Initial number"
     # initial_owner: "Initial owner"
+    # initial_population: "Initial population"
     input_conveyors: "Input conveyors" #?
     integer_value: "Integer value"
     # intervention: "Intervention"
