@@ -13,6 +13,8 @@ class Backend::Cells::LastMilkResultCellsController < Backend::CellsController
   end
 
   def show
+    camp = Campaign.find(params[:campaign_id]) rescue nil
+    @campaign =  camp || Campaign.currents.reorder('harvest_year DESC').first
   end
 
 end

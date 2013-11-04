@@ -2,5 +2,12 @@
   -hbox do
     -cell :last_outgoing_deliveries
     -cell :last_incoming_deliveries
-  -hbox do
+  -tabbox do
     -cell :currents_stocks_by_product_nature, :params => {variety: 'mineral_matter'}
+    -cell :currents_stocks_by_product_nature, :params => {variety: 'herbicide'}
+    -cell :currents_stocks_by_product_nature, :params => {variety: 'fungicide'}
+    -cell :currents_stocks_by_product_nature, :params => {variety: 'insecticide'}
+  -tabbox do
+    -cell :currents_stocks_by_product_nature, :params => {variety: 'plant_food'}
+    -cell :currents_stocks_by_product_nature, :params => {variety: 'mineral_food'}
+    -cell :currents_stocks_by_product_nature, :params => {variety: 'straw'}

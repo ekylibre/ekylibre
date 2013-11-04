@@ -10,7 +10,7 @@ module Procedo
 
   class InvalidExpression < StandardError
   end
- 
+
   class AmbiguousExpression < InvalidExpression
   end
 

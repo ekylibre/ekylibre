@@ -65,13 +65,11 @@ class CatalogPrice < Ekylibre::Record::Base
   scope :actives_at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
 
   before_validation do
-    if supplier = Entity.of_company
-      self.currency ||= supplier.currency
-    end
+    self.currency = "EUR" if self.currency.blank?
+    self.indicator = :population if self.indicator.blank?
     if self.started_at.nil?
       self.started_at = Time.now
     end
-    self.indicator ||= :population
     #  #self.computed_at ||= Time.now
     #  #if self.template
     #  #  self.currency ||= self.template.currency

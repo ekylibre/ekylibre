@@ -71,4 +71,8 @@ class IndicatorDatum < Ekylibre::Record::Base
     Nomen::Indicators.items[self.indicator].datatype.to_sym
   end
 
+  def indicator_name
+    self.indicator.tl
+  end
+
 end

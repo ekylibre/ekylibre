@@ -73,10 +73,17 @@ module Procedo
       !@variant.nil?
     end
 
-    def variant_indication
+    def variant_variable
       if @variant =~ /\A\:/
         other = @variant[1..-1]
-        return "same_variant_as_x".tl(x: @procedure.variables[other].human_name)
+        return @procedure.variables[other]
+      end
+      return nil
+    end
+
+    def variant_indication
+      if v = variant_variable
+        return "same_variant_as_x".tl(x: v.human_name)
       end
       return "unknown_variant".tl
     end

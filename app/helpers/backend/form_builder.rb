@@ -179,6 +179,12 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         varieties = Nomen::Varieties.to_a(variant.variety)
         @object.variety ||= varieties.first
         fs << self.input(:variety, :collection => varieties)
+        # Add derivative_of selector
+        if variant.derivative_of
+          derivatives = Nomen::Varieties.to_a(variant.derivative_of)
+          @object.derivative_of ||= derivatives.first
+          fs << self.input(:derivative_of, :collection => derivatives)
+        end
 
         # error message for indicators
         fs << @object.errors.inspect if @object.errors.any?

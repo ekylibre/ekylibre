@@ -20,29 +20,26 @@
 #
 # == Table: operation_tasks
 #
-#  created_at         :datetime         not null
-#  creator_id         :integer
-#  expression         :text
-#  id                 :integer          not null, primary key
-#  indicator_datum_id :integer
-#  lock_version       :integer          default(0), not null
-#  operand_id         :integer
-#  operand_quantity   :decimal(19, 4)
-#  operation_id       :integer          not null
-#  parent_id          :integer
-#  prorated           :boolean          not null
-#  subject_id         :integer          not null
-#  updated_at         :datetime         not null
-#  updater_id         :integer
-#  verb               :string(255)      not null
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  nature       :string(255)      not null
+#  operation_id :integer          not null
+#  parent_id    :integer
+#  prorated     :boolean          not null
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 class OperationTask < Ekylibre::Record::Base
+  belongs_to :operation, inverse_of: :tasks
+  belongs_to :parent, class_name: "OperationTask"
+  has_many :casts, class_name: "OperationTaskCast", inverse_of: :task
+  enumerize :nature, in: Procedo::Action::TYPES.keys, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :operand_quantity, :allow_nil => true
-  validates_length_of :verb, :allow_nil => true, :maximum => 255
+  validates_length_of :nature, :allow_nil => true, :maximum => 255
   validates_inclusion_of :prorated, :in => [true, false]
-  validates_presence_of :verb
+  validates_presence_of :nature, :operation
   #]VALIDATORS]
-
-  alias_attribute :expression, :string
+  validates_inclusion_of :nature, in: self.nature.values
 end

@@ -27,6 +27,7 @@ demo :products do
       # find or import from nomenclature the correct ProductNature
       product_nature = ProductNature.find_by(:nomen => r.nature_nomen) || ProductNature.import_from_nomenclature(r.nature_nomen)
       variant = product_nature.default_variant
+      pmodel = product_nature.matching_model
 
       # create a price
       if r.unit_price
@@ -42,7 +43,7 @@ demo :products do
       end
 
       # create the equipment
-      equipment = Equipment.create!(:variant_id => variant.id, :name => r.name, :born_at => r.born_at, :initial_owner => owner )
+      equipment = pmodel.create!(:variant_id => variant.id, :name => r.name, :born_at => r.born_at, :initial_owner => owner )
 
       # create indicators linked to equipment
       for indicator, value in r.indicators

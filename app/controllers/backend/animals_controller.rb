@@ -29,7 +29,8 @@ class Backend::AnimalsController < Backend::ProductsController
     t.column :name, url: true
     t.column :born_at
     t.column :sex
-    t.column :net_weight
+    t.column :weight
+    t.column :localize_in
     t.column :mother, url: true
     t.column :father, url: true
     t.action :show, :url => {:format => :pdf}, :image => :print
@@ -74,7 +75,7 @@ class Backend::AnimalsController < Backend::ProductsController
 
   # Liste des indicateurs de l'animal considéré
   list(:indicators, :model => :product_indicator_data, :conditions => {product_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
-    t.column :indicator
+    t.column :indicator_name
     t.column :measured_at
     t.column :value
   end

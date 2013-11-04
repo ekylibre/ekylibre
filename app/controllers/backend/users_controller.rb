@@ -50,14 +50,14 @@ class Backend::UsersController < BackendController
       render :partial => "rights_form"
     else
       role = Role.first
-      @user = Entity.new(:admin => false, :role => role, :employed => params[:employed], :language => Entity.of_company.language)
+      @user = User.new(:administrator => false, :role => role, :employed => params[:employed], :language => Entity.of_company.language)
       @rights = role ? role.rights_array : []
       # render_restfully_form(:model => :entity)
     end
   end
 
   def create
-    @user = Entity.new(params[:user])
+    @user = User.new user_params #(params[:user])
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
     return if save_and_redirect(@user)
@@ -99,6 +99,12 @@ class Backend::UsersController < BackendController
     @user.locked = false
     @user.save
     redirect_to_current
+  end
+
+  protected
+
+  def user_params()
+    params.require(:user).permit!
   end
 
 end

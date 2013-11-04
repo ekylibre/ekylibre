@@ -15,18 +15,18 @@ demo :productions do
     }
     # attributes to map family by activity name
     families_by_activity_name = {
-      "ORGE HIVER" => :straw_cereal_crops,
-      "BLE TENDRE" => :straw_cereal_crops,
-      "BLE DUR" => :straw_cereal_crops,
-      "MAIS SEC" => :maize_crops,
-      "TRITICALE" => :straw_cereal_crops,
-      "JACHERES ANNUELLE" => :fallow_land,
-      "TOURNESOL" => :oilseed_crops,
-      "SORGHO" => :prairie,
-      "PRAIRIE TEMPO+ARTIF" => :prairie,
-      "BOVINS LAIT" => :cattle_farming,
-      "VEAU 8-15 J" => :cattle_farming,
-      "TAURILLONS LAIT" => :cattle_farming,
+      "Orge hiver" => :straw_cereal_crops,
+      "Blé tendre" => :straw_cereal_crops,
+      "Blé dur" => :straw_cereal_crops,
+      "Maïs sec" => :maize_crops,
+      "Triticale" => :straw_cereal_crops,
+      "Jachère annuelle" => :fallow_land,
+      "Tournesol" => :oilseed_crops,
+      "Sorgho" => :prairie,
+      "Prairie temporaire et artificielle" => :prairie,
+      "Bovins lait" => :cattle_farming,
+      "Veau 8-15 J" => :cattle_farming,
+      "Taurillons lait" => :cattle_farming,
       "ADMINISTRATIF" => :exploitation,
       "BATIMENT" => :exploitation,
       "COMMERCIALISATION" => :sales,
@@ -47,15 +47,15 @@ demo :productions do
                          :family => families_by_activity_name[row[1]],
                          :product_nature_nomen => row[3].blank? ? nil :row[3].to_sym,
                          :nature => (natures[row[4]] || :none).to_s,
-                         :campaign_name => row[5].blank? ? nil : row[5].to_s,
+                         :campaign_harvest_year => row[5].blank? ? nil : row[5].to_i,
                          :work_number_storage => row[6].blank? ? nil : row[6].to_s
                          )
       product_support = Product.find_by(work_number: r.work_number_storage)
 
       # Create a campaign if not exist
-      if r.campaign_name.present?
-        campaign   = Campaign.find_by(name: r.campaign_name)
-        campaign ||= Campaign.create!(name: r.campaign_name, closed: false)
+      if r.campaign_harvest_year.present?
+        campaign = Campaign.find_by(harvest_year: r.campaign_harvest_year)
+        campaign ||= Campaign.create!(harvest_year: r.campaign_harvest_year, closed: false)
       end
       # Create an activity if not exist
       activity   = Activity.find_by(description: r.description)

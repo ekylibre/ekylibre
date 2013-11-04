@@ -48,7 +48,7 @@ module Procedo
         else
           raise ArgumentError, "Unknown stakeholder for #{@type} action: #{stakeholder.inspect}"
         end
-      end      
+      end
       if stakeholders.any?
         raise InvalidExpression, "Expression #{@expression.inspect} doesn't give all stakeholders. Missing stakeholders: #{stakeholders.inspect}"
       end

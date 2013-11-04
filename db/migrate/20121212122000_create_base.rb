@@ -29,19 +29,19 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :activities do |t|
-      t.string   :name,                     null: false
-      t.string   :description
-      t.string   :family
-      t.string   :nature,                   null: false
-      t.datetime :started_at
-      t.datetime :stopped_at
-      t.references :parent,                             index: true
-      t.integer  :lft
-      t.integer  :rgt
-      t.integer  :depth
+      t.string     :name,                     null: false
+      t.string     :description
+      t.string     :family
+      t.string     :nature,                   null: false
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.references :parent,                                index: true
+      t.integer    :lft
+      t.integer    :rgt
+      t.integer    :depth
       t.stamps
-      t.index    :name
-      t.index    [:lft, :rgt]
+      t.index      :name
+      t.index      [:lft, :rgt]
     end
 
     create_table :affairs do |t|
@@ -77,69 +77,64 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :asset_depreciations do |t|
-      t.references :asset,                                                     null: false, index: true
-      t.references :journal_entry,                                                          index: true
-      t.boolean  :accountable,                                 default: false, null: false
-      t.date     :created_on,                                                  null: false
-      t.datetime :accounted_at
-      t.date     :started_on,                                                  null: false
-      t.date     :stopped_on,                                                  null: false
-      t.decimal  :amount,             precision: 19, scale: 4,                 null: false
-      t.integer  :position
-      t.boolean  :locked,                                      default: false, null: false
-      t.references :financial_year,                                                         index: true
-      t.decimal  :asset_amount,       precision: 19, scale: 4
-      t.decimal  :depreciated_amount, precision: 19, scale: 4
+      t.references :asset,                                                       null: false, index: true
+      t.references :journal_entry,                                                            index: true
+      t.boolean    :accountable,                                 default: false, null: false
+      t.date       :created_on,                                                  null: false
+      t.datetime   :accounted_at
+      t.date       :started_on,                                                  null: false
+      t.date       :stopped_on,                                                  null: false
+      t.decimal    :amount,             precision: 19, scale: 4,                 null: false
+      t.integer    :position
+      t.boolean    :locked,                                      default: false, null: false
+      t.references :financial_year,                                                           index: true
+      t.decimal    :asset_amount,       precision: 19, scale: 4
+      t.decimal    :depreciated_amount, precision: 19, scale: 4
       t.stamps
     end
 
     create_table :assets do |t|
-      t.references :allocation_account,                                                   null: false
-      t.references :journal,                                                              null: false
-      t.string   :name,                                                                   null: false
-      t.string   :number,                                                                 null: false
-      t.text     :description
-      t.date     :purchased_on
-      t.references :purchase
-      t.references :purchase_item
-      t.boolean  :ceded
-      t.date     :ceded_on
-      t.references :sale
-      t.references :sale_item
-      t.decimal  :purchase_amount,                   precision: 19, scale: 4
-      t.date     :started_on,                                                             null: false
-      t.date     :stopped_on,                                                             null: false
-      t.decimal  :depreciable_amount,                precision: 19, scale: 4,             null: false
-      t.decimal  :depreciated_amount,                precision: 19, scale: 4,             null: false
-      t.string   :depreciation_method,                                                    null: false
-      t.string   :currency,                limit: 3,                                      null: false
-      t.decimal  :current_amount,                    precision: 19, scale: 4
-      t.references :charges_account
-      t.decimal  :depreciation_percentage,           precision: 19, scale: 4
+      t.references :allocation_account,                                           null: false, index: true
+      t.references :journal,                                                      null: false, index: true
+      t.string     :name,                                                         null: false
+      t.string     :number,                                                       null: false
+      t.text       :description
+      t.date       :purchased_on
+      t.references :purchase,                                                                  index: true
+      t.references :purchase_item,                                                             index: true
+      t.boolean    :ceded
+      t.date       :ceded_on
+      t.references :sale,                                                                      index: true
+      t.references :sale_item,                                                                 index: true
+      t.decimal    :purchase_amount,                   precision: 19, scale: 4
+      t.date       :started_on,                                                   null: false
+      t.date       :stopped_on,                                                   null: false
+      t.decimal    :depreciable_amount,                precision: 19, scale: 4,   null: false
+      t.decimal    :depreciated_amount,                precision: 19, scale: 4,   null: false
+      t.string     :depreciation_method,                                          null: false
+      t.string     :currency,                limit: 3,                            null: false
+      t.decimal    :current_amount,                    precision: 19, scale: 4
+      t.references :charges_account,                                                           index: true
+      t.decimal    :depreciation_percentage,           precision: 19, scale: 4
       t.stamps
     end
-    add_index :assets, :allocation_account_id
-    add_index :assets, :charges_account_id
-    add_index :assets, :currency
-    add_index :assets, :journal_id
-    add_index :assets, :purchase_id
-    add_index :assets, :purchase_item_id
-    add_index :assets, :sale_id
-    add_index :assets, :sale_item_id
 
     create_table :bank_statements do |t|
-      t.references :cash,                                              null: false, index: true
-      t.date     :started_on,                                          null: false
-      t.date     :stopped_on,                                          null: false
-      t.string   :number,                                              null: false
-      t.decimal  :debit,        precision: 19, scale: 4, default: 0.0, null: false
-      t.decimal  :credit,       precision: 19, scale: 4, default: 0.0, null: false
+      t.references :cash,                                                null: false, index: true
+      t.date       :started_on,                                          null: false
+      t.date       :stopped_on,                                          null: false
+      t.string     :number,                                              null: false
+      t.decimal    :debit,        precision: 19, scale: 4, default: 0.0, null: false
+      t.decimal    :credit,       precision: 19, scale: 4, default: 0.0, null: false
+      t.string     :currency,     limit: 3,                              null: false
       t.stamps
     end
 
     create_table :campaigns do |t|
       t.string   :name,                         null: false
-      t.string   :description
+      t.text     :description
+      t.string   :number,       limit: 60,      null: false
+      t.integer  :harvest_year, limit: 4
       t.boolean  :closed,       default: false, null: false
       t.datetime :closed_at
       t.stamps
@@ -163,23 +158,23 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :cashes do |t|
-      t.string   :name,                                                     null: false
-      t.string   :nature,               limit: 20, default: "bank_account", null: false
+      t.string     :name,                                                   null: false
+      t.string     :nature,             limit: 20, default: "bank_account", null: false
       t.references :journal,                                                null: false, index: true
       t.references :account,                                                null: false, index: true
-      t.string   :bank_code
-      t.string   :bank_agency_code
-      t.string   :bank_account_number
-      t.string   :bank_account_key
-      t.text     :bank_agency_address
-      t.string   :bank_name,            limit: 50
-      t.string   :mode,                            default: "iban",         null: false
-      t.string   :bank_identifier_code, limit: 11
-      t.string   :iban,                 limit: 34
-      t.string   :spaced_iban,          limit: 42
-      # t.boolean  :by_default,                      default: false,          null: false
-      t.string   :currency,             limit: 3,                           null: false
-      t.string   :country,              limit: 2
+      t.string     :bank_code
+      t.string     :bank_agency_code
+      t.string     :bank_account_number
+      t.string     :bank_account_key
+      t.text       :bank_agency_address
+      t.string     :bank_name,            limit: 50
+      t.string     :mode,                            default: "iban",       null: false
+      t.string     :bank_identifier_code, limit: 11
+      t.string     :iban,                 limit: 34
+      t.string     :spaced_iban,          limit: 42
+      # t.boolean    :by_default,                      default: false,        null: false
+      t.string     :currency,             limit: 3,                         null: false
+      t.string     :country,              limit: 2
       t.stamps
     end
 
@@ -243,24 +238,20 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :deposits do |t|
-      t.decimal  :amount,           precision: 19, scale: 4, default: 0.0,   null: false
-      t.integer  :payments_count,                            default: 0,     null: false
-      t.date     :created_on,                                                null: false
-      t.text     :description
-      t.references :cash,                                                   null: false
-      t.references :mode,                                                   null: false
-      t.boolean  :locked,                                    default: false, null: false
-      t.references :responsible
-      t.string   :number
-      t.datetime :accounted_at
-      t.references :journal_entry
-      t.boolean  :in_cash,                                   default: false, null: false
+      t.string     :number,                                                    null: false
+      t.references :cash,                                                      null: false, index: true
+      t.references :mode,                                                      null: false, index: true
+      t.date       :created_on,                                                null: false
+      t.decimal    :amount,           precision: 19, scale: 4, default: 0.0,   null: false
+      t.integer    :payments_count,                            default: 0,     null: false
+      t.text       :description
+      t.boolean    :locked,                                    default: false, null: false
+      t.references :responsible,                                                            index: true
+      t.datetime   :accounted_at
+      t.references :journal_entry,                                                          index: true
+      t.boolean    :in_cash,                                   default: false, null: false
       t.stamps
     end
-    add_index :deposits, :cash_id
-    add_index :deposits, :journal_entry_id
-    add_index :deposits, :mode_id
-    add_index :deposits, :responsible_id
 
     create_table :districts do |t|
       t.string   :name,                     null: false
@@ -441,8 +432,8 @@ class CreateBase < ActiveRecord::Migration
     create_table :gaps do |t|
       t.string     :number,                                                             null: false
       t.string     :direction,                                                          null: false
-      t.references :affair,                                                             null: false
-      t.references :entity,                                                             null: false
+      t.references :affair,                                                             null: false, index: true
+      t.references :entity,                                                             null: false, index: true
       t.decimal    :amount,                    precision: 19, scale: 4, default: 0.0,   null: false
       t.string     :currency,       limit: 3,                                           null: false
       t.datetime   :accounted_at
@@ -496,27 +487,22 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :incoming_payment_modes do |t|
-      t.string   :name,                    limit: 50,                                          null: false
-      t.references :depositables_account
-      t.references :cash
-      t.boolean  :active,                                                      default: false
-      t.boolean  :with_accounting,                                             default: false, null: false
-      t.boolean  :with_deposit,                                                default: false, null: false
-      t.boolean  :with_commission,                                             default: false, null: false
-      t.decimal  :commission_percentage,              precision: 19, scale: 4, default: 0.0,   null: false
-      t.decimal  :commission_base_amount,             precision: 19, scale: 4, default: 0.0,   null: false
-      t.references :commission_account
-      t.integer  :position
-      t.references :depositables_journal
-      t.boolean  :detail_payments,                                             default: false, null: false
-      t.references :attorney_journal
+      t.string     :name,                    limit: 50,                                          null: false
+      t.references :cash,                                                                                     index: true
+      t.boolean    :active,                                                      default: false
+      t.integer    :position
+      t.boolean    :with_accounting,                                             default: false, null: false
+      t.references :attorney_journal,                                                                         index: true
+      t.boolean    :with_commission,                                             default: false, null: false
+      t.decimal    :commission_percentage,              precision: 19, scale: 4, default: 0.0,   null: false
+      t.decimal    :commission_base_amount,             precision: 19, scale: 4, default: 0.0,   null: false
+      t.references :commission_account,                                                                       index: true
+      t.boolean    :with_deposit,                                                default: false, null: false
+      t.references :depositables_account,                                                                     index: true
+      t.references :depositables_journal,                                                                     index: true
+      t.boolean    :detail_payments,                                             default: false, null: false
       t.stamps
     end
-    add_index :incoming_payment_modes, :attorney_journal_id
-    add_index :incoming_payment_modes, :cash_id
-    add_index :incoming_payment_modes, :commission_account_id
-    add_index :incoming_payment_modes, :depositables_account_id
-    add_index :incoming_payment_modes, :depositables_journal_id
 
     create_table :incoming_payments do |t|
       t.date       :paid_on
@@ -621,6 +607,7 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :absolute_credit,               precision: 19, scale: 4,  default: 0.0, null: false
       t.string     :absolute_currency,  limit: 3,                                          null: false
       t.stamps
+      t.index      :number
     end
 
     create_table :journal_entry_items do |t|
@@ -650,8 +637,8 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :cumulated_absolute_debit,             precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal    :cumulated_absolute_credit,            precision: 19, scale: 4,  default: 0.0, null: false
       t.stamps
-      t.index :letter
-      t.index :name
+      t.index      :letter
+      t.index      :name
     end
 
     create_table :journals do |t|
@@ -759,15 +746,28 @@ class CreateBase < ActiveRecord::Migration
     create_table :operation_tasks do |t|
       t.references :operation,                                    null: false, index: true
       t.references :parent,                                                    index: true
+      t.string     :nature,                                       null: false
       t.boolean    :prorated,                     default: false, null: false
-      t.references :subject,                                      null: false, index: true
-      t.string     :verb,                                         null: false
-      t.references :operand,                                                   index: true
-      t.decimal    :operand_quantity,    precision: 19, scale: 4
-      t.references :indicator_datum,                                           index: true
-      t.text       :expression
+      # t.text       :expression,                                   null: false
+      # t.references :subject,                                      null: false, index: true
+      # t.string     :verb,                                         null: false
+      # t.references :operand,                                                   index: true
+      # t.decimal    :operand_quantity,    precision: 19, scale: 4
+      # t.references :indicator_datum,                                           index: true
+      # t.text       :expression
       t.stamps
+      t.index      :nature
     end
+
+    create_table :operation_task_casts do |t|
+      t.references :task,                                   null: false, index: true
+      t.string     :name,                                   null: false
+      t.references :actor,         polymorphic: true,       null: false, index: true
+      t.stamps
+      t.index      :name
+      t.index      [:task_id, :name], unique: true
+    end
+
 
     create_table :outgoing_deliveries do |t|
       t.references :sale
@@ -866,18 +866,19 @@ class CreateBase < ActiveRecord::Migration
       t.index      :delivered_on
     end
 
+
     create_table :product_indicator_data do |t|
-      t.references :product,                                                                                    null: false, index: true
-      t.references :move,      polymorphic: true, index: true
-      t.string     :indicator,                                                                                  null: false
-      t.string     :indicator_datatype,                                                                         null: false
-      t.datetime   :measured_at,                                                                                null: false
-      t.decimal    :decimal_value,                                     precision: 19, scale: 4
-      t.decimal    :measure_value_value,                               precision: 19, scale: 4
+      t.references :product,                                                            null: false, index: true
+      t.references :move,                      polymorphic: true,                                    index: true
+      t.references :operation_task,                                                                  index: true
+      t.string     :indicator,                                                          null: false
+      t.string     :indicator_datatype,                                                 null: false
+      t.datetime   :measured_at,                                                        null: false
+      t.decimal    :decimal_value,             precision: 19, scale: 4
+      t.decimal    :measure_value_value,       precision: 19, scale: 4
       t.string     :measure_value_unit
-      t.references :operation_task,                          index: true
       t.text       :string_value
-      t.boolean    :boolean_value,                                                              default: false, null: false
+      t.boolean    :boolean_value,                                      default: false, null: false
       t.string     :choice_value
       t.point      :point_value,               has_z: true
       t.geometry   :geometry_value,            has_z: true
@@ -1077,9 +1078,10 @@ class CreateBase < ActiveRecord::Migration
       t.string     :type
       t.string     :name,                                                                          null: false
       t.string     :number,                                                                        null: false
-      t.references :initial_container
+      t.references :initial_container,                                                                          index: true
       t.string     :initial_arrival_cause,     limit: 120
-      t.references :initial_owner
+      t.references :initial_owner,                                                                              index: true
+      t.decimal    :initial_population,                   precision: 19, scale: 4, default: 0.0
       t.string     :variety,                  limit: 120,                                          null: false
       t.string     :derivative_of,            limit: 120
       t.references :variant,                                                                       null: false, index: true
@@ -1368,13 +1370,13 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :teams do |t|
-      t.string   :name,                         null: false
-      t.text     :description
-      t.references :parent, index: true
-      t.text     :sales_conditions
-      t.integer  :lft
-      t.integer  :rgt
-      t.integer  :depth,            default: 0, null: false
+      t.string     :name,                         null: false
+      t.text       :description
+      t.references :parent,                                    index: true
+      t.text       :sales_conditions
+      t.integer    :lft
+      t.integer    :rgt
+      t.integer    :depth,            default: 0, null: false
       t.stamps
     end
 
@@ -1383,11 +1385,10 @@ class CreateBase < ActiveRecord::Migration
       t.string     :serial
       t.boolean    :active,       default: true, null: false
       t.text       :description
-      t.references :product
-      t.references :producer
+      t.references :product,                                 index: true
+      t.references :producer,                                index: true
       t.stamps
     end
-    add_index :trackings, :product_id
 
     create_table :transfers do |t|
       t.decimal  :amount,                     precision: 19, scale: 4, default: 0.0, null: false
@@ -1427,55 +1428,51 @@ class CreateBase < ActiveRecord::Migration
     add_index :transports, :transporter_id
 
     create_table :users do |t|
-      t.string   :first_name,                                                                                null: false
-      t.string   :last_name,                                                                                 null: false
-      t.boolean  :locked,                                                                    default: false, null: false
-      t.string   :email,                                                                                     null: false
-      t.references :role,                                                                                   null: false
-      t.decimal  :maximal_grantable_reduction_percentage,           precision: 19, scale: 4, default: 5.0,   null: false
-      t.boolean  :administrator,                                                             default: true,  null: false
-      t.text     :rights
-      t.date     :arrived_on
-      t.text     :description
-      t.boolean  :commercial
-      t.datetime :departed_at
-      t.references :department
-      t.references :establishment
-      t.string   :office
-      t.references :profession
-      t.boolean  :employed,                                                                  default: false, null: false
-      t.string   :employment
-      t.string   :language,                               limit: 3,                                          null: false
-      t.datetime :last_sign_in_at
-      t.string   :encrypted_password,                                                        default: "",    null: false
-      t.string   :reset_password_token
-      t.datetime :reset_password_sent_at
-      t.datetime :remember_created_at
-      t.integer  :sign_in_count,                                                             default: 0
-      t.datetime :current_sign_in_at
-      t.string   :current_sign_in_ip
-      t.string   :last_sign_in_ip
-      t.string   :confirmation_token
-      t.datetime :confirmed_at
-      t.datetime :confirmation_sent_at
-      t.string   :unconfirmed_email
-      t.integer  :failed_attempts,                                                           default: 0
-      t.string   :unlock_token
-      t.datetime :locked_at
-      t.string   :authentication_token
-      t.references :person
+      t.string     :first_name,                                                                          null: false
+      t.string     :last_name,                                                                           null: false
+      t.boolean    :locked,                                                              default: false, null: false
+      t.string     :email,                                                                               null: false
+      t.references :person,                                                                                           index: true, unique: true
+      t.references :role,                                                                                null: false, index: true
+      t.decimal    :maximal_grantable_reduction_percentage,     precision: 19, scale: 4, default: 5.0,   null: false
+      t.boolean    :administrator,                                                       default: true,  null: false
+      t.text       :rights
+      t.date       :arrived_on
+      t.text       :description
+      t.boolean    :commercial,                                                          default: false, null: false
+      t.datetime   :departed_at
+      t.references :team,                                                                                             index: true
+      t.references :establishment,                                                                                    index: true
+      t.string     :office
+      t.references :profession,                                                                                       index: true
+      t.boolean    :employed,                                                              default: false, null: false
+      t.string     :employment
+      t.string     :language,                               limit: 3,                                      null: false
+      t.datetime   :last_sign_in_at
+      t.string     :encrypted_password,                                                    default: "",    null: false
+      t.string     :reset_password_token
+      t.datetime   :reset_password_sent_at
+      t.datetime   :remember_created_at
+      t.integer    :sign_in_count,                                                         default: 0
+      t.datetime   :current_sign_in_at
+      t.string     :current_sign_in_ip
+      t.string     :last_sign_in_ip
+      t.string     :confirmation_token
+      t.datetime   :confirmed_at
+      t.datetime   :confirmation_sent_at
+      t.string     :unconfirmed_email
+      t.integer    :failed_attempts,                                                        default: 0
+      t.string     :unlock_token
+      t.datetime   :locked_at
+      t.string     :authentication_token
       t.stamps
+      t.index    :authentication_token, unique: true
+      t.index    :confirmation_token, unique: true
+      t.index    :email, unique: true
+      t.index    :reset_password_token, unique: true
+      t.index    :unlock_token, unique: true
     end
-    add_index :users, :authentication_token, unique: true
-    add_index :users, :confirmation_token, unique: true
-    add_index :users, :department_id
-    add_index :users, :email, unique: true
-    add_index :users, :establishment_id
-    add_index :users, :person_id, unique: true
-    add_index :users, :profession_id
-    add_index :users, :reset_password_token, unique: true
-    add_index :users, :role_id
-    add_index :users, :unlock_token, unique: true
+
   end
 
 end

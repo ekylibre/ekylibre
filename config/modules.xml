@@ -307,8 +307,7 @@
     </group>
   </module>
   <module name="stocks" icon="truck">
-    <group name="stocks" icon="box">
-      <!-- @TODO : box icon -->
+    <group name="stocks" icon="matter">
       <item name="stocks">
         <page to="backend/products#index"/>
         <page to="backend/products#show"/>
@@ -531,7 +530,7 @@
         <page to="backend/plant_medicines#update"/>
       </item>
     </group>
-    <group name="land_parcels" icon="land_parcels">
+    <group name="land_parcels" icon="land-parcels">
       <item name="cultivable_land_parcels">
         <page to="backend/cultivable_land_parcels#index"/>
         <page to="backend/cultivable_land_parcels#create"/>
@@ -543,7 +542,7 @@
         <page to="backend/cultivable_land_parcels#update"/>
       </item>
     </group>
-    <group name="tools" icon="tractor">
+    <group name="equipments" icon="tractor">
       <item name="equipments">
         <page to="backend/equipments#index"/>
         <page to="backend/equipments#create"/>
@@ -1033,6 +1032,9 @@
       <item name="buildings">
         <page to="backend/buildings#list_divisions"/>
       </item>
+      <item name="campaigns">
+        <page to="backend/campaigns#list_productions"/>
+      </item>
       <item name="catalog_prices">
         <page to="backend/catalog_prices#show"/>
       </item>
@@ -1071,6 +1073,10 @@
       <item name="expense_chart_cells">
         <page to="backend/cells/expense_chart_cells#show"/>
       </item>
+      <item name="last_document_archives_cells">
+        <page to="backend/cells/last_document_archives_cells#list"/>
+        <page to="backend/cells/last_document_archives_cells#show"/>
+      </item>
       <item name="last_entities_cells">
         <page to="backend/cells/last_entities_cells#list"/>
         <page to="backend/cells/last_entities_cells#show"/>
@@ -1078,6 +1084,10 @@
       <item name="last_events_cells">
         <page to="backend/cells/last_events_cells#list"/>
         <page to="backend/cells/last_events_cells#show"/>
+      </item>
+      <item name="last_incidents_cells">
+        <page to="backend/cells/last_incidents_cells#list"/>
+        <page to="backend/cells/last_incidents_cells#show"/>
       </item>
       <item name="last_incoming_deliveries_cells">
         <page to="backend/cells/last_incoming_deliveries_cells#list"/>
@@ -1218,6 +1228,7 @@
       <item name="interventions">
         <page to="backend/interventions#list_casts"/>
         <page to="backend/interventions#list_operations"/>
+        <page to="backend/interventions#run"/>
       </item>
       <item name="journal_entries">
         <page to="backend/journal_entries#index"/>

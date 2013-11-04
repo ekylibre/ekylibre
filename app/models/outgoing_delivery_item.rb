@@ -51,13 +51,13 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   #]VALIDATORS]
 
   #acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
-  sums :delivery, :items, "(item.product.net_weight.convert(:kilogram).to_f*item.quantity rescue 0)" => :weight
+  sums :delivery, :items, "item.product.weight" => :weight
 
   before_validation do
     if self.sale_item
       self.source_product_id  = self.sale_item.product_id
     end
-    
+
     if self.source_product
       maximum = self.source_product.population || 0
       if self.quantity == maximum
@@ -74,7 +74,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   validate(:on => :create) do
     if self.source_product
       maximum = self.source_product.population || 0
-      errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.source_product.variant.unit_name, :product => self.source_product_name) if (self.quantity > maximum)  
+      errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.source_product.variant.unit_name, :product => self.source_product_name) if (self.quantity > maximum)
     end
     true
   end

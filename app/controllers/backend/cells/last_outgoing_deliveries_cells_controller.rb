@@ -1,7 +1,8 @@
 class Backend::Cells::LastOutgoingDeliveriesCellsController < Backend::CellsController
 
-  list(:model => :outgoing_deliveries,:order=>"received_at DESC", :per_page=>5) do |t|
-    t.column :reference_number, :url => {:controller => "/backend/outgoing_deliveries"}
+  list(:model => :outgoing_deliveries,:order=>"sent_at DESC", :per_page=>5) do |t|
+    t.column :number, :url => {:controller => "/backend/outgoing_deliveries"}
+    t.column :reference_number
     t.column :sent_at
     t.column :mode
     t.column :transporter

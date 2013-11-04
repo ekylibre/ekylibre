@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references, :schema
   # List of all models
-  @@models = [:account, :account_balance, :activity, :affair, :analytic_repartition, :animal, :animal_group, :animal_medicine, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :building, :building_division, :campaign, :cash, :cash_transfer, :catalog, :catalog_price, :cultivable_land_parcel, :custom_field, :custom_field_choice, :deposit, :deposit_item, :district, :document, :document_archive, :document_template, :easement, :entity, :entity_address, :entity_link, :equipment, :establishment, :event, :event_nature, :event_participation, :financial_year, :fungus, :gap, :immatter, :incident, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :intervention, :intervention_cast, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :land_parcel_cluster, :land_parcel_group, :legal_entity, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :medicine, :mineral_matter, :observation, :operation, :operation_task, :organic_matter, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :person, :plant, :plant_medicine, :preference, :prescription, :product, :product_group, :product_indicator_datum, :product_link, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_variant, :product_nature_variant_indicator_datum, :product_ownership, :product_process, :product_process_phase, :production, :production_support, :profession, :property_title, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :settlement, :sub_zone, :subscription, :subscription_nature, :tax, :tax_declaration, :team, :tracking, :transfer, :transport, :user, :worker, :zone, :zone_property_title]
+  @@models = [:account, :account_balance, :activity, :affair, :analytic_repartition, :animal, :animal_group, :animal_medicine, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :building, :building_division, :campaign, :cash, :cash_transfer, :catalog, :catalog_price, :cultivable_land_parcel, :custom_field, :custom_field_choice, :deposit, :deposit_item, :district, :document, :document_archive, :document_template, :easement, :entity, :entity_address, :entity_link, :equipment, :establishment, :event, :event_nature, :event_participation, :financial_year, :fungus, :gap, :immatter, :incident, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :intervention, :intervention_cast, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :land_parcel_cluster, :land_parcel_group, :legal_entity, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :medicine, :mineral_matter, :observation, :operation, :operation_task, :operation_task_cast, :organic_matter, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :person, :plant, :plant_medicine, :preference, :prescription, :product, :product_group, :product_indicator_datum, :product_link, :product_localization, :product_membership, :product_move, :product_nature, :product_nature_variant, :product_nature_variant_indicator_datum, :product_ownership, :product_process, :product_process_phase, :production, :production_support, :profession, :property_title, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :settlement, :sub_zone, :subscription, :subscription_nature, :tax, :tax_declaration, :team, :tracking, :transfer, :transport, :user, :worker, :zone, :zone_property_title]
 
   # List of all references
   @@references = {
@@ -599,11 +599,14 @@ module Ekylibre
     },
     :operation_task => {
       :creator_id => :user,
-      :indicator_datum_id => :product_indicator_datum,
-      :operand_id => :product,
       :operation_id => :operation,
       :parent_id => :operation_task,
-      :subject_id => :product,
+      :updater_id => :user
+    },
+    :operation_task_cast => {
+      :actor_id => "actor_type",
+      :creator_id => :user,
+      :task_id => :operation_task,
       :updater_id => :user
     },
     :organic_matter => {
@@ -1013,11 +1016,11 @@ module Ekylibre
     },
     :user => {
       :creator_id => :user,
-      :department_id => :department,
       :establishment_id => :establishment,
       :person_id => :person,
       :profession_id => :profession,
       :role_id => :role,
+      :team_id => :team,
       :updater_id => :user
     },
     :worker => {
@@ -1224,6 +1227,7 @@ module Ekylibre
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
       credit: Ekylibre::Record::Column.new(:credit, :decimal, precision: 19, scale: 4, null: false, default: 0.0).freeze,
+      currency: Ekylibre::Record::Column.new(:currency, :string, limit: 3, null: false).freeze,
       debit: Ekylibre::Record::Column.new(:debit, :decimal, precision: 19, scale: 4, null: false, default: 0.0).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
@@ -1238,10 +1242,12 @@ module Ekylibre
       closed_at: Ekylibre::Record::Column.new(:closed_at, :datetime).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
-      description: Ekylibre::Record::Column.new(:description, :string).freeze,
+      description: Ekylibre::Record::Column.new(:description, :text).freeze,
+      harvest_year: Ekylibre::Record::Column.new(:harvest_year, :integer).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
+      number: Ekylibre::Record::Column.new(:number, :string, limit: 60, null: false).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
@@ -1380,7 +1386,7 @@ module Ekylibre
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       locked: Ekylibre::Record::Column.new(:locked, :boolean, null: false).freeze,
       mode_id: Ekylibre::Record::Column.new(:mode_id, :integer, null: false).freeze,
-      number: Ekylibre::Record::Column.new(:number, :string).freeze,
+      number: Ekylibre::Record::Column.new(:number, :string, null: false).freeze,
       payments_count: Ekylibre::Record::Column.new(:payments_count, :integer, null: false, default: 0).freeze,
       responsible_id: Ekylibre::Record::Column.new(:responsible_id, :integer).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
@@ -1952,22 +1958,29 @@ module Ekylibre
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
+    operation_task_casts: HashWithIndifferentAccess.new(
+      actor_id: Ekylibre::Record::Column.new(:actor_id, :integer, null: false).freeze,
+      actor_type: Ekylibre::Record::Column.new(:actor_type, :string, null: false).freeze,
+      created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
+      creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
+      id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
+      lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
+      name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
+      task_id: Ekylibre::Record::Column.new(:task_id, :integer, null: false).freeze,
+      updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
+      updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
+    ).freeze,
     operation_tasks: HashWithIndifferentAccess.new(
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
-      expression: Ekylibre::Record::Column.new(:expression, :text).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
-      indicator_datum_id: Ekylibre::Record::Column.new(:indicator_datum_id, :integer).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
-      operand_id: Ekylibre::Record::Column.new(:operand_id, :integer).freeze,
-      operand_quantity: Ekylibre::Record::Column.new(:operand_quantity, :decimal, precision: 19, scale: 4).freeze,
+      nature: Ekylibre::Record::Column.new(:nature, :string, null: false).freeze,
       operation_id: Ekylibre::Record::Column.new(:operation_id, :integer, null: false).freeze,
       parent_id: Ekylibre::Record::Column.new(:parent_id, :integer).freeze,
       prorated: Ekylibre::Record::Column.new(:prorated, :boolean, null: false).freeze,
-      subject_id: Ekylibre::Record::Column.new(:subject_id, :integer, null: false).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
-      updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze,
-      verb: Ekylibre::Record::Column.new(:verb, :string, null: false).freeze
+      updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
     operations: HashWithIndifferentAccess.new(
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
@@ -2354,6 +2367,7 @@ module Ekylibre
       initial_arrival_cause: Ekylibre::Record::Column.new(:initial_arrival_cause, :string, limit: 120).freeze,
       initial_container_id: Ekylibre::Record::Column.new(:initial_container_id, :integer).freeze,
       initial_owner_id: Ekylibre::Record::Column.new(:initial_owner_id, :integer).freeze,
+      initial_population: Ekylibre::Record::Column.new(:initial_population, :decimal, precision: 19, scale: 4, default: 0.0).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       mother_id: Ekylibre::Record::Column.new(:mother_id, :integer).freeze,
       name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
@@ -2725,7 +2739,7 @@ module Ekylibre
       administrator: Ekylibre::Record::Column.new(:administrator, :boolean, null: false, default: true).freeze,
       arrived_on: Ekylibre::Record::Column.new(:arrived_on, :date).freeze,
       authentication_token: Ekylibre::Record::Column.new(:authentication_token, :string).freeze,
-      commercial: Ekylibre::Record::Column.new(:commercial, :boolean).freeze,
+      commercial: Ekylibre::Record::Column.new(:commercial, :boolean, null: false).freeze,
       confirmation_sent_at: Ekylibre::Record::Column.new(:confirmation_sent_at, :datetime).freeze,
       confirmation_token: Ekylibre::Record::Column.new(:confirmation_token, :string).freeze,
       confirmed_at: Ekylibre::Record::Column.new(:confirmed_at, :datetime).freeze,
@@ -2734,7 +2748,6 @@ module Ekylibre
       current_sign_in_at: Ekylibre::Record::Column.new(:current_sign_in_at, :datetime).freeze,
       current_sign_in_ip: Ekylibre::Record::Column.new(:current_sign_in_ip, :string).freeze,
       departed_at: Ekylibre::Record::Column.new(:departed_at, :datetime).freeze,
-      department_id: Ekylibre::Record::Column.new(:department_id, :integer).freeze,
       description: Ekylibre::Record::Column.new(:description, :text).freeze,
       email: Ekylibre::Record::Column.new(:email, :string, null: false).freeze,
       employed: Ekylibre::Record::Column.new(:employed, :boolean, null: false).freeze,
@@ -2761,6 +2774,7 @@ module Ekylibre
       rights: Ekylibre::Record::Column.new(:rights, :text).freeze,
       role_id: Ekylibre::Record::Column.new(:role_id, :integer, null: false).freeze,
       sign_in_count: Ekylibre::Record::Column.new(:sign_in_count, :integer, default: 0).freeze,
+      team_id: Ekylibre::Record::Column.new(:team_id, :integer).freeze,
       unconfirmed_email: Ekylibre::Record::Column.new(:unconfirmed_email, :string).freeze,
       unlock_token: Ekylibre::Record::Column.new(:unlock_token, :string).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,

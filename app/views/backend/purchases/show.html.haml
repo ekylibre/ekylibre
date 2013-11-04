@@ -14,7 +14,6 @@
 =beehive do |b|
 
   -b.tabbox do
-
     -b.cell do
       =attributes_list(@purchase) do |l|
         -l.attribute :supplier, :label=>:label, :url=>true
@@ -34,7 +33,7 @@
     -b.cell Purchase.human_attribute_name("items") do
       -if @purchase.draft?
         =toolbar do |t|
-          -t.new(:controller=>:purchase_items, :purchase_id=>@purchase.id)
+          -t.new(:params => {:controller=>:purchase_items, :purchase_id=>@purchase.id})
       =list :items do
         %tr.total
           %th{:colspan=>6}
@@ -50,7 +49,7 @@
     -if @purchase.deliverable?
       -b.cell tc(:undelivered) do
         =toolbar do |t|
-          -t.new :controller=>:incoming_deliveries, :purchase=>@purchase.id
+          -t.new(:params =>{:controller=>:incoming_deliveries, :purchase=>@purchase.id})
         =list :undelivered_items
     -b.cell Purchase.human_attribute_name("deliveries") do
       =list :deliveries

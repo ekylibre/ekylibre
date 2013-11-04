@@ -40,6 +40,7 @@
 #  initial_arrival_cause    :string(120)
 #  initial_container_id     :integer
 #  initial_owner_id         :integer
+#  initial_population       :decimal(19, 4)   default(0.0)
 #  lock_version             :integer          default(0), not null
 #  mother_id                :integer
 #  name                     :string(255)      not null
@@ -158,7 +159,7 @@ class Product < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_numericality_of :content_maximal_quantity, :allow_nil => true
+  validates_numericality_of :content_maximal_quantity, :initial_population, :allow_nil => true
   validates_length_of :derivative_of, :initial_arrival_cause, :variety, :allow_nil => true, :maximum => 120
   validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :reservoir, :in => [true, false]
@@ -209,19 +210,19 @@ class Product < Ekylibre::Record::Base
 
   # set initial owner and localization
   def set_initial_values
-      # add first owner on a product
-      self.ownerships.create!(owner: self.initial_owner)
-      # add first localization on a product
-      if self.initial_container and self.initial_arrival_cause
-        self.localizations.create!(container: self.initial_container, started_at: self.born_at, arrival_cause: self.initial_arrival_cause)
+    # add first owner on a product
+    self.ownerships.create!(owner: self.initial_owner)
+    # add first localization on a product
+    if self.initial_container and self.initial_arrival_cause
+      self.localizations.create!(container: self.initial_container, started_at: self.born_at, arrival_cause: self.initial_arrival_cause)
+    end
+    # add first frozen indicator on a product from his variant
+    if self.variant
+      for frozen_indicator in self.variant.frozen_indicators.to_s.strip.split(",")
+        indicator = self.variant.indicator(frozen_indicator.to_s) if self.variant.frozen?(frozen_indicator.to_s)
+        self.is_measured!(indicator.indicator, indicator.value)
       end
-      # add first frozen indicator on a product from his variant
-      if self.variant
-        for frozen_indicator in self.variant.frozen_indicators.to_s.strip.split(",")
-          indicator = self.variant.indicator(frozen_indicator.to_s) if self.variant.frozen?(frozen_indicator.to_s)
-          self.is_measured!(indicator.indicator, indicator.value)
-        end
-      end
+    end
   end
 
 
@@ -300,22 +301,51 @@ class Product < Ekylibre::Record::Base
     return price
   end
 
-  # Add an operation for the product
-  def operate(action, *args)
-    options = (args[-1].is_a?(Hash) ? options.delete_at(-1) : {})
-    if operand = (args[0].is_a?(Product) ? args[0] : nil)
-      options[:operand] = operand
-    end
-    return self.operations.create(options)
-  end
+  # # Add an operation for the product
+  # def operate(action, *args)
+  #   options = (args[-1].is_a?(Hash) ? options.delete_at(-1) : {})
+  #   if operand = (args[0].is_a?(Product) ? args[0] : nil)
+  #     options[:operand] = operand
+  #   end
+  #   return self.operations.create(options)
+  # end
 
   # Returns groups of the product at a given time (or now by default)
   def groups_at(viewed_at = nil)
     ProductGroup.groups_of(self, viewed_at || Time.now)
   end
 
+  # Returns the current localization of the product at a given time (or now by default)
+  def localize_in(at = Time.now)
+    if self.localizations.where("started_at <= ?",at).count > 0
+      return self.localizations.where("started_at <= ?",at).reorder('started_at DESC').first.container.name
+    end
+  end
+
   def picture_path(style=:original)
     self.picture.path(style)
+  end
+
+  def area(unit = :hectare, at = Time.now)
+    pop = self.population(:at => at)
+    if self.variant.indicator(:net_surface_area)
+      area = self.net_surface_area(:at => at).convert(unit)
+    else
+      area = self.shape_area(:at => at).in_square_meter.convert(unit)
+    end
+    # What a clean method to_s.to_d but needed because a little bug : Measure can't be coerced into BigDecimal
+    total = area.to_s.to_d * pop.to_s.to_d
+    return total
+  end
+
+  def weight(unit = :kilogram, at = Time.now)
+    pop = self.population(:at => at)
+    if self.net_weight
+      weight = self.net_weight(:at => at).convert(unit)
+    end
+    # What a clean method to_s.to_d but needed because a little bug : Measure can't be coerced into BigDecimal
+    total = weight.to_s.to_d * pop.to_s.to_d
+    return total
   end
 
 
@@ -351,7 +381,7 @@ class Product < Ekylibre::Record::Base
   # :interpolate and :datum options are incompatible
   def method_missing(method_name, *args)
     return super unless Nomen::Indicators.all.include?(method_name.to_s)
-    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
+    options = args.extract_options!
     measured_at = args.shift || options[:at] || Time.now
     indicator = Nomen::Indicators.items[method_name]
 

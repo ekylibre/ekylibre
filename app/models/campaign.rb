@@ -24,10 +24,12 @@
 #  closed_at    :datetime
 #  created_at   :datetime         not null
 #  creator_id   :integer
-#  description  :string(255)
+#  description  :text
+#  harvest_year :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
+#  number       :string(60)       not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -38,13 +40,28 @@ class Campaign < Ekylibre::Record::Base
   has_many :interventions, :through => :productions
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :description, :name, :allow_nil => true, :maximum => 255
+  validates_numericality_of :harvest_year, :allow_nil => true, :only_integer => true
+  validates_length_of :number, :allow_nil => true, :maximum => 60
+  validates_length_of :name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :closed, :in => [true, false]
-  validates_presence_of :name
+  validates_presence_of :name, :number
   #]VALIDATORS]
 
+  validates :harvest_year, length: {is: 4}, :allow_nil => true
+  before_validation :set_default_values, :on => :create
+
+  acts_as_numbered :number, :readonly => false
   # default_scope -> { where(:closed => false).order(:name) }
-  scope :currents, -> { where(:closed => false).order(:name) }
+  scope :currents, -> { where(:closed => false).reorder(:harvest_year) }
+
+  protect(:on => :destroy) do
+    self.productions.count.zero? and self.interventions.count.zero?
+  end
+
+  # Sets name
+  def set_default_values
+    self.name = self.harvest_year.to_s if self.name.blank? and self.harvest_year
+  end
 
   def shape_area
     return self.productions.collect{|p| p.shape_area.to_s.to_f}.sum

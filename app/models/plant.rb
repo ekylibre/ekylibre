@@ -39,6 +39,7 @@
 #  initial_arrival_cause    :string(120)
 #  initial_container_id     :integer
 #  initial_owner_id         :integer
+#  initial_population       :decimal(19, 4)   default(0.0)
 #  lock_version             :integer          default(0), not null
 #  mother_id                :integer
 #  name                     :string(255)      not null
@@ -63,5 +64,17 @@ class Plant < Bioproduct
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
-  validates_uniqueness_of :name, :work_number
+  #validates_uniqueness_of :name, :identification_number
+  before_validation :set_name_and_number, :on => :create
+
+  # acts_as_numbered :work_number, :readonly => false
+
+  # Sets nature and variety from variant
+  def set_name_and_number
+    if self.initial_container and self.variant
+      self.name = self.variant.name + " - " + self.initial_container.name if self.name.blank?
+      self.work_number = "PLANT-" + self.born_at.to_s if self.work_number.blank?
+    end
+  end
+
 end

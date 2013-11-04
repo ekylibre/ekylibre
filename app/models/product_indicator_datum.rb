@@ -53,4 +53,24 @@ class ProductIndicatorDatum < IndicatorDatum
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
+  scope :measured_between, lambda { |started_on, stopped_on|
+    where("measured_at BETWEEN ? AND ?", started_on, stopped_on)
+  }
+
+  def self.averages_of_periods(column = :valeur, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
+    self.calculate_in_periods(:avg, column, reference_date_column, period, dtype)
+  end
+
+  def self.sums_of_periods(column = :valeur, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
+    self.calculate_in_periods(:sum, column, reference_date_column, period, dtype)
+  end
+
+  # @TODO update method with list of indicator datatype
+  def self.calculate_in_periods(operation, column, reference_date_column, period = :month, dtype = :measure_value)
+    ind_val = dtype.to_s + '_value'
+    period = :doy if period == :day
+    expr = "EXTRACT(YEAR FROM #{reference_date_column})*1000 + EXTRACT(#{period} FROM #{reference_date_column})"
+    group(expr).order(expr).select("#{expr} AS expr, #{operation}(#{ind_val}) AS #{column}")
+  end
+
 end

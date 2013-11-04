@@ -75,6 +75,10 @@ class Activity < Ekylibre::Record::Base
     return productions.of_campaign(campaigns).map(&:shape_area).compact.sum
   end
 
+  def area(*campaigns)
+    return productions.of_campaign(campaigns).map(&:area).compact.sum
+  end
+
   def interventions_duration(*campaigns)
     return productions.of_campaign(campaigns).map(&:duration).compact.sum
   end

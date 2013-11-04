@@ -2,3 +2,5 @@ eng:
   aggregators:
     parameters:
       campaigns: "Campaigns"
+    sections:
+      # profits: "Produits d'exploitation (1)"

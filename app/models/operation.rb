@@ -36,7 +36,7 @@
 
 class Operation < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :operations
-  has_many :tasks, class_name: "OperationTask"
+  has_many :tasks, class_name: "OperationTask", inverse_of: :operation
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, :allow_nil => true, :only_integer => true
   validates_presence_of :intervention, :started_at, :stopped_at
@@ -93,6 +93,9 @@ class Operation < Ekylibre::Record::Base
     self.group(expr).reorder(expr).select("#{expr} AS expr, #{operation}(#{column}) AS #{column}")
   end
 
+  def description
+    self.reference.human_expressions.to_sentence
+  end
 
 end
 

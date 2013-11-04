@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
+  <aggregator name="profit_and_loss_statement" version="0.0" category="exploitation">
+    <parameters>
+      <parameter name="started_on" type="date" default="2013-01-01"/>
+      <parameter name="stopped_on" type="date" default="2013-12-31"/>
+    </parameters>
+    <section name="financial_years">
+      <variable name="company" value="Entity.of_company"/>
+      <variable name="financial_year" value="FinancialYear.current"/>
+      <variable name="financial_year_compute" value="FinancialYear.current.compute_balances!"/>
+      <property name="entity_name" value="company.full_name"/>
+      <property name="address" value="company.default_mail_address.coordinate"/>
+      <property name="financial_year_name" value="financial_year.code"/>
+      <section name="profits">
+        <section name="Ventes de marchandises">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('707X, 7086X, 7087X, 7088X, 7097X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Production vendue (biens et services)">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('70X, ^707, ^7086, ^7087, ^7088, ^7097, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <property name="Montant net du chiffre d affaires" value="financial_year.credit_balance('70X, ')"/>
+        <section name="Production stockée">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('71X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Production immobilisee">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('72X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Subventions">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('74X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Reprises sur provisions (et amortissements), transferts de charges">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('781X, 791X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Autres produits">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('75X, ^755, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <property name="Total Produits" value="financial_year.credit_balance('70X, 71X, 72X, 74X, 781X, 791X, 75X, ^755, ')"/>
+      </section>
+      <section name="loss">
+        <property name="loss_balance" value="financial_year.debit_balance('6X, ')"/>
+        <section name="Achats de marchandises">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('607X, 6087X, 6097X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Variation de stocks">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('6037X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Achats de matières premières et autres approvisionnements">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('601X, 602X, 6081X, 6082X, 6091X, 6092X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Variation de stocks de matières premières et autres approvisionnements">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('6031X, 6032X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Autres achats et charges externes">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('604X, 605X, 606X, 6084X, 6085X, 6086X, 6094X, 6095X, 6096X, 61X, 62X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Impôts, taxes et versements assimilés">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('63X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Salaires et traitements">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('641X, 644X, 648X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Charges sociales">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('645X, 646X, 647X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Dotations aux amortissements et dépréciations">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('681X, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <section name="Autres charges">
+          <matrix name="items" for="item" in="Account.finds_with_regexpr('65X, ^655, ').order(:label)">
+                <cell name="id" of="item" level="api"/>
+                <cell name="label" of="item"/>
+                <cell name="balance" value="item.journal_entry_items_calculate(column=:balance, started_on=started_on, stopped_on=stopped_on, operation=:sum)" />
+          </matrix>
+        </section>
+        <property name="Total Charges" value="financial_year.debit_balance('60X, 61X, 62X, 63X, 64X, 681X, 65X, ^655, ')"/>
+      </section>
+    </section>
+  </aggregator>
+</aggregators>

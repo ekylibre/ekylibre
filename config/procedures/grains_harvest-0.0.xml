@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="grains_harvest" natures="production" version="0.0" status="frozen">
+  <procedure name="grains_harvest" natures="harvest" version="0.0" status="frozen">
     <variables>
       <!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
-      <variable name="cropper_driver" variety="worker" abilities="cropper_driving" />
+      <variable name="cropper_driver" variety="worker" abilities="cropper_driving" roles="harvest-doer"/>
       <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
-      <variable name="cropper" type="equipment" abilities="harvest(plant)" />
+      <variable name="cropper" type="equipment" abilities="harvest(plant)" roles="harvest-equipment"/>
       <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
-      <variable name="culture" variety="plant"/>
-      <variable name="grains" same-variety-of="culture" derivative="grain" new="quantity=?, unit=?" roles="production-output"/>
-      <variable name="straw" same-variety-of="culture" derivative= "straw" new="quantity=?, unit=?" roles="production-output"/>
+      <variable name="culture" variety="plant" roles="harvest-target"/>
+      <variable name="grains" same-variety-of="culture" derivative="grain" new="quantity=?, unit=?" roles="harvest-output"/>
+      <variable name="straw" same-variety-of="culture" derivative= "straw" new="quantity=?, unit=?" roles="harvest-output"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

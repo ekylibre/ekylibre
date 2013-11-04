@@ -30,6 +30,7 @@ class Backend::ProductsController < BackendController
     t.column :name, url: true
     t.column :variant, url: true
     t.column :variety
+    t.column :localize_in
     t.column :description
     t.action :show, :url => {:format => :pdf}, :image => :print
     t.action :edit

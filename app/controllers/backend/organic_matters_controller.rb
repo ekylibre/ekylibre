@@ -24,6 +24,8 @@ class Backend::OrganicMattersController < BackendController
 
   list do |t|
     t.column :name, url: true
+    t.column :population
+    t.column :localize_in
   end
 
 end

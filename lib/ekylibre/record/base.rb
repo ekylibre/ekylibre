@@ -77,10 +77,10 @@ module Ekylibre::Record
         else
           if custom_field.text?
             unless custom_field.maximal_length.blank? or custom_field.maximal_length <= 0
-              errors.add(custom_field.column_name, :custom_field_is_too_long, :field => custom_field.name, :count => custom_field.length_max) if value.length > custom_field.maximal_length
+              errors.add(custom_field.column_name, :custom_field_is_too_long, :field => custom_field.name, :count => custom_field.maximal_length) if value.length > custom_field.maximal_length
             end
             unless custom_field.minimal_length.blank? or custom_field.minimal_length <= 0
-              errors.add(custom_field.column_name, :custom_field_is_too_short, :field => custom_field.name, :count => custom_field.length_max) if value.length < custom_field.minimal_length
+              errors.add(custom_field.column_name, :custom_field_is_too_short, :field => custom_field.name, :count => custom_field.maximal_length) if value.length < custom_field.minimal_length
             end
           elsif custom_field.decimal?
             value = value.to_d unless value.is_a?(Numeric)

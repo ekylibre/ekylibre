@@ -1,26 +1,32 @@
-- if @container.is_a?(CultivableLandParcel)
-  .picture-block
-    = @container.shape_svg(:width => 160, :height => 160)
-    %p= @container.name
-.info
-  %span.title= Intervention.human_attribute_name(:name)
-  %span.value= link_to(@intervention.name, controller: "/backend/interventions", action: :show, id: @intervention.to_param)
-.info
-  %span.title= Intervention.human_attribute_name(:casting)
-  %span.value= @intervention.casting
-- if @intervention.started_at?
+- if @intervention
+  - if @container.is_a?(CultivableLandParcel)
+    .picture-block
+      = @container.shape_svg(:width => 160, :height => 160)
+      %p= @container.name
   .info
-    %span.title= Intervention.human_attribute_name(:started_at)
-    %span.value= @intervention.started_at.l
-.info
-  %span.title= Intervention.human_attribute_name(:state)
-  %span.value= @intervention.state.text
-.info
-  %span.title= :input_evaluated_cost.tl
-  %span.value= @intervention.cost(:input)
-.info
-  %span.title= :equipment_evaluated_cost.tl
-  %span.value= @intervention.cost(:equipment)
-.info
-  %span.title= :doer_evaluated_cost.tl
-  %span.value= @intervention.cost(:doer)
+    %span.title= Intervention.human_attribute_name(:name)
+    %span.value= link_to(@intervention.name, controller: "/backend/interventions", action: :show, id: @intervention.to_param)
+  .info
+    %span.title= Intervention.human_attribute_name(:casting)
+    %span.value= @intervention.casting
+  - if @intervention.started_at?
+    .info
+      %span.title= Intervention.human_attribute_name(:started_at)
+      %span.value= @intervention.started_at.l
+    .info
+      %span.title= Intervention.human_attribute_name(:duration)
+      %span.value= @intervention.duration.in_second.convert(:hour).round(2)
+    .info
+      %span.title= Intervention.human_attribute_name(:state)
+      %span.value= @intervention.state.text
+    .info
+      %span.title= :input_evaluated_cost.tl
+      %span.value= @intervention.cost(:input)
+    .info
+      %span.title= :equipment_evaluated_cost.tl
+      %span.value= @intervention.cost(:equipment)
+    .info
+      %span.title= :doer_evaluated_cost.tl
+      %span.value= @intervention.cost(:doer)
+- else
+  %em= :no_data.tl

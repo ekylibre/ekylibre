@@ -25,8 +25,10 @@ class Backend::AnimalMedicinesController < BackendController
 
   list do |t|
     t.column :name, url: true
+    t.column :population
     t.column :net_volume
     t.column :net_weight
+    t.column :localize_in
     t.column :milk_withdrawal_period
     t.column :meat_withdrawal_period
   end

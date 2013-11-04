@@ -33,7 +33,7 @@
 #  lock_version     :integer          default(0), not null
 #  locked           :boolean          not null
 #  mode_id          :integer          not null
-#  number           :string(255)
+#  number           :string(255)      not null
 #  payments_count   :integer          default(0), not null
 #  responsible_id   :integer
 #  updated_at       :datetime         not null
@@ -55,7 +55,7 @@ class Deposit < Ekylibre::Record::Base
   validates_numericality_of :amount, :allow_nil => true
   validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :in_cash, :locked, :in => [true, false]
-  validates_presence_of :amount, :cash, :created_on, :mode
+  validates_presence_of :amount, :cash, :created_on, :mode, :number
   #]VALIDATORS]
   validates_presence_of :responsible, :cash
 

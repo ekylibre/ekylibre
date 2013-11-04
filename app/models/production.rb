@@ -38,6 +38,7 @@
 #
 class Production < Ekylibre::Record::Base
   # attr_accessible :supports_attributes, :activity_id, :product_nature_id, :campaign_id, :static_support, :state, :started_at, :stopped_at
+  enumerize :state, :in => [:draft, :validated], :default => :draft
   belongs_to :activity
   belongs_to :campaign
   belongs_to :product_nature
@@ -76,12 +77,17 @@ class Production < Ekylibre::Record::Base
 
   state_machine :state, :initial => :draft do
     state :draft
+    state :aborted
     state :validated
     state :started
-    state :aborted
+    state :closed
 
     event :correct do
       transition :validated => :draft
+    end
+
+    event :abort do
+      transition :draft => :aborted
     end
 
     event :confirm do
@@ -92,19 +98,24 @@ class Production < Ekylibre::Record::Base
       transition :validated => :started
     end
 
-    event :abort do
-      transition :draft => :aborted
+    event :close do
+      transition :started => :closed
     end
+
+  end
+
+  protect(:on => :destroy) do
+    self.interventions.count.zero? and self.repartitions.count.zero?
+  end
+
+  before_validation(:on => :create) do
+    self.state ||= self.class.state_machine.initial_state(self)
   end
 
   before_validation do
     if self.activity and self.product_nature and self.campaign
       self.name = tc('name', state: self.state_label, activity: self.activity.name, product_nature: self.product_nature.name, campaign: self.campaign.name)
     end
-  end
-
-  before_validation(:on => :create) do
-    self.state ||= self.class.state_machine.initial_state(self)
   end
 
   def activity_main?
@@ -128,6 +139,14 @@ class Production < Ekylibre::Record::Base
   def shape_area
     if self.static_support?
       return self.supports.map(&:storage_shape_area).compact.sum
+    else
+      return 0.0
+    end
+  end
+
+  def area
+    if self.static_support?
+      return self.supports.map(&:storage_area).compact.sum
     else
       return 0.0
     end

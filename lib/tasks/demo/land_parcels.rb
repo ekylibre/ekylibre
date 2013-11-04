@@ -20,9 +20,9 @@ demo :land_parcels do
                                                         :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
         land_parcel_cluster.is_measured!(:shape, record.geometry, :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
         ind_area = land_parcel_cluster.shape_area
-        land_parcel_cluster.is_measured!(:population, ind_area.in_square_meter.convert(:hectare), :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))    
-        
-        
+        land_parcel_cluster.is_measured!(:population, ind_area.in_square_meter.convert(:hectare), :at => Date.civil(record.attributes['CAMPAGNE'], 1, 1))
+
+
         # puts "Record number #{record.index}:"
         # puts "  Geometry: #{record.geometry.as_text}"
         # puts "  Attributes: #{record.attributes.inspect}"

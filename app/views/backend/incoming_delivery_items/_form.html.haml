@@ -5,7 +5,7 @@
     .remove
       = link_to("#", "data-remove-closest" => ".subform") do
         %i.icon-remove
-    - # unless variant.individual
+    -# unless variant.individual
       = f.input :quantity # , :indicator => variant.indicator
     = f.input :product_nature_variant_id, :as => :hidden
   .subform-fields

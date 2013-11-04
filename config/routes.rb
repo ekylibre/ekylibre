@@ -82,6 +82,12 @@ Ekylibre::Application.routes.draw do
       resource :last_outgoing_deliveries_cell, only: :show do
         get :list, on: :collection
       end
+      resource :last_incidents_cell, only: :show do
+        get :list, on: :collection
+      end
+      resource :last_document_archives_cell, only: :show do
+        get :list, on: :collection
+      end
       resource :last_interventions_cell, only: :show do
         get :list, on: :collection
       end
@@ -190,7 +196,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :campaigns, concerns: [:list, :unroll]
+    resources :campaigns, concerns: [:list, :unroll] do
+      member do
+        get :list_productions
+      end
+    end
 
     resources :cashes, concerns: [:list, :unroll] do
       member do
@@ -339,6 +349,7 @@ Ekylibre::Application.routes.draw do
 
     resources :interventions, concerns: [:list, :unroll] do
       member do
+        post :run
         get :list_casts
         get :list_operations
       end

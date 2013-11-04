@@ -13,8 +13,7 @@
   - b.tabbox do
     - b.cell(:products) do
       = list(:products)
-    -# b.cell(:prices) do
+    -b.cell(:prices) do
       = toolbar do |t|
-        - t.new_sales_price(:params => {:controller => :product_prices, :action => :new, :mode => :sales, :variant_id => resource.id}) if resource.saleable?
-        - t.new_purchase_price(:params => {:controller => :product_prices, :action => :new, :mode => :purchases, :variant_id => resource.id}) if resource.purchasable?
+        - t.new(:params => {:controller => :catalog_prices, :variant_id => resource.id})
       = list(:prices)

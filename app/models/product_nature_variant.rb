@@ -57,7 +57,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_presence_of :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name
   #]VALIDATORS]
 
-  delegate :variety, :matching_model, :indicators_array, :population_frozen?, :population_modulo, :to => :nature
+  delegate :variety, :derivative_of, :matching_model, :indicators_array, :population_frozen?, :population_modulo, :to => :nature
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :prices, :reject_if => :all_blank, :allow_destroy => true
@@ -74,6 +74,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
   }
 
   # default_scope -> { order(:name) }
+
+  scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
+  scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
+
   scope :of_variety, Proc.new { |*varieties|
     where(:nature_id => ProductNature.of_variety(*varieties))
   }
@@ -157,13 +161,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
     datum.save!
     return datum
   end
-  
+
   # Return the indicator datum
   def indicator(indicator, options = {})
     created_at = options[:at] || Time.now
     return self.indicator_data.where(:indicator => indicator.to_s).where("created_at <= ?", created_at).reorder("created_at DESC").first
   end
-  
+
   # check if a variant has an indicator which is frozen or not
   def frozen?(indicator)
     frozen_indicator = self.indicator(indicator)
@@ -173,8 +177,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
       return false
     end
   end
-  
-  
+
+
   # Returns indicators for a set of product
   def self.indicator(name, options = {})
     created_at = options[:at] || Time.now

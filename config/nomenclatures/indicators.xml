@@ -8,9 +8,9 @@
       <attribute name="choices" type="list" required="false"/>
     </attributes>
     <items>
-      <item name="temperature" datatype="measure" unit="celsius"/>
-      <!-- <item name="population" datatype="measure" unit="unity"/> -->
       <item name="population" datatype="decimal"/>
+      <!-- <item name="population" datatype="measure" unit="unity"/> -->
+      <item name="temperature" datatype="measure" unit="celsius"/>
       <item name="net_weight" datatype="measure" unit="kilogram"/>
       <item name="net_volume" datatype="measure" unit="liter"/>
       <item name="net_surface_area" datatype="measure" unit="square_meter"/>
@@ -39,6 +39,9 @@
       <item name="animal_disease_state" datatype="choice" choices="healthy, sick"/>
       <item name="plant_life_state" datatype="choice" choices="germination, tillering, bolting, maturity, senescence"/>
       <item name="plant_reproduction_state" datatype="choice" choices="swelling, heading, flowering, grain_maturity, grain_senescence"/>
+      <!-- for product analysis -->
+      <item name="dry_matter_rate" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
+      <item name="water_rate" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
       <!-- for milk analysis -->
       <item name="total_bacteria_concentration" datatype="measure" unit="thousand_per_milliliter"/>
       <item name="inhibitors_presence" datatype="choice" choices="negative, positive"/>
@@ -59,9 +62,9 @@
       <item name="tp_index" datatype="measure" unit="unity"/>
       <item name="tb_index" datatype="measure" unit="unity"/>
       <!-- for fertilization plant's -->
-      <item name="nitrogen_concentration" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
-      <item name="potassium_concentration" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
-      <item name="phosphorus_concentration" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
+      <item name="nitrogen_concentration" datatype="measure" unit="percent"/>
+      <item name="potassium_concentration" datatype="measure" unit="percent"/>
+      <item name="phosphorus_concentration" datatype="measure" unit="percent"/>
     </items>
   </nomenclature>
 </nomenclatures>

@@ -132,10 +132,10 @@ class Purchase < Ekylibre::Record::Base
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     b.journal_entry(self.nature.journal, :if => self.invoice?) do |entry|
-      label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.description.blank? ? self.products.collect{|x| x.name}.to_sentence : self.description))
+      label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.description.blank? ? self.items.collect{|x| x.name}.to_sentence : self.description))
       for item in self.items
-        entry.add_debit(label, item.product.purchases_account_id, item.pretax_amount) unless item.quantity.zero?
-        entry.add_debit(label, item.price.tax.paid_account_id, item.taxes_amount) unless item.taxes_amount.zero?
+        entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
+        entry.add_debit(label, item.tax.paid_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
       entry.add_credit(label, self.supplier.account(:supplier).id, self.amount)
     end

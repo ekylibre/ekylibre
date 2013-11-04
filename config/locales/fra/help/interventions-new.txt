@@ -1,0 +1,20 @@
+====== Interventions ======
+
+===== Choix d'une procédure =====
+
+Les catégories de procédures apparaissent en gras
+
+===== Saisie d'une intervention =====
+
+{{icon:book}} Informations générales
+
+**Production** = La production concernée par votre intervention
+
+**Début et Fin** = la race de l'animal est automatiquement conditionné par son type.
+
+{{icon:bullhorn}} Casting
+
+Vous devez selectionner les produits qui font partis de cette intervention.
+
+>>> Produits qui n'existe pas encore et qui vont être créés à l'issue de l'éxécution de l'intervention
+>>> Il faut saisir la quantité et le variante du futur produit

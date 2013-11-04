@@ -752,6 +752,7 @@ eng:
         # land_parcel_management: "Conduite de la parcelle"
     document_natures:
       items:
+        # activity_margin: "Interventions par activité"
         # manure_management_plan: "Plan de fumure"
         # veterinary_booklet: "Carnet vétérinaire"
     entity_natures:
@@ -1047,7 +1048,8 @@ eng:
         # technician: "Technicien"
         # temporary_meadow_crop: "Culture de prairie temporaire"
         tractor: "Tractor"
-        trail: "Trail"
+        trail: "Trail" #?
+        # trailer: "Remorque"
         wheat_crop: "Wheat crop"
         # wheat_grain: "Grain de blé"
         young_cow: "Young cow" #?
