@@ -33,6 +33,7 @@
       <item name="prescription" category="sanitary"/>
       <item name="veterinary_booklet" category="sanitary"/>
       <item name="manure_management_plan" category="land_parcel_management"/>
+      <item name="phytosanitary_registry" category="land_parcel_management"/>
       <item name="activity_margin" category="exploitation"/>
       
       <item name="entity_sheet" category="exploitation"/>

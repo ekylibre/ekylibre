@@ -243,6 +243,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
                 end
               elsif indicator.datatype == :choice
                 fsi << indfi.input("#{indicator.datatype}_value", :collection => indicator.choices, :label => indicator.human_name)
+              elsif indicator.datatype == :boolean
+                fsi << indfi.input("#{indicator.datatype}_value", :as => :boolean, :label => indicator.human_name)
               else
                 fsi << indfi.input("#{indicator.datatype}_value", :as => :string, :label => indicator.human_name)
               end

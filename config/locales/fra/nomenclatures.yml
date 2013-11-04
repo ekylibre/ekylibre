@@ -722,6 +722,8 @@ fra:
         activity_margin: "Interventions par activité"
         manure_management_plan: "Plan de fumure"
         veterinary_booklet: "Carnet vétérinaire"
+        phytosanitary_registry: "Registre phytosanitaire"
+        profit_and_loss_statement: "Compte de résultat"
     entity_natures:
       items:
         association: "Association"
