@@ -85,7 +85,7 @@ case "$1" in
 	bundle exec rake db:migrate RAILS_ENV=production
 
 	# Reset sessions
-	bundle exec rake db:sessions:clear RAILS_ENV=production
+	# bundle exec rake db:sessions:clear RAILS_ENV=production
 
 
 	if [ -e /etc/apache2/mods-enabled/passenger.load ]; then
