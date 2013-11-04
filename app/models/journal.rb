@@ -216,6 +216,7 @@ class Journal < Ekylibre::Record::Base
 
     journal_entries_states = ' AND ' + JournalEntry.state_condition(options[:states], journal_entries)
 
+    # account_range = ' AND ' + Account.range_condition(options[:accounts], accounts)
     account_range = ' AND ' + Account.range_condition(options[:accounts], accounts)
 
     # raise Exception.new(options[:centralize].to_s.strip.split(/[^A-Z0-9]+/).inspect)

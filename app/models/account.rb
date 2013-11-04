@@ -159,19 +159,34 @@ class Account < Ekylibre::Record::Base
     end
 
     # Find all account matching with the regexp in a String
-    # 123 will take.all accounts 123*
-    # ^456 will remove.all accounts 456*
-    def finds_with_regexpr(expr)
+    # 123 will take all accounts 123*
+    # ^456 will remove all accounts 456*
+    def self.regexp_condition(expr, options = {})
       normals, excepts = ["(XD)"], []
-      for prefix in expr.strip.split(/\s*[\,\s]+\s*/)
+      for prefix in expr.strip.split(/[\,\s]+/)
         code = prefix.gsub(/(^(\-|\^)|[CDX]+$)/, '')
         excepts   << code if prefix.match(/^\^\d+$/)
         normals   << code if prefix.match(/^\-?\d+[CDX]?$/)
       end
       conditions = ''
-      conditions << "("+normals.sort.collect{|c| "number LIKE '#{c}%'"}.join(" OR ")+")" if normals.size > 0
-      conditions << " AND NOT ("+excepts.sort.collect{|c| "number LIKE '#{c}%'"}.join(" OR ")+")" if excepts.size > 0
-      self.where(conditions)
+      if normals.any?
+        conditions << "(" + normals.sort.collect{|c| 
+          "#{table}.number LIKE '#{c}%'"
+        }.join(" OR ") + ")"
+      end
+      if excepts.any?
+        conditions << " AND NOT (" + excepts.sort.collect{|c| 
+          "#{table}.number LIKE '#{c}%'"
+        }.join(" OR ") + ")" 
+      end
+      return conditions
+    end
+
+    # Find all account matching with the regexp in a String
+    # 123 will take all accounts 123*
+    # ^456 will remove all accounts 456*
+    def find_with_regexp(expr)
+      where(regexp_condition(expr))
     end
 
     # Find or create an account with its name in chart if not exist in DB
