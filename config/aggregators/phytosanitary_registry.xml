@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
+  <aggregator name="phytosanitary_registry" version="0.0" category="land_parcel_management">
+    <parameters>
+      <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
+    </parameters>
+    <section name="campaigns">
+      <variable name="company" value="Entity.of_company"/>
+      <property name="entity_name" value="company.full_name"/>
+      <property name="address" value="company.default_mail_address.coordinate"/>
+      <sections for="campaign" in="campaigns">
+        <property name="id" of="campaign" level="api"/>
+        <title name="name" of="campaign"/>
+        <!-- looking for all CultivableLandParcel in current campaign -->
+        <sections for="cultivable_land_parcel" in="CultivableLandParcel.of_campaign(campaign)" of-type="record">
+          <title name="name" of="cultivable_land_parcel"/>
+          <property name="work_number" of="cultivable_land_parcel"/>
+          <property name="area" of="cultivable_land_parcel" type="measure"/>
+          <property name="area_in_hectare" value="area" of="cultivable_land_parcel" type="measure" level="api"/>
+          <property name="id" of="cultivable_land_parcel" level="api"/>
+          <property name="shape_svg" of="cultivable_land_parcel" type="svg" level="api"/>
+          <!-- looking for all Production in current cultivable_land_parcel and campaign -->
+          <sections for="production" in="cultivable_land_parcel.productions.of_campaign(campaign)" of-type="record">
+            <title name="name" of="production"/>
+            <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
+            <sections for="intervention" in="production.interventions.real.of_nature(:plant_illness_treatment).where(production_support: cultivable_land_parcel)" of-type="record">
+              <variable name="actor" value="intervention.casts.of_role(:'plant_illness_treatment-target').first.actor"/>
+              <title name="name" of="intervention"/>
+              <property name="id" of="intervention" level="api"/>
+              <property name="started_at" of="intervention" type="datetime"/>
+              <property name="stopped_at" of="intervention" type="datetime"/>
+              <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
+              <section name="incident" of="intervention.incident">
+                <property name="id" level="api"/>
+                <property name="name"/>
+                <property name="observed_at"/>
+                <property name="state" level="api"/>
+                <property name="description"/>
+              </section> 
+              <matrix name="inputs" for="input" in="intervention.casts.of_role(:'plant_illness_treatment-input')">
+                <cell name="id" of="input" level="api"/>
+                <within of="input.actor">
+                  <cell name="name"/>
+                  <cell name="unitary_quantity" value="net_volume" type="measure"/>
+                  <cell name="unitary_quantity_in_liter" value="net_volume.convert(:liter).value" level="api"/>
+                  <cell name="unit_name"/>
+                  <cell name="nature_name"/>
+                  <cell name="variety" level="api"/>
+                </within>
+                <cell name="quantity" of="input" type="measure"/>
+                <cell name="unitary_quantity_in_liter" value="input.actor.net_volume.convert(:liter).value * input.quantity"/>
+              </matrix>
+            </sections>            
+          </sections>
+        </sections>
+      </sections>
+    </section>
+  </aggregator>
+</aggregators>
