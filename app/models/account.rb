@@ -161,7 +161,7 @@ class Account < Ekylibre::Record::Base
     # Find all account matching with the regexp in a String
     # 123 will take.all accounts 123*
     # ^456 will remove.all accounts 456*
-    def finds_with_regexpr(expr)
+    def find_with_regexp(expr)
       normals, excepts = ["(XD)"], []
       for prefix in expr.strip.split(/\s*[\,\s]+\s*/)
         code = prefix.gsub(/(^(\-|\^)|[CDX]+$)/, '')
