@@ -437,9 +437,7 @@ jpn:
       # new: "Nouvelle localisation d’un produit"
       # show: "Détail d’une localisation d’un produit"
     backend/product_memberships: #?
-    backend/product_moves:
-      # edit: "Modifier le mouvement de stock\_: %{name}"
-      # new: "Enregistrement d’un mouvement de stock"
+    backend/product_moves: #?
     backend/product_nature_abilities: #?
     backend/product_nature_categories: #?
     backend/product_nature_indicators: #?
@@ -645,7 +643,6 @@ jpn:
     # backend/preferences: "Préférences"
     # backend/product_groups: "Lot de produits"
     # backend/product_localizations: "Localisations"
-    # backend/product_moves: "Mouvements de stock"
     # backend/product_natures: "Types de produits"
     # backend/products: "Produits"
     # backend/professions: "Professions"

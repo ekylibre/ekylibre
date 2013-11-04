@@ -17,6 +17,7 @@ module Procedo
       # Production/consumption
       "{product} produces {producible}" => :production,
       "{product} consumes {consumable}" => :consumption,
+      # Death
       "{product} dies" =>                  :death,
       # Physical links
       "{carrier} catches {carried}" =>     :attachment,

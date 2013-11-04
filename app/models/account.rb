@@ -170,14 +170,14 @@ class Account < Ekylibre::Record::Base
       end
       conditions = ''
       if normals.any?
-        conditions << "(" + normals.sort.collect{|c| 
+        conditions << "(" + normals.sort.collect{|c|
           "#{table}.number LIKE '#{c}%'"
         }.join(" OR ") + ")"
       end
       if excepts.any?
-        conditions << " AND NOT (" + excepts.sort.collect{|c| 
+        conditions << " AND NOT (" + excepts.sort.collect{|c|
           "#{table}.number LIKE '#{c}%'"
-        }.join(" OR ") + ")" 
+        }.join(" OR ") + ")"
       end
       return conditions
     end

@@ -27,6 +27,7 @@
 #  nature       :string(255)      not null
 #  operation_id :integer          not null
 #  parent_id    :integer
+#  position     :integer
 #  prorated     :boolean          not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer

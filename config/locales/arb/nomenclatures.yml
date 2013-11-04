@@ -732,6 +732,8 @@ arb:
       items:
         # activity_margin: "Interventions par activité"
         # manure_management_plan: "Plan de fumure"
+        # phytosanitary_registry: "Registre phytosanitaire"
+        # profit_and_loss_statement: "Compte de résultat"
         # veterinary_booklet: "Carnet vétérinaire"
     entity_natures:
       items:

@@ -506,7 +506,6 @@ Ekylibre::Application.routes.draw do
       member do
         # get :list_price_templates
         # get :list_products
-        # get :list_product_moves
       end
     end
 
@@ -586,18 +585,6 @@ Ekylibre::Application.routes.draw do
     end
     resources :services, concerns: [:list, :unroll]
     resources :settlements, concerns: [:list, :unroll]
-    # resources :product_moves
-    # resources :product_transfers, concerns: [:list, :unroll] do
-    #   collection do
-    #     get :list
-    #     get :list_confirm
-    #     get :unroll
-    #     match "confirm_all", via: [:get, :post]
-    #   end
-    #   member do
-    #     match "confirm", via: [:get, :post]
-    #   end
-    # end
     resources :snippets, only: [] do
       member do
         post :toggle

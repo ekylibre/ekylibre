@@ -3,25 +3,37 @@ module Procedo
   # Type of action a task can do
   class Action
     TYPES = {
+      # Localizations
       move_to: {product: :product, localizable: :product},
       move_in: {product: :product, localizable: :product},
       move_in_default_storage: {product: :product},
       move_in_given_default_storage: {product: :product, localizable: :product},
-      production: {product: :product, producible: :product},
+      # Productions
+      production:  {product: :product, producible: :product},
+      # Consumptions
       consumption: {product: :product, consumable: :product},
+      # Deaths
       death: {product: :product},
+      # Links
       attachment: {carrier: :product, carried: :product},
       detachment: {carrier: :product, carried: :product},
+      # Memberships
       group_inclusion: {group: :product_group, member: :product},
       group_exclusion: {group: :product_group, member: :product},
+      # Ownerships
       ownership_loss: {product: :product},
-      owner_change: {owner: :entity, product: :product},
-      merging: {product: :product, merged: :product},
+      owner_change:   {owner: :entity, product: :product},
+      # Mergings
+      merging:  {product: :product, merged: :product},
+      # Divisions
       division: {product: :product, parted: :product},
+      # Browsings
       browsing: {browser: :product, browsed: :product},
+      # Measures
       simple_measure: {indicator: :indicator},
       measure: {indicator: :indicator, reporter: :product},
       assisted_measure: {indicator: :indicator, reporter: :product, tool: :product},
+      # Deliveries
       outgoing_delivery: {product: :product},
       identified_outgoing_delivery: {product: :product, client: :entity},
       incoming_delivery: {product: :product},

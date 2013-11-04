@@ -355,7 +355,7 @@ fra:
       product_link: "Lien entre produits"
       product_localization: "Passage d’un produit en un lieu"
       product_membership: "Passage d’un produit dans un groupe"
-      product_move: "Mouvement de stock"
+      product_move: "Mouvement de stock" #?
       product_nature: "Type de produit"
       product_nature_variant: "Variante de type de produit"
       product_nature_variant_indicator_datum: "Valeur d’indicateur de variante"
@@ -705,7 +705,6 @@ fra:
     indicators: "Indicators"
     indirect_links: "Liens indirects"
     individual: "Individual" #?
-    # initial: "Initial"
     initial_arrival_cause: "Initial arrival cause"
     initial_container: "Initial container"
     initial_number: "Numéro initial"
@@ -902,7 +901,6 @@ fra:
     planned_on: "Prévu le"
     point_value: "Point value"
     population_counting: "Gestion quantitative"
-    # population_delta: "Population delta"
     position: "Position"
     postcode: "Code postal"
     preferences: "Préférences"
@@ -1596,7 +1594,7 @@ fra:
         purchases: "Achat"
         rent: "Location"
         sales: "Vente"
-    product_move:
+    product_move: #?
       default_name: "%{origin} (%{code})"
     product_nature:
       informations:
