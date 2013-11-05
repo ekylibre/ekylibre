@@ -303,7 +303,7 @@ GEM
       rubyzip (~> 1.0.0)
       websocket (~> 1.0.4)
     sexp_processor (4.4.0)
-    shoulda-context (1.1.5)
+    shoulda-context (1.1.6)
     simple_form (3.0.0)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
@@ -422,6 +422,7 @@ DEPENDENCIES
   rgeo-shapefile
   routing-filter (~> 0.4.0.pre)
   rspec-expectations
+  rubyzip (~> 1.0.0)
   sass-rails (~> 4.0.1)
   sdoc
   selenium-webdriver
