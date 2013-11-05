@@ -143,7 +143,7 @@ GEM
       jquery-ui-rails (>= 4)
       rails (>= 3.2)
     gherkin-ruby (0.3.0)
-    haml (4.0.3)
+    haml (4.0.4)
       tilt
     hashery (2.1.1)
     hike (1.2.3)
