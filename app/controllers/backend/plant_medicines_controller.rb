@@ -26,7 +26,8 @@ class Backend::PlantMedicinesController < BackendController
   list do |t|
     t.column :name, url: true
     t.column :population
-    t.column :created_at
+    t.column :net_volume
+    t.column :net_weight
     t.column :localize_in
   end
 

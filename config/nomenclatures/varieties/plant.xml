@@ -8,6 +8,9 @@
       <item name="asteraceae">
          <attribute name="itis-tsn" value="35420"/>
       </item>
+      <item name="brassicaceae">
+         <attribute name="itis-tsn" value="12345"/>
+      </item>
     </items>
   </nomenclature>
 </nomenclatures>

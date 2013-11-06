@@ -1743,27 +1743,30 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_nature_variant_indicator_data", ["variant_id"], :name => "index_product_nature_variant_indicator_data_on_variant_id"
 
   create_table "product_nature_variants", force: true do |t|
-    t.integer  "nature_id",                              null: false
+    t.integer  "nature_id",                                          null: false
     t.string   "name"
     t.string   "number"
-    t.string   "nature_name",                            null: false
-    t.string   "unit_name",                              null: false
-    t.string   "commercial_name",                        null: false
+    t.string   "variety",                limit: 120,                 null: false
+    t.string   "derivative_of",          limit: 120
+    t.string   "nomen",                  limit: 120
+    t.string   "nature_name",                                        null: false
+    t.string   "unit_name",                                          null: false
+    t.string   "commercial_name",                                    null: false
     t.text     "commercial_description"
     t.text     "frozen_indicators"
     t.text     "variable_indicators"
-    t.boolean  "active",                 default: false, null: false
+    t.boolean  "active",                             default: false, null: false
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.string   "contour"
-    t.integer  "horizontal_rotation",    default: 0,     null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
+    t.integer  "horizontal_rotation",                default: 0,     null: false
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",           default: 0,     null: false
+    t.integer  "lock_version",                       default: 0,     null: false
   end
 
   add_index "product_nature_variants", ["created_at"], :name => "index_product_nature_variants_on_created_at"

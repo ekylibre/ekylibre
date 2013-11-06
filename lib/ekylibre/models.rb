@@ -2249,6 +2249,7 @@ module Ekylibre
       contour: Ekylibre::Record::Column.new(:contour, :string).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
+      derivative_of: Ekylibre::Record::Column.new(:derivative_of, :string, limit: 120).freeze,
       frozen_indicators: Ekylibre::Record::Column.new(:frozen_indicators, :text).freeze,
       horizontal_rotation: Ekylibre::Record::Column.new(:horizontal_rotation, :integer, null: false, default: 0).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
@@ -2256,6 +2257,7 @@ module Ekylibre
       name: Ekylibre::Record::Column.new(:name, :string).freeze,
       nature_id: Ekylibre::Record::Column.new(:nature_id, :integer, null: false).freeze,
       nature_name: Ekylibre::Record::Column.new(:nature_name, :string, null: false).freeze,
+      nomen: Ekylibre::Record::Column.new(:nomen, :string, limit: 120).freeze,
       number: Ekylibre::Record::Column.new(:number, :string).freeze,
       picture_content_type: Ekylibre::Record::Column.new(:picture_content_type, :string).freeze,
       picture_file_name: Ekylibre::Record::Column.new(:picture_file_name, :string).freeze,
@@ -2264,7 +2266,8 @@ module Ekylibre
       unit_name: Ekylibre::Record::Column.new(:unit_name, :string, null: false).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze,
-      variable_indicators: Ekylibre::Record::Column.new(:variable_indicators, :text).freeze
+      variable_indicators: Ekylibre::Record::Column.new(:variable_indicators, :text).freeze,
+      variety: Ekylibre::Record::Column.new(:variety, :string, limit: 120, null: false).freeze
     ).freeze,
     product_natures: HashWithIndifferentAccess.new(
       abilities: Ekylibre::Record::Column.new(:abilities, :text).freeze,

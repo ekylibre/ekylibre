@@ -23,7 +23,7 @@
           <sections for="production" in="cultivable_land_parcel.productions.of_campaign(campaign)" of-type="record">
             <title name="name" of="production"/>
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="intervention" in="production.interventions.real.of_nature(:plant_illness_treatment).where(production_support: cultivable_land_parcel)" of-type="record">
+            <sections for="intervention" in="production.interventions.real.of_nature(:plant_illness_treatment)" of-type="record">
               <variable name="actor" value="intervention.casts.of_role(:'plant_illness_treatment-target').first.actor"/>
               <title name="name" of="intervention"/>
               <property name="id" of="intervention" level="api"/>
@@ -41,14 +41,11 @@
                 <cell name="id" of="input" level="api"/>
                 <within of="input.actor">
                   <cell name="name"/>
-                  <cell name="unitary_quantity" value="net_volume" type="measure"/>
-                  <cell name="unitary_quantity_in_liter" value="net_volume.convert(:liter).value" level="api"/>
                   <cell name="unit_name"/>
                   <cell name="nature_name"/>
                   <cell name="variety" level="api"/>
                 </within>
                 <cell name="quantity" of="input" type="measure"/>
-                <cell name="unitary_quantity_in_liter" value="input.actor.net_volume.convert(:liter).value * input.quantity"/>
               </matrix>
             </sections>            
           </sections>

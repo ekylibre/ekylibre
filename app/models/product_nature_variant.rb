@@ -26,6 +26,7 @@
 #  contour                :string(255)
 #  created_at             :datetime         not null
 #  creator_id             :integer
+#  derivative_of          :string(120)
 #  frozen_indicators      :text
 #  horizontal_rotation    :integer          default(0), not null
 #  id                     :integer          not null, primary key
@@ -33,6 +34,7 @@
 #  name                   :string(255)
 #  nature_id              :integer          not null
 #  nature_name            :string(255)      not null
+#  nomen                  :string(120)
 #  number                 :string(255)
 #  picture_content_type   :string(255)
 #  picture_file_name      :string(255)
@@ -42,22 +44,26 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #  variable_indicators    :text
+#  variety                :string(120)      not null
 #
 
 class ProductNatureVariant < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_name, :nature_id, :nature_name, :unit_name, :name, :indicator_data_attributes, :products_attributes, :prices_attributes
+  enumerize :variety,       in: Nomen::Varieties.all
+  enumerize :derivative_of, in: Nomen::Varieties.all
   belongs_to :nature, :class_name => "ProductNature", :inverse_of => :variants
   has_many :products, :foreign_key => :variant_id
   has_many :indicator_data, :class_name => "ProductNatureVariantIndicatorDatum", :foreign_key => :variant_id
   has_many :prices, :class_name => "CatalogPrice", :foreign_key => :variant_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :horizontal_rotation, :picture_file_size, :allow_nil => true, :only_integer => true
+  validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 120
   validates_length_of :commercial_name, :contour, :name, :nature_name, :number, :picture_content_type, :picture_file_name, :unit_name, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :in => [true, false]
-  validates_presence_of :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name
+  validates_presence_of :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name, :variety
   #]VALIDATORS]
 
-  delegate :variety, :derivative_of, :matching_model, :indicators_array, :population_frozen?, :population_modulo, :to => :nature
+  delegate :matching_model, :indicators_array, :population_frozen?, :population_modulo, :to => :nature
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :prices, :reject_if => :all_blank, :allow_destroy => true
@@ -79,10 +85,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
 
   scope :of_variety, Proc.new { |*varieties|
-    where(:nature_id => ProductNature.of_variety(*varieties))
+    where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :derivative_of, Proc.new { |*varieties|
-    where(:nature_id => ProductNature.derivative_of(*varieties))
+    where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :can, Proc.new { |*abilities|
     where(:nature_id => ProductNature.can(*abilities))
@@ -101,6 +107,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
       self.nature_name ||= self.nature.name
       self.variable_indicators ||= self.nature.indicators
       self.name ||= self.nature_name
+      self.variety ||= self.nature.variety
+      self.derivative_of ||= self.nature.derivative_of
       #if indicator = self.indicators_array.first
       #  self.usage_indicator ||= indicator.name
       #end
@@ -185,6 +193,46 @@ class ProductNatureVariant < Ekylibre::Record::Base
     ProductNatureVariantIndicatorDatum.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.variant_id = p2.variant_id AND (p1.created_at < p2.created_at OR (p1.created_at = p2.created_at AND p1.id < p2.id)) AND p2.created_at <= ?) WHERE p1.created_at <= ? AND p1.variant_id IN (?) AND p2 IS NULL)", created_at, created_at, self.pluck(:id))
   end
 
+
+  # Load a product nature variant from product nature variant nomenclature
+  def self.import_from_nomenclature(nomen)
+    unless item = Nomen::ProductNatureVariants.find(nomen)
+      raise ArgumentError.new("The product_nature_variant #{nomen.inspect} is not known")
+    end
+    unless nature_item = Nomen::ProductNatures.find(item.nature)
+      raise ArgumentError.new("The nature of the product_nature_variant #{item.nature.inspect} is not known")
+    end
+    unless nature_variant = ProductNatureVariant.find_by_nomen(nomen)
+      attributes = {
+        :name => item.human_name,
+        :active => true,
+        :nature => ProductNature.find_by_nomen(item.nature) || ProductNature.import_from_nomenclature(item.nature),
+        :nomen => item.name,
+        :unit_name => item.unit_name.to_s,
+        :frozen_indicators => item.frozen_indicators.to_s,
+        :variety => item.variety,
+        :derivative_of => item.derivative_of.to_s
+      }
+      nature_variant = self.create!(attributes)
+    end
+
+        if !item.frozen_indicators.to_s.blank?
+          # transform "population: 1unity, net_weight :5ton" in a hash
+          h_frozen_indicators = item.frozen_indicators.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+            h[i.first.strip.downcase.to_sym] = i.second
+            h
+            }
+          # create frozen indicator for each pair indicator, value ":population => 1unity"
+          frozen_indicators = []
+          for indicator, value in h_frozen_indicators
+            nature_variant.is_measured!(indicator, value)
+            frozen_indicators << indicator.to_s
+          end
+          nature_variant.update!(:frozen_indicators => frozen_indicators.join(","))
+        end
+
+    return nature_variant
+  end
 
   # Get indicator value
   # if option :at specify at which moment
