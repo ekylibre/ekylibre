@@ -18,14 +18,14 @@
 #
 
 class Backend::TaxesController < BackendController
-  manage_restfully :nature => "Tax.nature.default_value".c
+  manage_restfully # :nature => "Tax.nature.default_value".c
 
   unroll
 
   list do |t|
     t.column :name
     t.column :amount, :precision => 3
-    t.column :nature
+    t.column :nomen
     t.column :included
     t.column :reductible
     t.column :deduction_account, url: true
