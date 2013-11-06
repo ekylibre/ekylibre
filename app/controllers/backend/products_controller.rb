@@ -22,6 +22,8 @@ class Backend::ProductsController < BackendController
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
+  before_action :check_variant_availibility, only: :new
+
   unroll
 
   list do |t|
@@ -112,5 +114,14 @@ class Backend::ProductsController < BackendController
     t3e @product, :nature_name => @product.nature_name
     respond_with(@product, :include => [:father, :mother, :nature, {:memberships => {:include => :group},:indicator_data => {:include => :indicator}, :product_localizations => {:include => :container}}])
   end
+
+
+  def check_variant_availibility()
+    unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
+      redirect_to new_backend_product_nature_url
+      return false
+    end
+  end
+
 
 end

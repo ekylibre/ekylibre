@@ -1699,6 +1699,7 @@ spa:
     # valid: "Valider"
     validate: "Validar"
     validate_selected_entries: "Validar la escrituras seleccionadas"
+    # variants: "Variantes"
     vat: "Tasa a pagar"
     vat_acquisitions: "Adquisición intracomunotarios"
     vat_amount: "Tasa deuda"

@@ -64,6 +64,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
   #]VALIDATORS]
 
   delegate :matching_model, :indicators_array, :population_frozen?, :population_modulo, :to => :nature
+  delegate :variety, :derivative_of, to: :nature, prefix: true
+
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :prices, :reject_if => :all_blank, :allow_destroy => true
@@ -130,6 +132,16 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   end
 
+  validate do
+    if self.nature
+      unless Nomen::Varieties.all(self.nature_variety).include?(self.variety.to_s)
+        errors.add(:variety, :invalid)
+      end
+      unless Nomen::Varieties.all(self.nature_derivative_of).include?(self.derivative_of.to_s)
+        errors.add(:derivative_of, :invalid)
+      end
+    end
+  end
 
   def deliverable?
     self.nature.deliverable?

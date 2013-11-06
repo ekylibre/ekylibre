@@ -1568,6 +1568,7 @@ jpn:
     # valid: "Valider"
     # validate: "Valider"
     # validate_selected_entries: "Valider les écritures sélectionnées"
+    # variants: "Variantes"
     # vat: "Taxe à payer"
     # vat_acquisitions: "Acquisitions intracommunautaires"
     # vat_amount: "Taxe due"

@@ -1646,6 +1646,7 @@ eng:
     valid: "Valid"
     validate: "Validate"
     validate_selected_entries: "Validate selected entries"
+    # variants: "Variantes"
     # vat: "Taxe à payer"
     # vat_acquisitions: "Acquisitions intracommunautaires"
     # vat_amount: "Taxe due"

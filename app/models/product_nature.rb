@@ -95,7 +95,7 @@ class ProductNature < Ekylibre::Record::Base
   # default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
   scope :stockables, -> { where(:storable => true).order(:name) }
-  scope :saleables, -> { where(:saleable => true).order(:name) }
+  scope :saleables,  -> { where(:saleable => true).order(:name) }
   scope :purchaseables, -> { where(:purchasable => true).order(:name) }
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 

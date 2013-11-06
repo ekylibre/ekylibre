@@ -173,7 +173,7 @@ class Product < Ekylibre::Record::Base
   delegate :serial_number, :producer, :to => :tracking
   delegate :name, :to => :nature, :prefix => true
   delegate :subscribing?, :deliverable?, :to => :nature
-  delegate :variety, :name, :to => :variant, :prefix => true
+  delegate :variety, :derivative_of, :name, :to => :variant, :prefix => true
   delegate :abilities, :abilities_array, :indicators, :indicators_array, :unit_name, :to => :variant
 
   after_initialize :choose_default_name
@@ -182,12 +182,13 @@ class Product < Ekylibre::Record::Base
 
   validate do
     if self.variant
-      # puts Nomen::Varieties.all(self.variant_variety).inspect
-      errors.add(:variety, :invalid) unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_s)
+      unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_s)
+        errors.add(:variety, :invalid)
+      end
+      unless Nomen::Varieties.all(self.variant_derivative_of).include?(self.derivative_of.to_s)
+        errors.add(:derivative_of, :invalid)
+      end
     end
-    #if self.external
-    #  errors.add(:owner_id, :invalid) unless self.owner_id != Entity.of_company.id
-    #end
   end
 
   class << self
