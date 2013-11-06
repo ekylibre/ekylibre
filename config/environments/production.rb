@@ -60,14 +60,20 @@ Ekylibre::Application.configure do
   # Precompile additional assets.
   # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
   # config.assets.precompile += %w( search.js )
-  config.assets.precompile += [ "themes/tekyla/all.css" ]
+  config.assets.precompile += %w(themes/tekyla/all.css)
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
   # Configure exception notification
-  # config.middleware.use ExceptionNotifier, :email_prefix => "[ERROR] ", :sender_address => %{"notifier" <notifier@ekylibre.org>}, :exception_recipients => %w{dev@ekylibre.org}
+  config.middleware.use ExceptionNotification::Rack, {
+    :email => {
+      :email_prefix => "[Ekylibre] ",
+      :sender_address => %{"Ekylibre Exception Notifier" <notifier@ekylibre.org>},
+      :exception_recipients => %w{dev@ekylibre.org}
+    }
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found).
