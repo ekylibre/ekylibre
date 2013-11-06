@@ -482,9 +482,6 @@ fra:
       # index: "Index backend/product membership"
       # new: "New backend/product membership"
       # show: "Show backend/product membership"
-    backend/product_moves:
-      edit: "Modifier le mouvement de stock\_: %{name}" #?
-      new: "Enregistrement d’un mouvement de stock" #?
     backend/product_nature_variant_indicator_data:
       # edit: "Edit backend/product nature variant indicator datum"
       # index: "Index backend/product nature variant indicator datum"
@@ -768,7 +765,6 @@ fra:
     # backend/product_links: "Backend/product links"
     backend/product_localizations: "Localisations"
     # backend/product_memberships: "Backend/product memberships"
-    backend/product_moves: "Mouvements de stock"
     # backend/product_nature_variant_indicator_data: "Backend/product nature variant indicator data"
     # backend/product_nature_variants: "Backend/product nature variants"
     backend/product_natures: "Types de produits"

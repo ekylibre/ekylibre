@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "local_credit",      precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "local_balance",     precision: 19, scale: 4, default: 0.0, null: false
     t.integer  "local_count",                                default: 0,   null: false
+    t.string   "currency",                                                 null: false
     t.datetime "created_at",                                               null: false
     t.datetime "updated_at",                                               null: false
     t.integer  "creator_id"
@@ -1312,6 +1313,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "operation_id",                 null: false
     t.integer  "parent_id"
     t.string   "nature",                       null: false
+    t.integer  "position"
     t.boolean  "prorated",     default: false, null: false
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
@@ -1520,6 +1522,83 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "prescriptions", ["updated_at"], :name => "index_prescriptions_on_updated_at"
   add_index "prescriptions", ["updater_id"], :name => "index_prescriptions_on_updater_id"
 
+  create_table "product_births", force: true do |t|
+    t.integer  "operation_task_id"
+    t.integer  "move_id"
+    t.string   "move_type"
+    t.string   "nature",                        null: false
+    t.integer  "product_id"
+    t.integer  "born_id",                       null: false
+    t.datetime "born_at",                       null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      default: 0, null: false
+  end
+
+  add_index "product_births", ["born_at"], :name => "index_product_births_on_born_at"
+  add_index "product_births", ["born_id"], :name => "index_product_births_on_born_id"
+  add_index "product_births", ["created_at"], :name => "index_product_births_on_created_at"
+  add_index "product_births", ["creator_id"], :name => "index_product_births_on_creator_id"
+  add_index "product_births", ["move_id", "move_type"], :name => "index_product_births_on_move_id_and_move_type"
+  add_index "product_births", ["operation_task_id"], :name => "index_product_births_on_operation_task_id"
+  add_index "product_births", ["product_id"], :name => "index_product_births_on_product_id"
+  add_index "product_births", ["updated_at"], :name => "index_product_births_on_updated_at"
+  add_index "product_births", ["updater_id"], :name => "index_product_births_on_updater_id"
+
+  create_table "product_deaths", force: true do |t|
+    t.integer  "operation_task_id"
+    t.integer  "move_id"
+    t.string   "move_type"
+    t.string   "nature",                        null: false
+    t.integer  "product_id"
+    t.integer  "dead_id",                       null: false
+    t.datetime "dead_at",                       null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      default: 0, null: false
+  end
+
+  add_index "product_deaths", ["created_at"], :name => "index_product_deaths_on_created_at"
+  add_index "product_deaths", ["creator_id"], :name => "index_product_deaths_on_creator_id"
+  add_index "product_deaths", ["dead_at"], :name => "index_product_deaths_on_dead_at"
+  add_index "product_deaths", ["dead_id"], :name => "index_product_deaths_on_dead_id"
+  add_index "product_deaths", ["move_id", "move_type"], :name => "index_product_deaths_on_move_id_and_move_type"
+  add_index "product_deaths", ["operation_task_id"], :name => "index_product_deaths_on_operation_task_id"
+  add_index "product_deaths", ["product_id"], :name => "index_product_deaths_on_product_id"
+  add_index "product_deaths", ["updated_at"], :name => "index_product_deaths_on_updated_at"
+  add_index "product_deaths", ["updater_id"], :name => "index_product_deaths_on_updater_id"
+
+  create_table "product_enjoyments", force: true do |t|
+    t.integer  "operation_task_id"
+    t.integer  "move_id"
+    t.string   "move_type"
+    t.integer  "product_id",                    null: false
+    t.string   "nature",                        null: false
+    t.integer  "enjoyer_id"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      default: 0, null: false
+  end
+
+  add_index "product_enjoyments", ["created_at"], :name => "index_product_enjoyments_on_created_at"
+  add_index "product_enjoyments", ["creator_id"], :name => "index_product_enjoyments_on_creator_id"
+  add_index "product_enjoyments", ["enjoyer_id"], :name => "index_product_enjoyments_on_enjoyer_id"
+  add_index "product_enjoyments", ["move_id", "move_type"], :name => "index_product_enjoyments_on_move_id_and_move_type"
+  add_index "product_enjoyments", ["operation_task_id"], :name => "index_product_enjoyments_on_operation_task_id"
+  add_index "product_enjoyments", ["product_id"], :name => "index_product_enjoyments_on_product_id"
+  add_index "product_enjoyments", ["started_at"], :name => "index_product_enjoyments_on_started_at"
+  add_index "product_enjoyments", ["stopped_at"], :name => "index_product_enjoyments_on_stopped_at"
+  add_index "product_enjoyments", ["updated_at"], :name => "index_product_enjoyments_on_updated_at"
+  add_index "product_enjoyments", ["updater_id"], :name => "index_product_enjoyments_on_updater_id"
+
   create_table "product_indicator_data", force: true do |t|
     t.integer  "product_id",                                                                                                            null: false
     t.integer  "move_id"
@@ -1634,27 +1713,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_memberships", ["stopped_at"], :name => "index_product_memberships_on_stopped_at"
   add_index "product_memberships", ["updated_at"], :name => "index_product_memberships_on_updated_at"
   add_index "product_memberships", ["updater_id"], :name => "index_product_memberships_on_updater_id"
-
-  create_table "product_moves", force: true do |t|
-    t.integer  "product_id",                                                null: false
-    t.decimal  "population_delta", precision: 19, scale: 4,                 null: false
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.boolean  "initial",                                   default: false, null: false
-    t.datetime "created_at",                                                null: false
-    t.datetime "updated_at",                                                null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                              default: 0,     null: false
-  end
-
-  add_index "product_moves", ["created_at"], :name => "index_product_moves_on_created_at"
-  add_index "product_moves", ["creator_id"], :name => "index_product_moves_on_creator_id"
-  add_index "product_moves", ["product_id"], :name => "index_product_moves_on_product_id"
-  add_index "product_moves", ["started_at"], :name => "index_product_moves_on_started_at"
-  add_index "product_moves", ["stopped_at"], :name => "index_product_moves_on_stopped_at"
-  add_index "product_moves", ["updated_at"], :name => "index_product_moves_on_updated_at"
-  add_index "product_moves", ["updater_id"], :name => "index_product_moves_on_updater_id"
 
   create_table "product_nature_variant_indicator_data", force: true do |t|
     t.integer  "variant_id",                                                                                                            null: false
@@ -1777,12 +1835,12 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_natures_sale_taxes", ["tax_id"], :name => "index_product_natures_sale_taxes_on_tax_id"
 
   create_table "product_ownerships", force: true do |t|
+    t.integer  "operation_task_id"
     t.integer  "move_id"
     t.string   "move_type"
     t.integer  "product_id",                    null: false
     t.string   "nature",                        null: false
     t.integer  "owner_id"
-    t.integer  "operation_task_id"
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.datetime "created_at",                    null: false

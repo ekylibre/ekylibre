@@ -470,9 +470,9 @@ eng:
       new: "Create a localization"
       show: "Product localization"
     backend/product_memberships: #?
-    backend/product_moves:
-      edit: "Edit the stock move: %{name}"
-      new: "add a new stock move"
+    backend/product_moves:  #?
+      edit: "Edit the stock move: %{name}" #?
+      new: "add a new stock move" #?
     backend/product_nature_categories:  #?
       edit: "Edit the product category: %{name}" #?
       index: "Product categories" #?
@@ -701,7 +701,7 @@ eng:
     backend/prices: "Prices" #?
     backend/product_groups: "Product groups"
     backend/product_localizations: "Product localizations"
-    backend/product_moves: "Stock moves"
+    backend/product_moves: "Stock moves" #?
     backend/product_nature_categories: "Product categories" #?
     backend/product_natures: "Product types"
     backend/product_transfers: "Transfers and loss" #?

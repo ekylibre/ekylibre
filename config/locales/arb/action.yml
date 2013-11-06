@@ -523,9 +523,9 @@ arb:
       # new: "Nouvelle localisation d’un produit"
       # show: "Détail d’une localisation d’un produit"
     backend/product_memberships: #?
-    backend/product_moves:
-      edit: "تعديل حركة سهم : %{name}"
-      new: "التسجيل لحركة السهم"
+    backend/product_moves:  #?
+      edit: "تعديل حركة سهم : %{name}" #?
+      new: "التسجيل لحركة السهم" #?
     backend/product_nature:  #?
       edit: "تعديل المنتج : %{name}" #?
       index: "المنتجات" #?
@@ -815,7 +815,6 @@ arb:
     backend/product_categories: "فئات المنتج" #?
     # backend/product_groups: "Lot de produits"
     # backend/product_localizations: "Localisations"
-    # backend/product_moves: "Mouvements de stock"
     backend/product_nature: "المنتجات" #?
     backend/product_nature_categories: "فئات المنتج" #?
     backend/product_natures: "المنتجات"
