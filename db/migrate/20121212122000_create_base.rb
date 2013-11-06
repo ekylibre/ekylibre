@@ -1103,7 +1103,7 @@ class CreateBase < ActiveRecord::Migration
     create_table :productions do |t|
       t.references :activity,                        null: false, index: true
       t.references :campaign,                        null: false, index: true
-      t.references :product_nature,                               index: true
+      t.references :variant,                               index: true
       t.string     :name,                            null: false
       t.string     :state,                           null: false
       t.boolean    :static_support,  default: false, null: false

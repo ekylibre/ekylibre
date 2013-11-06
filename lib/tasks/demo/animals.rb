@@ -2,22 +2,31 @@
 
 demo :animals do
 
-  cow_vl     = ProductNature.import_from_nomenclature(:female_adult_cow).default_variant
-  cow_trepro = ProductNature.import_from_nomenclature(:male_adult_cow).default_variant
-  cow_gen    = ProductNature.import_from_nomenclature(:female_young_cow).default_variant
-  cow_taur   = ProductNature.import_from_nomenclature(:male_young_cow).default_variant
-  cow_v      = ProductNature.import_from_nomenclature(:calf).default_variant
-  herd       = ProductNature.import_from_nomenclature(:cattle_herd).default_variant
+  # import variant for creating animal
+    cow_vl     = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
+    cow_trepro = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
+    cow_gen    = ProductNatureVariant.import_from_nomenclature(:female_young_cow)
+    cow_taur   = ProductNatureVariant.import_from_nomenclature(:male_young_cow)
+    cow_v      = ProductNatureVariant.import_from_nomenclature(:calf)
+    herd       = ProductNatureVariant.import_from_nomenclature(:cattle_herd)
+
+  # find place for creating animal
+    place_v = BuildingDivision.find_by_work_number("B09_D1")
+    group_v = AnimalGroup.find_by_work_number("VEAU")
+    place_gen = BuildingDivision.find_by_work_number("B03_D9")
+    group_gen1 = AnimalGroup.find_by_work_number("GEN_1")
+    group_gen2 = AnimalGroup.find_by_work_number("GEN_2")
+    group_gen3 = AnimalGroup.find_by_work_number("GEN_3")
+    place_taur = BuildingDivision.find_by_work_number("B04_D4")
+    group_taur = AnimalGroup.find_by_work_number("TAUR")
+    place_vl = BuildingDivision.find_by_work_number("B07_D2")
+    group_vl = AnimalGroup.find_by_work_number("VL")
 
   # add animals credentials in preferences
   cattling_number = Preference.where(:nature => :string, :name => "services.synel17.login", :string_value => "17387001").first_or_create
 
   Ekylibre::fixturize :animal_natures do |w|
     #############################################################################
-    # add default product_nature for animals
-
-
-
     for group in [{:name => "Vaches Laitières", :work_number => "VL"},
                   {:name => "Génisses 3",  :work_number => "GEN_3"},
                   {:name => "Génisses 2",  :work_number => "GEN_2"},
@@ -35,17 +44,7 @@ demo :animals do
 
   Ekylibre::fixturize :synel_animal_import do |w|
     #############################################################################
-    # set finder for creating animal
-    place_v = BuildingDivision.find_by_work_number("B09_D1")
-    group_v = AnimalGroup.find_by_work_number("VEAU")
-    place_gen = BuildingDivision.find_by_work_number("B03_D9")
-    group_gen1 = AnimalGroup.find_by_work_number("GEN_1")
-    group_gen2 = AnimalGroup.find_by_work_number("GEN_2")
-    group_gen3 = AnimalGroup.find_by_work_number("GEN_3")
-    place_taur = BuildingDivision.find_by_work_number("B04_D4")
-    group_taur = AnimalGroup.find_by_work_number("TAUR")
-    place_vl = BuildingDivision.find_by_work_number("B07_D2")
-    group_vl = AnimalGroup.find_by_work_number("VL")
+
 
     arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
     departure_causes = {"M" => :death, "B" => :sale, "" => :other, "C" => :consumption , "E" => :sale}

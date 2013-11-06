@@ -110,7 +110,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
       self.variable_indicators ||= self.nature.indicators
       self.name ||= self.nature_name
       self.variety ||= self.nature.variety
-      self.derivative_of ||= self.nature.derivative_of
+      if self.derivative_of.blank? and self.nature.derivative_of
+        self.derivative_of ||= self.nature.derivative_of
+      end
       #if indicator = self.indicators_array.first
       #  self.usage_indicator ||= indicator.name
       #end
@@ -137,8 +139,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
       unless Nomen::Varieties.all(self.nature_variety).include?(self.variety.to_s)
         errors.add(:variety, :invalid)
       end
-      unless Nomen::Varieties.all(self.nature_derivative_of).include?(self.derivative_of.to_s)
-        errors.add(:derivative_of, :invalid)
+      if self.derivative_of
+        unless Nomen::Varieties.all(self.nature_derivative_of).include?(self.derivative_of.to_s)
+          errors.add(:derivative_of, :invalid)
+        end
       end
     end
   end
@@ -222,8 +226,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
         :nomen => item.name,
         :unit_name => item.unit_name.to_s,
         :frozen_indicators => item.frozen_indicators.to_s,
-        :variety => item.variety,
-        :derivative_of => item.derivative_of.to_s
+        :variety => item.variety || nil,
+        :derivative_of => item.derivative_of || nil
       }
       nature_variant = self.create!(attributes)
     end

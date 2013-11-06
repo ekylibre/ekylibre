@@ -944,6 +944,7 @@ fra:
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
+    # purchase_product_natures: "Purchase product natures"
     # purchase_taxes: "Purchase taxes"
     purchased_on: "Acheté le"
     purchases: "Achats"
@@ -1003,6 +1004,7 @@ fra:
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
     sale_price_listing: "Sale price listing" #?
+    # sale_product_natures: "Sale product natures"
     # sale_taxes: "Sale taxes"
     saleable: "Vendable"
     sales: "Ventes"
@@ -1612,7 +1614,7 @@ fra:
         sales: "Vente"
     production:
       bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
-      name: "%{product_nature}/%{activity} %{campaign} (%{state})"
+      name: "%{variant}/%{activity} %{campaign} (%{state})"
       states:
         aborted: "Annulée"
         draft: "Prévue"

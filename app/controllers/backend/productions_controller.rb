@@ -30,7 +30,7 @@ class Backend::ProductionsController < BackendController
   #   :product_nature_id
   def self.productions_conditions
     code = ""
-    code = search_conditions(:productions => [:state], :activities => [:name], :product_natures => [:name]) + " ||= []\n"
+    code = search_conditions(:productions => [:state], :activities => [:name], :product_nature_variants => [:name]) + " ||= []\n"
     code << "unless params[:s].blank?\n"
     code << "  unless params[:s] == 'all'\n"
     # code << "    c[0] << \" AND state IN ('draft', 'validated', 'aborted', 'started')\"\n"
@@ -43,9 +43,9 @@ class Backend::ProductionsController < BackendController
     code << "    c[0] << \" AND \#{Campaign.table_name}.id = ?\"\n"
     code << "    c << params[:campaign_id].to_i\n"
     code << "  end\n"
-    code << "  if params[:product_nature_id].to_i > 0\n"
-    code << "    c[0] << \" AND \#{ProductNature.table_name}.id = ?\"\n"
-    code << "    c << params[:product_nature_id].to_i\n"
+    code << "  if params[:variant_id].to_i > 0\n"
+    code << "    c[0] << \" AND \#{ProductNatureVariant.table_name}.id = ?\"\n"
+    code << "    c << params[:variant_id].to_i\n"
     code << "  end\n"
     code << "c\n "
     return code.c
@@ -53,11 +53,11 @@ class Backend::ProductionsController < BackendController
 
 
 
-  list(:conditions => productions_conditions, :joins => [:activity, :product_nature, :campaign]) do |t|
+  list(:conditions => productions_conditions, :joins => [:activity, :variant, :campaign]) do |t|
     t.column :name, url: true
     t.column :activity, url: true
     t.column :campaign, url: true
-    t.column :product_nature, url: true
+    t.column :variant, url: true
     t.column :state_label
     t.action :edit, :if => :draft?
     # t.action :print, :if => :validated?

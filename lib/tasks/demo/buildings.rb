@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 demo :buildings do
 
-  standard_place_variant = ProductNature.import_from_nomenclature(:building).default_variant
+  standard_place_variant = ProductNatureVariant.import_from_nomenclature(:building)
 
   Ekylibre::fixturize :buildings do |w|
     #############################################################################
     # Import (from nomenclature) a default product_nature to place animal
-    animal_place_variant = ProductNature.import_from_nomenclature(:animal_building).default_variant
-    settlement_place_variant = ProductNature.import_from_nomenclature(:screed_building).default_variant
-    office_place_variant = ProductNature.import_from_nomenclature(:office_building).default_variant
+    animal_place_variant = ProductNatureVariant.import_from_nomenclature(:animal_building)
+    settlement_place_variant = ProductNatureVariant.import_from_nomenclature(:screed_building)
+    office_place_variant = ProductNatureVariant.import_from_nomenclature(:office_building)
 
     for building in [{:variant_id => standard_place_variant.id, :name => "Bâtiment historique", :work_number => "B05", :identification_number => "STABULATION_05"},
                      {:variant_id => settlement_place_variant.id, :name => "Aire bétonnée", :work_number => "B06", :identification_number => "STABULATION_06"},
@@ -57,7 +57,7 @@ demo :buildings do
 
   Ekylibre::fixturize :building_divisions_shapes do |w|
 
-    building_division_variant = ProductNature.import_from_nomenclature(:building_division).default_variant
+    building_division_variant = ProductNatureVariant.import_from_nomenclature(:building_division)
 
     RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp").to_s, :srid => 2154) do |file|
       # puts "File contains #{file.num_records} records."

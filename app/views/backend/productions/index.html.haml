@@ -5,8 +5,8 @@
     %label= Production.human_attribute_name(:campaign)
     = select_tag(:campaign_id, options_for_select([[]] + Campaign.all.collect{|u| [u.name, u.id]}, params[:campaign_id]))
   - k.criterion do
-    %label= Production.human_attribute_name(:product_nature)
-    = select_tag(:product_nature_id, options_for_select([[]] + ProductNature.all.collect{|u| [u.label, u.id]}, params[:product_nature_id]))
+    %label= Production.human_attribute_name(:variant)
+    = select_tag(:variant_id, options_for_select([[]] + ProductNatureVariant.all.collect{|u| [u.name, u.id]}, params[:variant_id]))
 
 = main_toolbar do |t|
   - t.new

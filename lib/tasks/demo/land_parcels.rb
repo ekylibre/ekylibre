@@ -6,7 +6,7 @@ demo :land_parcels do
     # Import shapefile
 
 
-    land_parcel_group_variant = ProductNature.import_from_nomenclature(:land_parcel_cluster).default_variant
+    land_parcel_group_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel_cluster)
 
     RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "ilot_017005218.shp").to_s, :srid => 2154) do |file|
       # puts "File contains #{file.num_records} records."
@@ -36,8 +36,8 @@ demo :land_parcels do
   Ekylibre::fixturize :calc_sheet_file_import do |w|
     # Import land_parcel from Calc Sheet
 
-    land_parcel_group_nature_variant = ProductNature.import_from_nomenclature(:cultivable_land_parcel).default_variant
-    land_parcel_nature_variant = ProductNature.import_from_nomenclature(:land_parcel).default_variant
+    land_parcel_group_nature_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_land_parcel)
+    land_parcel_nature_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
 
     # Load file
     file = Rails.root.join("test", "fixtures", "files", "land_parcel_017005218.csv")

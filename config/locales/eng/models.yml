@@ -2155,7 +2155,7 @@ eng:
     production:
       # bookkeep: "[%{resource} %{number}] %{products} pour %{client} (%{sale})"
       label: #?
-      # name: "%{product_nature}/%{activity} %{campaign} (%{state})"
+      # name: "%{variant}/%{activity} %{campaign} (%{state})"
       states:
         # aborted: "Annulée"
         # draft: "Prévue"

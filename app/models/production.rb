@@ -20,28 +20,28 @@
 #
 # == Table: productions
 #
-#  activity_id       :integer          not null
-#  campaign_id       :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  name              :string(255)      not null
-#  position          :integer
-#  product_nature_id :integer
-#  started_at        :datetime
-#  state             :string(255)      not null
-#  static_support    :boolean          not null
-#  stopped_at        :datetime
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  activity_id    :integer          not null
+#  campaign_id    :integer          not null
+#  created_at     :datetime         not null
+#  creator_id     :integer
+#  id             :integer          not null, primary key
+#  lock_version   :integer          default(0), not null
+#  name           :string(255)      not null
+#  position       :integer
+#  started_at     :datetime
+#  state          :string(255)      not null
+#  static_support :boolean          not null
+#  stopped_at     :datetime
+#  updated_at     :datetime         not null
+#  updater_id     :integer
+#  variant_id     :integer
 #
 class Production < Ekylibre::Record::Base
   # attr_accessible :supports_attributes, :activity_id, :product_nature_id, :campaign_id, :static_support, :state, :started_at, :stopped_at
   enumerize :state, :in => [:draft, :validated], :default => :draft
   belongs_to :activity
   belongs_to :campaign
-  belongs_to :product_nature
+  belongs_to :variant, :class_name => "ProductNatureVariant"
   # belongs_to :area_unit, :class_name => "Unit"
   has_many :repartitions, :class_name => "AnalyticRepartition"
   has_many :supports, :class_name => "ProductionSupport", inverse_of: :production
@@ -113,8 +113,8 @@ class Production < Ekylibre::Record::Base
   end
 
   before_validation do
-    if self.activity and self.product_nature and self.campaign
-      self.name = tc('name', state: self.state_label, activity: self.activity.name, product_nature: self.product_nature.name, campaign: self.campaign.name)
+    if self.activity and self.variant and self.campaign
+      self.name = tc('name', state: self.state_label, activity: self.activity.name, variant: self.variant.name, campaign: self.campaign.name)
     end
   end
 
@@ -123,7 +123,7 @@ class Production < Ekylibre::Record::Base
   end
 
   def has_active_product?
-    self.product_nature.active?
+    self.variant.nature.active?
   end
 
   def self.state_label(state)

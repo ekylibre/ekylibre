@@ -3,22 +3,22 @@ demo :sales do
 
   Ekylibre::fixturize :variant_import do |w|
     # Create product_nature for crop plant product
-    wheat_crop = ProductNature.import_from_nomenclature(:wheat_crop).default_variant
-    barley_crop = ProductNature.import_from_nomenclature(:barley_crop).default_variant
-    corn_crop = ProductNature.import_from_nomenclature(:corn_crop).default_variant
-    durum_wheat_crop = ProductNature.import_from_nomenclature(:durum_wheat_crop).default_variant
-    fallow_crop = ProductNature.import_from_nomenclature(:fallow_crop).default_variant
+    wheat_crop = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
+    barley_crop = ProductNatureVariant.import_from_nomenclature(:barley_crop)
+    corn_crop = ProductNatureVariant.import_from_nomenclature(:corn_crop)
+    durum_wheat_crop = ProductNatureVariant.import_from_nomenclature(:durum_wheat_crop)
+    fallow_crop = ProductNatureVariant.import_from_nomenclature(:fallow_crop)
     # @FIXME : find the triticale.
-    sunflower_crop = ProductNature.import_from_nomenclature(:sunflower_crop).default_variant
-    sorghum_crop = ProductNature.import_from_nomenclature(:sorghum_crop).default_variant
-    temporary_meadow_crop = ProductNature.import_from_nomenclature(:temporary_meadow_crop).default_variant
+    sunflower_crop = ProductNatureVariant.import_from_nomenclature(:sunflower_crop)
+    sorghum_crop = ProductNatureVariant.import_from_nomenclature(:sorghum_crop)
+    temporary_meadow_crop = ProductNatureVariant.import_from_nomenclature(:temporary_meadow_crop)
 
     # Create product_nature for derivative plant product
-    grain = ProductNature.import_from_nomenclature(:grain).default_variant
-    straw = ProductNature.import_from_nomenclature(:straw).default_variant
-    hay = ProductNature.import_from_nomenclature(:hay).default_variant
-    silage = ProductNature.import_from_nomenclature(:silage).default_variant
-    grass = ProductNature.import_from_nomenclature(:grass).default_variant
+    grain = ProductNatureVariant.import_from_nomenclature(:wheat_grain)
+    straw = ProductNatureVariant.import_from_nomenclature(:wheat_straw)
+    hay = ProductNatureVariant.import_from_nomenclature(:bulk_hay)
+    silage = ProductNatureVariant.import_from_nomenclature(:silage)
+    grass = ProductNatureVariant.import_from_nomenclature(:grass)
 
     # Create product_nature_price for wheat product
     # wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
@@ -28,12 +28,12 @@ demo :sales do
 
   Ekylibre::fixturize :wheat_sales do |w|
     # Create wheat product
-    wheat = ProductNature.import_from_nomenclature(:wheat_grain).default_variant
+    wheat = ProductNatureVariant.import_from_nomenclature(:wheat_grain)
     catalog = Catalog.first
     wheat_taxes = Tax.all
 
     ble = OrganicMatter.find_by_work_number("BLE_2011")
-    ble ||= OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :variety => "organic_matter", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
+    ble ||= OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
                                 :born_at => "2011-07-14", :initial_owner => Entity.of_company) #
     # Sale nature
     sale_nature   = SaleNature.actives.first
@@ -87,13 +87,13 @@ demo :sales do
 
   Ekylibre::fixturize :calf_sales do |w|
     # Create cow product
-    cow = ProductNature.find_by(:nomen => 'calf').default_variant
-    cow ||= ProductNature.import_from_nomenclature(:calf).default_variant
+    cow = ProductNatureVariant.find_by(:nomen => 'calf')
+    cow ||= ProductNatureVariant.import_from_nomenclature(:calf)
     catalog = Catalog.first
     cow_price_template_taxes = Tax.all
 
     animal = Animal.find_by(:work_number => "8926")
-    animal ||= Animal.create!(:variant_id => cow.id, :name => "Isere", :variety => "bos", :identification_number => "1735138926", :work_number => "8926", :born_at => "2013-04-14", :initial_owner => Entity.of_company) #
+    animal ||= Animal.create!(:variant_id => cow.id, :name => "Isere", :identification_number => "1735138926", :work_number => "8926", :born_at => "2013-04-14", :initial_owner => Entity.of_company) #
     # Sale nature
     sale_nature   = SaleNature.actives.first
     sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)

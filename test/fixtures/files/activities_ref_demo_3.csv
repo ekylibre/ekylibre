@@ -1,181 +1,181 @@
-'code_activite','nom_activite','famille_activite','nomen_type_produit','type_activite','campagne','work_number_parcelle'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2010,'PC1'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2012,'PC12'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2013,'PC12'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2011,'PC17'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2010,'PC2'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2011,'PC20'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2011,'PC21'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2010,'PC23'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2012,'PC23'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2013,'PC23'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2010,'PC24'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2012,'PC24'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2013,'PC24'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2010,'PC25'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2013,'PC25'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2010,'PC29'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2011,'PC29'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2012,'PC29'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2010,'PC3'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2011,'PC5'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2012,'PC5'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2013,'PC5'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2011,'PC6'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2012,'PC6'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2013,'PC6'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2012,'PC7'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2013,'PC7'
-1100,'Blé tendre','CEREA','wheat_crop','PRINC',2011,'PC8'
-1200,'Blé dur','CEREA','durum_wheat_crop','PRINC',2012,'PC1'
-1200,'Blé dur','CEREA','durum_wheat_crop','PRINC',2013,'PC1'
-1200,'Blé dur','CEREA','durum_wheat_crop','PRINC',2011,'PC12'
-1200,'Blé dur','CEREA','durum_wheat_crop','PRINC',2010,'PC19'
-1200,'Blé dur','CEREA','durum_wheat_crop','PRINC',2013,'PC2'
-1200,'Blé dur','CEREA','durum_wheat_crop','PRINC',2012,'PC25'
-1200,'Blé dur','CEREA','durum_wheat_crop','PRINC',2010,'PC4'
-1200,'Blé dur','CEREA','durum_wheat_crop','PRINC',2011,'PC7'
-1410,'Orge hiver','CEREA','barley_crop','PRINC',2013,'PC29'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2011,'PC1'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2010,'PC17'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2012,'PC19'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2013,'PC19'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2011,'PC2'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2012,'PC2'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2010,'PC20'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2010,'PC21'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2010,'PC22'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2012,'PC22'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2013,'PC22'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2011,'PC23'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2011,'PC24'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2011,'PC25'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2010,'PC27'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2013,'PC27'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2012,'PC3'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2013,'PC3'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2012,'PC4'
-1710,'Maïs sec','CEREA','corn_crop','PRINC',2013,'PC4'
-1800,'Triticale','CEREA','spelt_wheat_crop','PRINC',2012,'PC27'
-1800,'Triticale','CEREA','spelt_wheat_crop','PRINC',2011,'PC3'
-1800,'Triticale','CEREA','spelt_wheat_crop','PRINC',2010,'PC8'
-2380,'Tournesol','COPLI','sunflower_crop','PRINC',2012,'PC17'
-2380,'Tournesol','COPLI','sunflower_crop','PRINC',2013,'PC17'
-2380,'Tournesol','COPLI','sunflower_crop','PRINC',2010,'PC9'
-2380,'Tournesol','COPLI','sunflower_crop','PRINC',2011,'PC9'
-3210,'Sorgho','CUFOU','sorghum_crop','PRINC',2010,'PC10'
-3210,'Sorgho','CUFOU','sorghum_crop','PRINC',2011,'PC10'
-3210,'Sorgho','CUFOU','sorghum_crop','PRINC',2010,'PC11'
-3210,'Sorgho','CUFOU','sorghum_crop','PRINC',2011,'PC11'
-3210,'Sorgho','CUFOU','sorghum_crop','PRINC',2012,'PC20'
-3210,'Sorgho','CUFOU','sorghum_crop','PRINC',2013,'PC20'
-3210,'Sorgho','CUFOU','sorghum_crop','PRINC',2012,'PC21'
-3210,'Sorgho','CUFOU','sorghum_crop','PRINC',2013,'PC21'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC10'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC10'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC11'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC11'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC12'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC13'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC13'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC13'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC13'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC14'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC14'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC14'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC14'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC15'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC15'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC15'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC15'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC16'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC16'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC16'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC16'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC18'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC18'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC18'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC18'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC19'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC22'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC26'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC26'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC26'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC26'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC27'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC28'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC28'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC28'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC28'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC30'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC30'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC30'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC30'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2011,'PC4'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC5'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC6'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2010,'PC7'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC8'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC8'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2012,'PC9'
-3400,'Prairie temporaire et artificielle','CUFOU','temporary_meadow_crop','PRINC',2013,'PC9'
-8200,'Bovins lait','ANIMX','female_adult_cow','PRINC',2010,'VL'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2010,'GEN_1'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2010,'GEN_2'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2010,'GEN_3'
-8200,'Bovins lait','ANIMX','milk','PRINC',2010,
-8200,'Bovins lait','ANIMX','calf','PRINC',2010,'VEAU'
-8200,'Bovins lait','ANIMX','female_adult_cow','PRINC',2011,'VL'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2011,'GEN_1'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2011,'GEN_2'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2011,'GEN_3'
-8200,'Bovins lait','ANIMX','milk','PRINC',2011,
-8200,'Bovins lait','ANIMX','calf','PRINC',2011,'VEAU'
-8200,'Bovins lait','ANIMX','female_adult_cow','PRINC',2012,'VL'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2012,'GEN_1'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2012,'GEN_2'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2012,'GEN_3'
-8200,'Bovins lait','ANIMX','milk','PRINC',2012,
-8200,'Bovins lait','ANIMX','calf','PRINC',2012,'VEAU'
-8200,'Bovins lait','ANIMX','female_adult_cow','PRINC',2013,'VL'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2013,'GEN_1'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2013,'GEN_2'
-8200,'Bovins lait','ANIMX','female_young_cow','PRINC',2013,'GEN_3'
-8200,'Bovins lait','ANIMX','milk','PRINC',2013,
-8200,'Bovins lait','ANIMX','calf','PRINC',2013,'VEAU'
-8230,'Veau 8-15 J','ANIMX','calf','PRINC',2010,'VEAU_8_15'
-8230,'Veau 8-15 J','ANIMX','calf','PRINC',2011,'VEAU_8_15'
-8230,'Veau 8-15 J','ANIMX','calf','PRINC',2012,'VEAU_8_15'
-8230,'Veau 8-15 J','ANIMX','calf','PRINC',2013,'VEAU_8_15'
-8270,'Taurillons lait','ANIMX','male_young_cow','PRINC',2010,'TAUR'
-8270,'Taurillons lait','ANIMX','male_young_cow','PRINC',2011,'TAUR'
-8270,'Taurillons lait','ANIMX','male_young_cow','PRINC',2012,'TAUR'
-8270,'Taurillons lait','ANIMX','male_young_cow','PRINC',2013,'TAUR'
-'A000','ADMINISTRATIF','XXXXX',,'AUX',2010,
-'A000','ADMINISTRATIF','XXXXX',,'AUX',2011,
-'A000','ADMINISTRATIF','XXXXX',,'AUX',2012,
-'A000','ADMINISTRATIF','XXXXX',,'AUX',2013,
-'B000','BATIMENT','XXXXX',,'AUX',2010,
-'B000','BATIMENT','XXXXX',,'AUX',2011,
-'B000','BATIMENT','XXXXX',,'AUX',2012,
-'B000','BATIMENT','XXXXX',,'AUX',2013,
-'C000','COMMERCIALISATION','XXXXX',,'AUX',2010,
-'C000','COMMERCIALISATION','XXXXX',,'AUX',2011,
-'C000','COMMERCIALISATION','XXXXX',,'AUX',2012,
-'C000','COMMERCIALISATION','XXXXX',,'AUX',2013,
-'MA000','MECANISATION','XXXXX',,'AUX',2010,
-'MA000','MECANISATION','XXXXX',,'AUX',2011,
-'MA000','MECANISATION','XXXXX',,'AUX',2012,
-'MA000','MECANISATION','XXXXX',,'AUX',2013,
-'NINC','NON INCORPORABLE','NINCO',,'AUX',2010,
-'NINC','NON INCORPORABLE','NINCO',,'AUX',2011,
-'NINC','NON INCORPORABLE','NINCO',,'AUX',2012,
-'NINC','NON INCORPORABLE','NINCO',,'AUX',2013,
-'P000','PRESTATIONS SERVICE','XXXXX',,'AUX',2010,
-'P000','PRESTATIONS SERVICE','XXXXX',,'AUX',2011,
-'P000','PRESTATIONS SERVICE','XXXXX',,'AUX',2012,
-'P000','PRESTATIONS SERVICE','XXXXX',,'AUX',2013,
-'P100','PERSONNEL','XXXXX',,'AUX',2010,
-'P100','PERSONNEL','XXXXX',,'AUX',2011,
-'P100','PERSONNEL','XXXXX',,'AUX',2012,
-'P100','PERSONNEL','XXXXX',,'AUX',2013,
+code_activite,nom_activite,famille_activite,nomen_product_nature_variant,type_activite,campagne,work_number_parcelle
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2010,PC1
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2012,PC12
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2013,PC12
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2011,PC17
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2010,PC2
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2011,PC20
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2011,PC21
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2010,PC23
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2012,PC23
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2013,PC23
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2010,PC24
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2012,PC24
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2013,PC24
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2010,PC25
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2013,PC25
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2010,PC29
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2011,PC29
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2012,PC29
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2010,PC3
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2011,PC5
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2012,PC5
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2013,PC5
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2011,PC6
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2012,PC6
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2013,PC6
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2012,PC7
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2013,PC7
+1100,Blé tendre,CEREA,wheat_crop,PRINC,2011,PC8
+1200,Blé dur,CEREA,durum_wheat_crop,PRINC,2012,PC1
+1200,Blé dur,CEREA,durum_wheat_crop,PRINC,2013,PC1
+1200,Blé dur,CEREA,durum_wheat_crop,PRINC,2011,PC12
+1200,Blé dur,CEREA,durum_wheat_crop,PRINC,2010,PC19
+1200,Blé dur,CEREA,durum_wheat_crop,PRINC,2013,PC2
+1200,Blé dur,CEREA,durum_wheat_crop,PRINC,2012,PC25
+1200,Blé dur,CEREA,durum_wheat_crop,PRINC,2010,PC4
+1200,Blé dur,CEREA,durum_wheat_crop,PRINC,2011,PC7
+1410,Orge hiver,CEREA,barley_crop,PRINC,2013,PC29
+1710,Maïs sec,CEREA,corn_crop,PRINC,2011,PC1
+1710,Maïs sec,CEREA,corn_crop,PRINC,2010,PC17
+1710,Maïs sec,CEREA,corn_crop,PRINC,2012,PC19
+1710,Maïs sec,CEREA,corn_crop,PRINC,2013,PC19
+1710,Maïs sec,CEREA,corn_crop,PRINC,2011,PC2
+1710,Maïs sec,CEREA,corn_crop,PRINC,2012,PC2
+1710,Maïs sec,CEREA,corn_crop,PRINC,2010,PC20
+1710,Maïs sec,CEREA,corn_crop,PRINC,2010,PC21
+1710,Maïs sec,CEREA,corn_crop,PRINC,2010,PC22
+1710,Maïs sec,CEREA,corn_crop,PRINC,2012,PC22
+1710,Maïs sec,CEREA,corn_crop,PRINC,2013,PC22
+1710,Maïs sec,CEREA,corn_crop,PRINC,2011,PC23
+1710,Maïs sec,CEREA,corn_crop,PRINC,2011,PC24
+1710,Maïs sec,CEREA,corn_crop,PRINC,2011,PC25
+1710,Maïs sec,CEREA,corn_crop,PRINC,2010,PC27
+1710,Maïs sec,CEREA,corn_crop,PRINC,2013,PC27
+1710,Maïs sec,CEREA,corn_crop,PRINC,2012,PC3
+1710,Maïs sec,CEREA,corn_crop,PRINC,2013,PC3
+1710,Maïs sec,CEREA,corn_crop,PRINC,2012,PC4
+1710,Maïs sec,CEREA,corn_crop,PRINC,2013,PC4
+1800,Triticale,CEREA,spelt_wheat_crop,PRINC,2012,PC27
+1800,Triticale,CEREA,spelt_wheat_crop,PRINC,2011,PC3
+1800,Triticale,CEREA,spelt_wheat_crop,PRINC,2010,PC8
+2380,Tournesol,COPLI,sunflower_crop,PRINC,2012,PC17
+2380,Tournesol,COPLI,sunflower_crop,PRINC,2013,PC17
+2380,Tournesol,COPLI,sunflower_crop,PRINC,2010,PC9
+2380,Tournesol,COPLI,sunflower_crop,PRINC,2011,PC9
+3210,Sorgho,CUFOU,sorghum_crop,PRINC,2010,PC10
+3210,Sorgho,CUFOU,sorghum_crop,PRINC,2011,PC10
+3210,Sorgho,CUFOU,sorghum_crop,PRINC,2010,PC11
+3210,Sorgho,CUFOU,sorghum_crop,PRINC,2011,PC11
+3210,Sorgho,CUFOU,sorghum_crop,PRINC,2012,PC20
+3210,Sorgho,CUFOU,sorghum_crop,PRINC,2013,PC20
+3210,Sorgho,CUFOU,sorghum_crop,PRINC,2012,PC21
+3210,Sorgho,CUFOU,sorghum_crop,PRINC,2013,PC21
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC10
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC10
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC11
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC11
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC12
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC13
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC13
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC13
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC13
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC14
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC14
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC14
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC14
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC15
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC15
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC15
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC15
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC16
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC16
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC16
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC16
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC18
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC18
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC18
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC18
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC19
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC22
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC26
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC26
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC26
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC26
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC27
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC28
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC28
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC28
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC28
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC30
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC30
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC30
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC30
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2011,PC4
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC5
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC6
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2010,PC7
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC8
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC8
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2012,PC9
+3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,PC9
+8200,Bovins lait,ANIMX,female_adult_cow,PRINC,2010,VL
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2010,GEN_1
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2010,GEN_2
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2010,GEN_3
+8200,Bovins lait,ANIMX,cow_milk,PRINC,2010,
+8200,Bovins lait,ANIMX,calf,PRINC,2010,VEAU
+8200,Bovins lait,ANIMX,female_adult_cow,PRINC,2011,VL
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2011,GEN_1
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2011,GEN_2
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2011,GEN_3
+8200,Bovins lait,ANIMX,cow_milk,PRINC,2011,
+8200,Bovins lait,ANIMX,calf,PRINC,2011,VEAU
+8200,Bovins lait,ANIMX,female_adult_cow,PRINC,2012,VL
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2012,GEN_1
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2012,GEN_2
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2012,GEN_3
+8200,Bovins lait,ANIMX,cow_milk,PRINC,2012,
+8200,Bovins lait,ANIMX,calf,PRINC,2012,VEAU
+8200,Bovins lait,ANIMX,female_adult_cow,PRINC,2013,VL
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2013,GEN_1
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2013,GEN_2
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2013,GEN_3
+8200,Bovins lait,ANIMX,cow_milk,PRINC,2013,
+8200,Bovins lait,ANIMX,calf,PRINC,2013,VEAU
+8230,Veau 8-15 J,ANIMX,calf,PRINC,2010,VEAU_8_15
+8230,Veau 8-15 J,ANIMX,calf,PRINC,2011,VEAU_8_15
+8230,Veau 8-15 J,ANIMX,calf,PRINC,2012,VEAU_8_15
+8230,Veau 8-15 J,ANIMX,calf,PRINC,2013,VEAU_8_15
+8270,Taurillons lait,ANIMX,male_young_cow,PRINC,2010,TAUR
+8270,Taurillons lait,ANIMX,male_young_cow,PRINC,2011,TAUR
+8270,Taurillons lait,ANIMX,male_young_cow,PRINC,2012,TAUR
+8270,Taurillons lait,ANIMX,male_young_cow,PRINC,2013,TAUR
+A000,ADMINISTRATIF,XXXXX,,AUX,2010,
+A000,ADMINISTRATIF,XXXXX,,AUX,2011,
+A000,ADMINISTRATIF,XXXXX,,AUX,2012,
+A000,ADMINISTRATIF,XXXXX,,AUX,2013,
+B000,BATIMENT,XXXXX,,AUX,2010,
+B000,BATIMENT,XXXXX,,AUX,2011,
+B000,BATIMENT,XXXXX,,AUX,2012,
+B000,BATIMENT,XXXXX,,AUX,2013,
+C000,COMMERCIALISATION,XXXXX,,AUX,2010,
+C000,COMMERCIALISATION,XXXXX,,AUX,2011,
+C000,COMMERCIALISATION,XXXXX,,AUX,2012,
+C000,COMMERCIALISATION,XXXXX,,AUX,2013,
+MA000,MECANISATION,XXXXX,,AUX,2010,
+MA000,MECANISATION,XXXXX,,AUX,2011,
+MA000,MECANISATION,XXXXX,,AUX,2012,
+MA000,MECANISATION,XXXXX,,AUX,2013,
+NINC,NON INCORPORABLE,NINCO,,AUX,2010,
+NINC,NON INCORPORABLE,NINCO,,AUX,2011,
+NINC,NON INCORPORABLE,NINCO,,AUX,2012,
+NINC,NON INCORPORABLE,NINCO,,AUX,2013,
+P000,PRESTATIONS SERVICE,XXXXX,,AUX,2010,
+P000,PRESTATIONS SERVICE,XXXXX,,AUX,2011,
+P000,PRESTATIONS SERVICE,XXXXX,,AUX,2012,
+P000,PRESTATIONS SERVICE,XXXXX,,AUX,2013,
+P100,PERSONNEL,XXXXX,,AUX,2010,
+P100,PERSONNEL,XXXXX,,AUX,2011,
+P100,PERSONNEL,XXXXX,,AUX,2012,
+P100,PERSONNEL,XXXXX,,AUX,2013,

@@ -84,7 +84,7 @@ demo :interventions do
   # interventions for all poaceae
   Ekylibre::fixturize :cultural_interventions do |w|
     for production in Production.all
-      variety = production.product_nature.variety
+      variety = production.variant.variety
       if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:poaceae])
         year = production.campaign.name.to_i
         Booker.production = production
@@ -115,14 +115,6 @@ demo :interventions do
             culture = int.casts.find_by(variable: 'culture').actor rescue nil
 
             # Fertilizing  01-03-M -> 31-03-M
-            # TODO remove actor on variable with roles xxxx_input when running procedure will create new product
-              # add some well-configure indicator on MineralMatter product for demo data in fertilization
-            for fertilizer_product in MineralMatter.of_variety(:mineral_matter).can("fertilize")
-              fertilizer_product.is_measured!(:nitrogen_concentration, 27.00.in_percent)
-              fertilizer_product.is_measured!(:potassium_concentration, 33.00.in_percent)
-              fertilizer_product.is_measured!(:phosphorus_concentration, 33.00.in_percent)
-            end
-
             fertilizer = Product.of_variety(:mineral_matter).all.sample
             Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'fertilizer', actor: fertilizer)
@@ -134,13 +126,6 @@ demo :interventions do
             end
 
             # Organic Fertilizing  01-03-M -> 31-03-M
-            # TODO remove actor on variable with roles xxxx_input when running procedure will create new product
-            for fertilizer_product in OrganicMatter.of_variety(:manure).derivative_of(:bos).can("fertilize")
-              fertilizer_product.is_measured!(:nitrogen_concentration, 0.65.in_percent)
-              fertilizer_product.is_measured!(:potassium_concentration, 0.3.in_percent)
-              fertilizer_product.is_measured!(:phosphorus_concentration, 0.11.in_percent)
-            end
-
             organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample
             Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(variable: 'manure',      actor: organic_fertilizer)
@@ -174,7 +159,7 @@ demo :interventions do
   # interventions for grass
   Ekylibre::fixturize :grass_interventions do |w|
     for production in Production.all
-      variety = production.product_nature.variety
+      variety = production.variant.variety
       if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:poa])
         year = production.campaign.name.to_i
         Booker.production = production
@@ -211,7 +196,7 @@ demo :interventions do
   # interventions for cereals
   Ekylibre::fixturize :cereals_interventions do |w|
     for production in Production.all
-      variety = production.product_nature.variety
+      variety = production.variant.variety
       if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:triticum_aestivum]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:triticum_durum]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:zea]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:hordeum])
         year = production.campaign.name.to_i
         Booker.production = production
@@ -243,7 +228,7 @@ demo :interventions do
 
   Ekylibre::fixturize :animal_interventions do |w|
     for production in Production.all
-      variety = production.product_nature.variety
+      variety = production.variant.variety
       if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:bos])
         year = production.campaign.name.to_i
         Booker.production = production

@@ -1,4 +1,4 @@
-'name','nature','variant','born_at','marque','modèle','owner_name','indicateurs','notes','unit_price','price_indicator'
+'name','variant_nomen','variant','born_at','marque','modèle','owner_name','indicateurs','notes','unit_price','price_indicator'
 'Brice TEXIER','technician',,,,,,'Population : 1',,'11.74','usage_duration'
 'David JOULIN','technician',,,,,,'Population : 1',,'11.74','usage_duration'
 'Yvan JOULIN','technician',,,,,,'Population : 1',,'11.74','usage_duration'

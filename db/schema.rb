@@ -1923,20 +1923,20 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "production_supports", ["updater_id"], :name => "index_production_supports_on_updater_id"
 
   create_table "productions", force: true do |t|
-    t.integer  "activity_id",                       null: false
-    t.integer  "campaign_id",                       null: false
-    t.integer  "product_nature_id"
-    t.string   "name",                              null: false
-    t.string   "state",                             null: false
-    t.boolean  "static_support",    default: false, null: false
+    t.integer  "activity_id",                    null: false
+    t.integer  "campaign_id",                    null: false
+    t.integer  "variant_id"
+    t.string   "name",                           null: false
+    t.string   "state",                          null: false
+    t.boolean  "static_support", default: false, null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.integer  "position"
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0,     null: false
+    t.integer  "lock_version",   default: 0,     null: false
   end
 
   add_index "productions", ["activity_id"], :name => "index_productions_on_activity_id"
@@ -1944,9 +1944,9 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "productions", ["created_at"], :name => "index_productions_on_created_at"
   add_index "productions", ["creator_id"], :name => "index_productions_on_creator_id"
   add_index "productions", ["name"], :name => "index_productions_on_name"
-  add_index "productions", ["product_nature_id"], :name => "index_productions_on_product_nature_id"
   add_index "productions", ["updated_at"], :name => "index_productions_on_updated_at"
   add_index "productions", ["updater_id"], :name => "index_productions_on_updater_id"
+  add_index "productions", ["variant_id"], :name => "index_productions_on_variant_id"
 
   create_table "products", force: true do |t|
     t.string   "type"

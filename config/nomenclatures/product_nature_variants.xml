@@ -254,7 +254,6 @@
       <item name="mineral_feed_bloc_25"
             nature="feed"
             variety="mineral_food"
-            derivative_of="mineral_matter"
             unit_name="25kilogram_bag"
             frozen_indicators="net_weight: 25.00kilogram"
             />

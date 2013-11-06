@@ -7,11 +7,11 @@ demo :analyses do
     # @TODO
     #
     # add a product_nature
-    product_nature_variant = ProductNature.import_from_nomenclature(:milk).default_variant
+    product_nature_variant = ProductNatureVariant.import_from_nomenclature(:cow_milk)
 
     # create a generic product to link analysis_indicator
     product   = OrganicMatter.find_by_name("lait_vache")
-    product ||= OrganicMatter.create!(:name => "lait_vache", :identification_number => "MILK_FR_1997-2013", :work_number => "lait_2013", :born_at => Time.now, :variant_id => product_nature_variant.id, :initial_owner_id => Entity.of_company.id)
+    product ||= OrganicMatter.create!( :variant_id => product_nature_variant.id, :name => "lait_vache", :identification_number => "MILK_FR_1997-2013", :work_number => "lait_2013", :born_at => Time.now, :initial_owner_id => Entity.of_company.id)
 
     trans_inhib = {
       "NEG" => "negative",

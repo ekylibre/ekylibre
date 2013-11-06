@@ -45,7 +45,7 @@ demo :productions do
       r = OpenStruct.new(:description => row[0],
                          :name => row[1].downcase.capitalize,
                          :family => families_by_activity_name[row[1]],
-                         :product_nature_nomen => row[3].blank? ? nil :row[3].to_sym,
+                         :variant_nomen => row[3].blank? ? nil :row[3].to_sym,
                          :nature => (natures[row[4]] || :none).to_s,
                          :campaign_harvest_year => row[5].blank? ? nil : row[5].to_i,
                          :work_number_storage => row[6].blank? ? nil : row[6].to_s
@@ -60,34 +60,29 @@ demo :productions do
       # Create an activity if not exist
       activity   = Activity.find_by(description: r.description)
       activity ||= Activity.create!(:nature => r.nature, :family => r.family, :name => r.name, :description => r.description)
-      if r.product_nature_nomen
-        product_nature_sup = ProductNature.find_by(nomen: r.product_nature_nomen)
-        if product_nature_sup.present?
-          product_nature_variant_sup = ProductNatureVariant.find_by_nature_id(product_nature_sup.id)
-        else
-          product_nature_sup = ProductNature.import_from_nomenclature(r.product_nature_nomen)
-          product_nature_variant_sup = product_nature_sup.default_variant
-        end
+      if r.variant_nomen
+        product_nature_variant_sup = ProductNatureVariant.find_by(nomen: r.variant_nomen)
+        product_nature_variant_sup ||= ProductNatureVariant.import_from_nomenclature(r.variant_nomen)
         if product_nature_variant_sup and product_support.present?
           # find a production corresponding to campaign , activity and product_nature
-          pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :product_nature_id => product_nature_sup.id).first
+          pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :variant_id => product_nature_variant_sup.id).first
           # or create it
-          pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :static_support => true)
+          pro ||= activity.productions.create!(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id, :static_support => true)
           # create a support for this production
           pro.supports.create!(:storage_id => product_support.id)
           if product_support.is_a?(CultivableLandParcel)
             # create a name for the plant correponding to product_nature_nomen in XML Nomenclature
-            plant_name = (Nomen::ProductNatures.find(r.product_nature_nomen).human_name + " " + campaign.name + " " + product_support.work_number)
+            plant_name = (Nomen::ProductNatureVariants.find(r.variant_nomen).human_name + " " + campaign.name + " " + product_support.work_number)
             # create a work number for the plant
-            plant_work_nb = (r.product_nature_nomen.to_s + "-" + campaign.name + "-" + product_support.work_number)
+            plant_work_nb = (r.variant_nomen.to_s + "-" + campaign.name + "-" + product_support.work_number)
             # create the plant
-            plant = Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :variety => product_nature_sup.variety, :born_at => Time.now, :initial_owner => Entity.of_company)
+            plant = Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :born_at => Time.now, :initial_owner => Entity.of_company)
             # localize the plant in the cultivable_land_parcel
             ProductLocalization.create!(:container_id => product_support.id, :product_id => plant.id, :nature => :interior, :started_at => Time.now, :arrival_cause => :birth)
           end
         elsif product_nature_variant_sup
-          pro = Production.where(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
-          pro ||= activity.productions.create!(:product_nature_id => product_nature_sup.id, :campaign_id => campaign.id)
+          pro = Production.where(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
+          pro ||= activity.productions.create!(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id)
         end
       end
       w.check_point
