@@ -95,10 +95,10 @@ demo :animals do
         # case = GENISSE 1
       elsif r.born_on > (Date.today - 12.months) and r.born_on < (Date.today - 3.months) and r.sex == :female
         f = File.open(pictures.sample)
-        animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos",
+        animal = Animal.create!(:variant_id => cow_gen.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_gen
                                 )
         f.close
         # set default indicators
@@ -118,10 +118,10 @@ demo :animals do
         # case = GENISSE 3
       elsif r.born_on > (Date.today - 28.months) and r.born_on < (Date.today - 12.months) and r.sex == :female
         f = File.open(pictures.sample)
-        animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos",
+        animal = Animal.create!(:variant_id => cow_gen.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_gen
                                 )
         f.close
         # set default indicators
@@ -145,7 +145,7 @@ demo :animals do
         animal = Animal.create!(:variant_id => cow_vl.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_vl
                                 )
         f.close
         # set default indicators
@@ -170,7 +170,7 @@ demo :animals do
         animal = Animal.create!(:variant_id => cow_taur.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_taur
                                 )
         f.close
         # set default indicators
@@ -248,8 +248,7 @@ demo :animals do
           unless r.mother_identification_number.blank?
           # case = VL
           animal_mother = Animal.create!(:variant_id => cow_vl.id, :name => r.mother_name, :variety => "bos",
-                                         :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :initial_owner => Entity.of_company
-                                         )
+                                         :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :initial_owner => Entity.of_company, :initial_arrival_cause => :birth, :initial_container => place_vl )
 
           # set default indicators
           animal_mother.is_measured!(:animal_disease_state, :healthy)

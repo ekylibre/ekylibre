@@ -961,6 +961,9 @@ class CreateBase < ActiveRecord::Migration
       t.references :nature,                               null: false, index: true
       t.string   :name
       t.string   :number
+      t.string   :variety,                limit: 120,                 null: false
+      t.string   :derivative_of,          limit: 120
+      t.string   :nomen,                  limit: 120
       t.string   :nature_name,                            null: false
       t.string   :unit_name,                              null: false
       t.string   :commercial_name,                        null: false

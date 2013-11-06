@@ -6,7 +6,7 @@ demo :deliveries do
     #############################################################################
     # import Coop Order to make automatic purchase
 
-    catalog = Catalog.find_by_code("STD") || Catalog.scoped.first
+    catalog = Catalog.find_by_code("ACHAT") || Catalog.scoped.first
     supplier_account = Account.find_or_create_in_chart(:suppliers)
     appro_price_template_tax = Tax.scoped.first
 
@@ -23,32 +23,35 @@ demo :deliveries do
       "Supprimé" => :aborted
     }
 
+    # map sub_family to product_nature_variant XML Nomenclature
+
     pnature = {
       "Maïs classe a" => "seed",
       "Graminées fourragères" => "seed",
       "Légumineuses fourragères" => "seed",
       "Divers" => "seed",
-      "Blé tendre" => "seed",
-      "Blé dur" => "seed",
-      "Orge hiver escourgeon" => "seed",
+      "Blé tendre" => "wheat_seed_25",
+      "Blé dur" => "hard_wheat_seed_25",
+      "Orge hiver escourgeon" => "barley_seed_25",
       "Couverts environnementaux enherbeme" => "seed",
 
-      "Engrais" => "chemical_fertilizer",
+      "Engrais" => "bulk_ammonitrate_33",
 
-      "Fongicides céréales" => "fungicide",
-      "Fongicides colza" => "fungicide",
-      "Herbicides maïs" => "herbicide",
-      "Herbicides totaux" => "herbicide",
-      "Adjuvants" => "herbicide",
-      "Herbicides autres" => "herbicide",
-      "Herbicides céréales et fouragères" => "herbicide",
+      "Fongicides céréales" => "poaceae_fungicide",
+      "Fongicides colza" => "brassicaceae_fungicide",
+      "Herbicides maïs" => "zea_herbicide",
+      "Herbicides tournesol" => "helianthus_herbicide",
+      "Herbicides totaux" => "complete_herbicide",
+      "Adjuvants" => "additive",
+      "Herbicides autres" => "other_herbicide",
+      "Herbicides céréales et fouragères" => "poacea_herbicide",
 
-      "Céréales"  => "feed",
-      "Chevaux" => "feed",
-      "Compléments nutritionnels" => "feed",
-      "Minéraux sel blocs" => "feed",
+      "Céréales"  => "cereals_feed_bag_25",
+      "Chevaux" => "cereals_feed_bag_25",
+      "Compléments nutritionnels" => "cereals_feed_bag_25",
+      "Minéraux sel blocs" => "mineral_feed_bloc_25",
 
-      "Anti-limaces" => "insecticide",
+      "Anti-limaces" => "anti_slug",
 
       "Location semoir" => "spread_renting",
 
@@ -75,12 +78,10 @@ demo :deliveries do
         order = IncomingDelivery.find_by_reference_number(r.order_number)
         order ||= IncomingDelivery.create!(:reference_number => r.order_number, :received_at => r.ordered_on, :sender_id => Entity.of_company.id, :address_id => Entity.of_company.default_mail_address.id)
         # find a product_nature by mapping current sub_family of coop file
-        product_nature = ProductNature.find_by_nomen(r.product_nature_name)
-        product_nature ||= ProductNature.import_from_nomenclature(r.product_nature_name)
-        # find a product_nature_variant by mapping current article of coop file
-        product_nature_variant = ProductNatureVariant.find_by_name_and_nature_id(r.matter_name,product_nature.id )
-        product_nature_variant ||= product_nature.variants.create!(:name => r.matter_name, :active => true, :unit_name => "unit")
+        product_nature_variant = ProductNatureVariant.find_by_nomen(r.product_nature_name)
+        product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.product_nature_name)
         # find a price from current supplier for a consider variant
+        # @ TODO waiting for a product price capitalization method
         product_nature_variant_price = catalog.prices.find_by(variant_id: product_nature_variant.id, amount: r.product_unit_price)
         product_nature_variant_price ||= catalog.prices.create!(# :pretax_amount => r.product_unit_price,
                                                                 :currency => "EUR",
@@ -89,12 +90,11 @@ demo :deliveries do
                                                                 :variant_id => product_nature_variant.id
                                                                 )
 
-        product_model = product_nature.matching_model
-        incoming_item = Product.find_by_variant_id_and_created_at(product_nature_variant.id, r.ordered_on)
-        incoming_item ||= product_model.create!(:initial_owner => Entity.of_company, :identification_number => r.order_number, :variant => product_nature_variant, :born_at => r.ordered_on, :created_at => r.ordered_on)
+        product_model = product_nature_variant.nature.matching_model
+        incoming_item ||= product_model.create!(:variant => product_nature_variant, :name => r.matter_name, :initial_owner => Entity.of_company, :identification_number => r.order_number, :born_at => r.ordered_on, :created_at => r.ordered_on)
+        incoming_item.is_measured!(:population, r.quantity, :at => Time.now)
 
-        incoming_item.is_measured!(:population, r.quantity.in_unity, :at => Time.now)
-        if product_nature.present? and incoming_item.present?
+        if incoming_item.present?
           order.items.create!(:product_id => incoming_item.id, :quantity => r.product_deliver_quantity)
         end
       end

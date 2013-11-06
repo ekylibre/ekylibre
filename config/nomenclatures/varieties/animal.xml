@@ -14,6 +14,9 @@
       <item name="insecta">
         <attribute name="itis-tsn" value="99208"/>
       </item>
+      <item name="mollusca">
+        <attribute name="itis-tsn" value="69458"/>
+      </item>
     </items>
   </nomenclature>
   <nomenclature name="varieties-aves">

@@ -20,6 +20,7 @@
       <!-- <item name="weight" datatype="measure" unit="kilogram"/> -->
       <item name="sex" datatype="choice" choices="male, female, undefined"/>
       <item name="reproductor" datatype="boolean"/>
+      <item name="livestock_unit" datatype="decimal"/>
        <!-- state of cultivable_land_parcel -->
       <item name="cultural_soil_state" datatype="choice" choices="covered, raw, nude, plowed, grown"/>
       <!-- equipment -->
