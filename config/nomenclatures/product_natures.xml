@@ -316,7 +316,7 @@
             charge_account="other_consumable_matter_expenses"
             product_account="revenues"
             stock_account="others_consumables_stock"
-            variety="mineral_matter"
+            variety="disinfectant"
             purchasable="true"
             saleable="true"
             depreciable="false"

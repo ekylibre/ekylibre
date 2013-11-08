@@ -81,6 +81,7 @@
     <items>
       <item name="animal_medicine"/>
       <item name="plant_medicine"/>
+      <item name="antiseptic"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 2 - sub-branch 1-->
