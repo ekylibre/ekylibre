@@ -5,3 +5,11 @@
   -b.cell do
     =attributes_list(@mineral_matter) do |l|
       -l.attribute :name
+  
+  - b.tabbox do
+    - b.cell(:interventions) do
+      = toolbar do |t|
+        - t.new(:params =>{:controller => :interventions})
+      = list(:intervention_casts)
+    - b.cell(tl(:x_indicators, :count => @mineral_matter.indicator_data.count)) do
+      = list(:indicators)

@@ -425,11 +425,21 @@ Ekylibre::Application.routes.draw do
         get :list_groups
       end
     end
-    resources :mineral_matters, concerns: [:list, :unroll]
+    resources :mineral_matters, concerns: [:list, :unroll] do
+      member do
+        get :list_intervention_casts
+        get :list_indicators
+      end
+    end
     resources :observations
     resources :operations, concerns: [:list, :unroll]
 
-    resources :organic_matters, concerns: [:list, :unroll]
+    resources :organic_matters, concerns: [:list, :unroll] do
+      member do
+        get :list_intervention_casts
+        get :list_indicators
+      end
+    end
 
     resources :operation_tasks, concerns: [:list, :unroll]
 
