@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="land_parcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="348"/>
+	<property name="ireport.y" value="396"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -164,7 +164,7 @@
 		<fieldDescription><![CDATA[ancestor::campaigns/@entity-name]]></fieldDescription>
 	</field>
 	<field name="area" class="java.lang.String">
-		<fieldDescription><![CDATA[@net-surface-area]]></fieldDescription>
+		<fieldDescription><![CDATA[@area-in-hectare]]></fieldDescription>
 	</field>
 	<field name="name" class="java.lang.String">
 		<fieldDescription><![CDATA[@name]]></fieldDescription>
@@ -182,7 +182,7 @@
 		<fieldDescription><![CDATA[production/@name]]></fieldDescription>
 	</field>
 	<field name="area_value" class="java.lang.Double">
-		<fieldDescription><![CDATA[@net-surface-area-in-hectare]]></fieldDescription>
+		<fieldDescription><![CDATA[@area-in-hectare]]></fieldDescription>
 	</field>
 	<field name="entity_address" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::campaigns/@address]]></fieldDescription>
@@ -250,7 +250,7 @@
 					</textElement>
 					<text><![CDATA[Rendement prévu / réalisé]]></text>
 				</staticText>
-				<textField pattern="###0.00" isBlankWhenNull="true">
+				<textField pattern="###0.00 ha" isBlankWhenNull="true">
 					<reportElement uuid="b3834841-2c13-4098-90f2-dd5003f7e126" style="base" x="71" y="37" width="170" height="22"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{area}]]></textFieldExpression>
