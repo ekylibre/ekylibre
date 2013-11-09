@@ -83,6 +83,7 @@ class Product < Ekylibre::Record::Base
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
   has_many :operation_tasks, :foreign_key => :subject_id
   has_many :localizations, :class_name => "ProductLocalization", :foreign_key => :product_id
+  has_one :last_localization,-> { order("started_at DESC") }, :class_name => "ProductLocalization", :foreign_key => :product_id
   has_many :ownerships, :class_name => "ProductOwnership", :foreign_key => :product_id
   has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id, :inverse_of => :storage
   has_attached_file :picture, {
