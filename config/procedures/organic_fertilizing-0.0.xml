@@ -13,7 +13,7 @@
       <variable name="spreader" abilities="spread(organic_matter)" roles="soil_enrichment-equipment"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver" variety="worker" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow,catch" roles="soil_enrichment-equipment"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="land_parcel" variety="cultivable_land_parcel" role="soil_enrichment-target"/>
+      <variable name="land_parcel" variety="cultivable_land_parcel" roles="soil_enrichment-target"/>
     </variables>
     <operations>        
       <operation id="100" duration="4 minutes">
