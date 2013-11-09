@@ -106,14 +106,14 @@ GEM
     database_cleaner (1.2.0)
     dbf (2.0.6)
       fastercsv (~> 1.5.4)
-    devise (3.1.1)
+    devise (3.2.0)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     devise-i18n-views (0.2.8)
-    diff-lcs (1.2.4)
+    diff-lcs (1.2.5)
     docsplit (0.7.2)
     domain_name (0.5.14)
       unf (>= 0.0.5, < 1.0.0)
@@ -280,7 +280,7 @@ GEM
     rjb (1.4.8)
     routing-filter (0.4.0.pre)
       actionpack
-    rspec-expectations (2.14.3)
+    rspec-expectations (2.14.4)
       diff-lcs (>= 1.1.3, < 2.0)
     ruby-filemagic (0.4.2)
     ruby-progressbar (1.2.0)
@@ -344,7 +344,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
-    tins (0.12.0)
+    tins (0.13.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -352,7 +352,7 @@ GEM
     turbolinks (1.3.0)
       coffee-rails
     tzinfo (0.3.38)
-    uglifier (2.3.0)
+    uglifier (2.3.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unf (0.1.3)
