@@ -85,5 +85,23 @@ class CultivableLandParcel < LandParcelGroup
     end
     joins(:productions).where('production_id IN (?)', productions.map(&:id))
   }
-
+  
+  # return the work_number of LandParcelClusters if exist for a CultivableLAndParcel
+  def clusters_work_number(viewed_at = nil)
+    lp = self.members_at(viewed_at)
+    numbers = []
+    if lp.count > 0
+      for landparcel in lp
+        groups = landparcel.groups_of(viewed_at)
+        for group in groups
+          if group.is_a(LandParcelCluster)
+            numbers << group.work_number
+          end
+        end
+      end
+      return numbers
+    end
+    return nil
+  end
+  
 end

@@ -322,10 +322,26 @@ class Product < Ekylibre::Record::Base
   # Returns the current localization of the product at a given time (or now by default)
   def localize_in(at = Time.now)
     if self.localizations.where("started_at <= ?",at).count > 0
-      return self.localizations.where("started_at <= ?",at).reorder('started_at DESC').first.container.name
+      return self.localizations.where("started_at <= ?",at).reorder('started_at DESC').first.container
+    else
+      return nil
     end
   end
-
+  
+  # Returns the current contents of the product at a given time (or now by default)
+  def contains(content_class = Product, at = Time.now)
+    localizations = ProductLocalization.where(container: self).where("started_at <= ?",at)
+    if localizations.count > 0
+      object = {}
+      for localization in localizations
+        object << localization.product if localization.product.is_a(content_class)
+      end
+      return object
+     else
+       return nil
+    end
+  end
+  
   def picture_path(style=:original)
     self.picture.path(style)
   end
