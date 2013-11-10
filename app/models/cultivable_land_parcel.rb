@@ -92,9 +92,9 @@ class CultivableLandParcel < LandParcelGroup
     numbers = []
     if lp.count > 0
       for landparcel in lp
-        groups = landparcel.groups_of(viewed_at)
+        groups = landparcel.groups_at(viewed_at)
         for group in groups
-          if group.is_a(LandParcelCluster)
+          if group.is_a?(LandParcelCluster)
             numbers << group.work_number
           end
         end
