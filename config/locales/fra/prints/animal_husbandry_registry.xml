@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="veterinary_booklet" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+	<property name="ireport.zoom" value="0.9558924531310702"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="240"/>
+	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
+	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="DejaVu Sans" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{dead-at} != null]]></conditionExpression>
+			<style mode="Transparent" forecolor="#FF3333" fill="Solid" vAlign="Top" isBold="false" isItalic="false" isUnderline="false"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{race-name}.contains("CROISE")]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FFFF00" fill="Solid" vAlign="Top" isBlankWhenNull="false" isBold="false" isItalic="false" isUnderline="false"/>
+		</conditionalStyle>
+	</style>
+	<style name="Row" mode="Transparent"/>
+	<style name="Crosstab Data Text" hAlign="Center"/>
+	<style name="conditionnal_state">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{state} == "closed"]]></conditionExpression>
+			<style mode="Opaque" backcolor="#33CC00"/>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{state} == "new"]]></conditionExpression>
+			<style mode="Opaque" backcolor="#FF0000"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/djoulin/ekylibre/config/locales/fra/prints/"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="xPath">
+		<![CDATA[campaigns/campaign/intervention/inputs/input]]>
+	</queryString>
+	<field name="entity_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaigns/@entity-name]]></fieldDescription>
+	</field>
+	<field name="campaign" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaign/@id]]></fieldDescription>
+	</field>
+	<field name="started_at" class="java.util.Date">
+		<fieldDescription><![CDATA[ancestor::intervention/@started-at]]></fieldDescription>
+	</field>
+	<field name="stopped_at" class="java.util.Date">
+		<fieldDescription><![CDATA[ancestor::intervention/@stopped-at]]></fieldDescription>
+	</field>
+	<field name="target_class_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/target/@type]]></fieldDescription>
+	</field>
+	<field name="target_identification" class="java.lang.String">
+		<fieldDescription><![CDATA[../../target/@identification-number]]></fieldDescription>
+	</field>
+	<field name="target_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/target/@name]]></fieldDescription>
+	</field>
+	<field name="description" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/incident/@description]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/incident/@name]]></fieldDescription>
+	</field>
+	<field name="observed_at" class="java.util.Date">
+		<fieldDescription><![CDATA[ancestor::intervention/incident/@observed-at]]></fieldDescription>
+	</field>
+	<field name="state" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/incident/@state]]></fieldDescription>
+	</field>
+	<field name="worker_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/worker/@name]]></fieldDescription>
+	</field>
+	<field name="id" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/prescription/@id]]></fieldDescription>
+	</field>
+	<field name="prescriptor" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/prescription/@prescriptor-name]]></fieldDescription>
+	</field>
+	<field name="reference_number" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/prescription/@reference-number]]></fieldDescription>
+	</field>
+	<field name="meat_min_sale_date" class="java.util.Date">
+		<fieldDescription><![CDATA[sale-dates/meat-saleable-on]]></fieldDescription>
+	</field>
+	<field name="milk_min_sale_date" class="java.util.Date">
+		<fieldDescription><![CDATA[sale-dates/milk-saleable-on]]></fieldDescription>
+	</field>
+	<field name="medicine_name" class="java.lang.String">
+		<fieldDescription><![CDATA[name]]></fieldDescription>
+	</field>
+	<field name="medicine_nature" class="java.lang.String">
+		<fieldDescription><![CDATA[nature-name]]></fieldDescription>
+	</field>
+	<field name="procedure_duration_day" class="java.lang.Double">
+		<fieldDescription><![CDATA[ancestor::intervention/@duration]]></fieldDescription>
+	</field>
+	<field name="quantity" class="java.lang.String">
+		<fieldDescription><![CDATA[quantity]]></fieldDescription>
+	</field>
+	<field name="target_id" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/@target-id]]></fieldDescription>
+	</field>
+	<field name="worker_entity_id" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/@worker-person-id]]></fieldDescription>
+	</field>
+	<field name="entity_breeding_number" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaigns/@breeding-number]]></fieldDescription>
+	</field>
+	<field name="entity_address" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaigns/@address]]></fieldDescription>
+	</field>
+	<field name="campaign_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::campaign/@name]]></fieldDescription>
+	</field>
+	<group name="campaign" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="444" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a" style="strong" mode="Opaque" x="2" y="29" width="784" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="dc35e306-d03e-4288-b40e-74e3bb33d471" style="title" x="0" y="0" width="786" height="29"/>
+				<textElement>
+					<font fontName="Open Sans" size="16" pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[Registre d'élevage]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="6e0769cf-38a5-42a5-9a6e-7f073c13bdeb" x="0" y="171" width="786" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="24" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="64dbde96-ffbe-4bd0-9827-2ef1068e6a1f" x="0" y="211" width="786" height="40"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="24"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{entity_breeding_number}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="b60f24a3-d657-4f3f-8872-1ce3bef0f9e0" style="address" x="0" y="251" width="786" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{entity_address}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="70" splitType="Stretch"/>
+	</detail>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement uuid="50272410-1b25-4669-88c3-3be64f156f82" style="base" x="751" y="3" width="35" height="22" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="ebf60a3b-b81b-4ee3-b94d-a83ae04dd811" style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="342f7ef7-5da8-4d85-baf2-2c7968aecaed" style="base" x="708" y="3" width="43" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="3740387f-1656-45d4-b5a7-a671b9df52d6" style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="92ee893d-7bd3-4e16-a070-96522f1fc0e7" style="address" x="277" y="1" width="224" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="26">
+			<staticText>
+				<reportElement uuid="6a745fd5-25a2-4de3-87b6-1d920ef1a4c0" style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD"/>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="Times-Roman"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement uuid="c5669d5d-31af-4dd7-bf88-534422b21b01" style="base" x="751" y="3" width="35" height="22" forecolor="#000000"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement uuid="a98f0540-b3f2-4380-aab0-f9d96ea72b6e" style="base" mode="Transparent" x="2" y="4" width="115" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5de70a0c-bd99-4937-84fa-c172a5df272f" style="base" x="708" y="3" width="43" height="22" forecolor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="fb8e778f-b77c-4999-b9d3-f736bf4a6174" style="address" x="277" y="0" width="224" height="25"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

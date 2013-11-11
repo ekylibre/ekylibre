@@ -30,6 +30,8 @@
       
       <item name="animal_sheet" category="animal_farming"/>
       <item name="animal_list" category="animal_farming"/>
+      <item name="animal_husbandry_registry" category="animal_farming"/>
+      
       <item name="prescription" category="sanitary"/>
       <item name="veterinary_booklet" category="sanitary"/>
       <item name="manure_management_plan" category="land_parcel_management"/>
