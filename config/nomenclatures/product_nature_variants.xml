@@ -327,6 +327,31 @@
             unit_name="room"
             frozen_indicators="population: 1"
             />
+      <item name="office_building_division"
+            nature="building_division"
+            unit_name="room"
+            frozen_indicators="population: 1"
+            />
+       <item name="equipment_building_division"
+            nature="equipment_building_division"
+            unit_name="room"
+            frozen_indicators="population: 1"
+            />
+      <item name="animal_building_division"
+            nature="animal_building_division"
+            unit_name="room"
+            frozen_indicators="population: 1"
+            />
+      <item name="animal_food_building_division"
+            nature="animal_food_building_division"
+            unit_name="room"
+            frozen_indicators="population: 1"
+            />
+      <item name="animal_waste_building_division"
+            nature="animal_food_building_division"
+            unit_name="room"
+            frozen_indicators="population: 1"
+            />
       <item name="tractor"
             nature="tractor"
             unit_name="equipment"

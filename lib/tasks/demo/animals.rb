@@ -23,7 +23,10 @@ demo :animals do
     group_vl = AnimalGroup.find_by_work_number("VL")
 
   # add animals credentials in preferences
-  cattling_number = Preference.where(:nature => :string, :name => "services.synel17.login", :string_value => "17387001").first_or_create
+  synel_login = Preference.where(:nature => :string, :name => "services.synel17.login", :string_value => "17387001").first_or_create
+  cattling_number = Preference.where(:nature => :string, :name => "entity_identification.ede.cattling_number", :string_value => "FR17387001").first_or_create
+  owner_number = Preference.where(:nature => :string, :name => "entity_identification.ede.owner_number", :string_value => "FR01700006989").first_or_create
+  
 
   Ekylibre::fixturize :animal_natures do |w|
     #############################################################################

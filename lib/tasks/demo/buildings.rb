@@ -22,7 +22,7 @@ demo :buildings do
                      {:variant_id => animal_place_variant.id, :name => "Poulailler 2 (côté Forêt)", :work_number => "B10", :identification_number => "BAT_POULAILLER_2"}
                     ]
       unless Building.find_by_work_number(building[:work_number])
-        Building.create!({:initial_owner => Entity.of_company, :born_at => Time.now, :reservoir => false}.merge(building) )
+        Building.create!({:initial_owner => Entity.of_company, :born_at => Time.now, :reservoir => false}.merge(building))
         w.check_point
       end
     end
@@ -57,13 +57,18 @@ demo :buildings do
 
   Ekylibre::fixturize :building_divisions_shapes do |w|
 
-    building_division_variant = ProductNatureVariant.import_from_nomenclature(:building_division)
+    
 
     RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp").to_s, :srid => 2154) do |file|
       # puts "File contains #{file.num_records} records."
       now = Time.now - 10.years
       file.each do |record|
+        # find the building_division if exist
         building_division   = BuildingDivision.find_by_work_number(record.attributes['WORK_NUMBE'])
+        # import the correct product_nature_variant with the NOMEN attributes in shp file
+        building_division_variant = ProductNatureVariant.import_from_nomenclature(record.attributes['NOMEN'].to_sym)
+        building_division_variant ||= ProductNatureVariant.import_from_nomenclature(:building_division)
+        #  create the building_division
         building_division ||= BuildingDivision.create!(:variant_id => building_division_variant.id,
                                                        :name => record.attributes['DECRIPTION'].to_s,
                                                        :work_number => record.attributes['WORK_NUMBE'].to_s,
