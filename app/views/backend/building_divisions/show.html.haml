@@ -6,6 +6,8 @@
     -b.cell :general do
       =attributes_list(@building_division) do |l|
         -l.attribute :name
+        -l.attribute :variant, url: true
+        -l.attribute :nature, url: true
         -l.attribute :work_number
     -b.cell do
       .picture
@@ -13,4 +15,4 @@
 
   -b.tabbox do
     -b.cell(:content_products) do
-      =list(:content_products)
+      =list(:contained_products)

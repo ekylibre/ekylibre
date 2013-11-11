@@ -91,14 +91,17 @@ class BuildingDivision < SubZone
     #   end
     # end
   end
-
-  protect(:on => :destroy) do
-    dependencies = 0
-    for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
-      dependencies += self.send(k).count
-    end
-    return dependencies <= 0
-  end
+  
+  # @FIXME
+  # ActiveRecord::StatementInvalid in Backend::BuildingDivisions#index 
+  # PG::UndefinedColumn: ERROR:  column operation_tasks.subject_id does not exist
+  #protect(:on => :destroy) do
+   # dependencies = 0
+    #for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
+    #  dependencies += self.send(k).count
+    #end
+    #return dependencies <= 0
+  #end
 
 
   def can_receive?(product_id)
