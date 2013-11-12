@@ -715,6 +715,7 @@ fra:
         ZWL: "Dollar zimbabwéen"
     document_categories:
       items:
+        animal_farming: "Elevage"
         health: "Santé - Hygiène"
         land_parcel_management: "Conduite de la parcelle"
     document_natures:
@@ -724,6 +725,7 @@ fra:
         phytosanitary_registry: "Registre phytosanitaire"
         profit_and_loss_statement: "Compte de résultat"
         veterinary_booklet: "Carnet vétérinaire"
+        animal_husbandry_registry: "Registre d'élevage"
     entity_natures:
       items:
         association: "Association"

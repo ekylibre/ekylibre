@@ -6,6 +6,7 @@
       <parameter name="stopped_on" type="date" default="2013-12-31"/>
     </parameters>
     <section name="animal_husbandry_registry">
+      <variable name="campaigns" value="Campaign.where(harvest_year: 2013)"/>
       <section name="enterprise">
         <variable name="company" value="Entity.of_company"/>
         <property name="entity_name" value="company.full_name"/>
@@ -15,13 +16,70 @@
       </section>
       <section name="plan">
         <variable name="animal_building_division" value="ProductNature.find_by_nomen(:animal_building_division)"/>
+        <property name="plan_svg" value="BuildingDivision.of_nature(animal_building_division).map_svg" type="svg" level="api"/>
         <sections for="building_division" in="BuildingDivision.of_nature(animal_building_division)" of-type="record">
           <title name="name" of="building_division"/>
           <property name="work_number" of="building_division"/>
           <property name="area" of="building_division" type="measure"/>
           <property name="area_in_square_meter" value="building_division.area(:square_meter)" type="measure" level="api"/>
           <property name="id" of="building_division" level="api"/>
-          <property name="shape_svg" value="building_division" type="svg" level="api"/>
+          <property name="shape_svg" of="building_division" type="svg" level="api"/>
+        </sections>
+      </section>
+      <section name="animal_productions">
+         <variable name="animal_activities" value="Activity.of_families(:animal_farming)"/>
+         <sections for="production" in="Production.of_activities(animal_activities).of_campaign(campaigns)" of-type="record">
+          <title name="name" of="production"/>
+          <property name="started_at" of="production"/>
+          <property name="stopped_at" of="production"/>
+          <property name="variant_name" value="production.variant.name"/>
+          <variable name="variant_nature" value="production.variant.nature"/>
+          <sections for="animal" in="Animal.of_nature(variant_nature)" of-type="record">
+            <title name="name" of="animal"/>
+            <property name="born_at" of="animal"/>
+            <property name="dead_at" of="animal"/>
+            <property name="work_number" of="animal"/>
+            <property name="sex" of="animal"/>
+            <property name="variety" of="animal"/>
+            <property name="identification_number" of="animal"/>
+            <matrix name="animal_localizations" for="localization" in="animal.localizations">
+              <cell name="id" of="localization" level="api"/>
+              <within of="localization">
+                <cell name="container.name"/>
+                <cell name="arrival_cause"/>
+                <cell name="departure_cause"/>
+                <cell name="started_at"/>
+                <cell name="stopped_at"/>
+              </within>
+            </matrix>
+            <matrix name="animal_treatments" for="intervention" in="Intervention.real.of_nature(:animal_illness_treatment).with_cast(:'animal_illness_treatment-target', animal)">
+                <cell name="id" of="intervention" level="api"/>
+                <section name="prescription" of="intervention.prescription">
+                  <property name="id" level="api"/>
+                  <title name="reference_number"/>
+                  <property name="prescriptor_name"/>
+                </section>
+                <matrix name="inputs" for="input" in="intervention.casts.of_role(:'animal_illness_treatment-input')">
+                  <variable name="meat_withdrawal_period" value="input.actor.meat_withdrawal_period"/>
+                  <variable name="milk_withdrawal_period" value="input.actor.milk_withdrawal_period"/>
+                  <cell name="id" of="input" level="api"/>
+                  <within of="input.actor">
+                    <cell name="name"/>
+                    <cell name="variety" level="api"/>
+                  </within>
+                  <cell name="quantity" of="input" type="measure"/>
+                  <cell name="unit_name" of="input.actor"/>
+                  <matrix name="withdrawal_periods">
+                    <cell name="meat_withdrawal_period" value="meat_withdrawal_period" type="measure"/>
+                    <cell name="milk_withdrawal_period" value="milk_withdrawal_period" type="measure"/>
+                  </matrix>
+                  <matrix name="sale_dates">
+                    <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period.to_d.send(meat_withdrawal_period.unit)).to_date" type="date"/>
+                    <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period.to_d.send(milk_withdrawal_period.unit)).to_date" type="date"/>
+                  </matrix>
+                </matrix>
+            </matrix>
+          </sections>
         </sections>
       </section>
     </section>

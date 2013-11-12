@@ -1,170 +1,176 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="veterinary_booklet" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="0.9558924531310702"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="animal_husbandry_registry" language="groovy" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" isSummaryNewPage="true" isSummaryWithPageHeaderAndFooter="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
+	<property name="ireport.zoom" value="0.8467108950806659"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="240"/>
+	<property name="ireport.y" value="0"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
 	<style name="Column header" forecolor="#666666" fontName="DejaVu Sans" fontSize="12" isBold="true"/>
-	<style name="Detail" fontName="Arial" fontSize="12">
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{dead-at} != null]]></conditionExpression>
-			<style mode="Transparent" forecolor="#FF3333" fill="Solid" vAlign="Top" isBold="false" isItalic="false" isUnderline="false"/>
-		</conditionalStyle>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{race-name}.contains("CROISE")]]></conditionExpression>
-			<style mode="Opaque" backcolor="#FFFF00" fill="Solid" vAlign="Top" isBlankWhenNull="false" isBold="false" isItalic="false" isUnderline="false"/>
-		</conditionalStyle>
-	</style>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
 	<style name="Row" mode="Transparent"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
-	<style name="conditionnal_state">
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{state} == "closed"]]></conditionExpression>
-			<style mode="Opaque" backcolor="#33CC00"/>
-		</conditionalStyle>
-		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{state} == "new"]]></conditionExpression>
-			<style mode="Opaque" backcolor="#FF0000"/>
-		</conditionalStyle>
-	</style>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["/home/djoulin/ekylibre/config/locales/fra/prints/"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="xPath">
-		<![CDATA[campaigns/campaign/intervention/inputs/input]]>
+		<![CDATA[/animal-husbandry-registry/animal-productions/production/animal]]>
 	</queryString>
 	<field name="entity_name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::campaigns/@entity-name]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::animal-husbandry-registry/enterprise/@entity-name]]></fieldDescription>
 	</field>
-	<field name="campaign" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::campaign/@id]]></fieldDescription>
-	</field>
-	<field name="started_at" class="java.util.Date">
-		<fieldDescription><![CDATA[ancestor::intervention/@started-at]]></fieldDescription>
-	</field>
-	<field name="stopped_at" class="java.util.Date">
-		<fieldDescription><![CDATA[ancestor::intervention/@stopped-at]]></fieldDescription>
-	</field>
-	<field name="target_class_name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/target/@type]]></fieldDescription>
-	</field>
-	<field name="target_identification" class="java.lang.String">
-		<fieldDescription><![CDATA[../../target/@identification-number]]></fieldDescription>
-	</field>
-	<field name="target_name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/target/@name]]></fieldDescription>
-	</field>
-	<field name="description" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/incident/@description]]></fieldDescription>
-	</field>
-	<field name="name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/incident/@name]]></fieldDescription>
-	</field>
-	<field name="observed_at" class="java.util.Date">
-		<fieldDescription><![CDATA[ancestor::intervention/incident/@observed-at]]></fieldDescription>
-	</field>
-	<field name="state" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/incident/@state]]></fieldDescription>
-	</field>
-	<field name="worker_name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/worker/@name]]></fieldDescription>
-	</field>
-	<field name="id" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/prescription/@id]]></fieldDescription>
-	</field>
-	<field name="prescriptor" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/prescription/@prescriptor-name]]></fieldDescription>
-	</field>
-	<field name="reference_number" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/prescription/@reference-number]]></fieldDescription>
-	</field>
-	<field name="meat_min_sale_date" class="java.util.Date">
-		<fieldDescription><![CDATA[sale-dates/meat-saleable-on]]></fieldDescription>
-	</field>
-	<field name="milk_min_sale_date" class="java.util.Date">
-		<fieldDescription><![CDATA[sale-dates/milk-saleable-on]]></fieldDescription>
-	</field>
-	<field name="medicine_name" class="java.lang.String">
-		<fieldDescription><![CDATA[name]]></fieldDescription>
-	</field>
-	<field name="medicine_nature" class="java.lang.String">
-		<fieldDescription><![CDATA[nature-name]]></fieldDescription>
-	</field>
-	<field name="procedure_duration_day" class="java.lang.Double">
-		<fieldDescription><![CDATA[ancestor::intervention/@duration]]></fieldDescription>
-	</field>
-	<field name="quantity" class="java.lang.String">
-		<fieldDescription><![CDATA[quantity]]></fieldDescription>
-	</field>
-	<field name="target_id" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/@target-id]]></fieldDescription>
-	</field>
-	<field name="worker_entity_id" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/@worker-person-id]]></fieldDescription>
-	</field>
-	<field name="entity_breeding_number" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::campaigns/@breeding-number]]></fieldDescription>
+	<field name="plan_svg" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::animal-husbandry-registry/plan/@plan-svg]]></fieldDescription>
 	</field>
 	<field name="entity_address" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::campaigns/@address]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::animal-husbandry-registry/enterprise/@address]]></fieldDescription>
 	</field>
-	<field name="campaign_name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::campaign/@name]]></fieldDescription>
+	<field name="ede-cattling-number" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::animal-husbandry-registry/enterprise/@ede-cattling-number]]></fieldDescription>
 	</field>
-	<group name="campaign" isStartNewPage="true" isReprintHeaderOnEachPage="true">
-		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
+	<field name="ede-owner-number" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::animal-husbandry-registry/enterprise/@ede-owner-number]]></fieldDescription>
+	</field>
+	<field name="animal_born_at" class="java.lang.String">
+		<fieldDescription><![CDATA[@born-at]]></fieldDescription>
+	</field>
+	<field name="animal_dead_at" class="java.lang.String">
+		<fieldDescription><![CDATA[@dead-at]]></fieldDescription>
+	</field>
+	<field name="animal_name" class="java.lang.String">
+		<fieldDescription><![CDATA[@name]]></fieldDescription>
+	</field>
+	<field name="production_variant_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::production/@variant-name]]></fieldDescription>
+	</field>
+	<field name="production_name" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::production/@name]]></fieldDescription>
+	</field>
+	<field name="animal_sex" class="java.lang.String">
+		<fieldDescription><![CDATA[@sex]]></fieldDescription>
+	</field>
+	<field name="animal_variety" class="java.lang.String">
+		<fieldDescription><![CDATA[@variety]]></fieldDescription>
+	</field>
+	<field name="animal_work_number" class="java.lang.String">
+		<fieldDescription><![CDATA[@work-number]]></fieldDescription>
+	</field>
+	<field name="animal_identification_number" class="java.lang.String">
+		<fieldDescription><![CDATA[@identification-number]]></fieldDescription>
+	</field>
+	<sortField name="production_variant_name"/>
+	<sortField name="production_name"/>
+	<group name="production" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{production_name}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<textField>
+					<reportElement uuid="3ddc708d-bb1f-4c45-8915-2cc3cfcf6456" style="sub-title" x="0" y="0" width="539" height="50"/>
+					<textElement/>
+					<textFieldExpression><![CDATA["Registre de mouvement de la production "+$F{production_name}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50"/>
+		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="444" splitType="Stretch">
+		<band height="302" splitType="Stretch">
 			<staticText>
-				<reportElement uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a" style="strong" mode="Opaque" x="2" y="29" width="784" height="2" backcolor="#7C9DDD"/>
+				<reportElement uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a" style="strong" mode="Opaque" x="0" y="29" width="539" height="2" backcolor="#7C9DDD"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement uuid="dc35e306-d03e-4288-b40e-74e3bb33d471" style="title" x="0" y="0" width="786" height="29"/>
+				<reportElement uuid="dc35e306-d03e-4288-b40e-74e3bb33d471" style="title" x="0" y="0" width="539" height="29"/>
 				<textElement>
 					<font fontName="Open Sans" size="16" pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[Registre d'élevage]]></text>
 			</staticText>
-			<textField>
-				<reportElement uuid="6e0769cf-38a5-42a5-9a6e-7f073c13bdeb" x="0" y="171" width="786" height="40"/>
+			<textField isStretchWithOverflow="true" evaluationTime="Report">
+				<reportElement uuid="6e0769cf-38a5-42a5-9a6e-7f073c13bdeb" x="0" y="47" width="539" height="67"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="24" isBold="true"/>
+					<font fontName="Open Sans" size="18" isBold="true"/>
+					<paragraph leftIndent="10"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="64dbde96-ffbe-4bd0-9827-2ef1068e6a1f" x="0" y="211" width="786" height="40"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans" size="24"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{entity_breeding_number}]]></textFieldExpression>
-			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement uuid="b60f24a3-d657-4f3f-8872-1ce3bef0f9e0" style="address" x="0" y="251" width="786" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{entity_address}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="64dbde96-ffbe-4bd0-9827-2ef1068e6a1f" x="299" y="1" width="240" height="28"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Open Sans" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ede-cattling-number}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="ea02b41f-822f-454c-848d-4330088ebcc4" x="0" y="138" width="540" height="33"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans Semibold"/>
+					<paragraph leftIndent="60"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Registre des mouvements par production "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="84dc709f-625a-4544-a2c8-4deb1e348dc5" x="0" y="170" width="540" height="35"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans Semibold"/>
+					<paragraph leftIndent="60"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Plan des installations d'élevage "]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
+	<pageHeader>
+		<band height="4"/>
+	</pageHeader>
 	<detail>
-		<band height="70" splitType="Stretch"/>
+		<band height="20" splitType="Stretch">
+			<printWhenExpression><![CDATA[!$F{plan_svg}.isEmpty()]]></printWhenExpression>
+			<textField>
+				<reportElement uuid="45d5bf35-ebed-4e98-aebe-7a1174b01ee6" x="2" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{animal_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="27d120a0-7b28-4497-bb8e-88679763033f" x="102" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{animal_born_at}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="4c16b8aa-032c-4f28-b8a1-acd66f0dde85" x="202" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{animal_dead_at}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5cbff19c-a809-4239-875e-ef123e97aa4c" x="302" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{animal_sex}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="bc0712fb-cc3d-4a65-a5b3-5b00093e2d7e" x="402" y="0" width="100" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{animal_variety}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cd1fb91e-c08a-462c-b7a2-7b3ae3155c33" x="502" y="0" width="37" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{animal_identification_number}]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<pageFooter>
 		<band height="26" splitType="Stretch">
 			<textField evaluationTime="Report">
-				<reportElement uuid="50272410-1b25-4669-88c3-3be64f156f82" style="base" x="751" y="3" width="35" height="22" forecolor="#000000"/>
+				<reportElement uuid="50272410-1b25-4669-88c3-3be64f156f82" style="base" x="500" y="0" width="35" height="22" forecolor="#000000"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
@@ -178,21 +184,21 @@
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="342f7ef7-5da8-4d85-baf2-2c7968aecaed" style="base" x="708" y="3" width="43" height="22" forecolor="#000000"/>
+				<reportElement uuid="342f7ef7-5da8-4d85-baf2-2c7968aecaed" style="base" x="457" y="0" width="43" height="22" forecolor="#000000"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement uuid="3740387f-1656-45d4-b5a7-a671b9df52d6" style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD"/>
+				<reportElement uuid="3740387f-1656-45d4-b5a7-a671b9df52d6" style="strong" mode="Opaque" x="117" y="13" width="340" height="2" backcolor="#7C9DDD"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField>
-				<reportElement uuid="92ee893d-7bd3-4e16-a070-96522f1fc0e7" style="address" x="277" y="1" width="224" height="25"/>
+				<reportElement uuid="92ee893d-7bd3-4e16-a070-96522f1fc0e7" style="address" x="117" y="1" width="340" height="25"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
 			</textField>
@@ -201,14 +207,14 @@
 	<lastPageFooter>
 		<band height="26">
 			<staticText>
-				<reportElement uuid="6a745fd5-25a2-4de3-87b6-1d920ef1a4c0" style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD"/>
+				<reportElement uuid="6a745fd5-25a2-4de3-87b6-1d920ef1a4c0" style="strong" mode="Opaque" x="117" y="13" width="340" height="2" backcolor="#7C9DDD"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Times-Roman"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField evaluationTime="Report">
-				<reportElement uuid="c5669d5d-31af-4dd7-bf88-534422b21b01" style="base" x="751" y="3" width="35" height="22" forecolor="#000000"/>
+				<reportElement uuid="c5669d5d-31af-4dd7-bf88-534422b21b01" style="base" x="500" y="0" width="35" height="22" forecolor="#000000"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
@@ -222,17 +228,32 @@
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="5de70a0c-bd99-4937-84fa-c172a5df272f" style="base" x="708" y="3" width="43" height="22" forecolor="#000000"/>
+				<reportElement uuid="5de70a0c-bd99-4937-84fa-c172a5df272f" style="base" x="457" y="0" width="43" height="22" forecolor="#000000"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement uuid="fb8e778f-b77c-4999-b9d3-f736bf4a6174" style="address" x="277" y="0" width="224" height="25"/>
+				<reportElement uuid="fb8e778f-b77c-4999-b9d3-f736bf4a6174" style="address" x="117" y="0" width="340" height="25"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{entity_name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</lastPageFooter>
+	<summary>
+		<band height="488">
+			<image hAlign="Center" vAlign="Middle" onErrorType="Blank">
+				<reportElement uuid="3c4bd103-658a-4bde-bbd9-aca317963c39" x="0" y="31" width="539" height="457">
+					<printWhenExpression><![CDATA[!$F{plan_svg}.isEmpty()]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($F{plan_svg})]]></imageExpression>
+			</image>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f672ca73-ca19-4d22-8912-faac3bf24ec6" style="sub-title" x="0" y="0" width="539" height="31"/>
+				<textElement/>
+				<textFieldExpression><![CDATA["Plan des installations d'élevage"]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
 </jasperReport>
