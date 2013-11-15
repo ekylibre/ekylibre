@@ -199,34 +199,41 @@ class Intervention < Ekylibre::Record::Base
       for variable in reference.variables.values
         next unless variable.new?
         if cast = self.casts.find_by(variable: variable.name)
+          container, owner, arrival_cause = nil, nil, :birth
           if variable.known_variant?
             if ref = self.casts.find_by(variable: variable.variant_variable.name)
+              if actor = ref.actor
+                container = actor.container
+                owner = actor.owner
+              end
               cast.variant = ref.variant
               cast.save!
             end
           end
           if cast.variant and cast.quantity
-            # match correct class model
-            product_model = cast.variant.nature.matching_model
-            # @TODO refactorize when a more powerful system works
-            # try to simply attribute a localization on a new culture from sowing
-            # sowing case
-            if cast.roles == "sowing-output" and cast.variable == "culture"
-              container = self.casts.where(variable: "land_parcel").first.actor
-              arrival_cause = :birth
-            # harvesting grain case
-            elsif cast.roles == "harvest-output" and cast.variable == "grains"
-              container = self.casts.where(variable: "culture").first.actor
-              arrival_cause = :birth
-            # harvesting straw case
-            elsif cast.roles == "harvest-output" and cast.variable == "straw"
-              container = self.casts.where(variable: "culture").first.actor
-              arrival_cause = :birth
-            end
-            # create a product with correct type
-            cast.actor = product_model.create!(variant: cast.variant, born_at: started_at, initial_owner: Entity.of_company, initial_container: container, initial_arrival_cause: arrival_cause)
-            cast.actor.is_measured!(:population, cast.quantity)
+            cast.actor = cast.matching_model.create!(variant: cast.variant, born_at: started_at, initial_owner: owner || Entity.of_company, initial_container: container, initial_arrival_cause: arrival_cause, initial_population: cast.quantity)
             cast.save!
+            # # match correct class model
+            # product_model = cast.variant.nature.matching_model
+            # # @TODO refactorize when a more powerful system works
+            # # try to simply attribute a localization on a new culture from sowing
+            # # sowing case
+            # if cast.roles == "sowing-output" and cast.variable == "culture"
+            #   container = self.casts.where(variable: "land_parcel").first.actor
+            #   arrival_cause = :birth
+            # # harvesting grain case
+            # elsif cast.roles == "harvest-output" and cast.variable == "grains"
+            #   container = self.casts.where(variable: "culture").first.actor
+            #   arrival_cause = :birth
+            # # harvesting straw case
+            # elsif cast.roles == "harvest-output" and cast.variable == "straw"
+            #   container = self.casts.where(variable: "culture").first.actor
+            #   arrival_cause = :birth
+            # end
+            # # create a product with correct type
+            # cast.actor = product_model.create!(variant: cast.variant, born_at: started_at, initial_owner: Entity.of_company, initial_container: container, initial_arrival_cause: arrival_cause)
+            # cast.actor.is_measured!(:population, cast.quantity)
+            # cast.save!
           end
         end
       end
