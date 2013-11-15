@@ -19,6 +19,7 @@
 
 class Backend::AnimalsController < Backend::ProductsController
   manage_restfully :t3e => {:nature_name => :nature_name}
+  manage_restfully_picture
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
@@ -108,12 +109,6 @@ class Backend::AnimalsController < Backend::ProductsController
                                                    {:memberships => {:include =>:group}},
                                                    {:localizations => {:include =>:container}}])
 
-  end
-
-
-  def picture
-    return unless @animal = find_and_check
-    send_file @animal.picture.path(params[:style] || :original)
   end
 
 end

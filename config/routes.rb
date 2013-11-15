@@ -327,7 +327,7 @@ Ekylibre::Application.routes.draw do
       end
     end
     resources :gaps, concerns: [:list, :unroll]
-    resources :incidents, concerns: [:list, :unroll] do
+    resources :incidents, concerns: [:list, :picture, :unroll] do
       member do
         get :list_interventions
       end
@@ -480,7 +480,7 @@ Ekylibre::Application.routes.draw do
 
     resources :prescriptions, concerns: [:list, :unroll]
 
-    resources :products, concerns: [:list, :unroll] do
+    resources :products, concerns: [:list, :picture, :unroll] do
       member do
         get :list_contained_products
         get :list_groups
@@ -528,7 +528,7 @@ Ekylibre::Application.routes.draw do
       end
     end
     
-    resources :product_nature_variants, concerns: [:list, :unroll] do
+    resources :product_nature_variants, concerns: [:list, :picture, :unroll] do
       member do
         get :list_products
         get :list_prices
