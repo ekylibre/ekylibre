@@ -84,13 +84,22 @@ class Product < Ekylibre::Record::Base
   has_many :groups, :through => :memberships
   has_many :phases, :class_name => "ProductPhase"
   has_many :variants, :class_name => "ProductNatureVariant", :through => :phases
-  has_one :current_phase, -> { order("started_at DESC") }, :class_name => "ProductPhase", :foreign_key => :product_id
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
   has_many :operation_tasks, :foreign_key => :subject_id
   has_many :localizations, :class_name => "ProductLocalization", :foreign_key => :product_id
-  has_one :last_localization,-> { order("started_at DESC") }, :class_name => "ProductLocalization", :foreign_key => :product_id
   has_many :ownerships, :class_name => "ProductOwnership", :foreign_key => :product_id
   has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id, :inverse_of => :storage
+  has_one :current_phase, -> { order("started_at DESC") }, :class_name => "ProductPhase", :foreign_key => :product_id
+  has_one :current_localization, -> {
+    now = Time.now
+    where('? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)', now, now, now).order(:id)
+  }, class_name: "ProductLocalization", foreign_key: :product_id
+  has_one :current_ownership, -> {
+    now = Time.now
+    where('? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)', now, now, now).order(:id)
+  }, class_name: "ProductOwnership", foreign_key: :product_id
+  has_one :last_localization,-> { order("started_at DESC") }, :class_name => "ProductLocalization", :foreign_key => :product_id
+
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
@@ -188,6 +197,8 @@ class Product < Ekylibre::Record::Base
   before_validation :set_default_values, :on => :create
   before_validation :update_default_values, :on => :update
 
+
+
   validate do
     if self.variant
       unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_s)
@@ -221,9 +232,13 @@ class Product < Ekylibre::Record::Base
 
   # set initial owner and localization
   def set_initial_values
-    # add first owner on a product
+    # Set population
+    self.is_measured!(:population, self.initial_population)
+    # Add first owner on a product
     self.ownerships.create!(owner: self.initial_owner)
-    # add first localization on a product
+    # # Add first enjoyer on a product
+    # self.enjoyments.create!(enjoyer: self.initial_enjoyer)
+    # Add first localization on a product
     if self.initial_container and self.initial_arrival_cause
       self.localizations.create!(container: self.initial_container, started_at: self.born_at, arrival_cause: self.initial_arrival_cause)
     end
@@ -361,6 +376,22 @@ class Product < Ekylibre::Record::Base
      else
        return nil
     end
+  end
+
+  # Returns the current container for the product
+  def owner
+    if o = self.current_ownership
+      return o.owner
+    end
+    return nil
+  end
+
+  # Returns the current container for the product
+  def container
+    if l = self.current_localization
+      return l.container
+    end
+    return nil
   end
 
   def picture_path(style=:original)

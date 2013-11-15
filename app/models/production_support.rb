@@ -33,8 +33,9 @@
 #  updater_id    :integer
 #
 class ProductionSupport < Ekylibre::Record::Base
-  belongs_to :storage, :class_name => "Product", :inverse_of => :supports
-  belongs_to :production, :inverse_of => :supports
+  belongs_to :storage, class_name: "Product", inverse_of: :supports
+  belongs_to :production, inverse_of: :supports
+  has_many :interventions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :exclusive, :in => [true, false]
   validates_presence_of :production, :storage

@@ -208,16 +208,19 @@ demo :interventions do
             # Harvest 01-07-M 30-07-M
             bob = Worker.all.sample
             other = Worker.where("id != ?", bob.id).all.sample
-            Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff, support: support) do |i|
-              # i.add_cast(variable: 'silo',    actor: Product.can("store(grain)").all.sample)
-              # i.add_cast(variable: 'driver',  actor: bob, quantity: i.duration.to_f)
-              # i.add_cast(variable: 'tractor', actor: Product.can("tow(trailer)").all.sample, quantity: i.duration.to_f)
-              # i.add_cast(variable: 'trailer', actor: Product.can("store(grain)").all.sample, quantity: i.duration.to_f)
-              i.add_cast(variable: 'cropper',        actor: Product.can("harvest(poaceae)").all.sample)
-              i.add_cast(variable: 'cropper_driver', actor: other)
-              i.add_cast(variable: 'culture')
-              i.add_cast(variable: 'grains')
-              i.add_cast(variable: 'straws')
+            sowing = support.interventions.where(procedure: "sowing").where("started_at < ?", Date.civil(year, 7, 1)).order("stopped_at DESC").first
+            if culture = sowing.casts.find_by(variable: 'culture').actor rescue nil
+              Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff, support: support) do |i|
+                # i.add_cast(variable: 'silo',    actor: Product.can("store(grain)").all.sample)
+                # i.add_cast(variable: 'driver',  actor: bob, quantity: i.duration.to_f)
+                # i.add_cast(variable: 'tractor', actor: Product.can("tow(trailer)").all.sample, quantity: i.duration.to_f)
+                # i.add_cast(variable: 'trailer', actor: Product.can("store(grain)").all.sample, quantity: i.duration.to_f)
+                i.add_cast(variable: 'cropper',        actor: Product.can("harvest(poaceae)").all.sample)
+                i.add_cast(variable: 'cropper_driver', actor: other)
+                i.add_cast(variable: 'culture',        actor: culture)
+                i.add_cast(variable: 'grains',         quantity: 4.2 * coeff, variant: ProductNatureVariant.of_variety(:grain).derivative_of(culture.variety).first )
+                i.add_cast(variable: 'straws',          quantity: 1.5 * coeff, variant: ProductNatureVariant.of_variety(:straw).derivative_of(culture.variety).first)
+              end
             end
           end
           w.check_point

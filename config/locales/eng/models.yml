@@ -754,7 +754,9 @@ eng:
     current_amount: "Current amount"
     # current_animal_disease_state: "Etat de santé actuel"
     current_financial_year: "Current financial year" #?
+    # current_localization: "Current localization"
     # current_net_weight: "Dernière pesée"
+    # current_ownership: "Current ownership"
     # current_phase: "Current phase"
     custom_field: "Custom field"
     custom_field_choices: "Custom field choices"

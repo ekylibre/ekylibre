@@ -49,6 +49,7 @@ class InterventionCast < Ekylibre::Record::Base
   delegate :name, to: :actor, prefix: true
   delegate :evaluated_price, to: :actor
   delegate :started_at, :stopped_at, to: :intervention
+  delegate :matching_model, to: :variant
 
   scope :of_role, lambda { |role|
     # for nature in natures
