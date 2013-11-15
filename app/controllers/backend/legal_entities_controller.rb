@@ -18,12 +18,12 @@
 #
 
 class Backend::LegalEntitiesController < Backend::EntitiesController
-  manage_restfully
+  # manage_restfully
 
-  unroll
+  # unroll
 
-  list do |t|
-    t.column :name, url: true
-  end
+  # list do |t|
+  #   t.column :name, url: true
+  # end
 
 end

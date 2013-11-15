@@ -17,13 +17,13 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::PeopleController < Backend::EntitiesController
-  manage_restfully :t3e => {:name => :name}
+  # manage_restfully :t3e => {:name => :name}
 
-  unroll
+  # unroll
 
-  list do |t|
-    t.column :number, url: true
-    t.column :full_name, url: true
-  end
+  # list do |t|
+  #   t.column :number, url: true
+  #   t.column :full_name, url: true
+  # end
 
 end
