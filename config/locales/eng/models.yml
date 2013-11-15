@@ -754,6 +754,7 @@ eng:
     # current_animal_disease_state: "Etat de santé actuel"
     current_financial_year: "Current financial year" #?
     # current_net_weight: "Dernière pesée"
+    # current_phase: "Current phase"
     custom_field: "Custom field"
     custom_field_choices: "Custom field choices"
     custom_field_data: "Custom field data" #?
@@ -920,6 +921,7 @@ eng:
     for_sales: "For sales" #?
     # formats: "Formats"
     frequency: "Frequency" #?
+    # frozen_indicators: "Frozen indicators"
     full_name: "Full name"
     full_name_format: "Full name format" #?
     function_title: "Function title"
@@ -1004,6 +1006,7 @@ eng:
     last_cweek: "Last cweek"
     last_journal_entry: "Journal entry of end of year"
     last_letter: "Last letter"
+    # last_localization: "Last localization"
     last_month: "Last month"
     last_name: "Last name"
     last_number: "Last number"
@@ -1089,6 +1092,7 @@ eng:
     nature_code: "Type code" #?
     nature_label: "Type label" #?
     nature_name: "Nature name"
+    # natures: "Natures"
     # net_volume: "Volume net"
     net_weight: "Net weight (kg)"
     nic: "Nic"
@@ -1165,10 +1169,12 @@ eng:
     period: "Period"
     period_name: "Period name" #?
     person: "Person"
+    # phases: "Phases"
     phone: "Phone" #?
     phones: "Phones"
     photo: "Photo" #?
     physical: "Physical" #?
+    # pictogram: "Pictogram"
     picture: "Picture"
     picture_content_type: "Picture content type"
     picture_file_name: "Picture file name"

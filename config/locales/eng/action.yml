@@ -490,6 +490,7 @@ eng:
       new: "Add a new product type"
       show: "Product type: %{name}"
     backend/product_ownerships: #?
+    backend/product_phases: #?
     backend/product_price_listings:  #?
       index: "Price listings" #?
     backend/product_price_templates:  #?

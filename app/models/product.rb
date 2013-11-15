@@ -24,6 +24,7 @@
 #  address_id               :integer
 #  asset_id                 :integer
 #  born_at                  :datetime
+#  category_id              :integer          not null
 #  content_indicator        :string(255)
 #  content_indicator_unit   :string(255)
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
@@ -68,6 +69,7 @@ class Product < Ekylibre::Record::Base
   enumerize :content_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
   enumerize :initial_arrival_cause, :in => [:birth, :housing, :other, :purchase], :default => :birth, :predicates =>{prefix: true}
   belongs_to :nature, :class_name => "ProductNature"
+  belongs_to :category, :class_name => "ProductNatureCategory"
   belongs_to :asset
   belongs_to :tracking
   belongs_to :initial_container, :class_name => "Product"
@@ -80,6 +82,9 @@ class Product < Ekylibre::Record::Base
   has_many :indicator_data, :class_name => "ProductIndicatorDatum", :dependent => :destroy
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
   has_many :groups, :through => :memberships
+  has_many :phases, :class_name => "ProductPhase"
+  has_many :variants, :class_name => "ProductNatureVariant", :through => :phases
+  has_one :current_phase, -> { order("started_at DESC") }, :class_name => "ProductPhase", :foreign_key => :product_id
   has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
   has_many :operation_tasks, :foreign_key => :subject_id
   has_many :localizations, :class_name => "ProductLocalization", :foreign_key => :product_id
@@ -164,7 +169,7 @@ class Product < Ekylibre::Record::Base
   validates_length_of :derivative_of, :initial_arrival_cause, :variety, :allow_nil => true, :maximum => 120
   validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :reservoir, :in => [true, false]
-  validates_presence_of :content_maximal_quantity, :name, :nature, :number, :variant, :variety
+  validates_presence_of :category, :content_maximal_quantity, :name, :nature, :number, :variant, :variety
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name
 
@@ -176,10 +181,12 @@ class Product < Ekylibre::Record::Base
   delegate :subscribing?, :deliverable?, :to => :nature
   delegate :variety, :derivative_of, :name, :to => :variant, :prefix => true
   delegate :abilities, :abilities_array, :indicators, :indicators_array, :unit_name, :to => :variant
-
+  delegate :asset_account, :product_account, :charge_account, :stock_account, :to => :nature
+  
   after_initialize :choose_default_name
   after_create :set_initial_values
   before_validation :set_default_values, :on => :create
+  before_validation :update_default_values, :on => :update
 
   validate do
     if self.variant
@@ -226,6 +233,7 @@ class Product < Ekylibre::Record::Base
         indicator = self.variant.indicator(frozen_indicator.to_s) if self.variant.frozen?(frozen_indicator.to_s)
         self.is_measured!(indicator.indicator, indicator.value)
       end
+      self.phases.create!(variant: self.variant, started_at: self.born_at) if self.born_at
     end
   end
 
@@ -258,8 +266,21 @@ class Product < Ekylibre::Record::Base
       self.nature    = self.variant.nature
       self.variety ||= self.variant_variety
     end
+    if self.nature
+      self.category = self.nature.category
+    end
   end
 
+  # Update nature and variety and variant from phase
+  def update_default_values
+    if self.current_phase
+      self.nature    = self.current_phase.variant.nature
+      self.variety ||= self.current_phase.variant_variety
+    end
+    if self.nature
+      self.category = self.nature.category
+    end
+  end
 
   # Returns the matching model for the record
   def matching_model
@@ -327,7 +348,7 @@ class Product < Ekylibre::Record::Base
       return nil
     end
   end
-  
+
   # Returns the current contents of the product at a given time (or now by default)
   def contains(content_class = Product, at = Time.now)
     localizations = ProductLocalization.where(container: self).where("started_at <= ?",at)
@@ -341,7 +362,7 @@ class Product < Ekylibre::Record::Base
        return nil
     end
   end
-  
+
   def picture_path(style=:original)
     self.picture.path(style)
   end

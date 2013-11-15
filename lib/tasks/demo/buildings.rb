@@ -57,7 +57,7 @@ demo :buildings do
 
   Ekylibre::fixturize :building_divisions_shapes do |w|
 
-    
+
 
     RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp").to_s, :srid => 2154) do |file|
       # puts "File contains #{file.num_records} records."

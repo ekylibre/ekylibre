@@ -23,6 +23,7 @@
 #  address_id               :integer
 #  asset_id                 :integer
 #  born_at                  :datetime
+#  category_id              :integer          not null
 #  content_indicator        :string(255)
 #  content_indicator_unit   :string(255)
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
@@ -85,7 +86,7 @@ class CultivableLandParcel < LandParcelGroup
     end
     joins(:productions).where('production_id IN (?)', productions.map(&:id))
   }
-  
+
   # return the work_number of LandParcelClusters if exist for a CultivableLAndParcel
   def clusters_work_number(viewed_at = nil)
     lp = self.members_at(viewed_at)
@@ -103,5 +104,5 @@ class CultivableLandParcel < LandParcelGroup
     end
     return nil
   end
-  
+
 end

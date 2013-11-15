@@ -20,34 +20,25 @@
 #
 # == Table: product_natures
 #
-#  abilities              :text
-#  active                 :boolean          not null
-#  asset_account_id       :integer
-#  charge_account_id      :integer
-#  created_at             :datetime         not null
-#  creator_id             :integer
-#  depreciable            :boolean          not null
-#  derivative_of          :string(120)
-#  description            :text
-#  id                     :integer          not null, primary key
-#  indicators             :text
-#  lock_version           :integer          default(0), not null
-#  name                   :string(255)      not null
-#  nomen                  :string(120)
-#  number                 :string(30)       not null
-#  population_counting    :string(255)      not null
-#  product_account_id     :integer
-#  purchasable            :boolean          not null
-#  reductible             :boolean          not null
-#  saleable               :boolean          not null
-#  stock_account_id       :integer
-#  storable               :boolean          not null
-#  subscribing            :boolean          not null
-#  subscription_duration  :string(255)
-#  subscription_nature_id :integer
-#  updated_at             :datetime         not null
-#  updater_id             :integer
-#  variety                :string(120)      not null
+#  abilities           :text
+#  active              :boolean          not null
+#  category_id         :integer          not null
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  derivative_of       :string(120)
+#  description         :text
+#  evolvable           :boolean          not null
+#  frozen_indicators   :text
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  name                :string(255)      not null
+#  nomen               :string(120)
+#  number              :string(30)       not null
+#  population_counting :string(255)      not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer
+#  variable_indicators :text
+#  variety             :string(120)      not null
 #
 require 'test_helper'
 

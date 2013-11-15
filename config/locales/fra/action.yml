@@ -482,6 +482,11 @@ fra:
       # index: "Index backend/product membership"
       # new: "New backend/product membership"
       # show: "Show backend/product membership"
+    backend/product_nature_categories:
+      edit: "Modifier la catégorie du produit\_: %{name}"
+      index: "Catégories de produits"
+      new: "Nouvelle catégorie"
+      show: "Catégorie de produit\_: %{name}"
     backend/product_nature_variant_indicator_data:
       # edit: "Edit backend/product nature variant indicator datum"
       # index: "Index backend/product nature variant indicator datum"
@@ -502,6 +507,11 @@ fra:
       # index: "Index backend/product ownership"
       # new: "New backend/product ownership"
       # show: "Show backend/product ownership"
+    backend/product_phases:
+      # edit: "Edit backend/product phase"
+      # index: "Index backend/product phase"
+      # new: "New backend/product phase"
+      # show: "Show backend/product phase"
     backend/product_process_phases:
       # edit: "Edit backend/product process phase"
       # index: "Index backend/product process phase"
@@ -765,10 +775,12 @@ fra:
     # backend/product_links: "Backend/product links"
     backend/product_localizations: "Localisations"
     # backend/product_memberships: "Backend/product memberships"
+    # backend/product_nature_categories: "Backend/product nature categories"
     # backend/product_nature_variant_indicator_data: "Backend/product nature variant indicator data"
     # backend/product_nature_variants: "Backend/product nature variants"
     backend/product_natures: "Types de produits"
     # backend/product_ownerships: "Backend/product ownerships"
+    # backend/product_phases: "Backend/product phases"
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
     # backend/production_supports: "Backend/production supports"

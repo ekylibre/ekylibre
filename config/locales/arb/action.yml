@@ -554,6 +554,7 @@ arb:
       new: "اضافة منتج جديد"
       show: "المنتجات : %{name}"
     backend/product_ownerships: #?
+    backend/product_phases: #?
     backend/product_price_listings: #?
     backend/product_price_templates: #?
     backend/product_prices: #?

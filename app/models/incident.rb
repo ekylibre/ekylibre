@@ -48,6 +48,16 @@ class Incident < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :priority, :in => 0..5
   validates_inclusion_of :priority, :in => 0..5
+  
+  has_attached_file :picture, {
+    :url => '/backend/:class/:id/picture/:style',
+    :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
+    :styles => {
+      :thumb => ["64x64#", :jpg],
+      :identity => ["180x180#", :jpg]
+      # :large => ["600x600", :jpg]
+    }
+  }
 
     state_machine :state, :initial => :new do
       state :new

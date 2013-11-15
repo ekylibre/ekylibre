@@ -1,4 +1,6 @@
 Ekylibre::Application.routes.draw do
+
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -514,11 +516,18 @@ Ekylibre::Application.routes.draw do
         get :change_quantities
       end
       member do
-        # get :list_price_templates
-        # get :list_products
+        get :list_products
+        get :list_product_nature_variants
       end
     end
 
+    resources :product_nature_categories, concerns: [:list, :unroll] do
+      member do
+        get :list_products
+        get :list_product_natures
+      end
+    end
+    
     resources :product_nature_variants, concerns: [:list, :unroll] do
       member do
         get :list_products
@@ -530,6 +539,8 @@ Ekylibre::Application.routes.draw do
 
     resources :product_ownerships, concerns: [:list, :unroll]
 
+    resources :product_phases, concerns: [:list, :unroll]
+    
     resources :product_processes, concerns: [:list, :unroll]
 
     resources :product_process_phases # , concerns: [:list, :unroll]

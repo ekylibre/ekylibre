@@ -66,7 +66,10 @@ class Activity < Ekylibre::Record::Base
   scope :of_families, Proc.new { |*families|
     where(:family => families.collect{|f| Nomen::ActivityFamilies.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
-
+  
+  protect(:on => :destroy) do
+    self.productions.count.zero?
+  end
 
   accepts_nested_attributes_for :productions, :reject_if => :all_blank, :allow_destroy => true
   acts_as_nested_set

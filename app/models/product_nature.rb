@@ -21,34 +21,25 @@
 #
 # == Table: product_natures
 #
-#  abilities              :text
-#  active                 :boolean          not null
-#  asset_account_id       :integer
-#  charge_account_id      :integer
-#  created_at             :datetime         not null
-#  creator_id             :integer
-#  depreciable            :boolean          not null
-#  derivative_of          :string(120)
-#  description            :text
-#  id                     :integer          not null, primary key
-#  indicators             :text
-#  lock_version           :integer          default(0), not null
-#  name                   :string(255)      not null
-#  nomen                  :string(120)
-#  number                 :string(30)       not null
-#  population_counting    :string(255)      not null
-#  product_account_id     :integer
-#  purchasable            :boolean          not null
-#  reductible             :boolean          not null
-#  saleable               :boolean          not null
-#  stock_account_id       :integer
-#  storable               :boolean          not null
-#  subscribing            :boolean          not null
-#  subscription_duration  :string(255)
-#  subscription_nature_id :integer
-#  updated_at             :datetime         not null
-#  updater_id             :integer
-#  variety                :string(120)      not null
+#  abilities           :text
+#  active              :boolean          not null
+#  category_id         :integer          not null
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  derivative_of       :string(120)
+#  description         :text
+#  evolvable           :boolean          not null
+#  frozen_indicators   :text
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  name                :string(255)      not null
+#  nomen               :string(120)
+#  number              :string(30)       not null
+#  population_counting :string(255)      not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer
+#  variable_indicators :text
+#  variety             :string(120)      not null
 #
 
 
@@ -58,45 +49,43 @@ class ProductNature < Ekylibre::Record::Base
   enumerize :derivative_of, in: Nomen::Varieties.all
   # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :population_counting, in: Nomen::ProductNatures.attributes[:population_counting].choices, :predicates => {:prefix => true}, :default => Nomen::ProductNatures.attributes[:population_counting].choices.first
-  belongs_to :asset_account, :class_name => "Account"
-  belongs_to :charge_account, :class_name => "Account"
-  belongs_to :product_account, :class_name => "Account"
-  belongs_to :stock_account, :class_name => "Account"
-  belongs_to :subscription_nature
-  has_and_belongs_to_many :sale_taxes, class_name: "Tax", join_table: :product_natures_sale_taxes
-  has_and_belongs_to_many :purchase_taxes, class_name: "Tax", join_table: :product_natures_purchase_taxes
-  # has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
+   # has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
   #has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductPriceTemplate"
-  has_many :subscriptions, :foreign_key => :product_nature_id
-  has_many :productions
+  belongs_to :category, :class_name => "ProductNatureCategory"
   has_many :products, :foreign_key => :nature_id
   has_many :variants, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :inverse_of => :nature
   has_one :default_variant, -> { order(:id) }, :class_name => "ProductNatureVariant", :foreign_key => :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :allow_nil => true, :maximum => 30
   validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 120
-  validates_length_of :name, :population_counting, :subscription_duration, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, :in => [true, false]
-  validates_presence_of :name, :number, :population_counting, :variety
+  validates_length_of :name, :population_counting, :allow_nil => true, :maximum => 255
+  validates_inclusion_of :active, :evolvable, :in => [true, false]
+  validates_presence_of :category, :name, :number, :population_counting, :variety
   #]VALIDATORS]
-  validates_presence_of :subscription_nature,   :if => :subscribing?
-  validates_presence_of :subscription_period,   :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }
-  validates_presence_of :subscription_quantity, :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.quantity? }
-  validates_presence_of :product_account, :if => :saleable?
-  validates_presence_of :charge_account,  :if => :purchasable?
-  validates_presence_of :stock_account,   :if => :storable?
-  validates_presence_of :asset_account,   :if => :depreciable?
   validates_uniqueness_of :number
   validates_uniqueness_of :name
 
   accepts_nested_attributes_for :variants, :reject_if => :all_blank, :allow_destroy => true
   acts_as_numbered :force => false
-
+  
+  delegate :subscribing?, :deliverable?, :purchasable?, :to => :category
+  delegate :asset_account, :product_account, :charge_account, :stock_account, :to => :category
+  
+  has_attached_file :picture, {
+    :url => '/backend/:class/:id/picture/:style',
+    :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
+    :styles => {
+      :thumb => ["64x64#", :jpg],
+      :identity => ["180x180#", :jpg]
+      # :large => ["600x600", :jpg]
+    }
+  }
+  
   # default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
-  scope :stockables, -> { where(:storable => true).order(:name) }
-  scope :saleables,  -> { where(:saleable => true).order(:name) }
-  scope :purchaseables, -> { where(:purchasable => true).order(:name) }
+  scope :stockables, -> { joins(:category).merge(ProductNatureCategory.stockables).order(:name) }
+  scope :saleables,  -> { joins(:category).merge(ProductNatureCategory.saleables).order(:name) }
+  scope :purchaseables, -> { joins(:category).merge(ProductNatureCategory.purchaseables).order(:name) }
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 
   scope :of_variety, Proc.new { |*varieties|
@@ -138,7 +127,9 @@ class ProductNature < Ekylibre::Record::Base
     where(query.join(" OR "), *parameters)
   }
 
-
+  protect(:on => :destroy) do
+    self.variants.count.zero? and self.products.count.zero?
+  end
 
   before_validation do
     if self.derivative_of
@@ -149,10 +140,8 @@ class ProductNature < Ekylibre::Record::Base
       self.indicators ||= ""
       self.indicators << " population"
     end
-    self.indicators = self.indicators_array.map(&:name).sort.join(", ")
+    #self.indicators = self.indicators_array.map(&:name).sort.join(", ")
     self.abilities  = self.abilities_array.sort.join(", ")
-    self.storable = false unless self.deliverable?
-    self.subscription_nature_id = nil unless self.subscribing?
     return true
   end
 
@@ -183,6 +172,11 @@ class ProductNature < Ekylibre::Record::Base
     return (self.population_counting_decimal? ? 0.0001 : 1)
   end
 
+  def indicators
+    return (self.frozen_indicators.to_s.strip.split(/[\,\s]/)+
+           self.variable_indicators.to_s.strip.split(/[\,\s]/)).join(",")
+  end
+
   # Returns list of indicators as an array of indicator items from the nomenclature
   def indicators_array
     return self.indicators.to_s.strip.split(/[\,\s]/).collect do |i|
@@ -205,10 +199,6 @@ class ProductNature < Ekylibre::Record::Base
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 
-  def deliverable?
-    self.storable?
-  end
-
 
   # # Returns the default
   # def default_price(options)
@@ -227,45 +217,6 @@ class ProductNature < Ekylibre::Record::Base
     tc('informations.without_components', :product_nature => self.name, :unit => self.unit.label, :size => self.components.size)
   end
 
-  def duration
-    #raise Exception.new self.subscription_nature.nature.inspect+" blabla"
-    if self.subscription_nature
-      self.send('subscription_'+self.subscription_nature.nature)
-    else
-      return nil
-    end
-
-  end
-
-  def duration=(value)
-    #raise Exception.new subscription.inspect+self.subscription_nature_id.inspect
-    if self.subscription_nature
-      self.send('subscription_'+self.subscription_nature.nature+'=', value)
-    end
-  end
-
-  def default_start
-    # self.subscription_nature.nature == "period" ? Date.today.beginning_of_year : self.subscription_nature.actual_number
-    self.subscription_nature.nature == "period" ? Date.today : self.subscription_nature.actual_number
-  end
-
-  def default_finish
-    period = self.subscription_period || '1 year'
-    # self.subscription_nature.nature == "period" ? Date.today.next_year.beginning_of_year.next_month.end_of_month : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
-    self.subscription_nature.nature == "period" ? Delay.compute(period+", 1 day ago", Date.today) : (self.subscription_nature.actual_number + ((self.subscription_quantity-1)||0))
-  end
-
-  def default_subscription_label_for(entity)
-    return nil unless self.nature == "subscrip"
-    entity  = nil unless entity.is_a? Entity
-    address = entity.default_contact.address rescue nil
-    entity = entity.full_name rescue "???"
-    if self.subscription_nature.nature == "period"
-      return tc('subscription_label.period', :start => ::I18n.localize(Date.today), :finish => ::I18n.localize(Delay.compute(self.subscription_period.blank? ? '1 year, 1 day ago' : self.product.subscription_period)), :entity => entity, :address => address, :subscription_nature => self.subscription_nature.name)
-    elsif self.subscription_nature.nature == "quantity"
-      return tc('subscription_label.quantity', :start => self.subscription_nature.actual_number.to_i, :finish => (self.subscription_nature.actual_number.to_i + ((self.subscription_quantity-1)||0)), :entity => entity, :address => address, :subscription_nature => self.subscription_nature.name)
-    end
-  end
 
   # # TODO : move stock methods in operation / product
   # # Create real stocks moves to update the real state of stocks
@@ -324,6 +275,9 @@ class ProductNature < Ekylibre::Record::Base
     unless item = Nomen::ProductNatures.find(nomen)
       raise ArgumentError.new("The product_nature #{nomen.inspect} is not known")
     end
+    unless category_item = Nomen::ProductNatureCategories.find(item.category)
+      raise ArgumentError.new("The category of the product_nature #{item.category.inspect} is not known")
+    end
     unless nature = ProductNature.find_by_nomen(nomen)
       attributes = {
         :variety => item.variety,
@@ -331,20 +285,12 @@ class ProductNature < Ekylibre::Record::Base
         :active => true,
         :name => item.human_name,
         :population_counting => item.population_counting,
+        :category => ProductNatureCategory.find_by_nomen(item.category) || ProductNatureCategory.import_from_nomenclature(item.category),
         :nomen => item.name,
-        :indicators => item.indicators.sort.join(" "),
-        :derivative_of => item.derivative_of.to_s,
-        :depreciable => item.depreciable,
-        :purchasable => item.purchasable,
-        :reductible => item.reductible,
-        :saleable => item.saleable,
-        :storable => item.storable
+        :frozen_indicators => item.frozen_indicators.sort.join(" "),
+        :variable_indicators => item.variable_indicators.sort.join(" "),
+        :derivative_of => item.derivative_of.to_s
       }
-      for account in [:asset, :charge, :product, :stock]
-        if name = item.send("#{account}_account")
-          attributes[:"#{account}_account_id"] = Account.find_or_create_in_chart(name).id
-        end
-      end
       nature = self.create!(attributes)
     end
     return nature

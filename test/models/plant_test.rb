@@ -23,6 +23,7 @@
 #  address_id               :integer
 #  asset_id                 :integer
 #  born_at                  :datetime
+#  category_id              :integer          not null
 #  content_indicator        :string(255)
 #  content_indicator_unit   :string(255)
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null

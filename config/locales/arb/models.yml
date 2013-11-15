@@ -1189,6 +1189,7 @@ arb:
     # current_animal_disease_state: "Etat de santé actuel"
     current_financial_year: "الفترة المحاسبية الحالية" #?
     # current_net_weight: "Dernière pesée"
+    # current_phase: "Current phase"
     custom_field: "حقول اضافية"
     custom_field_choices: "اختيارات الحقول الاضافية"
     custom_field_data: "تكملة بيانات الملف" #?
@@ -1355,6 +1356,7 @@ arb:
     for_sales: "منتجات البيع" #?
     format: "التصميم" #?
     # formats: "Formats"
+    # frozen_indicators: "Frozen indicators"
     full_name: "الاسم بالكامل"
     full_name_format: "التصميم" #?
     function_title: "الكياسة"
@@ -1440,6 +1442,7 @@ arb:
     last_cweek: "الاسبوع السابق"
     # last_journal_entry: "Écriture de fin d’exercice"
     last_letter: "الرسالة الاخيرة"
+    # last_localization: "Last localization"
     last_month: "الشهر السابق"
     last_name: "اسم العائلة"
     last_number: "الرقم الاخير"
@@ -1537,6 +1540,7 @@ arb:
     nature_id: "نوع" #?
     nature_label: "طبيعة الملصق" #?
     # nature_name: "Nature name"
+    # natures: "Natures"
     # net_volume: "Volume net"
     # net_weight: "Masse nette"
     nic: "واجهة بطاقة الشبكة"
@@ -1619,10 +1623,12 @@ arb:
     period: "الفترة"
     period_name: "تواتري" #?
     # person: "Personne"
+    # phases: "Phases"
     phone: "هاتف" #?
     # phones: "Téléphones"
     photo: "صورة" #?
     physical: "الفرد الطبيعي" #?
+    # pictogram: "Pictogram"
     # picture: "Photo"
     # picture_content_type: "Format de photo"
     # picture_file_name: "Nom du fichier photo"

@@ -23,6 +23,7 @@
 #  address_id               :integer
 #  asset_id                 :integer
 #  born_at                  :datetime
+#  category_id              :integer          not null
 #  content_indicator        :string(255)
 #  content_indicator_unit   :string(255)
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
@@ -91,9 +92,9 @@ class BuildingDivision < SubZone
     #   end
     # end
   end
-  
+
   # @FIXME
-  # ActiveRecord::StatementInvalid in Backend::BuildingDivisions#index 
+  # ActiveRecord::StatementInvalid in Backend::BuildingDivisions#index
   # PG::UndefinedColumn: ERROR:  column operation_tasks.subject_id does not exist
   #protect(:on => :destroy) do
    # dependencies = 0
@@ -148,13 +149,13 @@ class BuildingDivision < SubZone
     end
     return ids
   end
-  
+
   # return Map SVG as String for a class
   # @TODO refactor it and put it in has_shape method
   def self.map_svg(options = {})
     ids = self.indicator(:shape, :at => options[:at]).pluck(:product_id)
     return "" unless ids.size > 0
-    viewbox = self.shape_view_box.join(' ')        
+    viewbox = self.shape_view_box.join(' ')
     code = "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
     code << " class=\"shape\" preserveAspectRatio=\"xMidYMid meet\" width=\"100%\" height=\"100%\" viewBox=\"#{viewbox}\" "
     code << ">"
