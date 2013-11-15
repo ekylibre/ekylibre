@@ -20,21 +20,25 @@
 #
 # == Table: incidents
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  description  :text
-#  gravity      :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  nature       :string(255)      not null
-#  observed_at  :datetime         not null
-#  priority     :integer
-#  state        :string(255)
-#  target_id    :integer          not null
-#  target_type  :string(255)      not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  description          :text
+#  gravity              :integer
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  name                 :string(255)      not null
+#  nature               :string(255)      not null
+#  observed_at          :datetime         not null
+#  picture_content_type :string(255)
+#  picture_file_name    :string(255)
+#  picture_file_size    :integer
+#  picture_updated_at   :datetime
+#  priority             :integer
+#  state                :string(255)
+#  target_id            :integer          not null
+#  target_type          :string(255)      not null
+#  updated_at           :datetime         not null
+#  updater_id           :integer
 #
 class Incident < Ekylibre::Record::Base
   # attr_accessible :name, :nature, :observed_at, :description, :priority, :gravity, :target_id, :target_type
@@ -42,13 +46,13 @@ class Incident < Ekylibre::Record::Base
   has_many :procedures, :class_name => "Intervention"
   belongs_to :target , :polymorphic => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :gravity, :priority, :allow_nil => true, :only_integer => true
-  validates_length_of :name, :nature, :state, :target_type, :allow_nil => true, :maximum => 255
+  validates_numericality_of :gravity, :picture_file_size, :priority, :allow_nil => true, :only_integer => true
+  validates_length_of :name, :nature, :picture_content_type, :picture_file_name, :state, :target_type, :allow_nil => true, :maximum => 255
   validates_presence_of :name, :nature, :observed_at, :target, :target_type
   #]VALIDATORS]
   validates_inclusion_of :priority, :in => 0..5
   validates_inclusion_of :priority, :in => 0..5
-  
+
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',

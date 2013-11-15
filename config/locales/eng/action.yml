@@ -473,11 +473,11 @@ eng:
     backend/product_moves:  #?
       edit: "Edit the stock move: %{name}" #?
       new: "add a new stock move" #?
-    backend/product_nature_categories:  #?
-      edit: "Edit the product category: %{name}" #?
-      index: "Product categories" #?
-      new: "Add a new product category" #?
-      show: "Product category: %{name}" #?
+    backend/product_nature_categories:
+      edit: "Edit the product category: %{name}"
+      index: "Product categories"
+      new: "Add a new product category"
+      show: "Product category: %{name}"
     backend/product_nature_variant_indicator_data: #?
     backend/product_nature_variants:
       edit: "Edit product variant\_: %{name}"

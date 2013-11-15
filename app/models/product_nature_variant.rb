@@ -104,11 +104,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
     where("#{ProductNatureVariant.table_name}.nature_id IN (?)", natures.map(&:id))
   }
-  
+
   protect(:on => :destroy) do
     self.products.count.zero? and self.prices.count.zero?
   end
-  
+
   before_validation :on => :create do
     if self.nature
       self.nature_name ||= self.nature.name

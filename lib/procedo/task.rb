@@ -6,19 +6,27 @@ module Procedo
     # TODO Build nomenclatures?
     ACTIONS = {
       # Localization
-      "{product} moves to {localizable}" =>                    :move_to,
-      "{product} moves-to {localizable}" =>                    :move_to,
-      "{product} moves in {localizable}" =>                    :move_in,
-      "{product} moves-in {localizable}" =>                    :move_in,
-      "{product} moves in default storage" =>                  :move_in_default_storage,
-      "{product} moves-in-default-storage" =>                  :move_in_default_storage,
-      "{product} moves in default storage of {localizable}" => :move_in_given_default_storage,
-      "{product} moves-in-default-storage-of {localizable}" => :move_in_given_default_storage,
-      # Production/consumption
-      "{product} produces {producible}" => :production,
-      "{product} consumes {consumable}" => :consumption,
+      "{product} moves to {localizable}" =>                    :movement,
+      "{product} moves-to {localizable}" =>                    :movement,
+      "{product} moves in {localizable}" =>                    :entering,
+      "{product} moves-in {localizable}" =>                    :entering,
+      "{product} moves in default storage" =>                  :home_coming,
+      "{product} moves-in-default-storage" =>                  :home_coming,
+      "{product} moves in default storage of {localizable}" => :given_home_coming,
+      "{product} moves-in-default-storage-of {localizable}" => :given_home_coming,
+      # Birth
+      "{product} produces {born}" =>           :production,
+      "{product} parts with {born}" =>         :division,
+      "{product} parts-with {born}" =>         :division,
+      "{born} is separated from {product}" =>  :division,
+      "{born} is-separated-from {product}" =>  :division,
       # Death
-      "{product} dies" =>                  :death,
+      "{dead} dies" =>                         :death,
+      "{product} consumes {dead}" =>           :consumption,
+      "{product} merges with {dead}" =>        :merging,
+      "{product} merges-with {dead}" =>        :merging,
+      "{dead} is merged with {product}" =>     :merging,
+      "{dead} is-merged-with {product}" =>     :merging,
       # Physical links
       "{carrier} catches {carried}" =>     :attachment,
       "{carrier} releases {carried}" =>    :detachment,
@@ -36,23 +44,14 @@ module Procedo
       "{owner} becomes-owner-of {product}" =>          :owner_change,
       "{product} is owned by {owner}" =>               :owner_change,
       "{product} is-owned-by {owner}" =>               :owner_change,
-      # Merge/split
-      "{product} merges with {merged}" =>              :merging,
-      "{product} merges-with {merged}" =>              :merging,
-      "{merged} is merged with {product}" =>           :merging,
-      "{merged} is-merged-with {product}" =>           :merging,
-      "{product} parts with {parted}" =>               :division,
-      "{product} parts-with {parted}" =>               :division,
-      "{parted} is separated from {product}" =>        :division,
-      "{parted} is-separated-from {product}" =>        :division,
       # Browse
       "{browser} acts on {browsed}" =>                 :browsing,
       "{browser} acts-on {browsed}" =>                 :browsing,
       "{browser} browses {browsed}" =>                 :browsing,
       # Indicators
-      "{indicator} is measured" =>                     :simple_measure,
-      "{reporter} measures {indicator}" =>             :measure,
-      "{reporter} measures {indicator} with {tool}" => :assisted_measure,
+      "{indicator} is measured" =>                     :simple_measurement,
+      "{reporter} measures {indicator}" =>             :measurement,
+      "{reporter} measures {indicator} with {tool}" => :assisted_measurement,
       # Deliveries
       "{product} is delivered" =>                      :outgoing_delivery,
       "{product} is-delivered" =>                      :outgoing_delivery,

@@ -47,7 +47,7 @@ class Backend::ProductNaturesController < BackendController
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
-  
+
   list(:products, :conditions => {nature_id: 'params[:id]'.c}, :order => "born_at DESC") do |t|
     t.column :name, url: true
     t.column :identification_number
@@ -56,11 +56,11 @@ class Backend::ProductNaturesController < BackendController
     t.column :net_volume
     t.column :population
   end
-  
+
   list(:product_nature_variants, :conditions => {nature_id: 'params[:id]'.c}, :order => "name ASC") do |t|
     t.column :name, url: true
   end
-  
+
   # list(:prices, :model => :catalog_prices, :conditions => {:variant_id => ['session[:product_nature_id]'], :active => true}) do |t|
   #   t.column :name, through: :supplier, url: true
   #   t.column :name, through: :listing, url: true

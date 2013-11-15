@@ -532,11 +532,11 @@ arb:
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
     backend/product_nature_abilities: #?
-    backend/product_nature_categories:  #?
-      edit: "تعديل فئة المنتج : %{name}" #?
-      index: "فئات المنتج" #?
-      new: "اضافة فئة جديدة للمنتج" #?
-      show: "تفاصيل فئة: %{name}" #?
+    backend/product_nature_categories:
+      edit: "تعديل فئة المنتج : %{name}"
+      index: "فئات المنتج"
+      new: "اضافة فئة جديدة للمنتج"
+      show: "تفاصيل فئة: %{name}"
     backend/product_nature_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?

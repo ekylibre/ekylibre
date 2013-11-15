@@ -182,7 +182,7 @@ class Product < Ekylibre::Record::Base
   delegate :variety, :derivative_of, :name, :to => :variant, :prefix => true
   delegate :abilities, :abilities_array, :indicators, :indicators_array, :unit_name, :to => :variant
   delegate :asset_account, :product_account, :charge_account, :stock_account, :to => :nature
-  
+
   after_initialize :choose_default_name
   after_create :set_initial_values
   before_validation :set_default_values, :on => :create

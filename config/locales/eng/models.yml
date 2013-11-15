@@ -611,6 +611,7 @@ eng:
     arrival_cause: "Arrival cause"
     arrived_on: "Arrived on"
     asset: "Asset"
+    # asset_account: "Asset account"
     asset_amount: "Accountable value"
     asset_depreciations: "Asset depreciations"
     assets: "Assets"

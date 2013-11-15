@@ -149,6 +149,8 @@ module CleanSupport
         elsif line.match(/^\s*manage_restfully_list/)
           actions << 'up'
           actions << 'down'
+        elsif line.match(/^\s*manage_restfully_picture/)
+          actions << 'picture'
         elsif line.match(/^\s*manage_restfully/)
           actions << 'show'
           actions << 'index'

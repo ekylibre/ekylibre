@@ -609,7 +609,7 @@ class BackendController < BaseController
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     class_eval(code)
   end
-  
+
   #
   def self.manage_restfully_picture()
     record_name = controller_name.to_s.singularize

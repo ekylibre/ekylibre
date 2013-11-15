@@ -716,10 +716,10 @@ fra:
     document_categories:
       items:
         accountancy: "Comptabilité"
-        management: "Gestion"
         animal_farming: "Elevage"
         health: "Santé - Hygiène"
         land_parcel_management: "Conduite de la parcelle"
+        management: "Gestion"
     document_natures:
       items:
         activity_cost: "Coût de production par activité et intervention"

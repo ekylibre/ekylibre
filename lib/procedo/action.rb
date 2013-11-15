@@ -4,39 +4,43 @@ module Procedo
   class Action
     TYPES = {
       # Localizations
-      move_to: {product: :product, localizable: :product},
-      move_in: {product: :product, localizable: :product},
-      move_in_default_storage: {product: :product},
-      move_in_given_default_storage: {product: :product, localizable: :product},
-      # Productions
-      production:  {product: :product, producible: :product},
-      # Consumptions
-      consumption: {product: :product, consumable: :product},
+      movement:          {product: :product, localizable: :product},
+      entering:          {product: :product, localizable: :product},
+      home_coming:       {product: :product},
+      given_home_coming: {product: :product, localizable: :product},
+      # Births
+      birth:       {born: :product},
+      production:  {born: :product, product: :product},
+      division:    {born: :product, product: :product},
       # Deaths
-      death: {product: :product},
+      death:       {dead: :product},
+      consumption: {dead: :product, product: :product},
+      merging:     {dead: :product, product: :product},
       # Links
-      attachment: {carrier: :product, carried: :product},
-      detachment: {carrier: :product, carried: :product},
+      attachment:  {carrier: :product, carried: :product},
+      detachment:  {carrier: :product, carried: :product},
       # Memberships
       group_inclusion: {group: :product_group, member: :product},
       group_exclusion: {group: :product_group, member: :product},
       # Ownerships
       ownership_loss: {product: :product},
-      owner_change:   {owner: :entity, product: :product},
-      # Mergings
-      merging:  {product: :product, merged: :product},
-      # Divisions
-      division: {product: :product, parted: :product},
+      owner_change:   {product: :product, owner: :entity},
+      # Enjoyments
+      enjoyment_loss: {product: :product},
+      enjoyer_change: {product: :product, enjoyer: :entity},
+      # Phases (cast)
+      nature_cast:  {product: :product, nature: :product_nature},
+      variant_cast: {product: :product, variant: :product_variant},
       # Browsings
       browsing: {browser: :product, browsed: :product},
-      # Measures
-      simple_measure: {indicator: :indicator},
-      measure: {indicator: :indicator, reporter: :product},
-      assisted_measure: {indicator: :indicator, reporter: :product, tool: :product},
+      # Measurement
+      simple_measurement:   {indicator: :indicator},
+      measurement:          {indicator: :indicator, reporter: :product},
+      assisted_measurement: {indicator: :indicator, reporter: :product, tool: :product},
       # Deliveries
-      outgoing_delivery: {product: :product},
+      outgoing_delivery:            {product: :product},
       identified_outgoing_delivery: {product: :product, client: :entity},
-      incoming_delivery: {product: :product},
+      incoming_delivery:            {product: :product},
       identified_incoming_delivery: {product: :product, supplier: :entity}
     }
 

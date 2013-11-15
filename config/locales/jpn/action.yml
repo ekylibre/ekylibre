@@ -439,7 +439,11 @@ jpn:
     backend/product_memberships: #?
     backend/product_moves: #?
     backend/product_nature_abilities: #?
-    backend/product_nature_categories: #?
+    backend/product_nature_categories:
+      # edit: "Modifier la catégorie du produit\_: %{name}"
+      # index: "Catégories de produits"
+      # new: "Nouvelle catégorie"
+      # show: "Catégorie de produit\_: %{name}"
     backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
     backend/product_nature_variant_indicator_data: #?

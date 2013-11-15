@@ -728,12 +728,14 @@ jpn:
         # ZWL: "Dollar zimbabwéen"
     document_categories:
       items:
+        # accountancy: "Comptabilité"
         # animal_farming: "Elevage"
         # health: "Santé - Hygiène"
         # land_parcel_management: "Conduite de la parcelle"
+        # management: "Gestion"
     document_natures:
       items:
-        # activity_margin: "Interventions par activité"
+        # activity_cost: "Coût de production par activité et intervention"
         # animal_husbandry_registry: "Registre d'élevage"
         # manure_management_plan: "Plan de fumure"
         # phytosanitary_registry: "Registre phytosanitaire"

@@ -265,6 +265,7 @@ fra:
       edit: "Modifier l’incident\_: %{name} (%{nature})"
       index: "Incidents"
       new: "Nouvel incident"
+      # picture: "Picture backend/incident"
       show: "Incident %{name} (%{nature})"
     backend/incoming_deliveries:
       confirm: "Confirmer l’arrivée de l’approvisionnement"
@@ -347,11 +348,6 @@ fra:
       merge: "Fusionner des parcelles" #?
       new: "Ajouter une nouvelle parcelle"
       show: "Parcelle %{name}"
-    backend/legal_entities:
-      # edit: "Edit backend/legal entity"
-      # index: "Index backend/legal entity"
-      # new: "New backend/legal entity"
-      # show: "Show backend/legal entity"
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"
@@ -432,10 +428,10 @@ fra:
       new: "Ajout d’un décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
     backend/people:
-      edit: "Modifier la personne\_: %{name}"
-      index: "Personnes"
-      new: "Nouvelle personne"
-      show: "Personne\_: %{name}"
+      edit: "Modifier la personne\_: %{name}" #?
+      index: "Personnes" #?
+      new: "Nouvelle personne" #?
+      show: "Personne\_: %{name}" #?
     backend/plant_medicines:
       edit: "Modifier le produit phytosanitaire\_: %{name}"
       index: "Produits phytosanitaires"

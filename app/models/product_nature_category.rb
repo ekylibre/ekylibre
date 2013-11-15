@@ -85,11 +85,11 @@ class ProductNatureCategory < Ekylibre::Record::Base
   scope :saleables,  -> { where(:saleable => true).order(:name) }
   scope :purchaseables, -> { where(:purchasable => true).order(:name) }
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
-  
+
   protect(:on => :destroy) do
     self.natures.count.zero? and self.products.count.zero?
   end
-  
+
   before_validation do
     self.storable = false unless self.deliverable?
     self.subscription_nature_id = nil unless self.subscribing?

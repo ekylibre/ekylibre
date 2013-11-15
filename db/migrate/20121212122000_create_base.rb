@@ -894,6 +894,19 @@ class CreateBase < ActiveRecord::Migration
       t.index      :measured_at
     end
 
+    create_table :product_enjoyments do |t|
+      t.references :operation_task,                        index: true
+      t.references :move,  polymorphic: true,              index: true
+      t.references :product,                  null: false, index: true
+      t.string     :nature,                   null: false
+      t.references :enjoyer,                               index: true
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.stamps
+      t.index      :started_at
+      t.index      :stopped_at
+    end
+
     create_table :product_links do |t|
       t.references :move,    polymorphic: true,              index: true
       t.references :carrier,                    null: false, index: true
@@ -921,6 +934,18 @@ class CreateBase < ActiveRecord::Migration
       t.index      :stopped_at
     end
 
+    create_table :product_measurements do |t|
+      t.references :operation_task,                           index: true
+      t.references :move,     polymorphic: true,              index: true
+      t.references :product,                     null: false, index: true
+      t.string     :indicator,                   null: false, index: true
+      t.references :reporter,                                 index: true
+      t.references :tool,                                     index: true
+      t.datetime   :measured_at,                 null: false
+      t.stamps
+      t.index      :measured_at
+    end
+
     create_table :product_memberships do |t|
       t.references :move,     polymorphic: true,              index: true
       t.references :member,                      null: false, index: true
@@ -946,12 +971,11 @@ class CreateBase < ActiveRecord::Migration
       t.index      :stopped_at
     end
 
-    create_table :product_enjoyments do |t|
-      t.references :operation_task,                        index: true
-      t.references :move,  polymorphic: true,              index: true
-      t.references :product,                  null: false, index: true
-      t.string     :nature,                   null: false
-      t.references :enjoyer,                               index: true
+    create_table :product_phases do |t|
+      t.references :product,                    null: false, index: true
+      t.references :variant,                    null: false, index: true
+      t.references :nature,                     null: false, index: true
+      t.references :category,                   null: false, index: true
       t.datetime   :started_at
       t.datetime   :stopped_at
       t.stamps
@@ -981,30 +1005,6 @@ class CreateBase < ActiveRecord::Migration
       t.index      :born_at
     end
 
-    create_table :product_nature_categories do |t|
-      t.string     :name,                                               null: false
-      t.string     :number,                 limit: 30,                  null: false
-      t.text       :description
-      t.string     :nomen,                  limit: 120
-      t.string     :pictogram,              limit: 120
-      t.boolean    :active,                             default: false, null: false
-      t.boolean    :depreciable,                        default: false, null: false
-      t.boolean    :saleable,                           default: false, null: false
-      t.boolean    :purchasable,                        default: false, null: false
-      t.boolean    :storable,                           default: false, null: false
-      t.boolean    :reductible,                         default: false, null: false
-      t.boolean    :subscribing,                        default: false, null: false
-      t.references :subscription_nature,                                             index: true
-      t.string     :subscription_duration
-      t.references :charge_account,                                                  index: true
-      t.references :product_account,                                                 index: true
-      t.references :asset_account,                                                   index: true
-      t.references :stock_account,                                                   index: true
-      t.stamps
-      t.index      :number,   unique: true
-      t.index      :name
-    end
-
     create_table :product_deaths do |t|
       t.references :operation_task,                           index: true
       t.references :move,     polymorphic: true,              index: true
@@ -1016,24 +1016,6 @@ class CreateBase < ActiveRecord::Migration
       t.index      :dead_at
     end
 
-
-    create_table :product_nature_variant_indicator_data do |t|
-      t.references :variant,                                                                                            null: false, index: true
-      t.string     :indicator,                                                                                          null: false
-      t.string     :indicator_datatype,                                                                                 null: false
-      t.string     :computation_method,                                                                                 null: false
-      t.decimal    :decimal_value,                                             precision: 19, scale: 4
-      t.decimal    :measure_value_value,                                       precision: 19, scale: 4
-      t.string     :measure_value_unit
-      t.text       :string_value
-      t.boolean    :boolean_value,                                                                      default: false, null: false
-      t.string     :choice_value
-      t.point      :point_value,              has_z: true
-      t.geometry   :geometry_value,           has_z: true
-      t.multi_polygon :multi_polygon_value,   has_z: true
-      t.stamps
-      t.index      :indicator
-    end
 
     create_table :product_nature_variants do |t|
       t.references :nature,                               null: false, index: true
@@ -1056,6 +1038,48 @@ class CreateBase < ActiveRecord::Migration
       t.string   :contour
       t.integer  :horizontal_rotation,    default: 0,     null: false
       t.stamps
+    end
+
+    create_table :product_nature_variant_indicator_data do |t|
+      t.references :variant,                                                                                            null: false, index: true
+      t.string     :indicator,                                                                                          null: false
+      t.string     :indicator_datatype,                                                                                 null: false
+      t.string     :computation_method,                                                                                 null: false
+      t.decimal    :decimal_value,                                             precision: 19, scale: 4
+      t.decimal    :measure_value_value,                                       precision: 19, scale: 4
+      t.string     :measure_value_unit
+      t.text       :string_value
+      t.boolean    :boolean_value,                                                                      default: false, null: false
+      t.string     :choice_value
+      t.point      :point_value,              has_z: true
+      t.geometry   :geometry_value,           has_z: true
+      t.multi_polygon :multi_polygon_value,   has_z: true
+      t.stamps
+      t.index      :indicator
+    end
+
+    create_table :product_nature_categories do |t|
+      t.string     :name,                                               null: false
+      t.string     :number,                 limit: 30,                  null: false
+      t.text       :description
+      t.string     :nomen,                  limit: 120
+      t.string     :pictogram,              limit: 120
+      t.boolean    :active,                             default: false, null: false
+      t.boolean    :depreciable,                        default: false, null: false
+      t.boolean    :saleable,                           default: false, null: false
+      t.boolean    :purchasable,                        default: false, null: false
+      t.boolean    :storable,                           default: false, null: false
+      t.boolean    :reductible,                         default: false, null: false
+      t.boolean    :subscribing,                        default: false, null: false
+      t.references :subscription_nature,                                             index: true
+      t.string     :subscription_duration
+      t.references :charge_account,                                                  index: true
+      t.references :product_account,                                                 index: true
+      t.references :asset_account,                                                   index: true
+      t.references :stock_account,                                                   index: true
+      t.stamps
+      t.index      :number,   unique: true
+      t.index      :name
     end
 
     create_join_table :product_nature_categories, :taxes, table_name: :product_cat_sale_taxes do |t|
@@ -1089,18 +1113,6 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
       t.index      :number,   unique: true
       t.index      :name
-    end
-
-    create_table :product_phases do |t|
-      t.references :product,                    null: false, index: true
-      t.references :variant,                    null: false, index: true
-      t.references :nature,                     null: false, index: true
-      t.references :category,                   null: false, index: true
-      t.datetime :started_at
-      t.datetime :stopped_at
-      t.stamps
-      t.index :started_at
-      t.index :stopped_at
     end
 
     create_table :product_process_phases do |t|

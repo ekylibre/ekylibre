@@ -1708,6 +1708,33 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_localizations", ["updated_at"], :name => "index_product_localizations_on_updated_at"
   add_index "product_localizations", ["updater_id"], :name => "index_product_localizations_on_updater_id"
 
+  create_table "product_measurements", force: true do |t|
+    t.integer  "operation_task_id"
+    t.integer  "move_id"
+    t.string   "move_type"
+    t.integer  "product_id",                    null: false
+    t.string   "indicator",                     null: false
+    t.integer  "reporter_id"
+    t.integer  "tool_id"
+    t.datetime "measured_at",                   null: false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",      default: 0, null: false
+  end
+
+  add_index "product_measurements", ["created_at"], :name => "index_product_measurements_on_created_at"
+  add_index "product_measurements", ["creator_id"], :name => "index_product_measurements_on_creator_id"
+  add_index "product_measurements", ["measured_at"], :name => "index_product_measurements_on_measured_at"
+  add_index "product_measurements", ["move_id", "move_type"], :name => "index_product_measurements_on_move_id_and_move_type"
+  add_index "product_measurements", ["operation_task_id"], :name => "index_product_measurements_on_operation_task_id"
+  add_index "product_measurements", ["product_id"], :name => "index_product_measurements_on_product_id"
+  add_index "product_measurements", ["reporter_id"], :name => "index_product_measurements_on_reporter_id"
+  add_index "product_measurements", ["tool_id"], :name => "index_product_measurements_on_tool_id"
+  add_index "product_measurements", ["updated_at"], :name => "index_product_measurements_on_updated_at"
+  add_index "product_measurements", ["updater_id"], :name => "index_product_measurements_on_updater_id"
+
   create_table "product_memberships", force: true do |t|
     t.integer  "move_id"
     t.string   "move_type"

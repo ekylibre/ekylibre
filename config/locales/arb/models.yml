@@ -1035,6 +1035,7 @@ arb:
     # arrival_cause: "Cause d’entrée"
     arrived_on: "وصل يوم"
     # asset: "Immobilisation"
+    # asset_account: "Asset account"
     # asset_amount: "Valeur nette comptable"
     # asset_depreciations: "Dépréciations d’immobilisation"
     # assets: "Immobilisations"

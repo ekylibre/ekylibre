@@ -1203,6 +1203,7 @@
       </item>
       <item name="incidents">
         <page to="backend/incidents#list_interventions"/>
+        <page to="backend/incidents#picture"/>
       </item>
       <item name="incoming_deliveries">
         <page to="backend/incoming_deliveries#list_items"/>
@@ -1365,6 +1366,10 @@
       <item name="product_nature_variants">
         <page to="backend/product_nature_variants#list_prices"/>
         <page to="backend/product_nature_variants#list_products"/>
+      </item>
+      <item name="product_natures">
+        <page to="backend/product_natures#list_product_nature_variants"/>
+        <page to="backend/product_natures#list_products"/>
       </item>
       <item name="product_ownerships">
         <page to="backend/product_ownerships#index"/>

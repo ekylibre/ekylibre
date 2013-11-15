@@ -21,25 +21,29 @@
 #
 # == Table: product_natures
 #
-#  abilities           :text
-#  active              :boolean          not null
-#  category_id         :integer          not null
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  derivative_of       :string(120)
-#  description         :text
-#  evolvable           :boolean          not null
-#  frozen_indicators   :text
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(255)      not null
-#  nomen               :string(120)
-#  number              :string(30)       not null
-#  population_counting :string(255)      not null
-#  updated_at          :datetime         not null
-#  updater_id          :integer
-#  variable_indicators :text
-#  variety             :string(120)      not null
+#  abilities            :text
+#  active               :boolean          not null
+#  category_id          :integer          not null
+#  created_at           :datetime         not null
+#  creator_id           :integer
+#  derivative_of        :string(120)
+#  description          :text
+#  evolvable            :boolean          not null
+#  frozen_indicators    :text
+#  id                   :integer          not null, primary key
+#  lock_version         :integer          default(0), not null
+#  name                 :string(255)      not null
+#  nomen                :string(120)
+#  number               :string(30)       not null
+#  picture_content_type :string(255)
+#  picture_file_name    :string(255)
+#  picture_file_size    :integer
+#  picture_updated_at   :datetime
+#  population_counting  :string(255)      not null
+#  updated_at           :datetime         not null
+#  updater_id           :integer
+#  variable_indicators  :text
+#  variety              :string(120)      not null
 #
 
 
@@ -56,9 +60,10 @@ class ProductNature < Ekylibre::Record::Base
   has_many :variants, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :inverse_of => :nature
   has_one :default_variant, -> { order(:id) }, :class_name => "ProductNatureVariant", :foreign_key => :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
   validates_length_of :number, :allow_nil => true, :maximum => 30
   validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 120
-  validates_length_of :name, :population_counting, :allow_nil => true, :maximum => 255
+  validates_length_of :name, :picture_content_type, :picture_file_name, :population_counting, :allow_nil => true, :maximum => 255
   validates_inclusion_of :active, :evolvable, :in => [true, false]
   validates_presence_of :category, :name, :number, :population_counting, :variety
   #]VALIDATORS]
@@ -67,10 +72,10 @@ class ProductNature < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :variants, :reject_if => :all_blank, :allow_destroy => true
   acts_as_numbered :force => false
-  
+
   delegate :subscribing?, :deliverable?, :purchasable?, :to => :category
   delegate :asset_account, :product_account, :charge_account, :stock_account, :to => :category
-  
+
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
@@ -80,7 +85,7 @@ class ProductNature < Ekylibre::Record::Base
       # :large => ["600x600", :jpg]
     }
   }
-  
+
   # default_scope -> { order(:name) }
   scope :availables, -> { where(:active => true).order(:name) }
   scope :stockables, -> { joins(:category).merge(ProductNatureCategory.stockables).order(:name) }
