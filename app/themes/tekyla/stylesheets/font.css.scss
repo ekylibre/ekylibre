@@ -2,7 +2,7 @@
 @import "agric/paths";
 $icons: $agric-icons;
 
-$font-faces: (Light 300) (Regular 400) (Semibold 600) (Bold 700) (Extrabold 800);
+$font-faces: (Light 300) (Regular 400) (Semibold 600) (Bold 700) (ExtraBold 800);
 
 @each $font-face in $font-faces {
   @font-face {
