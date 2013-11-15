@@ -6,6 +6,8 @@
     </attributes>
     <items>
       <item name="exploitation" acta_category="A"/>
+      <item name="management" acta_category="A"/>
+      <item name="accountancy" acta_category="A"/>
       <item name="vegetal_crops" acta_category="B"/>
       <item name="land_parcel_management" acta_category="C"/>
       <item name="stock_management" acta_category="D"/>
