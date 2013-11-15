@@ -779,20 +779,24 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "gaps", ["updater_id"], :name => "index_gaps_on_updater_id"
 
   create_table "incidents", force: true do |t|
-    t.integer  "target_id",                null: false
-    t.string   "target_type",              null: false
-    t.string   "nature",                   null: false
-    t.datetime "observed_at",              null: false
+    t.integer  "target_id",                        null: false
+    t.string   "target_type",                      null: false
+    t.string   "nature",                           null: false
+    t.datetime "observed_at",                      null: false
     t.integer  "priority"
     t.integer  "gravity"
     t.string   "state"
-    t.string   "name",                     null: false
+    t.string   "name",                             null: false
     t.text     "description"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
+    t.integer  "lock_version",         default: 0, null: false
   end
 
   add_index "incidents", ["created_at"], :name => "index_incidents_on_created_at"
@@ -1547,6 +1551,22 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_births", ["updated_at"], :name => "index_product_births_on_updated_at"
   add_index "product_births", ["updater_id"], :name => "index_product_births_on_updater_id"
 
+  create_table "product_cat_purchase_taxes", id: false, force: true do |t|
+    t.integer "product_nature_category_id", null: false
+    t.integer "tax_id",                     null: false
+  end
+
+  add_index "product_cat_purchase_taxes", ["product_nature_category_id"], :name => "index_product_cat_purchase_taxes_on_product_nature_category_id"
+  add_index "product_cat_purchase_taxes", ["tax_id"], :name => "index_product_cat_purchase_taxes_on_tax_id"
+
+  create_table "product_cat_sale_taxes", id: false, force: true do |t|
+    t.integer "product_nature_category_id", null: false
+    t.integer "tax_id",                     null: false
+  end
+
+  add_index "product_cat_sale_taxes", ["product_nature_category_id"], :name => "index_product_cat_sale_taxes_on_product_nature_category_id"
+  add_index "product_cat_sale_taxes", ["tax_id"], :name => "index_product_cat_sale_taxes_on_tax_id"
+
   create_table "product_deaths", force: true do |t|
     t.integer  "operation_task_id"
     t.integer  "move_id"
@@ -1714,6 +1734,44 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_memberships", ["updated_at"], :name => "index_product_memberships_on_updated_at"
   add_index "product_memberships", ["updater_id"], :name => "index_product_memberships_on_updater_id"
 
+  create_table "product_nature_categories", force: true do |t|
+    t.string   "name",                                               null: false
+    t.string   "number",                 limit: 30,                  null: false
+    t.text     "description"
+    t.string   "nomen",                  limit: 120
+    t.string   "pictogram",              limit: 120
+    t.boolean  "active",                             default: false, null: false
+    t.boolean  "depreciable",                        default: false, null: false
+    t.boolean  "saleable",                           default: false, null: false
+    t.boolean  "purchasable",                        default: false, null: false
+    t.boolean  "storable",                           default: false, null: false
+    t.boolean  "reductible",                         default: false, null: false
+    t.boolean  "subscribing",                        default: false, null: false
+    t.integer  "subscription_nature_id"
+    t.string   "subscription_duration"
+    t.integer  "charge_account_id"
+    t.integer  "product_account_id"
+    t.integer  "asset_account_id"
+    t.integer  "stock_account_id"
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                       default: 0,     null: false
+  end
+
+  add_index "product_nature_categories", ["asset_account_id"], :name => "index_product_nature_categories_on_asset_account_id"
+  add_index "product_nature_categories", ["charge_account_id"], :name => "index_product_nature_categories_on_charge_account_id"
+  add_index "product_nature_categories", ["created_at"], :name => "index_product_nature_categories_on_created_at"
+  add_index "product_nature_categories", ["creator_id"], :name => "index_product_nature_categories_on_creator_id"
+  add_index "product_nature_categories", ["name"], :name => "index_product_nature_categories_on_name"
+  add_index "product_nature_categories", ["number"], :name => "index_product_nature_categories_on_number", :unique => true
+  add_index "product_nature_categories", ["product_account_id"], :name => "index_product_nature_categories_on_product_account_id"
+  add_index "product_nature_categories", ["stock_account_id"], :name => "index_product_nature_categories_on_stock_account_id"
+  add_index "product_nature_categories", ["subscription_nature_id"], :name => "index_product_nature_categories_on_subscription_nature_id"
+  add_index "product_nature_categories", ["updated_at"], :name => "index_product_nature_categories_on_updated_at"
+  add_index "product_nature_categories", ["updater_id"], :name => "index_product_nature_categories_on_updater_id"
+
   create_table "product_nature_variant_indicator_data", force: true do |t|
     t.integer  "variant_id",                                                                                                            null: false
     t.string   "indicator",                                                                                                             null: false
@@ -1776,63 +1834,37 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_nature_variants", ["updater_id"], :name => "index_product_nature_variants_on_updater_id"
 
   create_table "product_natures", force: true do |t|
-    t.string   "name",                                               null: false
-    t.string   "number",                 limit: 30,                  null: false
+    t.string   "name",                                             null: false
+    t.string   "number",               limit: 30,                  null: false
     t.text     "description"
-    t.string   "variety",                limit: 120,                 null: false
-    t.string   "derivative_of",          limit: 120
-    t.string   "nomen",                  limit: 120
+    t.string   "variety",              limit: 120,                 null: false
+    t.string   "derivative_of",        limit: 120
+    t.string   "nomen",                limit: 120
     t.text     "abilities"
-    t.text     "indicators"
-    t.string   "population_counting",                                null: false
-    t.boolean  "active",                             default: false, null: false
-    t.boolean  "depreciable",                        default: false, null: false
-    t.boolean  "saleable",                           default: false, null: false
-    t.boolean  "purchasable",                        default: false, null: false
-    t.boolean  "storable",                           default: false, null: false
-    t.boolean  "reductible",                         default: false, null: false
-    t.boolean  "subscribing",                        default: false, null: false
-    t.integer  "subscription_nature_id"
-    t.string   "subscription_duration"
-    t.integer  "charge_account_id"
-    t.integer  "product_account_id"
-    t.integer  "asset_account_id"
-    t.integer  "stock_account_id"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.text     "variable_indicators"
+    t.text     "frozen_indicators"
+    t.string   "population_counting",                              null: false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.boolean  "active",                           default: false, null: false
+    t.boolean  "evolvable",                        default: false, null: false
+    t.integer  "category_id",                                      null: false
+    t.datetime "created_at",                                       null: false
+    t.datetime "updated_at",                                       null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                       default: 0,     null: false
+    t.integer  "lock_version",                     default: 0,     null: false
   end
 
-  add_index "product_natures", ["asset_account_id"], :name => "index_product_natures_on_asset_account_id"
-  add_index "product_natures", ["charge_account_id"], :name => "index_product_natures_on_charge_account_id"
+  add_index "product_natures", ["category_id"], :name => "index_product_natures_on_category_id"
   add_index "product_natures", ["created_at"], :name => "index_product_natures_on_created_at"
   add_index "product_natures", ["creator_id"], :name => "index_product_natures_on_creator_id"
   add_index "product_natures", ["name"], :name => "index_product_natures_on_name"
   add_index "product_natures", ["number"], :name => "index_product_natures_on_number", :unique => true
-  add_index "product_natures", ["product_account_id"], :name => "index_product_natures_on_product_account_id"
-  add_index "product_natures", ["stock_account_id"], :name => "index_product_natures_on_stock_account_id"
-  add_index "product_natures", ["subscription_nature_id"], :name => "index_product_natures_on_subscription_nature_id"
   add_index "product_natures", ["updated_at"], :name => "index_product_natures_on_updated_at"
   add_index "product_natures", ["updater_id"], :name => "index_product_natures_on_updater_id"
-  add_index "product_natures", ["variety"], :name => "index_product_natures_on_variety"
-
-  create_table "product_natures_purchase_taxes", id: false, force: true do |t|
-    t.integer "product_nature_id", null: false
-    t.integer "tax_id",            null: false
-  end
-
-  add_index "product_natures_purchase_taxes", ["product_nature_id"], :name => "index_product_natures_purchase_taxes_on_product_nature_id"
-  add_index "product_natures_purchase_taxes", ["tax_id"], :name => "index_product_natures_purchase_taxes_on_tax_id"
-
-  create_table "product_natures_sale_taxes", id: false, force: true do |t|
-    t.integer "product_nature_id", null: false
-    t.integer "tax_id",            null: false
-  end
-
-  add_index "product_natures_sale_taxes", ["product_nature_id"], :name => "index_product_natures_sale_taxes_on_product_nature_id"
-  add_index "product_natures_sale_taxes", ["tax_id"], :name => "index_product_natures_sale_taxes_on_tax_id"
 
   create_table "product_ownerships", force: true do |t|
     t.integer  "operation_task_id"
@@ -1860,6 +1892,31 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_ownerships", ["stopped_at"], :name => "index_product_ownerships_on_stopped_at"
   add_index "product_ownerships", ["updated_at"], :name => "index_product_ownerships_on_updated_at"
   add_index "product_ownerships", ["updater_id"], :name => "index_product_ownerships_on_updater_id"
+
+  create_table "product_phases", force: true do |t|
+    t.integer  "product_id",               null: false
+    t.integer  "variant_id",               null: false
+    t.integer  "nature_id",                null: false
+    t.integer  "category_id",              null: false
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version", default: 0, null: false
+  end
+
+  add_index "product_phases", ["category_id"], :name => "index_product_phases_on_category_id"
+  add_index "product_phases", ["created_at"], :name => "index_product_phases_on_created_at"
+  add_index "product_phases", ["creator_id"], :name => "index_product_phases_on_creator_id"
+  add_index "product_phases", ["nature_id"], :name => "index_product_phases_on_nature_id"
+  add_index "product_phases", ["product_id"], :name => "index_product_phases_on_product_id"
+  add_index "product_phases", ["started_at"], :name => "index_product_phases_on_started_at"
+  add_index "product_phases", ["stopped_at"], :name => "index_product_phases_on_stopped_at"
+  add_index "product_phases", ["updated_at"], :name => "index_product_phases_on_updated_at"
+  add_index "product_phases", ["updater_id"], :name => "index_product_phases_on_updater_id"
+  add_index "product_phases", ["variant_id"], :name => "index_product_phases_on_variant_id"
 
   create_table "product_process_phases", force: true do |t|
     t.integer  "process_id",               null: false
@@ -1960,6 +2017,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "derivative_of",            limit: 120
     t.integer  "variant_id",                                                                    null: false
     t.integer  "nature_id",                                                                     null: false
+    t.integer  "category_id",                                                                   null: false
     t.integer  "tracking_id"
     t.integer  "asset_id"
     t.datetime "born_at"
@@ -1990,6 +2048,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"
   add_index "products", ["asset_id"], :name => "index_products_on_asset_id"
+  add_index "products", ["category_id"], :name => "index_products_on_category_id"
   add_index "products", ["content_nature_id"], :name => "index_products_on_content_nature_id"
   add_index "products", ["created_at"], :name => "index_products_on_created_at"
   add_index "products", ["creator_id"], :name => "index_products_on_creator_id"

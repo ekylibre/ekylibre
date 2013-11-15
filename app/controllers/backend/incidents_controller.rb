@@ -1,7 +1,8 @@
 class Backend::IncidentsController < BackendController
 
   manage_restfully
-
+  manage_restfully_picture
+  
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
   unroll

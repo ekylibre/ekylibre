@@ -1,11 +1,15 @@
 = field_set do
   = f.referenced_association :nature
   = f.input :name
-  = f.input :active
   = f.input :commercial_name
+  = f.input :active
+
+= field_set(:details) do 
   = f.input :commercial_description
   = f.input :contour
+  = f.picture
   = f.input :horizontal_rotation
 
 = field_set(:indicator) do
+  = f.input :frozen_indicators, :disabled => true
   = f.nested_association(:indicator_data)

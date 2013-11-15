@@ -609,8 +609,17 @@ class BackendController < BaseController
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
     class_eval(code)
   end
-
-
+  
+  #
+  def self.manage_restfully_picture()
+    record_name = controller_name.to_s.singularize
+    code = ''
+    code << "def picture\n"
+    code << "  return unless #{record_name} = find_and_check\n"
+    code << "  send_file #{record_name}.picture.path(params[:style] || :original)\n"
+    code << "end\n"
+    class_eval(code)
+  end
 
   def self.deprecated_search_conditions(model_name, columns)
     ActiveSupport::Deprecation.warn("Use search_conditions instead of deprecated_search_conditions")

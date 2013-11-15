@@ -1,0 +1,32 @@
+= field_set do
+  = f.input :name
+  = f.input :pictogram
+  = f.input :active
+
+= field_set(:nature) do
+  = f.input :reductible
+  = f.input :depreciable, :show => :asset_account_field_zone
+  = f.input :saleable, :show => :sales
+  = f.input :purchasable, :show => :purchase
+  = f.input :storable, :show => :stock_account_field_zone
+  = f.input :subscribing, :show => :subscriptions
+
+= field_set(:subscriptions) do
+  = f.referenced_association :subscription_nature
+  = f.input :subscription_duration
+
+= field_set(:sales) do
+  = f.referenced_association :product_account
+  = f.association :sale_taxes
+
+= field_set(:purchases) do
+  = f.referenced_association :charge_account
+  = f.association :purchase_taxes
+
+= field_set(:accountancy) do
+  = f.referenced_association :asset_account, :wrapper_html => {:id => :asset_account_field_zone}
+  = f.referenced_association :stock_account, :wrapper_html => {:id => :stock_account_field_zone}
+
+= field_set(:natures) do
+  = f.nested_association(:natures)
+  

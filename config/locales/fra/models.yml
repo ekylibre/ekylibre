@@ -357,9 +357,11 @@ fra:
       product_membership: "Passage d’un produit dans un groupe"
       product_move: "Mouvement de stock" #?
       product_nature: "Type de produit"
+      # product_nature_category: "Product nature category"
       product_nature_variant: "Variante de type de produit"
       product_nature_variant_indicator_datum: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
+      # product_phase: "Product phase"
       product_process: "Processus"
       product_process_phase: "Phase de processus"
       production: "Production"
@@ -474,7 +476,7 @@ fra:
     # catalog: "Catalog"
     catalog_description: "Description pour le catalogue" #?
     catalog_name: "Nom pour le catalogue" #?
-    category: "Catégorie" #?
+    category: "Catégorie"
     ceded: "Cédé"
     ceded_on: "Cédé le"
     changes_reflected: "Refléter les changements"
@@ -553,6 +555,7 @@ fra:
     current_amount: "Montant actuel"
     current_animal_disease_state: "Etat de santé actuel" #?
     current_net_weight: "Dernière pesée" #?
+    current_phase: "Current phase"
     # current_sign_in_at: "Current sign in at"
     # current_sign_in_ip: "Current sign in ip"
     custom_field: "Champ complémentaire"
@@ -644,6 +647,7 @@ fra:
     establishment: "Établissement"
     event: "Évènement"
     # events: "Events"
+    # evolvable: "Evolvable"
     exclusive: "Exclusif"
     expiration_delay: "Délai d’expiration"
     expired_on: "Date d’expiration"
@@ -670,7 +674,7 @@ fra:
     first_name: "Prénom"
     first_number: "Premier numéro"
     formats: "Formats"
-    # frozen_indicators: "Frozen indicators"
+    frozen_indicators: "Frozen indicators"
     full_name: "Nom complet"
     function_title: "Civilités"
     geometry_value: "Geometry value"
@@ -739,6 +743,7 @@ fra:
     last_cweek: "Dernière semaine"
     last_journal_entry: "Écriture de fin d’exercice"
     last_letter: "Dernière lettre"
+    last_localization: "Last localization"
     last_month: "Dernier mois"
     last_name: "Nom de famille"
     last_number: "Dernier numéro"
@@ -817,7 +822,7 @@ fra:
     name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»" #?
     nature: "Type"
     nature_name: "Nature name"
-    # natures: "Natures"
+    natures: "Natures"
     net_volume: "Volume net" #?
     net_weight: "Masse nette" #?
     nic: "NIC (Numéro Interne de Classement)" #?
@@ -889,7 +894,9 @@ fra:
     period: "Périodicité"
     person: "Personne"
     # phase_delay: "Phase delay"
+    phases: "Phases"
     phones: "Téléphones"
+    pictogram: "Pictogram"
     picture: "Photo"
     picture_content_type: "Format de photo"
     picture_file_name: "Nom du fichier photo"
@@ -944,7 +951,7 @@ fra:
     purchase_invoices: "Factures d’achats"
     purchase_item: "Ligne d’achat"
     purchase_items: "Lignes d’achat"
-    # purchase_product_natures: "Purchase product natures"
+    # purchase_product_nature_categories: "Purchase product nature categories"
     # purchase_taxes: "Purchase taxes"
     purchased_on: "Acheté le"
     purchases: "Achats"
@@ -1004,7 +1011,7 @@ fra:
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
     sale_price_listing: "Sale price listing" #?
-    # sale_product_natures: "Sale product natures"
+    # sale_product_nature_categories: "Sale product nature categories"
     # sale_taxes: "Sale taxes"
     saleable: "Vendable"
     sales: "Ventes"

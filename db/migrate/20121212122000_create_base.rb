@@ -453,6 +453,10 @@ class CreateBase < ActiveRecord::Migration
       t.string     :state
       t.string     :name,                           null: false
       t.text       :description
+      t.string     :picture_file_name
+      t.string     :picture_content_type
+      t.integer    :picture_file_size
+      t.datetime   :picture_updated_at
       t.stamps
       t.index      :name
       t.index      :nature
@@ -977,6 +981,30 @@ class CreateBase < ActiveRecord::Migration
       t.index      :born_at
     end
 
+    create_table :product_nature_categories do |t|
+      t.string     :name,                                               null: false
+      t.string     :number,                 limit: 30,                  null: false
+      t.text       :description
+      t.string     :nomen,                  limit: 120
+      t.string     :pictogram,              limit: 120
+      t.boolean    :active,                             default: false, null: false
+      t.boolean    :depreciable,                        default: false, null: false
+      t.boolean    :saleable,                           default: false, null: false
+      t.boolean    :purchasable,                        default: false, null: false
+      t.boolean    :storable,                           default: false, null: false
+      t.boolean    :reductible,                         default: false, null: false
+      t.boolean    :subscribing,                        default: false, null: false
+      t.references :subscription_nature,                                             index: true
+      t.string     :subscription_duration
+      t.references :charge_account,                                                  index: true
+      t.references :product_account,                                                 index: true
+      t.references :asset_account,                                                   index: true
+      t.references :stock_account,                                                   index: true
+      t.stamps
+      t.index      :number,   unique: true
+      t.index      :name
+    end
+
     create_table :product_deaths do |t|
       t.references :operation_task,                           index: true
       t.references :move,     polymorphic: true,              index: true
@@ -1030,13 +1058,13 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
-    create_join_table :product_natures, :taxes, table_name: :product_natures_sale_taxes do |t|
-      t.index :product_nature_id
+    create_join_table :product_nature_categories, :taxes, table_name: :product_cat_sale_taxes do |t|
+      t.index :product_nature_category_id
       t.index :tax_id
     end
 
-    create_join_table :product_natures, :taxes, table_name: :product_natures_purchase_taxes do |t|
-      t.index :product_nature_id
+    create_join_table :product_nature_categories, :taxes, table_name: :product_cat_purchase_taxes do |t|
+      t.index :product_nature_category_id
       t.index :tax_id
     end
 
@@ -1048,25 +1076,31 @@ class CreateBase < ActiveRecord::Migration
       t.string     :derivative_of,          limit: 120
       t.string     :nomen,                  limit: 120
       t.text       :abilities
-      t.text       :indicators
+      t.text       :variable_indicators
+      t.text       :frozen_indicators
       t.string     :population_counting,                                null: false
+      t.string     :picture_file_name
+      t.string     :picture_content_type
+      t.integer    :picture_file_size
+      t.datetime   :picture_updated_at
       t.boolean    :active,                             default: false, null: false
-      t.boolean    :depreciable,                        default: false, null: false
-      t.boolean    :saleable,                           default: false, null: false
-      t.boolean    :purchasable,                        default: false, null: false
-      t.boolean    :storable,                           default: false, null: false
-      t.boolean    :reductible,                         default: false, null: false
-      t.boolean    :subscribing,                        default: false, null: false
-      t.references :subscription_nature,                                             index: true
-      t.string     :subscription_duration
-      t.references :charge_account,                                                  index: true
-      t.references :product_account,                                                 index: true
-      t.references :asset_account,                                                   index: true
-      t.references :stock_account,                                                   index: true
+      t.boolean    :evolvable,                          default: false, null: false
+      t.references :category,                           index: true, null: false
       t.stamps
       t.index      :number,   unique: true
-      t.index      :variety
       t.index      :name
+    end
+
+    create_table :product_phases do |t|
+      t.references :product,                    null: false, index: true
+      t.references :variant,                    null: false, index: true
+      t.references :nature,                     null: false, index: true
+      t.references :category,                   null: false, index: true
+      t.datetime :started_at
+      t.datetime :stopped_at
+      t.stamps
+      t.index :started_at
+      t.index :stopped_at
     end
 
     create_table :product_process_phases do |t|
@@ -1126,6 +1160,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :derivative_of,            limit: 120
       t.references :variant,                                                                       null: false, index: true
       t.references :nature,                                                                        null: false, index: true
+      t.references :category,                                                                        null: false, index: true
       t.references :tracking,                                                                                   index: true
       t.references :asset,                                                                                      index: true
       t.datetime   :born_at

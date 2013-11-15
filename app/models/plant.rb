@@ -23,6 +23,7 @@
 #  address_id               :integer
 #  asset_id                 :integer
 #  born_at                  :datetime
+#  category_id              :integer          not null
 #  content_indicator        :string(255)
 #  content_indicator_unit   :string(255)
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
@@ -68,14 +69,14 @@ class Plant < Bioproduct
   before_validation :set_name_and_number, :on => :create
 
   # acts_as_numbered :work_number, :readonly => false
-  
+
   #return all Plant object who is alive in the considers campaigns
   scope :of_campaign, lambda { |campaign|
     raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     stopped_on = Date.new(campaign.harvest_year.to_f, 12, 31)
     where('(dead_at <= ? OR dead_at IS NULL)', stopped_on)
   }
-  
+
   # Sets nature and variety from variant
   def set_name_and_number
     if self.initial_container and self.variant
@@ -83,5 +84,5 @@ class Plant < Bioproduct
       self.work_number = "PLANT-" + self.born_at.to_s if self.work_number.blank?
     end
   end
-  
+
 end

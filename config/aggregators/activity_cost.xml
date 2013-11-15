@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
-  <aggregator name="activity_margin" version="0.0" category="exploitation">
+  <aggregator name="activity_cost" version="0.0" category="management">
     <parameters>
       <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
     </parameters>

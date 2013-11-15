@@ -454,6 +454,7 @@ jpn:
       # new: "Nouveau type de produit"
       # show: "Type de produit\_: %{name}"
     backend/product_ownerships: #?
+    backend/product_phases: #?
     backend/product_price_listings: #?
     backend/product_price_templates: #?
     backend/product_prices: #?

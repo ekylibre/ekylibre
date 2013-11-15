@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references, :schema
   # List of all models
-  @@models = [:account, :account_balance, :activity, :affair, :analytic_repartition, :animal, :animal_group, :animal_medicine, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :building, :building_division, :campaign, :cash, :cash_transfer, :catalog, :catalog_price, :cultivable_land_parcel, :custom_field, :custom_field_choice, :deposit, :deposit_item, :district, :document, :document_archive, :document_template, :easement, :entity, :entity_address, :entity_link, :equipment, :establishment, :event, :event_nature, :event_participation, :financial_year, :fungus, :gap, :immatter, :incident, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :intervention, :intervention_cast, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :land_parcel_cluster, :land_parcel_group, :legal_entity, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :medicine, :mineral_matter, :observation, :operation, :operation_task, :operation_task_cast, :organic_matter, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :person, :plant, :plant_medicine, :preference, :prescription, :product, :product_group, :product_indicator_datum, :product_link, :product_localization, :product_membership, :product_nature, :product_nature_variant, :product_nature_variant_indicator_datum, :product_ownership, :product_process, :product_process_phase, :production, :production_support, :profession, :property_title, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :settlement, :sub_zone, :subscription, :subscription_nature, :tax, :tax_declaration, :team, :tracking, :transfer, :transport, :user, :worker, :zone, :zone_property_title]
+  @@models = [:account, :account_balance, :activity, :affair, :analytic_repartition, :animal, :animal_group, :animal_medicine, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :building, :building_division, :campaign, :cash, :cash_transfer, :catalog, :catalog_price, :cultivable_land_parcel, :custom_field, :custom_field_choice, :deposit, :deposit_item, :district, :document, :document_archive, :document_template, :easement, :entity, :entity_address, :entity_link, :equipment, :establishment, :event, :event_nature, :event_participation, :financial_year, :fungus, :gap, :immatter, :incident, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :intervention, :intervention_cast, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :land_parcel_cluster, :land_parcel_group, :legal_entity, :listing, :listing_node, :listing_node_item, :log, :mandate, :matter, :medicine, :mineral_matter, :observation, :operation, :operation_task, :operation_task_cast, :organic_matter, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :person, :plant, :plant_medicine, :preference, :prescription, :product, :product_group, :product_indicator_datum, :product_link, :product_localization, :product_membership, :product_nature, :product_nature_category, :product_nature_variant, :product_nature_variant_indicator_datum, :product_ownership, :product_phase, :product_process, :product_process_phase, :production, :production_support, :profession, :property_title, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :settlement, :sub_zone, :subscription, :subscription_nature, :tax, :tax_declaration, :team, :tracking, :transfer, :transport, :user, :worker, :zone, :zone_property_title]
 
   # List of all references
   @@references = {
@@ -36,6 +36,7 @@ module Ekylibre
     :animal => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -52,6 +53,7 @@ module Ekylibre
     :animal_group => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -68,6 +70,7 @@ module Ekylibre
     :animal_medicine => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -112,6 +115,7 @@ module Ekylibre
     :bioproduct => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -128,6 +132,7 @@ module Ekylibre
     :building => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -144,6 +149,7 @@ module Ekylibre
     :building_division => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -189,6 +195,7 @@ module Ekylibre
     :cultivable_land_parcel => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -245,6 +252,7 @@ module Ekylibre
     :easement => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -281,6 +289,7 @@ module Ekylibre
     :equipment => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -321,6 +330,7 @@ module Ekylibre
     :fungus => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -344,6 +354,7 @@ module Ekylibre
     :immatter => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -457,6 +468,7 @@ module Ekylibre
     :land_parcel => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -473,6 +485,7 @@ module Ekylibre
     :land_parcel_cluster => {
       :address_id => :address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -489,6 +502,7 @@ module Ekylibre
     :land_parcel_group => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -541,6 +555,7 @@ module Ekylibre
     :matter => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -557,6 +572,7 @@ module Ekylibre
     :medicine => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -573,6 +589,7 @@ module Ekylibre
     :mineral_matter => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -612,6 +629,7 @@ module Ekylibre
     :organic_matter => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -674,6 +692,7 @@ module Ekylibre
     :plant => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -690,6 +709,7 @@ module Ekylibre
     :plant_medicine => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -718,6 +738,7 @@ module Ekylibre
     :product => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -734,6 +755,7 @@ module Ekylibre
     :product_group => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -779,6 +801,11 @@ module Ekylibre
       :updater_id => :user
     },
     :product_nature => {
+      :category_id => :product_nature_category,
+      :creator_id => :user,
+      :updater_id => :user
+    },
+    :product_nature_category => {
       :asset_account_id => :account,
       :charge_account_id => :account,
       :creator_id => :user,
@@ -804,6 +831,14 @@ module Ekylibre
       :owner_id => :entity,
       :product_id => :product,
       :updater_id => :user
+    },
+    :product_phase => {
+      :category_id => :product_nature_category,
+      :creator_id => :user,
+      :nature_id => :product_nature,
+      :product_id => :product,
+      :updater_id => :user,
+      :variant_id => :product_nature_variant
     },
     :product_process => {
       :creator_id => :user,
@@ -834,6 +869,7 @@ module Ekylibre
     :property_title => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -913,6 +949,7 @@ module Ekylibre
     :service => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -929,6 +966,7 @@ module Ekylibre
     :settlement => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -945,6 +983,7 @@ module Ekylibre
     :sub_zone => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -1021,6 +1060,7 @@ module Ekylibre
     :worker => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -1037,6 +1077,7 @@ module Ekylibre
     :zone => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -1053,6 +1094,7 @@ module Ekylibre
     :zone_property_title => {
       :address_id => :entity_address,
       :asset_id => :asset,
+      :category_id => :product_nature_category,
       :content_nature_id => :product_nature,
       :creator_id => :user,
       :default_storage_id => :product,
@@ -2118,6 +2160,14 @@ module Ekylibre
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
+    product_cat_purchase_taxes: HashWithIndifferentAccess.new(
+      product_nature_category_id: Ekylibre::Record::Column.new(:product_nature_category_id, :integer, null: false).freeze,
+      tax_id: Ekylibre::Record::Column.new(:tax_id, :integer, null: false).freeze
+    ).freeze,
+    product_cat_sale_taxes: HashWithIndifferentAccess.new(
+      product_nature_category_id: Ekylibre::Record::Column.new(:product_nature_category_id, :integer, null: false).freeze,
+      tax_id: Ekylibre::Record::Column.new(:tax_id, :integer, null: false).freeze
+    ).freeze,
     product_deaths: HashWithIndifferentAccess.new(
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
@@ -2221,6 +2271,32 @@ module Ekylibre
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
+    product_nature_categories: HashWithIndifferentAccess.new(
+      active: Ekylibre::Record::Column.new(:active, :boolean, null: false).freeze,
+      asset_account_id: Ekylibre::Record::Column.new(:asset_account_id, :integer).freeze,
+      charge_account_id: Ekylibre::Record::Column.new(:charge_account_id, :integer).freeze,
+      created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
+      creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
+      depreciable: Ekylibre::Record::Column.new(:depreciable, :boolean, null: false).freeze,
+      description: Ekylibre::Record::Column.new(:description, :text).freeze,
+      id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
+      lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
+      name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
+      nomen: Ekylibre::Record::Column.new(:nomen, :string, limit: 120).freeze,
+      number: Ekylibre::Record::Column.new(:number, :string, limit: 30, null: false).freeze,
+      pictogram: Ekylibre::Record::Column.new(:pictogram, :string, limit: 120).freeze,
+      product_account_id: Ekylibre::Record::Column.new(:product_account_id, :integer).freeze,
+      purchasable: Ekylibre::Record::Column.new(:purchasable, :boolean, null: false).freeze,
+      reductible: Ekylibre::Record::Column.new(:reductible, :boolean, null: false).freeze,
+      saleable: Ekylibre::Record::Column.new(:saleable, :boolean, null: false).freeze,
+      stock_account_id: Ekylibre::Record::Column.new(:stock_account_id, :integer).freeze,
+      storable: Ekylibre::Record::Column.new(:storable, :boolean, null: false).freeze,
+      subscribing: Ekylibre::Record::Column.new(:subscribing, :boolean, null: false).freeze,
+      subscription_duration: Ekylibre::Record::Column.new(:subscription_duration, :string).freeze,
+      subscription_nature_id: Ekylibre::Record::Column.new(:subscription_nature_id, :integer).freeze,
+      updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
+      updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
+    ).freeze,
     product_nature_variant_indicator_data: HashWithIndifferentAccess.new(
       boolean_value: Ekylibre::Record::Column.new(:boolean_value, :boolean, null: false).freeze,
       choice_value: Ekylibre::Record::Column.new(:choice_value, :string).freeze,
@@ -2272,40 +2348,23 @@ module Ekylibre
     product_natures: HashWithIndifferentAccess.new(
       abilities: Ekylibre::Record::Column.new(:abilities, :text).freeze,
       active: Ekylibre::Record::Column.new(:active, :boolean, null: false).freeze,
-      asset_account_id: Ekylibre::Record::Column.new(:asset_account_id, :integer).freeze,
-      charge_account_id: Ekylibre::Record::Column.new(:charge_account_id, :integer).freeze,
+      category_id: Ekylibre::Record::Column.new(:category_id, :integer, null: false).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
-      depreciable: Ekylibre::Record::Column.new(:depreciable, :boolean, null: false).freeze,
       derivative_of: Ekylibre::Record::Column.new(:derivative_of, :string, limit: 120).freeze,
       description: Ekylibre::Record::Column.new(:description, :text).freeze,
+      evolvable: Ekylibre::Record::Column.new(:evolvable, :boolean, null: false).freeze,
+      frozen_indicators: Ekylibre::Record::Column.new(:frozen_indicators, :text).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
-      indicators: Ekylibre::Record::Column.new(:indicators, :text).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
       nomen: Ekylibre::Record::Column.new(:nomen, :string, limit: 120).freeze,
       number: Ekylibre::Record::Column.new(:number, :string, limit: 30, null: false).freeze,
       population_counting: Ekylibre::Record::Column.new(:population_counting, :string, null: false).freeze,
-      product_account_id: Ekylibre::Record::Column.new(:product_account_id, :integer).freeze,
-      purchasable: Ekylibre::Record::Column.new(:purchasable, :boolean, null: false).freeze,
-      reductible: Ekylibre::Record::Column.new(:reductible, :boolean, null: false).freeze,
-      saleable: Ekylibre::Record::Column.new(:saleable, :boolean, null: false).freeze,
-      stock_account_id: Ekylibre::Record::Column.new(:stock_account_id, :integer).freeze,
-      storable: Ekylibre::Record::Column.new(:storable, :boolean, null: false).freeze,
-      subscribing: Ekylibre::Record::Column.new(:subscribing, :boolean, null: false).freeze,
-      subscription_duration: Ekylibre::Record::Column.new(:subscription_duration, :string).freeze,
-      subscription_nature_id: Ekylibre::Record::Column.new(:subscription_nature_id, :integer).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze,
+      variable_indicators: Ekylibre::Record::Column.new(:variable_indicators, :text).freeze,
       variety: Ekylibre::Record::Column.new(:variety, :string, limit: 120, null: false).freeze
-    ).freeze,
-    product_natures_purchase_taxes: HashWithIndifferentAccess.new(
-      product_nature_id: Ekylibre::Record::Column.new(:product_nature_id, :integer, null: false).freeze,
-      tax_id: Ekylibre::Record::Column.new(:tax_id, :integer, null: false).freeze
-    ).freeze,
-    product_natures_sale_taxes: HashWithIndifferentAccess.new(
-      product_nature_id: Ekylibre::Record::Column.new(:product_nature_id, :integer, null: false).freeze,
-      tax_id: Ekylibre::Record::Column.new(:tax_id, :integer, null: false).freeze
     ).freeze,
     product_ownerships: HashWithIndifferentAccess.new(
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
@@ -2322,6 +2381,20 @@ module Ekylibre
       stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
+    ).freeze,
+    product_phases: HashWithIndifferentAccess.new(
+      category_id: Ekylibre::Record::Column.new(:category_id, :integer, null: false).freeze,
+      created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
+      creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
+      id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
+      lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
+      nature_id: Ekylibre::Record::Column.new(:nature_id, :integer, null: false).freeze,
+      product_id: Ekylibre::Record::Column.new(:product_id, :integer, null: false).freeze,
+      started_at: Ekylibre::Record::Column.new(:started_at, :datetime).freeze,
+      stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,
+      updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
+      updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze,
+      variant_id: Ekylibre::Record::Column.new(:variant_id, :integer, null: false).freeze
     ).freeze,
     product_process_phases: HashWithIndifferentAccess.new(
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
@@ -2384,6 +2457,7 @@ module Ekylibre
       address_id: Ekylibre::Record::Column.new(:address_id, :integer).freeze,
       asset_id: Ekylibre::Record::Column.new(:asset_id, :integer).freeze,
       born_at: Ekylibre::Record::Column.new(:born_at, :datetime).freeze,
+      category_id: Ekylibre::Record::Column.new(:category_id, :integer, null: false).freeze,
       content_indicator: Ekylibre::Record::Column.new(:content_indicator, :string).freeze,
       content_indicator_unit: Ekylibre::Record::Column.new(:content_indicator_unit, :string).freeze,
       content_maximal_quantity: Ekylibre::Record::Column.new(:content_maximal_quantity, :decimal, precision: 19, scale: 4, null: false, default: 0.0).freeze,

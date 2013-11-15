@@ -59,7 +59,7 @@
     $(document).ajaxStop($.timedSession.startCountdown);
 
     // Set auto resizing
-    $.resizeLayout = function () {
+    /*$.resizeLayout = function () {
         $.layoutResizing.resize($('#body.resizable'), $(window).width(), $(window).height());
         $("input[type='text']:first").select();
         $("input[type='text']:first").focus();
@@ -71,7 +71,7 @@
     $(document).ready($.resizeLayoutProperly);
     $(window).resize($.resizeLayoutProperly);
     $(window).bind("layout:change", $.resizeLayoutProperly);
-
+	*/
 
 
     $.fn.raiseContentErrorToFieldSet = function () {

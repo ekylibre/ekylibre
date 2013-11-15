@@ -116,7 +116,7 @@ class SaleItem < Ekylibre::Record::Base
 
   before_validation do
     if self.variant
-      self.account_id = self.product_nature.product_account_id
+      self.account_id = self.variant.nature.category.product_account_id
       self.label ||= self.variant.commercial_name
     end
 

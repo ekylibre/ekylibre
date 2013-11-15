@@ -65,6 +65,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   delegate :matching_model, :indicators_array, :population_frozen?, :population_modulo, :to => :nature
   delegate :variety, :derivative_of, to: :nature, prefix: true
+  delegate :asset_account, :product_account, :charge_account, :stock_account, :to => :nature
 
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true
@@ -103,7 +104,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
     where("#{ProductNatureVariant.table_name}.nature_id IN (?)", natures.map(&:id))
   }
-
+  
+  protect(:on => :destroy) do
+    self.products.count.zero? and self.prices.count.zero?
+  end
+  
   before_validation :on => :create do
     if self.nature
       self.nature_name ||= self.nature.name

@@ -45,8 +45,8 @@ class Tax < Ekylibre::Record::Base
   belongs_to :collect_account, :class_name => "Account"
   belongs_to :deduction_account, :class_name => "Account"
   has_many :price_templates, :class_name => "ProductPriceTemplate"
-  has_and_belongs_to_many :sale_product_natures, class_name: "ProductNature", join_table: :product_natures_sale_taxes
-  has_and_belongs_to_many :purchase_product_natures, class_name: "ProductNature", join_table: :product_natures_purchase_taxes
+  has_and_belongs_to_many :sale_product_nature_categories, class_name: "ProductNatureCategory", join_table: :product_cat_sale_taxes
+  has_and_belongs_to_many :purchase_product_nature_categories, class_name: "ProductNatureCategory", join_table: :product_cat_purchase_taxes
   # has_many :prices, :class_name => "CatalogPrice"
   has_many :purchase_items
   has_many :sale_items
@@ -67,7 +67,7 @@ class Tax < Ekylibre::Record::Base
   scope :percentages, -> { where(:computation_method => 'percentage') }
 
   protect(:on => :destroy) do
-    self.purchase_product_natures.empty? and self.sale_product_natures.empty? and self.sale_items.empty? and self.purchase_items.empty?
+    self.purchase_product_nature_categories.empty? and self.sale_product_nature_categories.empty? and self.sale_items.empty? and self.purchase_items.empty?
   end
 
   # Compute the tax amount

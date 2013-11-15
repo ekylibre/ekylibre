@@ -856,6 +856,18 @@
       </item>
     </group>
     <group name="product" icon="wheat">
+      <item name="product_nature_categories">
+        <page to="backend/product_nature_categories#index"/>
+        <page to="backend/product_nature_categories#create"/>
+        <page to="backend/product_nature_categories#destroy"/>
+        <page to="backend/product_nature_categories#edit"/>
+        <page to="backend/product_nature_categories#list"/>
+        <page to="backend/product_nature_categories#list_products"/>
+        <page to="backend/product_nature_categories#list_product_natures"/>
+        <page to="backend/product_nature_categories#new"/>
+        <page to="backend/product_nature_categories#show"/>
+        <page to="backend/product_nature_categories#update"/>
+      </item>
       <item name="product_natures">
         <page to="backend/product_natures#index"/>
         <page to="backend/product_natures#change_quantities"/>
@@ -1273,9 +1285,17 @@
         <page to="backend/medicines#show"/>
         <page to="backend/medicines#update"/>
       </item>
+      <item name="mineral_matters">
+        <page to="backend/mineral_matters#list_indicators"/>
+        <page to="backend/mineral_matters#list_intervention_casts"/>
+      </item>
       <item name="observations">
         <page to="backend/observations#index"/>
         <page to="backend/observations#show"/>
+      </item>
+      <item name="organic_matters">
+        <page to="backend/organic_matters#list_indicators"/>
+        <page to="backend/organic_matters#list_intervention_casts"/>
       </item>
       <item name="outgoing_delivery_modes">
         <page to="backend/outgoing_delivery_modes#show"/>
@@ -1355,6 +1375,15 @@
         <page to="backend/product_ownerships#new"/>
         <page to="backend/product_ownerships#show"/>
         <page to="backend/product_ownerships#update"/>
+      </item>
+      <item name="product_phases">
+        <page to="backend/product_phases#index"/>
+        <page to="backend/product_phases#create"/>
+        <page to="backend/product_phases#destroy"/>
+        <page to="backend/product_phases#edit"/>
+        <page to="backend/product_phases#new"/>
+        <page to="backend/product_phases#show"/>
+        <page to="backend/product_phases#update"/>
       </item>
       <item name="product_process_phases">
         <page to="backend/product_process_phases#index"/>
