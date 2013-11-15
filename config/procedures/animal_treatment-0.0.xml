@@ -4,7 +4,7 @@
   <procedure name="animal_treatment" natures="animal_illness_treatment" version="0.0" status="frozen">
     <variables>
       <variable name="animal"           variety="animal" roles="animal_illness_treatment-target"/>
-      <variable name="molecule"         variety="animal_medicine" abilities="care(bos)"/>
+      <variable name="molecule"         variety="animal_medicine" abilities="care(animal)"/>
       <variable name="molecule_to_give" variant=":molecule" new="quantity=?" roles="animal_illness_treatment-input"/>
       <variable name="caregiver"        variety="worker" roles="animal_illness_treatment-doer"/>
     </variables>

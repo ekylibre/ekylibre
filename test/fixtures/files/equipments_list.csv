@@ -24,7 +24,7 @@
 'Faucheuse','mower',,,,,'CUMA','Population : 1 ; application_width : 3,2m',,49,'usage_duration'
 'Andaineur','hay_rake',,,,,'CUMA','Population : 1 ; application_width : 5m',,18,'usage_duration'
 'Presse balle ronde','baler',,,,,'CUMA','Population : 1',,54,'usage_duration'
-'Moissonneuse batteuse','cropper',,,,,'ETA','Population : 1 ; application_width : 4,5m',,103,'usage_duration'
+'CLASS 98 SL','reaper',,,,,'ETA','Population : 1 ; application_width : 4,5m',,103,'usage_duration'
 'Epandeur chaux','spreader',,,,,'COOP','Population : 1',,18,'usage_duration'
 'Girobroyeur','mower',,,,,,'Population : 1 ; application_width : 1,8m',,9,'usage_duration'
 'Bineuse','superficial_plow',,,,,,'Population : 1 ; application_width : 3,2m',,35,'usage_duration'

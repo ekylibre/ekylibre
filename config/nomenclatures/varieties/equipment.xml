@@ -11,6 +11,7 @@
       <item name="baler"/>
       <item name="spreader"/>
       <item name="sprayer"/>
+      <item name="reaper"/>
       <item name="harvest"/>
     </items>
   </nomenclature>

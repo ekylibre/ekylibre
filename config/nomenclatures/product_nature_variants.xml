@@ -407,8 +407,8 @@
             unit_name="equipment"
             frozen_indicators="population: 1"
             />
-      <item name="cropper"
-            nature="cropper"
+      <item name="reaper"
+            nature="reaper"
             unit_name="equipment"
             frozen_indicators="population: 1"
             />
