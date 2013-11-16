@@ -418,7 +418,7 @@ eng:
       # edit: "Modifier la personne\_: %{name}"
       # index: "Personnes"
       # new: "Nouvelle personne"
-      # show: "Personne\_: %{name}"
+      # show: "Personne\_: %{full_name}"
     backend/plant_medicines:
       edit: "Edit plant medicine\_: %{name}"
       index: "Plant medicines"

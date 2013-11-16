@@ -24,6 +24,31 @@ Ekylibre::Application.routes.draw do
     get :list, on: :collection
   end
 
+  concern :entities do
+    collection do
+      get :autocomplete_for_origin
+    end
+    member do
+      get :list_observations
+      get :list_subscriptions
+      get :list_sales
+      get :list_purchases
+      get :list_outgoing_payments
+      get :list_mandates
+      get :list_incoming_payments
+      get :list_event_participations
+      get :list_cashes
+      get :list_links
+    end
+  end
+
+  concern :products do
+    member do
+      get :list_intervention_casts
+      get :list_indicators
+    end
+  end
+
   # Backend
   namespace :backend do
 
@@ -264,30 +289,14 @@ Ekylibre::Application.routes.draw do
         get :list_archives
       end
     end
-    resources :entities, concerns: [:list, :picture, :unroll] do
+    resources :entities, concerns: [:entities, :list, :picture, :unroll] do
       collection do
-        get :autocomplete_for_origin
         match "import", via: [:get, :post]
         match "export", via: [:get, :post]
         match "merge", via: [:get, :post]
       end
-      member do
-        get :list_observations
-        get :list_subscriptions
-        get :list_sales
-        get :list_purchases
-        get :list_outgoing_payments
-        get :list_mandates
-        get :list_incoming_payments
-        get :list_event_participations
-        get :list_cashes
-        get :list_links
-      end
     end
-    resources :entity_addresses, except: [:index], concerns: [:list, :unroll] do
-      collection do
-      end
-    end
+    resources :entity_addresses, except: [:index], concerns: [:list, :unroll]
     resources :entity_links, except: [:index]
     # resources :entity_link_natures, concerns: [:list, :unroll] do
     #   collection do
@@ -403,7 +412,7 @@ Ekylibre::Application.routes.draw do
     resources :land_parcel_clusters, concerns: [:list, :unroll]
     resources :land_parcel_groups, concerns: [:list, :unroll]
     resources :land_parcels, concerns: [:list, :unroll]
-    resources :legal_entities, concerns: [:list, :picture, :unroll]
+    resources :legal_entities, concerns: [:entities, :list, :picture, :unroll]
     resources :listing_nodes
     resources :listings, concerns: [:list, :unroll] do
       member do
@@ -460,7 +469,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :people, concerns: [:list, :picture, :unroll]
+    resources :people, concerns: [:entities, :list, :picture, :unroll]
 
     resources :plants, concerns: [:list, :unroll] do
       member do

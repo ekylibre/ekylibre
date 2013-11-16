@@ -18,11 +18,11 @@
 #
 
 class Backend::ProductsController < BackendController
-  manage_restfully :t3e => {:nature_name => :nature_name}
+  manage_restfully t3e: {nature_name: :nature_name}, subclass_inheritance: true
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
-  before_action :check_variant_availibility, only: :new
+  before_action :check_variant_availability, only: :new
 
   unroll
 
@@ -39,10 +39,10 @@ class Backend::ProductsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  def index
-    @product = Product.all
-    respond_with @product, :include => [:father, :mother]
-  end
+  # def index
+  #   @product = Product.all
+  #   respond_with @product, :include => [:father, :mother]
+  # end
 
   # content product list of the consider product
   list(:contained_products, :model => :product_localizations, :conditions => {container_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
@@ -104,19 +104,17 @@ class Backend::ProductsController < BackendController
     t.column :stopped_at, through: :intervention
   end
 
+  # def show
+  #   return unless @product = find_and_check
+  #   if @product.type != "Product"
+  #     redirect_to controller: @product.type.tableize, action: :show, id: @product.id
+  #     return
+  #   end
+  #   t3e @product, :nature_name => @product.nature_name
+  #   respond_with(@product, :include => [:father, :mother, :nature, {:memberships => {:include => :group},:indicator_data => {:include => :indicator}, :product_localizations => {:include => :container}}])
+  # end
 
-  def show
-    return unless @product = find_and_check
-    if @product.type != "Product"
-      redirect_to controller: @product.type.tableize, action: :show, id: @product.id
-      return
-    end
-    t3e @product, :nature_name => @product.nature_name
-    respond_with(@product, :include => [:father, :mother, :nature, {:memberships => {:include => :group},:indicator_data => {:include => :indicator}, :product_localizations => {:include => :container}}])
-  end
-
-
-  def check_variant_availibility()
+  def check_variant_availability()
     unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?
       redirect_to new_backend_product_nature_url
       return false
