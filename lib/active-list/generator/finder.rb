@@ -12,8 +12,11 @@ module ActiveList
         @table.options[:order] = (columns.size > 0 ? columns.first[:name].to_s : "id DESC")
       end
 
+      class_name = @table.model.name
+      class_name = "(controller_name != '#{class_name.tableize}' ? controller_name.to_s.classify.constantize : #{class_name})\n" if self.collection?
+
       # Find data
-      query_code = "#{@table.model.name}"
+      query_code = "#{class_name}"
       query_code << ".select(#{self.select_code})" if self.select_code
       query_code << ".where(#{self.conditions_code})" unless @table.options[:conditions].blank?
       query_code << ".joins(#{@table.options[:joins].inspect})" unless @table.options[:joins].blank?

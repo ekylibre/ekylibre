@@ -31,9 +31,9 @@ module ActiveList
         code << "name = #{table.model.name}.model_name.human.gsub(/[^a-z0-9]/i, '_')\n"
         code << "file = ::Rails.root.join('tmp', 'export', 'active-list', name + rand.to_s+'.#{self.file_extension}')\n"
         code << "FileUtils.mkdir_p(file.dirname)\n"
-        code << "Zip::ZipOutputStream.open(file) do |zile|\n"
+        code << "Zip::OutputStream.open(file) do |zile|\n"
         # MimeType in first place
-        code << "  zile.put_next_entry('mimetype', nil, nil, Zip::ZipEntry::STORED)\n"
+        code << "  zile.put_next_entry('mimetype', nil, nil, Zip::Entry::STORED)\n"
         code << "  zile << '#{self.mime_type}'\n"
 
         # Manifest

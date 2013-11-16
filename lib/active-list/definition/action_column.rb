@@ -26,7 +26,7 @@ module ActiveList
         action = @name
         format = @options[:format] ? ", :format=>'#{@options[:format]}'" : ""
         if @options[:remote]
-          raise StandardError.new("Sure to use :remote ?")
+          raise StandardError, "Sure to use :remote ?"
           # remote_options = @options.dup
           # remote_options['data-confirm'] = "#{@options[:confirm].inspect}.tl".c unless @options[:confirm].nil?
           # remote_options.delete :remote
@@ -39,7 +39,9 @@ module ActiveList
           # code += ", {title: #{action.inspect}.tl}"
           # code += ")"
         elsif @options[:actions]
-          raise Exception.new("options[:actions] have to be a Hash.") unless @options[:actions].is_a? Hash
+          unless @options[:actions].is_a? Hash
+            raise StandardError, "options[:actions] have to be a Hash."
+          end
           cases = []
           for expected, url in @options[:actions]
             cases << record+"."+@name.to_s+" == " + expected.inspect + "\nlink_to(content_tag(:i) + h(#{url[:action].inspect}.tl)"+
@@ -51,7 +53,7 @@ module ActiveList
           code = "if "+cases.join("elsif ")+"end"
         else
           url = @options[:url] ||= {}
-          url[:controller] ||= @options[:controller]||self.table.model.name.underscore.pluralize.to_s
+          url[:controller] ||= (@options[:controller] || "RECORD.class.name.tableize".c) # self.table.model.name.underscore.pluralize.to_s
           url[:action] ||= @name.to_s
           url[:id] ||= "RECORD.id".c
           url.delete_if{|k, v| v.nil?}
