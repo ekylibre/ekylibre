@@ -63,7 +63,15 @@ class CatalogPrice < Ekylibre::Record::Base
   #delegate :product_nature_id, :product_nature, :to => :template
 
   scope :actives_at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
-
+  
+  scope :of_variant, lambda { |variant|
+    where(:variant_id => variant.id)
+  }
+  
+  scope :of_usage, lambda { |usage|
+    joins(:catalog).merge(Catalog.of_usage(usage)) 
+  }
+  
   before_validation do
     self.currency = "EUR" if self.currency.blank?
     self.indicator = :population if self.indicator.blank?

@@ -83,7 +83,7 @@ demo :deliveries do
         # find a price from current supplier for a consider variant
         # @ TODO waiting for a product price capitalization method
         product_nature_variant_price = catalog.prices.find_by(variant_id: product_nature_variant.id, amount: r.product_unit_price)
-        product_nature_variant_price ||= catalog.prices.create!(# :pretax_amount => r.product_unit_price,
+        product_nature_variant_price ||= catalog.prices.create!(:started_at => r.ordered_on,
                                                                 :currency => "EUR",
                                                                 :reference_tax_id => appro_price_template_tax.id,
                                                                 :amount => appro_price_template_tax.amount_of(r.product_unit_price),

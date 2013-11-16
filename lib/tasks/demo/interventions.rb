@@ -139,7 +139,7 @@ demo :interventions do
             if w.count.modulo(3).zero? # AND NOT prairie
               # Treatment herbicide 01-04 30-04
               molecule = Product.can("kill(plant)").all.sample
-              Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: support) do |i|
+              Booker.intervene(:chemical_treatment_on_entire_culture, year, 4, 1, 1.07 * coeff, support: support) do |i|
                 i.add_cast(variable: 'molecule', actor: molecule)
                 i.add_cast(variable: 'molecule_to_spray', actor: molecule, quantity: rand(15))
                 i.add_cast(variable: 'sprayer',  actor: Product.can("spray").all.sample)
@@ -219,7 +219,7 @@ demo :interventions do
                 i.add_cast(variable: 'cropper_driver', actor: other)
                 i.add_cast(variable: 'culture',        actor: culture)
                 i.add_cast(variable: 'grains',         quantity: 4.2 * coeff, variant: ProductNatureVariant.of_variety(:grain).derivative_of(culture.variety).first )
-                i.add_cast(variable: 'straw',          quantity: 1.5 * coeff, variant: ProductNatureVariant.of_variety(:straw).derivative_of(culture.variety).first)
+                i.add_cast(variable: 'straws',          quantity: 1.5 * coeff, variant: ProductNatureVariant.of_variety(:straw).derivative_of(culture.variety).first)
               end
             end
           end

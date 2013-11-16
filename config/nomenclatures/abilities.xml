@@ -12,6 +12,7 @@
       <item name="consume" parameters="variety"/>
       <item name="produce" parameters="variety"/>
       <item name="kill"    parameters="variety"/>
+      <item name="grind"   parameters="variety"/>
       <item name="care"    parameters="variety"/>
       <item name="drive"   parameters="variety"/>
       <item name="manage"  parameters="variety"/> <!-- ? -->
@@ -36,9 +37,9 @@
       <item name="store_fluid"/>
       <item name="store_liquid"/>
       <item name="store_gaz"/>
+      <item name="milk" parameters="variety"/>
       <item name="tow" parameters="variety"/>
       <!-- @QUID : niveau de compétence (charge 4T , 10T ?)  -->
-      <item name="drive" parameters="variety"/>
       <!-- @QUID : compétence liée à un outil (conduire un tracteur, conduire un tracteur + un semoir, conduire une moissonneuse, etc ) -->
     </items>
   </nomenclature>

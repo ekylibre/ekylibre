@@ -8,11 +8,11 @@
     <items>
       <item name="animal_feeding" roles="input, target, doer"/>
       <item name="animal_illness_treatment" roles="input, target, doer"/>
-      <item name="animal_production" roles="target, output"/>
+      <item name="animal_production" roles="target, output, doer"/>
       <item name="viviparous_birth" roles="target, output"/>
       <item name="oviparous_birth" roles="target, output"/>
       <item name="harvest" roles="target, output, doer"/>
-      <item name="transformation" roles="input, output"/>
+      <item name="transformation" roles="input, output, doer"/>
       <item name="tillage" roles="target"/>
       <item name="plant_fertilisation" roles="input, target"/>
       <item name="plant_illness_treatment" roles="input, target, doer"/>
@@ -20,7 +20,7 @@
       <item name="soil_cleaning" roles="target"/>
       <item name="sowing" roles="input, target, output, doer"/>
       <item name="pruning" roles="target"/>
-      <item name="grinding" roles="input, output"/>
+      <item name="grinding" roles="input, output, doer"/>
       <item name="growth_control" roles="target"/>
     </items>
   </nomenclature>
@@ -28,7 +28,7 @@
   <nomenclature name="procedure_natures-tillage">
     <items>
       <item name="plowing" roles="target, doer"/>
-      <item name="raking" roles="target"/>
+      <item name="raking" roles="target, doer"/>
       <item name="hoeing" roles="target"/>
       <item name="cultipacking" roles="target"/>
     </items>

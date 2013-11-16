@@ -3,7 +3,7 @@
   <!-- ######################################## VELAGE PRODUISANT DES JUMEAUX ########################################### -->
   <procedure name="calving_twin" natures="viviparous_birth" version="0.0" status="frozen">
     <variables>
-      <variable name="mother_animal" variety="bos" abilities="produce"/>
+      <variable name="mother_animal" variety="bos" abilities="produce(bos)"/>
       <variable name="child_animal_first" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=twins"/>
       <variable name="child_animal_second" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=twins"/>
       <variable name="person" variety="worker"/>
