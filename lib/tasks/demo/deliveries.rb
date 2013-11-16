@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 demo :deliveries do
 
-  Ekylibre::fixturize :coop_incoming_deliveries do |w|
+  Ekylibre::fixturize :cooperative_incoming_deliveries do |w|
 
     #############################################################################
     # import Coop Order to make automatic purchase
@@ -68,7 +68,7 @@ demo :deliveries do
                          :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
                          :product_nature_name => (pnature[row[3]] || "small_equipment"),
                          :matter_name => row[4],
-                         :coop_variant_nomen => row[4].downcase.gsub!(/\s+/,'_'),
+                         :coop_variant_nomen => "coop:" + row[4].downcase.gsub(/\s+/, '_'),
                          :quantity => (row[5].blank? ? nil : row[5].to_d),
                          :product_deliver_quantity => (row[6].blank? ? nil : row[6].to_d),
                          :product_unit_price => (row[7].blank? ? nil : row[7].to_d),
@@ -80,7 +80,7 @@ demo :deliveries do
         order ||= IncomingDelivery.create!(:reference_number => r.order_number, :received_at => r.ordered_on, :sender_id => Entity.of_company.id, :address_id => Entity.of_company.default_mail_address.id)
         # find a product_nature_variant by mapping current name of matter in coop file in coop nomen
         product_nature_variant = ProductNatureVariant.find_by_nomen(r.coop_variant_nomen)
-        product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_nomen,'coop') if item = Nomen::CoopProductNatureVariants.find(r.coop_variant_nomen)
+        product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_nomen) if item = Nomen::ProductNatureVariants.find(r.coop_variant_nomen)
         if product_nature_variant.nil?
           # find a product_nature_variant by mapping current sub_family of matter in coop file in Ekylibre nomen
           product_nature_variant = ProductNatureVariant.find_by_nomen(r.product_nature_name)

@@ -51,10 +51,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_name, :nature_id, :nature_name, :unit_name, :name, :indicator_data_attributes, :products_attributes, :prices_attributes
   enumerize :variety,       in: Nomen::Varieties.all
   enumerize :derivative_of, in: Nomen::Varieties.all
-  belongs_to :nature, :class_name => "ProductNature", :inverse_of => :variants
+  belongs_to :nature, class_name: "ProductNature", :inverse_of => :variants
   has_many :products, :foreign_key => :variant_id
-  has_many :indicator_data, :class_name => "ProductNatureVariantIndicatorDatum", :foreign_key => :variant_id
-  has_many :prices, :class_name => "CatalogPrice", :foreign_key => :variant_id
+  has_many :indicator_data, class_name: "ProductNatureVariantIndicatorDatum", :foreign_key => :variant_id
+  has_many :prices, class_name: "CatalogPrice", :foreign_key => :variant_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :horizontal_rotation, :picture_file_size, :allow_nil => true, :only_integer => true
   validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 120
@@ -88,13 +88,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
 
   scope :of_variety, Proc.new { |*varieties|
-    where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(variety: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :derivative_of, Proc.new { |*varieties|
-    where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(derivative_of: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :can, Proc.new { |*abilities|
-    where(:nature_id => ProductNature.can(*abilities))
+    where(nature_id: ProductNature.can(*abilities))
   }
 
   scope :of_natures, lambda { |*natures|
@@ -131,10 +131,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
     #  self.purchase_indicator_unit ||= self.usage_indicator_unit
     #end
     #if item = Nomen::Indicators.find(self.sale_indicator)
-     # self.sale_indicator_unit ||= item.unit
+    # self.sale_indicator_unit ||= item.unit
     #end
     #if item = Nomen::Indicators.find(self.purchase_indicator)
-     # self.purchase_indicator_unit ||= item.unit
+    # self.purchase_indicator_unit ||= item.unit
     #end
 
   end
@@ -169,15 +169,15 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   #validate do
-    # Check that unit match indicator's unit
-    #for mode in [:usage, :sale, :purchase]
-    #  unit = self.send("#{mode}_indicator_unit").to_s
-     # if item = Nomen::Indicators[self.send("#{mode}_indicator")] and !unit.blank?
-     #   if Measure.dimension(item.unit) != Measure.dimension(unit)
-     #     errors.add(:"#{mode}_indicator_unit", :invalid)
-    #    end
-    #  end
-    #end
+  # Check that unit match indicator's unit
+  #for mode in [:usage, :sale, :purchase]
+  #  unit = self.send("#{mode}_indicator_unit").to_s
+  # if item = Nomen::Indicators[self.send("#{mode}_indicator")] and !unit.blank?
+  #   if Measure.dimension(item.unit) != Measure.dimension(unit)
+  #     errors.add(:"#{mode}_indicator_unit", :invalid)
+  #    end
+  #  end
+  #end
   #end
 
   # Measure a product for a given indicator
@@ -216,18 +216,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
 
   # Load a product nature variant from product nature variant nomenclature
-  def self.import_from_nomenclature(nomen, entity_nomen='own')
-    if entity_nomen == 'coop'
-      unless item = Nomen::CoopProductNatureVariants.find(nomen)
-        raise ArgumentError.new("The product_nature_variant #{nomen.inspect} is not known")
-      end
-    elsif entity_nomen == 'own'
-      unless item = Nomen::ProductNatureVariants.find(nomen)
-        raise ArgumentError.new("The product_nature_variant #{nomen.inspect} is not known")
-      end
+  def self.import_from_nomenclature(nomen)
+    unless item = Nomen::ProductNatureVariants.find(nomen)
+      raise ArgumentError, "The product_nature_variant #{nomen.inspect} is not known"
     end
     unless nature_item = Nomen::ProductNatures.find(item.nature)
-      raise ArgumentError.new("The nature of the product_nature_variant #{item.nature.inspect} is not known")
+      raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
     end
     unless nature_variant = ProductNatureVariant.find_by_nomen(nomen)
       attributes = {
@@ -236,27 +230,27 @@ class ProductNatureVariant < Ekylibre::Record::Base
         :nature => ProductNature.find_by_nomen(item.nature) || ProductNature.import_from_nomenclature(item.nature),
         :nomen => item.name,
         :unit_name => item.unit_name.to_s,
-        :frozen_indicators => item.frozen_indicators.to_s,
+        :frozen_indicators => item.frozen_indicators_values.to_s,
         :variety => item.variety || nil,
         :derivative_of => item.derivative_of || nil
       }
       nature_variant = self.create!(attributes)
     end
 
-        if !item.frozen_indicators.to_s.blank?
-          # transform "population: 1unity, net_weight :5ton" in a hash
-          h_frozen_indicators = item.frozen_indicators.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
-            h[i.first.strip.downcase.to_sym] = i.second
-            h
-            }
-          # create frozen indicator for each pair indicator, value ":population => 1unity"
-          frozen_indicators = []
-          for indicator, value in h_frozen_indicators
-            nature_variant.is_measured!(indicator, value)
-            frozen_indicators << indicator.to_s
-          end
-          nature_variant.update!(:frozen_indicators => frozen_indicators.join(","))
-        end
+    if !item.frozen_indicators_values.to_s.blank?
+      # transform "population: 1unity, net_weight :5ton" in a hash
+      h_frozen_indicators = item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+        h[i.first.strip.downcase.to_sym] = i.second
+        h
+      }
+      # create frozen indicator for each pair indicator, value ":population => 1unity"
+      frozen_indicators = []
+      for indicator, value in h_frozen_indicators
+        nature_variant.is_measured!(indicator, value)
+        frozen_indicators << indicator.to_s
+      end
+      nature_variant.update!(frozen_indicators: frozen_indicators.join(","))
+    end
 
     return nature_variant
   end
