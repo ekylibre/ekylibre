@@ -180,7 +180,7 @@
             saleable="true"
             depreciable="false"
             storable="false"
-            pictogram="equipment"
+            pictogram="tractor"
             />
       <item name="other_consumable"
             charge_account="other_consumable_matter_expenses"
