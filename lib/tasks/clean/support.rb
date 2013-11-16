@@ -198,34 +198,21 @@ module CleanSupport
 
     def models_in_file
       Dir.glob(Rails.root.join("app", "models", "*.rb")).each { |file| require file }
-      list = if ActiveRecord::Base.respond_to? :descendants
-               ActiveRecord::Base.send(:descendants)
-             elsif ActiveRecord::Base.respond_to? :subclasses
-               ActiveRecord::Base.send(:subclasses)
-             else
-               Object.subclasses_of(ActiveRecord::Base)
-             end.select{|x| not x.name.match('::') and not x.abstract_class?}.uniq.sort{|a,b| a.name <=> b.name}
-      # if list.empty?
-      #   # Return approximative list
-      #   Dir.chdir(Rails.root.join("app", "models")) do
-      #     list = Dir.glob("*.rb").each{ |file| file.split(".")[0].classify }
-      #   end
-      # end
-      return list
+      return ObjectSpace
+        .each_object(Class)
+        .select { |klass| klass < ActiveRecord::Base }
+        .select{ |x| not x.name.match(/\AActiveRecord\:\:/) and not x.abstract_class? }
+        .uniq
+        .sort{|a,b| a.name <=> b.name}
     end
 
 
     def controllers_in_file
       Dir.glob(Rails.root.join("app", "controllers", "**", "*.rb")).each { |file| require file }
-      list = if ActionController::Base.respond_to? :descendants
-               ActionController::Base.send(:descendants)
-             elsif ActionController::Base.respond_to? :subclasses
-               ActionController::Base.send(:subclasses)
-             else
-               Object.subclasses_of(ActionController::Base)
-             end.sort{|a,b| a.name <=> b.name}
-      # .select{|x| not x.name.match('::') and not x.abstract_class?}
-      return list
+      return ObjectSpace
+        .each_object(Class)
+        .select { |klass| klass <= ApplicationController }
+        .sort{|a,b| a.name <=> b.name}
     end
 
     def helpers_in_file
