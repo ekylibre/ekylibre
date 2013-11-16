@@ -464,7 +464,7 @@ arb:
       # edit: "Modifier la personne\_: %{name}"
       # index: "Personnes"
       # new: "Nouvelle personne"
-      # show: "Personne\_: %{name}"
+      # show: "Personne\_: %{full_name}"
     backend/places: #?
     backend/plant_medicines:
       # edit: "Modifier le produit phytosanitaire\_: %{name}"
@@ -1069,6 +1069,7 @@ arb:
     # contextual_help: "Aide contextuelle"
     coordinates: "تنسيق"
     copy_of: "نسخ من %{source}"
+    # cost: "Coût"
     cost_income_statement: "التكاليف"
     cost_sum: "مجموع تكاليف الاستثمار"
     counts_by_nature: "عدد ونوع السجلات"
@@ -1774,6 +1775,7 @@ arb:
     # sowable: "Semable"
     start: "ابتداء من"
     state: "الحالة"
+    # stock: "Stock"
     stock_max: "الحد الاقصى للاسهم"
     stock_min: "الحد الادنى للاسهم"
     stock_move_create: "اضافة حركة جديدة للاسهم" #?

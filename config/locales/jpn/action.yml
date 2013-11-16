@@ -390,7 +390,7 @@ jpn:
       # edit: "Modifier la personne\_: %{name}"
       # index: "Personnes"
       # new: "Nouvelle personne"
-      # show: "Personne\_: %{name}"
+      # show: "Personne\_: %{full_name}"
     backend/places: #?
     backend/plant_medicines:
       # edit: "Modifier le produit phytosanitaire\_: %{name}"
@@ -877,6 +877,7 @@ jpn:
     # contextual_help: "Aide contextuelle"
     # coordinates: "Coordonnées"
     # copy_of: "Copie de %{source}"
+    # cost: "Coût"
     # cost_income_statement: "Charges"
     # cost_sum: "Total charges d’exploitation"
     # counts_by_nature: "Nombre de pièces à comptabiliser par type"
@@ -1475,6 +1476,7 @@ jpn:
     # sowable: "Semable"
     # start: "Du"
     # state: "État"
+    # stock: "Stock"
     # stock_max: "Stock maximum"
     # stock_min: "Stock minimum"
     # stock_of_x: "Stock de %{x}"

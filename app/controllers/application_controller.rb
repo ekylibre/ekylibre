@@ -43,6 +43,11 @@ class ApplicationController < ActionController::Base
     options[:default] ||= []
     options[:default] << (root + "new").to_sym  if action == "create"
     options[:default] << (root + "edit").to_sym if action == "update"
+    klass = self.superclass
+    while klass != ApplicationController do
+      options[:default] << "actions.#{klass.controller_path}.#{action}".to_sym
+      klass = klass.superclass
+    end
     return ::I18n.translate(root + action, options)
   end
 

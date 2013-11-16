@@ -21,20 +21,22 @@ spa:
     intervention:
       procedure: #?
       procedures:
-        # animal_birth: "Naissance d’un animal"
+        # animal_milking: "Traite"
         # animal_treatment: "Traitement animal"
         # calving_one: "Vêlage unique"
         # calving_twin: "Vêlage jumeaux"
-        # chemical_treatment: "Traitement chimique"
+        # chemical_treatment_on_entire_culture: "Traitement chimique (toute la culture)"
+        # chemical_treatment_on_partial_culture: "Traitement chimique (une partie de la culture)"
         # grains_harvest: "Moisson"
         # mineral_fertilizing: "Fertilisation minérale"
         # organic_fertilizing: "Fertilisation organique"
         # plant_grinding: "Broyage de végétaux"
+        # plant_mowing: "Fauchage"
         # plowing: "Labour"
         # raking: "Hersage"
         # sowing: "Semis"
+        # straw_bunching: "Pressage de fourrages"
         # superficial_plowing: "Hersage"
-        # wheat_crop: "Culture de blé (standard)"
     intervention_cast:
       variable:
         # cropper: "Moissonneuse batteuse"
@@ -79,6 +81,7 @@ spa:
         # germinate: "Germer"
         # harvest: "Récolter"
         # kill: "Tuer"
+        # milk: "Traire"
         # move: "Se déplacer"
         # plow: "Labourer"
         # produce: "Produire"

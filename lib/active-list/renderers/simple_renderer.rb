@@ -132,7 +132,8 @@ module ActiveList
                 column.options[:url] = {} unless column.options[:url].is_a?(Hash)
                 column.options[:url][:id] ||= (column.record_expr(record)+'.id').c
                 column.options[:url][:action] ||= :show
-                column.options[:url][:controller] ||= column.class_name.tableize.to_sym
+                column.options[:url][:controller] ||= (self.generator.collection? ? "RECORD.class.name.tableize".c : column.class_name.tableize.to_sym)
+                # column.options[:url][:controller] ||= "#{value_code}.class.name.tableize".c
                 url = column.options[:url].collect{|k, v| "#{k}: " + urlify(v, record)}.join(", ")
                 value_code = "(#{value_code}.blank? ? '' : link_to(#{value_code}, #{url}))"
               elsif column.options[:mode]||column.label_method == :email

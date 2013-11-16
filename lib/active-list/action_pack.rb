@@ -31,7 +31,12 @@ module ActiveList
       def list(*args, &block)
         options = args.extract_options!
         name = args.shift
-        self.send("_#{options[:controller] || self.controller_name}_#{__method__}_#{name || self.controller_name}_tag", &block)
+        kontroller = self.controller.class
+        begin
+          helper_method = "_#{kontroller.controller_name}_#{__method__}_#{name || kontroller.controller_name}_tag".to_sym
+          kontroller = kontroller.superclass
+        end until self.respond_to?(helper_method)
+        return self.send(helper_method, &block)
       end
 
     end

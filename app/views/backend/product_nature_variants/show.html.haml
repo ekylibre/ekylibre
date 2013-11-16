@@ -24,9 +24,9 @@
           started_on = dataset.first.started_at.to_date
           stopped_on = dataset.last.stopped_at.to_date if !dataset.last.stopped_at.nil?
           stopped_on ||= Date.new(Campaign.currents.reorder(:harvest_year).last.harvest_year,12,31)
-        
+
             series = []
-        
+
             for usage in [:purchase, :sale, :stock, :cost]
               items = dataset.of_usage(usage)
               item_h = items.sort.inject({}) do |hash, pair|
@@ -35,7 +35,7 @@
               end
               series << {name: usage.tl ,data: item_h.collect{|k,v| [k.to_s, v.to_s.to_f] } }
             end
-        
+
         = spline_chart(series,legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, x_axis: { type: 'datetime', date_time_label_formats: { month: '%b. %Y', year: '%Y' }})
       - else
         %strong= :no_data.tl

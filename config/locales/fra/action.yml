@@ -431,7 +431,7 @@ fra:
       edit: "Modifier la personne\_: %{name}" #?
       index: "Personnes" #?
       new: "Nouvelle personne" #?
-      show: "Personne\_: %{name}" #?
+      show: "Personne\_: %{full_name}" #?
     backend/plant_medicines:
       edit: "Modifier le produit phytosanitaire\_: %{name}"
       index: "Produits phytosanitaires"

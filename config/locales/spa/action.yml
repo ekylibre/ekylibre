@@ -444,7 +444,7 @@ spa:
       # edit: "Modifier la personne\_: %{name}"
       # index: "Personnes"
       # new: "Nouvelle personne"
-      # show: "Personne\_: %{name}"
+      # show: "Personne\_: %{full_name}"
     backend/places: #?
     backend/plant_medicines:
       # edit: "Modifier le produit phytosanitaire\_: %{name}"
@@ -977,6 +977,7 @@ spa:
     # contextual_help: "Aide contextuelle"
     # coordinates: "Coordonnées"
     # copy_of: "Copie de %{source}"
+    # cost: "Coût"
     cost_income_statement: "Cargas"
     cost_sum: "Total cargas de explotación"
     counts_by_nature: "Nombre de piezas a contabilizar por tipo"
@@ -1599,6 +1600,7 @@ spa:
     # sowable: "Semable"
     start: "Del"
     # state: "État"
+    # stock: "Stock"
     # stock_max: "Stock maximum"
     # stock_min: "Stock minimum"
     stock_move_create: "Añadir un movimiento de deposito" #?

@@ -46,6 +46,7 @@ task :validations => :environment do
 
   errors = []
   CleanSupport.models_in_file.each do |model|
+    log.write("> " + model.name + "...\n")
     begin
       unless model.abstract_class?
         file = Rails.root.join("app", "models", model.name.underscore + ".rb")

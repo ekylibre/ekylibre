@@ -25,5 +25,4 @@ class Backend::LegalEntitiesController < Backend::EntitiesController
   # list do |t|
   #   t.column :name, url: true
   # end
-
 end

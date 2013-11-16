@@ -10,6 +10,7 @@ module ActiveList
       @controller = options[:controller]
       name = args.shift || @controller.controller_name.to_sym
       model = (options[:model]||name).to_s.classify.constantize
+      @collection = !!(model.name == @controller.controller_name.to_s.classify)
       @controller_method_name = "list#{'_'+name.to_s if name != @controller.controller_name.to_sym}"
       @view_method_name       = "_#{@controller.controller_name}_list_#{name}_tag"
       @records_variable_name  = "@#{name}"
@@ -21,6 +22,10 @@ module ActiveList
       end
       @parameters = {:sort => :to_s, :dir => :to_s}
       @parameters.merge!(:page => :to_i, :per_page => :to_i) if @table.paginate?
+    end
+
+    def collection?
+      @collection
     end
 
     def var_name(name)
