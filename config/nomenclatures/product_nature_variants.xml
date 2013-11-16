@@ -125,6 +125,18 @@
             unit_name="ton"
             frozen_indicators="net_weight: 1.00ton"
             />
+      <item name="hard_wheat_grain"
+            nature="grain"
+            derivative_of="triticum_durum"
+            unit_name="ton"
+            frozen_indicators="net_weight: 1.00ton"
+            />
+      <item name="barley_grain"
+            nature="grain"
+            derivative_of="hordeum"
+            unit_name="ton"
+            frozen_indicators="net_weight: 1.00ton"
+            />
       <item name="wheat_straw"
             nature="straw"
             derivative_of="triticum_aestivum"

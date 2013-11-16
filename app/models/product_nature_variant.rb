@@ -216,9 +216,15 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
 
   # Load a product nature variant from product nature variant nomenclature
-  def self.import_from_nomenclature(nomen)
-    unless item = Nomen::ProductNatureVariants.find(nomen)
-      raise ArgumentError.new("The product_nature_variant #{nomen.inspect} is not known")
+  def self.import_from_nomenclature(nomen, entity_nomen='own')
+    if entity_nomen == 'coop'
+      unless item = Nomen::CoopProductNatureVariants.find(nomen)
+        raise ArgumentError.new("The product_nature_variant #{nomen.inspect} is not known")
+      end
+    elsif entity_nomen == 'own'
+      unless item = Nomen::ProductNatureVariants.find(nomen)
+        raise ArgumentError.new("The product_nature_variant #{nomen.inspect} is not known")
+      end
     end
     unless nature_item = Nomen::ProductNatures.find(item.nature)
       raise ArgumentError.new("The nature of the product_nature_variant #{item.nature.inspect} is not known")
