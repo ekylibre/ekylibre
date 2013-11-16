@@ -50,11 +50,11 @@ class Catalog < Ekylibre::Record::Base
   validates_uniqueness_of :code
 
   has_default :scope => :usage
-  
+
   scope :of_usage, lambda { |usage|
     where(:usage => usage.to_s)
   }
-  
+
   before_validation do
     self.code = self.name.to_s.codeize if self.code.blank?
     self.code = self.code[0..9]

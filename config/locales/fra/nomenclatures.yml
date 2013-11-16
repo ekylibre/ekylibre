@@ -24,8 +24,8 @@ fra:
         animal_treatment: "Traitement animal"
         calving_one: "Vêlage unique"
         calving_twin: "Vêlage jumeaux"
-        chemical_treatment_on_partial_culture: "Traitement chimique (une partie de la culture)"
         chemical_treatment_on_entire_culture: "Traitement chimique (toute la culture)"
+        chemical_treatment_on_partial_culture: "Traitement chimique (une partie de la culture)"
         grains_harvest: "Moisson"
         mineral_fertilizing: "Fertilisation minérale"
         organic_fertilizing: "Fertilisation organique"
@@ -33,8 +33,8 @@ fra:
         plant_mowing: "Fauchage"
         plowing: "Labour"
         raking: "Hersage"
-        straw_bunching: "Pressage de fourrages"
         sowing: "Semis"
+        straw_bunching: "Pressage de fourrages"
         superficial_plowing: "Hersage"
     intervention_cast:
       variable:

@@ -1069,6 +1069,7 @@ arb:
     # contextual_help: "Aide contextuelle"
     coordinates: "تنسيق"
     copy_of: "نسخ من %{source}"
+    # cost: "Coût"
     cost_income_statement: "التكاليف"
     cost_sum: "مجموع تكاليف الاستثمار"
     counts_by_nature: "عدد ونوع السجلات"
@@ -1774,6 +1775,7 @@ arb:
     # sowable: "Semable"
     start: "ابتداء من"
     state: "الحالة"
+    # stock: "Stock"
     stock_max: "الحد الاقصى للاسهم"
     stock_min: "الحد الادنى للاسهم"
     stock_move_create: "اضافة حركة جديدة للاسهم" #?
