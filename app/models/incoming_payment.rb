@@ -68,7 +68,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_inclusion_of :downpayment, :received, :scheduled, in: [true, false]
   validates_presence_of :amount, :commission_amount, :currency, :mode, :to_bank_on
   #]VALIDATORS]
-  validates_numericality_of :amount, :greater_than => 0
+  validates_numericality_of :amount, greater_than: 0
   validates_numericality_of :commission_amount, :greater_than_or_equal_to => 0
   validates_presence_of :payer, :created_on
   validates_presence_of :commission_account, if: :with_commission?

@@ -59,7 +59,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   validates_inclusion_of :delivered, :downpayment, in: [true, false]
   validates_presence_of :amount, :cash, :currency, :mode, :payee, :responsible, :to_bank_on
   #]VALIDATORS]
-  validates_numericality_of :amount, :greater_than => 0
+  validates_numericality_of :amount, greater_than: 0
   validates_presence_of :to_bank_on, :created_on
 
   # default_scope -> { order("id DESC") }

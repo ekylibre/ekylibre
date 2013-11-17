@@ -55,20 +55,19 @@ class CashTransfer < Ekylibre::Record::Base
   validates_length_of :number, allow_nil: true, maximum: 255
   validates_presence_of :currency_rate, :emission_amount, :emission_cash, :emission_currency, :number, :reception_amount, :reception_cash, :reception_currency
   #]VALIDATORS]
-  validates_numericality_of :emission_amount, :reception_amount, :greater_than => 0.0
+  validates_numericality_of :emission_amount, :reception_amount, greater_than: 0.0
   validates_presence_of :transfered_on
-
-  delegate :currency, to: :emission_cash, prefix: :emission
-  delegate :currency, to: :reception_cash, prefix: :reception
 
   before_validation do
     self.transfered_on ||= Date.today
-    if self.emission_amount and self.emission_currency == self.reception_currency
+    if self.emission_currency == self.reception_currency
       self.currency_rate = 1
-    elsif self.emission_amount
+    else
       self.currency_rate = I18n.currency_rate(self.emission_currency, self.reception_currency)
     end
-    self.reception_amount = self.currency_rate * self.emission_amount
+    if self.emission_amount and self.currency_rate
+      self.reception_amount = self.currency_rate * self.emission_amount
+    end
   end
 
   validate do
@@ -76,14 +75,13 @@ class CashTransfer < Ekylibre::Record::Base
   end
 
   bookkeep do |b|
-    preference = Preference.get(:financial_internal_transfers_accounts)
-    transfer_account = Account.get(preference.value, preference.label)
-    label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :description => self.description, :emission => self.emission_cash.name, :reception => self.reception_cash.name)
-    b.journal_entry(self.emission_cash.journal, :column => :emission_journal_entry_id) do |entry|
+    transfer_account = Account.find_in_chart(:internal_transfers)
+    label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, description: self.description, emission: self.emission_cash.name, reception: self.reception_cash.name)
+    b.journal_entry(self.emission_cash.journal, column: :emission_journal_entry_id) do |entry|
       entry.add_debit( label, transfer_account.id, self.emission_amount)
       entry.add_credit(label, self.emission_cash.account_id, self.emission_amount)
     end
-    b.journal_entry(self.reception_cash.journal, :column => :reception_journal_entry_id) do |entry|
+    b.journal_entry(self.reception_cash.journal, column: :reception_journal_entry_id) do |entry|
       entry.add_debit( label, self.reception_cash.account_id, self.reception_amount)
       entry.add_credit(label, transfer_account.id, self.reception_amount)
     end

@@ -72,7 +72,7 @@ class JournalEntry < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :real_currency
   validates_format_of :number, :with => /\A[\dA-Z]+\z/
-  validates_numericality_of :real_currency_rate, :greater_than => 0
+  validates_numericality_of :real_currency_rate, greater_than: 0
 
   accepts_nested_attributes_for :items
 
