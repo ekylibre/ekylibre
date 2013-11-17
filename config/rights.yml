@@ -7,7 +7,6 @@
 # - "authentication/sessions#create"
 # - "authentication/sessions#destroy"
 # - "authentication/sessions#new"
-# - "backend#respond_with"
 # - "backend/accounts#unroll"
 # - "backend/activities#create"
 # - "backend/activities#destroy"
@@ -103,25 +102,10 @@
 # - "backend/campaigns#update"
 # - "backend/cash_transfers#unroll"
 # - "backend/cashes#unroll"
-# - "backend/catalog_prices#create"
-# - "backend/catalog_prices#destroy"
-# - "backend/catalog_prices#edit"
-# - "backend/catalog_prices#index"
-# - "backend/catalog_prices#list"
-# - "backend/catalog_prices#new"
 # - "backend/catalog_prices#show"
 # - "backend/catalog_prices#unroll"
-# - "backend/catalog_prices#update"
-# - "backend/catalogs#create"
-# - "backend/catalogs#destroy"
-# - "backend/catalogs#edit"
-# - "backend/catalogs#index"
-# - "backend/catalogs#list"
 # - "backend/catalogs#list_prices"
-# - "backend/catalogs#new"
-# - "backend/catalogs#show"
 # - "backend/catalogs#unroll"
-# - "backend/catalogs#update"
 # - "backend/cells/bank_chart_cells#show"
 # - "backend/cells/calendar_cells#show"
 # - "backend/cells/collected_taxes_cells#show"
@@ -696,7 +680,7 @@ bookkeep:
 cancel_sales_invoices:
 - "backend/dashboards#trade"
 - "backend/sales#cancel"
-- "backend/sales#index" #?
+- "backend/sales#index"
 - "backend/sales#list_creditable_items"
 - "backend/sales#list_credits"
 
@@ -766,8 +750,8 @@ consult_journal_entries:
 
 # Consult the prices
 consult_prices:
+- "backend/catalog_prices#index"
 - "backend/dashboards#trade"
-- "backend/catalog_prices#index" #?
 
 # Consult the products
 consult_products:
@@ -776,7 +760,7 @@ consult_products:
 
 # Consult the purchases
 consult_purchases:
-- "backend/dashboards#trade" #?
+- "backend/dashboards#trade"
 - "backend/purchases#index"
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
@@ -787,7 +771,7 @@ consult_purchases:
 # Consult the sales
 consult_sales:
 - "backend/dashboards#trade"
-- "backend/sales#index" #?
+- "backend/sales#index"
 - "backend/sales#list"
 - "backend/sales#list_deliveries"
 - "backend/sales#list_items"
@@ -924,6 +908,18 @@ manage_cashes:
 - "backend/cashes#update"
 - "backend/dashboards#accountancy"
 
+# translation missing: eng.rights.manage_catalogs
+manage_catalogs:
+- "backend/catalogs#create"
+- "backend/catalogs#destroy"
+- "backend/catalogs#edit"
+- "backend/catalogs#index"
+- "backend/catalogs#list"
+- "backend/catalogs#new"
+- "backend/catalogs#show"
+- "backend/catalogs#update"
+- "backend/dashboards#trade"
+
 # Manage custom fields
 manage_custom_fields:
 - "backend/custom_field_choices#create"
@@ -1033,8 +1029,8 @@ manage_equipments:
 
 # Create and update estimates
 manage_estimates:
-- "backend/dashboards#trade"
 - "backend/catalog_prices#find" #?
+- "backend/dashboards#trade"
 - "backend/sale_items#create"
 - "backend/sale_items#destroy"
 - "backend/sale_items#detail"
@@ -1292,29 +1288,17 @@ manage_outgoing_payments:
 
 # Manage prices
 manage_prices:
-- "backend/dashboards#trade"
-- "backend/catalogs#index" #?
-- "backend/catalogs#list" #?
-- "backend/catalog_prices#create" #?
-- "backend/catalog_prices#destroy" #?
-- "backend/catalog_prices#edit" #?
+- "backend/catalog_prices#create"
+- "backend/catalog_prices#destroy"
+- "backend/catalog_prices#edit"
 - "backend/catalog_prices#export" #?
 - "backend/catalog_prices#import" #?
-- "backend/catalog_prices#list" #?
-- "backend/catalog_prices#new" #?
-- "backend/catalog_prices#update" #?
-
-# Manage product price listings
-manage_catalogs:
+- "backend/catalog_prices#list"
+- "backend/catalog_prices#new"
+- "backend/catalog_prices#update"
+- "backend/catalogs#index"
+- "backend/catalogs#list"
 - "backend/dashboards#trade"
-- "backend/catalogs#create" #?
-- "backend/catalogs#destroy" #?
-- "backend/catalogs#edit" #?
-- "backend/catalogs#index" #?
-- "backend/catalogs#list" #?
-- "backend/catalogs#new" #?
-- "backend/catalogs#show" #?
-- "backend/catalogs#update" #?
 
 # Manage productions
 manage_productions:
@@ -1352,7 +1336,7 @@ manage_purchase_natures:
 
 # Manage purchases
 manage_purchases:
-- "backend/dashboards#trade" #?
+- "backend/dashboards#trade"
 - "backend/incoming_deliveries#confirm"
 - "backend/incoming_deliveries#create"
 - "backend/incoming_deliveries#destroy"

@@ -1030,9 +1030,6 @@
         <page to="authentication/sessions#destroy"/>
         <page to="authentication/sessions#new"/>
       </item>
-      <item name="backend">
-        <page to="backend#respond_with"/>
-      </item>
       <item name="accounts">
         <page to="backend/accounts#unroll"/>
       </item>

@@ -601,7 +601,7 @@ fra:
       contacts: "Contacts de la vente"
       correct: "Corriger le devis"
       edit: "Modifier la vente N°%{number}"
-      index: "Ventes" #?
+      index: "Ventes"
       invoice: "Facturer directement tout le devis"
       new: "Nouvelle vente"
       propose: "Devis soumis au client"
@@ -679,8 +679,6 @@ fra:
       index: "Equipiers"
       new: "Nouvel équipier"
       show: "Equipier %{name}"
-    backend:
-      # respond_with: "Respond with backend"
     devise/confirmations:
       # new: "New devise/confirmation"
       # show: "Show devise/confirmation"

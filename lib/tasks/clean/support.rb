@@ -111,72 +111,6 @@ module CleanSupport
       return code, count, total
     end
 
-    # def actions_in_file(path, controller)
-    #   actions = []
-    #   File.open(path, "rb:UTF-8").each_line do |line|
-    #     line = line.gsub(/(^\s*|\s*$)/,'')
-    #     if line.match(/^\s*def\s+[a-z0-9\_]+\s*$/)
-    #       actions << line.split(/def\s/)[1].gsub(/\s/,'')
-    #     elsif line.match(/^\s*unroll_all[\s\(]+\:\w+/)
-    #       # TODO add unroll of scopes
-    #       actions << "unroll"
-    #     elsif line.match(/^\s*search_for[\s\(]+\:\w+/)
-    #       search_for = line.split(/[\s\(\)\,\:]+/)
-    #       actions << "search_for_"+search_for[1]
-    #     elsif line.match(/^\s*search_for([\s\(]+|\s*$)/)
-    #       actions << "search_for"
-    #       # elsif line.match(/^\s*dy(li|ta)[\s\(]+\:\w+/)
-    #       #   dyxx = line.split(/[\s\(\)\,\:]+/)
-    #       #   actions << dyxx[1]+'_'+dyxx[0]
-    #     elsif line.match(/^\s*autocomplete_for[\s\(]+\:\w+\s*\,\s*\:\w+/)
-    #       list = line.split(/[\s\(\)\,\:]+/)
-    #       actions << "autocomplete_for_#{list[1]}_#{list[2]}"
-    #     elsif line.match(/^\s*autocomplete_for\s*\(?\s*\:\w+/)
-    #       list = line.split(/[\s\(\)\,\:]+/)
-    #       actions << "autocomplete_for_#{list[1]}"
-    #     elsif line.match(/^\s*list[\s\(]+\:\w+\s*\,/)
-    #       list = line.split(/[\s\(\)\,\:]+/)
-    #       actions << 'list_'+list[1]
-    #     elsif line.match(/^\s*list([\s\(]+|\s*$)/)
-    #       actions << "list"
-    #       # elsif line.match(/^\s*create_kame[\s\(]+\:\w+/)
-    #       #   kame = line.split(/[\s\(\)\,\:]+/)
-    #       #   actions << kame[1]+'_kame'
-    #     elsif line.match(/^\s*manage_restfully_list/)
-    #       actions << 'up'
-    #       actions << 'down'
-    #     elsif line.match(/^\s*manage_restfully_picture/)
-    #       actions << 'picture'
-    #     elsif line.match(/^\s*manage_restfully/)
-    #       actions << 'show'
-    #       actions << 'index'
-    #       actions << 'new'
-    #       actions << 'create'
-    #       actions << 'edit'
-    #       actions << 'update'
-    #       actions << 'destroy'
-    #     end
-    #   end
-    #   if controller.to_s == "backend/dashboards"
-    #     for mod in Ekylibre::Modules.hash.keys
-    #       actions << mod.to_s
-    #     end
-    #   end
-
-    #   return actions.uniq
-    # end
-
-    # def actions_hash
-    #   ref = HashWithIndifferentAccess.new
-    #   controllers = Rails.root.join("app", "controllers")
-    #   Dir.glob(controllers.join("**", "*_controller.rb")).sort.each do |path|
-    #     controller_name = Pathname.new(path).relative_path_from(controllers).to_s.gsub(/\_controller\.rb$/, '')
-    #     ref[controller_name] = actions_in_file(path, controller_name).sort
-    #   end
-    #   return ref
-    # end
-
-
     # Lists all actions of all controller by loading them and list action_methods
     def actions_hash
       controllers = controllers_in_file
@@ -187,22 +121,7 @@ module CleanSupport
       return ref
     end
 
-    # def controllers_hash
-    #   ref = HashWithIndifferentAccess.new
-    #   controllers = Rails.root.join("app", "controllers")
-    #   Dir.glob(controllers.join("**", "*_controller.rb")) do |path|
-    #     controller_name = Pathname.new(path).relative_path_from(controllers).to_s.gsub(/\_controller\.rb$/, '').split("/")
-    #     r = ref
-    #     for namespace in controller_name[0..-2]
-    #       r[namespace] ||= HashWithIndifferentAccess.new
-    #       r = r[namespace]
-    #     end if controller_name.size > 1
-    #     r[controller_name.last.to_sym] = nil
-    #   end
-    #   return ref
-    # end
-
-
+    # Lists all models that inherits of ActiveRecord but are not system
     def models_in_file
       Dir.glob(Rails.root.join("app", "models", "*.rb")).each { |file| require file }
       return ObjectSpace
@@ -213,7 +132,7 @@ module CleanSupport
         .sort{|a,b| a.name <=> b.name}
     end
 
-
+    # Lists all controller that inherits of ApplicationController included
     def controllers_in_file
       Dir.glob(Rails.root.join("app", "controllers", "**", "*.rb")).each { |file| require file }
       return ObjectSpace
@@ -222,6 +141,7 @@ module CleanSupport
         .sort{|a,b| a.name <=> b.name}
     end
 
+    # Lists helpers paths
     def helpers_in_file
       dir = Rails.root.join("app", "helpers")
       list = Dir.glob(dir.join("**", "*.rb")).collect do |h|
