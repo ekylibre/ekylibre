@@ -278,7 +278,7 @@ class ActionController::TestCase
     # code << "  end\n"
     code << "end\n"
 
-    file = Rails.root.join("tmp", "auto-tests", "#{controller}.rb")
+    file = Rails.root.join("tmp", "code", "test", "#{self.controller_class.controller_path}.rb")
     FileUtils.mkdir_p(file.dirname)
     File.open(file, "wb") do |f|
       f.write(code)

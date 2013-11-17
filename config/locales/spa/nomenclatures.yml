@@ -1,6 +1,5 @@
 spa:
-  enumerize:  #?
- #?
+  enumerize: #?
   nomenclatures:
     abilities:
       items:

@@ -1304,8 +1304,7 @@ jpn:
     per_animal_unit: #?
     per_duration_time_unit: #?
     per_frequency_time_unit: #?
-    procedure:  #?
- #?
+    procedure: #?
     product:
       arrival_reasons:
         # birth: "Naissance"
@@ -1388,8 +1387,7 @@ jpn:
         # decimal: "Décimal"
         # integer: "Entier"
         # unitary: "Unitaire"
-    product_nature_indicator:  #?
- #?
+    product_nature_indicator: #?
     product_transfer:
       nature:
         # gain: "Gain"

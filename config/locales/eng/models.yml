@@ -1783,8 +1783,7 @@ eng:
         # decimal: "Décimal"
         # integer: "Entier"
         # unitary: "Unitaire"
-    product_nature_indicator:  #?
- #?
+    product_nature_indicator: #?
     product_transfer:
       nature:
         gain: "Gain"
