@@ -8,11 +8,11 @@
       - l.attribute :transfered_on
       - l.attribute :description
       - l.attribute :accounted_at
-      - l.attribute :emitter_cash, url: true
-      - l.attribute :emitter_amount
-      - l.attribute :emitter_journal_entry, url: true
+      - l.attribute :emission_cash, url: true
+      - l.attribute :emission_amount, currency: :emission_currency
+      - l.attribute :emission_journal_entry, url: true
       - l.attribute :currency_rate
-      - l.attribute :receiver_cash, url: true
-      - l.attribute :receiver_amount
-      - l.attribute :receiver_journal_entry, url: true
+      - l.attribute :reception_cash, url: true
+      - l.attribute :reception_amount, currency: :reception_currency
+      - l.attribute :reception_journal_entry, url: true
     

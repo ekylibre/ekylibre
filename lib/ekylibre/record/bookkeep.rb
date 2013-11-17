@@ -32,6 +32,9 @@ module Ekylibre::Record  #:nodoc:
         attributes[:resource]   ||= @resource
         # attributes[:state]      ||= @state
         attributes[:printed_on] ||= @resource.created_on if @resource.respond_to? :created_on
+        unless attributes[:printed_on].is_a?(Date)
+          raise ArgumentError, "Date of journal_entry (printed_on) must be given"
+        end
         if condition
           raise ArgumentError.new("Unknown journal: (#{journal.inspect})") unless journal.is_a? Journal
           attributes[:journal_id] = journal.id

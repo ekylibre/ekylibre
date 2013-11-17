@@ -266,24 +266,24 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "campaigns", ["updater_id"], :name => "index_campaigns_on_updater_id"
 
   create_table "cash_transfers", force: true do |t|
-    t.string   "number",                                                                       null: false
+    t.string   "number",                                                                     null: false
     t.text     "description"
-    t.date     "transfered_on"
+    t.date     "transfered_on",                                                              null: false
     t.datetime "accounted_at"
-    t.decimal  "emission_amount",                      precision: 19, scale: 4,  default: 0.0, null: false
-    t.string   "emission_currency",          limit: 3,                                         null: false
-    t.integer  "emission_cash_id",                                                             null: false
+    t.decimal  "emission_amount",                      precision: 19, scale: 4,              null: false
+    t.string   "emission_currency",          limit: 3,                                       null: false
+    t.integer  "emission_cash_id",                                                           null: false
     t.integer  "emission_journal_entry_id"
-    t.decimal  "currency_rate",                        precision: 19, scale: 10, default: 1.0, null: false
-    t.decimal  "reception_amount",                     precision: 19, scale: 4,  default: 0.0, null: false
-    t.string   "reception_currency",         limit: 3,                                         null: false
-    t.integer  "reception_cash_id",                                                            null: false
+    t.decimal  "currency_rate",                        precision: 19, scale: 10,             null: false
+    t.decimal  "reception_amount",                     precision: 19, scale: 4,              null: false
+    t.string   "reception_currency",         limit: 3,                                       null: false
+    t.integer  "reception_cash_id",                                                          null: false
     t.integer  "reception_journal_entry_id"
-    t.datetime "created_at",                                                                   null: false
-    t.datetime "updated_at",                                                                   null: false
+    t.datetime "created_at",                                                                 null: false
+    t.datetime "updated_at",                                                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                   default: 0,   null: false
+    t.integer  "lock_version",                                                   default: 0, null: false
   end
 
   add_index "cash_transfers", ["created_at"], :name => "index_cash_transfers_on_created_at"

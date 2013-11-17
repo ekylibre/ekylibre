@@ -51,37 +51,276 @@
 #
 financial_years_001:
   closed: false
-  code: "Loremum"
-  currency: 'EUR'
-  created_at: 2009-07-19 19:13:59 +02:00
+  code: "EX1992-93"
+  currency: 'FRF'
+  created_at: 1992-11-19 19:13:59 +02:00
   creator_id: 1
   id: 1
-  started_on: 2007-01-01
-  stopped_on: 2007-12-31
-  updated_at: 2009-07-19 19:13:59 +02:00
+  started_on: 1992-11-17
+  stopped_on: 1993-08-31
+  updated_at: 1992-11-19 19:13:59 +02:00
   updater_id: 1
 
 financial_years_002:
   closed: false
   code: "Loremum2"
-  currency: 'EUR'
+  currency: 'FRF'
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2
-  started_on: 2008-01-01
-  stopped_on: 2008-12-31
+  started_on: 2050-09-01
+  stopped_on: 2051-08-31
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
 financial_years_003:
   closed: false
-  code: "Lorem2000"
-  currency: 'USD'
-  created_at: 2009-07-19 19:13:59 +02:00
+  code: "EX1993-94"
+  currency: 'FRF'
+  created_at: 1993-11-19 19:13:59 +02:00
   creator_id: 1
   id: 3
-  started_on: 1992-01-05
-  stopped_on: 1993-04-30
-  updated_at: 2009-07-19 19:13:59 +02:00
+  started_on: 1993-11-17
+  stopped_on: 1994-08-31
+  updated_at: 1993-11-19 19:13:59 +02:00
   updater_id: 1
 
+financial_years_004:
+  closed: false
+  code: "EX1994-95"
+  currency: 'FRF'
+  created_at: 1994-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 4
+  started_on: 1994-11-17
+  stopped_on: 1995-08-31
+  updated_at: 1994-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_005:
+  closed: false
+  code: "EX1995-96"
+  currency: 'FRF'
+  created_at: 1995-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 5
+  started_on: 1995-11-17
+  stopped_on: 1996-08-31
+  updated_at: 1995-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_006:
+  closed: false
+  code: "EX1996-97"
+  currency: 'FRF'
+  created_at: 1996-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 6
+  started_on: 1996-11-17
+  stopped_on: 1997-08-31
+  updated_at: 1996-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_007:
+  closed: false
+  code: "EX1997-98"
+  currency: 'FRF'
+  created_at: 1997-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 7
+  started_on: 1997-11-17
+  stopped_on: 1998-08-31
+  updated_at: 1997-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_008:
+  closed: false
+  code: "EX1998-99"
+  currency: 'FRF'
+  created_at: 1998-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 8
+  started_on: 1998-11-17
+  stopped_on: 1999-08-31
+  updated_at: 1998-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_009:
+  closed: false
+  code: "EX1999-00"
+  currency: 'FRF'
+  created_at: 1999-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 9
+  started_on: 1999-11-17
+  stopped_on: 2000-08-31
+  updated_at: 1999-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_010:
+  closed: false
+  code: "EX2000-01"
+  currency: 'FRF'
+  created_at: 2000-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 10
+  started_on: 2000-11-17
+  stopped_on: 2001-08-31
+  updated_at: 2000-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_011:
+  closed: false
+  code: "EX2001-02"
+  currency: 'EUR'
+  created_at: 2001-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 11
+  started_on: 2001-11-17
+  stopped_on: 2002-08-31
+  updated_at: 2001-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_012:
+  closed: false
+  code: "EX2002-03"
+  currency: 'EUR'
+  created_at: 2002-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 12
+  started_on: 2002-11-17
+  stopped_on: 2003-08-31
+  updated_at: 2002-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_013:
+  closed: false
+  code: "EX2003-04"
+  currency: 'EUR'
+  created_at: 2003-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 13
+  started_on: 2003-11-17
+  stopped_on: 2004-08-31
+  updated_at: 2003-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_014:
+  closed: false
+  code: "EX2004-05"
+  currency: 'EUR'
+  created_at: 2004-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 14
+  started_on: 2004-11-17
+  stopped_on: 2005-08-31
+  updated_at: 2004-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_015:
+  closed: false
+  code: "EX2005-06"
+  currency: 'EUR'
+  created_at: 2005-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 15
+  started_on: 2005-11-17
+  stopped_on: 2006-08-31
+  updated_at: 2005-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_016:
+  closed: false
+  code: "EX2006-07"
+  currency: 'EUR'
+  created_at: 2006-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 16
+  started_on: 2006-11-17
+  stopped_on: 2007-08-31
+  updated_at: 2006-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_017:
+  closed: false
+  code: "EX2007-08"
+  currency: 'EUR'
+  created_at: 2007-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 17
+  started_on: 2007-11-17
+  stopped_on: 2008-08-31
+  updated_at: 2007-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_018:
+  closed: false
+  code: "EX2008-09"
+  currency: 'EUR'
+  created_at: 2008-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 18
+  started_on: 2009-11-17
+  stopped_on: 2010-08-31
+  updated_at: 2009-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_019:
+  closed: false
+  code: "EX2009-10"
+  currency: 'EUR'
+  created_at: 2009-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 19
+  started_on: 2009-11-17
+  stopped_on: 2010-08-31
+  updated_at: 2009-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_020:
+  closed: false
+  code: "EX2010-11"
+  currency: 'EUR'
+  created_at: 2010-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 20
+  started_on: 2010-11-17
+  stopped_on: 2011-08-31
+  updated_at: 2010-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_021:
+  closed: false
+  code: "EX2011-12"
+  currency: 'EUR'
+  created_at: 2011-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 21
+  started_on: 2011-11-17
+  stopped_on: 2012-08-31
+  updated_at: 2011-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_022:
+  closed: false
+  code: "EX2012-13"
+  currency: 'EUR'
+  created_at: 2012-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 22
+  started_on: 2012-11-17
+  stopped_on: 2013-08-31
+  updated_at: 2012-11-19 19:13:59 +02:00
+  updater_id: 1
+
+financial_years_023:
+  closed: false
+  code: "EX2013-14"
+  currency: 'EUR'
+  created_at: 2013-11-19 19:13:59 +02:00
+  creator_id: 1
+  id: 23
+  started_on: 2013-11-17
+  stopped_on: 2014-08-31
+  updated_at: 2013-11-19 19:13:59 +02:00
+  updater_id: 1

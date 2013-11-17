@@ -1039,6 +1039,7 @@ arb:
     # asset_amount: "Valeur nette comptable"
     # asset_depreciations: "Dépréciations d’immobilisation"
     # assets: "Immobilisations"
+    # assets_categories: "Catégories de produits avec immobilisation"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة"
     attorney: "الوكيل"
     attorney_account: "حساب مساعد الوكيل"
@@ -1098,6 +1099,7 @@ arb:
     # charge_account: "Compte de charge"
     # charges_account: "Comptes de charge"
     charges_accounts: "حسابات الحمولة"
+    # charges_categories: "Catégories de produits avec charge"
     check_number: "رقم الشيك" #?
     # check_state: "Vérifier l’état"
     children: "مواقع فرعية للتخزين"
@@ -1382,7 +1384,6 @@ arb:
     id: "ID"
     # identification_number: "Numéro d’identification"
     immobilizations_account_id: "الحساب الساكن" #?
-    # immobilizations_products: "Produits d’immobilizations"
     importance: "ذو شأن"
     # in_cash: "En espèce"
     in_name: "الاختصارات تشمل اسم الملف" #?
@@ -1678,6 +1679,7 @@ arb:
     # productions: "Productions"
     products: "المنتجات"
     products_accounts: "حسابات المنتجات" #?
+    # products_categories: "Catégories de produits avec produit"
     profession: "المهنة"
     profession_id: "مهنة" #?
     professions: "مهن" #?
@@ -1702,7 +1704,6 @@ arb:
     purchases: "المشتريات"
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
-    # purchases_products: "Produits d’achat"
     quantity: "الكمية"
     quantity_max: "الكمية كحد اقصى" #?
     quantity_min: "الكمية كحد ادنى" #?
@@ -1780,7 +1781,6 @@ arb:
     sales_invoiceable: "يفوتر" #?
     sales_invoices: "الفواتير"
     sales_invoices_count: "عدد الفواتير" #?
-    # sales_products: "Produits de vente"
     salt: "الملح" #?
     scheduled: "الدفعة المبرمجة"
     second_building: "موقع تخزين الوصول" #?
@@ -1822,6 +1822,7 @@ arb:
     stockable: "ادارة الاسهم" #?
     stockable_products: "منتجات للتخزين" #?
     stocks: "اسهم الانتاج" #?
+    # stocks_categories: "Catégories de produits avec stock"
     stopped_at: "انتهى يوم"
     stopped_on: "توقف يوم"
     # storable: "Gérer les stocks"

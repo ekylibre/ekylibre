@@ -122,6 +122,17 @@ module Ekylibre::Record
 
       # Permits to consider something and something_id like the same
       def scope_with_registration(name, body, &block)
+        # Check body.is_a?(Relation) to prevent the relation actually being
+        # loaded by respond_to?
+        if body.is_a?(::ActiveRecord::Relation) || !body.respond_to?(:call)
+          ActiveSupport::Deprecation.warn("Using #scope without passing a callable object is deprecated. For " \
+                                          "example `scope :red, where(color: 'red')` should be changed to " \
+                                          "`scope :red, -> { where(color: 'red') }`. There are numerous gotchas " \
+                                          "in the former usage and it makes the implementation more complicated " \
+                                          "and buggy. (If you prefer, you can just define a class method named " \
+                                          "`self.red`.)\n" + caller.join("\n")
+                                          )
+        end
         @scopes ||= []
         arity = body.arity rescue 0
         @scopes << Scope.new(name.to_sym, arity)

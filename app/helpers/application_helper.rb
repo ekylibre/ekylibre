@@ -286,7 +286,7 @@ module ApplicationHelper
     elsif attribute.to_s.match(/(^|_)currency$/)
       value = value.to_currency.label
     elsif options[:currency] and value.is_a?(Numeric)
-      value = ::I18n.localize(value, :currency => (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency]))
+      value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]
     elsif value.respond_to?(:strftime) or value.is_a?(Numeric)
       value = ::I18n.localize(value)

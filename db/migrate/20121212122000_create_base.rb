@@ -142,19 +142,19 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :cash_transfers do |t|
-      t.string     :number,                                                             null: false
+      t.string     :number,                                               null: false
       t.text       :description
-      t.date       :transfered_on
+      t.date       :transfered_on,                                        null: false
       t.datetime   :accounted_at
-      t.decimal    :emission_amount,            precision: 19, scale: 4,  default: 0.0, null: false
-      t.string     :emission_currency,          limit: 3,                               null: false
-      t.references :emission_cash,                                                      null: false, index: true
-      t.references :emission_journal_entry,                                                          index: true
-      t.decimal    :currency_rate,              precision: 19, scale: 10, default: 1.0, null: false
-      t.decimal    :reception_amount,           precision: 19, scale: 4,  default: 0.0, null: false
-      t.string     :reception_currency,         limit: 3,                               null: false
-      t.references :reception_cash,                                                     null: false, index: true
-      t.references :reception_journal_entry,                                                         index: true
+      t.decimal    :emission_amount,            precision: 19, scale: 4,  null: false
+      t.string     :emission_currency,          limit: 3,                 null: false
+      t.references :emission_cash,                                        null: false, index: true
+      t.references :emission_journal_entry,                                            index: true
+      t.decimal    :currency_rate,              precision: 19, scale: 10, null: false
+      t.decimal    :reception_amount,           precision: 19, scale: 4,  null: false
+      t.string     :reception_currency,         limit: 3,                 null: false
+      t.references :reception_cash,                                       null: false, index: true
+      t.references :reception_journal_entry,                                           index: true
       t.stamps
     end
 

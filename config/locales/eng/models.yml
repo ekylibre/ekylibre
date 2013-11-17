@@ -615,6 +615,7 @@ eng:
     asset_amount: "Accountable value"
     asset_depreciations: "Asset depreciations"
     assets: "Assets"
+    # assets_categories: "Catégories de produits avec immobilisation"
     assimilated_taxes_amount: "Assimilated taxes amount"
     atmospheric_pressure: "Atmospheric pressure" #?
     attorney: "Attorney"
@@ -673,6 +674,7 @@ eng:
     charge_account: "Charge account"
     charges_account: "Charges account"
     charges_accounts: "Charges accounts"
+    # charges_categories: "Catégories de produits avec charge"
     check_number: "Check number" #?
     check_state: "Check state"
     child_kinships: "Child kinships" #?
@@ -946,7 +948,7 @@ eng:
     iban_label: "IBAN" #?
     id: "ID"
     identification_number: "Identification number"
-    immobilizations_products: "Immobilizations products"
+    immobilizations_products: "Immobilizations products" #?
     importance: "Importance"
     in_cash: "In cash"
     in_name: "In name" #?
@@ -1227,6 +1229,7 @@ eng:
     productions: "Productions"
     products: "Products"
     products_accounts: "Products accounts" #?
+    # products_categories: "Catégories de produits avec produit"
     profession: "Profession"
     professions: "Professions" #?
     propagate_contacts: "Propagate contacts" #?
@@ -1251,7 +1254,7 @@ eng:
     purchased_on: "Purchased on"
     purchases: "Purchase orders"
     purchases_account: "Purchases account" #?
-    purchases_products: "Purchases products"
+    purchases_products: "Purchases products" #?
     quantity: "Quantity"
     quantity_max: "Quantity max" #?
     quantity_min: "Quantity min" #?
@@ -1327,7 +1330,7 @@ eng:
     sales_account: "Sales account" #?
     sales_conditions: "Sales conditions"
     sales_invoices: "Sales invoices"
-    sales_products: "Sales products"
+    sales_products: "Sales products" #?
     salt: "Salt" #?
     scheduled: "Scheduled"
     second_building: "Second building" #?
@@ -1367,6 +1370,7 @@ eng:
     stockable: "Manage stocks" #?
     stockable_products: "Stockable products" #?
     stocks: "Stocks" #?
+    # stocks_categories: "Catégories de produits avec stock"
     stopped_at: "Stopped at"
     stopped_on: "Stopped on"
     storable: "Gérer les stocks"

@@ -23,20 +23,20 @@
 #  accounted_at               :datetime
 #  created_at                 :datetime         not null
 #  creator_id                 :integer
-#  currency_rate              :decimal(19, 10)  default(1.0), not null
+#  currency_rate              :decimal(19, 10)  not null
 #  description                :text
-#  emission_amount            :decimal(19, 4)   default(0.0), not null
+#  emission_amount            :decimal(19, 4)   not null
 #  emission_cash_id           :integer          not null
 #  emission_currency          :string(3)        not null
 #  emission_journal_entry_id  :integer
 #  id                         :integer          not null, primary key
 #  lock_version               :integer          default(0), not null
 #  number                     :string(255)      not null
-#  reception_amount           :decimal(19, 4)   default(0.0), not null
+#  reception_amount           :decimal(19, 4)   not null
 #  reception_cash_id          :integer          not null
 #  reception_currency         :string(3)        not null
 #  reception_journal_entry_id :integer
-#  transfered_on              :date
+#  transfered_on              :date             not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
 #
@@ -55,36 +55,41 @@
 #   reception_amount: 0
 #   reception_cash_id: 1
 #   reception_currency: "Lorem ipsum"
+#   transfered_on: 2009-07-19
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
 #
+
 cash_transfers_001:
-  created_at: 2009-07-19 19:13:59 +02:00
+  created_at: 2007-01-04 09:34:23 +02:00
   creator_id: 1
-  emission_amount: 10
-  emission_cash_id: 1
+  emission_amount: 112.07
+  emission_cash_id: 3
   emission_currency: 'EUR'
   currency_rate: 1
   id: 1
   number: "0001"
-  reception_amount: 10
-  reception_cash_id: 3
+  reception_amount: 112.07
+  reception_cash_id: 1
   reception_currency: 'EUR'
-  updated_at: 2009-07-19 19:13:59 +02:00
+  transfered_on: 2007-01-04
+  updated_at: 2007-01-19 19:13:59 +02:00
   updater_id: 1
-
 
 cash_transfers_002:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
-  emission_amount: 100
-  emission_cash_id: 3
+  emission_amount: 14.50
+  emission_cash_id: 1
   emission_currency: 'EUR'
   currency_rate: 1
   id: 2
   number: "0002"
-  reception_amount: 110
-  reception_cash_id: 1
+  reception_amount: 14.50
+  reception_cash_id: 3
   reception_currency: 'EUR'
+  transfered_on: 2009-07-19
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
+
+
