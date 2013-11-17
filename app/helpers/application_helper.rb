@@ -311,8 +311,9 @@ module ApplicationHelper
   end
 
 
-  def attributes_list(record, options={}, &block)
+  def attributes_list(record = nil, options={}, &block)
     columns = options[:columns] || 3
+    record ||= instance_variable_get("@#{controller_name.singularize}")
     attribute_list = AttributesList.new(record)
     raise ArgumentError.new("One parameter needed") unless block.arity == 1
     yield attribute_list if block_given?
