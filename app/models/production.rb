@@ -41,17 +41,17 @@ class Production < Ekylibre::Record::Base
   enumerize :state, :in => [:draft, :validated], :default => :draft
   belongs_to :activity
   belongs_to :campaign
-  belongs_to :variant, :class_name => "ProductNatureVariant"
-  # belongs_to :area_unit, :class_name => "Unit"
-  has_many :repartitions, :class_name => "AnalyticRepartition"
-  has_many :supports, :class_name => "ProductionSupport", inverse_of: :production
+  belongs_to :variant, class_name: "ProductNatureVariant"
+  # belongs_to :area_unit, class_name: "Unit"
+  has_many :repartitions, class_name: "AnalyticRepartition"
+  has_many :supports, class_name: "ProductionSupport", inverse_of: :production
   has_many :interventions, inverse_of: :production
-  has_many :casts, through: :interventions, :class_name => "InterventionCast"
-  # has_many :land_parcel_groups, :through => :supports, :class_name => "Product" #, :conditions => {:variety => "land_parcel_group"}
+  has_many :casts, through: :interventions, class_name: "InterventionCast"
+  # has_many :land_parcel_groups, :through => :supports, class_name: "Product" #, :conditions => {:variety => "land_parcel_group"}
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :state, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :static_support, :in => [true, false]
+  validates_length_of :name, :state, allow_nil: true, maximum: 255
+  validates_inclusion_of :static_support, in: [true, false]
   validates_presence_of :activity, :campaign, :name, :state
   #]VALIDATORS]
   # validates_presence_of :product_nature, :if => :activity_main?

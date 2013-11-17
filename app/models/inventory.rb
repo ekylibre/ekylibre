@@ -39,12 +39,12 @@
 
 class Inventory < Ekylibre::Record::Base
   # attr_accessible :created_on, :number, :responsible_id
-  belongs_to :responsible, :class_name => "Entity"
-  has_many :items, :class_name => "InventoryItem", :dependent => :destroy, :inverse_of => :inventory
+  belongs_to :responsible, class_name: "Entity"
+  has_many :items, class_name: "InventoryItem", dependent: :destroy, inverse_of: :inventory
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :number, :allow_nil => true, :maximum => 20
-  validates_inclusion_of :changes_reflected, :in => [true, false]
+  validates_length_of :number, allow_nil: true, maximum: 20
+  validates_inclusion_of :changes_reflected, in: [true, false]
   validates_presence_of :created_on
   #]VALIDATORS]
 

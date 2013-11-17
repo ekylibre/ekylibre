@@ -44,7 +44,7 @@
 
 class ProductNatureVariantIndicatorDatum < IndicatorDatum
   # attr_accessible :created_at, :variant_id, :description
-  belongs_to :variant, :class_name => "ProductNatureVariant"
+  belongs_to :variant, class_name: "ProductNatureVariant"
   enumerize :computation_method, :in => [:frozen, :proportionnal], :default => :frozen
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

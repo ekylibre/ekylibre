@@ -55,14 +55,14 @@ class ListingNode < Ekylibre::Record::Base
   attr_readonly :listing_id, :nature
   enumerize :nature, :in => [:root, :column, :datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
   belongs_to :listing
-  belongs_to :item_listing, :class_name => "Listing"
-  belongs_to :item_listing_node, :class_name => "ListingNode"
-  has_many :items, :class_name => "ListingNodeItem"
+  belongs_to :item_listing, class_name: "Listing"
+  belongs_to :item_listing_node, class_name: "ListingNode"
+  has_many :items, class_name: "ListingNodeItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
-  validates_length_of :item_nature, :allow_nil => true, :maximum => 10
-  validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :exportable, :in => [true, false]
+  validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
+  validates_length_of :item_nature, allow_nil: true, maximum: 10
+  validates_length_of :attribute_name, :condition_operator, :condition_value, :key, :label, :name, :nature, :sql_type, allow_nil: true, maximum: 255
+  validates_inclusion_of :exportable, in: [true, false]
   validates_presence_of :depth, :label, :listing, :name, :nature
   #]VALIDATORS]
   validates_uniqueness_of :key

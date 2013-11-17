@@ -39,9 +39,9 @@ class ProductPhase < Ekylibre::Record::Base
   #]VALIDATORS]
 
   belongs_to :product
-  belongs_to :variant, :class_name => "ProductNatureVariant"
-  belongs_to :nature, :class_name => "ProductNature"
-  belongs_to :category, :class_name => "ProductNatureCategory"
+  belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :nature, class_name: "ProductNature"
+  belongs_to :category, class_name: "ProductNatureCategory"
 
   before_validation :set_default_values, :on => :create
 

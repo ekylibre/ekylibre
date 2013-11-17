@@ -53,15 +53,15 @@ class Affair < Ekylibre::Record::Base
   AFFAIRABLE_MODELS = AFFAIRABLE_TYPES.map(&:underscore).freeze
   belongs_to :third, class_name: "Entity"
   belongs_to :journal_entry
-  has_many :sales, :inverse_of => :affair, :dependent => :nullify
-  has_many :purchases, :inverse_of => :affair, :dependent => :nullify
-  has_many :incoming_payments, :inverse_of => :affair, :dependent => :nullify
-  has_many :outgoing_payments, :inverse_of => :affair, :dependent => :nullify
-  has_many :transfers, :inverse_of => :affair, :dependent => :nullify
+  has_many :sales, inverse_of: :affair, dependent: :nullify
+  has_many :purchases, inverse_of: :affair, dependent: :nullify
+  has_many :incoming_payments, inverse_of: :affair, dependent: :nullify
+  has_many :outgoing_payments, inverse_of: :affair, dependent: :nullify
+  has_many :transfers, inverse_of: :affair, dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :credit, :debit, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_inclusion_of :closed, :in => [true, false]
+  validates_numericality_of :credit, :debit, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_inclusion_of :closed, in: [true, false]
   validates_presence_of :credit, :currency, :debit, :third
   #]VALIDATORS]
 

@@ -38,8 +38,8 @@ class OperationTask < Ekylibre::Record::Base
   has_many :casts, class_name: "OperationTaskCast", inverse_of: :task
   enumerize :nature, in: Procedo::Action::TYPES.keys, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nature, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :prorated, :in => [true, false]
+  validates_length_of :nature, allow_nil: true, maximum: 255
+  validates_inclusion_of :prorated, in: [true, false]
   validates_presence_of :nature, :operation
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values

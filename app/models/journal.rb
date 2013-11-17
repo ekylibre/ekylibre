@@ -38,14 +38,14 @@ class Journal < Ekylibre::Record::Base
   # attr_accessible :code, :name, :nature, :currency
   attr_readonly :currency
   has_many :cashes
-  has_many :entry_items, :class_name => "JournalEntryItem", :inverse_of => :journal
-  has_many :entries, :class_name => "JournalEntry", :inverse_of => :journal
+  has_many :entry_items, class_name: "JournalEntryItem", inverse_of: :journal
+  has_many :entries, class_name: "JournalEntry", inverse_of: :journal
   enumerize :nature, :in => [:sales, :purchases, :bank, :forward, :various, :cash], :default => :various, :predicates => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :code, :allow_nil => true, :maximum => 4
-  validates_length_of :nature, :allow_nil => true, :maximum => 30
-  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :code, allow_nil: true, maximum: 4
+  validates_length_of :nature, allow_nil: true, maximum: 30
+  validates_length_of :name, allow_nil: true, maximum: 255
   validates_presence_of :closed_on, :code, :currency, :name, :nature
   #]VALIDATORS]
   validates_uniqueness_of :code

@@ -57,19 +57,19 @@ class Cash < Ekylibre::Record::Base
   has_many :deposits
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
-  has_one :last_bank_statement, -> { order("stopped_on DESC") }, :class_name => "BankStatement"
+  has_one :last_bank_statement, -> { order("stopped_on DESC") }, class_name: "BankStatement"
   enumerize :nature, :in => [:bank_account, :cash_box], :default => :bank_account, :predicates => true
   enumerize :mode, :in => [:iban, :bban], :default => :iban, :predicates => {:prefix => true}
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :country, :allow_nil => true, :maximum => 2
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :bank_identifier_code, :allow_nil => true, :maximum => 11
-  validates_length_of :nature, :allow_nil => true, :maximum => 20
-  validates_length_of :iban, :allow_nil => true, :maximum => 34
-  validates_length_of :spaced_iban, :allow_nil => true, :maximum => 42
-  validates_length_of :bank_name, :allow_nil => true, :maximum => 50
-  validates_length_of :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :mode, :name, :allow_nil => true, :maximum => 255
+  validates_length_of :country, allow_nil: true, maximum: 2
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :bank_identifier_code, allow_nil: true, maximum: 11
+  validates_length_of :nature, allow_nil: true, maximum: 20
+  validates_length_of :iban, allow_nil: true, maximum: 34
+  validates_length_of :spaced_iban, allow_nil: true, maximum: 42
+  validates_length_of :bank_name, allow_nil: true, maximum: 50
+  validates_length_of :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :mode, :name, allow_nil: true, maximum: 255
   validates_presence_of :account, :currency, :journal, :mode, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :mode, :in => self.mode.values

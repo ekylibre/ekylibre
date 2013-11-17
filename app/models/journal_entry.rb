@@ -52,22 +52,22 @@ class JournalEntry < Ekylibre::Record::Base
   # attr_accessible :journal_id, :number, :printed_on, :resource
   attr_readonly :journal_id, :created_on
   belongs_to :financial_year
-  belongs_to :journal, :inverse_of => :entries
+  belongs_to :journal, inverse_of: :entries
   belongs_to :resource, :polymorphic => true
-  has_many :affairs, :dependent => :nullify
-  has_many :asset_depreciations, :dependent => :nullify
-  has_many :useful_items, -> { where("balance != ?", 0.0) }, :foreign_key => :entry_id, :class_name => "JournalEntryItem"
-  has_many :items, :foreign_key => :entry_id, :dependent => :delete_all, :class_name => "JournalEntryItem", :inverse_of => :entry
-  has_many :outgoing_payments, :dependent => :nullify
-  has_many :incoming_payments, :dependent => :nullify
-  has_many :purchases, :dependent => :nullify
-  has_many :sales, :dependent => :nullify
-  has_one :financial_year_as_last, :foreign_key => :last_journal_entry_id, :class_name => "FinancialYear", :dependent => :nullify
+  has_many :affairs, dependent: :nullify
+  has_many :asset_depreciations, dependent: :nullify
+  has_many :useful_items, -> { where("balance != ?", 0.0) }, foreign_key: :entry_id, class_name: "JournalEntryItem"
+  has_many :items, foreign_key: :entry_id, dependent: :delete_all, class_name: "JournalEntryItem", inverse_of: :entry
+  has_many :outgoing_payments, dependent: :nullify
+  has_many :incoming_payments, dependent: :nullify
+  has_many :purchases, dependent: :nullify
+  has_many :sales, dependent: :nullify
+  has_one :financial_year_as_last, foreign_key: :last_journal_entry_id, class_name: "FinancialYear", dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_credit, :real_currency_rate, :real_debit, :allow_nil => true
-  validates_length_of :absolute_currency, :currency, :real_currency, :allow_nil => true, :maximum => 3
-  validates_length_of :state, :allow_nil => true, :maximum => 30
-  validates_length_of :number, :resource_type, :allow_nil => true, :maximum => 255
+  validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
+  validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
+  validates_length_of :state, allow_nil: true, maximum: 30
+  validates_length_of :number, :resource_type, allow_nil: true, maximum: 255
   validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :balance, :created_on, :credit, :currency, :debit, :journal, :number, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
   validates_presence_of :real_currency

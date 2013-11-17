@@ -38,8 +38,8 @@ class AnalyticRepartition < Ekylibre::Record::Base
   belongs_to :journal_entry_item
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :affectation_percentage, :allow_nil => true
-  validates_length_of :state, :allow_nil => true, :maximum => 255
+  validates_numericality_of :affectation_percentage, allow_nil: true
+  validates_length_of :state, allow_nil: true, maximum: 255
   validates_presence_of :affectation_percentage, :affected_on, :journal_entry_item, :production, :state
   #]VALIDATORS]
 

@@ -40,9 +40,9 @@ class PurchaseNature < Ekylibre::Record::Base
   has_many :purchases
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :by_default, :with_accounting, :in => [true, false]
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :name, allow_nil: true, maximum: 255
+  validates_inclusion_of :active, :by_default, :with_accounting, in: [true, false]
   validates_presence_of :currency
   #]VALIDATORS]
   validates_presence_of :journal, :if => :with_accounting?

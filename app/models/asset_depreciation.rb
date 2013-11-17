@@ -47,8 +47,8 @@ class AssetDepreciation < Ekylibre::Record::Base
   belongs_to :financial_year
   belongs_to :journal_entry
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :asset_amount, :depreciated_amount, :allow_nil => true
-  validates_inclusion_of :accountable, :locked, :in => [true, false]
+  validates_numericality_of :amount, :asset_amount, :depreciated_amount, allow_nil: true
+  validates_inclusion_of :accountable, :locked, in: [true, false]
   validates_presence_of :amount, :asset, :created_on, :started_on, :stopped_on
   #]VALIDATORS]
   validates_presence_of :financial_year

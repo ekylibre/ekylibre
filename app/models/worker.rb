@@ -62,7 +62,7 @@
 #
 
 class Worker < Equipment
-  belongs_to :owner, :class_name => "Entity"
+  belongs_to :owner, class_name: "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 

@@ -55,17 +55,17 @@ class IncomingPayment < Ekylibre::Record::Base
   # attr_accessible :bank_account_number, :amount, :bank_name, :bank_check_number, :mode_id, :paid_on, :to_bank_on, :received, :responsible_id, :payer_id
   attr_readonly :payer_id
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, :if => Proc.new{ self.deposit and self.deposit.locked? }
-  belongs_to :commission_account, :class_name => "Account"
-  belongs_to :responsible, :class_name => "User"
+  belongs_to :commission_account, class_name: "Account"
+  belongs_to :responsible, class_name: "User"
   belongs_to :deposit
   belongs_to :journal_entry
-  belongs_to :payer, :class_name => "Entity", :inverse_of => :incoming_payments
-  belongs_to :mode, :class_name => "IncomingPaymentMode"
+  belongs_to :payer, class_name: "Entity", inverse_of: :incoming_payments
+  belongs_to :mode, class_name: "IncomingPaymentMode"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :commission_amount, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :bank_account_number, :bank_check_number, :bank_name, :number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :downpayment, :received, :scheduled, :in => [true, false]
+  validates_numericality_of :amount, :commission_amount, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :bank_account_number, :bank_check_number, :bank_name, :number, allow_nil: true, maximum: 255
+  validates_inclusion_of :downpayment, :received, :scheduled, in: [true, false]
   validates_presence_of :amount, :commission_amount, :currency, :mode, :to_bank_on
   #]VALIDATORS]
   validates_numericality_of :amount, :greater_than => 0

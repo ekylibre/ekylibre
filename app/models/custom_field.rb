@@ -46,13 +46,13 @@ class CustomField < Ekylibre::Record::Base
   attr_readonly :nature
   enumerize :nature, :in => [:text, :decimal, :boolean, :date, :datetime, :choice], :predicates => true
   enumerize :customized_type, :in => Ekylibre.model_names, :predicates => {:prefix => true}
-  has_many :choices, -> { order(:position) }, :class_name => "CustomFieldChoice", :dependent => :delete_all, :inverse_of => :custom_field
+  has_many :choices, -> { order(:position) }, class_name: "CustomFieldChoice", dependent: :delete_all, inverse_of: :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :maximal_length, :minimal_length, :allow_nil => true, :only_integer => true
-  validates_numericality_of :maximal_value, :minimal_value, :allow_nil => true
-  validates_length_of :nature, :allow_nil => true, :maximum => 20
-  validates_length_of :column_name, :customized_type, :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :required, :in => [true, false]
+  validates_numericality_of :maximal_length, :minimal_length, allow_nil: true, only_integer: true
+  validates_numericality_of :maximal_value, :minimal_value, allow_nil: true
+  validates_length_of :nature, allow_nil: true, maximum: 20
+  validates_length_of :column_name, :customized_type, :name, allow_nil: true, maximum: 255
+  validates_inclusion_of :active, :required, in: [true, false]
   validates_presence_of :customized_type, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values

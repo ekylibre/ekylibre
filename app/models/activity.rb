@@ -43,8 +43,8 @@ class Activity < Ekylibre::Record::Base
   enumerize :family, :in => Nomen::ActivityFamilies.all, :predicate => true
   has_many :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :depth, :lft, :rgt, :allow_nil => true, :only_integer => true
-  validates_length_of :description, :family, :name, :nature, :allow_nil => true, :maximum => 255
+  validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
+  validates_length_of :description, :family, :name, :nature, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :family, :in => self.family.values, :allow_nil => true

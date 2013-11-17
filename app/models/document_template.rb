@@ -42,12 +42,12 @@ class DocumentTemplate < Ekylibre::Record::Base
   # attr_accessible :active, :archiving, :by_default, :language, :name, :nature, :managed, :source, :formats
   enumerize :archiving, :in => [:none_of_template, :first_of_template, :last_of_template, :all_of_template, :none, :first, :last, :all], :default => :none, :predicates => {:prefix => true}
   enumerize :nature, :in => Nomen::DocumentNatures.all, :predicates => {:prefix => true}
-  has_many :document_archives, :foreign_key => :template_id, :dependent => :nullify
+  has_many :document_archives, foreign_key: :template_id, dependent: :nullify
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :language, :allow_nil => true, :maximum => 3
-  validates_length_of :archiving, :nature, :allow_nil => true, :maximum => 60
-  validates_length_of :formats, :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :by_default, :managed, :in => [true, false]
+  validates_length_of :language, allow_nil: true, maximum: 3
+  validates_length_of :archiving, :nature, allow_nil: true, maximum: 60
+  validates_length_of :formats, :name, allow_nil: true, maximum: 255
+  validates_inclusion_of :active, :by_default, :managed, in: [true, false]
   validates_presence_of :archiving, :language, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values

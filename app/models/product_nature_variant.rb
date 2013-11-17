@@ -51,15 +51,15 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # attr_accessible :active, :commercial_name, :nature_id, :nature_name, :unit_name, :name, :indicator_data_attributes, :products_attributes, :prices_attributes
   enumerize :variety,       in: Nomen::Varieties.all
   enumerize :derivative_of, in: Nomen::Varieties.all
-  belongs_to :nature, class_name: "ProductNature", :inverse_of => :variants
-  has_many :products, :foreign_key => :variant_id
-  has_many :indicator_data, class_name: "ProductNatureVariantIndicatorDatum", :foreign_key => :variant_id
-  has_many :prices, class_name: "CatalogPrice", :foreign_key => :variant_id
+  belongs_to :nature, class_name: "ProductNature", inverse_of: :variants
+  has_many :products, foreign_key: :variant_id
+  has_many :indicator_data, class_name: "ProductNatureVariantIndicatorDatum", foreign_key: :variant_id
+  has_many :prices, class_name: "CatalogPrice", foreign_key: :variant_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :horizontal_rotation, :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 120
-  validates_length_of :commercial_name, :contour, :name, :nature_name, :number, :picture_content_type, :picture_file_name, :unit_name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :in => [true, false]
+  validates_numericality_of :horizontal_rotation, :picture_file_size, allow_nil: true, only_integer: true
+  validates_length_of :derivative_of, :nomen, :variety, allow_nil: true, maximum: 120
+  validates_length_of :commercial_name, :contour, :name, :nature_name, :number, :picture_content_type, :picture_file_name, :unit_name, allow_nil: true, maximum: 255
+  validates_inclusion_of :active, in: [true, false]
   validates_presence_of :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name, :variety
   #]VALIDATORS]
 

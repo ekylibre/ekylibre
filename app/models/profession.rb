@@ -34,10 +34,10 @@
 
 class Profession < Ekylibre::Record::Base
   # attr_accessible :name, :code, :commercial, :rome
-  has_many :employees, :class_name => "Entity"
+  has_many :employees, class_name: "Entity"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :code, :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :commercial, :in => [true, false]
+  validates_length_of :code, :name, allow_nil: true, maximum: 255
+  validates_inclusion_of :commercial, in: [true, false]
   validates_presence_of :name
   #]VALIDATORS]
 end

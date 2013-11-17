@@ -38,13 +38,13 @@
 
 class Catalog < Ekylibre::Record::Base
   enumerize :usage, in: [:purchase, :sale, :stock, :cost], default: :sale
-  has_many :active_prices, -> { where(:active => true) }, :class_name => "CatalogPrice"
-  has_many :prices, :class_name => "CatalogPrice", dependent: :destroy, inverse_of: :catalog
+  has_many :active_prices, -> { where(:active => true) }, class_name: "CatalogPrice"
+  has_many :prices, class_name: "CatalogPrice", dependent: :destroy, inverse_of: :catalog
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :code, :usage, :allow_nil => true, :maximum => 20
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :all_taxes_included, :by_default, :in => [true, false]
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :code, :usage, allow_nil: true, maximum: 20
+  validates_length_of :name, allow_nil: true, maximum: 255
+  validates_inclusion_of :all_taxes_included, :by_default, in: [true, false]
   validates_presence_of :code, :currency, :name, :usage
   #]VALIDATORS]
   validates_uniqueness_of :code

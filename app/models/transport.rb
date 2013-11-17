@@ -43,13 +43,13 @@
 class Transport < Ekylibre::Record::Base
   acts_as_numbered
   # attr_accessible :description, :purchase_id, :reference_number, :responsible_id, :transport_on, :transporter_id, :weight
-  belongs_to :responsible, :class_name => "User"
-  belongs_to :transporter, :class_name => "Entity"
-  has_many :deliveries, :dependent => :nullify, :class_name => "OutgoingDelivery"
+  belongs_to :responsible, class_name: "User"
+  belongs_to :transporter, class_name: "Entity"
+  has_many :deliveries, dependent: :nullify, class_name: "OutgoingDelivery"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :weight, :allow_nil => true
-  validates_length_of :number, :reference_number, :allow_nil => true, :maximum => 255
+  validates_numericality_of :amount, :pretax_amount, :weight, allow_nil: true
+  validates_length_of :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :amount, :pretax_amount, :transporter
   #]VALIDATORS]
 

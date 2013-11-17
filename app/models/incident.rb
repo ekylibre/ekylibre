@@ -43,11 +43,11 @@
 class Incident < Ekylibre::Record::Base
   # attr_accessible :name, :nature, :observed_at, :description, :priority, :gravity, :target_id, :target_type
   enumerize :nature, :in => Nomen::Incidents.all, :default => Nomen::Incidents.default, :predicates => {:prefix => true}
-  has_many :procedures, :class_name => "Intervention"
+  has_many :procedures, class_name: "Intervention"
   belongs_to :target , :polymorphic => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :gravity, :picture_file_size, :priority, :allow_nil => true, :only_integer => true
-  validates_length_of :name, :nature, :picture_content_type, :picture_file_name, :state, :target_type, :allow_nil => true, :maximum => 255
+  validates_numericality_of :gravity, :picture_file_size, :priority, allow_nil: true, only_integer: true
+  validates_length_of :name, :nature, :picture_content_type, :picture_file_name, :state, :target_type, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature, :observed_at, :target, :target_type
   #]VALIDATORS]
   validates_inclusion_of :priority, :in => 0..5

@@ -53,18 +53,18 @@ class ProductNature < Ekylibre::Record::Base
   enumerize :derivative_of, in: Nomen::Varieties.all
   # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :population_counting, in: Nomen::ProductNatures.attributes[:population_counting].choices, :predicates => {:prefix => true}, :default => Nomen::ProductNatures.attributes[:population_counting].choices.first
-   # has_many :available_stocks, :class_name => "ProductStock", :conditions => ["quantity > 0"], :foreign_key => :product_id
-  #has_many :prices, :foreign_key => :product_nature_id, :class_name => "ProductPriceTemplate"
-  belongs_to :category, :class_name => "ProductNatureCategory"
-  has_many :products, :foreign_key => :nature_id
-  has_many :variants, :class_name => "ProductNatureVariant", :foreign_key => :nature_id, :inverse_of => :nature
-  has_one :default_variant, -> { order(:id) }, :class_name => "ProductNatureVariant", :foreign_key => :nature_id
+   # has_many :available_stocks, class_name: "ProductStock", :conditions => ["quantity > 0"], foreign_key: :product_id
+  #has_many :prices, foreign_key: :product_nature_id, class_name: "ProductPriceTemplate"
+  belongs_to :category, class_name: "ProductNatureCategory"
+  has_many :products, foreign_key: :nature_id
+  has_many :variants, class_name: "ProductNatureVariant", foreign_key: :nature_id, inverse_of: :nature
+  has_one :default_variant, -> { order(:id) }, class_name: "ProductNatureVariant", foreign_key: :nature_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_length_of :number, :allow_nil => true, :maximum => 30
-  validates_length_of :derivative_of, :nomen, :variety, :allow_nil => true, :maximum => 120
-  validates_length_of :name, :picture_content_type, :picture_file_name, :population_counting, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :evolvable, :in => [true, false]
+  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
+  validates_length_of :number, allow_nil: true, maximum: 30
+  validates_length_of :derivative_of, :nomen, :variety, allow_nil: true, maximum: 120
+  validates_length_of :name, :picture_content_type, :picture_file_name, :population_counting, allow_nil: true, maximum: 255
+  validates_inclusion_of :active, :evolvable, in: [true, false]
   validates_presence_of :category, :name, :number, :population_counting, :variety
   #]VALIDATORS]
   validates_uniqueness_of :number

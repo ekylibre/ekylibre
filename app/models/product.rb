@@ -68,28 +68,28 @@ class Product < Ekylibre::Record::Base
   enumerize :content_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
   enumerize :content_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
   enumerize :initial_arrival_cause, :in => [:birth, :housing, :other, :purchase], :default => :birth, :predicates =>{prefix: true}
-  belongs_to :nature, :class_name => "ProductNature"
-  belongs_to :category, :class_name => "ProductNatureCategory"
+  belongs_to :nature, class_name: "ProductNature"
+  belongs_to :category, class_name: "ProductNatureCategory"
   belongs_to :asset
   belongs_to :tracking
-  belongs_to :initial_container, :class_name => "Product"
-  belongs_to :initial_owner, :class_name => "Entity"
-  belongs_to :content_nature, :class_name => "ProductNature"
-  belongs_to :father, :class_name => "Product"
-  belongs_to :mother, :class_name => "Product"
-  belongs_to :variant, :class_name => "ProductNatureVariant"
-  has_many :incidents, :class_name => "Incident", :as => :target
-  has_many :indicator_data, :class_name => "ProductIndicatorDatum", :dependent => :destroy
+  belongs_to :initial_container, class_name: "Product"
+  belongs_to :initial_owner, class_name: "Entity"
+  belongs_to :content_nature, class_name: "ProductNature"
+  belongs_to :father, class_name: "Product"
+  belongs_to :mother, class_name: "Product"
+  belongs_to :variant, class_name: "ProductNatureVariant"
+  has_many :incidents, class_name: "Incident", :as => :target
+  has_many :indicator_data, class_name: "ProductIndicatorDatum", dependent: :destroy
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
   has_many :groups, :through => :memberships
-  has_many :phases, :class_name => "ProductPhase"
-  has_many :variants, :class_name => "ProductNatureVariant", :through => :phases
-  has_many :memberships, :class_name => "ProductMembership", :foreign_key => :member_id
-  has_many :operation_tasks, :foreign_key => :subject_id
-  has_many :localizations, :class_name => "ProductLocalization", :foreign_key => :product_id
-  has_many :ownerships, :class_name => "ProductOwnership", :foreign_key => :product_id
-  has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id, :inverse_of => :storage
-  has_one :current_phase, -> { order("started_at DESC") }, :class_name => "ProductPhase", :foreign_key => :product_id
+  has_many :phases, class_name: "ProductPhase"
+  has_many :variants, class_name: "ProductNatureVariant", :through => :phases
+  has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
+  has_many :operation_tasks, foreign_key: :subject_id
+  has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id
+  has_many :ownerships, class_name: "ProductOwnership", foreign_key: :product_id
+  has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
+  has_one :current_phase, -> { order("started_at DESC") }, class_name: "ProductPhase", foreign_key: :product_id
   has_one :current_localization, -> {
     now = Time.now
     where('? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)', now, now, now).order(:id)
@@ -98,7 +98,7 @@ class Product < Ekylibre::Record::Base
     now = Time.now
     where('? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)', now, now, now).order(:id)
   }, class_name: "ProductOwnership", foreign_key: :product_id
-  has_one :last_localization,-> { order("started_at DESC") }, :class_name => "ProductLocalization", :foreign_key => :product_id
+  has_one :last_localization,-> { order("started_at DESC") }, class_name: "ProductLocalization", foreign_key: :product_id
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -173,11 +173,11 @@ class Product < Ekylibre::Record::Base
   scope :production_supports,  -> { where(variety: ["cultivable_land_parcel"]) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_numericality_of :content_maximal_quantity, :initial_population, :allow_nil => true
-  validates_length_of :derivative_of, :initial_arrival_cause, :variety, :allow_nil => true, :maximum => 120
-  validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :reservoir, :in => [true, false]
+  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
+  validates_numericality_of :content_maximal_quantity, :initial_population, allow_nil: true
+  validates_length_of :derivative_of, :initial_arrival_cause, :variety, allow_nil: true, maximum: 120
+  validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, allow_nil: true, maximum: 255
+  validates_inclusion_of :reservoir, in: [true, false]
   validates_presence_of :category, :content_maximal_quantity, :name, :nature, :number, :variant, :variety
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name

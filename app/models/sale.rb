@@ -69,28 +69,28 @@ class Sale < Ekylibre::Record::Base
   # attr_accessible :address_id, :annotation, :client_id, :description, :conclusion, :delivery_address_id, :function_title, :introduction, :invoice_address_id, :items_attributes, :letter_format, :nature_id, :reference_number, :responsible_id, :subject, :sum_method, :transporter_id
   attr_readonly :created_on, :currency
   # attr_protected :pretax_amount, :amount
-  belongs_to :client, :class_name => "Entity"
-  belongs_to :payer, :class_name => "Entity", :foreign_key => :client_id
-  belongs_to :address, :class_name => "EntityAddress"
-  belongs_to :delivery_address, :class_name => "EntityAddress"
-  belongs_to :invoice_address, :class_name => "EntityAddress"
+  belongs_to :client, class_name: "Entity"
+  belongs_to :payer, class_name: "Entity", foreign_key: :client_id
+  belongs_to :address, class_name: "EntityAddress"
+  belongs_to :delivery_address, class_name: "EntityAddress"
+  belongs_to :invoice_address, class_name: "EntityAddress"
   belongs_to :journal_entry
-  belongs_to :nature, :class_name => "SaleNature"
-  belongs_to :origin, :class_name => "Sale"
-  belongs_to :responsible, :class_name => "User"
-  belongs_to :transporter, :class_name => "Entity"
-  has_many :credits, :class_name => "Sale", :foreign_key => :origin_id
-  has_many :deliveries, :class_name => "OutgoingDelivery", :dependent => :destroy, :inverse_of => :sale
+  belongs_to :nature, class_name: "SaleNature"
+  belongs_to :origin, class_name: "Sale"
+  belongs_to :responsible, class_name: "User"
+  belongs_to :transporter, class_name: "Entity"
+  has_many :credits, class_name: "Sale", foreign_key: :origin_id
+  has_many :deliveries, class_name: "OutgoingDelivery", dependent: :destroy, inverse_of: :sale
   has_many :documents, :as => :owner
-  has_many :items, -> { order("position, id") }, :class_name => "SaleItem", :foreign_key => :sale_id, :dependent => :destroy, :inverse_of => :sale
+  has_many :items, -> { order("position, id") }, class_name: "SaleItem", foreign_key: :sale_id, dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, :as => :resource
-  has_many :subscriptions, :class_name => "Subscription"
+  has_many :subscriptions, class_name: "Subscription"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :downpayment_amount, :pretax_amount, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :initial_number, :number, :state, :allow_nil => true, :maximum => 60
-  validates_length_of :expiration_delay, :function_title, :payment_delay, :reference_number, :subject, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :credit, :has_downpayment, :letter_format, :in => [true, false]
+  validates_numericality_of :amount, :downpayment_amount, :pretax_amount, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :initial_number, :number, :state, allow_nil: true, maximum: 60
+  validates_length_of :expiration_delay, :function_title, :payment_delay, :reference_number, :subject, allow_nil: true, maximum: 255
+  validates_inclusion_of :credit, :has_downpayment, :letter_format, in: [true, false]
   validates_presence_of :amount, :client, :created_on, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature

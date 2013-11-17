@@ -38,13 +38,13 @@
 class OutgoingPaymentMode < Ekylibre::Record::Base
   acts_as_list
   # attr_accessible :attorney_journal_id, :cash_id, :name, :position, :with_accounting
-  belongs_to :attorney_journal, :class_name => "Journal"
+  belongs_to :attorney_journal, class_name: "Journal"
   belongs_to :cash
-  has_many :payments, :class_name => "OutgoingPayment", :foreign_key => :mode_id
+  has_many :payments, class_name: "OutgoingPayment", foreign_key: :mode_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :allow_nil => true, :maximum => 50
-  validates_inclusion_of :active, :with_accounting, :in => [true, false]
+  validates_length_of :name, allow_nil: true, maximum: 50
+  validates_inclusion_of :active, :with_accounting, in: [true, false]
   validates_presence_of :name
   #]VALIDATORS]
   validates_presence_of :attorney_journal, :if => :with_accounting?

@@ -45,13 +45,13 @@
 class PurchaseItem < Ekylibre::Record::Base
   # attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :price_amount, :purchase_id, :tax_id, :unit
   belongs_to :account
-  # belongs_to :building, :foreign_key => :warehouse_id
-  belongs_to :purchase, :inverse_of => :items
+  # belongs_to :building, foreign_key: :warehouse_id
+  belongs_to :purchase, inverse_of: :items
   # belongs_to :price, class_name: "CatalogPrice"
   belongs_to :variant, class_name: "ProductNatureVariant"
   belongs_to :tax
   # enumerize :unit, :in => Nomen::Units.all
-  has_many :delivery_items, class_name: "IncomingDeliveryItem", :foreign_key => :purchase_item_id
+  has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
 
   # accepts_nested_attributes_for :price
   delegate :purchased?, :draft?, :order?, :supplier, :to => :purchase
@@ -63,9 +63,9 @@ class PurchaseItem < Ekylibre::Record::Base
   sums :purchase, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :unit_price_amount, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :indicator, :allow_nil => true, :maximum => 120
+  validates_numericality_of :amount, :pretax_amount, :quantity, :unit_price_amount, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :indicator, allow_nil: true, maximum: 120
   validates_presence_of :account, :amount, :currency, :indicator, :pretax_amount, :purchase, :quantity, :tax, :unit_price_amount, :variant
   #]VALIDATORS]
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators

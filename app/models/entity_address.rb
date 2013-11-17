@@ -49,8 +49,8 @@
 class EntityAddress < Ekylibre::Record::Base
   attr_readonly   :entity_id
   # attr_accessible :entity_id, :name, :by_default, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :mail_country
-  belongs_to :mail_area, :class_name => "Area"
-  belongs_to :entity, :inverse_of => :addresses
+  belongs_to :mail_area, class_name: "Area"
+  belongs_to :entity, inverse_of: :addresses
   has_many :incoming_deliveries
   has_many :outgoing_deliveries
   has_many :purchases
@@ -60,12 +60,12 @@ class EntityAddress < Ekylibre::Record::Base
   enumerize :canal, :in => [:mail, :email, :phone, :mobile, :fax, :website], :default => :email, :predicates => true
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :mail_country, :allow_nil => true, :maximum => 2
-  validates_length_of :thread, :allow_nil => true, :maximum => 10
-  validates_length_of :canal, :allow_nil => true, :maximum => 20
-  validates_length_of :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :name, :allow_nil => true, :maximum => 255
-  validates_length_of :coordinate, :allow_nil => true, :maximum => 500
-  validates_inclusion_of :by_default, :mail_auto_update, :in => [true, false]
+  validates_length_of :mail_country, allow_nil: true, maximum: 2
+  validates_length_of :thread, allow_nil: true, maximum: 10
+  validates_length_of :canal, allow_nil: true, maximum: 20
+  validates_length_of :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :name, allow_nil: true, maximum: 255
+  validates_length_of :coordinate, allow_nil: true, maximum: 500
+  validates_inclusion_of :by_default, :mail_auto_update, in: [true, false]
   validates_presence_of :canal, :coordinate, :entity
   #]VALIDATORS]
   validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :if => :email?

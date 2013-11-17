@@ -35,10 +35,10 @@
 class Prescription < Ekylibre::Record::Base
   # attr_accessible :reference_number, :prescriptor_id, :document_id, :delivered_on, :description
   belongs_to :document
-  belongs_to :prescriptor, :class_name => "Entity"
-  has_many :procedures, :inverse_of => :prescription
+  belongs_to :prescriptor, class_name: "Entity"
+  has_many :procedures, inverse_of: :prescription
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :reference_number, :allow_nil => true, :maximum => 255
+  validates_length_of :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :prescriptor
   #]VALIDATORS]
 

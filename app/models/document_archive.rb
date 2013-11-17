@@ -43,8 +43,8 @@ class DocumentArchive < Ekylibre::Record::Base
     Ekylibre.private_directory.join('document-archives')
   end
 
-  belongs_to :document, :counter_cache => :archives_count, :inverse_of => :archives
-  belongs_to :template, :class_name => "DocumentTemplate"
+  belongs_to :document, :counter_cache => :archives_count, inverse_of: :archives
+  belongs_to :template, class_name: "DocumentTemplate"
   has_attached_file :file, {
     :path => self.private_directory.join(':id_partition', ':style.:extension').to_s,
     :styles => {
@@ -53,8 +53,8 @@ class DocumentArchive < Ekylibre::Record::Base
     }
   }
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :file_file_size, :allow_nil => true, :only_integer => true
-  validates_length_of :file_content_type, :file_file_name, :file_fingerprint, :allow_nil => true, :maximum => 255
+  validates_numericality_of :file_file_size, allow_nil: true, only_integer: true
+  validates_length_of :file_content_type, :file_file_name, :file_fingerprint, allow_nil: true, maximum: 255
   validates_presence_of :archived_at, :document
   #]VALIDATORS]
   validates_presence_of :archived_at

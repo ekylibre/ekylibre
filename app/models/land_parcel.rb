@@ -65,12 +65,12 @@
 
 class LandParcel < Easement
   # attr_accessible :name, :born_at, :dead_at, :identification_number, :shape, :variety
-  # belongs_to :area_unit, :class_name => "Unit"
+  # belongs_to :area_unit, class_name: "Unit"
   # TODO : adapt with operations
   # has_many :operations, :as => :target
   # TODO : waiting for "merge" operation type
-  # has_many :parent_kinships, :class_name => "LandParcelKinship", :foreign_key => :child_land_parcel_id, :dependent => :destroy
-  # has_many :child_kinships, :class_name => "LandParcelKinship", :foreign_key => :parent_land_parcel_id, :dependent => :destroy
+  # has_many :parent_kinships, class_name: "LandParcelKinship", foreign_key: :child_land_parcel_id, dependent: :destroy
+  # has_many :child_kinships, class_name: "LandParcelKinship", foreign_key: :parent_land_parcel_id, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
   validates_presence_of :born_at # :area_measure, :area_unit,

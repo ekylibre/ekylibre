@@ -38,13 +38,13 @@
 
 class InventoryItem < Ekylibre::Record::Base
   # attr_accessible :product_id, :quantity, :unit, :building_id
-  belongs_to :inventory, :inverse_of => :items
+  belongs_to :inventory, inverse_of: :items
   belongs_to :product
-  belongs_to :move, :class_name => "ProductMove"
+  belongs_to :move, class_name: "ProductMove"
   enumerize :unit, :in => Nomen::Units.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity, :theoric_quantity, :allow_nil => true
+  validates_numericality_of :quantity, :theoric_quantity, allow_nil: true
   validates_presence_of :inventory, :product, :quantity, :theoric_quantity
   #]VALIDATORS]
 

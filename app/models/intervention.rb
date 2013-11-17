@@ -54,8 +54,8 @@ class Intervention < Ekylibre::Record::Base
   enumerize :procedure, :in => Procedo.names.sort
   enumerize :state, :in => [:undone, :squeezed, :in_progress, :done], :default => :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :natures, :procedure, :ressource_type, :state, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :provisional, :in => [true, false]
+  validates_length_of :natures, :procedure, :ressource_type, :state, allow_nil: true, maximum: 255
+  validates_inclusion_of :provisional, in: [true, false]
   validates_presence_of :natures, :procedure, :production, :state
   #]VALIDATORS]
   validates_inclusion_of :procedure, :in => self.procedure.values

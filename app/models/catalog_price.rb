@@ -42,20 +42,20 @@
 # CatalogPrice stores.all the prices used in sales and purchases.
 class CatalogPrice < Ekylibre::Record::Base
   # attr_accessible :listing_id, :product_id, :variant_id, :pretax_amount, :amount, :tax_id, :currency, :supplier_id
-  belongs_to :variant, :class_name => "ProductNatureVariant"
-  # belongs_to :supplier, :class_name => "Entity"
-  belongs_to :reference_tax, :class_name => "Tax"
+  belongs_to :variant, class_name: "ProductNatureVariant"
+  # belongs_to :supplier, class_name: "Entity"
+  belongs_to :reference_tax, class_name: "Tax"
   belongs_to :catalog
-  has_many :incoming_delivery_items, :foreign_key => :price_id
-  has_many :outgoing_delivery_items, :foreign_key => :price_id
-  has_many :purchase_items, :foreign_key => :price_id
-  has_many :sale_items, :foreign_key => :price_id
+  has_many :incoming_delivery_items, foreign_key: :price_id
+  has_many :outgoing_delivery_items, foreign_key: :price_id
+  has_many :purchase_items, foreign_key: :price_id
+  has_many :sale_items, foreign_key: :price_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :thread, :allow_nil => true, :maximum => 20
-  validates_length_of :indicator, :allow_nil => true, :maximum => 120
-  validates_inclusion_of :all_taxes_included, :in => [true, false]
+  validates_numericality_of :amount, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :thread, allow_nil: true, maximum: 20
+  validates_length_of :indicator, allow_nil: true, maximum: 120
+  validates_inclusion_of :all_taxes_included, in: [true, false]
   validates_presence_of :amount, :catalog, :currency, :indicator, :variant
   #]VALIDATORS]
   validates_presence_of :started_at

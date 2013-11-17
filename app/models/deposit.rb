@@ -45,16 +45,16 @@ class Deposit < Ekylibre::Record::Base
   # attr_accessible :cash_id, :description, :created_on, :mode_id, :number, :responsible_id
   acts_as_numbered
   belongs_to :cash
-  belongs_to :responsible, :class_name => "User"
+  belongs_to :responsible, class_name: "User"
   belongs_to :journal_entry
-  belongs_to :mode, :class_name => "IncomingPaymentMode"
-  has_many :items, :class_name => "DepositItem", :inverse_of => :deposit
-  has_many :payments, -> { order("number") }, :class_name => "IncomingPayment", :dependent => :nullify
+  belongs_to :mode, class_name: "IncomingPaymentMode"
+  has_many :items, class_name: "DepositItem", inverse_of: :deposit
+  has_many :payments, -> { order("number") }, class_name: "IncomingPayment", dependent: :nullify
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :allow_nil => true
-  validates_length_of :number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :in_cash, :locked, :in => [true, false]
+  validates_numericality_of :amount, allow_nil: true
+  validates_length_of :number, allow_nil: true, maximum: 255
+  validates_inclusion_of :in_cash, :locked, in: [true, false]
   validates_presence_of :amount, :cash, :created_on, :mode, :number
   #]VALIDATORS]
   validates_presence_of :responsible, :cash

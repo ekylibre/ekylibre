@@ -48,14 +48,14 @@
 class SaleNature < Ekylibre::Record::Base
   # attr_accessible :name, :active, :currency, :downpayment, :downpayment_minimum, :downpayment_percentage, :expiration_delay, :journal_id, :payment_delay, :payment_mode_complement, :payment_mode_id, :sales_conditions, :with_accounting
   belongs_to :journal
-  belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
+  belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   has_many :sales
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :downpayment_minimum, :downpayment_percentage, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :expiration_delay, :name, :payment_delay, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :by_default, :downpayment, :with_accounting, :in => [true, false]
+  validates_numericality_of :downpayment_minimum, :downpayment_percentage, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :expiration_delay, :name, :payment_delay, allow_nil: true, maximum: 255
+  validates_inclusion_of :active, :by_default, :downpayment, :with_accounting, in: [true, false]
   validates_presence_of :currency, :expiration_delay, :name, :payment_delay
   #]VALIDATORS]
   validates_presence_of :journal, :if => :with_accounting?

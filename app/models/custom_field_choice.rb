@@ -35,10 +35,10 @@
 
 class CustomFieldChoice < Ekylibre::Record::Base
   # attr_accessible :name, :custom_field_id, :position
-  belongs_to :custom_field, :inverse_of => :choices
+  belongs_to :custom_field, inverse_of: :choices
   acts_as_list :scope => :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :name, :value, :allow_nil => true, :maximum => 255
+  validates_length_of :name, :value, allow_nil: true, maximum: 255
   validates_presence_of :custom_field, :name
   #]VALIDATORS]
   validates_presence_of :value

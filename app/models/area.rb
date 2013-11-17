@@ -39,10 +39,10 @@
 class Area < Ekylibre::Record::Base
   # attr_accessible :code, :name, :district_id, :country
   belongs_to :district
-  has_many :mail_addresses, :class_name => "EntityAddress", :foreign_key => :mail_area_id
+  has_many :mail_addresses, class_name: "EntityAddress", foreign_key: :mail_area_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :country, :allow_nil => true, :maximum => 2
-  validates_length_of :city, :city_name, :code, :name, :postcode, :allow_nil => true, :maximum => 255
+  validates_length_of :country, allow_nil: true, maximum: 2
+  validates_length_of :city, :city_name, :code, :name, :postcode, allow_nil: true, maximum: 255
   validates_presence_of :country, :name, :postcode
   #]VALIDATORS]
 

@@ -46,17 +46,17 @@
 class Subscription < Ekylibre::Record::Base
   acts_as_numbered
   # attr_accessible :address_id, :description, :first_number, :last_number, :started_on, :stopped_on, :suspended, :sale_item_id, :nature_id
-  belongs_to :address, :class_name => "EntityAddress"
-  belongs_to :subscriber, :class_name => "Entity"
-  belongs_to :nature, :class_name => "SubscriptionNature"
+  belongs_to :address, class_name: "EntityAddress"
+  belongs_to :subscriber, class_name: "Entity"
+  belongs_to :nature, class_name: "SubscriptionNature"
   belongs_to :product_nature
   belongs_to :sale
-  belongs_to :sale_item, :class_name => "SaleItem"
+  belongs_to :sale_item, class_name: "SaleItem"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :first_number, :last_number, :allow_nil => true, :only_integer => true
-  validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :suspended, :in => [true, false]
+  validates_numericality_of :first_number, :last_number, allow_nil: true, only_integer: true
+  validates_numericality_of :quantity, allow_nil: true
+  validates_length_of :number, allow_nil: true, maximum: 255
+  validates_inclusion_of :suspended, in: [true, false]
   #]VALIDATORS]
   validates_presence_of :started_on, :stopped_on, :if => Proc.new{|u| u.nature and u.nature.period?}
   validates_presence_of :first_number, :last_number, :if => Proc.new{|u| u.nature and u.nature.quantity?}

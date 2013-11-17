@@ -37,11 +37,11 @@
 class ProductProcess < Ekylibre::Record::Base
   # attr_accessible :variety, :name, :nature, :description, :repeatable
   enumerize :nature, :in => [:life, :production, :environment]
-  # belongs_to :variety, :class_name => "ProductVariety"
+  # belongs_to :variety, class_name: "ProductVariety"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :variety, :allow_nil => true, :maximum => 120
-  validates_length_of :description, :name, :nature, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :repeatable, :in => [true, false]
+  validates_length_of :variety, allow_nil: true, maximum: 120
+  validates_length_of :description, :name, :nature, allow_nil: true, maximum: 255
+  validates_inclusion_of :repeatable, in: [true, false]
   validates_presence_of :name, :nature, :variety
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values

@@ -44,8 +44,8 @@ class AccountBalance < Ekylibre::Record::Base
   belongs_to :account
   belongs_to :financial_year
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :global_balance, :global_credit, :global_debit, :local_balance, :local_credit, :local_debit, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 255
+  validates_numericality_of :global_balance, :global_credit, :global_debit, :local_balance, :local_credit, :local_debit, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 255
   validates_presence_of :account, :currency, :financial_year, :global_balance, :global_credit, :global_debit, :local_balance, :local_credit, :local_debit
   #]VALIDATORS]
   validates_uniqueness_of :account_id, :scope=>:financial_year_id

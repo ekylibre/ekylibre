@@ -37,7 +37,7 @@ class ProductionSupport < Ekylibre::Record::Base
   belongs_to :production, inverse_of: :supports
   has_many :interventions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :exclusive, :in => [true, false]
+  validates_inclusion_of :exclusive, in: [true, false]
   validates_presence_of :production, :storage
   #]VALIDATORS]
   validates_uniqueness_of :storage_id, scope: :production_id

@@ -45,14 +45,14 @@
 class CashTransfer < Ekylibre::Record::Base
   acts_as_numbered
   attr_readonly :number
-  belongs_to :emission_cash, :class_name => "Cash"
-  belongs_to :emission_journal_entry, :class_name => "JournalEntry"
-  belongs_to :reception_cash, :class_name => "Cash"
-  belongs_to :reception_journal_entry, :class_name => "JournalEntry"
+  belongs_to :emission_cash, class_name: "Cash"
+  belongs_to :emission_journal_entry, class_name: "JournalEntry"
+  belongs_to :reception_cash, class_name: "Cash"
+  belongs_to :reception_journal_entry, class_name: "JournalEntry"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :currency_rate, :emission_amount, :reception_amount, :allow_nil => true
-  validates_length_of :emission_currency, :reception_currency, :allow_nil => true, :maximum => 3
-  validates_length_of :number, :allow_nil => true, :maximum => 255
+  validates_numericality_of :currency_rate, :emission_amount, :reception_amount, allow_nil: true
+  validates_length_of :emission_currency, :reception_currency, allow_nil: true, maximum: 3
+  validates_length_of :number, allow_nil: true, maximum: 255
   validates_presence_of :currency_rate, :emission_amount, :emission_cash, :emission_currency, :number, :reception_amount, :reception_cash, :reception_currency
   #]VALIDATORS]
   validates_numericality_of :emission_amount, :reception_amount, :greater_than => 0.0

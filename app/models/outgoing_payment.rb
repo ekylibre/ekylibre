@@ -49,14 +49,14 @@ class OutgoingPayment < Ekylibre::Record::Base
   # attr_accessible :amount, :bank_check_number, :paid_on, :to_bank_on, :responsible_id, :payee_id, :mode_id, :delivered # , :used_amount
   belongs_to :cash
   belongs_to :journal_entry
-  belongs_to :mode, :class_name => "OutgoingPaymentMode"
-  belongs_to :payee, :class_name => "Entity"
-  belongs_to :responsible, :class_name => "User"
+  belongs_to :mode, class_name: "OutgoingPaymentMode"
+  belongs_to :payee, class_name: "Entity"
+  belongs_to :responsible, class_name: "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :bank_check_number, :number, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :delivered, :downpayment, :in => [true, false]
+  validates_numericality_of :amount, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :bank_check_number, :number, allow_nil: true, maximum: 255
+  validates_inclusion_of :delivered, :downpayment, in: [true, false]
   validates_presence_of :amount, :cash, :currency, :mode, :payee, :responsible, :to_bank_on
   #]VALIDATORS]
   validates_numericality_of :amount, :greater_than => 0

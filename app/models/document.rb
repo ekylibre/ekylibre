@@ -35,12 +35,12 @@
 
 class Document < Ekylibre::Record::Base
   # attr_accessible :name, :key ,:nature
-  has_many :archives, :class_name => "DocumentArchive", :dependent => :destroy, :inverse_of => :document
+  has_many :archives, class_name: "DocumentArchive", dependent: :destroy, inverse_of: :document
   enumerize :nature, :in => Nomen::DocumentNatures.all, :predicates => {:prefix => true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :number, :allow_nil => true, :maximum => 60
-  validates_length_of :nature, :allow_nil => true, :maximum => 120
-  validates_length_of :key, :name, :allow_nil => true, :maximum => 255
+  validates_length_of :number, allow_nil: true, maximum: 60
+  validates_length_of :nature, allow_nil: true, maximum: 120
+  validates_length_of :key, :name, allow_nil: true, maximum: 255
   validates_presence_of :key, :name, :nature, :number
   #]VALIDATORS]
   validates_uniqueness_of :key, :scope => :nature

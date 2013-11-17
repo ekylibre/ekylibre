@@ -36,11 +36,11 @@
 #
 class Event < Ekylibre::Record::Base
   belongs_to :nature, class_name: "EventNature"
-  has_many :participations, :class_name => "EventParticipation"
+  has_many :participations, class_name: "EventParticipation"
   has_many :participants, :through => :participations
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :duration, :allow_nil => true, :only_integer => true
-  validates_length_of :name, :place, :allow_nil => true, :maximum => 255
+  validates_numericality_of :duration, allow_nil: true, only_integer: true
+  validates_length_of :name, :place, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature, :started_at
   #]VALIDATORS]
 

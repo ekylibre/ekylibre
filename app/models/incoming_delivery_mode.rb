@@ -34,10 +34,10 @@
 
 class IncomingDeliveryMode < Ekylibre::Record::Base
   # attr_accessible :code, :description, :name
-  has_many :deliveries, :foreign_key => :mode_id, :class_name => "IncomingDelivery", :inverse_of => :mode
+  has_many :deliveries, foreign_key: :mode_id, class_name: "IncomingDelivery", inverse_of: :mode
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :code, :allow_nil => true, :maximum => 30
-  validates_length_of :name, :allow_nil => true, :maximum => 255
+  validates_length_of :code, allow_nil: true, maximum: 30
+  validates_length_of :name, allow_nil: true, maximum: 255
   validates_presence_of :code, :name
   #]VALIDATORS]
   validates_uniqueness_of :code, :name

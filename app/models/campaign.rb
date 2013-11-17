@@ -40,10 +40,10 @@ class Campaign < Ekylibre::Record::Base
   has_many :interventions, :through => :productions
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :harvest_year, :allow_nil => true, :only_integer => true
-  validates_length_of :number, :allow_nil => true, :maximum => 60
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :closed, :in => [true, false]
+  validates_numericality_of :harvest_year, allow_nil: true, only_integer: true
+  validates_length_of :number, allow_nil: true, maximum: 60
+  validates_length_of :name, allow_nil: true, maximum: 255
+  validates_inclusion_of :closed, in: [true, false]
   validates_presence_of :name, :number
   #]VALIDATORS]
 

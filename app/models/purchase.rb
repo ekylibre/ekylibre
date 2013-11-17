@@ -50,22 +50,22 @@
 class Purchase < Ekylibre::Record::Base
   # attr_accessible :confirmed_on, :description, :delivery_address_id, :items_attributes, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id, :created_on, :currency, :state
   attr_readonly :currency
-  belongs_to :delivery_address, :class_name => "EntityAddress"
+  belongs_to :delivery_address, class_name: "EntityAddress"
   belongs_to :journal_entry
-  belongs_to :nature, :class_name => "PurchaseNature"
-  belongs_to :payee, :class_name => "Entity", :foreign_key => :supplier_id
-  belongs_to :supplier, :class_name => "Entity"
-  belongs_to :responsible, :class_name => "User"
-  has_many :deliveries, :class_name => "IncomingDelivery"
+  belongs_to :nature, class_name: "PurchaseNature"
+  belongs_to :payee, class_name: "Entity", foreign_key: :supplier_id
+  belongs_to :supplier, class_name: "Entity"
+  belongs_to :responsible, class_name: "User"
+  has_many :deliveries, class_name: "IncomingDelivery"
   has_many :documents, :as => :owner
-  has_many :items, :class_name => "PurchaseItem", :foreign_key => :purchase_id, :inverse_of => :purchase
+  has_many :items, class_name: "PurchaseItem", foreign_key: :purchase_id, inverse_of: :purchase
   has_many :journal_entries, :as => :resource
   has_many :products, -> { uniq }, :through => :items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :number, :state, :allow_nil => true, :maximum => 60
-  validates_length_of :reference_number, :allow_nil => true, :maximum => 255
+  validates_numericality_of :amount, :pretax_amount, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :number, :state, allow_nil: true, maximum: 60
+  validates_length_of :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
   #]VALIDATORS]
   validates_presence_of :planned_on, :created_on, :currency, :state, :nature

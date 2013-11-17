@@ -37,16 +37,16 @@
 class OutgoingDeliveryItem < Ekylibre::Record::Base
   # attr_accessible :sale_item_id, :product_id, :price_id, :unit
   attr_readonly :sale_item_id, :product_id
-  belongs_to :delivery, :class_name => "OutgoingDelivery", :inverse_of => :items
-  # belongs_to :price, :class_name => "CatalogPrice"
-  belongs_to :source_product, :class_name => "Product"
+  belongs_to :delivery, class_name: "OutgoingDelivery", inverse_of: :items
+  # belongs_to :price, class_name: "CatalogPrice"
+  belongs_to :source_product, class_name: "Product"
   belongs_to :product
   belongs_to :sale_item
-  has_many :interventions, :class_name => "Intervention", :as => :ressource
-  # belongs_to :move, :class_name => "ProductMove"
+  has_many :interventions, class_name: "Intervention", :as => :ressource
+  # belongs_to :move, class_name: "ProductMove"
   #enumerize :unit, :in => Nomen::Units.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity, :allow_nil => true
+  validates_numericality_of :quantity, allow_nil: true
   validates_presence_of :delivery, :product, :quantity, :source_product
   #]VALIDATORS]
 

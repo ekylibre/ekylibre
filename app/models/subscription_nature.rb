@@ -42,15 +42,15 @@ class SubscriptionNature < Ekylibre::Record::Base
   enumerize :nature, :in => [:period, :quantity], :default => :period, :predicates => true
   enumerize :entity_link_nature, :in => Nomen::EntityLinkNatures.all
   enumerize :entity_link_direction, :in => [:direct, :indirect, :all], :default => :all, :predicates => {:prefix => true}
-  has_many :products, :class_name => "ProductNature"
-  has_many :subscriptions, :foreign_key => :nature_id
+  has_many :products, class_name: "ProductNature"
+  has_many :subscriptions, foreign_key: :nature_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :actual_number, :allow_nil => true, :only_integer => true
-  validates_numericality_of :reduction_percentage, :allow_nil => true
-  validates_length_of :entity_link_direction, :allow_nil => true, :maximum => 30
-  validates_length_of :entity_link_nature, :allow_nil => true, :maximum => 120
-  validates_length_of :name, :nature, :allow_nil => true, :maximum => 255
+  validates_numericality_of :actual_number, allow_nil: true, only_integer: true
+  validates_numericality_of :reduction_percentage, allow_nil: true
+  validates_length_of :entity_link_direction, allow_nil: true, maximum: 30
+  validates_length_of :entity_link_nature, allow_nil: true, maximum: 120
+  validates_length_of :name, :nature, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
   validates_numericality_of :reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100

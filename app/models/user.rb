@@ -74,22 +74,22 @@ class User < Ekylibre::Record::Base
   belongs_to :person
   belongs_to :role
   belongs_to :profession
-  # has_many :events, :class_name => "Event" #, :foreign_key => :responsible_id
-  # has_many :future_events, :class_name => "Event", :conditions => ["started_at >= CURRENT_TIMESTAMP"] # , :foreign_key => :responsible_id
-  has_many :preferences, :dependent => :destroy, :foreign_key => :user_id
-  has_many :sales_invoices, -> { where(:state => "invoice") }, :foreign_key => :responsible_id, :class_name => "Sale"
-  has_many :sales, :class_name => "Sale", :foreign_key => :responsible_id
-  has_many :transports, :class_name => "Transport", :foreign_key => :responsible_id
-  has_many :unpaid_sales, -> { order("created_on").where("state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false) }, :class_name => "Sale", :foreign_key => :responsible_id
+  # has_many :events, class_name: "Event" #, foreign_key: :responsible_id
+  # has_many :future_events, class_name: "Event", :conditions => ["started_at >= CURRENT_TIMESTAMP"] # , foreign_key: :responsible_id
+  has_many :preferences, dependent: :destroy, foreign_key: :user_id
+  has_many :sales_invoices, -> { where(:state => "invoice") }, foreign_key: :responsible_id, class_name: "Sale"
+  has_many :sales, class_name: "Sale", foreign_key: :responsible_id
+  has_many :transports, class_name: "Transport", foreign_key: :responsible_id
+  has_many :unpaid_sales, -> { order("created_on").where("state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false) }, class_name: "Sale", foreign_key: :responsible_id
 
   scope :employees, -> { where(:employed => true) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :failed_attempts, :allow_nil => true, :only_integer => true
-  validates_numericality_of :maximal_grantable_reduction_percentage, :allow_nil => true
-  validates_length_of :language, :allow_nil => true, :maximum => 3
-  validates_length_of :authentication_token, :confirmation_token, :current_sign_in_ip, :email, :employment, :encrypted_password, :first_name, :last_name, :last_sign_in_ip, :office, :reset_password_token, :unconfirmed_email, :unlock_token, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :administrator, :commercial, :employed, :locked, :in => [true, false]
+  validates_numericality_of :failed_attempts, allow_nil: true, only_integer: true
+  validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
+  validates_length_of :language, allow_nil: true, maximum: 3
+  validates_length_of :authentication_token, :confirmation_token, :current_sign_in_ip, :email, :employment, :encrypted_password, :first_name, :last_name, :last_sign_in_ip, :office, :reset_password_token, :unconfirmed_email, :unlock_token, allow_nil: true, maximum: 255
+  validates_inclusion_of :administrator, :commercial, :employed, :locked, in: [true, false]
   validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage, :role
   #]VALIDATORS]
   # validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.encrypted_password.blank? and e.loggable?}

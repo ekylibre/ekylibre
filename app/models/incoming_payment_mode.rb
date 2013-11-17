@@ -47,20 +47,20 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   # attr_accessible :cash_id, :attorney_journal_id, :commission_account_id, :commission_base_amount, :commission_percentage, :depositables_account_id, :depositables_journal_id, :detail_payments, :name, :position, :with_accounting, :with_commission, :with_deposit
   attr_readonly :cash_id, :cash
   acts_as_list
-  belongs_to :attorney_journal, :class_name => "Journal"
+  belongs_to :attorney_journal, class_name: "Journal"
   belongs_to :cash
-  belongs_to :commission_account, :class_name => "Account"
-  belongs_to :depositables_account, :class_name => "Account"
-  belongs_to :depositables_journal, :class_name => "Journal"
-  has_many :depositable_payments, -> { where(:deposit_id => nil) }, :class_name => "IncomingPayment", :foreign_key => :mode_id
-  has_many :entities, :dependent => :nullify, :foreign_key => :payment_mode_id
-  has_many :payments, :foreign_key => :mode_id, :class_name => "IncomingPayment"
-  has_many :unlocked_payments, -> { where('journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})') }, :foreign_key => :mode_id, :class_name => "IncomingPayment"
+  belongs_to :commission_account, class_name: "Account"
+  belongs_to :depositables_account, class_name: "Account"
+  belongs_to :depositables_journal, class_name: "Journal"
+  has_many :depositable_payments, -> { where(:deposit_id => nil) }, class_name: "IncomingPayment", foreign_key: :mode_id
+  has_many :entities, dependent: :nullify, foreign_key: :payment_mode_id
+  has_many :payments, foreign_key: :mode_id, class_name: "IncomingPayment"
+  has_many :unlocked_payments, -> { where('journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})') }, foreign_key: :mode_id, class_name: "IncomingPayment"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :commission_base_amount, :commission_percentage, :allow_nil => true
-  validates_length_of :name, :allow_nil => true, :maximum => 50
-  validates_inclusion_of :detail_payments, :with_accounting, :with_commission, :with_deposit, :in => [true, false]
+  validates_numericality_of :commission_base_amount, :commission_percentage, allow_nil: true
+  validates_length_of :name, allow_nil: true, maximum: 50
+  validates_inclusion_of :detail_payments, :with_accounting, :with_commission, :with_deposit, in: [true, false]
   validates_presence_of :commission_base_amount, :commission_percentage, :name
   #]VALIDATORS]
   validates_numericality_of :commission_percentage, :greater_than_or_equal_to => 0, :if => :with_commission?

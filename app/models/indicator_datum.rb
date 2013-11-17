@@ -4,7 +4,7 @@ class IndicatorDatum < Ekylibre::Record::Base
   enumerize :indicator_datatype, :in => Nomen::Indicators.datatype.choices, :predicates => {:prefix => true}
   enumerize :measure_value_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
 
-  composed_of :measure_value, :class_name => "Measure", :mapping => [%w(measure_value_value value), %w(measure_value_unit unit)]
+  composed_of :measure_value, class_name: "Measure", :mapping => [%w(measure_value_value value), %w(measure_value_unit unit)]
 
   validates_inclusion_of :indicator, :in => self.indicator.values
   validates_inclusion_of :indicator_datatype, :in => self.indicator_datatype.values

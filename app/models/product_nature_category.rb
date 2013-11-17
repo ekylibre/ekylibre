@@ -49,21 +49,21 @@ class ProductNatureCategory < Ekylibre::Record::Base
 
   # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :pictogram, :in => Nomen::ProductNatureCategories.pictogram.choices, :predicates => {:prefix => true}
-  belongs_to :asset_account, :class_name => "Account"
-  belongs_to :charge_account, :class_name => "Account"
-  belongs_to :product_account, :class_name => "Account"
-  belongs_to :stock_account, :class_name => "Account"
+  belongs_to :asset_account, class_name: "Account"
+  belongs_to :charge_account, class_name: "Account"
+  belongs_to :product_account, class_name: "Account"
+  belongs_to :stock_account, class_name: "Account"
   belongs_to :subscription_nature
-  has_many :subscriptions, :foreign_key => :product_nature_id
-  has_many :natures, :class_name => "ProductNature", :foreign_key => :category_id, :inverse_of => :category
-  has_many :products, :foreign_key => :category_id
+  has_many :subscriptions, foreign_key: :product_nature_id
+  has_many :natures, class_name: "ProductNature", foreign_key: :category_id, inverse_of: :category
+  has_many :products, foreign_key: :category_id
   has_and_belongs_to_many :sale_taxes, class_name: "Tax", join_table: :product_cat_sale_taxes
   has_and_belongs_to_many :purchase_taxes, class_name: "Tax", join_table: :product_cat_purchase_taxes
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :number, :allow_nil => true, :maximum => 30
-  validates_length_of :nomen, :pictogram, :allow_nil => true, :maximum => 120
-  validates_length_of :name, :subscription_duration, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, :in => [true, false]
+  validates_length_of :number, allow_nil: true, maximum: 30
+  validates_length_of :nomen, :pictogram, allow_nil: true, maximum: 120
+  validates_length_of :name, :subscription_duration, allow_nil: true, maximum: 255
+  validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, in: [true, false]
   validates_presence_of :name, :number
   #]VALIDATORS]
   validates_presence_of :subscription_nature,   :if => :subscribing?

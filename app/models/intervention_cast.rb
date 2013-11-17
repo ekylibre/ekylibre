@@ -35,16 +35,16 @@
 #
 
 class InterventionCast < Ekylibre::Record::Base
-  belongs_to :intervention, :inverse_of => :casts
+  belongs_to :intervention, inverse_of: :casts
   belongs_to :actor, class_name: "Product", inverse_of: :intervention_casts
   belongs_to :variant, class_name: "ProductNatureVariant"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :variable, :allow_nil => true, :maximum => 255
-  validates_length_of :roles, :allow_nil => true, :maximum => 320
+  validates_numericality_of :quantity, allow_nil: true
+  validates_length_of :variable, allow_nil: true, maximum: 255
+  validates_length_of :roles, allow_nil: true, maximum: 320
   validates_presence_of :intervention, :variable
   #]VALIDATORS]
-  # composed_of :quantity, :class_name => "Measure", :mapping => [%w(measure_quantity value), %w(measure_unit unit)]
+  # composed_of :quantity, class_name: "Measure", :mapping => [%w(measure_quantity value), %w(measure_unit unit)]
 
   delegate :name, to: :actor, prefix: true
   delegate :evaluated_price, to: :actor

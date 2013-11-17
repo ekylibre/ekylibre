@@ -68,13 +68,13 @@ class Building < ProductGroup
   # attr_accessible :name, :address_id, :description, :nature_id, :owner_id, :reservoir, :variant_id, :content_maximal_quantity, :content_nature_id, :variety, :identification_number, :born_at, :work_number
   attr_readonly :reservoir
   has_shape
-  # belongs_to :address, :class_name => "EntityAddress"
+  # belongs_to :address, class_name: "EntityAddress"
   # belongs_to :establishment
-  # belongs_to :content_nature, :class_name => "ProductNature"
-  # has_many :purchase_items, :class_name => "PurchaseItem"
-  # has_many :sale_items, :class_name => "SaleItem"
-  # has_many :stock_moves, :class_name => "ProductMove"
-  # has_many :stock_transfers, :class_name => "ProductTransfer"
+  # belongs_to :content_nature, class_name: "ProductNature"
+  # has_many :purchase_items, class_name: "PurchaseItem"
+  # has_many :sale_items, class_name: "SaleItem"
+  # has_many :stock_moves, class_name: "ProductMove"
+  # has_many :stock_transfers, class_name: "ProductTransfer"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
   validates_presence_of :content_nature, :if => :reservoir?

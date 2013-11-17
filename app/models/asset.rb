@@ -54,17 +54,17 @@ class Asset < Ekylibre::Record::Base
   # attr_accessible :name, :started_on, :stopped_on, :description, :currency, :depreciation_method
   acts_as_numbered
   enumerize :depreciation_method, :in => [:simplified_linear, :linear], :predicates => {:prefix => true} # graduated
-  belongs_to :charges_account, :class_name => "Account"
-  belongs_to :allocation_account, :class_name => "Account"
-  belongs_to :journal, :class_name => "Journal"
-  has_many :depreciations, -> { order(:position) }, :class_name => "AssetDepreciation"
+  belongs_to :charges_account, class_name: "Account"
+  belongs_to :allocation_account, class_name: "Account"
+  belongs_to :journal, class_name: "Journal"
+  has_many :depreciations, -> { order(:position) }, class_name: "AssetDepreciation"
   has_many :products
-  has_many :planned_depreciations, -> { order(:position).where("NOT locked OR accounted_at IS NULL") }, :class_name => "AssetDepreciation", :dependent => :destroy
-  has_one :tool, :class_name => "Equipment"
+  has_many :planned_depreciations, -> { order(:position).where("NOT locked OR accounted_at IS NULL") }, class_name: "AssetDepreciation", dependent: :destroy
+  has_one :tool, class_name: "Equipment"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :depreciation_method, :name, :number, :allow_nil => true, :maximum => 255
+  validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :depreciation_method, :name, :number, allow_nil: true, maximum: 255
   validates_presence_of :allocation_account, :currency, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
   #]VALIDATORS]
   validates_uniqueness_of :name

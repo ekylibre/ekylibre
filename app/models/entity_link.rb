@@ -37,13 +37,13 @@
 
 class EntityLink < Ekylibre::Record::Base
   # attr_accessible :description, :entity_1_id, :entity_2_id, :nature, :started_at, :stopped_at
-  belongs_to :entity_1, :class_name => "Entity"
-  belongs_to :entity_2, :class_name => "Entity"
-  # belongs_to :nature, :class_name => "EntityLinkNature"
+  belongs_to :entity_1, class_name: "Entity"
+  belongs_to :entity_2, class_name: "Entity"
+  # belongs_to :nature, class_name: "EntityLinkNature"
   enumerize :nature, :in => Nomen::EntityLinkNatures.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nature, :allow_nil => true, :maximum => 255
+  validates_length_of :nature, allow_nil: true, maximum: 255
   validates_presence_of :entity_1, :entity_2, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, :in => self.nature.values

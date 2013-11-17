@@ -64,8 +64,8 @@
 
 class CultivableLandParcel < LandParcelGroup
   enumerize :variety, :in => Nomen::Varieties.all(:cultivable_land_parcel), :predicates => {:prefix => true}
-  has_many :supports, :class_name => "ProductionSupport", :foreign_key => :storage_id
-  has_many :productions, :class_name => "Production", :through => :supports
+  has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id
+  has_many :productions, class_name: "Production", :through => :supports
 
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

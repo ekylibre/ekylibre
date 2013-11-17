@@ -70,48 +70,48 @@ require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
   attr_accessor :password_confirmation, :old_password
-  # belongs_to :attorney_account, :class_name => "Account"
-  belongs_to :client_account, :class_name => "Account"
-  # belongs_to :nature, :class_name => "EntityNature"
+  # belongs_to :attorney_account, class_name: "Account"
+  belongs_to :client_account, class_name: "Account"
+  # belongs_to :nature, class_name: "EntityNature"
   enumerize :nature, :in => Nomen::EntityNatures.all, :default => Nomen::EntityNatures.default, :predicates => {:prefix => true}
-  # belongs_to :payment_mode, :class_name => "IncomingPaymentMode"
-  belongs_to :proposer, :class_name => "Entity"
-  belongs_to :responsible, :class_name => "User"
-  belongs_to :supplier_account, :class_name => "Account"
-  has_many :clients, :class_name => "Entity", :foreign_key => :responsible_id, :dependent => :nullify
-  has_many :addresses, -> { where(:deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :mails,     -> { where(:canal => "mail",    :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :emails,    -> { where(:canal => "email",   :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :phones,    -> { where(:canal => "phone",   :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :mobiles,   -> { where(:canal => "mobile",  :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :faxes,     -> { where(:canal => "fax",     :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :websites,  -> { where(:canal => "website", :deleted_at => nil) }, :class_name => "EntityAddress", :inverse_of => :entity
-  has_many :auto_updateable_addresses, -> { where(:deleted_at => nil, :mail_auto_update => true) }, :class_name => "EntityAddress"
-  has_many :direct_links, :class_name => "EntityLink", :foreign_key => :entity_1_id
-  has_many :product_events, :class_name => "Log", :foreign_key => :watcher_id
-  has_many :godchildren, :class_name => "Entity", :foreign_key => "proposer_id"
-  has_many :incoming_payments, :foreign_key => :payer_id, :inverse_of => :payer
-  has_many :indirect_links, :class_name => "EntityLink", :foreign_key => :entity_2_id
+  # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
+  belongs_to :proposer, class_name: "Entity"
+  belongs_to :responsible, class_name: "User"
+  belongs_to :supplier_account, class_name: "Account"
+  has_many :clients, class_name: "Entity", foreign_key: :responsible_id, dependent: :nullify
+  has_many :addresses, -> { where(:deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :mails,     -> { where(:canal => "mail",    :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :emails,    -> { where(:canal => "email",   :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :phones,    -> { where(:canal => "phone",   :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :mobiles,   -> { where(:canal => "mobile",  :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :faxes,     -> { where(:canal => "fax",     :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :websites,  -> { where(:canal => "website", :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :auto_updateable_addresses, -> { where(:deleted_at => nil, :mail_auto_update => true) }, class_name: "EntityAddress"
+  has_many :direct_links, class_name: "EntityLink", foreign_key: :entity_1_id
+  has_many :product_events, class_name: "Log", foreign_key: :watcher_id
+  has_many :godchildren, class_name: "Entity", foreign_key: "proposer_id"
+  has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
+  has_many :indirect_links, class_name: "EntityLink", foreign_key: :entity_2_id
   has_many :mandates
-  has_many :ownerships, :class_name => "ProductOwnership", :foreign_key => :powner_id
+  has_many :ownerships, class_name: "ProductOwnership", foreign_key: :powner_id
   has_many :observations, :as => :subject
-  has_many :participations, :class_name => "EventParticipation", :foreign_key => :participant_id
-  has_many :prices, :class_name => "ProductPriceTemplate"
-  has_many :purchase_invoices, -> { where(:state => "invoice").order("created_on desc") }, :class_name => "Purchase", :foreign_key => :supplier_id
-  has_many :purchases, :foreign_key => :supplier_id
-  has_many :outgoing_deliveries, :foreign_key => :transporter_id
-  has_many :outgoing_payments, :foreign_key => :payee_id
-  has_many :sales_invoices, -> { where(:state => "invoice").order("created_on desc") }, :class_name => "Sale", :foreign_key => :client_id
-  has_many :sales, -> { order("created_on desc") }, :foreign_key => :client_id
-  has_many :sale_items, :class_name => "SaleItem"
-  has_many :subscriptions, :foreign_key => :subscriber_id
-  has_many :trackings, :foreign_key => :producer_id
-  has_many :transfers, :foreign_key => :supplier_id
-  has_many :transports, :foreign_key => :transporter_id
-  has_many :transporter_sales, -> { order("created_on desc") }, :foreign_key => :transporter_id, :class_name => "Sale"
-  has_many :usable_incoming_payments, -> { where("used_amount < amount") }, :class_name => "IncomingPayment", :foreign_key => :payer_id
-  has_many :waiting_deliveries, -> { where("moved_on IS NULL AND planned_on <= CURRENT_DATE") }, :class_name => "OutgoingDelivery", :foreign_key => :transporter_id
-  has_one :default_mail_address, -> { where(:by_default => true, :canal => "mail") }, :class_name => "EntityAddress"
+  has_many :participations, class_name: "EventParticipation", foreign_key: :participant_id
+  has_many :prices, class_name: "ProductPriceTemplate"
+  has_many :purchase_invoices, -> { where(:state => "invoice").order("created_on desc") }, class_name: "Purchase", foreign_key: :supplier_id
+  has_many :purchases, foreign_key: :supplier_id
+  has_many :outgoing_deliveries, foreign_key: :transporter_id
+  has_many :outgoing_payments, foreign_key: :payee_id
+  has_many :sales_invoices, -> { where(:state => "invoice").order("created_on desc") }, class_name: "Sale", foreign_key: :client_id
+  has_many :sales, -> { order("created_on desc") }, foreign_key: :client_id
+  has_many :sale_items, class_name: "SaleItem"
+  has_many :subscriptions, foreign_key: :subscriber_id
+  has_many :trackings, foreign_key: :producer_id
+  has_many :transfers, foreign_key: :supplier_id
+  has_many :transports, foreign_key: :transporter_id
+  has_many :transporter_sales, -> { order("created_on desc") }, foreign_key: :transporter_id, class_name: "Sale"
+  has_many :usable_incoming_payments, -> { where("used_amount < amount") }, class_name: "IncomingPayment", foreign_key: :payer_id
+  has_many :waiting_deliveries, -> { where("moved_on IS NULL AND planned_on <= CURRENT_DATE") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
+  has_one :default_mail_address, -> { where(:by_default => true, :canal => "mail") }, class_name: "EntityAddress"
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
@@ -132,15 +132,15 @@ class Entity < Ekylibre::Record::Base
   }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :picture_file_size, :allow_nil => true, :only_integer => true
-  validates_length_of :country, :allow_nil => true, :maximum => 2
-  validates_length_of :language, :allow_nil => true, :maximum => 3
-  validates_length_of :siren, :allow_nil => true, :maximum => 9
-  validates_length_of :vat_number, :allow_nil => true, :maximum => 20
-  validates_length_of :activity_code, :allow_nil => true, :maximum => 30
-  validates_length_of :deliveries_conditions, :number, :allow_nil => true, :maximum => 60
-  validates_length_of :currency, :first_name, :full_name, :last_name, :nature, :origin, :picture_content_type, :picture_file_name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, :in => [true, false]
+  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
+  validates_length_of :country, allow_nil: true, maximum: 2
+  validates_length_of :language, allow_nil: true, maximum: 3
+  validates_length_of :siren, allow_nil: true, maximum: 9
+  validates_length_of :vat_number, allow_nil: true, maximum: 20
+  validates_length_of :activity_code, allow_nil: true, maximum: 30
+  validates_length_of :deliveries_conditions, :number, allow_nil: true, maximum: 60
+  validates_length_of :currency, :first_name, :full_name, :last_name, :nature, :origin, :picture_content_type, :picture_file_name, allow_nil: true, maximum: 255
+  validates_inclusion_of :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, in: [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
 

@@ -64,13 +64,13 @@
 
 class Equipment < Matter
   # attr_accessible :nature_id, :asset_id, :picture, :name, :description, :born_at, :dead_at, :active, :external, :variant_id, :content_nature_id, :owner_id, :parent_id, :variety, :reservoir, :content_maximal_quantity
-  # has_many :uses, :class_name => "OperationUse"
-  # belongs_to :nature, :class_name => "ProductNature"
-  # belongs_to :variety, :class_name => "ProductVariety"
-  # belongs_to :parent_place, :class_name => "Place"
-  belongs_to :owner, :class_name => "Entity"
-  # belongs_to :content_nature, :class_name => "Product"
-  # belongs_to :content_unit, :class_name => "Unit"
+  # has_many :uses, class_name: "OperationUse"
+  # belongs_to :nature, class_name: "ProductNature"
+  # belongs_to :variety, class_name: "ProductVariety"
+  # belongs_to :parent_place, class_name: "Place"
+  belongs_to :owner, class_name: "Entity"
+  # belongs_to :content_nature, class_name: "Product"
+  # belongs_to :content_unit, class_name: "Unit"
   belongs_to :asset
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]

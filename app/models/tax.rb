@@ -42,20 +42,20 @@ class Tax < Ekylibre::Record::Base
   attr_readonly :computation_method, :amount
   enumerize :nomen, in: Nomen::Taxes.all
   enumerize :computation_method, :in => [:amount, :percentage], :default => :percentage, :predicates => true
-  belongs_to :collect_account, :class_name => "Account"
-  belongs_to :deduction_account, :class_name => "Account"
-  has_many :price_templates, :class_name => "ProductPriceTemplate"
+  belongs_to :collect_account, class_name: "Account"
+  belongs_to :deduction_account, class_name: "Account"
+  has_many :price_templates, class_name: "ProductPriceTemplate"
   has_and_belongs_to_many :sale_product_nature_categories, class_name: "ProductNatureCategory", join_table: :product_cat_sale_taxes
   has_and_belongs_to_many :purchase_product_nature_categories, class_name: "ProductNatureCategory", join_table: :product_cat_purchase_taxes
-  # has_many :prices, :class_name => "CatalogPrice"
+  # has_many :prices, class_name: "CatalogPrice"
   has_many :purchase_items
   has_many :sale_items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :allow_nil => true
-  validates_length_of :computation_method, :allow_nil => true, :maximum => 20
-  validates_length_of :nomen, :allow_nil => true, :maximum => 120
-  validates_length_of :name, :allow_nil => true, :maximum => 255
-  validates_inclusion_of :included, :reductible, :in => [true, false]
+  validates_numericality_of :amount, allow_nil: true
+  validates_length_of :computation_method, allow_nil: true, maximum: 20
+  validates_length_of :nomen, allow_nil: true, maximum: 120
+  validates_length_of :name, allow_nil: true, maximum: 255
+  validates_inclusion_of :included, :reductible, in: [true, false]
   validates_presence_of :amount, :computation_method, :name
   #]VALIDATORS]
   validates_inclusion_of :computation_method, :in => self.computation_method.values

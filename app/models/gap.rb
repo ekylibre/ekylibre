@@ -37,9 +37,9 @@
 #
 class Gap < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :direction, :number, :allow_nil => true, :maximum => 255
+  validates_numericality_of :amount, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :direction, :number, allow_nil: true, maximum: 255
   validates_presence_of :affair, :amount, :currency, :direction, :entity, :number
   #]VALIDATORS]
   enumerize :direction, in: [:profit, :loss], predicates: true

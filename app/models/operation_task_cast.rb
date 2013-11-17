@@ -35,7 +35,7 @@ class OperationTaskCast < Ekylibre::Record::Base
   belongs_to :actor, polymorphic: true
   belongs_to :task, class_name: "OperationTask", inverse_of: :casts
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :actor_type, :name, :allow_nil => true, :maximum => 255
+  validates_length_of :actor_type, :name, allow_nil: true, maximum: 255
   validates_presence_of :actor, :actor_type, :name, :task
   #]VALIDATORS]
 end

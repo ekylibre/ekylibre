@@ -54,18 +54,18 @@ class SaleItem < Ekylibre::Record::Base
 
   belongs_to :account
   # belongs_to :entity
-  belongs_to :sale, :inverse_of => :items
+  belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: "SaleItem"
   belongs_to :price, class_name: "CatalogPrice"
   belongs_to :variant, class_name: "ProductNatureVariant"
   belongs_to :reduced_item, class_name: "SaleItem"
   belongs_to :tax
   # belongs_to :tracking
-  has_many :delivery_items, class_name: "OutgoingDeliveryItem", :foreign_key => :sale_item_id
-  has_one :reduction, class_name: "SaleItem", :foreign_key => :reduced_item_id
-  has_many :credits, class_name: "SaleItem", :foreign_key => :credited_item_id
-  has_many :reductions, class_name: "SaleItem", :foreign_key => :reduced_item_id, :dependent => :delete_all
-  has_many :subscriptions, :dependent => :destroy
+  has_many :delivery_items, class_name: "OutgoingDeliveryItem", foreign_key: :sale_item_id
+  has_one :reduction, class_name: "SaleItem", foreign_key: :reduced_item_id
+  has_many :credits, class_name: "SaleItem", foreign_key: :credited_item_id
+  has_many :reductions, class_name: "SaleItem", foreign_key: :reduced_item_id, dependent: :delete_all
+  has_many :subscriptions, dependent: :destroy
 
   accepts_nested_attributes_for :subscriptions
   delegate :sold?, :to => :sale
@@ -82,9 +82,9 @@ class SaleItem < Ekylibre::Record::Base
   sums :sale, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_price_amount, :allow_nil => true
-  validates_length_of :currency, :allow_nil => true, :maximum => 3
-  validates_length_of :indicator, :allow_nil => true, :maximum => 120
+  validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_price_amount, allow_nil: true
+  validates_length_of :currency, allow_nil: true, maximum: 3
+  validates_length_of :indicator, allow_nil: true, maximum: 120
   validates_presence_of :amount, :currency, :indicator, :pretax_amount, :price, :quantity, :reduction_percentage, :sale, :variant
   #]VALIDATORS]
   validates_presence_of :tax
