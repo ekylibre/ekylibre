@@ -27,7 +27,7 @@ class Backend::AnalyticRepartitionsController < BackendController
     t.column :production, url: true
     # t.column :journal_entry_item, url: true
     t.column :state
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

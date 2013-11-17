@@ -69,7 +69,7 @@ class Backend::EntitiesController < BackendController
 
   list(:mandates, conditions: {entity_id: 'params[:id]'.c}) do |t|
     t.column :title
-    t.column :organization, :url => {:controller => :mandates, :action => :index}
+    t.column :organization, url: {:controller => :mandates, :action => :index}
     t.column :family
     t.column :started_on, :datatype => :date
     t.column :stopped_on, :datatype => :date
@@ -102,7 +102,7 @@ class Backend::EntitiesController < BackendController
     t.column :delivery_address
     t.column :state_label
     t.column :amount, currency: true
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
@@ -113,7 +113,7 @@ class Backend::EntitiesController < BackendController
     t.column :created_on,  children: false
     t.column :state_label, children: false
     t.column :amount, currency: true
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :duplicate, :method => :post
     t.action :edit, :if => :draft?
     t.action :destroy, :if => :aborted?

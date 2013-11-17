@@ -23,8 +23,8 @@ class Backend::PurchasesController < BackendController
   unroll
 
   list(:conditions => search_conditions(:purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), :joins => :supplier, :line_class => :status, :order => "created_on DESC, number DESC") do |t|
-    t.column :number, :url => {:action => :show, :step => :default}
-    t.column :reference_number, :url => {:action => :show, :step => :products}
+    t.column :number, url: {:action => :show, :step => :default}
+    t.column :reference_number, url: {:action => :show, :step => :products}
     t.column :created_on
     # t.column :planned_on
     # t.column :moved_on
@@ -34,7 +34,7 @@ class Backend::PurchasesController < BackendController
     t.column :state_label
     # t.column :paid_amount, currency: true
     t.column :amount, currency: true
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

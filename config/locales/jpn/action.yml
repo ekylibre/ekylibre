@@ -1,5 +1,6 @@
 jpn:
   actions:
+    authentication/passwords: #?
     authentication/sessions:
       destroy: "ログアウト"
       new: "ログイン"
@@ -590,6 +591,11 @@ jpn:
       # new: "Nouvel équipier"
       # show: "Equipier %{name}"
     backend/working_sets: #?
+    devise/confirmations: #?
+    devise/passwords: #?
+    devise/registrations: #?
+    devise/sessions: #?
+    devise/unlocks: #?
     public:
       # index: "Accueil"
   controllers:

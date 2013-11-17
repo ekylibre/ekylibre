@@ -98,32 +98,50 @@ class ActionController::TestCase
   include Devise::TestHelpers
 
   def self.test_restfully_all_actions(options={})
-    controller ||= self.controller_class.to_s[0..-11].underscore.to_sym
+    controller_name = self.controller_class.controller_name
+    table_name = controller_name
+    model_name = table_name.classify
+    model = model_name.constantize rescue nil
+    record = model_name.underscore
+    attributes = nil
+    file_columns = {}
+    if model and model < ActiveRecord::Base
+      table_name = model.table_name
+      if model.respond_to?(:attachment_definitions)
+        unless model.attachment_definitions.nil?
+          file_columns = model.attachment_definitions
+        end
+      end
+      attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if{|c| [:depth, :lft, :rgt].include?(c) }
+      attributes = "{" + attributes.collect do |a|
+        if file_columns[a.to_sym]
+          "#{a}: fixture_file_upload('files/sample_image.png')"
+        else
+          "#{a}: #{record}.#{a}"
+        end
+      end.join(", ")+ "}"
+    end
+
+    fixture_name = record.pluralize
+    fixture_table = table_name
+
     code  = ""
-    code << "context 'A #{controller} controller' do\n"
+    code << "context 'A #{controller_name} controller' do\n"
     code << "\n"
     code << "  setup do\n"
-    # force locale
     code << "    I18n.locale = I18n.default_locale\n"
     code << "    assert_not_nil I18n.locale\n"
     code << "    assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
     code << "    @user = users(:users_001)\n"
-    # code << "    login('gendo', 'secret')\n"
     code << "    sign_in(@user)\n"
     code << "    CustomField.all.each(&:save)\n"
     code << "  end\n"
-    # code << "  teardown do\n"
-    # code << "    @user = nil\n"
-    # code << "    reset_session\n"
-    # code << "  end\n"
 
-    except = options.delete(:except)||[]
-    except = [except] unless except.is_a? Array
-    return unless User.rights[controller]
-    for action in User.rights[controller].keys.sort{|a,b| a.to_s <=> b.to_s} # .delete_if{|x| ![:index, :new, :create, :edit, :update, :destroy, :show].include?(x.to_sym)} # .delete_if{|x| except.include? x}
+    except = [options.delete(:except)].flatten.compact.map(&:to_sym)
+    for action in self.controller_class.action_methods.to_a
       action = action.to_sym
       if except.include? action
-        puts "Ignore: #{controller}##{action}"
+        puts "Ignore: #{controller_name}##{action}"
         next
       end
 
@@ -132,58 +150,26 @@ class ActionController::TestCase
 
       unless mode = options[action] and options[action].is_a? Symbol
         action_name = action.to_s
-        mode = if action_name.match(/^(index|new)$/) # GET without ID
+        mode = if action_name.match(/\A(index|new)\z/) # GET without ID
                  :index
-               elsif action_name.match(/^(show|edit|picture)$/) # GET with ID
+               elsif action_name.match(/\A(show|edit|picture)\z/) # GET with ID
                  :show
-               elsif action_name.match(/^(list\_\w+)$/) # GET with ID
-                 :list_somethings
-               elsif action_name.match(/^(create|load)$/) # POST without ID
+               elsif action_name.match(/\A(list\_\w+)\z/) # GET with ID
+                 :list_things
+               elsif action_name.match(/\A(create|load)\z/) # POST without ID
                  :create
-               elsif action_name.match(/^(update)$/) # PATCH with ID
+               elsif action_name.match(/\A(update)\z/) # PATCH with ID
                  :update
-               elsif action_name.match(/^(destroy)$/) # DELETE with ID
+               elsif action_name.match(/\A(destroy)\z/) # DELETE with ID
                  :destroy
-               elsif action_name.match(/^list$/) # GET list
+               elsif action_name.match(/\Alist\z/) # GET list
                  :list
-               elsif action_name.match(/^(duplicate|up|down|lock|unlock|increment|decrement|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)$/) # POST with ID
+               elsif action_name.match(/\Aunroll\z/) # GET list
+                 :unroll
+               elsif action_name.match(/\A(duplicate|up|down|lock|unlock|increment|decrement|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)\z/) # POST with ID
                  :touch
                end
       end
-
-      model_name = controller.to_s.split(/\//)[-1].classify
-      record = model_name.underscore
-      attributes = nil
-      model = model_name.constantize rescue nil
-      if model
-        file_columns = {}
-        if model.respond_to?(:attachment_definitions)
-          unless model.attachment_definitions.nil?
-            file_columns = model.attachment_definitions
-          end
-        end
-        # protected_attributes = model.protected_attributes.to_a - ["id", "type"]
-        # attributes = if model.accessible_attributes.to_a.size > 0
-        #                restricted = true
-        #                model.accessible_attributes.to_a
-        #              elsif protected_attributes.size > 0
-        #                restricted = true
-        #                model.attribute_names - protected_attributes
-        #              else
-        #                model.attribute_names
-        #              end.delete_if{|a| a.blank? or a.to_s.match(/_attributes$/)}
-        attributes = model.content_columns.map(&:name)
-        attributes = "{" + attributes.collect do |a|
-          if file_columns[a.to_sym]
-            ":#{a} => fixture_file_upload('files/sample_image.png')"
-          else
-            ":#{a} => #{record}.#{a}"
-          end
-        end.join(", ")+ "}"
-      end
-      table_name = (model ? model.table_name : "unknown_table")
-      fixture_name = record.pluralize
-      fixture_table = table_name
 
       if options[action].is_a? Hash
         code << "    get :#{action}, #{options[action].inspect[1..-2]}\n"
@@ -193,42 +179,32 @@ class ActionController::TestCase
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :show
         code << "    assert_nothing_raised do\n"
-        code << "      get :#{action}, :id => 'NaID'\n"
+        code << "      get :#{action}, id: 'NaID'\n"
         code << "    end\n"
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
         code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-        code << "    get :#{action}, :id => #{record}.id\n"
+        code << "    get :#{action}, id: #{record}.id\n"
         code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
         code << "    assert_not_nil assigns(:#{record})\n"
-      elsif mode == :list_somethings
+      elsif mode == :list_things
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
         code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-        code << "    get :#{action}, :id => #{record}.id\n"
+        code << "    get :#{action}, id: #{record}.id\n"
         code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
       elsif mode == :create
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-        code << "    post :#{action}, :#{record} => #{attributes}\n"
-        # if restricted
-        #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'POST #{controller}/#{action}') do\n"
-        #   code << "      post :#{action}, :#{record} => #{record}.attributes\n"
-        #   code << "    end\n"
-        # end
+        code << "    post :#{action}, #{record}: #{attributes}\n"
       elsif mode == :update
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-        code << "    put :#{action}, :id => #{record}.id, :#{record} => #{attributes}\n"
-        # if restricted
-        #   code << "    assert_raise(ActiveModel::MassAssignmentSecurity::Error, 'PUT #{controller}/#{action}/:id') do\n"
-        #   code << "      put :#{action}, :id => #{record}.id, :#{record} => #{record}.attributes\n"
-        #   code << "    end\n"
-        # end
+        code << "    patch :#{action}, id: #{record}.id, #{record}: #{attributes}\n"
       elsif mode == :destroy
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_002)\n"
         code << "    assert_nothing_raised do\n"
-        code << "      delete :#{action}, :id => #{record}.id\n"
+        code << "      delete :#{action}, id: #{record}.id\n"
         code << "    end\n"
         code << "    assert_response :redirect\n"
       elsif mode == :list
@@ -239,22 +215,16 @@ class ActionController::TestCase
           code << "    assert_response :success, 'Action #{action} does not export in format #{format}'\n"
         end
       elsif mode == :touch
-        # code << "    assert_raise ActionController::RoutingError, 'POST #{controller}/#{action}' do\n"
-        # code << "      post :#{action}\n"
-        # code << "    end\n"
-        code << "    post :#{action}, :id => 'NaID'\n"
+        code << "    post :#{action}, id: 'NaID'\n"
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-        code << "    post :#{action}, :id => #{record}.id\n"
+        code << "    post :#{action}, id: #{record}.id\n"
         code << "    assert_response :redirect\n"
       elsif mode == :get_and_post # with ID
-        # code << "    assert_raise ActionController::RoutingError, 'GET #{controller}/#{action}' do\n"
-        # code << "      get :#{action}\n"
-        # code << "    end\n"
-        code << "    get :#{action}, :id => 'NaID'\n"
+        code << "    get :#{action}, id: 'NaID'\n"
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-        code << "    get :#{action}, :id => #{record}.id\n"
+        code << "    get :#{action}, id: #{record}.id\n"
         code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
       elsif mode == :index_xhr
         code << "    get :#{action}\n"
@@ -264,10 +234,15 @@ class ActionController::TestCase
       elsif mode == :show_xhr
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-        code << "    get :#{action}, :id => #{record}.id\n"
+        code << "    get :#{action}, id: #{record}.id\n"
         code << "    assert_response :redirect\n"
-        code << "    xhr :get, :#{action}, :id => #{record}.id\n"
+        code << "    xhr :get, :#{action}, id: #{record}.id\n"
         code << "    assert_not_nil assigns(:#{record})\n"
+      elsif mode == :unroll
+        code << "    xhr :get, :#{action}\n"
+        code << "    xhr :get, :#{action}, format: :json\n"
+        code << "    xhr :get, :#{action}, format: :xml\n"
+        # TODO test all scopes
       else
         code << "    get :#{action}\n"
         code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
@@ -275,7 +250,6 @@ class ActionController::TestCase
       end
       code << "  end\n"
     end
-    # code << "  end\n"
     code << "end\n"
 
     file = Rails.root.join("tmp", "code", "test", "#{self.controller_class.controller_path}.rb")
@@ -283,10 +257,7 @@ class ActionController::TestCase
     File.open(file, "wb") do |f|
       f.write(code)
     end
-    # code.split("\n").each_with_index{|line, x| puts((x+1).to_s.rjust(4)+": "+line)}
-
     class_eval(code, "#{__FILE__}:#{__LINE__}")
-
   end
 end
 

@@ -1,4 +1,14 @@
 # Unused actions in rights
+# - "authentication/passwords#create"
+# - "authentication/passwords#edit"
+# - "authentication/passwords#new"
+# - "authentication/passwords#update"
+# - "authentication/sessions#_callback_before_12"
+# - "authentication/sessions#create"
+# - "authentication/sessions#destroy"
+# - "authentication/sessions#new"
+# - "backend#respond_with"
+# - "backend/accounts#unroll"
 # - "backend/activities#create"
 # - "backend/activities#destroy"
 # - "backend/activities#edit"
@@ -7,6 +17,7 @@
 # - "backend/activities#list_productions"
 # - "backend/activities#new"
 # - "backend/activities#show"
+# - "backend/activities#unroll"
 # - "backend/activities#update"
 # - "backend/affairs#attach"
 # - "backend/affairs#detach"
@@ -22,6 +33,7 @@
 # - "backend/analytic_repartitions#list"
 # - "backend/analytic_repartitions#new"
 # - "backend/analytic_repartitions#show"
+# - "backend/analytic_repartitions#unroll"
 # - "backend/analytic_repartitions#update"
 # - "backend/animal_groups#create"
 # - "backend/animal_groups#destroy"
@@ -32,6 +44,7 @@
 # - "backend/animal_groups#list_places"
 # - "backend/animal_groups#new"
 # - "backend/animal_groups#show"
+# - "backend/animal_groups#unroll"
 # - "backend/animal_groups#update"
 # - "backend/animal_medicines#create"
 # - "backend/animal_medicines#destroy"
@@ -42,6 +55,7 @@
 # - "backend/animal_medicines#list_intervention_casts"
 # - "backend/animal_medicines#new"
 # - "backend/animal_medicines#show"
+# - "backend/animal_medicines#unroll"
 # - "backend/animal_medicines#update"
 # - "backend/animals#create"
 # - "backend/animals#destroy"
@@ -49,16 +63,22 @@
 # - "backend/animals#index"
 # - "backend/animals#list"
 # - "backend/animals#list_children"
+# - "backend/animals#list_contained_products"
 # - "backend/animals#list_groups"
 # - "backend/animals#list_incidents"
 # - "backend/animals#list_indicators"
 # - "backend/animals#list_intervention_casts"
+# - "backend/animals#list_members"
 # - "backend/animals#list_places"
 # - "backend/animals#new"
 # - "backend/animals#picture"
 # - "backend/animals#show"
+# - "backend/animals#unroll"
 # - "backend/animals#update"
 # - "backend/areas#show"
+# - "backend/areas#unroll"
+# - "backend/assets#unroll"
+# - "backend/bank_statements#unroll"
 # - "backend/building_divisions#create"
 # - "backend/building_divisions#destroy"
 # - "backend/building_divisions#edit"
@@ -67,8 +87,10 @@
 # - "backend/building_divisions#list_contained_products"
 # - "backend/building_divisions#new"
 # - "backend/building_divisions#show"
+# - "backend/building_divisions#unroll"
 # - "backend/building_divisions#update"
 # - "backend/buildings#list_divisions"
+# - "backend/buildings#unroll"
 # - "backend/campaigns#create"
 # - "backend/campaigns#destroy"
 # - "backend/campaigns#edit"
@@ -77,7 +99,10 @@
 # - "backend/campaigns#list_productions"
 # - "backend/campaigns#new"
 # - "backend/campaigns#show"
+# - "backend/campaigns#unroll"
 # - "backend/campaigns#update"
+# - "backend/cash_transfers#unroll"
+# - "backend/cashes#unroll"
 # - "backend/catalog_prices#create"
 # - "backend/catalog_prices#destroy"
 # - "backend/catalog_prices#edit"
@@ -85,6 +110,7 @@
 # - "backend/catalog_prices#list"
 # - "backend/catalog_prices#new"
 # - "backend/catalog_prices#show"
+# - "backend/catalog_prices#unroll"
 # - "backend/catalog_prices#update"
 # - "backend/catalogs#create"
 # - "backend/catalogs#destroy"
@@ -94,6 +120,7 @@
 # - "backend/catalogs#list_prices"
 # - "backend/catalogs#new"
 # - "backend/catalogs#show"
+# - "backend/catalogs#unroll"
 # - "backend/catalogs#update"
 # - "backend/cells/bank_chart_cells#show"
 # - "backend/cells/calendar_cells#show"
@@ -136,17 +163,22 @@
 # - "backend/cultivable_land_parcels#list_productions"
 # - "backend/cultivable_land_parcels#new"
 # - "backend/cultivable_land_parcels#show"
+# - "backend/cultivable_land_parcels#unroll"
 # - "backend/cultivable_land_parcels#update"
 # - "backend/custom_field_choices#index"
 # - "backend/custom_field_choices#show"
+# - "backend/custom_field_choices#unroll"
+# - "backend/custom_fields#unroll"
 # - "backend/dashboards#list_my_future_events"
 # - "backend/dashboards#list_recent_events"
 # - "backend/dashboards#search"
 # - "backend/dashboards#tools"
-# - "backend/dashboards#trade"
+# - "backend/deposits#unroll"
 # - "backend/districts#show"
+# - "backend/districts#unroll"
 # - "backend/document_archives#show"
 # - "backend/document_templates#show"
+# - "backend/document_templates#unroll"
 # - "backend/documents#create"
 # - "backend/documents#destroy"
 # - "backend/documents#edit"
@@ -156,15 +188,23 @@
 # - "backend/documents#new"
 # - "backend/documents#show"
 # - "backend/documents#update"
+# - "backend/entities#unroll"
 # - "backend/entity_addresses#index"
 # - "backend/entity_addresses#show"
+# - "backend/entity_addresses#unroll"
 # - "backend/entity_links#index"
 # - "backend/entity_links#show"
+# - "backend/entity_links#unroll"
 # - "backend/equipments#list_intervention_casts"
+# - "backend/equipments#unroll"
 # - "backend/establishments#show"
+# - "backend/establishments#unroll"
 # - "backend/event_natures#show"
+# - "backend/event_natures#unroll"
 # - "backend/events#list_participations"
 # - "backend/events#show"
+# - "backend/events#unroll"
+# - "backend/financial_years#unroll"
 # - "backend/gaps#create"
 # - "backend/gaps#destroy"
 # - "backend/gaps#edit"
@@ -172,6 +212,7 @@
 # - "backend/gaps#list"
 # - "backend/gaps#new"
 # - "backend/gaps#show"
+# - "backend/gaps#unroll"
 # - "backend/gaps#update"
 # - "backend/incidents#create"
 # - "backend/incidents#destroy"
@@ -182,12 +223,17 @@
 # - "backend/incidents#new"
 # - "backend/incidents#picture"
 # - "backend/incidents#show"
+# - "backend/incidents#unroll"
 # - "backend/incidents#update"
 # - "backend/incoming_deliveries#list_items"
 # - "backend/incoming_deliveries#show"
+# - "backend/incoming_deliveries#unroll"
 # - "backend/incoming_delivery_items#new"
 # - "backend/incoming_delivery_modes#show"
+# - "backend/incoming_delivery_modes#unroll"
 # - "backend/incoming_payment_modes#show"
+# - "backend/incoming_payment_modes#unroll"
+# - "backend/incoming_payments#unroll"
 # - "backend/interfacers#autocomplete"
 # - "backend/interfacers#product_trackings"
 # - "backend/interfacers#product_units"
@@ -204,6 +250,7 @@
 # - "backend/intervention_casts#index"
 # - "backend/intervention_casts#new"
 # - "backend/intervention_casts#show"
+# - "backend/intervention_casts#unroll"
 # - "backend/intervention_casts#update"
 # - "backend/interventions#create"
 # - "backend/interventions#destroy"
@@ -215,10 +262,16 @@
 # - "backend/interventions#new"
 # - "backend/interventions#run"
 # - "backend/interventions#show"
+# - "backend/interventions#unroll"
 # - "backend/interventions#update"
+# - "backend/inventories#unroll"
 # - "backend/journal_entries#index"
 # - "backend/journal_entries#list"
+# - "backend/journal_entries#unroll"
 # - "backend/journal_entry_items#show"
+# - "backend/journal_entry_items#unroll"
+# - "backend/journals#journal_views"
+# - "backend/journals#unroll"
 # - "backend/kujakus#toggle"
 # - "backend/land_parcel_clusters#create"
 # - "backend/land_parcel_clusters#destroy"
@@ -227,6 +280,7 @@
 # - "backend/land_parcel_clusters#list"
 # - "backend/land_parcel_clusters#new"
 # - "backend/land_parcel_clusters#show"
+# - "backend/land_parcel_clusters#unroll"
 # - "backend/land_parcel_clusters#update"
 # - "backend/land_parcel_groups#create"
 # - "backend/land_parcel_groups#destroy"
@@ -235,9 +289,52 @@
 # - "backend/land_parcel_groups#list"
 # - "backend/land_parcel_groups#new"
 # - "backend/land_parcel_groups#show"
+# - "backend/land_parcel_groups#unroll"
 # - "backend/land_parcel_groups#update"
+# - "backend/land_parcels#unroll"
+# - "backend/legal_entities#autocomplete_for_origin"
+# - "backend/legal_entities#create"
+# - "backend/legal_entities#destroy"
+# - "backend/legal_entities#edit"
+# - "backend/legal_entities#export"
+# - "backend/legal_entities#import"
+# - "backend/legal_entities#index"
+# - "backend/legal_entities#list"
+# - "backend/legal_entities#list_event_participations"
+# - "backend/legal_entities#list_incoming_payments"
+# - "backend/legal_entities#list_links"
+# - "backend/legal_entities#list_mandates"
+# - "backend/legal_entities#list_observations"
+# - "backend/legal_entities#list_outgoing_payments"
+# - "backend/legal_entities#list_purchases"
+# - "backend/legal_entities#list_sales"
+# - "backend/legal_entities#list_subscriptions"
+# - "backend/legal_entities#merge"
+# - "backend/legal_entities#new"
+# - "backend/legal_entities#picture"
+# - "backend/legal_entities#show"
+# - "backend/legal_entities#unroll"
+# - "backend/legal_entities#update"
+# - "backend/listings#unroll"
 # - "backend/mandates#show"
+# - "backend/mandates#unroll"
+# - "backend/matters#create"
+# - "backend/matters#destroy"
+# - "backend/matters#edit"
+# - "backend/matters#index"
 # - "backend/matters#list"
+# - "backend/matters#list_contained_products"
+# - "backend/matters#list_groups"
+# - "backend/matters#list_incidents"
+# - "backend/matters#list_indicators"
+# - "backend/matters#list_intervention_casts"
+# - "backend/matters#list_members"
+# - "backend/matters#list_places"
+# - "backend/matters#new"
+# - "backend/matters#picture"
+# - "backend/matters#show"
+# - "backend/matters#unroll"
+# - "backend/matters#update"
 # - "backend/medicines#create"
 # - "backend/medicines#destroy"
 # - "backend/medicines#edit"
@@ -245,6 +342,7 @@
 # - "backend/medicines#list"
 # - "backend/medicines#new"
 # - "backend/medicines#show"
+# - "backend/medicines#unroll"
 # - "backend/medicines#update"
 # - "backend/mineral_matters#create"
 # - "backend/mineral_matters#destroy"
@@ -255,9 +353,11 @@
 # - "backend/mineral_matters#list_intervention_casts"
 # - "backend/mineral_matters#new"
 # - "backend/mineral_matters#show"
+# - "backend/mineral_matters#unroll"
 # - "backend/mineral_matters#update"
 # - "backend/observations#index"
 # - "backend/observations#show"
+# - "backend/observations#unroll"
 # - "backend/operation_tasks#create"
 # - "backend/operation_tasks#destroy"
 # - "backend/operation_tasks#edit"
@@ -265,7 +365,9 @@
 # - "backend/operation_tasks#list"
 # - "backend/operation_tasks#new"
 # - "backend/operation_tasks#show"
+# - "backend/operation_tasks#unroll"
 # - "backend/operation_tasks#update"
+# - "backend/operations#unroll"
 # - "backend/organic_matters#create"
 # - "backend/organic_matters#destroy"
 # - "backend/organic_matters#edit"
@@ -275,9 +377,37 @@
 # - "backend/organic_matters#list_intervention_casts"
 # - "backend/organic_matters#new"
 # - "backend/organic_matters#show"
+# - "backend/organic_matters#unroll"
 # - "backend/organic_matters#update"
+# - "backend/outgoing_deliveries#unroll"
 # - "backend/outgoing_delivery_modes#show"
+# - "backend/outgoing_delivery_modes#unroll"
 # - "backend/outgoing_payment_modes#show"
+# - "backend/outgoing_payment_modes#unroll"
+# - "backend/outgoing_payments#unroll"
+# - "backend/people#autocomplete_for_origin"
+# - "backend/people#create"
+# - "backend/people#destroy"
+# - "backend/people#edit"
+# - "backend/people#export"
+# - "backend/people#import"
+# - "backend/people#index"
+# - "backend/people#list"
+# - "backend/people#list_event_participations"
+# - "backend/people#list_incoming_payments"
+# - "backend/people#list_links"
+# - "backend/people#list_mandates"
+# - "backend/people#list_observations"
+# - "backend/people#list_outgoing_payments"
+# - "backend/people#list_purchases"
+# - "backend/people#list_sales"
+# - "backend/people#list_subscriptions"
+# - "backend/people#merge"
+# - "backend/people#new"
+# - "backend/people#picture"
+# - "backend/people#show"
+# - "backend/people#unroll"
+# - "backend/people#update"
 # - "backend/plant_medicines#create"
 # - "backend/plant_medicines#destroy"
 # - "backend/plant_medicines#edit"
@@ -287,6 +417,7 @@
 # - "backend/plant_medicines#list_intervention_casts"
 # - "backend/plant_medicines#new"
 # - "backend/plant_medicines#show"
+# - "backend/plant_medicines#unroll"
 # - "backend/plant_medicines#update"
 # - "backend/plants#create"
 # - "backend/plants#destroy"
@@ -300,6 +431,7 @@
 # - "backend/plants#new"
 # - "backend/plants#picture"
 # - "backend/plants#show"
+# - "backend/plants#unroll"
 # - "backend/plants#update"
 # - "backend/preferences#create"
 # - "backend/preferences#destroy"
@@ -308,6 +440,7 @@
 # - "backend/preferences#list"
 # - "backend/preferences#new"
 # - "backend/preferences#show"
+# - "backend/preferences#unroll"
 # - "backend/preferences#update"
 # - "backend/prescriptions#create"
 # - "backend/prescriptions#destroy"
@@ -316,6 +449,7 @@
 # - "backend/prescriptions#list"
 # - "backend/prescriptions#new"
 # - "backend/prescriptions#show"
+# - "backend/prescriptions#unroll"
 # - "backend/prescriptions#update"
 # - "backend/product_groups#create"
 # - "backend/product_groups#destroy"
@@ -330,6 +464,7 @@
 # - "backend/product_groups#list_places"
 # - "backend/product_groups#new"
 # - "backend/product_groups#show"
+# - "backend/product_groups#unroll"
 # - "backend/product_groups#update"
 # - "backend/product_links#create"
 # - "backend/product_links#destroy"
@@ -354,6 +489,7 @@
 # - "backend/product_memberships#list"
 # - "backend/product_memberships#new"
 # - "backend/product_memberships#show"
+# - "backend/product_memberships#unroll"
 # - "backend/product_memberships#update"
 # - "backend/product_nature_categories#create"
 # - "backend/product_nature_categories#destroy"
@@ -364,6 +500,7 @@
 # - "backend/product_nature_categories#list_products"
 # - "backend/product_nature_categories#new"
 # - "backend/product_nature_categories#show"
+# - "backend/product_nature_categories#unroll"
 # - "backend/product_nature_categories#update"
 # - "backend/product_nature_variant_indicator_data#create"
 # - "backend/product_nature_variant_indicator_data#destroy"
@@ -372,6 +509,7 @@
 # - "backend/product_nature_variant_indicator_data#list"
 # - "backend/product_nature_variant_indicator_data#new"
 # - "backend/product_nature_variant_indicator_data#show"
+# - "backend/product_nature_variant_indicator_data#unroll"
 # - "backend/product_nature_variant_indicator_data#update"
 # - "backend/product_nature_variants#create"
 # - "backend/product_nature_variants#destroy"
@@ -382,10 +520,12 @@
 # - "backend/product_nature_variants#list_products"
 # - "backend/product_nature_variants#new"
 # - "backend/product_nature_variants#show"
+# - "backend/product_nature_variants#unroll"
 # - "backend/product_nature_variants#update"
 # - "backend/product_natures#list_product_nature_variants"
 # - "backend/product_natures#list_products"
 # - "backend/product_natures#show"
+# - "backend/product_natures#unroll"
 # - "backend/product_ownerships#create"
 # - "backend/product_ownerships#destroy"
 # - "backend/product_ownerships#edit"
@@ -393,6 +533,7 @@
 # - "backend/product_ownerships#list"
 # - "backend/product_ownerships#new"
 # - "backend/product_ownerships#show"
+# - "backend/product_ownerships#unroll"
 # - "backend/product_ownerships#update"
 # - "backend/product_phases#create"
 # - "backend/product_phases#destroy"
@@ -400,6 +541,7 @@
 # - "backend/product_phases#index"
 # - "backend/product_phases#new"
 # - "backend/product_phases#show"
+# - "backend/product_phases#unroll"
 # - "backend/product_phases#update"
 # - "backend/product_process_phases#create"
 # - "backend/product_process_phases#destroy"
@@ -408,6 +550,7 @@
 # - "backend/product_process_phases#list"
 # - "backend/product_process_phases#new"
 # - "backend/product_process_phases#show"
+# - "backend/product_process_phases#unroll"
 # - "backend/product_process_phases#update"
 # - "backend/product_processes#create"
 # - "backend/product_processes#destroy"
@@ -416,6 +559,7 @@
 # - "backend/product_processes#list"
 # - "backend/product_processes#new"
 # - "backend/product_processes#show"
+# - "backend/product_processes#unroll"
 # - "backend/product_processes#update"
 # - "backend/production_supports#create"
 # - "backend/production_supports#destroy"
@@ -424,9 +568,11 @@
 # - "backend/production_supports#list"
 # - "backend/production_supports#new"
 # - "backend/production_supports#show"
+# - "backend/production_supports#unroll"
 # - "backend/production_supports#update"
 # - "backend/productions#list_interventions"
 # - "backend/productions#list_supports"
+# - "backend/productions#unroll"
 # - "backend/products#create"
 # - "backend/products#destroy"
 # - "backend/products#edit"
@@ -440,6 +586,7 @@
 # - "backend/products#new"
 # - "backend/products#picture"
 # - "backend/products#show"
+# - "backend/products#unroll"
 # - "backend/products#update"
 # - "backend/professions#create"
 # - "backend/professions#destroy"
@@ -448,10 +595,17 @@
 # - "backend/professions#list"
 # - "backend/professions#new"
 # - "backend/professions#show"
+# - "backend/professions#unroll"
 # - "backend/professions#update"
 # - "backend/purchase_items#show"
+# - "backend/purchase_natures#unroll"
+# - "backend/purchases#unroll"
+# - "backend/roles#unroll"
 # - "backend/sale_items#show"
+# - "backend/sale_natures#unroll"
+# - "backend/sales#unroll"
 # - "backend/sequences#show"
+# - "backend/sequences#unroll"
 # - "backend/services#create"
 # - "backend/services#destroy"
 # - "backend/services#edit"
@@ -459,6 +613,7 @@
 # - "backend/services#list"
 # - "backend/services#new"
 # - "backend/services#show"
+# - "backend/services#unroll"
 # - "backend/services#update"
 # - "backend/settlements#create"
 # - "backend/settlements#destroy"
@@ -467,19 +622,19 @@
 # - "backend/settlements#list"
 # - "backend/settlements#new"
 # - "backend/settlements#show"
+# - "backend/settlements#unroll"
 # - "backend/settlements#update"
 # - "backend/snippets#toggle"
 # - "backend/subscription_natures#show"
+# - "backend/subscription_natures#unroll"
 # - "backend/subscriptions#show"
+# - "backend/subscriptions#unroll"
 # - "backend/taxes#show"
-# - "backend/teams#create"
-# - "backend/teams#destroy"
-# - "backend/teams#edit"
-# - "backend/teams#index"
-# - "backend/teams#list"
-# - "backend/teams#new"
+# - "backend/taxes#unroll"
 # - "backend/teams#show"
-# - "backend/teams#update"
+# - "backend/teams#unroll"
+# - "backend/transports#unroll"
+# - "backend/users#unroll"
 # - "backend/workers#create"
 # - "backend/workers#destroy"
 # - "backend/workers#edit"
@@ -488,7 +643,28 @@
 # - "backend/workers#list_intervention_casts"
 # - "backend/workers#new"
 # - "backend/workers#show"
+# - "backend/workers#unroll"
 # - "backend/workers#update"
+# - "devise/confirmations#create"
+# - "devise/confirmations#new"
+# - "devise/confirmations#show"
+# - "devise/passwords#create"
+# - "devise/passwords#edit"
+# - "devise/passwords#new"
+# - "devise/passwords#update"
+# - "devise/registrations#cancel"
+# - "devise/registrations#create"
+# - "devise/registrations#destroy"
+# - "devise/registrations#edit"
+# - "devise/registrations#new"
+# - "devise/registrations#update"
+# - "devise/sessions#_callback_before_12"
+# - "devise/sessions#create"
+# - "devise/sessions#destroy"
+# - "devise/sessions#new"
+# - "devise/unlocks#create"
+# - "devise/unlocks#new"
+# - "devise/unlocks#show"
 
 # Access to the minimum
 __minimum__:
@@ -518,7 +694,7 @@ bookkeep:
 
 # Cancel sales_invoices
 cancel_sales_invoices:
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 - "backend/sales#cancel"
 - "backend/sales#index" #?
 - "backend/sales#list_creditable_items"
@@ -537,13 +713,6 @@ close_journals:
 # Configure the options of the company
 configure_company:
 - "backend/dashboards#settings"
-- "backend/departments#create" #?
-- "backend/departments#destroy" #?
-- "backend/departments#edit" #?
-- "backend/departments#index" #?
-- "backend/departments#list" #?
-- "backend/departments#new" #?
-- "backend/departments#update" #?
 - "backend/establishments#create"
 - "backend/establishments#destroy"
 - "backend/establishments#edit"
@@ -561,6 +730,13 @@ configure_company:
 - "backend/sequences#update"
 - "backend/settings#edit"
 - "backend/settings#update"
+- "backend/teams#create"
+- "backend/teams#destroy"
+- "backend/teams#edit"
+- "backend/teams#index"
+- "backend/teams#list"
+- "backend/teams#new"
+- "backend/teams#update"
 
 # Consult accounting documents
 consult_accounting_documents:
@@ -590,17 +766,17 @@ consult_journal_entries:
 
 # Consult the prices
 consult_prices:
-- "backend/dashboards#sales" #?
-- "backend/product_prices#index" #?
+- "backend/dashboards#trade"
+- "backend/catalog_prices#index" #?
 
 # Consult the products
 consult_products:
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 - "backend/product_natures#index"
 
 # Consult the purchases
 consult_purchases:
-- "backend/dashboards#purchases" #?
+- "backend/dashboards#trade" #?
 - "backend/purchases#index"
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
@@ -610,7 +786,7 @@ consult_purchases:
 
 # Consult the sales
 consult_sales:
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 - "backend/sales#index" #?
 - "backend/sales#list"
 - "backend/sales#list_deliveries"
@@ -621,7 +797,7 @@ consult_sales:
 
 # Consult the stocks
 consult_stocks:
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 - "backend/products#index"
 - "backend/products#list"
 
@@ -720,7 +896,7 @@ manage_buildings:
 - "backend/buildings#new"
 - "backend/buildings#show"
 - "backend/buildings#update"
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 
 # Manage cash transfers
 manage_cash_transfers:
@@ -857,8 +1033,8 @@ manage_equipments:
 
 # Create and update estimates
 manage_estimates:
-- "backend/dashboards#sales" #?
-- "backend/product_prices#find" #?
+- "backend/dashboards#trade"
+- "backend/catalog_prices#find" #?
 - "backend/sale_items#create"
 - "backend/sale_items#destroy"
 - "backend/sale_items#detail"
@@ -919,7 +1095,7 @@ manage_financial_years:
 
 # Manage incoming delivery modes
 manage_incoming_delivery_modes:
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 - "backend/incoming_delivery_modes#create"
 - "backend/incoming_delivery_modes#destroy"
 - "backend/incoming_delivery_modes#edit"
@@ -957,7 +1133,7 @@ manage_incoming_payments:
 
 # Manage inventories
 manage_inventories:
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 - "backend/inventories#create"
 - "backend/inventories#destroy"
 - "backend/inventories#edit"
@@ -1078,7 +1254,7 @@ manage_operations:
 
 # Manage outgoing delivery modes
 manage_outgoing_delivery_modes:
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 - "backend/outgoing_delivery_modes#create"
 - "backend/outgoing_delivery_modes#destroy"
 - "backend/outgoing_delivery_modes#edit"
@@ -1116,27 +1292,29 @@ manage_outgoing_payments:
 
 # Manage prices
 manage_prices:
-- "backend/dashboards#sales" #?
-- "backend/product_prices#create" #?
-- "backend/product_prices#destroy" #?
-- "backend/product_prices#edit" #?
-- "backend/product_prices#export" #?
-- "backend/product_prices#import" #?
-- "backend/product_prices#list" #?
-- "backend/product_prices#new" #?
-- "backend/product_prices#update" #?
+- "backend/dashboards#trade"
+- "backend/catalogs#index" #?
+- "backend/catalogs#list" #?
+- "backend/catalog_prices#create" #?
+- "backend/catalog_prices#destroy" #?
+- "backend/catalog_prices#edit" #?
+- "backend/catalog_prices#export" #?
+- "backend/catalog_prices#import" #?
+- "backend/catalog_prices#list" #?
+- "backend/catalog_prices#new" #?
+- "backend/catalog_prices#update" #?
 
 # Manage product price listings
-manage_product_price_listings:
-- "backend/dashboards#relationship"
-- "backend/product_price_listings#create" #?
-- "backend/product_price_listings#destroy" #?
-- "backend/product_price_listings#edit" #?
-- "backend/product_price_listings#index" #?
-- "backend/product_price_listings#list" #?
-- "backend/product_price_listings#new" #?
-- "backend/product_price_listings#show" #?
-- "backend/product_price_listings#update" #?
+manage_catalogs:
+- "backend/dashboards#trade"
+- "backend/catalogs#create" #?
+- "backend/catalogs#destroy" #?
+- "backend/catalogs#edit" #?
+- "backend/catalogs#index" #?
+- "backend/catalogs#list" #?
+- "backend/catalogs#new" #?
+- "backend/catalogs#show" #?
+- "backend/catalogs#update" #?
 
 # Manage productions
 manage_productions:
@@ -1151,7 +1329,7 @@ manage_productions:
 
 # Manage products
 manage_products:
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 - "backend/product_natures#create"
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
@@ -1174,7 +1352,7 @@ manage_purchase_natures:
 
 # Manage purchases
 manage_purchases:
-- "backend/dashboards#purchases" #?
+- "backend/dashboards#trade" #?
 - "backend/incoming_deliveries#confirm"
 - "backend/incoming_deliveries#create"
 - "backend/incoming_deliveries#destroy"
@@ -1227,7 +1405,7 @@ manage_sale_natures:
 
 # Manages sales
 manage_sales:
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 - "backend/outgoing_deliveries#create"
 - "backend/outgoing_deliveries#destroy"
 - "backend/outgoing_deliveries#edit"
@@ -1251,7 +1429,7 @@ manage_sales:
 
 # Manage subscriptions
 manage_subscriptions:
-- "backend/dashboards#sales" #?
+- "backend/dashboards#trade"
 - "backend/subscription_natures#create"
 - "backend/subscription_natures#decrement"
 - "backend/subscription_natures#destroy"

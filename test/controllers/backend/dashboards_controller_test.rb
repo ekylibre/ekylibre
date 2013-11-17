@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::DashboardsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :except => :welcome
+  test_restfully_all_actions except: :welcome
 end

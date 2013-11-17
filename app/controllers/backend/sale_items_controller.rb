@@ -49,7 +49,7 @@ class Backend::SaleItemsController < BackendController
         end
         raise ActiveRecord::Rollback unless saved
       end
-      return if save_and_redirect(@sale_item, :url => {:controller => :sales, :action => :show, :id => @sale.id}, :saved => saved)
+      return if save_and_redirect(@sale_item, url: {:controller => :sales, :action => :show, :id => @sale.id}, :saved => saved)
     end
     # render_restfully_form
   end

@@ -34,7 +34,7 @@ class Backend::AnimalsController < Backend::ProductsController
     t.column :localize_in
     t.column :mother, url: true
     t.column :father, url: true
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

@@ -26,8 +26,8 @@ class Backend::InventoriesController < BackendController
     t.column :changes_reflected
     t.column :responsible, url: true
     t.column :description
-    t.action :show, :url => {:format => :pdf}, :image => :print
-    t.action :reflect, :if => :reflectable?, :image => "action", :confirm => :are_you_sure
+    t.action :show, url: {:format => :pdf}, image: :print
+    t.action :reflect, :if => :reflectable?, image: "action", :confirm => :are_you_sure
     t.action :edit,  :unless => :changes_reflected?
     t.action :destroy, :unless => :changes_reflected?
   end

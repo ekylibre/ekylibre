@@ -27,7 +27,7 @@ class Backend::TransportsController < BackendController
     #t.column :transport_on, :children => :moved_on
     t.column :transporter, label_method: :full_name, :children => :default_mail_coordinate, url: true
     t.column :weight
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy
   end
@@ -114,7 +114,7 @@ class Backend::TransportsController < BackendController
     @transport = Transport.new(params[:transport])
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
-    return if save_and_redirect(@transport, :url => {:action => :show, :id => 'id'}) do |transport|
+    return if save_and_redirect(@transport, url: {:action => :show, :id => 'id'}) do |transport|
       transport.deliveries.clear
       params[:transportable_deliveries] ||= {}
       for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}
@@ -139,7 +139,7 @@ class Backend::TransportsController < BackendController
     return unless @transport = find_and_check(:transports)
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
-    return if save_and_redirect(@transport, :attributes => params[:transport], :url => {:action => :show, :id => 'id'}) do |transport|
+    return if save_and_redirect(@transport, :attributes => params[:transport], url: {:action => :show, :id => 'id'}) do |transport|
       transport.deliveries.clear
       params[:transportable_deliveries] ||= {}
       for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}

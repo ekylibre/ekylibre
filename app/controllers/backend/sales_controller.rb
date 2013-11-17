@@ -19,7 +19,6 @@
 
 class Backend::SalesController < BackendController
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
-  include ActionView::Helpers::NumberHelper
 
   unroll
 
@@ -44,7 +43,7 @@ class Backend::SalesController < BackendController
   end
 
   list(:conditions => sales_conditions, :joins => :client, :order => 'created_on desc, number desc') do |t| # , :line_class => 'RECORD.tags'
-    t.column :number, :url => {:action => :show, :step => :default}
+    t.column :number, url: {:action => :show, :step => :default}
     t.column :created_on
     t.column :invoiced_on
     t.column :client, url: true
@@ -52,23 +51,23 @@ class Backend::SalesController < BackendController
     t.column :description
     t.column :state_label
     t.column :amount, currency: true
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit, :if => :draft?
     t.action :cancel, :if => :cancelable?
     t.action :destroy, :if => :aborted?
   end
 
-  # # Displays the main page with the list of sales
-  # def index
-  #   respond_to do |format|
-  #     format.html
-  #     format.xml  { render :xml => @sales }
-  #     # format.pdf  { render_print_sales(params[:established_on]||Date.today) }
-  #     format.pdf  { render :pdf => @sales, :with => params[:template] }
-  #     # format.odt  { render_print_sales(params[:established_on]||Date.today) }
-  #     # format.docx { render_print_sales(params[:established_on]||Date.today) }
-  #   end
-  # end
+  # Displays the main page with the list of sales
+  def index
+    respond_to do |format|
+      format.html
+      format.xml  { render :xml => @sales }
+      # format.pdf  { render_print_sales(params[:established_on]||Date.today) }
+      format.pdf  { render :pdf => @sales, :with => params[:template] }
+      # format.odt  { render_print_sales(params[:established_on]||Date.today) }
+      # format.docx { render_print_sales(params[:established_on]||Date.today) }
+    end
+  end
 
   list(:credits, :model => :sales, :conditions => {:origin_id => 'params[:id]'.c }, :children => :items) do |t|
     t.column :number, url: true, :children => :designation
@@ -281,7 +280,7 @@ class Backend::SalesController < BackendController
   def create
     @sale = Sale.new sale_params#(params[:sale])
     @sale.number = ''
-    return if save_and_redirect(@sale, :url => {:action => :show, :step => :products, :id => "id"})
+    return if save_and_redirect(@sale, url: {:action => :show, :step => :products, :id => "id"})
   end
 
   def edit

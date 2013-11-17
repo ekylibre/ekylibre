@@ -30,19 +30,6 @@ class BackendController < BaseController
   # include ExceptionNotifiable
   # local_addresses.clear
 
-  # Overrides respond_with method in order to use specific parameters for reports
-  # Adds :with and :key, :name parameters
-  def respond_with_with_template(*resources, &block)
-    resources << {} unless resources.last.is_a?(Hash)
-    resources[-1][:with] = (params[:template].match(/^\d+$/) ? params[:template].to_i : params[:template].to_s) if params[:template]
-    for param in [:key, :name]
-      resources[-1][param] = params[param] if params[param]
-    end
-    respond_with_without_template(*resources, &block)
-  end
-
-  alias_method_chain :respond_with, :template
-
 
   # Create unroll action for all scopes in the model corresponding to the controller
   # including the default scope
@@ -174,9 +161,21 @@ class BackendController < BaseController
     return :unroll
   end
 
-
-
   protected
+
+  # Overrides respond_with method in order to use specific parameters for reports
+  # Adds :with and :key, :name parameters
+  def respond_with_with_template(*resources, &block)
+    resources << {} unless resources.last.is_a?(Hash)
+    resources[-1][:with] = (params[:template].match(/^\d+$/) ? params[:template].to_i : params[:template].to_s) if params[:template]
+    for param in [:key, :name]
+      resources[-1][param] = params[param] if params[param]
+    end
+    respond_with_without_template(*resources, &block)
+  end
+
+  hide_action :respond_with, :respond_with_without_template
+  alias_method_chain :respond_with, :template
 
   # def render_restfully_form(options = {})
   #   # operation = self.action_name.to_sym

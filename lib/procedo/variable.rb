@@ -23,7 +23,7 @@ module Procedo
       @derivative_of = element.attr("derivative-of").to_s.strip if element.has_attribute?("derivative-of")
       # @derivative_of = @derivative_of.to_sym if @derivative_of.is_a?(String) and @derivative_of !=~ /\:/
       @roles = element.attr("roles").to_s.strip.split(/\s*\,\s*/)
-      if element.has_attribute?("variant")      
+      if element.has_attribute?("variant")
         if parted?
           raise StandardError, "'variant' attribute must be removed to limit ambiguity when new variable is parted from another"
         end
@@ -51,7 +51,7 @@ module Procedo
       "variables.#{name}".t(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize])
     end
 
-    # 
+    #
     def given?
       !@value.blank?
     end

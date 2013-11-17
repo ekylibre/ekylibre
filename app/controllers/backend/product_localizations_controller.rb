@@ -30,7 +30,7 @@ class Backend::ProductLocalizationsController < BackendController
     t.column :arrival_cause
     t.column :stopped_at
     t.column :departure_cause
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

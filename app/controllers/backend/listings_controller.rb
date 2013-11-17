@@ -22,11 +22,11 @@ class Backend::ListingsController < BackendController
   unroll
 
   list(:order => :name) do |t|
-    t.column :name, :url => {:action => :edit}
+    t.column :name, url: {:action => :edit}
     t.column :root_model_name
     t.column :description
-    t.action :extract, :url => {:format => :csv}, :image => :action
-    # t.action :extract, :url => {:format => :csv, :mode => :no_mail}, :if => :can_mail?, :image => :nomail
+    t.action :extract, url: {:format => :csv}, image: :action
+    # t.action :extract, url: {:format => :csv, :mode => :no_mail}, :if => :can_mail?, image: :nomail
     t.action :mail, :if => :can_mail?
     t.action :duplicate, :method => :post
     t.action :edit
@@ -76,7 +76,7 @@ class Backend::ListingsController < BackendController
 
   def create
     @listing = Listing.new(params[:listing])
-    return if save_and_redirect(@listing, :url => {:action => :edit, :id => "id"})
+    return if save_and_redirect(@listing, url: {:action => :edit, :id => "id"})
     # render_restfully_form
   end
 
@@ -89,7 +89,7 @@ class Backend::ListingsController < BackendController
   def update
     return unless @listing = find_and_check(:listing)
     @listing.attributes = params[:listing]
-    return if save_and_redirect(@listing, :url => {:action => :edit, :id => "id"})
+    return if save_and_redirect(@listing, url: {:action => :edit, :id => "id"})
     t3e @listing.attributes
     # render_restfully_form
   end

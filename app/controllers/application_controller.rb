@@ -26,6 +26,8 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :set_time_zone
 
+  hide_action :current_theme, :current_theme=, :human_action_name, :authorized?
+
   attr_accessor :current_theme
 
   # # Permits to redirect

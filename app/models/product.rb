@@ -136,38 +136,6 @@ class Product < Ekylibre::Record::Base
     end
     where(conditions.join(" AND "))
   }
-
-  # scope :can, lambda { |*abilities|
-  #   query = []
-  #   parameters = []
-  #   for ability in abilities.flatten.join(', ').strip.split(/[\s\,]+/)
-  #     if ability =~ /\(.*\)\z/
-  #       params = ability.split(/\s*[\(\,\)]\s*/)
-  #       ability = params.shift.to_sym
-  #       item = Nomen::Abilities[ability]
-  #       raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
-  #       for p in item.parameters
-  #         v = params.shift
-  #         if p == :variety
-  #           raise ArgumentError.new("Unknown variety: #{v.inspect}") unless child = Nomen::Varieties[v]
-  #           q = []
-  #           for variety in child.self_and_parents
-  #             q << "abilities ~ E?"
-  #             parameters << "\\\\m#{ability}\\\\(#{variety.name}\\\\)\\\\Y"
-  #           end
-  #           query << "(" + q.join(" OR ") + ")"
-  #         else
-  #           raise StandardError.new("Unknown type of parameter for an ability: #{p.inspect}")
-  #         end
-  #       end
-  #     else
-  #       raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
-  #       query << "abilities ~ E?"
-  #       parameters << "\\\\m#{ability}\\\\M"
-  #     end
-  #   end
-  #   joins(:nature).where(query.join(" OR "), *parameters)
-  # }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :production_supports,  -> { where(variety: ["cultivable_land_parcel"]) }
@@ -196,8 +164,6 @@ class Product < Ekylibre::Record::Base
   after_create :set_initial_values
   before_validation :set_default_values, on: :create
   before_validation :update_default_values, on: :update
-
-
 
   validate do
     if self.variant

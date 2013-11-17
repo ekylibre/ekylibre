@@ -28,7 +28,7 @@ class Backend::ProductProcessesController < BackendController
     t.column :nature
     t.column :description
     t.column :repeatable
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

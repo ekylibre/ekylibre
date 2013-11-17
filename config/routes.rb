@@ -1,15 +1,12 @@
 Ekylibre::Application.routes.draw do
-
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
-
 
   # Checks and update locale filter
   filter :locale
 
   # No namespace because authentication is for all sides
-  devise_for :users, :path => "authentication", :module => :authentication
+  devise_for :users, path: "authentication", :module => :authentication
 
   concern :unroll do
     # get "unroll/:scope", action: :unroll, on: :collection
@@ -25,10 +22,15 @@ Ekylibre::Application.routes.draw do
   end
 
   concern :entities do
+    concerns :list, :unroll
     collection do
       get :autocomplete_for_origin
+      match "import", via: [:get, :post]
+      match "export", via: [:get, :post]
+      match "merge", via: [:get, :post]
     end
     member do
+      match "picture(/:style)", via: :get, action: :picture, as: :picture
       get :list_cashes
       get :list_event_participations
       get :list_incoming_payments
@@ -294,27 +296,9 @@ Ekylibre::Application.routes.draw do
         get :list_archives
       end
     end
-    resources :entities, concerns: [:entities, :list, :picture, :unroll] do
-      collection do
-        match "import", via: [:get, :post]
-        match "export", via: [:get, :post]
-        match "merge", via: [:get, :post]
-      end
-    end
+    resources :entities, concerns: :entities
     resources :entity_addresses, except: [:index], concerns: [:list, :unroll]
     resources :entity_links, except: [:index]
-    # resources :entity_link_natures, concerns: [:list, :unroll] do
-    #   collection do
-    #     get :unroll
-    #     get :list
-    #   end
-    # end
-    # resources :entity_natures, concerns: [:list, :unroll] do
-    #   collection do
-    #     get :unroll
-    #     get :list
-    #   end
-    # end
     resources :equipments, concerns: [:list, :unroll] do
       member do
         get :list_intervention_casts
@@ -417,7 +401,7 @@ Ekylibre::Application.routes.draw do
     resources :land_parcel_clusters, concerns: [:list, :unroll]
     resources :land_parcel_groups, concerns: [:list, :unroll]
     resources :land_parcels, concerns: [:list, :unroll]
-    resources :legal_entities, concerns: [:entities, :list, :picture, :unroll]
+    resources :legal_entities, concerns: :entities
     resources :listing_nodes
     resources :listings, concerns: [:list, :unroll] do
       member do
@@ -469,7 +453,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :people, concerns: [:entities, :list, :picture, :unroll]
+    resources :people, concerns: :entities
 
     resources :plants, concerns: [:list, :unroll] do
       member do

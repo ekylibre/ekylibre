@@ -35,15 +35,10 @@ class Backend::ProductsController < BackendController
     t.column :variety
     t.column :localize_in
     t.column :description
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
-
-  # def index
-  #   @product = Product.all
-  #   respond_with @product, :include => [:father, :mother]
-  # end
 
   # content product list of the consider product
   list(:contained_products, :model => :product_localizations, :conditions => {container_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
@@ -105,15 +100,7 @@ class Backend::ProductsController < BackendController
     t.column :stopped_at, through: :intervention
   end
 
-  # def show
-  #   return unless @product = find_and_check
-  #   if @product.type != "Product"
-  #     redirect_to controller: @product.type.tableize, action: :show, id: @product.id
-  #     return
-  #   end
-  #   t3e @product, :nature_name => @product.nature_name
-  #   respond_with(@product, :include => [:father, :mother, :nature, {:memberships => {:include => :group},:indicator_data => {:include => :indicator}, :product_localizations => {:include => :container}}])
-  # end
+  protected
 
   def check_variant_availability()
     unless ProductNatureVariant.of_variety(controller_name.to_s.underscore.singularize).any?

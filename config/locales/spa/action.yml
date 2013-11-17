@@ -1,5 +1,6 @@
 spa:
   actions:
+    authentication/passwords: #?
     authentication/sessions:
       # destroy: "Se déconnecter"
       new: "Conexión"
@@ -671,6 +672,11 @@ spa:
       # new: "Nouvel équipier"
       # show: "Equipier %{name}"
     backend/working_sets: #?
+    devise/confirmations: #?
+    devise/passwords: #?
+    devise/registrations: #?
+    devise/sessions: #?
+    devise/unlocks: #?
     public:
       # index: "Accueil"
   controllers:

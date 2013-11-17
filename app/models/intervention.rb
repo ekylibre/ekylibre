@@ -159,7 +159,7 @@ class Intervention < Ekylibre::Record::Base
       return nil
     end
   end
-  
+
   def working_area(unit=:hectare)
     if self.casts.of_role(:target).count > 0
       target = self.casts.of_role(:target).where.not(actor_id: nil).first
@@ -171,7 +171,7 @@ class Intervention < Ekylibre::Record::Base
     end
     return nil
   end
-  
+
   # def valid_for_run?(started_at, duration)
   #   if self.reference.minimal_duration < duration
   #     raise ArgumentError, "The intervention cannot last less than the minimum"
@@ -215,7 +215,7 @@ class Intervention < Ekylibre::Record::Base
       for variable in reference.variables.values
         unless self.casts.find_by(variable: variable.name)
           raise MissingVariable, "Variable #{variable.name} is missing"
-        end        
+        end
       end
       # Build new products
       for variable in reference.new_variables

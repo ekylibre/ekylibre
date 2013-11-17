@@ -1,5 +1,6 @@
 eng:
   actions:
+    authentication/passwords: #?
     authentication/sessions:
       destroy: "Log out"
       new: "New session"
@@ -633,6 +634,11 @@ eng:
       # index: "Equipiers"
       # new: "Nouvel équipier"
       # show: "Equipier %{name}"
+    devise/confirmations: #?
+    devise/passwords: #?
+    devise/registrations: #?
+    devise/sessions: #?
+    devise/unlocks: #?
     public:
       index: "Home"
   controllers:

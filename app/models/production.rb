@@ -105,7 +105,7 @@ class Production < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.interventions.count.zero? and self.repartitions.count.zero?
+    self.interventions.any? or self.repartitions.any?
   end
 
   before_validation(on: :create) do

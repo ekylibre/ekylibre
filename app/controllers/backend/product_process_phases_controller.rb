@@ -29,7 +29,7 @@ class Backend::ProductProcessPhasesController < BackendController
     t.column :phase_delay
     t.column :position
     t.column :description
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

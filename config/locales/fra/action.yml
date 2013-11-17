@@ -1,8 +1,12 @@
 fra:
   actions:
+    authentication/passwords:
+      # edit: "Edit authentication/password"
+      # new: "New authentication/password"
     authentication/sessions:
+      # _callback_before_12: " callback before 12 authentication/session"
       destroy: "Se déconnecter" #?
-      new: "Connexion" #?
+      new: "Connexion"
       renew: "Renouveller la session" #?
     backend/accounts:
       edit: "Modifier le compte\_: %{number} - %{name}"
@@ -323,6 +327,7 @@ fra:
       general_ledger: "Grand livre"
       import: "Importer des données comptables"
       index: "Journaux"
+      # journal_views: "Journal views backend/journal"
       new: "Créer un nouveau journal"
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation" #?
@@ -348,6 +353,16 @@ fra:
       merge: "Fusionner des parcelles" #?
       new: "Ajouter une nouvelle parcelle"
       show: "Parcelle %{name}"
+    backend/legal_entities:
+      # autocomplete_for_origin: "Autocomplete for origin backend/legal entity"
+      # edit: "Edit backend/legal entity"
+      # export: "Export backend/legal entity"
+      # import: "Import backend/legal entity"
+      # index: "Index backend/legal entity"
+      # merge: "Merge backend/legal entity"
+      # new: "New backend/legal entity"
+      # picture: "Picture backend/legal entity"
+      # show: "Show backend/legal entity"
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"
@@ -367,11 +382,11 @@ fra:
       new: "Créer une responsabilité"
       # show: "Show backend/mandate"
     backend/matters:
-      edit: "Modifier la matière\_: %{name}" #?
-      index: "Matières" #?
-      new: "Nouvelle matière" #?
-      picture: "Visuel" #?
-      show: "Matière\_: %{name}" #?
+      edit: "Modifier la matière\_: %{name}"
+      index: "Matières"
+      new: "Nouvelle matière"
+      picture: "Visuel"
+      show: "Matière\_: %{name}"
     backend/medicines:
       edit: "Modifier le médicaments\_: %{name}"
       index: "Médicaments"
@@ -428,10 +443,15 @@ fra:
       new: "Ajout d’un décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
     backend/people:
-      edit: "Modifier la personne\_: %{name}" #?
-      index: "Personnes" #?
-      new: "Nouvelle personne" #?
-      show: "Personne\_: %{full_name}" #?
+      # autocomplete_for_origin: "Autocomplete for origin backend/person"
+      edit: "Modifier la personne\_: %{name}"
+      # export: "Export backend/person"
+      # import: "Import backend/person"
+      index: "Personnes"
+      # merge: "Merge backend/person"
+      new: "Nouvelle personne"
+      # picture: "Picture backend/person"
+      show: "Personne\_: %{full_name}"
     backend/plant_medicines:
       edit: "Modifier le produit phytosanitaire\_: %{name}"
       index: "Produits phytosanitaires"
@@ -659,6 +679,24 @@ fra:
       index: "Equipiers"
       new: "Nouvel équipier"
       show: "Equipier %{name}"
+    backend:
+      # respond_with: "Respond with backend"
+    devise/confirmations:
+      # new: "New devise/confirmation"
+      # show: "Show devise/confirmation"
+    devise/passwords:
+      # edit: "Edit devise/password"
+      # new: "New devise/password"
+    devise/registrations:
+      # cancel: "Cancel devise/registration"
+      # edit: "Edit devise/registration"
+      # new: "New devise/registration"
+    devise/sessions:
+      # _callback_before_12: " callback before 12 devise/session"
+      # new: "New devise/session"
+    devise/unlocks:
+      # new: "New devise/unlock"
+      # show: "Show devise/unlock"
     public:
       index: "Accueil"
   controllers:
@@ -808,6 +846,12 @@ fra:
     # backend/workers: "Backend/workers"
     # backend: "Backend"
     # base: "Base"
+    # devise/confirmations: "Devise/confirmations"
+    # devise/passwords: "Devise/passwords"
+    # devise/registrations: "Devise/registrations"
+    # devise/sessions: "Devise/sessions"
+    # devise/unlocks: "Devise/unlocks"
+    # devise: "Devise"
     # public: "Public"
   errors:
     messages:

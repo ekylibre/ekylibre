@@ -1,9 +1,9 @@
 = main_toolbar do |t|
-  - t.edit @activity
+  - t.edit resource
 
 = beehive do |b|
   - b.cell :details do
-    = attributes_list(@activity) do |l|
+    = attributes_list do |l|
       - l.attribute :name
       - l.attribute :parent
       - l.attribute :nature
@@ -12,5 +12,5 @@
   - b.tabbox do
     - b.cell(:productions) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :productions, :activity_id => @activity.id})
+        - t.new(params: {controller: :productions, activity_id: resource.id})
       = list(:productions)

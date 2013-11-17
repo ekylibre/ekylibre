@@ -89,7 +89,7 @@ class Backend::JournalsController < BackendController
   list(:mixed, :model => :journal_entries, :conditions => journal_entries_conditions, :children => :items, :order => "created_at DESC", :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
-    # t.column :label, through: :account, :url => {:action => :account}
+    # t.column :label, through: :account, url: {:action => :account}
     t.column :state_label
     t.column :real_debit,  currency: :real_currency
     t.column :real_credit, currency: :real_currency
@@ -108,9 +108,9 @@ class Backend::JournalsController < BackendController
     t.column :nature
     #t.column :currency
     t.column :closed_on
-    # t.action :document_print, :url => {:code => :JOURNAL, :journal => "RECORD.id"}
-    t.action :close, :if => 'RECORD.closable?(Date.today)'.c, :image => :unlock
-    t.action :reopen, :if => :reopenable?, :image => :lock
+    # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
+    t.action :close, :if => 'RECORD.closable?(Date.today)'.c, image: :unlock
+    t.action :reopen, :if => :reopenable?, image: :lock
     t.action :edit
     t.action :destroy
   end

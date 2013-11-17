@@ -29,7 +29,7 @@ class Backend::DepositsController < BackendController
     t.column :responsible
     t.column :created_on
     t.column :description
-    t.action :show, :url => {:format => :pdf}, :image => :print
+    t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit, :unless => :locked?
     t.action :destroy, :unless => :locked?
   end

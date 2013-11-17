@@ -1,5 +1,6 @@
 arb:
   actions:
+    authentication/passwords: #?
     authentication/sessions:
       destroy: "الخروج"
       new: "الدخول"
@@ -741,6 +742,11 @@ arb:
       # new: "Nouvel équipier"
       # show: "Equipier %{name}"
     backend/working_sets: #?
+    devise/confirmations: #?
+    devise/passwords: #?
+    devise/registrations: #?
+    devise/sessions: #?
+    devise/unlocks: #?
     public:
       # index: "Accueil"
   controllers:
