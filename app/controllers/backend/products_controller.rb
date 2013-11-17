@@ -19,6 +19,7 @@
 
 class Backend::ProductsController < BackendController
   manage_restfully t3e: {nature_name: :nature_name}, subclass_inheritance: true
+  manage_restfully_picture
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 

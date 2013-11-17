@@ -29,23 +29,28 @@ Ekylibre::Application.routes.draw do
       get :autocomplete_for_origin
     end
     member do
-      get :list_observations
-      get :list_subscriptions
-      get :list_sales
-      get :list_purchases
-      get :list_outgoing_payments
-      get :list_mandates
-      get :list_incoming_payments
-      get :list_event_participations
       get :list_cashes
+      get :list_event_participations
+      get :list_incoming_payments
       get :list_links
+      get :list_mandates
+      get :list_purchases
+      get :list_observations
+      get :list_outgoing_payments
+      get :list_sales
+      get :list_subscriptions
     end
   end
 
   concern :products do
     member do
-      get :list_intervention_casts
+      get :list_contained_products
+      get :list_groups
+      get :list_incidents
       get :list_indicators
+      get :list_intervention_casts
+      get :list_members
+      get :list_places
     end
   end
 
@@ -430,12 +435,7 @@ Ekylibre::Application.routes.draw do
         match "configure", via: [:get, :post]
       end
     end
-    resources :matters, concerns: [:list, :picture, :unroll] do
-      member do
-        get :list_places
-        get :list_groups
-      end
-    end
+    resources :matters, concerns: [:list, :picture, :products, :unroll]
     resources :mineral_matters, concerns: [:list, :unroll] do
       member do
         get :list_intervention_casts
