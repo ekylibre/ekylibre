@@ -337,6 +337,8 @@ class Product < Ekylibre::Record::Base
       else
         price = price_object.amount
       end
+    else
+      price = nil
     end
     return price
   end
@@ -400,10 +402,12 @@ class Product < Ekylibre::Record::Base
 
   def area(unit = :hectare, at = Time.now)
     pop = self.population(:at => at)
-    if self.variant.indicator(:net_surface_area)
+    if self.net_surface_area
       area = self.net_surface_area(:at => at).convert(unit)
-    else
+    elsif self.shape
       area = self.shape_area(:at => at).in_square_meter.convert(unit)
+    else
+      area = nil
     end
     # What a clean method to_s.to_d but needed because a little bug : Measure can't be coerced into BigDecimal
     total = area.to_s.to_d * pop.to_s.to_d
@@ -414,6 +418,8 @@ class Product < Ekylibre::Record::Base
     pop = self.population(:at => at)
     if self.net_weight
       weight = self.net_weight(:at => at).convert(unit)
+    else
+      weight = 0.0
     end
     # What a clean method to_s.to_d but needed because a little bug : Measure can't be coerced into BigDecimal
     total = weight.to_s.to_d * pop.to_s.to_d
