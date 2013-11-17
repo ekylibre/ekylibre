@@ -55,8 +55,8 @@ class Account < Ekylibre::Record::Base
   has_many :purchases_products, :class_name => "ProductNature", :foreign_key => :charge_account_id
   has_many :purchase_items, :class_name => "PurchaseItem"
   has_many :sale_items, :class_name => "SaleItem"
-  has_many :sales_products, :class_name => "ProductNature", :foreign_key => :product_account_id
-  has_many :stocks_products, :class_name => "ProductNature", :foreign_key => :stock_account_id
+  has_many :sales_products, :class_name => "ProductNatureCategory", :foreign_key => :product_account_id
+  has_many :stocks_products, :class_name => "ProductNatureCategory", :foreign_key => :stock_account_id
   has_many :suppliers, :class_name => "Entity", :foreign_key => :supplier_account_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :last_letter, :allow_nil => true, :maximum => 10
