@@ -1264,17 +1264,7 @@
         <page to="backend/mandates#show"/>
       </item>
       <item name="matters">
-        <page to="backend/matters#index"/>
-        <page to="backend/matters#create"/>
-        <page to="backend/matters#destroy"/>
-        <page to="backend/matters#edit"/>
         <page to="backend/matters#list"/>
-        <page to="backend/matters#list_groups"/>
-        <page to="backend/matters#list_places"/>
-        <page to="backend/matters#new"/>
-        <page to="backend/matters#picture"/>
-        <page to="backend/matters#show"/>
-        <page to="backend/matters#update"/>
       </item>
       <item name="medicines">
         <page to="backend/medicines#index"/>
@@ -1432,6 +1422,7 @@
         <page to="backend/products#list_intervention_casts"/>
         <page to="backend/products#list_members"/>
         <page to="backend/products#list_places"/>
+        <page to="backend/products#picture"/>
       </item>
       <item name="professions">
         <page to="backend/professions#index"/>

@@ -1941,7 +1941,7 @@ arb:
   enumerize:
     activity:
       family:
-        # cattle_farming: "Elevage bovins"
+        # cattle_farming: "Élevage bovins"
         # maize_crops: "Maïs"
         # oilseed_crops: "Oléagineux"
         # sales: "Commercialisation"
@@ -2047,33 +2047,18 @@ arb:
         # sale: "Création d’un devis"
         # sales_invoice: "Création d’une facture"
     intervention:
-      nomen:
-        # animal_milking: "Traite"
-        # animal_treatment: "Traitement animal"
-        # calving_one: "Vêlage unique"
-        # calving_twin: "Vêlage jumeaux"
-        # chemical_treatment_on_entire_culture: "Traitement chimique (toute la culture)"
-        # chemical_treatment_on_partial_culture: "Traitement chimique (une partie de la culture)"
-        # grains_harvest: "Moisson"
-        # mineral_fertilizing: "Fertilisation minérale"
-        # organic_fertilizing: "Fertilisation organique"
-        # plant_grinding: "Broyage de végétaux"
-        # plant_mowing: "Fauchage"
-        # plowing: "Labour"
-        # raking: "Hersage"
-        # sowing: "Semis"
-        # straw_bunching: "Pressage de fourrages"
-        # superficial_plowing: "Hersage"
+      nomen: #?
       procedure:
+        # animal_birth: "Naissance d’un animal"
         # animal_milking: "Traite"
         # animal_treatment: "Traitement animal"
         # calving_one: "Vêlage unique"
         # calving_twin: "Vêlage jumeaux"
-        # chemical_treatment_on_entire_culture: "Traitement chimique (toute la culture)"
-        # chemical_treatment_on_partial_culture: "Traitement chimique (une partie de la culture)"
+        # chemical_treatment: "Traitement chimique"
         # grains_harvest: "Moisson"
         # mineral_fertilizing: "Fertilisation minérale"
         # organic_fertilizing: "Fertilisation organique"
+        # partial_chemical_treatment: "Traitement chimique partiel"
         # plant_grinding: "Broyage de végétaux"
         # plant_mowing: "Fauchage"
         # plowing: "Labour"
@@ -2081,23 +2066,8 @@ arb:
         # sowing: "Semis"
         # straw_bunching: "Pressage de fourrages"
         # superficial_plowing: "Hersage"
-      procedures:
-        # animal_milking: "Traite"
-        # animal_treatment: "Traitement animal"
-        # calving_one: "Vêlage unique"
-        # calving_twin: "Vêlage jumeaux"
-        # chemical_treatment_on_entire_culture: "Traitement chimique (toute la culture)"
-        # chemical_treatment_on_partial_culture: "Traitement chimique (une partie de la culture)"
-        # grains_harvest: "Moisson"
-        # mineral_fertilizing: "Fertilisation minérale"
-        # organic_fertilizing: "Fertilisation organique"
-        # plant_grinding: "Broyage de végétaux"
-        # plant_mowing: "Fauchage"
-        # plowing: "Labour"
-        # raking: "Hersage"
-        # sowing: "Semis"
-        # straw_bunching: "Pressage de fourrages"
-        # superficial_plowing: "Hersage"
+        # wheat_crop: "Culture de blé (standard)"
+      procedures: #?
       state:
         # done: "Réalisée"
         # in_progress: "En cours"
@@ -2157,29 +2127,8 @@ arb:
     per_animal_unit: #?
     per_duration_time_unit: #?
     per_frequency_time_unit: #?
-    procedure:
-      nomen:
-        # animal_milking: "Traite"
-        # animal_treatment: "Traitement animal"
-        # calving_one: "Vêlage unique"
-        # calving_twin: "Vêlage jumeaux"
-        # chemical_treatment_on_entire_culture: "Traitement chimique (toute la culture)"
-        # chemical_treatment_on_partial_culture: "Traitement chimique (une partie de la culture)"
-        # grains_harvest: "Moisson"
-        # mineral_fertilizing: "Fertilisation minérale"
-        # organic_fertilizing: "Fertilisation organique"
-        # plant_grinding: "Broyage de végétaux"
-        # plant_mowing: "Fauchage"
-        # plowing: "Labour"
-        # raking: "Hersage"
-        # sowing: "Semis"
-        # straw_bunching: "Pressage de fourrages"
-        # superficial_plowing: "Hersage"
-      state:
-        # done: "Réalisée"
-        # in_progress: "En cours"
-        # squeezed: "Non réalisée"
-        # undone: "Pas encore réalisée"
+    procedure:  #?
+ #?
     product:
       arrival_reasons:
         # birth: "Naissance"
@@ -2262,17 +2211,8 @@ arb:
         # decimal: "Décimal"
         # integer: "Entier"
         # unitary: "Unitaire"
-    product_nature_indicator:
-      nature:
-        # boolean: "Case à cocher"
-        # choice: "Liste de choix"
-        # decimal: "Chiffre (décimal)"
-        # measure: "Mesure"
-        # string: "Texte"
-      usage:
-        # environment: "Environnement"
-        # life: "Biologique"
-        # production: "Production"
+    product_nature_indicator:  #?
+ #?
     product_transfer:
       nature:
         # gain: "Gain"

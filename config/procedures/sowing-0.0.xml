@@ -3,10 +3,10 @@
   <procedure name="sowing" natures="sowing" version="0.0" status="frozen">
     <variables>
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="germinate"/>
-      <variable name="seeds_to_sow" variant=":seeds" new="true" roles="sowing-input"/>
-      <variable name="sower"        abilities="sow" roles="sowing-equipment"/>
+      <variable name="seeds_to_sow" variant=":seeds" new="parted-from:seeds" roles="sowing-input"/>
+      <variable name="sower"        abilities="sow" roles="sowing-tool"/>
       <variable name="driver"       variety="worker" abilities="drive(equipment), move" roles="sowing-doer"/>
-      <variable name="tractor"      abilities="tow(equipment)" roles="sowing-equipment"/>
+      <variable name="tractor"      abilities="tow(equipment)" roles="sowing-tool"/>
       <variable name="land_parcel"  variety="cultivable_land_parcel" roles="sowing-target"/>
       <variable name="culture"      variety="derivative-of:seeds" new="true" roles="sowing-output" indicators="shape:land_parcel"/>
     </variables>

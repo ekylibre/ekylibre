@@ -2,12 +2,12 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plant_grinding" natures="grinding, soil_enrichment" version="0.0" status="frozen">
     <variables>
-      <variable name="culture" variety="plant" role="grinding-input"/>
+      <variable name="culture" variety="plant" roles="grinding-input"/>
       <variable name="tractor" abilities="tow(equipment)"/>
-      <variable name="grinder" abilities="grind(plant)"/>
-      <variable name="grinded" variety="straw" derivative-of="variety:culture" role="grinding-output, soil_enrichment-input" new="true"/>
-      <variable name="land_parcel" variety="land_parcel" role="soil_enrichment-target"/>
-      <variable name="driver" variety="worker" role="grinding-doer"/>
+      <variable name="grinder" abilities="grind(plant)" roles="soil_enrichment-tool, grinding-tool"/>
+      <variable name="grinded" variety="straw" derivative-of="variety:culture" roles="grinding-output, soil_enrichment-input" new="true"/>
+      <variable name="land_parcel" variety="land_parcel" roles="soil_enrichment-target"/>
+      <variable name="driver" variety="worker" roles="grinding-doer, soil_enrichment-doer"/>
     </variables>
     <operations>
       <operation id="100">

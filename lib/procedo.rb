@@ -5,7 +5,16 @@ module Procedo
   class MissingProcedure < StandardError
   end
 
+  class MissingRole < StandardError
+  end
+
   class NotUniqueIdentifier < StandardError
+  end
+
+  class UnknownProcedureNature < StandardError
+  end
+
+  class UnknownRole < StandardError
   end
 
   class InvalidExpression < StandardError

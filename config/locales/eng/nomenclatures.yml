@@ -1,70 +1,24 @@
 eng:
-  enumerize:
-    entity:
-      nature:
-        association: "Association"
-        civil_society: "Civil society"
-        collectivity: "Collectivity"
-        company: "Company"
-        doctor: "Doctor"
-        economic_interest_group: "Economic interest group"
-        entity: "Entity"
-        foundation: "Foundation"
-        legal_entity: "Legal entity"
-        madam: "Madam"
-        person: "Person"
-        professor: "Professor"
-        public_establisment: "Public establisment"
-        public_interest_group: "Public interest group"
-        sir: "Sir"
-        syndicate: "Syndicate"
-    intervention:
-      procedure: #?
-      procedures:
-        # animal_milking: "Traite"
-        # animal_treatment: "Traitement animal"
-        # calving_one: "Vêlage unique"
-        # calving_twin: "Vêlage jumeaux"
-        # chemical_treatment_on_entire_culture: "Traitement chimique (toute la culture)"
-        # chemical_treatment_on_partial_culture: "Traitement chimique (une partie de la culture)"
-        # grains_harvest: "Moisson"
-        # mineral_fertilizing: "Fertilisation minérale"
-        # organic_fertilizing: "Fertilisation organique"
-        # plant_grinding: "Broyage de végétaux"
-        # plant_mowing: "Fauchage"
-        # plowing: "Labour"
-        # raking: "Hersage"
-        # sowing: "Semis"
-        # straw_bunching: "Pressage de fourrages"
-        # superficial_plowing: "Hersage"
-    intervention_cast:
-      variable:
-        # cropper: "Moissonneuse batteuse"
-        # cropper_driver: "Conducteur de moissonneuse batteuse"
-        # culture: "Culture"
-        # driver: "Conducteur"
-        # fertilizer: "Engrais"
-        # fertilizer_to_spread: "Engrais à épandre"
-        # grains: "Grains"
-        # grinder: "Broyeur"
-        # harrow: "Herse"
-        # land_parcel: "Parcelle"
-        # manure: "Fumier"
-        # manure_to_spread: "Fumier à épandre"
-        # molecule: "Molécule"
-        # mother_animal: "Mère"
-        # plant: "Plantes, Culture"
-        # plow: "Charrue"
-        # seeder: "Semoir"
-        # seeds: "Semences"
-        # seeds_to_sow: "Semence à semer"
-        # silo: "Silo"
-        # sower: "Semoir"
-        # spreader: "Épandeur"
-        # straw: "Paille"
-        # tractor: "Tracteur"
-        # trailer: "Remorque"
-    procedure:  #?
+  enumerize:  #?
+    entity: #?
+      nature: #?
+        association: "Association" #?
+        civil_society: "Civil society" #?
+        collectivity: "Collectivity" #?
+        company: "Company" #?
+        doctor: "Doctor" #?
+        economic_interest_group: "Economic interest group" #?
+        entity: "Entity" #?
+        foundation: "Foundation" #?
+        legal_entity: "Legal entity" #?
+        madam: "Madam" #?
+        person: "Person" #?
+        professor: "Professor" #?
+        public_establisment: "Public establisment" #?
+        public_interest_group: "Public interest group" #?
+        sir: "Sir" #?
+        syndicate: "Syndicate" #?
+    procedure: #?
       nomen: #?
         animal_birth: "Animal birth" #?
         calving_one: "Calving one" #?
@@ -77,11 +31,11 @@ eng:
         sowing: "Sowing" #?
         superficial_plowing: "Superficial plowing" #?
         wheat_crop: "Wheat crop" #?
-    product:
-      unit:
-        celsius: "Celsius"
-        square_meter: "Square meter"
-        unity: "Unity"
+    product: #?
+      unit: #?
+        celsius: "Celsius" #?
+        square_meter: "Square meter" #?
+        unity: "Unity" #?
   nomenclatures:
     abilities:
       items:
@@ -1114,7 +1068,7 @@ eng:
         # wheat_seed_25: "Semence de blé 25kg"
         # wheat_straw: "Paille de blé"
         # zea_herbicide: "Herbicide maïs"
-      # name: "Variant de produits"
+      # name: "Variants de produits"
     product_natures:
       attributes:
         abilities: "Abilities"

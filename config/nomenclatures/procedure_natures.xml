@@ -3,7 +3,7 @@
 
   <nomenclature name="procedure_natures" hierarchical="true">
     <attributes>
-      <attribute name="roles" type="list" choices="input, output, target, doer" required="false"/>
+      <attribute name="roles" type="list" choices="input, output, target, doer, tool" required="false"/>
     </attributes>
     <items>
       <item name="animal_feeding" roles="input, target, doer"/>
@@ -11,16 +11,16 @@
       <item name="animal_production" roles="target, output, doer"/>
       <item name="viviparous_birth" roles="target, output"/>
       <item name="oviparous_birth" roles="target, output"/>
-      <item name="harvest" roles="target, output, doer"/>
+      <item name="harvest" roles="target, output, doer, tool"/>
       <item name="transformation" roles="input, output, doer"/>
       <item name="tillage" roles="target"/>
       <item name="plant_fertilisation" roles="input, target"/>
-      <item name="plant_illness_treatment" roles="input, target, doer"/>
-      <item name="soil_enrichment" roles="input, target"/>
+      <item name="plant_illness_treatment" roles="input, target, doer, tool"/>
+      <item name="soil_enrichment" roles="input, target, tool, doer"/>
       <item name="soil_cleaning" roles="target"/>
-      <item name="sowing" roles="input, target, output, doer"/>
+      <item name="sowing" roles="input, target, output, doer, tool"/>
       <item name="pruning" roles="target"/>
-      <item name="grinding" roles="input, output, doer"/>
+      <item name="grinding" roles="input, output, doer, tool"/>
       <item name="growth_control" roles="target"/>
     </items>
   </nomenclature>
@@ -40,7 +40,6 @@
       <item name="animal_preventive_medicine_admission" roles="input, target, doer"/>
     </items>
   </nomenclature>
-
 
   <nomenclature name="procedure_natures-plant_feeding">
     <items>

@@ -16,22 +16,53 @@ module Procedo
       @required = (element.attr('required').to_s == "true" ? true : false)
       @parent = options[:parent] if options[:parent]
       @position = options[:position] || 0
-      # @id = element.attr("id").to_s
-      # raise MissingAttribute.new("Attribute 'id' must be given for a <procedure>") if @id.blank?
+
+      # Check version
       @version = element.attr("version").to_s
+      if @version.blank?
+        raise MissingAttribute, "Attribute 'version' must be given for a <procedure>"
+      end
+
+      # Collect procedure natures
       @natures = element.attr('natures').to_s.strip.split(/[\s\,]+/).compact.map(&:to_sym)
-      raise MissingAttribute.new("Attribute 'version' must be given for a <procedure>") if @version.blank?
+
+      # Check roles with procedure natures
+      roles  = []
+      for nature in @natures
+        unless item = Nomen::ProcedureNatures[nature]
+          raise UnknownProcedureNature, "Procedure nature #{nature} is unknown for #{@name}."
+        end
+        # List all roles
+        roles += item.roles.collect{|role| "#{nature}-#{role}"}
+      end
+      roles.uniq!
+
+      # Load and check variables
+      given_roles = []
       @variables = element.xpath("xmlns:variables/xmlns:variable").inject(HashWithIndifferentAccess.new) do |hash, variable|
-        hash[variable.attr("name").to_s] = Variable.new(self, variable)
+        v = Variable.new(self, variable)
+        for role in v.roles
+          if roles.include?(role)
+            given_roles << role
+          else
+            raise UnknownRole, "Role #{role} is ungiveable in procedure #{@name}"
+          end
+        end
+        hash[variable.attr("name").to_s] = v
         hash
       end
+
+      # Check ungiven roles
+      remaining_roles = roles - given_roles.uniq
+      if remaining_roles.any?
+        raise MissingRole, "Remaining roles of procedure #{@name} are not given: #{remaining_roles.join(', ')}"
+      end
+
+      # Load operations
       @operations = element.xpath("xmlns:operations/xmlns:operation").inject({}) do |hash, operation|
         hash[operation.attr("id").to_i] = Operation.new(self, operation)
         hash
       end
-      # @operations = element.xpath("xmlns:operations/xmlns:operation").collect do |operation|
-      #   Operation.new(self, operation)
-      # end
       unless @operations.keys.size == element.xpath("xmlns:operations/xmlns:operation").size
         raise NotUniqueIdentifier.new("Each operation must have a unique identifier (#{procedure.name}-#{procedure.version})")
       end

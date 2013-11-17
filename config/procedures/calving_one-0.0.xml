@@ -3,8 +3,8 @@
   <!-- ######################################## VELAGE PRODUISANT UN VEAU ########################################### -->
   <procedure name="calving_one" natures="viviparous_birth" version="0.0" status="frozen">
     <variables>
-      <variable name="mother_animal" variety="bos" abilities="produce(bos)"/>
-      <variable name="child_animal" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=none"/>
+      <variable name="mother_animal" variety="bos" abilities="produce(bos)" roles="viviparous_birth-target"/>
+      <variable name="child_animal" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=none" roles="viviparous_birth-output"/>
       <variable name="person" variety="worker"/>
     </variables>
     <operations>

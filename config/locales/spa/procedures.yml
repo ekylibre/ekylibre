@@ -26,6 +26,7 @@ spa:
       # simple_measurement: "%{indicator} est mesuré"
   procedures:
     # animal_birth: "Naissance d’un animal"
+    # animal_milking: "Traite"
     # animal_treatment: "Traitement animal"
     # calving_one: "Vêlage unique"
     # calving_twin: "Vêlage jumeaux"
@@ -33,10 +34,13 @@ spa:
     # grains_harvest: "Moisson"
     # mineral_fertilizing: "Fertilisation minérale"
     # organic_fertilizing: "Fertilisation organique"
+    # partial_chemical_treatment: "Traitement chimique partiel"
     # plant_grinding: "Broyage de végétaux"
+    # plant_mowing: "Fauchage"
     # plowing: "Labour"
     # raking: "Hersage"
     # sowing: "Semis"
+    # straw_bunching: "Pressage de fourrages"
     # superficial_plowing: "Hersage"
     # wheat_crop: "Culture de blé (standard)"
   variables:
