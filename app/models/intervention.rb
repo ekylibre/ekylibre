@@ -153,10 +153,22 @@ class Intervention < Ekylibre::Record::Base
     if self.casts.of_role(role).count > 0
       self.casts.of_role(role).where.not(actor_id: nil).map(&:cost).compact.sum
     else
-      return 0
+      return nil
     end
   end
-
+  
+  def working_area(unit=:hectare)
+    if self.casts.of_role(:target).count > 0
+      target = self.casts.of_role(:target).where.not(actor_id: nil).first
+      if target
+        return target.actor.area.round(2)
+      else
+        return nil
+      end
+    end
+    return nil
+  end
+  
   # def valid_for_run?(started_at, duration)
   #   if self.reference.minimal_duration < duration
   #     raise ArgumentError, "The intervention cannot last less than the minimum"
