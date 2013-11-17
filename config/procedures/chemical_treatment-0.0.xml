@@ -5,8 +5,8 @@
       <variable name="driver" variety="worker" roles="plant_illness_treatment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="catch(sprayer)" roles="plant_illness_treatment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="molecule" variety="phytosanitary"/>
-      <variable name="molecule_to_spray" same-nature-of="molecule" parameter="false" new="quantity=?" roles="plant_illness_treatment-input"/>
-      <variable name="sprayer" variety="equipment" abilities="spray" roles="plant_illness_treatment-tool"/>
+      <variable name="molecule_to_spray" new="parted-from: molecule" roles="plant_illness_treatment-input"/>
+      <variable name="sprayer" abilities="spray" roles="plant_illness_treatment-tool"/>
       <variable name="culture" variety="plant" roles="plant_illness_treatment-target"/>
     </variables>
     <operations>

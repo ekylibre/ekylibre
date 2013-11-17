@@ -41,6 +41,9 @@
 #  updater_id                  :integer
 #
 
+class MissingVariable < StandardError
+end
+
 class Intervention < Ekylibre::Record::Base
   attr_readonly :procedure, :production_id
   belongs_to :ressource , :polymorphic => true
@@ -196,46 +199,30 @@ class Intervention < Ekylibre::Record::Base
         self.operations.create!(started_at: started_at, stopped_at: started_at + d, position: id.to_i)
         started_at += d
       end
+      # Check variables presence
       for variable in reference.variables.values
-        next unless variable.new?
-        if cast = self.casts.find_by(variable: variable.name)
-          container, owner, arrival_cause = nil, nil, :birth
-          if variable.known_variant?
-            if ref = self.casts.find_by(variable: variable.variant_variable.name)
-              if actor = ref.actor
-                container = actor.container
-                owner = actor.owner
-              end
-              cast.variant = ref.variant
-              cast.save!
-            end
+        unless self.casts.find_by(variable: variable.name)
+          raise MissingVariable, "Variable #{variable.name} is missing"
+        end        
+      end
+      # Build new products
+      for variable in reference.new_variables
+        genited = self.casts.find_by!(variable: variable.name)
+        genitor = self.casts.find_by!(variable: variable.genitor_name)
+        if variable.parted?
+          # Parted from
+          variant = genitor.variant
+          genited.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: genitor.actor.owner, initial_container: genitor.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity)
+        elsif variable.produced?
+          # Produced by
+          unless variant = genited.variant || variable.variant(self)
+            raise StandardError, "No variant for #{variable.name} in intervention ##{self.id} (#{self.procedure})"
           end
-          if cast.variant and cast.quantity
-            cast.actor = cast.matching_model.create!(variant: cast.variant, born_at: started_at, initial_owner: owner || Entity.of_company, initial_container: container, initial_arrival_cause: arrival_cause, initial_population: cast.quantity)
-            cast.save!
-            # # match correct class model
-            # product_model = cast.variant.nature.matching_model
-            # # @TODO refactorize when a more powerful system works
-            # # try to simply attribute a localization on a new culture from sowing
-            # # sowing case
-            # if cast.roles == "sowing-output" and cast.variable == "culture"
-            #   container = self.casts.where(variable: "land_parcel").first.actor
-            #   arrival_cause = :birth
-            # # harvesting grain case
-            # elsif cast.roles == "harvest-output" and cast.variable == "grains"
-            #   container = self.casts.where(variable: "culture").first.actor
-            #   arrival_cause = :birth
-            # # harvesting straw case
-            # elsif cast.roles == "harvest-output" and cast.variable == "straw"
-            #   container = self.casts.where(variable: "culture").first.actor
-            #   arrival_cause = :birth
-            # end
-            # # create a product with correct type
-            # cast.actor = product_model.create!(variant: cast.variant, born_at: started_at, initial_owner: Entity.of_company, initial_container: container, initial_arrival_cause: arrival_cause)
-            # cast.actor.is_measured!(:population, cast.quantity)
-            # cast.save!
-          end
+          genited.actor = variant.matching_model.create!(variant: variant, born_at: started_at, initial_owner: genitor.actor.owner, initial_container: genitor.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity)
+        else
+          raise StandardError, "Don't known how to create the variable #{variable.name} for procedure #{variable.procedure_name}"
         end
+        genited.save!
       end
       self.reload
       self.started_at = period[:started_at]

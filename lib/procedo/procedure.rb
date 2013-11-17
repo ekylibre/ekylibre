@@ -3,7 +3,7 @@ module Procedo
   # This class represents a procedure
   class Procedure
 
-    attr_reader :id, :name, :namespace, :operations, :natures, :parent, :position, :variables, :version
+    attr_reader :id, :name, :namespace, :operations, :natures, :parent, :position, :variables, :variable_names, :version
 
     def initialize(element, options = {})
       name = element.attr("name").to_s.split(NS_SEPARATOR)
@@ -37,6 +37,12 @@ module Procedo
       end
       roles.uniq!
 
+      # Load variable_names
+      @variable_names = []
+      for item in element.xpath("xmlns:variables/xmlns:variable")
+        @variable_names << item.attr("name").to_sym
+      end
+
       # Load and check variables
       given_roles = []
       @variables = element.xpath("xmlns:variables/xmlns:variable").inject(HashWithIndifferentAccess.new) do |hash, variable|
@@ -56,6 +62,13 @@ module Procedo
       remaining_roles = roles - given_roles.uniq
       if remaining_roles.any?
         raise MissingRole, "Remaining roles of procedure #{@name} are not given: #{remaining_roles.join(', ')}"
+      end
+
+      # Check genitors
+      for variable in new_variables
+        unless variable.genitor.is_a?(Variable)
+          raise StandardError, "Unknown variable genitor for #{variable.name}"
+        end
       end
 
       # Load operations
@@ -117,6 +130,10 @@ module Procedo
       return (duration - self.fixed_duration).to_d / is_durations.size
     end
 
+    # Returns only variables which must be built during runnning process
+    def new_variables
+      @variables.values.select(&:new?)
+    end
 
   end
 
