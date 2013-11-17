@@ -74,8 +74,8 @@ class InterventionCast < Ekylibre::Record::Base
 
   # multiply evaluated_price of an actor(product) and used quantity in this cast
   def cost
-    if self.actor and !self.evaluated_price.blank?
-      if !self.quantity.blank?
+    if self.actor and self.evaluated_price
+      if self.quantity
         # case INPUT
         self.evaluated_price * self.quantity
       else
