@@ -73,7 +73,7 @@ class Entity < Ekylibre::Record::Base
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
   # belongs_to :nature, class_name: "EntityNature"
-  enumerize :nature, :in => Nomen::EntityNatures.all, :default => Nomen::EntityNatures.default, :predicates => {:prefix => true}
+  enumerize :nature, in: Nomen::EntityNatures.all, default: Nomen::EntityNatures.default, predicates: {prefix: true}
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   belongs_to :proposer, class_name: "Entity"
   belongs_to :responsible, class_name: "User"
@@ -190,7 +190,7 @@ class Entity < Ekylibre::Record::Base
     end
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     return false if self.id == self.of_company? or self.sales_invoices.count > 0 or self.participations.count > 0 and self.sales.count > 0 and self.transports.count > 0
     return true
   end

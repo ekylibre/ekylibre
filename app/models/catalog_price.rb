@@ -60,7 +60,7 @@ class CatalogPrice < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :started_at
 
-  #delegate :product_nature_id, :product_nature, :to => :template
+  #delegate :product_nature_id, :product_nature, to: :template
 
   scope :actives_at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
 

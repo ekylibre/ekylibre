@@ -38,7 +38,7 @@
 #
 class Production < Ekylibre::Record::Base
   # attr_accessible :supports_attributes, :activity_id, :product_nature_id, :campaign_id, :static_support, :state, :started_at, :stopped_at
-  enumerize :state, :in => [:draft, :validated], :default => :draft
+  enumerize :state, in: [:draft, :validated], default: :draft
   belongs_to :activity
   belongs_to :campaign
   belongs_to :variant, class_name: "ProductNatureVariant"
@@ -54,7 +54,7 @@ class Production < Ekylibre::Record::Base
   validates_inclusion_of :static_support, in: [true, false]
   validates_presence_of :activity, :campaign, :name, :state
   #]VALIDATORS]
-  # validates_presence_of :product_nature, :if => :activity_main?
+  # validates_presence_of :product_nature, if: :activity_main?
 
   alias_attribute :label, :name
 
@@ -104,11 +104,11 @@ class Production < Ekylibre::Record::Base
 
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.interventions.count.zero? and self.repartitions.count.zero?
   end
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     self.state ||= self.class.state_machine.initial_state(self)
   end
 

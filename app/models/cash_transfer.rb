@@ -58,8 +58,8 @@ class CashTransfer < Ekylibre::Record::Base
   validates_numericality_of :emission_amount, :reception_amount, :greater_than => 0.0
   validates_presence_of :transfered_on
 
-  delegate :currency, :to => :emission_cash, :prefix => :emission
-  delegate :currency, :to => :reception_cash, :prefix => :reception
+  delegate :currency, to: :emission_cash, prefix: :emission
+  delegate :currency, to: :reception_cash, prefix: :reception
 
   before_validation do
     self.transfered_on ||= Date.today

@@ -37,11 +37,11 @@
 
 class ProductProcessPhase < Ekylibre::Record::Base
   # attr_accessible :process_id, :name, :position, :phase_delay, :nature, :description
-  enumerize :nature, :in => [:life, :production, :environment]
+  enumerize :nature, in: [:life, :production, :environment]
   belongs_to :process, class_name: "ProductProcess"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :description, :name, :nature, :phase_delay, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature, :process
   #]VALIDATORS]
-  validates_inclusion_of :nature, :in => self.nature.values
+  validates_inclusion_of :nature, in: self.nature.values
 end

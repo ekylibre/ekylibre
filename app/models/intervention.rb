@@ -51,14 +51,14 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :provisional_intervention, class_name: "Intervention"
   has_many :casts, -> { order(:variable) }, class_name: "InterventionCast", inverse_of: :intervention
   has_many :operations, inverse_of: :intervention
-  enumerize :procedure, :in => Procedo.names.sort
-  enumerize :state, :in => [:undone, :squeezed, :in_progress, :done], :default => :undone, predicates: true
+  enumerize :procedure, in: Procedo.names.sort
+  enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :natures, :procedure, :ressource_type, :state, allow_nil: true, maximum: 255
   validates_inclusion_of :provisional, in: [true, false]
   validates_presence_of :natures, :procedure, :production, :state
   #]VALIDATORS]
-  validates_inclusion_of :procedure, :in => self.procedure.values
+  validates_inclusion_of :procedure, in: self.procedure.values
   validates_presence_of  :started_at, :stopped_at
 
 

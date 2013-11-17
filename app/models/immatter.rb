@@ -61,7 +61,7 @@
 #  work_number              :string(255)
 #
 class Immatter < Product
-  enumerize :variety, :in => Nomen::Varieties.all(:immatter), :predicates => {:prefix => true}
+  enumerize :variety, in: Nomen::Varieties.all(:immatter), predicates: {prefix: true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 end

@@ -39,15 +39,15 @@
 #
 class Activity < Ekylibre::Record::Base
   # attr_accessible :started_at, :stopped_at, :nature, :description, :family, :name, :parent_id, :productions_attributes
-  enumerize :nature, :in => [:main, :auxiliary, :none], :default => :main
-  enumerize :family, :in => Nomen::ActivityFamilies.all, :predicate => true
+  enumerize :nature, in: [:main, :auxiliary, :none], default: :main
+  enumerize :family, in: Nomen::ActivityFamilies.all, predicates: true
   has_many :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
   validates_length_of :description, :family, :name, :nature, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
-  validates_inclusion_of :family, :in => self.family.values, :allow_nil => true
+  validates_inclusion_of :family, in: self.family.values, allow_nil: true
 
   scope :main, -> { where(nature: "main") }
   # scope :main_activity, -> { where(nature: "main") }
@@ -67,7 +67,7 @@ class Activity < Ekylibre::Record::Base
     where(:family => families.collect{|f| Nomen::ActivityFamilies.all(f.to_sym) }.flatten.uniq.map(&:to_s))
   }
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.productions.count.zero?
   end
 

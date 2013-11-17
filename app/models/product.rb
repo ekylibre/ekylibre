@@ -64,10 +64,10 @@
 
 
 class Product < Ekylibre::Record::Base
-  enumerize :variety, :in => Nomen::Varieties.all, :predicates => {:prefix => true}
-  enumerize :content_indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}
-  enumerize :content_indicator_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
-  enumerize :initial_arrival_cause, :in => [:birth, :housing, :other, :purchase], :default => :birth, :predicates =>{prefix: true}
+  enumerize :variety, in: Nomen::Varieties.all, predicates: {prefix: true}
+  enumerize :content_indicator, in: Nomen::Indicators.all, predicates: {prefix: true}
+  enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
+  enumerize :initial_arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, :predicates =>{prefix: true}
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :category, class_name: "ProductNatureCategory"
   belongs_to :asset
@@ -185,17 +185,17 @@ class Product < Ekylibre::Record::Base
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :allow_destroy => true#, :reject_if => :all_blank,
   acts_as_numbered force: false
-  delegate :serial_number, :producer, :to => :tracking
-  delegate :name, :to => :nature, :prefix => true
-  delegate :subscribing?, :deliverable?, :to => :nature
-  delegate :variety, :derivative_of, :name, :to => :variant, :prefix => true
-  delegate :abilities, :abilities_array, :indicators, :indicators_array, :unit_name, :to => :variant
-  delegate :asset_account, :product_account, :charge_account, :stock_account, :to => :nature
+  delegate :serial_number, :producer, to: :tracking
+  delegate :name, to: :nature, prefix: true
+  delegate :subscribing?, :deliverable?, to: :nature
+  delegate :variety, :derivative_of, :name, to: :variant, prefix: true
+  delegate :abilities, :abilities_array, :indicators, :indicators_array, :unit_name, to: :variant
+  delegate :asset_account, :product_account, :charge_account, :stock_account, to: :nature
 
   after_initialize :choose_default_name
   after_create :set_initial_values
-  before_validation :set_default_values, :on => :create
-  before_validation :update_default_values, :on => :update
+  before_validation :set_default_values, on: :create
+  before_validation :update_default_values, on: :update
 
 
 

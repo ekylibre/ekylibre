@@ -53,7 +53,7 @@
 class Asset < Ekylibre::Record::Base
   # attr_accessible :name, :started_on, :stopped_on, :description, :currency, :depreciation_method
   acts_as_numbered
-  enumerize :depreciation_method, :in => [:simplified_linear, :linear], :predicates => {:prefix => true} # graduated
+  enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: {prefix: true} # graduated
   belongs_to :charges_account, class_name: "Account"
   belongs_to :allocation_account, class_name: "Account"
   belongs_to :journal, class_name: "Journal"
@@ -68,7 +68,7 @@ class Asset < Ekylibre::Record::Base
   validates_presence_of :allocation_account, :currency, :depreciable_amount, :depreciated_amount, :depreciation_method, :journal, :name, :number, :started_on, :stopped_on
   #]VALIDATORS]
   validates_uniqueness_of :name
-  validates_inclusion_of :depreciation_method, :in => self.depreciation_method.values
+  validates_inclusion_of :depreciation_method, in: self.depreciation_method.values
 
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => false
 
@@ -79,7 +79,7 @@ class Asset < Ekylibre::Record::Base
   #   end
   # end
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     self.depreciated_amount ||= 0
   end
 

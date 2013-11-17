@@ -54,7 +54,7 @@ class Inventory < Ekylibre::Record::Base
     self.created_on ||= Date.today
   end
 
-  bookkeep :on => :nothing do |b|
+  bookkeep on: :nothing do |b|
   end
 
   def reflectable?

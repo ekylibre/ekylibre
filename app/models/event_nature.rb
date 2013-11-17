@@ -36,7 +36,7 @@ class EventNature < Ekylibre::Record::Base
   # attr_accessible :name, :duration, :active, :usage
   attr_readonly :name
   has_many :events, foreign_key: :nature_id, inverse_of: :nature
-  enumerize :usage, :in => [:manual, :sale, :purchase, :sales_invoice, :mailing], :defaut => :manual, :predicates => true
+  enumerize :usage, in: [:manual, :sale, :purchase, :sales_invoice, :mailing], :defaut => :manual, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :usage, allow_nil: true, maximum: 60
   validates_length_of :name, allow_nil: true, maximum: 255
@@ -46,7 +46,7 @@ class EventNature < Ekylibre::Record::Base
 
   # default_scope -> { order(:name) }
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.events.count <= 0
   end
 

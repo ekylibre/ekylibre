@@ -64,7 +64,7 @@
 
 class ProductGroup < Product
   # attr_accessible :parent_id, :memberships_attributes
-  enumerize :variety, :in => Nomen::Varieties.all(:product_group), :predicates => {:prefix => true}
+  enumerize :variety, in: Nomen::Varieties.all(:product_group), predicates: {prefix: true}
 
   belongs_to :parent, class_name: "ProductGroup"
   has_many :memberships, class_name: "ProductMembership", foreign_key: :group_id

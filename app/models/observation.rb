@@ -37,7 +37,7 @@
 
 class Observation < Ekylibre::Record::Base
   # attr_accessible :author_id, :importance, :content, :subject_id, :subject_type
-  enumerize :importance, :in => [:important, :normal, :notice], :default => :notice, :predicates => true
+  enumerize :importance, in: [:important, :normal, :notice], default: :notice, predicates: true
   belongs_to :subject, :polymorphic => true
   belongs_to :author, class_name: "User"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

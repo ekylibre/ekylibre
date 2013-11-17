@@ -42,7 +42,7 @@
 #
 class Incident < Ekylibre::Record::Base
   # attr_accessible :name, :nature, :observed_at, :description, :priority, :gravity, :target_id, :target_type
-  enumerize :nature, :in => Nomen::Incidents.all, :default => Nomen::Incidents.default, :predicates => {:prefix => true}
+  enumerize :nature, in: Nomen::Incidents.all, default: Nomen::Incidents.default, predicates: {prefix: true}
   has_many :procedures, class_name: "Intervention"
   belongs_to :target , :polymorphic => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -50,8 +50,8 @@ class Incident < Ekylibre::Record::Base
   validates_length_of :name, :nature, :picture_content_type, :picture_file_name, :state, :target_type, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature, :observed_at, :target, :target_type
   #]VALIDATORS]
-  validates_inclusion_of :priority, :in => 0..5
-  validates_inclusion_of :priority, :in => 0..5
+  validates_inclusion_of :priority, in: 0..5
+  validates_inclusion_of :priority, in: 0..5
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -69,7 +69,7 @@ class Incident < Ekylibre::Record::Base
       state :closed
 
       event :treated do
-        transition :new => :in_progress, :if => :has_procedure?
+        transition :new => :in_progress, if: :has_procedure?
       end
     end
 

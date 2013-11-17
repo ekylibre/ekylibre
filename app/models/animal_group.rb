@@ -63,7 +63,7 @@
 
 
 class AnimalGroup < ProductGroup
-  enumerize :variety, :in => Nomen::Varieties.all(:animal_group), :predicates => {:prefix => true}
+  enumerize :variety, in: Nomen::Varieties.all(:animal_group), predicates: {prefix: true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 

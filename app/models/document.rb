@@ -36,7 +36,7 @@
 class Document < Ekylibre::Record::Base
   # attr_accessible :name, :key ,:nature
   has_many :archives, class_name: "DocumentArchive", dependent: :destroy, inverse_of: :document
-  enumerize :nature, :in => Nomen::DocumentNatures.all, :predicates => {:prefix => true}
+  enumerize :nature, in: Nomen::DocumentNatures.all, predicates: {prefix: true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, allow_nil: true, maximum: 60
   validates_length_of :nature, allow_nil: true, maximum: 120
@@ -44,7 +44,7 @@ class Document < Ekylibre::Record::Base
   validates_presence_of :key, :name, :nature, :number
   #]VALIDATORS]
   validates_uniqueness_of :key, :scope => :nature
-  validates_inclusion_of :nature, :in => self.nature.values
+  validates_inclusion_of :nature, in: self.nature.values
 
   acts_as_numbered
 

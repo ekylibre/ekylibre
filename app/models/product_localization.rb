@@ -43,15 +43,15 @@ class ProductLocalization < Ekylibre::Record::Base
   belongs_to :container, class_name: "Product"
   belongs_to :operation_task
   belongs_to :product
-  enumerize :nature, :in => [:transfer, :interior, :exterior], :default => :interior, :predicates => true
-  enumerize :arrival_cause, :in => [:birth, :housing, :other, :purchase], :default => :birth, :predicates =>{prefix: true}
-  enumerize :departure_cause, :in => [:death, :consumption, :other, :sale], :default => :sale, :predicates => {prefix: true}
+  enumerize :nature, in: [:transfer, :interior, :exterior], default: :interior, predicates: true
+  enumerize :arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, :predicates =>{prefix: true}
+  enumerize :departure_cause, in: [:death, :consumption, :other, :sale], default: :sale, predicates: {prefix: true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :arrival_cause, :departure_cause, :move_type, :nature, allow_nil: true, maximum: 255
   validates_presence_of :nature, :product
   #]VALIDATORS]
-  validates_inclusion_of :nature, :in => self.nature.values
-  validates_presence_of :container, :if => :nature_is_interior?
+  validates_inclusion_of :nature, in: self.nature.values
+  validates_presence_of :container, if: :nature_is_interior?
 
   def nature_is_interior?
     :nature == "interior"

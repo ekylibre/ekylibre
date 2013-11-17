@@ -1,21 +1,21 @@
 class IndicatorDatum < Ekylibre::Record::Base
   self.abstract_class = true
-  enumerize :indicator, :in => Nomen::Indicators.all, :default => Nomen::Indicators.default, :predicates => {:prefix => true}
-  enumerize :indicator_datatype, :in => Nomen::Indicators.datatype.choices, :predicates => {:prefix => true}
-  enumerize :measure_value_unit, :in => Nomen::Units.all, :predicates => {:prefix => true}
+  enumerize :indicator, in: Nomen::Indicators.all, default: Nomen::Indicators.default, predicates: {prefix: true}
+  enumerize :indicator_datatype, in: Nomen::Indicators.datatype.choices, predicates: {prefix: true}
+  enumerize :measure_value_unit, in: Nomen::Units.all, predicates: {prefix: true}
 
   composed_of :measure_value, class_name: "Measure", :mapping => [%w(measure_value_value value), %w(measure_value_unit unit)]
 
-  validates_inclusion_of :indicator, :in => self.indicator.values
-  validates_inclusion_of :indicator_datatype, :in => self.indicator_datatype.values
+  validates_inclusion_of :indicator, in: self.indicator.values
+  validates_inclusion_of :indicator_datatype, in: self.indicator_datatype.values
 
-  validates_presence_of :point_value,    :if => :indicator_datatype_point?
-  validates_presence_of :multi_polygon_value, :if => :indicator_datatype_multi_polygon?
-  validates_presence_of :string_value,   :if => :indicator_datatype_string?
-  validates_presence_of :measure_value,  :if => :indicator_datatype_measure?
-  validates_inclusion_of :boolean_value, :in => [true, false], :if => :indicator_datatype_boolean?
-  validates_presence_of :choice_value,   :if => :indicator_datatype_choice?
-  validates_presence_of :decimal_value,  :if => :indicator_datatype_decimal?
+  validates_presence_of :point_value,    if: :indicator_datatype_point?
+  validates_presence_of :multi_polygon_value, if: :indicator_datatype_multi_polygon?
+  validates_presence_of :string_value,   if: :indicator_datatype_string?
+  validates_presence_of :measure_value,  if: :indicator_datatype_measure?
+  validates_inclusion_of :boolean_value, in: [true, false], if: :indicator_datatype_boolean?
+  validates_presence_of :choice_value,   if: :indicator_datatype_choice?
+  validates_presence_of :decimal_value,  if: :indicator_datatype_decimal?
 
   # Keep this format to ensure inheritance
   before_validation :set_datatype

@@ -62,7 +62,7 @@ class CustomFieldChoice < Ekylibre::Record::Base
   end
 
   # Check that no records are present with this choice
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     return self.records.count.zero?
   end
 

@@ -47,14 +47,14 @@ class Campaign < Ekylibre::Record::Base
   validates_presence_of :name, :number
   #]VALIDATORS]
 
-  validates :harvest_year, length: {is: 4}, :allow_nil => true
-  before_validation :set_default_values, :on => :create
+  validates :harvest_year, length: {is: 4}, allow_nil: true
+  before_validation :set_default_values, on: :create
 
   acts_as_numbered :number, :readonly => false
   # default_scope -> { where(:closed => false).order(:name) }
   scope :currents, -> { where(:closed => false).reorder(:harvest_year) }
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.productions.count.zero? and self.interventions.count.zero?
   end
 

@@ -55,7 +55,7 @@ class BankStatement < Ekylibre::Record::Base
 
   # A bank account statement has to contain.all the planned records.
   validate do
-    errors.add(:stopped_on, :posterior, :to=>::I18n.localize(self.started_on)) if self.started_on >= self.stopped_on
+    errors.add(:stopped_on, :posterior, to: ::I18n.localize(self.started_on)) if self.started_on >= self.stopped_on
   end
 
   def balance_credit

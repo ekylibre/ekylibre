@@ -67,7 +67,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   acts_as_numbered
   acts_as_affairable :dealt_on => :to_bank_on, :debit => false, :third => :payee
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     self.created_on ||= Date.today
     true
   end
@@ -79,11 +79,11 @@ class OutgoingPayment < Ekylibre::Record::Base
     end
   end
 
-  protect(:on => :update) do
+  protect(on: :update) do
     return (self.journal_entry ? !self.journal_entry.closed? : true)
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     updateable?
   end
 

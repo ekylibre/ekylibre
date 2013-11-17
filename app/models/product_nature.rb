@@ -52,7 +52,7 @@ class ProductNature < Ekylibre::Record::Base
   enumerize :variety,       in: Nomen::Varieties.all
   enumerize :derivative_of, in: Nomen::Varieties.all
   # Be careful with the fact that it depends directly on the nomenclature definition
-  enumerize :population_counting, in: Nomen::ProductNatures.attributes[:population_counting].choices, :predicates => {:prefix => true}, :default => Nomen::ProductNatures.attributes[:population_counting].choices.first
+  enumerize :population_counting, in: Nomen::ProductNatures.attributes[:population_counting].choices, predicates: {prefix: true}, default: Nomen::ProductNatures.attributes[:population_counting].choices.first
    # has_many :available_stocks, class_name: "ProductStock", :conditions => ["quantity > 0"], foreign_key: :product_id
   #has_many :prices, foreign_key: :product_nature_id, class_name: "ProductPriceTemplate"
   belongs_to :category, class_name: "ProductNatureCategory"
@@ -73,8 +73,8 @@ class ProductNature < Ekylibre::Record::Base
   accepts_nested_attributes_for :variants, :reject_if => :all_blank, :allow_destroy => true
   acts_as_numbered :force => false
 
-  delegate :subscribing?, :deliverable?, :purchasable?, :to => :category
-  delegate :asset_account, :product_account, :charge_account, :stock_account, :to => :category
+  delegate :subscribing?, :deliverable?, :purchasable?, to: :category
+  delegate :asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -132,7 +132,7 @@ class ProductNature < Ekylibre::Record::Base
     where(query.join(" OR "), *parameters)
   }
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.variants.count.zero? and self.products.count.zero?
   end
 

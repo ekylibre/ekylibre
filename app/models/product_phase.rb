@@ -43,7 +43,7 @@ class ProductPhase < Ekylibre::Record::Base
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :category, class_name: "ProductNatureCategory"
 
-  before_validation :set_default_values, :on => :create
+  before_validation :set_default_values, on: :create
 
   # Sets nature and variety from variant
   def set_default_values

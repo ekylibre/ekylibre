@@ -44,7 +44,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :purchase_item, class_name: "PurchaseItem"
   # belongs_to :move, class_name: "ProductMove"
-  # enumerize :unit, :in => Nomen::Units.all
+  # enumerize :unit, in: Nomen::Units.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, allow_nil: true
   validates_presence_of :delivery, :product, :quantity
@@ -53,8 +53,8 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :product
   acts_as_stockable :origin => :delivery
-  delegate :variant, :name, :to => :product, :prefix => true
-  #delegate :weight, :name, :to => :product, :prefix => true
+  delegate :variant, :name, to: :product, prefix: true
+  #delegate :weight, :name, to: :product, prefix: true
   #sums :delivery, :items, "item.product_weight.to_f * item.quantity" => :weight
 
   before_validation do
@@ -63,14 +63,14 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
     end
   end
 
-  # validate(:on => :create) do
+  # validate(on: :create) do
   #   if self.product
   #     maximum = self.undelivered_quantity
   #     errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
   #   end
   # end
 
-  # validate(:on => :update) do
+  # validate(on: :update) do
   #   old_self = self.class.find(self.id)
   #   maximum = self.undelivered_quantity + old_self.quantity
   #   errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)

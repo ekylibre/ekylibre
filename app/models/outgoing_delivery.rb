@@ -73,12 +73,12 @@ class OutgoingDelivery < Ekylibre::Record::Base
     return true
   end
 
-  protect(:on => :update) do
+  protect(on: :update) do
     return false unless self.sent_at.nil?
     return true
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     return false unless self.sent_at.nil?
     return true
   end

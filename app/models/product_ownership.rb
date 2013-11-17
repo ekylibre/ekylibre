@@ -39,7 +39,7 @@ class ProductOwnership < Ekylibre::Record::Base
   belongs_to :owner, class_name: "Entity"
   belongs_to :product
   belongs_to :operation_task
-  enumerize :nature, :in => [:unknown, :own, :other], :default => :unknown, :predicates => true
+  enumerize :nature, in: [:unknown, :own, :other], default: :unknown, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :move_type, :nature, allow_nil: true, maximum: 255
   validates_presence_of :nature, :product

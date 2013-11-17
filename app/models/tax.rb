@@ -41,7 +41,7 @@
 class Tax < Ekylibre::Record::Base
   attr_readonly :computation_method, :amount
   enumerize :nomen, in: Nomen::Taxes.all
-  enumerize :computation_method, :in => [:amount, :percentage], :default => :percentage, :predicates => true
+  enumerize :computation_method, in: [:amount, :percentage], default: :percentage, predicates: true
   belongs_to :collect_account, class_name: "Account"
   belongs_to :deduction_account, class_name: "Account"
   has_many :price_templates, class_name: "ProductPriceTemplate"
@@ -58,15 +58,15 @@ class Tax < Ekylibre::Record::Base
   validates_inclusion_of :included, :reductible, in: [true, false]
   validates_presence_of :amount, :computation_method, :name
   #]VALIDATORS]
-  validates_inclusion_of :computation_method, :in => self.computation_method.values
+  validates_inclusion_of :computation_method, in: self.computation_method.values
   validates_presence_of :collect_account
   validates_presence_of :deduction_account
   validates_uniqueness_of :name
-  validates_numericality_of :amount, :in => 0..100, :if => :percentage?
+  validates_numericality_of :amount, in: 0..100, if: :percentage?
 
   scope :percentages, -> { where(:computation_method => 'percentage') }
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.purchase_product_nature_categories.empty? and self.sale_product_nature_categories.empty? and self.sale_items.empty? and self.purchase_items.empty?
   end
 

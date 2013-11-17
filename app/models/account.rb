@@ -112,7 +112,7 @@ class Account < Ekylibre::Record::Base
     self.label = tc(:label, :number => self.number.to_s, :name => self.name.to_s)
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     dependencies = 0
     for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
       dependencies += self.send(k).size

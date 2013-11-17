@@ -58,10 +58,10 @@ class Subscription < Ekylibre::Record::Base
   validates_length_of :number, allow_nil: true, maximum: 255
   validates_inclusion_of :suspended, in: [true, false]
   #]VALIDATORS]
-  validates_presence_of :started_on, :stopped_on, :if => Proc.new{|u| u.nature and u.nature.period?}
-  validates_presence_of :first_number, :last_number, :if => Proc.new{|u| u.nature and u.nature.quantity?}
+  validates_presence_of :started_on, :stopped_on, if: Proc.new{|u| u.nature and u.nature.period?}
+  validates_presence_of :first_number, :last_number, if: Proc.new{|u| u.nature and u.nature.quantity?}
   validates_presence_of :nature, :subscriber
-  validates_presence_of :sale_item, :if => Proc.new{|s| !s.sale.nil?}, :on => :create
+  validates_presence_of :sale_item, if: Proc.new{|s| !s.sale.nil?}, on: :create
 
   before_validation do
     self.sale_id      = self.sale_item.sale_id if self.sale_item
@@ -71,7 +71,7 @@ class Subscription < Ekylibre::Record::Base
     return true
   end
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     if self.nature
       if self.nature.period?
         if self.product_nature

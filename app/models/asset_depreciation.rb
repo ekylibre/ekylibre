@@ -52,17 +52,17 @@ class AssetDepreciation < Ekylibre::Record::Base
   validates_presence_of :amount, :asset, :created_on, :started_on, :stopped_on
   #]VALIDATORS]
   validates_presence_of :financial_year
-  delegate :currency, :to => :asset
+  delegate :currency, to: :asset
 
   sums :asset, :depreciations, :amount => :depreciated_amount
 
-  bookkeep(:on => :nothing) do |b|
+  bookkeep(on: :nothing) do |b|
     b.journal_entry do |entry|
 
     end
   end
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     self.created_on = Date.today
   end
 

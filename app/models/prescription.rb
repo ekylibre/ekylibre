@@ -42,5 +42,5 @@ class Prescription < Ekylibre::Record::Base
   validates_presence_of :prescriptor
   #]VALIDATORS]
 
-  delegate :name, :to => :prescriptor, :prefix => true
+  delegate :name, to: :prescriptor, prefix: true
 end

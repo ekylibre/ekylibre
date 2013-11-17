@@ -66,7 +66,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   belongs_to :entry, class_name: "JournalEntry", inverse_of: :items
   belongs_to :bank_statement
   has_many :repartitions, class_name: "AnalyticRepartition", foreign_key: :journal_entry_item_id
-  # delegate :real_currency, :to => :entry
+  # delegate :real_currency, to: :entry
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :absolute_credit, :absolute_debit, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :debit, :real_credit, :real_currency_rate, :real_debit, allow_nil: true
@@ -78,7 +78,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_numericality_of :debit, :credit, :real_debit, :real_credit, :greater_than_or_equal_to => 0
   validates_presence_of :account
-  # validates_uniqueness_of :letter, :scope => :account_id, :if => Proc.new{|x| !x.letter.blank?}
+  # validates_uniqueness_of :letter, :scope => :account_id, if: Proc.new{|x| !x.letter.blank?}
 
   acts_as_list :scope => :entry
 
@@ -136,7 +136,7 @@ class JournalEntryItem < Ekylibre::Record::Base
     end
   end
 
-  validate(:on => :update) do
+  validate(on: :update) do
     old = self.class.find(self.id)
     errors.add(:account_id, :entry_has_been_already_validated) if old.closed?
     # Forbids to change "manually" the letter. Use Account#mark/unmark.
@@ -156,11 +156,11 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + #{self.absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit + #{self.absolute_credit}")
   end
 
-  protect(:on => :update) do
+  protect(on: :update) do
     not self.closed? and self.entry and self.entry.updateable?
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     !self.closed?
   end
 

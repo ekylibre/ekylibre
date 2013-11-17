@@ -53,7 +53,7 @@ class ListingNode < Ekylibre::Record::Base
   acts_as_nested_set
   # attr_accessible :name, :attribute_name, :condition_operator, :condition_value, :exportable, :label, :listing_id, :nature, :parent_id, :position, :sql_type
   attr_readonly :listing_id, :nature
-  enumerize :nature, :in => [:root, :column, :datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
+  enumerize :nature, in: [:root, :column, :datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
   belongs_to :listing
   belongs_to :item_listing, class_name: "Listing"
   belongs_to :item_listing_node, class_name: "ListingNode"
@@ -105,7 +105,7 @@ class ListingNode < Ekylibre::Record::Base
     :not_equal_cs =>    "{{COLUMN}} != {{VALUE}}",
     :is_true =>  "{{COLUMN}} = {{VALUE}}",
     :is_false => "{{COLUMN}} = {{VALUE}}",
-    :in => "{{COLUMN}} IN {{LIST}}"
+    in: "{{COLUMN}} IN {{LIST}}"
   }
 
   before_validation do
@@ -125,7 +125,7 @@ class ListingNode < Ekylibre::Record::Base
     end
   end
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     if self.reflection?
       for node in listing.nodes
         if node = self.listing.nodes.where(:name => self.name).first

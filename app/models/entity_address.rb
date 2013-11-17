@@ -57,7 +57,7 @@ class EntityAddress < Ekylibre::Record::Base
   has_many :sales
   has_many :subscriptions
   has_many :buildings
-  enumerize :canal, :in => [:mail, :email, :phone, :mobile, :fax, :website], :default => :email, :predicates => true
+  enumerize :canal, in: [:mail, :email, :phone, :mobile, :fax, :website], default: :email, predicates: true
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :mail_country, allow_nil: true, maximum: 2
@@ -68,8 +68,8 @@ class EntityAddress < Ekylibre::Record::Base
   validates_inclusion_of :by_default, :mail_auto_update, in: [true, false]
   validates_presence_of :canal, :coordinate, :entity
   #]VALIDATORS]
-  validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :if => :email?
-  validates_inclusion_of :canal, :in => self.canal.values
+  validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: :email?
+  validates_inclusion_of :canal, in: self.canal.values
 
   has_default :scope => [:entity_id, :canal]
 
@@ -107,7 +107,7 @@ class EntityAddress < Ekylibre::Record::Base
   end
 
   # Each address have a distinct thread
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     if self.thread.blank?
       self.thread = 'AAAA'
       while self.class.where("entity_id = ? AND canal = ? AND thread = ?", self.entity_id, self.canal, self.thread).count > 0 do

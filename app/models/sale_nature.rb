@@ -58,7 +58,7 @@ class SaleNature < Ekylibre::Record::Base
   validates_inclusion_of :active, :by_default, :downpayment, :with_accounting, in: [true, false]
   validates_presence_of :currency, :expiration_delay, :name, :payment_delay
   #]VALIDATORS]
-  validates_presence_of :journal, :if => :with_accounting?
+  validates_presence_of :journal, if: :with_accounting?
   validates_presence_of :currency
   validates_uniqueness_of :name
   validates_delay_format_of :payment_delay, :expiration_delay

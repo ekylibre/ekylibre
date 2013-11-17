@@ -58,8 +58,8 @@ class Cash < Ekylibre::Record::Base
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
   has_one :last_bank_statement, -> { order("stopped_on DESC") }, class_name: "BankStatement"
-  enumerize :nature, :in => [:bank_account, :cash_box], :default => :bank_account, :predicates => true
-  enumerize :mode, :in => [:iban, :bban], :default => :iban, :predicates => {:prefix => true}
+  enumerize :nature, in: [:bank_account, :cash_box], default: :bank_account, predicates: true
+  enumerize :mode, in: [:iban, :bban], default: :iban, predicates: {prefix: true}
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :country, allow_nil: true, maximum: 2
@@ -72,8 +72,8 @@ class Cash < Ekylibre::Record::Base
   validates_length_of :bank_account_key, :bank_account_number, :bank_agency_code, :bank_code, :mode, :name, allow_nil: true, maximum: 255
   validates_presence_of :account, :currency, :journal, :mode, :name, :nature
   #]VALIDATORS]
-  validates_inclusion_of :mode, :in => self.mode.values
-  validates_inclusion_of :nature, :in => self.nature.values
+  validates_inclusion_of :mode, in: self.mode.values
+  validates_inclusion_of :nature, in: self.nature.values
   validates_uniqueness_of :account_id
 
   scope :bank_accounts, -> { where(:nature => "bank_account") }
@@ -107,7 +107,7 @@ class Cash < Ekylibre::Record::Base
     end
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.deposits.count <= 0 and self.bank_statements.count <= 0
   end
 

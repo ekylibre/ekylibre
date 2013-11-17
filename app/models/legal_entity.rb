@@ -65,5 +65,5 @@
 #  vat_subjected             :boolean          default(TRUE), not null
 #
 class LegalEntity < Entity
-  enumerize :nature, :in => Nomen::EntityNatures.all(:legal_entity), :default => Nomen::EntityNatures.default(:legal_entity), :predicates => {:prefix => true}
+  enumerize :nature, in: Nomen::EntityNatures.all(:legal_entity), default: Nomen::EntityNatures.default(:legal_entity), predicates: {prefix: true}
 end

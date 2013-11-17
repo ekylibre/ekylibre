@@ -76,7 +76,7 @@ class Settlement < Easement
   # has_many :stock_transfers, class_name: "ProductTransfer"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-  validates_presence_of :content_nature, :if => :reservoir?
+  validates_presence_of :content_nature, if: :reservoir?
 
   # default_scope order(:name)
   scope :of_product, lambda { |product|
@@ -93,7 +93,7 @@ class Settlement < Easement
     # end
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     dependencies = 0
     for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
       dependencies += self.send(k).count

@@ -47,13 +47,13 @@ class OutgoingPaymentMode < Ekylibre::Record::Base
   validates_inclusion_of :active, :with_accounting, in: [true, false]
   validates_presence_of :name
   #]VALIDATORS]
-  validates_presence_of :attorney_journal, :if => :with_accounting?
+  validates_presence_of :attorney_journal, if: :with_accounting?
 
-  delegate :currency, :to => :cash
+  delegate :currency, to: :cash
 
   # default_scope -> { order(:position) }
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.payments.count.zero?
   end
 

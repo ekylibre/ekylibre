@@ -53,7 +53,7 @@ class Transport < Ekylibre::Record::Base
   validates_presence_of :amount, :pretax_amount, :transporter
   #]VALIDATORS]
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     self.created_on ||= Date.today
     return true
   end
@@ -65,7 +65,7 @@ class Transport < Ekylibre::Record::Base
   #   end
   # end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     return true
   end
 

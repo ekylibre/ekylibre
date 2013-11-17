@@ -48,7 +48,7 @@
 class ProductNatureCategory < Ekylibre::Record::Base
 
   # Be careful with the fact that it depends directly on the nomenclature definition
-  enumerize :pictogram, :in => Nomen::ProductNatureCategories.pictogram.choices, :predicates => {:prefix => true}
+  enumerize :pictogram, in: Nomen::ProductNatureCategories.pictogram.choices, predicates: {prefix: true}
   belongs_to :asset_account, class_name: "Account"
   belongs_to :charge_account, class_name: "Account"
   belongs_to :product_account, class_name: "Account"
@@ -66,13 +66,13 @@ class ProductNatureCategory < Ekylibre::Record::Base
   validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, in: [true, false]
   validates_presence_of :name, :number
   #]VALIDATORS]
-  validates_presence_of :subscription_nature,   :if => :subscribing?
-  validates_presence_of :subscription_period,   :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }
-  validates_presence_of :subscription_quantity, :if => Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.quantity? }
-  validates_presence_of :product_account, :if => :saleable?
-  validates_presence_of :charge_account,  :if => :purchasable?
-  validates_presence_of :stock_account,   :if => :storable?
-  validates_presence_of :asset_account,   :if => :depreciable?
+  validates_presence_of :subscription_nature,   if: :subscribing?
+  validates_presence_of :subscription_period,   if: Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.period? }
+  validates_presence_of :subscription_quantity, if: Proc.new{|u| u.subscribing? and u.subscription_nature and u.subscription_nature.quantity? }
+  validates_presence_of :product_account, if: :saleable?
+  validates_presence_of :charge_account,  if: :purchasable?
+  validates_presence_of :stock_account,   if: :storable?
+  validates_presence_of :asset_account,   if: :depreciable?
   validates_uniqueness_of :number
   validates_uniqueness_of :name
 
@@ -86,7 +86,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   scope :purchaseables, -> { where(:purchasable => true).order(:name) }
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.natures.count.zero? and self.products.count.zero?
   end
 

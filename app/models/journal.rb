@@ -40,7 +40,7 @@ class Journal < Ekylibre::Record::Base
   has_many :cashes
   has_many :entry_items, class_name: "JournalEntryItem", inverse_of: :journal
   has_many :entries, class_name: "JournalEntry", inverse_of: :journal
-  enumerize :nature, :in => [:sales, :purchases, :bank, :forward, :various, :cash], :default => :various, :predicates => true
+  enumerize :nature, in: [:sales, :purchases, :bank, :forward, :various, :cash], default: :various, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :code, allow_nil: true, maximum: 4
@@ -64,7 +64,7 @@ class Journal < Ekylibre::Record::Base
   scope :cashes,    -> { where(:nature => "cashes") }
   scope :banks_or_cashes,    -> { where(:nature => "cashes").or.where(:nature => "bank") }
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     if year = FinancialYear.first
       self.closed_on = year.started_on - 1
     else
@@ -96,7 +96,7 @@ class Journal < Ekylibre::Record::Base
     end
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.entries.count.zero? and self.entry_items.count.zero? and self.cashes.count.zero?
   end
 

@@ -98,7 +98,7 @@ class Affair < Ekylibre::Record::Base
       end
       hash
     end.delete_if{|k, v| v.zero?}
-    b.journal_entry(Journal.various.first, :printed_on => (all_deals.last ? all_deals.last.dealt_on : Date.today), :if => (self.debit == self.credit and !thirds.empty?)) do |entry|
+    b.journal_entry(Journal.various.first, :printed_on => (all_deals.last ? all_deals.last.dealt_on : Date.today), if: (self.debit == self.credit and !thirds.empty?)) do |entry|
       for account_id, amount in thirds
         entry.add_debit(label, account_id, amount)
       end

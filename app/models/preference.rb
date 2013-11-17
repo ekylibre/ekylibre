@@ -40,7 +40,7 @@
 
 class Preference < Ekylibre::Record::Base
   # attr_accessible :nature, :name, :value
-  enumerize :nature, :in => Preference.columns_definition.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0].to_sym }, :default => :string, :predicates => true
+  enumerize :nature, in: Preference.columns_definition.keys.select{|x| x.match(/_value(_id)?$/)}.collect{|x| x.split(/_value/)[0].to_sym }, default: :string, predicates: true
   @@natures = self.nature.values
   @@conversions = {:float => :decimal, :true_class => :boolean, :false_class => :boolean, :fixnum => :integer}
   cattr_reader :reference
@@ -55,13 +55,13 @@ class Preference < Ekylibre::Record::Base
   validates_length_of :name, :record_value_type, allow_nil: true, maximum: 255
   validates_presence_of :name, :nature
   #]VALIDATORS]
-  validates_inclusion_of :nature, :in => @@natures
+  validates_inclusion_of :nature, in: @@natures
   validates_uniqueness_of :name, :scope => [:user_id]
 
   def self.prefer(name, nature, default_value)
     @@reference ||= HashWithIndifferentAccess.new
     raise ArgumentError.new("Nature (#{nature.inspect}) is unacceptable. #{self.nature.values.to_sentence} are accepted.") unless self.nature.values.include?(nature.to_s)
-    @@reference[name] = {:name => :name, :nature => nature.to_sym, :default => default_value}
+    @@reference[name] = {:name => :name, :nature => nature.to_sym, default: default_value}
   end
 
   prefer :bookkeep_automatically, :boolean, true

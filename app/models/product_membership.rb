@@ -46,7 +46,7 @@ class ProductMembership < Ekylibre::Record::Base
   validates_presence_of :group, :member, :started_at
   #]VALIDATORS]
 
-  delegate :localize_in, :to => :member
+  delegate :localize_in, to: :member
 
   validate do
     # TODO Checks that no time overlaps can occur and that it works

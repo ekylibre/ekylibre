@@ -50,7 +50,7 @@ class SaleItem < Ekylibre::Record::Base
   after_save :set_reduction
   attr_readonly :sale_id
 
-  enumerize :indicator, :in => Nomen::Indicators.all, :predicates => {:prefix => true}, :default => :population
+  enumerize :indicator, in: Nomen::Indicators.all, predicates: {prefix: true}, default: :population
 
   belongs_to :account
   # belongs_to :entity
@@ -68,17 +68,17 @@ class SaleItem < Ekylibre::Record::Base
   has_many :subscriptions, dependent: :destroy
 
   accepts_nested_attributes_for :subscriptions
-  delegate :sold?, :to => :sale
-  delegate :all_taxes_included?, :to => :price
-  delegate :name, :to => :tax, :prefix => true
-  delegate :nature, :name, :to => :variant, :prefix => true
-  delegate :subscribing?, :deliverable?, :to => :product_nature, :prefix => true
+  delegate :sold?, to: :sale
+  delegate :all_taxes_included?, to: :price
+  delegate :name, to: :tax, prefix: true
+  delegate :nature, :name, to: :variant, prefix: true
+  delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
   delegate :entity_id, to: :address, prefix: true
 
   alias :product_nature :variant_nature
 
   acts_as_list :scope => :sale
-  acts_as_stockable :mode => :virtual, :if => :sold?
+  acts_as_stockable :mode => :virtual, if: :sold?
   sums :sale, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -190,7 +190,7 @@ class SaleItem < Ekylibre::Record::Base
     # TODO validates responsible can make reduction and reduction percentage is convenient
   end
 
-  protect(:on => :update) do
+  protect(on: :update) do
     return self.sale.draft?
   end
 

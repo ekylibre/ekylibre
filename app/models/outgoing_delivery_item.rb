@@ -44,7 +44,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   belongs_to :sale_item
   has_many :interventions, class_name: "Intervention", :as => :ressource
   # belongs_to :move, class_name: "ProductMove"
-  #enumerize :unit, :in => Nomen::Units.all
+  #enumerize :unit, in: Nomen::Units.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, allow_nil: true
   validates_presence_of :delivery, :product, :quantity, :source_product
@@ -71,7 +71,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
     true
   end
 
-  validate(:on => :create) do
+  validate(on: :create) do
     if self.source_product
       maximum = self.source_product.population || 0
       errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.source_product.variant.unit_name, :product => self.source_product_name) if (self.quantity > maximum)
@@ -79,7 +79,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
     true
   end
 
-  validate(:on => :update) do
+  validate(on: :update) do
     old_self = self.old_record
     maximum = self.product.population || 0
     errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.variant.unit_name, :product => self.product_name) if (self.quantity > maximum)

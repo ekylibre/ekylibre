@@ -64,7 +64,7 @@
 
 class Animal < Bioproduct
   # attr_accessible :father_id, :mother_id
-  enumerize :variety, :in => Nomen::Varieties.all(:animal), :predicates => {:prefix => true}
+  enumerize :variety, in: Nomen::Varieties.all(:animal), predicates: {prefix: true}
   belongs_to :father, class_name: "Animal"
   belongs_to :mother, class_name: "Animal"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

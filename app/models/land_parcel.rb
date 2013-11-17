@@ -76,7 +76,7 @@ class LandParcel < Easement
   validates_presence_of :born_at # :area_measure, :area_unit,
 
   # # TODO : waiting for operations stabilizations
-  # before_validation(:on => :update) do
+  # before_validation(on: :update) do
   #   if self.operations.count <= 0
   #     # We can't change the area of a parcel if operations has been made on it
   #     old = self.class.find(self.id)

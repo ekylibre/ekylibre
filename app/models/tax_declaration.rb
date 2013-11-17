@@ -68,7 +68,7 @@ class TaxDeclaration < Ekylibre::Record::Base
   end
 
   # this method:allows to comptabilize the tax declaration after it creation.
-  bookkeep(:on => :nothing) do |b|
+  bookkeep(on: :nothing) do |b|
   end
 
 end

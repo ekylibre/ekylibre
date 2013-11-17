@@ -81,10 +81,10 @@ class JournalEntry < Ekylibre::Record::Base
     state :confirmed
     state :closed
     event :confirm do
-      transition :draft => :confirmed, :if => :balanced?
+      transition :draft => :confirmed, if: :balanced?
     end
     event :close do
-      transition :confirmed => :closed, :if => :balanced?
+      transition :confirmed => :closed, if: :balanced?
     end
 #     event :reopen do
 #       transition :closed => :confirmed
@@ -171,7 +171,7 @@ class JournalEntry < Ekylibre::Record::Base
     end
   end
 
-  validate(:on => :update) do
+  validate(on: :update) do
     old = self.class.find(self.id)
     errors.add(:number, :entry_has_been_already_validated) if old.closed?
   end
@@ -192,11 +192,11 @@ class JournalEntry < Ekylibre::Record::Base
     JournalEntryItem.where(:entry_id => self.id).update_all(:state => self.state, :journal_id => self.journal_id, :financial_year_id => self.financial_year_id, :printed_on => self.printed_on, :entry_number => self.number, :real_currency => self.real_currency, :real_currency_rate => self.real_currency_rate)
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 
-  protect(:on => :update) do
+  protect(on: :update) do
     self.printed_on > self.journal.closed_on and not self.closed?
   end
 

@@ -48,7 +48,7 @@ class DocumentArchive < Ekylibre::Record::Base
   has_attached_file :file, {
     :path => self.private_directory.join(':id_partition', ':style.:extension').to_s,
     :styles => {
-      :default => {:clean => true, :format => :pdf, :processors => [:reader, :counter, :freezer]},
+      default: {:clean => true, :format => :pdf, :processors => [:reader, :counter, :freezer]},
       :thumbnail => {:processors => [:sketcher], :format => :jpg}
     }
   }
@@ -60,11 +60,11 @@ class DocumentArchive < Ekylibre::Record::Base
   validates_presence_of :archived_at
   validates_attachment_presence :file
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     self.archived_at ||= Time.now
   end
 
-  delegate :name, :to => :template, :prefix => true
+  delegate :name, to: :template, prefix: true
 
   # Returns data of file
   def data

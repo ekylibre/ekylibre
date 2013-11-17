@@ -69,7 +69,7 @@ class Deposit < Ekylibre::Record::Base
     self.cash = self.mode.cash if self.mode
   end
 
-  before_validation(:on => :update) do
+  before_validation(on: :update) do
     self.payments_count = self.payments.count
     self.amount = self.payments.sum(:amount)
   end
@@ -84,7 +84,7 @@ class Deposit < Ekylibre::Record::Base
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     payments = self.reload.payments unless b.action == :destroy
-    b.journal_entry(self.cash.journal, :if => !self.mode.depositables_account.nil?) do |entry|
+    b.journal_entry(self.cash.journal, if: !self.mode.depositables_account.nil?) do |entry|
 
       commissions, commissions_amount = {}, 0
       for payment in payments
@@ -112,7 +112,7 @@ class Deposit < Ekylibre::Record::Base
     end
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     return !self.locked?
   end
 

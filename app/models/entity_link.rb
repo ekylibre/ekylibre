@@ -40,13 +40,13 @@ class EntityLink < Ekylibre::Record::Base
   belongs_to :entity_1, class_name: "Entity"
   belongs_to :entity_2, class_name: "Entity"
   # belongs_to :nature, class_name: "EntityLinkNature"
-  enumerize :nature, :in => Nomen::EntityLinkNatures.all
+  enumerize :nature, in: Nomen::EntityLinkNatures.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, allow_nil: true, maximum: 255
   validates_presence_of :entity_1, :entity_2, :nature
   #]VALIDATORS]
-  validates_inclusion_of :nature, :in => self.nature.values
+  validates_inclusion_of :nature, in: self.nature.values
 
   scope :of_entity, lambda { |entity| where("stopped_at IS NULL AND ? IN (entity_1_id, entity_2_id)", entity.id) }
   scope :actives, -> {

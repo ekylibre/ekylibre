@@ -50,16 +50,16 @@ class PurchaseItem < Ekylibre::Record::Base
   # belongs_to :price, class_name: "CatalogPrice"
   belongs_to :variant, class_name: "ProductNatureVariant"
   belongs_to :tax
-  # enumerize :unit, :in => Nomen::Units.all
+  # enumerize :unit, in: Nomen::Units.all
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
 
   # accepts_nested_attributes_for :price
-  delegate :purchased?, :draft?, :order?, :supplier, :to => :purchase
-  # delegate :currency, :to => :price
-  delegate :subscribing?, :deliverable?, :to => :product_nature, :prefix => true
+  delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
+  # delegate :currency, to: :price
+  delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
 
   acts_as_list :scope => :purchase
-  acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
+  acts_as_stockable :mode => :virtual, :direction => :in, if: :purchased?
   sums :purchase, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -69,7 +69,7 @@ class PurchaseItem < Ekylibre::Record::Base
   validates_presence_of :account, :amount, :currency, :indicator, :pretax_amount, :purchase, :quantity, :tax, :unit_price_amount, :variant
   #]VALIDATORS]
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
-  # validates_uniqueness_of :tracking_serial, :scope => :price_id, :allow_nil => true, :if => Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
+  # validates_uniqueness_of :tracking_serial, :scope => :price_id, allow_nil: true, if: Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
 
 
   before_validation do

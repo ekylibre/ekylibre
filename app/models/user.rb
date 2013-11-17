@@ -92,18 +92,18 @@ class User < Ekylibre::Record::Base
   validates_inclusion_of :administrator, :commercial, :employed, :locked, in: [true, false]
   validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage, :role
   #]VALIDATORS]
-  # validates_presence_of :password, :password_confirmation, :if => Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
+  # validates_presence_of :password, :password_confirmation, if: Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
   validates_confirmation_of :password
   validates_numericality_of :maximal_grantable_reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
   validates_uniqueness_of :email
-  # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :if => lambda{|r| !r.email.blank?}
+  # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :registerable
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   model_stamper # Needed to stamp.all records
-  delegate :picture, :full_name, :participations, :to => :person
+  delegate :picture, :full_name, :participations, to: :person
 
   class << self
     def rights_file; Rails.root.join("config", "rights.yml"); end
@@ -190,7 +190,7 @@ class User < Ekylibre::Record::Base
     self.administrator? or self.rights.match(/(^|\s)#{right}(\s|$)/)
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.class.count > 1
   end
 

@@ -60,7 +60,7 @@ class Catalog < Ekylibre::Record::Base
     self.code = self.code[0..9]
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.prices.count <= 0
   end
 

@@ -54,7 +54,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   validates_presence_of :received_at, :address
 
   accepts_nested_attributes_for :items
-  delegate :order?, :draft?, :to => :purchase
+  delegate :order?, :draft?, to: :purchase
 
   # default_scope -> { order("received_at DESC") }
   scope :undelivereds, -> { where(:received_at => nil) }

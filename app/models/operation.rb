@@ -61,7 +61,7 @@ class Operation < Ekylibre::Record::Base
     joins(intervention: :production).merge(Production.of_activities(activities))
   }
 
-  before_validation(:on => :create) do
+  before_validation(on: :create) do
     self.started_at ||= Time.now
     # TODO Remove following line!!!
     self.stopped_at ||= self.started_at

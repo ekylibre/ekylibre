@@ -59,7 +59,7 @@ class Transfer < Ekylibre::Record::Base
     # self.paid_amount = self.payment_uses.sum(:amount)||0
   end
 
-  bookkeep(:on => :nothing) do |b|
+  bookkeep(on: :nothing) do |b|
   end
 
   def number

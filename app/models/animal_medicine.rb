@@ -62,7 +62,7 @@
 #
 
 class AnimalMedicine < Medicine
-  enumerize :variety, :in => Nomen::Varieties.all(:animal_medicine), :predicates => {:prefix => true}
+  enumerize :variety, in: Nomen::Varieties.all(:animal_medicine), predicates: {prefix: true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 end

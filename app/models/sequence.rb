@@ -41,9 +41,9 @@
 
 class Sequence < Ekylibre::Record::Base
   # attr_accessible :name, :number_format, :number_increment, :number_start, :period, :usage, :last_number
-  enumerize :period, :in => [:cweek, :month, :number, :year]
+  enumerize :period, in: [:cweek, :month, :number, :year]
   # TODO: Adds.all usage for sequence? or register_usage like Account ?
-  enumerize :usage, :in => [:animals, :assets, :campaigns, :cash_transfers, :deposits, :entities, :incoming_deliveries, :incoming_payments, :outgoing_deliveries, :outgoing_payments, :plants, :purchases, :sales_invoices, :sales, :stock_transfers, :subscriptions, :transports]
+  enumerize :usage, in: [:animals, :assets, :campaigns, :cash_transfers, :deposits, :entities, :incoming_deliveries, :incoming_payments, :outgoing_deliveries, :outgoing_payments, :plants, :purchases, :sales_invoices, :sales, :stock_transfers, :subscriptions, :transports]
   # cattr_reader :usages
 
   REPLACE_REGEXP = Regexp.new('\[(' + self.period.values.join('|') + ')(\|(\d+)(\|([^\]]*))?)?\]').freeze
@@ -54,10 +54,10 @@ class Sequence < Ekylibre::Record::Base
   validates_length_of :name, :number_format, :period, :usage, allow_nil: true, maximum: 255
   validates_presence_of :name, :number_format, :number_increment, :number_start, :period
   #]VALIDATORS]
-  validates_inclusion_of  :period, :in => self.period.values
-  validates_inclusion_of  :usage, :in => self.usage.values, :allow_nil => true
+  validates_inclusion_of  :period, in: self.period.values
+  validates_inclusion_of  :usage, in: self.usage.values, allow_nil: true
   validates_uniqueness_of :number_format
-  validates_uniqueness_of :usage, :if => :used?
+  validates_uniqueness_of :usage, if: :used?
 
   scope :of_usage, lambda { |usage| where(:usage => usage.to_s).order(:id) }
 
@@ -65,7 +65,7 @@ class Sequence < Ekylibre::Record::Base
     self.period ||= 'number'
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.preferences.size <= 0
   end
 
@@ -90,7 +90,7 @@ class Sequence < Ekylibre::Record::Base
       unless sequence = self.find_by_usage(usage)
         sequence = self.new(:usage => usage)
         sequence.name = sequence.usage.text
-        sequence.number_format = "models.sequence.default.#{usage}".t(:default => sequence.usage.to_s.upcase + "[number|12]")
+        sequence.number_format = "models.sequence.default.#{usage}".t(default: sequence.usage.to_s.upcase + "[number|12]")
         sequence.period = best_period_for(sequence.number_format)
         sequence.save
       end

@@ -39,9 +39,9 @@
 class SubscriptionNature < Ekylibre::Record::Base
   # attr_accessible :actual_number, :description, :entity_link_direction, :entity_link_nature, :name, :nature, :reduction_percentage
   attr_readonly :nature
-  enumerize :nature, :in => [:period, :quantity], :default => :period, :predicates => true
-  enumerize :entity_link_nature, :in => Nomen::EntityLinkNatures.all
-  enumerize :entity_link_direction, :in => [:direct, :indirect, :all], :default => :all, :predicates => {:prefix => true}
+  enumerize :nature, in: [:period, :quantity], default: :period, predicates: true
+  enumerize :entity_link_nature, in: Nomen::EntityLinkNatures.all
+  enumerize :entity_link_direction, in: [:direct, :indirect, :all], default: :all, predicates: {prefix: true}
   has_many :products, class_name: "ProductNature"
   has_many :subscriptions, foreign_key: :nature_id
 
@@ -61,7 +61,7 @@ class SubscriptionNature < Ekylibre::Record::Base
     self.reduction_percentage ||= 0
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.subscriptions.count <= 0 and self.products.count <= 0
   end
 

@@ -61,12 +61,12 @@
 #  work_number              :string(255)
 #
 class Plant < Bioproduct
-  enumerize :variety, :in => Nomen::Varieties.all(:plant), :predicates => {:prefix => true}
+  enumerize :variety, in: Nomen::Varieties.all(:plant), predicates: {prefix: true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
   #validates_uniqueness_of :name, :identification_number
-  before_validation :set_name_and_number, :on => :create
+  before_validation :set_name_and_number, on: :create
 
   # acts_as_numbered :work_number, :readonly => false
 

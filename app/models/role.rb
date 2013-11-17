@@ -44,7 +44,7 @@ class Role < Ekylibre::Record::Base
     self.rights_array = self.rights_array # Clean the rights
   end
 
-  after_save(:on => :update) do
+  after_save(on: :update) do
     old_rights_array = []
     new_rights_array = []
     old_rights = Role.find_by_id(self.id).rights.to_s.split(" ")
@@ -89,7 +89,7 @@ class Role < Ekylibre::Record::Base
     self.rights = array.select{|x| User.rights_list.include?(x.to_sym)}.join(" ")
   end
 
-  protect(:on => :destroy) do
+  protect(on: :destroy) do
     self.users.count <= 0
   end
 

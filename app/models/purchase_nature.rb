@@ -45,7 +45,7 @@ class PurchaseNature < Ekylibre::Record::Base
   validates_inclusion_of :active, :by_default, :with_accounting, in: [true, false]
   validates_presence_of :currency
   #]VALIDATORS]
-  validates_presence_of :journal, :if => :with_accounting?
+  validates_presence_of :journal, if: :with_accounting?
   validates_presence_of :currency
   validates_uniqueness_of :name
 
