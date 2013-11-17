@@ -137,7 +137,7 @@ GEM
       loofah (~> 1.2.1)
       nokogiri (~> 1.6.0)
       sax-machine (~> 0.2.1)
-    ffaker (1.20.0)
+    ffaker (1.21.0)
     ffi (1.9.3)
     formize (1.1.2)
       jquery-rails (>= 3)
@@ -170,7 +170,6 @@ GEM
     launchy (2.4.0)
       addressable (~> 2.3)
     libv8 (3.16.14.3)
-    libxml-ruby (2.7.0)
     listen (1.1.6)
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
@@ -410,7 +409,6 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   launchy
-  libxml-ruby
   mechanize
   nokogiri (~> 1.6.0)
   ofx-parser

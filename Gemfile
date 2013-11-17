@@ -94,7 +94,7 @@ gem 'i18n-complements'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.6.0'
-gem 'libxml-ruby', :require => 'libxml'
+# gem 'libxml-ruby', :require => 'libxml'
 gem 'mechanize'
 # gem 'savon', '= 2.2.0' # waiting for SOAP and EDE Webservices
 

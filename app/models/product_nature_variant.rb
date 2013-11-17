@@ -217,13 +217,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Load a product nature variant from product nature variant nomenclature
   def self.import_from_nomenclature(nomen)
-    unless item = Nomen::ProductNatureVariants.find(nomen)
+    unless item = Nomen::ProductNatureVariants[nomen]
       raise ArgumentError, "The product_nature_variant #{nomen.inspect} is not known"
     end
-    unless nature_item = Nomen::ProductNatures.find(item.nature)
+    unless nature_item = Nomen::ProductNatures[item.nature]
       raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
     end
-    unless nature_variant = ProductNatureVariant.find_by_nomen(nomen)
+    unless nature_variant = ProductNatureVariant.find_by(nomen: nomen.to_s)
       attributes = {
         :name => item.human_name,
         :active => true,

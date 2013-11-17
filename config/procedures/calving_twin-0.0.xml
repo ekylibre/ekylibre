@@ -3,24 +3,24 @@
   <!-- ######################################## VELAGE PRODUISANT DES JUMEAUX ########################################### -->
   <procedure name="calving_twin" natures="viviparous_birth" version="0.0" status="frozen">
     <variables>
-      <variable name="mother_animal" variety="bos" abilities="produce(bos)" roles="viviparous_birth-target"/>
-      <variable name="child_animal_first" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=twins" roles="viviparous_birth-output"/>
-      <variable name="child_animal_second" variety="bos" new="mother=[mother_animal], father=?, quantity=1, unit=u, weight=?, mammalia_twins_condition=twins" roles="viviparous_birth-output"/>
-      <variable name="person" variety="worker"/>
+      <variable name="mother" variety="bos" abilities="produce(bos)" roles="viviparous_birth-target"/>
+      <variable name="first_child"  variety="bos" new="produced-by: mother" indicators="father: ?, weight: ?, mammalia_twins_condition: twins" roles="viviparous_birth-output"/>
+      <variable name="second_child" variety="bos" new="produced-by: mother" indicators="father: ?, weight: ?, mammalia_twins_condition: twins" roles="viviparous_birth-output"/>
+      <variable name="caregiver" variety="worker"/>
     </variables>
     <operations>
       <operation id="100">
-        <task do="[mother_animal] produces [child_animal_first]"/><!-- une vache produit le premier veau -->
-        <task do="[person] measures [child_animal_first:mammalia_born_condition]"/>
+        <task do="[mother] produces [first_child]"/><!-- une vache produit le premier veau -->
+        <task do="[caregiver] measures [first_child:mammalia_born_condition]"/>
       </operation>
       <operation id="200">
-        <task do="[mother_animal] produces [child_animal_second]"/><!-- une vache produit le second veau -->
-        <task do="[person] measures [child_animal_second:mammalia_born_condition]"/>
+        <task do="[mother] produces [second_child]"/><!-- une vache produit le second veau -->
+        <task do="[caregiver] measures [second_child:mammalia_born_condition]"/>
       </operation>
       <operation id="300" duration="5 minutes">
-        <task do="[person] measures [mother_animal:mammalia_born_cycle]"/>
-        <task do="[person] measures [mother_animal:mammalia_reproduction_method_embryo_transplant]"/>
-        <task do="[person] measures [mother_animal:mammalia_reproduction_event_abortion]"/>      
+        <task do="[caregiver] measures [mother:mammalia_born_cycle]"/>
+        <task do="[caregiver] measures [mother:mammalia_reproduction_method_embryo_transplant]"/>
+        <task do="[caregiver] measures [mother:mammalia_reproduction_event_abortion]"/>      
       </operation>
     </operations>        
   </procedure>

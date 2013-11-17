@@ -9,7 +9,7 @@
     <!-- les compétences (abilities) sont notés sous la forme d'une compétence sur une variété : compétence(variété)-->
     <variables>
       <variable name="manure" variety="organic_matter" derivative-of="animal" abilities="fertilize"/>
-      <variable name="manure_to_spread" variant=":manure" new="true" roles="soil_enrichment-input"/>
+      <variable name="manure_to_spread" new="parted-from: manure" roles="soil_enrichment-input"/>
       <variable name="spreader" abilities="spread(organic_matter)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver" variety="worker" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
