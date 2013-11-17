@@ -84,7 +84,7 @@ module ActiveList
         code << "html << '<table class=\"list\">'\n"
         code << "html << (#{header})\n"
         code << "if block_given?\n"
-        code << "  html << '<tfoot>' + capture(" + table.columns.collect{|c| {name: c.name, id: c.id}}.inspect + ", &block) + '</tfoot>'\n"
+        code << "  html << '<tfoot>' + capture(" + table.columns.collect{|c| {name: c.name, id: c.id}}.inspect + ", &block).to_s + '</tfoot>'\n"
         code << "end\n"
         code << "html << #{var_name(:tbody)}\n"
         code << "html << '</table>'\n"
