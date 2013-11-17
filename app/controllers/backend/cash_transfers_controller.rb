@@ -18,16 +18,16 @@
 #
 
 class Backend::CashTransfersController < BackendController
-  manage_restfully :created_on => 'Date.today'.c
+  manage_restfully transfered_on: 'Date.today'.c
 
   unroll
 
   list do |t|
-    t.column :number, url: true
-    t.column :emission_amount,  :currency => :emission_currency
-    t.column :emission_cash, url: true
-    t.column :reception_amount, :currency => :reception_currency
-    t.column :reception_cash, url: true
+    t.column :number,           url: true
+    t.column :emission_amount,             currency: :emission_currency
+    t.column :emission_cash,    url: true
+    t.column :reception_amount,            currency: :reception_currency
+    t.column :reception_cash,   url: true
     t.column :transfered_on
     t.column :description
     t.action :edit
