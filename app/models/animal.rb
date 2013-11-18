@@ -70,10 +70,11 @@ class Animal < Bioproduct
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
+  validates_presence_of :identification_number
   validates_uniqueness_of :identification_number
 
-  scope :fathers, -> { indicate(:sex => "male", :reproductor => true).order(:name) }
-  scope :mothers, -> { indicate(:sex => "female", :reproductor => true).order(:name) }
+  scope :fathers, -> { indicate(sex: "male", reproductor: true).order(:name) }
+  scope :mothers, -> { indicate(sex: "female", reproductor: true).order(:name) }
 
   # acts_as_numbered :number, :readonly => false
 
