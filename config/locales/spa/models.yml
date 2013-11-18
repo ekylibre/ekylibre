@@ -609,6 +609,7 @@ spa:
     # deduction_account: "TVA déductible"
     # deduction_taxes: "TVA déductible"
     # default_mail_address: "Adresse email par défaut"
+    # default_storage: "Default storage"
     # deferred_payment: "Crédit à reporter"
     # deleted_at: "Supprimé le"
     # deliverable: "Livrable"

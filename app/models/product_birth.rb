@@ -46,20 +46,20 @@ class ProductBirth < Ekylibre::Record::Base
   validates_inclusion_of :nature, in: self.nature.values
 
   before_update do
-    if self.born_id != old_record.born_id
-      old_record.born.update_attribute(born_at: nil)
+    if self.product_id != old_record.product_id
+      old_record.product.update_attribute(born_at: nil)
     end
   end
 
   before_save do
-    if self.born
-      if self.born_at != self.born.born_at
-        self.born.update_attribute(born_at: self.born_at)
+    if self.product
+      if self.born_at != self.product.born_at
+        self.product.update_attribute(born_at: self.born_at)
       end
     end
   end
 
   before_destroy do
-    old_record.born.update_attribute(born_at: nil)
+    old_record.product.update_attribute(born_at: nil)
   end
 end

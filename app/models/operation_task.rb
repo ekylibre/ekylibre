@@ -37,6 +37,8 @@ class OperationTask < Ekylibre::Record::Base
   belongs_to :parent, class_name: "OperationTask"
   has_many :casts, class_name: "OperationTaskCast", inverse_of: :task
   has_many :product_births, dependent: :destroy
+  has_many :product_deaths, dependent: :destroy
+  has_many :product_links, dependent: :destroy
   has_many :product_localizations, dependent: :destroy
   enumerize :nature, in: Procedo::Action::TYPES.keys, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -61,51 +63,154 @@ class OperationTask < Ekylibre::Record::Base
     end
 
     # Let the magic begins
-    method_name = "add_#{self.nature}".to_sym
+    method_name = "do_#{self.nature}".to_sym
     if self.respond_to?(method_name)
-      send(method_name)
+      begin
+        send(method_name)
+      rescue
+        puts "Can not do #{self.nature}"
+      end
     else
       puts "Unsupported method: #{method_name}"
     end
   end
 
+  before_destroy do
+    method_name = "undo_#{self.nature}".to_sym
+    if self.respond_to?(method_name)
+      begin
+        send(method_name)
+      rescue
+        puts "Can not undo #{self.nature}"
+      end
+    end
+  end
+
+
   def reference
     self.operation_reference.tasks[self.reference_name]
   end
 
-  def add_movement
+
+  # == Localization
+
+  def do_movement
     product = find_actor(:product)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: product.id)
     self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: product.id, container_id: find_actor(:localizable).container.id)
   end
 
-  def add_entering
+  def do_entering
     product = find_actor(:product)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: product.id)
     self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: product.id, container_id: find_actor(:localizable).id)
   end
 
-  def add_home_coming
+  def do_home_coming
     product = find_actor(:product)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: product.id)
     self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: product.id, container_id: product.default_storage.id)
   end
 
-  def add_given_home_coming
+  def do_given_home_coming
     product = find_actor(:product)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: product.id)
     self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: product.id, container_id: find_actor(:localizable).default_storage.id)
   end
 
-  def add_out_going
+  def do_out_going
     product = find_actor(:product)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: product.id)
     self.product_localizations.create!(started_at: self.stopped_at, nature: :exterior, product_id: product.id)
   end
 
-  def add_division
-    self.product_births.create!(started_at: self.started_at, stopped_at: self.stopped_at, born: find_actor(:born), genitor: find_actor(:product))
+  # == Births
+
+  def do_creation
+    self.product_births.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :creation, product: find_actor(:product), producer: find_actor(:producer))
   end
+
+  def do_division
+    self.product_births.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :division, product: find_actor(:product), producer: find_actor(:producer))
+  end
+
+  # == Deaths
+
+  def do_consumption
+    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :consumption, product: find_actor(:product), absorber: find_actor(:absorber))
+  end
+
+  def do_merging
+    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :merging, product: find_actor(:product), absorber: find_actor(:absorber))
+  end
+
+  # == Links
+
+  def do_attachment
+    self.product_links.create!(started_at: self.stopped_at, carrier: find_actor(:carrier), carried: find_actor(:carried))
+  end
+
+  def do_detachment
+    self.product_links
+      .where(carrier_id: find_actor(:carrier).id, carried_id: find_actor(:carried).id)
+      .at(self.stopped_at)
+      .find_each do |link|
+      link.update_attribute(stopped_at: self.stopped_at)
+    end
+  end
+
+  def undo_detachment
+    self.product_links
+      .where(carrier_id: find_actor(:carrier).id, carried_id: find_actor(:carried).id, stopped_at: self.stopped_at)
+      .find_each do |link|
+      link.update_attribute(stopped_at: nil)
+    end
+  end
+
+  # == Memberships
+
+  def do_group_inclusion
+    self.product_memberships.create!(started_at: self.stopped_at, member: find_actor(:member), group: find_action(:group))
+  end
+
+  def do_group_exclusion
+    self.product_memberships
+      .where(member_id: find_actor(:member).id, group_id: find_actor(:group).id)
+      .at(self.stopped_at)
+      .find_each do |membership|
+      membership.update_attribute(stopped_at: self.stopped_at)
+    end
+  end
+
+  def undo_group_exclusion
+    self.product_memberships
+      .where(member_id: find_actor(:member).id, group_id: find_actor(:group).id, stopped_at: self.stopped_at)
+      .find_each do |membership|
+      membership.update_attribute(stopped_at: nil)
+    end
+  end
+
+  # == Ownership
+
+  def do_ownership_loss
+    self.product_ownerships.create!(started_at: self.stopped_at, nature: :unknown, product_id: product.id)
+  end
+
+  def do_ownership_change
+    self.product_ownerships.create!(started_at: self.stopped_at, product_id: product.id, owner: find_actor(:owner))
+  end
+
+  # == Browsing
+
+  def do_browsing
+  end
+
+  # == Measurement
+
+  def do_simple_measurement
+    self.product_measurements.create!()
+  end
+
 
   private
 

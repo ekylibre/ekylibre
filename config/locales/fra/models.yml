@@ -351,10 +351,12 @@ fra:
       procedure_variable: "Variable de procédure" #?
       product: "Produits"
       # product_birth: "Product birth"
+      # product_death: "Product death"
       product_group: "Groupe de produit"
       product_indicator_datum: "Valeur d’indicateur"
       product_link: "Lien entre produits"
       product_localization: "Passage d’un produit en un lieu"
+      # product_measurement: "Product measurement"
       product_membership: "Passage d’un produit dans un groupe"
       product_move: "Mouvement de stock" #?
       product_nature: "Type de produit"
@@ -397,6 +399,7 @@ fra:
     absolute_credit: "Absolute credit"
     absolute_currency: "Absolute currency"
     absolute_debit: "Absolute debit"
+    # absorber: "Absorber"
     account: "Compte comptable"
     account_balances: "Balances de compte"
     accountable: "Comptabilisable"
@@ -579,6 +582,7 @@ fra:
     deduction_account: "TVA déductible"
     deduction_taxes: "TVA déductible" #?
     default_mail_address: "Adresse email par défaut"
+    default_storage: "Default storage"
     # default_variant: "Default variant"
     deferred_payment: "Crédit à reporter"
     deleted_at: "Supprimé le"
@@ -932,7 +936,9 @@ fra:
     product: "Produit"
     product_account: "Compte de produit"
     # product_births: "Product births"
+    # product_deaths: "Product deaths"
     product_events: "Product events"
+    # product_links: "Product links"
     product_localizations: "Product localizations"
     product_moves: "Product moves"
     product_nature: "Product nature"

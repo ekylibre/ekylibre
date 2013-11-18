@@ -1219,6 +1219,7 @@ arb:
     default_contact: "الشخص المتوقع الاتصال به" #?
     default_currency: "العملة الافتراضية" #?
     # default_mail_address: "Adresse email par défaut"
+    # default_storage: "Default storage"
     deferred_payment: "ائتمان معلق"
     delays: "تأخير" #?
     deleted_at: "الغيه في"

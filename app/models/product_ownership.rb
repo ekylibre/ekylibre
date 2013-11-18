@@ -47,14 +47,4 @@ class ProductOwnership < Ekylibre::Record::Base
     self.nature = (self.owner.blank? ? :unknown : (self.owner == Entity.of_company) ? :own : :other)
   end
 
-  def move_to(owner,moved_at = Time.now)
-    self.class.transaction do
-      self.class.create!(owner: owner, product_id: self.product_id, started_at: moved_at, stopped_at: self.stopped_at)
-      self.stopped_at = moved_at
-      self.save!
-    end
-  end
-
-
-
 end

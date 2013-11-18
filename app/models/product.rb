@@ -68,15 +68,16 @@ class Product < Ekylibre::Record::Base
   enumerize :content_indicator, in: Nomen::Indicators.all, predicates: {prefix: true}
   enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
   enumerize :initial_arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, :predicates =>{prefix: true}
-  belongs_to :nature, class_name: "ProductNature"
-  belongs_to :category, class_name: "ProductNatureCategory"
   belongs_to :asset
-  belongs_to :tracking
-  belongs_to :initial_container, class_name: "Product"
-  belongs_to :initial_owner, class_name: "Entity"
+  belongs_to :default_storage, class_name: "Product"
+  belongs_to :category, class_name: "ProductNatureCategory"
   belongs_to :content_nature, class_name: "ProductNature"
   belongs_to :father, class_name: "Product"
+  belongs_to :initial_container, class_name: "Product"
+  belongs_to :initial_owner, class_name: "Entity"
   belongs_to :mother, class_name: "Product"
+  belongs_to :nature, class_name: "ProductNature"
+  belongs_to :tracking
   belongs_to :variant, class_name: "ProductNatureVariant"
   has_many :incidents, class_name: "Incident", :as => :target
   has_many :indicator_data, class_name: "ProductIndicatorDatum", dependent: :destroy
@@ -335,7 +336,7 @@ class Product < Ekylibre::Record::Base
   # Returns the current contents of the product at a given time (or now by default)
   def contains(content_class = Product, at = Time.now)
     localizations = ProductLocalization.where(container: self).where("started_at <= ?",at)
-    if localizations.count > 0
+    if localizations.any?
       object = {}
       for localization in localizations
         object << localization.product if localization.product.is_a(content_class)
@@ -359,7 +360,7 @@ class Product < Ekylibre::Record::Base
     if l = self.current_localization
       return l.container
     end
-    return nil
+    return self.default_storage
   end
 
   def picture_path(style=:original)

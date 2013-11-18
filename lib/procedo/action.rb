@@ -10,13 +10,13 @@ module Procedo
       given_home_coming: {product: :product, localizable: :product},
       out_going:         {product: :product},
       # Births
-      birth:       {born: :product},
-      production:  {born: :product, product: :product},
-      division:    {born: :product, product: :product},
+      birth:       {product: :product},
+      creation:    {product: :product, producer: :product},
+      division:    {product: :product, producer: :product},
       # Deaths
-      death:       {dead: :product},
-      consumption: {dead: :product, product: :product},
-      merging:     {dead: :product, product: :product},
+      death:       {product: :product},
+      consumption: {product: :product, absorber: :product},
+      merging:     {product: :product, absorber: :product},
       # Links
       attachment:  {carrier: :product, carried: :product},
       detachment:  {carrier: :product, carried: :product},

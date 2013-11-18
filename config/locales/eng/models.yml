@@ -785,6 +785,7 @@ eng:
     default_currency: "Default currency" #?
     default_mail_address: "Default mail address"
     default_stock: "Default stock" #?
+    # default_storage: "Default storage"
     deferred_payment: "Deferred payment"
     delays: "Delays" #?
     deleted_at: "Deleted at"
