@@ -82,7 +82,7 @@ demo :buildings do
         if record.attributes['CONTAINER'].to_s
           if building = Building.find_by_work_number(record.attributes['CONTAINER'].to_s)
             building.add(building_division, now)
-            building_division.update_attribues(:default_storage => building)
+            building_division.update_attributes(:default_storage => building)
             building_division.save
           end
         end
