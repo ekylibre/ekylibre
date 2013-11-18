@@ -24,8 +24,6 @@
 #  creator_id        :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
-#  move_id           :integer
-#  move_type         :string(255)
 #  nature            :string(255)      not null
 #  operation_task_id :integer
 #  owner_id          :integer

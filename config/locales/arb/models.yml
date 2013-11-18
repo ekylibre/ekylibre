@@ -1736,6 +1736,7 @@ arb:
     reduction_rate: "معدل الخصم" #?
     reduction_submissive: "خاضع للتخفيض" #?
     reductions: "طرق الخصومات"
+    # reference_name: "Reference name"
     # reference_number: "N°Référence"
     reflation_submissive: "خاضع لانعاش اقتصادي" #?
     # reflections: "Reflections"

@@ -26,7 +26,7 @@
 #  id              :integer          not null, primary key
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
-#  position        :integer
+#  reference_name  :string(255)      not null
 #  started_at      :datetime         not null
 #  stopped_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -36,11 +36,15 @@
 
 class Operation < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :operations
-  has_many :tasks, class_name: "OperationTask", inverse_of: :operation
+  has_many :tasks, class_name: "OperationTask", inverse_of: :operation, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, allow_nil: true, only_integer: true
-  validates_presence_of :intervention, :started_at, :stopped_at
+  validates_length_of :reference_name, allow_nil: true, maximum: 255
+  validates_presence_of :intervention, :reference_name, :started_at, :stopped_at
   #]VALIDATORS]
+
+  delegate :reference, to: :intervention, prefix: true
+  delegate :casts, to: :intervention
 
   # default_scope -> { order(:started_at) }
   scope :unvalidateds, -> { where(:confirmed => false) }
@@ -70,12 +74,23 @@ class Operation < Ekylibre::Record::Base
     end
   end
 
-  after_save do
-    self.intervention.save!
+  after_create do
+    # Create tasks
+    for task in self.reference.tasks.values
+      # casts_attributes = {}
+      # for name, definition in task.parameters
+      #   casts_attributes[name] = {name: name, actor: nil}
+      # end
+      self.tasks.create!(reference_name: task.name)
+    end
   end
 
+  # after_save do
+  #   self.intervention.save!
+  # end
+
   def reference
-    self.intervention.reference.operations[self.position]
+    self.intervention_reference.operations[self.reference_name]
   end
 
   def self.averages_of_periods(column = :duration, reference_date_column = :started_at, period = :month)

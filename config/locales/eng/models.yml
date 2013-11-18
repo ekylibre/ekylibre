@@ -1292,6 +1292,7 @@ eng:
     reduction_rate: "Reduction rate" #?
     reduction_submissive: "Reduction submissive" #?
     reductions: "Reductions"
+    # reference_name: "Reference name"
     reference_number: "Reference number"
     reflation_submissive: "Reflation submissive" #?
     reflections: "Reflections"

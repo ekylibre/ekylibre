@@ -27,10 +27,10 @@
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
 #  quantity        :decimal(19, 4)
+#  reference_name  :string(255)      not null
 #  roles           :string(320)
 #  updated_at      :datetime         not null
 #  updater_id      :integer
-#  variable        :string(255)      not null
 #  variant_id      :integer
 #
 
@@ -40,9 +40,9 @@ class InterventionCast < Ekylibre::Record::Base
   belongs_to :variant, class_name: "ProductNatureVariant"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :quantity, allow_nil: true
-  validates_length_of :variable, allow_nil: true, maximum: 255
+  validates_length_of :reference_name, allow_nil: true, maximum: 255
   validates_length_of :roles, allow_nil: true, maximum: 320
-  validates_presence_of :intervention, :variable
+  validates_presence_of :intervention, :reference_name
   #]VALIDATORS]
   # composed_of :quantity, class_name: "Measure", :mapping => [%w(measure_quantity value), %w(measure_unit unit)]
 
@@ -69,7 +69,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   validate do
-    errors.add(:variable, :invalid) unless self.reference
+    errors.add(:reference_name, :invalid) unless self.reference
   end
 
   # multiply evaluated_price of an actor(product) and used quantity in this cast
@@ -89,7 +89,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   def reference
-    self.intervention.reference.variables[self.variable]
+    self.intervention.reference.variables[self.reference_name]
   end
 
   def variable_name

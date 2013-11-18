@@ -14,8 +14,10 @@ module Procedo
         expr = element.attr('duration').to_s.strip.split(/\s+/)
         @duration = expr.first.to_d.send(expr.second)
       end
-      @tasks = element.xpath('xmlns:task').collect do |task|
-        Task.new(self, task)
+      @tasks = HashWithIndifferentAccess.new
+      element.xpath('xmlns:task').each_with_index do |task, index|
+        key = index.to_s
+        @tasks[key] = Task.new(self, key, task)
       end
     end
 
@@ -31,6 +33,14 @@ module Procedo
     # Returns an array of humanized expression
     def human_expressions
       return @tasks.map(&:human_expression)
+    end
+
+    def name
+      @id.to_s
+    end
+
+    def uid
+      self.procedure.uid + "-" + @id.to_s
     end
 
   end

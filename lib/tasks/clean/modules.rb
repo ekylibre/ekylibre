@@ -19,25 +19,25 @@ task :modules => :environment do
   end
 
   # Removes undefined
-  doc.xpath('//undefined-module').remove
+  doc.xpath('//untreated-actions').remove
 
   ref = CleanSupport.actions_hash
-  # puts ref.inspect
+
   deleted = 0
   unused_actions = []
   for page in doc.xpath('//page')
     to = page.attr("to")
     url = to.to_s.strip.split("#")
     if ref[url[0]]
-      page.remove_attribute('deletable')
+      page.remove_attribute('nonexistent')
       ref[url[0]].delete(url[1])
     else
-      page['deletable'] = 'true'
+      page['nonexistent'] = 'true'
       deleted += 1
     end
   end
 
-  undefined = Nokogiri::XML::Node.new('undefined-module', doc)
+  undefined = Nokogiri::XML::Node.new('untreated-actions', doc)
   undefined_group = Nokogiri::XML::Node.new('group', doc)
   for controller, actions in ref.sort
     next unless actions.size > 0

@@ -541,32 +541,29 @@ class CreateBase < ActiveRecord::Migration
       t.references :actor,                                                              index: true
       t.references :variant,                                                            index: true
       t.decimal    :quantity,           precision: 19, scale: 4
-      # t.string     :indicator,                                             null: false
-      # t.string     :measure_unit,                                          null: false
-      # t.decimal    :measure_quantity, precision: 19, scale: 4,             null: false
-      # t.string     :procedure_nature,                                      null: false
       t.string     :roles,              limit: 320
-      t.string     :variable,                                              null: false
+      t.string     :reference_name,                                        null: false
       t.stamps
-      t.index      :variable
-      # t.index      [:procedure_nature, :role]
+      t.index      :reference_name
     end
 
     create_table :interventions do |t|
       t.references :ressource,                polymorphic: true,              index: true
       t.references :provisional_intervention,                                 index: true
       t.references :production_support,                                       index: true
-      t.boolean    :provisional,                 default: false, null: false
+      t.boolean    :provisional,              default: false,    null: false
       t.references :incident,                                                 index: true
       t.references :prescription,                                             index: true
       t.references :production,                                  null: false, index: true
-      t.string     :procedure,                                   null: false
+      t.string     :reference_name,                              null: false
       t.string     :natures,                                     null: false
       t.string     :state,                                       null: false
       t.datetime   :started_at
       t.datetime   :stopped_at
       t.stamps
-      t.index      :procedure
+      t.index      :started_at
+      t.index      :stopped_at
+      t.index      :reference_name
     end
 
     create_table :inventories do |t|
@@ -742,8 +739,9 @@ class CreateBase < ActiveRecord::Migration
       t.datetime   :started_at,                    null: false
       t.datetime   :stopped_at,                    null: false
       t.integer    :duration
-      t.integer    :position
+      t.string     :reference_name,                null: false
       t.stamps
+      t.index      :reference_name
       t.index      :started_at
       t.index      :stopped_at
     end
@@ -752,17 +750,11 @@ class CreateBase < ActiveRecord::Migration
       t.references :operation,                                    null: false, index: true
       t.references :parent,                                                    index: true
       t.string     :nature,                                       null: false
-      t.integer    :position
+      t.string     :reference_name,                               null: false
       t.boolean    :prorated,                     default: false, null: false
-      # t.text       :expression,                                   null: false
-      # t.references :subject,                                      null: false, index: true
-      # t.string     :verb,                                         null: false
-      # t.references :operand,                                                   index: true
-      # t.decimal    :operand_quantity,    precision: 19, scale: 4
-      # t.references :indicator_datum,                                           index: true
-      # t.text       :expression
       t.stamps
       t.index      :nature
+      t.index      :reference_name
     end
 
     create_table :operation_task_casts do |t|
@@ -896,7 +888,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_enjoyments do |t|
       t.references :operation_task,                        index: true
-      t.references :move,  polymorphic: true,              index: true
+      # t.references :move,  polymorphic: true,              index: true
       t.references :product,                  null: false, index: true
       t.string     :nature,                   null: false
       t.references :enjoyer,                               index: true
@@ -908,7 +900,7 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_links do |t|
-      t.references :move,    polymorphic: true,              index: true
+      # t.references :move,    polymorphic: true,              index: true
       t.references :carrier,                    null: false, index: true
       t.references :carried,                    null: false, index: true
       t.datetime   :started_at
@@ -920,7 +912,7 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_localizations do |t|
-      t.references :move,     polymorphic: true,              index: true
+      # t.references :move,     polymorphic: true,              index: true
       t.references :product,                     null: false, index: true
       t.string     :nature,                      null: false
       t.references :container,                                index: true
@@ -936,7 +928,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_measurements do |t|
       t.references :operation_task,                           index: true
-      t.references :move,     polymorphic: true,              index: true
+      # t.references :move,     polymorphic: true,              index: true
       t.references :product,                     null: false, index: true
       t.string     :indicator,                   null: false, index: true
       t.references :reporter,                                 index: true
@@ -947,7 +939,7 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_memberships do |t|
-      t.references :move,     polymorphic: true,              index: true
+      # t.references :move,     polymorphic: true,              index: true
       t.references :member,                      null: false, index: true
       t.references :group,                       null: false, index: true
       t.datetime   :started_at,                  null: false
@@ -960,7 +952,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_ownerships do |t|
       t.references :operation_task,                        index: true
-      t.references :move,  polymorphic: true,              index: true
+      # t.references :move,  polymorphic: true,              index: true
       t.references :product,                  null: false, index: true
       t.string     :nature,                   null: false
       t.references :owner,                                 index: true
@@ -996,24 +988,28 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_births do |t|
       t.references :operation_task,                           index: true
-      t.references :move,     polymorphic: true,              index: true
+      # t.references :move,     polymorphic: true,              index: true
       t.string     :nature,                      null: false
-      t.references :product,                                  index: true
-      t.references :born,                        null: false, index: true
-      t.datetime   :born_at,                     null: false
+      t.references :producer,                                 index: true
+      t.references :product,                     null: false, index: true
+      t.datetime   :started_at
+      t.datetime   :stopped_at
       t.stamps
-      t.index      :born_at
+      t.index      :started_at
+      t.index      :stopped_at
     end
 
     create_table :product_deaths do |t|
       t.references :operation_task,                           index: true
-      t.references :move,     polymorphic: true,              index: true
+      # t.references :move,     polymorphic: true,              index: true
       t.string     :nature,                      null: false
-      t.references :product,                                  index: true
-      t.references :dead,                        null: false, index: true
-      t.datetime   :dead_at,                     null: false
+      t.references :absorber,                                 index: true
+      t.references :product,                     null: false, index: true
+      t.datetime   :started_at
+      t.datetime   :stopped_at
       t.stamps
-      t.index      :dead_at
+      t.index      :started_at
+      t.index      :stopped_at
     end
 
 

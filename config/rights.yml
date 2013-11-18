@@ -577,7 +577,6 @@
 # - "backend/professions#index"
 # - "backend/professions#list"
 # - "backend/professions#new"
-# - "backend/professions#show"
 # - "backend/professions#unroll"
 # - "backend/professions#update"
 # - "backend/purchase_items#show"

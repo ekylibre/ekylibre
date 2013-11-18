@@ -1199,7 +1199,7 @@
       </item>
     </group>
   </module>
-  <undefined-module>
+  <inaccessible-actions>
     <group>
       <item name="passwords">
         <page to="authentication/passwords#create"/>
@@ -1213,6 +1213,55 @@
         <page to="authentication/sessions#destroy"/>
         <page to="authentication/sessions#new"/>
       </item>
+      <item name="confirmations">
+        <page to="devise/confirmations#create"/>
+        <page to="devise/confirmations#new"/>
+        <page to="devise/confirmations#show"/>
+      </item>
+      <item name="passwords">
+        <page to="devise/passwords#create"/>
+        <page to="devise/passwords#edit"/>
+        <page to="devise/passwords#new"/>
+        <page to="devise/passwords#update"/>
+      </item>
+      <item name="registrations">
+        <page to="devise/registrations#cancel"/>
+        <page to="devise/registrations#create"/>
+        <page to="devise/registrations#destroy"/>
+        <page to="devise/registrations#edit"/>
+        <page to="devise/registrations#new"/>
+        <page to="devise/registrations#update"/>
+      </item>
+      <item name="sessions">
+        <page to="devise/sessions#_callback_before_12"/>
+        <page to="devise/sessions#create"/>
+        <page to="devise/sessions#destroy"/>
+        <page to="devise/sessions#new"/>
+      </item>
+      <item name="unlocks">
+        <page to="devise/unlocks#create"/>
+        <page to="devise/unlocks#new"/>
+        <page to="devise/unlocks#show"/>
+      </item>
+      <item name="public">
+        <page to="public#index"/>
+      </item>
+      <item name="interfacers">
+        <page to="backend/interfacers#autocomplete"/>
+        <page to="backend/interfacers#product_trackings"/>
+        <page to="backend/interfacers#product_units"/>
+        <page to="backend/interfacers#search_for"/>
+        <page to="backend/interfacers#select_options"/>
+        <page to="backend/interfacers#toggle_side"/>
+        <page to="backend/interfacers#toggle_tab"/>
+        <page to="backend/interfacers#toggle_view_mode"/>
+        <page to="backend/interfacers#unroll"/>
+        <page to="backend/interfacers#unroll_options"/>
+      </item>
+    </group>
+  </inaccessible-actions>
+  <untreated-actions>
+    <group>
       <item name="bank_chart_cells">
         <page to="backend/cells/bank_chart_cells#show"/>
       </item>
@@ -1321,18 +1370,6 @@
       </item>
       <item name="incoming_payments">
         <page to="backend/incoming_payments#unroll"/>
-      </item>
-      <item name="interfacers">
-        <page to="backend/interfacers#autocomplete"/>
-        <page to="backend/interfacers#product_trackings"/>
-        <page to="backend/interfacers#product_units"/>
-        <page to="backend/interfacers#search_for"/>
-        <page to="backend/interfacers#select_options"/>
-        <page to="backend/interfacers#toggle_side"/>
-        <page to="backend/interfacers#toggle_tab"/>
-        <page to="backend/interfacers#toggle_view_mode"/>
-        <page to="backend/interfacers#unroll"/>
-        <page to="backend/interfacers#unroll_options"/>
       </item>
       <item name="inventories">
         <page to="backend/inventories#unroll"/>
@@ -1533,7 +1570,6 @@
         <page to="backend/professions#edit"/>
         <page to="backend/professions#list"/>
         <page to="backend/professions#new"/>
-        <page to="backend/professions#show"/>
         <page to="backend/professions#unroll"/>
         <page to="backend/professions#update"/>
       </item>
@@ -1592,39 +1628,6 @@
         <page to="backend/workers#list_intervention_casts"/>
         <page to="backend/workers#unroll"/>
       </item>
-      <item name="confirmations">
-        <page to="devise/confirmations#create"/>
-        <page to="devise/confirmations#new"/>
-        <page to="devise/confirmations#show"/>
-      </item>
-      <item name="passwords">
-        <page to="devise/passwords#create"/>
-        <page to="devise/passwords#edit"/>
-        <page to="devise/passwords#new"/>
-        <page to="devise/passwords#update"/>
-      </item>
-      <item name="registrations">
-        <page to="devise/registrations#cancel"/>
-        <page to="devise/registrations#create"/>
-        <page to="devise/registrations#destroy"/>
-        <page to="devise/registrations#edit"/>
-        <page to="devise/registrations#new"/>
-        <page to="devise/registrations#update"/>
-      </item>
-      <item name="sessions">
-        <page to="devise/sessions#_callback_before_12"/>
-        <page to="devise/sessions#create"/>
-        <page to="devise/sessions#destroy"/>
-        <page to="devise/sessions#new"/>
-      </item>
-      <item name="unlocks">
-        <page to="devise/unlocks#create"/>
-        <page to="devise/unlocks#new"/>
-        <page to="devise/unlocks#show"/>
-      </item>
-      <item name="public">
-        <page to="public#index"/>
-      </item>
     </group>
-  </undefined-module>
+  </untreated-actions>
 </modules>

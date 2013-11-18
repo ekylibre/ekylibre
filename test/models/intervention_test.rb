@@ -27,11 +27,11 @@
 #  lock_version                :integer          default(0), not null
 #  natures                     :string(255)      not null
 #  prescription_id             :integer
-#  procedure                   :string(255)      not null
 #  production_id               :integer          not null
 #  production_support_id       :integer
 #  provisional                 :boolean          not null
 #  provisional_intervention_id :integer
+#  reference_name              :string(255)      not null
 #  ressource_id                :integer
 #  ressource_type              :string(255)
 #  started_at                  :datetime

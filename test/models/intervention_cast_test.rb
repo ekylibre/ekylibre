@@ -27,10 +27,10 @@
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
 #  quantity        :decimal(19, 4)
+#  reference_name  :string(255)      not null
 #  roles           :string(320)
 #  updated_at      :datetime         not null
 #  updater_id      :integer
-#  variable        :string(255)      not null
 #  variant_id      :integer
 #
 require 'test_helper'

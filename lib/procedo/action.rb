@@ -8,6 +8,7 @@ module Procedo
       entering:          {product: :product, localizable: :product},
       home_coming:       {product: :product},
       given_home_coming: {product: :product, localizable: :product},
+      out_going:         {product: :product},
       # Births
       birth:       {born: :product},
       production:  {born: :product, product: :product},

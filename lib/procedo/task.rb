@@ -1,7 +1,7 @@
 module Procedo
 
   class Task
-    attr_reader :expression, :operation
+    attr_reader :expression, :operation, :id, :action, :parameters
 
     # TODO Build nomenclatures?
     ACTIONS = {
@@ -63,8 +63,9 @@ module Procedo
       "{product} is-received-from {supplier}" =>       :identified_incoming_delivery
     }.collect{ |expr, type| Action.new(expr, type) }.freeze
 
-    def initialize(operation, element)
+    def initialize(operation, id, element)
       @operation = operation
+      @id = id
       if element.has_attribute?("do")
         @expression = element.attr("do").to_s.strip.gsub(/[[:space:]]+/, ' ')
       else
@@ -103,6 +104,14 @@ module Procedo
 
     def procedure
       @operation.procedure
+    end
+
+    def name
+      @id
+    end
+
+    def uid
+      operation.uid + "-" + @id
     end
 
     def human_parameters

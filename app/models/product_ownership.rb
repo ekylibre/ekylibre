@@ -24,8 +24,6 @@
 #  creator_id        :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
-#  move_id           :integer
-#  move_type         :string(255)
 #  nature            :string(255)      not null
 #  operation_task_id :integer
 #  owner_id          :integer
@@ -41,7 +39,7 @@ class ProductOwnership < Ekylibre::Record::Base
   belongs_to :operation_task
   enumerize :nature, in: [:unknown, :own, :other], default: :unknown, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :move_type, :nature, allow_nil: true, maximum: 255
+  validates_length_of :nature, allow_nil: true, maximum: 255
   validates_presence_of :nature, :product
   #]VALIDATORS]
 

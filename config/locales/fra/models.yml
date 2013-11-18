@@ -350,6 +350,7 @@ fra:
       procedure: "Procédure" #?
       procedure_variable: "Variable de procédure" #?
       product: "Produits"
+      # product_birth: "Product birth"
       product_group: "Groupe de produit"
       product_indicator_datum: "Valeur d’indicateur"
       product_link: "Lien entre produits"
@@ -924,14 +925,15 @@ fra:
     prices: "Prix"
     printed_on: "Datée du"
     priority: "Priorité"
-    procedure: "Procedure"
+    procedure: "Procedure" #?
     procedures: "Procédures"
     process: "Process"
     producer: "Producteur"
     product: "Produit"
     product_account: "Compte de produit"
+    # product_births: "Product births"
     product_events: "Product events"
-    product_localizations: "Product localizations" #?
+    product_localizations: "Product localizations"
     product_moves: "Product moves"
     product_nature: "Product nature"
     production: "Production"
@@ -982,6 +984,7 @@ fra:
     reduction_origin: "Ligne soumise à réduction" #?
     reduction_percentage: "Pourcentage de réduction"
     reductions: "Lignes de réductions"
+    reference_name: "Reference name"
     reference_number: "N°Référence"
     # reference_tax: "Reference tax"
     reflections: "Reflections"
@@ -1108,7 +1111,7 @@ fra:
     user: "Utilisateur"
     users: "Utilisateurs"
     value: "Valeur"
-    variable: "Variable"
+    variable: "Variable" #?
     variable_indicators: "Indicateurs d'une variable"
     variables: "Variables" #?
     variant: "Variante"

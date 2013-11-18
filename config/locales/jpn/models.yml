@@ -988,6 +988,7 @@ jpn:
     # reduction_origin: "Ligne soumise à réduction"
     # reduction_percentage: "Pourcentage de réduction"
     # reductions: "Lignes de réductions"
+    # reference_name: "Reference name"
     # reference_number: "N°Référence"
     # reflections: "Reflections"
     # remaining_duration: "Durée d’utilisation prévue (heures)"

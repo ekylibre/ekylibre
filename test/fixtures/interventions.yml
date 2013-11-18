@@ -27,11 +27,11 @@
 #  lock_version                :integer          default(0), not null
 #  natures                     :string(255)      not null
 #  prescription_id             :integer
-#  procedure                   :string(255)      not null
 #  production_id               :integer          not null
 #  production_support_id       :integer
 #  provisional                 :boolean          not null
 #  provisional_intervention_id :integer
+#  reference_name              :string(255)      not null
 #  ressource_id                :integer
 #  ressource_type              :string(255)
 #  started_at                  :datetime
@@ -48,9 +48,9 @@
 #   creator_id: 1
 #   id: 1
 #   natures: "Lorem ipsum"
-#   procedure: "Lorem ipsum"
 #   production_id: 1
 #   provisional: true
+#   reference_name: "Lorem ipsum"
 #   state: "Lorem ipsum"
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
@@ -60,21 +60,20 @@ interventions_001:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
-  natures: "animal_care"
-  procedure: "animal_treatment"
+  natures: "grinding, soil_enrichment"
+  reference_name: ":plant_grinding-0.0"
   production_id: 1
   provisional: false
   state: "done"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
-
 interventions_002:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2
   natures: "animal_care"
-  procedure: "animal_treatment"
+  reference_name: ":animal_treatment-0.0"
   production_id: 1
   provisional: false
   state: "done"

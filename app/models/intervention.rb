@@ -27,11 +27,11 @@
 #  lock_version                :integer          default(0), not null
 #  natures                     :string(255)      not null
 #  prescription_id             :integer
-#  procedure                   :string(255)      not null
 #  production_id               :integer          not null
 #  production_support_id       :integer
 #  provisional                 :boolean          not null
 #  provisional_intervention_id :integer
+#  reference_name              :string(255)      not null
 #  ressource_id                :integer
 #  ressource_type              :string(255)
 #  started_at                  :datetime
@@ -45,23 +45,23 @@ class MissingVariable < StandardError
 end
 
 class Intervention < Ekylibre::Record::Base
-  attr_readonly :procedure, :production_id
+  attr_readonly :reference_name, :production_id
   belongs_to :ressource , :polymorphic => true
   belongs_to :production, inverse_of: :interventions
   belongs_to :production_support
   belongs_to :incident
   belongs_to :prescription
   belongs_to :provisional_intervention, class_name: "Intervention"
-  has_many :casts, -> { order(:variable) }, class_name: "InterventionCast", inverse_of: :intervention
+  has_many :casts, -> { order(:reference_name) }, class_name: "InterventionCast", inverse_of: :intervention
   has_many :operations, inverse_of: :intervention
-  enumerize :procedure, in: Procedo.names.sort
+  enumerize :reference_name, in: Procedo.names.sort
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :natures, :procedure, :ressource_type, :state, allow_nil: true, maximum: 255
+  validates_length_of :natures, :reference_name, :ressource_type, :state, allow_nil: true, maximum: 255
   validates_inclusion_of :provisional, in: [true, false]
-  validates_presence_of :natures, :procedure, :production, :state
+  validates_presence_of :natures, :production, :reference_name, :state
   #]VALIDATORS]
-  validates_inclusion_of :procedure, in: self.procedure.values
+  validates_inclusion_of :reference_name, in: self.reference_name.values
   validates_presence_of  :started_at, :stopped_at
 
 
@@ -69,7 +69,7 @@ class Intervention < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :casts, :operations
 
-  # @TODO in progress - need to .all parent procedure to have the name of the procedure_nature
+  # @TODO in progress - need to .all parent reference_name to have the name of the procedure_nature
 
   scope :of_nature, lambda { |*natures|
     where("natures ~ E?", natures.sort.map { |nature| "\\\\m#{nature.to_s.gsub(/\W/, '')}\\\\M" }.join(".*"))
@@ -129,7 +129,7 @@ class Intervention < Ekylibre::Record::Base
 
   # Main reference
   def reference
-    Procedo[self.procedure]
+    Procedo[self.reference_name]
   end
 
   # Returns variable names
@@ -189,7 +189,7 @@ class Intervention < Ekylibre::Record::Base
     return false unless self.undone?
     valid = true
     for variable in self.reference.variables.values
-      valid = false unless cast = self.casts.find_by(variable: variable.name)
+      valid = false unless cast = self.casts.find_by(reference_name: variable.name)
       valid = false unless cast.runnable?
     end
     return valid
@@ -206,21 +206,21 @@ class Intervention < Ekylibre::Record::Base
       duration   = period[:duration]  ||= (self.stopped_at - self.started_at)
       reference = self.reference
       rep = reference.spread_time(duration)
-      for id, operation in reference.operations
+      for name, operation in reference.operations
         d = operation.duration || rep
-        self.operations.create!(started_at: started_at, stopped_at: started_at + d, position: id.to_i)
+        self.operations.create!(started_at: started_at, stopped_at: started_at + d, reference_name: name)
         started_at += d
       end
       # Check variables presence
       for variable in reference.variables.values
-        unless self.casts.find_by(variable: variable.name)
+        unless self.casts.find_by(reference_name: variable.name)
           raise MissingVariable, "Variable #{variable.name} is missing"
         end
       end
       # Build new products
       for variable in reference.new_variables
-        genited = self.casts.find_by!(variable: variable.name)
-        genitor = self.casts.find_by!(variable: variable.genitor_name)
+        genited = self.casts.find_by!(reference_name: variable.name)
+        genitor = self.casts.find_by!(reference_name: variable.genitor_name)
         if variable.parted?
           # Parted from
           variant = genitor.variant
@@ -228,11 +228,11 @@ class Intervention < Ekylibre::Record::Base
         elsif variable.produced?
           # Produced by
           unless variant = genited.variant || variable.variant(self)
-            raise StandardError, "No variant for #{variable.name} in intervention ##{self.id} (#{self.procedure})"
+            raise StandardError, "No variant for #{variable.name} in intervention ##{self.id} (#{self.reference_name})"
           end
           genited.actor = variant.matching_model.create!(variant: variant, born_at: started_at, initial_owner: genitor.actor.owner, initial_container: genitor.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity)
         else
-          raise StandardError, "Don't known how to create the variable #{variable.name} for procedure #{variable.procedure_name}"
+          raise StandardError, "Don't known how to create the variable #{variable.name} for procedure #{self.reference_name}"
         end
         genited.save!
       end

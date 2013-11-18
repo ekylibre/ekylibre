@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 module Ekylibre
   DEMOS = [:general_ledger, :entities, :buildings, :products, :animals, :land_parcels, :productions, :analyses, :sales, :deliveries, :interventions]
+  DEMOS_INTERVENTION = [:buildings, :products, :land_parcels, :productions, :interventions]
 
   MAX = -1
 
@@ -73,6 +74,16 @@ namespace :demo do
   for demo in Ekylibre::DEMOS
     require Pathname.new(__FILE__).dirname.join("demo", demo.to_s).to_s
   end
+
+  desc "Create demo data for interventions/operations purpose only"
+  task :operations => :environment do
+    ActiveRecord::Base.transaction do
+      for demo in Ekylibre::DEMOS_INTERVENTION
+        Rake::Task["demo:#{demo}"].invoke
+      end
+    end
+  end
+
 end
 
 desc "Create demo data -- also available " + Ekylibre::DEMOS.collect{|c| "demo:#{c}"}.join(", ")
@@ -83,4 +94,5 @@ task :demo => :environment do
     end
   end
 end
+
 
