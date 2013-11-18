@@ -1,14 +1,12 @@
-=main_toolbar do |t|
-  -t.edit @product_price_listing
+= main_toolbar do |t|
+  - t.edit @catalog
 
-=beehive do |b|
-  -b.cell do
-    =attributes_list(@product_price_listing) do |l|
-      -l.attribute :name
-      -l.attribute :by_default
-      -l.attribute :description
+= beehive do |b|
+  - b.cell do
+    = attributes_list do |l|
+      - l.attribute :name
+      - l.attribute :by_default
+      - l.attribute :description
 
-  -#b.cell tc(:x_prices, :count => @product_price_listing.active_price_templates.count) do
-    =toolbar do |t|
-      -t.new :action => :new, :controller => :product_price_templates, :mode => :sales
-    =list :templates
+  - b.cell :prices do
+    = list :prices

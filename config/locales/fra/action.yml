@@ -327,7 +327,6 @@ fra:
       general_ledger: "Grand livre"
       import: "Importer des données comptables"
       index: "Journaux"
-      # journal_views: "Journal views backend/journal"
       new: "Créer un nouveau journal"
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation" #?

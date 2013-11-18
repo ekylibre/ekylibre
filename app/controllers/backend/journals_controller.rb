@@ -22,6 +22,8 @@ class Backend::JournalsController < BackendController
 
   unroll
 
+  hide_action :journal_views
+
   @@journal_views = ["items", "entries", "mixed"]
   cattr_reader :journal_views
 

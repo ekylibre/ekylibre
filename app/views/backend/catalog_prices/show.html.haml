@@ -1,7 +1,8 @@
-=main_toolbar do |t|
-  -t.edit @product_price
+= main_toolbar do |t|
+  - t.edit @product_price
 
-=beehive do |b|
-  -b.cell do
-    =attributes_list(@product_price) do |l|
-      -l.attribute :name
+= beehive do |b|
+  - b.cell do
+    = attributes_list do |l|
+      - l.attribute :catalog
+      - l.attribute :amount, currency: true

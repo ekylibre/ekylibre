@@ -254,7 +254,6 @@
 # - "backend/journal_entries#unroll"
 # - "backend/journal_entry_items#show"
 # - "backend/journal_entry_items#unroll"
-# - "backend/journals#journal_views"
 # - "backend/journals#unroll"
 # - "backend/kujakus#toggle"
 # - "backend/land_parcel_clusters#create"
