@@ -8,7 +8,7 @@
         =@land_parcel_cluster.shape_svg(:width => 180, :height => 180, :class => :map)
       .info
         %span.title=LandParcelCluster.human_attribute_name(:area_measure)
-        %span.value=@land_parcel_cluster.shape_area.in_square_meter.convert(:hectare)
+        %span.value=@land_parcel_cluster.shape_area.in_square_meter.convert(:hectare).round(2)
 
 =beehive do |b|
   -b.cell do
