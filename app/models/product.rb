@@ -70,6 +70,7 @@ class Product < Ekylibre::Record::Base
   enumerize :initial_arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, :predicates =>{prefix: true}
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :category, class_name: "ProductNatureCategory"
+  belongs_to :default_storage, class_name: "Product"
   belongs_to :asset
   belongs_to :tracking
   belongs_to :initial_container, class_name: "Product"

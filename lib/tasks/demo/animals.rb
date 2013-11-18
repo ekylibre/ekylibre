@@ -30,13 +30,13 @@ demo :animals do
 
   Ekylibre::fixturize :animal_natures do |w|
     #############################################################################
-    for group in [{:name => "Vaches Laitières", :work_number => "VL"},
-                  {:name => "Génisses 3",  :work_number => "GEN_3"},
-                  {:name => "Génisses 2",  :work_number => "GEN_2"},
-                  {:name => "Génisses 1",  :work_number => "GEN_1"},
-                  {:name => "Veaux Niche", :work_number => "VEAU", :description => "Veaux en niche individuel"},
-                  {:name => "Veaux 8-15j", :work_number => "VEAU_8_15", :description => "Veaux vendus à 8-15 J"},
-                  {:name => "Taurillons", :work_number => "TAUR", :description => "Taurillons vendus entre 21 et 26 mois"}
+    for group in [{:name => "Vaches Laitières", :work_number => "VL", :default_storage => place_vl},
+                  {:name => "Génisses 3",  :work_number => "GEN_3", :default_storage => place_gen},
+                  {:name => "Génisses 2",  :work_number => "GEN_2", :default_storage => place_gen},
+                  {:name => "Génisses 1",  :work_number => "GEN_1", :default_storage => place_gen},
+                  {:name => "Veaux Niche", :work_number => "VEAU", :description => "Veaux en niche individuel", :default_storage => place_v},
+                  {:name => "Veaux 8-15j", :work_number => "VEAU_8_15", :description => "Veaux vendus à 8-15 J", :default_storage => place_v},
+                  {:name => "Taurillons", :work_number => "TAUR", :description => "Taurillons vendus entre 21 et 26 mois", :default_storage => place_taur}
                  ]
       unless AnimalGroup.find_by_work_number(group[:work_number])
         AnimalGroup.create!({ :variant_id => herd.id}.merge(group))
@@ -78,7 +78,7 @@ demo :animals do
         f = File.open(photo_v)
         animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number,
                                 :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_v, :default_storage => place_v
                                 )
         f.close
         # set default indicators
@@ -100,7 +100,7 @@ demo :animals do
         animal = Animal.create!(:variant_id => cow_gen.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_gen
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_gen, :default_storage => place_gen
                                 )
         f.close
         # set default indicators
@@ -123,7 +123,7 @@ demo :animals do
         animal = Animal.create!(:variant_id => cow_gen.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_gen
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_gen, :default_storage => place_gen
                                 )
         f.close
         # set default indicators
@@ -147,7 +147,7 @@ demo :animals do
         animal = Animal.create!(:variant_id => cow_vl.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_vl
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_vl, :default_storage => place_vl
                                 )
         f.close
         # set default indicators
@@ -172,7 +172,7 @@ demo :animals do
         animal = Animal.create!(:variant_id => cow_taur.id, :name => r.name, :variety => "bos",
                                 :identification_number => r.identification_number, :work_number => r.work_number,
                                 :born_at => r.born_on, :dead_at => r.departed_on,
-                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_taur
+                                :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.arrival_cause, :initial_container => place_taur, :default_storage => place_taur
                                 )
         f.close
         # set default indicators
@@ -250,7 +250,7 @@ demo :animals do
           unless r.mother_identification_number.blank?
           # case = VL
           animal_mother = Animal.create!(:variant_id => cow_vl.id, :name => r.mother_name, :variety => "bos",
-                                         :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :initial_owner => Entity.of_company, :initial_arrival_cause => :birth, :initial_container => place_vl )
+                                         :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :initial_owner => Entity.of_company, :initial_arrival_cause => :birth, :initial_container => place_vl, :default_storage => place_vl )
 
           # set default indicators
           animal_mother.is_measured!(:animal_disease_state, :healthy)

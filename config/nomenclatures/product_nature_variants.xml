@@ -415,6 +415,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="milk_tank"
+            nature="milk_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="mower"
             nature="mower"
             unit_name="equipment"
