@@ -194,9 +194,16 @@ task :tests => :environment do
         log.write(" - Error: Fixture file #{file} has a syntax error (#{e.message})\n")
         next
       end
+
       cols = model.columns.collect{|c| c.name.to_s}
       required_cols = model.columns.select{|c| !c.null and c.default.nil?}.collect{|c| c.name.to_s}
       if yaml.is_a?(Hash)
+        ids = yaml.collect{|k,v| v["id"]}
+        if ids.uniq.size != ids.size
+          errors[:fixtures] += 1
+          log.write(" - Error: Duplicates id values in #{file}\n")
+        end
+
         for record_name, attributes in yaml
           requireds = required_cols.dup
           for attr_name, value in attributes
@@ -233,6 +240,7 @@ task :tests => :environment do
   if files.size > 0
     log.write("   > git rm #{files.join(' ')}\n")
   end
+
   print_stat :fixtures, errors
 
   # puts " " + errors.collect{|k,v| "#{k.to_s.humanize}: #{v.to_s.rjust(3)} errors"}.join(", ")
