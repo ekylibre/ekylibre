@@ -41,8 +41,7 @@ class Backend::PurchasesController < BackendController
 
   list(:deliveries, :model => :incoming_deliveries, :children => :items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
     t.column :address, :children => :product_name
-    t.column :planned_on, :children => false
-    t.column :moved_on, :children => false
+    t.column :received_at, :children => false
     t.column :quantity, :datatype => :decimal
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
@@ -54,7 +53,6 @@ class Backend::PurchasesController < BackendController
     t.column :variant
     # t.column :pretax_amount, currency: true, through: :price
     t.column :quantity
-    t.column :unit
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
     t.column :undelivered_quantity, :datatype => :decimal

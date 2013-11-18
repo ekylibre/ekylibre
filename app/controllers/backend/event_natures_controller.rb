@@ -25,7 +25,6 @@ class Backend::EventNaturesController < BackendController
   list do |t|
     t.column :name
     t.column :usage
-    t.column :duration
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
