@@ -383,9 +383,9 @@ class BackendController < BaseController
   def redirect_to_back(options={})
     if !params[:redirect].blank?
       redirect_to params[:redirect], options
-    # elsif session[:history].is_a?(Array) and session[:history].second.is_a?(Hash)
-    #   session[:history].delete_at(0) unless options[:direct]
-    #   redirect_to session[:history][0][:path], options
+      # elsif session[:history].is_a?(Array) and session[:history].second.is_a?(Hash)
+      #   session[:history].delete_at(0) unless options[:direct]
+      #   redirect_to session[:history][0][:path], options
     elsif request.referer and request.referer != request.path
       redirect_to request.referer, options
     else
@@ -422,9 +422,12 @@ class BackendController < BaseController
   # Build standard RESTful actions to manage records of a model
   def self.manage_restfully(defaults = {})
     name = self.controller_name
-    options = defaults.extract!(:t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart)
+    options = defaults.extract!(:t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only)
     url  = options[:redirect_to]
     durl = options[:destroy_to]
+    actions = [:index, :show, :new, :create, :edit, :update, :destroy]
+    actions &= [options[:only]].flatten if options[:only]
+    actions -= [options[:except]].flatten if options[:except]
 
     record_name = name.to_s.singularize
     model_name  = name.to_s.classify
@@ -466,29 +469,32 @@ class BackendController < BaseController
     code << "respond_to :html, :xml, :json\n"
     # code << "respond_to :pdf, :odt, :ods, :csv, :docx, :xlsx, :only => [:show, :index]\n"
 
-    code << "def index\n"
-    code << "  respond_to do |format|\n"
-    code << "    format.html\n"
-    code << "    format.xml  { render xml:  resource_model.all }\n"
-    code << "    format.json { render json: resource_model.all }\n"
-    code << "  end\n"
-    code << "end\n"
-
-    code << "def show\n"
-    code << "  return unless @#{record_name} = find_and_check\n"
-    if options[:subclass_inheritance]
-      code << "  if @#{record_name}.type != '#{model_name}'\n"
-      code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
-      code << "    return\n"
+    if actions.include?(:index)
+      code << "def index\n"
+      code << "  respond_to do |format|\n"
+      code << "    format.html\n"
+      code << "    format.xml  { render xml:  resource_model.all }\n"
+      code << "    format.json { render json: resource_model.all }\n"
       code << "  end\n"
+      code << "end\n"
     end
-    code << "  respond_to do |format|\n"
-    code << "    format.html { #{t3e_code} }\n"
-    code << "    format.xml  { render xml:  @#{record_name} }\n"
-    code << "    format.json { render json: @#{record_name} }\n"
-    code << "  end\n"
-    code << "end\n"
 
+    if actions.include?(:show)
+      code << "def show\n"
+      code << "  return unless @#{record_name} = find_and_check\n"
+      if options[:subclass_inheritance]
+        code << "  if @#{record_name}.type != '#{model_name}'\n"
+        code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
+        code << "    return\n"
+        code << "  end\n"
+      end
+      code << "  respond_to do |format|\n"
+      code << "    format.html { #{t3e_code} }\n"
+      code << "    format.xml  { render xml:  @#{record_name} }\n"
+      code << "    format.json { render json: @#{record_name} }\n"
+      code << "  end\n"
+      code << "end\n"
+    end
 
     code << "def resource_model\n"
     code << "  #{model_name}\n"
@@ -510,66 +516,75 @@ class BackendController < BaseController
       end
     end
 
-    code << "def new\n"
-    # values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
-    columns = model.columns_definition.keys
-    columns = columns.delete_if{|c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
-    values = columns.inject({}) do |hash, attr|
-      hash[attr] = "params[:#{attr}]".c unless attr.blank? or attr.to_s.match(/_attributes$/)
-      hash
-    end.merge(defaults).collect{|k,v| "#{k}: (#{v.inspect})"}.join(", ")
-    code << "  @#{record_name} = resource_model.new(#{values})\n"
-    # code << "  @#{record_name} = resource_model.new(permitted_params)\n"
-    if xhr = options[:xhr]
-      code << "  if request.xhr?\n"
-      code << "    render partial: #{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
-      code << "  else\n"
-      code << "    #{render_form}\n"
-      code << "  end\n"
-    else
+    if actions.include?(:new)
+      code << "def new\n"
+      # values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
+      columns = model.columns_definition.keys
+      columns = columns.delete_if{|c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
+      values = columns.inject({}) do |hash, attr|
+        hash[attr] = "params[:#{attr}]".c unless attr.blank? or attr.to_s.match(/_attributes$/)
+        hash
+      end.merge(defaults).collect{|k,v| "#{k}: (#{v.inspect})"}.join(", ")
+      code << "  @#{record_name} = resource_model.new(#{values})\n"
+      # code << "  @#{record_name} = resource_model.new(permitted_params)\n"
+      if xhr = options[:xhr]
+        code << "  if request.xhr?\n"
+        code << "    render partial: #{xhr.is_a?(String) ? xhr.inspect : 'detail_form'.inspect}\n"
+        code << "  else\n"
+        code << "    #{render_form}\n"
+        code << "  end\n"
+      else
+        code << "  #{render_form}\n"
+      end
+      code << "end\n"
+    end
+
+    if actions.include?(:create)
+      code << "def create\n"
+      code << "  @#{record_name} = resource_model.new(permitted_params)\n"
+      code << "  return if save_and_redirect(@#{record_name}#{', url: (' + url + ')' if url})\n"
       code << "  #{render_form}\n"
+      code << "end\n"
     end
-    code << "end\n"
 
-    code << "def create\n"
-    code << "  @#{record_name} = resource_model.new(permitted_params)\n"
-    code << "  return if save_and_redirect(@#{record_name}#{', url: (' + url + ')' if url})\n"
-    code << "  #{render_form}\n"
-    code << "end\n"
-
-    # this action updates an existing record with a form.
-    code << "def edit\n"
-    code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
-    code << "  #{t3e_code}\n"
-    code << "  #{render_form}\n"
-    code << "end\n"
-
-    code << "def update\n"
-    code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
-    code << "  #{t3e_code}\n"
-    code << "  @#{record_name}.attributes = permitted_params\n"
-    code << "  return if save_and_redirect(@#{record_name}#{', url: (' + url + ')' if url})\n"
-    code << "  #{render_form}\n"
-    code << "end\n"
-
-    # this action deletes or hides an existing record.
-    code << "def destroy\n"
-    code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
-    if model.instance_methods.include?(:destroyable?)
-      code << "  if @#{record_name}.destroyable?\n"
-      # code << "    resource_model.destroy(@#{record_name}.id)\n"
-      code << "    @#{record_name}.destroy\n"
-      code << "    notify_success(:record_has_been_correctly_removed)\n"
-      code << "  else\n"
-      code << "    notify_error(:record_cannot_be_removed)\n"
-      code << "  end\n"
-    else
-      code << "  resource_model.destroy(@#{record_name}.id)\n"
-      code << "  notify_success(:record_has_been_correctly_removed)\n"
+    if actions.include?(:edit)
+      code << "def edit\n"
+      code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
+      code << "  #{t3e_code}\n"
+      code << "  #{render_form}\n"
+      code << "end\n"
     end
-    # code << "  redirect_to #{durl ? durl : model.name.underscore.pluralize+'_url'}\n"
-    code << "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
-    code << "end\n"
+
+    if actions.include?(:update)
+      code << "def update\n"
+      code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
+      code << "  #{t3e_code}\n"
+      code << "  @#{record_name}.attributes = permitted_params\n"
+      code << "  return if save_and_redirect(@#{record_name}#{', url: (' + url + ')' if url})\n"
+      code << "  #{render_form}\n"
+      code << "end\n"
+    end
+
+    if actions.include?(:destroy)
+      # this action deletes or hides an existing record.
+      code << "def destroy\n"
+      code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
+      if model.instance_methods.include?(:destroyable?)
+        code << "  if @#{record_name}.destroyable?\n"
+        # code << "    resource_model.destroy(@#{record_name}.id)\n"
+        code << "    @#{record_name}.destroy\n"
+        code << "    notify_success(:record_has_been_correctly_removed)\n"
+        code << "  else\n"
+        code << "    notify_error(:record_cannot_be_removed)\n"
+        code << "  end\n"
+      else
+        code << "  resource_model.destroy(@#{record_name}.id)\n"
+        code << "  notify_success(:record_has_been_correctly_removed)\n"
+      end
+      # code << "  redirect_to #{durl ? durl : model.name.underscore.pluralize+'_url'}\n"
+      code << "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
+      code << "end\n"
+    end
 
     # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
     unless Rails.env.production?
@@ -670,8 +685,8 @@ class BackendController < BaseController
     columns = search.collect do |table, filtered_columns|
       filtered_columns.collect do |column|
         ActiveRecord::Base.connection.quote_table_name(table.is_a?(Symbol) ? table.to_s.classify.constantize.table_name : table) +
-        "." +
-        ActiveRecord::Base.connection.quote_column_name(column)
+          "." +
+          ActiveRecord::Base.connection.quote_column_name(column)
       end
     end.flatten
     code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"

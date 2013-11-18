@@ -18,14 +18,13 @@
 #
 
 class Backend::ProfessionsController < BackendController
-  manage_restfully
+  manage_restfully except: :show
 
   unroll
 
   list(order: :name) do |t|
     t.column :name
     t.column :code
-    t.column :rome
     t.column :commercial
     t.action :edit
     t.action :destroy
