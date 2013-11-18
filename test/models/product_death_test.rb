@@ -18,28 +18,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_links
+# == Table: product_deaths
 #
-#  carried_id        :integer          not null
-#  carrier_id        :integer          not null
+#  absorber_id       :integer
 #  created_at        :datetime         not null
 #  creator_id        :integer
 #  id                :integer          not null, primary key
 #  lock_version      :integer          default(0), not null
+#  nature            :string(255)      not null
 #  operation_task_id :integer
+#  product_id        :integer          not null
 #  started_at        :datetime
 #  stopped_at        :datetime
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
-class ProductLink < Ekylibre::Record::Base
-  belongs_to :carrier, class_name: 'Product'
-  belongs_to :carried, class_name: 'Product'
-  belongs_to :operation_task
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :carried, :carrier
-  #]VALIDATORS]
+require 'test_helper'
 
-  scope :at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
+class ProductDeathTest < ActiveSupport::TestCase
+
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
+  end
 
 end

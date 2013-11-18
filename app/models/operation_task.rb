@@ -40,6 +40,7 @@ class OperationTask < Ekylibre::Record::Base
   has_many :product_deaths, dependent: :destroy
   has_many :product_links, dependent: :destroy
   has_many :product_localizations, dependent: :destroy
+  has_many :product_measurements, dependent: :destroy
   enumerize :nature, in: Procedo::Action::TYPES.keys, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :reference_name, allow_nil: true, maximum: 255
@@ -67,8 +68,11 @@ class OperationTask < Ekylibre::Record::Base
     if self.respond_to?(method_name)
       begin
         send(method_name)
-      rescue
-        puts "Can not do #{self.nature}"
+      rescue Exception => e
+        puts "\n" * 3 + "*" * 80 + "\n"
+        puts "Can not do #{self.nature}: " +
+          e.message.to_s + "\nBacktrace:\n" +
+          e.backtrace.join("\n")
       end
     else
       puts "Unsupported method: #{method_name}"
@@ -208,7 +212,8 @@ class OperationTask < Ekylibre::Record::Base
   # == Measurement
 
   def do_simple_measurement
-    self.product_measurements.create!()
+    product, indicator = find_actor(:indicator)
+    self.product_measurements.create!(product: product, indicator: indicator)
   end
 
 
@@ -220,6 +225,9 @@ class OperationTask < Ekylibre::Record::Base
     if parameter.is_a?(Procedo::Variable)
       cast = self.casts.find_by!(reference_name: parameter.name.to_s)
       return cast.actor
+    elsif parameter.is_a?(Procedo::Indicator)
+      cast = self.casts.find_by!(reference_name: parameter.stakeholder.name.to_s)
+      return [cast.actor, parameter.indicator]
     else
       raise StandardError, "Don't known how to find a #{cast.class.name}"
     end

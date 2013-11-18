@@ -42,7 +42,7 @@ class ProductMembership < Ekylibre::Record::Base
   validates_presence_of :group, :member, :started_at
   #]VALIDATORS]
 
-  # delegate :localize_in, to: :member
+  scope :at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
 
   validate do
     # TODO Checks that no time overlaps can occur and that it works

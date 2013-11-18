@@ -1653,11 +1653,11 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_indicator_data", ["updater_id"], :name => "index_product_indicator_data_on_updater_id"
 
   create_table "product_links", force: true do |t|
+    t.integer  "operation_task_id"
     t.integer  "carrier_id",                    null: false
     t.integer  "carried_id",                    null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.integer  "operation_task_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "creator_id"
@@ -1676,6 +1676,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_links", ["updater_id"], :name => "index_product_links_on_updater_id"
 
   create_table "product_localizations", force: true do |t|
+    t.integer  "operation_task_id"
     t.integer  "product_id",                    null: false
     t.string   "nature",                        null: false
     t.integer  "container_id"
@@ -1683,7 +1684,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "departure_cause"
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.integer  "operation_task_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "creator_id"
@@ -1707,7 +1707,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "indicator",                     null: false
     t.integer  "reporter_id"
     t.integer  "tool_id"
-    t.datetime "measured_at",                   null: false
+    t.datetime "started_at",                    null: false
+    t.datetime "stopped_at"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "creator_id"
@@ -1717,20 +1718,21 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "product_measurements", ["created_at"], :name => "index_product_measurements_on_created_at"
   add_index "product_measurements", ["creator_id"], :name => "index_product_measurements_on_creator_id"
-  add_index "product_measurements", ["measured_at"], :name => "index_product_measurements_on_measured_at"
   add_index "product_measurements", ["operation_task_id"], :name => "index_product_measurements_on_operation_task_id"
   add_index "product_measurements", ["product_id"], :name => "index_product_measurements_on_product_id"
   add_index "product_measurements", ["reporter_id"], :name => "index_product_measurements_on_reporter_id"
+  add_index "product_measurements", ["started_at"], :name => "index_product_measurements_on_started_at"
+  add_index "product_measurements", ["stopped_at"], :name => "index_product_measurements_on_stopped_at"
   add_index "product_measurements", ["tool_id"], :name => "index_product_measurements_on_tool_id"
   add_index "product_measurements", ["updated_at"], :name => "index_product_measurements_on_updated_at"
   add_index "product_measurements", ["updater_id"], :name => "index_product_measurements_on_updater_id"
 
   create_table "product_memberships", force: true do |t|
+    t.integer  "operation_task_id"
     t.integer  "member_id",                     null: false
     t.integer  "group_id",                      null: false
     t.datetime "started_at",                    null: false
     t.datetime "stopped_at"
-    t.integer  "operation_task_id"
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "creator_id"

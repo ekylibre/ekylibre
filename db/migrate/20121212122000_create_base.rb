@@ -900,18 +900,19 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_links do |t|
+      t.references :operation_task,                          index: true
       # t.references :move,    polymorphic: true,              index: true
       t.references :carrier,                    null: false, index: true
       t.references :carried,                    null: false, index: true
       t.datetime   :started_at
       t.datetime   :stopped_at
-      t.references :operation_task,                          index: true
       t.stamps
       t.index      :started_at
       t.index      :stopped_at
     end
 
     create_table :product_localizations do |t|
+      t.references :operation_task,                           index: true
       # t.references :move,     polymorphic: true,              index: true
       t.references :product,                     null: false, index: true
       t.string     :nature,                      null: false
@@ -920,7 +921,6 @@ class CreateBase < ActiveRecord::Migration
       t.string     :departure_cause
       t.datetime   :started_at
       t.datetime   :stopped_at
-      t.references :operation_task,                           index: true
       t.stamps
       t.index      :started_at
       t.index      :stopped_at
@@ -930,21 +930,23 @@ class CreateBase < ActiveRecord::Migration
       t.references :operation_task,                           index: true
       # t.references :move,     polymorphic: true,              index: true
       t.references :product,                     null: false, index: true
-      t.string     :indicator,                   null: false, index: true
+      t.string     :indicator,                   null: false
       t.references :reporter,                                 index: true
       t.references :tool,                                     index: true
-      t.datetime   :measured_at,                 null: false
+      t.datetime   :started_at,                  null: false
+      t.datetime   :stopped_at
       t.stamps
-      t.index      :measured_at
+      t.index      :started_at
+      t.index      :stopped_at
     end
 
     create_table :product_memberships do |t|
+      t.references :operation_task,                           index: true
       # t.references :move,     polymorphic: true,              index: true
       t.references :member,                      null: false, index: true
       t.references :group,                       null: false, index: true
       t.datetime   :started_at,                  null: false
       t.datetime   :stopped_at
-      t.references :operation_task,                           index: true
       t.stamps
       t.index      :started_at
       t.index      :stopped_at

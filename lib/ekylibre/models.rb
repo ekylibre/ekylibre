@@ -760,7 +760,7 @@ module Ekylibre
       :updater_id => :user
     },
     :product_death => {
-      :absorber_id => '',
+      :absorber_id => :product,
       :creator_id => :user,
       :operation_task_id => :operation_task,
       :product_id => :product,
@@ -808,8 +808,8 @@ module Ekylibre
       :creator_id => :user,
       :operation_task_id => :operation_task,
       :product_id => :product,
-      :reporter_id => '',
-      :tool_id => '',
+      :reporter_id => :product,
+      :tool_id => :product,
       :updater_id => :user
     },
     :product_membership => {
@@ -2276,10 +2276,11 @@ module Ekylibre
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       indicator: Ekylibre::Record::Column.new(:indicator, :string, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
-      measured_at: Ekylibre::Record::Column.new(:measured_at, :datetime, null: false).freeze,
       operation_task_id: Ekylibre::Record::Column.new(:operation_task_id, :integer).freeze,
       product_id: Ekylibre::Record::Column.new(:product_id, :integer, null: false).freeze,
       reporter_id: Ekylibre::Record::Column.new(:reporter_id, :integer).freeze,
+      started_at: Ekylibre::Record::Column.new(:started_at, :datetime, null: false).freeze,
+      stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,
       tool_id: Ekylibre::Record::Column.new(:tool_id, :integer).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze

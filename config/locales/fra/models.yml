@@ -940,6 +940,7 @@ fra:
     product_events: "Product events"
     # product_links: "Product links"
     product_localizations: "Product localizations"
+    # product_measurements: "Product measurements"
     product_moves: "Product moves"
     product_nature: "Product nature"
     production: "Production"
