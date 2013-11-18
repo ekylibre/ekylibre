@@ -9,7 +9,7 @@ demo :deliveries do
     catalog = Catalog.find_by_code("ACHAT") || Catalog.scoped.first
     supplier_account = Account.find_or_create_in_chart(:suppliers)
     appro_price_template_tax = Tax.scoped.first
-
+    building_division = BuildingDivision.first
     suppliers = Entity.where(:of_company => false, :supplier => true).reorder(:supplier_account_id, :last_name)
     suppliers ||= LegalEntity.create!(:sale_catalog_id => catalog.id, :nature => "company", :language => "fra", :last_name => "All", :supplier_account_id => supplier_account.id, :currency => "eur", :supplier => true)
 
@@ -97,7 +97,7 @@ demo :deliveries do
                                                                 )
 
         product_model = product_nature_variant.nature.matching_model
-        incoming_item ||= product_model.create!(:variant => product_nature_variant, :name => r.matter_name, :initial_owner => Entity.of_company, :identification_number => r.order_number, :born_at => r.ordered_on, :created_at => r.ordered_on)
+        incoming_item ||= product_model.create!(:variant => product_nature_variant, :name => r.matter_name, :initial_owner => Entity.of_company, :identification_number => r.order_number, :born_at => r.ordered_on, :created_at => r.ordered_on, :default_storage => building_division)
         incoming_item.is_measured!(:population, r.quantity, :at => Time.now)
 
         if incoming_item.present?

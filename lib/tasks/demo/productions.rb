@@ -76,7 +76,7 @@ demo :productions do
             # create a work number for the plant
             plant_work_nb = (r.variant_nomen.to_s + "-" + campaign.name + "-" + product_support.work_number)
             # create the plant
-            plant = Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :born_at => Time.now, :initial_owner => Entity.of_company)
+            plant = Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :born_at => Time.now, :initial_owner => Entity.of_company, :default_storage => product_support)
             # localize the plant in the cultivable_land_parcel
             ProductLocalization.create!(:container_id => product_support.id, :product_id => plant.id, :nature => :interior, :started_at => Time.now, :arrival_cause => :birth)
           end
