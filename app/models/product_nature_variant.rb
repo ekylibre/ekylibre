@@ -215,6 +215,40 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
 
+  # Find or import variant from nomenclature with given attributes
+  # variety and derivative_of only are accepted for now
+  def self.find_or_import!(variety, options = {})
+    variants = of_variety(variety)
+    if derivative_of = options[:derivative_of]
+      variants = variants.derivative_of(derivative_of)
+    end
+    if variants.empty?
+      # Flatten variants for search
+      nomenclature = Nomen::ProductNatureVariants.list.collect do |item|
+        nature = Nomen::ProductNatures[item.nature]
+        h = {nomen: item.name, variety: Nomen::Varieties[item.variety || nature.variety]} # , nature: nature
+        if d = Nomen::Varieties[item.derivative_of || nature.derivative_of]
+          h[:derivative_of] = d
+        end
+        h
+      end
+      # puts [variety, derivative_of].inspect
+      # puts "NOMENCLATURE: " + nomenclature.inspect
+      # Filter and imports
+      filtereds = nomenclature.select do |item|
+        item[:variety].include?(variety) and
+          ((derivative_of and item[:derivative_of] and item[:derivative_of].include?(derivative_of)) or (derivative_of.blank? and item[:derivative_of].blank?))
+      end
+      # puts "FILTEREDS: " + filtereds.inspect
+      filtereds.each do |item|
+        # puts "Import #{item[:nomen]}!"
+        import_from_nomenclature(item[:nomen])
+      end
+    end
+    return variants.reload
+  end
+
+
   # Load a product nature variant from product nature variant nomenclature
   def self.import_from_nomenclature(nomen)
     unless item = Nomen::ProductNatureVariants[nomen]

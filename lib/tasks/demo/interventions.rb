@@ -204,7 +204,6 @@ demo :interventions do
           land_parcel = support.storage
           if area = land_parcel.shape_area
             coeff = (area.to_s.to_f / 10000.0) / 6.0
-
             # Harvest 01-07-M 30-07-M
             bob = Worker.all.sample
             other = Worker.where("id != ?", bob.id).all.sample
@@ -218,8 +217,8 @@ demo :interventions do
                 i.add_cast(variable: 'cropper',        actor: Product.can("harvest(poaceae)").all.sample)
                 i.add_cast(variable: 'cropper_driver', actor: other)
                 i.add_cast(variable: 'culture',        actor: culture)
-                i.add_cast(variable: 'grains',         quantity: 4.2 * coeff, variant: ProductNatureVariant.of_variety(:grain).derivative_of(culture.variety).first )
-                i.add_cast(variable: 'straws',          quantity: 1.5 * coeff, variant: ProductNatureVariant.of_variety(:straw).derivative_of(culture.variety).first)
+                i.add_cast(variable: 'grains',         quantity: 4.2 * coeff, variant: ProductNatureVariant.find_or_import!(:grain, derivative_of: culture.variety).first)
+                i.add_cast(variable: 'straws',         quantity: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: culture.variety).first)
               end
             end
           end

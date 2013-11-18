@@ -136,9 +136,16 @@
             unit_name="ton"
             frozen_indicators_values="net_weight: 1.00ton"
             />
+      <!-- triticum_aestivum was replaced by triticum-->
       <item name="wheat_straw"
             nature="straw"
-            derivative_of="triticum_aestivum"
+            derivative_of="triticum_aestivum" 
+            unit_name="ton"
+            frozen_indicators_values="net_weight: 1.00ton"
+            />
+      <item name="hard_wheat_straw"
+            nature="straw"
+            derivative_of="triticum_durum" 
             unit_name="ton"
             frozen_indicators_values="net_weight: 1.00ton"
             />

@@ -99,6 +99,11 @@ module Nomen
       return @items[item_name]
     end
 
+    # Returns list of items as an Array
+    def list
+      return @items.values
+    end
+
     # List items with attributes filtering
     def where(attributes)
       @items.values.select do |item|

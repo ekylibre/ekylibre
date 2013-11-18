@@ -3,13 +3,13 @@
   <nomenclature name="varieties-plant" hierarchical="true">
     <items>
       <item name="poaceae">
-	       <attribute name="itis-tsn" value="40351"/>
+        <attribute name="itis-tsn" value="40351"/>
       </item>
       <item name="asteraceae">
-         <attribute name="itis-tsn" value="35420"/>
+        <attribute name="itis-tsn" value="35420"/>
       </item>
       <item name="brassicaceae">
-         <attribute name="itis-tsn" value="12345"/>
+        <attribute name="itis-tsn" value="12345"/>
       </item>
     </items>
   </nomenclature>

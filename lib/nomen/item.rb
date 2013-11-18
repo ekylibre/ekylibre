@@ -7,7 +7,7 @@ module Nomen
     # New item
     def initialize(nomenclature, element, options = {})
       @nomenclature = nomenclature
-      @name = element.attr("name")
+      @name = element.attr("name").to_s
       @parent = options[:parent]
       @attributes = element.attributes.inject(HashWithIndifferentAccess.new) do |h, pair|
         h[pair[0]] = cast_attribute(pair[0], pair[1].to_s)
@@ -37,6 +37,14 @@ module Nomen
 
     def self_and_parents
       [self] + self.parents
+    end
+
+    # Returns true if the given item name match the current item or its children
+    def include?(name)
+      name = name.to_s
+      return self_and_children.detect do |item|
+        item.name == name
+      end
     end
 
     # Return human name of item
