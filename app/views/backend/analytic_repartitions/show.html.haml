@@ -1,12 +1,11 @@
-=main_toolbar do |t|
-  -t.edit @analytic_repartition
+= main_toolbar do |t|
+  - t.edit @analytic_repartition
 
-=beehive do |b|
-  -b.cell do
-    =attributes_list(@analytic_repartition) do |l|
-      -l.attribute :name
-      -l.attribute :affected_on
-      -l.attribute :state
-      -l.attribute :percentage
-      -l.attribute :description
-      -l.attribute :production, :url => true
+= beehive do |b|
+  - b.cell do
+    = attributes_list do |l|
+      - l.attribute :affected_on
+      - l.attribute :state
+      - l.attribute :affectation_percentage
+      - l.attribute :description
+      - l.attribute :production, :url => true
