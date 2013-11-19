@@ -52,9 +52,10 @@ class ProductNature < Ekylibre::Record::Base
   enumerize :variety,       in: Nomen::Varieties.all
   enumerize :derivative_of, in: Nomen::Varieties.all
   # Be careful with the fact that it depends directly on the nomenclature definition
-  enumerize :population_counting, in: Nomen::ProductNatures.attributes[:population_counting].choices, predicates: {prefix: true}, default: Nomen::ProductNatures.attributes[:population_counting].choices.first
-   # has_many :available_stocks, class_name: "ProductStock", :conditions => ["quantity > 0"], foreign_key: :product_id
-  #has_many :prices, foreign_key: :product_nature_id, class_name: "ProductPriceTemplate"
+  enumerize :population_counting, in: Nomen::ProductNatures.population_counting.choices, default: Nomen::ProductNatures.population_counting.choices.first, predicates: {prefix: true}
+  # enumerize :population_counting, in: Nomen::ProductNatures.attributes[:population_counting].choices, predicates: {prefix: true}, default: Nomen::ProductNatures.attributes[:population_counting].choices.first
+  # has_many :available_stocks, class_name: "ProductStock", :conditions => ["quantity > 0"], foreign_key: :product_id
+  # has_many :prices, foreign_key: :product_nature_id, class_name: "ProductPriceTemplate"
   belongs_to :category, class_name: "ProductNatureCategory"
   has_many :products, foreign_key: :nature_id
   has_many :variants, class_name: "ProductNatureVariant", foreign_key: :nature_id, inverse_of: :nature

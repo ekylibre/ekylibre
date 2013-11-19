@@ -2,6 +2,16 @@ module CleanSupport
 
   class << self
 
+    def rec(hash, *keys)
+      key = keys.shift
+      if hash.is_a?(Hash)
+        hash = hash[key]
+        return rec(hash, *keys) if keys.any?
+        return hash
+      end
+      return nil
+    end
+
     def hash_to_yaml(hash, depth=0)
       code = "\n"
       x = hash.to_a.sort{|a,b| a[0].to_s.gsub("_"," ").strip<=>b[0].to_s.gsub("_"," ").strip}

@@ -1,0 +1,70 @@
+# This file is totally generated from other translations for convenience.
+# Do not touch this please, it's quite useless.
+
+jpn:
+  enumerize:
+    activity:
+
+    animal:
+
+    animal_group:
+
+    animal_medicine:
+
+    cultivable_land_parcel:
+
+    document:
+
+    document_template:
+
+    easement:
+
+    entity:
+
+    entity_link:
+
+    immatter:
+
+    incident:
+
+    indicator_datum:
+
+    intervention:
+
+    intervention_cast:
+
+    inventory_item:
+
+    land_parcel_cluster:
+
+    land_parcel_group:
+
+    legal_entity:
+
+    matter:
+
+    medicine:
+
+    operation_task:
+
+    person:
+
+    plant:
+
+    plant_medicine:
+
+    product:
+
+    product_group:
+
+    product_nature:
+
+    product_nature_category:
+
+    product_nature_variant:
+
+    sale_item:
+
+    subscription_nature:
+
+    tax:

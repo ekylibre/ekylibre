@@ -1,4 +1,81 @@
-#
+module Clean
+
+  module Locales
+
+    class << self
+
+      ENUMERIZES = Dir.glob(Rails.root.join("app", "models", "*.rb")).sort.inject({}) do |hash, file|
+        enumerizes = {}
+        File.open(file, "rb:UTF-8").each_line do |line|
+          if line =~ /\A\s*enumerize/
+            line = line.strip.split(/[\(\,\s\)]+/)
+            name = line[1][1..-1].to_sym
+            source = line[3].to_s
+            if source =~ /\ANomen\:\:/
+              elements = source.gsub('Nomen::', '').split('.')
+              enumerizes[name] = [:nomen, elements.shift.underscore.to_sym]
+              method_name = elements.shift
+              if method_name =~ /\Aall(\W|\z)/
+                enumerizes[name] << :items
+              else
+                enumerizes[name] << :choices
+                enumerizes[name] << method_name.to_sym
+              end
+            end
+          end
+        end
+        hash[file.split(/\W/)[-2].to_sym] = enumerizes unless enumerizes.empty?
+        hash
+      end.freeze
+
+      def compile_complement(locale)
+        locale_dir = Rails.root.join("config", "locales", locale.to_s)
+        hash = {}
+        hash.update(CleanSupport.yaml_to_hash(locale_dir.join("aggregators.yml")))
+        hash.update(CleanSupport.yaml_to_hash(locale_dir.join("procedures.yml")))
+        hash.update(CleanSupport.yaml_to_hash(locale_dir.join("nomenclatures.yml")))
+
+        complement = {enumerize: {}}
+        enumerize = complement[:enumerize]
+        for model, enumerizes in ENUMERIZES
+          enumerize[model] = {}
+          for name, source in enumerizes
+            if source.first == :nomen
+              if n = hash[locale][:nomenclatures][source[1]]
+                if n = n[source[2]] and n.is_a?(Hash)
+                  if source[2] == :choices
+                    n = n[source[3]]
+                  end
+                  enumerize[model][name] = n
+                end
+              end
+            else
+              puts "#{source.first.inspect} nor supported"
+            end
+          end
+        end
+
+        enumerize[:intervention] ||= {}
+        enumerize[:intervention][:reference_name] = CleanSupport.rec(hash, locale, :procedures)
+        enumerize[:intervention_cast] ||= {}
+        enumerize[:intervention_cast][:reference_name] = CleanSupport.rec(hash, locale, :variables)
+        enumerize[:operation_task] ||= {}
+        enumerize[:operation_task][:nature] = CleanSupport.rec(hash, locale, :procedo, :actions)
+
+        File.open(locale_dir.join("complement.yml"), "wb") do |f|
+          f.write "# This file is totally generated from other translations for convenience.\n"
+          f.write "# Do not touch this please, it's quite useless.\n"
+          f.write CleanSupport.hash_to_yaml(locale => complement)
+        end
+      end
+
+    end
+
+  end
+
+end
+
+
 desc "Update and sort translation files"
 task :locales => :environment do
 
@@ -111,54 +188,16 @@ task :locales => :environment do
   atotal += count
   acount += count
 
-#   # Countries
-#   count = CleanSupport.sort_yaml_file :countries, log
-#   atotal += count
-#   acount += count
-
-#   # Currencies
-#   currencies_ref = YAML.load_file(I18n.currencies_file)
-#   currencies = YAML.load_file(locale_dir.join("currencies.yml"))[locale.to_s]
-#   translation  = locale.to_s+":\n"
-#   translation << "  currencies:\n"
-#   to_translate, untranslated = 0, 0
-#   for currency, details in currencies_ref.sort
-#     to_translate += 1
-#     if currencies["currencies"][currency].blank?
-#       translation << "    #{missing_prompt}#{currency}: #{CleanSupport.yaml_value(details['iso_name'])}\n"
-#       untranslated += 1
-#     else
-#       translation << "    #{currency}: "+CleanSupport.yaml_value(::I18n.translate("currencies.#{currency}"))+"\n"
-#     end
-#   end
-#   translation << "  # Override here default formatting options for each currency IF NEEDED\n"
-#   translation << "  # Ex.: number.currency.formats.XXX.format\n"
-#   translation << "  number:\n"
-#   translation << "    currency:\n"
-#   translation << "      formats:\n"
-#   for currency, details in currencies_ref.sort
-#     x = CleanSupport.hash_count(::I18n.hardtranslate("number.currency.formats.#{currency}")||{})
-#     to_translate += x
-#     if x > 0
-#       translation << "        #{currency}:"+CleanSupport.hash_to_yaml(::I18n.hardtranslate("number.currency.formats.#{currency}")||{}, 5)+"\n"
-# #    else
-# #      translation << "        #{missing_prompt}#{currency}:\n"
-#     end
-#   end
-#   File.open(locale_dir.join("currencies.yml"), "wb") do |file|
-#     file.write translation
-#   end
-#   total = to_translate
-#   log.write "  - #{'currencies.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
-#   atotal += total
-#   acount += total-untranslated
-
   # Devise
   count = CleanSupport.sort_yaml_file :devise, log
   atotal += count
   acount += count
-
   count = CleanSupport.sort_yaml_file "devise.views", log
+  atotal += count
+  acount += count
+
+  # Enumerize
+  count = CleanSupport.sort_yaml_file :enumerize, log
   atotal += count
   acount += count
 
@@ -166,11 +205,6 @@ task :locales => :environment do
   count = CleanSupport.sort_yaml_file :formats, log
   atotal += count
   acount += count
-
-  # # Languages
-  # count = CleanSupport.sort_yaml_file :languages, log
-  # atotal += count
-  # acount += count
 
   # Models
   untranslated = 0
@@ -240,8 +274,8 @@ task :locales => :environment do
     # end
   end
 
-  to_translate += CleanSupport.hash_count(::I18n.translate("enumerize"))
-  translation << "  enumerize:" + CleanSupport.hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
+  # to_translate += CleanSupport.hash_count(::I18n.translate("enumerize"))
+  # translation << "  enumerize:" + CleanSupport.hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
 
   translation << "  models:\n"
   for model, definition in models.sort
@@ -296,7 +330,6 @@ task :locales => :environment do
   atotal += count
   acount += count
 
-
   # puts " - Locale: #{::I18n.locale_label} (Reference)"
   total, count = atotal, acount
   log.write "  - Total:               #{(100*count/total).round.to_s.rjust(3)}% (#{count}/#{total})\n"
@@ -305,6 +338,8 @@ task :locales => :environment do
   stats[::I18n.locale] = {:translation_rate => count.to_f/total}
 
 
+  # Compile complement file
+  Clean::Locales.compile_complement(locale)
 
 
   for locale in ::I18n.available_locales.delete_if{|l| l == ::I18n.default_locale or l.to_s.size != 3}.sort{|a,b| a.to_s <=> b.to_s}
@@ -315,6 +350,7 @@ task :locales => :environment do
     log.write "Locale #{::I18n.locale_label}:\n"
     total, count = 0, 0
     for reference_path in Dir.glob(Rails.root.join("config", "locales", ::I18n.default_locale.to_s, "*.yml")).sort
+      next if reference_path.match(/\Wcomplement\.yml\z/)
       file_name = reference_path.split(/[\/\\]+/)[-1]
       target_path = Rails.root.join("config", "locales", locale.to_s, file_name)
       unless File.exist?(target_path)
@@ -349,6 +385,9 @@ task :locales => :environment do
 
     puts " - Locale: #{(100*(total-count)/total).round.to_s.rjust(3)}% of #{::I18n.locale_label} translated from #{reference_label}" # reference
     stats[locale] = {:translation_rate => (total-count).to_f/total}
+
+    # Compile complement
+    Clean::Locales.compile_complement(locale)
   end
 
 

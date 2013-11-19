@@ -713,10 +713,28 @@ eng:
     document_natures:
       items:
         # activity_cost: "Coût de production par activité et intervention"
+        # animal: "Animal"
         # animal_husbandry_registry: "Registre d'élevage"
+        # balance: "Balance"
+        # balance_sheet: "Bilan comptable"
+        # deposit: "Remise en banque"
+        # entity: "Personne"
+        # financial_year: "Exercice comptable"
+        # general_journal: "Journal général"
+        # general_ledger: "Grand livre"
+        # income_statement: "Compte de résultat"
+        # inventory: "Inventaire"
+        # journal: "Journal"
         # manure_management_plan: "Plan de fumure"
+        # other: "Auter"
         # phytosanitary_registry: "Registre phytosanitaire"
         # profit_and_loss_statement: "Compte de résultat"
+        # purchase_order: "Achat"
+        # sales_estimate: "Devis de vente"
+        # sales_invoice: "Facture de vente"
+        # sales_order: "Commande de vente"
+        # stocks: "Stocks"
+        # transport: "Transport"
         # veterinary_booklet: "Carnet vétérinaire"
     entity_natures:
       items:
@@ -747,6 +765,7 @@ eng:
           bolting: "Bolting"
           covered: "Covered"
           depletion: "Depletion"
+          # female: "Femelle"
           first_growth: "First growth"
           flowering: "Flowering"
           gain_senescence: "Gain senescence"
@@ -756,7 +775,9 @@ eng:
           healthy: "Healthy"
           heat: "Heat"
           lactation: "Lactation"
+          # male: "Mâle"
           maturity: "Maturity"
+          # mixt: "Mixte"
           negative: "Negative"
           positive: "Positive"
           pregnancy: "Pregnancy"
@@ -766,6 +787,15 @@ eng:
           sick: "Sick"
           swelling: "Swelling"
           tillering: "Tillering"
+        datatype:
+          # boolean: "Case à cocher"
+          # choice: "Liste de choix"
+          # decimal: "Chiffre (décimal)"
+          # geometry: "Forme spatiale"
+          # measure: "Mesure"
+          # multi_polygon: "Multi-polygone spatial"
+          # point: "Point spatial"
+          # string: "Texte"
       items:
         animal_disease_state: "Animal disease state"
         animal_life_state: "Animal life state"
@@ -1091,7 +1121,11 @@ eng:
         unit: "Unit"
         # variable_indicators: "Indicateurs variables"
         variety: "Variety"
-      choices: #?
+      choices:
+        population_counting:
+          # decimal: "Décimal"
+          # integer: "Entier"
+          # unitary: "Unitaire"
       items:
         # additive: "Adjuvant"
         adult_cow: "Adult cow" #?

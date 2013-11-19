@@ -669,10 +669,28 @@ jpn:
     document_natures:
       items:
         # activity_cost: "Coût de production par activité et intervention"
+        # animal: "Animal"
         # animal_husbandry_registry: "Registre d'élevage"
+        # balance: "Balance"
+        # balance_sheet: "Bilan comptable"
+        # deposit: "Remise en banque"
+        # entity: "Personne"
+        # financial_year: "Exercice comptable"
+        # general_journal: "Journal général"
+        # general_ledger: "Grand livre"
+        # income_statement: "Compte de résultat"
+        # inventory: "Inventaire"
+        # journal: "Journal"
         # manure_management_plan: "Plan de fumure"
+        # other: "Auter"
         # phytosanitary_registry: "Registre phytosanitaire"
         # profit_and_loss_statement: "Compte de résultat"
+        # purchase_order: "Achat"
+        # sales_estimate: "Devis de vente"
+        # sales_invoice: "Facture de vente"
+        # sales_order: "Commande de vente"
+        # stocks: "Stocks"
+        # transport: "Transport"
         # veterinary_booklet: "Carnet vétérinaire"
     entity_natures:
       items:
@@ -703,6 +721,7 @@ jpn:
           # bolting: "Montaison"
           # covered: "Sol couvert"
           # depletion: "Tarie"
+          # female: "Femelle"
           # first_growth: "Croissance initiale"
           # flowering: "Floraison"
           # gain_senescence: "Senescence du grain"
@@ -712,7 +731,9 @@ jpn:
           # healthy: "Sain"
           # heat: "Chaleurs"
           # lactation: "En lactation"
+          # male: "Mâle"
           # maturity: "Maturation"
+          # mixt: "Mixte"
           # negative: "Négatif"
           # positive: "Positif"
           # pregnancy: "Pleine"
@@ -722,6 +743,15 @@ jpn:
           # sick: "Malade"
           # swelling: "Gonflement"
           # tillering: "Tallage"
+        datatype:
+          # boolean: "Case à cocher"
+          # choice: "Liste de choix"
+          # decimal: "Chiffre (décimal)"
+          # geometry: "Forme spatiale"
+          # measure: "Mesure"
+          # multi_polygon: "Multi-polygone spatial"
+          # point: "Point spatial"
+          # string: "Texte"
       items:
         # animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         # animal_life_state: "Phase du bioprocessus de vie d’un animal"
@@ -1031,7 +1061,11 @@ jpn:
         # unit: "Unité"
         # variable_indicators: "Indicateurs variables"
         # variety: "Variété"
-      choices: #?
+      choices:
+        population_counting:
+          # decimal: "Décimal"
+          # integer: "Entier"
+          # unitary: "Unitaire"
       items:
         # additive: "Adjuvant"
         # animal_building: "Bâtiment dédié aux animaux"
