@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="activity_cost" language="groovy" pageWidth="595" pageHeight="842" columnWidth="539" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="0.9090909090909095"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="951"/>
+	<property name="ireport.y" value="934"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -129,7 +129,7 @@
 			</band>
 		</groupHeader>
 	</group>
-	<group name="activity_group" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+	<group name="activity_group" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{activity_id}]]></groupExpression>
 		<groupHeader>
 			<band height="122">
@@ -260,7 +260,6 @@
 								<labelFont>
 									<font fontName="Open Sans" size="8"/>
 								</labelFont>
-								<tickLabelFont/>
 							</axisFormat>
 						</categoryAxisFormat>
 						<valueAxisFormat>
@@ -277,10 +276,17 @@
 			<band height="20">
 				<textField isBlankWhenNull="true">
 					<reportElement uuid="5a49c522-8e80-410e-8a36-f4b1e23864b8" style="label-strong" x="0" y="0" width="539" height="20"/>
-					<textElement>
+					<box>
+						<pen lineWidth="1.5"/>
+						<topPen lineWidth="1.5"/>
+						<leftPen lineWidth="1.5"/>
+						<bottomPen lineWidth="0.0"/>
+						<rightPen lineWidth="1.5"/>
+					</box>
+					<textElement textAlignment="Center">
 						<paragraph leftIndent="40"/>
 					</textElement>
-					<textFieldExpression><![CDATA[$F{intervention_support} + " ( " + $F{intervention_support_area}+" Ha )"]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{intervention_support} + " (" + $F{intervention_support_area}+" Ha)"]]></textFieldExpression>
 				</textField>
 			</band>
 		</groupHeader>
@@ -614,7 +620,7 @@
 				<textElement>
 					<font fontName="Open Sans" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Coût des intrants par support  / activité / campagne]]></text>
+				<text><![CDATA[Coût des intrants (€/Ha travaillé) par support  / activité / campagne]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="916e4deb-7242-413f-b915-c239769c90ae" style="strong" mode="Opaque" x="10" y="34" width="530" height="2" backcolor="#7C9DDD"/>
