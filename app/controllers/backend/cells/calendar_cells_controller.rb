@@ -1,7 +1,7 @@
 class Backend::Cells::CalendarCellsController < Backend::CellsController
 
   def show
-    @purchases = Purchase.to_a
+    @interventions = Intervention.all
   end
 
 end

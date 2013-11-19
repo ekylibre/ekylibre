@@ -306,6 +306,8 @@ GEM
       websocket (~> 1.0.4)
     sexp_processor (4.4.0)
     shoulda-context (1.1.6)
+    simple_calendar (0.1.9)
+      rails (>= 3.0)
     simple_form (3.0.0)
       actionpack (>= 4.0.0, < 4.1)
       activemodel (>= 4.0.0, < 4.1)
@@ -431,6 +433,7 @@ DEPENDENCIES
   sdoc
   selenium-webdriver
   shoulda-context
+  simple_calendar
   simple_form (~> 3.0.0)
   sneaky-save
   spinach-rails

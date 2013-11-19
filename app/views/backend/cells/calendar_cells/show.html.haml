@@ -1,1 +1,2 @@
-= calendar(:year => 2013, :month => 6, :table_class => "calendar_helper")
+= calendar @interventions do |intervention|
+  %div= link_to intervention.name, intervention
