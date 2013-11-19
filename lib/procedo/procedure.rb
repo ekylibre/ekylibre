@@ -73,7 +73,7 @@ module Procedo
 
       # Load operations
       @operations = element.xpath("xmlns:operations/xmlns:operation").inject({}) do |hash, operation|
-        hash[operation.attr("id").to_i] = Operation.new(self, operation)
+        hash[operation.attr("id").to_s] = Operation.new(self, operation)
         hash
       end
       unless @operations.keys.size == element.xpath("xmlns:operations/xmlns:operation").size

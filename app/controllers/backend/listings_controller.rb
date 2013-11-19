@@ -75,7 +75,7 @@ class Backend::ListingsController < BackendController
   end
 
   def create
-    @listing = Listing.new(params[:listing])
+    @listing = Listing.new listing_params
     return if save_and_redirect(@listing, url: {:action => :edit, :id => "id"})
     # render_restfully_form
   end
@@ -88,7 +88,7 @@ class Backend::ListingsController < BackendController
 
   def update
     return unless @listing = find_and_check(:listing)
-    @listing.attributes = params[:listing]
+    @listing.attributes = listing_params
     return if save_and_redirect(@listing, url: {:action => :edit, :id => "id"})
     t3e @listing.attributes
     # render_restfully_form
@@ -166,6 +166,12 @@ class Backend::ListingsController < BackendController
       end
     end
     t3e @listing.attributes
+  end
+  
+  protected
+
+  def listing_params()
+    params.require(:listing).permit!
   end
 
 end

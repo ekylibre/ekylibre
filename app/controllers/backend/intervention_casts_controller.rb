@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::InterventionCastsController < BackendController
-  manage_restfully :t3e => {:variable_name => "Procedo[RECORD.variable].human_name".c}
+  manage_restfully :t3e => {:variable_name => "RECORD.reference.human_name".c}
 
   unroll
 

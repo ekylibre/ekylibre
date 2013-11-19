@@ -64,7 +64,7 @@ class Intervention < Ekylibre::Record::Base
   validates_inclusion_of :reference_name, in: self.reference_name.values
   validates_presence_of  :started_at, :stopped_at
 
-
+  
   delegate :storage, to: :production_support
 
   accepts_nested_attributes_for :casts, :operations
@@ -140,7 +140,10 @@ class Intervention < Ekylibre::Record::Base
   def name
     reference.human_name
   end
-
+  
+  def start_time
+    self.started_at
+  end
   # Returns total duration of an intervention
   def duration
     # if self.operations.count > 0

@@ -2,7 +2,7 @@
 -# if !f.object.new_record? or procedure = Procedo[params[:procedure]]
 - if procedure = f.object.reference
   = field_set do
-    = f.input :procedure, as: :hidden
+    = f.input :reference_name, as: :hidden
     = f.referenced_association :production
     = f.input :started_at
     = f.input :stopped_at
@@ -10,10 +10,10 @@
   = field_set :casting do
     - if f.object.new_record? and f.object.casts.empty?
       - for name, variable in procedure.variables
-        - f.object.casts.new(variable: name)
+        - f.object.casts.new(reference_name: name)
     = f.backend_fields_for :casts do |v|
       - reference = v.object.reference
-      = v.input :variable, as: :hidden
+      = v.input :reference_name, as: :hidden
       - if reference.new?
         = v.input("actor", :wrapper => :append, :value => 0, wrapper_html: {class: "inline special"}, label: reference.human_name) do
           = v.input_field :quantity
@@ -52,7 +52,7 @@
         - if procedures.size == 1
           - procedure = procedures.first
           - can_go = true
-          = link_to(procedure.human_name, {procedure: procedure.name}, class: "btn")
+          = link_to(procedure.human_name, {reference_name: procedure.name}, class: "btn")
         - else
           = link_to(n.human_name, {procedure_nature: n.name}, class: "btn btn-important")
     - if nature
@@ -60,7 +60,7 @@
       - if procedures.any?
         - can_go = true
         - for procedure in Procedo.procedures_of_nature(nature.name.to_sym).sort{|a,b| a.human_name <=> b.human_name}
-          = link_to(procedure.human_name, {procedure: procedure.name}, class: "btn")
+          = link_to(procedure.human_name, {reference_name: procedure.name}, class: "btn")
   -# if can_go
     = field_set :duration do
       %p OK
