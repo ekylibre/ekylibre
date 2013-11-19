@@ -583,7 +583,7 @@ matters_001:
   id: 1001
   name: "Sand"
   nature_id: 1
-  number: "0012"
+  number: "1001"
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -597,7 +597,7 @@ matters_002:
   id: 1002
   name: "Book"
   nature_id: 1
-  number: "0013"
+  number: "1002"
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -611,7 +611,7 @@ matters_003:
   id: 1003
   name: "Iron grid"
   nature_id: 1
-  number: "0014"
+  number: "1003"
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -625,7 +625,7 @@ matters_004:
   id: 1004
   name: "Deuterium"
   nature_id: 1
-  number: "0015"
+  number: "1004"
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -639,7 +639,7 @@ matters_005:
   id: 1005
   name: "Oxygen"
   nature_id: 1
-  number: "0016"
+  number: "1005"
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -653,7 +653,7 @@ matters_006:
   id: 1006
   name: "Sand II"
   nature_id: 1
-  number: "0012"
+  number: "1006"
   type: 'Matter'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
