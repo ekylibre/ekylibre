@@ -26,7 +26,6 @@ class Backend::ProductNatureVariantsController < BackendController
     t.column :name, url: true
     t.column :nature, url: true
     t.column :unit_name
-    t.column :frozen_indicators
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
