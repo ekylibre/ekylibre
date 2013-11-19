@@ -154,6 +154,8 @@ class ActionController::TestCase
                  :index
                elsif action_name.match(/\A(show|edit|picture)\z/) # GET with ID
                  :show
+               elsif action_name.match(/\A(show|edit)\z/) # GET with ID
+                 :picture
                elsif action_name.match(/\A(list\_\w+)\z/) # GET with ID
                  :list_things
                elsif action_name.match(/\A(create|load)\z/) # POST without ID
@@ -181,12 +183,23 @@ class ActionController::TestCase
         code << "    assert_nothing_raised do\n"
         code << "      get :#{action}, id: 'NaID'\n"
         code << "    end\n"
+        if model
+          code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+          code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
+          code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+          code << "    get :#{action}, id: #{record}.id\n"
+          code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
+          code << "    assert_not_nil assigns(:#{record})\n"
+        end
+      elsif mode == :picture
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
         code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
         code << "    get :#{action}, id: #{record}.id\n"
-        code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
-        code << "    assert_not_nil assigns(:#{record})\n"
+        code << "    if #{record}.picture.file?\n"
+        code << "      assert_response :success, \"Flash: \#{flash.inspect}\"\n"
+        code << "      assert_not_nil assigns(:#{record})\n"
+        code << "    end\n"
       elsif mode == :list_things
         code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
         code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
