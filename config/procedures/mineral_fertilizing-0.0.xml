@@ -35,7 +35,7 @@
         <!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
       </operation>
       <operation id="700" duration="18 minutes">
-        <task do="[tractor] moves-to [land_parcel]"/><!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
+        <task do="[tractor] moves in [land_parcel]"/><!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
       </operation>
       <operation id="800" repeatable="true">
         <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, l'épandeur tourne) les task tournent -->

@@ -18,7 +18,7 @@
         <task do="[tractor] catches [harrow]"/><!-- le chauffeur attache la charrue au tracteur -->
       </operation>
       <operation id="400">
-        <task do="[tractor] moves-to [land_parcel]"/><!-- le chauffeur + son tracteur et sa charrue se déplace vers la parcelle et rentre dedant (?) -->
+        <task do="[tractor] moves in [land_parcel]"/><!-- le chauffeur + son tracteur et sa charrue se déplace vers la parcelle et rentre dedant (?) -->
       </operation>
       <operation id="500">
         <task do="[tractor] acts on [land_parcel]"/><!-- le tracteur et le chauffeur laboure la parcelle-->

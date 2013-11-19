@@ -23,7 +23,7 @@
         <!-- le chauffeur attache la charrue au tracteur -->
       </operation>
       <operation id="400" duration="18 minutes">
-        <task do="[tractor] moves-to [land_parcel]"/>
+        <task do="[tractor] moves in [land_parcel]"/>
         <!-- le chauffeur + son tracteur et sa charrue se déplace vers la parcelle et rentre dedant (?) -->
       </operation>
       <operation id="500" repeatable="true">

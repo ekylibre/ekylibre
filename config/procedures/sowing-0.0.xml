@@ -34,7 +34,7 @@
         <task do="[seeds_to_sow] moves-in [sower]"/>
       </operation>
       <operation id="600" duration="18 minutes">
-        <task do="[tractor] moves-to [land_parcel]"/>
+        <task do="[tractor] moves in [land_parcel]"/>
         <!-- le chauffeur + son tracteur et son semoir chargé de semences se déplace vers la parcelle et rentre dedant (?) -->
       </operation>
       <operation id="700">

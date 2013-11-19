@@ -23,6 +23,10 @@ module Procedo
       end
     end
 
+    def name
+      "#{stakeholder.name}:#{indicator.name}"
+    end
+
     def human_name
       :x_of_y.tl(x: @indicator.human_name, y: @stakeholder.human_name)
     end

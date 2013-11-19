@@ -1,37 +1,39 @@
+# -*- coding: utf-8 -*-
 # = Informations
-#
+# 
 # == License
-#
+# 
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2013 Brice Texier, Thibaud Merigon
-#
+# 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-#
+# 
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-#
+# 
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-#
+# 
 # == Table: operation_tasks
 #
 #  created_at     :datetime         not null
-#  creator_id     :integer
+#  creator_id     :integer          
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
 #  nature         :string(255)      not null
 #  operation_id   :integer          not null
-#  parent_id      :integer
+#  parent_id      :integer          
 #  prorated       :boolean          not null
 #  reference_name :string(255)      not null
 #  updated_at     :datetime         not null
-#  updater_id     :integer
+#  updater_id     :integer          
 #
+
 class OperationTask < Ekylibre::Record::Base
   belongs_to :operation, inverse_of: :tasks
   belongs_to :parent, class_name: "OperationTask"
@@ -69,10 +71,14 @@ class OperationTask < Ekylibre::Record::Base
       begin
         send(method_name)
       rescue Exception => e
-        puts "\n" * 3 + "*" * 80 + "\n"
+        puts "\n" * 3
+        puts "*" * 80 + "\n"
+        puts "* Procedure: #{self.operation.intervention.reference_name}/#{self.operation.reference_name}/#{self.reference_name}\n"
+        puts "* Task: #{self.nature} #{find_actors.inspect[1..-2]}\n"
+        puts "*" * 80 + "\n"
         puts "Can not do #{self.nature}: " +
           e.message.to_s + "\nBacktrace:\n" +
-          e.backtrace.join("\n")
+          e.backtrace.select{|x| x.match(Rails.root.to_s)}[0..9].join("\n")
       end
     else
       puts "Unsupported method: #{method_name}"
@@ -211,9 +217,12 @@ class OperationTask < Ekylibre::Record::Base
 
   # == Measurement
 
+  def do_measurement
+  end
+
   def do_simple_measurement
-    product, indicator = find_actor(:indicator)
-    self.product_measurements.create!(product: product, indicator: indicator)
+    # product, indicator = find_actor(:indicator)
+    # self.product_measurements.create!(product: product, indicator: indicator)
   end
 
 
@@ -230,6 +239,14 @@ class OperationTask < Ekylibre::Record::Base
       return [cast.actor, parameter.indicator]
     else
       raise StandardError, "Don't known how to find a #{cast.class.name}"
+    end
+  end
+
+
+  def find_actors
+    return reference.parameters.inject({}) do |hash, pair|
+      hash[pair.first] = find_actor(pair.second.name) rescue "¿#{pair.second.name}?"
+      hash
     end
   end
 

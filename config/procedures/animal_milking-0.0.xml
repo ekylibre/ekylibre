@@ -4,12 +4,12 @@
   <procedure name="animal_milking" natures="animal_production" version="0.0" status="frozen">
     <variables>
       <variable name="animal" variety="mammalia" abilities="produce(milk)"  roles="animal_production-target"/>
-      <variable name="milk"   variety="milk" derivative-of="variety:animal" roles="animal_production-output" new="produced-by:animal"/>
+      <variable name="milk"   variety="milk" derivative-of="variety:animal" roles="animal_production-output" new="produced-by: animal"/>
       <variable name="person" variety="worker" abilities="milk(mammalia)"   roles="animal_production-doer"/>
     </variables>
     <operations>
       <operation id="100" duration="10 minutes">
-        <task do="[person] moves-to [animal]"/>
+        <task do="[person] moves to [animal]"/>
       </operation>
       <operation id="200">
         <task do="[animal] produces [milk]"/>
