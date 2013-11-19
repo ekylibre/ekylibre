@@ -25,7 +25,7 @@ class Backend::TaxesController < BackendController
   list do |t|
     t.column :name
     t.column :amount, :precision => 3
-    t.column :nomen
+    t.column :reference_name
     t.column :included
     t.column :reductible
     t.column :deduction_account, url: true
