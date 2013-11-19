@@ -30,12 +30,12 @@
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)      not null
-#  nomen                  :string(120)
 #  number                 :string(30)       not null
 #  pictogram              :string(120)
 #  product_account_id     :integer
 #  purchasable            :boolean          not null
 #  reductible             :boolean          not null
+#  reference_name         :string(255)
 #  saleable               :boolean          not null
 #  stock_account_id       :integer
 #  storable               :boolean          not null

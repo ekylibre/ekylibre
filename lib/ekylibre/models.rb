@@ -834,6 +834,7 @@ module Ekylibre
       :updater_id => :user
     },
     :product_nature_variant => {
+      :category_id => :product_nature_category,
       :creator_id => :user,
       :nature_id => :product_nature,
       :updater_id => :user
@@ -2181,14 +2182,6 @@ module Ekylibre
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
-    product_cat_purchase_taxes: HashWithIndifferentAccess.new(
-      product_nature_category_id: Ekylibre::Record::Column.new(:product_nature_category_id, :integer, null: false).freeze,
-      tax_id: Ekylibre::Record::Column.new(:tax_id, :integer, null: false).freeze
-    ).freeze,
-    product_cat_sale_taxes: HashWithIndifferentAccess.new(
-      product_nature_category_id: Ekylibre::Record::Column.new(:product_nature_category_id, :integer, null: false).freeze,
-      tax_id: Ekylibre::Record::Column.new(:tax_id, :integer, null: false).freeze
-    ).freeze,
     product_deaths: HashWithIndifferentAccess.new(
       absorber_id: Ekylibre::Record::Column.new(:absorber_id, :integer).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
@@ -2309,12 +2302,12 @@ module Ekylibre
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
-      nomen: Ekylibre::Record::Column.new(:nomen, :string, limit: 120).freeze,
       number: Ekylibre::Record::Column.new(:number, :string, limit: 30, null: false).freeze,
       pictogram: Ekylibre::Record::Column.new(:pictogram, :string, limit: 120).freeze,
       product_account_id: Ekylibre::Record::Column.new(:product_account_id, :integer).freeze,
       purchasable: Ekylibre::Record::Column.new(:purchasable, :boolean, null: false).freeze,
       reductible: Ekylibre::Record::Column.new(:reductible, :boolean, null: false).freeze,
+      reference_name: Ekylibre::Record::Column.new(:reference_name, :string).freeze,
       saleable: Ekylibre::Record::Column.new(:saleable, :boolean, null: false).freeze,
       stock_account_id: Ekylibre::Record::Column.new(:stock_account_id, :integer).freeze,
       storable: Ekylibre::Record::Column.new(:storable, :boolean, null: false).freeze,
@@ -2323,6 +2316,14 @@ module Ekylibre
       subscription_nature_id: Ekylibre::Record::Column.new(:subscription_nature_id, :integer).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
+    ).freeze,
+    product_nature_categories_purchase_taxes: HashWithIndifferentAccess.new(
+      product_nature_category_id: Ekylibre::Record::Column.new(:product_nature_category_id, :integer, null: false).freeze,
+      tax_id: Ekylibre::Record::Column.new(:tax_id, :integer, null: false).freeze
+    ).freeze,
+    product_nature_categories_sale_taxes: HashWithIndifferentAccess.new(
+      product_nature_category_id: Ekylibre::Record::Column.new(:product_nature_category_id, :integer, null: false).freeze,
+      tax_id: Ekylibre::Record::Column.new(:tax_id, :integer, null: false).freeze
     ).freeze,
     product_nature_variant_indicator_data: HashWithIndifferentAccess.new(
       boolean_value: Ekylibre::Record::Column.new(:boolean_value, :boolean, null: false).freeze,
@@ -2347,29 +2348,28 @@ module Ekylibre
     ).freeze,
     product_nature_variants: HashWithIndifferentAccess.new(
       active: Ekylibre::Record::Column.new(:active, :boolean, null: false).freeze,
+      category_id: Ekylibre::Record::Column.new(:category_id, :integer, null: false).freeze,
       commercial_description: Ekylibre::Record::Column.new(:commercial_description, :text).freeze,
       commercial_name: Ekylibre::Record::Column.new(:commercial_name, :string, null: false).freeze,
       contour: Ekylibre::Record::Column.new(:contour, :string).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
       derivative_of: Ekylibre::Record::Column.new(:derivative_of, :string, limit: 120).freeze,
-      frozen_indicators: Ekylibre::Record::Column.new(:frozen_indicators, :text).freeze,
       horizontal_rotation: Ekylibre::Record::Column.new(:horizontal_rotation, :integer, null: false, default: 0).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       name: Ekylibre::Record::Column.new(:name, :string).freeze,
       nature_id: Ekylibre::Record::Column.new(:nature_id, :integer, null: false).freeze,
       nature_name: Ekylibre::Record::Column.new(:nature_name, :string, null: false).freeze,
-      nomen: Ekylibre::Record::Column.new(:nomen, :string, limit: 120).freeze,
       number: Ekylibre::Record::Column.new(:number, :string).freeze,
       picture_content_type: Ekylibre::Record::Column.new(:picture_content_type, :string).freeze,
       picture_file_name: Ekylibre::Record::Column.new(:picture_file_name, :string).freeze,
       picture_file_size: Ekylibre::Record::Column.new(:picture_file_size, :integer).freeze,
       picture_updated_at: Ekylibre::Record::Column.new(:picture_updated_at, :datetime).freeze,
+      reference_name: Ekylibre::Record::Column.new(:reference_name, :string).freeze,
       unit_name: Ekylibre::Record::Column.new(:unit_name, :string, null: false).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze,
-      variable_indicators: Ekylibre::Record::Column.new(:variable_indicators, :text).freeze,
       variety: Ekylibre::Record::Column.new(:variety, :string, limit: 120, null: false).freeze
     ).freeze,
     product_natures: HashWithIndifferentAccess.new(
@@ -2385,13 +2385,13 @@ module Ekylibre
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
-      nomen: Ekylibre::Record::Column.new(:nomen, :string, limit: 120).freeze,
       number: Ekylibre::Record::Column.new(:number, :string, limit: 30, null: false).freeze,
       picture_content_type: Ekylibre::Record::Column.new(:picture_content_type, :string).freeze,
       picture_file_name: Ekylibre::Record::Column.new(:picture_file_name, :string).freeze,
       picture_file_size: Ekylibre::Record::Column.new(:picture_file_size, :integer).freeze,
       picture_updated_at: Ekylibre::Record::Column.new(:picture_updated_at, :datetime).freeze,
       population_counting: Ekylibre::Record::Column.new(:population_counting, :string, null: false).freeze,
+      reference_name: Ekylibre::Record::Column.new(:reference_name, :string, limit: 120).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze,
       variable_indicators: Ekylibre::Record::Column.new(:variable_indicators, :text).freeze,
@@ -2799,8 +2799,8 @@ module Ekylibre
       included: Ekylibre::Record::Column.new(:included, :boolean, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
-      nomen: Ekylibre::Record::Column.new(:nomen, :string, limit: 120).freeze,
       reductible: Ekylibre::Record::Column.new(:reductible, :boolean, null: false, default: true).freeze,
+      reference_name: Ekylibre::Record::Column.new(:reference_name, :string, limit: 120).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
@@ -2836,7 +2836,7 @@ module Ekylibre
     transfers: HashWithIndifferentAccess.new(
       accounted_at: Ekylibre::Record::Column.new(:accounted_at, :datetime).freeze,
       affair_id: Ekylibre::Record::Column.new(:affair_id, :integer).freeze,
-      amount: Ekylibre::Record::Column.new(:amount, :decimal, precision: 19, scale: 4, null: false, default: 0.0).freeze,
+      amount: Ekylibre::Record::Column.new(:amount, :decimal, precision: 19, scale: 4, null: false).freeze,
       client_id: Ekylibre::Record::Column.new(:client_id, :integer, null: false).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       created_on: Ekylibre::Record::Column.new(:created_on, :date).freeze,
@@ -2853,7 +2853,7 @@ module Ekylibre
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
     transports: HashWithIndifferentAccess.new(
-      amount: Ekylibre::Record::Column.new(:amount, :decimal, precision: 19, scale: 4, null: false, default: 0.0).freeze,
+      amount: Ekylibre::Record::Column.new(:amount, :decimal, precision: 19, scale: 4, null: false).freeze,
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
       created_on: Ekylibre::Record::Column.new(:created_on, :date).freeze,
       creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
@@ -2861,7 +2861,7 @@ module Ekylibre
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       number: Ekylibre::Record::Column.new(:number, :string).freeze,
-      pretax_amount: Ekylibre::Record::Column.new(:pretax_amount, :decimal, precision: 19, scale: 4, null: false, default: 0.0).freeze,
+      pretax_amount: Ekylibre::Record::Column.new(:pretax_amount, :decimal, precision: 19, scale: 4, null: false).freeze,
       purchase_id: Ekylibre::Record::Column.new(:purchase_id, :integer).freeze,
       reference_number: Ekylibre::Record::Column.new(:reference_number, :string).freeze,
       responsible_id: Ekylibre::Record::Column.new(:responsible_id, :integer).freeze,

@@ -836,7 +836,7 @@ fra:
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
     nodes: "Nœuds d’extraction"
-    nomen: "Référence"
+    nomen: "Référence" #?
     number: "Numéro"
     number_format: "Format du numéro"
     number_increment: "Incrément"

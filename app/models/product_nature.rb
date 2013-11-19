@@ -33,13 +33,13 @@
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
-#  nomen                :string(120)
 #  number               :string(30)       not null
 #  picture_content_type :string(255)
 #  picture_file_name    :string(255)
 #  picture_file_size    :integer
 #  picture_updated_at   :datetime
 #  population_counting  :string(255)      not null
+#  reference_name       :string(120)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #  variable_indicators  :text
@@ -48,7 +48,7 @@
 
 
 class ProductNature < Ekylibre::Record::Base
-  # attr_accessible :abilities, :active, :derivative_of, :description, :depreciable, :indicators, :purchasable, :saleable, :asset_account_id, :name, :nomen, :number, :population_counting, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :subscribing, :variety
+  # attr_accessible :abilities, :active, :derivative_of, :description, :depreciable, :indicators, :purchasable, :saleable, :asset_account_id, :name, :reference_name, :number, :population_counting, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :subscribing, :variety
   enumerize :variety,       in: Nomen::Varieties.all
   enumerize :derivative_of, in: Nomen::Varieties.all
   # Be careful with the fact that it depends directly on the nomenclature definition
@@ -62,7 +62,7 @@ class ProductNature < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_length_of :number, allow_nil: true, maximum: 30
-  validates_length_of :derivative_of, :nomen, :variety, allow_nil: true, maximum: 120
+  validates_length_of :derivative_of, :reference_name, :variety, allow_nil: true, maximum: 120
   validates_length_of :name, :picture_content_type, :picture_file_name, :population_counting, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :evolvable, in: [true, false]
   validates_presence_of :category, :name, :number, :population_counting, :variety
@@ -183,6 +183,14 @@ class ProductNature < Ekylibre::Record::Base
   end
 
   # Returns list of indicators as an array of indicator items from the nomenclature
+  def frozen_indicators_array
+    return self.frozen_indicators.to_s.strip.split(/[\,\s]/).collect do |i|
+      Nomen::Indicators[i]
+    end.compact
+  end
+
+
+  # Returns list of indicators as an array of indicator items from the nomenclature
   def indicators_array
     return self.indicators.to_s.strip.split(/[\,\s]/).collect do |i|
       Nomen::Indicators[i]
@@ -204,7 +212,6 @@ class ProductNature < Ekylibre::Record::Base
     to.collect{|x| tc('to.'+x.to_s)}.to_sentence
   end
 
-
   # # Returns the default
   # def default_price(options)
   #   price = nil
@@ -221,7 +228,6 @@ class ProductNature < Ekylibre::Record::Base
   def informations
     tc('informations.without_components', :product_nature => self.name, :unit => self.unit.label, :size => self.components.size)
   end
-
 
   # # TODO : move stock methods in operation / product
   # # Create real stocks moves to update the real state of stocks
@@ -276,22 +282,22 @@ class ProductNature < Ekylibre::Record::Base
 
 
   # Load a product nature from product nature nomenclature
-  def self.import_from_nomenclature(nomen)
-    unless item = Nomen::ProductNatures.find(nomen)
-      raise ArgumentError.new("The product_nature #{nomen.inspect} is not known")
+  def self.import_from_nomenclature(reference_name)
+    unless item = Nomen::ProductNatures.find(reference_name)
+      raise ArgumentError.new("The product_nature #{reference_name.inspect} is not known")
     end
     unless category_item = Nomen::ProductNatureCategories.find(item.category)
       raise ArgumentError.new("The category of the product_nature #{item.category.inspect} is not known")
     end
-    unless nature = ProductNature.find_by_nomen(nomen)
+    unless nature = ProductNature.find_by_reference_name(reference_name)
       attributes = {
         :variety => item.variety,
         :abilities => item.abilities.sort.join(" "),
         :active => true,
         :name => item.human_name,
         :population_counting => item.population_counting,
-        :category => ProductNatureCategory.find_by_nomen(item.category) || ProductNatureCategory.import_from_nomenclature(item.category),
-        :nomen => item.name,
+        :category => ProductNatureCategory.find_by_reference_name(item.category) || ProductNatureCategory.import_from_nomenclature(item.category),
+        :reference_name => item.name,
         :frozen_indicators => item.frozen_indicators.sort.join(" "),
         :variable_indicators => item.variable_indicators.sort.join(" "),
         :derivative_of => item.derivative_of.to_s

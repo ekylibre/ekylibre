@@ -45,7 +45,7 @@ demo :productions do
       r = OpenStruct.new(:description => row[0],
                          :name => row[1].downcase.capitalize,
                          :family => families_by_activity_name[row[1]],
-                         :variant_nomen => row[3].blank? ? nil :row[3].to_sym,
+                         :variant_reference_name => row[3].blank? ? nil :row[3].to_sym,
                          :nature => (natures[row[4]] || :none).to_s,
                          :campaign_harvest_year => row[5].blank? ? nil : row[5].to_i,
                          :work_number_storage => row[6].blank? ? nil : row[6].to_s
@@ -60,9 +60,9 @@ demo :productions do
       # Create an activity if not exist
       activity   = Activity.find_by(description: r.description)
       activity ||= Activity.create!(:nature => r.nature, :family => r.family, :name => r.name, :description => r.description)
-      if r.variant_nomen
-        product_nature_variant_sup = ProductNatureVariant.find_by(nomen: r.variant_nomen)
-        product_nature_variant_sup ||= ProductNatureVariant.import_from_nomenclature(r.variant_nomen)
+      if r.variant_reference_name
+        product_nature_variant_sup = ProductNatureVariant.find_by(reference_name: r.variant_reference_name)
+        product_nature_variant_sup ||= ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
         if product_nature_variant_sup and product_support.present?
           # find a production corresponding to campaign , activity and product_nature
           pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :variant_id => product_nature_variant_sup.id).first
@@ -72,9 +72,9 @@ demo :productions do
           pro.supports.create!(:storage_id => product_support.id)
           if product_support.is_a?(CultivableLandParcel)
             # create a name for the plant correponding to product_nature_nomen in XML Nomenclature
-            plant_name = (Nomen::ProductNatureVariants.find(r.variant_nomen).human_name + " " + campaign.name + " " + product_support.work_number)
+            plant_name = (Nomen::ProductNatureVariants.find(r.variant_reference_name).human_name + " " + campaign.name + " " + product_support.work_number)
             # create a work number for the plant
-            plant_work_nb = (r.variant_nomen.to_s + "-" + campaign.name + "-" + product_support.work_number)
+            plant_work_nb = (r.variant_reference_name.to_s + "-" + campaign.name + "-" + product_support.work_number)
             # create the plant
             plant = Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :born_at => Time.now, :initial_owner => Entity.of_company, :default_storage => product_support)
             # localize the plant in the cultivable_land_parcel
@@ -96,13 +96,13 @@ demo :productions do
 
   #   campaign = Campaign.find_by_name("2013")
   #   campaign ||= Campaign.create!(:name => "2013", :closed => false)
-  #   sole_ble_nature = ProductNature.find_by_nomen("wheat_crop")
+  #   sole_ble_nature = ProductNature.find_by_reference_name("wheat_crop")
   #   sole_ble_nature ||= ProductNature.import_from_nomenclature(:wheat_crop)
 
   #   # create some indicator nature for fertilization
   #   # find some product for fertilization
-  #   fertilizer_product = ProductNature.where(:nomen => "chemical_fertilizer").first.products.first
-  #   fertilizer_product_prev = ProductNature.where(:nomen => "chemical_fertilizer").first.products.last
+  #   fertilizer_product = ProductNature.where(:reference_name => "chemical_fertilizer").first.products.first
+  #   fertilizer_product_prev = ProductNature.where(:reference_name => "chemical_fertilizer").first.products.last
   #   # set indicator on product for fertilization
 
   #   #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
@@ -166,7 +166,7 @@ demo :productions do
   #   end
 
   #   # real fertilization intervention
-  #   intervention_real = Intervention.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_intervention_id => intervention_prev.id, :state => "done")
+  #   intervention_real = Intervention.create!(:natures => "soil_enrichment", :reference_name =>"mineral_fertilizing", :production_id => production.id, :provisional_intervention_id => intervention_prev.id, :state => "done")
 
 
   #   # Create some intervention cast for fertilization
@@ -197,12 +197,12 @@ demo :productions do
 
   #   campaign = Campaign.find_by_name("2012")
   #   campaign ||= Campaign.create!(:name => "2012", :closed => false)
-  #   sole_ble_nature = ProductNature.find_by_nomen("wheat_crop")
+  #   sole_ble_nature = ProductNature.find_by_reference_name("wheat_crop")
   #   sole_ble_nature ||= ProductNature.import_from_nomenclature(:wheat_crop)
   #   # create some indicator nature for fertilization
   #   # find some product for fertilization
-  #   fertilizer_product = ProductNature.where(:nomen => "chemical_fertilizer").first.products.first
-  #   fertilizer_product_prev = ProductNature.where(:nomen => "chemical_fertilizer").first.products.last
+  #   fertilizer_product = ProductNature.where(:reference_name => "chemical_fertilizer").first.products.first
+  #   fertilizer_product_prev = ProductNature.where(:reference_name => "chemical_fertilizer").first.products.last
   #   # set indicator on product for fertilization
 
   #   #fertilizer_product.indicator_data.create!({:measure_unit => "kilograms_per_hectogram", :measured_at => Time.now }.merge(attributes))
@@ -234,7 +234,7 @@ demo :productions do
 
 
   #   # provisional fertilization intervention
-  #   intervention_prev = Intervention.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
+  #   intervention_prev = Intervention.create!(:natures => "soil_enrichment", :reference_name =>"mineral_fertilizing", :production_id => production.id, :provisional => true )
 
   #   land_parcel_group_fert = production.supports.first.storage
 
@@ -258,7 +258,7 @@ demo :productions do
   #   end
 
   #   # real fertilization intervention
-  #   intervention_real = Intervention.create!(:natures => "soil_enrichment", :nomen =>"mineral_fertilizing", :production_id => production.id, :provisional_intervention_id => intervention_prev.id, :state => "done")
+  #   intervention_real = Intervention.create!(:natures => "soil_enrichment", :reference_name =>"mineral_fertilizing", :production_id => production.id, :provisional_intervention_id => intervention_prev.id, :state => "done")
 
 
   #   # Create some intervention cast for fertilization
@@ -299,7 +299,7 @@ demo :productions do
   #   #sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Animal medicine")
   #   sanitary_product_nature_variant = ProductNature.import_from_nomenclature(:animal_medicine).default_variant
   #   campaign = Campaign.find_by_name("2013")
-  #   animal_group_nature = ProductNature.find_by_nomen("female_adult_cow")
+  #   animal_group_nature = ProductNature.find_by_reference_name("female_adult_cow")
   #   animal_group_nature ||= ProductNature.import_from_nomenclature("female_adult_cow")
   #   animal_activity = Activity.find_by_description("8200")
   #   animal_activity ||= Activity.create!(:nature => "main", :family => "cattle_farming", :name => "VL", :description => "8200")
@@ -346,7 +346,7 @@ demo :productions do
 
   #   # treatment intervention
   #   intervention = incident.interventions.create!(:natures => "animal_care",
-  #                                           :nomen =>"animal_treatment",
+  #                                           :reference_name =>"animal_treatment",
   #                                           :state => "done",
   #                                           :production_id => animal_production.id,
   #                                           :prescription_id => prescription.id
@@ -390,7 +390,7 @@ demo :productions do
   #   #sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("Animal medicine")
   #   sanitary_product_nature_variant = ProductNatureVariant.find_by_nature_name("animal_medicine")
   #   campaign = Campaign.find_by_name("2012")
-  #   animal_group_nature = ProductNature.find_by_nomen("female_adult_cow")
+  #   animal_group_nature = ProductNature.find_by_reference_name("female_adult_cow")
   #   animal_group_nature ||= ProductNature.import_from_nomenclature("female_adult_cow")
   #   animal_activity = Activity.find_by_description("8200")
   #   animal_activity ||= Activity.create!(:nature => "main", :family => "cattle_farming", :name => "VL", :description => "8200")
@@ -419,7 +419,7 @@ demo :productions do
 
   #   # treatment intervention
   #   intervention = incident.interventions.create!(:natures => "animal_care",
-  #                                           :nomen =>"animal_treatment",
+  #                                           :reference_name =>"animal_treatment",
   #                                           :state => "done",
   #                                           :production_id => animal_production.id
   #                                           )

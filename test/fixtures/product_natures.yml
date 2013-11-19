@@ -32,13 +32,13 @@
 #  id                   :integer          not null, primary key
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
-#  nomen                :string(120)
 #  number               :string(30)       not null
 #  picture_content_type :string(255)
 #  picture_file_name    :string(255)
 #  picture_file_size    :integer
 #  picture_updated_at   :datetime
 #  population_counting  :string(255)      not null
+#  reference_name       :string(120)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #  variable_indicators  :text

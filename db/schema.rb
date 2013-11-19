@@ -581,8 +581,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "locked",                               default: false, null: false
     t.boolean  "of_company",                           default: false, null: false
     t.string   "picture_file_name"
-    t.integer  "picture_file_size"
     t.string   "picture_content_type"
+    t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.datetime "created_at",                                           null: false
     t.datetime "updated_at",                                           null: false
@@ -1554,22 +1554,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_births", ["updated_at"], :name => "index_product_births_on_updated_at"
   add_index "product_births", ["updater_id"], :name => "index_product_births_on_updater_id"
 
-  create_table "product_cat_purchase_taxes", id: false, force: true do |t|
-    t.integer "product_nature_category_id", null: false
-    t.integer "tax_id",                     null: false
-  end
-
-  add_index "product_cat_purchase_taxes", ["product_nature_category_id"], :name => "index_product_cat_purchase_taxes_on_product_nature_category_id"
-  add_index "product_cat_purchase_taxes", ["tax_id"], :name => "index_product_cat_purchase_taxes_on_tax_id"
-
-  create_table "product_cat_sale_taxes", id: false, force: true do |t|
-    t.integer "product_nature_category_id", null: false
-    t.integer "tax_id",                     null: false
-  end
-
-  add_index "product_cat_sale_taxes", ["product_nature_category_id"], :name => "index_product_cat_sale_taxes_on_product_nature_category_id"
-  add_index "product_cat_sale_taxes", ["tax_id"], :name => "index_product_cat_sale_taxes_on_tax_id"
-
   create_table "product_deaths", force: true do |t|
     t.integer  "operation_task_id"
     t.string   "nature",                        null: false
@@ -1754,7 +1738,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "name",                                               null: false
     t.string   "number",                 limit: 30,                  null: false
     t.text     "description"
-    t.string   "nomen",                  limit: 120
+    t.string   "reference_name"
     t.string   "pictogram",              limit: 120
     t.boolean  "active",                             default: false, null: false
     t.boolean  "depreciable",                        default: false, null: false
@@ -1788,6 +1772,22 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_nature_categories", ["updated_at"], :name => "index_product_nature_categories_on_updated_at"
   add_index "product_nature_categories", ["updater_id"], :name => "index_product_nature_categories_on_updater_id"
 
+  create_table "product_nature_categories_purchase_taxes", id: false, force: true do |t|
+    t.integer "product_nature_category_id", null: false
+    t.integer "tax_id",                     null: false
+  end
+
+  add_index "product_nature_categories_purchase_taxes", ["product_nature_category_id"], :name => "index_product_nature_categories_purchase_taxes_on_category_id"
+  add_index "product_nature_categories_purchase_taxes", ["tax_id"], :name => "index_product_nature_categories_purchase_taxes_on_tax_id"
+
+  create_table "product_nature_categories_sale_taxes", id: false, force: true do |t|
+    t.integer "product_nature_category_id", null: false
+    t.integer "tax_id",                     null: false
+  end
+
+  add_index "product_nature_categories_sale_taxes", ["product_nature_category_id"], :name => "index_product_nature_categories_sale_taxes_on_category_id"
+  add_index "product_nature_categories_sale_taxes", ["tax_id"], :name => "index_product_nature_categories_sale_taxes_on_tax_id"
+
   create_table "product_nature_variant_indicator_data", force: true do |t|
     t.integer  "variant_id",                                                                                                            null: false
     t.string   "indicator",                                                                                                             null: false
@@ -1818,17 +1818,16 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "product_nature_variants", force: true do |t|
     t.integer  "nature_id",                                          null: false
+    t.integer  "category_id",                                        null: false
     t.string   "name"
     t.string   "number"
     t.string   "variety",                limit: 120,                 null: false
     t.string   "derivative_of",          limit: 120
-    t.string   "nomen",                  limit: 120
+    t.string   "reference_name"
     t.string   "nature_name",                                        null: false
     t.string   "unit_name",                                          null: false
     t.string   "commercial_name",                                    null: false
     t.text     "commercial_description"
-    t.text     "frozen_indicators"
-    t.text     "variable_indicators"
     t.boolean  "active",                             default: false, null: false
     t.string   "picture_file_name"
     t.string   "picture_content_type"
@@ -1843,6 +1842,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "lock_version",                       default: 0,     null: false
   end
 
+  add_index "product_nature_variants", ["category_id"], :name => "index_product_nature_variants_on_category_id"
   add_index "product_nature_variants", ["created_at"], :name => "index_product_nature_variants_on_created_at"
   add_index "product_nature_variants", ["creator_id"], :name => "index_product_nature_variants_on_creator_id"
   add_index "product_nature_variants", ["nature_id"], :name => "index_product_nature_variants_on_nature_id"
@@ -1850,23 +1850,23 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_nature_variants", ["updater_id"], :name => "index_product_nature_variants_on_updater_id"
 
   create_table "product_natures", force: true do |t|
+    t.integer  "category_id",                                      null: false
     t.string   "name",                                             null: false
     t.string   "number",               limit: 30,                  null: false
-    t.text     "description"
     t.string   "variety",              limit: 120,                 null: false
     t.string   "derivative_of",        limit: 120
-    t.string   "nomen",                limit: 120
+    t.string   "reference_name",       limit: 120
+    t.boolean  "active",                           default: false, null: false
+    t.boolean  "evolvable",                        default: false, null: false
+    t.string   "population_counting",                              null: false
     t.text     "abilities"
     t.text     "variable_indicators"
     t.text     "frozen_indicators"
-    t.string   "population_counting",                              null: false
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-    t.boolean  "active",                           default: false, null: false
-    t.boolean  "evolvable",                        default: false, null: false
-    t.integer  "category_id",                                      null: false
+    t.text     "description"
     t.datetime "created_at",                                       null: false
     t.datetime "updated_at",                                       null: false
     t.integer  "creator_id"
@@ -2448,7 +2448,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.text     "description"
     t.integer  "collect_account_id"
     t.integer  "deduction_account_id"
-    t.string   "nomen",                limit: 120
+    t.string   "reference_name",       limit: 120
     t.datetime "created_at",                                                                null: false
     t.datetime "updated_at",                                                                null: false
     t.integer  "creator_id"
@@ -2506,9 +2506,9 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "trackings", ["updater_id"], :name => "index_trackings_on_updater_id"
 
   create_table "transfers", force: true do |t|
-    t.decimal  "amount",                     precision: 19, scale: 4, default: 0.0, null: false
-    t.string   "currency",         limit: 3,                                        null: false
-    t.integer  "client_id",                                                         null: false
+    t.decimal  "amount",                     precision: 19, scale: 4,             null: false
+    t.string   "currency",         limit: 3,                                      null: false
+    t.integer  "client_id",                                                       null: false
     t.string   "label"
     t.string   "description"
     t.date     "started_on"
@@ -2517,11 +2517,11 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
     t.integer  "affair_id"
-    t.datetime "created_at",                                                        null: false
-    t.datetime "updated_at",                                                        null: false
+    t.datetime "created_at",                                                      null: false
+    t.datetime "updated_at",                                                      null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                        default: 0,   null: false
+    t.integer  "lock_version",                                        default: 0, null: false
   end
 
   add_index "transfers", ["accounted_at"], :name => "index_transfers_on_accounted_at"
@@ -2534,7 +2534,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "transfers", ["updater_id"], :name => "index_transfers_on_updater_id"
 
   create_table "transports", force: true do |t|
-    t.integer  "transporter_id",                                          null: false
+    t.integer  "transporter_id",                                        null: false
     t.integer  "responsible_id"
     t.decimal  "weight",           precision: 19, scale: 4
     t.date     "created_on"
@@ -2543,13 +2543,13 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "number"
     t.string   "reference_number"
     t.integer  "purchase_id"
-    t.decimal  "pretax_amount",    precision: 19, scale: 4, default: 0.0, null: false
-    t.decimal  "amount",           precision: 19, scale: 4, default: 0.0, null: false
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.decimal  "pretax_amount",    precision: 19, scale: 4,             null: false
+    t.decimal  "amount",           precision: 19, scale: 4,             null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                              default: 0,   null: false
+    t.integer  "lock_version",                              default: 0, null: false
   end
 
   add_index "transports", ["created_at"], :name => "index_transports_on_created_at"
