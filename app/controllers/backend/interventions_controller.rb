@@ -17,14 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::InterventionsController < BackendController
-  manage_restfully :t3e => {:procedure_name => "Procedo[RECORD.procedure].human_name".c}
+  manage_restfully :t3e => {:procedure_name => "RECORD.reference.human_name".c}
 
   unroll
 
   # INDEX
 
   list(order: "started_at DESC", line_class: :status) do |t|
-    t.column :procedure, url: true
+    t.column :reference_name, label_method: :name, url: true
     t.column :production, url: true
     t.column :incident, url: true
     t.column :state, hidden: true
@@ -38,7 +38,7 @@ class Backend::InterventionsController < BackendController
   # SHOW
 
   list(:casts, :model => :intervention_casts, :conditions => {intervention_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
-    t.column :variable_name
+    t.column :reference_name
     t.column :actor, url: true
     t.column :roles
     t.column :quantity
@@ -49,7 +49,7 @@ class Backend::InterventionsController < BackendController
   end
 
   list(:operations, :conditions => {intervention_id: 'params[:id]'.c}, :order => "started_at") do |t|
-    t.column :position
+    t.column :reference_name
     t.column :description
     # t.column :name, url: true
     # t.column :description

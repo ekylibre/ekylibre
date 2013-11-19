@@ -6,7 +6,7 @@ module Procedo
     def initialize(procedure, element)
       @procedure = procedure
       if element.has_attribute?('id')
-        @id = element.attr('id').to_i
+        @id = element.attr('id').to_s
       else
         raise MissingAttribute.new("Each operation must have an id attribute (which must be a decimal integer). In: #{@procedure.signature}.")
       end
@@ -32,7 +32,7 @@ module Procedo
 
     # Returns an array of humanized expression
     def human_expressions
-      return @tasks.map(&:human_expression)
+      return @tasks.values.map(&:human_expression)
     end
 
     def name
