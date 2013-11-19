@@ -79,6 +79,14 @@ module Backend::ChartsHelper
 
 end
 
+class ::Array
+
+  def jsonize_keys
+    return map(&:jsonize_keys)
+  end
+
+end
+
 class ::Hash
 
   def jsonize_keys
