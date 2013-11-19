@@ -1,37 +1,37 @@
 # -*- coding: utf-8 -*-
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2013 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: operation_tasks
 #
 #  created_at     :datetime         not null
-#  creator_id     :integer          
+#  creator_id     :integer
 #  id             :integer          not null, primary key
 #  lock_version   :integer          default(0), not null
 #  nature         :string(255)      not null
 #  operation_id   :integer          not null
-#  parent_id      :integer          
+#  parent_id      :integer
 #  prorated       :boolean          not null
 #  reference_name :string(255)      not null
 #  updated_at     :datetime         not null
-#  updater_id     :integer          
+#  updater_id     :integer
 #
 
 class OperationTask < Ekylibre::Record::Base
@@ -52,7 +52,8 @@ class OperationTask < Ekylibre::Record::Base
   validates_inclusion_of :nature, in: self.nature.values
 
   delegate :reference, to: :operation, prefix: true
-  delegate :started_at, :stopped_at, :casts, to: :operation
+  delegate :intervention, :started_at, :stopped_at, :casts, to: :operation
+  delegate :name, to: :intervention, prefix: true
 
   before_validation do
     self.nature = self.reference.action.type
@@ -74,7 +75,8 @@ class OperationTask < Ekylibre::Record::Base
         puts "\n" * 3
         puts "*" * 80 + "\n"
         puts "* Procedure: #{self.operation.intervention.reference_name}/#{self.operation.reference_name}/#{self.reference_name}\n"
-        puts "* Task: #{self.nature} #{find_actors.inspect[1..-2]}\n"
+        puts "* #{self.nature.humanize}: #{find_actors.inspect[1..-2]}\n"
+        puts "* OID: #{self.operation_id}\n"
         puts "*" * 80 + "\n"
         puts "Can not do #{self.nature}: " +
           e.message.to_s + "\nBacktrace:\n" +
@@ -104,10 +106,18 @@ class OperationTask < Ekylibre::Record::Base
 
   # == Localization
 
+  def do_direct_movement
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product_id: find_actor(:product).id, container_id: find_actor(:localizable).container(self.started_at).id)
+  end
+
+  def do_direct_entering
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product_id: find_actor(:product).id, container_id: find_actor(:localizable).id)
+  end
+
   def do_movement
     product = find_actor(:product)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: product.id)
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: product.id, container_id: find_actor(:localizable).container.id)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: product.id, container_id: find_actor(:localizable).container(self.stopped_at).id)
   end
 
   def do_entering

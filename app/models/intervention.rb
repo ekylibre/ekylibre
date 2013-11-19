@@ -1,44 +1,44 @@
 # = Informations
-# 
+#
 # == License
-# 
+#
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2013 Brice Texier, Thibaud Merigon
-# 
+#
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # any later version.
-# 
+#
 # This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
-# 
+#
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
-# 
+#
 # == Table: interventions
 #
 #  created_at                  :datetime         not null
-#  creator_id                  :integer          
+#  creator_id                  :integer
 #  id                          :integer          not null, primary key
-#  incident_id                 :integer          
+#  incident_id                 :integer
 #  lock_version                :integer          default(0), not null
 #  natures                     :string(255)      not null
-#  prescription_id             :integer          
+#  prescription_id             :integer
 #  production_id               :integer          not null
-#  production_support_id       :integer          
+#  production_support_id       :integer
 #  provisional                 :boolean          not null
-#  provisional_intervention_id :integer          
+#  provisional_intervention_id :integer
 #  reference_name              :string(255)      not null
-#  ressource_id                :integer          
-#  ressource_type              :string(255)      
-#  started_at                  :datetime         
+#  ressource_id                :integer
+#  ressource_type              :string(255)
+#  started_at                  :datetime
 #  state                       :string(255)      not null
-#  stopped_at                  :datetime         
+#  stopped_at                  :datetime
 #  updated_at                  :datetime         not null
-#  updater_id                  :integer          
+#  updater_id                  :integer
 #
 
 class MissingVariable < StandardError
@@ -64,7 +64,7 @@ class Intervention < Ekylibre::Record::Base
   validates_inclusion_of :reference_name, in: self.reference_name.values
   validates_presence_of  :started_at, :stopped_at
 
-  
+
   delegate :storage, to: :production_support
 
   accepts_nested_attributes_for :casts, :operations
@@ -140,7 +140,7 @@ class Intervention < Ekylibre::Record::Base
   def name
     reference.human_name
   end
-  
+
   def start_time
     self.started_at
   end
@@ -205,14 +205,12 @@ class Intervention < Ekylibre::Record::Base
     self.class.transaction do
       self.state = :in_progress
       self.save!
+
       started_at = period[:started_at] ||= self.started_at
       duration   = period[:duration]  ||= (self.stopped_at - self.started_at)
+      stopped_at = started_at + duration
+
       reference = self.reference
-      rep = reference.spread_time(duration)
-      for name, operation in reference.operations
-        d = operation.duration || rep
-        started_at += d
-      end
       # Check variables presence
       for variable in reference.variables.values
         unless self.casts.find_by(reference_name: variable.name)
@@ -232,17 +230,22 @@ class Intervention < Ekylibre::Record::Base
           unless variant = genited.variant || variable.variant(self)
             raise StandardError, "No variant for #{variable.name} in intervention ##{self.id} (#{self.reference_name})"
           end
-          genited.actor = variant.matching_model.create!(variant: variant, born_at: started_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity)
+          genited.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity)
         else
           raise StandardError, "Don't known how to create the variable #{variable.name} for procedure #{self.reference_name}"
         end
         genited.save!
       end
       # Load operations
+      rep = reference.spread_time(duration)
       for name, operation in reference.operations
+        d = operation.duration || rep
         self.operations.create!(started_at: started_at, stopped_at: started_at + d, reference_name: name)
+        started_at += d
       end
-
+      # for name, operation in reference.operations
+      #   self.operations.create!(started_at: started_at, stopped_at: started_at + d, reference_name: name)
+      # end
       self.reload
       self.started_at = period[:started_at]
       self.stopped_at = started_at

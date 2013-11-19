@@ -9,7 +9,8 @@
     </variables>
     <operations>
       <operation id="100">
-        <task do="[mother] produces [child]"/><!-- une vache produit un veau -->
+        <task do="[mother] produces [child]"/>
+        <task do="[child] is at [mother]"/>
         <task do="[caregiver] measures [child:mammalia_born_condition]"/>
         <task do="[caregiver] measures [mother:mammalia_born_cycle]"/>
         <task do="[caregiver] measures [mother:mammalia_reproduction_method_embryo_transplant]"/>

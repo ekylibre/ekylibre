@@ -17,10 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::LandParcelsController < BackendController
-  manage_restfully
-
-  unroll
+class Backend::LandParcelsController < Backend::MattersController
 
   list() do |t|
     t.column :name, url: true
@@ -35,49 +32,5 @@ class Backend::LandParcelsController < BackendController
     t.action :edit
     t.action :destroy
   end
-
-  # Displays the main page with the list of land parcels
-  def index
-    # session[:viewed_on] = params[:viewed_on] = params[:viewed_on].to_date rescue Date.today
-  end
-
-  # list(:operations, :conditions => {:target_type => LandParcel.name, :target_id => 'params[:id]'.c}, :order => "planned_on ASC") do |t|
-  #   t.column :name, url: true
-  #   t.column :name, through: :nature
-  #   t.column :label, through: :responsible, url: true
-  #   t.column :planned_on
-  #   t.column :moved_on
-  #   t.column :equipments_list
-  #   t.column :duration
-  #   t.action :edit
-  #   t.action :destroy
-  # end
-
-  # def divide
-  #   return unless @land_parcel = find_and_check(:land_parcel)
-  #   if request.xhr?
-  #     render :partial => "subdivision_form"
-  #     return
-  #   end
-
-  #   if request.post?
-  #     if @land_parcel.divide(params[:subdivisions].values, params[:land_parcel][:stopped_on].to_date)
-  #       redirect_to :action => :index
-  #     end
-  #   end
-  #   # @land_parcel.stopped_on ||= (session[:viewed_on].to_date rescue Date.today) - 1
-  #   t3e @land_parcel.attributes
-  # end
-
-  # def merge
-  #   land_parcels = params[:land_parcel].select{|k, v| v.to_i == 1}.collect{|k, v| LandParcel.find(k.to_i)}
-  #   child = land_parcels[0].merge(land_parcels[1..-1], session[:viewed_on])
-  #   # redirect_to(:action => :show, :id => child.id)
-  #   if child
-  #     render :text => url_for(:action => :show, :id => child.id, :viewed_on => session[:viewed_on] + 1), :layout => false
-  #   else
-  #     render :text => url_for(:action => :index, :viewed_on => session[:viewed_on] + 1), :layout => false
-  #   end
-  # end
 
 end

@@ -269,6 +269,7 @@ eng:
         not_an_end_of_month: "%{attribute} must be an end of month"
         nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
         odd: "%{attribute} must be odd"
+        # period_overlap: "%{attribute} se trouve sur une période d'un enregistrement existant"
         posterior: "The date %{attribute} must be posterior to %{to}"
         record_has_been_already_validated: "Record has been already validated" #?
         record_invalid: "Validations failed : %{errors}"

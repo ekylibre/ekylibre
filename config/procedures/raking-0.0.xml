@@ -9,10 +9,10 @@
     </variables>
     <operations>
       <operation id="t100">
-        <task do="[driver] moves-in [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
+        <task do="[driver] moves in [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
       </operation>
       <operation id="200">
-        <task do="[tractor] moves-to [harrow]"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la charrue-->
+        <task do="[tractor] moves at [harrow]"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel de la charrue-->
       </operation>
       <operation id="300">
         <task do="[tractor] catches [harrow]"/><!-- le chauffeur attache la charrue au tracteur -->

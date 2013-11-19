@@ -17,10 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::LandParcelGroupsController < BackendController
-  manage_restfully
-
-  unroll
+class Backend::LandParcelGroupsController < Backend::ProductGroupsController
 
   list do |t|
     t.column :name, url: true

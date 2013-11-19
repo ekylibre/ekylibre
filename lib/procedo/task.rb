@@ -6,14 +6,12 @@ module Procedo
     # TODO Build nomenclatures?
     ACTIONS = {
       # Localization
-      "{product} moves to {localizable}" =>                    :movement,
-      "{product} moves-to {localizable}" =>                    :movement,
+      "{product} is at {localizable}" =>                       :direct_movement,
+      "{product} is in {localizable}" =>                       :direct_entering,
+      "{product} moves at {localizable}" =>                    :movement,
       "{product} moves in {localizable}" =>                    :entering,
-      "{product} moves-in {localizable}" =>                    :entering,
       "{product} moves in default storage" =>                  :home_coming,
-      "{product} moves-in-default-storage" =>                  :home_coming,
       "{product} moves in default storage of {localizable}" => :given_home_coming,
-      "{product} moves-in-default-storage-of {localizable}" => :given_home_coming,
       # Birth
       "{producer} produces {product}" =>           :creation,
       "{producer} parts with {product}" =>         :division,

@@ -17,26 +17,23 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::BuildingsController < BackendController
-  manage_restfully
-
-  unroll
+class Backend::BuildingsController < Backend::ProductGroupsController
 
   list do |t|
     t.column :name, url: true
     t.column :description
     # t.column :name, through: :establishment
     # t.column :name, through: :parent, url: true
-    #t.column :reservoir
+    # t.column :reservoir
     t.action :edit
     t.action :destroy
   end
 
   # Displays the main page with the list of buildings
   def index
-    notify_now(:need_building_to_record_stock_moves) if Building.count.zero?
+    super
+    notify_now(:need_building_to_record_stock_moves) if Building.empty?
   end
-
 
   # List divisions of a building
   list(:divisions, :model => :product_memberships, :conditions => {group_id: 'params[:id]'.c}, :order => "started_at ASC") do |t|
@@ -44,28 +41,5 @@ class Backend::BuildingsController < BackendController
     t.column :started_at
     t.column :stopped_at
   end
-
-  # list(:product_moves, :conditions => {:building_id => ['session[:current_building_id]']}) do |t|
-  #   t.column :name
-  #   t.column :planned_on
-  #   t.column :moved_on
-  #   t.column :quantity
-  #   t.column :label, through: :unit
-  #   t.column :name, through: :product, url: true
-  #   t.column :virtual
-  #   # t.action :edit, :if => 'RECORD.generated != true'
-  #   # t.action :destroy,:if => 'RECORD.generated != true'
-  # end
-
-  # list(:product_stocks, :conditions => {:building_id => ['session[:current_building_id]']}, :order => "quantity DESC") do |t|
-  #   t.column :name, through: :product,url: true
-  #   # t.column :name, through: :tracking, url: true
-  #   t.column :weight, through: :product, :label => :column
-  #   t.column :quantity_max
-  #   t.column :quantity_min
-  #   t.column :critic_quantity_min
-  #   t.column :virtual_quantity
-  #   t.column :quantity
-  # end
 
 end

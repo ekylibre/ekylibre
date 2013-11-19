@@ -10,21 +10,21 @@
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
-        <task do="[mower_driver] moves-in [mower]"/>
+        <task do="[mower_driver] moves in [mower]"/>
       </operation>
       <operation id="200" duration="18 minutes">
-        <task do="[mower] moves-to [culture]"/>
+        <task do="[mower] moves at [culture]"/>
       </operation>
       <operation id="300">
         <task do="[mower] consumes [culture]"/>
         <task do="[mower] produces [straw]"/>
-        <task do="[straw] moves-to [culture]"/>
+        <task do="[straw] is at [culture]"/>
       </operation>
       <operation id="400" duration="18 minutes">
-        <task do="[mower] moves-in-default-storage"/>
+        <task do="[mower] moves in default storage"/>
       </operation>        
       <operation id="500" duration="4 minutes">
-        <task do="[mower_driver] moves-in-default-storage"/>
+        <task do="[mower_driver] moves in default storage"/>
       </operation>
     </operations>
   </procedure>

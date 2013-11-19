@@ -229,6 +229,7 @@ spa:
         # not_an_end_of_month: "%{attribute} doit être une fin de mois"
         # nothing_to_pay: "Il n’y a rien à payer. Si vous voulez enregistrer un acompte, n’oubliez pas de le préciser."
         # odd: "%{attribute} doit être pair"
+        # period_overlap: "%{attribute} se trouve sur une période d'un enregistrement existant"
         # posterior: "La date %{attribute} doit être postérieure à %{to}"
         # record_invalid: "Validations échouées\_: %{errors}"
         # taken: "%{attribute} a déjà été pris"

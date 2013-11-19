@@ -45,19 +45,20 @@ class Backend::ProductsController < BackendController
     t.column :product, url: true
     t.column :nature
     t.column :started_at
-    t.column :arrival_cause
+    t.column :arrival_cause, hidden: true
     t.column :stopped_at
-    t.column :departure_cause
+    t.column :departure_cause, hidden: true
   end
 
   # localization of the consider product
   list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :container, url: true
     t.column :nature
+    t.column :container, url: true
+    t.column :intervention_name
     t.column :started_at
-    t.column :arrival_cause
-    t.column :stopped_at
-    t.column :departure_cause
+    t.column :arrival_cause, hidden: true
+    t.column :stopped_at, hidden: true
+    t.column :departure_cause, hidden: true
   end
 
   # groups of the consider product
@@ -82,7 +83,7 @@ class Backend::ProductsController < BackendController
   end
 
   # incidents of the consider product
-  list(:incidents, :conditions => {target_id: 'params[:id]'.c}, :order => "observed_at DESC") do |t|
+  list(:incidents, :conditions => {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, :order => "observed_at DESC") do |t|
     t.column :name, url: true
     t.column :nature
     t.column :observed_at

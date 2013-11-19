@@ -17,18 +17,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::LandParcelClustersController < BackendController
-  manage_restfully
-
-  unroll
-
-  list do |t|
-    t.column :name, url: true
-    t.column :work_number
-    t.column :identification_number
-    #t.column :real_quantity
-    #t.column :unit
-
-  end
-
+class Backend::LandParcelClustersController < Backend::LandParcelGroupsController
 end
