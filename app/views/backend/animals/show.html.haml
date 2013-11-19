@@ -68,7 +68,7 @@
           #
           started_on = @animal.born_at.to_date
           stopped_on = Date.today
-      
+
           series = []
           categories = {}
           date = started_on
@@ -76,7 +76,7 @@
             categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(:format => "%b %Y")
             date = date >> 1
           end
-      
+
           #
           #  data for bar chart indicator and by month
           #
@@ -91,7 +91,7 @@
               series << {type: 'column', name: indicator.tl, data: normalize_serie(item_h, categories.keys) }
             end
           end
-      
+
           #
           #  data for bar chart indicator and by month
           #
@@ -106,11 +106,11 @@
               series << {type: 'spline', name: indicator.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
             end
           end
-      
+
           #@TODO waiting for a array method for jsonize key in helper in order to make multiple Y AXIS
           # ex : y_axis: [{{title: {text: "matter_concentration"}}, {{title: {text: "cell_concentration"}, opposite: true}]
           #
-    
+
         = column_chart(series, y_axis: [{title: {text: "matter_concentration"}}, {title: {text: "cell_concentration"}, opposite: true}], x_axis: { categories: categories.values}, legend: {})
       - else
         %strong= :no_data.tl
