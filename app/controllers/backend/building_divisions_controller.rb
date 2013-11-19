@@ -17,10 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::BuildingDivisionsController < BackendController
-  manage_restfully
-
-  unroll
+class Backend::BuildingDivisionsController < Backend::MattersController
 
   list do |t|
     t.column :name, url: true
@@ -29,16 +26,6 @@ class Backend::BuildingDivisionsController < BackendController
     t.column :description
     t.action :edit
     t.action :destroy
-  end
-
-  # Liste des produits présent dans cette localisation
-  list(:contained_products, :model => :product_localizations, :conditions => {container_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :product, url: true
-    t.column :nature
-    t.column :started_at
-    t.column :arrival_cause
-    t.column :stopped_at
-    t.column :departure_cause
   end
 
 end

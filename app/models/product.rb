@@ -75,6 +75,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :father, class_name: "Product"
   belongs_to :initial_container, class_name: "Product"
   belongs_to :initial_owner, class_name: "Entity"
+  # belongs_to :initial_enjoyer, class_name: "Entity"
   belongs_to :mother, class_name: "Product"
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :tracking
@@ -166,6 +167,10 @@ class Product < Ekylibre::Record::Base
   before_validation :set_default_values, on: :create
   before_validation :update_default_values, on: :update
 
+  after_validation do
+    self.default_storage ||= self.initial_container
+  end
+
   validate do
     if self.variant
       unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_s)
@@ -206,8 +211,8 @@ class Product < Ekylibre::Record::Base
     # # Add first enjoyer on a product
     # self.enjoyments.create!(enjoyer: self.initial_enjoyer)
     # Add first localization on a product
-    if self.initial_container and self.initial_arrival_cause
-      self.localizations.create!(container: self.initial_container, started_at: self.born_at, arrival_cause: self.initial_arrival_cause)
+    if self.initial_container # and self.initial_arrival_cause
+      self.localizations.create!(container: self.initial_container, arrival_cause: self.initial_arrival_cause || :birth)
     end
     # add first frozen indicator on a product from his variant
     if self.variant
@@ -355,8 +360,8 @@ class Product < Ekylibre::Record::Base
   end
 
   # Returns the current container for the product
-  def container
-    if l = self.current_localization
+  def container(at = Time.now)
+    if l = self.localizations.at(at).first
       return l.container
     end
     return self.default_storage

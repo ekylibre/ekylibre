@@ -45,7 +45,9 @@ Ekylibre::Application.routes.draw do
   end
 
   concern :products do
+    concerns :list, :unroll
     member do
+      match "picture(/:style)", via: :get, action: :picture, as: :picture
       get :list_contained_products
       get :list_groups
       get :list_incidents
@@ -157,6 +159,7 @@ Ekylibre::Application.routes.draw do
         get :list_entities
       end
     end
+
     resources :activities, concerns: [:list, :unroll] do
       member do
         get :list_productions
@@ -166,28 +169,22 @@ Ekylibre::Application.routes.draw do
     resources :aggregators, only: [:index, :show]
 
     resources :analytic_repartitions, concerns: [:list, :unroll]
+
     resources :animal_groups, concerns: [:list, :picture, :unroll] do
       member do
         get :list_animals
         get :list_places
       end
     end
-    resources :animals, concerns: [:list, :picture, :unroll] do
+
+    resources :animals, concerns: :products do
       member do
         get :list_children
-        get :list_places
-        get :list_groups
-        get :list_incidents
-        get :list_indicators
-        get :list_intervention_casts
       end
     end
-    resources :animal_medicines, concerns: [:list, :unroll] do
-      member do
-        get :list_intervention_casts
-        get :list_indicators
-      end
-    end
+
+    resources :animal_medicines, concerns: :products
+
     resources :affairs, concerns: [:list] do
       member do
         get :select
@@ -195,11 +192,13 @@ Ekylibre::Application.routes.draw do
         delete :detach
       end
     end
+
     resources :areas, concerns: [:list, :unroll] do
       collection do
         get :autocomplete_for_name
       end
     end
+
     resources :assets, :path => "financial_assets", concerns: [:list, :unroll] do
       member do
         get :cede
@@ -208,7 +207,9 @@ Ekylibre::Application.routes.draw do
         get :list_depreciations
       end
     end
+
     # resources :asset_depreciations # , except: [:index]
+
     resources :bank_statements, concerns: [:list, :unroll] do
       collection do
         get :list_items
@@ -218,17 +219,13 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :buildings, concerns: [:list, :unroll] do
+    resources :buildings, concerns: :products do
       member do
         get :list_divisions
       end
     end
 
-    resources :building_divisions, concerns: [:list, :unroll] do
-      member do
-        get :list_contained_products
-      end
-    end
+    resources :building_divisions, concerns: :products
 
     resources :campaigns, concerns: [:list, :unroll] do
       member do
@@ -242,7 +239,10 @@ Ekylibre::Application.routes.draw do
         get :list_bank_statements
       end
     end
+
     resources :cash_transfers, concerns: [:list, :unroll]
+
+    resources :catalog_prices, concerns: [:list, :unroll]
 
     resources :catalogs, concerns: [:list, :unroll] do
       member do
@@ -250,15 +250,12 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :catalog_prices, concerns: [:list, :unroll]
-
-    resources :cultivable_land_parcels, concerns: [:list, :unroll] do
+    resources :cultivable_land_parcels, concerns: :products do
       member do
-        get :list_contained_products
         get :list_productions
-        get :list_intervention_casts
       end
     end
+
     resources :custom_fields, concerns: [:list, :unroll] do
       member do
         get :list_choices
@@ -273,6 +270,7 @@ Ekylibre::Application.routes.draw do
         post :down
       end
     end
+
     resources :deposits, concerns: [:list, :unroll] do
       collection do
         get :list_unvalidateds
@@ -283,28 +281,35 @@ Ekylibre::Application.routes.draw do
         get :list_payments
       end
     end
+
     # resources :deposit_items
+
     resources :districts, concerns: [:list, :unroll]
+
     resources :document_archives
+
     resources :document_templates, concerns: [:list, :unroll] do
       collection do
         post :load
       end
     end
+
     resources :documents, concerns: [:list, :unroll] do
       member do
         get :list_archives
       end
     end
+
     resources :entities, concerns: :entities
+
     resources :entity_addresses, except: [:index], concerns: [:list, :unroll]
+
     resources :entity_links, except: [:index]
-    resources :equipments, concerns: [:list, :unroll] do
-      member do
-        get :list_intervention_casts
-      end
-    end
+
+    resources :equipments, concerns: :products
+
     resources :establishments, concerns: [:list, :unroll]
+
     resources :events, concerns: [:list, :unroll] do
       collection do
         get :autocomplete_for_place
@@ -314,7 +319,9 @@ Ekylibre::Application.routes.draw do
         get :list_participations
       end
     end
+
     resources :event_natures, concerns: [:list, :unroll]
+
     resources :financial_years, concerns: [:list, :unroll] do
       member do
         match "close", via: [:get, :post]
@@ -324,21 +331,28 @@ Ekylibre::Application.routes.draw do
         get :list_asset_depreciations
       end
     end
+
     resources :gaps, concerns: [:list, :unroll]
+
     resources :incidents, concerns: [:list, :picture, :unroll] do
       member do
         get :list_interventions
       end
     end
+
     resources :incoming_deliveries, concerns: [:list, :unroll] do
       member do
         get :list_items
         match "confirm", via: [:get, :post]
       end
     end
+
     resources :incoming_delivery_items, only: [:new]
+
     resources :incoming_delivery_modes, concerns: [:list, :unroll]
+
     resources :incoming_payments, concerns: [:list, :unroll]
+
     resources :incoming_payment_modes, concerns: [:list, :unroll] do
       member do
         post :up
@@ -365,6 +379,7 @@ Ekylibre::Application.routes.draw do
         match "reflect", via: [:get, :post]
       end
     end
+
     resources :journals, concerns: [:list, :unroll] do
       collection do
         match "draft", via: [:get, :post]
@@ -384,25 +399,34 @@ Ekylibre::Application.routes.draw do
         match "reopen", via: [:get, :post]
       end
     end
+
     resources :journal_entries, concerns: [:list, :unroll] do
       member do
         get :list_items
       end
     end
+
     resources :journal_entry_items, only: [:new, :show], concerns: [:list, :unroll] do
       collection do
       end
     end
+
     resources :kujakus, only: [], concerns: [:list, :unroll] do
       member do
         post :toggle
       end
     end
-    resources :land_parcel_clusters, concerns: [:list, :unroll]
-    resources :land_parcel_groups, concerns: [:list, :unroll]
-    resources :land_parcels, concerns: [:list, :unroll]
+
+    resources :land_parcel_clusters, concerns: :products
+
+    resources :land_parcel_groups, concerns: :products
+
+    resources :land_parcels, concerns: :products
+
     resources :legal_entities, concerns: :entities
+
     resources :listing_nodes
+
     resources :listings, concerns: [:list, :unroll] do
       member do
         get :extract
@@ -410,7 +434,9 @@ Ekylibre::Application.routes.draw do
         match "mail", via: [:get, :post]
       end
     end
+
     resources :logs, concerns: [:list, :unroll]
+
     resources :mandates, concerns: [:list, :unroll] do
       collection do
         get :autocomplete_for_family
@@ -419,22 +445,18 @@ Ekylibre::Application.routes.draw do
         match "configure", via: [:get, :post]
       end
     end
-    resources :matters, concerns: [:list, :picture, :products, :unroll]
-    resources :mineral_matters, concerns: [:list, :unroll] do
-      member do
-        get :list_intervention_casts
-        get :list_indicators
-      end
-    end
+
+    resources :matters, concerns: :products
+
+    resources :medicines, concerns: :products
+
+    resources :mineral_matters, concerns: :products
+
     resources :observations
+
     resources :operations, concerns: [:list, :unroll]
 
-    resources :organic_matters, concerns: [:list, :unroll] do
-      member do
-        get :list_intervention_casts
-        get :list_indicators
-      end
-    end
+    resources :organic_matters, concerns: :products
 
     resources :operation_tasks, concerns: [:list, :unroll]
 
@@ -443,9 +465,13 @@ Ekylibre::Application.routes.draw do
         get :list_items
       end
     end
+
     # resources :outgoing_delivery_items
+
     resources :outgoing_delivery_modes, concerns: [:list, :unroll]
+
     resources :outgoing_payments, concerns: [:list, :unroll]
+
     resources :outgoing_payment_modes, concerns: [:list, :unroll] do
       member do
         post :up
@@ -455,48 +481,17 @@ Ekylibre::Application.routes.draw do
 
     resources :people, concerns: :entities
 
-    resources :plants, concerns: [:list, :unroll] do
-      member do
-        get :list_intervention_casts
-        get :list_indicators
-        get :list_incidents
-        get :list_places
-      end
-    end
-    resources :plant_medicines, concerns: [:list, :unroll] do
-      member do
-        get :list_intervention_casts
-        get :list_indicators
-      end
-    end
+    resources :plants, concerns: :products
+
+    resources :plant_medicines, concerns: :products
+
     resources :preferences, concerns: [:list, :unroll]
 
     resources :prescriptions, concerns: [:list, :unroll]
 
-    resources :products, concerns: [:list, :picture, :unroll] do
-      member do
-        get :list_contained_products
-        get :list_groups
-        get :list_incidents
-        get :list_indicators
-        get :list_intervention_casts
-        get :list_members
-        get :list_places
-      end
-    end
+    resources :products, concerns: :products
 
-    resources :product_groups, concerns: [:list, :unroll] do
-      member do
-        get :list_contained_products
-        get :list_places
-        get :list_groups
-        get :list_members
-        get :list_indicators
-        get :list_incidents
-        get :list_events
-        # get :list_children ?
-      end
-    end
+    resources :product_groups, concerns: :products
 
     resources :product_indicator_data # , concerns: [:list, :unroll]
 
@@ -521,14 +516,14 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :product_nature_variant_indicator_data
+
     resources :product_nature_variants, concerns: [:list, :picture, :unroll] do
       member do
         get :list_products
         get :list_prices
       end
     end
-
-    resources :product_nature_variant_indicator_data #, concerns: [:list, :unroll]
 
     resources :product_ownerships, concerns: [:list, :unroll]
 
@@ -537,6 +532,7 @@ Ekylibre::Application.routes.draw do
     resources :product_processes, concerns: [:list, :unroll]
 
     resources :product_process_phases # , concerns: [:list, :unroll]
+
     resources :productions, concerns: [:list, :unroll] do
       member do
         get :list_supports
@@ -561,13 +557,17 @@ Ekylibre::Application.routes.draw do
         post :refuse
       end
     end
+
     resources :roles, concerns: [:list, :unroll]
+
     resources :sale_items, except: [:index], concerns: [:list, :unroll] do
       collection do
         get :detail
       end
     end
+
     resources :sale_natures, concerns: [:list, :unroll]
+
     resources :sales, concerns: [:list, :unroll] do
       resources :items, only: [:new, :create], controller: :sale_items
       collection do
@@ -592,33 +592,43 @@ Ekylibre::Application.routes.draw do
         post :propose_and_invoice
       end
     end
+
     resources :sequences, concerns: [:list, :unroll] do
       collection do
         post :load
       end
     end
-    resources :services, concerns: [:list, :unroll]
-    resources :settlements, concerns: [:list, :unroll]
+
+    resources :services, concerns: :products
+
+    resources :settlements, concerns: :products
+
     resources :snippets, only: [] do
       member do
         post :toggle
       end
     end
+
     resources :subscription_natures, concerns: [:list, :unroll] do
       member do
         post :increment
         post :decrement
       end
     end
+
     resources :subscriptions, concerns: [:list, :unroll] do
       collection do
         get :coordinates
         get :message
       end
     end
+
     # resources :tax_declarations
+
     resources :taxes, concerns: [:list, :unroll]
+
     resources :teams, concerns: [:list, :unroll]
+
     resources :trackings, concerns: [:list, :unroll] do
       # collection do
       #   get :unroll
@@ -630,7 +640,9 @@ Ekylibre::Application.routes.draw do
       #   get :list_operation_items
       # end
     end
+
     # resources :tracking_states
+
     resources :transports, concerns: [:list, :unroll] do
       collection do
         # match "deliveries", via: [:get, :post]
@@ -641,7 +653,9 @@ Ekylibre::Application.routes.draw do
         get :list_transportable_deliveries
       end
     end
+
     # resources :transfers
+
     resources :users, concerns: [:list, :unroll] do
       member do
         post :lock

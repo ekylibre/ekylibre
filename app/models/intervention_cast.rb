@@ -96,6 +96,10 @@ class InterventionCast < Ekylibre::Record::Base
     self.reference.human_name
   end
 
+  def name
+    self.reference.human_name
+  end
+
   # Define if the cast is valid for run
   def runnable?
     if self.reference.new?

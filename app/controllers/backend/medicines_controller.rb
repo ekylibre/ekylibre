@@ -17,13 +17,5 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::MedicinesController < BackendController
-  manage_restfully
-
-  unroll
-
-  list do |t|
-    t.column :name, url: true
-  end
-
+class Backend::MedicinesController < Backend::MattersController
 end

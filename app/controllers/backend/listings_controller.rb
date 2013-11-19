@@ -167,7 +167,7 @@ class Backend::ListingsController < BackendController
     end
     t3e @listing.attributes
   end
-  
+
   protected
 
   def listing_params()

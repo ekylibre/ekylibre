@@ -44,6 +44,7 @@ fra:
       edit: "Modifier le produit vétérinaire\_: %{name}"
       index: "Produits vétérinaires"
       new: "Nouveau produit vétérinaire"
+      # picture: "Picture backend/animal medicine"
       show: "Produit vétérinaire\_: %{name}"
     backend/animals:
       edit: "Modifier l’animal\_: %{name}"
@@ -74,11 +75,13 @@ fra:
       edit: "Modifier la zone\_: %{name}"
       index: "Zones de bâtiments"
       new: "Ajout d'une zone"
+      # picture: "Picture backend/building division"
       show: "Détail d'une zone\_: %{name}"
     backend/buildings:
       edit: "Modifier un bâtiment"
       index: "Bâtiments"
       new: "Ajout d’un bâtiment"
+      # picture: "Picture backend/building"
       show: "Détail du bâtiment\_: %{name}"
     backend/campaigns:
       edit: "Campagne\_: %{name}"
@@ -155,6 +158,7 @@ fra:
       edit: "Modifier la parcelle culturale\_: %{name}"
       index: "Parcelles culturales"
       new: "Ajouter une parcelle culturale"
+      # picture: "Picture backend/cultivable land parcel"
       show: "Parcelle culturale\_: %{name}"
     backend/custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
@@ -230,6 +234,7 @@ fra:
       edit: "Modifier l’équipement\_: %{name}"
       index: "Équipements"
       new: "Ajouter un nouvel équipement"
+      # picture: "Picture backend/equipment"
       show: "Équipement %{name}"
     backend/establishments:
       edit: "Modifier l’établissement\_: %{name}"
@@ -337,6 +342,7 @@ fra:
       edit: "Modifier l’ilôt\_: %{name}"
       index: "Ilôts"
       new: "Ajouter un nouvel ilôt"
+      # picture: "Picture backend/land parcel cluster"
       show: "Ilôt %{name}"
     backend/land_parcel_groups:
       divide: "Diviser le groupe de parcelle\_: %{name}" #?
@@ -344,6 +350,7 @@ fra:
       index: "Groupes de parcelles"
       merge: "Fusionner des groupes de parcelles" #?
       new: "Ajouter un nouveau groupe de parcelles"
+      # picture: "Picture backend/land parcel group"
       show: "Groupe de parcelles %{name}"
     backend/land_parcels:
       divide: "Diviser la parcelle\_: %{name}" #?
@@ -351,6 +358,7 @@ fra:
       index: "Parcelles"
       merge: "Fusionner des parcelles" #?
       new: "Ajouter une nouvelle parcelle"
+      # picture: "Picture backend/land parcel"
       show: "Parcelle %{name}"
     backend/legal_entities:
       # autocomplete_for_origin: "Autocomplete for origin backend/legal entity"
@@ -390,11 +398,13 @@ fra:
       edit: "Modifier le médicaments\_: %{name}"
       index: "Médicaments"
       new: "Nouveau médicaments"
+      # picture: "Picture backend/medicine"
       show: "Médicament\_: %{name}"
     backend/mineral_matters:
       edit: "Modifier la matière minérale\_: %{name}"
       index: "Matières minérales"
       new: "Ajouter une matière minérale"
+      # picture: "Picture backend/mineral matter"
       show: "Matière minérale\_: %{name}"
     backend/myselves:
       change_password: "Changer de mot de passe" #?
@@ -420,6 +430,7 @@ fra:
       edit: "Modifier la matière organique\_: %{name}"
       index: "Matières organiques"
       new: "Nouvelle matière organique"
+      # picture: "Picture backend/organic matter"
       show: "Matière organique\_: %{name}"
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
@@ -455,10 +466,11 @@ fra:
       edit: "Modifier le produit phytosanitaire\_: %{name}"
       index: "Produits phytosanitaires"
       new: "Nouveau produit phytosanitaire"
+      # picture: "Picture backend/plant medicine"
       show: "Produit phytosanitaire\_: %{name}"
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
-      index: "Cutures"
+      index: "Cultures"
       new: "Nouvelle culture"
       # picture: "Picture backend/plant"
       show: "Culture\_: %{name}"
@@ -476,6 +488,7 @@ fra:
       edit: "Modifier le groupe\_: %{name} "
       index: "Groupes de produits"
       new: "Créer un groupe"
+      # picture: "Picture backend/product group"
       show: "Groupe\_: %{name}"
     backend/product_indicator_data:
       edit: "Modifier la valeur d’un indicateur" #?
@@ -617,6 +630,7 @@ fra:
       # edit: "Edit backend/service"
       # index: "Index backend/service"
       # new: "New backend/service"
+      # picture: "Picture backend/service"
       # show: "Show backend/service"
     backend/settings:
       about: "À propos..."
@@ -629,6 +643,7 @@ fra:
       edit: "Modifier l’installation\_: %{name}"
       index: "Installations"
       new: "Nouvelle installation"
+      # picture: "Picture backend/settlement"
       show: "Installation\_: %{name}"
     backend/snippets:
       # toggle: "Toggle backend/snippet"
@@ -676,6 +691,7 @@ fra:
       edit: "Modifier l'équipier %{name}"
       index: "Equipiers"
       new: "Nouvel équipier"
+      # picture: "Picture backend/worker"
       show: "Equipier %{name}"
     devise/confirmations:
       # new: "New devise/confirmation"

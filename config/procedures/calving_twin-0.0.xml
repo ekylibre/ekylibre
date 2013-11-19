@@ -11,10 +11,12 @@
     <operations>
       <operation id="100">
         <task do="[mother] produces [first_child]"/><!-- une vache produit le premier veau -->
+        <task do="[first_child] is at [mother]"/>
         <task do="[caregiver] measures [first_child:mammalia_born_condition]"/>
       </operation>
       <operation id="200">
         <task do="[mother] produces [second_child]"/><!-- une vache produit le second veau -->
+        <task do="[second_child] is at [mother]"/>
         <task do="[caregiver] measures [second_child:mammalia_born_condition]"/>
       </operation>
       <operation id="300" duration="5 minutes">

@@ -734,6 +734,7 @@ arb:
         # not_an_end_of_month: "%{attribute} doit être une fin de mois"
         nothing_to_pay: ".ليس هنالك ما يدفع، اذا رغبت بتسجيل القسط، فتذكر تحديد ذلك"
         odd: "%{attribute} يجب ان يكون فردي"
+        # period_overlap: "%{attribute} se trouve sur une période d'un enregistrement existant"
         posterior: "%{attribute} \_يجب ان يكون التاريخ في وقت لاحق %{to}"
         record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل" #?
         record_invalid: "Validations failed : %{errors}"

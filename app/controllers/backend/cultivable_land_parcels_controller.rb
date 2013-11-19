@@ -17,13 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CultivableLandParcelsController < BackendController
-  manage_restfully
-
-  unroll
-
+class Backend::CultivableLandParcelsController < Backend::LandParcelGroupsController
   # INDEX
-
   list do |t|
     t.column :name, url: true
     t.column :work_number
@@ -32,30 +27,12 @@ class Backend::CultivableLandParcelsController < BackendController
     # t.column :unit
   end
 
-  # SHOW
-
-  # content plant on current cultivable land parcel
-  list(:contained_products, :model => :product_localizations, :conditions => {container_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
-    t.column :product, url: true
-    t.column :nature
-    t.column :started_at
-    t.column :stopped_at
-  end
-
   # content production on current cultivable land parcel
   list(:productions, :model => :production_supports, :conditions => {storage_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
     t.column :production, url: true
     t.column :exclusive
     t.column :started_at
     t.column :stopped_at
-  end
-
-  list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
-    t.column :intervention, url: true
-    t.column :roles
-    t.column :variable
-    t.column :started_at, through: :intervention
-    t.column :stopped_at, through: :intervention
   end
 
 end

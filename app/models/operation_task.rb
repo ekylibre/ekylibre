@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -32,6 +33,7 @@
 #  updated_at     :datetime         not null
 #  updater_id     :integer
 #
+
 class OperationTask < Ekylibre::Record::Base
   belongs_to :operation, inverse_of: :tasks
   belongs_to :parent, class_name: "OperationTask"
@@ -50,7 +52,8 @@ class OperationTask < Ekylibre::Record::Base
   validates_inclusion_of :nature, in: self.nature.values
 
   delegate :reference, to: :operation, prefix: true
-  delegate :started_at, :stopped_at, :casts, to: :operation
+  delegate :intervention, :started_at, :stopped_at, :casts, to: :operation
+  delegate :name, to: :intervention, prefix: true
 
   before_validation do
     self.nature = self.reference.action.type
@@ -69,10 +72,15 @@ class OperationTask < Ekylibre::Record::Base
       begin
         send(method_name)
       rescue Exception => e
-        puts "\n" * 3 + "*" * 80 + "\n"
+        puts "\n" * 3
+        puts "*" * 80 + "\n"
+        puts "* Procedure: #{self.operation.intervention.reference_name}/#{self.operation.reference_name}/#{self.reference_name}\n"
+        puts "* #{self.nature.humanize}: #{find_actors.inspect[1..-2]}\n"
+        puts "* OID: #{self.operation_id}\n"
+        puts "*" * 80 + "\n"
         puts "Can not do #{self.nature}: " +
           e.message.to_s + "\nBacktrace:\n" +
-          e.backtrace.join("\n")
+          e.backtrace.select{|x| x.match(Rails.root.to_s)}[0..9].join("\n")
       end
     else
       puts "Unsupported method: #{method_name}"
@@ -98,10 +106,18 @@ class OperationTask < Ekylibre::Record::Base
 
   # == Localization
 
+  def do_direct_movement
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product_id: find_actor(:product).id, container_id: find_actor(:localizable).container(self.started_at).id)
+  end
+
+  def do_direct_entering
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product_id: find_actor(:product).id, container_id: find_actor(:localizable).id)
+  end
+
   def do_movement
     product = find_actor(:product)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: product.id)
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: product.id, container_id: find_actor(:localizable).container.id)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: product.id, container_id: find_actor(:localizable).container(self.stopped_at).id)
   end
 
   def do_entering
@@ -211,9 +227,12 @@ class OperationTask < Ekylibre::Record::Base
 
   # == Measurement
 
+  def do_measurement
+  end
+
   def do_simple_measurement
-    product, indicator = find_actor(:indicator)
-    self.product_measurements.create!(product: product, indicator: indicator)
+    # product, indicator = find_actor(:indicator)
+    # self.product_measurements.create!(product: product, indicator: indicator)
   end
 
 
@@ -230,6 +249,14 @@ class OperationTask < Ekylibre::Record::Base
       return [cast.actor, parameter.indicator]
     else
       raise StandardError, "Don't known how to find a #{cast.class.name}"
+    end
+  end
+
+
+  def find_actors
+    return reference.parameters.inject({}) do |hash, pair|
+      hash[pair.first] = find_actor(pair.second.name) rescue "¿#{pair.second.name}?"
+      hash
     end
   end
 

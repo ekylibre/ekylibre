@@ -64,7 +64,7 @@ class Intervention < Ekylibre::Record::Base
   validates_inclusion_of :reference_name, in: self.reference_name.values
   validates_presence_of  :started_at, :stopped_at
 
-  
+
   delegate :storage, to: :production_support
 
   accepts_nested_attributes_for :casts, :operations
@@ -140,7 +140,7 @@ class Intervention < Ekylibre::Record::Base
   def name
     reference.human_name
   end
-  
+
   def start_time
     self.started_at
   end
@@ -205,15 +205,12 @@ class Intervention < Ekylibre::Record::Base
     self.class.transaction do
       self.state = :in_progress
       self.save!
+
       started_at = period[:started_at] ||= self.started_at
       duration   = period[:duration]  ||= (self.stopped_at - self.started_at)
+      stopped_at = started_at + duration
+
       reference = self.reference
-      rep = reference.spread_time(duration)
-      for name, operation in reference.operations
-        d = operation.duration || rep
-        self.operations.create!(started_at: started_at, stopped_at: started_at + d, reference_name: name)
-        started_at += d
-      end
       # Check variables presence
       for variable in reference.variables.values
         unless self.casts.find_by(reference_name: variable.name)
@@ -223,22 +220,32 @@ class Intervention < Ekylibre::Record::Base
       # Build new products
       for variable in reference.new_variables
         genited = self.casts.find_by!(reference_name: variable.name)
-        genitor = self.casts.find_by!(reference_name: variable.genitor_name)
+        producer = self.casts.find_by!(reference_name: variable.genitor_name)
         if variable.parted?
           # Parted from
-          variant = genitor.variant
-          genited.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: genitor.actor.owner, initial_container: genitor.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity)
+          variant = producer.variant
+          genited.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity)
         elsif variable.produced?
           # Produced by
           unless variant = genited.variant || variable.variant(self)
             raise StandardError, "No variant for #{variable.name} in intervention ##{self.id} (#{self.reference_name})"
           end
-          genited.actor = variant.matching_model.create!(variant: variant, born_at: started_at, initial_owner: genitor.actor.owner, initial_container: genitor.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity)
+          genited.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity)
         else
           raise StandardError, "Don't known how to create the variable #{variable.name} for procedure #{self.reference_name}"
         end
         genited.save!
       end
+      # Load operations
+      rep = reference.spread_time(duration)
+      for name, operation in reference.operations
+        d = operation.duration || rep
+        self.operations.create!(started_at: started_at, stopped_at: started_at + d, reference_name: name)
+        started_at += d
+      end
+      # for name, operation in reference.operations
+      #   self.operations.create!(started_at: started_at, stopped_at: started_at + d, reference_name: name)
+      # end
       self.reload
       self.started_at = period[:started_at]
       self.stopped_at = started_at

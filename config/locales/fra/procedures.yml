@@ -5,6 +5,7 @@ fra:
       attachment: "On attache %{carrier} et %{carried}"
       browsing: "%{browser} parcourt %{browsed}"
       consumption: "%{absorber} consomme %{product}"
+      creation: "%{producer} produit %{product}"
       death: "%{product} meurt"
       detachment: "On détache %{carrier} et %{carried}"
       division: "%{product} est séparé de %{producer}"
@@ -22,7 +23,6 @@ fra:
       outgoing_delivery: "%{product} est expédié"
       owner_change: "%{product} change de propriétaire pout %{owner}"
       ownership_loss: "%{product} perd son propriétaire"
-      creation: "%{producer} produit %{product}"
       simple_measurement: "%{indicator} est mesuré"
   procedures:
     animal_birth: "Naissance d’un animal"

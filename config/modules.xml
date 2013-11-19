@@ -1262,6 +1262,33 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="animal_medicines">
+        <page to="backend/animal_medicines#list_contained_products"/>
+        <page to="backend/animal_medicines#list_groups"/>
+        <page to="backend/animal_medicines#list_incidents"/>
+        <page to="backend/animal_medicines#list_members"/>
+        <page to="backend/animal_medicines#list_places"/>
+        <page to="backend/animal_medicines#picture"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#list_groups"/>
+        <page to="backend/building_divisions#list_incidents"/>
+        <page to="backend/building_divisions#list_indicators"/>
+        <page to="backend/building_divisions#list_intervention_casts"/>
+        <page to="backend/building_divisions#list_members"/>
+        <page to="backend/building_divisions#list_places"/>
+        <page to="backend/building_divisions#picture"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#list_contained_products"/>
+        <page to="backend/buildings#list_groups"/>
+        <page to="backend/buildings#list_incidents"/>
+        <page to="backend/buildings#list_indicators"/>
+        <page to="backend/buildings#list_intervention_casts"/>
+        <page to="backend/buildings#list_members"/>
+        <page to="backend/buildings#list_places"/>
+        <page to="backend/buildings#picture"/>
+      </item>
       <item name="bank_chart_cells">
         <page to="backend/cells/bank_chart_cells#show"/>
       </item>
@@ -1339,6 +1366,14 @@
       <item name="rss_cells">
         <page to="backend/cells/rss_cells#show"/>
       </item>
+      <item name="cultivable_land_parcels">
+        <page to="backend/cultivable_land_parcels#list_groups"/>
+        <page to="backend/cultivable_land_parcels#list_incidents"/>
+        <page to="backend/cultivable_land_parcels#list_indicators"/>
+        <page to="backend/cultivable_land_parcels#list_members"/>
+        <page to="backend/cultivable_land_parcels#list_places"/>
+        <page to="backend/cultivable_land_parcels#picture"/>
+      </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>
         <page to="backend/dashboards#accountancy"/>
@@ -1352,6 +1387,15 @@
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#trade"/>
         <page to="backend/dashboards#welcome"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#list_contained_products"/>
+        <page to="backend/equipments#list_groups"/>
+        <page to="backend/equipments#list_incidents"/>
+        <page to="backend/equipments#list_indicators"/>
+        <page to="backend/equipments#list_members"/>
+        <page to="backend/equipments#list_places"/>
+        <page to="backend/equipments#picture"/>
       </item>
       <item name="incoming_deliveries">
         <page to="backend/incoming_deliveries#list_items"/>
@@ -1380,18 +1424,44 @@
       <item name="kujakus">
         <page to="backend/kujakus#toggle"/>
       </item>
+      <item name="land_parcel_clusters">
+        <page to="backend/land_parcel_clusters#list_contained_products"/>
+        <page to="backend/land_parcel_clusters#list_groups"/>
+        <page to="backend/land_parcel_clusters#list_incidents"/>
+        <page to="backend/land_parcel_clusters#list_indicators"/>
+        <page to="backend/land_parcel_clusters#list_intervention_casts"/>
+        <page to="backend/land_parcel_clusters#list_members"/>
+        <page to="backend/land_parcel_clusters#list_places"/>
+        <page to="backend/land_parcel_clusters#picture"/>
+      </item>
       <item name="land_parcel_groups">
         <page to="backend/land_parcel_groups#index"/>
         <page to="backend/land_parcel_groups#create"/>
         <page to="backend/land_parcel_groups#destroy"/>
         <page to="backend/land_parcel_groups#edit"/>
         <page to="backend/land_parcel_groups#list"/>
+        <page to="backend/land_parcel_groups#list_contained_products"/>
+        <page to="backend/land_parcel_groups#list_groups"/>
+        <page to="backend/land_parcel_groups#list_incidents"/>
+        <page to="backend/land_parcel_groups#list_indicators"/>
+        <page to="backend/land_parcel_groups#list_intervention_casts"/>
+        <page to="backend/land_parcel_groups#list_members"/>
+        <page to="backend/land_parcel_groups#list_places"/>
         <page to="backend/land_parcel_groups#new"/>
+        <page to="backend/land_parcel_groups#picture"/>
         <page to="backend/land_parcel_groups#show"/>
         <page to="backend/land_parcel_groups#unroll"/>
         <page to="backend/land_parcel_groups#update"/>
       </item>
       <item name="land_parcels">
+        <page to="backend/land_parcels#list_contained_products"/>
+        <page to="backend/land_parcels#list_groups"/>
+        <page to="backend/land_parcels#list_incidents"/>
+        <page to="backend/land_parcels#list_indicators"/>
+        <page to="backend/land_parcels#list_intervention_casts"/>
+        <page to="backend/land_parcels#list_members"/>
+        <page to="backend/land_parcels#list_places"/>
+        <page to="backend/land_parcels#picture"/>
         <page to="backend/land_parcels#unroll"/>
       </item>
       <item name="listings">
@@ -1426,10 +1496,26 @@
         <page to="backend/medicines#destroy"/>
         <page to="backend/medicines#edit"/>
         <page to="backend/medicines#list"/>
+        <page to="backend/medicines#list_contained_products"/>
+        <page to="backend/medicines#list_groups"/>
+        <page to="backend/medicines#list_incidents"/>
+        <page to="backend/medicines#list_indicators"/>
+        <page to="backend/medicines#list_intervention_casts"/>
+        <page to="backend/medicines#list_members"/>
+        <page to="backend/medicines#list_places"/>
         <page to="backend/medicines#new"/>
+        <page to="backend/medicines#picture"/>
         <page to="backend/medicines#show"/>
         <page to="backend/medicines#unroll"/>
         <page to="backend/medicines#update"/>
+      </item>
+      <item name="mineral_matters">
+        <page to="backend/mineral_matters#list_contained_products"/>
+        <page to="backend/mineral_matters#list_groups"/>
+        <page to="backend/mineral_matters#list_incidents"/>
+        <page to="backend/mineral_matters#list_members"/>
+        <page to="backend/mineral_matters#list_places"/>
+        <page to="backend/mineral_matters#picture"/>
       </item>
       <item name="observations">
         <page to="backend/observations#index"/>
@@ -1441,6 +1527,14 @@
       </item>
       <item name="operations">
         <page to="backend/operations#unroll"/>
+      </item>
+      <item name="organic_matters">
+        <page to="backend/organic_matters#list_contained_products"/>
+        <page to="backend/organic_matters#list_groups"/>
+        <page to="backend/organic_matters#list_incidents"/>
+        <page to="backend/organic_matters#list_members"/>
+        <page to="backend/organic_matters#list_places"/>
+        <page to="backend/organic_matters#picture"/>
       </item>
       <item name="outgoing_deliveries">
         <page to="backend/outgoing_deliveries#unroll"/>
@@ -1457,14 +1551,23 @@
         <page to="backend/outgoing_payments#unroll"/>
       </item>
       <item name="plant_medicines">
+        <page to="backend/plant_medicines#list_contained_products"/>
+        <page to="backend/plant_medicines#list_groups"/>
+        <page to="backend/plant_medicines#list_incidents"/>
         <page to="backend/plant_medicines#list_indicators"/>
         <page to="backend/plant_medicines#list_intervention_casts"/>
+        <page to="backend/plant_medicines#list_members"/>
+        <page to="backend/plant_medicines#list_places"/>
+        <page to="backend/plant_medicines#picture"/>
         <page to="backend/plant_medicines#unroll"/>
       </item>
       <item name="plants">
+        <page to="backend/plants#list_contained_products"/>
+        <page to="backend/plants#list_groups"/>
         <page to="backend/plants#list_incidents"/>
         <page to="backend/plants#list_indicators"/>
         <page to="backend/plants#list_intervention_casts"/>
+        <page to="backend/plants#list_members"/>
         <page to="backend/plants#list_places"/>
         <page to="backend/plants#picture"/>
         <page to="backend/plants#unroll"/>
@@ -1474,6 +1577,10 @@
       </item>
       <item name="prescriptions">
         <page to="backend/prescriptions#unroll"/>
+      </item>
+      <item name="product_groups">
+        <page to="backend/product_groups#list_intervention_casts"/>
+        <page to="backend/product_groups#picture"/>
       </item>
       <item name="product_links">
         <page to="backend/product_links#index"/>
@@ -1595,12 +1702,28 @@
         <page to="backend/services#destroy"/>
         <page to="backend/services#edit"/>
         <page to="backend/services#list"/>
+        <page to="backend/services#list_contained_products"/>
+        <page to="backend/services#list_groups"/>
+        <page to="backend/services#list_incidents"/>
+        <page to="backend/services#list_indicators"/>
+        <page to="backend/services#list_intervention_casts"/>
+        <page to="backend/services#list_members"/>
+        <page to="backend/services#list_places"/>
         <page to="backend/services#new"/>
+        <page to="backend/services#picture"/>
         <page to="backend/services#show"/>
         <page to="backend/services#unroll"/>
         <page to="backend/services#update"/>
       </item>
       <item name="settlements">
+        <page to="backend/settlements#list_contained_products"/>
+        <page to="backend/settlements#list_groups"/>
+        <page to="backend/settlements#list_incidents"/>
+        <page to="backend/settlements#list_indicators"/>
+        <page to="backend/settlements#list_intervention_casts"/>
+        <page to="backend/settlements#list_members"/>
+        <page to="backend/settlements#list_places"/>
+        <page to="backend/settlements#picture"/>
         <page to="backend/settlements#unroll"/>
       </item>
       <item name="snippets">
@@ -1625,7 +1748,14 @@
         <page to="backend/users#unroll"/>
       </item>
       <item name="workers">
+        <page to="backend/workers#list_contained_products"/>
+        <page to="backend/workers#list_groups"/>
+        <page to="backend/workers#list_incidents"/>
+        <page to="backend/workers#list_indicators"/>
         <page to="backend/workers#list_intervention_casts"/>
+        <page to="backend/workers#list_members"/>
+        <page to="backend/workers#list_places"/>
+        <page to="backend/workers#picture"/>
         <page to="backend/workers#unroll"/>
       </item>
     </group>

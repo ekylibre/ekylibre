@@ -4,6 +4,8 @@ module Procedo
   class Action
     TYPES = {
       # Localizations
+      direct_movement:   {product: :product, localizable: :product},
+      direct_entering:   {product: :product, localizable: :product},
       movement:          {product: :product, localizable: :product},
       entering:          {product: :product, localizable: :product},
       home_coming:       {product: :product},

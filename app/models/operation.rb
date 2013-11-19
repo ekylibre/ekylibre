@@ -77,10 +77,6 @@ class Operation < Ekylibre::Record::Base
   after_create do
     # Create tasks
     for task in self.reference.tasks.values
-      # casts_attributes = {}
-      # for name, definition in task.parameters
-      #   casts_attributes[name] = {name: name, actor: nil}
-      # end
       self.tasks.create!(reference_name: task.name)
     end
   end

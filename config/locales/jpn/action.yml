@@ -400,7 +400,7 @@ jpn:
       # show: "Produit phytosanitaire\_: %{name}"
     backend/plants:
       # edit: "Modifier la culture\_: %{name}"
-      # index: "Cutures"
+      # index: "Cultures"
       # new: "Nouvelle culture"
       # show: "Culture\_: %{name}"
     backend/preferences:

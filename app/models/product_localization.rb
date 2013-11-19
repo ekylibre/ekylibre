@@ -48,6 +48,48 @@ class ProductLocalization < Ekylibre::Record::Base
   validates_presence_of :nature, :product
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
-  validates_presence_of :container, if: :interior?
+  validates_presence_of :container, :if => :interior?
+  validates_presence_of :started_at, :if => :previous
+  validates_presence_of :stopped_at, :if => :following
+
+  scope :at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
+
+  before_validation do
+    if self.following
+      self.stopped_at = self.following.started_at
+    else
+      self.stopped_at = nil
+    end
+  end
+
+  # before_save do
+  #   self.started_at = nil unless self.product.localizations.any?
+  # end
+
+  after_save do
+    self.previous.update_attribute(:stopped_at, self.started_at) if self.previous
+  end
+
+  after_destroy do
+    self.previous.update_attribute(:stopped_at, self.stopped_at) if self.previous
+  end
+
+  def previous
+    return nil unless self.started_at
+    self.product.localizations
+      .where("COALESCE(started_at, ?) < ?", self.started_at, self.started_at)
+      .reorder("started_at DESC").first
+  end
+
+  def following
+    return nil unless self.stopped_at
+    self.product.localizations
+      .where("COALESCE(started_at, ?) > ?", self.started_at, self.started_at)
+      .reorder("started_at").first
+  end
+
+  def intervention_name
+    return (self.operation_task ? self.operation_task.intervention_name : nil)
+  end
 
 end

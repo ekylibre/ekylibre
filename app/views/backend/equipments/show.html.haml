@@ -4,12 +4,14 @@
 = beehive do |b|
   - b.tabbox do
     - b.cell :general do
-      =attributes_list(resource) do |l|
-        -l.attribute :name
-        -l.attribute :nature
-        -l.attribute :variety
-        =image_tag(resource.picture.url(:thumb)) if resource.picture.file?
+      = attributes_list(resource) do |l|
+        - l.attribute :name
+        - l.attribute :nature
+        - l.attribute :variety
+        = image_tag(resource.picture.url(:thumb)) if resource.picture.file?
 
-  -b.tabbox do
-    -b.cell(:intervention_casts) do
-      =list(:intervention_casts)
+  - b.tabbox do
+    - b.cell(:intervention_casts) do
+      = list(:intervention_casts)
+    - b.cell(:places) do
+      = list(:places)
