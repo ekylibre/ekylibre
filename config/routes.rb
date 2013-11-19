@@ -663,11 +663,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :workers, concerns: [:list, :unroll] do
-      member do
-        get :list_intervention_casts
-      end
-    end
+    resources :workers, concerns: :products
 
     get :search, :controller => :dashboards, :as => :search
 
