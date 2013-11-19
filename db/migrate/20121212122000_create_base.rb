@@ -179,6 +179,23 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
+    create_table :catalog_prices do |t|
+      t.references :variant,                                          null: false, index: true
+      t.references :catalog,                                          null: false, index: true
+      # t.references :supplier,                                         null: false, index: true
+      t.string     :indicator,          limit: 120,                   null: false
+      t.references :reference_tax,                                                 index: true
+      # t.decimal    :pretax_amount,      precision: 19, scale: 4,      null: false
+      t.decimal    :amount,             precision: 19, scale: 4,      null: false
+      t.boolean    :all_taxes_included, default: false,               null: false
+      t.string     :currency,           limit: 3,                     null: false
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.string     :thread,             limit: 20
+      t.stamps
+      t.index      [:started_at, :stopped_at]
+    end
+
     create_table :catalogs do |t|
       t.string   :name,                                   null: false
       t.string   :usage,         limit: 20,               null: false
@@ -188,23 +205,6 @@ class CreateBase < ActiveRecord::Migration
       t.string   :currency,      limit: 3,                null: false
       t.text     :description
       t.stamps
-    end
-
-    create_table :catalog_prices do |t|
-      t.references :variant,                                          null: false, index: true
-      t.references :catalog,                                          null: false, index: true
-      # t.references :supplier,                                         null: false, index: true
-      t.string     :indicator,     limit: 120,                        null: false
-      t.references :reference_tax,                                                 index: true
-      # t.decimal    :pretax_amount,           precision: 19, scale: 4, null: false
-      t.decimal    :amount,                  precision: 19, scale: 4, null: false
-      t.boolean    :all_taxes_included,               default: false, null: false
-      t.string     :currency,      limit: 3,                          null: false
-      t.datetime   :started_at
-      t.datetime   :stopped_at
-      t.string     :thread,        limit: 20
-      t.stamps
-      t.index [:started_at, :stopped_at]
     end
 
     create_table :custom_field_choices do |t|
@@ -342,10 +342,7 @@ class CreateBase < ActiveRecord::Migration
       # t.references :attorney_account
       t.boolean    :locked,                                                        default: false, null: false
       t.boolean    :of_company,                                                    default: false, null: false
-      t.string     :picture_file_name
-      t.integer    :picture_file_size
-      t.string     :picture_content_type
-      t.datetime   :picture_updated_at
+      t.attachment :picture
       t.stamps
       t.index      :number
       t.index      :full_name
@@ -660,34 +657,30 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :listing_nodes do |t|
-      t.string   :name,                                          null: false
-      t.string   :label,                                         null: false
-      t.string   :nature,                                        null: false
-      t.integer  :position
-      t.boolean  :exportable,                     default: true, null: false
-      t.references :parent
-      t.string   :item_nature,          limit: 10
-      t.text     :item_value
-      t.references :item_listing
-      t.references :item_listing_node
-      t.references :listing,                                    null: false
-      t.string   :key
-      t.string   :sql_type
-      t.string   :condition_value
-      t.string   :condition_operator
-      t.string   :attribute_name
-      t.integer  :lft
-      t.integer  :rgt
-      t.integer  :depth,                          default: 0,    null: false
+      t.string     :name,                                          null: false
+      t.string     :label,                                         null: false
+      t.string     :nature,                                        null: false
+      t.integer    :position
+      t.boolean    :exportable,                     default: true, null: false
+      t.references :parent,                                                     index: true
+      t.string     :item_nature,          limit: 10
+      t.text       :item_value
+      t.references :item_listing,                                               index: true
+      t.references :item_listing_node,                                          index: true
+      t.references :listing,                                       null: false, index: true
+      t.string     :key
+      t.string     :sql_type
+      t.string     :condition_value
+      t.string     :condition_operator
+      t.string     :attribute_name
+      t.integer    :lft
+      t.integer    :rgt
+      t.integer    :depth,                          default: 0,    null: false
       t.stamps
+      t.index      :exportable
+      t.index      :name
+      t.index      :nature
     end
-    add_index :listing_nodes, :exportable
-    add_index :listing_nodes, :item_listing_id
-    add_index :listing_nodes, :item_listing_node_id
-    add_index :listing_nodes, :listing_id
-    add_index :listing_nodes, :name
-    add_index :listing_nodes, :nature
-    add_index :listing_nodes, :parent_id
 
     create_table :listings do |t|
       t.string   :name,                     null: false
@@ -699,9 +692,9 @@ class CreateBase < ActiveRecord::Migration
       t.text     :mail
       t.text     :source
       t.stamps
+      t.index    :name
+      t.index    :root_model
     end
-    add_index :listings, :name
-    add_index :listings, :root_model
 
     create_table :logs do |t|
       t.string     :event,                             null: false
@@ -768,24 +761,18 @@ class CreateBase < ActiveRecord::Migration
 
 
     create_table :outgoing_deliveries do |t|
-      t.references :sale
-      t.references :address
+      t.references :sale,                                                   index: true
+      t.references :address,                                                index: true
       t.datetime   :sent_at
-      t.references :mode
+      t.references :mode,                                                   index: true
       t.decimal    :weight,           precision: 19, scale: 4
-      t.references :transport
-      t.references :transporter
+      t.references :transport,                                              index: true
+      t.references :transporter,                                            index: true
       t.string     :number
       t.string     :reference_number
-      t.references :recipient,                                          null: false
+      t.references :recipient,                                 null: false, index: true
       t.stamps
     end
-    add_index :outgoing_deliveries, :address_id
-    add_index :outgoing_deliveries, :mode_id
-    add_index :outgoing_deliveries, :recipient_id
-    add_index :outgoing_deliveries, :sale_id
-    add_index :outgoing_deliveries, :transport_id
-    add_index :outgoing_deliveries, :transporter_id
 
     create_table :outgoing_delivery_items do |t|
       t.references :delivery,                                            null: false, index: true
@@ -798,7 +785,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :outgoing_delivery_modes do |t|
       t.string   :name,                                     null: false
-      t.string   :code,           limit: 10,                 null: false
+      t.string   :code,           limit: 10,                null: false
       t.text     :description
       t.boolean  :with_transport,           default: false, null: false
       t.stamps
@@ -815,30 +802,24 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :outgoing_payments do |t|
-      t.datetime :accounted_at
-      t.decimal  :amount,                      precision: 19, scale: 4, default: 0.0,  null: false
-      t.string   :bank_check_number
-      t.boolean  :delivered,                                            default: true, null: false
-      t.date     :created_on
-      t.references :journal_entry
-      t.references :responsible,                                                      null: false
-      t.references :payee,                                                            null: false
-      t.references :mode,                                                             null: false
-      t.string   :number
-      t.date     :paid_on
-      t.date     :to_bank_on,                                                         null: false
-      t.references :cash,                                                             null: false
-      t.string   :currency,         limit: 3,                                         null: false
-      t.boolean  :downpayment,                                         default: true, null: false
-      t.references :affair
+      t.datetime   :accounted_at
+      t.decimal    :amount,                   precision: 19, scale: 4, default: 0.0,  null: false
+      t.string     :bank_check_number
+      t.boolean    :delivered,                                         default: true, null: false
+      t.date       :created_on
+      t.references :journal_entry,                                                                 index: true
+      t.references :responsible,                                                      null: false, index: true
+      t.references :payee,                                                            null: false, index: true
+      t.references :mode,                                                             null: false, index: true
+      t.string     :number
+      t.date       :paid_on
+      t.date       :to_bank_on,                                                       null: false
+      t.references :cash,                                                             null: false, index: true
+      t.string     :currency,         limit: 3,                                       null: false
+      t.boolean    :downpayment,                                       default: true, null: false
+      t.references :affair,                                                                        index: true
       t.stamps
     end
-    add_index :outgoing_payments, :affair_id
-    add_index :outgoing_payments, :cash_id
-    add_index :outgoing_payments, :journal_entry_id
-    add_index :outgoing_payments, :mode_id
-    add_index :outgoing_payments, :payee_id
-    add_index :outgoing_payments, :responsible_id
 
     create_table :preferences do |t|
       t.string     :name,                                                      null: false
@@ -1014,53 +995,11 @@ class CreateBase < ActiveRecord::Migration
       t.index      :stopped_at
     end
 
-
-    create_table :product_nature_variants do |t|
-      t.references :nature,                               null: false, index: true
-      t.string   :name
-      t.string   :number
-      t.string   :variety,                limit: 120,                 null: false
-      t.string   :derivative_of,          limit: 120
-      t.string   :nomen,                  limit: 120
-      t.string   :nature_name,                            null: false
-      t.string   :unit_name,                              null: false
-      t.string   :commercial_name,                        null: false
-      t.text     :commercial_description
-      t.text     :frozen_indicators
-      t.text     :variable_indicators
-      t.boolean  :active,                 default: false, null: false
-      t.string   :picture_file_name
-      t.string   :picture_content_type
-      t.integer  :picture_file_size
-      t.datetime :picture_updated_at
-      t.string   :contour
-      t.integer  :horizontal_rotation,    default: 0,     null: false
-      t.stamps
-    end
-
-    create_table :product_nature_variant_indicator_data do |t|
-      t.references :variant,                                                                                            null: false, index: true
-      t.string     :indicator,                                                                                          null: false
-      t.string     :indicator_datatype,                                                                                 null: false
-      t.string     :computation_method,                                                                                 null: false
-      t.decimal    :decimal_value,                                             precision: 19, scale: 4
-      t.decimal    :measure_value_value,                                       precision: 19, scale: 4
-      t.string     :measure_value_unit
-      t.text       :string_value
-      t.boolean    :boolean_value,                                                                      default: false, null: false
-      t.string     :choice_value
-      t.point      :point_value,              has_z: true
-      t.geometry   :geometry_value,           has_z: true
-      t.multi_polygon :multi_polygon_value,   has_z: true
-      t.stamps
-      t.index      :indicator
-    end
-
     create_table :product_nature_categories do |t|
       t.string     :name,                                               null: false
       t.string     :number,                 limit: 30,                  null: false
       t.text       :description
-      t.string     :nomen,                  limit: 120
+      t.string     :reference_name
       t.string     :pictogram,              limit: 120
       t.boolean    :active,                             default: false, null: false
       t.boolean    :depreciable,                        default: false, null: false
@@ -1080,37 +1019,74 @@ class CreateBase < ActiveRecord::Migration
       t.index      :name
     end
 
-    create_join_table :product_nature_categories, :taxes, table_name: :product_cat_sale_taxes do |t|
-      t.index :product_nature_category_id
+    create_join_table :product_nature_categories, :taxes, table_name: :product_nature_categories_sale_taxes do |t|
+      t.index :product_nature_category_id, name: :index_product_nature_categories_sale_taxes_on_category_id
       t.index :tax_id
     end
 
-    create_join_table :product_nature_categories, :taxes, table_name: :product_cat_purchase_taxes do |t|
-      t.index :product_nature_category_id
+    create_join_table :product_nature_categories, :taxes, table_name: :product_nature_categories_purchase_taxes do |t|
+      t.index :product_nature_category_id, name: :index_product_nature_categories_purchase_taxes_on_category_id
       t.index :tax_id
     end
 
     create_table :product_natures do |t|
-      t.string     :name,                                               null: false
-      t.string     :number,                 limit: 30,                  null: false
-      t.text       :description
-      t.string     :variety,                limit: 120,                 null: false
+      t.references :category,                               null: false, index: true
+      t.string     :name,                                   null: false
+      t.string     :number,                 limit: 30,      null: false
+      t.string     :variety,                limit: 120,     null: false
       t.string     :derivative_of,          limit: 120
-      t.string     :nomen,                  limit: 120
+      t.string     :reference_name,         limit: 120
+      t.boolean    :active,                 default: false, null: false
+      t.boolean    :evolvable,              default: false, null: false
+      t.string     :population_counting,                    null: false
       t.text       :abilities
       t.text       :variable_indicators
       t.text       :frozen_indicators
-      t.string     :population_counting,                                null: false
-      t.string     :picture_file_name
-      t.string     :picture_content_type
-      t.integer    :picture_file_size
-      t.datetime   :picture_updated_at
-      t.boolean    :active,                             default: false, null: false
-      t.boolean    :evolvable,                          default: false, null: false
-      t.references :category,                           index: true, null: false
+      t.attachment :picture
+      t.text       :description
       t.stamps
       t.index      :number,   unique: true
       t.index      :name
+    end
+
+
+    create_table :product_nature_variants do |t|
+      t.references :nature,                               null: false, index: true
+      t.references :category,                             null: false, index: true
+      t.string     :name
+      t.string     :number
+      t.string     :variety,                limit: 120,     null: false
+      t.string     :derivative_of,          limit: 120
+      t.string     :reference_name
+      t.string     :nature_name,                            null: false
+      t.string     :unit_name,                              null: false
+      t.string     :commercial_name,                        null: false
+      t.text       :commercial_description
+      # t.text       :frozen_indicators
+      # t.text       :variable_indicators
+      t.boolean    :active,                 default: false, null: false
+      t.attachment :picture
+      t.string     :contour
+      t.integer    :horizontal_rotation,    default: 0,     null: false
+      t.stamps
+    end
+
+    create_table :product_nature_variant_indicator_data do |t|
+      t.references :variant,                                                                                            null: false, index: true
+      t.string     :indicator,                                                                                          null: false
+      t.string     :indicator_datatype,                                                                                 null: false
+      t.string     :computation_method,                                                                                 null: false
+      t.decimal    :decimal_value,                                             precision: 19, scale: 4
+      t.decimal    :measure_value_value,                                       precision: 19, scale: 4
+      t.string     :measure_value_unit
+      t.text       :string_value
+      t.boolean    :boolean_value,                                                                      default: false, null: false
+      t.string     :choice_value
+      t.point      :point_value,              has_z: true
+      t.geometry   :geometry_value,           has_z: true
+      t.multi_polygon :multi_polygon_value,   has_z: true
+      t.stamps
+      t.index      :indicator
     end
 
     create_table :product_process_phases do |t|
@@ -1242,34 +1218,28 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :purchases do |t|
-      t.references :supplier,                                                              null: false
+      t.references :supplier,                                                              null: false, index: true
       t.string     :number,              limit: 60,                                        null: false
       t.decimal    :pretax_amount,                  precision: 19, scale: 4, default: 0.0, null: false
       t.decimal    :amount,                         precision: 19, scale: 4, default: 0.0, null: false
-      t.references :delivery_address
+      t.references :delivery_address,                                                                   index: true
       t.text       :description
       t.date       :planned_on
       t.date       :invoiced_on
       t.date       :created_on
       t.datetime   :accounted_at
-      t.references :journal_entry
+      t.references :journal_entry,                                                                      index: true
       t.string     :reference_number
       t.string     :state,               limit: 60
       t.date       :confirmed_on
-      t.references :responsible
+      t.references :responsible,                                                                        index: true
       t.string     :currency,            limit: 3,                                         null: false
-      t.references :nature
-      t.references :affair
+      t.references :nature,                                                                             index: true
+      t.references :affair,                                                                             index: true
       t.stamps
+      t.index      :accounted_at
+      t.index      :currency
     end
-    add_index :purchases, :accounted_at
-    add_index :purchases, :affair_id
-    add_index :purchases, :currency
-    add_index :purchases, :delivery_address_id
-    add_index :purchases, :journal_entry_id
-    add_index :purchases, :nature_id
-    add_index :purchases, :responsible_id
-    add_index :purchases, :supplier_id
 
     create_table :roles do |t|
       t.string   :name,                     null: false
@@ -1320,8 +1290,8 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :sales do |t|
-      t.references :client,                                                                  null: false
-      t.references :nature
+      t.references :client,                                                                  null: false, index: true
+      t.references :nature,                                                                               index: true
       t.date       :created_on,                                                              null: false
       t.string     :number,              limit: 60,                                          null: false
       t.decimal    :pretax_amount,                  precision: 19, scale: 4, default: 0.0,   null: false
@@ -1330,45 +1300,35 @@ class CreateBase < ActiveRecord::Migration
       t.date       :expired_on
       t.boolean    :has_downpayment,                                         default: false, null: false
       t.decimal    :downpayment_amount,             precision: 19, scale: 4, default: 0.0,   null: false
-      t.references :address
-      t.references :invoice_address
-      t.references :delivery_address
+      t.references :address,                                                                              index: true
+      t.references :invoice_address,                                                                      index: true
+      t.references :delivery_address,                                                                     index: true
       t.string     :subject
       t.string     :function_title
       t.text       :introduction
       t.text       :conclusion
       t.text       :description
       t.date       :confirmed_on
-      t.references :responsible
+      t.references :responsible,                                                                          index: true
       t.boolean    :letter_format,                                           default: true,  null: false
       t.text       :annotation
-      t.references :transporter
+      t.references :transporter,                                                                          index: true
       t.datetime   :accounted_at
-      t.references :journal_entry
+      t.references :journal_entry,                                                                        index: true
       t.string     :reference_number
       t.date       :invoiced_on
       t.boolean    :credit,                                                  default: false, null: false
       t.date       :payment_on
-      t.references :origin
+      t.references :origin,                                                                               index: true
       t.string     :initial_number,      limit: 60
       t.string     :currency,            limit: 3,                                           null: false
-      t.references :affair
+      t.references :affair,                                                                               index: true
       t.string     :expiration_delay
       t.string     :payment_delay,                                                           null: false
       t.stamps
+      t.index      :accounted_at
+      t.index      :currency
     end
-    add_index :sales, :accounted_at
-    add_index :sales, :address_id
-    add_index :sales, :affair_id
-    add_index :sales, :client_id
-    add_index :sales, :currency
-    add_index :sales, :delivery_address_id
-    add_index :sales, :invoice_address_id
-    add_index :sales, :journal_entry_id
-    add_index :sales, :nature_id
-    add_index :sales, :origin_id
-    add_index :sales, :responsible_id
-    add_index :sales, :transporter_id
 
     create_table :sequences do |t|
       t.string   :name,                                null: false
@@ -1396,50 +1356,42 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :subscriptions do |t|
-      t.date     :started_on
-      t.date     :stopped_on
-      t.integer  :first_number
-      t.integer  :last_number
-      t.references :sale
-      t.references :product_nature
-      t.references :address
-      t.decimal  :quantity,          precision: 19, scale: 4
-      t.boolean  :suspended,                                  default: false, null: false
-      t.references :nature
-      t.references :subscriber
-      t.text     :description
-      t.string   :number
-      t.references :sale_item
+      t.date       :started_on
+      t.date       :stopped_on
+      t.integer    :first_number
+      t.integer    :last_number
+      t.references :sale,                                            index: true
+      t.references :product_nature,                                  index: true
+      t.references :address,                                         index: true
+      t.decimal    :quantity,          precision: 19, scale: 4
+      t.boolean    :suspended,         default: false, null: false
+      t.references :nature,                                          index: true
+      t.references :subscriber,                                      index: true
+      t.text       :description
+      t.string     :number
+      t.references :sale_item,                                       index: true
       t.stamps
     end
-    add_index :subscriptions, :address_id
-    add_index :subscriptions, :nature_id
-    add_index :subscriptions, :product_nature_id
-    add_index :subscriptions, :sale_id
-    add_index :subscriptions, :sale_item_id
-    add_index :subscriptions, :subscriber_id
 
     create_table :tax_declarations do |t|
-      t.string   :nature,                                            default: "normal", null: false
-      t.string   :address
-      t.date     :declared_on
-      t.date     :paid_on
-      t.decimal  :collected_amount,         precision: 19, scale: 4
-      t.decimal  :paid_amount,              precision: 19, scale: 4
-      t.decimal  :balance_amount,           precision: 19, scale: 4
-      t.boolean  :deferred_payment,                                  default: false
-      t.decimal  :assimilated_taxes_amount, precision: 19, scale: 4
-      t.decimal  :acquisition_amount,       precision: 19, scale: 4
-      t.decimal  :amount,                   precision: 19, scale: 4
-      t.references :financial_year
-      t.date     :started_on
-      t.date     :stopped_on
-      t.datetime :accounted_at
-      t.references :journal_entry
+      t.string     :nature,                   default: "normal",      null: false
+      t.string     :address
+      t.date       :declared_on
+      t.date       :paid_on
+      t.decimal    :collected_amount,         precision: 19, scale: 4
+      t.decimal    :paid_amount,              precision: 19, scale: 4
+      t.decimal    :balance_amount,           precision: 19, scale: 4
+      t.boolean    :deferred_payment,         default: false
+      t.decimal    :assimilated_taxes_amount, precision: 19, scale: 4
+      t.decimal    :acquisition_amount,       precision: 19, scale: 4
+      t.decimal    :amount,                   precision: 19, scale: 4
+      t.references :financial_year,                                                index: true
+      t.date       :started_on
+      t.date       :stopped_on
+      t.datetime   :accounted_at
+      t.references :journal_entry,                                                 index: true
       t.stamps
     end
-    add_index :tax_declarations, :financial_year_id
-    add_index :tax_declarations, :journal_entry_id
 
     create_table :taxes do |t|
       t.string     :name,                                                                      null: false
@@ -1450,7 +1402,7 @@ class CreateBase < ActiveRecord::Migration
       t.text       :description
       t.references :collect_account,                                                                        index: true
       t.references :deduction_account,                                                                      index: true
-      t.string     :nomen,                limit: 120
+      t.string     :reference_name,       limit: 120
       t.stamps
     end
 
@@ -1476,41 +1428,35 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :transfers do |t|
-      t.decimal  :amount,                     precision: 19, scale: 4, default: 0.0, null: false
-      t.string   :currency,         limit: 3,                                        null: false
-      t.references :client,                                                          null: false
-      t.string   :label
-      t.string   :description
-      t.date     :started_on
-      t.date     :stopped_on
-      t.date     :created_on
-      t.datetime :accounted_at
-      t.references :journal_entry
-      t.references :affair
+      t.decimal    :amount,         precision: 19, scale: 4, null: false
+      t.string     :currency,       limit: 3,                null: false
+      t.references :client,                                  null: false, index: true
+      t.string     :label
+      t.string     :description
+      t.date       :started_on
+      t.date       :stopped_on
+      t.date       :created_on
+      t.datetime   :accounted_at
+      t.references :journal_entry,                                        index: true
+      t.references :affair,                                               index: true
       t.stamps
+      t.index      :accounted_at
     end
-    add_index :transfers, :accounted_at
-    add_index :transfers, :affair_id
-    add_index :transfers, :client_id
-    add_index :transfers, :journal_entry_id
 
     create_table :transports do |t|
-      t.references :transporter,                                          null: false
-      t.references :responsible
-      t.decimal  :weight,           precision: 19, scale: 4
-      t.date     :created_on
-      t.date     :transport_on
-      t.text     :description
-      t.string   :number
-      t.string   :reference_number
-      t.references :purchase
-      t.decimal  :pretax_amount,    precision: 19, scale: 4, default: 0.0, null: false
-      t.decimal  :amount,           precision: 19, scale: 4, default: 0.0, null: false
+      t.references :transporter,                               null: false, index: true
+      t.references :responsible,                                            index: true
+      t.decimal    :weight,           precision: 19, scale: 4
+      t.date       :created_on
+      t.date       :transport_on
+      t.text       :description
+      t.string     :number
+      t.string     :reference_number
+      t.references :purchase,                                               index: true
+      t.decimal    :pretax_amount,    precision: 19, scale: 4, null: false
+      t.decimal    :amount,           precision: 19, scale: 4, null: false
       t.stamps
     end
-    add_index :transports, :purchase_id
-    add_index :transports, :responsible_id
-    add_index :transports, :transporter_id
 
     create_table :users do |t|
       t.string     :first_name,                                                                          null: false

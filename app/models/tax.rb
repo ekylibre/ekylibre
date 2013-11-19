@@ -31,8 +31,8 @@
 #  included             :boolean          not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
-#  nomen                :string(120)
 #  reductible           :boolean          default(TRUE), not null
+#  reference_name       :string(120)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
@@ -40,20 +40,20 @@
 
 class Tax < Ekylibre::Record::Base
   attr_readonly :computation_method, :amount
-  enumerize :nomen, in: Nomen::Taxes.all
+  enumerize :reference_name, in: Nomen::Taxes.all
   enumerize :computation_method, in: [:amount, :percentage], default: :percentage, predicates: true
   belongs_to :collect_account, class_name: "Account"
   belongs_to :deduction_account, class_name: "Account"
   has_many :price_templates, class_name: "ProductPriceTemplate"
-  has_and_belongs_to_many :sale_product_nature_categories, class_name: "ProductNatureCategory", join_table: :product_cat_sale_taxes
-  has_and_belongs_to_many :purchase_product_nature_categories, class_name: "ProductNatureCategory", join_table: :product_cat_purchase_taxes
+  has_and_belongs_to_many :sale_product_nature_categories, class_name: "ProductNatureCategory", join_table: :product_nature_categories_sale_taxes
+  has_and_belongs_to_many :purchase_product_nature_categories, class_name: "ProductNatureCategory", join_table: :product_nature_categories_purchase_taxes
   # has_many :prices, class_name: "CatalogPrice"
   has_many :purchase_items
   has_many :sale_items
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :computation_method, allow_nil: true, maximum: 20
-  validates_length_of :nomen, allow_nil: true, maximum: 120
+  validates_length_of :reference_name, allow_nil: true, maximum: 120
   validates_length_of :name, allow_nil: true, maximum: 255
   validates_inclusion_of :included, :reductible, in: [true, false]
   validates_presence_of :amount, :computation_method, :name
@@ -106,16 +106,16 @@ class Tax < Ekylibre::Record::Base
   end
 
   # Load a tax from tax nomenclature
-  def self.import_from_nomenclature(nomen)
-    unless item = Nomen::Taxes.find(nomen)
-      raise ArgumentError.new("The tax #{nomen.inspect} is not known")
+  def self.import_from_nomenclature(reference_name)
+    unless item = Nomen::Taxes.find(reference_name)
+      raise ArgumentError.new("The tax #{reference_name.inspect} is not known")
     end
-    unless tax = Tax.find_by_nomen(nomen)
+    unless tax = Tax.find_by_reference_name(reference_name)
       attributes = {
         :computation_method => item.computation_method,
         :amount => item.amount,
         :name => item.human_name,
-        :nomen => item.name
+        :reference_name => item.name
       }
       for account in [:deduction, :collect]
         if name = item.send("#{account}_account")

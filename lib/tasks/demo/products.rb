@@ -9,7 +9,7 @@ demo :products do
     file = Rails.root.join("test", "fixtures", "files", "equipments_list.csv")
     CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
       r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
-                         :variant_nomen => row[1].downcase.to_sym,
+                         :variant_reference_name => row[1].downcase.to_sym,
                          :variant => row[2].blank? ? nil : row[2],
                          :born_at => row[3].blank? ? Date.today : row[3],
                          :brand => row[4].blank? ? nil : row[4].to_s,
@@ -25,8 +25,8 @@ demo :products do
                          :indicator_price => row[10].blank? ? nil : row[10].to_sym
                          )
 
-      # find or import from variant nomenclature the correct ProductNatureVariant
-      variant = ProductNatureVariant.find_by(:nomen => r.variant_nomen) || ProductNatureVariant.import_from_nomenclature(r.variant_nomen)
+      # find or import from variant reference_nameclature the correct ProductNatureVariant
+      variant = ProductNatureVariant.find_by(:reference_name => r.variant_reference_name) || ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
       pmodel = variant.nature.matching_model
 
       # create a price
@@ -62,7 +62,7 @@ demo :products do
     file = Rails.root.join("test", "fixtures", "files", "matters_list.csv")
     CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
       r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
-                         :variant_nomen => row[1].downcase.to_sym,
+                         :variant_reference_name => row[1].downcase.to_sym,
                          :variant => row[2].blank? ? nil : row[2],
                          :born_at => row[3].blank? ? Date.today : row[3],
                          :variety => row[4].blank? ? nil : row[4].to_s,
@@ -77,8 +77,8 @@ demo :products do
                          :unit_price => row[9].blank? ? nil : row[9].to_d
                          )
 
-      # find or import from variant nomenclature the correct ProductNatureVariant
-      variant = ProductNatureVariant.find_by(:nomen => r.variant_nomen) || ProductNatureVariant.import_from_nomenclature(r.variant_nomen)
+      # find or import from variant reference_nameclature the correct ProductNatureVariant
+      variant = ProductNatureVariant.find_by(:reference_name => r.variant_reference_name) || ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
       pmodel = variant.nature.matching_model
 
       # create a price

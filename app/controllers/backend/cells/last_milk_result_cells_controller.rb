@@ -2,7 +2,7 @@ class Backend::Cells::LastMilkResultCellsController < Backend::CellsController
 
   list(:model => :product_indicator_data,
        :joins => {:product => :nature},
-       :conditions => ["nomen = ?", 'milk'],
+       :conditions => {reference_name: 'milk'},
        :order => "measured_at DESC, id DESC",
        :per_page => 10
        ) do |t|

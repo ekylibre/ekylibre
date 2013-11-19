@@ -3,22 +3,22 @@ demo :sales do
 
   Ekylibre::fixturize :variant_import do |w|
     # Create product_nature for crop plant product
-    wheat_crop = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
+    wheat_crop  = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
     barley_crop = ProductNatureVariant.import_from_nomenclature(:barley_crop)
-    corn_crop = ProductNatureVariant.import_from_nomenclature(:corn_crop)
+    corn_crop   = ProductNatureVariant.import_from_nomenclature(:corn_crop)
     durum_wheat_crop = ProductNatureVariant.import_from_nomenclature(:durum_wheat_crop)
     fallow_crop = ProductNatureVariant.import_from_nomenclature(:fallow_crop)
     # @FIXME : find the triticale.
     sunflower_crop = ProductNatureVariant.import_from_nomenclature(:sunflower_crop)
-    sorghum_crop = ProductNatureVariant.import_from_nomenclature(:sorghum_crop)
+    sorghum_crop   = ProductNatureVariant.import_from_nomenclature(:sorghum_crop)
     temporary_meadow_crop = ProductNatureVariant.import_from_nomenclature(:temporary_meadow_crop)
 
     # Create product_nature for derivative plant product
-    grain = ProductNatureVariant.import_from_nomenclature(:wheat_grain)
-    straw = ProductNatureVariant.import_from_nomenclature(:wheat_straw)
-    hay = ProductNatureVariant.import_from_nomenclature(:bulk_hay)
+    grain  = ProductNatureVariant.import_from_nomenclature(:wheat_grain)
+    straw  = ProductNatureVariant.import_from_nomenclature(:wheat_straw)
+    hay    = ProductNatureVariant.import_from_nomenclature(:bulk_hay)
     silage = ProductNatureVariant.import_from_nomenclature(:silage)
-    grass = ProductNatureVariant.import_from_nomenclature(:grass)
+    grass  = ProductNatureVariant.import_from_nomenclature(:grass)
 
     # Create product_nature_price for wheat product
     # wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
@@ -87,7 +87,7 @@ demo :sales do
 
   Ekylibre::fixturize :calf_sales do |w|
     # Create cow product
-    cow = ProductNatureVariant.find_by(:nomen => 'calf')
+    cow = ProductNatureVariant.find_by(:reference_name => 'calf')
     cow ||= ProductNatureVariant.import_from_nomenclature(:calf)
     catalog = Catalog.first
     cow_price_template_taxes = Tax.all

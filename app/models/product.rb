@@ -211,9 +211,8 @@ class Product < Ekylibre::Record::Base
     end
     # add first frozen indicator on a product from his variant
     if self.variant
-      for frozen_indicator in self.variant.frozen_indicators.to_s.strip.split(",")
-        indicator = self.variant.indicator(frozen_indicator.to_s) if self.variant.frozen?(frozen_indicator.to_s)
-        self.is_measured!(indicator.indicator, indicator.value)
+      for datum in self.variant.indicator_data
+        self.is_measured!(datum.indicator, datum.value)
       end
       self.phases.create!(variant: self.variant, started_at: self.born_at) if self.born_at
     end

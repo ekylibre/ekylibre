@@ -45,9 +45,15 @@
 class ProductNatureVariantIndicatorDatum < IndicatorDatum
   # attr_accessible :created_at, :variant_id, :description
   belongs_to :variant, class_name: "ProductNatureVariant"
-  enumerize :computation_method, in: [:frozen, :proportionnal], default: :frozen
+  enumerize :computation_method, in: [:frozen, :proportional], default: :frozen
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
+
+  validate do
+    unless self.variant.frozen_indicators_array.map(&:name).include?(self.indicator.to_s)
+      errors.add(:indicator, :invalid)
+    end
+  end
 
 end

@@ -30,12 +30,12 @@
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)      not null
-#  nomen                  :string(120)
 #  number                 :string(30)       not null
 #  pictogram              :string(120)
 #  product_account_id     :integer
 #  purchasable            :boolean          not null
 #  reductible             :boolean          not null
+#  reference_name         :string(255)
 #  saleable               :boolean          not null
 #  stock_account_id       :integer
 #  storable               :boolean          not null
@@ -46,23 +46,23 @@
 #  updater_id             :integer
 #
 class ProductNatureCategory < Ekylibre::Record::Base
-
   # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :pictogram, in: Nomen::ProductNatureCategories.pictogram.choices, predicates: {prefix: true}
-  belongs_to :asset_account, class_name: "Account"
-  belongs_to :charge_account, class_name: "Account"
+  belongs_to :asset_account,   class_name: "Account"
+  belongs_to :charge_account,  class_name: "Account"
   belongs_to :product_account, class_name: "Account"
-  belongs_to :stock_account, class_name: "Account"
+  belongs_to :stock_account,   class_name: "Account"
   belongs_to :subscription_nature
   has_many :subscriptions, foreign_key: :product_nature_id
   has_many :natures, class_name: "ProductNature", foreign_key: :category_id, inverse_of: :category
+  has_many :variants, class_name: "ProductNatureVariant", foreign_key: :category_id, inverse_of: :category
   has_many :products, foreign_key: :category_id
-  has_and_belongs_to_many :sale_taxes, class_name: "Tax", join_table: :product_cat_sale_taxes
-  has_and_belongs_to_many :purchase_taxes, class_name: "Tax", join_table: :product_cat_purchase_taxes
+  has_and_belongs_to_many :sale_taxes, class_name: "Tax", join_table: :product_nature_categories_sale_taxes
+  has_and_belongs_to_many :purchase_taxes, class_name: "Tax", join_table: :product_nature_categories_purchase_taxes
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, allow_nil: true, maximum: 30
-  validates_length_of :nomen, :pictogram, allow_nil: true, maximum: 120
-  validates_length_of :name, :subscription_duration, allow_nil: true, maximum: 255
+  validates_length_of :pictogram, allow_nil: true, maximum: 120
+  validates_length_of :name, :reference_name, :subscription_duration, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :depreciable, :purchasable, :reductible, :saleable, :storable, :subscribing, in: [true, false]
   validates_presence_of :name, :number
   #]VALIDATORS]
@@ -153,15 +153,15 @@ class ProductNatureCategory < Ekylibre::Record::Base
   end
 
   # Load a product nature category from product nature category nomenclature
-  def self.import_from_nomenclature(nomen)
-    unless item = Nomen::ProductNatureCategories.find(nomen)
-      raise ArgumentError.new("The product_nature_category #{nomen.inspect} is not known")
+  def self.import_from_nomenclature(reference_name)
+    unless item = Nomen::ProductNatureCategories.find(reference_name)
+      raise ArgumentError.new("The product_nature_category #{reference_name.inspect} is not known")
     end
-    unless category = ProductNatureCategory.find_by_nomen(nomen)
+    unless category = ProductNatureCategory.find_by_reference_name(reference_name)
       attributes = {
         :active => true,
         :name => item.human_name,
-        :nomen => item.name,
+        :reference_name => item.name,
         :pictogram => item.pictogram,
         :depreciable => item.depreciable,
         :purchasable => item.purchasable,

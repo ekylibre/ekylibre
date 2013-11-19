@@ -31,8 +31,8 @@
 #  included             :boolean          not null
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
-#  nomen                :string(120)
 #  reductible           :boolean          default(TRUE), not null
+#  reference_name       :string(120)
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #

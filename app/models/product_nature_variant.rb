@@ -21,29 +21,28 @@
 # == Table: product_nature_variants
 #
 #  active                 :boolean          not null
+#  category_id            :integer          not null
 #  commercial_description :text
 #  commercial_name        :string(255)      not null
 #  contour                :string(255)
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  derivative_of          :string(120)
-#  frozen_indicators      :text
 #  horizontal_rotation    :integer          default(0), not null
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)
 #  nature_id              :integer          not null
 #  nature_name            :string(255)      not null
-#  nomen                  :string(120)
 #  number                 :string(255)
 #  picture_content_type   :string(255)
 #  picture_file_name      :string(255)
 #  picture_file_size      :integer
 #  picture_updated_at     :datetime
+#  reference_name         :string(255)
 #  unit_name              :string(255)      not null
 #  updated_at             :datetime         not null
 #  updater_id             :integer
-#  variable_indicators    :text
 #  variety                :string(120)      not null
 #
 
@@ -52,18 +51,19 @@ class ProductNatureVariant < Ekylibre::Record::Base
   enumerize :variety,       in: Nomen::Varieties.all
   enumerize :derivative_of, in: Nomen::Varieties.all
   belongs_to :nature, class_name: "ProductNature", inverse_of: :variants
+  belongs_to :category, class_name: "ProductNatureCategory", inverse_of: :variants
   has_many :products, foreign_key: :variant_id
   has_many :indicator_data, class_name: "ProductNatureVariantIndicatorDatum", foreign_key: :variant_id
   has_many :prices, class_name: "CatalogPrice", foreign_key: :variant_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :horizontal_rotation, :picture_file_size, allow_nil: true, only_integer: true
-  validates_length_of :derivative_of, :nomen, :variety, allow_nil: true, maximum: 120
-  validates_length_of :commercial_name, :contour, :name, :nature_name, :number, :picture_content_type, :picture_file_name, :unit_name, allow_nil: true, maximum: 255
+  validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
+  validates_length_of :commercial_name, :contour, :name, :nature_name, :number, :picture_content_type, :picture_file_name, :reference_name, :unit_name, allow_nil: true, maximum: 255
   validates_inclusion_of :active, in: [true, false]
-  validates_presence_of :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name, :variety
+  validates_presence_of :category, :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name, :variety
   #]VALIDATORS]
 
-  delegate :matching_model, :indicators_array, :population_frozen?, :population_modulo, to: :nature
+  delegate :matching_model, :indicators_array, :population_frozen?, :population_modulo, :frozen_indicators_array, to: :nature
   delegate :variety, :derivative_of, to: :nature, prefix: true
   delegate :asset_account, :product_account, :charge_account, :stock_account, to: :nature
 
@@ -111,8 +111,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   before_validation on: :create do
     if self.nature
+      self.category_id = self.nature.category_id
       self.nature_name ||= self.nature.name
-      self.variable_indicators ||= self.nature.indicators
+      # self.variable_indicators ||= self.nature.indicators
       self.name ||= self.nature_name
       self.variety ||= self.nature.variety
       if self.derivative_of.blank? and self.nature.derivative_of
@@ -226,7 +227,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       # Flatten variants for search
       nomenclature = Nomen::ProductNatureVariants.list.collect do |item|
         nature = Nomen::ProductNatures[item.nature]
-        h = {nomen: item.name, variety: Nomen::Varieties[item.variety || nature.variety]} # , nature: nature
+        h = {reference_name: item.name, variety: Nomen::Varieties[item.variety || nature.variety]} # , nature: nature
         if d = Nomen::Varieties[item.derivative_of || nature.derivative_of]
           h[:derivative_of] = d
         end
@@ -241,8 +242,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
       end
       # puts "FILTEREDS: " + filtereds.inspect
       filtereds.each do |item|
-        # puts "Import #{item[:nomen]}!"
-        import_from_nomenclature(item[:nomen])
+        # puts "Import #{item[:reference_name]}!"
+        import_from_nomenclature(item[:reference_name])
       end
     end
     return variants.reload
@@ -250,43 +251,36 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
 
   # Load a product nature variant from product nature variant nomenclature
-  def self.import_from_nomenclature(nomen)
-    unless item = Nomen::ProductNatureVariants[nomen]
-      raise ArgumentError, "The product_nature_variant #{nomen.inspect} is not known"
+  def self.import_from_nomenclature(reference_name)
+    unless item = Nomen::ProductNatureVariants[reference_name]
+      raise ArgumentError, "The product_nature_variant #{reference_name.inspect} is not known"
     end
     unless nature_item = Nomen::ProductNatures[item.nature]
       raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
     end
-    unless nature_variant = ProductNatureVariant.find_by(nomen: nomen.to_s)
+    unless variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s)
       attributes = {
         :name => item.human_name,
         :active => true,
-        :nature => ProductNature.find_by_nomen(item.nature) || ProductNature.import_from_nomenclature(item.nature),
-        :nomen => item.name,
+        :nature => ProductNature.find_by_reference_name(item.nature) || ProductNature.import_from_nomenclature(item.nature),
+        :reference_name => item.name,
         :unit_name => item.unit_name.to_s,
-        :frozen_indicators => item.frozen_indicators_values.to_s,
+        # :frozen_indicators => item.frozen_indicators_values.to_s,
         :variety => item.variety || nil,
         :derivative_of => item.derivative_of || nil
       }
-      nature_variant = self.create!(attributes)
+      variant = self.create!(attributes)
     end
 
     if !item.frozen_indicators_values.to_s.blank?
-      # transform "population: 1unity, net_weight :5ton" in a hash
-      h_frozen_indicators = item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
-        h[i.first.strip.downcase.to_sym] = i.second
-        h
-      }
       # create frozen indicator for each pair indicator, value ":population => 1unity"
-      frozen_indicators = []
-      for indicator, value in h_frozen_indicators
-        nature_variant.is_measured!(indicator, value)
-        frozen_indicators << indicator.to_s
+      item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
+        .collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.each do |i|
+        variant.is_measured!(i.first.strip.downcase.to_sym, i.second)
       end
-      nature_variant.update!(frozen_indicators: frozen_indicators.join(","))
     end
 
-    return nature_variant
+    return variant
   end
 
   # Get indicator value
