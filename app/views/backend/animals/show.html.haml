@@ -66,8 +66,8 @@
         :ruby
           #
           #
-          started_on = @animal.born_at.to_date || Date.today
-          stopped_on = @animal.dead_at.to_date || Date.today
+          started_on = Date.new(2013,01,01) || Date.today || @animal.born_at.to_date
+          stopped_on = Date.new(2013,12,31) || Date.today || @animal.dead_at.to_date
 
           series = []
           categories = {}
@@ -88,7 +88,7 @@
                 hash[pair.expr.to_i.to_s] = pair.valeur.to_s.to_d
                 hash
               end
-              series << {type: 'column', name: indicator.tl, data: normalize_serie(item_h, categories.keys) }
+              series << {type: 'column', name: indicator.tl, data: normalize_serie(item_h, categories.keys), tooltip: {value_suffix: ' kg'} }
             end
           end
 
@@ -99,19 +99,15 @@
           for indicator in spline_indicators
             items = ProductIndicatorDatum.where(:indicator => indicator, :choice_value => :sick, :product => @animal).measured_between(started_on, stopped_on)
             if items.count > 0
-              item_h = items.counts_of_periods(dtype: :choice).sort.inject({}) do |hash, pair|
+              item_h = items.counts_of_periods(:choice).sort.inject({}) do |hash, pair|
                 hash[pair.expr.to_i.to_s] = pair.valeur.to_s.to_d
                 hash
               end
-              series << {type: 'spline', name: indicator.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
+              series << {type: 'spline', y_axis: 1, name: indicator.tl, data: normalize_serie(item_h, categories.keys),  tooltip: {value_suffix: ' fois'}, marker: {line_width: 2}}
             end
           end
-
-          #@TODO waiting for a array method for jsonize key in helper in order to make multiple Y AXIS
-          # ex : y_axis: [{{title: {text: "matter_concentration"}}, {{title: {text: "cell_concentration"}, opposite: true}]
-          #
     
-        = column_chart(series, y_axis: [{title: {text: :net_weight.tl}}, {title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, legend: {})
+        = column_chart(series, y_axis: [{labels: {format: '{value} kg'}, title: {text: :net_weight.tl}}, {labels: {format: '{value} fois'},title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, tooltip: {shared: true}, legend: {})
 
       - else
         %strong= :no_data.tl
