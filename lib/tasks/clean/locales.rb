@@ -31,9 +31,10 @@ module Clean
       def compile_complement(locale)
         locale_dir = Rails.root.join("config", "locales", locale.to_s)
         hash = {}
-        hash.update(CleanSupport.yaml_to_hash(locale_dir.join("aggregators.yml")))
-        hash.update(CleanSupport.yaml_to_hash(locale_dir.join("procedures.yml")))
-        hash.update(CleanSupport.yaml_to_hash(locale_dir.join("nomenclatures.yml")))
+        hash.deep_merge!(CleanSupport.yaml_to_hash(locale_dir.join("models.yml")))
+        hash.deep_merge!(CleanSupport.yaml_to_hash(locale_dir.join("aggregators.yml")))
+        hash.deep_merge!(CleanSupport.yaml_to_hash(locale_dir.join("procedures.yml")))
+        hash.deep_merge!(CleanSupport.yaml_to_hash(locale_dir.join("nomenclatures.yml")))
 
         complement = {enumerize: {}}
         enumerize = complement[:enumerize]
@@ -61,6 +62,8 @@ module Clean
         enumerize[:intervention_cast][:reference_name] = CleanSupport.rec(hash, locale, :variables)
         enumerize[:operation_task] ||= {}
         enumerize[:operation_task][:nature] = CleanSupport.rec(hash, locale, :procedo, :actions)
+        enumerize[:listing] ||= {}
+        enumerize[:listing][:root_model] = CleanSupport.rec(hash, locale, :activerecord, :models)
 
         File.open(locale_dir.join("complement.yml"), "wb") do |f|
           f.write "# This file is totally generated from other translations for convenience.\n"

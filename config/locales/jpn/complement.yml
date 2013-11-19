@@ -41,6 +41,9 @@ jpn:
 
     legal_entity:
 
+    listing:
+      root_model:
+        company: "会社"
     matter:
 
     medicine:

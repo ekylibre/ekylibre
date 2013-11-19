@@ -90,15 +90,23 @@ class Listing < Ekylibre::Record::Base
   def compute_where
     conn = self.class.connection
     c = ""
+    if klass = self.root_model.classify.constantize rescue nil
+      if klass.columns_definition[:type]
+        c << "#{root.name}.type = '#{klass.name}'"
+      end
+    end
     #  No reflections => no columns => no conditions
-    unless self.reflections.size > 0
-      return ""
+    return c unless self.reflections.any?
+    # Filter on columns
+    if self.filtered_columns.any?
+      c << " AND " unless c.blank?
+      c << self.filtered_columns.map(&:condition).join(" AND ")
     end
-
-    if self.filtered_columns.size > 0
-      c += " AND "+self.filtered_columns.collect{ |node| node.condition }.join(" AND ")
+    # General conditions
+    unless self.conditions.blank?
+      c << " AND " unless c.blank?
+      c << "(" + self.conditions + ")"
     end
-    c += " AND ("+self.conditions+")" unless self.conditions.blank?
     return c
   end
 

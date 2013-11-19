@@ -228,6 +228,13 @@ jpn:
         # young_animal_expenses: "Animaux reproducteurs (jeunes de renouvellement)"
         # young_animal_revenues: "Animaux reproducteurs (jeunes de renouvellement)"
       # name: "Code comptable"
+    activity_families:
+      items:
+        # animal_farming: "Élevage"
+        # exploitation: "Exploitation"
+        # handicraft: "Artisanat"
+        # service: "Service"
+        # vegetal_crops: "Production végétale"
     countries:
       items:
         ad: "アンドラ"
@@ -692,6 +699,11 @@ jpn:
         # stocks: "Stocks"
         # transport: "Transport"
         # veterinary_booklet: "Carnet vétérinaire"
+    entity_link_natures:
+      items:
+        # direct_kinship: "Parenté directe"
+        # undefined: "Indéfini"
+        # work: "Collaboration"
     entity_natures:
       items:
         # association: "Association"
@@ -710,6 +722,10 @@ jpn:
         # public_interest_group: "Groupement d’intérêt public"
         # sir: "Monsieur"
         # syndicate: "Syndicat"
+    incidents:
+      items:
+        # incident: "Incident"
+        # pathology: "Pathologie"
     indicators:
       attributes:
         # choice: "Choix"

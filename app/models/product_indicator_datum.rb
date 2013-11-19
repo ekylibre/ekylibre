@@ -64,7 +64,7 @@ class ProductIndicatorDatum < IndicatorDatum
   def self.sums_of_periods(column = :valeur, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
     self.calculate_in_periods(:sum, column, reference_date_column, period, dtype)
   end
-  
+
   def self.counts_of_periods(dtype = :measure_value, column = :valeur, reference_date_column = :measured_at, period = :month)
     self.calculate_in_periods(:count, column, reference_date_column, period, dtype)
   end

@@ -5,9 +5,8 @@ module CleanSupport
     def rec(hash, *keys)
       key = keys.shift
       if hash.is_a?(Hash)
-        hash = hash[key]
-        return rec(hash, *keys) if keys.any?
-        return hash
+        return rec(hash[key], *keys) if keys.any?
+        return hash[key]
       end
       return nil
     end

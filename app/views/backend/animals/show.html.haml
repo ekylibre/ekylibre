@@ -110,7 +110,7 @@
           #@TODO waiting for a array method for jsonize key in helper in order to make multiple Y AXIS
           # ex : y_axis: [{{title: {text: "matter_concentration"}}, {{title: {text: "cell_concentration"}, opposite: true}]
           #
-    
+
         = column_chart(series, y_axis: [{title: {text: :net_weight.tl}}, {title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, legend: {})
 
       - else

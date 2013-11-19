@@ -10,6 +10,7 @@
       <item name="incident" target="product"/>
     </items>
   </nomenclature>
+
   <!-- level 1 -->
   <nomenclature name="incidents-incident">
     <items>

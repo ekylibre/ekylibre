@@ -41,6 +41,9 @@ spa:
 
     legal_entity:
 
+    listing:
+      root_model:
+        company: "Compañía"
     matter:
 
     medicine:
