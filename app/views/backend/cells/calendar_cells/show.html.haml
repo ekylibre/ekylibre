@@ -1,2 +1,2 @@
-= calendar @interventions, :start_day => :monday do |intervention|
-  %div= link_to intervention.reference_name, backend_intervention_url(intervention)
+#calendar{'data-simple-calendar' => "true"}
+  = render "month"

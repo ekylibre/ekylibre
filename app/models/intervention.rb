@@ -71,6 +71,10 @@ class Intervention < Ekylibre::Record::Base
 
   # @TODO in progress - need to .all parent reference_name to have the name of the procedure_nature
 
+  scope :between, lambda { |started_at, stopped_at|
+    where("started_at BETWEEN ? AND ?", started_at, stopped_at)
+  }
+
   scope :of_nature, lambda { |*natures|
     where("natures ~ E?", natures.sort.map { |nature| "\\\\m#{nature.to_s.gsub(/\W/, '')}\\\\M" }.join(".*"))
   }

@@ -1,7 +1,13 @@
 class Backend::Cells::CalendarCellsController < Backend::CellsController
 
   def show
-    @interventions = Intervention.all
+    year  = params[:year]  || Date.today.year
+    month = params[:month] || Date.today.month
+    started_at = Time.new(year.to_i, month.to_i, 1)
+    @interventions = Intervention.between(started_at, started_at.end_of_month)
+    if request.xhr? and params[:year] and params[:month]
+      render partial: "month"
+    end
   end
 
 end

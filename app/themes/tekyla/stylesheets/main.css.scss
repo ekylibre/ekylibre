@@ -1937,7 +1937,79 @@ svg.map {
 /* Calendar */
 /* @FIXME : need to be update ! */
 
-.calendar {
+[data-simple-calendar] {
+  h2 {
+    @include text-align(center);
+    padding-bottom: $default-gap;
+    &, * {
+      font-size: $fs-large;
+      vertical-align: middle;
+    }
+    .next-month, .previous-month {
+      padding: 0;
+      width: $fs-huge;
+      text-align: center;
+      display: block;
+    }
+    .next-month {
+      @include float(right);
+    }
+    .previous-month {
+      @include float(left);
+    }
+  }
+  table {
+    th {
+      text-align: center;
+    }
+    td.day {
+      border: 1px solid #AAA;
+      background: white;
+      padding: 0;
+      width: 14.2857%;
+      vertical-align: top;
+      > div {
+        min-height: 4 * $fs-normal;
+        height: 100%;
+        .intervention {
+          padding: 0 round($default-gap * 0.4);
+          display: block;
+          background: #EEE;
+          &, * {
+            font-size: $fs-small;
+          }
+          &.squeezed {
+            text-decoration: line-through;
+          }
+          &.done {
+            background: mix(white, $success-color, 60%);
+          }
+        }
+      }
+      &.today {
+        background: #FFE;
+      }
+      &.not-current-month {
+        > div {
+          @include opacity(0.6);
+          &:hover {
+            @include opacity(1);
+          }
+        }
+      }
+      .day_number {
+        padding: round($default-gap * 0.4);
+        display: block;
+        width: 2.5ex;
+        @include text-align(right);
+        clear: both;
+      }
+    }
+  }
+}
+
+
+.old-calendar {
   margin: auto;
 
   .monthName th {
