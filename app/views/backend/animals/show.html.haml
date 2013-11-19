@@ -61,6 +61,59 @@
         - l.attribute :father, :url => true
         - l.attribute :identification_number
         - l.attribute :description
+    - b.cell :indicators_evolutions do
+      - if @animal.born_at
+        :ruby
+          #
+          #
+          started_on = @animal.born_at.to_date
+          stopped_on = Date.today
+      
+          series = []
+          categories = {}
+          date = started_on
+          while date < stopped_on
+            categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(:format => "%b %Y")
+            date = date >> 1
+          end
+      
+          #
+          #  data for bar chart indicator and by month
+          #
+          bar_indicators = [:animal_disease_state]
+          for indicator in bar_indicators
+            items = ProductIndicatorDatum.where(:indicator => indicator, :product => @animal).measured_between(started_on, stopped_on)
+            if items.count > 0
+              item_h = items.averages_of_periods().sort.inject({}) do |hash, pair|
+                hash[pair.expr.to_i.to_s] = pair.valeur.to_s.to_d
+                hash
+              end
+              series << {type: 'column', name: indicator.tl, data: normalize_serie(item_h, categories.keys) }
+            end
+          end
+      
+          #
+          #  data for bar chart indicator and by month
+          #
+          spline_indicators = [:net_weight]
+          for indicator in spline_indicators
+            items = ProductIndicatorDatum.where(:indicator => indicator, :product => @animal).measured_between(started_on, stopped_on)
+            if items.count > 0
+              item_h = items.averages_of_periods().sort.inject({}) do |hash, pair|
+                hash[pair.expr.to_i.to_s] = pair.valeur.to_d
+                hash
+              end
+              series << {type: 'spline', name: indicator.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}
+            end
+          end
+      
+          #@TODO waiting for a array method for jsonize key in helper in order to make multiple Y AXIS
+          # ex : y_axis: [{{title: {text: "matter_concentration"}}, {{title: {text: "cell_concentration"}, opposite: true}]
+          #
+    
+        = column_chart(series, y_axis: [{title: {text: "matter_concentration"}}, {title: {text: "cell_concentration"}, opposite: true}], x_axis: { categories: categories.values}, legend: {})
+      - else
+        %strong= :no_data.tl
 
 
   - b.tabbox do
