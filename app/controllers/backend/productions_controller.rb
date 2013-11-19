@@ -74,7 +74,7 @@ class Backend::ProductionsController < BackendController
   # List procedures for one production
   list(:interventions, :conditions => {production_id: 'params[:id]'.c}, :order => "created_at DESC", line_class: :status) do |t|
     # t.column :name
-    t.column :procedure, url: true
+    t.column :name, url: true
     #t.column :name, through: :storage, url: true
     t.column :state
     t.column :incident, url: true
