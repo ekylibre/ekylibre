@@ -22,7 +22,6 @@ class IndicatorDatum < Ekylibre::Record::Base
   validate :validate_value
 
   def set_datatype
-    self.measured_at ||= Time.now
     self.indicator_datatype = self.theoric_datatype
   end
 

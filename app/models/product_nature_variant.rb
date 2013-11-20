@@ -272,7 +272,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
       variant = self.create!(attributes)
     end
 
-    if !item.frozen_indicators_values.to_s.blank?
+    if variant and !item.frozen_indicators_values.to_s.blank?
       # create frozen indicator for each pair indicator, value ":population => 1unity"
       item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
         .collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.each do |i|
