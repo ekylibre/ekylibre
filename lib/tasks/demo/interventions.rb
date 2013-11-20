@@ -113,7 +113,7 @@ demo :interventions do
               i.add_cast(reference_name: 'driver',      actor: Worker.all.sample)
               i.add_cast(reference_name: 'tractor',     actor: Product.can("tow(sower)").all.sample)
               i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
-              i.add_cast(reference_name: 'culture',     variant: ProductNatureVariant.of_variety(variety).first, quantity: (area.to_s.to_f / 10000.0))
+              i.add_cast(reference_name: 'culture',     variant: ProductNatureVariant.find_or_import!(variety).first, quantity: (area.to_s.to_f / 10000.0))
             end
 
             culture = int.casts.find_by(reference_name: 'culture').actor rescue nil
