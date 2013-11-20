@@ -173,23 +173,23 @@ demo :interventions do
             coeff = (area.to_s.to_f / 10000.0) / 6.0
 
             bob = Worker.all.sample
-            sowing = support.interventions.where(reference_name: "sowing").where("started_at < ?", Date.civil(year, 7, 1)).order("stopped_at DESC").first
+            sowing = support.interventions.where(reference_name: "sowing").where("started_at < ?", Date.civil(year, 6, 6)).order("stopped_at DESC").first
             if culture = sowing.casts.find_by(reference_name: 'culture').actor rescue nil
               int = Booker.intervene(:plant_mowing, year, 6, 6, 2.8 * coeff, support: support) do |i|
                 i.add_cast(reference_name: 'mower_driver', actor: bob)
                 i.add_cast(reference_name: 'tractor',      actor: Product.can("tow(mower)").all.sample)
                 i.add_cast(reference_name: 'mower',        actor: Product.can("mow").all.sample)
-                i.add_cast(reference_name: 'culture',        actor: culture)
+                i.add_cast(reference_name: 'culture',      actor: culture)
                 i.add_cast(reference_name: 'straw', quantity: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: culture.variety).first)
               end
   
               other = Worker.where("id != ?", bob.id).all.sample
               straw = int.casts.find_by_reference_name('straw').actor
               Booker.intervene(:straw_bunching, year, 6, 20, 3.13 * coeff, support: support) do |i|
-                i.add_cast(reference_name: 'tractor',      actor: Product.can("tow(baler)").all.sample)
-                i.add_cast(reference_name: 'baler_driver', actor: bob)
-                i.add_cast(reference_name: 'baler',        actor: Product.can("bunch").all.sample)
-                i.add_cast(reference_name: 'straw_to_bunch',        actor: straw)
+                i.add_cast(reference_name: 'tractor',        actor: Product.can("tow(baler)").all.sample)
+                i.add_cast(reference_name: 'baler_driver',   actor: bob)
+                i.add_cast(reference_name: 'baler',          actor: Product.can("bunch").all.sample)
+                i.add_cast(reference_name: 'straw_to_bunch', actor: straw)
                 i.add_cast(reference_name: 'straw_bales', quantity: 1.5 * coeff, variant: ProductNatureVariant.import_from_nomenclature(culture.variety.to_s == 'triticum_durum' ? :hard_wheat_straw_bales : :wheat_straw_bales))
               end
             end
