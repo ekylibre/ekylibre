@@ -100,7 +100,7 @@ jpn:
       # show: "Prix"
     backend/catalogs:
       # edit: "Modifier le catalogue de prix\_: %{name}"
-      # index: "Catalogue de prix"
+      # index: "Catalogues de prix"
       # new: "Nouveau catalogue de prix"
       # show: "Catalogue de prix\_: %{name}"
     backend/cells/bank_chart_cells: #?
@@ -455,7 +455,7 @@ jpn:
       # show: "Variante de produit\_: %{name}"
     backend/product_natures:
       # edit: "Modifier le type de produit\_: %{name}"
-      # index: "Type de produits"
+      # index: "Types de produits"
       # new: "Nouveau type de produit"
       # show: "Type de produit\_: %{name}"
     backend/product_ownerships: #?
@@ -843,6 +843,7 @@ jpn:
     # changes_reflected: "Changements répercutés"
     # check: "Vérifier"
     # check_fields: "Vous devez cocher au moins une case pour effectuer la modification"
+    # children: "Descendance"
     # childrens: "Enfants"
     # choice_options: "Indicateur avec liste de choix"
     # choices: "Choix"
@@ -1027,6 +1028,7 @@ jpn:
       # other: "Temps d’utilisation total\_: %{count} heures"
     # iban: "Numéro de compte bancaire internationale (IBAN)"
     # identification: "Identification"
+    # illness: "Maladies"
     # immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
     # import: "Importer"
     # import_backup: "Import de fichier de sauvegarde"
@@ -1046,6 +1048,7 @@ jpn:
     # indicator: "Indicateur"
     # indicator_value: "Valeur de l'indicateur"
     # indicators: "Indicateurs"
+    # indicators_evolutions: "Evolutions des indicateurs"
     # inel_index: "Index génétique INEL"
     # info: "Information\_: %{value}"
     # infos: "Information générales"

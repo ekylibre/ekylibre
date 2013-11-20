@@ -1471,10 +1471,6 @@
         <page to="backend/land_parcels#picture"/>
         <page to="backend/land_parcels#unroll"/>
       </item>
-      <item name="listings">
-      </item>
-      <item name="mandates">
-      </item>
       <item name="matters">
         <page to="backend/matters#index"/>
         <page to="backend/matters#create"/>
@@ -1542,10 +1538,6 @@
       </item>
       <item name="outgoing_deliveries">
         <page to="backend/outgoing_deliveries#unroll"/>
-      </item>
-      <item name="outgoing_delivery_modes">
-      </item>
-      <item name="outgoing_payment_modes">
       </item>
       <item name="outgoing_payments">
         <page to="backend/outgoing_payments#unroll"/>

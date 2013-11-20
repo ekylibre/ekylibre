@@ -6,7 +6,7 @@
 	link.attr("data-remote", "true")
 	    .attr("data-method", "get")
 	    .attr("data-update", '#' + calendar.attr("id"));
-	
+
     });
 
 

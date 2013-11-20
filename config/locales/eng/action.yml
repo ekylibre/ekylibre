@@ -100,7 +100,7 @@ eng:
       # show: "Prix"
     backend/catalogs:
       # edit: "Modifier le catalogue de prix\_: %{name}"
-      # index: "Catalogue de prix"
+      # index: "Catalogues de prix"
       # new: "Nouveau catalogue de prix"
       # show: "Catalogue de prix\_: %{name}"
     backend/cells/bank_chart_cells: #?
@@ -903,6 +903,7 @@ eng:
     changes_reflected: "Reflected changes"
     check: "Check"
     check_fields: "You have to check at least one box in order to update"
+    # children: "Descendance"
     childrens: "Childrens"
     # choice_options: "Indicateur avec liste de choix"
     choices: "Choices"
@@ -1094,6 +1095,7 @@ eng:
       zero: "No Time used" #?
     iban: "International Bank Account Number (IBAN)"
     identification: "Identification"
+    # illness: "Maladies"
     # immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
     import: "Import"
     import_backup: "Import backup"
@@ -1115,6 +1117,7 @@ eng:
     indicator: "Indicators"
     # indicator_value: "Valeur de l'indicateur"
     indicators: "Indicators"
+    # indicators_evolutions: "Evolutions des indicateurs"
     # inel_index: "Index génétique INEL"
     info: "General parameters"
     infos: "Product and quantity"

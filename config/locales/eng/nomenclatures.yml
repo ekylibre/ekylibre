@@ -1279,6 +1279,7 @@ eng:
         organic_matter: "Organic matter"
         phytosanitary: "Phytosanitary"
         plant: "Plant"
+        # plant_food: "Nourriture végétale"
         product: "Product"
         product_group: "Product group"
         property_title: "Property title"
