@@ -242,13 +242,11 @@ class OperationTask < Ekylibre::Record::Base
   def find_actor(name)
     parameter = reference.parameters[name.to_sym]
     if parameter.is_a?(Procedo::Variable)
-      cast = self.casts.find_by!(reference_name: parameter.name.to_s)
-      return cast.actor
+      return self.casts.find_by!(reference_name: parameter.name.to_s).actor
     elsif parameter.is_a?(Procedo::Indicator)
-      cast = self.casts.find_by!(reference_name: parameter.stakeholder.name.to_s)
-      return [cast.actor, parameter.indicator]
+      return [self.casts.find_by!(reference_name: parameter.stakeholder.name.to_s).actor, parameter.indicator]
     else
-      raise StandardError, "Don't known how to find a #{cast.class.name}"
+      raise StandardError, "Don't known how to find a #{parameter.class.name}"
     end
   end
 

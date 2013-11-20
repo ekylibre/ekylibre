@@ -247,9 +247,6 @@ class Intervention < Ekylibre::Record::Base
         self.operations.create!(started_at: started_at, stopped_at: started_at + d, reference_name: name)
         started_at += d
       end
-      # for name, operation in reference.operations
-      #   self.operations.create!(started_at: started_at, stopped_at: started_at + d, reference_name: name)
-      # end
       self.reload
       self.started_at = period[:started_at]
       self.stopped_at = started_at
