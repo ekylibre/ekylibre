@@ -175,7 +175,7 @@ class Backend::DashboardsController < BackendController
       end.collect do |c|
         name = c[:name]
         if model.respond_to?(name) and model.send(name).respond_to?(:options) and options = model.send(name).send(:options) and options.size > 0
-          "CASE " + options.collect{|l, v| "WHEN #{name} = '#{v}' THEN '#{l} '"}.join(" ") + " ELSE '' END"
+          "CASE " + options.collect{|l, v| "WHEN #{name} = '#{v}' THEN '" + l.to_s.gsub("'", "''") + " '"}.join(" ") + " ELSE '' END"
         else
           "COALESCE(#{name} || ' ', '')"
         end
