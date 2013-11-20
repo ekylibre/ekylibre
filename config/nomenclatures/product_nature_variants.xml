@@ -149,6 +149,18 @@
             unit_name="ton"
             frozen_indicators_values="net_weight: 1.00ton"
             />
+      <item name="wheat_straw_bales"
+            nature="straw"
+            derivative_of="triticum_aestivum" 
+            unit_name="unit"
+            frozen_indicators_values="net_weight: 1.00ton"
+            />
+      <item name="hard_wheat_straw_bales"
+            nature="straw"
+            derivative_of="triticum_durum" 
+            unit_name="unit"
+            frozen_indicators_values="net_weight: 1.00ton"
+            />
       <item name="bulk_hay"
             nature="grass"
             variety="hay"
