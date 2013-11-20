@@ -190,6 +190,13 @@ class ProductNature < Ekylibre::Record::Base
     end.compact
   end
 
+  # Returns list of indicators as an array of indicator items from the nomenclature
+  def variable_indicators_array
+    return self.variable_indicators.to_s.strip.split(/[\,\s]/).collect do |i|
+      Nomen::Indicators[i]
+    end.compact
+  end
+
 
   # Returns list of indicators as an array of indicator items from the nomenclature
   def indicators_array

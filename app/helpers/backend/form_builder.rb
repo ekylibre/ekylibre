@@ -219,21 +219,29 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       end
 
       # Add first indicators
-      indicators = variant.indicators_array
-      if variant.population_frozen?
-        indicators.delete_if do |indicator|
-          indicator.name.to_sym == :population
-        end
-      end
-      if @object.new_record? and indicators.size > 0
+      indicators = variant.variable_indicators_array
+      # if variant.population_frozen?
+      #   indicators.delete_if do |indicator|
+      #     indicator.name.to_sym == :population
+      #   end
+      # end
+      if @object.new_record? and indicators.any?
+
+        for indicator in indicators
+          @object.indicator_data.build(indicator: indicator.name)
+        end if @object.indicator_data.empty?
+
         html << @template.field_set(:indicators) do
           fs = "".html_safe
-          for indicator in indicators
-            datum = @object.indicator_data.new(:indicator => indicator.name)
+          for datum in @object.indicator_data
+            # for indicator in indicators
+            # datum = @object.indicator_data.new(:indicator => indicator.name)
+            indicator = Nomen::Indicators[datum.indicator]
             # error message for indicators
             fs << datum.errors.inspect if datum.errors.any?
             fs << self.backend_fields_for(:indicator_data, datum) do |indfi|
               fsi = "".html_safe
+              fsi << indfi.input(:indicator, as: :hidden)
               if indicator.datatype == :measure
                 datum.measure_value_unit = indicator.unit
                 fsi << indfi.input("#{indicator.datatype}_value_value", :wrapper => :append, :value => 0, :class => :inline, :label => indicator.human_name) do

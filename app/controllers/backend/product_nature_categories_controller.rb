@@ -25,6 +25,10 @@ class Backend::ProductNatureCategoriesController < BackendController
 
   list do |t|
     t.column :name, url: true
+    t.column :saleable
+    t.column :purchasable
+    t.column :storable
+    t.column :depreciable
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

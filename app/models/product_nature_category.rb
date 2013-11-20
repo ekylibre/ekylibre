@@ -109,7 +109,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   end
 
   def label
-    tc('label', :product_nature_category => self["name"])
+    self.name # tc('label', :product_nature_category => self["name"])
   end
 
   def duration

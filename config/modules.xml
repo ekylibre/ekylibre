@@ -140,6 +140,8 @@
         <page to="backend/mandates#list"/>
         <page to="backend/mandates#new"/>
         <page to="backend/mandates#update"/>
+        <page to="backend/mandates#show"/>
+        <page to="backend/mandates#unroll"/>
       </item>
     </group>
   </module>
@@ -734,6 +736,7 @@
         <page to="backend/listings#list"/>
         <page to="backend/listings#mail"/>
         <page to="backend/listings#new"/>
+        <page to="backend/listings#unroll"/>
         <page to="backend/listings#update"/>
       </item>
       <item name="aggregators">
@@ -977,6 +980,8 @@
         <page to="backend/outgoing_payment_modes#edit"/>
         <page to="backend/outgoing_payment_modes#list"/>
         <page to="backend/outgoing_payment_modes#new"/>
+        <page to="backend/outgoing_payment_modes#show"/>
+        <page to="backend/outgoing_payment_modes#unroll"/>
         <page to="backend/outgoing_payment_modes#up"/>
         <page to="backend/outgoing_payment_modes#update"/>
       </item>
@@ -1101,6 +1106,8 @@
         <page to="backend/outgoing_delivery_modes#edit"/>
         <page to="backend/outgoing_delivery_modes#list"/>
         <page to="backend/outgoing_delivery_modes#new"/>
+        <page to="backend/outgoing_delivery_modes#show"/>
+        <page to="backend/outgoing_delivery_modes#unroll"/>
         <page to="backend/outgoing_delivery_modes#update"/>
       </item>
     </group>
@@ -1258,37 +1265,6 @@
         <page to="backend/interfacers#unroll"/>
         <page to="backend/interfacers#unroll_options"/>
       </item>
-    </group>
-  </inaccessible-actions>
-  <untreated-actions>
-    <group>
-      <item name="animal_medicines">
-        <page to="backend/animal_medicines#list_contained_products"/>
-        <page to="backend/animal_medicines#list_groups"/>
-        <page to="backend/animal_medicines#list_incidents"/>
-        <page to="backend/animal_medicines#list_members"/>
-        <page to="backend/animal_medicines#list_places"/>
-        <page to="backend/animal_medicines#picture"/>
-      </item>
-      <item name="building_divisions">
-        <page to="backend/building_divisions#list_groups"/>
-        <page to="backend/building_divisions#list_incidents"/>
-        <page to="backend/building_divisions#list_indicators"/>
-        <page to="backend/building_divisions#list_intervention_casts"/>
-        <page to="backend/building_divisions#list_members"/>
-        <page to="backend/building_divisions#list_places"/>
-        <page to="backend/building_divisions#picture"/>
-      </item>
-      <item name="buildings">
-        <page to="backend/buildings#list_contained_products"/>
-        <page to="backend/buildings#list_groups"/>
-        <page to="backend/buildings#list_incidents"/>
-        <page to="backend/buildings#list_indicators"/>
-        <page to="backend/buildings#list_intervention_casts"/>
-        <page to="backend/buildings#list_members"/>
-        <page to="backend/buildings#list_places"/>
-        <page to="backend/buildings#picture"/>
-      </item>
       <item name="bank_chart_cells">
         <page to="backend/cells/bank_chart_cells#show"/>
       </item>
@@ -1365,6 +1341,37 @@
       </item>
       <item name="rss_cells">
         <page to="backend/cells/rss_cells#show"/>
+      </item>
+    </group>
+  </inaccessible-actions>
+  <untreated-actions>
+    <group>
+      <item name="animal_medicines">
+        <page to="backend/animal_medicines#list_contained_products"/>
+        <page to="backend/animal_medicines#list_groups"/>
+        <page to="backend/animal_medicines#list_incidents"/>
+        <page to="backend/animal_medicines#list_members"/>
+        <page to="backend/animal_medicines#list_places"/>
+        <page to="backend/animal_medicines#picture"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#list_groups"/>
+        <page to="backend/building_divisions#list_incidents"/>
+        <page to="backend/building_divisions#list_indicators"/>
+        <page to="backend/building_divisions#list_intervention_casts"/>
+        <page to="backend/building_divisions#list_members"/>
+        <page to="backend/building_divisions#list_places"/>
+        <page to="backend/building_divisions#picture"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#list_contained_products"/>
+        <page to="backend/buildings#list_groups"/>
+        <page to="backend/buildings#list_incidents"/>
+        <page to="backend/buildings#list_indicators"/>
+        <page to="backend/buildings#list_intervention_casts"/>
+        <page to="backend/buildings#list_members"/>
+        <page to="backend/buildings#list_places"/>
+        <page to="backend/buildings#picture"/>
       </item>
       <item name="cultivable_land_parcels">
         <page to="backend/cultivable_land_parcels#list_groups"/>
@@ -1465,11 +1472,8 @@
         <page to="backend/land_parcels#unroll"/>
       </item>
       <item name="listings">
-        <page to="backend/listings#unroll"/>
       </item>
       <item name="mandates">
-        <page to="backend/mandates#show"/>
-        <page to="backend/mandates#unroll"/>
       </item>
       <item name="matters">
         <page to="backend/matters#index"/>
@@ -1540,12 +1544,8 @@
         <page to="backend/outgoing_deliveries#unroll"/>
       </item>
       <item name="outgoing_delivery_modes">
-        <page to="backend/outgoing_delivery_modes#show"/>
-        <page to="backend/outgoing_delivery_modes#unroll"/>
       </item>
       <item name="outgoing_payment_modes">
-        <page to="backend/outgoing_payment_modes#show"/>
-        <page to="backend/outgoing_payment_modes#unroll"/>
       </item>
       <item name="outgoing_payments">
         <page to="backend/outgoing_payments#unroll"/>

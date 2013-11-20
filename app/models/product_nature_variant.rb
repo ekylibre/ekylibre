@@ -63,7 +63,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_presence_of :category, :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name, :variety
   #]VALIDATORS]
 
-  delegate :matching_model, :indicators_array, :population_frozen?, :population_modulo, :frozen_indicators_array, to: :nature
+  delegate :matching_model, :indicators_array, :population_frozen?, :population_modulo, :frozen_indicators_array, :variable_indicators_array, to: :nature
   delegate :variety, :derivative_of, to: :nature, prefix: true
   delegate :asset_account, :product_account, :charge_account, :stock_account, to: :nature
 
@@ -264,7 +264,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         :active => true,
         :nature => ProductNature.find_by_reference_name(item.nature) || ProductNature.import_from_nomenclature(item.nature),
         :reference_name => item.name,
-        :unit_name => item.unit_name.to_s,
+        :unit_name => I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.unit_name}"),
         # :frozen_indicators => item.frozen_indicators_values.to_s,
         :variety => item.variety || nil,
         :derivative_of => item.derivative_of || nil

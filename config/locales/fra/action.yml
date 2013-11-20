@@ -105,7 +105,7 @@ fra:
       show: "Prix"
     backend/catalogs:
       edit: "Modifier le catalogue de prix\_: %{name}"
-      index: "Catalogue de prix"
+      index: "Catalogues de prix"
       new: "Nouveau catalogue de prix"
       show: "Catalogue de prix\_: %{name}"
     backend/cells/bank_chart_cells:
@@ -527,7 +527,7 @@ fra:
       show: "Variante de produit\_: %{name}"
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
-      index: "Type de produits"
+      index: "Types de produits"
       new: "Nouveau type de produit"
       show: "Type de produit\_: %{name}"
     backend/product_ownerships:

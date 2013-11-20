@@ -87,7 +87,7 @@ class Product < Ekylibre::Record::Base
   has_many :phases, class_name: "ProductPhase"
   has_many :variants, class_name: "ProductNatureVariant", :through => :phases
   has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
-  has_many :operation_tasks, foreign_key: :subject_id
+  # has_many :operation_tasks
   has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :product_id
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
@@ -153,7 +153,7 @@ class Product < Ekylibre::Record::Base
   validates_presence_of :nature, :variant, :name
 
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :indicator_data, :allow_destroy => true#, :reject_if => :all_blank,
+  accepts_nested_attributes_for :indicator_data, :allow_destroy => true #, :reject_if => :all_blank,
   acts_as_numbered force: false
   delegate :serial_number, :producer, to: :tracking
   delegate :name, to: :nature, prefix: true
