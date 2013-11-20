@@ -236,14 +236,16 @@ class Entity < Ekylibre::Record::Base
 
   # This method creates automati.ally an account for the entity for its usage (client, supplier...)
   def account(nature)
-    natures = {:payer => :client, :payee => :supplier}
-    nature = natures[nature] || nature
-    raise ArgumentError.new("Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)") unless [:client, :supplier].include? nature
-    valid_account = self.send(nature.to_s + "_account")
+    natures, conversions = [:client, :supplier], {:payer => :client, :payee => :supplier}
+    nature = conversions[nature] || nature
+    unless natures.include?(nature)
+      raise ArgumentError, "Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)"
+    end
+    valid_account = self.send("#{nature}_account")
     if valid_account.nil?
       prefix = Nomen::Accounts[nature.to_s.pluralize].send(Account.chart)
       if Preference[:use_entity_codes_for_account_numbers]
-        number = prefix.to_s+self.number.to_s
+        number = prefix.to_s + self.number.to_s
         valid_account = Account.find_by_number(number)
         valid_account = Account.create(:number => number, :name => self.full_name, :reconcilable => true) unless valid_account
       else
@@ -260,7 +262,7 @@ class Entity < Ekylibre::Record::Base
         # puts "Find entity (#{x-Time.now}s) :"+i.to_s
         valid_account = Account.create(:number => prefix.to_s+suffix.to_s, :name => self.full_name, :reconcilable => true)
       end
-      self.reload.update_column("#{natures[nature]}_account_id", valid_account.id)
+      self.reload.update_column("#{nature}_account_id", valid_account.id)
     end
     return valid_account
   end
