@@ -40,7 +40,7 @@ module Nomen
       end
       # Items
       for item in nomenclature.xpath('xmlns:items/xmlns:item')
-        i = self.add_item(item, :parent => options[:parent]) # , :attributes => attributes
+        i = self.add_item(item, parent: options[:parent]) # , :attributes => attributes
         @roots << i if options[:root]
         if sets[i.name]
           self.harvest(sets[i.name], sets, :parent => i) # , :attributes => attributes

@@ -15,6 +15,16 @@ module Nomen
       end
     end
 
+    def root?
+      !self.parent
+    end
+
+    def original_nomenclature_name
+      return self.parent.name.to_sym unless root?
+      return nil
+    end
+
+
     # Returns children recursively by default
     def children(recursively = true)
       @children ||= nomenclature.items.values.select do |item|

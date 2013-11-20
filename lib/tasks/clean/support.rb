@@ -1,11 +1,22 @@
 module CleanSupport
 
   class << self
+    
+    def exp(hash, *keys)
+      options = keys.extract_options!
+      name = keys.last
+      if value = rec(hash, *keys)
+        return "#{name}: " + yaml_value(value)
+      else
+        return "# #{name}: " + yaml_value(options[:default] || name.to_s.humanize)
+      end
+    end
+
 
     def rec(hash, *keys)
-      key = keys.shift
+      key = keys.first
       if hash.is_a?(Hash)
-        return rec(hash[key], *keys) if keys.any?
+        return rec(hash[key], *keys[1..-1]) if keys.count > 1
         return hash[key]
       end
       return nil

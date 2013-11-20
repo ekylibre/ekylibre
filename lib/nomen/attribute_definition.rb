@@ -40,12 +40,20 @@ module Nomen
       @inherit
     end
 
+    def inline_choices?
+      !@choices.is_a?(Symbol)
+    end
+
+   def choices_nomenclature
+      @choices
+    end
+
     # Returns list of choices for a given attribute
     def choices
-      if @choices.is_a?(Symbol)
-        return Nomen[@choices.to_s].all
-      else
+      if inline_choices?
         return @choices || []
+      else
+        return Nomen[@choices.to_s].all
       end
     end
 

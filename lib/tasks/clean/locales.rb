@@ -296,9 +296,53 @@ task :locales => :environment do
   acount += total-untranslated
 
   # Nomenclatures
-  count = CleanSupport.sort_yaml_file :nomenclatures, log
-  atotal += count
-  acount += count
+  file = locale_dir.join("nomenclatures.yml")
+  ref = CleanSupport.yaml_to_hash(file)[locale][:nomenclatures] rescue nil
+  ref ||= {}
+  translation  = locale.to_s+":\n"
+  translation << "  nomenclatures:\n"
+  for name in Nomen.names
+    nomenclature = Nomen[name]
+    translation << "    #{nomenclature.name}:\n"
+    translation << CleanSupport.exp(ref, nomenclature.name, :name, default: name.humanize).dig(3)
+    choices = ""
+    if nomenclature.attributes.any?
+      translation << "      attributes:\n"
+      for name, attribute in nomenclature.attributes
+        translation << CleanSupport.exp(ref, nomenclature.name, :attributes, name.to_sym).dig(4)
+        if attribute.type == :choice
+          if attribute.inline_choices?
+            choices << "#{name}:\n"
+            for choice in attribute.choices
+              choices << CleanSupport.exp(ref, nomenclature.name, :choices, name.to_sym, choice.to_sym).dig
+            end
+          else
+            choices << "# #{name}: # Choices comes from nomenclature: #{attribute.choices_nomenclature}\n"
+          end
+        end
+      end
+    end
+    unless choices.blank?
+      choices = "choices:\n" + choices.dig
+      translation << choices.dig(3)
+    end
+    translation << "      items:\n"
+    for item in nomenclature.list
+      line = CleanSupport.exp(ref, nomenclature.name, :items, item.name.to_sym)
+      translation << (item.root? ? line : line.ljust(50) + " # #{item.parent.name}").dig(4)
+    end
+  end
+
+  File.open(file, "wb") do |file|
+    file.write(translation)
+  end
+
+
+
+
+  # count = CleanSupport.sort_yaml_file :nomenclatures, log
+  # atotal += count
+  # acount += count
 
   # Procedures
   count = CleanSupport.sort_yaml_file :procedures, log

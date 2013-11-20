@@ -38,6 +38,7 @@ eng:
         unity: "Unity" #?
   nomenclatures:
     abilities:
+      attributes: #?
       items:
         catch: "Catch"
         consume: "Consume"
@@ -101,7 +102,6 @@ eng:
         # campaigns_interests: "Crédits des crédits bancaires de campagne"
         # capital: "Capital"
         # capitals: "Comptes de capitaux"
-        # cash: "Caisse"
         # clients: "Clients"
         # collected_vat: "Taxes sur le chiffre d'affaires collectées par l'entreprise"
         # compensation_operations: "Operations de compensation (conventions de compte courant)"
@@ -114,7 +114,6 @@ eng:
         # discount_from_cooperatives: "Ristournes percues des cooperatives agricoles"
         # electricity_expenses: "Electricité"
         # end_products_stock: "Stock de produits finis et intermédiaires"
-        # end_revenues_stock: "Stock de produits finis"
         equipment_asset: "Equipment asset" #?
         # equipment_asset_depreciations: "Ammortissements des installations techniques, matériels et outillage"
         # equipment_assets: "Matériels"
@@ -247,7 +246,7 @@ eng:
         # short_term_loans_interests: "Intérêts des emprunts à court terme"
         short_time_animal_stock: "Short time animal stock"
         short_time_crop_stock: "Short time crop stock" #?
-        short_time_plant_crop_variation: "Short time plant crop variation"
+        short_time_plant_crop_variation: "Short time plant crop variation" #?
         # social_agricultural_mutuality: "Mutualité Sociale Agricole"
         # staff_due_remunerations: "Personnel - rémunérations dûes"
         # staff_expenses: "Charges de personnel"
@@ -290,7 +289,10 @@ eng:
         # handicraft: "Artisanat"
         # service: "Service"
         # vegetal_crops: "Production végétale"
+    charts_of_accounts:
+      items: #?
     countries:
+      attributes: #?
       items:
         ad: "Andorra"
         ae: "United Arab Emirates"
@@ -540,6 +542,7 @@ eng:
         zm: "Zambia"
         zw: "Zimbabwe"
     currencies:
+      attributes: #?
       items:
         AED: "UAE Dirham"
         AFN: "Afghani"
@@ -710,7 +713,11 @@ eng:
         ZAR: "Rand"
         ZMK: "Zambian Kwacha"
         ZWL: "Zimbabwe Dollar"
+    dimensions:
+      attributes: #?
+      items: #?
     document_categories:
+      attributes: #?
       items:
         # accountancy: "Comptabilité"
         # animal_farming: "Elevage"
@@ -718,22 +725,18 @@ eng:
         # land_parcel_management: "Conduite de la parcelle"
         # management: "Gestion"
     document_natures:
+      attributes: #?
       items:
         # activity_cost: "Coût de production par activité et intervention"
-        # animal: "Animal"
         # animal_husbandry_registry: "Registre d'élevage"
-        # balance: "Balance"
         # balance_sheet: "Bilan comptable"
         # deposit: "Remise en banque"
-        # entity: "Personne"
-        # financial_year: "Exercice comptable"
         # general_journal: "Journal général"
         # general_ledger: "Grand livre"
         # income_statement: "Compte de résultat"
         # inventory: "Inventaire"
         # journal: "Journal"
         # manure_management_plan: "Plan de fumure"
-        # other: "Auter"
         # phytosanitary_registry: "Registre phytosanitaire"
         # profit_and_loss_statement: "Compte de résultat"
         # purchase_order: "Achat"
@@ -741,9 +744,10 @@ eng:
         # sales_invoice: "Facture de vente"
         # sales_order: "Commande de vente"
         # stocks: "Stocks"
-        # transport: "Transport"
         # veterinary_booklet: "Carnet vétérinaire"
     entity_link_natures:
+      attributes: #?
+      choices: #?
       items:
         # direct_kinship: "Parenté directe"
         # undefined: "Indéfini"
@@ -762,47 +766,45 @@ eng:
         madam: "Madam"
         person: "Person"
         professor: "Professor"
-        public_establisment: "Public establisment"
+        public_establisment: "Public establisment" #?
         public_interest_group: "Public interest group"
         sir: "Sir"
         syndicate: "Syndicate"
     incidents:
+      attributes: #?
       items:
         # incident: "Incident"
         # pathology: "Pathologie"
     indicators:
-      attributes:
-        choice: "Choice"
-        type: "Type"
+      attributes:  #?
+        choice: "Choice" #?
+        type: "Type" #?
       choices:
-        choices:
-          aging: "Aging"
-          back_heat: "Back heat"
-          bolting: "Bolting"
-          covered: "Covered"
-          depletion: "Depletion"
-          # female: "Femelle"
-          first_growth: "First growth"
-          flowering: "Flowering"
-          gain_senescence: "Gain senescence"
-          germination: "Germination"
-          grain_maturity: "Grain maturity"
-          heading: "Heading"
-          healthy: "Healthy"
-          heat: "Heat"
-          lactation: "Lactation"
-          # male: "Mâle"
-          maturity: "Maturity"
-          # mixt: "Mixte"
-          negative: "Negative"
-          positive: "Positive"
-          pregnancy: "Pregnancy"
-          raw: "Raw"
-          second_growth: "Second growth"
-          senescence: "Senescence"
-          sick: "Sick"
-          swelling: "Swelling"
-          tillering: "Tillering"
+        choices:  #?
+          aging: "Aging" #?
+          back_heat: "Back heat" #?
+          bolting: "Bolting" #?
+          covered: "Covered" #?
+          depletion: "Depletion" #?
+          first_growth: "First growth" #?
+          flowering: "Flowering" #?
+          gain_senescence: "Gain senescence" #?
+          germination: "Germination" #?
+          grain_maturity: "Grain maturity" #?
+          heading: "Heading" #?
+          healthy: "Healthy" #?
+          heat: "Heat" #?
+          lactation: "Lactation" #?
+          maturity: "Maturity" #?
+          negative: "Negative" #?
+          positive: "Positive" #?
+          pregnancy: "Pregnancy" #?
+          raw: "Raw" #?
+          second_growth: "Second growth" #?
+          senescence: "Senescence" #?
+          sick: "Sick" #?
+          swelling: "Swelling" #?
+          tillering: "Tillering" #?
         datatype:
           # boolean: "Case à cocher"
           # choice: "Liste de choix"
@@ -812,6 +814,7 @@ eng:
           # multi_polygon: "Multi-polygone spatial"
           # point: "Point spatial"
           # string: "Texte"
+        interpolation: #?
       items:
         animal_disease_state: "Animal disease state"
         animal_life_state: "Animal life state"
@@ -819,9 +822,9 @@ eng:
         clostridial_spores_concentration: "Clostridial spores concentration"
         fat_matters_concentration: "Fat matters concentration"
         freezing_point_temperature: "Freezing point temperature"
-        ground_appearance: "Ground appearance"
+        ground_appearance: "Ground appearance" #?
         immunoglobulins_concentration: "Immunoglobulins concentration"
-        in_production: "In production"
+        in_production: "In production" #?
         # inel_index: "Index génétique INEL"
         inhibitors_presence: "Inhibitors presence"
         # isu_index: "Index génétique ISU"
@@ -839,7 +842,7 @@ eng:
         # population: "Population"
         protein_matters_concentration: "Protein matters concentration"
         # shape: "Forme"
-        sowable: "Sowable"
+        sowable: "Sowable" #?
         temperature: "Temperature"
         total_bacteria_concentration: "Total bacteria concentration"
         # tp_index: "Index génétique Taux protéïque"
@@ -953,6 +956,7 @@ eng:
         uzb: "Uzbek"
         vie: "Vietnamese"
     procedure_natures:
+      attributes: #?
       items:
         animal_cares: "Animal cares" #?
         # animal_feeding: "Alimentation des animaux"
@@ -964,18 +968,16 @@ eng:
         production: "Production" #?
         reproduction: "Reproduction" #?
         # soil_enrichment: "Amendement"
-        technical_guide: "Technical guide"
+        technical_guide: "Technical guide" #?
         tillage: "Tillage"
-        treatment: "Treatment"
+        treatment: "Treatment" #?
         # viviparous_birth: "Reproduction (vivipare)"
       name: "Name"
     product_nature_categories:
       attributes:
-        # active: "Actif"
         # asset_account: "Compte d’immobilisation"
         # charge_account: "Compte de charge"
         # depreciable: "Immobilisable"
-        # number: "Numéro"
         # pictogram: "Pictogramme"
         # product_account: "Compte de produit"
         # purchasable: "Achetable"
@@ -983,7 +985,8 @@ eng:
         # saleable: "Vendable"
         # stock_account: "Compte de stock"
         # storable: "Stockable"
-      # choices: ""
+      choices:
+        pictogram: #?
       items:
         # animal_food: "Aliment pour animaux"
         # animal_medicine: "Produit vétérinaire"
@@ -1015,36 +1018,25 @@ eng:
     product_nature_variants:
       attributes:
         # derivative_of: "Dérivé de la variété"
-        # frozen_indicators: "Indicateurs fixes"
         # nature: "Type de produit"
         # unit_name: "Nom de l'unité"
         # variety: "Variété"
       choices:
         unit_name:
-          # 100g_dose: "dose de 100g"
-          # 10ml_dose: "dose de 10ml"
-          # 1l_dose: "dose de 1litre"
-          # 25kg_bag: "sac de 25kg"
           # bag: "sac"
           # box: "boîte"
-          # building: "bâtiment"
           # can: "bidon"
           # cubic_meter: "mètre cube"
-          # equipment: "equipement"
           # head: "tête"
           # hectare: "hectare(s)"
           # hour: "heure"
           # kilogram: "kilogramme(s)"
-          # land_parcel: "parcelle"
           # liter: "litre(s)"
-          # person: "personne"
-          # room: "pièce"
           # ton: "tonne(s)"
           # unit: "unité"
       items:
         # additive: "Adjuvant"
         # animal_building: "Bâtiment d'accueil pour les animaux"
-        # animal_medicine: "Produit vétérinaire"
         # anti_slug: "Anti-limace"
         # baler: "Botteleuse"
         # barley_crop: "Culture d'orge"
@@ -1058,7 +1050,6 @@ eng:
         # calf: "Veau"
         # cattle_herd: "Troupeau de bovins"
         # cattle_manure: "Fumier de bovins"
-        # chemical_fertilizer: "Engrais chimique"
         # complete_herbicide: "Herbicide total"
         # corn_crop: "Culture de maïs"
         # corn_grain: "Graine de maïs"
@@ -1068,11 +1059,9 @@ eng:
         # equipment: "Équipement"
         # ewe_milk: "Lait de brebis"
         # fallow_crop: "Jachère"
-        # feed: "Aliment du bétail"
         # female_adult_cow: "Vache"
         # female_young_cow: "Génisse"
         # goat_milk: "Lait de chèvre"
-        # grain: "Graine"
         # grass: "Herbe"
         # hard_wheat_seed_25: "Semence de blé dur 25kg"
         # hay_rake: "Andaineur"
@@ -1083,13 +1072,10 @@ eng:
         # male_adult_cow: "Taureau"
         # male_young_cow: "Taurillon"
         # manager: "Responsable"
-        # manure: "Fumier"
         # mineral_cleaner: "Nettoyant chimique"
-        # mineral_fertilizer: "Engrais minéral"
         # molluscicide: "Molluscicide"
         # mower: "Faucheuse"
         # office_building: "Bureau"
-        # organic_fertilizer: "Engrais organique"
         # other_herbicide: "Herbicide autre"
         # plow: "Charrue"
         # poacea_herbicide: "Herbicide graminées"
@@ -1103,7 +1089,6 @@ eng:
         # spelt_wheat_crop: "Culture d'épeautre"
         # spread_renting: "Location d'épandeur"
         # spreader: "Epandeur à engrais"
-        # straw: "Paille"
         # sunflower_crop: "Culture de tournesol"
         # technician: "Technicien"
         # temporary_meadow_crop: "Culture de prairie temporaire"
@@ -1118,23 +1103,23 @@ eng:
     product_natures:
       attributes:
         abilities: "Abilities"
-        active: "Active"
+        active: "Active" #?
         asset_account: "Asset account" #?
         atomic: "Atomic" #?
         category: "Category"
         charge_account: "Charge account" #?
         depreciable: "Depreciable" #?
-        derivative: "Derivative"
+        derivative: "Derivative" #?
         frozen_indicators: "Frozen indicators"
         indicators: "Indicators" #?
-        number: "Number"
+        number: "Number" #?
         product_account: "Product account" #?
         purchasable: "Purchasable" #?
         reductible: "Reductible" #?
         saleable: "Saleable" #?
         stock_account: "Stock account" #?
         storable: "Storable" #?
-        unit: "Unit"
+        unit: "Unit" #?
         # variable_indicators: "Indicateurs variables"
         variety: "Variety"
       choices:
@@ -1146,30 +1131,24 @@ eng:
         # additive: "Adjuvant"
         adult_cow: "Adult cow" #?
         all_in_one_equipment: "All in one equipment" #?
-        # animal_building: "Bâtiment dédié aux animaux"
         # animal_building_division: "Zone dédiée aux animaux"
         # animal_food_building_division: "Zone de stockage dédiée aux aliments"
         # animal_medicine: "Produit vétérinaire"
         # baler: "Botteleuse"
-        # barley_crop: "Culture d'orge"
         building: "Building"
         # building_division: "Pièce ou zone d'un bâtiment"
         calf: "Calf"
         # cattle_herd: "Troupeau de bovins"
         # chemical_fertilizer: "Engrais chimique"
-        # corn_crop: "Culture de maïs"
         # crop: "Culture"
         # cultivable_land_parcel: "Parcelle culturale"
-        # durum_wheat_crop: "Culture de blé dur"
         # equipment: "Équipement"
-        # fallow_crop: "Jachère"
         # female_adult_cow: "Vache"
         # female_young_cow: "Génisse"
         # food: "Aliment"
         # fungicide: "Fongicide"
         grain: "Grain"
         # grass: "Herbe"
-        # hay: "Foin"
         # hay_rake: "Andaineur"
         # herbicide: "Herbicide"
         # insecticide: "Insecticide"
@@ -1178,52 +1157,44 @@ eng:
         # male_adult_cow: "Taureau"
         # male_young_cow: "Taurillon"
         # manager: "Responsable"
-        # manure: "Fumier"
         milk: "Milk"
         # mineral_cleaner: "Nettoyant chimique"
-        # mineral_fertilizer: "Engrais minéral"
         # molluscicide: "Molluscicide"
         # mower: "Faucheuse"
-        # office_building: "Bureau"
         # organic_fertilizer: "Engrais organique"
         # plow: "Charrue"
-        # screed_building: "Construction béton (silo, chape, terrasse)"
         # seed: "Semence"
-        # silage: "Ensilage"
         # small_equipment: "Petit matériel"
-        # sorghum_crop: "Culture de sorgho"
         # sower: "Semoir"
-        # spelt_wheat_crop: "Culture d'épeautre"
         # spread_renting: "Location d'épandeur"
         # spreader: "Epandeur à engrais"
         straw: "Straw"
-        # sunflower_crop: "Culture de tournesol"
         # technician: "Technicien"
-        # temporary_meadow_crop: "Culture de prairie temporaire"
         tractor: "Tractor"
         trail: "Trail" #?
         # trailer: "Remorque"
-        wheat_crop: "Wheat crop"
-        # wheat_grain: "Grain de blé"
+        wheat_crop: "Wheat crop" #?
         young_cow: "Young cow" #?
       name: "Name"
-    production_natures:
-      items:
-        animal_farming: "Animal farming"
-        animal_global_documentation: "Animal global documentation"
-        feeding: "Feeding"
-        identification: "Identification"
-        land_parcel_management: "Land parcel management"
-        marketing: "Marketing"
-        production: "Production"
-        reproduction: "Reproduction"
-        sanitary: "Sanitary"
-        stock_management: "Stock management"
-        transformation: "Transformation"
-        vegetal_crops: "Vegetal crops"
-        vegetal_global_documentation: "Vegetal global documentation"
-        vinification: "Vinification"
-      name: "Name"
+    production_natures:  #?
+      items: #?
+        animal_farming: "Animal farming" #?
+        animal_global_documentation: "Animal global documentation" #?
+        feeding: "Feeding" #?
+        identification: "Identification" #?
+        land_parcel_management: "Land parcel management" #?
+        marketing: "Marketing" #?
+        production: "Production" #?
+        reproduction: "Reproduction" #?
+        sanitary: "Sanitary" #?
+        stock_management: "Stock management" #?
+        transformation: "Transformation" #?
+        vegetal_crops: "Vegetal crops" #?
+        vegetal_global_documentation: "Vegetal global documentation" #?
+        vinification: "Vinification" #?
+      name: "Name" #?
+    roles:
+      items: #?
     taxes:
       attributes:
         # active: "actif"
@@ -1231,25 +1202,22 @@ eng:
         # collect_account: "compte de TVA collectée (radical)"
         # country: "pays"
         # deduction_account: "compte de TVA déductible (radical)"
-        # nature: "nature"
         # started_on: "débuté le"
         # stopped_on: "arrêté le"
         # suffix: "suffixe du compte comptable"
       choices:
-        nature:
-          # amount: "montant"
-          # percentage: "pourcentage"
+        computation_method: #?
+        nature: #?
       items:
         # fr_vat_intermediate: "TVA 10.00%"
         # fr_vat_normal: "TVA 20.00%"
         # fr_vat_null: "TVA 0.00%"
         # fr_vat_particular: "TVA 2.10%"
         # fr_vat_reduced: "TVA 5.00%"
-        # old_fr_vat_intermediate: "TVA 7.00%"
-        # old_fr_vat_normal: "TVA 19.60%"
-        # old_fr_vat_reduced: "TVA 5.50%"
       # name: "Type de taxes"
     units:
+      attributes: #?
+      choices: #?
       items:
         # are: "are"
         celsius: "Celsius"
@@ -1268,65 +1236,66 @@ eng:
         unity: "Unity"
       name: "Name"
     varieties:
+      attributes: #?
+      choices: #?
       items:
+        # anas: "Palmipèdes"
         animal: "Animal"
+        # apis: "Apidés"
+        # asteraceae: "Astéracée"
         bioproduct: "Bioproduct"
+        # bos: "Bovins"
+        # caphorn: "Caphorn"
+        # capra: "Caprins"
         equipment: "Equipment"
         fungus: "Fungus"
+        # gallus: "Galinacées"
+        # helianthus: "Tournesol"
+        # hordeum: "Orge"
         immatter: "Immatter"
+        # lepus: "Lagomorphes"
+        # mammalia: "Mammifères"
         matter: "Matter"
         mineral_matter: "Mineral matter"
         organic_matter: "Organic matter"
-        phytosanitary: "Phytosanitary"
+        # ovis: "Ovins"
+        phytosanitary: "Phytosanitary" #?
         plant: "Plant"
         # plant_food: "Nourriture végétale"
+        # poaceae: "Graminée"
         product: "Product"
         product_group: "Product group"
         property_title: "Property title"
+        # salmo: "Salmonidés"
         service: "Service"
-        worker: "Worker"
-        zone: "Zone"
-      name: "Name"
-    varieties-animal:
-      items:
-        anas: "Anas"
-        apis: "Apis"
-        bos: "Bos"
-        capra: "Capra"
-        gallus: "Gallus"
-        lepus: "Lepus"
-        mammalia: "Mammalia"
-        ovis: "Ovis"
-        salmo: "Salmo"
-        sus: "Sus"
-      name: "Name"
-    varieties-asteraceae:
-      items:
-        # helianthus: "Tournesol"
-      # name: "Astéracées"
-    varieties-equipment:
-      items:
-        # tractor: "Tracteur"
-        # worker: "Travailleur"
-      # name: "Équipements"
-    varieties-plant:
-      items:
-        # asteraceae: "Astéracées"
-        # poaceae: "Graminée"
-      # name: "Plantes"
-    varieties-poaceae:
-      items:
-        # hordeum: "Orge"
         # sorghum: "Sorgho"
+        # sus: "Porcins"
+        # tractor: "Tracteur"
         # triticum_aestivum: "Blé tendre"
         # triticum_durum: "Blé dur"
         # triticum_spelta: "Epeautre"
+        worker: "Worker"
         # zea: "Maïs"
-      # name: "Graminée"
-    varieties-triticum_aestivum:
-      items:
-        # caphorn: "Caphorn"
-      # name: "Blé tendre"
+        zone: "Zone"
+      name: "Name" #?
+    varieties-animal:  #?
+      items: #?
+        anas: "Anas" #?
+        apis: "Apis" #?
+        bos: "Bos" #?
+        capra: "Capra" #?
+        gallus: "Gallus" #?
+        lepus: "Lepus" #?
+        mammalia: "Mammalia" #?
+        ovis: "Ovis" #?
+        salmo: "Salmo" #?
+        sus: "Sus" #?
+      name: "Name" #?
+    varieties-asteraceae: #?
+    varieties-equipment: #?
+    varieties-plant: #?
+    varieties-poaceae: #?
+    varieties-triticum_aestivum: #?
   procedures:  #?
     animal_birth: "Animal birth" #?
     calving_one: "Calving one" #?

@@ -2,6 +2,7 @@ jpn:
   enumerize: #?
   nomenclatures:
     abilities:
+      attributes: #?
       items:
         # catch: "Atteler"
         # consume: "Consommer"
@@ -60,7 +61,6 @@ jpn:
         # campaigns_interests: "Crédits des crédits bancaires de campagne"
         # capital: "Capital"
         # capitals: "Comptes de capitaux"
-        # cash: "Caisse"
         # clients: "Clients"
         # collected_vat: "Taxes sur le chiffre d'affaires collectées par l'entreprise"
         # compensation_operations: "Operations de compensation (conventions de compte courant)"
@@ -73,7 +73,6 @@ jpn:
         # discount_from_cooperatives: "Ristournes percues des cooperatives agricoles"
         # electricity_expenses: "Electricité"
         # end_products_stock: "Stock de produits finis et intermédiaires"
-        # end_revenues_stock: "Stock de produits finis"
         # equipment_asset_depreciations: "Ammortissements des installations techniques, matériels et outillage"
         # equipment_assets: "Matériels"
         # equipment_cooperative_participation_assets: "CUMA"
@@ -195,7 +194,6 @@ jpn:
         # short_term_loans: "Emprunts à court terme"
         # short_term_loans_interests: "Intérêts des emprunts à court terme"
         # short_time_animal_stock: "Animaux (cycle court)"
-        # short_time_plant_crop_variation: "Végétaux en terre (cycle court)"
         # social_agricultural_mutuality: "Mutualité Sociale Agricole"
         # staff_due_remunerations: "Personnel - rémunérations dûes"
         # staff_expenses: "Charges de personnel"
@@ -235,7 +233,10 @@ jpn:
         # handicraft: "Artisanat"
         # service: "Service"
         # vegetal_crops: "Production végétale"
+    charts_of_accounts:
+      items: #?
     countries:
+      attributes: #?
       items:
         ad: "アンドラ"
         ae: "アラブ首長国連邦"
@@ -485,6 +486,7 @@ jpn:
         zm: "ザンビア"
         zw: "ジンバブエ"
     currencies:
+      attributes: #?
       items:
         AED: "UAE ディルハム"
         AFN: "アフガニ"
@@ -666,7 +668,11 @@ jpn:
         ZMK: "ザンビア・クワチャ"
         ZWD: "ジンバブエ・ドル" #?
         # ZWL: "Dollar zimbabwéen"
+    dimensions:
+      attributes: #?
+      items: #?
     document_categories:
+      attributes: #?
       items:
         # accountancy: "Comptabilité"
         # animal_farming: "Elevage"
@@ -674,22 +680,18 @@ jpn:
         # land_parcel_management: "Conduite de la parcelle"
         # management: "Gestion"
     document_natures:
+      attributes: #?
       items:
         # activity_cost: "Coût de production par activité et intervention"
-        # animal: "Animal"
         # animal_husbandry_registry: "Registre d'élevage"
-        # balance: "Balance"
         # balance_sheet: "Bilan comptable"
         # deposit: "Remise en banque"
-        # entity: "Personne"
-        # financial_year: "Exercice comptable"
         # general_journal: "Journal général"
         # general_ledger: "Grand livre"
         # income_statement: "Compte de résultat"
         # inventory: "Inventaire"
         # journal: "Journal"
         # manure_management_plan: "Plan de fumure"
-        # other: "Auter"
         # phytosanitary_registry: "Registre phytosanitaire"
         # profit_and_loss_statement: "Compte de résultat"
         # purchase_order: "Achat"
@@ -697,9 +699,10 @@ jpn:
         # sales_invoice: "Facture de vente"
         # sales_order: "Commande de vente"
         # stocks: "Stocks"
-        # transport: "Transport"
         # veterinary_booklet: "Carnet vétérinaire"
     entity_link_natures:
+      attributes: #?
+      choices: #?
       items:
         # direct_kinship: "Parenté directe"
         # undefined: "Indéfini"
@@ -718,47 +721,18 @@ jpn:
         # madam: "Madame"
         # person: "Personne"
         # professor: "Professeur"
-        # public_establisment: "Établissement public"
         # public_interest_group: "Groupement d’intérêt public"
         # sir: "Monsieur"
         # syndicate: "Syndicat"
     incidents:
+      attributes: #?
       items:
         # incident: "Incident"
         # pathology: "Pathologie"
     indicators:
-      attributes:
-        # choice: "Choix"
-        # type: "Type"
+      attributes: #?
       choices:
-        choices:
-          # aging: "Vieillissement"
-          # back_heat: "Retour de chaleurs"
-          # bolting: "Montaison"
-          # covered: "Sol couvert"
-          # depletion: "Tarie"
-          # female: "Femelle"
-          # first_growth: "Croissance initiale"
-          # flowering: "Floraison"
-          # gain_senescence: "Senescence du grain"
-          # germination: "Germination"
-          # grain_maturity: "Maturation du grain"
-          # heading: "Épiason"
-          # healthy: "Sain"
-          # heat: "Chaleurs"
-          # lactation: "En lactation"
-          # male: "Mâle"
-          # maturity: "Maturation"
-          # mixt: "Mixte"
-          # negative: "Négatif"
-          # positive: "Positif"
-          # pregnancy: "Pleine"
-          # raw: "Sol nu"
-          # second_growth: "Croissance"
-          # senescence: "Senescence"
-          # sick: "Malade"
-          # swelling: "Gonflement"
-          # tillering: "Tallage"
+        choices: #?
         datatype:
           # boolean: "Case à cocher"
           # choice: "Liste de choix"
@@ -768,6 +742,7 @@ jpn:
           # multi_polygon: "Multi-polygone spatial"
           # point: "Point spatial"
           # string: "Texte"
+        interpolation: #?
       items:
         # animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         # animal_life_state: "Phase du bioprocessus de vie d’un animal"
@@ -775,9 +750,7 @@ jpn:
         # clostridial_spores_concentration: "Concentration en spores butyriques"
         # fat_matters_concentration: "Teneur en matières grasses"
         # freezing_point_temperature: "Point de solidification"
-        # ground_appearance: "Aspect du sol"
         # immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
-        # in_production: "En production"
         # inel_index: "Index génétique INEL"
         # inhibitors_presence: "Présence de résidus d’inhibiteurs"
         # isu_index: "Index génétique ISU"
@@ -795,7 +768,6 @@ jpn:
         # population: "Population"
         # protein_matters_concentration: "Teneur en matières protéïques"
         # shape: "Forme"
-        # sowable: "Semable"
         # temperature: "Température"
         # total_bacteria_concentration: "Dénombrement des germes totaux"
         # tp_index: "Index génétique Taux protéïque"
@@ -909,24 +881,21 @@ jpn:
         uzb: "ウズベク語"
         vie: "ベトナム語（ヴェトナム語）"
     procedure_natures:
+      attributes: #?
       items:
         # animal_feeding: "Alimentation des animaux"
         # animal_illness_treatment: "Traitement des maladies animales"
         # animal_production: "Productions animales"
         # oviparous_birth: "Reproduction (ovipare)"
         # soil_enrichment: "Amendement"
-        # technical_guide: "Itinéraire technique"
         # tillage: "Travail du sol"
-        # treatment: "Traitement"
         # viviparous_birth: "Reproduction (vivipare)"
       # name: "Type de procédures"
     product_nature_categories:
       attributes:
-        # active: "Actif"
         # asset_account: "Compte d’immobilisation"
         # charge_account: "Compte de charge"
         # depreciable: "Immobilisable"
-        # number: "Numéro"
         # pictogram: "Pictogramme"
         # product_account: "Compte de produit"
         # purchasable: "Achetable"
@@ -934,7 +903,8 @@ jpn:
         # saleable: "Vendable"
         # stock_account: "Compte de stock"
         # storable: "Stockable"
-      # choices: ""
+      choices:
+        pictogram: #?
       items:
         # animal_food: "Aliment pour animaux"
         # animal_medicine: "Produit vétérinaire"
@@ -966,36 +936,25 @@ jpn:
     product_nature_variants:
       attributes:
         # derivative_of: "Dérivé de la variété"
-        # frozen_indicators: "Indicateurs fixes"
         # nature: "Type de produit"
         # unit_name: "Nom de l'unité"
         # variety: "Variété"
       choices:
         unit_name:
-          # 100g_dose: "dose de 100g"
-          # 10ml_dose: "dose de 10ml"
-          # 1l_dose: "dose de 1litre"
-          # 25kg_bag: "sac de 25kg"
           # bag: "sac"
           # box: "boîte"
-          # building: "bâtiment"
           # can: "bidon"
           # cubic_meter: "mètre cube"
-          # equipment: "equipement"
           # head: "tête"
           # hectare: "hectare(s)"
           # hour: "heure"
           # kilogram: "kilogramme(s)"
-          # land_parcel: "parcelle"
           # liter: "litre(s)"
-          # person: "personne"
-          # room: "pièce"
           # ton: "tonne(s)"
           # unit: "unité"
       items:
         # additive: "Adjuvant"
         # animal_building: "Bâtiment d'accueil pour les animaux"
-        # animal_medicine: "Produit vétérinaire"
         # anti_slug: "Anti-limace"
         # baler: "Botteleuse"
         # barley_crop: "Culture d'orge"
@@ -1009,7 +968,6 @@ jpn:
         # calf: "Veau"
         # cattle_herd: "Troupeau de bovins"
         # cattle_manure: "Fumier de bovins"
-        # chemical_fertilizer: "Engrais chimique"
         # complete_herbicide: "Herbicide total"
         # corn_crop: "Culture de maïs"
         # corn_grain: "Graine de maïs"
@@ -1019,11 +977,9 @@ jpn:
         # equipment: "Équipement"
         # ewe_milk: "Lait de brebis"
         # fallow_crop: "Jachère"
-        # feed: "Aliment du bétail"
         # female_adult_cow: "Vache"
         # female_young_cow: "Génisse"
         # goat_milk: "Lait de chèvre"
-        # grain: "Graine"
         # grass: "Herbe"
         # hard_wheat_seed_25: "Semence de blé dur 25kg"
         # hay_rake: "Andaineur"
@@ -1034,13 +990,10 @@ jpn:
         # male_adult_cow: "Taureau"
         # male_young_cow: "Taurillon"
         # manager: "Responsable"
-        # manure: "Fumier"
         # mineral_cleaner: "Nettoyant chimique"
-        # mineral_fertilizer: "Engrais minéral"
         # molluscicide: "Molluscicide"
         # mower: "Faucheuse"
         # office_building: "Bureau"
-        # organic_fertilizer: "Engrais organique"
         # other_herbicide: "Herbicide autre"
         # plow: "Charrue"
         # poacea_herbicide: "Herbicide graminées"
@@ -1054,7 +1007,6 @@ jpn:
         # spelt_wheat_crop: "Culture d'épeautre"
         # spread_renting: "Location d'épandeur"
         # spreader: "Epandeur à engrais"
-        # straw: "Paille"
         # sunflower_crop: "Culture de tournesol"
         # technician: "Technicien"
         # temporary_meadow_crop: "Culture de prairie temporaire"
@@ -1069,12 +1021,8 @@ jpn:
     product_natures:
       attributes:
         # abilities: "Compétences"
-        # active: "Actif"
         # category: "Categorie"
-        # derivative: "Dérivé de la variété"
         # frozen_indicators: "Indicateurs fixes"
-        # number: "Numéro"
-        # unit: "Unité"
         # variable_indicators: "Indicateurs variables"
         # variety: "Variété"
       choices:
@@ -1084,30 +1032,24 @@ jpn:
           # unitary: "Unitaire"
       items:
         # additive: "Adjuvant"
-        # animal_building: "Bâtiment dédié aux animaux"
         # animal_building_division: "Zone dédiée aux animaux"
         # animal_food_building_division: "Zone de stockage dédiée aux aliments"
         # animal_medicine: "Produit vétérinaire"
         # baler: "Botteleuse"
-        # barley_crop: "Culture d'orge"
         # building: "Bâtiment"
         # building_division: "Pièce ou zone d'un bâtiment"
         # calf: "Veau"
         # cattle_herd: "Troupeau de bovins"
         # chemical_fertilizer: "Engrais chimique"
-        # corn_crop: "Culture de maïs"
         # crop: "Culture"
         # cultivable_land_parcel: "Parcelle culturale"
-        # durum_wheat_crop: "Culture de blé dur"
         # equipment: "Équipement"
-        # fallow_crop: "Jachère"
         # female_adult_cow: "Vache"
         # female_young_cow: "Génisse"
         # food: "Aliment"
         # fungicide: "Fongicide"
         # grain: "Graine"
         # grass: "Herbe"
-        # hay: "Foin"
         # hay_rake: "Andaineur"
         # herbicide: "Herbicide"
         # insecticide: "Insecticide"
@@ -1116,50 +1058,26 @@ jpn:
         # male_adult_cow: "Taureau"
         # male_young_cow: "Taurillon"
         # manager: "Responsable"
-        # manure: "Fumier"
         # milk: "Lait"
         # mineral_cleaner: "Nettoyant chimique"
-        # mineral_fertilizer: "Engrais minéral"
         # molluscicide: "Molluscicide"
         # mower: "Faucheuse"
-        # office_building: "Bureau"
         # organic_fertilizer: "Engrais organique"
         # plow: "Charrue"
-        # screed_building: "Construction béton (silo, chape, terrasse)"
         # seed: "Semence"
-        # silage: "Ensilage"
         # small_equipment: "Petit matériel"
-        # sorghum_crop: "Culture de sorgho"
         # sower: "Semoir"
-        # spelt_wheat_crop: "Culture d'épeautre"
         # spread_renting: "Location d'épandeur"
         # spreader: "Epandeur à engrais"
         # straw: "Paille"
-        # sunflower_crop: "Culture de tournesol"
         # technician: "Technicien"
-        # temporary_meadow_crop: "Culture de prairie temporaire"
         # tractor: "Tracteur"
         # trailer: "Remorque"
-        # wheat_crop: "Culture de blé"
-        # wheat_grain: "Grain de blé"
       # name: "Type de produits"
-    production_natures:
-      items:
-        # animal_farming: "Production animales"
-        # animal_global_documentation: "Documentation globale animale"
-        # feeding: "Alimentation"
-        # identification: "Identification"
-        # land_parcel_management: "Conduite de la parcelle"
-        # marketing: "Commercialisation"
-        # production: "Production"
-        # reproduction: "Reproduction"
-        # sanitary: "Santé - Hygiène"
-        # stock_management: "Conduite des produits recoltés"
-        # transformation: "Transformation"
-        # vegetal_crops: "Productions végétales"
-        # vegetal_global_documentation: "Documentation globale végétale"
-        # vinification: "Vinification"
-      # name: "Type de procédures"
+    production_natures:  #?
+ #?
+    roles:
+      items: #?
     taxes:
       attributes:
         # active: "actif"
@@ -1167,25 +1085,22 @@ jpn:
         # collect_account: "compte de TVA collectée (radical)"
         # country: "pays"
         # deduction_account: "compte de TVA déductible (radical)"
-        # nature: "nature"
         # started_on: "débuté le"
         # stopped_on: "arrêté le"
         # suffix: "suffixe du compte comptable"
       choices:
-        nature:
-          # amount: "montant"
-          # percentage: "pourcentage"
+        computation_method: #?
+        nature: #?
       items:
         # fr_vat_intermediate: "TVA 10.00%"
         # fr_vat_normal: "TVA 20.00%"
         # fr_vat_null: "TVA 0.00%"
         # fr_vat_particular: "TVA 2.10%"
         # fr_vat_reduced: "TVA 5.00%"
-        # old_fr_vat_intermediate: "TVA 7.00%"
-        # old_fr_vat_normal: "TVA 19.60%"
-        # old_fr_vat_reduced: "TVA 5.50%"
       # name: "Type de taxes"
     units:
+      attributes: #?
+      choices: #?
       items:
         # are: "are"
         # celsius: "celsius"
@@ -1204,64 +1119,51 @@ jpn:
         # unity: "unité"
       # name: "Unités de mesure"
     varieties:
+      attributes: #?
+      choices: #?
       items:
+        # anas: "Palmipèdes"
         # animal: "Animaux"
+        # apis: "Apidés"
+        # asteraceae: "Astéracée"
         # bioproduct: "Produits vivants"
+        # bos: "Bovins"
+        # caphorn: "Caphorn"
+        # capra: "Caprins"
         # equipment: "Equipements"
         # fungus: "Champignons"
+        # gallus: "Galinacées"
+        # helianthus: "Tournesol"
+        # hordeum: "Orge"
         # immatter: "Immatérialisable"
+        # lepus: "Lagomorphes"
+        # mammalia: "Mammifères"
         # matter: "Matérialisable"
         # mineral_matter: "Matières minérales"
         # organic_matter: "Matières organiques"
-        # phytosanitary: "Produits phytosanitaires"
+        # ovis: "Ovins"
         # plant: "Végétaux"
         # plant_food: "Nourriture végétale"
+        # poaceae: "Graminée"
         # product: "Produits"
         # product_group: "Groupe de produits"
         # property_title: "Titre de propriété"
-        # service: "Services"
-        # worker: "Travailleur"
-        # zone: "Zone physique"
-      # name: "Compétences"
-    varieties-animal:
-      items:
-        # anas: "Palmipèdes"
-        # apis: "Apidés"
-        # bos: "Bovins"
-        # capra: "Caprins"
-        # gallus: "Galinacées"
-        # lepus: "Lagomorphes"
-        # mammalia: "Mammifères"
-        # ovis: "Ovins"
         # salmo: "Salmonidés"
-        # sus: "Porcins"
-      # name: "Animaux"
-    varieties-asteraceae:
-      items:
-        # helianthus: "Tournesol"
-      # name: "Astéracées"
-    varieties-equipment:
-      items:
-        # tractor: "Tracteur"
-        # worker: "Travailleur"
-      # name: "Équipements"
-    varieties-plant:
-      items:
-        # asteraceae: "Astéracées"
-        # poaceae: "Graminée"
-      # name: "Plantes"
-    varieties-poaceae:
-      items:
-        # hordeum: "Orge"
+        # service: "Services"
         # sorghum: "Sorgho"
+        # sus: "Porcins"
+        # tractor: "Tracteur"
         # triticum_aestivum: "Blé tendre"
         # triticum_durum: "Blé dur"
         # triticum_spelta: "Epeautre"
+        # worker: "Travailleur"
         # zea: "Maïs"
-      # name: "Graminée"
-    varieties-triticum_aestivum:
-      items:
-        # caphorn: "Caphorn"
-      # name: "Blé tendre"
+        # zone: "Zone physique"
+    varieties-animal: #?
+    varieties-asteraceae: #?
+    varieties-equipment: #?
+    varieties-plant: #?
+    varieties-poaceae: #?
+    varieties-triticum_aestivum: #?
   procedures: #?
   variables: #?
