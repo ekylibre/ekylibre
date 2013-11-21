@@ -1,7 +1,7 @@
 module CleanSupport
 
   class << self
-    
+
     def exp(hash, *keys)
       options = keys.extract_options!
       name = keys.last

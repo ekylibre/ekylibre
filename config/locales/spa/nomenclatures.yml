@@ -1069,8 +1069,7 @@ spa:
         # tractor: "Tracteur"
         # trailer: "Remorque"
       # name: "Type de produits"
-    production_natures:  #?
- #?
+    production_natures: #?
     roles:
       items: #?
     taxes:

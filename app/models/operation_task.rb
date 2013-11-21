@@ -37,7 +37,6 @@
 class OperationTask < Ekylibre::Record::Base
   belongs_to :operation, inverse_of: :tasks
   belongs_to :parent, class_name: "OperationTask"
-  has_many :casts, class_name: "OperationTaskCast", inverse_of: :task
   has_many :product_births, dependent: :destroy
   has_many :product_deaths, dependent: :destroy
   has_many :product_links, dependent: :destroy

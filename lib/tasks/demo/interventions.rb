@@ -182,7 +182,7 @@ demo :interventions do
                 i.add_cast(reference_name: 'culture',      actor: culture)
                 i.add_cast(reference_name: 'straw', quantity: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: culture.variety).first)
               end
-  
+
               other = Worker.where("id != ?", bob.id).all.sample
               straw = int.casts.find_by_reference_name('straw').actor
               Booker.intervene(:straw_bunching, year, 6, 20, 3.13 * coeff, support: support) do |i|

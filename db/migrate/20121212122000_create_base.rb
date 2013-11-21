@@ -750,14 +750,14 @@ class CreateBase < ActiveRecord::Migration
       t.index      :reference_name
     end
 
-    create_table :operation_task_casts do |t|
-      t.references :task,                                   null: false, index: true
-      t.string     :name,                                   null: false
-      t.references :actor,         polymorphic: true,       null: false, index: true
-      t.stamps
-      t.index      :name
-      t.index      [:task_id, :name], unique: true
-    end
+    # create_table :operation_task_casts do |t|
+    #   t.references :task,                                   null: false, index: true
+    #   t.string     :name,                                   null: false
+    #   t.references :actor,         polymorphic: true,       null: false, index: true
+    #   t.stamps
+    #   t.index      :name
+    #   t.index      [:task_id, :name], unique: true
+    # end
 
 
     create_table :outgoing_deliveries do |t|

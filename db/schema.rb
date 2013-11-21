@@ -1294,27 +1294,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "observations", ["updated_at"], :name => "index_observations_on_updated_at"
   add_index "observations", ["updater_id"], :name => "index_observations_on_updater_id"
 
-  create_table "operation_task_casts", force: true do |t|
-    t.integer  "task_id",                  null: false
-    t.string   "name",                     null: false
-    t.integer  "actor_id",                 null: false
-    t.string   "actor_type",               null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
-  end
-
-  add_index "operation_task_casts", ["actor_id", "actor_type"], :name => "index_operation_task_casts_on_actor_id_and_actor_type"
-  add_index "operation_task_casts", ["created_at"], :name => "index_operation_task_casts_on_created_at"
-  add_index "operation_task_casts", ["creator_id"], :name => "index_operation_task_casts_on_creator_id"
-  add_index "operation_task_casts", ["name"], :name => "index_operation_task_casts_on_name"
-  add_index "operation_task_casts", ["task_id", "name"], :name => "index_operation_task_casts_on_task_id_and_name", :unique => true
-  add_index "operation_task_casts", ["task_id"], :name => "index_operation_task_casts_on_task_id"
-  add_index "operation_task_casts", ["updated_at"], :name => "index_operation_task_casts_on_updated_at"
-  add_index "operation_task_casts", ["updater_id"], :name => "index_operation_task_casts_on_updater_id"
-
   create_table "operation_tasks", force: true do |t|
     t.integer  "operation_id",                   null: false
     t.integer  "parent_id"
