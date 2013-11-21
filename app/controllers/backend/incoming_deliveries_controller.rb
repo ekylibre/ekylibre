@@ -40,7 +40,7 @@ class Backend::IncomingDeliveriesController < BackendController
   # Liste des items d'une appro
   list(:items, :model => :incoming_delivery_items, :conditions => {delivery_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
     t.column :product, url: true
-    t.column :quantity
+    t.column :population
     t.column :purchase_item, url: true
     t.column :created_at
   end

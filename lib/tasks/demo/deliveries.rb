@@ -101,7 +101,7 @@ demo :deliveries do
         incoming_item.is_measured!(:population, r.quantity, :at => Time.now)
 
         if incoming_item.present?
-          order.items.create!(:product_id => incoming_item.id, :quantity => r.product_deliver_quantity)
+          order.items.create!(:product_id => incoming_item.id)
         end
       end
 

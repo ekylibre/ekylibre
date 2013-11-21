@@ -475,7 +475,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :delivery,                                             null: false, index: true
       t.references :purchase_item,                                                     index: true
       t.references :product,                                              null: false, index: true
-      t.decimal    :quantity,      precision: 19, scale: 4, default: 1.0, null: false
+      t.decimal    :population,      precision: 19, scale: 4, default: 1.0, null: false
       t.references :container,                                                         index: true
       # t.references :move
       t.stamps
