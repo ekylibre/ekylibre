@@ -2,9 +2,6 @@ Ekylibre::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
-  # Checks and update locale filter
-  filter :locale
-
   # No namespace because authentication is for all sides
   devise_for :users, path: "authentication", :module => :authentication
 
@@ -106,42 +103,18 @@ Ekylibre::Application.routes.draw do
       resource :production_cropping_plan_cell, only: :show
       resource :revenus_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
-      resource :last_entities_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :last_events_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :last_incoming_deliveries_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :last_outgoing_deliveries_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :last_incidents_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :last_document_archives_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :last_interventions_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :bank_chart_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :expense_chart_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :last_milk_result_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :last_products_cell, only: :show do
-        get :list, on: :collection
-      end
-      resource :calendar_cell, only: :show do
-        get :list, on: :collection
-      end
+      resource :last_entities_cell, only: :show, concerns: :list
+      resource :last_events_cell, only: :show, concerns: :list
+      resource :last_incoming_deliveries_cell, only: :show, concerns: :list
+      resource :last_outgoing_deliveries_cell, only: :show, concerns: :list
+      resource :last_incidents_cell, only: :show, concerns: :list
+      resource :last_document_archives_cell, only: :show, concerns: :list
+      resource :last_interventions_cell, only: :show, concerns: :list
+      resource :bank_chart_cell, only: :show, concerns: :list
+      resource :expense_chart_cell, only: :show, concerns: :list
+      resource :last_milk_result_cell, only: :show, concerns: :list
+      resource :last_products_cell, only: :show, concerns: :list
+      resource :calendar_cell, only: :show, concerns: :list
     end
 
     # resources :account_balances
@@ -541,9 +514,13 @@ Ekylibre::Application.routes.draw do
     end
 
     resources :production_supports, concerns: [:list, :unroll]
+
     resources :professions, concerns: [:list, :unroll]
+
     resources :purchase_items, except: [:index]
+
     resources :purchase_natures, concerns: [:list, :unroll]
+
     resources :purchases, concerns: [:list, :unroll] do
       member do
         get :list_items

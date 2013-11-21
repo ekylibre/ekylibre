@@ -58,7 +58,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'routing-filter', '~> 0.4.0.pre'
+# gem 'routing-filter', '~> 0.4.0.pre'
 
 # General
 gem 'exception_notification'

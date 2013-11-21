@@ -280,8 +280,6 @@ GEM
       dbf (>= 1.7.0)
       rgeo (>= 0.3.3)
     rjb (1.4.8)
-    routing-filter (0.4.0.pre)
-      actionpack
     rspec-expectations (2.14.4)
       diff-lcs (>= 1.1.3, < 2.0)
     ruby-filemagic (0.4.2)
@@ -426,7 +424,6 @@ DEPENDENCIES
   rails_best_practices
   rb-readline (~> 0.4.2)
   rgeo-shapefile
-  routing-filter (~> 0.4.0.pre)
   rspec-expectations
   rubyzip (~> 1.0.0)
   sass-rails (~> 4.0.1)

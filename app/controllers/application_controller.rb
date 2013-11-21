@@ -84,19 +84,16 @@ class ApplicationController < ActionController::Base
 
   # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
   def set_locale()
-    if (locale = params[:locale].to_s).size == 3
-      locale = locale.to_sym if ::I18n.active_locales.include?(locale.to_sym)
-    elsif not session[:locale] and not request.env["HTTP_ACCEPT_LANGUAGE"].blank?
-      codes = {}
-      for l in ::I18n.active_locales
-        codes[::I18n.translate("i18n.iso2", :locale => l).to_s] = l
+    session[:locale] = params[:locale] if params[:locale]
+    if session[:locale].blank? and request.env["HTTP_ACCEPT_LANGUAGE"].present?
+      codes = ::I18n.active_locales.inject({}) do |h, l|
+        h.store("i18n.iso2".t(locale: l).to_s, l)
+        h
       end
       locale = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
-    else
-      locale = I18n.default_locale
     end
-    locale ||= ::I18n.locale || ::I18n.default_locale
-    ::I18n.locale = locale
+    session[:locale] ||= I18n.default_locale
+    I18n.locale = session[:locale]
   end
 
   # Change the time zone from the given params or reuse session variable

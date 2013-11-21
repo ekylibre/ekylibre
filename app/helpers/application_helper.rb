@@ -40,7 +40,6 @@ module ApplicationHelper
     end
   end
 
-
   def current_theme
     controller.current_theme
   end
@@ -48,8 +47,6 @@ module ApplicationHelper
   def current_user
     controller.current_user
   end
-
-
 
   # Helper which check authorization of an action
   def authorized?(url_options = {})
