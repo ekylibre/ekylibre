@@ -17,4 +17,4 @@ Depuis l'accueil, vous pouvez accéder aux différents modules disponibles dans 
   * Gestion commerciale
 
 ===== Le tableau de bord  =====
-Il vous permet en un coup d'oeil d'avoir accès aux événements pouvant nécessiter un traitement rapide de votre part, ou à des informations générales.
+Il vous permet en un coup d'œil d'avoir accès aux événements pouvant nécessiter un traitement rapide de votre part, ou à des informations générales.
