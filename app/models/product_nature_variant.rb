@@ -65,7 +65,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   delegate :matching_model, :indicators_array, :population_frozen?, :population_modulo, :frozen_indicators_array, :variable_indicators_array, to: :nature
   delegate :variety, :derivative_of, to: :nature, prefix: true
-  delegate :asset_account, :product_account, :charge_account, :stock_account, to: :nature
+  delegate :asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true

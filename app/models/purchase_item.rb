@@ -52,14 +52,14 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :tax
   # enumerize :unit, in: Nomen::Units.all
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
-
+  
   # accepts_nested_attributes_for :price
   delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
-  # delegate :currency, to: :price
-  delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
-
+  delegate :currency, to: :purchase, prefix: true
+  # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
+  
   acts_as_list :scope => :purchase
-  acts_as_stockable :mode => :virtual, :direction => :in, if: :purchased?
+  acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
   sums :purchase, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -68,74 +68,23 @@ class PurchaseItem < Ekylibre::Record::Base
   validates_length_of :indicator, allow_nil: true, maximum: 120
   validates_presence_of :account, :amount, :currency, :indicator, :pretax_amount, :purchase, :quantity, :tax, :unit_price_amount, :variant
   #]VALIDATORS]
+  validates_presence_of :account
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
   # validates_uniqueness_of :tracking_serial, :scope => :price_id, allow_nil: true, if: Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
 
 
   before_validation do
+    self.currency = self.purchase_currency
     if self.variant
-      product_nature = self.variant.nature
-      if product_nature.charge_account.nil?
-        product_nature.charge_account = Account.find_in_chart(:charges)
-        product_nature.save!
-      end
-      self.account_id = product_nature.charge_account_id
-      self.label ||= self.variant.commercial_name
-      self.currency ||= Preference.get(:currency).value
+      self.account   ||= variant.charge_account || Account.find_in_chart(:charges)
+      self.label     ||= self.variant.commercial_name
+      self.currency  ||= Preference.get(:currency).value
       self.indicator ||= :population.to_s
     end
-
-
-
-    #check_reservoir = true
-    # self.building_id  tc(:name, options) = Building.first.id if Building.count == 1
-
-    # if not self.price and self.product and self.purchase
-    #   self.price = self.product.price(:supplier => self.purchase.supplier)
-    # end
-    # if self.pretax_amount and self.tax # and not self.price
-      # self.unit_price_amount = self.variant.price(:pretax_amount => self.pretax_amount, :tax => self.tax, :supplier => self.supplier)
-    # else
-      # self.unit_price_amount = self.variant.price(:supplier => self.supplier)
-    # end
-
-    # if self.variant
-      # product_nature = self.variant.nature
-      # if product_nature.charge_account.nil?
-        # product_nature.charge_account = Account.find_in_chart(:charges)
-        # product_nature.save!
-      # end
-      # self.account_id = product_nature.charge_account_id
-      # # self.unit ||= self.price.product_nature.unit
-      # # self.product_id = self.price.product_nature_id
-      # self.pretax_amount = (self.price.pretax_amount*self.quantity).round(2)
-      # self.amount = (self.price.amount*self.quantity).round(2)
-      # self.price_amount ||= self.price.pretax_amount
-      # self.tax ||= self.price.tax
-    # end
-    # @TODO : to change dixit Burisu
-    #if self.building
-    # if self.bufind_in_chartilding.reservoir && self.building.product_id != self.product_id
-    #    check_reservoir = false
-    #    errors.add(:building_id, :building_can_not_receive_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name)
-    #  end
-    #end
-
-    # self.tracking_serial = self.tracking_serial.to_s.strip
-    # unless self.tracking_serial.blank?
-      # producer = self.purchase.supplier
-      # unless producer.has_another_tracking?(self.tracking_serial, self.product_id)
-        # tracking = Tracking.find_by_serial_and_producer_id(self.tracking_serial.upper, producer.id)
-        # tracking = Tracking.create!(:name => self.tracking_serial, :product_id => self.product_id, :producer_id => producer.id) if tracking.nil?
-        # self.tracking_id = tracking.id
-      # end
-      # self.tracking_serial.upper!
-    # end
-#
-    # check_reservoir
   end
 
   validate do
+    errors.add(:currency, :invalid) if self.currency != self.purchase.currency
     # Validate that tracking serial is not used for a different product
     # producer = self.purchase.supplier
     # unless self.tracking_serial.blank?
