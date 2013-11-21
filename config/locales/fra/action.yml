@@ -626,12 +626,6 @@ fra:
       load: "Charger les séquences manquantes"
       new: "Création d’une nouvelle séquence"
       # show: "Show backend/sequence"
-    backend/services:
-      # edit: "Edit backend/service"
-      # index: "Index backend/service"
-      # new: "New backend/service"
-      # picture: "Picture backend/service"
-      # show: "Show backend/service"
     backend/settings:
       about: "À propos..."
       backup: "Faire une copie de sauvegarde"
@@ -842,7 +836,6 @@ fra:
     backend/sale_natures: "Types de ventes"
     backend/sales: "Ventes"
     backend/sequences: "Séquences"
-    # backend/services: "Backend/services"
     backend/settings: "Paramètres"
     # backend/settlements: "Backend/settlements"
     # backend/snippets: "Backend/snippets"

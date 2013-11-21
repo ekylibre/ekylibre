@@ -1004,7 +1004,7 @@ eng:
     document: "Document"
     document_natures: "Document types"
     document_templates: "Document templates"
-    # doer_evaluated_cost: "Coût main d'oeuvre"
+    # doer_evaluated_cost: "Coût main d'œuvre"
     dont_use_journal: "-- Do not use journal --"
     down: "Down"
     down_to_level: "Down to level"

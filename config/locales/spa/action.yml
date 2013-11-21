@@ -1049,7 +1049,7 @@ spa:
     document_natures: "Tipos de documentos"
     document_template_create: "Crear un modelo de documento" #?
     document_templates: "Modelos de documentos"
-    # doer_evaluated_cost: "Coût main d'oeuvre"
+    # doer_evaluated_cost: "Coût main d'œuvre"
     dont_use_journal: "-- No utilizar el periodico --"
     # down: "Descendre"
     down_to_level: "Detallar hasta el nivel"

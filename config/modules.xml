@@ -1688,25 +1688,6 @@
         <page to="backend/sequences#show"/>
         <page to="backend/sequences#unroll"/>
       </item>
-      <item name="services">
-        <page to="backend/services#index"/>
-        <page to="backend/services#create"/>
-        <page to="backend/services#destroy"/>
-        <page to="backend/services#edit"/>
-        <page to="backend/services#list"/>
-        <page to="backend/services#list_contained_products"/>
-        <page to="backend/services#list_groups"/>
-        <page to="backend/services#list_incidents"/>
-        <page to="backend/services#list_indicators"/>
-        <page to="backend/services#list_intervention_casts"/>
-        <page to="backend/services#list_members"/>
-        <page to="backend/services#list_places"/>
-        <page to="backend/services#new"/>
-        <page to="backend/services#picture"/>
-        <page to="backend/services#show"/>
-        <page to="backend/services#unroll"/>
-        <page to="backend/services#update"/>
-      </item>
       <item name="settlements">
         <page to="backend/settlements#list_contained_products"/>
         <page to="backend/settlements#list_groups"/>

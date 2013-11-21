@@ -1148,7 +1148,7 @@ arb:
     document_natures: "نوع الوثيقة"
     document_template_create: "انشاء نموذج للوثيقة" #?
     document_templates: "نموذج الوثائق"
-    # doer_evaluated_cost: "Coût main d'oeuvre"
+    # doer_evaluated_cost: "Coût main d'œuvre"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى"

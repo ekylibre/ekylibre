@@ -576,7 +576,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :services, concerns: :products
+    # resources :services, concerns: :products
 
     resources :settlements, concerns: :products
 
