@@ -5,5 +5,7 @@ echo "yes" | sudo apt-add-repository ppa:sharpie/for-science
 echo "yes" | sudo apt-add-repository ppa:sharpie/postgis-stable
 echo "yes" | sudo apt-add-repository ppa:ubuntugis/ubuntugis-unstable
 sudo apt-get update
+echo "> List postgis related packages"
 sudo apt-cache search postgis
-sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.1-postgis2 libmagic-dev
+echo "> Install missing packages"
+sudo apt-get install -qq libgeos-dev libgeos++-dev libproj-dev postgresql-9.1-postgis-2.1 libmagic-dev
