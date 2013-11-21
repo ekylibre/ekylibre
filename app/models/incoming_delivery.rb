@@ -45,6 +45,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   belongs_to :purchase
   belongs_to :sender, class_name: "Entity"
   has_many :items, class_name: "IncomingDeliveryItem", inverse_of: :delivery, foreign_key: :delivery_id, dependent: :destroy
+  has_many :products, through: :items
   has_many :product_moves, :as => :origin
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -69,6 +70,14 @@ class IncomingDelivery < Ekylibre::Record::Base
       self.address ||= Entity.of_company.default_mail_address
       self.mode    ||= IncomingDeliveryMode.by_default
       self.received_at ||= Time.now
+    end
+  end
+
+  before_update do
+    if self.received_at != old_record.received_at
+      for product in self.products
+        product.indicator_data.where(measured_at: old_record.received_at).update_all(measured_at: self.received_at)
+      end
     end
   end
 

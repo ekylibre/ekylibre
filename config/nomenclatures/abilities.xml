@@ -19,7 +19,7 @@
       <item name="germinate"/>
       <item name="feed"/>
       <item name="fertilize"/>  
-      <item name="catch"/>
+      <item name="catch" parameters="variety"/>
       <!-- @QUID : niveau de compétence (normal, précision)  -->
       <item name="spread" parameters="variety"/>
       <item name="spray"/>

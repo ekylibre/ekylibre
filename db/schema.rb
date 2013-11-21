@@ -835,7 +835,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "delivery_id",                                             null: false
     t.integer  "purchase_item_id"
     t.integer  "product_id",                                              null: false
-    t.decimal  "quantity",         precision: 19, scale: 4, default: 1.0, null: false
+    t.decimal  "population",       precision: 19, scale: 4, default: 1.0, null: false
     t.integer  "container_id"
     t.datetime "created_at",                                              null: false
     t.datetime "updated_at",                                              null: false

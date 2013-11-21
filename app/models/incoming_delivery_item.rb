@@ -49,7 +49,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   validates_numericality_of :quantity, allow_nil: true
   validates_presence_of :delivery, :product, :quantity
   #]VALIDATORS]
-  validates_presence_of :product#, :unit
+  validates_presence_of :product
 
   accepts_nested_attributes_for :product
   acts_as_stockable :origin => :delivery
@@ -63,12 +63,24 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
     end
   end
 
-  # validate(on: :create) do
+  before_validation(on: :create) do
+    if self.product
+      self.population = -999999
+    end
   #   if self.product
   #     maximum = self.undelivered_quantity
   #     errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
   #   end
-  # end
+  end
+
+  after_create do
+    # all indicators have the datetime of the receive delivery
+    self.product.indicator_data.update_all(measured_at: self.delivery.received_at)
+  end
+
+  after_save do
+    self.update_column(:population, self.product.population)
+  end
 
   # validate(on: :update) do
   #   old_self = self.class.find(self.id)

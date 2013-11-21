@@ -15,7 +15,7 @@
         <property name="ede_owner_number" value="Preference.get('entity_identification.ede.owner_number').value" />
       </section>
       <section name="plan">
-        <variable name="animal_building_division" value="ProductNature.find_by_nomen(:animal_building_division)"/>
+        <variable name="animal_building_division" value="ProductNature.find_by_reference_name(:animal_building_division)"/>
         <property name="plan_svg" value="BuildingDivision.of_nature(animal_building_division).map_svg" type="svg" level="api"/>
         <sections for="building_division" in="BuildingDivision.of_nature(animal_building_division)" of-type="record">
           <title name="name" of="building_division"/>

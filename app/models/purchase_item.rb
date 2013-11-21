@@ -52,12 +52,12 @@ class PurchaseItem < Ekylibre::Record::Base
   belongs_to :tax
   # enumerize :unit, in: Nomen::Units.all
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
-  
+
   # accepts_nested_attributes_for :price
   delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
   delegate :currency, to: :purchase, prefix: true
   # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
-  
+
   acts_as_list :scope => :purchase
   acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
   sums :purchase, :items, :pretax_amount, :amount

@@ -225,7 +225,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       #     indicator.name.to_sym == :population
       #   end
       # end
-      if @object.new_record? and indicators.any?
+      if indicators.any?
 
         for indicator in indicators
           @object.indicator_data.build(indicator: indicator.name)

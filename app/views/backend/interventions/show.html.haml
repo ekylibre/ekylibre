@@ -1,6 +1,7 @@
 = main_toolbar do |t|
   - t.edit @intervention
-  - #  t.play @intervention
+  - if @intervention.runnable?
+    - t.run @intervention, method: :post, confirm: true
 
 = beehive do |b|
   - b.tabbox do

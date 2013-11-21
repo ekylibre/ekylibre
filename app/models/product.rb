@@ -205,7 +205,7 @@ class Product < Ekylibre::Record::Base
   # set initial owner and localization
   def set_initial_values
     # Set population
-    self.is_measured!(:population, self.initial_population)
+    # self.is_measured!(:population, self.initial_population)
     # Add first owner on a product
     self.ownerships.create!(owner: self.initial_owner)
     # # Add first enjoyer on a product
