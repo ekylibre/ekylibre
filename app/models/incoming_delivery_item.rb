@@ -72,16 +72,16 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   #     errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
   #   end
   end
-  
+
   after_create do
     # all indicators have the datetime of the receive delivery
     self.product.indicator_data.update_all(measured_at: self.delivery.received_at)
   end
-  
+
   after_save do
     self.update_column(:population, self.product.population)
   end
-  
+
   # validate(on: :update) do
   #   old_self = self.class.find(self.id)
   #   maximum = self.undelivered_quantity + old_self.quantity

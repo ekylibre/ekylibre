@@ -72,7 +72,7 @@ class IncomingDelivery < Ekylibre::Record::Base
       self.received_at ||= Time.now
     end
   end
-  
+
   before_update do
     if self.received_at != old_record.received_at
       for product in self.products
