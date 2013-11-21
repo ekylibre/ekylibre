@@ -401,9 +401,9 @@ class Product < Ekylibre::Record::Base
   # Measure a product for a given indicator
   def is_measured!(indicator, value, options = {})
     unless Nomen::Indicators[indicator]
-      raise ArgumentError.new("Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}.")
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
-    datum = self.indicator_data.new(:indicator => indicator, :measured_at => (options[:at] || Time.now) )
+    datum = self.indicator_data.new(indicator: indicator, measured_at: (options[:at] || Time.now) )
     datum.value = value
     datum.save!
     return datum
@@ -440,7 +440,7 @@ class Product < Ekylibre::Record::Base
       end
       raise StandardError("Can not use :interpolate option with #{indicator.datatype.inspect} datatype")
     else
-      if datum = self.indicator(indicator.name.to_s, :at => measured_at)
+      if datum = self.indicator(indicator.name.to_s, at: measured_at)
         x = datum.value
         # x.define_singleton_method(:measured_at) do
         #   measured_at
