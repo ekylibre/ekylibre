@@ -26,9 +26,9 @@
 #  delivery_id      :integer          not null
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
+#  population       :decimal(19, 4)   default(1.0), not null
 #  product_id       :integer          not null
 #  purchase_item_id :integer
-#  quantity         :decimal(19, 4)   default(1.0), not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -46,8 +46,8 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   # belongs_to :move, class_name: "ProductMove"
   # enumerize :unit, in: Nomen::Units.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity, allow_nil: true
-  validates_presence_of :delivery, :product, :quantity
+  validates_numericality_of :population, allow_nil: true
+  validates_presence_of :delivery, :population, :product
   #]VALIDATORS]
   validates_presence_of :product
 

@@ -37,12 +37,11 @@
 
 
 class SubscriptionNature < Ekylibre::Record::Base
-  # attr_accessible :actual_number, :description, :entity_link_direction, :entity_link_nature, :name, :nature, :reduction_percentage
   attr_readonly :nature
   enumerize :nature, in: [:period, :quantity], default: :period, predicates: true
   enumerize :entity_link_nature, in: Nomen::EntityLinkNatures.all
   enumerize :entity_link_direction, in: [:direct, :indirect, :all], default: :all, predicates: {prefix: true}
-  has_many :products, class_name: "ProductNature"
+  has_many :product_nature_categories
   has_many :subscriptions, foreign_key: :nature_id
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -62,7 +61,7 @@ class SubscriptionNature < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.subscriptions.count <= 0 and self.products.count <= 0
+    self.subscriptions.any? and self.product_nature_categories.any?
   end
 
   def now
@@ -78,11 +77,11 @@ class SubscriptionNature < Ekylibre::Record::Base
   end
 
   def start
-    return fields[0]
+    return fields.first
   end
 
   def finish
-    return fields[1]
+    return fields.second
   end
 
 end

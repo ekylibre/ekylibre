@@ -1627,6 +1627,7 @@ module Ekylibre
       name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
       nature_id: Ekylibre::Record::Column.new(:nature_id, :integer, null: false).freeze,
       place: Ekylibre::Record::Column.new(:place, :string).freeze,
+      restricted: Ekylibre::Record::Column.new(:restricted, :boolean, null: false).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime, null: false).freeze,
       stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
@@ -1706,9 +1707,9 @@ module Ekylibre
       delivery_id: Ekylibre::Record::Column.new(:delivery_id, :integer, null: false).freeze,
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
+      population: Ekylibre::Record::Column.new(:population, :decimal, precision: 19, scale: 4, null: false, default: 1.0).freeze,
       product_id: Ekylibre::Record::Column.new(:product_id, :integer, null: false).freeze,
       purchase_item_id: Ekylibre::Record::Column.new(:purchase_item_id, :integer).freeze,
-      quantity: Ekylibre::Record::Column.new(:quantity, :decimal, precision: 19, scale: 4, null: false, default: 1.0).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,

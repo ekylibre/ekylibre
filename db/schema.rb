@@ -711,18 +711,19 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "event_participations", ["updater_id"], :name => "index_event_participations_on_updater_id"
 
   create_table "events", force: true do |t|
-    t.integer  "nature_id",                null: false
-    t.string   "name",                     null: false
-    t.datetime "started_at",               null: false
+    t.integer  "nature_id",                    null: false
+    t.string   "name",                         null: false
+    t.datetime "started_at",                   null: false
     t.datetime "stopped_at"
+    t.boolean  "restricted",   default: false, null: false
     t.integer  "duration"
     t.string   "place"
     t.text     "description"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
+    t.integer  "lock_version", default: 0,     null: false
   end
 
   add_index "events", ["created_at"], :name => "index_events_on_created_at"

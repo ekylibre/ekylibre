@@ -18,7 +18,7 @@
 #
 
 class Backend::TeamsController < BackendController
-  manage_restfully
+  manage_restfully except: :show
 
   unroll
 
@@ -28,9 +28,4 @@ class Backend::TeamsController < BackendController
     t.action :edit
     t.action :destroy
   end
-
-  # Displays the main page with the list of departments
-  def index
-  end
-
 end

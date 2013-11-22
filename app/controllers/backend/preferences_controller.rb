@@ -25,7 +25,7 @@ class Backend::PreferencesController < BackendController
   list() do |t|
     t.column :name, url: true
     t.column :nature
-    t.action :show, url: {:format=>:pdf}, :image=>:print
+    t.column :value
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

@@ -29,6 +29,7 @@
 #  name         :string(255)      not null
 #  nature_id    :integer          not null
 #  place        :string(255)
+#  restricted   :boolean          not null
 #  started_at   :datetime         not null
 #  stopped_at   :datetime
 #  updated_at   :datetime         not null
@@ -41,8 +42,16 @@ class Event < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, allow_nil: true, only_integer: true
   validates_length_of :name, :place, allow_nil: true, maximum: 255
+  validates_inclusion_of :restricted, in: [true, false]
   validates_presence_of :name, :nature, :started_at
   #]VALIDATORS]
+
+  scope :without_restrictions_for, lambda { |*entities|
+    where("NOT restricted OR (restricted AND id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?)))", entities.map(&:id))
+  }
+  scope :with_participant, lambda { |*entities|
+    where("id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?))", entities.map(&:id))
+  }
 
   before_validation do
     self.started_at ||= Time.now

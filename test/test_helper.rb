@@ -168,7 +168,7 @@ class ActionController::TestCase
                  :list
                elsif action_name.match(/\Aunroll\z/) # GET list
                  :unroll
-               elsif action_name.match(/\A(duplicate|up|down|lock|unlock|increment|decrement|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)\z/) # POST with ID
+               elsif action_name.match(/\A(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)\z/) # POST with ID
                  :touch
                end
       end

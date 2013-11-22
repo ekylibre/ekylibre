@@ -410,6 +410,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :name,                    null: false
       t.datetime   :started_at,              null: false
       t.datetime   :stopped_at
+      t.boolean    :restricted,              null: false, default: false
       t.integer    :duration
       t.string     :place
       t.text       :description

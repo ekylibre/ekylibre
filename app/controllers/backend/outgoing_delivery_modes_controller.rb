@@ -18,7 +18,7 @@
 #
 
 class Backend::OutgoingDeliveryModesController < BackendController
-  manage_restfully
+  manage_restfully except: :show
 
   unroll
 

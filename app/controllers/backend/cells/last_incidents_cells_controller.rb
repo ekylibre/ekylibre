@@ -11,7 +11,6 @@ class Backend::Cells::LastIncidentsCellsController < Backend::CellsController
 
 
   def show
-
   end
 
 end

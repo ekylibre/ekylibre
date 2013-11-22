@@ -122,6 +122,8 @@ fra:
       # show: "Show backend/cells/currents stocks by product nature cell"
     backend/cells/elapsed_interventions_times_by_activities_cells:
       # show: "Show backend/cells/elapsed interventions times by activities cell"
+    backend/cells/events_cells:
+      # show: "Show backend/cells/events cell"
     backend/cells/expense_chart_cells:
       # show: "Show backend/cells/expense chart cell"
     backend/cells/last_document_archives_cells:
@@ -415,16 +417,11 @@ fra:
       # index: "Index backend/observation"
       new: "Ajouter une observation"
       # show: "Show backend/observation"
-    backend/operation_tasks:
-      # edit: "Edit backend/operation task"
-      # index: "Index backend/operation task"
-      # new: "New backend/operation task"
-      # show: "Show backend/operation task"
     backend/operations:
       edit: "Modifier le travail"
-      index: "Travaux"
+      index: "Travaux" #?
       new: "Créer un nouveau travail"
-      show: "Détails du travail"
+      show: "Détails du travail" #?
       unvalidateds: "Travaux non validés" #?
     backend/organic_matters:
       edit: "Modifier la matière organique\_: %{name}"
@@ -441,12 +438,10 @@ fra:
       edit: "Modifier le mode de livraison\_: %{name}"
       index: "Modes de livraison"
       new: "Ajout d’un nouveau mode de livraison"
-      # show: "Show backend/outgoing delivery mode"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
       new: "Ajouter un mode de décaissement"
-      # show: "Show backend/outgoing payment mode"
     backend/outgoing_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
@@ -625,7 +620,6 @@ fra:
       index: "Séquences"
       load: "Charger les séquences manquantes"
       new: "Création d’une nouvelle séquence"
-      # show: "Show backend/sequence"
     backend/settings:
       about: "À propos..."
       backup: "Faire une copie de sauvegarde"
@@ -651,7 +645,6 @@ fra:
       edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
       index: "Abonnements"
       new: "Création d’un abonnement"
-      # show: "Show backend/subscription"
     backend/tax_declarations:
       edit: "Créer une déclaration" #?
       index: "Déclaration de TVA" #?
@@ -661,12 +654,10 @@ fra:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
       new: "Ajouter une nouvelle taxe"
-      # show: "Show backend/tax"
     backend/teams:
       # edit: "Edit backend/team"
       # index: "Index backend/team"
       # new: "New backend/team"
-      # show: "Show backend/team"
     backend/transports:
       deliveries: "Livraisons du transport" #?
       delivery_delete: "Retirer la livraison du transport" #?
@@ -734,6 +725,7 @@ fra:
     # backend/cells/cropping_plan_on_cultivable_land_parcels_cells: "Backend/cells/cropping plan on cultivable land parcels cells"
     # backend/cells/currents_stocks_by_product_nature_cells: "Backend/cells/currents stocks by product nature cells"
     # backend/cells/elapsed_interventions_times_by_activities_cells: "Backend/cells/elapsed interventions times by activities cells"
+    # backend/cells/events_cells: "Backend/cells/events cells"
     # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
     # backend/cells/last_document_archives_cells: "Backend/cells/last document archives cells"
     # backend/cells/last_entities_cells: "Backend/cells/last entities cells"
@@ -798,7 +790,6 @@ fra:
     # backend/mineral_matters: "Backend/mineral matters"
     backend/myselves: "Mon compte"
     backend/observations: "Observations"
-    # backend/operation_tasks: "Backend/operation tasks"
     backend/operations: "Travaux"
     # backend/organic_matters: "Backend/organic matters"
     backend/outgoing_deliveries: "Livraisons sortantes"
@@ -1965,7 +1956,7 @@ fra:
     no_template_journal: "Pas de modèle journal" #?
     no_template_journal_by_id: "Pas de modèle journal" #?
     no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
-    no_unvalidated_operations: "Aucun travail à réaliser"
+    no_unvalidated_operations: "Aucun travail à réaliser" #?
     password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
     prices_import_succeeded: "Vos données ont été correctement importées" #?
     print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?

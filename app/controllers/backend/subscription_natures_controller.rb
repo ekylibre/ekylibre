@@ -22,7 +22,7 @@ class Backend::SubscriptionNaturesController < BackendController
 
   unroll
 
-  list(:children => :products) do |t|
+  list(:children => :product_nature_categories) do |t|
     t.column :name, url: {:id => 'nil', :action => :index, :controller => :subscriptions, :nature_id => "RECORD.id".c}
     t.column :nature, children: false
     t.column :actual_number, children: false
@@ -34,16 +34,16 @@ class Backend::SubscriptionNaturesController < BackendController
   end
 
   def decrement
-    return unless @subscription_nature = find_and_check(:subscription_nature)
-    @subscription_nature.decrement!(:actual_number)
-    notify_success(:new_actual_number, :actual_number => @subscription_nature.actual_number)
+    return unless subscription_nature = find_and_check
+    subscription_nature.decrement!(:actual_number)
+    notify_success(:new_actual_number, :actual_number => subscription_nature.actual_number)
     redirect_to_back
   end
 
   def increment
-    return unless @subscription_nature = find_and_check(:subscription_nature)
-    @subscription_nature.increment!(:actual_number)
-    notify_success(:new_actual_number, :actual_number => @subscription_nature.actual_number)
+    return unless subscription_nature = find_and_check
+    subscription_nature.increment!(:actual_number)
+    notify_success(:new_actual_number, :actual_number => subscription_nature.actual_number)
     redirect_to_back
   end
 

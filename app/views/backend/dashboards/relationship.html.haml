@@ -1,13 +1,10 @@
-=beehive do |b|
-  -b.hbox do
-    -b.cell :last_entities
-    -if current_user.participations.count > 0
-      -b.cell :future_events do
-        =list(:my_future_events)
+= beehive do |b|
+  - b.hbox do
+    - b.cell :last_entities
+    - if Event.any?
+      - if current_user.participations.any?
+        - b.cell :future_events, cell: :events, params: {mode: :my_future}
+      - b.cell :recent_events, cell: :events, params: {mode: :last}
 
-    -if Event.count > 0
-      -b.cell :recent_events do
-        =list(:recent_events)
-  -#b.hbox do
-    -b.cell :rss, :title => "Dossiers", :params => {:url => "http://www.lafranceagricole.fr/Rss/dossiers-11.html"}
-
+  -# b.hbox do
+    - b.cell :rss, :title => "Dossiers", :params => {:url => "http://www.lafranceagricole.fr/Rss/dossiers-11.html"}
