@@ -18,7 +18,7 @@
 #
 
 class Backend::FinancialYearsController < BackendController
-  manage_restfully
+  manage_restfully except: [:index, :new, :show]
 
   unroll
 
@@ -102,32 +102,6 @@ class Backend::FinancialYearsController < BackendController
     @financial_year.currency = @financial_year.previous.currency if @financial_year.previous
     @financial_year.currency ||= Entity.of_company.currency
     # render_restfully_form
-  end
-
-  def create
-    @financial_year = FinancialYear.new(params[:financial_year])
-    return if save_and_redirect(@financial_year)
-    # render_restfully_form
-  end
-
-  def edit
-    return unless @financial_year = find_and_check
-    t3e @financial_year.attributes
-    # render_restfully_form
-  end
-
-  def update
-    return unless @financial_year = find_and_check
-    @financial_year.attributes = params[:financial_year]
-    return if save_and_redirect(@financial_year)
-    t3e @financial_year.attributes
-    # render_restfully_form
-  end
-
-  def destroy
-    return unless @financial_year = find_and_check
-    @financial_year.destroy if @financial_year.destroyable?
-    redirect_to :action => :index
   end
 
   def generate_last_journal_entry

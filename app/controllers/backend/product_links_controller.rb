@@ -18,11 +18,10 @@
 #
 
 class Backend::ProductLinksController < BackendController
-  manage_restfully
+  # manage_restfully
 
-  list do |t|
-    t.column :carrier, url: true
-    t.column :carried, url: true
-  end
-
+  # list do |t|
+  #   t.column :carrier, url: true
+  #   t.column :carried, url: true
+  # end
 end

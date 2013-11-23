@@ -57,7 +57,6 @@ fra:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
       new: "Ajouter une zone postale"
-      # show: "Show backend/area"
     backend/assets:
       cede: "Céder l’immobilisation" #?
       depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}" #?
@@ -164,9 +163,7 @@ fra:
       show: "Parcelle culturale\_: %{name}"
     backend/custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
-      # index: "Index backend/custom field choice"
       new: " Création d’une option pour une liste de choix"
-      # show: "Show backend/custom field choice"
     backend/custom_fields:
       edit: "Modifier le champ personnalisé\_: %{name}"
       index: "Champs personnalisés"
@@ -196,7 +193,6 @@ fra:
       edit: "Modifier la zone administrative\_: %{name}"
       index: "Zones administratives"
       new: "Ajouter une zone administrative"
-      # show: "Show backend/district"
     backend/document_archives:
       show: "Voir l'archive\_: %{name} "
     backend/document_templates:
@@ -205,7 +201,6 @@ fra:
       load: "Charger les modèles de document par défaut"
       new: "Création d’un modèle de document"
       print: "Imprimer un exemple" #?
-      # show: "Show backend/document template"
     backend/documents:
       edit: "Modifier le document"
       index: "Gestion électronique des documents"
@@ -224,12 +219,10 @@ fra:
       show: "Fiche\_: %{full_name}"
     backend/entity_addresses:
       edit: "Modifier une coordonnée"
-      # index: "Index backend/entity address"
       new: "Ajouter une coordonnée"
       show: "Coordonnée"
     backend/entity_links:
       edit: "Modifier le lien"
-      # index: "Index backend/entity link"
       new: "Ajout d’un nouveau lien"
       show: "Lien"
     backend/equipments:
@@ -242,12 +235,14 @@ fra:
       edit: "Modifier l’établissement\_: %{name}"
       index: "Établissements"
       new: "Ajout d’un nouvel etablissement"
-      # show: "Show backend/establishment"
     backend/event_natures:
       edit: "Modifier le type d'évènement\_: %{name}"
       index: "Types d'évènement"
       new: "Nouveau type d'évènement"
-      show: "Type d'évènement\_: %{name}"
+      show: "Type d'évènement\_: %{name}" #?
+    backend/event_participations:
+      # edit: "Edit backend/event participation"
+      # new: "New backend/event participation"
     backend/events:
       # autocomplete_for_place: "Autocomplete for place backend/event"
       # change_minutes: "Change minutes backend/event"
@@ -260,7 +255,7 @@ fra:
       compute_balances: "Calculer la balance de l’exercice"
       edit: "Modifier un nouvel exercice"
       generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}"
-      index: "Exercices comptables"
+      index: "Exercices comptables" #?
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
     backend/gaps:
@@ -295,17 +290,11 @@ fra:
       edit: "Modifier le mode d’encaissement\_: %{name}"
       index: "Modes d’encaissement"
       new: "Ajouter un nouveau mode d’encaissement"
-      # show: "Show backend/incoming payment mode"
     backend/incoming_payments:
       edit: "Modifier l’encaissement n°%{number}"
       index: "Encaissements"
       new: "Ajout d’un nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
-    backend/intervention_casts:
-      # edit: "Edit backend/intervention cast"
-      # index: "Index backend/intervention cast"
-      # new: "New backend/intervention cast"
-      # show: "Show backend/intervention cast"
     backend/interventions:
       edit: "Modifier l’intervention %{procedure_name} N°%{id}"
       index: "Interventions"
@@ -470,10 +459,10 @@ fra:
       # picture: "Picture backend/plant"
       show: "Culture\_: %{name}"
     backend/preferences:
-      edit: "Modifier les préférences"
+      edit: "Modifier les préférences" #?
       index: "Préférences"
-      new: "Nouvelle préférence"
-      show: "Préférence"
+      new: "Nouvelle préférence" #?
+      show: "Préférence" #?
     backend/prescriptions:
       edit: "Modifier la prescription\_: %{reference_number}"
       index: "Prescriptions"
@@ -490,21 +479,11 @@ fra:
       index: "Indicateurs Produits" #?
       new: "Nouvelle valeur d’indicateur pour un produit" #?
       show: "Valeurs" #?
-    backend/product_links:
-      # edit: "Edit backend/product link"
-      # index: "Index backend/product link"
-      # new: "New backend/product link"
-      # show: "Show backend/product link"
     backend/product_localizations:
       edit: "Modifier une localisation d’un produit"
       index: "Localisation des produits"
       new: "Nouvelle localisation d’un produit"
       show: "Détail d’une localisation d’un produit"
-    backend/product_memberships:
-      # edit: "Edit backend/product membership"
-      # index: "Index backend/product membership"
-      # new: "New backend/product membership"
-      # show: "Show backend/product membership"
     backend/product_nature_categories:
       edit: "Modifier la catégorie du produit\_: %{name}"
       index: "Catégories de produits"
@@ -512,9 +491,7 @@ fra:
       show: "Catégorie de produit\_: %{name}"
     backend/product_nature_variant_indicator_data:
       # edit: "Edit backend/product nature variant indicator datum"
-      # index: "Index backend/product nature variant indicator datum"
       # new: "New backend/product nature variant indicator datum"
-      # show: "Show backend/product nature variant indicator datum"
     backend/product_nature_variants:
       edit: "Modifier la variante de produit\_: %{name}"
       index: "Variantes de produits"
@@ -525,26 +502,13 @@ fra:
       index: "Types de produits"
       new: "Nouveau type de produit"
       show: "Type de produit\_: %{name}"
-    backend/product_ownerships:
-      # edit: "Edit backend/product ownership"
-      # index: "Index backend/product ownership"
-      # new: "New backend/product ownership"
-      # show: "Show backend/product ownership"
-    backend/product_phases:
-      # edit: "Edit backend/product phase"
-      # index: "Index backend/product phase"
-      # new: "New backend/product phase"
-      # show: "Show backend/product phase"
     backend/product_process_phases:
       # edit: "Edit backend/product process phase"
-      # index: "Index backend/product process phase"
       # new: "New backend/product process phase"
-      # show: "Show backend/product process phase"
     backend/product_processes:
       # edit: "Edit backend/product process"
       # index: "Index backend/product process"
       # new: "New backend/product process"
-      # show: "Show backend/product process"
     backend/production_supports:
       # edit: "Edit backend/production support"
       # index: "Index backend/production support"
@@ -758,6 +722,7 @@ fra:
     backend/equipments: "Équipements"
     backend/establishments: "Établissements"
     # backend/event_natures: "Backend/event natures"
+    # backend/event_participations: "Backend/event participations"
     # backend/events: "Backend/events"
     backend/financial_years: "Exercices comptables"
     # backend/gaps: "Backend/gaps"

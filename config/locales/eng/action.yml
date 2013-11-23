@@ -242,6 +242,7 @@ eng:
       index: "Event types"
       new: "Add a new event type"
       # show: "Type d'évènement\_: %{name}"
+    backend/event_participations: #?
     backend/events:
       change_minutes: "Change minutes for event" #?
       edit: "Edit the event"

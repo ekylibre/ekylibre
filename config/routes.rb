@@ -283,6 +283,10 @@ Ekylibre::Application.routes.draw do
 
     resources :establishments, concerns: [:list, :unroll]
 
+    resources :event_natures, concerns: [:list, :unroll]
+
+    resources :event_participations
+
     resources :events, concerns: [:list, :unroll] do
       collection do
         get :autocomplete_for_place
@@ -292,8 +296,6 @@ Ekylibre::Application.routes.draw do
         get :list_participations
       end
     end
-
-    resources :event_natures, concerns: [:list, :unroll]
 
     resources :financial_years, concerns: [:list, :unroll] do
       member do

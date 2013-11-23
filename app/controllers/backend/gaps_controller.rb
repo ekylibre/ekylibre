@@ -20,8 +20,6 @@
 class Backend::GapsController < BackendController
   manage_restfully
 
-  unroll
-
   list do |t|
     t.column :entity, url: true
     t.column :direction

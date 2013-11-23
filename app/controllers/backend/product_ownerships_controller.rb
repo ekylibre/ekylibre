@@ -17,15 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::ProductOwnershipsController < BackendController
-  manage_restfully
+  # manage_restfully
 
-  unroll
-
-  list do |t|
-    t.column :product, url: true
-    t.column :owner, url: true
-    t.column :started_at
-    t.column :stopped_at
-  end
-
+  # list do |t|
+  #   t.column :product, url: true
+  #   t.column :owner, url: true
+  #   t.column :started_at
+  #   t.column :stopped_at
+  # end
 end

@@ -18,9 +18,9 @@
 #
 
 class Backend::PreferencesController < BackendController
-  manage_restfully
+  manage_restfully only: :index
 
-  unroll
+  # unroll
 
   list() do |t|
     t.column :name, url: true

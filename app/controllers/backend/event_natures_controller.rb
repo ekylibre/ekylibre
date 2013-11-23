@@ -18,7 +18,7 @@
 #
 
 class Backend::EventNaturesController < BackendController
-  manage_restfully
+  manage_restfully except: :show
 
   unroll
 

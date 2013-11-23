@@ -3,8 +3,8 @@
     - b.cell :last_entities
     - if Event.any?
       - if current_user.participations.any?
-        - b.cell :future_events, cell: :events, params: {mode: :my_future}
-      - b.cell :recent_events, cell: :events, params: {mode: :last}
+        - b.cell :future_events, type: :events, params: {mode: :my_future}
+      - b.cell :recent_events, type: :events, params: {mode: :last}
 
   -# b.hbox do
     - b.cell :rss, :title => "Dossiers", :params => {:url => "http://www.lafranceagricole.fr/Rss/dossiers-11.html"}

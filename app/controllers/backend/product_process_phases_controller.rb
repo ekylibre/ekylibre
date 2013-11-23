@@ -18,20 +18,5 @@
 #
 
 class Backend::ProductProcessPhasesController < BackendController
-  manage_restfully
-
-  # unroll
-
-  # list do |t|
-  #   t.column :name, url: true
-  #   t.column :process, url: true
-  #   t.column :nature
-  #   t.column :phase_delay
-  #   t.column :position
-  #   t.column :description
-  #   t.action :show, url: {:format => :pdf}, image: :print
-  #   t.action :edit
-  #   t.action :destroy, :if => :destroyable?
-  # end
-
+  manage_restfully except: [:index, :show]
 end

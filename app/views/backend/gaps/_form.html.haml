@@ -1,2 +1,5 @@
 = field_set do
-  = f.input :name
+  = f.referenced_association :entity
+  = f.input :direction
+  = f.input :amount
+  = f.input :currency

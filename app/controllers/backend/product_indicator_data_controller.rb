@@ -18,6 +18,4 @@
 #
 
 class Backend::ProductIndicatorDataController < BackendController
-  # manage_restfully
-  # unroll
 end

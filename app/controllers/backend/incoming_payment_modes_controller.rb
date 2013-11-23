@@ -18,7 +18,7 @@
 #
 
 class Backend::IncomingPaymentModesController < BackendController
-  manage_restfully with_accounting: true
+  manage_restfully with_accounting: true, except: :show
   manage_restfully_list :name
 
   unroll
@@ -40,11 +40,11 @@ class Backend::IncomingPaymentModesController < BackendController
   end
 
   def reflect
-    return unless @incoming_payment_mode = find_and_check
-    for payment in @incoming_payment_mode.unlocked_payments
+    return unless incoming_payment_mode = find_and_check
+    incoming_payment_mode.unlocked_payments.find_each do |payment|
       payment.update_attributes(:commission_account_id => nil, :commission_amount => nil)
     end
-    redirect_to :action => :index
+    redirect_to action: :index
   end
 
 end

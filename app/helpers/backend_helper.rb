@@ -33,15 +33,19 @@ module BackendHelper
   end
 
   def navigation_tag
-    # session[:last_page] ||= {}
-    render :partial => "layouts/navigation"
+    render(partial: "layouts/navigation")
+  rescue ActionView::Template::Error => e
+    Rails.logger.warn("Cannot render navigation bar. #{e.message}.")
+    return nil
   end
-
 
   def side_tag # (submenu = self.controller.controller_name.to_sym)
     path = reverse_menus
     return '' if path.nil?
-    render(:partial => 'layouts/side', :locals => {:path => path})
+    render(partial: 'layouts/side', locals: {path: path})
+  rescue ActionView::Template::Error => e
+    Rails.logger.warn("Cannot render side bar. #{e.message}.")
+    return nil
   end
 
   def side_menu(*args, &block)

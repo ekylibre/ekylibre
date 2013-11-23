@@ -258,6 +258,7 @@ spa:
       # index: "Types d'évènement"
       # new: "Nouveau type d'évènement"
       # show: "Type d'évènement\_: %{name}"
+    backend/event_participations: #?
     backend/events:
       # edit: "Modifier l'évènement\_: %{name}"
       # index: "Evènements"

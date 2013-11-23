@@ -1,10 +1,7 @@
-=f.product_form_frame do
-  =field_set do # partie info general de l entité animal_group
-    =f.input :name # affiche le champ name de l entité animal avec une infos derriere
-    =f.input :work_number
+= f.product_form_frame do
+  = field_set do # partie info general de l entité animal_group
+    = f.input :name # affiche le champ name de l entité animal avec une infos derriere
+    = f.input :work_number
 
-  =field_set(:details) do # partie entrée sortie de l entité animal
-    =f.input :born_at, as: :date
-    =f.input :description # affiche le champ description formaté en zone de texte
-    =f.input :external, inline_label: "Cas des groupes / troupeaux non présents sur l'exploitation"
-    =f.referenced_association :owner
+  = field_set(:details) do # partie entrée sortie de l entité animal
+    = f.input :description # affiche le champ description formaté en zone de texte

@@ -18,7 +18,7 @@
 #
 
 class Backend::AreasController < BackendController
-  manage_restfully :country => "Preference[:country]".c
+  manage_restfully :country => "Preference[:country]".c, except: :show
 
   unroll
 

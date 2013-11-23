@@ -42,8 +42,7 @@ class ProductionSupport < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :storage_id, scope: :production_id
 
-  delegate :area, to: :storage, prefix: true
-  delegate :shape_area, to: :storage, prefix: true
+  delegate :area, :shape_area, to: :storage, prefix: true
 end
 
 

@@ -436,10 +436,11 @@ module ApplicationHelper
     end
 
     class Cell
-      attr_reader :content, :name, :beehive, :options
+      attr_reader :content, :name, :beehive, :options, :type
 
       def initialize(name, beehive, options = {}, &block)
         @name = name
+        @type = options[:type] || @name
         @beehive = beehive
         @options = options
         if block_given?

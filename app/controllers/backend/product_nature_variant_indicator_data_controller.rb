@@ -18,12 +18,5 @@
 #
 
 class Backend::ProductNatureVariantIndicatorDataController < BackendController
-  manage_restfully
-
-  unroll
-
-  list do |t|
-    t.column :name, url: true
-  end
-
+  manage_restfully except: [:index, :show]
 end

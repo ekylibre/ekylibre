@@ -53,7 +53,6 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   belongs_to :depositables_account, class_name: "Account"
   belongs_to :depositables_journal, class_name: "Journal"
   has_many :depositable_payments, -> { where(:deposit_id => nil) }, class_name: "IncomingPayment", foreign_key: :mode_id
-  has_many :entities, dependent: :nullify, foreign_key: :payment_mode_id
   has_many :payments, foreign_key: :mode_id, class_name: "IncomingPayment"
   has_many :unlocked_payments, -> { where('journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})') }, foreign_key: :mode_id, class_name: "IncomingPayment"
 
@@ -72,7 +71,6 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   delegate :currency, to: :cash
   delegate :journal, to: :cash, prefix: true
 
-  # default_scope -> { order(:position) }
   scope :depositers, -> { where(:with_deposit => true).order(:name) }
 
   before_validation do
@@ -93,7 +91,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.payments.count <= 0
+    self.payments.any?
   end
 
   def commission_amount(amount)

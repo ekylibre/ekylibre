@@ -53,6 +53,7 @@ class Affair < Ekylibre::Record::Base
   AFFAIRABLE_MODELS = AFFAIRABLE_TYPES.map(&:underscore).freeze
   belongs_to :third, class_name: "Entity"
   belongs_to :journal_entry
+  has_many :gaps, inverse_of: :affair, dependent: :nullify
   has_many :sales, inverse_of: :affair, dependent: :nullify
   has_many :purchases, inverse_of: :affair, dependent: :nullify
   has_many :incoming_payments, inverse_of: :affair, dependent: :nullify

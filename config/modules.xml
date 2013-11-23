@@ -1386,8 +1386,6 @@
       <item name="dashboards">
         <page to="backend/dashboards#index"/>
         <page to="backend/dashboards#accountancy"/>
-        <page to="backend/dashboards#list_my_future_events"/>
-        <page to="backend/dashboards#list_recent_events"/>
         <page to="backend/dashboards#production"/>
         <page to="backend/dashboards#relationship"/>
         <page to="backend/dashboards#search"/>
@@ -1396,6 +1394,13 @@
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#trade"/>
         <page to="backend/dashboards#welcome"/>
+      </item>
+      <item name="event_participations">
+        <page to="backend/event_participations#create"/>
+        <page to="backend/event_participations#destroy"/>
+        <page to="backend/event_participations#edit"/>
+        <page to="backend/event_participations#new"/>
+        <page to="backend/event_participations#update"/>
       </item>
       <item name="incoming_deliveries">
         <page to="backend/incoming_deliveries#list_items"/>
@@ -1409,7 +1414,6 @@
         <page to="backend/incoming_delivery_modes#unroll"/>
       </item>
       <item name="incoming_payment_modes">
-        <page to="backend/incoming_payment_modes#show"/>
         <page to="backend/incoming_payment_modes#unroll"/>
       </item>
       <item name="incoming_payments">
@@ -1553,25 +1557,12 @@
         <page to="backend/plants#picture"/>
         <page to="backend/plants#unroll"/>
       </item>
-      <item name="preferences">
-        <page to="backend/preferences#unroll"/>
-      </item>
       <item name="prescriptions">
         <page to="backend/prescriptions#unroll"/>
       </item>
       <item name="product_groups">
         <page to="backend/product_groups#list_intervention_casts"/>
         <page to="backend/product_groups#picture"/>
-      </item>
-      <item name="product_links">
-        <page to="backend/product_links#index"/>
-        <page to="backend/product_links#create"/>
-        <page to="backend/product_links#destroy"/>
-        <page to="backend/product_links#edit"/>
-        <page to="backend/product_links#list"/>
-        <page to="backend/product_links#new"/>
-        <page to="backend/product_links#show"/>
-        <page to="backend/product_links#update"/>
       </item>
       <item name="product_localizations">
         <page to="backend/product_localizations#index"/>
@@ -1583,59 +1574,21 @@
         <page to="backend/product_localizations#show"/>
         <page to="backend/product_localizations#update"/>
       </item>
-      <item name="product_memberships">
-        <page to="backend/product_memberships#index"/>
-        <page to="backend/product_memberships#create"/>
-        <page to="backend/product_memberships#destroy"/>
-        <page to="backend/product_memberships#edit"/>
-        <page to="backend/product_memberships#list"/>
-        <page to="backend/product_memberships#new"/>
-        <page to="backend/product_memberships#show"/>
-        <page to="backend/product_memberships#unroll"/>
-        <page to="backend/product_memberships#update"/>
-      </item>
       <item name="product_nature_categories">
         <page to="backend/product_nature_categories#unroll"/>
       </item>
       <item name="product_nature_variant_indicator_data">
-        <page to="backend/product_nature_variant_indicator_data#index"/>
         <page to="backend/product_nature_variant_indicator_data#create"/>
         <page to="backend/product_nature_variant_indicator_data#destroy"/>
         <page to="backend/product_nature_variant_indicator_data#edit"/>
-        <page to="backend/product_nature_variant_indicator_data#list"/>
         <page to="backend/product_nature_variant_indicator_data#new"/>
-        <page to="backend/product_nature_variant_indicator_data#show"/>
-        <page to="backend/product_nature_variant_indicator_data#unroll"/>
         <page to="backend/product_nature_variant_indicator_data#update"/>
       </item>
-      <item name="product_ownerships">
-        <page to="backend/product_ownerships#index"/>
-        <page to="backend/product_ownerships#create"/>
-        <page to="backend/product_ownerships#destroy"/>
-        <page to="backend/product_ownerships#edit"/>
-        <page to="backend/product_ownerships#list"/>
-        <page to="backend/product_ownerships#new"/>
-        <page to="backend/product_ownerships#show"/>
-        <page to="backend/product_ownerships#unroll"/>
-        <page to="backend/product_ownerships#update"/>
-      </item>
-      <item name="product_phases">
-        <page to="backend/product_phases#index"/>
-        <page to="backend/product_phases#create"/>
-        <page to="backend/product_phases#destroy"/>
-        <page to="backend/product_phases#edit"/>
-        <page to="backend/product_phases#new"/>
-        <page to="backend/product_phases#show"/>
-        <page to="backend/product_phases#unroll"/>
-        <page to="backend/product_phases#update"/>
-      </item>
       <item name="product_process_phases">
-        <page to="backend/product_process_phases#index"/>
         <page to="backend/product_process_phases#create"/>
         <page to="backend/product_process_phases#destroy"/>
         <page to="backend/product_process_phases#edit"/>
         <page to="backend/product_process_phases#new"/>
-        <page to="backend/product_process_phases#show"/>
         <page to="backend/product_process_phases#update"/>
       </item>
       <item name="product_processes">
@@ -1645,7 +1598,6 @@
         <page to="backend/product_processes#edit"/>
         <page to="backend/product_processes#list"/>
         <page to="backend/product_processes#new"/>
-        <page to="backend/product_processes#show"/>
         <page to="backend/product_processes#unroll"/>
         <page to="backend/product_processes#update"/>
       </item>

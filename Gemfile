@@ -116,7 +116,7 @@ gem 'ofx-parser'
 gem 'ffaker'
 
 # Reading RSS feeds
-gem 'feedzirra', '~> 0.2.1'
+gem 'feedzirra'
 
 # Compass
 gem 'compass', '~> 0.13.alpha.10'
@@ -135,7 +135,7 @@ group :development do
   # Project Management / Model
   gem 'railroady'
   # gem 'rails-erd', github: "burisu/rails-erd"
-  gem 'rb-readline', '~> 0.4.2'
+  gem 'rb-readline' # , '~> 0.4.2'
 
   gem 'unicorn'
   gem 'thin'

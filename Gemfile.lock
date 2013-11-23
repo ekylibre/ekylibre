@@ -132,7 +132,7 @@ GEM
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
     fastercsv (1.5.5)
-    feedzirra (0.2.2)
+    feedzirra (0.4.0)
       curb (~> 0.8.1)
       loofah (~> 1.2.1)
       nokogiri (~> 1.6.0)
@@ -263,7 +263,7 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
-    rb-readline (0.4.2)
+    rb-readline (0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
@@ -397,7 +397,7 @@ DEPENDENCIES
   exception_notification
   factory_girl_rails
   fastercsv
-  feedzirra (~> 0.2.1)
+  feedzirra
   ffaker
   formize (~> 1.1.0)
   haml
@@ -420,7 +420,7 @@ DEPENDENCIES
   railroady
   rails (= 4.0.1)
   rails_best_practices
-  rb-readline (~> 0.4.2)
+  rb-readline
   rgeo-shapefile
   rspec-expectations
   rubyzip (~> 1.0.0)

@@ -273,6 +273,7 @@ arb:
       index: "انواع الاحداث"
       new: "اضافة نوع الحدث"
       # show: "Type d'évènement\_: %{name}"
+    backend/event_participations: #?
     backend/events:
       edit: "تعديل الحدث"
       index: "الاحداث"

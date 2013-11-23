@@ -641,7 +641,7 @@ fra:
     employees: "employés"
     employment: "Emploi/Rôle"
     encrypted_password: "Mot de passe crypté"
-    entities: "Personnes"
+    entities: "Personnes" #?
     entity: "Personne"
     entity_1: "Personne 1"
     entity_2: "Personne 2"
@@ -685,6 +685,7 @@ fra:
     frozen_indicators: "Frozen indicators"
     full_name: "Nom complet"
     function_title: "Civilités"
+    # gaps: "Gaps"
     geometry_value: "Geometry value"
     global_balance: "Solde global"
     global_count: "Population globale"

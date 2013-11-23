@@ -18,7 +18,7 @@
 #
 
 class Backend::CustomFieldChoicesController < BackendController
-  manage_restfully :custom_field_id => 'params[:custom_field_id]'.c, :destroy_to => ':controller => :custom_fields, :action => :show, :id => @custom_field_choice.custom_field_id'.c
+  manage_restfully :custom_field_id => 'params[:custom_field_id]'.c, :destroy_to => ':controller => :custom_fields, :action => :show, :id => RECORD.custom_field_id'.c, except: [:index, :show]
   manage_restfully_list
   unroll
 end

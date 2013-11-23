@@ -18,11 +18,10 @@
 #
 
 class Backend::DocumentTemplatesController < BackendController
-  manage_restfully :language => "Preference[:language]".c
+  manage_restfully language: "Preference[:language]".c, except: :show
 
   unroll
 
-  # FIXME :language.to_s waiting for method
   list(order: :name) do |t|
     t.column :active
     t.column :name

@@ -87,7 +87,7 @@ class Backend::DepositsController < BackendController
     return unless mode = find_mode
     session[:deposit_id] = nil
     session[:payment_mode_id] = mode.id
-    @deposit = Deposit.new(params[:deposit])
+    @deposit = Deposit.new(permitted_params)
     @deposit.mode_id = mode.id
     if @deposit.save
       payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
@@ -111,7 +111,7 @@ class Backend::DepositsController < BackendController
     return unless @deposit = find_and_check(:deposit)
     session[:deposit_id] = @deposit.id
     session[:payment_mode_id] = @deposit.mode_id
-    if @deposit.update_attributes(params[:deposit]) and params[:depositable_payments]
+    if @deposit.update_attributes(permitted_params) and params[:depositable_payments]
       ActiveRecord::Base.transaction do
         payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
         IncomingPayment.where(:deposit_id => @deposit.id).update_all(:deposit_id => nil)
@@ -165,6 +165,10 @@ class Backend::DepositsController < BackendController
       return nil
     end
     return mode
+  end
+
+  def permitted_params
+    params.permit!(:deposit)
   end
 
 end

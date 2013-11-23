@@ -20,8 +20,6 @@
 class Backend::ProductLocalizationsController < BackendController
   manage_restfully
 
-  # unroll # Not necessary for now
-
   list do |t|
     t.column :container, url: true
     t.column :product, url: true

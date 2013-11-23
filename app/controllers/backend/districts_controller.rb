@@ -18,7 +18,7 @@
 #
 
 class Backend::DistrictsController < BackendController
-  manage_restfully
+  manage_restfully except: :show
 
   unroll
 

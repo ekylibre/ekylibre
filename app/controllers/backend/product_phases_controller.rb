@@ -18,9 +18,5 @@
 #
 
 class Backend::ProductPhasesController < BackendController
-
-  manage_restfully
-
-  unroll
-
+  # manage_restfully
 end

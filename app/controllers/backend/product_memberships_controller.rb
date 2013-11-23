@@ -18,12 +18,12 @@
 #
 
 class Backend::ProductMembershipsController < BackendController
-  manage_restfully
+  # manage_restfully
 
-  unroll
+  # unroll
 
-  list do |t|
-    t.column :group, url: true
-    t.column :member, url: true
-  end
+  # list do |t|
+  #   t.column :group, url: true
+  #   t.column :member, url: true
+  # end
 end

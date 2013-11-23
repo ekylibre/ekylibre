@@ -17,21 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::EstablishmentsController < BackendController
-  manage_restfully except: :show
-
-  unroll
-
-  list(:order => :name) do |t|
-    t.column :name
-    t.column :code
-    t.column :description
-    t.action :edit
-    t.action :destroy
-  end
-
-  # Displays the main page with the list of establishments
-  def index
-  end
-
+class Backend::EventParticipationsController < BackendController
+  manage_restfully except: [:index, :show]
 end

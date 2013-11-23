@@ -18,8 +18,7 @@
 #
 
 class Backend::EntityLinksController < BackendController
-  manage_restfully :entity_1_id => 'params[:entity_id]'.c
-  unroll
+  manage_restfully entity_1_id: 'params[:entity_id]'.c, except: :index
 
   def show
     link = EntityLink.find(params[:id])
