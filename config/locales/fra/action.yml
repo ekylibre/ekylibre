@@ -378,7 +378,6 @@ fra:
       edit: "Modifier la responsabilité"
       index: "Responsabilités"
       new: "Créer une responsabilité"
-      # show: "Show backend/mandate"
     backend/matters:
       edit: "Modifier la matière\_: %{name}"
       index: "Matières"
@@ -403,9 +402,7 @@ fra:
       statistics: "Mes statistiques" #?
     backend/observations:
       edit: "Modifier une observation"
-      # index: "Index backend/observation"
       new: "Ajouter une observation"
-      # show: "Show backend/observation"
     backend/operations:
       edit: "Modifier le travail"
       index: "Travaux" #?

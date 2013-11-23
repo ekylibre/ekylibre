@@ -3,5 +3,7 @@
 
 = beehive do |b|
   - b.cell do
-    = attributes_list(@gap) do |l|
-      - l.attribute :name
+    = attributes_list do |l|
+      - l.attribute :entity
+      - l.attribute :direction
+      - l.attribute :amount, currency: true

@@ -94,8 +94,9 @@ Ekylibre::Application.routes.draw do
       resource :collected_taxes_cell, only: :show
       resource :currents_stocks_by_product_nature_cell, only: :show
       resource :cropping_plan_cell, only: :show
-      resource :elapsed_interventions_times_by_activities_cell, only: :show
       resource :cropping_plan_on_cultivable_land_parcels_cell, only: :show
+      resource :elapsed_interventions_times_by_activities_cell, only: :show
+      resource :events_cell, only: :show
       resource :product_bar_cell, only: :show
       resource :purchases_bar_cell, only: :show
       resource :purchases_expense_bar_cell, only: :show

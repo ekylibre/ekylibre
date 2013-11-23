@@ -18,7 +18,7 @@
 #
 
 class Backend::MandatesController < BackendController
-  manage_restfully
+  manage_restfully except: :show
 
   autocomplete_for :family
   autocomplete_for :organization

@@ -1514,10 +1514,6 @@
         <page to="backend/mineral_matters#list_places"/>
         <page to="backend/mineral_matters#picture"/>
       </item>
-      <item name="observations">
-        <page to="backend/observations#index"/>
-        <page to="backend/observations#show"/>
-      </item>
       <item name="operations">
         <page to="backend/operations#unroll"/>
       </item>
