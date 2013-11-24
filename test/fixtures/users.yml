@@ -51,7 +51,6 @@
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
 #  office                                 :string(255)
 #  person_id                              :integer
-#  profession_id                          :integer
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime
 #  reset_password_token                   :string(255)

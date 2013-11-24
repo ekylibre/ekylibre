@@ -20,22 +20,22 @@
 #
 # == Table: product_links
 #
-#  carried_id        :integer          not null
-#  carrier_id        :integer          not null
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  operation_task_id :integer
-#  started_at        :datetime
-#  stopped_at        :datetime
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  carried_id   :integer          not null
+#  carrier_id   :integer          not null
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  operation_id :integer
+#  started_at   :datetime
+#  stopped_at   :datetime
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 class ProductLink < Ekylibre::Record::Base
+  include Taskable
   belongs_to :carrier, class_name: 'Product'
   belongs_to :carried, class_name: 'Product'
-  belongs_to :operation_task
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :carried, :carrier
   #]VALIDATORS]

@@ -924,6 +924,7 @@ spa:
     # planned_depreciations: "Amortissements prévus"
     # planned_on: "Prévu le"
     # point_value: "Point value"
+    # population: "Population"
     # population_counting: "Gestion quantitative"
     # position: "Position"
     # postcode: "Code postal"

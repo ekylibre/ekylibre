@@ -544,10 +544,7 @@ spa:
       # index: "Produits"
       # new: "Créer un produit"
       # show: "%{nature_name}\_: %{name}"
-    backend/professions:
-      # edit: "Modifier la profession\_: %{name}"
-      # index: "Professions"
-      # new: "Ajouter une nouvelle profession"
+    backend/professions: #?
     backend/public: #?
     backend/purchase_items:
       # edit: "Modifier une ligne de la commande"
@@ -747,7 +744,6 @@ spa:
     # backend/product_natures: "Types de produits"
     backend/production: "Producción" #?
     # backend/products: "Produits"
-    # backend/professions: "Professions"
     # backend/purchase_items: "Lignes d’achat"
     # backend/purchase_natures: "Types d’achat"
     # backend/purchases: "Achats"

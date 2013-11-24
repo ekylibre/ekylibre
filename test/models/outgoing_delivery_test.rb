@@ -20,13 +20,13 @@
 #
 # == Table: outgoing_deliveries
 #
-#  address_id       :integer
+#  address_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
-#  number           :string(255)
+#  number           :string(255)      not null
 #  recipient_id     :integer          not null
 #  reference_number :string(255)
 #  sale_id          :integer

@@ -394,7 +394,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "custom_fields", force: true do |t|
     t.string   "name",                                                                null: false
     t.string   "nature",          limit: 20,                                          null: false
-    t.integer  "position"
+    t.string   "column_name",                                                         null: false
     t.boolean  "active",                                              default: true,  null: false
     t.boolean  "required",                                            default: false, null: false
     t.integer  "maximal_length"
@@ -402,7 +402,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "maximal_value",              precision: 19, scale: 4
     t.string   "customized_type",                                                     null: false
     t.integer  "minimal_length"
-    t.string   "column_name"
+    t.integer  "position"
     t.datetime "created_at",                                                          null: false
     t.datetime "updated_at",                                                          null: false
     t.integer  "creator_id"
@@ -572,7 +572,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "authorized_payments_count"
     t.integer  "responsible_id"
     t.integer  "proposer_id"
-    t.integer  "invoices_count"
     t.string   "origin"
     t.date     "first_met_on"
     t.string   "activity_code",             limit: 30
@@ -1006,12 +1005,11 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "inventories", force: true do |t|
     t.string   "number",            limit: 20
     t.date     "created_on",                                   null: false
-    t.text     "description"
+    t.date     "moved_on"
     t.boolean  "changes_reflected",            default: false, null: false
     t.integer  "responsible_id"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
-    t.date     "moved_on"
     t.datetime "created_at",                                   null: false
     t.datetime "updated_at",                                   null: false
     t.integer  "creator_id"
@@ -1027,29 +1025,25 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "inventories", ["updater_id"], :name => "index_inventories_on_updater_id"
 
   create_table "inventory_items", force: true do |t|
-    t.integer  "product_id",                                            null: false
-    t.integer  "warehouse_id",                                          null: false
-    t.decimal  "theoric_quantity", precision: 19, scale: 4,             null: false
-    t.decimal  "quantity",         precision: 19, scale: 4,             null: false
-    t.integer  "inventory_id",                                          null: false
-    t.integer  "tracking_id"
-    t.integer  "move_id"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.integer  "inventory_id",                                                null: false
+    t.integer  "product_id",                                                  null: false
+    t.integer  "product_measurement_id"
+    t.decimal  "theoric_population",     precision: 19, scale: 4,             null: false
+    t.decimal  "population",             precision: 19, scale: 4,             null: false
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                              default: 0, null: false
+    t.integer  "lock_version",                                    default: 0, null: false
   end
 
   add_index "inventory_items", ["created_at"], :name => "index_inventory_items_on_created_at"
   add_index "inventory_items", ["creator_id"], :name => "index_inventory_items_on_creator_id"
   add_index "inventory_items", ["inventory_id"], :name => "index_inventory_items_on_inventory_id"
-  add_index "inventory_items", ["move_id"], :name => "index_inventory_items_on_move_id"
   add_index "inventory_items", ["product_id"], :name => "index_inventory_items_on_product_id"
-  add_index "inventory_items", ["tracking_id"], :name => "index_inventory_items_on_tracking_id"
+  add_index "inventory_items", ["product_measurement_id"], :name => "index_inventory_items_on_product_measurement_id"
   add_index "inventory_items", ["updated_at"], :name => "index_inventory_items_on_updated_at"
   add_index "inventory_items", ["updater_id"], :name => "index_inventory_items_on_updater_id"
-  add_index "inventory_items", ["warehouse_id"], :name => "index_inventory_items_on_warehouse_id"
 
   create_table "journal_entries", force: true do |t|
     t.integer  "journal_id",                                                            null: false
@@ -1255,12 +1249,12 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "logs", ["updater_id"], :name => "index_logs_on_updater_id"
 
   create_table "mandates", force: true do |t|
+    t.integer  "entity_id",                null: false
     t.date     "started_on"
     t.date     "stopped_on"
     t.string   "family",                   null: false
     t.string   "organization",             null: false
     t.string   "title",                    null: false
-    t.integer  "entity_id",                null: false
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.integer  "creator_id"
@@ -1275,10 +1269,10 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "mandates", ["updater_id"], :name => "index_mandates_on_updater_id"
 
   create_table "observations", force: true do |t|
-    t.string   "importance",   limit: 10,             null: false
-    t.text     "content",                             null: false
     t.integer  "subject_id",                          null: false
     t.string   "subject_type",                        null: false
+    t.string   "importance",   limit: 10,             null: false
+    t.text     "content",                             null: false
     t.datetime "observed_at",                         null: false
     t.integer  "author_id",                           null: false
     t.datetime "created_at",                          null: false
@@ -1294,28 +1288,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "observations", ["subject_id", "subject_type"], :name => "index_observations_on_subject_id_and_subject_type"
   add_index "observations", ["updated_at"], :name => "index_observations_on_updated_at"
   add_index "observations", ["updater_id"], :name => "index_observations_on_updater_id"
-
-  create_table "operation_tasks", force: true do |t|
-    t.integer  "operation_id",                   null: false
-    t.integer  "parent_id"
-    t.string   "nature",                         null: false
-    t.string   "reference_name",                 null: false
-    t.boolean  "prorated",       default: false, null: false
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",   default: 0,     null: false
-  end
-
-  add_index "operation_tasks", ["created_at"], :name => "index_operation_tasks_on_created_at"
-  add_index "operation_tasks", ["creator_id"], :name => "index_operation_tasks_on_creator_id"
-  add_index "operation_tasks", ["nature"], :name => "index_operation_tasks_on_nature"
-  add_index "operation_tasks", ["operation_id"], :name => "index_operation_tasks_on_operation_id"
-  add_index "operation_tasks", ["parent_id"], :name => "index_operation_tasks_on_parent_id"
-  add_index "operation_tasks", ["reference_name"], :name => "index_operation_tasks_on_reference_name"
-  add_index "operation_tasks", ["updated_at"], :name => "index_operation_tasks_on_updated_at"
-  add_index "operation_tasks", ["updater_id"], :name => "index_operation_tasks_on_updater_id"
 
   create_table "operations", force: true do |t|
     t.integer  "intervention_id",             null: false
@@ -1340,16 +1312,16 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "operations", ["updater_id"], :name => "index_operations_on_updater_id"
 
   create_table "outgoing_deliveries", force: true do |t|
-    t.integer  "sale_id"
-    t.integer  "address_id"
-    t.datetime "sent_at"
+    t.string   "number",                                                null: false
+    t.integer  "recipient_id",                                          null: false
+    t.string   "reference_number"
     t.integer  "mode_id"
+    t.integer  "sale_id"
+    t.integer  "address_id",                                            null: false
+    t.datetime "sent_at"
     t.decimal  "weight",           precision: 19, scale: 4
     t.integer  "transport_id"
     t.integer  "transporter_id"
-    t.string   "number"
-    t.string   "reference_number"
-    t.integer  "recipient_id",                                          null: false
     t.datetime "created_at",                                            null: false
     t.datetime "updated_at",                                            null: false
     t.integer  "creator_id"
@@ -1371,7 +1343,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "outgoing_delivery_items", force: true do |t|
     t.integer  "delivery_id",                                              null: false
     t.integer  "sale_item_id"
-    t.decimal  "quantity",          precision: 19, scale: 4, default: 1.0, null: false
+    t.decimal  "population",        precision: 19, scale: 4, default: 1.0, null: false
     t.integer  "product_id",                                               null: false
     t.integer  "source_product_id",                                        null: false
     t.datetime "created_at",                                               null: false
@@ -1492,7 +1464,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "prescriptor_id",               null: false
     t.integer  "document_id"
     t.string   "reference_number"
-    t.date     "delivered_on"
+    t.datetime "delivered_at"
     t.text     "description"
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
@@ -1503,7 +1475,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "prescriptions", ["created_at"], :name => "index_prescriptions_on_created_at"
   add_index "prescriptions", ["creator_id"], :name => "index_prescriptions_on_creator_id"
-  add_index "prescriptions", ["delivered_on"], :name => "index_prescriptions_on_delivered_on"
+  add_index "prescriptions", ["delivered_at"], :name => "index_prescriptions_on_delivered_at"
   add_index "prescriptions", ["document_id"], :name => "index_prescriptions_on_document_id"
   add_index "prescriptions", ["prescriptor_id"], :name => "index_prescriptions_on_prescriptor_id"
   add_index "prescriptions", ["reference_number"], :name => "index_prescriptions_on_reference_number"
@@ -1511,22 +1483,22 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "prescriptions", ["updater_id"], :name => "index_prescriptions_on_updater_id"
 
   create_table "product_births", force: true do |t|
-    t.integer  "operation_task_id"
-    t.string   "nature",                        null: false
+    t.integer  "operation_id"
+    t.string   "nature",                   null: false
     t.integer  "producer_id"
-    t.integer  "product_id",                    null: false
+    t.integer  "product_id",               null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "product_births", ["created_at"], :name => "index_product_births_on_created_at"
   add_index "product_births", ["creator_id"], :name => "index_product_births_on_creator_id"
-  add_index "product_births", ["operation_task_id"], :name => "index_product_births_on_operation_task_id"
+  add_index "product_births", ["operation_id"], :name => "index_product_births_on_operation_id"
   add_index "product_births", ["producer_id"], :name => "index_product_births_on_producer_id"
   add_index "product_births", ["product_id"], :name => "index_product_births_on_product_id"
   add_index "product_births", ["started_at"], :name => "index_product_births_on_started_at"
@@ -1535,23 +1507,23 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_births", ["updater_id"], :name => "index_product_births_on_updater_id"
 
   create_table "product_deaths", force: true do |t|
-    t.integer  "operation_task_id"
-    t.string   "nature",                        null: false
+    t.integer  "operation_id"
+    t.string   "nature",                   null: false
     t.integer  "absorber_id"
-    t.integer  "product_id",                    null: false
+    t.integer  "product_id",               null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "product_deaths", ["absorber_id"], :name => "index_product_deaths_on_absorber_id"
   add_index "product_deaths", ["created_at"], :name => "index_product_deaths_on_created_at"
   add_index "product_deaths", ["creator_id"], :name => "index_product_deaths_on_creator_id"
-  add_index "product_deaths", ["operation_task_id"], :name => "index_product_deaths_on_operation_task_id"
+  add_index "product_deaths", ["operation_id"], :name => "index_product_deaths_on_operation_id"
   add_index "product_deaths", ["product_id"], :name => "index_product_deaths_on_product_id"
   add_index "product_deaths", ["started_at"], :name => "index_product_deaths_on_started_at"
   add_index "product_deaths", ["stopped_at"], :name => "index_product_deaths_on_stopped_at"
@@ -1559,23 +1531,23 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_deaths", ["updater_id"], :name => "index_product_deaths_on_updater_id"
 
   create_table "product_enjoyments", force: true do |t|
-    t.integer  "operation_task_id"
-    t.integer  "product_id",                    null: false
-    t.string   "nature",                        null: false
+    t.integer  "operation_id"
+    t.integer  "product_id",               null: false
+    t.string   "nature",                   null: false
     t.integer  "enjoyer_id"
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "product_enjoyments", ["created_at"], :name => "index_product_enjoyments_on_created_at"
   add_index "product_enjoyments", ["creator_id"], :name => "index_product_enjoyments_on_creator_id"
   add_index "product_enjoyments", ["enjoyer_id"], :name => "index_product_enjoyments_on_enjoyer_id"
-  add_index "product_enjoyments", ["operation_task_id"], :name => "index_product_enjoyments_on_operation_task_id"
+  add_index "product_enjoyments", ["operation_id"], :name => "index_product_enjoyments_on_operation_id"
   add_index "product_enjoyments", ["product_id"], :name => "index_product_enjoyments_on_product_id"
   add_index "product_enjoyments", ["started_at"], :name => "index_product_enjoyments_on_started_at"
   add_index "product_enjoyments", ["stopped_at"], :name => "index_product_enjoyments_on_stopped_at"
@@ -1584,9 +1556,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "product_indicator_data", force: true do |t|
     t.integer  "product_id",                                                                                                            null: false
-    t.integer  "move_id"
-    t.string   "move_type"
-    t.integer  "operation_task_id"
     t.string   "indicator",                                                                                                             null: false
     t.string   "indicator_datatype",                                                                                                    null: false
     t.datetime "measured_at",                                                                                                           null: false
@@ -1610,55 +1579,53 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_indicator_data", ["creator_id"], :name => "index_product_indicator_data_on_creator_id"
   add_index "product_indicator_data", ["indicator"], :name => "index_product_indicator_data_on_indicator"
   add_index "product_indicator_data", ["measured_at"], :name => "index_product_indicator_data_on_measured_at"
-  add_index "product_indicator_data", ["move_id", "move_type"], :name => "index_product_indicator_data_on_move_id_and_move_type"
-  add_index "product_indicator_data", ["operation_task_id"], :name => "index_product_indicator_data_on_operation_task_id"
   add_index "product_indicator_data", ["product_id"], :name => "index_product_indicator_data_on_product_id"
   add_index "product_indicator_data", ["updated_at"], :name => "index_product_indicator_data_on_updated_at"
   add_index "product_indicator_data", ["updater_id"], :name => "index_product_indicator_data_on_updater_id"
 
   create_table "product_links", force: true do |t|
-    t.integer  "operation_task_id"
-    t.integer  "carrier_id",                    null: false
-    t.integer  "carried_id",                    null: false
+    t.integer  "operation_id"
+    t.integer  "carrier_id",               null: false
+    t.integer  "carried_id",               null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "product_links", ["carried_id"], :name => "index_product_links_on_carried_id"
   add_index "product_links", ["carrier_id"], :name => "index_product_links_on_carrier_id"
   add_index "product_links", ["created_at"], :name => "index_product_links_on_created_at"
   add_index "product_links", ["creator_id"], :name => "index_product_links_on_creator_id"
-  add_index "product_links", ["operation_task_id"], :name => "index_product_links_on_operation_task_id"
+  add_index "product_links", ["operation_id"], :name => "index_product_links_on_operation_id"
   add_index "product_links", ["started_at"], :name => "index_product_links_on_started_at"
   add_index "product_links", ["stopped_at"], :name => "index_product_links_on_stopped_at"
   add_index "product_links", ["updated_at"], :name => "index_product_links_on_updated_at"
   add_index "product_links", ["updater_id"], :name => "index_product_links_on_updater_id"
 
   create_table "product_localizations", force: true do |t|
-    t.integer  "operation_task_id"
-    t.integer  "product_id",                    null: false
-    t.string   "nature",                        null: false
+    t.integer  "operation_id"
+    t.integer  "product_id",                  null: false
+    t.string   "nature",                      null: false
     t.integer  "container_id"
     t.string   "arrival_cause"
     t.string   "departure_cause"
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
+    t.integer  "lock_version",    default: 0, null: false
   end
 
   add_index "product_localizations", ["container_id"], :name => "index_product_localizations_on_container_id"
   add_index "product_localizations", ["created_at"], :name => "index_product_localizations_on_created_at"
   add_index "product_localizations", ["creator_id"], :name => "index_product_localizations_on_creator_id"
-  add_index "product_localizations", ["operation_task_id"], :name => "index_product_localizations_on_operation_task_id"
+  add_index "product_localizations", ["operation_id"], :name => "index_product_localizations_on_operation_id"
   add_index "product_localizations", ["product_id"], :name => "index_product_localizations_on_product_id"
   add_index "product_localizations", ["started_at"], :name => "index_product_localizations_on_started_at"
   add_index "product_localizations", ["stopped_at"], :name => "index_product_localizations_on_stopped_at"
@@ -1666,23 +1633,23 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_localizations", ["updater_id"], :name => "index_product_localizations_on_updater_id"
 
   create_table "product_measurements", force: true do |t|
-    t.integer  "operation_task_id"
-    t.integer  "product_id",                    null: false
-    t.string   "indicator",                     null: false
+    t.integer  "operation_id"
+    t.integer  "product_id",               null: false
+    t.string   "indicator",                null: false
     t.integer  "reporter_id"
     t.integer  "tool_id"
-    t.datetime "started_at",                    null: false
+    t.datetime "started_at",               null: false
     t.datetime "stopped_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "product_measurements", ["created_at"], :name => "index_product_measurements_on_created_at"
   add_index "product_measurements", ["creator_id"], :name => "index_product_measurements_on_creator_id"
-  add_index "product_measurements", ["operation_task_id"], :name => "index_product_measurements_on_operation_task_id"
+  add_index "product_measurements", ["operation_id"], :name => "index_product_measurements_on_operation_id"
   add_index "product_measurements", ["product_id"], :name => "index_product_measurements_on_product_id"
   add_index "product_measurements", ["reporter_id"], :name => "index_product_measurements_on_reporter_id"
   add_index "product_measurements", ["started_at"], :name => "index_product_measurements_on_started_at"
@@ -1692,23 +1659,23 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_measurements", ["updater_id"], :name => "index_product_measurements_on_updater_id"
 
   create_table "product_memberships", force: true do |t|
-    t.integer  "operation_task_id"
-    t.integer  "member_id",                     null: false
-    t.integer  "group_id",                      null: false
-    t.datetime "started_at",                    null: false
+    t.integer  "operation_id"
+    t.integer  "member_id",                null: false
+    t.integer  "group_id",                 null: false
+    t.datetime "started_at",               null: false
     t.datetime "stopped_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "product_memberships", ["created_at"], :name => "index_product_memberships_on_created_at"
   add_index "product_memberships", ["creator_id"], :name => "index_product_memberships_on_creator_id"
   add_index "product_memberships", ["group_id"], :name => "index_product_memberships_on_group_id"
   add_index "product_memberships", ["member_id"], :name => "index_product_memberships_on_member_id"
-  add_index "product_memberships", ["operation_task_id"], :name => "index_product_memberships_on_operation_task_id"
+  add_index "product_memberships", ["operation_id"], :name => "index_product_memberships_on_operation_id"
   add_index "product_memberships", ["started_at"], :name => "index_product_memberships_on_started_at"
   add_index "product_memberships", ["stopped_at"], :name => "index_product_memberships_on_stopped_at"
   add_index "product_memberships", ["updated_at"], :name => "index_product_memberships_on_updated_at"
@@ -1863,22 +1830,22 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_natures", ["updater_id"], :name => "index_product_natures_on_updater_id"
 
   create_table "product_ownerships", force: true do |t|
-    t.integer  "operation_task_id"
-    t.integer  "product_id",                    null: false
-    t.string   "nature",                        null: false
+    t.integer  "operation_id"
+    t.integer  "product_id",               null: false
+    t.string   "nature",                   null: false
     t.integer  "owner_id"
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
+    t.integer  "lock_version", default: 0, null: false
   end
 
   add_index "product_ownerships", ["created_at"], :name => "index_product_ownerships_on_created_at"
   add_index "product_ownerships", ["creator_id"], :name => "index_product_ownerships_on_creator_id"
-  add_index "product_ownerships", ["operation_task_id"], :name => "index_product_ownerships_on_operation_task_id"
+  add_index "product_ownerships", ["operation_id"], :name => "index_product_ownerships_on_operation_id"
   add_index "product_ownerships", ["owner_id"], :name => "index_product_ownerships_on_owner_id"
   add_index "product_ownerships", ["product_id"], :name => "index_product_ownerships_on_product_id"
   add_index "product_ownerships", ["started_at"], :name => "index_product_ownerships_on_started_at"
@@ -1887,6 +1854,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_ownerships", ["updater_id"], :name => "index_product_ownerships_on_updater_id"
 
   create_table "product_phases", force: true do |t|
+    t.integer  "operation_id"
     t.integer  "product_id",               null: false
     t.integer  "variant_id",               null: false
     t.integer  "nature_id",                null: false
@@ -1904,6 +1872,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_phases", ["created_at"], :name => "index_product_phases_on_created_at"
   add_index "product_phases", ["creator_id"], :name => "index_product_phases_on_creator_id"
   add_index "product_phases", ["nature_id"], :name => "index_product_phases_on_nature_id"
+  add_index "product_phases", ["operation_id"], :name => "index_product_phases_on_operation_id"
   add_index "product_phases", ["product_id"], :name => "index_product_phases_on_product_id"
   add_index "product_phases", ["started_at"], :name => "index_product_phases_on_started_at"
   add_index "product_phases", ["stopped_at"], :name => "index_product_phases_on_stopped_at"
@@ -2017,8 +1986,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.datetime "dead_at"
     t.text     "description"
     t.string   "picture_file_name"
-    t.integer  "picture_file_size"
     t.string   "picture_content_type"
+    t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.string   "identification_number"
     t.string   "work_number"
@@ -2060,22 +2029,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "products", ["updater_id"], :name => "index_products_on_updater_id"
   add_index "products", ["variant_id"], :name => "index_products_on_variant_id"
   add_index "products", ["variety"], :name => "index_products_on_variety"
-
-  create_table "professions", force: true do |t|
-    t.string   "name",                         null: false
-    t.string   "code"
-    t.boolean  "commercial",   default: false, null: false
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", default: 0,     null: false
-  end
-
-  add_index "professions", ["created_at"], :name => "index_professions_on_created_at"
-  add_index "professions", ["creator_id"], :name => "index_professions_on_creator_id"
-  add_index "professions", ["updated_at"], :name => "index_professions_on_updated_at"
-  add_index "professions", ["updater_id"], :name => "index_professions_on_updater_id"
 
   create_table "purchase_items", force: true do |t|
     t.integer  "purchase_id",                                                          null: false
@@ -2557,7 +2510,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "team_id"
     t.integer  "establishment_id"
     t.string   "office"
-    t.integer  "profession_id"
     t.boolean  "employed",                                                                  default: false, null: false
     t.string   "employment"
     t.string   "language",                               limit: 3,                                          null: false
@@ -2592,7 +2544,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["establishment_id"], :name => "index_users_on_establishment_id"
   add_index "users", ["person_id"], :name => "index_users_on_person_id"
-  add_index "users", ["profession_id"], :name => "index_users_on_profession_id"
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["role_id"], :name => "index_users_on_role_id"
   add_index "users", ["team_id"], :name => "index_users_on_team_id"

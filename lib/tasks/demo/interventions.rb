@@ -85,6 +85,8 @@ demo :interventions do
 
   end
 
+  RubyProf.start
+
   # interventions for all poaceae
   Ekylibre::fixturize :cultural_interventions do |w|
     for production in Production.all
@@ -96,14 +98,15 @@ demo :interventions do
           land_parcel = support.storage
           if area = land_parcel.shape_area
             coeff = (area.to_s.to_f / 10000.0) / 6.0
-
-            # Plowing 15-09-N -> 15-10-N
-            Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support) do |i|
-              i.add_cast(reference_name: 'driver',  actor: Worker.all.sample)
-              i.add_cast(reference_name: 'tractor', actor: Product.can("tow(plower)").all.sample)
-              i.add_cast(reference_name: 'plow',    actor: Product.can("plow").all.sample)
-              i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
-            end
+            # 7.99 -> 20.11 -> 40.21
+            
+            # # Plowing 15-09-N -> 15-10-N
+            # Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support) do |i|
+            #   i.add_cast(reference_name: 'driver',  actor: Worker.all.sample)
+            #   i.add_cast(reference_name: 'tractor', actor: Product.can("tow(plower)").all.sample)
+            #   i.add_cast(reference_name: 'plow',    actor: Product.can("plow").all.sample)
+            #   i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
+            # end
 
             # Sowing 15-10-N -> 30-10-N
             int = Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, :range => 15, support: support) do |i|
@@ -118,40 +121,40 @@ demo :interventions do
 
             culture = int.casts.find_by(reference_name: 'culture').actor rescue nil
 
-            # Fertilizing  01-03-M -> 31-03-M
-            fertilizer = Product.of_variety(:mineral_matter).all.sample
-            Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
-              i.add_cast(reference_name: 'fertilizer', actor: fertilizer)
-              i.add_cast(reference_name: 'fertilizer_to_spread', actor: fertilizer, quantity: 0.4 + rand(0.6))
-              i.add_cast(reference_name: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
-              i.add_cast(reference_name: 'driver', actor: Worker.all.sample)
-              i.add_cast(reference_name: 'tractor', actor: Product.can("tow(spreader)").all.sample)
-              i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
-            end
+            # # Fertilizing  01-03-M -> 31-03-M
+            # fertilizer = Product.of_variety(:mineral_matter).all.sample
+            # Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
+            #   i.add_cast(reference_name: 'fertilizer', actor: fertilizer)
+            #   i.add_cast(reference_name: 'fertilizer_to_spread', actor: fertilizer, quantity: 0.4 + rand(0.6))
+            #   i.add_cast(reference_name: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
+            #   i.add_cast(reference_name: 'driver', actor: Worker.all.sample)
+            #   i.add_cast(reference_name: 'tractor', actor: Product.can("tow(spreader)").all.sample)
+            #   i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
+            # end
 
-            # Organic Fertilizing  01-03-M -> 31-03-M
-            organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample
-            Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
-              i.add_cast(reference_name: 'manure',      actor: organic_fertilizer)
-              i.add_cast(reference_name: 'manure_to_spread', actor: organic_fertilizer, quantity: 1.2)
-              i.add_cast(reference_name: 'spreader',    actor: Product.can("spread(organic_matter)").all.sample)
-              i.add_cast(reference_name: 'driver',      actor: Worker.all.sample)
-              i.add_cast(reference_name: 'tractor',     actor: Product.can("tow(spreader)").all.sample)
-              i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
-            end
+            # # Organic Fertilizing  01-03-M -> 31-03-M
+            # organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample
+            # Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
+            #   i.add_cast(reference_name: 'manure',      actor: organic_fertilizer)
+            #   i.add_cast(reference_name: 'manure_to_spread', actor: organic_fertilizer, quantity: 1.2)
+            #   i.add_cast(reference_name: 'spreader',    actor: Product.can("spread(organic_matter)").all.sample)
+            #   i.add_cast(reference_name: 'driver',      actor: Worker.all.sample)
+            #   i.add_cast(reference_name: 'tractor',     actor: Product.can("tow(spreader)").all.sample)
+            #   i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
+            # end
 
-            if w.count.modulo(3).zero? # AND NOT prairie
-              # Treatment herbicide 01-04 30-04
-              molecule = Product.can("kill(plant)").all.sample
-              Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: support) do |i|
-                i.add_cast(reference_name: 'molecule', actor: molecule)
-                i.add_cast(reference_name: 'molecule_to_spray', actor: molecule, quantity: rand(15))
-                i.add_cast(reference_name: 'sprayer',  actor: Product.can("spray").all.sample)
-                i.add_cast(reference_name: 'driver',   actor: Worker.all.sample)
-                i.add_cast(reference_name: 'tractor',  actor: Product.can("catch").all.sample)
-                i.add_cast(reference_name: 'culture',  actor: culture)
-              end
-            end
+            # if w.count.modulo(3).zero? # AND NOT prairie
+            #   # Treatment herbicide 01-04 30-04
+            #   molecule = Product.can("kill(plant)").all.sample
+            #   Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: support) do |i|
+            #     i.add_cast(reference_name: 'molecule', actor: molecule)
+            #     i.add_cast(reference_name: 'molecule_to_spray', actor: molecule, quantity: rand(15))
+            #     i.add_cast(reference_name: 'sprayer',  actor: Product.can("spray").all.sample)
+            #     i.add_cast(reference_name: 'driver',   actor: Worker.all.sample)
+            #     i.add_cast(reference_name: 'tractor',  actor: Product.can("catch").all.sample)
+            #     i.add_cast(reference_name: 'culture',  actor: culture)
+            #   end
+            # end
           end
           w.check_point
         end
@@ -159,6 +162,12 @@ demo :interventions do
     end
   end
 
+  result = RubyProf.stop
+  # # Print a graph profile to text
+  # printer = RubyProf::FlatPrinter.new(result)
+  # File.open(Rails.root.join("prof.html"), "wb") do |f|
+  #   printer.print(f, {})
+  # end
 
   # interventions for grass
   Ekylibre::fixturize :grass_interventions do |w|
@@ -258,5 +267,5 @@ demo :interventions do
       end
     end
   end
-
+  
 end

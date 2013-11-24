@@ -1597,16 +1597,6 @@
         <page to="backend/product_processes#unroll"/>
         <page to="backend/product_processes#update"/>
       </item>
-      <item name="professions">
-        <page to="backend/professions#index"/>
-        <page to="backend/professions#create"/>
-        <page to="backend/professions#destroy"/>
-        <page to="backend/professions#edit"/>
-        <page to="backend/professions#list"/>
-        <page to="backend/professions#new"/>
-        <page to="backend/professions#unroll"/>
-        <page to="backend/professions#update"/>
-      </item>
       <item name="purchases">
         <page to="backend/purchases#unroll"/>
       </item>

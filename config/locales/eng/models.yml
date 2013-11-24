@@ -1192,6 +1192,7 @@ eng:
     planned_depreciations: "Planned depreciations"
     planned_on: "Planned on"
     # point_value: "Point value"
+    # population: "Population"
     # population_counting: "Gestion quantitative"
     position: "Position"
     posologies: "Posologies" #?

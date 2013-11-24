@@ -137,7 +137,7 @@ GEM
       loofah (~> 1.2.1)
       nokogiri (~> 1.6.0)
       sax-machine (~> 0.2.1)
-    ffaker (1.21.0)
+    ffaker (1.22.1)
     ffi (1.9.3)
     formize (1.1.2)
       jquery-rails (>= 3)
@@ -224,7 +224,7 @@ GEM
     prawn (0.12.0)
       pdf-reader (>= 0.9.0)
       ttfunk (~> 1.0.2)
-    pry (0.9.12.3)
+    pry (0.9.12.4)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
@@ -282,6 +282,7 @@ GEM
     rspec-expectations (2.14.4)
       diff-lcs (>= 1.1.3, < 2.0)
     ruby-filemagic (0.4.2)
+    ruby-prof (0.13.0)
     ruby-progressbar (1.2.0)
     ruby-rc4 (0.1.5)
     rubyzip (1.0.0)
@@ -423,6 +424,7 @@ DEPENDENCIES
   rb-readline
   rgeo-shapefile
   rspec-expectations
+  ruby-prof
   rubyzip (~> 1.0.0)
   sass-rails (~> 4.0.1)
   sdoc

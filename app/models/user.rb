@@ -52,7 +52,6 @@
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
 #  office                                 :string(255)
 #  person_id                              :integer
-#  profession_id                          :integer
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime
 #  reset_password_token                   :string(255)
@@ -73,7 +72,7 @@ class User < Ekylibre::Record::Base
   belongs_to :establishment
   belongs_to :person
   belongs_to :role
-  belongs_to :profession
+  # belongs_to :profession
   # has_many :events, class_name: "Event" #, foreign_key: :responsible_id
   # has_many :future_events, class_name: "Event", :conditions => ["started_at >= CURRENT_TIMESTAMP"] # , foreign_key: :responsible_id
   has_many :preferences, dependent: :destroy, foreign_key: :user_id

@@ -20,19 +20,17 @@
 #
 # == Table: inventory_items
 #
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  id               :integer          not null, primary key
-#  inventory_id     :integer          not null
-#  lock_version     :integer          default(0), not null
-#  move_id          :integer
-#  product_id       :integer          not null
-#  quantity         :decimal(19, 4)   not null
-#  theoric_quantity :decimal(19, 4)   not null
-#  tracking_id      :integer
-#  updated_at       :datetime         not null
-#  updater_id       :integer
-#  warehouse_id     :integer          not null
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  id                     :integer          not null, primary key
+#  inventory_id           :integer          not null
+#  lock_version           :integer          default(0), not null
+#  population             :decimal(19, 4)   not null
+#  product_id             :integer          not null
+#  product_measurement_id :integer
+#  theoric_population     :decimal(19, 4)   not null
+#  updated_at             :datetime         not null
+#  updater_id             :integer
 #
 #
 # == Fixture: inventory_items
@@ -42,21 +40,32 @@
 #   creator_id: 1
 #   id: 1
 #   inventory_id: 1
+#   population: 0
 #   product_id: 1
-#   quantity: 0
-#   theoric_quantity: 0
+#   theoric_population: 0
 #   updated_at: 2009-07-19 19:13:59 +02:00
 #   updater_id: 1
-#   warehouse_id: 1
 #
+
+
 inventory_items_001:
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
   inventory_id: 1
-  product_id: 10
-  quantity: 1
-  theoric_quantity: 1
+  population: 0
+  product_id: 1
+  theoric_population: 0
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
-  warehouse_id: 1
+
+inventory_items_002:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  id: 2
+  inventory_id: 1
+  population: 0
+  product_id: 1
+  theoric_population: 0
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1

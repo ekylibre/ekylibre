@@ -519,10 +519,10 @@ eng:
       index: "Products"
       new: "Add a new product"
       show: "%{nature_name}\_: %{name}"
-    backend/professions:
-      edit: "Edit profession"
-      index: "Professions"
-      new: "Add a new profession"
+    backend/professions:  #?
+      edit: "Edit profession" #?
+      index: "Professions" #?
+      new: "Add a new profession" #?
     backend/purchase_items:
       edit: "Edit the purhase order item"
       new: "Add a product to the purchase"
@@ -716,7 +716,7 @@ eng:
     backend/product_transfers: "Transfers and loss" #?
     backend/product_varieties: "Product species" #?
     backend/products: "Products"
-    backend/professions: "Professions"
+    backend/professions: "Professions" #?
     backend/purchase_items: "Purchase items"
     backend/purchase_natures: "Purchase types"
     backend/purchases: "Purchases"

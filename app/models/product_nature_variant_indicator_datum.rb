@@ -42,12 +42,16 @@
 #
 
 
-class ProductNatureVariantIndicatorDatum < IndicatorDatum
-  # attr_accessible :created_at, :variant_id, :description
+class ProductNatureVariantIndicatorDatum < Ekylibre::Record::Base
+  include IndicatorDatumStorable
   belongs_to :variant, class_name: "ProductNatureVariant"
   enumerize :computation_method, in: [:frozen, :proportional], default: :frozen
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :decimal_value, :measure_value_value, allow_nil: true
+  validates_length_of :choice_value, :computation_method, :indicator, :indicator_datatype, :measure_value_unit, allow_nil: true, maximum: 255
+  validates_inclusion_of :boolean_value, in: [true, false]
+  validates_presence_of :computation_method, :indicator, :indicator_datatype, :variant
   #]VALIDATORS]
 
   validate do

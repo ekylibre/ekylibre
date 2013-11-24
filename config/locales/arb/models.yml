@@ -1646,6 +1646,7 @@ arb:
     planned_on: "قرر يوم"
     # point_value: "Point value"
     polygon: "متناسقين" #?
+    # population: "Population"
     # population_counting: "Gestion quantitative"
     position: "الوضع"
     postcode: "الرمز البريدي"

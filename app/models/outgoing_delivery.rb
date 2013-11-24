@@ -20,13 +20,13 @@
 #
 # == Table: outgoing_deliveries
 #
-#  address_id       :integer
+#  address_id       :integer          not null
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
-#  number           :string(255)
+#  number           :string(255)      not null
 #  recipient_id     :integer          not null
 #  reference_number :string(255)
 #  sale_id          :integer
@@ -54,7 +54,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :weight, allow_nil: true
   validates_length_of :number, :reference_number, allow_nil: true, maximum: 255
-  validates_presence_of :recipient
+  validates_presence_of :address, :number, :recipient
   #]VALIDATORS]
   validates_presence_of :sent_at
 

@@ -26,6 +26,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  nature_id    :integer          not null
+#  operation_id :integer
 #  product_id   :integer          not null
 #  started_at   :datetime
 #  stopped_at   :datetime
@@ -34,14 +35,14 @@
 #  variant_id   :integer          not null
 #
 class ProductPhase < Ekylibre::Record::Base
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :category, :nature, :product, :variant
-  #]VALIDATORS]
-
+  include Taskable
   belongs_to :product
   belongs_to :variant, class_name: "ProductNatureVariant"
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :category, class_name: "ProductNatureCategory"
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_presence_of :category, :nature, :product, :variant
+  #]VALIDATORS]
 
   before_validation :set_default_values, on: :create
 

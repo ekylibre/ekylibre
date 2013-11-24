@@ -20,24 +20,24 @@
 #
 # == Table: product_memberships
 #
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  group_id          :integer          not null
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  member_id         :integer          not null
-#  operation_task_id :integer
-#  started_at        :datetime         not null
-#  stopped_at        :datetime
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  group_id     :integer          not null
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  member_id    :integer          not null
+#  operation_id :integer
+#  started_at   :datetime         not null
+#  stopped_at   :datetime
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 
 
 class ProductMembership < Ekylibre::Record::Base
+  include Taskable
   belongs_to :group, class_name: "ProductGroup"
   belongs_to :member, class_name: "Product"
-  belongs_to :operation_task
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_presence_of :group, :member, :started_at
   #]VALIDATORS]

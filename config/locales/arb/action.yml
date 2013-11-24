@@ -594,10 +594,7 @@ arb:
       index: "المنتجات" #?
       new: "اضافة منتج جديد" #?
       show: "المنتجات : %{name}" #?
-    backend/professions:
-      # edit: "Modifier la profession\_: %{name}"
-      # index: "Professions"
-      # new: "Ajouter une nouvelle profession"
+    backend/professions: #?
     backend/public: #?
     backend/purchase_items:
       edit: "تعديل تصميم الطلب"
@@ -832,7 +829,6 @@ arb:
     backend/production: "المنتج" #?
     backend/products: "المنتجات"
     backend/products_natures: "المنتجات" #?
-    # backend/professions: "Professions"
     # backend/purchase_items: "Lignes d’achat"
     # backend/purchase_natures: "Types d’achat"
     backend/purchases: "المستريات"

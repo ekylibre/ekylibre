@@ -22,7 +22,7 @@
 #
 #  created_at       :datetime         not null
 #  creator_id       :integer
-#  delivered_on     :date
+#  delivered_at     :datetime
 #  description      :text
 #  document_id      :integer
 #  id               :integer          not null, primary key

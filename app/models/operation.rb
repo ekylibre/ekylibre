@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -36,7 +37,16 @@
 
 class Operation < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :operations
-  has_many :tasks, class_name: "OperationTask", inverse_of: :operation, dependent: :destroy
+  # has_many :tasks, class_name: "OperationTask", inverse_of: :operation, dependent: :destroy
+  has_many :product_births, dependent: :destroy
+  has_many :product_deaths, dependent: :destroy
+  has_many :product_links, dependent: :destroy
+  has_many :product_enjoyments, dependent: :destroy
+  has_many :product_localizations, dependent: :destroy
+  has_many :product_measurements, dependent: :destroy
+  has_many :product_memberships, dependent: :destroy
+  has_many :product_ownerships, dependent: :destroy
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, allow_nil: true, only_integer: true
   validates_length_of :reference_name, allow_nil: true, maximum: 255
@@ -74,16 +84,26 @@ class Operation < Ekylibre::Record::Base
     end
   end
 
-  after_create do
-    # Create tasks
-    for task in self.reference.tasks.values
-      self.tasks.create!(reference_name: task.name)
-    end
-  end
+  before_update :cancel_all!
+  after_save :perform_all!
+  after_destroy :cancel_all!
 
   # after_save do
   #   self.intervention.save!
   # end
+
+  def perform_all!
+    for task in self.reference.tasks.values
+      perform(task)
+    end
+  end
+
+  def cancel_all!
+    for task in self.reference.tasks.values
+      cancel(task)
+    end
+  end
+
 
   def reference
     self.intervention_reference.operations[self.reference_name]
@@ -107,6 +127,161 @@ class Operation < Ekylibre::Record::Base
   def description
     self.reference.human_expressions.to_sentence
   end
+
+  private
+
+  def task_actors(task)
+    return task.parameters.inject({}) do |hash, pair|
+      parameter = pair.second
+      hash[pair.first] = if parameter.is_a?(Procedo::Variable)
+                           self.casts.find_by!(reference_name: parameter.name.to_s).actor
+                         elsif parameter.is_a?(Procedo::Indicator)
+                           [self.casts.find_by!(reference_name: parameter.stakeholder.name.to_s).actor, parameter.indicator]
+                         else
+                           raise StandardError, "Don't known how to find a #{parameter.class.name}"
+                         end
+      hash
+    end
+  end
+
+  def perform(task)
+    send("perform_#{task.action.type}", task_actors(task))
+  end
+
+  def cancel(task)
+    method_name = "cancel_#{task.action.type}"
+    if respond_to?(method_name)
+      send(method_name, task_actors(task))
+    end
+  end
+
+
+  # == Localization
+
+  def perform_direct_movement(actors)
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].container(self.started_at).id)
+  end
+
+  def perform_direct_entering(actors)
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].id)
+  end
+
+  def perform_movement(actors)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: actors[:product].id)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].container(self.stopped_at).id)
+  end
+
+  def perform_entering(actors)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: actors[:product].id)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].id)
+  end
+
+  def perform_home_coming(actors)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: actors[:product].id)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:product].default_storage.id)
+  end
+
+  def perform_given_home_coming(actors)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: actors[:product].id)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].default_storage.id)
+  end
+
+  def perform_out_going(actors)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: actors[:product].id)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :exterior, product_id: actors[:product].id)
+  end
+
+  # == Births
+
+  def perform_creation(actors)
+    self.product_births.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :creation, product: actors[:product], producer: actors[:producer])
+  end
+
+  def perform_division(actors)
+    self.product_births.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :division, product: actors[:product], producer: actors[:producer])
+  end
+
+  # == Deaths
+
+  def perform_consumption(actors)
+    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :consumption, product: actors[:product], absorber: actors[:absorber])
+  end
+
+  def perform_merging(actors)
+    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :merging, product: actors[:product], absorber: actors[:absorber])
+  end
+
+  # == Links
+
+  def perform_attachment(actors)
+    self.product_links.create!(started_at: self.stopped_at, carrier: actors[:carrier], carried: actors[:carried])
+  end
+
+  def perform_detachment(actors)
+    self.product_links
+      .where(carrier_id: actors[:carrier].id, carried_id: actors[:carried].id)
+      .at(self.stopped_at)
+      .find_each do |link|
+      link.update_attribute(stopped_at: self.stopped_at)
+    end
+  end
+
+  def cancel_detachment(actors)
+    self.product_links
+      .where(carrier_id: actors[:carrier].id, carried_id: actors[:carried].id, stopped_at: self.stopped_at)
+      .find_each do |link|
+      link.update_attribute(stopped_at: nil)
+    end
+  end
+
+  # == Memberships
+
+  def perform_group_inclusion(actors)
+    self.product_memberships.create!(started_at: self.stopped_at, member: actors[:member], group: actors[:group])
+  end
+
+  def perform_group_exclusion(actors)
+    self.product_memberships
+      .where(member_id: actors[:member].id, group_id: actors[:group].id)
+      .at(self.stopped_at)
+      .find_each do |membership|
+      membership.update_attribute(stopped_at: self.stopped_at)
+    end
+  end
+
+  def cancel_group_exclusion(actors)
+    self.product_memberships
+      .where(member_id: actors[:member].id, group_id: actors[:group].id, stopped_at: self.stopped_at)
+      .find_each do |membership|
+      membership.update_attribute(stopped_at: nil)
+    end
+  end
+
+  # == Ownership
+
+  def perform_ownership_loss(actors)
+    self.product_ownerships.create!(started_at: self.stopped_at, nature: :unknown, product_id: actors[:product].id)
+  end
+
+  def perform_ownership_change(actors)
+    self.product_ownerships.create!(started_at: self.stopped_at, product_id: actors[:product].id, owner: actors[:owner])
+  end
+
+  # == Browsing
+
+  def perform_browsing(actors)
+  end
+
+  # == Measurement
+
+  def perform_measurement(actors)
+  end
+
+  def perform_simple_measurement(actors)
+    # product, indicator = actors[:indicator]
+    # self.product_measurements.create!(product: product, indicator: indicator)
+  end
+
 
 end
 

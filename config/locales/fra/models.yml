@@ -335,7 +335,7 @@ fra:
       mineral_matter: "Matière minérale"
       observation: "Observation"
       operation: "Opération"
-      operation_task: "Tâche"
+      operation_task: "Tâche" #?
       organic_matter: "Matière organique"
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
@@ -352,6 +352,7 @@ fra:
       product: "Produits"
       # product_birth: "Product birth"
       # product_death: "Product death"
+      # product_enjoyment: "Product enjoyment"
       product_group: "Groupe de produit"
       product_indicator_datum: "Valeur d’indicateur"
       product_link: "Lien entre produits"
@@ -369,7 +370,7 @@ fra:
       product_process_phase: "Phase de processus"
       production: "Production"
       production_support: "Support de production"
-      profession: "Profession"
+      profession: "Profession" #?
       property_title: "Titre de propriété"
       purchase: "Achat"
       purchase_item: "Ligne d’achat"
@@ -587,7 +588,8 @@ fra:
     deleted_at: "Supprimé le"
     deliverable: "Livrable" #?
     delivered: "Livré"
-    delivered_on: "Reçu le"
+    # delivered_at: "Delivered at"
+    delivered_on: "Reçu le" #?
     deliveries: "Livraisons"
     deliveries_conditions: "Conditions de Livraison"
     delivery: "Livraison"
@@ -641,6 +643,7 @@ fra:
     employees: "employés"
     employment: "Emploi/Rôle"
     encrypted_password: "Mot de passe crypté"
+    # enjoyer: "Enjoyer"
     entities: "Personnes" #?
     entity: "Personne"
     entity_1: "Personne 1"
@@ -732,7 +735,7 @@ fra:
     invoice_address: "Adresse pour la facture"
     invoiced: "Facturée" #?
     invoiced_on: "Facturée le"
-    invoices_count: "Nombre de factures"
+    invoices_count: "Nombre de factures" #?
     item_listing: "Nœud de l’extraction"
     item_listing_node: "Nœud de l’élément"
     item_nature: "Nature de l’élément"
@@ -819,8 +822,8 @@ fra:
     mobiles: "Portables"
     mode: "Mode"
     mother: "Mère"
-    move: "Move"
-    move_type: "Move type"
+    move: "Move" #?
+    move_type: "Move type" #?
     moved_at: "Fait à" #?
     moved_on: "Fait le"
     moves: "Mouvements" #?
@@ -850,7 +853,7 @@ fra:
     operation_items: "Intrants/sortants" #?
     operation_nature: "Type d’operation" #?
     operation_natures: "Types de travail" #?
-    operation_task: "Operation task"
+    operation_task: "Operation task" #?
     operation_tasks: "Operation tasks" #?
     operation_uses: "Utilisations d’outil" #?
     operations: "Travaux"
@@ -915,7 +918,7 @@ fra:
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
     point_value: "Point value"
-    # population: "Population"
+    population: "Population"
     population_counting: "Gestion quantitative"
     position: "Position"
     postcode: "Code postal"
@@ -938,21 +941,24 @@ fra:
     product_account: "Compte de produit"
     # product_births: "Product births"
     # product_deaths: "Product deaths"
+    # product_enjoyments: "Product enjoyments"
     product_events: "Product events"
     # product_links: "Product links"
     product_localizations: "Product localizations"
     # product_measurements: "Product measurements"
+    # product_memberships: "Product memberships"
     product_moves: "Product moves"
     product_nature: "Product nature"
     # product_nature_categories: "Product nature categories"
+    # product_ownerships: "Product ownerships"
     production: "Production"
     # production_support: "Production support"
     productions: "Productions"
     products: "Produits"
     products_categories: "Catégories de produits avec produit"
-    profession: "Profession"
+    profession: "Profession" #?
     proposer: "Parrain"
-    prorated: "Proratisé"
+    prorated: "Proratisé" #?
     prospect: "Prospect"
     protected: "Protégé" #?
     provisional: "Prévisionnel"
@@ -1079,11 +1085,12 @@ fra:
     suspended: "Suspendu"
     target: "Cible"
     target_type: "Type de cible"
-    tasks: "Tâches"
+    tasks: "Tâches" #?
     tax: "Taxe"
     # team: "Team"
     template: "Modèle"
-    theoric_quantity: "Quantité théorique"
+    # theoric_population: "Theoric population"
+    theoric_quantity: "Quantité théorique" #?
     # third: "Third"
     thread: "Thread"
     title: "Titre"

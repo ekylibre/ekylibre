@@ -20,25 +20,25 @@
 #
 # == Table: product_localizations
 #
-#  arrival_cause     :string(255)
-#  container_id      :integer
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  departure_cause   :string(255)
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  nature            :string(255)      not null
-#  operation_task_id :integer
-#  product_id        :integer          not null
-#  started_at        :datetime
-#  stopped_at        :datetime
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  arrival_cause   :string(255)
+#  container_id    :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  departure_cause :string(255)
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  nature          :string(255)      not null
+#  operation_id    :integer
+#  product_id      :integer          not null
+#  started_at      :datetime
+#  stopped_at      :datetime
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 
 class ProductLocalization < Ekylibre::Record::Base
+  include Taskable
   belongs_to :container, class_name: "Product"
-  belongs_to :operation_task
   belongs_to :product
   enumerize :nature, in: [:transfer, :interior, :exterior], default: :interior, predicates: true
   enumerize :arrival_cause,   in: [:birth, :housing, :other, :purchase], default: :birth, predicates: {prefix: true}

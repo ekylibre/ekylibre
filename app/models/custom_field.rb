@@ -21,7 +21,7 @@
 # == Table: custom_fields
 #
 #  active          :boolean          default(TRUE), not null
-#  column_name     :string(255)
+#  column_name     :string(255)      not null
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  customized_type :string(255)      not null
@@ -53,7 +53,7 @@ class CustomField < Ekylibre::Record::Base
   validates_length_of :nature, allow_nil: true, maximum: 20
   validates_length_of :column_name, :customized_type, :name, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :required, in: [true, false]
-  validates_presence_of :customized_type, :name, :nature
+  validates_presence_of :column_name, :customized_type, :name, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
   validates_inclusion_of :customized_type, in: self.customized_type.values

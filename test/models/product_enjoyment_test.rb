@@ -18,45 +18,28 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: professions
+# == Table: product_enjoyments
 #
-#  code         :string(255)
-#  commercial   :boolean          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
+#  enjoyer_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
+#  nature       :string(255)      not null
+#  operation_id :integer
+#  product_id   :integer          not null
+#  started_at   :datetime
+#  stopped_at   :datetime
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-#
-# == Fixture: professions
-#
-# professions_001:
-#   commercial: true
-#   created_at: 2009-07-19 19:13:59 +02:00
-#   creator_id: 1
-#   id: 1
-#   name: "Lorem ipsum"
-#   updated_at: 2009-07-19 19:13:59 +02:00
-#   updater_id: 1
-#
+require 'test_helper'
 
-professions_001:
-  commercial: true
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  name: "Lorem ipsum"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+class ProductEnjoymentTest < ActiveSupport::TestCase
 
-professions_002:
-  commercial: true
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 2
-  name: "Lorem ipsum 2"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
+  end
+
+end
