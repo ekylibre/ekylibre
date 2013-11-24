@@ -263,7 +263,7 @@ GEM
       ffi (>= 0.5.0)
     rb-kqueue (0.2.0)
       ffi (>= 0.5.0)
-    rb-readline (0.5.0)
+    rb-readline (0.4.2)
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.5)
@@ -420,7 +420,7 @@ DEPENDENCIES
   railroady
   rails (= 4.0.1)
   rails_best_practices
-  rb-readline
+  rb-readline (~> 0.4.2)
   rgeo-shapefile
   rspec-expectations
   rubyzip (~> 1.0.0)
