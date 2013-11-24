@@ -122,7 +122,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   def undelivered_quantity
-    return self.quantity-self.delivery_items.sum(:quantity)
+    return self.quantity - self.delivery_items.sum(:quantity)
   end
 
   def label

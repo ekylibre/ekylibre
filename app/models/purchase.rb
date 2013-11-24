@@ -175,7 +175,9 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def deliverable?
-    self.undelivered(:amount) > 0 and not self.invoice?
+    # TODO How to compute if it remains deliverable products
+    return true
+    # (self.quantity - self.undelivered(:population)) > 0 and not self.invoice?
   end
 
   # Save the last date when the purchase was confirmed

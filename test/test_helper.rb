@@ -24,6 +24,15 @@ require 'capybara/rails'
 
 # Choix du driver par défaut : selenium pour le Javascript
 #
+Capybara.register_driver :selenium do |app|
+
+  custom_profile = Selenium::WebDriver::Firefox::Profile.new
+
+  # Turn off the super annoying popup!
+  custom_profile["network.http.prompt-temp-redirect"] = false
+
+  Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => custom_profile)
+end
 Capybara.default_driver = :selenium
 Capybara.default_wait_time = 5
 #Capybara.default_driver = :webkit

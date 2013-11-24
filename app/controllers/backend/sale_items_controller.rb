@@ -64,7 +64,7 @@ class Backend::SaleItemsController < BackendController
     if request.xhr?
       return unless price = find_and_check(:product_price_template, params[:price_id])
       @sale = Sale.find_by_id(params[:sale_id]) if params[:sale_id]
-      @sale_item = SaleItem.new(:product => price.product, :price => price, :price_amount => 0.0, :quantity => 1.0, :unit_id => price.product.unit_id)
+      @sale_item = SaleItem.new(:product => price.product, :price => price, :price_amount => 0.0, :quantity => 1.0)
       if @sale
         @sale_item.sale = @sale
         @sale_item.reduction_percentage = @sale.client.maximal_reduction_percentage
