@@ -18,4 +18,5 @@
 #
 
 class Backend::ProductIndicatorDataController < BackendController
+  manage_restfully except: [:index, :show]
 end
