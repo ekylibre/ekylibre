@@ -21,7 +21,7 @@
       - if resource.prices.count > 0
         :ruby
             dataset = resource.prices.reorder(:started_at)
-            
+
             series = []
 
             for usage in [:purchase, :sale, :stock, :cost]

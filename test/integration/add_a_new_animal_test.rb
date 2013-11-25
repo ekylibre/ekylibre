@@ -2,7 +2,7 @@
 require 'test_helper'
 
 class AddANewAnimalTest < CapybaraIntegrationTest
-  
+
   setup do
     visit('/authentication/sign_in')
     # fill_in('user_email', :with => 'gendo@nerv.jp')
@@ -12,7 +12,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     login_as(users(:users_001), :scope => :user)
     visit('/backend')
     shoot_screen "backend"
-  end  
+  end
 
   test "add an animal" do
     # visit('/authentication/sign_in')

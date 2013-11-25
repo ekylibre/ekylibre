@@ -99,7 +99,7 @@ demo :interventions do
           if area = land_parcel.shape_area
             coeff = (area.to_s.to_f / 10000.0) / 6.0
             # 7.99 -> 20.11 -> 40.21
-            
+
             # Plowing 15-09-N -> 15-10-N
             Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support) do |i|
               i.add_cast(reference_name: 'driver',  actor: Worker.all.sample)
@@ -268,5 +268,5 @@ demo :interventions do
       end
     end
   end
-  
+
 end

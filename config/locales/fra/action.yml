@@ -472,9 +472,9 @@ fra:
       # picture: "Picture backend/product group"
       show: "Groupe\_: %{name}"
     backend/product_indicator_data:
-      edit: "Modifier la valeur d’un indicateur" #?
+      edit: "Modifier la valeur d’un indicateur"
       index: "Indicateurs Produits" #?
-      new: "Nouvelle valeur d’indicateur pour un produit" #?
+      new: "Nouvelle valeur d’indicateur pour un produit"
       show: "Valeurs" #?
     backend/product_localizations:
       edit: "Modifier une localisation d’un produit"

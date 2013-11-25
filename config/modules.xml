@@ -1560,6 +1560,13 @@
         <page to="backend/product_groups#list_intervention_casts"/>
         <page to="backend/product_groups#picture"/>
       </item>
+      <item name="product_indicator_data">
+        <page to="backend/product_indicator_data#create"/>
+        <page to="backend/product_indicator_data#destroy"/>
+        <page to="backend/product_indicator_data#edit"/>
+        <page to="backend/product_indicator_data#new"/>
+        <page to="backend/product_indicator_data#update"/>
+      </item>
       <item name="product_localizations">
         <page to="backend/product_localizations#index"/>
         <page to="backend/product_localizations#create"/>

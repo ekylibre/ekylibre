@@ -114,7 +114,7 @@ class User < Ekylibre::Record::Base
     self.maximal_grantable_reduction_percentage ||= 0
     self.rights_array = self.rights_array # Clean the rights
   end
-  
+
   validate on: :update do
     if self.person and old_record.person
       if self.person_id != old_record.person_id
