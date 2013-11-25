@@ -32,7 +32,7 @@ class Backend::BuildingsController < Backend::ProductGroupsController
   # Displays the main page with the list of buildings
   def index
     super
-    notify_now(:need_building_to_record_stock_moves) if Building.empty?
+    notify_now(:need_building_to_record_stock_moves) unless Building.any?
   end
 
   # List divisions of a building

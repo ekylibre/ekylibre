@@ -240,7 +240,6 @@
 # - "backend/incoming_deliveries#show"
 # - "backend/incoming_deliveries#unroll"
 # - "backend/incoming_delivery_items#new"
-# - "backend/incoming_delivery_modes#show"
 # - "backend/incoming_delivery_modes#unroll"
 # - "backend/incoming_payment_modes#unroll"
 # - "backend/incoming_payments#unroll"

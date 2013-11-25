@@ -6,9 +6,7 @@ class Backend::Cells::LastDocumentArchivesCellsController < Backend::CellsContro
     t.column :file_pages_count
   end
 
-
   def show
-
   end
 
 end

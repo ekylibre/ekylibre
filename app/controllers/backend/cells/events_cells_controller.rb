@@ -2,7 +2,7 @@ class Backend::Cells::EventsCellsController < Backend::CellsController
 
   def show
     mode = (params[:mode] || :all).to_s.gsub('_', '-')
-    @events = Event.without_restriction_for(current_user)
+    @events = Event.without_restrictions_for(current_user)
     @events = @events.with_participant(current_user) if mode =~ /\bmy\b/
     if mode =~ /\bfuture\b/
       today = Date.today

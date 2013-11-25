@@ -356,17 +356,6 @@
         <page to="backend/deposits#unvalidateds"/>
         <page to="backend/deposits#update"/>
       </item>
-      <item name="gaps">
-        <page to="backend/gaps#index"/>
-        <page to="backend/gaps#create"/>
-        <page to="backend/gaps#destroy"/>
-        <page to="backend/gaps#edit"/>
-        <page to="backend/gaps#list"/>
-        <page to="backend/gaps#new"/>
-        <page to="backend/gaps#show"/>
-        <page to="backend/gaps#unroll"/>
-        <page to="backend/gaps#update"/>
-      </item>
     </group>
   </module>
   <module name="stocks" icon="truck">
@@ -1010,6 +999,15 @@
         <page to="backend/affairs#detach"/>
         <page to="backend/affairs#select"/>
         <page to="backend/affairs#list"/>
+        <page to="backend/gaps#index"/>
+        <page to="backend/gaps#create"/>
+        <page to="backend/gaps#destroy"/>
+        <page to="backend/gaps#edit"/>
+        <page to="backend/gaps#list"/>
+        <page to="backend/gaps#new"/>
+        <page to="backend/gaps#show"/>
+        <page to="backend/gaps#unroll"/>
+        <page to="backend/gaps#update"/>
       </item>
     </group>
     <group name="sale" icon="bar-chart">
@@ -1410,7 +1408,6 @@
         <page to="backend/incoming_delivery_items#new"/>
       </item>
       <item name="incoming_delivery_modes">
-        <page to="backend/incoming_delivery_modes#show"/>
         <page to="backend/incoming_delivery_modes#unroll"/>
       </item>
       <item name="incoming_payment_modes">

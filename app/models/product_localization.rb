@@ -91,7 +91,7 @@ class ProductLocalization < Ekylibre::Record::Base
   end
 
   def intervention_name
-    return (self.operation_task ? self.operation_task.intervention_name : nil)
+    return (self.operation ? self.operation.intervention_name : nil)
   end
 
 end
