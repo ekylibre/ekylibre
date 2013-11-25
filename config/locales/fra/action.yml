@@ -247,9 +247,9 @@ fra:
       # autocomplete_for_place: "Autocomplete for place backend/event"
       # change_minutes: "Change minutes backend/event"
       edit: "Modifier l'évènement\_: %{name}"
-      index: "Evènements"
+      index: "Évènements"
       new: "Nouvel évènement"
-      show: "Evènement\_: %{name}"
+      show: "Évènement\_: %{name}"
     backend/financial_years:
       close: "Clôturer l’exercice %{code}"
       compute_balances: "Calculer la balance de l’exercice"
@@ -285,7 +285,6 @@ fra:
       edit: "Modifier le mode d’approvisionnement: %{name}"
       index: "Modes d’approvisionnement"
       new: "Créer un mode d’approvisionnement"
-      # show: "Show backend/incoming delivery mode"
     backend/incoming_payment_modes:
       edit: "Modifier le mode d’encaissement\_: %{name}"
       index: "Modes d’encaissement"
@@ -1109,7 +1108,7 @@ fra:
     estimate: "Devis"
     estimate_to_order: "Passer le devis en commande"
     europe_out_export: "Exportations hors CE"
-    events: "Evènements"
+    events: "Évènements"
     example: "Exemple\_: %{value}"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     executed: "Réalisé"

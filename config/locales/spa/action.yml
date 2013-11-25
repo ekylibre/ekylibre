@@ -261,9 +261,9 @@ spa:
     backend/event_participations: #?
     backend/events:
       # edit: "Modifier l'évènement\_: %{name}"
-      # index: "Evènements"
+      # index: "Évènements"
       # new: "Nouvel évènement"
-      # show: "Evènement\_: %{name}"
+      # show: "Évènement\_: %{name}"
     backend/finances: #?
     backend/financial_years:
       close: "Cerrado de ejercicio"
@@ -1085,7 +1085,7 @@ spa:
     # estimate: "Devis"
     # estimate_to_order: "Passer le devis en commande"
     europe_out_export: "Exportaciones fuera de CC.EE"
-    # events: "Evènements"
+    # events: "Évènements"
     # example: "Exemple\_: %{value}"
     # exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
     # executed: "Réalisé"

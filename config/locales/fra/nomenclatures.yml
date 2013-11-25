@@ -5,33 +5,33 @@ fra:
       attributes:
         # parameters: "Parameters"
       items:
-        consume: "Consommer"
-        produce: "Produire"
-        kill: "Tuer"
-        # grind: "Grind"
+        # bunch: "Bunch"
         # care: "Care"
+        catch: "Atteler"
+        # clean: "Clean"
+        consume: "Consommer"
         drive: "Conduire"
-        # manage: "Manage"
-        germinate: "Germer"
         feed: "Nourrir"
         fertilize: "Fertiliser"
-        catch: "Atteler"
-        spread: "Épandre"
-        spray: "Pulvériser"
-        plow: "Labourer"
-        # superficial_plow: "Superficial plow"
-        # clean: "Clean"
-        sow: "Semer"
-        # mow: "Mow"
-        # bunch: "Bunch"
-        # swath: "Swath"
+        germinate: "Germer"
+        # grind: "Grind"
         harvest: "Récolter"
+        kill: "Tuer"
+        # manage: "Manage"
+        milk: "Traire"
         move: "Se déplacer"
+        # mow: "Mow"
+        plow: "Labourer"
+        produce: "Produire"
+        sow: "Semer"
+        spray: "Pulvériser"
+        spread: "Épandre"
         store: "Stocker"
         store_fluid: "Stocker du vrac solide"
-        store_liquid: "Stocker du vrac liquide"
         store_gaz: "Stocker du gaz"
-        milk: "Traire"
+        store_liquid: "Stocker du vrac liquide"
+        # superficial_plow: "Superficial plow"
+        # swath: "Swath"
         tow: "Tracter"
     accounts:
       name: "Code comptable"
@@ -40,234 +40,234 @@ fra:
         fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007"
         fr_pcga: "Plan comptable agricole - Arrêté du 11/12/1986"
       items:
-        capitals: "Comptes de capitaux"
+        accrued_bank_interests: "Intérêts courus"
+        accrued_interests: "Intérêts courus"
+        accrued_interests_on_bank: "Intérêts courus auprès des établissements de crédit"
+        adult_animal_asset_depreciations: "Ammortissements des animaux reproducteurs"
+        adult_animal_assets: "Animaux reproducteurs (adulte)"
+        adult_animal_expenses: "Animaux reproducteurs (adultes)"
+        adult_animal_revenues: "Animaux reproducteurs (adultes)"
+        agricultural_disasters_compensations: "Indémnités du fonds national de garantie des calamités agricoles"
+        animal_derivative_stock: "Produits finis animaux"
+        animal_derivatives_revenues: "Vente de produits animaux"
+        animal_medicine_matter_expenses: "Produits de défense des animaux"
+        animal_medicine_stock: "Stock de produits de défense des animaux"
+        animal_reproduction_matter_expenses: "Produits de reproduction animale"
+        animal_reproduction_stock: "Stock de produits de reproduction animale"
+        animal_revenues: "Ventes d'animaux"
+        animals_productions_expenses: "Achats pour productions animales"
+        asset_depreciations: "Ammortissements"
+        assets: "Comptes d'immobilisations"
+        assets_suppliers: "Fournisseurs d'immobilisations"
+        assets_values: "Valeurs comptables des élèments d'actif cédés "
+        associates_salary: "Rémunérations (administrateurs, gérants, associés)"
+        attorneys: "Autres comptes débiteurs ou créditeurs"
+        banks: "Banques"
+        banks_and_similar: "Banques, établissements financiers et assimilés"
+        banks_services_expenses: "Services bancaires"
+        biocorporeal_asset_depreciations: "Ammortissements des biens vivants"
+        building_assets: "Bâtiments"
+        campaigns_interests: "Crédits des crédits bancaires de campagne"
         capital: "Capital"
+        capitals: "Comptes de capitaux"
+        cashes: "Trésoreries"
+        clients: "Clients"
+        collected_vat: "Taxes sur le chiffre d'affaires collectées par l'entreprise"
+        compensation_operations: "Operations de compensation (conventions de compte courant)"
+        cooperative_participation_assets: "Sociétés coopératives agricoles (sauf CUMA)"
+        corporeal_asset_depreciations: "Ammortissements des immobilisations corporelles"
+        corporeals_and_incorporeals_depreciations_inputations_expenses: "Dotat. aux amort. des immobilisations incorporelles et corporelles"
+        debtor_suppliers: "Fournisseurs débiteurs"
+        deductible_vat: "Taxes sur le chiffre d'affaires deductibles"
+        depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions"
+        discount_from_cooperatives: "Ristournes percues des cooperatives agricoles"
+        electricity_expenses: "Electricité"
+        end_products_stock: "Stock de produits finis et intermédiaires"
+        equipment_asset_depreciations: "Ammortissements des installations techniques, matériels et outillage"
+        equipment_assets: "Matériels"
+        equipment_cooperative_participation_assets: "CUMA"
+        equipment_expenses: "Installations techniques, matériel et outillage"
+        equipment_rent_expenses: "Location de matériel"
+        equipment_subventions: "Subventions d'équipement"
+        expenses: "Comptes de charges"
+        exploitation_expenses_transfers: "Transferts de expenses d'exploitation"
+        exploitation_subsidies_and_compensations: "Indémnités et subventions d'exploitation"
+        external_staff_expenses: "Personnel exterieur a l'entreprise"
+        fertilizer_expenses: "Engrais et amendements"
+        fertilizer_stock: "Stock d'engrais et amendements"
+        fill_up_price_revenues: "Compléments de prix et primes sur produits vendus"
+        finances: "Comptes financiers"
+        financial_year_result: "Résultat de l'exercice"
+        financial_year_result_balance: "Résultat de l'exercice (bénéfice ou perte)"
+        financial_year_result_loss: "Résultat de l'exercice (perte)"
+        financial_year_result_profit: "Résultat de l'exercice (bénéfice)"
+        financials_revenues: "Produits financiers"
+        fuel_matter_expenses: "Carburants et lubrifiants"
+        fuel_stock: "Stock de carburants et lubrifiants"
+        fuels_expenses: "Carburants et lubrifiants"
+        gas_expenses: "Gaz"
+        general_installation_asset_depreciations: "Ammortissements des installations"
+        general_installation_assets: "Installations générales. Agencements, aménagements des constructions"
+        home_consumption_production: "Production autoconsommée"
+        incorporeal_asset_depreciations: "Ammortissements des immobilisations incorporelles"
+        industrial_cooperative_participation_assets: "SICA"
         initial_individual_capital: "Capital individuel initial"
         initial_individual_capital_variations: "Variation du capital individuel initial"
         initial_society_capital: "Capital sociétaire initial"
-        reevaluation_gaps: "Ecart de réévaluation"
-        reserves: "Réserves"
+        installation_sustainable_plant_assets: "Aménagements des plantations pérennes"
+        insurance_expenses: "Primes d'assurance"
+        internal_transfers: "Virements internes"
+        inventory_variations: "Variations d'inventaires"
+        land_loans: "Emprunts fonciers"
+        land_loans_interests: "Intérêts des emprunts fonciers"
+        land_parcel_asset_depreciations: "Ammortissements des terrains de gisement"
+        land_parcel_assets: "Terrains nus"
+        land_parcel_rent_expenses: "Fermages et loyers du foncier"
+        land_parcel_sell_revenues: "Immobilisations corporelles (hors biens vivants)"
         legal_reserves: "Réserve légale"
-        others_reserves: "Autres réserves"
-        financial_year_result: "Résultat de l'exercice"
-        financial_year_result_profit: "Résultat de l'exercice (bénéfice)"
-        financial_year_result_balance: "Résultat de l'exercice (bénéfice ou perte)"
-        financial_year_result_loss: "Résultat de l'exercice (perte)"
-        equipment_subventions: "Subventions d'équipement"
+        little_office_equipment_expenses: "Fournitures d'entretien et de petits equipements"
+        livestock_feed_matter_expenses: "Aliments du betail"
+        livestock_feed_stock: "Stock d'aliment du bétail"
+        locked_associated_accounts: "Associes comptes courants - comptes bloqués"
+        long_cycle_animals_inventory_variations: "Variations d'inventaires - animaux (cycle long)"
+        long_cycle_cultures_advances: "Avances aux cultures (cycle long)"
+        long_cycle_vegetals_inventory_variations: "Variations d'inventaires - végétaux (cycle long)"
+        long_term_loans: "Emprunts à moyen et long terme"
+        long_term_loans_interests: "Intérêts des autres emprunts à moyen et long terme"
+        long_time_animal_stock: "Animaux (cycle long)"
+        mails_expenses: "Frais postaux et de télécommunications"
+        maintenances_consumables_expenses: "Produits d'entretien"
+        maintenances_consumables_stock: "Stock de produits d'entretien"
+        office_equipment_asset_depreciations: "Ammortissements des équipements de bureau"
+        office_equipment_assets: "Matériel de bureau et informatique"
+        office_furniture_asset_depreciations: "Ammortissements du mobilier"
+        office_furniture_assets: "Mobilier"
+        office_supply_matter_expenses: "Fournitures de bureau"
+        other_animal_expenses: "Autres animaux"
+        other_animal_revenues: "Autres animaux"
+        other_building_asset_depreciations: "Ammortissements des constructions sur sol d'autrui"
+        other_building_expenses: "Constructions (sur sol d'autrui)"
+        other_consumable_matter_expenses: "Autres fournitures consommables"
+        other_corporeal_asset_depreciations: "Ammortissements des autres immobilisations corporelles"
+        other_fees_expenses: "Autres honoraires"
+        other_general_installation_assets: "Installations générales. Autres"
+        other_supply_stocks_variation: "Variation des stocks autres approvisionnements"
+        others_asset_depreciations: "Ammortissements des autres immobilisations"
+        others_assets: "Autres immobilisations"
+        others_compensations: "Autres indemnités d'exploitation"
+        others_consumables_stock: "Stock d'autres consommables"
+        others_expenses: "Divers"
+        others_incorporeal_asset_depreciations: "Autres immobilisations incorporelles"
+        others_incorporeal_assets: "Autres immobilisations incorporelles (Droits de plantation, Quotas)"
+        others_interests_expenses: "Autres charges d'intérêts"
         others_investment_subventions: "Autres subventions d'investissement"
         others_investment_subventions_in_earnings_statement: "Autres subventions d'investissement inscrites au compte de résultat"
-        land_loans: "Emprunts fonciers"
-        long_term_loans: "Emprunts à moyen et long terme"
-        short_term_loans: "Emprunts à court terme"
-        accrued_interests: "Intérêts courus"
-        accrued_interests_on_bank: "Intérêts courus auprès des établissements de crédit"
-        assets: "Comptes d'immobilisations"
-        others_incorporeal_assets: "Autres immobilisations incorporelles (Droits de plantation, Quotas)"
-        land_parcel_assets: "Terrains nus"
-        building_assets: "Bâtiments"
-        general_installation_assets: "Installations générales. Agencements, aménagements des constructions"
-        equipment_assets: "Matériels"
-        other_general_installation_assets: "Installations générales. Autres"
-        transport_vehicle_assets: "Matériel de transport"
-        office_equipment_assets: "Matériel de bureau et informatique"
-        office_furniture_assets: "Mobilier"
-        sustainable_packaging_assets: "Emballages récupérables"
-        others_assets: "Autres immobilisations"
-        adult_animal_assets: "Animaux reproducteurs (adulte)"
-        young_animal_assets: "Animaux reproducteurs (jeunes de renouvellement)"
-        service_animal_assets: "Animaux de service"
-        sustainables_plants_assets: "Plantations pérennes"
-        sustainables_plants_on_own_land_parcel_assets: "Plantations pérennes sur sol propre"
-        sustainables_plants_on_other_land_parcel_assets: "Plantations pérennes sur sol d'autrui"
-        installation_sustainable_plant_assets: "Aménagements des plantations pérennes"
-        professional_agricultural_organization_assets: "Participations à des organismes professionnels agricoles"
-        cooperative_participation_assets: "Sociétés coopératives agricoles (sauf CUMA)"
-        equipment_cooperative_participation_assets: "CUMA"
-        industrial_cooperative_participation_assets: "SICA"
         others_professional_agricultural_participation_assets: "Autres participations à des OPA"
+        others_reserves: "Autres réserves"
+        others_staff_expenses: "Autres Charges de personnel"
+        others_taxes: "Autres impôts, taxes et versements assimilés"
+        others_usual_running_expenses: "Charges diverses de gestion courante"
+        others_usual_running_profits: "Produits divers de gestion courante"
+        own_building_asset_depreciations: "Ammortissements des constructions sur sol propre"
+        own_building_expenses: "Constructions (sur sol propre)"
         ownership_assets: "Titres immobilisés (droits de propriété)"
         ownership_loan: "Prêts consentis"
-        asset_depreciations: "Ammortissements"
-        incorporeal_asset_depreciations: "Ammortissements des immobilisations incorporelles"
-        others_incorporeal_asset_depreciations: "Autres immobilisations incorporelles"
-        corporeal_asset_depreciations: "Ammortissements des immobilisations corporelles"
-        land_parcel_asset_depreciations: "Ammortissements des terrains de gisement"
-        own_building_asset_depreciations: "Ammortissements des constructions sur sol propre"
-        other_building_asset_depreciations: "Ammortissements des constructions sur sol d'autrui"
-        equipment_asset_depreciations: "Ammortissements des installations techniques, matériels et outillage"
-        other_corporeal_asset_depreciations: "Ammortissements des autres immobilisations corporelles"
-        general_installation_asset_depreciations: "Ammortissements des installations"
-        transport_vehicle_asset_depreciations: "Ammortissements des véhicules de transport"
-        office_equipment_asset_depreciations: "Ammortissements des équipements de bureau"
-        office_furniture_asset_depreciations: "Ammortissements du mobilier"
-        sustainable_packaging_asset_depreciations: "Ammortissements des emballages réutilisables"
-        others_asset_depreciations: "Ammortissements des autres immobilisations"
-        biocorporeal_asset_depreciations: "Ammortissements des biens vivants"
-        adult_animal_asset_depreciations: "Ammortissements des animaux reproducteurs"
-        service_animal_asset_depreciations: "Ammortissements des animaux de services"
-        sustainables_plants_asset_depreciations: "Ammortissements des plantations pérennes"
-        stocks: "Comptes de stocks et en-cours"
-        fertilizer_stock: "Stock d'engrais et amendements"
-        seed_stock: "Stock de semences et plants"
-        plant_medicine_stock: "Stock de produits de défense des végétaux"
-        livestock_feed_stock: "Stock d'aliment du bétail"
-        animal_medicine_stock: "Stock de produits de défense des animaux"
-        animal_reproduction_stock: "Stock de produits de reproduction animale"
-        fuel_stock: "Stock de carburants et lubrifiants"
-        maintenances_consumables_stock: "Stock de produits d'entretien"
-        others_consumables_stock: "Stock d'autres consommables"
-        long_time_animal_stock: "Animaux (cycle long)"
-        short_time_animal_stock: "Animaux (cycle court)"
-        long_cycle_cultures_advances: "Avances aux cultures (cycle long)"
-        short_cycle_cultures_advances: "Avances aux cultures (cycle court)"
-        short_cycle_cultures_advances_fertilizers: "Avances aux cultures (cycle court) - Engrais et ammendement"
-        short_cycle_cultures_advances_seeds: "Avances aux cultures (cycle court) - Semences et plants"
-        short_cycle_cultures_advances_plants_medicines: "Avances aux cultures (cycle court) - Produits de défense des végétaux"
-        short_cycle_cultures_advances_culturals_ways: "Avances aux cultures (cycle court) - Façons culturales"
-        end_products_stock: "Stock de produits finis et intermédiaires"
-        plant_derivative_stock: "Stock de produits finis végétaux"
-        animal_derivative_stock: "Produits finis animaux"
-        third_party: "Compte de tiers"
-        suppliers: "Fournisseurs"
-        suppliers_balance_after_compensation: "Fournisseurs d'exploitation - soldes apres compensation"
-        assets_suppliers: "Fournisseurs d'immobilisations"
-        suppliers_invoices_not_received: "Fournisseurs - factures non parvenues"
-        debtor_suppliers: "Fournisseurs débiteurs"
-        clients: "Clients"
-        staff_due_remunerations: "Personnel - rémunérations dûes"
-        social_agricultural_mutuality: "Mutualité Sociale Agricole"
-        vat: "Etat - Taxes sur le chiffre d'affaire"
-        deductible_vat: "Taxes sur le chiffre d'affaires deductibles"
-        collected_vat: "Taxes sur le chiffre d'affaires collectées par l'entreprise"
-        rectify_collected_vat: "TVA collectée à régulariser"
-        waiting_vat: "Taxes sur le chiffres d'affaires à régulariser ou en attente"
-        principal_associated_accounts: "Associes comptes courants - principal"
-        usual_associated_accounts: "Associes comptes courants - comptes courants"
-        locked_associated_accounts: "Associes comptes courants - comptes bloqués"
-        attorneys: "Autres comptes débiteurs ou créditeurs"
-        compensation_operations: "Operations de compensation (conventions de compte courant)"
-        finances: "Comptes financiers"
-        banks_and_similar: "Banques, établissements financiers et assimilés"
         pending_deposit_payments: "Valeurs à l'encaissement "
-        banks: "Banques"
-        accrued_bank_interests: "Intérêts courus"
-        usual_bank_overdraft: "Concours bancaires courants"
-        # cashes: "Cashes"
-        internal_transfers: "Virements internes"
-        expenses: "Comptes de charges"
-        fertilizer_expenses: "Engrais et amendements"
-        seed_expenses: "Semences et plants"
+        plant_derivative_stock: "Stock de produits finis végétaux"
+        plant_derivatives_revenues: "Vente de produits végétaux"
         plant_medicine_matter_expenses: "Produits de défense des végétaux"
-        livestock_feed_matter_expenses: "Aliments du betail"
-        animal_medicine_matter_expenses: "Produits de défense des animaux"
-        animal_reproduction_matter_expenses: "Produits de reproduction animale"
-        fuel_matter_expenses: "Carburants et lubrifiants"
-        maintenances_consumables_expenses: "Produits d'entretien"
-        office_supply_matter_expenses: "Fournitures de bureau"
-        other_consumable_matter_expenses: "Autres fournitures consommables"
-        raw_material_expenses: "Matières premières"
-        stocks_variation: "Variation de stocks"
-        supply_stocks_variation: "Variation de stocks d'approvisonnements"
-        other_supply_stocks_variation: "Variation des stocks autres approvisionnements"
-        adult_animal_expenses: "Animaux reproducteurs (adultes)"
-        young_animal_expenses: "Animaux reproducteurs (jeunes de renouvellement)"
-        other_animal_expenses: "Autres animaux"
-        vegetals_productions_expenses: "Achats pour productions végétales"
-        animals_productions_expenses: "Achats pour productions animales"
-        water_expenses: "Eau"
-        gas_expenses: "Gaz"
-        electricity_expenses: "Electricité"
-        fuels_expenses: "Carburants et lubrifiants"
-        little_office_equipment_expenses: "Fournitures d'entretien et de petits equipements"
-        land_parcel_rent_expenses: "Fermages et loyers du foncier"
-        equipment_rent_expenses: "Location de matériel"
-        own_building_expenses: "Constructions (sur sol propre)"
-        other_building_expenses: "Constructions (sur sol d'autrui)"
-        equipment_expenses: "Installations techniques, matériel et outillage"
-        insurance_expenses: "Primes d'assurance"
-        studies_and_research_expenses: "Etudes et recherches"
-        others_expenses: "Divers"
-        external_staff_expenses: "Personnel exterieur a l'entreprise"
-        veterinary_fees_expenses: "Honoraires veterinaires"
-        other_fees_expenses: "Autres honoraires"
-        # transports_expenses: "Transports expenses"
-        # travels_expenses: "Travels expenses"
-        mails_expenses: "Frais postaux et de télécommunications"
-        banks_services_expenses: "Services bancaires"
-        professionnals_subscriptions_expenses: "Cotisations professionnelles"
+        plant_medicine_stock: "Stock de produits de défense des végétaux"
+        principal_associated_accounts: "Associes comptes courants - principal"
+        products_inventory_variations: "Variations d'inventaires - produits"
         products_specials_taxes: "Taxes spécifiques sur les produits de l'exploitation"
-        others_taxes: "Autres impôts, taxes et versements assimilés"
+        professional_agricultural_organization_assets: "Participations à des organismes professionnels agricoles"
+        professionnals_subscriptions_expenses: "Cotisations professionnelles"
+        raw_material_expenses: "Matières premières"
+        rectify_collected_vat: "TVA collectée à régulariser"
+        reductions: "Escomptes obtenus"
+        reevaluation_gaps: "Ecart de réévaluation"
+        reserves: "Réserves"
+        revenues: "Comptes de produits"
+        sales_assets_revenues: "Produits des ventes d'immobilisations"
+        seed_expenses: "Semences et plants"
+        seed_stock: "Stock de semences et plants"
+        service_animal_asset_depreciations: "Ammortissements des animaux de services"
+        service_animal_assets: "Animaux de service"
+        share_asset_subsidies: "Quote-part des subventions d'investissement virée au resultat de l'exercice"
+        short_cycle_animals_inventory_variations: "Variations d'inventaires - animaux (cycle court)"
+        short_cycle_cultures_advances: "Avances aux cultures (cycle court)"
+        short_cycle_cultures_advances_culturals_ways: "Avances aux cultures (cycle court) - Façons culturales"
+        short_cycle_cultures_advances_fertilizers: "Avances aux cultures (cycle court) - Engrais et ammendement"
+        short_cycle_cultures_advances_plants_medicines: "Avances aux cultures (cycle court) - Produits de défense des végétaux"
+        short_cycle_cultures_advances_seeds: "Avances aux cultures (cycle court) - Semences et plants"
+        short_cycle_vegetals_inventory_variations: "Variations d'inventaires - végétaux (cycle court)"
+        short_term_loans: "Emprunts à court terme"
+        short_term_loans_interests: "Intérêts des emprunts à court terme"
+        short_time_animal_stock: "Animaux (cycle court)"
+        social_agricultural_mutuality: "Mutualité Sociale Agricole"
+        staff_due_remunerations: "Personnel - rémunérations dûes"
         staff_expenses: "Charges de personnel"
         staff_salary: "Salaires"
-        associates_salary: "Rémunérations (administrateurs, gérants, associés)"
-        others_staff_expenses: "Autres Charges de personnel"
-        others_usual_running_expenses: "Charges diverses de gestion courante"
-        land_loans_interests: "Intérêts des emprunts fonciers"
-        long_term_loans_interests: "Intérêts des autres emprunts à moyen et long terme"
-        short_term_loans_interests: "Intérêts des emprunts à court terme"
-        campaigns_interests: "Crédits des crédits bancaires de campagne"
-        others_interests_expenses: "Autres charges d'intérêts"
-        assets_values: "Valeurs comptables des élèments d'actif cédés "
-        depreciations_inputations_expenses: "Dotations aux amortissements et aux provisions"
-        corporeals_and_incorporeals_depreciations_inputations_expenses: "Dotat. aux amort. des immobilisations incorporelles et corporelles"
-        revenues: "Comptes de produits"
-        plant_derivatives_revenues: "Vente de produits végétaux"
-        animal_derivatives_revenues: "Vente de produits animaux"
-        animal_revenues: "Ventes d'animaux"
-        adult_animal_revenues: "Animaux reproducteurs (adultes)"
-        young_animal_revenues: "Animaux reproducteurs (jeunes de renouvellement)"
-        other_animal_revenues: "Autres animaux"
-        fill_up_price_revenues: "Compléments de prix et primes sur produits vendus"
-        inventory_variations: "Variations d'inventaires"
-        long_cycle_animals_inventory_variations: "Variations d'inventaires - animaux (cycle long)"
-        short_cycle_animals_inventory_variations: "Variations d'inventaires - animaux (cycle court)"
-        long_cycle_vegetals_inventory_variations: "Variations d'inventaires - végétaux (cycle long)"
-        short_cycle_vegetals_inventory_variations: "Variations d'inventaires - végétaux (cycle court)"
-        products_inventory_variations: "Variations d'inventaires - produits"
-        home_consumption_production: "Production autoconsommée"
-        exploitation_subsidies_and_compensations: "Indémnités et subventions d'exploitation"
-        agricultural_disasters_compensations: "Indémnités du fonds national de garantie des calamités agricoles"
-        others_compensations: "Autres indemnités d'exploitation"
+        stocks: "Comptes de stocks et en-cours"
+        stocks_variation: "Variation de stocks"
+        studies_and_research_expenses: "Etudes et recherches"
         subsidies: "Subventions d'exploitation"
-        discount_from_cooperatives: "Ristournes percues des cooperatives agricoles"
-        others_usual_running_profits: "Produits divers de gestion courante"
-        financials_revenues: "Produits financiers"
-        reductions: "Escomptes obtenus"
-        sales_assets_revenues: "Produits des ventes d'immobilisations"
-        land_parcel_sell_revenues: "Immobilisations corporelles (hors biens vivants)"
-        share_asset_subsidies: "Quote-part des subventions d'investissement virée au resultat de l'exercice"
-        exploitation_expenses_transfers: "Transferts de expenses d'exploitation"
+        suppliers: "Fournisseurs"
+        suppliers_balance_after_compensation: "Fournisseurs d'exploitation - soldes apres compensation"
+        suppliers_invoices_not_received: "Fournisseurs - factures non parvenues"
+        supply_stocks_variation: "Variation de stocks d'approvisonnements"
+        sustainable_packaging_asset_depreciations: "Ammortissements des emballages réutilisables"
+        sustainable_packaging_assets: "Emballages récupérables"
+        sustainables_plants_asset_depreciations: "Ammortissements des plantations pérennes"
+        sustainables_plants_assets: "Plantations pérennes"
+        sustainables_plants_on_other_land_parcel_assets: "Plantations pérennes sur sol d'autrui"
+        sustainables_plants_on_own_land_parcel_assets: "Plantations pérennes sur sol propre"
+        third_party: "Compte de tiers"
+        transport_vehicle_asset_depreciations: "Ammortissements des véhicules de transport"
+        transport_vehicle_assets: "Matériel de transport"
+        # transports_expenses: "Transports expenses"
+        # travels_expenses: "Travels expenses"
+        usual_associated_accounts: "Associes comptes courants - comptes courants"
+        usual_bank_overdraft: "Concours bancaires courants"
+        vat: "Etat - Taxes sur le chiffre d'affaire"
+        vegetals_productions_expenses: "Achats pour productions végétales"
+        veterinary_fees_expenses: "Honoraires veterinaires"
+        waiting_vat: "Taxes sur le chiffres d'affaires à régulariser ou en attente"
+        water_expenses: "Eau"
+        young_animal_assets: "Animaux reproducteurs (jeunes de renouvellement)"
+        young_animal_expenses: "Animaux reproducteurs (jeunes de renouvellement)"
+        young_animal_revenues: "Animaux reproducteurs (jeunes de renouvellement)"
     activity_families:
       # name: "Activity families"
       items:
-        exploitation: "Exploitation"
         # accountancy: "Accountancy"                       # exploitation
-        # sales: "Sales"                                   # exploitation
-        # purchases: "Purchases"                           # exploitation
-        # stocks: "Stocks"                                 # exploitation
-        vegetal_crops: "Production végétale"
-        # straw_cereal_crops: "Straw cereal crops"         # vegetal_crops
+        animal_farming: "Élevage"
+        # aromatic_and_medicinal_plants: "Aromatic and medicinal plants" # vegetal_crops
+        # beekeeping: "Beekeeping"                         # animal_farming
+        # beet_crops: "Beet crops"                         # vegetal_crops
+        # cattle_farming: "Cattle farming"                 # animal_farming
+        exploitation: "Exploitation"
+        # fallow_land: "Fallow land"                       # vegetal_crops
+        # fish_farming: "Fish farming"                     # animal_farming
+        # goat_farming: "Goat farming"                     # animal_farming
+        handicraft: "Artisanat"
         # maize_crops: "Maize crops"                       # vegetal_crops
         # oilseed_crops: "Oilseed crops"                   # vegetal_crops
-        # protein_crops: "Protein crops"                   # vegetal_crops
-        # potato_crops: "Potato crops"                     # vegetal_crops
-        # beet_crops: "Beet crops"                         # vegetal_crops
-        # aromatic_and_medicinal_plants: "Aromatic and medicinal plants" # vegetal_crops
-        # vine_wine: "Vine wine"                           # vegetal_crops
-        # prairie: "Prairie"                               # vegetal_crops
-        # fallow_land: "Fallow land"                       # vegetal_crops
-        animal_farming: "Élevage"
-        # cattle_farming: "Cattle farming"                 # animal_farming
-        # sheep_farming: "Sheep farming"                   # animal_farming
-        # goat_farming: "Goat farming"                     # animal_farming
-        # pig_farming: "Pig farming"                       # animal_farming
-        # poultry_farming: "Poultry farming"               # animal_farming
         # palmiped_farming: "Palmiped farming"             # animal_farming
+        # pig_farming: "Pig farming"                       # animal_farming
+        # potato_crops: "Potato crops"                     # vegetal_crops
+        # poultry_farming: "Poultry farming"               # animal_farming
+        # prairie: "Prairie"                               # vegetal_crops
+        # protein_crops: "Protein crops"                   # vegetal_crops
+        # purchases: "Purchases"                           # exploitation
         # rabbit_farming: "Rabbit farming"                 # animal_farming
-        # fish_farming: "Fish farming"                     # animal_farming
-        # beekeeping: "Beekeeping"                         # animal_farming
-        handicraft: "Artisanat"
+        # sales: "Sales"                                   # exploitation
         service: "Service"
+        # sheep_farming: "Sheep farming"                   # animal_farming
+        # stocks: "Stocks"                                 # exploitation
+        # straw_cereal_crops: "Straw cereal crops"         # vegetal_crops
+        vegetal_crops: "Production végétale"
+        # vine_wine: "Vine wine"                           # vegetal_crops
     charts_of_accounts:
       # name: "Charts of accounts"
       items:
@@ -529,12 +529,71 @@ fra:
     currencies:
       # name: "Currencies"
       attributes:
-        # countries: "Countries"
         # active: "Active"
-        # precision: "Precision"
-        # number: "Number"
         # cash: "Cash"
+        # countries: "Countries"
+        # number: "Number"
+        # precision: "Precision"
         # symbol: "Symbol"
+      item_lists:
+        JPY:
+          cash:
+            # 1: "1"
+            # 5: "5"
+            # 10: "10"
+            # 50: "50"
+            # 100: "100"
+            # 500: "500"
+            # 1000: "1000"
+            # 2000: "2000"
+            # 5000: "5000"
+            # 10000: "10000"
+        FRF:
+          cash:
+            # 0.05: "0.05"
+            # 0.1: "0.1"
+            # 0.2: "0.2"
+            # 0.5: "0.5"
+            # 1: "1"
+            # 2: "2"
+            # 5: "5"
+            # 10: "10"
+            # 20: "20"
+            # 50: "50"
+            # 100: "100"
+            # 200: "200"
+            # 500: "500"
+        EUR:
+          cash:
+            # 0.01: "0.01"
+            # 0.02: "0.02"
+            # 0.05: "0.05"
+            # 0.1: "0.1"
+            # 0.2: "0.2"
+            # 0.5: "0.5"
+            # 1.0: "1.0"
+            # 2.0: "2.0"
+            # 5.0: "5.0"
+            # 10.0: "10.0"
+            # 20.0: "20.0"
+            # 50.0: "50.0"
+            # 100.0: "100.0"
+            # 200.0: "200.0"
+            # 500.0: "500.0"
+        USD:
+          cash:
+            # 0.01: "0.01"
+            # 0.05: "0.05"
+            # 0.1: "0.1"
+            # 0.25: "0.25"
+            # 0.5: "0.5"
+            # 1: "1"
+            # 2: "2"
+            # 5: "5"
+            # 10: "10"
+            # 20: "20"
+            # 50: "50"
+            # 100: "100"
       items:
         AED: "Dirham des Émirats"
         AFN: "Afghani"
@@ -710,74 +769,74 @@ fra:
       attributes:
         # expression: "Expression"
       items:
-        # none: "None"
-        # temperature: "Temperature"
-        # weight: "Weight"
-        # length: "Length"
-        # time: "Time"
-        # electric_current: "Electric current"
         # amount_of_substance: "Amount of substance"
-        # luminous_intensity: "Luminous intensity"
-        # surface_area: "Surface area"
-        # volume: "Volume"
-        # mass_concentration: "Mass concentration"
-        # specific_volume: "Specific volume"
         # concentration: "Concentration"
+        # electric_current: "Electric current"
+        # length: "Length"
+        # luminous_intensity: "Luminous intensity"
+        # mass_concentration: "Mass concentration"
         # mass_density: "Mass density"
+        # none: "None"
         # power: "Power"
+        # specific_volume: "Specific volume"
+        # surface_area: "Surface area"
+        # temperature: "Temperature"
+        # time: "Time"
+        # volume: "Volume"
+        # weight: "Weight"
     document_categories:
       # name: "Document categories"
       attributes:
         # acta_category: "Acta category"
       items:
-        # exploitation: "Exploitation"
-        management: "Gestion"
         accountancy: "Comptabilité"
-        # vegetal_crops: "Vegetal crops"
-        land_parcel_management: "Conduite de la parcelle"
-        # stock_management: "Stock management"
-        # marketing: "Marketing"
-        # vinification: "Vinification"
         animal_farming: "Elevage"
+        # exploitation: "Exploitation"
+        # feeding: "Feeding"
         health: "Santé - Hygiène"
         # identification: "Identification"
-        # feeding: "Feeding"
+        land_parcel_management: "Conduite de la parcelle"
+        management: "Gestion"
+        # marketing: "Marketing"
         # production: "Production"
         # reproduction: "Reproduction"
+        # stock_management: "Stock management"
         # transformation: "Transformation"
+        # vegetal_crops: "Vegetal crops"
+        # vinification: "Vinification"
     document_natures:
       # name: "Document natures"
       attributes:
         # category: "Category"
       items:
-        sales_order: "Commande de vente"
-        sales_estimate: "Devis de vente"
-        sales_invoice: "Facture de vente"
-        purchase_order: "Achat"
-        # purchase_estimate: "Purchase estimate"
-        # purchase_invoice: "Purchase invoice"
-        deposit: "Remise en banque"
+        activity_cost: "Coût de production par activité et intervention"
+        animal_husbandry_registry: "Registre d'élevage"
+        # animal_list: "Animal list"
+        # animal_sheet: "Animal sheet"
         balance_sheet: "Bilan comptable"
-        income_statement: "Compte de résultat"
-        journal: "Journal"
-        profit_and_loss_statement: "Compte de résultat"
+        deposit: "Remise en banque"
+        # entity_sheet: "Entity sheet"
         general_journal: "Journal général"
         general_ledger: "Grand livre"
-        # trial_balance: "Trial balance"
-        inventory: "Inventaire"
-        stocks: "Stocks"
+        income_statement: "Compte de résultat"
         # incoming_delivery_docket: "Incoming delivery docket"
+        inventory: "Inventaire"
+        journal: "Journal"
+        manure_management_plan: "Plan de fumure"
         # outgoing_delivery_docket: "Outgoing delivery docket"
         # outgoing_delivery_journal: "Outgoing delivery journal"
-        # animal_sheet: "Animal sheet"
-        # animal_list: "Animal list"
-        animal_husbandry_registry: "Registre d'élevage"
-        # prescription: "Prescription"
-        veterinary_booklet: "Carnet vétérinaire"
-        manure_management_plan: "Plan de fumure"
         phytosanitary_registry: "Registre phytosanitaire"
-        activity_cost: "Coût de production par activité et intervention"
-        # entity_sheet: "Entity sheet"
+        # prescription: "Prescription"
+        profit_and_loss_statement: "Compte de résultat"
+        # purchase_estimate: "Purchase estimate"
+        # purchase_invoice: "Purchase invoice"
+        purchase_order: "Achat"
+        sales_estimate: "Devis de vente"
+        sales_invoice: "Facture de vente"
+        sales_order: "Commande de vente"
+        stocks: "Stocks"
+        # trial_balance: "Trial balance"
+        veterinary_booklet: "Carnet vétérinaire"
     entity_link_natures:
       # name: "Entity link natures"
       attributes:
@@ -787,121 +846,182 @@ fra:
         # entity_1: # Choices comes from nomenclature: entity_natures
         # entity_2: # Choices comes from nomenclature: entity_natures
       items:
-        undefined: "Indéfini"
-        direct_kinship: "Parenté directe"
         # collaboration: "Collaboration"
-        # management: "Management"
-        work: "Collaboration"
         # contact: "Contact"
+        direct_kinship: "Parenté directe"
+        # management: "Management"
         # transform: "Transform"
+        undefined: "Indéfini"
+        work: "Collaboration"
     entity_natures:
       # name: "Entity natures"
       items:
-        entity: "Entité"
-        person: "Personne"                                 # entity
-        sir: "Monsieur"                                    # person
-        madam: "Madame"                                    # person
-        professor: "Professeur"                            # person
-        doctor: "Docteur"                                  # person
-        legal_entity: "Personne morale"                    # entity
-        company: "Société"                                 # legal_entity
-        civil_society: "Société civile"                    # legal_entity
-        economic_interest_group: "Groupement d’intérêt économique" # legal_entity
         association: "Association"                         # legal_entity
-        syndicate: "Syndicat"                              # legal_entity
-        foundation: "Fondation"                            # legal_entity
+        civil_society: "Société civile"                    # legal_entity
         collectivity: "Collectivité"                       # legal_entity
-        # public_establishment: "Public establishment"     # legal_entity
+        company: "Société"                                 # legal_entity
+        doctor: "Docteur"                                  # person
+        economic_interest_group: "Groupement d’intérêt économique" # legal_entity
+        entity: "Entité"
+        foundation: "Fondation"                            # legal_entity
+        legal_entity: "Personne morale"                    # entity
+        madam: "Madame"                                    # person
+        person: "Personne"                                 # entity
+        professor: "Professeur"                            # person
+        public_establishment: "Établissement public"       # legal_entity
         public_interest_group: "Groupement d’intérêt public" # legal_entity
+        sir: "Monsieur"                                    # person
+        syndicate: "Syndicat"                              # legal_entity
     incidents:
       # name: "Incidents"
       attributes:
         # target: "Target"
         # treatments: "Treatments"
       items:
-        incident: "Incident"
-        pathology: "Pathologie"                            # incident
-        # mammite: "Mammite"                               # pathology
-        # fecondity_problem: "Fecondity problem"           # pathology
-        # diarrhea: "Diarrhea"                             # pathology
-        # respiratory_problem: "Respiratory problem"       # pathology
-        # other: "Other"                                   # pathology
         # accident: "Accident"                             # incident
         # climate_incident: "Climate incident"             # incident
+        # diarrhea: "Diarrhea"                             # pathology
+        # fecondity_problem: "Fecondity problem"           # pathology
+        incident: "Incident"
+        # mammite: "Mammite"                               # pathology
+        # other: "Other"                                   # pathology
+        pathology: "Pathologie"                            # incident
+        # respiratory_problem: "Respiratory problem"       # pathology
     indicators:
       name: "Indicateurs"
       attributes:
+        # choices: "Choices"
         # datatype: "Datatype"
         # interpolation: "Interpolation"
         # unit: "Unit"
-        # choices: "Choices"
       choices:
         datatype:
-          string: "Texte"
-          decimal: "Chiffre (décimal)"
           boolean: "Case à cocher"
           choice: "Liste de choix"
-          measure: "Mesure"
-          point: "Point spatial"
-          multi_polygon: "Multi-polygone spatial"
+          decimal: "Chiffre (décimal)"
           geometry: "Forme spatiale"
+          measure: "Mesure"
+          multi_polygon: "Multi-polygone spatial"
+          point: "Point spatial"
+          string: "Texte"
         interpolation:
+          # linear: "Linear"
+          # nearest: "Nearest"
           # none: "None"
           # previous: "Previous"
-          # nearest: "Nearest"
-          # linear: "Linear"
           # sine: "Sine"
         # unit: # Choices comes from nomenclature: units
+      item_lists:
+        mammalia_born_condition:
+          choices:
+            # without_help: "Without help"
+            # few_help: "Few help"
+            # great_help: "Great help"
+            # caesarean: "Caesarean"
+            # cutting_calf: "Cutting calf"
+        animal_life_state:
+          choices:
+            # first_growth: "First growth"
+            # second_growth: "Second growth"
+            # aging: "Aging"
+        cultural_soil_state:
+          choices:
+            # covered: "Covered"
+            # raw: "Raw"
+            # nude: "Nude"
+            # plowed: "Plowed"
+            # grown: "Grown"
+        sex:
+          choices:
+            # male: "Male"
+            # female: "Female"
+            # undefined: "Undefined"
+        plant_reproduction_state:
+          choices:
+            # swelling: "Swelling"
+            # heading: "Heading"
+            # flowering: "Flowering"
+            # grain_maturity: "Grain maturity"
+            # grain_senescence: "Grain senescence"
+        plant_life_state:
+          choices:
+            # germination: "Germination"
+            # tillering: "Tillering"
+            # bolting: "Bolting"
+            # maturity: "Maturity"
+            # senescence: "Senescence"
+        animal_disease_state:
+          choices:
+            # healthy: "Healthy"
+            # sick: "Sick"
+        mammalia_lactation_state:
+          choices:
+            # lactation: "Lactation"
+            # depletion: "Depletion"
+        mammalia_reproduction_state:
+          choices:
+            # back_heat: "Back heat"
+            # heat: "Heat"
+            # pregnancy: "Pregnancy"
+        mammalia_twins_condition:
+          choices:
+            # none: "None"
+            # twins: "Twins"
+            # triplets: "Triplets"
+        inhibitors_presence:
+          choices:
+            # negative: "Negative"
+            # positive: "Positive"
       items:
-        population: "Population"
-        temperature: "Température"
-        net_weight: "Poids net"
-        net_volume: "Volume net"
-        net_surface_area: "Surface net"
-        shape: "Forme"
-        # geographic_coordinate: "Geographic coordinate"
-        usage_duration: "Durée d'utilisation"
-        # sex: "Sex"
-        # reproductor: "Reproductor"
-        livestock_unit: "UGB (Unité de Gros Bétail)"
-        # cultural_soil_state: "Cultural soil state"
-        # hundred_grain_weight: "Hundred grain weight"
-        # motor_power: "Motor power"
-        # application_width: "Application width"
-        # maximum_load_net_volume: "Maximum load net volume"
-        # maximum_load_net_weight: "Maximum load net weight"
-        animal_life_state: "Phase du bioprocessus de vie d’un animal"
-        # mammalia_born_condition: "Mammalia born condition"
-        # mammalia_twins_condition: "Mammalia twins condition"
-        # mammalia_born_cycle: "Mammalia born cycle"
-        # mammalia_reproduction_method_embryo_transplant: "Mammalia reproduction method embryo transplant"
-        # mammalia_reproduction_event_abortion: "Mammalia reproduction event abortion"
-        mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
-        mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère"
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
-        plant_life_state: "Phase du bioprocessus de vie d’un végétal"
-        plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
-        # dry_matter_rate: "Dry matter rate"
-        # water_rate: "Water rate"
-        total_bacteria_concentration: "Dénombrement des germes totaux"
-        inhibitors_presence: "Présence de résidus d’inhibiteurs"
-        fat_matters_concentration: "Teneur en matières grasses"
-        protein_matters_concentration: "Teneur en matières protéïques"
+        animal_life_state: "Phase du bioprocessus de vie d’un animal"
+        # application_width: "Application width"
         cells_concentration: "Dénombrement des cellules somatiques"
         clostridial_spores_concentration: "Concentration en spores butyriques"
+        # cultural_soil_state: "Cultural soil state"
+        # dry_matter_rate: "Dry matter rate"
+        fat_matters_concentration: "Teneur en matières grasses"
         freezing_point_temperature: "Point de solidification"
-        lipolysis: "Lipolyse"
+        # geographic_coordinate: "Geographic coordinate"
+        # hundred_grain_weight: "Hundred grain weight"
         immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
-        urea_concentration: "Teneur moyenne en urée"
+        inel_index: "Index génétique INEL"
+        inhibitors_presence: "Présence de résidus d’inhibiteurs"
+        isu_index: "Index génétique ISU"
+        lipolysis: "Lipolyse"
+        livestock_unit: "UGB (Unité de Gros Bétail)"
+        # mammalia_born_condition: "Mammalia born condition"
+        # mammalia_born_cycle: "Mammalia born cycle"
+        mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère"
+        # mammalia_reproduction_event_abortion: "Mammalia reproduction event abortion"
+        # mammalia_reproduction_method_embryo_transplant: "Mammalia reproduction method embryo transplant"
+        mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
+        # mammalia_twins_condition: "Mammalia twins condition"
+        # maximum_load_net_volume: "Maximum load net volume"
+        # maximum_load_net_weight: "Maximum load net weight"
         meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
         milk_withdrawal_period: "Période d'attente avant remise en vente de lait"
-        isu_index: "Index génétique ISU"
-        inel_index: "Index génétique INEL"
-        tp_index: "Index génétique Taux protéïque"
-        # tb_index: "Tb index"
+        # motor_power: "Motor power"
+        net_surface_area: "Surface net"
+        net_volume: "Volume net"
+        net_weight: "Poids net"
         # nitrogen_concentration: "Nitrogen concentration"
-        # potassium_concentration: "Potassium concentration"
         # phosphorus_concentration: "Phosphorus concentration"
+        plant_life_state: "Phase du bioprocessus de vie d’un végétal"
+        plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
+        population: "Population"
+        # potassium_concentration: "Potassium concentration"
+        protein_matters_concentration: "Teneur en matières protéïques"
+        # reproductor: "Reproductor"
+        # sex: "Sex"
+        shape: "Forme"
+        # tb_index: "Tb index"
+        temperature: "Température"
+        total_bacteria_concentration: "Dénombrement des germes totaux"
+        tp_index: "Index génétique Taux protéïque"
+        urea_concentration: "Teneur moyenne en urée"
+        usage_duration: "Durée d'utilisation"
+        # water_rate: "Water rate"
     languages:
       # name: "Languages"
       items:
@@ -1014,477 +1134,477 @@ fra:
       attributes:
         # roles: "Roles"
       items:
+        # animal_curative_medicine_admission: "Animal curative medicine admission" # animal_illness_treatment
         animal_feeding: "Alimentation des animaux"
         animal_illness_treatment: "Traitement des maladies animales"
-        # animal_curative_medicine_admission: "Animal curative medicine admission" # animal_illness_treatment
         # animal_preventive_medicine_admission: "Animal preventive medicine admission" # animal_illness_treatment
         animal_production: "Productions animales"
-        viviparous_birth: "Reproduction (vivipare)"
-        oviparous_birth: "Reproduction (ovipare)"
-        # harvest: "Harvest"
-        # transformation: "Transformation"
-        tillage: "Travail du sol"
-        # plowing: "Plowing"                               # tillage
-        # raking: "Raking"                                 # tillage
-        # hoeing: "Hoeing"                                 # tillage
         # cultipacking: "Cultipacking"                     # tillage
-        # plant_fertilisation: "Plant fertilisation"
-        # plant_illness_treatment: "Plant illness treatment"
-        soil_enrichment: "Amendement"
-        # soil_cleaning: "Soil cleaning"
-        # sowing: "Sowing"
-        # pruning: "Pruning"
         # grinding: "Grinding"
         # growth_control: "Growth control"
+        # harvest: "Harvest"
+        # hoeing: "Hoeing"                                 # tillage
+        oviparous_birth: "Reproduction (ovipare)"
+        # plant_fertilisation: "Plant fertilisation"
+        # plant_illness_treatment: "Plant illness treatment"
+        # plowing: "Plowing"                               # tillage
+        # pruning: "Pruning"
+        # raking: "Raking"                                 # tillage
+        # soil_cleaning: "Soil cleaning"
+        soil_enrichment: "Amendement"
+        # sowing: "Sowing"
+        tillage: "Travail du sol"
+        # transformation: "Transformation"
+        viviparous_birth: "Reproduction (vivipare)"
     product_nature_categories:
       name: "Catégories de produits"
       attributes:
         asset_account: "Compte d’immobilisation"
         charge_account: "Compte de charge"
-        product_account: "Compte de produit"
-        stock_account: "Compte de stock"
-        pictogram: "Pictogramme"
-        purchasable: "Achetable"
-        saleable: "Vendable"
         depreciable: "Immobilisable"
-        storable: "Stockable"
+        pictogram: "Pictogramme"
+        product_account: "Compte de produit"
+        purchasable: "Achetable"
         reductible: "Peut présenter des réductions"
+        saleable: "Vendable"
+        stock_account: "Compte de stock"
+        storable: "Stockable"
       choices:
         # asset_account: # Choices comes from nomenclature: accounts
         # charge_account: # Choices comes from nomenclature: accounts
-        # product_account: # Choices comes from nomenclature: accounts
-        # stock_account: # Choices comes from nomenclature: accounts
         pictogram:
+          # barn: "Barn"
+          # beaker: "Beaker"
+          # bolt: "Bolt"
+          # bug: "Bug"
+          # building: "Building"
+          # cow: "Cow"
+          # credit_card: "Credit card"
+          # desktop: "Desktop"
+          # food: "Food"
+          # gift: "Gift"
+          # group: "Group"
+          # home: "Home"
           # land_parcels: "Land parcels"
-          # wrench: "Wrench"
-          # wheat: "Wheat"
+          # leaf: "Leaf"
+          # legal: "Legal"
+          # lemon: "Lemon"
+          # light_bulb: "Light bulb"
+          # male: "Male"
+          # matter: "Matter"
+          # medkit: "Medkit"
+          # mushroom: "Mushroom"
+          # phone: "Phone"
+          # pill: "Pill"
+          # plane: "Plane"
+          # road: "Road"
+          # tint: "Tint"
           # tractor: "Tractor"
           # truck: "Truck"
-          # tint: "Tint"
-          # plane: "Plane"
-          # phone: "Phone"
-          # mushroom: "Mushroom"
-          # medkit: "Medkit"
-          # matter: "Matter"
-          # male: "Male"
-          # light_bulb: "Light bulb"
-          # lemon: "Lemon"
-          # leaf: "Leaf"
-          # home: "Home"
-          # building: "Building"
-          # group: "Group"
-          # credit_card: "Credit card"
-          # cow: "Cow"
-          # food: "Food"
-          # bug: "Bug"
-          # beaker: "Beaker"
-          # barn: "Barn"
-          # legal: "Legal"
-          # bolt: "Bolt"
-          # pill: "Pill"
-          # desktop: "Desktop"
-          # gift: "Gift"
-          # road: "Road"
+          # wheat: "Wheat"
+          # wrench: "Wrench"
+        # product_account: # Choices comes from nomenclature: accounts
+        # stock_account: # Choices comes from nomenclature: accounts
       items:
-        cattle_herd: "Troupeau de bovins"
-        female_adult_cow: "Vache"
-        male_adult_cow: "Taureau"
-        milk: "Lait"
-        female_young_cow: "Génisse"
-        male_young_cow: "Taurillon"
-        calf: "Veau"
-        crop: "Culture"
-        grain: "Graine"
-        straw: "Paille"
-        grass: "Herbe"
-        plant_medicine: "Produit phytosanitaire"
-        fertilizer: "Engrais"
-        seed: "Semence"
         animal_food: "Aliment pour animaux"
         animal_medicine: "Produit vétérinaire"
-        # equipment_rent: "Equipment rent"
-        other_consumable: "Autres consommables"
-        small_equipment: "Petit matériel"
-        land_parcel: "Parcelle"
-        land_parcel_cluster: "Ilôt"
-        cultivable_land_parcel: "Parcelle culturale"
         building: "Bâtiment"
         building_division: "Pièce ou zone d'un bâtiment"
+        calf: "Veau"
+        cattle_herd: "Troupeau de bovins"
+        crop: "Culture"
+        cultivable_land_parcel: "Parcelle culturale"
         equipment: "Équipement"
+        # equipment_rent: "Equipment rent"
+        female_adult_cow: "Vache"
+        female_young_cow: "Génisse"
+        fertilizer: "Engrais"
+        grain: "Graine"
+        grass: "Herbe"
         installation: "Installation"
+        land_parcel: "Parcelle"
+        land_parcel_cluster: "Ilôt"
+        male_adult_cow: "Taureau"
+        male_young_cow: "Taurillon"
+        milk: "Lait"
+        other_consumable: "Autres consommables"
+        plant_medicine: "Produit phytosanitaire"
+        seed: "Semence"
+        small_equipment: "Petit matériel"
+        straw: "Paille"
         worker: "Responsable"
     product_nature_variants:
       name: "Variants de produits"
       attributes:
-        variety: "Variété"
         derivative_of: "Dérivé de la variété"
-        nature: "Type de produit"
         # frozen_indicators_values: "Frozen indicators values"
+        nature: "Type de produit"
         unit_name: "Nom de l'unité"
+        variety: "Variété"
       choices:
-        # variety: # Choices comes from nomenclature: varieties
         # derivative_of: # Choices comes from nomenclature: varieties
         # nature: # Choices comes from nomenclature: product_natures
         unit_name:
-          head: "tête"
-          unit: "unité"
-          liter: "litre(s)"
-          hectare: "hectare(s)"
-          kilogram: "kilogramme(s)"
-          ton: "tonne(s)"
-          box: "boîte"
-          hour: "heure"
-          cubic_meter: "mètre cube"
-          can: "bidon"
           bag: "sac"
+          box: "boîte"
+          can: "bidon"
+          cubic_meter: "mètre cube"
+          head: "tête"
+          hectare: "hectare(s)"
+          hour: "heure"
+          kilogram: "kilogramme(s)"
+          liter: "litre(s)"
+          ton: "tonne(s)"
+          unit: "unité"
+        # variety: # Choices comes from nomenclature: varieties
       items:
-        cattle_herd: "Troupeau de bovins"
-        female_adult_cow: "Vache"
-        male_adult_cow: "Taureau"
-        cow_milk: "Lait de vache"
-        goat_milk: "Lait de chèvre"
-        ewe_milk: "Lait de brebis"
-        female_young_cow: "Génisse"
-        male_young_cow: "Taurillon"
-        calf: "Veau"
-        wheat_crop: "Culture de blé"
-        barley_crop: "Culture d'orge"
-        corn_crop: "Culture de maïs"
-        durum_wheat_crop: "Culture de blé dur"
-        spelt_wheat_crop: "Culture d'épeautre"
-        sunflower_crop: "Culture de tournesol"
-        sorghum_crop: "Culture de sorgho"
-        temporary_meadow_crop: "Culture de prairie temporaire"
-        fallow_crop: "Jachère"
-        wheat_grain: "Graine de blé"
-        corn_grain: "Graine de maïs"
-        # hard_wheat_grain: "Hard wheat grain"
-        # barley_grain: "Barley grain"
-        wheat_straw: "Paille de blé"
-        # hard_wheat_straw: "Hard wheat straw"
-        # wheat_straw_bales: "Wheat straw bales"
-        # hard_wheat_straw_bales: "Hard wheat straw bales"
-        bulk_hay: "Foin Vrac"
-        grass: "Herbe"
-        silage: "Ensilage"
-        helianthus_herbicide: "Herbicide tournesol"
-        poacea_herbicide: "Herbicide graminées"
-        zea_herbicide: "Herbicide maïs"
-        other_herbicide: "Herbicide autre"
-        complete_herbicide: "Herbicide total"
-        poaceae_fungicide: "Fongicide céréales"
-        brassicaceae_fungicide: "Fongicide colza"
-        additive: "Adjuvant"
-        molluscicide: "Molluscicide"
-        anti_slug: "Anti-limace"
-        insecticide: "Insecticide"
-        bulk_ammonitrate_33: "Engrais Ammonitrate 33% Vrac"
-        bulk_urea_46: "Engrais Urée 46% VRAC"
-        cattle_manure: "Fumier de bovins"
-        seed: "Semence"
-        wheat_seed_25: "Semence de blé 25kg"
-        hard_wheat_seed_25: "Semence de blé dur 25kg"
-        barley_seed_25: "Semence d'orge 25kg"
-        # cereals_feed_bag_25: "Cereals feed bag 25"
-        # mineral_feed_bloc_25: "Mineral feed bloc 25"
-        # riflexine: "Riflexine"
-        # actilact: "Actilact"
         # acetal: "Acetal"
-        spread_renting: "Location d'épandeur"
-        mineral_cleaner: "Nettoyant chimique"
-        small_equipment: "Petit matériel"
-        land_parcel: "Parcelle"
-        land_parcel_cluster: "Ilôt"
-        cultivable_land_parcel: "Parcelle culturale"
+        # actilact: "Actilact"
+        additive: "Adjuvant"
         animal_building: "Bâtiment d'accueil pour les animaux"
-        building: "Bâtiment"
-        office_building: "Bureau"
-        screed_building: "Construction béton (silo, chape, terrasse)"
-        building_division: "Pièce ou zone d'un bâtiment"
-        # office_building_division: "Office building division"
-        # equipment_building_division: "Equipment building division"
         # animal_building_division: "Animal building division"
         # animal_food_building_division: "Animal food building division"
         # animal_waste_building_division: "Animal waste building division"
-        tractor: "Tracteur"
-        trailer: "Remorque"
-        # spreader_trailer: "Spreader trailer"
-        spreader: "Epandeur à engrais"
-        sower: "Semoir"
-        plow: "Charrue"
-        # superficial_plow: "Superficial plow"
-        # sprayer: "Sprayer"
+        anti_slug: "Anti-limace"
         baler: "Botteleuse"
-        # milk_tank: "Milk tank"
-        mower: "Faucheuse"
-        hay_rake: "Andaineur"
-        # reaper: "Reaper"
-        equipment: "Équipement"
-        technician: "Technicien"
-        manager: "Responsable"
+        barley_crop: "Culture d'orge"
+        # barley_grain: "Barley grain"
+        barley_seed_25: "Semence d'orge 25kg"
+        brassicaceae_fungicide: "Fongicide colza"
+        building: "Bâtiment"
+        building_division: "Pièce ou zone d'un bâtiment"
+        bulk_ammonitrate_33: "Engrais Ammonitrate 33% Vrac"
+        bulk_hay: "Foin Vrac"
+        bulk_urea_46: "Engrais Urée 46% VRAC"
+        calf: "Veau"
+        cattle_herd: "Troupeau de bovins"
+        cattle_manure: "Fumier de bovins"
+        # cereals_feed_bag_25: "Cereals feed bag 25"
+        complete_herbicide: "Herbicide total"
         # coop:ammonitre_33,5%_vr: "Coop:ammonitre 33,5% vr"
-        # coop:uree_gr_vrac: "Coop:uree gr vrac"
+        # coop:ficelle_filogamm_350_bob_5kg: "Coop:ficelle filogamm 350 bob 5kg"
         # coop:metarex_rg_tds_20kg: "Coop:metarex rg tds 20kg"
         # coop:sel_mer_essore_la_baleine_sac_25kg: "Coop:sel mer essore la baleine sac 25kg"
-        # coop:ficelle_filogamm_350_bob_5kg: "Coop:ficelle filogamm 350 bob 5kg"
+        # coop:uree_gr_vrac: "Coop:uree gr vrac"
+        corn_crop: "Culture de maïs"
+        corn_grain: "Graine de maïs"
+        cow_milk: "Lait de vache"
+        cultivable_land_parcel: "Parcelle culturale"
+        durum_wheat_crop: "Culture de blé dur"
+        equipment: "Équipement"
+        # equipment_building_division: "Equipment building division"
+        ewe_milk: "Lait de brebis"
+        fallow_crop: "Jachère"
+        female_adult_cow: "Vache"
+        female_young_cow: "Génisse"
+        goat_milk: "Lait de chèvre"
+        grass: "Herbe"
+        # hard_wheat_grain: "Hard wheat grain"
+        hard_wheat_seed_25: "Semence de blé dur 25kg"
+        # hard_wheat_straw: "Hard wheat straw"
+        # hard_wheat_straw_bales: "Hard wheat straw bales"
+        hay_rake: "Andaineur"
+        helianthus_herbicide: "Herbicide tournesol"
+        insecticide: "Insecticide"
+        land_parcel: "Parcelle"
+        land_parcel_cluster: "Ilôt"
+        male_adult_cow: "Taureau"
+        male_young_cow: "Taurillon"
+        manager: "Responsable"
+        # milk_tank: "Milk tank"
+        mineral_cleaner: "Nettoyant chimique"
+        # mineral_feed_bloc_25: "Mineral feed bloc 25"
+        molluscicide: "Molluscicide"
+        mower: "Faucheuse"
+        office_building: "Bureau"
+        # office_building_division: "Office building division"
+        other_herbicide: "Herbicide autre"
+        plow: "Charrue"
+        poacea_herbicide: "Herbicide graminées"
+        poaceae_fungicide: "Fongicide céréales"
+        # reaper: "Reaper"
+        # riflexine: "Riflexine"
+        screed_building: "Construction béton (silo, chape, terrasse)"
+        seed: "Semence"
+        silage: "Ensilage"
+        small_equipment: "Petit matériel"
+        sorghum_crop: "Culture de sorgho"
+        sower: "Semoir"
+        spelt_wheat_crop: "Culture d'épeautre"
+        # sprayer: "Sprayer"
+        spread_renting: "Location d'épandeur"
+        spreader: "Epandeur à engrais"
+        # spreader_trailer: "Spreader trailer"
+        sunflower_crop: "Culture de tournesol"
+        # superficial_plow: "Superficial plow"
+        technician: "Technicien"
+        temporary_meadow_crop: "Culture de prairie temporaire"
+        tractor: "Tracteur"
+        trailer: "Remorque"
+        wheat_crop: "Culture de blé"
+        wheat_grain: "Graine de blé"
+        wheat_seed_25: "Semence de blé 25kg"
+        wheat_straw: "Paille de blé"
+        # wheat_straw_bales: "Wheat straw bales"
+        zea_herbicide: "Herbicide maïs"
     product_natures:
       name: "Type de produits"
       attributes:
+        abilities: "Compétences"
         category: "Categorie"
-        variety: "Variété"
         # derivative_of: "Derivative of"
+        frozen_indicators: "Indicateurs fixes"
         # population_counting: "Population counting"
         # reductible: "Reductible"
-        abilities: "Compétences"
-        frozen_indicators: "Indicateurs fixes"
         variable_indicators: "Indicateurs variables"
+        variety: "Variété"
       choices:
         # category: # Choices comes from nomenclature: product_nature_categories
-        # variety: # Choices comes from nomenclature: varieties
         population_counting:
-          unitary: "Unitaire"
-          integer: "Entier"
           decimal: "Décimal"
+          integer: "Entier"
+          unitary: "Unitaire"
+        # variety: # Choices comes from nomenclature: varieties
       items:
-        cattle_herd: "Troupeau de bovins"
-        female_adult_cow: "Vache"
-        male_adult_cow: "Taureau"
-        milk: "Lait"
-        female_young_cow: "Génisse"
-        male_young_cow: "Taurillon"
-        calf: "Veau"
-        crop: "Culture"
-        grain: "Graine"
-        straw: "Paille"
-        grass: "Herbe"
-        herbicide: "Herbicide"
-        fungicide: "Fongicide"
         additive: "Adjuvant"
-        insecticide: "Insecticide"
-        molluscicide: "Molluscicide"
-        chemical_fertilizer: "Engrais chimique"
-        organic_fertilizer: "Engrais organique"
-        seed: "Semence"
-        food: "Aliment"
+        animal_building_division: "Zone dédiée aux animaux"
+        animal_food_building_division: "Zone de stockage dédiée aux aliments"
         animal_medicine: "Produit vétérinaire"
-        spread_renting: "Location d'épandeur"
-        mineral_cleaner: "Nettoyant chimique"
-        small_equipment: "Petit matériel"
-        land_parcel: "Parcelle"
-        land_parcel_cluster: "Ilôt"
-        cultivable_land_parcel: "Parcelle culturale"
+        baler: "Botteleuse"
         building: "Bâtiment"
         building_division: "Pièce ou zone d'un bâtiment"
-        animal_building_division: "Zone dédiée aux animaux"
+        calf: "Veau"
+        cattle_herd: "Troupeau de bovins"
+        chemical_fertilizer: "Engrais chimique"
+        crop: "Culture"
+        cultivable_land_parcel: "Parcelle culturale"
+        equipment: "Équipement"
         # equipment_building_division: "Equipment building division"
-        animal_food_building_division: "Zone de stockage dédiée aux aliments"
+        female_adult_cow: "Vache"
+        female_young_cow: "Génisse"
+        food: "Aliment"
+        fungicide: "Fongicide"
+        grain: "Graine"
+        grass: "Herbe"
+        hay_rake: "Andaineur"
+        herbicide: "Herbicide"
+        insecticide: "Insecticide"
+        land_parcel: "Parcelle"
+        land_parcel_cluster: "Ilôt"
+        male_adult_cow: "Taureau"
+        male_young_cow: "Taurillon"
+        manager: "Responsable"
+        milk: "Lait"
+        # milk_tank: "Milk tank"
+        mineral_cleaner: "Nettoyant chimique"
+        molluscicide: "Molluscicide"
+        mower: "Faucheuse"
+        organic_fertilizer: "Engrais organique"
+        plow: "Charrue"
+        # reaper: "Reaper"
+        seed: "Semence"
+        small_equipment: "Petit matériel"
+        sower: "Semoir"
+        # sprayer: "Sprayer"
+        spread_renting: "Location d'épandeur"
+        spreader: "Epandeur à engrais"
+        # spreader_trailer: "Spreader trailer"
+        straw: "Paille"
+        # superficial_plow: "Superficial plow"
+        technician: "Technicien"
         tractor: "Tracteur"
         trailer: "Remorque"
-        # milk_tank: "Milk tank"
-        # spreader_trailer: "Spreader trailer"
-        spreader: "Epandeur à engrais"
-        sower: "Semoir"
-        plow: "Charrue"
-        # superficial_plow: "Superficial plow"
-        # sprayer: "Sprayer"
-        baler: "Botteleuse"
-        mower: "Faucheuse"
-        hay_rake: "Andaineur"
-        # reaper: "Reaper"
-        equipment: "Équipement"
-        technician: "Technicien"
-        manager: "Responsable"
     roles:
       # name: "Roles"
       items:
-        # target: "Target"
-        # tool: "Tool"
-        # input: "Input"
-        # output: "Output"
         # driver: "Driver"
         # gardener: "Gardener"
+        # input: "Input"
+        # output: "Output"
+        # target: "Target"
+        # tool: "Tool"
     taxes:
       name: "Type de taxes"
       attributes:
         active: "actif"
-        started_on: "débuté le"
-        stopped_on: "arrêté le"
-        # computation_method: "Computation method"
         amount: "valeur"
+        collect_account: "compte de TVA collectée (radical)"
+        # computation_method: "Computation method"
         country: "pays"
         deduction_account: "compte de TVA déductible (radical)"
-        collect_account: "compte de TVA collectée (radical)"
+        started_on: "débuté le"
+        stopped_on: "arrêté le"
         suffix: "suffixe du compte comptable"
       choices:
+        # collect_account: # Choices comes from nomenclature: accounts
         computation_method:
-          # percentage: "Percentage"
           # amount: "Amount"
+          # percentage: "Percentage"
         # country: # Choices comes from nomenclature: countries
         # deduction_account: # Choices comes from nomenclature: accounts
-        # collect_account: # Choices comes from nomenclature: accounts
       items:
+        fr_vat_intermediate: "TVA 10.00%"
+        fr_vat_normal: "TVA 20.00%"
         fr_vat_null: "TVA 0.00%"
         fr_vat_particular: "TVA 2.10%"
         fr_vat_reduced: "TVA 5.00%"
-        fr_vat_intermediate: "TVA 10.00%"
-        fr_vat_normal: "TVA 20.00%"
     units:
       name: "Unités de mesure"
       attributes:
-        # dimension: "Dimension"
-        # symbol: "Symbol"
-        # coefficient: "Coefficient"
-        # coefficients: "Coefficients"
-        # start: "Start"
         # a: "A"
         # b: "B"
+        # coefficient: "Coefficient"
+        # coefficients: "Coefficients"
+        # dimension: "Dimension"
+        # start: "Start"
+        # symbol: "Symbol"
       choices:
         # dimension: # Choices comes from nomenclature: dimensions
       items:
-        # percent: "Percent"
-        unity: "unité"
-        pair: "paire"
-        # ten: "Ten"
-        dozen: "douzaine"
-        hundred: "centaine"
-        thousand: "millier"
-        million: "million"
-        # kelvin: "Kelvin"
-        celsius: "celsius"
-        # farenheit: "Farenheit"
-        # microgram: "Microgram"
-        # milligram: "Milligram"
-        gram: "gramme"
-        kilogram: "kilogramme"
-        quintal: "quintal"
-        ton: "tonne"
-        # millimeter: "Millimeter"
-        # meter: "Meter"
-        # kilometer: "Kilometer"
-        square_meter: "mètre carré"
-        are: "are"
-        hectare: "hectare"
-        # cubic_meter: "Cubic meter"
-        # hectoliter: "Hectoliter"
-        liter: "litre"
-        # milliliter: "Milliliter"
-        # second: "Second"
-        # minute: "Minute"
-        # hour: "Hour"
-        # day: "Day"
         # ampere: "Ampere"
-        # mole: "Mole"
+        are: "are"
         # candela: "Candela"
-        # microgram_per_liter: "Microgram per liter"
-        # milligram_per_liter: "Milligram per liter"
+        celsius: "celsius"
+        # cubic_meter: "Cubic meter"
+        # day: "Day"
+        dozen: "douzaine"
+        # english_horsepower: "English horsepower"
+        # farenheit: "Farenheit"
+        # french_horsepower: "French horsepower"
+        gram: "gramme"
         # gram_per_liter: "Gram per liter"
+        hectare: "hectare"
+        # hectoliter: "Hectoliter"
+        # hour: "Hour"
+        hundred: "centaine"
+        # kelvin: "Kelvin"
+        kilogram: "kilogramme"
         # kilogram_per_liter: "Kilogram per liter"
-        # unity_per_liter: "Unity per liter"
+        # kilometer: "Kilometer"
+        # kilowatt: "Kilowatt"
+        liter: "litre"
+        # megawatt: "Megawatt"
+        # meter: "Meter"
+        # microgram: "Microgram"
+        # microgram_per_liter: "Microgram per liter"
+        # milligram: "Milligram"
+        # milligram_per_liter: "Milligram per liter"
+        # milliliter: "Milliliter"
+        # millimeter: "Millimeter"
+        million: "million"
+        # minute: "Minute"
+        # mole: "Mole"
+        pair: "paire"
+        # percent: "Percent"
+        quintal: "quintal"
+        # second: "Second"
+        square_meter: "mètre carré"
+        # ten: "Ten"
+        thousand: "millier"
+        # thousand_per_hectogram: "Thousand per hectogram"
+        # thousand_per_kilogram: "Thousand per kilogram"
         # thousand_per_liter: "Thousand per liter"
         # thousand_per_milliliter: "Thousand per milliliter"
+        ton: "tonne"
+        unity: "unité"
         # unity_per_kilogram: "Unity per kilogram"
-        # thousand_per_kilogram: "Thousand per kilogram"
-        # thousand_per_hectogram: "Thousand per hectogram"
-        # french_horsepower: "French horsepower"
-        # english_horsepower: "English horsepower"
+        # unity_per_liter: "Unity per liter"
         # watt: "Watt"
-        # kilowatt: "Kilowatt"
-        # megawatt: "Megawatt"
     varieties:
       # name: "Varieties"
       attributes:
         # derivative_of: "Derivative of"
-        # itis-tsn: "Itis-tsn"
         # europa-tsn: "Europa-tsn"
+        # itis-tsn: "Itis-tsn"
       choices:
         # derivative_of: # Choices comes from nomenclature: varieties
       items:
-        product: "Produits"
-        matter: "Matérialisable"                           # product
-        bioproduct: "Produits vivants"                     # matter
-        animal: "Animaux"                                  # bioproduct
-        mammalia: "Mammifères"                             # animal
-        capra: "Caprins"                                   # mammalia
-        ovis: "Ovins"                                      # mammalia
-        bos: "Bovins"                                      # mammalia
-        anas: "Palmipèdes"                                 # mammalia
-        sus: "Porcins"                                     # mammalia
-        lepus: "Lagomorphes"                               # mammalia
-        # aves: "Aves"                                     # animal
-        gallus: "Galinacées"                               # aves
-        # osteichthyes: "Osteichthyes"                     # animal
-        salmo: "Salmonidés"                                # osteichthyes
-        # insecta: "Insecta"                               # animal
-        apis: "Apidés"                                     # insecta
-        # mollusca: "Mollusca"                             # animal
-        plant: "Végétaux"                                  # bioproduct
-        poaceae: "Graminée"                                # plant
-        # poa: "Poa"                                       # poaceae
-        triticum_aestivum: "Blé tendre"                    # poaceae
-        # apache: "Apache"                                 # triticum_aestivum
-        caphorn: "Caphorn"                                 # triticum_aestivum
-        triticum_durum: "Blé dur"                          # poaceae
-        triticum_spelta: "Epeautre"                        # poaceae
-        hordeum: "Orge"                                    # poaceae
-        zea: "Maïs"                                        # poaceae
-        sorghum: "Sorgho"                                  # poaceae
-        asteraceae: "Astéracée"                            # plant
-        helianthus: "Tournesol"                            # asteraceae
-        # brassicaceae: "Brassicaceae"                     # plant
-        # brassica_napus: "Brassica napus"                 # brassicaceae
-        # brassica_rapa: "Brassica rapa"                   # brassicaceae
-        # brassica_nigra: "Brassica nigra"                 # brassicaceae
-        fungus: "Champignons"                              # bioproduct
-        equipment: "Equipements"                           # matter
-        tractor: "Tracteur"                                # equipment
-        # trailer: "Trailer"                               # equipment
-        worker: "Travailleur"                              # equipment
-        # plower: "Plower"                                 # equipment
-        # sower: "Sower"                                   # equipment
-        # mower: "Mower"                                   # equipment
-        # baler: "Baler"                                   # equipment
-        # spreader: "Spreader"                             # equipment
-        # sprayer: "Sprayer"                               # equipment
-        # reaper: "Reaper"                                 # equipment
-        # harvest: "Harvest"                               # equipment
-        # tank: "Tank"                                     # equipment
-        # medicine: "Medicine"                             # matter
-        # animal_medicine: "Animal medicine"               # medicine
         # acetal: "Acetal"                                 # animal_medicine
         # actilact: "Actilact"                             # animal_medicine
-        # plant_medicine: "Plant medicine"                 # medicine
-        # herbicide: "Herbicide"                           # plant_medicine
-        # fungicide: "Fungicide"                           # plant_medicine
-        # insecticide: "Insecticide"                       # plant_medicine
         # additive: "Additive"                             # plant_medicine
-        # molluscicide: "Molluscicide"                     # plant_medicine
-        # antiseptic: "Antiseptic"                         # medicine
-        # disinfectant: "Disinfectant"                     # antiseptic
-        organic_matter: "Matières organiques"              # matter
-        # meat: "Meat"                                     # organic_matter
-        # milk: "Milk"                                     # organic_matter
-        # manure: "Manure"                                 # organic_matter
-        plant_food: "Nourriture végétale"                  # organic_matter
-        # mineral_food: "Mineral food"                     # organic_matter
-        # straw: "Straw"                                   # organic_matter
-        # hay: "Hay"                                       # organic_matter
-        # seed: "Seed"                                     # organic_matter
-        # grain: "Grain"                                   # organic_matter
-        mineral_matter: "Matières minérales"               # matter
-        # salt: "Salt"                                     # mineral_matter
-        zone: "Zone physique"                              # matter
-        # easement: "Easement"                             # zone
-        # settlement: "Settlement"                         # easement
-        # land_parcel: "Land parcel"                       # easement
-        # sub_zone: "Sub zone"                             # zone
-        # building_division: "Building division"           # sub_zone
-        immatter: "Immatérialisable"                       # product
-        service: "Services"                                # immatter
-        property_title: "Titre de propriété"               # immatter
-        # zone_property_title: "Zone property title"       # property_title
-        product_group: "Groupe de produits"                # product
+        anas: "Palmipèdes"                                 # mammalia
+        animal: "Animaux"                                  # bioproduct
         # animal_group: "Animal group"                     # product_group
-        # land_parcel_group: "Land parcel group"           # product_group
-        # land_parcel_cluster: "Land parcel cluster"       # land_parcel_group
-        # cultivable_land_parcel: "Cultivable land parcel" # land_parcel_group
+        # animal_medicine: "Animal medicine"               # medicine
+        # antiseptic: "Antiseptic"                         # medicine
+        # apache: "Apache"                                 # triticum_aestivum
+        apis: "Apidés"                                     # insecta
+        asteraceae: "Astéracée"                            # plant
+        # aves: "Aves"                                     # animal
+        # baler: "Baler"                                   # equipment
+        bioproduct: "Produits vivants"                     # matter
+        bos: "Bovins"                                      # mammalia
+        # brassica_napus: "Brassica napus"                 # brassicaceae
+        # brassica_nigra: "Brassica nigra"                 # brassicaceae
+        # brassica_rapa: "Brassica rapa"                   # brassicaceae
+        # brassicaceae: "Brassicaceae"                     # plant
         # building: "Building"                             # product_group
+        # building_division: "Building division"           # sub_zone
+        caphorn: "Caphorn"                                 # triticum_aestivum
+        capra: "Caprins"                                   # mammalia
+        # cultivable_land_parcel: "Cultivable land parcel" # land_parcel_group
+        # disinfectant: "Disinfectant"                     # antiseptic
+        # easement: "Easement"                             # zone
+        equipment: "Equipements"                           # matter
+        # fungicide: "Fungicide"                           # plant_medicine
+        fungus: "Champignons"                              # bioproduct
+        gallus: "Galinacées"                               # aves
+        # grain: "Grain"                                   # organic_matter
+        # harvest: "Harvest"                               # equipment
+        # hay: "Hay"                                       # organic_matter
+        helianthus: "Tournesol"                            # asteraceae
+        # herbicide: "Herbicide"                           # plant_medicine
+        hordeum: "Orge"                                    # poaceae
+        immatter: "Immatérialisable"                       # product
+        # insecta: "Insecta"                               # animal
+        # insecticide: "Insecticide"                       # plant_medicine
+        # land_parcel: "Land parcel"                       # easement
+        # land_parcel_cluster: "Land parcel cluster"       # land_parcel_group
+        # land_parcel_group: "Land parcel group"           # product_group
+        lepus: "Lagomorphes"                               # mammalia
+        mammalia: "Mammifères"                             # animal
+        # manure: "Manure"                                 # organic_matter
+        matter: "Matérialisable"                           # product
+        # meat: "Meat"                                     # organic_matter
+        # medicine: "Medicine"                             # matter
+        # milk: "Milk"                                     # organic_matter
+        # mineral_food: "Mineral food"                     # organic_matter
+        mineral_matter: "Matières minérales"               # matter
+        # mollusca: "Mollusca"                             # animal
+        # molluscicide: "Molluscicide"                     # plant_medicine
+        # mower: "Mower"                                   # equipment
+        organic_matter: "Matières organiques"              # matter
+        # osteichthyes: "Osteichthyes"                     # animal
+        ovis: "Ovins"                                      # mammalia
+        plant: "Végétaux"                                  # bioproduct
+        plant_food: "Nourriture végétale"                  # organic_matter
+        # plant_medicine: "Plant medicine"                 # medicine
+        # plower: "Plower"                                 # equipment
+        # poa: "Poa"                                       # poaceae
+        poaceae: "Graminée"                                # plant
+        product: "Produits"
+        product_group: "Groupe de produits"                # product
+        property_title: "Titre de propriété"               # immatter
+        # reaper: "Reaper"                                 # equipment
+        salmo: "Salmonidés"                                # osteichthyes
+        # salt: "Salt"                                     # mineral_matter
+        # seed: "Seed"                                     # organic_matter
+        service: "Services"                                # immatter
+        # settlement: "Settlement"                         # easement
+        sorghum: "Sorgho"                                  # poaceae
+        # sower: "Sower"                                   # equipment
+        # sprayer: "Sprayer"                               # equipment
+        # spreader: "Spreader"                             # equipment
+        # straw: "Straw"                                   # organic_matter
+        # sub_zone: "Sub zone"                             # zone
+        sus: "Porcins"                                     # mammalia
+        # tank: "Tank"                                     # equipment
+        tractor: "Tracteur"                                # equipment
+        # trailer: "Trailer"                               # equipment
+        triticum_aestivum: "Blé tendre"                    # poaceae
+        triticum_durum: "Blé dur"                          # poaceae
+        triticum_spelta: "Epeautre"                        # poaceae
+        worker: "Travailleur"                              # equipment
+        zea: "Maïs"                                        # poaceae
+        zone: "Zone physique"                              # matter
+        # zone_property_title: "Zone property title"       # property_title

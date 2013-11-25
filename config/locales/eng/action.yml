@@ -248,7 +248,7 @@ eng:
       edit: "Edit the event"
       index: "Events"
       new: "Add a new event"
-      # show: "Evènement\_: %{name}"
+      # show: "Évènement\_: %{name}"
     backend/financial_years:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"

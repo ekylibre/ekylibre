@@ -301,24 +301,27 @@ task :locales => :environment do
   ref ||= {}
   translation  = locale.to_s+":\n"
   translation << "  nomenclatures:\n"
-  for name in Nomen.names
+  for name in Nomen.names.sort{|a,b| a.to_s <=> b.to_s}
     nomenclature = Nomen[name]
     translation << "    #{nomenclature.name}:\n"
     translation << CleanSupport.exp(ref, nomenclature.name, :name, default: name.humanize).dig(3)
     choices = ""
+    item_lists = []
     if nomenclature.attributes.any?
       translation << "      attributes:\n"
-      for name, attribute in nomenclature.attributes
+      for name, attribute in nomenclature.attributes.sort{|a,b| a.first.to_s <=> b.first.to_s}
         translation << CleanSupport.exp(ref, nomenclature.name, :attributes, name.to_sym).dig(4)
         if attribute.type == :choice
           if attribute.inline_choices?
             choices << "#{name}:\n"
-            for choice in attribute.choices
+            for choice in attribute.choices.sort{|a,b| a.to_s <=> b.to_s}
               choices << CleanSupport.exp(ref, nomenclature.name, :choices, name.to_sym, choice.to_sym).dig
             end
           else
             choices << "# #{name}: # Choices comes from nomenclature: #{attribute.choices_nomenclature}\n"
           end
+        elsif attribute.type == :list and attribute.choices_nomenclature.nil?
+          item_lists << attribute.name.to_sym
         end
       end
     end
@@ -326,8 +329,26 @@ task :locales => :environment do
       choices = "choices:\n" + choices.dig
       translation << choices.dig(3)
     end
+    if item_lists.any?
+      lists = "item_lists:\n"
+      for item in nomenclature.list.sort{|a,b| a.to_s <=> b.to_s}
+        liss = ""
+        for item_list in item_lists
+          iss = ""
+          if is = item.send(item_list)
+            iss << "#{item_list}:\n"
+            for i in is
+              iss << CleanSupport.exp(ref, nomenclature.name, :item_lists, item.name.to_sym, item_list, i.to_sym).dig
+            end
+          end
+          liss << iss unless iss.blank?
+        end
+        lists << "  #{item.name}:\n" + liss.dig(2) unless liss.blank?
+      end
+      translation << lists.dig(3)
+    end
     translation << "      items:\n"
-    for item in nomenclature.list
+    for item in nomenclature.list.sort{|a,b| a.name.to_s <=> b.name.to_s}
       line = CleanSupport.exp(ref, nomenclature.name, :items, item.name.to_sym)
       translation << (item.root? ? line : line.ljust(50) + " # #{item.parent.name}").dig(4)
     end

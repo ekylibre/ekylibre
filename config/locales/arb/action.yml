@@ -278,7 +278,7 @@ arb:
       edit: "تعديل الحدث"
       index: "الاحداث"
       new: "اضافة حدث"
-      # show: "Evènement\_: %{name}"
+      # show: "Évènement\_: %{name}"
     backend/finances:  #?
       unvalidated_deposits: "التأكد من اقتطاعات البنك" #?
     backend/financial_years:

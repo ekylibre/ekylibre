@@ -61,6 +61,7 @@ arb:
         # campaigns_interests: "Crédits des crédits bancaires de campagne"
         # capital: "Capital"
         # capitals: "Comptes de capitaux"
+        # cashes: "Trésoreries"
         # clients: "Clients"
         # collected_vat: "Taxes sur le chiffre d'affaires collectées par l'entreprise"
         # compensation_operations: "Operations de compensation (conventions de compte courant)"
@@ -487,6 +488,181 @@ arb:
         zw: "علم زمبابوي زمبابوي "
     currencies:
       attributes: #?
+      item_lists:
+        AED: #?
+        AFN: #?
+        ALL: #?
+        AMD: #?
+        ANG: #?
+        AOA: #?
+        ARS: #?
+        AUD: #?
+        AWG: #?
+        AZN: #?
+        BAM: #?
+        BBD: #?
+        BDT: #?
+        BGN: #?
+        BHD: #?
+        BIF: #?
+        BMD: #?
+        BND: #?
+        BOB: #?
+        BOV: #?
+        BRL: #?
+        BSD: #?
+        BTN: #?
+        BWP: #?
+        BYR: #?
+        BZD: #?
+        CAD: #?
+        CDF: #?
+        CHE: #?
+        CHF: #?
+        CHW: #?
+        CLF: #?
+        CLP: #?
+        CNY: #?
+        COP: #?
+        COU: #?
+        CRC: #?
+        CUC: #?
+        CUP: #?
+        CVE: #?
+        CZK: #?
+        DJF: #?
+        DKK: #?
+        DOP: #?
+        DZD: #?
+        EGP: #?
+        ERN: #?
+        ETB: #?
+        EUR:
+          cash: #?
+        FJD: #?
+        FKP: #?
+        FRF:
+          cash: #?
+        GBP: #?
+        GEL: #?
+        GHS: #?
+        GIP: #?
+        GMD: #?
+        GNF: #?
+        GTQ: #?
+        GYD: #?
+        HKD: #?
+        HNL: #?
+        HRK: #?
+        HTG: #?
+        HUF: #?
+        IDR: #?
+        ILS: #?
+        INR: #?
+        IQD: #?
+        IRR: #?
+        ISK: #?
+        JMD: #?
+        JOD: #?
+        JPY:
+          cash: #?
+        KES: #?
+        KGS: #?
+        KHR: #?
+        KMF: #?
+        KPW: #?
+        KRW: #?
+        KWD: #?
+        KYD: #?
+        KZT: #?
+        LAK: #?
+        LBP: #?
+        LKR: #?
+        LRD: #?
+        LSL: #?
+        LTL: #?
+        LVL: #?
+        LYD: #?
+        MAD: #?
+        MDL: #?
+        MGA: #?
+        MKD: #?
+        MMK: #?
+        MNT: #?
+        MOP: #?
+        MRO: #?
+        MUR: #?
+        MVR: #?
+        MWK: #?
+        MXN: #?
+        MXV: #?
+        MYR: #?
+        MZN: #?
+        NAD: #?
+        NGN: #?
+        NIO: #?
+        NOK: #?
+        NPR: #?
+        NZD: #?
+        OMR: #?
+        PAB: #?
+        PEN: #?
+        PGK: #?
+        PHP: #?
+        PKR: #?
+        PLN: #?
+        PYG: #?
+        QAR: #?
+        RON: #?
+        RSD: #?
+        RUB: #?
+        RWF: #?
+        SAR: #?
+        SBD: #?
+        SCR: #?
+        SDG: #?
+        SEK: #?
+        SGD: #?
+        SHP: #?
+        SLL: #?
+        SOS: #?
+        SRD: #?
+        SSP: #?
+        STD: #?
+        SVC: #?
+        SYP: #?
+        SZL: #?
+        THB: #?
+        TJS: #?
+        TMT: #?
+        TND: #?
+        TOP: #?
+        TRY: #?
+        TTD: #?
+        TWD: #?
+        TZS: #?
+        UAH: #?
+        UGX: #?
+        USD:
+          cash: #?
+        USN: #?
+        USS: #?
+        UYI: #?
+        UYU: #?
+        UZS: #?
+        VEF: #?
+        VND: #?
+        VUV: #?
+        WST: #?
+        XAF: #?
+        XCD: #?
+        XOF: #?
+        XPF: #?
+        YER: #?
+        ZAR: #?
+        ZMK: #?
+        ZWL: #?
+        cash: #?
       items:
         AED: "درهم إماراتي"
         AFN: "أفغاني"
@@ -719,6 +895,7 @@ arb:
         # madam: "Madame"
         # person: "Personne"
         # professor: "Professeur"
+        # public_establishment: "Établissement public"
         # public_interest_group: "Groupement d’intérêt public"
         # sir: "Monsieur"
         # syndicate: "Syndicat"
@@ -741,6 +918,68 @@ arb:
           # point: "Point spatial"
           # string: "Texte"
         interpolation: #?
+      item_lists:
+        animal_disease_state:
+          choices: #?
+        animal_life_state:
+          choices: #?
+        application_width: #?
+        cells_concentration: #?
+        choices: #?
+        clostridial_spores_concentration: #?
+        cultural_soil_state:
+          choices: #?
+        dry_matter_rate: #?
+        fat_matters_concentration: #?
+        freezing_point_temperature: #?
+        geographic_coordinate: #?
+        hundred_grain_weight: #?
+        immunoglobulins_concentration: #?
+        inel_index: #?
+        inhibitors_presence:
+          choices: #?
+        isu_index: #?
+        lipolysis: #?
+        livestock_unit: #?
+        mammalia_born_condition:
+          choices: #?
+        mammalia_born_cycle: #?
+        mammalia_lactation_state:
+          choices: #?
+        mammalia_reproduction_event_abortion: #?
+        mammalia_reproduction_method_embryo_transplant: #?
+        mammalia_reproduction_state:
+          choices: #?
+        mammalia_twins_condition:
+          choices: #?
+        maximum_load_net_volume: #?
+        maximum_load_net_weight: #?
+        meat_withdrawal_period: #?
+        milk_withdrawal_period: #?
+        motor_power: #?
+        net_surface_area: #?
+        net_volume: #?
+        net_weight: #?
+        nitrogen_concentration: #?
+        phosphorus_concentration: #?
+        plant_life_state:
+          choices: #?
+        plant_reproduction_state:
+          choices: #?
+        population: #?
+        potassium_concentration: #?
+        protein_matters_concentration: #?
+        reproductor: #?
+        sex:
+          choices: #?
+        shape: #?
+        tb_index: #?
+        temperature: #?
+        total_bacteria_concentration: #?
+        tp_index: #?
+        urea_concentration: #?
+        usage_duration: #?
+        water_rate: #?
       items:
         # animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         # animal_life_state: "Phase du bioprocessus de vie d’un animal"
