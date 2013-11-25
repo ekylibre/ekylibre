@@ -65,9 +65,6 @@ GEM
     capybara-screenshot (0.3.14)
       capybara (>= 1.0, < 3)
       launchy
-    capybara-webkit (1.0.0)
-      capybara (~> 2.0, >= 2.0.2)
-      json
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     chunky_png (1.2.9)
@@ -106,7 +103,7 @@ GEM
     database_cleaner (1.2.0)
     dbf (2.0.6)
       fastercsv (~> 1.5.4)
-    devise (3.2.1)
+    devise (3.2.2)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 3.2.6, < 5)
@@ -147,6 +144,7 @@ GEM
     haml (4.0.4)
       tilt
     hashery (2.1.1)
+    headless (1.0.1)
     hike (1.2.3)
     hpricot (0.8.6)
     http-cookie (1.0.2)
@@ -189,7 +187,7 @@ GEM
       ntlm-http (~> 0.1, >= 0.1.1)
       webrobots (>= 0.0.9, < 0.2)
     method_source (0.8.2)
-    mime-types (1.25)
+    mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.2)
@@ -385,7 +383,6 @@ DEPENDENCIES
   calendar_helper (~> 0.2.5)
   capybara
   capybara-screenshot
-  capybara-webkit
   cocoon
   coffee-rails (~> 4.0.0)
   compass (~> 0.13.alpha.10)
@@ -402,6 +399,7 @@ DEPENDENCIES
   ffaker
   formize (~> 1.1.0)
   haml
+  headless
   i18n-complements
   jbuilder (~> 1.2)
   jquery-rails

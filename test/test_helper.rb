@@ -5,11 +5,7 @@ Coveralls.wear!('rails')
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-# require 'rspec/rails'
-# require 'rspec/autorun'
 require 'capybara/rails'
-# require 'capybara/rspec'
-# require 'capybara-screenshot/rspec'
 
 
 # Removes use of shoulda gem until bug is not fixed for Rails >= 1.9.3
@@ -22,20 +18,18 @@ require 'capybara/rails'
 # end
 
 
-# Choix du driver par défaut : selenium pour le Javascript
-#
-Capybara.register_driver :selenium do |app|
+# Capybara.register_driver :selenium do |app|
 
-  custom_profile = Selenium::WebDriver::Firefox::Profile.new
+#   custom_profile = Selenium::WebDriver::Firefox::Profile.new
 
-  # Turn off the super annoying popup!
-  custom_profile["network.http.prompt-temp-redirect"] = false
+#   # Turn off the super annoying popup!
+#   custom_profile["network.http.prompt-temp-redirect"] = false
 
-  Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => custom_profile)
-end
+#   Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => custom_profile)
+# end
 Capybara.default_driver = :selenium
+# Capybara.default_driver = :webkit
 Capybara.default_wait_time = 5
-#Capybara.default_driver = :webkit
 
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
@@ -44,22 +38,21 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   Warden.test_mode!
 
   def shoot_screen(name)
+    sleep(1)
     file = Rails.root.join("tmp", "screenshots", name + ".png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
     save_screenshot file
   end
 
-  #add a method to test unroll in form
-  #FIXME : add an AJAX helpers to capybara for testing unroll field
-    # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185
-    # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
+  # Add a method to test unroll in form
+  # FIXME : add an AJAX helpers to capybara for testing unroll field
+  # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185
+  # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
   def fill_unroll(field, options = {})
-    fill_in field, :with => options[:with]
+    fill_in(field, :with => options[:with])
     sleep(1)
-    #page.execute_script %Q{ $('##{field}').trigger("focus") }
-    #page.execute_script %Q{ $('##{field}').trigger("keydown") }
     selector = "input##{field} + .items-menu .items-list .item[data-item-label=\"#{options[:select]}\"]"
-    #page.should have_xpath(selector)
+    # page.should have_xpath(selector)
     page.execute_script "$('#{selector}').trigger('mouseenter').click();"
   end
 
@@ -76,27 +69,27 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
-  # Add more helper methods to be used by all tests here...
+  # # Add more helper methods to be used by all tests here...
 
-  def actions_of(cont)
-    User.rights[cont].keys
-  end
-
-  # def login(name, password)
-  #   # print "L"
-  #   old_controller = @controller
-  #   @controller = SessionsController.new
-  #   post :create, :name => name, :password => password
-  #   assert_response :redirect
-  #   assert_redirected_to root_url, "If login succeed, a redirection must be done to #{root_url}"
-  #   assert_not_nil(session[:user_id])
-  #   @controller = old_controller
+  # def actions_of(cont)
+  #   User.rights[cont].keys
   # end
 
-  def fast_login(entity)
-    # print "V"
-    @controller.send(:init_session, entity)
-  end
+  # # def login(name, password)
+  # #   # print "L"
+  # #   old_controller = @controller
+  # #   @controller = SessionsController.new
+  # #   post :create, :name => name, :password => password
+  # #   assert_response :redirect
+  # #   assert_redirected_to root_url, "If login succeed, a redirection must be done to #{root_url}"
+  # #   assert_not_nil(session[:user_id])
+  # #   @controller = old_controller
+  # # end
+
+  # def fast_login(entity)
+  #   # print "V"
+  #   @controller.send(:init_session, entity)
+  # end
 
 
 end

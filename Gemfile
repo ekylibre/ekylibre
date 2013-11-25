@@ -148,8 +148,9 @@ end
 
 group :test do
   gem 'shoulda-context'
+  gem 'headless'
   gem 'capybara'
-  gem 'capybara-webkit'
+  # gem 'capybara-webkit'
   gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem "launchy"
