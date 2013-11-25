@@ -68,30 +68,6 @@ class ActiveSupport::TestCase
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   fixtures :all
-
-  # # Add more helper methods to be used by all tests here...
-
-  # def actions_of(cont)
-  #   User.rights[cont].keys
-  # end
-
-  # # def login(name, password)
-  # #   # print "L"
-  # #   old_controller = @controller
-  # #   @controller = SessionsController.new
-  # #   post :create, :name => name, :password => password
-  # #   assert_response :redirect
-  # #   assert_redirected_to root_url, "If login succeed, a redirection must be done to #{root_url}"
-  # #   assert_not_nil(session[:user_id])
-  # #   @controller = old_controller
-  # # end
-
-  # def fast_login(entity)
-  #   # print "V"
-  #   @controller.send(:init_session, entity)
-  # end
-
-
 end
 
 
@@ -154,10 +130,10 @@ class ActionController::TestCase
         action_name = action.to_s
         mode = if action_name.match(/\A(index|new)\z/) # GET without ID
                  :index
-               elsif action_name.match(/\A(show|edit|picture)\z/) # GET with ID
-                 :show
-               elsif action_name.match(/\A(show|edit)\z/) # GET with ID
+               elsif action_name.match(/\A(picture)\z/) # GET with ID
                  :picture
+               elsif action_name.match(/\A(show|edit)\z/) # GET with ID
+                 :show
                elsif action_name.match(/\A(list\_\w+)\z/) # GET with ID
                  :list_things
                elsif action_name.match(/\A(create|load)\z/) # POST without ID

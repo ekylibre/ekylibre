@@ -9,7 +9,7 @@
   = f.input :with_commission, :show => :commission
 
 = field_set(:deposit, :in => :accountancy_options) do
-  = f.referenced_association :depositables_account, source: :deposit_pending_payments, new: {number: Account.find_or_create_in_chart(:deposit_pending_payments).number}
+  = f.referenced_association :depositables_account, source: :deposit_pending_payments, new: {number: Account.find_or_create_in_chart(:pending_deposit_payments).number}
   = f.referenced_association :depositables_journal
 
 = field_set(:commission, :in => :accountancy_options) do

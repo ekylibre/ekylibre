@@ -18,7 +18,7 @@
 #
 
 class Backend::IncomingDeliveryModesController < BackendController
-  manage_restfully
+  manage_restfully except: :show
 
   unroll
 
@@ -28,10 +28,6 @@ class Backend::IncomingDeliveryModesController < BackendController
     t.column :description
     t.action :edit
     t.action :destroy
-  end
-
-  # Displays the main page with the list of incoming delivery modes
-  def index
   end
 
 end
