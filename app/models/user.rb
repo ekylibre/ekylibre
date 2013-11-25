@@ -66,8 +66,7 @@
 #
 
 class User < Ekylibre::Record::Base
-  # attr_accessible :email, :password, :password_confirmation, :remember_me, :first_name, :last_name, :employed
-  attr_readonly :person_id
+  # attr_readonly :person_id
   belongs_to :team
   belongs_to :establishment
   belongs_to :person
@@ -94,7 +93,7 @@ class User < Ekylibre::Record::Base
   # validates_presence_of :password, :password_confirmation, if: Proc.new{|e| e.encrypted_password.blank? and e.loggable?}
   validates_confirmation_of :password
   validates_numericality_of :maximal_grantable_reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
-  validates_uniqueness_of :email
+  validates_uniqueness_of :email, :person_id
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
   # Include default devise modules. Others available are:
@@ -115,11 +114,18 @@ class User < Ekylibre::Record::Base
     self.maximal_grantable_reduction_percentage ||= 0
     self.rights_array = self.rights_array # Clean the rights
   end
+  
+  validate on: :update do
+    if self.person and old_record.person
+      if self.person_id != old_record.person_id
+        errors.add(:person_id, :readonly)
+      end
+    end
+  end
 
   before_save do
     unless self.person
-      person = Person.create!(:first_name => self.first_name, :last_name => self.last_name, :nature => Person.nature.default_value)
-      self.person_id = person.id
+      self.create_person!(first_name: self.first_name, last_name: self.last_name, nature: Person.nature.default_value)
     end
   end
 

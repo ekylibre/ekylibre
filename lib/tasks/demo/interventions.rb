@@ -85,7 +85,7 @@ demo :interventions do
 
   end
 
-  RubyProf.start
+  # RubyProf.start
 
   # interventions for all poaceae
   Ekylibre::fixturize :cultural_interventions do |w|
@@ -100,13 +100,13 @@ demo :interventions do
             coeff = (area.to_s.to_f / 10000.0) / 6.0
             # 7.99 -> 20.11 -> 40.21
             
-            # # Plowing 15-09-N -> 15-10-N
-            # Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support) do |i|
-            #   i.add_cast(reference_name: 'driver',  actor: Worker.all.sample)
-            #   i.add_cast(reference_name: 'tractor', actor: Product.can("tow(plower)").all.sample)
-            #   i.add_cast(reference_name: 'plow',    actor: Product.can("plow").all.sample)
-            #   i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
-            # end
+            # Plowing 15-09-N -> 15-10-N
+            Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support) do |i|
+              i.add_cast(reference_name: 'driver',  actor: Worker.all.sample)
+              i.add_cast(reference_name: 'tractor', actor: Product.can("tow(plower)").all.sample)
+              i.add_cast(reference_name: 'plow',    actor: Product.can("plow").all.sample)
+              i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
+            end
 
             # Sowing 15-10-N -> 30-10-N
             int = Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, :range => 15, support: support) do |i|
@@ -143,18 +143,19 @@ demo :interventions do
             #   i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
             # end
 
-            # if w.count.modulo(3).zero? # AND NOT prairie
-            #   # Treatment herbicide 01-04 30-04
-            #   molecule = Product.can("kill(plant)").all.sample
-            #   Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: support) do |i|
-            #     i.add_cast(reference_name: 'molecule', actor: molecule)
-            #     i.add_cast(reference_name: 'molecule_to_spray', actor: molecule, quantity: rand(15))
-            #     i.add_cast(reference_name: 'sprayer',  actor: Product.can("spray").all.sample)
-            #     i.add_cast(reference_name: 'driver',   actor: Worker.all.sample)
-            #     i.add_cast(reference_name: 'tractor',  actor: Product.can("catch").all.sample)
-            #     i.add_cast(reference_name: 'culture',  actor: culture)
-            #   end
-            # end
+            if w.count.modulo(3).zero? # AND NOT prairie
+              # Treatment herbicide 01-04 30-04
+              molecule = Product.can("kill(plant)").all.sample
+              Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: support) do |i|
+                i.add_cast(reference_name: 'molecule', actor: molecule)
+                i.add_cast(reference_name: 'molecule_to_spray', actor: molecule, quantity: rand(15))
+                i.add_cast(reference_name: 'sprayer',  actor: Product.can("spray").all.sample)
+                i.add_cast(reference_name: 'driver',   actor: Worker.all.sample)
+                i.add_cast(reference_name: 'tractor',  actor: Product.can("catch").all.sample)
+                i.add_cast(reference_name: 'culture',  actor: culture)
+              end
+            end
+
           end
           w.check_point
         end
@@ -162,12 +163,12 @@ demo :interventions do
     end
   end
 
-  result = RubyProf.stop
-  # # Print a graph profile to text
-  # printer = RubyProf::FlatPrinter.new(result)
-  # File.open(Rails.root.join("prof.html"), "wb") do |f|
-  #   printer.print(f, {})
-  # end
+  # result = RubyProf.stop
+  # # # Print a graph profile to text
+  # # printer = RubyProf::FlatPrinter.new(result)
+  # # File.open(Rails.root.join("prof.html"), "wb") do |f|
+  # #   printer.print(f, {})
+  # # end
 
   # interventions for grass
   Ekylibre::fixturize :grass_interventions do |w|

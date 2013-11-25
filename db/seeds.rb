@@ -1,29 +1,29 @@
 # encoding: UTF-8
 
-# TODO: I18nize seeds !!!
-I18n.locale = ENV["language"] || ENV["locale"] || 'fra'
-language = I18n.locale
-currency = ENV['currency'] || 'EUR'
-country  = ENV['country']  || 'fr'
-picture_company = Rails.root.join("app", "assets", "images", "ekylibre.png")
-user = {}
-user[:first_name] = ENV["first_name"] || "Jean"
-user[:last_name]  = ENV["last_name"]  || "DUPONT"
-unless user[:email] = ENV["email"]
-  user[:email] = "admin@ekylibre.org"
-  puts "Username: #{user[:email]}"
-end
-unless user[:password] = ENV["password"]
-  user[:password] = (Rails.env.development? ? "12345678" : User.give_password(8, :normal))
-  puts "Password: #{user[:password]}"
-end
-user[:password_confirmation] = user[:password]
-user[:employed] = true
-user = User.new(user)
-
-company = ENV["company"] || "GAEC DUPONT"
-
 ActiveRecord::Base.transaction do
+
+  # TODO: I18nize seeds !!!
+  I18n.locale = ENV["language"] || ENV["locale"] || I18n.default_locale
+  language = I18n.locale
+  currency = ENV['currency'] || 'EUR'
+  country  = ENV['country']  || 'fr'
+  picture_company = Rails.root.join("app", "assets", "images", "ekylibre.png")
+  user = {}
+  user[:first_name] = ENV["first_name"] || "Jean"
+  user[:last_name]  = ENV["last_name"]  || "DUPONT"
+  unless user[:email] = ENV["email"]
+    user[:email] = "admin@ekylibre.org"
+    puts "Username: #{user[:email]}"
+  end
+  unless user[:password] = ENV["password"]
+    user[:password] = (Rails.env.development? ? "12345678" : User.give_password(8, :normal))
+    puts "Password: #{user[:password]}"
+  end
+  user[:password_confirmation] = user[:password]
+  user[:employed] = true
+  user = User.new(user)
+
+  company = ENV["company"] || "GAEC DUPONT"
 
   Preference.get(:language).set!(language)
   Preference.get(:currency).set!(currency)
@@ -39,7 +39,7 @@ ActiveRecord::Base.transaction do
   f = File.open(picture_company)
   firm = LegalEntity.create!(:nature => "company", :language => language, :last_name => company, :currency => currency, :of_company => true, :picture => f)
   f.close
-  firm.addresses.create!(:canal => :mail, :mail_line_4 => "8 rue du bouil bleu", :mail_line_6 => "17250 SAINT-PORCHAIRE", :mail_country => "fr", :by_default => true)
+  firm.addresses.create!(:canal => :mail, :mail_line_4 => "8 rue du Bouil Bleu", :mail_line_6 => "17250 SAINT-PORCHAIRE", :mail_country => "fr", :by_default => true)
 
   user.administrator = true
   user.language = language
