@@ -121,27 +121,27 @@ demo :interventions do
 
             culture = int.casts.find_by(reference_name: 'culture').actor rescue nil
 
-            # # Fertilizing  01-03-M -> 31-03-M
-            # fertilizer = Product.of_variety(:mineral_matter).all.sample
-            # Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
-            #   i.add_cast(reference_name: 'fertilizer', actor: fertilizer)
-            #   i.add_cast(reference_name: 'fertilizer_to_spread', actor: fertilizer, quantity: 0.4 + rand(0.6))
-            #   i.add_cast(reference_name: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
-            #   i.add_cast(reference_name: 'driver', actor: Worker.all.sample)
-            #   i.add_cast(reference_name: 'tractor', actor: Product.can("tow(spreader)").all.sample)
-            #   i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
-            # end
+            # Fertilizing  01-03-M -> 31-03-M
+            fertilizer = Product.of_variety(:mineral_matter).all.sample
+            Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
+              i.add_cast(reference_name: 'fertilizer', actor: fertilizer)
+              i.add_cast(reference_name: 'fertilizer_to_spread', actor: fertilizer, quantity: 0.4 + rand(0.6))
+              i.add_cast(reference_name: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
+              i.add_cast(reference_name: 'driver', actor: Worker.all.sample)
+              i.add_cast(reference_name: 'tractor', actor: Product.can("tow(spreader)").all.sample)
+              i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
+            end
 
-            # # Organic Fertilizing  01-03-M -> 31-03-M
-            # organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample
-            # Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
-            #   i.add_cast(reference_name: 'manure',      actor: organic_fertilizer)
-            #   i.add_cast(reference_name: 'manure_to_spread', actor: organic_fertilizer, quantity: 1.2)
-            #   i.add_cast(reference_name: 'spreader',    actor: Product.can("spread(organic_matter)").all.sample)
-            #   i.add_cast(reference_name: 'driver',      actor: Worker.all.sample)
-            #   i.add_cast(reference_name: 'tractor',     actor: Product.can("tow(spreader)").all.sample)
-            #   i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
-            # end
+            # Organic Fertilizing  01-03-M -> 31-03-M
+            organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample
+            Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
+              i.add_cast(reference_name: 'manure',      actor: organic_fertilizer)
+              i.add_cast(reference_name: 'manure_to_spread', actor: organic_fertilizer, quantity: 1.2)
+              i.add_cast(reference_name: 'spreader',    actor: Product.can("spread(organic_matter)").all.sample)
+              i.add_cast(reference_name: 'driver',      actor: Worker.all.sample)
+              i.add_cast(reference_name: 'tractor',     actor: Product.can("tow(spreader)").all.sample)
+              i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
+            end
 
             if w.count.modulo(3).zero? # AND NOT prairie
               # Treatment herbicide 01-04 30-04

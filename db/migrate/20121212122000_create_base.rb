@@ -1101,7 +1101,7 @@ class CreateBase < ActiveRecord::Migration
     create_table :productions do |t|
       t.references :activity,                        null: false, index: true
       t.references :campaign,                        null: false, index: true
-      t.references :variant,                               index: true
+      t.references :variant,                                      index: true
       t.string     :name,                            null: false
       t.string     :state,                           null: false
       t.boolean    :static_support,  default: false, null: false
@@ -1110,6 +1110,8 @@ class CreateBase < ActiveRecord::Migration
       t.integer    :position
       t.stamps
       t.index      :name
+      t.index      :started_at
+      t.index      :stopped_at
     end
 
     create_table :products do |t|
@@ -1124,7 +1126,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :derivative_of,            limit: 120
       t.references :variant,                                                                       null: false, index: true
       t.references :nature,                                                                        null: false, index: true
-      t.references :category,                                                                        null: false, index: true
+      t.references :category,                                                                      null: false, index: true
       t.references :tracking,                                                                                   index: true
       t.references :asset,                                                                                      index: true
       t.datetime   :born_at

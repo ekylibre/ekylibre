@@ -1963,6 +1963,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "productions", ["created_at"], :name => "index_productions_on_created_at"
   add_index "productions", ["creator_id"], :name => "index_productions_on_creator_id"
   add_index "productions", ["name"], :name => "index_productions_on_name"
+  add_index "productions", ["started_at"], :name => "index_productions_on_started_at"
+  add_index "productions", ["stopped_at"], :name => "index_productions_on_stopped_at"
   add_index "productions", ["updated_at"], :name => "index_productions_on_updated_at"
   add_index "productions", ["updater_id"], :name => "index_productions_on_updater_id"
   add_index "productions", ["variant_id"], :name => "index_productions_on_variant_id"

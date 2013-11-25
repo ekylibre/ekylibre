@@ -488,41 +488,7 @@
   </module>
   <module name="production" icon="cogs">
     <group name="activity" icon="cogs">
-      <item name="activities">
-        <page to="backend/activities#index"/>
-        <page to="backend/activities#create"/>
-        <page to="backend/activities#destroy"/>
-        <page to="backend/activities#edit"/>
-        <page to="backend/activities#list"/>
-        <page to="backend/activities#new"/>
-        <page to="backend/activities#show"/>
-        <page to="backend/activities#update"/>
-        <page to="backend/activities#list_productions"/>
-        <page to="backend/activities#unroll"/>
-      </item>
-      <item name="productions">
-        <page to="backend/productions#index"/>
-        <page to="backend/productions#create"/>
-        <page to="backend/productions#destroy"/>
-        <page to="backend/productions#edit"/>
-        <page to="backend/productions#list"/>
-        <page to="backend/productions#new"/>
-        <page to="backend/productions#show"/>
-        <page to="backend/productions#update"/>
-        <page to="backend/production_supports#index"/>
-        <page to="backend/production_supports#create"/>
-        <page to="backend/production_supports#destroy"/>
-        <page to="backend/production_supports#edit"/>
-        <page to="backend/production_supports#list"/>
-        <page to="backend/production_supports#new"/>
-        <page to="backend/production_supports#show"/>
-        <page to="backend/production_supports#unroll"/>
-        <page to="backend/production_supports#update"/>
-        <page to="backend/productions#list_interventions"/>
-        <page to="backend/productions#list_supports"/>
-        <page to="backend/productions#unroll"/>
-      </item>
-      <item name="operations">
+      <item name="interventions">
         <page to="backend/interventions#index"/>
         <page to="backend/interventions#create"/>
         <page to="backend/interventions#destroy"/>
@@ -564,6 +530,40 @@
         <page to="backend/interventions#list_operations"/>
         <page to="backend/interventions#run"/>
         <page to="backend/interventions#unroll"/>
+      </item>
+      <item name="productions">
+        <page to="backend/productions#index"/>
+        <page to="backend/productions#create"/>
+        <page to="backend/productions#destroy"/>
+        <page to="backend/productions#edit"/>
+        <page to="backend/productions#list"/>
+        <page to="backend/productions#new"/>
+        <page to="backend/productions#show"/>
+        <page to="backend/productions#update"/>
+        <page to="backend/production_supports#index"/>
+        <page to="backend/production_supports#create"/>
+        <page to="backend/production_supports#destroy"/>
+        <page to="backend/production_supports#edit"/>
+        <page to="backend/production_supports#list"/>
+        <page to="backend/production_supports#new"/>
+        <page to="backend/production_supports#show"/>
+        <page to="backend/production_supports#unroll"/>
+        <page to="backend/production_supports#update"/>
+        <page to="backend/productions#list_interventions"/>
+        <page to="backend/productions#list_supports"/>
+        <page to="backend/productions#unroll"/>
+      </item>
+      <item name="activities">
+        <page to="backend/activities#index"/>
+        <page to="backend/activities#create"/>
+        <page to="backend/activities#destroy"/>
+        <page to="backend/activities#edit"/>
+        <page to="backend/activities#list"/>
+        <page to="backend/activities#new"/>
+        <page to="backend/activities#show"/>
+        <page to="backend/activities#update"/>
+        <page to="backend/activities#list_productions"/>
+        <page to="backend/activities#unroll"/>
       </item>
     </group>
     <group name="animal_productions" icon="cow">
