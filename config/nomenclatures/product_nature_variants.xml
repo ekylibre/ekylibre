@@ -268,9 +268,33 @@
             unit_name="25kilogram_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 50gram"
             />
+      <item name="spelt_seed_25"
+            nature="seed"
+            derivative_of="triticum_spelta"
+            unit_name="25kilogram_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 50gram"
+            />
       <item name="barley_seed_25"
             nature="seed"
             derivative_of="hordeum"
+            unit_name="25kilogram_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
+            />
+      <item name="corn_seed_25"
+            nature="seed"
+            derivative_of="zea"
+            unit_name="25kilogram_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
+            />
+      <item name="grass_seed_25"
+            nature="seed"
+            derivative_of="poa"
+            unit_name="25kilogram_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
+            />
+      <item name="sorghum_seed_25"
+            nature="seed"
+            derivative_of="sorghum"
             unit_name="25kilogram_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
             />
