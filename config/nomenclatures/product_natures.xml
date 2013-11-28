@@ -383,6 +383,14 @@
             variable_indicators="application_width, geographic_coordinate"
             frozen_indicators="population"
             />
+      <item name="forager"
+            category="equipment"
+            variety="forager"
+            population_counting="unitary"
+            abilities="harvest(plant)"
+            variable_indicators="application_width, geographic_coordinate"
+            frozen_indicators="population"
+            />
       <item name="equipment"
             category="equipment"
             variety="equipment"

@@ -476,6 +476,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
 	    />
+	    <item name="forager"
+            nature="forager"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+      />
       <item name="technician"
             nature="technician"
             unit_name="person"
