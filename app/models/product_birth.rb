@@ -20,18 +20,20 @@
 #
 # == Table: product_births
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  nature       :string(255)      not null
-#  operation_id :integer
-#  producer_id  :integer
-#  product_id   :integer          not null
-#  started_at   :datetime
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  nature          :string(255)      not null
+#  operation_id    :integer
+#  originator_id   :integer
+#  originator_type :string(255)
+#  producer_id     :integer
+#  product_id      :integer          not null
+#  started_at      :datetime
+#  stopped_at      :datetime
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 
 class ProductBirth < Ekylibre::Record::Base
@@ -40,7 +42,7 @@ class ProductBirth < Ekylibre::Record::Base
   belongs_to :producer, class_name: "Product"
   enumerize :nature, in: [:division, :creation]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nature, allow_nil: true, maximum: 255
+  validates_length_of :nature, :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :nature, :product
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values

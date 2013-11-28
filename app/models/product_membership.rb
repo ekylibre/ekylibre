@@ -20,18 +20,20 @@
 #
 # == Table: product_memberships
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  group_id     :integer          not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  member_id    :integer          not null
-#  nature       :string(255)      not null
-#  operation_id :integer
-#  started_at   :datetime         not null
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  group_id        :integer          not null
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  member_id       :integer          not null
+#  nature          :string(255)      not null
+#  operation_id    :integer
+#  originator_id   :integer
+#  originator_type :string(255)
+#  started_at      :datetime         not null
+#  stopped_at      :datetime
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 
 
@@ -41,7 +43,7 @@ class ProductMembership < Ekylibre::Record::Base
   belongs_to :group, class_name: "ProductGroup"
   belongs_to :member, class_name: "Product"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nature, allow_nil: true, maximum: 255
+  validates_length_of :nature, :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :group, :member, :nature, :started_at
   #]VALIDATORS]
 

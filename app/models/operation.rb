@@ -39,7 +39,7 @@ end
 
 class Operation < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :operations
-  # has_many :tasks, class_name: "OperationTask", inverse_of: :operation, dependent: :destroy
+
   has_many :product_births,        dependent: :destroy
   has_many :product_deaths,        dependent: :destroy
   has_many :product_enjoyments,    dependent: :destroy
@@ -152,7 +152,7 @@ class Operation < Ekylibre::Record::Base
     begin
       send("perform_#{task.action.type}", task_actors(task))
     rescue Exception => e
-      raise TaskPerformingError, "Cannot perform #{task.action.type} (#{task.expression}) with #{task_actors(task).inspect}"
+      raise TaskPerformingError, "Cannot perform #{task.action.type} (#{task.expression}) with #{task_actors(task).inspect}. #{e.message}." + e.backtrace.join("\n")
     end
   end
 
@@ -167,36 +167,36 @@ class Operation < Ekylibre::Record::Base
   # == Localizations
 
   def perform_direct_movement(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].container(self.started_at).id)
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product: actors[:product], container: actors[:localizable].container(self.started_at))
   end
 
   def perform_direct_entering(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].id)
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product: actors[:product], container: actors[:localizable])
   end
 
   def perform_movement(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: actors[:product].id)
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].container(self.stopped_at).id)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: actors[:product], container: actors[:localizable].container(self.stopped_at))
   end
 
   def perform_entering(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: actors[:product].id)
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].id)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: actors[:product], container: actors[:localizable])
   end
 
   def perform_home_coming(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: actors[:product].id)
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:product].default_storage.id)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: actors[:product], container: actors[:product].default_storage)
   end
 
   def perform_given_home_coming(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: actors[:product].id)
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].default_storage.id)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: actors[:product], container: actors[:localizable].default_storage)
   end
 
   def perform_out_going(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product_id: actors[:product].id)
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :exterior, product_id: actors[:product].id)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :exterior, product: actors[:product])
   end
 
   # == Births
@@ -252,11 +252,11 @@ class Operation < Ekylibre::Record::Base
   # == Ownerships
 
   def perform_ownership_loss(actors)
-    self.product_ownerships.create!(started_at: self.stopped_at, nature: :unknown, product_id: actors[:product].id)
+    self.product_ownerships.create!(started_at: self.stopped_at, nature: :unknown, product: actors[:product])
   end
 
   def perform_ownership_change(actors)
-    self.product_ownerships.create!(started_at: self.stopped_at, product_id: actors[:product].id, owner: actors[:owner])
+    self.product_ownerships.create!(started_at: self.stopped_at, product: actors[:product], owner: actors[:owner])
   end
 
   # == Browsings

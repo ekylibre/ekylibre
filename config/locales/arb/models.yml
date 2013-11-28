@@ -1084,6 +1084,7 @@ arb:
     cache: "مخبأ" #?
     # campaign: "Campagne"
     # canal: "Canal"
+    # carrier_linkages: "Carrier linkages"
     cash: "الحسابات المصرفية المستخدمة"
     cash_id: "الحسابات المصرفية المستخدمة" #?
     cash_journals: "الدفاتر اليومية للصناديق النقدية"
@@ -1585,6 +1586,8 @@ arb:
     origin_id: "المنشأ" #?
     origin_type: "نوع المنشأ"
     original_name: "الاسم الاصلي"
+    # originator: "Originator"
+    # originator_type: "Originator type"
     # outgoing_deliveries: "Livraisons sortantes"
     # outgoing_delivery_items: "Lignes de livraisons sortantes"
     # outgoing_delivery_modes: "Modes de livraisons sortantes"
@@ -1673,15 +1676,22 @@ arb:
     producer_id: "المنتج" #?
     product: "الانتاج"
     # product_account: "Compte de produit"
+    # product_births: "Product births"
     product_categories: "فئات المنتج" #?
     product_category: "الفئة" #?
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج" #?
+    # product_deaths: "Product deaths"
+    # product_enjoyments: "Product enjoyments"
     # product_events: "Product events"
     product_id: "المنتج" #?
+    # product_linkages: "Product linkages"
     # product_localizations: "Product localizations"
+    # product_measurements: "Product measurements"
+    # product_memberships: "Product memberships"
     # product_moves: "Product moves"
     # product_nature: "Product nature"
+    # product_ownerships: "Product ownerships"
     productable_products: "المنتجات الممكن انتاجها" #?
     # production: "Production"
     # productions: "Productions"

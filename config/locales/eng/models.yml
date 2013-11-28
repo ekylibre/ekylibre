@@ -661,6 +661,7 @@ eng:
     campaign: "Campaign"
     canal: "Canal"
     cares: "Cares" #?
+    # carrier_linkages: "Carrier linkages"
     cash: "Cash"
     cash_journals: "Cash journals"
     cash_transfers: "Cash transfers"
@@ -1134,6 +1135,8 @@ eng:
     origin: "Origin"
     origin_type: "Origin type"
     original_name: "Original name"
+    # originator: "Originator"
+    # originator_type: "Originator type"
     outgoing_deliveries: "Outgoing deliveries"
     # outgoing_delivery_items: "Lignes de livraisons sortantes"
     outgoing_delivery_lines: "Outgoing delivery lines" #?
@@ -1220,12 +1223,19 @@ eng:
     producer: "Producer"
     product: "Product"
     # product_account: "Compte de produit"
+    # product_births: "Product births"
     product_categories: "Product categories" #?
     product_components: "Product components" #?
+    # product_deaths: "Product deaths"
+    # product_enjoyments: "Product enjoyments"
     product_events: "Product events"
+    # product_linkages: "Product linkages"
     # product_localizations: "Product localizations"
+    # product_measurements: "Product measurements"
+    # product_memberships: "Product memberships"
     # product_moves: "Product moves"
     product_nature: "Product nature"
+    # product_ownerships: "Product ownerships"
     productable_products: "Productable products" #?
     production: "Production"
     production_chain: "Production chain" #?

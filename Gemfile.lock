@@ -166,7 +166,7 @@ GEM
       railties (>= 3.1.0)
     json (1.8.1)
     kgio (2.8.1)
-    launchy (2.4.1)
+    launchy (2.4.2)
       addressable (~> 2.3)
     libv8 (3.16.14.3)
     listen (1.1.6)

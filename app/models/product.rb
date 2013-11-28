@@ -80,6 +80,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :tracking
   belongs_to :variant, class_name: "ProductNatureVariant"
+  has_many :carrier_linkages, class_name: "ProductLinkage", foreign_key: :carried_id
   has_many :enjoyments, class_name: "ProductEnjoyment", foreign_key: :product_id
   has_many :incidents, class_name: "Incident", :as => :target
   has_many :indicator_data, class_name: "ProductIndicatorDatum", dependent: :destroy
@@ -170,6 +171,7 @@ class Product < Ekylibre::Record::Base
 
   after_validation do
     self.default_storage ||= self.initial_container
+    self.initial_container ||= self.default_storage
   end
 
   validate do

@@ -20,19 +20,21 @@
 #
 # == Table: product_measurements
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  indicator    :string(255)      not null
-#  lock_version :integer          default(0), not null
-#  operation_id :integer
-#  product_id   :integer          not null
-#  reporter_id  :integer
-#  started_at   :datetime         not null
-#  stopped_at   :datetime
-#  tool_id      :integer
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  id              :integer          not null, primary key
+#  indicator       :string(255)      not null
+#  lock_version    :integer          default(0), not null
+#  operation_id    :integer
+#  originator_id   :integer
+#  originator_type :string(255)
+#  product_id      :integer          not null
+#  reporter_id     :integer
+#  started_at      :datetime         not null
+#  stopped_at      :datetime
+#  tool_id         :integer
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 class ProductMeasurement < Ekylibre::Record::Base
   include Taskable
@@ -40,7 +42,7 @@ class ProductMeasurement < Ekylibre::Record::Base
   # belongs_to :reporter
   belongs_to :tool, class_name: "Product"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :indicator, allow_nil: true, maximum: 255
+  validates_length_of :indicator, :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :indicator, :product, :started_at
   #]VALIDATORS]
 

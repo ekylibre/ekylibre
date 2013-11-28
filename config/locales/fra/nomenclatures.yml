@@ -536,18 +536,6 @@ fra:
         # precision: "Precision"
         # symbol: "Symbol"
       item_lists:
-        JPY:
-          cash:
-            # 1: "1"
-            # 5: "5"
-            # 10: "10"
-            # 50: "50"
-            # 100: "100"
-            # 500: "500"
-            # 1000: "1000"
-            # 2000: "2000"
-            # 5000: "5000"
-            # 10000: "10000"
         USD:
           cash:
             # 0.01: "0.01"
@@ -562,21 +550,6 @@ fra:
             # 20: "20"
             # 50: "50"
             # 100: "100"
-        FRF:
-          cash:
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.2: "0.2"
-            # 0.5: "0.5"
-            # 1: "1"
-            # 2: "2"
-            # 5: "5"
-            # 10: "10"
-            # 20: "20"
-            # 50: "50"
-            # 100: "100"
-            # 200: "200"
-            # 500: "500"
         EUR:
           cash:
             # 0.01: "0.01"
@@ -594,6 +567,33 @@ fra:
             # 100.0: "100.0"
             # 200.0: "200.0"
             # 500.0: "500.0"
+        JPY:
+          cash:
+            # 1: "1"
+            # 5: "5"
+            # 10: "10"
+            # 50: "50"
+            # 100: "100"
+            # 500: "500"
+            # 1000: "1000"
+            # 2000: "2000"
+            # 5000: "5000"
+            # 10000: "10000"
+        FRF:
+          cash:
+            # 0.05: "0.05"
+            # 0.1: "0.1"
+            # 0.2: "0.2"
+            # 0.5: "0.5"
+            # 1: "1"
+            # 2: "2"
+            # 5: "5"
+            # 10: "10"
+            # 20: "20"
+            # 50: "50"
+            # 100: "100"
+            # 200: "200"
+            # 500: "500"
       items:
         AED: "Dirham des Émirats"
         AFN: "Afghani"
@@ -916,33 +916,6 @@ fra:
           choices:
             # negative: "Negative"
             # positive: "Positive"
-        plant_reproduction_state:
-          choices:
-            # swelling: "Swelling"
-            # heading: "Heading"
-            # flowering: "Flowering"
-            # grain_maturity: "Grain maturity"
-            # grain_senescence: "Grain senescence"
-        plant_life_state:
-          choices:
-            # germination: "Germination"
-            # tillering: "Tillering"
-            # bolting: "Bolting"
-            # maturity: "Maturity"
-            # senescence: "Senescence"
-        animal_disease_state:
-          choices:
-            # healthy: "Healthy"
-            # sick: "Sick"
-        mammalia_lactation_state:
-          choices:
-            # lactation: "Lactation"
-            # depletion: "Depletion"
-        mammalia_reproduction_state:
-          choices:
-            # back_heat: "Back heat"
-            # heat: "Heat"
-            # pregnancy: "Pregnancy"
         mammalia_twins_condition:
           choices:
             # none: "None"
@@ -972,6 +945,33 @@ fra:
             # male: "Male"
             # female: "Female"
             # undefined: "Undefined"
+        plant_reproduction_state:
+          choices:
+            # swelling: "Swelling"
+            # heading: "Heading"
+            # flowering: "Flowering"
+            # grain_maturity: "Grain maturity"
+            # grain_senescence: "Grain senescence"
+        plant_life_state:
+          choices:
+            # germination: "Germination"
+            # tillering: "Tillering"
+            # bolting: "Bolting"
+            # maturity: "Maturity"
+            # senescence: "Senescence"
+        animal_disease_state:
+          choices:
+            # healthy: "Healthy"
+            # sick: "Sick"
+        mammalia_lactation_state:
+          choices:
+            # lactation: "Lactation"
+            # depletion: "Depletion"
+        mammalia_reproduction_state:
+          choices:
+            # back_heat: "Back heat"
+            # heat: "Heat"
+            # pregnancy: "Pregnancy"
       items:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
