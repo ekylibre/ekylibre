@@ -12,8 +12,9 @@
       <!-- <attribute name="subscribing" type="boolean" required="true"/> -->
       <!-- Inside the model-->
       <attribute name="abilities" type="list" nomenclature="abilities" required="false"/>
-       <attribute name="frozen_indicators" type="list" nomenclature="frozen_indicators" required="false"/>
+      <attribute name="frozen_indicators" type="list" nomenclature="frozen_indicators" required="false"/>
       <attribute name="variable_indicators" type="list" nomenclature="frozen_indicators" required="false"/>
+      <attribute name="linkage_points" type="list" choices="rear, front" required="false"/>
     </attributes>
     <items>
       <item name="cattle_herd"
@@ -286,6 +287,7 @@
             abilities="catch(equipment), move, tow(matter)"
             variable_indicators="net_surface_area, shape, geographic_coordinate, motor_power"
             frozen_indicators="population"
+            linkage_points="rear, front"
             />
       <item name="trailer"
             category="equipment"

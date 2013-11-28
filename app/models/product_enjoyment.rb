@@ -34,7 +34,7 @@
 #  updater_id   :integer
 #
 class ProductEnjoyment < Ekylibre::Record::Base
-  include Taskable
+  include Taskable, TimeLineable
   belongs_to :enjoyer, class_name: "Entity"
   belongs_to :product
   # enumerize :nature, in: [:unknown, :own, :other], default: :unknown, predicates: true
@@ -45,6 +45,12 @@ class ProductEnjoyment < Ekylibre::Record::Base
 
   before_validation do
     self.nature = (self.enjoyer.blank? ? :unknown : (self.enjoyer == Entity.of_company) ? :own : :other)
+  end
+
+  private
+
+  def siblings
+    self.product.enjoyments
   end
 
 end

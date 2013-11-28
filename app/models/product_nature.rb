@@ -31,6 +31,7 @@
 #  evolvable            :boolean          not null
 #  frozen_indicators    :text
 #  id                   :integer          not null, primary key
+#  linkage_points       :text
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
 #  number               :string(30)       not null
@@ -200,15 +201,22 @@ class ProductNature < Ekylibre::Record::Base
 
   # Returns list of indicators as an array of indicator items from the nomenclature
   def indicators_array
-    return self.indicators.to_s.strip.split(/[\,\s]/).collect do |i|
+    return self.indicators.to_s.strip.split(/[\,\s]+/).collect do |i|
       Nomen::Indicators[i]
     end.compact
   end
 
   # Returns list of abilities as an array of ability items from the nomenclature
   def abilities_array
-    return self.abilities.to_s.strip.split(/[\,\s]/).collect do |i|
+    return self.abilities.to_s.strip.split(/[\,\s]+/).collect do |i|
       (Nomen::Abilities[i.split(/\(/).first] ? i : nil)
+    end.compact
+  end
+
+  # Returns list of abilities as an array of ability items from the nomenclature
+  def linkage_points_array
+    return self.linkage_points.to_s.strip.split(/[\,\s]+/).collect do |i|
+      i.to_sym
     end.compact
   end
 
@@ -300,16 +308,17 @@ class ProductNature < Ekylibre::Record::Base
     unless nature = ProductNature.find_by_reference_name(reference_name)
       attributes = {
         :variety => item.variety,
-        :abilities => item.abilities.sort.join(" "),
-        :active => true,
+        :derivative_of => item.derivative_of.to_s,
         :name => item.human_name,
         :population_counting => item.population_counting,
         :category => ProductNatureCategory.find_by_reference_name(item.category) || ProductNatureCategory.import_from_nomenclature(item.category),
         :reference_name => item.name,
+        :abilities => item.abilities.sort.join(" "),
         :frozen_indicators => item.frozen_indicators.sort.join(" "),
         :variable_indicators => item.variable_indicators.sort.join(" "),
-        :derivative_of => item.derivative_of.to_s
+        :active => true
       }
+      attributes[:linkage_points] = item.linkage_points.join(" ") if item.linkage_points
       nature = self.create!(attributes)
     end
     return nature

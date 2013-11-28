@@ -471,7 +471,7 @@ Ekylibre::Application.routes.draw do
 
     resources :product_indicator_data # , concerns: [:list, :unroll]
 
-    resources :product_links, concerns: [:list, :unroll]
+    resources :product_linkages, concerns: [:list, :unroll]
 
     resources :product_localizations, concerns: [:list, :unroll]
 

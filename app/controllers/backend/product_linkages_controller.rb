@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductLinksController < BackendController
+class Backend::ProductLinkagesController < BackendController
   # manage_restfully
 
   # list do |t|

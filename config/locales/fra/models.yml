@@ -355,7 +355,8 @@ fra:
       # product_enjoyment: "Product enjoyment"
       product_group: "Groupe de produit"
       product_indicator_datum: "Valeur d’indicateur"
-      product_link: "Lien entre produits"
+      product_link: "Lien entre produits" #?
+      product_linkage: "Lien entre produits"
       product_localization: "Passage d’un produit en un lieu"
       # product_measurement: "Product measurement"
       product_membership: "Passage d’un produit dans un groupe"
@@ -644,6 +645,7 @@ fra:
     employment: "Emploi/Rôle"
     encrypted_password: "Mot de passe crypté"
     # enjoyer: "Enjoyer"
+    enjoyments: "Enjoyments"
     entities: "Personnes" #?
     entity: "Personne"
     entity_1: "Personne 1"
@@ -764,6 +766,9 @@ fra:
     letter: "Lettre"
     letter_format: "Devis au format lettre"
     lft: "Limite gauche"
+    # linkage_points: "Linkage points"
+    linkages: "Linkages"
+    links: "Links" #?
     listing: "Extraction"
     listing_node_items: "Éléments de nœud d’extraction" #?
     listing_nodes: "Nœuds d’extraction" #?
@@ -917,6 +922,7 @@ fra:
     planned_at: "Prévu à" #?
     planned_depreciations: "Amortissements prévus"
     planned_on: "Prévu le"
+    point: "Point"
     point_value: "Point value"
     population: "Population"
     population_counting: "Gestion quantitative"
@@ -943,7 +949,7 @@ fra:
     # product_deaths: "Product deaths"
     # product_enjoyments: "Product enjoyments"
     product_events: "Product events"
-    # product_links: "Product links"
+    # product_linkages: "Product linkages"
     product_localizations: "Product localizations"
     # product_measurements: "Product measurements"
     # product_memberships: "Product memberships"

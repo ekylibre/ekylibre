@@ -92,7 +92,10 @@ module Procedo
           attr, other = @derivative_of.split(/\:/)[0..1]
           attr = "derivative_of" if attr.blank?
           attr.gsub!(/\-/, "_")
-          return @procedure.variables[other].send("computed_#{attr}")
+          unless variable = @procedure.variables[other]
+            raise MissingVariable, "Variable #{other.inspect} can not be found"
+          end
+          return variable.send("computed_#{attr}")
         else
           return @derivative_of
         end

@@ -34,18 +34,20 @@
 #  updater_id      :integer
 #
 
+class TaskPerformingError < StandardError
+end
 
 class Operation < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :operations
   # has_many :tasks, class_name: "OperationTask", inverse_of: :operation, dependent: :destroy
-  has_many :product_births, dependent: :destroy
-  has_many :product_deaths, dependent: :destroy
-  has_many :product_links, dependent: :destroy
-  has_many :product_enjoyments, dependent: :destroy
+  has_many :product_births,        dependent: :destroy
+  has_many :product_deaths,        dependent: :destroy
+  has_many :product_enjoyments,    dependent: :destroy
+  has_many :product_linkages,      dependent: :destroy
   has_many :product_localizations, dependent: :destroy
-  has_many :product_measurements, dependent: :destroy
-  has_many :product_memberships, dependent: :destroy
-  has_many :product_ownerships, dependent: :destroy
+  has_many :product_measurements,  dependent: :destroy
+  has_many :product_memberships,   dependent: :destroy
+  has_many :product_ownerships,    dependent: :destroy
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, allow_nil: true, only_integer: true
@@ -144,8 +146,14 @@ class Operation < Ekylibre::Record::Base
     end
   end
 
+
+
   def perform(task)
-    send("perform_#{task.action.type}", task_actors(task))
+    begin
+      send("perform_#{task.action.type}", task_actors(task))
+    rescue Exception => e
+      raise TaskPerformingError, "Cannot perform #{task.action.type} (#{task.expression}) with #{task_actors(task).inspect}"
+    end
   end
 
   def cancel(task)
@@ -156,7 +164,7 @@ class Operation < Ekylibre::Record::Base
   end
 
 
-  # == Localization
+  # == Localizations
 
   def perform_direct_movement(actors)
     self.product_localizations.create!(started_at: self.started_at, nature: :interior, product_id: actors[:product].id, container_id: actors[:localizable].container(self.started_at).id)
@@ -211,53 +219,37 @@ class Operation < Ekylibre::Record::Base
     self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :merging, product: actors[:product], absorber: actors[:absorber])
   end
 
-  # == Links
+  # == Linkages
 
   def perform_attachment(actors)
-    self.product_links.create!(started_at: self.stopped_at, carrier: actors[:carrier], carried: actors[:carried])
+    self.product_linkages.create!(started_at: self.stopped_at, point: actors[:point], carrier: actors[:carrier], carried: actors[:carried], nature: "occupied")
   end
 
   def perform_detachment(actors)
-    self.product_links
-      .where(carrier_id: actors[:carrier].id, carried_id: actors[:carried].id)
-      .at(self.stopped_at)
-      .find_each do |link|
-      link.update_attribute(stopped_at: self.stopped_at)
+    if linkage = actors[:carrier].linkages.at(self.started_at).where(carried_id: actors[:carried].id).first
+      self.product_linkages.create!(started_at: self.stopped_at, carrier: actors[:carrier], point: linkage.point, nature: "available")
     end
   end
 
-  def cancel_detachment(actors)
-    self.product_links
-      .where(carrier_id: actors[:carrier].id, carried_id: actors[:carried].id, stopped_at: self.stopped_at)
-      .find_each do |link|
-      link.update_attribute(stopped_at: nil)
-    end
+  def perform_simple_attachment(actors)
+    self.product_linkages.create!(started_at: self.stopped_at, point: actors[:carrier].linkage_points_array.first, carrier: actors[:carrier], carried: actors[:carried], nature: "occupied")
+  end
+
+  def perform_simple_detachment(actors)
+    self.product_linkages.create!(started_at: self.stopped_at, carrier: actors[:carrier], point: actors[:point], nature: "available")
   end
 
   # == Memberships
 
   def perform_group_inclusion(actors)
-    self.product_memberships.create!(started_at: self.stopped_at, member: actors[:member], group: actors[:group])
+    self.product_memberships.create!(started_at: self.stopped_at, member: actors[:member], group: actors[:group], nature: "interior")
   end
 
   def perform_group_exclusion(actors)
-    self.product_memberships
-      .where(member_id: actors[:member].id, group_id: actors[:group].id)
-      .at(self.stopped_at)
-      .find_each do |membership|
-      membership.update_attribute(stopped_at: self.stopped_at)
-    end
+    self.product_memberships.create!(started_at: self.stopped_at, member: actors[:member], group: actors[:group], nature: "exterior")
   end
 
-  def cancel_group_exclusion(actors)
-    self.product_memberships
-      .where(member_id: actors[:member].id, group_id: actors[:group].id, stopped_at: self.stopped_at)
-      .find_each do |membership|
-      membership.update_attribute(stopped_at: nil)
-    end
-  end
-
-  # == Ownership
+  # == Ownerships
 
   def perform_ownership_loss(actors)
     self.product_ownerships.create!(started_at: self.stopped_at, nature: :unknown, product_id: actors[:product].id)
@@ -267,12 +259,12 @@ class Operation < Ekylibre::Record::Base
     self.product_ownerships.create!(started_at: self.stopped_at, product_id: actors[:product].id, owner: actors[:owner])
   end
 
-  # == Browsing
+  # == Browsings
 
   def perform_browsing(actors)
   end
 
-  # == Measurement
+  # == Measurements
 
   def perform_measurement(actors)
   end
@@ -281,7 +273,6 @@ class Operation < Ekylibre::Record::Base
     # product, indicator = actors[:indicator]
     # self.product_measurements.create!(product: product, indicator: indicator)
   end
-
 
 end
 

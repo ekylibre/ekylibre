@@ -80,17 +80,18 @@ class Product < Ekylibre::Record::Base
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :tracking
   belongs_to :variant, class_name: "ProductNatureVariant"
+  has_many :enjoyments, class_name: "ProductEnjoyment", foreign_key: :product_id
   has_many :incidents, class_name: "Incident", :as => :target
   has_many :indicator_data, class_name: "ProductIndicatorDatum", dependent: :destroy
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
   has_many :groups, :through => :memberships
-  has_many :phases, class_name: "ProductPhase"
-  has_many :variants, class_name: "ProductNatureVariant", :through => :phases
   has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
-  # has_many :operation_tasks
+  has_many :linkages, class_name: "ProductLinkage", foreign_key: :carrier_id
   has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :product_id
+  has_many :phases, class_name: "ProductPhase"
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
+  has_many :variants, class_name: "ProductNatureVariant", :through => :phases
   has_one :current_phase, -> { order("started_at DESC") }, class_name: "ProductPhase", foreign_key: :product_id
   has_one :current_localization, -> {
     now = Time.now
@@ -112,7 +113,7 @@ class Product < Ekylibre::Record::Base
     }
   }
 
-  scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, viewed_at, viewed_at, viewed_at)}
+  scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, "interior", viewed_at, viewed_at, viewed_at)}
   scope :of_variety, lambda { |*varieties|
     where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
@@ -159,7 +160,7 @@ class Product < Ekylibre::Record::Base
   delegate :name, to: :nature, prefix: true
   delegate :subscribing?, :deliverable?, to: :nature
   delegate :variety, :derivative_of, :name, to: :variant, prefix: true
-  delegate :abilities, :abilities_array, :indicators, :indicators_array, :unit_name, to: :variant
+  delegate :abilities, :abilities_array, :indicators, :indicators_array, :linkage_points_array, :unit_name, to: :variant
   delegate :asset_account, :product_account, :charge_account, :stock_account, to: :nature
 
   after_initialize :choose_default_name
@@ -396,7 +397,6 @@ class Product < Ekylibre::Record::Base
     total = weight.to_s.to_d * pop.to_s.to_d
     return total
   end
-
 
   # Measure a product for a given indicator
   def is_measured!(indicator, value, options = {})

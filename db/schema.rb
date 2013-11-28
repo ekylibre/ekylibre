@@ -1583,10 +1583,12 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_indicator_data", ["updated_at"], :name => "index_product_indicator_data_on_updated_at"
   add_index "product_indicator_data", ["updater_id"], :name => "index_product_indicator_data_on_updater_id"
 
-  create_table "product_links", force: true do |t|
+  create_table "product_linkages", force: true do |t|
     t.integer  "operation_id"
     t.integer  "carrier_id",               null: false
-    t.integer  "carried_id",               null: false
+    t.string   "point",                    null: false
+    t.string   "nature",                   null: false
+    t.integer  "carried_id"
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.datetime "created_at",               null: false
@@ -1596,15 +1598,15 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "lock_version", default: 0, null: false
   end
 
-  add_index "product_links", ["carried_id"], :name => "index_product_links_on_carried_id"
-  add_index "product_links", ["carrier_id"], :name => "index_product_links_on_carrier_id"
-  add_index "product_links", ["created_at"], :name => "index_product_links_on_created_at"
-  add_index "product_links", ["creator_id"], :name => "index_product_links_on_creator_id"
-  add_index "product_links", ["operation_id"], :name => "index_product_links_on_operation_id"
-  add_index "product_links", ["started_at"], :name => "index_product_links_on_started_at"
-  add_index "product_links", ["stopped_at"], :name => "index_product_links_on_stopped_at"
-  add_index "product_links", ["updated_at"], :name => "index_product_links_on_updated_at"
-  add_index "product_links", ["updater_id"], :name => "index_product_links_on_updater_id"
+  add_index "product_linkages", ["carried_id"], :name => "index_product_linkages_on_carried_id"
+  add_index "product_linkages", ["carrier_id"], :name => "index_product_linkages_on_carrier_id"
+  add_index "product_linkages", ["created_at"], :name => "index_product_linkages_on_created_at"
+  add_index "product_linkages", ["creator_id"], :name => "index_product_linkages_on_creator_id"
+  add_index "product_linkages", ["operation_id"], :name => "index_product_linkages_on_operation_id"
+  add_index "product_linkages", ["started_at"], :name => "index_product_linkages_on_started_at"
+  add_index "product_linkages", ["stopped_at"], :name => "index_product_linkages_on_stopped_at"
+  add_index "product_linkages", ["updated_at"], :name => "index_product_linkages_on_updated_at"
+  add_index "product_linkages", ["updater_id"], :name => "index_product_linkages_on_updater_id"
 
   create_table "product_localizations", force: true do |t|
     t.integer  "operation_id"
@@ -1661,6 +1663,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "product_memberships", force: true do |t|
     t.integer  "operation_id"
     t.integer  "member_id",                null: false
+    t.string   "nature",                   null: false
     t.integer  "group_id",                 null: false
     t.datetime "started_at",               null: false
     t.datetime "stopped_at"
@@ -1809,6 +1812,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.text     "abilities"
     t.text     "variable_indicators"
     t.text     "frozen_indicators"
+    t.text     "linkage_points"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"

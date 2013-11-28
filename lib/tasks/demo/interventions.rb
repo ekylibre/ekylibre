@@ -119,7 +119,7 @@ demo :interventions do
               i.add_cast(reference_name: 'culture',     variant: ProductNatureVariant.find_or_import!(variety).first, quantity: (area.to_s.to_f / 10000.0))
             end
 
-            culture = int.casts.find_by(reference_name: 'culture').actor rescue nil
+            culture = int.casts.find_by(reference_name: 'culture').actor
 
             # Fertilizing  01-03-M -> 31-03-M
             fertilizer = Product.of_variety(:mineral_matter).all.sample

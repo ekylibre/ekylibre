@@ -30,6 +30,7 @@
 #  evolvable            :boolean          not null
 #  frozen_indicators    :text
 #  id                   :integer          not null, primary key
+#  linkage_points       :text
 #  lock_version         :integer          default(0), not null
 #  name                 :string(255)      not null
 #  number               :string(30)       not null

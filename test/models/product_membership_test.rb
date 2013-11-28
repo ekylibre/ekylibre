@@ -26,6 +26,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  member_id    :integer          not null
+#  nature       :string(255)      not null
 #  operation_id :integer
 #  started_at   :datetime         not null
 #  stopped_at   :datetime

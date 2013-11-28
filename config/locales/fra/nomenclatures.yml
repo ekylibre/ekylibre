@@ -548,11 +548,12 @@ fra:
             # 2000: "2000"
             # 5000: "5000"
             # 10000: "10000"
-        FRF:
+        USD:
           cash:
+            # 0.01: "0.01"
             # 0.05: "0.05"
             # 0.1: "0.1"
-            # 0.2: "0.2"
+            # 0.25: "0.25"
             # 0.5: "0.5"
             # 1: "1"
             # 2: "2"
@@ -561,8 +562,6 @@ fra:
             # 20: "20"
             # 50: "50"
             # 100: "100"
-            # 200: "200"
-            # 500: "500"
         EUR:
           cash:
             # 0.01: "0.01"
@@ -580,12 +579,11 @@ fra:
             # 100.0: "100.0"
             # 200.0: "200.0"
             # 500.0: "500.0"
-        USD:
+        FRF:
           cash:
-            # 0.01: "0.01"
             # 0.05: "0.05"
             # 0.1: "0.1"
-            # 0.25: "0.25"
+            # 0.2: "0.2"
             # 0.5: "0.5"
             # 1: "1"
             # 2: "2"
@@ -594,6 +592,8 @@ fra:
             # 20: "20"
             # 50: "50"
             # 100: "100"
+            # 200: "200"
+            # 500: "500"
       items:
         AED: "Dirham des Émirats"
         AFN: "Afghani"
@@ -912,30 +912,10 @@ fra:
           # sine: "Sine"
         # unit: # Choices comes from nomenclature: units
       item_lists:
-        mammalia_born_condition:
+        inhibitors_presence:
           choices:
-            # without_help: "Without help"
-            # few_help: "Few help"
-            # great_help: "Great help"
-            # caesarean: "Caesarean"
-            # cutting_calf: "Cutting calf"
-        animal_life_state:
-          choices:
-            # first_growth: "First growth"
-            # second_growth: "Second growth"
-            # aging: "Aging"
-        cultural_soil_state:
-          choices:
-            # covered: "Covered"
-            # raw: "Raw"
-            # nude: "Nude"
-            # plowed: "Plowed"
-            # grown: "Grown"
-        sex:
-          choices:
-            # male: "Male"
-            # female: "Female"
-            # undefined: "Undefined"
+            # negative: "Negative"
+            # positive: "Positive"
         plant_reproduction_state:
           choices:
             # swelling: "Swelling"
@@ -963,15 +943,35 @@ fra:
             # back_heat: "Back heat"
             # heat: "Heat"
             # pregnancy: "Pregnancy"
+        cultural_soil_state:
+          choices:
+            # covered: "Covered"
+            # raw: "Raw"
+            # nude: "Nude"
+            # plowed: "Plowed"
+            # grown: "Grown"
+        sex:
+          choices:
+            # male: "Male"
+            # female: "Female"
+            # undefined: "Undefined"
         mammalia_twins_condition:
           choices:
             # none: "None"
             # twins: "Twins"
             # triplets: "Triplets"
-        inhibitors_presence:
+        mammalia_born_condition:
           choices:
-            # negative: "Negative"
-            # positive: "Positive"
+            # without_help: "Without help"
+            # few_help: "Few help"
+            # great_help: "Great help"
+            # caesarean: "Caesarean"
+            # cutting_calf: "Cutting calf"
+        animal_life_state:
+          choices:
+            # first_growth: "First growth"
+            # second_growth: "Second growth"
+            # aging: "Aging"
       items:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
@@ -1144,6 +1144,7 @@ fra:
         # growth_control: "Growth control"
         # harvest: "Harvest"
         # hoeing: "Hoeing"                                 # tillage
+        # milk_production: "Milk production"               # animal_production
         oviparous_birth: "Reproduction (ovipare)"
         # plant_fertilisation: "Plant fertilisation"
         # plant_illness_treatment: "Plant illness treatment"
@@ -1354,6 +1355,7 @@ fra:
         category: "Categorie"
         # derivative_of: "Derivative of"
         frozen_indicators: "Indicateurs fixes"
+        # linkage_points: "Linkage points"
         # population_counting: "Population counting"
         # reductible: "Reductible"
         variable_indicators: "Indicateurs variables"

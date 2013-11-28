@@ -25,9 +25,12 @@ module Procedo
       "{absorber} merges-with {product}" =>        :merging,
       "{product} is merged with {absorber}" =>     :merging,
       "{product} is-merged-with {absorber}" =>     :merging,
-      # Physical links
-      "{carrier} catches {carried}" =>     :attachment,
-      "{carrier} releases {carried}" =>    :detachment,
+      # Linkages
+      "{carried} is attached to {carrier} at {point}" => :attachment,
+      "{carried} is detached from {carrier}" =>          :detachment,
+      "{carrier} releases {carried}" =>                  :detachment,
+      "{carrier} catches {carried}" =>                   :simple_attachment,
+      "{carrier} releases at {point}" =>                 :simple_detachment,
       # Membership
       "{group} includes {member}" =>       :group_inclusion,
       "{member} goes into {group}" =>      :group_inclusion,
@@ -94,6 +97,8 @@ module Procedo
         expr = data[parameter]
         if type == :indicator
           @parameters[parameter] = Indicator.new(self, *expr.split(/\:/))
+        elsif type == :symbol
+          @parameters[parameter] = expr.to_s.strip.gsub(/[^\W]+/, '_').to_sym
         else
           @parameters[parameter] = procedure.variables[expr]
         end

@@ -70,7 +70,7 @@ class ProductGroup < Product
   has_many :memberships, class_name: "ProductMembership", foreign_key: :group_id
   has_many :members, :through => :memberships
 
-  scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, viewed_at, viewed_at, viewed_at) }
+  scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, "interior", viewed_at, viewed_at, viewed_at) }
 
   # FIXME
   # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
@@ -81,22 +81,18 @@ class ProductGroup < Product
 
   # Add a member to the group
   def add(member, started_at = nil)
-    raise ArgumentError.new("Product expected, got #{member.class}:#{member.inspect}") unless member.is_a?(Product)
-    unless
-      self.memberships.create!(:member_id => member.id, :started_at => (started_at || Time.now))
+    unless member.is_a?(Product)
+      raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
     end
+    self.memberships.create!(:member_id => member.id, :started_at => (started_at || Time.now), nature: :interior)
   end
 
   # Remove a member from the group
   def remove(member, stopped_at = nil)
-    raise ArgumentError.new("Product expected, got #{member.class}:#{member.inspect}") unless member.is_a?(Product)
-    stopped_at ||= Time.now
-    if membership = ProductMembership.where(:group_id => self.id, :member_id => member.id).where("stopped_at IS NULL AND COALESCE(started_at, ?) <= ?", stopped_at, stopped_at).order(:started_at)
-      membership.stopped_at = stopped_at
-      membership.save!
-    else
-      self.memberships.create!(:member_id => member.id, :stopped_at => stopped_at)
+    unless member.is_a?(Product)
+      raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
     end
+    self.memberships.create!(:member_id => member.id, :started_at => (stopped_at || Time.now), nature: :exterior)
   end
 
 

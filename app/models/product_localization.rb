@@ -37,7 +37,7 @@
 #
 
 class ProductLocalization < Ekylibre::Record::Base
-  include Taskable
+  include Taskable, TimeLineable
   belongs_to :container, class_name: "Product"
   belongs_to :product
   enumerize :nature, in: [:transfer, :interior, :exterior], default: :interior, predicates: true
@@ -49,49 +49,12 @@ class ProductLocalization < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
   validates_presence_of :container, :if => :interior?
-  validates_presence_of :started_at, :if => :has_previous?
-  validates_presence_of :stopped_at, :if => :has_followings?
 
-  scope :at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
-  scope :after,  lambda { |at| where("COALESCE(started_at, ?) > ?", at, at) }
-  scope :before, lambda { |at| where("COALESCE(started_at, ?) < ?", at, at) }
+  private
 
-  before_validation do
-    if following = self.product.localizations.after(self.started_at).order(:started_at).first
-      self.stopped_at = following.started_at
-    else
-      self.stopped_at = nil
-    end
-  end
-
-  after_save do
-    self.previous.update_column(:stopped_at, self.started_at) if self.previous
-  end
-
-  after_destroy do
-    self.previous.update_column(:stopped_at, self.stopped_at) if self.previous
-  end
-
-  def previous
-    return nil unless self.started_at
-    return self.product.localizations.find_by(stopped_at: self.started_at)
-  end
-
-  def following
-    return nil unless self.stopped_at
-    return self.product.localizations.find_by(started_at: self.stopped_at)
-  end
-
-  def has_previous?
-    self.product.localizations.before(self.started_at).any?
-  end
-
-  def has_followings?
-    self.product.localizations.after(self.started_at).any?
-  end
-
-  def intervention_name
-    return (self.operation ? self.operation.intervention_name : nil)
+  # Returns all siblings in the chronological line
+  def siblings
+    self.product.localizations
   end
 
 end

@@ -941,6 +941,7 @@ arb:
       # product_group: "Groupe de produit"
       # product_indicator_datum: "Valeur d’indicateur"
       # product_link: "Lien entre produits"
+      # product_linkage: "Lien entre produits"
       # product_localization: "Passage d’un produit en un lieu"
       # product_membership: "Passage d’un produit dans un groupe"
       product_move: "حركة السهم"
@@ -1301,6 +1302,7 @@ arb:
     employees: "الموظفين"
     employment: "الوظيفة"
     # encrypted_password: "Mot de passe crypté"
+    # enjoyments: "Enjoyments"
     entities: "الافراد"
     entity: "الفرد"
     entity_1: "الملف الاول"
@@ -1468,6 +1470,8 @@ arb:
     line_6_city: "المدينة" #?
     line_6_code: "الرمز البريدي" #?
     lines: "طرق تسديد الفاتورة" #?
+    # linkages: "Linkages"
+    # links: "Links"
     listing: "الاستخراج"
     listing_id: "استخاج" #?
     listing_node_items: "عناصر العقدة المستخرجة"
@@ -1644,6 +1648,7 @@ arb:
     # planned_at: "Prévu à"
     # planned_depreciations: "Amortissements prévus"
     planned_on: "قرر يوم"
+    # point: "Point"
     # point_value: "Point value"
     polygon: "متناسقين" #?
     # population: "Population"

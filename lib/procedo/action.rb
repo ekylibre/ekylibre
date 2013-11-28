@@ -19,9 +19,11 @@ module Procedo
       death:       {product: :product},
       consumption: {product: :product, absorber: :product},
       merging:     {product: :product, absorber: :product},
-      # Links
-      attachment:  {carrier: :product, carried: :product},
-      detachment:  {carrier: :product, carried: :product},
+      # Linkages
+      attachment:        {carrier: :product, carried: :product, point: :symbol},
+      detachment:        {carrier: :product, carried: :product},
+      simple_attachment: {carrier: :product, carried: :product},
+      simple_detachment: {carrier: :product, point: :symbol},
       # Memberships
       group_inclusion: {group: :product_group, member: :product},
       group_exclusion: {group: :product_group, member: :product},

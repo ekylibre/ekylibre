@@ -18,28 +18,41 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_links
+# == Table: product_linkages
 #
-#  carried_id   :integer          not null
+#  carried_id   :integer
 #  carrier_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
+#  nature       :string(255)      not null
 #  operation_id :integer
+#  point        :string(255)      not null
 #  started_at   :datetime
 #  stopped_at   :datetime
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
-class ProductLink < Ekylibre::Record::Base
-  include Taskable
+class ProductLinkage < Ekylibre::Record::Base
+  include Taskable, TimeLineable
   belongs_to :carrier, class_name: 'Product'
   belongs_to :carried, class_name: 'Product'
+  enumerize :nature, in: [:available, :unavailable, :occupied], default: :available, predicates: true
+  enumerize :point, in: [:rear, :front]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :carried, :carrier
+  validates_length_of :nature, :point, allow_nil: true, maximum: 255
+  validates_presence_of :carrier, :nature, :point
   #]VALIDATORS]
+  validates_presence_of :carried, :if => :occupied?
 
-  scope :at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
+  scope :with,   lambda { |point| where(point: point) }
+
+  private
+
+  # Returns all siblings in the chronological line
+  def siblings
+    self.carrier.linkages.with(self.point)
+  end
 
 end

@@ -2,6 +2,9 @@ module Procedo
   class MissingAttribute < StandardError
   end
 
+  class MissingVariable < StandardError
+  end
+
   class MissingProcedure < StandardError
   end
 

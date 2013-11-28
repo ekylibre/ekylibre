@@ -761,7 +761,7 @@ fra:
     # backend/prescriptions: "Backend/prescriptions"
     backend/product_groups: "Lot de produits"
     # backend/product_indicator_data: "Backend/product indicator data"
-    # backend/product_links: "Backend/product links"
+    # backend/product_linkages: "Backend/product linkages"
     backend/product_localizations: "Localisations"
     # backend/product_memberships: "Backend/product memberships"
     # backend/product_nature_categories: "Backend/product nature categories"

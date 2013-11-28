@@ -562,6 +562,7 @@ fra:
         product_group: "Groupe de produit"
         product_indicator_datum: "Valeur d’indicateur"
         product_link: "Lien entre produits"
+        product_linkage: "Lien entre produits"
         product_localization: "Passage d’un produit en un lieu"
         product_membership: "Passage d’un produit dans un groupe"
         product_move: "Mouvement de stock"

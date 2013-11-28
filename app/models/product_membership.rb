@@ -26,6 +26,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  member_id    :integer          not null
+#  nature       :string(255)      not null
 #  operation_id :integer
 #  started_at   :datetime         not null
 #  stopped_at   :datetime
@@ -35,22 +36,19 @@
 
 
 class ProductMembership < Ekylibre::Record::Base
-  include Taskable
+  include Taskable, TimeLineable
+  enumerize :nature, in: [:interior, :exterior], default: :interior, predicates: true
   belongs_to :group, class_name: "ProductGroup"
   belongs_to :member, class_name: "Product"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_presence_of :group, :member, :started_at
+  validates_length_of :nature, allow_nil: true, maximum: 255
+  validates_presence_of :group, :member, :nature, :started_at
   #]VALIDATORS]
 
-  scope :at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
+  private
 
-  validate do
-    # TODO Checks that no time overlaps can occur and that it works
-    #errors.add(:started_at, :invalid) unless self.similars.where("stopped_at IS NULL AND (started_at IS NOT NULL OR started_at <=?)", self.started_at).count.zero?
-  end
-
-  def similars
-    self.class.where(:group_id => self.group_id, :member_id => self.member_id)
+  def siblings
+    self.member.memberships.where(group_id: self.group_id)
   end
 
 end

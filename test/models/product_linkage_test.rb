@@ -18,15 +18,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_links
+# == Table: product_linkages
 #
-#  carried_id   :integer          not null
+#  carried_id   :integer
 #  carrier_id   :integer          not null
 #  created_at   :datetime         not null
 #  creator_id   :integer
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
+#  nature       :string(255)      not null
 #  operation_id :integer
+#  point        :string(255)      not null
 #  started_at   :datetime
 #  stopped_at   :datetime
 #  updated_at   :datetime         not null
@@ -34,7 +36,7 @@
 #
 require 'test_helper'
 
-class ProductLinkTest < ActiveSupport::TestCase
+class ProductLinkageTest < ActiveSupport::TestCase
 
   test "presence of fixtures" do
     # assert_equal 2, ProductLink.count
