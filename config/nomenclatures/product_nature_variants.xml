@@ -13,7 +13,15 @@
     <items>
       <item name="cattle_herd"
             nature="cattle_herd"
+            derivative_of="bos"
             unit_name="head"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="female_adult_cattle_herd"
+            nature="female_adult_cattle_herd"
+            derivative_of="bos"
+            unit_name="head"
+            frozen_indicators_values="population: 1"
             />
       <item name="female_adult_cow"
             nature="female_adult_cow"

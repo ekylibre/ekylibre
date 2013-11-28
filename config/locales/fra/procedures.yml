@@ -26,7 +26,8 @@ fra:
       simple_measurement: "%{indicator} est mesuré"
   procedures:
     animal_birth: "Naissance d’un animal"
-    animal_milking: "Traite"
+    mammal_herd_milking: "Traite d'un troupeau"
+    mammal_milking: "Traite d'un animal"
     animal_treatment: "Traitement animal"
     calving_one: "Vêlage unique"
     calving_twin: "Vêlage jumeaux"
@@ -62,6 +63,8 @@ fra:
     grinder: "Broyeur"
     harrow: "Herse"
     land_parcel: "Parcelle"
+    mammal_herd: "Troupeau à traire"
+    mammal: "Animal à traire"
     manure: "Fumier"
     manure_to_spread: "Fumier à épandre"
     milk: "Lait"
