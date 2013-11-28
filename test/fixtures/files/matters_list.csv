@@ -1,8 +1,13 @@
 'name','variant_nomen','variant','born_at','variety','derivative_of','owner_name','indicateurs','notes','unit_price'
-'Semence de blé dur','hard_wheat_seed_25',,'2013-01-01','seed','triticum_durum',,'Population : 4 ; net_weight : 40kg',,'84.84'
-'Semence de blé tendre CAPHORN','wheat_seed_25',,'2013-01-01','seed','caphorn',,'Population : 6 ; net_weight : 40kg',,'89.58'
+'Semence de blé dur','hard_wheat_seed_25',,'2013-01-01','seed','triticum_durum',,'Population : 4',,'84.84'
+'Semence de blé tendre CAPHORN','wheat_seed_25',,'2013-01-01','seed','caphorn',,'Population : 6',,'89.58'
 'Semence de tournesol','seed',,'2013-01-01','seed','helianthus',,'Population : 2 ; net_weight : 40kg',,'85.69'
-'Semence de blé tendre APACHE','wheat_seed_25',,'2013-01-01','seed','apache',,'Population : 6 ; net_weight : 40kg',,'79.65'
+'Semence de blé tendre APACHE','wheat_seed_25',,'2013-01-01','seed','apache',,'Population : 6',,'79.65'
+'Semence d orge','barley_seed_25',,'2013-01-01','seed','hordeum',,'Population : 6',,'85.52'
+'Semence de maïs','corn_seed_25',,'2013-01-01','seed','zea',,'Population : 6',,'115.23'
+'Semence de prairie','grass_seed_25',,'2013-01-01','seed','poa',,'Population : 6',,'148.23'
+'Semence de sorgho','sorghum_seed_25',,'2013-01-01','seed','sorghum',,'Population : 6',,'148.23'
+'Semence d''épeautre','spelt_seed_25',,'2013-01-01','seed','triticum_spelta',,'Population : 6',,'148.23'
 'Ammonitrate 33 vrac','bulk_ammonitrate_33',,'2013-01-01','mineral_matter',,,'Population : 2.47',,387
 'Fumier de l''exploitation','cattle_manure',,'2013-01-01','manure','bos',,'Population : 4.55',,650
 'Axial Pratic','poacea_herbicide',,'2013-01-01','herbicide',,,'Population : 50',,'23.33'

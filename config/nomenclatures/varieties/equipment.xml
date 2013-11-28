@@ -4,6 +4,7 @@
     <items>
       <item name="tractor"/>
       <item name="trailer"/>
+      <item name="forager"/>
       <item name="worker"/>
       <item name="plower"/>
       <item name="sower"/>

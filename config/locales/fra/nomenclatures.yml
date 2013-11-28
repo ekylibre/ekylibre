@@ -5,22 +5,22 @@ fra:
       attributes:
         # parameters: "Parameters"
       items:
-        # bunch: "Bunch"
-        # care: "Care"
+        bunch: "Boteller"
+        care: "Soigner"
         catch: "Atteler"
-        # clean: "Clean"
+        clean: "Nettoyer"
         consume: "Consommer"
         drive: "Conduire"
         feed: "Nourrir"
         fertilize: "Fertiliser"
         germinate: "Germer"
-        # grind: "Grind"
+        grind: "Broyer"
         harvest: "Récolter"
         kill: "Tuer"
-        # manage: "Manage"
+        manage: "Gérer"
         milk: "Traire"
         move: "Se déplacer"
-        # mow: "Mow"
+        mow: "Faucher"
         plow: "Labourer"
         produce: "Produire"
         sow: "Semer"
@@ -269,13 +269,13 @@ fra:
         vegetal_crops: "Production végétale"
         # vine_wine: "Vine wine"                           # vegetal_crops
     charts_of_accounts:
-      # name: "Charts of accounts"
+      name: "Plan de comptes"
       items:
         # fr_pcg82: "Fr pcg82"
         # fr_pcga: "Fr pcga"
         # ifrs: "Ifrs"
     countries:
-      # name: "Countries"
+      name: "Pays"
       attributes:
         # number: "Number"
       items:
@@ -527,9 +527,9 @@ fra:
         zm: "Zambie"
         zw: "Zimbabwe"
     currencies:
-      # name: "Currencies"
+      name: "Monnaies"
       attributes:
-        # active: "Active"
+        active: "Active"
         # cash: "Cash"
         # countries: "Countries"
         # number: "Number"
@@ -765,57 +765,57 @@ fra:
         ZMK: "Kwacha zambien"
         ZWL: "Dollar zimbabwéen"
     dimensions:
-      # name: "Dimensions"
+      name: "Dimensions"
       attributes:
-        # expression: "Expression"
+        expression: "Expression"
       items:
         # amount_of_substance: "Amount of substance"
-        # concentration: "Concentration"
-        # electric_current: "Electric current"
-        # length: "Length"
+        concentration: "Concentration"
+        electric_current: "Intensité"
+        length: "Longueur"
         # luminous_intensity: "Luminous intensity"
         # mass_concentration: "Mass concentration"
         # mass_density: "Mass density"
-        # none: "None"
-        # power: "Power"
+        none: "Aucune"
+        power: "Puissance"
         # specific_volume: "Specific volume"
         # surface_area: "Surface area"
-        # temperature: "Temperature"
-        # time: "Time"
-        # volume: "Volume"
-        # weight: "Weight"
+        temperature: "Temperature"
+        time: "Temps"
+        volume: "Volume"
+        weight: "Masse"
     document_categories:
-      # name: "Document categories"
+      name: "Categories de documents"
       attributes:
         # acta_category: "Acta category"
       items:
         accountancy: "Comptabilité"
         animal_farming: "Elevage"
-        # exploitation: "Exploitation"
-        # feeding: "Feeding"
+        exploitation: "Exploitation"
+        feeding: "Alimentation animale"
         health: "Santé - Hygiène"
-        # identification: "Identification"
+        identification: "Identification animale"
         land_parcel_management: "Conduite de la parcelle"
         management: "Gestion"
-        # marketing: "Marketing"
-        # production: "Production"
-        # reproduction: "Reproduction"
-        # stock_management: "Stock management"
-        # transformation: "Transformation"
-        # vegetal_crops: "Vegetal crops"
-        # vinification: "Vinification"
+        marketing: "Commercial - Marketing"
+        production: "Production"
+        reproduction: "Reproduction"
+        stock_management: "Stocks"
+        transformation: "Transformation"
+        vegetal_crops: "Cultures"
+        vinification: "Vinification"
     document_natures:
-      # name: "Document natures"
+      name: "Nature de document"
       attributes:
-        # category: "Category"
+        category: "Categories"
       items:
         activity_cost: "Coût de production par activité et intervention"
         animal_husbandry_registry: "Registre d'élevage"
-        # animal_list: "Animal list"
-        # animal_sheet: "Animal sheet"
+        animal_list: "Liste des animaux"
+        animal_sheet: "Fiche animal"
         balance_sheet: "Bilan comptable"
         deposit: "Remise en banque"
-        # entity_sheet: "Entity sheet"
+        entity_sheet: "Fiche Tiers"
         general_journal: "Journal général"
         general_ledger: "Grand livre"
         income_statement: "Compte de résultat"
@@ -826,7 +826,7 @@ fra:
         # outgoing_delivery_docket: "Outgoing delivery docket"
         # outgoing_delivery_journal: "Outgoing delivery journal"
         phytosanitary_registry: "Registre phytosanitaire"
-        # prescription: "Prescription"
+        prescription: "Prescription vétérinaire"
         profit_and_loss_statement: "Compte de résultat"
         # purchase_estimate: "Purchase estimate"
         # purchase_invoice: "Purchase invoice"
@@ -873,10 +873,10 @@ fra:
         sir: "Monsieur"                                    # person
         syndicate: "Syndicat"                              # legal_entity
     incidents:
-      # name: "Incidents"
+      name: "Incidents"
       attributes:
-        # target: "Target"
-        # treatments: "Treatments"
+        target: "Cible"
+        treatments: "Traitements"
       items:
         # accident: "Accident"                             # incident
         # climate_incident: "Climate incident"             # incident
@@ -1142,12 +1142,13 @@ fra:
         # cultipacking: "Cultipacking"                     # tillage
         # grinding: "Grinding"
         # growth_control: "Growth control"
-        # harvest: "Harvest"
+        harvest: "Récolte"
+        haymaking: "Fenaison"
         # hoeing: "Hoeing"                                 # tillage
         # milk_production: "Milk production"               # animal_production
         oviparous_birth: "Reproduction (ovipare)"
         # plant_fertilisation: "Plant fertilisation"
-        # plant_illness_treatment: "Plant illness treatment"
+        plant_illness_treatment: "Traitements phytosanitaires"
         # plowing: "Plowing"                               # tillage
         # pruning: "Pruning"
         # raking: "Raking"                                 # tillage

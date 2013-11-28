@@ -13,7 +13,15 @@
     <items>
       <item name="cattle_herd"
             nature="cattle_herd"
+            derivative_of="bos"
             unit_name="head"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="female_adult_cattle_herd"
+            nature="female_adult_cattle_herd"
+            derivative_of="bos"
+            unit_name="head"
+            frozen_indicators_values="population: 1"
             />
       <item name="female_adult_cow"
             nature="female_adult_cow"
@@ -268,9 +276,33 @@
             unit_name="25kilogram_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 50gram"
             />
+      <item name="spelt_seed_25"
+            nature="seed"
+            derivative_of="triticum_spelta"
+            unit_name="25kilogram_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 50gram"
+            />
       <item name="barley_seed_25"
             nature="seed"
             derivative_of="hordeum"
+            unit_name="25kilogram_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
+            />
+      <item name="corn_seed_25"
+            nature="seed"
+            derivative_of="zea"
+            unit_name="25kilogram_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
+            />
+      <item name="grass_seed_25"
+            nature="seed"
+            derivative_of="poa"
+            unit_name="25kilogram_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
+            />
+      <item name="sorghum_seed_25"
+            nature="seed"
+            derivative_of="sorghum"
             unit_name="25kilogram_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
             />
@@ -452,6 +484,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
 	    />
+	    <item name="forager"
+            nature="forager"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+      />
       <item name="technician"
             nature="technician"
             unit_name="person"

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="direct_silage" natures="harvest" version="0.0" status="frozen">
+    <variables>
+      <variable name="forager" variety="forager" abilities="harvest(plant)" roles="harvest-tool"/>
+      <variable name="forager_driver" variety="worker" abilities="drive(forager)" roles="harvest-doer"/>
+      <variable name="culture" variety="plant" roles="harvest-target"/>
+      <variable name="silage" variety="straw" derivative-of="variety:culture" new="produced-by: culture" roles="harvest-output"/>
+    </variables>
+    <operations>
+      <operation id="100" duration="4 minutes">
+        <task do="[forager_driver] moves in [forager]"/>
+      </operation>
+      <operation id="200" duration="18 minutes">
+        <task do="[forager] moves at [culture]"/>
+      </operation>
+      <operation id="300">
+        <task do="[forager] consumes [culture]"/>
+        <task do="[forager] produces [straw]"/>
+        <task do="[straw] is at [culture]"/>
+      </operation>
+      <operation id="400" duration="18 minutes">
+        <task do="[forager] moves in default storage"/>
+      </operation>        
+      <operation id="500" duration="4 minutes">
+        <task do="[forager_driver] moves in default storage"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>
