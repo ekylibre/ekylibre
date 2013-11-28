@@ -40,16 +40,22 @@ eng:
     abilities:
       attributes: #?
       items:
+        # bunch: "Boteller"
+        # care: "Soigner"
         catch: "Catch"
+        # clean: "Nettoyer"
         consume: "Consume"
         drive: "Drive"
         # feed: "Nourrir"
         fertilize: "Fertilize"
         germinate: "Germinate"
+        # grind: "Broyer"
         harvest: "Harvest"
         kill: "Kill"
+        # manage: "Gérer"
         # milk: "Traire"
         move: "Move"
+        # mow: "Faucher"
         plow: "Plow"
         produce: "Produce"
         sow: "Sow"
@@ -292,6 +298,7 @@ eng:
         # vegetal_crops: "Production végétale"
     charts_of_accounts:
       items: #?
+      # name: "Plan de comptes"
     countries:
       attributes: #?
       items:
@@ -542,8 +549,10 @@ eng:
         za: "South Africa"
         zm: "Zambia"
         zw: "Zimbabwe"
+      # name: "Pays"
     currencies:
-      attributes: #?
+      attributes:
+        # active: "Active"
       item_lists:
         AED: #?
         AFN: #?
@@ -889,24 +898,51 @@ eng:
         ZAR: "Rand"
         ZMK: "Zambian Kwacha"
         ZWL: "Zimbabwe Dollar"
+      # name: "Monnaies"
     dimensions:
-      attributes: #?
-      items: #?
+      attributes:
+        # expression: "Expression"
+      items:
+        # concentration: "Concentration"
+        # electric_current: "Intensité"
+        # length: "Longueur"
+        # none: "Aucune"
+        # power: "Puissance"
+        # temperature: "Temperature"
+        # time: "Temps"
+        # volume: "Volume"
+        # weight: "Masse"
+      # name: "Dimensions"
     document_categories:
       attributes: #?
       items:
         # accountancy: "Comptabilité"
         # animal_farming: "Elevage"
+        # exploitation: "Exploitation"
+        # feeding: "Alimentation animale"
         # health: "Santé - Hygiène"
+        # identification: "Identification animale"
         # land_parcel_management: "Conduite de la parcelle"
         # management: "Gestion"
+        # marketing: "Commercial - Marketing"
+        # production: "Production"
+        # reproduction: "Reproduction"
+        # stock_management: "Stocks"
+        # transformation: "Transformation"
+        # vegetal_crops: "Cultures"
+        # vinification: "Vinification"
+      # name: "Categories de documents"
     document_natures:
-      attributes: #?
+      attributes:
+        # category: "Categories"
       items:
         # activity_cost: "Coût de production par activité et intervention"
         # animal_husbandry_registry: "Registre d'élevage"
+        # animal_list: "Liste des animaux"
+        # animal_sheet: "Fiche animal"
         # balance_sheet: "Bilan comptable"
         # deposit: "Remise en banque"
+        # entity_sheet: "Fiche Tiers"
         # general_journal: "Journal général"
         # general_ledger: "Grand livre"
         # income_statement: "Compte de résultat"
@@ -914,6 +950,7 @@ eng:
         # journal: "Journal"
         # manure_management_plan: "Plan de fumure"
         # phytosanitary_registry: "Registre phytosanitaire"
+        # prescription: "Prescription vétérinaire"
         # profit_and_loss_statement: "Compte de résultat"
         # purchase_order: "Achat"
         # sales_estimate: "Devis de vente"
@@ -921,6 +958,7 @@ eng:
         # sales_order: "Commande de vente"
         # stocks: "Stocks"
         # veterinary_booklet: "Carnet vétérinaire"
+      # name: "Nature de document"
     entity_link_natures:
       attributes: #?
       choices: #?
@@ -948,10 +986,13 @@ eng:
         sir: "Sir"
         syndicate: "Syndicate"
     incidents:
-      attributes: #?
+      attributes:
+        # target: "Cible"
+        # treatments: "Traitements"
       items:
         # incident: "Incident"
         # pathology: "Pathologie"
+      # name: "Incidents"
     indicators:
       attributes:  #?
         choice: "Choice" #?
@@ -1203,7 +1244,10 @@ eng:
         # animal_production: "Productions animales"
         enrichment: "Enrichment" #?
         feeding: "Feeding" #?
+        # harvest: "Récolte"
+        # haymaking: "Fenaison"
         # oviparous_birth: "Reproduction (ovipare)"
+        # plant_illness_treatment: "Traitements phytosanitaires"
         production: "Production" #?
         reproduction: "Reproduction" #?
         # soil_enrichment: "Amendement"

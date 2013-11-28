@@ -562,6 +562,21 @@ fra:
             # 20: "20"
             # 50: "50"
             # 100: "100"
+        FRF:
+          cash:
+            # 0.05: "0.05"
+            # 0.1: "0.1"
+            # 0.2: "0.2"
+            # 0.5: "0.5"
+            # 1: "1"
+            # 2: "2"
+            # 5: "5"
+            # 10: "10"
+            # 20: "20"
+            # 50: "50"
+            # 100: "100"
+            # 200: "200"
+            # 500: "500"
         EUR:
           cash:
             # 0.01: "0.01"
@@ -579,21 +594,6 @@ fra:
             # 100.0: "100.0"
             # 200.0: "200.0"
             # 500.0: "500.0"
-        FRF:
-          cash:
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.2: "0.2"
-            # 0.5: "0.5"
-            # 1: "1"
-            # 2: "2"
-            # 5: "5"
-            # 10: "10"
-            # 20: "20"
-            # 50: "50"
-            # 100: "100"
-            # 200: "200"
-            # 500: "500"
       items:
         AED: "Dirham des Émirats"
         AFN: "Afghani"
@@ -943,18 +943,6 @@ fra:
             # back_heat: "Back heat"
             # heat: "Heat"
             # pregnancy: "Pregnancy"
-        cultural_soil_state:
-          choices:
-            # covered: "Covered"
-            # raw: "Raw"
-            # nude: "Nude"
-            # plowed: "Plowed"
-            # grown: "Grown"
-        sex:
-          choices:
-            # male: "Male"
-            # female: "Female"
-            # undefined: "Undefined"
         mammalia_twins_condition:
           choices:
             # none: "None"
@@ -972,6 +960,18 @@ fra:
             # first_growth: "First growth"
             # second_growth: "Second growth"
             # aging: "Aging"
+        cultural_soil_state:
+          choices:
+            # covered: "Covered"
+            # raw: "Raw"
+            # nude: "Nude"
+            # plowed: "Plowed"
+            # grown: "Grown"
+        sex:
+          choices:
+            # male: "Male"
+            # female: "Female"
+            # undefined: "Undefined"
       items:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
@@ -1290,6 +1290,7 @@ fra:
         # coop:uree_gr_vrac: "Coop:uree gr vrac"
         corn_crop: "Culture de maïs"
         corn_grain: "Graine de maïs"
+        # corn_seed_25: "Corn seed 25"
         cow_milk: "Lait de vache"
         cultivable_land_parcel: "Parcelle culturale"
         durum_wheat_crop: "Culture de blé dur"
@@ -1297,10 +1298,13 @@ fra:
         # equipment_building_division: "Equipment building division"
         ewe_milk: "Lait de brebis"
         fallow_crop: "Jachère"
+        # female_adult_cattle_herd: "Female adult cattle herd"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
+        # forager: "Forager"
         goat_milk: "Lait de chèvre"
         grass: "Herbe"
+        # grass_seed_25: "Grass seed 25"
         # hard_wheat_grain: "Hard wheat grain"
         hard_wheat_seed_25: "Semence de blé dur 25kg"
         # hard_wheat_straw: "Hard wheat straw"
@@ -1331,7 +1335,9 @@ fra:
         silage: "Ensilage"
         small_equipment: "Petit matériel"
         sorghum_crop: "Culture de sorgho"
+        # sorghum_seed_25: "Sorghum seed 25"
         sower: "Semoir"
+        # spelt_seed_25: "Spelt seed 25"
         spelt_wheat_crop: "Culture d'épeautre"
         # sprayer: "Sprayer"
         spread_renting: "Location d'épandeur"
@@ -1383,9 +1389,11 @@ fra:
         cultivable_land_parcel: "Parcelle culturale"
         equipment: "Équipement"
         # equipment_building_division: "Equipment building division"
+        # female_adult_cattle_herd: "Female adult cattle herd"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         food: "Aliment"
+        # forager: "Forager"
         fungicide: "Fongicide"
         grain: "Graine"
         grass: "Herbe"
@@ -1549,6 +1557,7 @@ fra:
         # disinfectant: "Disinfectant"                     # antiseptic
         # easement: "Easement"                             # zone
         equipment: "Equipements"                           # matter
+        # forager: "Forager"                               # equipment
         # fungicide: "Fungicide"                           # plant_medicine
         fungus: "Champignons"                              # bioproduct
         gallus: "Galinacées"                               # aves
