@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <!-- ######################################## PRODUCTION LAITIERE ########################################### -->
+  <procedure name="mammal_milking" natures="milk_production" version="0.0" status="frozen">
+    <variables>
+      <variable name="mammal" variety="mammalia" abilities="produce(milk)"  roles="milk_production-target"/>
+      <variable name="milk"   variety="milk" derivative-of="variety:mammal" roles="milk_production-output" new="produced-by: mammal"/>
+      <variable name="person" variety="worker" abilities="milk(mammalia)"   roles="milk_production-doer"/>
+      <variable name="container" abilities="store(milk)"/>
+    </variables>
+    <operations>
+      <operation id="100" duration="10 minutes">
+        <task do="[person] moves at [mammal]"/>
+      </operation>
+      <operation id="200">
+        <task do="[mammal] produces [milk]"/>
+        <task do="[milk] is in [container]"/>
+      </operation>
+    </operations>        
+  </procedure>
+</procedures>

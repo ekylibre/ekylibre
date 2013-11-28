@@ -41,6 +41,12 @@
     </items>
   </nomenclature>
 
+  <nomenclature name="procedure_natures-animal_production">
+    <items>
+      <item name="milk_production" roles="output, target, doer"/>
+    </items>
+  </nomenclature>
+
   <nomenclature name="procedure_natures-plant_feeding">
     <items>
       <item name="plant_irrigation" roles="input, target"/>
