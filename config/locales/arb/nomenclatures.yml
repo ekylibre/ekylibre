@@ -235,13 +235,29 @@ arb:
       # name: "Code comptable"
     activity_families:
       items:
-        # animal_farming: "Élevage"
+        # accountancy: "Comptabilité"
+        # animal_farming: "Élevage bovins"
+        # cattle_farming: "Elevage"
         # exploitation: "Exploitation"
+        # fallow_land: "Jachère"
+        # fish_farming: "Aquaculture"
+        # goat_farming: "Élevage caprins"
         # handicraft: "Artisanat"
+        # maize_crops: "Culture de maïs"
+        # pig_farming: "Élevage porcins"
+        # potato_crops: "Culture de pomme de terre"
+        # prairie: "Prairie"
+        # purchases: "Achats"
+        # sales: "Ventes"
         # service: "Service"
+        # sheep_farming: "Élevage ovins"
+        # stocks: "Stocks"
         # vegetal_crops: "Production végétale"
+      # name: "Familles d'activité"
     charts_of_accounts:
-      items: #?
+      items:
+        # fr_pcg82: "Plan comptable pcg82"
+        # fr_pcga: "Plan comptable agricole pcga"
       # name: "Plan de comptes"
     countries:
       attributes: #?
@@ -937,16 +953,28 @@ arb:
         # public_interest_group: "Groupement d’intérêt public"
         # sir: "Monsieur"
         # syndicate: "Syndicat"
+      # name: "Type de tiers"
     incidents:
       attributes:
         # target: "Cible"
         # treatments: "Traitements"
       items:
+        # accident: "Accident"
+        # climate_incident: "Incident climatique"
+        # diarrhea: "Diarrhée"
+        # fecondity_problem: "Problème de fécondité"
         # incident: "Incident"
+        # mammite: "Mammite"
+        # other: "Autre"
         # pathology: "Pathologie"
+        # respiratory_problem: "Problèmes respiratoires"
       # name: "Incidents"
     indicators:
-      attributes: #?
+      attributes:
+        # choices: "Choix"
+        # datatype: "Datatype"
+        # interpolation: "Interpolation"
+        # unit: "Unité"
       choices:
         choices: #?
         datatype:

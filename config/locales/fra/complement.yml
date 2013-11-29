@@ -5,10 +5,23 @@ fra:
   enumerize:
     activity:
       family:
-        animal_farming: "Élevage"
+        accountancy: "Comptabilité"
+        animal_farming: "Élevage bovins"
+        cattle_farming: "Elevage"
         exploitation: "Exploitation"
+        fallow_land: "Jachère"
+        fish_farming: "Aquaculture"
+        goat_farming: "Élevage caprins"
         handicraft: "Artisanat"
+        maize_crops: "Culture de maïs"
+        pig_farming: "Élevage porcins"
+        potato_crops: "Culture de pomme de terre"
+        prairie: "Prairie"
+        purchases: "Achats"
+        sales: "Ventes"
         service: "Service"
+        sheep_farming: "Élevage ovins"
+        stocks: "Stocks"
         vegetal_crops: "Production végétale"
     animal:
       variety:
@@ -317,8 +330,15 @@ fra:
         zone: "Zone physique"
     incident:
       nature:
+        accident: "Accident"
+        climate_incident: "Incident climatique"
+        diarrhea: "Diarrhée"
+        fecondity_problem: "Problème de fécondité"
         incident: "Incident"
+        mammite: "Mammite"
+        other: "Autre"
         pathology: "Pathologie"
+        respiratory_problem: "Problèmes respiratoires"
     intervention:
       reference_name:
         animal_birth: "Naissance d’un animal"

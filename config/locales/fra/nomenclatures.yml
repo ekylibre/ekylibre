@@ -238,41 +238,41 @@ fra:
         young_animal_expenses: "Animaux reproducteurs (jeunes de renouvellement)"
         young_animal_revenues: "Animaux reproducteurs (jeunes de renouvellement)"
     activity_families:
-      # name: "Activity families"
+      name: "Familles d'activité"
       items:
-        # accountancy: "Accountancy"                       # exploitation
-        animal_farming: "Élevage"
+        accountancy: "Comptabilité"                        # exploitation
+        animal_farming: "Élevage bovins"
         # aromatic_and_medicinal_plants: "Aromatic and medicinal plants" # vegetal_crops
         # beekeeping: "Beekeeping"                         # animal_farming
         # beet_crops: "Beet crops"                         # vegetal_crops
-        # cattle_farming: "Cattle farming"                 # animal_farming
+        cattle_farming: "Elevage"                          # animal_farming
         exploitation: "Exploitation"
-        # fallow_land: "Fallow land"                       # vegetal_crops
-        # fish_farming: "Fish farming"                     # animal_farming
-        # goat_farming: "Goat farming"                     # animal_farming
+        fallow_land: "Jachère"                             # vegetal_crops
+        fish_farming: "Aquaculture"                        # animal_farming
+        goat_farming: "Élevage caprins"                    # animal_farming
         handicraft: "Artisanat"
-        # maize_crops: "Maize crops"                       # vegetal_crops
+        maize_crops: "Culture de maïs"                     # vegetal_crops
         # oilseed_crops: "Oilseed crops"                   # vegetal_crops
         # palmiped_farming: "Palmiped farming"             # animal_farming
-        # pig_farming: "Pig farming"                       # animal_farming
-        # potato_crops: "Potato crops"                     # vegetal_crops
+        pig_farming: "Élevage porcins"                     # animal_farming
+        potato_crops: "Culture de pomme de terre"          # vegetal_crops
         # poultry_farming: "Poultry farming"               # animal_farming
-        # prairie: "Prairie"                               # vegetal_crops
+        prairie: "Prairie"                                 # vegetal_crops
         # protein_crops: "Protein crops"                   # vegetal_crops
-        # purchases: "Purchases"                           # exploitation
+        purchases: "Achats"                                # exploitation
         # rabbit_farming: "Rabbit farming"                 # animal_farming
-        # sales: "Sales"                                   # exploitation
+        sales: "Ventes"                                    # exploitation
         service: "Service"
-        # sheep_farming: "Sheep farming"                   # animal_farming
-        # stocks: "Stocks"                                 # exploitation
+        sheep_farming: "Élevage ovins"                     # animal_farming
+        stocks: "Stocks"                                   # exploitation
         # straw_cereal_crops: "Straw cereal crops"         # vegetal_crops
         vegetal_crops: "Production végétale"
         # vine_wine: "Vine wine"                           # vegetal_crops
     charts_of_accounts:
       name: "Plan de comptes"
       items:
-        # fr_pcg82: "Fr pcg82"
-        # fr_pcga: "Fr pcga"
+        fr_pcg82: "Plan comptable pcg82"
+        fr_pcga: "Plan comptable agricole pcga"
         # ifrs: "Ifrs"
     countries:
       name: "Pays"
@@ -535,65 +535,6 @@ fra:
         # number: "Number"
         # precision: "Precision"
         # symbol: "Symbol"
-      item_lists:
-        USD:
-          cash:
-            # 0.01: "0.01"
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.25: "0.25"
-            # 0.5: "0.5"
-            # 1: "1"
-            # 2: "2"
-            # 5: "5"
-            # 10: "10"
-            # 20: "20"
-            # 50: "50"
-            # 100: "100"
-        EUR:
-          cash:
-            # 0.01: "0.01"
-            # 0.02: "0.02"
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.2: "0.2"
-            # 0.5: "0.5"
-            # 1.0: "1.0"
-            # 2.0: "2.0"
-            # 5.0: "5.0"
-            # 10.0: "10.0"
-            # 20.0: "20.0"
-            # 50.0: "50.0"
-            # 100.0: "100.0"
-            # 200.0: "200.0"
-            # 500.0: "500.0"
-        JPY:
-          cash:
-            # 1: "1"
-            # 5: "5"
-            # 10: "10"
-            # 50: "50"
-            # 100: "100"
-            # 500: "500"
-            # 1000: "1000"
-            # 2000: "2000"
-            # 5000: "5000"
-            # 10000: "10000"
-        FRF:
-          cash:
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.2: "0.2"
-            # 0.5: "0.5"
-            # 1: "1"
-            # 2: "2"
-            # 5: "5"
-            # 10: "10"
-            # 20: "20"
-            # 50: "50"
-            # 100: "100"
-            # 200: "200"
-            # 500: "500"
       items:
         AED: "Dirham des Émirats"
         AFN: "Afghani"
@@ -854,7 +795,7 @@ fra:
         undefined: "Indéfini"
         work: "Collaboration"
     entity_natures:
-      # name: "Entity natures"
+      name: "Type de tiers"
       items:
         association: "Association"                         # legal_entity
         civil_society: "Société civile"                    # legal_entity
@@ -878,22 +819,22 @@ fra:
         target: "Cible"
         treatments: "Traitements"
       items:
-        # accident: "Accident"                             # incident
-        # climate_incident: "Climate incident"             # incident
-        # diarrhea: "Diarrhea"                             # pathology
-        # fecondity_problem: "Fecondity problem"           # pathology
+        accident: "Accident"                               # incident
+        climate_incident: "Incident climatique"            # incident
+        diarrhea: "Diarrhée"                               # pathology
+        fecondity_problem: "Problème de fécondité"         # pathology
         incident: "Incident"
-        # mammite: "Mammite"                               # pathology
-        # other: "Other"                                   # pathology
+        mammite: "Mammite"                                 # pathology
+        other: "Autre"                                     # pathology
         pathology: "Pathologie"                            # incident
-        # respiratory_problem: "Respiratory problem"       # pathology
+        respiratory_problem: "Problèmes respiratoires"     # pathology
     indicators:
       name: "Indicateurs"
       attributes:
-        # choices: "Choices"
-        # datatype: "Datatype"
-        # interpolation: "Interpolation"
-        # unit: "Unit"
+        choices: "Choix"
+        datatype: "Datatype"
+        interpolation: "Interpolation"
+        unit: "Unité"
       choices:
         datatype:
           boolean: "Case à cocher"
@@ -912,10 +853,30 @@ fra:
           # sine: "Sine"
         # unit: # Choices comes from nomenclature: units
       item_lists:
+<<<<<<< HEAD
+        cultural_soil_state:
+          choices:
+            # covered: "Covered"
+            # raw: "Raw"
+            # nude: "Nude"
+            # plowed: "Plowed"
+            # grown: "Grown"
+        sex:
+          choices:
+            # male: "Male"
+            # female: "Female"
+            # undefined: "Undefined"
+        mammalia_reproduction_state:
+          choices:
+            # back_heat: "Back heat"
+            # heat: "Heat"
+            # pregnancy: "Pregnancy"
+=======
         inhibitors_presence:
           choices:
             # negative: "Negative"
             # positive: "Positive"
+>>>>>>> 7b8b7a6706385c0929567e7938d367fa2d93e36c
         mammalia_twins_condition:
           choices:
             # none: "None"
@@ -933,20 +894,20 @@ fra:
             # first_growth: "First growth"
             # second_growth: "Second growth"
             # aging: "Aging"
-        cultural_soil_state:
+        mammalia_lactation_state:
           choices:
-            # covered: "Covered"
-            # raw: "Raw"
-            # nude: "Nude"
-            # plowed: "Plowed"
-            # grown: "Grown"
-        sex:
+            # lactation: "Lactation"
+            # depletion: "Depletion"
+        plant_reproduction_state:
           choices:
+<<<<<<< HEAD
+=======
             # male: "Male"
             # female: "Female"
             # undefined: "Undefined"
         plant_reproduction_state:
           choices:
+>>>>>>> 7b8b7a6706385c0929567e7938d367fa2d93e36c
             # swelling: "Swelling"
             # heading: "Heading"
             # flowering: "Flowering"
@@ -963,6 +924,12 @@ fra:
           choices:
             # healthy: "Healthy"
             # sick: "Sick"
+<<<<<<< HEAD
+        inhibitors_presence:
+          choices:
+            # negative: "Negative"
+            # positive: "Positive"
+=======
         mammalia_lactation_state:
           choices:
             # lactation: "Lactation"
@@ -972,6 +939,7 @@ fra:
             # back_heat: "Back heat"
             # heat: "Heat"
             # pregnancy: "Pregnancy"
+>>>>>>> 7b8b7a6706385c0929567e7938d367fa2d93e36c
       items:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
