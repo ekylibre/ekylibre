@@ -394,7 +394,7 @@ class Product < Ekylibre::Record::Base
 
   def weight(unit = :kilogram, at = Time.now)
     ActiveSupport::Deprecation.warn("Product#area is deprecated. Please use Product#net_surface_area instead.")
-    return net_weight(at).in(unit)    
+    return net_weight(at).in(unit)
   end
 
   # Measure a product for a given indicator

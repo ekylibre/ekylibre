@@ -1229,6 +1229,7 @@ eng:
     # product_deaths: "Product deaths"
     # product_enjoyments: "Product enjoyments"
     product_events: "Product events"
+    # product_indicator_data: "Product indicator data"
     # product_linkages: "Product linkages"
     # product_localizations: "Product localizations"
     # product_measurements: "Product measurements"
@@ -1364,7 +1365,7 @@ eng:
     serial_number: "Serial number"
     sex: "Sex"
     sha256: "SHA256" #?
-    shape: "Shape" #?
+    shape: "Shape"
     # sign_in_count: "Nombre de connexions"
     siren: "Siren"
     siret: "Siret" #?

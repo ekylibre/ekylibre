@@ -28,8 +28,10 @@
 #  operation_id    :integer
 #  originator_id   :integer
 #  originator_type :string(255)
+#  population      :decimal(19, 4)
 #  producer_id     :integer
 #  product_id      :integer          not null
+#  shape           :spatial({:srid=>
 #  started_at      :datetime
 #  stopped_at      :datetime
 #  updated_at      :datetime         not null

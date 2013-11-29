@@ -228,13 +228,13 @@ class Intervention < Ekylibre::Record::Base
         if variable.parted?
           # Parted from
           variant = producer.variant
-          produced.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: produced.quantity, name: producer.name)
+          produced.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: produced.population, name: producer.name)
         elsif variable.produced?
           # Produced by
           unless variant = produced.variant || variable.variant(self)
             raise StandardError, "No variant for #{variable.name} in intervention ##{self.id} (#{self.reference_name})"
           end
-          produced.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: produced.quantity)
+          produced.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: produced.population)
         else
           raise StandardError, "Don't known how to create the variable #{variable.name} for procedure #{self.reference_name}"
         end
@@ -256,7 +256,6 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def add_cast(attributes)
-    attributes[:population] = attributes.delete(:quantity)
     self.casts.create!(attributes)
   end
 

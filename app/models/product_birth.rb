@@ -28,8 +28,10 @@
 #  operation_id    :integer
 #  originator_id   :integer
 #  originator_type :string(255)
+#  population      :decimal(19, 4)
 #  producer_id     :integer
 #  product_id      :integer          not null
+#  shape           :spatial({:srid=>
 #  started_at      :datetime
 #  stopped_at      :datetime
 #  updated_at      :datetime         not null
@@ -42,6 +44,7 @@ class ProductBirth < Ekylibre::Record::Base
   belongs_to :producer, class_name: "Product"
   enumerize :nature, in: [:division, :creation], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :population, allow_nil: true
   validates_length_of :nature, :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :nature, :product
   #]VALIDATORS]

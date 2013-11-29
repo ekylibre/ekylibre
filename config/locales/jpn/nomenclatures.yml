@@ -989,6 +989,7 @@ jpn:
           # point: "Point spatial"
           # string: "Texte"
         interpolation: #?
+        related_to: #?
       item_lists:
         animal_disease_state:
           choices: #?

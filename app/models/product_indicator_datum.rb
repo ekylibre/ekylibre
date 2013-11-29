@@ -34,6 +34,8 @@
 #  measure_value_value :decimal(19, 4)
 #  measured_at         :datetime         not null
 #  multi_polygon_value :spatial({:srid=>
+#  originator_id       :integer
+#  originator_type     :string(255)
 #  point_value         :spatial({:srid=>
 #  product_id          :integer          not null
 #  string_value        :text
@@ -49,7 +51,7 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value_value, allow_nil: true
-  validates_length_of :choice_value, :indicator, :indicator_datatype, :measure_value_unit, allow_nil: true, maximum: 255
+  validates_length_of :choice_value, :indicator, :indicator_datatype, :measure_value_unit, :originator_type, allow_nil: true, maximum: 255
   validates_inclusion_of :boolean_value, in: [true, false]
   validates_presence_of :indicator, :indicator_datatype, :measured_at, :product
   #]VALIDATORS]

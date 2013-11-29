@@ -1685,6 +1685,7 @@ arb:
     # product_enjoyments: "Product enjoyments"
     # product_events: "Product events"
     product_id: "المنتج" #?
+    # product_indicator_data: "Product indicator data"
     # product_linkages: "Product linkages"
     # product_localizations: "Product localizations"
     # product_measurements: "Product measurements"
@@ -1816,6 +1817,7 @@ arb:
     service_coeff: "معامل كمية الخدمة" #?
     # sex: "Sexe"
     sha256: "SHA256" #?
+    # shape: "Shape"
     shipped: "المستلم" #?
     shipped_on: "شحنها يوم" #?
     # sign_in_count: "Nombre de connexions"
