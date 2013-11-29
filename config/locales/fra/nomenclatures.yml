@@ -535,6 +535,65 @@ fra:
         # number: "Number"
         # precision: "Precision"
         # symbol: "Symbol"
+      item_lists:
+        EUR:
+          cash:
+            # 0.01: "0.01"
+            # 0.02: "0.02"
+            # 0.05: "0.05"
+            # 0.1: "0.1"
+            # 0.2: "0.2"
+            # 0.5: "0.5"
+            # 1.0: "1.0"
+            # 2.0: "2.0"
+            # 5.0: "5.0"
+            # 10.0: "10.0"
+            # 20.0: "20.0"
+            # 50.0: "50.0"
+            # 100.0: "100.0"
+            # 200.0: "200.0"
+            # 500.0: "500.0"
+        FRF:
+          cash:
+            # 0.05: "0.05"
+            # 0.1: "0.1"
+            # 0.2: "0.2"
+            # 0.5: "0.5"
+            # 1: "1"
+            # 2: "2"
+            # 5: "5"
+            # 10: "10"
+            # 20: "20"
+            # 50: "50"
+            # 100: "100"
+            # 200: "200"
+            # 500: "500"
+        JPY:
+          cash:
+            # 1: "1"
+            # 5: "5"
+            # 10: "10"
+            # 50: "50"
+            # 100: "100"
+            # 500: "500"
+            # 1000: "1000"
+            # 2000: "2000"
+            # 5000: "5000"
+            # 10000: "10000"
+        USD:
+          cash:
+            # 0.01: "0.01"
+            # 0.05: "0.05"
+            # 0.1: "0.1"
+            # 0.25: "0.25"
+            # 0.5: "0.5"
+            # 1: "1"
+            # 2: "2"
+            # 5: "5"
+            # 10: "10"
+            # 20: "20"
+            # 50: "50"
+            # 100: "100"
       items:
         AED: "Dirham des Émirats"
         AFN: "Afghani"
@@ -853,35 +912,11 @@ fra:
           # sine: "Sine"
         # unit: # Choices comes from nomenclature: units
       item_lists:
-<<<<<<< HEAD
-        cultural_soil_state:
-          choices:
-            # covered: "Covered"
-            # raw: "Raw"
-            # nude: "Nude"
-            # plowed: "Plowed"
-            # grown: "Grown"
         sex:
           choices:
-            # male: "Male"
-            # female: "Female"
-            # undefined: "Undefined"
-        mammalia_reproduction_state:
-          choices:
-            # back_heat: "Back heat"
-            # heat: "Heat"
-            # pregnancy: "Pregnancy"
-=======
-        inhibitors_presence:
-          choices:
-            # negative: "Negative"
-            # positive: "Positive"
->>>>>>> 7b8b7a6706385c0929567e7938d367fa2d93e36c
-        mammalia_twins_condition:
-          choices:
-            # none: "None"
-            # twins: "Twins"
-            # triplets: "Triplets"
+            male: "Mâle"
+            female: "Femelle"
+            undefined: "Indéfini"
         mammalia_born_condition:
           choices:
             # without_help: "Without help"
@@ -894,20 +929,37 @@ fra:
             # first_growth: "First growth"
             # second_growth: "Second growth"
             # aging: "Aging"
+        cultural_soil_state:
+          choices:
+            # covered: "Covered"
+            # raw: "Raw"
+            # nude: "Nude"
+            # plowed: "Plowed"
+            # grown: "Grown"
+        animal_disease_state:
+          choices:
+            # healthy: "Healthy"
+            # sick: "Sick"
         mammalia_lactation_state:
           choices:
             # lactation: "Lactation"
             # depletion: "Depletion"
+        mammalia_reproduction_state:
+          choices:
+            # back_heat: "Back heat"
+            # heat: "Heat"
+            # pregnancy: "Pregnancy"
+        mammalia_twins_condition:
+          choices:
+            # none: "None"
+            # twins: "Twins"
+            # triplets: "Triplets"
+        inhibitors_presence:
+          choices:
+            # negative: "Negative"
+            # positive: "Positive"
         plant_reproduction_state:
           choices:
-<<<<<<< HEAD
-=======
-            # male: "Male"
-            # female: "Female"
-            # undefined: "Undefined"
-        plant_reproduction_state:
-          choices:
->>>>>>> 7b8b7a6706385c0929567e7938d367fa2d93e36c
             # swelling: "Swelling"
             # heading: "Heading"
             # flowering: "Flowering"
@@ -920,42 +972,23 @@ fra:
             # bolting: "Bolting"
             # maturity: "Maturity"
             # senescence: "Senescence"
-        animal_disease_state:
-          choices:
-            # healthy: "Healthy"
-            # sick: "Sick"
-<<<<<<< HEAD
-        inhibitors_presence:
-          choices:
-            # negative: "Negative"
-            # positive: "Positive"
-=======
-        mammalia_lactation_state:
-          choices:
-            # lactation: "Lactation"
-            # depletion: "Depletion"
-        mammalia_reproduction_state:
-          choices:
-            # back_heat: "Back heat"
-            # heat: "Heat"
-            # pregnancy: "Pregnancy"
->>>>>>> 7b8b7a6706385c0929567e7938d367fa2d93e36c
       items:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
-        # application_width: "Application width"
-        cells_concentration: "Dénombrement des cellules somatiques"
+        application_width: "Largeur de travail"
+        # calving_ease_index: "Calving ease index"
         clostridial_spores_concentration: "Concentration en spores butyriques"
         # cultural_soil_state: "Cultural soil state"
         # dry_matter_rate: "Dry matter rate"
+        economical_milk_index: "INEL (INdex Économique Laitier)"
+        # fat_matter_concentration_index: "Fat matter concentration index"
         fat_matters_concentration: "Teneur en matières grasses"
+        # fertility_index: "Fertility index"
         freezing_point_temperature: "Point de solidification"
         # geographic_coordinate: "Geographic coordinate"
         # hundred_grain_weight: "Hundred grain weight"
         immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
-        inel_index: "Index génétique INEL"
         inhibitors_presence: "Présence de résidus d’inhibiteurs"
-        isu_index: "Index génétique ISU"
         lipolysis: "Lipolyse"
         livestock_unit: "UGB (Unité de Gros Bétail)"
         # mammalia_born_condition: "Mammalia born condition"
@@ -969,27 +1002,28 @@ fra:
         # maximum_load_net_weight: "Maximum load net weight"
         meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
         milk_withdrawal_period: "Période d'attente avant remise en vente de lait"
-        # motor_power: "Motor power"
+        motor_power: "Puissance du moteur"
         net_surface_area: "Surface net"
         net_volume: "Volume net"
         net_weight: "Poids net"
-        # nitrogen_concentration: "Nitrogen concentration"
-        # phosphorus_concentration: "Phosphorus concentration"
+        nitrogen_concentration: "Teneur en azote"
+        phosphorus_concentration: "Teneur en phosphore"
         plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         population: "Population"
-        # potassium_concentration: "Potassium concentration"
+        potassium_concentration: "Teneur en potassium"
+        protein_concentration_index: "TP (Taux Protéïque)"
         protein_matters_concentration: "Teneur en matières protéïques"
-        # reproductor: "Reproductor"
-        # sex: "Sex"
+        reproductor: "Reproducteur"
+        sex: "Sexe"
         shape: "Forme"
-        # tb_index: "Tb index"
+        somatic_cell_concentration: "Dénombrement des cellules somatiques"
         temperature: "Température"
         total_bacteria_concentration: "Dénombrement des germes totaux"
-        tp_index: "Index génétique Taux protéïque"
+        unique_synthesis_index: "ISU (Index de Synthèse Unique)"
         urea_concentration: "Teneur moyenne en urée"
         usage_duration: "Durée d'utilisation"
-        # water_rate: "Water rate"
+        water_content_rate: "Teneur en eau"
     languages:
       # name: "Languages"
       items:
@@ -1105,15 +1139,15 @@ fra:
         # animal_curative_medicine_admission: "Animal curative medicine admission" # animal_illness_treatment
         animal_feeding: "Alimentation des animaux"
         animal_illness_treatment: "Traitement des maladies animales"
-        # animal_preventive_medicine_admission: "Animal preventive medicine admission" # animal_illness_treatment
+        animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_illness_treatment
         animal_production: "Productions animales"
         # cultipacking: "Cultipacking"                     # tillage
-        # grinding: "Grinding"
-        # growth_control: "Growth control"
+        grinding: "Broyage"
+        growth_control: "Contrôle de croissance"
         harvest: "Récolte"
         haymaking: "Fenaison"
         # hoeing: "Hoeing"                                 # tillage
-        # milk_production: "Milk production"               # animal_production
+        milk_production: "Production laitière"             # animal_production
         oviparous_birth: "Reproduction (ovipare)"
         # plant_fertilisation: "Plant fertilisation"
         plant_illness_treatment: "Traitements phytosanitaires"
@@ -1122,7 +1156,7 @@ fra:
         # raking: "Raking"                                 # tillage
         # soil_cleaning: "Soil cleaning"
         soil_enrichment: "Amendement"
-        # sowing: "Sowing"
+        sowing: "Semis"
         tillage: "Travail du sol"
         # transformation: "Transformation"
         viviparous_birth: "Reproduction (vivipare)"
@@ -1143,35 +1177,35 @@ fra:
         # asset_account: # Choices comes from nomenclature: accounts
         # charge_account: # Choices comes from nomenclature: accounts
         pictogram:
-          # barn: "Barn"
+          barn: "Grange"
           # beaker: "Beaker"
-          # bolt: "Bolt"
-          # bug: "Bug"
-          # building: "Building"
-          # cow: "Cow"
-          # credit_card: "Credit card"
-          # desktop: "Desktop"
-          # food: "Food"
-          # gift: "Gift"
-          # group: "Group"
-          # home: "Home"
+          bolt: "Eclair"
+          bug: "Insecte"
+          building: "Bâtiment"
+          cow: "Vache"
+          credit_card: "Carte de crédit"
+          desktop: "Ordinateur"
+          food: "Aliment"
+          gift: "Cadeaux"
+          group: "Groupe"
+          home: "Maison"
           # land_parcels: "Land parcels"
-          # leaf: "Leaf"
-          # legal: "Legal"
+          leaf: "Feuille"
+          legal: "Juridique"
           # lemon: "Lemon"
-          # light_bulb: "Light bulb"
-          # male: "Male"
-          # matter: "Matter"
-          # medkit: "Medkit"
-          # mushroom: "Mushroom"
-          # phone: "Phone"
+          light_bulb: "Idée"
+          male: "Mâle"
+          matter: "Matière"
+          medkit: "Médicaments"
+          mushroom: "Champignon"
+          phone: "Téléphone"
           # pill: "Pill"
-          # plane: "Plane"
-          # road: "Road"
+          plane: "Avion"
+          road: "Route"
           # tint: "Tint"
-          # tractor: "Tractor"
-          # truck: "Truck"
-          # wheat: "Wheat"
+          tractor: "Tracteur"
+          truck: "Camion"
+          wheat: "Blé"
           # wrench: "Wrench"
         # product_account: # Choices comes from nomenclature: accounts
         # stock_account: # Choices comes from nomenclature: accounts
@@ -1185,7 +1219,7 @@ fra:
         crop: "Culture"
         cultivable_land_parcel: "Parcelle culturale"
         equipment: "Équipement"
-        # equipment_rent: "Equipment rent"
+        equipment_rent: "Location d'équipement"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         fertilizer: "Engrais"
@@ -1207,7 +1241,7 @@ fra:
       name: "Variants de produits"
       attributes:
         derivative_of: "Dérivé de la variété"
-        # frozen_indicators_values: "Frozen indicators values"
+        frozen_indicators_values: "Valeur d'indicateur fixe"
         nature: "Type de produit"
         unit_name: "Nom de l'unité"
         variety: "Variété"
@@ -1228,17 +1262,17 @@ fra:
           unit: "unité"
         # variety: # Choices comes from nomenclature: varieties
       items:
-        # acetal: "Acetal"
-        # actilact: "Actilact"
+        acetal: "Acetal"
+        actilact: "Actilact"
         additive: "Adjuvant"
         animal_building: "Bâtiment d'accueil pour les animaux"
-        # animal_building_division: "Animal building division"
-        # animal_food_building_division: "Animal food building division"
-        # animal_waste_building_division: "Animal waste building division"
+        animal_building_division: "Piece d'accueil pour les animaux"
+        animal_food_building_division: "Piece d'accueil pour les aliments"
+        animal_waste_building_division: "Zone des déchets organiques"
         anti_slug: "Anti-limace"
         baler: "Botteleuse"
         barley_crop: "Culture d'orge"
-        # barley_grain: "Barley grain"
+        barley_grain: "Grain d'orge"
         barley_seed_25: "Semence d'orge 25kg"
         brassicaceae_fungicide: "Fongicide colza"
         building: "Bâtiment"
@@ -1251,11 +1285,11 @@ fra:
         cattle_manure: "Fumier de bovins"
         # cereals_feed_bag_25: "Cereals feed bag 25"
         complete_herbicide: "Herbicide total"
-        # coop:ammonitre_33,5%_vr: "Coop:ammonitre 33,5% vr"
-        # coop:ficelle_filogamm_350_bob_5kg: "Coop:ficelle filogamm 350 bob 5kg"
-        # coop:metarex_rg_tds_20kg: "Coop:metarex rg tds 20kg"
-        # coop:sel_mer_essore_la_baleine_sac_25kg: "Coop:sel mer essore la baleine sac 25kg"
-        # coop:uree_gr_vrac: "Coop:uree gr vrac"
+        coop:ammonitre_33,5%_vr: "ammonitre 33,5% vr"
+        coop:ficelle_filogamm_350_bob_5kg: "ficelle filogamm 350 bob 5kg"
+        coop:metarex_rg_tds_20kg: "metarex rg tds 20kg"
+        coop:sel_mer_essore_la_baleine_sac_25kg: "sel mer essore la baleine sac 25kg"
+        coop:uree_gr_vrac: "uree gr vrac"
         corn_crop: "Culture de maïs"
         corn_grain: "Graine de maïs"
         # corn_seed_25: "Corn seed 25"
@@ -1266,17 +1300,17 @@ fra:
         # equipment_building_division: "Equipment building division"
         ewe_milk: "Lait de brebis"
         fallow_crop: "Jachère"
-        # female_adult_cattle_herd: "Female adult cattle herd"
+        female_adult_cattle_herd: "Troupeau de vache laitière"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
-        # forager: "Forager"
+        forager: "Ensileuse"
         goat_milk: "Lait de chèvre"
         grass: "Herbe"
         # grass_seed_25: "Grass seed 25"
-        # hard_wheat_grain: "Hard wheat grain"
+        hard_wheat_grain: "Graine de blé dur"
         hard_wheat_seed_25: "Semence de blé dur 25kg"
-        # hard_wheat_straw: "Hard wheat straw"
-        # hard_wheat_straw_bales: "Hard wheat straw bales"
+        hard_wheat_straw: "Paille de blé dur"
+        hard_wheat_straw_bales: "Bottes de paille de blé dur"
         hay_rake: "Andaineur"
         helianthus_herbicide: "Herbicide tournesol"
         insecticide: "Insecticide"
@@ -1285,19 +1319,19 @@ fra:
         male_adult_cow: "Taureau"
         male_young_cow: "Taurillon"
         manager: "Responsable"
-        # milk_tank: "Milk tank"
+        milk_tank: "Tank à lait"
         mineral_cleaner: "Nettoyant chimique"
         # mineral_feed_bloc_25: "Mineral feed bloc 25"
         molluscicide: "Molluscicide"
         mower: "Faucheuse"
         office_building: "Bureau"
-        # office_building_division: "Office building division"
+        office_building_division: "Pièce de bureau"
         other_herbicide: "Herbicide autre"
         plow: "Charrue"
         poacea_herbicide: "Herbicide graminées"
         poaceae_fungicide: "Fongicide céréales"
         # reaper: "Reaper"
-        # riflexine: "Riflexine"
+        riflexine: "Riflexine"
         screed_building: "Construction béton (silo, chape, terrasse)"
         seed: "Semence"
         silage: "Ensilage"
@@ -1307,10 +1341,10 @@ fra:
         sower: "Semoir"
         # spelt_seed_25: "Spelt seed 25"
         spelt_wheat_crop: "Culture d'épeautre"
-        # sprayer: "Sprayer"
+        sprayer: "Pulvérisateur"
         spread_renting: "Location d'épandeur"
         spreader: "Epandeur à engrais"
-        # spreader_trailer: "Spreader trailer"
+        spreader_trailer: "Epandeur à fumier"
         sunflower_crop: "Culture de tournesol"
         # superficial_plow: "Superficial plow"
         technician: "Technicien"
@@ -1321,18 +1355,18 @@ fra:
         wheat_grain: "Graine de blé"
         wheat_seed_25: "Semence de blé 25kg"
         wheat_straw: "Paille de blé"
-        # wheat_straw_bales: "Wheat straw bales"
+        wheat_straw_bales: "Bottes de paille de blé"
         zea_herbicide: "Herbicide maïs"
     product_natures:
       name: "Type de produits"
       attributes:
         abilities: "Compétences"
         category: "Categorie"
-        # derivative_of: "Derivative of"
+        derivative_of: "Dérivé"
         frozen_indicators: "Indicateurs fixes"
-        # linkage_points: "Linkage points"
-        # population_counting: "Population counting"
-        # reductible: "Reductible"
+        linkage_points: "Points d'attelage"
+        population_counting: "Mode de gestion de la population"
+        reductible: "Réductible"
         variable_indicators: "Indicateurs variables"
         variety: "Variété"
       choices:
@@ -1361,7 +1395,7 @@ fra:
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         food: "Aliment"
-        # forager: "Forager"
+        forager: "Ensileuse"
         fungicide: "Fongicide"
         grain: "Graine"
         grass: "Herbe"
@@ -1374,7 +1408,7 @@ fra:
         male_young_cow: "Taurillon"
         manager: "Responsable"
         milk: "Lait"
-        # milk_tank: "Milk tank"
+        milk_tank: "Tank à lait"
         mineral_cleaner: "Nettoyant chimique"
         molluscicide: "Molluscicide"
         mower: "Faucheuse"
@@ -1384,10 +1418,10 @@ fra:
         seed: "Semence"
         small_equipment: "Petit matériel"
         sower: "Semoir"
-        # sprayer: "Sprayer"
+        sprayer: "Pulvérisateur"
         spread_renting: "Location d'épandeur"
         spreader: "Epandeur à engrais"
-        # spreader_trailer: "Spreader trailer"
+        spreader_trailer: "Epandeur à fumier"
         straw: "Paille"
         # superficial_plow: "Superficial plow"
         technician: "Technicien"
@@ -1396,7 +1430,7 @@ fra:
     roles:
       # name: "Roles"
       items:
-        # driver: "Driver"
+        driver: "Conducteur"
         # gardener: "Gardener"
         # input: "Input"
         # output: "Output"

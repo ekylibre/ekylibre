@@ -217,10 +217,10 @@ demo :animals do
       # case = TAUREAU REPRO
       animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :initial_owner => Entity.where(:of_company => false).all.sample)
       # set default indicators
-      animal.is_measured!(:isu_index,  r.isu.in_unity,  :at => now)
-      animal.is_measured!(:inel_index, r.inel.in_unity, :at => now)
-      animal.is_measured!(:tp_index,   r.tp.in_unity,   :at => now)
-      animal.is_measured!(:tb_index,   r.tb.in_unity,   :at => now)
+      animal.is_measured!(:unique_synthesis_index,  r.isu.in_unity,  :at => now)
+      animal.is_measured!(:economical_milk_index, r.inel.in_unity, :at => now)
+      animal.is_measured!(:protein_concentration_index,   r.tp.in_unity,   :at => now)
+      animal.is_measured!(:fat_matter_concentration_index,   r.tb.in_unity,   :at => now)
       # put in an external localization
       ProductLocalization.create!(:nature => :exterior, :product_id => animal.id, :arrival_cause => :other)
       w.check_point
