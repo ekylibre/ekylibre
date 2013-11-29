@@ -535,65 +535,6 @@ fra:
         # number: "Number"
         # precision: "Precision"
         # symbol: "Symbol"
-      item_lists:
-        FRF:
-          cash:
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.2: "0.2"
-            # 0.5: "0.5"
-            # 1: "1"
-            # 2: "2"
-            # 5: "5"
-            # 10: "10"
-            # 20: "20"
-            # 50: "50"
-            # 100: "100"
-            # 200: "200"
-            # 500: "500"
-        EUR:
-          cash:
-            # 0.01: "0.01"
-            # 0.02: "0.02"
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.2: "0.2"
-            # 0.5: "0.5"
-            # 1.0: "1.0"
-            # 2.0: "2.0"
-            # 5.0: "5.0"
-            # 10.0: "10.0"
-            # 20.0: "20.0"
-            # 50.0: "50.0"
-            # 100.0: "100.0"
-            # 200.0: "200.0"
-            # 500.0: "500.0"
-        JPY:
-          cash:
-            # 1: "1"
-            # 5: "5"
-            # 10: "10"
-            # 50: "50"
-            # 100: "100"
-            # 500: "500"
-            # 1000: "1000"
-            # 2000: "2000"
-            # 5000: "5000"
-            # 10000: "10000"
-        USD:
-          cash:
-            # 0.01: "0.01"
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.25: "0.25"
-            # 0.5: "0.5"
-            # 1: "1"
-            # 2: "2"
-            # 5: "5"
-            # 10: "10"
-            # 20: "20"
-            # 50: "50"
-            # 100: "100"
       items:
         AED: "Dirham des Émirats"
         AFN: "Afghani"
@@ -912,6 +853,7 @@ fra:
           # sine: "Sine"
         # unit: # Choices comes from nomenclature: units
       item_lists:
+<<<<<<< HEAD
         cultural_soil_state:
           choices:
             # covered: "Covered"
@@ -929,6 +871,12 @@ fra:
             # back_heat: "Back heat"
             # heat: "Heat"
             # pregnancy: "Pregnancy"
+=======
+        inhibitors_presence:
+          choices:
+            # negative: "Negative"
+            # positive: "Positive"
+>>>>>>> 7b8b7a6706385c0929567e7938d367fa2d93e36c
         mammalia_twins_condition:
           choices:
             # none: "None"
@@ -952,6 +900,14 @@ fra:
             # depletion: "Depletion"
         plant_reproduction_state:
           choices:
+<<<<<<< HEAD
+=======
+            # male: "Male"
+            # female: "Female"
+            # undefined: "Undefined"
+        plant_reproduction_state:
+          choices:
+>>>>>>> 7b8b7a6706385c0929567e7938d367fa2d93e36c
             # swelling: "Swelling"
             # heading: "Heading"
             # flowering: "Flowering"
@@ -968,10 +924,22 @@ fra:
           choices:
             # healthy: "Healthy"
             # sick: "Sick"
+<<<<<<< HEAD
         inhibitors_presence:
           choices:
             # negative: "Negative"
             # positive: "Positive"
+=======
+        mammalia_lactation_state:
+          choices:
+            # lactation: "Lactation"
+            # depletion: "Depletion"
+        mammalia_reproduction_state:
+          choices:
+            # back_heat: "Back heat"
+            # heat: "Heat"
+            # pregnancy: "Pregnancy"
+>>>>>>> 7b8b7a6706385c0929567e7938d367fa2d93e36c
       items:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"

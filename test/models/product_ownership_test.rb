@@ -20,18 +20,20 @@
 #
 # == Table: product_ownerships
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  nature       :string(255)      not null
-#  operation_id :integer
-#  owner_id     :integer
-#  product_id   :integer          not null
-#  started_at   :datetime
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  nature          :string(255)      not null
+#  operation_id    :integer
+#  originator_id   :integer
+#  originator_type :string(255)
+#  owner_id        :integer
+#  product_id      :integer          not null
+#  started_at      :datetime
+#  stopped_at      :datetime
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 require 'test_helper'
 

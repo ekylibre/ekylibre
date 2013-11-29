@@ -20,19 +20,21 @@
 #
 # == Table: product_linkages
 #
-#  carried_id   :integer
-#  carrier_id   :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  nature       :string(255)      not null
-#  operation_id :integer
-#  point        :string(255)      not null
-#  started_at   :datetime
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  carried_id      :integer
+#  carrier_id      :integer          not null
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  nature          :string(255)      not null
+#  operation_id    :integer
+#  originator_id   :integer
+#  originator_type :string(255)
+#  point           :string(255)      not null
+#  started_at      :datetime
+#  stopped_at      :datetime
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 class ProductLinkage < Ekylibre::Record::Base
   include Taskable, TimeLineable
@@ -41,12 +43,12 @@ class ProductLinkage < Ekylibre::Record::Base
   enumerize :nature, in: [:available, :unavailable, :occupied], default: :available, predicates: true
   enumerize :point, in: [:rear, :front]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nature, :point, allow_nil: true, maximum: 255
+  validates_length_of :nature, :originator_type, :point, allow_nil: true, maximum: 255
   validates_presence_of :carrier, :nature, :point
   #]VALIDATORS]
   validates_presence_of :carried, :if => :occupied?
 
-  scope :with,   lambda { |point| where(point: point) }
+  scope :with, lambda { |point| where(point: point) }
 
   private
 

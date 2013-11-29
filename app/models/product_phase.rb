@@ -20,19 +20,21 @@
 #
 # == Table: product_phases
 #
-#  category_id  :integer          not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  nature_id    :integer          not null
-#  operation_id :integer
-#  product_id   :integer          not null
-#  started_at   :datetime
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
-#  updater_id   :integer
-#  variant_id   :integer          not null
+#  category_id     :integer          not null
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  nature_id       :integer          not null
+#  operation_id    :integer
+#  originator_id   :integer
+#  originator_type :string(255)
+#  product_id      :integer          not null
+#  started_at      :datetime
+#  stopped_at      :datetime
+#  updated_at      :datetime         not null
+#  updater_id      :integer
+#  variant_id      :integer          not null
 #
 class ProductPhase < Ekylibre::Record::Base
   include Taskable
@@ -41,6 +43,7 @@ class ProductPhase < Ekylibre::Record::Base
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :category, class_name: "ProductNatureCategory"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :category, :nature, :product, :variant
   #]VALIDATORS]
 

@@ -855,7 +855,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_enjoyments do |t|
       t.references :operation,                             index: true
-      # t.references :move,    polymorphic: true,            index: true
+      t.references :originator,        polymorphic: true,  index: true
       t.references :product,                  null: false, index: true
       t.string     :nature,                   null: false
       t.references :enjoyer,                               index: true
@@ -868,7 +868,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_linkages do |t|
       t.references :operation,                             index: true
-      # t.references :move,    polymorphic: true,              index: true
+      t.references :originator,        polymorphic: true,  index: true
       t.references :carrier,                  null: false, index: true
       t.string     :point,                    null: false
       t.string     :nature,                   null: false
@@ -882,7 +882,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_localizations do |t|
       t.references :operation,                             index: true
-      # t.references :move,     polymorphic: true,             index: true
+      t.references :originator,        polymorphic: true
       t.references :product,                  null: false, index: true
       t.string     :nature,                   null: false
       t.references :container,                             index: true
@@ -893,11 +893,12 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
       t.index      :started_at
       t.index      :stopped_at
+      t.index      [:originator_id, :originator_type], name: :index_product_localizations_on_originator
     end
 
     create_table :product_measurements do |t|
       t.references :operation,                             index: true
-      # t.references :move,     polymorphic: true,              index: true
+      t.references :originator,        polymorphic: true,  index: true
       t.references :product,                  null: false, index: true
       t.string     :indicator,                null: false
       t.references :reporter,                              index: true
@@ -911,7 +912,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_memberships do |t|
       t.references :operation,                             index: true
-      # t.references :move,     polymorphic: true,              index: true
+      t.references :originator,        polymorphic: true,  index: true
       t.references :member,                   null: false, index: true
       t.string     :nature,                   null: false
       t.references :group,                    null: false, index: true
@@ -924,7 +925,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_ownerships do |t|
       t.references :operation,                             index: true
-      # t.references :move,  polymorphic: true,              index: true
+      t.references :originator,        polymorphic: true,  index: true
       t.references :product,                  null: false, index: true
       t.string     :nature,                   null: false
       t.references :owner,                                 index: true
@@ -937,7 +938,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_phases do |t|
       t.references :operation,                             index: true
-      # t.references :move,  polymorphic: true,              index: true
+      t.references :originator,        polymorphic: true,  index: true
       t.references :product,                  null: false, index: true
       t.references :variant,                  null: false, index: true
       t.references :nature,                   null: false, index: true
@@ -951,7 +952,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_births do |t|
       t.references :operation,                             index: true
-      # t.references :move,     polymorphic: true,              index: true
+      t.references :originator,        polymorphic: true,  index: true
       t.string     :nature,                   null: false
       t.references :producer,                              index: true
       t.references :product,                  null: false, index: true
@@ -964,7 +965,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :product_deaths do |t|
       t.references :operation,                             index: true
-      # t.references :move,     polymorphic: true,              index: true
+      t.references :originator,        polymorphic: true,  index: true
       t.string     :nature,                   null: false
       t.references :absorber,                              index: true
       t.references :product,                  null: false, index: true
