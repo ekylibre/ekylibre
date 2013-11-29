@@ -66,7 +66,7 @@ class InterventionCast < Ekylibre::Record::Base
     if self.actor.is_a?(Product)
       self.variant  ||= self.actor.variant
       for indicator in self.actor.whole_indicators
-        self.send("#{indicator}=", self.actor.indicate(indicator, at: self.started_at)) unless self.send(indicator)
+        self.send("#{indicator}=", self.actor.send(indicator, at: self.started_at)) unless self.send(indicator)
       end
     end
   end

@@ -214,6 +214,11 @@ class ProductNature < Ekylibre::Record::Base
     return indicators_related_to(:whole).map(&:name)
   end
 
+  # Returns whole indicator names
+  def individual_indicators
+    return indicators_related_to(:individual).map(&:name)
+  end
+
   # Returns list of abilities as an array of ability items from the nomenclature
   def abilities_array
     return self.abilities.to_s.strip.split(/[\,\s]+/).collect do |i|

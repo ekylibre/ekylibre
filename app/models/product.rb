@@ -134,9 +134,7 @@ class Product < Ekylibre::Record::Base
     conditions = []
     # TODO Build conditions to filter on indicators
     for name, value in indicators
-
-      conditions << " id IN (" + order(:id).indicator(name, :at => measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
-
+      conditions << " id IN (" + order(:id).indicate(name, :at => measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
     end
     where(conditions.join(" AND "))
   }
@@ -162,7 +160,7 @@ class Product < Ekylibre::Record::Base
   delegate :subscribing?, :deliverable?, to: :nature
   delegate :variety, :derivative_of, :name, to: :variant, prefix: true
   delegate :abilities, :abilities_array, :indicators, :indicators_array, :linkage_points_array, :unit_name, to: :variant
-  delegate :asset_account, :product_account, :charge_account, :stock_account, :whole_indicators, to: :nature
+  delegate :asset_account, :product_account, :charge_account, :stock_account, :individual_indicators, :whole_indicators, to: :nature
 
   after_initialize :choose_default_name
   after_create :set_initial_values
@@ -402,18 +400,21 @@ class Product < Ekylibre::Record::Base
     unless Nomen::Indicators[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
-    datum = self.indicator_data.new(indicator: indicator, measured_at: (options[:at] || Time.now), originator: options[:originator])
+    if value.nil?
+      raise ArgumentError, "Value must be given"
+    end
+    datum = self.indicator_data.build(indicator: indicator, measured_at: (options[:at] || Time.now), originator: options[:originator])
     datum.value = value
     datum.save!
     return datum
   end
 
 
-  # Return the indicator datum
-  def indicator(indicator, options = {})
-    ActiveSupport::Deprecation.warn("Product#indicator method is deprecated. Please use Product#indicate instead")
-    return indicate(indicator, options)
-  end
+  # # Return the indicator datum
+  # def indicator(indicator, options = {})
+  #   ActiveSupport::Deprecation.warn("Product#indicator method is deprecated. Please use Product#indicate instead")
+  #   return indicate(indicator, options)
+  # end
 
   # Return the indicator datum
   def indicate(indicator, options = {})

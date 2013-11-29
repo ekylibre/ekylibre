@@ -548,12 +548,11 @@ fra:
             # 2000: "2000"
             # 5000: "5000"
             # 10000: "10000"
-        USD:
+        FRF:
           cash:
-            # 0.01: "0.01"
             # 0.05: "0.05"
             # 0.1: "0.1"
-            # 0.25: "0.25"
+            # 0.2: "0.2"
             # 0.5: "0.5"
             # 1: "1"
             # 2: "2"
@@ -562,6 +561,8 @@ fra:
             # 20: "20"
             # 50: "50"
             # 100: "100"
+            # 200: "200"
+            # 500: "500"
         EUR:
           cash:
             # 0.01: "0.01"
@@ -579,11 +580,12 @@ fra:
             # 100.0: "100.0"
             # 200.0: "200.0"
             # 500.0: "500.0"
-        FRF:
+        USD:
           cash:
+            # 0.01: "0.01"
             # 0.05: "0.05"
             # 0.1: "0.1"
-            # 0.2: "0.2"
+            # 0.25: "0.25"
             # 0.5: "0.5"
             # 1: "1"
             # 2: "2"
@@ -592,8 +594,6 @@ fra:
             # 20: "20"
             # 50: "50"
             # 100: "100"
-            # 200: "200"
-            # 500: "500"
       items:
         AED: "Dirham des Émirats"
         AFN: "Afghani"
@@ -916,23 +916,16 @@ fra:
           # whole: "Whole"
         # unit: # Choices comes from nomenclature: units
       item_lists:
-        sex:
+        mammalia_reproduction_state:
           choices:
-            # male: "Male"
-            # female: "Female"
-            # undefined: "Undefined"
-        cultural_soil_state:
+            # back_heat: "Back heat"
+            # heat: "Heat"
+            # pregnancy: "Pregnancy"
+        mammalia_twins_condition:
           choices:
-            # covered: "Covered"
-            # raw: "Raw"
-            # nude: "Nude"
-            # plowed: "Plowed"
-            # grown: "Grown"
-        animal_life_state:
-          choices:
-            # first_growth: "First growth"
-            # second_growth: "Second growth"
-            # aging: "Aging"
+            # none: "None"
+            # twins: "Twins"
+            # triplets: "Triplets"
         mammalia_born_condition:
           choices:
             # without_help: "Without help"
@@ -940,20 +933,27 @@ fra:
             # great_help: "Great help"
             # caesarean: "Caesarean"
             # cutting_calf: "Cutting calf"
-        mammalia_twins_condition:
+        animal_life_state:
           choices:
-            # none: "None"
-            # twins: "Twins"
-            # triplets: "Triplets"
-        mammalia_lactation_state:
+            # first_growth: "First growth"
+            # second_growth: "Second growth"
+            # aging: "Aging"
+        cultural_soil_state:
           choices:
-            # lactation: "Lactation"
-            # depletion: "Depletion"
-        mammalia_reproduction_state:
+            # covered: "Covered"
+            # raw: "Raw"
+            # nude: "Nude"
+            # plowed: "Plowed"
+            # grown: "Grown"
+        sex:
           choices:
-            # back_heat: "Back heat"
-            # heat: "Heat"
-            # pregnancy: "Pregnancy"
+            # male: "Male"
+            # female: "Female"
+            # undefined: "Undefined"
+        inhibitors_presence:
+          choices:
+            # negative: "Negative"
+            # positive: "Positive"
         plant_reproduction_state:
           choices:
             # swelling: "Swelling"
@@ -972,10 +972,10 @@ fra:
           choices:
             # healthy: "Healthy"
             # sick: "Sick"
-        inhibitors_presence:
+        mammalia_lactation_state:
           choices:
-            # negative: "Negative"
-            # positive: "Positive"
+            # lactation: "Lactation"
+            # depletion: "Depletion"
       items:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
