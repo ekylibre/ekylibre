@@ -111,12 +111,12 @@ demo :interventions do
             # Sowing 15-10-N -> 30-10-N
             int = Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, :range => 15, support: support) do |i|
               i.add_cast(reference_name: 'seeds',       actor: Product.of_variety("seed").derivative_of(variety).all.sample)
-              i.add_cast(reference_name: 'seeds_to_sow', quantity: 20)
+              i.add_cast(reference_name: 'seeds_to_sow', population: 20)
               i.add_cast(reference_name: 'sower',       actor: Product.can("sow").all.sample)
               i.add_cast(reference_name: 'driver',      actor: Worker.all.sample)
               i.add_cast(reference_name: 'tractor',     actor: Product.can("tow(sower)").all.sample)
               i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
-              i.add_cast(reference_name: 'culture',     variant: ProductNatureVariant.find_or_import!(variety).first, quantity: (area.to_s.to_f / 10000.0))
+              i.add_cast(reference_name: 'culture',     variant: ProductNatureVariant.find_or_import!(variety).first, population: (area.to_s.to_f / 10000.0))
             end
 
             culture = int.casts.find_by(reference_name: 'culture').actor
@@ -125,7 +125,7 @@ demo :interventions do
             fertilizer = Product.of_variety(:mineral_matter).all.sample
             Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(reference_name: 'fertilizer', actor: fertilizer)
-              i.add_cast(reference_name: 'fertilizer_to_spread', actor: fertilizer, quantity: 0.4 + rand(0.6))
+              i.add_cast(reference_name: 'fertilizer_to_spread', actor: fertilizer, population: 0.4 + rand(0.6))
               i.add_cast(reference_name: 'spreader', actor: Product.can("spread(mineral_matter)").all.sample)
               i.add_cast(reference_name: 'driver', actor: Worker.all.sample)
               i.add_cast(reference_name: 'tractor', actor: Product.can("tow(spreader)").all.sample)
@@ -136,7 +136,7 @@ demo :interventions do
             organic_fertilizer = Product.of_variety(:manure).derivative_of(:bos).all.sample
             Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(reference_name: 'manure',      actor: organic_fertilizer)
-              i.add_cast(reference_name: 'manure_to_spread', actor: organic_fertilizer, quantity: 1.2)
+              i.add_cast(reference_name: 'manure_to_spread', actor: organic_fertilizer, population: 1.2)
               i.add_cast(reference_name: 'spreader',    actor: Product.can("spread(organic_matter)").all.sample)
               i.add_cast(reference_name: 'driver',      actor: Worker.all.sample)
               i.add_cast(reference_name: 'tractor',     actor: Product.can("tow(spreader)").all.sample)
@@ -148,7 +148,7 @@ demo :interventions do
               molecule = Product.can("kill(plant)").all.sample
               Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: support) do |i|
                 i.add_cast(reference_name: 'molecule', actor: molecule)
-                i.add_cast(reference_name: 'molecule_to_spray', actor: molecule, quantity: rand(15))
+                i.add_cast(reference_name: 'molecule_to_spray', actor: molecule, population: rand(15))
                 i.add_cast(reference_name: 'sprayer',  actor: Product.can("spray").all.sample)
                 i.add_cast(reference_name: 'driver',   actor: Worker.all.sample)
                 i.add_cast(reference_name: 'tractor',  actor: Product.can("catch").all.sample)
@@ -190,7 +190,7 @@ demo :interventions do
                 i.add_cast(reference_name: 'tractor',      actor: Product.can("tow(mower)").all.sample)
                 i.add_cast(reference_name: 'mower',        actor: Product.can("mow").all.sample)
                 i.add_cast(reference_name: 'culture',      actor: culture)
-                i.add_cast(reference_name: 'straw', quantity: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: culture.variety).first)
+                i.add_cast(reference_name: 'straw', population: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: culture.variety).first)
               end
 
               other = Worker.where("id != ?", bob.id).all.sample
@@ -200,7 +200,7 @@ demo :interventions do
                 i.add_cast(reference_name: 'baler_driver',   actor: bob)
                 i.add_cast(reference_name: 'baler',          actor: Product.can("bunch").all.sample)
                 i.add_cast(reference_name: 'straw_to_bunch', actor: straw)
-                i.add_cast(reference_name: 'straw_bales', quantity: 1.5 * coeff, variant: ProductNatureVariant.import_from_nomenclature(culture.variety.to_s == 'triticum_durum' ? :hard_wheat_straw_bales : :wheat_straw_bales))
+                i.add_cast(reference_name: 'straw_bales', population: 1.5 * coeff, variant: ProductNatureVariant.import_from_nomenclature(culture.variety.to_s == 'triticum_durum' ? :hard_wheat_straw_bales : :wheat_straw_bales))
               end
             end
           end
@@ -228,14 +228,14 @@ demo :interventions do
             if culture = sowing.casts.find_by(reference_name: 'culture').actor rescue nil
               Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff, support: support) do |i|
                 # i.add_cast(reference_name: 'silo',    actor: Product.can("store(grain)").all.sample)
-                # i.add_cast(reference_name: 'driver',  actor: bob, quantity: i.duration.to_f)
-                # i.add_cast(reference_name: 'tractor', actor: Product.can("tow(trailer)").all.sample, quantity: i.duration.to_f)
-                # i.add_cast(reference_name: 'trailer', actor: Product.can("store(grain)").all.sample, quantity: i.duration.to_f)
+                # i.add_cast(reference_name: 'driver',  actor: bob, population: i.duration.to_f)
+                # i.add_cast(reference_name: 'tractor', actor: Product.can("tow(trailer)").all.sample, population: i.duration.to_f)
+                # i.add_cast(reference_name: 'trailer', actor: Product.can("store(grain)").all.sample, population: i.duration.to_f)
                 i.add_cast(reference_name: 'cropper',        actor: Product.can("harvest(poaceae)").all.sample)
                 i.add_cast(reference_name: 'cropper_driver', actor: other)
                 i.add_cast(reference_name: 'culture',        actor: culture)
-                i.add_cast(reference_name: 'grains',         quantity: 4.2 * coeff, variant: ProductNatureVariant.find_or_import!(:grain, derivative_of: culture.variety).first)
-                i.add_cast(reference_name: 'straws',         quantity: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: culture.variety).first)
+                i.add_cast(reference_name: 'grains',         population: 4.2 * coeff, variant: ProductNatureVariant.find_or_import!(:grain, derivative_of: culture.variety).first)
+                i.add_cast(reference_name: 'straws',         population: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: culture.variety).first)
               end
             end
           end
@@ -257,9 +257,9 @@ demo :interventions do
               medicine_product = AnimalMedicine.can("care(bos)").all.sample
               Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5) do |i|
                 i.add_cast(reference_name: 'animal',           actor: animal)
-                i.add_cast(reference_name: 'caregiver',        actor: Worker.all.sample, quantity: 0.2)
+                i.add_cast(reference_name: 'caregiver',        actor: Worker.all.sample, population: 0.2)
                 i.add_cast(reference_name: 'molecule',         actor: medicine_product)
-                i.add_cast(reference_name: 'molecule_to_give', actor: medicine_product, quantity: 1 + rand(3))
+                i.add_cast(reference_name: 'molecule_to_give', actor: medicine_product, population: 1 + rand(3))
               end
             end
             w.check_point

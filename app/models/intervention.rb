@@ -223,22 +223,22 @@ class Intervention < Ekylibre::Record::Base
       end
       # Build new products
       for variable in reference.new_variables
-        genited = self.casts.find_by!(reference_name: variable.name)
+        produced = self.casts.find_by!(reference_name: variable.name)
         producer = self.casts.find_by!(reference_name: variable.genitor_name)
         if variable.parted?
           # Parted from
           variant = producer.variant
-          genited.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity, name: producer.name)
+          produced.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: produced.quantity, name: producer.name)
         elsif variable.produced?
           # Produced by
-          unless variant = genited.variant || variable.variant(self)
+          unless variant = produced.variant || variable.variant(self)
             raise StandardError, "No variant for #{variable.name} in intervention ##{self.id} (#{self.reference_name})"
           end
-          genited.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: genited.quantity)
+          produced.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_arrival_cause: :birth, initial_population: produced.quantity)
         else
           raise StandardError, "Don't known how to create the variable #{variable.name} for procedure #{self.reference_name}"
         end
-        genited.save!
+        produced.save!
       end
       # Load operations
       rep = reference.spread_time(duration)
@@ -256,6 +256,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def add_cast(attributes)
+    attributes[:population] = attributes.delete(:quantity)
     self.casts.create!(attributes)
   end
 

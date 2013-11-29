@@ -945,17 +945,18 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "incoming_payments", ["updater_id"], :name => "index_incoming_payments_on_updater_id"
 
   create_table "intervention_casts", force: true do |t|
-    t.integer  "intervention_id",                                                  null: false
+    t.integer  "intervention_id",                                                                            null: false
     t.integer  "actor_id"
     t.integer  "variant_id"
-    t.decimal  "quantity",                    precision: 19, scale: 4
+    t.decimal  "population",                                            precision: 19, scale: 4
     t.string   "roles",           limit: 320
-    t.string   "reference_name",                                                   null: false
-    t.datetime "created_at",                                                       null: false
-    t.datetime "updated_at",                                                       null: false
+    t.string   "reference_name",                                                                             null: false
+    t.datetime "created_at",                                                                                 null: false
+    t.datetime "updated_at",                                                                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                         default: 0, null: false
+    t.integer  "lock_version",                                                                   default: 0, null: false
+    t.spatial  "shape",           limit: {:srid=>0, :type=>"geometry"}
   end
 
   add_index "intervention_casts", ["actor_id"], :name => "index_intervention_casts_on_actor_id"
@@ -1486,16 +1487,18 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
-    t.string   "nature",                      null: false
+    t.string   "nature",                                                                                     null: false
     t.integer  "producer_id"
-    t.integer  "product_id",                  null: false
+    t.integer  "product_id",                                                                                 null: false
+    t.decimal  "population",                                            precision: 19, scale: 4
     t.datetime "started_at"
     t.datetime "stopped_at"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                                                                                 null: false
+    t.datetime "updated_at",                                                                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",    default: 0, null: false
+    t.integer  "lock_version",                                                                   default: 0, null: false
+    t.spatial  "shape",           limit: {:srid=>0, :type=>"geometry"}
   end
 
   add_index "product_births", ["created_at"], :name => "index_product_births_on_created_at"
@@ -1564,6 +1567,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_enjoyments", ["updater_id"], :name => "index_product_enjoyments_on_updater_id"
 
   create_table "product_indicator_data", force: true do |t|
+    t.integer  "originator_id"
+    t.string   "originator_type"
     t.integer  "product_id",                                                                                                            null: false
     t.string   "indicator",                                                                                                             null: false
     t.string   "indicator_datatype",                                                                                                    null: false
@@ -1588,6 +1593,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_indicator_data", ["creator_id"], :name => "index_product_indicator_data_on_creator_id"
   add_index "product_indicator_data", ["indicator"], :name => "index_product_indicator_data_on_indicator"
   add_index "product_indicator_data", ["measured_at"], :name => "index_product_indicator_data_on_measured_at"
+  add_index "product_indicator_data", ["originator_id", "originator_type"], :name => "index_product_indicator_data_on_originator"
   add_index "product_indicator_data", ["product_id"], :name => "index_product_indicator_data_on_product_id"
   add_index "product_indicator_data", ["updated_at"], :name => "index_product_indicator_data_on_updated_at"
   add_index "product_indicator_data", ["updater_id"], :name => "index_product_indicator_data_on_updater_id"

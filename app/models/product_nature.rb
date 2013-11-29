@@ -49,7 +49,6 @@
 
 
 class ProductNature < Ekylibre::Record::Base
-  # attr_accessible :abilities, :active, :derivative_of, :description, :depreciable, :indicators, :purchasable, :saleable, :asset_account_id, :name, :reference_name, :number, :population_counting, :stock_account_id, :charge_account_id, :product_account_id, :storable, :subscription_nature_id, :subscription_duration, :reductible, :subscribing, :variety
   enumerize :variety,       in: Nomen::Varieties.all
   enumerize :derivative_of, in: Nomen::Varieties.all
   # Be careful with the fact that it depends directly on the nomenclature definition
@@ -143,11 +142,11 @@ class ProductNature < Ekylibre::Record::Base
       self.variety ||= self.derivative_of
     end
     self.derivative_of = nil if self.variety.to_s == self.derivative_of.to_s
-    unless self.indicators_array.detect{|i| i.name.to_sym == :population}
-      self.indicators ||= ""
-      self.indicators << " population"
-    end
-    #self.indicators = self.indicators_array.map(&:name).sort.join(", ")
+    # unless self.indicators_array.detect{|i| i.name.to_sym == :population}
+    #   self.indicators ||= ""
+    #   self.indicators << " population"
+    # end
+    # self.indicators = self.indicators_array.map(&:name).sort.join(", ")
     self.abilities  = self.abilities_array.sort.join(", ")
     return true
   end
@@ -198,12 +197,21 @@ class ProductNature < Ekylibre::Record::Base
     end.compact
   end
 
-
   # Returns list of indicators as an array of indicator items from the nomenclature
   def indicators_array
     return self.indicators.to_s.strip.split(/[\,\s]+/).collect do |i|
       Nomen::Indicators[i]
     end.compact
+  end
+
+  # Returns list of indicators as an array of indicator items from the nomenclature
+  def indicators_related_to(aspect)
+    return self.indicators_array.select{|i| i.related_to == aspect}
+  end
+
+  # Returns whole indicator names
+  def whole_indicators
+    return indicators_related_to(:whole).map(&:name)
   end
 
   # Returns list of abilities as an array of ability items from the nomenclature

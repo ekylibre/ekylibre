@@ -162,7 +162,7 @@ class Product < Ekylibre::Record::Base
   delegate :subscribing?, :deliverable?, to: :nature
   delegate :variety, :derivative_of, :name, to: :variant, prefix: true
   delegate :abilities, :abilities_array, :indicators, :indicators_array, :linkage_points_array, :unit_name, to: :variant
-  delegate :asset_account, :product_account, :charge_account, :stock_account, to: :nature
+  delegate :asset_account, :product_account, :charge_account, :stock_account, :whole_indicators, to: :nature
 
   after_initialize :choose_default_name
   after_create :set_initial_values
@@ -317,15 +317,6 @@ class Product < Ekylibre::Record::Base
     return price
   end
 
-  # # Add an operation for the product
-  # def operate(action, *args)
-  #   options = (args[-1].is_a?(Hash) ? options.delete_at(-1) : {})
-  #   if operand = (args[0].is_a?(Product) ? args[0] : nil)
-  #     options[:operand] = operand
-  #   end
-  #   return self.operations.create(options)
-  # end
-
   # Returns groups of the product at a given time (or now by default)
   def groups_at(viewed_at = nil)
     ProductGroup.groups_of(self, viewed_at || Time.now)
@@ -374,30 +365,36 @@ class Product < Ekylibre::Record::Base
     self.picture.path(style)
   end
 
-  def area(unit = :hectare, at = Time.now)
-    pop = self.population(:at => at)
-    if self.net_surface_area
-      area = self.net_surface_area(:at => at).convert(unit)
-    elsif self.shape
-      area = self.shape_area(:at => at).in_square_meter.convert(unit)
-    else
-      area = nil
+  def net_surface_area(at = Time.now)
+    if self.whole_indicators.include?(:net_surface_area)
+      return self.indicate(:net_surface_area)
+    elsif self.individual_indicators.include?(:net_surface_area)
+      return self.indicate(:net_surface_area) * self.population(at: at)
+    elsif self.whole_indicators.include?(:shape)
+      return self.shape_area(at: at).in_square_meter
     end
-    # What a clean method to_s.to_d but needed because a little bug : Measure can't be coerced into BigDecimal
-    total = area.to_s.to_d * pop.to_s.to_d
-    return total
+    return nil
+  end
+
+  def area(unit, at)
+    ActiveSupport::Deprecation.warn("Product#area is deprecated. Please use Product#net_surface_area instead.")
+    return net_surface_area(at).in(unit)
+  end
+
+  def net_weight(at = Time.now)
+    # if self.variable_indicators_array.include?(Nomen::Indicators[:net_weight])
+    return 0.0.in_kilogram
+    pop = self.population(:at => at)
+    if self.net_weight
+      return self.net_weight(:at => at)
+    else
+      return 0.0.in_kilogram
+    end
   end
 
   def weight(unit = :kilogram, at = Time.now)
-    pop = self.population(:at => at)
-    if self.net_weight
-      weight = self.net_weight(:at => at).convert(unit)
-    else
-      weight = 0.0
-    end
-    # What a clean method to_s.to_d but needed because a little bug : Measure can't be coerced into BigDecimal
-    total = weight.to_s.to_d * pop.to_s.to_d
-    return total
+    ActiveSupport::Deprecation.warn("Product#area is deprecated. Please use Product#net_surface_area instead.")
+    return net_weight(at).in(unit)    
   end
 
   # Measure a product for a given indicator
@@ -405,7 +402,7 @@ class Product < Ekylibre::Record::Base
     unless Nomen::Indicators[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
-    datum = self.indicator_data.new(indicator: indicator, measured_at: (options[:at] || Time.now) )
+    datum = self.indicator_data.new(indicator: indicator, measured_at: (options[:at] || Time.now), originator: options[:originator])
     datum.value = value
     datum.save!
     return datum
@@ -414,8 +411,14 @@ class Product < Ekylibre::Record::Base
 
   # Return the indicator datum
   def indicator(indicator, options = {})
+    ActiveSupport::Deprecation.warn("Product#indicator method is deprecated. Please use Product#indicate instead")
+    return indicate(indicator, options)
+  end
+
+  # Return the indicator datum
+  def indicate(indicator, options = {})
     measured_at = options[:at] || Time.now
-    return self.indicator_data.where(:indicator => indicator.to_s).where("measured_at <= ?", measured_at).reorder("measured_at DESC").first
+    return self.indicator_data.where(indicator: indicator.to_s).where("measured_at <= ?", measured_at).reorder("measured_at DESC").first
   end
 
   # Returns indicators for a set of product
@@ -442,7 +445,7 @@ class Product < Ekylibre::Record::Base
       end
       raise StandardError("Can not use :interpolate option with #{indicator.datatype.inspect} datatype")
     else
-      if datum = self.indicator(indicator.name.to_s, at: measured_at)
+      if datum = self.indicate(indicator.name.to_s, at: measured_at)
         x = datum.value
         # x.define_singleton_method(:measured_at) do
         #   measured_at

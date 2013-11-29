@@ -531,12 +531,13 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :intervention_casts do |t|
-      t.references :intervention,                                          null: false, index: true
-      t.references :actor,                                                              index: true
-      t.references :variant,                                                            index: true
-      t.decimal    :quantity,           precision: 19, scale: 4
+      t.references :intervention,                                null: false, index: true
+      t.references :actor,                                                    index: true
+      t.references :variant,                                                  index: true
+      t.decimal    :population,         precision: 19, scale: 4
+      t.geometry   :shape
       t.string     :roles,              limit: 320
-      t.string     :reference_name,                                        null: false
+      t.string     :reference_name,                              null: false
       t.stamps
       t.index      :reference_name
     end
@@ -833,9 +834,9 @@ class CreateBase < ActiveRecord::Migration
 
 
     create_table :product_indicator_data do |t|
+      # t.references :operation,                             index: true
+      t.references :originator,        polymorphic: true
       t.references :product,                                                            null: false, index: true
-      # t.references :move,                      polymorphic: true,                                    index: true
-      # t.references :operation,                                                                  index: true
       t.string     :indicator,                                                          null: false
       t.string     :indicator_datatype,                                                 null: false
       t.datetime   :measured_at,                                                        null: false
@@ -851,6 +852,7 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
       t.index      :indicator
       t.index      :measured_at
+      t.index      [:originator_id, :originator_type], name: :index_product_indicator_data_on_originator
     end
 
     create_table :product_enjoyments do |t|
@@ -956,6 +958,8 @@ class CreateBase < ActiveRecord::Migration
       t.string     :nature,                   null: false
       t.references :producer,                              index: true
       t.references :product,                  null: false, index: true
+      t.decimal    :population,   precision: 19, scale: 4
+      t.geometry   :shape
       t.datetime   :started_at
       t.datetime   :stopped_at
       t.stamps

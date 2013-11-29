@@ -45,6 +45,7 @@
 class ProductIndicatorDatum < Ekylibre::Record::Base
   include IndicatorDatumStorable
   belongs_to :product
+  belongs_to :originator, polymorphic: true
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value_value, allow_nil: true

@@ -40,7 +40,7 @@ class ProductBirth < Ekylibre::Record::Base
   include Taskable
   belongs_to :product
   belongs_to :producer, class_name: "Product"
-  enumerize :nature, in: [:division, :creation]
+  enumerize :nature, in: [:division, :creation], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :nature, :product
@@ -59,6 +59,23 @@ class ProductBirth < Ekylibre::Record::Base
         self.product.update_attribute(:born_at, self.stopped_at)
       end
     end
+  end
+
+  after_save do
+    if self.division?
+      # Duplicate individual indicator data
+      for indicator in producer.variant.indicators_related_to(:individual)
+        product.is_measured!(indicator.name, producer.indicator(indicator.name, self.started_at), at: self.stopped_at, originator: self)
+      end
+      # Add whole indicator data
+      for indicator in producer.variant.indicators_related_to(:whole)
+        producer_datum = producer.indicator(indicator.name, self.started_at)
+        product_datum_value = self.send(indicator.name)
+        product.is_measured!(indicator.name, product_datum_value, at: self.stopped_at, originator: self)
+        producer.is_measured!(indicator.name, producer_datum.value - product_datum_value, at: self.stopped_at, originator: self)
+      end
+    end
+
   end
 
   before_destroy do
