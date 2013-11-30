@@ -3,21 +3,20 @@
   <nomenclature name="indicators">
     <attributes>
       <attribute name="datatype" type="choice" choices="string, decimal, boolean, choice, measure, point, multi_polygon, geometry" required="true"/>
+      <attribute name="related_to" type="choice" choices="whole, individual" default="individual"/>
       <attribute name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="last"/>
       <attribute name="unit" type="choice" nomenclature="units" required="false"/>
       <attribute name="choices" type="list" required="false"/>
     </attributes>
     <items>
-      <item name="population" datatype="decimal"/>
-      <!-- <item name="population" datatype="measure" unit="unity"/> -->
+      <item name="population" datatype="decimal" related_to="whole"/>
       <item name="temperature" datatype="measure" unit="celsius"/>
       <item name="net_weight" datatype="measure" unit="kilogram"/>
       <item name="net_volume" datatype="measure" unit="liter"/>
       <item name="net_surface_area" datatype="measure" unit="square_meter"/>
-      <item name="shape" datatype="geometry"/>
+      <item name="shape" datatype="geometry" related_to="whole"/>
       <item name="geographic_coordinate" datatype="point"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
-      <!-- <item name="weight" datatype="measure" unit="kilogram"/> -->
       <item name="sex" datatype="choice" choices="male, female, undefined"/>
       <item name="reproductor" datatype="boolean"/>
       <item name="livestock_unit" datatype="decimal"/>
@@ -29,7 +28,6 @@
       <item name="application_width" datatype="measure" unit="meter"/>
       <item name="maximum_load_net_volume" datatype="measure" unit="liter"/>
       <item name="maximum_load_net_weight" datatype="measure" unit="kilogram"/>
-      
       <item name="animal_life_state" datatype="choice" choices="first_growth, second_growth, aging"/>
       <item name="mammalia_born_condition" datatype="choice" choices="without_help, few_help, great_help, caesarean, cutting_calf"/><!-- nomenclature EDE à terme -->
       <item name="mammalia_twins_condition" datatype="choice" choices="none, twins, triplets"/><!-- nomenclature EDE à terme -->

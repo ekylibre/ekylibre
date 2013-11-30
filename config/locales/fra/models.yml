@@ -841,7 +841,7 @@ fra:
     nature_name: "Nature name"
     natures: "Natures"
     net_volume: "Volume net" #?
-    net_weight: "Masse nette" #?
+    net_weight: "Masse nette"
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
     nodes: "Nœuds d’extraction"
@@ -952,6 +952,7 @@ fra:
     product_deaths: "Product deaths"
     product_enjoyments: "Product enjoyments"
     product_events: "Product events"
+    product_indicator_data: "Product indicator data"
     product_linkages: "Product linkages"
     product_localizations: "Product localizations"
     product_measurements: "Product measurements"
@@ -1054,6 +1055,7 @@ fra:
     serial: "N°Lot"
     serial_number: "Serial number"
     sex: "Sexe" #?
+    shape: "Shape"
     sign_in_count: "Nombre de connexions"
     siren: "N° SIREN"
     soundex: "Soundex" #?

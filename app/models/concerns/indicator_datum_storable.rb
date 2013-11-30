@@ -61,7 +61,7 @@ module IndicatorDatumStorable
         object = object.to_d
       end
     end
-    self.send(datatype.to_s + '_value=', object)
+    self.send("#{datatype}_value=", object)
   end
 
   # Retrieve datatype from nomenclature NOT from database

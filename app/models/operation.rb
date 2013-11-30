@@ -152,7 +152,7 @@ class Operation < Ekylibre::Record::Base
     begin
       send("perform_#{task.action.type}", task_actors(task))
     rescue Exception => e
-      raise TaskPerformingError, "Cannot perform #{task.action.type} (#{task.expression}) with #{task_actors(task).inspect}. #{e.message}." + e.backtrace.join("\n")
+      raise TaskPerformingError, "Cannot perform #{task.action.type} (#{task.expression}) with #{task_actors(task).inspect}.\n#{e.message}.\n" + e.backtrace.join("\n")
     end
   end
 

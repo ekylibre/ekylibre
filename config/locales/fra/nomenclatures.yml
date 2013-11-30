@@ -893,6 +893,7 @@ fra:
         choices: "Choix"
         datatype: "Datatype"
         interpolation: "Interpolation"
+        # related_to: "Related to"
         unit: "Unité"
       choices:
         datatype:
@@ -910,6 +911,9 @@ fra:
           # none: "None"
           # previous: "Previous"
           # sine: "Sine"
+        related_to:
+          # individual: "Individual"
+          # whole: "Whole"
         # unit: # Choices comes from nomenclature: units
       item_lists:
         sex:
@@ -917,61 +921,6 @@ fra:
             male: "Mâle"
             female: "Femelle"
             undefined: "Indéfini"
-        mammalia_born_condition:
-          choices:
-            # without_help: "Without help"
-            # few_help: "Few help"
-            # great_help: "Great help"
-            # caesarean: "Caesarean"
-            # cutting_calf: "Cutting calf"
-        animal_life_state:
-          choices:
-            # first_growth: "First growth"
-            # second_growth: "Second growth"
-            # aging: "Aging"
-        cultural_soil_state:
-          choices:
-            # covered: "Covered"
-            # raw: "Raw"
-            # nude: "Nude"
-            # plowed: "Plowed"
-            # grown: "Grown"
-        animal_disease_state:
-          choices:
-            # healthy: "Healthy"
-            # sick: "Sick"
-        mammalia_lactation_state:
-          choices:
-            # lactation: "Lactation"
-            # depletion: "Depletion"
-        mammalia_reproduction_state:
-          choices:
-            # back_heat: "Back heat"
-            # heat: "Heat"
-            # pregnancy: "Pregnancy"
-        mammalia_twins_condition:
-          choices:
-            # none: "None"
-            # twins: "Twins"
-            # triplets: "Triplets"
-        inhibitors_presence:
-          choices:
-            # negative: "Negative"
-            # positive: "Positive"
-        plant_reproduction_state:
-          choices:
-            # swelling: "Swelling"
-            # heading: "Heading"
-            # flowering: "Flowering"
-            # grain_maturity: "Grain maturity"
-            # grain_senescence: "Grain senescence"
-        plant_life_state:
-          choices:
-            # germination: "Germination"
-            # tillering: "Tillering"
-            # bolting: "Bolting"
-            # maturity: "Maturity"
-            # senescence: "Senescence"
       items:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"

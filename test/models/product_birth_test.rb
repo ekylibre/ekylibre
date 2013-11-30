@@ -20,18 +20,22 @@
 # 
 # == Table: product_births
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer          
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  nature       :string(255)      not null
-#  operation_id :integer          
-#  producer_id  :integer          
-#  product_id   :integer          not null
-#  started_at   :datetime         
-#  stopped_at   :datetime         
-#  updated_at   :datetime         not null
-#  updater_id   :integer          
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  nature          :string(255)      not null
+#  operation_id    :integer
+#  originator_id   :integer
+#  originator_type :string(255)
+#  population      :decimal(19, 4)
+#  producer_id     :integer
+#  product_id      :integer          not null
+#  shape           :spatial({:srid=>
+#  started_at      :datetime
+#  stopped_at      :datetime
+#  updated_at      :datetime         not null
+#  updater_id      :integer
 #
 require 'test_helper'
 

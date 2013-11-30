@@ -26,9 +26,10 @@
 #  id              :integer          not null, primary key
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
-#  quantity        :decimal(19, 4)   
+#  population      :decimal(19, 4)
 #  reference_name  :string(255)      not null
-#  roles           :string(320)      
+#  roles           :string(320)
+#  shape           :spatial({:srid=>
 #  updated_at      :datetime         not null
 #  updater_id      :integer          
 #  variant_id      :integer          
@@ -39,12 +40,12 @@ class InterventionCast < Ekylibre::Record::Base
   belongs_to :actor, class_name: "Product", inverse_of: :intervention_casts
   belongs_to :variant, class_name: "ProductNatureVariant"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :quantity, allow_nil: true
+  validates_numericality_of :population, allow_nil: true
   validates_length_of :reference_name, allow_nil: true, maximum: 255
   validates_length_of :roles, allow_nil: true, maximum: 320
   validates_presence_of :intervention, :reference_name
   #]VALIDATORS]
-  # composed_of :quantity, class_name: "Measure", :mapping => [%w(measure_quantity value), %w(measure_unit unit)]
+  # composed_of :population, class_name: "Measure", :mapping => [%w(measure_population value), %w(measure_unit unit)]
 
   delegate :name, to: :actor, prefix: true
   delegate :evaluated_price, to: :actor
@@ -64,7 +65,9 @@ class InterventionCast < Ekylibre::Record::Base
     end
     if self.actor.is_a?(Product)
       self.variant  ||= self.actor.variant
-      self.quantity ||= self.actor.population(at: self.started_at)
+      for indicator in self.actor.whole_indicators
+        self.send("#{indicator}=", self.actor.send(indicator, at: self.started_at)) unless self.send(indicator)
+      end
     end
   end
 
@@ -72,14 +75,12 @@ class InterventionCast < Ekylibre::Record::Base
     errors.add(:reference_name, :invalid) unless self.reference
   end
 
-  # multiply evaluated_price of an actor(product) and used quantity in this cast
+  # multiply evaluated_price of an actor(product) and used population in this cast
   def cost
     if self.actor and self.evaluated_price
-      if self.quantity
-        # case INPUT
-        self.evaluated_price * self.quantity
-      else
-        # case EQUIPEMENT, DOER
+      if self.input?
+        self.evaluated_price * self.population
+      else self.tool? or self.doer?
         duration = (self.stopped_at - self.started_at).in_second.convert(:hour).round(2)
         self.evaluated_price * duration.to_s.to_f
       end
@@ -100,13 +101,28 @@ class InterventionCast < Ekylibre::Record::Base
     self.reference.human_name
   end
 
+  for role in [:input, :output, :target, :tool, :doer]
+    code  = "def #{role}?(procedure_nature = nil)\n"
+    code << "  if procedure_nature\n"
+    code << "    self.roles_array.detect{|r| r.first == procedure_nature and r.second == :#{role}}\n"
+    code << "  else\n"
+    code << "    self.roles_array.detect{|r| r.second == :#{role}}\n"
+    code << "  end\n"
+    code << "end\n"
+    class_eval(code)
+  end
+
+  def roles_array
+    self.roles.split(/[\,[[:space:]]]+/).collect{|role| role.split(/\-/)[0..1].map(&:to_sym) }
+  end
+
   # Define if the cast is valid for run
   def runnable?
     if self.reference.new?
       if self.reference.known_variant?
-        return self.quantity.present?
+        return self.population.present?
       else
-        return (self.variant and self.quantity.present?)
+        return (self.variant and self.population.present?)
       end
     else
       return self.actor
