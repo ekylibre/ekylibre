@@ -741,6 +741,7 @@ module Ekylibre
     :product_birth => {
       :creator_id => :user,
       :operation_id => :operation,
+      :originator_id => "originator_type",
       :producer_id => :product,
       :product_id => :product,
       :updater_id => :user
@@ -749,6 +750,7 @@ module Ekylibre
       :absorber_id => :product,
       :creator_id => :user,
       :operation_id => :operation,
+      :originator_id => "originator_type",
       :product_id => :product,
       :updater_id => :user
     },
@@ -756,6 +758,7 @@ module Ekylibre
       :creator_id => :user,
       :enjoyer_id => :entity,
       :operation_id => :operation,
+      :originator_id => "originator_type",
       :product_id => :product,
       :updater_id => :user
     },
@@ -787,18 +790,21 @@ module Ekylibre
       :carrier_id => :product,
       :creator_id => :user,
       :operation_id => :operation,
+      :originator_id => "originator_type",
       :updater_id => :user
     },
     :product_localization => {
       :container_id => :product,
       :creator_id => :user,
       :operation_id => :operation,
+      :originator_id => "originator_type",
       :product_id => :product,
       :updater_id => :user
     },
     :product_measurement => {
       :creator_id => :user,
       :operation_id => :operation,
+      :originator_id => "originator_type",
       :product_id => :product,
       :reporter_id => :product,
       :tool_id => :product,
@@ -809,6 +815,7 @@ module Ekylibre
       :group_id => :product_group,
       :member_id => :product,
       :operation_id => :operation,
+      :originator_id => "originator_type",
       :updater_id => :user
     },
     :product_nature => {
@@ -839,6 +846,7 @@ module Ekylibre
     :product_ownership => {
       :creator_id => :user,
       :operation_id => :operation,
+      :originator_id => "originator_type",
       :owner_id => :entity,
       :product_id => :product,
       :updater_id => :user
@@ -848,6 +856,7 @@ module Ekylibre
       :creator_id => :user,
       :nature_id => :product_nature,
       :operation_id => :operation,
+      :originator_id => "originator_type",
       :product_id => :product,
       :updater_id => :user,
       :variant_id => :product_nature_variant
@@ -2155,6 +2164,8 @@ module Ekylibre
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       nature: Ekylibre::Record::Column.new(:nature, :string, null: false).freeze,
       operation_id: Ekylibre::Record::Column.new(:operation_id, :integer).freeze,
+      originator_id: Ekylibre::Record::Column.new(:originator_id, :integer).freeze,
+      originator_type: Ekylibre::Record::Column.new(:originator_type, :string).freeze,
       product_id: Ekylibre::Record::Column.new(:product_id, :integer, null: false).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime).freeze,
       stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,
@@ -2169,6 +2180,8 @@ module Ekylibre
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       nature: Ekylibre::Record::Column.new(:nature, :string, null: false).freeze,
       operation_id: Ekylibre::Record::Column.new(:operation_id, :integer).freeze,
+      originator_id: Ekylibre::Record::Column.new(:originator_id, :integer).freeze,
+      originator_type: Ekylibre::Record::Column.new(:originator_type, :string).freeze,
       product_id: Ekylibre::Record::Column.new(:product_id, :integer, null: false).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime).freeze,
       stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,
@@ -2207,6 +2220,8 @@ module Ekylibre
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       nature: Ekylibre::Record::Column.new(:nature, :string, null: false).freeze,
       operation_id: Ekylibre::Record::Column.new(:operation_id, :integer).freeze,
+      originator_id: Ekylibre::Record::Column.new(:originator_id, :integer).freeze,
+      originator_type: Ekylibre::Record::Column.new(:originator_type, :string).freeze,
       point: Ekylibre::Record::Column.new(:point, :string, null: false).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime).freeze,
       stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,
@@ -2223,6 +2238,8 @@ module Ekylibre
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       nature: Ekylibre::Record::Column.new(:nature, :string, null: false).freeze,
       operation_id: Ekylibre::Record::Column.new(:operation_id, :integer).freeze,
+      originator_id: Ekylibre::Record::Column.new(:originator_id, :integer).freeze,
+      originator_type: Ekylibre::Record::Column.new(:originator_type, :string).freeze,
       product_id: Ekylibre::Record::Column.new(:product_id, :integer, null: false).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime).freeze,
       stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,
@@ -2236,6 +2253,8 @@ module Ekylibre
       indicator: Ekylibre::Record::Column.new(:indicator, :string, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       operation_id: Ekylibre::Record::Column.new(:operation_id, :integer).freeze,
+      originator_id: Ekylibre::Record::Column.new(:originator_id, :integer).freeze,
+      originator_type: Ekylibre::Record::Column.new(:originator_type, :string).freeze,
       product_id: Ekylibre::Record::Column.new(:product_id, :integer, null: false).freeze,
       reporter_id: Ekylibre::Record::Column.new(:reporter_id, :integer).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime, null: false).freeze,
@@ -2253,6 +2272,8 @@ module Ekylibre
       member_id: Ekylibre::Record::Column.new(:member_id, :integer, null: false).freeze,
       nature: Ekylibre::Record::Column.new(:nature, :string, null: false).freeze,
       operation_id: Ekylibre::Record::Column.new(:operation_id, :integer).freeze,
+      originator_id: Ekylibre::Record::Column.new(:originator_id, :integer).freeze,
+      originator_type: Ekylibre::Record::Column.new(:originator_type, :string).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime, null: false).freeze,
       stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
@@ -2372,6 +2393,8 @@ module Ekylibre
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       nature: Ekylibre::Record::Column.new(:nature, :string, null: false).freeze,
       operation_id: Ekylibre::Record::Column.new(:operation_id, :integer).freeze,
+      originator_id: Ekylibre::Record::Column.new(:originator_id, :integer).freeze,
+      originator_type: Ekylibre::Record::Column.new(:originator_type, :string).freeze,
       owner_id: Ekylibre::Record::Column.new(:owner_id, :integer).freeze,
       product_id: Ekylibre::Record::Column.new(:product_id, :integer, null: false).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime).freeze,
@@ -2387,6 +2410,8 @@ module Ekylibre
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
       nature_id: Ekylibre::Record::Column.new(:nature_id, :integer, null: false).freeze,
       operation_id: Ekylibre::Record::Column.new(:operation_id, :integer).freeze,
+      originator_id: Ekylibre::Record::Column.new(:originator_id, :integer).freeze,
+      originator_type: Ekylibre::Record::Column.new(:originator_type, :string).freeze,
       product_id: Ekylibre::Record::Column.new(:product_id, :integer, null: false).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime).freeze,
       stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,

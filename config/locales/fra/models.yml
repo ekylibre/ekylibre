@@ -871,7 +871,7 @@ fra:
     origin_type: "Type de l’origine"
     original_name: "Nom original" #?
     originator: "Originator"
-    originator_type: "Originator type" #?
+    originator_type: "Originator type"
     outgoing_deliveries: "Livraisons sortantes"
     outgoing_delivery_items: "Lignes de livraisons sortantes"
     outgoing_delivery_modes: "Modes de livraisons sortantes" #?

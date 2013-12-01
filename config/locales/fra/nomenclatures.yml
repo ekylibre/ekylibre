@@ -916,11 +916,66 @@ fra:
           # whole: "Whole"
         # unit: # Choices comes from nomenclature: units
       item_lists:
+        animal_life_state:
+          choices:
+            # first_growth: "First growth"
+            # second_growth: "Second growth"
+            # aging: "Aging"
+        cultural_soil_state:
+          choices:
+            # covered: "Covered"
+            # raw: "Raw"
+            # nude: "Nude"
+            # plowed: "Plowed"
+            # grown: "Grown"
         sex:
           choices:
             male: "Mâle"
             female: "Femelle"
             undefined: "Indéfini"
+        mammalia_lactation_state:
+          choices:
+            # lactation: "Lactation"
+            # depletion: "Depletion"
+        mammalia_reproduction_state:
+          choices:
+            # back_heat: "Back heat"
+            # heat: "Heat"
+            # pregnancy: "Pregnancy"
+        mammalia_twins_condition:
+          choices:
+            # none: "None"
+            # twins: "Twins"
+            # triplets: "Triplets"
+        mammalia_born_condition:
+          choices:
+            # without_help: "Without help"
+            # few_help: "Few help"
+            # great_help: "Great help"
+            # caesarean: "Caesarean"
+            # cutting_calf: "Cutting calf"
+        inhibitors_presence:
+          choices:
+            # negative: "Negative"
+            # positive: "Positive"
+        plant_reproduction_state:
+          choices:
+            # swelling: "Swelling"
+            # heading: "Heading"
+            # flowering: "Flowering"
+            # grain_maturity: "Grain maturity"
+            # grain_senescence: "Grain senescence"
+        plant_life_state:
+          choices:
+            # germination: "Germination"
+            # tillering: "Tillering"
+            # bolting: "Bolting"
+            # maturity: "Maturity"
+            # senescence: "Senescence"
+        animal_disease_state:
+          choices:
+            # healthy: "Healthy"
+            # sick: "Sick"
       items:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
@@ -1138,7 +1193,7 @@ fra:
           gift: "Cadeaux"
           group: "Groupe"
           home: "Maison"
-          # land_parcels: "Land parcels"
+          land_parcels: "Parcelle culturale"
           leaf: "Feuille"
           legal: "Juridique"
           # lemon: "Lemon"
@@ -1339,8 +1394,8 @@ fra:
         crop: "Culture"
         cultivable_land_parcel: "Parcelle culturale"
         equipment: "Équipement"
-        # equipment_building_division: "Equipment building division"
-        # female_adult_cattle_herd: "Female adult cattle herd"
+        equipment_building_division: "Zone de stockage des équipements"
+        female_adult_cattle_herd: "Troupeau de vaches"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         food: "Aliment"
@@ -1377,14 +1432,14 @@ fra:
         tractor: "Tracteur"
         trailer: "Remorque"
     roles:
-      # name: "Roles"
+      name: "Nom"
       items:
         driver: "Conducteur"
         # gardener: "Gardener"
-        # input: "Input"
-        # output: "Output"
-        # target: "Target"
-        # tool: "Tool"
+        input: "Intrant"
+        output: "Produit"
+        target: "Cible"
+        tool: "Outil"
     taxes:
       name: "Type de taxes"
       attributes:
@@ -1423,151 +1478,151 @@ fra:
       choices:
         # dimension: # Choices comes from nomenclature: dimensions
       items:
-        # ampere: "Ampere"
-        are: "are"
-        # candela: "Candela"
-        celsius: "celsius"
-        # cubic_meter: "Cubic meter"
-        # day: "Day"
-        dozen: "douzaine"
+        ampere: "Ampere"
+        are: "Are"
+        candela: "Candela"
+        celsius: "Celsius"
+        cubic_meter: "Mètre cube"
+        day: "Jour"
+        dozen: "Douzaine"
         # english_horsepower: "English horsepower"
-        # farenheit: "Farenheit"
+        farenheit: "Farenheit"
         # french_horsepower: "French horsepower"
-        gram: "gramme"
-        # gram_per_liter: "Gram per liter"
-        hectare: "hectare"
-        # hectoliter: "Hectoliter"
-        # hour: "Hour"
-        hundred: "centaine"
-        # kelvin: "Kelvin"
+        gram: "Gramme"
+        gram_per_liter: "Gramme par litre"
+        hectare: "Hectare"
+        hectoliter: "Hectolitre"
+        hour: "Heure"
+        hundred: "Centaine"
+        kelvin: "Kelvin"
         kilogram: "kilogramme"
-        # kilogram_per_liter: "Kilogram per liter"
-        # kilometer: "Kilometer"
-        # kilowatt: "Kilowatt"
-        liter: "litre"
-        # megawatt: "Megawatt"
-        # meter: "Meter"
-        # microgram: "Microgram"
-        # microgram_per_liter: "Microgram per liter"
-        # milligram: "Milligram"
-        # milligram_per_liter: "Milligram per liter"
-        # milliliter: "Milliliter"
-        # millimeter: "Millimeter"
-        million: "million"
-        # minute: "Minute"
-        # mole: "Mole"
+        kilogram_per_liter: "Kilogramme par litre"
+        kilometer: "Kilométre"
+        kilowatt: "Kilowatt"
+        liter: "Litre"
+        megawatt: "Megawatt"
+        meter: "Métre"
+        microgram: "Microgramme"
+        microgram_per_liter: "Microgramme par litre"
+        milligram: "Milligramme"
+        milligram_per_liter: "Milligramme par litre"
+        milliliter: "Millilitre"
+        millimeter: "Millimétre"
+        million: "Million"
+        minute: "Minute"
+        mole: "Mole"
         pair: "paire"
-        # percent: "Percent"
-        quintal: "quintal"
-        # second: "Second"
+        percent: "Pourcent"
+        quintal: "Quintal"
+        second: "Seconde"
         square_meter: "mètre carré"
-        # ten: "Ten"
-        thousand: "millier"
-        # thousand_per_hectogram: "Thousand per hectogram"
-        # thousand_per_kilogram: "Thousand per kilogram"
-        # thousand_per_liter: "Thousand per liter"
-        # thousand_per_milliliter: "Thousand per milliliter"
-        ton: "tonne"
-        unity: "unité"
-        # unity_per_kilogram: "Unity per kilogram"
-        # unity_per_liter: "Unity per liter"
-        # watt: "Watt"
+        ten: "Dix"
+        thousand: "Millier"
+        thousand_per_hectogram: "Millier par hectogramme"
+        thousand_per_kilogram: "Millier par kilogramme"
+        thousand_per_liter: "Millier par litre"
+        thousand_per_milliliter: "Millier par millilitre"
+        ton: "Tonne"
+        unity: "Unité"
+        unity_per_kilogram: "Unité par kilogramme"
+        unity_per_liter: "Unité par litre"
+        watt: "Watt"
     varieties:
-      # name: "Varieties"
+      name: "Variétés"
       attributes:
-        # derivative_of: "Derivative of"
-        # europa-tsn: "Europa-tsn"
-        # itis-tsn: "Itis-tsn"
+        derivative_of: "Dérivé"
+        europa-tsn: "Identifiant EUROPA"
+        itis-tsn: "Identifiant ITIS"
       choices:
         # derivative_of: # Choices comes from nomenclature: varieties
       items:
         # acetal: "Acetal"                                 # animal_medicine
         # actilact: "Actilact"                             # animal_medicine
-        # additive: "Additive"                             # plant_medicine
+        additive: "Additifs"                               # plant_medicine
         anas: "Palmipèdes"                                 # mammalia
         animal: "Animaux"                                  # bioproduct
-        # animal_group: "Animal group"                     # product_group
-        # animal_medicine: "Animal medicine"               # medicine
-        # antiseptic: "Antiseptic"                         # medicine
-        # apache: "Apache"                                 # triticum_aestivum
+        animal_group: "Troupeaux"                          # product_group
+        animal_medicine: "Médicaments vétérinaires"        # medicine
+        antiseptic: "Antiseptiques"                        # medicine
+        apache: "Blé Apache"                               # triticum_aestivum
         apis: "Apidés"                                     # insecta
         asteraceae: "Astéracée"                            # plant
         # aves: "Aves"                                     # animal
-        # baler: "Baler"                                   # equipment
+        baler: "Botteleuses"                               # equipment
         bioproduct: "Produits vivants"                     # matter
         bos: "Bovins"                                      # mammalia
         # brassica_napus: "Brassica napus"                 # brassicaceae
         # brassica_nigra: "Brassica nigra"                 # brassicaceae
         # brassica_rapa: "Brassica rapa"                   # brassicaceae
         # brassicaceae: "Brassicaceae"                     # plant
-        # building: "Building"                             # product_group
-        # building_division: "Building division"           # sub_zone
-        caphorn: "Caphorn"                                 # triticum_aestivum
+        building: "Bâtiments"                              # product_group
+        building_division: "Pièces de bâtiments"           # sub_zone
+        caphorn: "Blé Caphorn"                             # triticum_aestivum
         capra: "Caprins"                                   # mammalia
-        # cultivable_land_parcel: "Cultivable land parcel" # land_parcel_group
-        # disinfectant: "Disinfectant"                     # antiseptic
-        # easement: "Easement"                             # zone
+        cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
+        disinfectant: "Désinfectants"                      # antiseptic
+        easement: "Aménagement foncier"                    # zone
         equipment: "Equipements"                           # matter
-        # forager: "Forager"                               # equipment
-        # fungicide: "Fungicide"                           # plant_medicine
+        forager: "Ensileuses"                              # equipment
+        fungicide: "Produits Fongicides"                   # plant_medicine
         fungus: "Champignons"                              # bioproduct
         gallus: "Galinacées"                               # aves
-        # grain: "Grain"                                   # organic_matter
+        grain: "Grains"                                    # organic_matter
         # harvest: "Harvest"                               # equipment
         # hay: "Hay"                                       # organic_matter
         helianthus: "Tournesol"                            # asteraceae
-        # herbicide: "Herbicide"                           # plant_medicine
+        herbicide: "Produits herbicides"                   # plant_medicine
         hordeum: "Orge"                                    # poaceae
         immatter: "Immatérialisable"                       # product
-        # insecta: "Insecta"                               # animal
-        # insecticide: "Insecticide"                       # plant_medicine
-        # land_parcel: "Land parcel"                       # easement
-        # land_parcel_cluster: "Land parcel cluster"       # land_parcel_group
-        # land_parcel_group: "Land parcel group"           # product_group
+        insecta: "Insectes"                                # animal
+        insecticide: "Produits insecticides"               # plant_medicine
+        land_parcel: "Parcelle physique"                   # easement
+        land_parcel_cluster: "Ilôts"                       # land_parcel_group
+        land_parcel_group: "Groupe de parcelles physiques" # product_group
         lepus: "Lagomorphes"                               # mammalia
         mammalia: "Mammifères"                             # animal
-        # manure: "Manure"                                 # organic_matter
+        manure: "Fumiers"                                  # organic_matter
         matter: "Matérialisable"                           # product
-        # meat: "Meat"                                     # organic_matter
-        # medicine: "Medicine"                             # matter
-        # milk: "Milk"                                     # organic_matter
-        # mineral_food: "Mineral food"                     # organic_matter
+        meat: "Viandes"                                    # organic_matter
+        medicine: "Médicaments"                            # matter
+        milk: "Lait"                                       # organic_matter
+        mineral_food: "Aliments minéraux"                  # organic_matter
         mineral_matter: "Matières minérales"               # matter
-        # mollusca: "Mollusca"                             # animal
-        # molluscicide: "Molluscicide"                     # plant_medicine
-        # mower: "Mower"                                   # equipment
+        mollusca: "Mollusques"                             # animal
+        molluscicide: "Produits molluscicides"             # plant_medicine
+        mower: "Faucheuses"                                # equipment
         organic_matter: "Matières organiques"              # matter
         # osteichthyes: "Osteichthyes"                     # animal
         ovis: "Ovins"                                      # mammalia
         plant: "Végétaux"                                  # bioproduct
         plant_food: "Nourriture végétale"                  # organic_matter
-        # plant_medicine: "Plant medicine"                 # medicine
-        # plower: "Plower"                                 # equipment
-        # poa: "Poa"                                       # poaceae
+        plant_medicine: "Produits phytosanitaires"         # medicine
+        plower: "Charrues"                                 # equipment
+        poa: "Prairies"                                    # poaceae
         poaceae: "Graminée"                                # plant
         product: "Produits"
         product_group: "Groupe de produits"                # product
         property_title: "Titre de propriété"               # immatter
         # reaper: "Reaper"                                 # equipment
         salmo: "Salmonidés"                                # osteichthyes
-        # salt: "Salt"                                     # mineral_matter
-        # seed: "Seed"                                     # organic_matter
+        salt: "Sel"                                        # mineral_matter
+        seed: "Semences"                                   # organic_matter
         service: "Services"                                # immatter
-        # settlement: "Settlement"                         # easement
+        settlement: "Agencement"                           # easement
         sorghum: "Sorgho"                                  # poaceae
-        # sower: "Sower"                                   # equipment
-        # sprayer: "Sprayer"                               # equipment
-        # spreader: "Spreader"                             # equipment
-        # straw: "Straw"                                   # organic_matter
-        # sub_zone: "Sub zone"                             # zone
+        sower: "Semoirs"                                   # equipment
+        sprayer: "Pulvérisateurs"                          # equipment
+        spreader: "Epandeurs"                              # equipment
+        straw: "Pailles"                                   # organic_matter
+        sub_zone: "Sous zones"                             # zone
         sus: "Porcins"                                     # mammalia
-        # tank: "Tank"                                     # equipment
-        tractor: "Tracteur"                                # equipment
-        # trailer: "Trailer"                               # equipment
+        tank: "Réservoir"                                  # equipment
+        tractor: "Tracteurs"                               # equipment
+        trailer: "Remorques"                               # equipment
         triticum_aestivum: "Blé tendre"                    # poaceae
         triticum_durum: "Blé dur"                          # poaceae
         triticum_spelta: "Epeautre"                        # poaceae
-        worker: "Travailleur"                              # equipment
+        worker: "Travailleurs"                             # equipment
         zea: "Maïs"                                        # poaceae
         zone: "Zone physique"                              # matter
         # zone_property_title: "Zone property title"       # property_title

@@ -41,7 +41,7 @@ class Backend::InterventionsController < BackendController
     t.column :reference_name
     t.column :actor, url: true
     t.column :roles
-    t.column :quantity
+    t.column :population
     t.column :variant, url: true
     # t.column :indicator
     # t.column :measure_quantity
