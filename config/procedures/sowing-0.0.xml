@@ -51,6 +51,18 @@
         <!-- a terme, on devrait être capable de faire IF le semoir est vide alors j'arrete de semer -->
         <!-- et je retourne charger des semences sur le tas global-->
       </operation>
+      <operation id="800" duration="18 minutes">
+        <task do="[tractor] moves in default storage of [sower]"/>
+      </operation>
+      <operation id="900" duration="4 minutes">
+        <task do="[tractor] releases [sower]"/>
+      </operation>
+      <operation id="1000" duration="7 minutes">
+        <task do="[tractor] moves in default storage"/>
+      </operation>
+      <operation id="1100" duration="4 minutes">
+        <task do="[driver] moves in default storage"/>
+      </operation> 
     </operations>        
   </procedure>
 </procedures>

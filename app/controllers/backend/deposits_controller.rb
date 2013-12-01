@@ -21,7 +21,7 @@ class Backend::DepositsController < BackendController
 
   unroll
 
-  list(:order => "created_at DESC") do |t|
+  list(order: "created_at DESC") do |t|
     t.column :number, url: true
     t.column :amount, currency: true, url: true
     t.column :payments_count
@@ -40,7 +40,7 @@ class Backend::DepositsController < BackendController
   end
 
 
-  list(:payments, :model => :incoming_payments, :conditions => {deposit_id: 'params[:id]'.c}, :pagination => :none, :order => :number) do |t|
+  list(:payments, model: :incoming_payments, conditions: {deposit_id: 'params[:id]'.c}, :pagination => :none, order: :number) do |t|
     t.column :number, url: true
     t.column :payer, url: true
     t.column :bank_name
@@ -62,7 +62,7 @@ class Backend::DepositsController < BackendController
   end
 
 
-  list(:depositable_payments, :model => :incoming_payments, :conditions => ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", 'session[:deposit_id]'.c, 'session[:payment_mode_id]'.c], :pagination => :none, :order => "to_bank_on, created_at", :line_class => "((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')".c) do |t|
+  list(:depositable_payments, model: :incoming_payments, conditions: ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", 'session[:deposit_id]'.c, 'session[:payment_mode_id]'.c], :pagination => :none, order: "to_bank_on, created_at", :line_class => "((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')".c) do |t|
     t.column :number, url: true
     t.column :payer, url: true
     t.column :bank_name
@@ -131,7 +131,7 @@ class Backend::DepositsController < BackendController
   end
 
 
-  list(:unvalidateds, :model => :deposits, :conditions => {:locked => false}) do |t|
+  list(:unvalidateds, model: :deposits, conditions: {:locked => false}) do |t|
     t.column :created_on
     t.column :amount
     t.column :payments_count

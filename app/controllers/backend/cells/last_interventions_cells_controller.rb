@@ -11,9 +11,9 @@ class Backend::Cells::LastInterventionsCellsController < Backend::CellsControlle
           # if container.is_a?(CultivableLandParcel)
           #   @container = container.class.find(container.id)
           if product.is_a?(Plant)
-            @container = CultivableLandParcel.find(product.last_localization.container)
+            @container = CultivableLandParcel.find(product.container)
           elsif product.is_a?(Animal)
-            @container = BuildingDivision.find(product.last_localization.container)
+            @container = BuildingDivision.find(product.container)
           else
             @container = product
           end

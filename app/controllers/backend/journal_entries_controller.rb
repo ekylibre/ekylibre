@@ -22,7 +22,7 @@ class Backend::JournalEntriesController < BackendController
 
   unroll
 
-  list(:children => :items, :order => "created_at DESC", :per_page => 10) do |t|
+  list(:children => :items, order: "created_at DESC", :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     t.column :state_label
@@ -36,7 +36,7 @@ class Backend::JournalEntriesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:items, :model => :journal_entry_items, :conditions => {:entry_id => 'params[:id]'.c}, :order => "entry_id DESC, position") do |t|
+  list(:items, model: :journal_entry_items, conditions: {:entry_id => 'params[:id]'.c}, order: "entry_id DESC, position") do |t|
     t.column :name
     t.column :account, url: true
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true

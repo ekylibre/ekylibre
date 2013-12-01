@@ -23,7 +23,7 @@ class Backend::OutgoingPaymentModesController < BackendController
 
   unroll
 
-  list(:order => :position) do |t|
+  list(order: :position) do |t|
     t.column :name
     t.column :cash, url: true
     t.column :with_accounting

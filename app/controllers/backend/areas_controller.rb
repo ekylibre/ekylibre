@@ -24,7 +24,7 @@ class Backend::AreasController < BackendController
 
   autocomplete_for :name
 
-  list(:conditions => search_conditions(:areas => [:postcode, :name]), :order => :name) do |t|
+  list(conditions: search_conditions(:areas => [:postcode, :name]), order: :name) do |t|
     t.column :name
     t.column :postcode
     t.column :city

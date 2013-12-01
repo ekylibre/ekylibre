@@ -27,13 +27,12 @@ class Backend::ProductsController < BackendController
 
   unroll
 
-  list do |t|
-    # t.column :active
+  list() do |t|
     t.column :number, url: true
     t.column :name, url: true
     t.column :variant, url: true
     t.column :variety
-    t.column :localize_in
+    t.column :container, url: true
     t.column :description
     t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
@@ -41,7 +40,7 @@ class Backend::ProductsController < BackendController
   end
 
   # content product list of the consider product
-  list(:contained_products, :model => :product_localizations, :conditions => {container_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
+  list(:contained_products, model: :product_localizations, conditions: {container_id: 'params[:id]'.c}, order: "started_at DESC") do |t|
     t.column :product, url: true
     t.column :nature
     t.column :started_at
@@ -51,10 +50,10 @@ class Backend::ProductsController < BackendController
   end
 
   # localization of the consider product
-  list(:places, :model => :product_localizations, :conditions => {product_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
+  list(:places, model: :product_localizations, conditions: {product_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :nature
     t.column :container, url: true
-    t.column :intervention_name
+    t.column :intervention, url: true
     t.column :started_at
     t.column :arrival_cause, hidden: true
     t.column :stopped_at, hidden: true
@@ -62,28 +61,28 @@ class Backend::ProductsController < BackendController
   end
 
   # groups of the consider product
-  list(:groups, :model => :product_memberships, :conditions => {member_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
+  list(:groups, model: :product_memberships, conditions: {member_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :group, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
   # members of the consider product
-  list(:members, :model => :product_memberships, :conditions => {group_id: 'params[:id]'.c}, :order => "started_at ASC") do |t|
+  list(:members, model: :product_memberships, conditions: {group_id: 'params[:id]'.c}, order: :started_at) do |t|
     t.column :member, url: true
     t.column :started_at
     t.column :stopped_at
   end
 
   # indicators of the consider product
-  list(:indicators, :model => :product_indicator_data, :conditions => {product_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
+  list(:indicators, model: :product_indicator_data, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :indicator
     t.column :measured_at
     t.column :value
   end
 
   # incidents of the consider product
-  list(:incidents, :conditions => {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, :order => "observed_at DESC") do |t|
+  list(:incidents, conditions: {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, order: "observed_at DESC") do |t|
     t.column :name, url: true
     t.column :nature
     t.column :observed_at
@@ -93,7 +92,7 @@ class Backend::ProductsController < BackendController
   end
 
   # incidents of the consider product
-  list(:intervention_casts, :conditions => {actor_id: 'params[:id]'.c}) do |t|
+  list(:intervention_casts, conditions: {actor_id: 'params[:id]'.c}) do |t|
     t.column :intervention, url: true
     t.column :roles
     t.column :name

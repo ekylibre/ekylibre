@@ -55,8 +55,8 @@ module ActiveList
       end
       code << "  end\n"
       # Save preferences of user
-      code << "  p = current_user.pref('list.#{self.view_method_name}', YAML::dump(#{var_name(:params)}))\n"
-      code << "  p.set! YAML::dump(#{var_name(:params)})\n"
+      code << "  p = current_user.pref('list.#{self.view_method_name}', YAML::dump({}))\n"
+      code << "  p.set! YAML::dump(#{var_name(:params)}.stringify_keys)\n"
       code << "end\n"
       # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
       unless Rails.env.production?
@@ -88,19 +88,24 @@ module ActiveList
       code << "options.update(params)\n"
       code << "#{var_name(:params)} = YAML::load(current_user.pref('list.#{self.view_method_name}', YAML::dump({})).value)\n"
       code << "#{var_name(:params)} = {} unless #{var_name(:params)}.is_a?(Hash)\n"
+      code << "#{var_name(:params)}.update(options.symbolize_keys)\n"
       code << "unless #{var_name(:params)}[:hidden_columns].is_a? Array\n"
       code << "  #{var_name(:params)}[:hidden_columns] = #{@table.hidden_columns.map(&:name).map(&:to_sym).inspect}\n"
       code << "end\n"
       for parameter, convertor in @parameters.sort{|a,b| a[0].to_s <=> b[0].to_s}
-        expr = "options.delete('#{@table.name}_#{parameter}') || options.delete('#{parameter}') || #{var_name(:params)}[:#{parameter}]"
-        expr += " || #{@table.options[parameter]}" unless @table.options[parameter].blank?
-        code << "#{var_name(:params)}[:#{parameter}] = (#{expr}).#{convertor}\n"
+        # expr  = "options.delete('#{@table.name}_#{parameter}') || options.delete('#{parameter}') || #{var_name(:params)}[:#{parameter}]"
+        # expr += " || #{@table.options[parameter]}" unless @table.options[parameter].blank?
+        # code << "#{var_name(:params)}[:#{parameter}] = (#{expr}).#{convertor}\n"
+        expr  = "#{var_name(:params)}[:#{parameter}]"
+        expr = "(#{expr} || #{@table.options[parameter]})" unless @table.options[parameter].blank?
+        code << "#{var_name(:params)}[:#{parameter}] = #{expr}.#{convertor}\n"
       end
       # Order
       code << "#{var_name(:order)} = #{@table.options[:order] ? @table.options[:order].inspect : 'nil'}\n"
-      code << "if #{var_name(:col)} = {" + @table.sortable_columns.collect{|c| "'#{c.sort_id}' => '#{c.name}'"}.join(', ') + "}[#{var_name(:params)}[:sort]]\n"
-      code << "  #{var_name(:params)}[:dir] = 'ASC' unless #{var_name(:params)}[:dir] == 'asc' or #{var_name(:params)}[:dir] == 'desc'\n"
-      code << "  #{var_name(:order)} = #{@table.model.name}.connection.quote_column_name(#{var_name(:col)}) + ' ' + #{var_name(:params)}[:dir]\n"
+      code << "if #{var_name(:col)} = {" + @table.sortable_columns.collect{|c| "'#{c.sort_id}' => '#{c.sort_expression}'"}.join(', ') + "}[#{var_name(:params)}[:sort]]\n"
+      code << "  #{var_name(:params)}[:dir] = 'asc' unless #{var_name(:params)}[:dir] == 'asc' or #{var_name(:params)}[:dir] == 'desc'\n"
+      # code << "  #{var_name(:order)} = #{@table.model.name}.connection.quote_column_name(#{var_name(:col)}) + ' ' + #{var_name(:params)}[:dir]\n"
+      code << "  #{var_name(:order)} = #{var_name(:col)} + ' ' + #{var_name(:params)}[:dir]\n"
       code << "end\n"
 
       return code

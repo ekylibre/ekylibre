@@ -4,11 +4,12 @@ module ActiveList
 
     class AttributeColumn < DataColumn
 
-      attr_reader :column, :label_method
+      attr_reader :column, :label_method, :sort_column
 
       def initialize(table, name, options = {})
         super(table, name, options)
         @label_method = (options[:label_method] || @name).to_sym
+        @sort_column = (options[:sort] || @name).to_sym
         @column  = @table.model.columns_definition[@label_method.to_s]
       end
 
@@ -39,6 +40,9 @@ module ActiveList
         return false
       end
 
+      def sort_expression
+        "#{@table.model.table_name}.#{@sort_column}"
+      end
 
     end
 

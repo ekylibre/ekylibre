@@ -23,7 +23,7 @@ class Backend::OutgoingDeliveriesController < BackendController
 
   unroll
 
-  list(:conditions => search_conditions(:outgoing_deliveries => [:number, :reference_number, :weight], :entities => [:full_name, :code])) do |t|
+  list(conditions: search_conditions(:outgoing_deliveries => [:number, :reference_number, :weight], :entities => [:full_name, :code])) do |t|
     t.column :number, url: true
     t.column :transport, url: true
     t.column :transporter, url: true
@@ -38,7 +38,7 @@ class Backend::OutgoingDeliveriesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:items, :model => :outgoing_delivery_items, :conditions => {:delivery_id => 'params[:id]'.c}) do |t|
+  list(:items, model: :outgoing_delivery_items, conditions: {:delivery_id => 'params[:id]'.c}) do |t|
     t.column :product, url: true
     t.column :product_work_number, through: :product, label_method: :work_number
     t.column :quantity

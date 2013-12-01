@@ -32,7 +32,7 @@ class Backend::JournalsController < BackendController
     search_options = {}
     filter = {JournalEntryItem.table_name => [:name, :debit, :credit]}
     unless options[:with_items]
-      code << search_conditions(filter, :conditions => "cjel")+"\n"
+      code << search_conditions(filter, conditions: "cjel")+"\n"
       search_options[:filters] = {"#{JournalEntry.table_name}.id IN (SELECT entry_id FROM #{JournalEntryItem.table_name} WHERE '+cjel[0]+')" => "cjel[1..-1]"}
       filter.delete(JournalEntryItem.table_name)
     end
@@ -57,7 +57,7 @@ class Backend::JournalsController < BackendController
     return code.gsub(/\s*\n\s*/, ";").c
   end
 
-  list(:items, :model => :journal_entry_items, :conditions => journal_entries_conditions, :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+  list(:items, model: :journal_entry_items, conditions: journal_entries_conditions, joins: :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :entry_number, url: true
     t.column :printed_on, through: :entry, :datatype => :date
     t.column :account, url: true
@@ -73,7 +73,7 @@ class Backend::JournalsController < BackendController
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
   end
 
-  list(:entries, :model => :journal_entries, :conditions => journal_entries_conditions, :order => "created_at DESC") do |t|
+  list(:entries, model: :journal_entries, conditions: journal_entries_conditions, order: "created_at DESC") do |t|
     t.column :number, url: true
     t.column :printed_on
     t.column :state_label
@@ -88,7 +88,7 @@ class Backend::JournalsController < BackendController
   end
 
   # FIXME RECORD.real_currency does not exist
-  list(:mixed, :model => :journal_entries, :conditions => journal_entries_conditions, :children => :items, :order => "created_at DESC", :per_page => 10) do |t|
+  list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, :children => :items, order: "created_at DESC", :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     # t.column :label, through: :account, url: {:action => :account}
@@ -104,7 +104,7 @@ class Backend::JournalsController < BackendController
   end
 
   #FIXME undefined method `human_name' for nil:NilClass
-  list(:order => :code) do |t|
+  list(order: :code) do |t|
     t.column :name, url: true
     t.column :code, url: true
     t.column :nature
@@ -168,7 +168,7 @@ class Backend::JournalsController < BackendController
 
 
   # FIXME RECORD.real_currency does not exist
-  list(:draft_items, :model => :journal_entry_items, :conditions => journal_entries_conditions(:with_journals => true, :state => :draft), :joins => :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+  list(:draft_items, model: :journal_entry_items, conditions: journal_entries_conditions(:with_journals => true, :state => :draft), joins: :entry, :line_class => "(RECORD.position==1 ? 'first-item' : '')".c, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
     t.column :printed_on, :datatype => :date
@@ -251,7 +251,7 @@ class Backend::JournalsController < BackendController
   def self.general_ledger_conditions(options={})
     conn = ActiveRecord::Base.connection
     code = ""
-    code << search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit]}, :conditions => "c")+"\n"
+    code << search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit]}, conditions: "c")+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     code << accounts_range_crit("params")
@@ -262,7 +262,7 @@ class Backend::JournalsController < BackendController
   end
 
   # FIXME RECORD.real_currency does not exist
-  list(:general_ledger, :model => :journal_entry_items, :conditions => general_ledger_conditions, :joins => [:entry, :account], :order => "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
+  list(:general_ledger, model: :journal_entry_items, conditions: general_ledger_conditions, joins: [:entry, :account], order: "accounts.number, journal_entries.number, #{JournalEntryItem.table_name}.position") do |t|
     t.column :account, url: true
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
     t.column :account_name, through: :account, label_method: :name, url: true, hidden: true

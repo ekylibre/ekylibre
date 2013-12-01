@@ -28,7 +28,7 @@ class Backend::CultivableLandParcelsController < Backend::LandParcelGroupsContro
   end
 
   # content production on current cultivable land parcel
-  list(:productions, :model => :production_supports, :conditions => {storage_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
+  list(:productions, model: :production_supports, conditions: {storage_id: 'params[:id]'.c}, order: "started_at DESC") do |t|
     t.column :production, url: true
     t.column :exclusive
     t.column :started_at

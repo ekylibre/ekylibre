@@ -33,7 +33,7 @@ class Backend::ProductNatureCategoriesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:products, :conditions => {category_id: 'params[:id]'.c}, :order => "born_at DESC") do |t|
+  list(:products, conditions: {category_id: 'params[:id]'.c}, order: "born_at DESC") do |t|
     t.column :name, url: true
     t.column :identification_number
     t.column :born_at
@@ -42,7 +42,7 @@ class Backend::ProductNatureCategoriesController < BackendController
     t.column :population
   end
 
-  list(:product_natures, :conditions => {category_id: 'params[:id]'.c}, :order => "name ASC") do |t|
+  list(:product_natures, conditions: {category_id: 'params[:id]'.c}, order: "name ASC") do |t|
     t.column :name, url: true
     t.column :variety
     t.action :edit

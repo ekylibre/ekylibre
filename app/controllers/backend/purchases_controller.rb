@@ -22,7 +22,7 @@ class Backend::PurchasesController < BackendController
 
   unroll
 
-  list(:conditions => search_conditions(:purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), :joins => :supplier, :line_class => :status, :order => "created_on DESC, number DESC") do |t|
+  list(conditions: search_conditions(:purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), joins: :supplier, :line_class => :status, order: "created_on DESC, number DESC") do |t|
     t.column :number, url: {:action => :show, :step => :default}
     t.column :reference_number, url: {:action => :show, :step => :products}
     t.column :created_on
@@ -39,7 +39,7 @@ class Backend::PurchasesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:deliveries, :model => :incoming_deliveries, :children => :items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
+  list(:deliveries, model: :incoming_deliveries, :children => :items, conditions: {:purchase_id => 'params[:id]'.c}) do |t|
     t.column :address, :children => :product_name
     t.column :received_at, :children => false
     t.column :quantity, :datatype => :decimal
@@ -49,7 +49,7 @@ class Backend::PurchasesController < BackendController
     t.action :destroy, :if => :order?
   end
 
-  list(:undelivered_items, :model => :purchase_items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
+  list(:undelivered_items, model: :purchase_items, conditions: {:purchase_id => 'params[:id]'.c}) do |t|
     t.column :variant
     # t.column :pretax_amount, currency: true, through: :price
     t.column :quantity
@@ -58,7 +58,7 @@ class Backend::PurchasesController < BackendController
     t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, :model => :purchase_items, :conditions => {:purchase_id => 'params[:id]'.c}) do |t|
+  list(:items, model: :purchase_items, conditions: {:purchase_id => 'params[:id]'.c}) do |t|
     t.column :variant, url: true
     t.column :annotation
     #t.column :tracking_serial

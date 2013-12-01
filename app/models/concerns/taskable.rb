@@ -13,11 +13,7 @@ module Taskable
     has_many :product_measurements,   as: :originator, dependent: :destroy
     has_many :product_memberships,    as: :originator, dependent: :destroy
     has_many :product_ownerships,     as: :originator, dependent: :destroy
-    delegate :intervention, to: :operation
-  end
-
-  def intervention
-    return (self.operation ? self.intervention : nil)
+    has_one :intervention, through: :operation
   end
 
 end

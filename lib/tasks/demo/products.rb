@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 demo :products do
 
-  building_division = BuildingDivision.first
+  unless building_division = BuildingDivision.first
+    raise "Need a BuildingDivision"
+  end
 
   Ekylibre::fixturize :equipments do |w|
     #############################################################################
@@ -96,7 +98,7 @@ demo :products do
 
       # create the product
       product = pmodel.create!(:variant_id => variant.id,
-                                    :name => r.name, :born_at => r.born_at, :initial_owner => owner, :variety => r.variety, :derivative_of => r.derivative_of, :default_storage => building_division )
+                               :name => r.name, :born_at => r.born_at, :initial_owner => owner, :variety => r.variety, :derivative_of => r.derivative_of, :default_storage => building_division)
 
       # create indicators linked to equipment
       for indicator, value in r.indicators

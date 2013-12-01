@@ -22,7 +22,7 @@ class Backend::TeamsController < BackendController
 
   unroll
 
-  list(:order => :name) do |t|
+  list(order: :name) do |t|
     t.column :name
     t.column :description
     t.action :edit

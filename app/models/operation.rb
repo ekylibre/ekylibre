@@ -39,7 +39,6 @@ end
 
 class Operation < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :operations
-
   has_many :product_births,        dependent: :destroy
   has_many :product_deaths,        dependent: :destroy
   has_many :product_enjoyments,    dependent: :destroy
@@ -167,7 +166,7 @@ class Operation < Ekylibre::Record::Base
   # == Localizations
 
   def perform_direct_movement(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product: actors[:product], container: actors[:localizable].container(self.started_at))
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product: actors[:product], container: actors[:localizable].localizations.at(self.started_at).first.container)
   end
 
   def perform_direct_entering(actors)
@@ -176,7 +175,12 @@ class Operation < Ekylibre::Record::Base
 
   def perform_movement(actors)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: actors[:product], container: actors[:localizable].container(self.stopped_at))
+    localization = actors[:localizable].localizations.at(self.stopped_at).first
+    while localization.container.nil?
+      break unless localization = localization.previous
+    end
+    container = localization.container || actors[:localizable].default_storage
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: actors[:product], container: container)
   end
 
   def perform_entering(actors)

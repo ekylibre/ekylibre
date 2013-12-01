@@ -45,7 +45,7 @@ class Backend::MandatesController < BackendController
     return code.c
   end
 
-  list(:conditions => mandates_conditions) do |t|
+  list(conditions: mandates_conditions) do |t|
     t.column :entity, url: true
     t.column :title
     t.column :organization

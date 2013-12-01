@@ -37,10 +37,10 @@
 #  variant_id      :integer          not null
 #
 class ProductPhase < Ekylibre::Record::Base
-  include Taskable
+  include Taskable, TimeLineable
   belongs_to :product
-  belongs_to :variant, class_name: "ProductNatureVariant"
-  belongs_to :nature, class_name: "ProductNature"
+  belongs_to :variant,  class_name: "ProductNatureVariant"
+  belongs_to :nature,   class_name: "ProductNature"
   belongs_to :category, class_name: "ProductNatureCategory"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :originator_type, allow_nil: true, maximum: 255
@@ -57,6 +57,12 @@ class ProductPhase < Ekylibre::Record::Base
     if self.nature
       self.category = self.nature.category
     end
+  end
+
+  private
+
+  def siblings
+    self.product.phases
   end
 
 end

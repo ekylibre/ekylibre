@@ -22,16 +22,12 @@ class Backend::EstablishmentsController < BackendController
 
   unroll
 
-  list(:order => :name) do |t|
+  list(order: :name) do |t|
     t.column :name
     t.column :code
     t.column :description
     t.action :edit
     t.action :destroy
-  end
-
-  # Displays the main page with the list of establishments
-  def index
   end
 
 end

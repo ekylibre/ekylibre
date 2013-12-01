@@ -33,7 +33,7 @@ class Backend::ActivitiesController < BackendController
   end
 
   # List of productions for one activity
-  list(:productions, :conditions => {activity_id: 'params[:id]'.c}, :order => "started_at DESC") do |t|
+  list(:productions, conditions: {activity_id: 'params[:id]'.c}, order: "started_at DESC") do |t|
     t.column :name, url: true
     # t.column :product_nature, url: true
     t.column :state

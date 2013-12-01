@@ -35,7 +35,7 @@ class Backend::AccountsController < BackendController
     return code.c
   end
 
-  list(:conditions => accounts_conditions, :order => "number ASC", :per_page => 20) do |t|
+  list(conditions: accounts_conditions, order: "number ASC", :per_page => 20) do |t|
     t.column :number, url: true
     t.column :name, url: true
     t.column :reconcilable
@@ -50,7 +50,7 @@ class Backend::AccountsController < BackendController
 
   def self.account_moves_conditions(options={})
     code = ""
-    code << search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit], :journal_entry => [:number]}, :conditions => "c", :variable => "params[:b]".c)+"\n"
+    code << search_conditions({:journal_entry_item => [:name, :debit, :credit, :real_debit, :real_credit], :journal_entry => [:number]}, conditions: "c", :variable => "params[:b]".c)+"\n"
     code << journal_period_crit("params")
     code << journal_entries_states_crit("params")
     # code << journals_crit("params")
@@ -60,7 +60,7 @@ class Backend::AccountsController < BackendController
     return code.c
   end
 
-  list(:journal_entry_items, :joins => :entry, :conditions => account_moves_conditions, :order => "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
+  list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
     t.column :printed_on, :datatype => :date, :label => :column
@@ -75,7 +75,7 @@ class Backend::AccountsController < BackendController
     t.column :absolute_credit, currency: :absolute_currency
   end
 
-  list(:entities, :conditions => ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], :order => "created_at DESC") do |t| # , attorney_account_id
+  list(:entities, conditions: ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], order: "created_at DESC") do |t| # , attorney_account_id
     t.column :activity_code, url: true
     t.column :full_name, url: true
     t.column :client_account, url: true
@@ -91,7 +91,7 @@ class Backend::AccountsController < BackendController
     return code.c
   end
 
-  list(:reconciliation, :model => :journal_entry_items, :joins => [:entry, :account], :conditions => account_reconciliation_conditions, :order => "accounts.number, journal_entries.printed_on") do |t|
+  list(:reconciliation, model: :journal_entry_items, joins: [:entry, :account], conditions: account_reconciliation_conditions, order: "accounts.number, journal_entries.printed_on") do |t|
     t.column :account_number, through: :account, label_method: :number, url: {:action => :mark}
     t.column :account_name, through: :account, label_method: :name, url: {:action => :mark}
     t.column :entry_number

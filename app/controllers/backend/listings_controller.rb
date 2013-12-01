@@ -21,7 +21,7 @@ class Backend::ListingsController < BackendController
 
   unroll
 
-  list(:order => :name) do |t|
+  list(order: :name) do |t|
     t.column :name, url: {:action => :edit}
     t.column :root_model_name
     t.column :description

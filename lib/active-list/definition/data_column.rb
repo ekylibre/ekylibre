@@ -4,6 +4,8 @@ module ActiveList
 
     class DataColumn < AbstractColumn
 
+      LABELS_COLUMNS = [:full_name, :label, :name, :number, :coordinate]
+
       def header_code
         if @options[:label]
           "#{@options[:label].to_s.strip.inspect}.tl".c
@@ -65,13 +67,18 @@ module ActiveList
 
       # Check if a column is sortable
       def sortable?
-        #not self.action? and
+        return true
+        # not self.action? and
         not self.options[:through] and not @column.nil?
       end
 
       # Generate code in order to get the (foreign) record of the column
       def record_expr(record = 'record_of_the_death')
         return record
+      end
+
+      def sort_expression
+        raise NotImplementedError, "sort_expression must be implemented"
       end
 
     end

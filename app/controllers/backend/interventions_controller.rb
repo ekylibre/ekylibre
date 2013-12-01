@@ -17,38 +17,38 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::InterventionsController < BackendController
-  manage_restfully :t3e => {:procedure_name => "RECORD.reference.human_name".c}
+  manage_restfully t3e: {procedure_name: "RECORD.reference.human_name".c}
 
   unroll
 
   # INDEX
 
-  list(order: "started_at DESC", line_class: :status) do |t|
+  list(order: {started_at: :desc}, line_class: :status) do |t|
     t.column :reference_name, label_method: :name, url: true
     t.column :production, url: true
     t.column :incident, url: true
     t.column :state, hidden: true
     t.column :casting
     t.column :started_at
-    t.action :run, if: :runnable?, method: :post, confirm: true
-    t.action :edit, if: :updateable?
-    t.action :destroy, if: :destroyable?
+    t.action :run, :if => :runnable?, method: :post, confirm: true
+    t.action :edit, :if => :updateable?
+    t.action :destroy, :if => :destroyable?
   end
 
   # SHOW
 
-  list(:casts, :model => :intervention_casts, :conditions => {intervention_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
+  list(:casts, model: :intervention_casts, conditions: {intervention_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :reference_name
     t.column :actor, url: true
     t.column :roles
-    t.column :quantity
+    t.column :population
     t.column :variant, url: true
     # t.column :indicator
     # t.column :measure_quantity
     # t.column :measure_unit
   end
 
-  list(:operations, :conditions => {intervention_id: 'params[:id]'.c}, :order => "started_at") do |t|
+  list(:operations, conditions: {intervention_id: 'params[:id]'.c}, order: :started_at) do |t|
     t.column :reference_name
     t.column :description
     # t.column :name, url: true

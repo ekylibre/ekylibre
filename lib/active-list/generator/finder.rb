@@ -9,28 +9,31 @@ module ActiveList
       # Check order
       unless @table.options.keys.include?(:order)
         columns = @table.table_columns
-        @table.options[:order] = (columns.size > 0 ? columns.first[:name].to_s : "id DESC")
+        @table.options[:order] = (columns.size > 0 ? columns.first[:name].to_s : "#{@table.model.table_name}.id DESC")
       end
 
       class_name = @table.model.name
-      class_name = "(controller_name != '#{class_name.tableize}' ? controller_name.to_s.classify.constantize : #{class_name})\n" if self.collection?
+      class_name = "(controller_name != '#{class_name.tableize}' ? controller_name.to_s.classify.constantize : #{class_name})" if self.collection?
 
       # Find data
       query_code = "#{class_name}"
       query_code << ".select(#{self.select_code})" if self.select_code
       query_code << ".where(#{self.conditions_code})" unless @table.options[:conditions].blank?
       query_code << ".joins(#{@table.options[:joins].inspect})" unless @table.options[:joins].blank?
-      query_code << ".includes(#{self.includes_hash.inspect})" unless self.includes_hash.empty?
-      #.references(#{self.includes_hash.inspect})
+      unless self.includes_reflections.empty?
+        expr = self.includes_reflections.inspect[1..-2]
+        query_code << ".includes(#{expr})"
+        query_code << ".references(#{expr})"
+      end
 
       code = ""
       code << "#{var_name(:count)} = #{query_code}.count\n"
       if paginate
-        code << "#{var_name(:limit)}  = (#{var_name(:params)}[:per_page]||25).to_i\n"
-        code << "#{var_name(:page)}   = (#{var_name(:params)}[:page]||1).to_i\n"
+        code << "#{var_name(:limit)}  = (#{var_name(:params)}[:per_page] || 25).to_i\n"
+        code << "#{var_name(:page)}   = (#{var_name(:params)}[:page] || 1).to_i\n"
         code << "#{var_name(:page)}   = 1 if #{var_name(:page)} < 1\n"
-        code << "#{var_name(:offset)} = (#{var_name(:page)}-1)*#{var_name(:limit)}\n"
-        code << "#{var_name(:last)}   = (#{var_name(:count)}.to_f/#{var_name(:limit)}).ceil.to_i\n"
+        code << "#{var_name(:offset)} = (#{var_name(:page)} - 1) * #{var_name(:limit)}\n"
+        code << "#{var_name(:last)}   = (#{var_name(:count)}.to_f / #{var_name(:limit)}).ceil.to_i\n"
         code << "#{var_name(:last)}   = 1 if #{var_name(:last)} < 1\n"
         code << "return #{self.view_method_name}(options.merge(page: 1)) if 1 > #{var_name(:page)}\n"
         code << "return #{self.view_method_name}(options.merge(page: #{var_name(:last)})) if #{var_name(:page)} > #{var_name(:last)}\n"
@@ -48,11 +51,12 @@ module ActiveList
     protected
 
     # Compute includes Hash
-    def includes_hash
-      hash = {}
+    def includes_reflections
+      hash = []
       for column in @table.columns
-        if through = column.options[:through]
-          hash[through] ||= {}
+        # if through = column.options[:through]
+        if column.respond_to?(:reflection) # through = column.options[:through]
+          hash << column.reflection.name
         end
       end
       return hash

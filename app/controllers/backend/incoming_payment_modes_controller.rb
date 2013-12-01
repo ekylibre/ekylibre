@@ -24,7 +24,7 @@ class Backend::IncomingPaymentModesController < BackendController
   unroll
 
   # TODO: Adds detail_payments and attorney_journal
-  list(:order => :position) do |t|
+  list(order: :position) do |t|
     t.column :name
     t.column :cash, url: true
     t.column :with_accounting

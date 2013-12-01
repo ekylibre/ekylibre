@@ -59,7 +59,7 @@ module Ekylibre::Record
 
           # Return SVG as String
           code << "def #{indicator}_svg(options = {})\n"
-          code << "  return nil unless datum = self.indicator(:#{indicator}, at: options[:at])\n"
+          code << "  return nil unless datum = self.indicate(:#{indicator}, at: options[:at])\n"
           code << "  return ('<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
           for attr, value in {:class => indicator, :preserve_aspect_ratio => 'xMidYMid meet', :width => 180, :height => 180, :view_box => Code.new("self.#{indicator}_view_box.join(' ')")}
             code << " #{attr.to_s.camelcase(:lower)}=\"' + (options[:#{attr}] || #{value.inspect}).to_s + '\""

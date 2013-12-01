@@ -22,7 +22,7 @@ class Backend::FinancialYearsController < BackendController
 
   unroll
 
-  list(:order => "started_on DESC") do |t|
+  list(order: "started_on DESC") do |t|
     t.column :code, url: true
     t.column :closed
     t.column :started_on, url: true
@@ -34,7 +34,7 @@ class Backend::FinancialYearsController < BackendController
     t.action :destroy, :unless => :closed?
   end
 
-  list(:account_balances, :joins => :account, :conditions => {:financial_year_id => 'params[:id]'.c}, :order => "number") do |t|
+  list(:account_balances, joins: :account, conditions: {:financial_year_id => 'params[:id]'.c}, order: "number") do |t|
     t.column :account, url: true
     t.column :account_number, through: :account, label_method: :number, url: true, hidden: true
     t.column :account_name, through: :account, label_method: :name, url: true, hidden: true
@@ -42,7 +42,7 @@ class Backend::FinancialYearsController < BackendController
     t.column :local_credit, currency: true
   end
 
-  list(:asset_depreciations, :conditions => {:financial_year_id => 'params[:id]'.c}) do |t|
+  list(:asset_depreciations, conditions: {:financial_year_id => 'params[:id]'.c}) do |t|
     t.column :asset, url: true
     t.column :started_on
     t.column :stopped_on

@@ -44,7 +44,7 @@ class Backend::AnimalsController < Backend::MattersController
   end
 
    # Liste des enfants de l'animal considéré
-  list(:children, :model => :animals, :conditions => ["mother_id = ? OR father_id = ?", 'params[:id]'.c, 'params[:id]'.c], :order => "born_at DESC") do |t|
+  list(:children, model: :animals, conditions: ["mother_id = ? OR father_id = ?", 'params[:id]'.c, 'params[:id]'.c], order: "born_at DESC") do |t|
     t.column :name, url: true
     t.column :born_at
     t.column :sex

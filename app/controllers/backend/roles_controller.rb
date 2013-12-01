@@ -20,7 +20,7 @@
 class Backend::RolesController < BackendController
   unroll
 
-  list(:order => :name, :children => :users) do |t|
+  list(order: :name, :children => :users) do |t|
     t.column :name, :children => :label
     t.column :diff_more, :class => 'rights more'
     t.column :diff_less, :class => 'rights less'

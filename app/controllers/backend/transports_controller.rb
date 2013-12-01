@@ -20,7 +20,7 @@
 class Backend::TransportsController < BackendController
   unroll
 
-  list(:children => :deliveries, :conditions => search_conditions(:transports => [:number, :description], :entities => [:number, :full_name])) do |t|
+  list(:children => :deliveries, conditions: search_conditions(:transports => [:number, :description], :entities => [:number, :full_name])) do |t|
     t.column :number, url: true
     t.column :description
     #t.column :created_on, :children => :planned_on
@@ -37,7 +37,7 @@ class Backend::TransportsController < BackendController
   end
 
 
-  list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:transport_id => 'params[:id]'.c}) do |t|
+  list(:deliveries, model: :outgoing_deliveries, :children => :items, conditions: {:transport_id => 'params[:id]'.c}) do |t|
     t.column :address, label_method: :coordinate, :children => :product_name
     t.column :planned_at, children: false
     #t.column :moved_on, children: false
@@ -82,7 +82,7 @@ class Backend::TransportsController < BackendController
     return code.c
   end
 
-  list(:transportable_deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => transportable_deliveries_conditions, :pagination => :none, :order => :planned_at, :line_class => "(RECORD.planned_at<Date.today ? 'critic' : RECORD.planned_at.to_date == Date.today ? 'warning' : '')".c) do |t|
+  list(:transportable_deliveries, model: :outgoing_deliveries, :children => :items, conditions: transportable_deliveries_conditions, :pagination => :none, order: :planned_at, :line_class => "(RECORD.planned_at<Date.today ? 'critic' : RECORD.planned_at.to_date == Date.today ? 'warning' : '')".c) do |t|
     t.check_box :selected, :value => '(session[:current_transport_id].to_i.zero? ? RECORD.planned_at <= Date.today : RECORD.transport_id == session[:current_transport_id])'.c
     t.column :address, label_method: :coordinate, :children => :product_name
     t.column :planned_at, children: false

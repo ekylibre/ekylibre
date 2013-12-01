@@ -35,7 +35,7 @@ class Backend::AssetsController < BackendController
   def index
   end
 
-  list(:depreciations, :model => :asset_depreciations, :conditions => {:asset_id => 'params[:id]'.c}, :order => :position) do |t|
+  list(:depreciations, model: :asset_depreciations, conditions: {:asset_id => 'params[:id]'.c}, order: :position) do |t|
     t.column :amount, currency: true
     t.column :asset_amount, currency: true
     t.column :depreciated_amount, currency: true

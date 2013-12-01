@@ -56,7 +56,7 @@ demo :buildings do
 
   end
 
-  Ekylibre::fixturize :building_divisions_shapes do |w|
+  Ekylibre::fixturize :building_divisions do |w|
 
 
 
@@ -82,8 +82,8 @@ demo :buildings do
         if record.attributes['CONTAINER'].to_s
           if building = Building.find_by_work_number(record.attributes['CONTAINER'].to_s)
             building.add(building_division, now)
-            building_division.update_attributes(:default_storage => building)
-            building_division.save
+            building_division.update_attributes(initial_container: building)
+            building_division.save!
           end
         end
 

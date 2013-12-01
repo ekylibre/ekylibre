@@ -39,7 +39,7 @@ class Backend::InventoriesController < BackendController
     end
   end
 
-  list(:items, :model => :inventory_items, :conditions => {:inventory_id => 'params[:id]'.c }, :order => :id) do |t|
+  list(:items, model: :inventory_items, conditions: {:inventory_id => 'params[:id]'.c }, order: :id) do |t|
     # t.column :name, through: :building, url: true
     t.column :product, url: true
     t.column :serial_number, through: :product
@@ -58,7 +58,7 @@ class Backend::InventoriesController < BackendController
     end
   end
 
-  list(:items_create, :model => :products, :pagination => :none, :order => "#{ProductNature.table_name}.name") do |t|
+  list(:items_create, model: :products, :pagination => :none, order: "#{ProductNature.table_name}.name") do |t|
     # t.column :name, through: :building, url: true
     t.column :name, url: true
     t.column :serial_number, through: :tracking
@@ -67,7 +67,7 @@ class Backend::InventoriesController < BackendController
     t.text_field :quantity
   end
 
-  list(:items_update, :model => :inventory_items, :conditions => {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, :order => "#{Building.table_name}.name, #{ProductNature.table_name}.name") do |t|
+  list(:items_update, model: :inventory_items, conditions: {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, order: "#{Building.table_name}.name, #{ProductNature.table_name}.name") do |t|
     # t.column :name, through: :building, url: true
     t.column :product, url: true
     t.column :serial_number, through: :product

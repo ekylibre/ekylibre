@@ -42,13 +42,13 @@ class Backend::SalesController < BackendController
     return code.c
   end
 
-  list(:conditions => sales_conditions, :joins => :client, :order => 'created_on desc, number desc') do |t| # , :line_class => 'RECORD.tags'
+  list(conditions: sales_conditions, joins: :client, order: {created_on: :desc, number: :desc}) do |t| # , :line_class => 'RECORD.tags'
     t.column :number, url: {:action => :show, :step => :default}
     t.column :created_on
     t.column :invoiced_on
     t.column :client, url: true
-    t.column :responsible
-    t.column :description
+    t.column :responsible, hidden: true
+    t.column :description, hidden: true
     t.column :state_label
     t.column :amount, currency: true
     t.action :show, url: {:format => :pdf}, image: :print
@@ -69,7 +69,7 @@ class Backend::SalesController < BackendController
     end
   end
 
-  list(:credits, :model => :sales, :conditions => {:origin_id => 'params[:id]'.c }, :children => :items) do |t|
+  list(:credits, model: :sales, conditions: {:origin_id => 'params[:id]'.c }, :children => :items) do |t|
     t.column :number, url: true, :children => :designation
     t.column :client, children: false
     t.column :created_on, children: false
@@ -77,23 +77,23 @@ class Backend::SalesController < BackendController
     t.column :amount, currency: true
   end
 
-  list(:deliveries, :model => :outgoing_deliveries, :children => :items, :conditions => {:sale_id => 'params[:id]'.c}) do |t|
+  list(:deliveries, model: :outgoing_deliveries, :children => :items, conditions: {:sale_id => 'params[:id]'.c}) do |t|
     t.column :number, :children => :product_name
     t.column :transporter, children: false, url: true
     t.column :address, label_method: :coordinate, children: false
     # t.column :planned_on, children: false
     # t.column :moved_on, children: false
     t.column :quantity, :datatype => :decimal
-    # t.column :pretax_amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
-    # t.column :amount, :currency => {:body => "RECORD.sale.currency", :children => "RECORD.delivery.sale.currency"}
+    # t.column :pretax_amount, currency: true
+    # t.column :amount, currency: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
 
-  # list(:payment_uses, :model => :incoming_payment_uses, :conditions => ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", 'params[:id]'.c, 'Sale']) do |t|
+  # list(:payment_uses, model: :incoming_payment_uses, conditions: ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", 'params[:id]'.c, 'Sale']) do |t|
   #   t.column :number, through: :payment, url: true
-  #   t.column :amount, :currency => "RECORD.payment.currency", through: :payment, :label => "payment_amount", url: true
-  #   t.column :amount, :currency => "RECORD.payment.currency"
+  #   t.column :amount, currency: true, through: :payment, :label => "payment_amount", url: true
+  #   t.column :amount, currency: true
   #   t.column :payment_way
   #   t.column :scheduled, through: :payment, :datatype => :boolean, :label => :column
   #   t.column :downpayment
@@ -102,7 +102,7 @@ class Backend::SalesController < BackendController
   #   t.action :destroy
   # end
 
-  list(:subscriptions, :conditions => {:sale_id => 'params[:id]'.c}) do |t|
+  list(:subscriptions, conditions: {:sale_id => 'params[:id]'.c}) do |t|
     t.column :number
     t.column :nature
     t.column :subscriber, url: true
@@ -114,7 +114,7 @@ class Backend::SalesController < BackendController
     t.action :destroy
   end
 
-  list(:undelivered_items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c, :reduced_item_id => nil}) do |t|
+  list(:undelivered_items, model: :sale_items, conditions: {:sale_id => 'params[:id]'.c, :reduced_item_id => nil}) do |t|
     t.column :name, through: :variant
     # t.column :pretax_amount, currency: true, through: :price
     t.column :quantity
@@ -124,7 +124,7 @@ class Backend::SalesController < BackendController
     # t.column :undelivered_quantity, :datatype => :decimal
   end
 
-  list(:items, :model => :sale_items, :conditions => {:sale_id => 'params[:id]'.c}, :order => :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, :include => [:variant, :subscriptions]) do |t|
+  list(:items, model: :sale_items, conditions: {:sale_id => 'params[:id]'.c}, order: :position, :export => false, :line_class => "((RECORD.variant.subscribing? and RECORD.subscriptions.sum(:quantity) != RECORD.quantity) ? 'warning' : '')".c, :include => [:variant, :subscriptions]) do |t|
     # t.column :name, through: :variant
     # t.column :position
     t.column :label
@@ -194,7 +194,7 @@ class Backend::SalesController < BackendController
   end
 
 
-  list(:creditable_items, :model => :sale_items, :conditions => ["sale_id=? AND reduction_origin_id IS NULL", 'params[:id]'.c]) do |t|
+  list(:creditable_items, model: :sale_items, conditions: ["sale_id=? AND reduction_origin_id IS NULL", 'params[:id]'.c]) do |t|
     t.column :label
     t.column :annotation
     t.column :variant
@@ -388,7 +388,7 @@ class Backend::SalesController < BackendController
       states = params[:states].collect{|state, checked| state.to_sym if !checked.to_i.zero?}.compact
       query = "SELECT p.nature_id AS product_nature_id, sum(si.#{mode}) AS total FROM #{SaleItem.table_name} AS si JOIN #{Sale.table_name} AS s ON (si.sale_id=s.id) JOIN #{Product.table_name} AS p ON (si.product_id=p.id) WHERE "
       values = []
-      cursors = {:invoice => :invoiced_on, :order => :confirmed_on}
+      cursors = {:invoice => :invoiced_on, order: :confirmed_on}
       query << "(" + states.collect do |state|
         "(state = '#{state}' AND #{cursors[state] || :created_on} BETWEEN ? AND ?)"
       end.join(" OR ") + ")"

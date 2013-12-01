@@ -22,7 +22,7 @@ class Backend::CashesController < BackendController
 
   unroll
 
-  list(:order => :name) do |t|
+  list(order: :name) do |t|
     t.column :name, url: true
     t.column :nature
     t.column :currency
@@ -33,7 +33,7 @@ class Backend::CashesController < BackendController
     t.action :destroy
   end
 
-  list(:bank_statements, :conditions => {cash_id: 'params[:id]'.c}, :order => "started_on DESC") do |t|
+  list(:bank_statements, conditions: {cash_id: 'params[:id]'.c}, order: "started_on DESC") do |t|
     t.column :number, url: true
     t.column :started_on
     t.column :stopped_on
@@ -41,7 +41,7 @@ class Backend::CashesController < BackendController
     t.column :debit, currency: true
   end
 
-  list(:deposits, :conditions => {cash_id: 'params[:id]'.c}, :order => "created_on DESC") do |t|
+  list(:deposits, conditions: {cash_id: 'params[:id]'.c}, order: "created_on DESC") do |t|
     t.column :number, url: true
     t.column :created_on
     t.column :payments_count

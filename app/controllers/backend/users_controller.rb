@@ -21,7 +21,7 @@ class Backend::UsersController < BackendController
 
   unroll
 
-  list(:order => "locked, last_name", :line_class => "(RECORD.locked ? 'critic' : '')".c) do |t|
+  list(order: "locked, last_name", :line_class => "(RECORD.locked ? 'critic' : '')".c) do |t|
     t.column :full_name, url: true
     t.column :first_name, url: true
     t.column :last_name, url: true
@@ -52,7 +52,7 @@ class Backend::UsersController < BackendController
       role = Role.first
       @user = User.new(:administrator => false, :role => role, :employed => params[:employed], :language => Entity.of_company.language)
       @rights = role ? role.rights_array : []
-      # render_restfully_form(:model => :entity)
+      # render_restfully_form(model: :entity)
     end
   end
 
@@ -61,7 +61,7 @@ class Backend::UsersController < BackendController
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
     return if save_and_redirect(@user)
-    # render_restfully_form(:model => :entity)
+    # render_restfully_form(model: :entity)
   end
 
   def edit

@@ -31,7 +31,7 @@ class Backend::DocumentsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:archives, :model => :document_archive, :conditions => {:document_id => 'params[:id]'.c}) do |t|
+  list(:archives, model: :document_archive, conditions: {:document_id => 'params[:id]'.c}) do |t|
     t.column :archived_at, url: true
     t.column :template
     t.column :file_pages_count

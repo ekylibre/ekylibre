@@ -93,16 +93,10 @@ class Product < Ekylibre::Record::Base
   has_many :phases, class_name: "ProductPhase"
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
   has_many :variants, class_name: "ProductNatureVariant", :through => :phases
-  has_one :current_phase, -> { order("started_at DESC") }, class_name: "ProductPhase", foreign_key: :product_id
-  has_one :current_localization, -> {
-    now = Time.now
-    where('? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)', now, now, now).order(:id)
-  }, class_name: "ProductLocalization", foreign_key: :product_id
-  has_one :current_ownership, -> {
-    now = Time.now
-    where('? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)', now, now, now).order(:id)
-  }, class_name: "ProductOwnership", foreign_key: :product_id
-  has_one :last_localization,-> { order("started_at DESC") }, class_name: "ProductLocalization", foreign_key: :product_id
+  has_one :current_phase,        -> { current }, class_name: "ProductPhase",        foreign_key: :product_id
+  has_one :current_localization, -> { current }, class_name: "ProductLocalization", foreign_key: :product_id
+  has_one :current_ownership,    -> { current }, class_name: "ProductOwnership",    foreign_key: :product_id
+  has_one :container, through: :current_localization
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -213,14 +207,14 @@ class Product < Ekylibre::Record::Base
     # self.enjoyments.create!(enjoyer: self.initial_enjoyer)
     # Add first localization on a product
     if self.initial_container # and self.initial_arrival_cause
-      self.localizations.create!(container: self.initial_container, arrival_cause: self.initial_arrival_cause || :birth)
+      self.localizations.create!(container: self.initial_container, nature: :interior, arrival_cause: self.initial_arrival_cause || :birth)
     end
     # add first frozen indicator on a product from his variant
     if self.variant
       for datum in self.variant.indicator_data
         self.is_measured!(datum.indicator, datum.value)
       end
-      self.phases.create!(variant: self.variant, started_at: self.born_at) if self.born_at
+      self.phases.create!(variant: self.variant) # , started_at: self.born_at) if self.born_at
     end
   end
 
@@ -351,13 +345,13 @@ class Product < Ekylibre::Record::Base
     return nil
   end
 
-  # Returns the current container for the product
-  def container(at = Time.now)
-    if l = self.localizations.at(at).first
-      return l.container
-    end
-    return self.default_storage
-  end
+  # # Returns the current container for the product
+  # def container(at = Time.now)
+  #   if l = self.localizations.at(at).first
+  #     return l.container
+  #   end
+  #   return self.default_storage
+  # end
 
   def picture_path(style=:original)
     self.picture.path(style)

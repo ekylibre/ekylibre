@@ -757,7 +757,7 @@ fra:
     last_cweek: "Dernière semaine"
     last_journal_entry: "Écriture de fin d’exercice"
     last_letter: "Dernière lettre"
-    last_localization: "Last localization"
+    last_localization: "Last localization" #?
     last_month: "Dernier mois"
     last_name: "Nom de famille"
     last_number: "Dernier numéro"

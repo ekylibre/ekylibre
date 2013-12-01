@@ -32,6 +32,8 @@ demo :sales do
     catalog = Catalog.first
     wheat_taxes = Tax.all
 
+    responsibles = Person.where(id: User.pluck(:person_id))
+
     ble = OrganicMatter.find_by_work_number("BLE_2011")
     ble ||= OrganicMatter.create!(:variant_id => wheat.id, :name => "Blé Cap Horn 2011", :identification_number => "BLE_2011_07142011", :work_number => "BLE_2011",
                                 :born_at => "2011-07-14", :initial_owner => Entity.of_company) #
@@ -41,7 +43,7 @@ demo :sales do
     (140 + rand(20)).times do |i|
       # Sale
       d = Date.today - (5*i - rand(4)).days
-      sale = Sale.create!(:created_on => d, :client_id => Entity.where(:of_company => false).all.sample.id, :nature_id => sale_nature.id)
+      sale = Sale.create!(:created_on => d, :client_id => Entity.where(:of_company => false).all.sample.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
       # Sale items
       (rand(5) + 1).times do
         # # find or create a price

@@ -25,16 +25,17 @@ class Backend::EntitiesController < BackendController
 
   autocomplete_for :origin
 
-  list(conditions: search_conditions(:entities => [:number, :full_name]), :order => "entities.last_name, entities.first_name") do |t|
+  list(conditions: search_conditions(:entities => [:number, :full_name]), order: "entities.last_name, entities.first_name") do |t|
     t.column :active, :datatype => :boolean
     t.column :number, url: true
     t.column :nature
     t.column :last_name, url: true
     t.column :first_name, url: true
+    t.column :mail_line_6, through: :default_mail_address
     t.action :edit
   end
 
-  list(:event_participations, conditions: {participant_id: 'params[:id]'.c}, :order => "created_at DESC") do |t|
+  list(:event_participations, conditions: {participant_id: 'params[:id]'.c}, order: "created_at DESC") do |t|
     t.column :event
     t.column :state
     # t.column :label, through: :responsible, url: true
@@ -45,7 +46,7 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:incoming_payments, conditions: {payer_id: 'params[:id]'.c}, :order => "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+  list(:incoming_payments, conditions: {payer_id: 'params[:id]'.c}, order: "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
     t.column :responsible
@@ -58,7 +59,7 @@ class Backend::EntitiesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:links, :model => :entity_links, conditions: ["#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)", 'params[:id]'.c, 'params[:id]'.c], :per_page => 5) do |t|
+  list(:links, model: :entity_links, conditions: ["#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)", 'params[:id]'.c, 'params[:id]'.c], :per_page => 5) do |t|
     t.column :entity_1, url: true
     t.column :nature
     t.column :entity_2, url: true
@@ -84,7 +85,7 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:outgoing_payments, conditions: {:payee_id => 'params[:id]'.c}, :order => "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+  list(:outgoing_payments, conditions: {:payee_id => 'params[:id]'.c}, order: "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
     t.column :responsible
@@ -107,7 +108,7 @@ class Backend::EntitiesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, :order => "created_on DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+  list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, order: "created_on DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true, :children => :label
     t.column :responsible, children: false
     t.column :created_on,  children: false
@@ -120,7 +121,7 @@ class Backend::EntitiesController < BackendController
   end
 
 
-  list(:subscriptions, conditions: {subscriber_id:  'params[:id]'.c}, :order => 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')".c) do |t|
+  list(:subscriptions, conditions: {subscriber_id:  'params[:id]'.c}, order: 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')".c) do |t|
     t.column :number
     t.column :nature
     t.column :start
