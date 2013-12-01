@@ -41,13 +41,13 @@
       <item name="plant_reproduction_state" datatype="choice" choices="swelling, heading, flowering, grain_maturity, grain_senescence"/>
       <!-- for product analysis -->
       <item name="dry_matter_rate" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
-      <item name="water_rate" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
+      <item name="water_content_rate" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
       <!-- for milk analysis -->
       <item name="total_bacteria_concentration" datatype="measure" unit="thousand_per_milliliter"/>
       <item name="inhibitors_presence" datatype="choice" choices="negative, positive"/>
       <item name="fat_matters_concentration" datatype="measure" unit="gram_per_liter"/>
       <item name="protein_matters_concentration" datatype="measure" unit="gram_per_liter"/>
-      <item name="cells_concentration" datatype="measure" unit="thousand_per_milliliter"/>
+      <item name="somatic_cell_concentration" datatype="measure" unit="thousand_per_milliliter"/>
       <item name="clostridial_spores_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="freezing_point_temperature" datatype="measure" unit="celsius"/>
       <item name="lipolysis" datatype="measure" unit="thousand_eq_per_hundred_gram"/>
@@ -57,10 +57,12 @@
       <item name="meat_withdrawal_period" datatype="measure" unit="day"/> 
       <item name="milk_withdrawal_period" datatype="measure" unit="day"/>
       <!-- for genetic animal's reproduction  -->
-      <item name="isu_index" datatype="measure" unit="unity"/>
-      <item name="inel_index" datatype="measure" unit="unity"/>
-      <item name="tp_index" datatype="measure" unit="unity"/>
-      <item name="tb_index" datatype="measure" unit="unity"/>
+      <item name="unique_synthesis_index" datatype="measure" unit="unity"/>
+      <item name="economical_milk_index" datatype="measure" unit="unity"/>
+      <item name="protein_concentration_index" datatype="measure" unit="unity"/>
+      <item name="fat_matter_concentration_index" datatype="measure" unit="unity"/>
+      <item name="calving_ease_index" datatype="measure" unit="unity"/>
+      <item name="fertility_index" datatype="measure" unit="unity"/>
       <!-- for fertilization plant's -->
       <item name="nitrogen_concentration" datatype="measure" unit="percent"/>
       <item name="potassium_concentration" datatype="measure" unit="percent"/>

@@ -17,7 +17,7 @@
     #
     #  data for bar chart indicator and by month
     #
-    bar_indicators = [ :total_bacteria_concentration, :cells_concentration , :clostridial_spores_concentration]
+    bar_indicators = [ :total_bacteria_concentration, :somatic_cell_concentration , :clostridial_spores_concentration]
     for indicator in bar_indicators
       items = ProductIndicatorDatum.where(:indicator => indicator).measured_between(started_on, stopped_on)
       if items.count > 0

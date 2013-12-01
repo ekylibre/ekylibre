@@ -331,9 +331,9 @@ task :locales => :environment do
     end
     if item_lists.any?
       lists = "item_lists:\n"
-      for item in nomenclature.list.sort{|a,b| a.to_s <=> b.to_s}
+      for item in nomenclature.list.sort{|a,b| a.name.to_s <=> b.name.to_s}
         liss = ""
-        for item_list in item_lists
+        for item_list in item_lists.sort{|a,b| a.to_s <=> b.to_s}
           iss = ""
           if is = item.send(item_list)
             iss << "#{item_list}:\n"

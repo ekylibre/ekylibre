@@ -40,7 +40,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), produce(milk), move, produce(bos)"
-            variable_indicators="net_weight, animal_life_state, isu_index, inel_index, tp_index, tb_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state, geographic_coordinate"
+            variable_indicators="net_weight, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state, geographic_coordinate"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             />
       <item name="male_adult_cow"
@@ -48,7 +48,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), move"
-            variable_indicators="net_weight, isu_index, inel_index, tp_index, tb_index"
+            variable_indicators="net_weight, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             />
       <item name="milk"
@@ -57,7 +57,7 @@
             derivative_of="mammalia" 
             population_counting="decimal"
             abilities="feed(mammalia)"
-            variable_indicators="population, temperature, total_bacteria_concentration, inhibitors_presence, fat_matters_concentration, protein_matters_concentration, cells_concentration, clostridial_spores_concentration, freezing_point_temperature, lipolysis, immunoglobulins_concentration, urea_concentration"
+            variable_indicators="population, temperature, total_bacteria_concentration, inhibitors_presence, fat_matters_concentration, protein_matters_concentration, somatic_cell_concentration, clostridial_spores_concentration, freezing_point_temperature, lipolysis, immunoglobulins_concentration, urea_concentration"
             frozen_indicators="net_volume, net_weight"
             />
       <item name="female_young_cow"
