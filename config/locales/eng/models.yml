@@ -1671,6 +1671,8 @@ eng:
           # name: "Virement"
     incoming_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) received from %{attorney} for %{client} (%{expense_number})" #?
+    intervention:
+      # name: "%{intervention} n°%{number}"
     inventory_item:
       inventory: "Inventory"
     inventory_line:  #?

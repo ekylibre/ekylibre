@@ -2254,6 +2254,8 @@ arb:
           # name: "Virement"
     incoming_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})" #?
+    intervention:
+      # name: "%{intervention} n°%{number}"
     inventory_item:
       inventory: "عملية الجرد"
     inventory_line: #?

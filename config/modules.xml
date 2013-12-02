@@ -1378,8 +1378,28 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="animal_medicines">
+        <page to="backend/animal_medicines#list_carried_linkages"/>
+        <page to="backend/animal_medicines#list_carrier_linkages"/>
+      </item>
+      <item name="animals">
+        <page to="backend/animals#list_carried_linkages"/>
+        <page to="backend/animals#list_carrier_linkages"/>
+      </item>
+      <item name="building_divisions">
+        <page to="backend/building_divisions#list_carried_linkages"/>
+        <page to="backend/building_divisions#list_carrier_linkages"/>
+      </item>
+      <item name="buildings">
+        <page to="backend/buildings#list_carried_linkages"/>
+        <page to="backend/buildings#list_carrier_linkages"/>
+      </item>
       <item name="events_cells">
         <page to="backend/cells/events_cells#show"/>
+      </item>
+      <item name="cultivable_land_parcels">
+        <page to="backend/cultivable_land_parcels#list_carried_linkages"/>
+        <page to="backend/cultivable_land_parcels#list_carrier_linkages"/>
       </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>
@@ -1392,6 +1412,10 @@
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#trade"/>
         <page to="backend/dashboards#welcome"/>
+      </item>
+      <item name="equipments">
+        <page to="backend/equipments#list_carried_linkages"/>
+        <page to="backend/equipments#list_carrier_linkages"/>
       </item>
       <item name="event_participations">
         <page to="backend/event_participations#create"/>
@@ -1426,6 +1450,8 @@
         <page to="backend/kujakus#toggle"/>
       </item>
       <item name="land_parcel_clusters">
+        <page to="backend/land_parcel_clusters#list_carried_linkages"/>
+        <page to="backend/land_parcel_clusters#list_carrier_linkages"/>
         <page to="backend/land_parcel_clusters#list_contained_products"/>
         <page to="backend/land_parcel_clusters#list_groups"/>
         <page to="backend/land_parcel_clusters#list_incidents"/>
@@ -1441,6 +1467,8 @@
         <page to="backend/land_parcel_groups#destroy"/>
         <page to="backend/land_parcel_groups#edit"/>
         <page to="backend/land_parcel_groups#list"/>
+        <page to="backend/land_parcel_groups#list_carried_linkages"/>
+        <page to="backend/land_parcel_groups#list_carrier_linkages"/>
         <page to="backend/land_parcel_groups#list_contained_products"/>
         <page to="backend/land_parcel_groups#list_groups"/>
         <page to="backend/land_parcel_groups#list_incidents"/>
@@ -1455,6 +1483,8 @@
         <page to="backend/land_parcel_groups#update"/>
       </item>
       <item name="land_parcels">
+        <page to="backend/land_parcels#list_carried_linkages"/>
+        <page to="backend/land_parcels#list_carrier_linkages"/>
         <page to="backend/land_parcels#list_contained_products"/>
         <page to="backend/land_parcels#list_groups"/>
         <page to="backend/land_parcels#list_incidents"/>
@@ -1471,6 +1501,8 @@
         <page to="backend/matters#destroy"/>
         <page to="backend/matters#edit"/>
         <page to="backend/matters#list"/>
+        <page to="backend/matters#list_carried_linkages"/>
+        <page to="backend/matters#list_carrier_linkages"/>
         <page to="backend/matters#list_contained_products"/>
         <page to="backend/matters#list_groups"/>
         <page to="backend/matters#list_incidents"/>
@@ -1490,6 +1522,8 @@
         <page to="backend/medicines#destroy"/>
         <page to="backend/medicines#edit"/>
         <page to="backend/medicines#list"/>
+        <page to="backend/medicines#list_carried_linkages"/>
+        <page to="backend/medicines#list_carrier_linkages"/>
         <page to="backend/medicines#list_contained_products"/>
         <page to="backend/medicines#list_groups"/>
         <page to="backend/medicines#list_incidents"/>
@@ -1504,6 +1538,8 @@
         <page to="backend/medicines#update"/>
       </item>
       <item name="mineral_matters">
+        <page to="backend/mineral_matters#list_carried_linkages"/>
+        <page to="backend/mineral_matters#list_carrier_linkages"/>
         <page to="backend/mineral_matters#list_contained_products"/>
         <page to="backend/mineral_matters#list_groups"/>
         <page to="backend/mineral_matters#list_incidents"/>
@@ -1515,6 +1551,8 @@
         <page to="backend/operations#unroll"/>
       </item>
       <item name="organic_matters">
+        <page to="backend/organic_matters#list_carried_linkages"/>
+        <page to="backend/organic_matters#list_carrier_linkages"/>
         <page to="backend/organic_matters#list_contained_products"/>
         <page to="backend/organic_matters#list_groups"/>
         <page to="backend/organic_matters#list_incidents"/>
@@ -1529,6 +1567,8 @@
         <page to="backend/outgoing_payments#unroll"/>
       </item>
       <item name="plant_medicines">
+        <page to="backend/plant_medicines#list_carried_linkages"/>
+        <page to="backend/plant_medicines#list_carrier_linkages"/>
         <page to="backend/plant_medicines#list_contained_products"/>
         <page to="backend/plant_medicines#list_groups"/>
         <page to="backend/plant_medicines#list_incidents"/>
@@ -1540,6 +1580,8 @@
         <page to="backend/plant_medicines#unroll"/>
       </item>
       <item name="plants">
+        <page to="backend/plants#list_carried_linkages"/>
+        <page to="backend/plants#list_carrier_linkages"/>
         <page to="backend/plants#list_contained_products"/>
         <page to="backend/plants#list_groups"/>
         <page to="backend/plants#list_incidents"/>
@@ -1554,6 +1596,8 @@
         <page to="backend/prescriptions#unroll"/>
       </item>
       <item name="product_groups">
+        <page to="backend/product_groups#list_carried_linkages"/>
+        <page to="backend/product_groups#list_carrier_linkages"/>
         <page to="backend/product_groups#list_intervention_casts"/>
         <page to="backend/product_groups#picture"/>
       </item>
@@ -1601,6 +1645,10 @@
         <page to="backend/product_processes#unroll"/>
         <page to="backend/product_processes#update"/>
       </item>
+      <item name="products">
+        <page to="backend/products#list_carried_linkages"/>
+        <page to="backend/products#list_carrier_linkages"/>
+      </item>
       <item name="purchases">
         <page to="backend/purchases#unroll"/>
       </item>
@@ -1617,6 +1665,8 @@
         <page to="backend/sequences#unroll"/>
       </item>
       <item name="settlements">
+        <page to="backend/settlements#list_carried_linkages"/>
+        <page to="backend/settlements#list_carrier_linkages"/>
         <page to="backend/settlements#list_contained_products"/>
         <page to="backend/settlements#list_groups"/>
         <page to="backend/settlements#list_incidents"/>
@@ -1647,6 +1697,8 @@
         <page to="backend/users#unroll"/>
       </item>
       <item name="workers">
+        <page to="backend/workers#list_carried_linkages"/>
+        <page to="backend/workers#list_carrier_linkages"/>
         <page to="backend/workers#list_contained_products"/>
         <page to="backend/workers#list_groups"/>
         <page to="backend/workers#list_incidents"/>

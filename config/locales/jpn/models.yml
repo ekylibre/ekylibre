@@ -1193,6 +1193,8 @@ jpn:
         transfer:
           # name: "Virement"
     incoming_payment_use: #?
+    intervention:
+      # name: "%{intervention} n°%{number}"
     inventory_item:
       # inventory: "Inventaire"
     inventory_line: #?
