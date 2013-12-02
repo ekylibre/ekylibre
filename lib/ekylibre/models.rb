@@ -1360,6 +1360,7 @@ module Ekylibre
       id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
       indicator: Ekylibre::Record::Column.new(:indicator, :string, limit: 120, null: false).freeze,
       lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
+      name: Ekylibre::Record::Column.new(:name, :string, null: false).freeze,
       reference_tax_id: Ekylibre::Record::Column.new(:reference_tax_id, :integer).freeze,
       started_at: Ekylibre::Record::Column.new(:started_at, :datetime).freeze,
       stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,

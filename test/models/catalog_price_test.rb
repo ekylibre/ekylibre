@@ -29,6 +29,7 @@
 #  id                 :integer          not null, primary key
 #  indicator          :string(120)      not null
 #  lock_version       :integer          default(0), not null
+#  name               :string(255)      not null
 #  reference_tax_id   :integer
 #  started_at         :datetime
 #  stopped_at         :datetime
