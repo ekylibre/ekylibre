@@ -12,8 +12,8 @@
       <!-- <attribute name="subscribing" type="boolean" required="true"/> -->
       <!-- Inside the model-->
       <attribute name="abilities" type="list" nomenclature="abilities" required="false"/>
-      <attribute name="frozen_indicators" type="list" nomenclature="frozen_indicators" required="false"/>
-      <attribute name="variable_indicators" type="list" nomenclature="frozen_indicators" required="false"/>
+      <attribute name="frozen_indicators" type="list" nomenclature="indicators" required="false"/>
+      <attribute name="variable_indicators" type="list" nomenclature="indicators" required="false"/>
       <attribute name="linkage_points" type="list" choices="rear, front" required="false"/>
     </attributes>
     <items>
@@ -197,7 +197,7 @@
             category="animal_medicine"
             variety="animal_medicine"
             population_counting="decimal"
-            abilities="kill(bacteria,virus,fungus), care(animal)"
+            abilities="kill(bacteria virus fungus), care(animal)"
             variable_indicators="population"
             frozen_indicators="net_weight, net_volume, meat_withdrawal_period, milk_withdrawal_period"
             />
@@ -230,7 +230,7 @@
             variety="land_parcel"
             population_counting="unitary"
             abilities="consume(water), consume(seed), produce(plant)"
-            variable_indicators="population, shape, geographic_coordinate, sowable, in_production, ground_appearance"
+            variable_indicators="population, shape, cultural_soil_state"
             frozen_indicators="net_surface_area"
             />
       <item name="land_parcel_cluster"
@@ -238,7 +238,7 @@
             variety="land_parcel_cluster"
             population_counting="decimal"
             abilities=""
-            variable_indicators="population, shape, geographic_coordinate"
+            variable_indicators="population, shape"
             frozen_indicators="net_surface_area"
             />
       <item name="cultivable_land_parcel"
@@ -246,7 +246,7 @@
             variety="cultivable_land_parcel"
             population_counting="decimal"
             abilities=""
-            variable_indicators="population, shape, geographic_coordinate"
+            variable_indicators="population, shape"
             frozen_indicators="net_surface_area"
             />
       <item name="building"
@@ -254,7 +254,7 @@
             variety="building"
             population_counting="unitary"
             abilities="store(building_division)"
-            variable_indicators="net_surface_area, shape, geographic_coordinate"
+            variable_indicators="net_surface_area, shape"
             frozen_indicators="population"
             />
       <item name="building_division"
@@ -262,7 +262,7 @@
             variety="building_division"
             population_counting="unitary"
             abilities="store(product)"
-            variable_indicators="net_surface_area, shape, geographic_coordinate"
+            variable_indicators="net_surface_area, shape"
             frozen_indicators="population"
             />
       <item name="animal_building_division"
@@ -270,7 +270,7 @@
             variety="building_division"
             population_counting="unitary"
             abilities="store(animal)"
-            variable_indicators="net_surface_area, shape, geographic_coordinate"
+            variable_indicators="net_surface_area, shape"
             frozen_indicators="population"
             />
       <item name="equipment_building_division"
@@ -278,7 +278,7 @@
             variety="building_division"
             population_counting="unitary"
             abilities="store(equipment)"
-            variable_indicators="net_surface_area, shape, geographic_coordinate"
+            variable_indicators="net_surface_area, shape"
             frozen_indicators="population"
             />
       <item name="animal_food_building_division"
@@ -286,7 +286,7 @@
             variety="building_division"
             population_counting="unitary"
             abilities="store(organic_matter)"
-            variable_indicators="net_surface_area, shape, geographic_coordinate"
+            variable_indicators="net_surface_area, shape"
             frozen_indicators="population"
             />
       <item name="tractor"
@@ -294,7 +294,7 @@
             variety="tractor"
             population_counting="unitary"
             abilities="catch(equipment), move, tow(matter)"
-            variable_indicators="net_surface_area, shape, geographic_coordinate, motor_power"
+            variable_indicators="net_surface_area, geographic_coordinate, motor_power"
             frozen_indicators="population"
             linkage_points="rear, front"
             />
@@ -374,7 +374,7 @@
             category="equipment"
             variety="harvest"
             population_counting="unitary"
-            abilities="mow_down"
+            abilities="mow"
             variable_indicators="application_width, geographic_coordinate"
             frozen_indicators="population"
             />

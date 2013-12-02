@@ -30,7 +30,7 @@ class Backend::ProductNatureVariantsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:prices, model: :catalog_prices, conditions: {variant_id: 'params[:id]'.c}, order: "started_at DESC") do |t|
+  list(:prices, model: :catalog_prices, conditions: {variant_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :amount, url: true, currency: true
     t.column :all_taxes_included
     t.column :started_at
@@ -38,7 +38,7 @@ class Backend::ProductNatureVariantsController < BackendController
     t.column :catalog, url: true
   end
 
-  list(:products, conditions: {variant_id: 'params[:id]'.c}, order: "born_at DESC") do |t|
+  list(:products, conditions: {variant_id: 'params[:id]'.c}, order: {born_at: :desc}) do |t|
     t.column :name, url: true
     t.column :identification_number
     t.column :born_at

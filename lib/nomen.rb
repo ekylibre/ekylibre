@@ -63,6 +63,11 @@ module Nomen
         load_set(name, nomenclatures.values)
       end
 
+      # Checks nomenclatures
+      for nomenclature in @@list.values
+        nomenclature.check!
+      end
+
       return true
     end
 

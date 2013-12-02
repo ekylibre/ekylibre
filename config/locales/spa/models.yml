@@ -82,7 +82,7 @@ spa:
       land_parcel_group:
         # born_at: "Créé le"
         # children: "Sous-îlots"
-        # identification_number: "Numéro PAC ou numéro d’ilôts"
+        # identification_number: "Numéro PAC ou numéro d’îlots"
         # real_quantity: "Surface"
       mandate: #?
       matter:
@@ -373,7 +373,7 @@ spa:
       # journal_entry_item: "Ligne d’écriture"
       # land_parcel: "Parcelle"
       # land_parcel_cluster: "Îlot"
-      # land_parcel_group: "Ilôt"
+      # land_parcel_group: "Îlot"
       # legal_entity: "Personne morale"
       # listing: "Extraction"
       # listing_node: "Nœud d’extraction"

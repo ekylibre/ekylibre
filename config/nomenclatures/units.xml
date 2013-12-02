@@ -75,6 +75,10 @@
       <item name="unity_per_liter"         dimension="concentration" symbol="u/l"   coefficients="0.001m-3"              a="0.001"/>
       <item name="thousand_per_liter"      dimension="concentration" symbol="ku/l"  coefficients="1000*0.001m-3"         a="0.000001"/>
       <item name="thousand_per_milliliter" dimension="concentration" symbol="ku/ml" coefficients="1000*0.000001m-3"      a="0.000000001"/>
+
+
+      <item name="mass_percent" dimension="none" symbol="%kg"   coefficients="0.01" a="0.01"/>
+
       
       <!-- mass_density -->
       <item name="unity_per_kilogram"     dimension="mass_density" symbol="u/kg"  coefficients="kg-1"                    a="1"/>

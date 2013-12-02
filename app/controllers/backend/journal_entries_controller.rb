@@ -22,7 +22,7 @@ class Backend::JournalEntriesController < BackendController
 
   unroll
 
-  list(:children => :items, order: "created_at DESC", :per_page => 10) do |t|
+  list(:children => :items, order: {created_at: :desc}, :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     t.column :state_label

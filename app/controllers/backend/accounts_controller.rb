@@ -35,7 +35,7 @@ class Backend::AccountsController < BackendController
     return code.c
   end
 
-  list(conditions: accounts_conditions, order: "number ASC", :per_page => 20) do |t|
+  list(conditions: accounts_conditions, order: :number, :per_page => 20) do |t|
     t.column :number, url: true
     t.column :name, url: true
     t.column :reconcilable
@@ -75,7 +75,7 @@ class Backend::AccountsController < BackendController
     t.column :absolute_credit, currency: :absolute_currency
   end
 
-  list(:entities, conditions: ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], order: "created_at DESC") do |t| # , attorney_account_id
+  list(:entities, conditions: ["? IN (client_account_id, supplier_account_id)", 'params[:id]'.c], order: {created_at: :desc}) do |t| # , attorney_account_id
     t.column :activity_code, url: true
     t.column :full_name, url: true
     t.column :client_account, url: true

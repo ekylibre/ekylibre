@@ -35,7 +35,7 @@ class Backend::EntitiesController < BackendController
     t.action :edit
   end
 
-  list(:event_participations, conditions: {participant_id: 'params[:id]'.c}, order: "created_at DESC") do |t|
+  list(:event_participations, conditions: {participant_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :event
     t.column :state
     # t.column :label, through: :responsible, url: true
@@ -46,7 +46,7 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:incoming_payments, conditions: {payer_id: 'params[:id]'.c}, order: "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+  list(:incoming_payments, conditions: {payer_id: 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
     t.column :responsible
@@ -85,7 +85,7 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:outgoing_payments, conditions: {:payee_id => 'params[:id]'.c}, order: "created_at DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+  list(:outgoing_payments, conditions: {:payee_id => 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
     t.column :responsible
@@ -108,7 +108,7 @@ class Backend::EntitiesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, order: "created_on DESC", :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+  list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, order: {created_on: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true, :children => :label
     t.column :responsible, children: false
     t.column :created_on,  children: false

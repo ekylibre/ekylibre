@@ -100,7 +100,7 @@
       <item name="LSL" precision="2" active="true" countries="ls" number="426"/>
       <item name="LTL" precision="2" active="true" countries="lt" number="440"/>
       <item name="LVL" precision="2" active="true" countries="lv" number="428"/>
-      <item name="LYD" precision="3" active="true" countries="LIBYA" number="434"/>
+      <item name="LYD" precision="3" active="true" countries="ly" number="434"/>
       <item name="MAD" precision="2" active="true" countries="eh, ma" number="504"/>
       <item name="MDL" precision="2" active="true" countries="md" number="498"/>
       <item name="MGA" precision="2" active="true" countries="mg" number="969"/>
@@ -119,7 +119,7 @@
       <item name="NAD" precision="2" active="true" countries="na" number="516"/>
       <item name="NGN" precision="2" active="true" countries="ng" number="566"/>
       <item name="NIO" precision="2" active="true" countries="ni" number="558"/>
-      <item name="NOK" precision="2" active="true" countries="bv, false, sj" number="578"/>
+      <item name="NOK" precision="2" active="true" countries="bv, no, sj" number="578"/>
       <item name="NPR" precision="2" active="true" countries="np" number="524"/>
       <item name="NZD" precision="2" active="true" countries="ck, nu, nz, pn, tk" number="554"/>
       <item name="OMR" precision="3" active="true" countries="om" number="512"/>

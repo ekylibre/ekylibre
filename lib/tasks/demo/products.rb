@@ -52,7 +52,7 @@ demo :products do
         equipment.is_measured!(indicator, value)
       end
 
-      w.check_point
+      w.check_point(0.2)
     end
 
 

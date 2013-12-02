@@ -21,7 +21,7 @@ class Backend::DepositsController < BackendController
 
   unroll
 
-  list(order: "created_at DESC") do |t|
+  list(order: {created_at: :desc}) do |t|
     t.column :number, url: true
     t.column :amount, currency: true, url: true
     t.column :payments_count
