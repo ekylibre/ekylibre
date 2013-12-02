@@ -29,7 +29,7 @@ module ActiveList
     end
 
     def var_name(name)
-      "the_#{name}"
+      "_#{name}"
     end
 
     def renderer
@@ -104,7 +104,6 @@ module ActiveList
       code << "#{var_name(:order)} = #{@table.options[:order] ? @table.options[:order].inspect : 'nil'}\n"
       code << "if #{var_name(:col)} = {" + @table.sortable_columns.collect{|c| "'#{c.sort_id}' => '#{c.sort_expression}'"}.join(', ') + "}[#{var_name(:params)}[:sort]]\n"
       code << "  #{var_name(:params)}[:dir] = 'asc' unless #{var_name(:params)}[:dir] == 'asc' or #{var_name(:params)}[:dir] == 'desc'\n"
-      # code << "  #{var_name(:order)} = #{@table.model.name}.connection.quote_column_name(#{var_name(:col)}) + ' ' + #{var_name(:params)}[:dir]\n"
       code << "  #{var_name(:order)} = #{var_name(:col)} + ' ' + #{var_name(:params)}[:dir]\n"
       code << "end\n"
 

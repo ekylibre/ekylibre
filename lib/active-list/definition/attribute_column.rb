@@ -9,7 +9,15 @@ module ActiveList
       def initialize(table, name, options = {})
         super(table, name, options)
         @label_method = (options[:label_method] || @name).to_sym
-        @sort_column = (options[:sort] || @name).to_sym
+        unless @sort_column = options[:sort]
+          if @table.model.columns_definition[@label_method]
+            @sort_column = @label_method 
+          elsif @table.model.columns_definition[@name]
+            @sort_column = @name
+          else
+            @sort_column = :id
+          end
+        end
         @column  = @table.model.columns_definition[@label_method.to_s]
       end
 

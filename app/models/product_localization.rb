@@ -59,7 +59,7 @@ class ProductLocalization < Ekylibre::Record::Base
   end
 
   after_save do
-    # # Detach from carrier if exists
+    # # Detach from carrier if exists but only if it has linkage points ?
     # self.product.carrier_linkages.at(self.started_at).find_each do |linkage|
     #   self.product_linkages.create!(carrier_id: linkage.carrier_id, point: linkage.point, started_at: self.started_at, nature: :available)
     # end
@@ -68,7 +68,7 @@ class ProductLocalization < Ekylibre::Record::Base
       if linkage.occupied? and carried = linkage.carried
         localization = carried.localizations.at(self.started_at).first
         if localization.nil? or (localization.nature != self.nature or localization.container_id != self.container_id)
-          self.product_localizations.create!(product: linkage.carried, nature: self.nature, container: self.container, started_at: self.started_at, arrival_cause: self.arrival_cause, departure_cause: self.departure_cause)
+          self.product_localizations.create!(product: linkage.carried, operation: self.operation, nature: self.nature, container: self.container, started_at: self.started_at, arrival_cause: self.arrival_cause, departure_cause: self.departure_cause)
         end
       end
     end

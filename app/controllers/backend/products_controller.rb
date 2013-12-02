@@ -66,8 +66,8 @@ class Backend::ProductsController < BackendController
     t.column :point
     t.column :nature
     t.column :intervention, url: true
-    t.column :started_at
-    t.column :stopped_at
+    t.column :started_at, through: :intervention
+    t.column :stopped_at, through: :intervention
   end
 
   list(:carrier_linkages, model: :product_linkages, conditions: {carried_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
@@ -116,7 +116,7 @@ class Backend::ProductsController < BackendController
   list(:intervention_casts, conditions: {actor_id: 'params[:id]'.c}) do |t|
     t.column :intervention, url: true
     t.column :roles
-    t.column :name
+    t.column :name, sort: :reference_name
     t.column :started_at, through: :intervention
     t.column :stopped_at, through: :intervention
   end

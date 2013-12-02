@@ -58,6 +58,19 @@ module ActiveList
         self.data_columns.select(&:hidden?)
       end
 
+      # Compute includes Hash
+      def reflections
+        hash = []
+        for column in self.columns
+          if column.respond_to?(:reflection)
+            unless hash.detect{|r| r.name == column.reflection.name }
+              hash << column.reflection 
+            end
+          end
+        end
+        return hash
+      end
+
 
       # Add a new method in Table which permit to define text_field columns
       def text_field(name, options = {})

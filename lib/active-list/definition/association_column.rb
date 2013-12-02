@@ -23,18 +23,20 @@ module ActiveList
         else
           raise UnknownReflection, "Reflection #{reflection_name} cannot be found for #{table.model.name}."
         end
+        columns_def = @reflection.class_name.constantize.columns_definition.keys.map(&:to_sym)
         unless @label_method = @options.delete(:label_method)
-          columns = @reflection.class_name.constantize.columns_definition.keys.map(&:to_sym)
-          columns += @reflection.class_name.constantize.instance_methods.map(&:to_sym)
+          columns = columns_def + @reflection.class_name.constantize.instance_methods.map(&:to_sym)
           unless @label_method = LABELS_COLUMNS.detect{|m| columns.include?(m)}
             raise ArgumentError, ":label_method option must be given for association #{name}. (#{columns.inspect})"
           end
         end
         unless @sort_column = @options.delete(:sort)
-          columns = @reflection.class_name.constantize.columns_definition.keys.map(&:to_sym)
-          unless @sort_column = LABELS_COLUMNS.detect{|m| columns.include?(m)}
-            @sort_column =  @reflection.foreign_key.to_sym
-            # Rails.logger.warn("No valid :sort option must be given for association #{name}. (#{columns.inspect})")
+          if columns_def.include?(@label_method)
+            @sort_column = @label_method
+          else
+            unless @sort_column = LABELS_COLUMNS.detect{|m| columns_def.include?(m)}
+              @sort_column = :id
+            end
           end
         end
       end
@@ -65,7 +67,7 @@ module ActiveList
       end
 
       def sort_expression
-        if @reflection.macro == :has_one
+        if table.reflections.select{|r| r.table_name == @reflection.table_name}.size > 1
           "#{@reflection.name.to_s.pluralize}_#{@reflection.class_name.constantize.table_name}.#{@sort_column}"
         else
           "#{@reflection.class_name.constantize.table_name}.#{@sort_column}"
