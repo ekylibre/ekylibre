@@ -1208,6 +1208,8 @@ fra:
           name: "Chèque"
         transfer:
           name: "Virement"
+    intervention:
+      name: "%{intervention} n°%{number}"
     inventory_item:
       inventory: "Inventaire"
     journal_entry:

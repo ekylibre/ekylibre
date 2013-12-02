@@ -23,7 +23,7 @@ class Backend::MineralMattersController < Backend::MattersController
     t.column :name, url: true
     t.column :population
     t.column :net_weight
-    t.column :localize_in
+    t.column :container, url: true
   end
 
 end

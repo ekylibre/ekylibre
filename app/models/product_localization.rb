@@ -54,15 +54,15 @@ class ProductLocalization < Ekylibre::Record::Base
   validates_presence_of :arrival_cause
 
   before_save do
-    # self.container = nil unless self.interior?
+    self.container = nil unless self.interior?
     return true
   end
 
   after_save do
-    # Detach from carrier if exists
-    self.product.carrier_linkages.at(self.started_at).find_each do |linkage|
-      self.product_linkages.create!(carrier_id: linkage.carrier_id, point: linkage.point, started_at: self.started_at, nature: "available")
-    end
+    # # Detach from carrier if exists
+    # self.product.carrier_linkages.at(self.started_at).find_each do |linkage|
+    #   self.product_linkages.create!(carrier_id: linkage.carrier_id, point: linkage.point, started_at: self.started_at, nature: :available)
+    # end
     # Move carried products
     self.product.linkages.at(self.started_at).find_each do |linkage|
       if linkage.occupied? and carried = linkage.carried

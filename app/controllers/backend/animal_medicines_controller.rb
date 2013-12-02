@@ -24,7 +24,7 @@ class Backend::AnimalMedicinesController < Backend::MedicinesController
     t.column :population
     t.column :net_volume
     t.column :net_weight
-    t.column :localize_in
+    t.column :container, url: true
     t.column :milk_withdrawal_period
     t.column :meat_withdrawal_period
   end

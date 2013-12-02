@@ -45,6 +45,8 @@ Ekylibre::Application.routes.draw do
     concerns :list, :unroll
     member do
       match "picture(/:style)", via: :get, action: :picture, as: :picture
+      get :list_carried_linkages
+      get :list_carrier_linkages
       get :list_contained_products
       get :list_groups
       get :list_incidents

@@ -22,7 +22,7 @@ class Backend::PlantsController < Backend::MattersController
   list do |t|
     t.column :work_number, url: true
     t.column :name, url: true
-    t.column :localize_in
+    t.column :container, url: true
     t.column :born_at
     t.action :edit
     t.action :destroy, :if => :destroyable?

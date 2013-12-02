@@ -50,6 +50,15 @@ class ProductLinkage < Ekylibre::Record::Base
 
   scope :with, lambda { |point| where(point: point) }
 
+  after_save do
+    # # If carried is already carried, detach it!
+    # if self.occupied? and self.carried
+    #   self.carried.carrier_linkages.at(self.started_at).find_each do |linkage|
+    #     self.product_linkages.create!(carrier_id: linkage.carrier_id, point: linkage.point, started_at: self.started_at, nature: :available)
+    #   end
+    # end
+  end
+
   private
 
   # Returns all siblings in the chronological line

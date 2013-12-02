@@ -27,7 +27,7 @@ class Backend::ProductsController < BackendController
 
   unroll
 
-  list() do |t|
+  list do |t|
     t.column :number, url: true
     t.column :name, url: true
     t.column :variant, url: true
@@ -43,6 +43,7 @@ class Backend::ProductsController < BackendController
   list(:contained_products, model: :product_localizations, conditions: {container_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :product, url: true
     t.column :nature
+    t.column :intervention, url: true
     t.column :started_at
     t.column :arrival_cause, hidden: true
     t.column :stopped_at
@@ -60,9 +61,28 @@ class Backend::ProductsController < BackendController
     t.column :departure_cause, hidden: true
   end
 
+  list(:carried_linkages, model: :product_linkages, conditions: {carrier_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+    t.column :carried, url: true
+    t.column :point
+    t.column :nature
+    t.column :intervention, url: true
+    t.column :started_at
+    t.column :stopped_at
+  end
+
+  list(:carrier_linkages, model: :product_linkages, conditions: {carried_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+    t.column :carrier, url: true
+    t.column :point
+    t.column :nature
+    t.column :intervention, url: true
+    t.column :started_at
+    t.column :stopped_at
+  end
+
   # groups of the consider product
   list(:groups, model: :product_memberships, conditions: {member_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :group, url: true
+    t.column :intervention, url: true
     t.column :started_at
     t.column :stopped_at
   end
@@ -70,6 +90,7 @@ class Backend::ProductsController < BackendController
   # members of the consider product
   list(:members, model: :product_memberships, conditions: {group_id: 'params[:id]'.c}, order: :started_at) do |t|
     t.column :member, url: true
+    t.column :intervention, url: true
     t.column :started_at
     t.column :stopped_at
   end

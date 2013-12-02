@@ -142,7 +142,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def name
-    reference.human_name
+    "models.intervention.name".t(intervention: self.reference.human_name, number: self.id)
   end
 
   def start_time

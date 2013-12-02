@@ -24,7 +24,7 @@ class Backend::PlantMedicinesController < Backend::MedicinesController
     t.column :population
     t.column :net_volume
     t.column :net_weight
-    t.column :localize_in
+    t.column :container, url: true
   end
 
 end

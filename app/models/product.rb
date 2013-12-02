@@ -314,15 +314,6 @@ class Product < Ekylibre::Record::Base
     ProductGroup.groups_of(self, viewed_at || Time.now)
   end
 
-  # Returns the current localization of the product at a given time (or now by default)
-  def localize_in(at = Time.now)
-    if self.localizations.where("started_at <= ?",at).count > 0
-      return self.localizations.where("started_at <= ?",at).reorder('started_at DESC').first.container
-    else
-      return nil
-    end
-  end
-
   # Returns the current contents of the product at a given time (or now by default)
   def contains(content_class = Product, at = Time.now)
     localizations = ProductLocalization.where(container: self).where("started_at <= ?",at)
@@ -368,7 +359,7 @@ class Product < Ekylibre::Record::Base
     return nil
   end
 
-  def area(unit, at)
+  def area(unit = :hectare, at = Time.now)
     ActiveSupport::Deprecation.warn("Product#area is deprecated. Please use Product#net_surface_area instead.")
     return net_surface_area(at).in(unit)
   end

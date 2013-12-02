@@ -21,6 +21,7 @@ class Backend::ProductGroupsController < Backend::ProductsController
 
   list do |t|
     t.column :name, url: true
+    t.column :variety
     t.column :description
     t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
