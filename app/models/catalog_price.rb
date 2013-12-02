@@ -29,6 +29,7 @@
 #  id                 :integer          not null, primary key
 #  indicator          :string(120)      not null
 #  lock_version       :integer          default(0), not null
+#  name               :string(255)      not null
 #  reference_tax_id   :integer
 #  started_at         :datetime
 #  stopped_at         :datetime
@@ -55,8 +56,9 @@ class CatalogPrice < Ekylibre::Record::Base
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :thread, allow_nil: true, maximum: 20
   validates_length_of :indicator, allow_nil: true, maximum: 120
+  validates_length_of :name, allow_nil: true, maximum: 255
   validates_inclusion_of :all_taxes_included, in: [true, false]
-  validates_presence_of :amount, :catalog, :currency, :indicator, :variant
+  validates_presence_of :amount, :catalog, :currency, :indicator, :name, :variant
   #]VALIDATORS]
   validates_presence_of :started_at
 
@@ -79,7 +81,7 @@ class CatalogPrice < Ekylibre::Record::Base
       self.started_at = Time.now
     end
     if self.name.blank?
-      self.name = self.label
+      self.name = self.label_name
     end
     #  #self.computed_at ||= Time.now
     #  #if self.template
@@ -100,6 +102,10 @@ class CatalogPrice < Ekylibre::Record::Base
   #   #  end
   #   #end
   # end
+
+  def label_name
+    self.variant.name.to_s + ' ' + self.amount.to_s + ' ' + self.currency.to_s + ' / ' + self.variant.unit_name.to_s
+  end
 
   def label
     tc(:label, :variant => self.variant.name, :amount => self.amount, :currency => self.currency)

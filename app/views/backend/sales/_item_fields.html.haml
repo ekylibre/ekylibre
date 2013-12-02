@@ -2,7 +2,7 @@
 %tr.nested-fields
   %td
     .selector
-      = f.input_field(:price_id, 'data-selector' => url_for(:controller => :catalog_prices, :action => :unroll, :scope => :of_usage(':sale')), 'data-selector-new-item' => url_for(:action => :new, :controller => :catalog_prices))
+      = f.input_field(:price_id, 'data-selector' => url_for(:controller => :catalog_prices, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :catalog_prices))
     -if item.errors.count > 0
       =item.errors.messages.inspect
   %td.decimal= f.input_field(:quantity, :size => 7, :class => "item-pta item-wta")

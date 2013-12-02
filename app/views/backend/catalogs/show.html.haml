@@ -9,4 +9,6 @@
       - l.attribute :description
 
   - b.cell :prices do
+    = toolbar do |t|
+      - t.new(:params =>{:controller => :catalog_prices, :catalog_id => @catalog.id})
     = list :prices

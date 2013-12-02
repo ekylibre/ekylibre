@@ -65,9 +65,9 @@
 #
 class Person < Entity
   enumerize :nature, in: Nomen::EntityNatures.all(:person), default: Nomen::EntityNatures.default(:person), predicates: {prefix: true}
-  
+
   scope :employees, lambda {
     joins(:direct_links).merge(EntityLink.of_nature(:work))
   }
-  
+
 end

@@ -58,9 +58,8 @@ demo :sales do
                                        )
 
         sale.items.create!(:quantity => rand(12.5) + 0.5,
-                           :variant_id => wheat.id,
                            :tax_id => wheat_taxes.sample.id,
-                           :price_id => price.id)
+                           :price => price)
       end
       if !rand(20).zero?
         Sale.where(:id => sale.id).update_all(:created_on => d)
@@ -117,8 +116,7 @@ demo :sales do
                                        )
 
         sale.items.create!(:quantity => rand(12.5) + 0.5,
-                           :variant_id => cow.id,
-                           :price_id => price.id,
+                           :price => price,
                            :tax_id => cow_price_template_taxes.sample.id
                            )
       end

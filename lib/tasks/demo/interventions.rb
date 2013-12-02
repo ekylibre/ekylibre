@@ -4,20 +4,20 @@ demo :interventions do
   class Booker
 
     cattr_accessor :production
-    
+
     class << self
 
       def find(model, options = {})
         relation = model
         relation = relation.can(options[:can]) if options[:can]
         relation = relation.of_variety(options[:variety]) if options[:variety]
-        relation = relation.derivative_of(options[:derivative_of]) if options[:derivative_of]        
+        relation = relation.derivative_of(options[:derivative_of]) if options[:derivative_of]
         if record = relation.all.sample
           return record
         else
           # Create product with given elements
           attributes = {
-            name: model.model_name.human, 
+            name: model.model_name.human,
             default_storage: find(BuildingDivision)
           }
           variants = ProductNatureVariant.find_or_import!(options[:variety] || model.name.underscore, derivative_of: options[:derivative_of])
@@ -28,7 +28,7 @@ demo :interventions do
           return model.create!(attributes)
         end
       end
-      
+
       def daytime_duration(on)
         12.0 - 4.0 * Math.cos((on + 11.days).yday.to_f / (365.25 / Math::PI / 2))
       end
@@ -160,7 +160,7 @@ demo :interventions do
             end
 
             # Organic Fertilizing  01-03-M -> 31-03-M
-            organic_fertilizer = 
+            organic_fertilizer =
               Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
               i.add_cast(reference_name: 'manure',      actor: Booker.find(Product, variety: :manure, derivative_of: :bos))
               i.add_cast(reference_name: 'manure_to_spread', population: 0.2 + 4 * coeff)
