@@ -327,6 +327,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "cashes", ["updater_id"], :name => "index_cashes_on_updater_id"
 
   create_table "catalog_prices", force: true do |t|
+    t.string   "name",                                                                    null: false
     t.integer  "variant_id",                                                              null: false
     t.integer  "catalog_id",                                                              null: false
     t.string   "indicator",          limit: 120,                                          null: false

@@ -78,6 +78,9 @@ class CatalogPrice < Ekylibre::Record::Base
     if self.started_at.nil?
       self.started_at = Time.now
     end
+    if self.name.blank?
+      self.name = self.label
+    end
     #  #self.computed_at ||= Time.now
     #  #if self.template
     #  #  self.currency ||= self.template.currency

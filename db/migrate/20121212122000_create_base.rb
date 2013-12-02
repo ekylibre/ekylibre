@@ -180,6 +180,7 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :catalog_prices do |t|
+      t.string     :name,                                             null: false, index: true
       t.references :variant,                                          null: false, index: true
       t.references :catalog,                                          null: false, index: true
       # t.references :supplier,                                         null: false, index: true

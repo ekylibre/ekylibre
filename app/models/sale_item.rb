@@ -124,6 +124,8 @@ class SaleItem < Ekylibre::Record::Base
     self.amount ||= 0
 
     if self.price
+      self.account_id ||= self.price.variant.nature.category.product_account_id
+      self.label ||= self.price.variant.commercial_name
       self.indicator = self.price.indicator
       self.unit_price_amount ||= self.price.amount
       self.currency = self.price.currency
