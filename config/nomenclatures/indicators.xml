@@ -4,7 +4,7 @@
     <attributes>
       <attribute name="datatype" type="choice" choices="string, decimal, boolean, choice, measure, point, multi_polygon, geometry" required="true"/>
       <attribute name="related_to" type="choice" choices="whole, individual" default="individual"/>
-      <attribute name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="last"/>
+      <attribute name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
       <attribute name="unit" type="choice" nomenclature="units" required="false"/>
       <attribute name="choices" type="list" required="false"/>
     </attributes>
@@ -40,8 +40,8 @@
       <item name="plant_life_state" datatype="choice" choices="germination, tillering, bolting, maturity, senescence"/>
       <item name="plant_reproduction_state" datatype="choice" choices="swelling, heading, flowering, grain_maturity, grain_senescence"/>
       <!-- for product analysis -->
-      <item name="dry_matter_rate" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
-      <item name="water_content_rate" datatype="measure" unit="kilogram_per_hundred_kilogram"/>
+      <item name="dry_matter_rate" datatype="measure" unit="mass_percent"/>
+      <item name="water_content_rate" datatype="measure" unit="mass_percent"/>
       <!-- for milk analysis -->
       <item name="total_bacteria_concentration" datatype="measure" unit="thousand_per_milliliter"/>
       <item name="inhibitors_presence" datatype="choice" choices="negative, positive"/>
@@ -50,7 +50,7 @@
       <item name="somatic_cell_concentration" datatype="measure" unit="thousand_per_milliliter"/>
       <item name="clostridial_spores_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="freezing_point_temperature" datatype="measure" unit="celsius"/>
-      <item name="lipolysis" datatype="measure" unit="thousand_eq_per_hundred_gram"/>
+      <item name="lipolysis" datatype="measure" unit="thousand_per_hectogram"/>
       <item name="immunoglobulins_concentration" datatype="measure" unit="unity_per_liter"/>
       <item name="urea_concentration" datatype="measure" unit="milligram_per_liter"/>
       <!-- for animal medicine -->

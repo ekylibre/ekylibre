@@ -104,7 +104,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :can, Proc.new { |*abilities|
     query = []
     parameters = []
-    for ability in abilities.flatten.join(', ').strip.split(/[\s\,]+/)
+    for ability in abilities.flatten.join(', ').strip.split(/[[:space:]]*\,[[:space:]]*/)
       if ability =~ /\(.*\)\z/
         params = ability.split(/\s*[\(\,\)]\s*/)
         ability = params.shift.to_sym
@@ -199,7 +199,7 @@ class ProductNature < Ekylibre::Record::Base
 
   # Returns list of indicators as an array of indicator items from the nomenclature
   def indicators_array
-    return self.indicators.to_s.strip.split(/[\,\s]+/).collect do |i|
+    return self.indicators.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect do |i|
       Nomen::Indicators[i]
     end.compact
   end
@@ -221,7 +221,7 @@ class ProductNature < Ekylibre::Record::Base
 
   # Returns list of abilities as an array of ability items from the nomenclature
   def abilities_array
-    return self.abilities.to_s.strip.split(/[\,\s]+/).collect do |i|
+    return self.abilities.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect do |i|
       (Nomen::Abilities[i.split(/\(/).first] ? i : nil)
     end.compact
   end

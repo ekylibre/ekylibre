@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="entity_link_natures" notions="direct_sens,indirect_sens">
+  <nomenclature name="entity_link_natures" notions="direct_sens, indirect_sens">
     <attributes>
       <attribute name="entity_1" type="choice" nomenclature="entity_natures"/>
       <attribute name="entity_2" type="choice" nomenclature="entity_natures"/>

@@ -8,7 +8,7 @@
       <attribute name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <attribute name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <attribute name="frozen_indicators_values" type="string" required="false"/>
-      <attribute name="unit_name" type="choice" choices="head,unit,liter,hectare,kilogram,ton,box,hour,cubic_meter,can,bag" required="false"/>
+      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 25kg_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, liter, person, room, ton, unit" required="true" default="unit"/>
     </attributes>
     <items>
       <item name="cattle_herd"
@@ -233,7 +233,7 @@
             />
       <item name="anti_slug"
             nature="molluscicide"
-            unit_name="kilograme(s)"
+            unit_name="kilogram"
             frozen_indicators_values="net_volume: 1.00liter, net_weight: 1.00kilogram"
             />
       <item name="insecticide"
@@ -267,56 +267,56 @@
       <item name="wheat_seed_25"
             nature="seed"
             derivative_of="triticum_aestivum"
-            unit_name="25kilogram_bag"
+            unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 50gram"
             />
       <item name="hard_wheat_seed_25"
             nature="seed"
             derivative_of="triticum_durum"
-            unit_name="25kilogram_bag"
+            unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 50gram"
             />
       <item name="spelt_seed_25"
             nature="seed"
             derivative_of="triticum_spelta"
-            unit_name="25kilogram_bag"
+            unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 50gram"
             />
       <item name="barley_seed_25"
             nature="seed"
             derivative_of="hordeum"
-            unit_name="25kilogram_bag"
+            unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
             />
       <item name="corn_seed_25"
             nature="seed"
             derivative_of="zea"
-            unit_name="25kilogram_bag"
+            unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
             />
       <item name="grass_seed_25"
             nature="seed"
             derivative_of="poa"
-            unit_name="25kilogram_bag"
+            unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
             />
       <item name="sorghum_seed_25"
             nature="seed"
             derivative_of="sorghum"
-            unit_name="25kilogram_bag"
+            unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
             />
       <item name="cereals_feed_bag_25"
             nature="food"
             variety="plant_food"
             derivative_of="poaceae"
-            unit_name="25kilogram_bag"
+            unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram"
             />
-      <item name="mineral_feed_bloc_25"
+      <item name="mineral_feed_block_25"
             nature="food"
             variety="mineral_food"
-            unit_name="25kilogram_bag"
+            unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram"
             />
       <item name="riflexine"
@@ -351,7 +351,7 @@
             />    
       <item name="land_parcel"
             nature="land_parcel"
-            unit_name="land_parcel"
+            unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="land_parcel_cluster"
@@ -484,7 +484,7 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
 	    />
-	    <item name="forager"
+      <item name="forager"
             nature="forager"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
@@ -502,7 +502,7 @@
 
 
       <!-- Coop variants -->
-      <item name="coop:ammonitre_33,5%_vr"
+      <item name="coop:ammonitre_33, 5%_vr"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_weight: 1.00ton, nitrogen_concentration: 33.5percent, potassium_concentration: 33percent, phosphorus_concentration: 33percent"
@@ -514,7 +514,7 @@
             />
       <item name="coop:metarex_rg_tds_20kg"
             nature="molluscicide"
-            unit_name="kilograme(s)"
+            unit_name="kilogram"
             frozen_indicators_values="net_volume: 20.00liter, net_weight: 20.00kilogram"
             />
       <item name="coop:sel_mer_essore_la_baleine_sac_25kg"

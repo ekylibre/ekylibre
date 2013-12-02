@@ -40,7 +40,7 @@ class Backend::ProductsController < BackendController
   end
 
   # content product list of the consider product
-  list(:contained_products, model: :product_localizations, conditions: {container_id: 'params[:id]'.c}, order: "started_at DESC") do |t|
+  list(:contained_products, model: :product_localizations, conditions: {container_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :product, url: true
     t.column :nature
     t.column :started_at
@@ -82,7 +82,7 @@ class Backend::ProductsController < BackendController
   end
 
   # incidents of the consider product
-  list(:incidents, conditions: {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, order: "observed_at DESC") do |t|
+  list(:incidents, conditions: {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, order: {observed_at: :desc}) do |t|
     t.column :name, url: true
     t.column :nature
     t.column :observed_at

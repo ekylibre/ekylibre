@@ -65,14 +65,14 @@ class Backend::ProductionsController < BackendController
   end
 
   # List supports for one production
-  list(:supports, model: :production_supports, conditions: {production_id: 'params[:id]'.c}, order: "created_at DESC") do |t|
+  list(:supports, model: :production_supports, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :name, through: :storage, url: true
     t.column :population, through: :storage
     t.column :created_at
   end
 
   # List procedures for one production
-  list(:interventions, conditions: {production_id: 'params[:id]'.c}, order: "created_at DESC", line_class: :status) do |t|
+  list(:interventions, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status) do |t|
     # t.column :name
     t.column :name, url: true
     #t.column :name, through: :storage, url: true

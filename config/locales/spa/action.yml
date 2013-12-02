@@ -342,10 +342,10 @@ spa:
       show: "Periodico : %{name} (%{code})"
     backend/kujakus: #?
     backend/land_parcel_clusters:
-      # edit: "Modifier l’ilôt\_: %{name}"
-      # index: "Ilôts"
-      # new: "Ajouter un nouvel ilôt"
-      # show: "Ilôt %{name}"
+      # edit: "Modifier l’îlot\_: %{name}"
+      # index: "Îlots"
+      # new: "Ajouter un nouvel îlot"
+      # show: "Îlot %{name}"
     backend/land_parcel_groups:
       # divide: "Diviser le groupe de parcelle\_: %{name}"
       # edit: "Modifier le groupe de parcelle\_: %{name}"

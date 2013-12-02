@@ -21,12 +21,14 @@ demo :interventions do
     def self.intervene(procedure, year, month, day, duration, options = {}, &block)
       day_range = options[:range] || 30
 
+      duration += 1.25 - rand(0.5)
+
       # Find actors
       booker = new(duration)
       yield booker
       actors = booker.casts.collect{|c| c[:actor]}.compact
       if actors.empty?
-        raise ArgumentError.new("What's the fuck ? No actors ? ")
+        raise ArgumentError, "What's the fuck ? No actors ? "
       end
 
       # Adds fixed durations to given time

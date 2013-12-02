@@ -22,7 +22,7 @@ class Backend::BankStatementsController < BackendController
 
   unroll
 
-  list(order: "started_on DESC") do |t|
+  list(order: {started_on: :desc}) do |t|
     t.column :number, url: true
     t.column :cash,   url: true
     t.column :started_on
@@ -45,7 +45,7 @@ class Backend::BankStatementsController < BackendController
     notify_now(:x_unpointed_journal_entry_items, :count => JournalEntryItem.where("bank_statement_id IS NULL and account_id IN (?)", cashes.map(&:account_id)).count)
   end
 
-  list(:items, model: :journal_entry_items, conditions: {bank_statement_id: 'params[:id]'.c}, order: "entry_id") do |t|
+  list(:items, model: :journal_entry_items, conditions: {bank_statement_id: 'params[:id]'.c}, order: :entry_id) do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
     t.column :printed_on

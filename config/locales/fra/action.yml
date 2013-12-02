@@ -329,11 +329,11 @@ fra:
     backend/kujakus:
       # toggle: "Toggle backend/kujaku"
     backend/land_parcel_clusters:
-      edit: "Modifier l’ilôt\_: %{name}"
-      index: "Ilôts"
-      new: "Ajouter un nouvel ilôt"
+      edit: "Modifier l’îlot\_: %{name}"
+      index: "Îlots"
+      new: "Ajouter un nouvel îlot"
       # picture: "Picture backend/land parcel cluster"
-      show: "Ilôt %{name}"
+      show: "Îlot %{name}"
     backend/land_parcel_groups:
       divide: "Diviser le groupe de parcelle\_: %{name}" #?
       edit: "Modifier le groupe de parcelle\_: %{name}"

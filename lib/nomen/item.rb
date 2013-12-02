@@ -101,10 +101,12 @@ module Nomen
       value = value.to_s
       if attribute = @nomenclature.attributes[name]
         if attribute.type == :choice
-          raise InvalidAttribute.new("An attribute of choice type cannot contain commas") if value =~ /\,/
+          if value =~ /\,/
+            raise InvalidAttribute, "An attribute of choice type cannot contain commas"
+          end
           value = value.strip.to_sym
         elsif attribute.type == :list
-          value = value.strip.split(/[\,\s]+/).map(&:to_sym)
+          value = value.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
         elsif attribute.type == :boolean
           value = (value == "true" ? true : value == "false" ? false : nil)
         elsif attribute.type == :decimal
@@ -113,7 +115,7 @@ module Nomen
           value = value.to_i
         end
       elsif name.to_s != "name" # the only system name
-        raise ArgumentError.new("Undefined attribute #{name} in #{@nomenclature.name}")
+        raise ArgumentError, "Undefined attribute #{name} in #{@nomenclature.name}"
       end
       return value
     end

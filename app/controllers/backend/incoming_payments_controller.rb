@@ -39,7 +39,7 @@ class Backend::IncomingPaymentsController < BackendController
     return code.c
   end
 
-  list(conditions: incoming_payments_conditions, joins: :payer, order: "to_bank_on DESC") do |t|
+  list(conditions: incoming_payments_conditions, joins: :payer, order: {to_bank_on: :desc}) do |t|
     t.column :number, url: true
     t.column :payer, url: true
     t.column :paid_on

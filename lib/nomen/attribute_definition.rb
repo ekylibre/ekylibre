@@ -11,21 +11,21 @@ module Nomen
       @name = element.attr("name").to_sym
       @type = element.attr("type").to_sym
       if element.has_attribute?("fallbacks")
-        @fallbacks = element.attr("fallbacks").to_s.strip.split(/[\s\,]+/).map(&:to_sym)
+        @fallbacks = element.attr("fallbacks").to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
       end
       if element.has_attribute?("default")
-        @default  = element.attr("default").to_s
+        @default  = element.attr("default").to_sym
       end
       @required = !!(element.attr("required").to_s == "true")
       @inherit  = !!(element.attr("inherit").to_s == "true")
       raise ArgumentError.new("Attribute #{@name} type is unknown") unless TYPES.include?(@type)
       if @type == :choice or @type == :list
         if element.has_attribute?("choices")
-          @choices = element.attr("choices").to_s.strip.split(/[\,\s]+/).map(&:to_sym)
+          @choices = element.attr("choices").to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
         elsif element.has_attribute?("nomenclature")
           @choices = element.attr("nomenclature").to_s.strip.to_sym
         elsif @type != :list
-          raise ArgumentError.new("[#{@nomenclature.name}] Attribute #{@name} must have choices or nomenclature attribute")
+          raise ArgumentError, "[#{@nomenclature.name}] Attribute #{@name} must have choices or nomenclature attribute"
         end
       end
     end
@@ -53,7 +53,7 @@ module Nomen
       if inline_choices?
         return @choices || []
       else
-        return Nomen[@choices.to_s].all
+        return Nomen[@choices.to_s].all.map(&:to_sym)
       end
     end
 

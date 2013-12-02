@@ -36,7 +36,7 @@ class Backend::BuildingsController < Backend::ProductGroupsController
   end
 
   # List divisions of a building
-  list(:divisions, model: :product_memberships, conditions: {group_id: 'params[:id]'.c}, order: "started_at ASC") do |t|
+  list(:divisions, model: :product_memberships, conditions: {group_id: 'params[:id]'.c}, order: :started_at) do |t|
     t.column :name, through: :member, url: true
     t.column :started_at
     t.column :stopped_at

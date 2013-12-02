@@ -73,7 +73,7 @@ class Backend::JournalsController < BackendController
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
   end
 
-  list(:entries, model: :journal_entries, conditions: journal_entries_conditions, order: "created_at DESC") do |t|
+  list(:entries, model: :journal_entries, conditions: journal_entries_conditions, order: {created_at: :desc}) do |t|
     t.column :number, url: true
     t.column :printed_on
     t.column :state_label
@@ -88,7 +88,7 @@ class Backend::JournalsController < BackendController
   end
 
   # FIXME RECORD.real_currency does not exist
-  list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, :children => :items, order: "created_at DESC", :per_page => 10) do |t|
+  list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, :children => :items, order: {created_at: :desc}, :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
     # t.column :label, through: :account, url: {:action => :account}

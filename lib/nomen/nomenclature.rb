@@ -13,24 +13,27 @@ module Nomen
       @attributes = HashWithIndifferentAccess.new
     end
 
+    class << self
 
-    def self.harvest(nomenclature_name, nomenclatures)
-      sets = HashWithIndifferentAccess.new
-      for nomenclature in nomenclatures
-        namespace, name = nomenclature.attr("name").to_s.split(NS_SEPARATOR)[0..1]
-        name = :root if name.blank?
-        sets[name] = nomenclature
+      def harvest(nomenclature_name, nomenclatures)
+        sets = HashWithIndifferentAccess.new
+        for nomenclature in nomenclatures
+          namespace, name = nomenclature.attr("name").to_s.split(NS_SEPARATOR)[0..1]
+          name = :root if name.blank?
+          sets[name] = nomenclature
+        end
+
+        # Find root
+        unless root = sets[:root]
+          raise ArgumentError.new("Missing root nomenclature in set #{nomenclature_name}")
+        end
+
+        # Browse recursively nomenclatures and sub-nomenclatures
+        n = Nomenclature.new(nomenclature_name)
+        n.harvest(root, sets, root: true)
+        return n
       end
 
-      # Find root
-      unless root = sets[:root]
-        raise ArgumentError.new("Missing root nomenclature in set #{nomenclature_name}")
-      end
-
-      # Browse recursively nomenclatures and sub-nomenclatures
-      n = Nomenclature.new(nomenclature_name)
-      n.harvest(root, sets, root: true)
-      return n
     end
 
     # Browse and harvest items recursively
@@ -62,6 +65,46 @@ module Nomen
       @attributes[a.name] = a
       return a
     end
+
+    def check!
+      # Check attributes
+      for attribute in @attributes.values
+        if attribute.choices_nomenclature and !attribute.inline_choices? and !Nomen[attribute.choices_nomenclature.to_s]
+          raise InvalidAttribute, "[#{self.name}] #{attribute.name} nomenclature attribute must refer to an existing nomenclature. Got #{attribute.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}"
+        end
+        if attribute.type == :choice and attribute.default
+          unless attribute.choices.include?(attribute.default)
+            raise InvalidAttribute, "The default choice #{attribute.default.inspect} is invalid (in #{self.name}##{attribute.name}). Pick one from #{attribute.choices.sort.inspect}."
+          end
+        end
+      end
+
+      # Check items
+      for item in list
+        for attribute in @attributes.values
+          choices = attribute.choices
+          if item.attr(attribute.name) and attribute.type == :choice
+            # Cleans for parametric reference
+            name = item.attr(attribute.name).to_s.split(/\(/).first.to_sym
+            unless choices.include?(name)
+              raise InvalidAttribute, "The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}."
+            end
+          elsif item.attr(attribute.name) and attribute.type == :list and attribute.choices_nomenclature
+            for name in item.attr(attribute.name) || []
+              # Cleans for parametric reference
+              name = name.to_s.split(/\(/).first.to_sym
+              unless choices.include?(name)
+                raise InvalidAttribute, "The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}."
+              end
+            end
+          end
+        end
+      end
+
+      # Default return
+      return true
+    end
+
 
     # Return human name
     def human_name
