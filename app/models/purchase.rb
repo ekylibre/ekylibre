@@ -161,7 +161,7 @@ class Purchase < Ekylibre::Record::Base
     return false unless self.has_content?
     deliverable = false
     for item in self.items
-      deliverable = true if item.product.deliverable?
+      deliverable = true if item.variant.deliverable?
     end
     return !deliverable
   end
