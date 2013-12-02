@@ -16,9 +16,9 @@ module Ekylibre
       @max = max
     end
 
-    def check_point
-      @count += 1
-      print "."
+    def check_point(increment = 1)
+      @count += increment
+      print "." if (@count - increment).to_i != @count.to_i
       if @max > 0
         raise FixtureCountExceeded.new if @count >= @max
       end
@@ -27,7 +27,7 @@ module Ekylibre
 
   def self.fixturize(name, options = {}, &block)
     STDOUT.sync = true
-    max = ENV["max"].to_i
+    max = (options[:max] || ENV["max"]).to_i
     max = MAX if max.zero?
     f = Fixturize.new(max)
     start = Time.now
