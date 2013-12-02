@@ -51,7 +51,8 @@ demo :sales do
         # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
         price = catalog.prices.find_by(:variant_id => ble.variant_id, :amount => 100.0)
         price ||= catalog.prices.create!(:currency => "EUR",
-                                       :amount => 100.00,
+                                       :started_at => d.to_time,
+                                       :amount => rand(60) + 180,
                                        :indicator => :population,
                                        :reference_tax_id => wheat_taxes.sample.id,
                                        :variant_id => ble.variant_id
@@ -108,7 +109,8 @@ demo :sales do
         # # @FIXME = waiting for a working method in ProductPrice.price
         # price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
         price = catalog.prices.find_by(:variant_id => animal.variant_id, :amount => 180.00)
-        price ||= catalog.prices.create!(:amount => 180.00,
+        price ||= catalog.prices.create!(:amount => rand(40) + 140,
+                                       :started_at => d.to_time,
                                        :currency => "EUR",
                                        :indicator => :population,
                                        :reference_tax_id => cow_price_template_taxes.sample.id,

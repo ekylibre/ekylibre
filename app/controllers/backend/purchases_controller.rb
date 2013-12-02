@@ -22,7 +22,7 @@ class Backend::PurchasesController < BackendController
 
   unroll
 
-  list(conditions: search_conditions(:purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), joins: :supplier, :line_class => :status, order: "created_on DESC, number DESC") do |t|
+  list(conditions: search_conditions(:purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), joins: :supplier, :line_class => :status, order: "created_on DESC") do |t|
     t.column :number, url: {:action => :show, :step => :default}
     t.column :reference_number, url: {:action => :show, :step => :products}
     t.column :created_on

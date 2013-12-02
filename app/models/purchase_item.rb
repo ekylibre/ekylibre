@@ -74,17 +74,30 @@ class PurchaseItem < Ekylibre::Record::Base
 
 
   before_validation do
+    
+    self.pretax_amount ||= 0
+    self.amount ||= 0
+    
     self.currency = self.purchase_currency
     if self.variant
-      self.account   ||= variant.charge_account || Account.find_in_chart(:charges)
+      self.account   ||= self.variant.charge_account || Account.find_in_chart(:expenses)
       self.label     ||= self.variant.commercial_name
       self.currency  ||= Preference.get(:currency).value
       self.indicator ||= :population.to_s
     end
+    amount = self.quantity * self.unit_price_amount
+      if self.tax
+        tax_amount = self.tax.compute(amount, false)
+        self.pretax_amount = amount
+        self.amount = (self.pretax_amount + tax_amount).round(2)
+      else
+        self.amount = self.pretax_amount = amount
+      end
   end
 
   validate do
     errors.add(:currency, :invalid) if self.currency != self.purchase.currency
+    errors.add(:quantity, :invalid) if self.quantity.zero?
     # Validate that tracking serial is not used for a different product
     # producer = self.purchase.supplier
     # unless self.tracking_serial.blank?
