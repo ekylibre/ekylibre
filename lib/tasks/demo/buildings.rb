@@ -67,7 +67,7 @@ demo :buildings do
         # find the building_division if exist
         building_division   = BuildingDivision.find_by_work_number(record.attributes['WORK_NUMBE'])
         # import the correct product_nature_variant with the NOMEN attributes in shp file
-        building_division_variant = ProductNatureVariant.import_from_nomenclature(record.attributes['NOMEN'].to_sym)
+        building_division_variant   = ProductNatureVariant.import_from_nomenclature(record.attributes['NOMEN'].to_sym)
         building_division_variant ||= ProductNatureVariant.import_from_nomenclature(:building_division)
         #  create the building_division
         building_division ||= BuildingDivision.create!(:variant_id => building_division_variant.id,
