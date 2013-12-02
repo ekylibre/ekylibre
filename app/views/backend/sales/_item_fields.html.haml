@@ -2,13 +2,13 @@
 %tr.nested-fields
   %td
     .selector
-      = f.input_field(:variant_id, 'data-selector' => url_for(:controller => :product_nature_variants, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :product_nature_variants))
+      = f.input_field(:price_id, 'data-selector' => url_for(:controller => :catalog_prices, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :catalog_prices))
     -if item.errors.count > 0
       =item.errors.messages.inspect
   %td.decimal= f.input_field(:quantity, :size => 7, :class => "item-pta item-wta")
-  %td
+  -#%td
     = f.select(:indicator, SaleItem.indicator.options)
-  %td
+  -#%td
     .selector
       = f.input_field(:price_id, 'data-selector' => url_for(:controller => :catalog_prices, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :catalog_prices))
   %td

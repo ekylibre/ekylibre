@@ -78,6 +78,9 @@ class CatalogPrice < Ekylibre::Record::Base
     if self.started_at.nil?
       self.started_at = Time.now
     end
+    if self.name.blank?
+      self.name = self.label_name
+    end
     #  #self.computed_at ||= Time.now
     #  #if self.template
     #  #  self.currency ||= self.template.currency
@@ -97,6 +100,10 @@ class CatalogPrice < Ekylibre::Record::Base
   #   #  end
   #   #end
   # end
+
+  def label_name
+    self.variant.name.to_s + ' ' + self.amount.to_s + ' ' + self.currency.to_s + ' / ' + self.variant.unit_name.to_s
+  end
 
   def label
     tc(:label, :variant => self.variant.name, :amount => self.amount, :currency => self.currency)

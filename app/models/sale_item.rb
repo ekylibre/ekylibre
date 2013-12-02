@@ -115,15 +115,12 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   before_validation do
-    if self.variant
-      self.account_id = self.variant.nature.category.product_account_id
-      self.label ||= self.variant.commercial_name
-    end
 
     self.pretax_amount ||= 0
     self.amount ||= 0
 
     if self.price
+      self.variant ||= self.price.variant
       self.indicator = self.price.indicator
       self.unit_price_amount ||= self.price.amount
       self.currency = self.price.currency
@@ -165,6 +162,12 @@ class SaleItem < Ekylibre::Record::Base
       # self.price_amount ||= self.price.pretax_amount
       # self.tax ||= self.price.tax
     end
+
+    if self.variant
+      self.account_id = self.variant.nature.category.product_account_id
+      self.label ||= self.variant.commercial_name
+    end
+
     #     if self.building.reservoir && self.building.product_id != self.product_id
     #       check_reservoir = false
     #       errors.add(:building_id, :building_can_not_transfer_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name, :account_id => 0, :unit => self.unit)

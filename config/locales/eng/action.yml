@@ -1944,6 +1944,7 @@ eng:
       all: "{name} ({sex})" #? String excepted (Hash:{:all=>"{name} ({sex})"})
     backend/campaigns:  #? String excepted (Hash:{:all=>"{name}"})
       all: "{name}" #? String excepted (Hash:{:all=>"{name}"})
+    # backend/catalog_prices: "{name}"
     backend/entity_links:  #? String excepted (Hash:{:all=>"{started_at}"})
       all: "{started_at}" #? String excepted (Hash:{:all=>"{started_at}"})
     backend/events:  #? String excepted (Hash:{:all=>"{reason}"})
@@ -1964,8 +1965,8 @@ eng:
       all: "{id}" #? String excepted (Hash:{:all=>"{id}"})
     backend/product_memberships:  #? String excepted (Hash:{:all=>"{started_at}"})
       all: "{started_at}" #? String excepted (Hash:{:all=>"{started_at}"})
-    backend/product_nature_prices:  #? String excepted (Hash:{:all=>"{amount} {currency} / {pretax_amount} {currency}"})
-      all: "{amount} {currency} / {pretax_amount} {currency}" #? String excepted (Hash:{:all=>"{amount} {currency} / {pretax_amount} {currency}"})
+    backend/product_nature_prices:  #?
+      all: "{amount} {currency} / {pretax_amount} {currency}" #?
     # backend/product_nature_variants: "{name} ({unit_name})"
     backend/product_natures:  #? String excepted (Hash:{:all=>"{name}"})
       all: "{name}" #? String excepted (Hash:{:all=>"{name}"})
@@ -1973,8 +1974,8 @@ eng:
       all: "{id}" #? String excepted (Hash:{:all=>"{id}"})
     backend/products:  #? String excepted (Hash:{:all=>"{work_number} {name}"})
       all: "{work_number} {name}" #? String excepted (Hash:{:all=>"{work_number} {name}"})
-    backend/units:  #? String excepted (Hash:{:all=>"{label} ({name})"})
-      all: "{label} ({name})" #? String excepted (Hash:{:all=>"{label} ({name})"})
+    backend/units:  #?
+      all: "{label} ({name})" #?
     backend/users:  #? String excepted (Hash:{:all=>"{first_name} {last_name}"})
       all: "{first_name} {last_name}" #? String excepted (Hash:{:all=>"{first_name} {last_name}"})
     bakend/entity_links:  #?
