@@ -64,7 +64,7 @@ module ActiveList
         for column in self.columns
           if column.respond_to?(:reflection)
             unless hash.detect{|r| r.name == column.reflection.name }
-              hash << column.reflection 
+              hash << column.reflection
             end
           end
         end

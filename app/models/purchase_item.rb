@@ -74,10 +74,10 @@ class PurchaseItem < Ekylibre::Record::Base
 
 
   before_validation do
-    
+
     self.pretax_amount ||= 0
     self.amount ||= 0
-    
+
     self.currency = self.purchase_currency
     if self.variant
       self.account   ||= self.variant.charge_account || Account.find_in_chart(:expenses)

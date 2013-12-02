@@ -11,7 +11,7 @@ module ActiveList
         @label_method = (options[:label_method] || @name).to_sym
         unless @sort_column = options[:sort]
           if @table.model.columns_definition[@label_method]
-            @sort_column = @label_method 
+            @sort_column = @label_method
           elsif @table.model.columns_definition[@name]
             @sort_column = @name
           else
