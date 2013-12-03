@@ -8,7 +8,7 @@
       <attribute name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <attribute name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <attribute name="frozen_indicators_values" type="string" required="false"/>
-      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 25kg_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, liter, person, room, ton, unit" required="true" default="unit"/>
+      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 25kg_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit" required="true" default="unit"/>
     </attributes>
     <items>
       <item name="cattle_herd"
