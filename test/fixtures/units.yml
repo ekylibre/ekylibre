@@ -3,7 +3,7 @@
 # == License
 # 
 # Ekylibre - Simple ERP
-# Copyright (C) 2009-2010 Brice Texier, Thibaud Mérigon
+# Copyright (C) 2009-2013 Brice Texier, Thibaud Mérigon
 # 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ kilo:
   company_id: 1
   label: Kilo
   name: kg
-  quantity: 1000
+  coefficient: 1000
   base: g
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>
