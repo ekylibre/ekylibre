@@ -1,0 +1,7 @@
+# Classical files
+*~
+/log
+/private
+/tmp
+/coverage
+/config/database.yml
