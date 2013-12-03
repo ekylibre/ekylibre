@@ -118,6 +118,7 @@ fra:
         insurance_expenses: "Primes d’assurance"
         internal_transfers: "Virements internes"
         inventory_variations: "Variations d’inventaires"
+        irrigation_expenses: "Eau d'irrigation"
         land_loans: "Emprunts fonciers"
         land_loans_interests: "Intérêts des emprunts fonciers"
         land_parcel_asset_depreciations: "Ammortissements des terrains de gisement"
@@ -234,7 +235,6 @@ fra:
         veterinary_fees_expenses: "Honoraires veterinaires"
         waiting_vat: "Taxes sur le chiffres d’affaires à régulariser ou en attente"
         water_expenses: "Eau"
-        irrigation_expenses: "Eau d'irrigation"
         young_animal_assets: "Animaux reproducteurs (jeunes de renouvellement)"
         young_animal_expenses: "Animaux reproducteurs (jeunes de renouvellement)"
         young_animal_revenues: "Animaux reproducteurs (jeunes de renouvellement)"
@@ -773,6 +773,7 @@ fra:
         # amount_of_substance: "Amount of substance"
         concentration: "Concentration"
         electric_current: "Intensité"
+        # energy: "Energy"
         length: "Longueur"
         # luminous_intensity: "Luminous intensity"
         # mass_concentration: "Mass concentration"
@@ -988,6 +989,7 @@ fra:
         # cultural_soil_state: "Cultural soil state"
         # dry_matter_rate: "Dry matter rate"
         economical_milk_index: "INEL (INdex Économique Laitier)"
+        # energy: "Energy"
         # fat_matter_concentration_index: "Fat matter concentration index"
         fat_matters_concentration: "Teneur en matières grasses"
         # fertility_index: "Fertility index"
@@ -1192,6 +1194,7 @@ fra:
           cow: "Vache"
           credit_card: "Carte de crédit"
           desktop: "Ordinateur"
+          # drop: "Drop"
           food: "Aliment"
           gift: "Cadeau"
           group: "Groupe"
@@ -1209,7 +1212,6 @@ fra:
           pill: "Pilule"
           plane: "Avion"
           road: "Route"
-          tint: "Goutte"
           tractor: "Tracteur"
           truck: "Camion"
           wheat: "Blé"
@@ -1225,21 +1227,27 @@ fra:
         cattle_herd: "Troupeau de bovins"
         crop: "Culture"
         cultivable_land_parcel: "Parcelle culturale"
+        # electricity: "Electricity"
         equipment: "Équipement"
         equipment_rent: "Location d’équipement"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         fertilizer: "Engrais"
+        # fuel: "Fuel"
+        # gas: "Gas"
         grain: "Graine"
         grass: "Herbe"
         installation: "Installation"
+        # irrigation_water: "Irrigation water"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
         male_adult_cow: "Taureau"
         male_young_cow: "Taurillon"
         milk: "Lait"
+        # natural_water: "Natural water"
         other_consumable: "Autres consommables"
         plant_medicine: "Produit phytosanitaire"
+        # running_water: "Running water"
         seed: "Semence"
         small_equipment: "Petit matériel"
         straw: "Paille"
@@ -1270,6 +1278,7 @@ fra:
           hectare: "hectare"
           hour: "heure"
           kilogram: "kilogramme"
+          # kilowatt_hour: "Kilowatt hour"
           liter: "litre"
           person: "personne"
           room: "salle"
@@ -1310,7 +1319,9 @@ fra:
         # corn_seed_25: "Corn seed 25"
         cow_milk: "Lait de vache"
         cultivable_land_parcel: "Parcelle culturale"
+        # diesel: "Diesel"
         durum_wheat_crop: "Culture de blé dur"
+        # electricity: "Electricity"
         equipment: "Équipement"
         # equipment_building_division: "Equipment building division"
         ewe_milk: "Lait de brebis"
@@ -1319,6 +1330,8 @@ fra:
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         forager: "Ensileuse"
+        # gas: "Gas"
+        # gasoline: "Gasoline"
         goat_milk: "Lait de chèvre"
         grass: "Herbe"
         # grass_seed_25: "Grass seed 25"
@@ -1329,6 +1342,7 @@ fra:
         hay_rake: "Andaineur"
         helianthus_herbicide: "Herbicide tournesol"
         insecticide: "Insecticide"
+        # irrigation_water: "Irrigation water"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
         male_adult_cow: "Taureau"
@@ -1339,6 +1353,7 @@ fra:
         # mineral_feed_block_25: "Mineral feed block 25"
         molluscicide: "Molluscicide"
         mower: "Faucheuse"
+        # natural_water: "Natural water"
         office_building: "Bureau"
         office_building_division: "Pièce de bureau"
         other_herbicide: "Herbicide autre"
@@ -1347,6 +1362,7 @@ fra:
         poaceae_fungicide: "Fongicide céréales"
         # reaper: "Reaper"
         riflexine: "Riflexine"
+        # running_water: "Running water"
         screed_building: "Construction béton (silo, chape, terrasse)"
         seed: "Semence"
         silage: "Ensilage"
@@ -1404,6 +1420,7 @@ fra:
         chemical_fertilizer: "Engrais chimique"
         crop: "Culture"
         cultivable_land_parcel: "Parcelle culturale"
+        # electricity: "Electricity"
         equipment: "Équipement"
         equipment_building_division: "Zone de stockage des équipements"
         female_adult_cattle_herd: "Troupeau de vaches"
@@ -1411,12 +1428,15 @@ fra:
         female_young_cow: "Génisse"
         food: "Aliment"
         forager: "Ensileuse"
+        # fuel: "Fuel"
         fungicide: "Fongicide"
+        # gas: "Gas"
         grain: "Graine"
         grass: "Herbe"
         hay_rake: "Andaineur"
         herbicide: "Herbicide"
         insecticide: "Insecticide"
+        # irrigation_water: "Irrigation water"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
         male_adult_cow: "Taureau"
@@ -1427,9 +1447,11 @@ fra:
         mineral_cleaner: "Nettoyant chimique"
         molluscicide: "Molluscicide"
         mower: "Faucheuse"
+        # natural_water: "Natural water"
         organic_fertilizer: "Engrais organique"
         plow: "Charrue"
         # reaper: "Reaper"
+        # running_water: "Running water"
         seed: "Semence"
         small_equipment: "Petit matériel"
         sower: "Semoir"
@@ -1505,11 +1527,13 @@ fra:
         hectoliter: "Hectolitre"
         hour: "Heure"
         hundred: "Centaine"
+        # joule: "Joule"
         kelvin: "Kelvin"
         kilogram: "kilogramme"
         kilogram_per_liter: "Kilogramme par litre"
         kilometer: "Kilomètre"
         kilowatt: "Kilowatt"
+        # kilowatt_hour: "Kilowatt hour"
         liter: "Litre"
         mass_percent: "Pourcentage de masse"
         megawatt: "Mégawatt"
@@ -1574,11 +1598,14 @@ fra:
         cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
         disinfectant: "Désinfectants"                      # antiseptic
         easement: "Aménagement foncier"                    # zone
+        # electricity: "Electricity"                       # matter
         equipment: "Equipements"                           # matter
         forager: "Ensileuses"                              # equipment
+        # fuel: "Fuel"                                     # organic_matter
         fungicide: "Produits Fongicides"                   # plant_medicine
         fungus: "Champignons"                              # bioproduct
         gallus: "Galinacées"                               # aves
+        # gas: "Gas"                                       # organic_matter
         grain: "Grains"                                    # organic_matter
         # harvest: "Harvest"                               # equipment
         # hay: "Hay"                                       # organic_matter
@@ -1618,6 +1645,7 @@ fra:
         # reaper: "Reaper"                                 # equipment
         salmo: "Salmonidés"                                # osteichthyes
         salt: "Sel"                                        # mineral_matter
+        # sand: "Sand"                                     # mineral_matter
         seed: "Semences"                                   # organic_matter
         service: "Services"                                # immatter
         settlement: "Agencement"                           # easement
@@ -1634,6 +1662,7 @@ fra:
         triticum_aestivum: "Blé tendre"                    # poaceae
         triticum_durum: "Blé dur"                          # poaceae
         triticum_spelta: "Epeautre"                        # poaceae
+        # water: "Water"                                   # matter
         worker: "Travailleurs"                             # equipment
         zea: "Maïs"                                        # poaceae
         zone: "Zone physique"                              # matter

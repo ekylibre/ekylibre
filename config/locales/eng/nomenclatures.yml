@@ -158,6 +158,7 @@ eng:
         # insurance_expenses: "Primes d’assurance"
         # internal_transfers: "Virements internes"
         # inventory_variations: "Variations d’inventaires"
+        # irrigation_expenses: "Eau d'irrigation"
         # land_loans: "Emprunts fonciers"
         # land_loans_interests: "Intérêts des emprunts fonciers"
         land_parcel_asset: "Land parcel asset" #?
@@ -1346,7 +1347,6 @@ eng:
           # pill: "Pilule"
           # plane: "Avion"
           # road: "Route"
-          # tint: "Goutte"
           # tractor: "Tracteur"
           # truck: "Camion"
           # wheat: "Blé"

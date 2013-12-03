@@ -121,7 +121,7 @@ demo :interventions do
     # Find a valid actor in the given period
     def find(model, options = {})
       options.update(started_at: @started_at)
-      options.update(stopped_at: @started_at)      
+      options.update(stopped_at: @started_at)
       self.class.find(model, options)
     end
 
