@@ -7,8 +7,8 @@
       .picture
         = @cultivable_land_parcel.shape_svg(:width => 180, :height => 180, :class => :map)
       .info
-        %span.title= CultivableLandParcel.human_attribute_name(:area_measure)
-        %span.value= @cultivable_land_parcel.area.in_hectare
+        %span.title= CultivableLandParcel.human_attribute_name(:net_surface_area)
+        %span.value= @cultivable_land_parcel.net_surface_area.in_hectare
 
     - b.cell do
       = attributes_list(@cultivable_land_parcel) do |l|

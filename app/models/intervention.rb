@@ -110,12 +110,6 @@ class Intervention < Ekylibre::Record::Base
     if p = self.reference
       self.natures = p.natures.sort.join(" ")
     end
-    # if op = self.operations.reorder("started_at").first
-    #   self.started_at = op.started_at
-    # end
-    # if op = self.operations.reorder("stopped_at DESC").first
-    #   self.stopped_at = op.stopped_at
-    # end
     self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
   end
 
@@ -167,10 +161,9 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  def working_area(unit=:hectare)
-    if self.casts.of_role(:target).count > 0
-      target = self.casts.of_role(:target).where.not(actor_id: nil).first
-      if target
+  def working_area(unit = :hectare)
+    if self.casts.of_role(:target).any?
+      if target = self.casts.of_role(:target).where.not(actor_id: nil).first
         return target.actor.area.round(2)
       else
         return nil
@@ -178,15 +171,6 @@ class Intervention < Ekylibre::Record::Base
     end
     return nil
   end
-
-  # def valid_for_run?(started_at, duration)
-  #   if self.reference.minimal_duration < duration
-  #     raise ArgumentError, "The intervention cannot last less than the minimum"
-  #   end
-  #   for op in self.reference.operations
-
-  #   end
-  # end
 
   def status
     (self.runnable? ? :waiting : self.state)
@@ -224,7 +208,7 @@ class Intervention < Ekylibre::Record::Base
       # Build new products
       for variable in reference.new_variables
         produced = self.casts.find_by!(reference_name: variable.name)
-        producer = self.casts.find_by!(reference_name: variable.genitor_name)
+        producer = self.casts.find_by!(reference_name: variable.producer_name)
         if variable.parted?
           # Parted from
           variant = producer.variant
@@ -255,7 +239,7 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  def add_cast(attributes)
+  def add_cast!(attributes)
     self.casts.create!(attributes)
   end
 

@@ -990,6 +990,7 @@ jpn:
           # multi_polygon: "Multi-polygone spatial"
           # point: "Point spatial"
           # string: "Texte"
+        gathering: #?
         interpolation: #?
         related_to: #?
       item_lists:

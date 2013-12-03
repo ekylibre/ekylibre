@@ -128,7 +128,7 @@ class Product < Ekylibre::Record::Base
     conditions = []
     # TODO Build conditions to filter on indicators
     for name, value in indicators
-      conditions << " id IN (" + order(:id).indicate(name, :at => measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
+      conditions << " id IN (" + order(:id).indicate(name, at: measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
     end
     where(conditions.join(" AND "))
   }
@@ -350,9 +350,9 @@ class Product < Ekylibre::Record::Base
 
   def net_surface_area(at = Time.now)
     if self.whole_indicators.include?(:net_surface_area)
-      return self.indicate(:net_surface_area)
+      return self.send(:net_surface_area)
     elsif self.individual_indicators.include?(:net_surface_area)
-      return self.indicate(:net_surface_area) * self.population(at: at)
+      return self.send(:net_surface_area) * self.population(at: at)
     elsif self.whole_indicators.include?(:shape)
       return self.shape_area(at: at).in_square_meter
     end
@@ -367,9 +367,9 @@ class Product < Ekylibre::Record::Base
   def net_weight(at = Time.now)
     # if self.variable_indicators_array.include?(Nomen::Indicators[:net_weight])
     return 0.0.in_kilogram
-    pop = self.population(:at => at)
+    pop = self.population(at: at)
     if self.net_weight
-      return self.net_weight(:at => at)
+      return self.net_weight(at: at)
     else
       return 0.0.in_kilogram
     end
@@ -407,6 +407,35 @@ class Product < Ekylibre::Record::Base
     return self.indicator_data.where(indicator: indicator.to_s).where("measured_at <= ?", measured_at).reorder("measured_at DESC").first
   end
 
+  # Get indicator value
+  # if option :at specify at which moment
+  # if option :interpolate is true, it returns the interpolated value
+  def get(indicator_name, *args)
+    unless indicator = Nomen::Indicators.items[indicator_name]
+      raise StandardError, "Unknown indicator: #{indicator_name.inspect}"
+    end
+    options = args.extract_options!
+    measured_at = args.shift || options[:at] || Time.now
+    # Find value
+    value = nil
+    if options[:interpolate]
+      if [:measure, :decimal].include?(indicator.datatype)
+        raise NotImplementedError, "Interpolation is not available for now"
+      end
+      raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"
+    elsif datum = self.indicate(indicator.name, at: measured_at)
+      value = datum.value
+    end
+    # Adjust value
+    if value and indicator.gathering
+      if indicator.gathering == :proportional_to_population
+        value *= self.get(:population, at: measured_at)
+      end
+    end
+    return value
+  end
+
+
   # Returns indicators for a set of product
   def self.indicator(name, options = {})
     measured_at = options[:at] || Time.now
@@ -414,36 +443,12 @@ class Product < Ekylibre::Record::Base
   end
 
 
-  # Get indicator value
-  # if option :at specify at which moment
-  # if option :datum is true, it returns the ProductIndicatorDatum record
-  # if option :interpolate is true, it returns the interpolated value
-  # :interpolate and :datum options are incompatible
+  # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    return super unless Nomen::Indicators.all.include?(method_name.to_s)
-    options = args.extract_options!
-    measured_at = args.shift || options[:at] || Time.now
-    indicator = Nomen::Indicators.items[method_name]
-
-    if options[:interpolate]
-      if [:measure, :decimal].include?(indicator.datatype)
-        raise NotImplementedError.new("Interpolation is not available for now")
-      end
-      raise StandardError("Can not use :interpolate option with #{indicator.datatype.inspect} datatype")
-    else
-      if datum = self.indicate(indicator.name.to_s, at: measured_at)
-        x = datum.value
-        # x.define_singleton_method(:measured_at) do
-        #   measured_at
-        # end
-        # product_id = self.id
-        # x.define_singleton_method(:product_id) do
-        #   product_id
-        # end
-        return x
-      end
+    if Nomen::Indicators.all.include?(method_name.to_s)
+      return get(method_name, *args)
     end
-    return nil
+    return super
   end
 
   # Give the indicator table name

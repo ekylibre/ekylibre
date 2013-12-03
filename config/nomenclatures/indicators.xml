@@ -5,29 +5,30 @@
       <attribute name="datatype" type="choice" choices="string, decimal, boolean, choice, measure, point, multi_polygon, geometry" required="true"/>
       <attribute name="related_to" type="choice" choices="whole, individual" default="individual"/>
       <attribute name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
+      <attribute name="gathering" type="choice" choices="proportional_to_population"/>
       <attribute name="unit" type="choice" nomenclature="units" required="false"/>
       <attribute name="choices" type="list" required="false"/>
     </attributes>
     <items>
       <item name="population" datatype="decimal" related_to="whole"/>
       <item name="temperature" datatype="measure" unit="celsius"/>
-      <item name="net_weight" datatype="measure" unit="kilogram"/>
-      <item name="net_volume" datatype="measure" unit="liter"/>
-      <item name="net_surface_area" datatype="measure" unit="square_meter"/>
+      <item name="net_weight" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
+      <item name="net_volume" datatype="measure" unit="liter" gathering="proportional_to_population"/>
+      <item name="net_surface_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="shape" datatype="geometry" related_to="whole"/>
       <item name="geographic_coordinate" datatype="point"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
       <item name="sex" datatype="choice" choices="male, female, undefined"/>
       <item name="reproductor" datatype="boolean"/>
-      <item name="livestock_unit" datatype="decimal"/>
+      <item name="livestock_unit" datatype="decimal" gathering="proportional_to_population"/>
        <!-- state of cultivable_land_parcel -->
       <item name="cultural_soil_state" datatype="choice" choices="covered, raw, nude, plowed, grown"/>
       <item name="hundred_grain_weight" datatype="measure" unit="gram"/>
       <!-- equipment -->
       <item name="motor_power" datatype="measure" unit="french_horsepower"/>
-      <item name="application_width" datatype="measure" unit="meter"/>
-      <item name="maximum_load_net_volume" datatype="measure" unit="liter"/>
-      <item name="maximum_load_net_weight" datatype="measure" unit="kilogram"/>
+      <item name="application_width" datatype="measure" unit="meter" gathering="proportional_to_population"/>
+      <item name="maximum_load_net_volume" datatype="measure" unit="liter" gathering="proportional_to_population"/>
+      <item name="maximum_load_net_weight" datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
       <item name="animal_life_state" datatype="choice" choices="first_growth, second_growth, aging"/>
       <item name="mammalia_born_condition" datatype="choice" choices="without_help, few_help, great_help, caesarean, cutting_calf"/><!-- nomenclature EDE à terme -->
       <item name="mammalia_twins_condition" datatype="choice" choices="none, twins, triplets"/><!-- nomenclature EDE à terme -->

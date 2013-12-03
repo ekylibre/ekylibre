@@ -64,10 +64,10 @@ module Procedo
         raise MissingRole, "Remaining roles of procedure #{self.name} are not given: #{remaining_roles.join(', ')}"
       end
 
-      # Check genitors
+      # Check producers
       for variable in new_variables
-        unless variable.genitor.is_a?(Variable)
-          raise StandardError, "Unknown variable genitor for #{variable.name}"
+        unless variable.producer.is_a?(Variable)
+          raise StandardError, "Unknown variable producer for #{variable.name}"
         end
       end
 

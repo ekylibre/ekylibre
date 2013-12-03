@@ -1,7 +1,7 @@
 module Procedo
 
   class Variable
-    attr_reader :name, :procedure, :value, :abilities, :variety, :derivative_of, :roles, :birth_nature, :genitor_name
+    attr_reader :name, :procedure, :value, :abilities, :variety, :derivative_of, :roles, :birth_nature, :producer_name
 
     def initialize(procedure, element)
       @procedure = procedure
@@ -14,7 +14,7 @@ module Procedo
         end
         new_array = new.split(/\s*\:\s*/)
         @birth_nature  = new_array.shift.underscore.to_sym
-        @genitor_name = new_array.shift.to_sym
+        @producer_name = new_array.shift.to_sym
       end
       @value = element.attr("value").to_s
       @abilities = element.attr("abilities").to_s.strip.split(/\s*\,\s*/)
@@ -68,8 +68,8 @@ module Procedo
       new? and @birth_nature == :produced_by
     end
 
-    def genitor
-      @genitor ||= self.procedure.variables[@genitor_name]
+    def producer
+      @producer ||= self.procedure.variables[@producer_name]
     end
 
     def computed_variety

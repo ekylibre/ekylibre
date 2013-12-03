@@ -891,6 +891,7 @@ fra:
       attributes:
         choices: "Choix"
         datatype: "Datatype"
+        # gathering: "Gathering"
         interpolation: "Interpolation"
         # related_to: "Related to"
         unit: "Unité"
@@ -904,6 +905,8 @@ fra:
           multi_polygon: "Multi-polygone spatial"
           point: "Point spatial"
           string: "Texte"
+        gathering:
+          # proportional_to_population: "Proportional to population"
         interpolation:
           # linear: "Linear"
           # nearest: "Nearest"
