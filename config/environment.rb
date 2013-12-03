@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
   config.gem "haml", :version => '~> 3.1.8'
   config.gem "fastercsv"
   config.gem "libxml-ruby", :lib => 'libxml'
-  config.gem "rubyzip", :lib => "zip/zip"
+  config.gem "rubyzip", :lib => "zip/zip", :version => '~> 0.9.9'
   config.gem "thoughtbot-shoulda", :lib => "shoulda", :source => "http://gems.github.com"
 
   # Only load the plugins named here, in the order given (default is alphabetical).

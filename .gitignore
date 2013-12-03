@@ -12,3 +12,5 @@ installer/*.log
 tmp
 private/*
 public/assets
+
+/coverage
