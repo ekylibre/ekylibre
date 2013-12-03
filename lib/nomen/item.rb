@@ -113,6 +113,11 @@ module Nomen
           value = value.to_d
         elsif attribute.type == :integer
           value = value.to_i
+        elsif attribute.type == :symbol
+          unless value =~ /\A\w+\z/
+            raise InvalidAttribute, "An attribute #{name} must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"
+          end
+          value = value.to_sym
         end
       elsif name.to_s != "name" # the only system name
         raise ArgumentError, "Undefined attribute #{name} in #{@nomenclature.name}"
