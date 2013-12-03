@@ -234,6 +234,7 @@ fra:
         veterinary_fees_expenses: "Honoraires veterinaires"
         waiting_vat: "Taxes sur le chiffres d’affaires à régulariser ou en attente"
         water_expenses: "Eau"
+        irrigation_expenses: "Eau d'irrigation"
         young_animal_assets: "Animaux reproducteurs (jeunes de renouvellement)"
         young_animal_expenses: "Animaux reproducteurs (jeunes de renouvellement)"
         young_animal_revenues: "Animaux reproducteurs (jeunes de renouvellement)"

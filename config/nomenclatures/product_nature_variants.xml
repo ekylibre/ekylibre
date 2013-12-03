@@ -499,8 +499,42 @@
             unit_name="person"
             frozen_indicators_values="population: 1"
             />
-
-
+      <item name="running_water"
+            nature="running_water"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_weight: 1.00kilogram"
+            />
+       <item name="irrigation_water"
+            nature="irrigation_water"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_weight: 1.00ton"
+            />
+       <item name="natural_water"
+            nature="natural_water"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_weight: 1.00kilogram"
+            />
+        <item name="electricity"
+            nature="electricity"
+            unit_name="kilowatt_hour"
+            frozen_indicators_values="energy: 1.00kilowatt_hour"
+            />
+        <item name="gas"
+            nature="gas"
+            unit_name="kilowatt_hour"
+            frozen_indicators_values="energy: 1.00kilowatt_hour"
+            />
+       <item name="diesel"
+            nature="fuel"
+            unit_name="liter"
+            frozen_indicators_values="energy: 10.67kilowatt_hour, net_volume: 1liter, net_weight: 0.8kilogram"
+            />
+       <item name="gasoline"
+            nature="fuel"
+            unit_name="liter"
+            frozen_indicators_values="energy: 9.85kilowatt_hour, net_volume: 1liter, net_weight: 0.8kilogram"
+            />          
+  
       <!-- Coop variants -->
       <item name="coop:ammonitre_33, 5%_vr"
             nature="chemical_fertilizer"

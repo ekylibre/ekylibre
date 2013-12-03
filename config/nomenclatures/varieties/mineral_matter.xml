@@ -2,6 +2,7 @@
   <nomenclature name="varieties-mineral_matter">
     <items>
       <item name="salt"/>
+      <item name="sand"/>
     </items>
   </nomenclature>
 </nomenclatures>

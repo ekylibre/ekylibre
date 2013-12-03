@@ -67,6 +67,8 @@
       <item name="nitrogen_concentration" datatype="measure" unit="percent"/>
       <item name="potassium_concentration" datatype="measure" unit="percent"/>
       <item name="phosphorus_concentration" datatype="measure" unit="percent"/>
+      <!-- for energy consumption -->
+      <item name="energy" datatype="measure" unit="kilowatt_hour"/>
     </items>
   </nomenclature>
 </nomenclatures>

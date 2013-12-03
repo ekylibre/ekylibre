@@ -157,6 +157,7 @@
       <item name="gas_expenses" fr_pcga="6062"/>
       <item name="electricity_expenses" fr_pcga="6063"/>
       <item name="fuels_expenses" fr_pcga="6064"/>
+      <item name="irrigation_expenses" fr_pcga="6065"/>
       <item name="little_office_equipment_expenses" fr_pcga="6066"/>
       <item name="land_parcel_rent_expenses" fr_pcga="6131"/>
       <item name="equipment_rent_expenses" fr_pcga="6132"/>
