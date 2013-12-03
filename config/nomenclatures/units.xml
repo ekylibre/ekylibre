@@ -95,6 +95,10 @@
       <item name="kilowatt" dimension="power" symbol="kW" a="1000"/>
       <item name="megawatt" dimension="power" symbol="MW" a="1000000"/>
       
+      <!-- energy -->
+      <item name="joule"  dimension="energy" symbol="J" a="1"/>
+      <item name="kilowatt_hour"  dimension="energy" symbol="kWh" a="3600000"/>
+      
     </items>
   </nomenclature>
 </nomenclatures>

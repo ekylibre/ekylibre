@@ -8,7 +8,7 @@
       <attribute name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <attribute name="product_account" type="choice" nomenclature="accounts" required="false"/>
       <attribute name="stock_account" type="choice" nomenclature="accounts" required="false"/>
-      <attribute name="pictogram" type="choice" choices="land_parcels,wrench,wheat,tractor,truck,tint,plane,phone,mushroom,medkit,matter,male,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,barn,legal,bolt,pill,desktop,gift,road"/>
+      <attribute name="pictogram" type="choice" choices="land_parcels,wrench,wheat,tractor,truck,drop,plane,phone,mushroom,medkit,matter,male,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,barn,legal,bolt,pill,desktop,gift,road"/>
       <attribute name="purchasable" type="boolean" required="true" default="false"/>
       <attribute name="saleable"    type="boolean" required="true" default="false"/>
       <attribute name="depreciable" type="boolean" required="true" default="false"/>
@@ -53,7 +53,7 @@
             purchasable="true"
             saleable="true"
             storable="true"
-            pictogram="tint"
+            pictogram="drop"
             />
       <item name="female_young_cow"
             asset_account="young_animal_assets"
@@ -270,6 +270,54 @@
             depreciable="false"
             storable="false"
             pictogram="male"
+            />
+      <item name="running_water"
+            charge_account="water_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="drop"
+            />
+       <item name="irrigation_water"
+            charge_account="irrigation_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="drop"
+            />
+       <item name="natural_water"
+            purchasable="false"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="drop"
+            />
+       <item name="electricity"
+            charge_account="electricity_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="bolt"
+            />
+        <item name="gas"
+            charge_account="gas_expenses"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            pictogram="bolt"
+            />
+        <item name="fuel"
+            charge_account="fuels_expenses"
+            stock_account="fuel_stock"
+            purchasable="true"
+            saleable="false"
+            depreciable="false"
+            storable="true"
+            pictogram="bolt"
             />
     </items>
     

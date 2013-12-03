@@ -426,6 +426,54 @@
             variable_indicators="geographic_coordinate"
             frozen_indicators="population"
             />
+       <item name="running_water"
+            category="running_water"
+            variety="water"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_weight"
+            />
+       <item name="irrigation_water"
+            category="irrigation_water"
+            variety="water"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_weight"
+            />
+       <item name="natural_water"
+            category="natural_water"
+            variety="water"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_weight"
+            />
+        <item name="electricity"
+            category="electricity"
+            variety="electricity"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="energy"
+            />
+        <item name="gas"
+            category="gas"
+            variety="gas"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="energy"
+            />
+         <item name="fuel"
+            category="fuel"
+            variety="fuel"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population"
+            frozen_indicators="energy, net_volume, net_weight"
+            />  
     </items>
     
   </nomenclature>

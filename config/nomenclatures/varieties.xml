@@ -27,6 +27,8 @@
       <item name="medicine"/>
       <item name="organic_matter"/>
       <item name="mineral_matter"/>
+      <item name="water"/>
+      <item name="electricity"/>
       <item name="zone"/>
     </items>
   </nomenclature>
