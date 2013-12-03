@@ -22,7 +22,7 @@ Rails::Initializer.run do |config|
   config.gem "haml"
   config.gem "fastercsv"
   config.gem "libxml-ruby", :lib=>'libxml'
-  config.gem "rubyzip", :lib=>"zip/zip"
+  config.gem "rubyzip", :lib=>"zip/zip", :version => '~> 0.9.9'
   # config.gem "RedCloth", :lib=>"redcloth"
   # config.gem "measure"
 

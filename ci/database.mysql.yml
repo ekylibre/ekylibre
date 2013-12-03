@@ -4,4 +4,4 @@ test:
   reconnect: false
   database: ekylibre_test
   pool: 20
-  username:
+  username: travis
