@@ -1,0 +1,5 @@
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: ekylibre_test
+  username: postgres
