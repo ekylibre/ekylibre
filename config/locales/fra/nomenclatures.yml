@@ -842,12 +842,11 @@ fra:
       attributes:
         # entity_1: "Entity 1"
         # entity_2: "Entity 2"
-      choices:
-        # entity_1: # Choices comes from nomenclature: entity_natures
-        # entity_2: # Choices comes from nomenclature: entity_natures
+        # symmetric: "Symmetric"
       items:
+        # association: "Association"
         # collaboration: "Collaboration"
-        # contact: "Contact"
+        # cooperation: "Cooperation"
         direct_kinship: "Parenté directe"
         # management: "Management"
         # transform: "Transform"

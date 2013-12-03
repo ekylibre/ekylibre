@@ -374,13 +374,18 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :entity_links do |t|
+      t.string     :nature,                null: false
       t.references :entity_1,              null: false, index: true
+      t.string     :entity_1_role,         null: false
       t.references :entity_2,              null: false, index: true
+      t.string     :entity_2_role,         null: false
       t.datetime   :started_at
       t.datetime   :stopped_at
       t.text       :description
-      t.string     :nature,                null: false
       t.stamps
+      t.index      :nature
+      t.index      :entity_1_role
+      t.index      :entity_2_role
     end
 
     create_table :establishments do |t|

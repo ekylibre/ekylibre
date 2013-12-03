@@ -639,23 +639,28 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "entity_addresses", ["updater_id"], :name => "index_entity_addresses_on_updater_id"
 
   create_table "entity_links", force: true do |t|
-    t.integer  "entity_1_id",              null: false
-    t.integer  "entity_2_id",              null: false
+    t.string   "nature",                    null: false
+    t.integer  "entity_1_id",               null: false
+    t.string   "entity_1_role",             null: false
+    t.integer  "entity_2_id",               null: false
+    t.string   "entity_2_role",             null: false
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.text     "description"
-    t.string   "nature",                   null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
+    t.integer  "lock_version",  default: 0, null: false
   end
 
   add_index "entity_links", ["created_at"], :name => "index_entity_links_on_created_at"
   add_index "entity_links", ["creator_id"], :name => "index_entity_links_on_creator_id"
   add_index "entity_links", ["entity_1_id"], :name => "index_entity_links_on_entity_1_id"
+  add_index "entity_links", ["entity_1_role"], :name => "index_entity_links_on_entity_1_role"
   add_index "entity_links", ["entity_2_id"], :name => "index_entity_links_on_entity_2_id"
+  add_index "entity_links", ["entity_2_role"], :name => "index_entity_links_on_entity_2_role"
+  add_index "entity_links", ["nature"], :name => "index_entity_links_on_nature"
   add_index "entity_links", ["updated_at"], :name => "index_entity_links_on_updated_at"
   add_index "entity_links", ["updater_id"], :name => "index_entity_links_on_updater_id"
 

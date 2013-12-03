@@ -20,31 +20,30 @@
 #
 # == Table: entity_links
 #
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  description  :text
-#  entity_1_id  :integer          not null
-#  entity_2_id  :integer          not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  nature       :string(255)      not null
-#  started_at   :datetime
-#  stopped_at   :datetime
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  created_at    :datetime         not null
+#  creator_id    :integer
+#  description   :text
+#  entity_1_id   :integer          not null
+#  entity_1_role :string(255)      not null
+#  entity_2_id   :integer          not null
+#  entity_2_role :string(255)      not null
+#  id            :integer          not null, primary key
+#  lock_version  :integer          default(0), not null
+#  nature        :string(255)      not null
+#  started_at    :datetime
+#  stopped_at    :datetime
+#  updated_at    :datetime         not null
+#  updater_id    :integer
 #
 
 
 class EntityLink < Ekylibre::Record::Base
-  # attr_accessible :description, :entity_1_id, :entity_2_id, :nature, :started_at, :stopped_at
   belongs_to :entity_1, class_name: "Entity"
   belongs_to :entity_2, class_name: "Entity"
-  # belongs_to :nature, class_name: "EntityLinkNature"
   enumerize :nature, in: Nomen::EntityLinkNatures.all
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :nature, allow_nil: true, maximum: 255
-  validates_presence_of :entity_1, :entity_2, :nature
+  validates_length_of :entity_1_role, :entity_2_role, :nature, allow_nil: true, maximum: 255
+  validates_presence_of :entity_1, :entity_1_role, :entity_2, :entity_2_role, :nature
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
 
@@ -63,6 +62,10 @@ class EntityLink < Ekylibre::Record::Base
 
   before_validation do
     self.started_at ||= Time.now
+    if item = Nomen::EntityLinkNatures[self.nature]
+      self.entity_1_role = item.entity_1
+      self.entity_2_role = item.entity_2
+    end
   end
 
 end
