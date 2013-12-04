@@ -1035,7 +1035,7 @@ eng:
     entries: "Entries"
     entries_to_point: "Entries pointing to"
     # equipment_evaluated_cost: "Coût équipements"
-    # equipments: "Equipements"
+    # equipments: "Équipements"
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
     error_sale_already_paid: "The sale is already paid"
     errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."

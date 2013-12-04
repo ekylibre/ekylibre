@@ -1074,7 +1074,7 @@ spa:
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
     # equipment_evaluated_cost: "Coût équipements"
-    # equipments: "Equipements"
+    # equipments: "Équipements"
     error_no_file: "Ninguna atyuda esta disponible para ese partido del software (%{article}). La ayuda ya no ha sido escribida. Se puede consultar el sitio en linea para mas informaciones."
     # error_sale_already_paid: "La vente a déjà été payée en totalité"
     # errors_explanation: "Il y a des erreurs dans le fichier. Si vous ne corrigez pas les problèmes, les lignes erronées ne seront pas prises en compte lors de l’importation"
