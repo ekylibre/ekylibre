@@ -251,7 +251,7 @@ jpn:
       # edit: "Modifier l’approvisionnement: %{number}"
       # index: "Approvisionnements"
       # new: "Enregistrer un nouvel approvisionnement"
-      # show: "Approvisionnement %{number} ( %{reference_number} )"
+      # show: "Approvisionnement %{number} (%{reference_number})"
     backend/incoming_delivery_items:
       # new: "Nouvel item"
     backend/incoming_delivery_modes:

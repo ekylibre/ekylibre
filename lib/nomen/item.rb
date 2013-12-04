@@ -84,13 +84,25 @@ module Nomen
       return value
     end
 
+    def selection(name)
+      attribute = @nomenclature.attributes[name]
+      if attribute.type == :list
+        return self.attr(name).collect do |i|
+          ["nomenclatures.#{@nomenclature.name}.item_lists.#{self.name}.#{name}.#{i}".t, i]
+        end
+      else
+        raise StandardError, "Cannot call selection for a non-list attribute"
+      end
+    end
+
+
     # Checks if item has attribute with given name
     def has_attribute?(name)
       !@nomenclature.attributes[name].nil?
     end
 
     # Returns Attribute descriptor
-    def method_missing(method_name)
+    def method_missing(method_name, *args)
       return attr(method_name) if has_attribute?(method_name)
       return super
     end

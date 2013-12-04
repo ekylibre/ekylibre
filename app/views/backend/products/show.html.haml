@@ -7,7 +7,7 @@
 
     = attributes_list(@product) do |l| # liste des champs à afficher
       - l.attribute :name
-      - l.attribute :variety, :url => true
+      - l.attribute :variety, url: true
       - l.attribute :identification_number
       - l.attribute :description
     - if @product.picture.exists?

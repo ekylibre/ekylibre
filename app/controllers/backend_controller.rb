@@ -39,6 +39,7 @@ class BackendController < BaseController
     foreign_records = foreign_record.pluralize
     scope_name = options.delete(:scope) || name
     max = options[:max] || 80
+    available_methods = model.columns_definition.keys.map(&:to_sym)
     if label = options.delete(:label)
       label = (label.is_a?(Symbol) ? "{#{label}:%X%}" : label.to_s)
     else
@@ -46,10 +47,15 @@ class BackendController < BaseController
       # label = I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym, ""])
       label = I18n.translate("unroll." + self.controller_path, :default => "")
       if label.blank?
-        available_methods = model.columns_definition.keys.collect{|x| x.to_sym}
         label = '{' + [:title, :label, :full_name, :name, :code, :number].select{|x| available_methods.include?(x)}.first.to_s + ':%X%}'
       end
     end
+
+    unless order = options[:order]
+      order = [:title, :label, :full_name, :name, :code, :number].detect{|x| available_methods.include?(x)}
+      order ||= :id
+    end
+
 
     columns = []
     item_label = label.inspect.gsub(/\{\!?[a-z\_]+(\:\%?X\%?)?\}/) do |word|
@@ -112,7 +118,7 @@ class BackendController < BaseController
     code << "  conditions = []\n"
 
     code << "  klass = controller_name.classify.constantize\n"
-    code << "  items = klass.unscoped\n"
+    code << "  items = klass.unscoped.order(#{order.inspect})\n"
     # code << "  items = #{model.name}.unscoped\n"
     # code << "  raise params[:scope].inspect\n"
     code << "  if scopes = params[:scope]\n"

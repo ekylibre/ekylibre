@@ -1,10 +1,10 @@
 - variant = (f.object.product ? f.object.product_variant : ProductNatureVariant.find(f.object.product_nature_variant_id))
 .subform
   .subform-title
-    %h3= variant.name
-    .remove
-      = link_to("#", "data-remove-closest" => ".subform") do
-        %i.icon-remove
+    %h3
+      = variant.name
+      = link_to("#", "data-remove-closest" => ".subform", class: :remove, title: :remove.tl) do
+        %i
     = f.input :product_nature_variant_id, :as => :hidden
   .subform-fields
     - if model = variant.matching_model

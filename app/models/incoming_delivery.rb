@@ -52,13 +52,13 @@ class IncomingDelivery < Ekylibre::Record::Base
   validates_length_of :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :number, :sender
   #]VALIDATORS]
-  validates_presence_of :received_at, :address
+  validates_presence_of :received_at, :address, :mode
 
   accepts_nested_attributes_for :items
   delegate :order?, :draft?, to: :purchase
 
   # default_scope -> { order("received_at DESC") }
-  scope :undelivereds, -> { where(:received_at => nil) }
+  scope :undelivereds, -> { where(received_at: nil) }
 
   before_validation do
     self.received_at ||= Time.now

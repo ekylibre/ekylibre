@@ -716,6 +716,12 @@ form.search {
     .subform-title {
       @include background(transparentize($important-color, 0.4));
       padding: $default-gap;
+      .remove {
+        i {
+          @include is-icon;
+          @include use-icon(remove);
+        }
+      }
     }
     .subform-fields {
       padding-top: $default-gap;

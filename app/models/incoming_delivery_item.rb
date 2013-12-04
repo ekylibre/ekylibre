@@ -39,12 +39,10 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   attr_readonly :purchase_item_id, :product_id
   attr_accessor :product_nature_variant_id
   belongs_to :delivery, class_name: "IncomingDelivery", inverse_of: :items
-  # belongs_to :price, class_name: "CatalogPrice"
   belongs_to :container, class_name: "Product"
   belongs_to :product
   belongs_to :purchase_item, class_name: "PurchaseItem"
-  # belongs_to :move, class_name: "ProductMove"
-  # enumerize :unit, in: Nomen::Units.all
+  has_one :variant, through: :product
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
   validates_presence_of :delivery, :population, :product
@@ -67,10 +65,10 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
     if self.product
       self.population = -999999
     end
-  #   if self.product
-  #     maximum = self.undelivered_quantity
-  #     errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
-  #   end
+    #   if self.product
+    #     maximum = self.undelivered_quantity
+    #     errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
+    #   end
   end
 
   after_create do

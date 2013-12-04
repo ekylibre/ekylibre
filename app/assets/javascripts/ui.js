@@ -746,6 +746,16 @@
 
 
 
+
+    $(document).on("click", "a[data-remove-closest]", function () {
+        var element = $(this);
+        element
+            .closest(element.data('removeClosest'))
+            .remove();
+        return false;
+    });
+
+
     /* Refresh behave items */
     // $(document).on("cocoon:after-insert", function (event) {
     //     $.Behave.refresh();

@@ -7,10 +7,10 @@
   -l.attribute :reference_number
   -l.attribute :mode
   -l.attribute :weight
-  -l.attribute :sale, :url => true
+  -l.attribute :sale, url: true
   -l.attribute :address
-  -l.attribute :transporter, :url => true
-  -l.attribute :transport, :url => true
+  -l.attribute :transporter, url: true
+  -l.attribute :transport, url: true
 
 %h2=OutgoingDelivery.human_attribute_name(:items)
 =list :items

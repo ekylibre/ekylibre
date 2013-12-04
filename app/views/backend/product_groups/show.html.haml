@@ -6,7 +6,7 @@
   - b.cell :details do
     = attributes_list(@product_group) do |l| # liste des champs à afficher
       - l.attribute :name
-      - l.attribute :variety, :url => true
+      - l.attribute :variety, url: true
       - l.attribute :identification_number
       - l.attribute :description
     - if @product_group.picture.exists?

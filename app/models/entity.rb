@@ -71,7 +71,6 @@ class Entity < Ekylibre::Record::Base
   attr_accessor :password_confirmation, :old_password
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
-  # belongs_to :nature, class_name: "EntityNature"
   enumerize :nature, in: Nomen::EntityNatures.all, default: Nomen::EntityNatures.default, predicates: {prefix: true}
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   belongs_to :proposer, class_name: "Entity"
@@ -154,7 +153,7 @@ class Entity < Ekylibre::Record::Base
   accepts_nested_attributes_for :websites, :reject_if => :all_blank, :allow_destroy => true
 
   def self.of_company
-    self.where(:of_company => true).first
+    self.find_by(of_company: true)
   end
 
   before_validation do
@@ -169,6 +168,7 @@ class Entity < Ekylibre::Record::Base
     if entity = Entity.of_company
       self.language = entity.language if self.language.blank?
       self.currency = entity.currency if self.currency.blank?
+      self.country  = entity.country  if self.country.blank?
     end
     return true
   end

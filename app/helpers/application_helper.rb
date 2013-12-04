@@ -308,9 +308,10 @@ module ApplicationHelper
   end
 
 
-  def attributes_list(record = nil, options={}, &block)
+  def attributes_list(*args, &block)
+    options = args.extract_options!
+    record = args.shift || instance_variable_get("@#{controller_name.singularize}")
     columns = options[:columns] || 3
-    record ||= instance_variable_get("@#{controller_name.singularize}")
     attribute_list = AttributesList.new(record)
     raise ArgumentError.new("One parameter needed") unless block.arity == 1
     yield attribute_list if block_given?
@@ -319,7 +320,7 @@ module ApplicationHelper
         attribute_list.custom_fields
       end
     end
-    unless options[:without_stamp]
+    unless options[:without_stamp] or options[:without_stamps]
       attribute_list.attribute :creator, :label => :full_name
       attribute_list.attribute :created_at
       attribute_list.attribute :updater, :label => :full_name

@@ -120,12 +120,22 @@ module Nomen
     # List all item names. Can filter on a given item name and its children
     def to_a(item_name = nil)
       if item_name
-        @items[item_name].self_and_children.map(&:name)
+        return @items[item_name].self_and_children.map(&:name)
       else
         return @items.keys.sort
       end
     end
     alias :all :to_a
+
+    # Returns a list for select
+    def selection(item_name = nil)
+      items = (item_name ? @items[item_name].self_and_children : @items.values)
+      return items.collect do |item|
+        [item.human_name, item.name]
+      end.sort do |a, b|
+        a.first <=> b.first
+      end
+    end
 
     # Return first item name
     def first(item_name = nil)
@@ -147,6 +157,11 @@ module Nomen
       return @items.values
     end
 
+    # # Iterates on items
+    # def each(&block)
+    #   return list.each(&block)
+    # end
+
     # List items with attributes filtering
     def where(attributes)
       @items.values.select do |item|
@@ -159,7 +174,7 @@ module Nomen
     end
 
     # Returns Attribute descriptor
-    def method_missing(method_name)
+    def method_missing(method_name, *args)
       return @attributes[method_name] || super
     end
 

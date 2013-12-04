@@ -31,8 +31,8 @@
     - b.cell :details do
       = attributes_list(@matter) do |l| # liste des champs à afficher
         -l.attribute :name
-        -l.attribute :variety, :url => true
-        -#l.attribute :group, :url => true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
+        -l.attribute :variety, url: true
+        -#l.attribute :group, url: true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
         -l.attribute :born_at
         -l.attribute :dead_at
         -l.attribute :identification_number

@@ -45,7 +45,7 @@
 
     - b.cell do
       = attributes_list(@sale) do |l|
-        - l.attribute :client, :label => :label, :url => true
+        - l.attribute :client, :label => :label, url: true
         - l.attribute :number
         - l.attribute :initial_number if @sale.invoice?
         - l.attribute :state_label
@@ -53,7 +53,7 @@
         - l.attribute :created_on
         - l.attribute :confirmed_on if @sale.confirmed_on?
         - l.attribute :invoiced_on if @sale.invoiced_on?
-        - l.attribute :origin, :url => true if @sale.invoice? and @sale.origin
+        - l.attribute :origin, url: true if @sale.invoice? and @sale.origin
         - l.attribute :payment_delay, :label => :name
         - l.attribute :nature
         - l.attribute :currency unless @sale.currency == Entity.of_company.currency
@@ -61,7 +61,7 @@
         - l.attribute :address, :label => :coordinate
         - l.attribute :delivery_address, :label => :coordinate
         - l.attribute :invoice_address, :label => :coordinate
-        - l.attribute(:journal_entry, :url => true) if @sale.journal_entry
+        - l.attribute(:journal_entry, url: true) if @sale.journal_entry
         - l.attribute :letter_format
         - if @sale.letter_format?
           - l.attribute :subject

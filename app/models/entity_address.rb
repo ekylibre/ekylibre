@@ -68,8 +68,10 @@ class EntityAddress < Ekylibre::Record::Base
   validates_inclusion_of :by_default, :mail_auto_update, in: [true, false]
   validates_presence_of :canal, :coordinate, :entity
   #]VALIDATORS]
-  validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: :email?
+  validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, :if => :email?
   validates_inclusion_of :canal, in: self.canal.values
+  validates_presence_of :mail_country, :if => :mail?
+
 
   has_default :scope => [:entity_id, :canal]
 

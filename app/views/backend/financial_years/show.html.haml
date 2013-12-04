@@ -17,7 +17,7 @@
       -l.attribute :stopped_on
       -l.attribute :closed
       -l.attribute :code
-      -l.attribute :last_journal_entry, :url => true
+      -l.attribute :last_journal_entry, url: true
 
   -b.tabbox do
     -b.cell(@financial_year.closed ? :balance : :last_computed_balance) do

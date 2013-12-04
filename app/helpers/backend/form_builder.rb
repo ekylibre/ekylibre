@@ -174,16 +174,26 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       # Add product type selector
       html << @template.field_set do
         # Add variant selector
-        fs  = self.input(:variant_id, :value => variant.id, :as => :hidden)
-        # Add variety selector
-        varieties = Nomen::Varieties.to_a(variant.variety)
-        @object.variety ||= varieties.first
-        fs << self.input(:variety, :collection => varieties)
-        # Add derivative_of selector
+        fs  = self.input(:variant_id, value: variant.id, as: :hidden)
         if variant.derivative_of
-          derivatives = Nomen::Varieties.to_a(variant.derivative_of)
-          @object.derivative_of ||= derivatives.first
-          fs << self.input(:derivative_of, :collection => derivatives)
+          varieties   = Nomen::Varieties.selection(variant.variety)
+          derivatives = Nomen::Varieties.selection(variant.derivative_of)
+          @object.variety       ||= varieties.first.last if varieties.first
+          @object.derivative_of ||= derivatives.first.last if derivatives.first
+          fs << self.input(:variety, wrapper: :append, class: :inline) do
+            ('<span class="add-on">' + ERB::Util.h(:x_of_y.tl(x: "{@@@@VARIETY@@@@}", y: "{@@@@DERIVATIVE@@@@}")) + '</span>')
+              .gsub("{@@", '</span>')
+              .gsub("@@}", '<span class="add-on">')
+              .gsub('<span class="add-on"></span>', '')
+              .gsub("@@VARIETY@@", self.input_field(:variety, as: :select, collection: varieties))
+              .gsub("@@DERIVATIVE@@", self.input_field(:derivative_of, as: :select, collection: derivatives))
+              .html_safe
+          end
+        else
+          # Add variety selector
+          varieties = Nomen::Varieties.selection(variant.variety)
+          @object.variety ||= varieties.first.last if varieties.first
+          fs << self.input(:variety, collection: varieties)
         end
 
         # error message for indicators
@@ -215,7 +225,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       if block_given?
         html << @template.capture(&block)
       else
-        html << @template.render(:partial => "backend/shared/product_form", :locals => {:f => self})
+        html << @template.render(partial: "backend/shared/product_form", locals: {f: self})
       end
 
       # Add first indicators
@@ -246,11 +256,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
                 datum.measure_value_unit = indicator.unit
                 fsi << indfi.input("#{indicator.datatype}_value_value", :wrapper => :append, :value => 0, :class => :inline, :label => indicator.human_name) do
                   m  = indfi.number_field("#{indicator.datatype}_value_value", :value => 0, :label => indicator.human_name)
-                  m << indfi.input_field("#{indicator.datatype}_value_unit", :label => indicator.human_name, :collection => Measure.siblings(indicator.unit))
+                  m << indfi.input_field("#{indicator.datatype}_value_unit", :label => indicator.human_name, collection: Measure.siblings(indicator.unit).collect{|u| [Nomen::Units[u].human_name, u]})
                   m
                 end
               elsif indicator.datatype == :choice
-                fsi << indfi.input("#{indicator.datatype}_value", :collection => indicator.choices, :label => indicator.human_name)
+                fsi << indfi.input("#{indicator.datatype}_value", collection: indicator.selection(:choices), :label => indicator.human_name)
               elsif indicator.datatype == :boolean
                 fsi << indfi.input("#{indicator.datatype}_value", :as => :boolean, :label => indicator.human_name)
               else

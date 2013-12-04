@@ -996,9 +996,14 @@ jpn:
         related_to: #?
       item_lists:
         animal_disease_state:
-          choices: #?
+          choices:
+            # healthy: "En bonne santé"
+            # sick: "Malade"
         animal_life_state:
-          choices: #?
+          choices:
+            # aging: "Adulte"
+            # first_growth: "Première croissance"
+            # second_growth: "Seconde croissance"
         application_width: #?
         cells_concentration: #?
         choices: #?
@@ -1018,7 +1023,12 @@ jpn:
         lipolysis: #?
         livestock_unit: #?
         mammalia_born_condition:
-          choices: #?
+          choices:
+            # caesarean: "Par césarienne"
+            # cutting_calf: "En découpant le veau"
+            # few_help: "Avec un peu d'aide"
+            # great_help: "Avec des difficultés"
+            # without_help: "Sans aide"
         mammalia_born_cycle: #?
         mammalia_lactation_state:
           choices: #?
@@ -1537,7 +1547,7 @@ jpn:
         # hundred: "Centaine"
         # joule: "Joule"
         # kelvin: "Kelvin"
-        # kilogram: "kilogramme"
+        # kilogram: "Kilogramme"
         # kilogram_per_liter: "Kilogramme par litre"
         # kilometer: "Kilomètre"
         # kilowatt: "Kilowatt"

@@ -2,6 +2,33 @@
 demo :deliveries do
 
   Ekylibre::fixturize :cooperative_incoming_deliveries do |w|
+    # Search or create coop legal_entity
+
+    unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Kazeni%".mb_chars.downcase).first
+      cooperative = LegalEntity.create!(last_name: "Kazeni",
+                                        nature: :cooperative,
+                                        vat_number: "FR00123456789",
+                                        supplier: true, client: true,
+                                        mails_attributes: {
+                                          0 => {
+                                            canal: "mail",
+                                            mail_line_4: "145 rue du port",
+                                            mail_line_6: "17000 LAROCHELLE",
+                                            mail_country: :fr
+                                          }
+                                        },
+                                        emails_attributes: {
+                                          0 => {
+                                            canal: "email",
+                                            coordinate: "contact@kazeni.coop"
+                                          }
+                                        })
+    end
+
+    unless IncomingDeliveryMode.count > 1
+      IncomingDeliveryMode.find_or_create_by!(code: "EXW", name: "Récupéré chez le fournisseur")
+      IncomingDeliveryMode.find_or_create_by!(code: "DAP", name: "Livré sur l'exploitation")
+    end
 
     #############################################################################
     # import Coop Order to make automatic purchase
@@ -26,40 +53,33 @@ demo :deliveries do
     # map sub_family to product_nature_variant XML Nomenclature
 
     pnature = {
-      "Maïs classe a" => "seed",
-      "Graminées fourragères" => "seed",
-      "Légumineuses fourragères" => "seed",
-      "Divers" => "seed",
-      "Blé tendre" => "wheat_seed_25",
-      "Blé dur" => "hard_wheat_seed_25",
-      "Orge hiver escourgeon" => "barley_seed_25",
-      "Couverts environnementaux enherbeme" => "seed",
-
-      "Engrais" => "bulk_ammonitrate_33",
-
-      "Fongicides céréales" => "poaceae_fungicide",
-      "Fongicides colza" => "brassicaceae_fungicide",
-      "Herbicides maïs" => "zea_herbicide",
-      "Herbicides tournesol" => "helianthus_herbicide",
-      "Herbicides totaux" => "complete_herbicide",
-      "Adjuvants" => "additive",
-      "Herbicides autres" => "other_herbicide",
-      "Herbicides céréales et fouragères" => "poacea_herbicide",
-
-      "Céréales"  => "cereals_feed_bag_25",
-      "Chevaux" => "cereals_feed_bag_25",
-      "Compléments nutritionnels" => "cereals_feed_bag_25",
-      "Minéraux sel blocs" => "mineral_feed_bloc_25",
-
-      "Anti-limaces" => "anti_slug",
-
-      "Location semoir" => "spread_renting",
-
-      "Nettoyants" => "mineral_cleaner",
-
-      "Films plastiques" => "small_equipment",
-      "Recyclage" => "small_equipment",
-      "Ficelles" => "small_equipment"
+      "Maïs classe a" => :seed,
+      "Graminées fourragères" => :seed,
+      "Légumineuses fourragères" => :seed,
+      "Divers" => :seed,
+      "Blé tendre" => :wheat_seed_25,
+      "Blé dur" => :hard_wheat_seed_25,
+      "Orge hiver escourgeon" => :barley_seed_25,
+      "Couverts environnementaux enherbeme" => :seed,
+      "Engrais" => :bulk_ammonitrate_33,
+      "Fongicides céréales" => :poaceae_fungicide,
+      "Fongicides colza" => :brassicaceae_fungicide,
+      "Herbicides maïs" => :zea_herbicide,
+      "Herbicides tournesol" => :helianthus_herbicide,
+      "Herbicides totaux" => :complete_herbicide,
+      "Adjuvants" => :additive,
+      "Herbicides autres" => :other_herbicide,
+      "Herbicides céréales et fouragères" => :poacea_herbicide,
+      "Céréales" => :cereals_feed_bag_25,
+      "Chevaux" => :cereals_feed_bag_25,
+      "Compléments nutritionnels" => :cereals_feed_bag_25,
+      "Minéraux sel blocs" => :mineral_feed_bloc_25,
+      "Anti-limaces" => :anti_slug,
+      "Location semoir" => :spread_renting,
+      "Nettoyants" => :mineral_cleaner,
+      "Films plastiques" => :small_equipment,
+      "Recyclage"        => :small_equipment,
+      "Ficelles"         => :small_equipment
     }
 
     file = Rails.root.join("test", "fixtures", "files", "coop_appro.csv")
@@ -76,8 +96,8 @@ demo :deliveries do
                          )
       # create an incoming deliveries if not exist and status = 2
       if r.order_status == :order
-        order = IncomingDelivery.find_by_reference_number(r.order_number)
-        order ||= IncomingDelivery.create!(:reference_number => r.order_number, :received_at => r.ordered_on, :sender_id => Entity.of_company.id, :address_id => Entity.of_company.default_mail_address.id)
+        order   = IncomingDelivery.find_by_reference_number(r.order_number)
+        order ||= IncomingDelivery.create!(reference_number: r.order_number, received_at: r.ordered_on, sender: cooperative, address: Entity.of_company.default_mail_address, mode: IncomingDeliveryMode.all.sample)
         # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
         product_nature_variant = ProductNatureVariant.find_by_reference_name(r.coop_variant_reference_name)
         product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name) if item = Nomen::ProductNatureVariants.find(r.coop_variant_reference_name)
@@ -110,76 +130,76 @@ demo :deliveries do
 
   end
 
-  Ekylibre::fixturize :coop_outgoing_deliveries do |w|
-    # #############################################################################
-    # # import Coop Deliveries to make automatic sales
-    # # @TODO finish with two level (sales and sales_lines)
-    # @TODO make some correction for act_as_numbered
-    # # set the coop
-    # print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] OutgoingDelivery - Charentes Alliance Coop Delivery (Apport) 2013: "
-    # clients = Entity.where(:of_company => false).reorder(:client_account_id, :last_name) # .where(" IS NOT NULL")
-    # coop = clients.offset((clients.count/2).floor).first
-    # unit_u = Unit.get(:u)
-    # # add a Coop sale_nature
-    # sale_nature   = SaleNature.actives.first
-    # sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
-    # # Asset Code
-    # sale_account_nature_coop = Account.find_by_number("701")
-    # stock_account_nature_coop = Account.find_by_number("321")
+  # Ekylibre::fixturize :cooperative_outgoing_deliveries do |w|
+  #   # #############################################################################
+  #   # # import Coop Deliveries to make automatic sales
+  #   # # @TODO finish with two level (sales and sales_lines)
+  #   # @TODO make some correction for act_as_numbered
+  #   # # set the coop
+  #   # print "[#{(Time.now - start).round(2).to_s.rjust(8)}s] OutgoingDelivery - Charentes Alliance Coop Delivery (Apport) 2013: "
+  #   # clients = Entity.where(:of_company => false).reorder(:client_account_id, :last_name) # .where(" IS NOT NULL")
+  #   # coop = clients.offset((clients.count/2).floor).first
+  #   # unit_u = Unit.get(:u)
+  #   # # add a Coop sale_nature
+  #   # sale_nature   = SaleNature.actives.first
+  #   # sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
+  #   # # Asset Code
+  #   # sale_account_nature_coop = Account.find_by_number("701")
+  #   # stock_account_nature_coop = Account.find_by_number("321")
 
-    # file = Rails.root.join("test", "fixtures", "files", "coop-apport.csv")
-    # CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => false, :quote_char => "'") do |row|
-    #   r = OpenStruct.new(:delivery_number => row[0],
-    #                      :delivered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
-    #                      :delivery_place => row[2],
-    #                      :product_nature_name => row[3],
-    #                      :product_net_weight => row[4].to_d,
-    #                      :product_standard_weight => row[5].to_d,
-    #                      :product_humidity => row[6].to_d,
-    #                      :product_impurity => row[7].to_d,
-    #                      :product_specific_weight => row[8].to_d,
-    #                      :product_proteins => row[9].to_d,
-    #                      :product_cal => row[10].to_d,
-    #                      :product_mad => row[11].to_d,
-    #                      :product_grade => row[12].to_d,
-    #                      :product_expansion => row[13].to_d
-    #                      )
-    #   # create a purchase if not exist
-    #   sale   = Sale.find_by_reference_number(r.delivery_number)
-    #   sale ||= Sale.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
-    #   tax_price_nature_appro = Tax.find_by_amount(19.6)
-    #   # create a product_nature if not exist
-    #   product_nature   = ProductNature.find_by_name(r.product_nature_name)
-    #   product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :number => r.product_nature_name,  :saleable => false, :purchasable => true, :active => true, :storable => true, :variety_id => b.id, :unit_id => unit_u.id, :category_id => ProductNatureCategory.by_default.id)
-    #   # create a product (Matter) if not exist
-    #   product   = Matter.find_by_name(r.matter_name)
-    #   product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
-    #   # create a product_price_template if not exist
-    #   product_price   = CatalogPriceTemplate.find_by_product_nature_id_and_supplier_id_and_assignment_pretax_amount(product_nature.id, coop.id, r.product_unit_price)
-    #   product_price ||= CatalogPriceTemplate.create!(:currency => "EUR", :assignment_pretax_amount => r.product_unit_price, :product_nature_id => product_nature.id, :tax_id => tax_price_nature_appro.id, :supplier_id => coop.id)
-    #   # create a purchase_item if not exist
-    #   # purchase_item   = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product.id, purchase.id, product_price.id)
-    #   # purchase_item ||= PurchaseItem.create!(:quantity => r.quantity, :unit_id => unit_u.id, :price_id => product_price.id, :product_id => product.id, :purchase_id => purchase.id)
-    #   purchase.items.create!(:quantity => r.quantity, :product_id => product.id)
-    #   # create an incoming_delivery if status => 2
+  #   # file = Rails.root.join("test", "fixtures", "files", "coop-apport.csv")
+  #   # CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => false, :quote_char => "'") do |row|
+  #   #   r = OpenStruct.new(:delivery_number => row[0],
+  #   #                      :delivered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
+  #   #                      :delivery_place => row[2],
+  #   #                      :product_nature_name => row[3],
+  #   #                      :product_net_weight => row[4].to_d,
+  #   #                      :product_standard_weight => row[5].to_d,
+  #   #                      :product_humidity => row[6].to_d,
+  #   #                      :product_impurity => row[7].to_d,
+  #   #                      :product_specific_weight => row[8].to_d,
+  #   #                      :product_proteins => row[9].to_d,
+  #   #                      :product_cal => row[10].to_d,
+  #   #                      :product_mad => row[11].to_d,
+  #   #                      :product_grade => row[12].to_d,
+  #   #                      :product_expansion => row[13].to_d
+  #   #                      )
+  #   #   # create a purchase if not exist
+  #   #   sale   = Sale.find_by_reference_number(r.delivery_number)
+  #   #   sale ||= Sale.create!(:state => r.order_status, :currency => "EUR", :nature_id => purchase_nature.id, :reference_number => r.order_number, :supplier_id => coop.id, :planned_on => r.ordered_on, :created_on => r.ordered_on)
+  #   #   tax_price_nature_appro = Tax.find_by_amount(19.6)
+  #   #   # create a product_nature if not exist
+  #   #   product_nature   = ProductNature.find_by_name(r.product_nature_name)
+  #   #   product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :number => r.product_nature_name,  :saleable => false, :purchasable => true, :active => true, :storable => true, :variety_id => b.id, :unit_id => unit_u.id, :category_id => ProductNatureCategory.by_default.id)
+  #   #   # create a product (Matter) if not exist
+  #   #   product   = Matter.find_by_name(r.matter_name)
+  #   #   product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
+  #   #   # create a product_price_template if not exist
+  #   #   product_price   = CatalogPriceTemplate.find_by_product_nature_id_and_supplier_id_and_assignment_pretax_amount(product_nature.id, coop.id, r.product_unit_price)
+  #   #   product_price ||= CatalogPriceTemplate.create!(:currency => "EUR", :assignment_pretax_amount => r.product_unit_price, :product_nature_id => product_nature.id, :tax_id => tax_price_nature_appro.id, :supplier_id => coop.id)
+  #   #   # create a purchase_item if not exist
+  #   #   # purchase_item   = PurchaseItem.find_by_product_id_and_purchase_id_and_price_id(product.id, purchase.id, product_price.id)
+  #   #   # purchase_item ||= PurchaseItem.create!(:quantity => r.quantity, :unit_id => unit_u.id, :price_id => product_price.id, :product_id => product.id, :purchase_id => purchase.id)
+  #   #   purchase.items.create!(:quantity => r.quantity, :product_id => product.id)
+  #   #   # create an incoming_delivery if status => 2
 
-    #   # create an incoming_delivery_item if status => 2
+  #   #   # create an incoming_delivery_item if status => 2
 
 
-    #   print "."
-    # end
-    # puts "!"
-    ##############################################################################
-    ## Demo data for document                                                   ##
-    ##############################################################################
+  #   #   print "."
+  #   # end
+  #   # puts "!"
+  #   ##############################################################################
+  #   ## Demo data for document                                                   ##
+  #   ##############################################################################
 
-    # import an outgoing_deliveries_journal in PDF"
-    # bug in demo server for instance
-    #document = Document.create!(:key => "20130724_outgoing_001", :name => "outgoing_001", :nature => "outgoing_delivery_journal" )
-    #File.open(Rails.root.join("test", "fixtures", "files", "releve_apports.pdf"),"rb") do |f|
-    #  document.archive(f.read, :pdf)
-    #end
+  #   # import an outgoing_deliveries_journal in PDF"
+  #   # bug in demo server for instance
+  #   #document = Document.create!(:key => "20130724_outgoing_001", :name => "outgoing_001", :nature => "outgoing_delivery_journal" )
+  #   #File.open(Rails.root.join("test", "fixtures", "files", "releve_apports.pdf"),"rb") do |f|
+  #   #  document.archive(f.read, :pdf)
+  #   #end
 
-  end
+  # end
 
 end

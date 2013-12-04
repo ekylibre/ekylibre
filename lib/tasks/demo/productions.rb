@@ -40,7 +40,7 @@ demo :productions do
       "" => :none
     }
     # Load file
-    file = Rails.root.join("test", "fixtures", "files", "activities_ref_demo_3.csv")
+    file = Rails.root.join("test", "fixtures", "files", "activities_ref_demo.csv")
     CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
       r = OpenStruct.new(:description => row[0],
                          :name => row[1].downcase.capitalize,

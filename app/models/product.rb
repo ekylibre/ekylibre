@@ -65,6 +65,7 @@
 
 class Product < Ekylibre::Record::Base
   enumerize :variety, in: Nomen::Varieties.all, predicates: {prefix: true}
+  enumerize :derivative_of, in: Nomen::Varieties.all
   enumerize :content_indicator, in: Nomen::Indicators.all, predicates: {prefix: true}
   enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
   enumerize :initial_arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, :predicates =>{prefix: true}
@@ -128,7 +129,7 @@ class Product < Ekylibre::Record::Base
     conditions = []
     # TODO Build conditions to filter on indicators
     for name, value in indicators
-      conditions << " id IN (" + order(:id).indicate(name, at: measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
+      conditions << " id IN (" + order(:id).indicator(name, at: measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
     end
     where(conditions.join(" AND "))
   }
@@ -147,7 +148,7 @@ class Product < Ekylibre::Record::Base
   validates_presence_of :nature, :variant, :name
 
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :indicator_data, :allow_destroy => true #, :reject_if => :all_blank,
+  accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: :all_blank # lambda { |datum| !datum["indicator"] != "population" and datum["#{Nomen::Indicators[datum["indicator"]]}_value"]}
   acts_as_numbered force: false
   delegate :serial_number, :producer, to: :tracking
   delegate :name, to: :nature, prefix: true
@@ -186,9 +187,10 @@ class Product < Ekylibre::Record::Base
         raise "Can not cast #{self.name} to #{klass.name}" unless klass <= self
         return klass.new(*attributes, &block)
       end
-      new_without_cast(*attributes, &block)
+      return new_without_cast(*attributes, &block)
     end
     alias_method_chain :new, :cast
+
   end
 
   # TODO: Removes this ASAP

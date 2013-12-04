@@ -861,6 +861,7 @@ fra:
         civil_society: "Société civile"                    # legal_entity
         collectivity: "Collectivité"                       # legal_entity
         company: "Société"                                 # legal_entity
+        # cooperative: "Cooperative"                       # legal_entity
         doctor: "Docteur"                                  # person
         economic_interest_group: "Groupement d’intérêt économique" # legal_entity
         entity: "Entité"
@@ -922,13 +923,13 @@ fra:
       item_lists:
         animal_disease_state:
           choices:
-            # healthy: "Healthy"
-            # sick: "Sick"
+            healthy: "En bonne santé"
+            sick: "Malade"
         animal_life_state:
           choices:
-            # first_growth: "First growth"
-            # second_growth: "Second growth"
-            # aging: "Aging"
+            first_growth: "Première croissance"
+            second_growth: "Seconde croissance"
+            aging: "Adulte"
         cultural_soil_state:
           choices:
             # covered: "Covered"
@@ -942,11 +943,11 @@ fra:
             # positive: "Positive"
         mammalia_born_condition:
           choices:
-            # without_help: "Without help"
-            # few_help: "Few help"
-            # great_help: "Great help"
-            # caesarean: "Caesarean"
-            # cutting_calf: "Cutting calf"
+            without_help: "Sans aide"
+            few_help: "Avec un peu d'aide"
+            great_help: "Avec des difficultés"
+            caesarean: "Par césarienne"
+            cutting_calf: "En découpant le veau"
         mammalia_lactation_state:
           choices:
             # lactation: "Lactation"
@@ -1529,7 +1530,7 @@ fra:
         hundred: "Centaine"
         joule: "Joule"
         kelvin: "Kelvin"
-        kilogram: "kilogramme"
+        kilogram: "Kilogramme"
         kilogram_per_liter: "Kilogramme par litre"
         kilometer: "Kilomètre"
         kilowatt: "Kilowatt"

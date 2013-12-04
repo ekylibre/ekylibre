@@ -63,7 +63,6 @@
 #
 
 class Animal < Bioproduct
-  # attr_accessible :father_id, :mother_id
   enumerize :variety, in: Nomen::Varieties.all(:animal), predicates: {prefix: true}
   belongs_to :father, class_name: "Animal"
   belongs_to :mother, class_name: "Animal"
@@ -78,35 +77,34 @@ class Animal < Bioproduct
 
   # acts_as_numbered :number, :readonly => false
 
-  # prepare method to call EDNOTIF to exchange with EDE via SOAP Webservice
-  # test with Fourniture de l’inventaire d’une exploitation
-  # need to active SAVON GEM when begin to work
-  #def call_notification
-    # 1. Contacter l'annuaire (WsAnnuaire) pour obtenir l’URL du webservice technique et du webservice métier à contacter
-  #  profil = {Entreprise: 'FR17387001', Zone: '17'}
-   # client_ws_annuaire = Savon.client(wsdl: 'http://zoe.cmre.fr/wsannuaire/WsAnnuaire?wsdl')
-  #  response = client_ws_annuaire.call(:tk_get_services, message: {Espece: 'B'})
+  # # prepare method to call EDNOTIF to exchange with EDE via SOAP Webservice
+  # # test with Fourniture de l’inventaire d’une exploitation
+  # # need to active SAVON GEM when begin to work
+  # def call_notification
+  #   # 1. Contacter l'annuaire (WsAnnuaire) pour obtenir l’URL du webservice technique et du webservice métier à contacter
+  #   profil = {Entreprise: 'FR17387001', Zone: '17'}
+  #   client_ws_annuaire = Savon.client(wsdl: 'http://zoe.cmre.fr/wsannuaire/WsAnnuaire?wsdl')
+  #   response = client_ws_annuaire.call(:tk_get_services, message: {Espece: 'B'})
 
-   # response = client_ws_annuaire.call(:tk_get_url, message: {ProfilDemandeur: profil})
+  #   response = client_ws_annuaire.call(:tk_get_url, message: {ProfilDemandeur: profil})
 
-    #2. Appeler le webservice technique (WsGuichet) pour authentification et obtention jeton
-   # client_ws_guichet = Savon.client(wsdl: 'https://zoe.cmre.fr/wsguichet/WsGuichet?wsdl')
-  #  response = client_ws_guichet.call(:tk_get_url)
-    #token = response.header
+  #   # 2. Appeler le webservice technique (WsGuichet) pour authentification et obtention jeton
+  #   client_ws_guichet = Savon.client(wsdl: 'https://zoe.cmre.fr/wsguichet/WsGuichet?wsdl')
+  #   response = client_ws_guichet.call(:tk_get_url)
+  #   token = response.header
 
-    #3. Appeler le webservice métier muni du jeton
+  #   # 3. Appeler le webservice métier muni du jeton
 
-   # client_ws_metier = Savon.client(wsdl: 'http://zoe.cmre.fr/wsIpBNotif/wsIpBNotif?wsdl')
-    #client.operations
-   # response = client_ws_metier.call(:ip_b_get_inventaire,
-    #                       message: { JetonAuthentification: token,
-    #                                  Exploitation: "FR17387001",
-     #                                 DateDebut: "2013-01-01",
-      #                                DateFin: "2013-06-01",
-       #                               StockBoucles: true
-        #                            })
-    #response.body
-
-  #end
+  #   client_ws_metier = Savon.client(wsdl: 'http://zoe.cmre.fr/wsIpBNotif/wsIpBNotif?wsdl')
+  #   client.operations
+  #   response = client_ws_metier.call(:ip_b_get_inventaire,
+  #                                    message: { JetonAuthentification: token,
+  #                                      Exploitation: "FR17387001",
+  #                                      DateDebut: "2013-01-01",
+  #                                      DateFin: "2013-06-01",
+  #                                      StockBoucles: true
+  #                                    })
+  #   response.body
+  # end
 
 end

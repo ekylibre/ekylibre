@@ -39,23 +39,22 @@
         - l.attribute :siren unless resource.siren.blank?
         - l.attribute :activity_code unless resource.activity_code.blank?
         - l.attribute :vat_number unless resource.vat_number.blank?
-        - l.attribute :excise unless resource.vat_number.blank?
         - l.attribute :born_on unless resource.born_on.blank?
         - l.attribute :dead_on unless resource.dead_on.blank?
         - l.attribute :prospect
         - l.attribute :client
         - if resource.client
-          -#l.attribute :category, :label => :name, :url => true
+          -#l.attribute :category, :label => :name, url: true
           - l.attribute :first_met_on unless resource.first_met_on.blank?
           - l.attribute :proposer, :label => :full_name unless resource.proposer.nil?
           - l.attribute :vat_subjected
           - l.attribute :reminder_submissive unless resource.reminder_submissive?
           - l.attribute :authorized_payments_count unless resource.authorized_payments_count.blank?
           - l.attribute :deliveries_conditions unless resource.deliveries_conditions.blank?
-          - l.attribute :client_account, :url => true
+          - l.attribute :client_account, url: true
         - l.attribute :supplier
         - if resource.supplier
-          - l.attribute :supplier_account, :url => true
+          - l.attribute :supplier_account, url: true
         - l.attribute :transporter
 
     - b.cell(tl(:x_observations, count: resource.observations.count)) do
