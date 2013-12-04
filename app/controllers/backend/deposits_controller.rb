@@ -62,7 +62,7 @@ class Backend::DepositsController < BackendController
   end
 
 
-  list(:depositable_payments, model: :incoming_payments, conditions: ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", 'session[:deposit_id]'.c, 'session[:payment_mode_id]'.c], :pagination => :none, order: "to_bank_on, created_at", :line_class => "((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')".c) do |t|
+  list(:depositable_payments, model: :incoming_payments, conditions: ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", 'session[:deposit_id]'.c, 'session[:payment_mode_id]'.c], :pagination => :none, order: [:to_bank_on, :created_at], :line_class => "((RECORD.to_bank_on||Date.yesterday)>Date.today ? 'critic' : '')".c) do |t|
     t.column :number, url: true
     t.column :payer, url: true
     t.column :bank_name
@@ -71,14 +71,14 @@ class Backend::DepositsController < BackendController
     t.column :paid_on
     t.column :responsible
     t.column :amount, currency: true
-    t.check_box :to_deposit, :value => '(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==@current_user.id) : (RECORD.deposit_id==session[:deposit_id])))'.c, :label => tc(:to_deposit)
+    t.check_box :to_deposit, :value => '(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==current_user.person_id) : (RECORD.deposit_id==session[:deposit_id])))'.c, :label => tc(:to_deposit)
   end
 
   def new
     return unless mode = find_mode
     session[:deposit_id] = nil
     session[:payment_mode_id] = mode.id
-    @deposit = Deposit.new(:created_on => Date.today, :mode_id => mode.id, :responsible_id => @current_user.id)
+    @deposit = Deposit.new(:created_on => Date.today, :mode_id => mode.id, :responsible => current_user.person)
     t3e :mode => mode.name
     # render_restfully_form
   end

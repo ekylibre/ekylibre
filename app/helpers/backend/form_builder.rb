@@ -96,7 +96,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       return @template.content_tag(:div, :id => "custom-fields-field") do
         html = "".html_safe
         for custom_field in custom_fields
-          options = {:as => custom_field.nature.to_sym, :required => custom_field.required?, :label => custom_field.name}
+          options = {as: custom_field.nature.to_sym, :required => custom_field.required?, label: custom_field.name}
           if custom_field.choice?
             options[:collection] = custom_field.choices.collect{|c| [c.name, c.value] }
           end
@@ -203,11 +203,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
        if @object.new_record?
           external = @template.params[:external].to_s
           if external == "true"
-            #fs << self.input(:external, :value => true, :as => :hidden)
+            #fs << self.input(:external, :value => true, as: :hidden)
             fs << self.referenced_association(:initial_owner)
           elsif external == "false"
-            fs << self.referenced_association(:initial_owner, :as => :hidden, :value => Entity.of_company )
-            #fs << self.input(:external, :value => false, :as => :hidden)
+            fs << self.referenced_association(:initial_owner, as: :hidden, :value => Entity.of_company )
+            #fs << self.input(:external, :value => false, as: :hidden)
           else
             #id = rand(1_000_000).to_s(36) + Time.now.to_i.to_s(36)
             #fs << self.input(:external, :show => "##{id}")
@@ -252,19 +252,20 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
             fs << self.backend_fields_for(:indicator_data, datum) do |indfi|
               fsi = "".html_safe
               fsi << indfi.input(:indicator, as: :hidden)
+              fsi << indfi.input(:product_id, as: :hidden)
               if indicator.datatype == :measure
                 datum.measure_value_unit = indicator.unit
-                fsi << indfi.input("#{indicator.datatype}_value_value", :wrapper => :append, :value => 0, :class => :inline, :label => indicator.human_name) do
-                  m  = indfi.number_field("#{indicator.datatype}_value_value", :value => 0, :label => indicator.human_name)
-                  m << indfi.input_field("#{indicator.datatype}_value_unit", :label => indicator.human_name, collection: Measure.siblings(indicator.unit).collect{|u| [Nomen::Units[u].human_name, u]})
+                fsi << indfi.input("#{indicator.datatype}_value_value", :wrapper => :append, :value => 0, :class => :inline, label: indicator.human_name) do
+                  m  = indfi.number_field("#{indicator.datatype}_value_value", label: indicator.human_name)
+                  m << indfi.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect{|u| [Nomen::Units[u].human_name, u]})
                   m
                 end
               elsif indicator.datatype == :choice
-                fsi << indfi.input("#{indicator.datatype}_value", collection: indicator.selection(:choices), :label => indicator.human_name)
+                fsi << indfi.input("#{indicator.datatype}_value", label: indicator.human_name, collection: indicator.selection(:choices))
               elsif indicator.datatype == :boolean
-                fsi << indfi.input("#{indicator.datatype}_value", :as => :boolean, :label => indicator.human_name)
+                fsi << indfi.input("#{indicator.datatype}_value", label: indicator.human_name, as: :boolean)
               else
-                fsi << indfi.input("#{indicator.datatype}_value", :as => :string, :label => indicator.human_name)
+                fsi << indfi.input("#{indicator.datatype}_value", label: indicator.human_name, as: :string)
               end
               fsi
             end

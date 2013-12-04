@@ -5,11 +5,12 @@
       = variant.name
       = link_to("#", "data-remove-closest" => ".subform", class: :remove, title: :remove.tl) do
         %i
-    = f.input :product_nature_variant_id, :as => :hidden
+    -# = f.input :product_nature_variant_id, :as => :hidden
   .subform-fields
+    = f.object.errors.inspect if f.object.errors.any?
     - if model = variant.matching_model
       - iv = "@#{model.name.underscore}".to_sym
-      - instance_variable_set(iv, f.object.product || model.new(:variant_id => variant.id))
+      - instance_variable_set(iv, f.object.product || model.new(variant: variant))
       = f.backend_fields_for(:product, instance_variable_get(iv)) do |p|
         = p.hidden_field(:type)
-        = render "backend/#{model.name.tableize}/form", :f => p
+        = render "backend/#{model.name.tableize}/form", f: p

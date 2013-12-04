@@ -44,7 +44,7 @@
 
 class ProductNatureVariantIndicatorDatum < Ekylibre::Record::Base
   include IndicatorDatumStorable
-  belongs_to :variant, class_name: "ProductNatureVariant"
+  belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :indicator_data
   enumerize :computation_method, in: [:frozen, :proportional], default: :frozen
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

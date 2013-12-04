@@ -1046,7 +1046,7 @@ jpn:
     # indicator: "Indicateur"
     # indicator_value: "Valeur de l'indicateur"
     # indicators: "Indicateurs"
-    # indicators_evolutions: "Evolutions des indicateurs"
+    # indicators_evolutions: "Évolutions des indicateurs"
     # inel_index: "Index génétique INEL"
     # info: "Information\_: %{value}"
     # infos: "Information générales"
@@ -1169,7 +1169,7 @@ jpn:
     # mode: "Mode"
     # modes: "Modes"
     # modules: "Modules"
-    # month_period: "%{code} - %{month} %{year}"
+    # month_period: "%{code} — %{month} %{year}"
     # monthly: "Mensuelle"
     # moved_on: "Fait le"
     # movement: "Mouvements"
@@ -1643,7 +1643,7 @@ jpn:
     x_intervention_casts:
       # one: "%{count} intervention"
       # other: "%{count} interventions"
-      # zero: "aucune intervention"
+      # zero: "Aucune intervention"
     x_items_remain_on_y:
       # one: "%{count} élément restant."
       # other: "%{count} éléments non visibles. Affinez votre recherche."

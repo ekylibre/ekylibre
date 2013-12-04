@@ -15,4 +15,4 @@
 = field_set(:commission, :in => :accountancy_options) do
   = f.input :commission_base_amount
   = f.input :commission_percentage
-  = f.referenced_association :commission_account, :source => :charges, :new => {:number => Account.find_or_create_in_chart(:charges)}
+  = f.referenced_association :commission_account, :source => {scope: {of_usage: :expenses}}, :new => {:number => Account.find_or_create_in_chart(:expenses)}
