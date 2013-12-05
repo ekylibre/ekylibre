@@ -52,14 +52,14 @@ class ProductBirth < Ekylibre::Record::Base
 
   before_update do
     if self.product_id != old_record.product_id
-      old_record.product.update_attribute(:born_at, nil)
+      old_record.product.update_column(:born_at, nil)
     end
   end
 
-  before_save do
+  after_save do
     if self.product
       if self.stopped_at != self.product.born_at
-        self.product.update_attribute(:born_at, self.stopped_at)
+        self.product.update_column(:born_at, self.stopped_at)
       end
     end
   end
@@ -72,17 +72,18 @@ class ProductBirth < Ekylibre::Record::Base
           product.is_measured!(indicator, value, at: self.stopped_at, originator: self)
         end
       end
+      
       # Add whole indicator data
       for indicator in producer.whole_indicators
         producer_datum_value = producer.send(indicator, at: self.started_at)
         product_datum_value = self.send(indicator)
-        if producer_datum_value and product_datum_value
-          product.is_measured!(indicator, product_datum_value, at: self.stopped_at, originator: self)
-          producer.is_measured!(indicator, producer_datum_value - product_datum_value, at: self.stopped_at, originator: self)
+        unless producer_datum_value and product_datum_value
+          raise "\n\nOhohoho\n" + [producer_datum_value, product_datum_value].map(&:inspect).join("\n" + "*" * 80 + "\n")
         end
+        product.is_measured!(indicator,  product_datum_value, at: self.stopped_at, originator: self)
+        producer.is_measured!(indicator, producer_datum_value - product_datum_value, at: self.stopped_at, originator: self)
       end
     end
-
   end
 
   before_destroy do

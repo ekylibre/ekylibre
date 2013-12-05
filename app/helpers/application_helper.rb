@@ -960,15 +960,19 @@ module ApplicationHelper
 
 
   def field_set(*args, &block)
-    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-    name = args.delete_at(0) || "general-informations".to_sym
+    options = args.extract_options!
+    options[:fields_class] ||= "fieldset-fields"
+    name = args.shift || "general-informations".to_sym
+    buttons = [options[:buttons] || []].flatten
+    buttons << link_to("", "#", :class => "toggle", 'data-toggle' => 'fields')
+    class_names  = "fieldset " + name.to_s + (options[:class] ? " " + options[:class].to_s : "")
+    class_names << (options[:collapsed] ? ' collapsed' : ' not-collapsed')
     return content_tag(:div,
                        content_tag(:div,
-                                   content_tag(:span, "", :class => :icon) +
-                                   content_tag(:span, (name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s)) +
-                                   content_tag(:span, "", :class => :toggle),
-                                   :class => "fieldset-legend " + (options[:collapsed] ? 'collapsed' : 'not-collapsed'), 'data-toggle-set' => ".fieldset-fields") +
-                       content_tag(:div, capture(&block), :class => "fieldset-fields"), :class => "fieldset", :id => name) # "#{name}-fieldset"
+                                   link_to(content_tag(:i) + h(name.is_a?(Symbol) ? name.to_s.gsub('-', '_').t(:default => ["labels.#{name.to_s.gsub('-', '_')}".to_sym, "form.legends.#{name.to_s.gsub('-', '_')}".to_sym, name.to_s.humanize]) : name.to_s), "#", :class => "title", 'data-toggle' => 'fields') +
+                                   content_tag(:span, buttons.join.html_safe, :class => :buttons),
+                                   :class => "fieldset-legend") +
+                       content_tag(:div, capture(&block), :class => options[:fields_class]), :class => class_names, :id => name) # "#{name}-fieldset"
   end
 
 

@@ -50,6 +50,10 @@
       .info
         %span.title= Animal.human_attribute_name(:current_animal_disease_state)
         %span.value= @animal.animal_disease_state
+      - if container = @animal.container
+        .info
+          %span.title= Animal.human_attribute_name(:container)
+          %span.value= link_to(container.name, backend_product_url(container))
     - b.cell :details do
       = attributes_list(@animal) do |l| # liste des champs à afficher
         - l.attribute :name
