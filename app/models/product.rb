@@ -148,7 +148,9 @@ class Product < Ekylibre::Record::Base
   validates_presence_of :nature, :variant, :name
 
   accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: :all_blank # lambda { |datum| !datum["indicator"] != "population" and datum["#{Nomen::Indicators[datum["indicator"]]}_value"]}
+  accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum| 
+    !datum["indicator"] != "population" and datum[ProductIndicatorDatum.value_column(datum["indicator"]).to_s].blank?
+  }
   acts_as_numbered force: false
   delegate :serial_number, :producer, to: :tracking
   delegate :name, to: :nature, prefix: true

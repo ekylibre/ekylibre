@@ -75,6 +75,14 @@ module IndicatorDatumStorable
 
   # methods defined here are going to extend the class, not the instance of it
   module ClassMethods
+
+    def value_column(indicator_name)
+      unless indicator = Nomen::Indicators[indicator_name]
+        raise ArgumentError, "Expecting an indicator name. Got #{indicator_name.inspect}."
+      end
+      return {measure: :measure_value_value}[indicator.datatype] || "#{indicator.datatype}_value".to_sym
+    end
+
   end
 
 end
