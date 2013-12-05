@@ -72,7 +72,6 @@ class ProductBirth < Ekylibre::Record::Base
           product.is_measured!(indicator, value, at: self.stopped_at, originator: self)
         end
       end
-      
       # Add whole indicator data
       for indicator in producer.whole_indicators
         producer_datum_value = producer.send(indicator, at: self.started_at)

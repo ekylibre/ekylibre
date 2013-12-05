@@ -8,18 +8,24 @@ demo :interventions do
     class << self
 
       def find(model, options = {})
-        relation = model
+        relation = model.where("COALESCE(born_at, ?) <= ? ", options[:started_at], options[:started_at])
         relation = relation.can(options[:can]) if options[:can]
         relation = relation.of_variety(options[:variety]) if options[:variety]
         relation = relation.derivative_of(options[:derivative_of]) if options[:derivative_of]
-        if record = relation.all.sample
-          return record
+        if relation.any?
+          return relation.all.sample
         else
           # Create product with given elements
           attributes = {
             name: model.model_name.human,
-            default_storage: find(BuildingDivision)
+            # birth: {
+            #   started_at: options[:started_at] - 10,
+            #   stopped_at: options[:started_at] - 1
+            # }
           }
+          unless options[:default_storage].is_a?(FalseClass)
+            attributes[:default_storage] = find(BuildingDivision, default_storage: false)
+          end
           variants = ProductNatureVariant.find_or_import!(options[:variety] || model.name.underscore, derivative_of: options[:derivative_of])
           variants.can(options[:can]) if options[:can]
           unless attributes[:variant] = variants.first
