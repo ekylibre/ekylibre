@@ -26,7 +26,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   def referenced_association(association, options = {}, &block)
     reflection = find_association_reflection(association)
     raise "Association #{association.inspect} not found" unless reflection
-    raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to") if reflection.macro != :belongs_to
+    if reflection.macro != :belongs_to
+      raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
+    end
 
     return self.association(association) if options[:field] == :hidden
 
@@ -168,19 +170,23 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     html = "".html_safe
 
     variant = @object.variant || ProductNatureVariant.where(:id => @template.params[:variant_id].to_i).first
-
+    
     if variant
-
+      
       # Add product type selector
       html << @template.field_set do
-        # Add variant selector
         fs  = self.input(:variant_id, value: variant.id, as: :hidden)
+
+        # Add name
+        fs << self.input(:name)
+
+        # Add variant selector
         if variant.derivative_of
           varieties   = Nomen::Varieties.selection(variant.variety)
           derivatives = Nomen::Varieties.selection(variant.derivative_of)
           @object.variety       ||= varieties.first.last if varieties.first
           @object.derivative_of ||= derivatives.first.last if derivatives.first
-          fs << self.input(:variety, wrapper: :append, class: :inline) do
+          fs << self.input(:variety, wrapper: :append, :class => :inline) do
             ('<span class="add-on">' + ERB::Util.h(:x_of_y.tl(x: "{@@@@VARIETY@@@@}", y: "{@@@@DERIVATIVE@@@@}")) + '</span>')
               .gsub("{@@", '</span>')
               .gsub("@@}", '<span class="add-on">')
@@ -195,6 +201,17 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           @object.variety ||= varieties.first.last if varieties.first
           fs << self.input(:variety, collection: varieties)
         end
+        
+        # Add birth
+        unless self.object.birth
+          self.object.build_birth(nature: :creation, started_at: Time.now - 1, stopped_at: Time.now)
+        end
+        fs << self.backend_fields_for(:birth) do |birth_fields|
+          fbs  = birth_fields.input(:started_at)
+          fbs << birth_fields.input(:nature, as: :hidden)
+          # @template.render("backend/product_births/form", f: birth_fields)
+        end
+          
 
         # error message for indicators
         fs << @object.errors.inspect if @object.errors.any?
@@ -230,11 +247,6 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
       # Add first indicators
       indicators = variant.variable_indicators_array
-      # if variant.population_frozen?
-      #   indicators.delete_if do |indicator|
-      #     indicator.name.to_sym == :population
-      #   end
-      # end
       if indicators.any?
 
         for indicator in indicators

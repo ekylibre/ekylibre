@@ -40,7 +40,7 @@
 
 class ProductBirth < Ekylibre::Record::Base
   include Taskable
-  belongs_to :product
+  belongs_to :product, inverse_of: :birth
   belongs_to :producer, class_name: "Product"
   enumerize :nature, in: [:division, :creation], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

@@ -1,8 +1,6 @@
-=f.product_form_frame do
-  =field_set :identification do # partie info general de l entité animal
-    =f.input :name # affiche le champ name de l entité animal avec une infos derriere
-    =f.input :work_number
-    =f.input :identification_number
-    =f.input :born_at, :as => :date
-    =f.picture
-    =f.input :description # affiche le champ description formaté en zone de texte
+= f.product_form_frame do
+  = field_set :identification do
+    = f.input :work_number
+    = f.input :identification_number
+    = f.picture
+    = f.input :description

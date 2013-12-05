@@ -1,11 +1,10 @@
-=f.product_form_frame do
-  =field_set :identification do
-    =f.input :name
-    =f.input :reservoir #, :show => :reservoir
-    =f.picture
-    =f.input :description
+= f.product_form_frame do
+  = field_set :identification do
+    = f.input :reservoir
+    = f.picture
+    = f.input :description
 
-  -#=field_set(:reservoir) do
+  -# =field_set(:reservoir) do
     =f.referenced_association :content_nature,:source => :stockables
     =f.input :content_indicator
     =f.input :content_indicator_unit

@@ -1,8 +1,6 @@
-=f.product_form_frame do
-  =field_set :identification do
-    =f.input :name
-    =f.input :work_number
-    =f.input :born_at
-    =f.input :identification_number
-    =f.picture
-    =f.input :description, :field => :text
+= f.product_form_frame do
+  = field_set :identification do
+    = f.input :work_number
+    = f.input :identification_number
+    = f.picture
+    = f.input :description, :field => :text

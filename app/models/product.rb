@@ -94,10 +94,12 @@ class Product < Ekylibre::Record::Base
   has_many :phases, class_name: "ProductPhase"
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
   has_many :variants, class_name: "ProductNatureVariant", :through => :phases
+  has_one :birth, class_name: "ProductBirth"
   has_one :current_phase,        -> { current }, class_name: "ProductPhase",        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: "ProductLocalization", foreign_key: :product_id
   has_one :current_ownership,    -> { current }, class_name: "ProductOwnership",    foreign_key: :product_id
   has_one :container, through: :current_localization
+  has_one :death, class_name: "ProductDeath"
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -147,10 +149,12 @@ class Product < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name
 
-  accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :birth
+  accepts_nested_attributes_for :death
   accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum| 
     !datum["indicator"] != "population" and datum[ProductIndicatorDatum.value_column(datum["indicator"]).to_s].blank?
   }
+  accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: false
   delegate :serial_number, :producer, to: :tracking
   delegate :name, to: :nature, prefix: true

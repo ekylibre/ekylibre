@@ -1,7 +1,4 @@
 = f.product_form_frame do
-  = field_set do # partie info general de l entité animal_group
-    = f.input :name # affiche le champ name de l entité animal avec une infos derriere
+  = field_set do
     = f.input :work_number
-
-  = field_set(:details) do # partie entrée sortie de l entité animal
-    = f.input :description # affiche le champ description formaté en zone de texte
+    = f.input :description
