@@ -135,9 +135,9 @@ class Operation < Ekylibre::Record::Base
     return task.parameters.inject({}) do |hash, pair|
       parameter = pair.second
       hash[pair.first] = if parameter.is_a?(Procedo::Variable)
-                           self.casts.find_by!(reference_name: parameter.name.to_s).actor
+                           self.casts.find_by!(reference_name: parameter.name.to_s)
                          elsif parameter.is_a?(Procedo::Indicator)
-                           [self.casts.find_by!(reference_name: parameter.stakeholder.name.to_s).actor, parameter.indicator]
+                           [self.casts.find_by!(reference_name: parameter.stakeholder.name.to_s), parameter.indicator]
                          else
                            raise StandardError, "Don't known how to find a #{parameter.class.name}"
                          end
@@ -165,116 +165,121 @@ class Operation < Ekylibre::Record::Base
 
   # == Localizations
 
-  def perform_direct_movement(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product: actors[:product], container: actors[:localizable].localizations.at(self.started_at).first.container)
+  def perform_direct_movement(params)
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product: params[:product].actor, container: params[:localizable].actor.localizations.at(self.started_at).first.container)
   end
 
-  def perform_direct_entering(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product: actors[:product], container: actors[:localizable])
+  def perform_direct_entering(params)
+    self.product_localizations.create!(started_at: self.started_at, nature: :interior, product: params[:product].actor, container: params[:localizable].actor)
   end
 
-  def perform_movement(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
-    localization = actors[:localizable].localizations.at(self.stopped_at).first
+  def perform_movement(params)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
+    localization = params[:localizable].actor.localizations.at(self.stopped_at).first
     while localization.container.nil?
       break unless localization = localization.previous
     end
-    container = localization.container || actors[:localizable].default_storage
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: actors[:product], container: container)
+    container = localization.container || params[:localizable].actor.default_storage
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: params[:product].actor, container: container)
   end
 
-  def perform_entering(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: actors[:product], container: actors[:localizable])
+  def perform_entering(params)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: params[:product].actor, container: params[:localizable].actor)
   end
 
-  def perform_home_coming(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: actors[:product], container: actors[:product].default_storage)
+  def perform_home_coming(params)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: params[:product].actor, container: params[:product].actor.default_storage)
   end
 
-  def perform_given_home_coming(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: actors[:product], container: actors[:localizable].default_storage)
+  def perform_given_home_coming(params)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: params[:product].actor, container: params[:localizable].actor.default_storage)
   end
 
-  def perform_out_going(actors)
-    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: actors[:product])
-    self.product_localizations.create!(started_at: self.stopped_at, nature: :exterior, product: actors[:product])
+  def perform_out_going(params)
+    self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
+    self.product_localizations.create!(started_at: self.stopped_at, nature: :exterior, product: params[:product].actor)
   end
 
   # == Births
 
-  def perform_creation(actors)
-    self.product_births.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :creation, product: actors[:product], producer: actors[:producer])
+  def perform_creation(params)
+    self.product_births.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :creation, product: params[:product].actor, producer: params[:producer].actor)
   end
 
-  def perform_division(actors)
-    self.product_births.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :division, product: actors[:product], producer: actors[:producer])
+  def perform_division(params)
+    producer = params[:producer].actor
+    attributes = {started_at: self.started_at, stopped_at: self.stopped_at, nature: :division, product: params[:product].actor, producer: producer}
+    for  indicator in producer.whole_indicators
+      attributes[indicator] = params[:product].send(indicator)
+    end
+    self.product_births.create!(attributes)
   end
 
   # == Deaths
 
-  def perform_consumption(actors)
-    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :consumption, product: actors[:product], absorber: actors[:absorber])
+  def perform_consumption(params)
+    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :consumption, product: params[:product].actor, absorber: params[:absorber].actor)
   end
 
-  def perform_merging(actors)
-    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :merging, product: actors[:product], absorber: actors[:absorber])
+  def perform_merging(params)
+    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :merging, product: params[:product].actor, absorber: params[:absorber].actor)
   end
 
   # == Linkages
 
-  def perform_attachment(actors)
-    self.product_linkages.create!(started_at: self.stopped_at, point: actors[:point], carrier: actors[:carrier], carried: actors[:carried], nature: "occupied")
+  def perform_attachment(params)
+    self.product_linkages.create!(started_at: self.stopped_at, point: params[:point].actor, carrier: params[:carrier].actor, carried: params[:carried].actor, nature: "occupied")
   end
 
-  def perform_detachment(actors)
-    if linkage = actors[:carrier].linkages.at(self.started_at).where(carried_id: actors[:carried].id).first
-      self.product_linkages.create!(started_at: self.stopped_at, carrier: actors[:carrier], point: linkage.point, nature: "available")
+  def perform_detachment(params)
+    if linkage = params[:carrier].actor.linkages.at(self.started_at).where(carried_id: params[:carried].actor.id).first
+      self.product_linkages.create!(started_at: self.stopped_at, carrier: params[:carrier].actor, point: linkage.point, nature: "available")
     end
   end
 
-  def perform_simple_attachment(actors)
-    self.product_linkages.create!(started_at: self.stopped_at, point: actors[:carrier].linkage_points_array.first, carrier: actors[:carrier], carried: actors[:carried], nature: "occupied")
+  def perform_simple_attachment(params)
+    self.product_linkages.create!(started_at: self.stopped_at, point: params[:carrier].actor.linkage_points_array.first, carrier: params[:carrier].actor, carried: params[:carried].actor, nature: "occupied")
   end
 
-  def perform_simple_detachment(actors)
-    self.product_linkages.create!(started_at: self.stopped_at, carrier: actors[:carrier], point: actors[:point], nature: "available")
+  def perform_simple_detachment(params)
+    self.product_linkages.create!(started_at: self.stopped_at, carrier: params[:carrier].actor, point: params[:point].actor, nature: "available")
   end
 
   # == Memberships
 
-  def perform_group_inclusion(actors)
-    self.product_memberships.create!(started_at: self.stopped_at, member: actors[:member], group: actors[:group], nature: "interior")
+  def perform_group_inclusion(params)
+    self.product_memberships.create!(started_at: self.stopped_at, member: params[:member].actor, group: params[:group].actor, nature: "interior")
   end
 
-  def perform_group_exclusion(actors)
-    self.product_memberships.create!(started_at: self.stopped_at, member: actors[:member], group: actors[:group], nature: "exterior")
+  def perform_group_exclusion(params)
+    self.product_memberships.create!(started_at: self.stopped_at, member: params[:member].actor, group: params[:group].actor, nature: "exterior")
   end
 
   # == Ownerships
 
-  def perform_ownership_loss(actors)
-    self.product_ownerships.create!(started_at: self.stopped_at, nature: :unknown, product: actors[:product])
+  def perform_ownership_loss(params)
+    self.product_ownerships.create!(started_at: self.stopped_at, nature: :unknown, product: params[:product].actor)
   end
 
-  def perform_ownership_change(actors)
-    self.product_ownerships.create!(started_at: self.stopped_at, product: actors[:product], owner: actors[:owner])
+  def perform_ownership_change(params)
+    self.product_ownerships.create!(started_at: self.stopped_at, product: params[:product].actor, owner: params[:owner].actor)
   end
 
   # == Browsings
 
-  def perform_browsing(actors)
+  def perform_browsing(params)
   end
 
   # == Measurements
 
-  def perform_measurement(actors)
+  def perform_measurement(params)
   end
 
-  def perform_simple_measurement(actors)
-    # product, indicator = actors[:indicator]
+  def perform_simple_measurement(params)
+    # product, indicator = params[:indicator].actor
     # self.product_measurements.create!(product: product, indicator: indicator)
   end
 

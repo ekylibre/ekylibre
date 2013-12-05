@@ -68,7 +68,7 @@ class Product < Ekylibre::Record::Base
   enumerize :derivative_of, in: Nomen::Varieties.all
   enumerize :content_indicator, in: Nomen::Indicators.all, predicates: {prefix: true}
   enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
-  enumerize :initial_arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, :predicates =>{prefix: true}
+  enumerize :initial_arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, predicates: {prefix: true}
   belongs_to :asset
   belongs_to :default_storage, class_name: "Product"
   belongs_to :category, class_name: "ProductNatureCategory"
@@ -358,9 +358,9 @@ class Product < Ekylibre::Record::Base
 
   def net_surface_area(at = Time.now)
     if self.whole_indicators.include?(:net_surface_area)
-      return self.send(:net_surface_area)
+      return self.get(:net_surface_area)
     elsif self.individual_indicators.include?(:net_surface_area)
-      return self.send(:net_surface_area) * self.population(at: at)
+      return self.get(:net_surface_area) * self.population(at: at)
     elsif self.whole_indicators.include?(:shape)
       return self.shape_area(at: at).in_square_meter
     end
@@ -372,21 +372,26 @@ class Product < Ekylibre::Record::Base
     return net_surface_area(at).in(unit)
   end
 
-  def net_weight(at = Time.now)
-    # if self.variable_indicators_array.include?(Nomen::Indicators[:net_weight])
-    return 0.0.in_kilogram
-    pop = self.population(at: at)
-    if self.net_weight
-      return self.net_weight(at: at)
-    else
-      return 0.0.in_kilogram
-    end
-  end
+  # def net_weight(at = Time.now)
+  #   # if self.variable_indicators_array.include?(Nomen::Indicators[:net_weight])
+  #   return 0.0.in_kilogram
+  #   pop = self.population(at: at)
+  #   if self.net_weight
+  #     return self.net_weight(at: at)
+  #   else
+  #     return 0.0.in_kilogram
+  #   end
+  # end
 
   def weight(unit = :kilogram, at = Time.now)
-    ActiveSupport::Deprecation.warn("Product#area is deprecated. Please use Product#net_surface_area instead.")
+    ActiveSupport::Deprecation.warn("Product#weight is deprecated. Please use Product#net_weight instead.")
     return net_weight(at).in(unit)
   end
+
+  def population(at = Time.now)
+    return self.get(:population) || 0.0
+  end
+
 
   # Measure a product for a given indicator
   def is_measured!(indicator, value, options = {})
