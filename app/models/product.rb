@@ -94,12 +94,12 @@ class Product < Ekylibre::Record::Base
   has_many :phases, class_name: "ProductPhase"
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
   has_many :variants, class_name: "ProductNatureVariant", :through => :phases
-  has_one :birth, class_name: "ProductBirth"
+  has_one :birth, class_name: "ProductBirth", inverse_of: :product
   has_one :current_phase,        -> { current }, class_name: "ProductPhase",        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: "ProductLocalization", foreign_key: :product_id
   has_one :current_ownership,    -> { current }, class_name: "ProductOwnership",    foreign_key: :product_id
   has_one :container, through: :current_localization
-  has_one :death, class_name: "ProductDeath"
+  has_one :death, class_name: "ProductDeath", inverse_of: :product
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',

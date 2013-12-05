@@ -35,7 +35,6 @@
 
 
 class IncomingDeliveryItem < Ekylibre::Record::Base
-  # attr_accessible :delivery_id, :product_id, :product_attributes, :quantity, :container_id, :product_nature_variant_id
   attr_readonly :purchase_item_id, :product_id
   attr_accessor :product_nature_variant_id
   belongs_to :delivery, class_name: "IncomingDelivery", inverse_of: :items
@@ -43,17 +42,18 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   belongs_to :product
   belongs_to :purchase_item, class_name: "PurchaseItem"
   has_one :variant, through: :product
+  has_one :product_localization, as: :originator
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
   validates_presence_of :delivery, :population, :product
   #]VALIDATORS]
-  validates_presence_of :product
+  validates_presence_of :product, :container
 
   accepts_nested_attributes_for :product
   acts_as_stockable :origin => :delivery
   delegate :variant, :name, to: :product, prefix: true
-  #delegate :weight, :name, to: :product, prefix: true
-  #sums :delivery, :items, "item.product_weight.to_f * item.quantity" => :weight
+  # delegate :weight, :name, to: :product, prefix: true
+  # sums :delivery, :items, "item.product_weight.to_f * item.quantity" => :weight
 
   before_validation do
     if self.purchase_item
@@ -65,25 +65,16 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
     if self.product
       self.population = -999999
     end
-    #   if self.product
-    #     maximum = self.undelivered_quantity
-    #     errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
-    #   end
   end
 
   after_create do
     # all indicators have the datetime of the receive delivery
     self.product.indicator_data.update_all(measured_at: self.delivery.received_at)
+    self.create_product_localization!(product: self.product, container: self.container, nature: :interior, started_at: self.delivery.received_at)
   end
 
   after_save do
     self.update_column(:population, self.product.population)
   end
-
-  # validate(on: :update) do
-  #   old_self = self.class.find(self.id)
-  #   maximum = self.undelivered_quantity + old_self.quantity
-  #   errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.unit.name, :product => self.product_name) if (self.quantity > maximum)
-  # end
 
 end

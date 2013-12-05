@@ -37,7 +37,7 @@
 #
 class ProductDeath < Ekylibre::Record::Base
   include Taskable
-  belongs_to :product
+  belongs_to :product, inverse_of: :death
   belongs_to :absorber, class_name: "Product"
   enumerize :nature, in: [:merging, :consumption]
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

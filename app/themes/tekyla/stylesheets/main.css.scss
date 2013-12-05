@@ -999,44 +999,58 @@ form.search {
   background: white;
   .fieldset-legend {
     padding: $vertical-gap $default-gap;
-    cursor: pointer;
-    label, span {
+    *, label, span {
       color: $neutral-color;
       font-size: $size;
       line-height: round(1.2*$size);
     }
     font-weight: bold;
     vertical-align: middle;
-    .icon {
-      @include is-icon;
-      @include inline-block;
-      @include use-icon(file);
-      color: $neutral-color;
-      @include margin-right(round($size/4));
+    .title {
+      i {
+        @include is-icon;
+        @include inline-block;
+        @include use-icon(file);
+        color: $neutral-color;
+        @include margin-right(round($size/4));
+      }
     }
-    .toggle {
+    .buttons {
       @include inline-block;
       @include float(right);
-      $tool-size: round(0.95 * $fs-normal);
-      width: $tool-size;
-      height: $tool-size;
-      @include is-icon();
-      margin: round(($size - $tool-size)/2) 0 0;
+      > * {
+        @include margin-left(round(0.6 * $default-gap));
+      }
+      .toggle {
+        $tool-size: round(0.95 * $fs-normal);
+        width: $tool-size;
+        height: $tool-size;
+        @include is-icon();
+        margin: round(($size - $tool-size)/2) 0 0;
+      }
+      .remove {
+        $tool-size: round(0.95 * $fs-normal);
+        width: $tool-size;
+        height: $tool-size;
+        @include is-icon();
+        @include use-icon(remove);
+        margin: round(($size - $tool-size)/2) 0 0;
+      }
     }
-    &.collapsed .toggle     { @include use-icon(expand-alt); }
-    &.not-collapsed .toggle { @include use-icon(collapse-alt); }
     &:hover span {
       color: $base-color;
       @include transition(color 0.2s linear);
     }
   }
   @each $field_set in (delay time), (document briefcase), (general-informations book), (stock exchange), (group group), (movement exchange), (accountancy money), (coordinates map-marker), (amount money), (vegetable wheat), (genealogy sitemap), (animal cow), (entity user), (reservoir beaker), (indicator dashboard), (analytics cogs), (measure_options dashboard), (string_options comment), (decimal_options circle-blank), (choice_options list), (products wheat), (identification barcode), (animal_identification barcode), (productions cog), (nature wrench), (variant sitemap), (subscriptions stackexchange), (casting bullhorn){ //asset,
-    &##{ nth($field_set, 1) }.fieldset .fieldset-legend .icon {
+    &.#{ nth($field_set, 1) }.fieldset .fieldset-legend .title i {
       @include use-icon(nth($field_set, 2));
     }
   }
-  &.error .fieldset-legend.collapsed {
-    label, span {
+  &.collapsed .buttons .toggle     { @include use-icon(expand-alt); }
+  &.not-collapsed .buttons .toggle { @include use-icon(collapse-alt); }
+  &.error.collapsed .fieldset-legend {
+    &, *, label, span {
       color: $invalid-color;
     }
   }

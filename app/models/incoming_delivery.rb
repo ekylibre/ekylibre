@@ -38,8 +38,7 @@
 
 class IncomingDelivery < Ekylibre::Record::Base
   acts_as_numbered
-  # attr_accessible :address_id, :sender_id, :mode_id, :received_at, :reference_number, :items_attributes # , :description
-  attr_readonly :number
+
   belongs_to :address, class_name: "EntityAddress"
   belongs_to :mode, class_name: "IncomingDeliveryMode"
   belongs_to :purchase
@@ -57,7 +56,6 @@ class IncomingDelivery < Ekylibre::Record::Base
   accepts_nested_attributes_for :items
   delegate :order?, :draft?, to: :purchase
 
-  # default_scope -> { order("received_at DESC") }
   scope :undelivereds, -> { where(received_at: nil) }
 
   before_validation do
@@ -80,12 +78,6 @@ class IncomingDelivery < Ekylibre::Record::Base
       end
     end
   end
-
-  # # Only used for list usage
-  # def quantity
-  #   nil
-  # end
-
 
   def execute(received_at = Time.now)
     self.class.transaction do

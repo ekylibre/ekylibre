@@ -1,15 +1,22 @@
-=main_toolbar do |t|
-  -t.edit @organic_matter
+= main_toolbar do |t|
+  - t.edit resource
 
-=beehive do |b|
-  -b.cell do
-    =attributes_list(@organic_matter) do |l|
-      -l.attribute :name
+= beehive do |b|
+  - b.cell do
+    = attributes_list do |l|
+      - l.attribute :name
+      - l.attribute :born_at
 
   - b.tabbox do
     - b.cell(:interventions) do
-      = toolbar do |t|
+      -# = toolbar do |t|
         - t.new(:params =>{:controller => :interventions})
       = list(:intervention_casts)
-    - b.cell(tl(:x_indicators, :count => @organic_matter.indicator_data.count)) do
+    - b.cell(tl(:x_indicators, :count => resource.indicator_data.count)) do
       = list(:indicators)
+
+  - b.tabbox do
+    - b.cell(:contained_products) do
+      = list(:contained_products)
+    - b.cell(:places) do
+      = list(:places)

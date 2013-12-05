@@ -173,6 +173,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     
     if variant
       
+      whole_indicators = variant.whole_indicators
+
       # Add product type selector
       html << @template.field_set do
         fs  = self.input(:variant_id, value: variant.id, as: :hidden)
@@ -209,9 +211,15 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         fs << self.backend_fields_for(:birth) do |birth_fields|
           fbs  = birth_fields.input(:started_at)
           fbs << birth_fields.input(:nature, as: :hidden)
-          # @template.render("backend/product_births/form", f: birth_fields)
+          for indicator in whole_indicators
+            if variant.frozen_indicators_array.include?(Nomen::Indicators[indicator])
+              # fbs << birth_fields.input(indicator, value: variant.indicator(:population).value, as: :hidden)
+            else
+              fbs << birth_fields.input(indicator)
+            end
+          end
+          fbs
         end
-          
 
         # error message for indicators
         fs << @object.errors.inspect if @object.errors.any?
@@ -246,7 +254,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       end
 
       # Add first indicators
-      indicators = variant.variable_indicators_array
+      indicators = variant.variable_indicators_array.delete_if{|i| whole_indicators.include?(i) }
       if indicators.any?
 
         for indicator in indicators
@@ -265,19 +273,23 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
               fsi = "".html_safe
               fsi << indfi.input(:indicator, as: :hidden)
               fsi << indfi.input(:product_id, as: :hidden)
-              if indicator.datatype == :measure
-                datum.measure_value_unit = indicator.unit
-                fsi << indfi.input("#{indicator.datatype}_value_value", :wrapper => :append, :value => 0, :class => :inline, label: indicator.human_name) do
-                  m  = indfi.number_field("#{indicator.datatype}_value_value", label: indicator.human_name)
+              fsi << indfi.input("#{indicator.datatype}_value_value", :wrapper => :append, :value => 0, :class => :inline, label: indicator.human_name) do
+                m = "".html_safe
+                if indicator.datatype == :measure
+                  datum.measure_value_unit ||= indicator.unit
+                  m << indfi.number_field("#{indicator.datatype}_value_value", label: indicator.human_name)
                   m << indfi.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect{|u| [Nomen::Units[u].human_name, u]})
-                  m
+                elsif indicator.datatype == :choice
+                  m << indfi.input_field("#{indicator.datatype}_value", label: indicator.human_name, collection: indicator.selection(:choices))
+                elsif [:boolean, :string, :decimal].include?(indicator.datatype)
+                  m << indfi.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: indicator.datatype)
+                else
+                  m << indfi.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: :string)
                 end
-              elsif indicator.datatype == :choice
-                fsi << indfi.input("#{indicator.datatype}_value", label: indicator.human_name, collection: indicator.selection(:choices))
-              elsif indicator.datatype == :boolean
-                fsi << indfi.input("#{indicator.datatype}_value", label: indicator.human_name, as: :boolean)
-              else
-                fsi << indfi.input("#{indicator.datatype}_value", label: indicator.human_name, as: :string)
+                if indfi.object.indicator_population?
+                  m << @template.content_tag(:span, variant.unit_name, :class => "add-on")
+                end
+                m
               end
               fsi
             end
@@ -291,11 +303,10 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
       if variants.any?
         html << @template.subheading(:choose_a_type_of_product)
-
         html << @template.content_tag(:div, :class => "variant-list proposal-list") do
           buttons = "".html_safe
           for variant in ProductNatureVariant.of_variety(@object.class.name.underscore)
-            buttons << @template.link_to(variant.name, {:variant_id => variant.id}, :class => "btn")
+            buttons << @template.link_to(variant.name, {variant_id: variant.id}, :class => "btn")
           end
           buttons
         end

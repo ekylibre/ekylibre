@@ -437,6 +437,19 @@
         return false;
     });
 
+    $(document).on("click", "[data-toggle='fields']", function (event) {
+        var fieldset = $(this).closest('.fieldset'), fields = fieldset.find('.fieldset-fields');
+        if (fieldset.hasClass("collapsed")) {
+            fieldset.removeClass("collapsed");
+            fieldset.addClass("not-collapsed");
+            fields.slideDown();
+        } else {
+            fieldset.removeClass("not-collapsed");
+            fieldset.addClass("collapsed");
+            fields.slideUp();
+        }
+        return false;
+    });
 
     // Toggle side menu
     $(document).behave("click", "a[data-toggle-view-mode]", function () {
@@ -545,22 +558,6 @@
         $(element.data("insert-into")).each(function (index) {
             insertInto(this, '', '', data);
         });
-        return false;
-    });
-
-    $(document).on("click", "[data-toggle-set]", function (event) {
-        var element = $(this), target = element.closest('.fieldset').find(element.data("toggle-set")), shown;
-        if (element.hasClass("collapsed")) {
-            element.removeClass("collapsed");
-            element.addClass("not-collapsed");
-            target.slideDown();
-            shown = 1;
-        } else {
-            element.removeClass("not-collapsed");
-            element.addClass("collapsed");
-            target.slideUp();
-            shown = 0;
-        }
         return false;
     });
 
