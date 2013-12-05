@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
-# gem 'rails', github: 'rails/rails'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
@@ -36,7 +35,6 @@ gem 'jquery-ui-rails'
 # Forms helper
 gem 'formize', '~> 1.1.0'
 # gem 'codemirror-rails'
-
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -103,13 +101,12 @@ gem 'mechanize'
 # gem 'thinreports-rails'
 # Need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
 gem 'beardley'
-gem 'prawn', '~> 0.12.0'
+# gem 'prawn', '~> 0.12.0'
 
 # Import/Export
 gem 'fastercsv'
 gem 'rgeo-shapefile'
-# We can't move to rubyzip 1.1.0 until selenium can use it
-gem 'rubyzip', '~> 1.0.0'
+gem 'rubyzip'
 gem 'ofx-parser'
 
 # Demo data
@@ -127,16 +124,18 @@ gem 'oily_png'
 gem 'agric'
 
 group :development do
-  # gem 'rack-mini-profiler'
   gem 'quiet_assets'
+  # gem 'rack-mini-profiler'
   # gem 'better_errors'
   # gem 'binding_of_caller'
+  gem 'rb-readline' # , '~> 0.4.2'
+
+  # Project management
   gem 'rails_best_practices'
-  # Project Management / Model
   gem 'railroady'
   # gem 'rails-erd', github: "burisu/rails-erd"
-  gem 'rb-readline', '~> 0.4.2'
 
+  # Webservers
   gem 'unicorn'
   gem 'thin'
 end
@@ -160,6 +159,6 @@ group :test do
   gem 'pry'
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
-  gem 'coveralls', '>= 0.6', :require => false
+  gem 'coveralls', '>= 0.6', require: false
 end
 
