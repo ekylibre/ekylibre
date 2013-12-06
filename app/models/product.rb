@@ -130,7 +130,7 @@ class Product < Ekylibre::Record::Base
     measured_at = options[:at] || Time.now
     conditions = []
     # TODO Build conditions to filter on indicators
-    for name, value in indicators
+    for name, value in [indicators].flatten
       conditions << " id IN (" + order(:id).indicator(name, at: measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
     end
     where(conditions.join(" AND "))
@@ -364,7 +364,7 @@ class Product < Ekylibre::Record::Base
     elsif self.whole_indicators.include?(:shape)
       return self.shape_area(at: at).in_square_meter
     end
-    return nil
+    return 0.0.in_square_meter
   end
 
   def area(unit = :hectare, at = Time.now)

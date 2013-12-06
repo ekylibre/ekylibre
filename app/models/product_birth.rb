@@ -68,8 +68,8 @@ class ProductBirth < Ekylibre::Record::Base
     if self.division?
       # Duplicate individual indicator data
       for indicator in producer.individual_indicators
-        if value = producer.send(indicator, at: self.started_at)
-          product.is_measured!(indicator, value, at: self.stopped_at, originator: self)
+        if datum = producer.indicate(indicator, at: self.started_at)
+          product.is_measured!(indicator, datum.value, at: self.stopped_at, originator: self)
         end
       end
       # Add whole indicator data

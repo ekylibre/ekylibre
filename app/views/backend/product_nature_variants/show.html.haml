@@ -2,17 +2,49 @@
   - t.edit resource
 
 = beehive do |b|
-  - b.cell do
-    = attributes_list(resource) do |l|
-      - l.attribute :name
-      - l.attribute :commercial_name
-      - l.attribute :unit_name
-      - if resource.picture.exists?
-        = image_tag(resource.picture.url(:thumb))
+  - b.tabbox do
+    - b.cell do
+      .info
+        %span.title= ProductNatureVariant.human_attribute_name(:net_weight)
+        %span.value= resource.products.map(&:net_weight).compact.sum
+      .info
+        %span.title= ProductNatureVariant.human_attribute_name(:net_volume)
+        %span.value= resource.products.map(&:net_volume).compact.sum
+
+    - b.cell do
+      = attributes_list(resource) do |l|
+        - l.attribute :name
+        - l.attribute :commercial_name
+        - l.attribute :unit_name
+        - if resource.picture.exists?
+          = image_tag(resource.picture.url(:thumb))
 
   - b.tabbox do
     - b.cell(:products) do
       = list(:products)
+    - b.cell(:stocks) do
+      - if resource.products.count > 0
+        :ruby
+            dataset = resource.products
+
+            series = []
+
+            for product in dataset
+              items = ProductIndicatorDatum.where(:indicator => :population, :product => product).order(:measured_at)
+              item_h = items.sort.inject({}) do |hash, pair|
+                hash[pair.measured_at.to_usec] = pair.value.to_d
+                hash
+              end
+              data = []
+              data = item_h.collect{|k,v| [k, v.to_s.to_f] }
+              series << {name: product.name ,data: data }
+            end
+
+        = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
+      - else
+        %strong= :no_data.tl
+
+  - b.tabbox do
     -b.cell(:prices) do
       = toolbar do |t|
         - t.new(:params => {:controller => :catalog_prices, :variant_id => resource.id})
@@ -27,14 +59,14 @@
             for usage in [:purchase, :sale, :stock, :cost]
               items = dataset.of_usage(usage)
               item_h = items.sort.inject({}) do |hash, pair|
-                hash[pair.started_at.to_s(:number).first(6)] = pair.amount.to_d
+                hash[pair.started_at.to_usec] = pair.amount.to_d
                 hash
               end
               data = []
-              data = item_h.collect{|k,v| [k.to_s.to_f, v.to_s.to_f] }
+              data = item_h.collect{|k,v| [k, v.to_s.to_f] }
               series << {name: usage.tl ,data: data }
             end
 
-        = scatter_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :price.tl}}, x_axis: {title: { enabled: true, text: :months.tl}})
+        = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :price.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
       - else
         %strong= :no_data.tl

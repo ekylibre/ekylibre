@@ -32,7 +32,7 @@
 #
 
 class VersionChange < Struct.new(:version, :attribute, :old_value, :new_value)
-  
+
   def human_attribute_name
     self.version.item.class.human_attribute_name(self.attribute)
   end
@@ -47,8 +47,6 @@ class Version < ActiveRecord::Base
   belongs_to :item, polymorphic: true
   enumerize :event, in: [:create, :update, :destroy], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :creator_name, :event, :item_type, allow_nil: true, maximum: 255
-  validates_presence_of :event, :item, :item_type
   #]VALIDATORS]
 
   scope :creations,    -> { where(event: "create") }
@@ -102,6 +100,6 @@ class Version < ActiveRecord::Base
       VersionChange.new(self, name, self.item_object[name], value)
     end
   end
-  
+
 
 end

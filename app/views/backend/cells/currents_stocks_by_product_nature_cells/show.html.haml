@@ -8,10 +8,10 @@
 
     if product_natures.count > 0
       product_natures_serie = product_natures.collect do |product_nature|
-          { name: product_nature.name, y: product_nature.products.map(&:population).compact.sum.to_s.to_f, id: product_nature.id, url: backend_product_nature_path(product_nature), color: cycle(*Backend::ChartsHelper::COLORS) }
+          { name: product_nature.name, y: product_nature.products.map(&:net_weight).compact.sum.to_s.to_f, id: product_nature.id, url: backend_product_nature_path(product_nature), color: cycle(*Backend::ChartsHelper::COLORS) }
       end
       product_nature_variants_serie = ProductNatureVariant.of_natures(product_natures).order("nature_id, id").collect do |product_nature_variant|
-          { name: product_nature_variant.name, y: product_nature_variant.products.map(&:population).compact.sum.to_s.to_f, url: backend_product_nature_variant_path(product_nature_variant), color: ligthen(product_natures_serie.detect{|a| a[:id] == product_nature_variant.nature_id}[:color], 0.3) }
+          { name: product_nature_variant.name, y: product_nature_variant.products.map(&:net_weight).compact.sum.to_s.to_f, url: backend_product_nature_variant_path(product_nature_variant), color: ligthen(product_natures_serie.detect{|a| a[:id] == product_nature_variant.nature_id}[:color], 0.3) }
       end
     end
 
@@ -19,7 +19,7 @@
     series << {name: ProductNature.model_name.human, data: product_natures_serie, size: "60%", data_labels: {color: 'white', distance: -30}}
     series << {name: ProductNatureVariant.model_name.human, data: product_nature_variants_serie, size: "80%", inner_size: "60%"}
 
-  = pie_chart(series, tooltip: {point_format: '{point.y: 1.2f}'}, title: :stock_of_x.tl(x: Nomen::Varieties[@variety].human_name), plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: {})
+  = pie_chart(series, tooltip: {point_format: '{point.y: 1.2f}'}, title: :stock_of_x.tl(x: Nomen::Varieties[@variety].human_name), plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: false}}, legend: {})
 
 - else
   %strong= :no_data.tl

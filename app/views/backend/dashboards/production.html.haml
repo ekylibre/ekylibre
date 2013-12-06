@@ -1,12 +1,13 @@
-= beehive(:production) do
-  - hbox do
-    - cell :last_interventions
-    - cell :last_products
-    - cell :cropping_plan
-  - tabbox do
-    -# cell :meteo do
-      %img{:alt => "Météo Saint-Porchaire heure par heure", :border => "0", :src => "http://meteorologic.net/vignette-previ-1h/6026.png", :style => "max-width: 100%; margin: 0 auto; display: block"}
-    -# cell :rss, :title => "Tendances Bovins de Boucherie", :params => {:url => "http://www.lafranceagricole.fr/Rss/cours-et-marches/elevage/bovins-de-boucherie-157.html"}
-    - cell :elapsed_interventions_times_by_activities
-    - cell :last_milk_result
+= beehive(:production) do |b|
+  - if @map
+    - b.cell :map do
+      %iframe{width: '100%', height: '520', frameborder: '0', src: "http://#{@map[:account]}.cartodb.com/viz/#{@map[:visualization]}/embed_map?title=false&description=false&search=false&shareable=false&cartodb_logo=false&layer_selector=false&legends=true&scrollwheel=true&sublayer_options=1&sql=&zoom=3&center_lat=45.27488643704891&center_lon=9.84375"}
+  - b.hbox do
+    - b.cell :last_interventions
+    - b.cell :last_products
+    - b.cell :cropping_plan
+  - b.tabbox do
+    -# b.cell :rss, :title => "Tendances Bovins de Boucherie", :params => {:url => "http://www.lafranceagricole.fr/Rss/cours-et-marches/elevage/bovins-de-boucherie-157.html"}
+    - b.cell :elapsed_interventions_times_by_activities
+    - b.cell :last_milk_result
     

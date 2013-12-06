@@ -1,6 +1,7 @@
 (function ($, undefined) {
     "use strict";
 
+
     Highcharts.setOptions({
         chart: {
             style: {
@@ -24,7 +25,7 @@
 
     $.fn.highchartsFromData = function () {
         $(this).each(function () {
-            var chart = $(this), options = {};
+            var chart = $(this), options = {}, s, i, d;
             if (chart.prop('highchartLoaded') !== true) {
                 options.chart = chart.data('highchart');
                 //  OPTIONS: colors, credits, exporting, labels, legend, loading, navigation, pane, plot-options, series, subtitle, title, tooltip, x-axis, y-axis
@@ -45,6 +46,7 @@
                 if (chart.data('highchartYAxis') !== undefined)       options.yAxis = chart.data('highchartYAxis');
                 chart.highcharts(options);
                 chart.prop('highchartLoaded', true);
+
             }
         });
     };

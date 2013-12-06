@@ -1137,7 +1137,7 @@ fra:
     unlocked_payments: "Paiement non verrouillés"
     unpaid_sales: "Ventes impayées"
     updated_at: "Mis à jour le"
-    updater: "Modificateur" #?
+    updater: "Modificateur"
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
     usage_indicator: "Usage indicator" #?

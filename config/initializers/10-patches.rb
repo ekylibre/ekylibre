@@ -32,6 +32,12 @@ class ::Symbol
 
 end
 
+class ::Time
+  def to_usec
+    return (self.utc.to_f * 1000).to_i
+  end
+end
+
 
 module Ekylibre
   module I18n

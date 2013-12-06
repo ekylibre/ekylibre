@@ -43,6 +43,22 @@ class ProductionSupport < Ekylibre::Record::Base
   validates_uniqueness_of :storage_id, scope: :production_id
 
   delegate :area, :shape_area, to: :storage, prefix: true
+  delegate :name, :shape, :shape_as_ewkt, to: :storage
+
+
+
+  def tool_cost
+    rand(500)
+  end
+
+  def input_cost
+    rand(500)
+  end
+
+  def time_cost
+    rand(500)
+  end
+
 end
 
 

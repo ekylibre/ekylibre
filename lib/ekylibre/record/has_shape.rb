@@ -42,11 +42,10 @@ module Ekylibre::Record
           # code << "  Ekylibre.private_directory.join('shapes', '#{self.name.underscore.pluralize}', '#{indicator}', self.id.to_s)\n"
           # code << "end\n"
 
-          #
           code << "def self.#{indicator}_view_box(options = {})\n"
           code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
           code << "  ids = self.indicate(:#{indicator}, at: options[:at]).pluck(:id)\n"
-          code << "  return [] unless ids.size > 0\n"
+          code << "  return [] unless ids.any?\n"
           code << "  values = self.connection.select_one(\"SELECT min(ST_XMin(\#{expr})) AS x_min, min(ST_YMin(\#{expr})) AS y_min, max(ST_XMax(\#{expr})) AS x_max, max(ST_YMax(\#{expr})) AS y_max  FROM \#{Product.indicator_table_name(:#{indicator})} WHERE id IN (\#{ids.join(',')})\").symbolize_keys\n"
           # code << "  x_min = self.minimum(\"ST_XMin(\#{indicator})\").to_d\n"
           # code << "  x_max = self.maximum(\"ST_XMax(\#{indicator})\").to_d\n"
@@ -76,7 +75,7 @@ module Ekylibre::Record
           # code << "  return self.#{indicator}_dir.join(format.to_s + '.' + (format == :original ? 'svg' : 'png'))\n"
           # code << "end\n"
 
-          for attr in [:x_min, :x_max, :y_min, :y_max, :area, :as_svg, :as_gml, :as_kml, :as_geojson]
+          for attr in [:x_min, :x_max, :y_min, :y_max, :area, :as_svg, :as_gml, :as_kml, :as_geojson, :as_text, :as_binary, :as_ewkt]
             code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
             code << "  return nil unless datum = self.indicate(:#{indicator}, at: options[:at])\n"
             code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
