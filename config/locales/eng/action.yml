@@ -1241,6 +1241,7 @@ eng:
     modules: "Modules"
     month_period: "%{code} - %{month} %{year}"
     monthly: "Monthly"
+    # months: "Mois"
     moved_on: "Made on"
     movement: "Mouvments"
     moves: "Moves"

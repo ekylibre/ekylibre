@@ -1425,6 +1425,7 @@ arb:
     moment: "" #?
     # month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
+    # months: "Mois"
     # moved_on: "Fait le"
     # movement: "Mouvements"
     moves: "حركات الاسهم"

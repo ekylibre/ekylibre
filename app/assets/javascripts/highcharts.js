@@ -46,23 +46,6 @@
                 if (chart.data('highchartYAxis') !== undefined)       options.yAxis = chart.data('highchartYAxis');
                 chart.highcharts(options);
                 chart.prop('highchartLoaded', true);
-                
-                /* Convert date/datetime */
-                if (false) { // (options.xAxis.type == "datetime" || options.xAxis.type == "date") {
-                    for (s = 0; s < options.series.length; s++)  {
-                    	// alert("L: " + options.series[s].data.length);
-                        if (options.series[s].data && options.series[s].pointInterval === undefined) {
-                            for (i = 0; i < options.series[s].data.length; i++) {
-                            	d = new Date(options.series[s].data[i][0]);
-                            	alert(d);
-                            	d = Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds(), d.getUTCMilliseconds());
-                            	// alert(d);
-                                options.series[s].data[i][0] = d;                             
-                                alert("D: " + options.series[s].data[i][0]);
-                            }
-                        }
-                    }
-                }
 
             }
         });
