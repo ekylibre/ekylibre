@@ -41,7 +41,7 @@
             for usage in [:purchase, :sale, :stock, :cost]
               items = dataset.of_usage(usage)
               item_h = items.sort.inject({}) do |hash, pair|
-                hash[pair.started_at] = pair.amount.to_d
+                hash[pair.started_at.to_usec] = pair.amount.to_d
                 hash
               end
               data = []
@@ -49,6 +49,6 @@
               series << {name: usage.tl ,data: data }
             end
 
-        = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :price.tl}, min: 0}, x_axis: {type: 'datetime', date_time_label_formats: {month: '%e. %b',  year: '%b'},title: { enabled: true, text: :months.tl}})
+        = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :price.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
       - else
         %strong= :no_data.tl
