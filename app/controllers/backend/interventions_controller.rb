@@ -42,6 +42,7 @@ class Backend::InterventionsController < BackendController
     t.column :actor, url: true
     t.column :roles
     t.column :population
+    t.column :unit_name, through: :variant
     t.column :variant, url: true
     # t.column :indicator
     # t.column :measure_quantity

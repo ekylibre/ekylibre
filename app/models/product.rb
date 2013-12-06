@@ -130,7 +130,7 @@ class Product < Ekylibre::Record::Base
     measured_at = options[:at] || Time.now
     conditions = []
     # TODO Build conditions to filter on indicators
-    for name, value in indicators
+    for name, value in [indicators].flatten
       conditions << " id IN (" + order(:id).indicator(name, at: measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
     end
     where(conditions.join(" AND "))
@@ -151,7 +151,7 @@ class Product < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :birth
   accepts_nested_attributes_for :death
-  accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum| 
+  accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum|
     !datum["indicator"] != "population" and datum[ProductIndicatorDatum.value_column(datum["indicator"]).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
@@ -364,7 +364,7 @@ class Product < Ekylibre::Record::Base
     elsif self.whole_indicators.include?(:shape)
       return self.shape_area(at: at).in_square_meter
     end
-    return nil
+    return 0.0.in_square_meter
   end
 
   def area(unit = :hectare, at = Time.now)

@@ -651,6 +651,7 @@ eng:
     base: "Base" #?
     bban: "BBAN" #?
     bic: "BIC" #?
+    # birth: "Birth"
     boolean_value: "Boolean value"
     born_at: "Born at"
     born_on: "Born on"
@@ -774,6 +775,7 @@ eng:
     datetime_value: "Datetime value" #?
     dead_at: "Dead at"
     dead_on: "Dead on"
+    # death: "Death"
     debit: "Debit"
     # debtor: "Debiteur"
     decimal: "Decimal"
