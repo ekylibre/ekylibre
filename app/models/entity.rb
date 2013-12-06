@@ -68,6 +68,7 @@
 require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
+  include Versionable
   attr_accessor :password_confirmation, :old_password
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
@@ -86,7 +87,7 @@ class Entity < Ekylibre::Record::Base
   has_many :websites,  -> { where(:canal => "website", :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
   has_many :auto_updateable_addresses, -> { where(:deleted_at => nil, :mail_auto_update => true) }, class_name: "EntityAddress"
   has_many :direct_links, class_name: "EntityLink", foreign_key: :entity_1_id
-  has_many :product_events, class_name: "Log", foreign_key: :watcher_id
+  has_many :product_events, class_name: "Version", foreign_key: :watcher_id
   has_many :godchildren, class_name: "Entity", foreign_key: "proposer_id"
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
   has_many :indirect_links, class_name: "EntityLink", foreign_key: :entity_2_id

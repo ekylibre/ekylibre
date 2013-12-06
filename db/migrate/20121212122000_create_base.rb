@@ -699,18 +699,6 @@ class CreateBase < ActiveRecord::Migration
       t.index    :root_model
     end
 
-    create_table :logs do |t|
-      t.string     :event,                             null: false
-      t.datetime   :observed_at,                       null: false
-      t.references :owner,          polymorphic: true, null: false, index: true
-      t.text       :owner_object
-      t.references :origin,         polymorphic: true,              index: true
-      t.text       :origin_object
-      t.text       :description
-      t.stamps
-      t.index      :observed_at
-    end
-
     create_table :mandates do |t|
       t.references :entity,                   null: false, index: true
       t.date       :started_on
@@ -1460,17 +1448,18 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :maximal_grantable_reduction_percentage,     precision: 19, scale: 4, default: 5.0,   null: false
       t.boolean    :administrator,                                                       default: true,  null: false
       t.text       :rights
-      t.date       :arrived_on
+      # t.date       :arrived_on
       t.text       :description
       t.boolean    :commercial,                                                          default: false, null: false
-      t.datetime   :departed_at
+      # t.datetime   :departed_at
       t.references :team,                                                                                             index: true
       t.references :establishment,                                                                                    index: true
-      t.string     :office
+      # t.string     :office
       # t.references :profession,                                                                                       index: true
       t.boolean    :employed,                                                              default: false, null: false
       t.string     :employment
       t.string     :language,                               limit: 3,                                      null: false
+
       t.datetime   :last_sign_in_at
       t.string     :encrypted_password,                                                    default: "",    null: false
       t.string     :reset_password_token
@@ -1489,11 +1478,22 @@ class CreateBase < ActiveRecord::Migration
       t.datetime   :locked_at
       t.string     :authentication_token
       t.stamps
-      t.index    :authentication_token, unique: true
-      t.index    :confirmation_token, unique: true
-      t.index    :email, unique: true
-      t.index    :reset_password_token, unique: true
-      t.index    :unlock_token, unique: true
+      t.index      :authentication_token, unique: true
+      t.index      :confirmation_token, unique: true
+      t.index      :email, unique: true
+      t.index      :reset_password_token, unique: true
+      t.index      :unlock_token, unique: true
+    end
+
+    create_table :versions do |t|
+      t.string     :event,                            null: false
+      t.references :item,          polymorphic: true, null: false, index: true
+      t.text       :item_object
+      t.text       :item_changes
+      t.datetime   :created_at,                       null: false
+      t.index      :created_at
+      t.references :creator,                                        index: true
+      t.string     :creator_name
     end
 
   end

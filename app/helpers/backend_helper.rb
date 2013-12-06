@@ -27,6 +27,10 @@ module BackendHelper
     instance_variable_get('@' + self.controller_name)
   end
 
+  def historic_of(record = nil)
+    record ||= resource
+    render(partial: "backend/shared/historic", locals: {resource: resource})
+  end
 
   def root_models
     Ekylibre.references.keys.collect{|a| [::I18n.t("activerecord.models.#{a.to_s.singularize}"), a.to_s.singularize]}.sort{|a,b| a[0].ascii <=> b[0].ascii}

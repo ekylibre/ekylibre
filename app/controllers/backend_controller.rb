@@ -19,11 +19,11 @@
 
 class BackendController < BaseController
   protect_from_forgery
-  # # before_filter :no_cache
+
   before_filter :authenticate_user!
-  # # before_filter :identify
+  before_filter :configure_versioner
   before_filter :themize
-  # after_filter  :historize
+
   layout :dialog_or_not
 
   include Userstamp
@@ -280,6 +280,10 @@ class BackendController < BaseController
   #   @current_user = nil
   #   @current_user = User.find_by(id: session[:user_id]).readonly if session[:user_id]
   # end
+
+  def configure_versioner
+    Version.current_user = current_user
+  end
 
   def themize()
     # TODO: Dynamic theme choosing

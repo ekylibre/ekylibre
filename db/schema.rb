@@ -1230,31 +1230,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "listings", ["updated_at"], :name => "index_listings_on_updated_at"
   add_index "listings", ["updater_id"], :name => "index_listings_on_updater_id"
 
-  create_table "logs", force: true do |t|
-    t.string   "event",                     null: false
-    t.datetime "observed_at",               null: false
-    t.integer  "owner_id",                  null: false
-    t.string   "owner_type",                null: false
-    t.text     "owner_object"
-    t.integer  "origin_id"
-    t.string   "origin_type"
-    t.text     "origin_object"
-    t.text     "description"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",  default: 0, null: false
-  end
-
-  add_index "logs", ["created_at"], :name => "index_logs_on_created_at"
-  add_index "logs", ["creator_id"], :name => "index_logs_on_creator_id"
-  add_index "logs", ["observed_at"], :name => "index_logs_on_observed_at"
-  add_index "logs", ["origin_id", "origin_type"], :name => "index_logs_on_origin_id_and_origin_type"
-  add_index "logs", ["owner_id", "owner_type"], :name => "index_logs_on_owner_id_and_owner_type"
-  add_index "logs", ["updated_at"], :name => "index_logs_on_updated_at"
-  add_index "logs", ["updater_id"], :name => "index_logs_on_updater_id"
-
   create_table "mandates", force: true do |t|
     t.integer  "entity_id",                null: false
     t.date     "started_on"
@@ -2548,13 +2523,10 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "maximal_grantable_reduction_percentage",           precision: 19, scale: 4, default: 5.0,   null: false
     t.boolean  "administrator",                                                             default: true,  null: false
     t.text     "rights"
-    t.date     "arrived_on"
     t.text     "description"
     t.boolean  "commercial",                                                                default: false, null: false
-    t.datetime "departed_at"
     t.integer  "team_id"
     t.integer  "establishment_id"
-    t.string   "office"
     t.boolean  "employed",                                                                  default: false, null: false
     t.string   "employment"
     t.string   "language",                               limit: 3,                                          null: false
@@ -2595,5 +2567,20 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "users", ["unlock_token"], :name => "index_users_on_unlock_token", :unique => true
   add_index "users", ["updated_at"], :name => "index_users_on_updated_at"
   add_index "users", ["updater_id"], :name => "index_users_on_updater_id"
+
+  create_table "versions", force: true do |t|
+    t.string   "event",        null: false
+    t.integer  "item_id",      null: false
+    t.string   "item_type",    null: false
+    t.text     "item_object"
+    t.text     "item_changes"
+    t.datetime "created_at",   null: false
+    t.integer  "creator_id"
+    t.string   "creator_name"
+  end
+
+  add_index "versions", ["created_at"], :name => "index_versions_on_created_at"
+  add_index "versions", ["creator_id"], :name => "index_versions_on_creator_id"
+  add_index "versions", ["item_id", "item_type"], :name => "index_versions_on_item_id_and_item_type"
 
 end

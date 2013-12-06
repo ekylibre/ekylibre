@@ -1,0 +1,16 @@
+.historic
+  %ul
+    - for version in resource.versions
+      %li
+        - if version.create?
+          %p= :created_at_by.th(at: version.created_at.l, by: version.creator_name)
+        - elsif version.update?
+          %p= :updated_at_by.th(at: version.created_at.l, by: version.creator_name)
+          %ul.changes
+            - for change in version.changes
+              %li
+                %p= :x_has_been_updated_from_a_to_b.th(x: change.human_attribute_name, a: change.old_value.l, b: change.new_value.l)
+        - elsif version.delete?
+          %p= :destroyed_at_by.th(at: version.created_at.l, by: version.creator_name)
+
+ 

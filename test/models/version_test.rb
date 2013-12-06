@@ -18,26 +18,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: logs
+# == Table: versions
 #
-#  created_at    :datetime         not null
-#  creator_id    :integer
-#  description   :text
-#  event         :string(255)      not null
-#  id            :integer          not null, primary key
-#  lock_version  :integer          default(0), not null
-#  observed_at   :datetime         not null
-#  origin_id     :integer
-#  origin_object :text
-#  origin_type   :string(255)
-#  owner_id      :integer          not null
-#  owner_object  :text
-#  owner_type    :string(255)      not null
-#  updated_at    :datetime         not null
-#  updater_id    :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  creator_name :string(255)
+#  event        :string(255)      not null
+#  id           :integer          not null, primary key
+#  item_changes :text
+#  item_id      :integer          not null
+#  item_object  :text
+#  item_type    :string(255)      not null
 #
 require 'test_helper'
 
-class LogTest < ActiveSupport::TestCase
+class VersionTest < ActiveSupport::TestCase
 
 end

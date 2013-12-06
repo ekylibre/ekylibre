@@ -564,6 +564,7 @@ eng:
       transport: "Transport"
       unit: "Unit" #?
       user: ""
+      version: "Animal event"
       # worker: "Travailleur"
       zone: "Zone"
       # zone_property_title: "Titre de propriété foncière"
@@ -651,6 +652,7 @@ eng:
     base: "Base" #?
     bban: "BBAN" #?
     bic: "BIC" #?
+    # birth: "Birth"
     boolean_value: "Boolean value"
     born_at: "Born at"
     born_on: "Born on"
@@ -774,6 +776,7 @@ eng:
     datetime_value: "Datetime value" #?
     dead_at: "Dead at"
     dead_on: "Dead on"
+    # death: "Death"
     debit: "Debit"
     # debtor: "Debiteur"
     decimal: "Decimal"
@@ -1498,6 +1501,7 @@ eng:
     # vat_subjected: "Assujetti à la TVA"
     vat_submissive: "Vat submissive" #?
     # verb: "Verbe"
+    # versions: "Versions"
     virtual: "Virtual" #?
     virtual_quantity: "Virtual quantity" #?
     waiting_deliveries: "Waiting deliveries"

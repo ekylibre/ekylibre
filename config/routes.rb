@@ -413,7 +413,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :logs, concerns: [:list, :unroll]
+    resources :versions, concerns: [:list, :unroll]
 
     resources :mandates, concerns: [:list, :unroll] do
       collection do

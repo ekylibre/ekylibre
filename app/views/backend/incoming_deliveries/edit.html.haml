@@ -1,8 +1,8 @@
 -# Generated automatically. Remove this line to keep your changes.
-=backend_form_for([:backend, @incoming_delivery], (params[:dialog] ? {'data-dialog' => params[:dialog]} : {})) do |f|
-  -if params[:redirect]
-    =hidden_field_tag(:redirect, params[:redirect])
-  .form-fields>=render(:partial => 'form', :locals => {:f => f})
-  =form_actions do
-    =submit_tag(tl(:update), 'data-disable-with' => tl(:please_wait))
-    =link_to(tl(:cancel), backend_incoming_delivery_url(@incoming_delivery), (params[:dialog] ? {:class => 'btn', 'data-close-dialog' => params[:dialog]} : {:class => 'btn'}))
+= backend_form_for(resource, (params[:dialog] ? {'data-dialog' => params[:dialog]} : {})) do |f|
+  - if params[:redirect]
+    = hidden_field_tag(:redirect, params[:redirect])
+  .form-fields>= render('form', f: f)
+  = form_actions do
+    = submit_tag(tl(:update), 'data-disable-with' => tl(:please_wait))
+    = link_to(tl(:cancel), backend_incoming_delivery_url(resource), (params[:dialog] ? {:class => 'btn', 'data-close-dialog' => params[:dialog]} : {:class => 'btn'}))

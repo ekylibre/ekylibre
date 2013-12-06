@@ -22,7 +22,6 @@
 # == Table: users
 #
 #  administrator                          :boolean          default(TRUE), not null
-#  arrived_on                             :date
 #  authentication_token                   :string(255)
 #  commercial                             :boolean          not null
 #  confirmation_sent_at                   :datetime
@@ -32,7 +31,6 @@
 #  creator_id                             :integer
 #  current_sign_in_at                     :datetime
 #  current_sign_in_ip                     :string(255)
-#  departed_at                            :datetime
 #  description                            :text
 #  email                                  :string(255)      not null
 #  employed                               :boolean          not null
@@ -50,7 +48,6 @@
 #  locked                                 :boolean          not null
 #  locked_at                              :datetime
 #  maximal_grantable_reduction_percentage :decimal(19, 4)   default(5.0), not null
-#  office                                 :string(255)
 #  person_id                              :integer
 #  remember_created_at                    :datetime
 #  reset_password_sent_at                 :datetime
@@ -86,7 +83,7 @@ class User < Ekylibre::Record::Base
   validates_numericality_of :failed_attempts, allow_nil: true, only_integer: true
   validates_numericality_of :maximal_grantable_reduction_percentage, allow_nil: true
   validates_length_of :language, allow_nil: true, maximum: 3
-  validates_length_of :authentication_token, :confirmation_token, :current_sign_in_ip, :email, :employment, :encrypted_password, :first_name, :last_name, :last_sign_in_ip, :office, :reset_password_token, :unconfirmed_email, :unlock_token, allow_nil: true, maximum: 255
+  validates_length_of :authentication_token, :confirmation_token, :current_sign_in_ip, :email, :employment, :encrypted_password, :first_name, :last_name, :last_sign_in_ip, :reset_password_token, :unconfirmed_email, :unlock_token, allow_nil: true, maximum: 255
   validates_inclusion_of :administrator, :commercial, :employed, :locked, in: [true, false]
   validates_presence_of :email, :encrypted_password, :first_name, :language, :last_name, :maximal_grantable_reduction_percentage, :role
   #]VALIDATORS]
@@ -127,6 +124,10 @@ class User < Ekylibre::Record::Base
     unless self.person
       self.create_person!(first_name: self.first_name, last_name: self.last_name, nature: Person.nature.default_value)
     end
+  end
+
+  def name
+    self.full_name
   end
 
   def label

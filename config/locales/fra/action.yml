@@ -821,6 +821,10 @@ fra:
         one: "%{count} erreur a empêché l’enregistrement (%{model})"
         other: "%{count} erreurs ont empêché l’enregistrement (%{model})"
   labels:
+    created_at_by: "Créé le %{at} par %{by}"
+    updated_at_by: "Mis à jour le %{at} par %{by}"
+    destroyed_at_by: "Supprimé le %{at} par %{by}"
+    x_has_been_updated_from_a_to_b: "%{x} a été mis à jour de %{a} à %{b}"
     abilities: "Compétences"
     account_accruals: "Comptes de régularisation"
     account_attorney_to_create: "— Créer automatiquement un compte mandataire —"

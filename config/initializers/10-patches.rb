@@ -17,6 +17,19 @@ class ::Symbol
     ::I18n.translate('labels.' + self.to_s, *args)
   end
 
+  def th(*args)
+    args.each_with_index do |arg, index|
+      if arg.is_a?(Hash)
+        for k, v in arg
+          unless [:locale, :scope, :default].include?(k)
+            arg[k] = ("<em>" + CGI::escapeHTML(v) + "</em>").html_safe
+          end
+        end
+      end
+    end
+    ::I18n.translate('labels.' + self.to_s, *args).html_safe
+  end
+
 end
 
 

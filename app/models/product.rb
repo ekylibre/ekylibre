@@ -151,7 +151,7 @@ class Product < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :birth
   accepts_nested_attributes_for :death
-  accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum| 
+  accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum|
     !datum["indicator"] != "population" and datum[ProductIndicatorDatum.value_column(datum["indicator"]).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true

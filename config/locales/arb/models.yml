@@ -991,6 +991,7 @@ arb:
       transport: "وسيلة النقل"
       unit: "الوحدة" #?
       user: "المستخدم"
+      # version: "Évènements des produits"
       # worker: "Travailleur"
       # zone: "Zone"
       # zone_property_title: "Titre de propriété foncière"
@@ -1074,6 +1075,7 @@ arb:
     base: "القاعدة" #?
     bban: "RIB" #?
     bic: "BIC" #?
+    # birth: "Birth"
     boolean_value: "القيمة المنطقية"
     # born_at: "Né(e) le"
     born_on: "تاريخ الميلاد"
@@ -1210,6 +1212,7 @@ arb:
     datetime_value: "قيمة التاريخ/الساعة" #?
     # dead_at: "Décédé(e) le"
     dead_on: "تاريغ الوفاة"
+    # death: "Death"
     debit: "الدين"
     # debtor: "Debiteur"
     # decimal: "Decimal"
@@ -1947,6 +1950,7 @@ arb:
     # vat_subjected: "Assujetti à la TVA"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
     # verb: "Verbe"
+    # versions: "Versions"
     virtual: "عملي" #?
     virtual_quantity: "الاسهم العملية" #?
     # waiting_deliveries: "Livraisons en attente"
