@@ -463,6 +463,7 @@ fra:
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
+    birth: "Birth"
     boolean_value: "Valeur booléenne"
     born_at: "Né(e) le"
     born_on: "Date de naissance"
@@ -576,6 +577,7 @@ fra:
     data: "Données complémentaires"
     dead_at: "Décédé(e) le"
     dead_on: "Date de décès"
+    death: "Death"
     debit: "Débit"
     debtor: "Debiteur"
     decimal: "Decimal" #?
@@ -843,7 +845,7 @@ fra:
     nature_name: "Nature name"
     natures: "Natures"
     net_volume: "Volume net" #?
-    net_weight: "Masse nette"
+    net_weight: "Masse nette" #?
     nic: "NIC (Numéro Interne de Classement)" #?
     node: "Nœud"
     nodes: "Nœuds d’extraction"
@@ -956,6 +958,7 @@ fra:
     product_events: "Product events"
     product_indicator_data: "Product indicator data"
     product_linkages: "Product linkages"
+    # product_localization: "Product localization"
     product_localizations: "Product localizations"
     product_measurements: "Product measurements"
     product_memberships: "Product memberships"

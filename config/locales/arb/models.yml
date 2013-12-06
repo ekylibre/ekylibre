@@ -1074,6 +1074,7 @@ arb:
     base: "القاعدة" #?
     bban: "RIB" #?
     bic: "BIC" #?
+    # birth: "Birth"
     boolean_value: "القيمة المنطقية"
     # born_at: "Né(e) le"
     born_on: "تاريخ الميلاد"
@@ -1210,6 +1211,7 @@ arb:
     datetime_value: "قيمة التاريخ/الساعة" #?
     # dead_at: "Décédé(e) le"
     dead_on: "تاريغ الوفاة"
+    # death: "Death"
     debit: "الدين"
     # debtor: "Debiteur"
     # decimal: "Decimal"

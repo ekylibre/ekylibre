@@ -170,9 +170,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     html = "".html_safe
 
     variant = @object.variant || ProductNatureVariant.where(:id => @template.params[:variant_id].to_i).first
-    
+
     if variant
-      
+
       whole_indicators = variant.whole_indicators
 
       # Add product type selector
@@ -203,7 +203,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           @object.variety ||= varieties.first.last if varieties.first
           fs << self.input(:variety, collection: varieties)
         end
-        
+
         # Add birth
         unless self.object.birth
           self.object.build_birth(nature: :creation, started_at: Time.now - 1, stopped_at: Time.now)

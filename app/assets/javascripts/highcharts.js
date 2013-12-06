@@ -24,7 +24,7 @@
 
     $.fn.highchartsFromData = function () {
         $(this).each(function () {
-            var chart = $(this), options = {};
+            var chart = $(this), options = {}, s, i;
             if (chart.prop('highchartLoaded') !== true) {
                 options.chart = chart.data('highchart');
                 //  OPTIONS: colors, credits, exporting, labels, legend, loading, navigation, pane, plot-options, series, subtitle, title, tooltip, x-axis, y-axis
@@ -45,6 +45,18 @@
                 if (chart.data('highchartYAxis') !== undefined)       options.yAxis = chart.data('highchartYAxis');
                 chart.highcharts(options);
                 chart.prop('highchartLoaded', true);
+                
+                /* Convert date/datetime */
+                if (options.xAxis.type == "datetime" || options.xAxis.type == "date") {
+                    for (s = 0; s < options.series.length; s++)  {
+                        if (!s.pointInterval) {
+                            for (i = 0; i < options.series[s]; i++) {
+                                options.series[s][0] = new Date(options.series[s][0]);
+                            }
+                        }
+                    }
+                }
+
             }
         });
     };

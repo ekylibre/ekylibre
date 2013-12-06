@@ -82,6 +82,13 @@ class Measure
   end
   alias :in :convert
 
+  eval(Measure.units.inject("") do |code, unit|
+         code << "def in_#{unit}\n"
+         code << "  self.in(:#{unit})\n"
+         code << "end\n"
+         code
+       end)
+
   def round(ndigits=0)
     Measure.new(self.to_d.round(ndigits), self.unit)
   end
