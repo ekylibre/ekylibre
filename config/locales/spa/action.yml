@@ -1286,6 +1286,7 @@ spa:
     modules: "Modulos"
     # month_period: "%{code} — %{month} %{year}"
     monthly: "Mensual"
+    # months: "Mois"
     # moved_on: "Fait le"
     # movement: "Mouvements"
     moves: "Movimientos de depositos"
