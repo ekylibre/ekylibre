@@ -226,7 +226,6 @@ module ApplicationHelper
 
   #
 
-
   #
   def evalue(object, attribute, options={})
     label, value = attribute_item(object, attribute, options={})
@@ -941,7 +940,7 @@ module ApplicationHelper
 
   def backend_form_for(object, *args, &block)
     options = args.extract_options!
-    simple_form_for(object, *(args << options.merge(builder: Backend::FormBuilder)), &block)
+    simple_form_for([:backend, object], *(args << options.merge(builder: Backend::FormBuilder)), &block)
   end
 
   def backend_fields_for(object, *args, &block)

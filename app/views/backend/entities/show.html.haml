@@ -57,6 +57,9 @@
           - l.attribute :supplier_account, url: true
         - l.attribute :transporter
 
+    - b.cell :historic do
+      = historic_of(resource)
+
     - b.cell(tl(:x_observations, count: resource.observations.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :observations, entity_id: resource.id})

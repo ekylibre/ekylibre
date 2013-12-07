@@ -564,6 +564,7 @@ eng:
       transport: "Transport"
       unit: "Unit" #?
       user: ""
+      version: "Animal event"
       # worker: "Travailleur"
       zone: "Zone"
       # zone_property_title: "Titre de propriété foncière"
@@ -1500,6 +1501,7 @@ eng:
     # vat_subjected: "Assujetti à la TVA"
     vat_submissive: "Vat submissive" #?
     # verb: "Verbe"
+    # versions: "Versions"
     virtual: "Virtual" #?
     virtual_quantity: "Virtual quantity" #?
     waiting_deliveries: "Waiting deliveries"

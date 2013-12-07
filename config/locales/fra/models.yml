@@ -325,7 +325,7 @@ fra:
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
-      log: "Évènements des produits"
+      log: "Évènements des produits" #?
       mandate: "Responsabilité"
       matter: "Matière"
       medicine: "Médicament"
@@ -393,6 +393,7 @@ fra:
       transfer: "Transfert"
       transport: "Transport"
       user: "Utilisateur"
+      version: "Évènements des produits"
       worker: "Travailleur"
       zone: "Zone"
       zone_property_title: "Titre de propriété foncière"
@@ -433,7 +434,7 @@ fra:
     area: "Zone postale"
     areas: "Zones postales"
     arrival_cause: "Cause d’entrée"
-    arrived_on: "Date d’entrée"
+    arrived_on: "Date d’entrée" #?
     asset: "Immobilisation"
     asset_account: "Asset account"
     asset_amount: "Valeur nette comptable"
@@ -549,6 +550,7 @@ fra:
     created_at: "Date et heure de création"
     created_on: "Date de création"
     creator: "Créateur"
+    # creator_name: "Creator name"
     credit: "Crédit"
     credit_lines: "Lignes d’avoir" #?
     # credited_item: "Credited item"
@@ -600,7 +602,7 @@ fra:
     delivery_address: "Adresse pour la livraison"
     delivery_items: "Lignes de livraison"
     delivery_modes: "Modes de livraison" #?
-    departed_at: "Parti le"
+    departed_at: "Parti le" #?
     department: "Service" #?
     departments: "Services" #?
     departure_cause: "Causes de sortie"
@@ -743,9 +745,13 @@ fra:
     invoiced: "Facturée" #?
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures" #?
+    # item: "Item"
+    # item_changes: "Item changes"
     item_listing: "Nœud de l’extraction"
     item_listing_node: "Nœud de l’élément"
     item_nature: "Nature de l’élément"
+    # item_object: "Item object"
+    # item_type: "Item type"
     item_value: "Valeur de l’élément"
     items: "Éléments"
     journal: "Journal"
@@ -857,7 +863,7 @@ fra:
     observations: "Observations"
     observed_at: "Observé à"
     of_company: "Dossier basé sur cette entreprise"
-    office: "Bureau/Atelier"
+    office: "Bureau/Atelier" #?
     old_password: "Mot de passe actuel"
     operation: "Travail"
     operation_items: "Intrants/sortants" #?
@@ -871,8 +877,7 @@ fra:
     order_item: "Ligne de vente" #?
     organization: "Organisation"
     origin: "Origine"
-    # origin_object: "Origin object"
-    origin_type: "Type de l’origine"
+    origin_type: "Type de l’origine" #?
     original_name: "Nom original" #?
     originator: "Originator"
     originator_type: "Originator type"
@@ -884,8 +889,7 @@ fra:
     outgoing_payments: "Décaissements"
     output_conveyors: "Convoyeur sortant" #?
     owner: "Propriétaire"
-    # owner_object: "Owner object"
-    owner_type: "Nature du propriétaire"
+    owner_type: "Nature du propriétaire" #?
     ownerships: "Ownerships"
     paid: "Réglée" #?
     paid_amount: "Montant payé"
@@ -1152,6 +1156,7 @@ fra:
     vat_number: "Numéro de TVA intra-communautaire"
     vat_subjected: "Assujetti à la TVA"
     verb: "Verbe" #?
+    versions: "Versions"
     waiting_deliveries: "Livraisons en attente"
     webpass: "Mot de passe web" #?
     websites: "Sites web"

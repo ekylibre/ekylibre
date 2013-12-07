@@ -1861,6 +1861,34 @@ ul.tree {
 }
 
 
+.historic {
+  p {
+    &, * {
+      // color: $neutral-color;
+      vertical-align: baseline;
+      line-height: 1.3 * $fs-normal;
+    }
+    // padding: round($default-gap * 0.2);
+    em {
+      font-weight: bold;
+      color: $text-color;
+    }
+  }
+
+  ul {
+    padding: round(0.5 * $default-gap) $default-gap;
+    @include padding-left(2 * $fs-normal);
+    > li {
+      list-style-type: disc;
+    }
+  }
+
+  ul li ul li {
+    list-style-type: square;
+  }
+
+}
+
 .search {
   .results {
     padding: $default-gap;

@@ -69,7 +69,7 @@ class Backend::DashboardsController < BackendController
       end
     end
   end
-  
+
 
   def index
   end

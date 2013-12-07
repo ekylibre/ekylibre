@@ -1038,6 +1038,7 @@ fra:
         transfer: "Transfert"
         transport: "Transport"
         user: "Utilisateur"
+        version: "Évènements des produits"
         worker: "Travailleur"
         zone: "Zone"
         zone_property_title: "Titre de propriété foncière"

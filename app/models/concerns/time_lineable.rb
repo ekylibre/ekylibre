@@ -43,12 +43,12 @@ module TimeLineable
 
   def previous
     return nil unless self.started_at
-    return siblings.find_by(stopped_at: self.started_at)
+    return @previous ||= siblings.find_by(stopped_at: self.started_at)
   end
 
   def following
     return nil unless self.stopped_at
-    return siblings.find_by(started_at: self.stopped_at)
+    return @following ||= siblings.find_by(started_at: self.stopped_at)
   end
 
   def has_previous?

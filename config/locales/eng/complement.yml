@@ -392,6 +392,7 @@ eng:
         transport: "Transport"
         unit: "Unit"
         user: ""
+        version: "Animal event"
         zone: "Zone"
     matter:
       variety:

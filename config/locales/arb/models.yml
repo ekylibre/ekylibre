@@ -991,6 +991,7 @@ arb:
       transport: "وسيلة النقل"
       unit: "الوحدة" #?
       user: "المستخدم"
+      # version: "Évènements des produits"
       # worker: "Travailleur"
       # zone: "Zone"
       # zone_property_title: "Titre de propriété foncière"
@@ -1949,6 +1950,7 @@ arb:
     # vat_subjected: "Assujetti à la TVA"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
     # verb: "Verbe"
+    # versions: "Versions"
     virtual: "عملي" #?
     virtual_quantity: "الاسهم العملية" #?
     # waiting_deliveries: "Livraisons en attente"
