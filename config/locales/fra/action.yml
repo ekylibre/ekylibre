@@ -1354,6 +1354,7 @@ fra:
       other: "Nouveau transport pour %{transporter} (%{count} livraisons)"
     new_value: "Nouvelle valeur"
     next: "Suivant"
+    nitrogen_concentration: "Teneur en azote"
     no_commercial: "— Sans commercial —"
     no_contacts: "Aucune adresse définie pour %{name}"
     no_data: "Aucune donnée"
