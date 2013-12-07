@@ -146,7 +146,7 @@ class Production < Ekylibre::Record::Base
 
   def area
     if self.static_support?
-      return self.supports.map(&:storage_area).compact.sum
+      return self.supports.map(&:storage_net_surface_area).compact.sum
     else
       return 0.0
     end

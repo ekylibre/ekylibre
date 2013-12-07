@@ -3,7 +3,7 @@
   %td
     .selector
       = f.referenced_association :source_product, :source => :deliverables
-  %td.decimal= f.input(:quantity, :size => 7, :class => "item-pta")
+  %td.decimal= f.input(:population, :size => 7, :class => "item-pta")
   %td.action
     = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, :class => 'remove-item')
     = f.object.errors.inspect
