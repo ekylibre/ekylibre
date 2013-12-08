@@ -1,7 +1,5 @@
 = beehive(:production) do |b|
-  - if @map
-    - b.cell :map do
-      %iframe{width: '100%', height: '520', frameborder: '0', src: "http://#{@map[:account]}.cartodb.com/viz/#{@map[:visualization]}/embed_map?title=false&description=false&search=false&shareable=false&cartodb_logo=false&layer_selector=false&legends=true&scrollwheel=true&sublayer_options=1&sql=&zoom=3&center_lat=45.27488643704891&center_lon=9.84375"}
+  - b.cell :map
   - b.hbox do
     - b.cell :last_interventions
     - b.cell :last_products

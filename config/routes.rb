@@ -93,31 +93,32 @@ Ekylibre::Application.routes.draw do
     end
 
     namespace :cells do
+      resource :bank_chart_cell, only: :show, concerns: :list
+      resource :calendar_cell, only: :show, concerns: :list
       resource :collected_taxes_cell, only: :show
-      resource :currents_stocks_by_product_nature_cell, only: :show
       resource :cropping_plan_cell, only: :show
       resource :cropping_plan_on_cultivable_land_parcels_cell, only: :show
+      resource :currents_stocks_by_product_nature_cell, only: :show
       resource :elapsed_interventions_times_by_activities_cell, only: :show
       resource :events_cell, only: :show
-      resource :product_bar_cell, only: :show
-      resource :purchases_bar_cell, only: :show
-      resource :purchases_expense_bar_cell, only: :show
-      resource :placeholder_cell, only: :show
-      resource :production_cropping_plan_cell, only: :show
-      resource :revenus_by_product_nature_cell, only: :show
-      resource :rss_cell, only: :show
+      resource :expense_chart_cell, only: :show, concerns: :list
+      resource :last_document_archives_cell, only: :show, concerns: :list
       resource :last_entities_cell, only: :show, concerns: :list
       resource :last_events_cell, only: :show, concerns: :list
       resource :last_incoming_deliveries_cell, only: :show, concerns: :list
-      resource :last_outgoing_deliveries_cell, only: :show, concerns: :list
       resource :last_incidents_cell, only: :show, concerns: :list
-      resource :last_document_archives_cell, only: :show, concerns: :list
       resource :last_interventions_cell, only: :show, concerns: :list
-      resource :bank_chart_cell, only: :show, concerns: :list
-      resource :expense_chart_cell, only: :show, concerns: :list
       resource :last_milk_result_cell, only: :show, concerns: :list
+      resource :last_outgoing_deliveries_cell, only: :show, concerns: :list
       resource :last_products_cell, only: :show, concerns: :list
-      resource :calendar_cell, only: :show, concerns: :list
+      resource :map_cell, only: [:show, :update]
+      resource :placeholder_cell, only: :show
+      resource :product_bar_cell, only: :show
+      resource :production_cropping_plan_cell, only: :show
+      resource :purchases_bar_cell, only: :show
+      resource :purchases_expense_bar_cell, only: :show
+      resource :revenus_by_product_nature_cell, only: :show
+      resource :rss_cell, only: :show
     end
 
     # resources :account_balances

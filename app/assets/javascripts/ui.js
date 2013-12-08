@@ -102,6 +102,8 @@
             $(element.data("update")).before(data);
         } else if (position === "after") {
             $(element.data("update")).after(data);
+        } else if (position === "replace") {
+            $(element.data("update")).replaceWith(data);
         } else {
             $(element.data("update")).html(data);
         }
