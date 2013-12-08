@@ -88,8 +88,8 @@ GEM
       json
       listen (~> 1.1.0)
       sass (~> 3.3.0.rc.1)
-    compass-rails (2.0.alpha.0)
-      compass (>= 0.12.2, < 0.14)
+    compass-rails (1.1.2)
+      compass (>= 0.12.2)
     coveralls (0.7.0)
       multi_json (~> 1.3)
       rest-client
@@ -373,7 +373,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.0.0)
   compass (~> 0.13.alpha.10)
-  compass-rails (~> 2.0.alpha.0)
+  compass-rails
   coveralls (>= 0.6)
   database_cleaner
   devise
