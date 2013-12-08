@@ -1252,6 +1252,7 @@ fra:
         seed: "Semence"
         small_equipment: "Petit matériel"
         straw: "Paille"
+        # wine: "Wine"
         worker: "Responsable"
     product_nature_variants:
       name: "Variantes de produits"
@@ -1277,6 +1278,7 @@ fra:
           equipment: "équipement"
           head: "tête"
           hectare: "hectare"
+          # hectoliter: "Hectoliter"
           hour: "heure"
           kilogram: "kilogramme"
           # kilowatt_hour: "Kilowatt hour"
@@ -1343,7 +1345,7 @@ fra:
         hay_rake: "Andaineur"
         helianthus_herbicide: "Herbicide tournesol"
         insecticide: "Insecticide"
-        # irrigation_water: "Irrigation water"
+        irrigation_water: "Eau (irrigation)"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
         male_adult_cow: "Taureau"
@@ -1383,11 +1385,15 @@ fra:
         temporary_meadow_crop: "Culture de prairie temporaire"
         tractor: "Tracteur"
         trailer: "Remorque"
+        vine_grape_berry: "Grappe de raisin"
+        vine_grape_crop: "Culture de vigne"
+        vine_grape_must: "Mout de raisin"
         wheat_crop: "Culture de blé"
         wheat_grain: "Graine de blé"
         wheat_seed_25: "Semence de blé 25kg"
         wheat_straw: "Paille de blé"
         wheat_straw_bales: "Bottes de paille de blé"
+        wine: "Vin"
         zea_herbicide: "Herbicide maïs"
     product_natures:
       name: "Type de produits"
@@ -1437,7 +1443,7 @@ fra:
         hay_rake: "Andaineur"
         herbicide: "Herbicide"
         insecticide: "Insecticide"
-        # irrigation_water: "Irrigation water"
+        irrigation_water: "Eau (irrigation)"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
         male_adult_cow: "Taureau"
@@ -1465,6 +1471,7 @@ fra:
         technician: "Technicien"
         tractor: "Tracteur"
         trailer: "Remorque"
+        wine: "Vin"
     roles:
       name: "Nom"
       items:
@@ -1594,20 +1601,26 @@ fra:
         # brassicaceae: "Brassicaceae"                     # plant
         building: "Bâtiment"                               # product_group
         building_division: "Pièce de bâtiment"             # sub_zone
+        cabernet_franc: "Cabernet franc"                 # vitis_vinifera
+        cabernet_sauvignon: "Cabernet sauvignon"         # vitis_vinifera
         caphorn: "Blé Caphorn"                             # triticum_aestivum
         capra: "Caprin"                                    # mammalia
+        carignan: "Carignan"                             # vitis_vinifera
+        chardonnay: "Chardonnay"                         # vitis_vinifera
         cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
         disinfectant: "Désinfectant"                       # antiseptic
         easement: "Aménagement foncier"                    # zone
-        # electricity: "Electricity"                       # matter
+        electricity: "Electricité"                       # matter
         equipment: "Équipement"                            # matter
         forager: "Ensileuse"                               # equipment
-        # fuel: "Fuel"                                     # organic_matter
+        fuel: "Gasoil"                                     # organic_matter
         fungicide: "Produit fongicide"                     # plant_medicine
         fungus: "Champignon"                               # bioproduct
         gallus: "Galinacée"                                # aves
-        # gas: "Gas"                                       # organic_matter
+        gas: "Essence"                                       # organic_matter
         grain: "Grain"                                     # organic_matter
+        grenache: "Grenache"                             # vitis_vinifera
+        grenache_noir: "Grenache noir"                   # vitis_vinifera
         # harvest: "Harvest"                               # equipment
         # hay: "Hay"                                       # organic_matter
         helianthus: "Tournesol"                            # asteraceae
@@ -1625,6 +1638,8 @@ fra:
         matter: "Matérialisable"                           # product
         meat: "Viande"                                     # organic_matter
         medicine: "Médicament"                             # matter
+        merlot_blanc: "Merlot blanc"                     # vitis_vinifera
+        merlot_noir: "Merlot noir"                       # vitis_vinifera
         milk: "Lait"                                       # organic_matter
         mineral_food: "Aliment minéral"                    # organic_matter
         mineral_matter: "Matière minérale"                 # matter
@@ -1634,6 +1649,7 @@ fra:
         organic_matter: "Matière organique"                # matter
         # osteichthyes: "Osteichthyes"                     # animal
         ovis: "Ovin"                                       # mammalia
+        pinot_noir: "Pinot noir"                         # vitis_vinifera
         plant: "Végétal"                                   # bioproduct
         plant_food: "Nourriture végétale"                  # organic_matter
         plant_medicine: "Produit phytosanitaire"           # medicine
@@ -1647,6 +1663,8 @@ fra:
         salmo: "Salmonidé"                                 # osteichthyes
         salt: "Sel"                                        # mineral_matter
         sand: "Sable"                                      # mineral_matter
+        sauvignon: "Sauvignon"                           # vitis_vinifera
+        sauvignon_blanc: "Sauvignon blanc"               # vitis_vinifera
         seed: "Semence"                                    # organic_matter
         service: "Service"                                 # immatter
         settlement: "Agencement"                           # easement
@@ -1657,13 +1675,18 @@ fra:
         straw: "Pailles"                                   # organic_matter
         sub_zone: "Sous zone"                              # zone
         sus: "Porcin"                                      # mammalia
+        syrah: "Syrah"                                   # vitis_vinifera
         tank: "Réservoir"                                  # equipment
         tractor: "Tracteur"                                # equipment
         trailer: "Remorque"                                # equipment
         triticum_aestivum: "Blé tendre"                    # poaceae
         triticum_durum: "Blé dur"                          # poaceae
         triticum_spelta: "Épeautre"                        # poaceae
+        ugni_blanc: "Ugni blanc"                         # vitis_vinifera
+        # vitis: "Vitis"                                   # plant
+        vitis_vinifera: "Vitis vinifera"                 # vitis
         water: "Eau"                                       # matter
+        wine: "Vin"                                     # organic_matter
         worker: "Travailleur"                              # equipment
         zea: "Maïs"                                        # poaceae
         zone: "Zone physique"                              # matter

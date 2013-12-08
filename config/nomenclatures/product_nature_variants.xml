@@ -8,7 +8,7 @@
       <attribute name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <attribute name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <attribute name="frozen_indicators_values" type="string" required="false"/>
-      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 25kg_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit" required="true" default="unit"/>
+      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 25kg_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter" required="true" default="unit"/>
     </attributes>
     <items>
       <item name="cattle_herd"
@@ -119,6 +119,30 @@
             variety="poa"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="vine_grape_crop"
+            nature="crop"
+            variety="vitis_vinifera"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="vine_grape_berry"
+            nature="grain"
+            derivative_of="vitis_vinifera"
+            unit_name="ton"
+            frozen_indicators_values="net_weight: 1.00ton"
+            />
+      <item name="vine_grape_must"
+            nature="grain"
+            derivative_of="vitis_vinifera"
+            unit_name="hectoliter"
+            frozen_indicators_values="net_volume: 100.00liter"
+            />
+      <item name="wine"
+            nature="wine"
+            derivative_of="vitis_vinifera"
+            unit_name="hectoliter"
+            frozen_indicators_values="net_volume: 100.00liter"
             />
       <item name="wheat_grain"
             nature="grain"

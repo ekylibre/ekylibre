@@ -105,6 +105,15 @@
             storable="true"
             pictogram="wheat"
             />
+      <item name="wine"
+            product_account="plant_derivatives_revenues"
+            stock_account="plant_derivative_stock"
+            purchasable="false"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            pictogram="drop"
+            />
       <item name="straw"
             product_account="plant_derivatives_revenues"
             stock_account="plant_derivative_stock"

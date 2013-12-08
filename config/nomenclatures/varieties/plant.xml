@@ -11,6 +11,9 @@
       <item name="brassicaceae">
         <attribute name="itis-tsn" value="12345"/>
       </item>
+      <item name="vitis">
+        <attribute name="itis-tsn" value="28606"/>
+      </item> 
     </items>
   </nomenclature>
 </nomenclatures>

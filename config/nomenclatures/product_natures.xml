@@ -92,6 +92,15 @@
             variable_indicators="population, plant_life_state, plant_reproduction_state"
             frozen_indicators="net_surface_area"
             />
+      <item name="wine"
+            category="wine"
+            variety="wine"
+            derivative_of="vitis_vinifera" 
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population, temperature, total_bacteria_concentration"
+            frozen_indicators="net_volume, net_weight"
+            />
       <item name="grain"
             category="grain"
             variety="grain"

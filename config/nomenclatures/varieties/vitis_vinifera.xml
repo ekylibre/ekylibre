@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-vitis_vinifera" hierarchical="true">
+    <items>
+      <item name="merlot_noir" itis-tsn="00000"/>
+      <item name="merlot_blanc" itis-tsn="00000"/>
+      <item name="carignan" itis-tsn="00000"/>
+      <item name="cabernet_franc" itis-tsn="00000"/>
+      <item name="cabernet_sauvignon" itis-tsn="00000"/>
+      <item name="sauvignon_blanc" itis-tsn="00000"/>
+      <item name="sauvignon" itis-tsn="00000"/>
+      <item name="grenache" itis-tsn="00000"/>
+      <item name="grenache_noir" itis-tsn="00000"/>
+      <item name="syrah" itis-tsn="00000"/>
+      <item name="chardonnay" itis-tsn="00000"/>
+      <item name="ugni_blanc" itis-tsn="00000"/>
+      <item name="pinot_noir" itis-tsn="00000"/>
+    </items>
+  </nomenclature>
+</nomenclatures>
