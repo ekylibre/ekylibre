@@ -1010,6 +1010,7 @@ fra:
     reception_journal_entry: "Écriture de la réception"
     recipient: "Destinataire"
     # recommended: "Recommended"
+    # recommender: "Recommender"
     reconcilable: "Lettrable"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
