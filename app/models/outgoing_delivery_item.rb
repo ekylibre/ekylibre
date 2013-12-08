@@ -51,7 +51,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   #]VALIDATORS]
 
   #acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
-  sums :delivery, :items, "item.product.weight" => :weight
+  #sums :delivery, :items, "item.product.weight" => :weight
 
   before_validation do
     if self.sale_item
@@ -60,7 +60,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
 
     if self.source_product
       maximum = self.source_product.population || 0
-      if self.quantity == maximum
+      if self.population == maximum
         # deliver all the product source_product == product
         self.product = self.source_product
       else
@@ -74,7 +74,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   validate(on: :create) do
     if self.source_product
       maximum = self.source_product.population || 0
-      errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.source_product.variant.unit_name, :product => self.source_product_name) if (self.quantity > maximum)
+      errors.add(:population, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.source_product.variant.unit_name, :product => self.source_product_name) if (self.population > maximum)
     end
     true
   end
@@ -82,7 +82,7 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   validate(on: :update) do
     old_self = self.old_record
     maximum = self.product.population || 0
-    errors.add(:quantity, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.variant.unit_name, :product => self.product_name) if (self.quantity > maximum)
+    errors.add(:population, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.variant.unit_name, :product => self.product_name) if (self.population > maximum)
   end
 
   #def undelivered_quantity

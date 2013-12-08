@@ -70,8 +70,9 @@
         :ruby
           #
           #
-          started_on = Date.new(2013,01,01) || Date.today || @animal.born_at.to_date
-          stopped_on = Date.new(2013,12,31) || Date.today || @animal.dead_at.to_date
+          started_on = @animal.born_at.to_date
+          stopped_on = @animal.dead_at.to_date if @animal.dead_at
+          stopped_on ||= Date.today
 
           series = []
           categories = {}

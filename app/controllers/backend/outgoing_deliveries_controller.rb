@@ -41,7 +41,7 @@ class Backend::OutgoingDeliveriesController < BackendController
   list(:items, model: :outgoing_delivery_items, conditions: {:delivery_id => 'params[:id]'.c}) do |t|
     t.column :product, url: true
     t.column :product_work_number, through: :product, label_method: :work_number
-    t.column :quantity
+    t.column :population
     # t.column :name, through: :building, url: true
   end
 

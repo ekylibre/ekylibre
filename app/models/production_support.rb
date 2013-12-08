@@ -42,23 +42,29 @@ class ProductionSupport < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :storage_id, scope: :production_id
 
-  delegate :area, :shape_area, to: :storage, prefix: true
+  delegate :net_surface_area, :shape_area, to: :storage, prefix: true
   delegate :name, :shape, :shape_as_ewkt, to: :storage
 
-
+  def cost(role=:input)
+    cost = []
+    for intervention in self.interventions
+      cost << intervention.cost(role)
+    end
+    return cost.compact.sum
+  end
 
   def tool_cost
-    rand(500)
+    self.cost(:tool)
   end
 
   def input_cost
-    rand(500)
+    self.cost(:input)
   end
 
   def time_cost
-    rand(500)
+    self.cost(:doer)
   end
-
+  
 end
 
 
