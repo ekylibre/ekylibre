@@ -8,7 +8,7 @@
       <attribute name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <attribute name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <attribute name="frozen_indicators_values" type="string" required="false"/>
-      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 25kg_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter" required="true" default="unit"/>
+      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 25kg_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band" required="true" default="unit"/>
     </attributes>
     <items>
       <item name="cattle_herd"
@@ -66,6 +66,16 @@
             unit_name="head"
             frozen_indicators_values="population: 1, livestock_unit: 0.4"
             />
+      <item name="duck_herd"
+            nature="duck_herd"
+            unit_name="band"
+            frozen_indicators_values="population: 1"
+            />      
+      <item name="duck_band"
+            nature="duck_band"
+            unit_name="band"
+            frozen_indicators_values=""
+            />      
       <item name="wheat_crop"
             nature="crop"
             variety="triticum_aestivum"
@@ -117,6 +127,18 @@
       <item name="fallow_crop"
             nature="crop"
             variety="poa"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="plum_crop"
+            nature="crop"
+            variety="prunus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="apple_crop"
+            nature="crop"
+            variety="malus"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />

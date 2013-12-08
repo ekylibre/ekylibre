@@ -86,7 +86,25 @@
             saleable="true"
             storable="true"
             pictogram="cow"
-            />   
+            />
+      <item name="aves_herd"
+            purchasable="false"
+            saleable="false"
+            depreciable="false"
+            storable="false"
+            stock_account="long_time_animal_stock"
+            pictogram="cow"
+            />
+      <item name="aves_band"
+            charge_account="young_animal_expenses"
+            product_account="young_animal_revenues"
+            stock_account="short_time_animal_stock"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            pictogram="cow"
+            />
       <item name="crop"
             product_account="plant_derivatives_revenues"
             stock_account="short_cycle_cultures_advances"

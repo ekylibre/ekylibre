@@ -22,6 +22,7 @@
   <nomenclature name="varieties-aves">
     <items>
       <item name="gallus"/>
+      <item name="anas"/>
     </items>
   </nomenclature>
   <nomenclature name="varieties-osteichthyes">
@@ -39,7 +40,6 @@
       <item name="capra"/>
       <item name="ovis"/>
       <item name="bos"/>
-      <item name="anas"/>
       <item name="sus"/>
       <item name="lepus"/>
     </items>

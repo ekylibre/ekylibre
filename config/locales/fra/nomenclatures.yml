@@ -226,8 +226,8 @@ fra:
         third_party: "Compte de tiers"
         transport_vehicle_asset_depreciations: "Ammortissements des véhicules de transport"
         transport_vehicle_assets: "Matériel de transport"
-        # transports_expenses: "Transports expenses"
-        # travels_expenses: "Travels expenses"
+        transports_expenses: "Frais de transports"
+        travels_expenses: "Frais de voyages"
         usual_associated_accounts: "Associes comptes courants - comptes courants"
         usual_bank_overdraft: "Concours bancaires courants"
         vat: "État - Taxes sur le chiffre d’affaire"
@@ -243,7 +243,7 @@ fra:
       items:
         accountancy: "Comptabilité"                        # exploitation
         animal_farming: "Élevage bovins"
-        # aromatic_and_medicinal_plants: "Aromatic and medicinal plants" # vegetal_crops
+        aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques" # vegetal_crops
         # beekeeping: "Beekeeping"                         # animal_farming
         # beet_crops: "Beet crops"                         # vegetal_crops
         cattle_farming: "Élevage"                          # animal_farming
@@ -253,15 +253,15 @@ fra:
         goat_farming: "Élevage caprins"                    # animal_farming
         handicraft: "Artisanat"
         maize_crops: "Culture de maïs"                     # vegetal_crops
-        # oilseed_crops: "Oilseed crops"                   # vegetal_crops
-        # palmiped_farming: "Palmiped farming"             # animal_farming
+        oilseed_crops: "Culture oléagineuse"               # vegetal_crops
+        palmiped_farming: "Élevage de palmipèdes"          # animal_farming
         pig_farming: "Élevage porcins"                     # animal_farming
         potato_crops: "Culture de pomme de terre"          # vegetal_crops
-        # poultry_farming: "Poultry farming"               # animal_farming
+        poultry_farming: "Élevage avicole"                 # animal_farming
         prairie: "Prairie"                                 # vegetal_crops
-        # protein_crops: "Protein crops"                   # vegetal_crops
+        protein_crops: "Culture protéagineuse"             # vegetal_crops
         purchases: "Achats"                                # exploitation
-        # rabbit_farming: "Rabbit farming"                 # animal_farming
+        rabbit_farming: "Élevage cunicole"                 # animal_farming
         sales: "Ventes"                                    # exploitation
         service: "Service"
         sheep_farming: "Élevage ovins"                     # animal_farming
@@ -770,18 +770,18 @@ fra:
       attributes:
         expression: "Expression"
       items:
-        # amount_of_substance: "Amount of substance"
+        amount_of_substance: "Quantité de matière"
         concentration: "Concentration"
         electric_current: "Intensité"
-        # energy: "Energy"
+        energy: "Energie"
         length: "Longueur"
-        # luminous_intensity: "Luminous intensity"
-        # mass_concentration: "Mass concentration"
+        luminous_intensity: "Intensité lumineuse"
+        mass_concentration: "Concentration massique"
         # mass_density: "Mass density"
         none: "Aucune"
         power: "Puissance"
-        # specific_volume: "Specific volume"
-        # surface_area: "Surface area"
+        specific_volume: "Volume spécifique"
+        surface_area: "Superficie"
         temperature: "Temperature"
         time: "Temps"
         volume: "Volume"
@@ -821,17 +821,17 @@ fra:
         general_journal: "Journal général"
         general_ledger: "Grand livre"
         income_statement: "Compte de résultat"
-        # incoming_delivery_docket: "Incoming delivery docket"
+        incoming_delivery_docket: "Bon de reception"
         inventory: "Inventaire"
         journal: "Journal"
         manure_management_plan: "Plan de fumure"
-        # outgoing_delivery_docket: "Outgoing delivery docket"
-        # outgoing_delivery_journal: "Outgoing delivery journal"
+        outgoing_delivery_docket: "Bon de livraison"
+        outgoing_delivery_journal: "Journal de livraisons"
         phytosanitary_registry: "Registre phytosanitaire"
         prescription: "Prescription vétérinaire"
         profit_and_loss_statement: "Compte de résultat"
-        # purchase_estimate: "Purchase estimate"
-        # purchase_invoice: "Purchase invoice"
+        purchase_estimate: "Devis d'achat"
+        purchase_invoice: "Facture d'achat"
         purchase_order: "Achat"
         sales_estimate: "Devis de vente"
         sales_invoice: "Facture de vente"
@@ -861,7 +861,7 @@ fra:
         civil_society: "Société civile"                    # legal_entity
         collectivity: "Collectivité"                       # legal_entity
         company: "Société"                                 # legal_entity
-        # cooperative: "Cooperative"                       # legal_entity
+        cooperative: "Cooperative"                         # legal_entity
         doctor: "Docteur"                                  # person
         economic_interest_group: "Groupement d’intérêt économique" # legal_entity
         entity: "Entité"
@@ -917,8 +917,8 @@ fra:
           # previous: "Previous"
           # sine: "Sine"
         related_to:
-          # individual: "Individual"
-          # whole: "Whole"
+          individual: "Individu"
+          whole: "Population"
         # unit: # Choices comes from nomenclature: units
       item_lists:
         animal_disease_state:
@@ -932,15 +932,15 @@ fra:
             aging: "Adulte"
         cultural_soil_state:
           choices:
-            # covered: "Covered"
-            # raw: "Raw"
-            # nude: "Nude"
-            # plowed: "Plowed"
-            # grown: "Grown"
+            covered: "Couvert végétal"
+            raw: "Etat sauvage"
+            nude: "Nu"
+            plowed: "Guéret"
+            grown: "Culture"
         inhibitors_presence:
           choices:
-            # negative: "Negative"
-            # positive: "Positive"
+            negative: "Negatif"
+            positive: "Positif"
         mammalia_born_condition:
           choices:
             without_help: "Sans aide"
@@ -950,25 +950,25 @@ fra:
             cutting_calf: "En découpant le veau"
         mammalia_lactation_state:
           choices:
-            # lactation: "Lactation"
-            # depletion: "Depletion"
+            lactation: "Lactation"
+            depletion: "Tarie"
         mammalia_reproduction_state:
           choices:
             # back_heat: "Back heat"
-            # heat: "Heat"
-            # pregnancy: "Pregnancy"
+            heat: "Chaleur"
+            pregnancy: "Pleine"
         mammalia_twins_condition:
           choices:
-            # none: "None"
-            # twins: "Twins"
-            # triplets: "Triplets"
+            none: "N/A"
+            twins: "Jumeaux"
+            triplets: "Triplés"
         plant_life_state:
           choices:
-            # germination: "Germination"
+            germination: "Germination"
             # tillering: "Tillering"
             # bolting: "Bolting"
-            # maturity: "Maturity"
-            # senescence: "Senescence"
+            maturity: "Maturité"
+            senescence: "Senescence"
         plant_reproduction_state:
           choices:
             # swelling: "Swelling"
@@ -985,15 +985,15 @@ fra:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
         application_width: "Largeur de travail"
-        # calving_ease_index: "Calving ease index"
+        calving_ease_index: "Index de facilité de naissane"
         clostridial_spores_concentration: "Concentration en spores butyriques"
         # cultural_soil_state: "Cultural soil state"
         # dry_matter_rate: "Dry matter rate"
         economical_milk_index: "INEL (INdex Économique Laitier)"
-        # energy: "Energy"
+        energy: "Energie"
         # fat_matter_concentration_index: "Fat matter concentration index"
         fat_matters_concentration: "Teneur en matières grasses"
-        # fertility_index: "Fertility index"
+        fertility_index: "Index de fertilité"
         freezing_point_temperature: "Point de solidification"
         geographic_coordinate: "Coordonnées géographiques"
         # hundred_grain_weight: "Hundred grain weight"
@@ -1159,16 +1159,16 @@ fra:
         # hoeing: "Hoeing"                                 # tillage
         milk_production: "Production laitière"             # animal_production
         oviparous_birth: "Reproduction (ovipare)"
-        # plant_fertilisation: "Plant fertilisation"
+        plant_fertilisation: "Fertilisation"
         plant_illness_treatment: "Traitements phytosanitaires"
-        # plowing: "Plowing"                               # tillage
+        plowing: "Labour"                                  # tillage
         # pruning: "Pruning"
-        # raking: "Raking"                                 # tillage
+        raking: "Hersage"                                  # tillage
         # soil_cleaning: "Soil cleaning"
         soil_enrichment: "Amendement"
         sowing: "Semis"
         tillage: "Travail du sol"
-        # transformation: "Transformation"
+        transformation: "Transformation"
         viviparous_birth: "Reproduction (vivipare)"
     product_nature_categories:
       name: "Catégories de produits"
@@ -1222,37 +1222,39 @@ fra:
       items:
         animal_food: "Aliment pour animaux"
         animal_medicine: "Produit vétérinaire"
+        aves_band: "Bande"
+        aves_herd: "Groupe"
         building: "Bâtiment"
         building_division: "Pièce ou zone d’un bâtiment"
         calf: "Veau"
         cattle_herd: "Troupeau de bovins"
         crop: "Culture"
         cultivable_land_parcel: "Parcelle culturale"
-        # electricity: "Electricity"
+        electricity: "Electricité"
         equipment: "Équipement"
         equipment_rent: "Location d’équipement"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         fertilizer: "Engrais"
-        # fuel: "Fuel"
-        # gas: "Gas"
+        fuel: "Gasoil"
+        gas: "Essence"
         grain: "Graine"
         grass: "Herbe"
         installation: "Installation"
-        # irrigation_water: "Irrigation water"
+        irrigation_water: "Eau (irrigation)"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
         male_adult_cow: "Taureau"
         male_young_cow: "Taurillon"
         milk: "Lait"
-        # natural_water: "Natural water"
+        natural_water: "Eau de pluie / puit"
         other_consumable: "Autres consommables"
         plant_medicine: "Produit phytosanitaire"
-        # running_water: "Running water"
+        running_water: "Eau du réseau"
         seed: "Semence"
         small_equipment: "Petit matériel"
         straw: "Paille"
-        # wine: "Wine"
+        wine: "Vin"
         worker: "Responsable"
     product_nature_variants:
       name: "Variantes de produits"
@@ -1271,6 +1273,7 @@ fra:
           1l_dose: "dose de 1l"
           25kg_bag: "sac de 25kg"
           bag: "sac"
+          band: "Bande"
           box: "boîte"
           building: "bâtiment"
           can: "bidon"
@@ -1278,10 +1281,10 @@ fra:
           equipment: "équipement"
           head: "tête"
           hectare: "hectare"
-          # hectoliter: "Hectoliter"
+          hectoliter: "Hectolitre"
           hour: "heure"
           kilogram: "kilogramme"
-          # kilowatt_hour: "Kilowatt hour"
+          kilowatt_hour: "Kilowatt Heure"
           liter: "litre"
           person: "personne"
           room: "salle"
@@ -1297,6 +1300,7 @@ fra:
         animal_food_building_division: "Piece d’accueil pour les aliments"
         animal_waste_building_division: "Zone des déchets organiques"
         anti_slug: "Anti-limace"
+        apple_crop: "Verger de pommiers"
         baler: "Botteleuse"
         barley_crop: "Culture d’orge"
         barley_grain: "Grain d’orge"
@@ -1323,6 +1327,8 @@ fra:
         cow_milk: "Lait de vache"
         cultivable_land_parcel: "Parcelle culturale"
         diesel: "Diesel"
+        duck_band: "Bande de canards"
+        duck_herd: "Groupe de canards"
         durum_wheat_crop: "Culture de blé dur"
         electricity: "Électricité"
         equipment: "Équipement"
@@ -1356,16 +1362,17 @@ fra:
         # mineral_feed_block_25: "Mineral feed block 25"
         molluscicide: "Molluscicide"
         mower: "Faucheuse"
-        # natural_water: "Natural water"
+        natural_water: "Eau de pluie / du puit"
         office_building: "Bureau"
         office_building_division: "Pièce de bureau"
         other_herbicide: "Herbicide autre"
         plow: "Charrue"
+        plum_crop: "Verger de pruniers"
         poacea_herbicide: "Herbicide graminées"
         poaceae_fungicide: "Fongicide céréales"
         # reaper: "Reaper"
         riflexine: "Riflexine"
-        # running_water: "Running water"
+        running_water: "Eau du réseau"
         screed_building: "Construction béton (silo, chape, terrasse)"
         seed: "Semence"
         silage: "Ensilage"
@@ -1427,6 +1434,8 @@ fra:
         chemical_fertilizer: "Engrais chimique"
         crop: "Culture"
         cultivable_land_parcel: "Parcelle culturale"
+        duck_band: "Bande de canards"
+        duck_herd: "Groupe de canards"
         electricity: "Électricité"
         equipment: "Équipement"
         equipment_building_division: "Zone de stockage des équipements"
@@ -1454,11 +1463,11 @@ fra:
         mineral_cleaner: "Nettoyant chimique"
         molluscicide: "Molluscicide"
         mower: "Faucheuse"
-        # natural_water: "Natural water"
+        natural_water: "Eau de pluie / du puit"
         organic_fertilizer: "Engrais organique"
         plow: "Charrue"
         # reaper: "Reaper"
-        # running_water: "Running water"
+        running_water: "Eau du réseau"
         seed: "Semence"
         small_equipment: "Petit matériel"
         sower: "Semoir"
@@ -1583,7 +1592,7 @@ fra:
         # acetal: "Acetal"                                 # animal_medicine
         # actilact: "Actilact"                             # animal_medicine
         additive: "Additif"                                # plant_medicine
-        anas: "Palmipède"                                  # mammalia
+        anas: "Palmipède"                                  # aves
         animal: "Animal"                                   # bioproduct
         animal_group: "Troupeau"                           # product_group
         animal_medicine: "Médicament vétérinaire"          # medicine
@@ -1601,26 +1610,26 @@ fra:
         # brassicaceae: "Brassicaceae"                     # plant
         building: "Bâtiment"                               # product_group
         building_division: "Pièce de bâtiment"             # sub_zone
-        cabernet_franc: "Cabernet franc"                 # vitis_vinifera
-        cabernet_sauvignon: "Cabernet sauvignon"         # vitis_vinifera
+        cabernet_franc: "Cabernet franc"                   # vitis_vinifera
+        cabernet_sauvignon: "Cabernet sauvignon"           # vitis_vinifera
         caphorn: "Blé Caphorn"                             # triticum_aestivum
         capra: "Caprin"                                    # mammalia
-        carignan: "Carignan"                             # vitis_vinifera
-        chardonnay: "Chardonnay"                         # vitis_vinifera
+        carignan: "Carignan"                               # vitis_vinifera
+        chardonnay: "Chardonnay"                           # vitis_vinifera
         cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
         disinfectant: "Désinfectant"                       # antiseptic
         easement: "Aménagement foncier"                    # zone
-        electricity: "Electricité"                       # matter
+        electricity: "Electricité"                         # matter
         equipment: "Équipement"                            # matter
         forager: "Ensileuse"                               # equipment
         fuel: "Gasoil"                                     # organic_matter
         fungicide: "Produit fongicide"                     # plant_medicine
         fungus: "Champignon"                               # bioproduct
         gallus: "Galinacée"                                # aves
-        gas: "Essence"                                       # organic_matter
+        gas: "Essence"                                     # organic_matter
         grain: "Grain"                                     # organic_matter
-        grenache: "Grenache"                             # vitis_vinifera
-        grenache_noir: "Grenache noir"                   # vitis_vinifera
+        grenache: "Grenache"                               # vitis_vinifera
+        grenache_noir: "Grenache noir"                     # vitis_vinifera
         # harvest: "Harvest"                               # equipment
         # hay: "Hay"                                       # organic_matter
         helianthus: "Tournesol"                            # asteraceae
@@ -1633,13 +1642,14 @@ fra:
         land_parcel_cluster: "Îlot"                        # land_parcel_group
         land_parcel_group: "Groupe de parcelles physiques" # product_group
         lepus: "Lagomorphe"                                # mammalia
+        malus: "Pommier"                                   # plant
         mammalia: "Mammifère"                              # animal
         manure: "Fumier"                                   # organic_matter
         matter: "Matérialisable"                           # product
         meat: "Viande"                                     # organic_matter
         medicine: "Médicament"                             # matter
-        merlot_blanc: "Merlot blanc"                     # vitis_vinifera
-        merlot_noir: "Merlot noir"                       # vitis_vinifera
+        merlot_blanc: "Merlot blanc"                       # vitis_vinifera
+        merlot_noir: "Merlot noir"                         # vitis_vinifera
         milk: "Lait"                                       # organic_matter
         mineral_food: "Aliment minéral"                    # organic_matter
         mineral_matter: "Matière minérale"                 # matter
@@ -1649,7 +1659,7 @@ fra:
         organic_matter: "Matière organique"                # matter
         # osteichthyes: "Osteichthyes"                     # animal
         ovis: "Ovin"                                       # mammalia
-        pinot_noir: "Pinot noir"                         # vitis_vinifera
+        pinot_noir: "Pinot noir"                           # vitis_vinifera
         plant: "Végétal"                                   # bioproduct
         plant_food: "Nourriture végétale"                  # organic_matter
         plant_medicine: "Produit phytosanitaire"           # medicine
@@ -1659,12 +1669,13 @@ fra:
         product: "Produit"
         product_group: "Groupe de produit"                 # product
         property_title: "Titre de propriété"               # immatter
+        prunus: "Prunier"                                  # plant
         # reaper: "Reaper"                                 # equipment
         salmo: "Salmonidé"                                 # osteichthyes
         salt: "Sel"                                        # mineral_matter
         sand: "Sable"                                      # mineral_matter
-        sauvignon: "Sauvignon"                           # vitis_vinifera
-        sauvignon_blanc: "Sauvignon blanc"               # vitis_vinifera
+        sauvignon: "Sauvignon"                             # vitis_vinifera
+        sauvignon_blanc: "Sauvignon blanc"                 # vitis_vinifera
         seed: "Semence"                                    # organic_matter
         service: "Service"                                 # immatter
         settlement: "Agencement"                           # easement
@@ -1675,18 +1686,18 @@ fra:
         straw: "Pailles"                                   # organic_matter
         sub_zone: "Sous zone"                              # zone
         sus: "Porcin"                                      # mammalia
-        syrah: "Syrah"                                   # vitis_vinifera
+        syrah: "Syrah"                                     # vitis_vinifera
         tank: "Réservoir"                                  # equipment
         tractor: "Tracteur"                                # equipment
         trailer: "Remorque"                                # equipment
         triticum_aestivum: "Blé tendre"                    # poaceae
         triticum_durum: "Blé dur"                          # poaceae
         triticum_spelta: "Épeautre"                        # poaceae
-        ugni_blanc: "Ugni blanc"                         # vitis_vinifera
-        # vitis: "Vitis"                                   # plant
-        vitis_vinifera: "Vitis vinifera"                 # vitis
+        ugni_blanc: "Ugni blanc"                           # vitis_vinifera
+        vitis: "Vigne"                                     # plant
+        vitis_vinifera: "Vitis vinifera"                   # vitis
         water: "Eau"                                       # matter
-        wine: "Vin"                                     # organic_matter
+        wine: "Vin"                                        # organic_matter
         worker: "Travailleur"                              # equipment
         zea: "Maïs"                                        # poaceae
         zone: "Zone physique"                              # matter

@@ -13,6 +13,12 @@
       </item>
       <item name="vitis">
         <attribute name="itis-tsn" value="28606"/>
+      </item>
+      <item name="prunus">
+        <attribute name="itis-tsn" value="24762"/>
+      </item>
+      <item name="malus">
+        <attribute name="itis-tsn" value="25254"/>
       </item> 
     </items>
   </nomenclature>

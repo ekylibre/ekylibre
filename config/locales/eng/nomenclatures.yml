@@ -276,6 +276,8 @@ eng:
         # third_party: "Compte de tiers"
         # transport_vehicle_asset_depreciations: "Ammortissements des véhicules de transport"
         # transport_vehicle_assets: "Matériel de transport"
+        # transports_expenses: "Frais de transports"
+        # travels_expenses: "Frais de voyages"
         # usual_associated_accounts: "Associes comptes courants - comptes courants"
         # usual_bank_overdraft: "Concours bancaires courants"
         # vat: "État - Taxes sur le chiffre d’affaire"
@@ -294,6 +296,7 @@ eng:
       items:
         # accountancy: "Comptabilité"
         # animal_farming: "Élevage bovins"
+        # aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques"
         # cattle_farming: "Élevage"
         # exploitation: "Exploitation"
         # fallow_land: "Jachère"
@@ -301,10 +304,15 @@ eng:
         # goat_farming: "Élevage caprins"
         # handicraft: "Artisanat"
         # maize_crops: "Culture de maïs"
+        # oilseed_crops: "Culture oléagineuse"
+        # palmiped_farming: "Élevage de palmipèdes"
         # pig_farming: "Élevage porcins"
         # potato_crops: "Culture de pomme de terre"
+        # poultry_farming: "Élevage avicole"
         # prairie: "Prairie"
+        # protein_crops: "Culture protéagineuse"
         # purchases: "Achats"
+        # rabbit_farming: "Élevage cunicole"
         # sales: "Ventes"
         # service: "Service"
         # sheep_farming: "Élevage ovins"
@@ -921,11 +929,17 @@ eng:
       attributes:
         # expression: "Expression"
       items:
+        # amount_of_substance: "Quantité de matière"
         # concentration: "Concentration"
         # electric_current: "Intensité"
+        # energy: "Energie"
         # length: "Longueur"
+        # luminous_intensity: "Intensité lumineuse"
+        # mass_concentration: "Concentration massique"
         # none: "Aucune"
         # power: "Puissance"
+        # specific_volume: "Volume spécifique"
+        # surface_area: "Superficie"
         # temperature: "Temperature"
         # time: "Temps"
         # volume: "Volume"
@@ -964,12 +978,17 @@ eng:
         # general_journal: "Journal général"
         # general_ledger: "Grand livre"
         # income_statement: "Compte de résultat"
+        # incoming_delivery_docket: "Bon de reception"
         # inventory: "Inventaire"
         # journal: "Journal"
         # manure_management_plan: "Plan de fumure"
+        # outgoing_delivery_docket: "Bon de livraison"
+        # outgoing_delivery_journal: "Journal de livraisons"
         # phytosanitary_registry: "Registre phytosanitaire"
         # prescription: "Prescription vétérinaire"
         # profit_and_loss_statement: "Compte de résultat"
+        # purchase_estimate: "Devis d'achat"
+        # purchase_invoice: "Facture d'achat"
         # purchase_order: "Achat"
         # sales_estimate: "Devis de vente"
         # sales_invoice: "Facture de vente"
@@ -991,6 +1010,7 @@ eng:
         civil_society: "Civil society"
         collectivity: "Collectivity"
         company: "Company"
+        # cooperative: "Cooperative"
         doctor: "Doctor"
         economic_interest_group: "Economic interest group"
         entity: "Entity"
@@ -1065,7 +1085,9 @@ eng:
           # string: "Texte"
         gathering: #?
         interpolation: #?
-        related_to: #?
+        related_to:
+          # individual: "Individu"
+          # whole: "Population"
       item_lists:
         animal_disease_state:
           choices:
@@ -1081,7 +1103,12 @@ eng:
         choices: #?
         clostridial_spores_concentration: #?
         cultural_soil_state:
-          choices: #?
+          choices:
+            # covered: "Couvert végétal"
+            # grown: "Culture"
+            # nude: "Nu"
+            # plowed: "Guéret"
+            # raw: "Etat sauvage"
         dry_matter_rate: #?
         fat_matters_concentration: #?
         freezing_point_temperature: #?
@@ -1090,7 +1117,9 @@ eng:
         immunoglobulins_concentration: #?
         inel_index: #?
         inhibitors_presence:
-          choices: #?
+          choices:
+            # negative: "Negatif"
+            # positive: "Positif"
         isu_index: #?
         lipolysis: #?
         livestock_unit: #?
@@ -1103,13 +1132,20 @@ eng:
             # without_help: "Sans aide"
         mammalia_born_cycle: #?
         mammalia_lactation_state:
-          choices: #?
+          choices:
+            # depletion: "Tarie"
+            # lactation: "Lactation"
         mammalia_reproduction_event_abortion: #?
         mammalia_reproduction_method_embryo_transplant: #?
         mammalia_reproduction_state:
-          choices: #?
+          choices:
+            # heat: "Chaleur"
+            # pregnancy: "Pleine"
         mammalia_twins_condition:
-          choices: #?
+          choices:
+            # none: "N/A"
+            # triplets: "Triplés"
+            # twins: "Jumeaux"
         maximum_load_net_volume: #?
         maximum_load_net_weight: #?
         meat_withdrawal_period: #?
@@ -1121,7 +1157,10 @@ eng:
         nitrogen_concentration: #?
         phosphorus_concentration: #?
         plant_life_state:
-          choices: #?
+          choices:
+            # germination: "Germination"
+            # maturity: "Maturité"
+            # senescence: "Senescence"
         plant_reproduction_state:
           choices: #?
         population: #?
@@ -1145,10 +1184,13 @@ eng:
         animal_disease_state: "Animal disease state"
         animal_life_state: "Animal life state"
         # application_width: "Largeur de travail"
+        # calving_ease_index: "Index de facilité de naissane"
         cells_concentration: "Cells concentration" #?
         clostridial_spores_concentration: "Clostridial spores concentration"
         # economical_milk_index: "INEL (INdex Économique Laitier)"
+        # energy: "Energie"
         fat_matters_concentration: "Fat matters concentration"
+        # fertility_index: "Index de fertilité"
         freezing_point_temperature: "Freezing point temperature"
         # geographic_coordinate: "Coordonnées géographiques"
         ground_appearance: "Ground appearance" #?
@@ -1308,13 +1350,17 @@ eng:
         # haymaking: "Fenaison"
         # milk_production: "Production laitière"
         # oviparous_birth: "Reproduction (ovipare)"
+        # plant_fertilisation: "Fertilisation"
         # plant_illness_treatment: "Traitements phytosanitaires"
+        # plowing: "Labour"
         production: "Production" #?
+        # raking: "Hersage"
         reproduction: "Reproduction" #?
         # soil_enrichment: "Amendement"
         # sowing: "Semis"
         technical_guide: "Technical guide" #?
         tillage: "Tillage"
+        # transformation: "Transformation"
         treatment: "Treatment" #?
         # viviparous_birth: "Reproduction (vivipare)"
       name: "Name"
@@ -1365,30 +1411,39 @@ eng:
       items:
         # animal_food: "Aliment pour animaux"
         # animal_medicine: "Produit vétérinaire"
+        # aves_band: "Bande"
+        # aves_herd: "Groupe"
         # building: "Bâtiment"
         # building_division: "Pièce ou zone d’un bâtiment"
         # calf: "Veau"
         # cattle_herd: "Troupeau de bovins"
         # crop: "Culture"
         # cultivable_land_parcel: "Parcelle culturale"
+        # electricity: "Electricité"
         # equipment: "Équipement"
         # equipment_rent: "Location d’équipement"
         # female_adult_cow: "Vache"
         # female_young_cow: "Génisse"
         # fertilizer: "Engrais"
+        # fuel: "Gasoil"
+        # gas: "Essence"
         # grain: "Graine"
         # grass: "Herbe"
         # installation: "Installation"
+        # irrigation_water: "Eau (irrigation)"
         # land_parcel: "Parcelle"
         # land_parcel_cluster: "Îlot"
         # male_adult_cow: "Taureau"
         # male_young_cow: "Taurillon"
         # milk: "Lait"
+        # natural_water: "Eau de pluie / puit"
         # other_consumable: "Autres consommables"
         # plant_medicine: "Produit phytosanitaire"
+        # running_water: "Eau du réseau"
         # seed: "Semence"
         # small_equipment: "Petit matériel"
         # straw: "Paille"
+        # wine: "Vin"
         # worker: "Responsable"
       # name: "Catégories de produits"
     product_nature_variants:
@@ -1405,6 +1460,7 @@ eng:
           # 1l_dose: "dose de 1l"
           # 25kg_bag: "sac de 25kg"
           # bag: "sac"
+          # band: "Bande"
           # box: "boîte"
           # building: "bâtiment"
           # can: "bidon"
@@ -1412,8 +1468,10 @@ eng:
           # equipment: "équipement"
           # head: "tête"
           # hectare: "hectare"
+          # hectoliter: "Hectolitre"
           # hour: "heure"
           # kilogram: "kilogramme"
+          # kilowatt_hour: "Kilowatt Heure"
           # liter: "litre"
           # person: "personne"
           # room: "salle"
@@ -1428,6 +1486,7 @@ eng:
         # animal_food_building_division: "Piece d’accueil pour les aliments"
         # animal_waste_building_division: "Zone des déchets organiques"
         # anti_slug: "Anti-limace"
+        # apple_crop: "Verger de pommiers"
         # baler: "Botteleuse"
         # barley_crop: "Culture d’orge"
         # barley_grain: "Grain d’orge"
@@ -1451,6 +1510,8 @@ eng:
         # cow_milk: "Lait de vache"
         # cultivable_land_parcel: "Parcelle culturale"
         # diesel: "Diesel"
+        # duck_band: "Bande de canards"
+        # duck_herd: "Groupe de canards"
         # durum_wheat_crop: "Culture de blé dur"
         # electricity: "Électricité"
         # equipment: "Équipement"
@@ -1471,6 +1532,7 @@ eng:
         # hay_rake: "Andaineur"
         # helianthus_herbicide: "Herbicide tournesol"
         # insecticide: "Insecticide"
+        # irrigation_water: "Eau (irrigation)"
         # land_parcel: "Parcelle"
         # land_parcel_cluster: "Îlot"
         # male_adult_cow: "Taureau"
@@ -1480,13 +1542,16 @@ eng:
         # mineral_cleaner: "Nettoyant chimique"
         # molluscicide: "Molluscicide"
         # mower: "Faucheuse"
+        # natural_water: "Eau de pluie / du puit"
         # office_building: "Bureau"
         # office_building_division: "Pièce de bureau"
         # other_herbicide: "Herbicide autre"
         # plow: "Charrue"
+        # plum_crop: "Verger de pruniers"
         # poacea_herbicide: "Herbicide graminées"
         # poaceae_fungicide: "Fongicide céréales"
         # riflexine: "Riflexine"
+        # running_water: "Eau du réseau"
         # screed_building: "Construction béton (silo, chape, terrasse)"
         # seed: "Semence"
         # silage: "Ensilage"
@@ -1503,11 +1568,15 @@ eng:
         # temporary_meadow_crop: "Culture de prairie temporaire"
         # tractor: "Tracteur"
         # trailer: "Remorque"
+        # vine_grape_berry: "Grappe de raisin"
+        # vine_grape_crop: "Culture de vigne"
+        # vine_grape_must: "Mout de raisin"
         # wheat_crop: "Culture de blé"
         # wheat_grain: "Graine de blé"
         # wheat_seed_25: "Semence de blé 25kg"
         # wheat_straw: "Paille de blé"
         # wheat_straw_bales: "Bottes de paille de blé"
+        # wine: "Vin"
         # zea_herbicide: "Herbicide maïs"
       # name: "Variantes de produits"
     product_natures:
@@ -1555,6 +1624,8 @@ eng:
         # chemical_fertilizer: "Engrais chimique"
         # crop: "Culture"
         # cultivable_land_parcel: "Parcelle culturale"
+        # duck_band: "Bande de canards"
+        # duck_herd: "Groupe de canards"
         # electricity: "Électricité"
         # equipment: "Équipement"
         # equipment_building_division: "Zone de stockage des équipements"
@@ -1571,6 +1642,7 @@ eng:
         # hay_rake: "Andaineur"
         # herbicide: "Herbicide"
         # insecticide: "Insecticide"
+        # irrigation_water: "Eau (irrigation)"
         land_parcel: "Land parcel"
         # land_parcel_cluster: "Îlot"
         # male_adult_cow: "Taureau"
@@ -1581,8 +1653,10 @@ eng:
         # mineral_cleaner: "Nettoyant chimique"
         # molluscicide: "Molluscicide"
         # mower: "Faucheuse"
+        # natural_water: "Eau de pluie / du puit"
         # organic_fertilizer: "Engrais organique"
         # plow: "Charrue"
+        # running_water: "Eau du réseau"
         # seed: "Semence"
         # small_equipment: "Petit matériel"
         # sower: "Semoir"
@@ -1596,6 +1670,7 @@ eng:
         trail: "Trail" #?
         # trailer: "Remorque"
         wheat_crop: "Wheat crop" #?
+        # wine: "Vin"
         young_cow: "Young cow" #?
       name: "Name"
     production_natures:  #?
@@ -1722,17 +1797,26 @@ eng:
         # bos: "Bovin"
         # building: "Bâtiment"
         # building_division: "Pièce de bâtiment"
+        # cabernet_franc: "Cabernet franc"
+        # cabernet_sauvignon: "Cabernet sauvignon"
         # caphorn: "Blé Caphorn"
         # capra: "Caprin"
+        # carignan: "Carignan"
+        # chardonnay: "Chardonnay"
         # cultivable_land_parcel: "Parcelle culturale"
         # disinfectant: "Désinfectant"
         # easement: "Aménagement foncier"
+        # electricity: "Electricité"
         equipment: "Equipment"
         # forager: "Ensileuse"
+        # fuel: "Gasoil"
         # fungicide: "Produit fongicide"
         fungus: "Fungus"
         # gallus: "Galinacée"
+        # gas: "Essence"
         # grain: "Grain"
+        # grenache: "Grenache"
+        # grenache_noir: "Grenache noir"
         # helianthus: "Tournesol"
         # herbicide: "Produit herbicide"
         # hordeum: "Orge"
@@ -1743,11 +1827,14 @@ eng:
         # land_parcel_cluster: "Îlot"
         # land_parcel_group: "Groupe de parcelles physiques"
         # lepus: "Lagomorphe"
+        # malus: "Pommier"
         # mammalia: "Mammifère"
         # manure: "Fumier"
         matter: "Matter"
         # meat: "Viande"
         # medicine: "Médicament"
+        # merlot_blanc: "Merlot blanc"
+        # merlot_noir: "Merlot noir"
         # milk: "Lait"
         # mineral_food: "Aliment minéral"
         mineral_matter: "Mineral matter"
@@ -1757,6 +1844,7 @@ eng:
         organic_matter: "Organic matter"
         # ovis: "Ovin"
         phytosanitary: "Phytosanitary" #?
+        # pinot_noir: "Pinot noir"
         plant: "Plant"
         # plant_food: "Nourriture végétale"
         # plant_medicine: "Produit phytosanitaire"
@@ -1766,9 +1854,12 @@ eng:
         product: "Product"
         product_group: "Product group"
         property_title: "Property title"
+        # prunus: "Prunier"
         # salmo: "Salmonidé"
         # salt: "Sel"
         # sand: "Sable"
+        # sauvignon: "Sauvignon"
+        # sauvignon_blanc: "Sauvignon blanc"
         # seed: "Semence"
         service: "Service"
         # settlement: "Agencement"
@@ -1779,13 +1870,18 @@ eng:
         # straw: "Pailles"
         # sub_zone: "Sous zone"
         # sus: "Porcin"
+        # syrah: "Syrah"
         # tank: "Réservoir"
         # tractor: "Tracteur"
         # trailer: "Remorque"
         # triticum_aestivum: "Blé tendre"
         # triticum_durum: "Blé dur"
         # triticum_spelta: "Épeautre"
+        # ugni_blanc: "Ugni blanc"
+        # vitis: "Vigne"
+        # vitis_vinifera: "Vitis vinifera"
         # water: "Eau"
+        # wine: "Vin"
         worker: "Worker"
         # zea: "Maïs"
         zone: "Zone"

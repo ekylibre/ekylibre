@@ -83,7 +83,24 @@
             abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move"
             variable_indicators="net_weight, animal_life_state, animal_disease_state, mammalia_born_condition"
             frozen_indicators="population, sex, reproductor, livestock_unit"
-            />   
+            />
+      <item name="duck_herd"
+            category="aves_herd"
+            variety="animal_group"
+            derivative_of="anas"
+            population_counting="unitary"
+            abilities="move, consume(water), consume(poaceae), produce(excrement)"
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+       <item name="duck_band"
+            category="aves_band"
+            variety="anas"
+            population_counting="integer"
+            abilities="move, consume(water), consume(poaceae), produce(excrement)"
+            variable_indicators="population"
+            frozen_indicators=""
+            />
       <item name="crop"
             category="crop"
             variety="plant"
