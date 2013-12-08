@@ -62,16 +62,14 @@ class Version < ActiveRecord::Base
   serialize :item_changes, HashWithIndifferentAccess
 
   before_save do
-    excludeds = [:updated_at, :updater_id, :lock_version]
     self.created_at ||= Time.now
     self.creator ||= Version.current_user
     if self.creator
       self.creator_name ||= self.creator.name
     end
-    self.item_object = self.item.attributes.with_indifferent_access
-    self.item_object.delete_if{|k,v| excludeds.include?(k.to_sym)}
+    self.item_object = self.item.version_object
     if previous = self.previous
-      self.item_changes = previous.item_object.diff(self.item_object)
+      self.item_changes = self.class.diff(previous.item_object, self.item_object)
     end
   end
 
@@ -81,6 +79,10 @@ class Version < ActiveRecord::Base
 
   before_destroy do
     raise StandardError, "Cannot destroy a past version"
+  end
+
+  def self.diff(a, b)
+    return a.diff(b)
   end
 
   def siblings
@@ -97,9 +99,16 @@ class Version < ActiveRecord::Base
 
   def changes
     return @changes ||= self.item_changes.collect do |name, value|
-      VersionChange.new(self, name, self.item_object[name], value)
+      VersionChange.new(self, name, value, self.item_object[name])
     end
   end
 
+  def visible_changes
+    return @changes ||= self.item_changes.collect do |name, value|
+      unless value.blank? and self.item_object[name].blank?
+        VersionChange.new(self, name, value, self.item_object[name])
+      end
+    end
+  end
 
 end

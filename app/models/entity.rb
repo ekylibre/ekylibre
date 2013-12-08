@@ -73,6 +73,7 @@ class Entity < Ekylibre::Record::Base
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
   enumerize :nature, in: Nomen::EntityNatures.all, default: Nomen::EntityNatures.default, predicates: {prefix: true}
+  versionize exclude: [:full_name]
   # belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   belongs_to :proposer, class_name: "Entity"
   belongs_to :responsible, class_name: "User"
@@ -175,12 +176,12 @@ class Entity < Ekylibre::Record::Base
   end
 
   # validate do
-    # if self.nature
-      # if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
-        # errors.add(:last_name, :missing_title, :title => self.nature.title)
-      # end
-    # end
-    # return true
+  #   if self.nature
+  #     if self.nature.in_name and not self.last_name.match(/( |^)#{self.nature.title}( |$)/i)
+  #       errors.add(:last_name, :missing_title, :title => self.nature.title)
+  #     end
+  #   end
+  #   return true
   # end
 
   after_save do
