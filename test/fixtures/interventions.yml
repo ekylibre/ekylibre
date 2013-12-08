@@ -31,6 +31,8 @@
 #  production_support_id       :integer
 #  provisional                 :boolean          not null
 #  provisional_intervention_id :integer
+#  recommended                 :boolean          not null
+#  recommender_id              :integer
 #  reference_name              :string(255)      not null
 #  ressource_id                :integer
 #  ressource_type              :string(255)
@@ -50,6 +52,7 @@
 #   natures: "Lorem ipsum"
 #   production_id: 1
 #   provisional: true
+#   recommended: true
 #   reference_name: "Lorem ipsum"
 #   state: "Lorem ipsum"
 #   updated_at: 2009-07-19 19:13:59 +02:00

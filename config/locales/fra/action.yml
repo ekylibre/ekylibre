@@ -143,6 +143,8 @@ fra:
       # show: "Show backend/cells/last outgoing deliveries cell"
     backend/cells/last_products_cells:
       # show: "Show backend/cells/last products cell"
+    backend/cells/map_cells:
+      # show: "Show backend/cells/map cell"
     backend/cells/placeholder_cells:
       # show: "Show backend/cells/placeholder cell"
     backend/cells/product_bar_cells:
@@ -692,6 +694,7 @@ fra:
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_outgoing_deliveries_cells: "Backend/cells/last outgoing deliveries cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
+    # backend/cells/map_cells: "Backend/cells/map cells"
     # backend/cells/placeholder_cells: "Backend/cells/placeholder cells"
     # backend/cells/product_bar_cells: "Backend/cells/product bar cells"
     # backend/cells/purchases_bar_cells: "Backend/cells/purchases bar cells"

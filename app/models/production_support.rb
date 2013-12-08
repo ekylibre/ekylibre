@@ -64,7 +64,7 @@ class ProductionSupport < Ekylibre::Record::Base
   def time_cost
     self.cost(:doer)
   end
-  
+
 end
 
 

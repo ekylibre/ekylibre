@@ -133,6 +133,7 @@ arb:
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
+    backend/cells/map_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
@@ -1482,6 +1483,7 @@ arb:
       # other: "Nouveau transport pour %{transporter} (%{count} livraisons)"
     new_value: "قيمة جديدة"
     next: "التالي"
+    # nitrogen_concentration: "Teneur en azote"
     no_commercial: "-- دون تداول --"
     # no_contacts: "Aucune adresse définie pour %{name}"
     # no_data: "Aucune donnée"

@@ -31,6 +31,8 @@
 #  production_support_id       :integer
 #  provisional                 :boolean          not null
 #  provisional_intervention_id :integer
+#  recommended                 :boolean          not null
+#  recommender_id              :integer
 #  reference_name              :string(255)      not null
 #  ressource_id                :integer
 #  ressource_type              :string(255)

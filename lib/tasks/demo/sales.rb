@@ -27,7 +27,7 @@ demo :sales do
   end
 
   Ekylibre::fixturize :wheat_sales do |w|
-    
+
     unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Kazeni%".mb_chars.downcase).first
       cooperative = LegalEntity.create!(last_name: "Kazeni",
                                         nature: :cooperative,
@@ -48,7 +48,7 @@ demo :sales do
                                           }
                                         })
     end
-    
+
     # Create wheat product
     wheat = ProductNatureVariant.import_from_nomenclature(:wheat_grain)
     catalog = Catalog.first
@@ -107,7 +107,7 @@ demo :sales do
   end
 
   Ekylibre::fixturize :calf_sales do |w|
-    
+
     unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Caroli%".mb_chars.downcase).first
       cooperative = LegalEntity.create!(last_name: "Caroli",
                                         nature: :cooperative,
@@ -128,7 +128,7 @@ demo :sales do
                                           }
                                         })
     end
-    
+
     # Create cow product
     cow = ProductNatureVariant.find_by(:reference_name => 'calf')
     cow ||= ProductNatureVariant.import_from_nomenclature(:calf)
@@ -185,9 +185,9 @@ demo :sales do
       w.check_point
     end
   end
-  
+
   Ekylibre::fixturize :milk_sales do |w|
-    
+
     unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%TerriLacti%".mb_chars.downcase).first
       cooperative = LegalEntity.create!(last_name: "TerriLacti",
                                         nature: :cooperative,
@@ -235,7 +235,7 @@ demo :sales do
                            :price => price,
                            :tax_id => milk_price_template_taxes.id
                            )
-      
+
       if !rand(20).zero?
         Sale.where(:id => sale.id).update_all(:created_on => d)
         sale.propose

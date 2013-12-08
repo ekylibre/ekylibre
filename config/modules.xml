@@ -1397,6 +1397,10 @@
       <item name="events_cells">
         <page to="backend/cells/events_cells#show"/>
       </item>
+      <item name="map_cells">
+        <page to="backend/cells/map_cells#show"/>
+        <page to="backend/cells/map_cells#update"/>
+      </item>
       <item name="cultivable_land_parcels">
         <page to="backend/cultivable_land_parcels#list_carried_linkages"/>
         <page to="backend/cultivable_land_parcels#list_carrier_linkages"/>

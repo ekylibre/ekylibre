@@ -31,6 +31,8 @@
 #  production_support_id       :integer
 #  provisional                 :boolean          not null
 #  provisional_intervention_id :integer
+#  recommended                 :boolean          not null
+#  recommender_id              :integer
 #  reference_name              :string(255)      not null
 #  ressource_id                :integer
 #  ressource_type              :string(255)
@@ -52,17 +54,19 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :incident
   belongs_to :prescription
   belongs_to :provisional_intervention, class_name: "Intervention"
+  belongs_to :recommender, class_name: "Entity"
   has_many :casts, -> { order(:reference_name) }, class_name: "InterventionCast", inverse_of: :intervention
   has_many :operations, inverse_of: :intervention
   enumerize :reference_name, in: Procedo.names.sort
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :natures, :reference_name, :ressource_type, :state, allow_nil: true, maximum: 255
-  validates_inclusion_of :provisional, in: [true, false]
+  validates_inclusion_of :provisional, :recommended, in: [true, false]
   validates_presence_of :natures, :production, :reference_name, :state
   #]VALIDATORS]
   validates_inclusion_of :reference_name, in: self.reference_name.values
   validates_presence_of  :started_at, :stopped_at
+  validates_presence_of :recommender, :if => :recommended?
 
 
   delegate :storage, to: :production_support

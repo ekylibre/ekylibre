@@ -553,6 +553,8 @@ class CreateBase < ActiveRecord::Migration
       t.references :provisional_intervention,                                 index: true
       t.references :production_support,                                       index: true
       t.boolean    :provisional,              default: false,    null: false
+      t.boolean    :recommended,              default: false,    null: false
+      t.references :recommender,                                              index: true
       t.references :incident,                                                 index: true
       t.references :prescription,                                             index: true
       t.references :production,                                  null: false, index: true

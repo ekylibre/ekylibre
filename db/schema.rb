@@ -980,6 +980,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "provisional_intervention_id"
     t.integer  "production_support_id"
     t.boolean  "provisional",                 default: false, null: false
+    t.boolean  "recommended",                 default: false, null: false
+    t.integer  "recommender_id"
     t.integer  "incident_id"
     t.integer  "prescription_id"
     t.integer  "production_id",                               null: false
@@ -1002,6 +1004,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "interventions", ["production_id"], :name => "index_interventions_on_production_id"
   add_index "interventions", ["production_support_id"], :name => "index_interventions_on_production_support_id"
   add_index "interventions", ["provisional_intervention_id"], :name => "index_interventions_on_provisional_intervention_id"
+  add_index "interventions", ["recommender_id"], :name => "index_interventions_on_recommender_id"
   add_index "interventions", ["reference_name"], :name => "index_interventions_on_reference_name"
   add_index "interventions", ["ressource_id", "ressource_type"], :name => "index_interventions_on_ressource_id_and_ressource_type"
   add_index "interventions", ["started_at"], :name => "index_interventions_on_started_at"

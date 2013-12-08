@@ -160,6 +160,8 @@
 # - "backend/cells/last_outgoing_deliveries_cells#show"
 # - "backend/cells/last_products_cells#list"
 # - "backend/cells/last_products_cells#show"
+# - "backend/cells/map_cells#show"
+# - "backend/cells/map_cells#update"
 # - "backend/cells/placeholder_cells#show"
 # - "backend/cells/product_bar_cells#show"
 # - "backend/cells/purchases_bar_cells#show"

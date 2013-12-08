@@ -420,6 +420,7 @@ module Ekylibre
       :production_id => :production,
       :production_support_id => :production_support,
       :provisional_intervention_id => :intervention,
+      :recommender_id => :entity,
       :ressource_id => "ressource_type",
       :updater_id => :user
     },
@@ -1806,6 +1807,8 @@ module Ekylibre
       production_support_id: Ekylibre::Record::Column.new(:production_support_id, :integer).freeze,
       provisional: Ekylibre::Record::Column.new(:provisional, :boolean, null: false).freeze,
       provisional_intervention_id: Ekylibre::Record::Column.new(:provisional_intervention_id, :integer).freeze,
+      recommended: Ekylibre::Record::Column.new(:recommended, :boolean, null: false).freeze,
+      recommender_id: Ekylibre::Record::Column.new(:recommender_id, :integer).freeze,
       reference_name: Ekylibre::Record::Column.new(:reference_name, :string, null: false).freeze,
       ressource_id: Ekylibre::Record::Column.new(:ressource_id, :integer).freeze,
       ressource_type: Ekylibre::Record::Column.new(:ressource_type, :string).freeze,

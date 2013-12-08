@@ -125,6 +125,7 @@ eng:
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
+    backend/cells/map_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
@@ -1298,6 +1299,7 @@ eng:
       other: "New transport for %{transporter} (%{count} deliveries)"
     new_value: "New value"
     next: "Next"
+    # nitrogen_concentration: "Teneur en azote"
     no_commercial: "No commercial"
     no_contacts: "No address defined for %{name}"
     # no_data: "Aucune donnée"
