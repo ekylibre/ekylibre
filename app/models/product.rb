@@ -450,8 +450,8 @@ class Product < Ekylibre::Record::Base
         end
       end
     elsif cast_or_time.is_a?(InterventionCast)
-      if cast.reference.new?
-        unless variant = cast.variant || cast.reference.variant(cast.intervention)
+      if cast_or_time.reference.new?
+        unless variant = cast_or_time.variant || cast_or_time.reference.variant(cast.intervention)
           raise StandardError, "Need variant to know how to measure it"
         end
         if variant.frozen_indicators.include?(indicator)
@@ -460,14 +460,14 @@ class Product < Ekylibre::Record::Base
           raise StandardError, "Cannot measure a variable an unknown time"
         end
       else
-        if datum = self.indicator_datum(indicator.name, at: cast.intervention.started_at)
+        if datum = self.indicator_datum(indicator.name, at: cast_or_time.intervention.started_at)
           value = datum.value
         end
       end
       # Adjust value
       if value and indicator.gathering
         if indicator.gathering == :proportional_to_population
-          value *= cast.population
+          value *= cast_or_time.population
         end
       end
     end
