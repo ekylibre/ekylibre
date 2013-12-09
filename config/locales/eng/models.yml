@@ -595,6 +595,7 @@ eng:
     # affected_on: "Affecté le"
     age: "Age"
     agency_code: "Agency code" #?
+    # aim: "Aim"
     # all_taxes_included: "All taxes included"
     allocation_account: "Allocation account"
     amount: "Amount"
@@ -974,6 +975,7 @@ eng:
     indicator: "Indicator"
     # indicator_data: "Indicator data"
     # indicator_datatype: "Indicator datatype"
+    # indicator_name: "Indicator name"
     indicators: "Indicators"
     indirect_links: "Indirect links"
     # individual: "Individual"
@@ -1072,6 +1074,7 @@ eng:
     # managed_transports: "Transports gérés"
     # managed_unpaid_sales: "Ventes impayées gérées"
     mandates: "Mandates"
+    # marker_data: "Marker data"
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     # maximal_length: "Longueur maximale"
     # maximal_quantity: "Maximal quantity"

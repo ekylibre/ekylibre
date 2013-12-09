@@ -508,6 +508,8 @@ eng:
       edit: "Edit the stock transfer/loss" #?
       index: "Transfers and loss" #?
       new: "Add a new stock transfer or loss" #?
+    backend/production_support_marker_indicator_data: #?
+    backend/production_support_markers: #?
     backend/production_supports: #?
     backend/productions:
       edit: "Edit production\_: %{name}"

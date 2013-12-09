@@ -2,7 +2,7 @@
 module Ekylibre
   mattr_reader :models, :references, :schema
   # List of all models
-  @@models = [:account, :account_balance, :activity, :affair, :analytic_repartition, :animal, :animal_group, :animal_medicine, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :building, :building_division, :campaign, :cash, :cash_transfer, :catalog, :catalog_price, :cultivable_land_parcel, :custom_field, :custom_field_choice, :deposit, :deposit_item, :district, :document, :document_archive, :document_template, :easement, :entity, :entity_address, :entity_link, :equipment, :establishment, :event, :event_nature, :event_participation, :financial_year, :fungus, :gap, :immatter, :incident, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :intervention, :intervention_cast, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :land_parcel_cluster, :land_parcel_group, :legal_entity, :listing, :listing_node, :listing_node_item, :mandate, :matter, :medicine, :mineral_matter, :observation, :operation, :organic_matter, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :person, :plant, :plant_medicine, :preference, :prescription, :product, :product_birth, :product_death, :product_enjoyment, :product_group, :product_indicator_datum, :product_linkage, :product_localization, :product_measurement, :product_membership, :product_nature, :product_nature_category, :product_nature_variant, :product_nature_variant_indicator_datum, :product_ownership, :product_phase, :product_process, :product_process_phase, :production, :production_support, :property_title, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :settlement, :sub_zone, :subscription, :subscription_nature, :tax, :tax_declaration, :team, :tracking, :transfer, :transport, :user, :version, :worker, :zone, :zone_property_title]
+  @@models = [:account, :account_balance, :activity, :affair, :analytic_repartition, :animal, :animal_group, :animal_medicine, :area, :asset, :asset_depreciation, :bank_statement, :bioproduct, :building, :building_division, :campaign, :cash, :cash_transfer, :catalog, :catalog_price, :cultivable_land_parcel, :custom_field, :custom_field_choice, :deposit, :deposit_item, :district, :document, :document_archive, :document_template, :easement, :entity, :entity_address, :entity_link, :equipment, :establishment, :event, :event_nature, :event_participation, :financial_year, :fungus, :gap, :immatter, :incident, :incoming_delivery, :incoming_delivery_item, :incoming_delivery_mode, :incoming_payment, :incoming_payment_mode, :intervention, :intervention_cast, :inventory, :inventory_item, :journal, :journal_entry, :journal_entry_item, :land_parcel, :land_parcel_cluster, :land_parcel_group, :legal_entity, :listing, :listing_node, :listing_node_item, :mandate, :matter, :medicine, :mineral_matter, :observation, :operation, :organic_matter, :outgoing_delivery, :outgoing_delivery_item, :outgoing_delivery_mode, :outgoing_payment, :outgoing_payment_mode, :person, :plant, :plant_medicine, :preference, :prescription, :product, :product_birth, :product_death, :product_enjoyment, :product_group, :product_indicator_datum, :product_linkage, :product_localization, :product_measurement, :product_membership, :product_nature, :product_nature_category, :product_nature_variant, :product_nature_variant_indicator_datum, :product_ownership, :product_phase, :product_process, :product_process_phase, :production, :production_support, :production_support_marker, :property_title, :purchase, :purchase_item, :purchase_nature, :role, :sale, :sale_item, :sale_nature, :sequence, :service, :settlement, :sub_zone, :subscription, :subscription_nature, :tax, :tax_declaration, :team, :tracking, :transfer, :transport, :user, :version, :worker, :zone, :zone_property_title]
 
   # List of all references
   @@references = {
@@ -876,6 +876,11 @@ module Ekylibre
       :creator_id => :user,
       :production_id => :production,
       :storage_id => :product,
+      :updater_id => :user
+    },
+    :production_support_marker => {
+      :creator_id => :user,
+      :support_id => :production_support,
       :updater_id => :user
     },
     :property_title => {
@@ -2432,6 +2437,29 @@ module Ekylibre
       updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
       updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze,
       variety: Ekylibre::Record::Column.new(:variety, :string, limit: 120, null: false).freeze
+    ).freeze,
+    production_support_markers: HashWithIndifferentAccess.new(
+      aim: Ekylibre::Record::Column.new(:aim, :string, null: false).freeze,
+      boolean_value: Ekylibre::Record::Column.new(:boolean_value, :boolean, null: false).freeze,
+      choice_value: Ekylibre::Record::Column.new(:choice_value, :string).freeze,
+      created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,
+      creator_id: Ekylibre::Record::Column.new(:creator_id, :integer).freeze,
+      decimal_value: Ekylibre::Record::Column.new(:decimal_value, :decimal, precision: 19, scale: 4).freeze,
+      geometry_value: Ekylibre::Record::Column.new(:geometry_value, :spatial).freeze,
+      id: Ekylibre::Record::Column.new(:id, :integer, null: false).freeze,
+      indicator_datatype: Ekylibre::Record::Column.new(:indicator_datatype, :string, null: false).freeze,
+      indicator_name: Ekylibre::Record::Column.new(:indicator_name, :string, null: false).freeze,
+      lock_version: Ekylibre::Record::Column.new(:lock_version, :integer, null: false, default: 0).freeze,
+      measure_value_unit: Ekylibre::Record::Column.new(:measure_value_unit, :string).freeze,
+      measure_value_value: Ekylibre::Record::Column.new(:measure_value_value, :decimal, precision: 19, scale: 4).freeze,
+      multi_polygon_value: Ekylibre::Record::Column.new(:multi_polygon_value, :spatial).freeze,
+      point_value: Ekylibre::Record::Column.new(:point_value, :spatial).freeze,
+      started_at: Ekylibre::Record::Column.new(:started_at, :datetime).freeze,
+      stopped_at: Ekylibre::Record::Column.new(:stopped_at, :datetime).freeze,
+      string_value: Ekylibre::Record::Column.new(:string_value, :text).freeze,
+      support_id: Ekylibre::Record::Column.new(:support_id, :integer, null: false).freeze,
+      updated_at: Ekylibre::Record::Column.new(:updated_at, :datetime, null: false).freeze,
+      updater_id: Ekylibre::Record::Column.new(:updater_id, :integer).freeze
     ).freeze,
     production_supports: HashWithIndifferentAccess.new(
       created_at: Ekylibre::Record::Column.new(:created_at, :datetime, null: false).freeze,

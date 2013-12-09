@@ -371,6 +371,7 @@ fra:
       product_process_phase: "Phase de processus"
       production: "Production"
       production_support: "Support de production"
+      # production_support_marker: "Production support marker"
       profession: "Profession" #?
       property_title: "Titre de propriété"
       purchase: "Achat"
@@ -422,6 +423,7 @@ fra:
     # affectation_percentage: "Affectation percentage"
     affected_on: "Affecté le"
     age: "Âge" #?
+    aim: "Aim"
     all_taxes_included: "All taxes included"
     allocation_account: "Compte de dotation"
     amount: "Montant"
@@ -726,6 +728,7 @@ fra:
     indicator: "Indicator"
     indicator_data: "Indicator data"
     indicator_datatype: "Indicator datatype"
+    indicator_name: "Indicator name"
     indicators: "Indicators"
     indirect_links: "Liens indirects"
     individual: "Individual" #?
@@ -817,6 +820,7 @@ fra:
     managed_transports: "Transports gérés" #?
     managed_unpaid_sales: "Ventes impayées gérées" #?
     mandates: "Responsabilités"
+    marker_data: "Marker data"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
     maximal_quantity: "Maximal quantity" #?
@@ -1103,6 +1107,7 @@ fra:
     supplier: "Fournisseur"
     supplier_account: "Compte fournisseur associé"
     suppliers: "Fournisseurs"
+    # support: "Support"
     supports: "Supports"
     suspended: "Suspendu"
     target: "Cible"

@@ -469,6 +469,8 @@ jpn:
     backend/product_process_phases: #?
     backend/product_processes: #?
     backend/product_transfers: #?
+    backend/production_support_marker_indicator_data: #?
+    backend/production_support_markers: #?
     backend/production_supports: #?
     backend/productions:
       # edit: "Modifier la production\_: %{name}"

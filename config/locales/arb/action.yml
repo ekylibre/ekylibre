@@ -579,6 +579,8 @@ arb:
     backend/production:  #?
       index: "ادارة الانتاج" #?
       unvalidated_operations: "تحقيق الاعمال" #?
+    backend/production_support_marker_indicator_data: #?
+    backend/production_support_markers: #?
     backend/production_supports: #?
     backend/productions:
       # edit: "Modifier la production\_: %{name}"

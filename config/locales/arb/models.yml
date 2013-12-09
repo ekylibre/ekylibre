@@ -1022,6 +1022,7 @@ arb:
     # affected_on: "Affecté le"
     # age: "Âge"
     agency_code: "رمز الوكالة" #?
+    # aim: "Aim"
     # all_taxes_included: "All taxes included"
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"
@@ -1407,6 +1408,7 @@ arb:
     # indicator: "Indicator"
     # indicator_data: "Indicator data"
     # indicator_datatype: "Indicator datatype"
+    # indicator_name: "Indicator name"
     # indicators: "Indicators"
     indirect_links: "روابط مباشرة"
     # individual: "Individual"
@@ -1515,6 +1517,7 @@ arb:
     # managed_transports: "Transports gérés"
     # managed_unpaid_sales: "Ventes impayées gérées"
     mandates: "تفويضات"
+    # marker_data: "Marker data"
     master: "كتلة رئيسية" #?
     max_reduction_rate: "سعر التخفيض" #?
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"

@@ -1940,6 +1940,38 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_processes", ["updater_id"], :name => "index_product_processes_on_updater_id"
   add_index "product_processes", ["variety"], :name => "index_product_processes_on_variety"
 
+  create_table "production_support_markers", force: true do |t|
+    t.integer  "support_id",                                                                                                            null: false
+    t.string   "indicator_name",                                                                                                        null: false
+    t.string   "aim",                                                                                                                   null: false
+    t.string   "indicator_datatype",                                                                                                    null: false
+    t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
+    t.string   "measure_value_unit"
+    t.text     "string_value"
+    t.boolean  "boolean_value",                                                                                         default: false, null: false
+    t.string   "choice_value"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",                                                                                                            null: false
+    t.datetime "updated_at",                                                                                                            null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                                                          default: 0,     null: false
+    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
+    t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
+    t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+  end
+
+  add_index "production_support_markers", ["created_at"], :name => "index_production_support_markers_on_created_at"
+  add_index "production_support_markers", ["creator_id"], :name => "index_production_support_markers_on_creator_id"
+  add_index "production_support_markers", ["indicator_name"], :name => "index_production_support_marker_indicator_data_on_indicator"
+  add_index "production_support_markers", ["started_at"], :name => "index_production_support_marker_indicator_data_on_started_at"
+  add_index "production_support_markers", ["stopped_at"], :name => "index_production_support_marker_indicator_data_on_stopped_at"
+  add_index "production_support_markers", ["support_id"], :name => "index_production_support_markers_on_support_id"
+  add_index "production_support_markers", ["updated_at"], :name => "index_production_support_markers_on_updated_at"
+  add_index "production_support_markers", ["updater_id"], :name => "index_production_support_markers_on_updater_id"
+
   create_table "production_supports", force: true do |t|
     t.integer  "production_id",                 null: false
     t.integer  "storage_id",                    null: false
