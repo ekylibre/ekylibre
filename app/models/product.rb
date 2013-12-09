@@ -431,21 +431,44 @@ class Product < Ekylibre::Record::Base
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
     options = args.extract_options!
-    measured_at = args.shift || options[:at] || Time.now
-    # Find value
+    cast_or_time = args.shift || options[:cast] || options[:at] || Time.now
     value = nil
-    if options[:interpolate]
-      if [:measure, :decimal].include?(indicator.datatype)
-        raise NotImplementedError, "Interpolation is not available for now"
+    if cast_or_time.is_a?(Time)
+      # Find value
+      if options[:interpolate]
+        if [:measure, :decimal].include?(indicator.datatype)
+          raise NotImplementedError, "Interpolation is not available for now"
+        end
+        raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"
+      elsif datum = self.indicator_datum(indicator.name, at: cast_or_time)
+        value = datum.value
       end
-      raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"
-    elsif datum = self.indicator_datum(indicator.name, at: measured_at)
-      value = datum.value
-    end
-    # Adjust value
-    if value and indicator.gathering
-      if indicator.gathering == :proportional_to_population
-        value *= self.send(:population, at: measured_at)
+      # Adjust value
+      if value and indicator.gathering
+        if indicator.gathering == :proportional_to_population
+          value *= self.send(:population, at: measured_at)
+        end
+      end
+    elsif cast_or_time.is_a?(InterventionCast)
+      if cast.reference.new?
+        unless variant = cast.variant || cast.reference.variant(cast.intervention)
+          raise StandardError, "Need variant to know how to measure it"
+        end
+        if variant.frozen_indicators.include?(indicator)
+          value = variant.get(indicator)
+        else
+          raise StandardError, "Cannot measure a variable an unknown time"
+        end
+      else
+        if datum = self.indicator_datum(indicator.name, at: cast.intervention.started_at)
+          value = datum.value
+        end
+      end
+      # Adjust value
+      if value and indicator.gathering
+        if indicator.gathering == :proportional_to_population
+          value *= cast.population
+        end
       end
     end
     return value
