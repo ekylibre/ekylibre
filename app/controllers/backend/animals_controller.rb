@@ -24,7 +24,7 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :name, url: true
     t.column :born_at
     t.column :sex
-    t.column :weight
+    t.column :net_weight
     t.column :container, url: true
     t.column :mother, url: true
     t.column :father, url: true

@@ -534,6 +534,8 @@ spa:
     backend/product_stock_moves: #?
     backend/product_stocks: #?
     backend/product_transfers: #?
+    backend/production_support_marker_indicator_data: #?
+    backend/production_support_markers: #?
     backend/production_supports: #?
     backend/productions:
       # edit: "Modifier la production\_: %{name}"

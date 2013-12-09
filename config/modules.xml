@@ -1649,6 +1649,17 @@
         <page to="backend/product_processes#unroll"/>
         <page to="backend/product_processes#update"/>
       </item>
+      <item name="production_support_markers">
+        <page to="backend/production_support_markers#index"/>
+        <page to="backend/production_support_markers#create"/>
+        <page to="backend/production_support_markers#destroy"/>
+        <page to="backend/production_support_markers#edit"/>
+        <page to="backend/production_support_markers#list"/>
+        <page to="backend/production_support_markers#new"/>
+        <page to="backend/production_support_markers#show"/>
+        <page to="backend/production_support_markers#unroll"/>
+        <page to="backend/production_support_markers#update"/>
+      </item>
       <item name="products">
         <page to="backend/products#list_carried_linkages"/>
         <page to="backend/products#list_carrier_linkages"/>
