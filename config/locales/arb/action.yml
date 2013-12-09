@@ -139,6 +139,7 @@ arb:
     backend/cells/product_pie_cells: #?
     backend/cells/purchases_bar_cells: #?
     backend/cells/purchases_expense_bar_cells: #?
+    backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/companies:  #?
@@ -1688,7 +1689,7 @@ arb:
       one: "نتيجة واحدة"
       other: "%{count} نتائج"
       zero: "ولا نتيجة"
-    # revenus_by_product_nature: "Chiffre d'affaire par type de produit"
+    # revenues_by_product_nature: "Chiffre d'affaire par type de produit"
     reverse: "تطبيق الحالة العكسية"
     right_modules:
       accountancy: "حقوق المحاسبة"

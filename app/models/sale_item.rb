@@ -47,11 +47,9 @@
 
 
 class SaleItem < Ekylibre::Record::Base
-  after_save :set_reduction
+  include PeriodicCalculable
   attr_readonly :sale_id
-
   enumerize :indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}, default: :population
-
   belongs_to :account
   # belongs_to :entity
   belongs_to :sale, inverse_of: :items
@@ -79,6 +77,7 @@ class SaleItem < Ekylibre::Record::Base
 
   acts_as_list :scope => :sale
   acts_as_stockable :mode => :virtual, if: :sold?
+  after_save :set_reduction
   sums :sale, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -100,19 +99,7 @@ class SaleItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
-  def self.averages_of_periods(column = :pretax_amount, reference_date_column = :invoiced_on, period = :month)
-    self.calculate_in_periods(:avg, column, reference_date_column, period)
-  end
-
-  def self.sums_of_periods(column = :pretax_amount, reference_date_column = :invoiced_on, period = :month)
-    self.calculate_in_periods(:sum, column, reference_date_column, period)
-  end
-
-  def self.calculate_in_periods(operation, column, reference_date_column, period = :month)
-    period = :doy if period == :day
-    expr = "EXTRACT(YEAR FROM #{reference_date_column})*1000 + EXTRACT(#{period} FROM #{reference_date_column})"
-    self.joins(:sale).group(expr).order(expr).select("#{expr} AS expr, #{operation}(#{SaleItem.table_name}.#{column}) AS #{column}")  # calculate(operation, column) # .select("(#{expr}) expr, #{operation}(#{SaleItem.table_name}.#{column}) #{column}")
-  end
+  calculable period: :month, at: :invoiced_on, column: :pretax_amount
 
   before_validation do
 

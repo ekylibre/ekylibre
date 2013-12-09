@@ -6,7 +6,7 @@ class Backend::Cells::LastMilkResultCellsController < Backend::CellsController
        :order => "measured_at DESC, id DESC",
        :per_page => 10
        ) do |t|
-    t.column :indicator#, :url => true
+    t.column :indicator_name #, :url => true
     t.column :name, :through => :product, :url => {:controller => "'/backend/products'"}
     t.column :value
     t.column :measured_at

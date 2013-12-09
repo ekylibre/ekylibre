@@ -38,6 +38,7 @@ class TaskPerformingError < StandardError
 end
 
 class Operation < Ekylibre::Record::Base
+  include PeriodicCalculable
   belongs_to :intervention, inverse_of: :operations
   has_many :product_births,        dependent: :destroy
   has_many :product_deaths,        dependent: :destroy
@@ -76,6 +77,8 @@ class Operation < Ekylibre::Record::Base
     joins(intervention: :production).merge(Production.of_activities(activities))
   }
 
+  calculable period: :month, at: :started_at, column: :duration
+
   before_validation(on: :create) do
     self.started_at ||= Time.now
     # TODO Remove following line!!!
@@ -89,10 +92,6 @@ class Operation < Ekylibre::Record::Base
   after_save :perform_all!
   after_destroy :cancel_all!
 
-  # after_save do
-  #   self.intervention.save!
-  # end
-
   def perform_all!
     for task in self.reference.tasks.values
       perform(task)
@@ -105,24 +104,8 @@ class Operation < Ekylibre::Record::Base
     end
   end
 
-
   def reference
     self.intervention_reference.operations[self.reference_name]
-  end
-
-  def self.averages_of_periods(column = :duration, reference_date_column = :started_at, period = :month)
-    self.calculate_in_periods(:avg, column, reference_date_column, period)
-  end
-
-  def self.sums_of_periods(column = :duration, reference_date_column = :started_at, period = :month)
-    self.calculate_in_periods(:sum, column, reference_date_column, period)
-  end
-
-  def self.calculate_in_periods(operation, column, reference_date_column, period = :month)
-    period = :doy if period == :day
-    operation_date_column = "#{Operation.table_name}.#{reference_date_column}"
-    expr = "EXTRACT(YEAR FROM #{operation_date_column})*1000 + EXTRACT(#{period} FROM #{operation_date_column})"
-    self.group(expr).reorder(expr).select("#{expr} AS expr, #{operation}(#{column}) AS #{column}")
   end
 
   def description
