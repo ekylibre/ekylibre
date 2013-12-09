@@ -22,14 +22,13 @@
 #
 #  boolean_value       :boolean          not null
 #  choice_value        :string(255)
-#  computation_method  :string(255)      not null
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  decimal_value       :decimal(19, 4)
 #  geometry_value      :spatial({:srid=>
 #  id                  :integer          not null, primary key
-#  indicator           :string(255)      not null
 #  indicator_datatype  :string(255)      not null
+#  indicator_name      :string(255)      not null
 #  lock_version        :integer          default(0), not null
 #  measure_value_unit  :string(255)
 #  measure_value_value :decimal(19, 4)

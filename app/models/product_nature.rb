@@ -21,30 +21,30 @@
 #
 # == Table: product_natures
 #
-#  abilities            :text
-#  active               :boolean          not null
-#  category_id          :integer          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  derivative_of        :string(120)
-#  description          :text
-#  evolvable            :boolean          not null
-#  frozen_indicators    :text
-#  id                   :integer          not null, primary key
-#  linkage_points       :text
-#  lock_version         :integer          default(0), not null
-#  name                 :string(255)      not null
-#  number               :string(30)       not null
-#  picture_content_type :string(255)
-#  picture_file_name    :string(255)
-#  picture_file_size    :integer
-#  picture_updated_at   :datetime
-#  population_counting  :string(255)      not null
-#  reference_name       :string(120)
-#  updated_at           :datetime         not null
-#  updater_id           :integer
-#  variable_indicators  :text
-#  variety              :string(120)      not null
+#  abilities_list           :text
+#  active                   :boolean          not null
+#  category_id              :integer          not null
+#  created_at               :datetime         not null
+#  creator_id               :integer
+#  derivative_of            :string(120)
+#  description              :text
+#  evolvable                :boolean          not null
+#  frozen_indicators_list   :text
+#  id                       :integer          not null, primary key
+#  linkage_points_list      :text
+#  lock_version             :integer          default(0), not null
+#  name                     :string(255)      not null
+#  number                   :string(30)       not null
+#  picture_content_type     :string(255)
+#  picture_file_name        :string(255)
+#  picture_file_size        :integer
+#  picture_updated_at       :datetime
+#  population_counting      :string(255)      not null
+#  reference_name           :string(120)
+#  updated_at               :datetime         not null
+#  updater_id               :integer
+#  variable_indicators_list :text
+#  variety                  :string(120)      not null
 #
 
 
@@ -57,9 +57,15 @@ class ProductNature < Ekylibre::Record::Base
   # has_many :available_stocks, class_name: "ProductStock", :conditions => ["quantity > 0"], foreign_key: :product_id
   # has_many :prices, foreign_key: :product_nature_id, class_name: "ProductPriceTemplate"
   belongs_to :category, class_name: "ProductNatureCategory"
-  has_many :products, foreign_key: :nature_id
-  has_many :variants, class_name: "ProductNatureVariant", foreign_key: :nature_id, inverse_of: :nature
+  has_many :products, foreign_key: :nature_id, dependent: :restrict_with_exception
+  has_many :variants, class_name: "ProductNatureVariant", foreign_key: :nature_id, inverse_of: :nature, dependent: :restrict_with_exception
   has_one :default_variant, -> { order(:id) }, class_name: "ProductNatureVariant", foreign_key: :nature_id
+
+  serialize :abilities_list, SymbolArray
+  serialize :frozen_indicators_list, SymbolArray
+  serialize :variable_indicators_list, SymbolArray
+  serialize :linkage_points_list, SymbolArray
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_length_of :number, allow_nil: true, maximum: 30
@@ -72,7 +78,7 @@ class ProductNature < Ekylibre::Record::Base
   validates_uniqueness_of :name
 
   accepts_nested_attributes_for :variants, :reject_if => :all_blank, :allow_destroy => true
-  acts_as_numbered :force => false
+  acts_as_numbered force: false
 
   delegate :subscribing?, :deliverable?, :purchasable?, to: :category
   delegate :asset_account, :product_account, :charge_account, :stock_account, to: :category
@@ -88,7 +94,7 @@ class ProductNature < Ekylibre::Record::Base
   }
 
   # default_scope -> { order(:name) }
-  scope :availables, -> { where(:active => true).order(:name) }
+  scope :availables, -> { where(active: true).order(:name) }
   scope :stockables, -> { joins(:category).merge(ProductNatureCategory.stockables).order(:name) }
   scope :saleables,  -> { joins(:category).merge(ProductNatureCategory.saleables).order(:name) }
   scope :purchaseables, -> { joins(:category).merge(ProductNatureCategory.purchaseables).order(:name) }
@@ -108,25 +114,30 @@ class ProductNature < Ekylibre::Record::Base
       if ability =~ /\(.*\)\z/
         params = ability.split(/\s*[\(\,\)]\s*/)
         ability = params.shift.to_sym
-        item = Nomen::Abilities[ability]
-        raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
+        unless item = Nomen::Abilities[ability]
+          raise ArgumentError, "Unknown ability: #{ability.inspect}"
+        end
         for p in item.parameters
           v = params.shift
           if p == :variety
-            raise ArgumentError.new("Unknown variety: #{v.inspect}") unless child = Nomen::Varieties[v]
+            unless child = Nomen::Varieties[v]
+              raise ArgumentError, "Unknown variety: #{v.inspect}"
+            end
             q = []
             for variety in child.self_and_parents
-              q << "abilities ~ E?"
+              q << "abilities_list ~ E?"
               parameters << "\\\\m#{ability}\\\\(#{variety.name}\\\\)\\\\Y"
             end
             query << "(" + q.join(" OR ") + ")"
           else
-            raise StandardError.new("Unknown type of parameter for an ability: #{p.inspect}")
+            raise StandardError, "Unknown type of parameter for an ability: #{p.inspect}"
           end
         end
       else
-        raise ArgumentError.new("Unknown ability: #{ability.inspect}") unless Nomen::Abilities[ability]
-        query << "abilities ~ E?"
+        unless Nomen::Abilities[ability]
+          raise ArgumentError, "Unknown ability: #{ability.inspect}"
+        end
+        query << "abilities_list ~ E?"
         parameters << "\\\\m#{ability}\\\\M"
       end
     end
@@ -134,7 +145,7 @@ class ProductNature < Ekylibre::Record::Base
   }
 
   protect(on: :destroy) do
-    self.variants.count.zero? and self.products.count.zero?
+    self.variants.empty? and self.products.empty?
   end
 
   before_validation do
@@ -147,7 +158,7 @@ class ProductNature < Ekylibre::Record::Base
     #   self.indicators << " population"
     # end
     # self.indicators = self.indicators_array.map(&:name).sort.join(", ")
-    self.abilities  = self.abilities_array.sort.join(", ")
+    # self.abilities_list = self.abilities_list.sort.join(", ")
     return true
   end
 
@@ -178,59 +189,51 @@ class ProductNature < Ekylibre::Record::Base
     return (self.population_counting_decimal? ? 0.0001 : 1)
   end
 
+  # Returns list of all indicators
   def indicators
-    return (self.frozen_indicators.to_s.strip.split(/[\,\s]/)+
-           self.variable_indicators.to_s.strip.split(/[\,\s]/)).join(",")
+    return (self.frozen_indicators + self.variable_indicators)
   end
 
-  # Returns list of indicators as an array of indicator items from the nomenclature
-  def frozen_indicators_array
-    return self.frozen_indicators.to_s.strip.split(/[\,\s]/).collect do |i|
-      Nomen::Indicators[i]
-    end.compact
+  # Returns list of all indicators names
+  def indicators_list
+    return (self.frozen_indicators_list + self.variable_indicators_list)
   end
 
-  # Returns list of indicators as an array of indicator items from the nomenclature
-  def variable_indicators_array
-    return self.variable_indicators.to_s.strip.split(/[\,\s]/).collect do |i|
-      Nomen::Indicators[i]
-    end.compact
+  # Returns list of froezen indicators as an array of indicator items from the nomenclature
+  def frozen_indicators
+    return self.frozen_indicators_list.collect{ |i| Nomen::Indicators[i] }.compact
   end
 
-  # Returns list of indicators as an array of indicator items from the nomenclature
-  def indicators_array
-    return self.indicators.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect do |i|
-      Nomen::Indicators[i]
-    end.compact
+  # Returns list of variable indicators as an array of indicator items from the nomenclature
+  def variable_indicators
+    return self.variable_indicators_list.collect{ |i| Nomen::Indicators[i] }.compact
   end
 
   # Returns list of indicators as an array of indicator items from the nomenclature
   def indicators_related_to(aspect)
-    return self.indicators_array.select{|i| i.related_to == aspect}
+    return self.indicators.select{|i| i.related_to == aspect}
   end
 
   # Returns whole indicator names
-  def whole_indicators
-    return indicators_related_to(:whole).map(&:name).map(&:to_sym)
+  def whole_indicators_list
+    return indicators_related_to(:whole).map{|i| i.name.to_sym }
   end
 
-  # Returns whole indicator names
-  def individual_indicators
-    return indicators_related_to(:individual).map(&:name).map(&:to_sym)
+  # Returns individual indicator names
+  def individual_indicators_list
+    return indicators_related_to(:individual).map{|i| i.name.to_sym }
   end
 
   # Returns list of abilities as an array of ability items from the nomenclature
-  def abilities_array
-    return self.abilities.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).collect do |i|
-      (Nomen::Abilities[i.split(/\(/).first] ? i : nil)
+  def abilities
+    return self.abilities.collect do |i|
+      (Nomen::Abilities[i.to_s.split(/\(/).first] ? i.to_s : nil)
     end.compact
   end
 
   # Returns list of abilities as an array of ability items from the nomenclature
-  def linkage_points_array
-    return self.linkage_points.to_s.strip.split(/[\,\s]+/).collect do |i|
-      i.to_sym
-    end.compact
+  def linkage_points
+    return self.linkage_points_list
   end
 
   def to
@@ -250,73 +253,21 @@ class ProductNature < Ekylibre::Record::Base
   #   return price
   # end
 
-  def label
-    tc('label', :product_nature => self["name"])
-  end
-
-  def informations
-    tc('informations.without_components', :product_nature => self.name, :unit => self.unit.label, :size => self.components.size)
-  end
-
-  # # TODO : move stock methods in operation / product
-  # # Create real stocks moves to update the real state of stocks
-  # def move_outgoing_stock(options={})
-  #   add_stock_move(options.merge(:virtual => false, :incoming => false))
+  # def label
+  #   tc('label', product_nature: self.name)
   # end
 
-  # def move_incoming_stock(options={})
-  #   add_stock_move(options.merge(:virtual => false, :incoming => true))
+  # def informations
+  #   tc('informations.without_components', :product_nature => self.name, :unit => self.unit.label, :size => self.components.size)
   # end
-
-  # # Create virtual stock moves to reserve the products
-  # def reserve_outgoing_stock(options={})
-  #   add_stock_move(options.merge(:virtual => true, :incoming => false))
-  # end
-
-  # def reserve_incoming_stock(options={})
-  #   add_stock_move(options.merge(:virtual => true, :incoming => true))
-  # end
-
-  # # Create real stocks moves to update the real state of stocks
-  # def move_stock(options={})
-  #   add_stock_move(options.merge(:virtual => false))
-  # end
-
-  # # Create virtual stock moves to reserve the products
-  # def reserve_stock(options={})
-  #   add_stock_move(options.merge(:virtual => true))
-  # end
-
-  # # Generic method to add stock move in product's stock
-  # def add_stock_move(options={})
-  #   return true unless self.stockable?
-  #   incoming = options.delete(:incoming)
-  #   attributes = options.merge(:generated => true)
-  #   origin = options[:origin]
-  #   if origin.is_a? ActiveRecord::Base
-  #     code = [:number, :code, :name, :id].detect{|x| origin.respond_to? x}
-  #     attributes[:name] = tc('stock_move', :origin => (origin ? ::I18n.t("activerecord.models.#{origin.class.name.underscore}") : "*"), :code => (origin ? origin.send(code) : "*"))
-  #     for attribute in [:quantity, :unit, :tracking_id, :building_id, :product_id]
-  #       unless attributes.keys.include? attribute
-  #         attributes[attribute] ||= origin.send(attribute) rescue nil
-  #       end
-  #     end
-  #   end
-  #   attributes[:quantity] = -attributes[:quantity] unless incoming
-  #   attributes[:building_id] ||= self.stocks.first.building_id if self.stocks.size > 0
-  #   attributes[:planned_on] ||= Date.today
-  #   attributes[:moved_on] ||= attributes[:planned_on] unless attributes.keys.include? :moved_on
-  #   self.stock_moves.create!(attributes)
-  # end
-
 
   # Load a product nature from product nature nomenclature
   def self.import_from_nomenclature(reference_name)
     unless item = Nomen::ProductNatures.find(reference_name)
-      raise ArgumentError.new("The product_nature #{reference_name.inspect} is not known")
+      raise ArgumentError.new("The product_nature #{reference_name.inspect} is unknown")
     end
     unless category_item = Nomen::ProductNatureCategories.find(item.category)
-      raise ArgumentError.new("The category of the product_nature #{item.category.inspect} is not known")
+      raise ArgumentError.new("The category of the product_nature #{item.category.inspect} is unknown")
     end
     unless nature = ProductNature.find_by_reference_name(reference_name)
       attributes = {
@@ -326,12 +277,12 @@ class ProductNature < Ekylibre::Record::Base
         :population_counting => item.population_counting,
         :category => ProductNatureCategory.find_by_reference_name(item.category) || ProductNatureCategory.import_from_nomenclature(item.category),
         :reference_name => item.name,
-        :abilities => item.abilities.sort.join(" "),
-        :frozen_indicators => item.frozen_indicators.sort.join(" "),
-        :variable_indicators => item.variable_indicators.sort.join(" "),
+        :abilities_list => item.abilities.sort,
+        :frozen_indicators_list => item.frozen_indicators.sort,
+        :variable_indicators_list => item.variable_indicators.sort,
         :active => true
       }
-      attributes[:linkage_points] = item.linkage_points.join(" ") if item.linkage_points
+      attributes[:linkage_points_list] = item.linkage_points if item.linkage_points
       nature = self.create!(attributes)
     end
     return nature

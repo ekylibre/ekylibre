@@ -72,7 +72,7 @@ demo :sales do
         price ||= catalog.prices.create!(:currency => "EUR",
                                        :started_at => d.to_time,
                                        :amount => rand(60) + 180,
-                                       :indicator => :population,
+                                       :indicator_name => :population,
                                        :reference_tax_id => wheat_taxes.sample.id,
                                        :variant_id => wheat.id
                                        )
@@ -151,7 +151,7 @@ demo :sales do
         price ||= catalog.prices.create!(:amount => rand(40) + 140,
                                        :started_at => d.to_time,
                                        :currency => "EUR",
-                                       :indicator => :population,
+                                       :indicator_name => :population,
                                        :reference_tax_id => cow_price_template_taxes.sample.id,
                                        :variant_id => cow.id
                                        )
@@ -226,7 +226,7 @@ demo :sales do
         price ||= catalog.prices.create!(:amount => rand(0.04)+0.340,
                                        :started_at => d.to_time,
                                        :currency => "EUR",
-                                       :indicator => :population,
+                                       :indicator_name => :population,
                                        :reference_tax_id => milk_price_template_taxes.id,
                                        :variant_id => milk.id
                                        )

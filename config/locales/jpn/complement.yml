@@ -11,6 +11,8 @@ jpn:
 
     animal_medicine:
 
+    catalog_price:
+
     cultivable_land_parcel:
 
     document:
@@ -58,11 +60,17 @@ jpn:
 
     product_group:
 
+    product_indicator_datum:
+
     product_nature:
 
     product_nature_category:
 
     product_nature_variant:
+
+    product_nature_variant_indicator_datum:
+
+    production_support_marker:
 
     sale_item:
 

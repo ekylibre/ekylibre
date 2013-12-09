@@ -22,14 +22,13 @@
 #
 #  boolean_value       :boolean          not null
 #  choice_value        :string(255)
-#  computation_method  :string(255)      not null
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  decimal_value       :decimal(19, 4)
 #  geometry_value      :spatial({:srid=>
 #  id                  :integer          not null, primary key
-#  indicator           :string(255)      not null
 #  indicator_datatype  :string(255)      not null
+#  indicator_name      :string(255)      not null
 #  lock_version        :integer          default(0), not null
 #  measure_value_unit  :string(255)
 #  measure_value_value :decimal(19, 4)
@@ -45,17 +44,16 @@
 class ProductNatureVariantIndicatorDatum < Ekylibre::Record::Base
   include IndicatorDatumStorable
   belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :indicator_data
-  enumerize :computation_method, in: [:frozen, :proportional], default: :frozen
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value_value, allow_nil: true
-  validates_length_of :choice_value, :computation_method, :indicator, :indicator_datatype, :measure_value_unit, allow_nil: true, maximum: 255
+  validates_length_of :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, allow_nil: true, maximum: 255
   validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :computation_method, :indicator, :indicator_datatype, :variant
+  validates_presence_of :indicator_datatype, :indicator_name, :variant
   #]VALIDATORS]
 
   validate do
-    unless self.variant.frozen_indicators_array.map(&:name).include?(self.indicator.to_s)
+    unless self.variant.frozen_indicators_list.include?(self.indicator_name)
       errors.add(:indicator, :invalid)
     end
   end

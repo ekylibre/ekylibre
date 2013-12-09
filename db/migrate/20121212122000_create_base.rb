@@ -184,7 +184,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :variant,                                          null: false, index: true
       t.references :catalog,                                          null: false, index: true
       # t.references :supplier,                                         null: false, index: true
-      t.string     :indicator,          limit: 120,                   null: false
+      t.string     :indicator_name,     limit: 120,                   null: false
       t.references :reference_tax,                                                 index: true
       # t.decimal    :pretax_amount,      precision: 19, scale: 4,      null: false
       t.decimal    :amount,             precision: 19, scale: 4,      null: false
@@ -833,7 +833,7 @@ class CreateBase < ActiveRecord::Migration
       # t.references :operation,                             index: true
       t.references :originator,        polymorphic: true
       t.references :product,                                                            null: false, index: true
-      t.string     :indicator,                                                          null: false
+      t.string     :indicator_name,                                                     null: false
       t.string     :indicator_datatype,                                                 null: false
       t.datetime   :measured_at,                                                        null: false
       t.decimal    :decimal_value,             precision: 19, scale: 4
@@ -846,7 +846,7 @@ class CreateBase < ActiveRecord::Migration
       t.geometry   :geometry_value,            has_z: true
       t.multi_polygon :multi_polygon_value,    has_z: true
       t.stamps
-      t.index      :indicator
+      t.index      :indicator_name
       t.index      :measured_at
       t.index      [:originator_id, :originator_type], name: :index_product_indicator_data_on_originator
     end
@@ -898,7 +898,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :operation,                             index: true
       t.references :originator,        polymorphic: true,  index: true
       t.references :product,                  null: false, index: true
-      t.string     :indicator,                null: false
+      t.string     :indicator_name,           null: false
       t.references :reporter,                              index: true
       t.references :tool,                                  index: true
       t.datetime   :started_at,               null: false
@@ -1021,10 +1021,10 @@ class CreateBase < ActiveRecord::Migration
       t.boolean    :evolvable,              default: false, null: false
       # t.string    :default_division_procedure
       t.string     :population_counting,                    null: false
-      t.text       :abilities
-      t.text       :variable_indicators
-      t.text       :frozen_indicators
-      t.text       :linkage_points
+      t.text       :abilities_list
+      t.text       :variable_indicators_list
+      t.text       :frozen_indicators_list
+      t.text       :linkage_points_list
       t.attachment :picture
       t.text       :description
       t.stamps
@@ -1045,8 +1045,8 @@ class CreateBase < ActiveRecord::Migration
       t.string     :unit_name,                              null: false
       t.string     :commercial_name,                        null: false
       t.text       :commercial_description
-      # t.text       :frozen_indicators
-      # t.text       :variable_indicators
+      # t.text       :frozen_indicators_list
+      # t.text       :variable_indicators_list
       t.boolean    :active,                 default: false, null: false
       t.attachment :picture
       t.string     :contour
@@ -1055,21 +1055,21 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_nature_variant_indicator_data do |t|
-      t.references :variant,                                                                                            null: false, index: true
-      t.string     :indicator,                                                                                          null: false
-      t.string     :indicator_datatype,                                                                                 null: false
-      t.string     :computation_method,                                                                                 null: false
-      t.decimal    :decimal_value,                                             precision: 19, scale: 4
-      t.decimal    :measure_value_value,                                       precision: 19, scale: 4
+      t.references :variant,                                                              null: false, index: true
+      t.string     :indicator_name,                                                       null: false
+      t.string     :indicator_datatype,                                                   null: false
+      # t.string     :computation_method,                                                   null: false
+      t.decimal    :decimal_value,            precision: 19, scale: 4
+      t.decimal    :measure_value_value,      precision: 19, scale: 4
       t.string     :measure_value_unit
       t.text       :string_value
-      t.boolean    :boolean_value,                                                                      default: false, null: false
+      t.boolean    :boolean_value,                                        default: false, null: false
       t.string     :choice_value
       t.point      :point_value,              has_z: true
       t.geometry   :geometry_value,           has_z: true
       t.multi_polygon :multi_polygon_value,   has_z: true
       t.stamps
-      t.index      :indicator
+      t.index      :indicator_name
     end
 
     create_table :product_process_phases do |t|
@@ -1145,7 +1145,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :address,                                                                                    index: true
       t.boolean    :reservoir,                                                     default: false, null: false
       t.references :content_nature,                                                                             index: true
-      t.string     :content_indicator
+      t.string     :content_indicator_name
       t.string     :content_indicator_unit
       t.decimal    :content_maximal_quantity,             precision: 19, scale: 4, default: 0.0,   null: false
       t.references :parent,                                                                                     index: true
@@ -1172,7 +1172,7 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :pretax_amount,     precision: 19, scale: 4, default: 0.0, null: false
       t.decimal    :amount,            precision: 19, scale: 4, default: 0.0, null: false
       t.references :tax,                                                      null: false, index: true
-      t.string     :indicator,         limit: 120,                            null: false
+      t.string     :indicator_name,    limit: 120,                            null: false
       t.string     :currency,          limit: 3,                              null: false
       t.text       :label
       t.text       :annotation
@@ -1237,7 +1237,7 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :pretax_amount,        precision: 19, scale: 4, default: 0.0, null: false
       t.decimal    :amount,               precision: 19, scale: 4, default: 0.0, null: false
       t.references :tax,                                                                      index: true
-      t.string     :indicator,            limit: 120,                            null: false
+      t.string     :indicator_name,       limit: 120,                            null: false
       t.string     :currency,             limit: 3,                              null: false
       t.text       :label
       t.text       :annotation

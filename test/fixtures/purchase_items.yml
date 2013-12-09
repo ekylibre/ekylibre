@@ -27,7 +27,7 @@
 #  creator_id        :integer
 #  currency          :string(3)        not null
 #  id                :integer          not null, primary key
-#  indicator         :string(120)      not null
+#  indicator_name    :string(120)      not null
 #  label             :text
 #  lock_version      :integer          default(0), not null
 #  position          :integer
@@ -50,7 +50,7 @@
 #   creator_id: 1
 #   currency: "Lorem ipsum"
 #   id: 1
-#   indicator: "Lorem ipsum"
+#   indicator_name: "Lorem ipsum"
 #   pretax_amount: 0
 #   purchase_id: 1
 #   quantity: 0
@@ -69,7 +69,7 @@ purchase_items_001:
   creator_id: 1
   currency: "EUR"
   id: 1
-  indicator: 'population'
+  indicator_name: 'population'
   purchase_id: 1
   unit_price_amount: 5
   variant_id: 1
@@ -86,7 +86,7 @@ purchase_items_002:
   creator_id: 1
   currency: "EUR"
   id: 2
-  indicator: 'population'
+  indicator_name: 'population'
   purchase_id: 1
   unit_price_amount: 5
   variant_id: 1
@@ -103,7 +103,7 @@ purchase_items_003:
   creator_id: 1
   currency: "EUR"
   id: 3
-  indicator: 'population'
+  indicator_name: 'population'
   purchase_id: 2
   unit_price_amount: 5
   variant_id: 1
@@ -120,7 +120,7 @@ purchase_items_004:
   creator_id: 1
   currency: "EUR"
   id: 4
-  indicator: 'population'
+  indicator_name: 'population'
   purchase_id: 3
   unit_price_amount: 5
   variant_id: 1
@@ -137,7 +137,7 @@ purchase_items_005:
   creator_id: 1
   currency: "EUR"
   id: 5
-  indicator: 'population'
+  indicator_name: 'population'
   purchase_id: 3
   unit_price_amount: 5
   variant_id: 1

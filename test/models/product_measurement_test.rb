@@ -23,7 +23,7 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
-#  indicator       :string(255)      not null
+#  indicator_name  :string(255)      not null
 #  lock_version    :integer          default(0), not null
 #  operation_id    :integer
 #  originator_id   :integer

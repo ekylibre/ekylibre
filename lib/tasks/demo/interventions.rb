@@ -8,7 +8,8 @@ demo :interventions do
     class << self
 
       def find(model, options = {})
-        relation = model.where("COALESCE(born_at, ?) <= ? ", options[:started_at], options[:started_at])
+        relation = model
+        relation = relation.where("COALESCE(born_at, ?) <= ? ", options[:started_at], options[:started_at]) if options[:started_at]
         relation = relation.can(options[:can]) if options[:can]
         relation = relation.of_variety(options[:variety]) if options[:variety]
         relation = relation.derivative_of(options[:derivative_of]) if options[:derivative_of]
@@ -16,15 +17,9 @@ demo :interventions do
           return relation.all.sample
         else
           # Create product with given elements
-          attributes = {
-            name: model.model_name.human,
-            # birth: {
-            #   started_at: options[:started_at] - 10,
-            #   stopped_at: options[:started_at] - 1
-            # }
-          }
+          attributes = {}
           unless options[:default_storage].is_a?(FalseClass)
-            attributes[:default_storage] = find(BuildingDivision, default_storage: false)
+            attributes[:default_storage] = find(BuildingDivision, default_storage: find(Building, default_storage: false))
           end
           variants = ProductNatureVariant.find_or_import!(options[:variety] || model.name.underscore, derivative_of: options[:derivative_of])
           variants.can(options[:can]) if options[:can]
@@ -100,7 +95,6 @@ demo :interventions do
         # Run interventions
         intervention = nil
         for period in periods
-          # int = Intervention.run!({reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: (period[:started_at] + period[:duration])}, period, &block)
           intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: (period[:started_at] + period[:duration]))
           for cast in booker.casts
             intervention.add_cast!(cast)

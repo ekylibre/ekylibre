@@ -23,7 +23,7 @@
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
-#  indicator       :string(255)      not null
+#  indicator_name  :string(255)      not null
 #  lock_version    :integer          default(0), not null
 #  operation_id    :integer
 #  originator_id   :integer
@@ -42,8 +42,8 @@ class ProductMeasurement < Ekylibre::Record::Base
   # belongs_to :reporter
   belongs_to :tool, class_name: "Product"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :indicator, :originator_type, allow_nil: true, maximum: 255
-  validates_presence_of :indicator, :product, :started_at
+  validates_length_of :indicator_name, :originator_type, allow_nil: true, maximum: 255
+  validates_presence_of :indicator_name, :product, :started_at
   #]VALIDATORS]
 
   validate do
@@ -52,6 +52,10 @@ class ProductMeasurement < Ekylibre::Record::Base
         errors.add(:indicator, :invalid)
       end
     end
+  end
+
+  def indicator
+    Nomen::Indicator[self.indicator_name]
   end
 
 end

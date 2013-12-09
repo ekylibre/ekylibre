@@ -52,7 +52,7 @@ class ProductPhase < Ekylibre::Record::Base
   # Sets nature and variety from variant
   def set_default_values
     if self.variant
-      self.nature    = self.variant.nature
+      self.nature   = self.variant.nature
     end
     if self.nature
       self.category = self.nature.category

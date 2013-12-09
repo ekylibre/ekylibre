@@ -212,8 +212,8 @@ class Operation < Ekylibre::Record::Base
   def perform_division(params)
     producer = params[:producer].actor
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, nature: :division, product: params[:product].actor, producer: producer}
-    for  indicator in producer.whole_indicators
-      attributes[indicator] = params[:product].send(indicator)
+    for indicator_name in producer.whole_indicators_list
+      attributes[indicator_name] = params[:product].send(indicator_name)
     end
     self.product_births.create!(attributes)
   end
@@ -241,7 +241,7 @@ class Operation < Ekylibre::Record::Base
   end
 
   def perform_simple_attachment(params)
-    self.product_linkages.create!(started_at: self.stopped_at, point: params[:carrier].actor.linkage_points_array.first, carrier: params[:carrier].actor, carried: params[:carried].actor, nature: "occupied")
+    self.product_linkages.create!(started_at: self.stopped_at, point: params[:carrier].actor.linkage_points_list.first, carrier: params[:carrier].actor, carried: params[:carried].actor, nature: "occupied")
   end
 
   def perform_simple_detachment(params)

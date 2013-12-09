@@ -27,7 +27,7 @@
 #  creator_id         :integer
 #  currency           :string(3)        not null
 #  id                 :integer          not null, primary key
-#  indicator          :string(120)      not null
+#  indicator_name     :string(120)      not null
 #  lock_version       :integer          default(0), not null
 #  name               :string(255)      not null
 #  reference_tax_id   :integer
@@ -42,9 +42,8 @@
 
 # CatalogPrice stores.all the prices used in sales and purchases.
 class CatalogPrice < Ekylibre::Record::Base
-  # attr_accessible :listing_id, :product_id, :variant_id, :pretax_amount, :amount, :tax_id, :currency, :supplier_id
+  enumerize :indicator_name, in: Nomen::Indicators.all
   belongs_to :variant, class_name: "ProductNatureVariant"
-  # belongs_to :supplier, class_name: "Entity"
   belongs_to :reference_tax, class_name: "Tax"
   belongs_to :catalog
   has_many :incoming_delivery_items, foreign_key: :price_id
@@ -55,14 +54,16 @@ class CatalogPrice < Ekylibre::Record::Base
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :thread, allow_nil: true, maximum: 20
-  validates_length_of :indicator, allow_nil: true, maximum: 120
+  validates_length_of :indicator_name, allow_nil: true, maximum: 120
   validates_length_of :name, allow_nil: true, maximum: 255
   validates_inclusion_of :all_taxes_included, in: [true, false]
-  validates_presence_of :amount, :catalog, :currency, :indicator, :name, :variant
+  validates_presence_of :amount, :catalog, :currency, :indicator_name, :name, :variant
   #]VALIDATORS]
   validates_presence_of :started_at
 
-  #delegate :product_nature_id, :product_nature, to: :template
+  # delegate :product_nature_id, :product_nature, to: :template
+  delegate :name, to: :variant, prefix: true
+  delegate :unit_name, to: :variant
 
   scope :actives_at, lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
 
@@ -76,39 +77,22 @@ class CatalogPrice < Ekylibre::Record::Base
 
   before_validation do
     self.currency = "EUR" if self.currency.blank?
-    self.indicator = :population if self.indicator.blank?
+    self.indicator_name = :population if self.indicator_name.blank?
     if self.started_at.nil?
       self.started_at = Time.now
     end
     if self.name.blank?
-      self.name = self.label_name
+      self.name = self.label
     end
-    #  #self.computed_at ||= Time.now
-    #  #if self.template
-    #  #  self.currency ||= self.template.currency
-    #   ## self.supplier ||= self.template.supplier
-    #   # self.tax      ||= self.template.tax
-    # # end
   end
 
-
-  # validate do
-  #   #if self.template
-  #   #  if self.template.supplier_id != self.supplier_id
-  #   #    errors.add(:supplier_id, :invalid)
-  #   #  end
-  #   #  if self.template.currency != self.currency
-  #   #    errors.add(:currency, :invalid)
-  #   #  end
-  #   #end
+  # def label_name
+  #   self.variant.name.to_s + ' ' + self.amount.to_s + ' ' + self.currency.to_s + '/' + self.variant.unit_name.to_s
   # end
 
-  def label_name
-    self.variant.name.to_s + ' ' + self.amount.to_s + ' ' + self.currency.to_s + ' / ' + self.variant.unit_name.to_s
-  end
-
+  # Compute name with given elements
   def label
-    tc(:label, :variant => self.variant.name, :amount => self.amount, :currency => self.currency)
+    tc(:label, variant: self.variant_name, amount: self.amount.l(currency: self.currency), unit: self.unit_name)
   end
 
   def update

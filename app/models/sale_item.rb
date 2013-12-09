@@ -28,7 +28,7 @@
 #  credited_item_id     :integer
 #  currency             :string(3)        not null
 #  id                   :integer          not null, primary key
-#  indicator            :string(120)      not null
+#  indicator_name       :string(120)      not null
 #  label                :text
 #  lock_version         :integer          default(0), not null
 #  position             :integer
@@ -50,7 +50,7 @@ class SaleItem < Ekylibre::Record::Base
   after_save :set_reduction
   attr_readonly :sale_id
 
-  enumerize :indicator, in: Nomen::Indicators.all, predicates: {prefix: true}, default: :population
+  enumerize :indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}, default: :population
 
   belongs_to :account
   # belongs_to :entity
@@ -84,8 +84,8 @@ class SaleItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_price_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :indicator, allow_nil: true, maximum: 120
-  validates_presence_of :amount, :currency, :indicator, :pretax_amount, :price, :quantity, :reduction_percentage, :sale, :variant
+  validates_length_of :indicator_name, allow_nil: true, maximum: 120
+  validates_presence_of :amount, :currency, :indicator_name, :pretax_amount, :price, :quantity, :reduction_percentage, :sale, :variant
   #]VALIDATORS]
   validates_presence_of :tax
   validates_numericality_of :quantity, greater_than_or_equal_to: 0, :unless => :reduced_item
@@ -121,7 +121,7 @@ class SaleItem < Ekylibre::Record::Base
 
     if self.price
       self.variant ||= self.price.variant
-      self.indicator = self.price.indicator
+      self.indicator_name = self.price.indicator_name
       self.unit_price_amount ||= self.price.amount
       self.currency = self.price.currency
       amount = self.quantity * self.unit_price_amount

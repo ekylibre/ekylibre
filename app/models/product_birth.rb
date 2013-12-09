@@ -67,20 +67,26 @@ class ProductBirth < Ekylibre::Record::Base
   after_save do
     if self.division?
       # Duplicate individual indicator data
-      for indicator in producer.individual_indicators
-        if datum = producer.indicate(indicator, at: self.started_at)
-          product.is_measured!(indicator, datum.value, at: self.stopped_at, originator: self)
+      for indicator_name in producer.individual_indicators_list
+        if datum = producer.indicator_datum(indicator_name, at: self.started_at)
+          product.is_measured!(indicator_name, datum.value, at: self.stopped_at, originator: self)
         end
       end
       # Add whole indicator data
-      for indicator in producer.whole_indicators
-        producer_datum_value = producer.send(indicator, at: self.started_at)
-        product_datum_value = self.send(indicator)
-        unless producer_datum_value and product_datum_value
-          raise "\n\nOhohoho\n" + [producer_datum_value, product_datum_value].map(&:inspect).join("\n" + "*" * 80 + "\n")
+      for indicator_name in producer.whole_indicators_list
+        producer_datum_value = producer.send(indicator_name, at: self.started_at)
+        product_datum_value = self.send(indicator_name)
+        if producer_datum_value and product_datum_value
+          product.is_measured!(indicator_name,  product_datum_value, at: self.stopped_at, originator: self)
+          producer.is_measured!(indicator_name, producer_datum_value - product_datum_value, at: self.stopped_at, originator: self)
+        else
+          if producer_datum_value.nil? and product_datum_value.nil?
+            puts "Cannot divide empty #{indicator_name.to_s.pluralize} between producer ##{producer.id} and produced ##{product.id}."
+          else
+            raise "Need to divide #{indicator_name} but no way to do it properly\n" +
+              {producer: producer_datum_value, produced: product_datum_value}.collect{|k,v| "#{k}: #{v.inspect}"}.join("\n")
+          end
         end
-        product.is_measured!(indicator,  product_datum_value, at: self.stopped_at, originator: self)
-        producer.is_measured!(indicator, producer_datum_value - product_datum_value, at: self.stopped_at, originator: self)
       end
     end
   end

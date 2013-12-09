@@ -49,19 +49,19 @@ class Catalog < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :code
 
-  has_default :scope => :usage
+  has_default scope: :usage
 
   scope :of_usage, lambda { |usage|
-    where(:usage => usage.to_s)
+    where(usage: usage.to_s)
   }
 
   before_validation do
     self.code = self.name.to_s.codeize if self.code.blank?
-    self.code = self.code[0..9]
+    self.code = self.code[0..19]
   end
 
   protect(on: :destroy) do
-    self.prices.count <= 0
+    self.prices.empty?
   end
 
 end
