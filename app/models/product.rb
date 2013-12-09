@@ -131,7 +131,9 @@ class Product < Ekylibre::Record::Base
     conditions = []
     # TODO Build conditions to filter on indicators
     for name, value in [indicators].flatten
-      conditions << " id IN (" + order(:id).indicator(name, at: measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
+      if indicator(name, at: measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).any?
+        conditions << " id IN (" + order(:id).indicator(name, at: measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value).pluck(:product_id).join(", ") + ")"
+      end
     end
     where(conditions.join(" AND "))
   }
