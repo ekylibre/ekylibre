@@ -20,7 +20,8 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           variant:    support.production.variant.name,
           tool_cost:  support.tool_cost,
           input_cost: support.input_cost,
-          time_cost:  support.time_cost
+          time_cost:  support.time_cost,
+          nitrogen_balance: support.nitrogen_balance
         }
         data << line
       end

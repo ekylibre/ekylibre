@@ -55,17 +55,42 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return cost.compact.sum
   end
+  
+  def nitrogen_balance
+    balance = []
+    # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded
+    # m = net_weight of the input at intervention time
+    # n = nitrogen concentration (in %) of the input at intervention time
+    for intervention in self.interventions.real.of_nature(:soil_enrichment)
+      for input in intervention.casts.of_role(:'soil_enrichment-input')
+        m = input.actor.net_weight(input).convert(:kilogram)
+        n = input.actor.nitrogen_concentration(input)
+        balance << ( m * ( n / 100 ))
+      end
+    end
+    # if net_surface_area, make the division
+    if self.storage_net_surface_area(self.started_at) > 0.0
+      nitrogen_unity_per_hectare = (balance.compact.sum / (self.storage_net_surface_area(self.started_at).convert(:hectare)))
+    end
+    return nitrogen_unity_per_hectare
+  end
 
   def tool_cost
-    self.cost(:tool)
+    if self.storage_net_surface_area(self.started_at) > 0.0
+      self.cost(:tool)/(self.storage_net_surface_area(self.started_at).convert(:hectare))
+    end
   end
 
   def input_cost
-    self.cost(:input)
+    if self.storage_net_surface_area(self.started_at) > 0.0
+      self.cost(:input)/(self.storage_net_surface_area(self.started_at).convert(:hectare))
+    end
   end
 
   def time_cost
-    self.cost(:doer)
+    if self.storage_net_surface_area(self.started_at) > 0.0
+      self.cost(:doer)/(self.storage_net_surface_area(self.started_at).convert(:hectare))
+    end
   end
 
 end
