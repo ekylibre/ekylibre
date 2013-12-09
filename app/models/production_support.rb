@@ -63,33 +63,35 @@ class ProductionSupport < Ekylibre::Record::Base
     # n = nitrogen concentration (in %) of the input at intervention time
     for intervention in self.interventions.real.of_nature(:soil_enrichment)
       for input in intervention.casts.of_role(:'soil_enrichment-input')
-        m = input.actor.net_weight(input).convert(:kilogram)
-        n = input.actor.nitrogen_concentration(input)
+        m = input.actor.net_weight.convert(:kilogram).to_s.to_f if !input.actor.net_weight.nil?
+        m ||= 0.0
+        n = input.actor.nitrogen_concentration.to_s.to_f if !input.actor.nitrogen_concentration.nil?
+        n ||= 0.0
         balance << ( m * ( n / 100 ))
       end
     end
     # if net_surface_area, make the division
-    if self.storage_net_surface_area(self.started_at) > 0.0
-      nitrogen_unity_per_hectare = (balance.compact.sum / (self.storage_net_surface_area(self.started_at).convert(:hectare)))
+    if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
+      nitrogen_unity_per_hectare = (balance.compact.sum / (self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f))
     end
     return nitrogen_unity_per_hectare
   end
 
   def tool_cost
-    if self.storage_net_surface_area(self.started_at) > 0.0
-      self.cost(:tool)/(self.storage_net_surface_area(self.started_at).convert(:hectare))
+    if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
+      self.cost(:tool)/(self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f)
     end
   end
 
   def input_cost
-    if self.storage_net_surface_area(self.started_at) > 0.0
-      self.cost(:input)/(self.storage_net_surface_area(self.started_at).convert(:hectare))
+    if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
+      self.cost(:input)/(self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f)
     end
   end
 
   def time_cost
-    if self.storage_net_surface_area(self.started_at) > 0.0
-      self.cost(:doer)/(self.storage_net_surface_area(self.started_at).convert(:hectare))
+    if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
+      self.cost(:doer)/(self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f)
     end
   end
 

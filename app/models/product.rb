@@ -446,7 +446,7 @@ class Product < Ekylibre::Record::Base
       # Adjust value
       if value and indicator.gathering
         if indicator.gathering == :proportional_to_population
-          value *= self.send(:population, at: measured_at)
+          value *= self.send(:population, at: cast_or_time)
         end
       end
     elsif cast_or_time.is_a?(InterventionCast)
