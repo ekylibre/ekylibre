@@ -16,8 +16,8 @@
     ProductNature.availables.find_each do |nature|
       sale_items = SaleItem.by_product_nature(nature).between(started_on, stopped_on)
       if sale_items.count > 0
-        item_h = sale_items.sums_of_periods().sort.inject({}) do |hash, pair|
-          hash[pair.expr.to_i.to_s] = pair.pretax_amount.to_d
+        item_h = sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
+          hash[pair.expr.to_i.to_s] = pair.sum.to_d
           hash
         end
         series << {type: 'column', name: nature.name, data: normalize_serie(item_h, categories.keys) }
@@ -27,8 +27,8 @@
     # data for spline sum revenus by month
     all_sale_items = SaleItem.between(started_on, stopped_on)
     if all_sale_items.count > 0
-      item_h = all_sale_items.sums_of_periods().sort.inject({}) do |hash, pair|
-        hash[pair.expr.to_i.to_s] = pair.pretax_amount.to_d
+      item_h = all_sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
+        hash[pair.expr.to_i.to_s] = pair.sum.to_d
         hash
       end
       series << {type: 'spline', name: :total.tl, data: normalize_serie(item_h, categories.keys), marker: {line_width: 2}}

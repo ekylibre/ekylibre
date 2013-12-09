@@ -90,7 +90,7 @@
             items = ProductIndicatorDatum.where(:indicator => indicator, :product => @animal).measured_between(started_on, stopped_on)
             if items.count > 0
               item_h = items.averages_of_periods.sort.inject({}) do |hash, pair|
-                hash[pair.expr.to_i.to_s] = pair.valeur.to_s.to_d
+                hash[pair.expr.to_i.to_s] = pair.average.to_s.to_d
                 hash
               end
               series << {type: 'column', name: indicator.tl, data: normalize_serie(item_h, categories.keys), tooltip: {value_suffix: ' kg'} }
@@ -104,8 +104,8 @@
           for indicator in spline_indicators
             items = ProductIndicatorDatum.where(:indicator => indicator, :choice_value => :sick, :product => @animal).measured_between(started_on, stopped_on)
             if items.count > 0
-              item_h = items.counts_of_periods(:choice).sort.inject({}) do |hash, pair|
-                hash[pair.expr.to_i.to_s] = pair.valeur.to_s.to_d
+              item_h = items.counts_of_periods(column: :choice_value).sort.inject({}) do |hash, pair|
+                hash[pair.expr.to_i.to_s] = pair.count.to_s.to_d
                 hash
               end
               series << {type: 'spline', y_axis: 1, name: indicator.tl, data: normalize_serie(item_h, categories.keys),  tooltip: {value_suffix: ' fois'}, marker: {line_width: 2}}

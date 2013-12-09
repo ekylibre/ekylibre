@@ -212,10 +212,10 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           fbs  = birth_fields.input(:started_at)
           fbs << birth_fields.input(:nature, as: :hidden)
           for indicator in whole_indicators
-            if variant.frozen_indicators_array.include?(Nomen::Indicators[indicator])
-              # fbs << birth_fields.input(indicator, value: variant.indicator(:population).value, as: :hidden)
+            if variant.frozen_indicators.include?(indicator)
+              # fbs << birth_fields.input(indicator.name, value: variant.get(indicator), as: :hidden)
             else
-              fbs << birth_fields.input(indicator)
+              fbs << birth_fields.input(indicator.name)
             end
           end
           fbs
@@ -254,11 +254,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       end
 
       # Add first indicators
-      indicators = variant.variable_indicators_array.delete_if{|i| whole_indicators.include?(i) }
+      indicators = variant.variable_indicators.delete_if{|i| whole_indicators.include?(i) }
       if indicators.any?
 
         for indicator in indicators
-          @object.indicator_data.build(indicator: indicator.name)
+          @object.indicator_data.build(indicator_name: indicator.name)
         end if @object.indicator_data.empty?
 
         html << @template.field_set(:indicators) do
@@ -266,12 +266,12 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           for datum in @object.indicator_data
             # for indicator in indicators
             # datum = @object.indicator_data.new(:indicator => indicator.name)
-            indicator = Nomen::Indicators[datum.indicator]
+            indicator = datum.indicator
             # error message for indicators
             fs << datum.errors.inspect if datum.errors.any?
             fs << self.backend_fields_for(:indicator_data, datum) do |indfi|
               fsi = "".html_safe
-              fsi << indfi.input(:indicator, as: :hidden)
+              fsi << indfi.input(:indicator_name, as: :hidden)
               fsi << indfi.input(:product_id, as: :hidden)
               fsi << indfi.input("#{indicator.datatype}_value_value", :wrapper => :append, :value => 0, :class => :inline, label: indicator.human_name) do
                 m = "".html_safe
@@ -286,7 +286,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
                 else
                   m << indfi.input_field("#{indicator.datatype}_value", label: indicator.human_name, as: :string)
                 end
-                if indfi.object.indicator_population?
+                if indfi.object.indicator_name_population?
                   m << @template.content_tag(:span, variant.unit_name, :class => "add-on")
                 end
                 m

@@ -45,7 +45,7 @@
 
 
 class ProductIndicatorDatum < Ekylibre::Record::Base
-  include IndicatorDatumStorable
+  include IndicatorDatumStorable, PeriodicCalculable
   belongs_to :product, inverse_of: :indicator_data
   belongs_to :originator, polymorphic: true
   has_one :variant, through: :product
@@ -65,33 +65,10 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
     where("id IN (SELECT p1.id FROM #{self.indicator_table_name(indicator_name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(indicator_name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator = p2.indicator AND (p1.measured_at < p2.measured_at OR (p1.measured_at = p2.measured_at AND p1.id < p2.id)) AND p2.measured_at <= ?) WHERE p1.measured_at <= ? AND p1.product_id IN (?) AND p1.indicator = ? AND p2 IS NULL)", measured_at, measured_at, products.pluck(:id), indicator_name)
   }
 
+  calculable period: :month, at: :measured_at, column: :measure_value_value
 
   before_validation do
     self.measured_at ||= Time.now
-  end
-
-  class << self
-
-    def averages_of_periods(column = :value, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
-      self.calculate_in_periods(:avg, column, reference_date_column, period, dtype)
-    end
-
-    def sums_of_periods(column = :value, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
-      self.calculate_in_periods(:sum, column, reference_date_column, period, dtype)
-    end
-
-    def counts_of_periods(dtype = :measure_value, column = :value, reference_date_column = :measured_at, period = :month)
-      self.calculate_in_periods(:count, column, reference_date_column, period, dtype)
-    end
-
-    # @TODO update method with list of indicator datatype
-    def calculate_in_periods(operation, column, reference_date_column, period = :month, dtype = :measure_value)
-      ind_val = dtype.to_s + '_value'
-      period = :doy if period == :day
-      expr = "EXTRACT(YEAR FROM #{reference_date_column})*1000 + EXTRACT(#{period} FROM #{reference_date_column})"
-      group(expr).order(expr).select("#{expr} AS expr, #{operation}(#{ind_val}) AS #{column}")
-    end
-
   end
 
 end
