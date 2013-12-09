@@ -570,6 +570,7 @@ eng:
       # zone_property_title: "Titre de propriété foncière"
   attributes:
     # abilities: "Compétences"
+    # abilities_list: "Abilities list"
     # absolute_credit: "Absolute credit"
     # absolute_currency: "Absolute currency"
     # absolute_debit: "Absolute debit"
@@ -738,6 +739,7 @@ eng:
     container: "Container"
     # content: "Contenu"
     # content_indicator: "Content indicator"
+    # content_indicator_name: "Content indicator name"
     # content_indicator_unit: "Content indicator unit"
     # content_maximal_quantity: "Content maximal quantity"
     # content_nature: "Content nature"
@@ -936,6 +938,7 @@ eng:
     # formats: "Formats"
     frequency: "Frequency" #?
     # frozen_indicators: "Frozen indicators"
+    # frozen_indicators_list: "Frozen indicators list"
     full_name: "Full name"
     full_name_format: "Full name format" #?
     function_title: "Function title"
@@ -1032,6 +1035,7 @@ eng:
     letter_format: "Letter format"
     # lft: "Limite gauche"
     lines: "Lines" #?
+    # linkage_points_list: "Linkage points list"
     # linkages: "Linkages"
     # links: "Links"
     listing: "Listing"
@@ -1496,6 +1500,7 @@ eng:
     value: "Value"
     # variable: "Variable"
     # variable_indicators: "Indicateurs d'une variable"
+    # variable_indicators_list: "Variable indicators list"
     variables: "Variables"
     variant: "Variant"
     variants: "Variants"
@@ -1536,6 +1541,8 @@ eng:
         # name: "Catalogue d'achat"
       sale:
         # name: "Catalogue de vente"
+    catalog_price:
+      # label: "%{variant} %{amount}/%{unit}"
     company:  #?
       cant_find_document_template: "Can not find document template" #?
       default: #?

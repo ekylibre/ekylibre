@@ -25,7 +25,7 @@
 #  asset_id                 :integer
 #  born_at                  :datetime
 #  category_id              :integer          not null
-#  content_indicator        :string(255)
+#  content_indicator_name   :string(255)
 #  content_indicator_unit   :string(255)
 #  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
 #  content_nature_id        :integer
@@ -66,7 +66,7 @@
 class Product < Ekylibre::Record::Base
   enumerize :variety, in: Nomen::Varieties.all, predicates: {prefix: true}
   enumerize :derivative_of, in: Nomen::Varieties.all
-  enumerize :content_indicator, in: Nomen::Indicators.all, predicates: {prefix: true}
+  enumerize :content_indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}
   enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
   enumerize :initial_arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, predicates: {prefix: true}
   belongs_to :asset
@@ -113,17 +113,17 @@ class Product < Ekylibre::Record::Base
 
   scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, "interior", viewed_at, viewed_at, viewed_at)}
   scope :of_variety, lambda { |*varieties|
-    where(:variety => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(variety: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :derivative_of, lambda { |*varieties|
-    where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
+    where(derivative_of: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
   scope :can, lambda { |*abilities|
-    where(:nature_id => ProductNature.can(*abilities))
+    where(nature_id: ProductNature.can(*abilities))
   }
 
   scope :of_nature, lambda { |nature|
-    where(:nature_id => nature.id)
+    where(nature_id: nature.id)
   }
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :indicate, lambda { |indicators, options = {}|
@@ -145,7 +145,7 @@ class Product < Ekylibre::Record::Base
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :content_maximal_quantity, :initial_population, allow_nil: true
   validates_length_of :derivative_of, :initial_arrival_cause, :variety, allow_nil: true, maximum: 120
-  validates_length_of :content_indicator, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, allow_nil: true, maximum: 255
+  validates_length_of :content_indicator_name, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, allow_nil: true, maximum: 255
   validates_inclusion_of :reservoir, in: [true, false]
   validates_presence_of :category, :content_maximal_quantity, :name, :nature, :number, :variant, :variety
   #]VALIDATORS]
@@ -160,10 +160,10 @@ class Product < Ekylibre::Record::Base
   acts_as_numbered force: false
   delegate :serial_number, :producer, to: :tracking
   delegate :name, to: :nature, prefix: true
-  delegate :subscribing?, :deliverable?, to: :nature
   delegate :variety, :derivative_of, :name, to: :variant, prefix: true
-  delegate :abilities, :abilities_array, :indicators, :indicators_array, :linkage_points_array, :unit_name, to: :variant
-  delegate :asset_account, :product_account, :charge_account, :stock_account, :individual_indicators, :whole_indicators, to: :nature
+  delegate :unit_name, to: :variant
+  delegate :subscribing?, :deliverable?, :asset_account, :product_account, :charge_account, :stock_account, to: :nature
+  delegate :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :linkage_points_list, to: :nature
 
   after_initialize :choose_default_name
   after_create :set_initial_values
@@ -222,9 +222,9 @@ class Product < Ekylibre::Record::Base
     # add first frozen indicator on a product from his variant
     if self.variant
       for datum in self.variant.indicator_data
-        self.is_measured!(datum.indicator, datum.value)
+        self.is_measured!(datum.indicator_name, datum.value)
       end
-      self.phases.create!(variant: self.variant) # , started_at: self.born_at) if self.born_at
+      self.phases.create!(variant: self.variant)
     end
   end
 
@@ -233,7 +233,7 @@ class Product < Ekylibre::Record::Base
   def choose_default_name
     if self.new_record? and self.name.blank?
       if self.variant
-        if last = self.class.where(:variant_id => self.variant_id).reorder("id DESC").first
+        if last = self.variant.products.reorder(id: :desc).first
           self.name = last.name
           array = self.name.split(/\s+/)
           if array.last.match(/^\(+\d+\)+?$/)
@@ -292,11 +292,11 @@ class Product < Ekylibre::Record::Base
   # or unit_price in catalog price
   def evaluated_price(options = {})
     filter = {
-      :variant_id => self.variant_id
+      variant_id: self.variant_id
     }
-    incoming_item = IncomingDeliveryItem.where(:product_id => self.id).first
+    incoming_item = IncomingDeliveryItem.where(product_id: self.id).first
     incoming_purchase_item = incoming_item.purchase_item if incoming_item
-    outgoing_item = OutgoingDeliveryItem.where(:product_id => self.id).first
+    outgoing_item = OutgoingDeliveryItem.where(product_id: self.id).first
     outgoing_sale_item = outgoing_item.sale_item if outgoing_item
 
     if incoming_purchase_item
@@ -359,9 +359,9 @@ class Product < Ekylibre::Record::Base
   end
 
   def net_surface_area(at = Time.now)
-    if self.indicators_array.include?(Nomen::Indicators[:net_surface_area])
-      return self.get(:net_surface_area)
-    elsif self.whole_indicators.include?(:shape)
+    if self.indicators_list.include?(:net_surface_area)
+      return self.get(:net_surface_area, at)
+    elsif self.whole_indicators_list.include?(:shape)
       return self.shape_area(at: at).in_square_meter
     end
     return 0.0.in_square_meter
@@ -388,20 +388,20 @@ class Product < Ekylibre::Record::Base
     return net_weight(at).in(unit)
   end
 
-  def population(at = Time.now)
-    return self.get(:population) || 0.0
+  def population(*args)
+    return self.get(:population, *args) || 0.0
   end
 
 
   # Measure a product for a given indicator
   def is_measured!(indicator, value, options = {})
-    unless Nomen::Indicators[indicator]
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
     if value.nil?
       raise ArgumentError, "Value must be given"
     end
-    datum = self.indicator_data.build(indicator: indicator, measured_at: (options[:at] || Time.now), originator: options[:originator])
+    datum = self.indicator_data.build(indicator_name: indicator.name, measured_at: (options[:at] || Time.now), originator: options[:originator])
     datum.value = value
     datum.save!
     return datum
@@ -415,45 +415,71 @@ class Product < Ekylibre::Record::Base
   # end
 
   # Return the indicator datum
-  def indicate(indicator, options = {})
+  def indicator_datum(indicator, options = {})
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
     measured_at = options[:at] || Time.now
-    return self.indicator_data.where(indicator: indicator.to_s).where("measured_at <= ?", measured_at).reorder("measured_at DESC").first
+    return self.indicator_data.where(indicator_name: indicator.name).where("measured_at <= ?", measured_at).reorder(measured_at: :desc).first
   end
 
   # Get indicator value
   # if option :at specify at which moment
   # if option :interpolate is true, it returns the interpolated value
-  def get(indicator_name, *args)
-    unless indicator = Nomen::Indicators.items[indicator_name]
-      raise StandardError, "Unknown indicator: #{indicator_name.inspect}"
+  def get(indicator, *args)
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
     options = args.extract_options!
-    measured_at = args.shift || options[:at] || Time.now
-    # Find value
+    cast_or_time = args.shift || options[:cast] || options[:at] || Time.now
     value = nil
-    if options[:interpolate]
-      if [:measure, :decimal].include?(indicator.datatype)
-        raise NotImplementedError, "Interpolation is not available for now"
+    if cast_or_time.is_a?(Time)
+      # Find value
+      if options[:interpolate]
+        if [:measure, :decimal].include?(indicator.datatype)
+          raise NotImplementedError, "Interpolation is not available for now"
+        end
+        raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"
+      elsif datum = self.indicator_datum(indicator.name, at: cast_or_time)
+        value = datum.value
       end
-      raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"
-    elsif datum = self.indicate(indicator.name, at: measured_at)
-      value = datum.value
-    end
-    # Adjust value
-    if value and indicator.gathering
-      if indicator.gathering == :proportional_to_population
-        value *= self.get(:population, at: measured_at)
+      # Adjust value
+      if value and indicator.gathering
+        if indicator.gathering == :proportional_to_population
+          value *= self.send(:population, at: measured_at)
+        end
+      end
+    elsif cast_or_time.is_a?(InterventionCast)
+      if cast.reference.new?
+        unless variant = cast.variant || cast.reference.variant(cast.intervention)
+          raise StandardError, "Need variant to know how to measure it"
+        end
+        if variant.frozen_indicators.include?(indicator)
+          value = variant.get(indicator)
+        else
+          raise StandardError, "Cannot measure a variable an unknown time"
+        end
+      else
+        if datum = self.indicator_datum(indicator.name, at: cast.intervention.started_at)
+          value = datum.value
+        end
+      end
+      # Adjust value
+      if value and indicator.gathering
+        if indicator.gathering == :proportional_to_population
+          value *= cast.population
+        end
       end
     end
     return value
   end
 
 
-  # Returns indicators for a set of product
-  def self.indicator(name, options = {})
-    measured_at = options[:at] || Time.now
-    ProductIndicatorDatum.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator = p2.indicator AND (p1.measured_at < p2.measured_at OR (p1.measured_at = p2.measured_at AND p1.id < p2.id)) AND p2.measured_at <= ?) WHERE p1.measured_at <= ? AND p1.product_id IN (?) AND p1.indicator = ? AND p2 IS NULL)", measured_at, measured_at, self.pluck(:id), name)
-  end
+  # # Returns indicators for a set of product
+  # def self.indicator_data(name, options = {})
+  #   measured_at = options[:at] || Time.now
+  #   ProductIndicatorDatum.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator = p2.indicator AND (p1.measured_at < p2.measured_at OR (p1.measured_at = p2.measured_at AND p1.id < p2.id)) AND p2.measured_at <= ?) WHERE p1.measured_at <= ? AND p1.product_id IN (?) AND p1.indicator = ? AND p2 IS NULL)", measured_at, measured_at, self.pluck(:id), name)
+  # end
 
 
   # Returns value of an indicator if its name correspond to
@@ -464,9 +490,9 @@ class Product < Ekylibre::Record::Base
     return super
   end
 
-  # Give the indicator table name
-  def self.indicator_table_name(indicator)
-    ProductIndicatorDatum.table_name
-  end
+  # # Give the indicator table name
+  # def self.indicator_table_name(indicator)
+  #   ProductIndicatorDatum.table_name
+  # end
 
 end

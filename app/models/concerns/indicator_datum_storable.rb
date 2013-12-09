@@ -2,13 +2,13 @@ module IndicatorDatumStorable
   extend ActiveSupport::Concern
 
   included do
-    enumerize :indicator, in: Nomen::Indicators.all, default: Nomen::Indicators.default, predicates: {prefix: true}
+    enumerize :indicator_name, in: Nomen::Indicators.all, default: Nomen::Indicators.default, predicates: {prefix: true}
     enumerize :indicator_datatype, in: Nomen::Indicators.datatype.choices, predicates: {prefix: true}
     enumerize :measure_value_unit, in: Nomen::Units.all, predicates: {prefix: true}
 
     composed_of :measure_value, class_name: "Measure", :mapping => [%w(measure_value_value value), %w(measure_value_unit unit)]
 
-    validates_inclusion_of :indicator, in: self.indicator.values
+    validates_inclusion_of :indicator_name, in: self.indicator_name.values
     validates_inclusion_of :indicator_datatype, in: self.indicator_datatype.values
 
     validates_presence_of :point_value,    :if => :indicator_datatype_point?
@@ -25,7 +25,7 @@ module IndicatorDatumStorable
   end
 
   def set_datatype
-    self.indicator_datatype = self.theoric_datatype
+    self.indicator_datatype = self.indicator.datatype
   end
 
   def validate_value
@@ -37,13 +37,13 @@ module IndicatorDatumStorable
 
   # Read value from good place
   def value
-    datatype = self.indicator_datatype || self.theoric_datatype
+    datatype = self.indicator_datatype || self.indicator.datatype
     self.send(datatype.to_s + '_value')
   end
 
   # Write value into good place
   def value=(object)
-    datatype = (self.indicator_datatype || self.theoric_datatype).to_sym
+    datatype = (self.indicator_datatype || self.indicator.datatype).to_sym
     if object.is_a?(String)
       if datatype == :measure
         object = Measure.new(object)
@@ -64,13 +64,19 @@ module IndicatorDatumStorable
     self.send("#{datatype}_value=", object)
   end
 
-  # Retrieve datatype from nomenclature NOT from database
-  def theoric_datatype
-    Nomen::Indicators.items[self.indicator].datatype.to_sym
+
+
+  # # Retrieve datatype from nomenclature NOT from database
+  # def theoric_datatype
+  #   self.indicator.datatype.to_sym
+  # end
+
+  def indicator
+    Nomen::Indicators[self.indicator_name]
   end
 
-  def indicator_name
-    self.indicator.tl
+  def indicator_human_name
+    self.indicator.human_name
   end
 
   # methods defined here are going to extend the class, not the instance of it
@@ -81,6 +87,10 @@ module IndicatorDatumStorable
         raise ArgumentError, "Expecting an indicator name. Got #{indicator_name.inspect}."
       end
       return {measure: :measure_value_value}[indicator.datatype] || "#{indicator.datatype}_value".to_sym
+    end
+
+    def indicator_table_name(indicator_name)
+      table_name
     end
 
   end

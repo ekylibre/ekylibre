@@ -997,6 +997,7 @@ arb:
       # zone_property_title: "Titre de propriété foncière"
   attributes:
     # abilities: "Compétences"
+    # abilities_list: "Abilities list"
     # absolute_credit: "Absolute credit"
     # absolute_currency: "Absolute currency"
     # absolute_debit: "Absolute debit"
@@ -1169,6 +1170,7 @@ arb:
     # container: "Contenant"
     # content: "Contenu"
     # content_indicator: "Content indicator"
+    # content_indicator_name: "Content indicator name"
     # content_indicator_unit: "Content indicator unit"
     # content_maximal_quantity: "Content maximal quantity"
     # content_nature: "Content nature"
@@ -1371,6 +1373,7 @@ arb:
     format: "التصميم" #?
     # formats: "Formats"
     # frozen_indicators: "Frozen indicators"
+    # frozen_indicators_list: "Frozen indicators list"
     full_name: "الاسم بالكامل"
     full_name_format: "التصميم" #?
     function_title: "الكياسة"
@@ -1476,6 +1479,7 @@ arb:
     line_6_city: "المدينة" #?
     line_6_code: "الرمز البريدي" #?
     lines: "طرق تسديد الفاتورة" #?
+    # linkage_points_list: "Linkage points list"
     # linkages: "Linkages"
     # links: "Links"
     listing: "الاستخراج"
@@ -1945,6 +1949,7 @@ arb:
     value_format: "التصميم" #?
     # variable: "Variable"
     # variable_indicators: "Indicateurs d'une variable"
+    # variable_indicators_list: "Variable indicators list"
     # variables: "Variables"
     # variant: "Variante"
     # variants: "Variantes"
@@ -1995,6 +2000,8 @@ arb:
         # name: "Catalogue d'achat"
       sale:
         # name: "Catalogue de vente"
+    catalog_price:
+      # label: "%{variant} %{amount}/%{unit}"
     company:  #?
       cant_find_document_template: "لا يمكن العثور على نموذج مطابق للوثيقة" #?
       default: #?

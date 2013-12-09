@@ -27,7 +27,7 @@
 #  creator_id        :integer
 #  currency          :string(3)        not null
 #  id                :integer          not null, primary key
-#  indicator         :string(120)      not null
+#  indicator_name    :string(120)      not null
 #  label             :text
 #  lock_version      :integer          default(0), not null
 #  position          :integer
@@ -65,8 +65,8 @@ class PurchaseItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :unit_price_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :indicator, allow_nil: true, maximum: 120
-  validates_presence_of :account, :amount, :currency, :indicator, :pretax_amount, :purchase, :quantity, :tax, :unit_price_amount, :variant
+  validates_length_of :indicator_name, allow_nil: true, maximum: 120
+  validates_presence_of :account, :amount, :currency, :indicator_name, :pretax_amount, :purchase, :quantity, :tax, :unit_price_amount, :variant
   #]VALIDATORS]
   validates_presence_of :account
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
@@ -83,7 +83,7 @@ class PurchaseItem < Ekylibre::Record::Base
       self.account   ||= self.variant.charge_account || Account.find_in_chart(:expenses)
       self.label     ||= self.variant.commercial_name
       self.currency  ||= Preference.get(:currency).value
-      self.indicator ||= :population.to_s
+      self.indicator_name ||= :population.to_s
     end
     amount = self.quantity * self.unit_price_amount
       if self.tax

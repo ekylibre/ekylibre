@@ -27,8 +27,8 @@
 #  decimal_value       :decimal(19, 4)
 #  geometry_value      :spatial({:srid=>
 #  id                  :integer          not null, primary key
-#  indicator           :string(255)      not null
 #  indicator_datatype  :string(255)      not null
+#  indicator_name      :string(255)      not null
 #  lock_version        :integer          default(0), not null
 #  measure_value_unit  :string(255)
 #  measure_value_value :decimal(19, 4)
@@ -51,37 +51,47 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   has_one :variant, through: :product
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value_value, allow_nil: true
-  validates_length_of :choice_value, :indicator, :indicator_datatype, :measure_value_unit, :originator_type, allow_nil: true, maximum: 255
+  validates_length_of :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, :originator_type, allow_nil: true, maximum: 255
   validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :indicator, :indicator_datatype, :measured_at, :product
+  validates_presence_of :indicator_datatype, :indicator_name, :measured_at, :product
   #]VALIDATORS]
 
-  scope :measured_between, lambda { |started_on, stopped_on|
+  scope :between, lambda { |started_on, stopped_on|
     where("measured_at BETWEEN ? AND ?", started_on, stopped_on)
   }
+  scope :measured_between, lambda { |started_on, stopped_on| between(started_on, stopped_on) }
+  scope :of_products, lambda { |products, indicator_name, at = nil|
+    at ||= Time.now
+    where("id IN (SELECT p1.id FROM #{self.indicator_table_name(indicator_name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(indicator_name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator = p2.indicator AND (p1.measured_at < p2.measured_at OR (p1.measured_at = p2.measured_at AND p1.id < p2.id)) AND p2.measured_at <= ?) WHERE p1.measured_at <= ? AND p1.product_id IN (?) AND p1.indicator = ? AND p2 IS NULL)", measured_at, measured_at, products.pluck(:id), indicator_name)
+  }
+
 
   before_validation do
     self.measured_at ||= Time.now
   end
 
-  def self.averages_of_periods(column = :valeur, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
-    self.calculate_in_periods(:avg, column, reference_date_column, period, dtype)
-  end
+  class << self
 
-  def self.sums_of_periods(column = :valeur, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
-    self.calculate_in_periods(:sum, column, reference_date_column, period, dtype)
-  end
+    def averages_of_periods(column = :value, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
+      self.calculate_in_periods(:avg, column, reference_date_column, period, dtype)
+    end
 
-  def self.counts_of_periods(dtype = :measure_value, column = :valeur, reference_date_column = :measured_at, period = :month)
-    self.calculate_in_periods(:count, column, reference_date_column, period, dtype)
-  end
+    def sums_of_periods(column = :value, reference_date_column = :measured_at, period = :month, dtype = :measure_value)
+      self.calculate_in_periods(:sum, column, reference_date_column, period, dtype)
+    end
 
-  # @TODO update method with list of indicator datatype
-  def self.calculate_in_periods(operation, column, reference_date_column, period = :month, dtype = :measure_value)
-    ind_val = dtype.to_s + '_value'
-    period = :doy if period == :day
-    expr = "EXTRACT(YEAR FROM #{reference_date_column})*1000 + EXTRACT(#{period} FROM #{reference_date_column})"
-    group(expr).order(expr).select("#{expr} AS expr, #{operation}(#{ind_val}) AS #{column}")
+    def counts_of_periods(dtype = :measure_value, column = :value, reference_date_column = :measured_at, period = :month)
+      self.calculate_in_periods(:count, column, reference_date_column, period, dtype)
+    end
+
+    # @TODO update method with list of indicator datatype
+    def calculate_in_periods(operation, column, reference_date_column, period = :month, dtype = :measure_value)
+      ind_val = dtype.to_s + '_value'
+      period = :doy if period == :day
+      expr = "EXTRACT(YEAR FROM #{reference_date_column})*1000 + EXTRACT(#{period} FROM #{reference_date_column})"
+      group(expr).order(expr).select("#{expr} AS expr, #{operation}(#{ind_val}) AS #{column}")
+    end
+
   end
 
 end

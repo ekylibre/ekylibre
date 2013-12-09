@@ -63,9 +63,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_presence_of :category, :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name, :variety
   #]VALIDATORS]
 
-  delegate :matching_model, :indicators_array, :population_frozen?, :population_modulo, :frozen_indicators_array, :variable_indicators_array, :linkage_points_array, :whole_indicators, :individual_indicators, :indicators_related_to, to: :nature
+  delegate :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :whole_indicators_list, :individual_indicators_list, to: :nature
   delegate :variety, :derivative_of, to: :nature, prefix: true
-  delegate :asset_account, :product_account, :charge_account, :stock_account, to: :category
+  delegate :deliverable?, :purchasable?, :saleable?, :subscribing?, :asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true
@@ -82,11 +82,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
     }
   }
 
-  # default_scope -> { order(:name) }
-
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
-
   scope :of_variety, Proc.new { |*varieties|
     where(variety: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
@@ -96,7 +93,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :can, Proc.new { |*abilities|
     where(nature_id: ProductNature.can(*abilities))
   }
-
   scope :of_natures, lambda { |*natures|
     natures.flatten!
     for nature in natures
@@ -106,7 +102,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   }
 
   protect(on: :destroy) do
-    self.products.count.zero? and self.prices.count.zero?
+    self.products.empty? and self.prices.empty?
   end
 
   before_validation on: :create do
@@ -119,25 +115,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
       if self.derivative_of.blank? and self.nature.derivative_of
         self.derivative_of ||= self.nature.derivative_of
       end
-      #if indicator = self.indicators_array.first
-      #  self.usage_indicator ||= indicator.name
-      #end
     end
     self.commercial_name ||= self.name
-    #if item = Nomen::Indicators.find(self.usage_indicator)
-    #  self.usage_indicator_unit = item.unit
-    #  self.sale_indicator ||= self.usage_indicator
-    #  self.sale_indicator_unit ||= self.usage_indicator_unit
-    #  self.purchase_indicator ||= self.usage_indicator
-    #  self.purchase_indicator_unit ||= self.usage_indicator_unit
-    #end
-    #if item = Nomen::Indicators.find(self.sale_indicator)
-    # self.sale_indicator_unit ||= item.unit
-    #end
-    #if item = Nomen::Indicators.find(self.purchase_indicator)
-    # self.purchase_indicator_unit ||= item.unit
-    #end
-
   end
 
   validate do
@@ -153,134 +132,37 @@ class ProductNatureVariant < Ekylibre::Record::Base
     end
   end
 
-  def deliverable?
-    self.nature.deliverable?
-  end
-
-  def purchasable?
-    self.nature.purchasable?
-  end
-
-  def saleable?
-    self.nature.saleable?
-  end
-
-  def subscribing?
-    self.nature.subscribing?
-  end
-
-  #validate do
-  # Check that unit match indicator's unit
-  #for mode in [:usage, :sale, :purchase]
-  #  unit = self.send("#{mode}_indicator_unit").to_s
-  # if item = Nomen::Indicators[self.send("#{mode}_indicator")] and !unit.blank?
-  #   if Measure.dimension(item.unit) != Measure.dimension(unit)
-  #     errors.add(:"#{mode}_indicator_unit", :invalid)
-  #    end
-  #  end
-  #end
-  #end
-
   # Measure a product for a given indicator
-  def is_measured!(indicator, value, options = {})
-    unless Nomen::Indicators[indicator]
-      raise ArgumentError.new("Unknown indicator #{indicator.inspect}")
+  def is_measured!(indicator_name, value, options = {})
+    unless Nomen::Indicators[indicator_name]
+      raise ArgumentError, "Unknown indicator #{indicator_name.inspect}"
     end
-    datum = self.indicator_data.new(:indicator => indicator)
+    datum = self.indicator_data.build(indicator_name: indicator_name)
     datum.value = value
     datum.save!
     return datum
   end
 
   # Return the indicator datum
-  def indicator(indicator, options = {})
-    created_at = options[:at] || Time.now
-    return self.indicator_data.where(:indicator => indicator.to_s).where("created_at <= ?", created_at).reorder("created_at DESC").first
+  def indicator_datum(indicator_name)
+    return self.indicator_data.where(indicator_name: indicator_name.to_s).first
+  end
+
+  # Returns the direct value of an indicator of variant
+  def get(indicator_name)
+    if datum = indicator_datum(indicator_name)
+      return datum.value
+    end
+    return nil
   end
 
   # check if a variant has an indicator which is frozen or not
   def frozen?(indicator)
-    frozen_indicator = self.indicator(indicator)
-    if frozen_indicator.computation_method == "frozen"
-      return true
+    if indicator.is_a?(Nomen::Item)
+      return self.frozen_indicators.include?(indicator)
     else
-      return false
+      return self.frozen_indicators_list.include?(indicator)
     end
-  end
-
-
-  # Returns indicators for a set of product
-  def self.indicator(name, options = {})
-    created_at = options[:at] || Time.now
-    ProductNatureVariantIndicatorDatum.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.variant_id = p2.variant_id AND (p1.created_at < p2.created_at OR (p1.created_at = p2.created_at AND p1.id < p2.id)) AND p2.created_at <= ?) WHERE p1.created_at <= ? AND p1.variant_id IN (?) AND p2 IS NULL)", created_at, created_at, self.pluck(:id))
-  end
-
-
-  # Find or import variant from nomenclature with given attributes
-  # variety and derivative_of only are accepted for now
-  def self.find_or_import!(variety, options = {})
-    variants = of_variety(variety)
-    if derivative_of = options[:derivative_of]
-      variants = variants.derivative_of(derivative_of)
-    end
-    if variants.empty?
-      # Flatten variants for search
-      nomenclature = Nomen::ProductNatureVariants.list.collect do |item|
-        nature = Nomen::ProductNatures[item.nature]
-        h = {reference_name: item.name, variety: Nomen::Varieties[item.variety || nature.variety]} # , nature: nature
-        if d = Nomen::Varieties[item.derivative_of || nature.derivative_of]
-          h[:derivative_of] = d
-        end
-        h
-      end
-      # puts [variety, derivative_of].inspect
-      # puts "NOMENCLATURE: " + nomenclature.inspect
-      # Filter and imports
-      filtereds = nomenclature.select do |item|
-        item[:variety].include?(variety) and
-          ((derivative_of and item[:derivative_of] and item[:derivative_of].include?(derivative_of)) or (derivative_of.blank? and item[:derivative_of].blank?))
-      end
-      # puts "FILTEREDS: " + filtereds.inspect
-      filtereds.each do |item|
-        # puts "Import #{item[:reference_name]}!"
-        import_from_nomenclature(item[:reference_name])
-      end
-    end
-    return variants.reload
-  end
-
-
-  # Load a product nature variant from product nature variant nomenclature
-  def self.import_from_nomenclature(reference_name)
-    unless item = Nomen::ProductNatureVariants[reference_name]
-      raise ArgumentError, "The product_nature_variant #{reference_name.inspect} is not known"
-    end
-    unless nature_item = Nomen::ProductNatures[item.nature]
-      raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
-    end
-    unless variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s)
-      attributes = {
-        :name => item.human_name,
-        :active => true,
-        :nature => ProductNature.find_by_reference_name(item.nature) || ProductNature.import_from_nomenclature(item.nature),
-        :reference_name => item.name,
-        :unit_name => I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.unit_name}"),
-        # :frozen_indicators => item.frozen_indicators_values.to_s,
-        :variety => item.variety || nil,
-        :derivative_of => item.derivative_of || nil
-      }
-      variant = self.create!(attributes)
-    end
-
-    if variant and !item.frozen_indicators_values.to_s.blank?
-      # create frozen indicator for each pair indicator, value ":population => 1unity"
-      item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
-        .collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.each do |i|
-        variant.is_measured!(i.first.strip.downcase.to_sym, i.second)
-      end
-    end
-
-    return variant
   end
 
   # Get indicator value
@@ -289,35 +171,91 @@ class ProductNatureVariant < Ekylibre::Record::Base
   # if option :interpolate is true, it returns the interpolated value
   # :interpolate and :datum options are incompatible
   def method_missing(method_name, *args)
-    return super unless Nomen::Indicators.all.include?(method_name.to_s)
-    options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-    created_at = args.shift || options[:at] || Time.now
-    indicator = Nomen::Indicators.items[method_name]
+    return super unless Nomen::Indicators.items[method_name]
+    return get(method_name)
+  end
 
-    if options[:interpolate]
-      if [:measure, :decimal].include?(indicator.datatype)
-        raise NotImplementedError.new("Interpolation is not available for now")
+
+  class << self
+
+    # # Returns indicators for a set of product
+    # def indicator(name, options = {})
+    #   created_at = options[:at] || Time.now
+    #   ProductNatureVariantIndicatorDatum.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.variant_id = p2.variant_id AND (p1.created_at < p2.created_at OR (p1.created_at = p2.created_at AND p1.id < p2.id)) AND p2.created_at <= ?) WHERE p1.created_at <= ? AND p1.variant_id IN (?) AND p2 IS NULL)", created_at, created_at, self.pluck(:id))
+    # end
+
+
+    # Find or import variant from nomenclature with given attributes
+    # variety and derivative_of only are accepted for now
+    def find_or_import!(variety, options = {})
+      variants = of_variety(variety)
+      if derivative_of = options[:derivative_of]
+        variants = variants.derivative_of(derivative_of)
       end
-      raise StandardError("Can not use :interpolate option with #{indicator.datatype.inspect} datatype")
-    else
-      if datum = self.indicator(indicator.name.to_s, :at => created_at)
-        x = datum.value
-        x.define_singleton_method(:created_at) do
-          created_at
+      if variants.empty?
+        # Flatten variants for search
+        nomenclature = Nomen::ProductNatureVariants.list.collect do |item|
+          nature = Nomen::ProductNatures[item.nature]
+          h = {reference_name: item.name, variety: Nomen::Varieties[item.variety || nature.variety]} # , nature: nature
+          if d = Nomen::Varieties[item.derivative_of || nature.derivative_of]
+            h[:derivative_of] = d
+          end
+          h
         end
-        variant_id = self.id
-        x.define_singleton_method(:variant_id) do
-          variant_id
+        # puts [variety, derivative_of].inspect
+        # puts "NOMENCLATURE: " + nomenclature.inspect
+        # Filter and imports
+        filtereds = nomenclature.select do |item|
+          item[:variety].include?(variety) and
+            ((derivative_of and item[:derivative_of] and item[:derivative_of].include?(derivative_of)) or (derivative_of.blank? and item[:derivative_of].blank?))
         end
-        return x
+        # puts "FILTEREDS: " + filtereds.inspect
+        filtereds.each do |item|
+          # puts "Import #{item[:reference_name]}!"
+          import_from_nomenclature(item[:reference_name])
+        end
       end
+      return variants.reload
     end
-    return nil
-  end
 
-  # Give the indicator table name
-  def self.indicator_table_name(indicator)
-    ProductNatureVariantIndicatorDatum.table_name
-  end
 
+    # Load a product nature variant from product nature variant nomenclature
+    def import_from_nomenclature(reference_name)
+      unless item = Nomen::ProductNatureVariants[reference_name]
+        raise ArgumentError, "The product_nature_variant #{reference_name.inspect} is not known"
+      end
+      unless nature_item = Nomen::ProductNatures[item.nature]
+        raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
+      end
+      unless variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s)
+        attributes = {
+          :name => item.human_name,
+          :active => true,
+          :nature => ProductNature.find_by_reference_name(item.nature) || ProductNature.import_from_nomenclature(item.nature),
+          :reference_name => item.name,
+          :unit_name => I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.unit_name}"),
+          # :frozen_indicators => item.frozen_indicators_values.to_s,
+          :variety => item.variety || nil,
+          :derivative_of => item.derivative_of || nil
+        }
+        variant = self.create!(attributes)
+      end
+
+      if variant and !item.frozen_indicators_values.to_s.blank?
+        # create frozen indicator for each pair indicator, value ":population => 1unity"
+        item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
+          .collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.each do |i|
+          variant.is_measured!(i.first.strip.downcase.to_sym, i.second)
+        end
+      end
+
+      return variant
+    end
+
+    # # Give the indicator table name
+    # def indicator_table_name(indicator)
+    #   ProductNatureVariantIndicatorDatum.table_name
+    # end
+
+  end
 end

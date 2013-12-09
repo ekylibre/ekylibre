@@ -28,7 +28,7 @@
 #  credited_item_id     :integer
 #  currency             :string(3)        not null
 #  id                   :integer          not null, primary key
-#  indicator            :string(120)      not null
+#  indicator_name       :string(120)      not null
 #  label                :text
 #  lock_version         :integer          default(0), not null
 #  position             :integer

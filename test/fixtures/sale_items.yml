@@ -28,7 +28,7 @@
 #  credited_item_id     :integer
 #  currency             :string(3)        not null
 #  id                   :integer          not null, primary key
-#  indicator            :string(120)      not null
+#  indicator_name       :string(120)      not null
 #  label                :text
 #  lock_version         :integer          default(0), not null
 #  position             :integer
@@ -53,7 +53,7 @@
 #   creator_id: 1
 #   currency: "Lorem ipsum"
 #   id: 1
-#   indicator: "Lorem ipsum"
+#   indicator_name: "Lorem ipsum"
 #   pretax_amount: 0
 #   price_id: 1
 #   quantity: 0
@@ -71,7 +71,7 @@ sale_items_001:
   creator_id: 1
   currency: "EUR"
   id: 1
-  indicator: 'population'
+  indicator_name: 'population'
   sale_id: 1
   price_id: 1
   variant_id: 1
@@ -87,7 +87,7 @@ sale_items_002:
   creator_id: 1
   currency: "EUR"
   id: 2
-  indicator: 'population'
+  indicator_name: 'population'
   sale_id: 1
   price_id: 2
   variant_id: 1
@@ -103,7 +103,7 @@ sale_items_003:
   creator_id: 1
   currency: "EUR"
   id: 3
-  indicator: 'population'
+  indicator_name: 'population'
   sale_id: 2
   price_id: 3
   variant_id: 1
@@ -119,7 +119,7 @@ sale_items_004:
   creator_id: 1
   currency: "EUR"
   id: 4
-  indicator: 'population'
+  indicator_name: 'population'
   sale_id: 3
   price_id: 4
   variant_id: 1
@@ -134,7 +134,7 @@ sale_items_005:
   creator_id: 1
   currency: "EUR"
   id: 5
-  indicator: 'population'
+  indicator_name: 'population'
   pretax_amount: 10
   price_id: 5
   variant_id: 1

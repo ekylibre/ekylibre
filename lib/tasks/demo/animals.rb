@@ -3,24 +3,24 @@
 demo :animals do
 
   # import variant for creating animal
-    cow_vl     = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
-    cow_trepro = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
-    cow_gen    = ProductNatureVariant.import_from_nomenclature(:female_young_cow)
-    cow_taur   = ProductNatureVariant.import_from_nomenclature(:male_young_cow)
-    cow_v      = ProductNatureVariant.import_from_nomenclature(:calf)
-    herd       = ProductNatureVariant.import_from_nomenclature(:cattle_herd)
+  cow_vl     = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
+  cow_trepro = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
+  cow_gen    = ProductNatureVariant.import_from_nomenclature(:female_young_cow)
+  cow_taur   = ProductNatureVariant.import_from_nomenclature(:male_young_cow)
+  cow_v      = ProductNatureVariant.import_from_nomenclature(:calf)
+  herd       = ProductNatureVariant.import_from_nomenclature(:cattle_herd)
 
   # find place for creating animal
-    place_v = BuildingDivision.find_by_work_number("B09_D1")
-    group_v = AnimalGroup.find_by_work_number("VEAU")
-    place_gen = BuildingDivision.find_by_work_number("B03_D9")
-    group_gen1 = AnimalGroup.find_by_work_number("GEN_1")
-    group_gen2 = AnimalGroup.find_by_work_number("GEN_2")
-    group_gen3 = AnimalGroup.find_by_work_number("GEN_3")
-    place_taur = BuildingDivision.find_by_work_number("B04_D4")
-    group_taur = AnimalGroup.find_by_work_number("TAUR")
-    place_vl = BuildingDivision.find_by_work_number("B07_D2")
-    group_vl = AnimalGroup.find_by_work_number("VL")
+  place_v = BuildingDivision.find_by_work_number("B09_D1")
+  group_v = AnimalGroup.find_by_work_number("VEAU")
+  place_gen = BuildingDivision.find_by_work_number("B03_D9")
+  group_gen1 = AnimalGroup.find_by_work_number("GEN_1")
+  group_gen2 = AnimalGroup.find_by_work_number("GEN_2")
+  group_gen3 = AnimalGroup.find_by_work_number("GEN_3")
+  place_taur = BuildingDivision.find_by_work_number("B04_D4")
+  group_taur = AnimalGroup.find_by_work_number("TAUR")
+  place_vl = BuildingDivision.find_by_work_number("B07_D2")
+  group_vl = AnimalGroup.find_by_work_number("VL")
 
   # add animals credentials in preferences
   synel_login = Preference.where(:nature => :string, :name => "services.synel17.login", :string_value => "17387001").first_or_create
@@ -248,25 +248,25 @@ demo :animals do
           animal.mother = animal_mother
         else
           unless r.mother_identification_number.blank?
-          # case = VL
-          animal_mother = Animal.create!(:variant_id => cow_vl.id, :name => r.mother_name, :variety => "bos",
-                                         :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :initial_owner => Entity.of_company, :initial_arrival_cause => :birth, :initial_container => place_vl, :default_storage => place_vl )
+            # case = VL
+            animal_mother = Animal.create!(:variant_id => cow_vl.id, :name => r.mother_name, :variety => "bos",
+                                           :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :initial_owner => Entity.of_company, :initial_arrival_cause => :birth, :initial_container => place_vl, :default_storage => place_vl )
 
-          # set default indicators
-          animal_mother.is_measured!(:animal_disease_state, :healthy)
-          animal_mother.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
-          animal_mother.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
-          animal.mother = animal_mother
+            # set default indicators
+            animal_mother.is_measured!(:animal_disease_state, :healthy)
+            animal_mother.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
+            animal_mother.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
+            animal.mother = animal_mother
           end
         end
         if animal_father = Animal.find_by_identification_number(r.father_identification_number)
           animal.father = animal_father
         else
           unless r.father_identification_number.blank?
-          # case = TAUREAU REPRO
-          animal_father = Animal.create!(:variant_id => cow_trepro.id, :name => r.father_name, :variety => "bos", :identification_number => r.father_identification_number, :initial_owner => Entity.where(:of_company => false).all.sample)
-          # set default indicators
-          animal.father = animal_father
+            # case = TAUREAU REPRO
+            animal_father = Animal.create!(:variant_id => cow_trepro.id, :name => r.father_name, :variety => "bos", :identification_number => r.father_identification_number, :initial_owner => Entity.where(:of_company => false).all.sample)
+            # set default indicators
+            animal.father = animal_father
           end
         end
         animal.save!

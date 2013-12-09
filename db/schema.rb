@@ -330,7 +330,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "name",                                                                    null: false
     t.integer  "variant_id",                                                              null: false
     t.integer  "catalog_id",                                                              null: false
-    t.string   "indicator",          limit: 120,                                          null: false
+    t.string   "indicator_name",     limit: 120,                                          null: false
     t.integer  "reference_tax_id"
     t.decimal  "amount",                         precision: 19, scale: 4,                 null: false
     t.boolean  "all_taxes_included",                                      default: false, null: false
@@ -1554,7 +1554,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "originator_id"
     t.string   "originator_type"
     t.integer  "product_id",                                                                                                            null: false
-    t.string   "indicator",                                                                                                             null: false
+    t.string   "indicator_name",                                                                                                        null: false
     t.string   "indicator_datatype",                                                                                                    null: false
     t.datetime "measured_at",                                                                                                           null: false
     t.decimal  "decimal_value",                                                                precision: 19, scale: 4
@@ -1575,7 +1575,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "product_indicator_data", ["created_at"], :name => "index_product_indicator_data_on_created_at"
   add_index "product_indicator_data", ["creator_id"], :name => "index_product_indicator_data_on_creator_id"
-  add_index "product_indicator_data", ["indicator"], :name => "index_product_indicator_data_on_indicator"
+  add_index "product_indicator_data", ["indicator_name"], :name => "index_product_indicator_data_on_indicator_name"
   add_index "product_indicator_data", ["measured_at"], :name => "index_product_indicator_data_on_measured_at"
   add_index "product_indicator_data", ["originator_id", "originator_type"], :name => "index_product_indicator_data_on_originator"
   add_index "product_indicator_data", ["product_id"], :name => "index_product_indicator_data_on_product_id"
@@ -1644,7 +1644,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "originator_id"
     t.string   "originator_type"
     t.integer  "product_id",                  null: false
-    t.string   "indicator",                   null: false
+    t.string   "indicator_name",              null: false
     t.integer  "reporter_id"
     t.integer  "tool_id"
     t.datetime "started_at",                  null: false
@@ -1751,9 +1751,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "product_nature_variant_indicator_data", force: true do |t|
     t.integer  "variant_id",                                                                                                            null: false
-    t.string   "indicator",                                                                                                             null: false
+    t.string   "indicator_name",                                                                                                        null: false
     t.string   "indicator_datatype",                                                                                                    null: false
-    t.string   "computation_method",                                                                                                    null: false
     t.decimal  "decimal_value",                                                                precision: 19, scale: 4
     t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
     t.string   "measure_value_unit"
@@ -1772,7 +1771,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "product_nature_variant_indicator_data", ["created_at"], :name => "index_product_nature_variant_indicator_data_on_created_at"
   add_index "product_nature_variant_indicator_data", ["creator_id"], :name => "index_product_nature_variant_indicator_data_on_creator_id"
-  add_index "product_nature_variant_indicator_data", ["indicator"], :name => "index_product_nature_variant_indicator_data_on_indicator"
+  add_index "product_nature_variant_indicator_data", ["indicator_name"], :name => "index_product_nature_variant_indicator_data_on_indicator_name"
   add_index "product_nature_variant_indicator_data", ["updated_at"], :name => "index_product_nature_variant_indicator_data_on_updated_at"
   add_index "product_nature_variant_indicator_data", ["updater_id"], :name => "index_product_nature_variant_indicator_data_on_updater_id"
   add_index "product_nature_variant_indicator_data", ["variant_id"], :name => "index_product_nature_variant_indicator_data_on_variant_id"
@@ -1811,29 +1810,29 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_nature_variants", ["updater_id"], :name => "index_product_nature_variants_on_updater_id"
 
   create_table "product_natures", force: true do |t|
-    t.integer  "category_id",                                      null: false
-    t.string   "name",                                             null: false
-    t.string   "number",               limit: 30,                  null: false
-    t.string   "variety",              limit: 120,                 null: false
-    t.string   "derivative_of",        limit: 120
-    t.string   "reference_name",       limit: 120
-    t.boolean  "active",                           default: false, null: false
-    t.boolean  "evolvable",                        default: false, null: false
-    t.string   "population_counting",                              null: false
-    t.text     "abilities"
-    t.text     "variable_indicators"
-    t.text     "frozen_indicators"
-    t.text     "linkage_points"
+    t.integer  "category_id",                                          null: false
+    t.string   "name",                                                 null: false
+    t.string   "number",                   limit: 30,                  null: false
+    t.string   "variety",                  limit: 120,                 null: false
+    t.string   "derivative_of",            limit: 120
+    t.string   "reference_name",           limit: 120
+    t.boolean  "active",                               default: false, null: false
+    t.boolean  "evolvable",                            default: false, null: false
+    t.string   "population_counting",                                  null: false
+    t.text     "abilities_list"
+    t.text     "variable_indicators_list"
+    t.text     "frozen_indicators_list"
+    t.text     "linkage_points_list"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
     t.text     "description"
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.datetime "created_at",                                           null: false
+    t.datetime "updated_at",                                           null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                     default: 0,     null: false
+    t.integer  "lock_version",                         default: 0,     null: false
   end
 
   add_index "product_natures", ["category_id"], :name => "index_product_natures_on_category_id"
@@ -2051,7 +2050,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "address_id"
     t.boolean  "reservoir",                                                     default: false, null: false
     t.integer  "content_nature_id"
-    t.string   "content_indicator"
+    t.string   "content_indicator_name"
     t.string   "content_indicator_unit"
     t.decimal  "content_maximal_quantity",             precision: 19, scale: 4, default: 0.0,   null: false
     t.integer  "parent_id"
@@ -2092,7 +2091,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "pretax_amount",                 precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "amount",                        precision: 19, scale: 4, default: 0.0, null: false
     t.integer  "tax_id",                                                               null: false
-    t.string   "indicator",         limit: 120,                                        null: false
+    t.string   "indicator_name",    limit: 120,                                        null: false
     t.string   "currency",          limit: 3,                                          null: false
     t.text     "label"
     t.text     "annotation"
@@ -2199,7 +2198,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "pretax_amount",                    precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "amount",                           precision: 19, scale: 4, default: 0.0, null: false
     t.integer  "tax_id"
-    t.string   "indicator",            limit: 120,                                        null: false
+    t.string   "indicator_name",       limit: 120,                                        null: false
     t.string   "currency",             limit: 3,                                          null: false
     t.text     "label"
     t.text     "annotation"

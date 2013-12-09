@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -65,8 +66,10 @@ class InterventionCast < Ekylibre::Record::Base
     end
     if self.actor.is_a?(Product)
       self.variant  ||= self.actor.variant
-      for indicator in self.actor.whole_indicators
-        self.send("#{indicator}=", self.actor.send(indicator, at: self.started_at)) unless self.send(indicator)
+      for indicator_name in self.actor.whole_indicators_list
+        if self.send(indicator_name).blank?
+          self.send("#{indicator_name}=", self.actor.send(indicator_name, self.started_at))
+        end
       end
     end
   end

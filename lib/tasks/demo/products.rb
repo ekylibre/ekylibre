@@ -24,7 +24,7 @@ demo :products do
                          :owner_name => row[6].blank? ? nil : row[6].to_s,
                          :notes => row[8].blank? ? nil : row[8].to_s,
                          :unit_price => row[9].blank? ? nil : row[9].to_d,
-                         :indicator_price => row[10].blank? ? nil : row[10].to_sym
+                         :price_indicator => row[10].blank? ? nil : row[10].to_sym
                          )
 
       # find or import from variant reference_nameclature the correct ProductNatureVariant
@@ -33,7 +33,7 @@ demo :products do
 
       # create a price
       if r.unit_price
-        variant.prices.create!(catalog_id: Catalog.where(usage: :cost).first.id, all_taxes_included: false, amount: r.unit_price, currency: "EUR", indicator: r.indicator_price.to_s)
+        variant.prices.create!(catalog: Catalog.where(usage: :cost).first, all_taxes_included: false, amount: r.unit_price, currency: "EUR", indicator_name: r.price_indicator.to_s)
       end
 
       # create the owner if not exist
