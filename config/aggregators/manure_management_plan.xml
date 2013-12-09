@@ -50,8 +50,8 @@
                   <cell name="potassium_concentration" type="measure"/>
                   <cell name="variety" level="api"/>
                 </within>
-                <cell name="quantity" of="input" type="measure"/>
-                <cell name="quantity_in_kilogram" value="input.actor.net_weight.convert(:kilogram).value * input.quantity"/>
+                <cell name="population" of="input" type="measure"/>
+                <cell name="quantity_in_kilogram" value="input.actor.net_weight.convert(:kilogram).value * input.population"/>
               </matrix>
             </sections>
             <!-- looking for all provisionnal soil_enrichment Procedure in current production and with cultivable land parcel in target -->
@@ -79,7 +79,7 @@
                   <cell name="potassium_concentration" type="measure"/>
                   <cell name="variety" level="api"/>
                 </within>
-                <cell name="quantity" of="input" type="measure"/>
+                <cell name="population" of="input" type="measure"/>
               </matrix>
             </sections>
           </sections>
