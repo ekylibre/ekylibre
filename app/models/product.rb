@@ -359,10 +359,8 @@ class Product < Ekylibre::Record::Base
   end
 
   def net_surface_area(at = Time.now)
-    if self.whole_indicators.include?(:net_surface_area)
+    if self.indicators_array.include?(Nomen::Indicators[:net_surface_area])
       return self.get(:net_surface_area)
-    elsif self.individual_indicators.include?(:net_surface_area)
-      return self.get(:net_surface_area) * self.population(at: at)
     elsif self.whole_indicators.include?(:shape)
       return self.shape_area(at: at).in_square_meter
     end
