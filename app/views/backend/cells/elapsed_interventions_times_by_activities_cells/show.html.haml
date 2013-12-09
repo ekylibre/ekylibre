@@ -24,7 +24,7 @@
       end
     end
 
-    # data for spline sum revenus by month
+    # data for spline sum revenues by month
     #operations = Operation.of_campaign(@campaign).order(:started_at)
     #if operations.count > 0
     #    sums = operations.sums_of_periods.sort.inject({}) do |hash, pair|
@@ -39,8 +39,8 @@
     #Activity.of_campaign(@campaign).find_each do |activity|
     #  operations = Operation.of_activities(activity).of_campaign(@campaign).order(:started_at)
     #  if operations.count > 0
-    #    sum_revenus = operations.sum(:duration).in_second.convert(:hour).round(2)
-    #    data << {name: activity.name, y: sum_revenus.to_s.to_f, url: backend_activity_path(activity)}
+    #    sum_revenues = operations.sum(:duration).in_second.convert(:hour).round(2)
+    #    data << {name: activity.name, y: sum_revenues.to_s.to_f, url: backend_activity_path(activity)}
     #  end
     #end
     #series << {type: 'pie', name: :total.tl, data: data, center: [50, 50], size: 100, show_in_legend: false, data_labels: { enabled: false }}

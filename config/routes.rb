@@ -119,7 +119,7 @@ Ekylibre::Application.routes.draw do
       resource :production_cropping_plan_cell, only: :show
       resource :purchases_bar_cell, only: :show
       resource :purchases_expense_bar_cell, only: :show
-      resource :revenus_by_product_nature_cell, only: :show
+      resource :revenues_by_product_nature_cell, only: :show
       resource :rss_cell, only: :show
     end
 

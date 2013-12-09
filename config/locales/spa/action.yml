@@ -141,6 +141,7 @@ spa:
     backend/cells/product_pie_cells: #?
     backend/cells/purchases_bar_cells: #?
     backend/cells/purchases_expense_bar_cells: #?
+    backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/companies:  #?
@@ -1521,7 +1522,7 @@ spa:
       one: "1 resultado"
       other: "%{count} resultado"
       zero: "Ningun resultado"
-    # revenus_by_product_nature: "Chiffre d'affaire par type de produit"
+    # revenues_by_product_nature: "Chiffre d'affaire par type de produit"
     # reverse: "Appliquer la condition inverse"
     right_modules:
       accountancy: "Derechos modulo contabilidad"
