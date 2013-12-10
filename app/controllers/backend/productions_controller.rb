@@ -69,6 +69,7 @@ class Backend::ProductionsController < BackendController
     t.column :name, through: :storage, url: true
     t.column :population, through: :storage
     t.column :created_at
+    t.action :new, url: {controller: :interventions, production_support_id: 'RECORD.id'.c, id: nil}
   end
 
   # List procedures for one production
