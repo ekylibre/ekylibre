@@ -177,7 +177,7 @@ class Product < Ekylibre::Record::Base
   delegate :variety, :derivative_of, :name, to: :variant, prefix: true
   delegate :unit_name, to: :variant
   delegate :subscribing?, :deliverable?, :asset_account, :product_account, :charge_account, :stock_account, to: :nature
-  delegate :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :linkage_points_list, to: :nature
+  delegate :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :linkage_points, :linkage_points_list, to: :nature
 
   after_initialize :choose_default_name
   after_create :set_initial_values

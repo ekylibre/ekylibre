@@ -521,14 +521,9 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :production_supports, concerns: [:list, :unroll]
+    # resources :production_support_markers, concerns: [:list, :unroll]
 
-    resources :production_support_markers do
-      collection do
-        get :list
-        get :unroll
-        end
-      end
+    resources :production_supports, concerns: [:list, :unroll]
 
     resources :professions, concerns: [:list, :unroll]
 

@@ -823,8 +823,7 @@ fra:
     managed_transports: "Transports gérés" #?
     managed_unpaid_sales: "Ventes impayées gérées" #?
     mandates: "Responsabilités"
-    marker_data: "Marker data"
-    # markers: "Markers"
+    markers: "Repères"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
     maximal_quantity: "Maximal quantity" #?

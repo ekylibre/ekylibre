@@ -45,7 +45,7 @@ class Production < Ekylibre::Record::Base
   # belongs_to :area_unit, class_name: "Unit"
   has_many :repartitions, class_name: "AnalyticRepartition"
   has_many :supports, class_name: "ProductionSupport", inverse_of: :production
-  has_many :marker_data, through: :supports, class_name: "ProductionSupportMarker"
+  has_many :markers, through: :supports, class_name: "ProductionSupportMarker"
   has_many :interventions, inverse_of: :production
   has_many :casts, through: :interventions, class_name: "InterventionCast"
   # has_many :land_parcel_groups, :through => :supports, class_name: "Product" #, :conditions => {:variety => "land_parcel_group"}
