@@ -519,6 +519,7 @@ Ekylibre::Application.routes.draw do
       member do
         get :list_supports
         get :list_interventions
+        get :list_markers
       end
     end
 
