@@ -115,6 +115,10 @@ class Intervention < Ekylibre::Record::Base
       self.natures = p.natures.sort.join(" ")
     end
     self.natures = self.natures.to_s.strip.split(/[\s\,]+/).sort.join(" ")
+    # set produciton_id
+    if self.production_support
+      self.production_id = self.production_support.production.id
+    end
   end
 
   validate do

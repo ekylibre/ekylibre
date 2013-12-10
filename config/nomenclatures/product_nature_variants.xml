@@ -436,7 +436,7 @@
             frozen_indicators_values="population: 1"
             />
       <item name="manure_division"
-            nature="fertiliser_division"
+            nature="manure_division"
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
@@ -466,7 +466,7 @@
             frozen_indicators_values="population: 1"
             />
       <item name="animal_waste_building_division"
-            nature="animal_food_building_division"
+            nature="manure_division"
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
