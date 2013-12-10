@@ -42,7 +42,7 @@
                 <within of="input.actor">
                   <cell name="name"/>
                   <cell name="unitary_quantity" value="net_weight" type="measure"/>
-                  <cell name="unitary_quantity_in_kilogram" value="net_weight.convert(:kilogram).value" level="api"/>
+                  <cell name="unitary_quantity_in_kilogram" value="net_weight(input).in_kilogram" level="api"/>
                   <cell name="unit_name"/>
                   <cell name="nature_name"/>
                   <cell name="nitrogen_concentration" type="measure"/>

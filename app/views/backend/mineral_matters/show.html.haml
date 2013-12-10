@@ -2,7 +2,7 @@
   -t.edit @mineral_matter
 
 =beehive do |b|
-  -b.cell do
+  -b.cell dogit 
     =attributes_list(@mineral_matter) do |l|
       -l.attribute :name
 
@@ -33,3 +33,5 @@
         %strong= :no_data.tl
     - b.cell(tl(:x_indicators, :count => @mineral_matter.indicator_data.count)) do
       = list(:indicators)
+    - b.cell(:places) do
+      = list(:places)
