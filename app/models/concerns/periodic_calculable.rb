@@ -34,12 +34,14 @@ module PeriodicCalculable
 
     def calculate_in_periods(operation, options = {})
       column = options[:column] || default_calculable_column
+      column = "#{self.table_name}.#{column}" if column.is_a?(Symbol)
       options[:name] ||= default_calculable_name || column || operation
       options[:period] ||= default_calculable_period
       options[:period] = :doy if options[:period] == :day
       options[:at] ||= default_calculable_at
-      expr = "EXTRACT(YEAR FROM #{self.table_name}.#{options[:at]})*1000 + EXTRACT(#{options[:period]} FROM #{self.table_name}.#{options[:at]})"
-      group(expr).reorder(expr).select("#{expr} AS expr, #{operation}(#{self.table_name}.#{column}) AS #{options[:name]}")
+      options[:at] = "#{self.table_name}.#{options[:at]}" if options[:at].is_a?(Symbol)
+      expr = "EXTRACT(YEAR FROM #{options[:at]})*1000 + EXTRACT(#{options[:period]} FROM #{options[:at]})"
+      group(expr).reorder(expr).select("#{expr} AS expr, #{operation}(#{column}) AS #{options[:name]}")
     end
 
   end

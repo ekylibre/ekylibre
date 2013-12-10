@@ -1010,7 +1010,7 @@ spa:
     # currency_with_code: "%{code} - %{name}"
     # current: "En cours"
     current_letter: "Carta en curso : %{carta}"
-    # currents_stocks_by_product_nature: "Etat des stocks"
+    # currents_stocks_by_product_nature: "État des stocks"
     data_to_export: "Datos a exportar"
     data_to_extract: "Datos para extraer"
     dates: "Marcar las fechas de empezo y termino por los periodos"

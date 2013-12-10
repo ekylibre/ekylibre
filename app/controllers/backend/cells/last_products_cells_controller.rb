@@ -1,6 +1,6 @@
 class Backend::Cells::LastProductsCellsController < Backend::CellsController
 
-  list(model: :animals, conditions: ["#{Animal.table_name}.born_at IS NOT NULL"], order: {born_at: :desc}, per_page: 5) do |t|
+  list(model: :animals, conditions: ["#{Animal.table_name}.born_at IS NOT NULL"], order: {born_at: :desc}, per_page: 12) do |t|
     t.column :name, :url => {:controller => "/backend/animals"}
     t.column :mother, :url => {:controller => "/backend/animals"}
     t.column :father, :url => {:controller => "/backend/animals"}

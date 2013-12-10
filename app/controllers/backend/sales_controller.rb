@@ -131,7 +131,7 @@ class Backend::SalesController < BackendController
     #t.column :annotation
     # t.column :serial_number, through: :variant, url: true
     t.column :quantity
-    t.column :indicator
+    t.column :indicator_name
     t.column :unit_price_amount
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true

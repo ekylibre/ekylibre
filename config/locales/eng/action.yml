@@ -974,7 +974,7 @@ eng:
     currency_with_code: "%{name} (%{code})"
     current: "Current"
     current_letter: "Current letter\_: %{letter}"
-    # currents_stocks_by_product_nature: "Etat des stocks"
+    # currents_stocks_by_product_nature: "État des stocks"
     custom_field_update: "Custom field update" #?
     data_to_export: "Data to export"
     data_to_extract: "Data to extract"

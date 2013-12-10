@@ -459,10 +459,10 @@ class Product < Ekylibre::Record::Base
         else
           raise StandardError, "Cannot measure a variable an unknown time"
         end
+      elsif datum = self.indicator_datum(indicator.name, at: cast_or_time.intervention.started_at)
+        value = datum.value
       else
-        if datum = self.indicator_datum(indicator.name, at: cast_or_time.intervention.started_at)
-          value = datum.value
-        end
+        raise "What ?"
       end
       # Adjust value
       if value and indicator.gathering
@@ -470,6 +470,8 @@ class Product < Ekylibre::Record::Base
           value *= cast_or_time.population
         end
       end
+    else
+      raise "Cannot support #{cast_or_time.inspect} parameter"
     end
     return value
   end

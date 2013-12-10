@@ -99,7 +99,7 @@ class SaleItem < Ekylibre::Record::Base
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
-  calculable period: :month, at: :invoiced_on, column: :pretax_amount
+  calculable period: :month, at: "invoiced_on", column: :pretax_amount
 
   before_validation do
 

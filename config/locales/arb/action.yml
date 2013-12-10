@@ -1102,7 +1102,7 @@ arb:
     # currency_with_code: "%{code} - %{name}"
     current: "الحالية"
     current_letter: "البيانات الحالية : %{letter}"
-    # currents_stocks_by_product_nature: "Etat des stocks"
+    # currents_stocks_by_product_nature: "État des stocks"
     custom_field_choice_create: "اضافة خيار جديد للقائمة" #?
     custom_field_create: "انشاء حقل مخصص جديد" #?
     custom_field_sort: "تفريزة الخيارات حسب الاسم" #?

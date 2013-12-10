@@ -7,7 +7,8 @@ class Backend::Cells::MapCellsController < Backend::CellsController
   def update
     if @map
       cexec = Proc.new { |sql|
-        Net::HTTP.get(URI.parse("http://#{@map[:account]}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@map[:key]}"))
+        puts sql
+        puts Net::HTTP.get(URI.parse("http://#{@map[:account]}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@map[:key]}"))
       }
       data = []
       ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|

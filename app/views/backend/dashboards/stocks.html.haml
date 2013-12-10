@@ -1,11 +1,11 @@
-=beehive(:stock) do
-  -hbox do
-    -cell :last_outgoing_deliveries
-    -cell :last_incoming_deliveries
-  -tabbox do
-    -cell :currents_stocks_by_product_nature, :params => {variety: 'mineral_matter'}
-    -cell :currents_stocks_by_product_nature, :params => {variety: 'organic_matter'}
-    -cell :currents_stocks_by_product_nature, :params => {variety: 'straw'}
-  -tabbox do
-    -cell :currents_stocks_by_product_nature, :params => {variety: 'animal_medicine'}
-    -cell :currents_stocks_by_product_nature, :params => {variety: 'plant_medicine'}
+= beehive(:stock) do
+  - hbox do
+    - cell :last_outgoing_deliveries
+    - cell :last_incoming_deliveries
+  - hbox do
+    - cell :currents_stocks_by_product_nature, :params => {variety: 'mineral_matter'}
+    - cell :currents_stocks_by_product_nature, :params => {variety: 'organic_matter'}
+    - cell :currents_stocks_by_product_nature, :params => {variety: 'straw'}
+  - hbox do
+    - cell :currents_stocks_by_product_nature, :params => {variety: 'animal_medicine'}
+    - cell :currents_stocks_by_product_nature, :params => {variety: 'plant_medicine'}

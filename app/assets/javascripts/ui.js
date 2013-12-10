@@ -346,6 +346,12 @@
         return false;
     });
 
+    $(document).on("click", "[data-alert] a.close", function () {
+        $(this).closest('[data-alert]').fadeOut(400, function() { $(this).remove() });
+        return false;
+    });
+
+
     $(document).on("click", "*[data-select-deck]", function () {
         var element = $(this), deck = element.data('select-deck'), container = $('div[data-deck]');
         // We need to use attr to make CSS working

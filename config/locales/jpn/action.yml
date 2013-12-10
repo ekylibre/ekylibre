@@ -910,7 +910,7 @@ jpn:
     # currency_with_code: "%{code} - %{name}"
     # current: "En cours"
     # current_letter: "Lettre en cours\_: %{letter}"
-    # currents_stocks_by_product_nature: "Etat des stocks"
+    # currents_stocks_by_product_nature: "État des stocks"
     # data_to_export: "Données à exporter"
     # data_to_extract: "Données à extraire"
     # dates: "Saisissez les dates de début et de fin de la période"

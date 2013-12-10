@@ -37,6 +37,7 @@ class ProductionSupport < Ekylibre::Record::Base
   belongs_to :production, inverse_of: :supports
   has_many :interventions
   has_many :marker_data, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support
+  has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :exclusive, in: [true, false]
   validates_presence_of :production, :storage
@@ -62,17 +63,15 @@ class ProductionSupport < Ekylibre::Record::Base
     # m = net_weight of the input at intervention time
     # n = nitrogen concentration (in %) of the input at intervention time
     for intervention in self.interventions.real.of_nature(:soil_enrichment)
-      for input in intervention.casts.of_role(:'soil_enrichment-input')
-        m = input.actor.net_weight.convert(:kilogram).to_s.to_f if !input.actor.net_weight.nil?
-        m ||= 0.0
-        n = input.actor.nitrogen_concentration.to_s.to_f if !input.actor.nitrogen_concentration.nil?
-        n ||= 0.0
-        balance << ( m * ( n / 100 ))
+      for input in intervention.casts.of_role('soil_enrichment-input')
+        m = (input.actor ? input.actor.net_weight(input).to_d(:kilogram) : 0.0)
+        n = (input.actor ? input.actor.nitrogen_concentration(input).to_d(:unity) : 0.0)
+        balance <<  m * n
       end
     end
     # if net_surface_area, make the division
-    if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      nitrogen_unity_per_hectare = (balance.compact.sum / (self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f))
+    if surface_area = self.storage_net_surface_area(self.started_at)
+      nitrogen_unity_per_hectare = (balance.compact.sum / surface_area.to_d(:hectare))
     end
     return nitrogen_unity_per_hectare
   end

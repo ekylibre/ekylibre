@@ -144,8 +144,11 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   # Return the indicator datum
-  def indicator_datum(indicator_name)
-    return self.indicator_data.where(indicator_name: indicator_name.to_s).first
+  def indicator_datum(indicator)
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
+    return self.indicator_data.where(indicator_name: indicator.name).first
   end
 
   # Returns the direct value of an indicator of variant
