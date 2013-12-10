@@ -65,7 +65,6 @@
 class BuildingDivision < SubZone
   # TODO: Use acts_as_nested_set
   # acts_as_tree
-  # attr_accessible :name, :address_id, :description, :nature_id, :owner_id, :reservoir, :variant_id, :content_maximal_quantity, :content_nature_id, :variety, :identification_number, :born_at, :work_number
   attr_readonly :reservoir
   # belongs_to :address, class_name: "EntityAddress"
   # belongs_to :establishment
@@ -153,7 +152,7 @@ class BuildingDivision < SubZone
   # return Map SVG as String for a class
   # @TODO refactor it and put it in has_shape method
   def self.map_svg(options = {})
-    ids = self.indicator(:shape, :at => options[:at]).pluck(:product_id)
+    ids = self.indicator_datum(:shape, at: options[:at]).pluck(:product_id)
     return "" unless ids.size > 0
     viewbox = self.shape_view_box.join(' ')
     code = "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
