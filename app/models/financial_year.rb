@@ -89,7 +89,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.currency ||= Entity.of_company.currency
+    self.currency ||= Preference[:currency]
     self.stopped_on = self.started_on+1.year if self.stopped_on.blank? and self.started_on
     self.stopped_on = self.stopped_on.end_of_month unless self.stopped_on.blank?
     if self.started_on and self.stopped_on and code.blank?

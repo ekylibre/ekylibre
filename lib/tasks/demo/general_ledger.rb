@@ -41,10 +41,11 @@ demo :general_ledger do
       "106" => "COUT ECO CULT N-1 TERRE"
     }
 
+    year = 2010
     fy = FinancialYear.first
-    fy.started_on = Date.civil(2013, 1, 1)
-    fy.stopped_on = Date.civil(2013, 12, 31)
-    fy.code = "EX2013"
+    fy.started_on = Date.civil(year,  1,  1)
+    fy.stopped_on = Date.civil(year, 12, 31)
+    fy.code = "EX#{year}"
     fy.save!
 
     CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|

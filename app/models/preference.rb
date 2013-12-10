@@ -153,7 +153,6 @@ class Preference < Ekylibre::Record::Base
     self.record? ? self.record_value_type.constantize : nil
   end
 
-
   private
 
   def self.convert(nature, string)
