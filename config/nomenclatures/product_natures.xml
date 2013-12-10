@@ -187,7 +187,7 @@
             />
        <item name="chemical_fertilizer"
             category="fertilizer"
-            variety="mineral_matter"
+            variety="chemical_fertiliser"
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population"
@@ -195,7 +195,7 @@
             />
       <item name="organic_fertilizer"
             category="fertilizer"
-            variety="organic_matter" 
+            variety="manure" 
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population"
@@ -295,7 +295,15 @@
             category="building_division"
             variety="building_division"
             population_counting="unitary"
-            abilities="store(mineral_matter)"
+            abilities="store(chemical_fertiliser)"
+            variable_indicators="net_surface_area, shape"
+            frozen_indicators="population"
+            />
+      <item name="manure_division"
+            category="building_division"
+            variety="building_division"
+            population_counting="unitary"
+            abilities="store(manure)"
             variable_indicators="net_surface_area, shape"
             frozen_indicators="population"
             />
