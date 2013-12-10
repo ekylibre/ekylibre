@@ -29,7 +29,7 @@ class Backend::ProductionSupportsController < BackendController
     t.column :started_at
     t.column :stopped_at
   end
-  
+
   # List procedures for one production
   list(:interventions, conditions: {production_support_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status) do |t|
     # t.column :name
@@ -41,7 +41,7 @@ class Backend::ProductionSupportsController < BackendController
     t.column :stopped_at
     # t.column :provisional
   end
-  
+
   # List markers
   list(:markers, model: :production_support_markers, conditions: {production_support_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :indicator_name, url: true

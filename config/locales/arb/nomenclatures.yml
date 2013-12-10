@@ -1065,6 +1065,7 @@ arb:
         mammalia_reproduction_method_embryo_transplant: #?
         mammalia_reproduction_state:
           choices:
+            # back_heat: "Retour de chaleur"
             # heat: "Chaleur"
             # pregnancy: "Pleine"
         mammalia_twins_condition:
@@ -1088,7 +1089,10 @@ arb:
             # maturity: "Maturité"
             # senescence: "Senescence"
         plant_reproduction_state:
-          choices: #?
+          choices:
+            # flowering: "Floraison"
+            # grain_maturity: "Maturité du grain"
+            # grain_senescence: "Senescence du grain"
         population: #?
         potassium_concentration: #?
         protein_matters_concentration: #?
@@ -1112,6 +1116,8 @@ arb:
         # application_width: "Largeur de travail"
         # calving_ease_index: "Index de facilité de naissane"
         # clostridial_spores_concentration: "Concentration en spores butyriques"
+        # cultural_soil_state: "Etat cultural du sol"
+        # dry_matter_rate: "Taux de matière sèche"
         # economical_milk_index: "INEL (INdex Économique Laitier)"
         # energy: "Energie"
         # fat_matters_concentration: "Teneur en matières grasses"
@@ -1124,6 +1130,8 @@ arb:
         # livestock_unit: "UGB (Unité de Gros Bétail)"
         # mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère"
         # mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
+        # maximum_load_net_volume: "Capacité volumique nette maximum"
+        # maximum_load_net_weight: "Poids net maximum en charge"
         # meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
         # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
         # motor_power: "Puissance du moteur"
@@ -1131,6 +1139,7 @@ arb:
         # net_volume: "Volume net"
         # net_weight: "Poids net"
         # nitrogen_concentration: "Teneur en azote"
+        # nitrogen_input: "Apport en azote"
         # phosphorus_concentration: "Teneur en phosphore"
         # plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         # plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
@@ -1415,7 +1424,9 @@ arb:
         # calf: "Veau"
         # cattle_herd: "Troupeau de bovins"
         # cattle_manure: "Fumier de bovins"
+        # chemical_fertiliser_division: "Emplacement de stockage des engrais"
         # complete_herbicide: "Herbicide total"
+        # coop:ammonitre_33, 5%_vr: "ammonitre COOP 33,5% vr"
         # coop:ficelle_filogamm_350_bob_5kg: "ficelle filogamm 350 bob 5kg"
         # coop:metarex_rg_tds_20kg: "metarex rg tds 20kg"
         # coop:sel_mer_essore_la_baleine_sac_25kg: "sel mer essore la baleine sac 25kg"
@@ -1430,6 +1441,7 @@ arb:
         # durum_wheat_crop: "Culture de blé dur"
         # electricity: "Électricité"
         # equipment: "Équipement"
+        # equipment_building_division: "Emplacement de stockage du matériel"
         # ewe_milk: "Lait de brebis"
         # fallow_crop: "Jachère"
         # female_adult_cattle_herd: "Troupeau de vache laitière"
@@ -1453,6 +1465,7 @@ arb:
         # male_adult_cow: "Taureau"
         # male_young_cow: "Taurillon"
         # manager: "Responsable"
+        # manure_division: "Fumière"
         # milk_tank: "Tank à lait"
         # mineral_cleaner: "Nettoyant chimique"
         # molluscicide: "Molluscicide"
@@ -1512,6 +1525,7 @@ arb:
           # unitary: "Unitaire"
       items:
         # additive: "Adjuvant"
+        # administrative_division: "Zone Administrative"
         # animal_building_division: "Zone dédiée aux animaux"
         # animal_food_building_division: "Zone de stockage dédiée aux aliments"
         # animal_medicine: "Produit vétérinaire"
@@ -1531,6 +1545,7 @@ arb:
         # female_adult_cattle_herd: "Troupeau de vaches"
         # female_adult_cow: "Vache"
         # female_young_cow: "Génisse"
+        # fertiliser_division: "Zone engrais"
         # food: "Aliment"
         # forager: "Ensileuse"
         # fuel: "Carburant"
@@ -1547,6 +1562,7 @@ arb:
         # male_adult_cow: "Taureau"
         # male_young_cow: "Taurillon"
         # manager: "Responsable"
+        # manure_division: "Zone fumière"
         # milk: "Lait"
         # milk_tank: "Tank à lait"
         # mineral_cleaner: "Nettoyant chimique"
@@ -1621,7 +1637,9 @@ arb:
         # joule: "Joule"
         # kelvin: "Kelvin"
         # kilogram: "Kilogramme"
+        # kilogram_per_hectare: "Kilogramme par hectare"
         # kilogram_per_liter: "Kilogramme par litre"
+        # kilogram_per_square_meter: "Kilogramme par mètre carré"
         # kilometer: "Kilomètre"
         # kilowatt: "Kilowatt"
         # kilowatt_hour: "Kilowatt par heure"
@@ -1683,6 +1701,7 @@ arb:
         # capra: "Caprin"
         # carignan: "Carignan"
         # chardonnay: "Chardonnay"
+        # chemical_fertiliser: "Engrais chimique"
         # cultivable_land_parcel: "Parcelle culturale"
         # disinfectant: "Désinfectant"
         # easement: "Aménagement foncier"
@@ -1697,6 +1716,8 @@ arb:
         # grain: "Grain"
         # grenache: "Grenache"
         # grenache_noir: "Grenache noir"
+        # harvest: "Récolte"
+        # hay: "Foin"
         # helianthus: "Tournesol"
         # herbicide: "Produit herbicide"
         # hordeum: "Orge"

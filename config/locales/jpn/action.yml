@@ -471,8 +471,16 @@ jpn:
     backend/product_processes: #?
     backend/product_transfers: #?
     backend/production_support_marker_indicator_data: #?
-    backend/production_support_markers: #?
-    backend/production_supports: #?
+    backend/production_support_markers:
+      # edit: "Modifier un objectif"
+      # index: "Objectifs"
+      # new: "Nouvel objectif"
+      # show: "Objectif\_: %{id}"
+    backend/production_supports:
+      # edit: "Modifier un support de production"
+      # index: "Supports de production"
+      # new: "Nouveau support de production"
+      # show: "Support de production\_: %{id}"
     backend/productions:
       # edit: "Modifier la production\_: %{name}"
       # index: "Productions"
@@ -738,6 +746,7 @@ jpn:
     # add_indicator_datum: "Ajouter une mesure pour un indicateur"
     # add_item: "Ajouter un élément"
     # add_mail: "Ajouter une adresse postale"
+    # add_marker: "Ajouter un objectif"
     # add_mobile: "Ajouter un n° de portable"
     # add_new_record: "Ajouter un nouveau enregistrement"
     # add_passage: "Ajouter un produit"
@@ -881,6 +890,7 @@ jpn:
     connect: "ログイン"
     # consult: "Consulter"
     # contact: "à l’adresse"
+    # contained_products: "Produits contenus"
     # contains: "Contient"
     # content_products: "Produits contenus"
     # contextual_help: "Aide contextuelle"
@@ -1137,6 +1147,7 @@ jpn:
     # mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification"
     # manual_period: "du %{start} au %{finish}"
     # map: "Carte"
+    # markers: "Objectifs"
     # measure_options: "Indicateur de type mesure"
     # meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"

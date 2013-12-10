@@ -1522,6 +1522,7 @@ arb:
     # managed_unpaid_sales: "Ventes impayées gérées"
     mandates: "تفويضات"
     # marker_data: "Marker data"
+    # markers: "Markers"
     master: "كتلة رئيسية" #?
     max_reduction_rate: "سعر التخفيض" #?
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"

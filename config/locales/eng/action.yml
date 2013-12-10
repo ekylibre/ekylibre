@@ -510,8 +510,16 @@ eng:
       index: "Transfers and loss" #?
       new: "Add a new stock transfer or loss" #?
     backend/production_support_marker_indicator_data: #?
-    backend/production_support_markers: #?
-    backend/production_supports: #?
+    backend/production_support_markers:
+      # edit: "Modifier un objectif"
+      # index: "Objectifs"
+      # new: "Nouvel objectif"
+      # show: "Objectif\_: %{id}"
+    backend/production_supports:
+      # edit: "Modifier un support de production"
+      # index: "Supports de production"
+      # new: "Nouveau support de production"
+      # show: "Support de production\_: %{id}"
     backend/productions:
       edit: "Edit production\_: %{name}"
       index: "Productions"
@@ -800,6 +808,7 @@ eng:
     add_indicator_datum: "Add a value for an indicator"
     add_item: "Add an element"
     add_mail: "Add postal adress"
+    # add_marker: "Ajouter un objectif"
     add_mobile: "Add mobile phone number"
     add_new_record: "Add a new record"
     # add_passage: "Ajouter un produit"
@@ -945,6 +954,7 @@ eng:
     connect: "Login"
     consult: "Consult"
     contact: "At"
+    # contained_products: "Produits contenus"
     contains: "Contains"
     content_products: "Content products"
     contextual_help: "Help on current page"
@@ -1212,6 +1222,7 @@ eng:
     # mandates_new_fields: "Vous devez saisir au moins une valeur dans l’un des champs de modification"
     manual_period: "from %{start} to %{finish}"
     map: "Map"
+    # markers: "Objectifs"
     # measure_options: "Indicateur de type mesure"
     # meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"

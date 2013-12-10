@@ -955,7 +955,7 @@ fra:
             depletion: "Tarie"
         mammalia_reproduction_state:
           choices:
-            # back_heat: "Back heat"
+            back_heat: "Retour de chaleur"
             heat: "Chaleur"
             pregnancy: "Pleine"
         mammalia_twins_condition:
@@ -974,9 +974,9 @@ fra:
           choices:
             # swelling: "Swelling"
             # heading: "Heading"
-            # flowering: "Flowering"
-            # grain_maturity: "Grain maturity"
-            # grain_senescence: "Grain senescence"
+            flowering: "Floraison"
+            grain_maturity: "Maturité du grain"
+            grain_senescence: "Senescence du grain"
         sex:
           choices:
             male: "Mâle"
@@ -988,8 +988,8 @@ fra:
         application_width: "Largeur de travail"
         calving_ease_index: "Index de facilité de naissane"
         clostridial_spores_concentration: "Concentration en spores butyriques"
-        # cultural_soil_state: "Cultural soil state"
-        # dry_matter_rate: "Dry matter rate"
+        cultural_soil_state: "Etat cultural du sol"
+        dry_matter_rate: "Taux de matière sèche"
         economical_milk_index: "INEL (INdex Économique Laitier)"
         energy: "Energie"
         # fat_matter_concentration_index: "Fat matter concentration index"
@@ -1009,8 +1009,8 @@ fra:
         # mammalia_reproduction_method_embryo_transplant: "Mammalia reproduction method embryo transplant"
         mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
         # mammalia_twins_condition: "Mammalia twins condition"
-        # maximum_load_net_volume: "Maximum load net volume"
-        # maximum_load_net_weight: "Maximum load net weight"
+        maximum_load_net_volume: "Capacité volumique nette maximum"
+        maximum_load_net_weight: "Poids net maximum en charge"
         meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
         milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
         motor_power: "Puissance du moteur"
@@ -1018,7 +1018,7 @@ fra:
         net_volume: "Volume net"
         net_weight: "Poids net"
         nitrogen_concentration: "Teneur en azote"
-        # nitrogen_input: "Nitrogen input"
+        nitrogen_input: "Apport en azote"
         phosphorus_concentration: "Teneur en phosphore"
         plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
@@ -1317,9 +1317,9 @@ fra:
         cattle_herd: "Troupeau de bovins"
         cattle_manure: "Fumier de bovins"
         # cereals_feed_bag_25: "Cereals feed bag 25"
-        # chemical_fertiliser_division: "Chemical fertiliser division"
+        chemical_fertiliser_division: "Emplacement de stockage des engrais"
         complete_herbicide: "Herbicide total"
-        # coop:ammonitre_33, 5%_vr: "Coop:ammonitre 33, 5% vr"
+        coop:ammonitre_33, 5%_vr: "ammonitre COOP 33,5% vr"
         coop:ficelle_filogamm_350_bob_5kg: "ficelle filogamm 350 bob 5kg"
         coop:metarex_rg_tds_20kg: "metarex rg tds 20kg"
         coop:sel_mer_essore_la_baleine_sac_25kg: "sel mer essore la baleine sac 25kg"
@@ -1335,7 +1335,7 @@ fra:
         durum_wheat_crop: "Culture de blé dur"
         electricity: "Électricité"
         equipment: "Équipement"
-        # equipment_building_division: "Equipment building division"
+        equipment_building_division: "Emplacement de stockage du matériel"
         ewe_milk: "Lait de brebis"
         fallow_crop: "Jachère"
         female_adult_cattle_herd: "Troupeau de vache laitière"
@@ -1360,7 +1360,7 @@ fra:
         male_adult_cow: "Taureau"
         male_young_cow: "Taurillon"
         manager: "Responsable"
-        # manure_division: "Manure division"
+        manure_division: "Fumière"
         milk_tank: "Tank à lait"
         mineral_cleaner: "Nettoyant chimique"
         # mineral_feed_block_25: "Mineral feed block 25"
@@ -1427,7 +1427,7 @@ fra:
         # variety: # Choices comes from nomenclature: varieties
       items:
         additive: "Adjuvant"
-        # administrative_division: "Administrative division"
+        administrative_division: "Zone Administrative"
         animal_building_division: "Zone dédiée aux animaux"
         animal_food_building_division: "Zone de stockage dédiée aux aliments"
         animal_medicine: "Produit vétérinaire"
@@ -1447,7 +1447,7 @@ fra:
         female_adult_cattle_herd: "Troupeau de vaches"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
-        # fertiliser_division: "Fertiliser division"
+        fertiliser_division: "Zone engrais"
         food: "Aliment"
         forager: "Ensileuse"
         fuel: "Carburant"
@@ -1464,7 +1464,7 @@ fra:
         male_adult_cow: "Taureau"
         male_young_cow: "Taurillon"
         manager: "Responsable"
-        # manure_division: "Manure division"
+        manure_division: "Zone fumière"
         milk: "Lait"
         milk_tank: "Tank à lait"
         mineral_cleaner: "Nettoyant chimique"
@@ -1554,9 +1554,9 @@ fra:
         joule: "Joule"
         kelvin: "Kelvin"
         kilogram: "Kilogramme"
-        # kilogram_per_hectare: "Kilogram per hectare"
+        kilogram_per_hectare: "Kilogramme par hectare"
         kilogram_per_liter: "Kilogramme par litre"
-        # kilogram_per_square_meter: "Kilogram per square meter"
+        kilogram_per_square_meter: "Kilogramme par mètre carré"
         kilometer: "Kilomètre"
         kilowatt: "Kilowatt"
         kilowatt_hour: "Kilowatt par heure"
@@ -1625,7 +1625,7 @@ fra:
         capra: "Caprin"                                    # mammalia
         carignan: "Carignan"                               # vitis_vinifera
         chardonnay: "Chardonnay"                           # vitis_vinifera
-        # chemical_fertiliser: "Chemical fertiliser"       # mineral_matter
+        chemical_fertiliser: "Engrais chimique"            # mineral_matter
         cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
         disinfectant: "Désinfectant"                       # antiseptic
         easement: "Aménagement foncier"                    # zone
@@ -1640,8 +1640,8 @@ fra:
         grain: "Grain"                                     # organic_matter
         grenache: "Grenache"                               # vitis_vinifera
         grenache_noir: "Grenache noir"                     # vitis_vinifera
-        # harvest: "Harvest"                               # equipment
-        # hay: "Hay"                                       # organic_matter
+        harvest: "Récolte"                                 # equipment
+        hay: "Foin"                                        # organic_matter
         helianthus: "Tournesol"                            # asteraceae
         herbicide: "Produit herbicide"                     # plant_medicine
         hordeum: "Orge"                                    # poaceae

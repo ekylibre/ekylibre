@@ -1079,6 +1079,7 @@ eng:
     # managed_unpaid_sales: "Ventes impayées gérées"
     mandates: "Mandates"
     # marker_data: "Marker data"
+    # markers: "Markers"
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     # maximal_length: "Longueur maximale"
     # maximal_quantity: "Maximal quantity"
