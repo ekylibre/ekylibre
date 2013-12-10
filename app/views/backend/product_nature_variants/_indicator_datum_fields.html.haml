@@ -1,6 +1,6 @@
 .nested-fields
-  =link_to_remove_nested_association(:indicator_datum, f)
-  =f.input(:indicator, :wrapper_html => {:id => 'indicator-field'})
-  =f.input(:indicator_datatype, :wrapper_html => {:id => 'indicator_datatype-field'})
-  =f.input(:computation_method, :wrapper_html => {:id => 'computation_method-field'})
-  =f.input(:value, :wrapper_html => {:id => 'measure_value-field'})
+  = link_to_remove_nested_association(:indicator_datum, f)
+  = f.input(:indicator_name, :wrapper_html => {:id => 'indicator-field'})
+  = f.input(:indicator_datatype, :wrapper_html => {:id => 'indicator_datatype-field'})
+  -# = f.input(:computation_method, :wrapper_html => {:id => 'computation_method-field'})
+  = f.input(:value, :wrapper_html => {:id => 'measure_value-field'})

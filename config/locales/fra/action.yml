@@ -436,7 +436,7 @@ fra:
       show: "Décaissement n°%{number} pour %{payee}"
     backend/people:
       # autocomplete_for_origin: "Autocomplete for origin backend/person"
-      edit: "Modifier la personne\_: %{name}"
+      edit: "Modifier la personne\_: %{full_name}"
       # export: "Export backend/person"
       # import: "Import backend/person"
       index: "Personnes"

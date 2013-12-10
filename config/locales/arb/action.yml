@@ -466,7 +466,7 @@ arb:
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
     backend/people:
-      # edit: "Modifier la personne\_: %{name}"
+      # edit: "Modifier la personne\_: %{full_name}"
       # index: "Personnes"
       # new: "Nouvelle personne"
       # show: "Personne\_: %{full_name}"

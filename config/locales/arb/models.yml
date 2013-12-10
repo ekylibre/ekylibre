@@ -1024,7 +1024,7 @@ arb:
     # age: "Âge"
     agency_code: "رمز الوكالة" #?
     # aim: "Aim"
-    # all_taxes_included: "All taxes included"
+    # all_taxes_included: "Toutes taxes comprises"
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?

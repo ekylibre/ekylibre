@@ -20,7 +20,7 @@
                     - else
                       = :x_has_been_updated_from_a_to_b.th(x: change.human_attribute_name, a: o, b: n)
 
-        - elsif version.delete?
+        - elsif version.destroy?
           %p= :destroyed_at_by.th(at: version.created_at.l, by: (version.creator_name || :unknown_user.tl))
 
 

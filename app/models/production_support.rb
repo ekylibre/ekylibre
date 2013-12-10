@@ -55,7 +55,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return cost.compact.sum
   end
-  
+
   def nitrogen_balance
     balance = []
     # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded

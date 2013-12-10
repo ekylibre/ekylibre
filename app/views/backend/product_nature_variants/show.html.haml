@@ -30,7 +30,7 @@
             series = []
 
             for product in dataset
-              items = ProductIndicatorDatum.where(:indicator => :population, :product => product).order(:measured_at)
+              items = ProductIndicatorDatum.where(indicator_name: "population", product: product).order(:measured_at)
               item_h = items.sort.inject({}) do |hash, pair|
                 hash[pair.measured_at.to_usec] = pair.value.to_d
                 hash

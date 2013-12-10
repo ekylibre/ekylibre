@@ -34,9 +34,10 @@ class Backend::CatalogsController < BackendController
   list(:prices, model: :catalog_prices, conditions: {:catalog_id => 'params[:id]'.c}) do |t|
     t.column :variant, url: true
     # t.column :pretax_amount
-    t.column :amount
+    t.column :amount, currency: true
+    t.column :indicator_name
     t.column :all_taxes_included
-    # t.column :name, through: :tax
+    t.column :reference_tax, url: true
     t.action :destroy
   end
 

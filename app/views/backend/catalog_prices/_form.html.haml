@@ -1,12 +1,12 @@
-=field_set do
-  =f.input :amount
-  =f.input :currency
-  =f.input :all_taxes_included, show: :taxes
-  =f.referenced_association :catalog
-  =f.referenced_association :variant
-  =f.input :started_at
-  =f.input :stopped_at
-  =f.input :indicator
+= field_set do
+  = f.input :amount
+  = f.input :currency
+  = f.input :all_taxes_included, show: :taxes
+  = f.referenced_association :catalog
+  = f.referenced_association :variant
+  = f.input :started_at
+  = f.input :stopped_at
+  = f.input :indicator_name
 
-=field_set(:taxes) do
-  =f.referenced_association :reference_tax  
+= field_set(:taxes) do
+  = f.referenced_association :reference_tax  

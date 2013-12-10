@@ -63,7 +63,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validates_presence_of :category, :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name, :variety
   #]VALIDATORS]
 
-  delegate :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :whole_indicators_list, :individual_indicators_list, to: :nature
+  delegate :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :whole_indicators_list, :whole_indicators, :individual_indicators_list, :individual_indicators, to: :nature
   delegate :variety, :derivative_of, to: :nature, prefix: true
   delegate :deliverable?, :purchasable?, :saleable?, :subscribing?, :asset_account, :product_account, :charge_account, :stock_account, to: :category
 

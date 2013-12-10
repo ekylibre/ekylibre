@@ -597,7 +597,7 @@ eng:
     age: "Age"
     agency_code: "Agency code" #?
     # aim: "Aim"
-    # all_taxes_included: "All taxes included"
+    # all_taxes_included: "Toutes taxes comprises"
     allocation_account: "Allocation account"
     amount: "Amount"
     # amounts_scale: "Nombre de chiffres après le virgule"

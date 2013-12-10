@@ -446,7 +446,7 @@ spa:
       # new: "Ajout d’un décaissement"
       # show: "Décaissement n°%{number} pour %{payee}"
     backend/people:
-      # edit: "Modifier la personne\_: %{name}"
+      # edit: "Modifier la personne\_: %{full_name}"
       # index: "Personnes"
       # new: "Nouvelle personne"
       # show: "Personne\_: %{full_name}"

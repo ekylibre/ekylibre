@@ -38,7 +38,7 @@ class Backend::ProductNaturesController < BackendController
   end
 
   list do |t|
-    t.column :name
+    t.column :name, url: true
     t.column :category, url: true
     t.column :reference_name
     t.column :active

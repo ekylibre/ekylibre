@@ -168,7 +168,7 @@ class Backend::DepositsController < BackendController
   end
 
   def permitted_params
-    params.permit!(:deposit)
+    params.require(:deposit).permit!
   end
 
 end

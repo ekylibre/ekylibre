@@ -3,8 +3,10 @@
     #
     # We have the two last campaign ex: (2012, 2013) for comparing results
     #
-    started_on = Date.new(@campaign.harvest_year.to_f, 01, 01)
-    stopped_on = Date.new(@campaign.harvest_year.to_f, 12, 31)
+    year = @campaign.harvest_year.to_f
+    year = Date.today.year if year.zero?
+    started_on = Date.new(year, 01, 01)
+    stopped_on = Date.new(year, 12, 31)
 
     series = []
     categories = {}

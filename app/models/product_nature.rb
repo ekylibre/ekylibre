@@ -51,6 +51,7 @@
 class ProductNature < Ekylibre::Record::Base
   enumerize :variety,       in: Nomen::Varieties.all
   enumerize :derivative_of, in: Nomen::Varieties.all
+  enumerize :reference_name, in: Nomen::ProductNatures.all
   # Be careful with the fact that it depends directly on the nomenclature definition
   enumerize :population_counting, in: Nomen::ProductNatures.population_counting.choices, default: Nomen::ProductNatures.population_counting.choices.first, predicates: {prefix: true}
   # enumerize :population_counting, in: Nomen::ProductNatures.attributes[:population_counting].choices, predicates: {prefix: true}, default: Nomen::ProductNatures.attributes[:population_counting].choices.first
