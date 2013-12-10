@@ -54,8 +54,7 @@ module ActiveList
     def includes_reflections
       hash = []
       for column in @table.columns
-        # if through = column.options[:through]
-        if column.respond_to?(:reflection) # through = column.options[:through]
+        if column.respond_to?(:reflection)
           hash << column.reflection.name
         end
       end

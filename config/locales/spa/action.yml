@@ -2039,6 +2039,7 @@ spa:
     # backend/product_nature_variants: "{name} ({unit_name})"
     # backend/product_natures: "{name}"
     # backend/product_transfers: "{id}"
+    # backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     # backend/products: "{work_number} {name} ({!population} {!unit_name})"
     # backend/users: "{first_name} {last_name}"
     logs: #?

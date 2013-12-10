@@ -1985,6 +1985,7 @@ eng:
       all: "{name}" #? String excepted (Hash:{:all=>"{name}"})
     backend/product_transfers:  #? String excepted (Hash:{:all=>"{id}"})
       all: "{id}" #? String excepted (Hash:{:all=>"{id}"})
+    # backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     backend/products:  #? String excepted (Hash:{:all=>"{work_number} {name}"})
       all: "{work_number} {name}" #? String excepted (Hash:{:all=>"{work_number} {name}"})
     backend/units:  #?

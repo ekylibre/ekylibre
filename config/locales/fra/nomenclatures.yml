@@ -1317,6 +1317,7 @@ fra:
         cattle_herd: "Troupeau de bovins"
         cattle_manure: "Fumier de bovins"
         # cereals_feed_bag_25: "Cereals feed bag 25"
+        # chemical_fertiliser_division: "Chemical fertiliser division"
         complete_herbicide: "Herbicide total"
         # coop:ammonitre_33, 5%_vr: "Coop:ammonitre 33, 5% vr"
         coop:ficelle_filogamm_350_bob_5kg: "ficelle filogamm 350 bob 5kg"
@@ -1359,6 +1360,7 @@ fra:
         male_adult_cow: "Taureau"
         male_young_cow: "Taurillon"
         manager: "Responsable"
+        # manure_division: "Manure division"
         milk_tank: "Tank à lait"
         mineral_cleaner: "Nettoyant chimique"
         # mineral_feed_block_25: "Mineral feed block 25"
@@ -1425,6 +1427,7 @@ fra:
         # variety: # Choices comes from nomenclature: varieties
       items:
         additive: "Adjuvant"
+        # administrative_division: "Administrative division"
         animal_building_division: "Zone dédiée aux animaux"
         animal_food_building_division: "Zone de stockage dédiée aux aliments"
         animal_medicine: "Produit vétérinaire"
@@ -1444,6 +1447,7 @@ fra:
         female_adult_cattle_herd: "Troupeau de vaches"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
+        # fertiliser_division: "Fertiliser division"
         food: "Aliment"
         forager: "Ensileuse"
         fuel: "Carburant"
@@ -1460,6 +1464,7 @@ fra:
         male_adult_cow: "Taureau"
         male_young_cow: "Taurillon"
         manager: "Responsable"
+        # manure_division: "Manure division"
         milk: "Lait"
         milk_tank: "Tank à lait"
         mineral_cleaner: "Nettoyant chimique"
@@ -1620,6 +1625,7 @@ fra:
         capra: "Caprin"                                    # mammalia
         carignan: "Carignan"                               # vitis_vinifera
         chardonnay: "Chardonnay"                           # vitis_vinifera
+        # chemical_fertiliser: "Chemical fertiliser"       # mineral_matter
         cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
         disinfectant: "Désinfectant"                       # antiseptic
         easement: "Aménagement foncier"                    # zone

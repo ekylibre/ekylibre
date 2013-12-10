@@ -21,9 +21,9 @@
           - if reference.known_variant?
             %span.add-on= reference.variant_indication
           - else
-            = v.referenced_association_field :variant, source: {scope: reference.scope_hash}
+            = v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}
       - else
-        = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash}
+        = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
 
   -# field_set :operations do
     - if f.object.operations.empty? or f.object.new_record?

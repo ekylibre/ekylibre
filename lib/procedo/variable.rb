@@ -69,7 +69,7 @@ module Procedo
     end
 
     def producer
-      @producer ||= self.procedure.variables[@producer_name]
+      @producer ||= @procedure.variables[@producer_name]
     end
 
     def computed_variety
@@ -134,7 +134,9 @@ module Procedo
     end
 
     def variant_variable
-      if @variant =~ /\A\:/
+      if parted?
+        return producer
+      elsif @variant =~ /\A\:/
         other = @variant[1..-1]
         return @procedure.variables[other]
       end

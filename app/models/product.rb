@@ -126,21 +126,34 @@ class Product < Ekylibre::Record::Base
     where(nature_id: nature.id)
   }
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
-  scope :indicate, lambda { |indicators, options = {}|
+  scope :indicate, lambda { |indicator_values, options = {}|
     measured_at = options[:at] || Time.now
     conditions = []
-    # TODO Build conditions to filter on indicators
-    for name, value in [indicators].flatten
-      data = ProductIndicatorDatum.of_products(self, name, at: measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
+    # TODO Build conditions to filter on indicator_values
+    for name, value in indicator_values
+      data = ProductIndicatorDatum.of_products(self, name, measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
       if data.any?
         conditions << " id IN (" + data.pluck(:product_id).join(", ") + ")"
       end
     end
     where(conditions.join(" AND "))
   }
+  scope :not_indicate, lambda { |indicator_values, options = {}|
+    measured_at = options[:at] || Time.now
+    conditions = []
+    # TODO Build conditions to filter on indicator_values
+    for name, value in indicator_values
+      data = ProductIndicatorDatum.of_products(self, name, measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
+      if data.any?
+        conditions << " id IN (" + data.pluck(:product_id).join(", ") + ")"
+      end
+    end
+    where.not(conditions.join(" AND "))
+  }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :production_supports,  -> { where(variety: ["cultivable_land_parcel"]) }
+  scope :availables, -> { where(dead_at: nil).not_indicate(population: 0) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true

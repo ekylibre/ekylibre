@@ -86,7 +86,7 @@ module ActiveList
     def session_initialization_code
       code  = "options = {} unless options.is_a? Hash\n"
       code << "options.update(params)\n"
-      code << "#{var_name(:params)} = YAML::load(current_user.pref('list.#{self.view_method_name}', YAML::dump({})).value)\n"
+      code << "#{var_name(:params)} = YAML::load(current_user.pref('list.#{self.view_method_name}', YAML::dump({})).value).symbolize_keys\n"
       code << "#{var_name(:params)} = {} unless #{var_name(:params)}.is_a?(Hash)\n"
       code << "#{var_name(:params)}.update(options.symbolize_keys)\n"
       code << "unless #{var_name(:params)}[:hidden_columns].is_a? Array\n"

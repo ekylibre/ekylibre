@@ -58,18 +58,28 @@ class BackendController < BaseController
 
 
     columns = []
-    item_label = label.inspect.gsub(/\{\!?[a-z\_]+(\:\%?X\%?)?\}/) do |word|
+    item_label = label.inspect.gsub(/\{\!?[a-z\_\.]+(\:\%?X\%?)?\}/) do |word|
       ca = word[1..-2].split(":")
       name = ca.first
+      i = nil
       if name =~ /\A\!/
-        name.gsub!(/\A\!/, '')
+        i = "item." + name.gsub!(/\A\!/, '')
       else
-        unless column = model.columns_definition[name]
-          raise StandardError, "Unknown column #{name} for #{model.name}"
+        if name =~ /\./
+          i = "item.#{name}"
+          array = name.split(/\./)
+          fmodel = model
+          for step in array[0..-2]
+            fmodel = fmodel.reflections[step.to_sym].class_name.constantize
+          end
+          columns << {name: name.gsub(/\W/, '_'), search: fmodel.table_name + "." + array[-1], filter: ca.second || "X%"}
+        elsif column = model.columns_definition[name]
+          i = "item.#{name}"
+          columns << column.options.merge(search: "#{model.table_name}.#{name}", filter: ca.second || "X%")
+        else
+          raise StandardError, "Cannot handle #{name} for #{model.name}"
         end
-        columns << column.options.merge(filter: ca.second || "X%")
       end
-      i = "item.#{name}"
       "\" + (#{i}.nil? ? '' : #{i}.l) + \""
     end
     item_label.gsub!(/\A\"\"\s*\+\s*/, '')
@@ -118,10 +128,10 @@ class BackendController < BaseController
     code << "  conditions = []\n"
 
     code << "  klass = controller_name.classify.constantize\n"
-    code << "  items = klass.unscoped" 
+    code << "  items = klass.unscoped"
     if options[:includes]
-      code << ".includes(#{options[:include]})"
-      code << ".references(#{options[:include]})"
+      code << ".includes(#{options[:includes].inspect})"
+      code << ".references(#{options[:includes].inspect})"
     end
     code <<  ".order(#{order.inspect})\n"
     # code << "  items = #{model.name}.unscoped\n"
@@ -129,7 +139,7 @@ class BackendController < BaseController
     code << "  if scopes = params[:scope]\n"
     code << "    scopes = {scopes.to_sym => true} if scopes.is_a?(String)\n"
     code << "    for scope, parameters in scopes.symbolize_keys\n"
-    code << "      if parameters.is_a?(TrueClass) and klass.simple_scopes.map(&:name).include?(scope)\n"
+    code << "      if (parameters.is_a?(TrueClass) or parameters == 'true') and klass.simple_scopes.map(&:name).include?(scope)\n"
     code << "        items = items.send(scope)\n"
     code << "      elsif parameters.is_a?(String) and klass.complex_scopes.map(&:name).include?(scope)\n"
     code << "        items = items.send(scope, *(parameters.strip.split(/\s*\,\s*/)))\n"
@@ -150,11 +160,13 @@ class BackendController < BaseController
       code << "    conditions = ['(']\n"
       code << "    keys.each_with_index do |key, index|\n"
       code << "      conditions[0] << ') AND (' if index > 0\n"
-      code << "      conditions[0] << " + searchable_columns.collect{|column| "LOWER(CAST(#{model.table_name}.#{column[:name]} AS VARCHAR)) ~ E?"}.join(' OR ').inspect + "\n"
-      code << "      conditions += [" + searchable_columns.collect{|column|
+      code << "      conditions[0] << " + searchable_columns.collect do |column|
+        "LOWER(CAST(#{column[:search]} AS VARCHAR)) ~ E?"
+      end.join(' OR ').inspect + "\n"
+      code << "      conditions += [" + searchable_columns.collect do |column|
         column[:filter].inspect.gsub('X', '" + key + "').gsub('%', '')
           .gsub(/(^\"\"\s*\+\s*|\s*\+\s*\"\"\s*\+\s*|\s*\+\s*\"\"$)/, '')
-      }.join(", ") + "]\n"
+      end.join(", ") + "]\n"
       code << "    end\n"
       code << "    conditions[0] << ')'\n"
       code << "    items = items.where(conditions)\n"
