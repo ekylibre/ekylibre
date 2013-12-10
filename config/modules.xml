@@ -1665,6 +1665,7 @@
         <page to="backend/product_processes#unroll"/>
         <page to="backend/product_processes#update"/>
       </item>
+<<<<<<< HEAD
       <item name="production_support_markers">
         <page to="backend/production_support_markers#index"/>
         <page to="backend/production_support_markers#create"/>
@@ -1680,6 +1681,8 @@
         <page to="backend/production_supports#list_interventions"/>
         <page to="backend/production_supports#list_markers"/>
       </item>
+=======
+>>>>>>> 2cd51690660ed95d7efbd24dfc2a52e67768f4d2
       <item name="products">
         <page to="backend/products#list_carried_linkages"/>
         <page to="backend/products#list_carrier_linkages"/>

@@ -31,6 +31,7 @@ config/locales/*/prints/*.pdf
 # Ignore local database config
 /config/database.yml
 /config/api.yml
+/config/tools.xml
 
 # Ignore installer useless files
 installer/debian/debian/ekylibre.debhelper.log

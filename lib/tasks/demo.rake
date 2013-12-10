@@ -95,4 +95,12 @@ task :demo => :environment do
   end
 end
 
+desc "Create demo data independently -- also available " + Ekylibre::DEMOS.collect{|c| "demo:#{c}"}.join(", ")
+task :demos => :environment do
+  for demo in Ekylibre::DEMOS
+    puts " * Execute demo:#{demo} task"
+    Rake::Task["demo:#{demo}"].invoke
+  end
+end
+
 
