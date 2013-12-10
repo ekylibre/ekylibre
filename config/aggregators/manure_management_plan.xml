@@ -16,7 +16,7 @@
           <title name="name" of="cultivable_land_parcel"/>
           <property name="work_number" of="cultivable_land_parcel"/>
           <property name="area" of="cultivable_land_parcel" type="measure"/>
-          <property name="area_in_hectare" value="area" of="cultivable_land_parcel" type="measure" level="api"/>
+          <property name="area_in_hectare" value="net_surface_area.to_d(:hectare)" of="cultivable_land_parcel" type="measure" level="api"/>
           <property name="id" of="cultivable_land_parcel" level="api"/>
           <property name="shape_svg" of="cultivable_land_parcel" type="svg" level="api"/>
           <!-- looking for all Production in current cultivable_land_parcel and campaign -->
