@@ -7,8 +7,6 @@
       =item.errors.messages.inspect
   %td.decimal= f.input_field(:quantity, :size => 7, :class => "item-pta item-wta")
   -#%td
-    = f.select(:indicator, SaleItem.indicator.options)
-  -#%td
     .selector
       = f.input_field(:price_id, 'data-selector' => url_for(:controller => :catalog_prices, :action => :unroll), 'data-selector-new-item' => url_for(:action => :new, :controller => :catalog_prices))
   %td

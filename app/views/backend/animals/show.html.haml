@@ -85,30 +85,30 @@
           #
           #  data for bar chart indicator and by month
           #
-          bar_indicators = [:net_weight]
+          bar_indicators = [:net_weight].collect{|i| Nomen::Indicators[i] }
           for indicator in bar_indicators
-            items = ProductIndicatorDatum.where(:indicator => indicator, :product => @animal).measured_between(started_on, stopped_on)
+            items = ProductIndicatorDatum.where(indicator_name: indicator.name, :product => @animal).measured_between(started_on, stopped_on)
             if items.count > 0
               item_h = items.averages_of_periods.sort.inject({}) do |hash, pair|
                 hash[pair.expr.to_i.to_s] = pair.average.to_s.to_d
                 hash
               end
-              series << {type: 'column', name: indicator.tl, data: normalize_serie(item_h, categories.keys), tooltip: {value_suffix: ' kg'} }
+              series << {type: 'column', name: indicator.human_name, data: normalize_serie(item_h, categories.keys), tooltip: {value_suffix: ' kg'} }
             end
           end
 
           #
           #  data for bar chart indicator and by month
           #
-          spline_indicators = [:animal_disease_state]
+          spline_indicators = [:animal_disease_state].collect{|i| Nomen::Indicators[i] }
           for indicator in spline_indicators
-            items = ProductIndicatorDatum.where(:indicator => indicator, :choice_value => :sick, :product => @animal).measured_between(started_on, stopped_on)
+            items = ProductIndicatorDatum.where(indicator_name: indicator.name, :choice_value => :sick, :product => @animal).measured_between(started_on, stopped_on)
             if items.count > 0
               item_h = items.counts_of_periods(column: :choice_value).sort.inject({}) do |hash, pair|
                 hash[pair.expr.to_i.to_s] = pair.count.to_s.to_d
                 hash
               end
-              series << {type: 'spline', y_axis: 1, name: indicator.tl, data: normalize_serie(item_h, categories.keys),  tooltip: {value_suffix: ' fois'}, marker: {line_width: 2}}
+              series << {type: 'spline', y_axis: 1, name: indicator.human_name, data: normalize_serie(item_h, categories.keys),  tooltip: {value_suffix: ' fois'}, marker: {line_width: 2}}
             end
           end
         = column_chart(series, y_axis: [{labels: {format: '{value} kg'}, title: {text: :net_weight.tl}}, {labels: {format: '{value} fois'},title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, tooltip: {shared: true}, legend: {})

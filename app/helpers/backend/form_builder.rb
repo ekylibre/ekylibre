@@ -264,8 +264,6 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         html << @template.field_set(:indicators) do
           fs = "".html_safe
           for datum in @object.indicator_data
-            # for indicator in indicators
-            # datum = @object.indicator_data.new(:indicator => indicator.name)
             indicator = datum.indicator
             # error message for indicators
             fs << datum.errors.inspect if datum.errors.any?
