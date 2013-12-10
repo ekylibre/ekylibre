@@ -15,7 +15,7 @@
       = list(:intervention_casts)
     - b.cell(:places) do
       = list(:places)
-    - if resource.linkage_points_array.any?
+    - if resource.linkage_points.any?
       - b.cell(:carried_linkages) do
         = list(:carried_linkages)
     - b.cell(:carrier_linkages) do

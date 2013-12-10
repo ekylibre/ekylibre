@@ -215,14 +215,24 @@ class ProductNature < Ekylibre::Record::Base
     return self.indicators.select{|i| i.related_to == aspect}
   end
 
+  # Returns whole indicators
+  def whole_indicators
+    return indicators_related_to(:whole)
+  end
+
   # Returns whole indicator names
   def whole_indicators_list
-    return indicators_related_to(:whole).map{|i| i.name.to_sym }
+    return whole_indicators.map{|i| i.name.to_sym }
+  end
+
+  # Returns individual indicators
+  def individual_indicators
+    return indicators_related_to(:individual)
   end
 
   # Returns individual indicator names
   def individual_indicators_list
-    return indicators_related_to(:individual).map{|i| i.name.to_sym }
+    return individual_indicators.map{|i| i.name.to_sym }
   end
 
   # Returns list of abilities as an array of ability items from the nomenclature

@@ -42,7 +42,7 @@ class Backend::SubscriptionsController < BackendController
     return code.c
   end
 
-  list(conditions: subscriptions_conditions, order:  "id DESC") do |t|
+  list(conditions: subscriptions_conditions, order: {id: :desc}) do |t|
     t.column :mail_line_1, through: :address, url: true
     t.column :mail_line_2, through: :address, :label => :column
     t.column :mail_line_3, through: :address, :label => :column
