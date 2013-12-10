@@ -41,7 +41,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
         q = "INSERT INTO costs (" + insert.join(', ') + ") SELECT " + values.join(', ')
         cexec[q]
       end
-      render(:show)
+      render(:show, visualization: (params[:visualization] || :default))
     end
   end
 
