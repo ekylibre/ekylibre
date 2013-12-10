@@ -73,7 +73,7 @@ demo :deliveries do
       "Céréales" => :cereals_feed_bag_25,
       "Chevaux" => :cereals_feed_bag_25,
       "Compléments nutritionnels" => :cereals_feed_bag_25,
-      "Minéraux sel blocs" => :mineral_feed_bloc_25,
+      "Minéraux sel blocs" => :mineral_feed_block_25,
       "Anti-limaces" => :anti_slug,
       "Location semoir" => :spread_renting,
       "Nettoyants" => :mineral_cleaner,

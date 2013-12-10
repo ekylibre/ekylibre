@@ -90,6 +90,14 @@ $topbar-height: $fingertip-height !default;
 $global-radius: $default-border-radius;
 $include-html-classes: false;
 
+
+$small-screen: 768px;
+$medium-screen: 1280px;
+$large-screen: 1440px;
+
+$mini-screen: 1024px;
+
+
 @function visible-color($background-color) {
   @if lightness($background-color) > 70% {
     @return $base-font-color;
@@ -451,13 +459,50 @@ $include-html-classes: false;
   }
 }
 
+@mixin description_list {
+  padding: round($default-gap * 0.3);
+  & > li {
+    display: block;
+    padding: round($default-gap / 2) $default-gap;
+    border: 1px solid transparent;
+    margin-top: $default-gap;
+    &:first-child {
+      margin-top: 0;
+    }
+    &:hover {
+      border-color: #DDD;
+      @include box-shadow(0 0 round($default-gap * 0.3) rgba(#000, 0.25));
+      background: white;
+    }
+    & > h3 {
+      small {
+        color: #AAA;
+      }
+      i.lock {
+        @include is-icon(12px);
+        @include use-icon(lock);
+      } 
+      &, *, a, i, small { 
+        display: inline;
+        line-height: 1.4 * $fs-normal;
+        vertical-align: middle;
+      } 
+    }
+    & > p {
+      line-height: 1.4em;
+      color: #777;
+      text-align: justify;
+    }
+  }
+  .cell-content & {
+    @media only screen and (min-width: $mini-screen){
+      overflow: auto;
+      max-height: 400px;
+    }
+  }
 
+}
 
-$small-screen: 768px;
-$medium-screen: 1280px;
-$large-screen: 1440px;
-
-$mini-screen: 1024px;
 
 @import "active-list/minimal";
 @import "beehive.css.scss";
