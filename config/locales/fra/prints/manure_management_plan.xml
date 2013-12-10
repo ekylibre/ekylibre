@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="land_parcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="48"/>
+	<property name="ireport.y" value="384"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -47,16 +47,13 @@
 			<fieldDescription><![CDATA[ancestor::production/@name]]></fieldDescription>
 		</field>
 		<field name="input_nitrogen_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[nitrogen-concentration]]></fieldDescription>
+			<fieldDescription><![CDATA[nitrogen-concentration-in-unity]]></fieldDescription>
 		</field>
 		<field name="input_phosphorus_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[phosphorus-concentration]]></fieldDescription>
+			<fieldDescription><![CDATA[phosphorus-concentration-in-unity]]></fieldDescription>
 		</field>
 		<field name="input_potassium_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[potassium-concentration]]></fieldDescription>
-		</field>
-		<field name="unitary-quantity-in-kilogram" class="java.lang.String">
-			<fieldDescription><![CDATA[/campaigns/campaign/cultivable_land_parcel/production/intervention/inputs/input/unitary-quantity-in-kilogram]]></fieldDescription>
+			<fieldDescription><![CDATA[potassium-concentration-in-unity]]></fieldDescription>
 		</field>
 		<field name="quantity-in-kilogram" class="java.lang.String">
 			<fieldDescription><![CDATA[/campaigns/campaign/cultivable_land_parcel/production/intervention/inputs/input/quantity-in-kilogram]]></fieldDescription>
@@ -90,8 +87,11 @@
 		<field name="input_nature" class="java.lang.String">
 			<fieldDescription><![CDATA[nature-name]]></fieldDescription>
 		</field>
-		<field name="input_quantity" class="java.lang.Double">
+		<field name="input_quantity" class="java.lang.String">
 			<fieldDescription><![CDATA[quantity]]></fieldDescription>
+		</field>
+		<field name="input_quantity_in_kilogram" class="java.lang.Double">
+			<fieldDescription><![CDATA[quantity-in-kilogram]]></fieldDescription>
 		</field>
 		<field name="input_variety" class="java.lang.String">
 			<fieldDescription><![CDATA[variety]]></fieldDescription>
@@ -105,20 +105,17 @@
 		<field name="name" class="java.lang.String">
 			<fieldDescription><![CDATA[ancestor::production/@name]]></fieldDescription>
 		</field>
-		<field name="input_nitrogen_concentration" class="java.lang.Double">
+		<field name="input_nitrogen_concentration" class="java.lang.String">
 			<fieldDescription><![CDATA[nitrogen-concentration]]></fieldDescription>
 		</field>
+		<field name="input_nitrogen_concentration_in_unity" class="java.lang.Double">
+			<fieldDescription><![CDATA[nitrogen-concentration-in-unity]]></fieldDescription>
+		</field>
 		<field name="input_phosphorus_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[phosphorus-concentration]]></fieldDescription>
+			<fieldDescription><![CDATA[phosphorus-concentration-in-unity]]></fieldDescription>
 		</field>
 		<field name="input_potassium_concentration" class="java.lang.Double">
-			<fieldDescription><![CDATA[potassium-concentration]]></fieldDescription>
-		</field>
-		<field name="quantity_in_kilogram" class="java.lang.Double">
-			<fieldDescription><![CDATA[quantity-in-kilogram]]></fieldDescription>
-		</field>
-		<field name="unitary_quantity_in_kilogram" class="java.lang.Double">
-			<fieldDescription><![CDATA[unitary-quantity-in-kilogram]]></fieldDescription>
+			<fieldDescription><![CDATA[potassium-concentration-in-unity]]></fieldDescription>
 		</field>
 		<field name="input_variant_unit" class="java.lang.String">
 			<fieldDescription><![CDATA[unit-name]]></fieldDescription>
@@ -128,13 +125,13 @@
 		</field>
 		<sortField name="started_at"/>
 		<variable name="total_prev_nitrogen_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{quantity_in_kilogram}.doubleValue()*$F{input_nitrogen_concentration}.doubleValue()*0.01]]></variableExpression>
+			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_nitrogen_concentration_in_unity}.doubleValue()]]></variableExpression>
 		</variable>
 		<variable name="total_prev_input_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{quantity_in_kilogram}.doubleValue()]]></variableExpression>
+			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()]]></variableExpression>
 		</variable>
 		<variable name="total_prev_phosphorus_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{quantity_in_kilogram}.doubleValue()*$F{input_phosphorus_concentration}.doubleValue()*0.01]]></variableExpression>
+			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_phosphorus_concentration}]]></variableExpression>
 		</variable>
 		<variable name="total_prev_nitrogen_quantity_per_area" class="java.lang.Double">
 			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/$P{cultivable_land_parcel_area}.doubleValue()]]></variableExpression>
@@ -143,7 +140,7 @@
 			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/$P{cultivable_land_parcel_area}.doubleValue()]]></variableExpression>
 		</variable>
 		<variable name="total_prev_potassium_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{quantity_in_kilogram}.doubleValue()*$F{input_potassium_concentration}.doubleValue()*0.01]]></variableExpression>
+			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_potassium_concentration}]]></variableExpression>
 		</variable>
 		<variable name="total_prev_potassium_quantity_per_area" class="java.lang.Double">
 			<variableExpression><![CDATA[$V{total_prev_potassium_quantity}/($P{cultivable_land_parcel_area}.doubleValue())]]></variableExpression>
@@ -444,7 +441,7 @@
 							</jr:columnHeader>
 							<jr:columnFooter height="0" rowSpan="1"/>
 							<jr:detailCell height="20" rowSpan="1">
-								<textField pattern="###0.00" isBlankWhenNull="true">
+								<textField isBlankWhenNull="true">
 									<reportElement uuid="32aaefb7-789c-4894-b9c0-ccdb0a304cc3" style="table-td" x="0" y="0" width="48" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{input_quantity}]]></textFieldExpression>
@@ -483,7 +480,7 @@
 								<textField pattern="###0.00" isBlankWhenNull="true">
 									<reportElement uuid="7db8f294-3d74-4530-a80b-63429821218d" style="table-td" x="0" y="0" width="102" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity}.doubleValue()*$F{input_nitrogen_concentration}.doubleValue()*0.01]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{quantity-in-kilogram}.doubleValue()*$F{input_nitrogen_concentration}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
@@ -513,7 +510,7 @@
 								<textField pattern="###0.00" isBlankWhenNull="true">
 									<reportElement uuid="9e1e449d-05b0-4b27-a1d1-c28282f56c61" style="table-td" x="0" y="0" width="100" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity}.doubleValue()*$F{input_phosphorus_concentration}.doubleValue()*0.01]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{quantity-in-kilogram}.doubleValue()*$F{input_phosphorus_concentration}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
@@ -698,7 +695,7 @@
 									<reportElement uuid="03bbc176-12f3-4e68-a4df-ff7e3db549a8" style="table-td" x="0" y="0" width="82" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{input_quantity}]]></textFieldExpression>
-									<patternExpression><![CDATA["### 0.00" + $F{input_variant_unit}]]></patternExpression>
+									<patternExpression><![CDATA[$F{input_quantity}]]></patternExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
@@ -728,7 +725,7 @@
 								<textField pattern="###0.00" isBlankWhenNull="true">
 									<reportElement uuid="af94c90c-bb43-4b8e-bdbb-cdada0569328" style="table-td" x="0" y="0" width="70" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{quantity_in_kilogram}.doubleValue()*$F{input_nitrogen_concentration}.doubleValue()*0.01]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_nitrogen_concentration_in_unity}.doubleValue()]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
@@ -758,7 +755,7 @@
 								<textField pattern="###0.00" isBlankWhenNull="true">
 									<reportElement uuid="83757847-62e7-4f4a-ba30-11b58658b2d2" style="table-td" x="0" y="0" width="70" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{quantity_in_kilogram}.doubleValue()*$F{input_phosphorus_concentration}.doubleValue()*0.01]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_phosphorus_concentration}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>
@@ -788,7 +785,7 @@
 								<textField pattern="###0.00" isBlankWhenNull="true">
 									<reportElement uuid="f33eb29d-9c8e-42ff-9d2e-90a1dc4af82d" style="table-td" x="0" y="0" width="70" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{quantity_in_kilogram}.doubleValue()*$F{input_potassium_concentration}.doubleValue()*0.01]]></textFieldExpression>
+									<textFieldExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_potassium_concentration}]]></textFieldExpression>
 								</textField>
 							</jr:detailCell>
 						</jr:column>

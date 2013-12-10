@@ -461,6 +461,7 @@ class Product < Ekylibre::Record::Base
       if value and indicator.gathering
         if indicator.gathering == :proportional_to_population
           value *= self.send(:population, at: cast_or_time)
+        # @TODO puts method to compute nitrogen,....
         end
       end
     elsif cast_or_time.is_a?(InterventionCast)
