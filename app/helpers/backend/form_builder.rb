@@ -215,7 +215,14 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
             if variant.frozen_indicators.include?(indicator)
               # fbs << birth_fields.input(indicator.name, value: variant.get(indicator), as: :hidden)
             else
-              fbs << birth_fields.input(indicator.name)
+              if indicator.name.to_s == "population"
+                fbs << birth_fields.input(indicator.name, wrapper: :append) do
+                  birth_fields.input_field(indicator.name, label: indicator.human_name, as: indicator.datatype) +
+                    @template.content_tag(:span, variant.unit_name, :class => "add-on")
+                end
+              else
+                fbs << birth_fields.input(indicator.name)
+              end
             end
           end
           fbs

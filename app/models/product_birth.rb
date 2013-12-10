@@ -88,6 +88,14 @@ class ProductBirth < Ekylibre::Record::Base
           end
         end
       end
+    elsif self.creation?
+      if self.producer
+        raise NotImplementedError
+      else
+        for indicator_name in self.product.whole_indicators_list
+          product.is_measured!(indicator_name, self.send(indicator_name), at: self.stopped_at, originator: self)
+        end    
+      end
     end
   end
 
