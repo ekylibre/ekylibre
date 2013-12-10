@@ -132,4 +132,12 @@ class InterventionCast < Ekylibre::Record::Base
     end
   end
 
+  # Returns value of an indicator if its name correspond to
+  def method_missing(method_name, *args)
+    if Nomen::Indicators.all.include?(method_name.to_s) and self.actor and self.actor.respond_to?(:get)
+      return self.actor.get(method_name, self)
+    end
+    return super
+  end
+
 end

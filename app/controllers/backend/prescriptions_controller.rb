@@ -24,7 +24,7 @@ class Backend::PrescriptionsController < BackendController
 
   list do |t|
     t.column :reference_number, url: true
-    t.column :delivered_on
+    t.column :delivered_at
     t.column :prescriptor, url: true
     t.column :document, url: true
     t.action :edit

@@ -118,7 +118,12 @@ class BackendController < BaseController
     code << "  conditions = []\n"
 
     code << "  klass = controller_name.classify.constantize\n"
-    code << "  items = klass.unscoped.order(#{order.inspect})\n"
+    code << "  items = klass.unscoped" 
+    if options[:includes]
+      code << ".includes(#{options[:include]})"
+      code << ".references(#{options[:include]})"
+    end
+    code <<  ".order(#{order.inspect})\n"
     # code << "  items = #{model.name}.unscoped\n"
     # code << "  raise params[:scope].inspect\n"
     code << "  if scopes = params[:scope]\n"
