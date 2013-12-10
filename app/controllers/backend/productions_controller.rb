@@ -83,5 +83,6 @@ class Backend::ProductionsController < BackendController
     t.column :stopped_at
     # t.column :provisional
   end
+  
 
 end

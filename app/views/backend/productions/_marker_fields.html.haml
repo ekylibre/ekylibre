@@ -1,0 +1,8 @@
+.nested-fields
+  =link_to_remove_nested_association(:marker, f)
+  = f.input(:indicator_name, :wrapper_html => {:id => 'indicator-field'})
+  = f.input(:indicator_datatype, :wrapper_html => {:id => 'indicator_datatype-field'})
+  = f.input(:value, :wrapper_html => {:id => 'measure_value-field'})
+  =f.input(:aim, :wrapper_html => {:id => 'aim-field'})
+  =f.input(:started_at, :wrapper_html => {:id => 'started_at-field'})
+  =f.input(:stopped_at, :wrapper_html => {:id => 'stopped_at-field'})

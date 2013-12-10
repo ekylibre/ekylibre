@@ -36,7 +36,6 @@ class ProductionSupport < Ekylibre::Record::Base
   belongs_to :storage, class_name: "Product", inverse_of: :supports
   belongs_to :production, inverse_of: :supports
   has_many :interventions
-  has_many :marker_data, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support
   has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :exclusive, in: [true, false]
@@ -45,9 +44,10 @@ class ProductionSupport < Ekylibre::Record::Base
   validates_uniqueness_of :storage_id, scope: :production_id
 
   delegate :net_surface_area, :shape_area, to: :storage, prefix: true
+  delegate :name, to: :production, prefix: true
   delegate :name, :shape, :shape_as_ewkt, to: :storage
 
-  accepts_nested_attributes_for :marker_data, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :markers, :reject_if => :all_blank, :allow_destroy => true
 
   def cost(role=:input)
     cost = []

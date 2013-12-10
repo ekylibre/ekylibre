@@ -93,6 +93,7 @@ class Product < Ekylibre::Record::Base
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :product_id
   has_many :phases, class_name: "ProductPhase"
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
+  has_many :markers, :through => :supports
   has_many :variants, class_name: "ProductNatureVariant", :through => :phases
   has_one :birth, class_name: "ProductBirth", inverse_of: :product
   has_one :current_phase,        -> { current }, class_name: "ProductPhase",        foreign_key: :product_id

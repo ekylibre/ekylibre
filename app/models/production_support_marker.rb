@@ -43,11 +43,9 @@
 #  updater_id          :integer
 #
 class ProductionSupportMarker < Ekylibre::Record::Base
-  # @TODO wait for refactorisation of indicator attribute into indicator name attribute
-  # include IndicatorDatumStorable
-  enumerize :indicator_name, in: Nomen::Indicators.all, predicates: true
+  include IndicatorDatumStorable
   enumerize :aim,       in: [:minimal, :maximal, :perfect], default: :maximal
-  belongs_to :support, class_name: "ProductionSupport", inverse_of: :marker_data
+  belongs_to :support, class_name: "ProductionSupport", inverse_of: :markers
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value_value, allow_nil: true

@@ -121,6 +121,15 @@ class Backend::ProductsController < BackendController
     t.column :stopped_at, through: :intervention
   end
 
+  # List supports for one production
+  list(:markers, model: :production_support_markers, order: {created_at: :desc}) do |t|
+    t.column :production_name, through: :support, url: true
+    t.column :indicator_name
+    t.column :value
+    t.column :started_at
+    t.column :stopped_at
+  end
+
   protected
 
   def check_variant_availability()

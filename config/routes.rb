@@ -56,6 +56,7 @@ Ekylibre::Application.routes.draw do
       get :list_intervention_casts
       get :list_members
       get :list_places
+      get :list_markers
     end
   end
 
@@ -521,7 +522,12 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :production_supports, concerns: [:list, :unroll]
+    resources :production_supports, concerns: [:list, :unroll] do
+      member do
+        get :list_interventions
+        get :list_markers
+      end
+    end
 
     resources :production_support_markers do
       collection do
