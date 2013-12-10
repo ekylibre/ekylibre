@@ -291,6 +291,22 @@
             variable_indicators="net_surface_area, shape"
             frozen_indicators="population"
             />
+      <item name="fertiliser_division"
+            category="building_division"
+            variety="building_division"
+            population_counting="unitary"
+            abilities="store(mineral_matter)"
+            variable_indicators="net_surface_area, shape"
+            frozen_indicators="population"
+            />
+      <item name="administrative_division"
+            category="building_division"
+            variety="building_division"
+            population_counting="unitary"
+            abilities=""
+            variable_indicators="net_surface_area, shape"
+            frozen_indicators="population"
+            />
       <item name="animal_building_division"
             category="building_division"
             variety="building_division"
