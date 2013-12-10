@@ -97,7 +97,7 @@ class Backend::ProductsController < BackendController
 
   # indicators of the consider product
   list(:indicators, model: :product_indicator_data, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
-    t.column :indicator
+    t.column :indicator_name
     t.column :measured_at
     t.column :value
   end
