@@ -39,18 +39,19 @@ GEM
       activerecord (~> 4.0.0)
     awesome_print (1.2.0)
     bcrypt-ruby (3.1.2)
-    beardley (0.6.3)
-      beardley-barcode (>= 0.0.1)
-      beardley-batik (>= 0.0.0)
-      beardley-core (>= 5.0.0)
-      beardley-groovy (>= 1.7.5)
-      beardley-xml (>= 0.0.0)
+    beardley (1.0.0)
       rjb (>= 1.4.8)
-    beardley-barcode (0.0.1)
-    beardley-batik (0.0.0)
-    beardley-core (5.2.0.1)
-    beardley-groovy (1.7.5.1)
-    beardley-xml (0.0.0)
+      rjb-loader (>= 0.0.2)
+    beardley-barcode (1.0.0)
+      beardley
+    beardley-batik (1.0.0)
+      beardley
+    beardley-charts (0.0.0)
+      beardley
+    beardley-groovy (2.0.0)
+      beardley
+    beardley-xml (1.0.0)
+      beardley
     builder (3.1.4)
     calendar_helper (0.2.6)
       open4
@@ -266,6 +267,9 @@ GEM
       dbf (>= 1.7.0)
       rgeo (>= 0.3.3)
     rjb (1.4.8)
+    rjb-loader (0.0.2)
+      rails (>= 3.2)
+      rjb (>= 1.4.8)
     rspec-expectations (2.14.4)
       diff-lcs (>= 1.1.3, < 2.0)
     ruby-filemagic (0.4.2)
@@ -367,6 +371,11 @@ DEPENDENCIES
   awesome_nested_set (~> 3.0.0.rc2)
   awesome_print
   beardley
+  beardley-barcode
+  beardley-batik
+  beardley-charts
+  beardley-groovy
+  beardley-xml
   calendar_helper (~> 0.2.5)
   capybara
   capybara-screenshot

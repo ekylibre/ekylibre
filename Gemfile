@@ -101,6 +101,11 @@ gem 'mechanize'
 # gem 'thinreports-rails'
 # Need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
 gem 'beardley'
+gem 'beardley-barcode'
+gem 'beardley-batik'
+gem 'beardley-charts'
+gem 'beardley-groovy'
+gem 'beardley-xml'
 # gem 'prawn', '~> 0.12.0'
 
 # Import/Export
