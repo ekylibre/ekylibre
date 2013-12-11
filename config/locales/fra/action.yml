@@ -507,14 +507,6 @@ fra:
       # edit: "Edit backend/product process"
       # index: "Index backend/product process"
       # new: "New backend/product process"
-<<<<<<< HEAD
-    backend/production_support_markers:
-      edit: "Modifier un objectif"
-      index: "Objectifs"
-      new: "Nouvel objectif"
-      show: "Objectif\_: %{id}"
-=======
->>>>>>> 2cd51690660ed95d7efbd24dfc2a52e67768f4d2
     backend/production_supports:
       edit: "Modifier un support de production"
       index: "Supports de production"

@@ -71,7 +71,7 @@ class Backend::ProductionsController < BackendController
     t.column :created_at
     t.action :new, url: {controller: :interventions, production_support_id: 'RECORD.id'.c, id: nil}
   end
-  
+
   # List supports for one production
   list(:markers, model: :production_support_markers, order: {created_at: :desc}) do |t|
     t.column :name, through: :support, url: true

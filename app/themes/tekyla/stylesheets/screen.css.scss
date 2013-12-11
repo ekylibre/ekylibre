@@ -481,12 +481,12 @@ $mini-screen: 1024px;
       i.lock {
         @include is-icon(12px);
         @include use-icon(lock);
-      } 
-      &, *, a, i, small { 
+      }
+      &, *, a, i, small {
         display: inline;
         line-height: 1.4 * $fs-normal;
         vertical-align: middle;
-      } 
+      }
     }
     & > p {
       line-height: 1.4em;

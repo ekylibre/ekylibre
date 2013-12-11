@@ -471,11 +471,7 @@ jpn:
     backend/product_processes: #?
     backend/product_transfers: #?
     backend/production_support_marker_indicator_data: #?
-    backend/production_support_markers:
-      # edit: "Modifier un objectif"
-      # index: "Objectifs"
-      # new: "Nouvel objectif"
-      # show: "Objectif\_: %{id}"
+    backend/production_support_markers: #?
     backend/production_supports:
       # edit: "Modifier un support de production"
       # index: "Supports de production"

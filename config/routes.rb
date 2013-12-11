@@ -523,16 +523,14 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-<<<<<<< HEAD
+    # resources :production_support_markers, concerns: [:list, :unroll]
+
     resources :production_supports, concerns: [:list, :unroll] do
       member do
         get :list_interventions
         get :list_markers
       end
     end
-=======
-    # resources :production_support_markers, concerns: [:list, :unroll]
->>>>>>> 2cd51690660ed95d7efbd24dfc2a52e67768f4d2
 
     resources :production_supports, concerns: [:list, :unroll]
 

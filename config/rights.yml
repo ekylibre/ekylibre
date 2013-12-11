@@ -618,6 +618,7 @@
 # - "backend/production_supports#unroll"
 # - "backend/production_supports#update"
 # - "backend/productions#list_interventions"
+# - "backend/productions#list_markers"
 # - "backend/productions#list_supports"
 # - "backend/productions#unroll"
 # - "backend/products#create"
