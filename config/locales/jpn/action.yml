@@ -1032,6 +1032,7 @@ jpn:
     # groups: "Groupes"
     # help: "Aide"
     # hint: "Astuce\_: %{value}"
+    # historic: "Historique"
     home: "持て成しの手伝いに帰り"
     hour_duration:
       # one: "Temps d’utilisation total\_: %{count} heure"
@@ -1527,6 +1528,7 @@ jpn:
     # supports: "Supports de production"
     # synthesis: "Documents de synthèse"
     # target: "Cible"
+    # taxes: "Taxes"
     # temperature: "Température"
     # theoric_quantity: "Quantité théorique"
     # third_informations: "Informations tierces"
@@ -1599,6 +1601,7 @@ jpn:
     # valid: "Valider"
     # validate: "Valider"
     # validate_selected_entries: "Valider les écritures sélectionnées"
+    # values: "Valeurs"
     # variants: "Variantes"
     # vat: "Taxe à payer"
     # vat_acquisitions: "Acquisitions intracommunautaires"

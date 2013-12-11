@@ -1255,6 +1255,7 @@ arb:
     # groups: "Groupes"
     help: "المساعدة"
     hint: "تلميح&nbsp;: %{value}"
+    # historic: "Historique"
     home: "الرجوع الى صفجة المساعدة الرئيسية"
     hour_duration:
       one: "مجموع الوقت المستخدم : ساعة واحدة"
@@ -1832,6 +1833,7 @@ arb:
     # target: "Cible"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
+    # taxes: "Taxes"
     # temperature: "Température"
     theoric_quantity: "الكمية النظرية"
     # third_informations: "Informations tierces"
@@ -1916,6 +1918,7 @@ arb:
     valid: "الصلاحية"
     validate: "التعديل"
     validate_selected_entries: "التحقق من المدخلات المختارة"
+    # values: "Valeurs"
     # variants: "Variantes"
     vat: "الضريبة المستحقة"
     vat_acquisitions: "المكاسب الداخلية"

@@ -1143,6 +1143,7 @@ spa:
     # groups: "Groupes"
     help: "Ayuda"
     # hint: "Astuce\_: %{value}"
+    # historic: "Historique"
     home: "Vuelta a la cogida de la ayuda"
     hour_duration:
       # one: "Temps d’utilisation total\_: %{count} heure"
@@ -1654,6 +1655,7 @@ spa:
     # target: "Cible"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
+    # taxes: "Taxes"
     # temperature: "Température"
     theoric_quantity: "cantidad teorica"
     # third_informations: "Informations tierces"
@@ -1730,6 +1732,7 @@ spa:
     # valid: "Valider"
     validate: "Validar"
     validate_selected_entries: "Validar la escrituras seleccionadas"
+    # values: "Valeurs"
     # variants: "Variantes"
     vat: "Tasa a pagar"
     vat_acquisitions: "Adquisición intracomunotarios"

@@ -1102,6 +1102,7 @@ eng:
     groups: "Groups"
     help: "Help"
     hint: "Hint: %{value}"
+    # historic: "Historique"
     home: "Back to Help home"
     hour_duration:
       one: "Total used time: 1 hour"
@@ -1603,6 +1604,7 @@ eng:
     # supports: "Supports de production"
     synthesis: "Synthesis Documents"
     target: "Target"
+    # taxes: "Taxes"
     # temperature: "Température"
     theoric_quantity: "Theoric quantity"
     # third_informations: "Informations tierces"
@@ -1677,6 +1679,7 @@ eng:
     valid: "Valid"
     validate: "Validate"
     validate_selected_entries: "Validate selected entries"
+    # values: "Valeurs"
     # variants: "Variantes"
     # vat: "Taxe à payer"
     # vat_acquisitions: "Acquisitions intracommunautaires"
