@@ -6,12 +6,12 @@
 
     if activities.count > 0
       activities_serie = activities.collect do |activity|
-        { name: activity.name, y: activity.area(@campaigns).to_s.to_f, id: activity.id, url: backend_activity_path(activity), color: cycle(*Backend::ChartsHelper::COLORS) }
+        { name: activity.name, y: activity.area(@campaigns).in(:square_meter).to_d(:hectare).to_s.to_f, id: activity.id, url: backend_activity_path(activity), color: cycle(*Backend::ChartsHelper::COLORS) }
       end
       productions_serie = Production.of_campaign(@campaigns).of_activities(activities).order("activity_id, id").collect do |production|
-        campaigns[production.campaign.name] ||= 0.in_hectare
-        campaigns[production.campaign.name] += production.area.in_hectare
-        { name: production.name, y: production.area.to_s.to_f, url: backend_production_path(production), color: ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3) }
+        campaigns[production.campaign.name] ||= 0.in(:square_meter).to_d(:hectare)
+        campaigns[production.campaign.name] += production.area.in(:square_meter).to_d(:hectare)
+        { name: production.name, y: production.area.in(:square_meter).to_d(:hectare).to_s.to_f, url: backend_production_path(production), color: ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3) }
       end
     end
 
@@ -19,6 +19,6 @@
     series << {name: Activity.model_name.human, data: activities_serie, size: "60%", data_labels: {color: 'white', distance: -30}}
     series << {name: Production.model_name.human, data: productions_serie, size: "80%", inner_size: "60%", data_labels: {enabled: false}}
 
-  = pie_chart(series, tooltip: {point_format: '{point.y: 1.2f} Ha'}, title: campaigns.map {|k,v| "#{k} (#{v.to_d(:hectare).round(2)} ha)"}.to_sentence, plot_options: { pie: { allow_point_select: true, cursor: 'pointer'}})
+  = pie_chart(series, tooltip: {point_format: '{point.y: 1.2f} Ha'}, title: campaigns.map {|k,v| "#{k} (#{v.round(2)} ha)"}.to_sentence, plot_options: { pie: { allow_point_select: true, cursor: 'pointer'}})
 - else
   %strong= :no_data.tl
