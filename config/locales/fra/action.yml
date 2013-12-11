@@ -1160,6 +1160,7 @@ fra:
     groups: "Groupes"
     help: "Aide"
     hint: "Astuce\_: %{value}"
+    historic: "Historique"
     home: "Retour à l’accueil de l’aide"
     hour_duration:
       one: "Temps d’utilisation total\_: %{count} heure"
@@ -1648,6 +1649,7 @@ fra:
     support: "Support"
     supports: "Supports de production"
     synthesis: "Documents de synthèse"
+    taxes: "Taxes"
     target: "Cible"
     temperature: "Température"
     theoric_quantity: "Quantité théorique"
@@ -1721,6 +1723,7 @@ fra:
     valid: "Valider"
     validate: "Valider"
     validate_selected_entries: "Valider les écritures sélectionnées"
+    values: "Valeurs"
     variants: "Variantes"
     vat: "Taxe à payer"
     vat_acquisitions: "Acquisitions intracommunautaires"
