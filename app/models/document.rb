@@ -53,14 +53,20 @@ class Document < Ekylibre::Record::Base
   def archive(data, format, options = {})
     tmp_dir = Rails.root.join('tmp', 'archiving')
     FileUtils.mkdir_p(tmp_dir)
-    Tempfile.open([self.name.parameterize, "." + format.to_s], tmp_dir, :encoding => 'ascii-8bit') do |f|
-      f.print(data)
-      f.flush
-      f.rewind
-      self.archives.create!(:file => f, :template_id => options[:template_id]) #}, :without_protection => true)
-      # self.updated_at = Time.now
-      # self.save!
+    path = tmp_dir.join("#{self.id}.archive")
+    File.write(path, data)
+    File.open(path) do |f|
+      self.archives.create!(file: f, template_id: options[:template_id])
     end
+    FileUtils.rm_f(path)
+    # Tempfile.open([self.name.parameterize, "." + format.to_s], tmp_dir, :encoding => 'ascii-8bit') do |f|
+    #   f.print(data)
+    #   f.flush
+    #   f.rewind
+    #   self.archives.create!(file: f, template_id: options[:template_id]) #}, :without_protection => true)
+    #   # self.updated_at = Time.now
+    #   # self.save!
+    # end
   end
 
   # Returns the matching unique document for the given nature and key
