@@ -205,7 +205,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    paperclip-document (0.0.0)
+    paperclip-document (0.0.1)
       docsplit (~> 0.7.2)
       paperclip (~> 3.1)
       ruby-filemagic (~> 0.4.2)
