@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
 
   attr_accessor :current_theme
 
-  LANGUAGES = ::I18n.active_locales.collect{ |l| "i18n.iso2".t(locale: l) }.sort.freeze
+  LANGUAGES = ::I18n.available_locales.collect{ |l| "i18n.iso2".t(locale: l) }.sort.freeze
 
 
   # # Permits to redirect

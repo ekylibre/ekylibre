@@ -17,7 +17,7 @@ module Ekylibre
       root[:name] = Entity.of_company.full_name
       n = 0
       start = Time.now.to_i
-      for model in Ekylibre.models.select{|m| m.to_s.pluralize.classify.constantize.superclass == Ekylibre::Record::Base }
+      for model in Ekylibre::Schema.models.select{|m| m.to_s.pluralize.classify.constantize.superclass == Ekylibre::Record::Base }
         klass = model.to_s.pluralize.classify.constantize.unscoped
         rows_count = klass.count
         n += rows_count
@@ -88,7 +88,7 @@ module Ekylibre
       ActiveRecord::Base.transaction do
         # Delete all existing data
         puts "R> Removing existing data..."  if verbose
-        for model in Ekylibre.models
+        for model in Ekylibre::Schema.models
           model.to_s.pluralize.classify.constantize.unscoped.delete_all
         end
 

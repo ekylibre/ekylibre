@@ -23,7 +23,6 @@
 module Ekylibre
   module Record
     autoload :Base, 'ekylibre/record/base'
-    autoload :Column, 'ekylibre/record/column'
   end
 end
 

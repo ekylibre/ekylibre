@@ -127,7 +127,7 @@ class Backend::DashboardsController < BackendController
     excluded = [:account_balance, :affair, :asset_depreciation, :custom_field_choice, :deposit_item, :document_template, :inventory_item, :listing_node_item, :preference, :tax_declaration, :transfer]
 
     queries = []
-    for model_name in Ekylibre.models
+    for model_name in Ekylibre::Schema.models
       next if excluded.include?(model_name)
       model = model_name.to_s.camelcase.constantize
       next unless model.superclass == Ekylibre::Record::Base

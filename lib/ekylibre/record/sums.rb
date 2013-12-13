@@ -17,7 +17,7 @@ module Ekylibre::Record
           elsif arg.is_a? Hash
             options.merge!(arg)
           else
-            raise ArgumentError.new("Unvalid type #{arg.inspect}:#{arg.class.name}")
+            raise ArgumentError, "Unvalid type #{arg.inspect}:#{arg.class.name}"
           end
         end
         method_name = options.delete(:method) || "sums_#{children}_in_#{target}"
@@ -35,7 +35,7 @@ module Ekylibre::Record
             code << "    #{v} += "+(k.is_a?(Symbol) ? "#{record}.#{k}" : k)+"\n"
           end
           code << "  end\n"
-          code << "  " + Ekylibre.references[self.name.underscore.to_sym][target_id].to_s.camelcase + ".where(:id => self.#{target_id}).update_all(" + options.collect{|k, v| ":#{v} => #{v}"}.join(", ") + ")\n"
+          code << "  " + Ekylibre::Schema.references(self.name.underscore.to_sym, target_id).to_s.camelcase + ".where(id: self.#{target_id}).update_all(" + options.collect{|k, v| ":#{v} => #{v}"}.join(", ") + ")\n"
           code << "end\n"
         end
         # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}

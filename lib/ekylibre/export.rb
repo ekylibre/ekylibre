@@ -1,2 +1,6 @@
-# require File.join(File.dirname(__FILE__), 'export', 'open_document', 'spreadsheet')
-require File.join(File.dirname(__FILE__), 'export', 'accountancy_spreadsheet')
+module Ekylibre
+  module Export
+    autoload :AccountancySpreadsheet, 'ekylibre/export/accountancy_spreadsheet'
+    # autoload :OpenDocument, 'ekylibre/export/open_document'
+  end
+end

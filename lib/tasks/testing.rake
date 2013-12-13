@@ -83,16 +83,16 @@ namespace :fixtures do
     Rake::Task["db:drop"].invoke
     Rake::Task["db:create"].invoke
     Rake::Task["db:schema:load"].invoke
-    tables = Ekylibre.models.collect{|t| t.to_s.pluralize}
+    tables = Ekylibre::Schema.table_names
     require 'active_record/fixtures'
     # ActiveRecord::
     Fixtures.create_fixtures(fixtures_dir, tables)
   end
 
   desc "Write development database in fixtures files (removing existing files)"
-  task :write=>:environment do
+  task :write => :environment do
     # ActiveRecord::Base.establish_connection(:development)
-    tables = Ekylibre.models.collect{|t| t.to_s.pluralize}
+    tables = Ekylibre::Schema.table_names
     for table in tables
       File.open(fixtures_dir.join("#{table}.yml"), "wb") do |f|
         columns = {}

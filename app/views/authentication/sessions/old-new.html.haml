@@ -21,7 +21,7 @@
     .logoban{:title => Ekylibre.version}
     =form_tag(session_path(:redirect => params[:redirect])) do
       %table
-        -if false # ::I18n.active_locales.size > 1
+        -if false # ::I18n.available_locales.size > 1
           %tr
             %td
               %label=tc(:locale)
