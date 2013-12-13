@@ -11,6 +11,7 @@
       <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 25kg_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band" required="true" default="unit"/>
     </attributes>
     <items>
+      <!-- ANIMAL -->
       <item name="cattle_herd"
             nature="cattle_herd"
             derivative_of="bos"
@@ -75,7 +76,8 @@
             nature="duck_band"
             unit_name="band"
             frozen_indicators_values=""
-            />      
+            />
+      <!-- CROP -->      
       <item name="wheat_crop"
             nature="crop"
             variety="triticum_aestivum"
@@ -148,6 +150,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <!-- ORGANIC PRODUCT -->
       <item name="vine_grape_berry"
             nature="grain"
             derivative_of="vitis_vinifera"
@@ -232,6 +235,7 @@
             unit_name="ton"
             frozen_indicators_values="net_weight: 1.00ton"
             />
+      <!-- PLANT MEDICINE -->
       <item name="helianthus_herbicide"
             nature="herbicide"
             unit_name="liter"
@@ -287,6 +291,7 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_weight: 1.00kilogram"
             />
+      <!-- PLANT INTRANT -->
       <item name="bulk_ammonitrate_33"
             nature="chemical_fertilizer"
             unit_name="ton"
@@ -365,6 +370,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram"
             />
+      <!-- ANIMAL MEDICINE -->
       <item name="riflexine"
             nature="animal_medicine"
             unit_name="10ml_dose"
@@ -380,6 +386,7 @@
             unit_name="1l_dose"
             frozen_indicators_values="net_volume: 1liter, net_weight: 1kilogram, meat_withdrawal_period: 0day, milk_withdrawal_period: 0day"
             />
+       <!-- OTHER PRODUCT -->
       <item name="spread_renting"
             nature="spread_renting"
             unit_name="hour"
@@ -394,12 +401,115 @@
             nature="small_equipment"
             unit_name="unit"
             frozen_indicators_values="population: 1"
-            />    
+            />
+      <!-- LAND PARCEL --> 
       <item name="land_parcel"
             nature="land_parcel"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="clay_limestone_land_parcel"
+            nature="land_parcel"
+            variety="clay_limestone_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="champagne_land_parcel"
+            nature="land_parcel"
+            variety="champagne_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="aubues_land_parcel"
+            nature="land_parcel"
+            variety="aubues_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="red_chesnut_land_parcel"
+            nature="land_parcel"
+            variety="red_chesnut_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="granite_arena_land_parcel"
+            nature="land_parcel"
+            variety="granite_arena_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="silt_schist_land_parcel"
+            nature="land_parcel"
+            variety="silt_schist_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="black_valley_land_parcel"
+            nature="land_parcel"
+            variety="black_valley_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="valley_terrace_land_parcel"
+            nature="land_parcel"
+            variety="valley_terrace_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="sandy_clay_loam_land_parcel"
+            nature="land_parcel"
+            variety="sandy_clay_loam_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="hydromorph_sandy_clay_loam_land_parcel"
+            nature="land_parcel"
+            variety="hydromorph_sandy_clay_loam_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="sandy_clay_land_parcel"
+            nature="land_parcel"
+            variety="sandy_clay_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="clay_land_parcel"
+            nature="land_parcel"
+            variety="clay_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="silty_clay_land_parcel"
+            nature="land_parcel"
+            variety="silty_clay_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="silty_clay_loam_land_parcel"
+            nature="land_parcel"
+            variety="silty_clay_loam_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="sand_land_parcel"
+            nature="land_parcel"
+            variety="sand_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="silt_land_parcel"
+            nature="land_parcel"
+            variety="silt_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="flap_silt_land_parcel"
+            nature="land_parcel"
+            variety="flap_silt_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />            
       <item name="land_parcel_cluster"
             nature="land_parcel_cluster"
             unit_name="hectare"
@@ -410,6 +520,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <!-- BUILDING --> 
       <item name="animal_building"
             nature="building"
             unit_name="building"
@@ -470,6 +581,7 @@
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
+       <!-- EQUIPMENT --> 
       <item name="tractor"
             nature="tractor"
             unit_name="equipment"
@@ -555,6 +667,7 @@
             unit_name="person"
             frozen_indicators_values="population: 1"
             />
+       <!-- GENERIC PRODUCT --> 
       <item name="running_water"
             nature="running_water"
             unit_name="liter"
