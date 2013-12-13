@@ -30,6 +30,9 @@ class ApplicationController < ActionController::Base
 
   attr_accessor :current_theme
 
+  LANGUAGES = ::I18n.active_locales.collect{ |l| "i18n.iso2".t(locale: l) }.sort.freeze
+
+
   # # Permits to redirect
   # def after_sign_in_path_for(resource)
   #   backend_root_url(:locale => params[:locale])
@@ -53,7 +56,7 @@ class ApplicationController < ActionController::Base
     return ::I18n.translate(root + action, options)
   end
 
-  def human_action_name()
+  def human_action_name
     return self.class.human_action_name(action_name, @title)
   end
 
@@ -85,12 +88,10 @@ class ApplicationController < ActionController::Base
   # Initialize locale with params[:locale] or HTTP_ACCEPT_LANGUAGE
   def set_locale()
     session[:locale] = params[:locale] if params[:locale]
-    if session[:locale].blank? and request.env["HTTP_ACCEPT_LANGUAGE"].present?
-      codes = ::I18n.active_locales.inject({}) do |h, l|
-        h.store("i18n.iso2".t(locale: l).to_s, l)
-        h
-      end
-      locale = codes[request.env["HTTP_ACCEPT_LANGUAGE"].to_s.split(/[\,\;]+/).select{|x| !x.match(/^q\=/)}.detect{|x| codes[x[0..1]]}[0..1]]
+    if session[:locale].blank?
+      session[:locale] = http_accept_language.compatible_language_from(LANGUAGES)
+    else
+      session[:locale] = nil unless LANGUAGES.include?(session[:locale].to_s)
     end
     session[:locale] ||= I18n.default_locale
     I18n.locale = session[:locale]

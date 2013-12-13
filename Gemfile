@@ -88,6 +88,7 @@ gem 'cocoon'
 
 # I18n and localeapp
 gem 'i18n-complements'
+gem 'http_accept_language'
 # gem 'i18n-spec'
 # gem 'localeapp'
 
@@ -134,7 +135,6 @@ group :development do
   # gem 'rack-mini-profiler'
   # gem 'better_errors'
   # gem 'binding_of_caller'
-  gem 'rb-readline' # , '~> 0.4.2'
 
   # Project management
   gem 'rails_best_practices'
