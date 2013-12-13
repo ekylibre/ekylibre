@@ -130,6 +130,21 @@ demo :deliveries do
 
   end
 
+
+  ##############################################################################
+  ## Demo data for document                                                   ##
+  ##############################################################################
+
+  Ekylibre::fixturize :numerize_outgoing_deliveries do |w|
+    # import an outgoing_deliveries_journal in PDF
+    # bug in demo server for instance
+    document = Document.create!(key: "20130724_outgoing_001", name: "apport-20130724", nature: "outgoing_deliveries_journal")
+    File.open(Rails.root.join("test", "fixtures", "files", "releve_apports.pdf"),"rb") do |f|
+      document.archive(f.read, :pdf)
+    end
+  end
+
+
   # Ekylibre::fixturize :cooperative_outgoing_deliveries do |w|
   #   # #############################################################################
   #   # # import Coop Deliveries to make automatic sales
@@ -189,16 +204,6 @@ demo :deliveries do
   #   #   print "."
   #   # end
   #   # puts "!"
-  #   ##############################################################################
-  #   ## Demo data for document                                                   ##
-  #   ##############################################################################
-
-  #   # import an outgoing_deliveries_journal in PDF"
-  #   # bug in demo server for instance
-  #   #document = Document.create!(:key => "20130724_outgoing_001", :name => "outgoing_001", :nature => "outgoing_delivery_journal" )
-  #   #File.open(Rails.root.join("test", "fixtures", "files", "releve_apports.pdf"),"rb") do |f|
-  #   #  document.archive(f.read, :pdf)
-  #   #end
 
   # end
 
