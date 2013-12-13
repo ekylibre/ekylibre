@@ -124,7 +124,7 @@ module ApplicationHelper
 
   # def locale_selector
   #   # , :selected => ::I18n.locale)
-  #   locales = ::I18n.active_locales.sort{|a,b| a.to_s <=> b.to_s}
+  #   locales = ::I18n.available_locales.sort{|a,b| a.to_s <=> b.to_s}
   #   locale = nil # ::I18n.locale
   #   if params[:locale].to_s.match(/^[a-z][a-z][a-z]$/)
   #     locale = params[:locale].to_sym if locales.include? params[:locale].to_sym
@@ -138,7 +138,7 @@ module ApplicationHelper
 
   def locale_selector_tag
     # , :selected => ::I18n.locale)
-    locales = ::I18n.active_locales.sort{|a,b| a.to_s <=> b.to_s}
+    locales = ::I18n.available_locales.sort{|a,b| a.to_s <=> b.to_s}
     locale = nil # ::I18n.locale
     if params[:locale].to_s.match(/^[a-z][a-z][a-z]$/)
       locale = params[:locale].to_sym if locales.include? params[:locale].to_sym

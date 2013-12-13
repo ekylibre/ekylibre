@@ -42,11 +42,9 @@
 
 
 class CustomField < Ekylibre::Record::Base
-  acts_as_list :scope => 'customized_type = \'#{customized_type}\''
-  # attr_accessible :active, :maximal_length, :minimal_length, :maximal_value, :minimal_value, :name, :nature, :position, :required, :customized_type, :choices_attributes
   attr_readonly :nature
   enumerize :nature, in: [:text, :decimal, :boolean, :date, :datetime, :choice], predicates: true
-  enumerize :customized_type, in: Ekylibre.model_names, predicates: {prefix: true}
+  enumerize :customized_type, in: Ekylibre::Schema.model_names, predicates: {prefix: true}
   has_many :choices, -> { order(:position) }, class_name: "CustomFieldChoice", dependent: :delete_all, inverse_of: :custom_field
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :maximal_length, :minimal_length, allow_nil: true, only_integer: true
@@ -63,10 +61,11 @@ class CustomField < Ekylibre::Record::Base
   validates_presence_of :column_name
 
   accepts_nested_attributes_for :choices
+  acts_as_list scope: 'customized_type = \'#{customized_type}\''
 
   # default_scope -> { order(:customized_type, :position) }
-  scope :actives, -> { where(:active => true).order(:position) }
-  scope :of, lambda { |model| where(:active => true, :customized_type => model).order(:position) }
+  scope :actives, -> { where(active: true).order(:position) }
+  scope :of, lambda { |model| where(active: true, customized_type: model).order(:position) }
 
   before_validation do
     self.column_name = ("_" + self.name.parameterize.gsub(/[^a-z]+/, '_').gsub(/(^\_+|\_+$)/, ''))[0..62]

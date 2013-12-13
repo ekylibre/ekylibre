@@ -70,6 +70,7 @@ class Product < Ekylibre::Record::Base
   enumerize :content_indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}
   enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
   enumerize :initial_arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, predicates: {prefix: true}
+  belongs_to :address, class_name: "EntityAddress"
   belongs_to :asset
   belongs_to :default_storage, class_name: "Product"
   belongs_to :category, class_name: "ProductNatureCategory"

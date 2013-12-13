@@ -20,6 +20,10 @@
       <item name="usage_duration" datatype="measure" unit="hour"/>
       <item name="sex" datatype="choice" choices="male, female, undefined"/>
       <item name="reproductor" datatype="boolean"/>
+      <item name="width"  datatype="measure" unit="meter"/>
+      <item name="length" datatype="measure" unit="meter"/>
+      <item name="height" datatype="measure" unit="meter"/>
+      <!-- <item name="figure" datatype="choice" choices="building, cylinder, cuboid, hemispheroid, spheroid, biped, quadruped"/> -->
       <item name="livestock_unit" datatype="decimal" gathering="proportional_to_population"/>
        <!-- state of cultivable_land_parcel -->
       <item name="cultural_soil_state" datatype="choice" choices="covered, raw, nude, plowed, grown"/>

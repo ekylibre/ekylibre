@@ -1,17 +1,17 @@
-=field_set do
-  =f.input :customized_type, :collection => Ekylibre.model_names.collect{|m| ["activerecord.models.#{m.to_s.underscore}".t, m]}.sort{|a,b| a[0] <=> b[0]}
-  =f.input :name
-  =f.input :nature, :show => {:decimal => :decimal_options, :string => :string_options, :choice => :choice_options}
-  =f.input :active
-  =f.input :required
+= field_set do
+  = f.input :customized_type, collection: Ekylibre::Schema.model_names.collect{|m| ["activerecord.models.#{m.to_s.underscore}".t, m]}.sort{|a,b| a[0] <=> b[0]}
+  = f.input :name
+  = f.input :nature, :show => {:decimal => :decimal_options, :string => :string_options, :choice => :choice_options}
+  = f.input :active
+  = f.input :required
 
-=field_set(:string_options) do
-  =f.input :minimal_length
-  =f.input :maximal_length
+= field_set(:string_options) do
+  = f.input :minimal_length
+  = f.input :maximal_length
 
-=field_set(:decimal_options) do
-  =f.input :minimal_value
-  =f.input :maximal_value
+= field_set(:decimal_options) do
+  = f.input :minimal_value
+  = f.input :maximal_value
 
-=field_set(:choice_options) do
-  =f.nested_association :choices
+= field_set(:choice_options) do
+  = f.nested_association :choices

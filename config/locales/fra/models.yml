@@ -1037,6 +1037,7 @@ fra:
     reminder_submissive: "Soumis à la relance"
     repartitions: "Repartitions"
     repeatable: "Répétable"
+    # reporter: "Reporter"
     reproductor: "Reproducteur" #?
     required: "Obligatoire"
     reservoir: "Réservoir"

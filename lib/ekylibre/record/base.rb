@@ -105,7 +105,7 @@ module Ekylibre::Record
       end
 
       def columns_definition
-        Ekylibre.schema[self.table_name]
+        Ekylibre::Schema.tables[self.table_name]
       end
 
       def scopes

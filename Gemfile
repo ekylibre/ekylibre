@@ -88,6 +88,7 @@ gem 'cocoon'
 
 # I18n and localeapp
 gem 'i18n-complements'
+gem 'http_accept_language'
 # gem 'i18n-spec'
 # gem 'localeapp'
 

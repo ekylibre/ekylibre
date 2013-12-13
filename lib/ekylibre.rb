@@ -1,31 +1,23 @@
-require_relative 'ekylibre/record'
-require_relative 'ekylibre/models'
-require_relative 'ekylibre/export'
-require_relative 'ekylibre/menus'
-require_relative 'ekylibre/routes'
-require_relative 'ekylibre/backup'
-require_relative 'ekylibre/reporting'
-
-require 'csv'
-
 module Ekylibre
-
-  mattr_reader :model_names
-  @@model_names = @@models.collect{|m| m.to_s.camelcase.to_sym}.sort.freeze
+  autoload :Schema,    'ekylibre/schema'
+  autoload :Record,    'ekylibre/record'
+  autoload :Export,    'ekylibre/export'
+  autoload :FirstRun,  'ekylibre/first_run'
+  autoload :Modules,   'ekylibre/modules'
+  autoload :Backup,    'ekylibre/backup'
+  autoload :Reporting, 'ekylibre/reporting'
 
   def self.migrating?
     return !!(File.basename($0) == "rake" && ARGV.include?("db:migrate"))
   end
 
-  CSV = (::CSV.const_defined?(:Reader) ? ::FasterCSV : ::CSV).freeze
+  CSV = ::CSV.freeze
 
   @@version = nil
 
-  # Return Ekylibre VERSION
+  # Returns Ekylibre VERSION
   def self.version
-    return @@version unless @@version.nil?
-    File.open(Rails.root.join("VERSION")) {|f| @@version = f.read.split(',')[0..1].join("::")}
-    return @@version
+    return @@version ||= File.read(Rails.root.join("VERSION"))
   end
 
   # Must return a File/Dir and not a string
@@ -38,7 +30,7 @@ module Ekylibre
   def self.helps
     return @@helps unless @@helps.nil?
     @@helps = HashWithIndifferentAccess.new
-    for locale in ::I18n.active_locales
+    for locale in ::I18n.available_locales
       @@helps[locale] = HashWithIndifferentAccess.new
       locales_dir = Rails.root.join("config", "locales", locale.to_s, "help")
       for file in Dir[locales_dir.join("**", "*.txt")].sort

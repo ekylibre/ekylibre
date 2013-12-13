@@ -40,7 +40,7 @@
 class ProductMeasurement < Ekylibre::Record::Base
   include Taskable
   belongs_to :product
-  # belongs_to :reporter
+  belongs_to :reporter, class_name: "Worker"
   belongs_to :tool, class_name: "Product"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :indicator_name, :originator_type, allow_nil: true, maximum: 255

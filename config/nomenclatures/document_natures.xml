@@ -26,7 +26,7 @@
       <item name="stocks" category="exploitation"/>
       <item name="incoming_delivery_docket" category="exploitation"/>
       <item name="outgoing_delivery_docket" category="exploitation"/>
-      <item name="outgoing_delivery_journal" category="exploitation"/>
+      <item name="outgoing_deliveries_journal" category="exploitation"/>
       
       <item name="animal_sheet" category="animal_farming"/>
       <item name="animal_list" category="animal_farming"/>

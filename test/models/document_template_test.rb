@@ -44,7 +44,7 @@ class DocumentTemplateTest < ActiveSupport::TestCase
 
   # Tests all templates
   test "compile all templates" do
-    for locale in I18n.active_locales
+    for locale in I18n.available_locales
       # Load all templates
       assert_nothing_raised do
         DocumentTemplate.load_defaults(:locale => locale)
