@@ -49,7 +49,15 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :name, :shape, :shape_as_ewkt, to: :storage
 
   accepts_nested_attributes_for :markers, :reject_if => :all_blank, :allow_destroy => true
-
+  
+  scope :of_campaign, lambda { |*campaigns|
+    campaigns.flatten!
+    for campaign in campaigns
+      raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+    end
+    joins(:production).merge(Production.of_campaign(campaigns))
+  }
+  
   def cost(role=:input)
     cost = []
     for intervention in self.interventions
@@ -94,7 +102,37 @@ class ProductionSupport < Ekylibre::Record::Base
       self.cost(:doer)/(self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f)
     end
   end
-
+  
+  # return the started_at attribute of the intervention of nature sowing if exist and if it's a vegetal production
+  def sowed_at
+    if sowing_intervention = self.interventions.real.of_nature(:sowing).first
+      return sowing_intervention.started_at
+    end
+    return nil
+  end
+  
+  # return the started_at attribute of the intervention of nature harvesting if exist and if it's a vegetal production
+  def harvest_at
+    if harvest_intervention = self.interventions.real.of_nature(:harvest).first
+      return harvest_intervention.started_at
+    end
+    return nil
+  end
+  
+  def yield(unit = :quintal)
+    if self.interventions.real.of_nature(:harvest).count > 1
+      total_yield = []
+      for harvest in self.interventions.real.of_nature(:harvest)
+        for input in harvest.casts.of_role('harvest-output')
+          q = (input.actor ? input.actor.net_weight(input).to_d(unit) : 0.0)
+          total_yield << q
+        end
+      end
+      return total_yield.compact.sum
+    end
+    return nil
+  end
+  
 end
 
 

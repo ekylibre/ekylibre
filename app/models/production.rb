@@ -59,7 +59,9 @@ class Production < Ekylibre::Record::Base
   # validates_presence_of :product_nature, if: :activity_main?
 
   alias_attribute :label, :name
-
+  
+  delegate :name , :variety, to: :variant, prefix: true
+  
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
     for campaign in campaigns
@@ -136,7 +138,6 @@ class Production < Ekylibre::Record::Base
   def state_label
     self.class.state_label(self.state)
   end
-
 
   def shape_area
     if self.static_support?
