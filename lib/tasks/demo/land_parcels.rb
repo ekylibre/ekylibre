@@ -52,7 +52,8 @@ demo :land_parcels do
                          :land_parcel_group_shape => row[7],
                          :land_parcel_shape => row[8],
                          :land_parcel_plant_name => row[9],
-                         :land_parcel_plant_variety => row[10]
+                         :land_parcel_plant_variety => row[10],
+                         :land_parcel_variant_nomen => row[11].blank? ? nil :row[11].to_sym
                          )
 
       if land_parcel_cluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
@@ -71,12 +72,12 @@ demo :land_parcels do
           ind_area_to_point = cultural_land_parcel.shape_centroid
           cultural_land_parcel.is_measured!(:geographic_coordinate, ind_area_to_point)
         end
-
+        land_parcel_variant = ProductNatureVariant.import_from_nomenclature(r.land_parcel_variant_nomen)
+        land_parcel_variant ||= land_parcel_nature_variant
         land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
-        land_parcel ||= LandParcel.create!(:variant_id => land_parcel_nature_variant.id,
+        land_parcel ||= LandParcel.create!(:variant => land_parcel_variant,
                                            :name => r.land_parcel_name,
                                            :work_number => r.land_parcel_work_number,
-                                           :variety => "land_parcel",
                                            :born_at => Time.now,
                                            :initial_owner => Entity.of_company,
                                            :identification_number => r.land_parcel_work_number)
