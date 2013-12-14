@@ -59,9 +59,9 @@ class Production < Ekylibre::Record::Base
   # validates_presence_of :product_nature, if: :activity_main?
 
   alias_attribute :label, :name
-  
+
   delegate :name , :variety, to: :variant, prefix: true
-  
+
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
     for campaign in campaigns

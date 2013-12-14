@@ -1,7 +1,7 @@
 module Ekylibre
   module Support
     class Tree < HashWithIndifferentAccess
-      
+
       def [](*keys)
         key = keys.shift
         object = self.fetch(key)
@@ -13,7 +13,7 @@ module Ekylibre
 
 
       def []=(*args)
-        
+
       end
 
     end

@@ -33,7 +33,7 @@ module Ekylibre
 
         # files = {}
         manifest = Manifest.new
-        
+
         # General
         manifest[:locale] = spec[:locale] || I18n.default_locale
         manifest[:country] = spec[:country] || "fr"
@@ -86,8 +86,8 @@ module Ekylibre
           end
         end
         manifest.delete(:imports) if manifest[:imports].empty?
-        
-        manifest.build(path.realpath.parent.join(path.basename(path.extname).to_s + ".fra"))        
+
+        manifest.build(path.realpath.parent.join(path.basename(path.extname).to_s + ".fra"))
       end
 
       def check(file)

@@ -11,7 +11,7 @@ module Ekylibre
         return nil
       end
 
-      
+
 
       def initialize
         @files = {}
@@ -21,8 +21,8 @@ module Ekylibre
       def add_file(*args)
         options = args.extract_options!
         file = args.delete_at(-1)
-        
-        
+
+
         doc = path.dirname.join(spec[:imports][import][param])
         name = "#{param}#{doc.extname}"
         files["imports/#{import}/#{name}"] = doc
@@ -47,9 +47,9 @@ module Ekylibre
           path = args[0..-2] + [name]
           args[-1] = name
           @files[path.join('/')] = file
-          Manifest.store(@config, *args)          
+          Manifest.store(@config, *args)
         else
-          Manifest.store(@config, *args)          
+          Manifest.store(@config, *args)
         end
       end
 
@@ -71,9 +71,9 @@ module Ekylibre
 
       def method_missing(symbol, *args)
         if symbol.to_s =~ /\=\z/
-          
+
         else
-          
+
         end
       end
 

@@ -49,7 +49,7 @@ class ProductionSupport < Ekylibre::Record::Base
   delegate :name, :shape, :shape_as_ewkt, to: :storage
 
   accepts_nested_attributes_for :markers, :reject_if => :all_blank, :allow_destroy => true
-  
+
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
     for campaign in campaigns
@@ -57,7 +57,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     joins(:production).merge(Production.of_campaign(campaigns))
   }
-  
+
   def cost(role=:input)
     cost = []
     for intervention in self.interventions
@@ -102,7 +102,7 @@ class ProductionSupport < Ekylibre::Record::Base
       self.cost(:doer)/(self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f)
     end
   end
-  
+
   # return the started_at attribute of the intervention of nature sowing if exist and if it's a vegetal production
   def sowed_at
     if sowing_intervention = self.interventions.real.of_nature(:sowing).first
@@ -110,7 +110,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return nil
   end
-  
+
   # return the started_at attribute of the intervention of nature harvesting if exist and if it's a vegetal production
   def harvest_at
     if harvest_intervention = self.interventions.real.of_nature(:harvest).first
@@ -118,7 +118,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return nil
   end
-  
+
   def yield(unit = :quintal)
     if self.interventions.real.of_nature(:harvest).count > 1
       total_yield = []
@@ -132,7 +132,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return nil
   end
-  
+
 end
 
 

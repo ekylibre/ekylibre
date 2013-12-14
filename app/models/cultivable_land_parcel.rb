@@ -105,7 +105,7 @@ class CultivableLandParcel < LandParcelGroup
     end
     return nil
   end
-  
+
   # return the variety of all land_parcel members of the cultivable land parcel
   def soil_varieties(viewed_at = nil)
     lp = self.members_at(viewed_at)
@@ -116,10 +116,10 @@ class CultivableLandParcel < LandParcelGroup
       end
       return varieties
     else
-      return nil  
+      return nil
     end
   end
-  
+
   # return the last_production before the production in parameter where the cultivable land parcel is a support
   # @TODO replace created_at by started_at when an input field will exist
   def last_production_before(production)
@@ -134,5 +134,5 @@ class CultivableLandParcel < LandParcelGroup
       return nil
     end
   end
-  
+
 end
