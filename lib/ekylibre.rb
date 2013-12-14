@@ -1,19 +1,18 @@
 module Ekylibre
-  autoload :Schema,    'ekylibre/schema'
-  autoload :Record,    'ekylibre/record'
+  autoload :Backup,    'ekylibre/backup'
   autoload :Export,    'ekylibre/export'
   autoload :FirstRun,  'ekylibre/first_run'
   autoload :Modules,   'ekylibre/modules'
-  autoload :Backup,    'ekylibre/backup'
+  autoload :Record,    'ekylibre/record'
   autoload :Reporting, 'ekylibre/reporting'
+  autoload :Schema,    'ekylibre/schema'
+  autoload :Support,   'ekylibre/support'
 
   def self.migrating?
     return !!(File.basename($0) == "rake" && ARGV.include?("db:migrate"))
   end
 
   CSV = ::CSV.freeze
-
-  @@version = nil
 
   # Returns Ekylibre VERSION
   def self.version
@@ -25,8 +24,7 @@ module Ekylibre
     Rails.root.join("private")
   end
 
-  @@helps = nil
-
+  # Returns all helps files indexed by locale and controller-action
   def self.helps
     return @@helps unless @@helps.nil?
     @@helps = HashWithIndifferentAccess.new
@@ -43,15 +41,6 @@ module Ekylibre
         end
       end
     end
-    # for file in Dir[locales_dir.join("*", "help", "**", "*.txt")].sort
-    #   path = Pathname.new(file).relative_path_from(locales_dir)
-    #   File.open(file, 'rb:UTF-8') do |f|
-    #     help = {:title => f.read[/^======\s*(.*)\s*======$/, 1], :name => file.split(/[\\\/\.]+/)[-2], :locale => file.split(/[\\\/\.]+/)[-4].to_sym}
-    #     unless help[:title].blank?
-    #       @@helps[file] = help
-    #     end
-    #   end
-    # end
     return @@helps
   end
 

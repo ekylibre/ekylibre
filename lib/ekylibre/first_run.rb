@@ -1,7 +1,8 @@
 require 'zip'
 
 module Ekylibre
-  class FirstRun
+  module FirstRun
+    autoload :Manifest
 
     IMPORTS = {
       telepac: {
@@ -30,13 +31,22 @@ module Ekylibre
 
         puts spec.inspect
 
-        files = {}
-        manifest = {}
+        # files = {}
+        manifest = Manifest.new
+        
+        # General
+        manifest[:locale] = spec[:locale] || I18n.default_locale
+        manifest[:country] = spec[:country] || "fr"
+        manifest[:currency] = spec[:currency] || "EUR"
+
         
         # Entity
         if spec[:entity]
           spect[:entity] = {name: spec[:entity].to_s} unless spec[:entity].is_a?(Hash)
           manifest[:entity] = spec[:entity]
+          unless spec[:entity][:picture]
+            manifest.store(:entity, :picture, Rails.root.join("app", "assets", "images", "icon", "store.png"))
+          end
         else
           raise MissingData, "Need entity data."
         end
@@ -52,6 +62,7 @@ module Ekylibre
         end
         manifest[:users] = {}
         for email, details in spec[:users]
+          details[:password] ||= User.give_password(8, :normal)
           manifest[:users][email] = details
         end
 
@@ -62,6 +73,9 @@ module Ekylibre
             manifest[:imports][import] = {}
             for param, type in parameters
               if type == :file
+                manifest.add_file(:imports, import, param, path.dirname.join(spec[:imports][import][param]))
+                manifest[:imports, import, param] = path.dirname.join(spec[:imports][import][param])
+
                 doc = path.dirname.join(spec[:imports][import][param])
                 name = "#{param}#{doc.extname}"
                 files["imports/#{import}/#{name}"] = doc
@@ -74,20 +88,7 @@ module Ekylibre
         end
         manifest.delete(:imports) if manifest[:imports].empty?
         
-        file = path.realpath.parent.join(path.basename(path.extname).to_s + ".fra")
-        Zip::OutputStream.open(file) do |zile|
-          zile.put_next_entry('mimetype', nil, nil, Zip::Entry::STORED)
-          zile << Mime::FRA
-
-          zile.put_next_entry('manifest.yml')
-          zile << manifest.deep_stringify_keys.to_yaml
-
-          for dest, src in files
-            zile.put_next_entry(dest)
-            zile << File.read(src)
-          end
-        end
-        
+        manifest.build(path.realpath.parent.join(path.basename(path.extname).to_s + ".fra"))        
       end
 
       def check(file)

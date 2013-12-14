@@ -235,7 +235,6 @@ class User < Ekylibre::Record::Base
     password
   end
 
-
   def self.initialize_rights
     definition = YAML.load_file(self.rights_file)
     @@rights_list = definition.keys.sort.delete_if{|k| k.match(/^__.*__$/)}.map(&:to_sym)
