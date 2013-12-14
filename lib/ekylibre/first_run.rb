@@ -15,12 +15,12 @@ module Ekylibre
         general_ledger: :file
       }
     }
-    
+
     class MissingData < StandardError
     end
 
     MIME = "application/vnd.ekylibre.first-run.archive"
-    
+
     # Register FRA format unless is already set
     Mime::Type.register(MIME, :fra) unless defined? Mime::FRA
 
@@ -39,7 +39,6 @@ module Ekylibre
         manifest[:country] = spec[:country] || "fr"
         manifest[:currency] = spec[:currency] || "EUR"
 
-        
         # Entity
         if spec[:entity]
           spect[:entity] = {name: spec[:entity].to_s} unless spec[:entity].is_a?(Hash)
@@ -55,7 +54,7 @@ module Ekylibre
         unless spec[:users]
           spec[:users] = {'admin@ekylibre.org' => {
               first_name: 'Admin',
-              last_name: 'EKYLIBRE',              
+              last_name: 'EKYLIBRE',
               password: '12345678'
             }
           }

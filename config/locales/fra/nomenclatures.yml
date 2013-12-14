@@ -1306,10 +1306,12 @@ fra:
         animal_waste_building_division: "Zone des déchets organiques"
         anti_slug: "Anti-limace"
         apple_crop: "Verger de pommiers"
+        aubues_land_parcel: "Parcelle sur craie Nord Vienne (Aubues)"
         baler: "Botteleuse"
         barley_crop: "Culture d’orge"
         barley_grain: "Grain d’orge"
         barley_seed_25: "Semence d’orge 25kg"
+        black_valley_land_parcel: "Parcelle de terre noire de vallées"
         brassicaceae_fungicide: "Fongicide colza"
         building: "Bâtiment"
         building_division: "Pièce ou zone d’un bâtiment"
@@ -1320,7 +1322,10 @@ fra:
         cattle_herd: "Troupeau de bovins"
         cattle_manure: "Fumier de bovins"
         # cereals_feed_bag_25: "Cereals feed bag 25"
+        champagne_land_parcel: "Parcelle sur craie Sud Charente et Charente-Martime  (terre de champagne)"
         chemical_fertiliser_division: "Emplacement de stockage des engrais"
+        clay_land_parcel: "Parcelle d'argile lourde"
+        clay_limestone_land_parcel: "Parcelle argilo-calcaire (Groies)"
         complete_herbicide: "Herbicide total"
         coop:ammonitre_33, 5%_vr: "ammonitre COOP 33,5% vr"
         coop:ficelle_filogamm_350_bob_5kg: "ficelle filogamm 350 bob 5kg"
@@ -1344,10 +1349,12 @@ fra:
         female_adult_cattle_herd: "Troupeau de vache laitière"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
+        flap_silt_land_parcel: "Parcelle de limons battants"
         forager: "Ensileuse"
         gas: "Gaz"
         gasoline: "Essence"
         goat_milk: "Lait de chèvre"
+        granite_arena_land_parcel: "Parcelle de sol sur arène granitique"
         grass: "Herbe"
         # grass_seed_25: "Grass seed 25"
         hard_wheat_grain: "Graine de blé dur"
@@ -1356,6 +1363,7 @@ fra:
         hard_wheat_straw_bales: "Bottes de paille de blé dur"
         hay_rake: "Andaineur"
         helianthus_herbicide: "Herbicide tournesol"
+        hydromorph_sandy_clay_loam_land_parcel: "Parcelle sablo-argileuse hydromorphe"
         insecticide: "Insecticide"
         irrigation_water: "Eau (irrigation)"
         land_parcel: "Parcelle"
@@ -1377,12 +1385,20 @@ fra:
         plum_crop: "Verger de pruniers"
         poacea_herbicide: "Herbicide graminées"
         poaceae_fungicide: "Fongicide céréales"
-        # reaper: "Reaper"
+        reaper: "Moissonneuse-batteuse"
+        red_chesnut_land_parcel: "Parcelle de terres rouges à chataigniers"
         riflexine: "Riflexine"
         running_water: "Eau du réseau"
+        sand_land_parcel: "Parcelle sableuse"
+        sandy_clay_land_parcel: "Parcelle argilo-sableuse"
+        sandy_clay_loam_land_parcel: "Parcelle limono-argileuse"
         screed_building: "Construction béton (silo, chape, terrasse)"
         seed: "Semence"
         silage: "Ensilage"
+        silt_land_parcel: "Parcelle limoneuse"
+        silt_schist_land_parcel: "Parcelle limoneuse sur schiste ou gneiss"
+        silty_clay_land_parcel: "Parcelle argilo-limoneuse"
+        silty_clay_loam_land_parcel: "Parcelle limono-argileuse"
         small_equipment: "Petit matériel"
         sorghum_crop: "Culture de sorgho"
         # sorghum_seed_25: "Sorghum seed 25"
@@ -1399,6 +1415,7 @@ fra:
         temporary_meadow_crop: "Culture de prairie temporaire"
         tractor: "Tracteur"
         trailer: "Remorque"
+        valley_terrace_land_parcel: "Parcelle de sol de terrasse de vallée"
         vine_grape_berry: "Grappe de raisin"
         vine_grape_crop: "Culture de vigne"
         vine_grape_must: "Mout de raisin"
@@ -1476,7 +1493,7 @@ fra:
         natural_water: "Eau de pluie / du puit"
         organic_fertilizer: "Engrais organique"
         plow: "Charrue"
-        # reaper: "Reaper"
+        reaper: "Moissonneuse-batteuse"
         running_water: "Eau du réseau"
         seed: "Semence"
         small_equipment: "Petit matériel"
@@ -1601,8 +1618,8 @@ fra:
       choices:
         # derivative_of: # Choices comes from nomenclature: varieties
       items:
-        # acetal: "Acetal"                                 # animal_medicine
-        # actilact: "Actilact"                             # animal_medicine
+        acetal: "Acetal"                                   # animal_medicine
+        actilact: "Actilact"                               # animal_medicine
         additive: "Additif"                                # plant_medicine
         anas: "Palmipède"                                  # aves
         animal: "Animal"                                   # bioproduct
@@ -1612,14 +1629,16 @@ fra:
         apache: "Blé Apache"                               # triticum_aestivum
         apis: "Apidés"                                     # insecta
         asteraceae: "Astéracée"                            # plant
+        aubues_soil: "Sols sur craie Nord Vienne (Aubues)" # land_parcel
         aves: "Oiseau"                                     # animal
         baler: "Botteleuse"                                # equipment
         bioproduct: "Produit vivant"                       # matter
+        black_valley_soil: "Terres noires de vallées"      # land_parcel
         bos: "Bovin"                                       # mammalia
-        # brassica_napus: "Brassica napus"                 # brassicaceae
-        # brassica_nigra: "Brassica nigra"                 # brassicaceae
-        # brassica_rapa: "Brassica rapa"                   # brassicaceae
-        # brassicaceae: "Brassicaceae"                     # plant
+        brassica_napus: "Colza"                            # brassicaceae
+        brassica_nigra: "Moutarde noire"                   # brassicaceae
+        brassica_rapa: "Navet"                             # brassicaceae
+        brassicaceae: "Crucifères"                         # plant
         building: "Bâtiment"                               # product_group
         building_division: "Pièce de bâtiment"             # sub_zone
         cabernet_franc: "Cabernet franc"                   # vitis_vinifera
@@ -1627,13 +1646,17 @@ fra:
         caphorn: "Blé Caphorn"                             # triticum_aestivum
         capra: "Caprin"                                    # mammalia
         carignan: "Carignan"                               # vitis_vinifera
+        champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)" # land_parcel
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertiliser: "Engrais chimique"            # mineral_matter
+        clay_limestone_soil: "Sol argilo-calcaire (Groies)" # land_parcel
+        clay_soil: "Terre d'argile lourde"                 # land_parcel
         cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
         disinfectant: "Désinfectant"                       # antiseptic
         easement: "Aménagement foncier"                    # zone
         electricity: "Electricité"                         # matter
         equipment: "Équipement"                            # matter
+        flap_silt_soil: "Limons battants"                  # land_parcel
         forager: "Ensileuse"                               # equipment
         fuel: "Gasoil"                                     # organic_matter
         fungicide: "Produit fongicide"                     # plant_medicine
@@ -1641,6 +1664,7 @@ fra:
         gallus: "Galinacée"                                # aves
         gas: "Essence"                                     # organic_matter
         grain: "Grain"                                     # organic_matter
+        granite_arena_soil: "Sol sur arène granitique"     # land_parcel
         grenache: "Grenache"                               # vitis_vinifera
         grenache_noir: "Grenache noir"                     # vitis_vinifera
         harvest: "Récolte"                                 # equipment
@@ -1648,6 +1672,7 @@ fra:
         helianthus: "Tournesol"                            # asteraceae
         herbicide: "Produit herbicide"                     # plant_medicine
         hordeum: "Orge"                                    # poaceae
+        hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe" # land_parcel
         immatter: "Immatérialisable"                       # product
         insecta: "Insecte"                                 # animal
         insecticide: "Produit insecticide"                 # plant_medicine
@@ -1670,7 +1695,7 @@ fra:
         molluscicide: "Produit molluscicide"               # plant_medicine
         mower: "Faucheuse"                                 # equipment
         organic_matter: "Matière organique"                # matter
-        # osteichthyes: "Osteichthyes"                     # animal
+        osteichthyes: "Poissons osseux"                    # animal
         ovis: "Ovin"                                       # mammalia
         pinot_noir: "Pinot noir"                           # vitis_vinifera
         plant: "Végétal"                                   # bioproduct
@@ -1683,15 +1708,23 @@ fra:
         product_group: "Groupe de produit"                 # product
         property_title: "Titre de propriété"               # immatter
         prunus: "Prunier"                                  # plant
-        # reaper: "Reaper"                                 # equipment
+        reaper: "Moissonneuse-batteuse"                    # equipment
+        red_chesnut_soil: "Terres rouges à chataigniers"   # land_parcel
         salmo: "Salmonidé"                                 # osteichthyes
         salt: "Sel"                                        # mineral_matter
         sand: "Sable"                                      # mineral_matter
+        sand_soil: "Sol sableux"                           # land_parcel
+        sandy_clay_loam_soil: "Sol limono-argileux"        # land_parcel
+        sandy_clay_soil: "Sol argilo-sableux"              # land_parcel
         sauvignon: "Sauvignon"                             # vitis_vinifera
         sauvignon_blanc: "Sauvignon blanc"                 # vitis_vinifera
         seed: "Semence"                                    # organic_matter
         service: "Service"                                 # immatter
         settlement: "Agencement"                           # easement
+        silt_schist_soil: "Limons sur schiste ou gneiss"   # land_parcel
+        silt_soil: "Limon"                                 # land_parcel
+        silty_clay_loam_soil: "Sol limono-argileux"        # land_parcel
+        silty_clay_soil: "Sol argilo-limoneux"             # land_parcel
         sorghum: "Sorgho"                                  # poaceae
         sower: "Semoir"                                    # equipment
         sprayer: "Pulvérisateur"                           # equipment
@@ -1699,6 +1732,7 @@ fra:
         straw: "Pailles"                                   # organic_matter
         sub_zone: "Sous zone"                              # zone
         sus: "Porcin"                                      # mammalia
+        swamp_peaty_soil: "Terre de marais tourbeux"       # land_parcel
         syrah: "Syrah"                                     # vitis_vinifera
         tank: "Réservoir"                                  # equipment
         tractor: "Tracteur"                                # equipment
@@ -1707,6 +1741,7 @@ fra:
         triticum_durum: "Blé dur"                          # poaceae
         triticum_spelta: "Épeautre"                        # poaceae
         ugni_blanc: "Ugni blanc"                           # vitis_vinifera
+        valley_terrace_soil: "Sols de terrasse de vallée"  # land_parcel
         vitis: "Vigne"                                     # plant
         vitis_vinifera: "Vitis vinifera"                   # vitis
         water: "Eau"                                       # matter
