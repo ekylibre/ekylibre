@@ -28,8 +28,11 @@
             <property name="variant_variety" value="support.production.variant_variety"/>
             <property name="sowed_at" value="support.sowed_at" type="datetime"/>
             <property name="harvest_at" value="support.harvest_at" type="datetime"/>
-            <property name="yield" value="support.yield(:quintal)" type="measure"/>
+            <property name="grains_yield" value="support.grains_yield(:quintal)" type="measure"/>
+            <property name="provisionnal_grains_yield" value="support.markers.where(indicator_name: 'provisionnal_grains_yield').first" type="measure"/>
             <property name="previous_production_name" value="cultivable_land_parcel.last_production_before(support.production)"/>
+            <property name="nitrogen_input_real" value="support.nitrogen_balance" type="measure"/>
+            <property name="nitrogen_input_prev" value="support.markers.where(indicator_name: 'nitrogen_input').first" type="measure"/>
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="intervention" in="support.interventions.real.of_nature(:soil_enrichment).with_cast(:'soil_enrichment-target', cultivable_land_parcel)" of-type="record">
               <variable name="actor" value="intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>
@@ -63,32 +66,6 @@
               </matrix>
             </sections>
             <!-- looking for all provisionnal soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="provisionnal_intervention" in="support.interventions.provisional.of_nature(:'soil_enrichment-target').with_cast(:'soil_enrichment-target', cultivable_land_parcel)" of-type="record">
-              <variable name="actor" value="provisionnal_intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>
-              <title name="name" of="provisionnal_intervention"/>
-              <property name="id" of="provisionnal_intervention" level="api"/>
-              <property name="started_at" of="provisionnal_intervention" type="datetime"/>
-              <property name="stopped_at" of="provisionnal_intervention" type="datetime"/>
-              <property name="duration" value="((provisionnal_intervention.stopped_at - provisionnal_intervention.started_at).to_d/(60*60)).round(2)"/>
-              <section name="incident" of="provisionnal_intervention.incident">
-                <property name="id" level="api"/>
-                <property name="name"/>
-                <property name="observed_at"/>
-                <property name="state" level="api"/>
-                <property name="description"/>
-              </section> 
-              <matrix name="inputs" for="input" in="provisionnal_intervention.casts.of_role(:'soil_enrichment-input')">
-                <cell name="id" of="input" level="api"/>
-                <within of="input.actor">
-                  <cell name="name"/>
-                  <cell name="nature_name"/>
-                  <cell name="nitrogen_concentration" type="measure"/>
-                  <cell name="phosphorus_concentration" type="measure"/>
-                  <cell name="potassium_concentration" type="measure"/>
-                  <cell name="variety" level="api"/>
-                </within>
-              </matrix>
-            </sections>
           </sections>
         </sections>
       </sections>

@@ -73,6 +73,7 @@
       <item name="potassium_concentration" datatype="measure" unit="percent"/>
       <item name="phosphorus_concentration" datatype="measure" unit="percent"/>
       <item name="nitrogen_input" datatype="measure" unit="kilogram_per_hectare"/>
+      <item name="provisionnal_grains_yield" datatype="measure" unit="quintal_per_hectare"/>
       <!-- for energy consumption -->
       <item name="energy" datatype="measure" unit="kilowatt_hour"/>
     </items>
