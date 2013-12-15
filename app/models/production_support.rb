@@ -57,7 +57,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     joins(:production).merge(Production.of_campaign(campaigns))
   }
-  
+
   # Measure a product for a given indicator
   def is_measured!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
@@ -87,8 +87,8 @@ class ProductionSupport < Ekylibre::Record::Base
     started_at = options[:at] || Time.now
     return self.markers.where(indicator_name: indicator.name).where("started_at <= ?", started_at).reorder(started_at: :desc).first
   end
-  
-  
+
+
   def cost(role=:input)
     cost = []
     for intervention in self.interventions
