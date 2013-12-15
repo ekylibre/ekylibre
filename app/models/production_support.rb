@@ -119,16 +119,18 @@ class ProductionSupport < Ekylibre::Record::Base
     return nil
   end
 
-  def yield(unit = :quintal)
+  def grains_yield(unit = :quintal)
     if self.interventions.real.of_nature(:harvest).count > 1
       total_yield = []
       for harvest in self.interventions.real.of_nature(:harvest)
-        for input in harvest.casts.of_role('harvest-output')
+        for input in harvest.casts.of_role('harvest-output').where(reference_name: "grains")
           q = (input.actor ? input.actor.net_weight(input).to_d(unit) : 0.0)
           total_yield << q
         end
       end
-      return total_yield.compact.sum
+      if self.storage.net_surface_area
+        return ((total_yield.compact.sum) / (net_surface_area.to_d(:hectare)))
+      end
     end
     return nil
   end

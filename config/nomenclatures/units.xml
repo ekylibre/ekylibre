@@ -74,6 +74,7 @@
       <!-- mass_area_density -->
        <item name="kilogram_per_square_meter"  dimension="mass_area_density" symbol="kg/m2" coefficients="kg*m-2"           a="1"/>
       <item name="kilogram_per_hectare"  dimension="mass_area_density" symbol="kg/ha" coefficients="kg*10000m-2"           a="0.0001"/>
+      <item name="quintal_per_hectare"  dimension="mass_area_density" symbol="qt/ha" coefficients="100kg*10000m-2"           a="0.01"/>
       
 
       <!-- concentration -->
