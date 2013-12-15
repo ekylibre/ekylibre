@@ -15,6 +15,7 @@ module Ekylibre
   CSV = ::CSV.freeze
 
   # Returns Ekylibre VERSION
+  @@version = nil
   def self.version
     return @@version ||= File.read(Rails.root.join("VERSION"))
   end
@@ -25,6 +26,7 @@ module Ekylibre
   end
 
   # Returns all helps files indexed by locale and controller-action
+  @@helps = nil
   def self.helps
     return @@helps unless @@helps.nil?
     @@helps = HashWithIndifferentAccess.new
