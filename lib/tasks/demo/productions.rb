@@ -48,7 +48,9 @@ demo :productions do
                          :variant_reference_name => row[3].blank? ? nil :row[3].to_sym,
                          :nature => (natures[row[4]] || :none).to_s,
                          :campaign_harvest_year => row[5].blank? ? nil : row[5].to_i,
-                         :work_number_storage => row[6].blank? ? nil : row[6].to_s
+                         :work_number_storage => row[6].blank? ? nil : row[6].to_s,
+                         :provisionnal_grain_yield => row[7].blank? ? nil : row[7].to_d,
+                         :provisionnal_nitrogen_input => row[8].blank? ? nil : row[8].to_d
                          )
       product_support = Product.find_by(work_number: r.work_number_storage)
 
@@ -69,8 +71,15 @@ demo :productions do
           # or create it
           pro ||= activity.productions.create!(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id, :static_support => true)
           # create a support for this production
-          pro.supports.create!(:storage_id => product_support.id)
+          support = pro.supports.create!(:storage_id => product_support.id)
           if product_support.is_a?(CultivableLandParcel)
+            # create markers for yield and nitrogen
+            if r.provisionnal_grain_yield
+              support.markers.create!(:indicator_name => :provisionnal_grains_yield, :aim => :perfect, :measure_value_value => r.provisionnal_grain_yield, :measure_value_unit => :quintal_per_hectare)
+            end
+            if r.provisionnal_nitrogen_input
+              support.markers.create!(:indicator_name => :nitrogen_input, :aim => :perfect, :measure_value_value => r.provisionnal_nitrogen_input, :measure_value_unit => :kilogram_per_hectare)
+            end
             # create a name for the plant correponding to product_nature_nomen in XML Nomenclature
             plant_name = (Nomen::ProductNatureVariants.find(r.variant_reference_name).human_name + " " + campaign.name + " " + product_support.work_number)
             # create a work number for the plant

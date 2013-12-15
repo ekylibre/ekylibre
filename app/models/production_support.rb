@@ -57,7 +57,38 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     joins(:production).merge(Production.of_campaign(campaigns))
   }
+  
+  # Measure a product for a given indicator
+  def is_measured!(indicator, value, options = {})
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
+    if value.nil?
+      raise ArgumentError, "Value must be given"
+    end
+    datum = self.markers.build(indicator_name: indicator.name, started_at: (options[:at] || Time.now))
+    datum.value = value
+    datum.save!
+    return datum
+  end
 
+
+  # # Return the indicator datum
+  # def indicator(indicator, options = {})
+  #   ActiveSupport::Deprecation.warn("Product#indicator method is deprecated. Please use Product#indicate instead")
+  #   return indicate(indicator, options)
+  # end
+
+  # Return the indicator datum
+  def indicator_datum(indicator, options = {})
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
+    started_at = options[:at] || Time.now
+    return self.markers.where(indicator_name: indicator.name).where("started_at <= ?", started_at).reorder(started_at: :desc).first
+  end
+  
+  
   def cost(role=:input)
     cost = []
     for intervention in self.interventions

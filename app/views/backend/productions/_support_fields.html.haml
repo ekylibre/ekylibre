@@ -1,4 +1,6 @@
 .nested-fields
   = link_to_remove_nested_association(:support, f)
   = f.referenced_association(:storage, :source => :production_supports, :wrapper_html => {:id => 'support-field'})
+  = f.input(:started_at, :wrapper_html => {:id => 'started_at-field'})
+  = f.input(:stopped_at, :wrapper_html => {:id => 'stopped_at-field'})
   = f.nested_association(:markers)

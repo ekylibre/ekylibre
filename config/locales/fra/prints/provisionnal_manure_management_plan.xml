@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="land_parcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="130"/>
-	<property name="ireport.y" value="449"/>
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="214"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -23,7 +23,7 @@
 		<parameter name="cultivable_land_parcel_id" class="java.lang.String"/>
 		<parameter name="cultivable_land_parcel_area" class="java.lang.String"/>
 		<queryString language="xPath">
-			<![CDATA[/campaigns/campaign/cultivable_land_parcel/production/provisionnal_intervention/inputs/input[ancestor::cultivable_land_parcel/@id=$P{cultivable_land_parcel_id}]]]>
+			<![CDATA[/campaigns/campaign/cultivable_land_parcel/support/provisionnal_intervention/inputs/input[ancestor::cultivable_land_parcel/@id=$P{cultivable_land_parcel_id}]]]>
 		</queryString>
 		<field name="input" class="java.lang.String">
 			<fieldDescription><![CDATA[id]]></fieldDescription>
@@ -75,83 +75,6 @@
 			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/Double.valueOf($P{cultivable_land_parcel_area})]]></variableExpression>
 		</variable>
 	</subDataset>
-	<subDataset name="land_parcel_input_real" uuid="ec5668ea-c9c2-4e0d-b4a5-1ab7de9cfcc7">
-		<parameter name="cultivable_land_parcel_id" class="java.lang.String"/>
-		<parameter name="cultivable_land_parcel_area" class="java.lang.Double"/>
-		<queryString language="xPath">
-			<![CDATA[/campaigns/campaign/cultivable_land_parcel/support/intervention/inputs/input[ancestor::cultivable_land_parcel/@id=$P{cultivable_land_parcel_id}]]]>
-		</queryString>
-		<field name="input" class="java.lang.String">
-			<fieldDescription><![CDATA[id]]></fieldDescription>
-		</field>
-		<field name="input_nature" class="java.lang.String">
-			<fieldDescription><![CDATA[nature-name]]></fieldDescription>
-		</field>
-		<field name="input_quantity" class="java.lang.String">
-			<fieldDescription><![CDATA[quantity]]></fieldDescription>
-		</field>
-		<field name="input_quantity_in_kilogram" class="java.lang.Double">
-			<fieldDescription><![CDATA[quantity-in-kilogram]]></fieldDescription>
-		</field>
-		<field name="input_variety" class="java.lang.String">
-			<fieldDescription><![CDATA[variety]]></fieldDescription>
-		</field>
-		<field name="started_at" class="java.util.Date">
-			<fieldDescription><![CDATA[ancestor::intervention/@started-at]]></fieldDescription>
-		</field>
-		<field name="stopped_at" class="java.util.Date">
-			<fieldDescription><![CDATA[ancestor::intervention/@stopped-at]]></fieldDescription>
-		</field>
-		<field name="name" class="java.lang.String">
-			<fieldDescription><![CDATA[ancestor::support/@variant-name]]></fieldDescription>
-		</field>
-		<field name="input_nitrogen_concentration" class="java.lang.String">
-			<fieldDescription><![CDATA[nitrogen-concentration]]></fieldDescription>
-		</field>
-		<field name="input_nitrogen_concentration_in_unity" class="java.lang.Double">
-			<fieldDescription><![CDATA[nitrogen-concentration-in-unity]]></fieldDescription>
-		</field>
-		<field name="input_phosphorus_concentration" class="java.lang.String">
-			<fieldDescription><![CDATA[phosphorus-concentration]]></fieldDescription>
-		</field>
-		<field name="input_phosphorus_concentration_in_unity" class="java.lang.Double">
-			<fieldDescription><![CDATA[phosphorus-concentration-in-unity]]></fieldDescription>
-		</field>
-		<field name="input_potassium_concentration" class="java.lang.String">
-			<fieldDescription><![CDATA[potassium-concentration]]></fieldDescription>
-		</field>
-		<field name="input_potassium_concentration_in_unity" class="java.lang.Double">
-			<fieldDescription><![CDATA[potassium-concentration-in-unity]]></fieldDescription>
-		</field>
-		<field name="input_variant_unit" class="java.lang.String">
-			<fieldDescription><![CDATA[unit-name]]></fieldDescription>
-		</field>
-		<field name="input_name" class="java.lang.String">
-			<fieldDescription><![CDATA[name]]></fieldDescription>
-		</field>
-		<sortField name="started_at"/>
-		<variable name="total_prev_nitrogen_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_nitrogen_concentration_in_unity}.doubleValue()]]></variableExpression>
-		</variable>
-		<variable name="total_prev_input_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()]]></variableExpression>
-		</variable>
-		<variable name="total_prev_phosphorus_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_phosphorus_concentration_in_unity}.doubleValue()]]></variableExpression>
-		</variable>
-		<variable name="total_prev_nitrogen_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/$P{cultivable_land_parcel_area}.doubleValue()]]></variableExpression>
-		</variable>
-		<variable name="total_prev_phosphorus_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/$P{cultivable_land_parcel_area}.doubleValue()]]></variableExpression>
-		</variable>
-		<variable name="total_prev_potassium_quantity" class="java.lang.Double" calculation="Sum">
-			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_potassium_concentration_in_unity}.doubleValue()]]></variableExpression>
-		</variable>
-		<variable name="total_prev_potassium_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_potassium_quantity}/($P{cultivable_land_parcel_area}.doubleValue())]]></variableExpression>
-		</variable>
-	</subDataset>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="XML_URL" class="java.lang.String" isForPrompting="false"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
@@ -199,8 +122,8 @@
 	<field name="previous_production_name" class="java.lang.String">
 		<fieldDescription><![CDATA[support/@previous-production-name]]></fieldDescription>
 	</field>
-	<field name="sowed_at" class="java.lang.String">
-		<fieldDescription><![CDATA[support/@sowed-at]]></fieldDescription>
+	<field name="started_at" class="java.lang.String">
+		<fieldDescription><![CDATA[support/@started-at]]></fieldDescription>
 	</field>
 	<field name="harvest_at" class="java.lang.String">
 		<fieldDescription><![CDATA[support/@harvest-at]]></fieldDescription>
@@ -274,11 +197,11 @@
 					<textFieldExpression><![CDATA[$F{production_name}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="36931cf2-a5e2-44f0-acf1-45084b45ad25" style="label" x="433" y="93" width="89" height="24"/>
+					<reportElement uuid="36931cf2-a5e2-44f0-acf1-45084b45ad25" style="label" x="433" y="87" width="89" height="30"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
-					<text><![CDATA[Rendement prévu]]></text>
+					<text><![CDATA[Objectif de rendement]]></text>
 				</staticText>
 				<textField pattern="###0.00 Ha" isBlankWhenNull="true">
 					<reportElement uuid="b3834841-2c13-4098-90f2-dd5003f7e126" style="base" x="79" y="49" width="170" height="22"/>
@@ -286,7 +209,7 @@
 					<textFieldExpression><![CDATA[$F{area_value}]]></textFieldExpression>
 				</textField>
 				<image onErrorType="Blank" evaluationTime="Group" evaluationGroup="land_parcel_group">
-					<reportElement uuid="76a9af81-d2a1-4946-8f26-98bfb1e1fb3a" x="632" y="48" width="144" height="96">
+					<reportElement uuid="76a9af81-d2a1-4946-8f26-98bfb1e1fb3a" x="632" y="48" width="144" height="97">
 						<printWhenExpression><![CDATA[!$F{svg_path}.isEmpty()]]></printWhenExpression>
 					</reportElement>
 					<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($F{svg_path})]]></imageExpression>
@@ -321,48 +244,36 @@
 					<textFieldExpression><![CDATA[$F{previous_production_name}]]></textFieldExpression>
 				</textField>
 				<staticText>
-					<reportElement uuid="c778b5f1-519e-4cd5-b98e-73eeba39dcc7" style="label" x="433" y="116" width="89" height="28"/>
+					<reportElement uuid="c778b5f1-519e-4cd5-b98e-73eeba39dcc7" style="label" x="433" y="116" width="89" height="29"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
-					<text><![CDATA[Rendement réalisé]]></text>
+					<text><![CDATA[Date d'ouverture du bilan]]></text>
 				</staticText>
 				<staticText>
-					<reportElement uuid="f3a432ac-4aea-41f4-a464-7d10e7594130" style="label" x="433" y="49" width="89" height="22"/>
+					<reportElement uuid="f3a432ac-4aea-41f4-a464-7d10e7594130" style="label" x="433" y="49" width="89" height="39"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
-					<text><![CDATA[Date de semis]]></text>
-				</staticText>
-				<staticText>
-					<reportElement uuid="16cd9442-22dc-4dfe-97e4-5ba5d347d272" style="label" x="433" y="70" width="89" height="23"/>
-					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans" size="10"/>
-					</textElement>
-					<text><![CDATA[Date de récolte]]></text>
+					<text><![CDATA[Période d'implantation ensisagée]]></text>
 				</staticText>
 				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" pattern="dd/MM/yyyy" isBlankWhenNull="true">
-					<reportElement uuid="16ea4441-d6b6-4091-889e-dab92704fd83" style="base" x="522" y="49" width="71" height="22"/>
+					<reportElement uuid="16ea4441-d6b6-4091-889e-dab92704fd83" style="base" x="522" y="49" width="71" height="39"/>
 					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{sowed_at}]]></textFieldExpression>
-				</textField>
-				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" pattern="dd/MM/yyyy" isBlankWhenNull="true">
-					<reportElement uuid="b623543d-b15d-4c5e-9665-b20156bc5971" style="base" x="522" y="70" width="71" height="23"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{harvest_at}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{started_at}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" isBlankWhenNull="true">
-					<reportElement uuid="ae80d9ca-8683-4e9d-b592-4c6a67a2b892" style="base" x="522" y="117" width="71" height="27"/>
-					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{grains_yield}]]></textFieldExpression>
-				</textField>
-				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" isBlankWhenNull="true">
-					<reportElement uuid="89d8cc69-741b-461b-ab50-885731a8403f" style="base" x="522" y="93" width="71" height="23"/>
+					<reportElement uuid="89d8cc69-741b-461b-ab50-885731a8403f" style="base" x="522" y="87" width="71" height="30"/>
 					<textElement verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{provisionnal_grains_yield}]]></textFieldExpression>
 				</textField>
+				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" isBlankWhenNull="true">
+					<reportElement uuid="1c84eae7-2baf-4a38-80c4-b91eb3f6b981" style="base" x="522" y="116" width="71" height="29"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA["01/02/"+$F{campaign}]]></textFieldExpression>
+				</textField>
 				<rectangle radius="10">
-					<reportElement uuid="e2a51ead-739f-4e40-a1a7-246abfc186d1" style="title" x="420" y="47" width="188" height="97"/>
+					<reportElement uuid="45bb91ae-ae28-48c5-8c9d-92125d516800" style="title" x="420" y="48" width="189" height="97"/>
 				</rectangle>
 			</band>
 		</groupHeader>
@@ -384,7 +295,7 @@
 				<textElement>
 					<font fontName="Open Sans" size="16" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Cahier d'épandage]]></text>
+				<text><![CDATA[Plan prévisionnel de fumure (PPF)]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="d09492f4-a25a-4c31-b4ec-8b846e4b6968" x="2" y="161" width="786" height="40"/>
@@ -405,7 +316,7 @@
 			<textField>
 				<reportElement uuid="548666df-fcbc-42e7-b461-8ee8b327b70e" style="address" x="0" y="0" width="786" height="25"/>
 				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<textFieldExpression><![CDATA["Cahier d'épandage de la campagne "+$F{campaign}]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Plan prévisionnel de fumure de la campagne "+$F{campaign}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -651,281 +562,6 @@
 							<jr:detailCell height="20" rowSpan="1">
 								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 									<reportElement uuid="0f65f953-1005-4c2c-9d44-d43eff22402c" style="table-td" x="0" y="0" width="77" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{stopped_at}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-					</jr:columnGroup>
-				</jr:table>
-			</componentElement>
-		</band>
-		<band height="37">
-			<componentElement>
-				<reportElement uuid="72577195-cf73-4bb8-921b-8c0bfdab39b3" key="table" x="2" y="0" width="784" height="37" isRemoveLineWhenBlank="true"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="land_parcel_input_real" uuid="b9cc4c1f-d2e0-4993-8015-e95018d2b87c">
-						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-						<datasetParameter name="cultivable_land_parcel_id">
-							<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
-						</datasetParameter>
-						<datasetParameter name="cultivable_land_parcel_area">
-							<datasetParameterExpression><![CDATA[$F{area_value}]]></datasetParameterExpression>
-						</datasetParameter>
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					</datasetRun>
-					<jr:columnGroup width="832" uuid="43e16d40-953d-411d-9e83-39727ae33206">
-						<jr:tableHeader height="30" rowSpan="1">
-							<textField>
-								<reportElement uuid="ca627e01-539d-4cb8-977a-3a8c56859441" style="sub-title" x="0" y="0" width="786" height="30"/>
-								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA["Cahier d'épandage"]]></textFieldExpression>
-							</textField>
-						</jr:tableHeader>
-						<jr:column width="126" uuid="d49906d0-f4c8-49be-9fdc-ab733b0c8acf">
-							<jr:tableFooter height="68" rowSpan="1">
-								<textField>
-									<reportElement uuid="3ae60dba-7bc1-4762-81d2-b1bcf6a7371f" style="strong" x="0" y="0" width="126" height="68"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA["Totaux"]]></textFieldExpression>
-								</textField>
-							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="3b140cf0-1978-4245-94f1-787ac3ab7dca" style="table-td" x="0" y="0" width="126" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<text><![CDATA[Intrant]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField>
-									<reportElement uuid="51066864-1c3e-4131-8f9c-37e9f579c5df" style="table-td" x="0" y="0" width="126" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_name}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="116" uuid="b331346e-48ee-4f80-8a75-e48e1b625ae3">
-							<jr:tableFooter height="68" rowSpan="1">
-								<textField>
-									<reportElement uuid="de6acd96-edc2-450e-8904-29d233c99e4c" style="emphasis" x="0" y="0" width="116" height="34"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA["Total par unité de masse"]]></textFieldExpression>
-								</textField>
-								<textField>
-									<reportElement uuid="c79f710b-9947-41fe-acfe-60d12e44ea31" style="emphasis" x="0" y="34" width="116" height="34"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA["Total par unité de surface"]]></textFieldExpression>
-								</textField>
-							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="b13f1d4b-c45f-43a0-a078-58320e1a4e02" style="table-td" x="0" y="0" width="116" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<text><![CDATA[Nature du produit]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField>
-									<reportElement uuid="22c29f43-18e3-4a14-8d9d-accbdda67653" style="table-td" x="0" y="0" width="116" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_nature}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="40" uuid="e65ba874-7dc7-4a4a-864d-1b140e36653c">
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="c6d369df-133d-4cd5-ad79-60ce9af19384" style="table-td" x="0" y="0" width="40" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<text><![CDATA[Teneur en N]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-									<reportElement uuid="cc7a66a1-5727-4e48-b39f-b49173dbb21a" style="table-td" x="0" y="0" width="40" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_nitrogen_concentration}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="39" uuid="bc16377e-1be6-47b8-b2bb-70395b8c7110">
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="31533e78-07fe-4783-98a3-433be2449aa2" style="table-td" x="0" y="0" width="39" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<text><![CDATA[Teneur en P]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement uuid="782658be-d7dc-4787-9233-1f467fae329e" style="table-td" x="0" y="0" width="39" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_phosphorus_concentration}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="40" uuid="c070e025-8393-4ffb-a342-ad01180f781f">
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="e74dbf79-de94-4b40-8429-747b76f489c5" style="table-td" x="0" y="0" width="40" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<text><![CDATA[Teneur en K]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
-									<reportElement uuid="ccd1fe5e-cd41-420d-98cb-7cec417bc818" style="table-td" x="0" y="0" width="40" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_potassium_concentration}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="82" uuid="2f48186d-35d6-4828-8977-1c87d632f266">
-							<jr:tableFooter height="68" rowSpan="1">
-								<textField evaluationTime="Auto" pattern="#,##0.00 kg" isBlankWhenNull="true">
-									<reportElement uuid="4aecaccd-b68e-4214-bf9f-9437af7ef864" style="strong" x="0" y="0" width="82" height="34"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{total_prev_input_quantity}]]></textFieldExpression>
-								</textField>
-							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="3a5cf890-d49e-4d35-9735-da2b3178cb14" style="table-td" x="0" y="0" width="82" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<text><![CDATA[Quantité épandue]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField isBlankWhenNull="true">
-									<reportElement uuid="03bbc176-12f3-4e68-a4df-ff7e3db549a8" style="table-td" x="0" y="0" width="82" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity}]]></textFieldExpression>
-									<patternExpression><![CDATA[$F{input_quantity}]]></patternExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="70" uuid="d3532eba-cb3e-430c-915c-9ded5a34b84d">
-							<jr:tableFooter height="68" rowSpan="1">
-								<textField pattern="###0.00 kg" isBlankWhenNull="true">
-									<reportElement uuid="986ac442-898e-45de-964b-d2840e08b511" style="strong" x="0" y="0" width="70" height="34"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{total_prev_nitrogen_quantity}]]></textFieldExpression>
-								</textField>
-								<textField isStretchWithOverflow="true" pattern="###0.00 kg/ha" isBlankWhenNull="true">
-									<reportElement uuid="fb541883-3007-4851-840e-75c87e149683" style="base" x="0" y="34" width="70" height="34"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{total_prev_nitrogen_quantity_per_area}]]></textFieldExpression>
-								</textField>
-							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="f770833c-a961-450c-93a7-e5330f4933e0" style="table-td" x="0" y="0" width="70" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<paragraph leftIndent="4"/>
-									</textElement>
-									<text><![CDATA[Dose totale d'azote]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement uuid="af94c90c-bb43-4b8e-bdbb-cdada0569328" style="table-td" x="0" y="0" width="70" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_nitrogen_concentration_in_unity}.doubleValue()]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="70" uuid="ab3e0d13-b4f3-4204-b10f-f4d418504b66">
-							<jr:tableFooter height="68" rowSpan="1">
-								<textField pattern="###0.00 kg" isBlankWhenNull="true">
-									<reportElement uuid="21e1afe6-b781-411b-bdf8-fb4994db3335" style="strong" x="0" y="0" width="70" height="34"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{total_prev_phosphorus_quantity}]]></textFieldExpression>
-								</textField>
-								<textField isStretchWithOverflow="true" pattern="###0.00 kg/ha" isBlankWhenNull="true">
-									<reportElement uuid="0e7f023e-7f25-4860-8e13-b44b9f305303" style="base" x="0" y="34" width="70" height="34"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{total_prev_phosphorus_quantity_per_area}]]></textFieldExpression>
-								</textField>
-							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="7a8f10ac-45ad-46bc-a6d9-0e7d972e2e94" style="table-td" x="0" y="0" width="70" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<paragraph leftIndent="4"/>
-									</textElement>
-									<text><![CDATA[Dose totale de phosphore  ]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement uuid="83757847-62e7-4f4a-ba30-11b58658b2d2" style="table-td" x="0" y="0" width="70" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_phosphorus_concentration_in_unity}.doubleValue()]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="70" uuid="94d1a000-11fa-4154-b4c7-6e062c23facb">
-							<jr:tableFooter height="68" rowSpan="1">
-								<textField pattern="###0.00 kg" isBlankWhenNull="true">
-									<reportElement uuid="60211f1d-9b12-47da-a8bd-4407b6a26b91" style="strong" x="0" y="0" width="70" height="34"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{total_prev_potassium_quantity}]]></textFieldExpression>
-								</textField>
-								<textField isStretchWithOverflow="true" pattern="###0.00 kg/ha" isBlankWhenNull="true">
-									<reportElement uuid="2995a245-c519-48a5-8681-4db06781a097" style="base" x="0" y="34" width="70" height="34"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$V{total_prev_potassium_quantity_per_area}]]></textFieldExpression>
-								</textField>
-							</jr:tableFooter>
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="60559d5f-2f53-43f5-a701-97737a64a91d" style="table-td" x="0" y="0" width="70" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<paragraph leftIndent="4"/>
-									</textElement>
-									<text><![CDATA[Dose totale de potassium ]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField pattern="###0.00" isBlankWhenNull="true">
-									<reportElement uuid="f33eb29d-9c8e-42ff-9d2e-90a1dc4af82d" style="table-td" x="0" y="0" width="70" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_potassium_concentration_in_unity}.doubleValue()]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="71" uuid="d781060e-8cde-4bbc-8f3e-0f18bb0f2807">
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="08966e00-edbd-4a47-9564-1819ee3394ad" style="table-td" x="0" y="0" width="71" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<paragraph leftIndent="4"/>
-									</textElement>
-									<text><![CDATA[Date de début d'apport]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement uuid="5707953f-6b6c-4148-856d-7cd4adf63cb6" style="table-td" x="0" y="0" width="71" height="20"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{started_at}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:column width="108" uuid="8b451c6f-6920-49c7-9465-4e03b7d7a783">
-							<jr:columnHeader height="43" rowSpan="1">
-								<staticText>
-									<reportElement uuid="0e7d3433-a394-48ff-aabc-1d6165803923" style="table-td" x="0" y="0" width="62" height="43"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<paragraph leftIndent="4"/>
-									</textElement>
-									<text><![CDATA[Date de fin d'apport]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:detailCell height="20" rowSpan="1">
-								<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-									<reportElement uuid="9ef4114e-978e-418e-a215-a55b8ef96df9" style="table-td" x="0" y="0" width="62" height="20"/>
 									<textElement textAlignment="Center" verticalAlignment="Middle"/>
 									<textFieldExpression><![CDATA[$F{stopped_at}]]></textFieldExpression>
 								</textField>
