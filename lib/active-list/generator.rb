@@ -45,7 +45,7 @@ module ActiveList
       code << "      if request.xhr?\n"
       code << self.renderer.remote_update_code.dig(4)
       code << "      else\n"
-      code << "        render(inline: '<%=#{self.view_method_name}-%>', layout: action_has_layout?)\n"
+      code << "        render(inline: '<%=#{self.view_method_name}-%>')\n" # , layout: action_has_layout?
       code << "      end\n"
       code << "    end\n"
       for format, exporter in ActiveList::Exporters.hash
