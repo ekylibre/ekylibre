@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-triticum_durum" hierarchical="true">
+    <items>
+      <item name="pescadou"/>
+      <item name="tablur"/>
+      <item name="aventur"/>
+      <item name="biensur"/>
+      <item name="karur"/>
+      <item name="cultur"/>
+      <item name="sy_banco"/>
+      <item name="alexis"/>
+      <item name="fabulis"/>
+      <item name="miradoux"/>
+      <item name="sculptur"/>
+      <item name="sy_cysco"/>
+    </items>
+  </nomenclature>
+</nomenclatures>
