@@ -28,7 +28,6 @@ require 'capybara/rails'
 #   Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => custom_profile)
 # end
 Capybara.default_driver = :selenium
-# Capybara.default_driver = :webkit
 Capybara.default_wait_time = 5
 
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest

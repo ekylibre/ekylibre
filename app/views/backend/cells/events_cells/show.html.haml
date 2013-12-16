@@ -1,6 +1,6 @@
 .events
   - for event in @events
-    = link_to(event, class: "event") do
+    = link_to(backend_event_url(event), class: "event") do
       %h3= event.name
       %h4= event.started_at.l
       %p= event.casting

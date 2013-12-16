@@ -104,7 +104,6 @@ Ekylibre::Application.routes.draw do
       resource :currents_stocks_by_product_nature_cell, only: :show
       resource :elapsed_interventions_times_by_activities_cell, only: :show
       resource :events_cell, only: :show
-      resource :expense_chart_cell, only: :show, concerns: :list
       resource :last_document_archives_cell, only: :show, concerns: :list
       resource :last_entities_cell, only: :show, concerns: :list
       resource :last_events_cell, only: :show, concerns: :list
