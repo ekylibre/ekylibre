@@ -194,7 +194,7 @@ class Backend::SalesController < BackendController
   end
 
 
-  list(:creditable_items, model: :sale_items, conditions: ["sale_id=? AND reduction_origin_id IS NULL", 'params[:id]'.c]) do |t|
+  list(:creditable_items, model: :sale_items, conditions: ["sale_id=? AND reduced_item_id IS NULL", 'params[:id]'.c]) do |t|
     t.column :label
     t.column :annotation
     t.column :variant
