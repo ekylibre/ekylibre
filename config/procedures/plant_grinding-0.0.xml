@@ -2,17 +2,17 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plant_grinding" natures="grinding, soil_enrichment" version="0.0" status="frozen">
     <variables>
-      <variable name="culture" variety="plant" roles="grinding-input"/>
+      <variable name="cultivation" variety="plant" roles="grinding-input"/>
       <variable name="tractor" abilities="tow(equipment)"/>
       <variable name="grinder" abilities="grind(plant)" roles="soil_enrichment-tool, grinding-tool"/>
-      <variable name="grinded" variety="straw" derivative-of="variety:culture" roles="grinding-output, soil_enrichment-input" new="produced-by: culture"/>
+      <variable name="grinded" variety="straw" derivative-of="variety:cultivation" roles="grinding-output, soil_enrichment-input" new="produced-by: cultivation"/>
       <variable name="land_parcel" variety="land_parcel" roles="soil_enrichment-target"/>
       <variable name="driver" variety="worker" roles="grinding-doer, soil_enrichment-doer"/>
     </variables>
     <operations>
       <operation id="100">
         <!-- <task do="[driver] drives [grinder]"/> -->
-        <task do="[grinder] consumes [culture]"/>
+        <task do="[grinder] consumes [cultivation]"/>
         <task do="[grinder] produces [grinded]"/>
         <task do="[grinded] is at [land_parcel]"/>
         <task do="[land_parcel] consumes [grinded]"/>

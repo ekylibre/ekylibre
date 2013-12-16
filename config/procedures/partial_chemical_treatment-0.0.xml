@@ -7,8 +7,8 @@
       <variable name="molecule" variety="plant_medicine"/>
       <variable name="molecule_to_spray" new="parted-from: molecule" roles="plant_illness_treatment-input"/>
       <variable name="sprayer" variety="equipment" abilities="spray" roles="plant_illness_treatment-tool"/>
-      <variable name="culture" variety="plant"/>
-      <variable name="culture_to_target" new="parted-from: culture" roles="plant_illness_treatment-target"/>
+      <variable name="cultivation" variety="plant"/>
+      <variable name="cultivation_to_target" new="parted-from: cultivation" roles="plant_illness_treatment-target"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
@@ -30,14 +30,14 @@
         <task do="[molecule_to_spray] moves in [sprayer]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
       </operation>
       <operation id="700" duration="18 minutes">
-        <task do="[tractor] moves at [culture]"/>
+        <task do="[tractor] moves at [cultivation]"/>
         <!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
       </operation>
       <operation id="800">
         <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le pulvé tourne) les task tournent -->
-        <task do="[molecule_to_spray] moves in [culture]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
-        <task do="[culture] consumes [molecule_to_spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
-        <!-- Le bioprocess lié doit faire l'action suivante : [culture] consumes [fertilizer] in [land_parcel] -->
+        <task do="[molecule_to_spray] moves in [cultivation]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+        <task do="[cultivation] consumes [molecule_to_spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+        <!-- Le bioprocess lié doit faire l'action suivante : [cultivation] consumes [fertilizer] in [land_parcel] -->
         <!-- À terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
         <!-- et je retourne charger de l'engrais sur le tas global-->
       </operation>

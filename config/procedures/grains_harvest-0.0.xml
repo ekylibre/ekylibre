@@ -7,9 +7,9 @@
       <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
       <variable name="cropper" variety="reaper" abilities="harvest(plant)" roles="harvest-tool"/>
       <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
-      <variable name="culture" variety="plant" abilities="produce(grain), produce(straw)" roles="harvest-target"/>
-      <variable name="grains" variety="grain" derivative-of="variety:culture" new="produced-by: culture" roles="harvest-output"/>
-      <variable name="straws" variety="straw" derivative-of="variety:culture" new="produced-by: culture" roles="harvest-output"/>
+      <variable name="cultivation" variety="plant" abilities="produce(grain), produce(straw)" roles="harvest-target"/>
+      <variable name="grains" variety="grain" derivative-of="variety:cultivation" new="produced-by: cultivation" roles="harvest-output"/>
+      <variable name="straws" variety="straw" derivative-of="variety:cultivation" new="produced-by: cultivation" roles="harvest-output"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
@@ -17,18 +17,18 @@
         <!-- le chauffeur se déplace vers la moissonneuse et rentre dedant (?) -->
       </operation>
       <operation id="200" duration="18 minutes">
-        <task do="[cropper] moves at [culture]"/>
+        <task do="[cropper] moves at [cultivation]"/>
         <!-- le chauffeur et la moissonneuse se déplace vers le lieu à récolter -->
       </operation>
       <operation id="300">
         <!-- tant que le [cropper] travaille (? = sous-entendu la moissonneuse tourne,le conducteur roule, le batteur tourne) les sub-task tournent -->
-        <task do="[culture] produces [grains]"/>
-        <task do="[culture] produces [straws]"/>
+        <task do="[cultivation] produces [grains]"/>
+        <task do="[cultivation] produces [straws]"/>
         <!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
         <task do="[grains] moves in [cropper]"/>
         <!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
-        <task do="[straws] is at [culture]"/>
-        <task do="[culture] dies"/>
+        <task do="[straws] is at [cultivation]"/>
+        <task do="[cultivation] dies"/>
       </operation>
       <operation id="400" duration="4 minutes">
         <task do="[grains] is-delivered"/>
