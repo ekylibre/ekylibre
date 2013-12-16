@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-hordeum" hierarchical="true">
+    <items>
+      <item name="brassage_winter_hordeum"/>
+      <item name="winter_hordeum"/>
+      <item name="spring_hordeum"/>
+      <item name="irrigate_spring_hordeum"/>
+      <item name="low_protein_spring_hordeum"/>
+      <item name="low_protein_brassage_winter_hordeum"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

@@ -3,7 +3,28 @@
   <nomenclature name="varieties-triticum_aestivum" hierarchical="true">
     <items>
       <item name="apache"/>
+      <item name="tremie"/>
       <item name="caphorn"/>
+      <item name="oratorio"/>
+      <item name="texel"/>
+      <item name="aztec"/>
+      <item name="isengrain"/>
+      <item name="autan"/>
+      <item name="recital"/>
+      <item name="soissons"/>
+      <item name="manital"/>
+      <item name="renan"/>
+      <item name="esperia"/>
+      <item name="galibier"/>
+      <item name="quality"/>
+      <item name="bussard"/>
+      <item name="courtot"/>
+      <item name="levis"/>
+      <item name="lona"/>
+      <item name="qualital"/>
+      <item name="quebon"/>
+      <item name="runal"/>
+      <item name="tamaro"/>
     </items>
   </nomenclature>
 </nomenclatures>
