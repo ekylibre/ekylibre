@@ -123,8 +123,6 @@ fra:
       # show: "Show backend/cells/elapsed interventions times by activities cell"
     backend/cells/events_cells:
       # show: "Show backend/cells/events cell"
-    backend/cells/expense_chart_cells:
-      # show: "Show backend/cells/expense chart cell"
     backend/cells/last_document_archives_cells:
       # show: "Show backend/cells/last document archives cell"
     backend/cells/last_entities_cells:
@@ -684,7 +682,6 @@ fra:
     # backend/cells/currents_stocks_by_product_nature_cells: "Backend/cells/currents stocks by product nature cells"
     # backend/cells/elapsed_interventions_times_by_activities_cells: "Backend/cells/elapsed interventions times by activities cells"
     # backend/cells/events_cells: "Backend/cells/events cells"
-    # backend/cells/expense_chart_cells: "Backend/cells/expense chart cells"
     # backend/cells/last_document_archives_cells: "Backend/cells/last document archives cells"
     # backend/cells/last_entities_cells: "Backend/cells/last entities cells"
     # backend/cells/last_events_cells: "Backend/cells/last events cells"
