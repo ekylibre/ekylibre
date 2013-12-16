@@ -1337,6 +1337,7 @@ module Ekylibre
         creator_id:    Column.new(:creator_id,      :integer, references: :user).freeze,
         exclusive:     Column.new(:exclusive,       :boolean, null: false).freeze,
         id:            Column.new(:id,              :integer, null: false).freeze,
+        irrigated:     Column.new(:irrigated,       :boolean, null: false).freeze,
         lock_version:  Column.new(:lock_version,    :integer, null: false, default: 0).freeze,
         production_id: Column.new(:production_id,   :integer, references: :production, null: false).freeze,
         started_at:    Column.new(:started_at,     :datetime).freeze,

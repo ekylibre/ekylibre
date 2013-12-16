@@ -25,6 +25,7 @@
 #  creator_id    :integer
 #  exclusive     :boolean          not null
 #  id            :integer          not null, primary key
+#  irrigated     :boolean          not null
 #  lock_version  :integer          default(0), not null
 #  production_id :integer          not null
 #  started_at    :datetime
@@ -39,7 +40,7 @@ class ProductionSupport < Ekylibre::Record::Base
   has_many :interventions
   has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_inclusion_of :exclusive, in: [true, false]
+  validates_inclusion_of :exclusive, :irrigated, in: [true, false]
   validates_presence_of :production, :storage
   #]VALIDATORS]
   validates_uniqueness_of :storage_id, scope: :production_id
