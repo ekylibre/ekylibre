@@ -29,6 +29,7 @@ module Procedo
       "{carried} is attached to {carrier} at {point}" => :attachment,
       "{carried} is detached from {carrier}" =>          :detachment,
       "{carrier} releases {carried}" =>                  :detachment,
+      "{carried} is attached to {carrier}" =>            :simple_attachment,
       "{carrier} catches {carried}" =>                   :simple_attachment,
       "{carrier} releases at {point}" =>                 :simple_detachment,
       # Membership
