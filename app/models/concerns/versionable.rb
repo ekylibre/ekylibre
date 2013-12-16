@@ -6,7 +6,7 @@ module Versionable
 
     after_create  :add_creation_version
     after_update  :add_update_version
-    after_destroy :add_destruction_version
+    before_destroy :add_destruction_version
 
     class_attribute :versioning_excluded_attributes
     self.versioning_excluded_attributes = [:updated_at, :updater_id, :lock_version]
