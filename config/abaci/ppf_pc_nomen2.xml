@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
+  <!--  abaque de rendement (qt / ha) par variant de type de sol, variant de culture et réserve utile (RU) min et max  -->
+  <nomenclature name="ppf_pc_nomen2" hierarchical="false">
+    <attributes>
+      <attribute name="land_parcel_variant" type="choice" nomenclature="product_nature_variants" required="false"/>
+      <attribute name="crop_variant" type="choice" nomenclature="product_nature_variants" required="false"/>
+      <attribute name="yield" type="decimal" required="false"/><!-- en qt/ha -->
+      <attribute name="ru_min" type="decimal" required="false"/>
+      <attribute name="ru_max" type="decimal" required="false"/>
+    </attributes>
+    <items>
+      <!-- BLE TENDRE EN SEC -->
+      <item name="clay_limestone_wheat_crop_min" land_parcel_variant="clay_limestone_land_parcel" crop_variant="wheat_crop" yield="55" ru_min="0" ru_max="80"/>
+      <item name="clay_limestone_wheat_crop_med" land_parcel_variant="clay_limestone_land_parcel" crop_variant="wheat_crop" yield="65" ru_min="80" ru_max="120"/>
+      <item name="clay_limestone_wheat_crop_max" land_parcel_variant="clay_limestone_land_parcel" crop_variant="wheat_crop" yield="75" ru_min="120" ru_max="200"/>
+      <item name="champagne_wheat_crop_min" land_parcel_variant="champagne_land_parcel" crop_variant="wheat_crop" yield="60" ru_min="0" ru_max="80"/>
+      <item name="champagne_wheat_crop_med" land_parcel_variant="champagne_land_parcel" crop_variant="wheat_crop" yield="68" ru_min="80" ru_max="120"/>
+      <item name="champagne_wheat_crop_max" land_parcel_variant="champagne_land_parcel" crop_variant="wheat_crop" yield="75" ru_min="120" ru_max="200"/>
+      <item name="aubues_wheat_crop_min" land_parcel_variant="aubues_land_parcel" crop_variant="wheat_crop" yield="65" ru_min="0" ru_max="80"/>
+      <item name="aubues_wheat_crop_med" land_parcel_variant="aubues_land_parcel" crop_variant="wheat_crop" yield="73" ru_min="80" ru_max="120"/>
+      <item name="aubues_wheat_crop_max" land_parcel_variant="aubues_land_parcel" crop_variant="wheat_crop" yield="80" ru_min="120" ru_max="200"/>
+      <item name="red_chesnut_wheat_crop_min" land_parcel_variant="red_chesnut_land_parcel" crop_variant="wheat_crop" yield="65" ru_min="0" ru_max="80"/>
+      <item name="red_chesnut_wheat_crop_med" land_parcel_variant="red_chesnut_land_parcel" crop_variant="wheat_crop" yield="73" ru_min="80" ru_max="120"/>
+      <item name="red_chesnut_wheat_crop_max" land_parcel_variant="red_chesnut_land_parcel" crop_variant="wheat_crop" yield="80" ru_min="120" ru_max="200"/>
+      <item name="flap_silt_wheat_crop_min" land_parcel_variant="flap_silt_land_parcel" crop_variant="wheat_crop" yield="60" ru_min="0" ru_max="80"/>
+      <item name="flap_silt_wheat_crop_med" land_parcel_variant="flap_silt_land_parcel" crop_variant="wheat_crop" yield="70" ru_min="80" ru_max="120"/>
+      <item name="flap_silt_wheat_crop_max" land_parcel_variant="flap_silt_land_parcel" crop_variant="wheat_crop" yield="80" ru_min="120" ru_max="200"/>
+      <item name="black_valley_wheat_crop_med" land_parcel_variant="black_valley_land_parcel" crop_variant="wheat_crop" yield="75" ru_min="80" ru_max="120"/>
+      <item name="black_valley_wheat_crop_max" land_parcel_variant="black_valley_land_parcel" crop_variant="wheat_crop" yield="85" ru_min="120" ru_max="200"/>
+      <item name="valley_terrace_wheat_crop_min" land_parcel_variant="valley_terrace_land_parcel" crop_variant="wheat_crop" yield="65" ru_min="0" ru_max="80"/>
+      <item name="valley_terrace_wheat_crop_med" land_parcel_variant="valley_terrace_land_parcel" crop_variant="wheat_crop" yield="72" ru_min="80" ru_max="120"/>
+      <item name="valley_terrace_wheat_crop_max" land_parcel_variant="valley_terrace_land_parcel" crop_variant="wheat_crop" yield="80" ru_min="120" ru_max="200"/>
+      <item name="sand_wheat_crop_min" land_parcel_variant="sand_land_parcel" crop_variant="wheat_crop" yield="55" ru_min="0" ru_max="80"/>
+      <item name="sand_wheat_crop_med" land_parcel_variant="sand_land_parcel" crop_variant="wheat_crop" yield="65" ru_min="80" ru_max="120"/>
+      <item name="sand_wheat_crop_max" land_parcel_variant="sand_land_parcel" crop_variant="wheat_crop" yield="75" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_loam_wheat_crop_min" land_parcel_variant="silty_clay_loam_land_parcel" crop_variant="wheat_crop" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_loam_wheat_crop_med" land_parcel_variant="silty_clay_loam_land_parcel" crop_variant="wheat_crop" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_loam_wheat_crop_max" land_parcel_variant="silty_clay_loam_land_parcel" crop_variant="wheat_crop" yield="80" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_wheat_crop_min" land_parcel_variant="silty_clay_land_parcel" crop_variant="wheat_crop" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_wheat_crop_med" land_parcel_variant="silty_clay_land_parcel" crop_variant="wheat_crop" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_wheat_crop_max" land_parcel_variant="silty_clay_land_parcel" crop_variant="wheat_crop" yield="80" ru_min="120" ru_max="200"/>
+      <item name="granite_arena_wheat_crop_min" land_parcel_variant="granite_arena_land_parcel" crop_variant="wheat_crop" yield="50" ru_min="0" ru_max="80"/>
+      <item name="granite_arena_wheat_crop_med" land_parcel_variant="granite_arena_land_parcel" crop_variant="wheat_crop" yield="58" ru_min="80" ru_max="120"/>
+      <item name="granite_arena_wheat_crop_max" land_parcel_variant="granite_arena_land_parcel" crop_variant="wheat_crop" yield="65" ru_min="120" ru_max="200"/>
+      <item name="silt_schist_wheat_crop_min" land_parcel_variant="silt_schist_land_parcel" crop_variant="wheat_crop" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silt_schist_wheat_crop_med" land_parcel_variant="silt_schist_land_parcel" crop_variant="wheat_crop" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silt_schist_wheat_crop_max" land_parcel_variant="silt_schist_land_parcel" crop_variant="wheat_crop" yield="80" ru_min="120" ru_max="200"/>
+      <item name="swamp_peaty_wheat_crop_med" land_parcel_variant="swamp_peaty_land_parcel" crop_variant="wheat_crop" yield="75" ru_min="80" ru_max="120"/>
+      <item name="swamp_peaty_wheat_crop_max" land_parcel_variant="swamp_peaty_land_parcel" crop_variant="wheat_crop" yield="85" ru_min="120" ru_max="200"/>
+      <item name="hydromorph_sandy_clay_loam_wheat_crop_min" land_parcel_variant="hydromorph_sandy_clay_loam_land_parcel" crop_variant="wheat_crop" yield="55" ru_min="0" ru_max="80"/>
+      <item name="hydromorph_sandy_clay_loam_wheat_crop_med" land_parcel_variant="hydromorph_sandy_clay_loam_land_parcel" crop_variant="wheat_crop" yield="65" ru_min="80" ru_max="120"/>
+      <!-- BLE DUR EN SEC -->
+    </items>
+  </nomenclature>
+</nomenclatures>
