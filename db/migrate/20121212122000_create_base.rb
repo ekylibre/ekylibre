@@ -1098,6 +1098,7 @@ class CreateBase < ActiveRecord::Migration
       t.datetime   :started_at
       t.datetime   :stopped_at
       t.boolean    :exclusive,     default: false, null: false
+      t.boolean    :irrigated,     default: false, null: false
       t.stamps
       t.index      :started_at
       t.index      :stopped_at

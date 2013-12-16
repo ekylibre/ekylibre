@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
+  <!--  abaque de rendement (qt / ha) par variant de type de sol, variant de culture et réserve utile (RU) min et max  -->
+  <nomenclature name="nmp_poitou_charentes_abacus_2" hierarchical="false">
+    <attributes>
+      <attribute name="land_parcel_variety" type="choice" nomenclature="varieties-land_parcel" required="false"/>
+      <attribute name="plant_variety" type="choice" nomenclature="varieties-poaceae" required="false"/>
+      <attribute name="yield" type="decimal" required="false"/><!-- en qt/ha -->
+      <attribute name="ru_min" type="decimal" required="false"/>
+      <attribute name="ru_max" type="decimal" required="false"/>
+      <attribute name="irrigated" type="boolean" required="false"/>
+    </attributes>
+    <items>
+      <!-- BLE TENDRE EN SEC -->
+      <item name="clay_limestone_wheat_crop_min" land_parcel_variety="clay_limestone_soil" plant_variety="triticum_aestivum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="clay_limestone_wheat_crop_med" land_parcel_variety="clay_limestone_soil" plant_variety="triticum_aestivum" yield="65" ru_min="80" ru_max="120"/>
+      <item name="clay_limestone_wheat_crop_max" land_parcel_variety="clay_limestone_soil" plant_variety="triticum_aestivum" yield="75" ru_min="120" ru_max="200"/>
+      <item name="champagne_wheat_crop_min" land_parcel_variety="champagne_soil" plant_variety="triticum_aestivum" yield="60" ru_min="0" ru_max="80"/>
+      <item name="champagne_wheat_crop_med" land_parcel_variety="champagne_soil" plant_variety="triticum_aestivum" yield="68" ru_min="80" ru_max="120"/>
+      <item name="champagne_wheat_crop_max" land_parcel_variety="champagne_soil" plant_variety="triticum_aestivum" yield="75" ru_min="120" ru_max="200"/>
+      <item name="aubues_wheat_crop_min" land_parcel_variety="aubues_soil" plant_variety="triticum_aestivum" yield="65" ru_min="0" ru_max="80"/>
+      <item name="aubues_wheat_crop_med" land_parcel_variety="aubues_soil" plant_variety="triticum_aestivum" yield="73" ru_min="80" ru_max="120"/>
+      <item name="aubues_wheat_crop_max" land_parcel_variety="aubues_soil" plant_variety="triticum_aestivum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="red_chesnut_wheat_crop_min" land_parcel_variety="red_chesnut_soil" plant_variety="triticum_aestivum" yield="65" ru_min="0" ru_max="80"/>
+      <item name="red_chesnut_wheat_crop_med" land_parcel_variety="red_chesnut_soil" plant_variety="triticum_aestivum" yield="73" ru_min="80" ru_max="120"/>
+      <item name="red_chesnut_wheat_crop_max" land_parcel_variety="red_chesnut_soil" plant_variety="triticum_aestivum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="flap_silt_wheat_crop_min" land_parcel_variety="flap_silt_soil" plant_variety="triticum_aestivum" yield="60" ru_min="0" ru_max="80"/>
+      <item name="flap_silt_wheat_crop_med" land_parcel_variety="flap_silt_soil" plant_variety="triticum_aestivum" yield="70" ru_min="80" ru_max="120"/>
+      <item name="flap_silt_wheat_crop_max" land_parcel_variety="flap_silt_soil" plant_variety="triticum_aestivum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="black_valley_wheat_crop_med" land_parcel_variety="black_valley_soil" plant_variety="triticum_aestivum" yield="75" ru_min="80" ru_max="120"/>
+      <item name="black_valley_wheat_crop_max" land_parcel_variety="black_valley_soil" plant_variety="triticum_aestivum" yield="85" ru_min="120" ru_max="200"/>
+      <item name="valley_terrace_wheat_crop_min" land_parcel_variety="valley_terrace_soil" plant_variety="triticum_aestivum" yield="65" ru_min="0" ru_max="80"/>
+      <item name="valley_terrace_wheat_crop_med" land_parcel_variety="valley_terrace_soil" plant_variety="triticum_aestivum" yield="72" ru_min="80" ru_max="120"/>
+      <item name="valley_terrace_wheat_crop_max" land_parcel_variety="valley_terrace_soil" plant_variety="triticum_aestivum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="sand_wheat_crop_min" land_parcel_variety="sand_soil" plant_variety="triticum_aestivum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="sand_wheat_crop_med" land_parcel_variety="sand_soil" plant_variety="triticum_aestivum" yield="65" ru_min="80" ru_max="120"/>
+      <item name="sand_wheat_crop_max" land_parcel_variety="sand_soil" plant_variety="triticum_aestivum" yield="75" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_loam_wheat_crop_min" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticum_aestivum" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_loam_wheat_crop_med" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticum_aestivum" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_loam_wheat_crop_max" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticum_aestivum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_wheat_crop_min" land_parcel_variety="silty_clay_soil" plant_variety="triticum_aestivum" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_wheat_crop_med" land_parcel_variety="silty_clay_soil" plant_variety="triticum_aestivum" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_wheat_crop_max" land_parcel_variety="silty_clay_soil" plant_variety="triticum_aestivum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="granite_arena_wheat_crop_min" land_parcel_variety="granite_arena_soil" plant_variety="triticum_aestivum" yield="50" ru_min="0" ru_max="80"/>
+      <item name="granite_arena_wheat_crop_med" land_parcel_variety="granite_arena_soil" plant_variety="triticum_aestivum" yield="58" ru_min="80" ru_max="120"/>
+      <item name="granite_arena_wheat_crop_max" land_parcel_variety="granite_arena_soil" plant_variety="triticum_aestivum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="silt_schist_wheat_crop_min" land_parcel_variety="silt_schist_soil" plant_variety="triticum_aestivum" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silt_schist_wheat_crop_med" land_parcel_variety="silt_schist_soil" plant_variety="triticum_aestivum" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silt_schist_wheat_crop_max" land_parcel_variety="silt_schist_soil" plant_variety="triticum_aestivum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="swamp_peaty_wheat_crop_med" land_parcel_variety="swamp_peaty_soil" plant_variety="triticum_aestivum" yield="75" ru_min="80" ru_max="120"/>
+      <item name="swamp_peaty_wheat_crop_max" land_parcel_variety="swamp_peaty_soil" plant_variety="triticum_aestivum" yield="85" ru_min="120" ru_max="200"/>
+      <item name="hydromorph_sandy_clay_loam_wheat_crop_min" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="triticum_aestivum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="hydromorph_sandy_clay_loam_wheat_crop_med" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="triticum_aestivum" yield="65" ru_min="80" ru_max="120"/>
+      <!-- BLE DUR EN SEC -->
+            <item name="clay_limestone_durum_wheat_crop_min" land_parcel_variety="clay_limestone_soil" plant_variety="triticum_durum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="clay_limestone_durum_wheat_crop_med" land_parcel_variety="clay_limestone_soil" plant_variety="triticum_durum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="clay_limestone_durum_wheat_crop_max" land_parcel_variety="clay_limestone_soil" plant_variety="triticum_durum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="champagne_durum_wheat_crop_min" land_parcel_variety="champagne_soil" plant_variety="triticum_durum" yield="50" ru_min="0" ru_max="80"/>
+      <item name="champagne_durum_wheat_crop_med" land_parcel_variety="champagne_soil" plant_variety="triticum_durum" yield="58" ru_min="80" ru_max="120"/>
+      <item name="champagne_durum_wheat_crop_max" land_parcel_variety="champagne_soil" plant_variety="triticum_durum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="aubues_durum_wheat_crop_min" land_parcel_variety="aubues_soil" plant_variety="triticum_durum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="aubues_durum_wheat_crop_med" land_parcel_variety="aubues_soil" plant_variety="triticum_durum" yield="63" ru_min="80" ru_max="120"/>
+      <item name="aubues_durum_wheat_crop_max" land_parcel_variety="aubues_soil" plant_variety="triticum_durum" yield="70" ru_min="120" ru_max="200"/>
+      <item name="red_chesnut_durum_wheat_crop_min" land_parcel_variety="red_chesnut_soil" plant_variety="triticum_durum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="red_chesnut_durum_wheat_crop_med" land_parcel_variety="red_chesnut_soil" plant_variety="triticum_durum" yield="63" ru_min="80" ru_max="120"/>
+      <item name="red_chesnut_durum_wheat_crop_max" land_parcel_variety="red_chesnut_soil" plant_variety="triticum_durum" yield="70" ru_min="120" ru_max="200"/>
+      <item name="flap_silt_durum_wheat_crop_min" land_parcel_variety="flap_silt_soil" plant_variety="triticum_durum" yield="50" ru_min="0" ru_max="80"/>
+      <item name="flap_silt_durum_wheat_crop_med" land_parcel_variety="flap_silt_soil" plant_variety="triticum_durum" yield="60" ru_min="80" ru_max="120"/>
+      <item name="flap_silt_durum_wheat_crop_max" land_parcel_variety="flap_silt_soil" plant_variety="triticum_durum" yield="70" ru_min="120" ru_max="200"/>
+      <item name="black_valley_durum_wheat_crop_med" land_parcel_variety="black_valley_soil" plant_variety="triticum_durum" yield="65" ru_min="80" ru_max="120"/>
+      <item name="black_valley_durum_wheat_crop_max" land_parcel_variety="black_valley_soil" plant_variety="triticum_durum" yield="75" ru_min="120" ru_max="200"/>
+      <item name="valley_terrace_durum_wheat_crop_min" land_parcel_variety="valley_terrace_soil" plant_variety="triticum_durum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="valley_terrace_durum_wheat_crop_med" land_parcel_variety="valley_terrace_soil" plant_variety="triticum_durum" yield="62" ru_min="80" ru_max="120"/>
+      <item name="valley_terrace_durum_wheat_crop_max" land_parcel_variety="valley_terrace_soil" plant_variety="triticum_durum" yield="70" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_loam_durum_wheat_crop_min" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticum_durum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_loam_durum_wheat_crop_med" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticum_durum" yield="62" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_loam_durum_wheat_crop_max" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticum_durum" yield="70" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_durum_wheat_crop_min" land_parcel_variety="silty_clay_soil" plant_variety="triticum_durum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_durum_wheat_crop_med" land_parcel_variety="silty_clay_soil" plant_variety="triticum_durum" yield="62" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_durum_wheat_crop_max" land_parcel_variety="silty_clay_soil" plant_variety="triticum_durum" yield="70" ru_min="120" ru_max="200"/>
+      <item name="silt_schist_durum_wheat_crop_min" land_parcel_variety="silt_schist_soil" plant_variety="triticum_durum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="silt_schist_durum_wheat_crop_med" land_parcel_variety="silt_schist_soil" plant_variety="triticum_durum" yield="62" ru_min="80" ru_max="120"/>
+      <item name="silt_schist_durum_wheat_crop_max" land_parcel_variety="silt_schist_soil" plant_variety="triticum_durum" yield="70" ru_min="120" ru_max="200"/>
+      <item name="swamp_peaty_durum_wheat_crop_med" land_parcel_variety="swamp_peaty_soil" plant_variety="triticum_durum" yield="65" ru_min="80" ru_max="120"/>
+      <item name="swamp_peaty_durum_wheat_crop_max" land_parcel_variety="swamp_peaty_soil" plant_variety="triticum_durum" yield="75" ru_min="120" ru_max="200"/>
+      <!-- ORGE DE PRINTEMPS EN SEC -->
+      <item name="clay_limestone_spring_barley_crop_min" land_parcel_variety="clay_limestone_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="clay_limestone_spring_barley_crop_med" land_parcel_variety="clay_limestone_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="clay_limestone_spring_barley_crop_max" land_parcel_variety="clay_limestone_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="champagne_spring_barley_crop_min" land_parcel_variety="champagne_soil" plant_variety="spring_hordeum" yield="50" ru_min="0" ru_max="80"/>
+      <item name="champagne_spring_barley_crop_med" land_parcel_variety="champagne_soil" plant_variety="spring_hordeum" yield="60" ru_min="80" ru_max="120"/>
+      <item name="champagne_spring_barley_crop_max" land_parcel_variety="champagne_soil" plant_variety="spring_hordeum" yield="70" ru_min="120" ru_max="200"/>
+      <item name="aubues_spring_barley_crop_min" land_parcel_variety="aubues_soil" plant_variety="spring_hordeum" yield="50" ru_min="0" ru_max="80"/>
+      <item name="aubues_spring_barley_crop_med" land_parcel_variety="aubues_soil" plant_variety="spring_hordeum" yield="60" ru_min="80" ru_max="120"/>
+      <item name="aubues_spring_barley_crop_max" land_parcel_variety="aubues_soil" plant_variety="spring_hordeum" yield="70" ru_min="120" ru_max="200"/>
+      <item name="red_chesnut_spring_barley_crop_min" land_parcel_variety="red_chesnut_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="red_chesnut_spring_barley_crop_med" land_parcel_variety="red_chesnut_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="red_chesnut_spring_barley_crop_max" land_parcel_variety="red_chesnut_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="flap_silt_spring_barley_crop_min" land_parcel_variety="flap_silt_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="flap_silt_spring_barley_crop_med" land_parcel_variety="flap_silt_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="flap_silt_spring_barley_crop_max" land_parcel_variety="flap_silt_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="black_valley_spring_barley_crop_min" land_parcel_variety="black_valley_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="black_valley_spring_barley_crop_med" land_parcel_variety="black_valley_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="black_valley_spring_barley_crop_max" land_parcel_variety="black_valley_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="valley_terrace_spring_barley_crop_min" land_parcel_variety="valley_terrace_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="valley_terrace_spring_barley_crop_med" land_parcel_variety="valley_terrace_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="valley_terrace_spring_barley_crop_max" land_parcel_variety="valley_terrace_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="sand_spring_barley_crop_min" land_parcel_variety="sand_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="sand_spring_barley_crop_med" land_parcel_variety="sand_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="sand_spring_barley_crop_max" land_parcel_variety="sand_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_loam_spring_barley_crop_min" land_parcel_variety="silty_clay_loam_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_loam_spring_barley_crop_med" land_parcel_variety="silty_clay_loam_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_loam_spring_barley_crop_max" land_parcel_variety="silty_clay_loam_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_spring_barley_crop_min" land_parcel_variety="silty_clay_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_spring_barley_crop_med" land_parcel_variety="silty_clay_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_spring_barley_crop_max" land_parcel_variety="silty_clay_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="granite_arena_spring_barley_crop_min" land_parcel_variety="granite_arena_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="granite_arena_spring_barley_crop_med" land_parcel_variety="granite_arena_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="granite_arena_spring_barley_crop_max" land_parcel_variety="granite_arena_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="silt_schist_spring_barley_crop_min" land_parcel_variety="silt_schist_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="silt_schist_spring_barley_crop_med" land_parcel_variety="silt_schist_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="silt_schist_spring_barley_crop_max" land_parcel_variety="silt_schist_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="swamp_peaty_spring_barley_crop_min" land_parcel_variety="swamp_peaty_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="swamp_peaty_spring_barley_crop_med" land_parcel_variety="swamp_peaty_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="swamp_peaty_spring_barley_crop_max" land_parcel_variety="swamp_peaty_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="hydromorph_sandy_clay_loam_spring_barley_crop_min" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="spring_hordeum" yield="45" ru_min="0" ru_max="80"/>
+      <item name="hydromorph_sandy_clay_loam_spring_barley_crop_med" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="spring_hordeum" yield="55" ru_min="80" ru_max="120"/>
+      <item name="hydromorph_sandy_clay_loam_spring_barley_crop_max" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="spring_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <!-- ORGE DE PRINTEMPS EN IRRIGUE -->
+      <item name="clay_limestone_irrigated_spring_barley_crop_min" land_parcel_variety="clay_limestone_soil" plant_variety="spring_hordeum" yield="65" ru_min="0" ru_max="80" irrigated="true"/>
+      <item name="clay_limestone_irrigated_spring_barley_crop_med" land_parcel_variety="clay_limestone_soil" plant_variety="spring_hordeum" yield="70" ru_min="80" ru_max="120" irrigated="true"/>
+      <item name="clay_limestone_irrigated_spring_barley_crop_max" land_parcel_variety="clay_limestone_soil" plant_variety="spring_hordeum" yield="75" ru_min="120" ru_max="200" irrigated="true"/>
+      <!-- ORGE D'HIVER EN SEC -->
+      <item name="clay_limestone_winter_barley_crop_min" land_parcel_variety="clay_limestone_soil" plant_variety="winter_hordeum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="clay_limestone_winter_barley_crop_med" land_parcel_variety="clay_limestone_soil" plant_variety="winter_hordeum" yield="65" ru_min="80" ru_max="120"/>
+      <item name="clay_limestone_winter_barley_crop_max" land_parcel_variety="clay_limestone_soil" plant_variety="winter_hordeum" yield="75" ru_min="120" ru_max="200"/>
+      <item name="champagne_winter_barley_crop_min" land_parcel_variety="champagne_soil" plant_variety="winter_hordeum" yield="60" ru_min="0" ru_max="80"/>
+      <item name="champagne_winter_barley_crop_med" land_parcel_variety="champagne_soil" plant_variety="winter_hordeum" yield="68" ru_min="80" ru_max="120"/>
+      <item name="champagne_winter_barley_crop_max" land_parcel_variety="champagne_soil" plant_variety="winter_hordeum" yield="75" ru_min="120" ru_max="200"/>
+      <item name="aubues_winter_barley_crop_min" land_parcel_variety="aubues_soil" plant_variety="winter_hordeum" yield="65" ru_min="0" ru_max="80"/>
+      <item name="aubues_winter_barley_crop_med" land_parcel_variety="aubues_soil" plant_variety="winter_hordeum" yield="73" ru_min="80" ru_max="120"/>
+      <item name="aubues_winter_barley_crop_max" land_parcel_variety="aubues_soil" plant_variety="winter_hordeum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="red_chesnut_winter_barley_crop_min" land_parcel_variety="red_chesnut_soil" plant_variety="winter_hordeum" yield="65" ru_min="0" ru_max="80"/>
+      <item name="red_chesnut_winter_barley_crop_med" land_parcel_variety="red_chesnut_soil" plant_variety="winter_hordeum" yield="73" ru_min="80" ru_max="120"/>
+      <item name="red_chesnut_winter_barley_crop_max" land_parcel_variety="red_chesnut_soil" plant_variety="winter_hordeum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="flap_silt_winter_barley_crop_min" land_parcel_variety="flap_silt_soil" plant_variety="winter_hordeum" yield="60" ru_min="0" ru_max="80"/>
+      <item name="flap_silt_winter_barley_crop_med" land_parcel_variety="flap_silt_soil" plant_variety="winter_hordeum" yield="70" ru_min="80" ru_max="120"/>
+      <item name="flap_silt_winter_barley_crop_max" land_parcel_variety="flap_silt_soil" plant_variety="winter_hordeum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="black_valley_winter_barley_crop_med" land_parcel_variety="black_valley_soil" plant_variety="winter_hordeum" yield="70" ru_min="80" ru_max="120"/>
+      <item name="black_valley_winter_barley_crop_max" land_parcel_variety="black_valley_soil" plant_variety="winter_hordeum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="valley_terrace_winter_barley_crop_min" land_parcel_variety="valley_terrace_soil" plant_variety="winter_hordeum" yield="60" ru_min="0" ru_max="80"/>
+      <item name="valley_terrace_winter_barley_crop_med" land_parcel_variety="valley_terrace_soil" plant_variety="winter_hordeum" yield="68" ru_min="80" ru_max="120"/>
+      <item name="valley_terrace_winter_barley_crop_max" land_parcel_variety="valley_terrace_soil" plant_variety="winter_hordeum" yield="75" ru_min="120" ru_max="200"/>
+      <item name="sand_winter_barley_crop_min" land_parcel_variety="sand_soil" plant_variety="winter_hordeum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="sand_winter_barley_crop_med" land_parcel_variety="sand_soil" plant_variety="winter_hordeum" yield="65" ru_min="80" ru_max="120"/>
+      <item name="sand_winter_barley_crop_max" land_parcel_variety="sand_soil" plant_variety="winter_hordeum" yield="75" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_loam_winter_barley_crop_min" land_parcel_variety="silty_clay_loam_soil" plant_variety="winter_hordeum" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_loam_winter_barley_crop_med" land_parcel_variety="silty_clay_loam_soil" plant_variety="winter_hordeum" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_loam_winter_barley_crop_max" land_parcel_variety="silty_clay_loam_soil" plant_variety="winter_hordeum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_winter_barley_crop_min" land_parcel_variety="silty_clay_soil" plant_variety="winter_hordeum" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_winter_barley_crop_med" land_parcel_variety="silty_clay_soil" plant_variety="winter_hordeum" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_winter_barley_crop_max" land_parcel_variety="silty_clay_soil" plant_variety="winter_hordeum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="granite_arena_winter_barley_crop_min" land_parcel_variety="granite_arena_soil" plant_variety="winter_hordeum" yield="50" ru_min="0" ru_max="80"/>
+      <item name="granite_arena_winter_barley_crop_med" land_parcel_variety="granite_arena_soil" plant_variety="winter_hordeum" yield="58" ru_min="80" ru_max="120"/>
+      <item name="granite_arena_winter_barley_crop_max" land_parcel_variety="granite_arena_soil" plant_variety="winter_hordeum" yield="65" ru_min="120" ru_max="200"/>
+      <item name="silt_schist_winter_barley_crop_min" land_parcel_variety="silt_schist_soil" plant_variety="winter_hordeum" yield="55" ru_min="0" ru_max="80"/>
+      <item name="silt_schist_winter_barley_crop_med" land_parcel_variety="silt_schist_soil" plant_variety="winter_hordeum" yield="65" ru_min="80" ru_max="120"/>
+      <item name="silt_schist_winter_barley_crop_max" land_parcel_variety="silt_schist_soil" plant_variety="winter_hordeum" yield="70" ru_min="120" ru_max="200"/>
+      <item name="swamp_peaty_winter_barley_crop_med" land_parcel_variety="swamp_peaty_soil" plant_variety="winter_hordeum" yield="70" ru_min="80" ru_max="120"/>
+      <item name="swamp_peaty_winter_barley_crop_max" land_parcel_variety="swamp_peaty_soil" plant_variety="winter_hordeum" yield="80" ru_min="120" ru_max="200"/>
+      <item name="hydromorph_sandy_clay_loam_winter_barley_crop_min" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="winter_hordeum" yield="50" ru_min="0" ru_max="80"/>
+      <item name="hydromorph_sandy_clay_loam_winter_barley_crop_med" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="winter_hordeum" yield="60" ru_min="80" ru_max="120"/>
+      <!-- TRITICALE -->
+      <item name="clay_limestone_triticale_crop_min" land_parcel_variety="clay_limestone_soil" plant_variety="triticale" yield="55" ru_min="0" ru_max="80"/>
+      <item name="clay_limestone_triticale_crop_med" land_parcel_variety="clay_limestone_soil" plant_variety="triticale" yield="65" ru_min="80" ru_max="120"/>
+      <item name="clay_limestone_triticale_crop_max" land_parcel_variety="clay_limestone_soil" plant_variety="triticale" yield="75" ru_min="120" ru_max="200"/>
+      <item name="champagne_triticale_crop_min" land_parcel_variety="champagne_soil" plant_variety="triticale" yield="60" ru_min="0" ru_max="80"/>
+      <item name="champagne_triticale_crop_med" land_parcel_variety="champagne_soil" plant_variety="triticale" yield="68" ru_min="80" ru_max="120"/>
+      <item name="champagne_triticale_crop_max" land_parcel_variety="champagne_soil" plant_variety="triticale" yield="75" ru_min="120" ru_max="200"/>
+      <item name="aubues_triticale_crop_min" land_parcel_variety="aubues_soil" plant_variety="triticale" yield="65" ru_min="0" ru_max="80"/>
+      <item name="aubues_triticale_crop_med" land_parcel_variety="aubues_soil" plant_variety="triticale" yield="73" ru_min="80" ru_max="120"/>
+      <item name="aubues_triticale_crop_max" land_parcel_variety="aubues_soil" plant_variety="triticale" yield="80" ru_min="120" ru_max="200"/>
+      <item name="red_chesnut_triticale_crop_min" land_parcel_variety="red_chesnut_soil" plant_variety="triticale" yield="65" ru_min="0" ru_max="80"/>
+      <item name="red_chesnut_triticale_crop_med" land_parcel_variety="red_chesnut_soil" plant_variety="triticale" yield="73" ru_min="80" ru_max="120"/>
+      <item name="red_chesnut_triticale_crop_max" land_parcel_variety="red_chesnut_soil" plant_variety="triticale" yield="80" ru_min="120" ru_max="200"/>
+      <item name="flap_silt_triticale_crop_min" land_parcel_variety="flap_silt_soil" plant_variety="triticale" yield="60" ru_min="0" ru_max="80"/>
+      <item name="flap_silt_triticale_crop_med" land_parcel_variety="flap_silt_soil" plant_variety="triticale" yield="70" ru_min="80" ru_max="120"/>
+      <item name="flap_silt_triticale_crop_max" land_parcel_variety="flap_silt_soil" plant_variety="triticale" yield="80" ru_min="120" ru_max="200"/>
+      <item name="black_valley_triticale_crop_med" land_parcel_variety="black_valley_soil" plant_variety="triticale" yield="75" ru_min="80" ru_max="120"/>
+      <item name="black_valley_triticale_crop_max" land_parcel_variety="black_valley_soil" plant_variety="triticale" yield="85" ru_min="120" ru_max="200"/>
+      <item name="valley_terrace_triticale_crop_min" land_parcel_variety="valley_terrace_soil" plant_variety="triticale" yield="65" ru_min="0" ru_max="80"/>
+      <item name="valley_terrace_triticale_crop_med" land_parcel_variety="valley_terrace_soil" plant_variety="triticale" yield="72" ru_min="80" ru_max="120"/>
+      <item name="valley_terrace_triticale_crop_max" land_parcel_variety="valley_terrace_soil" plant_variety="triticale" yield="80" ru_min="120" ru_max="200"/>
+      <item name="sand_triticale_crop_min" land_parcel_variety="sand_soil" plant_variety="triticale" yield="55" ru_min="0" ru_max="80"/>
+      <item name="sand_triticale_crop_med" land_parcel_variety="sand_soil" plant_variety="triticale" yield="65" ru_min="80" ru_max="120"/>
+      <item name="sand_triticale_crop_max" land_parcel_variety="sand_soil" plant_variety="triticale" yield="75" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_loam_triticale_crop_min" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticale" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_loam_triticale_crop_med" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticale" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_loam_triticale_crop_max" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticale" yield="80" ru_min="120" ru_max="200"/>
+      <item name="silty_clay_triticale_crop_min" land_parcel_variety="silty_clay_soil" plant_variety="triticale" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silty_clay_triticale_crop_med" land_parcel_variety="silty_clay_soil" plant_variety="triticale" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silty_clay_triticale_crop_max" land_parcel_variety="silty_clay_soil" plant_variety="triticale" yield="80" ru_min="120" ru_max="200"/>
+      <item name="granite_arena_triticale_crop_min" land_parcel_variety="granite_arena_soil" plant_variety="triticale" yield="50" ru_min="0" ru_max="80"/>
+      <item name="granite_arena_triticale_crop_med" land_parcel_variety="granite_arena_soil" plant_variety="triticale" yield="58" ru_min="80" ru_max="120"/>
+      <item name="granite_arena_triticale_crop_max" land_parcel_variety="granite_arena_soil" plant_variety="triticale" yield="65" ru_min="120" ru_max="200"/>
+      <item name="silt_schist_triticale_crop_min" land_parcel_variety="silt_schist_soil" plant_variety="triticale" yield="65" ru_min="0" ru_max="80"/>
+      <item name="silt_schist_triticale_crop_med" land_parcel_variety="silt_schist_soil" plant_variety="triticale" yield="72" ru_min="80" ru_max="120"/>
+      <item name="silt_schist_triticale_crop_max" land_parcel_variety="silt_schist_soil" plant_variety="triticale" yield="80" ru_min="120" ru_max="200"/>
+      <item name="swamp_peaty_triticale_crop_med" land_parcel_variety="swamp_peaty_soil" plant_variety="triticale" yield="75" ru_min="80" ru_max="120"/>
+      <item name="swamp_peaty_triticale_crop_max" land_parcel_variety="swamp_peaty_soil" plant_variety="triticale" yield="85" ru_min="120" ru_max="200"/>
+      <item name="hydromorph_sandy_clay_loam_triticale_crop_min" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="triticale" yield="55" ru_min="0" ru_max="80"/>
+      <item name="hydromorph_sandy_clay_loam_triticale_crop_med" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="triticale" yield="65" ru_min="80" ru_max="120"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

@@ -9,6 +9,9 @@
       <item name="hordeum" itis-tsn="40865"/>
       <item name="zea" itis-tsn="42268"/>
       <item name="sorghum" itis-tsn="42106"/>
+      <item name="avena" itis-tsn="41455"/>
+      <item name="triticale" itis-tsn="41455"/>
+      <item name="secale" itis-tsn="41455"/>
     </items>
   </nomenclature>
 </nomenclatures>
