@@ -5,16 +5,16 @@
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="germinate"/>
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input"/>
       <variable name="sower"        abilities="sow" roles="sowing-tool"/>
-      <variable name="driver"       variety="worker" abilities="drive(equipment), move" roles="sowing-doer"/>
-      <variable name="tractor"      abilities="tow(equipment)" roles="sowing-tool"/>
-      <variable name="land_parcel"  variety="cultivable_land_parcel" roles="sowing-target"/>
-      <variable name="culture"      variety="derivative-of:seeds" new="produced-by: land_parcel" roles="sowing-output">
+      <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer"/>
+      <variable name="tractor"      abilities="tow(equipment), move" roles="sowing-tool"/>
+      <variable name="land_parcel"  abilities="store(plant)" roles="sowing-target"/>
+      <variable name="cultivation"  variety="derivative-of:seeds" new="produced-by: land_parcel" roles="sowing-output">
         <indicator name="shape" value=":land_parcel"/>
       </variable>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
-        <!-- le chauffeur se déplace vers le tracteur et rentre dedant (?) -->
+        <!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
         <task do="[driver] moves in [tractor]"/>
       </operation>
       <operation id="200" duration="4 minutes">
@@ -45,8 +45,8 @@
         <!-- les semences tombe par terre car le semoir tourne  -->
         <task do="[land_parcel] consumes [seeds_to_sow]"/>
         <!-- la parcelle consomme les semences épandues -->
-        <task do="[land_parcel] produces [culture]"/>
-        <task do="culture is in land_parcel"/>
+        <task do="[land_parcel] produces [cultivation]"/>
+        <task do="cultivation is in land_parcel"/>
         <!-- les semences tombées sur le sol produise une sole de blé -->
         <task do="land_parcel:cultural_soil_state:covered is measured"/>
         <!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de son passage en production (valeur attendue = true)-->

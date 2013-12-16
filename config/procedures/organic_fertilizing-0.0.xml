@@ -59,7 +59,7 @@
     </operations>        
   </procedure>  
   <!--
-      Journal de culture [land_parcelle] à la fin :    le 01/01/2013 = Ma parcelle 1 a reçu une dose de XX Tonne de fumier
+      Journal de culture [land_parcel] à la fin :      le 01/01/2013 = Ma parcelle 1 a reçu une dose de XX Tonne de fumier
       Journal d'entretien [tractor] à la fin :         le 01/01/2013 = Mon tracteur a travaillé pendant YY Heures pour épandre du fumier dans la parcelle 1
       Journal des temps de travaux [driver] à la fin : le 01/01/2013 = J'ai épandu du fumier pendant YY Heures dans la parcelle 1
   -->

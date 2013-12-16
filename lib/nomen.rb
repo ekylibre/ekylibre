@@ -53,7 +53,7 @@ module Nomen
       # Checks sets
       for namespace, nomenclatures in sets
         unless nomenclatures.keys.include?("root")
-          raise StandardError.new("All nomenclatures must have a root nomenclature (See #{namespace})")
+          raise StandardError, "All nomenclatures must have a root nomenclature (See #{namespace})"
         end
       end
 

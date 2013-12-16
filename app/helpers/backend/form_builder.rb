@@ -98,7 +98,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       return @template.content_tag(:div, :id => "custom-fields-field") do
         html = "".html_safe
         for custom_field in custom_fields
-          options = {as: custom_field.nature.to_sym, :required => custom_field.required?, label: custom_field.name}
+          options = {as: custom_field.nature.to_sym, required: custom_field.required?, label: custom_field.name}
           if custom_field.choice?
             options[:collection] = custom_field.choices.collect{|c| [c.name, c.value] }
           end

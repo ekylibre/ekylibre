@@ -115,7 +115,7 @@ module ActiveList
               value_code = column.datum_code(record, nature == :children)
               if column.datatype == :boolean
                 value_code = "content_tag(:div, '', :class => 'checkbox-'+("+value_code.to_s+" ? 'true' : 'false'))"
-              elsif [:date, :datetime, :timestamp].include? column.datatype
+              elsif [:date, :datetime, :timestamp, :measure].include? column.datatype
                 value_code = "(#{value_code}.nil? ? '' : #{value_code}.l)"
               end
               if !column.options[:currency].is_a?(FalseClass) and currency = column.options[:currency]

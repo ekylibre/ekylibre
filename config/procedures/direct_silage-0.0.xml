@@ -4,20 +4,20 @@
     <variables>
       <variable name="forager" variety="forager" abilities="harvest(plant)" roles="harvest-tool"/>
       <variable name="forager_driver" variety="worker" abilities="drive(forager)" roles="harvest-doer"/>
-      <variable name="culture" variety="plant" roles="harvest-target"/>
-      <variable name="silage" variety="straw" derivative-of="variety:culture" new="produced-by: culture" roles="harvest-output"/>
+      <variable name="cultivation" variety="plant" roles="harvest-target"/>
+      <variable name="silage" variety="straw" derivative-of="variety:cultivation" new="produced-by: cultivation" roles="harvest-output"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
         <task do="[forager_driver] moves in [forager]"/>
       </operation>
       <operation id="200" duration="18 minutes">
-        <task do="[forager] moves at [culture]"/>
+        <task do="[forager] moves at [cultivation]"/>
       </operation>
       <operation id="300">
-        <task do="[forager] consumes [culture]"/>
+        <task do="[forager] consumes [cultivation]"/>
         <task do="[forager] produces [straw]"/>
-        <task do="[straw] is at [culture]"/>
+        <task do="[straw] is at [cultivation]"/>
       </operation>
       <operation id="400" duration="18 minutes">
         <task do="[forager] moves in default storage"/>
