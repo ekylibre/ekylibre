@@ -776,9 +776,9 @@ fra:
         energy: "Energie"
         length: "Longueur"
         luminous_intensity: "Intensité lumineuse"
-        # mass_area_density: "Mass area density"
+        mass_area_density: "Quantité de matière par unité de surface"
         mass_concentration: "Concentration massique"
-        # mass_density: "Mass density"
+        mass_density: "Quantité de matière par unité de matière"
         none: "Aucune"
         power: "Puissance"
         specific_volume: "Volume spécifique"
@@ -790,7 +790,7 @@ fra:
     document_categories:
       name: "Catégories de documents"
       attributes:
-        # acta_category: "Acta category"
+        acta_category: "Category"
       items:
         accountancy: "Comptabilité"
         animal_farming: "Élevage"
@@ -968,7 +968,7 @@ fra:
           choices:
             germination: "Germination"
             # tillering: "Tillering"
-            # bolting: "Bolting"
+            bolting: "Montaison"
             maturity: "Maturité"
             senescence: "Senescence"
         plant_reproduction_state:
@@ -987,6 +987,7 @@ fra:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
         application_width: "Largeur de travail"
+        available_water_capacity: "Réserve utile (RU)"
         calving_ease_index: "Index de facilité de naissane"
         clostridial_spores_concentration: "Concentration en spores butyriques"
         cultural_soil_state: "Etat cultural du sol"
@@ -1414,7 +1415,7 @@ fra:
         spreader_trailer: "Épandeur à fumier"
         sunflower_crop: "Culture de tournesol"
         # superficial_plow: "Superficial plow"
-        # swamp_peaty_land_parcel: "Swamp peaty land parcel"
+        swamp_peaty_land_parcel: "Parcelle de marais tourbeux"
         technician: "Technicien"
         temporary_meadow_crop: "Culture de prairie temporaire"
         tractor: "Tracteur"
@@ -1647,7 +1648,7 @@ fra:
         bioproduct: "Produit vivant"                       # matter
         black_valley_soil: "Terres noires de vallées"      # land_parcel
         bos: "Bovin"                                       # mammalia
-        # brassage_winter_hordeum: "Brassage winter hordeum" # hordeum
+        brassage_winter_hordeum: "Orge d'hiver de brasserie" # hordeum
         brassica_napus: "Colza"                            # brassicaceae
         brassica_nigra: "Moutarde noire"                   # brassicaceae
         brassica_rapa: "Navet"                             # brassicaceae
@@ -1703,8 +1704,8 @@ fra:
         lepus: "Lagomorphe"                                # mammalia
         levis: "Levis"                                     # triticum_aestivum
         lona: "Lona"                                       # triticum_aestivum
-        # low_protein_brassage_winter_hordeum: "Low protein brassage winter hordeum" # hordeum
-        # low_protein_spring_hordeum: "Low protein spring hordeum" # hordeum
+        low_protein_brassage_winter_hordeum: "Orge d'hiver de brasserie (faible teneur en protéïnes)" # hordeum
+        low_protein_spring_hordeum: "Orge de printemps (faible teneur en protéïnes)" # hordeum
         malus: "Pommier"                                   # plant
         mammalia: "Mammifère"                              # animal
         manital: "Manital"                                 # triticum_aestivum
@@ -1767,7 +1768,7 @@ fra:
         sower: "Semoir"                                    # equipment
         sprayer: "Pulvérisateur"                           # equipment
         spreader: "Épandeur"                               # equipment
-        # spring_hordeum: "Spring hordeum"                 # hordeum
+        spring_hordeum: "Orge de printemps"                # hordeum
         straw: "Pailles"                                   # organic_matter
         sub_zone: "Sous zone"                              # zone
         sus: "Porcin"                                      # mammalia
@@ -1792,7 +1793,7 @@ fra:
         vitis_vinifera: "Vitis vinifera"                   # vitis
         water: "Eau"                                       # matter
         wine: "Vin"                                        # organic_matter
-        # winter_hordeum: "Winter hordeum"                 # hordeum
+        winter_hordeum: "Orge d'hiver"                     # hordeum
         worker: "Travailleur"                              # equipment
         zea: "Maïs"                                        # poaceae
         zone: "Zone physique"                              # matter
