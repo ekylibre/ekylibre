@@ -149,7 +149,7 @@ class ProductNature < Ekylibre::Record::Base
   scope :can, lambda { |*abilities|
     able_to(:or,  *abilities)
   }
-  
+
   scope :can_each, lambda { |*abilities|
     able_to(:and, *abilities)
   }
