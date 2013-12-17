@@ -109,7 +109,7 @@ class ProductNature < Ekylibre::Record::Base
     where(:derivative_of => varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
 
-  scope :can, Proc.new { |*abilities|
+  scope :able_to, Proc.new { |type, *abilities|
     query = []
     parameters = []
     for ability in abilities.flatten.join(', ').strip.split(/[[:space:]]*\,[[:space:]]*/)
@@ -143,7 +143,15 @@ class ProductNature < Ekylibre::Record::Base
         parameters << "\\\\m#{ability}\\\\M"
       end
     end
-    where(query.join(" OR "), *parameters)
+    where(query.join(" #{type} "), *parameters)
+  }
+
+  scope :can, lambda { |*abilities|
+    able_to(:or,  *abilities)
+  }
+
+  scope :can_each, lambda { |*abilities|
+    able_to(:and, *abilities)
   }
 
   protect(on: :destroy) do
