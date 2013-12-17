@@ -30,6 +30,8 @@ eng:
         # harvest_year: "Année de récolte"
       cultivable_land_parcel:
         # area: "Superficie"
+      cultivable_zone:
+        # area: "Superficie"
       deposit:  #?
         amount: "Amount" #?
       document:
@@ -411,6 +413,7 @@ eng:
       company: "Company" #?
       contact: "" #?
       # cultivable_land_parcel: "Parcelle culturale"
+      # cultivable_zone: "Parcelle culturale"
       cultivation: "Cultivation" #?
       custom_field: "Complement field"
       custom_field_choice: "Complement field choice"

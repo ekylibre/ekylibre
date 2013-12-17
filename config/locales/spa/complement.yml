@@ -180,7 +180,7 @@ spa:
         ZAR: "Rand sudafricano"
         ZMK: "Kwacha zambiano"
         ZWL: "Dólar zimbabuense"
-    cultivable_land_parcel:
+    cultivable_zone:
 
     document:
 

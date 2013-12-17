@@ -935,7 +935,9 @@ eng:
         # energy: "Energie"
         # length: "Longueur"
         # luminous_intensity: "Intensité lumineuse"
+        # mass_area_density: "Quantité de matière par unité de surface"
         # mass_concentration: "Concentration massique"
+        # mass_density: "Quantité de matière par unité de matière"
         # none: "Aucune"
         # power: "Puissance"
         # specific_volume: "Volume spécifique"
@@ -946,7 +948,8 @@ eng:
         # weight: "Masse"
       # name: "Dimensions"
     document_categories:
-      attributes: #?
+      attributes:
+        # acta_category: "Category"
       items:
         # accountancy: "Comptabilité"
         # animal_farming: "Élevage"
@@ -1123,6 +1126,8 @@ eng:
             # negative: "Negatif"
             # positive: "Positif"
         isu_index: #?
+        leaf_count:
+          choices: #?
         lipolysis: #?
         livestock_unit: #?
         mammalia_born_condition:
@@ -1161,6 +1166,7 @@ eng:
         phosphorus_concentration: #?
         plant_life_state:
           choices:
+            # bolting: "Montaison"
             # germination: "Germination"
             # maturity: "Maturité"
             # senescence: "Senescence"
@@ -1190,6 +1196,7 @@ eng:
         animal_disease_state: "Animal disease state"
         animal_life_state: "Animal life state"
         # application_width: "Largeur de travail"
+        # available_water_capacity: "Réserve utile (RU)"
         # calving_ease_index: "Index de facilité de naissane"
         cells_concentration: "Cells concentration" #?
         clostridial_spores_concentration: "Clostridial spores concentration"
@@ -1601,6 +1608,7 @@ eng:
         # spreader: "Épandeur à engrais"
         # spreader_trailer: "Épandeur à fumier"
         # sunflower_crop: "Culture de tournesol"
+        # swamp_peaty_land_parcel: "Parcelle de marais tourbeux"
         # technician: "Technicien"
         # temporary_meadow_crop: "Culture de prairie temporaire"
         # tractor: "Tracteur"
@@ -1851,6 +1859,7 @@ eng:
         bioproduct: "Bioproduct"
         # black_valley_soil: "Terres noires de vallées"
         # bos: "Bovin"
+        # brassage_winter_hordeum: "Orge d'hiver de brasserie"
         # brassica_napus: "Colza"
         # brassica_nigra: "Moutarde noire"
         # brassica_rapa: "Navet"
@@ -1906,6 +1915,8 @@ eng:
         # lepus: "Lagomorphe"
         # levis: "Levis"
         # lona: "Lona"
+        # low_protein_brassage_winter_hordeum: "Orge d'hiver de brasserie (faible teneur en protéïnes)"
+        # low_protein_spring_hordeum: "Orge de printemps (faible teneur en protéïnes)"
         # malus: "Pommier"
         # mammalia: "Mammifère"
         # manital: "Manital"
@@ -1969,6 +1980,7 @@ eng:
         # sower: "Semoir"
         # sprayer: "Pulvérisateur"
         # spreader: "Épandeur"
+        # spring_hordeum: "Orge de printemps"
         # straw: "Pailles"
         # sub_zone: "Sous zone"
         # sus: "Porcin"
@@ -1993,6 +2005,7 @@ eng:
         # vitis_vinifera: "Vitis vinifera"
         # water: "Eau"
         # wine: "Vin"
+        # winter_hordeum: "Orge d'hiver"
         worker: "Worker"
         # zea: "Maïs"
         zone: "Zone"

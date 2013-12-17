@@ -229,7 +229,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :cultivable_land_parcels, concerns: :products do
+    resources :cultivable_zones, concerns: :products do
       member do
         get :list_productions
       end

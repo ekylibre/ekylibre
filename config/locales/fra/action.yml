@@ -155,12 +155,12 @@ fra:
       # show: "Show backend/cells/revenues by product nature cell"
     backend/cells/rss_cells:
       # show: "Show backend/cells/rss cell"
-    backend/cultivable_land_parcels:
-      edit: "Modifier la parcelle culturale\_: %{name}"
-      index: "Parcelles culturales"
-      new: "Ajouter une parcelle culturale"
-      # picture: "Picture backend/cultivable land parcel"
-      show: "Parcelle culturale\_: %{name}"
+    backend/cultivable_zones:
+      # edit: "Edit backend/cultivable zone"
+      # index: "Index backend/cultivable zone"
+      # new: "New backend/cultivable zone"
+      # picture: "Picture backend/cultivable zone"
+      # show: "Show backend/cultivable zone"
     backend/custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
       new: " Création d’une option pour une liste de choix"
@@ -699,7 +699,7 @@ fra:
     # backend/cells/revenues_by_product_nature_cells: "Backend/cells/revenues by product nature cells"
     # backend/cells/rss_cells: "Backend/cells/rss cells"
     # backend/cells: "Backend/cells"
-    # backend/cultivable_land_parcels: "Backend/cultivable land parcels"
+    # backend/cultivable_zones: "Backend/cultivable zones"
     backend/custom_field_choices: "Choix de champs personnalisés"
     backend/custom_fields: "Champs personnalisés"
     backend/dashboards: "Tableaux de bord"

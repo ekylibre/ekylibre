@@ -15,7 +15,7 @@
       <item name="hydromorph_sandy_clay_loam_soil"/> <!--Terre de sable_argileux hydromorphe-->
       <item name="sandy_clay_soil"/> <!--Terre d'argile_sableuse-->
       <item name="clay_soil"/> <!--Terre d'argile_lourde-->
-      <item name="silty_clay_soil"/> <!--Terre d'argile_limoneuse-->
+      <item name="silty_clay_soil"/> <!-- Terre d'argile_limoneuse / Doucins -->
       <item name="silty_clay_loam_soil"/> <!--Terre de limon_argileux-->
       <item name="sand_soil"/> <!--Terre de sable-->
       <item name="silt_soil"/> <!--Terre de limon-->

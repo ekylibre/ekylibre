@@ -374,6 +374,25 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "catalogs", ["updated_at"], :name => "index_catalogs_on_updated_at"
   add_index "catalogs", ["updater_id"], :name => "index_catalogs_on_updater_id"
 
+  create_table "cultivable_zone_memberships", force: true do |t|
+    t.integer  "group_id",                                                                                null: false
+    t.integer  "member_id",                                                                               null: false
+    t.decimal  "population",                                         precision: 19, scale: 4
+    t.datetime "created_at",                                                                              null: false
+    t.datetime "updated_at",                                                                              null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                                default: 0, null: false
+    t.spatial  "shape",        limit: {:srid=>0, :type=>"geometry"}
+  end
+
+  add_index "cultivable_zone_memberships", ["created_at"], :name => "index_cultivable_zone_memberships_on_created_at"
+  add_index "cultivable_zone_memberships", ["creator_id"], :name => "index_cultivable_zone_memberships_on_creator_id"
+  add_index "cultivable_zone_memberships", ["group_id"], :name => "index_cultivable_zone_memberships_on_group_id"
+  add_index "cultivable_zone_memberships", ["member_id"], :name => "index_cultivable_zone_memberships_on_member_id"
+  add_index "cultivable_zone_memberships", ["updated_at"], :name => "index_cultivable_zone_memberships_on_updated_at"
+  add_index "cultivable_zone_memberships", ["updater_id"], :name => "index_cultivable_zone_memberships_on_updater_id"
+
   create_table "custom_field_choices", force: true do |t|
     t.integer  "custom_field_id",             null: false
     t.string   "name",                        null: false

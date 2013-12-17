@@ -157,11 +157,8 @@ arb:
     backend/contacts:  #?
       edit: "تعديل عنوان : %{entity}" #?
       new: "اضافة متصل جديد" #?
-    backend/cultivable_land_parcels:
-      # edit: "Modifier la parcelle culturale\_: %{name}"
-      # index: "Parcelles culturales"
-      # new: "Ajouter une parcelle culturale"
-      # show: "Parcelle culturale\_: %{name}"
+    backend/cultivable_land_parcels: #?
+    backend/cultivable_zones: #?
     backend/cultivations: #?
     backend/currencies: #?
     backend/custom_field_choices:

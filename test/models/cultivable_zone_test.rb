@@ -63,7 +63,7 @@
 #
 require 'test_helper'
 
-class CultivableLandParcelTest < ActiveSupport::TestCase
+class CultivableZoneTest < ActiveSupport::TestCase
 
   test "presence of fixtures" do
     # assert_equal 2, CultivableLandParcel.count

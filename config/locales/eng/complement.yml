@@ -251,7 +251,7 @@ eng:
         temperature: "Temperature"
         total_bacteria_concentration: "Total bacteria concentration"
         urea_concentration: "Urea concentration"
-    cultivable_land_parcel:
+    cultivable_zone:
       variety:
         animal: "Animal"
         bioproduct: "Bioproduct"

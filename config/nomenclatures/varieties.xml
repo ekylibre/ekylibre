@@ -76,6 +76,7 @@
     <items>
       <item name="easement"/>
       <item name="sub_zone"/>
+      <item name="cultivable_zone"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 4 -->

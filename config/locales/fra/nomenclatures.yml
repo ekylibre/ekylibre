@@ -943,6 +943,17 @@ fra:
           choices:
             negative: "Negatif"
             positive: "Positif"
+        leaf_count:
+          choices:
+            # 0: "0"
+            # 1: "1"
+            # 2: "2"
+            # 3: "3"
+            # 4: "4"
+            # 5: "5"
+            # 6: "6"
+            # 7: "7"
+            # 8: "8"
         mammalia_born_condition:
           choices:
             without_help: "Sans aide"
@@ -1003,6 +1014,7 @@ fra:
         # hundred_grain_weight: "Hundred grain weight"
         immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
         inhibitors_presence: "Présence de résidus d’inhibiteurs"
+        # leaf_count: "Leaf count"
         length: "Longueur"
         lipolysis: "Lipolyse"
         livestock_unit: "UGB (Unité de Gros Bétail)"
@@ -1636,6 +1648,7 @@ fra:
         antiseptic: "Antiseptique"                         # medicine
         apache: "Blé Apache"                               # triticum_aestivum
         apis: "Apidés"                                     # insecta
+        # ascot: "Ascot"                                   # triticum_aestivum
         asteraceae: "Astéracée"                            # plant
         aubues_soil: "Sols sur craie Nord Vienne (Aubues)" # land_parcel
         autan: "Autan"                                     # triticum_aestivum

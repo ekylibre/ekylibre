@@ -176,7 +176,7 @@ jpn:
         ZAR: "ランド"
         ZMK: "ザンビア・クワチャ"
         ZWD: "ジンバブエ・ドル"
-    cultivable_land_parcel:
+    cultivable_zone:
 
     document:
 

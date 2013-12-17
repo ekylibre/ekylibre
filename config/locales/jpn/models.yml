@@ -33,6 +33,8 @@ jpn:
       company: #?
       cultivable_land_parcel:
         # area: "Superficie"
+      cultivable_zone:
+        # area: "Superficie"
       deposit: #?
       document:
         # filename: "Fichier"
@@ -338,6 +340,7 @@ jpn:
       # catalog_price: "Prix"
       company: "会社" #?
       # cultivable_land_parcel: "Parcelle culturale"
+      # cultivable_zone: "Parcelle culturale"
       # custom_field: "Champ complémentaire"
       # custom_field_choice: "Choix de champ complémentaire"
       # deposit: "Remise en banque"
