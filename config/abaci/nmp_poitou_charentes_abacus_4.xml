@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
+  <!--  abaque de valeur de Pi (kg de N / ha)  selon le nombre de talles  -->
+  <nomenclature name="nmp_poitou_charentes_abacus_4" hierarchical="false">
+    <attributes>
+      <attribute name="min_leaf" type="integer" required="true"/>
+      <attribute name="max_leaf" type="integer" required="false"/>
+      <attribute name="pi" type="decimal" required="false"/><!-- en qt/ha -->
+    </attributes>
+    <items>
+      <item name="no_growth" min_leaf="0" max_leaf="1" pi="10"/>
+      <item name="little_growth" min_leaf="2" max_leaf="3" pi="30"/>
+      <item name="good_growth" min_leaf="4" pi="50"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

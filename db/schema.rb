@@ -1977,6 +1977,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.boolean  "exclusive",     default: false, null: false
+    t.boolean  "irrigated",     default: false, null: false
     t.datetime "created_at",                    null: false
     t.datetime "updated_at",                    null: false
     t.integer  "creator_id"

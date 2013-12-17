@@ -509,6 +509,12 @@
             variety="flap_silt_soil"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="swamp_peaty_land_parcel"
+            nature="land_parcel"
+            variety="swamp_peaty_soil"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />            
       <item name="land_parcel_cluster"
             nature="land_parcel_cluster"

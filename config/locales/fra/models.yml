@@ -751,6 +751,7 @@ fra:
     invoiced: "Facturée" #?
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures" #?
+    # irrigated: "Irrigated"
     # item: "Item"
     # item_changes: "Item changes"
     item_listing: "Nœud de l’extraction"
