@@ -5,13 +5,13 @@
     <variables>
       <variable name="animal"           variety="animal" roles="animal_illness_treatment-target"/>
       <variable name="molecule"         variety="animal_medicine" abilities="care(animal)"/>
-      <variable name="molecule_to_give" new="parted-from:molecule" roles="animal_illness_treatment-input"/>
+      <variable name="molecule_to_give" new="parted-from: molecule" roles="animal_illness_treatment-input"/>
       <variable name="caregiver"        variety="worker" roles="animal_illness_treatment-doer"/>
     </variables>
     <operations>
       <operation id="100">
         <task do="[caregiver] moves at [animal]"/>
-        <task do="[caregiver] measures [animal:animal_disease_state]"/>
+        <task do="[caregiver] measures [animal|animal_disease_state]"/>
       </operation>
       <operation id="200" duration="10 minutes">
         <task do="[molecule] parts with [molecule_to_give]"/>

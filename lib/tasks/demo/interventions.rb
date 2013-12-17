@@ -158,10 +158,10 @@ demo :interventions do
               i.add_cast(reference_name: 'driver',       actor: i.find(Worker))
               i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: "tow(sower)"))
               i.add_cast(reference_name: 'land_parcel',  actor: land_parcel)
-              i.add_cast(reference_name: 'culture',      variant: ProductNatureVariant.find_or_import!(variety).first, population: (area.to_s.to_f / 10000.0))
+              i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety).first, population: (area.to_s.to_f / 10000.0))
             end
 
-            culture = int.casts.find_by(reference_name: 'culture').actor
+            cultivation = int.casts.find_by(reference_name: 'cultivation').actor
 
             # Fertilizing  01-03-M -> 31-03-M
             Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
@@ -191,7 +191,7 @@ demo :interventions do
                 i.add_cast(reference_name: 'sprayer',  actor: i.find(Product, can: "spray"))
                 i.add_cast(reference_name: 'driver',   actor: i.find(Worker))
                 i.add_cast(reference_name: 'tractor',  actor: i.find(Product, can: "catch"))
-                i.add_cast(reference_name: 'culture',  actor: culture)
+                i.add_cast(reference_name: 'cultivation', actor: cultivation)
               end
             end
 
@@ -216,14 +216,14 @@ demo :interventions do
 
             bob = nil
             sowing = support.interventions.where(reference_name: "sowing").where("started_at < ?", Date.civil(year, 6, 6)).order("stopped_at DESC").first
-            if culture = sowing.casts.find_by(reference_name: 'culture').actor rescue nil
+            if cultivation = sowing.casts.find_by(reference_name: 'cultivation').actor rescue nil
               int = Booker.intervene(:plant_mowing, year, 6, 6, 2.8 * coeff, support: support) do |i|
                 bob = i.find(Worker)
                 i.add_cast(reference_name: 'mower_driver', actor: bob)
                 i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: "tow(mower)"))
                 i.add_cast(reference_name: 'mower',        actor: i.find(Product, can: "mow"))
-                i.add_cast(reference_name: 'culture',      actor: culture)
-                i.add_cast(reference_name: 'straw', population: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: culture.variety).first)
+                i.add_cast(reference_name: 'cultivation',  actor: cultivation)
+                i.add_cast(reference_name: 'straw', population: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: cultivation.variety).first)
               end
 
               straw = int.casts.find_by_reference_name('straw').actor
@@ -232,7 +232,7 @@ demo :interventions do
                 i.add_cast(reference_name: 'baler_driver',   actor: i.find(bob.others))
                 i.add_cast(reference_name: 'baler',          actor: i.find(Product, can: "bunch"))
                 i.add_cast(reference_name: 'straw_to_bunch', actor: straw)
-                i.add_cast(reference_name: 'straw_bales', population: 1.5 * coeff, variant: ProductNatureVariant.import_from_nomenclature(culture.variety.to_s == 'triticum_durum' ? :hard_wheat_straw_bales : :wheat_straw_bales))
+                i.add_cast(reference_name: 'straw_bales', population: 1.5 * coeff, variant: ProductNatureVariant.import_from_nomenclature(cultivation.variety.to_s == 'triticum_durum' ? :hard_wheat_straw_bales : :wheat_straw_bales))
               end
             end
           end
@@ -255,13 +255,13 @@ demo :interventions do
             coeff = (area.to_s.to_f / 10000.0) / 6.0
             # Harvest 01-07-M 30-07-M
             sowing = support.interventions.where(reference_name: "sowing").where("started_at < ?", Date.civil(year, 7, 1)).order("stopped_at DESC").first
-            if culture = sowing.casts.find_by(reference_name: 'culture').actor rescue nil
+            if cultivation = sowing.casts.find_by(reference_name: 'cultivation').actor rescue nil
               Booker.intervene(:grains_harvest, year, 7, 1, 3.13 * coeff, support: support) do |i|
                 i.add_cast(reference_name: 'cropper',        actor: i.find(Product, can: "harvest(poaceae)"))
                 i.add_cast(reference_name: 'cropper_driver', actor: i.find(Worker))
-                i.add_cast(reference_name: 'culture',        actor: culture)
-                i.add_cast(reference_name: 'grains',         population: 4.2 * coeff, variant: ProductNatureVariant.find_or_import!(:grain, derivative_of: culture.variety).first)
-                i.add_cast(reference_name: 'straws',         population: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: culture.variety).first)
+                i.add_cast(reference_name: 'cultivation',    actor: cultivation)
+                i.add_cast(reference_name: 'grains',         population: 4.2 * coeff, variant: ProductNatureVariant.find_or_import!(:grain, derivative_of: cultivation.variety).first)
+                i.add_cast(reference_name: 'straws',         population: 1.5 * coeff, variant: ProductNatureVariant.find_or_import!(:straw, derivative_of: cultivation.variety).first)
               end
             end
           end
