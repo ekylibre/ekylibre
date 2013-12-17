@@ -106,7 +106,7 @@
             variety="plant"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(grain), produce(straw)"
-            variable_indicators="population, plant_life_state, plant_reproduction_state"
+            variable_indicators="population, leaf_count, plant_life_state, plant_reproduction_state"
             frozen_indicators="net_surface_area"
             />
       <item name="wine"
@@ -256,7 +256,7 @@
             variety="land_parcel"
             population_counting="unitary"
             abilities="consume(water), consume(seed), produce(plant)"
-            variable_indicators="population, shape, cultural_soil_state"
+            variable_indicators="population, shape, cultural_soil_state, available_water_capacity"
             frozen_indicators="net_surface_area"
             />
       <item name="land_parcel_cluster"
