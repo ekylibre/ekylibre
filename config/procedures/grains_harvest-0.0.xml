@@ -8,8 +8,8 @@
       <variable name="cropper" variety="reaper" abilities="harvest(plant)" roles="harvest-tool"/>
       <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
       <variable name="cultivation" variety="plant" abilities="produce(grain), produce(straw)" roles="harvest-target"/>
-      <variable name="grains" variety="grain" derivative-of="variety:cultivation" new="produced-by: cultivation" roles="harvest-output"/>
-      <variable name="straws" variety="straw" derivative-of="variety:cultivation" new="produced-by: cultivation" roles="harvest-output"/>
+      <variable name="grains" variety="grain" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output"/>
+      <variable name="straws" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

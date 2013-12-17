@@ -50,7 +50,7 @@ module Procedo
     }
 
     ACTORS = {
-      indicator: "\\w+\\:\\w+(\\:\\w+)?"
+      indicator: "\\w+\\|\\w+(\\|[\\:\\w]+)?"
     }
 
     attr_reader :type, :expression, :pattern
