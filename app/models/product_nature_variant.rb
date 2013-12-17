@@ -48,7 +48,6 @@
 #
 
 class ProductNatureVariant < Ekylibre::Record::Base
-  # attr_accessible :active, :commercial_name, :nature_id, :nature_name, :unit_name, :name, :indicator_data_attributes, :products_attributes, :prices_attributes
   enumerize :variety,       in: Nomen::Varieties.all
   enumerize :derivative_of, in: Nomen::Varieties.all
   belongs_to :nature, class_name: "ProductNature", inverse_of: :variants
@@ -83,6 +82,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     }
   }
 
+  scope :availables, -> { where(nature_id: ProductNature.availables).order(:name) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :of_variety, Proc.new { |*varieties|
@@ -93,6 +93,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
   }
   scope :can, Proc.new { |*abilities|
     where(nature_id: ProductNature.can(*abilities))
+  }
+  scope :can_each, Proc.new { |*abilities|
+    where(nature_id: ProductNature.can_each(*abilities))
   }
   scope :of_natures, lambda { |*natures|
     natures.flatten!

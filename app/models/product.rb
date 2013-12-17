@@ -124,6 +124,9 @@ class Product < Ekylibre::Record::Base
   scope :can, lambda { |*abilities|
     where(nature_id: ProductNature.can(*abilities))
   }
+  scope :can_each, lambda { |*abilities|
+    where(nature_id: ProductNature.can_each(*abilities))
+  }
 
   scope :of_nature, lambda { |nature|
     where(nature_id: nature.id)

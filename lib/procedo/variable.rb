@@ -75,7 +75,7 @@ module Procedo
     def computed_variety
       if @variety
         if @variety =~ /\:/
-          attr, other = @variety.split(/\:/)[0..1]
+          attr, other = @variety.split(/\:/)[0..1].map(&:strip)
           attr = "variety" if attr.blank?
           attr.gsub!(/\-/, "_")
           return @procedure.variables[other].send("computed_#{attr}")
@@ -89,7 +89,7 @@ module Procedo
     def computed_derivative_of
       if @derivative_of
         if @derivative_of =~ /\:/
-          attr, other = @derivative_of.split(/\:/)[0..1]
+          attr, other = @derivative_of.split(/\:/)[0..1].map(&:strip)
           attr = "derivative_of" if attr.blank?
           attr.gsub!(/\-/, "_")
           unless variable = @procedure.variables[other]
@@ -107,7 +107,7 @@ module Procedo
     def scope_hash
       hash = {}
       unless @abilities.empty?
-        hash[:can] = @abilities.join(',')
+        hash[:can_each] = @abilities.join(',')
       end
       hash[:of_variety] = computed_variety if computed_variety
       hash[:derivative_of] = computed_derivative_of if computed_derivative_of
