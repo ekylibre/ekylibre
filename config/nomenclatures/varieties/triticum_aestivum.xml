@@ -3,7 +3,7 @@
   <nomenclature name="varieties-triticum_aestivum" hierarchical="true">
     <items>
       <item name="apache"/>
-      <item name="ascot"/>
+      <item name="ascott"/>
       <item name="tremie"/>
       <item name="caphorn"/>
       <item name="oratorio"/>
@@ -26,6 +26,8 @@
       <item name="quebon"/>
       <item name="runal"/>
       <item name="tamaro"/>
+      <item name="euclide"/>
+      <item name="rubisko"/>
     </items>
   </nomenclature>
 </nomenclatures>

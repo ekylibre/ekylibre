@@ -193,6 +193,14 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_weight, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
             />
+      <item name="mixed_chemical_fertilizer"
+            category="fertilizer"
+            variety="chemical_fertiliser"
+            population_counting="decimal"
+            abilities="fertilize"
+            variable_indicators="population, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
+            frozen_indicators="net_volume, net_weight"
+            />
       <item name="organic_fertilizer"
             category="fertilizer"
             variety="manure" 
@@ -208,7 +216,7 @@
             population_counting="decimal"
             abilities="germinate"
             variable_indicators="population"
-            frozen_indicators="net_weight, hundred_grain_weight"
+            frozen_indicators="net_weight, thousand_grain_weight"
             />
       <item name="food"
             category="animal_food"
