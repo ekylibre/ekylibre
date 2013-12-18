@@ -89,6 +89,7 @@ class Product < Ekylibre::Record::Base
   has_many :indicator_data, class_name: "ProductIndicatorDatum", dependent: :destroy, inverse_of: :product
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
   has_many :groups, :through => :memberships
+  has_many :measurements, class_name: "ProductMeasurement"
   has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
   has_many :linkages, class_name: "ProductLinkage", foreign_key: :carrier_id
   has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id
@@ -382,7 +383,7 @@ class Product < Ekylibre::Record::Base
     if self.indicators_list.include?(:net_surface_area)
       return self.get(:net_surface_area, at)
     elsif self.whole_indicators_list.include?(:shape)
-      return self.shape_area(at: at).in_square_meter
+      return self.shape_area(at: at).in_hectare rescue 0.0.in_square_meter
     end
     return 0.0.in_square_meter
   end
@@ -464,7 +465,7 @@ class Product < Ekylibre::Record::Base
         value = datum.value
       end
       # Adjust value
-      if value and indicator.gathering
+      if value and indicator.gathering and !options[:gathering].is_a?(FalseClass)
         if indicator.gathering == :proportional_to_population
           value *= self.send(:population, at: cast_or_time)
         # @TODO puts method to compute nitrogen,....
@@ -486,7 +487,7 @@ class Product < Ekylibre::Record::Base
         raise "What ?"
       end
       # Adjust value
-      if value and indicator.gathering
+      if value and indicator.gathering and !options[:gathering].is_a?(FalseClass)
         if indicator.gathering == :proportional_to_population
           value *= cast_or_time.population
         end

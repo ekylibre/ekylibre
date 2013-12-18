@@ -73,7 +73,15 @@ module Ekylibre::Record
             code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
             code << "  return nil unless datum = self.indicator_datum(:#{indicator}, at: options[:at])\n"
             code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
-            code << "  self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{expr}) FROM \#{ProductIndicatorDatum.indicator_table_name(:#{indicator})} WHERE id = \#{datum.id}\")#{'.to_d rescue 0' unless attr.to_s =~ /^as\_/}\n"
+            code << "  return self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{expr}) FROM \#{ProductIndicatorDatum.indicator_table_name(:#{indicator})} WHERE id = \#{datum.id}\")"
+            if attr.to_s =~ /\Aas\_/
+              code << ".to_s"
+            elsif attr.to_s =~ /area\z/
+              code << ".to_d.in_square_meter"
+            else
+              code << '.to_d rescue 0'
+            end
+            code << "\n"
             code << "end\n"
           end
 

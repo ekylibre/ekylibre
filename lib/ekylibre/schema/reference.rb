@@ -331,7 +331,7 @@ module Ekylibre
         mode_id:          Column.new(:mode_id,            :integer, references: :incoming_payment_mode, null: false).freeze,
         number:           Column.new(:number,              :string, null: false).freeze,
         payments_count:   Column.new(:payments_count,     :integer, null: false, default: 0).freeze,
-        responsible_id:   Column.new(:responsible_id,     :integer, references: :user).freeze,
+        responsible_id:   Column.new(:responsible_id,     :integer, references: :person).freeze,
         updated_at:       Column.new(:updated_at,        :datetime, null: false).freeze,
         updater_id:       Column.new(:updater_id,         :integer, references: :user).freeze
       }.with_indifferent_access.freeze,

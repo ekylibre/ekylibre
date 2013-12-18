@@ -4,7 +4,7 @@ module Ekylibre
     end
 
     class Lister
-      
+
       def initialize(type = :items)
         @items = []
         @type = type
@@ -13,7 +13,7 @@ module Ekylibre
         code << "end"
         eval(code)
       end
-      
+
       def method_missing(method_name, *args, &block)
         @items << Item.new(method_name.to_sym, args, block)
         return nil

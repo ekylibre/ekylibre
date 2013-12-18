@@ -66,9 +66,9 @@ class Plant < Bioproduct
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
-  before_validation :set_name_and_number, on: :create
+  has_shape
 
-  # acts_as_numbered :work_number, :readonly => false
+  before_validation :set_name_and_number, on: :create
 
   #return all Plant object who is alive in the considers campaigns
   scope :of_campaign, lambda { |campaign|

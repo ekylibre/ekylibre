@@ -106,7 +106,7 @@
             variety="plant"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(grain), produce(straw)"
-            variable_indicators="population, leaf_count, plant_life_state, plant_reproduction_state"
+            variable_indicators="population, shape, leaf_count, plant_life_state, plant_reproduction_state"
             frozen_indicators="net_surface_area"
             />
       <item name="wine"

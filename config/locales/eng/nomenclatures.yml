@@ -1228,7 +1228,6 @@ eng:
         # net_volume: "Volume net"
         # net_weight: "Poids net"
         # nitrogen_concentration: "Teneur en azote"
-        # nitrogen_input: "Apport en azote"
         # phosphorus_concentration: "Teneur en phosphore"
         plant_life_state: "Plant life state"
         plant_reproduction_state: "Plant reproduction state"

@@ -33,7 +33,7 @@ module Ekylibre::Record
 
           code << "attr_readonly :#{column}\n" unless options[:readonly].is_a? FalseClass
 
-          code << "validates :#{column}, :presence => true, :uniqueness => true\n"
+          code << "validates :#{column}, presence: true, uniqueness: true\n"
 
           code << "before_validation(:load_unique_predictable_#{column}, :on => :create)\n"
           code << "after_validation(:load_unique_reliable_#{column}, :on => :create)\n"
@@ -42,7 +42,7 @@ module Ekylibre::Record
           code << "  unless self.#{column}\n" if options[:force].is_a?(FalseClass)
           code << "    last = #{last}\n"
           code << "    self.#{column} = (last.nil? ? #{options[:start].inspect} : last.#{column}.blank? ? #{options[:start].inspect} : last.#{column}.succ)\n"
-          code << "    while #{class_name}.where(:#{column} => self.#{column}).count > 0 do\n"
+          code << "    while #{class_name}.where(#{column}: self.#{column}).any? do\n"
           code << "      self.#{column}.succ!\n"
           code << "    end\n"
           code << "  end\n" if options[:force].is_a?(FalseClass)

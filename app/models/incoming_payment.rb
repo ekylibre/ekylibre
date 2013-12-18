@@ -72,12 +72,12 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_numericality_of :commission_amount, :greater_than_or_equal_to => 0
   validates_presence_of :payer, :created_on
   validates_presence_of :commission_account, :if => :with_commission?
-  
+
   acts_as_numbered
   acts_as_affairable :dealt_on => :to_bank_on, :third => :payer
   autosave :deposit
   delegate :with_commission?, to: :mode
-  
+
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
   scope :depositables_for, lambda { |deposit, mode = nil|
     deposit = Deposit.find(deposit) unless deposit.is_a?(Deposit)
