@@ -3645,7 +3645,6 @@ fra:
         cattle_herd: "Troupeau de bovins"
         chemical_fertilizer: "Engrais chimique"
         crop: "Culture"
-        cultivable_land_parcel: "Parcelle culturale"
         duck_band: "Bande de canards"
         duck_herd: "Groupe de canards"
         electricity: "Électricité"

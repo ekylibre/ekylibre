@@ -1250,7 +1250,7 @@ fra:
         calf: "Veau"
         cattle_herd: "Troupeau de bovins"
         crop: "Culture"
-        cultivable_land_parcel: "Parcelle culturale"
+        # cultivable_zone: "Cultivable zone"
         electricity: "Electricité"
         equipment: "Équipement"
         equipment_rent: "Location d’équipement"
@@ -1352,7 +1352,7 @@ fra:
         corn_grain: "Graine de maïs"
         # corn_seed_25: "Corn seed 25"
         cow_milk: "Lait de vache"
-        cultivable_land_parcel: "Parcelle culturale"
+        # cultivable_zone: "Cultivable zone"
         diesel: "Diesel"
         duck_band: "Bande de canards"
         duck_herd: "Groupe de canards"
@@ -1475,7 +1475,7 @@ fra:
         cattle_herd: "Troupeau de bovins"
         chemical_fertilizer: "Engrais chimique"
         crop: "Culture"
-        cultivable_land_parcel: "Parcelle culturale"
+        # cultivable_zone: "Cultivable zone"
         duck_band: "Bande de canards"
         duck_herd: "Groupe de canards"
         electricity: "Électricité"
@@ -1681,6 +1681,7 @@ fra:
         clay_soil: "Terre d'argile lourde"                 # land_parcel
         courtot: "Courtot"                                 # triticum_aestivum
         cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
+        # cultivable_zone: "Cultivable zone"               # zone
         cultur: "Cultur"                                   # triticum_durum
         disinfectant: "Désinfectant"                       # antiseptic
         easement: "Aménagement foncier"                    # zone

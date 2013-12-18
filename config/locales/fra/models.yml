@@ -287,6 +287,7 @@ fra:
       catalog_price: "Prix"
       cultivable_land_parcel: "Parcelle culturale" #?
       cultivable_zone: "Parcelle culturale"
+      # cultivable_zone_membership: "Cultivable zone membership"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       deposit: "Remise en banque"

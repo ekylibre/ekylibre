@@ -70,12 +70,12 @@ demo :land_parcels do
         elsif r.land_parcel_area
           land_parcel.is_measured!(:population, r.land_parcel_area, :at => Time.now)
         end
-        
+
         # add available_water_capacity indicator
         if r.land_parcel_available_water_capacity
           land_parcel.is_measured!(:available_water_capacity, r.land_parcel_available_water_capacity.in_liter_per_square_meter, :at => Time.now)
         end
-        
+
         # add land_parcel in land_parcel_cluster group
         land_parcel_cluster.add(land_parcel)
 
@@ -88,7 +88,7 @@ demo :land_parcels do
       #break if LandParcelGroup.count >= max
     end
   end
-  
+
   Ekylibre::fixturize :cultivable_zone_import do |w|
     # Import land_parcel from Calc Sheet
 
