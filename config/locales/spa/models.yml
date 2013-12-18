@@ -743,6 +743,7 @@ spa:
     # indicator: "Indicator"
     # indicator_data: "Indicator data"
     # indicator_datatype: "Indicator datatype"
+    # indicator_datum: "Indicator datum"
     # indicator_name: "Indicator name"
     # indicators: "Indicators"
     # indirect_links: "Liens indirects"

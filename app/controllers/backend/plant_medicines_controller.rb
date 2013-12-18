@@ -21,9 +21,9 @@ class Backend::PlantMedicinesController < Backend::MedicinesController
 
   list do |t|
     t.column :name, url: true
-    t.column :population
-    t.column :net_volume
-    t.column :net_weight
+    t.column :population, datatype: :decimal
+    t.column :net_volume, datatype: :measure
+    t.column :net_weight, datatype: :measure
     t.column :container, url: true
   end
 

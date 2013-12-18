@@ -120,8 +120,9 @@ class Operation < Ekylibre::Record::Base
       parameter = pair.second
       hash[pair.first] = if parameter.is_a?(Procedo::Variable)
                            self.casts.find_by!(reference_name: parameter.name.to_s)
-                         elsif parameter.is_a?(Procedo::Indicator)
-                           [self.casts.find_by!(reference_name: parameter.stakeholder.name.to_s), parameter.indicator]
+                         elsif parameter.is_a?(Procedo::VariableIndicator)
+                           # [self.casts.find_by!(reference_name: parameter.stakeholder.name.to_s), parameter]
+                           Indicatus.new(parameter, self)
                          else
                            raise StandardError, "Don't known how to find a #{parameter.class.name}"
                          end
@@ -259,12 +260,31 @@ class Operation < Ekylibre::Record::Base
 
   # == Measurements
 
-  def perform_measurement(params)
+  def perform_simple_measurement(params)
+    indicatus = params[:indicator]
+    if indicatus.value?
+      self.product_measurements.create!(product: indicatus.actor, indicator_datum: indicatus.datum, started_at: self.stopped_at)
+    else
+      Rails.logger.warn("Measure without value are not possible for now")
+    end
   end
 
-  def perform_simple_measurement(params)
-    # product, indicator = params[:indicator].actor
-    # self.product_measurements.create!(product: product, indicator: indicator)
+  def perform_measurement(params)
+    indicatus = params[:indicator]
+    if indicatus.value?
+      self.product_measurements.create!(product: indicatus.actor, indicator_datum: indicatus.datum, started_at: self.stopped_at, reporter: params[:reporter].actor)
+    else
+      Rails.logger.warn("Measure without value are not possible for now")
+    end
+  end
+
+  def perform_assisted_measurement(params)
+    indicatus = params[:indicator]
+    if indicatus.value?
+      self.product_measurements.create!(product: indicatus.actor, indicator_datum: indicatus.datum, started_at: self.stopped_at, reporter: params[:reporter].actor, tool: params[:tool].actor)
+    else
+      Rails.logger.warn("Measure without value are not possible for now")
+    end
   end
 
 end

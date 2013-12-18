@@ -166,7 +166,7 @@ class Measure
 
   # Localize a measure
   def l
-    self.to_s
+    "#{self.value.l} #{@@units.items[@unit].human_name}"
   end
 
 end

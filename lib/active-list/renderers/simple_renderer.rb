@@ -12,6 +12,7 @@ module ActiveList
         :date => :dat,
         :datetime => :dtt,
         :decimal => :dec,
+        :measure => :dec,
         :float  => :flt,
         :integer  => :int,
         :string  => :str,
