@@ -1317,6 +1317,7 @@ fra:
         actilact: "Actilact"
         additive: "Adjuvant"
         alfalfa_crop: "Culture de luzerne"
+        alfalfa_seed: "Semence de luzerne"
         animal_building: "Bâtiment d’accueil pour les animaux"
         animal_building_division: "Piece d’accueil pour les animaux"
         animal_food_building_division: "Piece d’accueil pour les aliments"
@@ -1324,6 +1325,7 @@ fra:
         anti_slug: "Anti-limace"
         apple_crop: "Verger de pommiers"
         ascott_wheat_crop: "Culture de blé tendre Ascott"
+        ascott_wheat_seed_25: "Semence de blé tendre Ascott"
         aubues_land_parcel: "Parcelle sur craie Nord Vienne (Aubues)"
         baler: "Botteleuse"
         barley_grain: "Grain d’orge"
@@ -1336,6 +1338,7 @@ fra:
         bulk_urea_46: "Engrais Urée 46% VRAC"
         calf: "Veau"
         caphorn_wheat_crop: "Culture de blé tendre Caphorn"
+        caphorn_wheat_seed_25: "Semence de blé tendre Caphorn"
         cattle_herd: "Troupeau de bovins"
         cattle_manure: "Fumier de bovins"
         cereals_feed_bag_25: "Aliments céréales en sac de 25 kg"
@@ -1369,6 +1372,7 @@ fra:
         equipment: "Équipement"
         equipment_building_division: "Emplacement de stockage du matériel"
         euclide_wheat_crop: "Culture de blé tendre Euclide"
+        euclide_wheat_seed_25: "Semence de blé tendre Euclide"
         ewe_milk: "Lait de brebis"
         fallow_crop: "Jachère"
         female_adult_cattle_herd: "Troupeau de vache laitière"
@@ -1402,8 +1406,10 @@ fra:
         mineral_cleaner: "Nettoyant chimique"
         # mineral_feed_block_25: "Mineral feed block 25"
         miradoux_hard_wheat_crop: "Culture de blé dur Miradoux"
+        miradoux_hard_wheat_seed_25: "Semence de blé dur Miradoux"
         mixed_chemical_fertilizer: "Mélange d'engrais"
         # mixture_crop: "Mixture crop"
+        # mixture_seed: "Mixture seed"
         molluscicide: "Molluscicide"
         mower: "Faucheuse"
         natural_water: "Eau de pluie / du puit"
@@ -1411,6 +1417,7 @@ fra:
         office_building_division: "Pièce de bureau"
         other_herbicide: "Herbicide autre"
         pea_crop: "Culture de pois"
+        pea_seed: "Semence de pois"
         plow: "Charrue"
         plum_crop: "Verger de pruniers"
         poacea_herbicide: "Herbicide graminées"
@@ -1445,6 +1452,7 @@ fra:
         # superficial_plow: "Superficial plow"
         swamp_peaty_land_parcel: "Parcelle de marais tourbeux"
         tablur_hard_wheat_crop: "Culture de blé dur Tablur"
+        tablur_hard_wheat_seed_25: "Semence de blé dur Tablur sac de 25kg"
         technician: "Technicien"
         temporary_meadow_crop: "Culture de prairie temporaire"
         tractor: "Tracteur"
@@ -1668,7 +1676,7 @@ fra:
         antiseptic: "Antiseptique"                         # medicine
         apache: "Blé Apache"                               # triticum_aestivum
         apis: "Apidés"                                     # insecta
-        ascott: "Ascott"                                 # triticum_aestivum
+        ascott: "Ascott"                                   # triticum_aestivum
         asteraceae: "Astéracée"                            # plant
         aubues_soil: "Sols sur craie Nord Vienne (Aubues)" # land_parcel
         autan: "Autan"                                     # triticum_aestivum
@@ -1748,7 +1756,7 @@ fra:
         manure: "Fumier"                                   # organic_matter
         matter: "Matérialisable"                           # product
         meat: "Viande"                                     # organic_matter
-        medicago: "Medicago"                             # fabaceae
+        medicago: "Medicago"                               # fabaceae
         medicine: "Médicament"                             # matter
         merlot_blanc: "Merlot blanc"                       # vitis_vinifera
         merlot_noir: "Merlot noir"                         # vitis_vinifera
@@ -1765,7 +1773,7 @@ fra:
         ovis: "Ovin"                                       # mammalia
         pescadou: "Pescadou"                               # triticum_durum
         pinot_noir: "Pinot noir"                           # vitis_vinifera
-        pisum: "Pisum"                                   # fabaceae
+        pisum: "Pisum"                                     # fabaceae
         plant: "Végétal"                                   # bioproduct
         plant_food: "Nourriture végétale"                  # organic_matter
         plant_medicine: "Produit phytosanitaire"           # medicine
@@ -1783,7 +1791,7 @@ fra:
         recital: "Recital"                                 # triticum_aestivum
         red_chesnut_soil: "Terres rouges à chataigniers"   # land_parcel
         renan: "Renan"                                     # triticum_aestivum
-        rubisko: "Rubisko"                               # triticum_aestivum
+        rubisko: "Rubisko"                                 # triticum_aestivum
         runal: "Runal"                                     # triticum_aestivum
         salmo: "Salmonidé"                                 # osteichthyes
         salt: "Sel"                                        # mineral_matter
