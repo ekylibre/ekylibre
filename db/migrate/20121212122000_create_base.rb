@@ -207,7 +207,7 @@ class CreateBase < ActiveRecord::Migration
       t.text     :description
       t.stamps
     end
-    
+
     create_table :cultivable_zone_memberships do |t|
       t.references :group,                null: false, index: true
       t.references :member,               null: false, index: true

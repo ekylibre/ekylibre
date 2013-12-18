@@ -32,15 +32,13 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
+require 'test_helper'
 
+class CultivableZoneMembershipTest < ActiveSupport::TestCase
 
-class CultivableZoneMembership < Ekylibre::Record::Base
-  belongs_to :group, class_name: "CultivableZone"
-  belongs_to :member, class_name: "LandParcel"
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :population, allow_nil: true
-  validates_presence_of :group, :member
-  #]VALIDATORS]
-
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
+  end
 
 end
