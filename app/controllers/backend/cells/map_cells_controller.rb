@@ -22,7 +22,8 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           tool_cost:  support.tool_cost,
           input_cost: support.input_cost,
           time_cost:  support.time_cost,
-          nitrogen_balance: support.nitrogen_balance
+          nitrogen_balance: support.nitrogen_balance,
+          provisionnal_nitrogen_input: support.provisionnal_nitrogen_input
         }
         data << line
       end

@@ -73,7 +73,6 @@ class ProductionSupport < Ekylibre::Record::Base
     return datum
   end
 
-
   # # Return the indicator datum
   # def indicator(indicator, options = {})
   #   ActiveSupport::Deprecation.warn("Product#indicator method is deprecated. Please use Product#indicate instead")
@@ -116,7 +115,20 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return nitrogen_unity_per_hectare
   end
-
+  
+  def provisionnal_nitrogen_input
+    balance = []
+    markers = self.markers.where(aim: 'perfect', indicator_name: 'provisionnal_nitrogen_input')
+    if markers.count > 0
+      for marker in markers
+        balance << marker.measure_value_value
+      end
+      return balance.compact.sum
+    else
+      return 0
+    end
+  end
+  
   def tool_cost
     if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
       self.cost(:tool)/(self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f)

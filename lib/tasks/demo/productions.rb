@@ -78,7 +78,7 @@ demo :productions do
               support.markers.create!(:indicator_name => :provisionnal_grains_yield, :aim => :perfect, :measure_value => r.provisionnal_grain_yield.in_quintal_per_hectare)
             end
             if r.provisionnal_nitrogen_input
-              support.markers.create!(:indicator_name => :nitrogen_input, :aim => :perfect, :measure_value => r.provisionnal_nitrogen_input.in_kilogram_per_hectare)
+              support.markers.create!(:indicator_name => :provisionnal_nitrogen_input, :aim => :perfect, :measure_value => r.provisionnal_nitrogen_input.in_kilogram_per_hectare)
             end
           end
         elsif product_nature_variant_sup
