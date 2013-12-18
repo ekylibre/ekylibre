@@ -45,7 +45,6 @@
 
 
 class IncomingPaymentMode < Ekylibre::Record::Base
-  # attr_accessible :cash_id, :attorney_journal_id, :commission_account_id, :commission_base_amount, :commission_percentage, :depositables_account_id, :depositables_journal_id, :detail_payments, :name, :position, :with_accounting, :with_commission, :with_deposit
   attr_readonly :cash_id, :cash
   acts_as_list
   belongs_to :attorney_journal, class_name: "Journal"
@@ -72,7 +71,7 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   delegate :currency, to: :cash
   delegate :journal, to: :cash, prefix: true
 
-  scope :depositers, -> { where(:with_deposit => true).order(:name) }
+  scope :depositers, -> { where(with_deposit: true).order(:name) }
 
   before_validation do
     if self.cash and self.cash.cash_box?

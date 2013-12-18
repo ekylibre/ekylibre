@@ -43,15 +43,14 @@
 
 
 class Deposit < Ekylibre::Record::Base
-  # attr_accessible :cash_id, :description, :created_on, :mode_id, :number, :responsible_id
   acts_as_numbered
   belongs_to :cash
-  belongs_to :responsible, class_name: "User"
+  belongs_to :responsible, class_name: "Person"
   belongs_to :journal_entry
   belongs_to :mode, class_name: "IncomingPaymentMode"
   has_many :items, class_name: "DepositItem", inverse_of: :deposit
   has_many :payments, -> { order("number") }, class_name: "IncomingPayment", dependent: :nullify
-
+  has_many :payments, class_name: "IncomingPayment"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :number, allow_nil: true, maximum: 255
@@ -63,7 +62,7 @@ class Deposit < Ekylibre::Record::Base
   delegate :currency, to: :cash
 
   # default_scope -> { order(:number) }
-  scope :unvalidateds, -> { where(:locked => false) }
+  scope :unvalidateds, -> { where(locked: false) }
 
 
   before_validation do
@@ -75,11 +74,11 @@ class Deposit < Ekylibre::Record::Base
     self.amount = self.payments.sum(:amount)
   end
 
-  validate do
-    if self.cash
-      error.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
-    end
-  end
+  # validate do
+  #   if self.cash
+  #     error.add(:cash_id, :must_be_a_bank_account) unless self.cash.bank_account?
+  #   end
+  # end
 
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"

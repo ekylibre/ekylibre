@@ -36,7 +36,7 @@ class Backend::DepositsController < BackendController
 
   # Displays the main page with the list of deposits
   def index
-    notify_now(:no_depositable_payments) if IncomingPayment.depositables.count.zero?
+    notify_now(:no_depositable_payments) if IncomingPayment.depositables.empty?
   end
 
 

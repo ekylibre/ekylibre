@@ -22,24 +22,6 @@
 
 module ApplicationHelper
 
-  class Lister
-    Item = Struct.new(:name, :args, :block)
-
-    def initialize(type = :items)
-      @items = []
-      @type = type
-      code  = "def #{@type.to_s}\n"
-      code << "  @items\n"
-      code << "end"
-      eval(code)
-    end
-
-    def method_missing(method_name, *args, &block)
-      @items << Item.new(method_name.to_sym, args, block)
-      return nil
-    end
-  end
-
   def current_theme
     controller.current_theme
   end
@@ -379,7 +361,7 @@ module ApplicationHelper
 
 
   def dropdown_button(*args, &block)
-    l = Lister.new(:links)
+    l = Ekylibre::Support::Lister.new(:links)
     yield l
     minimum = 0
     if args[1].nil?
@@ -726,7 +708,7 @@ module ApplicationHelper
 
 
   def toolbar_export(nature, record = nil, options = {}, &block)
-    exporter = Lister.new(:natures)
+    exporter = Ekylibre::Support::Lister.new(:natures)
     yield exporter if block_given?
     if exporter.natures.size > 0
 
