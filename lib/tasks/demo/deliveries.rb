@@ -59,7 +59,7 @@ demo :deliveries do
       "Divers" => :seed,
       "Blé tendre" => :wheat_seed_25,
       "Blé dur" => :hard_wheat_seed_25,
-      "Orge hiver escourgeon" => :barley_seed_25,
+      "Orge hiver escourgeon" => :winter_barley_seed_25,
       "Couverts environnementaux enherbeme" => :seed,
       "Engrais" => :bulk_ammonitrate_33,
       "Fongicides céréales" => :poaceae_fungicide,
