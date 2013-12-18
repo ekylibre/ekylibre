@@ -53,11 +53,11 @@ class Document < Ekylibre::Record::Base
   def archive(data, format, options = {})
     tmp_dir = Rails.root.join('tmp', 'archiving')
     FileUtils.mkdir_p(tmp_dir)
-    path = tmp_dir.join("#{self.id}.archive")
+    path = tmp_dir.join("#{self.id}.#{format}")
     File.open(path, "wb:#{data.encoding}") do |f|
       f.write data
     end
-    File.open(path, 'rb:ASCII-8BIT') do |f|
+    File.open(path, 'rb') do |f|
       self.archives.create!(file: f, template_id: options[:template_id])
     end
     FileUtils.rm_f(path)
@@ -65,7 +65,7 @@ class Document < Ekylibre::Record::Base
 
   # Returns the matching unique document for the given nature and key
   def self.of(nature, key)
-    return self.where(:nature => nature.to_s, :key => key.to_s).first
+    return self.find_by(nature: nature.to_s, key: key.to_s)
   end
 
 end

@@ -12,7 +12,7 @@ demo :land_parcels do
       # puts "File contains #{file.num_records} records."
       file.each do |record|
         land_parcel_cluster = LandParcelCluster.create!(:variant_id => land_parcel_group_variant.id,
-                                                        :name => LandParcel.model_name.human(locale: Preference[:locale]) + " " + record.attributes['NUMERO'].to_s,
+                                                        :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s,
                                                         :work_number => record.attributes['NUMERO'].to_s,
                                                         :variety => "land_parcel_cluster",
                                                         :born_at => Date.civil(record.attributes['CAMPAGNE'], 1, 1),

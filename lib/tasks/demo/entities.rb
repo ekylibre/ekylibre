@@ -52,7 +52,7 @@ demo :entities do
 
   end
 
-  Ekylibre::fixturize :associates_entity do |w|
+  Ekylibre::fixturize :associates do |w|
 
     file = Rails.root.join("test", "fixtures", "files", "associate_entities.csv")
 

@@ -69,7 +69,7 @@ namespace :db do
   end
 end
 
-desc "Build demo data"
+# desc "Build demo data"
 namespace :demo do
   for demo in Ekylibre::DEMOS
     require Pathname.new(__FILE__).dirname.join("demo", demo.to_s).to_s
@@ -94,6 +94,23 @@ task :demo => :environment do
     end
   end
 end
+
+namespace :demos do
+
+  Ekylibre::DEMOS.each_with_index do |demo, index|
+    demos = Ekylibre::DEMOS[index..-1]
+    code  = "desc 'Execute #{demos.to_sentence}'\n"
+    code << "task :#{demo} do\n"
+    for d in demos
+      code << "  puts ' * Execute demo:#{d} task'\n"
+      code << "  Rake::Task['demo:#{d}'].invoke\n"
+    end
+    code << "end"
+    eval code
+  end
+
+end
+
 
 desc "Create demo data independently -- also available " + Ekylibre::DEMOS.collect{|c| "demo:#{c}"}.join(", ")
 task :demos => :environment do
