@@ -12,7 +12,7 @@ demo :land_parcels do
       # puts "File contains #{file.num_records} records."
       file.each do |record|
         land_parcel_cluster = LandParcelCluster.create!(:variant_id => land_parcel_group_variant.id,
-                                                        :name => "ilôt "+record.attributes['NUMERO'].to_s,
+                                                        :name => LandParcel.model_name.human(locale: Preference[:locale]) + " " + record.attributes['NUMERO'].to_s,
                                                         :work_number => record.attributes['NUMERO'].to_s,
                                                         :variety => "land_parcel_cluster",
                                                         :born_at => Date.civil(record.attributes['CAMPAGNE'], 1, 1),
@@ -116,26 +116,26 @@ demo :land_parcels do
                                                               :initial_owner => Entity.of_company,
                                                               :identification_number => r.cultivable_zone_work_number)
 
-        if r.cultivable_zone_shape
-          cultivable_zone.is_measured!(:shape, r.cultivable_zone_shape, :at => Time.now)
-          ind_area = cultivable_zone.shape_area
-          area = (ind_area / 10000).round(2)
-          cultivable_zone.is_measured!(:population, area, :at => Time.now)
-        elsif r.cultivable_zone_area
-          cultivable_zone.is_measured!(:population, r.cultivable_zone_area, :at => Time.now)
-        end
+      if r.cultivable_zone_shape
+        cultivable_zone.is_measured!(:shape, r.cultivable_zone_shape, :at => Time.now)
+        ind_area = cultivable_zone.shape_area
+        area = (ind_area / 10000).round(2)
+        cultivable_zone.is_measured!(:population, area, :at => Time.now)
+      elsif r.cultivable_zone_area
+        cultivable_zone.is_measured!(:population, r.cultivable_zone_area, :at => Time.now)
+      end
 
 
-        land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number) || nil
+      land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number) || nil
 
-        if land_parcel
-          cultivable_zone_membership = CultivableZoneMembership.where(group: cultivable_zone, member: land_parcel).first
-          cultivable_zone_membership ||= CultivableZoneMembership.create!(:group => cultivable_zone,
-                                                              :member => land_parcel,
-                                                              :shape => r.land_parcel_member_shape,
-                                                              :population => r.land_parcel_member_area
-                                                                          )
-        end
+      if land_parcel
+        cultivable_zone_membership = CultivableZoneMembership.where(group: cultivable_zone, member: land_parcel).first
+        cultivable_zone_membership ||= CultivableZoneMembership.create!(:group => cultivable_zone,
+                                                                        :member => land_parcel,
+                                                                        :shape => r.land_parcel_member_shape,
+                                                                        :population => r.land_parcel_member_area
+                                                                        )
+      end
 
       # puts "  Attributes: #{record.attributes.inspect}"
       w.check_point
