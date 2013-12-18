@@ -156,11 +156,11 @@ fra:
     backend/cells/rss_cells:
       # show: "Show backend/cells/rss cell"
     backend/cultivable_zones:
-      # edit: "Edit backend/cultivable zone"
-      # index: "Index backend/cultivable zone"
-      # new: "New backend/cultivable zone"
+      edit: "Modifier la zone cultivable\_: %{name}"
+      index: "Zones cultivables"
+      new: "Nouvelle zone cultivable\_: %{name}"
       # picture: "Picture backend/cultivable zone"
-      # show: "Show backend/cultivable zone"
+      show: "Zone cultivable"
     backend/custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
       new: " Création d’une option pour une liste de choix"
