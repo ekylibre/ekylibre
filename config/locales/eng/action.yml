@@ -134,11 +134,8 @@ eng:
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
-    backend/cultivable_land_parcels:
-      # edit: "Modifier la parcelle culturale\_: %{name}"
-      # index: "Parcelles culturales"
-      # new: "Ajouter une parcelle culturale"
-      # show: "Parcelle culturale\_: %{name}"
+    backend/cultivable_land_parcels: #?
+    backend/cultivable_zones: #?
     backend/custom_field_choices:
       edit: "Edit the option: %{name}"
       new: "Add a new option for a choices list"

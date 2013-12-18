@@ -1648,6 +1648,7 @@ fra:
         antiseptic: "Antiseptique"                         # medicine
         apache: "Blé Apache"                               # triticum_aestivum
         apis: "Apidés"                                     # insecta
+        # ascot: "Ascot"                                   # triticum_aestivum
         asteraceae: "Astéracée"                            # plant
         aubues_soil: "Sols sur craie Nord Vienne (Aubues)" # land_parcel
         autan: "Autan"                                     # triticum_aestivum

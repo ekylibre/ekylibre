@@ -27,6 +27,8 @@ fra:
         harvest_year: "Année de récolte"
       cultivable_land_parcel:
         area: "Superficie"
+      cultivable_zone:
+        area: "Superficie"
       document:
         filename: "Fichier"
       document_template:
@@ -283,7 +285,8 @@ fra:
       cash_transfer: "Virement interne"
       catalog: "Liste de prix"
       catalog_price: "Prix"
-      cultivable_land_parcel: "Parcelle culturale"
+      cultivable_land_parcel: "Parcelle culturale" #?
+      cultivable_zone: "Parcelle culturale"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       deposit: "Remise en banque"

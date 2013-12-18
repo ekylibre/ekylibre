@@ -778,7 +778,7 @@ fra:
         usage_duration: "Durée d’utilisation"
         water_content_rate: "Teneur en eau"
         width: "Largeur"
-    cultivable_land_parcel:
+    cultivable_zone:
       variety:
         acetal: "Acetal"
         actilact: "Actilact"
@@ -1914,6 +1914,7 @@ fra:
         catalog: "Liste de prix"
         catalog_price: "Prix"
         cultivable_land_parcel: "Parcelle culturale"
+        cultivable_zone: "Parcelle culturale"
         custom_field: "Champ complémentaire"
         custom_field_choice: "Choix de champ complémentaire"
         deposit: "Remise en banque"

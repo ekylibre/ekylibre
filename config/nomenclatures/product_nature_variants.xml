@@ -521,8 +521,8 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <item name="cultivable_land_parcel"
-            nature="cultivable_land_parcel"
+      <item name="cultivable_zone"
+            nature="cultivable_zone"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />

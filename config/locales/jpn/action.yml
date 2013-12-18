@@ -135,11 +135,8 @@ jpn:
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
-    backend/cultivable_land_parcels:
-      # edit: "Modifier la parcelle culturale\_: %{name}"
-      # index: "Parcelles culturales"
-      # new: "Ajouter une parcelle culturale"
-      # show: "Parcelle culturale\_: %{name}"
+    backend/cultivable_land_parcels: #?
+    backend/cultivable_zones: #?
     backend/custom_field_choices:
       # edit: "Modifier l’option\_: %{name}"
       # new: " Création d’une option pour une liste de choix"

@@ -75,10 +75,10 @@ demo :productions do
           if product_support.is_a?(CultivableLandParcel)
             # create markers for yield and nitrogen
             if r.provisionnal_grain_yield
-              support.markers.create!(:indicator_name => :provisionnal_grains_yield, :aim => :perfect, :measure_value_value => r.provisionnal_grain_yield, :measure_value_unit => :quintal_per_hectare)
+              support.markers.create!(:indicator_name => :provisionnal_grains_yield, :aim => :perfect, :measure_value => r.provisionnal_grain_yield.in_quintal_per_hectare)
             end
             if r.provisionnal_nitrogen_input
-              support.markers.create!(:indicator_name => :nitrogen_input, :aim => :perfect, :measure_value_value => r.provisionnal_nitrogen_input, :measure_value_unit => :kilogram_per_hectare)
+              support.markers.create!(:indicator_name => :nitrogen_input, :aim => :perfect, :measure_value => r.provisionnal_nitrogen_input.in_kilogram_per_hectare)
             end
             # create a name for the plant correponding to product_nature_nomen in XML Nomenclature
             plant_name = (Nomen::ProductNatureVariants.find(r.variant_reference_name).human_name + " " + campaign.name + " " + product_support.work_number)

@@ -8,10 +8,10 @@ class Backend::Cells::LastInterventionsCellsController < Backend::CellsControlle
         actor = target.first.actor
         if actor
           product = Product.find(actor.id)
-          # if container.is_a?(CultivableLandParcel)
+          # if container.is_a?(CultivableZone)
           #   @container = container.class.find(container.id)
           if product.is_a?(Plant)
-            @container = CultivableLandParcel.find(product.container)
+            @container = CultivableZone.find(product.container)
           elsif product.is_a?(Animal)
             @container = BuildingDivision.find(product.container)
           else

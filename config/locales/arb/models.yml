@@ -95,6 +95,8 @@ arb:
         website: "موقع على الانترنت" #?
       cultivable_land_parcel:
         # area: "Superficie"
+      cultivable_zone:
+        # area: "Superficie"
       currency:  #?
         cashes: "الخزينة" #?
         comment: "تعليق" #?
@@ -851,6 +853,7 @@ arb:
       company: "الشركة" #?
       contact: "الاتصالات" #?
       # cultivable_land_parcel: "Parcelle culturale"
+      # cultivable_zone: "Parcelle culturale"
       currency: "العملة" #?
       custom_field: "الحقول التكميلية"
       custom_field_choice: "اختيار الحقل التكميلي"

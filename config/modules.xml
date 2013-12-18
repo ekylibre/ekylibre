@@ -650,24 +650,24 @@
     </group>
     <group name="land_parcels" icon="land-parcels">
       <item name="cultivable_land_parcels">
-        <page to="backend/cultivable_land_parcels#index"/>
-        <page to="backend/cultivable_land_parcels#create"/>
-        <page to="backend/cultivable_land_parcels#destroy"/>
-        <page to="backend/cultivable_land_parcels#edit"/>
-        <page to="backend/cultivable_land_parcels#list"/>
-        <page to="backend/cultivable_land_parcels#new"/>
-        <page to="backend/cultivable_land_parcels#show"/>
-        <page to="backend/cultivable_land_parcels#update"/>
-        <page to="backend/cultivable_land_parcels#list_contained_products"/>
-        <page to="backend/cultivable_land_parcels#list_intervention_casts"/>
-        <page to="backend/cultivable_land_parcels#list_productions"/>
-        <page to="backend/cultivable_land_parcels#unroll"/>
-        <page to="backend/cultivable_land_parcels#list_groups"/>
-        <page to="backend/cultivable_land_parcels#list_incidents"/>
-        <page to="backend/cultivable_land_parcels#list_indicators"/>
-        <page to="backend/cultivable_land_parcels#list_members"/>
-        <page to="backend/cultivable_land_parcels#list_places"/>
-        <page to="backend/cultivable_land_parcels#picture"/>
+        <page to="backend/cultivable_zones#index"/>
+        <page to="backend/cultivable_zones#create"/>
+        <page to="backend/cultivable_zones#destroy"/>
+        <page to="backend/cultivable_zones#edit"/>
+        <page to="backend/cultivable_zones#list"/>
+        <page to="backend/cultivable_zones#new"/>
+        <page to="backend/cultivable_zones#show"/>
+        <page to="backend/cultivable_zones#update"/>
+        <page to="backend/cultivable_zones#list_contained_products"/>
+        <page to="backend/cultivable_zones#list_intervention_casts"/>
+        <page to="backend/cultivable_zones#list_productions"/>
+        <page to="backend/cultivable_zones#unroll"/>
+        <page to="backend/cultivable_zones#list_groups"/>
+        <page to="backend/cultivable_zones#list_incidents"/>
+        <page to="backend/cultivable_zones#list_indicators"/>
+        <page to="backend/cultivable_zones#list_members"/>
+        <page to="backend/cultivable_zones#list_places"/>
+        <page to="backend/cultivable_zones#picture"/>
       </item>
     </group>
     <group name="equipments" icon="tractor">
@@ -1405,10 +1405,10 @@
       <item name="revenues_by_product_nature_cells">
         <page to="backend/cells/revenues_by_product_nature_cells#show"/>
       </item>
-      <item name="cultivable_land_parcels">
-        <page to="backend/cultivable_land_parcels#list_carried_linkages"/>
-        <page to="backend/cultivable_land_parcels#list_carrier_linkages"/>
-        <page to="backend/cultivable_land_parcels#list_markers"/>
+      <item name="cultivable_zones">
+        <page to="backend/cultivable_zones#list_carried_linkages"/>
+        <page to="backend/cultivable_zones#list_carrier_linkages"/>
+        <page to="backend/cultivable_zones#list_markers"/>
       </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>

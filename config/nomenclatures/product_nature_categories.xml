@@ -246,7 +246,7 @@
             storable="false"
             pictogram="land_parcels"
             />
-      <item name="cultivable_land_parcel"
+      <item name="cultivable_zone"
             purchasable="false"
             saleable="false"
             depreciable="false"

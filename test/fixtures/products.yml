@@ -333,52 +333,52 @@ buildings_003:
   variety: "building"
 
 # -----------------------------------------------------------------------------
-# {32} CultivableLandParcels
+# {32} CultivableZones
 
-cultivable_land_parcels_001:
+cultivable_zones_001:
   category_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 32001
-  name: "CultivableLandParcel #1"
+  name: "CultivableZone #1"
   nature_id: 1
   number: "32001"
-  type: 'CultivableLandParcel'
+  type: 'CultivableZone'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   parent_id: 1
   variant_id: 1
-  variety: "cultivable_land_parcel"
+  variety: "cultivable_zone"
 
-cultivable_land_parcels_002:
+cultivable_zones_002:
   category_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 32002
-  name: "CultivableLandParcel #2"
+  name: "CultivableZone #2"
   nature_id: 1
   number: "32002"
-  type: 'CultivableLandParcel'
+  type: 'CultivableZone'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   parent_id: 1
   variant_id: 1
-  variety: "cultivable_land_parcel"
+  variety: "cultivable_zone"
 
-cultivable_land_parcels_003:
+cultivable_zones_003:
   category_id: 1
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 32003
-  name: "CultivableLandParcel #3"
+  name: "CultivableZone #3"
   nature_id: 1
   number: "32003"
-  type: 'CultivableLandParcel'
+  type: 'CultivableZone'
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
   parent_id: 1
   variant_id: 1
-  variety: "cultivable_land_parcel"
+  variety: "cultivable_zone"
 
 # -----------------------------------------------------------------------------
 # {16} Equipments

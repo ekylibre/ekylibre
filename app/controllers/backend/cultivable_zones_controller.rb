@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::CultivableLandParcelsController < Backend::LandParcelGroupsController
+class Backend::CultivableZonesController < Backend::LandParcelGroupsController
   # INDEX
   list do |t|
     t.column :name, url: true

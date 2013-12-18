@@ -207,6 +207,14 @@ class CreateBase < ActiveRecord::Migration
       t.text     :description
       t.stamps
     end
+    
+    create_table :cultivable_zone_memberships do |t|
+      t.references :group,                null: false, index: true
+      t.references :member,               null: false, index: true
+      t.decimal    :population,           precision: 19, scale: 4
+      t.geometry   :shape
+      t.stamps
+    end
 
     create_table :custom_field_choices do |t|
       t.references :custom_field,              null: false, index: true

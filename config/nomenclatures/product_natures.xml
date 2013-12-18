@@ -255,8 +255,8 @@
             category="land_parcel"
             variety="land_parcel"
             population_counting="decimal"
-            abilities="consume(water), consume(seed), produce(plant), store(plant)"
-            variable_indicators="population, shape, cultural_soil_state, available_water_capacity"
+            abilities=""
+            variable_indicators="population, shape, available_water_capacity"
             frozen_indicators="net_surface_area"
             />
       <item name="land_parcel_cluster"
@@ -267,12 +267,12 @@
             variable_indicators="population, shape"
             frozen_indicators="net_surface_area"
             />
-      <item name="cultivable_land_parcel"
-            category="cultivable_land_parcel"
-            variety="cultivable_land_parcel"
+      <item name="cultivable_zone"
+            category="cultivable_zone"
+            variety="cultivable_zone"
             population_counting="decimal"
-            abilities=""
-            variable_indicators="population, shape"
+            abilities="consume(water), consume(seed), produce(plant), store(plant)"
+            variable_indicators="population, shape, cultural_soil_state"
             frozen_indicators="net_surface_area"
             />
       <item name="building"
