@@ -1,9 +1,10 @@
-=main_toolbar do |t|
-  -t.new
-=beehive(:stock) do |b|
+= main_toolbar do |t|
+  - t.new
+
+= beehive do |b|
   - b.cell do
     = list
-  - b.tabbox do
+  - b.hbox do
     - b.cell :currents_stocks_by_product_nature, :params => {variety: 'herbicide'}
     - b.cell :currents_stocks_by_product_nature, :params => {variety: 'fungicide'}
     - b.cell :currents_stocks_by_product_nature, :params => {variety: 'insecticide'}

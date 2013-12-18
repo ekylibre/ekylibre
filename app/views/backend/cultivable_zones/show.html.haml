@@ -1,17 +1,17 @@
 = main_toolbar do |t|
-  - t.edit @cultivable_land_parcel
+  - t.edit @cultivable_zone
 
 = beehive do |b|
   - b.tabbox do
     - b.cell :general do
       .picture
-        = @cultivable_land_parcel.shape_svg(:width => 180, :height => 180, :class => :map)
+        = @cultivable_zone.shape_svg(:width => 180, :height => 180, :class => :map)
       .info
-        %span.title= CultivableLandParcel.human_attribute_name(:net_surface_area)
-        %span.value= @cultivable_land_parcel.net_surface_area.convert(:hectare).round(2)
+        %span.title= CultivableZone.human_attribute_name(:net_surface_area)
+        %span.value= @cultivable_zone.net_surface_area.convert(:hectare).round(2)
 
     - b.cell do
-      = attributes_list(@cultivable_land_parcel) do |l|
+      = attributes_list(@cultivable_zone) do |l|
         - l.attribute :name
 
   - b.tabbox do

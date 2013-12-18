@@ -27,7 +27,7 @@
       <item name="livestock_unit" datatype="decimal" gathering="proportional_to_population"/>
        <!-- state of cultivable_land_parcel -->
       <item name="cultural_soil_state" datatype="choice" choices="covered, raw, nude, plowed, grown"/>
-      <item name="hundred_grain_weight" datatype="measure" unit="gram"/>
+      <item name="thousand_grain_weight" datatype="measure" unit="gram"/>
       <!-- equipment -->
       <item name="motor_power" datatype="measure" unit="french_horsepower"/>
       <item name="application_width" datatype="measure" unit="meter" gathering="proportional_to_population"/>
@@ -72,7 +72,7 @@
       <item name="nitrogen_concentration" datatype="measure" unit="percent"/>
       <item name="potassium_concentration" datatype="measure" unit="percent"/>
       <item name="phosphorus_concentration" datatype="measure" unit="percent"/>
-      <item name="nitrogen_input" datatype="measure" unit="kilogram_per_hectare"/>
+      <item name="provisionnal_nitrogen_input" datatype="measure" unit="kilogram_per_hectare"/>
       <item name="provisionnal_grains_yield" datatype="measure" unit="quintal_per_hectare"/>
       <item name="provisionnal_irrigation_water_input" datatype="measure" unit="liter_per_square_meter"/>
       <item name="available_water_capacity" datatype="measure" unit="liter_per_square_meter"/>

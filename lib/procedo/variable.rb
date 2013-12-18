@@ -1,6 +1,8 @@
 module Procedo
 
   class Variable
+    autoload :Indicator, 'procedo/variable/indicator'
+
     attr_reader :name, :procedure, :value, :abilities, :variety, :derivative_of, :roles, :birth_nature, :producer_name
 
     def initialize(procedure, element)

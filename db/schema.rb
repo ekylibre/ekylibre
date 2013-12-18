@@ -1573,23 +1573,23 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "originator_id"
     t.string   "originator_type"
     t.integer  "product_id",                                                                                                            null: false
+    t.datetime "measured_at",                                                                                                           null: false
     t.string   "indicator_name",                                                                                                        null: false
     t.string   "indicator_datatype",                                                                                                    null: false
-    t.datetime "measured_at",                                                                                                           null: false
+    t.boolean  "boolean_value",                                                                                         default: false, null: false
+    t.string   "choice_value"
     t.decimal  "decimal_value",                                                                precision: 19, scale: 4
     t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
-    t.boolean  "boolean_value",                                                                                         default: false, null: false
-    t.string   "choice_value"
     t.datetime "created_at",                                                                                                            null: false
     t.datetime "updated_at",                                                                                                            null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                          default: 0,     null: false
-    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
     t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
     t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
   end
 
   add_index "product_indicator_data", ["created_at"], :name => "index_product_indicator_data_on_created_at"
@@ -1662,21 +1662,32 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
-    t.integer  "product_id",                  null: false
-    t.string   "indicator_name",              null: false
+    t.integer  "product_id",                                                                                                            null: false
+    t.string   "indicator_name",                                                                                                        null: false
+    t.string   "indicator_datatype",                                                                                                    null: false
+    t.boolean  "boolean_value",                                                                                         default: false, null: false
+    t.string   "choice_value"
+    t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
+    t.string   "measure_value_unit"
+    t.text     "string_value"
     t.integer  "reporter_id"
     t.integer  "tool_id"
-    t.datetime "started_at",                  null: false
+    t.datetime "started_at",                                                                                                            null: false
     t.datetime "stopped_at"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                                                                                                            null: false
+    t.datetime "updated_at",                                                                                                            null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",    default: 0, null: false
+    t.integer  "lock_version",                                                                                          default: 0,     null: false
+    t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
+    t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
   end
 
   add_index "product_measurements", ["created_at"], :name => "index_product_measurements_on_created_at"
   add_index "product_measurements", ["creator_id"], :name => "index_product_measurements_on_creator_id"
+  add_index "product_measurements", ["indicator_name"], :name => "index_product_measurements_on_indicator_name"
   add_index "product_measurements", ["operation_id"], :name => "index_product_measurements_on_operation_id"
   add_index "product_measurements", ["originator_id", "originator_type"], :name => "index_product_measurements_on_originator_id_and_originator_type"
   add_index "product_measurements", ["product_id"], :name => "index_product_measurements_on_product_id"
@@ -1772,20 +1783,20 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "variant_id",                                                                                                            null: false
     t.string   "indicator_name",                                                                                                        null: false
     t.string   "indicator_datatype",                                                                                                    null: false
+    t.boolean  "boolean_value",                                                                                         default: false, null: false
+    t.string   "choice_value"
     t.decimal  "decimal_value",                                                                precision: 19, scale: 4
     t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
-    t.boolean  "boolean_value",                                                                                         default: false, null: false
-    t.string   "choice_value"
     t.datetime "created_at",                                                                                                            null: false
     t.datetime "updated_at",                                                                                                            null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                          default: 0,     null: false
-    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
     t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
     t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
   end
 
   add_index "product_nature_variant_indicator_data", ["created_at"], :name => "index_product_nature_variant_indicator_data_on_created_at"
@@ -1960,15 +1971,15 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "production_support_markers", force: true do |t|
     t.integer  "support_id",                                                                                                            null: false
-    t.string   "indicator_name",                                                                                                        null: false
     t.string   "aim",                                                                                                                   null: false
+    t.string   "indicator_name",                                                                                                        null: false
     t.string   "indicator_datatype",                                                                                                    null: false
+    t.boolean  "boolean_value",                                                                                         default: false, null: false
+    t.string   "choice_value"
     t.decimal  "decimal_value",                                                                precision: 19, scale: 4
     t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
-    t.boolean  "boolean_value",                                                                                         default: false, null: false
-    t.string   "choice_value"
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.datetime "created_at",                                                                                                            null: false
@@ -1976,16 +1987,16 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                          default: 0,     null: false
-    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
     t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
     t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
   end
 
   add_index "production_support_markers", ["created_at"], :name => "index_production_support_markers_on_created_at"
   add_index "production_support_markers", ["creator_id"], :name => "index_production_support_markers_on_creator_id"
-  add_index "production_support_markers", ["indicator_name"], :name => "index_production_support_marker_indicator_data_on_indicator"
-  add_index "production_support_markers", ["started_at"], :name => "index_production_support_marker_indicator_data_on_started_at"
-  add_index "production_support_markers", ["stopped_at"], :name => "index_production_support_marker_indicator_data_on_stopped_at"
+  add_index "production_support_markers", ["indicator_name"], :name => "index_production_support_markers_on_indicator_name"
+  add_index "production_support_markers", ["started_at"], :name => "index_production_support_markers_on_started_at"
+  add_index "production_support_markers", ["stopped_at"], :name => "index_production_support_markers_on_stopped_at"
   add_index "production_support_markers", ["support_id"], :name => "index_production_support_markers_on_support_id"
   add_index "production_support_markers", ["updated_at"], :name => "index_production_support_markers_on_updated_at"
   add_index "production_support_markers", ["updater_id"], :name => "index_production_support_markers_on_updater_id"

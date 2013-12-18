@@ -207,7 +207,7 @@ class CreateBase < ActiveRecord::Migration
       t.text     :description
       t.stamps
     end
-    
+
     create_table :cultivable_zone_memberships do |t|
       t.references :group,                null: false, index: true
       t.references :member,               null: false, index: true
@@ -840,21 +840,10 @@ class CreateBase < ActiveRecord::Migration
     create_table :product_indicator_data do |t|
       # t.references :operation,                             index: true
       t.references :originator,        polymorphic: true
-      t.references :product,                                                            null: false, index: true
-      t.string     :indicator_name,                                                     null: false
-      t.string     :indicator_datatype,                                                 null: false
-      t.datetime   :measured_at,                                                        null: false
-      t.decimal    :decimal_value,             precision: 19, scale: 4
-      t.decimal    :measure_value_value,       precision: 19, scale: 4
-      t.string     :measure_value_unit
-      t.text       :string_value
-      t.boolean    :boolean_value,                                      default: false, null: false
-      t.string     :choice_value
-      t.point      :point_value,               has_z: true
-      t.geometry   :geometry_value,            has_z: true
-      t.multi_polygon :multi_polygon_value,    has_z: true
+      t.references :product,                               null: false, index: true
+      t.datetime   :measured_at,                           null: false
+      t.indicator_datum                                    null: false, index: true
       t.stamps
-      t.index      :indicator_name
       t.index      :measured_at
       t.index      [:originator_id, :originator_type], name: :index_product_indicator_data_on_originator
     end
@@ -906,7 +895,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :operation,                             index: true
       t.references :originator,        polymorphic: true,  index: true
       t.references :product,                  null: false, index: true
-      t.string     :indicator_name,           null: false
+      t.indicator_datum                       null: false, index: true
       t.references :reporter,                              index: true
       t.references :tool,                                  index: true
       t.datetime   :started_at,               null: false
@@ -1063,21 +1052,9 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :product_nature_variant_indicator_data do |t|
-      t.references :variant,                                                              null: false, index: true
-      t.string     :indicator_name,                                                       null: false
-      t.string     :indicator_datatype,                                                   null: false
-      # t.string     :computation_method,                                                   null: false
-      t.decimal    :decimal_value,            precision: 19, scale: 4
-      t.decimal    :measure_value_value,      precision: 19, scale: 4
-      t.string     :measure_value_unit
-      t.text       :string_value
-      t.boolean    :boolean_value,                                        default: false, null: false
-      t.string     :choice_value
-      t.point      :point_value,              has_z: true
-      t.geometry   :geometry_value,           has_z: true
-      t.multi_polygon :multi_polygon_value,   has_z: true
+      t.references :variant, null: false, index: true
+      t.indicator_datum      null: false, index: true
       t.stamps
-      t.index      :indicator_name
     end
 
     create_table :product_process_phases do |t|
@@ -1113,25 +1090,14 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :production_support_markers do |t|
-      t.references :support,                   null: false, index: true
-      t.string     :indicator_name,                   null: false
-      t.string     :aim,                              null: false
-      t.string     :indicator_datatype,               null: false
-      t.decimal    :decimal_value,                                             precision: 19, scale: 4
-      t.decimal    :measure_value_value,                                       precision: 19, scale: 4
-      t.string     :measure_value_unit
-      t.text       :string_value
-      t.boolean    :boolean_value,                                 default: false, null: false
-      t.string     :choice_value
-      t.point      :point_value,              has_z: true
-      t.geometry   :geometry_value,           has_z: true
-      t.multi_polygon :multi_polygon_value,   has_z: true
+      t.references :support, null: false, index: true
+      t.string     :aim,     null: false
+      t.indicator_datum      null: false, index: true
       t.datetime   :started_at
       t.datetime   :stopped_at
       t.stamps
-      t.index      :indicator_name ,name: :index_production_support_marker_indicator_data_on_indicator
-      t.index      :started_at ,name: :index_production_support_marker_indicator_data_on_started_at
-      t.index      :stopped_at ,name: :index_production_support_marker_indicator_data_on_stopped_at
+      t.index      :started_at
+      t.index      :stopped_at
     end
 
     create_table :productions do |t|

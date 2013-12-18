@@ -287,6 +287,7 @@ fra:
       catalog_price: "Prix"
       cultivable_land_parcel: "Parcelle culturale" #?
       cultivable_zone: "Parcelle culturale"
+      # cultivable_zone_membership: "Cultivable zone membership"
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       deposit: "Remise en banque"
@@ -565,6 +566,7 @@ fra:
     credits: "Avoirs"
     critic_quantity_min: "Quantité minimum critique" #?
     critic_stocks: "Stocks critiques" #?
+    # cultivable_zones: "Cultivable zones"
     # cumulated_absolute_credit: "Cumulated absolute credit"
     # cumulated_absolute_debit: "Cumulated absolute debit"
     currency: "Devise"
@@ -734,6 +736,7 @@ fra:
     indicator: "Indicator"
     indicator_data: "Indicator data"
     indicator_datatype: "Indicator datatype"
+    indicator_datum: "Indicator datum"
     indicator_name: "Indicator name"
     indicators: "Indicators"
     indirect_links: "Liens indirects"
@@ -772,6 +775,7 @@ fra:
     key: "Clé"
     label: "Libellé"
     land_parcel_groups: "Groupe d’îlots" #?
+    # land_parcels: "Land parcels"
     language: "Langue"
     last_bank_statement: "Dernier relevé bancaire"
     last_cweek: "Dernière semaine"

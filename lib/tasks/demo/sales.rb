@@ -4,9 +4,9 @@ demo :sales do
   Ekylibre::fixturize :variant_import do |w|
     # Create product_nature for crop plant product
     wheat_crop  = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
-    barley_crop = ProductNatureVariant.import_from_nomenclature(:barley_crop)
+    barley_crop = ProductNatureVariant.import_from_nomenclature(:winter_barley_crop)
     corn_crop   = ProductNatureVariant.import_from_nomenclature(:corn_crop)
-    durum_wheat_crop = ProductNatureVariant.import_from_nomenclature(:durum_wheat_crop)
+    durum_wheat_crop = ProductNatureVariant.import_from_nomenclature(:hard_wheat_crop)
     fallow_crop = ProductNatureVariant.import_from_nomenclature(:fallow_crop)
     # @FIXME : find the triticale.
     sunflower_crop = ProductNatureVariant.import_from_nomenclature(:sunflower_crop)

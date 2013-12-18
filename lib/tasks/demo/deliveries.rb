@@ -59,7 +59,7 @@ demo :deliveries do
       "Divers" => :seed,
       "Blé tendre" => :wheat_seed_25,
       "Blé dur" => :hard_wheat_seed_25,
-      "Orge hiver escourgeon" => :barley_seed_25,
+      "Orge hiver escourgeon" => :winter_barley_seed_25,
       "Couverts environnementaux enherbeme" => :seed,
       "Engrais" => :bulk_ammonitrate_33,
       "Fongicides céréales" => :poaceae_fungicide,
@@ -139,7 +139,7 @@ demo :deliveries do
     # import an outgoing_deliveries_journal in PDF
     # bug in demo server for instance
     document = Document.create!(key: "20130724_outgoing_001", name: "apport-20130724", nature: "outgoing_deliveries_journal")
-    File.open(Rails.root.join("test", "fixtures", "files", "releve_apports.pdf"),"rb") do |f|
+    File.open(Rails.root.join("test", "fixtures", "files", "releve_apports.pdf"), "rb:ASCII-8BIT") do |f|
       document.archive(f.read, :pdf)
     end
   end

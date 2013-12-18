@@ -97,7 +97,7 @@ module Procedo
       for parameter, type in @action.definition
         expr = data[parameter]
         if type == :indicator
-          @parameters[parameter] = Indicator.new(self, *expr.split(/\|/))
+          @parameters[parameter] = Procedo::VariableIndicator.new(self, *expr.split(/\|/))
         elsif type == :symbol
           @parameters[parameter] = expr.to_s.strip.gsub(/[^\W]+/, '_').to_sym
         else

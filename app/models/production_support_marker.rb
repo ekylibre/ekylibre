@@ -47,7 +47,6 @@ class ProductionSupportMarker < Ekylibre::Record::Base
   include IndicatorDatumStorable
   enumerize :aim,       in: [:minimal, :maximal, :perfect], default: :maximal
   belongs_to :support, class_name: "ProductionSupport", inverse_of: :markers
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value_value, allow_nil: true
   validates_length_of :aim, :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, allow_nil: true, maximum: 255

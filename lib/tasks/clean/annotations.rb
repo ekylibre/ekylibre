@@ -78,9 +78,9 @@ module AnnotateModels
         if col.name.match(/_id$/) or col.name == "id"
           info += '1'
         elsif col.name.match(/_at$/)
-          info += '2009-07-19 19:13:59 +02:00'
+          info += "#{Date.today.year - 1}-#{Date.today.year.modulo(12).to_s.rjust(2, '0')}-#{Date.today.year.modulo(28).to_s.rjust(2, '0')} #{(Date.today.year.modulo(12) + 8).to_s.rjust(2, '0')}:#{Date.today.year.modulo(60).to_s.rjust(2, '0')}:#{Date.today.year.modulo(30).to_s.rjust(2, '0')} +02:00"
         elsif col.name.match(/_on$/)
-          info += '2009-07-19'
+          info += "#{Date.today.year - 1}-#{Date.today.year.modulo(12).to_s.rjust(2, '0')}-#{Date.today.year.modulo(28).to_s.rjust(2, '0')}"
         elsif col.type == :boolean
           info += 'true'
         elsif col.type == :decimal or col.type == :integer

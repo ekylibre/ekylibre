@@ -21,21 +21,31 @@
 #
 # == Table: product_measurements
 #
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  id              :integer          not null, primary key
-#  indicator_name  :string(255)      not null
-#  lock_version    :integer          default(0), not null
-#  operation_id    :integer
-#  originator_id   :integer
-#  originator_type :string(255)
-#  product_id      :integer          not null
-#  reporter_id     :integer
-#  started_at      :datetime         not null
-#  stopped_at      :datetime
-#  tool_id         :integer
-#  updated_at      :datetime         not null
-#  updater_id      :integer
+#  boolean_value       :boolean          not null
+#  choice_value        :string(255)
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  decimal_value       :decimal(19, 4)
+#  geometry_value      :spatial({:srid=>
+#  id                  :integer          not null, primary key
+#  indicator_datatype  :string(255)      not null
+#  indicator_name      :string(255)      not null
+#  lock_version        :integer          default(0), not null
+#  measure_value_unit  :string(255)
+#  measure_value_value :decimal(19, 4)
+#  multi_polygon_value :spatial({:srid=>
+#  operation_id        :integer
+#  originator_id       :integer
+#  originator_type     :string(255)
+#  point_value         :spatial({:srid=>
+#  product_id          :integer          not null
+#  reporter_id         :integer
+#  started_at          :datetime         not null
+#  stopped_at          :datetime
+#  string_value        :text
+#  tool_id             :integer
+#  updated_at          :datetime         not null
+#  updater_id          :integer
 #
 require 'test_helper'
 

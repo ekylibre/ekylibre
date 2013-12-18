@@ -158,7 +158,11 @@ spa:
       welcome: "Bienvenido sobre Ekylibre, %{user}" #?
     backend/contacts: #?
     backend/cultivable_land_parcels: #?
-    backend/cultivable_zones: #?
+    backend/cultivable_zones:
+      # edit: "Modifier la zone cultivable\_: %{name}"
+      # index: "Zones cultivables"
+      # new: "Nouvelle zone cultivable\_: %{name}"
+      # show: "Zone cultivable"
     backend/cultivations: #?
     backend/currencies: #?
     backend/custom_field_choices:

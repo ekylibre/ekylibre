@@ -19,22 +19,18 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_memberships
+# == Table: cultivable_zone_memberships
 #
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  group_id        :integer          not null
-#  id              :integer          not null, primary key
-#  lock_version    :integer          default(0), not null
-#  member_id       :integer          not null
-#  nature          :string(255)      not null
-#  operation_id    :integer
-#  originator_id   :integer
-#  originator_type :string(255)
-#  started_at      :datetime         not null
-#  stopped_at      :datetime
-#  updated_at      :datetime         not null
-#  updater_id      :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  group_id     :integer          not null
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  member_id    :integer          not null
+#  population   :decimal(19, 4)
+#  shape        :spatial({:srid=>
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 
 
@@ -42,6 +38,8 @@ class CultivableZoneMembership < Ekylibre::Record::Base
   belongs_to :group, class_name: "CultivableZone"
   belongs_to :member, class_name: "LandParcel"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :population, allow_nil: true
+  validates_presence_of :group, :member
   #]VALIDATORS]
 
 

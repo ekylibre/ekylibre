@@ -229,7 +229,7 @@ demo :animals do
   end
 
 
-  Ekylibre::fixturize :assign_animal_parent_with_inventory do |w|
+  Ekylibre::fixturize :assign_parents_with_inventory do |w|
 
     file = Rails.root.join("test", "fixtures", "files", "animals-synel17_inventory.csv")
     CSV.foreach(file, :encoding => "CP1252", :col_sep => ",", :headers => true) do |row|

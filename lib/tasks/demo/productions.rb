@@ -72,22 +72,14 @@ demo :productions do
           pro ||= activity.productions.create!(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id, :static_support => true)
           # create a support for this production
           support = pro.supports.create!(:storage_id => product_support.id)
-          if product_support.is_a?(CultivableLandParcel)
+          if product_support.is_a?(CultivableZone)
             # create markers for yield and nitrogen
             if r.provisionnal_grain_yield
               support.markers.create!(:indicator_name => :provisionnal_grains_yield, :aim => :perfect, :measure_value => r.provisionnal_grain_yield.in_quintal_per_hectare)
             end
             if r.provisionnal_nitrogen_input
-              support.markers.create!(:indicator_name => :nitrogen_input, :aim => :perfect, :measure_value => r.provisionnal_nitrogen_input.in_kilogram_per_hectare)
+              support.markers.create!(:indicator_name => :provisionnal_nitrogen_input, :aim => :perfect, :measure_value => r.provisionnal_nitrogen_input.in_kilogram_per_hectare)
             end
-            # create a name for the plant correponding to product_nature_nomen in XML Nomenclature
-            plant_name = (Nomen::ProductNatureVariants.find(r.variant_reference_name).human_name + " " + campaign.name + " " + product_support.work_number)
-            # create a work number for the plant
-            plant_work_nb = (r.variant_reference_name.to_s + "-" + campaign.name + "-" + product_support.work_number)
-            # create the plant
-            plant = Plant.create!(:variant_id => product_nature_variant_sup.id, :work_number => plant_work_nb , :name => plant_name, :born_at => Time.now, :initial_owner => Entity.of_company, :default_storage => product_support)
-            # localize the plant in the cultivable_land_parcel
-            ProductLocalization.create!(:container_id => product_support.id, :product_id => plant.id, :nature => :interior, :started_at => Time.now, :arrival_cause => :birth)
           end
         elsif product_nature_variant_sup
           pro = Production.where(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first

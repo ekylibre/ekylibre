@@ -1,0 +1,64 @@
+# = Informations
+#
+# == License
+#
+# Ekylibre - Simple ERP
+# Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
+# Copyright (C) 2012-2013 Brice Texier, David Joulin
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see http://www.gnu.org/licenses.
+#
+# == Table: cultivable_zone_memberships
+#
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  group_id     :integer          not null
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  member_id    :integer          not null
+#  population   :decimal(19, 4)
+#  shape        :spatial({:srid=>
+#  updated_at   :datetime         not null
+#  updater_id   :integer
+#
+#
+# == Fixture: cultivable_zone_memberships
+#
+# cultivable_zone_memberships_001:
+#   created_at: 2012-09-25 17:33:03 +02:00
+#   creator_id: 1
+#   group_id: 1
+#   id: 1
+#   member_id: 1
+#   updated_at: 2012-09-25 17:33:03 +02:00
+#   updater_id: 1
+#
+
+cultivable_zone_memberships_001:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  group_id: 32001
+  id: 1
+  member_id: 40001
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1
+
+cultivable_zone_memberships_002:
+  created_at: 2009-07-19 19:13:59 +02:00
+  creator_id: 1
+  group_id: 32001
+  id: 2
+  member_id: 40002
+  updated_at: 2009-07-19 19:13:59 +02:00
+  updater_id: 1

@@ -70,6 +70,8 @@ class LandParcel < Easement
   # TODO : adapt with operations
   # has_many :operations, :as => :target
   # TODO : waiting for "merge" operation type
+  has_many :members, class_name: "CultivableZoneMembership"
+  has_many :cultivable_zones, class_name: "CultivableZone", :through => :members
   # has_many :parent_kinships, class_name: "LandParcelKinship", foreign_key: :child_land_parcel_id, dependent: :destroy
   # has_many :child_kinships, class_name: "LandParcelKinship", foreign_key: :parent_land_parcel_id, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
