@@ -5,6 +5,9 @@
       <item name="poaceae">
         <attribute name="itis-tsn" value="40351"/>
       </item>
+      <item name="fabaceae">
+        <attribute name="itis-tsn" value="500059"/>
+      </item>
       <item name="asteraceae">
         <attribute name="itis-tsn" value="35420"/>
       </item>
@@ -19,7 +22,7 @@
       </item>
       <item name="malus">
         <attribute name="itis-tsn" value="25254"/>
-      </item> 
+      </item>
     </items>
   </nomenclature>
 </nomenclatures>

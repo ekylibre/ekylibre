@@ -566,6 +566,7 @@ fra:
     credits: "Avoirs"
     critic_quantity_min: "Quantité minimum critique" #?
     critic_stocks: "Stocks critiques" #?
+    # cultivable_zones: "Cultivable zones"
     # cumulated_absolute_credit: "Cumulated absolute credit"
     # cumulated_absolute_debit: "Cumulated absolute debit"
     currency: "Devise"
@@ -773,6 +774,7 @@ fra:
     key: "Clé"
     label: "Libellé"
     land_parcel_groups: "Groupe d’îlots" #?
+    # land_parcels: "Land parcels"
     language: "Langue"
     last_bank_statement: "Dernier relevé bancaire"
     last_cweek: "Dernière semaine"

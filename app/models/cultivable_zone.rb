@@ -64,10 +64,11 @@
 
 
 class CultivableZone < Zone
-  enumerize :variety, in: Nomen::Varieties.all(:cultivable_land_parcel), predicates: {prefix: true}
+  enumerize :variety, in: Nomen::Varieties.all(:cultivable_zone), predicates: {prefix: true}
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id
   has_many :productions, class_name: "Production", :through => :supports
-
+  has_many :members, class_name: "CultivableZoneMembership"
+  has_many :land_parcels, class_name: "LandParcel", :through => :members
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]

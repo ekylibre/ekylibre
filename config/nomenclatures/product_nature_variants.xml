@@ -77,28 +77,79 @@
             unit_name="band"
             frozen_indicators_values=""
             />
-      <!-- CROP -->      
+      <!-- CROP -->
+                   <!-- WHEAT CROP -->      
       <item name="wheat_crop"
             nature="crop"
             variety="triticum_aestivum"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <item name="barley_crop"
+      <item name="ascott_wheat_crop"
             nature="crop"
-            variety="hordeum"
+            variety="ascott"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="caphorn_wheat_crop"
+            nature="crop"
+            variety="caphorn"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="euclide_wheat_crop"
+            nature="crop"
+            variety="euclide"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+                   <!-- HARD WHEAT CROP --> 
+      <item name="hard_wheat_crop"
+            nature="crop"
+            variety="triticum_durum"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="tablur_hard_wheat_crop"
+            nature="crop"
+            variety="tablur"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="miradoux_hard_wheat_crop"
+            nature="crop"
+            variety="miradoux"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+                 <!-- BARLEY CROP -->  
+      <item name="winter_barley_crop"
+            nature="crop"
+            variety="winter_hordeum"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="pea_crop"
+            nature="crop"
+            variety="pisum"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="alfalfa_crop"
+            nature="crop"
+            variety="medicago"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="spring_barley_crop"
+            nature="crop"
+            variety="spring_hordeum"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="corn_crop"
             nature="crop"
             variety="zea"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
-            />
-      <item name="durum_wheat_crop"
-            nature="crop"
-            variety="triticum_durum"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -129,6 +180,12 @@
       <item name="fallow_crop"
             nature="crop"
             variety="poa"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="mixture_crop"
+            nature="crop"
+            variety="plant"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -292,6 +349,7 @@
             frozen_indicators_values="net_volume: 1.00liter, net_weight: 1.00kilogram"
             />
       <!-- PLANT INTRANT -->
+              <!-- FERTILIZER -->
       <item name="bulk_ammonitrate_33"
             nature="chemical_fertilizer"
             unit_name="ton"
@@ -302,6 +360,11 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_weight: 1.00ton, nitrogen_concentration: 46percent"
             />
+      <item name="mixed_chemical_fertilizer"
+            nature="mixed_chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_weight: 1.00ton"
+            />
       <item name="cattle_manure"
             nature="organic_fertilizer"
             variety="manure"
@@ -309,53 +372,108 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_weight: 1.00ton, nitrogen_concentration: 0.65percent, potassium_concentration: 0.30percent, phosphorus_concentration: 0.11percent"
             />
+            <!-- SEED -->
       <item name="seed"
             nature="seed"
             derivative_of="plant"
             unit_name="kilogram"
-            frozen_indicators_values="net_weight: 1.00kilogram, hundred_grain_weight: 45gram"
+            frozen_indicators_values="net_weight: 1.00kilogram, thousand_grain_weight: 45gram"
             />
       <item name="wheat_seed_25"
             nature="seed"
             derivative_of="triticum_aestivum"
             unit_name="25kg_bag"
-            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 50gram"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 50gram"
+            />
+      <item name="caphorn_wheat_seed_25"
+            nature="seed"
+            derivative_of="caphorn"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 50gram"
+            />
+      <item name="euclide_wheat_seed_25"
+            nature="seed"
+            derivative_of="euclide"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 50gram"
+            />
+      <item name="ascott_wheat_seed_25"
+            nature="seed"
+            derivative_of="ascott"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 50gram"
+            />
+       <item name="mixture_seed"
+            nature="seed"
+            derivative_of="poa"
+            unit_name="kilogram"
+            frozen_indicators_values="net_weight: 1.00kilogram, thousand_grain_weight: 50gram"
             />
       <item name="hard_wheat_seed_25"
             nature="seed"
             derivative_of="triticum_durum"
             unit_name="25kg_bag"
-            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 50gram"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 50gram"
+            />
+      <item name="tablur_hard_wheat_seed_25"
+            nature="seed"
+            derivative_of="tablur"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 50gram"
+            />
+      <item name="miradoux_hard_wheat_seed_25"
+            nature="seed"
+            derivative_of="miradoux"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 50gram"
             />
       <item name="spelt_seed_25"
             nature="seed"
             derivative_of="triticum_spelta"
             unit_name="25kg_bag"
-            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 50gram"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 50gram"
             />
-      <item name="barley_seed_25"
+      <item name="winter_barley_seed_25"
             nature="seed"
-            derivative_of="hordeum"
+            derivative_of="winter_hordeum"
             unit_name="25kg_bag"
-            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
+            />
+      <item name="spring_barley_seed_25"
+            nature="seed"
+            derivative_of="spring_hordeum"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
             />
       <item name="corn_seed_25"
             nature="seed"
             derivative_of="zea"
             unit_name="25kg_bag"
-            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
             />
       <item name="grass_seed_25"
             nature="seed"
             derivative_of="poa"
             unit_name="25kg_bag"
-            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
+            />
+      <item name="pea_seed"
+            nature="seed"
+            derivative_of="pisum"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
+            />
+       <item name="alfalfa_seed"
+            nature="seed"
+            derivative_of="medicago"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
             />
       <item name="sorghum_seed_25"
             nature="seed"
             derivative_of="sorghum"
             unit_name="25kg_bag"
-            frozen_indicators_values="net_weight: 25.00kilogram, hundred_grain_weight: 42gram"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
             />
       <item name="cereals_feed_bag_25"
             nature="food"
@@ -523,6 +641,7 @@
             />
       <item name="cultivable_zone"
             nature="cultivable_zone"
+            variety="cultivable_zone"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -711,7 +830,39 @@
             />          
   
       <!-- Coop variants -->
-      <item name="coop:ammonitre_33, 5%_vr"
+            <!-- SEED -->
+      <item name="coop:bth_s_caphorn_r1_gau+red_25kg"
+            nature="seed"
+            derivative_of="caphorn"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
+            />
+      <item name="coop:bth_s_rubisko_r1_gau+red_25kg"
+            nature="seed"
+            derivative_of="rubisko"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
+            />
+      <item name="coop:bth_s_euclide_r1_gau+red_25kg"
+            nature="seed"
+            derivative_of="euclide"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
+            />
+      <item name="coop:bth_s_ascott_r1_gau+_red_25kg"
+            nature="seed"
+            derivative_of="ascott"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
+            />
+      <item name="coop:bd_s_miradoux_r1_cel_gold_net_25kg"
+            nature="seed"
+            derivative_of="miradoux"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
+            />
+            <!-- FERTILIZER -->
+      <item name="coop:ammonitre_33,5%_vr"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_weight: 1.00ton, nitrogen_concentration: 33.5percent, potassium_concentration: 33percent, phosphorus_concentration: 33percent"
@@ -721,9 +872,25 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_weight: 1.00ton, nitrogen_concentration: 46percent"
             />
+      <item name="coop:super_46%_gr._vr"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_weight: 1.00ton, nitrogen_concentration: 46percent"
+            />
+      <item name="coop:chlorure_60%_gr_vr"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_weight: 1.00ton, potassium_concentration: 60percent"
+            />
+       <!-- PLANT MEDICINE -->
       <item name="coop:metarex_rg_tds_20kg"
             nature="molluscicide"
-            unit_name="kilogram"
+            unit_name="bag"
+            frozen_indicators_values="net_volume: 20.00liter, net_weight: 20.00kilogram"
+            />
+      <item name="coop:metarex_ino_20kg"
+            nature="molluscicide"
+            unit_name="bag"
             frozen_indicators_values="net_volume: 20.00liter, net_weight: 20.00kilogram"
             />
       <item name="coop:sel_mer_essore_la_baleine_sac_25kg"

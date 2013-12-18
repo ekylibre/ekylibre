@@ -32,12 +32,16 @@
       <item name="isengrain_wheat_crop" plant_variety="isengrain" b="3" />
       <item name="aztec_wheat_crop" plant_variety="aztec" b="3" />
       <item name="autan_wheat_crop" plant_variety="autan" b="3" />
+      <item name="euclide_wheat_crop" plant_variety="euclide" b="3" />
       <item name="texel_wheat_crop" plant_variety="texel" b="3" />
       <item name="tremie_wheat_crop" plant_variety="tremie" b="2.8" />
       <item name="caphorn_wheat_crop" plant_variety="caphorn" b="3.2" />
       <item name="oratorio_wheat_crop" plant_variety="oratorio" b="3.2" />
       <item name="recital_wheat_crop" plant_variety="recital" b="3.2" />
       <item name="soissons_wheat_crop" plant_variety="soissons" b="3.2" />
+      <!-- BLE NON AMELIORANT - non présente dans le Tableau 1 b= 3 -->
+      <item name="ascott_wheat_crop" plant_variety="ascott" b="3" />
+      <item name="rubisco_wheat_crop" plant_variety="rubisco" b="3" />
     </items>
   </nomenclature>
   
