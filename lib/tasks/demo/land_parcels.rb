@@ -84,7 +84,7 @@ demo :land_parcels do
         if r.land_parcel_shape
           land_parcel.is_measured!(:shape, r.land_parcel_shape, :at => Time.now)
           ind_area = land_parcel.shape_area
-          land_parcel.is_measured!(:net_surface_area, ind_area.in_square_meter.convert(:hectare), :at => Time.now)
+          land_parcel.is_measured!(:population, ind_area.in_square_meter.to_d(:hectare), :at => Time.now)
           ind_area_to_point = land_parcel.shape_centroid
           cultural_land_parcel.is_measured!(:geographic_coordinate, ind_area_to_point)
         end
