@@ -2,7 +2,7 @@ code_activite,nom_activite,famille_activite,nomen_product_nature_variant,type_ac
 1410,Orge hiver,CEREA,winter_barley_crop,PRINC,2014,ZC1,,
 1410,Orge hiver,CEREA,winter_barley_crop,PRINC,2014,ZC2,,
 1200,Blé dur,CEREA,tablur_hard_wheat_crop,PRINC,2014,ZC3,,
-1100,Blé tendre,CEREA,ascott_wheat_crop,PRINC,2014,ZC4,,
+1100,Blé tendre,CEREA,ascott_wheat_crop,PRINC,2014,ZC4,75,182
 3400,Prairie temporaire et artificielle,CUFOU,mixture_crop,PRINC,2014,ZC5,,
 1710,Maïs sec,CEREA,corn_crop,PRINC,2014,ZC6,,
 3400,Prairie temporaire et artificielle,CUFOU,mixture_crop,PRINC,2014,ZC7,,
