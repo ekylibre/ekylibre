@@ -1,5 +1,5 @@
 - if @intervention
-  - if @container.is_a?(CultivableLandParcel)
+  - if @container.is_a?(CultivableZone)
     .picture-block
       = @container.shape_svg(:width => 160, :height => 160)
       %p= @container.name
