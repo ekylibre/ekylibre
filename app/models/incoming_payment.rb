@@ -53,9 +53,8 @@
 
 
 class IncomingPayment < Ekylibre::Record::Base
-  # attr_accessible :bank_account_number, :amount, :bank_name, :bank_check_number, :mode_id, :paid_on, :to_bank_on, :received, :responsible_id, :payer_id
   attr_readonly :payer_id
-  attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, if: Proc.new{ self.deposit and self.deposit.locked? }
+  attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, :if => Proc.new{ self.deposit and self.deposit.locked? }
   belongs_to :commission_account, class_name: "Account"
   belongs_to :responsible, class_name: "User"
   belongs_to :deposit
@@ -72,15 +71,18 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_numericality_of :amount, greater_than: 0
   validates_numericality_of :commission_amount, :greater_than_or_equal_to => 0
   validates_presence_of :payer, :created_on
-  validates_presence_of :commission_account, if: :with_commission?
+  validates_presence_of :commission_account, :if => :with_commission?
 
   acts_as_numbered
   acts_as_affairable :dealt_on => :to_bank_on, :third => :payer
   autosave :deposit
   delegate :with_commission?, to: :mode
 
-  # default_scope -> { order("id DESC") }
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
+  scope :depositables_for, lambda { |deposit, mode = nil|
+    deposit = Deposit.find(deposit) unless deposit.is_a?(Deposit)
+    where("to_bank_on >= ?", Date.today).where("deposit_id = ? OR (deposit_id IS NULL AND mode_id = ?)", deposit.id, (mode ? mode_id : deposit.mode_id))
+  }
   scope :last_updateds, -> { order("updated_at DESC") }
 
   before_validation(on: :create) do

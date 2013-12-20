@@ -78,7 +78,7 @@ class Measure
   end
 
   def convert(unit)
-    Measure.new(self.to_d(unit), unit)
+    return (@unit == unit.to_s ? self : Measure.new(self.to_d(unit), unit))
   end
   alias :in :convert
 

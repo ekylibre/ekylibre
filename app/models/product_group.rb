@@ -64,7 +64,6 @@
 
 
 class ProductGroup < Product
-  # attr_accessible :parent_id, :memberships_attributes
   enumerize :variety, in: Nomen::Varieties.all(:product_group), predicates: {prefix: true}
 
   belongs_to :parent, class_name: "ProductGroup"
@@ -78,7 +77,7 @@ class ProductGroup < Product
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-  validates_uniqueness_of :name
+  # validates_uniqueness_of :name
 
   # Add a member to the group
   def add(member, started_at = nil)

@@ -7,7 +7,7 @@ class Indicatus
   end
 
   def value?
-    @value.present?
+    @varicator.value?
   end
 
   def datum
@@ -15,7 +15,11 @@ class Indicatus
   end
 
   def actor
-    @intervention.casts.find_by(reference_name: @varicator.stakeholder.name)
+    if cast = @intervention.casts.find_by(reference_name: @varicator.stakeholder.name)
+      return cast.actor
+    else
+      return nil
+    end
   end
 
   protected
@@ -28,17 +32,28 @@ class Indicatus
         computation, var = expr.split(/[[:space:]]*\:[[:space:]]*/)[0..1]
         computation = (computation.blank? ? :same_as : computation.underscore.to_sym)
         var = @varicator.procedure.variables[var]
+        cast = @intervention.casts.find_by(reference_name: var.name.to_s)
         if computation == :superficial_count
-
-          return IndicatorDatum.new(:population, 0.0)
+          reference = cast.actor
+          actor = @intervention.casts.find_by(reference_name: @varicator.stakeholder.name).actor
+          if reference.indicators_list.include?(:shape) and actor.indicators_list.include?(:net_surface_area)
+            whole      = reference.net_surface_area(@operation.started_at).in_square_meter.to_d rescue 0
+            individual = actor.net_surface_area(@operation.started_at, gathering: false).in_square_meter.to_d
+            return (whole / individual)
+          else
+            # raise StandardError, "Cannot compute superficial count if no shape and net_surface_area given."
+            Rails.logger.warn "Cannot compute superficial count if no shape and net_surface_area given."
+          end
         else # if computation == :same_as
-          cast = @intervention.casts.find_by(reference_name: var.name.to_s)
-          pid = cast.actor.indicator_datum(@varicator.indicator, at: @operation.started_at)
-          return pid.indicator_datum
+          if datum = cast.actor.indicator_datum(@varicator.indicator, at: @operation.started_at)
+            return datum.value
+          else
+            return nil
+          end
         end
       else
         # Direct value
-        return IndicatorDatum.new(@varicator.indicator_name, expr)
+        return expr
       end
     else
       raise NotImplementedError

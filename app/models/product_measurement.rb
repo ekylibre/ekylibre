@@ -67,4 +67,8 @@ class ProductMeasurement < Ekylibre::Record::Base
     end
   end
 
+  def siblings
+    self.product.measurements
+  end
+
 end

@@ -1151,7 +1151,6 @@ arb:
         # net_volume: "Volume net"
         # net_weight: "Poids net"
         # nitrogen_concentration: "Teneur en azote"
-        # nitrogen_input: "Apport en azote"
         # phosphorus_concentration: "Teneur en phosphore"
         # plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         # plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"

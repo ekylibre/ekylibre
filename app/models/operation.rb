@@ -263,7 +263,10 @@ class Operation < Ekylibre::Record::Base
   def perform_simple_measurement(params)
     indicatus = params[:indicator]
     if indicatus.value?
-      self.product_measurements.create!(product: indicatus.actor, indicator_datum: indicatus.datum, started_at: self.stopped_at)
+      datum = indicatus.datum
+      measurement = self.product_measurements.build(product: indicatus.actor, indicator_name: datum.name, started_at: self.stopped_at)
+      measurement.value = datum.value
+      measurement.save!
     else
       Rails.logger.warn("Measure without value are not possible for now")
     end
@@ -272,7 +275,9 @@ class Operation < Ekylibre::Record::Base
   def perform_measurement(params)
     indicatus = params[:indicator]
     if indicatus.value?
-      self.product_measurements.create!(product: indicatus.actor, indicator_datum: indicatus.datum, started_at: self.stopped_at, reporter: params[:reporter].actor)
+      measurement = self.product_measurements.build(product: indicatus.actor, indicator_name: datum.name, started_at: self.stopped_at, reporter: params[:reporter].actor)
+      measurement.value = datum.value
+      measurement.save!
     else
       Rails.logger.warn("Measure without value are not possible for now")
     end
@@ -281,7 +286,9 @@ class Operation < Ekylibre::Record::Base
   def perform_assisted_measurement(params)
     indicatus = params[:indicator]
     if indicatus.value?
-      self.product_measurements.create!(product: indicatus.actor, indicator_datum: indicatus.datum, started_at: self.stopped_at, reporter: params[:reporter].actor, tool: params[:tool].actor)
+      measurement = self.product_measurements.build(product: indicatus.actor, indicator_name: datum.name, started_at: self.stopped_at, reporter: params[:reporter].actor, reporter: params[:reporter].actor, tool: params[:tool].actor)
+      measurement.value = datum.value
+      measurement.save!
     else
       Rails.logger.warn("Measure without value are not possible for now")
     end

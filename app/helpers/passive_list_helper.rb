@@ -1,7 +1,7 @@
-# coding: utf-8
-# == License
+# encoding: utf-8
+# ##### BEGIN LICENSE BLOCK #####
 # Ekylibre - Simple ERP
-# Copyright (C) 2008-2013 David Joulin, Brice Texier
+# Copyright (C) 2013 Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -16,23 +16,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
+# ##### END LICENSE BLOCK #####
 
-class Backend::CultivableZonesController < Backend::LandParcelGroupsController
-  # INDEX
-  list do |t|
-    t.column :name, url: true
-    t.column :work_number
-    # t.column :identification_number
-    t.column :net_surface_area, datatype: :measure
-    # t.column :unit
-  end
+module PassiveListHelper
 
-  # content production on current cultivable land parcel
-  list(:productions, model: :production_supports, conditions: {storage_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
-    t.column :production, url: true
-    t.column :exclusive
-    t.column :started_at
-    t.column :stopped_at
+  def passive_list(collection)
+    raise Pathname.new(caller.first.split(/\:/).first).relative_path_from(Rails.root.join("app", "view")).inspect
+    definition = Ekylibre::Support::Lister.new(:columns)
+    yield definition
+    return nil if definition.empty?
   end
 
 end

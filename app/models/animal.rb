@@ -76,8 +76,6 @@ class Animal < Bioproduct
   scope :fathers, -> { indicate(sex: "male", reproductor: true).order(:name) }
   scope :mothers, -> { indicate(sex: "female", reproductor: true).order(:name) }
 
-  # acts_as_numbered :number, :readonly => false
-
   # # prepare method to call EDNOTIF to exchange with EDE via SOAP Webservice
   # # test with Fourniture de l’inventaire d’une exploitation
   # # need to active SAVON GEM when begin to work
