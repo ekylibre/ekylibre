@@ -16,6 +16,7 @@ demo :productions do
     # attributes to map family by activity name
     families_by_activity_name = {
       "Orge hiver" => :straw_cereal_crops,
+      "Orge printemps" => :straw_cereal_crops,
       "Blé tendre" => :straw_cereal_crops,
       "Blé dur" => :straw_cereal_crops,
       "Maïs sec" => :maize_crops,
@@ -65,7 +66,7 @@ demo :productions do
       if r.variant_reference_name
         product_nature_variant_sup = ProductNatureVariant.find_by(reference_name: r.variant_reference_name)
         product_nature_variant_sup ||= ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
-        if product_nature_variant_sup and product_support.present?
+        if product_nature_variant_sup and product_support
           # find a production corresponding to campaign , activity and product_nature
           pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :variant_id => product_nature_variant_sup.id).first
           # or create it
