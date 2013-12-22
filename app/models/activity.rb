@@ -79,8 +79,13 @@ class Activity < Ekylibre::Record::Base
     return productions.of_campaign(campaigns).map(&:shape_area).compact.sum
   end
 
+  def net_surface_area(*campaigns)
+    return productions.of_campaign(campaigns).map(&:net_surface_area).compact.sum
+  end
+
   def area(*campaigns)
-    return productions.of_campaign(campaigns).map(&:area).compact.sum
+    ActiveSupport::Deprecation.warn("#{self.class.name}#area is deprecated. Please use #{self.class.name}#net_surface_area instead.")
+    return net_surface_area(*campaigns)
   end
 
   def interventions_duration(*campaigns)

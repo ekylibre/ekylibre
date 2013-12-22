@@ -145,9 +145,12 @@ class Measure
     if unit.nil?
       return @value
     else
-      raise ArgumentError.new("Unknown unit: #{unit.inspect}") unless @@units[unit]
+      unit = unit.name if unit.is_a?(Nomen::Item)
+      unless @@units[unit]
+        raise ArgumentError, "Unknown unit: #{unit.inspect}"
+      end
       if @@units[@unit.to_s].dimension != @@units[unit.to_s].dimension
-        raise ArgumentError.new("Measure can't be converted from one dimension (#{@@units[@unit].dimension}) to an other (#{@@units[unit].dimension})")
+        raise ArgumentError, "Measure can't be converted from one dimension (#{@@units[@unit].dimension}) to an other (#{@@units[unit].dimension})"
       end
       # Reduce to base
       ref = @@units[@unit]
@@ -160,8 +163,8 @@ class Measure
   end
 
   # Return
-  def to_f
-    self.to_d.to_f
+  def to_f(unit = nil)
+    self.to_d(unit).to_f
   end
 
   # Localize a measure

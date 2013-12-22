@@ -143,16 +143,21 @@ class Production < Ekylibre::Record::Base
     if self.static_support?
       return self.supports.map(&:storage_shape_area).compact.sum
     else
-      return 0.0
+      return 0.0.in_square_meter
+    end
+  end
+
+  def net_surface_area
+    if self.static_support?
+      return self.supports.map(&:storage_net_surface_area).compact.sum
+    else
+      return 0.0.in_square_meter
     end
   end
 
   def area
-    if self.static_support?
-      return self.supports.map(&:storage_net_surface_area).compact.sum
-    else
-      return 0.0
-    end
+    ActiveSupport::Deprecation.warn("#{self.class.name}#area is deprecated. Please use #{self.class.name}#net_surface_area instead.")
+    return net_surface_area    
   end
 
   def duration
