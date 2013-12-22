@@ -64,15 +64,22 @@ class Measure
       raise ArgumentError, "Value can't be converted to float: #{value.inspect}"
     end
     @value = value.to_d
-    @unit = unit.to_s
-    unless @@units.items[@unit]
-      units = @@units.where(symbol: @unit)
-      if units.size > 1
-        raise AmbiguousUnit, "The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}."
-      elsif units.size.zero?
-        raise ArgumentError, "Unknown unit: #{unit.inspect}"
-      else
-        @unit = units.first.name.to_s
+    if @unit.is_a?(Nomen::Item)
+      @unit = @unit.name.to_sym
+      unless @@units.items[@unit]
+        raise ArgumentError, "Unknown unit #{@unit.inspect}"
+      end
+    else
+      @unit = unit.to_s
+      unless @@units.items[@unit]
+        units = @@units.where(symbol: @unit)
+        if units.size > 1
+          raise AmbiguousUnit, "The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}."
+        elsif units.size.zero?
+          raise ArgumentError, "Unknown unit: #{unit.inspect}"
+        else
+          @unit = units.first.name.to_s
+        end
       end
     end
   end
@@ -169,7 +176,7 @@ class Measure
 
   # Localize a measure
   def l
-    "#{self.value.l} #{@@units.items[@unit].human_name}"
+    "#{self.value.l} #{@@units.items[@unit].symbol}"
   end
 
 end
@@ -184,7 +191,7 @@ class ::Numeric
        end)
 
   def in(unit)
-    Measure.new(self, unit.to_sym)
+    Measure.new(self, unit)
   end
 
 end

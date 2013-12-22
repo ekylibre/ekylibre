@@ -125,7 +125,7 @@ class Backend::ProductsController < BackendController
   list(:markers, model: :production_support_markers, order: {created_at: :desc}) do |t|
     t.column :production_name, through: :support, url: true
     t.column :indicator_name
-    t.column :value
+    t.column :value, datatype: :measure
     t.column :started_at
     t.column :stopped_at
   end

@@ -156,9 +156,16 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   # Returns the direct value of an indicator of variant
-  def get(indicator_name)
-    if datum = indicator_datum(indicator_name)
+  def get(indicator)
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
+    if datum = indicator_datum(indicator.name)
       return datum.value
+    elsif indicator.datatype == :measure
+      return 0.0.in(indicator.unit)
+    elsif indicator.datatype == :decimal
+      return 0.0
     end
     return nil
   end

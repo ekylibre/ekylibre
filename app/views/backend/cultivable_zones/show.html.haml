@@ -8,7 +8,7 @@
         = @cultivable_zone.shape_svg(:width => 180, :height => 180, :class => :map)
       .info
         %span.title= CultivableZone.human_attribute_name(:net_surface_area)
-        %span.value= @cultivable_zone.net_surface_area.convert(:hectare).round(2)
+        %span.value= @cultivable_zone.net_surface_area.in_hectare.round(2).l
 
     - b.cell do
       = attributes_list(@cultivable_zone) do |l|

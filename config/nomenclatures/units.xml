@@ -40,13 +40,13 @@
       <item name="kilometer"  dimension="length" symbol="km" coefficients="1000m"  a="1000"/>
 
       <!-- surface_area -->
-      <item name="square_meter" dimension="surface_area" symbol="m2"   coefficients="1m2"     a="1"/>
+      <item name="square_meter" dimension="surface_area" symbol="m²"   coefficients="1m2"     a="1"/>
       <item name="are"          dimension="surface_area" symbol="a"    coefficients="100m2"   a="100"/>
       <!-- <item name="acre"         dimension="surface_area" symbol="acre" coefficients="4046.8564224m2"   a="4046.8564224"/> -->
       <item name="hectare"      dimension="surface_area" symbol="ha"   coefficients="10000m2" a="10000"/>
 
       <!-- volume -->
-      <item name="cubic_meter" dimension="volume" symbol="m3" coefficients="1m3"        a="1"/>
+      <item name="cubic_meter" dimension="volume" symbol="m³" coefficients="1m3"        a="1"/>
       <item name="hectoliter"  dimension="volume" symbol="hl" coefficients="0.1m3"      a="0.1"/>
       <item name="liter"       dimension="volume" symbol="l"  coefficients="0.001m3"    a="0.001"/>
       <item name="milliliter"  dimension="volume" symbol="ml" coefficients="0.000001m3" a="0.000001"/>
