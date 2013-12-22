@@ -64,22 +64,18 @@ class Measure
       raise ArgumentError, "Value can't be converted to float: #{value.inspect}"
     end
     @value = value.to_d
-    if @unit.is_a?(Nomen::Item)
-      @unit = @unit.name.to_sym
-      unless @@units.items[@unit]
-        raise ArgumentError, "Unknown unit #{@unit.inspect}"
-      end
-    else
-      @unit = unit.to_s
-      unless @@units.items[@unit]
-        units = @@units.where(symbol: @unit)
-        if units.size > 1
-          raise AmbiguousUnit, "The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}."
-        elsif units.size.zero?
-          raise ArgumentError, "Unknown unit: #{unit.inspect}"
-        else
-          @unit = units.first.name.to_s
-        end
+    if unit.is_a?(Nomen::Item)
+      unit = unit.name.to_s
+    end
+    @unit = unit.to_s
+    unless @@units.items[@unit]
+      units = @@units.where(symbol: @unit)
+      if units.size > 1
+        raise AmbiguousUnit, "The unit #{@unit} match with too many units: #{units.map(&:name).to_sentence}."
+      elsif units.size.zero?
+        raise ArgumentError, "Unknown unit: #{unit.inspect}"
+      else
+        @unit = units.first.name.to_s
       end
     end
   end
