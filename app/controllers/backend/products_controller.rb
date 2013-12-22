@@ -96,6 +96,14 @@ class Backend::ProductsController < BackendController
   end
 
   # indicators of the consider product
+  list(:measurements, model: :product_measurements, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+    t.column :indicator_name
+    t.column :value
+    t.column :reporter
+    t.column :tool
+  end
+
+  # indicators of the consider product
   list(:indicators, model: :product_indicator_data, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :indicator_name
     t.column :measured_at

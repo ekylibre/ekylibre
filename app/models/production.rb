@@ -157,7 +157,7 @@ class Production < Ekylibre::Record::Base
 
   def area
     ActiveSupport::Deprecation.warn("#{self.class.name}#area is deprecated. Please use #{self.class.name}#net_surface_area instead.")
-    return net_surface_area    
+    return net_surface_area
   end
 
   def duration

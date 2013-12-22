@@ -76,6 +76,10 @@ module IndicatorDatumStorable
     Nomen::Indicators[self.indicator_name]
   end
 
+  def indicator=(item)
+    self.indicator_name = item.name
+  end
+
   def indicator_human_name
     self.indicator.human_name
   end
