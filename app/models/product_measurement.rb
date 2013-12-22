@@ -67,6 +67,12 @@ class ProductMeasurement < Ekylibre::Record::Base
     end
   end
 
+  after_create do
+    datum = self.product_indicator_data.build(product: self.product, indicator: self.indicator)
+    datum.value = self.value
+    datum.save!
+  end
+
   def siblings
     self.product.measurements
   end

@@ -476,14 +476,16 @@ class Product < Ekylibre::Record::Base
         end
       end
     elsif cast_or_time.is_a?(InterventionCast)
-      if cast_or_time.reference.new?
+      if cast_or_time.actor and cast_or_time.actor.whole_indicators_list.include?(indicator.name.to_sym)
+        value = cast_or_time.send(indicator.name)
+      elsif cast_or_time.reference.new?
         unless variant = cast_or_time.variant || cast_or_time.reference.variant(cast.intervention)
           raise StandardError, "Need variant to know how to measure it"
         end
         if variant.frozen_indicators.include?(indicator)
           value = variant.get(indicator)
         else
-          raise StandardError, "Cannot measure a variable an unknown time"
+          raise StandardError, "Cannot find a frozen indicator #{indicator.name} for variant"
         end
       elsif datum = self.indicator_datum(indicator.name, at: cast_or_time.intervention.started_at)
         value = datum.value

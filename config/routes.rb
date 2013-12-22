@@ -54,6 +54,7 @@ Ekylibre::Application.routes.draw do
       get :list_incidents
       get :list_indicators
       get :list_intervention_casts
+      get :list_measurements
       get :list_members
       get :list_places
       get :list_markers

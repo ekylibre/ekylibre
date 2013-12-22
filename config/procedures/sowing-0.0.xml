@@ -8,9 +8,7 @@
       <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer"/>
       <variable name="tractor"      abilities="tow(equipment), move" roles="sowing-tool"/>
       <variable name="land_parcel"  abilities="store(plant)" roles="sowing-target"/>
-      <variable name="cultivation"  variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output">
-        <indicator name="shape" value=":land_parcel"/>
-      </variable>
+      <variable name="cultivation"  variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output" hidden="true"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

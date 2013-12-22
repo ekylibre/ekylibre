@@ -12,29 +12,29 @@
         <property name="id" of="campaign" level="api"/>
         <title name="name" of="campaign"/>
         <!-- looking for all CultivableLandParcel in current campaign -->
-        <sections for="cultivable_land_parcel" in="CultivableLandParcel.of_campaign(campaign)" of-type="record">
-          <title name="name" of="cultivable_land_parcel"/>
-          <property name="work_number" of="cultivable_land_parcel"/>
-          <property name="clusters_work_number" of="cultivable_land_parcel"/>
-          <property name="soil_varieties" of="cultivable_land_parcel"/>
-          <property name="net_surface_area" value="net_surface_area.to_d(:hectare)" of="cultivable_land_parcel" type="measure"/>
-          <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="cultivable_land_parcel" type="measure" level="api"/>
-          <property name="id" of="cultivable_land_parcel" level="api"/>
-          <property name="shape_svg" of="cultivable_land_parcel" type="svg" level="api"/>
-          <!-- looking for all Production in current cultivable_land_parcel and campaign -->
-          <sections for="support" in="cultivable_land_parcel.supports.of_campaign(campaign)" of-type="record">
+        <sections for="zone" in="CultivableZone.of_campaign(campaign)" of-type="record">
+          <title name="name" of="zone"/>
+          <property name="work_number" of="zone"/>
+          <property name="clusters_work_number" of="zone"/>
+          <property name="soil_varieties" of="zone"/>
+          <property name="net_surface_area" value="net_surface_area.to_d(:hectare)" of="zone" type="measure"/>
+          <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
+          <property name="id" of="zone" level="api"/>
+          <property name="shape_svg" of="zone" type="svg" level="api"/>
+          <!-- looking for all Production in current zone and campaign -->
+          <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
             <title name="name" of="support"/>
             <property name="variant_name" value="support.production.variant_name"/>
             <property name="variant_variety" value="support.production.variant_variety"/>
             <property name="provisionnal_grains_yield" value="support.indicator_datum(:provisionnal_grains_yield)" type="measure"/>
             <property name="provisionnal_irrigation_water_input" value="support.indicator_datum(:provisionnal_irrigation_water_input)" type="measure"/>
-            <property name="previous_production_name" value="cultivable_land_parcel.last_production_before(support.production)"/>
+            <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
             <property name="started_at" of="support" type="datetime"/>
             <property name="nitrogen_input_real" value="support.nitrogen_balance" type="measure"/>
             <property name="nitrogen_input_prev" value="support.indicator_datum(:nitrogen_input)" type="measure"/>
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <!-- looking for all provisionnal soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="provisionnal_intervention" in="support.interventions.provisional.of_nature(:'soil_enrichment-target').with_cast(:'soil_enrichment-target', cultivable_land_parcel)" of-type="record">
+            <sections for="provisionnal_intervention" in="support.interventions.provisional.of_nature(:'soil_enrichment-target').with_cast(:'soil_enrichment-target', zone)" of-type="record">
               <variable name="actor" value="provisionnal_intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>
               <title name="name" of="provisionnal_intervention"/>
               <property name="id" of="provisionnal_intervention" level="api"/>

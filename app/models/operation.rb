@@ -273,6 +273,7 @@ class Operation < Ekylibre::Record::Base
   end
 
   def perform_measurement(params)
+    return perform_simple_measurement(params)
     indicatus = params[:indicator]
     if indicatus.value?
       measurement = self.product_measurements.build(product: indicatus.actor, indicator_name: datum.name, started_at: self.stopped_at, reporter: params[:reporter].actor)
@@ -284,6 +285,7 @@ class Operation < Ekylibre::Record::Base
   end
 
   def perform_assisted_measurement(params)
+    return perform_simple_measurement(params)
     indicatus = params[:indicator]
     if indicatus.value?
       measurement = self.product_measurements.build(product: indicatus.actor, indicator_name: datum.name, started_at: self.stopped_at, reporter: params[:reporter].actor, reporter: params[:reporter].actor, tool: params[:tool].actor)
