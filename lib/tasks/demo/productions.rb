@@ -53,8 +53,7 @@ demo :productions do
                          :provisionnal_grain_yield => row[7].blank? ? nil : row[7].to_d,
                          :provisionnal_nitrogen_input => row[8].blank? ? nil : row[8].to_d
                          )
-      product_support = Product.find_by(work_number: r.work_number_storage)
-
+      
       # Create a campaign if not exist
       if r.campaign_harvest_year.present?
         campaign = Campaign.find_by(harvest_year: r.campaign_harvest_year)
@@ -66,6 +65,7 @@ demo :productions do
       if r.variant_reference_name
         product_nature_variant_sup = ProductNatureVariant.find_by(reference_name: r.variant_reference_name)
         product_nature_variant_sup ||= ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
+        product_support = Product.find_by(work_number: r.work_number_storage)
         if product_nature_variant_sup and product_support
           # find a production corresponding to campaign , activity and product_nature
           pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :variant_id => product_nature_variant_sup.id).first

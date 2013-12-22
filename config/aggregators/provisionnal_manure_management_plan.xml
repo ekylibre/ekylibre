@@ -31,7 +31,7 @@
             <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
             <property name="started_at" of="support" type="datetime"/>
             <property name="nitrogen_input_real" value="support.nitrogen_balance" type="measure"/>
-            <property name="nitrogen_input_prev" value="support.indicator_datum(:nitrogen_input)" type="measure"/>
+            <property name="nitrogen_input_prev" value="support.indicator_datum(:provisionnal_nitrogen_input)" type="measure"/>
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <!-- looking for all provisionnal soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="provisionnal_intervention" in="support.interventions.provisional.of_nature(:'soil_enrichment-target').with_cast(:'soil_enrichment-target', zone)" of-type="record">

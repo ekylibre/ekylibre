@@ -88,7 +88,12 @@ class CultivableZone < Zone
     end
     joins(:productions).where('production_id IN (?)', productions.map(&:id))
   }
-
+  
+  # Returns members of the group at a given time (or now by default)
+  def members_at(viewed_at = nil)
+    LandParcel.members_of(self, viewed_at || Time.now)
+  end
+  
   # return the work_number of LandParcelClusters if exist for a CultivableLAndParcel
   def clusters_work_number(viewed_at = nil)
     lp = self.members_at(viewed_at)
