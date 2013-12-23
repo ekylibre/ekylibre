@@ -1750,6 +1750,7 @@ fra:
       printable: "Mode «\_Imprimable\_»"
       resized: "Mode «\_Tout à l’écran\_»"
     virtual_quantity: "Quantité virtuelle"
+    wind_speed: "Vitesse du vent"
     with_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes...)"
     x_cashes:
