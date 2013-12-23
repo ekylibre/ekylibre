@@ -23,7 +23,7 @@
 		<parameter name="cultivable_land_parcel_id" class="java.lang.String"/>
 		<parameter name="cultivable_land_parcel_area" class="java.lang.String"/>
 		<queryString language="xPath">
-			<![CDATA[/campaigns/campaign/cultivable_land_parcel/production/provisionnal_intervention/inputs/input[ancestor::cultivable_land_parcel/@id=$P{cultivable_land_parcel_id}]]]>
+			<![CDATA[/campaigns/campaign/cultivable_land_parcel/production/provisional_intervention/inputs/input[ancestor::cultivable_land_parcel/@id=$P{cultivable_land_parcel_id}]]]>
 		</queryString>
 		<field name="input" class="java.lang.String">
 			<fieldDescription><![CDATA[id]]></fieldDescription>
@@ -208,8 +208,8 @@
 	<field name="grains_yield" class="java.lang.String">
 		<fieldDescription><![CDATA[support/@grains-yield]]></fieldDescription>
 	</field>
-	<field name="provisionnal_grains_yield" class="java.lang.String">
-		<fieldDescription><![CDATA[support/@provisionnal-grains-yield]]></fieldDescription>
+	<field name="provisional_grains_yield" class="java.lang.String">
+		<fieldDescription><![CDATA[support/@provisional-grains-yield]]></fieldDescription>
 	</field>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
@@ -359,7 +359,7 @@
 				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" isBlankWhenNull="true">
 					<reportElement uuid="89d8cc69-741b-461b-ab50-885731a8403f" style="base" x="522" y="93" width="71" height="23"/>
 					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{provisionnal_grains_yield}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{provisional_grains_yield}]]></textFieldExpression>
 				</textField>
 				<rectangle radius="10">
 					<reportElement uuid="e2a51ead-739f-4e40-a1a7-246abfc186d1" style="title" x="420" y="47" width="188" height="97"/>

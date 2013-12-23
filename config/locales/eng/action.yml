@@ -1453,7 +1453,7 @@ eng:
     # profit_and_loss_statement: "Compte de résultat"
     profitability: "Profitability"
     # protein_matters_concentration: "Teneur en matières protéïques"
-    # provisionnal_grains_yield: "Rendement prévisionnel en grains"
+    # provisional_grains_yield: "Rendement prévisionnel en grains"
     purchase: "Purchase"
     purchase_items: "Purchase items"
     purchase_steps:

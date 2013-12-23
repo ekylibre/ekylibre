@@ -116,9 +116,9 @@ class ProductionSupport < Ekylibre::Record::Base
     return nitrogen_unity_per_hectare
   end
 
-  def provisionnal_nitrogen_input
+  def provisional_nitrogen_input
     balance = []
-    markers = self.markers.where(aim: 'perfect', indicator_name: 'provisionnal_nitrogen_input')
+    markers = self.markers.where(aim: 'perfect', indicator_name: 'provisional_nitrogen_input')
     if markers.count > 0
       for marker in markers
         balance << marker.measure_value_value

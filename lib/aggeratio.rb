@@ -196,6 +196,11 @@ module Aggeratio
 
       code << "end\n"
 
+      if Rails.env.development?
+        f = Rails.root.join("tmp", "code", "aggregators", "#{agg.name}.rb")
+        FileUtils.mkdir_p(f.dirname)
+        File.write(f, code)
+      end
       # code.split(/\n/).each_with_index{|l,i| puts (i+1).to_s.rjust(4)+": "+l}
 
       class_eval(code)

@@ -72,9 +72,9 @@
       <item name="nitrogen_concentration" datatype="measure" unit="percent"/>
       <item name="potassium_concentration" datatype="measure" unit="percent"/>
       <item name="phosphorus_concentration" datatype="measure" unit="percent"/>
-      <item name="provisionnal_nitrogen_input" datatype="measure" unit="kilogram_per_hectare"/>
-      <item name="provisionnal_grains_yield" datatype="measure" unit="quintal_per_hectare"/>
-      <item name="provisionnal_irrigation_water_input" datatype="measure" unit="liter_per_square_meter"/>
+      <item name="provisional_nitrogen_input" datatype="measure" unit="kilogram_per_hectare"/>
+      <item name="provisional_grains_yield" datatype="measure" unit="quintal_per_hectare"/>
+      <item name="provisional_irrigation_water_input" datatype="measure" unit="liter_per_square_meter"/>
       <item name="available_water_capacity" datatype="measure" unit="liter_per_square_meter"/>
       <item name="leaf_count" datatype="choice" choices="0,1,2,3,4,5,6,7,8"/>
       <!-- for energy consumption -->

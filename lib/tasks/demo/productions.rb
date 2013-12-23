@@ -50,10 +50,10 @@ demo :productions do
                          :nature => (natures[row[4]] || :none).to_s,
                          :campaign_harvest_year => row[5].blank? ? nil : row[5].to_i,
                          :work_number_storage => row[6].blank? ? nil : row[6].to_s,
-                         :provisionnal_grain_yield => row[7].blank? ? nil : row[7].to_d,
-                         :provisionnal_nitrogen_input => row[8].blank? ? nil : row[8].to_d
+                         :provisional_grain_yield => row[7].blank? ? nil : row[7].to_d,
+                         :provisional_nitrogen_input => row[8].blank? ? nil : row[8].to_d
                          )
-      
+
       # Create a campaign if not exist
       if r.campaign_harvest_year.present?
         campaign = Campaign.find_by(harvest_year: r.campaign_harvest_year)
@@ -75,11 +75,11 @@ demo :productions do
           support = pro.supports.create!(:storage_id => product_support.id)
           if product_support.is_a?(CultivableZone)
             # create markers for yield and nitrogen
-            if r.provisionnal_grain_yield
-              support.markers.create!(:indicator_name => :provisionnal_grains_yield, :aim => :perfect, :measure_value => r.provisionnal_grain_yield.in_quintal_per_hectare)
+            if r.provisional_grain_yield
+              support.markers.create!(:indicator_name => :provisional_grains_yield, :aim => :perfect, :measure_value => r.provisional_grain_yield.in_quintal_per_hectare)
             end
-            if r.provisionnal_nitrogen_input
-              support.markers.create!(:indicator_name => :provisionnal_nitrogen_input, :aim => :perfect, :measure_value => r.provisionnal_nitrogen_input.in_kilogram_per_hectare)
+            if r.provisional_nitrogen_input
+              support.markers.create!(:indicator_name => :provisional_nitrogen_input, :aim => :perfect, :measure_value => r.provisional_nitrogen_input.in_kilogram_per_hectare)
             end
           end
         elsif product_nature_variant_sup
