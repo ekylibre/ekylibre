@@ -42,7 +42,7 @@ class Backend::ProductNatureVariantsController < BackendController
     t.column :name, url: true
     t.column :identification_number
     t.column :born_at
-    t.column :net_weight
+    t.column :net_mass
     t.column :net_volume
     t.column :population
   end

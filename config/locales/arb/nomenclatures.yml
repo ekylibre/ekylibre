@@ -888,6 +888,7 @@ arb:
         # energy: "Energie"
         # length: "Longueur"
         # luminous_intensity: "Intensité lumineuse"
+        # mass: "Masse"
         # mass_area_density: "Quantité de matière par unité de surface"
         # mass_concentration: "Concentration massique"
         # mass_density: "Quantité de matière par unité de matière"
@@ -898,7 +899,6 @@ arb:
         # temperature: "Temperature"
         # time: "Temps"
         # volume: "Volume"
-        # weight: "Masse"
       # name: "Dimensions"
     document_categories:
       attributes:
@@ -1044,7 +1044,7 @@ arb:
         fat_matters_concentration: #?
         freezing_point_temperature: #?
         geographic_coordinate: #?
-        hundred_grain_weight: #?
+        hundred_grain_mass: #?
         immunoglobulins_concentration: #?
         inel_index: #?
         inhibitors_presence:
@@ -1080,14 +1080,14 @@ arb:
             # none: "N/A"
             # triplets: "Triplés"
             # twins: "Jumeaux"
+        maximum_load_net_mass: #?
         maximum_load_net_volume: #?
-        maximum_load_net_weight: #?
         meat_withdrawal_period: #?
         milk_withdrawal_period: #?
         motor_power: #?
+        net_mass: #?
         net_surface_area: #?
         net_volume: #?
-        net_weight: #?
         nitrogen_concentration: #?
         phosphorus_concentration: #?
         plant_life_state:
@@ -1142,14 +1142,14 @@ arb:
         # livestock_unit: "UGB (Unité de Gros Bétail)"
         # mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère"
         # mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
+        # maximum_load_net_mass: "Poids net maximum en charge"
         # maximum_load_net_volume: "Capacité volumique nette maximum"
-        # maximum_load_net_weight: "Poids net maximum en charge"
         # meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
         # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
         # motor_power: "Puissance du moteur"
+        # net_mass: "Poids net"
         # net_surface_area: "Surface nette"
         # net_volume: "Volume net"
-        # net_weight: "Poids net"
         # nitrogen_concentration: "Teneur en azote"
         # phosphorus_concentration: "Teneur en phosphore"
         # plant_life_state: "Phase du bioprocessus de vie d’un végétal"
@@ -1165,7 +1165,7 @@ arb:
         # shape: "Forme"
         # somatic_cell_concentration: "Dénombrement des cellules somatiques"
         # temperature: "Température"
-        # thousand_grain_weight: "Poids de mille grains"
+        # thousand_grain_mass: "Poids de mille grains"
         # total_bacteria_concentration: "Dénombrement des germes totaux"
         # unique_synthesis_index: "ISU (Index de Synthèse Unique)"
         # urea_concentration: "Teneur moyenne en urée"
@@ -1819,6 +1819,7 @@ arb:
         # helianthus: "Tournesol"
         # herbicide: "Produit herbicide"
         # hordeum: "Orge"
+        # hordeum_hibernum: "Orge d'hiver"
         # hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe"
         # immatter: "Immatérialisable"
         # insecta: "Insecte"
@@ -1923,7 +1924,6 @@ arb:
         # vitis_vinifera: "Vitis vinifera"
         # water: "Eau"
         # wine: "Vin"
-        # hordeum_hibernum: "Orge d'hiver"
         # worker: "Travailleur"
         # zea: "Maïs"
         # zone: "Zone physique"

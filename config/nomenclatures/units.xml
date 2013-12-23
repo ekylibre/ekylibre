@@ -26,13 +26,13 @@
       <item name="celsius"   dimension="temperature" symbol="°C" start="-273.15" coefficients="1K"   a="1"   b="-273.15"/>
       <item name="farenheit" dimension="temperature" symbol="°F" start="-459.67" coefficients="1.8K" a="1.8" b="-459.67"/>
 
-      <!-- weight -->
-      <item name="microgram" dimension="weight" symbol="µg" coefficients="0.000000001kg" a="0.000000001"/>
-      <item name="milligram" dimension="weight" symbol="mg" coefficients="0.000001kg"    a="0.000001"/>
-      <item name="gram"      dimension="weight" symbol="g"  coefficients="0.001kg"       a="0.001"/>
-      <item name="kilogram"  dimension="weight" symbol="kg" coefficients="1kg"           a="1"/>
-      <item name="quintal"   dimension="weight" symbol="qt" coefficients="100kg"         a="100"/>
-      <item name="ton"       dimension="weight" symbol="t"  coefficients="1000kg"        a="1000"/>
+      <!-- mass -->
+      <item name="microgram" dimension="mass" symbol="µg" coefficients="0.000000001kg" a="0.000000001"/>
+      <item name="milligram" dimension="mass" symbol="mg" coefficients="0.000001kg"    a="0.000001"/>
+      <item name="gram"      dimension="mass" symbol="g"  coefficients="0.001kg"       a="0.001"/>
+      <item name="kilogram"  dimension="mass" symbol="kg" coefficients="1kg"           a="1"/>
+      <item name="quintal"   dimension="mass" symbol="qt" coefficients="100kg"         a="100"/>
+      <item name="ton"       dimension="mass" symbol="t"  coefficients="1000kg"        a="1000"/>
 
       <!-- length -->
       <item name="millimeter" dimension="length" symbol="mm" coefficients="0.001m" a="0.001"/>

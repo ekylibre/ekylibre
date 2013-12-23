@@ -1323,7 +1323,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "sale_id"
     t.integer  "address_id",                                            null: false
     t.datetime "sent_at"
-    t.decimal  "weight",           precision: 19, scale: 4
+    t.decimal  "net_mass",         precision: 19, scale: 4
     t.integer  "transport_id"
     t.integer  "transporter_id"
     t.datetime "created_at",                                            null: false
@@ -2554,7 +2554,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "transports", force: true do |t|
     t.integer  "transporter_id",                                        null: false
     t.integer  "responsible_id"
-    t.decimal  "weight",           precision: 19, scale: 4
+    t.decimal  "net_mass",         precision: 19, scale: 4
     t.date     "created_on"
     t.date     "transport_on"
     t.text     "description"

@@ -910,6 +910,7 @@ module Ekylibre
         id:               Column.new(:id,                 :integer, null: false).freeze,
         lock_version:     Column.new(:lock_version,       :integer, null: false, default: 0).freeze,
         mode_id:          Column.new(:mode_id,            :integer, references: :outgoing_delivery_mode).freeze,
+        net_mass:         Column.new(:net_mass,           :decimal, precision: 19, scale: 4).freeze,
         number:           Column.new(:number,              :string, null: false).freeze,
         recipient_id:     Column.new(:recipient_id,       :integer, references: :entity, null: false).freeze,
         reference_number: Column.new(:reference_number,    :string).freeze,
@@ -918,8 +919,7 @@ module Ekylibre
         transport_id:     Column.new(:transport_id,       :integer, references: :transport).freeze,
         transporter_id:   Column.new(:transporter_id,     :integer, references: :entity).freeze,
         updated_at:       Column.new(:updated_at,        :datetime, null: false).freeze,
-        updater_id:       Column.new(:updater_id,         :integer, references: :user).freeze,
-        weight:           Column.new(:weight,             :decimal, precision: 19, scale: 4).freeze
+        updater_id:       Column.new(:updater_id,         :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       outgoing_delivery_items: {
         created_at:        Column.new(:created_at,         :datetime, null: false).freeze,
@@ -1752,6 +1752,7 @@ module Ekylibre
         description:      Column.new(:description,           :text).freeze,
         id:               Column.new(:id,                 :integer, null: false).freeze,
         lock_version:     Column.new(:lock_version,       :integer, null: false, default: 0).freeze,
+        net_mass:         Column.new(:net_mass,           :decimal, precision: 19, scale: 4).freeze,
         number:           Column.new(:number,              :string).freeze,
         pretax_amount:    Column.new(:pretax_amount,      :decimal, precision: 19, scale: 4, null: false).freeze,
         purchase_id:      Column.new(:purchase_id,        :integer, references: :purchase).freeze,
@@ -1760,8 +1761,7 @@ module Ekylibre
         transport_on:     Column.new(:transport_on,          :date).freeze,
         transporter_id:   Column.new(:transporter_id,     :integer, references: :entity, null: false).freeze,
         updated_at:       Column.new(:updated_at,        :datetime, null: false).freeze,
-        updater_id:       Column.new(:updater_id,         :integer, references: :user).freeze,
-        weight:           Column.new(:weight,             :decimal, precision: 19, scale: 4).freeze
+        updater_id:       Column.new(:updater_id,         :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       users: {
         administrator:                          Column.new(:administrator,                            :boolean, null: false, default: true).freeze,

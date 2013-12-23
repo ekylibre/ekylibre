@@ -5,8 +5,8 @@
   - b.tabbox do
     - b.cell do
       .info
-        %span.title= ProductNatureVariant.human_attribute_name(:net_weight)
-        %span.value= resource.products.map(&:net_weight).compact.sum
+        %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
+        %span.value= resource.products.map(&:net_mass).compact.sum
       .info
         %span.title= ProductNatureVariant.human_attribute_name(:net_volume)
         %span.value= resource.products.map(&:net_volume).compact.sum

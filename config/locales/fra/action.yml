@@ -1273,6 +1273,7 @@ fra:
     manual_period: "du %{start} au %{finish}"
     map: "Carte"
     markers: "Objectifs"
+    mass: "Poids"
     measure_options: "Indicateur de type mesure"
     meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
     medical_informations: "Informations médicales"
@@ -1336,10 +1337,10 @@ fra:
     nb_years: "Nombre d’années dans l’historique"
     need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions"
     need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant"
+    net_mass: "Poids net"
     net_surface_area: "Surface net"
     net_vat_amount: "TVA nette due"
     net_volume: "Volume net"
-    net_weight: "Poids net"
     new: "Nouveau..."
     new_deposit:
       one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
@@ -1743,7 +1744,6 @@ fra:
       printable: "Mode «\_Imprimable\_»"
       resized: "Mode «\_Tout à l’écran\_»"
     virtual_quantity: "Quantité virtuelle"
-    weight: "Poids"
     with_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes...)"
     x_cashes:

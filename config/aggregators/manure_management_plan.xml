@@ -52,8 +52,8 @@
                 <cell name="id" of="input" level="api"/>
                 <within of="input.actor">
                   <cell name="name"/>
-                  <cell name="quantity" value="net_weight(input)" type="measure"/>
-                  <cell name="quantity_in_kilogram" value="net_weight(input).to_d(:kilogram)" level="api"/>
+                  <cell name="quantity" value="net_mass(input)" type="measure"/>
+                  <cell name="quantity_in_kilogram" value="net_mass(input).to_d(:kilogram)" level="api"/>
                   <cell name="nature_name"/>
                   <cell name="nitrogen_concentration" value="nitrogen_concentration(input)" type="measure"/>
                   <cell name="nitrogen_concentration_in_unity" value="nitrogen_concentration(input).to_d(:unity)" type="measure" level="api"/>

@@ -23,17 +23,17 @@ class Backend::OutgoingDeliveriesController < BackendController
 
   unroll
 
-  list(conditions: search_conditions(:outgoing_deliveries => [:number, :reference_number, :weight], :entities => [:full_name, :code])) do |t|
+  list(conditions: search_conditions(:outgoing_deliveries => [:number, :reference_number, :net_mass], :entities => [:full_name, :code])) do |t|
     t.column :number, url: true
     t.column :transport, url: true
     t.column :transporter, url: true
     t.column :reference_number
     t.column :sent_at
-    #t.column :moved_on
+    # t.column :moved_on
     t.column :mode
-    #t.column :number, through: :sale, url: true
-    t.column :weight
-    #t.column :amount
+    # t.column :number, through: :sale, url: true
+    t.column :net_mass
+    # t.column :amount
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end

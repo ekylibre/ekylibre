@@ -27,6 +27,7 @@
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
+#  net_mass         :decimal(19, 4)
 #  number           :string(255)      not null
 #  recipient_id     :integer          not null
 #  reference_number :string(255)
@@ -36,12 +37,10 @@
 #  transporter_id   :integer
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  weight           :decimal(19, 4)
 #
 
 
 class OutgoingDelivery < Ekylibre::Record::Base
-  # attr_accessible :address_id, :description, :mode_id, :reference_number, :sale_id, :sent_at
   attr_readonly :sale_id, :number
   belongs_to :address, class_name: "EntityAddress"
   belongs_to :mode, class_name: "OutgoingDeliveryMode"
@@ -53,7 +52,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   has_many :interventions, class_name: "Intervention", :as => :ressource
   #has_many :product_moves, :as => :origin, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :weight, allow_nil: true
+  validates_numericality_of :net_mass, allow_nil: true
   validates_length_of :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :address, :number, :recipient
   #]VALIDATORS]

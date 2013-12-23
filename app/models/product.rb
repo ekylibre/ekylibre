@@ -393,20 +393,20 @@ class Product < Ekylibre::Record::Base
     return net_surface_area(at).in(unit)
   end
 
-  # def net_weight(at = Time.now)
-  #   # if self.variable_indicators_array.include?(Nomen::Indicators[:net_weight])
+  # def net_mass(at = Time.now)
+  #   # if self.variable_indicators_array.include?(Nomen::Indicators[:net_mass])
   #   return 0.0.in_kilogram
   #   pop = self.population(at: at)
-  #   if self.net_weight
-  #     return self.net_weight(at: at)
+  #   if self.net_mass
+  #     return self.net_mass(at: at)
   #   else
   #     return 0.0.in_kilogram
   #   end
   # end
 
-  def weight(unit = :kilogram, at = Time.now)
-    ActiveSupport::Deprecation.warn("Product#weight is deprecated. Please use Product#net_weight instead.")
-    return net_weight(at).in(unit)
+  def mass(unit = :kilogram, at = Time.now)
+    ActiveSupport::Deprecation.warn("Product#mass is deprecated. Please use Product#net_mass instead.")
+    return net_mass(at).in(unit)
   end
 
   def population(*args)

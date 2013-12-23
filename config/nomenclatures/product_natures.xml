@@ -40,7 +40,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), produce(milk), move, produce(bos)"
-            variable_indicators="net_weight, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state, geographic_coordinate"
+            variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state, geographic_coordinate"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             />
       <item name="male_adult_cow"
@@ -48,7 +48,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), move"
-            variable_indicators="net_weight, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index"
+            variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             />
       <item name="milk"
@@ -58,14 +58,14 @@
             population_counting="decimal"
             abilities="feed(mammalia)"
             variable_indicators="population, temperature, total_bacteria_concentration, inhibitors_presence, fat_matters_concentration, protein_matters_concentration, somatic_cell_concentration, clostridial_spores_concentration, freezing_point_temperature, lipolysis, immunoglobulins_concentration, urea_concentration"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
       <item name="female_young_cow"
             category="female_adult_cow"
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), move"
-            variable_indicators="net_weight, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, mammalia_twins_condition, mammalia_born_cycle, animal_disease_state"
+            variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, mammalia_twins_condition, mammalia_born_cycle, animal_disease_state"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             />
       <item name="male_young_cow"
@@ -73,7 +73,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), move"
-            variable_indicators="net_weight, animal_life_state, animal_disease_state"
+            variable_indicators="net_mass, animal_life_state, animal_disease_state"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             />
       <item name="calf"
@@ -81,7 +81,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move"
-            variable_indicators="net_weight, animal_life_state, animal_disease_state, mammalia_born_condition"
+            variable_indicators="net_mass, animal_life_state, animal_disease_state, mammalia_born_condition"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             />
       <item name="duck_herd"
@@ -116,7 +116,7 @@
             population_counting="decimal"
             abilities=""
             variable_indicators="population, temperature, total_bacteria_concentration"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
       <item name="grain"
             category="grain"
@@ -125,7 +125,7 @@
             population_counting="decimal"
             abilities="feed(animal)"
             variable_indicators="population"
-            frozen_indicators="net_weight"
+            frozen_indicators="net_mass"
             />
       <item name="straw"
             category="straw"
@@ -134,7 +134,7 @@
             population_counting="decimal"
             abilities="feed(animal)"
             variable_indicators="population"
-            frozen_indicators="net_weight"
+            frozen_indicators="net_mass"
             />
       <item name="grass"
             category="grass"
@@ -143,7 +143,7 @@
             population_counting="decimal"
             abilities="feed(animal)"
             variable_indicators="population, dry_matter_rate"
-            frozen_indicators="net_weight"
+            frozen_indicators="net_mass"
             />
       <item name="herbicide"
             category="plant_medicine"
@@ -151,7 +151,7 @@
             population_counting="decimal"
             abilities="kill(plant)"
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
       <item name="fungicide"
             category="plant_medicine"
@@ -159,7 +159,7 @@
             population_counting="decimal"
             abilities="kill(fungus)"
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
       <item name="additive"
             category="plant_medicine"
@@ -167,7 +167,7 @@
             population_counting="decimal"
             abilities=""
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
       <item name="insecticide"
             category="plant_medicine"
@@ -175,7 +175,7 @@
             population_counting="decimal"
             abilities="kill(insecta)"
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
        <item name="molluscicide"
             category="plant_medicine"
@@ -183,7 +183,7 @@
             population_counting="decimal"
             abilities="kill(mollusca)"
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
        <item name="chemical_fertilizer"
             category="fertilizer"
@@ -191,7 +191,7 @@
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
+            frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
             />
       <item name="mixed_chemical_fertilizer"
             category="fertilizer"
@@ -199,7 +199,7 @@
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
       <item name="organic_fertilizer"
             category="fertilizer"
@@ -207,7 +207,7 @@
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
+            frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
             />
        <item name="seed"
             category="seed"
@@ -216,7 +216,7 @@
             population_counting="decimal"
             abilities="germinate"
             variable_indicators="population"
-            frozen_indicators="net_weight, thousand_grain_weight"
+            frozen_indicators="net_mass, thousand_grain_mass"
             />
       <item name="food"
             category="animal_food"
@@ -225,7 +225,7 @@
             population_counting="decimal"
             abilities="feed"
             variable_indicators="population"
-            frozen_indicators="net_weight"
+            frozen_indicators="net_mass"
             />
       <item name="animal_medicine"
             category="animal_medicine"
@@ -233,7 +233,7 @@
             population_counting="decimal"
             abilities="kill(bacteria virus fungus), care(animal)"
             variable_indicators="population"
-            frozen_indicators="net_weight, net_volume, meat_withdrawal_period, milk_withdrawal_period"
+            frozen_indicators="net_mass, net_volume, meat_withdrawal_period, milk_withdrawal_period"
             />
       <item name="spread_renting"
             category="equipment_rent"
@@ -249,14 +249,14 @@
             population_counting="decimal"
             abilities="clean"
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
       <item name="small_equipment"
             category="small_equipment"
             variety="equipment"  
             population_counting="unitary"
             abilities=""
-            variable_indicators="net_weight"
+            variable_indicators="net_mass"
             frozen_indicators="population"
             />    
       <item name="land_parcel"
@@ -361,7 +361,7 @@
             variety="trailer"
             population_counting="unitary"
             abilities="store_fluid, store(grain), store(straw), store(mineral_matter), move"
-            variable_indicators="maximum_load_net_weight, maximum_load_net_volume, geographic_coordinate"
+            variable_indicators="maximum_load_net_mass, maximum_load_net_volume, geographic_coordinate"
             frozen_indicators="population"
             />
        <item name="milk_tank"
@@ -369,7 +369,7 @@
             variety="tank"
             population_counting="unitary"
             abilities="store(milk)"
-            variable_indicators="maximum_load_net_weight, maximum_load_net_volume, geographic_coordinate"
+            variable_indicators="maximum_load_net_mass, maximum_load_net_volume, geographic_coordinate"
             frozen_indicators="population"
             />
        <item name="spreader_trailer"
@@ -377,7 +377,7 @@
             variety="trailer"
             population_counting="unitary"
             abilities="store(matter), move, spread(organic_matter)"
-            variable_indicators="maximum_load_net_weight, maximum_load_net_volume, geographic_coordinate"
+            variable_indicators="maximum_load_net_mass, maximum_load_net_volume, geographic_coordinate"
             frozen_indicators="population"
             />
       <item name="spreader"
@@ -490,7 +490,7 @@
             population_counting="decimal"
             abilities=""
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
        <item name="irrigation_water"
             category="irrigation_water"
@@ -498,7 +498,7 @@
             population_counting="decimal"
             abilities=""
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
        <item name="natural_water"
             category="natural_water"
@@ -506,7 +506,7 @@
             population_counting="decimal"
             abilities=""
             variable_indicators="population"
-            frozen_indicators="net_volume, net_weight"
+            frozen_indicators="net_volume, net_mass"
             />
         <item name="electricity"
             category="electricity"
@@ -530,7 +530,7 @@
             population_counting="decimal"
             abilities=""
             variable_indicators="population"
-            frozen_indicators="energy, net_volume, net_weight"
+            frozen_indicators="energy, net_volume, net_mass"
             />  
     </items>
     

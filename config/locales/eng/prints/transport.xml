@@ -24,7 +24,7 @@
 
       <part height="20mm">
 	<set>
-	  <text value="Poids (kg) : {{transport.deliveries.first.weight}}"/>
+	  <text value="Poids (kg) : {{transport.deliveries.first.mass}}"/>
 	  <text value="Date d'expédition : {{transport/transport_on?format=month_letter}}" top="5mm"/>
 	  <text value="Nombre de colis : {{transport.deliveries.first/parcel_sum}}" top="10mm" />
 	</set>

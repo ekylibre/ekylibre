@@ -768,7 +768,7 @@ eng:
     # current_animal_disease_state: "Etat de santé actuel"
     current_financial_year: "Current financial year" #?
     # current_localization: "Current localization"
-    # current_net_weight: "Dernière pesée"
+    # current_net_mass: "Dernière pesée"
     # current_ownership: "Current ownership"
     # current_phase: "Current phase"
     custom_field: "Custom field"
@@ -1083,6 +1083,7 @@ eng:
     # managed_unpaid_sales: "Ventes impayées gérées"
     mandates: "Mandates"
     # markers: "Repères"
+    mass: "Mass (kg)"
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     # maximal_length: "Longueur maximale"
     # maximal_quantity: "Maximal quantity"
@@ -1120,8 +1121,8 @@ eng:
     nature_label: "Type label" #?
     nature_name: "Nature name"
     # natures: "Natures"
+    net_mass: "Net mass (kg)"
     # net_volume: "Volume net"
-    net_weight: "Net weight (kg)"
     nic: "Nic"
     node: "Node"
     nodes: "Nodes"
@@ -1453,7 +1454,7 @@ eng:
     tool: "Tool"
     tools: "Tools" #?
     tools_list: "Tools list" #?
-    total_weight: "Total weight (kg)" #?
+    total_mass: "Total mass (kg)" #?
     traceable: "Traceable" #?
     trackable: "Trackable" #?
     tracking: "Tracking"
@@ -1523,7 +1524,6 @@ eng:
     webpass: "Webpass"
     website: "Website" #?
     websites: "Websites"
-    weight: "Weight (kg)"
     with_accounting: "With accounting"
     with_commission: "With commission"
     with_deposit: "With deposit"

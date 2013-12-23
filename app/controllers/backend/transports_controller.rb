@@ -26,7 +26,7 @@ class Backend::TransportsController < BackendController
     #t.column :created_on, :children => :planned_on
     #t.column :transport_on, :children => :moved_on
     t.column :transporter, label_method: :full_name, :children => :default_mail_coordinate, url: true
-    t.column :weight
+    t.column :net_mass
     t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy
@@ -46,7 +46,7 @@ class Backend::TransportsController < BackendController
     #t.column :quantity
     #t.column :pretax_amount
     #t.column :amount
-    t.column :weight, children: false
+    t.column :net_mass, children: false
   end
 
   # # Displays details of one transport selected with +params[:id]+
@@ -93,7 +93,7 @@ class Backend::TransportsController < BackendController
     #t.column :quantity
     #t.column :pretax_amount
     #t.column :amount
-    t.column :weight, children: false
+    t.column :net_mass, children: false
   end
 
   def new

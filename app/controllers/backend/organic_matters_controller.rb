@@ -22,7 +22,7 @@ class Backend::OrganicMattersController < Backend::MattersController
   list do |t|
     t.column :name, url: true
     t.column :population
-    t.column :net_weight
+    t.column :net_mass
     t.column :container, url: true
   end
 

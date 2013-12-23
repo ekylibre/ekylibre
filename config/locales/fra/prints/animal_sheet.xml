@@ -45,9 +45,9 @@
 			<fieldDescription><![CDATA[member/name]]></fieldDescription>
 		</field>
 	</subDataset>
-	<subDataset name="weight" uuid="cc8022ce-12ea-4b67-a812-979a82dac442">
+	<subDataset name="mass" uuid="cc8022ce-12ea-4b67-a812-979a82dac442">
 		<queryString language="xPath">
-			<![CDATA[/animal/indicator-data/indicator-datum[indicator/@name="net_weight"]]]>
+			<![CDATA[/animal/indicator-data/indicator-datum[indicator/@name="net_mass"]]]>
 		</queryString>
 		<field name="measure-value" class="java.lang.Double">
 			<fieldDescription><![CDATA[measure-value-value]]></fieldDescription>
@@ -624,7 +624,7 @@
 				</chart>
 				<categoryDataset>
 					<dataset>
-						<datasetRun subDataset="weight" uuid="6a335365-5460-4db5-ae42-fed9b9484727">
+						<datasetRun subDataset="mass" uuid="6a335365-5460-4db5-ae42-fed9b9484727">
 							<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
 							<datasetParameter name="XML_DATE_PATTERN">
 								<datasetParameterExpression><![CDATA[$P{XML_DATE_PATTERN}]]></datasetParameterExpression>

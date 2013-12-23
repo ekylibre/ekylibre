@@ -1224,6 +1224,7 @@ eng:
     manual_period: "from %{start} to %{finish}"
     map: "Map"
     # markers: "Objectifs"
+    mass: "Mass"
     # measure_options: "Indicateur de type mesure"
     # meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"
@@ -1287,10 +1288,10 @@ eng:
     nb_years: "Years"
     # need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions"
     # need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant"
+    # net_mass: "Poids net"
     # net_surface_area: "Surface net"
     # net_vat_amount: "TVA nette due"
     # net_volume: "Volume net"
-    # net_weight: "Poids net"
     new: "New..."
     new_deposit:
       one: "Make a deposit %{mode}: 1 available payment"
@@ -1703,7 +1704,6 @@ eng:
       printable: "Printable mode"
       resized: "Resized mode"
     virtual_quantity: "Virtual quantity"
-    weight: "Weight"
     with_assets_depreciations: "With assets depreciations"
     with_prints: "Include printing archives (sales invoices, purchases...)"
     x_cashes:

@@ -23,7 +23,7 @@ class Backend::PlantMedicinesController < Backend::MedicinesController
     t.column :name, url: true
     t.column :population, datatype: :decimal
     t.column :net_volume, datatype: :measure
-    t.column :net_weight, datatype: :measure
+    t.column :net_mass, datatype: :measure
     t.column :container, url: true
   end
 

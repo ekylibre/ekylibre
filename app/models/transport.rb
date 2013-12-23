@@ -28,6 +28,7 @@
 #  description      :text
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
+#  net_mass         :decimal(19, 4)
 #  number           :string(255)
 #  pretax_amount    :decimal(19, 4)   not null
 #  purchase_id      :integer
@@ -37,19 +38,17 @@
 #  transporter_id   :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  weight           :decimal(19, 4)
 #
 
 
 class Transport < Ekylibre::Record::Base
   acts_as_numbered
-  # attr_accessible :description, :purchase_id, :reference_number, :responsible_id, :transport_on, :transporter_id, :weight
   belongs_to :responsible, class_name: "User"
   belongs_to :transporter, class_name: "Entity"
   has_many :deliveries, dependent: :nullify, class_name: "OutgoingDelivery"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :pretax_amount, :weight, allow_nil: true
+  validates_numericality_of :amount, :net_mass, :pretax_amount, allow_nil: true
   validates_length_of :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :amount, :pretax_amount, :transporter
   #]VALIDATORS]
@@ -58,13 +57,6 @@ class Transport < Ekylibre::Record::Base
     self.created_on ||= Date.today
     return true
   end
-
-  # before_validation do
-  #   self.weight = self.deliveries.sums(:weight)
-  #   for delivery in self.deliveries
-  #     self.weight += delivery.weight
-  #   end
-  # end
 
   protect(on: :destroy) do
     return true

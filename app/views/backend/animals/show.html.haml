@@ -45,8 +45,8 @@
           %span.title= Animal.human_attribute_name(:father)
           %span.value= link_to(@animal.father.name, {:action => :show, :id => @animal.father.id})
       .info
-        %span.title= Animal.human_attribute_name(:current_net_weight)
-        %span.value= @animal.net_weight
+        %span.title= Animal.human_attribute_name(:current_net_mass)
+        %span.value= @animal.net_mass
       .info
         %span.title= Animal.human_attribute_name(:current_animal_disease_state)
         %span.value= @animal.animal_disease_state
@@ -85,7 +85,7 @@
           #
           #  data for bar chart indicator and by month
           #
-          bar_indicators = [:net_weight].collect{|i| Nomen::Indicators[i] }
+          bar_indicators = [:net_mass].collect{|i| Nomen::Indicators[i] }
           for indicator in bar_indicators
             items = ProductIndicatorDatum.where(indicator_name: indicator.name, :product => @animal).measured_between(started_on, stopped_on)
             if items.count > 0
@@ -111,7 +111,7 @@
               series << {type: 'spline', y_axis: 1, name: indicator.human_name, data: normalize_serie(item_h, categories.keys),  tooltip: {value_suffix: ' fois'}, marker: {line_width: 2}}
             end
           end
-        = column_chart(series, y_axis: [{labels: {format: '{value} kg'}, title: {text: :net_weight.tl}}, {labels: {format: '{value} fois'},title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, tooltip: {shared: true}, legend: {})
+        = column_chart(series, y_axis: [{labels: {format: '{value} kg'}, title: {text: :net_mass.tl}}, {labels: {format: '{value} fois'},title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, tooltip: {shared: true}, legend: {})
 
       - else
         %strong= :no_data.tl

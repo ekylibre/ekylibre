@@ -401,12 +401,12 @@ arb:
         comment: "تعليق" #?
         duration: "عدد ارقام او مدة الاشتراك" #?
         ean13: "EAN13 الرمز" #?
+        mass: "(الوزن(كغ" #?
         published: "نشر" #?
         stock_moves: "حركات السهم" #?
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-        weight: "(الوزن(كغ" #?
       product_category:  #?
         catalog_description: "الوصف" #?
         children: "دلائل فرعية" #?
@@ -442,6 +442,7 @@ arb:
         duration: "عدد ارقام او مدة الاشتراك"
         ean13: "EAN13 الرمز" #?
         # indicators: "Indicateurs"
+        mass: "(الوزن(كغ" #?
         # price: "Prix de revient"
         # producible: "Produisible"
         # product_account: "Compte de vente"
@@ -455,7 +456,6 @@ arb:
         # subscribing: "Abonnement ?"
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-        weight: "(الوزن(كغ" #?
       product_nature_category:  #?
         catalog_description: "الوصف" #?
         children: "دلائل فرعية" #?
@@ -523,12 +523,12 @@ arb:
         comment: "تعليق" #?
         duration: "عدد ارقام او مدة الاشتراك" #?
         ean13: "EAN13 الرمز" #?
+        mass: "(الوزن(كغ" #?
         published: "نشر" #?
         stock_moves: "حركات السهم" #?
         stocks: "اسهم المنتجات" #?
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
-        weight: "(الوزن(كغ" #?
       profession: #?
       purchase:
         # amount: "Montant TTC"
@@ -1203,7 +1203,7 @@ arb:
     # current_animal_disease_state: "Etat de santé actuel"
     current_financial_year: "الفترة المحاسبية الحالية" #?
     # current_localization: "Current localization"
-    # current_net_weight: "Dernière pesée"
+    # current_net_mass: "Dernière pesée"
     # current_ownership: "Current ownership"
     # current_phase: "Current phase"
     custom_field: "حقول اضافية"
@@ -1526,6 +1526,7 @@ arb:
     # managed_unpaid_sales: "Ventes impayées gérées"
     mandates: "تفويضات"
     # markers: "Repères"
+    mass: "الوزن"
     master: "كتلة رئيسية" #?
     max_reduction_rate: "سعر التخفيض" #?
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
@@ -1567,8 +1568,8 @@ arb:
     nature_label: "طبيعة الملصق" #?
     # nature_name: "Nature name"
     # natures: "Natures"
+    # net_mass: "Masse nette"
     # net_volume: "Volume net"
-    # net_weight: "Masse nette"
     nic: "واجهة بطاقة الشبكة"
     node: "العقدة"
     node_id: "عقدة" #?
@@ -1970,7 +1971,6 @@ arb:
     webpass: "كلمة مرور الموقع الااكتروني"
     website: "الموقع الالكتروني" #?
     # websites: "Sites web"
-    weight: "الوزن"
     with_accounting: "سجل الدفعات"
     with_commission: "تشمل عمولة"
     with_deposit: "استخدام الاقتطاعات المصرفية"

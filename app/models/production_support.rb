@@ -94,11 +94,11 @@ class ProductionSupport < Ekylibre::Record::Base
   def nitrogen_balance
     balance = []
     # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded
-    # m = net_weight of the input at intervention time
+    # m = net_mass of the input at intervention time
     # n = nitrogen concentration (in %) of the input at intervention time
     for intervention in self.interventions.real.of_nature(:soil_enrichment)
       for input in intervention.casts.of_role('soil_enrichment-input')
-        m = (input.actor ? input.actor.net_weight(input).to_d(:kilogram) : 0.0)
+        m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
         n = (input.actor ? input.actor.nitrogen_concentration(input).to_d(:unity) : 0.0)
         balance <<  m * n
       end
@@ -162,7 +162,7 @@ class ProductionSupport < Ekylibre::Record::Base
       total_yield = []
       for harvest in self.interventions.real.of_nature(:harvest)
         for input in harvest.casts.of_role('harvest-output').where(reference_name: "grains")
-          q = (input.actor ? input.actor.net_weight(input).to_d(mass_unit) : 0.0)
+          q = (input.actor ? input.actor.net_mass(input).to_d(mass_unit) : 0.0)
           total_yield << q
         end
       end

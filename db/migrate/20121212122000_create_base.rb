@@ -477,7 +477,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :purchase,                                                        index: true
       t.references :address,                                                         index: true
       t.datetime   :received_at
-      # t.decimal    :weight,           precision: 19, scale: 4
+      # t.decimal    :net_mass,           precision: 19, scale: 4
       t.references :mode,                                                            index: true
       t.stamps
     end
@@ -759,7 +759,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :sale,                                                   index: true
       t.references :address,                                   null: false, index: true
       t.datetime   :sent_at
-      t.decimal    :weight,           precision: 19, scale: 4
+      t.decimal    :net_mass,         precision: 19, scale: 4
       t.references :transport,                                              index: true
       t.references :transporter,                                            index: true
       t.stamps
@@ -1425,7 +1425,7 @@ class CreateBase < ActiveRecord::Migration
     create_table :transports do |t|
       t.references :transporter,                               null: false, index: true
       t.references :responsible,                                            index: true
-      t.decimal    :weight,           precision: 19, scale: 4
+      t.decimal    :net_mass,         precision: 19, scale: 4
       t.date       :created_on
       t.date       :transport_on
       t.text       :description

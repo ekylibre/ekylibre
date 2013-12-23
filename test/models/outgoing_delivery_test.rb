@@ -27,6 +27,7 @@
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  mode_id          :integer
+#  net_mass         :decimal(19, 4)
 #  number           :string(255)      not null
 #  recipient_id     :integer          not null
 #  reference_number :string(255)
@@ -36,7 +37,6 @@
 #  transporter_id   :integer
 #  updated_at       :datetime         not null
 #  updater_id       :integer
-#  weight           :decimal(19, 4)
 #
 
 
