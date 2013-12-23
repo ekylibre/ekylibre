@@ -73,16 +73,16 @@
       <item name="kilogram_per_liter"  dimension="mass_concentration" symbol="kg/l" coefficients="kg*0.001m-3"           a="0.001"/>
       
       <!-- mass_area_density -->
-      <item name="kilogram_per_square_meter"  dimension="mass_area_density" symbol="kg/m2" coefficients="kg*m-2"           a="1"/>
-      <item name="liter_per_square_meter"  dimension="mass_area_density" symbol="l/m2" coefficients="l*m-2"           a="1"/>
+      <item name="kilogram_per_square_meter"  dimension="mass_area_density" symbol="kg/m²" coefficients="kg*m-2"           a="1"/>
+      <item name="liter_per_square_meter"  dimension="mass_area_density" symbol="l/m²" coefficients="l*m-2"           a="1"/>
       <item name="kilogram_per_hectare"  dimension="mass_area_density" symbol="kg/ha" coefficients="kg*10000m-2"           a="0.0001"/>
       <item name="quintal_per_hectare"  dimension="mass_area_density" symbol="qt/ha" coefficients="100kg*10000m-2"           a="0.01"/>
       
 
       <!-- concentration -->
-      <item name="unity_per_liter"         dimension="concentration" symbol="u/l"   coefficients="0.001m-3"              a="0.001"/>
-      <item name="thousand_per_liter"      dimension="concentration" symbol="ku/l"  coefficients="1000*0.001m-3"         a="0.000001"/>
-      <item name="thousand_per_milliliter" dimension="concentration" symbol="ku/ml" coefficients="1000*0.000001m-3"      a="0.000000001"/>
+      <item name="unity_per_liter"         dimension="concentration" symbol="/l"   coefficients="0.001m-3"              a="0.001"/>
+      <item name="thousand_per_liter"      dimension="concentration" symbol="k/l"  coefficients="1000*0.001m-3"         a="0.000001"/>
+      <item name="thousand_per_milliliter" dimension="concentration" symbol="k/ml" coefficients="1000*0.000001m-3"      a="0.000000001"/>
 
 
       <item name="mass_percent" dimension="none" symbol="%kg"   coefficients="0.01" a="0.01"/>

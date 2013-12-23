@@ -10,7 +10,7 @@
 
       <!-- SI first-level dimensions -->
       <item name="temperature"         expression="K"/>
-      <item name="mass"              expression="kg"/>
+      <item name="mass"                expression="kg"/>
       <item name="length"              expression="m"/>
       <item name="time"                expression="s"/>
       <item name="electric_current"    expression="A"/>
