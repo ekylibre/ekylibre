@@ -10,6 +10,10 @@ class Indicatus
     @varicator.value?
   end
 
+  def name
+    @varicator.indicator_name
+  end
+
   def datum
     IndicatorDatum.new(@varicator.indicator_name, computed_value)
   end
@@ -21,8 +25,6 @@ class Indicatus
       return nil
     end
   end
-
-  protected
 
   def computed_value(options = {})
     if @varicator.value?
@@ -37,21 +39,22 @@ class Indicatus
         cast  = @intervention.casts.find_by(reference_name: @varicator.stakeholder.name)
         actor = cast.actor
         if computation == :superficial_count
-          if source_actor.indicators_list.include?(:shape) and actor.indicators_list.include?(:net_surface_area)
-            whole      = source_actor.net_surface_area(@operation.started_at).to_d(:square_meter) rescue 0
-            individual = actor.net_surface_area(@operation.started_at, gathering: false).to_d(:square_meter)
-            return (whole / individual)
+          if source_actor.indicators_list.include?(:shape)
+            if actor.indicators_list.include?(:net_surface_area)
+              whole      = source_actor.net_surface_area!(@operation.started_at).to_f(:square_meter)
+              individual = actor.net_surface_area!(@operation.started_at, gathering: false).to_f(:square_meter)
+              return (whole / individual)
+            else
+              raise StandardError, "Cannot compute superficial count if with a product without net_surface_area indicator."
+            end
           else
-            # raise StandardError, "Cannot compute superficial count if no shape and net_surface_area given."
-            Rails.logger.warn "Cannot compute superficial count if no shape and net_surface_area given."
+            raise StandardError, "Cannot compute superficial count with a source product without shape indicator #{source_actor.nature.inspect}."
           end
         else # if computation == :same_as
-          if source_actor.whole_indicators_list.include?(@varicator.indicator_name.to_sym) and cast.reference.new?
-            return actor.get(@varicator.indicator, cast)
-          elsif datum = cast.actor.indicator_datum(@varicator.indicator, at: @operation.started_at)
-            return datum.value
+          if source_actor.indicators.include?(@varicator.indicator)
+            return source_actor.get!(@varicator.indicator, @operation.started_at)
           else
-            return nil
+            raise StandardError, "Cannot get #{@varicator.indicator_name} from a source product without this indicator #{source_actor.nature.inspect}."
           end
         end
       else

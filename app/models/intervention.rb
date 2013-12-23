@@ -58,6 +58,8 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :recommender, class_name: "Entity"
   has_many :casts, -> { order(:reference_name) }, class_name: "InterventionCast", inverse_of: :intervention
   has_many :operations, inverse_of: :intervention
+  has_one :activity, through: :production
+  has_one :campaign, through: :production
   enumerize :reference_name, in: Procedo.names.sort
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

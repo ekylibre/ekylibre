@@ -95,11 +95,12 @@ demo :interventions do
         # Run interventions
         intervention = nil
         for period in periods
-          intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: (period[:started_at] + period[:duration]))
+          stopped_at = period[:started_at] + period[:duration]
+          intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: stopped_at)
           for cast in booker.casts
             intervention.add_cast!(cast)
           end
-          intervention.run!(period)
+          intervention.run!(period) if stopped_at < Time.now
         end
         return intervention
       end
@@ -158,7 +159,7 @@ demo :interventions do
               i.add_cast(reference_name: 'driver',       actor: i.find(Worker))
               i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: "tow(sower)"))
               i.add_cast(reference_name: 'land_parcel',  actor: land_parcel)
-              i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety).first, population: (area.to_s.to_f / 10000.0), shape: land_parcel.shape)
+              i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety).first) # , population: (area.to_s.to_f / 10000.0), shape: land_parcel.shape)
             end
 
             cultivation = int.casts.find_by(reference_name: 'cultivation').actor

@@ -244,7 +244,7 @@ class Product < Ekylibre::Record::Base
     # add first frozen indicator on a product from his variant
     if self.variant
       for datum in self.variant.indicator_data
-        self.is_measured!(datum.indicator_name, datum.value)
+        self.is_measured!(datum.indicator_name, datum.value, at: :origin)
       end
       self.phases.create!(variant: self.variant)
     end
@@ -380,30 +380,34 @@ class Product < Ekylibre::Record::Base
     self.picture.path(style)
   end
 
-  def net_surface_area(at = Time.now)
-    if self.indicators_list.include?(:net_surface_area)
-      return self.get(:net_surface_area, at)
-    elsif self.whole_indicators_list.include?(:shape)
-      return self.shape_area(at: at).in_hectare rescue 0.0.in_square_meter
+  # def net_surface_area(*args)
+  #   if self.indicators_list.include?(:net_surface_area)
+  #     return self.get(:net_surface_area, *args)
+  #   elsif self.whole_indicators_list.include?(:shape)
+  #     options = args.extract_options!
+  #     at = args.shift || options[:at] || Time.now
+  #     # TODO Manage InterventionCast ?
+  #     return self.shape_area(at: at) rescue 0.0.in_square_meter
+  #   end
+  #   return 0.0.in_square_meter
+  # end
+
+  def net_surface_area(*args)
+    unless value = self.get(:net_surface_area, *args)
+      if self.whole_indicators_list.include?(:shape)
+        options = args.extract_options!
+        at = args.shift || options[:at] || Time.now
+        # TODO Manage InterventionCast ?
+        value = self.shape_area(at: at) # rescue 0.0.in_square_meter
+      end
     end
-    return 0.0.in_square_meter
+    return value
   end
 
   def area(unit = :hectare, at = Time.now)
     ActiveSupport::Deprecation.warn("Product#area is deprecated. Please use Product#net_surface_area instead.")
     return net_surface_area(at).in(unit)
   end
-
-  # def net_mass(at = Time.now)
-  #   # if self.variable_indicators_array.include?(Nomen::Indicators[:net_mass])
-  #   return 0.0.in_kilogram
-  #   pop = self.population(at: at)
-  #   if self.net_mass
-  #     return self.net_mass(at: at)
-  #   else
-  #     return 0.0.in_kilogram
-  #   end
-  # end
 
   def mass(unit = :kilogram, at = Time.now)
     ActiveSupport::Deprecation.warn("Product#mass is deprecated. Please use Product#net_mass instead.")
@@ -423,18 +427,12 @@ class Product < Ekylibre::Record::Base
     if value.nil?
       raise ArgumentError, "Value must be given"
     end
+    options[:at] = Time.new(1, 1, 1, 0, 0, 0, "+00:00") if options[:at] == :origin
     datum = self.indicator_data.build(indicator_name: indicator.name, measured_at: (options[:at] || Time.now), originator: options[:originator])
     datum.value = value
     datum.save!
     return datum
   end
-
-
-  # # Return the indicator datum
-  # def indicator(indicator, options = {})
-  #   ActiveSupport::Deprecation.warn("Product#indicator method is deprecated. Please use Product#indicate instead")
-  #   return indicate(indicator, options)
-  # end
 
   # Return the indicator datum
   def indicator_datum(indicator, options = {})
@@ -506,6 +504,16 @@ class Product < Ekylibre::Record::Base
   end
 
 
+  def get!(indicator, *args)
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
+    unless value = get(indicator, *args)
+      raise "Cannot get value of #{indicator.name} for product ##{self.id}"
+    end
+    return value
+  end
+
   # # Returns indicators for a set of product
   # def self.indicator_data(name, options = {})
   #   measured_at = options[:at] || Time.now
@@ -515,8 +523,12 @@ class Product < Ekylibre::Record::Base
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
-    if Nomen::Indicators.all.include?(method_name.to_s)
-      return get(method_name, *args)
+    if Nomen::Indicators.all.include?(method_name.to_s.gsub(/\!\z/, ''))
+      if method_name.to_s =~ /\!\z/
+        return get!(method_name.to_s.gsub(/\!\z/, ''), *args)
+      else
+        return get(method_name, *args)
+      end
     end
     return super
   end

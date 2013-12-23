@@ -25,11 +25,14 @@ class Backend::InterventionsController < BackendController
 
   list(order: {started_at: :desc}, line_class: :status) do |t|
     t.column :reference_name, label_method: :name, url: true
-    t.column :production, url: true
+    t.column :production, url: true, hidden: true
+    t.column :campaign, url: true
+    t.column :activity, url: true, hidden: true
     t.column :incident, url: true
     t.column :state, hidden: true
     t.column :casting
     t.column :started_at
+    t.column :stopped_at, hidden: true
     t.action :run, :if => :runnable?, method: :post, confirm: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?

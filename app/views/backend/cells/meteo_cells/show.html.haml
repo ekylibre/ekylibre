@@ -2,10 +2,10 @@
   :ruby
     categories = @forecast[:list].collect{|d| d[:at].to_date.l(format: :short) }
     series = []
-    series << {name: :minimal_temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:min].to_f(:celsius) }, tooltip: {value_suffix: '°C' } }
-    series << {name: :maximal_temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:max].to_f(:celsius) }, tooltip: {value_suffix: '°C' } }
-    series << {name: :precipitation.tl, type: 'column', data: @forecast[:list].collect{|d| d[:rain].to_f(:millimeter) }, tooltip: {value_suffix: ' mm' }, y_axis: 1 }
+    series << {name: :precipitation.tl, type: 'column', data: @forecast[:list].collect{|d| d[:rain].to_f(:millimeter).round(1) }, tooltip: {value_suffix: ' mm' }, y_axis: 1 }
+    series << {name: :minimal_temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:min].to_f(:celsius).round(1) }, tooltip: {value_suffix: '°C' } }
+    series << {name: :maximal_temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:max].to_f(:celsius).round(1) }, tooltip: {value_suffix: '°C' } }
 
-  = line_chart(series, x_axis: {categories: categories}, y_axis: [{title: {text: Nomen::Indicators[:temperature].human_name}, labels: { format: '{value} °C' }}, {title: { text: :precipitation.tl }, labels: { format: '{value} mm' }, opposite: true}], legend: {})
+  = spline_chart(series, x_axis: {categories: categories}, y_axis: [{title: {text: Nomen::Indicators[:temperature].human_name}, labels: { format: '{value} °C' }}, {title: { text: :precipitation.tl }, labels: { format: '{value} mm' }, opposite: true}], legend: {})
 - else
   %strong= :no_data.tl

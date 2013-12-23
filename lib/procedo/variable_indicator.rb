@@ -25,6 +25,10 @@ module Procedo
       end
     end
 
+    def inspect
+      "#{self.name} (#{@task.expression} in operation #{@task.operation.name})"
+    end
+
     def name
       "#{stakeholder.name}:#{indicator.name}"
     end

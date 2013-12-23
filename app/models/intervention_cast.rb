@@ -122,12 +122,14 @@ class InterventionCast < Ekylibre::Record::Base
 
   # Define if the cast is valid for run
   def runnable?
-    if self.reference.new?
+    if self.reference.parted?
       if self.reference.known_variant?
         return self.population.present?
       else
         return (self.variant and self.population.present?)
       end
+    elsif self.reference.produced?
+      return self.variant
     else
       return self.actor
     end

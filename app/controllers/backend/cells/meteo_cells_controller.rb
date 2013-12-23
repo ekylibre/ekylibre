@@ -7,7 +7,6 @@ class Backend::Cells::MeteoCellsController < Backend::CellsController
       factory = RGeo::Geographic.spherical_factory
       coordinates = factory.parse_wkt(wkt)
       @forecast = JSON.load(open("http://api.openweathermap.org/data/2.5/forecast/daily?lat=#{coordinates.latitude}&lon=#{coordinates.longitude}&cnt=14&mode=json")).deep_symbolize_keys
-      puts @forecast.inspect
       @forecast[:list] = @forecast[:list].collect do |day|
         day.deep_symbolize_keys!
         {
@@ -26,7 +25,6 @@ class Backend::Cells::MeteoCellsController < Backend::CellsController
           # weather: day[:weather]
         }
       end
-      puts @forecast.inspect
     end
   end
 
