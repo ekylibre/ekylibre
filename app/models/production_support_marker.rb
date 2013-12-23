@@ -44,7 +44,7 @@
 #  updater_id          :integer
 #
 class ProductionSupportMarker < Ekylibre::Record::Base
-  include IndicatorDatumStorable
+  include IndicatorDatumStorable, TimeLineable
   enumerize :aim,       in: [:minimal, :maximal, :perfect], default: :maximal
   belongs_to :support, class_name: "ProductionSupport", inverse_of: :markers
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -53,4 +53,8 @@ class ProductionSupportMarker < Ekylibre::Record::Base
   validates_inclusion_of :boolean_value, in: [true, false]
   validates_presence_of :aim, :indicator_datatype, :indicator_name, :support
   #]VALIDATORS]
+
+  def siblings
+    self.support.where(indicator_name: self.indicator_name)
+  end
 end

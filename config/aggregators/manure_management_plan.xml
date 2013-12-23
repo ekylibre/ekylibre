@@ -29,10 +29,10 @@
             <property name="sowed_at" value="support.sowed_at" type="datetime"/>
             <property name="harvested_at" value="support.harvested_at" type="datetime"/>
             <property name="grains_yield" value="support.grains_yield(:quintal)" type="measure"/>
-            <property name="provisional_grains_yield" value="support.markers.where(indicator_name: 'provisional_grains_yield').first.value" type="measure"/>
+            <property name="provisional_grains_yield" value="support.provisional_grains_yield" type="measure"/>
             <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
             <property name="nitrogen_input_real" value="support.nitrogen_balance" type="measure"/>
-            <property name="nitrogen_input_prev" value="support.markers.where(indicator_name: 'nitrogen_input').first.value" type="measure"/>
+            <property name="nitrogen_input_prev" value="support.provisional_nitrogen_input" type="measure"/>
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="intervention" in="support.interventions.real.of_nature(:soil_enrichment).with_cast(:'soil_enrichment-target', zone)" of-type="record">
               <variable name="actor" value="intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>

@@ -173,6 +173,28 @@ class ProductionSupport < Ekylibre::Record::Base
     return nil
   end
 
+  def get(indicator, *args)
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
+    options = args.extract_options!
+    aim = args.shift || options[:aim] || :perfect
+    at  = args.shift || options[:at]  || Time.now
+    markers = self.markers.at(at).where(indicator_name: indicator.name.to_s, aim: aim)
+    if markers.any?
+      return markers.first.value
+    end
+    return nil
+  end
+
+  # Returns value of an indicator if its name correspond to
+  def method_missing(method_name, *args)
+    if Nomen::Indicators.all.include?(method_name.to_s)
+      return get(method_name, *args)
+    end
+    return super
+  end
+
 end
 
 
