@@ -13,7 +13,7 @@ fra:
       legal: "%d %B %Y"
       long: "%B %d, %Y"
       month_letter: "%d %B %Y"
-      short: "%b %d"
+      short: "%d %b"
     month_names: ["", "janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"]
   datetime:
     distance_in_words:

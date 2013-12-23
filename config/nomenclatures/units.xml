@@ -8,7 +8,9 @@
       <attribute name="coefficients" type="string"/>
       <attribute name="start" type="decimal" required="true" default="0"/>
       <attribute name="a" type="decimal" default="1"/>
+      <attribute name="d" type="decimal" default="1"/>
       <attribute name="b" type="decimal" default="0"/>
+      <!-- y = ((a * x) / d) + b -->
     </attributes>
     <items>
       <!-- none -->
@@ -21,10 +23,16 @@
       <item name="thousand" dimension="none" symbol="Ⅿ"  coefficients="1000"    a="1000"/>
       <item name="million"  dimension="none" symbol="ⅯⅯ" coefficients="1000000" a="1000000"/>
       
+
+      <!-- angle -->
+      <item name="degree"   dimension="angle" symbol="°"   a="3.141592653589793238462643383279502884197" d="180"/>
+      <item name="radian"   dimension="angle" symbol="rad"/>
+      <item name="gradian"  dimension="angle" symbol="gr"  a="3.141592653589793238462643383279502884197" d="200"/>
+
       <!-- temperature -->
-      <item name="kelvin"    dimension="temperature" symbol="K"                  coefficients="1K"   a="1"/>
-      <item name="celsius"   dimension="temperature" symbol="°C" start="-273.15" coefficients="1K"   a="1"   b="-273.15"/>
-      <item name="farenheit" dimension="temperature" symbol="°F" start="-459.67" coefficients="1.8K" a="1.8" b="-459.67"/>
+      <item name="kelvin"    dimension="temperature" symbol="K"                 coefficients="1K"   a="1"/>
+      <item name="celsius"   dimension="temperature" symbol="°C" start="273.15" coefficients="1K"   a="1"   b="273.15"/>
+      <item name="farenheit" dimension="temperature" symbol="°F" start="459.67" coefficients="1.8K" a="1.8" b="459.67"/>
 
       <!-- mass -->
       <item name="microgram" dimension="mass" symbol="µg" coefficients="0.000000001kg" a="0.000000001"/>
@@ -34,10 +42,10 @@
       <item name="quintal"   dimension="mass" symbol="qt" coefficients="100kg"         a="100"/>
       <item name="ton"       dimension="mass" symbol="t"  coefficients="1000kg"        a="1000"/>
 
-      <!-- length -->
-      <item name="millimeter" dimension="length" symbol="mm" coefficients="0.001m" a="0.001"/>
-      <item name="meter"      dimension="length" symbol="m"  coefficients="1m"     a="1"/>
-      <item name="kilometer"  dimension="length" symbol="km" coefficients="1000m"  a="1000"/>
+      <!-- distance -->
+      <item name="millimeter" dimension="distance" symbol="mm" coefficients="0.001m" a="0.001"/>
+      <item name="meter"      dimension="distance" symbol="m"  coefficients="1m"     a="1"/>
+      <item name="kilometer"  dimension="distance" symbol="km" coefficients="1000m"  a="1000"/>
 
       <!-- surface_area -->
       <item name="square_meter" dimension="surface_area" symbol="m²"   coefficients="1m2"     a="1"/>
@@ -95,6 +103,10 @@
       <item name="thousand_per_hectogram" dimension="mass_density" symbol="ku/hg" coefficients="1000*0.1kg-1"            a="0.0001"/>
       <!-- <item name="kilogram_per_hectogram" dimension="mass_density" symbol="kg/100kg" coefficients="1*0.1kg-1"            a="0.0001"/> -->
       <!-- <item name="thousand_eq_per_hundred_gram" dimension="mass_density" symbol="meq/100g" coefficients="1000*0.1kg-1"/> -->
+
+      <!-- energy -->
+      <item name="joule"  dimension="energy" symbol="J" a="1"/>
+      <item name="kilowatt_hour"  dimension="energy" symbol="kWh" a="3600000"/>
       
       <!-- power -->
       <item name="french_horsepower"  dimension="power" symbol="ch" a="735.5"/>
@@ -103,9 +115,16 @@
       <item name="kilowatt" dimension="power" symbol="kW" a="1000"/>
       <item name="megawatt" dimension="power" symbol="MW" a="1000000"/>
       
-      <!-- energy -->
-      <item name="joule"  dimension="energy" symbol="J" a="1"/>
-      <item name="kilowatt_hour"  dimension="energy" symbol="kWh" a="3600000"/>
+      <!-- pressure -->
+      <item name="pascal"      dimension="pressure" symbol="Pa"/>
+      <item name="hectopascal" dimension="pressure" symbol="hPa" a="100"/>
+      <item name="kilopascal"  dimension="pressure" symbol="kPa" a="1000"/>
+      <item name="bar"         dimension="pressure" symbol="bar" a="100000"/>
+
+      <!-- pressure -->
+      <item name="meter_per_second"     dimension="distance_speed" symbol="m/s"/>
+      <item name="kilometer_per_hour"   dimension="distance_speed" symbol="km/h" d="3.6"/>
+      <item name="kilometer_per_second" dimension="distance_speed" symbol="km/s" a="1000"/>
       
     </items>
   </nomenclature>

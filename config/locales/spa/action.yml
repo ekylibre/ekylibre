@@ -136,6 +136,7 @@ spa:
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/map_cells: #?
+    backend/cells/meteo_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
@@ -1268,6 +1269,7 @@ spa:
     # map: "Carte"
     # markers: "Objectifs"
     # mass: "Poids"
+    # maximal_temperature: "Température maximale"
     # measure_options: "Indicateur de type mesure"
     # meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"
@@ -1297,6 +1299,7 @@ spa:
     # merge: "Fusionner"
     # meteo: "Météo"
     # milk_withdrawal_period: "Période d'attente avant remise en vente de lait"
+    # minimal_temperature: "Température minimale"
     missing_help: "La página no existe"
     # mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
     # mobile: "Portable"
@@ -1451,6 +1454,7 @@ spa:
     # play: "Éxécuter"
     # please_wait: "Merci de patienter..."
     # population: "Population"
+    # precipitation: "Précipitations"
     # preferences: "Préférences"
     # pretax_amount: "Montant HT"
     # previous: "Précédent"

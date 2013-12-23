@@ -126,6 +126,7 @@ eng:
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/map_cells: #?
+    backend/cells/meteo_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
@@ -1225,6 +1226,7 @@ eng:
     map: "Map"
     # markers: "Objectifs"
     mass: "Mass"
+    # maximal_temperature: "Température maximale"
     # measure_options: "Indicateur de type mesure"
     # meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"
@@ -1252,6 +1254,7 @@ eng:
     merge: "Merge"
     meteo: "Weather"
     # milk_withdrawal_period: "Période d'attente avant remise en vente de lait"
+    # minimal_temperature: "Température minimale"
     missing_help: "Missing page"
     mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
     mobile: "Mobile"
@@ -1408,6 +1411,7 @@ eng:
     play: "Play"
     please_wait: "Please wait..."
     # population: "Population"
+    # precipitation: "Précipitations"
     preferences: "Preferences"
     pretax_amount: "Pre-tax amount"
     previous: "Previous"

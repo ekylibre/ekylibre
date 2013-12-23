@@ -143,6 +143,8 @@ fra:
       # show: "Show backend/cells/last products cell"
     backend/cells/map_cells:
       # show: "Show backend/cells/map cell"
+    backend/cells/meteo_cells:
+      # show: "Show backend/cells/meteo cell"
     backend/cells/placeholder_cells:
       # show: "Show backend/cells/placeholder cell"
     backend/cells/product_bar_cells:
@@ -692,6 +694,7 @@ fra:
     # backend/cells/last_outgoing_deliveries_cells: "Backend/cells/last outgoing deliveries cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
     # backend/cells/map_cells: "Backend/cells/map cells"
+    # backend/cells/meteo_cells: "Backend/cells/meteo cells"
     # backend/cells/placeholder_cells: "Backend/cells/placeholder cells"
     # backend/cells/product_bar_cells: "Backend/cells/product bar cells"
     # backend/cells/purchases_bar_cells: "Backend/cells/purchases bar cells"
@@ -1274,6 +1277,7 @@ fra:
     map: "Carte"
     markers: "Objectifs"
     mass: "Poids"
+    maximal_temperature: "Température maximale"
     measure_options: "Indicateur de type mesure"
     meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
     medical_informations: "Informations médicales"
@@ -1301,6 +1305,7 @@ fra:
     merge: "Fusionner"
     meteo: "Météo"
     milk_withdrawal_period: "Période d'attente avant remise en vente de lait"
+    minimal_temperature: "Température minimale"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
     mobile: "Portable"
@@ -1455,6 +1460,7 @@ fra:
     play: "Éxécuter"
     please_wait: "Merci de patienter..."
     population: "Population"
+    precipitation: "Précipitations"
     preferences: "Préférences"
     pretax_amount: "Montant HT"
     previous: "Précédent"

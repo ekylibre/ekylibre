@@ -5,7 +5,9 @@
         = link_to({:action => mod}, :class=>"btn btn-big btn-#{Ekylibre::Modules.icon(mod)}", :title => Ekylibre::Modules.human_name(mod)) do
           %i
           = Ekylibre::Modules.human_name(mod)
-    - b.cell :meteo do
+  - b.hbox do
+    - b.cell :meteo
+    -# b.cell :meteo do
       #cont_MTczODd8NXwxfDV8M3xGRkZGRkZ8MXxGRkZGRkZ8Y3wx
         #spa_MTczODd8NXwxfDV8M3xGRkZGRkZ8MXxGRkZGRkZ8Y3wx
           %a#a_MTczODd8NXwxfDV8M3xGRkZGRkZ8MXxGRkZGRkZ8Y3wx{href: "http://www.meteocity.com/france/saint-porchaire_v17387/", style: "color:#333;text-decoration:none;", target: "_blank"} Météo Saint-Porchaire
