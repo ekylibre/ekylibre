@@ -3,6 +3,7 @@ class Backend::Cells::CurrentsStocksByProductNatureCellsController < Backend::Ce
 
   def show
     @variety = params[:variety] || :product
+    @mass_unit = params[:mass_unit] || :kilogram
   end
 
 end

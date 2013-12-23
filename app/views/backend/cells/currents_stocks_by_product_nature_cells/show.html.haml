@@ -1,19 +1,17 @@
-- if @variety
+- if @variety and @mass_unit
   :ruby
     #
     series = []
     categories = {}
-
-    mass_unit = Nomen::Units[:kilogram]
-
+    mass_unit = Nomen::Units[@mass_unit]
     product_natures = ProductNature.stockables.of_variety(@variety.to_s).reorder(:id)
 
     if product_natures.any?
       product_natures_serie = product_natures.collect do |product_nature|
-        { name: product_nature.name, y: product_nature.products.map(&:net_mass).compact.sum.in(mass_unit).to_f, id: product_nature.id, url: backend_product_nature_path(product_nature), color: cycle(*Backend::ChartsHelper::COLORS) }
+        { name: product_nature.name, y: product_nature.products.map(&:net_mass).compact.sum.to_d(mass_unit).to_s.to_f, id: product_nature.id, url: backend_product_nature_path(product_nature), color: cycle(*Backend::ChartsHelper::COLORS) }
       end
       product_nature_variants_serie = ProductNatureVariant.of_natures(product_natures).order("nature_id, id").collect do |product_nature_variant|
-          { name: product_nature_variant.name, y: product_nature_variant.products.map(&:net_mass).compact.sum.in(mass_unit).to_f, url: backend_product_nature_variant_path(product_nature_variant), color: ligthen(product_natures_serie.detect{|a| a[:id] == product_nature_variant.nature_id}[:color], 0.3) }
+          { name: product_nature_variant.name, y: product_nature_variant.products.map(&:net_mass).compact.sum.to_d(mass_unit).to_s.to_f, url: backend_product_nature_variant_path(product_nature_variant), color: ligthen(product_natures_serie.detect{|a| a[:id] == product_nature_variant.nature_id}[:color], 0.3) }
       end
     end
 
