@@ -157,10 +157,10 @@ class Measure
       end
       # Reduce to base
       ref = @@units[@unit]
-      reduced = ref.a * @value + ref.b
+      reduced = ((ref.a * @value) / ref.d) + ref.b
       # Coeff to dest
       ref = @@units[unit]
-      value = (reduced - ref.b) / ref.a
+      value = ref.d * ((reduced - ref.b) / ref.a)
       return value
     end
   end
