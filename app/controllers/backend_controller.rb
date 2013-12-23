@@ -611,7 +611,7 @@ class BackendController < BaseController
         code << "  notify_success(:record_has_been_correctly_removed)\n"
       end
       # code << "  redirect_to #{durl ? durl : model.name.underscore.pluralize+'_url'}\n"
-      code << "  #{durl ? 'redirect_to '+durl : 'redirect_to_current'}\n"
+      code << "  " + (durl ? 'redirect_to(' + durl.inspect.gsub(/RECORD/, "@#{record_name}") + ')' : 'redirect_to_current') + "\n"
       code << "end\n"
     end
 

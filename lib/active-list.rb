@@ -1,12 +1,7 @@
+# Version: 5.0.0
 module ActiveList
 
-  CSV = (::CSV.const_defined?(:Reader) ? ::FasterCSV : ::CSV).freeze
-
-  def self.version
-    "5.0.0"
-  end
-
-  VERSION = self.version.freeze
+  CSV = Ekylibre::CSV
 
   # Build and returns a short UID
   def self.new_uid

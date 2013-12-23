@@ -128,7 +128,7 @@ class ActionController::TestCase
       for action in actions
         action_label = "#{controller_path}##{action}"
 
-        code << "  should \"#{action}\" do\n"
+        code << "  should '#{action} (#{options[action].inspect})' do\n"
 
         mode = options[action] || choose_mode(action_label)
 

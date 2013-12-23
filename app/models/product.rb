@@ -65,6 +65,7 @@
 
 
 class Product < Ekylibre::Record::Base
+  include Versionable
   enumerize :variety, in: Nomen::Varieties.all, predicates: {prefix: true}
   enumerize :derivative_of, in: Nomen::Varieties.all
   enumerize :content_indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}

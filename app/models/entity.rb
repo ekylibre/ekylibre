@@ -80,14 +80,14 @@ class Entity < Ekylibre::Record::Base
   belongs_to :responsible, class_name: "User"
   belongs_to :supplier_account, class_name: "Account"
   has_many :clients, class_name: "Entity", foreign_key: :responsible_id, dependent: :nullify
-  has_many :addresses, -> { where(:deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
-  has_many :mails,     -> { where(:canal => "mail",    :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
-  has_many :emails,    -> { where(:canal => "email",   :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
-  has_many :phones,    -> { where(:canal => "phone",   :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
-  has_many :mobiles,   -> { where(:canal => "mobile",  :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
-  has_many :faxes,     -> { where(:canal => "fax",     :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
-  has_many :websites,  -> { where(:canal => "website", :deleted_at => nil) }, class_name: "EntityAddress", inverse_of: :entity
-  has_many :auto_updateable_addresses, -> { where(:deleted_at => nil, :mail_auto_update => true) }, class_name: "EntityAddress"
+  has_many :addresses, -> { where(deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :mails,     -> { where(canal: "mail",    deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :emails,    -> { where(canal: "email",   deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :phones,    -> { where(canal: "phone",   deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :mobiles,   -> { where(canal: "mobile",  deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :faxes,     -> { where(canal: "fax",     deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :websites,  -> { where(canal: "website", deleted_at: nil) }, class_name: "EntityAddress", inverse_of: :entity
+  has_many :auto_updateable_addresses, -> { where(deleted_at: nil, mail_auto_update: true) }, class_name: "EntityAddress"
   has_many :direct_links, class_name: "EntityLink", foreign_key: :entity_1_id
   has_many :product_events, class_name: "Version", foreign_key: :watcher_id
   has_many :godchildren, class_name: "Entity", foreign_key: "proposer_id"
@@ -98,11 +98,11 @@ class Entity < Ekylibre::Record::Base
   has_many :observations, :as => :subject
   has_many :participations, class_name: "EventParticipation", foreign_key: :participant_id
   has_many :prices, class_name: "ProductPriceTemplate"
-  has_many :purchase_invoices, -> { where(:state => "invoice").order("created_on desc") }, class_name: "Purchase", foreign_key: :supplier_id
+  has_many :purchase_invoices, -> { where(state: "invoice").order("created_on desc") }, class_name: "Purchase", foreign_key: :supplier_id
   has_many :purchases, foreign_key: :supplier_id
   has_many :outgoing_deliveries, foreign_key: :transporter_id
   has_many :outgoing_payments, foreign_key: :payee_id
-  has_many :sales_invoices, -> { where(:state => "invoice").order("created_on desc") }, class_name: "Sale", foreign_key: :client_id
+  has_many :sales_invoices, -> { where(state: "invoice").order("created_on desc") }, class_name: "Sale", foreign_key: :client_id
   has_many :sales, -> { order("created_on desc") }, foreign_key: :client_id
   has_many :sale_items, class_name: "SaleItem"
   has_many :subscriptions, foreign_key: :subscriber_id
@@ -112,7 +112,7 @@ class Entity < Ekylibre::Record::Base
   has_many :transporter_sales, -> { order("created_on desc") }, foreign_key: :transporter_id, class_name: "Sale"
   has_many :usable_incoming_payments, -> { where("used_amount < amount") }, class_name: "IncomingPayment", foreign_key: :payer_id
   has_many :waiting_deliveries, -> { where("moved_on IS NULL AND planned_on <= CURRENT_DATE") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
-  has_one :default_mail_address, -> { where(:by_default => true, :canal => "mail") }, class_name: "EntityAddress"
+  has_one :default_mail_address, -> { where(by_default: true, canal: "mail") }, class_name: "EntityAddress"
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
@@ -125,9 +125,9 @@ class Entity < Ekylibre::Record::Base
 
   # # default_scope order(:last_name, :first_name)
   scope :necessary_transporters, -> { where("id IN (SELECT transporter_id FROM #{OutgoingDelivery.table_name} WHERE (sent_at IS NULL AND planned_at <= CURRENT_DATE) OR transport_id IS NULL)").order(:last_name, :first_name) }
-  scope :suppliers,    -> { where(:supplier => true) }
-  scope :transporters, -> { where(:transporter => true) }
-  scope :clients,      -> { where(:client => true) }
+  scope :suppliers,    -> { where(supplier: true) }
+  scope :transporters, -> { where(transporter: true) }
+  scope :clients,      -> { where(client: true) }
   scope :related_to, lambda { |entity|
     where("id IN (SELECT entity_2_id FROM #{EntityLink.table_name} WHERE entity_1_id = ?) OR id IN (SELECT entity_1_id FROM #{EntityLink.table_name} WHERE entity_2_id = ?)", entity.id, entity.id)
   }
@@ -148,12 +148,12 @@ class Entity < Ekylibre::Record::Base
   alias_attribute :name, :full_name
 
   acts_as_numbered :number
-  accepts_nested_attributes_for :mails,    :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :emails,   :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :phones,   :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :mobiles,  :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :faxes,    :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :websites, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :mails,    reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :emails,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :phones,   reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :mobiles,  reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :faxes,    reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :websites, reject_if: :all_blank, allow_destroy: true
 
   def self.of_company
     self.find_by(of_company: true)
@@ -378,7 +378,7 @@ class Entity < Ekylibre::Record::Base
   #   # end
   #   unless cols[:product_price_listing].is_a? Hash
   #     code += "  sale_catalog = Catalog.where('name=? or code=?', '-', '-').first\n"
-  #     code += "  sale_catalog = Catalog.create!(:name => '-', :by_default => false) unless sale_catalog\n"
+  #     code += "  sale_catalog = Catalog.create!(:name => '-', by_default: false) unless sale_catalog\n"
   #   end
   #   for k, v in (cols[:special]||{}).select{|k, v| v == :generate_string_custom_field}
   #     code += "  custom_field_#{k} = CustomField.create!(:name => #{header[k.to_i].inspect}, :active => true, :length_max => 65536, :nature => 'string', :required => false)\n"
@@ -401,7 +401,7 @@ class Entity < Ekylibre::Record::Base
   #     code += "      sale_catalog = Catalog.create!("+cols[:product_price_listing].collect{|k,v| ":#{v} => item[#{k}]"}.join(', ')+")\n"
   #     code += "    rescue\n"
   #     code += "      sale_catalog = Catalog.where('name=? or code=?', '-', '-').first\n"
-  #     code += "      sale_catalog = Catalog.create!(:name => '-', :by_default => false) unless sale_catalog\n"
+  #     code += "      sale_catalog = Catalog.create!(:name => '-', by_default: false) unless sale_catalog\n"
   #     code += "    end unless sale_catalog\n"
   #   end
 
@@ -455,7 +455,7 @@ class Entity < Ekylibre::Record::Base
     csv_string = Ekylibre::CSV.generate do |csv|
       csv << ["Code", "Type", "Catégorie", "Nom", "Prénom", "Dest-Service", "Bat.-Res.-ZI", "N° et voie", "Lieu dit", "Code Postal", "Ville", "Téléphone", "Mobile", "Fax", "Email", "Site Web", "Taux de réduction"]
       self.each do |entity|
-        address = EntityAddress.where(:entity_id => entity.id, :by_default => true, :deleted_at => nil).first
+        address = EntityAddress.where(:entity_id => entity.id, by_default: true, deleted_at: nil).first
         item = []
         item << ["'"+entity.number.to_s, entity.nature.name, entity.sale_catalog.name, entity.name, entity.first_name]
         if !address.nil?

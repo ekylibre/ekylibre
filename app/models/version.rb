@@ -59,7 +59,7 @@ class Version < ActiveRecord::Base
     where("created_at BETWEEN ? AND ?", started_at, stopped_at).order(created_at: :desc)
   }
 
-  serialize :item_object, HashWithIndifferentAccess
+  serialize :item_object,  HashWithIndifferentAccess
   serialize :item_changes, HashWithIndifferentAccess
 
   before_save do
@@ -86,7 +86,7 @@ class Version < ActiveRecord::Base
     # return a.diff(b)
     return a.dup.
       delete_if { |k, v| b[k] == v }.
-      merge!(b.dup.delete_if { |k, v| has_key?(k) })
+      merge!(b.dup.delete_if { |k, v| a.has_key?(k) })
   end
 
   def siblings

@@ -55,6 +55,6 @@ class ProductionSupportMarker < Ekylibre::Record::Base
   #]VALIDATORS]
 
   def siblings
-    self.support.where(indicator_name: self.indicator_name)
+    self.support.markers.where(indicator_name: self.indicator_name)
   end
 end
