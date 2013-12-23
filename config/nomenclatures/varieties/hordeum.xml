@@ -2,11 +2,11 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-hordeum" hierarchical="true">
     <items>
-      <item name="brassage_winter_hordeum"/>
-      <item name="winter_hordeum"/>
+      <item name="brassage_hordeum_hibernum"/>
+      <item name="hordeum_hibernum"/>
       <item name="spring_hordeum"/>
       <item name="low_protein_spring_hordeum"/>
-      <item name="low_protein_brassage_winter_hordeum"/>
+      <item name="low_protein_brassage_hordeum_hibernum"/>
     </items>
   </nomenclature>
 </nomenclatures>

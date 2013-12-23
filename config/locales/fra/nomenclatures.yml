@@ -1689,7 +1689,7 @@ fra:
         bioproduct: "Produit vivant"                       # matter
         black_valley_soil: "Terres noires de vallées"      # land_parcel
         bos: "Bovin"                                       # mammalia
-        brassage_winter_hordeum: "Orge d'hiver de brasserie" # hordeum
+        brassage_hordeum_hibernum: "Orge d'hiver de brasserie" # hordeum
         brassica_napus: "Colza"                            # brassicaceae
         brassica_nigra: "Moutarde noire"                   # brassicaceae
         brassica_rapa: "Navet"                             # brassicaceae
@@ -1748,7 +1748,7 @@ fra:
         lepus: "Lagomorphe"                                # mammalia
         levis: "Levis"                                     # triticum_aestivum
         lona: "Lona"                                       # triticum_aestivum
-        low_protein_brassage_winter_hordeum: "Orge d'hiver de brasserie (faible teneur en protéïnes)" # hordeum
+        low_protein_brassage_hordeum_hibernum: "Orge d'hiver de brasserie (faible teneur en protéïnes)" # hordeum
         low_protein_spring_hordeum: "Orge de printemps (faible teneur en protéïnes)" # hordeum
         malus: "Pommier"                                   # plant
         mammalia: "Mammifère"                              # animal
@@ -1840,7 +1840,7 @@ fra:
         vitis_vinifera: "Vitis vinifera"                   # vitis
         water: "Eau"                                       # matter
         wine: "Vin"                                        # organic_matter
-        winter_hordeum: "Orge d'hiver"                     # hordeum
+        hordeum_hibernum: "Orge d'hiver"                     # hordeum
         worker: "Travailleur"                              # equipment
         zea: "Maïs"                                        # poaceae
         zone: "Zone physique"                              # matter

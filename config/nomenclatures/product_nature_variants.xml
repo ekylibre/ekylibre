@@ -125,7 +125,7 @@
                  <!-- BARLEY CROP -->  
       <item name="winter_barley_crop"
             nature="crop"
-            variety="winter_hordeum"
+            variety="hordeum_hibernum"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -435,7 +435,7 @@
             />
       <item name="winter_barley_seed_25"
             nature="seed"
-            derivative_of="winter_hordeum"
+            derivative_of="hordeum_hibernum"
             unit_name="25kg_bag"
             frozen_indicators_values="net_weight: 25.00kilogram, thousand_grain_weight: 42gram"
             />
