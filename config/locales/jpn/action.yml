@@ -1033,7 +1033,7 @@ jpn:
     # ground_appearance: "Aspect du sol"
     # group: "Groupe"
     # groups: "Groupes"
-    # harvest_at: "Récolté le"
+    # harvested_at: "Récolté le"
     # help: "Aide"
     # hint: "Astuce\_: %{value}"
     # historic: "Historique"

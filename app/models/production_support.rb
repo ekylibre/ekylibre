@@ -73,12 +73,6 @@ class ProductionSupport < Ekylibre::Record::Base
     return datum
   end
 
-  # # Return the indicator datum
-  # def indicator(indicator, options = {})
-  #   ActiveSupport::Deprecation.warn("Product#indicator method is deprecated. Please use Product#indicate instead")
-  #   return indicate(indicator, options)
-  # end
-
   # Return the indicator datum
   def indicator_datum(indicator, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
@@ -129,21 +123,21 @@ class ProductionSupport < Ekylibre::Record::Base
     end
   end
 
-  def tool_cost
+  def tool_cost(surface_unit = :hectare)
     if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      self.cost(:tool)/(self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f)
+      self.cost(:tool)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
     end
   end
 
-  def input_cost
+  def input_cost(surface_unit = :hectare)
     if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      self.cost(:input)/(self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f)
+      self.cost(:input)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
     end
   end
 
-  def time_cost
+  def time_cost(surface_unit = :hectare)
     if self.storage_net_surface_area(self.started_at).to_s.to_f > 0.0
-      self.cost(:doer)/(self.storage_net_surface_area(self.started_at).convert(:hectare).to_s.to_f)
+      self.cost(:doer)/(self.storage_net_surface_area(self.started_at).to_d(surface_unit).to_s.to_f)
     end
   end
 
@@ -156,24 +150,24 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   # return the started_at attribute of the intervention of nature harvesting if exist and if it's a vegetal production
-  def harvest_at
+  def harvested_at
     if harvest_intervention = self.interventions.real.of_nature(:harvest).first
       return harvest_intervention.started_at
     end
     return nil
   end
 
-  def grains_yield(unit = :quintal)
+  def grains_yield(mass_unit = :quintal, surface_unit = :hectare)
     if self.interventions.real.of_nature(:harvest).count > 1
       total_yield = []
       for harvest in self.interventions.real.of_nature(:harvest)
         for input in harvest.casts.of_role('harvest-output').where(reference_name: "grains")
-          q = (input.actor ? input.actor.net_weight(input).to_d(unit) : 0.0)
+          q = (input.actor ? input.actor.net_weight(input).to_d(mass_unit) : 0.0)
           total_yield << q
         end
       end
       if self.storage.net_surface_area
-        return ((total_yield.compact.sum) / (net_surface_area.to_d(:hectare)))
+        return ((total_yield.compact.sum) / (net_surface_area.to_d(surface_unit)))
       end
     end
     return nil

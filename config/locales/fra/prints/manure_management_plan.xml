@@ -202,7 +202,7 @@
 	<field name="sowed_at" class="java.lang.String">
 		<fieldDescription><![CDATA[support/@sowed-at]]></fieldDescription>
 	</field>
-	<field name="harvest_at" class="java.lang.String">
+	<field name="harvested_at" class="java.lang.String">
 		<fieldDescription><![CDATA[support/@harvest-at]]></fieldDescription>
 	</field>
 	<field name="grains_yield" class="java.lang.String">
@@ -349,7 +349,7 @@
 				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" pattern="dd/MM/yyyy" isBlankWhenNull="true">
 					<reportElement uuid="b623543d-b15d-4c5e-9665-b20156bc5971" style="base" x="522" y="70" width="71" height="23"/>
 					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{harvest_at}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{harvested_at}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" isBlankWhenNull="true">
 					<reportElement uuid="ae80d9ca-8683-4e9d-b592-4c6a67a2b892" style="base" x="522" y="117" width="71" height="27"/>

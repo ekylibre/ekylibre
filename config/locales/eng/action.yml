@@ -1103,7 +1103,7 @@ eng:
     # ground_appearance: "Aspect du sol"
     group: "Group"
     groups: "Groups"
-    # harvest_at: "Récolté le"
+    # harvested_at: "Récolté le"
     help: "Help"
     hint: "Hint: %{value}"
     # historic: "Historique"

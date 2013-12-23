@@ -27,7 +27,7 @@
             <property name="variant_name" value="support.production.variant_name"/>
             <property name="variant_variety" value="support.production.variant_variety"/>
             <property name="sowed_at" value="support.sowed_at" type="datetime"/>
-            <property name="harvest_at" value="support.harvest_at" type="datetime"/>
+            <property name="harvested_at" value="support.harvested_at" type="datetime"/>
             <property name="grains_yield" value="support.grains_yield(:quintal)" type="measure"/>
             <property name="provisional_grains_yield" value="support.markers.where(indicator_name: 'provisional_grains_yield').first.value" type="measure"/>
             <property name="previous_production_name" value="zone.last_production_before(support.production)"/>

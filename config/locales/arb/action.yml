@@ -1256,7 +1256,7 @@ arb:
     # ground_appearance: "Aspect du sol"
     # group: "Groupe"
     # groups: "Groupes"
-    # harvest_at: "Récolté le"
+    # harvested_at: "Récolté le"
     help: "المساعدة"
     hint: "تلميح&nbsp;: %{value}"
     # historic: "Historique"

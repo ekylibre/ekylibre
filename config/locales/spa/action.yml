@@ -1144,7 +1144,7 @@ spa:
     # ground_appearance: "Aspect du sol"
     # group: "Groupe"
     # groups: "Groupes"
-    # harvest_at: "Récolté le"
+    # harvested_at: "Récolté le"
     help: "Ayuda"
     # hint: "Astuce\_: %{value}"
     # historic: "Historique"

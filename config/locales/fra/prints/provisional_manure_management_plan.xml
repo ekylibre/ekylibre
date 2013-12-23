@@ -125,7 +125,7 @@
 	<field name="started_at" class="java.lang.String">
 		<fieldDescription><![CDATA[support/@started-at]]></fieldDescription>
 	</field>
-	<field name="harvest_at" class="java.lang.String">
+	<field name="harvested_at" class="java.lang.String">
 		<fieldDescription><![CDATA[support/@harvest-at]]></fieldDescription>
 	</field>
 	<field name="grains_yield" class="java.lang.String">
