@@ -3,9 +3,9 @@
     - cell :last_outgoing_deliveries
     - cell :last_incoming_deliveries
   - hbox do
-    - cell :currents_stocks_by_product_nature, :params => {variety: 'mineral_matter'}
-    - cell :currents_stocks_by_product_nature, :params => {variety: 'manure'}
-    - cell :currents_stocks_by_product_nature, :params => {variety: 'grain'}
+    - cell :currents_stocks_by_product_nature, :params => {variety: 'mineral_matter', mass_unit: 'ton'}
+    - cell :currents_stocks_by_product_nature, :params => {variety: 'manure', mass_unit: 'ton'}
+    - cell :currents_stocks_by_product_nature, :params => {variety: 'grain', mass_unit: 'quintal'}
   - hbox do
     - cell :currents_stocks_by_product_nature, :params => {variety: 'animal_medicine'}
     - cell :currents_stocks_by_product_nature, :params => {variety: 'plant_medicine'}
