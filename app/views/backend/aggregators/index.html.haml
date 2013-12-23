@@ -3,7 +3,7 @@
     - aggregators = Aggeratio.of_category(category)
     - if aggregators.size > 0
       - b.cell Nomen::DocumentCategories[category].human_name do
-        %ul
+        %ul.desc-list
           - for aggregator in aggregators
-            %li= link_to(aggregator.human_name, {:action => :show, :id => aggregator.id})
-  
+            %li
+              %h3= link_to(aggregator.human_name, {:action => :show, :id => aggregator.id})
