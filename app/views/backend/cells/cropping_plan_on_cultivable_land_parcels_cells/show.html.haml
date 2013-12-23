@@ -3,7 +3,7 @@
     #
     activities = Activity.of_campaign(@campaigns).of_families(:vegetal_crops).order(:id)
 
-    productions = Production.of_campaign(@campaigns).where(:static_support => true, :activity_id => activities).order("activity_id, id")
+    productions = Production.of_campaign(@campaigns).where(:static_support => true, :activity_id => activities).reorder("activity_id, id")
 
       if activities.count > 0 and productions.count > 0
 
@@ -15,7 +15,7 @@
           { name: production.name, y: production.area.in(:square_meter).to_d(:hectare).to_s.to_f, id: production.id, color: ligthen(activities_serie.detect{|a| a[:id] == production.activity_id}[:color], 0.3) }
         end
 
-        cultivable_zones_serie = CultivableZone.of_campaign(@campaigns).of_production(productions).order("production_id, id").collect do |cultivable_zone|
+        cultivable_zones_serie = CultivableZone.of_campaign(@campaigns).of_production(productions).reorder("activity_id, production_id, id").collect do |cultivable_zone|
           { name: cultivable_zone.name, y: cultivable_zone.area.in(:square_meter).to_d(:hectare).to_s.to_f, color: ligthen(productions_serie.detect{|a| a[:id] == cultivable_zone.supports.first.production_id}[:color], 0.3) }
         end
       end
@@ -25,6 +25,6 @@
     series << {name: Production.model_name.human, data: productions_serie, size: "75%", inner_size: "50%", data_labels: {enabled: false}}
     series << {name: CultivableZone.model_name.human, data: cultivable_zones_serie, size: "80%", inner_size: "75%"}
 
-  = pie_chart(series, tooltip: {point_format: '{point.y: 1.1f} Ha'}, title: @campaigns.map(&:name).to_sentence)
+  = pie_chart(series, tooltip: {point_format: '{point.y: 1.1f} Ha'}, title: @campaigns.name)
 - else
   %strong= :no_data.tl
