@@ -5,3 +5,18 @@
   -b.cell do
     =attributes_list(@production_support) do |l|
       -l.attribute :name
+      -l.attribute :storage, url: true
+      -l.attribute :production, url: true
+      -l.attribute :started_at
+      -l.attribute :stopped_at
+      -l.attribute :irrigated
+
+  - b.tabbox do
+    - b.cell(:interventions) do
+      = toolbar do |t|
+        - t.new(:params =>{:controller => :interventions, :production_support_id => @production_support.id})
+      = list(:interventions)
+    - b.cell(:markers) do
+      = toolbar do |t|
+        - t.new(:params =>{:controller => :production_support_markers, :support_id => @production_support.id})
+      = list(:markers)

@@ -65,8 +65,8 @@ demo :productions do
       if r.variant_reference_name
         product_nature_variant_sup = ProductNatureVariant.find_by(reference_name: r.variant_reference_name)
         product_nature_variant_sup ||= ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
-        product_support = Product.find_by(work_number: r.work_number_storage)
-        if product_nature_variant_sup and product_support
+        product_support = Product.find_by(work_number: r.work_number_storage) || nil
+        if product_nature_variant_sup and !product_support.nil?
           # find a production corresponding to campaign , activity and product_nature
           pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :variant_id => product_nature_variant_sup.id).first
           # or create it
@@ -75,14 +75,14 @@ demo :productions do
           support = pro.supports.create!(:storage_id => product_support.id)
           if product_support.is_a?(CultivableZone)
             # create markers for yield and nitrogen
-            if r.provisional_grain_yield
+            if !r.provisional_grain_yield.nil?
               support.markers.create!(:indicator_name => :provisional_grains_yield, :aim => :perfect, :measure_value => r.provisional_grain_yield.in_quintal_per_hectare)
             end
-            if r.provisional_nitrogen_input
+            if !r.provisional_nitrogen_input.nil?
               support.markers.create!(:indicator_name => :provisional_nitrogen_input, :aim => :perfect, :measure_value => r.provisional_nitrogen_input.in_kilogram_per_hectare)
             end
           end
-        elsif product_nature_variant_sup
+        elsif !product_nature_variant_sup.nil?
           pro = Production.where(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
           pro ||= activity.productions.create!(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id)
         end

@@ -511,7 +511,7 @@ fra:
       edit: "Modifier un support de production"
       index: "Supports de production"
       new: "Nouveau support de production"
-      show: "Support de production\_: %{id}"
+      show: "Support de production\_: %{support.name}"
     backend/productions:
       edit: "Modifier la production\_: %{name}"
       index: "Productions"

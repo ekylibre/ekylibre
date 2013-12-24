@@ -17,33 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductionSupportsController < BackendController
+class Backend::ProductionSupportMarkersController < BackendController
   manage_restfully(:t3e => {:name => :name})
 
   unroll includes: [{production: [:activity, :campaign, :variant]}, :storage]
 
   list do |t|
-    t.column :production, url: true
-    t.column :storage, url: true
-    t.column :exclusive
-    t.column :started_at
-    t.column :stopped_at
-  end
-
-  # List procedures for one production
-  list(:interventions, conditions: {production_support_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status) do |t|
-    # t.column :name
-    t.column :name, url: true
-    #t.column :name, through: :storage, url: true
-    t.column :state
-    t.column :incident, url: true
-    t.column :started_at
-    t.column :stopped_at
-    # t.column :provisional
-  end
-
-  # List markers
-  list(:markers, model: :production_support_markers, conditions: {support_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :indicator_name, url: true
     t.column :aim
     t.column :value

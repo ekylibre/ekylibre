@@ -1,0 +1,7 @@
+=main_toolbar do |t|
+  -t.edit @production_support_marker
+
+=beehive do |b|
+  -b.cell do
+    =attributes_list(@production_support_marker) do |l|
+      -l.attribute :indicator_name
