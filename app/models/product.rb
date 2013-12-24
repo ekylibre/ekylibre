@@ -462,10 +462,12 @@ class Product < Ekylibre::Record::Base
         raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"
       elsif datum = self.indicator_datum(indicator.name, at: cast_or_time)
         value = datum.value
-      elsif indicator.datatype == :measure
-        value = 0.0.in(indicator.unit)
-      elsif indicator.datatype == :decimal
-        value = 0.0
+      elsif !options[:default].is_a?(FalseClass)
+        if indicator.datatype == :measure
+          value = 0.0.in(indicator.unit)
+        elsif indicator.datatype == :decimal
+          value = 0.0
+        end
       end
       # Adjust value
       if value and indicator.gathering and !options[:gathering].is_a?(FalseClass)
