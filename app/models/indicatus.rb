@@ -41,8 +41,13 @@ class Indicatus
         if computation == :superficial_count
           if source_actor.indicators_list.include?(:shape)
             if actor.indicators_list.include?(:net_surface_area)
-              whole      = source_actor.net_surface_area!(@operation.started_at).to_f(:square_meter)
-              individual = actor.net_surface_area!(@operation.started_at, gathering: false).to_f(:square_meter)
+              whole      = source_actor.net_surface_area(@operation.started_at).to_f(:square_meter)
+              return 0 if whole.zero?
+              individual = actor.net_surface_area(@operation.started_at, gathering: false, default: false).to_f(:square_meter)
+              if individual.zero?
+                raise StandardError, "Cannot compute superficial count if with a product with null net_surface_area indicator."
+              end
+              puts [whole, individual].inspect
               return (whole / individual)
             else
               raise StandardError, "Cannot compute superficial count if with a product without net_surface_area indicator."
