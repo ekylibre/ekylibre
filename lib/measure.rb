@@ -63,7 +63,7 @@ class Measure
     unless value.is_a? Numeric
       raise ArgumentError, "Value can't be converted to float: #{value.inspect}"
     end
-    @value = value.to_d
+    @value = value.to_r
     if unit.is_a?(Nomen::Item)
       unit = unit.name.to_s
     end
@@ -81,7 +81,7 @@ class Measure
   end
 
   def convert(unit)
-    return (@unit == unit.to_s ? self : Measure.new(self.to_d(unit), unit))
+    return (@unit == unit.to_s ? self : Measure.new(self.to_r(unit), unit))
   end
   alias :in :convert
 
@@ -97,7 +97,7 @@ class Measure
   end
 
   def inspect
-    "#{@value.to_d} #{@unit}"
+    "#{@value.to_f} #{@unit}"
   end
 
   def to_s
@@ -112,12 +112,12 @@ class Measure
   # Returns the dimension of a measure
   def +(measure)
     raise ArgumentError.new("Only measure can be added to another measure") unless measure.is_a?(Measure)
-    self.class.new(@value + measure.to_d(@unit), @unit)
+    self.class.new(@value + measure.to_r(@unit), @unit)
   end
 
   def -(measure)
     raise ArgumentError.new("Only measure can be substracted to another measure") unless measure.is_a?(Measure)
-    self.class.new(@value - measure.to_d(@unit), @unit)
+    self.class.new(@value - measure.to_r(@unit), @unit)
   end
 
   def *(numeric_or_measure)
@@ -144,7 +144,7 @@ class Measure
     end
   end
 
-  def to_d(unit = nil)
+  def to_r(unit = nil)
     if unit.nil?
       return @value
     else
@@ -161,18 +161,23 @@ class Measure
       # Coeff to dest
       ref = @@units[unit]
       value = ref.d * ((reduced - ref.b) / ref.a)
-      return value
+      return value.to_r
     end
   end
 
-  # Return
+  # Return Float value
   def to_f(unit = nil)
-    self.to_d(unit).to_f
+    self.to_r(unit).to_f
+  end
+
+  # Return BigDecimal value 
+  def to_d(unit = nil, precision = 16)
+    self.to_r(unit).to_d(precision)
   end
 
   # Localize a measure
   def l
-    "#{self.value.l} #{@@units.items[@unit].symbol}"
+    "#{self.value.to_f.l} #{@@units.items[@unit].symbol}"
   end
 
 end

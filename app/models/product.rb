@@ -392,17 +392,17 @@ class Product < Ekylibre::Record::Base
   #   return 0.0.in_square_meter
   # end
 
-  def net_surface_area(*args)
-    unless value = self.get(:net_surface_area, *args)
-      if self.whole_indicators_list.include?(:shape)
-        options = args.extract_options!
-        at = args.shift || options[:at] || Time.now
-        # TODO Manage InterventionCast ?
-        value = self.shape_area(at: at) # rescue 0.0.in_square_meter
-      end
-    end
-    return value
-  end
+  # def net_surface_area(*args)
+  #   unless value = self.get(:net_surface_area, *args)
+  #     if self.whole_indicators_list.include?(:shape)
+  #       options = args.extract_options!
+  #       at = args.shift || options[:at] || Time.now
+  #       # TODO Manage InterventionCast ?
+  #       value = self.shape_area(at: at) # rescue 0.0.in_square_meter
+  #     end
+  #   end
+  #   return value
+  # end
 
   def area(unit = :hectare, at = Time.now)
     ActiveSupport::Deprecation.warn("Product#area is deprecated. Please use Product#net_surface_area instead.")
