@@ -59,6 +59,7 @@ fra:
         to_bank_on: "À encaisser le"
       intervention:
         storage: "Support"
+        production_support: "Support de production"
       inventory_item:
         quantity: "Quantité constatée"
       journal_entry_item:

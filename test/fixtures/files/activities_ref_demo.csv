@@ -53,7 +53,7 @@ code_activite,nom_activite,famille_activite,nomen_product_nature_variant,type_ac
 3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,ZC26,,
 1710,Maïs sec,CEREA,corn_crop,PRINC,2013,ZC27,,
 3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,ZC28,,
-1410,Orge hiver,CEREA,barley_crop,PRINC,2013,ZC29,,
+1410,Orge hiver,CEREA,winter_barley_crop,PRINC,2013,ZC29,,
 1710,Maïs sec,CEREA,corn_crop,PRINC,2013,ZC3,,
 3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,ZC30,,
 1710,Maïs sec,CEREA,corn_crop,PRINC,2013,ZC4,,

@@ -18,6 +18,10 @@
 #
 
 class Backend::CultivableZonesController < Backend::LandParcelGroupsController
+  manage_restfully(:t3e => {:name => :name})
+  
+  unroll
+  
   # INDEX
   list do |t|
     t.column :name, url: true
