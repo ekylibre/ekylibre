@@ -23,7 +23,7 @@
           <property name="shape_svg" of="zone" type="svg" level="api"/>
           <!-- looking for all Production in current zone and campaign -->
           <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
-            <title name="name" of="support"/>
+            <title name="storage.name" of="support"/>
             <property name="variant_name" value="support.production.variant_name"/>
             <property name="variant_variety" value="support.production.variant_variety"/>
             <property name="sowed_at" value="support.sowed_at" type="datetime"/>
@@ -34,7 +34,7 @@
             <property name="nitrogen_input_real" value="support.nitrogen_balance" type="measure"/>
             <property name="nitrogen_input_prev" value="support.provisional_nitrogen_input" type="measure"/>
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="intervention" in="support.interventions.real.of_nature(:soil_enrichment).with_cast(:'soil_enrichment-target', zone)" of-type="record">
+            <sections for="intervention" in="support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).with_cast(:'soil_enrichment-target', zone)" of-type="record">
               <variable name="actor" value="intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>
               <title name="name" of="intervention"/>
               <property name="id" of="intervention" level="api"/>

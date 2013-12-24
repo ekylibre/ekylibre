@@ -91,7 +91,7 @@ class CultivableZone < Zone
 
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)
-    LandParcel.members_of(self, viewed_at || Time.now)
+    LandParcel.zone_members_of(self)
   end
 
   # return the work_number of LandParcelClusters if exist for a CultivableLAndParcel

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="land_parcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="130"/>
-	<property name="ireport.y" value="449"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="432"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -79,7 +79,7 @@
 		<parameter name="cultivable_land_parcel_id" class="java.lang.String"/>
 		<parameter name="cultivable_land_parcel_area" class="java.lang.Double"/>
 		<queryString language="xPath">
-			<![CDATA[/campaigns/campaign/cultivable_land_parcel/support/intervention/inputs/input[ancestor::cultivable_land_parcel/@id=$P{cultivable_land_parcel_id}]]]>
+			<![CDATA[/campaigns/campaign/zone/support/intervention/inputs/input[ancestor::zone/@id=$P{cultivable_land_parcel_id}]]]>
 		</queryString>
 		<field name="input" class="java.lang.String">
 			<fieldDescription><![CDATA[id]]></fieldDescription>
@@ -158,7 +158,7 @@
 		<defaultValueExpression><![CDATA["/home/djoulin/ekylibre/config/locales/fra/prints/"]]></defaultValueExpression>
 	</parameter>
 	<queryString language="xPath">
-		<![CDATA[/campaigns/campaign/cultivable_land_parcel]]>
+		<![CDATA[/campaigns/campaign/zone]]>
 	</queryString>
 	<field name="campaign" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::campaign/@name]]></fieldDescription>
