@@ -146,7 +146,7 @@ class Measure
 
   def /(numeric_or_measure)
     if numeric_or_measure.is_a? Numeric
-      self.class.new(@value / numeric_or_measure, @unit)
+      self.class.new(@value / numeric_or_measure.to_r, @unit)
     elsif numeric_or_measure.is_a? Measure
       # Find matching dimension
       # Convert
@@ -156,7 +156,7 @@ class Measure
     end
   end
 
-  def to_r(unit = nil)
+  def to_r(unit = nil, precision = 16)
     if unit.nil?
       return @value
     else
@@ -169,7 +169,7 @@ class Measure
       end
       # Reduce to base
       ref = @@units[@unit]
-      reduced = ((ref.a * @value) / ref.d) + ref.b
+      reduced = ((ref.a * @value.to_d(precision)) / ref.d) + ref.b
       # Coeff to dest
       ref = @@units[unit]
       value = ref.d * ((reduced - ref.b) / ref.a)
@@ -178,13 +178,13 @@ class Measure
   end
 
   # Return Float value
-  def to_f(unit = nil)
-    self.to_r(unit).to_f
+  def to_f(unit = nil, precision = 16)
+    self.to_r(unit, precision).to_f
   end
 
   # Return BigDecimal value
   def to_d(unit = nil, precision = 16)
-    self.to_r(unit).to_d(precision)
+    self.to_r(unit, precision).to_d(precision)
   end
 
   # Localize a measure

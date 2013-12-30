@@ -16,7 +16,7 @@ class Backend::Cells::MeteoCellsController < Backend::CellsController
               hash[key] = (day[:temp][key] || 0).in_kelvin
               hash
             end,
-            
+
             pressure: day[:pressure].in_hectopascal,
             humidity: (day[:humidity] || 0).in_percent,
             wind_speed: (day[:speed] || 0).in_meter_per_second,

@@ -44,14 +44,14 @@ class Indicatus
               unless whole = source_actor.shape_area(at: @operation.started_at)
                 raise StandardError, "Cannot compute superficial count if with a source product without shape indicator data."
               end
-              puts [whole, whole.to_f(:square_meter)].inspect
+              # puts [whole, whole.to_f(:square_meter)].inspect
               whole = whole.to_f(:square_meter)
               return 0 if whole.zero?
               individual = actor.net_surface_area(@operation.started_at, gathering: false, default: false).to_f(:square_meter)
               if individual.zero?
                 raise StandardError, "Cannot compute superficial count if with a product with null net_surface_area indicator."
               end
-              puts [whole, individual].inspect
+              # puts [whole, individual].inspect
               return (whole / individual)
             else
               raise StandardError, "Cannot compute superficial count if with a product without net_surface_area indicator."
