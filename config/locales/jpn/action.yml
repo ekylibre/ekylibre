@@ -108,7 +108,7 @@ jpn:
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
-    backend/cells/currents_stocks_by_product_nature_cells: #?
+    backend/cells/current_stocks_by_product_nature_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -478,7 +478,7 @@ jpn:
       # edit: "Modifier un support de production"
       # index: "Supports de production"
       # new: "Nouveau support de production"
-      # show: "Support de production\_: %{support.name}"
+      # show: "Support de production\_: %{name}"
     backend/productions:
       # edit: "Modifier la production\_: %{name}"
       # index: "Productions"
@@ -919,7 +919,7 @@ jpn:
     # currency_with_code: "%{code} - %{name}"
     # current: "En cours"
     # current_letter: "Lettre en cours\_: %{letter}"
-    # currents_stocks_by_product_nature: "État des stocks"
+    # current_stocks_by_product_nature: "État des stocks"
     # data_to_export: "Données à exporter"
     # data_to_extract: "Données à extraire"
     # dates: "Saisissez les dates de début et de fin de la période"

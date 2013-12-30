@@ -117,7 +117,7 @@ spa:
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
-    backend/cells/currents_stocks_by_product_nature_cells: #?
+    backend/cells/current_stocks_by_product_nature_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -543,7 +543,7 @@ spa:
       # edit: "Modifier un support de production"
       # index: "Supports de production"
       # new: "Nouveau support de production"
-      # show: "Support de production\_: %{support.name}"
+      # show: "Support de production\_: %{name}"
     backend/productions:
       # edit: "Modifier la production\_: %{name}"
       # index: "Productions"
@@ -1019,7 +1019,7 @@ spa:
     # currency_with_code: "%{code} - %{name}"
     # current: "En cours"
     current_letter: "Carta en curso : %{carta}"
-    # currents_stocks_by_product_nature: "État des stocks"
+    # current_stocks_by_product_nature: "État des stocks"
     data_to_export: "Datos a exportar"
     data_to_extract: "Datos para extraer"
     dates: "Marcar las fechas de empezo y termino por los periodos"

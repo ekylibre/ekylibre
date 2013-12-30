@@ -147,7 +147,7 @@
 # - "backend/cells/collected_taxes_cells#show"
 # - "backend/cells/cropping_plan_cells#show"
 # - "backend/cells/cropping_plan_on_cultivable_land_parcels_cells#show"
-# - "backend/cells/currents_stocks_by_product_nature_cells#show"
+# - "backend/cells/current_stocks_by_product_nature_cells#show"
 # - "backend/cells/elapsed_interventions_times_by_activities_cells#show"
 # - "backend/cells/events_cells#show"
 # - "backend/cells/last_document_archives_cells#list"

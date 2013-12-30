@@ -117,8 +117,8 @@ fra:
       # show: "Show backend/cells/cropping plan cell"
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells:
       # show: "Show backend/cells/cropping plan on cultivable land parcels cell"
-    backend/cells/currents_stocks_by_product_nature_cells:
-      # show: "Show backend/cells/currents stocks by product nature cell"
+    backend/cells/current_stocks_by_product_nature_cells:
+      # show: "Show backend/cells/current stocks by product nature cell"
     backend/cells/elapsed_interventions_times_by_activities_cells:
       # show: "Show backend/cells/elapsed interventions times by activities cell"
     backend/cells/events_cells:
@@ -686,7 +686,7 @@ fra:
     # backend/cells/collected_taxes_cells: "Backend/cells/collected taxes cells"
     # backend/cells/cropping_plan_cells: "Backend/cells/cropping plan cells"
     # backend/cells/cropping_plan_on_cultivable_land_parcels_cells: "Backend/cells/cropping plan on cultivable land parcels cells"
-    # backend/cells/currents_stocks_by_product_nature_cells: "Backend/cells/currents stocks by product nature cells"
+    # backend/cells/current_stocks_by_product_nature_cells: "Backend/cells/current stocks by product nature cells"
     # backend/cells/elapsed_interventions_times_by_activities_cells: "Backend/cells/elapsed interventions times by activities cells"
     # backend/cells/events_cells: "Backend/cells/events cells"
     # backend/cells/last_document_archives_cells: "Backend/cells/last document archives cells"
@@ -1052,7 +1052,7 @@ fra:
     currency_with_code: "%{code} - %{name}"
     current: "En cours"
     current_letter: "Lettre en cours\_: %{letter}"
-    currents_stocks_by_product_nature: "État des stocks"
+    current_stocks_by_product_nature: "État des stocks"
     data_to_export: "Données à exporter"
     data_to_extract: "Données à extraire"
     dates: "Saisissez les dates de début et de fin de la période"
