@@ -82,12 +82,12 @@ demo :animals do
                                 )
         f.close
         # set default indicators
-        animal.is_measured!(:sex, r.sex, :at => r.born_on.to_datetime)
-        animal.is_measured!(:net_mass, 55.45.in_kilogram, :at => r.born_on.to_datetime)
-        animal.is_measured!(:net_mass, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
+        animal.is_measured!(:sex, r.sex, at: r.born_on.to_datetime)
+        animal.is_measured!(:net_mass, 55.45.in_kilogram, at: r.born_on.to_datetime)
+        animal.is_measured!(:net_mass, 75.89.in_kilogram, at: (r.born_on.to_datetime + 2.months))
         animal.is_measured!(:animal_disease_state, :healthy)
-        animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
-        animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
+        animal.is_measured!(:animal_disease_state, :sick, at: (Time.now - 2.days))
+        animal.is_measured!(:animal_disease_state, :healthy, at: (Time.now - 3.days))
         # place the current animal in the default group with born_at
         if place_v and group_v
           ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
@@ -104,13 +104,13 @@ demo :animals do
                                 )
         f.close
         # set default indicators
-        animal.is_measured!(:net_mass, 55.45.in_kilogram, :at => r.born_on.to_datetime)
-        animal.is_measured!(:net_mass, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
-        animal.is_measured!(:net_mass, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
-        animal.is_measured!(:net_mass, 129.56.in_kilogram, :at => (r.born_on.to_datetime + 8.months))
+        animal.is_measured!(:net_mass, 55.45.in_kilogram, at: r.born_on.to_datetime)
+        animal.is_measured!(:net_mass, 75.89.in_kilogram, at: (r.born_on.to_datetime + 2.months))
+        animal.is_measured!(:net_mass, 89.56.in_kilogram, at: (r.born_on.to_datetime + 4.months))
+        animal.is_measured!(:net_mass, 129.56.in_kilogram, at: (r.born_on.to_datetime + 8.months))
         animal.is_measured!(:animal_disease_state, :healthy)
-        animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
-        animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
+        animal.is_measured!(:animal_disease_state, :sick, at: (Time.now - 2.days))
+        animal.is_measured!(:animal_disease_state, :healthy, at: (Time.now - 3.days))
         if place_gen and group_gen1
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
@@ -127,14 +127,14 @@ demo :animals do
                                 )
         f.close
         # set default indicators
-        animal.is_measured!(:net_mass, 55.45.in_kilogram, :at => r.born_on.to_datetime)
-        animal.is_measured!(:net_mass, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
-        animal.is_measured!(:net_mass, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
-        animal.is_measured!(:net_mass, 129.56.in_kilogram, :at => (r.born_on.to_datetime + 8.months))
-        animal.is_measured!(:net_mass, 189.56.in_kilogram, :at => (r.born_on.to_datetime + 12.months))
+        animal.is_measured!(:net_mass, 55.45.in_kilogram, at: r.born_on.to_datetime)
+        animal.is_measured!(:net_mass, 75.89.in_kilogram, at: (r.born_on.to_datetime + 2.months))
+        animal.is_measured!(:net_mass, 89.56.in_kilogram, at: (r.born_on.to_datetime + 4.months))
+        animal.is_measured!(:net_mass, 129.56.in_kilogram, at: (r.born_on.to_datetime + 8.months))
+        animal.is_measured!(:net_mass, 189.56.in_kilogram, at: (r.born_on.to_datetime + 12.months))
         animal.is_measured!(:animal_disease_state, :healthy)
-        animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
-        animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
+        animal.is_measured!(:animal_disease_state, :sick, at: (Time.now - 2.days))
+        animal.is_measured!(:animal_disease_state, :healthy, at: (Time.now - 3.days))
         if place_gen and group_gen3
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
@@ -151,15 +151,15 @@ demo :animals do
                                 )
         f.close
         # set default indicators
-        animal.is_measured!(:net_mass, 55.45.in_kilogram, :at => r.born_on.to_datetime)
-        animal.is_measured!(:net_mass, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
-        animal.is_measured!(:net_mass, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
-        animal.is_measured!(:net_mass, 129.56.in_kilogram, :at => (r.born_on.to_datetime + 8.months))
-        animal.is_measured!(:net_mass, 189.56.in_kilogram, :at => (r.born_on.to_datetime + 12.months))
-        animal.is_measured!(:net_mass, 389.56.in_kilogram, :at => (r.born_on.to_datetime + 24.months))
+        animal.is_measured!(:net_mass, 55.45.in_kilogram, at: r.born_on.to_datetime)
+        animal.is_measured!(:net_mass, 75.89.in_kilogram, at: (r.born_on.to_datetime + 2.months))
+        animal.is_measured!(:net_mass, 89.56.in_kilogram, at: (r.born_on.to_datetime + 4.months))
+        animal.is_measured!(:net_mass, 129.56.in_kilogram, at: (r.born_on.to_datetime + 8.months))
+        animal.is_measured!(:net_mass, 189.56.in_kilogram, at: (r.born_on.to_datetime + 12.months))
+        animal.is_measured!(:net_mass, 389.56.in_kilogram, at: (r.born_on.to_datetime + 24.months))
         animal.is_measured!(:animal_disease_state, :healthy)
-        animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
-        animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
+        animal.is_measured!(:animal_disease_state, :sick, at: (Time.now - 2.days))
+        animal.is_measured!(:animal_disease_state, :healthy, at: (Time.now - 3.days))
         if place_vl and group_vl
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_vl.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
@@ -176,15 +176,15 @@ demo :animals do
                                 )
         f.close
         # set default indicators
-        animal.is_measured!(:net_mass, 55.45.in_kilogram, :at => r.born_on.to_datetime)
-        animal.is_measured!(:net_mass, 75.89.in_kilogram, :at => (r.born_on.to_datetime + 2.months))
-        animal.is_measured!(:net_mass, 89.56.in_kilogram, :at => (r.born_on.to_datetime + 4.months))
-        animal.is_measured!(:net_mass, 129.56.in_kilogram, :at => (r.born_on.to_datetime + 8.months))
-        animal.is_measured!(:net_mass, 189.56.in_kilogram, :at => (r.born_on.to_datetime + 12.months))
-        animal.is_measured!(:net_mass, 389.56.in_kilogram, :at => (r.born_on.to_datetime + 24.months))
+        animal.is_measured!(:net_mass, 55.45.in_kilogram, at: r.born_on.to_datetime)
+        animal.is_measured!(:net_mass, 75.89.in_kilogram, at: (r.born_on.to_datetime + 2.months))
+        animal.is_measured!(:net_mass, 89.56.in_kilogram, at: (r.born_on.to_datetime + 4.months))
+        animal.is_measured!(:net_mass, 129.56.in_kilogram, at: (r.born_on.to_datetime + 8.months))
+        animal.is_measured!(:net_mass, 189.56.in_kilogram, at: (r.born_on.to_datetime + 12.months))
+        animal.is_measured!(:net_mass, 389.56.in_kilogram, at: (r.born_on.to_datetime + 24.months))
         animal.is_measured!(:animal_disease_state, :healthy)
-        animal.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
-        animal.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
+        animal.is_measured!(:animal_disease_state, :sick, at: (Time.now - 2.days))
+        animal.is_measured!(:animal_disease_state, :healthy, at: (Time.now - 3.days))
         if place_taur and group_taur
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_taur.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
@@ -217,10 +217,10 @@ demo :animals do
       # case = TAUREAU REPRO
       animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :initial_owner => Entity.where(:of_company => false).all.sample)
       # set default indicators
-      animal.is_measured!(:unique_synthesis_index,  r.isu.in_unity,  :at => now)
-      animal.is_measured!(:economical_milk_index, r.inel.in_unity, :at => now)
-      animal.is_measured!(:protein_concentration_index,   r.tp.in_unity,   :at => now)
-      animal.is_measured!(:fat_matter_concentration_index,   r.tb.in_unity,   :at => now)
+      animal.is_measured!(:unique_synthesis_index,  r.isu.in_unity,  at: now)
+      animal.is_measured!(:economical_milk_index, r.inel.in_unity, at: now)
+      animal.is_measured!(:protein_concentration_index,   r.tp.in_unity,   at: now)
+      animal.is_measured!(:fat_matter_concentration_index,   r.tb.in_unity,   at: now)
       # put in an external localization
       ProductLocalization.create!(:nature => :exterior, :product_id => animal.id, :arrival_cause => :other)
       w.check_point
@@ -254,8 +254,8 @@ demo :animals do
 
             # set default indicators
             animal_mother.is_measured!(:animal_disease_state, :healthy)
-            animal_mother.is_measured!(:animal_disease_state, :sick, :at => (Time.now - 2.days))
-            animal_mother.is_measured!(:animal_disease_state, :healthy, :at => (Time.now - 3.days))
+            animal_mother.is_measured!(:animal_disease_state, :sick, at: (Time.now - 2.days))
+            animal_mother.is_measured!(:animal_disease_state, :healthy, at: (Time.now - 3.days))
             animal.mother = animal_mother
           end
         end

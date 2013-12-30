@@ -118,7 +118,7 @@ demo :deliveries do
 
         product_model = product_nature_variant.nature.matching_model
         incoming_item ||= product_model.create!(:variant => product_nature_variant, :name => r.matter_name, :initial_owner => Entity.of_company, :identification_number => r.order_number, :born_at => r.ordered_on, :created_at => r.ordered_on, :default_storage => building_division)
-        incoming_item.is_measured!(:population, r.quantity, :at => Time.now)
+        incoming_item.is_measured!(:population, r.quantity, :at => r.ordered_on.to_datetime)
 
         if incoming_item.present?
           order.items.create!(product: incoming_item, container: building_division)
