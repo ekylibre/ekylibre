@@ -64,6 +64,7 @@ eng:
         received: "Received"
         to_bank_on: "To bank on"
       intervention:
+        # production_support: "Support de production"
         provisional: "Provisional" #?
         # storage: "Support"
       inventory_item:

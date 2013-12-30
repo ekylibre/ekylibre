@@ -71,8 +71,6 @@ gem 'acts_as_list'
 gem 'state_machine'
 gem 'awesome_nested_set', '~> 3.0.0.rc2'
 gem 'enumerize'
-gem 'sneaky-save'
-# gem 'paper_trail'
 
 # Authentication
 gem 'devise'
@@ -94,19 +92,18 @@ gem 'http_accept_language'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.6.0'
-# gem 'libxml-ruby', :require => 'libxml'
 gem 'mechanize'
 # gem 'savon', '= 2.2.0' # waiting for SOAP and EDE Webservices
 
 # Reporting
-# gem 'thinreports-rails'
-# Need rjb which need $ sudo apt-get install openjdk-7-jdk and set JAVA_HOME and add a line in environement.rb
+# Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
 gem 'beardley'
 gem 'beardley-barcode'
 gem 'beardley-batik'
 gem 'beardley-charts'
 gem 'beardley-groovy'
 gem 'beardley-xml'
+# gem 'thinreports-rails'
 # gem 'prawn', '~> 0.12.0'
 
 # Import/Export
@@ -122,7 +119,6 @@ gem 'ffaker'
 gem 'feedzirra'
 
 # Compass
-# gem 'compass', '~> 0.13.alpha.10'
 gem 'compass', '~> 0.13.alpha.10'
 gem 'compass-rails' # , '~> 2.0.alpha.0' # github: 'Compass/compass-rails', branch: 'rails4-hack' # '~> 2.0.alpha.0'
 gem 'oily_png'
@@ -155,7 +151,6 @@ group :test do
   gem 'shoulda-context'
   gem 'headless'
   gem 'capybara'
-  # gem 'capybara-webkit'
   gem 'selenium-webdriver'
   gem 'capybara-screenshot'
   gem "launchy"

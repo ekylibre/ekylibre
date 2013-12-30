@@ -3,37 +3,38 @@ module Ekylibre
   module Backup
 
     def self.create(options = {})
-      creator, with_files = options[:creator], options[:with_prints]
+      creator, with_files = options[:creator], options[:with_files] || options[:with_prints]
       version = (ActiveRecord::Migrator.current_version rescue 0)
       file = self.temporary_dir.join("backup-#{Time.now.strftime('%Y%m%d-%H%M%S')}.zip")
       doc = Nokogiri::XML::Document.new
       doc.root = backup = Nokogiri::XML::Node.new('backup', doc)
-
-      # doc = LibXML::XML::Document.new
-      # doc.root = backup = LibXML::XML::Node.new('backup')
 
       {'version' => version, 'creation-date' => Date.today, 'creator' => creator}.each{ |k,v| backup[k]=v.to_s }
       backup << root = Nokogiri::XML::Node.new('company', doc)
       root[:name] = Entity.of_company.full_name
       n = 0
       start = Time.now.to_i
-      for model in Ekylibre::Schema.models.select{|m| m.to_s.pluralize.classify.constantize.superclass == Ekylibre::Record::Base }
-        klass = model.to_s.pluralize.classify.constantize.unscoped
-        rows_count = klass.count
+      for model_name in Ekylibre::Schema.models # tables # models.select{|m| m.to_s.pluralize.classify.constantize.superclass == Ekylibre::Record::Base }
+        model = model_name.to_s.pluralize.classify.constantize
+        next unless [Ekylibre::Record::Base, ActiveRecord::Base].include?(model.superclass)
+        rows_count = model.count
         n += rows_count
         root << rows = Nokogiri::XML::Node.new('rows', doc)
-        {'model' => model.to_s, 'records-count' => rows_count.to_s}.each{|k,v| rows[k] = v}
-        klass.find_each do |item|
+        {'model' => model_name.to_s, 'count' => rows_count.to_s}.each{|k,v| rows[k] = v}
+        model.unscoped.find_each do |item|
           rows << row = Nokogiri::XML::Node.new('row', doc)
-          item.attributes.each{|k,v| row[k] = v.to_s}
+          attributes = Ekylibre::Schema.tables[model.table_name].keys
+          for name in attributes
+            row[name] = item.send(name) unless item[name].nil?
+          end
         end
       end
-      # backup.add_attributes('records-count'=>n.to_s, 'generation-duration'=>(Time.now.to_i-start).to_s)
+      # backup.add_attributes('count'=>n.to_s, 'generation-duration'=>(Time.now.to_i-start).to_s)
       stream = doc.to_s
 
       Zip::File.open(file, Zip::File::CREATE) do |zile|
         zile.get_output_stream("backup.xml") { |f| f.puts(stream) }
-        files_dir = Document.private_directory
+        files_dir = Ekylibre.private_directory
         if with_files and File.exist?(files_dir)
           Dir.chdir(files_dir) do
             for document in Dir.glob(File.join("**", "*"))
@@ -58,7 +59,7 @@ module Ekylibre
     def self.restore(file, options={})
       raise ArgumentError.new("Expecting String, #{file.class.name} instead") unless file.is_a? String or file.is_a? Pathname
       verbose = options[:verbose]
-      files_dir = Document.private_directory
+      files_dir = Ekylibre.private_directory
       # Uncompressing
       puts "R> Uncompressing archive..." if verbose
       archive = self.temporary_dir.join("uncompressed-backup-#{Time.now.strftime('%Y%m%d-%H%M%S')}")
@@ -101,17 +102,33 @@ module Ekylibre
           model_name = rows.attr('model').to_sym
           all_rows[model_name] = rows
           model = model_name.to_s.pluralize.classify.constantize
-          columns = model.columns_definition.keys.map(&:to_sym)
+          columns = model.columns_hash.keys.map(&:to_sym)
           if model.methods.include?(:acts_as_nested_set_options)
             columns.delete(model.acts_as_nested_set_options[:left_column].to_sym)
             columns.delete(model.acts_as_nested_set_options[:right_column].to_sym)
             columns.delete(model.acts_as_nested_set_options[:depth_column].to_sym)
           end
+          code << "print '#{model_name}: '\n"
           code << "all_rows[:#{model_name}].element_children.each do |row|\n"
-          code << "  #{model.name}.new({" + columns.collect{|a| ":#{a} => row.attr('#{a}')"}.join(", ") + "}, :validate => false, :without_protection => true).sneaky_save\n"
+          # code << "  #{model.name}.new({" + columns.collect{|a| ":#{a} => row.attr('#{a}')"}.join(", ") + "}, validate: false, without_protection: true).sneaky_save\n"
+          # code << "  #{model.name}.unscoped.new(" + columns.collect{|a| "#{a}: row.attr('#{a}')"}.join(", ") + ").save!(validate: false, skip_validations: true, skip_callbacks: true, callbacks: false)\n"
+          code << "  #{model.name}.new(" + columns.collect{|a|
+            if s = model.serialized_attributes[a]
+              puts s.inspect
+            else
+              "#{a}: row.attr('#{a}')"
+            end
+          }.join(", ") + ").sneaky_save\n"
+          code << "  print '.'\n"
+          # code << "  #{model.name}.unscoped.insert(" + columns.collect{|a| "#{a}: row.attr('#{a}')"}.join(", ") + ")\n"
           code << "end\n"
+          code << "puts '!'\n"
           code << "#{model.name}.rebuild!\n" if model.methods.include?(:acts_as_nested_set_options)
         end
+        file = Rails.root.join("tmp", "code", "backup-restore.rb")
+        FileUtils.mkdir_p(file.dirname)
+        File.write(file, code)
+
         # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
         eval(code)
 

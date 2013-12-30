@@ -261,6 +261,7 @@ arb:
         expense_id: "تكلفة" #?
         updated_at: "تم تحديثها في" #?
       intervention:
+        # production_support: "Support de production"
         # storage: "Support"
       inventory:  #?
         comment: "تعليق" #?

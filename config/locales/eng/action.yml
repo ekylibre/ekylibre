@@ -517,7 +517,7 @@ eng:
       # edit: "Modifier un support de production"
       # index: "Supports de production"
       # new: "Nouveau support de production"
-      # show: "Support de production\_: %{id}"
+      # show: "Support de production\_: %{support.name}"
     backend/productions:
       edit: "Edit production\_: %{name}"
       index: "Productions"
@@ -1708,6 +1708,7 @@ eng:
       printable: "Printable mode"
       resized: "Resized mode"
     virtual_quantity: "Virtual quantity"
+    # wind_speed: "Vitesse du vent"
     with_assets_depreciations: "With assets depreciations"
     with_prints: "Include printing archives (sales invoices, purchases...)"
     x_cashes:

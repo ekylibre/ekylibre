@@ -58,8 +58,8 @@ fra:
         received: "Reçu"
         to_bank_on: "À encaisser le"
       intervention:
-        storage: "Support"
         production_support: "Support de production"
+        storage: "Support"
       inventory_item:
         quantity: "Quantité constatée"
       journal_entry_item:
@@ -1152,7 +1152,7 @@ fra:
     type: "Type"
     unconfirmed_email: "E-mail non confirmé"
     undelivered_quantity: "Reste à livrer"
-    unit: "Unité"
+    unit: "Unité" #?
     unit_name: "Unit name"
     unit_price_amount: "Unit price amount"
     # unlock_token: "Unlock token"

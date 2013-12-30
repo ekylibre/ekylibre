@@ -183,9 +183,9 @@ task :tests => :environment do
   # Check fixture files
   yaml = nil
   files = Dir.glob(Rails.root.join("test", "fixtures", "*.yml")).collect{|f| f.to_s}
-  for model in models
-    log.write("> fixtures #{model}\n")  if verbose
-    file = Rails.root.join("test", "fixtures", model.table_name + ".yml")
+  for table, columns in Ekylibre::Schema.tables
+    log.write("> fixtures #{table}\n") if verbose
+    file = Rails.root.join("test", "fixtures", "#{table}.yml")
     if File.exist?(file)
       begin
         yaml = YAML.load_file(file)
@@ -195,13 +195,15 @@ task :tests => :environment do
         next
       end
 
-      cols = model.columns.collect{|c| c.name.to_s}
-      required_cols = model.columns.select{|c| !c.null and c.default.nil?}.collect{|c| c.name.to_s}
+      cols = columns.keys.map(&:to_s)
+      required_cols = columns.values.select{|c| !c.null? and c.default.nil?}.collect{|c| c.name.to_s}
       if yaml.is_a?(Hash)
         ids = yaml.collect{|k,v| v["id"]}
-        if ids.uniq.size != ids.size
-          errors[:fixtures] += 1
-          log.write(" - Error: Duplicates id values in #{file}\n")
+        if ids.compact.any?
+          if ids.uniq.size != ids.size
+            errors[:fixtures] += 1
+            log.write(" - Error: Duplicates id values in #{file}\n")
+          end
         end
 
         for record_name, attributes in yaml

@@ -72,11 +72,11 @@ class LandParcel < Easement
   # TODO : waiting for "merge" operation type
   has_many :members, class_name: "CultivableZoneMembership"
   has_many :cultivable_zones, class_name: "CultivableZone", :through => :members
-  
-  scope :zone_members_of, lambda { |group| 
+
+  scope :zone_members_of, lambda { |group|
     where("id IN (SELECT member_id FROM #{CultivableZoneMembership.table_name} WHERE group_id = ?)", group.id )
     }
-  
+
   # has_many :parent_kinships, class_name: "LandParcelKinship", foreign_key: :child_land_parcel_id, dependent: :destroy
   # has_many :child_kinships, class_name: "LandParcelKinship", foreign_key: :parent_land_parcel_id, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

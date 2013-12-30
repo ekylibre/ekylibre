@@ -39,7 +39,7 @@ class InventoryItem < Ekylibre::Record::Base
   belongs_to :inventory, inverse_of: :items
   belongs_to :product
   # belongs_to :move, class_name: "ProductMove"
-  enumerize :unit, in: Nomen::Units.all
+  # enumerize :unit, in: Nomen::Units.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, :theoric_population, allow_nil: true

@@ -507,11 +507,16 @@ fra:
       # edit: "Edit backend/product process"
       # index: "Index backend/product process"
       # new: "New backend/product process"
+    backend/production_support_markers:
+      # edit: "Edit backend/production support marker"
+      # index: "Index backend/production support marker"
+      # new: "New backend/production support marker"
+      # show: "Show backend/production support marker"
     backend/production_supports:
       edit: "Modifier un support de production"
       index: "Supports de production"
       new: "Nouveau support de production"
-      show: "Support de production\_: %{support.name}"
+      show: "Support de production\_: %{name}"
     backend/productions:
       edit: "Modifier la production\_: %{name}"
       index: "Productions"
@@ -775,6 +780,7 @@ fra:
     # backend/product_phases: "Backend/product phases"
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
+    # backend/production_support_markers: "Backend/production support markers"
     # backend/production_supports: "Backend/production supports"
     # backend/productions: "Backend/productions"
     backend/products: "Produits"

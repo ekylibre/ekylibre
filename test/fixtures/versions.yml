@@ -49,7 +49,9 @@ versions_001:
   creator_name: "Alice"
   event: "create"
   id: 1
+  item_changes: "---!ruby/hash:ActiveSupport::HashWithIndifferentAccess\n"
   item_id: 1
+  item_object: "---!ruby/hash:ActiveSupport::HashWithIndifferentAccess\n"
   item_type: "Product"
 
 versions_002:
@@ -58,7 +60,9 @@ versions_002:
   creator_name: "Bob"
   event: "update"
   id: 2
+  item_changes: "---!ruby/hash:ActiveSupport::HashWithIndifferentAccess\n"
   item_id: 1
+  item_object: "---!ruby/hash:ActiveSupport::HashWithIndifferentAccess\n"
   item_type: "Animal"
 
 versions_003:
@@ -67,6 +71,8 @@ versions_003:
   creator_name: "Charlene"
   event: "destroy"
   id: 3
+  item_changes: "---!ruby/hash:ActiveSupport::HashWithIndifferentAccess\n"
   item_id: 1
+  item_object: "---!ruby/hash:ActiveSupport::HashWithIndifferentAccess\n"
   item_type: "Entity"
 

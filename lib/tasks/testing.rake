@@ -85,8 +85,7 @@ namespace :fixtures do
     Rake::Task["db:schema:load"].invoke
     tables = Ekylibre::Schema.table_names
     require 'active_record/fixtures'
-    # ActiveRecord::
-    Fixtures.create_fixtures(fixtures_dir, tables)
+    ActiveRecord::FixtureSet.create_fixtures(fixtures_dir, tables)
   end
 
   desc "Write development database in fixtures files (removing existing files)"

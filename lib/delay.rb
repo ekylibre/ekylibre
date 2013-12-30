@@ -43,7 +43,7 @@ class Delay
   attr_reader :expression
 
   def initialize(expression = nil)
-    base = expression.dup
+    base = (expression.nil? ? nil : expression.dup)
     expression ||= []
     expression = expression.to_s.strip.split(/\s*\,\s*/) if expression.is_a?(String)
     raise ArgumentError.new("String or Array expected (got #{expression.class.name}:#{expression.inspect})") unless expression.is_a?(Array)

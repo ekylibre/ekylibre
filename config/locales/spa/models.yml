@@ -68,6 +68,7 @@ spa:
         # to_bank_on: "À encaisser le"
       incoming_payment_use: #?
       intervention:
+        # production_support: "Support de production"
         # storage: "Support"
       inventory_item:
         # quantity: "Quantité constatée"

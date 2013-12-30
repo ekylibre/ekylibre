@@ -11,7 +11,9 @@ task :schema => :environment do
   schema_file = Rails.root.join("lib", "ekylibre", "schema", "reference.rb")
 
   schema_code  = "TABLES = {\n"
-  schema_code << Ekylibre::Record::Base.connection.tables.sort.collect do |table|
+  schema_code << Ekylibre::Record::Base.connection.tables.sort.delete_if do |table|
+    %w(schema_migrations spatial_ref_sys).include?(table.to_s)
+  end.collect do |table|
     columns = Ekylibre::Record::Base.connection.columns(table).sort{|a,b| a.name <=> b.name }
     max = columns.map(&:name).map(&:size).max + 1
     model = table.classify.constantize rescue nil
@@ -47,7 +49,7 @@ task :schema => :environment do
       if column.null.is_a? FalseClass
         column_code << ", null: false"
       end
-      if column.default
+      unless column.default.nil?
         if column.type == :string
           column_code << ", default: #{column.default.inspect}"
         else

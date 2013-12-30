@@ -4,6 +4,9 @@ require 'nomen'
 class AmbiguousUnit < ArgumentError
 end
 
+class IncompatibleDimensions < ArgumentError
+end
+
 class InvalidExpression < ArgumentError
 end
 
@@ -109,14 +112,23 @@ class Measure
     self.class.dimension(@unit)
   end
 
+  # Test if the other measure is equal to self
+  def ==(other)
+    to_d == other.to_d(@unit)
+  end
+
   # Returns the dimension of a measure
   def +(measure)
-    raise ArgumentError.new("Only measure can be added to another measure") unless measure.is_a?(Measure)
+    unless measure.is_a?(Measure)
+      raise ArgumentError, "Only measure can be added to another measure"
+    end
     self.class.new(@value + measure.to_r(@unit), @unit)
   end
 
   def -(measure)
-    raise ArgumentError.new("Only measure can be substracted to another measure") unless measure.is_a?(Measure)
+    unless measure.is_a?(Measure)
+      raise ArgumentError, "Only measure can be substracted to another measure"
+    end
     self.class.new(@value - measure.to_r(@unit), @unit)
   end
 
@@ -128,7 +140,7 @@ class Measure
       # Convert
       raise NotImplementedError.new
     else
-      raise ArgumentError.new("Only numerics and measures can be multiplicated to a measure")
+      raise ArgumentError, "Only numerics and measures can be multiplicated to a measure"
     end
   end
 
@@ -140,7 +152,7 @@ class Measure
       # Convert
       raise NotImplementedError.new
     else
-      raise ArgumentError.new("Only numerics and measures can divide to a measure")
+      raise ArgumentError, "Only numerics and measures can divide to a measure"
     end
   end
 
@@ -153,7 +165,7 @@ class Measure
         raise ArgumentError, "Unknown unit: #{unit.inspect}"
       end
       if @@units[@unit.to_s].dimension != @@units[unit.to_s].dimension
-        raise ArgumentError, "Measure can't be converted from one dimension (#{@@units[@unit].dimension}) to an other (#{@@units[unit].dimension})"
+        raise IncompatibleDimensions, "Measure can't be converted from one dimension (#{@@units[@unit].dimension}) to an other (#{@@units[unit].dimension})"
       end
       # Reduce to base
       ref = @@units[@unit]
@@ -170,7 +182,7 @@ class Measure
     self.to_r(unit).to_f
   end
 
-  # Return BigDecimal value 
+  # Return BigDecimal value
   def to_d(unit = nil, precision = 16)
     self.to_r(unit).to_d(precision)
   end

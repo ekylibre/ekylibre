@@ -26,7 +26,7 @@ module Ekylibre
       accounts: {
         created_at:   Column.new(:created_at,    :datetime, null: false).freeze,
         creator_id:   Column.new(:creator_id,     :integer, references: :user).freeze,
-        debtor:       Column.new(:debtor,         :boolean, null: false).freeze,
+        debtor:       Column.new(:debtor,         :boolean, null: false, default: false).freeze,
         description:  Column.new(:description,       :text).freeze,
         id:           Column.new(:id,             :integer, null: false).freeze,
         label:        Column.new(:label,           :string, null: false).freeze,
@@ -34,7 +34,7 @@ module Ekylibre
         lock_version: Column.new(:lock_version,   :integer, null: false, default: 0).freeze,
         name:         Column.new(:name,            :string, limit: 200, null: false).freeze,
         number:       Column.new(:number,          :string, limit: 20, null: false).freeze,
-        reconcilable: Column.new(:reconcilable,   :boolean, null: false).freeze,
+        reconcilable: Column.new(:reconcilable,   :boolean, null: false, default: false).freeze,
         updated_at:   Column.new(:updated_at,    :datetime, null: false).freeze,
         updater_id:   Column.new(:updater_id,     :integer, references: :user).freeze,
         usages:       Column.new(:usages,            :text).freeze
@@ -59,7 +59,7 @@ module Ekylibre
       }.with_indifferent_access.freeze,
       affairs: {
         accounted_at:     Column.new(:accounted_at,      :datetime).freeze,
-        closed:           Column.new(:closed,             :boolean, null: false).freeze,
+        closed:           Column.new(:closed,             :boolean, null: false, default: false).freeze,
         closed_at:        Column.new(:closed_at,         :datetime).freeze,
         created_at:       Column.new(:created_at,        :datetime, null: false).freeze,
         creator_id:       Column.new(:creator_id,         :integer, references: :user).freeze,
@@ -102,7 +102,7 @@ module Ekylibre
         updater_id:   Column.new(:updater_id,     :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       asset_depreciations: {
-        accountable:        Column.new(:accountable,          :boolean, null: false).freeze,
+        accountable:        Column.new(:accountable,          :boolean, null: false, default: false).freeze,
         accounted_at:       Column.new(:accounted_at,        :datetime).freeze,
         amount:             Column.new(:amount,               :decimal, precision: 19, scale: 4, null: false).freeze,
         asset_amount:       Column.new(:asset_amount,         :decimal, precision: 19, scale: 4).freeze,
@@ -115,7 +115,7 @@ module Ekylibre
         id:                 Column.new(:id,                   :integer, null: false).freeze,
         journal_entry_id:   Column.new(:journal_entry_id,     :integer, references: :journal_entry).freeze,
         lock_version:       Column.new(:lock_version,         :integer, null: false, default: 0).freeze,
-        locked:             Column.new(:locked,               :boolean, null: false).freeze,
+        locked:             Column.new(:locked,               :boolean, null: false, default: false).freeze,
         position:           Column.new(:position,             :integer).freeze,
         started_on:         Column.new(:started_on,              :date, null: false).freeze,
         stopped_on:         Column.new(:stopped_on,              :date, null: false).freeze,
@@ -168,7 +168,7 @@ module Ekylibre
         updater_id:   Column.new(:updater_id,     :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       campaigns: {
-        closed:       Column.new(:closed,         :boolean, null: false).freeze,
+        closed:       Column.new(:closed,         :boolean, null: false, default: false).freeze,
         closed_at:    Column.new(:closed_at,     :datetime).freeze,
         created_at:   Column.new(:created_at,    :datetime, null: false).freeze,
         creator_id:   Column.new(:creator_id,     :integer, references: :user).freeze,
@@ -227,7 +227,7 @@ module Ekylibre
         updater_id:           Column.new(:updater_id,             :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       catalog_prices: {
-        all_taxes_included: Column.new(:all_taxes_included,   :boolean, null: false).freeze,
+        all_taxes_included: Column.new(:all_taxes_included,   :boolean, null: false, default: false).freeze,
         amount:             Column.new(:amount,               :decimal, precision: 19, scale: 4, null: false).freeze,
         catalog_id:         Column.new(:catalog_id,           :integer, references: :catalog, null: false).freeze,
         created_at:         Column.new(:created_at,          :datetime, null: false).freeze,
@@ -246,8 +246,8 @@ module Ekylibre
         variant_id:         Column.new(:variant_id,           :integer, references: :product_nature_variant, null: false).freeze
       }.with_indifferent_access.freeze,
       catalogs: {
-        all_taxes_included: Column.new(:all_taxes_included,   :boolean, null: false).freeze,
-        by_default:         Column.new(:by_default,           :boolean, null: false).freeze,
+        all_taxes_included: Column.new(:all_taxes_included,   :boolean, null: false, default: false).freeze,
+        by_default:         Column.new(:by_default,           :boolean, null: false, default: false).freeze,
         code:               Column.new(:code,                  :string, limit: 20, null: false).freeze,
         created_at:         Column.new(:created_at,          :datetime, null: false).freeze,
         creator_id:         Column.new(:creator_id,           :integer, references: :user).freeze,
@@ -299,7 +299,7 @@ module Ekylibre
         name:            Column.new(:name,               :string, null: false).freeze,
         nature:          Column.new(:nature,             :string, limit: 20, null: false).freeze,
         position:        Column.new(:position,          :integer).freeze,
-        required:        Column.new(:required,          :boolean, null: false).freeze,
+        required:        Column.new(:required,          :boolean, null: false, default: false).freeze,
         updated_at:      Column.new(:updated_at,       :datetime, null: false).freeze,
         updater_id:      Column.new(:updater_id,        :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
@@ -324,10 +324,10 @@ module Ekylibre
         creator_id:       Column.new(:creator_id,         :integer, references: :user).freeze,
         description:      Column.new(:description,           :text).freeze,
         id:               Column.new(:id,                 :integer, null: false).freeze,
-        in_cash:          Column.new(:in_cash,            :boolean, null: false).freeze,
+        in_cash:          Column.new(:in_cash,            :boolean, null: false, default: false).freeze,
         journal_entry_id: Column.new(:journal_entry_id,   :integer, references: :journal_entry).freeze,
         lock_version:     Column.new(:lock_version,       :integer, null: false, default: 0).freeze,
-        locked:           Column.new(:locked,             :boolean, null: false).freeze,
+        locked:           Column.new(:locked,             :boolean, null: false, default: false).freeze,
         mode_id:          Column.new(:mode_id,            :integer, references: :incoming_payment_mode, null: false).freeze,
         number:           Column.new(:number,              :string, null: false).freeze,
         payments_count:   Column.new(:payments_count,     :integer, null: false, default: 0).freeze,
@@ -364,16 +364,16 @@ module Ekylibre
         updater_id:        Column.new(:updater_id,          :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       document_templates: {
-        active:       Column.new(:active,         :boolean, null: false).freeze,
+        active:       Column.new(:active,         :boolean, null: false, default: false).freeze,
         archiving:    Column.new(:archiving,       :string, limit: 60, null: false).freeze,
-        by_default:   Column.new(:by_default,     :boolean, null: false).freeze,
+        by_default:   Column.new(:by_default,     :boolean, null: false, default: false).freeze,
         created_at:   Column.new(:created_at,    :datetime, null: false).freeze,
         creator_id:   Column.new(:creator_id,     :integer, references: :user).freeze,
         formats:      Column.new(:formats,         :string).freeze,
         id:           Column.new(:id,             :integer, null: false).freeze,
         language:     Column.new(:language,        :string, limit: 3, null: false).freeze,
         lock_version: Column.new(:lock_version,   :integer, null: false, default: 0).freeze,
-        managed:      Column.new(:managed,        :boolean, null: false).freeze,
+        managed:      Column.new(:managed,        :boolean, null: false, default: false).freeze,
         name:         Column.new(:name,            :string, null: false).freeze,
         nature:       Column.new(:nature,          :string, limit: 60, null: false).freeze,
         updated_at:   Column.new(:updated_at,    :datetime, null: false).freeze,
@@ -397,7 +397,7 @@ module Ekylibre
         activity_code:             Column.new(:activity_code,                :string, limit: 30).freeze,
         authorized_payments_count: Column.new(:authorized_payments_count,   :integer).freeze,
         born_on:                   Column.new(:born_on,                        :date).freeze,
-        client:                    Column.new(:client,                      :boolean, null: false).freeze,
+        client:                    Column.new(:client,                      :boolean, null: false, default: false).freeze,
         client_account_id:         Column.new(:client_account_id,           :integer, references: :account).freeze,
         country:                   Column.new(:country,                      :string, limit: 2).freeze,
         created_at:                Column.new(:created_at,                 :datetime, null: false).freeze,
@@ -413,23 +413,23 @@ module Ekylibre
         language:                  Column.new(:language,                     :string, limit: 3, null: false).freeze,
         last_name:                 Column.new(:last_name,                    :string, null: false).freeze,
         lock_version:              Column.new(:lock_version,                :integer, null: false, default: 0).freeze,
-        locked:                    Column.new(:locked,                      :boolean, null: false).freeze,
+        locked:                    Column.new(:locked,                      :boolean, null: false, default: false).freeze,
         nature:                    Column.new(:nature,                       :string, null: false).freeze,
         number:                    Column.new(:number,                       :string, limit: 60).freeze,
-        of_company:                Column.new(:of_company,                  :boolean, null: false).freeze,
+        of_company:                Column.new(:of_company,                  :boolean, null: false, default: false).freeze,
         origin:                    Column.new(:origin,                       :string).freeze,
         picture_content_type:      Column.new(:picture_content_type,         :string).freeze,
         picture_file_name:         Column.new(:picture_file_name,            :string).freeze,
         picture_file_size:         Column.new(:picture_file_size,           :integer).freeze,
         picture_updated_at:        Column.new(:picture_updated_at,         :datetime).freeze,
         proposer_id:               Column.new(:proposer_id,                 :integer, references: :entity).freeze,
-        prospect:                  Column.new(:prospect,                    :boolean, null: false).freeze,
-        reminder_submissive:       Column.new(:reminder_submissive,         :boolean, null: false).freeze,
+        prospect:                  Column.new(:prospect,                    :boolean, null: false, default: false).freeze,
+        reminder_submissive:       Column.new(:reminder_submissive,         :boolean, null: false, default: false).freeze,
         responsible_id:            Column.new(:responsible_id,              :integer, references: :user).freeze,
         siren:                     Column.new(:siren,                        :string, limit: 9).freeze,
-        supplier:                  Column.new(:supplier,                    :boolean, null: false).freeze,
+        supplier:                  Column.new(:supplier,                    :boolean, null: false, default: false).freeze,
         supplier_account_id:       Column.new(:supplier_account_id,         :integer, references: :account).freeze,
-        transporter:               Column.new(:transporter,                 :boolean, null: false).freeze,
+        transporter:               Column.new(:transporter,                 :boolean, null: false, default: false).freeze,
         type:                      Column.new(:type,                         :string).freeze,
         updated_at:                Column.new(:updated_at,                 :datetime, null: false).freeze,
         updater_id:                Column.new(:updater_id,                  :integer, references: :user).freeze,
@@ -437,7 +437,7 @@ module Ekylibre
         vat_subjected:             Column.new(:vat_subjected,               :boolean, null: false, default: true).freeze
       }.with_indifferent_access.freeze,
       entity_addresses: {
-        by_default:       Column.new(:by_default,         :boolean, null: false).freeze,
+        by_default:       Column.new(:by_default,         :boolean, null: false, default: false).freeze,
         canal:            Column.new(:canal,               :string, limit: 20, null: false).freeze,
         coordinate:       Column.new(:coordinate,          :string, limit: 500, null: false).freeze,
         created_at:       Column.new(:created_at,        :datetime, null: false).freeze,
@@ -447,7 +447,7 @@ module Ekylibre
         id:               Column.new(:id,                 :integer, null: false).freeze,
         lock_version:     Column.new(:lock_version,       :integer, null: false, default: 0).freeze,
         mail_area_id:     Column.new(:mail_area_id,       :integer, references: :area).freeze,
-        mail_auto_update: Column.new(:mail_auto_update,   :boolean, null: false).freeze,
+        mail_auto_update: Column.new(:mail_auto_update,   :boolean, null: false, default: false).freeze,
         mail_country:     Column.new(:mail_country,        :string, limit: 2).freeze,
         mail_geolocation: Column.new(:mail_geolocation,   :spatial).freeze,
         mail_line_1:      Column.new(:mail_line_1,         :string).freeze,
@@ -520,14 +520,14 @@ module Ekylibre
         name:         Column.new(:name,            :string, null: false).freeze,
         nature_id:    Column.new(:nature_id,      :integer, references: :event_nature, null: false).freeze,
         place:        Column.new(:place,           :string).freeze,
-        restricted:   Column.new(:restricted,     :boolean, null: false).freeze,
+        restricted:   Column.new(:restricted,     :boolean, null: false, default: false).freeze,
         started_at:   Column.new(:started_at,    :datetime, null: false).freeze,
         stopped_at:   Column.new(:stopped_at,    :datetime).freeze,
         updated_at:   Column.new(:updated_at,    :datetime, null: false).freeze,
         updater_id:   Column.new(:updater_id,     :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       financial_years: {
-        closed:                Column.new(:closed,                  :boolean, null: false).freeze,
+        closed:                Column.new(:closed,                  :boolean, null: false, default: false).freeze,
         code:                  Column.new(:code,                     :string, limit: 20, null: false).freeze,
         created_at:            Column.new(:created_at,             :datetime, null: false).freeze,
         creator_id:            Column.new(:creator_id,              :integer, references: :user).freeze,
@@ -618,7 +618,7 @@ module Ekylibre
         updater_id:   Column.new(:updater_id,     :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       incoming_payment_modes: {
-        active:                  Column.new(:active,                    :boolean).freeze,
+        active:                  Column.new(:active,                    :boolean, default: false).freeze,
         attorney_journal_id:     Column.new(:attorney_journal_id,       :integer, references: :journal).freeze,
         cash_id:                 Column.new(:cash_id,                   :integer, references: :cash).freeze,
         commission_account_id:   Column.new(:commission_account_id,     :integer, references: :account).freeze,
@@ -628,16 +628,16 @@ module Ekylibre
         creator_id:              Column.new(:creator_id,                :integer, references: :user).freeze,
         depositables_account_id: Column.new(:depositables_account_id,   :integer, references: :account).freeze,
         depositables_journal_id: Column.new(:depositables_journal_id,   :integer, references: :journal).freeze,
-        detail_payments:         Column.new(:detail_payments,           :boolean, null: false).freeze,
+        detail_payments:         Column.new(:detail_payments,           :boolean, null: false, default: false).freeze,
         id:                      Column.new(:id,                        :integer, null: false).freeze,
         lock_version:            Column.new(:lock_version,              :integer, null: false, default: 0).freeze,
         name:                    Column.new(:name,                       :string, limit: 50, null: false).freeze,
         position:                Column.new(:position,                  :integer).freeze,
         updated_at:              Column.new(:updated_at,               :datetime, null: false).freeze,
         updater_id:              Column.new(:updater_id,                :integer, references: :user).freeze,
-        with_accounting:         Column.new(:with_accounting,           :boolean, null: false).freeze,
-        with_commission:         Column.new(:with_commission,           :boolean, null: false).freeze,
-        with_deposit:            Column.new(:with_deposit,              :boolean, null: false).freeze
+        with_accounting:         Column.new(:with_accounting,           :boolean, null: false, default: false).freeze,
+        with_commission:         Column.new(:with_commission,           :boolean, null: false, default: false).freeze,
+        with_deposit:            Column.new(:with_deposit,              :boolean, null: false, default: false).freeze
       }.with_indifferent_access.freeze,
       incoming_payments: {
         accounted_at:          Column.new(:accounted_at,           :datetime).freeze,
@@ -664,7 +664,7 @@ module Ekylibre
         receipt:               Column.new(:receipt,                    :text).freeze,
         received:              Column.new(:received,                :boolean, null: false, default: true).freeze,
         responsible_id:        Column.new(:responsible_id,          :integer, references: :user).freeze,
-        scheduled:             Column.new(:scheduled,               :boolean, null: false).freeze,
+        scheduled:             Column.new(:scheduled,               :boolean, null: false, default: false).freeze,
         to_bank_on:            Column.new(:to_bank_on,                 :date, null: false, default: 0001-01-01).freeze,
         updated_at:            Column.new(:updated_at,             :datetime, null: false).freeze,
         updater_id:            Column.new(:updater_id,              :integer, references: :user).freeze
@@ -694,9 +694,9 @@ module Ekylibre
         prescription_id:             Column.new(:prescription_id,               :integer, references: :prescription).freeze,
         production_id:               Column.new(:production_id,                 :integer, references: :production, null: false).freeze,
         production_support_id:       Column.new(:production_support_id,         :integer, references: :production_support).freeze,
-        provisional:                 Column.new(:provisional,                   :boolean, null: false).freeze,
+        provisional:                 Column.new(:provisional,                   :boolean, null: false, default: false).freeze,
         provisional_intervention_id: Column.new(:provisional_intervention_id,   :integer, references: :intervention).freeze,
-        recommended:                 Column.new(:recommended,                   :boolean, null: false).freeze,
+        recommended:                 Column.new(:recommended,                   :boolean, null: false, default: false).freeze,
         recommender_id:              Column.new(:recommender_id,                :integer, references: :entity).freeze,
         reference_name:              Column.new(:reference_name,                 :string, null: false).freeze,
         ressource_id:                Column.new(:ressource_id,                  :integer, references: "ressource_type").freeze,
@@ -709,7 +709,7 @@ module Ekylibre
       }.with_indifferent_access.freeze,
       inventories: {
         accounted_at:      Column.new(:accounted_at,       :datetime).freeze,
-        changes_reflected: Column.new(:changes_reflected,   :boolean, null: false).freeze,
+        changes_reflected: Column.new(:changes_reflected,   :boolean, null: false, default: false).freeze,
         created_at:        Column.new(:created_at,         :datetime, null: false).freeze,
         created_on:        Column.new(:created_on,             :date, null: false).freeze,
         creator_id:        Column.new(:creator_id,          :integer, references: :user).freeze,
@@ -944,10 +944,10 @@ module Ekylibre
         name:           Column.new(:name,              :string, null: false).freeze,
         updated_at:     Column.new(:updated_at,      :datetime, null: false).freeze,
         updater_id:     Column.new(:updater_id,       :integer, references: :user).freeze,
-        with_transport: Column.new(:with_transport,   :boolean, null: false).freeze
+        with_transport: Column.new(:with_transport,   :boolean, null: false, default: false).freeze
       }.with_indifferent_access.freeze,
       outgoing_payment_modes: {
-        active:              Column.new(:active,                :boolean, null: false).freeze,
+        active:              Column.new(:active,                :boolean, null: false, default: false).freeze,
         attorney_journal_id: Column.new(:attorney_journal_id,   :integer, references: :journal).freeze,
         cash_id:             Column.new(:cash_id,               :integer, references: :cash).freeze,
         created_at:          Column.new(:created_at,           :datetime, null: false).freeze,
@@ -958,7 +958,7 @@ module Ekylibre
         position:            Column.new(:position,              :integer).freeze,
         updated_at:          Column.new(:updated_at,           :datetime, null: false).freeze,
         updater_id:          Column.new(:updater_id,            :integer, references: :user).freeze,
-        with_accounting:     Column.new(:with_accounting,       :boolean, null: false).freeze
+        with_accounting:     Column.new(:with_accounting,       :boolean, null: false, default: false).freeze
       }.with_indifferent_access.freeze,
       outgoing_payments: {
         accounted_at:      Column.new(:accounted_at,       :datetime).freeze,
@@ -1065,7 +1065,7 @@ module Ekylibre
         updater_id:      Column.new(:updater_id,        :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       product_indicator_data: {
-        boolean_value:       Column.new(:boolean_value,         :boolean, null: false).freeze,
+        boolean_value:       Column.new(:boolean_value,         :boolean, null: false, default: false).freeze,
         choice_value:        Column.new(:choice_value,           :string).freeze,
         created_at:          Column.new(:created_at,           :datetime, null: false).freeze,
         creator_id:          Column.new(:creator_id,            :integer, references: :user).freeze,
@@ -1123,7 +1123,7 @@ module Ekylibre
         updater_id:      Column.new(:updater_id,        :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       product_measurements: {
-        boolean_value:       Column.new(:boolean_value,         :boolean, null: false).freeze,
+        boolean_value:       Column.new(:boolean_value,         :boolean, null: false, default: false).freeze,
         choice_value:        Column.new(:choice_value,           :string).freeze,
         created_at:          Column.new(:created_at,           :datetime, null: false).freeze,
         creator_id:          Column.new(:creator_id,            :integer, references: :user).freeze,
@@ -1166,12 +1166,12 @@ module Ekylibre
         updater_id:      Column.new(:updater_id,        :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
       product_nature_categories: {
-        active:                 Column.new(:active,                   :boolean, null: false).freeze,
+        active:                 Column.new(:active,                   :boolean, null: false, default: false).freeze,
         asset_account_id:       Column.new(:asset_account_id,         :integer, references: :account).freeze,
         charge_account_id:      Column.new(:charge_account_id,        :integer, references: :account).freeze,
         created_at:             Column.new(:created_at,              :datetime, null: false).freeze,
         creator_id:             Column.new(:creator_id,               :integer, references: :user).freeze,
-        depreciable:            Column.new(:depreciable,              :boolean, null: false).freeze,
+        depreciable:            Column.new(:depreciable,              :boolean, null: false, default: false).freeze,
         description:            Column.new(:description,                 :text).freeze,
         id:                     Column.new(:id,                       :integer, null: false).freeze,
         lock_version:           Column.new(:lock_version,             :integer, null: false, default: 0).freeze,
@@ -1179,13 +1179,13 @@ module Ekylibre
         number:                 Column.new(:number,                    :string, limit: 30, null: false).freeze,
         pictogram:              Column.new(:pictogram,                 :string, limit: 120).freeze,
         product_account_id:     Column.new(:product_account_id,       :integer, references: :account).freeze,
-        purchasable:            Column.new(:purchasable,              :boolean, null: false).freeze,
-        reductible:             Column.new(:reductible,               :boolean, null: false).freeze,
+        purchasable:            Column.new(:purchasable,              :boolean, null: false, default: false).freeze,
+        reductible:             Column.new(:reductible,               :boolean, null: false, default: false).freeze,
         reference_name:         Column.new(:reference_name,            :string).freeze,
-        saleable:               Column.new(:saleable,                 :boolean, null: false).freeze,
+        saleable:               Column.new(:saleable,                 :boolean, null: false, default: false).freeze,
         stock_account_id:       Column.new(:stock_account_id,         :integer, references: :account).freeze,
-        storable:               Column.new(:storable,                 :boolean, null: false).freeze,
-        subscribing:            Column.new(:subscribing,              :boolean, null: false).freeze,
+        storable:               Column.new(:storable,                 :boolean, null: false, default: false).freeze,
+        subscribing:            Column.new(:subscribing,              :boolean, null: false, default: false).freeze,
         subscription_duration:  Column.new(:subscription_duration,     :string).freeze,
         subscription_nature_id: Column.new(:subscription_nature_id,   :integer, references: :subscription_nature).freeze,
         updated_at:             Column.new(:updated_at,              :datetime, null: false).freeze,
@@ -1200,7 +1200,7 @@ module Ekylibre
         tax_id:                     Column.new(:tax_id,                       :integer, references: :tax, null: false).freeze
       }.with_indifferent_access.freeze,
       product_nature_variant_indicator_data: {
-        boolean_value:       Column.new(:boolean_value,         :boolean, null: false).freeze,
+        boolean_value:       Column.new(:boolean_value,         :boolean, null: false, default: false).freeze,
         choice_value:        Column.new(:choice_value,           :string).freeze,
         created_at:          Column.new(:created_at,           :datetime, null: false).freeze,
         creator_id:          Column.new(:creator_id,            :integer, references: :user).freeze,
@@ -1220,7 +1220,7 @@ module Ekylibre
         variant_id:          Column.new(:variant_id,            :integer, references: :product_nature_variant, null: false).freeze
       }.with_indifferent_access.freeze,
       product_nature_variants: {
-        active:                 Column.new(:active,                   :boolean, null: false).freeze,
+        active:                 Column.new(:active,                   :boolean, null: false, default: false).freeze,
         category_id:            Column.new(:category_id,              :integer, references: :product_nature_category, null: false).freeze,
         commercial_description: Column.new(:commercial_description,      :text).freeze,
         commercial_name:        Column.new(:commercial_name,           :string, null: false).freeze,
@@ -1247,13 +1247,13 @@ module Ekylibre
       }.with_indifferent_access.freeze,
       product_natures: {
         abilities_list:           Column.new(:abilities_list,                :text).freeze,
-        active:                   Column.new(:active,                     :boolean, null: false).freeze,
+        active:                   Column.new(:active,                     :boolean, null: false, default: false).freeze,
         category_id:              Column.new(:category_id,                :integer, references: :product_nature_category, null: false).freeze,
         created_at:               Column.new(:created_at,                :datetime, null: false).freeze,
         creator_id:               Column.new(:creator_id,                 :integer, references: :user).freeze,
         derivative_of:            Column.new(:derivative_of,               :string, limit: 120).freeze,
         description:              Column.new(:description,                   :text).freeze,
-        evolvable:                Column.new(:evolvable,                  :boolean, null: false).freeze,
+        evolvable:                Column.new(:evolvable,                  :boolean, null: false, default: false).freeze,
         frozen_indicators_list:   Column.new(:frozen_indicators_list,        :text).freeze,
         id:                       Column.new(:id,                         :integer, null: false).freeze,
         linkage_points_list:      Column.new(:linkage_points_list,           :text).freeze,
@@ -1326,14 +1326,14 @@ module Ekylibre
         lock_version: Column.new(:lock_version,   :integer, null: false, default: 0).freeze,
         name:         Column.new(:name,            :string, null: false).freeze,
         nature:       Column.new(:nature,          :string, null: false).freeze,
-        repeatable:   Column.new(:repeatable,     :boolean, null: false).freeze,
+        repeatable:   Column.new(:repeatable,     :boolean, null: false, default: false).freeze,
         updated_at:   Column.new(:updated_at,    :datetime, null: false).freeze,
         updater_id:   Column.new(:updater_id,     :integer, references: :user).freeze,
         variety:      Column.new(:variety,         :string, limit: 120, null: false).freeze
       }.with_indifferent_access.freeze,
       production_support_markers: {
         aim:                 Column.new(:aim,                    :string, null: false).freeze,
-        boolean_value:       Column.new(:boolean_value,         :boolean, null: false).freeze,
+        boolean_value:       Column.new(:boolean_value,         :boolean, null: false, default: false).freeze,
         choice_value:        Column.new(:choice_value,           :string).freeze,
         created_at:          Column.new(:created_at,           :datetime, null: false).freeze,
         creator_id:          Column.new(:creator_id,            :integer, references: :user).freeze,
@@ -1357,9 +1357,9 @@ module Ekylibre
       production_supports: {
         created_at:    Column.new(:created_at,     :datetime, null: false).freeze,
         creator_id:    Column.new(:creator_id,      :integer, references: :user).freeze,
-        exclusive:     Column.new(:exclusive,       :boolean, null: false).freeze,
+        exclusive:     Column.new(:exclusive,       :boolean, null: false, default: false).freeze,
         id:            Column.new(:id,              :integer, null: false).freeze,
-        irrigated:     Column.new(:irrigated,       :boolean, null: false).freeze,
+        irrigated:     Column.new(:irrigated,       :boolean, null: false, default: false).freeze,
         lock_version:  Column.new(:lock_version,    :integer, null: false, default: 0).freeze,
         production_id: Column.new(:production_id,   :integer, references: :production, null: false).freeze,
         started_at:    Column.new(:started_at,     :datetime).freeze,
@@ -1379,7 +1379,7 @@ module Ekylibre
         position:       Column.new(:position,         :integer).freeze,
         started_at:     Column.new(:started_at,      :datetime).freeze,
         state:          Column.new(:state,             :string, null: false).freeze,
-        static_support: Column.new(:static_support,   :boolean, null: false).freeze,
+        static_support: Column.new(:static_support,   :boolean, null: false, default: false).freeze,
         stopped_at:     Column.new(:stopped_at,      :datetime).freeze,
         updated_at:     Column.new(:updated_at,      :datetime, null: false).freeze,
         updater_id:     Column.new(:updater_id,       :integer, references: :user).freeze,
@@ -1417,7 +1417,7 @@ module Ekylibre
         picture_file_name:        Column.new(:picture_file_name,           :string).freeze,
         picture_file_size:        Column.new(:picture_file_size,          :integer).freeze,
         picture_updated_at:       Column.new(:picture_updated_at,        :datetime).freeze,
-        reservoir:                Column.new(:reservoir,                  :boolean, null: false).freeze,
+        reservoir:                Column.new(:reservoir,                  :boolean, null: false, default: false).freeze,
         tracking_id:              Column.new(:tracking_id,                :integer, references: :tracking).freeze,
         type:                     Column.new(:type,                        :string).freeze,
         updated_at:               Column.new(:updated_at,                :datetime, null: false).freeze,
@@ -1449,7 +1449,7 @@ module Ekylibre
       }.with_indifferent_access.freeze,
       purchase_natures: {
         active:          Column.new(:active,            :boolean, null: false, default: true).freeze,
-        by_default:      Column.new(:by_default,        :boolean, null: false).freeze,
+        by_default:      Column.new(:by_default,        :boolean, null: false, default: false).freeze,
         created_at:      Column.new(:created_at,       :datetime, null: false).freeze,
         creator_id:      Column.new(:creator_id,        :integer, references: :user).freeze,
         currency:        Column.new(:currency,           :string, limit: 3, null: false).freeze,
@@ -1460,7 +1460,7 @@ module Ekylibre
         name:            Column.new(:name,               :string).freeze,
         updated_at:      Column.new(:updated_at,       :datetime, null: false).freeze,
         updater_id:      Column.new(:updater_id,        :integer, references: :user).freeze,
-        with_accounting: Column.new(:with_accounting,   :boolean, null: false).freeze
+        with_accounting: Column.new(:with_accounting,   :boolean, null: false, default: false).freeze
       }.with_indifferent_access.freeze,
       purchases: {
         accounted_at:        Column.new(:accounted_at,         :datetime).freeze,
@@ -1525,13 +1525,13 @@ module Ekylibre
       }.with_indifferent_access.freeze,
       sale_natures: {
         active:                  Column.new(:active,                    :boolean, null: false, default: true).freeze,
-        by_default:              Column.new(:by_default,                :boolean, null: false).freeze,
+        by_default:              Column.new(:by_default,                :boolean, null: false, default: false).freeze,
         catalog_id:              Column.new(:catalog_id,                :integer, references: :catalog, null: false).freeze,
         created_at:              Column.new(:created_at,               :datetime, null: false).freeze,
         creator_id:              Column.new(:creator_id,                :integer, references: :user).freeze,
         currency:                Column.new(:currency,                   :string, limit: 3, null: false).freeze,
         description:             Column.new(:description,                  :text).freeze,
-        downpayment:             Column.new(:downpayment,               :boolean, null: false).freeze,
+        downpayment:             Column.new(:downpayment,               :boolean, null: false, default: false).freeze,
         downpayment_minimum:     Column.new(:downpayment_minimum,       :decimal, precision: 19, scale: 4, default: 0.0).freeze,
         downpayment_percentage:  Column.new(:downpayment_percentage,    :decimal, precision: 19, scale: 4, default: 0.0).freeze,
         expiration_delay:        Column.new(:expiration_delay,           :string, null: false).freeze,
@@ -1545,7 +1545,7 @@ module Ekylibre
         sales_conditions:        Column.new(:sales_conditions,             :text).freeze,
         updated_at:              Column.new(:updated_at,               :datetime, null: false).freeze,
         updater_id:              Column.new(:updater_id,                :integer, references: :user).freeze,
-        with_accounting:         Column.new(:with_accounting,           :boolean, null: false).freeze
+        with_accounting:         Column.new(:with_accounting,           :boolean, null: false, default: false).freeze
       }.with_indifferent_access.freeze,
       sales: {
         accounted_at:        Column.new(:accounted_at,         :datetime).freeze,
@@ -1559,7 +1559,7 @@ module Ekylibre
         created_at:          Column.new(:created_at,           :datetime, null: false).freeze,
         created_on:          Column.new(:created_on,               :date, null: false).freeze,
         creator_id:          Column.new(:creator_id,            :integer, references: :user).freeze,
-        credit:              Column.new(:credit,                :boolean, null: false).freeze,
+        credit:              Column.new(:credit,                :boolean, null: false, default: false).freeze,
         currency:            Column.new(:currency,               :string, limit: 3, null: false).freeze,
         delivery_address_id: Column.new(:delivery_address_id,   :integer, references: :entity_address).freeze,
         description:         Column.new(:description,              :text).freeze,
@@ -1567,7 +1567,7 @@ module Ekylibre
         expiration_delay:    Column.new(:expiration_delay,       :string).freeze,
         expired_on:          Column.new(:expired_on,               :date).freeze,
         function_title:      Column.new(:function_title,         :string).freeze,
-        has_downpayment:     Column.new(:has_downpayment,       :boolean, null: false).freeze,
+        has_downpayment:     Column.new(:has_downpayment,       :boolean, null: false, default: false).freeze,
         id:                  Column.new(:id,                    :integer, null: false).freeze,
         initial_number:      Column.new(:initial_number,         :string, limit: 60).freeze,
         introduction:        Column.new(:introduction,             :text).freeze,
@@ -1590,9 +1590,6 @@ module Ekylibre
         updated_at:          Column.new(:updated_at,           :datetime, null: false).freeze,
         updater_id:          Column.new(:updater_id,            :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
-      schema_migrations: {
-        version: Column.new(:version,    :string, null: false).freeze
-      }.with_indifferent_access.freeze,
       sequences: {
         created_at:       Column.new(:created_at,        :datetime, null: false).freeze,
         creator_id:       Column.new(:creator_id,         :integer, references: :user).freeze,
@@ -1610,13 +1607,6 @@ module Ekylibre
         updated_at:       Column.new(:updated_at,        :datetime, null: false).freeze,
         updater_id:       Column.new(:updater_id,         :integer, references: :user).freeze,
         usage:            Column.new(:usage,               :string).freeze
-      }.with_indifferent_access.freeze,
-      spatial_ref_sys: {
-        auth_name: Column.new(:auth_name,    :string, limit: 256).freeze,
-        auth_srid: Column.new(:auth_srid,   :integer).freeze,
-        proj4text: Column.new(:proj4text,    :string, limit: 2048).freeze,
-        srid:      Column.new(:srid,        :integer, null: false).freeze,
-        srtext:    Column.new(:srtext,       :string, limit: 2048).freeze
       }.with_indifferent_access.freeze,
       subscription_natures: {
         actual_number:         Column.new(:actual_number,           :integer).freeze,
@@ -1651,7 +1641,7 @@ module Ekylibre
         started_on:        Column.new(:started_on,             :date).freeze,
         stopped_on:        Column.new(:stopped_on,             :date).freeze,
         subscriber_id:     Column.new(:subscriber_id,       :integer, references: :entity).freeze,
-        suspended:         Column.new(:suspended,           :boolean, null: false).freeze,
+        suspended:         Column.new(:suspended,           :boolean, null: false, default: false).freeze,
         updated_at:        Column.new(:updated_at,         :datetime, null: false).freeze,
         updater_id:        Column.new(:updater_id,          :integer, references: :user).freeze
       }.with_indifferent_access.freeze,
@@ -1666,7 +1656,7 @@ module Ekylibre
         created_at:               Column.new(:created_at,                :datetime, null: false).freeze,
         creator_id:               Column.new(:creator_id,                 :integer, references: :user).freeze,
         declared_on:              Column.new(:declared_on,                   :date).freeze,
-        deferred_payment:         Column.new(:deferred_payment,           :boolean).freeze,
+        deferred_payment:         Column.new(:deferred_payment,           :boolean, default: false).freeze,
         financial_year_id:        Column.new(:financial_year_id,          :integer, references: :financial_year).freeze,
         id:                       Column.new(:id,                         :integer, null: false).freeze,
         journal_entry_id:         Column.new(:journal_entry_id,           :integer, references: :journal_entry).freeze,
@@ -1688,7 +1678,7 @@ module Ekylibre
         deduction_account_id: Column.new(:deduction_account_id,   :integer, references: :account).freeze,
         description:          Column.new(:description,               :text).freeze,
         id:                   Column.new(:id,                     :integer, null: false).freeze,
-        included:             Column.new(:included,               :boolean, null: false).freeze,
+        included:             Column.new(:included,               :boolean, null: false, default: false).freeze,
         lock_version:         Column.new(:lock_version,           :integer, null: false, default: 0).freeze,
         name:                 Column.new(:name,                    :string, null: false).freeze,
         reductible:           Column.new(:reductible,             :boolean, null: false, default: true).freeze,
@@ -1766,7 +1756,7 @@ module Ekylibre
       users: {
         administrator:                          Column.new(:administrator,                            :boolean, null: false, default: true).freeze,
         authentication_token:                   Column.new(:authentication_token,                      :string).freeze,
-        commercial:                             Column.new(:commercial,                               :boolean, null: false).freeze,
+        commercial:                             Column.new(:commercial,                               :boolean, null: false, default: false).freeze,
         confirmation_sent_at:                   Column.new(:confirmation_sent_at,                    :datetime).freeze,
         confirmation_token:                     Column.new(:confirmation_token,                        :string).freeze,
         confirmed_at:                           Column.new(:confirmed_at,                            :datetime).freeze,
@@ -1776,7 +1766,7 @@ module Ekylibre
         current_sign_in_ip:                     Column.new(:current_sign_in_ip,                        :string).freeze,
         description:                            Column.new(:description,                                 :text).freeze,
         email:                                  Column.new(:email,                                     :string, null: false).freeze,
-        employed:                               Column.new(:employed,                                 :boolean, null: false).freeze,
+        employed:                               Column.new(:employed,                                 :boolean, null: false, default: false).freeze,
         employment:                             Column.new(:employment,                                :string).freeze,
         encrypted_password:                     Column.new(:encrypted_password,                        :string, null: false, default: "").freeze,
         establishment_id:                       Column.new(:establishment_id,                         :integer, references: :establishment).freeze,
@@ -1788,7 +1778,7 @@ module Ekylibre
         last_sign_in_at:                        Column.new(:last_sign_in_at,                         :datetime).freeze,
         last_sign_in_ip:                        Column.new(:last_sign_in_ip,                           :string).freeze,
         lock_version:                           Column.new(:lock_version,                             :integer, null: false, default: 0).freeze,
-        locked:                                 Column.new(:locked,                                   :boolean, null: false).freeze,
+        locked:                                 Column.new(:locked,                                   :boolean, null: false, default: false).freeze,
         locked_at:                              Column.new(:locked_at,                               :datetime).freeze,
         maximal_grantable_reduction_percentage: Column.new(:maximal_grantable_reduction_percentage,   :decimal, precision: 19, scale: 4, null: false, default: 5.0).freeze,
         person_id:                              Column.new(:person_id,                                :integer, references: :person).freeze,

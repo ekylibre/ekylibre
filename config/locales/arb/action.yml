@@ -588,7 +588,7 @@ arb:
       # edit: "Modifier un support de production"
       # index: "Supports de production"
       # new: "Nouveau support de production"
-      # show: "Support de production\_: %{id}"
+      # show: "Support de production\_: %{support.name}"
     backend/productions:
       # edit: "Modifier la production\_: %{name}"
       # index: "Productions"
@@ -1948,6 +1948,7 @@ arb:
       # resized: "Mode «\_Tout à l’écran\_»"
     virtual_quantity: "الكمية العملية"
     waiting: "أ€ التسدسد لاحقا" #?
+    # wind_speed: "Vitesse du vent"
     # with_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر"
     x_cashes:

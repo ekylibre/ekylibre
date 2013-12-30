@@ -200,8 +200,6 @@ spa:
 
     intervention_cast:
 
-    inventory_item:
-
     land_parcel_cluster:
 
     land_parcel_group:

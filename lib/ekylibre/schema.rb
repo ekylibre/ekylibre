@@ -34,6 +34,9 @@ module Ekylibre
         @table_names ||= tables.keys.map(&:to_sym)
       end
 
+      def columns(table)
+        TABLES[table].values
+      end
 
       def model_names
         @@model_names ||= models.collect{|m| m.to_s.camelcase.to_sym}.sort.freeze

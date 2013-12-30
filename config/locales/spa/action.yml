@@ -543,7 +543,7 @@ spa:
       # edit: "Modifier un support de production"
       # index: "Supports de production"
       # new: "Nouveau support de production"
-      # show: "Support de production\_: %{id}"
+      # show: "Support de production\_: %{support.name}"
     backend/productions:
       # edit: "Modifier la production\_: %{name}"
       # index: "Productions"
@@ -1761,6 +1761,7 @@ spa:
       # printable: "Mode «\_Imprimable\_»"
       # resized: "Mode «\_Tout à l’écran\_»"
     # virtual_quantity: "Quantité virtuelle"
+    # wind_speed: "Vitesse du vent"
     # with_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Incluir las impresiones (facturas, encargos...)"
     x_cashes:

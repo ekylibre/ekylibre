@@ -367,11 +367,6 @@ eng:
         straw: "Straw"
         tractor: "Tractor"
         trailer: "Trailer"
-    inventory_item:
-      unit:
-        celsius: "Celsius"
-        square_meter: "Square meter"
-        unity: "Unity"
     land_parcel_cluster:
       variety:
         animal: "Animal"
