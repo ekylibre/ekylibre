@@ -134,7 +134,7 @@ class Measure
 
   def *(numeric_or_measure)
     if numeric_or_measure.is_a? Numeric
-      self.class.new(@value * numeric_or_measure, @unit)
+      self.class.new(@value * numeric_or_measure.to_r, @unit)
     elsif numeric_or_measure.is_a? Measure
       # Find matching dimension
       # Convert

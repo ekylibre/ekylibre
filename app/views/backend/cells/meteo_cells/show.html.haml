@@ -2,13 +2,13 @@
   :ruby
     categories = @forecast[:list].collect{|d| d[:at].to_date.l(format: :short) }
     series = []
-    # @TODO find a method for replace to_d(:unit).to_s.to_f by to_f(:unit)
-    # to_f(:unit) work only on burisu stack
-    # to_d(:unit).to_s.to_f work on all stack ( hades demo stack ,ionosphere stack and burisu stack)
-    series << {name: :precipitation.tl, type: 'column', data: @forecast[:list].collect{|d| d[:rain].to_d(:millimeter).round(1).to_s.to_f}, tooltip: {value_suffix: ' mm' }, y_axis: 1 }
-    series << {name: :wind_speed.tl, type: 'column', data: @forecast[:list].collect{|d| d[:wind_speed].to_d(:kilometer_per_hour).round(1).to_s.to_f }, tooltip: {value_suffix: ' km/h' }, y_axis: 2 }
-    series << {name: :minimal_temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:min].to_d(:celsius).round(1).to_s.to_f }, tooltip: {value_suffix: '°C' } }
-    series << {name: :maximal_temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:max].to_d(:celsius).round(1).to_s.to_f }, tooltip: {value_suffix: '°C' } }
+    # @TODO find a method for replace to_d(:unit).to_s.to_f by to_f(:unit)
+    # to_f(:unit) work on burisu and travis stack
+    # to_d(:unit).to_s.to_f work on all stack (hades demo stack, ionosphere stack and burisu stack)
+    series << {name: :precipitation.tl, type: 'column', data: @forecast[:list].collect{|d| d[:rain].to_f(:millimeter).round(1)}, tooltip: {value_suffix: ' mm' }, y_axis: 1 }
+    series << {name: :wind_speed.tl, type: 'column', data: @forecast[:list].collect{|d| d[:wind_speed].to_f(:kilometer_per_hour).round(1)}, tooltip: {value_suffix: ' km/h' }, y_axis: 2 }
+    series << {name: :minimal_temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:min].to_f(:celsius).round(1) }, tooltip: {value_suffix: '°C' } }
+    series << {name: :maximal_temperature.tl, data: @forecast[:list].collect{|d| d[:temperatures][:max].to_f(:celsius).round(1) }, tooltip: {value_suffix: '°C' } }
 
   = spline_chart(series, x_axis: {categories: categories}, y_axis: [{title: {text: Nomen::Indicators[:temperature].human_name}, labels: { format: '{value} °C' }}, {title: { text: :precipitation.tl }, labels: { format: '{value} mm' }, opposite: true}, {title: { text: :wind_speed.tl }, labels: { format: '{value} km/h' }, opposite: true}], legend: {})
 - else

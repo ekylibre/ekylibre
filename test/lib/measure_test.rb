@@ -52,7 +52,9 @@ class MeasureTest < ActiveSupport::TestCase
 
     assert_equal m3/2, 600.in_kilogram
     assert_equal m3*2, 2400.in_kilogram
-    assert_equal m3*2, 2400.in_kilogram
+    assert_equal m3*2.to_f, 2400.in_kilogram
+    assert_equal m3*2.to_d, 2400.in_kilogram
+    assert_equal m3*2.to_r, 2400.in_kilogram
 
     m4 = 1.2.in_cubic_meter
 
