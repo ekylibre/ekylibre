@@ -618,9 +618,10 @@ fra:
       index: "Taxes"
       new: "Ajouter une nouvelle taxe"
     backend/teams:
-      # edit: "Edit backend/team"
-      # index: "Index backend/team"
-      # new: "New backend/team"
+      edit: "Modifier une équipe\_: %{name}"
+      index: "Equipes"
+      new: "Nouvelle équipe"
+      show: "Equipe\_: %{name}"
     backend/transports:
       deliveries: "Livraisons du transport" #?
       delivery_delete: "Retirer la livraison du transport" #?
