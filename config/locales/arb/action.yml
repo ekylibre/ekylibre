@@ -715,9 +715,10 @@ arb:
       index: "الضرائب"
       new: "اضافة ضريبة جديدة"
     backend/teams:
-      # edit: "Modifier l’équipe"
+      # edit: "Modifier une équipe\_: %{name}"
       # index: "Équipes"
       # new: "Nouvelle équipe"
+      # show: "Équipe\_: %{name}"
     backend/tool_natures: #?
     backend/tools:  #?
       edit: "تعديل المادة : %{name}" #?

@@ -650,9 +650,10 @@ spa:
       index: "Tasas"
       new: "Añadir nueva tarifa"
     backend/teams:
-      # edit: "Modifier l’équipe"
+      # edit: "Modifier une équipe\_: %{name}"
       # index: "Équipes"
       # new: "Nouvelle équipe"
+      # show: "Équipe\_: %{name}"
     backend/tool_natures: #?
     backend/tools: #?
     backend/tracking_states: #?

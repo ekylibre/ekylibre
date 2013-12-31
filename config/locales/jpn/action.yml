@@ -577,9 +577,10 @@ jpn:
       # index: "Taxes"
       # new: "Ajouter une nouvelle taxe"
     backend/teams:
-      # edit: "Modifier l’équipe"
+      # edit: "Modifier une équipe\_: %{name}"
       # index: "Équipes"
       # new: "Nouvelle équipe"
+      # show: "Équipe\_: %{name}"
     backend/tools: #?
     backend/transports:
       # deliveries: "Livraisons du transport"
