@@ -1864,6 +1864,7 @@ arb:
     stopped_at: "انتهى يوم"
     stopped_on: "توقف يوم"
     # storable: "Gérer les stocks"
+    # storage: "Storage"
     story: "واقع"
     string_value: "القيمة النصية"
     subdir: "المرجع الفرعي" #?

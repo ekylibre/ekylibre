@@ -54,8 +54,10 @@ class ProductNatureVariantIndicatorDatum < Ekylibre::Record::Base
   #]VALIDATORS]
 
   validate do
-    unless self.variant.frozen_indicators.include?(self.indicator)
-      errors.add(:indicator, :invalid)
+    if self.variant
+      unless self.variant.frozen_indicators.include?(self.indicator)
+        errors.add(:indicator, :invalid)
+      end
     end
   end
 

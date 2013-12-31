@@ -362,7 +362,7 @@ class Backend::SalesController < BackendController
       ActiveRecord::Base.transaction do
         raise ActiveRecord::Rollback unless @sale.propose
         raise ActiveRecord::Rollback unless @sale.confirm
-        raise ActiveRecord::Rollback unless @sale.deliver
+        # raise ActiveRecord::Rollback unless @sale.deliver
         raise ActiveRecord::Rollback unless @sale.invoice
       end
     end

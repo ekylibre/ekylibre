@@ -21,7 +21,7 @@ class Backend::SaleItemsController < BackendController
 
   def new
     return unless @sale = find_and_check(:sale, params[:sale_id])
-    @sale_item = @sale.items.new(:price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
+    @sale_item = @sale.items.new(:unit_price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
     unless @sale.draft?
       notify_error(:impossible_to_add_items)
       redirect_to :controller => :sales, :action => :show, :id => @sale.id, :step => :products
@@ -33,7 +33,7 @@ class Backend::SaleItemsController < BackendController
 
   def create
     return unless @sale = find_and_check(:sale, params[:sale_id])
-    @sale_item = @sale.items.new(:price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
+    @sale_item = @sale.items.new(:unit_price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
     unless @sale.draft?
       notify_error(:impossible_to_add_items)
       redirect_to :controller => :sales, :action => :show, :id => @sale.id, :step => :products
@@ -64,7 +64,7 @@ class Backend::SaleItemsController < BackendController
     if request.xhr?
       return unless price = find_and_check(:product_price_template, params[:price_id])
       @sale = Sale.find_by_id(params[:sale_id]) if params[:sale_id]
-      @sale_item = SaleItem.new(:product => price.product, :price => price, :price_amount => 0.0, :quantity => 1.0)
+      @sale_item = SaleItem.new(:product => price.product, :price => price, :unit_price_amount => 0.0, :quantity => 1.0)
       if @sale
         @sale_item.sale = @sale
         @sale_item.reduction_percentage = @sale.client.maximal_reduction_percentage
@@ -92,8 +92,11 @@ class Backend::SaleItemsController < BackendController
   end
 
   def show
-    item = SaleItem.find(params[:id])
-    redirect_to :controller => :sales, :id => item.sale_id
+    if item = SaleItem.find_by(id: params[:id])
+      redirect_to :controller => :sales, :id => item.sale_id
+    else
+      redirect_to backend_root_url
+    end
   end
 
 end

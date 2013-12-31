@@ -21,7 +21,7 @@ class Backend::DashboardsController < BackendController
 
   for menu in Ekylibre::Modules.hash.keys
     code  = "def #{menu}\n"
-    code << " notify_warning_now(:dashboard_is_being_developed)"
+    # code << " notify_warning_now(:dashboard_is_being_developed)"
     # code << "  render :file => 'backend/dashboards/#{menu}', :layout => dialog_or_not\n"
     code << "end\n"
     class_eval code

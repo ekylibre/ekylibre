@@ -4,17 +4,17 @@
   = f.input :active
   = f.input :variety
   = f.input :derivative_of
+  = f.input :population_counting, as: :radio_buttons
 
 = field_set(:details) do
   = f.input :description
   = f.picture
 
-= field_set(:indicator) do
-  = f.input :abilities, :disabled => true
-  = f.input :indicators, :disabled => true
-
-= field_set(:nature) do
-  = f.input :population_counting
-
 = field_set(:variants) do
   = f.nested_association(:variants)
+
+= field_set(:definition) do
+  = f.input :abilities_list, :disabled => true
+  = f.input :frozen_indicators_list, :disabled => true
+  = f.input :variable_indicators_list, :disabled => true
+  = f.input :linkage_points_list, :disabled => true

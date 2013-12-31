@@ -1,16 +1,18 @@
-=main_toolbar do |t|
-  - t.edit @outgoing_delivery if @outgoing_delivery.updateable?
-  - t.destroy(@outgoing_delivery, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @outgoing_delivery.destroyable?
+= main_toolbar do |t|
+  - t.edit resource if resource.updateable?
+  - t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
 
-=attributes_list(@outgoing_delivery) do |l|
-  -l.attribute :number
-  -l.attribute :reference_number
-  -l.attribute :mode
-  -l.attribute :mass
-  -l.attribute :sale, url: true
-  -l.attribute :address
-  -l.attribute :transporter, url: true
-  -l.attribute :transport, url: true
+= beehive do |b|
+  - b.cell do
+    = attributes_list do |l|
+      - l.attribute :number
+      - l.attribute :reference_number
+      - l.attribute :mode
+      - l.attribute :net_mass
+      - l.attribute :sale, url: true
+      - l.attribute :address
+      - l.attribute :transporter, url: true
+      - l.attribute :transport, url: true
 
-%h2=OutgoingDelivery.human_attribute_name(:items)
-=list :items
+  - b.cell :items, title: OutgoingDelivery.human_attribute_name(:items) do
+    = list :items

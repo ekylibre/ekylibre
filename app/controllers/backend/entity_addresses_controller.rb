@@ -18,12 +18,15 @@
 #
 
 class Backend::EntityAddressesController < BackendController
-  manage_restfully :entity_id => "params[:entity_id]".c, :mail_country => "Entity.find(params[:entity_id]).country rescue Preference[:country]".c, :t3e => {:entity => "@entity_address.entity.full_name".c}, except: [:index, :show]
+  manage_restfully :mail_country => "Entity.find(params[:entity_id]).country rescue Preference[:country]".c, :t3e => {entity: "@entity_address.entity.full_name".c}, except: [:index, :show]
   unroll label: :coordinate
 
   def show
-    address = EntityAddress.find(params[:id])
-    redirect_to backend_entity_url(address.entity_id)
+    if address = EntityAddress.find_by(id: params[:id])
+      redirect_to backend_entity_url(address.entity_id)
+    else
+      redirect_to backend_root_url
+    end
   end
 
 end

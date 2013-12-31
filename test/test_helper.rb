@@ -128,9 +128,10 @@ class ActionController::TestCase
       for action in actions
         action_label = "#{controller_path}##{action}"
 
-        code << "  should '#{action} (#{options[action].inspect})' do\n"
 
         mode = options[action] || choose_mode(action_label)
+
+        code << "  should '#{action} (#{mode.inspect})' do\n"
 
         if options[action].is_a? Hash
           code << "    get :#{action}, #{options[action].inspect[1..-2]}\n"
@@ -138,6 +139,13 @@ class ActionController::TestCase
         elsif mode == :index
           code << "    get :#{action}\n"
           code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
+        elsif mode == :new_product
+          code << "    get :#{action}\n"
+          code << "    if ProductNatureVariant.of_variety('#{model_name.underscore}').any?\n"
+          code << "      assert_response :success, \"Flash: \#{flash.inspect}\"\n"
+          code << "    else\n"
+          code << "      assert_response :redirect\n"
+          code << "    end\n"
         elsif mode == :show
           code << "    assert_nothing_raised do\n"
           code << "      get :#{action}, id: 'NaID'\n"
@@ -235,7 +243,7 @@ class ActionController::TestCase
       File.open(file, "wb") do |f|
         f.write(code)
       end
-      class_eval(code, "(test) #{controller_path}:#{__LINE__}")
+      class_eval(code, "(test) #{controller_path}") # :#{__LINE__}
     end
 
     MODES = {
@@ -249,12 +257,17 @@ class ActionController::TestCase
       /\#(create|load)\z/ => :create,
       /\#update\z/        => :update,
       /\#destroy\z/       => :destroy,
-      /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort)\z/        => :touch,
+      /\#(decrement|duplicate|down|lock|toggle|unlock|up|increment|propose|confirm|refuse|invoice|abort|correct|finish|propose_and_invoice|sort|run)\z/ => :touch,
       /\#unroll\z/        => :unroll
     }
 
     def choose_mode(action)
-      action_name = action.to_s
+      array = action.to_s.split('#')
+      action_name = array.last.to_sym
+      if action_name == :new
+        model = array.first.split(/\//).last.classify.constantize rescue nil
+        return :new_product if model and model <= Product
+      end
       for exp, mode in MODES
         return mode if action =~ exp
       end

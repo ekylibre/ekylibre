@@ -1548,7 +1548,7 @@ manage_transports:
 - "backend/transports#list_deliveries"
 - "backend/transports#list_transportable_deliveries"
 - "backend/transports#new"
-- "backend/transports#show" #?
+- "backend/transports#show"
 - "backend/transports#update"
 
 # Manage users

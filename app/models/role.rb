@@ -33,7 +33,6 @@
 
 
 class Role < Ekylibre::Record::Base
-  # attr_accessible :name, :rights
   has_many :users
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, allow_nil: true, maximum: 255
@@ -60,8 +59,7 @@ class Role < Ekylibre::Record::Base
     added_rights = new_rights_array-old_rights_array
     deleted_rights = old_rights_array- new_rights_array
 
-    users = User.find_all_by_role_id_and_administrator(self.id, false)
-    for user in users
+    for user in User.where(role_id: self.id, administrator: false)
       # puts user.rights.inspect
       user_rights_array = []
       for right in user.rights.split(/\s+/)

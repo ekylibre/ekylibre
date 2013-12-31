@@ -1411,6 +1411,7 @@ eng:
     stopped_at: "Stopped at"
     stopped_on: "Stopped on"
     storable: "Gérer les stocks"
+    # storage: "Storage"
     story: "Story"
     string_value: "Storable"
     subdir: "Subdir" #?

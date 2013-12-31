@@ -21,8 +21,11 @@ class Backend::EntityLinksController < BackendController
   manage_restfully entity_1_id: 'params[:entity_id]'.c, except: :index
 
   def show
-    link = EntityLink.find(params[:id])
-    redirect_to :controller => :entities, :id => link.entity_1_id
+    if link = EntityLink.find_by(id: params[:id])
+      redirect_to backend_entity_url(link.entity_1_id)
+    else
+      redirect_to backend_root_url
+    end
   end
 
 end

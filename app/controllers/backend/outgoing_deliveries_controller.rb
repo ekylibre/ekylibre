@@ -42,6 +42,8 @@ class Backend::OutgoingDeliveriesController < BackendController
     t.column :product, url: true
     t.column :product_work_number, through: :product, label_method: :work_number
     t.column :population
+    t.column :unit_name, through: :variant
+    t.column :net_mass, through: :product, datatype: :measure
     # t.column :name, through: :building, url: true
   end
 

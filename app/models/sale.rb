@@ -67,7 +67,6 @@
 
 
 class Sale < Ekylibre::Record::Base
-  # attr_accessible :address_id, :annotation, :client_id, :description, :conclusion, :delivery_address_id, :function_title, :introduction, :invoice_address_id, :items_attributes, :letter_format, :nature_id, :reference_number, :responsible_id, :subject, :sum_method, :transporter_id
   attr_readonly :created_on, :currency
   # attr_protected :pretax_amount, :amount
   belongs_to :client, class_name: "Entity"
@@ -265,29 +264,29 @@ class Sale < Ekylibre::Record::Base
   end
 
 
-  # Create the last delivery with undelivered products if necessary.
-  # The sale order is confirmed if it hasn't be done.
-  def deliver
-    # TODO A sale cannot be delivered anymore...
-    ActiveSupport::Deprecation.warn "A sale cannot be delivered. Use deliveries to deliver product instead."
-    return false
-    return false unless self.order?
-    items = []
-    for item in self.items.not_reduction
-      quantity = item.undelivered_quantity
-      if quantity > 0 and item.deliverable?
-        items << {:sale_item_id => item.id, :quantity => quantity}
-      end
-    end
-    if items.count > 0
-      delivery = self.deliveries.create!(:pretax_amount => 0, :amount => 0, :planned_on => Date.today, :moved_on => Date.today, :address_id => self.delivery_address_id)
-      for item in items
-        delivery.items.create! item
-      end
-      self.refresh
-    end
-    self
-  end
+  # # Create the last delivery with undelivered products if necessary.
+  # # The sale order is confirmed if it hasn't be done.
+  # def deliver
+  #   # TODO A sale cannot be delivered anymore...
+  #   ActiveSupport::Deprecation.warn "A sale cannot be delivered. Use deliveries to deliver product instead."
+  #   return false
+  #   return false unless self.order?
+  #   items = []
+  #   for item in self.items.not_reduction
+  #     quantity = item.undelivered_quantity
+  #     if quantity > 0 and item.deliverable?
+  #       items << {:sale_item_id => item.id, :quantity => quantity}
+  #     end
+  #   end
+  #   if items.count > 0
+  #     delivery = self.deliveries.create!(:pretax_amount => 0, :amount => 0, :planned_on => Date.today, :moved_on => Date.today, :address_id => self.delivery_address_id)
+  #     for item in items
+  #       delivery.items.create! item
+  #     end
+  #     self.refresh
+  #   end
+  #   self
+  # end
 
 
   # Invoices.all the products creating the delivery if necessary.

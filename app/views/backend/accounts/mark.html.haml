@@ -6,8 +6,8 @@
         %td.submit=submit_tag(tg(:display), :name=>nil)
 
 =attributes_list(@account, :without_stamp=>true) do |l|
-  -l.attribute :name, :url=>true
-  -l.attribute :number, :url=>true
+  -l.attribute :name, url: true
+  -l.attribute :number, url: true
   -l.attribute :description
 
 =error_messages "account"

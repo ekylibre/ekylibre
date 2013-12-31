@@ -463,18 +463,13 @@ $mini-screen: 1024px;
   padding: round($default-gap * 0.3);
   & > li {
     display: block;
-    padding: round($default-gap / 2) $default-gap;
     border: 1px solid transparent;
+    padding: round($default-gap / 2) $default-gap;
     margin-top: $default-gap;
     &:first-child {
       margin-top: 0;
     }
-    &:hover {
-      border-color: #DDD;
-      @include box-shadow(0 0 round($default-gap * 0.3) rgba(#000, 0.25));
-      background: white;
-    }
-    & > h3 {
+    & > h3, & > a > h3 {
       small {
         color: #AAA;
       }
@@ -488,10 +483,22 @@ $mini-screen: 1024px;
         vertical-align: middle;
       }
     }
-    & > p {
+    & > p, & > a > p {
       line-height: 1.4em;
       color: #777;
       text-align: justify;
+    }
+    &.link {
+      padding: 0;
+      & > a {
+        display: block;
+        padding: round($default-gap / 2) $default-gap;
+        &:hover {
+          border-color: #DDD;
+          @include box-shadow(0 0 round($default-gap * 0.3) rgba(#000, 0.25));
+          background: white;
+        }
+      }
     }
   }
   .cell-content & {

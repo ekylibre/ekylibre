@@ -6,8 +6,8 @@
     =attributes_list(@cash) do |l|
       -l.attribute :name
       -l.attribute :nature
-      -l.attribute :journal, :url=>true
-      -l.attribute :account, :url=>true
+      -l.attribute :journal, url: true
+      -l.attribute :account, url: true
       -if @cash.bank_account?
         -l.attribute :bank_name
         -l.attribute :bank_agency_address

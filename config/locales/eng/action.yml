@@ -180,7 +180,7 @@ eng:
       index: "Districts"
       new: "Add a new district"
     backend/document_archives:
-      # show: "Voir l'archive\_: %{name} "
+      # show: "Voir l’archive\_: %{name} "
     backend/document_templates:
       edit: "Edit the document template: %{name}"
       index: "Document templates"
@@ -245,7 +245,7 @@ eng:
       edit: "Edit thee event type: %{name}"
       index: "Event types"
       new: "Add a new event type"
-      # show: "Type d'évènement\_: %{name}"
+      # show: "Type d’évènement\_: %{name}"
     backend/event_participations: #?
     backend/events:
       change_minutes: "Change minutes for event" #?
@@ -267,8 +267,8 @@ eng:
       show: "Help: %{title}" #?
     backend/helps:
       index: "Help"
-      # show: "Voir l'aide"
-      # toggle: "Basculer l'aide"
+      # show: "Voir l’aide"
+      # toggle: "Basculer l’aide"
     backend/incidents:
       edit: "Edit an incident\_: %{name} (%{nature})"
       index: "Incidents"
@@ -619,7 +619,10 @@ eng:
       edit: "Edit tax: %{name}"
       index: "Taxes"
       new: "Add a new tax"
-    backend/teams: #?
+    backend/teams:
+      # edit: "Modifier l’équipe"
+      # index: "Équipes"
+      # new: "Nouvelle équipe"
     backend/trackings:  #?
       show: "Tracking: %{name}" #?
     backend/transports:
@@ -642,10 +645,10 @@ eng:
       show: "User: %{first_name} %{last_name} (%{name})"
       unlock: "Unlock user"
     backend/workers:
-      # edit: "Modifier l'équipier %{name}"
-      # index: "Equipiers"
+      # edit: "Modifier l’équipier %{name}"
+      # index: "Équipiers"
       # new: "Nouvel équipier"
-      # show: "Equipier %{name}"
+      # show: "Équipier %{name}"
     devise/confirmations: #?
     devise/passwords: #?
     devise/registrations: #?
@@ -934,7 +937,7 @@ eng:
     close_journal: "Close the journal"
     closed: "Closed"
     # clostridial_spores_concentration: "Concentration en spores butyriques"
-    # clusters_work_number: "Numéro d'ilot(s)"
+    # clusters_work_number: "Numéro d’ilot(s)"
     # collected_taxes: "TVA déductibles / collectées"
     column: "Column"
     column_family: "Family"
@@ -962,6 +965,7 @@ eng:
     # cost: "Coût"
     cost_income_statement: "Cost Income Statement"
     cost_sum: "Total Cost"
+    # country: "Pays"
     counts_by_nature: "Number of documents to account per type"
     create: "Create"
     create_journal: "-- Create journal --"
@@ -980,6 +984,7 @@ eng:
     # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
     csv_statistics: "CSV statistics"
     cumul: "Accumulation of tattle and previous balance N°%{number}"
+    # currency: "Devise"
     currency_with_code: "%{name} (%{code})"
     current: "Current"
     current_letter: "Current letter\_: %{letter}"
@@ -1021,7 +1026,7 @@ eng:
     document: "Document"
     document_natures: "Document types"
     document_templates: "Document templates"
-    # doer_evaluated_cost: "Coût main d'œuvre"
+    # doer_evaluated_cost: "Coût main d’œuvre"
     dont_use_journal: "-- Do not use journal --"
     down: "Down"
     down_to_level: "Down to level"
@@ -1135,7 +1140,7 @@ eng:
       unreceived: "Unreceived"
       waiting: "To deposit later"
     indicator: "Indicators"
-    # indicator_value: "Valeur de l'indicateur"
+    # indicator_value: "Valeur de l’indicateur"
     indicators: "Indicators"
     # indicators_evolutions: "Évolutions des indicateurs"
     # inel_index: "Index génétique INEL"
@@ -1170,6 +1175,7 @@ eng:
     land_parcel_name: "Land parcel name"
     land_parcel_update: "Update land parcel" #?
     land_parcels: "Land parcels"
+    # language: "Langue"
     last_animals: "Last birth"
     # last_clients: "Derniers clients"
     last_computed_balance: "Last computed balance"
@@ -1228,7 +1234,7 @@ eng:
     mass: "Mass"
     # maximal_temperature: "Température maximale"
     # measure_options: "Indicateur de type mesure"
-    # meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
+    # meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"
     # medicines: "Remèdes"
     meeting: "Meeting"
@@ -1253,7 +1259,7 @@ eng:
       trade: "Trade"
     merge: "Merge"
     meteo: "Weather"
-    # milk_withdrawal_period: "Période d'attente avant remise en vente de lait"
+    # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
     # minimal_temperature: "Température minimale"
     missing_help: "Missing page"
     mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
@@ -1502,7 +1508,7 @@ eng:
       one: "1 result"
       other: "%{count} results"
       zero: "No results"
-    # revenues_by_product_nature: "Chiffre d'affaire par type de produit"
+    # revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "Reverse condition"
     right_modules:
       # accountancy: "Droits module Comptabilité"
@@ -1685,7 +1691,7 @@ eng:
     upload: "Upload"
     # urea_concentration: "Teneur moyenne en urée"
     usage: "Usage"
-    # usage_duration: "Durée d'utilisation"
+    # usage_duration: "Durée d’utilisation"
     use_incoming_payment: "Add incoming payment %{payment}"
     use_renew: "Select the journal to carry over"
     used_accounts: "Used accounts only" #?

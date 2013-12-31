@@ -1,0 +1,21 @@
+= beehive do |b|
+  - b.hbox do
+    - b.cell :main_settings do
+      %dl.big
+        %dt= :currency.tl
+        %dd= Nomen::Currencies[Preference[:currency]].human_name
+        %dt= :country.tl
+        %dd= Nomen::Countries[Preference[:country]].human_name
+        %dt= :language.tl
+        %dd= Nomen::Languages[Preference[:language]].human_name
+
+    - b.cell :statistics do
+      %ul.desc-list
+        - for model in [User, Team, Account, FinancialYear, ProductNatureCategory, ProductNature, ProductNatureVariant, Campaign, Worker, Building, LandParcel]
+          %li.link
+            - collection = model.name.underscore.pluralize
+            -# %h3= link_to("x_#{collection}".tl(model.count), controller: collection)
+            = link_to(controller: collection, action: :index) do
+              %h3
+                = "actions.backend/#{collection}.index".t
+                %span.badge= model.count

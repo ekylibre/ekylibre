@@ -10,7 +10,12 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 
 td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
 small, sup, sub { font-size: $fs-small; }
-a:link, a:visited, a:focus { color: $link-color; text-decoration: none;}
+a:link, a:visited, a:focus {
+  &, h1, h2, h3, h4, h5, h6 {
+    color: $link-color;
+    text-decoration: none;
+  }
+}
 // a:hover { color: $link-color; text-decoration: underline;}
 
 
@@ -595,6 +600,9 @@ div[data-deck] > div#default {
   .snippet-title {
     display: block;
     outline: none;
+    &, * {
+      color: $text-color;
+    }
     i.collapser {
       @include is-icon;
       @include use-icon(collapse-alt);
@@ -1735,6 +1743,19 @@ $form-actions-height: 48px;
   }
 }
 
+dl.big {
+  dt {
+    margin-top: $fs-normal;
+    font-size: 1.5 * $fs-normal;
+    color: $neutral-color;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  dd {
+    font-size: 3 * $fs-normal;
+  }
+}
 
 .rss-feed {
   .rss-title {
@@ -2161,6 +2182,9 @@ svg.map {
   height: $fs-small;
   color: white;
   white-space: nowrap;
+  a > & {
+    background-color: $link-color;
+  }
 }
 
 .aggregator {

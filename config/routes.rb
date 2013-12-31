@@ -644,10 +644,10 @@ Ekylibre::Application.routes.draw do
       collection do
         # match "deliveries", via: [:get, :post]
         # match "delivery_delete", via: [:get, :post]
+        get :list_transportable_deliveries
       end
       member do
         get :list_deliveries
-        get :list_transportable_deliveries
       end
     end
 

@@ -18,6 +18,7 @@
 #
 
 class Backend::TransportsController < BackendController
+  manage_restfully only: [:index, :show, :destroy]
   unroll
 
   list(:children => :deliveries, conditions: search_conditions(:transports => [:number, :description], :entities => [:number, :full_name])) do |t|
@@ -31,11 +32,6 @@ class Backend::TransportsController < BackendController
     t.action :edit
     t.action :destroy
   end
-
-  # Displays the main page with the list of transports
-  def index
-  end
-
 
   list(:deliveries, model: :outgoing_deliveries, :children => :items, conditions: {:transport_id => 'params[:id]'.c}) do |t|
     t.column :address, label_method: :coordinate, :children => :product_name
@@ -111,7 +107,7 @@ class Backend::TransportsController < BackendController
   end
 
   def create
-    @transport = Transport.new(params[:transport])
+    @transport = Transport.new(permitted_params[:transport])
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
     return if save_and_redirect(@transport, url: {:action => :show, :id => 'id'}) do |transport|
@@ -139,7 +135,7 @@ class Backend::TransportsController < BackendController
     return unless @transport = find_and_check(:transports)
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
-    return if save_and_redirect(@transport, :attributes => params[:transport], url: {:action => :show, :id => 'id'}) do |transport|
+    return if save_and_redirect(@transport, :attributes => permitted_params[:transport], url: {:action => :show, :id => 'id'}) do |transport|
       transport.deliveries.clear
       params[:transportable_deliveries] ||= {}
       for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}
@@ -151,13 +147,6 @@ class Backend::TransportsController < BackendController
     end
     t3e @transport.attributes
     # render_restfully_form
-  end
-
-
-  def destroy
-    return unless @transport = find_and_check(:transports)
-    @transport.destroy if @transport.destroyable?
-    redirect_to backend_transports_url
   end
 
 end

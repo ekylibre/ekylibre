@@ -91,8 +91,11 @@ class Backend::PurchaseItemsController < BackendController
   end
 
   def show
-    item = PurchaseItem.find(params[:id])
-    redirect_to :controller => :purchases, :id => item.purchase_id
+    if item = PurchaseItem.find_by(id: params[:id])
+      redirect_to :controller => :purchases, :id => item.purchase_id
+    else
+      redirect_to backend_root_url
+    end
   end
 
 end

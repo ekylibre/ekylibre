@@ -18,6 +18,8 @@
 #
 
 class Backend::DepositsController < BackendController
+  manage_restfully only: :destroy
+
 
   unroll
 
@@ -124,13 +126,6 @@ class Backend::DepositsController < BackendController
     # render_restfully_form
   end
 
-  def destroy
-    return unless @deposit = find_and_check(:deposit)
-    @deposit.destroy if @deposit.destroyable?
-    redirect_to_current
-  end
-
-
   list(:unvalidateds, model: :deposits, conditions: {:locked => false}) do |t|
     t.column :created_on
     t.column :amount
@@ -165,10 +160,6 @@ class Backend::DepositsController < BackendController
       return nil
     end
     return mode
-  end
-
-  def permitted_params
-    params.require(:deposit).permit!
   end
 
 end

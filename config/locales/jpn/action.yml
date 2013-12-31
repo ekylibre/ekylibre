@@ -71,8 +71,8 @@ jpn:
     backend/building_divisions:
       # edit: "Modifier la zone\_: %{name}"
       # index: "Zones de bâtiments"
-      # new: "Ajout d'une zone"
-      # show: "Détail d'une zone\_: %{name}"
+      # new: "Ajout d’une zone"
+      # show: "Détail d’une zone\_: %{name}"
     backend/buildings:
       # edit: "Modifier un bâtiment"
       # index: "Bâtiments"
@@ -178,7 +178,7 @@ jpn:
       # index: "Zones administratives"
       # new: "Ajouter une zone administrative"
     backend/document_archives:
-      # show: "Voir l'archive\_: %{name} "
+      # show: "Voir l’archive\_: %{name} "
     backend/document_templates:
       # edit: "Modifier le modèle de document\_: %{name}"
       # index: "Modèles de document"
@@ -221,13 +221,13 @@ jpn:
       # index: "Établissements"
       # new: "Ajout d’un nouvel etablissement"
     backend/event_natures:
-      # edit: "Modifier le type d'évènement\_: %{name}"
-      # index: "Types d'évènement"
-      # new: "Nouveau type d'évènement"
-      # show: "Type d'évènement\_: %{name}"
+      # edit: "Modifier le type d’évènement\_: %{name}"
+      # index: "Types d’évènement"
+      # new: "Nouveau type d’évènement"
+      # show: "Type d’évènement\_: %{name}"
     backend/event_participations: #?
     backend/events:
-      # edit: "Modifier l'évènement\_: %{name}"
+      # edit: "Modifier l’évènement\_: %{name}"
       # index: "Évènements"
       # new: "Nouvel évènement"
       # show: "Évènement\_: %{name}"
@@ -243,8 +243,8 @@ jpn:
     backend/help: #?
     backend/helps:
       # index: "Aide"
-      # show: "Voir l'aide"
-      # toggle: "Basculer l'aide"
+      # show: "Voir l’aide"
+      # toggle: "Basculer l’aide"
     backend/incidents:
       # edit: "Modifier l’incident\_: %{name} (%{nature})"
       # index: "Incidents"
@@ -576,7 +576,10 @@ jpn:
       # edit: "Modifier la taxe\_: %{name}"
       # index: "Taxes"
       # new: "Ajouter une nouvelle taxe"
-    backend/teams: #?
+    backend/teams:
+      # edit: "Modifier l’équipe"
+      # index: "Équipes"
+      # new: "Nouvelle équipe"
     backend/tools: #?
     backend/transports:
       # deliveries: "Livraisons du transport"
@@ -595,10 +598,10 @@ jpn:
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?
     backend/workers:
-      # edit: "Modifier l'équipier %{name}"
-      # index: "Equipiers"
+      # edit: "Modifier l’équipier %{name}"
+      # index: "Équipiers"
       # new: "Nouvel équipier"
-      # show: "Equipier %{name}"
+      # show: "Équipier %{name}"
     backend/working_sets: #?
     devise/confirmations: #?
     devise/passwords: #?
@@ -822,7 +825,7 @@ jpn:
         # safari: "Safari"
     # balance: "Solde"
     # bank_chart: "Évolution du solde des comptes de trésorerie"
-    # bban: "Relevé d'identité bancaire (RIB)"
+    # bban: "Relevé d’identité bancaire (RIB)"
     # beginning: "Début"
     # begins: "Commence par"
     # body: "Corps du message"
@@ -870,7 +873,7 @@ jpn:
     # close_journal: "Clôturer le journal"
     # closed: "Verrouillées"
     # clostridial_spores_concentration: "Concentration en spores butyriques"
-    # clusters_work_number: "Numéro d'ilot(s)"
+    # clusters_work_number: "Numéro d’ilot(s)"
     # collected_taxes: "TVA déductibles / collectées"
     # column: "Donnée"
     # column_family: "Famille"
@@ -898,6 +901,7 @@ jpn:
     # cost: "Coût"
     # cost_income_statement: "Charges"
     # cost_sum: "Total charges d’exploitation"
+    # country: "Pays"
     # counts_by_nature: "Nombre de pièces à comptabiliser par type"
     create: "創造する"
     # create_journal: "— Créer le journal —"
@@ -916,6 +920,7 @@ jpn:
     # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
     # csv_statistics: "Statistiques à exporter au format CSV"
     # cumul: "Cumul du total et du solde précédent N°%{number}"
+    # currency: "Devise"
     # currency_with_code: "%{code} - %{name}"
     # current: "En cours"
     # current_letter: "Lettre en cours\_: %{letter}"
@@ -954,7 +959,7 @@ jpn:
     # document: "Document joint"
     # document_natures: "Types de documents"
     # document_templates: "Modèles de documents"
-    # doer_evaluated_cost: "Coût main d'œuvre"
+    # doer_evaluated_cost: "Coût main d’œuvre"
     # dont_use_journal: "— Ne pas utiliser de journal —"
     # down: "Descendre"
     # down_to_level: "Détailler jusqu’au niveau"
@@ -1062,7 +1067,7 @@ jpn:
       # unreceived: "Non reçus"
       # waiting: "À encaisser plus tard"
     # indicator: "Indicateur"
-    # indicator_value: "Valeur de l'indicateur"
+    # indicator_value: "Valeur de l’indicateur"
     # indicators: "Indicateurs"
     # indicators_evolutions: "Évolutions des indicateurs"
     # inel_index: "Index génétique INEL"
@@ -1095,6 +1100,7 @@ jpn:
     # journals: "Journaux"
     # land_parcel_name: "Parcelle"
     # land_parcels: "Parcellaire"
+    # language: "Langue"
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
     # last_computed_balance: "Dernière balance calculée"
@@ -1153,7 +1159,7 @@ jpn:
     # mass: "Poids"
     # maximal_temperature: "Température maximale"
     # measure_options: "Indicateur de type mesure"
-    # meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
+    # meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"
     # medicines: "Remèdes"
     # meeting: "Lieu(x) de rencontre"
@@ -1183,7 +1189,7 @@ jpn:
       # trade: "Achats/Ventes"
     # merge: "Fusionner"
     # meteo: "Météo"
-    # milk_withdrawal_period: "Période d'attente avant remise en vente de lait"
+    # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
     # minimal_temperature: "Température minimale"
     missing_help: "無意味なページ"
     # mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
@@ -1426,7 +1432,7 @@ jpn:
       # one: "%{count} résultat"
       # other: "%{count} résultats"
       # zero: "Aucun résultat"
-    # revenues_by_product_nature: "Chiffre d'affaire par type de produit"
+    # revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     # reverse: "Appliquer la condition inverse"
     right_modules:
       # accountancy: "Droits module Comptabilité"
@@ -1608,7 +1614,7 @@ jpn:
     # upload: "Téléversement"
     # urea_concentration: "Teneur moyenne en urée"
     # usage: "Utilisation"
-    # usage_duration: "Durée d'utilisation"
+    # usage_duration: "Durée d’utilisation"
     # use_incoming_payment: "Rattacher l’encaissement %{payment}"
     # use_renew: "Sélectionnez un journal pour reporter les à nouveaux"
     user_name: "ユーザー名"

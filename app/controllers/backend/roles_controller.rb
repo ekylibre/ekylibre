@@ -18,6 +18,7 @@
 #
 
 class Backend::RolesController < BackendController
+  manage_restfully only: [:index, :destroy]
   unroll
 
   list(order: :name, :children => :users) do |t|
@@ -28,10 +29,6 @@ class Backend::RolesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  # Displays the main page with the list of roles
-  def index
-  end
-
   def new
     @role = Role.new
     @rights = User.rights_list
@@ -39,7 +36,7 @@ class Backend::RolesController < BackendController
   end
 
   def create
-    @role = Role.new(params[:role])
+    @role = Role.new(permitted_params[:role])
     @role.rights_array = (params[:rights]||{}).keys
     @rights = @role.rights_array
     return if save_and_redirect(@role)
@@ -55,18 +52,12 @@ class Backend::RolesController < BackendController
 
   def update
     return unless @role = find_and_check(:role)
-    @role.attributes = params[:role]
+    @role.attributes = permitted_params[:role]
     @role.rights_array = (params[:rights]||{}).keys
     @rights = @role.rights_array
     return if save_and_redirect(@role)
     t3e @role.attributes
     # render_restfully_form
-  end
-
-  def destroy
-    return unless @role = find_and_check(:role)
-    Role.destroy(@role.id) if @role.destroyable?
-    redirect_to_current
   end
 
 end

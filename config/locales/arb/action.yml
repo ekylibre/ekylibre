@@ -78,8 +78,8 @@ arb:
     backend/building_divisions:
       # edit: "Modifier la zone\_: %{name}"
       # index: "Zones de bâtiments"
-      # new: "Ajout d'une zone"
-      # show: "Détail d'une zone\_: %{name}"
+      # new: "Ajout d’une zone"
+      # show: "Détail d’une zone\_: %{name}"
     backend/buildings:
       edit: "تعديل موقع التخزين"
       index: "مواقع التخزين"
@@ -211,7 +211,7 @@ arb:
       index: "المناطق الادارية"
       new: "اضافة عنوان بريدي"
     backend/document_archives:
-      # show: "Voir l'archive\_: %{name} "
+      # show: "Voir l’archive\_: %{name} "
     backend/document_templates:
       edit: "تعديل نموذج الوثيقة : %{name}"
       index: "نماذج الوثيقة"
@@ -276,7 +276,7 @@ arb:
       edit: "تعديل نوع الحدث: %{name}"
       index: "انواع الاحداث"
       new: "اضافة نوع الحدث"
-      # show: "Type d'évènement\_: %{name}"
+      # show: "Type d’évènement\_: %{name}"
     backend/event_participations: #?
     backend/events:
       edit: "تعديل الحدث"
@@ -297,8 +297,8 @@ arb:
     backend/help: #?
     backend/helps:
       # index: "Aide"
-      # show: "Voir l'aide"
-      # toggle: "Basculer l'aide"
+      # show: "Voir l’aide"
+      # toggle: "Basculer l’aide"
     backend/incidents:
       # edit: "Modifier l’incident\_: %{name} (%{nature})"
       # index: "Incidents"
@@ -714,7 +714,10 @@ arb:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
       new: "اضافة ضريبة جديدة"
-    backend/teams: #?
+    backend/teams:
+      # edit: "Modifier l’équipe"
+      # index: "Équipes"
+      # new: "Nouvelle équipe"
     backend/tool_natures: #?
     backend/tools:  #?
       edit: "تعديل المادة : %{name}" #?
@@ -746,10 +749,10 @@ arb:
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?
     backend/workers:
-      # edit: "Modifier l'équipier %{name}"
-      # index: "Equipiers"
+      # edit: "Modifier l’équipier %{name}"
+      # index: "Équipiers"
       # new: "Nouvel équipier"
-      # show: "Equipier %{name}"
+      # show: "Équipier %{name}"
     backend/working_sets: #?
     devise/confirmations: #?
     devise/passwords: #?
@@ -1008,7 +1011,7 @@ arb:
     # bank_chart: "Évolution du solde des comptes de trésorerie"
     bank_statement_point: "الاشارة للكشف المصرفي" #?
     bank_statement_update: "تعديل الكشف المصرفي" #?
-    # bban: "Relevé d'identité bancaire (RIB)"
+    # bban: "Relevé d’identité bancaire (RIB)"
     # beginning: "Début"
     # begins: "Commence par"
     body: "هيكل الرسالة"
@@ -1060,7 +1063,7 @@ arb:
     # close_journal: "Clôturer le journal"
     closed: "مغلق"
     # clostridial_spores_concentration: "Concentration en spores butyriques"
-    # clusters_work_number: "Numéro d'ilot(s)"
+    # clusters_work_number: "Numéro d’ilot(s)"
     code: "الرمز" #?
     # collected_taxes: "TVA déductibles / collectées"
     column: "البيانات"
@@ -1090,6 +1093,7 @@ arb:
     # cost: "Coût"
     cost_income_statement: "التكاليف"
     cost_sum: "مجموع تكاليف الاستثمار"
+    # country: "Pays"
     counts_by_nature: "عدد ونوع السجلات"
     create: "انشاء"
     create_journal: "-- انشاء دفتر يومي --"
@@ -1108,6 +1112,7 @@ arb:
     # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
     csv_statistics: "نموذج احصائيات القيمة النقدية"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
+    # currency: "Devise"
     # currency_with_code: "%{code} - %{name}"
     current: "الحالية"
     current_letter: "البيانات الحالية : %{letter}"
@@ -1161,7 +1166,7 @@ arb:
     document_natures: "نوع الوثيقة"
     document_template_create: "انشاء نموذج للوثيقة" #?
     document_templates: "نموذج الوثائق"
-    # doer_evaluated_cost: "Coût main d'œuvre"
+    # doer_evaluated_cost: "Coût main d’œuvre"
     dont_use_journal: "-- عدم استعمال الدفتر اليومي --"
     down: "للاسفل"
     down_to_level: "نزولا الى مستوى"
@@ -1291,7 +1296,7 @@ arb:
       # waiting: "À encaisser plus tard"
     index: "العودة الى دليل ادارة الاعمال" #?
     indicator: "لوحة التحكم"
-    # indicator_value: "Valeur de l'indicateur"
+    # indicator_value: "Valeur de l’indicateur"
     # indicators: "Indicateurs"
     # indicators_evolutions: "Évolutions des indicateurs"
     # inel_index: "Index génétique INEL"
@@ -1333,6 +1338,7 @@ arb:
     land_parcel_name: "نظام"
     land_parcel_update: "تعديل النظام" #?
     land_parcels: "قائمة بالنظام"
+    # language: "Langue"
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
     # last_computed_balance: "Dernière balance calculée"
@@ -1394,7 +1400,7 @@ arb:
     mass: "الوزن"
     # maximal_temperature: "Température maximale"
     # measure_options: "Indicateur de type mesure"
-    # meat_withdrawal_period: "Période d'attente avant remise en vente de viande"
+    # meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"
     # medicines: "Remèdes"
     meeting: "المقابلة(X)مكان"
@@ -1436,7 +1442,7 @@ arb:
       trade: "التجارة"
     merge: "دمج"
     # meteo: "Météo"
-    # milk_withdrawal_period: "Période d'attente avant remise en vente de lait"
+    # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
     # minimal_temperature: "Température minimale"
     missing_help: "صفحات مفقودة"
     # mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
@@ -1711,7 +1717,7 @@ arb:
       one: "نتيجة واحدة"
       other: "%{count} نتائج"
       zero: "ولا نتيجة"
-    # revenues_by_product_nature: "Chiffre d'affaire par type de produit"
+    # revenues_by_product_nature: "Chiffre d’affaire par type de produit"
     reverse: "تطبيق الحالة العكسية"
     right_modules:
       accountancy: "حقوق المحاسبة"
@@ -1922,7 +1928,7 @@ arb:
     upload: "تحميل الملفات"
     # urea_concentration: "Teneur moyenne en urée"
     # usage: "Utilisation"
-    # usage_duration: "Durée d'utilisation"
+    # usage_duration: "Durée d’utilisation"
     # use_incoming_payment: "Rattacher l’encaissement %{payment}"
     use_renew: "اختر دفتر يومي للتقارير الجديدة"
     used_accounts: "الحسابات المستخدمة فقط" #?

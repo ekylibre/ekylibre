@@ -76,13 +76,13 @@ class EntityAddress < Ekylibre::Record::Base
 
   has_default :scope => [:entity_id, :canal]
 
-  # Use unscoped to get.all historic
-  # default_scope -> { where("deleted_at IS NULL").order(:coordinate) }
+  # Use unscoped to get all historic
+  default_scope -> { where("deleted_at IS NULL").order(:coordinate) }
 
   # Defines test and scope methods for.all canals
   self.canal.values.each do |canal|
     scope canal.to_s.pluralize, -> { where(canal: canal.to_s) }
-    scope "own_#{canal.to_s.pluralize}", -> { where("canal = ? AND entity_id = ?", canal, Entity.of_company.id) }
+    scope "own_#{canal.to_s.pluralize}", -> { where(canal: canal.to_s, entity_id: Entity.of_company.id) }
   end
 
 

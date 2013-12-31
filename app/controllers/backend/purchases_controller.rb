@@ -42,9 +42,9 @@ class Backend::PurchasesController < BackendController
   list(:deliveries, model: :incoming_deliveries, :children => :items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
     t.column :address, :children => :product_name
     t.column :received_at, :children => false
-    t.column :quantity, :datatype => :decimal
-    t.column :pretax_amount, currency: true
-    t.column :amount, currency: true
+    # t.column :population, :datatype => :decimal
+    # t.column :pretax_amount, currency: true
+    # t.column :amount, currency: true
     t.action :edit, :if => :order?
     t.action :destroy, :if => :order?
   end
