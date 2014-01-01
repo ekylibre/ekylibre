@@ -53,14 +53,14 @@ eng:
       edit: "Edit the postal area: %{name}"
       index: "Postal areas"
       new: "Add a postal area"
-    backend/assets:
-      cede: "Cede %{name}"
-      depreciate: "Compute depreciations of %{name}"
-      edit: "Edit asset: %{name}"
-      index: "Assets"
-      new: "New asset"
+    backend/assets:  #?
+      cede: "Cede %{name}" #?
+      depreciate: "Compute depreciations of %{name}" #?
+      edit: "Edit asset: %{name}" #?
+      index: "Assets" #?
+      new: "New asset" #?
       sell: "Sell asset" #?
-      show: "Asset: %{name}"
+      show: "Asset: %{name}" #?
     backend/bank_statements:
       edit: "Edit bank statement %{number}"
       index: "Bank statements"
@@ -253,6 +253,13 @@ eng:
       index: "Events"
       new: "Add a new event"
       # show: "Évènement\_: %{name}"
+    backend/financial_assets:
+      # cede: "Céder l’immobilisation"
+      # depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}"
+      # edit: "Modifier l’immobilisation\_: %{name}"
+      # index: "Immobilisations"
+      # new: "Nouvelle immobilisation"
+      # show: "Immobilisation\_: %{name}"
     backend/financial_years:
       close: "Close financial year: %{code}"
       compute_balances: "Compute financial year balance"
@@ -668,7 +675,7 @@ eng:
     # backend/animal_groups: "Groupes d’animaux"
     backend/animals: "Animals"
     backend/areas: "Postal areas"
-    backend/assets: "Assets"
+    backend/assets: "Assets" #?
     backend/bank_statements: "Bank statements"
     backend/buildings: "Buildings"
     backend/campaigns: "Campaigns"
@@ -694,6 +701,7 @@ eng:
     backend/establishments: "Establishments"
     backend/event_natures: "Event types" #?
     backend/events: "Events" #?
+    # backend/financial_assets: "Immobilisations"
     backend/financial_years: "Financial years"
     backend/help: "Help" #?
     backend/incoming_deliveries: "Incoming deliveries"
@@ -877,7 +885,7 @@ eng:
     # area_measure: "Superficie"
     area_x: "%{name} (%{postcode})"
     # assessable_operations: "Opérations imposables (H.T)"
-    assets: "Assets management"
+    assets: "Assets management" #?
     # assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A"
     attach_an_incoming_payment_to_expense: "Attach an incoming payment to %{type} %{number}"
     attach_an_outgoing_payment_to_expense: "Attach an outgoing payment to %{type} %{number}"
@@ -1096,6 +1104,7 @@ eng:
     file_to_upload: "File to upload"
     filter: "Filter"
     filter_entries_with: "Filter entries with"
+    # financial_assets: "Immobilisations"
     financial_state: "Financial state"
     finish: "Finish"
     finished_income_statement: "Income"
@@ -1717,7 +1726,8 @@ eng:
       resized: "Resized mode"
     virtual_quantity: "Virtual quantity"
     # wind_speed: "Vitesse du vent"
-    with_assets_depreciations: "With assets depreciations"
+    with_assets_depreciations: "With assets depreciations" #?
+    # with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Include printing archives (sales invoices, purchases...)"
     x_cashes:
       one: "%{count} cash"
@@ -1941,7 +1951,7 @@ eng:
     you_must_select_a_file_to_import: "You must select a file to import"
     you_will_lose_all_your_current_data: "If you continue, you will lose all your data being entered. Would you continue?"
   preferences:
-    assets_sequence: "Numeration of assets"
+    assets_sequence: "Numeration of assets" #?
     bank_journal: "Default bank journal"
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
@@ -1953,6 +1963,7 @@ eng:
     deposits_sequence: "Numeration of deposits"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
     entities_sequence: "Numeration of people"
+    # financial_assets_sequence: "Numérotation des immobilisations"
     financial_banks_accounts: "Banks accounts"
     financial_cashes_accounts: "Cashes accounts"
     financial_internal_transfers_accounts: "Internal transfers"

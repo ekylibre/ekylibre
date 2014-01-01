@@ -69,7 +69,7 @@ $default-gap: round($fs-normal * 0.55);
 $cell-background: mix($desktop-background, $base-color, 82%);
 $cell-background-current: mix($desktop-background, $base-color, 62%);
 
-$buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement) (close) (help) (merge) (spread) (rgreen) (rblue) (rblack) (nav) (general-informations) (genealogy) (group) (care) (treatment) (drug) (entity) (delay) (stock) (asset) (animal) (vegetable) (document) (movement);
+$buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement) (close) (help) (merge) (spread) (rgreen) (rblue) (rblack) (nav) (general-informations) (genealogy) (group) (care) (treatment) (drug) (entity) (delay) (stock) (financial-asset) (animal) (vegetable) (document) (movement);
 $buttons-states: hover whited active disabled normal;
 $buttons-radius: $default-border-radius;
 

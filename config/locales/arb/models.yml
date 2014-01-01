@@ -36,8 +36,7 @@ arb:
       area:  #?
         code: "الرمز الداخلي" #?
         created_at: "تم انشائه في" #?
-      asset_depreciation:
-        # asset_amount: "Valeur nette comptable (VNC)"
+      asset_depreciation: #?
       bank_statement:  #?
         number: "رقم" #?
         real_debit: "الدين" #?
@@ -234,6 +233,8 @@ arb:
       event_nature:
         duration: "(المدة الافتراضية (بالدقائق"
         updated_at: "تم تحديثها في" #?
+      financial_asset_depreciation:
+        # depreciable_amount: "Valeur nette comptable (VNC)"
       financial_year:
         account_balances: "رصائد الحسابات" #?
         journal_records: "السجلات المحاسبية" #?
@@ -433,27 +434,17 @@ arb:
         second_building_id: "موقع تخزين الحركة الثانية" #?
         tracking_id: "حصة" #?
       product_nature:
-        # abilities: "Compétences"
         active: "قبل للاستخدام" #?
-        # asset_account: "Compte d’immobilisation"
         buildings: "اماكن التخزين" #?
-        # charge_account: "Compte d’achat"
         comment: "تعليق" #?
         # depreciable: "Ammortissable"
         duration: "عدد ارقام او مدة الاشتراك"
         ean13: "EAN13 الرمز" #?
-        # indicators: "Indicateurs"
         mass: "(الوزن(كغ" #?
         # price: "Prix de revient"
-        # producible: "Produisible"
-        # product_account: "Compte de vente"
         published: "نشر" #?
-        # purchasable: "Achetable"
-        # saleable: "Vendable"
-        # stock_account: "Compte de stock"
         stock_moves: "حركات السهم" #?
         stocks: "اسهم المنتجات" #?
-        # storable: "Stockable"
         # subscribing: "Abonnement ?"
         unit: "وحدة القياس" #?
         unit_id: "وحدة قياس" #?
@@ -746,10 +737,8 @@ arb:
         too_short: "%{attribute} قصير جدا (%{count}الحد الادنى للاحرف)"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
       models:
-        asset:
-          attributes:
-            started_on:
-              # invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
+        asset:  #?
+ #?
         cash:
           # currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
@@ -763,6 +752,10 @@ arb:
         entity:
           missing_title: "%{attribute} يجب ان يحتوي على اسم «%{title}»"
           nature_do_not_allow_a_first_name: "«%{nature}» لا يسمح النوع المختار بمعرفة الاسم الاول"
+        financial_asset:
+          attributes:
+            started_on:
+              # invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         financial_year:
           attributes:
             started_on:
@@ -840,8 +833,6 @@ arb:
       # animal_group: "Groupe d’animaux"
       # animal_medicine: "Produits vétérinaires"
       area: "المنطقة البريدية"
-      # asset: "Immobilisation"
-      # asset_depreciation: "Amortissement d’immobilisation"
       bank_statement: "بيان الحساب المصرفي"
       # bioproduct: "Produit vivant"
       building: "موقع التخزين"
@@ -883,6 +874,8 @@ arb:
       event: "الحدث"
       event_nature: "نوع الحدث"
       # event_participation: "Participation à un évènement"
+      # financial_asset: "Immobilisation"
+      # financial_asset_depreciation: "Amortissement d’immobilisation"
       financial_year: "السنة المالية"
       # fungus: "Champignon"
       # immatter: "Immatériel"
@@ -1036,12 +1029,6 @@ arb:
     areas: "الرموز البريدية"
     # arrival_cause: "Cause d’entrée"
     arrived_on: "وصل يوم"
-    # asset: "Immobilisation"
-    # asset_account: "Asset account"
-    # asset_amount: "Valeur nette comptable"
-    # asset_depreciations: "Dépréciations d’immobilisation"
-    # assets: "Immobilisations"
-    # assets_categories: "Catégories de produits avec immobilisation"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة"
     attorney: "الوكيل"
     attorney_account: "حساب مساعد الوكيل"
@@ -1100,7 +1087,7 @@ arb:
     # ceded: "Cédé"
     # ceded_on: "Cédé le"
     changes_reflected: "انعكاس التغييرات"
-    # charge_account: "Compte de charge"
+    # charge_account: "Compte d’achat"
     # charges_account: "Comptes de charge"
     charges_accounts: "حسابات الحمولة"
     # charges_categories: "Catégories de produits avec charge"
@@ -1355,6 +1342,10 @@ arb:
     filename: "الملف" #?
     filesize: "حجم الملف" #?
     # filtered_columns: "Colonnes filtrées"
+    # financial_asset: "Immobilisation"
+    # financial_asset_account: "Compte d’immobilisation"
+    # financial_asset_depreciations: "Dépréciations d’immobilisation"
+    # financial_assets_categories: "Catégories de produits avec immobilisation"
     financial_year: "السنوات المالية"
     # financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
     financial_year_id: "مهنة" #?
@@ -1660,6 +1651,7 @@ arb:
     # process: "Process"
     producer: "المنتج"
     producer_id: "المنتج" #?
+    # producible: "Produisible"
     product: "الانتاج"
     # product_account: "Compte de produit"
     # product_births: "Product births"
@@ -2506,11 +2498,11 @@ arb:
     sequence:
       default:
         # animals: "ANI[year|4][number|4]"
-        # assets: "I[number|7]"
         # campaigns: "CAMP[number|4]"
         # cash_transfers: "VI[year|4][number|4]"
         # deposits: "B[year|4][number|4]"
         # entities: "[number|8]"
+        # financial_assets: "I[number|7]"
         # incoming_deliveries: "BR[year|4][number|4]"
         # incoming_payments: "R[year|4][number|6]"
         # outgoing_deliveries: "BL[year|4][number|6]"

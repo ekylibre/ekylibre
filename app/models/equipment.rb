@@ -22,7 +22,6 @@
 # == Table: products
 #
 #  address_id               :integer
-#  asset_id                 :integer
 #  born_at                  :datetime
 #  category_id              :integer          not null
 #  content_indicator_name   :string(255)
@@ -36,6 +35,7 @@
 #  derivative_of            :string(120)
 #  description              :text
 #  father_id                :integer
+#  financial_asset_id       :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
 #  initial_arrival_cause    :string(120)
@@ -62,36 +62,7 @@
 #  work_number              :string(255)
 #
 
-
 class Equipment < Matter
-  # attr_accessible :nature_id, :asset_id, :picture, :name, :description, :born_at, :dead_at, :active, :external, :variant_id, :content_nature_id, :owner_id, :parent_id, :variety, :reservoir, :content_maximal_quantity
-  # has_many :uses, class_name: "OperationUse"
-  # belongs_to :nature, class_name: "ProductNature"
-  # belongs_to :variety, class_name: "ProductVariety"
-  # belongs_to :parent_place, class_name: "Place"
-  belongs_to :owner, class_name: "Entity"
-  # belongs_to :content_nature, class_name: "Product"
-  # belongs_to :content_unit, class_name: "Unit"
-  belongs_to :asset
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-
-  # default_scope -> { order(:name) }
-
-  #def usage_duration_sum
-  #  sum = 0
-  # self.uses.each do |usage|
-  #    sum += usage.operation.duration
-   # end
-   # sum/60
-  #end
-
-  #def usage_duration
-  #  return Operation.sum(:duration, :conditions => ["moved_on IS NOT NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE equipment_id=?)", self.id])
-  #end
-
-  #def remaining_duration
-  #  return Operation.sum(:duration, :conditions => ["moved_on IS NULL AND id IN (SELECT operation_id FROM #{OperationUse.table_name} WHERE equipment_id=?)", self.id])
-  #end
-
 end

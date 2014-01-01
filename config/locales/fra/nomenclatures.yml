@@ -56,10 +56,6 @@ fra:
         animal_reproduction_stock: "Stock de produits de reproduction animale"
         animal_revenues: "Ventes d’animaux"
         animals_productions_expenses: "Achats pour productions animales"
-        asset_depreciations: "Ammortissements"
-        assets: "Comptes d’immobilisations"
-        assets_suppliers: "Fournisseurs d’immobilisations"
-        assets_values: "Valeurs comptables des élèments d’actif cédés "
         associates_salary: "Rémunérations (administrateurs, gérants, associés)"
         attorneys: "Autres comptes débiteurs ou créditeurs"
         banks: "Banques"
@@ -97,6 +93,10 @@ fra:
         fertilizer_stock: "Stock d’engrais et amendements"
         fill_up_price_revenues: "Compléments de prix et primes sur produits vendus"
         finances: "Comptes financiers"
+        financial_asset_depreciations: "Ammortissements"
+        financial_assets: "Comptes d’immobilisations"
+        financial_assets_suppliers: "Fournisseurs d’immobilisations"
+        financial_assets_values: "Valeurs comptables des élèments d’actif cédés "
         financial_year_result: "Résultat de l’exercice"
         financial_year_result_balance: "Résultat de l’exercice (bénéfice ou perte)"
         financial_year_result_loss: "Résultat de l’exercice (perte)"
@@ -1197,9 +1197,9 @@ fra:
     product_nature_categories:
       name: "Catégories de produits"
       attributes:
-        asset_account: "Compte d’immobilisation"
         charge_account: "Compte de charge"
         depreciable: "Immobilisable"
+        financial_asset_account: "Compte d’immobilisation"
         pictogram: "Pictogramme"
         product_account: "Compte de produit"
         purchasable: "Achetable"
@@ -1208,12 +1208,12 @@ fra:
         stock_account: "Compte de stock"
         storable: "Stockable"
       choices:
-        # asset_account: # Choices comes from nomenclature: accounts
         # charge_account: # Choices comes from nomenclature: accounts
+        # financial_asset_account: # Choices comes from nomenclature: accounts
         pictogram:
           barn: "Grange"
           beaker: "Bécher"
-          bolt: "Eclair"
+          bolt: "Éclair"
           bug: "Insecte"
           building: "Bâtiment"
           cow: "Vache"

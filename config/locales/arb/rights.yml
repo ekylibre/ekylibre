@@ -24,11 +24,11 @@ arb:
     mail_to_listings: "ادارة ارسال رسائل البريد الالكتروني بواسطة الاستخراج"
     manage_accounts: "ادارة الحسابات"
     manage_areas: "ادارة المناطق"
-    # manage_assets: "Gérer les immobilisations"
     manage_bank_statements: "كشوفات البيانات الحسابية"
     manage_buildings: "ادارة مواقع التخزين"
     # manage_cash_transfers: "Gérer les virements internes"
     manage_cashes: "ادارة حسابات الخزينة"
+    # manage_catalogs: "Gérer les catalogues de prix"
     manage_custom_fields: "ادارة الحقول المتخصصة"
     manage_delays: "ادارة التأخير" #?
     manage_deposits: "ادارة الاقتطاعات المصرفية"
@@ -40,7 +40,8 @@ arb:
     manage_entity_links: "ادارة الروابط بين الملفات"
     # manage_equipments: "Gérer le matériel"
     manage_estimates: "انشاء وتعديل التقديرات"
-    manage_events: "ادارة الاحداث" #?
+    manage_events: "ادارة الاحداث"
+    # manage_financial_assets: "Gérer les immobilisations"
     manage_financial_years: "ادارة وبدأ السنة المالية"
     # manage_incoming_delivery_modes: "Gérer les modes de livraisons entrantes"
     # manage_incoming_payment_modes: "Gérer les modes d’encaissement"

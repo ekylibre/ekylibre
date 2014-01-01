@@ -20,7 +20,7 @@
    inkscape:export-ydpi="90"
    sodipodi:docname="active-list.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
-   inkscape:export-filename="/home/brice/Projets/active-list/lib/assets/images/active-list.png">
+   inkscape:export-filename="active-list.png">
   <defs
      id="defs4">
     <linearGradient
@@ -203,14 +203,14 @@
        d="M 424,-14 L 418.5,-9 L 421.25,-9 L 424,-11.5 L 426.75,-9 L 429.5,-9 L 424,-14 z"
        id="up3"
        sodipodi:nodetypes="ccccccc"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/sort-up.png"
+       inkscape:export-filename="sort-up.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
        style="fill:#000000;fill-opacity:0.66666667;fill-rule:nonzero;stroke:none"
        d="M 247.12495,0 L 246.8437,1.28125 L 246.6562,2.5 L 245.37495,3 L 244.4062,2.21875 L 243.3437,1.4375 L 241.68745,2.96875 L 242.43745,4.0625 L 243.1562,5.0625 L 242.5937,6.3125 L 241.3437,6.46875 L 240.0312,6.65625 L 240,8.875001 L 241.28125,9.15625 L 242.5,9.34375 L 243,10.625001 L 242.21875,11.59375 L 241.4375,12.65625 L 242.96875,14.3125 L 244.0625,13.5625 L 245.0625,12.84375 L 246.3125,13.40625 L 246.46875,14.65625 L 246.65625,15.96875 L 248.875,16 L 249.15625,14.71875 L 249.34375,13.5 L 250.625,13 L 251.59375,13.78125 L 252.65625,14.5625 L 254.3125,13.03125 L 253.5625,11.9375 L 252.84375,10.9375 L 253.40625,9.6875 L 254.65625,9.53125 L 255.96875,9.34375 L 255.99995,7.125001 L 254.7187,6.84375 L 253.49995,6.65625 L 252.99995,5.374999 L 253.7812,4.40625 L 254.56245,3.34375 L 253.0312,1.6875 L 251.93745,2.4375 L 250.93745,3.15625 L 249.68745,2.59375 L 249.5312,1.34375 L 249.3437,0.03125 L 247.12495,0 z M 247.9687,5 C 249.62457,4.98086 250.97965,6.312863 250.99995,7.96875 C 251.02025,9.624637 249.68706,10.980859 248.0312,11 C 246.37533,11.01914 245.02025,9.687137 244.99995,8.03125 C 244.97965,6.375363 246.31284,5.019142 247.9687,5 z"
        id="path4226-90"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/list-start.png"
+       inkscape:export-filename="list-start.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <path
@@ -225,7 +225,7 @@
        sodipodi:nodetypes="ccccccccccccccccccccccc"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/columns.png" />
+       inkscape:export-filename="columns.png" />
     <path
        style="opacity:0.7;fill:url(#linearGradient3743);fill-opacity:1;stroke:none"
        d="M 290,-15 L 297.1875,-15 L 301,-11.5 L 301,-1 L 290,-1 L 290,-15 z"
@@ -240,7 +240,7 @@
        style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;color:#000000;fill:#000000;fill-opacity:0.66666667;stroke:none;stroke-width:1.99999988;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Arial;-inkscape-font-specification:Arial"
        d="M 306,-15 L 306,-13 L 318,-13 L 318,-15 L 306,-15 z M 306,-11 L 306,-9 L 318,-9 L 318,-11 L 306,-11 z M 306,-7 L 306,-5 L 318,-5 L 318,-7 L 306,-7 z M 306,-3 L 306,-1 L 318,-1 L 318,-3 L 306,-3 z"
        id="path3691"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/pages.png"
+       inkscape:export-filename="pages.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
@@ -250,7 +250,7 @@
        height="14"
        x="465"
        y="-15"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/checked.png"
+       inkscape:export-filename="checked.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <use
@@ -277,7 +277,7 @@
        transform="translate(16,0)"
        width="96"
        height="32"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/unchecked.png"
+       inkscape:export-filename="unchecked.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <use
@@ -288,7 +288,7 @@
        transform="matrix(1,0,0,-1,0,-16.000006)"
        width="96"
        height="32"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/sort-down.png"
+       inkscape:export-filename="sort-down.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
        style="fill:#555555;fill-opacity:1" />
@@ -297,13 +297,13 @@
        d="M 355,-8 L 361.375,-16 L 364,-16 L 357.625,-8 L 364,0 L 361.375,0 L 355,-8 z"
        id="path4015-8-4-6-8"
        sodipodi:nodetypes="ccccccc"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/home.png"
+       inkscape:export-filename="home.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <g
        id="g3914"
        transform="translate(79,16)"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/previous-page.png"
+       inkscape:export-filename="previous-page.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90">
       <path
@@ -332,7 +332,7 @@
     <g
        id="g3958"
        transform="translate(80,16)"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/begin.png"
+       inkscape:export-filename="begin.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90">
       <use
@@ -346,7 +346,7 @@
       <rect
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
-         inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/home.png"
+         inkscape:export-filename="home.png"
          y="-32"
          x="240"
          height="16"
@@ -378,7 +378,7 @@
        transform="matrix(-1,0,0,1,736,0)"
        width="96"
        height="32"
-       inkscape:export-filename="/home/brice/dev/active-list/lib/assets/images/icons/end.png"
+       inkscape:export-filename="end.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <use

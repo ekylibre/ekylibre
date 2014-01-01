@@ -16,7 +16,9 @@ module Ekylibre::Record
 
           # Bugs with MSSQL
           # raise ArgumentError.new("Method #{column.inspect} must be an existent column of the table #{self.table_name}") unless self.columns_definition[column]
-          Rails.logger.fatal "Method #{column.inspect} must be an existent column of the table #{self.table_name}" unless self.columns_definition[column]
+          unless self.columns_definition[column]
+            Rails.logger.fatal "Method #{column.inspect} must be an existent column of the table #{self.table_name}"
+          end
           options = {:start => '00000001'}.merge(options)
 
           main_class = self

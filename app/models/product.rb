@@ -23,7 +23,6 @@
 # == Table: products
 #
 #  address_id               :integer
-#  asset_id                 :integer
 #  born_at                  :datetime
 #  category_id              :integer          not null
 #  content_indicator_name   :string(255)
@@ -37,6 +36,7 @@
 #  derivative_of            :string(120)
 #  description              :text
 #  father_id                :integer
+#  financial_asset_id       :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
 #  initial_arrival_cause    :string(120)
@@ -72,7 +72,7 @@ class Product < Ekylibre::Record::Base
   enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
   enumerize :initial_arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, predicates: {prefix: true}
   belongs_to :address, class_name: "EntityAddress"
-  belongs_to :asset
+  belongs_to :financial_asset
   belongs_to :default_storage, class_name: "Product"
   belongs_to :category, class_name: "ProductNatureCategory"
   belongs_to :content_nature, class_name: "ProductNature"

@@ -18,7 +18,7 @@
 #
 
 class Backend::FinancialYearsController < BackendController
-  manage_restfully except: [:index, :new, :show]
+  manage_restfully except: [:new, :show]
 
   unroll
 
@@ -42,8 +42,8 @@ class Backend::FinancialYearsController < BackendController
     t.column :local_credit, currency: true
   end
 
-  list(:asset_depreciations, conditions: {financial_year_id: 'params[:id]'.c}) do |t|
-    t.column :asset, url: true
+  list(:financial_asset_depreciations, conditions: {financial_year_id: 'params[:id]'.c}) do |t|
+    t.column :financial_asset, url: true
     t.column :started_on
     t.column :stopped_on
     t.column :amount, currency: true
@@ -107,7 +107,7 @@ class Backend::FinancialYearsController < BackendController
   def generate_last_journal_entry
     return unless @financial_year = find_and_check
     if request.get?
-      params[:assets_depreciations] ||= 1
+      params[:financial_assets_depreciations] ||= 1
     elsif request.post?
       # TODO: Defines journal to save the entry
       @financial_year.generate_last_journal_entry(params)

@@ -62,13 +62,7 @@ arb:
       edit: "تعديل العنوان البريدي : %{name}"
       index: "العناوين البريد"
       new: "اضافة عنوان بريدي"
-    backend/assets:
-      # cede: "Céder l’immobilisation"
-      # depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}"
-      # edit: "Modifier l’immobilisation\_: %{name}"
-      # index: "Immobilisations"
-      # new: "Nouvelle immobilisation"
-      # show: "Immobilisation\_: %{name}"
+    backend/assets: #?
     backend/bank_statements:
       edit: "تعديل الكشف المصرفي رقم%{number}"
       index: "بيان الحساب المصرفي"
@@ -285,6 +279,13 @@ arb:
       # show: "Évènement\_: %{name}"
     backend/finances:  #?
       unvalidated_deposits: "التأكد من اقتطاعات البنك" #?
+    backend/financial_assets:
+      # cede: "Céder l’immobilisation"
+      # depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}"
+      # edit: "Modifier l’immobilisation\_: %{name}"
+      # index: "Immobilisations"
+      # new: "Nouvelle immobilisation"
+      # show: "Immobilisation\_: %{name}"
     backend/financial_years:
       close: "نهاية الممارسة"
       # compute_balances: "Calculer la balance de l’exercice"
@@ -774,7 +775,6 @@ arb:
     # backend/animals: "Animaux"
     backend/application: "تطبيق" #?
     backend/areas: "العناوين البريد"
-    # backend/assets: "Immobilisations"
     backend/authentication: "المصادقة" #?
     backend/bank_statements: "بيان الحساب المصرفي"
     backend/buildings: "مواقع التخزين"
@@ -803,6 +803,7 @@ arb:
     backend/establishments: "مرافق"
     backend/event_natures: "انواع الاحداث" #?
     backend/events: "الاحداث" #?
+    # backend/financial_assets: "Immobilisations"
     backend/financial_years: "ممارسة المحاسبة"
     backend/help: "المساعدة" #?
     # backend/incoming_deliveries: "Livraisons entrantes"
@@ -997,7 +998,6 @@ arb:
     # area_measure: "Superficie"
     area_x: "%{name} (%{postcode})"
     assessable_operations: "الاجراءات الضريبية (H.T)"
-    # assets: "Immo. - Emprunts"
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم"
     # attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
     # attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
@@ -1247,6 +1247,7 @@ arb:
     # file_to_upload: "Fichier à importer"
     filter: "تصفية"
     filter_entries_with: "تصفية الادخالات مع"
+    # financial_assets: "Immobilisations"
     financial_state: "الوضع المالي"
     financial_year_create: "فتح مهنة جديدة للمحاسبة" #?
     finish: "انهاء"
@@ -1963,7 +1964,7 @@ arb:
     virtual_quantity: "الكمية العملية"
     waiting: "أ€ التسدسد لاحقا" #?
     # wind_speed: "Vitesse du vent"
-    # with_assets_depreciations: "Inclure les amortissements des immobilisations"
+    # with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر"
     x_cashes:
       one: "حساب بنكي واحد"
@@ -2231,7 +2232,6 @@ arb:
         purchases: "مشتريات دورية افتراضية" #?
         sales: "مبيعات دورية افتراضية" #?
         various: "الاجراءات اليومية المختلفة افتراضيا" #?
-    # assets_sequence: "Numérotation des immobilisations"
     # bank_journal: "Journal de banque par défaut"
     # bookkeep_automatically: "Activer la bascule automatique des données comptables"
     # bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
@@ -2243,6 +2243,7 @@ arb:
     # deposits_sequence: "Numérotation des remises en banque"
     # detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
     # entities_sequence: "Numérotation des fiches clients/fournisseurs"
+    # financial_assets_sequence: "Numérotation des immobilisations"
     # financial_banks_accounts: "Comptes de banque"
     # financial_cashes_accounts: "Comptes de caisse"
     # financial_internal_transfers_accounts: "Virements internes"

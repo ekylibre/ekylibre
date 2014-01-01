@@ -23,7 +23,6 @@
 # == Table: products
 #
 #  address_id               :integer
-#  asset_id                 :integer
 #  born_at                  :datetime
 #  category_id              :integer          not null
 #  content_indicator_name   :string(255)
@@ -37,6 +36,7 @@
 #  derivative_of            :string(120)
 #  description              :text
 #  father_id                :integer
+#  financial_asset_id       :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
 #  initial_arrival_cause    :string(120)

@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AssetsController < BackendController
+class Backend::FinancialAssetsController < BackendController
   manage_restfully currency: 'Preference[:currency]'.c, depreciation_method: 'linear'
 
   unroll
@@ -32,12 +32,9 @@ class Backend::AssetsController < BackendController
     t.action :destroy
   end
 
-  def index
-  end
-
-  list(:depreciations, model: :asset_depreciations, conditions: {:asset_id => 'params[:id]'.c}, order: :position) do |t|
+  list(:depreciations, model: :financial_asset_depreciations, conditions: {:financial_asset_id => 'params[:id]'.c}, order: :position) do |t|
     t.column :amount, currency: true
-    t.column :asset_amount, currency: true
+    t.column :depreciable_amount, currency: true
     t.column :depreciated_amount, currency: true
     t.column :started_on
     t.column :stopped_on
@@ -47,17 +44,17 @@ class Backend::AssetsController < BackendController
   end
 
   # def cede
-  #   return unless @asset = find_and_check
+  #   return unless @financial_asset = find_and_check
   # end
 
   # def sell
-  #   return unless @asset = find_and_check
+  #   return unless @financial_asset = find_and_check
   # end
 
   # def depreciate
-  #   return unless @asset = find_and_check
-  #   @asset.depreciate!
-  #   redirect_to asset_url(@asset)
+  #   return unless @financial_asset = find_and_check
+  #   @financial_asset.depreciate!
+  #   redirect_to financial_asset_url(@financial_asset)
   # end
 
 end

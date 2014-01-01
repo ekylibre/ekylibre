@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: assets
+# == Table: financial_assets
 #
 #  allocation_account_id   :integer          not null
 #  ceded                   :boolean
@@ -51,16 +51,15 @@
 #  updater_id              :integer
 #
 
-class Asset < Ekylibre::Record::Base
-  # attr_accessible :name, :started_on, :stopped_on, :description, :currency, :depreciation_method
+class FinancialAsset < Ekylibre::Record::Base
   acts_as_numbered
   enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: {prefix: true} # graduated
   belongs_to :charges_account, class_name: "Account"
   belongs_to :allocation_account, class_name: "Account"
   belongs_to :journal, class_name: "Journal"
-  has_many :depreciations, -> { order(:position) }, class_name: "AssetDepreciation"
+  has_many :depreciations, -> { order(:position) }, class_name: "FinancialAssetDepreciation"
   has_many :products
-  has_many :planned_depreciations, -> { order(:position).where("NOT locked OR accounted_at IS NULL") }, class_name: "AssetDepreciation", dependent: :destroy
+  has_many :planned_depreciations, -> { order(:position).where("NOT locked OR accounted_at IS NULL") }, class_name: "FinancialAssetDepreciation", dependent: :destroy
   has_one :tool, class_name: "Equipment"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :current_amount, :depreciable_amount, :depreciated_amount, :depreciation_percentage, :purchase_amount, allow_nil: true

@@ -63,13 +63,7 @@ spa:
       # edit: "Modifier la zone postale\_: %{name}"
       # index: "Zones postales"
       # new: "Ajouter une zone postale"
-    backend/assets:
-      # cede: "Céder l’immobilisation"
-      # depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}"
-      # edit: "Modifier l’immobilisation\_: %{name}"
-      # index: "Immobilisations"
-      # new: "Nouvelle immobilisation"
-      # show: "Immobilisation\_: %{name}"
+    backend/assets: #?
     backend/bank_statements:
       edit: "Modificar el leventar N°%{number}"
       index: "Levantar de cuntos bancarios"
@@ -269,6 +263,13 @@ spa:
       # new: "Nouvel évènement"
       # show: "Évènement\_: %{name}"
     backend/finances: #?
+    backend/financial_assets:
+      # cede: "Céder l’immobilisation"
+      # depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}"
+      # edit: "Modifier l’immobilisation\_: %{name}"
+      # index: "Immobilisations"
+      # new: "Nouvelle immobilisation"
+      # show: "Immobilisation\_: %{name}"
     backend/financial_years:
       close: "Cerrado de ejercicio"
       # compute_balances: "Calculer la balance de l’exercice"
@@ -704,7 +705,6 @@ spa:
     # backend/animals: "Animaux"
     backend/application: "Aplicación" #?
     # backend/areas: "Zones postales"
-    # backend/assets: "Immobilisations"
     backend/bank_statements: "Levantar de cuntos bancarios"
     backend/buildings: "Lugar de deposito"
     # backend/campaigns: "Campagnes"
@@ -726,6 +726,7 @@ spa:
     # backend/equipments: "Équipements"
     backend/establishments: "Establecimientos"
     backend/finances: "Finanzas" #?
+    # backend/financial_assets: "Immobilisations"
     backend/financial_years: "Exercicios contables"
     backend/help: "Ayuda" #?
     # backend/incoming_deliveries: "Livraisons entrantes"
@@ -909,7 +910,6 @@ spa:
     # area_measure: "Superficie"
     # area_x: "%{name} (%{postcode})"
     assessable_operations: "Operaciones imponibles (H.T)"
-    # assets: "Immo. - Emprunts"
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A"
     # attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
     # attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
@@ -1137,6 +1137,7 @@ spa:
     # file_to_upload: "Fichier à importer"
     # filter: "Filtrer"
     filter_entries_with: "Flitrar las escrituras con"
+    # financial_assets: "Immobilisations"
     # financial_state: "État financier"
     financial_year_create: "Abrir un nuevo ejercicio contable" #?
     # finish: "Terminer"
@@ -1774,7 +1775,7 @@ spa:
       # resized: "Mode «\_Tout à l’écran\_»"
     # virtual_quantity: "Quantité virtuelle"
     # wind_speed: "Vitesse du vent"
-    # with_assets_depreciations: "Inclure les amortissements des immobilisations"
+    # with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Incluir las impresiones (facturas, encargos...)"
     x_cashes:
       # one: "1 compte bancaire"
@@ -2017,7 +2018,6 @@ spa:
     you_must_select_a_file_to_import: "Se debe seleccionar un fichero para importar"
     you_will_lose_all_your_current_data: "Si continua, va a perder todos los datos en curso de embargo. Se quiere perseguir ?"
   preferences:
-    # assets_sequence: "Numérotation des immobilisations"
     # bank_journal: "Journal de banque par défaut"
     # bookkeep_automatically: "Activer la bascule automatique des données comptables"
     # bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
@@ -2029,6 +2029,7 @@ spa:
     # deposits_sequence: "Numérotation des remises en banque"
     # detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
     # entities_sequence: "Numérotation des fiches clients/fournisseurs"
+    # financial_assets_sequence: "Numérotation des immobilisations"
     # financial_banks_accounts: "Comptes de banque"
     # financial_cashes_accounts: "Comptes de caisse"
     # financial_internal_transfers_accounts: "Virements internes"

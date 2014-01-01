@@ -19,17 +19,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: asset_depreciations
+# == Table: financial_asset_depreciations
 #
 #  accountable        :boolean          not null
 #  accounted_at       :datetime
 #  amount             :decimal(19, 4)   not null
-#  asset_amount       :decimal(19, 4)
-#  asset_id           :integer          not null
 #  created_at         :datetime         not null
 #  created_on         :date             not null
 #  creator_id         :integer
+#  depreciable_amount :decimal(19, 4)
 #  depreciated_amount :decimal(19, 4)
+#  financial_asset_id :integer          not null
 #  financial_year_id  :integer
 #  id                 :integer          not null, primary key
 #  journal_entry_id   :integer
@@ -41,21 +41,20 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
-class AssetDepreciation < Ekylibre::Record::Base
-  # attr_accessible :accountable, :amount, :asset_amount, :asset_id, :created_on, :depreciation, :financial_year_id, :position
-  acts_as_list :scope => :asset
-  belongs_to :asset
+class FinancialAssetDepreciation < Ekylibre::Record::Base
+  acts_as_list :scope => :financial_asset
+  belongs_to :financial_asset
   belongs_to :financial_year
   belongs_to :journal_entry
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :asset_amount, :depreciated_amount, allow_nil: true
+  validates_numericality_of :amount, :depreciable_amount, :depreciated_amount, allow_nil: true
   validates_inclusion_of :accountable, :locked, in: [true, false]
-  validates_presence_of :amount, :asset, :created_on, :started_on, :stopped_on
+  validates_presence_of :amount, :created_on, :financial_asset, :started_on, :stopped_on
   #]VALIDATORS]
   validates_presence_of :financial_year
-  delegate :currency, to: :asset
+  delegate :currency, to: :financial_asset
 
-  sums :asset, :depreciations, :amount => :depreciated_amount
+  sums :financial_asset, :depreciations, :amount => :depreciated_amount
 
   bookkeep(on: :nothing) do |b|
     b.journal_entry do |entry|
@@ -64,18 +63,20 @@ class AssetDepreciation < Ekylibre::Record::Base
   end
 
   before_validation(on: :create) do
-    self.created_on = Date.today
+    self.created_on ||= Date.today
   end
 
   before_validation do
-    self.depreciated_amount = self.asset.depreciations.where("stopped_on < ?", self.started_on).sum(:amount) + self.amount
-    self.asset_amount = self.asset.depreciable_amount - self.depreciated_amount
+    self.depreciated_amount = self.financial_asset.depreciations.where("stopped_on < ?", self.started_on).sum(:amount) + self.amount
+    self.depreciable_amount = self.financial_asset.depreciable_amount - self.depreciated_amount
   end
 
   validate do
     # A start day must be the depreciation start or a financial year start
-    unless self.started_on == self.asset.started_on or self.started_on.beginning_of_month == self.started_on
-      errors.add(:started_on, :invalid_date, :start => self.asset.started_on)
+    if self.financial_asset
+      unless self.started_on == self.financial_asset.started_on or self.started_on.beginning_of_month == self.started_on
+        errors.add(:started_on, :invalid_date, :start => self.financial_asset.started_on)
+      end
     end
   end
 

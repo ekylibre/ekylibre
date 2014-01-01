@@ -154,77 +154,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "areas", ["updated_at"], :name => "index_areas_on_updated_at"
   add_index "areas", ["updater_id"], :name => "index_areas_on_updater_id"
 
-  create_table "asset_depreciations", force: true do |t|
-    t.integer  "asset_id",                                                    null: false
-    t.integer  "journal_entry_id"
-    t.boolean  "accountable",                                 default: false, null: false
-    t.date     "created_on",                                                  null: false
-    t.datetime "accounted_at"
-    t.date     "started_on",                                                  null: false
-    t.date     "stopped_on",                                                  null: false
-    t.decimal  "amount",             precision: 19, scale: 4,                 null: false
-    t.integer  "position"
-    t.boolean  "locked",                                      default: false, null: false
-    t.integer  "financial_year_id"
-    t.decimal  "asset_amount",       precision: 19, scale: 4
-    t.decimal  "depreciated_amount", precision: 19, scale: 4
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                default: 0,     null: false
-  end
-
-  add_index "asset_depreciations", ["asset_id"], :name => "index_asset_depreciations_on_asset_id"
-  add_index "asset_depreciations", ["created_at"], :name => "index_asset_depreciations_on_created_at"
-  add_index "asset_depreciations", ["creator_id"], :name => "index_asset_depreciations_on_creator_id"
-  add_index "asset_depreciations", ["financial_year_id"], :name => "index_asset_depreciations_on_financial_year_id"
-  add_index "asset_depreciations", ["journal_entry_id"], :name => "index_asset_depreciations_on_journal_entry_id"
-  add_index "asset_depreciations", ["updated_at"], :name => "index_asset_depreciations_on_updated_at"
-  add_index "asset_depreciations", ["updater_id"], :name => "index_asset_depreciations_on_updater_id"
-
-  create_table "assets", force: true do |t|
-    t.integer  "allocation_account_id",                                                  null: false
-    t.integer  "journal_id",                                                             null: false
-    t.string   "name",                                                                   null: false
-    t.string   "number",                                                                 null: false
-    t.text     "description"
-    t.date     "purchased_on"
-    t.integer  "purchase_id"
-    t.integer  "purchase_item_id"
-    t.boolean  "ceded"
-    t.date     "ceded_on"
-    t.integer  "sale_id"
-    t.integer  "sale_item_id"
-    t.decimal  "purchase_amount",                   precision: 19, scale: 4
-    t.date     "started_on",                                                             null: false
-    t.date     "stopped_on",                                                             null: false
-    t.decimal  "depreciable_amount",                precision: 19, scale: 4,             null: false
-    t.decimal  "depreciated_amount",                precision: 19, scale: 4,             null: false
-    t.string   "depreciation_method",                                                    null: false
-    t.string   "currency",                limit: 3,                                      null: false
-    t.decimal  "current_amount",                    precision: 19, scale: 4
-    t.integer  "charges_account_id"
-    t.decimal  "depreciation_percentage",           precision: 19, scale: 4
-    t.datetime "created_at",                                                             null: false
-    t.datetime "updated_at",                                                             null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                               default: 0, null: false
-  end
-
-  add_index "assets", ["allocation_account_id"], :name => "index_assets_on_allocation_account_id"
-  add_index "assets", ["charges_account_id"], :name => "index_assets_on_charges_account_id"
-  add_index "assets", ["created_at"], :name => "index_assets_on_created_at"
-  add_index "assets", ["creator_id"], :name => "index_assets_on_creator_id"
-  add_index "assets", ["journal_id"], :name => "index_assets_on_journal_id"
-  add_index "assets", ["purchase_id"], :name => "index_assets_on_purchase_id"
-  add_index "assets", ["purchase_item_id"], :name => "index_assets_on_purchase_item_id"
-  add_index "assets", ["sale_id"], :name => "index_assets_on_sale_id"
-  add_index "assets", ["sale_item_id"], :name => "index_assets_on_sale_item_id"
-  add_index "assets", ["updated_at"], :name => "index_assets_on_updated_at"
-  add_index "assets", ["updater_id"], :name => "index_assets_on_updater_id"
-
   create_table "bank_statements", force: true do |t|
     t.integer  "cash_id",                                                       null: false
     t.date     "started_on",                                                    null: false
@@ -755,6 +684,77 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "events", ["nature_id"], :name => "index_events_on_nature_id"
   add_index "events", ["updated_at"], :name => "index_events_on_updated_at"
   add_index "events", ["updater_id"], :name => "index_events_on_updater_id"
+
+  create_table "financial_asset_depreciations", force: true do |t|
+    t.integer  "financial_asset_id",                                          null: false
+    t.integer  "journal_entry_id"
+    t.boolean  "accountable",                                 default: false, null: false
+    t.date     "created_on",                                                  null: false
+    t.datetime "accounted_at"
+    t.date     "started_on",                                                  null: false
+    t.date     "stopped_on",                                                  null: false
+    t.decimal  "amount",             precision: 19, scale: 4,                 null: false
+    t.integer  "position"
+    t.boolean  "locked",                                      default: false, null: false
+    t.integer  "financial_year_id"
+    t.decimal  "depreciable_amount", precision: 19, scale: 4
+    t.decimal  "depreciated_amount", precision: 19, scale: 4
+    t.datetime "created_at",                                                  null: false
+    t.datetime "updated_at",                                                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                default: 0,     null: false
+  end
+
+  add_index "financial_asset_depreciations", ["created_at"], :name => "index_financial_asset_depreciations_on_created_at"
+  add_index "financial_asset_depreciations", ["creator_id"], :name => "index_financial_asset_depreciations_on_creator_id"
+  add_index "financial_asset_depreciations", ["financial_asset_id"], :name => "index_financial_asset_depreciations_on_financial_asset_id"
+  add_index "financial_asset_depreciations", ["financial_year_id"], :name => "index_financial_asset_depreciations_on_financial_year_id"
+  add_index "financial_asset_depreciations", ["journal_entry_id"], :name => "index_financial_asset_depreciations_on_journal_entry_id"
+  add_index "financial_asset_depreciations", ["updated_at"], :name => "index_financial_asset_depreciations_on_updated_at"
+  add_index "financial_asset_depreciations", ["updater_id"], :name => "index_financial_asset_depreciations_on_updater_id"
+
+  create_table "financial_assets", force: true do |t|
+    t.integer  "allocation_account_id",                                                  null: false
+    t.integer  "journal_id",                                                             null: false
+    t.string   "name",                                                                   null: false
+    t.string   "number",                                                                 null: false
+    t.text     "description"
+    t.date     "purchased_on"
+    t.integer  "purchase_id"
+    t.integer  "purchase_item_id"
+    t.boolean  "ceded"
+    t.date     "ceded_on"
+    t.integer  "sale_id"
+    t.integer  "sale_item_id"
+    t.decimal  "purchase_amount",                   precision: 19, scale: 4
+    t.date     "started_on",                                                             null: false
+    t.date     "stopped_on",                                                             null: false
+    t.decimal  "depreciable_amount",                precision: 19, scale: 4,             null: false
+    t.decimal  "depreciated_amount",                precision: 19, scale: 4,             null: false
+    t.string   "depreciation_method",                                                    null: false
+    t.string   "currency",                limit: 3,                                      null: false
+    t.decimal  "current_amount",                    precision: 19, scale: 4
+    t.integer  "charges_account_id"
+    t.decimal  "depreciation_percentage",           precision: 19, scale: 4
+    t.datetime "created_at",                                                             null: false
+    t.datetime "updated_at",                                                             null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                               default: 0, null: false
+  end
+
+  add_index "financial_assets", ["allocation_account_id"], :name => "index_financial_assets_on_allocation_account_id"
+  add_index "financial_assets", ["charges_account_id"], :name => "index_financial_assets_on_charges_account_id"
+  add_index "financial_assets", ["created_at"], :name => "index_financial_assets_on_created_at"
+  add_index "financial_assets", ["creator_id"], :name => "index_financial_assets_on_creator_id"
+  add_index "financial_assets", ["journal_id"], :name => "index_financial_assets_on_journal_id"
+  add_index "financial_assets", ["purchase_id"], :name => "index_financial_assets_on_purchase_id"
+  add_index "financial_assets", ["purchase_item_id"], :name => "index_financial_assets_on_purchase_item_id"
+  add_index "financial_assets", ["sale_id"], :name => "index_financial_assets_on_sale_id"
+  add_index "financial_assets", ["sale_item_id"], :name => "index_financial_assets_on_sale_item_id"
+  add_index "financial_assets", ["updated_at"], :name => "index_financial_assets_on_updated_at"
+  add_index "financial_assets", ["updater_id"], :name => "index_financial_assets_on_updater_id"
 
   create_table "financial_years", force: true do |t|
     t.string   "code",                  limit: 20,                 null: false
@@ -1726,35 +1726,35 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_memberships", ["updater_id"], :name => "index_product_memberships_on_updater_id"
 
   create_table "product_nature_categories", force: true do |t|
-    t.string   "name",                                               null: false
-    t.string   "number",                 limit: 30,                  null: false
+    t.string   "name",                                                   null: false
+    t.string   "number",                     limit: 30,                  null: false
     t.text     "description"
     t.string   "reference_name"
-    t.string   "pictogram",              limit: 120
-    t.boolean  "active",                             default: false, null: false
-    t.boolean  "depreciable",                        default: false, null: false
-    t.boolean  "saleable",                           default: false, null: false
-    t.boolean  "purchasable",                        default: false, null: false
-    t.boolean  "storable",                           default: false, null: false
-    t.boolean  "reductible",                         default: false, null: false
-    t.boolean  "subscribing",                        default: false, null: false
+    t.string   "pictogram",                  limit: 120
+    t.boolean  "active",                                 default: false, null: false
+    t.boolean  "depreciable",                            default: false, null: false
+    t.boolean  "saleable",                               default: false, null: false
+    t.boolean  "purchasable",                            default: false, null: false
+    t.boolean  "storable",                               default: false, null: false
+    t.boolean  "reductible",                             default: false, null: false
+    t.boolean  "subscribing",                            default: false, null: false
     t.integer  "subscription_nature_id"
     t.string   "subscription_duration"
     t.integer  "charge_account_id"
     t.integer  "product_account_id"
-    t.integer  "asset_account_id"
+    t.integer  "financial_asset_account_id"
     t.integer  "stock_account_id"
-    t.datetime "created_at",                                         null: false
-    t.datetime "updated_at",                                         null: false
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                       default: 0,     null: false
+    t.integer  "lock_version",                           default: 0,     null: false
   end
 
-  add_index "product_nature_categories", ["asset_account_id"], :name => "index_product_nature_categories_on_asset_account_id"
   add_index "product_nature_categories", ["charge_account_id"], :name => "index_product_nature_categories_on_charge_account_id"
   add_index "product_nature_categories", ["created_at"], :name => "index_product_nature_categories_on_created_at"
   add_index "product_nature_categories", ["creator_id"], :name => "index_product_nature_categories_on_creator_id"
+  add_index "product_nature_categories", ["financial_asset_account_id"], :name => "index_product_nature_categories_on_financial_asset_account_id"
   add_index "product_nature_categories", ["name"], :name => "index_product_nature_categories_on_name"
   add_index "product_nature_categories", ["number"], :name => "index_product_nature_categories_on_number", :unique => true
   add_index "product_nature_categories", ["product_account_id"], :name => "index_product_nature_categories_on_product_account_id"
@@ -2066,7 +2066,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "nature_id",                                                                     null: false
     t.integer  "category_id",                                                                   null: false
     t.integer  "tracking_id"
-    t.integer  "asset_id"
+    t.integer  "financial_asset_id"
     t.datetime "born_at"
     t.datetime "dead_at"
     t.text     "description"
@@ -2094,13 +2094,13 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"
-  add_index "products", ["asset_id"], :name => "index_products_on_asset_id"
   add_index "products", ["category_id"], :name => "index_products_on_category_id"
   add_index "products", ["content_nature_id"], :name => "index_products_on_content_nature_id"
   add_index "products", ["created_at"], :name => "index_products_on_created_at"
   add_index "products", ["creator_id"], :name => "index_products_on_creator_id"
   add_index "products", ["default_storage_id"], :name => "index_products_on_default_storage_id"
   add_index "products", ["father_id"], :name => "index_products_on_father_id"
+  add_index "products", ["financial_asset_id"], :name => "index_products_on_financial_asset_id"
   add_index "products", ["initial_container_id"], :name => "index_products_on_initial_container_id"
   add_index "products", ["initial_owner_id"], :name => "index_products_on_initial_owner_id"
   add_index "products", ["mother_id"], :name => "index_products_on_mother_id"

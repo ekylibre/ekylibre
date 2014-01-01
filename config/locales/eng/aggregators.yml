@@ -1,7 +1,7 @@
 eng:
   aggregators:
     legends:
-      # asset_production: "Production immobilisée"
+      # capitalised_production: "Production immobilisée"
       # current_result_before_taxes: "3. RÉSULTAT COURANT avant impôts (I-II+III-IV+V-VI)"
       # depreciations_inputations_expenses: "Dotations aux amortissements et dépréciations"
       # employee_involvement: "Participation des salariés aux résultats (IX)"

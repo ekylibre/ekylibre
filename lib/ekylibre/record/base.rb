@@ -105,7 +105,7 @@ module Ekylibre::Record
       end
 
       def columns_definition
-        Ekylibre::Schema.tables[self.table_name]
+        Ekylibre::Schema.tables[self.table_name] || {}.with_indifferent_access
       end
 
       def scopes

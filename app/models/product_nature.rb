@@ -83,7 +83,7 @@ class ProductNature < Ekylibre::Record::Base
   acts_as_numbered force: false
 
   delegate :subscribing?, :deliverable?, :purchasable?, to: :category
-  delegate :asset_account, :product_account, :charge_account, :stock_account, to: :category
+  delegate :financial_asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',

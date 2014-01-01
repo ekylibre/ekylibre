@@ -77,49 +77,6 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
-    create_table :asset_depreciations do |t|
-      t.references :asset,                                                       null: false, index: true
-      t.references :journal_entry,                                                            index: true
-      t.boolean    :accountable,                                 default: false, null: false
-      t.date       :created_on,                                                  null: false
-      t.datetime   :accounted_at
-      t.date       :started_on,                                                  null: false
-      t.date       :stopped_on,                                                  null: false
-      t.decimal    :amount,             precision: 19, scale: 4,                 null: false
-      t.integer    :position
-      t.boolean    :locked,                                      default: false, null: false
-      t.references :financial_year,                                                           index: true
-      t.decimal    :asset_amount,       precision: 19, scale: 4
-      t.decimal    :depreciated_amount, precision: 19, scale: 4
-      t.stamps
-    end
-
-    create_table :assets do |t|
-      t.references :allocation_account,                                           null: false, index: true
-      t.references :journal,                                                      null: false, index: true
-      t.string     :name,                                                         null: false
-      t.string     :number,                                                       null: false
-      t.text       :description
-      t.date       :purchased_on
-      t.references :purchase,                                                                  index: true
-      t.references :purchase_item,                                                             index: true
-      t.boolean    :ceded
-      t.date       :ceded_on
-      t.references :sale,                                                                      index: true
-      t.references :sale_item,                                                                 index: true
-      t.decimal    :purchase_amount,                   precision: 19, scale: 4
-      t.date       :started_on,                                                   null: false
-      t.date       :stopped_on,                                                   null: false
-      t.decimal    :depreciable_amount,                precision: 19, scale: 4,   null: false
-      t.decimal    :depreciated_amount,                precision: 19, scale: 4,   null: false
-      t.string     :depreciation_method,                                          null: false
-      t.string     :currency,                limit: 3,                            null: false
-      t.decimal    :current_amount,                    precision: 19, scale: 4
-      t.references :charges_account,                                                           index: true
-      t.decimal    :depreciation_percentage,           precision: 19, scale: 4
-      t.stamps
-    end
-
     create_table :bank_statements do |t|
       t.references :cash,                                                null: false, index: true
       t.date       :started_on,                                          null: false
@@ -427,6 +384,49 @@ class CreateBase < ActiveRecord::Migration
       t.integer    :duration
       t.string     :place
       t.text       :description
+      t.stamps
+    end
+
+    create_table :financial_asset_depreciations do |t|
+      t.references :financial_asset,                                             null: false, index: true
+      t.references :journal_entry,                                                            index: true
+      t.boolean    :accountable,                                 default: false, null: false
+      t.date       :created_on,                                                  null: false
+      t.datetime   :accounted_at
+      t.date       :started_on,                                                  null: false
+      t.date       :stopped_on,                                                  null: false
+      t.decimal    :amount,             precision: 19, scale: 4,                 null: false
+      t.integer    :position
+      t.boolean    :locked,                                      default: false, null: false
+      t.references :financial_year,                                                           index: true
+      t.decimal    :depreciable_amount, precision: 19, scale: 4
+      t.decimal    :depreciated_amount, precision: 19, scale: 4
+      t.stamps
+    end
+
+    create_table :financial_assets do |t|
+      t.references :allocation_account,                                           null: false, index: true
+      t.references :journal,                                                      null: false, index: true
+      t.string     :name,                                                         null: false
+      t.string     :number,                                                       null: false
+      t.text       :description
+      t.date       :purchased_on
+      t.references :purchase,                                                                  index: true
+      t.references :purchase_item,                                                             index: true
+      t.boolean    :ceded
+      t.date       :ceded_on
+      t.references :sale,                                                                      index: true
+      t.references :sale_item,                                                                 index: true
+      t.decimal    :purchase_amount,                   precision: 19, scale: 4
+      t.date       :started_on,                                                   null: false
+      t.date       :stopped_on,                                                   null: false
+      t.decimal    :depreciable_amount,                precision: 19, scale: 4,   null: false
+      t.decimal    :depreciated_amount,                precision: 19, scale: 4,   null: false
+      t.string     :depreciation_method,                                          null: false
+      t.string     :currency,                limit: 3,                            null: false
+      t.decimal    :current_amount,                    precision: 19, scale: 4
+      t.references :charges_account,                                                           index: true
+      t.decimal    :depreciation_percentage,           precision: 19, scale: 4
       t.stamps
     end
 
@@ -990,7 +990,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :subscription_duration
       t.references :charge_account,                                                  index: true
       t.references :product_account,                                                 index: true
-      t.references :asset_account,                                                   index: true
+      t.references :financial_asset_account,                                         index: true
       t.references :stock_account,                                                   index: true
       t.stamps
       t.index      :number,   unique: true
@@ -1130,7 +1130,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :nature,                                                                        null: false, index: true
       t.references :category,                                                                      null: false, index: true
       t.references :tracking,                                                                                   index: true
-      t.references :asset,                                                                                      index: true
+      t.references :financial_asset,                                                                            index: true
       t.datetime   :born_at
       t.datetime   :dead_at
       t.text       :description

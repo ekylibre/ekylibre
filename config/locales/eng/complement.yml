@@ -479,6 +479,8 @@ eng:
         establishment: "Establishment"
         event: "Event"
         event_nature: "Event type"
+        financial_asset: "Asset"
+        financial_asset_depreciation: "Asset depreciation"
         financial_year: "Financial year"
         fungus: "Fungus"
         incoming_delivery: "Purchase delivery"

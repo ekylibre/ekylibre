@@ -31,8 +31,8 @@
       <item name="accrued_interests" fr_pcg82="1688"/>
       <item name="accrued_interests_on_bank" fr_pcg82="16884"/>
 
-      <!--                      ASSETS               -->
-      <item name="assets" fr_pcg82="2"/>
+      <!--                      FINANCIAL_ASSETS               -->
+      <item name="financial_assets" fr_pcg82="2"/>
       <item name="others_incorporeal_assets" fr_pcga="208"/>
       <item name="land_parcel_assets" fr_pcga="2111"/>
       <item name="building_assets" fr_pcga="2141"/>
@@ -58,7 +58,7 @@
       <item name="others_professional_agricultural_participation_assets" fr_pcga="2628"/>
       <item name="ownership_assets" fr_pcga="271"/>
       <item name="ownership_loan" fr_pcga="274"/>
-      <item name="asset_depreciations" fr_pcga="28"/>
+      <item name="financial_asset_depreciations" fr_pcga="28"/>
       <item name="incorporeal_asset_depreciations" fr_pcga="280"/>
       <item name="others_incorporeal_asset_depreciations" fr_pcga="2808"/>
       <item name="corporeal_asset_depreciations" fr_pcga="281"/>
@@ -105,7 +105,7 @@
       <item name="third_party" fr_pcg82="4"/>
       <item name="suppliers" fr_pcg82="401"/>
       <item name="suppliers_balance_after_compensation" fr_pcg82="402"/>
-      <item name="assets_suppliers" fr_pcg82="404"/>
+      <item name="financial_assets_suppliers" fr_pcg82="404"/>
       <item name="suppliers_invoices_not_received" fr_pcg82="408"/>
       <item name="debtor_suppliers" fr_pcg82="409"/>
       <item name="clients"   fr_pcg82="411"/>
@@ -187,7 +187,7 @@
       <item name="short_term_loans_interests" fr_pcg82="6613"/>
       <item name="campaigns_interests" fr_pcg82="6614"/>
       <item name="others_interests_expenses" fr_pcg82="6618"/>
-      <item name="assets_values" fr_pcg82="675"/>
+      <item name="financial_assets_values" fr_pcg82="675"/>
       <item name="depreciations_inputations_expenses" fr_pcg82="68"/>
       <item name="corporeals_and_incorporeals_depreciations_inputations_expenses" fr_pcg82="6811"/>
 

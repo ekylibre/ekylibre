@@ -180,17 +180,6 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :assets, :path => "financial_assets", concerns: [:list, :unroll] do
-      member do
-        get :cede
-        get :sell
-        post :depreciate
-        get :list_depreciations
-      end
-    end
-
-    # resources :asset_depreciations # , except: [:index]
-
     resources :bank_statements, concerns: [:list, :unroll] do
       collection do
         get :list_items
@@ -305,13 +294,24 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :financial_assets, concerns: [:list, :unroll] do
+      member do
+        get :cede
+        get :sell
+        post :depreciate
+        get :list_depreciations
+      end
+    end
+
+    # resources :financial_asset_depreciations # , except: [:index]
+
     resources :financial_years, concerns: [:list, :unroll] do
       member do
         match "close", via: [:get, :post]
         match :generate_last_journal_entry, via: [:get, :post]
         post :compute_balances
         get :list_account_balances
-        get :list_asset_depreciations
+        get :list_financial_asset_depreciations
       end
     end
 

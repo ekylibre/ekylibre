@@ -16,8 +16,6 @@ fra:
         variety: "Race"
       animal_group:
         born_at: "Créé le"
-      asset_depreciation:
-        asset_amount: "Valeur nette comptable (VNC)"
       building:
         born_at: "Construit le"
         content_maximal_quantity: "Quantité maximale supportée"
@@ -50,6 +48,8 @@ fra:
         place: "Lieu"
       event_nature:
         duration: "Durée par défaut (en min.)"
+      financial_asset_depreciation:
+        depreciable_amount: "Valeur nette comptable (VNC)"
       financial_year:
         last_journal_entry: "Écriture de fin d’exercice"
         stopped_on: "Date de clôture"
@@ -100,19 +100,9 @@ fra:
         started_at: "Entrée"
         stopped_at: "Sortie"
       product_nature:
-        abilities: "Compétences"
-        asset_account: "Compte d’immobilisation"
-        charge_account: "Compte d’achat"
         depreciable: "Ammortissable"
         duration: "Nombre de numéros OU période d’abonnement"
-        indicators: "Indicateurs"
         price: "Prix de revient"
-        producible: "Produisible"
-        product_account: "Compte de vente"
-        purchasable: "Achetable"
-        saleable: "Vendable"
-        stock_account: "Compte de stock"
-        storable: "Stockable"
         subscribing: "Abonnement ?"
       product_nature_variant:
         contour: "Contour de la forme"
@@ -196,10 +186,6 @@ fra:
         too_short: "%{attribute} est trop court (%{count} caractères minimum)"
         wrong_length: "%{attribute} n’est pas d’une bon longueur (%{count} caractères)"
       models:
-        asset:
-          attributes:
-            started_on:
-              invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         cash:
           currency_does_not_match: "La monnaie du journal %{journal} est différente de celle de la trésorerie"
           unvalid_bban: "La clé ne correspond pas. Un ou plusieurs éléments du RIB sont incorrects."
@@ -208,6 +194,10 @@ fra:
         entity:
           missing_title: "%{attribute} doit contenir la dénomination sociale «\_%{title}\_»"
           nature_do_not_allow_a_first_name: "Le type «\_%{nature}\_» sélectionné ne permet de renseigner un prénom"
+        financial_asset:
+          attributes:
+            started_on:
+              invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         financial_year:
           attributes:
             started_on:
@@ -275,8 +265,6 @@ fra:
       animal_group: "Groupe d’animaux"
       animal_medicine: "Produits vétérinaires"
       area: "Zone postale"
-      asset: "Immobilisation"
-      asset_depreciation: "Amortissement d’immobilisation"
       bank_statement: "Relevé de compte bancaire"
       bioproduct: "Produit vivant"
       building: "Lieu de stockage"
@@ -305,6 +293,8 @@ fra:
       event: "Évènement"
       event_nature: "Type d’évènement"
       event_participation: "Participation à un évènement"
+      financial_asset: "Immobilisation"
+      financial_asset_depreciation: "Amortissement d’immobilisation"
       financial_year: "Exercice"
       fungus: "Champignon"
       # gap: "Gap"
@@ -356,7 +346,7 @@ fra:
       product_localization: "Passage d’un produit en un lieu"
       # product_measurement: "Product measurement"
       product_membership: "Passage d’un produit dans un groupe"
-      product_move: ""
+      product_move: "" #?
       product_nature: "Type de produit"
       # product_nature_category: "Product nature category"
       product_nature_variant: "Variante de type de produit"
@@ -433,12 +423,6 @@ fra:
     areas: "Zones postales"
     arrival_cause: "Cause d’entrée"
     arrived_on: "Date d’entrée" #?
-    asset: "Immobilisation"
-    asset_account: "Asset account"
-    asset_amount: "Valeur nette comptable"
-    asset_depreciations: "Dépréciations d’immobilisation"
-    assets: "Immobilisations" #?
-    assets_categories: "Catégories de produits avec immobilisation"
     assimilated_taxes_amount: "Montant des taxes assimilées"
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
@@ -487,7 +471,7 @@ fra:
     ceded: "Cédé"
     ceded_on: "Cédé le"
     changes_reflected: "Refléter les changements"
-    charge_account: "Compte de charge"
+    charge_account: "Compte d’achat"
     charges_account: "Comptes de charge"
     charges_accounts: "Comptes de charge" #?
     charges_categories: "Catégories de produits avec charge"
@@ -679,6 +663,10 @@ fra:
     # file_pages_count: "File pages count"
     # file_updated_at: "File updated at"
     filtered_columns: "Colonnes filtrées"
+    financial_asset: "Immobilisation"
+    financial_asset_account: "Compte d’immobilisation"
+    financial_asset_depreciations: "Dépréciations d’immobilisation"
+    financial_assets_categories: "Catégories de produits avec immobilisation"
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
     finish: "Fin"
@@ -904,6 +892,7 @@ fra:
     procedures: "Procédures"
     process: "Process"
     producer: "Producteur"
+    producible: "Produisible" #?
     product: "Produit"
     product_account: "Compte de produit"
     product_births: "Product births"
@@ -1231,7 +1220,7 @@ fra:
         purchases: "Achat"
         rent: "Location"
         sales: "Vente"
-    product_move:
+    product_move: #?
       default_name: "%{origin} (%{code})"
     product_nature:
       informations:
@@ -1314,11 +1303,11 @@ fra:
     sequence:
       default:
         animals: "ANI[year|4][number|4]"
-        assets: "I[number|7]"
         campaigns: "CAMP[number|4]"
         cash_transfers: "VI[year|4][number|4]"
         deposits: "B[year|4][number|4]"
         entities: "[number|8]"
+        financial_assets: "I[number|7]"
         incoming_deliveries: "BR[year|4][number|4]"
         incoming_payments: "R[year|4][number|6]"
         outgoing_deliveries: "BL[year|4][number|6]"

@@ -42,7 +42,7 @@ class FinancialYear < Ekylibre::Record::Base
   attr_readonly :currency
   belongs_to :last_journal_entry, class_name: "JournalEntry"
   has_many :account_balances, class_name: "AccountBalance", foreign_key: :financial_year_id, dependent: :delete_all
-  has_many :asset_depreciations
+  has_many :financial_asset_depreciations
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :currency_precision, allow_nil: true, only_integer: true
   validates_length_of :currency, allow_nil: true, maximum: 3
@@ -310,7 +310,7 @@ class FinancialYear < Ekylibre::Record::Base
     return self
   end
 
-  # Generate last journal entry with assets depreciations (option.ally)
+  # Generate last journal entry with financial assets depreciations (option.ally)
   def generate_last_journal_entry(options = {})
     unless self.last_journal_entry
       self.create_last_journal_entry!(:printed_on => self.stopped_on, :journal_id => options[:journal_id])
@@ -319,13 +319,13 @@ class FinancialYear < Ekylibre::Record::Base
     # Empty journal entry
     self.last_journal_entry.items.clear
 
-    if options[:assets_depreciations]
-      for depreciation in self.asset_depreciations
-        name = tc(:bookkeep, :resource => Asset.model_name.human, :number => depreciation.asset.number, :name => depreciation.asset.name, :position => depreciation.position, :total => depreciation.asset.depreciations.count)
+    if options[:financial_assets_depreciations]
+      for depreciation in self.financial_asset_depreciations.include(:financial_asset)
+        name = tc(:bookkeep, resource: FinancialAsset.model_name.human, number: depreciation.financial_asset.number, name: depreciation.financial_asset.name, position: depreciation.position, total: depreciation.financial_asset.depreciations.count)
         # Charges
-        self.last_journal_entry.add_debit(name, depreciation.asset.charges_account, depreciation.amount)
+        self.last_journal_entry.add_debit(name, depreciation.financial_asset.charges_account, depreciation.amount)
         # Allocation
-        self.last_journal_entry.add_credit(name, depreciation.asset.allocation_account, depreciation.amount)
+        self.last_journal_entry.add_credit(name, depreciation.financial_asset.allocation_account, depreciation.amount)
         depreciation.update_attributes(:journal_entry_id => self.last_journal_entry.id)
       end
     end

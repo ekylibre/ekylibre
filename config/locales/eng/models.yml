@@ -19,8 +19,8 @@ eng:
         # variety: "Race"
       animal_group:
         born_at: "Created at"
-      asset_depreciation:
-        asset_amount: "Accountable value"
+      asset_depreciation:  #?
+        asset_amount: "Accountable value" #?
       building:
         born_at: "Build at"
         # content_maximal_quantity: "Quantité maximale supportée"
@@ -56,6 +56,9 @@ eng:
         place: "Place"
       event_nature:
         duration: "Duration by default (in min.)"
+      financial_asset_depreciation:
+        asset_amount: "Accountable value" #?
+        # depreciable_amount: "Valeur nette comptable (VNC)"
       financial_year:
         # last_journal_entry: "Écriture de fin d’exercice"
         stopped_on: "Date of closing"
@@ -130,19 +133,17 @@ eng:
       product_move:  #?
         origin: "Origine" #?
       product_nature:
-        # abilities: "Compétences"
-        asset_account: "Asset account"
-        charge_account: "Charge account"
+        asset_account: "Asset account" #?
+        charge_account: "Charge account" #?
         depreciable: "Depreciable"
         duration: "Quantity OR period"
-        # indicators: "Indicateurs"
         price: "Cost price"
-        producible: "Producible"
-        product_account: "Product account"
-        purchasable: "Purchasable"
-        saleable: "Saleable"
-        stock_account: "Stock account"
-        storable: "Storable"
+        producible: "Producible" #?
+        product_account: "Product account" #?
+        purchasable: "Purchasable" #?
+        saleable: "Saleable" #?
+        stock_account: "Stock account" #?
+        storable: "Storable" #?
         # subscribing: "Abonnement ?"
       product_nature_category:  #?
         children: "Sub-product_categories" #?
@@ -281,10 +282,10 @@ eng:
         too_short: "%{attribute} is too short (minimum is %{count} characters)"
         wrong_length: "%{attribute} is the wrong length (should be %{count} characters)"
       models:
-        asset:
-          attributes:
-            started_on:
-              invalid_date: "The depreciation must start on %{start} or on a beginning of month"
+        asset:  #?
+          attributes: #?
+            started_on: #?
+              invalid_date: "The depreciation must start on %{start} or on a beginning of month" #?
         cash:
           currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: "Unvalid BBAN. One or more elements are incorrect."
@@ -298,6 +299,10 @@ eng:
         entity:
           missing_title: "%{attribute} must contains the title “%{title}”"
           nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
+        financial_asset:
+          attributes:
+            started_on:
+              invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         financial_year:
           attributes:
             started_on:
@@ -400,8 +405,8 @@ eng:
       animal_race_nature: "Animal race type" #?
       animal_treatment: "Animal treatment" #?
       area: "Area"
-      asset: "Asset"
-      asset_depreciation: "Asset depreciation"
+      asset: "Asset" #?
+      asset_depreciation: "Asset depreciation" #?
       bank_statement: "Bank statement"
       bioproduct: "Living product"
       building: "Building"
@@ -441,6 +446,8 @@ eng:
       event: "Event"
       event_nature: "Event type"
       # event_participation: "Participation à un évènement"
+      financial_asset: "Asset"
+      financial_asset_depreciation: "Asset depreciation"
       financial_year: "Financial year"
       fungus: "Fungus"
       # immatter: "Immatériel"
@@ -614,12 +621,10 @@ eng:
     areas: "Areas"
     arrival_cause: "Arrival cause"
     arrived_on: "Arrived on"
-    asset: "Asset"
-    # asset_account: "Asset account"
-    asset_amount: "Accountable value"
-    asset_depreciations: "Asset depreciations"
-    assets: "Assets"
-    # assets_categories: "Catégories de produits avec immobilisation"
+    asset: "Asset" #?
+    asset_amount: "Accountable value" #?
+    asset_depreciations: "Asset depreciations" #?
+    assets: "Assets" #?
     assimilated_taxes_amount: "Assimilated taxes amount"
     atmospheric_pressure: "Atmospheric pressure" #?
     attorney: "Attorney"
@@ -921,6 +926,10 @@ eng:
     filename: "Filename" #?
     filesize: "Filesize" #?
     filtered_columns: "Filtered columns"
+    # financial_asset: "Immobilisation"
+    # financial_asset_account: "Compte d’immobilisation"
+    # financial_asset_depreciations: "Dépréciations d’immobilisation"
+    # financial_assets_categories: "Catégories de produits avec immobilisation"
     financial_year: "Financial year"
     financial_year_as_last: "Financial year (as last journal entry)"
     financial_years: "Financial years" #?
@@ -1218,6 +1227,7 @@ eng:
     procedures: "Procedures"
     process: "Process"
     producer: "Producer"
+    # producible: "Produisible"
     product: "Product"
     # product_account: "Compte de produit"
     # product_births: "Product births"
@@ -1888,8 +1898,8 @@ eng:
     sequence:
       default:
         # animals: "ANI[year|4][number|4]"
-        assets:  #? String excepted (Hash:{:number_format=>"A[number|7]"})
-          number_format: "A[number|7]" #? String excepted (Hash:{:number_format=>"A[number|7]"})
+        assets:  #?
+          number_format: "A[number|7]" #?
         # campaigns: "CAMP[number|4]"
         cash_transfers:  #? String excepted (Hash:{:number_format=>"CT[year|4][number|4]", :period=>"year"})
           number_format: "CT[year|4][number|4]" #? String excepted (Hash:{:number_format=>"CT[year|4][number|4]", :period=>"year"})
@@ -1899,6 +1909,7 @@ eng:
           period: "year" #? String excepted (Hash:{:number_format=>"B[year|4][number|4]", :period=>"year"})
         entities:  #? String excepted (Hash:{:number_format=>"[number|8]"})
           number_format: "[number|8]" #? String excepted (Hash:{:number_format=>"[number|8]"})
+        # financial_assets: "I[number|7]"
         incoming_deliveries:  #? String excepted (Hash:{:number_format=>"ID[year|4][number|4]", :period=>"year"})
           number_format: "ID[year|4][number|4]" #? String excepted (Hash:{:number_format=>"ID[year|4][number|4]", :period=>"year"})
           period: "year" #? String excepted (Hash:{:number_format=>"ID[year|4][number|4]", :period=>"year"})

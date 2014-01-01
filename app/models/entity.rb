@@ -248,8 +248,9 @@ class Entity < Ekylibre::Record::Base
       prefix = Nomen::Accounts[nature.to_s.pluralize].send(Account.chart)
       if Preference[:use_entity_codes_for_account_numbers]
         number = prefix.to_s + self.number.to_s
-        valid_account = Account.find_by_number(number)
-        valid_account = Account.create(:number => number, :name => self.full_name, :reconcilable => true) unless valid_account
+        unless valid_account = Account.find_by(number: number)
+          valid_account = Account.create(number: number, name: self.full_name, reconcilable: true)
+        end
       else
         suffix = "1"
         suffix = suffix.upper_ascii[0..5].rjust(6, '0')
@@ -270,13 +271,13 @@ class Entity < Ekylibre::Record::Base
   end
 
   def warning
-    count = self.observations.find_all_by_importance("important").size
+    count = self.observations.where(importance: "important").count
     #count += self.balance<0 ? 1 : 0
   end
 
   def add_event(usage, user_id)
-    if user = Entity.find_by_id(user_id)
-      EventNature.find_all_by_usage(usage.to_s).each do |nature|
+    if user = Entity.find_by(id: user_id)
+      EventNature.where(usage: usage.to_s).each do |nature|
         nature.events.create!(:started_at => Time.now, :duration => event_nature.duration.to_s, :entity_id => self.id, :responsible_id => user.id)
       end
     end

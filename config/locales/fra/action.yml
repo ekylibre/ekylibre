@@ -57,13 +57,6 @@ fra:
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
       new: "Ajouter une zone postale"
-    backend/assets:
-      cede: "Céder l’immobilisation" #?
-      depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}" #?
-      edit: "Modifier l’immobilisation\_: %{name}"
-      index: "Immobilisations"
-      new: "Nouvelle immobilisation"
-      show: "Immobilisation\_: %{name}"
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
       index: "Relevés de compte bancaire"
@@ -252,12 +245,19 @@ fra:
       index: "Évènements"
       new: "Nouvel évènement"
       show: "Évènement\_: %{name}"
+    backend/financial_assets:
+      cede: "Céder l’immobilisation" #?
+      depreciate: "Calculer l’amortissement de l’immobilisation\_: %{name}" #?
+      edit: "Modifier l’immobilisation\_: %{name}"
+      index: "Immobilisations"
+      new: "Nouvelle immobilisation"
+      show: "Immobilisation\_: %{name}"
     backend/financial_years:
       close: "Clôturer l’exercice %{code}"
       compute_balances: "Calculer la balance de l’exercice"
       edit: "Modifier un nouvel exercice"
       generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}"
-      index: "Exercices comptables" #?
+      index: "Exercices comptables"
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
     backend/gaps:
@@ -673,7 +673,6 @@ fra:
     # backend/animal_medicines: "Backend/animal medicines"
     backend/animals: "Animaux"
     backend/areas: "Zones postales"
-    backend/assets: "Immobilisations"
     backend/bank_statements: "Relevés de compte bancaire"
     # backend/building_divisions: "Backend/building divisions"
     backend/buildings: "Bâtiments"
@@ -725,6 +724,7 @@ fra:
     # backend/event_natures: "Backend/event natures"
     # backend/event_participations: "Backend/event participations"
     # backend/events: "Backend/events"
+    backend/financial_assets: "Immobilisations"
     backend/financial_years: "Exercices comptables"
     # backend/gaps: "Backend/gaps"
     # backend/helps: "Backend/helps"
@@ -933,7 +933,6 @@ fra:
     area_measure: "Superficie"
     area_x: "%{name} (%{postcode})"
     assessable_operations: "Opérations imposables (H.T)"
-    assets: "Immo. - Emprunts"
     assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A"
     attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
     attach_an_outgoing_payment_to_expense: "Rattacher un décaissement\_: %{type} N°%{number}"
@@ -1144,6 +1143,7 @@ fra:
     file_to_upload: "Fichier à importer"
     filter: "Filtrer"
     filter_entries_with: "Filtrer les écritures avec"
+    financial_assets: "Immobilisations"
     financial_state: "État financier"
     finish: "Terminer"
     finished_income_statement: "Produits"
@@ -1748,7 +1748,7 @@ fra:
       resized: "Mode «\_Tout à l’écran\_»"
     virtual_quantity: "Quantité virtuelle"
     wind_speed: "Vitesse du vent"
-    with_assets_depreciations: "Inclure les amortissements des immobilisations"
+    with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Inclure les impressions (factures, commandes…)"
     x_cashes:
       one: "1 compte bancaire"
@@ -1972,7 +1972,6 @@ fra:
     you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
     you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?" #?
   preferences:
-    assets_sequence: "Numérotation des immobilisations"
     bank_journal: "Journal de banque par défaut"
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
@@ -1984,6 +1983,7 @@ fra:
     deposits_sequence: "Numérotation des remises en banque"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
     entities_sequence: "Numérotation des fiches clients/fournisseurs"
+    financial_assets_sequence: "Numérotation des immobilisations"
     financial_banks_accounts: "Comptes de banque"
     financial_cashes_accounts: "Comptes de caisse"
     financial_internal_transfers_accounts: "Virements internes"

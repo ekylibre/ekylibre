@@ -83,7 +83,10 @@ module Ekylibre::Record  #:nodoc:
         method_name = configuration[:method_name].to_s
         core_method_name ||= "_#{method_name}_#{Ekylibre::Record::Bookkeep::Base.next_id}"
 
-        raise Exception.new("#{configuration[:column]} is needed for #{self.name}.bookkeep") unless columns_definition[configuration[:column]]
+        unless columns_definition[configuration[:column]]
+          Rails.logger.fatal "#{configuration[:column]} is needed for #{self.name}::bookkeep"
+          # raise StandardError, "#{configuration[:column]} is needed for #{self.name}::bookkeep"
+        end
 
         code = "include Ekylibre::Record::Bookkeep::InstanceMethods\n"
 

@@ -19,17 +19,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: asset_depreciations
+# == Table: financial_asset_depreciations
 #
 #  accountable        :boolean          not null
 #  accounted_at       :datetime
 #  amount             :decimal(19, 4)   not null
-#  asset_amount       :decimal(19, 4)
-#  asset_id           :integer          not null
 #  created_at         :datetime         not null
 #  created_on         :date             not null
 #  creator_id         :integer
+#  depreciable_amount :decimal(19, 4)
 #  depreciated_amount :decimal(19, 4)
+#  financial_asset_id :integer          not null
 #  financial_year_id  :integer
 #  id                 :integer          not null, primary key
 #  journal_entry_id   :integer
@@ -41,46 +41,7 @@
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #
-#
-# == Fixture: asset_depreciations
-#
-# asset_depreciations_001:
-#   accountable: true
-#   amount: 0
-#   asset_id: 1
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   created_on: 2013-10-26
-#   creator_id: 1
-#   id: 1
-#   locked: true
-#   started_on: 2013-10-26
-#   stopped_on: 2013-10-26
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
-#
+require 'test_helper'
 
-asset_depreciations_001:
-  accountable: true
-  amount: 0
-  asset_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  created_on: 2009-07-19
-  creator_id: 1
-  id: 1
-  started_on: 2009-07-19
-  stopped_on: 2009-07-19
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
-asset_depreciations_002:
-  accountable: true
-  amount: 0
-  asset_id: 2
-  created_at: 2009-07-19 19:13:59 +02:00
-  created_on: 2009-07-19
-  creator_id: 1
-  id: 2
-  started_on: 2009-07-19
-  stopped_on: 2009-07-19
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+class FinancialAssetDepreciationTest < ActiveSupport::TestCase
+end

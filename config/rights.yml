@@ -89,7 +89,6 @@
 # - "backend/animals#unroll"
 # - "backend/animals#update"
 # - "backend/areas#unroll"
-# - "backend/assets#unroll"
 # - "backend/bank_statements#unroll"
 # - "backend/building_divisions#create"
 # - "backend/building_divisions#destroy"
@@ -242,6 +241,7 @@
 # - "backend/events#list_participations"
 # - "backend/events#show"
 # - "backend/events#unroll"
+# - "backend/financial_assets#unroll"
 # - "backend/financial_years#unroll"
 # - "backend/gaps#create"
 # - "backend/gaps#destroy"
@@ -937,19 +937,6 @@ manage_areas:
 - "backend/areas#update"
 - "backend/dashboards#relationship"
 
-# Manage assets
-manage_assets:
-- "backend/assets#create"
-- "backend/assets#destroy"
-- "backend/assets#edit"
-- "backend/assets#index"
-- "backend/assets#list"
-- "backend/assets#list_depreciations"
-- "backend/assets#new"
-- "backend/assets#show"
-- "backend/assets#update"
-- "backend/dashboards#accountancy"
-
 # Point bank statements
 manage_bank_statements:
 - "backend/bank_statements#create"
@@ -1166,6 +1153,19 @@ manage_events:
 - "backend/events#new"
 - "backend/events#update"
 
+# translation missing: eng.rights.manage_financial_assets
+manage_financial_assets:
+- "backend/dashboards#accountancy"
+- "backend/financial_assets#create"
+- "backend/financial_assets#destroy"
+- "backend/financial_assets#edit"
+- "backend/financial_assets#index"
+- "backend/financial_assets#list"
+- "backend/financial_assets#list_depreciations"
+- "backend/financial_assets#new"
+- "backend/financial_assets#show"
+- "backend/financial_assets#update"
+
 # Manage and close financial years
 manage_financial_years:
 - "backend/dashboards#accountancy"
@@ -1175,10 +1175,10 @@ manage_financial_years:
 - "backend/financial_years#destroy"
 - "backend/financial_years#edit"
 - "backend/financial_years#generate_last_journal_entry"
-- "backend/financial_years#index" #?
+- "backend/financial_years#index"
 - "backend/financial_years#list"
 - "backend/financial_years#list_account_balances"
-- "backend/financial_years#list_asset_depreciations"
+- "backend/financial_years#list_financial_asset_depreciations"
 - "backend/financial_years#new"
 - "backend/financial_years#show"
 - "backend/financial_years#update"

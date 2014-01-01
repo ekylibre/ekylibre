@@ -5,7 +5,7 @@
 
 = field_set(:nature) do
   = f.input :reductible
-  = f.input :depreciable, :show => :asset_account_field_zone
+  = f.input :depreciable, :show => :financial_asset_account_field_zone
   = f.input :saleable, :show => :sales
   = f.input :purchasable, :show => :purchase
   = f.input :storable, :show => :stock_account_field_zone
@@ -24,7 +24,7 @@
   = f.association :purchase_taxes
 
 = field_set(:accountancy) do
-  = f.referenced_association :asset_account, :wrapper_html => {:id => :asset_account_field_zone}
+  = f.referenced_association :financial_asset_account, :wrapper_html => {:id => :financial_asset_account_field_zone}
   = f.referenced_association :stock_account, :wrapper_html => {:id => :stock_account_field_zone}
 
 = field_set(:natures) do

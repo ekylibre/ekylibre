@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: assets
+# == Table: financial_assets
 #
 #  allocation_account_id   :integer          not null
 #  ceded                   :boolean
@@ -52,5 +52,5 @@
 #
 require 'test_helper'
 
-class AssetTest < ActiveSupport::TestCase
+class FinancialAssetTest < ActiveSupport::TestCase
 end

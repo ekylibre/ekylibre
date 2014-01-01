@@ -39,7 +39,6 @@
 
 
 class Account < Ekylibre::Record::Base
-  # attr_accessible :name, :number, :reconcilable, :description, :debtor, :usages
   @@references = []
   attr_readonly :number
   # has_many :account_balances
@@ -50,7 +49,7 @@ class Account < Ekylibre::Record::Base
   has_many :collected_taxes,     class_name: "Tax", foreign_key: :collect_account_id
   has_many :commissioned_incoming_payment_modes, class_name: "IncomingPaymentMode", foreign_key: :commission_account_id
   has_many :depositables_incoming_payment_modes, class_name: "IncomingPaymentMode", foreign_key: :depositables_account_id
-  has_many :assets_categories,    class_name: "ProductNatureCategory", foreign_key: :asset_account_id
+  has_many :financial_assets_categories, class_name: "ProductNatureCategory", foreign_key: :financial_asset_account_id
   has_many :journal_entry_items,  class_name: "JournalEntryItem"
   has_many :paid_taxes,           class_name: "Tax", foreign_key: :deduction_account_id
   has_many :charges_categories,   class_name: "ProductNatureCategory", foreign_key: :charge_account_id

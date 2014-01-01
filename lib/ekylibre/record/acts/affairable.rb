@@ -22,7 +22,10 @@ module Ekylibre::Record
           if reflection
             affair, affair_id = reflection.name, reflection.foreign_key
           else
-            raise Exception.new("Unable to acts as affairable no affair column") unless self.columns_definition[affair_id]
+            unless self.columns_definition[affair_id]
+              Rails.logger.fatal "Unable to acts as affairable no affair column"
+              # raise StandardError, "Unable to acts as affairable no affair column"
+            end
             code << "belongs_to :#{affair}, inverse_of: :#{self.name.underscore.pluralize}\n"
           end
 

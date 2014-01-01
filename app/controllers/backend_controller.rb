@@ -548,7 +548,7 @@ class BackendController < BaseController
     if actions.include?(:new)
       code << "def new\n"
       # values = model.accessible_attributes.to_a.inject({}) do |hash, attr|
-      columns = model.columns_definition.keys
+      columns = model.columns_hash.keys
       columns = columns.delete_if{|c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
       values = columns.inject({}) do |hash, attr|
         hash[attr] = "params[:#{attr}]".c unless attr.blank? or attr.to_s.match(/_attributes$/)

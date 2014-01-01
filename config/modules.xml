@@ -196,18 +196,18 @@
         <page to="backend/analytic_repartitions#unroll"/>
       </item>
     </group>
-    <group name="assets" icon="home">
-      <item name="assets">
-        <page to="backend/assets#index"/>
-        <page to="backend/assets#create"/>
-        <page to="backend/assets#destroy"/>
-        <page to="backend/assets#edit"/>
-        <page to="backend/assets#list"/>
-        <page to="backend/assets#list_depreciations"/>
-        <page to="backend/assets#new"/>
-        <page to="backend/assets#show"/>
-        <page to="backend/assets#unroll"/>
-        <page to="backend/assets#update"/>
+    <group name="financial_assets" icon="home">
+      <item name="financial_assets">
+        <page to="backend/financial_assets#index"/>
+        <page to="backend/financial_assets#create"/>
+        <page to="backend/financial_assets#destroy"/>
+        <page to="backend/financial_assets#edit"/>
+        <page to="backend/financial_assets#list"/>
+        <page to="backend/financial_assets#list_depreciations"/>
+        <page to="backend/financial_assets#new"/>
+        <page to="backend/financial_assets#show"/>
+        <page to="backend/financial_assets#unroll"/>
+        <page to="backend/financial_assets#update"/>
       </item>
     </group>
     <group name="cash" icon="money">
@@ -1442,6 +1442,9 @@
         <page to="backend/event_participations#edit"/>
         <page to="backend/event_participations#new"/>
         <page to="backend/event_participations#update"/>
+      </item>
+      <item name="financial_years">
+        <page to="backend/financial_years#list_financial_asset_depreciations"/>
       </item>
       <item name="incoming_deliveries">
         <page to="backend/incoming_deliveries#list_items"/>
