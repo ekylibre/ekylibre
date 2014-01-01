@@ -35,7 +35,7 @@ spa:
       # index: "Transactions"
       # select: "Ajouter une transaction"
     backend/aggregators:
-      # index: "Aggrégateurs"
+      # index: "Agrégateurs"
       # show: "%{name}"
     backend/analytic_repartitions:
       # edit: "Modifier la répartion analytique\_: %{id} "
@@ -650,7 +650,7 @@ spa:
       index: "Tasas"
       new: "Añadir nueva tarifa"
     backend/teams:
-      # edit: "Modifier une équipe\_: %{name}"
+      # edit: "Modifier l’équipe\_: %{name}"
       # index: "Équipes"
       # new: "Nouvelle équipe"
       # show: "Équipe\_: %{name}"
@@ -698,7 +698,9 @@ spa:
     backend/accounts: "Plan de cuento"
     # backend/activities: "Activités"
     # backend/affairs: "Affaires"
+    # backend/aggregators: "Agrégateurs"
     # backend/analytic_repartitions: "Répartitions analytiques"
+    # backend/animal_groups: "Groupes d’animaux"
     # backend/animals: "Animaux"
     backend/application: "Aplicación" #?
     # backend/areas: "Zones postales"
@@ -744,19 +746,28 @@ spa:
     backend/management: "Administración comercial" #?
     # backend/mandates: "Responsabilités"
     # backend/matters: "Matières"
+    # backend/medicines: "Médicaments"
+    # backend/mineral_matters: "Matières minérales"
     # backend/myselves: "Mon compte"
     # backend/observations: "Observations"
     # backend/operations: "Travaux"
+    # backend/organic_matters: "Matières organiques"
     # backend/outgoing_deliveries: "Livraisons sortantes"
     # backend/outgoing_delivery_items: "Lignes de livraisons sortantes"
     backend/outgoing_delivery_modes: "Modos de entrega"
     # backend/outgoing_payment_modes: "Modes de décaissement"
     # backend/outgoing_payments: "Décaissements"
+    # backend/people: "Personnes"
+    # backend/plant_medicines: "Produits phytosanitaires"
+    # backend/plants: "Cultures"
     # backend/preferences: "Préférences"
-    # backend/product_groups: "Lot de produits"
-    # backend/product_localizations: "Localisations"
+    # backend/product_groups: "Groupes de produits"
+    # backend/product_localizations: "Emplacements"
+    # backend/product_nature_categories: "Catégories de types de produit"
+    # backend/product_nature_variants: "Variantes de produits"
     # backend/product_natures: "Types de produits"
     backend/production: "Producción" #?
+    # backend/productions: "Productions"
     # backend/products: "Produits"
     # backend/purchase_items: "Lignes d’achat"
     # backend/purchase_natures: "Types d’achat"
@@ -772,6 +783,7 @@ spa:
     # backend/subscriptions: "Abonnements"
     backend/tax_declarations: "Declaracion de TVA"
     backend/taxes: "Tasas"
+    # backend/teams: "Équipes"
     # backend/transfers: "Transferts"
     # backend/transports: "Transports"
     backend/units: "Unidad de medida" #?
@@ -1275,13 +1287,13 @@ spa:
     manual_period: "del %{empezo} al %{termino}"
     # map: "Carte"
     # markers: "Objectifs"
-    # mass: "Poids"
+    # mass: "Masse"
     # maximal_temperature: "Température maximale"
     # measure_options: "Indicateur de type mesure"
     # meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
     # medical_informations: "Informations médicales"
     # medicines: "Remèdes"
-    # meeting: "Lieu(x) de rencontre"
+    # meeting: "Rencontre"
     # meetings: "Évènements"
     # members: "Membres"
     menu: #?
@@ -1328,26 +1340,19 @@ spa:
     national_reduce_vat_collected: "Tasa réducida a 5,5%"
     national_vat_collected: "Opéraciones réalisadas en Francia métropolitaria"
     # nature: "Type"
-    nb_mandates:
-      # one: "%{count} responsabilité enregistrée"
-      # other: "%{count} responsabilités enregistrées"
-      # zero: "Aucune responsabilité enregistrée"
-    nb_products:
-      # one: "%{count} produit enregistré"
-      # other: "%{count} produits enregistrés"
-      # zero: "Aucun produit enregistré"
-    nb_purchases:
-      one: "Una compra en espera de recepción"
-      other: "%{count} Compras en espera de recepción"
-      zero: "Ningunas compras en espera de recepción"
-    nb_years: "Nombre de años en el historico"
+    nb_mandates: #?
+    nb_products: #?
+    nb_purchases:  #?
+      one: "Una compra en espera de recepción" #?
+      other: "%{count} Compras en espera de recepción" #?
+      zero: "Ningunas compras en espera de recepción" #?
     # need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions"
     # need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant"
-    # net_mass: "Poids net"
+    # net_mass: "Masse nette"
     # net_surface_area: "Surface net"
     net_vat_amount: "TVA neta deuda"
     # net_volume: "Volume net"
-    # new: "Nouveau..."
+    # new: "Nouveau…"
     new_deposit:
       # one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       # other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
@@ -1459,7 +1464,7 @@ spa:
     # plant_productions: "Productions végétales"
     # plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
     # play: "Éxécuter"
-    # please_wait: "Merci de patienter..."
+    # please_wait: "Merci de patienter…"
     # population: "Population"
     # precipitation: "Précipitations"
     # preferences: "Préférences"
@@ -1606,7 +1611,7 @@ spa:
     # search_account: "Rechercher un compte"
     # search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)"
     # search_go: "Lancer la recherche"
-    # search_placeholder: "Rechercher..."
+    # search_placeholder: "Rechercher…"
     # search_sales: "Rechercher des ventes"
     # second_building_name: "Entrée de"
     # second_contact: "Adresse secondaire"
@@ -1896,6 +1901,7 @@ spa:
       # other: "%{count} ans"
     # y: "Oui"
     yearly: "Anual"
+    years_count_in_historic: "Nombre de años en el historico"
     # yield: "Rendement"
   notifications:
     access_denied: "No tiene drecho de acceso para esta pagina. %{razon} (%{url})"

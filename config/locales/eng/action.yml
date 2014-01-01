@@ -26,7 +26,7 @@ eng:
       index: "Affairs"
       # select: "Ajouter une transaction"
     backend/aggregators:
-      # index: "Aggrégateurs"
+      # index: "Agrégateurs"
       # show: "%{name}"
     backend/analytic_repartitions:
       edit: "Edit a repartition\_: %{id} "
@@ -620,7 +620,7 @@ eng:
       index: "Taxes"
       new: "Add a new tax"
     backend/teams:
-      # edit: "Modifier une équipe\_: %{name}"
+      # edit: "Modifier l’équipe\_: %{name}"
       # index: "Équipes"
       # new: "Nouvelle équipe"
       # show: "Équipe\_: %{name}"
@@ -663,7 +663,9 @@ eng:
     backend/accounts: "Plan of accounts"
     backend/activities: "Activities"
     backend/affairs: "Affairs"
+    # backend/aggregators: "Agrégateurs"
     backend/analytic_repartitions: "Analytics repartitions"
+    # backend/animal_groups: "Groupes d’animaux"
     backend/animals: "Animals"
     backend/areas: "Postal areas"
     backend/assets: "Assets"
@@ -712,23 +714,31 @@ eng:
     backend/logs: "Logs" #?
     backend/mandates: "Mandates"
     backend/matters: "Matters"
+    # backend/medicines: "Médicaments"
+    # backend/mineral_matters: "Matières minérales"
     backend/myselves: "Myself"
     backend/observations: "Observations"
     backend/operations: "Operations"
+    # backend/organic_matters: "Matières organiques"
     backend/outgoing_deliveries: "Outgoing deliveries"
     backend/outgoing_delivery_items: "Outgoing delivery items"
     backend/outgoing_delivery_modes: "Outgoing delivery modes"
     backend/outgoing_payment_modes: "Disbursement modes"
     backend/outgoing_payments: "Disbursements"
+    # backend/people: "Personnes"
+    # backend/plant_medicines: "Produits phytosanitaires"
+    # backend/plants: "Cultures"
     backend/preferences: "Preferences"
     backend/prices: "Prices" #?
     backend/product_groups: "Product groups"
     backend/product_localizations: "Product localizations"
     backend/product_moves: "Stock moves" #?
-    backend/product_nature_categories: "Product categories" #?
+    backend/product_nature_categories: "Product categories"
+    # backend/product_nature_variants: "Variantes de produits"
     backend/product_natures: "Product types"
     backend/product_transfers: "Transfers and loss" #?
     backend/product_varieties: "Product species" #?
+    # backend/productions: "Productions"
     backend/products: "Products"
     backend/professions: "Professions" #?
     backend/purchase_items: "Purchase items"
@@ -744,6 +754,7 @@ eng:
     backend/subscriptions: "Subscriptions"
     backend/tax_declarations: "Tax declarations"
     backend/taxes: "Taxes"
+    # backend/teams: "Équipes"
     backend/transfers: "Transfers"
     backend/transports: "Transports"
     backend/users: "Users"
@@ -1272,7 +1283,7 @@ eng:
     monthly: "Monthly"
     # months: "Mois"
     moved_on: "Made on"
-    movement: "Mouvments"
+    movement: "Movements"
     moves: "Moves"
     my_company: "About your company"
     my_self: "About you"
@@ -1283,22 +1294,12 @@ eng:
     # national_reduce_vat_collected: "Taux réduit à 5,5%"
     # national_vat_collected: "Opérations réalisées en France métropolitaine"
     nature: "Type"
-    nb_mandates:
-      # one: "%{count} responsabilité enregistrée"
-      # other: "%{count} responsabilités enregistrées"
-      # zero: "Aucune responsabilité enregistrée"
-    nb_products:
-      # one: "%{count} produit enregistré"
-      # other: "%{count} produits enregistrés"
-      # zero: "Aucun produit enregistré"
-    nb_purchases:
-      # one: "%{count} achat en attente de reception"
-      # other: "%{count} achats en attente de reception"
-      # zero: "Aucun achat en attente de reception"
-    nb_years: "Years"
+    nb_mandates: #?
+    nb_products: #?
+    nb_purchases: #?
     # need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions"
     # need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant"
-    # net_mass: "Poids net"
+    # net_mass: "Masse nette"
     # net_surface_area: "Surface net"
     # net_vat_amount: "TVA nette due"
     # net_volume: "Volume net"
@@ -1843,6 +1844,7 @@ eng:
       # other: "%{count} ans"
     y: "Yes"
     yearly: "Yearly"
+    years_count_in_historic: "Years count in historic"
     # yield: "Rendement"
   notifications:
     access_denied: "Access denied. %{reason} (%{url})"

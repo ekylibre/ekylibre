@@ -35,7 +35,7 @@ arb:
       # index: "Transactions"
       # select: "Ajouter une transaction"
     backend/aggregators:
-      # index: "Aggrégateurs"
+      # index: "Agrégateurs"
       # show: "%{name}"
     backend/analytic_repartitions:
       # edit: "Modifier la répartion analytique\_: %{id} "
@@ -715,7 +715,7 @@ arb:
       index: "الضرائب"
       new: "اضافة ضريبة جديدة"
     backend/teams:
-      # edit: "Modifier une équipe\_: %{name}"
+      # edit: "Modifier l’équipe\_: %{name}"
       # index: "Équipes"
       # new: "Nouvelle équipe"
       # show: "Équipe\_: %{name}"
@@ -768,7 +768,9 @@ arb:
     backend/accounts: "مخطط الحساب"
     # backend/activities: "Activités"
     # backend/affairs: "Affaires"
+    # backend/aggregators: "Agrégateurs"
     # backend/analytic_repartitions: "Répartitions analytiques"
+    # backend/animal_groups: "Groupes d’animaux"
     # backend/animals: "Animaux"
     backend/application: "تطبيق" #?
     backend/areas: "العناوين البريد"
@@ -821,26 +823,34 @@ arb:
     backend/management: "الادارة" #?
     backend/mandates: "تفويضات"
     # backend/matters: "Matières"
+    # backend/medicines: "Médicaments"
+    # backend/mineral_matters: "Matières minérales"
     # backend/myselves: "Mon compte"
     # backend/observations: "Observations"
     backend/operation_natures: "اواع العمل" #?
     backend/operations: "اعمال"
+    # backend/organic_matters: "Matières organiques"
     # backend/outgoing_deliveries: "Livraisons sortantes"
     # backend/outgoing_delivery_items: "Lignes de livraisons sortantes"
     backend/outgoing_delivery_modes: "وسائل التسليم"
     backend/outgoing_payment_modes: "طرق تسديد الدفعات"
     backend/outgoing_payments: "دفعات"
+    # backend/people: "Personnes"
+    # backend/plant_medicines: "Produits phytosanitaires"
+    # backend/plants: "Cultures"
     # backend/preferences: "Préférences"
     backend/prices: "الاسعار" #?
     backend/product_categories: "فئات المنتج" #?
-    # backend/product_groups: "Lot de produits"
-    # backend/product_localizations: "Localisations"
+    # backend/product_groups: "Groupes de produits"
+    # backend/product_localizations: "Emplacements"
     backend/product_nature: "المنتجات" #?
-    backend/product_nature_categories: "فئات المنتج" #?
+    backend/product_nature_categories: "فئات المنتج"
+    # backend/product_nature_variants: "Variantes de produits"
     backend/product_natures: "المنتجات"
     backend/product_stocks: "وضع الاسهم" #?
     backend/product_transfers: "عمليات نقل وخسارة الاسهم" #?
     backend/production: "المنتج" #?
+    # backend/productions: "Productions"
     backend/products: "المنتجات"
     backend/products_natures: "المنتجات" #?
     # backend/purchase_items: "Lignes d’achat"
@@ -859,6 +869,7 @@ arb:
     # backend/subscriptions: "Abonnements"
     backend/tax_declarations: "تصريح عن قيمة الضريبة الاضافية"
     backend/taxes: "الضرائب"
+    # backend/teams: "Équipes"
     backend/tools: "مادة" #?
     # backend/transfers: "Transferts"
     backend/transports: "وسائل النقل"
@@ -1467,22 +1478,18 @@ arb:
     national_reduce_vat_collected: "معدل ضريبة القيمة المضافة المحلية المخفضة  %5.5"
     national_vat_collected: "الاجراءات التي حدثت في فرنسا"
     nature: "الطبع"
-    nb_mandates:
-      one: "تفويض واحد مسجل"
-      other: "%{count} تفويضات اخرى"
-      zero: "ولا اية تفويض"
-    nb_products:
-      one: "تم تسجيل منتج واحد"
-      other: "%{count} تم تسجيل منتجات اخرى"
-      zero: "لم يتم تسجيل اي منتج"
-    nb_purchases:
-      # one: "%{count} achat en attente de reception"
-      # other: "%{count} achats en attente de reception"
-      # zero: "Aucun achat en attente de reception"
-    nb_years: "عدد السنوات عامة"
+    nb_mandates:  #?
+      one: "تفويض واحد مسجل" #?
+      other: "%{count} تفويضات اخرى" #?
+      zero: "ولا اية تفويض" #?
+    nb_products:  #?
+      one: "تم تسجيل منتج واحد" #?
+      other: "%{count} تم تسجيل منتجات اخرى" #?
+      zero: "لم يتم تسجيل اي منتج" #?
+    nb_purchases: #?
     # need_building_to_create_production: "Vous devez créer un lieu de stockage pour pouvoir enregistrer vos productions"
     # need_entities_to_consult_mandates: "Vous devez créer des fiches clients/fournisseurs avant"
-    # net_mass: "Poids net"
+    # net_mass: "Masse nette"
     # net_surface_area: "Surface net"
     net_vat_amount: "صافي قيمة الضريبة الاضافية المستحقة"
     # net_volume: "Volume net"
@@ -1611,7 +1618,7 @@ arb:
     # plant_productions: "Productions végétales"
     # plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
     # play: "Éxécuter"
-    # please_wait: "Merci de patienter..."
+    # please_wait: "Merci de patienter…"
     # population: "Population"
     # precipitation: "Précipitations"
     # preferences: "Préférences"
@@ -1782,7 +1789,7 @@ arb:
     # search_account: "Rechercher un compte"
     # search_for_available_prices: "%{code} - %{name}%s: %{pretax_amount}/%{amount} (HT/TTC)"
     search_go: "بدء البحث"
-    # search_placeholder: "Rechercher..."
+    # search_placeholder: "Rechercher…"
     search_sales: "البحث عن طلبات البيع"
     second_building_name: "ادخال الاسم"
     # second_contact: "Adresse secondaire"
@@ -2083,6 +2090,7 @@ arb:
       # other: "%{count} ans"
     y: "نعم"
     yearly: "Annuelle"
+    years_count_in_historic: "عدد السنوات عامة"
     # yield: "Rendement"
   notifications:
     access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"

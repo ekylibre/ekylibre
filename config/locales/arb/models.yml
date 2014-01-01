@@ -210,7 +210,7 @@ arb:
         # born_at: "Mis en service le"
         consumption: "(الاستهلاك (لتر / ساعة " #?
         # content_indicator: "Indicateur de mesure du réservoir"
-        # content_indicator_unit: "Unité de mesure de l'indicateur"
+        # content_indicator_unit: "Unité de mesure de l’indicateur"
         # content_maximal_quantity: "Capacité maximale"
         # content_nature: "Type de produit contenu"
         # dead_at: "Mis au rebut le"
@@ -737,7 +737,7 @@ arb:
         # not_an_end_of_month: "%{attribute} doit être une fin de mois"
         nothing_to_pay: ".ليس هنالك ما يدفع، اذا رغبت بتسجيل القسط، فتذكر تحديد ذلك"
         odd: "%{attribute} يجب ان يكون فردي"
-        # period_overlap: "%{attribute} se trouve sur une période d'un enregistrement existant"
+        # period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant"
         posterior: "%{attribute} \_يجب ان يكون التاريخ في وقت لاحق %{to}"
         record_has_been_already_validated: "اصبح السجل متوفرا ولا يمكن التعديل" #?
         record_invalid: "Validations failed : %{errors}"
@@ -853,7 +853,6 @@ arb:
       # catalog_price: "Prix"
       company: "الشركة" #?
       contact: "الاتصالات" #?
-      # cultivable_land_parcel: "Parcelle culturale"
       # cultivable_zone: "Parcelle culturale"
       currency: "العملة" #?
       custom_field: "الحقول التكميلية"
@@ -909,19 +908,16 @@ arb:
       listing: "الاستخراج"
       listing_node: "عقدة الاستخراج"
       listing_node_item: "عنصر غقدة الاستخراج"
-      # log: "Évènements des produits"
       mandate: "التفويض"
       # matter: "Matière"
       # medicine: "Médicament"
-      meeting: "الحدث"
-      meeting_nature: "نوع الحدث"
-      # meeting_participation: "Participation à un évènement"
+      meeting: "الحدث" #?
+      meeting_nature: "نوع الحدث" #?
       # mineral_matter: "Matière minérale"
       observation: "ملاحظة"
       operation: "العمل"
       operation_item: "الواردات/الصادرات" #?
       operation_nature: "نوع العمل" #?
-      # operation_task: "Tâche"
       operation_use: "الاداة المستخدمة" #?
       # organic_matter: "Matière organique"
       # outgoing_delivery: "Livraison"
@@ -937,14 +933,11 @@ arb:
       # preference: "Préférence"
       # prescription: "Prescription"
       price: "الاسعار" #?
-      # procedure: "Procédure"
-      # procedure_variable: "Variable de procédure"
       product: "الانتاج"
       product_category: "فئة الانتاج" #?
       product_component: "عنصر الانتاج" #?
       # product_group: "Groupe de produit"
       # product_indicator_datum: "Valeur d’indicateur"
-      # product_link: "Lien entre produits"
       # product_linkage: "Lien entre produits"
       # product_localization: "Passage d’un produit en un lieu"
       # product_membership: "Passage d’un produit dans un groupe"
@@ -966,7 +959,7 @@ arb:
       # production: "Production"
       # production_support: "Support de production"
       products_nature: "الانتاج" #?
-      profession: "المهنة"
+      profession: "المهنة" #?
       # property_title: "Titre de propriété"
       purchase: "الشراء"
       purchase_item: "طريقة طلب الشراء"
@@ -995,7 +988,7 @@ arb:
       transport: "وسيلة النقل"
       unit: "الوحدة" #?
       user: "المستخدم"
-      # version: "Évènements des produits"
+      # version: "Version"
       # worker: "Travailleur"
       # zone: "Zone"
       # zone_property_title: "Titre de propriété foncière"
@@ -1201,14 +1194,14 @@ arb:
     # currency_precision: "Nombre de décimales"
     currency_rate: "سعر الصرف"
     # current_amount: "Montant actuel"
-    # current_animal_disease_state: "Etat de santé actuel"
+    # current_animal_disease_state: "État de santé actuel"
     current_financial_year: "الفترة المحاسبية الحالية" #?
     # current_localization: "Current localization"
     # current_net_mass: "Dernière pesée"
     # current_ownership: "Current ownership"
     # current_phase: "Current phase"
     custom_field: "حقول اضافية"
-    custom_field_choices: "اختيارات الحقول الاضافية"
+    custom_field_choices: "اختيارات الحقول الاضافية" #?
     custom_field_data: "تكملة بيانات الملف" #?
     custom_field_id: "حقول اضافية" #?
     custom_fields: "الحقول الاضافية"
@@ -1222,7 +1215,7 @@ arb:
     # death: "Death"
     debit: "الدين"
     # debtor: "Debiteur"
-    # decimal: "Decimal"
+    # decimal: "Décimal"
     decimal_max: "ارتفاع المدى" #?
     decimal_min: "انخفاض المدى" #?
     decimal_value: "القيمة العشرية"
@@ -1232,13 +1225,14 @@ arb:
     default_contact: "الشخص المتوقع الاتصال به" #?
     default_currency: "العملة الافتراضية" #?
     # default_mail_address: "Adresse email par défaut"
-    # default_storage: "Default storage"
+    # default_storage: "Emplacement par défaut"
     deferred_payment: "ائتمان معلق"
     delays: "تأخير" #?
     deleted_at: "الغيه في"
     # deliverable: "Livrable"
     delivered: "تم التسليم"
-    delivered_on: "تم التسليم في"
+    # delivered_at: "Reçu le"
+    delivered_on: "تم التسليم في" #?
     deliveries: "التسليم"
     deliveries_conditions: "شروط التسليم"
     delivery: "التسليم"
@@ -1247,13 +1241,12 @@ arb:
     delivery_contact_id: "عنوان للتسليم" #?
     delivery_id: "تسليم" #?
     delivery_items: "طرق التسليم"
-    delivery_modes: "اسلوب التسليم"
+    delivery_modes: "اسلوب التسليم" #?
     density_label: "الكثافة" #?
-    # departed_at: "Parti le"
     departed_on: "غادر يوم" #?
-    department: "المبنى"
+    department: "المبنى" #?
     department_id: "مبنى" #?
-    departments: "الخدمات"
+    departments: "الخدمات" #?
     # departure_cause: "Causes de sortie"
     deposit: "الاقتطاع المصرفي"
     deposit_id: "اقتطاع مرفي" #?
@@ -1314,7 +1307,7 @@ arb:
     employment: "الوظيفة"
     # encrypted_password: "Mot de passe crypté"
     # enjoyments: "Enjoyments"
-    entities: "الافراد"
+    entities: "الافراد" #?
     entity: "الفرد"
     entity_1: "الملف الاول"
     entity_1_id: "الملف الاول" #?
@@ -1326,7 +1319,7 @@ arb:
     entity_link_nature: "نوع رابط تمديد الاشتراك"
     entity_link_nature_id: "نوع الرابط لتمديد الاشتراك" #?
     entity_link_natures: "طبيعة الرابط بين الافراد" #?
-    entity_links: "روابط الفرد"
+    entity_links: "روابط الفرد" #?
     entity_name: "اسم المشترك" #?
     entity_natures: "انماط الفرد" #?
     entries: "السجلات المحاسبية"
@@ -1408,7 +1401,6 @@ arb:
     included: "تضمنت"
     # incoming_deliveries: "Approvisionnements"
     # incoming_delivery_items: "Éléments d’approvisionnement"
-    # incoming_delivery_modes: "Modes d’approvisionnement"
     incoming_payment_modes: "طرق تسديد الدفعات"
     incoming_payment_uses: "اجزاء الدفعات" #?
     incoming_payments: "الدفعات"
@@ -1433,7 +1425,7 @@ arb:
     inventories: "عمليات الجرد" #?
     inventory: "عملية الجرد"
     inventory_id: "عملية جرد" #?
-    inventory_items: "طرق الجرد"
+    inventory_items: "طرق الجرد" #?
     # invoice_address: "Adresse pour la facture"
     invoice_contact: "العنوان للفاتورة" #?
     invoice_contact_id: "العنوان للفاتورة" #?
@@ -1457,14 +1449,12 @@ arb:
     journals: "الدفاتر اليومية" #?
     key: "المفتاح"
     label: "الملصق"
-    # land_parcel_groups: "Groupe d’îlots"
     land_parcels: "الكتل" #?
     language: "اللغة"
     last_bank_statement: "(((LAST_BANK_STATEMENT)))"
     last_cweek: "الاسبوع السابق"
     # last_journal_entry: "Écriture de fin d’exercice"
     last_letter: "الرسالة الاخيرة"
-    # last_localization: "Last localization"
     last_month: "الشهر السابق"
     last_name: "اسم العائلة"
     last_number: "الرقم الاخير"
@@ -1484,14 +1474,13 @@ arb:
     line_6_city: "المدينة" #?
     line_6_code: "الرمز البريدي" #?
     lines: "طرق تسديد الفاتورة" #?
-    # linkage_points_list: "Linkage points list"
-    # linkages: "Linkages"
-    # links: "Links"
+    # linkage_points_list: "Points d’attache"
+    # linkages: "Attaches"
     listing: "الاستخراج"
     listing_id: "استخاج" #?
-    listing_node_items: "عناصر العقدة المستخرجة"
-    listing_nodes: "العقد المستخرجة"
-    listings: "الاستخراج"
+    listing_node_items: "عناصر العقدة المستخرجة" #?
+    listing_nodes: "العقد المستخرجة" #?
+    listings: "الاستخراج" #?
     local_balance: "الرصيد"
     local_count: "عدد السكان المحليين"
     local_credit: "الائتمان"
@@ -1500,10 +1489,8 @@ arb:
     lock_version: "الاصدار"
     locked: "مقفل"
     # locked_at: "Verrouillé à"
-    # log: "Journal d’évènements"
-    # loggable: "Peut se connecter"
     longitude: "خطوط الطول" #?
-    lost: "الضائع"
+    lost: "الضائع" #?
     mail: "البريد الالكتروني"
     # mail_addresses: "Adresses postales"
     # mail_area: "Zone postale"
@@ -1513,18 +1500,13 @@ arb:
     # mail_geolocation: "Geolocalisation de l’adresse"
     # mail_line_1: "Nom ou Société"
     # mail_line_2: "Destinataire - Service"
-    # mail_line_3: "Bât. - Rés. - ZI..."
+    # mail_line_3: "Bât. - Rés. - ZI…"
     # mail_line_4: "Numéro et libellé de la voie"
     # mail_line_5: "Mention spéciale - Lieu dit"
     # mail_line_6: "Code postal ET ville"
     # mails: "Emails"
-    major_accounts: "الحسابات الئيسية"
+    major_accounts: "الحسابات الئيسية" #?
     # managed: "Géré par le système"
-    # managed_events: "Évènements gérés"
-    # managed_sales: "Ventes gérées"
-    # managed_sales_invoices: "Factures gérées"
-    # managed_transports: "Transports gérés"
-    # managed_unpaid_sales: "Ventes impayées gérées"
     mandates: "تفويضات"
     # markers: "Repères"
     mass: "الوزن"
@@ -1532,33 +1514,27 @@ arb:
     max_reduction_rate: "سعر التخفيض" #?
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     # maximal_length: "Longueur maximale"
-    # maximal_quantity: "Maximal quantity"
     # maximal_value: "Valeur maximale"
-    # measure_unit: "Unité de mesure"
     # measure_value: "Valeur de la mesure"
     # measure_value_unit: "Measure value unit"
     # measure_value_value: "Measure value value"
     # measured_at: "Mesuré à"
     # measurements: "Measurements"
-    # meat_withdrawal_period: "Délai d'attente (viande)"
+    # meat_withdrawal_period: "Délai d’attente (viande)"
     # member: "Membre"
     # members: "Membres"
     # memberships: "Membres du groupe"
-    # milk_withdrawal_period: "Délai d'attente (lait)"
+    # milk_withdrawal_period: "Délai d’attente (lait)"
     min_duration: "(دقيقة (دقائق" #?
     # minimal_length: "Longueur minimale"
     # minimal_quantity: "Minimal quantity"
     # minimal_value: "Valeur minimale"
-    mobile: "الهاتف النقال"
+    mobile: "الهاتف النقال" #?
     # mobiles: "Portables"
     mode: "نمط الدفعة"
     mode_id: "طريقة تسديد دفعة" #?
     # mother: "Mère"
-    # move: "Move"
-    # move_type: "Move type"
-    # moved_at: "Fait à"
     moved_on: "انجز يوم"
-    # moves: "Mouvements"
     # multi_polygon_value: "Multi polygon value"
     name: "الاسم"
     name_1_to_2: "الملف الاول الى الثاني"
@@ -1575,7 +1551,6 @@ arb:
     node: "العقدة"
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
-    # nomen: "Référence"
     number: "الرقم"
     number_format: "التصميم"
     number_increment: "الاضافة"
@@ -1587,69 +1562,65 @@ arb:
     old_password: "كلمة المرور الحالية"
     operation: "العمل"
     operation_id: "عمل" #?
-    operation_items: "الواردات/الصادرات"
-    # operation_nature: "Type d’operation"
-    operation_natures: "انواع العمل"
-    # operation_task: "Operation task"
-    # operation_tasks: "Operation tasks"
-    operation_uses: "استخدامات الاداة"
+    operation_items: "الواردات/الصادرات" #?
+    operation_natures: "انواع العمل" #?
+    operation_uses: "استخدامات الاداة" #?
     operations: "الاعمال"
-    order: "طلب البيع"
+    order: "طلب البيع" #?
     order_id: "طلب شراء" #?
-    order_item: "طريقة البيع"
+    order_item: "طريقة البيع" #?
     order_item_id: "طريقة البيع" #?
     organization: "المنظمة"
     origin: "المنشأ"
     origin_id: "المنشأ" #?
-    origin_type: "نوع المنشأ"
-    original_name: "الاسم الاصلي"
+    origin_type: "نوع المنشأ" #?
+    original_name: "الاسم الاصلي" #?
     # originator: "Originator"
     # originator_type: "Originator type"
     # outgoing_deliveries: "Livraisons sortantes"
     # outgoing_delivery_items: "Lignes de livraisons sortantes"
     # outgoing_delivery_modes: "Modes de livraisons sortantes"
     outgoing_payment_modes: "اساليب المصروفات"
-    outgoing_payment_uses: "ازاء المصروفات"
+    outgoing_payment_uses: "ازاء المصروفات" #?
     outgoing_payments: "المصروفات"
-    # output_conveyors: "Convoyeur sortant"
     owner: "المالك"
     owner_id: "مالك" #?
-    owner_type: "طبيعة المالك"
+    owner_type: "طبيعة المالك" #?
     # ownerships: "Ownerships"
-    paid: "سددت"
+    paid: "سددت" #?
     paid_account: "سددت القيمة الضريبية الاضافية" #?
     paid_account_id: "سددت القيمة الضريبية الاضافية" #?
     paid_amount: "خصمة من قيمة الضريبة الاضافية"
     paid_on: "سددت يوم"
+    # paid_taxes: "Taxes payées"
     parent: "النسب"
     parent_id: "نسب" #?
-    # parent_place: "Parent place"
+    # participant: "Participant"
+    # participants: "Participants"
     # participations: "Participations"
     parts: "الاجزاء" #?
     parts_amount: "القيمة المستخدمة" #?
-    # passages: "Passages"
     password: "كلمة المرور"
     password_confirmation: "تأكيد كلمة السر"
     payee: "المستفيد"
     payee_id: "المستفيد" #?
     payer: "دافع القيمة"
     payer_id: "دافع القيمة" #?
-    payment: "الدفعة"
+    payment: "الدفعة" #?
     payment_delay: "تأجيل الدفعة"
     payment_delay_id: "تأجيل دفعة" #?
     payment_id: "دفعة" #?
     payment_mode: "اسلوب تسديد الدفعة"
     payment_mode_complement: "معلومات اضافية عن نمط الدفعة"
     payment_mode_id: "نمط دفعة" #?
-    payment_modes: "طريقة تسديد الدفعة"
+    payment_modes: "طريقة تسديد الدفعة" #?
     payment_on: "تسدد في مدة لا تتجاوز"
-    payment_uses: "اجزاء الدفعات"
-    payment_way: "نمط الدفعة"
+    payment_uses: "اجزاء الدفعات" #?
+    payment_way: "نمط الدفعة" #?
     payments: "الدفعات"
     payments_count: "عدد الدفعات"
     payments_to_deposit: "دفعات الصندوق النقدي"
     payments_to_deposit_accounts: "حساب دفعات الصندوق النقدي"
-    # percentage: "Pourcentage"
     period: "الفترة"
     period_name: "تواتري" #?
     # person: "Personne"
@@ -1658,14 +1629,13 @@ arb:
     # phones: "Téléphones"
     photo: "صورة" #?
     physical: "الفرد الطبيعي" #?
-    # pictogram: "Pictogram"
+    # pictogram: "Pictogramme"
     # picture: "Photo"
     # picture_content_type: "Format de photo"
     # picture_file_name: "Nom du fichier photo"
     # picture_file_size: "Taille du fichier photo"
     # picture_updated_at: "Fichier photo mis à jour le"
     # place: "Place"
-    # planned_at: "Prévu à"
     # planned_depreciations: "Amortissements prévus"
     planned_on: "قرر يوم"
     # point: "Point"
@@ -1676,17 +1646,16 @@ arb:
     position: "الوضع"
     postcode: "الرمز البريدي"
     preferences: "الاعدادات"
+    # prescription: "Prescription"
     # prescriptor: "Prescripteur"
     # pretax_amount: "Montant HT"
-    # pretax_amount_generation: "Pretax amount generation"
     price: "سعر الكلفة"
-    price_amount: "القيمة دون الضرائب"
+    price_amount: "القيمة دون الضرائب" #?
     price_id: "سعر الوحدة" #?
     prices: "الاسعار"
     printed_at: "طبعت في" #?
     printed_on: "طبع يوم"
     # priority: "Priorité"
-    # procedure: "Procedure"
     # procedures: "Procédures"
     # process: "Process"
     producer: "المنتج"
@@ -1716,23 +1685,19 @@ arb:
     products: "المنتجات"
     products_accounts: "حسابات المنتجات" #?
     # products_categories: "Catégories de produits avec produit"
-    profession: "المهنة"
+    profession: "المهنة" #?
     profession_id: "مهنة" #?
     professions: "مهن" #?
     propagate_contacts: "تعميم الافراد" #?
     proposer: "الكفيل"
     proposer_id: "الكفيل" #?
-    # prorated: "Proratisé"
     prospect: "الراعي"
-    # protected: "Protégé"
     # provisional: "Prévisionnel"
     # provisional_procedure: "Procédure prévisionnelle"
     published: "تم نشره" #?
     # purchasable: "Achetable"
     # purchase: "Achat"
     # purchase_amount: "Montant d’achat"
-    # purchase_indicator: "Purchase indicator"
-    # purchase_indicator_unit: "Purchase indicator unit"
     # purchase_invoices: "Factures d’achats"
     # purchase_item: "Ligne d’achat"
     purchase_items: "طرق طلب الشراء"
@@ -1781,7 +1746,6 @@ arb:
     # reminder_submissive: "Soumis à la relance"
     # repartitions: "Repartitions"
     # repeatable: "Répétable"
-    # reproductor: "Reproducteur"
     required: "الزامي"
     reservoir: "المخزن"
     resource: "المصدر الاصلي"
@@ -1798,15 +1762,11 @@ arb:
     root_model: "الجذر"
     root_model_name: "جذر"
     sale: "طلب البيع"
-    # sale_catalog: "Sale catalog"
     sale_id: "طلب بيع" #?
-    # sale_indicator: "Indicateur de vente"
-    # sale_indicator_unit: "Unité de l'indicateur de vente"
     # sale_item: "Ligne de vente"
     sale_item_id: "طرق طلب البيع" #?
     sale_items: "طرق طلب البيع"
     sale_natures: "انواع البيع" #?
-    # sale_price_listing: "Sale price listing"
     # saleable: "Vendable"
     sales: "المبيعات"
     sales_account: "حساب المنتجات" #?
@@ -1832,7 +1792,6 @@ arb:
     serial: "عدد الحصص"
     # serial_number: "Serial number"
     service_coeff: "معامل كمية الخدمة" #?
-    # sex: "Sexe"
     sha256: "SHA256" #?
     # shape: "Shape"
     shipped: "المستلم" #?
@@ -1840,7 +1799,7 @@ arb:
     # sign_in_count: "Nombre de connexions"
     siren: "رقم صفارة الانذار"
     siret: "SIRET رقم" #?
-    soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات"
+    soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
     # spaced_iban: "IBAN"
     sql_type: "SQL نوع"
@@ -1871,15 +1830,15 @@ arb:
     subdivision: "Y الوضع" #?
     subject: "الموضوع"
     # subscriber: "Abonné"
-    # subscription_duration: "Durée de l'abonnement"
+    # subscription_duration: "Durée de l’abonnement"
     subscription_nature: "النوع"
     subscription_nature_id: "النوع" #?
-    subscription_natures: "انواع الاشتراك"
+    subscription_natures: "انواع الاشتراك" #?
     subscription_period: "الفترة"
     subscription_quantity: "الكمية"
     subscriptions: "الاشتراك"
     subsubdivision: "Z الوضع" #?
-    sum_method: "اسلوب الاحصاء"
+    sum_method: "اسلوب الاحصاء" #?
     supplier: "الممول"
     supplier_account: "حساب مساعد الممول"
     supplier_account_id: "حساب مساعد الممول" #?
@@ -1899,11 +1858,13 @@ arb:
     tax_declarations: "الاعلان عن الضرائب" #?
     tax_id: "الضريبة" #?
     taxes: "الضرائب" #?
+    # team: "Équipe"
     template: "نموذج"
     template_id: "نموذج" #?
     text_importance: "ذو شأن" #?
     text_nature: "النوع" #?
     theoric_quantity: "الكمية النظرية"
+    # third: "Tiers"
     # thread: "Thread"
     title: "اللقب"
     to: "ل"
@@ -1931,7 +1892,7 @@ arb:
     undelivered_quantity: "يبقى للتسليم"
     unit: "الوحدة"
     unit_id: "وحدة" #?
-    # unit_name: "Unit name"
+    # unit_name: "Unité"
     # unit_price_amount: "Unit price amount"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
@@ -1945,8 +1906,6 @@ arb:
     usable_outgoing_payments: "مصروفات ممكن استخدامها" #?
     usage: "الاستخدام"
     usage_duration: "(مدة الاستخدام (ساعات" #?
-    # usage_indicator: "Usage indicator"
-    # usage_indicator_unit: "Usage indicator unit"
     use_range: "استخدام الكمية الفاصلة" #?
     # useful_items: "Lignes utiles"
     user: "المستخدم"
@@ -1955,22 +1914,19 @@ arb:
     uses: "المعدات المستخدمة" #?
     value: "القيمة"
     value_format: "التصميم" #?
-    # variable: "Variable"
-    # variable_indicators: "Indicateurs d'une variable"
+    # variable_indicators: "Indicateurs d’une variable"
     # variable_indicators_list: "Variable indicators list"
-    # variables: "Variables"
     # variant: "Variante"
     # variants: "Variantes"
     # variety: "Variété"
     vat_number: "عدد القيمة الضريبية المضافة داخل المجتمع المحلي"
     # vat_subjected: "Assujetti à la TVA"
     vat_submissive: "القيمة الضريبية المضافة التابعة" #?
-    # verb: "Verbe"
     # versions: "Versions"
     virtual: "عملي" #?
     virtual_quantity: "الاسهم العملية" #?
     # waiting_deliveries: "Livraisons en attente"
-    webpass: "كلمة مرور الموقع الااكتروني"
+    webpass: "كلمة مرور الموقع الااكتروني" #?
     website: "الموقع الالكتروني" #?
     # websites: "Sites web"
     with_accounting: "سجل الدفعات"
@@ -2000,11 +1956,11 @@ arb:
       # bookkeep: "[%{resource} %{number}] De %{emission} à %{reception} %{description}"
     catalog:
       cost:
-        # name: "Catalogue de coût d'utilisation"
+        # name: "Catalogue de coût d’utilisation"
       default:
         # name: "Par défaut"
       purchase:
-        # name: "Catalogue d'achat"
+        # name: "Catalogue d’achat"
       sale:
         # name: "Catalogue de vente"
     catalog_price:

@@ -4,7 +4,7 @@
 #
 # Ekylibre - Simple ERP
 # Copyright (C) 2009-2012 Brice Texier, Thibaud Merigon
-# Copyright (C) 2012-2013 Brice Texier, David Joulin
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,16 +40,16 @@
 #
 # bank_statements_001:
 #   cash_id: 1
-#   created_at: 2012-09-25 17:33:03 +02:00
+#   created_at: 2013-10-26 18:34:04 +02:00
 #   creator_id: 1
 #   credit: 0
 #   currency: "Lorem ipsum"
 #   debit: 0
 #   id: 1
 #   number: "Lorem ipsum"
-#   started_on: 2012-09-25
-#   stopped_on: 2012-09-25
-#   updated_at: 2012-09-25 17:33:03 +02:00
+#   started_on: 2013-10-26
+#   stopped_on: 2013-10-26
+#   updated_at: 2013-10-26 18:34:04 +02:00
 #   updater_id: 1
 #
 

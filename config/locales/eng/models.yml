@@ -44,7 +44,7 @@ eng:
       equipment:
         born_at: "putting into service at"
         # content_indicator: "Indicateur de mesure du réservoir"
-        # content_indicator_unit: "Unité de mesure de l'indicateur"
+        # content_indicator_unit: "Unité de mesure de l’indicateur"
         # content_maximal_quantity: "Capacité maximale"
         # content_nature: "Type de produit contenu"
         # dead_at: "Mis au rebut le"
@@ -272,7 +272,7 @@ eng:
         not_an_end_of_month: "%{attribute} must be an end of month"
         nothing_to_pay: "Nothing to pay. If you want to register a downpayment, do not forget to note that."
         odd: "%{attribute} must be odd"
-        # period_overlap: "%{attribute} se trouve sur une période d'un enregistrement existant"
+        # period_overlap: "%{attribute} se trouve sur une période d’un enregistrement existant"
         posterior: "The date %{attribute} must be posterior to %{to}"
         record_has_been_already_validated: "Record has been already validated" #?
         record_invalid: "Validations failed : %{errors}"
@@ -413,7 +413,6 @@ eng:
       # catalog_price: "Prix"
       company: "Company" #?
       contact: "" #?
-      # cultivable_land_parcel: "Parcelle culturale"
       # cultivable_zone: "Parcelle culturale"
       cultivation: "Cultivation" #?
       custom_field: "Complement field"
@@ -470,20 +469,18 @@ eng:
       listing: "Listing"
       listing_node: "Listing node"
       listing_node_item: "Listing node item"
-      log: "Animal event"
+      log: "Animal event" #?
       mandate: "Mandate"
       matter: "Matter"
       # medicine: "Médicament"
-      meeting: "Event"
-      meeting_nature: "Event type"
-      # meeting_participation: "Participation à un évènement"
+      meeting: "Event" #?
+      meeting_nature: "Event type" #?
       # mineral_matter: "Matière minérale"
       observation: "Observation"
       operation: "Operation"
       operation_item: "Operation line" #?
       operation_line: "Operation line" #?
       operation_nature: "Operation type" #?
-      # operation_task: "Tâche"
       operation_use: "Tool use" #?
       # organic_matter: "Matière organique"
       outgoing_delivery: "Delivery"
@@ -500,8 +497,7 @@ eng:
       preference: "Preference"
       # prescription: "Prescription"
       price: "Price" #?
-      procedure: "Procedure"
-      # procedure_variable: "Variable de procédure"
+      procedure: "Procedure" #?
       product: "Animal"
       product_category: "Product category" #?
       product_component: "Product component" #?
@@ -509,7 +505,6 @@ eng:
       product_event_nature: "Animal event type" #?
       product_group: "Animal group"
       # product_indicator_datum: "Valeur d’indicateur"
-      # product_link: "Lien entre produits"
       # product_linkage: "Lien entre produits"
       # product_localization: "Passage d’un produit en un lieu"
       # product_membership: "Passage d’un produit dans un groupe"
@@ -537,7 +532,7 @@ eng:
       production_chain_work_center_use: "Production chain work center use" #?
       # production_support: "Support de production"
       products_nature: "Product" #?
-      profession: "Profession"
+      profession: "Profession" #?
       # property_title: "Titre de propriété"
       purchase: "Purchase order"
       purchase_item: "Purchase order line"
@@ -766,14 +761,14 @@ eng:
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
     current_amount: "Current amount"
-    # current_animal_disease_state: "Etat de santé actuel"
+    # current_animal_disease_state: "État de santé actuel"
     current_financial_year: "Current financial year" #?
     # current_localization: "Current localization"
     # current_net_mass: "Dernière pesée"
     # current_ownership: "Current ownership"
     # current_phase: "Current phase"
     custom_field: "Custom field"
-    custom_field_choices: "Custom field choices"
+    custom_field_choices: "Custom field choices" #?
     custom_field_data: "Custom field data" #?
     custom_fields: "Custom fields"
     customized: "Customized"
@@ -798,13 +793,14 @@ eng:
     default_currency: "Default currency" #?
     default_mail_address: "Default mail address"
     default_stock: "Default stock" #?
-    # default_storage: "Default storage"
+    # default_storage: "Emplacement par défaut"
     deferred_payment: "Deferred payment"
     delays: "Delays" #?
     deleted_at: "Deleted at"
     deliverable: "Deliverable"
     delivered: "Delivered"
-    delivered_on: "Reçu le"
+    # delivered_at: "Reçu le"
+    delivered_on: "Reçu le" #?
     deliveries: "Delivered on"
     deliveries_conditions: "Deliveries conditions"
     delivery: "Delivery"
@@ -812,12 +808,11 @@ eng:
     delivery_contact: "Delivery contact" #?
     # delivery_items: "Lignes de livraison"
     delivery_lines: "Delivery lines" #?
-    # delivery_modes: "Modes de livraison"
     density_label: "Density label" #?
-    departed_at: "Parti le"
+    departed_at: "Parti le" #?
     departed_on: "Departed at" #?
-    department: "Department"
-    departments: "Departments"
+    department: "Department" #?
+    departments: "Departments" #?
     departure_cause: "Departure cause"
     deposit: "Deposit"
     depositable_payments: "Embankable payments"
@@ -884,7 +879,7 @@ eng:
     employment: "Employment"
     encrypted_password: "Encrypted password"
     # enjoyments: "Enjoyments"
-    entities: "People"
+    entities: "People" #?
     entity: "Entity"
     entity_1: "Person 1"
     entity_2: "Person 2"
@@ -892,7 +887,7 @@ eng:
     # entity_link_direction: "Entity link direction"
     entity_link_nature: "Person link type"
     entity_link_natures: "Person link types" #?
-    entity_links: "Person links"
+    entity_links: "Person links" #?
     entity_name: "Person name" #?
     entity_natures: "Person types" #?
     entries: "Entries"
@@ -975,7 +970,7 @@ eng:
     incoming_deliveries: "Incoming deliveries"
     # incoming_delivery_items: "Éléments d’approvisionnement"
     incoming_delivery_lines: "Incoming delivery lines" #?
-    incoming_delivery_modes: "Incoming delivery modes"
+    incoming_delivery_modes: "Incoming delivery modes" #?
     incoming_payment_modes: "Incoming payment modes"
     incoming_payment_uses: "Incoming payment parts" #?
     incoming_payments: "Incoming payments"
@@ -1001,7 +996,6 @@ eng:
     introduction: "Introduction"
     inventories: "Inventories" #?
     inventory: "Inventory"
-    # inventory_items: "Lignes d’inventaire"
     inventory_lines: "Inventory lines" #?
     invoice_address: "Invoice address"
     # invoiced: "Facturée"
@@ -1021,7 +1015,7 @@ eng:
     journals: "Journals" #?
     key: "Key"
     label: "Label"
-    land_parcel_groups: "Land parcel groups"
+    land_parcel_groups: "Land parcel groups" #?
     land_parcel_kinships: "Land parcel kinships" #?
     land_parcels: "Land parcels" #?
     language: "Language"
@@ -1029,7 +1023,6 @@ eng:
     last_cweek: "Last cweek"
     last_journal_entry: "Journal entry of end of year"
     last_letter: "Last letter"
-    # last_localization: "Last localization"
     last_month: "Last month"
     last_name: "Last name"
     last_number: "Last number"
@@ -1040,13 +1033,12 @@ eng:
     letter_format: "Letter format"
     # lft: "Limite gauche"
     lines: "Lines" #?
-    # linkage_points_list: "Linkage points list"
-    # linkages: "Linkages"
-    # links: "Links"
+    # linkage_points_list: "Points d’attache"
+    # linkages: "Attaches"
     listing: "Listing"
-    listing_node_items: "Listing node items"
-    listing_nodes: "Listing nodes"
-    listings: "Listings"
+    listing_node_items: "Listing node items" #?
+    listing_nodes: "Listing nodes" #?
+    listings: "Listings" #?
     local_balance: "Local balance"
     local_count: "Local count"
     local_credit: "Local credit"
@@ -1056,10 +1048,9 @@ eng:
     lock_version: "Version"
     locked: "Locked"
     # locked_at: "Verrouillé à"
-    # log: "Journal d’évènements"
-    loggable: "Loggable"
+    loggable: "Loggable" #?
     longitude: "Longitude" #?
-    lost: "Lost"
+    lost: "Lost" #?
     luminance: "Luminance" #?
     mail: "Mail"
     # mail_addresses: "Adresses postales"
@@ -1075,44 +1066,36 @@ eng:
     mail_line_5: "Special mentions, place name"
     mail_line_6: "Postal code and city"
     mails: "Mails"
-    major_accounts: "Major accounts"
+    major_accounts: "Major accounts" #?
     # managed: "Géré par le système"
-    # managed_events: "Évènements gérés"
-    # managed_sales: "Ventes gérées"
-    # managed_sales_invoices: "Factures gérées"
-    # managed_transports: "Transports gérés"
-    # managed_unpaid_sales: "Ventes impayées gérées"
     mandates: "Mandates"
     # markers: "Repères"
     mass: "Mass (kg)"
     # maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     # maximal_length: "Longueur maximale"
-    # maximal_quantity: "Maximal quantity"
     # maximal_value: "Valeur maximale"
-    # measure_unit: "Unité de mesure"
     # measure_value: "Valeur de la mesure"
     # measure_value_unit: "Measure value unit"
     # measure_value_value: "Measure value value"
     # measured_at: "Mesuré à"
     # measurements: "Measurements"
-    # meat_withdrawal_period: "Délai d'attente (viande)"
+    # meat_withdrawal_period: "Délai d’attente (viande)"
     member: "Member"
     members: "Members"
     # memberships: "Membres du groupe"
-    # milk_withdrawal_period: "Délai d'attente (lait)"
+    # milk_withdrawal_period: "Délai d’attente (lait)"
     min_duration: "Min duration" #?
     # minimal_length: "Longueur minimale"
     # minimal_quantity: "Minimal quantity"
     # minimal_value: "Valeur minimale"
-    mobile: "Mobile phone"
+    mobile: "Mobile phone" #?
     mobiles: "Mobile phones"
     mode: "Mode"
     mother: "Mother"
-    move: "Move"
-    # move_type: "Move type"
-    moved_at: "Moved at"
+    move: "Move" #?
+    moved_at: "Moved at" #?
     moved_on: "Moved on"
-    moves: "Moves"
+    moves: "Moves" #?
     # multi_polygon_value: "Multi polygon value"
     name: "Name"
     name_1_to_2: "Name 1 to 2"
@@ -1127,7 +1110,6 @@ eng:
     nic: "Nic"
     node: "Node"
     nodes: "Nodes"
-    # nomen: "Référence"
     number: "Number"
     number_format: "Number format"
     number_increment: "Number increment"
@@ -1138,20 +1120,16 @@ eng:
     office: "Office"
     old_password: "Old password"
     operation: "Operation"
-    # operation_items: "Intrants/sortants"
     operation_lines: "Operation lines" #?
-    operation_nature: "Operation type"
-    operation_natures: "Operation types"
-    # operation_task: "Operation task"
-    # operation_tasks: "Operation tasks"
-    operation_uses: "Tool uses"
+    operation_nature: "Operation type" #?
+    operation_natures: "Operation types" #?
+    operation_uses: "Tool uses" #?
     operations: "Operations"
-    order: "Order"
-    # order_item: "Ligne de vente"
+    order: "Order" #?
     organization: "Organization"
     origin: "Origin"
-    origin_type: "Origin type"
-    original_name: "Original name"
+    origin_type: "Origin type" #?
+    original_name: "Original name" #?
     # originator: "Originator"
     # originator_type: "Originator type"
     outgoing_deliveries: "Outgoing deliveries"
@@ -1159,36 +1137,37 @@ eng:
     outgoing_delivery_lines: "Outgoing delivery lines" #?
     outgoing_delivery_modes: "Outgoing delivery modes"
     outgoing_payment_modes: "Disbursement modes"
-    outgoing_payment_uses: "Disbursement parts"
+    outgoing_payment_uses: "Disbursement parts" #?
     outgoing_payments: "Disbursements"
     outgone_reasons: "Outgone reasons" #?
-    output_conveyors: "Output conveyors"
+    output_conveyors: "Output conveyors" #?
     owner: "Owner"
-    owner_type: "Owner type"
+    owner_type: "Owner type" #?
     # ownerships: "Ownerships"
-    paid: "Paid"
+    paid: "Paid" #?
     paid_account: "Account paid" #?
     paid_amount: "Paid amount"
     paid_on: "Paid on"
-    paid_taxes: "Paid taxes" #?
+    paid_taxes: "Paid taxes"
     parent: "Parent"
     parent_kinships: "Parent kinships" #?
     parent_land_parcel: "Parent land parcel" #?
-    parent_place: "Parent place"
+    parent_place: "Parent place" #?
+    # participant: "Participant"
+    # participants: "Participants"
     # participations: "Participations"
-    # passages: "Passages"
     password: "Password"
     password_confirmation: "Confirmation of password"
     payee: "Payee"
     payer: "Payer"
-    payment: "Payment"
+    payment: "Payment" #?
     payment_delay: "Payment delay"
     payment_mode: "Payment mode"
     payment_mode_complement: "Payment mode complement"
-    payment_modes: "Payment modes"
+    payment_modes: "Payment modes" #?
     payment_on: "Payment on"
-    payment_uses: "Payment parts"
-    payment_way: "Payment way"
+    payment_uses: "Payment parts" #?
+    payment_way: "Payment way" #?
     payments: "Payments"
     payments_count: "Payments count"
     payments_to_deposit: "Payments to deposit"
@@ -1196,7 +1175,7 @@ eng:
     per_animal_unit: "Per animal unit" #?
     per_duration_time_unit: "Per duration time unit" #?
     per_frequency_time_unit: "Per frequency time unit" #?
-    percentage: "Percentage"
+    percentage: "Percentage" #?
     period: "Period"
     period_name: "Period name" #?
     person: "Person"
@@ -1205,14 +1184,14 @@ eng:
     phones: "Phones"
     photo: "Photo" #?
     physical: "Physical" #?
-    # pictogram: "Pictogram"
+    # pictogram: "Pictogramme"
     picture: "Picture"
     picture_content_type: "Picture content type"
     picture_file_name: "Picture file name"
     picture_file_size: "Picture file size"
     picture_updated_at: "Picture updated at"
     place: "Place"
-    planned_at: "Planned at"
+    planned_at: "Planned at" #?
     planned_depreciations: "Planned depreciations"
     planned_on: "Planned on"
     # point: "Point"
@@ -1224,17 +1203,18 @@ eng:
     postcode: "Postcode"
     preferences: "Preferences"
     pregnant: "Pregnant" #?
+    # prescription: "Prescription"
     prescriptions: "Prescriptions" #?
     # prescriptor: "Prescripteur"
     pretax_amount: "Pre-tax amount"
-    pretax_amount_generation: "Pretax amount generation"
+    pretax_amount_generation: "Pretax amount generation" #?
     price: "Price"
-    price_amount: "Price amount"
+    price_amount: "Price amount" #?
     prices: "Prices"
     printed_at: "Printed at" #?
     printed_on: "Printed on"
     priority: "Priority"
-    procedure: "Procedure"
+    procedure: "Procedure" #?
     procedures: "Procedures"
     process: "Process"
     producer: "Producer"
@@ -1266,21 +1246,20 @@ eng:
     products: "Products"
     products_accounts: "Products accounts" #?
     # products_categories: "Catégories de produits avec produit"
-    profession: "Profession"
+    profession: "Profession" #?
     professions: "Professions" #?
     propagate_contacts: "Propagate contacts" #?
     proposer: "Proposer"
-    # prorated: "Proratisé"
     prospect: "Prospect"
-    protected: "Protected"
+    protected: "Protected" #?
     # provisional: "Prévisionnel"
     # provisional_procedure: "Procédure prévisionnelle"
     published: "Published" #?
     # purchasable: "Achetable"
     purchase: "Purchase"
     purchase_amount: "Purchase amount"
-    purchase_indicator: "Purchase indicator"
-    purchase_indicator_unit: "Purchase indicator unit"
+    purchase_indicator: "Purchase indicator" #?
+    purchase_indicator_unit: "Purchase indicator unit" #?
     purchase_invoices: "Purchase invoices"
     # purchase_item: "Ligne d’achat"
     # purchase_items: "Lignes d’achat"
@@ -1338,7 +1317,7 @@ eng:
     # reminder_submissive: "Soumis à la relance"
     repartitions: "Repartitions"
     # repeatable: "Répétable"
-    reproductor: "Reproductor"
+    reproductor: "Reproductor" #?
     required: "Required"
     reservoir: "Reservoir"
     reservoirs: "Reservoirs" #?
@@ -1353,15 +1332,12 @@ eng:
     root_model: "Root model"
     root_model_name: "Root model name"
     sale: "Sale"
-    # sale_catalog: "Sale catalog"
-    sale_indicator: "Sale indicator"
-    # sale_indicator_unit: "Unité de l'indicateur de vente"
+    sale_indicator: "Sale indicator" #?
     # sale_item: "Ligne de vente"
     # sale_items: "Lignes de vente"
     sale_line: "Sale line" #?
     sale_lines: "sale lines" #?
     sale_natures: "sale types" #?
-    # sale_price_listing: "Sale price listing"
     # saleable: "Vendable"
     sales: "sales"
     sales_account: "Sales account" #?
@@ -1380,13 +1356,13 @@ eng:
     sequences: "Sequences" #?
     serial: "Serial"
     serial_number: "Serial number"
-    sex: "Sex"
+    sex: "Sex" #?
     sha256: "SHA256" #?
     shape: "Shape"
     # sign_in_count: "Nombre de connexions"
     siren: "Siren"
     siret: "Siret" #?
-    soundex: "Soundex"
+    soundex: "Soundex" #?
     source: "Source"
     source_quantity: "Source quantity" #?
     # spaced_iban: "IBAN"
@@ -1418,14 +1394,14 @@ eng:
     subdivision: "Y" #?
     subject: "Subject"
     # subscriber: "Abonné"
-    # subscription_duration: "Durée de l'abonnement"
+    # subscription_duration: "Durée de l’abonnement"
     subscription_nature: "Subscription type"
-    subscription_natures: "Subscription types"
+    subscription_natures: "Subscription types" #?
     subscription_period: "Subscription period"
     subscription_quantity: "Subscription quantity"
     subscriptions: "Subscriptions"
     subsubdivision: "Z" #?
-    sum_method: "Sum method"
+    sum_method: "Sum method" #?
     supplier: "Supplier"
     supplier_account: "Supplier account"
     supplier_accounts: "Supplier accounts" #?
@@ -1442,11 +1418,13 @@ eng:
     tax: "Tax"
     tax_declarations: "Tax declarations" #?
     taxes: "Taxes" #?
+    # team: "Équipe"
     temperature: "Temperature" #?
     template: "Template"
     text_importance: "Text importance" #?
     text_nature: "Text type" #?
     theoric_quantity: "Theoric quantity"
+    # third: "Tiers"
     # thread: "Thread"
     title: "Title"
     to: "To"
@@ -1478,7 +1456,7 @@ eng:
     undelivered_quantity: "Undelivered quantity"
     unique_tracking: "Unique tracking" #?
     unit: "Unit"
-    # unit_name: "Unit name"
+    # unit_name: "Unité"
     # unit_price_amount: "Unit price amount"
     unit_quantity: "Unit quantity" #?
     units: "Units" #?
@@ -1494,8 +1472,8 @@ eng:
     usable_outgoing_payments: "Usable disbursements" #?
     usage: "Usage"
     usage_duration: "Usage duration" #?
-    usage_indicator: "Usage indicator"
-    usage_indicator_unit: "Usage indicator unit"
+    usage_indicator: "Usage indicator" #?
+    usage_indicator_unit: "Usage indicator unit" #?
     use_range: "Use range" #?
     used_amount: "Used amount" #?
     used_with: "Used with" #?
@@ -1506,24 +1484,22 @@ eng:
     users: "Users"
     uses: "Uses" #?
     value: "Value"
-    # variable: "Variable"
-    # variable_indicators: "Indicateurs d'une variable"
+    # variable_indicators: "Indicateurs d’une variable"
     # variable_indicators_list: "Variable indicators list"
-    variables: "Variables"
+    variables: "Variables" #?
     variant: "Variant"
     variants: "Variants"
     variety: "Variety"
     vat_number: "Vat number"
     # vat_subjected: "Assujetti à la TVA"
     vat_submissive: "Vat submissive" #?
-    # verb: "Verbe"
     # versions: "Versions"
     virtual: "Virtual" #?
     virtual_quantity: "Virtual quantity" #?
     waiting_deliveries: "Waiting deliveries"
     waiting_transporters: "Waiting transporters" #?
     watcher: "Watcher" #?
-    webpass: "Webpass"
+    webpass: "Webpass" #?
     website: "Website" #?
     websites: "Websites"
     with_accounting: "With accounting"
@@ -1541,11 +1517,11 @@ eng:
       bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{description}"
     catalog:
       cost:
-        # name: "Catalogue de coût d'utilisation"
+        # name: "Catalogue de coût d’utilisation"
       default:
         # name: "Par défaut"
       purchase:
-        # name: "Catalogue d'achat"
+        # name: "Catalogue d’achat"
       sale:
         # name: "Catalogue de vente"
     catalog_price:
