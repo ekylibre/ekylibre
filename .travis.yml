@@ -4,10 +4,12 @@ rvm:
   - 1.9.3
   - 2.0.0
 before_install: 
-  - "export DISPLAY=:99.0"
   - test/ci/before_install
-before_script:  test/ci/before_script
-script: "DISPLAY=:99.0 bundle exec rake test:lib test"
+before_script:  
+  - test/ci/before_script
+script:
+  - "export DISPLAY=:99.0"
+  - "bundle exec rake test:lib test"
 matrix:
   allow_failures:
     - rvm: 2.1.0

@@ -26,11 +26,6 @@ firefox --version
 
 echo ""
 echo "--------------------------------------------------------------------------------"
-echo "Add DBus machine ID:"
-dbus-uuidgen > /var/lib/dbus/machine-id
-
-echo ""
-echo "--------------------------------------------------------------------------------"
 echo "Configure XVFB:"
 # export DISPLAY=:99.0
 sh -e /etc/init.d/xvfb start
