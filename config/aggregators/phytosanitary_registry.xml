@@ -22,10 +22,10 @@
           <property name="area_in_hectare" value="plant.net_surface_area.to_d(:hectare)" type="measure" level="api"/>
           <property name="id" of="plant" level="api"/>
           <property name="cluster_pac_number" value="plant.current_localization.container.clusters_work_number"/>
-          <property name="cultivable_land_parcel" value="plant.current_localization.container.name"/>
+          <property name="cultivable_land_parcel" if="plant.current_localization.container" value="plant.current_localization.container.name"/>
           <property name="shape_svg" value="plant.current_localization.container.shape_svg" type="svg" level="api"/>
           <!-- looking for all Production in current cultivable_land_parcel and campaign -->
-            <sections for="intervention" in="Intervention.of_nature(:plant_illness_treatment).with_cast(:'plant_illness_treatment-target', plant)" of-type="record">
+            <sections for="intervention" in="Intervention.real.where(state: 'done').of_nature(:plant_illness_treatment).with_cast(:'plant_illness_treatment-target', plant)" of-type="record">
               <title name="name" of="intervention"/>
               <property name="id" of="intervention" level="api"/>
               <property name="started_at" of="intervention" type="datetime"/>
@@ -33,8 +33,7 @@
               <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
               <!-- @TODO find a way to allow input working area<variable name="working_area" value="intervention.casts.of_role(:'plant_illness_treatment-target').first.quantity"/> -->
               <property name="working_area" value="intervention.casts.of_role(:'plant_illness_treatment-target').first.population"/>
-              <property name="doer_name" value="intervention.casts.of_role(:'plant_illness_treatment-doer').first.actor.name"/>
-              
+              <property name="doer_name" if="intervention.casts.of_role(:'plant_illness_treatment-doer').first.actor" value="intervention.casts.of_role(:'plant_illness_treatment-doer').first.actor.name"/>
               <section name="incident" of="intervention.incident">
                 <property name="id" level="api"/>
                 <property name="name"/>

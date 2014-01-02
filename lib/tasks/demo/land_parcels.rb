@@ -74,7 +74,7 @@ demo :land_parcels do
 
         # add available_water_capacity indicator
         if r.land_parcel_available_water_capacity
-          land_parcel.is_measured!(:available_water_capacity, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
+          land_parcel.is_measured!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
         end
 
         # add land_parcel in land_parcel_cluster group
