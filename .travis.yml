@@ -3,18 +3,9 @@ bundler_args: --without development doc
 rvm:
   - 1.9.3
   - 2.0.0
-before_install: 
-  - gem uninstall ffi -a
-  - "export DISPLAY=:99.0"
-  - test/ci/before_install
-before_script:  
-  - test/ci/before_script
-  - sh -e /etc/init.d/xvfb start
-script:
-  - "firefox --version"
-  - "bundle exec ruby -e \"require 'ffi'; puts FFI\""
-  - "ruby -e \"require 'ffi'; puts FFI\""
-  - "DISPLAY=:99.0 bundle exec rake test"
+before_install: test/ci/before_install
+before_script: test/ci/before_script
+script: bundle exec rake test:core
 matrix:
   allow_failures:
     - rvm: 2.1.0

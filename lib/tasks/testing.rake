@@ -1,47 +1,14 @@
-
-Rake::TaskManager.class_eval do
-  def remove_task(task_name)
-    @tasks.delete(task_name.to_s)
-  end
-end
-
-def remove_task(task_name)
-  Rake.application.remove_task(task_name)
-end
-
+# Append test for lib
 namespace :test do
 
-  desc "Run tests for lib sources"
-  Rake::TestTask.new(:lib) do |t|
-    t.libs << "test"
-    t.pattern = 'test/lib/**/*_test.rb'
-    t.verbose = true
+  desc "Run tests for libraries"
+  Rails::TestTask.new(lib: "test:prepare") do |t|
+    t.pattern = "test/lib/**/*_test.rb"
   end
 
-  # remove_task("run")
+  task :core => ['test:units', 'test:functionals', 'test:lib']
 
-  # task :run => %w(test:units test:functionals test:integration test:lib)
 end
-
-# Rake::Task[:test].enhance { Rake::Task["test:lib"].invoke }
-
-# # lib_task = Rake::Task["test:lib"]
-# # test_task = Rake::Task[:test]
-# # test_task.enhance { lib_task.invoke }
-# remove_task("test")
-
-# task :test do
-#   errors = %w(test:units test:functionals test:integration test:lib).collect do |task|
-#     begin
-#       Rake::Task[task].invoke
-#       nil
-#     rescue => e
-#       task
-#     end
-#   end.compact
-#   abort "Errors running #{errors * ', '}!" if errors.any?
-# end
-
 
 namespace :fixtures do
 
@@ -111,8 +78,6 @@ namespace :fixtures do
         f.write data.to_yaml
       end
     end
-
-
   end
 
 end

@@ -1,63 +1,9 @@
-# -*- coding: utf-8 -*-
 require 'coveralls'
 Coveralls.wear!('rails')
-
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
-
-
-# Removes use of shoulda gem until bug is not fixed for Rails >= 1.9.3
-# Use specific file lib/shoulda/context/context.rb
-# TODO: Re-add shoulda-context in Gemfile ASAP
-# require File.join(File.dirname(__FILE__), 'shoulda-context')
-# class ActiveSupport::TestCase
-#   include Shoulda::Context::InstanceMethods
-#   extend Shoulda::Context::ClassMethods
-# end
-
-
-# Capybara.register_driver :selenium do |app|
-
-#   custom_profile = Selenium::WebDriver::Firefox::Profile.new
-
-#   # Turn off the super annoying popup!
-#   custom_profile["network.http.prompt-temp-redirect"] = false
-
-#   Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => custom_profile)
-# end
-Capybara.default_driver = :selenium
-Capybara.default_wait_time = 5
-
-class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
-  include Capybara::DSL
-  include Capybara::Screenshot
-  include Warden::Test::Helpers
-  Warden.test_mode!
-
-  def shoot_screen(name)
-    sleep(1)
-    file = Rails.root.join("tmp", "screenshots", name + ".png")
-    FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
-    save_screenshot file
-  end
-
-  # Add a method to test unroll in form
-  # FIXME : add an AJAX helpers to capybara for testing unroll field
-  # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185
-  # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
-  def fill_unroll(field, options = {})
-    fill_in(field, :with => options[:with])
-    sleep(1)
-    selector = "input##{field} + .items-menu .items-list .item[data-item-label=\"#{options[:select]}\"]"
-    # page.should have_xpath(selector)
-    page.execute_script "$('#{selector}').trigger('mouseenter').click();"
-  end
-
-end
-
-
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
@@ -67,9 +13,9 @@ class ActiveSupport::TestCase
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
   # -- they do not yet inherit this setting
   fixtures :all
+
+  # Add more helper methods to be used by all tests here...
 end
-
-
 
 class ActionController::TestCase
   include Devise::TestHelpers
@@ -243,6 +189,7 @@ class ActionController::TestCase
       File.open(file, "wb") do |f|
         f.write(code)
       end
+
       class_eval(code, "(test) #{controller_path}") # :#{__LINE__}
     end
 
@@ -276,5 +223,42 @@ class ActionController::TestCase
 
 
   end
+end
+
+
+# Capybara.register_driver :selenium do |app|
+#   custom_profile = Selenium::WebDriver::Firefox::Profile.new
+#   # Turn off the super annoying popup!
+#   custom_profile["network.http.prompt-temp-redirect"] = false
+#   Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => custom_profile)
+# end
+Capybara.default_driver = :selenium
+Capybara.default_wait_time = 5
+
+class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
+  include Capybara::DSL
+  include Capybara::Screenshot
+  include Warden::Test::Helpers
+  Warden.test_mode!
+
+  def shoot_screen(name)
+    sleep(1)
+    file = Rails.root.join("tmp", "screenshots", name + ".png")
+    FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
+    save_screenshot file
+  end
+
+  # Add a method to test unroll in form
+  # FIXME : add an AJAX helpers to capybara for testing unroll field
+  # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185
+  # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
+  def fill_unroll(field, options = {})
+    fill_in(field, :with => options[:with])
+    sleep(1)
+    selector = "input##{field} + .items-menu .items-list .item[data-item-label=\"#{options[:select]}\"]"
+    # page.should have_xpath(selector)
+    page.execute_script "$('#{selector}').trigger('mouseenter').click();"
+  end
+
 end
 
