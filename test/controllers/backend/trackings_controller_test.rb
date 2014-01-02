@@ -1,7 +1,5 @@
 require 'test_helper'
 
 class Backend::TrackingsControllerTest < ActionController::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test_restfully_all_actions
 end

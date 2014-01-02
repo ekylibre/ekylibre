@@ -1,8 +1,5 @@
 require 'test_helper'
 
 class Backend::MyselvesControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
-  end
+  test_restfully_all_actions
 end
