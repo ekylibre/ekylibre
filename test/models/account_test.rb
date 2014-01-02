@@ -41,7 +41,6 @@ require 'test_helper'
 class AccountTest < ActiveSupport::TestCase
 
   test "load the charts" do
-    print "!"
     # for locale in I18n.available_locales
     #   I18n.locale = locale
     #   assert_equal I18n.locale, locale

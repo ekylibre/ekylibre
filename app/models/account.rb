@@ -72,7 +72,9 @@ class Account < Ekylibre::Record::Base
   # default_scope order(:number, :name)
   scope :majors, -> { where("number LIKE '_'").order(:number, :name) }
   scope :of_usage, lambda { |usage|
-    raise ArgumentError.new("Unknown usage #{usage.inspect}") unless Nomen::Accounts[usage]
+    unless Nomen::Accounts[usage]
+      raise ArgumentError, "Unknown usage #{usage.inspect}"
+    end
     self.where("usages ~ E?", "\\\\m#{usage}\\\\M")
   }
   # return Account which contains usages mentionned (OR)
@@ -115,7 +117,7 @@ class Account < Ekylibre::Record::Base
   protect(on: :destroy) do
     dependencies = 0
     for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
-      dependencies += self.send(k).size
+      dependencies += self.send(k).count
     end
     return dependencies <= 0
   end
@@ -195,9 +197,9 @@ class Account < Ekylibre::Record::Base
       if account = find_in_chart(usage)
         return account
       elsif item = Nomen::Accounts[usage]
-        return create!(:name => item.human_name, :number => item.send(chart), :debtor => !!item.debtor, :usages => item.name)
+        return create!(name: item.human_name, number: item.send(chart), debtor: !!item.debtor, usages: item.name)
       else
-        raise ArgumentError.new("The usage #{usage.inspect} is not known")
+        raise ArgumentError, "The usage #{usage.inspect} is unknown"
       end
     end
 

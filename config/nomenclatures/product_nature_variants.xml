@@ -122,7 +122,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-                 <!-- BARLEY CROP -->  
+      <!-- BARLEY CROP -->  
       <item name="winter_barley_crop"
             nature="cereal_crop"
             variety="hordeum_hibernum"

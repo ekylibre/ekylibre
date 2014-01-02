@@ -63,8 +63,7 @@ demo :productions do
       activity   = Activity.find_by(description: r.description)
       activity ||= Activity.create!(:nature => r.nature, :family => r.family, :name => r.name, :description => r.description)
       if r.variant_reference_name
-        product_nature_variant_sup = ProductNatureVariant.find_by(reference_name: r.variant_reference_name)
-        product_nature_variant_sup ||= ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
+        product_nature_variant_sup = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
         product_support = Product.find_by(work_number: r.work_number_storage) || nil
         if product_nature_variant_sup and !product_support.nil?
           # find a production corresponding to campaign , activity and product_nature
