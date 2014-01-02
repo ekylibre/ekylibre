@@ -4,5 +4,5 @@
 
 =beehive do |b|
   -b.cell :details do
-    =attributes_list(@product_localization) do |l| # liste des champs à afficher
-      -l.attribute :container
+    = attributes_list do |l| # liste des champs à afficher
+      - l.attribute :container

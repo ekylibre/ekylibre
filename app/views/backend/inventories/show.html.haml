@@ -1,9 +1,9 @@
-=attributes_list(@inventory) do |l|
-  -l.attribute :number
-  -l.attribute :reponsible
-  -l.attribute :changes_reflected
-  -l.attribute :moved_on
-  -l.attribute :description
+= attributes_list do |l|
+  - l.attribute :number
+  - l.attribute :reponsible
+  - l.attribute :changes_reflected
+  - l.attribute :moved_on
+  - l.attribute :description
 
 %h2=Inventory.human_attribute_name("items")
 =list :items

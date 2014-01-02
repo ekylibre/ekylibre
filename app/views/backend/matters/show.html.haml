@@ -29,14 +29,14 @@
             =vals.to_sentence
 
     - b.cell :details do
-      = attributes_list(@matter) do |l| # liste des champs à afficher
-        -l.attribute :name
-        -l.attribute :variety, url: true
+      = attributes_list do |l| # liste des champs à afficher
+        - l.attribute :name
+        - l.attribute :variety, url: true
         -#l.attribute :group, url: true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
-        -l.attribute :born_at
-        -l.attribute :dead_at
-        -l.attribute :identification_number
-        -l.attribute :description
+        - l.attribute :born_at
+        - l.attribute :dead_at
+        - l.attribute :identification_number
+        - l.attribute :description
 
   - b.tabbox do
     - b.cell(:places) do

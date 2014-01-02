@@ -44,7 +44,7 @@
             %th{:colspan => 3}
 
     - b.cell do
-      = attributes_list(@sale) do |l|
+      = attributes_list do |l|
         - l.attribute :client, :label => :label, url: true
         - l.attribute :number
         - l.attribute :initial_number if @sale.invoice?

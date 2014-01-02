@@ -15,19 +15,19 @@
 
   -b.tabbox do
     -b.cell do
-      =attributes_list(@purchase) do |l|
-        -l.attribute :supplier, :label=>:label, url: true
-        -l.attribute :number
-        -l.attribute :reference_number
-        -l.attribute :state
-        -l.attribute :responsible, :label=>:full_name
-        -l.attribute :created_on
-        -l.attribute :confirmed_on
-        -l.attribute :planned_on
-        -l.attribute :currency unless @purchase.currency == Entity.of_company.currency
-        -l.attribute :description
-        -l.attribute :delivery_address, :label=>:coordinate
-        -l.attribute :journal_entry, url: true
+      = attributes_list do |l|
+        - l.attribute :supplier, :label=>:label, url: true
+        - l.attribute :number
+        - l.attribute :reference_number
+        - l.attribute :state
+        - l.attribute :responsible, :label=>:full_name
+        - l.attribute :created_on
+        - l.attribute :confirmed_on
+        - l.attribute :planned_on
+        - l.attribute :currency unless @purchase.currency == Entity.of_company.currency
+        - l.attribute :description
+        - l.attribute :delivery_address, :label=>:coordinate
+        - l.attribute :journal_entry, url: true
 
   -if ["products", "summary", ""].include? params[:step].to_s
     -b.cell Purchase.human_attribute_name("items") do

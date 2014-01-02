@@ -1,11 +1,11 @@
 =main_toolbar do |t|
   -t.edit @user
 
-=attributes_list(@user) do |l|
-  -l.attribute :last_name
-  -l.attribute :first_name
-  -l.attribute :name
-  -l.attribute :commercial
-  -l.attribute :employment
-  -l.attribute :establishment, :label=>:name
-  -l.attribute :department, :label=>:name
+= attributes_list do |l|
+  - l.attribute :last_name
+  - l.attribute :first_name
+  - l.attribute :name
+  - l.attribute :commercial
+  - l.attribute :employment
+  - l.attribute :establishment, :label=>:name
+  - l.attribute :department, :label=>:name

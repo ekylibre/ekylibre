@@ -1,54 +1,54 @@
-=main_toolbar do |t|
-  -t.edit @bank_statement
-=attributes_list(@bank_statement) do |l|
-  -l.attribute(:number)
-  -l.attribute(:started_on)
-  -l.attribute(:stopped_on)
+= main_toolbar do |t|
+  - t.edit @bank_statement
+= attributes_list do |l|
+  - l.attribute(:number)
+  - l.attribute(:started_on)
+  - l.attribute(:stopped_on)
 
-%h2=tc(:entries_to_point)
-=form_tag do
+%h2= tc(:entries_to_point)
+= form_tag do
   .active-list
     %table.list
       %thead
         %tr
           %th
-          %th=JournalEntry.human_attribute_name("number")
-          %th=JournalEntry.human_attribute_name("printed_on")
-          %th=JournalEntryItem.human_attribute_name("name")
-          %th=JournalEntryItem.human_attribute_name("debit")
-          %th=JournalEntryItem.human_attribute_name("credit")
+          %th= JournalEntry.human_attribute_name("number")
+          %th= JournalEntry.human_attribute_name("printed_on")
+          %th= JournalEntryItem.human_attribute_name("name")
+          %th= JournalEntryItem.human_attribute_name("debit")
+          %th= JournalEntryItem.human_attribute_name("credit")
       %tfoot
         %tr.total
-          %th{:colspan=>4}=tg(:total)
-          %td#total-debit{"data-use"=>"tr.notice .debit"}=@bank_statement.debit || 0
-          %td#total-credit{"data-use"=>"tr.notice .credit"}=@bank_statement.credit || 0
-        -if previous = @bank_statement.previous
+          %th{:colspan=>4}= tg(:total)
+          %td#total-debit{"data-use"=>"tr.notice .debit"}= @bank_statement.debit || 0
+          %td#total-credit{"data-use"=>"tr.notice .credit"}= @bank_statement.credit || 0
+        - if previous = @bank_statement.previous
           %tr.total
-            %th{:colspan=>4}=tc(:previous_bank_statement, :number=>previous.number, :started_on=>previous.started_on, :stopped_on=>previous.stopped_on)
-            %td#previous-debit=previous.balance_debit || 0
-            %td#previous-credit=previous.balance_credit || 0
+            %th{:colspan=>4}= tc(:previous_bank_statement, :number=>previous.number, :started_on=>previous.started_on, :stopped_on=>previous.stopped_on)
+            %td#previous-debit= previous.balance_debit || 0
+            %td#previous-credit= previous.balance_credit || 0
           %tr.total
-            %th{:colspan=>4}=tc(:cumul, :number=>previous.number, :started_on=>previous.started_on, :stopped_on=>previous.stopped_on)
-            %td#cumul-debit{"data-use"=>"#total-debit, #previous-debit"}=previous.balance_debit || 0
-            %td#cumul-credit{"data-use"=>"#total-credit, #previous-credit"}=previous.balance_credit || 0
+            %th{:colspan=>4}= tc(:cumul, :number=>previous.number, :started_on=>previous.started_on, :stopped_on=>previous.stopped_on)
+            %td#cumul-debit{"data-use"=>"#total-debit, #previous-debit"}= previous.balance_debit || 0
+            %td#cumul-credit{"data-use"=>"#total-credit, #previous-credit"}= previous.balance_credit || 0
           %tr.total
-            %th{:colspan=>4}=tc(:balance)
-            %td#balance-debit{"data-balance"=>"#cumul-debit - #cumul-credit"}=previous.balance_debit || 0
-            %td#balance-credit{"data-balance"=>"#cumul-credit - #cumul-debit"}=previous.balance_credit || 0
+            %th{:colspan=>4}= tc(:balance)
+            %td#balance-debit{"data-balance"=>"#cumul-debit - #cumul-credit"}= previous.balance_debit || 0
+            %td#balance-credit{"data-balance"=>"#cumul-credit - #cumul-debit"}= previous.balance_credit || 0
       %tbody
         - for @journal_entry_item in @journal_entry_items
-          -checked = (@journal_entry_item.bank_statement_id==@bank_statement.id)
-          -trid, conf = "e#{@journal_entry_item.id}", {}
+          - checked = (@journal_entry_item.bank_statement_id==@bank_statement.id)
+          - trid, conf = "e#{@journal_entry_item.id}", {}
           %tr{:id=>trid, :class=>(checked ? "notice " : "")+cycle("even", "odd")}
             %td.chk
-              -if @journal_entry_item.bank_statement_id.nil? or checked
-                =check_box_tag("journal_entry_item[#{@journal_entry_item.id}][checked]", "1", checked, :id=>"journal_entry_item_#{@journal_entry_item.id}_checked", "data-add-class"=>"notice", "data-add-class-to"=>"##{trid}")
-                -conf = {"data-click"=>"#journal_entry_item_#{@journal_entry_item.id}_checked"}
-              -else
-                =link_to(@journal_entry_item.bank_statement.number, :action=>:show, :id=>@journal_entry_item.bank_statement.id)
-            %td{conf}=link_to(@journal_entry_item.entry.number, :action=>:show, :controller=>:journal_entries, :id=>@journal_entry_item.entry_id)
-            %td.date{conf}=I18n.localize(@journal_entry_item.entry.printed_on)
-            %td{conf}=@journal_entry_item.name
-            %td.dec.debit{conf}=number_to_accountancy(@journal_entry_item.debit)
-            %td.dec.credit{conf}=number_to_accountancy(@journal_entry_item.credit)
-  .actions=submit_tag(tg(:save))
+              - if @journal_entry_item.bank_statement_id.nil? or checked
+                = check_box_tag("journal_entry_item[#{@journal_entry_item.id}][checked]", "1", checked, :id=>"journal_entry_item_#{@journal_entry_item.id}_checked", "data-add-class"=>"notice", "data-add-class-to"=>"##{trid}")
+                - conf = {"data-click"=>"#journal_entry_item_#{@journal_entry_item.id}_checked"}
+              - else
+                = link_to(@journal_entry_item.bank_statement.number, :action=>:show, :id=>@journal_entry_item.bank_statement.id)
+            %td{conf}= link_to(@journal_entry_item.entry.number, :action=>:show, :controller=>:journal_entries, :id=>@journal_entry_item.entry_id)
+            %td.date{conf}= I18n.localize(@journal_entry_item.entry.printed_on)
+            %td{conf}= @journal_entry_item.name
+            %td.dec.debit{conf}= number_to_accountancy(@journal_entry_item.debit)
+            %td.dec.credit{conf}= number_to_accountancy(@journal_entry_item.credit)
+  .actions= submit_tag(tg(:save))

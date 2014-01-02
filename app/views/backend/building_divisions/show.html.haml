@@ -4,11 +4,11 @@
 =beehive do |b|
   -b.tabbox do
     -b.cell :general do
-      =attributes_list(@building_division) do |l|
-        -l.attribute :name
-        -l.attribute :variant, url: true
-        -l.attribute :nature, url: true
-        -l.attribute :work_number
+      = attributes_list do |l|
+        - l.attribute :name
+        - l.attribute :variant, url: true
+        - l.attribute :nature, url: true
+        - l.attribute :work_number
     -b.cell do
       .picture
         =@building_division.shape_svg(:width => 180, :height => 180, :class => :map)

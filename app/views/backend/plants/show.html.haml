@@ -9,11 +9,11 @@
         = image_tag(@plant.picture.url(:identity))
       - else
         = @plant.shape_svg(width: 180, height: 180, :class => :map)
-    = attributes_list(@plant) do |l| # liste des champs à afficher
+    = attributes_list do |l| # liste des champs à afficher
       - l.attribute :name
       - l.attribute :born_at
-      - #-l.attribute :variety, url: true
-      - #-l.attribute :group, url: true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
+      - #- l.attribute :variety, url: true
+      - #- l.attribute :group, url: true # on affiche l'attribut name de l'entité ProductGroup associé par l'attribut group de l'entité courante Product avec un lien vers ce groupe
       - l.attribute :description
 
   - b.tabbox do

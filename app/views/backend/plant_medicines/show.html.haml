@@ -3,10 +3,10 @@
 
 =beehive do |b|
   -b.cell do
-    =attributes_list(@plant_medicine) do |l|
-      -l.attribute :name
-      -l.attribute :nature
-      -l.attribute :variant
+    = attributes_list do |l|
+      - l.attribute :name
+      - l.attribute :nature
+      - l.attribute :variant
 
   - b.tabbox do
     - b.cell(:interventions) do

@@ -3,7 +3,7 @@
     - e.deposit @deposit.number, @deposit
   - t.edit @deposit
 
-= attributes_list(@deposit) do |l|
+= attributes_list do |l|
   - l.attribute :number
   - l.attribute :cash, url: true
   - l.attribute :mode # , url: true

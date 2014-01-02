@@ -12,6 +12,6 @@
 
 =beehive do |b|
   -b.cell do
-    =attributes_list(@land_parcel_group) do |l|
-      -l.attribute :name
+    = attributes_list do |l|
+      - l.attribute :name
       

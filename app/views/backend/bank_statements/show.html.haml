@@ -2,13 +2,13 @@
   -t.edit @bank_statement
   -t.point @bank_statement
 
-=attributes_list(@bank_statement) do |l|
-  -l.attribute(:number)
-  -l.attribute(:cash, url: true)
-  -l.attribute(:credit)
-  -l.attribute(:debit)
-  -l.attribute(:started_on)
-  -l.attribute(:stopped_on)
+= attributes_list do |l|
+  - l.attribute(:number)
+  - l.attribute(:cash, url: true)
+  - l.attribute(:credit)
+  - l.attribute(:debit)
+  - l.attribute(:started_on)
+  - l.attribute(:stopped_on)
 
 %h2=BankStatement.human_attribute_name("items")
 =list(:items)

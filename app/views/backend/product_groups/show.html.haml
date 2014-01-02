@@ -4,7 +4,7 @@
 
 = beehive do |b|
   - b.cell :details do
-    = attributes_list(@product_group) do |l| # liste des champs à afficher
+    = attributes_list do |l| # liste des champs à afficher
       - l.attribute :name
       - l.attribute :variety, url: true
       - l.attribute :identification_number

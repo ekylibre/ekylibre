@@ -3,21 +3,21 @@
 
 =beehive do |b|
   -b.cell do
-    =attributes_list(@cash) do |l|
-      -l.attribute :name
-      -l.attribute :nature
-      -l.attribute :journal, url: true
-      -l.attribute :account, url: true
+    = attributes_list do |l|
+      - l.attribute :name
+      - l.attribute :nature
+      - l.attribute :journal, url: true
+      - l.attribute :account, url: true
       -if @cash.bank_account?
-        -l.attribute :bank_name
-        -l.attribute :bank_agency_address
-        -l.attribute :spaced_iban
-        -l.attribute :bank_identifier_code
+        - l.attribute :bank_name
+        - l.attribute :bank_agency_address
+        - l.attribute :spaced_iban
+        - l.attribute :bank_identifier_code
         -if @cash.mode_bban?
-          -l.attribute :bank_code
-          -l.attribute :bank_agency_code
-          -l.attribute :bank_account_number
-          -l.attribute :bank_account_key
+          - l.attribute :bank_code
+          - l.attribute :bank_agency_code
+          - l.attribute :bank_account_number
+          - l.attribute :bank_account_key
 
   -if @cash.bank_account?
     -b.tabbox do

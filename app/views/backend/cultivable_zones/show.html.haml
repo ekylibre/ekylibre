@@ -11,7 +11,7 @@
         %span.value= @cultivable_zone.net_surface_area.in_hectare.round(2).l
 
     - b.cell do
-      = attributes_list(@cultivable_zone) do |l|
+      = attributes_list do |l|
         - l.attribute :name
 
   - b.tabbox do

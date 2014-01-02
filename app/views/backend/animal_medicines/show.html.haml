@@ -3,8 +3,8 @@
 
 =beehive do |b|
   -b.cell do
-    =attributes_list(@animal_medicine) do |l|
-      -l.attribute :name
+    = attributes_list do |l|
+      - l.attribute :name
 
   - b.tabbox do
     - b.cell(:interventions) do

@@ -13,10 +13,10 @@
 
 
     -b.cell do
-      =attributes_list(@land_parcel) do |l|
-        -l.attribute :name
+      = attributes_list do |l|
+        - l.attribute :name
         -# l.attribute :shape_svg_path
-        -l.attribute :description
+        - l.attribute :description
         -# l.attribute :started_on
         -# l.attribute :stopped_on
         -# l.attribute :area_measure
