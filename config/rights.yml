@@ -125,6 +125,8 @@
 # - "backend/buildings#list_places"
 # - "backend/buildings#picture"
 # - "backend/buildings#unroll"
+# - "backend/calculators#index"
+# - "backend/calculators/nitrogen_inputs#show"
 # - "backend/campaigns#create"
 # - "backend/campaigns#destroy"
 # - "backend/campaigns#edit"

@@ -75,9 +75,6 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    # Permits to use dynamic dashboards
-    # dashboards
-
     resource :dashboards, only: [] do
       collection do
         for mod in [:relationship, :accountancy, :trade, :stocks, :production, :tools, :settings]
@@ -95,6 +92,12 @@ Ekylibre::Application.routes.draw do
         post :toggle
       end
     end
+
+    namespace :calculators do
+      resource :nitrogen_inputs, only: :show
+    end
+
+    resources :calculators, only: :index
 
     namespace :cells do
       resource :bank_chart_cell, only: :show, concerns: :list
@@ -126,6 +129,7 @@ Ekylibre::Application.routes.draw do
     end
 
     # resources :account_balances
+
     resources :accounts, concerns: [:list, :unroll] do
       collection do
         get :reconciliation

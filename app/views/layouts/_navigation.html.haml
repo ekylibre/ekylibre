@@ -1,15 +1,15 @@
 - current_module = Ekylibre::Modules.module_of(controller.controller_path, action_name)
 %nav#top
 
-  = link_to("#side", :id => "menu", "data-toggle" => "side") do
+  = link_to("#side", id: "menu", "data-toggle" => "side") do
     %i
 
-  = link_to(backend_root_url, :id => "brand") do
+  = link_to(backend_root_url, id: "brand") do
     %i
     %h1= "Ekylibre"
 
 
-  = link_to(Ekylibre::Modules.human_name(current_module), {:controller => :dashboards, :action => current_module}, :id => "module") if current_module
+  = link_to(Ekylibre::Modules.human_name(current_module), {controller: "/backend/dashboards", action: current_module}, id: "module") if current_module
 
   .collapse
 
@@ -21,7 +21,7 @@
             attrs = {:id => "#{mod}-module"}
             attrs[:class] = :active if current_module == mod
           %li{attrs}
-            = link_to({:controller => :dashboards, :action => mod}) do
+            = link_to(controller: "/backend/dashboards", action: mod) do
               %i
               = Ekylibre::Modules.human_name(mod)
 

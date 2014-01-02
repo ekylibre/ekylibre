@@ -1,20 +1,20 @@
--snippet :search, :title => false do
-  =form_tag(backend_search_url, :method => :get, :class => "search") do
-    =search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
+- snippet :search, :title => false do
+  = form_tag(backend_search_url, :method => :get, :class => "search") do
+    = search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
 
--mod = Ekylibre::Modules.module_of(controller.controller_path, action_name)
--current = Ekylibre::Modules.reverse(controller.controller_path, action_name) rescue []
--for group, items in Ekylibre::Modules.groups_in(mod)
-  -side_menu(group, :title => Ekylibre::Modules.human_name(mod, group), :icon => Ekylibre::Modules.icon(mod, group), :active => !!(group == current[1])) do |m|
-    -for item, pages in items
-      -attrs = {:title => Ekylibre::Modules.human_name(mod, group, item)}
-      -attrs[:active] = true if item == current[2]
-      -m.link(item, pages.first, attrs)
+- mod = Ekylibre::Modules.module_of(controller.controller_path, action_name)
+- current = Ekylibre::Modules.reverse(controller.controller_path, action_name) || []
+- for group, items in Ekylibre::Modules.groups_in(mod)
+  - side_menu(group, :title => Ekylibre::Modules.human_name(mod, group), :icon => Ekylibre::Modules.icon(mod, group), :active => !!(group == current[1])) do |m|
+    - for item, pages in items
+      - attrs = {:title => Ekylibre::Modules.human_name(mod, group, item)}
+      - attrs[:active] = true if item == current[2]
+      - m.link(item, pages.first, attrs)
 
--snippet :user, :title => Entity.of_company.full_name do
+- snippet :user, :title => Entity.of_company.full_name do
   %ul
-    %li=link_to(current_user.person.full_name, backend_myself_url, :class => :user)
-    %li=link_to(Authentication::SessionsController.human_action_name(:destroy), destroy_user_session_url, :method => :delete)
+    %li= link_to(current_user.person.full_name, backend_myself_url, :class => :user)
+    %li= link_to(Authentication::SessionsController.human_action_name(:destroy), destroy_user_session_url, :method => :delete)
 
--if content_for?(:aside)
-  =content_for(:aside)
+- if content_for?(:aside)
+  = content_for(:aside)

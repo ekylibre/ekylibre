@@ -75,6 +75,10 @@ fra:
       new: "Ajout d’un bâtiment"
       # picture: "Picture backend/building"
       show: "Détail du bâtiment\_: %{name}"
+    backend/calculators/nitrogen_inputs:
+      show: "Calcul des apports d’azote"
+    backend/calculators:
+      index: "Calculateurs"
     backend/campaigns:
       edit: "Campagne\_: %{name}"
       index: "Campagnes"
@@ -676,6 +680,8 @@ fra:
     backend/bank_statements: "Relevés de compte bancaire"
     # backend/building_divisions: "Backend/building divisions"
     backend/buildings: "Bâtiments"
+    # backend/calculators/nitrogen_inputs: "Backend/calculators/nitrogen inputs"
+    # backend/calculators: "Backend/calculators"
     backend/campaigns: "Campagnes"
     backend/cash_transfers: "Virements internes"
     backend/cashes: "Trésoreries"
@@ -1298,6 +1304,7 @@ fra:
     menus:
       accountancy: "Comptabilité"
       archives: "Archives"
+      calculators_and_simulators: "Calculs et simulations"
       documents: "GED"
       exchange: "Échange de données"
       finances: "Finances"

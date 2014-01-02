@@ -72,6 +72,10 @@ jpn:
       # index: "Bâtiments"
       # new: "Ajout d’un bâtiment"
       # show: "Détail du bâtiment\_: %{name}"
+    backend/calculators:
+      # index: "Calculateurs"
+    backend/calculators/nitrogen_inputs:
+      # show: "Calcul des apports d’azote"
     backend/campaigns:
       # edit: "Campagne\_: %{name}"
       # index: "Campagnes"
@@ -1186,6 +1190,7 @@ jpn:
     menus:
       # accountancy: "Comptabilité"
       # archives: "Archives"
+      # calculators_and_simulators: "Calculs et simulations"
       # documents: "GED"
       # exchange: "Échange de données"
       # finances: "Finances"

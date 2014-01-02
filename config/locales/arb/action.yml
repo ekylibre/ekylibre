@@ -79,6 +79,10 @@ arb:
       index: "مواقع التخزين"
       new: "اضافة موقع للتخزين"
       show: "تفاصيل عن مواقع التخزين : %{name}"
+    backend/calculators:
+      # index: "Calculateurs"
+    backend/calculators/nitrogen_inputs:
+      # show: "Calcul des apports d’azote"
     backend/campaigns:
       # edit: "Campagne\_: %{name}"
       # index: "Campagnes"
@@ -1437,6 +1441,7 @@ arb:
     menus:
       accountancy: "المحاسبة"
       # archives: "Archives"
+      # calculators_and_simulators: "Calculs et simulations"
       # documents: "GED"
       # exchange: "Échange de données"
       finances: "المالية"

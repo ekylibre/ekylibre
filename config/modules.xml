@@ -713,6 +713,12 @@
         <page to="backend/settings#restore"/>
       </item>
     </group>
+    <group name="calculators_and_simulators" icon="compass">
+      <item name="calculators">
+        <page to="backend/calculators#index"/>
+        <page to="backend/calculators/nitrogen_inputs#show"/>
+      </item>
+    </group>
     <group name="incidents" icon="bug">
       <item name="incidents">
         <page to="backend/incidents#index"/>

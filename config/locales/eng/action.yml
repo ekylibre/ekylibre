@@ -78,6 +78,10 @@ eng:
       index: "Buildings"
       new: "Add a new building"
       show: "Building: %{name}"
+    backend/calculators:
+      # index: "Calculateurs"
+    backend/calculators/nitrogen_inputs:
+      # show: "Calcul des apports d’azote"
     backend/campaigns:
       edit: "Edit campaign\_: %{name}"
       index: "Campagains"
@@ -1264,6 +1268,7 @@ eng:
     menus:
       accountancy: "Accountancy"
       archives: "Archives"
+      # calculators_and_simulators: "Calculs et simulations"
       # documents: "GED"
       exchange: "Data exchanges"
       finances: "Finances"

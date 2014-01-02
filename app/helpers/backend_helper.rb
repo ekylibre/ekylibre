@@ -38,18 +38,18 @@ module BackendHelper
 
   def navigation_tag
     render(partial: "layouts/navigation")
-  rescue ActionView::Template::Error => e
-    Rails.logger.warn("Cannot render navigation bar. #{e.message}.")
-    return nil
+  # rescue ActionView::Template::Error => e
+  #   Rails.logger.warn("Cannot render navigation bar. #{e.message}.")
+  #   return nil
   end
 
   def side_tag # (submenu = self.controller.controller_name.to_sym)
     path = reverse_menus
     return '' if path.nil?
     render(partial: 'layouts/side', locals: {path: path})
-  rescue ActionView::Template::Error => e
-    Rails.logger.warn("Cannot render side bar. #{e.message}.")
-    return nil
+  # rescue ActionView::Template::Error => e
+  #   Rails.logger.warn("Cannot render side bar. #{e.message}.")
+  #   return nil
   end
 
   def side_menu(*args, &block)
@@ -111,7 +111,7 @@ module BackendHelper
     html << "<div id='#{name}' class='snippet#{' ' + options[:class].to_s if options[:class]}#{' collapsed' if collapsed}'>"
 
     unless options[:title].is_a?(FalseClass)
-      html << "<a href='#{url_for(:controller => :snippets, :action => :toggle, :id => name)}' class='snippet-title' data-toggle-snippet='true'>"
+      html << "<a href='#{url_for(:controller => "/backend/snippets", :action => :toggle, :id => name)}' class='snippet-title' data-toggle-snippet='true'>"
       html << "<i class='collapser'></i>"
       html << "<h3><i></i>" + (options[:title] || tl(name)) + "</h3>"
       html << "</a>"
