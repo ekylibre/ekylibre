@@ -883,6 +883,23 @@ eng:
         total_bacteria_concentration: "Total bacteria concentration"
         urea_concentration: "Urea concentration"
     production_support_marker:
+      derivative:
+        animal: "Animal"
+        bioproduct: "Bioproduct"
+        equipment: "Equipment"
+        fungus: "Fungus"
+        immatter: "Immatter"
+        matter: "Matter"
+        mineral_matter: "Mineral matter"
+        organic_matter: "Organic matter"
+        phytosanitary: "Phytosanitary"
+        plant: "Plant"
+        product: "Product"
+        product_group: "Product group"
+        property_title: "Property title"
+        service: "Service"
+        worker: "Worker"
+        zone: "Zone"
       indicator_name:
         animal_disease_state: "Animal disease state"
         animal_life_state: "Animal life state"

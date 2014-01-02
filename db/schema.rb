@@ -1853,6 +1853,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.text     "variable_indicators_list"
     t.text     "frozen_indicators_list"
     t.text     "linkage_points_list"
+    t.text     "derivatives_list"
     t.string   "picture_file_name"
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
@@ -1972,6 +1973,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "production_support_markers", force: true do |t|
     t.integer  "support_id",                                                                                                            null: false
     t.string   "aim",                                                                                                                   null: false
+    t.string   "subject"
+    t.string   "derivative"
     t.string   "indicator_name",                                                                                                        null: false
     t.string   "indicator_datatype",                                                                                                    null: false
     t.boolean  "boolean_value",                                                                                         default: false, null: false

@@ -112,7 +112,7 @@ class ProductionSupport < Ekylibre::Record::Base
 
   def provisional_nitrogen_input
     balance = []
-    markers = self.markers.where(aim: 'perfect', indicator_name: 'provisional_nitrogen_input')
+    markers = self.markers.where(aim: 'perfect', indicator_name: 'nitrogen_input_per_area')
     if markers.count > 0
       for marker in markers
         balance << marker.measure_value_value
@@ -161,8 +161,8 @@ class ProductionSupport < Ekylibre::Record::Base
     if self.interventions.real.of_nature(:harvest).count > 1
       total_yield = []
       for harvest in self.interventions.real.of_nature(:harvest)
-        for input in harvest.casts.of_role('harvest-output').where(reference_name: "grains")
-          q = (input.actor ? input.actor.net_mass(input).to_d(mass_unit) : 0.0)
+        for input in harvest.casts.of_role('harvest-output')
+          q = (input.actor ? input.actor.net_mass(input).to_d(mass_unit) : 0.0) if input.actor.variety == 'grain'
           total_yield << q
         end
       end

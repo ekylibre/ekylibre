@@ -76,10 +76,10 @@ demo :productions do
           if product_support.is_a?(CultivableZone)
             # create markers for yield and nitrogen
             if !r.provisional_grain_yield.nil?
-              support.markers.create!(:indicator_name => :provisional_grains_yield, :aim => :perfect, :measure_value => r.provisional_grain_yield.in_quintal_per_hectare)
+              support.markers.create!(:indicator_name => :grain_yield_per_area, :aim => :perfect, :measure_value => r.provisional_grain_yield.in_quintal_per_hectare, :subject => :derivative, :derivative => :grain)
             end
             if !r.provisional_nitrogen_input.nil?
-              support.markers.create!(:indicator_name => :provisional_nitrogen_input, :aim => :perfect, :measure_value => r.provisional_nitrogen_input.in_kilogram_per_hectare)
+              support.markers.create!(:indicator_name => :nitrogen_input_per_area, :aim => :perfect, :measure_value => r.provisional_nitrogen_input.in_kilogram_per_hectare)
             end
           end
         elsif !product_nature_variant_sup.nil?
