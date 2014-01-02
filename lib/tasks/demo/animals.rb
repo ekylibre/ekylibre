@@ -12,15 +12,9 @@ demo :animals do
 
   # find place for creating animal
   place_v = BuildingDivision.find_by_work_number("B09_D1")
-  group_v = AnimalGroup.find_by_work_number("VEAU")
   place_gen = BuildingDivision.find_by_work_number("B03_D9")
-  group_gen1 = AnimalGroup.find_by_work_number("GEN_1")
-  group_gen2 = AnimalGroup.find_by_work_number("GEN_2")
-  group_gen3 = AnimalGroup.find_by_work_number("GEN_3")
   place_taur = BuildingDivision.find_by_work_number("B04_D4")
-  group_taur = AnimalGroup.find_by_work_number("TAUR")
   place_vl = BuildingDivision.find_by_work_number("B07_D2")
-  group_vl = AnimalGroup.find_by_work_number("VL")
 
   # add animals credentials in preferences
   synel_login = Preference.where(:nature => :string, :name => "services.synel17.login", :string_value => "17387001").first_or_create
@@ -44,7 +38,15 @@ demo :animals do
       w.check_point
     end
   end
-
+  
+  # find groupe for creating animal
+  group_v = AnimalGroup.find_by_work_number("VEAU")
+  group_gen1 = AnimalGroup.find_by_work_number("GEN_1")
+  group_gen2 = AnimalGroup.find_by_work_number("GEN_2")
+  group_gen3 = AnimalGroup.find_by_work_number("GEN_3")
+  group_taur = AnimalGroup.find_by_work_number("TAUR")
+  group_vl = AnimalGroup.find_by_work_number("VL")
+  
   Ekylibre::fixturize :synel_animal_import do |w|
     #############################################################################
 
@@ -91,7 +93,10 @@ demo :animals do
         # place the current animal in the default group with born_at
         if place_v and group_v
           ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-          ProductMembership.create!(:member_id => animal.id, :group_id => group_v.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          # add animal in group
+          group_v.add(animal, r.arrived_on)
+          # remove animal from group if r.departed_on
+          group_v.remove(animal, r.departed_on) if r.departed_on
         end
 
         # case = GENISSE 1
@@ -114,7 +119,10 @@ demo :animals do
         if place_gen and group_gen1
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-          ProductMembership.create!(:member_id => animal.id, :group_id => group_gen1.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          # add animal in group
+          group_gen1.add(animal, r.arrived_on)
+          # remove animal from group if r.departed_on
+          group_gen1.remove(animal, r.departed_on) if r.departed_on
         end
 
         # case = GENISSE 3
@@ -138,7 +146,10 @@ demo :animals do
         if place_gen and group_gen3
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-          ProductMembership.create!(:member_id => animal.id, :group_id => group_gen3.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          # add animal in group
+          group_gen3.add(animal, r.arrived_on)
+          # remove animal from group if r.departed_on
+          group_gen3.remove(animal, r.departed_on) if r.departed_on
         end
 
         # case = VL
@@ -163,7 +174,10 @@ demo :animals do
         if place_vl and group_vl
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_vl.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-          ProductMembership.create!(:member_id => animal.id, :group_id => group_vl.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          # add animal in group
+          group_vl.add(animal, r.arrived_on)
+          # remove animal from group if r.departed_on
+          group_vl.remove(animal, r.departed_on) if r.departed_on
         end
 
         # case = TAURILLON
@@ -188,7 +202,10 @@ demo :animals do
         if place_taur and group_taur
           # place the current animal in the default group with born_at
           ProductLocalization.create!(:container_id => place_taur.id, :product_id => animal.id, :nature => :interior, :started_at => r.arrived_on, :stopped_at => r.departed_on, :arrival_cause => r.arrival_cause, :departure_cause => r.departure_cause)
-          ProductMembership.create!(:member_id => animal.id, :group_id => group_taur.id, :started_at => r.arrived_on, :stopped_at => r.departed_on )
+          # add animal in group
+          group_taur.add(animal, r.arrived_on)
+          # remove animal from group if r.departed_on
+          group_taur.remove(animal, r.departed_on) if r.departed_on
         end
 
       end
