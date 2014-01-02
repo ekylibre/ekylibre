@@ -17,8 +17,8 @@
           <property name="work_number" of="zone"/>
           <property name="clusters_work_number" of="zone"/>
           <property name="soil_varieties" of="zone"/>
-          <property name="net_surface_area" value="net_surface_area.to_d(:hectare)" of="zone" type="measure"/>
-          <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
+          <property name="net_surface_area" if="zone.net_surface_area" value="net_surface_area.to_d(:hectare)"  of="zone" type="measure"/>
+          <property name="net_surface_area_in_hectare" if="zone.net_surface_area" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
           <property name="id" of="zone" level="api"/>
           <property name="shape_svg" of="zone" type="svg" level="api"/>
           <!-- looking for all Production in current zone and campaign -->
@@ -26,12 +26,14 @@
             <title name="name" of="support"/>
             <property name="variant_name" value="support.production.variant_name"/>
             <property name="variant_variety" value="support.production.variant_variety"/>
-            <property name="provisional_grains_yield" value="support.indicator_datum(:provisional_grains_yield)" type="measure"/>
-            <property name="provisional_irrigation_water_input" value="support.indicator_datum(:provisional_irrigation_water_input)" type="measure"/>
+            <!--
+            <property name="provisional_grains_yield" if="support.indicator_datum(:provisional_grains_yield)" value="support.indicator_datum(:provisional_grains_yield)" type="measure"/>
+            <property name="provisional_irrigation_water_input" if="support.indicator_datum(:provisional_irrigation_water_input)" value="support.indicator_datum(:provisional_irrigation_water_input)" type="measure"/>
+            -->
             <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
             <property name="started_at" of="support" type="datetime"/>
             <property name="nitrogen_input_real" value="support.nitrogen_balance" type="measure"/>
-            <property name="nitrogen_input_prev" value="support.indicator_datum(:provisional_nitrogen_input)" type="measure"/>
+            <property name="nitrogen_input_prev" if="support.indicator_datum(:provisional_nitrogen_input) != nil" value="support.indicator_datum(:provisional_nitrogen_input)" type="measure"/>
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="provisional_intervention" in="support.interventions.provisional.of_nature(:'soil_enrichment-target').with_cast(:'soil_enrichment-target', zone)" of-type="record">
