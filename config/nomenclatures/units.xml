@@ -46,6 +46,7 @@
       <item name="millimeter" dimension="distance" symbol="mm" coefficients="0.001m" a="0.001"/>
       <item name="meter"      dimension="distance" symbol="m"  coefficients="1m"     a="1"/>
       <item name="kilometer"  dimension="distance" symbol="km" coefficients="1000m"  a="1000"/>
+      <item name="liter_per_square_meter" dimension="distance" symbol="l/m²" coefficients="0.001m3*m-2" a="0.001"/>
 
       <!-- surface_area -->
       <item name="square_meter" dimension="surface_area" symbol="m²"   coefficients="1m2"     a="1"/>
@@ -82,7 +83,6 @@
       
       <!-- mass_area_density -->
       <item name="kilogram_per_square_meter"  dimension="mass_area_density" symbol="kg/m²" coefficients="kg*m-2"           a="1"/>
-      <item name="liter_per_square_meter"  dimension="mass_area_density" symbol="l/m²" coefficients="l*m-2"           a="1"/>
       <item name="kilogram_per_hectare"  dimension="mass_area_density" symbol="kg/ha" coefficients="kg*10000m-2"           a="0.0001"/>
       <item name="quintal_per_hectare"  dimension="mass_area_density" symbol="qt/ha" coefficients="100kg*10000m-2"           a="0.01"/>
       <item name="ton_per_hectare"  dimension="mass_area_density" symbol="t/ha" coefficients="1000kg*10000m-2"           a="0.1"/>
@@ -104,6 +104,7 @@
       <item name="thousand_per_hectogram" dimension="mass_density" symbol="ku/hg" coefficients="1000*0.1kg-1"            a="0.0001"/>
       <!-- <item name="kilogram_per_hectogram" dimension="mass_density" symbol="kg/100kg" coefficients="1*0.1kg-1"            a="0.0001"/> -->
       <!-- <item name="thousand_eq_per_hundred_gram" dimension="mass_density" symbol="meq/100g" coefficients="1000*0.1kg-1"/> -->
+
 
       <!-- energy -->
       <item name="joule"  dimension="energy" symbol="J" a="1"/>

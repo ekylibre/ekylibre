@@ -286,10 +286,10 @@ class ProductNature < Ekylibre::Record::Base
   # Load a product nature from product nature nomenclature
   def self.import_from_nomenclature(reference_name)
     unless item = Nomen::ProductNatures.find(reference_name)
-      raise ArgumentError.new("The product_nature #{reference_name.inspect} is unknown")
+      raise ArgumentError, "The product_nature #{reference_name.inspect} is unknown"
     end
     unless category_item = Nomen::ProductNatureCategories.find(item.category)
-      raise ArgumentError.new("The category of the product_nature #{item.category.inspect} is unknown")
+      raise ArgumentError, "The category of the product_nature #{item.category.inspect} is unknown"
     end
     unless nature = ProductNature.find_by_reference_name(reference_name)
       attributes = {
@@ -297,7 +297,7 @@ class ProductNature < Ekylibre::Record::Base
         :derivative_of => item.derivative_of.to_s,
         :name => item.human_name,
         :population_counting => item.population_counting,
-        :category => ProductNatureCategory.find_by_reference_name(item.category) || ProductNatureCategory.import_from_nomenclature(item.category),
+        :category => ProductNatureCategory.import_from_nomenclature(item.category),
         :reference_name => item.name,
         :abilities_list => item.abilities.sort,
         :derivatives_list => (item.derivatives ? item.derivatives.sort : nil),

@@ -91,12 +91,12 @@
       <item name="others_consumables_stock" fr_pcga="3027"/>
       <item name="long_time_animal_stock" fr_pcga="31"/>
       <item name="short_time_animal_stock" fr_pcga="32"/>
-      <item name="long_cycle_cultures_advances" fr_pcga="331"/>
-      <item name="short_cycle_cultures_advances" fr_pcga="341"/>
-      <item name="short_cycle_cultures_advances_fertilizers" fr_pcga="3411"/>
-      <item name="short_cycle_cultures_advances_seeds" fr_pcga="3412"/>
-      <item name="short_cycle_cultures_advances_plants_medicines" fr_pcga="3413"/>
-      <item name="short_cycle_cultures_advances_culturals_ways" fr_pcga="3415"/>
+      <item name="long_cycle_cultivation_advances" fr_pcga="331"/>
+      <item name="short_cycle_cultivation_advances" fr_pcga="341"/>
+      <item name="short_cycle_cultivation_advances_fertilizers" fr_pcga="3411"/>
+      <item name="short_cycle_cultivation_advances_seeds" fr_pcga="3412"/>
+      <item name="short_cycle_cultivation_advances_plants_medicines" fr_pcga="3413"/>
+      <item name="short_cycle_cultivation_advances_culturals_ways" fr_pcga="3415"/>
       <item name="end_products_stock" fr_pcga="37"/>
       <item name="plant_derivative_stock" fr_pcga="374"/>
       <item name="animal_derivative_stock" fr_pcga="375"/>

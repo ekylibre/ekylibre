@@ -107,7 +107,7 @@
             />
       <item name="crop"
             product_account="plant_derivatives_revenues"
-            stock_account="short_cycle_cultures_advances"
+            stock_account="short_cycle_cultivation_advances"
             purchasable="false"
             saleable="true"
             depreciable="false"

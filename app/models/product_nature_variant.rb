@@ -245,7 +245,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         attributes = {
           :name => item.human_name,
           :active => true,
-          :nature => ProductNature.find_by_reference_name(item.nature) || ProductNature.import_from_nomenclature(item.nature),
+          :nature => ProductNature.import_from_nomenclature(item.nature),
           :reference_name => item.name,
           :unit_name => I18n.translate("nomenclatures.product_nature_variants.choices.unit_name.#{item.unit_name}"),
           # :frozen_indicators => item.frozen_indicators_values.to_s,
