@@ -1252,6 +1252,7 @@ module Ekylibre
         created_at:               Column.new(:created_at,                :datetime, null: false).freeze,
         creator_id:               Column.new(:creator_id,                 :integer, references: :user).freeze,
         derivative_of:            Column.new(:derivative_of,               :string, limit: 120).freeze,
+        derivatives_list:         Column.new(:derivatives_list,              :text).freeze,
         description:              Column.new(:description,                   :text).freeze,
         evolvable:                Column.new(:evolvable,                  :boolean, null: false, default: false).freeze,
         frozen_indicators_list:   Column.new(:frozen_indicators_list,        :text).freeze,
@@ -1338,6 +1339,7 @@ module Ekylibre
         created_at:          Column.new(:created_at,           :datetime, null: false).freeze,
         creator_id:          Column.new(:creator_id,            :integer, references: :user).freeze,
         decimal_value:       Column.new(:decimal_value,         :decimal, precision: 19, scale: 4).freeze,
+        derivative:          Column.new(:derivative,             :string).freeze,
         geometry_value:      Column.new(:geometry_value,        :spatial).freeze,
         id:                  Column.new(:id,                    :integer, null: false).freeze,
         indicator_datatype:  Column.new(:indicator_datatype,     :string, null: false).freeze,
@@ -1350,6 +1352,7 @@ module Ekylibre
         started_at:          Column.new(:started_at,           :datetime).freeze,
         stopped_at:          Column.new(:stopped_at,           :datetime).freeze,
         string_value:        Column.new(:string_value,             :text).freeze,
+        subject:             Column.new(:subject,                :string).freeze,
         support_id:          Column.new(:support_id,            :integer, references: :production_support, null: false).freeze,
         updated_at:          Column.new(:updated_at,           :datetime, null: false).freeze,
         updater_id:          Column.new(:updater_id,            :integer, references: :user).freeze

@@ -28,6 +28,7 @@
 #  created_at               :datetime         not null
 #  creator_id               :integer
 #  derivative_of            :string(120)
+#  derivatives_list         :text
 #  description              :text
 #  evolvable                :boolean          not null
 #  frozen_indicators_list   :text

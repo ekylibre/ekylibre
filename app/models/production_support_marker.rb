@@ -27,6 +27,7 @@
 #  created_at          :datetime         not null
 #  creator_id          :integer
 #  decimal_value       :decimal(19, 4)
+#  derivative          :string(255)
 #  geometry_value      :spatial({:srid=>
 #  id                  :integer          not null, primary key
 #  indicator_datatype  :string(255)      not null
@@ -39,6 +40,7 @@
 #  started_at          :datetime
 #  stopped_at          :datetime
 #  string_value        :text
+#  subject             :string(255)
 #  support_id          :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer
@@ -53,7 +55,7 @@ class ProductionSupportMarker < Ekylibre::Record::Base
   has_one :storage, through: :support
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :decimal_value, :measure_value_value, allow_nil: true
-  validates_length_of :aim, :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, allow_nil: true, maximum: 255
+  validates_length_of :aim, :choice_value, :derivative, :indicator_datatype, :indicator_name, :measure_value_unit, :subject, allow_nil: true, maximum: 255
   validates_inclusion_of :boolean_value, in: [true, false]
   validates_presence_of :aim, :indicator_datatype, :indicator_name, :support
   #]VALIDATORS]

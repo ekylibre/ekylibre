@@ -833,6 +833,7 @@ eng:
     depreciation_percentage: "Depreciation percentage"
     depreciations: "Depreciations"
     # depth: "Profondeur"
+    # derivative: "Derivative"
     derivative_of: "Derivative of"
     description: "Description"
     detail_payments: "Detail payments"

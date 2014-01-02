@@ -1251,6 +1251,7 @@ arb:
     # depreciation_percentage: "Pourcentage d’amortissement"
     # depreciations: "Amortissements"
     # depth: "Profondeur"
+    # derivative: "Derivative"
     # derivative_of: "Dérivé de"
     description: "الوصف"
     dest_contact: "عنوان التسليم" #?
