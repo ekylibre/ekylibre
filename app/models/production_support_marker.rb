@@ -45,7 +45,9 @@
 #
 class ProductionSupportMarker < Ekylibre::Record::Base
   include IndicatorDatumStorable, TimeLineable
-  enumerize :aim,       in: [:minimal, :maximal, :perfect], default: :maximal
+  enumerize :aim,       in: [:minimal, :maximal, :perfect], default: :perfect
+  enumerize :derivative,      in: Nomen::Varieties.all(:organic_matter)
+  enumerize :subject,       in: [:production, :support, :derivative], default: :support
   belongs_to :support, class_name: "ProductionSupport", inverse_of: :markers
   has_one :production, through: :support
   has_one :storage, through: :support

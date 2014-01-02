@@ -12,6 +12,7 @@
       <!-- <attribute name="subscribing" type="boolean" required="true"/> -->
       <!-- Inside the model-->
       <attribute name="abilities" type="list" nomenclature="abilities" required="false"/>
+      <attribute name="derivatives" type="list" nomenclature="varieties" required="false"/>
       <attribute name="frozen_indicators" type="list" nomenclature="indicators" required="false"/>
       <attribute name="variable_indicators" type="list" nomenclature="indicators" required="false"/>
       <attribute name="linkage_points" type="list" choices="rear, front" required="false"/>
@@ -42,6 +43,7 @@
             abilities="consume(water), consume(poaceae), produce(excrement), produce(milk), move, produce(bos)"
             variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state, geographic_coordinate"
             frozen_indicators="population, sex, reproductor, livestock_unit"
+            derivatives="meat, milk"
             />
       <item name="male_adult_cow"
             category="male_adult_cow"
@@ -50,6 +52,7 @@
             abilities="consume(water), consume(poaceae), produce(excrement), move"
             variable_indicators="net_mass, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index"
             frozen_indicators="population, sex, reproductor, livestock_unit"
+            derivatives="meat"
             />
       <item name="milk"
             category="milk"
@@ -67,6 +70,7 @@
             abilities="consume(water), consume(poaceae), produce(excrement), move"
             variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, mammalia_twins_condition, mammalia_born_cycle, animal_disease_state"
             frozen_indicators="population, sex, reproductor, livestock_unit"
+            derivatives="meat, milk"
             />
       <item name="male_young_cow"
             category="male_young_cow"
@@ -75,6 +79,7 @@
             abilities="consume(water), consume(poaceae), produce(excrement), move"
             variable_indicators="net_mass, animal_life_state, animal_disease_state"
             frozen_indicators="population, sex, reproductor, livestock_unit"
+            derivatives="meat"
             />
       <item name="calf"
             category="calf"
@@ -83,6 +88,7 @@
             abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move"
             variable_indicators="net_mass, animal_life_state, animal_disease_state, mammalia_born_condition"
             frozen_indicators="population, sex, reproductor, livestock_unit"
+            derivatives="meat"
             />
       <item name="duck_herd"
             category="aves_herd"
@@ -100,14 +106,43 @@
             abilities="move, consume(water), consume(poaceae), produce(excrement)"
             variable_indicators="population"
             frozen_indicators=""
+            derivatives="meat"
             />
-      <item name="crop"
+       <item name="crop"
+            category="crop"
+            variety="plant"
+            population_counting="decimal"
+            abilities="consume(water), consume(phytosanitary), produce(straw)"
+            variable_indicators="population, shape, leaf_count, plant_life_state, plant_reproduction_state"
+            frozen_indicators="net_surface_area"
+            derivatives="straw"
+            />
+      <item name="grain_crop"
+            category="crop"
+            variety="plant"
+            population_counting="decimal"
+            abilities="consume(water), consume(phytosanitary), produce(grain)"
+            variable_indicators="population, shape, leaf_count, plant_life_state, plant_reproduction_state"
+            frozen_indicators="net_surface_area"
+            derivatives="grain"
+            />
+      <item name="cereal_crop"
             category="crop"
             variety="plant"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(grain), produce(straw)"
             variable_indicators="population, shape, leaf_count, plant_life_state, plant_reproduction_state"
             frozen_indicators="net_surface_area"
+            derivatives="grain, straw"
+            />
+      <item name="fruit_crop"
+            category="crop"
+            variety="plant"
+            population_counting="decimal"
+            abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
+            variable_indicators="population, shape, plant_life_state"
+            frozen_indicators="net_surface_area"
+            derivatives="fruit, straw"
             />
       <item name="wine"
             category="wine"
@@ -138,11 +173,20 @@
             />
       <item name="grass"
             category="grass"
-            variety="organic_matter"
+            variety="grass"
             derivative_of="poaceae"
             population_counting="decimal"
             abilities="feed(animal)"
             variable_indicators="population, dry_matter_rate"
+            frozen_indicators="net_mass"
+            />
+      <item name="fruit"
+            category="fruit"
+            variety="fruit"
+            derivative_of="plant"
+            population_counting="decimal"
+            abilities="feed(animal)"
+            variable_indicators="population"
             frozen_indicators="net_mass"
             />
       <item name="herbicide"
@@ -264,7 +308,7 @@
             variety="land_parcel"
             population_counting="decimal"
             abilities=""
-            variable_indicators="population, shape, available_water_capacity"
+            variable_indicators="population, shape, available_water_capacity_per_area"
             frozen_indicators="net_surface_area"
             />
       <item name="land_parcel_cluster"

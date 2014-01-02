@@ -1022,6 +1022,7 @@ class CreateBase < ActiveRecord::Migration
       t.text       :variable_indicators_list
       t.text       :frozen_indicators_list
       t.text       :linkage_points_list
+      t.text       :derivatives_list
       t.attachment :picture
       t.text       :description
       t.stamps
@@ -1092,6 +1093,8 @@ class CreateBase < ActiveRecord::Migration
     create_table :production_support_markers do |t|
       t.references :support, null: false, index: true
       t.string     :aim,     null: false
+      t.string     :subject
+      t.string     :derivative
       t.indicator_datum      null: false, index: true
       t.datetime   :started_at
       t.datetime   :stopped_at

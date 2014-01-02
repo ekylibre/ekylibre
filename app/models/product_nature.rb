@@ -64,6 +64,7 @@ class ProductNature < Ekylibre::Record::Base
   has_one :default_variant, -> { order(:id) }, class_name: "ProductNatureVariant", foreign_key: :nature_id
 
   serialize :abilities_list, SymbolArray
+  serialize :derivatives_list, SymbolArray
   serialize :frozen_indicators_list, SymbolArray
   serialize :variable_indicators_list, SymbolArray
   serialize :linkage_points_list, SymbolArray
@@ -298,6 +299,7 @@ class ProductNature < Ekylibre::Record::Base
         :category => ProductNatureCategory.find_by_reference_name(item.category) || ProductNatureCategory.import_from_nomenclature(item.category),
         :reference_name => item.name,
         :abilities_list => item.abilities.sort,
+        :derivatives_list => (item.derivatives ? item.derivatives.sort : nil),
         :frozen_indicators_list => item.frozen_indicators.sort,
         :variable_indicators_list => item.variable_indicators.sort,
         :active => true
