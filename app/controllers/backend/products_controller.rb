@@ -118,6 +118,7 @@ class Backend::ProductsController < BackendController
     t.column :gravity
     t.column :priority
     t.column :state
+    t.action :new, url: {controller: :interventions, incident_id: 'RECORD.id'.c, id: nil}
   end
 
   # incidents of the consider product

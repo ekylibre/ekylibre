@@ -39,6 +39,7 @@
             <property name="observed_at" type="datetime"/>
             <property name="state" level="api"/>
             <property name="description"/>
+            <property name="picture_path"/>
           </section>
           <section name="prescription" of="intervention.prescription">
             <property name="id" level="api"/>
@@ -50,7 +51,7 @@
             <variable name="milk_withdrawal_period" value="input.actor.milk_withdrawal_period"/>
             <cell name="id" of="input" level="api"/>
             <within of="input.actor">
-              <cell name="name"/>
+              <cell name="variant_name"/>
               <cell name="variety" level="api"/>
             </within>
             <cell name="population" of="input"/>

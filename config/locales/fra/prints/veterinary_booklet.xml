@@ -2,7 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="veterinary_booklet" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="0.9558924531310702"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="349"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="veterinary_booklet"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -89,16 +90,16 @@
 		<fieldDescription><![CDATA[sale-dates/milk-saleable-on]]></fieldDescription>
 	</field>
 	<field name="medicine_name" class="java.lang.String">
-		<fieldDescription><![CDATA[name]]></fieldDescription>
+		<fieldDescription><![CDATA[variant-name]]></fieldDescription>
 	</field>
 	<field name="medicine_nature" class="java.lang.String">
-		<fieldDescription><![CDATA[nature-name]]></fieldDescription>
+		<fieldDescription><![CDATA[nit-name]]></fieldDescription>
 	</field>
 	<field name="procedure_duration_day" class="java.lang.Double">
 		<fieldDescription><![CDATA[ancestor::intervention/@duration]]></fieldDescription>
 	</field>
 	<field name="quantity" class="java.lang.String">
-		<fieldDescription><![CDATA[quantity]]></fieldDescription>
+		<fieldDescription><![CDATA[population]]></fieldDescription>
 	</field>
 	<field name="target_id" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/@target-id]]></fieldDescription>
@@ -114,6 +115,9 @@
 	</field>
 	<field name="campaign_name" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::campaign/@name]]></fieldDescription>
+	</field>
+	<field name="unit_name" class="java.lang.String">
+		<fieldDescription><![CDATA[unit-name]]></fieldDescription>
 	</field>
 	<group name="campaign" isStartNewPage="true" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
@@ -160,37 +164,6 @@
 	</title>
 	<pageHeader>
 		<band height="84" splitType="Stretch">
-			<textField>
-				<reportElement uuid="548666df-fcbc-42e7-b461-8ee8b327b70e" style="address" x="0" y="0" width="786" height="13"/>
-				<textElement textAlignment="Center" verticalAlignment="Top"/>
-				<textFieldExpression><![CDATA["Carnet sanitaire "]]></textFieldExpression>
-			</textField>
-			<rectangle radius="10">
-				<reportElement uuid="23e8397b-4700-4711-8745-7a13f840a2b8" style="conditionnal_state" x="198" y="54" width="10" height="10" backcolor="#FF0000">
-					<printWhenExpression><![CDATA[$F{state} != null]]></printWhenExpression>
-				</reportElement>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="edc9f11e-f430-4080-9bf8-bd2893724afb" style="base" mode="Transparent" x="208" y="48" width="56" height="22"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<text><![CDATA[En cours]]></text>
-			</staticText>
-			<rectangle radius="10">
-				<reportElement uuid="260e787e-6da2-4c2e-9949-dbf26fb4c20c" style="conditionnal_state" x="275" y="54" width="10" height="10" backcolor="#33CC00">
-					<printWhenExpression><![CDATA[$F{state} != null]]></printWhenExpression>
-				</reportElement>
-			</rectangle>
-			<staticText>
-				<reportElement uuid="8c8d3297-f23b-47c1-bf88-e89a2adde276" style="base" mode="Transparent" x="287" y="48" width="49" height="22"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<text><![CDATA[Résolu]]></text>
-			</staticText>
 			<staticText>
 				<reportElement uuid="6c3b38e3-fa18-4ce1-afca-00110dd02c2a" style="table-th" mode="Transparent" x="192" y="26" width="166" height="44"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
@@ -199,11 +172,38 @@
 				</textElement>
 				<text><![CDATA[Incident]]></text>
 			</staticText>
+			<textField>
+				<reportElement uuid="548666df-fcbc-42e7-b461-8ee8b327b70e" style="address" x="0" y="0" width="786" height="13"/>
+				<textElement textAlignment="Center" verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA["Carnet sanitaire "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="edc9f11e-f430-4080-9bf8-bd2893724afb" style="base" mode="Transparent" x="208" y="48" width="56" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[En cours]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8c8d3297-f23b-47c1-bf88-e89a2adde276" style="base" mode="Transparent" x="287" y="48" width="49" height="22"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="10"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Résolu]]></text>
+			</staticText>
 			<textField evaluationTime="Group" evaluationGroup="campaign" isBlankWhenNull="true">
 				<reportElement uuid="f4e4c692-eac3-4982-ab6e-8e0fca829c5d" style="title" x="0" y="26" width="192" height="44"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{campaign_name}]]></textFieldExpression>
 			</textField>
+			<rectangle radius="10">
+				<reportElement uuid="260e787e-6da2-4c2e-9949-dbf26fb4c20c" style="conditionnal_state" x="274" y="54" width="10" height="10" backcolor="#33CC00"/>
+			</rectangle>
+			<rectangle radius="10">
+				<reportElement uuid="23e8397b-4700-4711-8745-7a13f840a2b8" style="conditionnal_state" x="196" y="54" width="10" height="10" backcolor="#FF0000"/>
+			</rectangle>
 		</band>
 	</pageHeader>
 	<columnHeader>
@@ -364,7 +364,7 @@
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement uuid="698527ac-5221-44cd-9e7b-29ad6a94d793" style="base" x="448" y="21" width="99" height="18"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{quantity}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{quantity}+" "+$F{unit_name}]]></textFieldExpression>
 			</textField>
 			<rectangle>
 				<reportElement uuid="3bc54923-9c6a-4bbc-b071-67d7a9ecf1a1" mode="Transparent" x="0" y="0" width="81" height="39"/>

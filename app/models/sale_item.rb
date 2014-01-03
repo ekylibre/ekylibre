@@ -79,7 +79,11 @@ class SaleItem < Ekylibre::Record::Base
   acts_as_list :scope => :sale
   acts_as_stockable :mode => :virtual, if: :sold?
   after_save :set_reduction
-  #sums :sale, :delivery_items, :pretax_amount, :amount
+  
+  # @FIXME sums method in lib
+  #undefined method `where' for nil:NilClass
+  #(eval):4:in `block in sums'
+  #sums :sale, :items, :pretax_amount, :amount
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :reduction_percentage, :unit_price_amount, allow_nil: true

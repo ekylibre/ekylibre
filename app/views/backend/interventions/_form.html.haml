@@ -4,6 +4,7 @@
   = field_set do
     = f.input :reference_name, as: :hidden
     = f.referenced_association :production_support
+    = f.referenced_association :incident
     -#= f.referenced_association :production
     = f.input :started_at
     = f.input :stopped_at
