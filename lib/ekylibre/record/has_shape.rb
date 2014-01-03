@@ -41,14 +41,22 @@ module Ekylibre::Record
           code << "  ids = ProductIndicatorDatum.of_products(self, :#{indicator}, options[:at]).pluck(:id)\n"
           code << "  return [] unless ids.any?\n"
           code << "  values = self.connection.select_one(\"SELECT min(ST_XMin(\#{expr})) AS x_min, min(ST_YMin(\#{expr})) AS y_min, max(ST_XMax(\#{expr})) AS x_max, max(ST_YMax(\#{expr})) AS y_max FROM \#{ProductIndicatorDatum.indicator_table_name(:#{indicator})} WHERE id IN (\#{ids.join(',')})\").symbolize_keys\n"
-          # code << "  x_min = self.minimum(\"ST_XMin(\#{indicator})\").to_d\n"
-          # code << "  x_max = self.maximum(\"ST_XMax(\#{indicator})\").to_d\n"
-          # code << "  y_min = self.minimum(\"ST_YMin(\#{indicator})\").to_d\n"
-          # code << "  y_max = self.maximum(\"ST_YMax(\#{indicator})\").to_d\n"
           code << "  return [values[:x_min].to_d, -values[:y_max].to_d, (values[:x_max].to_d - values[:x_min].to_d), (values[:y_max].to_d - values[:y_min].to_d)]\n"
           code << "end\n"
 
-
+          # As SVG
+          code << "def self.#{indicator}_svg(options = {})\n"
+          code << "  ids = ProductIndicatorDatum.of_products(self, :shape, options[:at]).pluck(:product_id)\n"
+          code << "  svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"'\n"
+          code << "  return (svg + '/>').html_safe unless ids.any?\n"
+          code << "  svg << ' class=\"#{indicator}\" preserveAspectRatio=\"xMidYMid meet\" width=\"100%\" height=\"100%\" viewBox=\"' + shape_view_box.join(' ') + '\"'\n"
+          code << "  svg << '>'\n"
+          code << "  for product in Product.where(id: ids)\n"
+          code << "    svg << '<path d=\"' + product.shape_as_svg + '\"/>'\n"
+          code << "  end\n"
+          code << "  svg << '</svg>'\n"
+          code << "  return svg.html_safe\n"
+          code << "end\n"
 
           # Return SVG as String
           code << "def #{indicator}_svg(options = {})\n"
@@ -60,6 +68,7 @@ module Ekylibre::Record
           code << "><path d=\"' + self.#{indicator}_as_svg.to_s + '\"/></svg>').html_safe\n"
           code << "end\n"
 
+          # Return ViewBox
           code << "def #{indicator}_view_box(options = {})\n"
           code << "  return nil unless datum = self.indicator_datum(:#{indicator}, at: options[:at])\n"
           code << "  return [self.#{indicator}_x_min(options), -self.#{indicator}_y_max(options), self.#{indicator}_width(options), self.#{indicator}_height(options)]\n"

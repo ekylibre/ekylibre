@@ -70,10 +70,6 @@ class BuildingDivision < SubZone
   # belongs_to :address, class_name: "EntityAddress"
   # belongs_to :establishment
   belongs_to :content_nature, class_name: "ProductNature"
-  # has_many :purchase_items, class_name: "PurchaseItem"
-  # has_many :sale_items, class_name: "SaleItem"
-  # has_many :stock_moves, class_name: "ProductMove"
-  # has_many :stock_transfers, class_name: "ProductTransfer"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
   validates_presence_of :content_nature, if: :reservoir?
@@ -150,23 +146,23 @@ class BuildingDivision < SubZone
     return ids
   end
 
-  # return Map SVG as String for a class
-  # @TODO refactor it and put it in has_shape method
-  def self.map_svg(options = {})
-    ids = self.indicator_datum(:shape, at: options[:at]).pluck(:product_id)
-    return "" unless ids.size > 0
-    viewbox = self.shape_view_box.join(' ')
-    code = "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
-    code << " class=\"shape\" preserveAspectRatio=\"xMidYMid meet\" width=\"100%\" height=\"100%\" viewBox=\"#{viewbox}\" "
-    code << ">"
-    for product_id in ids
-      if product = Product.find(product_id)
-        product_shape = product.shape_as_svg.to_s
-        code << "<path d=\"#{product_shape}\"/>"
-      end
-    end
-    code << "</svg>"
-    return code.html_safe
-  end
+  # # return Map SVG as String for a class
+  # # @TODO refactor it and put it in has_shape method
+  # def self.map_svg(options = {})
+  #   ids = self.indicator_datum(:shape, at: options[:at]).pluck(:product_id)
+  #   return "" unless ids.size > 0
+  #   viewbox = self.shape_view_box.join(' ')
+  #   code = "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
+  #   code << " class=\"shape\" preserveAspectRatio=\"xMidYMid meet\" width=\"100%\" height=\"100%\" viewBox=\"#{viewbox}\" "
+  #   code << ">"
+  #   for product_id in ids
+  #     if product = Product.find(product_id)
+  #       product_shape = product.shape_as_svg.to_s
+  #       code << "<path d=\"#{product_shape}\"/>"
+  #     end
+  #   end
+  #   code << "</svg>"
+  #   return code.html_safe
+  # end
 
 end
