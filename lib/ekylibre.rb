@@ -7,6 +7,7 @@ module Ekylibre
   autoload :Reporting, 'ekylibre/reporting'
   autoload :Schema,    'ekylibre/schema'
   autoload :Support,   'ekylibre/support'
+  autoload :VERSION,   'ekylibre/version'
 
   def self.migrating?
     return !!(File.basename($0) == "rake" && ARGV.include?("db:migrate"))

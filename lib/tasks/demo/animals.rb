@@ -38,7 +38,7 @@ demo :animals do
       w.check_point
     end
   end
-  
+
   # find groupe for creating animal
   group_v = AnimalGroup.find_by_work_number("VEAU")
   group_gen1 = AnimalGroup.find_by_work_number("GEN_1")
@@ -46,7 +46,7 @@ demo :animals do
   group_gen3 = AnimalGroup.find_by_work_number("GEN_3")
   group_taur = AnimalGroup.find_by_work_number("TAUR")
   group_vl = AnimalGroup.find_by_work_number("VL")
-  
+
   Ekylibre::fixturize :synel_animal_import do |w|
     #############################################################################
 
