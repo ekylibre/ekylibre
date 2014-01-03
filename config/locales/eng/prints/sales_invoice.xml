@@ -17,7 +17,7 @@
       </part>
       <part height="40mm">
         <set>
-          <text value="À {{Entity.of_company.default_mail_address.mail_area/city_name?capitalize=true}}, le {{sales_invoice/invoiced_on?format=month_letter}}" left="100%" align="right"/>
+          <text value="À {{Entity.of_company.default_mail_address.mail_postal_zone/city_name?capitalize=true}}, le {{sales_invoice/invoiced_on?format=month_letter}}" left="100%" align="right"/>
         </set>
         <set if="!sales_invoice.credit">
           <text value="Facture n°{{sales_invoice/number}}" left="50%" align="center" bold="true" size="14" top="25mm"/>

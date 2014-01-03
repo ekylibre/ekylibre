@@ -18,7 +18,7 @@
       </part>
       <part height="11mm">
         <set>
-          <text value="À {{Entity.of_company.default_mail_address.mail_area/city_name?capitalize=true}}, le {{sales_order/created_on?format=month_letter}}" left="100%" align="right"/>
+          <text value="À {{Entity.of_company.default_mail_address.mail_postal_zone/city_name?capitalize=true}}, le {{sales_order/created_on?format=month_letter}}" left="100%" align="right"/>
           <text value="Devis N°{{sales_order/number}}" bold="true"/>
         </set>
         <set if="sales_order.responsible" top="4mm">

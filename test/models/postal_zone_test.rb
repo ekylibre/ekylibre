@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: areas
+# == Table: postal_zones
 #
 #  city         :string(255)
 #  city_name    :string(255)
@@ -31,41 +31,11 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  postcode     :string(255)      not null
+#  postal_code  :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
+require 'test_helper'
 
-
-class Area < Ekylibre::Record::Base
-  # attr_accessible :code, :name, :district_id, :country
-  belongs_to :district
-  has_many :mail_addresses, class_name: "EntityAddress", foreign_key: :mail_area_id
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :country, allow_nil: true, maximum: 2
-  validates_length_of :city, :city_name, :code, :name, :postcode, allow_nil: true, maximum: 255
-  validates_presence_of :country, :name, :postcode
-  #]VALIDATORS]
-
-  before_validation do
-    self.name = self.name.gsub(/\s+/,' ').strip
-    words = self.name.to_s.split(' ')
-    start = (words[0].to_s.ascii.length <= 3 ? 2 : 1)
-    self.postcode, self.city, self.city_name = '', '', ''
-    if words and words.size > 0
-      self.postcode = (words[0..start-1] || []).join(" ")
-      self.city = (words[start..-1] || []).join(" ")
-      self.city_name = self.city
-      if self.city_name.match(/cedex/i)
-        self.city_name = self.city_name.split(/\scedex/i)[0].strip
-      end
-    end
-  end
-
-  def self.exportable_columns
-    self.content_columns.delete_if{|c| ![:city, :postcode].include?(c.name.to_sym)}
-  end
-
+class PostalZoneTest < ActiveSupport::TestCase
 end
-
-

@@ -21,36 +21,35 @@
 #
 # == Table: entity_addresses
 #
-#  by_default       :boolean          not null
-#  canal            :string(20)       not null
-#  coordinate       :string(500)      not null
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  deleted_at       :datetime
-#  entity_id        :integer          not null
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  mail_area_id     :integer
-#  mail_auto_update :boolean          not null
-#  mail_country     :string(2)
-#  mail_geolocation :spatial({:srid=>
-#  mail_line_1      :string(255)
-#  mail_line_2      :string(255)
-#  mail_line_3      :string(255)
-#  mail_line_4      :string(255)
-#  mail_line_5      :string(255)
-#  mail_line_6      :string(255)
-#  name             :string(255)
-#  thread           :string(10)
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  by_default          :boolean          not null
+#  canal               :string(20)       not null
+#  coordinate          :string(500)      not null
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  deleted_at          :datetime
+#  entity_id           :integer          not null
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  mail_auto_update    :boolean          not null
+#  mail_country        :string(2)
+#  mail_geolocation    :spatial({:srid=>
+#  mail_line_1         :string(255)
+#  mail_line_2         :string(255)
+#  mail_line_3         :string(255)
+#  mail_line_4         :string(255)
+#  mail_line_5         :string(255)
+#  mail_line_6         :string(255)
+#  mail_postal_zone_id :integer
+#  name                :string(255)
+#  thread              :string(10)
+#  updated_at          :datetime         not null
+#  updater_id          :integer
 #
 
 
 class EntityAddress < Ekylibre::Record::Base
-  attr_readonly   :entity_id
-  # attr_accessible :entity_id, :name, :by_default, :canal, :coordinate, :mail_line_1, :mail_line_2, :mail_line_3, :mail_line_4, :mail_line_5, :mail_line_6, :mail_country
-  belongs_to :mail_area, class_name: "Area"
+  attr_readonly :entity_id
+  belongs_to :mail_postal_zone, class_name: "PostalZone"
   belongs_to :entity, inverse_of: :addresses
   has_many :incoming_deliveries
   has_many :outgoing_deliveries
@@ -95,10 +94,10 @@ class EntityAddress < Ekylibre::Record::Base
       if self.mail_line_6
         self.mail_line_6 = self.mail_line_6.to_s.gsub(/\s+/,' ').strip
         if self.mail_line_6.blank?
-          self.mail_area_id = nil
+          self.mail_postal_zone_id = nil
         else
-          self.mail_area = Area.where("LOWER(" + self.class.connection.trim("name") + ") LIKE ?", self.mail_line_6.lower).first
-          self.mail_area = Area.create!(:name => self.mail_line_6, :country => self.mail_country) if self.mail_area.nil?
+          self.mail_postal_zone = PostalZone.where("LOWER(" + self.class.connection.trim("name") + ") LIKE ?", self.mail_line_6.lower).first
+          self.mail_postal_zone = PostalZone.create!(:name => self.mail_line_6, :country => self.mail_country) if self.mail_postal_zone.nil?
         end
       end
       self.mail_line_1 = self.entity.full_name if self.mail_line_1.blank?
@@ -149,7 +148,7 @@ class EntityAddress < Ekylibre::Record::Base
   end
 
   def mail_line_6_code
-    self.mail_area.postcode if self.mail_area
+    self.mail_postal_zone.postal_code if self.mail_postal_zone
   end
 
   def mail_line_6_code=(value)
@@ -157,7 +156,7 @@ class EntityAddress < Ekylibre::Record::Base
   end
 
   def mail_mail_line_6_city
-    self.mail_area.city if self.mail_area
+    self.mail_postal_zone.city if self.mail_postal_zone
   end
 
   def mail_line_6_city=(value)

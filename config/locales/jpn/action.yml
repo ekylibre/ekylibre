@@ -51,10 +51,7 @@ jpn:
       # new: "Nouvel animal"
       # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
-    backend/areas:
-      # edit: "Modifier la zone postale\_: %{name}"
-      # index: "Zones postales"
-      # new: "Ajouter une zone postale"
+    backend/areas: #?
     backend/assets: #?
     backend/bank_statements:
       # edit: "Modifier le relevé N°%{number}"
@@ -414,6 +411,7 @@ jpn:
       # index: "Cultures"
       # new: "Nouvelle culture"
       # show: "Culture\_: %{name}"
+    backend/postal_zones: #?
     backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préférences"
@@ -626,7 +624,6 @@ jpn:
     # backend/analytic_repartitions: "Répartitions analytiques"
     # backend/animal_groups: "Groupes d’animaux"
     # backend/animals: "Animaux"
-    # backend/areas: "Zones postales"
     # backend/bank_statements: "Relevés de compte bancaire"
     # backend/buildings: "Bâtiments"
     # backend/campaigns: "Campagnes"

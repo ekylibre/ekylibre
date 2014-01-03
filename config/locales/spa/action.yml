@@ -59,10 +59,7 @@ spa:
       # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
     backend/application: #?
-    backend/areas:
-      # edit: "Modifier la zone postale\_: %{name}"
-      # index: "Zones postales"
-      # new: "Ajouter une zone postale"
+    backend/areas: #?
     backend/assets: #?
     backend/bank_statements:
       edit: "Modificar el leventar N°%{number}"
@@ -469,6 +466,7 @@ spa:
       # new: "Nouvelle culture"
       # show: "Culture\_: %{name}"
     backend/posologies: #?
+    backend/postal_zones: #?
     backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préférences"
@@ -708,7 +706,6 @@ spa:
     # backend/animal_groups: "Groupes d’animaux"
     # backend/animals: "Animaux"
     backend/application: "Aplicación" #?
-    # backend/areas: "Zones postales"
     backend/bank_statements: "Levantar de cuntos bancarios"
     backend/buildings: "Lugar de deposito"
     # backend/campaigns: "Campagnes"

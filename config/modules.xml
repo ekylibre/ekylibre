@@ -907,16 +907,16 @@
         <page to="backend/subscription_natures#update"/>
       </item>
       <item name="areas">
-        <page to="backend/areas#index"/>
-        <page to="backend/areas#create"/>
-        <page to="backend/areas#destroy"/>
-        <page to="backend/areas#edit"/>
-        <page to="backend/areas#list"/>
-        <page to="backend/areas#new"/>
-        <page to="backend/areas#autocomplete_for_name"/>
-        <page to="backend/areas#update"/>
-        <page to="backend/areas#show"/>
-        <page to="backend/areas#unroll"/>
+        <page to="backend/postal_zones#index"/>
+        <page to="backend/postal_zones#create"/>
+        <page to="backend/postal_zones#destroy"/>
+        <page to="backend/postal_zones#edit"/>
+        <page to="backend/postal_zones#list"/>
+        <page to="backend/postal_zones#new"/>
+        <page to="backend/postal_zones#autocomplete_for_name"/>
+        <page to="backend/postal_zones#update"/>
+        <page to="backend/postal_zones#show"/>
+        <page to="backend/postal_zones#unroll"/>
       </item>
       <item name="districts">
         <page to="backend/districts#index"/>

@@ -264,7 +264,7 @@ fra:
       animal: "Animal"
       animal_group: "Groupe d’animaux"
       animal_medicine: "Produits vétérinaires"
-      area: "Zone postale"
+      area: "Zone postale" #?
       bank_statement: "Relevé de compte bancaire"
       bioproduct: "Produit vivant"
       building: "Lieu de stockage"
@@ -334,6 +334,7 @@ fra:
       person: "Personne"
       plant: "Plante"
       plant_medicine: "Produit phytosanitaire"
+      postal_zone: "Zone postale"
       preference: "Préférence"
       prescription: "Prescription"
       product: "Produits"
@@ -419,8 +420,6 @@ fra:
     # archives: "Archives"
     # archives_count: "Archives count"
     archiving: "Méthode d’archivage"
-    area: "Zone postale"
-    areas: "Zones postales"
     arrival_cause: "Cause d’entrée"
     arrived_on: "Date d’entrée" #?
     assimilated_taxes_amount: "Montant des taxes assimilées"
@@ -773,7 +772,6 @@ fra:
     locked_at: "Verrouillé à"
     mail: "E-mail"
     mail_addresses: "Adresses postales"
-    mail_area: "Zone postale"
     mail_auto_update: "Mettre à jour l’adresse automatiquement"
     mail_columns: "Colonnes de courriel" #?
     mail_country: "Pays"
@@ -784,6 +782,7 @@ fra:
     mail_line_4: "Numéro et libellé de la voie"
     mail_line_5: "Mention spéciale - Lieu dit"
     mail_line_6: "Code postal ET ville"
+    mail_postal_zone: "Zone postale"
     mails: "Emails"
     managed: "Géré par le système"
     mandates: "Responsabilités"
@@ -881,7 +880,10 @@ fra:
     population: "Population"
     population_counting: "Gestion quantitative"
     position: "Position"
-    postcode: "Code postal"
+    # postal_code: "Postal code"
+    postal_zone: "Zone postale" #?
+    postal_zones: "Zones postales"
+    postcode: "Code postal" #?
     preferences: "Préférences"
     prescription: "Prescription"
     prescriptor: "Prescripteur"

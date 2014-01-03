@@ -21,29 +21,29 @@
 #
 # == Table: entity_addresses
 #
-#  by_default       :boolean          not null
-#  canal            :string(20)       not null
-#  coordinate       :string(500)      not null
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  deleted_at       :datetime
-#  entity_id        :integer          not null
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  mail_area_id     :integer
-#  mail_auto_update :boolean          not null
-#  mail_country     :string(2)
-#  mail_geolocation :spatial({:srid=>
-#  mail_line_1      :string(255)
-#  mail_line_2      :string(255)
-#  mail_line_3      :string(255)
-#  mail_line_4      :string(255)
-#  mail_line_5      :string(255)
-#  mail_line_6      :string(255)
-#  name             :string(255)
-#  thread           :string(10)
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  by_default          :boolean          not null
+#  canal               :string(20)       not null
+#  coordinate          :string(500)      not null
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  deleted_at          :datetime
+#  entity_id           :integer          not null
+#  id                  :integer          not null, primary key
+#  lock_version        :integer          default(0), not null
+#  mail_auto_update    :boolean          not null
+#  mail_country        :string(2)
+#  mail_geolocation    :spatial({:srid=>
+#  mail_line_1         :string(255)
+#  mail_line_2         :string(255)
+#  mail_line_3         :string(255)
+#  mail_line_4         :string(255)
+#  mail_line_5         :string(255)
+#  mail_line_6         :string(255)
+#  mail_postal_zone_id :integer
+#  name                :string(255)
+#  thread              :string(10)
+#  updated_at          :datetime         not null
+#  updater_id          :integer
 #
 #
 # == Fixture: entity_addresses
@@ -93,7 +93,7 @@ entity_addresses_003:
   mail_line_1: Mrs Jones
   mail_line_4: Somewhere
   mail_line_6: 12345 InTheWorld
-  mail_area_id: 2
+  mail_postal_zone_id: 2
   id: 3
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
@@ -109,7 +109,7 @@ entity_addresses_004:
   mail_line_1: Mr Jones
   mail_line_4: 2 Somewhere
   mail_line_6: 12345 InTheWorld
-  mail_area_id: 2
+  mail_postal_zone_id: 2
   id: 4
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1

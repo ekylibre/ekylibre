@@ -133,27 +133,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "analytic_repartitions", ["updated_at"], :name => "index_analytic_repartitions_on_updated_at"
   add_index "analytic_repartitions", ["updater_id"], :name => "index_analytic_repartitions_on_updater_id"
 
-  create_table "areas", force: true do |t|
-    t.string   "postcode",                           null: false
-    t.string   "name",                               null: false
-    t.string   "country",      limit: 2,             null: false
-    t.integer  "district_id"
-    t.string   "city"
-    t.string   "city_name"
-    t.string   "code"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",           default: 0, null: false
-  end
-
-  add_index "areas", ["created_at"], :name => "index_areas_on_created_at"
-  add_index "areas", ["creator_id"], :name => "index_areas_on_creator_id"
-  add_index "areas", ["district_id"], :name => "index_areas_on_district_id"
-  add_index "areas", ["updated_at"], :name => "index_areas_on_updated_at"
-  add_index "areas", ["updater_id"], :name => "index_areas_on_updater_id"
-
   create_table "bank_statements", force: true do |t|
     t.integer  "cash_id",                                                       null: false
     t.date     "started_on",                                                    null: false
@@ -552,12 +531,12 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "entities", ["updater_id"], :name => "index_entities_on_updater_id"
 
   create_table "entity_addresses", force: true do |t|
-    t.integer  "entity_id",                                                                         null: false
-    t.string   "canal",            limit: 20,                                                       null: false
-    t.string   "coordinate",       limit: 500,                                                      null: false
-    t.boolean  "by_default",                                                        default: false, null: false
+    t.integer  "entity_id",                                                                            null: false
+    t.string   "canal",               limit: 20,                                                       null: false
+    t.string   "coordinate",          limit: 500,                                                      null: false
+    t.boolean  "by_default",                                                           default: false, null: false
     t.datetime "deleted_at"
-    t.string   "thread",           limit: 10
+    t.string   "thread",              limit: 10
     t.string   "name"
     t.string   "mail_line_1"
     t.string   "mail_line_2"
@@ -565,15 +544,15 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "mail_line_4"
     t.string   "mail_line_5"
     t.string   "mail_line_6"
-    t.string   "mail_country",     limit: 2
-    t.integer  "mail_area_id"
-    t.boolean  "mail_auto_update",                                                  default: false, null: false
-    t.datetime "created_at",                                                                        null: false
-    t.datetime "updated_at",                                                                        null: false
+    t.string   "mail_country",        limit: 2
+    t.integer  "mail_postal_zone_id"
+    t.boolean  "mail_auto_update",                                                     default: false, null: false
+    t.datetime "created_at",                                                                           null: false
+    t.datetime "updated_at",                                                                           null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                      default: 0,     null: false
-    t.spatial  "mail_geolocation", limit: {:srid=>0, :type=>"point", :has_z=>true}
+    t.integer  "lock_version",                                                         default: 0,     null: false
+    t.spatial  "mail_geolocation",    limit: {:srid=>0, :type=>"point", :has_z=>true}
   end
 
   add_index "entity_addresses", ["by_default"], :name => "index_entity_addresses_on_by_default"
@@ -581,7 +560,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "entity_addresses", ["creator_id"], :name => "index_entity_addresses_on_creator_id"
   add_index "entity_addresses", ["deleted_at"], :name => "index_entity_addresses_on_deleted_at"
   add_index "entity_addresses", ["entity_id"], :name => "index_entity_addresses_on_entity_id"
-  add_index "entity_addresses", ["mail_area_id"], :name => "index_entity_addresses_on_mail_area_id"
+  add_index "entity_addresses", ["mail_postal_zone_id"], :name => "index_entity_addresses_on_mail_postal_zone_id"
   add_index "entity_addresses", ["thread"], :name => "index_entity_addresses_on_thread"
   add_index "entity_addresses", ["updated_at"], :name => "index_entity_addresses_on_updated_at"
   add_index "entity_addresses", ["updater_id"], :name => "index_entity_addresses_on_updater_id"
@@ -1438,6 +1417,27 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "outgoing_payments", ["responsible_id"], :name => "index_outgoing_payments_on_responsible_id"
   add_index "outgoing_payments", ["updated_at"], :name => "index_outgoing_payments_on_updated_at"
   add_index "outgoing_payments", ["updater_id"], :name => "index_outgoing_payments_on_updater_id"
+
+  create_table "postal_zones", force: true do |t|
+    t.string   "postal_code",                        null: false
+    t.string   "name",                               null: false
+    t.string   "country",      limit: 2,             null: false
+    t.integer  "district_id"
+    t.string   "city"
+    t.string   "city_name"
+    t.string   "code"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",           default: 0, null: false
+  end
+
+  add_index "postal_zones", ["created_at"], :name => "index_postal_zones_on_created_at"
+  add_index "postal_zones", ["creator_id"], :name => "index_postal_zones_on_creator_id"
+  add_index "postal_zones", ["district_id"], :name => "index_postal_zones_on_district_id"
+  add_index "postal_zones", ["updated_at"], :name => "index_postal_zones_on_updated_at"
+  add_index "postal_zones", ["updater_id"], :name => "index_postal_zones_on_updater_id"
 
   create_table "preferences", force: true do |t|
     t.string   "name",                                                              null: false

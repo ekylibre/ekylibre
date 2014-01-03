@@ -255,6 +255,7 @@ arb:
         outgoing_payment_mode: "نوع الدفعة"
         outgoing_payment_use: "تأثير الدفعة"
         parameter: "الاعدادات"
+        postal_zone: "المنطقة البريدية"
         price: "الاسعار"
         product: "الانتاج"
         product_category: "فئة الانتاج"

@@ -178,12 +178,6 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :areas, concerns: [:list, :unroll] do
-      collection do
-        get :autocomplete_for_name
-      end
-    end
-
     resources :bank_statements, concerns: [:list, :unroll] do
       collection do
         get :list_items
@@ -471,6 +465,12 @@ Ekylibre::Application.routes.draw do
     resources :plants, concerns: :products
 
     resources :plant_medicines, concerns: :products
+
+    resources :postal_zones, concerns: [:list, :unroll] do
+      collection do
+        get :autocomplete_for_name
+      end
+    end
 
     resources :preferences, concerns: [:list, :unroll]
 

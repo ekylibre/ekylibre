@@ -58,10 +58,10 @@ arb:
       # new: "Nouvel animal"
       # picture: "Photo"
       # show: "%{nature_name}\_: %{name}"
-    backend/areas:
-      edit: "تعديل العنوان البريدي : %{name}"
-      index: "العناوين البريد"
-      new: "اضافة عنوان بريدي"
+    backend/areas:  #?
+      edit: "تعديل العنوان البريدي : %{name}" #?
+      index: "العناوين البريد" #?
+      new: "اضافة عنوان بريدي" #?
     backend/assets: #?
     backend/bank_statements:
       edit: "تعديل الكشف المصرفي رقم%{number}"
@@ -489,6 +489,7 @@ arb:
       # new: "Nouvelle culture"
       # show: "Culture\_: %{name}"
     backend/posologies: #?
+    backend/postal_zones: #?
     backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préférences"
@@ -778,7 +779,7 @@ arb:
     # backend/animal_groups: "Groupes d’animaux"
     # backend/animals: "Animaux"
     backend/application: "تطبيق" #?
-    backend/areas: "العناوين البريد"
+    backend/areas: "العناوين البريد" #?
     backend/authentication: "المصادقة" #?
     backend/bank_statements: "بيان الحساب المصرفي"
     backend/buildings: "مواقع التخزين"

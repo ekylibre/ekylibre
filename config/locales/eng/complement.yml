@@ -524,6 +524,7 @@ eng:
         outgoing_payment_use: "Disbursement part"
         place: "Place"
         plant: "Plant"
+        postal_zone: "Postal_Zone"
         preference: "Preference"
         price: "Price"
         procedure: "Procedure"

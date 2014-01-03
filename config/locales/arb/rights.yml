@@ -23,7 +23,7 @@ arb:
     import_export_entities: "استيراد وتصدير ملفات العملاء / الممولين"
     mail_to_listings: "ادارة ارسال رسائل البريد الالكتروني بواسطة الاستخراج"
     manage_accounts: "ادارة الحسابات"
-    manage_areas: "ادارة المناطق"
+    manage_areas: "ادارة المناطق" #?
     manage_bank_statements: "كشوفات البيانات الحسابية"
     manage_buildings: "ادارة مواقع التخزين"
     # manage_cash_transfers: "Gérer les virements internes"
@@ -59,6 +59,7 @@ arb:
     # manage_outgoing_payment_modes: "Gérer les modes de décaissement"
     # manage_outgoing_payments: "Gérer les décaissements"
     manage_payment_modes: "ادارة طرق الدفع" #?
+    # manage_postal_zones: "Gérer les zones postales"
     manage_prices: "ادارة الاموال"
     manage_product_categories: "ادارة فئات المنتجات" #?
     # manage_productions: "Gérer les productions"

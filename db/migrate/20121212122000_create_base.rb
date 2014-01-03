@@ -66,8 +66,8 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
-    create_table :areas do |t|
-      t.string     :postcode,                              null: false
+    create_table :postal_zones do |t|
+      t.string     :postal_code,                              null: false
       t.string     :name,                                  null: false
       t.string     :country,      limit: 2, null: false
       t.references :district,                                          index: true
@@ -329,7 +329,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :mail_line_5
       t.string     :mail_line_6
       t.string     :mail_country,     limit: 2
-      t.references :mail_area,                                                                        index: true
+      t.references :mail_postal_zone,                                                                index: true
       t.point      :mail_geolocation, has_z: true
       t.boolean    :mail_auto_update,                                    default: false, null: false
       t.stamps

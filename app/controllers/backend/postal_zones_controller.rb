@@ -17,19 +17,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AreasController < BackendController
+class Backend::PostalZonesController < BackendController
   manage_restfully :country => "Preference[:country]".c, except: :show
 
   unroll
 
   autocomplete_for :name
 
-  list(conditions: search_conditions(:areas => [:postcode, :name]), order: :name) do |t|
+  list(conditions: search_conditions(:postal_zones => [:postcode, :name]), order: :name) do |t|
     t.column :name
-    t.column :postcode
+    t.column :postal_code
     t.column :city
     t.column :code
-    t.column :district
+    t.column :district # , url: true
     t.column :country
     t.action :edit
     t.action :destroy

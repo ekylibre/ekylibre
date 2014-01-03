@@ -1986,6 +1986,7 @@ fra:
         person: "Personne"
         plant: "Plante"
         plant_medicine: "Produit phytosanitaire"
+        postal_zone: "Zone postale"
         preference: "Préférence"
         prescription: "Prescription"
         product: "Produits"

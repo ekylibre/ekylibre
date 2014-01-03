@@ -52,11 +52,6 @@ fra:
       new: "Nouvel animal"
       picture: "Photo"
       show: "%{nature_name}\_: %{name}"
-    backend/areas:
-      # autocomplete_for_name: "Autocomplete for name backend/area"
-      edit: "Modifier la zone postale\_: %{name}"
-      index: "Zones postales"
-      new: "Ajouter une zone postale"
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
       index: "Relevés de compte bancaire"
@@ -460,6 +455,11 @@ fra:
       new: "Nouvelle culture"
       # picture: "Picture backend/plant"
       show: "Culture\_: %{name}"
+    backend/postal_zones:
+      # autocomplete_for_name: "Autocomplete for name backend/postal zone"
+      # edit: "Edit backend/postal zone"
+      # index: "Index backend/postal zone"
+      # new: "New backend/postal zone"
     backend/preferences:
       edit: "Modifier les préférences" #?
       index: "Préférences"
@@ -676,7 +676,6 @@ fra:
     backend/animal_groups: "Groupes d’animaux"
     # backend/animal_medicines: "Backend/animal medicines"
     backend/animals: "Animaux"
-    backend/areas: "Zones postales"
     backend/bank_statements: "Relevés de compte bancaire"
     # backend/building_divisions: "Backend/building divisions"
     backend/buildings: "Bâtiments"
@@ -772,6 +771,7 @@ fra:
     backend/people: "Personnes"
     backend/plant_medicines: "Produits phytosanitaires"
     backend/plants: "Cultures"
+    # backend/postal_zones: "Backend/postal zones"
     backend/preferences: "Préférences"
     # backend/prescriptions: "Backend/prescriptions"
     backend/product_groups: "Groupes de produits"

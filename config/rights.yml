@@ -88,7 +88,6 @@
 # - "backend/animals#show"
 # - "backend/animals#unroll"
 # - "backend/animals#update"
-# - "backend/areas#unroll"
 # - "backend/bank_statements#unroll"
 # - "backend/building_divisions#create"
 # - "backend/building_divisions#destroy"
@@ -535,6 +534,7 @@
 # - "backend/plants#show"
 # - "backend/plants#unroll"
 # - "backend/plants#update"
+# - "backend/postal_zones#unroll"
 # - "backend/preferences#index"
 # - "backend/preferences#list"
 # - "backend/prescriptions#create"
@@ -928,17 +928,6 @@ manage_accounts:
 - "backend/accounts#update"
 - "backend/dashboards#accountancy"
 
-# Manage areas
-manage_areas:
-- "backend/areas#create"
-- "backend/areas#destroy"
-- "backend/areas#edit"
-- "backend/areas#index"
-- "backend/areas#list"
-- "backend/areas#new"
-- "backend/areas#update"
-- "backend/dashboards#relationship"
-
 # Point bank statements
 manage_bank_statements:
 - "backend/bank_statements#create"
@@ -1067,7 +1056,6 @@ manage_document_templates:
 
 # Manage people
 manage_entities:
-- "backend/areas#autocomplete_for_name"
 - "backend/dashboards#relationship"
 - "backend/entities#autocomplete_for_origin"
 - "backend/entities#create"
@@ -1087,6 +1075,7 @@ manage_entities:
 - "backend/entity_addresses#edit"
 - "backend/entity_addresses#new"
 - "backend/entity_addresses#update"
+- "backend/postal_zones#autocomplete_for_name"
 
 # Manage people links
 manage_entity_links:
@@ -1381,6 +1370,17 @@ manage_outgoing_payments:
 - "backend/outgoing_payments#update"
 - "backend/purchases#list_items"
 - "backend/purchases#show"
+
+# translation missing: eng.rights.manage_postal_zones
+manage_postal_zones:
+- "backend/dashboards#relationship"
+- "backend/postal_zones#create"
+- "backend/postal_zones#destroy"
+- "backend/postal_zones#edit"
+- "backend/postal_zones#index"
+- "backend/postal_zones#list"
+- "backend/postal_zones#new"
+- "backend/postal_zones#update"
 
 # Manage prices
 manage_prices:

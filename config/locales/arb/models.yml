@@ -154,8 +154,8 @@ arb:
         mode: "نوع الدفعة" #?
         mode_id: "نوع الدفعة" #?
       district:  #?
-        areas: "المناطق البريدية" #?
         created_at: "انشأت في " #?
+        postal_zones: "المناطق البريدية" #?
       document:
         # filename: "Fichier"
         updater_id: "تحديث" #?
@@ -387,6 +387,9 @@ arb:
         # nature: "Nature de la culture"
         # reproductor: "Multiplication"
         # variety: "Variété"
+      postal_zone:  #?
+        code: "الرمز الداخلي" #?
+        created_at: "تم انشائه في" #?
       price:  #?
         category: "فئة الملف المساعد" #?
         category_id: "فئة الملف المساعد" #?
@@ -922,6 +925,7 @@ arb:
       # person: "Personne"
       # plant: "Plante"
       # plant_medicine: "Produit phytosanitaire"
+      postal_zone: "المنطقة البريدية"
       # preference: "Préférence"
       # prescription: "Prescription"
       price: "الاسعار" #?
@@ -1020,12 +1024,9 @@ arb:
     # amounts_scale: "Nombre de chiffres après le virgule"
     annotation: "ملاحظة"
     # archiving: "Méthode d’archivage"
-    area: "المنطقة البريدية"
-    area_id: "العنوان البريدي" #?
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
     area_unit_id: "وحدة مساحة" #?
-    areas: "الرموز البريدية"
     # arrival_cause: "Cause d’entrée"
     arrived_on: "وصل يوم"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة"
@@ -1484,7 +1485,6 @@ arb:
     lost: "الضائع" #?
     mail: "البريد الالكتروني"
     # mail_addresses: "Adresses postales"
-    # mail_area: "Zone postale"
     # mail_auto_update: "Mettre à jour l’adresse automatiquement"
     # mail_columns: "Colonnes de courriel"
     # mail_country: "Pays"
@@ -1495,6 +1495,7 @@ arb:
     # mail_line_4: "Numéro et libellé de la voie"
     # mail_line_5: "Mention spéciale - Lieu dit"
     # mail_line_6: "Code postal ET ville"
+    # mail_postal_zone: "Zone postale"
     # mails: "Emails"
     major_accounts: "الحسابات الئيسية" #?
     # managed: "Géré par le système"
@@ -1635,6 +1636,9 @@ arb:
     # population: "Population"
     # population_counting: "Gestion quantitative"
     position: "الوضع"
+    postal_zone: "المنطقة البريدية"
+    postal_zone_id: "العنوان البريدي" #?
+    postal_zones: "الرموز البريدية"
     postcode: "الرمز البريدي"
     preferences: "الاعدادات"
     # prescription: "Prescription"

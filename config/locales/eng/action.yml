@@ -49,10 +49,10 @@ eng:
       new: "Create animal"
       picture: "Picture"
       show: "%{nature_name}\_: %{name}"
-    backend/areas:
-      edit: "Edit the postal area: %{name}"
-      index: "Postal areas"
-      new: "Add a postal area"
+    backend/areas:  #?
+      edit: "Edit the postal area: %{name}" #?
+      index: "Postal areas" #?
+      new: "Add a postal area" #?
     backend/assets:  #?
       cede: "Cede %{name}" #?
       depreciate: "Compute depreciations of %{name}" #?
@@ -447,6 +447,7 @@ eng:
       index: "Plants"
       new: "Create plant"
       show: "Plant\_: %{name} "
+    backend/postal_zones: #?
     backend/preferences:
       edit: "Edit preferences"
       index: "Preferences"
@@ -678,7 +679,7 @@ eng:
     backend/analytic_repartitions: "Analytics repartitions"
     # backend/animal_groups: "Groupes d’animaux"
     backend/animals: "Animals"
-    backend/areas: "Postal areas"
+    backend/areas: "Postal areas" #?
     backend/assets: "Assets" #?
     backend/bank_statements: "Bank statements"
     backend/buildings: "Buildings"

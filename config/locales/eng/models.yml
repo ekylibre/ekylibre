@@ -501,6 +501,7 @@ eng:
       place: "Place" #?
       plant: "Plant"
       # plant_medicine: "Produit phytosanitaire"
+      postal_zone: "Postal_Zone"
       preference: "Preference"
       # prescription: "Prescription"
       price: "Price" #?
@@ -615,10 +616,8 @@ eng:
     animals: "Animals" #?
     annotation: "Annotation"
     # archiving: "Méthode d’archivage"
-    area: "Area"
     area_measure: "Area measure" #?
     area_unit: "Area unit" #?
-    areas: "Areas"
     arrival_cause: "Arrival cause"
     arrived_on: "Arrived on"
     asset: "Asset" #?
@@ -1064,7 +1063,6 @@ eng:
     luminance: "Luminance" #?
     mail: "Mail"
     # mail_addresses: "Adresses postales"
-    mail_area: "Mail area"
     mail_auto_update: "Mail auto update"
     mail_columns: "Mail columns"
     mail_country: "Mail country"
@@ -1075,6 +1073,7 @@ eng:
     mail_line_4: "Number and Street"
     mail_line_5: "Special mentions, place name"
     mail_line_6: "Postal code and city"
+    mail_postal_zone: "Mail postal_zone"
     mails: "Mails"
     major_accounts: "Major accounts" #?
     # managed: "Géré par le système"
@@ -1210,6 +1209,8 @@ eng:
     # population_counting: "Gestion quantitative"
     position: "Position"
     posologies: "Posologies" #?
+    postal_zone: "Postal_Zone"
+    postal_zones: "Postal_Zones"
     postcode: "Postcode"
     preferences: "Preferences"
     pregnant: "Pregnant" #?

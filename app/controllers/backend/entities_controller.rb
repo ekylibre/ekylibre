@@ -148,7 +148,7 @@ class Backend::EntitiesController < BackendController
       if request.post?
         from  = " FROM #{Entity.table_name} AS entity"
         from += " LEFT JOIN #{EntityAddress.table_name} AS address ON (address.entity_id=entity.id AND address.by_default IS TRUE AND address.deleted_at IS NULL)"
-        from += " LEFT JOIN #{Area.table_name} AS area ON (address.area_id=area.id})"
+        from += " LEFT JOIN #{PostalZone.table_name} AS area ON (address.area_id=area.id})"
         from += " LEFT JOIN #{District.table_name} AS district ON (area.district_id=district.id)"
         where = " WHERE entity.active"
         select_array = []
