@@ -1,16 +1,15 @@
 #!/bin/sh
-app=$1
-version=$2
-log=$3
+app=$BUILD_APP
+version=$BUILD_VERSION
+log=$BUILD_LOG
 
 source=${app}-${version}-source
 
-rm -fr packages
-mkdir packages
+cd $BUILD_DIR
 
 if [ -n "`which zip`" ]; then
     echo " * Zip source" >> $log
-    zip -r packages/${source}.zip ${app} -x *.svn* log/*.log >> $log
+    zip -r $BUILD_RELEASE/${source}.zip * -x *.svn* log/*.log >> $log
 else
     echo " * No zip command. Run 'sudo apt-get install zip'"
     echo " * No zip command. Run 'sudo apt-get install zip'" >> $log
@@ -18,9 +17,9 @@ fi
 
 if [ -n "`which tar`" ]; then
     echo " * Gzip source" >> $log
-    tar cfvhz packages/${source}.tar.gz  --exclude=.svn --exclude=log/*.log ${app} >> $log
+    tar cfvhz $BUILD_RELEASE/${source}.tar.gz  --exclude=.svn --exclude=log/*.log * >> $log
     echo " * Bzip source" >> $log
-    tar cfvhj packages/${source}.tar.bz2 --exclude=.svn --exclude=log/*.log ${app} >> $log
+    tar cfvhj $BUILD_RELEASE/${source}.tar.bz2 --exclude=.svn --exclude=log/*.log * >> $log
 else
     echo " * No tar command. Run 'sudo apt-get install tar'"
     echo " * No tar command. Run 'sudo apt-get install tar'" >> $log

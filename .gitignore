@@ -42,6 +42,7 @@ installer/debian/*.changes
 installer/resources
 installer/releases
 installer/*.log
+pkg
 
 public/system/*
 
