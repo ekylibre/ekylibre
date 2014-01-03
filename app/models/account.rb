@@ -164,6 +164,7 @@ class Account < Ekylibre::Record::Base
     # 123 will take all accounts 123*
     # ^456 will remove all accounts 456*
     def regexp_condition(expr, options = {})
+      table = options[:table] || table_name
       normals, excepts = ["(XD)"], []
       for prefix in expr.strip.split(/[\,\s]+/)
         code = prefix.gsub(/(^(\-|\^)|[CDX]+$)/, '')

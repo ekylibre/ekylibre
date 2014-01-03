@@ -67,7 +67,7 @@
                     <cell name="name"/>
                     <cell name="variety" level="api"/>
                   </within>
-                  <cell name="population" of="input" type="measure"/>
+                  <cell name="population" of="input" />
                   <cell name="unit_name" of="input.actor"/>
                   <matrix name="withdrawal_periods">
                     <cell name="meat_withdrawal_period" value="meat_withdrawal_period" type="measure"/>
