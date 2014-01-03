@@ -499,14 +499,6 @@
         <page to="backend/operations#show"/>
         <page to="backend/operations#unvalidateds"/>
         <page to="backend/operations#update"/>
-        <page to="backend/operation_tasks#index" nonexistent="true"/>
-        <page to="backend/operation_tasks#create" nonexistent="true"/>
-        <page to="backend/operation_tasks#destroy" nonexistent="true"/>
-        <page to="backend/operation_tasks#edit" nonexistent="true"/>
-        <page to="backend/operation_tasks#list" nonexistent="true"/>
-        <page to="backend/operation_tasks#new" nonexistent="true"/>
-        <page to="backend/operation_tasks#show" nonexistent="true"/>
-        <page to="backend/operation_tasks#update" nonexistent="true"/>
         <page to="backend/intervention_casts#index"/>
         <page to="backend/intervention_casts#create"/>
         <page to="backend/intervention_casts#destroy"/>
@@ -1324,9 +1316,6 @@
       <item name="elapsed_interventions_times_by_activities_cells">
         <page to="backend/cells/elapsed_interventions_times_by_activities_cells#show"/>
       </item>
-      <item name="expense_chart_cells">
-        <page to="backend/cells/expense_chart_cells#show" nonexistent="true"/>
-      </item>
       <item name="last_document_archives_cells">
         <page to="backend/cells/last_document_archives_cells#list"/>
         <page to="backend/cells/last_document_archives_cells#show"/>
@@ -1364,15 +1353,6 @@
       </item>
       <item name="placeholder_cells">
         <page to="backend/cells/placeholder_cells#show"/>
-      </item>
-      <item name="product_bar_cells">
-        <page to="backend/cells/product_bar_cells#show"/>
-      </item>
-      <item name="purchases_bar_cells">
-        <page to="backend/cells/purchases_bar_cells#show"/>
-      </item>
-      <item name="purchases_expense_bar_cells">
-        <page to="backend/cells/purchases_expense_bar_cells#show"/>
       </item>
       <item name="rss_cells">
         <page to="backend/cells/rss_cells#show"/>
