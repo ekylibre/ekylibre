@@ -16,7 +16,7 @@
       </section>
       <section name="plan">
         <variable name="animal_building_division" value="ProductNature.find_by_reference_name(:animal_building_division)"/>
-        <property name="plan_svg" value="BuildingDivision.of_nature(animal_building_division).map_svg" type="svg" level="api"/>
+        <property name="plan_svg" value="BuildingDivision.of_nature(animal_building_division).shape_svg" type="svg" level="api"/>
         <sections for="building_division" in="BuildingDivision.of_nature(animal_building_division)" of-type="record">
           <title name="name" of="building_division"/>
           <property name="work_number" of="building_division"/>
