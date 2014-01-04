@@ -48,8 +48,10 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   validates_presence_of :delivery, :population, :product, :source_product
   #]VALIDATORS]
 
+  delegate :net_mass, to: :product
+
   # acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
-  # sums :delivery, :items, "item.product.mass" => :mass
+  sums :delivery, :items, :net_mass
 
   before_validation do
     if self.sale_item

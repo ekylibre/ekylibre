@@ -40,7 +40,7 @@ class Backend::FinancialAssetsController < BackendController
     t.column :stopped_on
     t.column :financial_year, url: true
     t.column :journal_entry, label_method: :number, url: true
-    t.action :edit, :if => "RECORD.journal_entry.nil?".c
+    # t.action :edit, :if => "RECORD.journal_entry.nil?".c
   end
 
   # def cede

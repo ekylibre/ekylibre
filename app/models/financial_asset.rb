@@ -54,6 +54,7 @@
 class FinancialAsset < Ekylibre::Record::Base
   acts_as_numbered
   enumerize :depreciation_method, in: [:simplified_linear, :linear], predicates: {prefix: true} # graduated
+  enumerize :currency, in: Nomen::Currencies.all, default: Proc.new { Preference[:currency] }
   belongs_to :charges_account, class_name: "Account"
   belongs_to :allocation_account, class_name: "Account"
   belongs_to :journal, class_name: "Journal"
@@ -82,7 +83,9 @@ class FinancialAsset < Ekylibre::Record::Base
     self.purchase_amount ||= self.depreciable_amount
     self.purchased_on ||= self.started_on
     if self.depreciation_method_linear?
-      self.depreciation_percentage = (100.0*365.25/(self.stopped_on == self.started_on ? 1 : (self.stopped_on - self.started_on))).to_f
+      if self.stopped_on and self.started_on
+        self.depreciation_percentage = (100.0*365.25/(self.stopped_on == self.started_on ? 1 : (self.stopped_on - self.started_on))).to_f
+      end
     elsif self.depreciation_method_simplified_linear?
       self.depreciation_percentage ||= 20
       years = (100.0 / self.depreciation_percentage)
@@ -90,10 +93,13 @@ class FinancialAsset < Ekylibre::Record::Base
       days = (months - months.floor)*30.0
       self.stopped_on = (self.started_on >> (12 * years.floor + months.floor)) + days.floor - 1
     end
-    self.currency = self.journal.currency
+    # self.currency = self.journal.currency
   end
 
   validate do
+    if self.currency and self.journal
+      errors.add(:currency, :invalid) if self.currency != self.journal.currency
+    end
     if self.started_on
       if fy = FinancialYear.reorder("started_on").first
         unless fy.started_on <= self.started_on

@@ -2,7 +2,8 @@
 class Backend::Cells::RevenuesByProductNatureCellsController < Backend::CellsController
 
   def show
-    @campaign = Campaign.order("name ASC").last
+    @stopped_on = Date.today.end_of_month
+    @started_on = @stopped_on.beginning_of_month << 11
   end
 
 end

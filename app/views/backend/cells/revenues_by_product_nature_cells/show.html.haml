@@ -1,20 +1,16 @@
-- if @campaign
+- if @started_on and @stopped_on
   :ruby
-    #
-    started_on = Date.new(@campaign.name.to_f, 01, 01)
-    stopped_on = Date.new(@campaign.name.to_f, 12, 31)
-
     series = []
     categories = {}
-    date = started_on
-    while date < stopped_on
+    date = @started_on
+    while date < @stopped_on
       categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(:format => "%b %Y")
       date = date >> 1
     end
 
     # data for bar chart revenues by product_nature and by month
     ProductNature.availables.find_each do |nature|
-      sale_items = SaleItem.by_product_nature(nature).between(started_on, stopped_on)
+      sale_items = SaleItem.by_product_nature(nature).between(@started_on, @stopped_on)
       if sale_items.count > 0
         item_h = sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
           hash[pair.expr.to_i.to_s] = pair.sum.to_d
@@ -25,7 +21,7 @@
     end
 
     # data for spline sum revenues by month
-    all_sale_items = SaleItem.between(started_on, stopped_on)
+    all_sale_items = SaleItem.between(@started_on, @stopped_on)
     if all_sale_items.count > 0
       item_h = all_sale_items.sums_of_periods.sort.inject({}) do |hash, pair|
         hash[pair.expr.to_i.to_s] = pair.sum.to_d
@@ -37,7 +33,7 @@
     # data for pie revenues by product_nature
     data = []
     ProductNature.availables.find_each do |nature|
-      sale_items = SaleItem.by_product_nature(nature).between(started_on, stopped_on)
+      sale_items = SaleItem.by_product_nature(nature).between(@started_on, @stopped_on)
       if sale_items.count > 0
         sum_revenues = sale_items.sum(:pretax_amount)
         data << {name: nature.name, y: sum_revenues.to_s.to_f, url: backend_product_nature_path(nature)}

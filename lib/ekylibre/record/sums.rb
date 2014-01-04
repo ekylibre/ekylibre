@@ -27,18 +27,36 @@ module Ekylibre::Record
         code = ""
         callbacks = (options.delete(:callbacks) || [:after_save, :after_destroy])
         for callback in callbacks
-          code << "#{callback} do\n"
-          code << "  return if self.#{target_id}.to_i.zero?\n"
-          code << "  "+options.collect{|k, v| v}.join(" = ")+" = 0\n"
-          code << "  self.class.where(:#{target_id} => self.#{target_id}).find_each do |#{record}|\n"
-          for k, v in options
-            code << "    #{v} += "+(k.is_a?(Symbol) ? "#{record}.#{k}" : k)+"\n"
-          end
-          code << "  end\n"
-          code << "  " + Ekylibre::Schema.references(self.name.underscore.to_sym, target_id).to_s.camelcase + ".where(id: self.#{target_id}).update_all(" + options.collect{|k, v| ":#{v} => #{v}"}.join(", ") + ")\n"
-          code << "end\n"
+          code << "#{callback} :#{method_name}\n"
+          # code << "#{callback} do\n"
+          # code << "  return if self.#{target_id}.to_i.zero?\n"
+          # code << "  "+options.collect{|k, v| v}.join(" = ")+" = 0\n"
+          # code << "  self.class.where(#{target_id}: self.#{target_id}).find_each do |#{record}|\n"
+          # for k, v in options
+          #   code << "    #{v} += "+(k.is_a?(Symbol) ? "#{record}.#{k}" : k)+"\n"
+          # end
+          # code << "  end\n"
+          # code << "  " + Ekylibre::Schema.references(self.name.underscore.to_sym, target_id).to_s.camelcase + ".where(id: self.#{target_id}).update_all(" + options.collect{|k, v| ":#{v} => #{v}"}.join(", ") + ")\n"
+          # code << "end\n"
         end
-        # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
+
+        code << "def #{method_name}\n"
+        code << "  return unless self.#{target}\n"
+        code << "  " + options.values.join(" = ") + " = 0\n"
+        # code << "  #{self.name}.where(#{target_id}: self.#{target_id}).find_each do |#{record}|\n"
+        # code << "  #{self.name}.where(#{target_id}: self.#{target_id}).find_each do |#{record}|\n"
+        code << "  #{target}.#{children}.find_each do |#{record}|\n"
+        for k, v in options
+          code << "    #{v} += " + (k.is_a?(Symbol) ? "#{record}.#{k}" : k) + "\n"
+        end
+        code << "  end\n"
+        # code << "  " + Ekylibre::Schema.references(self.name.underscore.to_sym, target_id).to_s.camelcase + ".where(id: self.#{target_id}).update_all(" + options.collect{|k, v| "#{v}: #{v}"}.join(", ") + ")\n"
+        # code << "  " + target_reflection.class_name + ".where(id: self.#{target_id}).update_all(" + options.collect{|k, v| "#{v}: #{v}"}.join(", ") + ")\n"
+        code << "  #{target}.update_columns(" + options.collect{|k, v| "#{v}: #{v}"}.join(", ") + ")\n"
+        code << "end\n"
+
+        # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
+
         class_eval code
       end
 

@@ -2,7 +2,7 @@
 class Backend::Cells::ElapsedInterventionsTimesByActivitiesCellsController < Backend::CellsController
 
   def show
-    @campaign = Campaign.order(:name).last
+    @campaign = Campaign.order(harvest_year: :desc).first
   end
 
 end

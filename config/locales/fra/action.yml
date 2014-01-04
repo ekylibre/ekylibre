@@ -170,7 +170,7 @@ fra:
       stocks: "Tableau de bord des stocks"
       tools: "Tableau de bord des outils"
       trade: "Tableau de bord des achats et ventes"
-      welcome: "Bienvenue dans Ekylibre"
+      welcome: "Bienvenue dans Ekylibre" #?
     backend/deposits:
       edit: "Modifier la remise en banque n°%{number} du %{created_on}"
       index: "Remises en banque"

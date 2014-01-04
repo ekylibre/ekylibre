@@ -45,7 +45,7 @@ class Transport < Ekylibre::Record::Base
   acts_as_numbered
   belongs_to :responsible, class_name: "User"
   belongs_to :transporter, class_name: "Entity"
-  has_many :deliveries, dependent: :nullify, class_name: "OutgoingDelivery"
+  has_many :deliveries, class_name: "OutgoingDelivery", dependent: :nullify
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :net_mass, :pretax_amount, allow_nil: true

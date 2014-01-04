@@ -1,10 +1,7 @@
 arb:
   enumerize:
-    asset:
-      depreciation_method:
-        # graduated: "Dégressive"
-        # linear: "Linéaire"
-        # simplified_linear: "Linéaire simplifiée"
+    asset:  #?
+ #?
     cash:
       mode:
         # bban: "Relevé d’identité bancaire (RIB)"
@@ -45,6 +42,11 @@ arb:
         # purchase: "Création d’un achat"
         # sale: "Création d’un devis"
         # sales_invoice: "Création d’une facture"
+    financial_asset:
+      depreciation_method:
+        # graduated: "Dégressive"
+        # linear: "Linéaire"
+        # simplified_linear: "Linéaire simplifiée"
     intervention:
       state:
         # done: "Réalisée"
@@ -87,11 +89,11 @@ arb:
         # year: "Année"
       usage:
         # animals: "Numérotation des animaux"
-        # assets: "Numérotation des immobilisations"
         # campaigns: "Numérotation des campagnes de productions"
         # cash_transfers: "Numérotation des virements internes"
         # deposits: "Numérotation des remises en banque"
         # entities: "Numérotation des personnes"
+        # financial_assets: "Numérotation des immobilisations"
         # incoming_deliveries: "Numérotation des bons de réceptions"
         # incoming_payments: "Numérotation des encaissements"
         # outgoing_deliveries: "Numérotation des bons de livraisons"
@@ -103,10 +105,7 @@ arb:
         # stock_transfers: "Numérotation des transferts de stock"
         # subscriptions: "Numérotation des abonnements"
         # transports: "Numérotation des transports"
-    sex:
-      # female: "Femelle"
-      # male: "Mâle"
-      # mixt: "Mixte"
+    sex: #?
     tax:
       nature:
         # amount: "Montant"

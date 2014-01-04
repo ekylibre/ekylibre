@@ -8,8 +8,13 @@ class Backend::Cells::LastMilkResultCellsController < Backend::CellsController
   end
 
   def show
-    camp = Campaign.find(params[:campaign_id]) rescue nil
-    @campaign =  camp || Campaign.currents.reorder('harvest_year DESC').first
+    # camp = Campaign.find(params[:campaign_id]) rescue nil
+    # @campaign =  camp || Campaign.currents.reorder('harvest_year DESC').first
+    months = params[:months].to_i
+    months = 12 if months.zero?
+    @stopped_on = params[:stopped_on].to_date rescue Date.today.end_of_month << 1
+    @started_on = params[:started_on].to_date rescue @stopped_on.beginning_of_month << (months - 1)
+    @stopped_on = @started_on.end_of_month if @stopped_on < @started_on
   end
 
 end

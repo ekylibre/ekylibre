@@ -61,7 +61,7 @@ demo :sales do
     sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
     (140 + rand(20)).times do |i|
       # Sale
-      d = Date.today - (5*i - rand(4)).days
+      d = Date.today - (7*i - rand(4)).days
       sale = Sale.create!(:created_on => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
       # Sale items
       (rand(5) + 1).times do
@@ -137,7 +137,7 @@ demo :sales do
     sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
     (140 + rand(20)).times do |i|
       # Sale
-      d = Date.today - (5*i - rand(4)).days
+      d = Date.today - (7*i - rand(4)).days
       sale = Sale.create!(:created_on => d, :client_id => cooperative.id, :nature_id => sale_nature.id)
       # Sale items
       (rand(5) + 1).times do
@@ -210,14 +210,13 @@ demo :sales do
 
     sale_nature   = SaleNature.actives.first
     sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
-    period = [0,1,2,3,4,5,6,7,8,9,10,11]
-    period.each do |i|
+    240.times do |i|
       # Sale
       d = Date.today - i.months
-      sale = Sale.create!(:created_on => d, :client_id => cooperative.id, :nature_id => sale_nature.id)
+      sale = Sale.create!(created_on: d, client: cooperative, nature: sale_nature)
       # Sale items
-        price = catalog.prices.find_by(:variant_id => milk.id, :amount => rand(0.04)+0.340)
-        price ||= catalog.prices.create!(:amount => rand(0.04)+0.340,
+      price = catalog.prices.find_by(variant: milk, amount: rand(0.04) + 0.340)
+      price ||= catalog.prices.create!(:amount => rand(0.04)+0.340,
                                        :started_at => d.to_time,
                                        :currency => "EUR",
                                        :indicator_name => :population,
@@ -230,16 +229,16 @@ demo :sales do
                            :tax_id => milk_price_template_taxes.id
                            )
 
-      if !rand(20).zero?
+      if !rand(72).zero?
         Sale.where(id: sale.id).update_all(:created_on => d)
         sale.propose
-        if rand(5).zero?
+        if rand(24).zero?
           sale.abort
-        elsif !rand(4).zero?
+        elsif !rand(48).zero?
           d += rand(15).days
           sale.confirm(d)
           Sale.where(id: sale.id).update_all(:confirmed_on => d)
-          if !rand(25).zero?
+          unless rand(96).zero?
             d += rand(5).days
             sale.invoice
             Sale.where(id: sale.id).update_all(:invoiced_on => d)

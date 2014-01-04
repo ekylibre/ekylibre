@@ -135,6 +135,17 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
   end
 
+  def money(attribute_name, *args)
+    options = args.extract_options!
+    currency_attribute_name = args.shift || options[:currency_attribute] || :currency
+    return self.input(attribute_name, options.merge(wrapper: :append)) do
+      html  = self.input_field(attribute_name)
+      html << self.input_field(currency_attribute_name, collection: Nomen::Currencies.items.values.collect{|c| [c.human_name, c.name.to_s]}.sort)
+      html
+    end
+  end
+
+
 
   # Load a partial
   def subset(name, options = {}, &block)

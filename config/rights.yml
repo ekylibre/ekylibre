@@ -738,24 +738,24 @@
 
 # Access to the minimum
 __minimum__:
+- "authentication/passwords#edit"
+- "authentication/passwords#update"
+- "authentication/sessions#destroy"
 - "backend/dashboards#index"
 - "backend/helps#index"
 - "backend/helps#show"
 - "backend/helps#toggle"
 - "backend/myselves#show"
 - "backend/settings#about"
-- "authentication/sessions#destroy"
-- "authentication/passwords#edit"
-- "authentication/passwords#update"
 
 # Public access
 __public__:
-- "public#index"
+- "authentication/passwords#create"
+- "authentication/passwords#new"
 - "authentication/sessions#_callback_before_12"
 - "authentication/sessions#create"
 - "authentication/sessions#new"
-- "authentication/passwords#create"
-- "authentication/passwords#new"
+- "public#index"
 
 # Make and reload backups
 backup_company:

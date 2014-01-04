@@ -62,7 +62,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
 
   # autosave :transport
   acts_as_numbered
-  #sums :transport, :deliveries
+  sums :transport, :deliveries, :net_mass
 
   # # default_scope -> { order(:sent_at) }
   scope :without_transporter, -> { where(:transporter_id => nil) }
