@@ -26,6 +26,7 @@ class Backend::DocumentsController < BackendController
     t.column :number, url: true
     t.column :name, url: true
     t.column :nature
+    t.column :created_at
     t.column :archives_count, hidden: true
     t.action :edit
     t.action :destroy, :if => :destroyable?

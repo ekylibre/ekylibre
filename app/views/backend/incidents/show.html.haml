@@ -2,10 +2,14 @@
   - t.edit @incident
 
 = beehive do |b|
-  - b.cell do
-    = attributes_list do |l|
-      - l.attribute :name
-      - l.attribute :target, url: true
+  - b.hbox do
+    - b.cell do
+      = attributes_list do |l|
+        - l.attribute :name
+        - l.attribute :target, url: true
+    - if @incident.picture.exists?
+      - b.cell do
+        .picture= image_tag(@incident.picture.url(:identity))
 
   - b.tabbox do
     - b.cell(:interventions) do

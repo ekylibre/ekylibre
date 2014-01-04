@@ -52,6 +52,8 @@ class Incident < Ekylibre::Record::Base
   validates_presence_of :name, :nature, :observed_at, :target, :target_type
   #]VALIDATORS]
   validates_inclusion_of :priority, in: 0..5
+  
+  delegate :name, to: :target, prefix: true
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',

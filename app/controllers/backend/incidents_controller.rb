@@ -31,7 +31,7 @@ class Backend::IncidentsController < BackendController
     t.column :name, url: true
     t.column :nature
     t.column :observed_at
-    # t.column :name, through: :target, url: true
+    t.column :target_name, url: true
     t.column :gravity
     t.column :priority
     t.column :state
@@ -41,9 +41,11 @@ class Backend::IncidentsController < BackendController
   end
 
 
-  list(:interventions, conditions: {incident_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
-    t.column :nomen, url: true
-    t.column :created_at
+  list(:interventions, conditions: {incident_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+    t.column :reference_name, label_method: :name, url: true
+    t.column :casting
+    t.column :started_at
+    t.column :stopped_at, hidden: true
     t.column :natures
     t.column :state
   end
