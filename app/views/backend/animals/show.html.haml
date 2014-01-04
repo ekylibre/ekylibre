@@ -114,7 +114,7 @@
         = column_chart(series, y_axis: [{labels: {format: '{value} kg'}, title: {text: :net_mass.tl}}, {labels: {format: '{value} fois'},title: {text: :illness.tl}, opposite: true}], x_axis: { categories: categories.values}, tooltip: {shared: true}, legend: {})
 
       - else
-        %strong= :no_data.tl
+        = no_data
 
 
   - b.tabbox do

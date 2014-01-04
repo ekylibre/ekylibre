@@ -40,7 +40,7 @@
 
           = pie_chart(series, tooltip: {point_format: '{point.y: 1.3f} Ha'}, title: {text: (@production.area.in_hectare.round(3)).to_s}, plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: true}}, legend: {})
         - else
-          %strong= :no_data.tl
+          = no_data
 
   - b.tabbox do
     - b.cell(:interventions) do

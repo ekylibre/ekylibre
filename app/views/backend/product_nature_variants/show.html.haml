@@ -42,7 +42,7 @@
 
         = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :population.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
       - else
-        %strong= :no_data.tl
+        = no_data
 
   - b.tabbox do
     -b.cell(:prices) do
@@ -69,4 +69,4 @@
 
         = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom', border_width: 0 }, y_axis: {title: { text: :price.tl}, min: 0}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}})
       - else
-        %strong= :no_data.tl
+        = no_data

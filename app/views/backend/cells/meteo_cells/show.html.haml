@@ -12,4 +12,4 @@
 
   = spline_chart(series, x_axis: {categories: categories}, y_axis: [{title: {text: Nomen::Indicators[:temperature].human_name}, labels: { format: '{value} °C' }}, {title: { text: :precipitation.tl }, labels: { format: '{value} mm' }, opposite: true}, {title: { text: :wind_speed.tl }, labels: { format: '{value} km/h' }, opposite: true}], legend: {})
 - else
-  %strong= :no_data.tl
+  = no_data

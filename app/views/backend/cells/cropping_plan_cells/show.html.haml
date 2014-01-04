@@ -24,4 +24,4 @@
 
   = pie_chart(series, tooltip: {point_format: "{point.y: 1.2f} #{surface_unit.symbol}"}, title: campaigns.map {|k,v| "#{k} (#{v.round(2)} #{surface_unit.symbol})"}.to_sentence, plot_options: { pie: { allow_point_select: true, cursor: 'pointer'}})
 - else
-  %strong= :no_data.tl
+  = no_data

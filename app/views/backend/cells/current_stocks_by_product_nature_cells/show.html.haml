@@ -22,4 +22,4 @@
   = pie_chart(series, tooltip: {point_format: "{point.y: 1.2f} #{mass_unit.symbol}"}, title: :stock_of_x.tl(x: Nomen::Varieties[@variety].human_name), plot_options: { pie: { allow_point_select: true, cursor: 'pointer', show_in_legend: false}}, legend: {})
 
 - else
-  %strong= :no_data.tl
+  = no_data
