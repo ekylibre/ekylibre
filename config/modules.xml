@@ -1619,6 +1619,7 @@
         <page to="backend/plants#unroll"/>
       </item>
       <item name="prescriptions">
+        <page to="backend/prescriptions#list_interventions"/>
         <page to="backend/prescriptions#unroll"/>
       </item>
       <item name="product_groups">

@@ -296,13 +296,13 @@ demo :interventions do
   end
 
   Ekylibre::fixturize :animal_prescriptions do |w|
-    
+
     # import veterinary prescription in PDF
     document = Document.create!(key: "2100000303_prescription_001", name: "prescription-2100000303", nature: "prescription")
     File.open(Rails.root.join("test", "fixtures", "files", "prescription_1.jpg"), "rb:ASCII-8BIT") do |f|
       document.archive(f.read, :jpg)
     end
-    
+
     # create a veterinary
     veterinary = Person.create!(
                                 :first_name => "Veto",
@@ -311,10 +311,10 @@ demo :interventions do
                                 :client => false,
                                 :supplier => false
                                 )
-    
+
     # create veterinary prescription with PDF and veterinary
     prescription = Prescription.create!(prescriptor: veterinary, document: document, reference_number: "2100000303")
-    
+
     # create an incident for all interventions on animals and update them with prescription and recommender
     for intervention in Intervention.of_nature(:animal_illness_treatment)
       # create an incident
@@ -328,7 +328,7 @@ demo :interventions do
       intervention.save!
       w.check_point
     end
-    
+
   end
 
 end

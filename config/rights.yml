@@ -539,6 +539,7 @@
 # - "backend/prescriptions#edit"
 # - "backend/prescriptions#index"
 # - "backend/prescriptions#list"
+# - "backend/prescriptions#list_interventions"
 # - "backend/prescriptions#new"
 # - "backend/prescriptions#show"
 # - "backend/prescriptions#unroll"

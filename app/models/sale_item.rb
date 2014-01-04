@@ -79,7 +79,7 @@ class SaleItem < Ekylibre::Record::Base
   acts_as_list :scope => :sale
   acts_as_stockable :mode => :virtual, if: :sold?
   after_save :set_reduction
-  
+
   # @FIXME sums method in lib
   #undefined method `where' for nil:NilClass
   #(eval):4:in `block in sums'

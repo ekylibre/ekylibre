@@ -30,7 +30,7 @@ class Backend::PrescriptionsController < BackendController
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
-  
+
    # List of interventions with precription_id
   list(:interventions, conditions: {prescription_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :reference_name, label_method: :name, url: true
@@ -40,5 +40,5 @@ class Backend::PrescriptionsController < BackendController
     t.column :natures
     t.column :state
   end
-  
+
 end
