@@ -80,7 +80,7 @@ class Incident < Ekylibre::Record::Base
   def status
     self.state
   end
-  
+
   def picture_path(style=:original)
     self.picture.path(style)
   end

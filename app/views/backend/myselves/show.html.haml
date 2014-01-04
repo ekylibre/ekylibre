@@ -1,32 +1,39 @@
-=kujaku do |k|
-  -k.criterion do
-    =tc(:manual_period, :start=>date_field_tag(:started_on, params[:started_on], :size=>8), :finish=>date_field_tag(:stopped_on, params[:stopped_on], :size=>8)).html_safe
+= kujaku do |k|
+  - k.criterion do
+    = tc(:manual_period, start: date_field_tag(:started_on, params[:started_on], size: 8), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 8)).html_safe
 
 
--conditions = Proc.new{|x| ["state = 'invoice' AND #{x} BETWEEN ? AND ?", params[:started_on], params[:stopped_on]]}
-=beehive do |b|
-  -b.cell :x_sales_invoices, :count => current_user.sales.count(:id, :conditions=>conditions[:invoiced_on]) do
+:ruby
+  conditions = Proc.new{ |x|
+    ["state = 'invoice' AND ? BETWEEN ? AND ? ", x, params[:started_on], params[:stopped_on]]
+  }
+= beehive do |b|
+  - b.cell :x_sales_invoices, count: current_user.sales.where(conditions[:invoiced_on]).count(:id) do
     %table.list
       %tr.total
-        %th=Sale.human_attribute_name(:pretax_amount)
-        %td=number_to_management current_user.sales.sum(:pretax_amount)
+        %th= Sale.human_attribute_name(:pretax_amount)
+        %td= current_user.sales.sum(:pretax_amount).l(currency: Preference[:currency])
       %tr.total
-        %th=Sale.human_attribute_name(:amount)
-        %td=number_to_management(invoiced_amount = current_user.sales.sum(:amount, :conditions=>conditions[:invoiced_on]))
+        %th= Sale.human_attribute_name(:amount)
+        %td
+          - invoiced_amount = current_user.sales.where(conditions[:invoiced_on]).sum(:amount)
+          = invoiced_amount.l(currency: Preference[:currency])
       %tr.total
-        %th=tc(:total_paid_amount)
-        %td=number_to_management(paid_amount = current_user.sales.sum(:downpayment_amount, :conditions=>conditions[:invoiced_on]))
+        %th= tc(:total_paid_amount)
+        %td
+          - paid_amount = current_user.sales.where(conditions[:invoiced_on]).sum(:downpayment_amount)
+          = paid_amount.l(currency: Preference[:currency])
       %tr.total
-        %th=tc(:total_unpaid_amount)
-        %td=number_to_management(invoiced_amount - paid_amount)
-      -if invoiced_amount > 0
+        %th= tc(:total_unpaid_amount)
+        %td= (invoiced_amount - paid_amount).l(currency: Preference[:currency])
+      - if invoiced_amount > 0
         %tr.total
-          %th=tc(:profitability)
-          %td=number_to_percentage 100*(paid_amount/invoiced_amount)
-  -started_at, stopped_at = params[:started_on].beginning_of_day, params[:stopped_on].end_of_day
-  -cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
-  -#b.cell :x_events, :count=>current_user.events.count(:id, :conditions=>cond) do
+          %th= tc(:profitability)
+          %td= number_to_percentage 100*(paid_amount/invoiced_amount)
+  - started_at, stopped_at = params[:started_on].beginning_of_day, params[:stopped_on].end_of_day
+  - cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
+  -# b.cell :x_events, count: current_user.events.where(cond).count do
     %ul
-      -#-for event_nature in EventNature
-        -#-cond = ["nature_id=? AND created_at BETWEEN ? AND ?", event_nature.id, started_at, stopped_at]
-        -#%li=h tc(:x_events_of_nature_y, :count=>current_user.events.count(:id, :conditions=>cond).to_i, :nature=>event_nature.name, :duration=>current_user.events.sum(:duration, :conditions=>cond).to_i)
+      - for event_nature in EventNature
+        - cond = ["nature_id=? AND created_at BETWEEN ? AND ?", event_nature.id, started_at, stopped_at]
+        %li= tc(:x_events_of_nature_y, count: current_user.events.where(cond).count.to_i, nature: event_nature.name, duration: current_user.events.where(cond).sum(:duration).to_i)

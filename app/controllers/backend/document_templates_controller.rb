@@ -37,7 +37,7 @@ class Backend::DocumentTemplatesController < BackendController
   def load
     DocumentTemplate.load_defaults
     notify_success(:update_is_done)
-    redirect_to :action => :index
+    redirect_to action: :index
   end
 
 end

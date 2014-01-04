@@ -30,10 +30,6 @@ class Backend::DashboardsController < BackendController
   def index
   end
 
-  def welcome
-    redirect_to :action => :index
-  end
-
   SIMILAR_LETTERS = [
                      %w(C Ç),
                      %w(A Á À Â Ä Ǎ Ă Ā Ã Å),

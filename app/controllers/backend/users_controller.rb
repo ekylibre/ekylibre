@@ -50,9 +50,8 @@ class Backend::UsersController < BackendController
       render :partial => "rights_form"
     else
       role = Role.first
-      @user = User.new(:administrator => false, :role => role, :employed => params[:employed], :language => Entity.of_company.language)
+      @user = User.new(:administrator => false, :role => role, :employed => params[:employed], :language => Preference[:language])
       @rights = role ? role.rights_array : []
-      # render_restfully_form(model: :entity)
     end
   end
 
@@ -61,18 +60,17 @@ class Backend::UsersController < BackendController
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
     return if save_and_redirect(@user)
-    # render_restfully_form(model: :entity)
   end
 
   def edit
-    return unless @user = find_and_check(:entity)
+    return unless @user = find_and_check
     @rights = @user.rights_array
     t3e @user.attributes
     # render_restfully_form
   end
 
   def update
-    return unless @user = find_and_check(:entity)
+    return unless @user = find_and_check
     @user.attributes = params[:user]
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
@@ -82,22 +80,20 @@ class Backend::UsersController < BackendController
   end
 
   def destroy
-    return unless @user = find_and_check(:entity)
+    return unless @user = find_and_check
     @user.destroy if @user.destroyable?
     redirect_to_back
   end
 
   def lock
-    return unless @user = find_and_check(:user)
-    @user.locked = true
-    @user.save
+    return unless @user = find_and_check
+    @user.update_attribute(:locked, true)
     redirect_to_current
   end
 
   def unlock
-    return unless @user = find_and_check(:user)
-    @user.locked = false
-    @user.save
+    return unless @user = find_and_check
+    @user.update_attribute(:locked, false)
     redirect_to_current
   end
 

@@ -22,7 +22,10 @@ class Backend::AffairsController < BackendController
   list do |t|
     t.column :debit, currency: true
     t.column :credit, currency: true
-    t.column :closed
+    t.column :closed, hidden: true
+    t.column :closed_at
+    t.column :third, url: true
+    t.column :journal_entry, url: true
   end
 
   def index
@@ -30,7 +33,7 @@ class Backend::AffairsController < BackendController
 
   def select
     return unless @affair = find_and_check
-    @third = Entity.where(:id => params[:third_id]).first
+    @third = Entity.find_by(id: params[:third_id])
     @deals = params[:deal_type].to_s.pluralize
     @deal_class = @deals.classify.constantize
     @third_column = @deal_class.reflections[@deal_class.affairable_options[:third]].foreign_key
@@ -38,15 +41,17 @@ class Backend::AffairsController < BackendController
 
   def attach
     return unless @affair = find_and_check
-    deal = params[:deal_type].camelcase.constantize.where(:id => params[:deal_id]).first
-    @affair.attach(deal)
+    if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
+      @affair.attach(deal)
+    end
     redirect_to params[:redirect] || {:controller => params[:deal_type].pluralize, :action => :show, :id => params[:deal_id]}
   end
 
   def detach
     return unless @affair = find_and_check
-    deal = params[:deal_type].camelcase.constantize.where(:id => params[:deal_id]).first
-    @affair.detach(deal)
+    if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
+      @affair.detach(deal)
+    end
     redirect_to params[:redirect] || {:controller => params[:deal_type].pluralize, :action => :show, :id => params[:deal_id]}
   end
 

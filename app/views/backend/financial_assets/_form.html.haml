@@ -1,17 +1,17 @@
 = field_set do
   = f.input :name
-  = f.input :description, :as=>:text
+  = f.input :description, as: :text
 
 = field_set(:depreciation) do
   = f.input :depreciable_amount
   = f.input :currency, choices: currencies
-  = f.input :depreciation_method, as: :radio
+  = f.input :depreciation_method, as: :radio_buttons
   = f.input :started_on
 
-  -#= field_set(:simplified_linear_options) do |f|
+  -# = field_set(:simplified_linear_options) do |f|
     - f.input :depreciation_percentage
 
-  -#= field_set(:linear_options) do |f|
+  -# = field_set(:linear_options) do |f|
     - f.input :stopped_on
 
 = field_set(:accountancy) do

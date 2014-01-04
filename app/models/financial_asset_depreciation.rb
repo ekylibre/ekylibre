@@ -42,7 +42,7 @@
 #  updater_id         :integer
 #
 class FinancialAssetDepreciation < Ekylibre::Record::Base
-  acts_as_list :scope => :financial_asset
+  acts_as_list scope: :financial_asset
   belongs_to :financial_asset
   belongs_to :financial_year
   belongs_to :journal_entry
@@ -54,7 +54,7 @@ class FinancialAssetDepreciation < Ekylibre::Record::Base
   validates_presence_of :financial_year
   delegate :currency, to: :financial_asset
 
-  sums :financial_asset, :depreciations, :amount => :depreciated_amount
+  sums :financial_asset, :depreciations, amount: :depreciated_amount
 
   bookkeep(on: :nothing) do |b|
     b.journal_entry do |entry|

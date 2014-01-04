@@ -72,13 +72,6 @@ class FinancialAsset < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => false
 
-
-  # def self.deprecation_methods
-  #   return DEPRECIATION_METHODS.collect do |key|
-  #     [tc("depreciation_methods.#{key}"), key]
-  #   end
-  # end
-
   before_validation(on: :create) do
     self.depreciated_amount ||= 0
   end
@@ -88,9 +81,9 @@ class FinancialAsset < Ekylibre::Record::Base
     # self.started_on ||= self.purchased_on
     self.purchase_amount ||= self.depreciable_amount
     self.purchased_on ||= self.started_on
-    if self.linear_method?
-      self.depreciation_percentage = 100.0*365.25/(self.stopped_on - self.started_on).to_f
-    elsif self.simplified_linear_method?
+    if self.depreciation_method_linear?
+      self.depreciation_percentage = (100.0*365.25/(self.stopped_on == self.started_on ? 1 : (self.stopped_on - self.started_on))).to_f
+    elsif self.depreciation_method_simplified_linear?
       self.depreciation_percentage ||= 20
       years = (100.0 / self.depreciation_percentage)
       months = (years - years.floor)*12.0
@@ -131,14 +124,6 @@ class FinancialAsset < Ekylibre::Record::Base
   after_save do
     self.depreciate! if @auto_depreciate
   end
-
-  # def linear_method?
-  #   return (self.depreciation_method == 'linear' ? true : false)
-  # end
-
-  # def simplified_linear_method?
-  #   return (self.depreciation_method == 'simplified_linear' ? true : false)
-  # end
 
   def depreciate!
     self.planned_depreciations.clear

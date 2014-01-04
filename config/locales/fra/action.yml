@@ -628,11 +628,11 @@ fra:
       new: "Ajout d’un nouveau transport"
       show: "Transport %{number}"
     backend/users:
-      edit: "Modifier l’utilisateur\_: %{first_name} %{last_name} (%{name})"
+      edit: "Modifier l’utilisateur\_: %{first_name} %{last_name}"
       index: "Utilisateurs"
       lock: "Verrouiller l’utilisateur"
       new: "Création d’un nouvel utilisateur"
-      show: "Utilisateur\_: %{first_name} %{last_name} (%{name})"
+      show: "Utilisateur\_: %{first_name} %{last_name}"
       unlock: "Déverrouiller l’utilisateur"
     backend/workers:
       edit: "Modifier l’équipier %{name}"

@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::SaleItemsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :new=>{:sale_id=>1}, :except=>:detail
+  test_restfully_all_actions show: :redirected_get, new: {sale_id: 1}, except: [:detail]
 end

@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::SalesControllerTest < ActionController::TestCase
-  test_restfully_all_actions :cancel => :get_and_post, :contacts => :index_xhr, :except => [:statistics, :list_items]
+  test_restfully_all_actions cancel: :get_and_post, contacts: :index_xhr, except: [:statistics]
 end

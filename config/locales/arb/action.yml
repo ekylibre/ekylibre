@@ -751,7 +751,7 @@ arb:
       index: "المستخدمين"
       # lock: "Verrouiller l’utilisateur"
       new: "انشاء مستخدم جديد"
-      show: "المستخدم : %{first_name} %{last_name} (%{name})"
+      show: "المستخدم : %{first_name} %{last_name}"
       statistics: "احصائياتي" #?
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?

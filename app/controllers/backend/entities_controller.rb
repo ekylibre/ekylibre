@@ -143,13 +143,13 @@ class Backend::EntitiesController < BackendController
       @conditions = ["special-subscriber"] # , "special-buyer", "special-relation"]
       @conditions += Entity.exportable_columns.collect{|c| "generic-entity-#{c.name}"}.sort
       @conditions += EntityAddress.exportable_columns.collect{|c| "generic-entity-address-#{c.name}"}.sort
-      @conditions += ["generic-area-postcode", "generic-area-city"]
+      @conditions += ["generic-postal_zone-postal_code", "generic-postal_zone-city"]
       @conditions += ["generic-district-name"]
       if request.post?
         from  = " FROM #{Entity.table_name} AS entity"
         from += " LEFT JOIN #{EntityAddress.table_name} AS address ON (address.entity_id=entity.id AND address.by_default IS TRUE AND address.deleted_at IS NULL)"
-        from += " LEFT JOIN #{PostalZone.table_name} AS area ON (address.area_id=area.id})"
-        from += " LEFT JOIN #{District.table_name} AS district ON (area.district_id=district.id)"
+        from += " LEFT JOIN #{PostalZone.table_name} AS postal_zone ON (address.postal_zone_id=postal_zone.id})"
+        from += " LEFT JOIN #{District.table_name} AS district ON (postal_zone.district_id=district.id)"
         where = " WHERE entity.active"
         select_array = []
         for k, v in params[:columns].select{|k,v| v[:check].to_i == 1}.sort{|a,b| a[1][:order].to_i <=> b[1][:order].to_i}

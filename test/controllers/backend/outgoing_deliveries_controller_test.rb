@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::OutgoingDeliveriesControllerTest < ActionController::TestCase
-  test_restfully_all_actions :new=>{:sale_id=>5}
+  test_restfully_all_actions
 end

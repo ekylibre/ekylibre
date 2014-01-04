@@ -1,5 +1,5 @@
-=main_toolbar do |t|
-  -t.edit @user
+= main_toolbar do |t|
+  - t.edit @user
 
 = attributes_list do |l|
   - l.attribute :last_name
@@ -7,5 +7,5 @@
   - l.attribute :name
   - l.attribute :commercial
   - l.attribute :employment
-  - l.attribute :establishment, :label=>:name
-  - l.attribute :department, :label=>:name
+  - l.attribute :establishment, label: :name
+  - l.attribute :team, label: :name

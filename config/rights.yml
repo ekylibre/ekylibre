@@ -1,12 +1,4 @@
 # Unused actions in rights
-# - "authentication/passwords#create"
-# - "authentication/passwords#edit"
-# - "authentication/passwords#new"
-# - "authentication/passwords#update"
-# - "authentication/sessions#_callback_before_12"
-# - "authentication/sessions#create"
-# - "authentication/sessions#destroy"
-# - "authentication/sessions#new"
 # - "backend/accounts#unroll"
 # - "backend/activities#create"
 # - "backend/activities#destroy"
@@ -746,16 +738,23 @@
 # Access to the minimum
 __minimum__:
 - "backend/dashboards#index"
-- "backend/dashboards#welcome"
 - "backend/helps#index"
 - "backend/helps#show"
 - "backend/helps#toggle"
 - "backend/myselves#show"
 - "backend/settings#about"
+- "authentication/sessions#destroy"
+- "authentication/passwords#edit"
+- "authentication/passwords#update"
 
 # Public access
 __public__:
 - "public#index"
+- "authentication/sessions#_callback_before_12"
+- "authentication/sessions#create"
+- "authentication/sessions#new"
+- "authentication/passwords#create"
+- "authentication/passwords#new"
 
 # Make and reload backups
 backup_company:

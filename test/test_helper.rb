@@ -38,14 +38,16 @@ class ActionController::TestCase
             file_columns = model.attachment_definitions
           end
         end
-        attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if{|c| [:depth, :lft, :rgt].include?(c) }
-        attributes = "{" + attributes.collect do |a|
-          if file_columns[a.to_sym]
-            "#{a}: fixture_file_upload('files/sample_image.png')"
-          else
-            "#{a}: #{record}.#{a}"
-          end
-        end.join(", ")+ "}"
+        attributes = model.content_columns.map(&:name).map(&:to_sym).delete_if{|c|
+          [:depth, :lft, :rgt].include?(c)
+        }
+        attributes = ("{" + attributes.collect do |a|
+                        if file_columns[a.to_sym]
+                          "#{a}: fixture_file_upload('files/sample_image.png')"
+                        else
+                          "#{a}: #{record}.#{a}"
+                        end
+                      end.join(", ")+ "}").c
       end
 
       fixture_name = record.pluralize
@@ -74,111 +76,126 @@ class ActionController::TestCase
       for action in actions
         action_label = "#{controller_path}##{action}"
 
+        params, mode = {}, options[action]
+        if mode.is_a?(Hash)
+          if mode[:params] or mode[:mode]
+            params.update(mode[:params])
+            mode = mode[:mode]
+          else
+            params.update(mode)
+            mode = nil
+          end
+        end
+        mode ||= choose_mode(action_label)
 
-        mode = options[action] || choose_mode(action_label)
+        code << "  should '#{action} (#{mode})' do\n"
 
-        code << "  should '#{action} (#{mode.inspect})' do\n"
-
-        if options[action].is_a? Hash
-          code << "    get :#{action}, #{options[action].inspect[1..-2]}\n"
-          code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-        elsif mode == :index
-          code << "    get :#{action}\n"
-          code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
+        params.deep_symbolize_keys!
+        sanitized_params = Proc.new { |p = {}|
+          p.deep_symbolize_keys.deep_merge(params).inspect.gsub('RECORD', record)
+        }
+        if mode == :index
+          code << "    get :#{action}, #{sanitized_params[]}\n"
+          code << "    assert_response :success\n"
         elsif mode == :new_product
-          code << "    get :#{action}\n"
+          code << "    get :#{action}, #{sanitized_params[]}\n"
           code << "    if ProductNatureVariant.of_variety('#{model_name.underscore}').any?\n"
-          code << "      assert_response :success, \"Flash: \#{flash.inspect}\"\n"
+          code << "      assert_response :success\n"
           code << "    else\n"
           code << "      assert_response :redirect\n"
           code << "    end\n"
         elsif mode == :show
           code << "    assert_nothing_raised do\n"
-          code << "      get :#{action}, id: 'NaID'\n"
+          code << "      get :#{action}, #{sanitized_params[id: 'NaID']}\n"
           code << "    end\n"
           if model
             code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
             code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
             code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-            code << "    get :#{action}, id: #{record}.id\n"
-            code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
+            code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+            code << "    assert_response :success\n"
             code << "    assert_not_nil assigns(:#{record})\n"
           end
         elsif mode == :picture
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-          code << "    get :#{action}, id: #{record}.id\n"
+          code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           code << "    if #{record}.picture.file?\n"
-          code << "      assert_response :success, \"Flash: \#{flash.inspect}\"\n"
+          code << "      assert_response :success\n"
           code << "      assert_not_nil assigns(:#{record})\n"
           code << "    end\n"
         elsif mode == :list_things
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-          code << "    get :#{action}, id: #{record}.id\n"
-          code << "    assert_response :success, \"Flash: \#{flash.inspect}\"\n"
+          code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          code << "    assert_response :success\n"
           for format in [:csv, :xcsv, :ods]
-            code << "    get :#{action}, id: #{record}.id, :format => :#{format}\n"
+            code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
             code << "    assert_response :success, 'Action #{action} does not export in format #{format}'\n"
           end
         elsif mode == :create
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-          code << "    post :#{action}, #{record}: #{attributes}\n"
+          code << "    post :#{action}, #{sanitized_params[record => attributes]}\n"
         elsif mode == :update
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-          code << "    patch :#{action}, id: #{record}.id, #{record}: #{attributes}\n"
+          code << "    patch :#{action}, #{sanitized_params[id: 'RECORD.id'.c, record => attributes]}\n"
         elsif mode == :destroy
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_002)\n"
           code << "    assert_nothing_raised do\n"
-          code << "      delete :#{action}, id: #{record}.id\n"
+          code << "      delete :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           code << "    end\n"
           code << "    assert_response :redirect\n"
         elsif mode == :list
-          code << "    get :#{action}\n"
+          code << "    get :#{action}, #{sanitized_params[]}\n"
           code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
           for format in [:csv, :xcsv, :ods]
-            code << "    get :#{action}, :format => :#{format}\n"
+            code << "    get :#{action}, #{sanitized_params[format: format]}\n"
             code << "    assert_response :success, 'Action #{action} does not export in format #{format}'\n"
           end
         elsif mode == :touch
-          code << "    post :#{action}, id: 'NaID'\n"
+          code << "    post :#{action}, #{sanitized_params[id: 'NaID']}\n"
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-          code << "    post :#{action}, id: #{record}.id\n"
+          code << "    post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          code << "    assert_response :redirect\n"
+        elsif mode == :redirected_get # with ID
+          code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
+          code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
+          code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           code << "    assert_response :redirect\n"
         elsif mode == :get_and_post # with ID
-          code << "    get :#{action}, id: 'NaID'\n"
+          code << "    get :#{action}, #{sanitized_params[id: 'NaID']}\n"
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-          code << "    get :#{action}, id: #{record}.id\n"
-          code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
+          code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
+          code << "    assert_response :success\n"
         elsif mode == :index_xhr
-          code << "    get :#{action}\n"
+          code << "    get :#{action}, #{sanitized_params[]}\n"
           code << "    assert_response :redirect\n"
-          code << "    xhr :get, :#{action}\n"
-          code << '    assert_response :success, "Flash: #{flash.inspect}"'+"\n"
+          code << "    xhr :get, :#{action}, #{sanitized_params[]}\n"
+          code << "    assert_response :success\n"
         elsif mode == :show_xhr
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
-          code << "    get :#{action}, id: #{record}.id\n"
+          code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           code << "    assert_response :redirect\n"
-          code << "    xhr :get, :#{action}, id: #{record}.id\n"
+          code << "    xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           code << "    assert_not_nil assigns(:#{record})\n"
         elsif mode == :unroll
-          code << "    xhr :get, :#{action}\n"
-          code << "    xhr :get, :#{action}, format: :json\n"
-          code << "    xhr :get, :#{action}, format: :xml\n"
+          code << "    xhr :get, :#{action}, #{sanitized_params[]}\n"
+          code << "    xhr :get, :#{action}, #{sanitized_params[format: :json]}\n"
+          code << "    xhr :get, :#{action}, #{sanitized_params[format: :xml]}\n"
           # TODO test all scopes
         elsif mode == :get
-          code << "    get :#{action}\n"
-          code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
-          code << "    assert_select('html body #main', 1, 'Cannot get main element in view #{action}')\n" # +response.inspect
+          code << "    get :#{action}, #{sanitized_params[]}\n"
+          code << "    assert_response :success\n" # , \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"
+          code << "    assert_select('html body #main', 1, 'Cannot get main element in view #{action}')\n"
         else
-          raise StandardError, "What is this mode? #{mode.inspect}"
+          code << "    raise StandardError, 'What is this mode? #{mode.inspect}'\n"
         end
         code << "  end\n\n"
       end
@@ -195,7 +212,7 @@ class ActionController::TestCase
 
     MODES = {
       /\Abackend\/cells\/.*\#show\z/ => :index,
-      /\Abackend\/cells\/.*\#list\z/ => :index_xhr,
+      # /\Abackend\/cells\/.*\#list\z/ => :index_xhr,
       /\#(index|new)\z/   => :index,
       /\#(show|edit)\z/   => :show,
       /\#picture\z/       => :picture,

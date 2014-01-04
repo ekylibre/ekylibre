@@ -1414,7 +1414,6 @@
         <page to="backend/dashboards#stocks"/>
         <page to="backend/dashboards#tools"/>
         <page to="backend/dashboards#trade"/>
-        <page to="backend/dashboards#welcome"/>
       </item>
       <item name="equipments">
         <page to="backend/equipments#list_carried_linkages"/>

@@ -59,6 +59,7 @@
 #   with_commission: true
 #   with_deposit: true
 #
+
 incoming_payment_modes_001:
   attorney_journal_id: 1
   cash_id: 1

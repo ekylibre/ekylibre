@@ -65,6 +65,7 @@ Ekylibre::Application.routes.draw do
   namespace :backend do
 
     resource :myself, :path => "me", only: [:show]
+
     resource :settings, only: [:edit, :update] do
       member do
         get :about
@@ -83,7 +84,6 @@ Ekylibre::Application.routes.draw do
         get :list_my_future_events
         get :list_recent_events
         get :list_critic_stocks
-        get :welcome
       end
     end
 

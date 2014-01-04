@@ -32,14 +32,14 @@ class Backend::FinancialAssetsController < BackendController
     t.action :destroy
   end
 
-  list(:depreciations, model: :financial_asset_depreciations, conditions: {:financial_asset_id => 'params[:id]'.c}, order: :position) do |t|
+  list(:depreciations, model: :financial_asset_depreciations, conditions: {financial_asset_id: 'params[:id]'.c}, order: :position) do |t|
     t.column :amount, currency: true
     t.column :depreciable_amount, currency: true
     t.column :depreciated_amount, currency: true
     t.column :started_on
     t.column :stopped_on
     t.column :financial_year, url: true
-    t.column :journal_entry, url: true
+    t.column :journal_entry, label_method: :number, url: true
     t.action :edit, :if => "RECORD.journal_entry.nil?".c
   end
 

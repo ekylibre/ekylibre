@@ -651,11 +651,11 @@ eng:
       load: "Load default units of measure" #?
       new: "Add a new unit of measure" #?
     backend/users:
-      edit: "Edit user: %{first_name} %{last_name} (%{name})"
+      edit: "Edit user: %{first_name} %{last_name}"
       index: "Users"
       lock: "Lock user"
       new: "Add a new user"
-      show: "User: %{first_name} %{last_name} (%{name})"
+      show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
     backend/workers:
       # edit: "Modifier l’équipier %{name}"

@@ -67,8 +67,8 @@ financial_asset_depreciations_001:
   created_on: 2009-07-19
   creator_id: 1
   id: 1
-  started_on: 2009-07-19
-  stopped_on: 2009-07-19
+  started_on: 2007-07-20
+  stopped_on: 2008-07-19
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
@@ -80,7 +80,7 @@ financial_asset_depreciations_002:
   created_on: 2009-07-19
   creator_id: 1
   id: 2
-  started_on: 2009-07-19
+  started_on: 2008-07-20
   stopped_on: 2009-07-19
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1

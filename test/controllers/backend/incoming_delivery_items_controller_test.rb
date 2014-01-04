@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::IncomingDeliveryItemsControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+  test_restfully_all_actions new: {variant_id: 1, incoming_delivery_id: 1}
 end

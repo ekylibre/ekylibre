@@ -984,7 +984,6 @@ module ApplicationHelper
   end
 
 
-  # Imported from app/helpers/relations_helper.rb
   def condition_label(condition)
     if condition.match(/^generic/)
       klass, attribute = condition.split(/\-/)[1].pluralize.classify.constantize, condition.split(/\-/)[2]
