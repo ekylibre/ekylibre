@@ -37,7 +37,7 @@ gem 'formize', '~> 1.1.0'
 # gem 'codemirror-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
+gem 'jbuilder' # , '~> 1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -92,7 +92,7 @@ gem 'http_accept_language'
 
 # XML Parsing/Writing, HTML extraction
 gem 'nokogiri', '~> 1.6.0'
-gem 'mechanize'
+# gem 'mechanize'
 # gem 'savon', '= 2.2.0' # waiting for SOAP and EDE Webservices
 
 # Reporting
