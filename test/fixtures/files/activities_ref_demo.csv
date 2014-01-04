@@ -1,4 +1,11 @@
 code_activite,nom_activite,famille_activite,nomen_product_nature_variant,type_activite,campagne,work_number_parcelle,provisionnal_grain_yield,provisionnal_nitrogen_input
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2014,GEN_1,,
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2014,GEN_2,,
+8200,Bovins lait,ANIMX,female_young_cow,PRINC,2014,GEN_3,,
+8270,Taurillons lait,ANIMX,male_young_cow,PRINC,2014,TAUR,,
+8200,Bovins lait,ANIMX,calf,PRINC,2014,VEAU,,
+8230,Veau 8-15 J,ANIMX,calf,PRINC,2014,VEAU_8_15,,
+8200,Bovins lait,ANIMX,female_adult_cow,PRINC,2014,VL,,
 1410,Orge hiver,CEREA,winter_barley_crop,PRINC,2014,ZC1,,
 1410,Orge hiver,CEREA,winter_barley_crop,PRINC,2014,ZC2,,
 1200,Blé dur,CEREA,tablur_hard_wheat_crop,PRINC,2014,ZC3,,
