@@ -53,6 +53,8 @@ class Incident < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :priority, in: 0..5
 
+  delegate :name, to: :target, prefix: true
+
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
     :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',

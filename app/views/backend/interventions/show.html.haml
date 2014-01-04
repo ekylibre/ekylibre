@@ -14,6 +14,10 @@
         - l.attribute :production, url: true
         - if @intervention.production_support
           - l.attribute :storage, url: true
+        - if @intervention.prescription
+          - l.attribute :prescription, label_method: :name, url: true
+        - if @intervention.incident
+          - l.attribute :incident, url: true
 
   - b.tabbox do
     - b.cell(:casts) do

@@ -36,10 +36,11 @@
 class Prescription < Ekylibre::Record::Base
   belongs_to :document
   belongs_to :prescriptor, class_name: "Entity"
+  has_many :interventions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :prescriptor
   #]VALIDATORS]
 
-  delegate :name, to: :prescriptor, prefix: true
+  delegate :name, to: :prescriptor#, prefix: true
 end

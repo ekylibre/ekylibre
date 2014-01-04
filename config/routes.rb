@@ -474,7 +474,11 @@ Ekylibre::Application.routes.draw do
 
     resources :preferences, concerns: [:list, :unroll]
 
-    resources :prescriptions, concerns: [:list, :unroll]
+    resources :prescriptions, concerns: [:list, :unroll] do
+      member do
+        get :list_interventions
+      end
+    end
 
     resources :products, concerns: :products
 
