@@ -57,7 +57,7 @@
                 <section name="prescription" of="intervention.prescription">
                   <property name="id" level="api"/>
                   <title name="reference_number"/>
-                  <property name="prescriptor_name"/>
+                  <property name="name"/>
                 </section>
                 <matrix name="inputs" for="input" in="intervention.casts.of_role(:'animal_illness_treatment-input')">
                   <variable name="meat_withdrawal_period" value="input.actor.meat_withdrawal_period"/>
