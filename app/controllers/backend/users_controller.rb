@@ -67,7 +67,6 @@ class Backend::UsersController < BackendController
     @rights = @user.rights_array
     return if save_and_redirect(@user, url: {:action => :index})
     t3e @user.attributes
-    # render_restfully_form
   end
 
   def lock

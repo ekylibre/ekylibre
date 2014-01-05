@@ -104,18 +104,18 @@ module ActiveList
         unless [:body, :children].include?(nature)
           raise ArgumentError, "Nature is invalid"
         end
-
+        children_mode = !!(nature == :children)
         for column in table.columns
           value_code = ""
           record = options[:record] || 'record_of_the_death'
           if column.is_a? ActiveList::Definition::EmptyColumn
             value_code = 'nil'
           elsif column.is_a? ActiveList::Definition::DataColumn
-            if column.options[:children].is_a? FalseClass and nature == :children
+            if column.options[:children].is_a? FalseClass and children_mode
               value_code = 'nil'
             else
               # record = "#{record}.#{column.reflection.name}" if column.is_a?(ActiveList::Definition::AssociationColumn)
-              value_code = column.datum_code(record, nature == :children)
+              value_code = column.datum_code(record, children_mode)
               if column.datatype == :boolean
                 value_code = "content_tag(:div, '', :class => 'checkbox-'+("+value_code.to_s+" ? 'true' : 'false'))"
               elsif [:date, :datetime, :timestamp, :measure].include? column.datatype
@@ -124,7 +124,8 @@ module ActiveList
               if !column.options[:currency].is_a?(FalseClass) and currency = column.options[:currency]
                 currency = currency[nature] if currency.is_a?(Hash)
                 currency = :currency if currency.is_a?(TrueClass)
-                currency = "#{record}.#{currency}".c if currency.is_a?(Symbol)
+                # currency = "#{record}.#{currency}".c if currency.is_a?(Symbol)
+                currency = "#{column.record_expr(record)}.#{currency}".c if currency.is_a?(Symbol)
                 value_code = "(#{value_code}.nil? ? '' : #{value_code}.l(currency: #{currency.inspect}))"
               elsif column.datatype == :decimal
                 value_code = "(#{value_code}.nil? ? '' : #{value_code}.l)"
