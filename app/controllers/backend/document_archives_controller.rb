@@ -20,8 +20,8 @@
 class Backend::DocumentArchivesController < BackendController
 
   def show
-    if archive = DocumentArchive.find_by(id: params[:id])
-      send_file(archive.file.path(:default))
+    if @document_archive = DocumentArchive.find_by(id: params[:id])
+      send_file(@document_archive.file.path(:default))
     else
       head :not_found
     end
