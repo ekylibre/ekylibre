@@ -85,7 +85,7 @@ class Backend::SalesController < BackendController
     t.column :address, label_method: :coordinate, children: false
     # t.column :planned_on, children: false
     # t.column :moved_on, children: false
-    t.column :quantity, :datatype => :decimal
+    t.column :population
     # t.column :pretax_amount, currency: true
     # t.column :amount, currency: true
     t.action :edit, :if => :updateable?

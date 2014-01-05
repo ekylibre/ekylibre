@@ -46,7 +46,7 @@
       =affair_of(@purchase)
 
   -if ["deliveries", ""].include? params[:step].to_s
-    -if @purchase.deliverable?
+    -# if @purchase.deliverable?
       -b.cell tc(:undelivered) do
         =toolbar do |t|
           -t.new(:params =>{:controller=>:incoming_deliveries, :purchase=>@purchase.id})
