@@ -72,6 +72,7 @@ GEM
     chunky_png (1.2.9)
     climate_control (0.0.3)
       activesupport (>= 3.0)
+    cmdparse (2.0.5)
     cocaine (0.5.3)
       climate_control (>= 0.0.3, < 1.0)
     cocoon (1.2.5)
@@ -144,6 +145,7 @@ GEM
     haml (4.0.4)
       tilt
     headless (1.0.1)
+    highline (1.6.20)
     hike (1.2.3)
     hpricot (0.8.6)
     http_accept_language (2.0.0)
@@ -180,6 +182,10 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.2)
+    net-http-persistent (2.9)
+    net-ssh (2.7.0)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     ofx-parser (1.1.0)
@@ -199,6 +205,9 @@ GEM
       docsplit (~> 0.7.2)
       paperclip (~> 3.1)
       ruby-filemagic (~> 0.4.2)
+    parallel (0.9.1)
+    parallel_tests (0.15.0)
+      parallel
     pg (0.17.1)
     polyglot (0.3.3)
     pry (0.9.12.4)
@@ -259,8 +268,18 @@ GEM
     rjb-loader (0.0.2)
       rails (>= 3.2)
       rjb (>= 1.4.8)
+    rspec-core (2.14.7)
     rspec-expectations (2.14.4)
       diff-lcs (>= 1.1.3, < 2.0)
+    rspec-mocks (2.14.4)
+    rspec-rails (2.14.1)
+      actionpack (>= 3.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
     ruby-filemagic (0.4.2)
     ruby-progressbar (1.4.0)
     rubyzip (1.1.0)
@@ -270,6 +289,22 @@ GEM
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
       sprockets-rails (~> 2.0.0)
+    sauce (3.1.3)
+      childprocess (>= 0.1.6)
+      cmdparse (>= 2.0.2)
+      highline (>= 1.5.0)
+      json (>= 1.2.0)
+      net-http-persistent
+      net-ssh
+      net-ssh-gateway
+      parallel_tests (= 0.15.0)
+      rest-client
+      sauce_whisk (~> 0.0.8)
+      selenium-webdriver (>= 0.1.2)
+    sauce-connect (3.1.0)
+      sauce (~> 3.1)
+    sauce_whisk (0.0.10)
+      rest-client
     sax-machine (0.2.1)
       nokogiri (~> 1.6.0)
     sdoc (0.3.20)
@@ -392,6 +427,7 @@ DEPENDENCIES
   packagit
   paperclip
   paperclip-document
+  parallel_tests
   pg
   pry
   quiet_assets
@@ -400,8 +436,11 @@ DEPENDENCIES
   rails_best_practices
   rgeo-shapefile
   rspec-expectations
+  rspec-rails
   rubyzip
   sass-rails (~> 4.0.1)
+  sauce (~> 3.1.1)
+  sauce-connect
   sdoc
   selenium-webdriver
   shoulda-context

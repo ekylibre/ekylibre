@@ -9,3 +9,7 @@ script: bundle exec rake test:core
 matrix:
   allow_failures:
     - rvm: 2.1.0
+addons:
+  sauce_connect:
+    username: "ekylibre"
+    access_key: "ae8ec53f-9fdf-49d0-bdc5-0816bca01132"
