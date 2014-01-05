@@ -37,8 +37,11 @@ class Backend::ListingNodesController < BackendController
         ln.save!
       end
     end
-
-    render(:partial => "backend/listings/reflection", :object => @listing_node)
+    if request.xhr?
+      render(:partial => "backend/listings/reflection", :object => @listing_node)
+    else
+      redirect_to backend_listing_url(@listing_node.listing)
+    end
   end
 
   def create
@@ -60,17 +63,6 @@ class Backend::ListingNodesController < BackendController
     end
 
     render(:partial => "backend/listings/reflection", :object => @listing_node)
-  end
-
-  def destroy
-    return unless @listing_node = find_and_check
-    parent = @listing_node.parent
-    @listing_node.reload.destroy
-    if request.xhr?
-      render(:partial => "backend/listings/reflection", :object => parent)
-    else
-      redirect_to :controller => :listings, :action => :edit, :id => @listing_node.listing_id
-    end
   end
 
   def edit
@@ -118,6 +110,17 @@ class Backend::ListingNodesController < BackendController
       @listing_node.save
     else
       redirect_to backend_listings_url
+    end
+  end
+
+  def destroy
+    return unless @listing_node = find_and_check
+    parent = @listing_node.parent
+    @listing_node.reload.destroy
+    if request.xhr?
+      render(:partial => "backend/listings/reflection", :object => parent)
+    else
+      redirect_to :controller => :listings, :action => :edit, :id => @listing_node.listing_id
     end
   end
 
