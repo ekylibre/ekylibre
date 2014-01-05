@@ -56,7 +56,8 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# gem 'ruby-prof'
+# Use backup system
+gem 'backup'
 
 # General
 gem 'exception_notification'
