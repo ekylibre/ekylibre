@@ -53,25 +53,26 @@
 
 
 product_localizations_001:
+  arrival_cause: "other"
+  container_id: 28001
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 1
   nature: "interior"
-  product_id: 1
+  product_id: 7001
   started_at: 2009-07-19 19:13:59 +02:00
   stopped_at: 2009-07-19 19:13:59 +02:00
   #transfer_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
 
-
-
 product_localizations_002:
+  arrival_cause: "other"
   created_at: 2009-07-19 19:13:59 +02:00
   creator_id: 1
   id: 2
   nature: "transfer"
-  product_id: 1
+  product_id: 7001
   started_at: 2009-07-19 19:13:59 +02:00
   stopped_at: 2009-07-19 19:13:59 +02:00
   #transfer_id: 1

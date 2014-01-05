@@ -76,6 +76,9 @@ class ProductLocalization < Ekylibre::Record::Base
     return true
   end
 
+  protect do
+    self.intervention.present?
+  end
 
   private
 

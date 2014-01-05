@@ -1245,7 +1245,7 @@
         <page to="authentication/passwords#update"/>
       </item>
       <item name="sessions">
-        <page to="authentication/sessions#_callback_before_12"/>
+        <page to="authentication/sessions#_callback_before_11"/>
         <page to="authentication/sessions#create"/>
         <page to="authentication/sessions#destroy"/>
         <page to="authentication/sessions#new"/>
