@@ -114,6 +114,10 @@ class IncomingPayment < Ekylibre::Record::Base
     (self.deposit && self.deposit.protected_on_update?) or (self.journal_entry && self.journal_entry.closed?)
   end
 
+  def deposit?
+    !!self.deposit
+  end
+
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|

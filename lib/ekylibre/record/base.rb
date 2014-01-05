@@ -98,6 +98,15 @@ module Ekylibre::Record
       end
     end
 
+
+    def method_missing(method_name, *args)
+      # custom fields
+      if self.customs_fields.find_by(column_name: method_name.to_s)
+        return self[method_name.to_s]
+      end
+      return super
+    end
+
     @@readonly_counter = 0
 
     class << self
