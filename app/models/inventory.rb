@@ -38,7 +38,6 @@
 
 
 class Inventory < Ekylibre::Record::Base
-  # attr_accessible :created_on, :number, :responsible_id
   belongs_to :responsible, class_name: "Entity"
   has_many :items, class_name: "InventoryItem", dependent: :destroy, inverse_of: :inventory
 
@@ -47,6 +46,8 @@ class Inventory < Ekylibre::Record::Base
   validates_inclusion_of :changes_reflected, in: [true, false]
   validates_presence_of :created_on
   #]VALIDATORS]
+
+  scope :unreflecteds, -> { where(changes_reflected: false) }
 
   accepts_nested_attributes_for :items
 
@@ -57,15 +58,19 @@ class Inventory < Ekylibre::Record::Base
   bookkeep on: :nothing do |b|
   end
 
+  protect do
+    self.changes_reflected?
+  end
+
   def reflectable?
-    Inventory.where("changes_reflected = ? AND created_on < ?", false, self.created_on).count.zero? and !self.changes_reflected?
+    !self.changes_reflected? and self.class.unreflecteds.where("created_on < ?", self.created_on).empty?
   end
 
   def reflect_changes(moved_on=Date.today)
     self.moved_on = moved_on
     self.changes_reflected = true
     for item in self.items
-      item.confirm_stock_move(moved_on)
+      # item.confirm_stock_move(moved_on)
     end
     self.save
   end

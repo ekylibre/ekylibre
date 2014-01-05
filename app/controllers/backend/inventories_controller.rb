@@ -18,6 +18,7 @@
 #
 
 class Backend::InventoriesController < BackendController
+  manage_restfully only: [:show, :destroy]
 
   unroll
 
@@ -28,8 +29,8 @@ class Backend::InventoriesController < BackendController
     # t.column :description
     t.action :show, url: {:format => :pdf}, image: :print
     t.action :reflect, :if => :reflectable?, image: "action", :confirm => :are_you_sure
-    t.action :edit,  :unless => :changes_reflected?
-    t.action :destroy, :unless => :changes_reflected?
+    t.action :edit,    :if => :editable?
+    t.action :destroy, :if => :destroyable?
   end
 
   # Displays the main page with the list of inventories
@@ -39,60 +40,60 @@ class Backend::InventoriesController < BackendController
     end
   end
 
-  list(:items, model: :inventory_items, conditions: {:inventory_id => 'params[:id]'.c }, order: :id) do |t|
+  list(:items, model: :inventory_items, conditions: {inventory_id: 'params[:id]'.c}, order: :id) do |t|
     # t.column :name, through: :building, url: true
     t.column :product, url: true
-    t.column :serial_number, through: :product
-    t.column :theoric_quantity, :precision => 3
-    t.column :quantity, :precision => 3
-    t.column :unit
+    # t.column :serial_number, through: :product
+    t.column :theoric_population, :precision => 3
+    t.column :population, :precision => 3
+    t.column :unit_name
   end
 
-  # Displays details of one inventory selected with +params[:id]+
-  def show
-    return unless @inventory = find_and_check
-    session[:current_inventory_id] = @inventory.id
-    respond_to do |format|
-      format.html
-      format.pdf { render_print_inventory(@inventory) }
-    end
-  end
+  # # Displays details of one inventory selected with +params[:id]+
+  # def show
+  #   return unless @inventory = find_and_check
+  #   session[:current_inventory_id] = @inventory.id
+  #   respond_to do |format|
+  #     format.html
+  #     format.pdf { render_print_inventory(@inventory) }
+  #   end
+  # end
 
   list(:items_create, model: :products, :pagination => :none, order: "#{ProductNature.table_name}.name") do |t|
     # t.column :name, through: :building, url: true
     t.column :name, url: true
-    t.column :serial_number, through: :tracking
-    # t.column :quantity, :precision => 3
-    t.column :unit
-    t.text_field :quantity
+    # t.column :serial_number, through: :tracking
+    # t.column :population, :precision => 3
+    t.column :unit_name
+    t.text_field :population
   end
 
-  list(:items_update, model: :inventory_items, conditions: {:inventory_id => ['session[:current_inventory_id]'] }, :pagination => :none, order: "#{Building.table_name}.name, #{ProductNature.table_name}.name") do |t|
-    # t.column :name, through: :building, url: true
+  list(:items_update, model: :inventory_items, conditions: {inventory_id: 'params[:id]'.c}, :pagination => :none, order: "#{Product.table_name}.name") do |t|
+    t.column :container, url: true
     t.column :product, url: true
-    t.column :serial_number, through: :product
-    t.column :theoric_quantity, :precision => 3
-    t.text_field :quantity
+    # t.column :serial_number, through: :product
+    t.column :theoric_population, :precision => 3
+    t.text_field :population
+    t.column :unit_name
   end
-
 
   def new
-    if ProductNature.stockables.count.zero?
+    if ProductNature.stockables.empty?
       notify_warning(:need_stocks_to_create_inventories)
       redirect_to_back
     end
-    notify_warning_now(:validates_old_inventories) if Inventory.where(:changes_reflected => false).count >= 1
-    @inventory = Inventory.new(:responsible_id => @current_user.id)
+    notify_warning_now(:validates_old_inventories) if Inventory.unreflecteds.any?
+    @inventory = Inventory.new(responsible: current_user.person)
     # render_restfully_form
   end
 
   def create
-    if ProductNature.stockables.count.zero?
+    if ProductNature.stockables.empty?
       notify_warning(:need_stocks_to_create_inventories)
       redirect_to_back
     end
-    notify_warning_now(:validates_old_inventories) if Inventory.where(:changes_reflected => false).count >= 1
-    @inventory = Inventory.new(params[:inventory])
+    notify_warning_now(:validates_old_inventories) if Inventory.unreflecteds.any?
+    @inventory = Inventory.new(permitted_params)
     params[:items_create] ||= {}
     params[:items_create].each{|k,v| v[:stock_id]=k}
     # raise Exception.new(params[:items_create].inspect)
@@ -116,7 +117,7 @@ class Backend::InventoriesController < BackendController
     return unless @inventory = find_and_check
     session[:current_inventory_id] = @inventory.id
     unless @inventory.changes_reflected
-      if @inventory.update_attributes(params[:inventory])
+      if @inventory.update_attributes(permitted_params)
         # @inventory.set_items(params[:items_create].values)
         for id, attributes in (params[:items_update]||{})
           il = InventoryItem.find_by_id(id).update_attributes!(attributes)
@@ -126,14 +127,6 @@ class Backend::InventoriesController < BackendController
       return
     end
     # render_restfully_form
-  end
-
-  def destroy
-    return unless @inventory = find_and_check
-    unless @inventory.changes_reflected?
-      @inventory.destroy
-    end
-    redirect_to_current
   end
 
   def reflect
