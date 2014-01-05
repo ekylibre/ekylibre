@@ -699,11 +699,11 @@
         <page to="backend/document_archives#show"/>
         <page to="backend/documents#list_archives"/>
       </item>
-      <item name="backups">
-        <page to="backend/settings#backups"/>
-        <page to="backend/settings#backup"/>
-        <page to="backend/settings#restore"/>
-      </item>
+      <!-- <item name="backups"> -->
+      <!--   <page to="backend/settings#backups"/> -->
+      <!--   <page to="backend/settings#backup"/> -->
+      <!--   <page to="backend/settings#restore"/> -->
+      <!-- </item> -->
     </group>
     <group name="calculators_and_simulators" icon="compass">
       <item name="calculators">

@@ -4,9 +4,9 @@ namespace :backup do
     root = Rails.root
 
     RAILS_ENV    = ENV['RAILS_ENV'] || 'development'
-    
-    config = YAML.load_file(root.join("config", "database.yml"))    
-    
+
+    config = YAML.load_file(root.join("config", "database.yml"))
+
     model = Backup::Model.new(:backup, 'Global Backup') do
 
       archive :app_files do |archive|
@@ -34,7 +34,7 @@ namespace :backup do
         archive.add(root.join("log"))
         archive.add(root.join("tmp"))
       end
-      
+
       database Backup::Database::PostgreSQL do |db|
         db.name               = config[RAILS_ENV]["database"]
         db.username           = config[RAILS_ENV]["su_username"]
@@ -44,12 +44,12 @@ namespace :backup do
         db.skip_tables        = []
         db.additional_options = config[RAILS_ENV]["schema_search_path"].split(/[\,\s]+/).collect{|n| "-n #{n}" }
       end
-      
+
       compress_with Backup::Compressor::Gzip do |compression|
         compression.best = true
         compression.fast = false
       end
-      
+
       store_with Backup::Storage::Local do |local|
         local.path = root
         local.keep = 10
