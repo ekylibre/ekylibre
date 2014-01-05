@@ -14,7 +14,7 @@
         <!-- <task do="[driver] drives [grinder]"/> -->
         <task do="[grinder] consumes [cultivation]"/>
         <task do="[grinder] produces [grinded]"/>
-        <task do="[grinded] is at [land_parcel]"/>
+        <task do="[grinded] moves in [land_parcel]"/>
         <task do="[land_parcel] consumes [grinded]"/>
       </operation>
     </operations>

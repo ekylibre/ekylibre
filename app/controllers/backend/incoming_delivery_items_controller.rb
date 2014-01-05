@@ -27,14 +27,10 @@ class Backend::IncomingDeliveryItemsController < BackendController
       return unless variant = find_and_check(:product_nature_variant, params[:variant_id])
       params[:external] ||= false
       @incoming_delivery.items.build(product_nature_variant_id: variant.id) # (:id => rand(1_000_000_000))
-      # id = rand(1_000_000_000)
-      # @incoming_delivery_items = @incoming_delivery.items.build(:id => id)
-      # @incoming_delivery_item = @incoming_delivery.items.build(:id => id)
-      render :partial => "nested_form"
+      render partial: "nested_form"
     else
-      head :forbidden
+      redirect_to backend_root_url
     end
   end
-
 
 end

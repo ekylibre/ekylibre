@@ -257,7 +257,7 @@ class Product < Ekylibre::Record::Base
 
   # Try to find the best name for the new products
   def choose_default_name
-    if self.new_record? and self.name.blank?
+    if self.name.blank?
       if self.variant
         if last = self.variant.products.reorder(id: :desc).first
           self.name = last.name
@@ -270,8 +270,10 @@ class Product < Ekylibre::Record::Base
         else
           self.name = self.variant_name
         end
-      else
+      end
+      if self.name.blank?
         # By default, choose a random name
+        # TODO...
         self.name = Faker::Name.first_name
       end
     end
