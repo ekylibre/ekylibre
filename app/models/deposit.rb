@@ -29,7 +29,6 @@
 #  creator_id       :integer
 #  description      :text
 #  id               :integer          not null, primary key
-#  in_cash          :boolean          not null
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
 #  locked           :boolean          not null
@@ -48,12 +47,11 @@ class Deposit < Ekylibre::Record::Base
   belongs_to :responsible, class_name: "Person"
   belongs_to :journal_entry
   belongs_to :mode, class_name: "IncomingPaymentMode"
-  has_many :items, class_name: "DepositItem", dependent: :delete_all
   has_many :payments, class_name: "IncomingPayment", dependent: :nullify, counter_cache: true, inverse_of: :deposit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :number, allow_nil: true, maximum: 255
-  validates_inclusion_of :in_cash, :locked, in: [true, false]
+  validates_inclusion_of :locked, in: [true, false]
   validates_presence_of :amount, :cash, :created_on, :mode, :number
   #]VALIDATORS]
   validates_presence_of :responsible, :cash

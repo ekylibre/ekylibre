@@ -18,7 +18,7 @@
 #
 
 class Backend::JournalEntriesController < BackendController
-  manage_restfully
+  manage_restfully only: [:index, :show]
 
   unroll
 
@@ -56,7 +56,7 @@ class Backend::JournalEntriesController < BackendController
   def new
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
-    @journal_entry = @journal.entries.build(params[:journal_entry])
+    @journal_entry = @journal.entries.build
     @journal_entry.printed_on = params[:printed_on]||Date.today
     @journal_entry.number = @journal.next_number
     @journal_entry_items = []
@@ -68,11 +68,10 @@ class Backend::JournalEntriesController < BackendController
     end
   end
 
-
   def create
     return unless @journal = find_and_check(:journal, params[:journal_id])
     session[:current_journal_id] = @journal.id
-    @journal_entry = @journal.entries.build(params[:journal_entry])
+    @journal_entry = @journal.entries.build(permitted_params)
     @journal_entry_items = (params[:items]||{}).values
     # raise @journal_entry_items.inspect
     if @journal_entry.save_with_items(@journal_entry_items)
@@ -82,20 +81,6 @@ class Backend::JournalEntriesController < BackendController
     end
     t3e @journal.attributes
     # render_restfully_form
-  end
-
-  def destroy
-    return unless @journal_entry = find_and_check
-    unless @journal_entry.destroyable?
-      notify_error(:journal_entry_already_validated)
-      redirect_to_back
-      return
-    end
-    if request.delete?
-      @journal_entry.destroy
-      notify_success(:record_has_been_correctly_removed)
-    end
-    redirect_to_current
   end
 
   def edit
@@ -119,7 +104,7 @@ class Backend::JournalEntriesController < BackendController
       return
     end
     @journal = @journal_entry.journal
-    @journal_entry.attributes = params[:journal_entry]
+    @journal_entry.attributes = permitted_params
     @journal_entry_items = (params[:items]||{}).values
     if @journal_entry.save_with_items(@journal_entry_items)
       redirect_to_back
@@ -127,6 +112,20 @@ class Backend::JournalEntriesController < BackendController
     end
     t3e @journal_entry.attributes
     # render_restfully_form
+  end
+
+  def destroy
+    return unless @journal_entry = find_and_check
+    unless @journal_entry.destroyable?
+      notify_error(:journal_entry_already_validated)
+      redirect_to_back
+      return
+    end
+    if request.delete?
+      @journal_entry.destroy
+      notify_success(:record_has_been_correctly_removed)
+    end
+    redirect_to_current
   end
 
 end

@@ -18,6 +18,7 @@
 #
 
 class Backend::UsersController < BackendController
+  manage_restfully only: [:index, :show, :destroy]
 
   unroll
 
@@ -33,16 +34,6 @@ class Backend::UsersController < BackendController
     t.action :destroy, :if => 'RECORD.id != current_user.id'.c
   end
 
-  # Displays the main page with the list of users
-  def index
-  end
-
-  # Displays details of one user selected with +params[:id]+
-  def show
-    return unless @user = find_and_check
-    t3e @user.attributes
-  end
-
   def new
     if request.xhr? and params[:mode] == "rights"
       role = Role.find(params[:user_role_id]) rescue nil
@@ -56,7 +47,7 @@ class Backend::UsersController < BackendController
   end
 
   def create
-    @user = User.new user_params #(params[:user])
+    @user = User.new permitted_params #(params[:user])
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
     return if save_and_redirect(@user)
@@ -71,18 +62,11 @@ class Backend::UsersController < BackendController
 
   def update
     return unless @user = find_and_check
-    @user.attributes = params[:user]
+    @user.attributes = permitted_params
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
     return if save_and_redirect(@user, url: {:action => :index})
     t3e @user.attributes
-    # render_restfully_form
-  end
-
-  def destroy
-    return unless @user = find_and_check
-    @user.destroy if @user.destroyable?
-    redirect_to_back
   end
 
   def lock
@@ -95,12 +79,6 @@ class Backend::UsersController < BackendController
     return unless @user = find_and_check
     @user.update_attribute(:locked, false)
     redirect_to_current
-  end
-
-  protected
-
-  def user_params()
-    params.require(:user).permit!
   end
 
 end

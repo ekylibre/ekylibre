@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+<!--
+  <procedure name="inventory" natures="inventory" version="0.0" status="frozen" system="true">
+    <variables>
+      <variable name="stock"/>
+    </variables>
+    <operations>
+    </operations>
+  </procedure>
+
+-->
+</procedures>

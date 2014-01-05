@@ -857,7 +857,6 @@ arb:
       delivery_mode: "نمط التسليم" #?
       department: "الخجمة" #?
       deposit: "الاقتطاع المصرفي"
-      # deposit_item: "Ligne de remise en banque"
       district: "مقاطعة"
       document: "الوثيقة"
       # document_archive: "Archive de document"

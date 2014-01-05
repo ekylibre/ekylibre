@@ -48,7 +48,11 @@
 #  updater_id         :integer
 #
 
-
+# There is 3 types of set of values (debit, credit...). These types
+# corresponds to the 3 currency we always add in accountancy:
+#  - *          in journal currency
+#  - real_*     in financial year currency
+#  - absolute_* in global currency (the same as current financial year's)
 class JournalEntry < Ekylibre::Record::Base
   attr_readonly :journal_id, :created_on
   belongs_to :financial_year

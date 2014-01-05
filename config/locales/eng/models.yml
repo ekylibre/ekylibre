@@ -426,7 +426,7 @@ eng:
       delay: "Delay" #?
       department: "Department" #?
       deposit: "Deposit"
-      deposit_item: "Deposit line"
+      deposit_item: "Deposit line" #?
       deposit_line: "Deposit line" #?
       district: "District"
       document: "Document"
