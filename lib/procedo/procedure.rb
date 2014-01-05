@@ -17,6 +17,8 @@ module Procedo
       @parent = options[:parent] if options[:parent]
       @position = options[:position] || 0
 
+      @system = !!(element.attr('system') == "true")
+
       # Check version
       @version = element.attr("version").to_s
       if @version.blank?
@@ -99,6 +101,10 @@ module Procedo
     end
     alias :uid :name
 
+    # Returns if the procedure is system
+    def system?
+      @system
+    end
 
     # Returns if the procedure is required
     def required?

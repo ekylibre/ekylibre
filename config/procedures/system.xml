@@ -10,4 +10,28 @@
   </procedure>
 
 -->
+
+<!--
+  <procedure name="pruning_test" natures="pruning" version="0.0" status="frozen" system="true">
+    <variables>
+      <variable name="pruned" variety="plant" roles="pruning-target"/>
+      <variable name="branches" variety="organic_matter" derivative_of="variety: pruned" roles="pruning-output"/>
+      <variable name="gardener" abilities="prune, move" roles="pruning-doer"/>
+    </variables>
+    <operations>
+      <operation id="100" duration="9 minutes">
+        <task do="gardener moves at pruned"/>
+      </operation>
+      <operation id="200">
+        <task do="gardener acts on pruned"/>
+        <task do="pruned produces branches"/>
+        <task do="branches moves at pruned"/>
+      </operation>
+      <operation id="300" duration="9 minutes">
+        <task do="gardener moves in default storage"/>
+      </operation>
+    </operations>
+  </procedure>
+-->
+
 </procedures>

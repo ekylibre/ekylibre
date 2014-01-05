@@ -39,10 +39,17 @@ module Procedo
   @@list = HashWithIndifferentAccess.new
 
   class << self
+    
+    def list(options = {})
+      l = @@list
+      l = l.select{|k,v| !v.system? } unless options[:with_system]
+      return l
+    end
+
 
     # Returns the names of the procedures
-    def procedures
-      @@list.keys
+    def procedures(options = {})
+      return list(options).keys
     end
     alias :names :procedures
 
@@ -53,14 +60,15 @@ module Procedo
 
     # Returns direct procedures of nature
     def procedures_of_nature(*natures)
-      @@list.values.select do |p|
+      options = natures.extract_options!
+      list(options).values.select do |p|
         p.of_nature?(*natures)
       end
     end
 
     # Returns procedures of nature and sub natures
-    def procedures_of_nature_and_its_children(nature)
-      procedures_of_nature(*Nomen::ProcedureNatures.all(nature).map(&:to_sym))
+    def procedures_of_nature_and_its_children(nature, options = {})
+      procedures_of_nature(*Nomen::ProcedureNatures.all(nature).map(&:to_sym), options = {})
     end
 
     # Load all files
