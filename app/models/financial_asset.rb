@@ -154,10 +154,10 @@ class FinancialAsset < Ekylibre::Record::Base
 
   # Depreciate using linear method
   def depreciate_with_linear_method(starts)
-    depreciable_days = ((self.stopped_on - self.started_on) + 1).to_d
+    depreciable_days = ((self.stopped_on - self.started_on) + 1).to_d(2)
     depreciable_amount = self.depreciable_amount
     for depreciation in self.depreciations
-      depreciable_days -= ((depreciation.stopped_on - depreciation.started_on) + 1).to_d
+      depreciable_days -= ((depreciation.stopped_on - depreciation.started_on) + 1).to_d(2)
       depreciable_amount -= depreciation.amount
     end
 
@@ -171,7 +171,7 @@ class FinancialAsset < Ekylibre::Record::Base
 
         else
           depreciation = self.depreciations.new(:started_on => start, :stopped_on => (starts[index+1]-1))
-          duration = ((depreciation.stopped_on - depreciation.started_on) + 1).to_d
+          duration = ((depreciation.stopped_on - depreciation.started_on) + 1).to_d(2)
           depreciation.amount = [remaining_amount, self.currency.to_currency.round(depreciable_amount * duration / depreciable_days)].min
           remaining_amount -= depreciation.amount
         end
