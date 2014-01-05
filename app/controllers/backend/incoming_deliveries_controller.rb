@@ -43,7 +43,7 @@ class Backend::IncomingDeliveriesController < BackendController
     t.column :unit, through: :variant, label_method: :unit_name
     t.column :variant, url: true
     t.column :container, url: true
-    t.column :amount, through: :purchase_item, url: true, hidden: true
+    t.column :amount, through: :purchase_item, hidden: true, currency: true, url: true
     t.column :created_at, hidden: true
   end
 

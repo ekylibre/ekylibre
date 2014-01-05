@@ -18,6 +18,8 @@
 #
 
 class Backend::SaleItemsController < BackendController
+  manage_restfully only: []
+  
 
   def new
     return unless @sale = find_and_check(:sale, params[:sale_id])
@@ -39,7 +41,7 @@ class Backend::SaleItemsController < BackendController
       redirect_to :controller => :sales, :action => :show, :id => @sale.id, :step => :products
       return
     end
-    @sale_item.attributes = params[:sale_item]
+    @sale_item.attributes = permitted_params
     ActiveRecord::Base.transaction do
       if saved = @sale_item.save
         if @sale_item.subscribing?
@@ -69,7 +71,7 @@ class Backend::SaleItemsController < BackendController
         @sale_item.sale = @sale
         @sale_item.reduction_percentage = @sale.client.maximal_reduction_percentage
       end
-      render :partial => "backend/sale_items/detail#{'_row' if params[:mode]=='row'}_form"
+      render partial: "backend/sale_items/detail#{'_row' if params[:mode]=='row'}_form"
     else
       redirect_to sales_url
     end
@@ -79,21 +81,19 @@ class Backend::SaleItemsController < BackendController
     return unless @sale_item = find_and_check
     @sale = @sale_item.sale
     t3e :product => @sale_item.variant_name
-    # render_restfully_form
   end
 
   def update
     return unless @sale_item = find_and_check
     @sale = @sale_item.sale
-    @sale_item.attributes = params[:sale_item]
+    @sale_item.attributes = permitted_params
     return if save_and_redirect(@sale_item)
     t3e :product => @sale_item.product.name
-    # render_restfully_form
   end
 
   def show
-    if item = SaleItem.find_by(id: params[:id])
-      redirect_to :controller => :sales, :id => item.sale_id
+    if @sale_item = SaleItem.find_by(id: params[:id])
+      redirect_to controller: :sales, id: @sale_item.sale_id
     else
       redirect_to backend_root_url
     end

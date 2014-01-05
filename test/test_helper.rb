@@ -97,6 +97,7 @@ class ActionController::TestCase
         if mode == :index
           code << "    get :#{action}, #{sanitized_params[]}\n"
           code << "    assert_response :success\n"
+          code << "    assert_select('html body #main #content', 1, 'Cannot find #main #content element')\n"
         elsif mode == :new_product
           code << "    get :#{action}, #{sanitized_params[]}\n"
           code << "    if ProductNatureVariant.of_variety('#{model_name.underscore}').any?\n"
@@ -192,8 +193,7 @@ class ActionController::TestCase
           # TODO test all scopes
         elsif mode == :get
           code << "    get :#{action}, #{sanitized_params[]}\n"
-          code << "    assert_response :success\n" # , \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"
-          code << "    assert_select('html body #main', 1, 'Cannot get main element in view #{action}')\n"
+          code << "    assert_response :success\n"
         else
           code << "    raise StandardError, 'What is this mode? #{mode.inspect}'\n"
         end
@@ -211,7 +211,7 @@ class ActionController::TestCase
     end
 
     MODES = {
-      /\Abackend\/cells\/.*\#show\z/ => :index,
+      /\Abackend\/cells\/.*\#show\z/ => :get,
       # /\Abackend\/cells\/.*\#list\z/ => :index_xhr,
       /\#(index|new)\z/   => :index,
       /\#(show|edit)\z/   => :show,
