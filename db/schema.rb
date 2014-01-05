@@ -343,24 +343,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "custom_fields", ["updated_at"], :name => "index_custom_fields_on_updated_at"
   add_index "custom_fields", ["updater_id"], :name => "index_custom_fields_on_updater_id"
 
-  create_table "deposit_items", force: true do |t|
-    t.integer  "deposit_id",                                                    null: false
-    t.decimal  "quantity",               precision: 19, scale: 4, default: 0.0, null: false
-    t.decimal  "amount",                 precision: 19, scale: 4, default: 1.0, null: false
-    t.string   "currency",     limit: 3,                                        null: false
-    t.datetime "created_at",                                                    null: false
-    t.datetime "updated_at",                                                    null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                    default: 0,   null: false
-  end
-
-  add_index "deposit_items", ["created_at"], :name => "index_deposit_items_on_created_at"
-  add_index "deposit_items", ["creator_id"], :name => "index_deposit_items_on_creator_id"
-  add_index "deposit_items", ["deposit_id"], :name => "index_deposit_items_on_deposit_id"
-  add_index "deposit_items", ["updated_at"], :name => "index_deposit_items_on_updated_at"
-  add_index "deposit_items", ["updater_id"], :name => "index_deposit_items_on_updater_id"
-
   create_table "deposits", force: true do |t|
     t.string   "number",                                                    null: false
     t.integer  "cash_id",                                                   null: false
@@ -373,7 +355,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "responsible_id"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
-    t.boolean  "in_cash",                                   default: false, null: false
     t.datetime "created_at",                                                null: false
     t.datetime "updated_at",                                                null: false
     t.integer  "creator_id"

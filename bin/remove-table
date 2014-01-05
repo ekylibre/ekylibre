@@ -17,7 +17,7 @@ end
 
 table = ARGV.shift
 
-unless $PROGRAM_NAME.match(/^(.\/)?script\//)
+unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
   puts "Script must be started from Rails root."
   exit 0
 end
@@ -34,9 +34,9 @@ files = ["app/models/#{record}.rb",
          "app/controllers/backend/#{records}_controller.rb",
          "app/helpers/backend/#{records}_helper.rb",
          "app/views/backend/#{records}",
-         "test/fixtures/#{records}.rb",
-         "test/unit/backend/#{record}_test.rb",
-         "test/functional/backend/#{records}_controller_test.rb"]
+         "test/fixtures/#{records}.yml",
+         "test/models/#{record}_test.rb",
+         "test/controllers/backend/#{records}_controller_test.rb"]
 
 for file in files
   if File.exist?(file)

@@ -279,7 +279,6 @@ fra:
       custom_field: "Champ complémentaire"
       custom_field_choice: "Choix de champ complémentaire"
       deposit: "Remise en banque"
-      deposit_item: "Ligne de remise en banque"
       district: "Zone administrative"
       document: "Document"
       document_archive: "Archive de document"
@@ -696,7 +695,7 @@ fra:
     id: "ID"
     identification_number: "Numéro d’identification"
     importance: "Importance"
-    in_cash: "En espèce"
+    in_cash: "En espèce" #?
     incident: "Incident"
     incidents: "Incidents"
     included: "Incluse"

@@ -196,14 +196,6 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
-    create_table :deposit_items do |t|
-      t.references :deposit,                                                       null: false, index: true
-      t.decimal    :quantity,               precision: 19, scale: 4, default: 0.0, null: false
-      t.decimal    :amount,                 precision: 19, scale: 4, default: 1.0, null: false
-      t.string     :currency,     limit: 3,                                        null: false
-      t.stamps
-    end
-
     create_table :deposits do |t|
       t.string     :number,                                                    null: false
       t.references :cash,                                                      null: false, index: true
@@ -216,7 +208,6 @@ class CreateBase < ActiveRecord::Migration
       t.references :responsible,                                                            index: true
       t.datetime   :accounted_at
       t.references :journal_entry,                                                          index: true
-      t.boolean    :in_cash,                                   default: false, null: false
       t.stamps
     end
 

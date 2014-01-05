@@ -19,7 +19,7 @@
 
 class Backend::SaleItemsController < BackendController
   manage_restfully only: []
-  
+
 
   def new
     return unless @sale = find_and_check(:sale, params[:sale_id])
