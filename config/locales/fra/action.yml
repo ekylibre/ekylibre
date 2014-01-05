@@ -583,11 +583,11 @@ fra:
       new: "Création d’une nouvelle séquence"
     backend/settings:
       about: "À propos…"
-      backup: "Faire une copie de sauvegarde"
-      backups: "Sauvegardes"
+      backup: "Faire une copie de sauvegarde" #?
+      backups: "Sauvegardes" #?
       edit: "Configuration"
       import: "Importer des données"
-      restore: "Restaurer une sauvegarde"
+      restore: "Restaurer une sauvegarde" #?
     backend/settlements:
       edit: "Modifier l’installation\_: %{name}"
       index: "Installations"

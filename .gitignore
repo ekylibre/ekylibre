@@ -19,6 +19,7 @@
 /doc/app
 
 # Ignore backup files
+/backup
 *~
 
 # Ignore jasper files

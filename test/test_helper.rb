@@ -15,9 +15,6 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  
-  # add domain type to read spatial type in fixtures
-  YAML.add_domain_type("ekylibre.org,2014","multipolygon") { |type, val|   RGeo::Geographic.spherical_factory(:srid => 4326).parse_wkt(val) }
 end
 
 class ActionController::TestCase
@@ -166,6 +163,9 @@ class ActionController::TestCase
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
           code << "    post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           code << "    assert_response :redirect\n"
+        elsif mode == :soft_touch
+          code << "    post :#{action}, #{sanitized_params[]}\n"
+          code << "    assert_response :success\n"
         elsif mode == :redirected_get # with ID
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"

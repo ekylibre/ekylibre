@@ -18,6 +18,8 @@
 #
 
 class Backend::SalesController < BackendController
+  manage_restfully only: []
+
   respond_to :csv, :ods, :xlsx, :pdf, :odt, :docx, :html, :xml, :json
 
   unroll
@@ -278,7 +280,7 @@ class Backend::SalesController < BackendController
   end
 
   def create
-    @sale = Sale.new sale_params#(params[:sale])
+    @sale = Sale.new permitted_params
     @sale.number = ''
     return if save_and_redirect(@sale, url: {:action => :show, :step => :products, :id => "id"})
   end
@@ -301,7 +303,7 @@ class Backend::SalesController < BackendController
       redirect_to :action => :show, :step => :products, :id => @sale.id
       return
     end
-    if @sale.update_attributes(params[:sale])
+    if @sale.update_attributes(permitted_params)
       redirect_to :action => :show, :step => :products, :id => @sale.id
       return
     end
@@ -433,10 +435,4 @@ class Backend::SalesController < BackendController
     end
   end
 
-
-  protected
-
-  def sale_params()
-    params.require(:sale).permit!
-  end
 end

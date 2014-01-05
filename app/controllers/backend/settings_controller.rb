@@ -46,37 +46,37 @@ class Backend::SettingsController < BackendController
   end
 
 
-  # Simple page dedicated to backup management
-  # FIXME Rebuild backup system with SQL approach ?
-  def backups
-  end
+  # # Simple page dedicated to backup management
+  # # FIXME Rebuild backup system with SQL approach ?
+  # def backups
+  # end
 
 
-  # Create a backup in a zipball
-  def backup
-    backup = Ekylibre::Backup.create(:creator => current_user.full_name, :with_prints => params[:with_prints])
-    send_file(backup) # , :stream => false
-    # File.delete(backup)
-  end
+  # # Create a backup in a zipball
+  # def backup
+  #   backup = Ekylibre::Backup.create(:creator => current_user.full_name, :with_prints => params[:with_prints])
+  #   send_file(backup) # , :stream => false
+  #   # File.delete(backup)
+  # end
 
 
-  # Removes existing data and restore.all data contained in zipball
-  # All the operations are included in one transaction
-  def restore
-    backup = params[:file][:path]
-    file = Rails.root.join("tmp", "uploads", backup.original_filename + "." + rand.to_s[2..-1].to_i.to_s(36))
-    FileUtils.mkdir_p(file.dirname)
-    File.open(file, "wb") { |f| f.write(backup.read) }
-    user_name = current_user.user_name
-    start = Time.now
-    if Ekylibre::Backup.restore(file)
-      # TODO: Restore session of current_user ?
-      notify_success_now(:restoration_finished, :value => (Time.now - start).to_s)
-    else
-      notify_error_now(:unvalid_version_for_restore)
-    end
-    render :backups
-  end
+  # # Removes existing data and restore.all data contained in zipball
+  # # All the operations are included in one transaction
+  # def restore
+  #   backup = params[:file][:path]
+  #   file = Rails.root.join("tmp", "uploads", backup.original_filename + "." + rand.to_s[2..-1].to_i.to_s(36))
+  #   FileUtils.mkdir_p(file.dirname)
+  #   File.open(file, "wb") { |f| f.write(backup.read) }
+  #   user_name = current_user.user_name
+  #   start = Time.now
+  #   if Ekylibre::Backup.restore(file)
+  #     # TODO: Restore session of current_user ?
+  #     notify_success_now(:restoration_finished, :value => (Time.now - start).to_s)
+  #   else
+  #     notify_error_now(:unvalid_version_for_restore)
+  #   end
+  #   render :backups
+  # end
 
 
 

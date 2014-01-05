@@ -21,15 +21,15 @@ class Backend::ProductLocalizationsController < BackendController
   manage_restfully
 
   list do |t|
-    t.column :container, url: true
     t.column :product, url: true
+    t.column :container, url: true
     t.column :nature
+    t.column :intervention, url: true
+    t.column :arrival_cause, hidden: true
     t.column :started_at
-    t.column :arrival_cause
+    t.column :departure_cause, hidden: true
     t.column :stopped_at
-    t.column :departure_cause
-    t.action :show, url: {:format => :pdf}, image: :print
-    t.action :edit
+    t.action :edit,    :if => :editable?
     t.action :destroy, :if => :destroyable?
   end
 end

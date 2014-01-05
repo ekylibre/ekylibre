@@ -1,8 +1,8 @@
-=main_toolbar do |t|
-  -t.edit @product_localization
-  -t.destroy(@product_localization, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @product_localization.destroyable?
+-# = main_toolbar do |t|
+  - t.edit @product_localization
+  - t.destroy(@product_localization, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @product_localization.destroyable?
 
-=beehive do |b|
-  -b.cell :details do
-    = attributes_list do |l| # liste des champs à afficher
+= beehive do |b|
+  - b.cell :details do
+    = attributes_list do |l|
       - l.attribute :container
