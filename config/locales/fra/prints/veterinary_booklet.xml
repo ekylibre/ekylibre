@@ -78,7 +78,7 @@
 		<fieldDescription><![CDATA[ancestor::intervention/prescription/@id]]></fieldDescription>
 	</field>
 	<field name="prescriptor" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/prescription/@prescriptor-name]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::intervention/prescription/@name]]></fieldDescription>
 	</field>
 	<field name="reference_number" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/prescription/@reference-number]]></fieldDescription>
@@ -119,6 +119,11 @@
 	<field name="unit_name" class="java.lang.String">
 		<fieldDescription><![CDATA[unit-name]]></fieldDescription>
 	</field>
+	<field name="incident_nature" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/incident/@nature]]></fieldDescription>
+	</field>
+	<sortField name="campaign"/>
+	<sortField name="started_at"/>
 	<group name="campaign" isStartNewPage="true" isReprintHeaderOnEachPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
 	</group>
@@ -318,7 +323,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{description}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{incident_nature}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="f131a1e3-9cd0-4de7-af30-bb89f77adc4b" style="base" x="358" y="20" width="89" height="20"/>
