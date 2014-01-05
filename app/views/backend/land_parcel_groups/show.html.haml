@@ -1,17 +1,13 @@
-=main_toolbar do |t|
-  -t.edit @land_parcel_group
+= main_toolbar do |t|
+  - t.edit @land_parcel_group
 
-=beehive do |b|
-  -b.tabbox do
-    -b.cell :general do
-      .picture
-        =@land_parcel_group.shape_svg(:width => 180, :height => 180, :class => :map)
-      .info
-        %span.title=LandParcelGroup.human_attribute_name(:area_measure)
-        %span.value=@land_parcel_group.shape_area.in_square_meter.convert(:hectare).round(2)
-
-=beehive do |b|
-  -b.cell do
-    = attributes_list do |l|
-      - l.attribute :name
+= beehive do |b|
+  - b.cell :general do
+    .picture= @land_parcel_group.shape_svg
+    .info
+      %span.title= LandParcelGroup.human_attribute_name(:name)
+      %span.value= @land_parcel_group.name
+    .info
+      %span.title= LandParcelGroup.human_attribute_name(:area_measure)
+      %span.value= @land_parcel_group.shape_area.in(:hectare).round(2).l
       

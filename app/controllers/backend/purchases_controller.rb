@@ -49,14 +49,14 @@ class Backend::PurchasesController < BackendController
     t.action :destroy, :if => :order?
   end
 
-  list(:undelivered_items, model: :purchase_items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
-    t.column :variant
-    # t.column :pretax_amount, currency: true, through: :price
-    t.column :quantity
-    t.column :pretax_amount, currency: true
-    t.column :amount, currency: true
-    t.column :undelivered_quantity, :datatype => :decimal
-  end
+  # list(:undelivered_items, model: :purchase_items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
+  #   t.column :variant
+  #   # t.column :pretax_amount, currency: true, through: :price
+  #   t.column :quantity
+  #   t.column :pretax_amount, currency: true
+  #   t.column :amount, currency: true
+  #   t.column :undelivered_quantity, :datatype => :decimal
+  # end
 
   list(:items, model: :purchase_items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
     t.column :variant, url: true

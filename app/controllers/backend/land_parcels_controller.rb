@@ -19,15 +19,16 @@
 
 class Backend::LandParcelsController < Backend::MattersController
 
-  list() do |t|
+  list do |t|
     t.column :name, url: true
     t.column :identification_number
     t.column :work_number
-    #t.column :description
-    #t.column :real_quantity
-    #t.column :unit
-    #t.column :started_on
-    #t.column :stopped_on
+    t.column :net_surface_area, datatype: :measure
+    # t.column :description
+    # t.column :real_quantity
+    # t.column :unit
+    # t.column :started_on
+    # t.column :stopped_on
     # t.action :divide
     t.action :edit
     t.action :destroy

@@ -46,8 +46,9 @@ class Listing < Ekylibre::Record::Base
   has_many :exportable_columns, -> { where(:nature  => "column", :exportable => true).order("position") }, class_name: "ListingNode"
   has_many :filtered_columns, -> { where("nature = ? AND condition_operator IS NOT NULL AND condition_operator != '' AND condition_operator != ? ", "column", "any") }, class_name: "ListingNode"
   has_many :coordinate_columns, -> { where("name LIKE ? AND nature = ? ", '%.coordinate', "column") }, class_name: "ListingNode"
-  has_many :nodes, class_name: "ListingNode", dependent: :delete_all
+  has_many :nodes, class_name: "ListingNode", dependent: :delete_all, inverse_of: :listing
   has_many :reflections, -> { where("nature IN (?)", ["belongs_to", "has_many", "root"]) }, class_name: "ListingNode"
+  has_one :root_node, -> {where(parent_id: nil)}, class_name: "ListingNode"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :name, :root_model, allow_nil: true, maximum: 255
@@ -65,7 +66,7 @@ class Listing < Ekylibre::Record::Base
   end
 
   def root
-    self.nodes.find_by_parent_id(nil) || self.nodes.create!(:label => self.root_model_name, :name => self.root_model, :nature => "root")
+    self.root_node || self.nodes.create!(label: self.root_model_name, name: self.root_model, nature: "root")
   end
 
   def generate
@@ -113,16 +114,13 @@ class Listing < Ekylibre::Record::Base
 
   # Fully duplicate a listing
   def duplicate
-    listing = self.class.create!(self.attributes.merge(:name => tg(:copy_of, :source => self.name)).delete_if{|a| ["id", "lock_version"].include?(a.to_s)}, :without_protection => true)
-    listing.save
-    listing.reload
-    self.root.duplicate(listing)
-    listing.reload
+    listing = self.class.create!(self.attributes.merge(name: tg(:copy_of, :source => self.name)).delete_if{|a| ["id", "lock_version"].include?(a.to_s)})
+    self.root_node.duplicate(listing)
     return listing
   end
 
   def can_mail?
-    !!(self.coordinate_columns.count > 0)
+    self.coordinate_columns.any?
   end
 
 end

@@ -67,7 +67,7 @@ product_indicator_data_001:
   indicator_datatype: "measure"
   measure_value_unit: "kilogram"
   measure_value_value: "250.00"
-  measured_at: 2009-07-19 19:13:59 +02:00
+  measured_at: 1995-01-19 19:13:59 +02:00
   product_id: 7001
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -80,7 +80,7 @@ product_indicator_data_002:
   indicator_name: "shape"
   indicator_datatype: "geometry"
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((407256.989 6529291.381,407228.445 6529342.561,407273.051 6529421.056,407248.169 6529430.302,407280.649 6529497.007,407244.786 6529506.224,407216.324 6529455.522,407137.385 6529447.238,407113.997 6529525.383,407113.168 6529536.38,407135.155 6529537.118,407139.973 6529525.169,407154.09 6529529.979,407161.172 6529541.94,407169.222 6529559.849,407178.164 6529575.571,407244.306 6529545.154,407252.237 6529563.173,407260.364 6529577.065,407307.085 6529551.733,407293.928 6529523.905,407359.676 6529501.394,407256.989 6529291.381)))"
-  measured_at: 2009-07-19 19:13:59 +02:00
+  measured_at: 1995-01-19 19:13:59 +02:00
   product_id: 31001
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -93,7 +93,7 @@ product_indicator_data_003:
   indicator_name: "shape"
   indicator_datatype: "geometry"
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
-  measured_at: 2009-07-19 19:13:59 +02:00
+  measured_at: 1995-01-19 19:13:59 +02:00
   product_id: 31002
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -106,7 +106,7 @@ product_indicator_data_004:
   indicator_name: "shape"
   indicator_datatype: "geometry"
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
-  measured_at: 2009-07-19 19:13:59 +02:00
+  measured_at: 1995-01-19 19:13:59 +02:00
   product_id: 31003
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -119,7 +119,7 @@ product_indicator_data_005:
   indicator_name: "shape"
   indicator_datatype: "geometry"
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
-  measured_at: 2009-07-19 19:13:59 +02:00
+  measured_at: 1995-01-19 19:13:59 +02:00
   product_id: 30001
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -132,7 +132,7 @@ product_indicator_data_006:
   indicator_name: "shape"
   indicator_datatype: "geometry"
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
-  measured_at: 2009-07-19 19:13:59 +02:00
+  measured_at: 1995-01-19 19:13:59 +02:00
   product_id: 30002
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -145,7 +145,7 @@ product_indicator_data_007:
   indicator_name: "shape"
   indicator_datatype: "geometry"
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
-  measured_at: 2009-07-19 19:13:59 +02:00
+  measured_at: 1995-01-19 19:13:59 +02:00
   product_id: 30003
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1

@@ -1,5 +1,5 @@
 -# TODO: Manage extra content in form
-=sale_steps unless request.xhr?
+= sale_steps unless request.xhr?
 
 -#=field_set @sale_item do
 -#  =f.referenced_association :sale, :field => :hidden
@@ -23,7 +23,7 @@
   = f.nested_association :subscriptions, :depend_on => :price, :if => :subscribing?
 
 = field_set :change_price, :grant_on => :change_prices_on_sales do
-  = f.input :price_amount
+  = f.input :unit_price_amount
   = f.referenced_association :tax
 
 = field_set :give_discount, :grant_on => :give_discounts_on_sales, :depend_on => :price, :if => "product.reduction_submissive?".to_sym do

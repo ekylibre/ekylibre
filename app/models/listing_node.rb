@@ -52,10 +52,9 @@
 class ListingNode < Ekylibre::Record::Base
   acts_as_list :scope => :listing
   acts_as_nested_set
-  # attr_accessible :name, :attribute_name, :condition_operator, :condition_value, :exportable, :label, :listing_id, :nature, :parent_id, :position, :sql_type
   attr_readonly :listing_id, :nature
   enumerize :nature, in: [:root, :column, :datetime, :boolean, :string, :numeric, :belongs_to, :has_many]
-  belongs_to :listing
+  belongs_to :listing, inverse_of: :nodes
   belongs_to :item_listing, class_name: "Listing"
   belongs_to :item_listing_node, class_name: "ListingNode"
   has_many :items, class_name: "ListingNodeItem"
@@ -281,25 +280,16 @@ class ListingNode < Ekylibre::Record::Base
     end
   end
 
-  def duplicate(listing, parent = nil)
-    attrs = [:attribute_name, :condition_operator, :condition_value, :exportable, :item_listing_id, :item_listing_node_id, :item_nature, :item_value, :label, :name, :nature, :position]
-
-    attributes = self.attributes.inject({}) do |hash, pair|
-      key = pair[0].to_sym
-      hash[key] = pair[1] if attrs.include?(key)
-      hash
+  def duplicate(listing_clone, parent = nil)
+    kepts = [:attribute_name, :condition_operator, :condition_value, :exportable, :item_listing_id, :item_listing_node_id, :item_nature, :item_value, :label, :name, :nature, :position]
+    attributes = self.attributes.symbolize_keys.select do |name, value|
+      kepts.include?(name)
     end
-    attributes[:listing_id] = listing.id
+    attributes[:listing_id] = listing_clone.id
     attributes[:parent_id]  = (parent ? parent.id : nil)
-    # attributes.delete("key")
-    # attributes.delete("id")
-    # attributes.delete("lock_version")
-    # attributes.delete("rgt")
-    # attributes.delete("lft")
-    # attributes.delete("depth")
     node = self.class.create!(attributes)
     for child in self.children.order(:position)
-      child.duplicate(listing, node)
+      child.duplicate(listing_clone, node)
     end
   end
 

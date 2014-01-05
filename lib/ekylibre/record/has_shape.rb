@@ -41,7 +41,7 @@ module Ekylibre::Record
           code << "  ids = ProductIndicatorDatum.of_products(self, :#{indicator}, options[:at]).pluck(:id)\n"
           code << "  return [] unless ids.any?\n"
           code << "  values = self.connection.select_one(\"SELECT min(ST_XMin(\#{expr})) AS x_min, min(ST_YMin(\#{expr})) AS y_min, max(ST_XMax(\#{expr})) AS x_max, max(ST_YMax(\#{expr})) AS y_max FROM \#{ProductIndicatorDatum.indicator_table_name(:#{indicator})} WHERE id IN (\#{ids.join(',')})\").symbolize_keys\n"
-          code << "  return [values[:x_min].to_d, -values[:y_max].to_d, (values[:x_max].to_d - values[:x_min].to_d), (values[:y_max].to_d - values[:y_min].to_d)]\n"
+          code << "  return [values[:x_min].to_f, -values[:y_max].to_f, (values[:x_max].to_f - values[:x_min].to_f), (values[:y_max].to_f - values[:y_min].to_f)]\n"
           code << "end\n"
 
           # As SVG
@@ -82,13 +82,12 @@ module Ekylibre::Record
             code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
             code << "  return nil unless datum = self.indicator_datum(:#{indicator}, at: options[:at])\n"
             code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
-            code << "  return self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{expr}) FROM \#{ProductIndicatorDatum.indicator_table_name(:#{indicator})} WHERE id = \#{datum.id}\")"
+            code << "  value = self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{expr}) FROM \#{ProductIndicatorDatum.indicator_table_name(:#{indicator})} WHERE id = \#{datum.id}\")\n"
             if attr.to_s =~ /\Aas\_/
-              code << ".to_s"
-            elsif attr.to_s =~ /area\z/
-              code << ".to_d.in_square_meter"
+              code << "  return value.to_s"
             else
-              code << '.to_d rescue 0'
+              code << "  return (value.blank? ? 0.0 : value.to_d)"
+              code << ".in_square_meter" if attr.to_s =~ /area\z/
             end
             code << "\n"
             code << "end\n"
