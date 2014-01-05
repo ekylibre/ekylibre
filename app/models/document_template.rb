@@ -62,7 +62,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   }
 
   protect(on: :destroy) do
-    self.document_archives.count <= 0
+    self.document_archives.any?
   end
 
   before_validation do

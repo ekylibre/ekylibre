@@ -62,7 +62,7 @@ class SubscriptionNature < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.subscriptions.any? and self.product_nature_categories.any?
+    self.subscriptions.any? or self.product_nature_categories.any?
   end
 
   def now

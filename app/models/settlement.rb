@@ -94,15 +94,6 @@ class Settlement < Easement
     # end
   end
 
-  protect(on: :destroy) do
-    dependencies = 0
-    for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
-      dependencies += self.send(k).count
-    end
-    return dependencies <= 0
-  end
-
-
   def can_receive?(product_id)
     #raise Exception.new product_id.inspect+self.reservoir.inspect
     reception = true

@@ -192,12 +192,8 @@ class JournalEntry < Ekylibre::Record::Base
     JournalEntryItem.where(:entry_id => self.id).update_all(:state => self.state, :journal_id => self.journal_id, :financial_year_id => self.financial_year_id, :printed_on => self.printed_on, :entry_number => self.number, :real_currency => self.real_currency, :real_currency_rate => self.real_currency_rate)
   end
 
-  protect(on: :destroy) do
-    self.printed_on > self.journal.closed_on and not self.closed?
-  end
-
-  protect(on: :update) do
-    self.printed_on > self.journal.closed_on and not self.closed?
+  protect do
+    self.printed_on <= self.journal.closed_on or self.closed?
   end
 
   def self.state_label(state)

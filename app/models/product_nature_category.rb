@@ -88,7 +88,7 @@ class ProductNatureCategory < Ekylibre::Record::Base
   # scope :producibles, -> { where(:variety => ["bos", "animal", "plant", "organic_matter"]).order(:name) }
 
   protect(on: :destroy) do
-    self.natures.count.zero? and self.products.count.zero?
+    self.natures.any? and self.products.any?
   end
 
   before_validation do

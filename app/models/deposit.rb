@@ -48,9 +48,8 @@ class Deposit < Ekylibre::Record::Base
   belongs_to :responsible, class_name: "Person"
   belongs_to :journal_entry
   belongs_to :mode, class_name: "IncomingPaymentMode"
-  has_many :items, class_name: "DepositItem", inverse_of: :deposit
-  has_many :payments, -> { order("number") }, class_name: "IncomingPayment", dependent: :nullify
-  has_many :payments, class_name: "IncomingPayment"
+  has_many :items, class_name: "DepositItem", dependent: :delete_all
+  has_many :payments, class_name: "IncomingPayment", dependent: :nullify, counter_cache: true, inverse_of: :deposit
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :number, allow_nil: true, maximum: 255
@@ -60,18 +59,18 @@ class Deposit < Ekylibre::Record::Base
   validates_presence_of :responsible, :cash
 
   delegate :currency, to: :cash
+  delegate :detail_payments, to: :mode
 
-  # default_scope -> { order(:number) }
   scope :unvalidateds, -> { where(locked: false) }
-
 
   before_validation do
     self.cash = self.mode.cash if self.mode
   end
 
-  before_validation(on: :update) do
-    self.payments_count = self.payments.count
-    self.amount = self.payments.sum(:amount)
+  after_save do
+    self.update_columns(amount: self.payments.sum(:amount), payments_count: self.payments.count)
+    # self.reload
+    # return true
   end
 
   # validate do
@@ -84,6 +83,7 @@ class Deposit < Ekylibre::Record::Base
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
     payments = self.reload.payments unless b.action == :destroy
+    amount = self.payments.sum(:amount)
     b.journal_entry(self.cash.journal, if: !self.mode.depositables_account.nil?) do |entry|
 
       commissions, commissions_amount = {}, 0
@@ -93,31 +93,27 @@ class Deposit < Ekylibre::Record::Base
         commissions_amount += payment.commission_amount
       end
 
-      label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :count => self.payments_count, :mode => self.mode.name, :responsible => self.responsible.label, :description => self.description)
+      label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, count: self.payments_count, mode: self.mode.name, responsible: self.responsible.label, description: self.description)
 
-      entry.add_debit( label, self.cash.account_id, self.amount-commissions_amount)
+      entry.add_debit(label, self.cash.account_id, amount - commissions_amount)
       for commission_account_id, commission_amount in commissions
-        entry.add_debit( label, commission_account_id.to_i, commission_amount) if commission_amount > 0
+        entry.add_debit(label, commission_account_id.to_i, commission_amount) if commission_amount > 0
       end
 
-      if self.company.prefer_detail_payments_in_deposit_bookkeeping?
+      if self.detail_payments # Preference[:detail_payments_in_deposit_bookkeeping]
         for payment in payments
-          label = tc(:bookkeep_with_payment, :resource => self.class.model_name.human, :number => self.number, :mode => self.mode.name, :payer => payment.payer.full_name, :check_number => payment.check_number, :payment => payment.number)
+          label = tc(:bookkeep_with_payment, resource: self.class.model_name.human, number: self.number, mode: self.mode.name, payer: payment.payer.full_name, check_number: payment.bank_check_number, payment: payment.number)
           entry.add_credit(label, self.mode.depositables_account_id, payment.amount)
         end
       else
-        entry.add_credit(label, self.mode.depositables_account_id, self.amount)
+        entry.add_credit(label, self.mode.depositables_account_id, amount)
       end
       true
     end
   end
 
-  protect(on: :destroy) do
-    return !self.locked?
-  end
-
-  def refresh
-    self.save
+  protect do
+    self.locked? or (self.journal_entry and self.journal_entry.closed?)
   end
 
 end

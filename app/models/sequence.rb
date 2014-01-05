@@ -66,7 +66,7 @@ class Sequence < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.preferences.size <= 0
+    self.preferences.any?
   end
 
   def self.of(usage)

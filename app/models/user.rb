@@ -198,7 +198,7 @@ class User < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.class.count > 1
+    self.class.count <= 1
   end
 
   # def authenticated?(password)

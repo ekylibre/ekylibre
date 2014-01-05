@@ -61,7 +61,9 @@ class Preference < Ekylibre::Record::Base
 
   def self.prefer(name, nature, default_value)
     @@reference ||= HashWithIndifferentAccess.new
-    raise ArgumentError.new("Nature (#{nature.inspect}) is unacceptable. #{self.nature.values.to_sentence} are accepted.") unless self.nature.values.include?(nature.to_s)
+    unless self.nature.values.include?(nature.to_s)
+      raise ArgumentError, "Nature (#{nature.inspect}) is unacceptable. #{self.nature.values.to_sentence} are accepted."
+    end
     @@reference[name] = {:name => :name, :nature => nature.to_sym, default: default_value}
   end
 

@@ -29,8 +29,9 @@ class Backend::IncomingPaymentModesController < BackendController
     t.column :cash, url: true
     t.column :with_accounting
     t.column :with_deposit
-    t.column :depositables_account, url: true
-    t.column :depositables_journal, url: true
+    t.column :detail_payments, hidden: true
+    t.column :depositables_account, url: true, hidden: true
+    t.column :depositables_journal, url: true, hidden: true
     t.column :with_commission
     t.action :up,   :method => :post, :unless => :first?
     t.action :down, :method => :post, :unless => :last?

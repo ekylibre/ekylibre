@@ -79,7 +79,9 @@ module ActiveList
 
         code << "html = ''\n"
         code << "html << '<div id=\"#{table.name}\" data-list-source=\"'+h(url_for(options.merge(:action => '#{generator.controller_method_name}')))+'\" class=\"active-list\""
-        code << " data-list-current-page=\"' + #{var_name(:page)}.to_s + '\" data-list-page-size=\"' + #{var_name(:limit)}.to_s + '\""
+        if table.paginate?
+          code << " data-list-current-page=\"' + #{var_name(:page)}.to_s + '\" data-list-page-size=\"' + #{var_name(:limit)}.to_s + '\""
+        end
         code << " data-list-sort-by=\"' + #{var_name(:params)}[:sort].to_s + '\" data-list-sort-dir=\"' + #{var_name(:params)}[:dir].to_s + '\""
         code << ">'\n"
         code << "html << '<table class=\"list\">'\n"
@@ -157,13 +159,21 @@ module ActiveList
             end
           elsif column.is_a?(ActiveList::Definition::CheckBoxColumn)
             if nature == :body
-              value_code << "hidden_field_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 0, :id => nil) + \n"
-              value_code << "check_box_tag('#{table.name}['+#{record}.id.to_s+'][#{column.name}]', 1, #{recordify!(column.options[:value] || column.name, record)}, :id => '#{table.name}_'+#{record}.id.to_s+'_#{column.name}')"
+              form_name = column.form_name || "'#{table.name}[' + #{record}.id.to_s + '][#{column.name}]'".c
+              value = "nil"
+              if column.form_value
+                value = recordify(column.form_value, record)
+              else
+                value = 1
+                value_code << "hidden_field_tag(#{form_name.inspect}, 0, id: nil) + \n"
+              end
+              value_code << "check_box_tag(#{form_name.inspect}, #{value}, #{recordify!(column.options[:value] || column.name, record)})" # , id: '#{table.name}_'+#{record}.id.to_s+'_#{column.name}'
             else
               value_code << "nil"
             end
           elsif column.is_a?(ActiveList::Definition::TextFieldColumn)
-            value_code = (nature == :body ? "text_field_tag('#{table.name}[' + #{record}.id.to_s + '][#{column.name}]', #{recordify!(column.options[:value] || column.name, record)}, id: '#{table.name}_'+#{record}.id.to_s + '_#{column.name}'#{column.options[:size] ? ', size: ' + column.options[:size].to_s : ''})" : "nil")
+            form_name = column.form_name || "'#{table.name}[' + #{record}.id.to_s + '][#{column.name}]'".c
+            value_code = (nature == :body ? "text_field_tag(#{form_name.inspect}, #{recordify!(column.options[:value] || column.name, record)}#{column.options[:size] ? ', size: ' + column.options[:size].to_s : ''})" : "nil") # , id: '#{table.name}_'+#{record}.id.to_s + '_#{column.name}'
           elsif column.is_a?(ActiveList::Definition::ActionColumn)
             value_code = (nature == :body ? column.operation(record) : "nil")
           else

@@ -34,7 +34,7 @@ class Backend::InventoriesController < BackendController
 
   # Displays the main page with the list of inventories
   def index
-    if ProductNature.stockables.count.zero?
+    unless ProductNature.stockables.any?
       notify_now(:need_stocks_to_create_inventories)
     end
   end
@@ -50,7 +50,7 @@ class Backend::InventoriesController < BackendController
 
   # Displays details of one inventory selected with +params[:id]+
   def show
-    return unless @inventory = find_and_check(:inventory)
+    return unless @inventory = find_and_check
     session[:current_inventory_id] = @inventory.id
     respond_to do |format|
       format.html
@@ -106,14 +106,14 @@ class Backend::InventoriesController < BackendController
   end
 
   def edit
-    return unless @inventory = find_and_check(:inventory)
+    return unless @inventory = find_and_check
     session[:current_inventory_id] = @inventory.id
     t3e @inventory.attributes
     # render_restfully_form
   end
 
   def update
-    return unless @inventory = find_and_check(:inventory)
+    return unless @inventory = find_and_check
     session[:current_inventory_id] = @inventory.id
     unless @inventory.changes_reflected
       if @inventory.update_attributes(params[:inventory])
@@ -129,7 +129,7 @@ class Backend::InventoriesController < BackendController
   end
 
   def destroy
-    return unless @inventory = find_and_check(:inventory)
+    return unless @inventory = find_and_check
     unless @inventory.changes_reflected?
       @inventory.destroy
     end
@@ -137,7 +137,7 @@ class Backend::InventoriesController < BackendController
   end
 
   def reflect
-    return unless @inventory = find_and_check(:inventory)
+    return unless @inventory = find_and_check
     if @inventory.reflect_changes
       notify_success(:changes_have_been_reflected)
     else

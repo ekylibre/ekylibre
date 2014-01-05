@@ -898,7 +898,7 @@
         <page to="backend/subscription_natures#new"/>
         <page to="backend/subscription_natures#update"/>
       </item>
-      <item name="areas">
+      <item name="postal_zones">
         <page to="backend/postal_zones#index"/>
         <page to="backend/postal_zones#create"/>
         <page to="backend/postal_zones#destroy"/>
@@ -1361,6 +1361,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="sessions">
+        <page to="authentication/sessions#_callback_before_11"/>
+      </item>
       <item name="animal_medicines">
         <page to="backend/animal_medicines#list_carried_linkages"/>
         <page to="backend/animal_medicines#list_carrier_linkages"/>
@@ -1760,6 +1763,9 @@
         <page to="backend/workers#list_places"/>
         <page to="backend/workers#picture"/>
         <page to="backend/workers#unroll"/>
+      </item>
+      <item name="sessions">
+        <page to="devise/sessions#_callback_before_11"/>
       </item>
     </group>
   </untreated-actions>

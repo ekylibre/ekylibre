@@ -119,7 +119,7 @@ class Backend::JournalsController < BackendController
 
   # Displays details of one journal selected with +params[:id]+
   def show
-    return unless @journal = find_and_check(:journal)
+    return unless @journal = find_and_check
     journal_view = @current_user.preference("interface.journal.#{@journal.code}.view")
     journal_view.value = self.journal_views[0] unless self.journal_views.include? journal_view.value
     if view = self.journal_views.detect{|x| params[:view] == x}
@@ -131,7 +131,7 @@ class Backend::JournalsController < BackendController
   end
 
   def close
-    return unless @journal = find_and_check(:journal)
+    return unless @journal = find_and_check
     unless @journal.closable?
       notify(:no_closable_journal)
       redirect_to :action => :index
@@ -147,7 +147,7 @@ class Backend::JournalsController < BackendController
   end
 
   def reopen
-    return unless @journal = find_and_check(:journal)
+    return unless @journal = find_and_check
     unless @journal.reopenable?
       notify(:no_reopenable_journal)
       redirect_to :action => :index

@@ -69,7 +69,7 @@ class Activity < Ekylibre::Record::Base
   }
 
   protect(on: :destroy) do
-    self.productions.count.zero?
+    self.productions.any?
   end
 
   accepts_nested_attributes_for :productions, :reject_if => :all_blank, :allow_destroy => true

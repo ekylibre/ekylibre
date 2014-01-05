@@ -120,15 +120,6 @@ class Purchase < Ekylibre::Record::Base
     return true
   end
 
-  protect(on: :destroy) do
-    self.updateable?
-  end
-
-  protect(on: :update) do
-    # return false if self.unpaid_amount.zero? and self.shipped
-    return true
-  end
-
   # This method permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|

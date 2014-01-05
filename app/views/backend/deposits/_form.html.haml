@@ -1,8 +1,12 @@
+= hidden_field_tag(:mode_id, f.object.mode_id)
+
 = field_set do
-  = f.referenced_association :mode, :field => :hidden
-  = f.referenced_association :responsible, :source => :employees
+  = f.referenced_association :mode, as: :hidden
+  = f.referenced_association :responsible # , source: :employees
   = f.input :created_on
   = f.input :description
+
+  -# = f.association :payments, as: :check_boxes, label_method: :number
 
 = field_set :incoming_payments do
   = render 'depositable_payments_form'

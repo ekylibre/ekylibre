@@ -48,7 +48,7 @@ class EventNature < Ekylibre::Record::Base
   # default_scope -> { order(:name) }
 
   protect(on: :destroy) do
-    self.events.count <= 0
+    self.events.any?
   end
 
 end

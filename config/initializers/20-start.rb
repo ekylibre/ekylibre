@@ -25,6 +25,6 @@ require 'procedo'
 # Other things...
 require 'reporting'
 require 'enumerize/xml'
-require 'active-list'
+require 'active_list'
 
 

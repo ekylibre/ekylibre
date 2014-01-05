@@ -8,8 +8,8 @@ module ActiveList
       ActiveList.renderers[name]
     end
 
-    autoload :AbstractRenderer, 'active-list/renderers/abstract_renderer'
-    autoload :SimpleRenderer,   'active-list/renderers/simple_renderer'
+    autoload :AbstractRenderer, 'active_list/renderers/abstract_renderer'
+    autoload :SimpleRenderer,   'active_list/renderers/simple_renderer'
   end
 
   mattr_reader :renderers

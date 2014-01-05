@@ -44,14 +44,14 @@ class Backend::RolesController < BackendController
   end
 
   def edit
-    return unless @role = find_and_check(:role)
+    return unless @role = find_and_check
     @rights = @role.rights_array
     t3e @role.attributes
     # render_restfully_form
   end
 
   def update
-    return unless @role = find_and_check(:role)
+    return unless @role = find_and_check
     @role.attributes = permitted_params[:role]
     @role.rights_array = (params[:rights]||{}).keys
     @rights = @role.rights_array

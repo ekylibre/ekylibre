@@ -115,11 +115,10 @@ class Account < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    dependencies = 0
     for k, v in self.class.reflections.select{|k, v| v.macro == :has_many}
-      dependencies += self.send(k).count
+      return true if self.send(k).any?
     end
-    return dependencies <= 0
+    return false
   end
 
   class << self

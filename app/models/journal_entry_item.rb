@@ -146,10 +146,10 @@ class JournalEntryItem < Ekylibre::Record::Base
 
   #
   validate do
-    unless self.updateable?
-      errors.add(:number, :closed_entry)
-      return
-    end
+    # unless self.updateable?
+    #   errors.add(:number, :closed_entry)
+    #   return
+    # end
     errors.add(:credit, :unvalid_amounts) if self.debit != 0 and self.credit != 0
   end
 
@@ -157,12 +157,8 @@ class JournalEntryItem < Ekylibre::Record::Base
     self.followings.update_all("cumulated_absolute_debit = cumulated_absolute_debit + #{self.absolute_debit}, cumulated_absolute_credit = cumulated_absolute_credit + #{self.absolute_credit}")
   end
 
-  protect(on: :update) do
-    not self.closed? and self.entry and self.entry.updateable?
-  end
-
-  protect(on: :destroy) do
-    !self.closed?
+  protect do
+    self.closed? or (self.entry and self.entry.protected_on_update?)
   end
 
   # Prints human name of current state

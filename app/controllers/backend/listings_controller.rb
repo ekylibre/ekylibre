@@ -39,7 +39,7 @@ class Backend::ListingsController < BackendController
   end
 
   def extract
-    return unless @listing = find_and_check(:listing)
+    return unless @listing = find_and_check
     begin
       @listing.save if @listing.query.blank?
       query = @listing.query.to_s
@@ -81,13 +81,13 @@ class Backend::ListingsController < BackendController
   end
 
   def edit
-    return unless @listing = find_and_check(:listing)
+    return unless @listing = find_and_check
     t3e @listing.attributes
     # render_restfully_form
   end
 
   def update
-    return unless @listing = find_and_check(:listing)
+    return unless @listing = find_and_check
     @listing.attributes = listing_params
     return if save_and_redirect(@listing, url: {:action => :edit, :id => "id"})
     t3e @listing.attributes
@@ -95,7 +95,7 @@ class Backend::ListingsController < BackendController
   end
 
   def destroy
-    return unless @listing = find_and_check(:listing)
+    return unless @listing = find_and_check
     if request.post? or request.delete?
       Listing.destroy(@listing.id) if @listing
     end
@@ -103,13 +103,13 @@ class Backend::ListingsController < BackendController
   end
 
   def duplicate
-    return unless @listing = find_and_check(:listing)
+    return unless @listing = find_and_check
     @listing.duplicate if request.post?
     redirect_to :action => :index
   end
 
   def mail
-    return unless @listing = find_and_check(:listing)
+    return unless @listing = find_and_check
     if (query = @listing.query).blank?
       @listing.save
       query = @listing.query

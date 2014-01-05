@@ -62,13 +62,13 @@ class Backend::PurchaseItemsController < BackendController
   end
 
   def edit
-    return unless @purchase_item = find_and_check(:purchase_item)
+    return unless @purchase_item = find_and_check
     t3e @purchase_item.attributes
     # render_restfully_form
   end
 
   def update
-    return unless @purchase_item = find_and_check(:purchase_item)
+    return unless @purchase_item = find_and_check
     return unless product = find_and_check(:product_natures, params[:purchase_item][:product_id].to_i)
     if params[:price]
       price_attrs = params[:price].symbolize_keys.merge(:product_id=>product.id, :entity_id=>@purchase_item.purchase.supplier_id)
@@ -85,7 +85,7 @@ class Backend::PurchaseItemsController < BackendController
   end
 
   def destroy
-    return unless @purchase_item = find_and_check(:purchase_item)
+    return unless @purchase_item = find_and_check
     @purchase_item.destroy
     redirect_to_current
   end

@@ -37,6 +37,9 @@ module Ekylibre::Record
     # Make all models stampables
     self.stampable
 
+    before_update  :updateable?
+    before_destroy :destroyable?
+
     def destroyable?
       true
     end

@@ -1,15 +1,4 @@
 = list(:depositable_payments)
 
--# = passive_list(IncomingPayment.depositables_for(@deposit)) do |t|
-  - t.column :number, url: true
-  - t.column :payer, url: true
-  - t.column :bank_name
-  - t.column :bank_account_number
-  - t.column :bank_check_number
-  - t.column :paid_on
-  - t.column :responsible
-  - t.column :amount, currency: true
-  - t.check_box :to_deposit, :value => '(RECORD.to_bank_on<=Date.today and (session[:deposit_id].nil? ? (RECORD.responsible.nil? or RECORD.responsible_id==current_user.person_id) : (RECORD.deposit_id==session[:deposit_id])))'.c, :label => tc(:to_deposit)
-
 - if @deposit.new_record?
   = subheading :new_deposit, :mode => @deposit.mode.name, :count => @deposit.mode.depositable_payments.count

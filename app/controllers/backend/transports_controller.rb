@@ -47,7 +47,7 @@ class Backend::TransportsController < BackendController
 
   # # Displays details of one transport selected with +params[:id]+
   # def show
-  #   return unless @transport = find_and_check(:transports)
+  #   return unless @transport = find_and_check
   #   respond_to do |format|
   #     format.html do
   #       t3e @transport.attributes
@@ -124,7 +124,7 @@ class Backend::TransportsController < BackendController
   end
 
   def edit
-    return unless @transport = find_and_check(:transports)
+    return unless @transport = find_and_check
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
     t3e @transport.attributes
@@ -132,7 +132,7 @@ class Backend::TransportsController < BackendController
   end
 
   def update
-    return unless @transport = find_and_check(:transports)
+    return unless @transport = find_and_check
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
     return if save_and_redirect(@transport, :attributes => permitted_params[:transport], url: {:action => :show, :id => 'id'}) do |transport|

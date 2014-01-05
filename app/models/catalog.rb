@@ -62,7 +62,7 @@ class Catalog < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.prices.empty?
+    self.prices.any?
   end
 
 end

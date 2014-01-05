@@ -210,6 +210,10 @@ class Product < Ekylibre::Record::Base
     end
   end
 
+  protect(on: :destroy) do
+    self.intervention_casts.any? or self.supports.any? or self.incidents.any?
+  end
+
   class << self
     # Auto-cast product to best matching class with type column
     def new_with_cast(*attributes, &block)

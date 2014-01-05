@@ -36,8 +36,7 @@
 #
 class Campaign < Ekylibre::Record::Base
   has_many :productions
-  has_many :interventions, :through => :productions
-
+  has_many :interventions, through: :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :harvest_year, allow_nil: true, only_integer: true
   validates_length_of :number, allow_nil: true, maximum: 60
@@ -45,7 +44,6 @@ class Campaign < Ekylibre::Record::Base
   validates_inclusion_of :closed, in: [true, false]
   validates_presence_of :name, :number
   #]VALIDATORS]
-
   validates :harvest_year, length: {is: 4}, allow_nil: true
   before_validation :set_default_values, on: :create
 
@@ -54,7 +52,7 @@ class Campaign < Ekylibre::Record::Base
   scope :currents, -> { where(:closed => false).reorder(:harvest_year) }
 
   protect(on: :destroy) do
-    self.productions.count.zero? and self.interventions.count.zero?
+    self.productions.any? or self.interventions.any?
   end
 
   # Sets name
@@ -63,7 +61,7 @@ class Campaign < Ekylibre::Record::Base
   end
 
   def shape_area
-    return self.productions.collect{|p| p.shape_area.to_s.to_f}.sum
+    return self.productions.map(&:shape_area).sum
   end
 
 end

@@ -39,7 +39,7 @@ class Backend::UsersController < BackendController
 
   # Displays details of one user selected with +params[:id]+
   def show
-    return unless @user = find_and_check(:user)
+    return unless @user = find_and_check
     t3e @user.attributes
   end
 

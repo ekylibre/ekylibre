@@ -98,7 +98,7 @@ class Journal < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.entries.count.zero? and self.entry_items.count.zero? and self.cashes.count.zero?
+    self.entries.any? or self.entry_items.any? or self.cashes.any?
   end
 
 

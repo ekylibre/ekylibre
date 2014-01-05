@@ -89,7 +89,7 @@ class Role < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.users.count <= 0
+    self.users.any?
   end
 
   def diff_more

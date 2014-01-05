@@ -11,12 +11,12 @@ module ActiveList
     return uid
   end
 
-  autoload :Helpers,    'active-list/helpers'
-  autoload :Definition, 'active-list/definition'
-  autoload :Renderers,  'active-list/renderers'
-  autoload :Exporters,  'active-list/exporters'
-  autoload :Generator,  'active-list/generator'
-  autoload :ActionPack, 'active-list/action_pack'
+  autoload :Helpers,    'active_list/helpers'
+  autoload :Definition, 'active_list/definition'
+  autoload :Renderers,  'active_list/renderers'
+  autoload :Exporters,  'active_list/exporters'
+  autoload :Generator,  'active_list/generator'
+  autoload :ActionPack, 'active_list/action_pack'
 end
 
 ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)

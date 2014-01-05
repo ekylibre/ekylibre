@@ -57,10 +57,10 @@ class IncomingPayment < Ekylibre::Record::Base
   attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, :if => Proc.new{ self.deposit and self.deposit.locked? }
   belongs_to :commission_account, class_name: "Account"
   belongs_to :responsible, class_name: "User"
-  belongs_to :deposit
+  belongs_to :deposit, inverse_of: :payments
   belongs_to :journal_entry
   belongs_to :payer, class_name: "Entity", inverse_of: :incoming_payments
-  belongs_to :mode, class_name: "IncomingPaymentMode"
+  belongs_to :mode, class_name: "IncomingPaymentMode", inverse_of: :payments
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :commission_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
@@ -69,19 +69,18 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_presence_of :amount, :commission_amount, :currency, :mode, :to_bank_on
   #]VALIDATORS]
   validates_numericality_of :amount, greater_than: 0
-  validates_numericality_of :commission_amount, :greater_than_or_equal_to => 0
+  validates_numericality_of :commission_amount, greater_than_or_equal_to: 0
   validates_presence_of :payer, :created_on
   validates_presence_of :commission_account, :if => :with_commission?
 
   acts_as_numbered
-  acts_as_affairable :dealt_on => :to_bank_on, :third => :payer
-  autosave :deposit
+  acts_as_affairable dealt_on: :to_bank_on, third: :payer
   delegate :with_commission?, to: :mode
 
-  scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on >= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
+  scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
   scope :depositables_for, lambda { |deposit, mode = nil|
     deposit = Deposit.find(deposit) unless deposit.is_a?(Deposit)
-    where("to_bank_on >= ?", Date.today).where("deposit_id = ? OR (deposit_id IS NULL AND mode_id = ?)", deposit.id, (mode ? mode_id : deposit.mode_id))
+    where("to_bank_on <= ?", Date.today).where("deposit_id = ? OR (deposit_id IS NULL AND mode_id = ?)", deposit.id, (mode ? mode_id : deposit.mode_id))
   }
   scope :last_updateds, -> { order("updated_at DESC") }
 
@@ -99,23 +98,20 @@ class IncomingPayment < Ekylibre::Record::Base
       self.commission_amount ||= self.mode.commission_amount(self.amount)
       self.currency = self.mode.currency
     end
+    true
   end
 
   validate do
     if self.mode
       errors.add(:currency, :invalid) if self.currency != self.mode.currency
+      if self.deposit
+        errors.add(:deposit_id, :invalid) if self.mode_id != self.deposit.mode_id
+      end
     end
   end
 
   protect(on: :update) do
-    self.deposit.nil? or not self.deposit.locked
-  end
-
-  def deposit?
-    if self.deposit
-      return true
-    end
-    return false
+    (self.deposit && self.deposit.protected_on_update?) or (self.journal_entry && self.journal_entry.closed?)
   end
 
   # This method permits to add journal entries corresponding to the payment

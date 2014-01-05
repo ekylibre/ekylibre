@@ -55,7 +55,7 @@ class Backend::SaleItemsController < BackendController
   end
 
   def destroy
-    return unless @sale_item = find_and_check(:sale_item)
+    return unless @sale_item = find_and_check
     @sale_item.destroy
     redirect_to_current
   end
@@ -76,14 +76,14 @@ class Backend::SaleItemsController < BackendController
   end
 
   def edit
-    return unless @sale_item = find_and_check(:sale_item)
+    return unless @sale_item = find_and_check
     @sale = @sale_item.sale
     t3e :product => @sale_item.variant_name
     # render_restfully_form
   end
 
   def update
-    return unless @sale_item = find_and_check(:sale_item)
+    return unless @sale_item = find_and_check
     @sale = @sale_item.sale
     @sale_item.attributes = params[:sale_item]
     return if save_and_redirect(@sale_item)

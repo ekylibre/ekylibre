@@ -157,7 +157,7 @@ class ProductNature < Ekylibre::Record::Base
   }
 
   protect(on: :destroy) do
-    self.variants.empty? and self.products.empty?
+    self.variants.any? or self.products.any?
   end
 
   before_validation do

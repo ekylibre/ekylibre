@@ -104,7 +104,7 @@ class Backend::PurchasesController < BackendController
   end
 
   def abort
-    return unless @purchase = find_and_check(:purchase)
+    return unless @purchase = find_and_check
     if request.post?
       @purchase.abort
     end
@@ -112,7 +112,7 @@ class Backend::PurchasesController < BackendController
   end
 
   def confirm
-    return unless @purchase = find_and_check(:purchase)
+    return unless @purchase = find_and_check
     step = :products
     if request.post?
       step = :deliveries if @purchase.confirm
@@ -121,7 +121,7 @@ class Backend::PurchasesController < BackendController
   end
 
   def correct
-    return unless @purchase = find_and_check(:purchase)
+    return unless @purchase = find_and_check
     if request.post?
       @purchase.correct
     end
@@ -129,7 +129,7 @@ class Backend::PurchasesController < BackendController
   end
 
   def invoice
-    return unless @purchase = find_and_check(:purchase)
+    return unless @purchase = find_and_check
     ActiveRecord::Base.transaction do
       raise ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_on])
       redirect_to :action => :show, :step => :summary, :id => @purchase.id
@@ -139,7 +139,7 @@ class Backend::PurchasesController < BackendController
   end
 
   def propose
-    return unless @purchase = find_and_check(:purchase)
+    return unless @purchase = find_and_check
     if request.post?
       @purchase.propose
     end
@@ -147,7 +147,7 @@ class Backend::PurchasesController < BackendController
   end
 
   def refuse
-    return unless @purchase = find_and_check(:purchase)
+    return unless @purchase = find_and_check
     if request.post?
       @purchase.refuse
     end

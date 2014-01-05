@@ -183,7 +183,7 @@ class SaleItem < Ekylibre::Record::Base
   end
 
   protect(on: :update) do
-    return self.sale.draft?
+    !self.sale.draft?
   end
 
   def set_reduction

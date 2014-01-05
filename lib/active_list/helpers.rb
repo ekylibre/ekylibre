@@ -7,7 +7,7 @@ module ActiveList
       elsif value.is_a?(Code)
         return "(" + value.gsub(/RECORD/, record_name) + ")"
       else
-        raise ArgumentError.new("Code or Symbol must be given to be recordified)")
+        raise ArgumentError, "Code or Symbol must be given to be recordified)"
       end
     end
 

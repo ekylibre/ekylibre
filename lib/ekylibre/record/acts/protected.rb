@@ -10,12 +10,22 @@ module Ekylibre::Record
         # Blocks update or destroy if necessary
         def protect(options={}, &block)
           options[:on] = [:update, :destroy] unless options[:on]
-          options[:on] = [options[:on]] unless options[:on].is_a?(Array)
-          for callback in options[:on]
-            method_name = "#{callback}able?".to_sym
-            raise Exception, "Cannot protect because a method #{method_name} is already defined." if self.respond_to?(method_name)
-            define_method method_name, &block
-            class_eval "before_#{callback} {|record| record.#{method_name} }"
+          for callback in [options[:on]].flatten
+            method_name = "protected_on_#{callback}?".to_sym
+            # if self.respond_to?(method_name)
+            #   raise StandardError, "Cannot protect because a method #{method_name} is already defined."
+            # end
+
+            define_method(method_name, &block)
+
+            code  = "def #{callback}able?\n"
+            code << "  !#{method_name}\n"
+            code << "end\n"
+
+            # class_eval "before_#{callback} {|record| record.#{method_name} }"
+            # class_eval "before_#{callback} :#{method_name}"
+
+            class_eval code
           end
         end
 

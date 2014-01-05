@@ -68,7 +68,6 @@
 
 class Sale < Ekylibre::Record::Base
   attr_readonly :created_on, :currency
-  # attr_protected :pretax_amount, :amount
   belongs_to :client, class_name: "Entity"
   belongs_to :payer, class_name: "Entity", foreign_key: :client_id
   belongs_to :address, class_name: "EntityAddress"

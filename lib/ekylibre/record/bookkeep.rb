@@ -25,7 +25,7 @@ module Ekylibre::Record  #:nodoc:
 
 
       def journal_entry(journal, options={}, &block)
-        column = options.delete(:column)||:journal_entry_id
+        column = options.delete(:column) || :journal_entry_id
         condition = (options.has_key?(:if) ? options.delete(:if) : !options.delete(:unless))
 
         attributes = options
@@ -36,21 +36,23 @@ module Ekylibre::Record  #:nodoc:
           raise ArgumentError, "Date of journal_entry (printed_on) must be given"
         end
         if condition
-          raise ArgumentError.new("Unknown journal: (#{journal.inspect})") unless journal.is_a? Journal
+          unless journal.is_a? Journal
+            raise ArgumentError, "Unknown journal: (#{journal.inspect})"
+          end
           attributes[:journal_id] = journal.id
         end
 
         Ekylibre::Record::Base.transaction do
-          journal_entry = JournalEntry.find_by_id(@resource.send(column)) rescue nil
-
-          # Cancel the existing journal_entry
-          if journal_entry and journal_entry.draft? and condition and (attributes[:journal_id] == journal_entry.journal_id)
-            journal_entry.items.destroy_all
-            journal_entry.reload
-            journal_entry.update_attributes!(attributes)
-          elsif journal_entry
-            journal_entry.cancel
-            journal_entry = nil
+          if journal_entry = JournalEntry.find_by(id: @resource.send(column))
+            # Cancel the existing journal_entry
+            if journal_entry.draft? and condition and (attributes[:journal_id] == journal_entry.journal_id)
+              journal_entry.items.destroy_all
+              journal_entry.reload
+              journal_entry.update_attributes!(attributes)
+            else
+              journal_entry.cancel
+              journal_entry = nil
+            end
           end
 
           # Add journal items
@@ -77,7 +79,7 @@ module Ekylibre::Record  #:nodoc:
       def bookkeep(options = {}, &block)
         raise ArgumentError.new("No given block") unless block_given?
         raise ArgumentError.new("Wrong number of arguments (#{block.arity} for 1)") unless block.arity == 1
-        configuration = { :on => Ekylibre::Record::Bookkeep::actions, :column => :accounted_at, :method_name => :bookkeep }
+        configuration = {on: Ekylibre::Record::Bookkeep::actions, column: :accounted_at, method_name: __method__ }
         configuration.update(options) if options.is_a?(Hash)
         configuration[:column] = configuration[:column].to_s
         method_name = configuration[:method_name].to_s
@@ -88,30 +90,28 @@ module Ekylibre::Record  #:nodoc:
           # raise StandardError, "#{configuration[:column]} is needed for #{self.name}::bookkeep"
         end
 
-        code = "include Ekylibre::Record::Bookkeep::InstanceMethods\n"
+        code  = "include Ekylibre::Record::Bookkeep::InstanceMethods\n"
 
-        # code += "before_update  {|record| return false if record.#{}.closed? }"
-        # code += "before_destroy {|record| return false unless record.destroyable? }"
+        code << "def #{method_name}(action = :create, draft = nil)\n"
+        code << "  draft = ::Preference[:bookkeep_in_draft] if draft.nil?\n"
+        code << "  self.#{core_method_name}(Ekylibre::Record::Bookkeep::Base.new(self, action, draft))\n"
+        code << "  self.class.where(id: self.id).update_all(#{configuration[:column]}: Time.now)\n"
+        code << "end\n"
 
-        # raise Exception.new("#{method_name} method already defined. Use :method_name option to choose a different name.") if self.instance_methods.include?(method_name.to_sym)
-        code += "def #{method_name}(action = :create, draft = nil)\n"
-        code += "  draft = ::Preference[:bookkeep_in_draft] if draft.nil?\n"
-        code += "  self.#{core_method_name}(Ekylibre::Record::Bookkeep::Base.new(self, action, draft))\n"
-        code += "  self.class.where(:id => self.id).update_all(:#{configuration[:column]} => Time.now)\n"
-        code += "end\n"
-
-        configuration[:on] = [configuration[:on]] if configuration[:on].is_a? Symbol and configuration[:on] != :nothing
+        configuration[:on] = [configuration[:on]].flatten
         for action in Ekylibre::Record::Bookkeep::actions
           if configuration[:on].include? action
-            code += "after_#{action} do \n"
-            code += "  self.#{method_name}(:#{action}, ::Preference[:bookkeep_in_draft]) if ::Preference[:bookkeep_automatically]\n"
-            code += "end\n"
+            code << "after_#{action} do \n"
+            code << "  if ::Preference[:bookkeep_automatically]\n"
+            code << "    self.#{method_name}(:#{action}, ::Preference[:bookkeep_in_draft])\n"
+            code << "  end\n"
+            code << "end\n"
           end
-        end if configuration[:on].is_a? Array
+        end
 
         class_eval code
 
-        self.send(:define_method, core_method_name, block)
+        self.send(:define_method, core_method_name, &block)
       end
 
     end

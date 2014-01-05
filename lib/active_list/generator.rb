@@ -60,7 +60,7 @@ module ActiveList
       code << "end\n"
       # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
       unless Rails.env.production?
-        file = Rails.root.join("tmp", "code", "active-list", "controllers", self.controller.controller_path, self.controller_method_name + ".rb")
+        file = Rails.root.join("tmp", "code", "active_list", "controllers", self.controller.controller_path, self.controller_method_name + ".rb")
         FileUtils.mkdir_p(file.dirname)
         File.write(file, code)
       end
@@ -75,7 +75,7 @@ module ActiveList
       code << "end\n"
       # code.split("\n").each_with_index{|l, x| puts((x+1).to_s.rjust(4)+": "+l)}
       unless Rails.env.production?
-        file = Rails.root.join("tmp", "code", "active-list", "views", self.controller.controller_path, self.view_method_name + ".rb")
+        file = Rails.root.join("tmp", "code", "active_list", "views", self.controller.controller_path, self.view_method_name + ".rb")
         FileUtils.mkdir_p(file.dirname)
         File.write(file, code)
       end
@@ -114,4 +114,4 @@ module ActiveList
 
 end
 
-require "active-list/generator/finder"
+require "active_list/generator/finder"

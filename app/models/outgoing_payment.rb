@@ -80,12 +80,8 @@ class OutgoingPayment < Ekylibre::Record::Base
     end
   end
 
-  protect(on: :update) do
-    return (self.journal_entry ? !self.journal_entry.closed? : true)
-  end
-
-  protect(on: :destroy) do
-    updateable?
+  protect do
+    (self.journal_entry && self.journal_entry.closed?)
   end
 
   # This method permits to add journal entries corresponding to the payment

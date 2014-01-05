@@ -1,7 +1,6 @@
 spa:
   enumerize:
-    asset:  #?
- #?
+    asset: #?
     cash:
       mode:
         # bban: "Relevé d’identité bancaire (RIB)"

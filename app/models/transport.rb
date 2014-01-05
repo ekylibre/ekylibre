@@ -59,7 +59,7 @@ class Transport < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    return true
+    self.deliveries.any?
   end
 
   def refresh

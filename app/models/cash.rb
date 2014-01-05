@@ -109,7 +109,7 @@ class Cash < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.deposits.count <= 0 and self.bank_statements.count <= 0
+    self.deposits.any? or self.bank_statements.any?
   end
 
 

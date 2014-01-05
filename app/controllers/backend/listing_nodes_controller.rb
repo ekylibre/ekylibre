@@ -20,7 +20,7 @@
 class Backend::ListingNodesController < BackendController
 
   def new
-    return unless @listing_node = find_and_check(:listing_node, params[:parent_id])
+    return unless @listing_node = find_and_check(:listing_nodes, params[:parent_id])
     if params[:nature]
       desc = params[:nature].split("-")
       # raise Exception.new desc.inspect
@@ -42,7 +42,7 @@ class Backend::ListingNodesController < BackendController
   end
 
   def create
-    return unless @listing_node = find_and_check(:listing_node, params[:parent_id])
+    return unless @listing_node = find_and_check(:listing_nodes, params[:parent_id])
     render :text => "[UnfoundListingNode]" unless @listing_node
     desc = params[:nature].split("-")
     # raise Exception.new desc.inspect
@@ -63,7 +63,7 @@ class Backend::ListingNodesController < BackendController
   end
 
   def destroy
-    return unless @listing_node = find_and_check(:listing_node)
+    return unless @listing_node = find_and_check
     parent = @listing_node.parent
     @listing_node.reload.destroy
     if request.xhr?
@@ -74,7 +74,7 @@ class Backend::ListingNodesController < BackendController
   end
 
   def edit
-    return unless @listing_node = find_and_check(:listing_node)
+    return unless @listing_node = find_and_check
     if request.xhr?
       if params[:type] == "hide" or params[:type] == "show"
         @listing_node.exportable = !@listing_node.exportable
@@ -99,7 +99,7 @@ class Backend::ListingNodesController < BackendController
   end
 
   def update
-    return unless @listing_node = find_and_check(:listing_node)
+    return unless @listing_node = find_and_check
     if request.xhr?
       if params[:type] == "exportable" # "hide" or params[:type] == "show"
         @listing_node.exportable = !@listing_node.exportable

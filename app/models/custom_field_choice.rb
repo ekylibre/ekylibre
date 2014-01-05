@@ -64,7 +64,7 @@ class CustomFieldChoice < Ekylibre::Record::Base
 
   # Check that no records are present with this choice
   protect(on: :destroy) do
-    return self.records.count.zero?
+    return self.records.any?
   end
 
   # Returns.all linked records for the given model

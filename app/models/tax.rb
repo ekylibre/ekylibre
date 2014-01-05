@@ -63,12 +63,12 @@ class Tax < Ekylibre::Record::Base
   validates_presence_of :collect_account
   validates_presence_of :deduction_account
   validates_uniqueness_of :name
-  validates_numericality_of :amount, in: 0..100, if: :percentage?
+  validates_numericality_of :amount, in: 0..100, :if => :percentage?
 
   scope :percentages, -> { where(:computation_method => 'percentage') }
 
   protect(on: :destroy) do
-    self.purchase_product_nature_categories.empty? and self.sale_product_nature_categories.empty? and self.sale_items.empty? and self.purchase_items.empty?
+    self.purchase_product_nature_categories.any? or self.sale_product_nature_categories.any? or self.sale_items.any? or self.purchase_items.any?
   end
 
   # Compute the tax amount

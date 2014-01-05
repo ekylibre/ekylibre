@@ -85,7 +85,7 @@ class Backend::JournalEntriesController < BackendController
   end
 
   def destroy
-    return unless @journal_entry = find_and_check(:journal_entry)
+    return unless @journal_entry = find_and_check
     unless @journal_entry.destroyable?
       notify_error(:journal_entry_already_validated)
       redirect_to_back
@@ -99,7 +99,7 @@ class Backend::JournalEntriesController < BackendController
   end
 
   def edit
-    return unless @journal_entry = find_and_check(:journal_entry)
+    return unless @journal_entry = find_and_check
     unless @journal_entry.updateable?
       notify_error(:journal_entry_already_validated)
       redirect_to_back
@@ -112,7 +112,7 @@ class Backend::JournalEntriesController < BackendController
   end
 
   def update
-    return unless @journal_entry = find_and_check(:journal_entry)
+    return unless @journal_entry = find_and_check
     unless @journal_entry.updateable?
       notify_error(:journal_entry_already_validated)
       redirect_to_back

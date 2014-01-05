@@ -118,7 +118,7 @@ class BackendController < BaseController
     # Write haml in cache
     path = self.controller_path.split('/')
     path[-1] << ".html.haml"
-    view = Rails.root.join("tmp", "unroll", *path)
+    view = Rails.root.join("tmp", "cache", "unroll", *path)
     FileUtils.mkdir_p(view.dirname)
     File.open(view, "wb") do |f|
       f.write(haml)
@@ -510,7 +510,7 @@ class BackendController < BaseController
 
     if actions.include?(:show)
       code << "def show\n"
-      code << "  return unless @#{record_name} = find_and_check\n"
+      code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
       if options[:subclass_inheritance]
         code << "  if @#{record_name}.type and @#{record_name}.type != '#{model_name}'\n"
         code << "    redirect_to controller: @#{record_name}.type.tableize, action: :show, id: @#{record_name}.id\n"
@@ -649,14 +649,14 @@ class BackendController < BaseController
     sort << "end\n"
 
     code << "def up\n"
-    code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
+    code << "  return unless #{record_name} = find_and_check(:#{name})\n"
     code << "  #{record_name}.move_higher\n"
     code << sort.gsub(/^/, "  ")
     code << "  redirect_to_current\n"
     code << "end\n"
 
     code << "def down\n"
-    code << "  return unless #{record_name} = find_and_check(:#{record_name})\n"
+    code << "  return unless #{record_name} = find_and_check(:#{name})\n"
     code << "  #{record_name}.move_lower\n"
     code << sort.gsub(/^/, "  ")
     code << "  redirect_to_current\n"
@@ -668,10 +668,11 @@ class BackendController < BaseController
 
   #
   def self.manage_restfully_picture()
-    record_name = controller_name.to_s.singularize
+    name = self.controller_name
+    record_name = name.to_s.singularize
     code = ''
     code << "def picture\n"
-    code << "  return unless #{record_name} = find_and_check\n"
+    code << "  return unless #{record_name} = find_and_check(:#{name})\n"
     code << "  if #{record_name}.picture.file?\n"
     code << "    send_file(#{record_name}.picture.path(params[:style] || :original))\n"
     code << "  else\n"
