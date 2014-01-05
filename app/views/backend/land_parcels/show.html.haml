@@ -8,8 +8,8 @@
       .picture
         =@land_parcel.shape_svg(:width => 180, :height => 180, :class => :map)
       .info
-        %span.title=LandParcel.human_attribute_name(:area_measure)
-        %span.value=@land_parcel.shape_area.in_square_meter.convert(:hectare)
+        %span.title=LandParcel.human_attribute_name(:net_surface_area)
+        %span.value=@land_parcel.net_surface_area.in_hectare.round(2).l
 
 
     -b.cell do
