@@ -15,9 +15,6 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
-  
-  # add domain type to read spatial type in fixtures
-  YAML.add_domain_type("ekylibre.org,2014","multipolygon") { |type, val|   RGeo::Geographic.spherical_factory(:srid => 4326).parse_wkt(val) }
 end
 
 class ActionController::TestCase
