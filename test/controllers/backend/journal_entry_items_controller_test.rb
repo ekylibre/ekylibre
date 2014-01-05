@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::JournalEntryItemsControllerTest < ActionController::TestCase
-  test_restfully_all_actions :except=>:new # =>:index_xhr
+  test_restfully_all_actions show: :redirected_get, new: {mode: :index_xhr, params: {journal_id: 1, printed_on: "2009-07-19"}}
 end

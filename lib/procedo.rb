@@ -39,7 +39,7 @@ module Procedo
   @@list = HashWithIndifferentAccess.new
 
   class << self
-    
+
     def list(options = {})
       l = @@list
       l = l.select{|k,v| !v.system? } unless options[:with_system]

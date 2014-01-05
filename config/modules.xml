@@ -1361,9 +1361,6 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
-      <item name="sessions">
-        <page to="authentication/sessions#_callback_before_11"/>
-      </item>
       <item name="animal_medicines">
         <page to="backend/animal_medicines#list_carried_linkages"/>
         <page to="backend/animal_medicines#list_carrier_linkages"/>
@@ -1568,9 +1565,6 @@
         <page to="backend/mineral_matters#list_members"/>
         <page to="backend/mineral_matters#list_places"/>
         <page to="backend/mineral_matters#picture"/>
-      </item>
-      <item name="operations">
-        <page to="backend/operations#unroll"/>
       </item>
       <item name="organic_matters">
         <page to="backend/organic_matters#list_carried_linkages"/>

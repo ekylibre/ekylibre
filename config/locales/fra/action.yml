@@ -398,10 +398,10 @@ fra:
       edit: "Modifier une observation"
       new: "Ajouter une observation"
     backend/operations:
-      edit: "Modifier le travail"
-      index: "Travaux" #?
-      new: "Créer un nouveau travail"
-      show: "Détails du travail" #?
+      edit: "Modifier le travail" #?
+      index: "Travaux"
+      new: "Créer un nouveau travail" #?
+      show: "Détails du travail"
       unvalidateds: "Travaux non validés" #?
     backend/organic_matters:
       edit: "Modifier la matière organique\_: %{name}"

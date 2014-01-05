@@ -42,15 +42,18 @@ class Backend::JournalEntryItemsController < BackendController
       @financial_year = FinancialYear.at(params[:printed_on])
     end
     if request.xhr?
-      render :partial=>"journal_entry_items/row_form", :object=>@journal_entry_item
+      render partial: "backend/journal_entry_items/row_form", object: @journal_entry_item
     else
       redirect_to_back
     end
   end
 
   def show
-    journal_entry_item = JournalEntryItem.find(params[:id])
-    redirect_to :controller => :journal_entries, :id => journal_entry_item.entry_id
+    if @journal_entry_item = JournalEntryItem.find_by(id: params[:id])
+      redirect_to backend_journal_entry_url(@journal_entry_item.entry_id)
+    else
+      redirect_to backend_root_url
+    end
   end
 
 end

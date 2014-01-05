@@ -984,6 +984,7 @@ fra:
     roles: "Rôles"
     root_model: "Racine"
     root_model_name: "Racine"
+    # root_node: "Root node"
     sale: "Vente"
     sale_item: "Ligne de vente"
     sale_items: "Lignes de vente"
