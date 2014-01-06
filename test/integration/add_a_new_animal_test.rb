@@ -10,8 +10,12 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     visit('/backend')
     shoot_screen "backend"
   end
+<<<<<<< HEAD
   
   # Add a cow
+=======
+
+>>>>>>> fe61a04ef971f632fef4f932fcd04c9cedd4ac42
   test "add an animal" do
     visit('/backend/animals/new?variant_id=7')
     shoot_screen "animals/new"
