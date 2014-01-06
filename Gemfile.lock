@@ -63,6 +63,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    capybara-webkit (1.1.0)
+      capybara (~> 2.0, >= 2.0.2)
+      json
     chunky_png (1.2.9)
     climate_control (0.0.3)
       activesupport (>= 3.0)
@@ -342,6 +345,7 @@ DEPENDENCIES
   beardley-xml
   calendar_helper (~> 0.2.5)
   capybara
+  capybara-webkit
   cocoon
   coffee-rails (~> 4.0.0)
   compass (~> 0.13.alpha.10)
