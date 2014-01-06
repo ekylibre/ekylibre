@@ -3,15 +3,9 @@ bundler_args: --without development doc
 rvm:
   - 1.9.3
   - 2.0.0
-env:
-  global:
-    - secure: "UAQBCxVMzUgaGd6oX2Sgey0nb8YgGQJ93UpTcpnJlDbph/Vuw1UI6YTGQtyZFWv5xVXSGp3gcbIMEm4Iz4AIU5WyuhFucKY6NzvyHppVllLGE9CzqVp0WubhEkUI4ByohrGXRLqhuPUfos5UH6p16pz7VJxXC+ohzWnteRa643U="
-    - secure: "TBwykn/7wP87WUEoBH+8jOqhGtqFVQbdxTf+ghwSHN9U706XyFWzBEDnU4LqrZy77lTRfVChkbOOVuHf934A4F4DU5JVhk6TNnaZYn3SvtHmKRx3gMgvO6qo+dVnrqcWRxLoxy67ldjLGLjRf5gj5VJg3DJHyqqru/Z1ooR4tQI="
-before_install: 
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
-  - test/ci/before_install
-before_script: test/ci/before_script
-script: bundle exec rake test
+before_install: test/ci/before_install
+before_script:  test/ci/before_script
+script: xvfb-run bundle exec rake test
 matrix:
   allow_failures:
     - rvm: 2.1.0
