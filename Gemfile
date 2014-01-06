@@ -146,17 +146,22 @@ group :development do
 end
 
 group :development, :test do
+  # gem 'spinach-rails'
+
   gem 'factory_girl_rails'
-  gem 'spinach-rails'
-  gem 'sauce', '~> 3.1.1'
-  gem 'sauce-connect'
-  gem 'parallel_tests'
   gem 'shoulda-context'
-  gem 'headless'
+  # gem 'headless'
+
   gem 'capybara'
-  gem 'capybara-screenshot'
-  gem 'selenium-webdriver'
-  gem "launchy"
+  # gem 'capybara-screenshot'
+  # gem 'selenium-webdriver'
+  # gem "launchy"
+  gem 'poltergeist'
+
+  # gem 'sauce', '~> 3.1.1'
+  # gem 'sauce-connect'
+  # gem 'parallel_tests'
+
   gem 'rspec-expectations'
   gem 'awesome_print'
   gem 'pry'

@@ -3,8 +3,9 @@ Coveralls.wear!('rails')
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-require 'sauce_helper'
-require 'capybara/rails'
+# require 'sauce_helper'
+# require 'capybara/rails'
+require 'capybara/poltergeist'
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
@@ -253,25 +254,33 @@ end
 #   custom_profile["network.http.prompt-temp-redirect"] = false
 #   Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => custom_profile)
 # end
-# To run all tests with Sauce
-Capybara.default_driver = :sauce # :selenium
 
-# To run only JS tests against Sauce
-Capybara.javascript_driver = :sauce # :selenium
-Capybara.default_wait_time = 5
-Capybara.server_port = 3333
+Capybara.register_driver :poltergeist_test do |app|
+  Capybara::Poltergeist::Driver.new(app, debug: true, inspector: true) # ENV["CI"].blank?
+end
 
-class CapybaraIntegrationTest < Sauce::RailsTestCase # ActionDispatch::IntegrationTest
+# To run all tests with ?
+Capybara.default_driver    = :poltergeist_test # :sauce # :selenium
+Capybara.current_driver    = :poltergeist_test # :sauce # :selenium
+Capybara.javascript_driver = :poltergeist_test # :sauce # :selenium
+
+# Capybara.default_wait_time = 5
+# Capybara.server_port = 3333
+
+# class CapybaraIntegrationTest < Sauce::RailsTestCase
+class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
-  include Capybara::Screenshot
+  # # include Capybara::Screenshot
   include Warden::Test::Helpers
   Warden.test_mode!
 
   def shoot_screen(name)
     sleep(1)
+    puts page.body
     file = Rails.root.join("tmp", "screenshots", name + ".png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
-    save_screenshot file
+    save_page file.to_s.gsub(/\.png\z/, '.html')
+    save_screenshot file, full: true
   end
 
   # Add a method to test unroll in form
@@ -287,4 +296,3 @@ class CapybaraIntegrationTest < Sauce::RailsTestCase # ActionDispatch::Integrati
   end
 
 end
-
