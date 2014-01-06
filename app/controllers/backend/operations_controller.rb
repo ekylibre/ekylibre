@@ -18,7 +18,17 @@
 #
 
 class Backend::OperationsController < BackendController
-  manage_restfully except: [:index, :show]
 
-  unroll
+  def index
+    redirect_to backend_interventions_url
+  end
+
+  def show
+    if @operation = Operation.find_by(id: params[:id])
+      redirect_to backend_intervention_url(@operation.intervention_id)
+    else
+      redirect_to backend_root_url
+    end
+  end
+
 end

@@ -22,8 +22,8 @@ class Backend::EntityAddressesController < BackendController
   unroll label: :coordinate
 
   def show
-    if address = EntityAddress.find_by(id: params[:id])
-      redirect_to backend_entity_url(address.entity_id)
+    if @entity_address = EntityAddress.find_by(id: params[:id])
+      redirect_to backend_entity_url(@entity_address.entity_id)
     else
       redirect_to backend_root_url
     end

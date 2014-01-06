@@ -432,7 +432,6 @@
 # - "backend/mineral_matters#show"
 # - "backend/mineral_matters#unroll"
 # - "backend/mineral_matters#update"
-# - "backend/operations#unroll"
 # - "backend/organic_matters#create"
 # - "backend/organic_matters#destroy"
 # - "backend/organic_matters#edit"
@@ -858,7 +857,7 @@ consult_purchases:
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
 - "backend/purchases#list_items"
-- "backend/purchases#list_undelivered_items"
+- "backend/purchases#list_undelivered_items" #?
 - "backend/purchases#show"
 
 # Consult the sales
@@ -1321,14 +1320,14 @@ manage_observations:
 # Manage operations
 manage_operations:
 - "backend/dashboards#production"
-- "backend/operations#create"
-- "backend/operations#destroy"
-- "backend/operations#edit"
-- "backend/operations#index" #?
+- "backend/operations#create" #?
+- "backend/operations#destroy" #?
+- "backend/operations#edit" #?
+- "backend/operations#index"
 - "backend/operations#list" #?
-- "backend/operations#new"
-- "backend/operations#show" #?
-- "backend/operations#update"
+- "backend/operations#new" #?
+- "backend/operations#show"
+- "backend/operations#update" #?
 
 # Manage outgoing delivery modes
 manage_outgoing_delivery_modes:
@@ -1461,7 +1460,7 @@ manage_purchases:
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
 - "backend/purchases#list_items"
-- "backend/purchases#list_undelivered_items"
+- "backend/purchases#list_undelivered_items" #?
 - "backend/purchases#new"
 - "backend/purchases#propose"
 - "backend/purchases#refuse"
