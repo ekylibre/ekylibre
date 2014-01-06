@@ -5,10 +5,10 @@ require "sauce/capybara"
 
 Sauce.config do |config|
   config[:browsers] = [
-    ["Windows 8", "Internet Explorer", "10"],             
+    ["Windows 8", "Internet Explorer", "10"],
     ["Windows 7", "Firefox", "20"],
     ["OS X 10.8", "Safari", "6"],
-    ["Linux", "Firefox", "21"],                         
+    ["Linux", "Firefox", "21"],
     ["Linux", "Chrome", nil] 
   ]
 end

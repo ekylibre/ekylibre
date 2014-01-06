@@ -1,6 +1,5 @@
 # encoding:UTF-8
 require 'test_helper'
-require 'spec_helper'
 
 class AddANewAnimalTest < CapybaraIntegrationTest
 
@@ -12,7 +11,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     shoot_screen "backend"
   end
 
-  test "add an animal", :sauce => true do
+  test "add an animal" do
     visit('/backend/animals/new?variant_id=7')
     shoot_screen "animals/new"
     select('Bovin', from: 'animal[variety]')

@@ -3,6 +3,7 @@ Coveralls.wear!('rails')
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'sauce_helper'
 require 'capybara/rails'
 
 class ActiveSupport::TestCase
@@ -252,10 +253,15 @@ end
 #   custom_profile["network.http.prompt-temp-redirect"] = false
 #   Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => custom_profile)
 # end
-Capybara.default_driver = :selenium
-Capybara.default_wait_time = 5
+# To run all tests with Sauce
+Capybara.default_driver = :sauce # :selenium
 
-class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
+# To run only JS tests against Sauce
+Capybara.javascript_driver = :sauce # :selenium
+Capybara.default_wait_time = 5
+Capybara.server_port = 3333
+
+class CapybaraIntegrationTest < Sauce::RailsTestCase # ActionDispatch::IntegrationTest
   include Capybara::DSL
   include Capybara::Screenshot
   include Warden::Test::Helpers

@@ -148,22 +148,16 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'spinach-rails'
-  # for sauce labs
-  gem 'rspec-rails'
   gem 'sauce', '~> 3.1.1'
   gem 'sauce-connect'
   gem 'parallel_tests'
-end
-
-group :test do
   gem 'shoulda-context'
   gem 'headless'
   gem 'capybara'
-  gem 'selenium-webdriver'
   gem 'capybara-screenshot'
+  gem 'selenium-webdriver'
   gem "launchy"
   gem 'rspec-expectations'
-  # gem 'rspec-rails'
   gem 'awesome_print'
   gem 'pry'
   # database_cleaner is not required, but highly recommended
