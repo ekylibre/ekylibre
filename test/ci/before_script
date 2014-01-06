@@ -1,4 +1,5 @@
 #!/bin/bash
+curl https://gist.github.com/santiycr/5139565/raw/sauce_connect_setup.sh
 psql -U postgres -c "CREATE DATABASE ekylibre_test;"
 psql -U postgres -d ekylibre_test -c "CREATE SCHEMA postgis;"
 psql -U postgres -d ekylibre_test -c "CREATE EXTENSION postgis;"
