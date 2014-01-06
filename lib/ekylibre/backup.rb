@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+require 'zip'
+
 module Ekylibre
   module Backup
 

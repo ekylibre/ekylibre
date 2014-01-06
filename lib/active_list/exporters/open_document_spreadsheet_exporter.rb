@@ -1,4 +1,5 @@
 # encoding: UTF-8
+require 'zip'
 
 # Register ODS format unless is already set
 Mime::Type.register("application/vnd.oasis.opendocument.spreadsheet", :ods) unless defined? Mime::ODS
