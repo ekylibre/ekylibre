@@ -4,8 +4,8 @@ ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 # require 'sauce_helper'
-# require 'capybara/rails'
-require 'capybara/poltergeist'
+require 'capybara/rails'
+# require 'capybara/poltergeist'
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
@@ -255,14 +255,14 @@ end
 #   Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => custom_profile)
 # end
 
-Capybara.register_driver :poltergeist_test do |app|
+Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, debug: true, inspector: true) # ENV["CI"].blank?
 end
 
 # To run all tests with ?
-Capybara.default_driver    = :poltergeist_test # :sauce # :selenium
-Capybara.current_driver    = :poltergeist_test # :sauce # :selenium
-Capybara.javascript_driver = :poltergeist_test # :sauce # :selenium
+Capybara.default_driver    = :webkit # :sauce # :selenium
+Capybara.current_driver    = :webkit # :sauce # :selenium
+Capybara.javascript_driver = :webkit # :sauce # :selenium
 
 # Capybara.default_wait_time = 5
 # Capybara.server_port = 3333
@@ -276,7 +276,6 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
 
   def shoot_screen(name)
     sleep(1)
-    puts page.body
     file = Rails.root.join("tmp", "screenshots", name + ".png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
     save_page file.to_s.gsub(/\.png\z/, '.html')

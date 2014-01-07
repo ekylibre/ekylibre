@@ -1,3 +1,5 @@
+require 'zip'
+
 Mime::Type.register("application/vnd.oasis.opendocument.spreadsheet", :ods) unless defined? Mime::ODS
 
 module Ekylibre

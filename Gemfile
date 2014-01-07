@@ -153,6 +153,7 @@ group :development, :test do
   # gem 'headless'
 
   gem 'capybara'
+  gem 'capybara-webkit'
   # gem 'capybara-screenshot'
   # gem 'selenium-webdriver'
   # gem "launchy"
