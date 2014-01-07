@@ -1,25 +1,27 @@
 module Ekylibre
   module Schema
-    autoload :TABLES, 'ekylibre/schema/reference'
-    autoload :MODELS, 'ekylibre/schema/reference'
     autoload :Column, 'ekylibre/schema/column'
 
     class << self
 
+      def root
+        Rails.root.join("db")
+      end
+
       def models
-        MODELS
+        @models ||= read_models.freeze
       end
 
       def references(table = nil, column = nil)
         if table.present? and column.present?
-          if t = TABLES[table]
+          if t = tables[table]
             if c = t[column]
               return c.references
             end
           end
           return nil
         else
-          return @@references ||= TABLES.inject({}) do |h, table|
+          return @references ||= tables.inject({}) do |h, table|
             h[table.first] = table.second
             h
           end.freeze
@@ -27,7 +29,7 @@ module Ekylibre
       end
 
       def tables
-        TABLES
+        @tables ||= read_tables.freeze
       end
 
       def table_names
@@ -35,12 +37,38 @@ module Ekylibre
       end
 
       def columns(table)
-        TABLES[table].values
+        tables[table].values
       end
 
       def model_names
-        @@model_names ||= models.collect{|m| m.to_s.camelcase.to_sym}.sort.freeze
+        @model_names ||= models.collect{|m| m.to_s.camelcase.to_sym}.sort.freeze
       end
+
+      protected
+
+      def read_models
+        return YAML.load_file(root.join("models.yml")).map(&:to_sym)
+      end
+
+      def read_tables
+        hash = YAML.load_file(root.join("tables.yml")).deep_symbolize_keys
+        tables = {}.with_indifferent_access
+        for table, columns in hash
+          tables[table] = columns.inject({}.with_indifferent_access) do |h, pair|
+            options = pair.second
+            type = options.delete(:type)
+            options[:null] = false if options.delete(:required)
+            if ref = options[:references]
+              options[:references] = (ref =~ /\A\~/ ? ref[1..-1] : ref.to_sym)
+            end
+            h[pair.first] = Column.new(pair.first, type, options).freeze
+            h
+          end
+        end
+        return tables
+      end
+
+
 
     end
 
