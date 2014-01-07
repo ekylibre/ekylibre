@@ -79,7 +79,6 @@ class Backend::SettingsController < BackendController
   # end
 
 
-
   def import
     @supported_files = [["EBP.EDI", :ebp_edi]]
     if request.post?
@@ -87,61 +86,7 @@ class Backend::SettingsController < BackendController
       file = "#{Rails.root.to_s}/tmp/uploads/#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
       File.open(file, "wb") {|f| f.write(data.read)}
       if params[:nature] == "ebp_edi"
-        File.open(file, "rb:CP1252") do |f|
-          unless f.readitem.match(/^EBP\.EDI$/)
-            notify_error_now(:bad_file)
-            return
-          end
-          encoding = f.readitem
-          f.readitem
-          owner = f.readitem
-          started_on = f.readitem
-          started_on = Date.civil(started_on[4..7].to_i, started_on[2..3].to_i, started_on[0..1].to_i)
-          stopped_on = f.readitem
-          stopped_on = Date.civil(stopped_on[4..7].to_i, stopped_on[2..3].to_i, stopped_on[0..1].to_i)
-          # ic = Iconv.new("utf-8", "cp1252")
-          begin
-            ActiveRecord::Base.transaction do
-              while 1
-                begin
-                  item = f.readitem.gsub(/\n/, '')
-                rescue
-                  break
-                end
-                unless @current_company.financial_years.find_by_started_on_and_stopped_on(started_on, stopped_on)
-                  @current_company.financial_years.create!(:started_on=>started_on, :stopped_on=>stopped_on)
-                end
-                item = item.encode("UTF-8").split(/\;/)
-                if item[0] == "C"
-                  unless @current_company.accounts.find_by_number(item[1])
-                    @current_company.accounts.create!(:number=>item[1], :name=>item[2])
-                  end
-                elsif item[0] == "E"
-                  unless journal = @current_company.journals.find_by_code(item[3])
-                    journal = @current_company.journals.create!(:code=>item[3], :name=>item[3], :nature=>Journal.natures[-1][1].to_s, :closed_on=>started_on-1)
-                  end
-                  number = item[4].blank? ? "000000" : item[4]
-                  item[2] = Date.civil(item[2][4..7].to_i, item[2][2..3].to_i, item[2][0..1].to_i)
-                  unless entry = journal.entries.find_by_number_and_printed_on(number, item[2])
-                    entry = journal.entries.create!(:number=>number, :printed_on=>item[2])
-                  end
-                  unless account = @current_company.accounts.find_by_number(item[1])
-                    account = @current_company.accounts.create!(:number=>item[1], :name=>item[1])
-                  end
-                  item[8] = item[8].strip.to_f
-                  if item[7] == "D"
-                    entry.add_debit(item[6], account, item[8], :letter=>item[10])
-                  else
-                    entry.add_credit(item[6], account, item[8], :letter=>item[10])
-                  end
-                end
-              end
-            end
-            notify_success_now(:importation_finished)
-          rescue Exception => e
-            notify_error_now(:importation_cancelled)
-          end
-        end
+        Exchanges::EbpEdi.import(file)
       else
         notify_error_now(:invalid_file_nature)
       end
