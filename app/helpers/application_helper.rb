@@ -179,20 +179,24 @@ module ApplicationHelper
     end
   end
 
+
+
   def countries
-    # [[]]+t('countries').to_a.sort{|a, b| a[1].ascii.to_s <=> b[1].ascii.to_s}.collect{|a| [a[1].to_s, a[0].to_s]}
-    [[]] + Nomen::Countries.items.values.collect{|c| [c.human_name, c.name.to_s]}
+    nomenclature_as_options(Nomen::Countries)
   end
 
   def currencies
-    # I18n.active_currencies.values.sort{|a, b| a.name.ascii.to_s <=> b.name.ascii.to_s}.collect{|c| [c.label, c.code]}
-    [[]] + Nomen::Currencies.items.values.collect{|c| [c.human_name, c.name.to_s]}
+    nomenclature_as_options(Nomen::Currencies)
   end
 
   def languages
-    # I18n.valid_locales.collect{|l| [t("languages.#{l}"), l.to_s]}.to_a.sort{|a, b| a[0].ascii.to_s <=> b[0].ascii.to_s}
-    [[]] + Nomen::Languages.items.values.collect{|l| [l.human_name, l.name.to_s]}
+    nomenclature_as_options(Nomen::Languages)
   end
+
+  def nomenclature_as_options(nomenclature)
+    [[]] + nomenclature.items.values.collect{|l| [l.human_name, l.name.to_s]}
+  end
+
 
   def back_url
     # if session[:history].is_a?(Array) and session[:history][0].is_a?(Hash)
@@ -459,16 +463,20 @@ module ApplicationHelper
     end
 
     def hbox(&block)
-      raise Exception.new("Cannot define box in other box") if @current_box
-      @current_box = HorizontalBox.new
-      block[self] if block_given?
-      @boxes << @current_box unless @current_box.empty?
-      @current_box = nil
+      return box(:horizontal, &block)
     end
 
     def tabbox(&block)
-      raise Exception.new("Cannot define box in other box") if @current_box
-      @current_box = TabBox.new
+      return box(:tab, &block)
+    end
+
+    protected
+
+    def box(type, &block)
+      if @current_box
+        raise StandardError, "Cannot define box in other box"
+      end
+      @current_box = (type == :tab ? TabBox : HorizontalBox).new
       block[self] if block_given?
       @boxes << @current_box unless @current_box.empty?
       @current_box = nil
@@ -542,17 +550,16 @@ module ApplicationHelper
     html  = tag(:link, :rel => "icon", :type => "image/png", :href => image_path("icon/favicon.png"), "data-turbolinks-track" => true)
     html << "\n".html_safe + tag(:link, :rel => "shortcut icon", :href => image_path("icon/favicon.ico"), "data-turbolinks-track" => true)
     # Apple touch icon
+    icon_sizes = {iphone: "57x57", ipad: "72x72", "iphone-retina" => "114x114", "ipad-retina" => "144x144"}
     unless options[:app].is_a?(FalseClass)
-      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon", :href => image_path("icon/iphone.png"), "data-turbolinks-track" => true) # , :sizes => "57x57"
-      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon", :sizes => "72x72", :href => image_path("icon/ipad.png"), "data-turbolinks-track" => true)
-      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon", :sizes => "114x114", :href => image_path("icon/iphone-retina.png"), "data-turbolinks-track" => true)
-      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon", :sizes => "144x144", :href => image_path("icon/ipad-retina.png"), "data-turbolinks-track" => true)
+      for name, sizes in icon_sizes
+        html << "\n".html_safe + tag(:link, rel: "apple-touch-icon", sizes: sizes, href: image_path("icon/#{name}.png"), "data-turbolinks-track" => true)
+      end
     end
     if options[:precomposed]
-      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon-precomposed", :href => image_path("icon/precomposed-iphone.png"), "data-turbolinks-track" => true) # , :sizes => "57x57"
-      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon-precomposed", :sizes => "72x72", :href => image_path("icon/precomposed-ipad.png"), "data-turbolinks-track" => true)
-      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon-precomposed", :sizes => "114x114", :href => image_path("icon/precomposed-iphone-retina.png"), "data-turbolinks-track" => true)
-      html << "\n".html_safe + tag(:link, :rel => "apple-touch-icon-precomposed", :sizes => "144x144", :href => image_path("icon/precomposed-ipad-retina.png"), "data-turbolinks-track" => true)
+      for name, sizes in icon_sizes
+        html << "\n".html_safe + tag(:link, rel: "apple-touch-icon-precomposed", sizes: sizes, href: image_path("icon/precomposed-#{name}.png"), "data-turbolinks-track" => true)
+      end
     end
     return html
   end
