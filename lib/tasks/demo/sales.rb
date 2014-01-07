@@ -206,7 +206,7 @@ demo :sales do
     milk = ProductNatureVariant.find_by(:reference_name => 'cow_milk')
     milk ||= ProductNatureVariant.import_from_nomenclature(:cow_milk)
     catalog = Catalog.find_by(:usage => 'sale')
-    milk_price_template_taxes = Tax.find_by(:amount => '5.0000')
+    milk_price_template_taxes = Tax.find_by(:reference_name => 'fr_vat_reduced')
 
     sale_nature   = SaleNature.actives.first
     sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)

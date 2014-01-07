@@ -10,29 +10,31 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     visit('/backend')
     shoot_screen "backend"
   end
-
+  
+  # Add a cow
   test "add an animal" do
     visit('/backend/animals/new?variant_id=7')
     shoot_screen "animals/new"
     select('Bovin', from: 'animal[variety]')
     fill_in('animal[name]', with: 'MARGUERITTE')
-    # choose("animal_sex_female")
     fill_in("animal[work_number]", with: '9253')
     fill_in("animal[identification_number]", with: 'FR17129253')
-    # fill_in("animal_born_at", with: '01/01/2013')
-    # fill_unroll("animal-owner-input", with: "tol", select: "Toley LTD")
+    fill_unroll("animal-mother-input", with: "ISA", select: "ISABELLE")
     attach_file('animal[picture]', Rails.root.join("test", "fixtures", "files", "animals-ld", "cow-8580.jpg"))
     shoot_screen "animals/new-before_create"
     click_on("Créer")
     shoot_screen "animals/create"
   end
-
+  
+  # View a cow
   test "view an animal" do
     visit ('/backend/animals')
     shoot_screen "animals/index"
     page.should have_content('MARGUERITE')
+    page.should have_content('female')
   end
-
+  
+  # Add an incident on the current animal
   test "add an incident" do
     visit('/backend/incidents/new?target_id=7004&target_type=Animal')
     shoot_screen "incidents/new"
