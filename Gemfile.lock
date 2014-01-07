@@ -136,7 +136,7 @@ GEM
       jquery-rails (>= 3)
       jquery-ui-rails (>= 4)
       rails (>= 3.2)
-    haml (4.0.4)
+    haml (4.0.5)
       tilt
     hike (1.2.3)
     hpricot (0.8.6)
