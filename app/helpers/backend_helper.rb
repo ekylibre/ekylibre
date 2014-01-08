@@ -173,6 +173,15 @@ module BackendHelper
           radio << " ".html_safe << content_tag(:label, ::I18n.translate("#{i18n_root}#{state}"), :for => "#{c[:name]}_#{state}")
           code  << " ".html_safe << content_tag(:span, radio.html_safe, :class => :rad)
         end
+      elsif c[:type] == :check_boxes
+        code = content_tag(:label, opts[:label] || tg(:selection))
+        params[c[:name]] ||= []
+        i18n_root = opts[:i18n_root]||"labels.#{controller_name}_selections."
+        for selection in c[:selections]
+          check_box  = check_box_tag("#{c[:name]}[]", selection, params[c[:name]].include?(selection.to_s))
+          check_box << " ".html_safe << content_tag(:label, ::I18n.translate("#{i18n_root}#{selection}"), :for => "#{c[:name]}_#{selection}")
+          code  << " ".html_safe << content_tag(:span, check_box.html_safe, :class => :chk)
+        end
       elsif c[:type] == :text
         code = content_tag(:label, opts[:label]||tg(:search))
         name = c[:name]||:q
@@ -220,9 +229,19 @@ module BackendHelper
     # end
 
     def radio(*states)
-      options = (states[-1].is_a?(Hash) ? states.delete_at(-1) : {})
+      return radio_buttons(*states)
+    end
+
+    def radio_buttons(*states)
+      options = states.extract_options!
       name = options.delete(:name) || :s
       add_criterion :radio, :name => name, :states => states, :options => options
+    end
+
+    def check_boxes(*selections)
+      options = selections.extract_options!
+      name = options.delete(:name) || :c
+      add_criterion :check_boxes, :name => name, :selections => selections, :options => options
     end
 
     def text(name=nil, options={})
