@@ -110,11 +110,20 @@ module ActiveList
           record = options[:record] || 'record_of_the_death'
           if column.is_a? ActiveList::Definition::EmptyColumn
             value_code = 'nil'
+          elsif column.is_a? ActiveList::Definition::StatusColumn
+
+            value_code = column.datum_code(record, children_mode)
+            levels = %w(go caution stop)
+            lights = levels.collect do |light|
+              "content_tag(:span, '', :class => #{light.inspect})"
+            end.join(" + ")
+            # Expected value are :valid, :warning, :error
+            value_code = "content_tag(:span, #{lights}, :class => 'lights lights-' + (#{levels.inspect}.include?(#{value_code}.to_s) ? #{value_code}.to_s : 'undefined'))"
+
           elsif column.is_a? ActiveList::Definition::DataColumn
             if column.options[:children].is_a? FalseClass and children_mode
               value_code = 'nil'
             else
-              # record = "#{record}.#{column.reflection.name}" if column.is_a?(ActiveList::Definition::AssociationColumn)
               value_code = column.datum_code(record, children_mode)
               if column.datatype == :boolean
                 value_code = "content_tag(:div, '', :class => 'checkbox-'+("+value_code.to_s+" ? 'true' : 'false'))"
@@ -298,6 +307,8 @@ module ActiveList
         classes << column.short_id unless without_id
         if column.is_a? ActiveList::Definition::ActionColumn
           classes << :act
+        elsif column.is_a? ActiveList::Definition::StatusColumn
+          classes << :status
         elsif column.is_a? ActiveList::Definition::DataColumn
           classes << :col
           classes << DATATYPE_ABBREVIATION[column.datatype]

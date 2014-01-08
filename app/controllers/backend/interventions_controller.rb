@@ -20,7 +20,7 @@ class Backend::InterventionsController < BackendController
   manage_restfully t3e: {procedure_name: "RECORD.reference.human_name".c}
 
   unroll
-  
+
   def self.interventions_conditions
     code = ""
     code = search_conditions(:interventions => [:state], :activities => [:name], :campaigns => [:name], :productions => [:name], :products => [:name]) + " ||= []\n"
@@ -28,7 +28,7 @@ class Backend::InterventionsController < BackendController
     code << "  c[0] << ' AND state IN ?'\n"
     code << "  c << params[:state].flatten\n"
     code << "end\n"
-    code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"    
+    code << "c[0] << ' AND ' + params[:nature].join(' AND ') unless params[:nature].blank?\n"
     code << "if params[:mode] == 'next'\n"
     code << "elsif params[:mode] == 'previous'\n"
     code << "elsif params[:mode] != 'all'\n" # currents

@@ -111,6 +111,11 @@ module ActiveList
         end
       end
 
+      def status(*args)
+        options = args.extract_options!
+        name = args.shift || :status
+        add :status, name, options
+      end
 
 
       def load_default_columns

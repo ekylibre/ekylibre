@@ -124,6 +124,9 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
           &.dec, &.flt, &.int { @include text-align(right) }
           &.country { white-space: nowrap; }
           &.color { color: white; text-shadow: 0 0 2px #000; width: 6ex; @include text-align(center) }
+          &.status {
+            text-align: center;
+          }
         }
         &.squeezed, &.aborted, &.refused {
 	  td {

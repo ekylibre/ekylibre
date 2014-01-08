@@ -347,6 +347,11 @@ class Product < Ekylibre::Record::Base
     return price
   end
 
+
+  def dead?
+    return !self.death.nil?
+  end
+
   # Returns groups of the product at a given time (or now by default)
   def groups_at(viewed_at = nil)
     ProductGroup.groups_of(self, viewed_at || Time.now)

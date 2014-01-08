@@ -22,8 +22,6 @@ class Backend::ActivitiesController < BackendController
 
   unroll
 
-  # kujaku
-
   list do |t|
     t.column :name, url: true
     t.column :parent, url: true

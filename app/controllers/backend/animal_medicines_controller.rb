@@ -21,12 +21,12 @@ class Backend::AnimalMedicinesController < Backend::MedicinesController
 
   list do |t|
     t.column :name, url: true
-    t.column :population
-    t.column :net_volume
-    t.column :net_mass
+    t.column :population, datatype: :decimal
+    t.column :net_volume, datatype: :measure, hidden: true
+    t.column :net_mass, datatype: :measure
     t.column :container, url: true
-    t.column :milk_withdrawal_period
-    t.column :meat_withdrawal_period
+    t.column :milk_withdrawal_period, datatype: :measure, hidden: true
+    t.column :meat_withdrawal_period, datatype: :measure, hidden: true
   end
 
 end
