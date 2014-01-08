@@ -56,7 +56,6 @@ class BackendController < BaseController
       order ||= :id
     end
 
-
     columns = []
     item_label = label.inspect.gsub(/\{\!?[a-z\_\.]+(\:\%?X\%?)?\}/) do |word|
       ca = word[1..-2].split(":")
@@ -185,6 +184,7 @@ class BackendController < BaseController
     class_eval(code)
     return :unroll
   end
+
 
   protected
 

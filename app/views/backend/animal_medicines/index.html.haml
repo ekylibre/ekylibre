@@ -1,7 +1,8 @@
-=main_toolbar do |t|
-  -t.new
-=beehive(:stock) do |b|
-  - b.cell do
-    = list
-  - b.tabbox do
+= main_toolbar do |t|
+  - t.new
+
+= list
+
+= beehive do |b|
+  - b.hbox do
     - b.cell :current_stocks_by_product_nature, :params => {variety: 'animal_medicine'}
