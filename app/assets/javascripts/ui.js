@@ -411,6 +411,7 @@
             wrap.addClass('show-help');
             collapsed = 0;
         }
+        $(window).trigger('resize');
         $.ajax(element.attr("href"), {
             data: { collapsed: collapsed },
             type: 'POST'
