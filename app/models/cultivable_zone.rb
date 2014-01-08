@@ -108,7 +108,7 @@ class CultivableZone < Zone
           end
         end
       end
-      return numbers
+      return numbers.to_sentence
     end
     return nil
   end
@@ -119,9 +119,9 @@ class CultivableZone < Zone
     varieties = []
     if lp.count > 0
       for landparcel in lp
-        varieties << landparcel.variety if landparcel.variety
+        varieties << landparcel.variant_name if landparcel.variety
       end
-      return varieties
+      return varieties.to_sentence
     else
       return nil
     end
