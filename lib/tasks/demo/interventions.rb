@@ -96,11 +96,13 @@ demo :interventions do
         intervention = nil
         for period in periods
           stopped_at = period[:started_at] + period[:duration]
-          intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: stopped_at)
-          for cast in booker.casts
-            intervention.add_cast!(cast)
+          if stopped_at < Time.now
+            intervention = Intervention.create!(reference_name: procedure_name, production: Booker.production, production_support: options[:support], started_at: period[:started_at], stopped_at: stopped_at)
+            for cast in booker.casts
+              intervention.add_cast!(cast)
+            end
+            intervention.run!(period)
           end
-          intervention.run!(period) if stopped_at < Time.now
         end
         return intervention
       end
@@ -131,10 +133,14 @@ demo :interventions do
   # RubyProf.start
 
   # interventions for all poaceae
+  sowables = [:poa, :hordeum, :secale, :triticosecale, :triticum].collect do |n|
+    Nomen::Varieties[n]
+  end
+
   Ekylibre::fixturize :cultural_interventions do |w|
     for production in Production.all
       variety = production.variant.variety
-      if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:poaceae])
+      if (Nomen::Varieties[variety].self_and_parents & sowables).any?
         year = production.campaign.name.to_i
         Booker.production = production
         for support in production.supports

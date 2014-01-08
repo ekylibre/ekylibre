@@ -1709,11 +1709,12 @@ fra:
         aves: "Oiseau"                                     # animal
         aztec: "Aztec"                                     # triticum_aestivum
         baler: "Botteleuse"                                # equipment
+        # bambusa: "Bambusa"                               # poaceae
         biensur: "Biensur"                                 # triticum_durum
         bioproduct: "Produit vivant"                       # matter
         black_valley_soil: "Terres noires de vallées"      # land_parcel
         bos: "Bovin"                                       # mammalia
-        brassage_hordeum_hibernum: "Orge d’hiver de brasserie" # hordeum
+        brassage_hordeum_hibernum: "Orge d’hiver de brasserie" # hordeum_hibernum
         brassica_napus: "Colza"                            # brassicaceae
         brassica_nigra: "Moutarde noire"                   # brassicaceae
         brassica_rapa: "Navet"                             # brassicaceae
@@ -1763,6 +1764,7 @@ fra:
         herbicide: "Produit herbicide"                     # plant_medicine
         hordeum: "Orge"                                    # poaceae
         hordeum_hibernum: "Orge d’hiver"                   # hordeum
+        hordeum_vernum: "Orge de printemps"                # hordeum
         hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe" # land_parcel
         immatter: "Immatérialisable"                       # product
         insecta: "Insecte"                                 # animal
@@ -1775,8 +1777,8 @@ fra:
         lepus: "Lagomorphe"                                # mammalia
         levis: "Levis"                                     # triticum_aestivum
         lona: "Lona"                                       # triticum_aestivum
-        low_protein_brassage_hordeum_hibernum: "Orge d’hiver de brasserie (faible teneur en protéïnes)" # hordeum
-        low_protein_spring_hordeum: "Orge de printemps (faible teneur en protéïnes)" # hordeum
+        low_protein_brassage_hordeum_hibernum: "Orge d’hiver de brasserie (faible teneur en protéïnes)" # hordeum_hibernum
+        low_protein_hordeum_vernum: "Orge de printemps (faible teneur en protéïnes)" # hordeum_vernum
         malus: "Pommier"                                   # plant
         mammalia: "Mammifère"                              # animal
         manital: "Manital"                                 # triticum_aestivum
@@ -1796,6 +1798,7 @@ fra:
         mower: "Faucheuse"                                 # equipment
         oratorio: "Oratorio"                               # triticum_aestivum
         organic_matter: "Matière organique"                # matter
+        # oryza: "Oryza"                                   # poaceae
         osteichthyes: "Poissons osseux"                    # animal
         ovis: "Ovin"                                       # mammalia
         pescadou: "Pescadou"                               # triticum_durum
@@ -1842,7 +1845,6 @@ fra:
         sower: "Semoir"                                    # equipment
         sprayer: "Pulvérisateur"                           # equipment
         spreader: "Épandeur"                               # equipment
-        spring_hordeum: "Orge de printemps"                # hordeum
         straw: "Pailles"                                   # organic_matter
         sub_zone: "Sous zone"                              # zone
         sus: "Porcin"                                      # mammalia
@@ -1857,10 +1859,11 @@ fra:
         tractor: "Tracteur"                                # equipment
         trailer: "Remorque"                                # equipment
         tremie: "Tremie"                                   # triticum_aestivum
-        triticale: "Triticale"                             # poaceae
-        triticum_aestivum: "Blé tendre"                    # poaceae
-        triticum_durum: "Blé dur"                          # poaceae
-        triticum_spelta: "Épeautre"                        # poaceae
+        # triticosecale: "Triticosecale"                   # poaceae
+        # triticum: "Triticum"                             # poaceae
+        triticum_aestivum: "Blé tendre"                    # triticum
+        triticum_durum: "Blé dur"                          # triticum
+        triticum_spelta: "Épeautre"                        # triticum
         ugni_blanc: "Ugni blanc"                           # vitis_vinifera
         valley_terrace_soil: "Sols de terrasse de vallée"  # land_parcel
         vitis: "Vigne"                                     # plant

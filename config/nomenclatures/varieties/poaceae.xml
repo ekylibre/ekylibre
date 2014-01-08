@@ -2,16 +2,16 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-poaceae" hierarchical="true">
     <items>
-      <item name="poa" itis-tsn="11111"/>
-      <item name="triticum_aestivum" itis-tsn="42237"/>
-      <item name="triticum_durum" itis-tsn="42240"/>
-      <item name="triticum_spelta" itis-tsn="42243"/>
-      <item name="hordeum" itis-tsn="40865"/>
-      <item name="zea" itis-tsn="42268"/>
-      <item name="sorghum" itis-tsn="42106"/>
       <item name="avena" itis-tsn="41455"/>
-      <item name="triticale" itis-tsn="41455"/>
+      <item name="bambusa" itis-tsn="193439"/>
+      <item name="hordeum" itis-tsn="40865"/>
+      <item name="oryza" itis-tsn="41975"/>
+      <item name="poa" itis-tsn="41074"/>
       <item name="secale" itis-tsn="41455"/>
+      <item name="sorghum" itis-tsn="42106"/>
+      <item name="triticosecale" itis-tsn="41455"/>
+      <item name="triticum" itis-tsn="42236"/>
+      <item name="zea" itis-tsn="42268"/>
     </items>
   </nomenclature>
 </nomenclatures>

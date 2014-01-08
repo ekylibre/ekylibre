@@ -1,8 +1,11 @@
 - subheading("x_results", :count => @search[:count])
 
-- if @search[:count] > 0
+- unless @search[:count].zero?
   = search_results(@search) do |result|
     %h3
-      = link_to(result["title"], :controller => result["record_type"].tableize, :action => :show, :id => result["record_id"])
+      = link_to(:controller => result["record_type"].tableize, :action => :show, :id => result["record_id"]) do
+        = result["record_type"].constantize.model_name.human
+        = " &mdash; ".html_safe
+        = result["title"]
       %small= result["pertinence"]
     %p= truncate(result["indexer"], :length => 300)

@@ -10,7 +10,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     visit('/backend')
     shoot_screen "backend"
   end
-  
+
   # Add a cow
   test "add an animal" do
     visit('/backend/animals/new?variant_id=7')
@@ -25,7 +25,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     click_on("Créer")
     shoot_screen "animals/create"
   end
-  
+
   # View a cow
   test "view an animal" do
     visit ('/backend/animals')
@@ -33,7 +33,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     page.should have_content('MARGUERITE')
     page.should have_content('female')
   end
-  
+
   # Add an incident on the current animal
   test "add an incident" do
     visit('/backend/incidents/new?target_id=7004&target_type=Animal')

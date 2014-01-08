@@ -732,9 +732,9 @@ module ApplicationHelper
           html << form_actions do
             DocumentTemplate.of_nature(nature.name.to_s).collect do |template|
               formats = template.formats
-              dropdown_button(template.name, :format => formats.first, :template => template.id, :key => key) do |l|
+              dropdown_button(template.name, params.merge(:format => formats.first, :template => template.id, :key => key)) do |l|
                 for format in formats
-                  l.link_to("formats.#{format}".t, :format => format, :template => template.id, :key => key)
+                  l.link_to("formats.#{format}".t, params.merge(:format => format, :template => template.id, :key => key))
                 end
               end
             end.join.html_safe

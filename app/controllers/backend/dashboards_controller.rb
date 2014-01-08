@@ -145,7 +145,7 @@ class Backend::DashboardsController < BackendController
           "COALESCE(#{name} || ' ', '')"
         end
       end
-      if columns.size > 0
+      if columns.any?
         query =  "SELECT #{Ekylibre::Record::Base.connection.quote(model.model_name.human)} || ' ' || " + columns.join(" || ") + " AS indexer, #{title} AS title, " + (model.columns_definition[:type] ? 'type' : "'#{model.name}'") + " AS record_type, id AS record_id FROM #{model.table_name}"
         queries << query
       end
