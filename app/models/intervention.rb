@@ -60,6 +60,7 @@ class Intervention < Ekylibre::Record::Base
   has_many :operations, inverse_of: :intervention
   has_one :activity, through: :production
   has_one :campaign, through: :production
+  has_one :storage, through: :production_support
   enumerize :reference_name, in: Procedo.names.sort
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
