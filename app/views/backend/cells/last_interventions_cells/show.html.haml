@@ -15,18 +15,15 @@
       %span.value= @intervention.started_at.l
     .info
       %span.title= Intervention.human_attribute_name(:duration)
-      %span.value= @intervention.duration.in_second.convert(:hour).round(2)
+      %span.value= @intervention.duration.in_second.convert(:hour).round(2).l
     .info
       %span.title= Intervention.human_attribute_name(:state)
       %span.value= @intervention.state.text
-    .info
-      %span.title= :input_evaluated_cost.tl
-      %span.value= @intervention.cost(:input)
-    .info
-      %span.title= :equipment_evaluated_cost.tl
-      %span.value= @intervention.cost(:equipment)
-    .info
-      %span.title= :doer_evaluated_cost.tl
-      %span.value= @intervention.cost(:doer)
+    - for type in [:input, :equipment, :doer]
+      - cost = @intervention.cost(type) || 0.0
+      .info
+        %span.title= "#{type}_evaluated_cost".tl
+        %span.value= cost.round(2).l(currency: Preference[:currency])
+              
 - else
   = no_data

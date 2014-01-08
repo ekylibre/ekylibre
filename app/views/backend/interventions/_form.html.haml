@@ -5,6 +5,7 @@
     = f.input :reference_name, as: :hidden
     = f.referenced_association :production_support
     = f.referenced_association :incident
+    = f.referenced_association :prescription
     -#= f.referenced_association :production
     = f.input :started_at
     = f.input :stopped_at
@@ -47,6 +48,12 @@
     natures += (nature ? nature.children : Nomen::ProcedureNatures.roots)
     natures.delete_if{|n| Procedo.procedures_of_nature_and_its_children(n.name).empty?}
     can_go = false
+    default_params = {}
+    for x in [:production_support_id, :incident_id, :prescription_id]
+      if params[x] 
+        default_params[x] = params[x]
+      end
+    end
 
   .proposal-list
     - if natures.any?
@@ -55,15 +62,15 @@
         - if procedures.size == 1
           - procedure = procedures.first
           - can_go = true
-          = link_to(procedure.human_name, {reference_name: procedure.name, production_support_id: params[:production_support_id]}, class: "btn")
+          = link_to(procedure.human_name, default_params.merge(reference_name: procedure.name), class: "btn")
         - else
-          = link_to(n.human_name, {procedure_nature: n.name, production_support_id: params[:production_support_id]}, class: "btn btn-important")
+          = link_to(n.human_name, default_params.merge(procedure_nature: n.name), class: "btn btn-important")
     - if nature
       - procedures = Procedo.procedures_of_nature(nature.name.to_sym)
       - if procedures.any?
         - can_go = true
         - for procedure in Procedo.procedures_of_nature(nature.name.to_sym).sort{|a,b| a.human_name <=> b.human_name}
-          = link_to(procedure.human_name, {reference_name: procedure.name, production_support_id: params[:production_support_id]}, class: "btn")
+          = link_to(procedure.human_name, default_params.merge(reference_name: procedure.name), class: "btn")
   -# if can_go
     = field_set :duration do
       %p OK
