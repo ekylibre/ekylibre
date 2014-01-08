@@ -239,7 +239,7 @@
 				</rectangle>
 				<textField isStretchWithOverflow="true">
 					<reportElement style="sub-title" x="2" y="0" width="784" height="24" uuid="767321ef-0cb0-45b7-9d28-e511bc11c4d2"/>
-					<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+					<textElement textAlignment="Left" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA["Parcelle culturale  "+$F{work_number}+" - "+$F{name}]]></textFieldExpression>
 				</textField>
 				<staticText>
