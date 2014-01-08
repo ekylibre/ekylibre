@@ -20,10 +20,26 @@ class Backend::InterventionsController < BackendController
   manage_restfully t3e: {procedure_name: "RECORD.reference.human_name".c}
 
   unroll
+  
+  def self.interventions_conditions
+    code = ""
+    code = search_conditions(:interventions => [:state], :activities => [:name], :campaigns => [:name], :productions => [:name], :products => [:name]) + " ||= []\n"
+    code << "if params[:state]\n"
+    code << "  c[0] << ' AND state IN ?'\n"
+    code << "  c << params[:state]\n"
+    code << "end\n"
+    code << "c[0] << ' AND ' + params[:nature].join(' AND ') if params[:nature]\n"    
+    code << "if params[:mode] == 'next'\n"
+    code << "elsif params[:mode] == 'previous'\n"
+    code << "elsif params[:mode] != 'all'\n" # currents
+    code << "end\n"
+    code << "c\n "
+    return code.c
+  end
 
   # INDEX
 
-  list(order: {started_at: :desc}, line_class: :status) do |t|
+  list(conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage], order: {started_at: :desc}, line_class: :status) do |t|
     t.column :reference_name, label_method: :name, url: true
     t.column :production, url: true, hidden: true
     t.column :campaign, url: true
