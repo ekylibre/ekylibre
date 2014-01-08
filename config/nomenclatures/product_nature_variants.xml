@@ -143,7 +143,7 @@
             />
       <item name="spring_barley_crop"
             nature="cereal_crop"
-            variety="spring_hordeum"
+            variety="hordeum_vernum"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -452,7 +452,7 @@
             />
       <item name="spring_barley_seed_25"
             nature="seed"
-            derivative_of="spring_hordeum"
+            derivative_of="hordeum_vernum"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grain_mass: 42gram"
             />

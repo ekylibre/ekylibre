@@ -17,7 +17,7 @@
       <item name="durum_wheat_crop" plant_variety="triticum_durum" b="3.5"/>
       <item name="brassage_barley_crop" plant_variety="brassage_hordeum_hibernum" b="2.2"/>
       <item name="winter_barley_crop" plant_variety="hordeum_hibernum" b="2.5"/>
-      <item name="spring_barley_crop" plant_variety="spring_hordeum" b="2.2"/>
+      <item name="spring_barley_crop" plant_variety="hordeum_vernum" b="2.2"/>
       <item name="oat_crop" plant_variety="avena" b="2.2"/>
       <item name="triticale_crop" plant_variety="triticale" b="2.6"/>
       <item name="secale_crop" plant_variety="secale" b="2.3"/>
@@ -92,8 +92,8 @@
   <!-- ORGE - Tableau 4 -->
   <nomenclature name="nmp_poitou_charentes_abacus_3-spring_barley_crop">
     <items>
-      <item name="low_protein_spring_barley_crop" plant_variety="low_protein_spring_hordeum" b="2.4"/>
-      <item name="irrigate_spring_barley_crop" plant_variety="spring_hordeum" b="2.5" irrigated="true"/>
+      <item name="low_protein_spring_barley_crop" plant_variety="low_protein_hordeum_vernum" b="2.4"/>
+      <item name="irrigate_spring_barley_crop" plant_variety="hordeum_vernum" b="2.5" irrigated="true"/>
     </items>
   </nomenclature>
 

@@ -101,7 +101,7 @@ demo :interventions do
             for cast in booker.casts
               intervention.add_cast!(cast)
             end
-            intervention.run!(period) 
+            intervention.run!(period)
           end
         end
         return intervention
@@ -133,10 +133,14 @@ demo :interventions do
   # RubyProf.start
 
   # interventions for all poaceae
+  sowables = [:poa, :hordeum, :secale, :triticosecale, :triticum].collect do |n|
+    Nomen::Varieties[n]
+  end
+
   Ekylibre::fixturize :cultural_interventions do |w|
     for production in Production.all
       variety = production.variant.variety
-      if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:poaceae])
+      if (Nomen::Varieties[variety].self_and_parents & sowables).any?
         year = production.campaign.name.to_i
         Booker.production = production
         for support in production.supports

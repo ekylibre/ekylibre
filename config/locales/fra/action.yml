@@ -1876,7 +1876,7 @@ fra:
     yield: "Rendement"
   notifications:
     access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
-    bad_file: "Le fichier ne semble pas correspondre."
+    bad_file: "Le fichier ne semble pas correspondre." #?
     bookkeeping_is_finished: "La bascule en comptabilité est finie."
     bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
     cannot_delete_entity: "Il n’est pas possible de supprimer cette fiche car elle possède un historique comptable" #?
@@ -1898,7 +1898,7 @@ fra:
     expired_session: "Session expirée. Veuillez vous reconnecter."
     fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
     import_succeeded: "Vos données ont été correctement importées" #?
-    importation_cancelled: "Vos données n’ont été pas été importées. L’importation a été annulée"
+    importation_cancelled: "Vos données n’ont été pas été importées. L’importation a été annulée" #?
     importation_finished: "L’importation est terminée."
     impossible_to_add_items: "Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande"
     impossible_to_add_items_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
