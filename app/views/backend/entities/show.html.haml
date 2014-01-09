@@ -4,7 +4,7 @@
   - t.destroy(resource, :method => :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
 
 = beehive do |b|
-  - b.tabbox do
+  - b.hbox do
     - if resource.addresses.count > 0 or resource.picture
       - b.cell :coordinates do
         - if resource.picture.file?
@@ -60,12 +60,12 @@
     - b.cell :historic do
       = historic_of(resource)
 
+  - b.hbox do
     - b.cell(tl(:x_observations, count: resource.observations.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :observations, entity_id: resource.id})
       = list(:observations)
 
-  - b.tabbox do
     -# b.cell(tl(:x_subscriptions, count: resource.subscriptions.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :subscriptions, entity_id: resource.id})
@@ -81,6 +81,7 @@
         - t.new(params: {controller: :entity_links, entity_id: resource.id})
       = list(:links)
 
+  - b.hbox do
     - b.cell(tl(:x_mandates, count: resource.mandates.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :mandates, entity_id: resource.id})
@@ -91,7 +92,6 @@
       - b.cell("Extra") do
         =  render "extra"
 
-  - b.tabbox do
     - b.cell(tl(:x_sales, count: resource.sales.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :sales, :client_id => resource.id})
@@ -102,6 +102,7 @@
         - t.new(params: {controller: :incoming_payments, :payer_id => resource.id})
       = list(:incoming_payments)
 
+  - b.hbox do
     - b.cell(tl(:x_purchases, count: resource.purchases.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :purchases, :supplier_id => resource.id})

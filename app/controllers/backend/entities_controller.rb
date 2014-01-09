@@ -37,24 +37,24 @@ class Backend::EntitiesController < BackendController
 
   list(:event_participations, conditions: {participant_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :event
-    t.column :state
-    # t.column :label, through: :responsible, url: true
+    t.status
+    t.column :state, hidden: true
     # t.column :duration
-    # t.column :place
+    t.column :place, through: :event, hidden: true
     t.column :started_at, through: :event
     t.action :edit
-    t.action :destroy
+    # t.action :destroy
   end
 
   list(:incoming_payments, conditions: {payer_id: 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
-    t.column :responsible
+    t.column :responsible, hidden: true
     t.column :mode
-    t.column :bank_name
-    t.column :bank_check_number
+    t.column :bank_name, hidden: true
+    t.column :bank_check_number, hidden: true
     t.column :amount, currency: true, url: true
-    t.column :deposit, url: true
+    t.column :deposit, url: true, hidden: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?
   end
@@ -63,7 +63,7 @@ class Backend::EntitiesController < BackendController
     t.column :entity_1, url: true
     t.column :nature
     t.column :entity_2, url: true
-    t.column :description
+    t.column :description, hidden: true
     t.action :edit
     t.action :destroy
   end
@@ -71,7 +71,7 @@ class Backend::EntitiesController < BackendController
   list(:mandates, conditions: {entity_id: 'params[:id]'.c}) do |t|
     t.column :title
     t.column :organization, url: {:controller => :mandates, :action => :index}
-    t.column :family
+    t.column :family, hidden: true
     t.column :started_on, :datatype => :date
     t.column :stopped_on, :datatype => :date
     t.action :edit
@@ -88,9 +88,9 @@ class Backend::EntitiesController < BackendController
   list(:outgoing_payments, conditions: {:payee_id => 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
     t.column :paid_on
-    t.column :responsible
-    t.column :mode
-    t.column :bank_check_number
+    t.column :responsible, hidden: true
+    t.column :mode, hidden: true
+    t.column :bank_check_number, hidden: true
     t.column :amount, currency: true, url: true
     t.action :edit
     t.action :destroy, :if => :destroyable?
@@ -98,26 +98,26 @@ class Backend::EntitiesController < BackendController
 
   list(:purchases, conditions: {:supplier_id => 'params[:id]'.c}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
-    t.column :created_on
+    t.column :created_on, hidden: true
     t.column :invoiced_on
-    t.column :delivery_address
+    t.column :delivery_address, hidden: true
     t.column :state_label
     t.column :amount, currency: true
-    t.action :show, url: {:format => :pdf}, image: :print
+    t.action :show, url: {:format => :pdf}, image: :print, hidden: true
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, :if => :destroyable?, hidden: true
   end
 
   list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, order: {created_on: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true, :children => :label
-    t.column :responsible, children: false
-    t.column :created_on,  children: false
+    t.column :responsible, children: false, hidden: true
+    t.column :created_on,  children: false, hidden: true
     t.column :state_label, children: false
     t.column :amount, currency: true
-    t.action :show, url: {:format => :pdf}, image: :print
-    t.action :duplicate, :method => :post
+    t.action :show, url: {:format => :pdf}, image: :print, hidden: true
+    t.action :duplicate, :method => :post, hidden: true
     t.action :edit, :if => :draft?
-    t.action :destroy, :if => :aborted?
+    # t.action :destroy, :if => :aborted?
   end
 
 
@@ -126,10 +126,10 @@ class Backend::EntitiesController < BackendController
     t.column :nature
     t.column :start
     t.column :finish
-    t.column :sale, url: true
-    t.column :address
-    t.column :quantity, :datatype => :decimal
-    t.column :suspended
+    t.column :sale, url: true, hidden: true
+    t.column :address, hidden: true
+    t.column :quantity, :datatype => :decimal, hidden: true
+    t.column :suspended, hidden: true
     t.action :edit
     t.action :destroy
   end

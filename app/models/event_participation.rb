@@ -40,4 +40,10 @@ class EventParticipation < Ekylibre::Record::Base
   validates_length_of :state, allow_nil: true, maximum: 255
   validates_presence_of :event, :participant
   #]VALIDATORS]
+
+
+  def status
+    {waiting: :caution, accepted: :go, refused: :stop, informative: :undefined}.with_indifferent_access[self.state]
+  end
+
 end

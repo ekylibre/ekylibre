@@ -4,7 +4,7 @@
 
 (($) ->
   $(document).ready ->
-    $("[data-cell]").each((index) ->
+    $("*[data-cell]").each((index) ->
       element = $(this)
       element.addClass("loading")
       $.ajax(element.data("cell"), {
