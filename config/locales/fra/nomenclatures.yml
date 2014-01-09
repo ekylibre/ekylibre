@@ -1497,6 +1497,32 @@ fra:
         # silty_clay_loam_triticum_aestivum: "Silty clay loam triticum aestivum"
         # silty_clay_triticum_aestivum: "Silty clay triticum aestivum"
         # valley_terrace_triticum_aestivum: "Valley terrace triticum aestivum"
+    nmp_poitou_charentes_abacus_6:
+      # name: "Nmp poitou charentes abacus 6"
+      attributes:
+        # maximum_age: "Maximum age"
+        # mhp: "Mhp"
+        # minimum_age: "Minimum age"
+        # rank: "Rank"
+        # season: "Season"
+      items:
+        # autumn_0_120_second: "Autumn 0 120 second"
+        # autumn_0_120_third: "Autumn 0 120 third"
+        # autumn_0_18_first: "Autumn 0 18 first"
+        # autumn_120_first: "Autumn 120 first"
+        # autumn_18_36_first: "Autumn 18 36 first"
+        # autumn_36_60_first: "Autumn 36 60 first"
+        # autumn_60_120_first: "Autumn 60 120 first"
+        # spring_0_120_third: "Spring 0 120 third"
+        # spring_0_18_first: "Spring 0 18 first"
+        # spring_0_36_second: "Spring 0 36 second"
+        # spring_120_first: "Spring 120 first"
+        # spring_120_second: "Spring 120 second"
+        # spring_18_36_first: "Spring 18 36 first"
+        # spring_36_60_first: "Spring 36 60 first"
+        # spring_36_60_second: "Spring 36 60 second"
+        # spring_60_120_first: "Spring 60 120 first"
+        # spring_60_120_second: "Spring 60 120 second"
     procedure_natures:
       name: "Types de procédures"
       attributes:
