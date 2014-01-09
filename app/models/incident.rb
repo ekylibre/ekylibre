@@ -44,7 +44,7 @@
 class Incident < Ekylibre::Record::Base
   # attr_accessible :name, :nature, :observed_at, :description, :priority, :gravity, :target_id, :target_type
   enumerize :nature, in: Nomen::Incidents.all, default: Nomen::Incidents.default, predicates: {prefix: true}
-  has_many :procedures, class_name: "Intervention"
+  has_many :interventions, class_name: "Intervention"
   belongs_to :target , :polymorphic => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :gravity, :picture_file_size, :priority, allow_nil: true, only_integer: true
@@ -66,21 +66,61 @@ class Incident < Ekylibre::Record::Base
   }
 
     state_machine :state, :initial => :new do
+
+      ## define states
       state :new
       state :in_progress
       state :closed
+      state :off
 
-      event :treated do
-        transition :new => :in_progress, if: :has_procedure?
+      ## define events
+      # way A1
+      event :treat do
+        transition :new => :in_progress, if: :has_intervention?
       end
+      # way A2
+      event :solve do
+        transition :in_progress => :closed, if: :has_intervention?
+        transition :new => :closed
+      end
+      # way B1
+      event :drop do
+        transition :new => :off
+        transition :in_progress => :off
+      end
+      # way A3 || B2
+      event :reopen do
+        transition :closed => :in_progress
+        transition :off => :in_progress
+      end
+
+
+      ## define callbacks after and before transition
+
     end
 
-  def has_procedure?
-    self.procedures.count > 0
+  before_validation do
+    if self.can_treat?
+      self.treat
+    end
+  end
+
+  protect(on: :destroy) do
+    self.has_intervention?
+  end
+
+  def has_intervention?
+    self.interventions.count > 0
   end
 
   def status
-    self.state
+    if self.state_name == :new
+      return :stop
+    elsif self.state_name == :in_progress
+      return :caution
+    else
+      return :go
+    end
   end
 
   def picture_path(style=:original)

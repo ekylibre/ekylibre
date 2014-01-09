@@ -326,7 +326,7 @@ demo :interventions do
       # create an incident
       animal = intervention.casts.of_role(:'animal_illness_treatment-target').first.actor
       started_at = (intervention.started_at - 1.day) || Time.now
-      incident = Incident.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, name: ["Mammite", "Œdème", "Fracture", "Tuberculose"].sample, nature: :pathology)
+      incident = Incident.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, name: ["Mammite", "Œdème", "Boiterie", "Fièvre", "Toux"].sample, nature: :animal_pathology, state: ["in_progress", "closed", "off"].sample)
       # add prescription on intervention
       intervention.incident = incident
       intervention.prescription = prescription

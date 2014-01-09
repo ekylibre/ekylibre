@@ -1614,14 +1614,18 @@ fra:
     incident:
       nature:
         accident: "Accident"
+        animal_pathology: "Pathologie animale"
+        bacteria_disease: "Maladies bactériennes"
         climate_incident: "Incident climatique"
         diarrhea: "Diarrhée"
         fecondity_problem: "Problème de fécondité"
+        fungus_disease: "Maladies cryptogamiques"
         incident: "Incident"
         mammite: "Mammite"
+        nematoda_disease: "Maladies à nématodes"
         other: "Autre"
-        pathology: "Pathologie"
         respiratory_problem: "Problèmes respiratoires"
+        vegetal_pathology: "Pathologie végétale"
     intervention:
       reference_name:
         animal_birth: "Naissance d’un animal"

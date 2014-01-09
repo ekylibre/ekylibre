@@ -886,14 +886,19 @@ fra:
         treatments: "Traitements"
       items:
         accident: "Accident"                               # incident
+        animal_pathology: "Pathologie animale"             # incident
+        bacteria_disease: "Maladies bactériennes"          # vegetal_pathology
         climate_incident: "Incident climatique"            # incident
-        diarrhea: "Diarrhée"                               # pathology
-        fecondity_problem: "Problème de fécondité"         # pathology
+        diarrhea: "Diarrhée"                               # animal_pathology
+        fecondity_problem: "Problème de fécondité"         # animal_pathology
+        fungus_disease: "Maladies cryptogamiques"          # vegetal_pathology
         incident: "Incident"
-        mammite: "Mammite"                                 # pathology
-        other: "Autre"                                     # pathology
-        pathology: "Pathologie"                            # incident
-        respiratory_problem: "Problèmes respiratoires"     # pathology
+        mammite: "Mammite"                                 # animal_pathology
+        nematoda_disease: "Maladies à nématodes"           # vegetal_pathology
+        other: "Autre"                                     # animal_pathology
+        # protozoa_disease: "Protozoa disease"             # vegetal_pathology
+        respiratory_problem: "Problèmes respiratoires"     # animal_pathology
+        vegetal_pathology: "Pathologie végétale"           # incident
     indicators:
       name: "Indicateurs"
       attributes:
@@ -981,14 +986,14 @@ fra:
         plant_life_state:
           choices:
             germination: "Germination"
-            # tillering: "Tillering"
+            tillering: "Tallage"
             bolting: "Montaison"
             maturity: "Maturité"
             senescence: "Senescence"
         plant_reproduction_state:
           choices:
             # swelling: "Swelling"
-            # heading: "Heading"
+            heading: "Epiaison"
             flowering: "Floraison"
             grain_maturity: "Maturité du grain"
             grain_senescence: "Senescence du grain"

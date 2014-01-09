@@ -14,19 +14,29 @@
   <!-- level 1 -->
   <nomenclature name="incidents-incident">
     <items>
-      <item name="pathology"/>
+      <item name="animal_pathology"/>
+      <item name="vegetal_pathology"/>
       <item name="accident"/>
       <item name="climate_incident"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 -->
-  <nomenclature name="incidents-pathology">
+  <nomenclature name="incidents-animal_pathology">
     <items>
       <item name="mammite" target="mammalia"/>
       <item name="fecondity_problem" target="mammalia"/>
       <item name="diarrhea" target="mammalia"/>
       <item name="respiratory_problem" target="mammalia"/>
       <item name="other" target="mammalia"/>
+    </items>
+  </nomenclature>
+  <!-- level 2 - branch 2 -->
+  <nomenclature name="incidents-vegetal_pathology">
+    <items>
+      <item name="bacteria_disease" target="plant"/>
+      <item name="fungus_disease" target="plant"/>
+      <item name="protozoa_disease" target="plant"/>
+      <item name="nematoda_disease" target="plant"/>
     </items>
   </nomenclature>
  

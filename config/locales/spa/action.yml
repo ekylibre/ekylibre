@@ -906,8 +906,11 @@ spa:
     # are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
     # are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?"
     # are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
+    # are_you_sure_you_want_to_drop_incident: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?"
     # are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer la vente ?"
+    # are_you_sure_you_want_to_reopen_incident: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"
     are_you_sure_you_want_to_send_mails: "Esta seguro querer enviar este correo electronico?'"
+    # are_you_sure_you_want_to_solve_incident: "Êtes-vous sûr(e) que cet incident est résolu ?"
     # area_measure: "Superficie"
     # area_x: "%{name} (%{postcode})"
     assessable_operations: "Operaciones imponibles (H.T)"
@@ -1654,6 +1657,7 @@ spa:
     # sowed_at: "Semé le"
     start: "Del"
     # state: "État"
+    # status: "État"
     # stock: "Stock"
     # stock_max: "Stock maximum"
     # stock_min: "Stock minimum"
@@ -1684,6 +1688,7 @@ spa:
     # supports: "Supports de production"
     synthesis: "Documentos de sintesis"
     # target: "Cible"
+    # target_name: "Nom de la cible"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
     # taxes: "Taxes"
