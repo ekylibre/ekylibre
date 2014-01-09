@@ -892,7 +892,7 @@ fra:
     prices: "Prix"
     printed_on: "Datée du"
     priority: "Priorité"
-    procedures: "Procédures"
+    procedures: "Procédures" #?
     process: "Process"
     producer: "Producteur"
     producible: "Produisible" #?

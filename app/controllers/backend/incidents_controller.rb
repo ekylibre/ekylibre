@@ -32,9 +32,9 @@ class Backend::IncidentsController < BackendController
     t.column :nature
     t.column :observed_at
     t.column :target_name, url: true
-    t.column :gravity
-    t.column :priority
-    t.column :state
+    t.status
+    #t.column :gravity
+    #t.column :priority
     t.action :edit
     t.action :new, url: {controller: :interventions, incident_id: 'RECORD.id'.c, id: nil}
     t.action :destroy, :if => :destroyable?
@@ -48,6 +48,30 @@ class Backend::IncidentsController < BackendController
     t.column :stopped_at, hidden: true
     t.column :natures
     t.column :state
+  end
+
+  def solve
+    return unless @incident = find_and_check
+    if request.post?
+      @incident.solve
+    end
+    redirect_to_back
+  end
+
+  def drop
+    return unless @incident = find_and_check
+    if request.post?
+      @incident.drop
+    end
+    redirect_to_back
+  end
+
+  def reopen
+    return unless @incident = find_and_check
+    if request.post?
+      @incident.reopen
+    end
+    redirect_to_back
   end
 
 end

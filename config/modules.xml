@@ -1431,6 +1431,11 @@
       <item name="financial_years">
         <page to="backend/financial_years#list_financial_asset_depreciations"/>
       </item>
+      <item name="incidents">
+        <page to="backend/incidents#drop"/>
+        <page to="backend/incidents#reopen"/>
+        <page to="backend/incidents#solve"/>
+      </item>
       <item name="incoming_deliveries">
         <page to="backend/incoming_deliveries#list_items"/>
         <page to="backend/incoming_deliveries#unroll"/>

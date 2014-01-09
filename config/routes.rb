@@ -317,6 +317,9 @@ Ekylibre::Application.routes.draw do
 
     resources :incidents, concerns: [:list, :picture, :unroll] do
       member do
+        post :solve
+        post :drop
+        post :reopen
         get :list_interventions
       end
     end

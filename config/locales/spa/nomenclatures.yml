@@ -988,14 +988,18 @@ spa:
         # treatments: "Traitements"
       items:
         # accident: "Accident"
+        # animal_pathology: "Pathologie animale"
+        # bacteria_disease: "Maladies bactériennes"
         # climate_incident: "Incident climatique"
         # diarrhea: "Diarrhée"
         # fecondity_problem: "Problème de fécondité"
+        # fungus_disease: "Maladies cryptogamiques"
         # incident: "Incident"
         # mammite: "Mammite"
+        # nematoda_disease: "Maladies à nématodes"
         # other: "Autre"
-        # pathology: "Pathologie"
         # respiratory_problem: "Problèmes respiratoires"
+        # vegetal_pathology: "Pathologie végétale"
       # name: "Incidents"
     indicators:
       attributes:
@@ -1096,11 +1100,13 @@ spa:
             # germination: "Germination"
             # maturity: "Maturité"
             # senescence: "Senescence"
+            # tillering: "Tallage"
         plant_reproduction_state:
           choices:
             # flowering: "Floraison"
             # grain_maturity: "Maturité du grain"
             # grain_senescence: "Senescence du grain"
+            # heading: "Epiaison"
         population: #?
         potassium_concentration: #?
         protein_matters_concentration: #?
