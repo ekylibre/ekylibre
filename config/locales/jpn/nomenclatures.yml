@@ -1310,6 +1310,10 @@ jpn:
     nmp_poitou_charentes_abacus_4:
       attributes: #?
       items: #?
+    nmp_poitou_charentes_abacus_5:
+      attributes: #?
+      choices: #?
+      items: #?
     procedure_natures:
       attributes: #?
       items:

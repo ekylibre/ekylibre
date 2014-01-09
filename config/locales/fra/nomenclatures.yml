@@ -1474,6 +1474,29 @@ fra:
         # good_growth: "Good growth"
         # little_growth: "Little growth"
         # no_growth: "No growth"
+    nmp_poitou_charentes_abacus_5:
+      # name: "Nmp poitou charentes abacus 5"
+      attributes:
+        # land_parcel_variety: "Land parcel variety"
+        # mh_indicators_values: "Mh indicators values"
+        # plant_variety: "Plant variety"
+      choices:
+        # land_parcel_variety: # Choices comes from nomenclature: varieties
+        # plant_variety: # Choices comes from nomenclature: varieties
+      items:
+        # aubues_triticum_aestivum: "Aubues triticum aestivum"
+        # black_valley_triticum_aestivum: "Black valley triticum aestivum"
+        # champagne_triticum_aestivum: "Champagne triticum aestivum"
+        # clay_limestone_triticum_aestivum: "Clay limestone triticum aestivum"
+        # flap_silt_triticum_aestivum: "Flap silt triticum aestivum"
+        # granite_arena_triticum_aestivum: "Granite arena triticum aestivum"
+        # hydromorph_sandy_clay_loam_triticum_aestivum: "Hydromorph sandy clay loam triticum aestivum"
+        # red_chesnut_triticum_aestivum: "Red chesnut triticum aestivum"
+        # sand_triticum_aestivum: "Sand triticum aestivum"
+        # silt_schist_triticum_aestivum: "Silt schist triticum aestivum"
+        # silty_clay_loam_triticum_aestivum: "Silty clay loam triticum aestivum"
+        # silty_clay_triticum_aestivum: "Silty clay triticum aestivum"
+        # valley_terrace_triticum_aestivum: "Valley terrace triticum aestivum"
     procedure_natures:
       name: "Types de procédures"
       attributes:
