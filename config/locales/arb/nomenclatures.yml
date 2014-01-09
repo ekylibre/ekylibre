@@ -1285,6 +1285,23 @@ arb:
         # uzb: "Ou(s)zbek"
         # vie: "Vietnamien"
       # name: "Langues"
+    nmp_methods:
+      items: #?
+    nmp_poitou_charentes_abacus_1:
+      attributes: #?
+      choices: #?
+      items: #?
+    nmp_poitou_charentes_abacus_2:
+      attributes: #?
+      choices: #?
+      items: #?
+    nmp_poitou_charentes_abacus_3:
+      attributes: #?
+      choices: #?
+      items: #?
+    nmp_poitou_charentes_abacus_4:
+      attributes: #?
+      items: #?
     procedure_natures:
       attributes: #?
       items:
@@ -1797,7 +1814,6 @@ arb:
         # bioproduct: "Produit vivant"
         # black_valley_soil: "Terres noires de vallées"
         # bos: "Bovin"
-        # brassage_hordeum_hibernum: "Orge d’hiver de brasserie"
         # brassica_napus: "Colza"
         # brassica_nigra: "Moutarde noire"
         # brassica_rapa: "Navet"
@@ -1847,7 +1863,10 @@ arb:
         # herbicide: "Produit herbicide"
         # hordeum: "Orge"
         # hordeum_hibernum: "Orge d’hiver"
+        # hordeum_hibernum_cerevisiae: "Orge d’hiver de brasserie"
+        # hordeum_hibernum_cerevisiae_hypoproteinae: "Orge d’hiver de brasserie (faible teneur en protéïnes)"
         # hordeum_vernum: "Orge de printemps"
+        # hordeum_vernum_hypoproteinae: "Orge de printemps (faible teneur en protéïnes)"
         # hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe"
         # immatter: "Immatérialisable"
         # insecta: "Insecte"
@@ -1860,8 +1879,6 @@ arb:
         # lepus: "Lagomorphe"
         # levis: "Levis"
         # lona: "Lona"
-        # low_protein_brassage_hordeum_hibernum: "Orge d’hiver de brasserie (faible teneur en protéïnes)"
-        # low_protein_hordeum_vernum: "Orge de printemps (faible teneur en protéïnes)"
         # malus: "Pommier"
         # mammalia: "Mammifère"
         # manital: "Manital"

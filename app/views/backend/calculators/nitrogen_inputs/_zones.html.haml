@@ -1,0 +1,25 @@
+%table.list
+  %thead
+    %th= ProductionSupport.human_attribute_name(:activity)
+    %th= ProductionSupport.human_attribute_name(:campaign)
+    %th= ProductionSupport.human_attribute_name(:storage)
+    %th= ProductionSupport.human_attribute_name(:net_surface_area)
+    %th= Production.human_attribute_name(:variant)
+    %th
+    %th
+    %th= :method.tl
+  %tbody
+    - for support in @campaign.production_supports
+      - zone = support.storage
+      - next unless zone.is_a?(CultivableZone)
+      - for membership in zone.memberships
+        - land_parcel = membership.member
+        %tr
+          %td= support.activity.name
+          %td= support.campaign.name
+          %td= land_parcel.name
+          %td.dec= membership.net_surface_area.in(:hectare).round(3).l
+          %td= support.production.variant.name
+          %td= text_field_tag(:goal)
+          %td= Nomen::Varieties[land_parcel.variety].human_name
+          %td= select_tag(:method, options_for_select(Nomen::NmpMethods.all))

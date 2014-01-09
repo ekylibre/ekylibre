@@ -36,6 +36,7 @@
 #
 class Campaign < Ekylibre::Record::Base
   has_many :productions
+  has_many :production_supports, through: :productions, source: :supports
   has_many :interventions, through: :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :harvest_year, allow_nil: true, only_integer: true

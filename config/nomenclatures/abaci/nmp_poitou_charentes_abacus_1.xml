@@ -5,7 +5,7 @@
   <!--  abaque de rendement (qt / ha) par département et variété de culture  -->
   <nomenclature name="nmp_poitou_charentes_abacus_1" hierarchical="false">
     <attributes>
-      <attribute name="plant_variety" type="choice" nomenclature="varieties-poaceae" required="true"/>
+      <attribute name="plant_variety" type="choice" nomenclature="varieties" required="true"/> <!-- poaceae -->
       <attribute name="yield" type="decimal" required="false"/><!-- en qt/ha -->
       <attribute name="department_number" type="string" required="true"/>
       <attribute name="irrigated" type="boolean" required="false"/>

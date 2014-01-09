@@ -1166,6 +1166,309 @@ fra:
         urd: "Ourdou"
         uzb: "Ou(s)zbek"
         vie: "Vietnamien"
+    nmp_methods:
+      # name: "Nmp methods"
+      items:
+        # poitou_charentes: "Poitou charentes"
+    nmp_poitou_charentes_abacus_1:
+      # name: "Nmp poitou charentes abacus 1"
+      attributes:
+        # department_number: "Department number"
+        # irrigated: "Irrigated"
+        # plant_variety: "Plant variety"
+        # yield: "Yield"
+      choices:
+        # plant_variety: # Choices comes from nomenclature: varieties
+      items:
+        # avena_yield_16: "Avena yield 16"
+        # avena_yield_17: "Avena yield 17"
+        # avena_yield_79: "Avena yield 79"
+        # avena_yield_86: "Avena yield 86"
+        # poa_yield_16: "Poa yield 16"
+        # poa_yield_17: "Poa yield 17"
+        # poa_yield_79: "Poa yield 79"
+        # poa_yield_86: "Poa yield 86"
+        # secale_yield_16: "Secale yield 16"
+        # secale_yield_17: "Secale yield 17"
+        # secale_yield_79: "Secale yield 79"
+        # secale_yield_86: "Secale yield 86"
+    nmp_poitou_charentes_abacus_2:
+      # name: "Nmp poitou charentes abacus 2"
+      attributes:
+        # irrigated: "Irrigated"
+        # land_parcel_variety: "Land parcel variety"
+        # maximum_available_water_capacity: "Maximum available water capacity"
+        # minimum_available_water_capacity: "Minimum available water capacity"
+        # plant_variety: "Plant variety"
+        # yield: "Yield"
+      choices:
+        # land_parcel_variety: # Choices comes from nomenclature: varieties
+        # plant_variety: # Choices comes from nomenclature: varieties
+      items:
+        # aubues_durum_wheat_crop_max: "Aubues durum wheat crop max"
+        # aubues_durum_wheat_crop_med: "Aubues durum wheat crop med"
+        # aubues_durum_wheat_crop_min: "Aubues durum wheat crop min"
+        # aubues_spring_barley_crop_max: "Aubues spring barley crop max"
+        # aubues_spring_barley_crop_med: "Aubues spring barley crop med"
+        # aubues_spring_barley_crop_min: "Aubues spring barley crop min"
+        # aubues_triticosecale_crop_max: "Aubues triticosecale crop max"
+        # aubues_triticosecale_crop_med: "Aubues triticosecale crop med"
+        # aubues_triticosecale_crop_min: "Aubues triticosecale crop min"
+        # aubues_wheat_crop_max: "Aubues wheat crop max"
+        # aubues_wheat_crop_med: "Aubues wheat crop med"
+        # aubues_wheat_crop_min: "Aubues wheat crop min"
+        # aubues_winter_barley_crop_max: "Aubues winter barley crop max"
+        # aubues_winter_barley_crop_med: "Aubues winter barley crop med"
+        # aubues_winter_barley_crop_min: "Aubues winter barley crop min"
+        # black_valley_durum_wheat_crop_max: "Black valley durum wheat crop max"
+        # black_valley_durum_wheat_crop_med: "Black valley durum wheat crop med"
+        # black_valley_spring_barley_crop_max: "Black valley spring barley crop max"
+        # black_valley_spring_barley_crop_med: "Black valley spring barley crop med"
+        # black_valley_spring_barley_crop_min: "Black valley spring barley crop min"
+        # black_valley_triticosecale_crop_max: "Black valley triticosecale crop max"
+        # black_valley_triticosecale_crop_med: "Black valley triticosecale crop med"
+        # black_valley_wheat_crop_max: "Black valley wheat crop max"
+        # black_valley_wheat_crop_med: "Black valley wheat crop med"
+        # black_valley_winter_barley_crop_max: "Black valley winter barley crop max"
+        # black_valley_winter_barley_crop_med: "Black valley winter barley crop med"
+        # champagne_durum_wheat_crop_max: "Champagne durum wheat crop max"
+        # champagne_durum_wheat_crop_med: "Champagne durum wheat crop med"
+        # champagne_durum_wheat_crop_min: "Champagne durum wheat crop min"
+        # champagne_spring_barley_crop_max: "Champagne spring barley crop max"
+        # champagne_spring_barley_crop_med: "Champagne spring barley crop med"
+        # champagne_spring_barley_crop_min: "Champagne spring barley crop min"
+        # champagne_triticosecale_crop_max: "Champagne triticosecale crop max"
+        # champagne_triticosecale_crop_med: "Champagne triticosecale crop med"
+        # champagne_triticosecale_crop_min: "Champagne triticosecale crop min"
+        # champagne_wheat_crop_max: "Champagne wheat crop max"
+        # champagne_wheat_crop_med: "Champagne wheat crop med"
+        # champagne_wheat_crop_min: "Champagne wheat crop min"
+        # champagne_winter_barley_crop_max: "Champagne winter barley crop max"
+        # champagne_winter_barley_crop_med: "Champagne winter barley crop med"
+        # champagne_winter_barley_crop_min: "Champagne winter barley crop min"
+        # clay_limestone_durum_wheat_crop_max: "Clay limestone durum wheat crop max"
+        # clay_limestone_durum_wheat_crop_med: "Clay limestone durum wheat crop med"
+        # clay_limestone_durum_wheat_crop_min: "Clay limestone durum wheat crop min"
+        # clay_limestone_irrigated_spring_barley_crop_max: "Clay limestone irrigated spring barley crop max"
+        # clay_limestone_irrigated_spring_barley_crop_med: "Clay limestone irrigated spring barley crop med"
+        # clay_limestone_irrigated_spring_barley_crop_min: "Clay limestone irrigated spring barley crop min"
+        # clay_limestone_spring_barley_crop_max: "Clay limestone spring barley crop max"
+        # clay_limestone_spring_barley_crop_med: "Clay limestone spring barley crop med"
+        # clay_limestone_spring_barley_crop_min: "Clay limestone spring barley crop min"
+        # clay_limestone_triticosecale_crop_max: "Clay limestone triticosecale crop max"
+        # clay_limestone_triticosecale_crop_med: "Clay limestone triticosecale crop med"
+        # clay_limestone_triticosecale_crop_min: "Clay limestone triticosecale crop min"
+        # clay_limestone_wheat_crop_max: "Clay limestone wheat crop max"
+        # clay_limestone_wheat_crop_med: "Clay limestone wheat crop med"
+        # clay_limestone_wheat_crop_min: "Clay limestone wheat crop min"
+        # clay_limestone_winter_barley_crop_max: "Clay limestone winter barley crop max"
+        # clay_limestone_winter_barley_crop_med: "Clay limestone winter barley crop med"
+        # clay_limestone_winter_barley_crop_min: "Clay limestone winter barley crop min"
+        # flap_silt_durum_wheat_crop_max: "Flap silt durum wheat crop max"
+        # flap_silt_durum_wheat_crop_med: "Flap silt durum wheat crop med"
+        # flap_silt_durum_wheat_crop_min: "Flap silt durum wheat crop min"
+        # flap_silt_spring_barley_crop_max: "Flap silt spring barley crop max"
+        # flap_silt_spring_barley_crop_med: "Flap silt spring barley crop med"
+        # flap_silt_spring_barley_crop_min: "Flap silt spring barley crop min"
+        # flap_silt_triticosecale_crop_max: "Flap silt triticosecale crop max"
+        # flap_silt_triticosecale_crop_med: "Flap silt triticosecale crop med"
+        # flap_silt_triticosecale_crop_min: "Flap silt triticosecale crop min"
+        # flap_silt_wheat_crop_max: "Flap silt wheat crop max"
+        # flap_silt_wheat_crop_med: "Flap silt wheat crop med"
+        # flap_silt_wheat_crop_min: "Flap silt wheat crop min"
+        # flap_silt_winter_barley_crop_max: "Flap silt winter barley crop max"
+        # flap_silt_winter_barley_crop_med: "Flap silt winter barley crop med"
+        # flap_silt_winter_barley_crop_min: "Flap silt winter barley crop min"
+        # granite_arena_spring_barley_crop_max: "Granite arena spring barley crop max"
+        # granite_arena_spring_barley_crop_med: "Granite arena spring barley crop med"
+        # granite_arena_spring_barley_crop_min: "Granite arena spring barley crop min"
+        # granite_arena_triticosecale_crop_max: "Granite arena triticosecale crop max"
+        # granite_arena_triticosecale_crop_med: "Granite arena triticosecale crop med"
+        # granite_arena_triticosecale_crop_min: "Granite arena triticosecale crop min"
+        # granite_arena_wheat_crop_max: "Granite arena wheat crop max"
+        # granite_arena_wheat_crop_med: "Granite arena wheat crop med"
+        # granite_arena_wheat_crop_min: "Granite arena wheat crop min"
+        # granite_arena_winter_barley_crop_max: "Granite arena winter barley crop max"
+        # granite_arena_winter_barley_crop_med: "Granite arena winter barley crop med"
+        # granite_arena_winter_barley_crop_min: "Granite arena winter barley crop min"
+        # hydromorph_sandy_clay_loam_spring_barley_crop_max: "Hydromorph sandy clay loam spring barley crop max"
+        # hydromorph_sandy_clay_loam_spring_barley_crop_med: "Hydromorph sandy clay loam spring barley crop med"
+        # hydromorph_sandy_clay_loam_spring_barley_crop_min: "Hydromorph sandy clay loam spring barley crop min"
+        # hydromorph_sandy_clay_loam_triticosecale_crop_med: "Hydromorph sandy clay loam triticosecale crop med"
+        # hydromorph_sandy_clay_loam_triticosecale_crop_min: "Hydromorph sandy clay loam triticosecale crop min"
+        # hydromorph_sandy_clay_loam_wheat_crop_med: "Hydromorph sandy clay loam wheat crop med"
+        # hydromorph_sandy_clay_loam_wheat_crop_min: "Hydromorph sandy clay loam wheat crop min"
+        # hydromorph_sandy_clay_loam_winter_barley_crop_med: "Hydromorph sandy clay loam winter barley crop med"
+        # hydromorph_sandy_clay_loam_winter_barley_crop_min: "Hydromorph sandy clay loam winter barley crop min"
+        # red_chesnut_durum_wheat_crop_max: "Red chesnut durum wheat crop max"
+        # red_chesnut_durum_wheat_crop_med: "Red chesnut durum wheat crop med"
+        # red_chesnut_durum_wheat_crop_min: "Red chesnut durum wheat crop min"
+        # red_chesnut_spring_barley_crop_max: "Red chesnut spring barley crop max"
+        # red_chesnut_spring_barley_crop_med: "Red chesnut spring barley crop med"
+        # red_chesnut_spring_barley_crop_min: "Red chesnut spring barley crop min"
+        # red_chesnut_triticosecale_crop_max: "Red chesnut triticosecale crop max"
+        # red_chesnut_triticosecale_crop_med: "Red chesnut triticosecale crop med"
+        # red_chesnut_triticosecale_crop_min: "Red chesnut triticosecale crop min"
+        # red_chesnut_wheat_crop_max: "Red chesnut wheat crop max"
+        # red_chesnut_wheat_crop_med: "Red chesnut wheat crop med"
+        # red_chesnut_wheat_crop_min: "Red chesnut wheat crop min"
+        # red_chesnut_winter_barley_crop_max: "Red chesnut winter barley crop max"
+        # red_chesnut_winter_barley_crop_med: "Red chesnut winter barley crop med"
+        # red_chesnut_winter_barley_crop_min: "Red chesnut winter barley crop min"
+        # sand_spring_barley_crop_max: "Sand spring barley crop max"
+        # sand_spring_barley_crop_med: "Sand spring barley crop med"
+        # sand_spring_barley_crop_min: "Sand spring barley crop min"
+        # sand_triticosecale_crop_max: "Sand triticosecale crop max"
+        # sand_triticosecale_crop_med: "Sand triticosecale crop med"
+        # sand_triticosecale_crop_min: "Sand triticosecale crop min"
+        # sand_wheat_crop_max: "Sand wheat crop max"
+        # sand_wheat_crop_med: "Sand wheat crop med"
+        # sand_wheat_crop_min: "Sand wheat crop min"
+        # sand_winter_barley_crop_max: "Sand winter barley crop max"
+        # sand_winter_barley_crop_med: "Sand winter barley crop med"
+        # sand_winter_barley_crop_min: "Sand winter barley crop min"
+        # silt_schist_durum_wheat_crop_max: "Silt schist durum wheat crop max"
+        # silt_schist_durum_wheat_crop_med: "Silt schist durum wheat crop med"
+        # silt_schist_durum_wheat_crop_min: "Silt schist durum wheat crop min"
+        # silt_schist_spring_barley_crop_max: "Silt schist spring barley crop max"
+        # silt_schist_spring_barley_crop_med: "Silt schist spring barley crop med"
+        # silt_schist_spring_barley_crop_min: "Silt schist spring barley crop min"
+        # silt_schist_triticosecale_crop_max: "Silt schist triticosecale crop max"
+        # silt_schist_triticosecale_crop_med: "Silt schist triticosecale crop med"
+        # silt_schist_triticosecale_crop_min: "Silt schist triticosecale crop min"
+        # silt_schist_wheat_crop_max: "Silt schist wheat crop max"
+        # silt_schist_wheat_crop_med: "Silt schist wheat crop med"
+        # silt_schist_wheat_crop_min: "Silt schist wheat crop min"
+        # silt_schist_winter_barley_crop_max: "Silt schist winter barley crop max"
+        # silt_schist_winter_barley_crop_med: "Silt schist winter barley crop med"
+        # silt_schist_winter_barley_crop_min: "Silt schist winter barley crop min"
+        # silty_clay_durum_wheat_crop_max: "Silty clay durum wheat crop max"
+        # silty_clay_durum_wheat_crop_med: "Silty clay durum wheat crop med"
+        # silty_clay_durum_wheat_crop_min: "Silty clay durum wheat crop min"
+        # silty_clay_loam_durum_wheat_crop_max: "Silty clay loam durum wheat crop max"
+        # silty_clay_loam_durum_wheat_crop_med: "Silty clay loam durum wheat crop med"
+        # silty_clay_loam_durum_wheat_crop_min: "Silty clay loam durum wheat crop min"
+        # silty_clay_loam_spring_barley_crop_max: "Silty clay loam spring barley crop max"
+        # silty_clay_loam_spring_barley_crop_med: "Silty clay loam spring barley crop med"
+        # silty_clay_loam_spring_barley_crop_min: "Silty clay loam spring barley crop min"
+        # silty_clay_loam_triticosecale_crop_max: "Silty clay loam triticosecale crop max"
+        # silty_clay_loam_triticosecale_crop_med: "Silty clay loam triticosecale crop med"
+        # silty_clay_loam_triticosecale_crop_min: "Silty clay loam triticosecale crop min"
+        # silty_clay_loam_wheat_crop_max: "Silty clay loam wheat crop max"
+        # silty_clay_loam_wheat_crop_med: "Silty clay loam wheat crop med"
+        # silty_clay_loam_wheat_crop_min: "Silty clay loam wheat crop min"
+        # silty_clay_loam_winter_barley_crop_max: "Silty clay loam winter barley crop max"
+        # silty_clay_loam_winter_barley_crop_med: "Silty clay loam winter barley crop med"
+        # silty_clay_loam_winter_barley_crop_min: "Silty clay loam winter barley crop min"
+        # silty_clay_spring_barley_crop_max: "Silty clay spring barley crop max"
+        # silty_clay_spring_barley_crop_med: "Silty clay spring barley crop med"
+        # silty_clay_spring_barley_crop_min: "Silty clay spring barley crop min"
+        # silty_clay_triticosecale_crop_max: "Silty clay triticosecale crop max"
+        # silty_clay_triticosecale_crop_med: "Silty clay triticosecale crop med"
+        # silty_clay_triticosecale_crop_min: "Silty clay triticosecale crop min"
+        # silty_clay_wheat_crop_max: "Silty clay wheat crop max"
+        # silty_clay_wheat_crop_med: "Silty clay wheat crop med"
+        # silty_clay_wheat_crop_min: "Silty clay wheat crop min"
+        # silty_clay_winter_barley_crop_max: "Silty clay winter barley crop max"
+        # silty_clay_winter_barley_crop_med: "Silty clay winter barley crop med"
+        # silty_clay_winter_barley_crop_min: "Silty clay winter barley crop min"
+        # swamp_peaty_durum_wheat_crop_max: "Swamp peaty durum wheat crop max"
+        # swamp_peaty_durum_wheat_crop_med: "Swamp peaty durum wheat crop med"
+        # swamp_peaty_spring_barley_crop_max: "Swamp peaty spring barley crop max"
+        # swamp_peaty_spring_barley_crop_med: "Swamp peaty spring barley crop med"
+        # swamp_peaty_spring_barley_crop_min: "Swamp peaty spring barley crop min"
+        # swamp_peaty_triticosecale_crop_max: "Swamp peaty triticosecale crop max"
+        # swamp_peaty_triticosecale_crop_med: "Swamp peaty triticosecale crop med"
+        # swamp_peaty_wheat_crop_max: "Swamp peaty wheat crop max"
+        # swamp_peaty_wheat_crop_med: "Swamp peaty wheat crop med"
+        # swamp_peaty_winter_barley_crop_max: "Swamp peaty winter barley crop max"
+        # swamp_peaty_winter_barley_crop_med: "Swamp peaty winter barley crop med"
+        # valley_terrace_durum_wheat_crop_max: "Valley terrace durum wheat crop max"
+        # valley_terrace_durum_wheat_crop_med: "Valley terrace durum wheat crop med"
+        # valley_terrace_durum_wheat_crop_min: "Valley terrace durum wheat crop min"
+        # valley_terrace_spring_barley_crop_max: "Valley terrace spring barley crop max"
+        # valley_terrace_spring_barley_crop_med: "Valley terrace spring barley crop med"
+        # valley_terrace_spring_barley_crop_min: "Valley terrace spring barley crop min"
+        # valley_terrace_triticosecale_crop_max: "Valley terrace triticosecale crop max"
+        # valley_terrace_triticosecale_crop_med: "Valley terrace triticosecale crop med"
+        # valley_terrace_triticosecale_crop_min: "Valley terrace triticosecale crop min"
+        # valley_terrace_wheat_crop_max: "Valley terrace wheat crop max"
+        # valley_terrace_wheat_crop_med: "Valley terrace wheat crop med"
+        # valley_terrace_wheat_crop_min: "Valley terrace wheat crop min"
+        # valley_terrace_winter_barley_crop_max: "Valley terrace winter barley crop max"
+        # valley_terrace_winter_barley_crop_med: "Valley terrace winter barley crop med"
+        # valley_terrace_winter_barley_crop_min: "Valley terrace winter barley crop min"
+    nmp_poitou_charentes_abacus_3:
+      # name: "Nmp poitou charentes abacus 3"
+      attributes:
+        # b: "B"
+        # irrigated: "Irrigated"
+        # nitrogen_stock_before_bolting: "Nitrogen stock before bolting"
+        # plant_variety: "Plant variety"
+      choices:
+        # plant_variety: # Choices comes from nomenclature: varieties
+      items:
+        # alexis_wheat_crop: "Alexis wheat crop"           # durum_wheat_crop
+        # apache_wheat_crop: "Apache wheat crop"           # non_improving_wheat_crop
+        # ascott_wheat_crop: "Ascott wheat crop"           # non_improving_wheat_crop
+        # autan_wheat_crop: "Autan wheat crop"             # non_improving_wheat_crop
+        # aventur_wheat_crop: "Aventur wheat crop"         # durum_wheat_crop
+        # aztec_wheat_crop: "Aztec wheat crop"             # non_improving_wheat_crop
+        # biensur_wheat_crop: "Biensur wheat crop"         # durum_wheat_crop
+        # brassage_barley_crop: "Brassage barley crop"
+        # bussard_wheat_crop: "Bussard wheat crop"         # improving_wheat_crop
+        # caphorn_wheat_crop: "Caphorn wheat crop"         # non_improving_wheat_crop
+        # courtot_wheat_crop: "Courtot wheat crop"         # improving_wheat_crop
+        # cultur_wheat_crop: "Cultur wheat crop"           # durum_wheat_crop
+        # durum_wheat_crop: "Durum wheat crop"
+        # esperia_wheat_crop: "Esperia wheat crop"         # improving_wheat_crop
+        # euclide_wheat_crop: "Euclide wheat crop"         # non_improving_wheat_crop
+        # fabulis_wheat_crop: "Fabulis wheat crop"         # durum_wheat_crop
+        # galibier_wheat_crop: "Galibier wheat crop"       # improving_wheat_crop
+        # improving_wheat_crop: "Improving wheat crop"
+        # irrigate_spring_barley_crop: "Irrigate spring barley crop" # spring_barley_crop
+        # isengrain_wheat_crop: "Isengrain wheat crop"     # non_improving_wheat_crop
+        # karur_wheat_crop: "Karur wheat crop"             # durum_wheat_crop
+        # levis_wheat_crop: "Levis wheat crop"             # improving_wheat_crop
+        # lona_wheat_crop: "Lona wheat crop"               # improving_wheat_crop
+        # low_protein_brassage_barley_crop: "Low protein brassage barley crop" # brassage_barley_crop
+        # low_protein_spring_barley_crop: "Low protein spring barley crop" # spring_barley_crop
+        # manital_wheat_crop: "Manital wheat crop"         # improving_wheat_crop
+        # miradoux_wheat_crop: "Miradoux wheat crop"       # durum_wheat_crop
+        # non_improving_wheat_crop: "Non improving wheat crop"
+        # oat_crop: "Oat crop"
+        # oratorio_wheat_crop: "Oratorio wheat crop"       # non_improving_wheat_crop
+        # other_crop: "Other crop"
+        # pescadou_wheat_crop: "Pescadou wheat crop"       # durum_wheat_crop
+        # qualital_wheat_crop: "Qualital wheat crop"       # improving_wheat_crop
+        # quality_wheat_crop: "Quality wheat crop"         # improving_wheat_crop
+        # quebon_wheat_crop: "Quebon wheat crop"           # improving_wheat_crop
+        # recital_wheat_crop: "Recital wheat crop"         # non_improving_wheat_crop
+        # renan_wheat_crop: "Renan wheat crop"             # improving_wheat_crop
+        # rubisko_wheat_crop: "Rubisko wheat crop"         # non_improving_wheat_crop
+        # runal_wheat_crop: "Runal wheat crop"             # improving_wheat_crop
+        # sculptur_wheat_crop: "Sculptur wheat crop"       # durum_wheat_crop
+        # secale_crop: "Secale crop"
+        # soissons_wheat_crop: "Soissons wheat crop"       # non_improving_wheat_crop
+        # spring_barley_crop: "Spring barley crop"
+        # sy_banco_wheat_crop: "Sy banco wheat crop"       # durum_wheat_crop
+        # sy_cysco_wheat_crop: "Sy cysco wheat crop"       # durum_wheat_crop
+        # tablur_wheat_crop: "Tablur wheat crop"           # durum_wheat_crop
+        # tamaro_wheat_crop: "Tamaro wheat crop"           # improving_wheat_crop
+        # texel_wheat_crop: "Texel wheat crop"             # non_improving_wheat_crop
+        # tremie_wheat_crop: "Tremie wheat crop"           # non_improving_wheat_crop
+        # triticosecale_crop: "Triticosecale crop"
+        # winter_barley_crop: "Winter barley crop"
+    nmp_poitou_charentes_abacus_4:
+      # name: "Nmp poitou charentes abacus 4"
+      attributes:
+        # maximum_leaf_count: "Maximum leaf count"
+        # minimum_leaf_count: "Minimum leaf count"
+        # pi: "Pi"
+      items:
+        # good_growth: "Good growth"
+        # little_growth: "Little growth"
+        # no_growth: "No growth"
     procedure_natures:
       name: "Types de procédures"
       attributes:
@@ -1714,7 +2017,6 @@ fra:
         bioproduct: "Produit vivant"                       # matter
         black_valley_soil: "Terres noires de vallées"      # land_parcel
         bos: "Bovin"                                       # mammalia
-        brassage_hordeum_hibernum: "Orge d’hiver de brasserie" # hordeum_hibernum
         brassica_napus: "Colza"                            # brassicaceae
         brassica_nigra: "Moutarde noire"                   # brassicaceae
         brassica_rapa: "Navet"                             # brassicaceae
@@ -1764,7 +2066,10 @@ fra:
         herbicide: "Produit herbicide"                     # plant_medicine
         hordeum: "Orge"                                    # poaceae
         hordeum_hibernum: "Orge d’hiver"                   # hordeum
+        hordeum_hibernum_cerevisiae: "Orge d’hiver de brasserie" # hordeum_hibernum
+        hordeum_hibernum_cerevisiae_hypoproteinae: "Orge d’hiver de brasserie (faible teneur en protéïnes)" # hordeum_hibernum_cerevisiae
         hordeum_vernum: "Orge de printemps"                # hordeum
+        hordeum_vernum_hypoproteinae: "Orge de printemps (faible teneur en protéïnes)" # hordeum_vernum
         hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe" # land_parcel
         immatter: "Immatérialisable"                       # product
         insecta: "Insecte"                                 # animal
@@ -1777,8 +2082,6 @@ fra:
         lepus: "Lagomorphe"                                # mammalia
         levis: "Levis"                                     # triticum_aestivum
         lona: "Lona"                                       # triticum_aestivum
-        low_protein_brassage_hordeum_hibernum: "Orge d’hiver de brasserie (faible teneur en protéïnes)" # hordeum_hibernum
-        low_protein_hordeum_vernum: "Orge de printemps (faible teneur en protéïnes)" # hordeum_vernum
         malus: "Pommier"                                   # plant
         mammalia: "Mammifère"                              # animal
         manital: "Manital"                                 # triticum_aestivum

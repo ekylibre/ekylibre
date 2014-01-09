@@ -9,14 +9,19 @@
 
   <nomenclature name="varieties-hordeum_hibernum" hierarchical="true">
     <items>
-      <item name="brassage_hordeum_hibernum"/>
-      <item name="low_protein_brassage_hordeum_hibernum"/>
+      <item name="hordeum_hibernum_cerevisiae"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="varieties-hordeum_hibernum_cerevisiae" hierarchical="true">
+    <items>
+      <item name="hordeum_hibernum_cerevisiae_hypoproteinae"/>
     </items>
   </nomenclature>
 
   <nomenclature name="varieties-hordeum_vernum" hierarchical="true">
     <items>
-      <item name="low_protein_hordeum_vernum"/>
+      <item name="hordeum_vernum_hypoproteinae"/>
     </items>
   </nomenclature>
 

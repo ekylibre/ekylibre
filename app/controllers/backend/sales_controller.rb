@@ -218,7 +218,7 @@ class Backend::SalesController < BackendController
         return
       end
       responsible = Entity.find_by_id(params[:sale][:responsible_id]) if params[:sale]
-      if credit = @sale.cancel(items, :responsible => responsible||@current_user)
+      if credit = @sale.cancel(items, :responsible => responsible || current_user)
         redirect_to :action => :show, :id => credit.id
       end
     end
@@ -327,7 +327,7 @@ class Backend::SalesController < BackendController
     return unless sale = find_and_check
     copy = nil
     begin
-      copy = sale.duplicate(:responsible_id => @current_user.id)
+      copy = sale.duplicate(:responsible_id => current_user.id)
     rescue Exception => e
       notify_error(:exception_raised, :message => e.message)
     end

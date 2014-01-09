@@ -914,6 +914,7 @@ fra:
     product_ownerships: "Product ownerships"
     production: "Production"
     # production_support: "Production support"
+    # production_supports: "Production supports"
     productions: "Productions"
     products: "Produits"
     products_categories: "Catégories de produits avec produit"
