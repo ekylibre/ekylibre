@@ -879,6 +879,30 @@ fra:
         public_interest_group: "Groupement d’intérêt public" # legal_entity
         sir: "Monsieur"                                    # person
         syndicate: "Syndicat"                              # legal_entity
+    france_crops_sets:
+      name: "Typologie de culture (France)"
+      attributes:
+        varieties: "Variétés"
+      items:
+        alfalfa: "Luzerne"
+        bean: "Haricot"
+        beet: "Betterave"
+        carrot: "Carotte"
+        chicory: "Endive"
+        corn: "Maïs"
+        flax: "Lin"
+        grass: "Graminée"
+        grass_leguminous: "Graminée et Legumineuse"
+        leguminous: "Legumineuse"
+        meadow: "Prairie"
+        nightshade: "Pomme de terre"
+        peas: "Pois"
+        rape: "Colza"
+        spring_straw_cereal: "Céréales à paille de printemps"
+        straw_cereal: "Céréales à paille"
+        sunflower: "Tournesol"
+        vetch: "Féverole"
+        winter_straw_cereal: "Céréales à paille d'hiver"
     incidents:
       name: "Incidents"
       attributes:
@@ -896,7 +920,7 @@ fra:
         mammite: "Mammite"                                 # animal_pathology
         nematoda_disease: "Maladies à nématodes"           # vegetal_pathology
         other: "Autre"                                     # animal_pathology
-        # protozoa_disease: "Protozoa disease"             # vegetal_pathology
+        protozoa_disease: "Maladies virales"               # vegetal_pathology
         respiratory_problem: "Problèmes respiratoires"     # animal_pathology
         vegetal_pathology: "Pathologie végétale"           # incident
     indicators:
@@ -1477,12 +1501,15 @@ fra:
     nmp_poitou_charentes_abacus_5:
       # name: "Nmp poitou charentes abacus 5"
       attributes:
+        # cereal_crop: "Cereal crop"
+        # cereal_typology: "Cereal typology"
+        # husbandry: "Husbandry"
+        # husbandry_with_mixed_crop: "Husbandry with mixed crop"
         # land_parcel_variety: "Land parcel variety"
-        # mh_indicators_values: "Mh indicators values"
-        # plant_variety: "Plant variety"
+        # mixed_crop: "Mixed crop"
       choices:
+        # cereal_typology: # Choices comes from nomenclature: france_crops_sets
         # land_parcel_variety: # Choices comes from nomenclature: varieties
-        # plant_variety: # Choices comes from nomenclature: varieties
       items:
         # aubues_triticum_aestivum: "Aubues triticum aestivum"
         # black_valley_triticum_aestivum: "Black valley triticum aestivum"
@@ -1500,11 +1527,13 @@ fra:
     nmp_poitou_charentes_abacus_6:
       # name: "Nmp poitou charentes abacus 6"
       attributes:
+        # cereal_typology: "Cereal typology"
         # maximum_age: "Maximum age"
         # mhp: "Mhp"
         # minimum_age: "Minimum age"
         # rank: "Rank"
-        # season: "Season"
+      choices:
+        # cereal_typology: # Choices comes from nomenclature: france_crops_sets
       items:
         # autumn_0_120_second: "Autumn 0 120 second"
         # autumn_0_120_third: "Autumn 0 120 third"
@@ -1523,6 +1552,59 @@ fra:
         # spring_36_60_second: "Spring 36 60 second"
         # spring_60_120_first: "Spring 60 120 first"
         # spring_60_120_second: "Spring 60 120 second"
+    nmp_poitou_charentes_abacus_7:
+      # name: "Nmp poitou charentes abacus 7"
+      attributes:
+        # crop_destruction_method: "Crop destruction method"
+        # current_crop_implantation_period_start: "Current crop implantation period start"
+        # mr: "Mr"
+        # previous_crop: "Previous crop"
+        # previous_crop_destruction_period_start: "Previous crop destruction period start"
+        # previous_crop_destruction_period_stop: "Previous crop destruction period stop"
+        # previous_crop_maximum_age: "Previous crop maximum age"
+        # previous_crop_minimum_age: "Previous crop minimum age"
+      choices:
+        crop_destruction_method:
+        # previous_crop: # Choices comes from nomenclature: france_crops_sets
+      items:
+        # alfalfa_current_year: "Alfalfa current year"
+        # alfalfa_next_year: "Alfalfa next year"
+        # bean: "Bean"
+        # beet: "Beet"
+        # carrot: "Carrot"
+        # chicory: "Chicory"
+        # concealed_meadow: "Concealed meadow"
+        # flax: "Flax"
+        # grain_corn: "Grain corn"
+        # grass_fallow_land_A1: "Grass fallow land a1"
+        # grass_fallow_land_A2: "Grass fallow land a2"
+        # grass_fallow_land_A3: "Grass fallow land a3"
+        # grass_fallow_land_B1: "Grass fallow land b1"
+        # grass_fallow_land_B2: "Grass fallow land b2"
+        # grass_fallow_land_B3: "Grass fallow land b3"
+        # grass_leguminous_fallow_land: "Grass leguminous fallow land"
+        # grass_leguminous_fallow_land_A1: "Grass leguminous fallow land a1"
+        # grass_leguminous_fallow_land_A2: "Grass leguminous fallow land a2"
+        # grass_leguminous_fallow_land_A3: "Grass leguminous fallow land a3"
+        # grass_leguminous_fallow_land_B1: "Grass leguminous fallow land b1"
+        # grass_leguminous_fallow_land_B2: "Grass leguminous fallow land b2"
+        # grass_leguminous_fallow_land_B3: "Grass leguminous fallow land b3"
+        # leguminous_fallow_land: "Leguminous fallow land"
+        # leguminous_fallow_land_A1: "Leguminous fallow land a1"
+        # leguminous_fallow_land_A2: "Leguminous fallow land a2"
+        # leguminous_fallow_land_A3: "Leguminous fallow land a3"
+        # leguminous_fallow_land_B1: "Leguminous fallow land b1"
+        # leguminous_fallow_land_B2: "Leguminous fallow land b2"
+        # leguminous_fallow_land_B3: "Leguminous fallow land b3"
+        # meadow: "Meadow"
+        # nightshade: "Nightshade"
+        # peas: "Peas"
+        # rape: "Rape"
+        # silage_corn: "Silage corn"
+        # straw_cereal_buried: "Straw cereal buried"
+        # straw_cereal_export: "Straw cereal export"
+        # sunflower: "Sunflower"
+        # vetch: "Vetch"
     procedure_natures:
       name: "Types de procédures"
       attributes:
@@ -2050,12 +2132,14 @@ fra:
         actilact: "Actilact"                               # animal_medicine
         additive: "Additif"                                # plant_medicine
         alexis: "Alexis"                                   # triticum_durum
+        amaranthaceae: "Amaranthaceae"                     # plant
         anas: "Palmipède"                                  # aves
         animal: "Animal"                                   # bioproduct
         animal_group: "Troupeau"                           # product_group
         animal_medicine: "Médicament vétérinaire"          # medicine
         antiseptic: "Antiseptique"                         # medicine
         apache: "Blé Apache"                               # triticum_aestivum
+        apiaceae: "Apiaceae"                               # plant
         apis: "Apidés"                                     # insecta
         ascott: "Ascott"                                   # triticum_aestivum
         asteraceae: "Astéracée"                            # plant
@@ -2066,14 +2150,16 @@ fra:
         aves: "Oiseau"                                     # animal
         aztec: "Aztec"                                     # triticum_aestivum
         baler: "Botteleuse"                                # equipment
-        # bambusa: "Bambusa"                               # poaceae
+        bambusa: "Bambou"                                  # poaceae
+        beta: "Betterave"                                  # amaranthaceae
         biensur: "Biensur"                                 # triticum_durum
         bioproduct: "Produit vivant"                       # matter
         black_valley_soil: "Terres noires de vallées"      # land_parcel
         bos: "Bovin"                                       # mammalia
-        brassica_napus: "Colza"                            # brassicaceae
-        brassica_nigra: "Moutarde noire"                   # brassicaceae
-        brassica_rapa: "Navet"                             # brassicaceae
+        brassica: "Colza"                                  # brassicaceae
+        brassica_napus: "Colza"                            # brassica
+        brassica_nigra: "Moutarde noire"                   # brassica
+        brassica_rapa: "Navet"                             # brassica
         brassicaceae: "Crucifères"                         # plant
         building: "Bâtiment"                               # product_group
         building_division: "Pièce de bâtiment"             # sub_zone
@@ -2086,12 +2172,14 @@ fra:
         champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)" # land_parcel
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertiliser: "Engrais chimique"            # mineral_matter
+        cichorium: "Chicoré"                               # asteraceae
         clay_limestone_soil: "Sol argilo-calcaire (Groies)" # land_parcel
         clay_soil: "Terre d’argile lourde"                 # land_parcel
         courtot: "Courtot"                                 # triticum_aestivum
         cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
         cultivable_zone: "Zone cultivable"                 # zone
         cultur: "Cultur"                                   # triticum_durum
+        daucus: "Carotte"                                  # apiaceae
         disinfectant: "Désinfectant"                       # antiseptic
         easement: "Aménagement foncier"                    # zone
         electricity: "Electricité"                         # matter
@@ -2135,6 +2223,8 @@ fra:
         land_parcel_group: "Groupe de parcelles physiques" # product_group
         lepus: "Lagomorphe"                                # mammalia
         levis: "Levis"                                     # triticum_aestivum
+        linaceae: "Linaceae"                               # plant
+        linum: "Lin"                                       # linaceae
         lona: "Lona"                                       # triticum_aestivum
         malus: "Pommier"                                   # plant
         mammalia: "Mammifère"                              # animal
@@ -2155,10 +2245,11 @@ fra:
         mower: "Faucheuse"                                 # equipment
         oratorio: "Oratorio"                               # triticum_aestivum
         organic_matter: "Matière organique"                # matter
-        # oryza: "Oryza"                                   # poaceae
+        oryza: "Riz"                                       # poaceae
         osteichthyes: "Poissons osseux"                    # animal
         ovis: "Ovin"                                       # mammalia
         pescadou: "Pescadou"                               # triticum_durum
+        phaseolus: "Haricot"                               # fabaceae
         pinot_noir: "Pinot noir"                           # vitis_vinifera
         pisum: "Pisum"                                     # fabaceae
         plant: "Végétal"                                   # bioproduct
@@ -2198,6 +2289,8 @@ fra:
         silty_clay_loam_soil: "Sol limono-argileux"        # land_parcel
         silty_clay_soil: "Sol argilo-limoneux"             # land_parcel
         soissons: "Soissons"                               # triticum_aestivum
+        solanaceae: "Solanaceae"                           # plant
+        solanum: "Pomme de terre"                          # solanaceae
         sorghum: "Sorgho"                                  # poaceae
         sower: "Semoir"                                    # equipment
         sprayer: "Pulvérisateur"                           # equipment
@@ -2216,13 +2309,14 @@ fra:
         tractor: "Tracteur"                                # equipment
         trailer: "Remorque"                                # equipment
         tremie: "Tremie"                                   # triticum_aestivum
-        # triticosecale: "Triticosecale"                   # poaceae
-        # triticum: "Triticum"                             # poaceae
+        triticosecale: "Triticale"                         # poaceae
+        triticum: "Blé"                                    # poaceae
         triticum_aestivum: "Blé tendre"                    # triticum
         triticum_durum: "Blé dur"                          # triticum
         triticum_spelta: "Épeautre"                        # triticum
         ugni_blanc: "Ugni blanc"                           # vitis_vinifera
         valley_terrace_soil: "Sols de terrasse de vallée"  # land_parcel
+        vicia: "Vesces - Féverolle"                        # fabaceae
         vitis: "Vigne"                                     # plant
         vitis_vinifera: "Vitis vinifera"                   # vitis
         water: "Eau"                                       # matter

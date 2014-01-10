@@ -1033,6 +1033,30 @@ eng:
         sir: "Sir"
         syndicate: "Syndicate"
       # name: "Types de tiers"
+    france_crops_sets:
+      attributes:
+        # varieties: "Variétés"
+      items:
+        # alfalfa: "Luzerne"
+        # bean: "Haricot"
+        # beet: "Betterave"
+        # carrot: "Carotte"
+        # chicory: "Endive"
+        # corn: "Maïs"
+        # flax: "Lin"
+        # grass: "Graminée"
+        # grass_leguminous: "Graminée et Legumineuse"
+        # leguminous: "Legumineuse"
+        # meadow: "Prairie"
+        # nightshade: "Pomme de terre"
+        # peas: "Pois"
+        # rape: "Colza"
+        # spring_straw_cereal: "Céréales à paille de printemps"
+        # straw_cereal: "Céréales à paille"
+        # sunflower: "Tournesol"
+        # vetch: "Féverole"
+        # winter_straw_cereal: "Céréales à paille d'hiver"
+      # name: "Typologie de culture (France)"
     incidents:
       attributes:
         # target: "Cible"
@@ -1049,6 +1073,7 @@ eng:
         # mammite: "Mammite"
         # nematoda_disease: "Maladies à nématodes"
         # other: "Autre"
+        # protozoa_disease: "Maladies virales"
         # respiratory_problem: "Problèmes respiratoires"
         # vegetal_pathology: "Pathologie végétale"
       # name: "Incidents"
@@ -1392,6 +1417,12 @@ eng:
       items: #?
     nmp_poitou_charentes_abacus_6:
       attributes: #?
+      choices: #?
+      items: #?
+    nmp_poitou_charentes_abacus_7:
+      attributes: #?
+      choices:
+        crop_destruction_method: #?
       items: #?
     procedure_natures:
       attributes: #?
@@ -1927,12 +1958,14 @@ eng:
         # actilact: "Actilact"
         # additive: "Additif"
         # alexis: "Alexis"
+        # amaranthaceae: "Amaranthaceae"
         # anas: "Palmipède"
         animal: "Animal"
         # animal_group: "Troupeau"
         # animal_medicine: "Médicament vétérinaire"
         # antiseptic: "Antiseptique"
         # apache: "Blé Apache"
+        # apiaceae: "Apiaceae"
         # apis: "Apidés"
         # ascott: "Ascott"
         # asteraceae: "Astéracée"
@@ -1943,10 +1976,13 @@ eng:
         # aves: "Oiseau"
         # aztec: "Aztec"
         # baler: "Botteleuse"
+        # bambusa: "Bambou"
+        # beta: "Betterave"
         # biensur: "Biensur"
         bioproduct: "Bioproduct"
         # black_valley_soil: "Terres noires de vallées"
         # bos: "Bovin"
+        # brassica: "Colza"
         # brassica_napus: "Colza"
         # brassica_nigra: "Moutarde noire"
         # brassica_rapa: "Navet"
@@ -1962,12 +1998,14 @@ eng:
         # champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)"
         # chardonnay: "Chardonnay"
         # chemical_fertiliser: "Engrais chimique"
+        # cichorium: "Chicoré"
         # clay_limestone_soil: "Sol argilo-calcaire (Groies)"
         # clay_soil: "Terre d’argile lourde"
         # courtot: "Courtot"
         # cultivable_land_parcel: "Parcelle culturale"
         # cultivable_zone: "Zone cultivable"
         # cultur: "Cultur"
+        # daucus: "Carotte"
         # disinfectant: "Désinfectant"
         # easement: "Aménagement foncier"
         # electricity: "Electricité"
@@ -2011,6 +2049,8 @@ eng:
         # land_parcel_group: "Groupe de parcelles physiques"
         # lepus: "Lagomorphe"
         # levis: "Levis"
+        # linaceae: "Linaceae"
+        # linum: "Lin"
         # lona: "Lona"
         # malus: "Pommier"
         # mammalia: "Mammifère"
@@ -2031,9 +2071,11 @@ eng:
         # mower: "Faucheuse"
         # oratorio: "Oratorio"
         organic_matter: "Organic matter"
+        # oryza: "Riz"
         # osteichthyes: "Poissons osseux"
         # ovis: "Ovin"
         # pescadou: "Pescadou"
+        # phaseolus: "Haricot"
         phytosanitary: "Phytosanitary" #?
         # pinot_noir: "Pinot noir"
         # pisum: "Pisum"
@@ -2074,6 +2116,8 @@ eng:
         # silty_clay_loam_soil: "Sol limono-argileux"
         # silty_clay_soil: "Sol argilo-limoneux"
         # soissons: "Soissons"
+        # solanaceae: "Solanaceae"
+        # solanum: "Pomme de terre"
         # sorghum: "Sorgho"
         # sower: "Semoir"
         # sprayer: "Pulvérisateur"
@@ -2092,11 +2136,14 @@ eng:
         # tractor: "Tracteur"
         # trailer: "Remorque"
         # tremie: "Tremie"
+        # triticosecale: "Triticale"
+        # triticum: "Blé"
         # triticum_aestivum: "Blé tendre"
         # triticum_durum: "Blé dur"
         # triticum_spelta: "Épeautre"
         # ugni_blanc: "Ugni blanc"
         # valley_terrace_soil: "Sols de terrasse de vallée"
+        # vicia: "Vesces - Féverolle"
         # vitis: "Vigne"
         # vitis_vinifera: "Vitis vinifera"
         # water: "Eau"

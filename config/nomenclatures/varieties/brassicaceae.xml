@@ -2,9 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-brassicaceae" hierarchical="true">
     <items>
-      <item name="brassica_napus" itis-tsn="12345"/>
-      <item name="brassica_rapa" itis-tsn="12345"/>
-      <item name="brassica_nigra" itis-tsn="12345"/>
+      <item name="brassica" itis-tsn="23054"/>
     </items>
   </nomenclature>
 </nomenclatures>

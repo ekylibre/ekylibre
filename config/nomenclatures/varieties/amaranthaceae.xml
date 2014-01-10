@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-asteraceae" hierarchical="true">
+  <nomenclature name="varieties-amaranthaceae" hierarchical="true">
     <items>
-      <item name="helianthus" itis-tsn="36611"/>
-      <item name="cichorium" itis-tsn="36762"/>
+      <item name="beta" itis-tsn="20680"/>
     </items>
   </nomenclature>
 </nomenclatures>
