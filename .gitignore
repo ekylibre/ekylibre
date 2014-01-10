@@ -1,0 +1,11 @@
+*~
+/.bundle
+config/database.yml
+config/api.yml
+config/tools.xml
+log/*.log
+/pkg
+private/
+tmp/
+coverage/
+doc/app/
