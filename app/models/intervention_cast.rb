@@ -83,7 +83,7 @@ class InterventionCast < Ekylibre::Record::Base
   def cost
     if self.actor and price = self.evaluated_price
       if self.input?
-        price * self.population
+        price * (self.population || 0.0)
       else self.tool? or self.doer?
         price * (self.stopped_at - self.started_at) / 3600
       end
