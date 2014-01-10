@@ -41,7 +41,7 @@ kilo:
   company_id: 1
   label: Kilo
   name: kg
-  quantity: 1000
+  coefficient: 1000
   base: g
   created_at: <%= Time.now %>
   updated_at: <%= Time.now %>

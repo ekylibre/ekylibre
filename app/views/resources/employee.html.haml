@@ -22,7 +22,7 @@
     -c << toolbar do 
       -link(:sale_order_create, :controller=>:management)
     -c << dyta(:employee_sale_orders)
-  -if @user.shape_operations.size > 0
-    -tb.tab(tc(:shape_operations, :count=>@user.shape_operations.count)) do |c|
-      -c << dyta(:employee_shape_operations) 
+  -if @user.operations.size > 0
+    -tb.tab(tc(:operations, :count=>@user.operations.count)) do |c|
+      -c << dyta(:employee_operations) 
         

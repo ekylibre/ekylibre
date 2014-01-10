@@ -70,7 +70,7 @@ class Operation < ActiveRecord::Base
     self.tool_uses.destroy_all if self.tool_uses
     unless tools.nil?
       tools.each do |tool|
-        self.company.tool_uses.create!(:shape_operation_id=>self.id, :tool_id=>tool[0].to_i)
+        self.company.tool_uses.create!(:operation_id=>self.id, :tool_id=>tool[0].to_i)
       end
     end
     self.reload

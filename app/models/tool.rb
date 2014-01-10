@@ -50,7 +50,7 @@ class Tool < ActiveRecord::Base
   def usage_duration_sum
     sum = 0
     self.uses.each do |usage|
-      sum += usage.shape_operation.duration
+      sum += usage.operation.duration
     end
     sum/60
   end

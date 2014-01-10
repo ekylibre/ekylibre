@@ -19,10 +19,11 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
-  config.gem "haml"
+  config.gem "haml", :version => '< 4'
   config.gem "fastercsv"
-  config.gem "libxml-ruby", :lib=>'libxml'
-  config.gem "rubyzip", :lib=>"zip/zip"
+  config.gem "libxml-ruby", :lib => 'libxml'
+  config.gem "rubyzip", :lib => "zip/zip", :version => '< 1'
+  # config.gem "rmagick"
   # config.gem "RedCloth", :lib=>"redcloth"
   # config.gem "measure"
 
@@ -58,6 +59,5 @@ if defined? WillPaginate
   WillPaginate::ViewHelpers.pagination_options[:next_label] = I18n.t('general.next')
 end
 
-# ExceptionNotifier.exception_recipients = %w(dev@ekylibre.org dev@fdsea33.fr)
-ExceptionNotifier.exception_recipients = %w(dev@fdsea33.fr)
+ExceptionNotifier.exception_recipients = %w(dev@ekylibre.fr)
 ExceptionNotifier.sender_address =  %("Ekylibre Error" <notifier@ekylibre.org>)

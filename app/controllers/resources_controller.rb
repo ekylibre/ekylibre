@@ -59,16 +59,16 @@ class ResourcesController < ApplicationController
     t.action :sale_order_delete ,:controller=>:management,  :method=>:post, :if=>'RECORD.estimate? ', :confirm=>:are_you_sure
   end
 
-   dyta(:employee_shape_operations, :model=>:shape_operations, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|
-    t.column :name, :url=>{:action=>:shape_operation, :controller=>:production}
+   dyta(:employee_operations, :model=>:operations, :conditions=>{:company_id=>['@current_company.id'], :responsible_id=>['session[:current_employee]']}, :order=>'planned_on desc, name asc') do |t|
+    t.column :name, :url=>{:action=>:operation, :controller=>:production}
     t.column :name, :through=>:nature
     t.column :planned_on
     t.column :moved_on
     t.column :tools_list
     t.column :name, :through=>:shape, :url=>{:action=>:shape, :controller=>:production}
     t.column :duration
-    t.action :shape_operation_update, :image=>:update,:controller=>:production
-    t.action :shape_operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure,:controller=>:production
+    t.action :operation_update, :image=>:update,:controller=>:production
+    t.action :operation_delete, :method=>:post, :image=>:delete, :confirm=>:are_you_sure,:controller=>:production
   end
   
   def employee

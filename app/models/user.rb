@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :parameters
   has_many :sale_orders, :foreign_key=>:responsible_id
-  has_many :shape_operations, :foreign_key=>:responsible_id
+  has_many :operations, :foreign_key=>:responsible_id
   has_many :transports, :foreign_key=>:responsible_id
   
 
@@ -243,7 +243,7 @@ end
 #   has_many :clients, :class_name=>Entity.to_s
 #   has_many :events
 #   has_many :sale_orders, :foreign_key=>:responsible_id
-#   has_many :shape_operations
+#   has_many :operations
 #   has_many :transports
 
 #   attr_readonly :company_id

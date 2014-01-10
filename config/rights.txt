@@ -359,7 +359,7 @@ production       productions_dyta                 manage_productions
 production       shape                            manage_shapes
 production       shape_create                     manage_shapes
 production       shape_delete                     manage_shapes
-production       shape_operations_dyta            manage_shapes
+production       operations_dyta            manage_shapes
 production       shape_update                     manage_shapes
 production       shapes                           manage_shapes
 production       shapes_dyta                      manage_shapes
@@ -469,7 +469,7 @@ resources        employee                         administrate_resources
 resources        employee_delete                  administrate_resources
 resources        employee_events_dyta             administrate_resources
 resources        employee_sale_orders_dyta        administrate_resources
-resources        employee_shape_operations_dyta   administrate_resources
+resources        employee_operations_dyta   administrate_resources
 resources        employees                        administrate_resources
 resources        employees_dyta                   administrate_resources
 resources        index                            administrate_resources

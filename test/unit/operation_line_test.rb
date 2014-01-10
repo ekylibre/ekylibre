@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -38,7 +39,7 @@
 
 require 'test_helper'
 
-class ShapeOperationLineTest < ActiveSupport::TestCase
+class OperationLineTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true

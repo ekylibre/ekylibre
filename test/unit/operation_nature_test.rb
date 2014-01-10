@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 # 
 # == License
@@ -34,7 +35,7 @@
 
 require 'test_helper'
 
-class ShapeOperationNatureTest < ActiveSupport::TestCase
+class OperationNatureTest < ActiveSupport::TestCase
   # Replace this with your real tests.
   test "the truth" do
     assert true
