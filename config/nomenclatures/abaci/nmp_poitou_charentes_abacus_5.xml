@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
+  <!--  abaque de Mh (kgN / ha) par type de sol , variété de culture et type d'exploitation  -->
+  <nomenclature name="nmp_poitou_charentes_abacus_5" hierarchical="false">
+    <attributes>
+      <attribute name="land_parcel_variety" type="choice" nomenclature="varieties" required="true"/> <!-- -land_parcel -->
+      <attribute name="cereal_typology" type="choice" nomenclature="france_crops_sets" required="false"/> <!-- -poaceae -->      
+      <attribute name="cereal_crop" type="integer" required="false"/>
+      <attribute name="husbandry" type="integer" required="false"/>
+      <attribute name="mixed_crop" type="integer" required="false"/>
+      <attribute name="husbandry_with_mixed_crop" type="integer" required="false"/>
+      <!--
+      "farm_typology" choices="cereal_crop,livestock,mixed_crop,husbandry_with_mixed_crop"
+      mh_indicators_values="cereal_crop: ,husbandry: ,mixed_crop: ,husbandry_with_mixed_crop: "
+       -->
+    </attributes>
+    <items>
+      <!-- CEREALES A PAILLE D'HIVER - TOUTES CEREALES SAUF ORGE DE PRINTEMPS (BLE TENDRE,...) -->
+      <item name="clay_limestone_triticum_aestivum"
+       land_parcel_variety="clay_limestone_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="30"
+       husbandry="35"
+       mixed_crop="40"
+       husbandry_with_mixed_crop="45"
+      />
+      <item name="champagne_triticum_aestivum"
+       land_parcel_variety="champagne_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="30"
+       husbandry="35"
+       mixed_crop="40"
+       husbandry_with_mixed_crop="45"
+      />
+      <item name="aubues_triticum_aestivum"
+       land_parcel_variety="aubues_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="30"
+       husbandry="35"
+       mixed_crop="40"
+       husbandry_with_mixed_crop="45"
+       />
+      <item name="red_chesnut_triticum_aestivum"
+       land_parcel_variety="red_chesnut_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="35"
+       husbandry="40"
+       mixed_crop="45"
+       husbandry_with_mixed_crop="50"
+      />
+      <item name="flap_silt_triticum_aestivum"
+       land_parcel_variety="flap_silt_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="35"
+       husbandry="40"
+       mixed_crop="45"
+       husbandry_with_mixed_crop="50"
+      />
+      <item name="hydromorph_sandy_clay_loam_triticum_aestivum"
+       land_parcel_variety="hydromorph_sandy_clay_loam_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="35"
+       husbandry="40"
+       mixed_crop="45"
+       husbandry_with_mixed_crop="50"
+      />
+      <item name="black_valley_triticum_aestivum"
+       land_parcel_variety="black_valley_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="45"
+       husbandry="50"
+       mixed_crop="50"
+       husbandry_with_mixed_crop="60"
+      />
+      <item name="valley_terrace_triticum_aestivum"
+       land_parcel_variety="valley_terrace_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="30"
+       husbandry="35"
+       mixed_crop="40"
+       husbandry_with_mixed_crop="45"
+      />
+      <item name="sand_triticum_aestivum"
+       land_parcel_variety="sand_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="35"
+       husbandry="40"
+       mixed_crop="45"
+       husbandry_with_mixed_crop="50"
+      />
+      <item name="silty_clay_loam_triticum_aestivum"
+       land_parcel_variety="silty_clay_loam_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="35"
+       husbandry="40"
+       mixed_crop="45"
+       husbandry_with_mixed_crop="50"      
+      />
+      <item name="silty_clay_triticum_aestivum"
+       land_parcel_variety="silty_clay_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="35"
+       husbandry="40"
+       mixed_crop="45"
+       husbandry_with_mixed_crop="50"
+      />
+      <item name="granite_arena_triticum_aestivum"
+       land_parcel_variety="granite_arena_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="35"
+       husbandry="35"
+       mixed_crop="35"
+       husbandry_with_mixed_crop="35"
+      />
+      <item name="silt_schist_triticum_aestivum"
+       land_parcel_variety="silt_schist_soil" 
+       cereal_typology="winter_straw_cereal"
+       cereal_crop="40"
+       husbandry="40"
+       mixed_crop="40"
+       husbandry_with_mixed_crop="40"
+      />
+      <!-- CEREALES A PAILLE DE PRINTEMPS - ORGE DE PRINTEMPS -->
+      <item name="clay_limestone_triticum_aestivum"
+       land_parcel_variety="clay_limestone_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="40"
+       husbandry="45"
+       mixed_crop="50"
+       husbandry_with_mixed_crop="55"
+      />
+      <item name="champagne_triticum_aestivum"
+       land_parcel_variety="champagne_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="40"
+       husbandry="45"
+       mixed_crop="50"
+       husbandry_with_mixed_crop="55"
+      />
+      <item name="aubues_triticum_aestivum"
+       land_parcel_variety="aubues_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="40"
+       husbandry="45"
+       mixed_crop="50"
+       husbandry_with_mixed_crop="55"
+       />
+      <item name="red_chesnut_triticum_aestivum"
+       land_parcel_variety="red_chesnut_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="50"
+       husbandry="50"
+       mixed_crop="65"
+       husbandry_with_mixed_crop="75"
+      />
+      <item name="flap_silt_triticum_aestivum"
+       land_parcel_variety="flap_silt_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="50"
+       husbandry="50"
+       mixed_crop="65"
+       husbandry_with_mixed_crop="75"
+      />
+      <item name="hydromorph_sandy_clay_loam_triticum_aestivum"
+       land_parcel_variety="hydromorph_sandy_clay_loam_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="50"
+       husbandry="50"
+       mixed_crop="65"
+       husbandry_with_mixed_crop="75"
+      />
+      <item name="black_valley_triticum_aestivum"
+       land_parcel_variety="black_valley_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="75"
+       husbandry="85"
+       mixed_crop="85"
+       husbandry_with_mixed_crop="90"
+      />
+      <item name="valley_terrace_triticum_aestivum"
+       land_parcel_variety="valley_terrace_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="50"
+       husbandry="50"
+       mixed_crop="65"
+       husbandry_with_mixed_crop="75"
+      />
+      <item name="sand_triticum_aestivum"
+       land_parcel_variety="sand_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="70"
+       husbandry="75"
+       mixed_crop="80"
+       husbandry_with_mixed_crop="85"
+      />
+      <item name="silty_clay_loam_triticum_aestivum"
+       land_parcel_variety="silty_clay_loam_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="50"
+       husbandry="50"
+       mixed_crop="65"
+       husbandry_with_mixed_crop="75"     
+      />
+      <item name="silty_clay_triticum_aestivum"
+       land_parcel_variety="silty_clay_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="50"
+       husbandry="50"
+       mixed_crop="65"
+       husbandry_with_mixed_crop="75"
+      />
+      <item name="granite_arena_triticum_aestivum"
+       land_parcel_variety="granite_arena_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="50"
+       husbandry="50"
+       mixed_crop="65"
+       husbandry_with_mixed_crop="75"
+      />
+      <item name="silt_schist_triticum_aestivum"
+       land_parcel_variety="silt_schist_soil" 
+       cereal_typology="spring_straw_cereal"
+       cereal_crop="40"
+       husbandry="40"
+       mixed_crop="40"
+       husbandry_with_mixed_crop="40"
+      />
+    </items>
+  </nomenclature>
+</nomenclatures>

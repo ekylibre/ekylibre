@@ -451,7 +451,6 @@ eng:
       financial_year: "Financial year"
       fungus: "Fungus"
       # immatter: "Immatériel"
-      # incident: "Incident"
       incoming_delivery: "Purchase delivery"
       incoming_delivery_item: "Purchase delivery line"
       incoming_delivery_line: "Purchase delivery line" #?
@@ -464,6 +463,7 @@ eng:
       inventory: "Inventory"
       inventory_item: "Inventory line"
       inventory_line: "Inventory line" #?
+      # issue: "Incident"
       journal: "Journal"
       journal_entry: "Journal entry"
       journal_entry_item: "Journal entry line"
@@ -972,8 +972,6 @@ eng:
     importance: "Importance"
     in_cash: "In cash"
     in_name: "In name" #?
-    # incident: "Incident"
-    incidents: "Incidents"
     included: "Included"
     income_reasons: "Income reasons" #?
     incoming_deliveries: "Incoming deliveries"
@@ -1011,6 +1009,8 @@ eng:
     invoiced_on: "Invoiced on"
     invoices_count: "Invoices count"
     is_debit: "Is debit" #?
+    # issue: "Incident"
+    issues: "Issues"
     item_listing: "Item listing"
     item_listing_node: "Item listing node"
     item_nature: "Item type"
@@ -1209,9 +1209,10 @@ eng:
     # population_counting: "Gestion quantitative"
     position: "Position"
     posologies: "Posologies" #?
+    # postal_code: "Code postal"
     postal_zone: "Postal_Zone"
     postal_zones: "Postal_Zones"
-    postcode: "Postcode"
+    postcode: "Postcode" #?
     preferences: "Preferences"
     pregnant: "Pregnant" #?
     # prescription: "Prescription"

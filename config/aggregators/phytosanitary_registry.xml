@@ -34,7 +34,7 @@
               <!-- @TODO find a way to allow input working area<variable name="working_area" value="intervention.casts.of_role(:'plant_illness_treatment-target').first.quantity"/> -->
               <property name="working_area" value="intervention.casts.of_role(:'plant_illness_treatment-target').first.population"/>
               <property name="doer_name" if="intervention.casts.of_role(:'plant_illness_treatment-doer').first.actor" value="intervention.casts.of_role(:'plant_illness_treatment-doer').first.actor.name"/>
-              <section name="incident" of="intervention.incident">
+              <section name="issue" of="intervention.issue">
                 <property name="id" level="api"/>
                 <property name="name"/>
                 <property name="observed_at"/>

@@ -987,21 +987,30 @@ jpn:
         # sir: "Monsieur"
         # syndicate: "Syndicat"
       # name: "Types de tiers"
-    incidents:
+    france_crops_sets:
       attributes:
-        # target: "Cible"
-        # treatments: "Traitements"
+        # varieties: "Variétés"
       items:
-        # accident: "Accident"
-        # climate_incident: "Incident climatique"
-        # diarrhea: "Diarrhée"
-        # fecondity_problem: "Problème de fécondité"
-        # incident: "Incident"
-        # mammite: "Mammite"
-        # other: "Autre"
-        # pathology: "Pathologie"
-        # respiratory_problem: "Problèmes respiratoires"
-      # name: "Incidents"
+        # alfalfa: "Luzerne"
+        # bean: "Haricot"
+        # beet: "Betterave"
+        # carrot: "Carotte"
+        # chicory: "Endive"
+        # corn: "Maïs"
+        # flax: "Lin"
+        # grass: "Graminée"
+        # grass_leguminous: "Graminée et Legumineuse"
+        # leguminous: "Legumineuse"
+        # meadow: "Prairie"
+        # nightshade: "Pomme de terre"
+        # peas: "Pois"
+        # rape: "Colza"
+        # spring_straw_cereal: "Céréales à paille de printemps"
+        # straw_cereal: "Céréales à paille"
+        # sunflower: "Tournesol"
+        # vetch: "Féverole"
+        # winter_straw_cereal: "Céréales à paille d'hiver"
+      # name: "Typologie de culture (France)"
     indicators:
       attributes:
         # choices: "Choix"
@@ -1101,11 +1110,13 @@ jpn:
             # germination: "Germination"
             # maturity: "Maturité"
             # senescence: "Senescence"
+            # tillering: "Tallage"
         plant_reproduction_state:
           choices:
             # flowering: "Floraison"
             # grain_maturity: "Maturité du grain"
             # grain_senescence: "Senescence du grain"
+            # heading: "Epiaison"
         population: #?
         potassium_concentration: #?
         protein_matters_concentration: #?
@@ -1180,6 +1191,25 @@ jpn:
         # water_content_rate: "Teneur en eau"
         # width: "Largeur"
       # name: "Indicateurs"
+    issue_natures:
+      attributes:
+        # target: "Cible"
+        # treatments: "Traitements"
+      items:
+        # accident: "Accident"
+        # animal_pathology: "Pathologie animale"
+        # bacteria_disease: "Maladies bactériennes"
+        # diarrhea: "Diarrhée"
+        # fecondity_problem: "Problème de fécondité"
+        # fungus_disease: "Maladies cryptogamiques"
+        # issue: "Incident"
+        # mammite: "Mammite"
+        # nematoda_disease: "Maladies à nématodes"
+        # other: "Autre"
+        # protozoa_disease: "Maladies virales"
+        # respiratory_problem: "Problèmes respiratoires"
+        # vegetal_pathology: "Pathologie végétale"
+      # name: "Types d’incident"
     languages:
       items:
         afr: "アフリカーンス語"
@@ -1287,6 +1317,36 @@ jpn:
         uzb: "ウズベク語"
         vie: "ベトナム語（ヴェトナム語）"
       # name: "Langues"
+    nmp_methods:
+      items: #?
+    nmp_poitou_charentes_abacus_1:
+      attributes: #?
+      choices: #?
+      items: #?
+    nmp_poitou_charentes_abacus_2:
+      attributes: #?
+      choices: #?
+      items: #?
+    nmp_poitou_charentes_abacus_3:
+      attributes: #?
+      choices: #?
+      items: #?
+    nmp_poitou_charentes_abacus_4:
+      attributes: #?
+      items: #?
+    nmp_poitou_charentes_abacus_5:
+      attributes: #?
+      choices: #?
+      items: #?
+    nmp_poitou_charentes_abacus_6:
+      attributes: #?
+      choices: #?
+      items: #?
+    nmp_poitou_charentes_abacus_7:
+      attributes: #?
+      choices:
+        crop_destruction_method: #?
+      items: #?
     procedure_natures:
       attributes: #?
       items:
@@ -1451,8 +1511,11 @@ jpn:
         # calf: "Veau"
         # caphorn_wheat_crop: "Culture de blé tendre Caphorn"
         # caphorn_wheat_seed_25: "Semence de blé tendre Caphorn"
+        # cattle_compost: "Compost de bovins"
         # cattle_herd: "Troupeau de bovins"
+        # cattle_liquid_slurry: "Purin de bovins"
         # cattle_manure: "Fumier de bovins"
+        # cattle_slurry: "Lisier de bovins"
         # cereals_feed_bag_25: "Aliments céréales en sac de 25 kg"
         # champagne_land_parcel: "Parcelle sur craie Sud Charente et Charente-Martime  (terre de champagne)"
         # chemical_fertiliser_division: "Emplacement de stockage des engrais"
@@ -1764,8 +1827,10 @@ jpn:
         # ton: "Tonne"
         # ton_per_hectare: "Tonne par hectare"
         # unity: "Unité"
+        # unity_per_hectare: "Unité par hectare"
         # unity_per_kilogram: "Unité par kilogramme"
         # unity_per_liter: "Unité par litre"
+        # unity_per_square_meter: "Unité par mètre carré"
         # watt: "Watt"
       # name: "Unités de mesure"
     varieties:
@@ -1779,12 +1844,14 @@ jpn:
         # actilact: "Actilact"
         # additive: "Additif"
         # alexis: "Alexis"
+        # amaranthaceae: "Amaranthaceae"
         # anas: "Palmipède"
         # animal: "Animal"
         # animal_group: "Troupeau"
         # animal_medicine: "Médicament vétérinaire"
         # antiseptic: "Antiseptique"
         # apache: "Blé Apache"
+        # apiaceae: "Apiaceae"
         # apis: "Apidés"
         # ascott: "Ascott"
         # asteraceae: "Astéracée"
@@ -1795,11 +1862,13 @@ jpn:
         # aves: "Oiseau"
         # aztec: "Aztec"
         # baler: "Botteleuse"
+        # bambusa: "Bambou"
+        # beta: "Betterave"
         # biensur: "Biensur"
         # bioproduct: "Produit vivant"
         # black_valley_soil: "Terres noires de vallées"
         # bos: "Bovin"
-        # brassage_hordeum_hibernum: "Orge d’hiver de brasserie"
+        # brassica: "Colza"
         # brassica_napus: "Colza"
         # brassica_nigra: "Moutarde noire"
         # brassica_rapa: "Navet"
@@ -1815,18 +1884,22 @@ jpn:
         # champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)"
         # chardonnay: "Chardonnay"
         # chemical_fertiliser: "Engrais chimique"
+        # cichorium: "Chicoré"
         # clay_limestone_soil: "Sol argilo-calcaire (Groies)"
         # clay_soil: "Terre d’argile lourde"
+        # compost: "Compost"
         # courtot: "Courtot"
         # cultivable_land_parcel: "Parcelle culturale"
         # cultivable_zone: "Zone cultivable"
         # cultur: "Cultur"
+        # daucus: "Carotte"
         # disinfectant: "Désinfectant"
         # easement: "Aménagement foncier"
         # electricity: "Electricité"
         # equipment: "Équipement"
         # esperia: "Esperia"
         # euclide: "Euclide"
+        # excrement: "Excrément"
         # fabaceae: "Fabaceae"
         # fabulis: "Fabulis"
         # flap_silt_soil: "Limons battants"
@@ -1849,7 +1922,10 @@ jpn:
         # herbicide: "Produit herbicide"
         # hordeum: "Orge"
         # hordeum_hibernum: "Orge d’hiver"
+        # hordeum_hibernum_cerevisiae: "Orge d’hiver de brasserie"
+        # hordeum_hibernum_cerevisiae_hypoproteinae: "Orge d’hiver de brasserie (faible teneur en protéïnes)"
         # hordeum_vernum: "Orge de printemps"
+        # hordeum_vernum_hypoproteinae: "Orge de printemps (faible teneur en protéïnes)"
         # hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe"
         # immatter: "Immatérialisable"
         # insecta: "Insecte"
@@ -1861,9 +1937,10 @@ jpn:
         # land_parcel_group: "Groupe de parcelles physiques"
         # lepus: "Lagomorphe"
         # levis: "Levis"
+        # linaceae: "Linaceae"
+        # linum: "Lin"
+        # liquid_slurry: "Purin"
         # lona: "Lona"
-        # low_protein_brassage_hordeum_hibernum: "Orge d’hiver de brasserie (faible teneur en protéïnes)"
-        # low_protein_hordeum_vernum: "Orge de printemps (faible teneur en protéïnes)"
         # malus: "Pommier"
         # mammalia: "Mammifère"
         # manital: "Manital"
@@ -1883,9 +1960,11 @@ jpn:
         # mower: "Faucheuse"
         # oratorio: "Oratorio"
         # organic_matter: "Matière organique"
+        # oryza: "Riz"
         # osteichthyes: "Poissons osseux"
         # ovis: "Ovin"
         # pescadou: "Pescadou"
+        # phaseolus: "Haricot"
         # pinot_noir: "Pinot noir"
         # pisum: "Pisum"
         # plant: "Végétal"
@@ -1924,7 +2003,10 @@ jpn:
         # silt_soil: "Limon"
         # silty_clay_loam_soil: "Sol limono-argileux"
         # silty_clay_soil: "Sol argilo-limoneux"
+        # slurry: "Lisier"
         # soissons: "Soissons"
+        # solanaceae: "Solanaceae"
+        # solanum: "Pomme de terre"
         # sorghum: "Sorgho"
         # sower: "Semoir"
         # sprayer: "Pulvérisateur"
@@ -1943,11 +2025,14 @@ jpn:
         # tractor: "Tracteur"
         # trailer: "Remorque"
         # tremie: "Tremie"
+        # triticosecale: "Triticale"
+        # triticum: "Blé"
         # triticum_aestivum: "Blé tendre"
         # triticum_durum: "Blé dur"
         # triticum_spelta: "Épeautre"
         # ugni_blanc: "Ugni blanc"
         # valley_terrace_soil: "Sols de terrasse de vallée"
+        # vicia: "Vesces - Féverolle"
         # vitis: "Vigne"
         # vitis_vinifera: "Vitis vinifera"
         # water: "Eau"

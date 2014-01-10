@@ -500,8 +500,6 @@ eng:
         service: "Service"
         worker: "Worker"
         zone: "Zone"
-    incident:
-
     intervention:
       reference_name:
         animal_birth: "Animal birth"
@@ -538,6 +536,8 @@ eng:
         straw: "Straw"
         tractor: "Tractor"
         trailer: "Trailer"
+    issue:
+
     land_parcel_cluster:
       variety:
         animal: "Animal"

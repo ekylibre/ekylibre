@@ -39,6 +39,8 @@ class ProductionSupport < Ekylibre::Record::Base
   belongs_to :production, inverse_of: :supports
   has_many :interventions
   has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support
+  has_one :activity, through: :production
+  has_one :campaign, through: :production
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_inclusion_of :exclusive, :irrigated, in: [true, false]
   validates_presence_of :production, :storage

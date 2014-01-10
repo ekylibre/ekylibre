@@ -51,7 +51,7 @@ Ekylibre::Application.routes.draw do
       get :list_carrier_linkages
       get :list_contained_products
       get :list_groups
-      get :list_incidents
+      get :list_issues
       get :list_indicators
       get :list_intervention_casts
       get :list_measurements
@@ -112,7 +112,7 @@ Ekylibre::Application.routes.draw do
       resource :last_entities_cell, only: :show, concerns: :list
       resource :last_events_cell, only: :show, concerns: :list
       resource :last_incoming_deliveries_cell, only: :show, concerns: :list
-      resource :last_incidents_cell, only: :show, concerns: :list
+      resource :last_issues_cell, only: :show, concerns: :list
       resource :last_interventions_cell, only: :show, concerns: :list
       resource :last_milk_result_cell, only: :show, concerns: :list
       resource :last_outgoing_deliveries_cell, only: :show, concerns: :list
@@ -315,8 +315,11 @@ Ekylibre::Application.routes.draw do
 
     resources :gaps, concerns: [:list, :unroll]
 
-    resources :incidents, concerns: [:list, :picture, :unroll] do
+    resources :issues, concerns: [:list, :picture, :unroll] do
       member do
+        post :abort
+        post :close
+        post :reopen
         get :list_interventions
       end
     end

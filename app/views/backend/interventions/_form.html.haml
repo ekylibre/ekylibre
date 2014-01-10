@@ -4,7 +4,7 @@
   = field_set do
     = f.input :reference_name, as: :hidden
     = f.referenced_association :production_support
-    = f.referenced_association :incident
+    = f.referenced_association :issue
     = f.referenced_association :prescription
     -#= f.referenced_association :production
     = f.input :started_at
@@ -49,7 +49,7 @@
     natures.delete_if{|n| Procedo.procedures_of_nature_and_its_children(n.name).empty?}
     can_go = false
     default_params = {}
-    for x in [:production_support_id, :incident_id, :prescription_id]
+    for x in [:production_support_id, :issue_id, :prescription_id]
       if params[x]
         default_params[x] = params[x]
       end

@@ -5,8 +5,8 @@
   <!--  abaque de rendement (qt / ha) par variant de type de sol, variant de culture et réserve utile (RU) min et max  -->
   <nomenclature name="nmp_poitou_charentes_abacus_2" hierarchical="false">
     <attributes>
-      <attribute name="land_parcel_variety" type="choice" nomenclature="varieties-land_parcel" required="false"/>
-      <attribute name="plant_variety" type="choice" nomenclature="varieties-poaceae" required="false"/>
+      <attribute name="land_parcel_variety" type="choice" nomenclature="varieties" required="false"/> <!-- -land_parcel -->
+      <attribute name="plant_variety" type="choice" nomenclature="varieties" required="false"/> <!-- -poaceae -->
       <attribute name="yield" type="decimal" required="false"/><!-- en qt/ha -->
       <attribute name="minimum_available_water_capacity" type="decimal" required="false"/>
       <attribute name="maximum_available_water_capacity" type="decimal" required="false"/>
@@ -172,46 +172,46 @@
       <item name="swamp_peaty_winter_barley_crop_max" land_parcel_variety="swamp_peaty_soil" plant_variety="hordeum_hibernum" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
       <item name="hydromorph_sandy_clay_loam_winter_barley_crop_min" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="hordeum_hibernum" yield="50" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="hydromorph_sandy_clay_loam_winter_barley_crop_med" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="hordeum_hibernum" yield="60" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <!-- TRITICALE -->
-      <item name="clay_limestone_triticale_crop_min" land_parcel_variety="clay_limestone_soil" plant_variety="triticale" yield="55" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="clay_limestone_triticale_crop_med" land_parcel_variety="clay_limestone_soil" plant_variety="triticale" yield="65" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="clay_limestone_triticale_crop_max" land_parcel_variety="clay_limestone_soil" plant_variety="triticale" yield="75" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="champagne_triticale_crop_min" land_parcel_variety="champagne_soil" plant_variety="triticale" yield="60" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="champagne_triticale_crop_med" land_parcel_variety="champagne_soil" plant_variety="triticale" yield="68" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="champagne_triticale_crop_max" land_parcel_variety="champagne_soil" plant_variety="triticale" yield="75" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="aubues_triticale_crop_min" land_parcel_variety="aubues_soil" plant_variety="triticale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="aubues_triticale_crop_med" land_parcel_variety="aubues_soil" plant_variety="triticale" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="aubues_triticale_crop_max" land_parcel_variety="aubues_soil" plant_variety="triticale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="red_chesnut_triticale_crop_min" land_parcel_variety="red_chesnut_soil" plant_variety="triticale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="red_chesnut_triticale_crop_med" land_parcel_variety="red_chesnut_soil" plant_variety="triticale" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="red_chesnut_triticale_crop_max" land_parcel_variety="red_chesnut_soil" plant_variety="triticale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="flap_silt_triticale_crop_min" land_parcel_variety="flap_silt_soil" plant_variety="triticale" yield="60" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="flap_silt_triticale_crop_med" land_parcel_variety="flap_silt_soil" plant_variety="triticale" yield="70" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="flap_silt_triticale_crop_max" land_parcel_variety="flap_silt_soil" plant_variety="triticale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="black_valley_triticale_crop_med" land_parcel_variety="black_valley_soil" plant_variety="triticale" yield="75" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="black_valley_triticale_crop_max" land_parcel_variety="black_valley_soil" plant_variety="triticale" yield="85" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="valley_terrace_triticale_crop_min" land_parcel_variety="valley_terrace_soil" plant_variety="triticale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="valley_terrace_triticale_crop_med" land_parcel_variety="valley_terrace_soil" plant_variety="triticale" yield="72" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="valley_terrace_triticale_crop_max" land_parcel_variety="valley_terrace_soil" plant_variety="triticale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="sand_triticale_crop_min" land_parcel_variety="sand_soil" plant_variety="triticale" yield="55" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="sand_triticale_crop_med" land_parcel_variety="sand_soil" plant_variety="triticale" yield="65" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="sand_triticale_crop_max" land_parcel_variety="sand_soil" plant_variety="triticale" yield="75" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="silty_clay_loam_triticale_crop_min" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="silty_clay_loam_triticale_crop_med" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticale" yield="72" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="silty_clay_loam_triticale_crop_max" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="silty_clay_triticale_crop_min" land_parcel_variety="silty_clay_soil" plant_variety="triticale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="silty_clay_triticale_crop_med" land_parcel_variety="silty_clay_soil" plant_variety="triticale" yield="72" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="silty_clay_triticale_crop_max" land_parcel_variety="silty_clay_soil" plant_variety="triticale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="granite_arena_triticale_crop_min" land_parcel_variety="granite_arena_soil" plant_variety="triticale" yield="50" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="granite_arena_triticale_crop_med" land_parcel_variety="granite_arena_soil" plant_variety="triticale" yield="58" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="granite_arena_triticale_crop_max" land_parcel_variety="granite_arena_soil" plant_variety="triticale" yield="65" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="silt_schist_triticale_crop_min" land_parcel_variety="silt_schist_soil" plant_variety="triticale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="silt_schist_triticale_crop_med" land_parcel_variety="silt_schist_soil" plant_variety="triticale" yield="72" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="silt_schist_triticale_crop_max" land_parcel_variety="silt_schist_soil" plant_variety="triticale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="swamp_peaty_triticale_crop_med" land_parcel_variety="swamp_peaty_soil" plant_variety="triticale" yield="75" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="swamp_peaty_triticale_crop_max" land_parcel_variety="swamp_peaty_soil" plant_variety="triticale" yield="85" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="hydromorph_sandy_clay_loam_triticale_crop_min" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="triticale" yield="55" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="hydromorph_sandy_clay_loam_triticale_crop_med" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="triticale" yield="65" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <!-- TRITICOSECALE -->
+      <item name="clay_limestone_triticosecale_crop_min" land_parcel_variety="clay_limestone_soil" plant_variety="triticosecale" yield="55" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="clay_limestone_triticosecale_crop_med" land_parcel_variety="clay_limestone_soil" plant_variety="triticosecale" yield="65" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="clay_limestone_triticosecale_crop_max" land_parcel_variety="clay_limestone_soil" plant_variety="triticosecale" yield="75" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="champagne_triticosecale_crop_min" land_parcel_variety="champagne_soil" plant_variety="triticosecale" yield="60" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="champagne_triticosecale_crop_med" land_parcel_variety="champagne_soil" plant_variety="triticosecale" yield="68" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="champagne_triticosecale_crop_max" land_parcel_variety="champagne_soil" plant_variety="triticosecale" yield="75" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="aubues_triticosecale_crop_min" land_parcel_variety="aubues_soil" plant_variety="triticosecale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="aubues_triticosecale_crop_med" land_parcel_variety="aubues_soil" plant_variety="triticosecale" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="aubues_triticosecale_crop_max" land_parcel_variety="aubues_soil" plant_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="red_chesnut_triticosecale_crop_min" land_parcel_variety="red_chesnut_soil" plant_variety="triticosecale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="red_chesnut_triticosecale_crop_med" land_parcel_variety="red_chesnut_soil" plant_variety="triticosecale" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="red_chesnut_triticosecale_crop_max" land_parcel_variety="red_chesnut_soil" plant_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="flap_silt_triticosecale_crop_min" land_parcel_variety="flap_silt_soil" plant_variety="triticosecale" yield="60" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="flap_silt_triticosecale_crop_med" land_parcel_variety="flap_silt_soil" plant_variety="triticosecale" yield="70" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="flap_silt_triticosecale_crop_max" land_parcel_variety="flap_silt_soil" plant_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="black_valley_triticosecale_crop_med" land_parcel_variety="black_valley_soil" plant_variety="triticosecale" yield="75" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="black_valley_triticosecale_crop_max" land_parcel_variety="black_valley_soil" plant_variety="triticosecale" yield="85" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="valley_terrace_triticosecale_crop_min" land_parcel_variety="valley_terrace_soil" plant_variety="triticosecale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="valley_terrace_triticosecale_crop_med" land_parcel_variety="valley_terrace_soil" plant_variety="triticosecale" yield="72" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="valley_terrace_triticosecale_crop_max" land_parcel_variety="valley_terrace_soil" plant_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="sand_triticosecale_crop_min" land_parcel_variety="sand_soil" plant_variety="triticosecale" yield="55" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="sand_triticosecale_crop_med" land_parcel_variety="sand_soil" plant_variety="triticosecale" yield="65" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="sand_triticosecale_crop_max" land_parcel_variety="sand_soil" plant_variety="triticosecale" yield="75" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="silty_clay_loam_triticosecale_crop_min" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticosecale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="silty_clay_loam_triticosecale_crop_med" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticosecale" yield="72" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="silty_clay_loam_triticosecale_crop_max" land_parcel_variety="silty_clay_loam_soil" plant_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="silty_clay_triticosecale_crop_min" land_parcel_variety="silty_clay_soil" plant_variety="triticosecale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="silty_clay_triticosecale_crop_med" land_parcel_variety="silty_clay_soil" plant_variety="triticosecale" yield="72" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="silty_clay_triticosecale_crop_max" land_parcel_variety="silty_clay_soil" plant_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="granite_arena_triticosecale_crop_min" land_parcel_variety="granite_arena_soil" plant_variety="triticosecale" yield="50" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="granite_arena_triticosecale_crop_med" land_parcel_variety="granite_arena_soil" plant_variety="triticosecale" yield="58" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="granite_arena_triticosecale_crop_max" land_parcel_variety="granite_arena_soil" plant_variety="triticosecale" yield="65" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="silt_schist_triticosecale_crop_min" land_parcel_variety="silt_schist_soil" plant_variety="triticosecale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="silt_schist_triticosecale_crop_med" land_parcel_variety="silt_schist_soil" plant_variety="triticosecale" yield="72" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="silt_schist_triticosecale_crop_max" land_parcel_variety="silt_schist_soil" plant_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="swamp_peaty_triticosecale_crop_med" land_parcel_variety="swamp_peaty_soil" plant_variety="triticosecale" yield="75" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="swamp_peaty_triticosecale_crop_max" land_parcel_variety="swamp_peaty_soil" plant_variety="triticosecale" yield="85" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="hydromorph_sandy_clay_loam_triticosecale_crop_min" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="triticosecale" yield="55" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="hydromorph_sandy_clay_loam_triticosecale_crop_med" land_parcel_variety="hydromorph_sandy_clay_loam_soil" plant_variety="triticosecale" yield="65" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
     </items>
   </nomenclature>
 </nomenclatures>

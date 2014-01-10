@@ -372,7 +372,7 @@
         <page to="backend/products#update"/>
         <page to="backend/products#list_contained_products"/>
         <page to="backend/products#list_groups"/>
-        <page to="backend/products#list_incidents"/>
+        <page to="backend/products#list_issues"/>
         <page to="backend/products#list_indicators"/>
         <page to="backend/products#list_intervention_casts"/>
         <page to="backend/products#list_members"/>
@@ -417,7 +417,7 @@
         <page to="backend/product_groups#update"/>
         <page to="backend/product_groups#list_contained_products"/>
         <page to="backend/product_groups#list_groups"/>
-        <page to="backend/product_groups#list_incidents"/>
+        <page to="backend/product_groups#list_issues"/>
         <page to="backend/product_groups#list_indicators"/>
         <page to="backend/product_groups#list_members"/>
         <page to="backend/product_groups#list_places"/>
@@ -578,7 +578,7 @@
         <page to="backend/animals#picture"/>
         <page to="backend/animals#list_contained_products"/>
         <page to="backend/animals#list_groups"/>
-        <page to="backend/animals#list_incidents"/>
+        <page to="backend/animals#list_issues"/>
         <page to="backend/animals#list_indicators"/>
         <page to="backend/animals#list_intervention_casts"/>
         <page to="backend/animals#list_members"/>
@@ -600,7 +600,7 @@
         <page to="backend/animal_medicines#unroll"/>
         <page to="backend/animal_medicines#list_contained_products"/>
         <page to="backend/animal_medicines#list_groups"/>
-        <page to="backend/animal_medicines#list_incidents"/>
+        <page to="backend/animal_medicines#list_issues"/>
         <page to="backend/animal_medicines#list_members"/>
         <page to="backend/animal_medicines#list_places"/>
         <page to="backend/animal_medicines#picture"/>
@@ -655,7 +655,7 @@
         <page to="backend/cultivable_zones#list_productions"/>
         <page to="backend/cultivable_zones#unroll"/>
         <page to="backend/cultivable_zones#list_groups"/>
-        <page to="backend/cultivable_zones#list_incidents"/>
+        <page to="backend/cultivable_zones#list_issues"/>
         <page to="backend/cultivable_zones#list_indicators"/>
         <page to="backend/cultivable_zones#list_members"/>
         <page to="backend/cultivable_zones#list_places"/>
@@ -677,7 +677,7 @@
         <page to="backend/equipments#unroll"/>
         <page to="backend/equipments#list_contained_products"/>
         <page to="backend/equipments#list_groups"/>
-        <page to="backend/equipments#list_incidents"/>
+        <page to="backend/equipments#list_issues"/>
         <page to="backend/equipments#list_indicators"/>
         <page to="backend/equipments#list_members"/>
         <page to="backend/equipments#list_places"/>
@@ -711,19 +711,19 @@
         <page to="backend/calculators/nitrogen_inputs#show"/>
       </item>
     </group>
-    <group name="incidents" icon="bug">
-      <item name="incidents">
-        <page to="backend/incidents#index"/>
-        <page to="backend/incidents#create"/>
-        <page to="backend/incidents#destroy"/>
-        <page to="backend/incidents#edit"/>
-        <page to="backend/incidents#list"/>
-        <page to="backend/incidents#new"/>
-        <page to="backend/incidents#show"/>
-        <page to="backend/incidents#update"/>
-        <page to="backend/incidents#list_interventions"/>
-        <page to="backend/incidents#picture"/>
-        <page to="backend/incidents#unroll"/>
+    <group name="issues" icon="bug">
+      <item name="issues">
+        <page to="backend/issues#index"/>
+        <page to="backend/issues#create"/>
+        <page to="backend/issues#destroy"/>
+        <page to="backend/issues#edit"/>
+        <page to="backend/issues#list"/>
+        <page to="backend/issues#new"/>
+        <page to="backend/issues#show"/>
+        <page to="backend/issues#update"/>
+        <page to="backend/issues#list_interventions"/>
+        <page to="backend/issues#picture"/>
+        <page to="backend/issues#unroll"/>
       </item>
     </group>
     <group name="exchange">
@@ -1162,7 +1162,7 @@
         <page to="backend/buildings#unroll"/>
         <page to="backend/buildings#list_contained_products"/>
         <page to="backend/buildings#list_groups"/>
-        <page to="backend/buildings#list_incidents"/>
+        <page to="backend/buildings#list_issues"/>
         <page to="backend/buildings#list_indicators"/>
         <page to="backend/buildings#list_intervention_casts"/>
         <page to="backend/buildings#list_members"/>
@@ -1181,7 +1181,7 @@
         <page to="backend/building_divisions#unroll"/>
         <page to="backend/building_divisions#update"/>
         <page to="backend/building_divisions#list_groups"/>
-        <page to="backend/building_divisions#list_incidents"/>
+        <page to="backend/building_divisions#list_issues"/>
         <page to="backend/building_divisions#list_indicators"/>
         <page to="backend/building_divisions#list_intervention_casts"/>
         <page to="backend/building_divisions#list_members"/>
@@ -1328,9 +1328,9 @@
         <page to="backend/cells/last_events_cells#list"/>
         <page to="backend/cells/last_events_cells#show"/>
       </item>
-      <item name="last_incidents_cells">
-        <page to="backend/cells/last_incidents_cells#list"/>
-        <page to="backend/cells/last_incidents_cells#show"/>
+      <item name="last_issues_cells">
+        <page to="backend/cells/last_issues_cells#list"/>
+        <page to="backend/cells/last_issues_cells#show"/>
       </item>
       <item name="last_incoming_deliveries_cells">
         <page to="backend/cells/last_incoming_deliveries_cells#list"/>
@@ -1450,6 +1450,11 @@
       <item name="inventories">
         <page to="backend/inventories#unroll"/>
       </item>
+      <item name="issues">
+        <page to="backend/issues#abort"/>
+        <page to="backend/issues#close"/>
+        <page to="backend/issues#reopen"/>
+      </item>
       <item name="journal_entry_items">
         <page to="backend/journal_entry_items#unroll"/>
       </item>
@@ -1461,9 +1466,9 @@
         <page to="backend/land_parcel_clusters#list_carrier_linkages"/>
         <page to="backend/land_parcel_clusters#list_contained_products"/>
         <page to="backend/land_parcel_clusters#list_groups"/>
-        <page to="backend/land_parcel_clusters#list_incidents"/>
         <page to="backend/land_parcel_clusters#list_indicators"/>
         <page to="backend/land_parcel_clusters#list_intervention_casts"/>
+        <page to="backend/land_parcel_clusters#list_issues"/>
         <page to="backend/land_parcel_clusters#list_markers"/>
         <page to="backend/land_parcel_clusters#list_measurements"/>
         <page to="backend/land_parcel_clusters#list_members"/>
@@ -1480,9 +1485,9 @@
         <page to="backend/land_parcel_groups#list_carrier_linkages"/>
         <page to="backend/land_parcel_groups#list_contained_products"/>
         <page to="backend/land_parcel_groups#list_groups"/>
-        <page to="backend/land_parcel_groups#list_incidents"/>
         <page to="backend/land_parcel_groups#list_indicators"/>
         <page to="backend/land_parcel_groups#list_intervention_casts"/>
+        <page to="backend/land_parcel_groups#list_issues"/>
         <page to="backend/land_parcel_groups#list_markers"/>
         <page to="backend/land_parcel_groups#list_measurements"/>
         <page to="backend/land_parcel_groups#list_members"/>
@@ -1498,9 +1503,9 @@
         <page to="backend/land_parcels#list_carrier_linkages"/>
         <page to="backend/land_parcels#list_contained_products"/>
         <page to="backend/land_parcels#list_groups"/>
-        <page to="backend/land_parcels#list_incidents"/>
         <page to="backend/land_parcels#list_indicators"/>
         <page to="backend/land_parcels#list_intervention_casts"/>
+        <page to="backend/land_parcels#list_issues"/>
         <page to="backend/land_parcels#list_markers"/>
         <page to="backend/land_parcels#list_measurements"/>
         <page to="backend/land_parcels#list_members"/>
@@ -1518,9 +1523,9 @@
         <page to="backend/matters#list_carrier_linkages"/>
         <page to="backend/matters#list_contained_products"/>
         <page to="backend/matters#list_groups"/>
-        <page to="backend/matters#list_incidents"/>
         <page to="backend/matters#list_indicators"/>
         <page to="backend/matters#list_intervention_casts"/>
+        <page to="backend/matters#list_issues"/>
         <page to="backend/matters#list_markers"/>
         <page to="backend/matters#list_measurements"/>
         <page to="backend/matters#list_members"/>
@@ -1541,9 +1546,9 @@
         <page to="backend/medicines#list_carrier_linkages"/>
         <page to="backend/medicines#list_contained_products"/>
         <page to="backend/medicines#list_groups"/>
-        <page to="backend/medicines#list_incidents"/>
         <page to="backend/medicines#list_indicators"/>
         <page to="backend/medicines#list_intervention_casts"/>
+        <page to="backend/medicines#list_issues"/>
         <page to="backend/medicines#list_markers"/>
         <page to="backend/medicines#list_measurements"/>
         <page to="backend/medicines#list_members"/>
@@ -1559,7 +1564,7 @@
         <page to="backend/mineral_matters#list_carrier_linkages"/>
         <page to="backend/mineral_matters#list_contained_products"/>
         <page to="backend/mineral_matters#list_groups"/>
-        <page to="backend/mineral_matters#list_incidents"/>
+        <page to="backend/mineral_matters#list_issues"/>
         <page to="backend/mineral_matters#list_markers"/>
         <page to="backend/mineral_matters#list_measurements"/>
         <page to="backend/mineral_matters#list_members"/>
@@ -1571,7 +1576,7 @@
         <page to="backend/organic_matters#list_carrier_linkages"/>
         <page to="backend/organic_matters#list_contained_products"/>
         <page to="backend/organic_matters#list_groups"/>
-        <page to="backend/organic_matters#list_incidents"/>
+        <page to="backend/organic_matters#list_issues"/>
         <page to="backend/organic_matters#list_markers"/>
         <page to="backend/organic_matters#list_measurements"/>
         <page to="backend/organic_matters#list_members"/>
@@ -1589,9 +1594,9 @@
         <page to="backend/plant_medicines#list_carrier_linkages"/>
         <page to="backend/plant_medicines#list_contained_products"/>
         <page to="backend/plant_medicines#list_groups"/>
-        <page to="backend/plant_medicines#list_incidents"/>
         <page to="backend/plant_medicines#list_indicators"/>
         <page to="backend/plant_medicines#list_intervention_casts"/>
+        <page to="backend/plant_medicines#list_issues"/>
         <page to="backend/plant_medicines#list_markers"/>
         <page to="backend/plant_medicines#list_measurements"/>
         <page to="backend/plant_medicines#list_members"/>
@@ -1604,9 +1609,9 @@
         <page to="backend/plants#list_carrier_linkages"/>
         <page to="backend/plants#list_contained_products"/>
         <page to="backend/plants#list_groups"/>
-        <page to="backend/plants#list_incidents"/>
         <page to="backend/plants#list_indicators"/>
         <page to="backend/plants#list_intervention_casts"/>
+        <page to="backend/plants#list_issues"/>
         <page to="backend/plants#list_markers"/>
         <page to="backend/plants#list_measurements"/>
         <page to="backend/plants#list_members"/>
@@ -1714,9 +1719,9 @@
         <page to="backend/settlements#list_carrier_linkages"/>
         <page to="backend/settlements#list_contained_products"/>
         <page to="backend/settlements#list_groups"/>
-        <page to="backend/settlements#list_incidents"/>
         <page to="backend/settlements#list_indicators"/>
         <page to="backend/settlements#list_intervention_casts"/>
+        <page to="backend/settlements#list_issues"/>
         <page to="backend/settlements#list_markers"/>
         <page to="backend/settlements#list_measurements"/>
         <page to="backend/settlements#list_members"/>
@@ -1748,9 +1753,9 @@
         <page to="backend/workers#list_carrier_linkages"/>
         <page to="backend/workers#list_contained_products"/>
         <page to="backend/workers#list_groups"/>
-        <page to="backend/workers#list_incidents"/>
         <page to="backend/workers#list_indicators"/>
         <page to="backend/workers#list_intervention_casts"/>
+        <page to="backend/workers#list_issues"/>
         <page to="backend/workers#list_markers"/>
         <page to="backend/workers#list_measurements"/>
         <page to="backend/workers#list_members"/>

@@ -110,18 +110,16 @@ class Backend::ProductsController < BackendController
     t.column :value
   end
 
-  # incidents of the consider product
-  list(:incidents, conditions: {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, order: {observed_at: :desc}) do |t|
+  # issues of the consider product
+  list(:issues, conditions: {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, order: {observed_at: :desc}) do |t|
     t.column :name, url: true
     t.column :nature
     t.column :observed_at
-    t.column :gravity
-    t.column :priority
-    t.column :state
-    t.action :new, url: {controller: :interventions, incident_id: 'RECORD.id'.c, id: nil}
+    t.status
+    t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}
   end
 
-  # incidents of the consider product
+  # issues of the consider product
   list(:intervention_casts, conditions: {actor_id: 'params[:id]'.c}) do |t|
     t.column :intervention, url: true
     t.column :roles

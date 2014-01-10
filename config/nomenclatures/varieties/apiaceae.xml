@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-apiaceae" hierarchical="true">
+    <items>
+      <item name="daucus" itis-tsn="29476"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

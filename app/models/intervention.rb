@@ -24,7 +24,7 @@
 #  created_at                  :datetime         not null
 #  creator_id                  :integer
 #  id                          :integer          not null, primary key
-#  incident_id                 :integer
+#  issue_id                    :integer
 #  lock_version                :integer          default(0), not null
 #  natures                     :string(255)      not null
 #  prescription_id             :integer
@@ -52,7 +52,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :ressource , :polymorphic => true
   belongs_to :production, inverse_of: :interventions
   belongs_to :production_support
-  belongs_to :incident
+  belongs_to :issue
   belongs_to :prescription
   belongs_to :provisional_intervention, class_name: "Intervention"
   belongs_to :recommender, class_name: "Entity"

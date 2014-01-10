@@ -124,9 +124,9 @@ arb:
     backend/cells/last_document_archives_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
-    backend/cells/last_incidents_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_interventions_cells: #?
+    backend/cells/last_issues_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -304,11 +304,6 @@ arb:
       # index: "Aide"
       # show: "Voir l’aide"
       # toggle: "Basculer l’aide"
-    backend/incidents:
-      # edit: "Modifier l’incident\_: %{name} (%{nature})"
-      # index: "Incidents"
-      # new: "Nouvel incident"
-      # show: "Incident %{name} (%{nature})"
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de l’approvisionnement"
       # edit: "Modifier l’approvisionnement: %{number}"
@@ -345,6 +340,11 @@ arb:
       new: "الجرد"
       # show: "Inventaire %{number}"
     backend/inventory_lines: #?
+    backend/issues:
+      # edit: "Modifier l’incident\_: %{name} (%{nature})"
+      # index: "Incidents"
+      # new: "Nouvel incident"
+      # show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       edit: "تعديل السجل رقم %{number} من %{created_on}"
       new: "اضافة سجل"
@@ -819,6 +819,7 @@ arb:
     # backend/interfacers: "Interfaceurs"
     backend/inventories: "الجرد"
     # backend/inventory_items: "Lignes d’inventaires"
+    # backend/issues: "Incidents"
     # backend/journal_entries: "Écritures comptables"
     # backend/journal_entry_items: "Lignes d’écritures comptables"
     backend/journals: "الدفاتر اليومية"
@@ -994,6 +995,10 @@ arb:
     apply: "تطبيق"
     # archives: "Archives"
     are_you_sure: "هل انت متأكد من رغبتك بالقيام به؟"
+    are_you_sure_you_want_to:
+      # abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?"
+      # close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?"
+      # reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"
     are_you_sure_you_want_to_confirm: "هل انت متأكد من رغبتك بالمضي بطلب الشراء؟"
     are_you_sure_you_want_to_delete: "هل انت متاكد من رغبتك بالقيام به؟"
     are_you_sure_you_want_to_delete_delivery: "هل انت متأكد من رغبتك بازالة التسليم من وسائل النقل؟"
@@ -1001,7 +1006,7 @@ arb:
     are_you_sure_you_want_to_send_mails: "هل انت متأكد من رغبتك بارسال الرسالة"
     area_create: "اضافة عنوان بريدي" #?
     # area_measure: "Superficie"
-    area_x: "%{name} (%{postcode})"
+    area_x: "%{name} (%{postcode})" #?
     assessable_operations: "الاجراءات الضريبية (H.T)"
     assimilated_tax: "A3310 حساب الضرائب المماثلة على جدول رقم"
     # attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
@@ -1298,7 +1303,6 @@ arb:
     importation_explanation: "لتأكيد عملية الاستيراد، يجب عليك النقر عليه"
     in_line_create: "اضافة منتج وارد" #?
     # in_production: "En production"
-    # incidents: "Incidents"
     include_blank: "--- ولا اية منظمة ---"
     income_statement: "حسابات الناتج"
     # incoming_payment_conditions: "Conditions d’encaissement"
@@ -1334,6 +1338,7 @@ arb:
     invoiced_amount: "قيمة الفاتورة"
     # invoices_only: "Utiliser seulement les factures"
     # is: "Est"
+    # issues: "Incidents"
     # isu_index: "Index génétique ISU"
     # items: "Éléments"
     journal: "دفتراليومية"
@@ -1461,6 +1466,7 @@ arb:
       trade: "التجارة"
     merge: "دمج"
     # meteo: "Météo"
+    # method: "Méthode"
     # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
     # minimal_temperature: "Température minimale"
     missing_help: "صفحات مفقودة"
@@ -1627,6 +1633,7 @@ arb:
     # play: "Éxécuter"
     # please_wait: "Merci de patienter…"
     # population: "Population"
+    # postal_zone_x: "%{name} (%{postal_code})"
     # precipitation: "Précipitations"
     # preferences: "Préférences"
     # pretax_amount: "Montant HT"
@@ -1835,6 +1842,7 @@ arb:
     # sowed_at: "Semé le"
     start: "ابتداء من"
     state: "الحالة"
+    # status: "État"
     # stock: "Stock"
     stock_max: "الحد الاقصى للاسهم"
     stock_min: "الحد الادنى للاسهم"
@@ -1868,6 +1876,7 @@ arb:
     # supports: "Supports de production"
     synthesis: "تجميع الوثائق"
     # target: "Cible"
+    # target_name: "Nom de la cible"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
     # taxes: "Taxes"

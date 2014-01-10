@@ -3,9 +3,7 @@ Coveralls.wear!('rails')
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
-# require 'sauce_helper'
 require 'capybara/rails'
-# require 'capybara/poltergeist'
 
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
@@ -248,26 +246,19 @@ class ActionController::TestCase
 end
 
 
-# Capybara.register_driver :selenium do |app|
-#   custom_profile = Selenium::WebDriver::Firefox::Profile.new
-#   # Turn off the super annoying popup!
-#   custom_profile["network.http.prompt-temp-redirect"] = false
-#   Capybara::Selenium::Driver.new(app, :browser => :firefox, :profile => custom_profile)
-# end
+# Cheat Sheet
+# https://gist.github.com/zhengjia/428105
 
 Capybara.register_driver :poltergeist do |app|
   Capybara::Poltergeist::Driver.new(app, debug: true, inspector: true) # ENV["CI"].blank?
 end
 
-# To run all tests with ?
-Capybara.default_driver    = :webkit # :sauce # :selenium
-Capybara.current_driver    = :webkit # :sauce # :selenium
-Capybara.javascript_driver = :webkit # :sauce # :selenium
-
+Capybara.default_driver    = (ENV["CI"] == "false" ? :selenium : :webkit)
+Capybara.current_driver    = Capybara.default_driver
+Capybara.javascript_driver = Capybara.default_driver
 # Capybara.default_wait_time = 5
 # Capybara.server_port = 3333
 
-# class CapybaraIntegrationTest < Sauce::RailsTestCase
 class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
   # # include Capybara::Screenshot
@@ -292,7 +283,7 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
     sleep(3)
     shoot_screen "#{options[:name]}/unroll-before"
     selector = "input##{field} + .items-menu .items-list .item[data-item-label=\"#{options[:select]}\"]"
-    # page.should have_xpath(selector)
+    # assert has_xpath?(selector)
     page.execute_script "$('#{selector}').trigger('mouseenter').click();"
     shoot_screen "#{options[:name]}/unroll-after"
   end

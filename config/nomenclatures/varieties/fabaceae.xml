@@ -4,6 +4,8 @@
     <items>
       <item name="pisum" itis-tsn="26866"/>
       <item name="medicago" itis-tsn="183622"/>
+      <item name="vicia" itis-tsn="26329"/>
+      <item name="phaseolus" itis-tsn="203844"/>
     </items>
   </nomenclature>
 </nomenclatures>

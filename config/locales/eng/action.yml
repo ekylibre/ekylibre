@@ -122,9 +122,9 @@ eng:
     backend/cells/last_document_archives_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
-    backend/cells/last_incidents_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_interventions_cells: #?
+    backend/cells/last_issues_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -280,11 +280,6 @@ eng:
       index: "Help"
       # show: "Voir l’aide"
       # toggle: "Basculer l’aide"
-    backend/incidents:
-      edit: "Edit an incident\_: %{name} (%{nature})"
-      index: "Incidents"
-      new: "New incident"
-      show: "Incident %{name} (%{nature})"
     backend/incoming_deliveries:
       confirm: "Confirm incoming delivery"
       edit: "Edit the incoming delivery"
@@ -317,6 +312,11 @@ eng:
       index: "Inventories"
       new: "Add a new inventory"
       show: "Inventory: %{number}"
+    backend/issues:
+      # edit: "Modifier l’incident\_: %{name} (%{nature})"
+      # index: "Incidents"
+      # new: "Nouvel incident"
+      # show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       edit: "Edit journal entry: %{number}"
       new: "Add an entry"
@@ -717,6 +717,7 @@ eng:
     backend/interfacers: "Interfacers"
     backend/inventories: "Inventories"
     backend/inventory_items: "Inventory items"
+    # backend/issues: "Incidents"
     backend/journal_entries: "Journal entries"
     backend/journal_entry_items: "Journal entry items"
     backend/journals: "Journals"
@@ -882,13 +883,17 @@ eng:
     apply: "Apply"
     archives: "Archives"
     are_you_sure: "Are you sure you want to do this?"
+    are_you_sure_you_want_to:
+      # abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?"
+      # close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?"
+      # reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     are_you_sure_you_want_to_delete_delivery: "Are you sure you want to remove the delivery of transport?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
     # area_measure: "Superficie"
-    area_x: "%{name} (%{postcode})"
+    area_x: "%{name} (%{postcode})" #?
     # assessable_operations: "Opérations imposables (H.T)"
     assets: "Assets management" #?
     # assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A"
@@ -1152,7 +1157,6 @@ eng:
     import_backup: "Import backup"
     importation_explanation: "Importation explanation"
     # in_production: "En production"
-    incidents: "Incidents"
     include_blank: "Include blank"
     income_statement: "Income Statement"
     incoming_payment_conditions: "Conditions of payment"
@@ -1185,6 +1189,7 @@ eng:
     invoiced_amount: "Sales invoiced amount"
     invoices_only: "Use only invoices"
     is: "Is"
+    issues: "Issues"
     # isu_index: "Index génétique ISU"
     # items: "Éléments"
     journal: "Journal"
@@ -1286,6 +1291,7 @@ eng:
       trade: "Trade"
     merge: "Merge"
     meteo: "Weather"
+    # method: "Méthode"
     # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
     # minimal_temperature: "Température minimale"
     missing_help: "Missing page"
@@ -1434,6 +1440,7 @@ eng:
     play: "Play"
     please_wait: "Please wait..."
     # population: "Population"
+    # postal_zone_x: "%{name} (%{postal_code})"
     # precipitation: "Précipitations"
     preferences: "Preferences"
     pretax_amount: "Pre-tax amount"
@@ -1614,6 +1621,7 @@ eng:
     # sowed_at: "Semé le"
     start: "From"
     state: "State"
+    # status: "État"
     # stock: "Stock"
     stock_max: "Stock max"
     stock_min: "Stock min"
@@ -1643,6 +1651,7 @@ eng:
     # supports: "Supports de production"
     synthesis: "Synthesis Documents"
     target: "Target"
+    # target_name: "Nom de la cible"
     # taxes: "Taxes"
     # temperature: "Température"
     theoric_quantity: "Theoric quantity"

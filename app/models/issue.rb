@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # = Informations
 #
 # == License
@@ -19,7 +20,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: incidents
+# == Table: issues
 #
 #  created_at           :datetime         not null
 #  creator_id           :integer
@@ -41,10 +42,10 @@
 #  updated_at           :datetime         not null
 #  updater_id           :integer
 #
-class Incident < Ekylibre::Record::Base
-  # attr_accessible :name, :nature, :observed_at, :description, :priority, :gravity, :target_id, :target_type
-  enumerize :nature, in: Nomen::Incidents.all, default: Nomen::Incidents.default, predicates: {prefix: true}
-  has_many :procedures, class_name: "Intervention"
+class Issue < Ekylibre::Record::Base
+  include Versionable
+  enumerize :nature, in: Nomen::IssueNatures.all, default: Nomen::IssueNatures.default, predicates: {prefix: true}
+  has_many :interventions
   belongs_to :target , :polymorphic => true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :gravity, :picture_file_size, :priority, allow_nil: true, only_integer: true
@@ -65,26 +66,70 @@ class Incident < Ekylibre::Record::Base
     }
   }
 
-    state_machine :state, :initial => :new do
-      state :new
-      state :in_progress
-      state :closed
+  state_machine :state, :initial => :opened do
 
-      event :treated do
-        transition :new => :in_progress, if: :has_procedure?
-      end
+    ## define states
+    state :opened
+    state :closed
+    state :aborted
+
+    ## define events
+
+    # # way A1
+    # event :treat do
+    #   transition :opened => :in_progress, :if => :has_intervention?
+    # end
+
+    # way A2
+    event :close do
+      # transition :in_progress => :closed, :if => :has_intervention?
+      transition :opened => :closed, :if => :has_intervention?
     end
 
-  def has_procedure?
-    self.procedures.count > 0
+    # way B1
+    event :abort do
+      transition :opened => :aborted
+      # transition :in_progress => :aborted
+    end
+
+    # way A3 || B2
+    event :reopen do
+      transition :closed => :opened
+      transition :aborted => :opened
+    end
+
+    ## define callbacks after and before transition
+
+  end
+
+  before_validation do
+    if self.can_treat?
+      self.treat
+    end
+  end
+
+  protect(on: :destroy) do
+    self.has_intervention?
+  end
+
+  def has_intervention?
+    self.interventions.any?
   end
 
   def status
-    self.state
+    if self.opened?
+      return (has_intervention? ? :caution : :stop)
+    else
+      return :go
+    end
   end
 
   def picture_path(style=:original)
     self.picture.path(style)
+  end
+
+  def interventions_count
+    self.interventions.count
   end
 
 end

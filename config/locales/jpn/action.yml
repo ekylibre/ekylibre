@@ -114,9 +114,9 @@ jpn:
     backend/cells/last_document_archives_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
-    backend/cells/last_incidents_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_interventions_cells: #?
+    backend/cells/last_issues_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -247,11 +247,6 @@ jpn:
       # index: "Aide"
       # show: "Voir l’aide"
       # toggle: "Basculer l’aide"
-    backend/incidents:
-      # edit: "Modifier l’incident\_: %{name} (%{nature})"
-      # index: "Incidents"
-      # new: "Nouvel incident"
-      # show: "Incident %{name} (%{nature})"
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de l’approvisionnement"
       # edit: "Modifier l’approvisionnement: %{number}"
@@ -284,6 +279,11 @@ jpn:
       # index: "Inventaires"
       # new: "Nouvel inventaire"
       # show: "Inventaire %{number}"
+    backend/issues:
+      # edit: "Modifier l’incident\_: %{name} (%{nature})"
+      # index: "Incidents"
+      # new: "Nouvel incident"
+      # show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       # edit: "Modifier l’écriture\_: %{number}"
       # new: "Ajouter une écriture"
@@ -651,6 +651,7 @@ jpn:
     # backend/interfacers: "Interfaceurs"
     # backend/inventories: "Inventaires"
     # backend/inventory_items: "Lignes d’inventaires"
+    # backend/issues: "Incidents"
     # backend/journal_entries: "Écritures comptables"
     # backend/journal_entry_items: "Lignes d’écritures comptables"
     # backend/journals: "Journaux"
@@ -809,13 +810,16 @@ jpn:
     apply: "適用する"
     # archives: "Archives"
     # are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
+    are_you_sure_you_want_to:
+      # abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?"
+      # close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?"
+      # reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"
     # are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
     # are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?"
     # are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
     # are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer la vente ?"
     # are_you_sure_you_want_to_send_mails: "Êtes-vous sûr(e) de vouloir envoyer les mails ?"
     # area_measure: "Superficie"
-    # area_x: "%{name} (%{postcode})"
     # assessable_operations: "Opérations imposables (H.T)"
     # assimilated_tax: "Taxes assimilées calculées sur annexe n°3310A"
     # attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
@@ -1070,7 +1074,6 @@ jpn:
     # import_backup: "Import de fichier de sauvegarde"
     # importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     # in_production: "En production"
-    # incidents: "Incidents"
     # include_blank: "— Aucune organisation —"
     # income_statement: "Comptes de résultats"
     # incoming_payment_conditions: "Conditions d’encaissement"
@@ -1101,6 +1104,7 @@ jpn:
     # invoiced_amount: "Montant facturé"
     # invoices_only: "Utiliser seulement les factures"
     # is: "Est"
+    # issues: "Incidents"
     # isu_index: "Index génétique ISU"
     # items: "Éléments"
     # journal: "Journal"
@@ -1114,7 +1118,7 @@ jpn:
       # mixed: "Écritures et lignes"
     # journals: "Journaux"
     # land_parcel_name: "Parcelle"
-    # land_parcels: "Parcellaire"
+    # land_parcels: "Parcelles"
     # language: "Langue"
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
@@ -1205,6 +1209,7 @@ jpn:
       # trade: "Achats/Ventes"
     # merge: "Fusionner"
     # meteo: "Météo"
+    # method: "Méthode"
     # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
     # minimal_temperature: "Température minimale"
     missing_help: "無意味なページ"
@@ -1351,6 +1356,7 @@ jpn:
     # play: "Éxécuter"
     # please_wait: "Merci de patienter…"
     # population: "Population"
+    # postal_zone_x: "%{name} (%{postal_code})"
     # precipitation: "Précipitations"
     # preferences: "Préférences"
     # pretax_amount: "Montant HT"
@@ -1527,6 +1533,7 @@ jpn:
     # sowed_at: "Semé le"
     # start: "Du"
     # state: "État"
+    # status: "État"
     # stock: "Stock"
     # stock_max: "Stock maximum"
     # stock_min: "Stock minimum"
@@ -1556,6 +1563,7 @@ jpn:
     # supports: "Supports de production"
     # synthesis: "Documents de synthèse"
     # target: "Cible"
+    # target_name: "Nom de la cible"
     # taxes: "Taxes"
     # temperature: "Température"
     # theoric_quantity: "Quantité théorique"

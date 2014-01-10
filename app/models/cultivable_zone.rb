@@ -68,8 +68,9 @@ class CultivableZone < Zone
   enumerize :variety, in: Nomen::Varieties.all(:cultivable_zone), predicates: {prefix: true}
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id
   has_many :productions, class_name: "Production", through: :supports
-  has_many :members, class_name: "CultivableZoneMembership"
-  has_many :land_parcels, class_name: "LandParcel", through: :members
+  has_many :memberships, class_name: "CultivableZoneMembership", foreign_key: :group_id
+  has_many :members, class_name: "Product", through: :memberships
+  has_many :land_parcels, class_name: "LandParcel", through: :memberships, source: :member
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
@@ -77,7 +78,9 @@ class CultivableZone < Zone
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!
     for campaign in campaigns
-      raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
+      unless campaign.is_a?(Campaign)
+        raise ArgumentError, "Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}"
+      end
     end
     joins(:productions).where('campaign_id IN (?)', campaigns.map(&:id))
   }

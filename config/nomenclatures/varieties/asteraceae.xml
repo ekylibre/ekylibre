@@ -3,6 +3,7 @@
   <nomenclature name="varieties-asteraceae" hierarchical="true">
     <items>
       <item name="helianthus" itis-tsn="36611"/>
+      <item name="cichorium" itis-tsn="36762"/>
     </items>
   </nomenclature>
 </nomenclatures>

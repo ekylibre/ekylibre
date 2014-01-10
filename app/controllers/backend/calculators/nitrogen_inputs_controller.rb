@@ -18,6 +18,7 @@
 class Backend::Calculators::NitrogenInputsController < BackendController
 
   def show
+    @campaign = Campaign.last
   end
 
 end

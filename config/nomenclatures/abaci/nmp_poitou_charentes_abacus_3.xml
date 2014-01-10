@@ -15,11 +15,11 @@
       <item name="non_improving_wheat_crop" plant_variety="triticum_aestivum" b="3"/>
       <item name="improving_wheat_crop" plant_variety="triticum_aestivum" b="3.5"/>
       <item name="durum_wheat_crop" plant_variety="triticum_durum" b="3.5"/>
-      <item name="brassage_barley_crop" plant_variety="brassage_hordeum_hibernum" b="2.2"/>
+      <item name="brassage_barley_crop" plant_variety="hordeum_hibernum_cerevisiae" b="2.2"/>
       <item name="winter_barley_crop" plant_variety="hordeum_hibernum" b="2.5"/>
       <item name="spring_barley_crop" plant_variety="hordeum_vernum" b="2.2"/>
       <item name="oat_crop" plant_variety="avena" b="2.2"/>
-      <item name="triticale_crop" plant_variety="triticale" b="2.6"/>
+      <item name="triticosecale_crop" plant_variety="triticosecale" b="2.6"/>
       <item name="secale_crop" plant_variety="secale" b="2.3"/>
       <item name="other_crop" plant_variety="poaceae" b="2.5"/>
     </items>
@@ -41,7 +41,7 @@
       <item name="soissons_wheat_crop" plant_variety="soissons" b="3.2" />
       <!-- BLE NON AMELIORANT - non présente dans le Tableau 1 b= 3 -->
       <item name="ascott_wheat_crop" plant_variety="ascott" b="3" />
-      <item name="rubisco_wheat_crop" plant_variety="rubisco" b="3" />
+      <item name="rubisko_wheat_crop" plant_variety="rubisko" b="3" />
     </items>
   </nomenclature>
   
@@ -85,14 +85,14 @@
   <!-- ORGE - Tableau 4 -->
   <nomenclature name="nmp_poitou_charentes_abacus_3-brassage_barley_crop">
     <items>
-      <item name="low_protein_brassage_barley_crop" plant_variety="low_protein_brassage_hordeum_hibernum" b="2.5"/>
+      <item name="low_protein_brassage_barley_crop" plant_variety="hordeum_hibernum_cerevisiae_hypoproteinae" b="2.5"/>
     </items>
   </nomenclature>
   
   <!-- ORGE - Tableau 4 -->
   <nomenclature name="nmp_poitou_charentes_abacus_3-spring_barley_crop">
     <items>
-      <item name="low_protein_spring_barley_crop" plant_variety="low_protein_hordeum_vernum" b="2.4"/>
+      <item name="low_protein_spring_barley_crop" plant_variety="hordeum_vernum_hypoproteinae" b="2.4"/>
       <item name="irrigate_spring_barley_crop" plant_variety="hordeum_vernum" b="2.5" irrigated="true"/>
     </items>
   </nomenclature>

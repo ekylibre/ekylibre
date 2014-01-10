@@ -18,7 +18,6 @@ require 'ekylibre'
 
 # XML definitions
 require 'nomen'
-require 'abax'
 require 'aggeratio'
 require 'procedo'
 

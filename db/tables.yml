@@ -525,27 +525,6 @@ gaps:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
-incidents:
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  description: {type: text}
-  gravity: {type: integer}
-  id: {type: integer, required: true}
-  lock_version: {type: integer, required: true, default: 0}
-  name: {type: string, required: true}
-  nature: {type: string, required: true}
-  observed_at: {type: datetime, required: true}
-  picture_content_type: {type: string}
-  picture_file_name: {type: string}
-  picture_file_size: {type: integer}
-  picture_updated_at: {type: datetime}
-  priority: {type: integer}
-  state: {type: string}
-  target_id: {type: integer, references: ~target_type, required: true}
-  target_type: {type: string, required: true}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-
 incoming_deliveries:
   address_id: {type: integer, references: entity_address}
   created_at: {type: datetime, required: true}
@@ -656,7 +635,7 @@ interventions:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   id: {type: integer, required: true}
-  incident_id: {type: integer, references: incident}
+  issue_id: {type: integer, references: issue}
   lock_version: {type: integer, required: true, default: 0}
   natures: {type: string, required: true}
   prescription_id: {type: integer, references: prescription}
@@ -700,6 +679,27 @@ inventory_items:
   product_id: {type: integer, references: product, required: true}
   product_measurement_id: {type: integer, references: product_measurement}
   theoric_population: {type: decimal, precision: 19, scale: 4, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+issues:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: text}
+  gravity: {type: integer}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
+  nature: {type: string, required: true}
+  observed_at: {type: datetime, required: true}
+  picture_content_type: {type: string}
+  picture_file_name: {type: string}
+  picture_file_size: {type: integer}
+  picture_updated_at: {type: datetime}
+  priority: {type: integer}
+  state: {type: string}
+  target_id: {type: integer, references: ~target_type, required: true}
+  target_type: {type: string, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 

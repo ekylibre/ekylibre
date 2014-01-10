@@ -42,5 +42,8 @@ class CultivableZoneMembership < Ekylibre::Record::Base
   validates_presence_of :group, :member
   #]VALIDATORS]
 
+  def net_surface_area
+    return self.class.where(id: self.id).select("ST_Area(shape) AS area").first.area.in_square_meter
+  end
 
 end

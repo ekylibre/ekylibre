@@ -18,7 +18,7 @@
 #
 
 # -*- coding: utf-8 -*-
-class Backend::IncidentsController < BackendController
+class Backend::IssuesController < BackendController
 
   manage_restfully
   manage_restfully_picture
@@ -31,23 +31,46 @@ class Backend::IncidentsController < BackendController
     t.column :name, url: true
     t.column :nature
     t.column :observed_at
-    t.column :target_name, url: true
-    t.column :gravity
-    t.column :priority
-    t.column :state
+    t.column :target_name
+    t.status
+    t.column :gravity,  hidden: true
+    t.column :priority, hidden: true
     t.action :edit
-    t.action :new, url: {controller: :interventions, incident_id: 'RECORD.id'.c, id: nil}
+    t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}
     t.action :destroy, :if => :destroyable?
   end
 
-
-  list(:interventions, conditions: {incident_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:interventions, conditions: {issue_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :reference_name, label_method: :name, url: true
     t.column :casting
     t.column :started_at
     t.column :stopped_at, hidden: true
     t.column :natures
     t.column :state
+  end
+
+  def close
+    return unless @issue = find_and_check
+    if @issue.can_close?
+      @issue.close
+    end
+    redirect_to_back
+  end
+
+  def abort
+    return unless @issue = find_and_check
+    if @issue.can_abort?
+      @issue.abort
+    end
+    redirect_to_back
+  end
+
+  def reopen
+    return unless @issue = find_and_check
+    if @issue.can_reopen?
+      @issue.reopen
+    end
+    redirect_to_back
   end
 
 end

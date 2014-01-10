@@ -12,6 +12,7 @@ module Nomen
   autoload :Item,                'nomen/item'
   autoload :AttributeDefinition, 'nomen/attribute_definition'
 
+
   @@list = HashWithIndifferentAccess.new
 
   class << self
@@ -98,6 +99,7 @@ module Nomen
   load
 
   Rails.logger.info "Loaded nomenclatures: " + names.to_sentence
+
 
 end
 
