@@ -40,7 +40,6 @@
 - fungus
 - gap
 - immatter
-- incident
 - incoming_delivery
 - incoming_delivery_item
 - incoming_delivery_mode
@@ -50,6 +49,7 @@
 - intervention_cast
 - inventory
 - inventory_item
+- issue
 - journal
 - journal_entry
 - journal_entry_item

@@ -21,7 +21,7 @@
 	</style>
 	<style name="Row" mode="Transparent"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
-	<style name="conditionnal_state">
+	<style name="conditional_state">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{state} == "closed"]]></conditionExpression>
 			<style mode="Opaque" backcolor="#33CC00">
@@ -29,11 +29,11 @@
 			</style>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{state} == "new"]]></conditionExpression>
+			<conditionExpression><![CDATA[$F{state} == "opened" && $F{interventions_count} == 0]]></conditionExpression>
 			<style mode="Opaque" backcolor="#FF0000"/>
 		</conditionalStyle>
 		<conditionalStyle>
-			<conditionExpression><![CDATA[$F{state} == "in_progress"]]></conditionExpression>
+			<conditionExpression><![CDATA[$F{state} == "opened" && $F{interventions_count} != 0]]></conditionExpression>
 			<style mode="Opaque" backcolor="#FFA800"/>
 		</conditionalStyle>
 	</style>
@@ -67,16 +67,19 @@
 		<fieldDescription><![CDATA[ancestor::intervention/target/@name]]></fieldDescription>
 	</field>
 	<field name="description" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/incident/@description]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::intervention/issue/@description]]></fieldDescription>
 	</field>
 	<field name="name" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/incident/@name]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::intervention/issue/@name]]></fieldDescription>
 	</field>
 	<field name="observed_at" class="java.util.Date">
-		<fieldDescription><![CDATA[ancestor::intervention/incident/@observed-at]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::intervention/issue/@observed-at]]></fieldDescription>
 	</field>
 	<field name="state" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/incident/@state]]></fieldDescription>
+		<fieldDescription><![CDATA[ancestor::intervention/issue/@state]]></fieldDescription>
+	</field>
+	<field name="interventions_count" class="java.lang.Integer">
+		<fieldDescription><![CDATA[ancestor::intervention/issue/@interventions-count]]></fieldDescription>
 	</field>
 	<field name="worker_name" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/worker/@name]]></fieldDescription>
@@ -126,8 +129,8 @@
 	<field name="unit_name" class="java.lang.String">
 		<fieldDescription><![CDATA[unit-name]]></fieldDescription>
 	</field>
-	<field name="incident_nature" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::intervention/incident/@nature]]></fieldDescription>
+	<field name="issue_nature" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/issue/@nature]]></fieldDescription>
 	</field>
 	<sortField name="campaign"/>
 	<sortField name="started_at"/>
@@ -182,7 +185,7 @@
 					<font fontName="DejaVu Sans" size="10"/>
 					<paragraph leftIndent="5" spacingBefore="5"/>
 				</textElement>
-				<text><![CDATA[Incident]]></text>
+				<text><![CDATA[Issue]]></text>
 			</staticText>
 			<textField>
 				<reportElement style="address" x="0" y="0" width="786" height="13" uuid="548666df-fcbc-42e7-b461-8ee8b327b70e"/>
@@ -211,16 +214,16 @@
 				<textFieldExpression><![CDATA[$F{campaign_name}]]></textFieldExpression>
 			</textField>
 			<rectangle radius="10">
-				<reportElement style="conditionnal_state" x="274" y="54" width="10" height="10" backcolor="#FFA500" uuid="260e787e-6da2-4c2e-9949-dbf26fb4c20c"/>
+				<reportElement style="conditional_state" x="274" y="54" width="10" height="10" backcolor="#FFA500" uuid="260e787e-6da2-4c2e-9949-dbf26fb4c20c"/>
 			</rectangle>
 			<rectangle radius="10">
-				<reportElement style="conditionnal_state" positionType="FixRelativeToBottom" x="196" y="54" width="10" height="10" backcolor="#FF0000" uuid="23e8397b-4700-4711-8745-7a13f840a2b8"/>
+				<reportElement style="conditional_state" positionType="FixRelativeToBottom" x="196" y="54" width="10" height="10" backcolor="#FF0000" uuid="23e8397b-4700-4711-8745-7a13f840a2b8"/>
 			</rectangle>
 			<rectangle radius="10">
-				<reportElement style="conditionnal_state" x="350" y="54" width="10" height="10" backcolor="#33CC00" uuid="53c1eead-9594-4681-82f8-853e01b2aaec"/>
+				<reportElement style="conditional_state" x="350" y="54" width="10" height="10" backcolor="#33CC00" uuid="53c1eead-9594-4681-82f8-853e01b2aaec"/>
 			</rectangle>
 			<staticText>
-				<reportElement style="conditionnal_state" mode="Transparent" x="365" y="48" width="49" height="21" uuid="7c6117b6-6180-4d24-bcaa-5515d5fa8f19"/>
+				<reportElement style="conditional_state" mode="Transparent" x="365" y="48" width="49" height="21" uuid="7c6117b6-6180-4d24-bcaa-5515d5fa8f19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10"/>
 					<paragraph leftIndent="5"/>
@@ -253,7 +256,7 @@
 					<font fontName="DejaVu Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Date Incident / description]]></text>
+				<text><![CDATA[Date Issue / description]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="708" y="0" width="78" height="47" uuid="b02f454f-dfb7-4dc4-8434-563f3dff23ca"/>
@@ -341,7 +344,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{incident_nature}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{issue_nature}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement style="base" x="358" y="20" width="89" height="20" uuid="f131a1e3-9cd0-4de7-af30-bb89f77adc4b"/>
@@ -405,7 +408,7 @@
 				<reportElement mode="Transparent" x="591" y="0" width="117" height="39" uuid="ab718dde-85d5-4c96-b595-1c2df577c5ef"/>
 			</rectangle>
 			<rectangle radius="10">
-				<reportElement style="conditionnal_state" x="197" y="24" width="10" height="10" uuid="004277c2-8a42-41d5-99b1-d9351770a198">
+				<reportElement style="conditional_state" x="197" y="24" width="10" height="10" uuid="004277c2-8a42-41d5-99b1-d9351770a198">
 					<printWhenExpression><![CDATA[$F{state} != null]]></printWhenExpression>
 				</reportElement>
 			</rectangle>

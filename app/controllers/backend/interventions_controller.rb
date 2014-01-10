@@ -45,7 +45,7 @@ class Backend::InterventionsController < BackendController
     t.column :production, url: true, hidden: true
     t.column :campaign, url: true
     t.column :activity, url: true, hidden: true
-    t.column :incident, url: true
+    t.column :issue, url: true
     t.column :state, hidden: true
     t.column :casting
     t.column :started_at

@@ -880,26 +880,6 @@ fra:
         public_interest_group: "Groupement d’intérêt public" # legal_entity
         sir: "Monsieur"                                    # person
         syndicate: "Syndicat"                              # legal_entity
-    incidents:
-      name: "Incidents"
-      attributes:
-        target: "Cible"
-        treatments: "Traitements"
-      items:
-        accident: "Accident"                               # incident
-        animal_pathology: "Pathologie animale"             # incident
-        bacteria_disease: "Maladies bactériennes"          # vegetal_pathology
-        climate_incident: "Incident climatique"            # incident
-        diarrhea: "Diarrhée"                               # animal_pathology
-        fecondity_problem: "Problème de fécondité"         # animal_pathology
-        fungus_disease: "Maladies cryptogamiques"          # vegetal_pathology
-        incident: "Incident"
-        mammite: "Mammite"                                 # animal_pathology
-        nematoda_disease: "Maladies à nématodes"           # vegetal_pathology
-        other: "Autre"                                     # animal_pathology
-        # protozoa_disease: "Protozoa disease"             # vegetal_pathology
-        respiratory_problem: "Problèmes respiratoires"     # animal_pathology
-        vegetal_pathology: "Pathologie végétale"           # incident
     indicators:
       name: "Indicateurs"
       attributes:
@@ -1065,6 +1045,26 @@ fra:
         usage_duration: "Durée d’utilisation"
         water_content_rate: "Teneur en eau"
         width: "Largeur"
+    issue_natures:
+      # name: "Issue natures"
+      attributes:
+        # target: "Target"
+        # treatments: "Treatments"
+      items:
+        # accident: "Accident"                             # issue
+        # animal_pathology: "Animal pathology"             # issue
+        # bacteria_disease: "Bacteria disease"             # vegetal_pathology
+        # climate_issue: "Climate issue"                   # issue
+        # diarrhea: "Diarrhea"                             # animal_pathology
+        # fecondity_problem: "Fecondity problem"           # animal_pathology
+        # fungus_disease: "Fungus disease"                 # vegetal_pathology
+        # issue: "Issue"
+        # mammite: "Mammite"                               # animal_pathology
+        # nematoda_disease: "Nematoda disease"             # vegetal_pathology
+        # other: "Other"                                   # animal_pathology
+        # protozoa_disease: "Protozoa disease"             # vegetal_pathology
+        # respiratory_problem: "Respiratory problem"       # animal_pathology
+        # vegetal_pathology: "Vegetal pathology"           # issue
     languages:
       name: "Langues"
       items:

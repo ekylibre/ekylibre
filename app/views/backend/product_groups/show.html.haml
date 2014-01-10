@@ -25,10 +25,10 @@
       = list(:places)
 
   - b.tabbox do
-    - b.cell(:incidents) do
+    - b.cell(:issues) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :incidents, :target_id => @product_group.id, :target_type => @product_group.class.name})
-      = list(:incidents)
+        - t.new(:params =>{:controller => :issues, :target_id => @product_group.id, :target_type => @product_group.class.name})
+      = list(:issues)
     - b.cell(tl(:x_indicators, :count => @product_group.indicator_data.count)) do
       = list(:indicators)
 

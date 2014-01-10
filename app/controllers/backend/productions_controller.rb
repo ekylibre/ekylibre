@@ -87,7 +87,7 @@ class Backend::ProductionsController < BackendController
     t.column :name, url: true
     #t.column :name, through: :storage, url: true
     t.column :state
-    t.column :incident, url: true
+    t.column :issue, url: true
     t.column :started_at
     t.column :stopped_at
     # t.column :provisional

@@ -34,22 +34,22 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     assert has_content?('female')
   end
 
-  # Add an incident on the current animal
-  test "add an incident" do
-    visit('/backend/incidents/new?target_id=7004&target_type=Animal')
-    shoot_screen "incidents/new"
-    fill_in('incident[name]', with: "3ème mammite de l'année")
-    select('Mammite', from: 'incident[nature]')
-    fill_in("incident_observed_at", with: '01/06/2013')
-    choose("incident_priority_1")
-    choose("incident_gravity_3")
+  # Add an issue on the current animal
+  test "add an issue" do
+    visit('/backend/issues/new?target_id=7004&target_type=Animal')
+    shoot_screen "issues/new"
+    fill_in('issue[name]', with: "3ème mammite de l'année")
+    select('Mammite', from: 'issue[nature]')
+    fill_in("issue_observed_at", with: '01/06/2013')
+    choose("issue_priority_1")
+    choose("issue_gravity_3")
     click_on("Créer")
-    shoot_screen "incidents/create"
+    shoot_screen "issues/create"
   end
 
-  test "view an incident on an animal" do
-    visit ('/backend/incidents')
-    shoot_screen "incidents/index"
+  test "view an issue on an animal" do
+    visit ('/backend/issues')
+    shoot_screen "issues/index"
   end
 
 end

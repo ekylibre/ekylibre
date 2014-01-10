@@ -86,7 +86,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :variant, class_name: "ProductNatureVariant"
   has_many :carrier_linkages, class_name: "ProductLinkage", foreign_key: :carried_id
   has_many :enjoyments, class_name: "ProductEnjoyment", foreign_key: :product_id
-  has_many :incidents, class_name: "Incident", :as => :target
+  has_many :issues, as: :target
   has_many :indicator_data, class_name: "ProductIndicatorDatum", dependent: :destroy, inverse_of: :product
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
   has_many :groups, :through => :memberships
@@ -211,7 +211,7 @@ class Product < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.intervention_casts.any? or self.supports.any? or self.incidents.any?
+    self.intervention_casts.any? or self.supports.any? or self.issues.any?
   end
 
   class << self

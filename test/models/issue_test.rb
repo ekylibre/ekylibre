@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: incidents
+# == Table: issues
 #
 #  created_at           :datetime         not null
 #  creator_id           :integer
@@ -43,10 +43,10 @@
 #
 require 'test_helper'
 
-class IncidentTest < ActiveSupport::TestCase
+class IssueTest < ActiveSupport::TestCase
 
   test "presence of fixtures" do
-    # assert_equal 2, Incident.count
+    # assert_equal 2, Issue.count
   end
 
 end

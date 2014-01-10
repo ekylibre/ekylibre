@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
-  <nomenclature name="incidents-root">
+  <nomenclature name="issue_natures-root">
     <attributes>
       <attribute name="target" type="list" nomenclature="varieties" required="true" inherit="true"/>
       <attribute name="treatments" type="list" nomenclature="procedure_natures" required="false" inherit="true"/>
     </attributes>
     <items>
-      <item name="incident" target="product"/>
+      <item name="issue" target="product"/>
     </items>
   </nomenclature>
 
   <!-- level 1 -->
-  <nomenclature name="incidents-incident">
+  <nomenclature name="issue_natures-issue">
     <items>
       <item name="animal_pathology"/>
       <item name="vegetal_pathology"/>
       <item name="accident"/>
-      <item name="climate_incident"/>
+      <item name="climate_issue"/>
     </items>
   </nomenclature>
+
   <!-- level 2 - branch 1 -->
-  <nomenclature name="incidents-animal_pathology">
+  <nomenclature name="issue_natures-animal_pathology">
     <items>
       <item name="mammite" target="mammalia"/>
       <item name="fecondity_problem" target="mammalia"/>
@@ -30,8 +31,9 @@
       <item name="other" target="mammalia"/>
     </items>
   </nomenclature>
+
   <!-- level 2 - branch 2 -->
-  <nomenclature name="incidents-vegetal_pathology">
+  <nomenclature name="issue_natures-vegetal_pathology">
     <items>
       <item name="bacteria_disease" target="plant"/>
       <item name="fungus_disease" target="plant"/>

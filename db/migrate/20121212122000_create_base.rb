@@ -446,21 +446,6 @@ class CreateBase < ActiveRecord::Migration
       t.index      :direction
     end
 
-    create_table :incidents do |t|
-      t.references :target,      polymorphic: true, null: false, index: true
-      t.string     :nature,                         null: false
-      t.datetime   :observed_at,                    null: false
-      t.integer    :priority
-      t.integer    :gravity
-      t.string     :state
-      t.string     :name,                           null: false
-      t.text       :description
-      t.attachment :picture
-      t.stamps
-      t.index      :name
-      t.index      :nature
-    end
-
     create_table :incoming_deliveries do |t|
       t.string     :number,                                             null: false
       t.references :sender,                                             null: false, index: true
@@ -554,7 +539,7 @@ class CreateBase < ActiveRecord::Migration
       t.boolean    :provisional,              default: false,    null: false
       t.boolean    :recommended,              default: false,    null: false
       t.references :recommender,                                              index: true
-      t.references :incident,                                                 index: true
+      t.references :issue,                                                    index: true
       t.references :prescription,                                             index: true
       t.references :production,                                  null: false, index: true
       t.string     :reference_name,                              null: false
@@ -588,6 +573,21 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :theoric_population,  precision: 19, scale: 4,        null: false
       t.decimal    :population,          precision: 19, scale: 4,        null: false
       t.stamps
+    end
+
+    create_table :issues do |t|
+      t.references :target,      polymorphic: true, null: false, index: true
+      t.string     :nature,                         null: false
+      t.datetime   :observed_at,                    null: false
+      t.integer    :priority
+      t.integer    :gravity
+      t.string     :state
+      t.string     :name,                           null: false
+      t.text       :description
+      t.attachment :picture
+      t.stamps
+      t.index      :name
+      t.index      :nature
     end
 
     create_table :journal_entries do |t|

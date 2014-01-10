@@ -763,35 +763,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "gaps", ["updated_at"], :name => "index_gaps_on_updated_at"
   add_index "gaps", ["updater_id"], :name => "index_gaps_on_updater_id"
 
-  create_table "incidents", force: true do |t|
-    t.integer  "target_id",                        null: false
-    t.string   "target_type",                      null: false
-    t.string   "nature",                           null: false
-    t.datetime "observed_at",                      null: false
-    t.integer  "priority"
-    t.integer  "gravity"
-    t.string   "state"
-    t.string   "name",                             null: false
-    t.text     "description"
-    t.string   "picture_file_name"
-    t.string   "picture_content_type"
-    t.integer  "picture_file_size"
-    t.datetime "picture_updated_at"
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",         default: 0, null: false
-  end
-
-  add_index "incidents", ["created_at"], :name => "index_incidents_on_created_at"
-  add_index "incidents", ["creator_id"], :name => "index_incidents_on_creator_id"
-  add_index "incidents", ["name"], :name => "index_incidents_on_name"
-  add_index "incidents", ["nature"], :name => "index_incidents_on_nature"
-  add_index "incidents", ["target_id", "target_type"], :name => "index_incidents_on_target_id_and_target_type"
-  add_index "incidents", ["updated_at"], :name => "index_incidents_on_updated_at"
-  add_index "incidents", ["updater_id"], :name => "index_incidents_on_updater_id"
-
   create_table "incoming_deliveries", force: true do |t|
     t.string   "number",                       null: false
     t.integer  "sender_id",                    null: false
@@ -961,7 +932,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "provisional",                 default: false, null: false
     t.boolean  "recommended",                 default: false, null: false
     t.integer  "recommender_id"
-    t.integer  "incident_id"
+    t.integer  "issue_id"
     t.integer  "prescription_id"
     t.integer  "production_id",                               null: false
     t.string   "reference_name",                              null: false
@@ -978,7 +949,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   add_index "interventions", ["created_at"], :name => "index_interventions_on_created_at"
   add_index "interventions", ["creator_id"], :name => "index_interventions_on_creator_id"
-  add_index "interventions", ["incident_id"], :name => "index_interventions_on_incident_id"
+  add_index "interventions", ["issue_id"], :name => "index_interventions_on_issue_id"
   add_index "interventions", ["prescription_id"], :name => "index_interventions_on_prescription_id"
   add_index "interventions", ["production_id"], :name => "index_interventions_on_production_id"
   add_index "interventions", ["production_support_id"], :name => "index_interventions_on_production_support_id"
@@ -1033,6 +1004,35 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "inventory_items", ["product_measurement_id"], :name => "index_inventory_items_on_product_measurement_id"
   add_index "inventory_items", ["updated_at"], :name => "index_inventory_items_on_updated_at"
   add_index "inventory_items", ["updater_id"], :name => "index_inventory_items_on_updater_id"
+
+  create_table "issues", force: true do |t|
+    t.integer  "target_id",                        null: false
+    t.string   "target_type",                      null: false
+    t.string   "nature",                           null: false
+    t.datetime "observed_at",                      null: false
+    t.integer  "priority"
+    t.integer  "gravity"
+    t.string   "state"
+    t.string   "name",                             null: false
+    t.text     "description"
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",         default: 0, null: false
+  end
+
+  add_index "issues", ["created_at"], :name => "index_issues_on_created_at"
+  add_index "issues", ["creator_id"], :name => "index_issues_on_creator_id"
+  add_index "issues", ["name"], :name => "index_issues_on_name"
+  add_index "issues", ["nature"], :name => "index_issues_on_nature"
+  add_index "issues", ["target_id", "target_type"], :name => "index_issues_on_target_id_and_target_type"
+  add_index "issues", ["updated_at"], :name => "index_issues_on_updated_at"
+  add_index "issues", ["updater_id"], :name => "index_issues_on_updater_id"
 
   create_table "journal_entries", force: true do |t|
     t.integer  "journal_id",                                                            null: false

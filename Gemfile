@@ -150,20 +150,19 @@ group :development, :test do
 
   gem 'factory_girl_rails'
   gem 'shoulda-context'
-  # gem 'headless'
+  # gem 'rspec-expectations'
 
   gem 'capybara'
   gem 'capybara-webkit'
+  # gem 'headless'
   # gem 'capybara-screenshot'
   # gem 'selenium-webdriver'
   # gem "launchy"
   # gem 'poltergeist'
-
   # gem 'sauce', '~> 3.1.1'
   # gem 'sauce-connect'
   # gem 'parallel_tests'
 
-  # gem 'rspec-expectations'
   gem 'awesome_print'
   gem 'pry'
   # database_cleaner is not required, but highly recommended

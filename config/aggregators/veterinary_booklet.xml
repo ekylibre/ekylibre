@@ -33,11 +33,12 @@
             <property name="id" level="api"/>
             <property name="person_id" level="api"/>
           </section>
-          <section name="incident" of="intervention.incident" of-type="record">
+          <section name="issue" of="intervention.issue" of-type="record">
             <property name="id" level="api"/>
             <title name="name"/>
             <property name="observed_at" type="datetime"/>
             <property name="state" level="api"/>
+            <property name="interventions_count" level="api"/>
             <property name="nature" level="api"/>
             <property name="description"/>
             <property name="picture_path"/>

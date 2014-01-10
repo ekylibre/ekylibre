@@ -321,14 +321,14 @@ demo :interventions do
     # create veterinary prescription with PDF and veterinary
     prescription = Prescription.create!(prescriptor: veterinary, document: document, reference_number: "2100000303")
 
-    # create an incident for all interventions on animals and update them with prescription and recommender
+    # create an issue for all interventions on animals and update them with prescription and recommender
     for intervention in Intervention.of_nature(:animal_illness_treatment)
-      # create an incident
+      # create an issue
       animal = intervention.casts.of_role(:'animal_illness_treatment-target').first.actor
       started_at = (intervention.started_at - 1.day) || Time.now
-      incident = Incident.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, name: ["Mammite", "Œdème", "Boiterie", "Fièvre", "Toux"].sample, nature: :animal_pathology, state: ["in_progress", "closed", "off"].sample)
+      issue = Issue.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, name: ["Mammite", "Œdème", "Boiterie", "Fièvre", "Toux"].sample, nature: :animal_pathology, state: ["in_progress", "closed", "off"].sample)
       # add prescription on intervention
-      intervention.incident = incident
+      intervention.issue = issue
       intervention.prescription = prescription
       intervention.recommended = true
       intervention.recommender = veterinary

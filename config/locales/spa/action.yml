@@ -123,9 +123,9 @@ spa:
     backend/cells/last_document_archives_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
-    backend/cells/last_incidents_cells: #?
     backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_interventions_cells: #?
+    backend/cells/last_issues_cells: #?
     backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
@@ -285,11 +285,6 @@ spa:
       # index: "Aide"
       # show: "Voir l’aide"
       # toggle: "Basculer l’aide"
-    backend/incidents:
-      # edit: "Modifier l’incident\_: %{name} (%{nature})"
-      # index: "Incidents"
-      # new: "Nouvel incident"
-      # show: "Incident %{name} (%{nature})"
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de l’approvisionnement"
       # edit: "Modifier l’approvisionnement: %{number}"
@@ -326,6 +321,11 @@ spa:
       new: "Inventario"
       # show: "Inventaire %{number}"
     backend/inventory_lines: #?
+    backend/issues:
+      # edit: "Modifier l’incident\_: %{name} (%{nature})"
+      # index: "Incidents"
+      # new: "Nouvel incident"
+      # show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       edit: "Modificar la pieza N°%{numro} du %{fecha de creacion}"
       new: "Añadir una pieza"
@@ -738,6 +738,7 @@ spa:
     # backend/interfacers: "Interfaceurs"
     backend/inventories: "Inventarios"
     # backend/inventory_items: "Lignes d’inventaires"
+    # backend/issues: "Incidents"
     # backend/journal_entries: "Écritures comptables"
     # backend/journal_entry_items: "Lignes d’écritures comptables"
     backend/journals: "Periodicos"
@@ -903,16 +904,16 @@ spa:
     # apply: "Appliquer"
     # archives: "Archives"
     # are_you_sure: "Êtes-vous sûr(e) de vouloir faire cela ?"
+    are_you_sure_you_want_to:
+      # abort_issue: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?"
+      # close_issue: "Êtes-vous sûr(e) de vouloir clore cet incident ?"
+      # reopen_issue: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"
     # are_you_sure_you_want_to_confirm: "Êtes-vous sûr(e) de vouloir passer la vente en commande ?"
     # are_you_sure_you_want_to_delete: "Êtes-vous sûr(e) de vouloir supprimer cet enregistrement ?"
     # are_you_sure_you_want_to_delete_delivery: "Êtes-vous sûr(e) de vouloir enlever cette livraison du transport ?"
-    # are_you_sure_you_want_to_drop_incident: "Êtes-vous sûr(e) de vouloir abandonner cet incident ?"
     # are_you_sure_you_want_to_invoice: "Êtes-vous sûr(e) de vouloir facturer la vente ?"
-    # are_you_sure_you_want_to_reopen_incident: "Êtes-vous sûr(e) de vouloir ré-ouvrir cet incident ?"
     are_you_sure_you_want_to_send_mails: "Esta seguro querer enviar este correo electronico?'"
-    # are_you_sure_you_want_to_solve_incident: "Êtes-vous sûr(e) que cet incident est résolu ?"
     # area_measure: "Superficie"
-    # area_x: "%{name} (%{postcode})"
     assessable_operations: "Operaciones imponibles (H.T)"
     assimilated_tax: "Tarifas asimiladas calculadas sobre anexo n°3310A"
     # attach_an_incoming_payment_to_expense: "Rattacher un encaissement\_: %{type} N°%{number}"
@@ -1184,7 +1185,6 @@ spa:
     # import_backup: "Import de fichier de sauvegarde"
     # importation_explanation: "Pour confirmer l’importation, vous devez confirmer en cliquant sur Importer."
     # in_production: "En production"
-    # incidents: "Incidents"
     # include_blank: "— Aucune organisation —"
     income_statement: "cuentos de résultos"
     # incoming_payment_conditions: "Conditions d’encaissement"
@@ -1216,6 +1216,7 @@ spa:
     # invoiced_amount: "Montant facturé"
     # invoices_only: "Utiliser seulement les factures"
     # is: "Est"
+    # issues: "Incidents"
     # isu_index: "Index génétique ISU"
     # items: "Éléments"
     journal: "Periodico"
@@ -1234,7 +1235,7 @@ spa:
       records: "Piezas" #?
     journals: "Periodico general"
     # land_parcel_name: "Parcelle"
-    # land_parcels: "Parcellaire"
+    # land_parcels: "Parcelles"
     # language: "Langue"
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
@@ -1473,6 +1474,7 @@ spa:
     # play: "Éxécuter"
     # please_wait: "Merci de patienter…"
     # population: "Population"
+    # postal_zone_x: "%{name} (%{postal_code})"
     # precipitation: "Précipitations"
     # preferences: "Préférences"
     # pretax_amount: "Montant HT"

@@ -19,10 +19,10 @@
   - b.tabbox do
     - b.cell(:intervention_casts) do
       = list(:intervention_casts)
-    - b.cell(:incidents) do
+    - b.cell(:issues) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :incidents, :target_id => @plant.id, :target_type => @plant.class.name})
-      = list(:incidents)
+        - t.new(:params =>{:controller => :issues, :target_id => @plant.id, :target_type => @plant.class.name})
+      = list(:issues)
     - b.cell(tl(:x_indicators, :count => @plant.indicator_data.count)) do
       = list(:indicators)
     - b.cell(:measurements) do

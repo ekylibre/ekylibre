@@ -24,7 +24,7 @@
 #  created_at                  :datetime         not null
 #  creator_id                  :integer
 #  id                          :integer          not null, primary key
-#  incident_id                 :integer
+#  issue_id                    :integer
 #  lock_version                :integer          default(0), not null
 #  natures                     :string(255)      not null
 #  prescription_id             :integer

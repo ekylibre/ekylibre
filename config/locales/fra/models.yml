@@ -298,7 +298,6 @@ fra:
       fungus: "Champignon"
       # gap: "Gap"
       immatter: "Immatériel"
-      incident: "Incident"
       incoming_delivery: "Approvisionnement"
       incoming_delivery_item: "Élément d’approvisionnement"
       incoming_delivery_mode: "Mode d’approvisionnement"
@@ -308,6 +307,7 @@ fra:
       intervention_cast: "Variable de procédure"
       inventory: "Inventaire"
       inventory_item: "Ligne d’inventaire"
+      issue: "Incident"
       journal: "Journal"
       journal_entry: "Écriture"
       journal_entry_item: "Ligne d’écriture"
@@ -696,8 +696,6 @@ fra:
     identification_number: "Numéro d’identification"
     importance: "Importance"
     in_cash: "En espèce" #?
-    incident: "Incident"
-    incidents: "Incidents"
     included: "Incluse"
     incoming_deliveries: "Approvisionnements"
     incoming_delivery_items: "Éléments d’approvisionnement"
@@ -727,6 +725,8 @@ fra:
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures" #?
     # irrigated: "Irrigated"
+    issue: "Incident"
+    issues: "Incidents"
     # item: "Item"
     # item_changes: "Item changes"
     item_listing: "Nœud de l’extraction"
@@ -879,10 +879,9 @@ fra:
     population: "Population"
     population_counting: "Gestion quantitative"
     position: "Position"
-    # postal_code: "Postal code"
+    postal_code: "Code postal"
     postal_zone: "Zone postale" #?
     postal_zones: "Zones postales"
-    postcode: "Code postal" #?
     preferences: "Préférences"
     prescription: "Prescription"
     prescriptor: "Prescripteur"

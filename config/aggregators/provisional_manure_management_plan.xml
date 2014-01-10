@@ -41,7 +41,7 @@
               <property name="started_at" of="provisional_intervention" type="datetime"/>
               <property name="stopped_at" of="provisional_intervention" type="datetime"/>
               <property name="duration" value="((provisional_intervention.stopped_at - provisional_intervention.started_at).to_d/(60*60)).round(2)"/>
-              <section name="incident" of="provisional_intervention.incident">
+              <section name="issue" of="provisional_intervention.issue">
                 <property name="id" level="api"/>
                 <property name="name"/>
                 <property name="observed_at"/>

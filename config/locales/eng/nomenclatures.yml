@@ -1033,25 +1033,6 @@ eng:
         sir: "Sir"
         syndicate: "Syndicate"
       # name: "Types de tiers"
-    incidents:
-      attributes:
-        # target: "Cible"
-        # treatments: "Traitements"
-      items:
-        # accident: "Accident"
-        # animal_pathology: "Pathologie animale"
-        # bacteria_disease: "Maladies bactériennes"
-        # climate_incident: "Incident climatique"
-        # diarrhea: "Diarrhée"
-        # fecondity_problem: "Problème de fécondité"
-        # fungus_disease: "Maladies cryptogamiques"
-        # incident: "Incident"
-        # mammite: "Mammite"
-        # nematoda_disease: "Maladies à nématodes"
-        # other: "Autre"
-        # respiratory_problem: "Problèmes respiratoires"
-        # vegetal_pathology: "Pathologie végétale"
-      # name: "Incidents"
     indicators:
       attributes:
         choice: "Choice" #?
@@ -1262,6 +1243,11 @@ eng:
         # water_content_rate: "Teneur en eau"
         # width: "Largeur"
       name: "Name"
+    issue_natures:
+      attributes: #?
+      items: #?
+    issues:  #?
+ #?
     languages:
       items:
         afr: "Afrikaans"

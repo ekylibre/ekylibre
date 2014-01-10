@@ -687,6 +687,13 @@ module ApplicationHelper
     end
   end
 
+  def are_you_sure_you_want_to(action_expr, options)
+    options[:default] ||= []
+    options[:default] = [options[:default]] unless options[:default].is_a?(Array)
+    options[:default] << "are_you_sure_you_want_to_#{action_expr}".tl(options)
+    "are_you_sure_you_want_to.#{action_expr}".tl(options)
+  end
+
 
   # def tool(code = nil, &block)
   #   raise ArgumentError.new("Arguments XOR block code are accepted, but not together.") if (code and block_given?) or (code.blank? and !block_given?)

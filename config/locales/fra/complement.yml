@@ -1611,21 +1611,6 @@ fra:
         zea: "Maïs"
         zone: "Zone physique"
         zone_property_title: "Titre de propriété terrienne"
-    incident:
-      nature:
-        accident: "Accident"
-        animal_pathology: "Pathologie animale"
-        bacteria_disease: "Maladies bactériennes"
-        climate_incident: "Incident climatique"
-        diarrhea: "Diarrhée"
-        fecondity_problem: "Problème de fécondité"
-        fungus_disease: "Maladies cryptogamiques"
-        incident: "Incident"
-        mammite: "Mammite"
-        nematoda_disease: "Maladies à nématodes"
-        other: "Autre"
-        respiratory_problem: "Problèmes respiratoires"
-        vegetal_pathology: "Pathologie végétale"
     intervention:
       reference_name:
         animal_birth: "Naissance d’un animal"
@@ -1690,6 +1675,8 @@ fra:
         straws: "Paille"
         tractor: "Tracteur"
         trailer: "Remorque"
+    issue:
+
     land_parcel_cluster:
       variety:
         acetal: "Acetal"
@@ -2117,7 +2104,6 @@ fra:
         financial_year: "Exercice"
         fungus: "Champignon"
         immatter: "Immatériel"
-        incident: "Incident"
         incoming_delivery: "Approvisionnement"
         incoming_delivery_item: "Élément d’approvisionnement"
         incoming_delivery_mode: "Mode d’approvisionnement"
@@ -2127,6 +2113,7 @@ fra:
         intervention_cast: "Variable de procédure"
         inventory: "Inventaire"
         inventory_item: "Ligne d’inventaire"
+        issue: "Incident"
         journal: "Journal"
         journal_entry: "Écriture"
         journal_entry_item: "Ligne d’écriture"
