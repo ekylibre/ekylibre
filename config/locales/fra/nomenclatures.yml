@@ -787,6 +787,7 @@ fra:
         pressure: "Pression"
         specific_volume: "Volume spécifique"
         surface_area: "Superficie"
+        # surface_area_density: "Surface area density"
         temperature: "Temperature"
         time: "Temps"
         volume: "Volume"
@@ -2116,8 +2117,10 @@ fra:
         ton: "Tonne"
         ton_per_hectare: "Tonne par hectare"
         unity: "Unité"
+        # unity_per_hectare: "Unity per hectare"
         unity_per_kilogram: "Unité par kilogramme"
         unity_per_liter: "Unité par litre"
+        # unity_per_square_meter: "Unity per square meter"
         watt: "Watt"
     varieties:
       name: "Variétés"

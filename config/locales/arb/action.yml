@@ -1464,6 +1464,7 @@ arb:
       trade: "التجارة"
     merge: "دمج"
     # meteo: "Météo"
+    # method: "Méthode"
     # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
     # minimal_temperature: "Température minimale"
     missing_help: "صفحات مفقودة"
