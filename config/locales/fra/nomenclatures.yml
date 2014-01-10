@@ -1784,8 +1784,11 @@ fra:
         calf: "Veau"
         caphorn_wheat_crop: "Culture de blé tendre Caphorn"
         caphorn_wheat_seed_25: "Semence de blé tendre Caphorn"
+        cattle_compost: "Compost de bovins"
         cattle_herd: "Troupeau de bovins"
+        cattle_liquid_slurry: "Purin de bovins"
         cattle_manure: "Fumier de bovins"
+        cattle_slurry: "Lisier de bovins"
         cereals_feed_bag_25: "Aliments céréales en sac de 25 kg"
         champagne_land_parcel: "Parcelle sur craie Sud Charente et Charente-Martime  (terre de champagne)"
         chemical_fertiliser_division: "Emplacement de stockage des engrais"
@@ -2117,10 +2120,10 @@ fra:
         ton: "Tonne"
         ton_per_hectare: "Tonne par hectare"
         unity: "Unité"
-        # unity_per_hectare: "Unity per hectare"
+        unity_per_hectare: "Unité par hectare"
         unity_per_kilogram: "Unité par kilogramme"
         unity_per_liter: "Unité par litre"
-        # unity_per_square_meter: "Unity per square meter"
+        unity_per_square_meter: "Unité par mètre carré"
         watt: "Watt"
     varieties:
       name: "Variétés"
@@ -2178,6 +2181,7 @@ fra:
         cichorium: "Chicoré"                               # asteraceae
         clay_limestone_soil: "Sol argilo-calcaire (Groies)" # land_parcel
         clay_soil: "Terre d’argile lourde"                 # land_parcel
+        compost: "Compost"                               # excrement
         courtot: "Courtot"                                 # triticum_aestivum
         cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
         cultivable_zone: "Zone cultivable"                 # zone
@@ -2189,6 +2193,7 @@ fra:
         equipment: "Équipement"                            # matter
         esperia: "Esperia"                                 # triticum_aestivum
         euclide: "Euclide"                                 # triticum_aestivum
+        excrement: "Excrément"                           # organic_matter
         fabaceae: "Fabaceae"                               # plant
         fabulis: "Fabulis"                                 # triticum_durum
         flap_silt_soil: "Limons battants"                  # land_parcel
@@ -2228,11 +2233,12 @@ fra:
         levis: "Levis"                                     # triticum_aestivum
         linaceae: "Linaceae"                               # plant
         linum: "Lin"                                       # linaceae
+        liquid_slurry: "Purin"                   # excrement
         lona: "Lona"                                       # triticum_aestivum
         malus: "Pommier"                                   # plant
         mammalia: "Mammifère"                              # animal
         manital: "Manital"                                 # triticum_aestivum
-        manure: "Fumier"                                   # organic_matter
+        manure: "Fumier"                                   # excrement
         matter: "Matérialisable"                           # product
         meat: "Viande"                                     # organic_matter
         medicago: "Medicago"                               # fabaceae
@@ -2291,6 +2297,7 @@ fra:
         silt_soil: "Limon"                                 # land_parcel
         silty_clay_loam_soil: "Sol limono-argileux"        # land_parcel
         silty_clay_soil: "Sol argilo-limoneux"             # land_parcel
+        slurry: "Lisier"                                 # excrement
         soissons: "Soissons"                               # triticum_aestivum
         solanaceae: "Solanaceae"                           # plant
         solanum: "Pomme de terre"                          # solanaceae
