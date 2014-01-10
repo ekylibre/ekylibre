@@ -315,15 +315,6 @@ Ekylibre::Application.routes.draw do
 
     resources :gaps, concerns: [:list, :unroll]
 
-    resources :issues, concerns: [:list, :picture, :unroll] do
-      member do
-        post :abort
-        post :close
-        post :reopen
-        get :list_interventions
-      end
-    end
-
     resources :incoming_deliveries, concerns: [:list, :unroll] do
       member do
         get :list_items
@@ -361,6 +352,15 @@ Ekylibre::Application.routes.draw do
       end
       member do
         match "reflect", via: [:get, :post]
+      end
+    end
+
+    resources :issues, concerns: [:list, :picture, :unroll] do
+      member do
+        post :abort
+        post :close
+        post :reopen
+        get :list_interventions
       end
     end
 

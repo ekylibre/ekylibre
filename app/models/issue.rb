@@ -102,11 +102,11 @@ class Issue < Ekylibre::Record::Base
 
   end
 
-  before_validation do
-    if self.can_treat?
-      self.treat
-    end
-  end
+  # before_validation do
+  #   if self.can_treat?
+  #     self.treat
+  #   end
+  # end
 
   protect(on: :destroy) do
     self.has_intervention?
