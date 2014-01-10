@@ -1386,6 +1386,13 @@ eng:
     nmp_poitou_charentes_abacus_4:
       attributes: #?
       items: #?
+    nmp_poitou_charentes_abacus_5:
+      attributes: #?
+      choices: #?
+      items: #?
+    nmp_poitou_charentes_abacus_6:
+      attributes: #?
+      items: #?
     procedure_natures:
       attributes: #?
       items:
