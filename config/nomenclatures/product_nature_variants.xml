@@ -360,7 +360,7 @@
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
       <!-- PLANT INTRANT -->
-              <!-- FERTILIZER -->
+              <!-- MINERAL FERTILIZER -->
       <item name="bulk_ammonitrate_33"
             nature="chemical_fertilizer"
             unit_name="ton"
@@ -376,12 +376,34 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
             />
+            <!-- ORGANIC FERTILIZER -->
       <item name="cattle_manure"
             nature="organic_fertilizer"
             variety="manure"
             derivative_of="bos"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.65percent, potassium_concentration: 0.30percent, phosphorus_concentration: 0.11percent"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.54percent, potassium_concentration: 0.30percent, phosphorus_concentration: 0.11percent"
+            />
+            <item name="cattle_slurry"
+            nature="organic_fertilizer"
+            variety="slurry"
+            derivative_of="bos"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.40percent"
+            />
+            <item name="cattle_liquid_slurry"
+            nature="organic_fertilizer"
+            variety="liquid_slurry"
+            derivative_of="bos"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.30percent"
+            />
+            <item name="cattle_compost"
+            nature="organic_fertilizer"
+            variety="compost"
+            derivative_of="bos"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.70cubic_meter, nitrogen_concentration: 0.8percent"
             />
             <!-- SEED -->
       <item name="seed"

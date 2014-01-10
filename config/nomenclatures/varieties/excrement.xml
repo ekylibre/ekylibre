@@ -1,0 +1,10 @@
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-excrement">
+    <items>
+      <item name="manure" derivative_of="mammalia"/>
+      <item name="slurry" derivative_of="mammalia"/>
+      <item name="liquid_slurry" derivative_of="mammalia"/>
+      <item name="compost"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

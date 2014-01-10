@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
+  <!--  abaque de valeur de Mr (kg de N / ha)  selon la nature du précédent  -->
+  <nomenclature name="nmp_poitou_charentes_abacus_7" hierarchical="false">
+    <attributes>
+      <attribute name="previous_crop" type="choice" nomenclature="france_crops_sets" required="true"/>
+      <attribute name="crop_destruction_method" type="choice" choices="" required="false"/>
+      <attribute name="previous_crop_minimum_age" type="integer" required="false"/><!-- en mois -->
+      <attribute name="previous_crop_maximum_age" type="integer" required="false"/><!-- en mois -->
+      <attribute name="previous_crop_destruction_period_start" type="string" required="false"/><!-- MM-JJ -->
+      <attribute name="previous_crop_destruction_period_stop" type="string" required="false"/><!-- MM-JJ -->
+      <attribute name="current_crop_implantation_period_start" type="string" required="false"/><!-- MM-JJ -->
+      <attribute name="mr" type="integer" required="true"/><!-- kg de N / ha -->
+    </attributes>
+    <items>
+      <!-- Tableau principal -->
+      <item name="beet" previous_crop="beet" mr="20"/>
+      <item name="carrot" previous_crop="carrot" mr="10"/>
+      <item name="straw_cereal_buried" previous_crop="straw_cereal" mr="-20"/>
+      <item name="straw_cereal_export" previous_crop="straw_cereal" mr="0"/>
+      <item name="rape" previous_crop="rape" mr="20"/>
+      <item name="chicory" previous_crop="chicory" mr="10"/>
+      <item name="vetch" previous_crop="vetch" mr="30"/>
+      <item name="flax" previous_crop="flax" mr="0"/>
+      <item name="alfalfa_current_year" previous_crop="alfalfa" mr="40"/>
+      <item name="alfalfa_next_year" previous_crop="alfalfa" mr="20"/>
+      <item name="grain_corn" previous_crop="corn" mr="-10"/>
+      <item name="silage_corn" previous_crop="corn" mr="0"/>
+      <item name="peas" previous_crop="peas" mr="20"/>
+      <item name="meadow" previous_crop="grass" mr="0"/>
+      <item name="bean" previous_crop="bean" mr="20"/>
+      <item name="nightshade" previous_crop="nightshade" mr="20"/>
+      <item name="sunflower" previous_crop="sunflower" mr="0"/>
+      <item name="concealed_meadow" previous_crop="grass" mr="-30"/>
+      <!-- Tableau secondaire Jachère -->
+      <item name="grass_fallow_land_A1"
+      previous_crop="grass" 
+      previous_crop_minimum_age="0" 
+      previous_crop_maximum_age="12"
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="10-01"
+      mr="10"
+      />
+      <item name="grass_fallow_land_A2"
+      previous_crop="grass" 
+      previous_crop_minimum_age="0" 
+      previous_crop_maximum_age="12"
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="03-01"
+      mr="5"
+      />
+      <item name="grass_fallow_land_A3"
+      previous_crop="grass" 
+      previous_crop_minimum_age="0" 
+      previous_crop_maximum_age="12"
+      previous_crop_destruction_period_start="01-01"
+      previous_crop_destruction_period_stop="04-01"
+      current_crop_implantation_period_start="03-01"
+      mr="10"
+      />
+      <item name="grass_fallow_land_B1"
+      previous_crop="grass" 
+      previous_crop_minimum_age="12"
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="10-01"
+      mr="20"
+      />
+      <item name="grass_fallow_land_B2"
+      previous_crop="grass" 
+      previous_crop_minimum_age="12"
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="03-01"
+      mr="15"
+      />
+      <item name="grass_fallow_land_B3"
+      previous_crop="grass" 
+      previous_crop_minimum_age="12"
+      previous_crop_destruction_period_start="01-01"
+      previous_crop_destruction_period_stop="04-01"
+      current_crop_implantation_period_start="03-01"
+      mr="20"
+      />
+      <item name="leguminous_fallow_land_A1"
+      previous_crop="leguminous" 
+      previous_crop_minimum_age="0" 
+      previous_crop_maximum_age="12"
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="10-01"
+      mr="20"
+      />
+      <item name="leguminous_fallow_land_A2"
+      previous_crop="leguminous" 
+      previous_crop_minimum_age="0" 
+      previous_crop_maximum_age="12"
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="03-01"
+      mr="15"
+      />
+      <item name="leguminous_fallow_land_A3"
+      previous_crop="leguminous" 
+      previous_crop_minimum_age="0" 
+      previous_crop_maximum_age="12"
+      previous_crop_destruction_period_start="01-01"
+      previous_crop_destruction_period_stop="04-01"
+      current_crop_implantation_period_start="03-01"
+      mr="20"
+      />
+      <item name="leguminous_fallow_land_B1"
+      previous_crop="leguminous" 
+      previous_crop_minimum_age="12" 
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="10-01"
+      mr="40"
+      />
+      <item name="leguminous_fallow_land_B2"
+      previous_crop="leguminous" 
+      previous_crop_minimum_age="12"
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="03-01"
+      mr="30"
+      />
+      <item name="leguminous_fallow_land_B3"
+      previous_crop="leguminous" 
+      previous_crop_minimum_age="12"
+      previous_crop_destruction_period_start="01-01"
+      previous_crop_destruction_period_stop="04-01"
+      current_crop_implantation_period_start="03-01"
+      mr="40"
+      />
+      <item name="grass_leguminous_fallow_land_A1"
+      previous_crop="grass_leguminous" 
+      previous_crop_minimum_age="0" 
+      previous_crop_maximum_age="12"
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="10-01"
+      mr="15"
+      />
+      <item name="grass_leguminous_fallow_land_A2"
+      previous_crop="grass_leguminous" 
+      previous_crop_minimum_age="0" 
+      previous_crop_maximum_age="12"
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="03-01"
+      mr="10"
+      />
+      <item name="grass_leguminous_fallow_land_A3"
+      previous_crop="grass_leguminous" 
+      previous_crop_minimum_age="0" 
+      previous_crop_maximum_age="12"
+      previous_crop_destruction_period_start="01-01"
+      previous_crop_destruction_period_stop="04-01"
+      current_crop_implantation_period_start="03-01"
+      mr="15"
+      />
+      <item name="grass_leguminous_fallow_land_B1"
+      previous_crop="grass_leguminous" 
+      previous_crop_minimum_age="12" 
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="10-01"
+      mr="30"
+      />
+      <item name="grass_leguminous_fallow_land_B2"
+      previous_crop="grass_leguminous" 
+      previous_crop_minimum_age="12"
+      previous_crop_destruction_period_start="08-30"
+      previous_crop_destruction_period_stop="09-30"
+      current_crop_implantation_period_start="03-01"
+      mr="25"
+      />
+      <item name="grass_leguminous_fallow_land_B3"
+      previous_crop="grass_leguminous" 
+      previous_crop_minimum_age="12"
+      previous_crop_destruction_period_start="01-01"
+      previous_crop_destruction_period_stop="04-01"
+      current_crop_implantation_period_start="03-01"
+      mr="30"
+      />
+      <item name="leguminous_fallow_land" previous_crop="leguminous" mr="0"/>
+      <item name="grass_leguminous_fallow_land" previous_crop="grass_leguminous" mr="0"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

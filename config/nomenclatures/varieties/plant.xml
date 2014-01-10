@@ -23,6 +23,18 @@
       <item name="malus">
         <attribute name="itis-tsn" value="25254"/>
       </item>
+      <item name="amaranthaceae">
+        <attribute name="itis-tsn" value="20714"/>
+      </item>
+      <item name="apiaceae">
+        <attribute name="itis-tsn" value="500042"/>
+      </item>
+      <item name="linaceae">
+        <attribute name="itis-tsn" value="29200"/>
+      </item>
+      <item name="solanaceae">
+        <attribute name="itis-tsn" value="30411"/>
+      </item>
     </items>
   </nomenclature>
 </nomenclatures>
