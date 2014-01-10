@@ -30,8 +30,8 @@ class AddANewAnimalTest < CapybaraIntegrationTest
   test "view an animal" do
     visit ('/backend/animals')
     shoot_screen "animals/index"
-    page.should have_content('MARGUERITE')
-    page.should have_content('female')
+    assert has_content?('MARGUERITE')
+    assert has_content?('female')
   end
 
   # Add an incident on the current animal

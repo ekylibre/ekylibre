@@ -157,13 +157,13 @@ group :development, :test do
   # gem 'capybara-screenshot'
   # gem 'selenium-webdriver'
   # gem "launchy"
-  gem 'poltergeist'
+  # gem 'poltergeist'
 
   # gem 'sauce', '~> 3.1.1'
   # gem 'sauce-connect'
   # gem 'parallel_tests'
 
-  gem 'rspec-expectations'
+  # gem 'rspec-expectations'
   gem 'awesome_print'
   gem 'pry'
   # database_cleaner is not required, but highly recommended
