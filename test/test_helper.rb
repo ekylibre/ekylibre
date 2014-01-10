@@ -274,12 +274,13 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   include Warden::Test::Helpers
   Warden.test_mode!
 
-  def shoot_screen(name)
+  def shoot_screen(name = nil)
+    name ||= current_url.split(/\:\d+\//).last
     sleep(1)
     file = Rails.root.join("tmp", "screenshots", name + ".png")
     FileUtils.mkdir_p(file.dirname) unless file.dirname.exist?
     save_page file.to_s.gsub(/\.png\z/, '.html')
-    save_screenshot file, full: true
+    save_screenshot file # , full: true
   end
 
   # Add a method to test unroll in form
@@ -287,11 +288,13 @@ class CapybaraIntegrationTest < ActionDispatch::IntegrationTest
   # http://stackoverflow.com/questions/13187753/rails3-jquery-autocomplete-how-to-test-with-rspec-and-capybara/13213185#13213185
   # http://jackhq.tumblr.com/post/3728330919/testing-jquery-autocomplete-using-capybara
   def fill_unroll(field, options = {})
-    fill_in(field, :with => options[:with])
-    sleep(1)
+    fill_in(field, with: options[:with])
+    sleep(3)
+    shoot_screen "#{options[:name]}/unroll-before"
     selector = "input##{field} + .items-menu .items-list .item[data-item-label=\"#{options[:select]}\"]"
     # page.should have_xpath(selector)
     page.execute_script "$('#{selector}').trigger('mouseenter').click();"
+    shoot_screen "#{options[:name]}/unroll-after"
   end
 
 end

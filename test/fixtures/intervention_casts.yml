@@ -54,6 +54,7 @@ intervention_casts_001:
   creator_id: 1
   id: 1
   intervention_id: 1
+  population: 1
   reference_name: "grinder"
   roles: "soil_enrichment-tool, grinding-tool"
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -65,6 +66,7 @@ intervention_casts_002:
   creator_id: 1
   id: 2
   intervention_id: 2
+  population: 12
   reference_name: "grinded"
   roles: 'grinding-output, soil_enrichment-input'
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -76,6 +78,7 @@ intervention_casts_003:
   creator_id: 1
   id: 3
   intervention_id: 1
+  population: 1.8
   reference_name: "cultivation"
   roles: "grinding-input"
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -87,6 +90,7 @@ intervention_casts_004:
   creator_id: 1
   id: 4
   intervention_id: 1
+  population: 1
   reference_name: "tractor"
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -97,6 +101,7 @@ intervention_casts_005:
   creator_id: 1
   id: 5
   intervention_id: 1
+  population: 12
   reference_name: "grinded"
   roles: 'grinding-output, soil_enrichment-input'
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -109,6 +114,7 @@ intervention_casts_006:
   creator_id: 1
   id: 6
   intervention_id: 1
+  population: 1.8
   reference_name: "land_parcel"
   roles: 'soil_enrichment-target'
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -120,6 +126,7 @@ intervention_casts_007:
   creator_id: 1
   id: 7
   intervention_id: 1
+  population: 1
   reference_name: "driver"
   roles: 'grinding-doer, soil_enrichment-doer'
   updated_at: 2009-07-19 19:13:59 +02:00

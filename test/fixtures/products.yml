@@ -185,7 +185,7 @@ animals_001:
   creator_id: 1
   id: 7001
   identification_number: "A7001"
-  name: "IONOSPHERE"
+  name: "Ionosphere"
   nature_id: 1
   number: "7001"
   type: 'Animal'
@@ -200,8 +200,8 @@ animals_002:
   creator_id: 1
   id: 7002
   identification_number: "A7002"
-  name: "ISABELLE"
-  nature_id: 1
+  name: "Isabelle"
+  nature_id: 5
   number: "7002"
   type: 'Animal'
   updated_at: 2009-07-19 19:13:59 +02:00
@@ -230,7 +230,7 @@ animals_004:
   creator_id: 1
   id: 7004
   identification_number: "A7004"
-  name: "MARGUERITE"
+  name: "Marguerite"
   nature_id: 1
   number: "7004"
   type: 'Animal'
