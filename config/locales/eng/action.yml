@@ -1289,6 +1289,7 @@ eng:
       trade: "Trade"
     merge: "Merge"
     meteo: "Weather"
+    # method: "Méthode"
     # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
     # minimal_temperature: "Température minimale"
     missing_help: "Missing page"

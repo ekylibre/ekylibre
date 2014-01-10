@@ -1323,6 +1323,7 @@ spa:
       # trade: "Achats/Ventes"
     # merge: "Fusionner"
     # meteo: "Météo"
+    # method: "Méthode"
     # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
     # minimal_temperature: "Température minimale"
     missing_help: "La página no existe"
