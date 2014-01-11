@@ -25,14 +25,14 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     click_on("Créer")
     shoot_screen "animals/new-after_create"
     visit('/backend/animals')
-    page.should have_content('Linette')
+    assert has_content?('Linette'), "Linette must appear in animals list after its creation"
   end
 
   # View a cow
   test "view an animal" do
     visit ('/backend/animals')
     shoot_screen "animals/index"
-    assert has_content?('Marguerite'), "Marguerite must appear in animal list"
+    assert has_content?('Marguerite'), "Marguerite must appear in animals list"
     click_link 'Marguerite'
     shoot_screen "animals/show-marguerite"
     asset has_content?('female'), "Marguerite should appear as a female"
