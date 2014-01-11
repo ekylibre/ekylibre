@@ -31,6 +31,7 @@ class Backend::PurchasesController < BackendController
     t.column :supplier, url: true
     t.column :description
     # t.column :shipped
+    t.status
     t.column :state_label
     # t.column :paid_amount, currency: true
     t.column :amount, currency: true

@@ -481,7 +481,15 @@ class Sale < Ekylibre::Record::Base
     end
     return credit
   end
-
+  
+  def status
+    if self.accounted_at == nil
+      return (self.invoice ? :caution : :stop)
+    elsif self.accounted_at
+      return :go
+    end
+  end
+  
 end
 
 

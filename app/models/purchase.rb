@@ -202,8 +202,11 @@ class Purchase < Ekylibre::Record::Base
   end
 
   def status
-    status = ""
-    status
+    if self.accounted_at == nil
+      return (self.invoice ? :caution : :stop)
+    elsif self.accounted_at
+      return :go
+    end
   end
 
   def supplier_address
