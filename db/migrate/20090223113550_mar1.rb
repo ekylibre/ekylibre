@@ -1,33 +1,34 @@
+# -*- coding: utf-8 -*-
 class Mar1 < ActiveRecord::Migration
   def self.up 
     add_column    :companies,        :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
     add_column    :bank_accounts,    :entity_id,     :integer, :references=>:entities, :on_delete=>:cascade, :on_update=>:cascade
     add_index :bank_accounts, :entity_id
 
-    # entity is automatically created for all the companies.
-    execute "INSERT INTO entity_natures(company_id, name, in_name, physical, abbreviation, created_at, updated_at) SELECT companies.id, 'Indéfini', CAST('false' AS BOOLEAN), CAST('false' AS BOOLEAN), '-', current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND en.name='Indéfini') WHERE en.id IS NULL"
+    # Entity is automatically created for all the companies.
+    execute "INSERT INTO entity_natures(company_id, name, in_name, physical, abbreviation, created_at, updated_at) SELECT companies.id, 'Indéfini', #{quoted_false}, #{quoted_false}, '-', current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND en.name='Indéfini') WHERE en.id IS NULL"
     execute "INSERT INTO entities(company_id, nature_id, language_id, name, code, full_name, created_at, updated_at) SELECT companies.id, en.id, ln.id, companies.name, companies.code, companies.name, current_timestamp, current_timestamp FROM companies LEFT JOIN entity_natures en ON (en.company_id=companies.id AND  en.name='Indéfini') LEFT JOIN entities e ON (e.code=companies.code), languages ln  WHERE ln.iso2='fr' AND e.id IS NULL"
-#    execute "UPDATE companies SET entity_id=e.id FROM entities e WHERE e.code=companies.code"
+    # execute "UPDATE companies SET entity_id=e.id FROM entities e WHERE e.code=companies.code"
     for company in Company.find(:all)
       company.entity_id = Entity.find_by_company_id_and_code(company.id, company.code).id
       company.save(false)
     end
-#    execute "UPDATE bank_accounts SET entity_id=c.entity_id FROM companies c WHERE c.entity_id=bank_accounts.entity_id"
+    # execute "UPDATE bank_accounts SET entity_id=c.entity_id FROM companies c WHERE c.entity_id=bank_accounts.entity_id"
     for bank_account in BankAccount.find(:all)
       bank_account.entity_id = Company.find_by_id(bank_account.company_id).entity_id
       bank_account.save(false)
     end
 
-#     for company in Company.find(:all)
-#       nature = company.entity_natures.find(:first, :conditions=>{:in_name=>false, :physical=>false,:abbreviation=>'-'})                              
-#       nature = company.entity_natures.create!(:name=>'Inconnu', :abbreviation=>'-', :in_name=>false, :physical=>false) if nature.nil?
-#       entity = company.entities.find(:first, :conditions=>{:code=>company.code})
-#       entity = company.entities.create!(:nature_id=>nature.id , :language_id=>1 , :name=>company.name, :code=>company.code) if entity.nil?
-#       company.update_attributes({:entity_id=>entity.id})
-#       company.bank_accounts.each do |bank_account|
-#         bank_account.update_attributes({:entity_id=>entity.id})
-#       end
-#     end
+    # for company in Company.find(:all)
+    #   nature = company.entity_natures.find(:first, :conditions=>{:in_name=>false, :physical=>false,:abbreviation=>'-'})                              
+    #   nature = company.entity_natures.create!(:name=>'Inconnu', :abbreviation=>'-', :in_name=>false, :physical=>false) if nature.nil?
+    #   entity = company.entities.find(:first, :conditions=>{:code=>company.code})
+    #   entity = company.entities.create!(:nature_id=>nature.id , :language_id=>1 , :name=>company.name, :code=>company.code) if entity.nil?
+    #   company.update_attributes({:entity_id=>entity.id})
+    #   company.bank_accounts.each do |bank_account|
+    #     bank_account.update_attributes({:entity_id=>entity.id})
+    #   end
+    # end
 
     
     add_column    :contacts,         :country,        :string,  :limit=>2    
@@ -62,25 +63,25 @@ class Mar1 < ActiveRecord::Migration
     drop_table :price_lists
 
 
-  #   # Appellation
-#     create_table :appellation do |t|
+    # # Appellation
+    # create_table :appellation do |t|
       
-#     end
+    # end
 
 
-#     # Wine
-#     create_table :wines do |t|
-#       t.column :name,                   :string,   :null=>false
-#       t.column :vintage,              :string,   :null=>false
-#       t.column :appellation,              :string,   :null=>false
-#       #       t.column :centilisation,              :string,   :null=>false
-#       t.column :alcohol_degree,              :string,   :null=>false
-#       #       t.column :codification,              :string,   :null=>false
-#       t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
-#     end
-#     add_index :wines, :company_id
+    # # Wine
+    # create_table :wines do |t|
+    #   t.column :name,                   :string,   :null=>false
+    #   t.column :vintage,              :string,   :null=>false
+    #   t.column :appellation,              :string,   :null=>false
+    #   #       t.column :centilisation,              :string,   :null=>false
+    #   t.column :alcohol_degree,              :string,   :null=>false
+    #   #       t.column :codification,              :string,   :null=>false
+    #   t.column :company_id,             :integer,  :null=>false, :references=>:companies, :on_delete=>:restrict, :on_update=>:restrict
+    # end
+    # add_index :wines, :company_id
 
-#     add_column    :products, :wine_id, :integer, :references=>:wines
+    # add_column    :products, :wine_id, :integer, :references=>:wines
 
 
     # Employee
@@ -128,11 +129,11 @@ class Mar1 < ActiveRecord::Migration
     add_column :purchase_orders,  :list_id, :integer, :references=>nil
     add_column :sale_order_lines, :price_list_id, :integer, :references=>nil
 
-#     add_column :delivery_lines,   :price_list_id, :integer, :references=>:price_lists
-#     add_column :invoice_lines,    :price_list_id, :integer, :references=>:price_lists
-#     add_column :prices,           :list_id, :integer, :references=>:price_lists
-#     add_column :purchase_orders,  :list_id, :integer, :references=>:price_lists
-#     add_column :sale_order_lines, :price_list_id, :integer, :references=>:price_lists
+    # add_column :delivery_lines,   :price_list_id, :integer, :references=>:price_lists
+    # add_column :invoice_lines,    :price_list_id, :integer, :references=>:price_lists
+    # add_column :prices,           :list_id, :integer, :references=>:price_lists
+    # add_column :purchase_orders,  :list_id, :integer, :references=>:price_lists
+    # add_column :sale_order_lines, :price_list_id, :integer, :references=>:price_lists
 
     add_column :prices,           :started_on, :date
     add_column :prices,           :stopped_on, :date

@@ -62,9 +62,9 @@ class Mai1t2 < ActiveRecord::Migration
     add_column :entities,     :origin_id,    :integer, :references=>:meeting_locations, :on_delete=>:restrict, :on_update=>:restrict
     add_column :entities,     :first_met_on, :date
 
-    execute "INSERT INTO meeting_locations(company_id, name, active,  created_at, updated_at) SELECT companies.id, 'Divers', CAST('true' AS BOOLEAN),  current_timestamp, current_timestamp FROM companies LEFT JOIN meeting_locations ml ON (ml.company_id=companies.id AND ml.name='Divers') WHERE ml.id IS NULL"
+    execute "INSERT INTO meeting_locations(company_id, name, active,  created_at, updated_at) SELECT companies.id, 'Divers', #{quoted_true},  current_timestamp, current_timestamp FROM companies LEFT JOIN meeting_locations ml ON (ml.company_id=companies.id AND ml.name='Divers') WHERE ml.id IS NULL"
 
-    execute "INSERT INTO meeting_modes(company_id, name, active,  created_at, updated_at) SELECT companies.id, 'En personne',CAST('true' AS BOOLEAN),  current_timestamp, current_timestamp FROM companies LEFT JOIN meeting_modes mm ON (mm.company_id=companies.id AND mm.name='En personne') WHERE mm.id IS NULL"
+    execute "INSERT INTO meeting_modes(company_id, name, active,  created_at, updated_at) SELECT companies.id, 'En personne',#{quoted_true},  current_timestamp, current_timestamp FROM companies LEFT JOIN meeting_modes mm ON (mm.company_id=companies.id AND mm.name='En personne') WHERE mm.id IS NULL"
 
   end
 

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class Mar2t3 < ActiveRecord::Migration
   def self.up
     add_column :purchase_orders, :planned_on, :date
@@ -12,7 +13,7 @@ class Mar2t3 < ActiveRecord::Migration
     # execute "UPDATE sale_order_lines SET location_id =a.id FROM stock_locations a  WHERE a.name='Lieu de stockage par défaut' "
     PurchaseOrderLine.find(:all).each{|line| line.location_id = line.company.locations.find(:first)}
     # execute "UPDATE purchase_order_lines SET location_id=a.id FROM stock_locations a  WHERE a.name='Lieu de stockage par défaut'"
-    execute 'UPDATE prices SET "default" = CAST(\'true\' AS BOOLEAN)'
+    execute "UPDATE prices SET #{quote_column_name('default')} = #{quoted_true}"
   end
 
   def self.down
