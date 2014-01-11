@@ -47,7 +47,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   has_many :items, class_name: "IncomingDeliveryItem", inverse_of: :delivery, foreign_key: :delivery_id, dependent: :destroy
   has_many :products, through: :items
   has_many :product_moves, :as => :origin
-
+  has_many :issues, as: :target
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :number, :sender
@@ -83,6 +83,18 @@ class IncomingDelivery < Ekylibre::Record::Base
   def execute(received_at = Time.now)
     self.class.transaction do
       self.update_attributes(:received_at => received_at)
+    end
+  end
+  
+  def has_issue?
+    self.issues.any?
+  end
+  
+  def status
+    if self.received_at == nil
+      return (has_issue? ? :stop : :caution)
+    elsif self.received_at
+      return (has_issue? ? :caution : :go)
     end
   end
 

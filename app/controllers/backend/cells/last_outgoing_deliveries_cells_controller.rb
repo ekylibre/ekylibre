@@ -4,6 +4,7 @@ class Backend::Cells::LastOutgoingDeliveriesCellsController < Backend::CellsCont
     t.column :number, :url => {:controller => "/backend/outgoing_deliveries"}
     t.column :reference_number
     t.column :sent_at
+    t.status
     t.column :mode
     t.column :transporter
     t.column :sale, :url => {:controller => "/backend/sales"}

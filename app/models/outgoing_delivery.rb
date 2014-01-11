@@ -50,6 +50,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
   belongs_to :transporter, class_name: "Entity"
   has_many :items, class_name: "OutgoingDeliveryItem", foreign_key: :delivery_id, dependent: :destroy, inverse_of: :delivery
   has_many :interventions, class_name: "Intervention", :as => :ressource
+  has_many :issues, as: :target
   #has_many :product_moves, :as => :origin, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :net_mass, allow_nil: true
@@ -132,5 +133,17 @@ class OutgoingDelivery < Ekylibre::Record::Base
   def parcel_sum
     self.items.sum(:quantity)
   end
-
+  
+  def has_issue?
+    self.issues.any?
+  end
+  
+  def status
+    if self.sent_at == nil
+      return (has_issue? ? :stop : :caution)
+    elsif self.sent_at
+      return (has_issue? ? :caution : :go)
+    end
+  end
+  
 end
