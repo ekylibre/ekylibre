@@ -85,11 +85,11 @@ class IncomingDelivery < Ekylibre::Record::Base
       self.update_attributes(:received_at => received_at)
     end
   end
-  
+
   def has_issue?
     self.issues.any?
   end
-  
+
   def status
     if self.received_at == nil
       return (has_issue? ? :stop : :caution)

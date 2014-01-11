@@ -129,6 +129,8 @@ eng:
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
+    backend/cells/last_purchases_cells: #?
+    backend/cells/last_sales_cells: #?
     backend/cells/map_cells: #?
     backend/cells/meteo_cells: #?
     backend/cells/placeholder_cells: #?
@@ -1220,6 +1222,8 @@ eng:
     last_payment_date: "Date of the last payment"
     last_procedures: "Last procedures"
     last_products: "Last products"
+    # last_purchases: "Derniers achats"
+    # last_sales: "Dernières ventes"
     left_balance_amount: "Left Balance Amount"
     letter: "Letter"
     letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."

@@ -131,6 +131,8 @@ arb:
     backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
+    backend/cells/last_purchases_cells: #?
+    backend/cells/last_sales_cells: #?
     backend/cells/map_cells: #?
     backend/cells/meteo_cells: #?
     backend/cells/placeholder_cells: #?
@@ -1375,6 +1377,8 @@ arb:
     # last_payment_date: "Date du dernier encaissement"
     # last_procedures: "Dernières procédures"
     # last_products: "Dernières naissances"
+    # last_purchases: "Derniers achats"
+    # last_sales: "Dernières ventes"
     left_balance_amount: "ارجاء الرصيد السابق غير معلق وغير مكلف"
     letter: "مراسلة"
     letter_conclusion: ".أرجو أن تتقبلوا سادتي التعبير عن فائق احترامي"

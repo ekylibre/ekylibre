@@ -1388,6 +1388,14 @@
       <item name="events_cells">
         <page to="backend/cells/events_cells#show"/>
       </item>
+      <item name="last_purchases_cells">
+        <page to="backend/cells/last_purchases_cells#list"/>
+        <page to="backend/cells/last_purchases_cells#show"/>
+      </item>
+      <item name="last_sales_cells">
+        <page to="backend/cells/last_sales_cells#list"/>
+        <page to="backend/cells/last_sales_cells#show"/>
+      </item>
       <item name="map_cells">
         <page to="backend/cells/map_cells#show"/>
         <page to="backend/cells/map_cells#update"/>
