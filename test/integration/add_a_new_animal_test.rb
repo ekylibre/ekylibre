@@ -35,7 +35,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     assert has_content?('Marguerite'), "Marguerite must appear in animals list"
     click_link 'Marguerite'
     shoot_screen "animals/show-marguerite"
-    asset has_content?('female'), "Marguerite should appear as a female"
+    assert has_content?('female'), "Marguerite should appear as a female"
   end
 
   # Add an issue on the current animal
