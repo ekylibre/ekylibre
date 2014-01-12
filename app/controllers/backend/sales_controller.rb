@@ -51,6 +51,7 @@ class Backend::SalesController < BackendController
     t.column :client, url: true
     t.column :responsible, hidden: true
     t.column :description, hidden: true
+    t.status
     t.column :state_label
     t.column :amount, currency: true
     t.action :show, url: {:format => :pdf}, image: :print

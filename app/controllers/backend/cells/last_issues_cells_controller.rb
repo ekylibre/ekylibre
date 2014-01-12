@@ -4,8 +4,7 @@ class Backend::Cells::LastIssuesCellsController < Backend::CellsController
     t.column :name,  :url => {:controller => "/backend/issues"}
     t.column :nature
     t.column :observed_at
-    t.column :gravity
-    t.column :priority
+    t.status
     t.column :state
   end
 

@@ -133,11 +133,11 @@ class OutgoingDelivery < Ekylibre::Record::Base
   def parcel_sum
     self.items.sum(:quantity)
   end
-  
+
   def has_issue?
     self.issues.any?
   end
-  
+
   def status
     if self.sent_at == nil
       return (has_issue? ? :stop : :caution)
@@ -145,5 +145,5 @@ class OutgoingDelivery < Ekylibre::Record::Base
       return (has_issue? ? :caution : :go)
     end
   end
-  
+
 end

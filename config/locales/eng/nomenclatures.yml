@@ -1057,8 +1057,7 @@ eng:
         # vetch: "Féverole"
         # winter_straw_cereal: "Céréales à paille d'hiver"
       # name: "Typologie de culture (France)"
-    incidents:  #?
- #?
+    incidents: #?
     indicators:
       attributes:
         choice: "Choice" #?

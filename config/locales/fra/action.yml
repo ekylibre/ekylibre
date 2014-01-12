@@ -133,6 +133,10 @@ fra:
       # show: "Show backend/cells/last outgoing deliveries cell"
     backend/cells/last_products_cells:
       # show: "Show backend/cells/last products cell"
+    backend/cells/last_purchases_cells:
+      # show: "Show backend/cells/last purchases cell"
+    backend/cells/last_sales_cells:
+      # show: "Show backend/cells/last sales cell"
     backend/cells/map_cells:
       # show: "Show backend/cells/map cell"
     backend/cells/meteo_cells:
@@ -700,6 +704,8 @@ fra:
     # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_outgoing_deliveries_cells: "Backend/cells/last outgoing deliveries cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
+    # backend/cells/last_purchases_cells: "Backend/cells/last purchases cells"
+    # backend/cells/last_sales_cells: "Backend/cells/last sales cells"
     # backend/cells/map_cells: "Backend/cells/map cells"
     # backend/cells/meteo_cells: "Backend/cells/meteo cells"
     # backend/cells/placeholder_cells: "Backend/cells/placeholder cells"
@@ -1247,6 +1253,8 @@ fra:
     last_payment_date: "Date du dernier encaissement"
     last_procedures: "Dernières procédures"
     last_products: "Dernières naissances"
+    last_purchases: "Derniers achats"
+    last_sales: "Dernières ventes"
     left_balance_amount: "Report du crédit antérieur non imputé et non remboursé"
     letter: "Lettrer"
     letter_conclusion: "Veuillez agréer, Chère Madame, Cher Monsieur, l’expression de mes salutations distinguées."
