@@ -20,7 +20,7 @@
       - b.cell :map do
         %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => CultivableZone.of_production(@production).shape_view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "100%", :height => "400px", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
           -CultivableZone.of_production(@production).find_each do |cultivable_zone|
-            %a{'xlink:href' => backend_cultivable_zone_url(cultivable_zone)}
+            %a{'xlink:href' => backend_cultivable_zone_path(cultivable_zone)}
               %path{:d => cultivable_zone.shape_as_svg, :title => cultivable_zone.name }
 
       - b.cell :cropping_plan_chart do

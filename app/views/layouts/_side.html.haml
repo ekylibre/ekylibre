@@ -1,5 +1,5 @@
 - snippet :search, :title => false do
-  = form_tag(backend_search_url, :method => :get, :class => "search") do
+  = form_tag(backend_search_path, :method => :get, :class => "search") do
     = search_field_tag(:q, params[:q], :placeholder => tl(:search_placeholder))
 
 - mod = Ekylibre::Modules.module_of(controller.controller_path, action_name)
@@ -13,8 +13,8 @@
 
 - snippet :user, :title => Entity.of_company.full_name do
   %ul
-    %li= link_to(current_user.person.full_name, backend_myself_url, :class => :user)
-    %li= link_to(Authentication::SessionsController.human_action_name(:destroy), destroy_user_session_url, :method => :delete)
+    %li= link_to(current_user.person.full_name, backend_myself_path, :class => :user)
+    %li= link_to(Authentication::SessionsController.human_action_name(:destroy), destroy_user_session_path, :method => :delete)
 
 - if content_for?(:aside)
   = content_for(:aside)

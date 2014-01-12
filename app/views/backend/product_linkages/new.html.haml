@@ -5,4 +5,4 @@
   .form-fields>= render('form', f: f)
   = form_actions do
     = submit_tag(tl(:create), 'data-disable-with' => tl(:please_wait))
-    = link_to(tl(:cancel), backend_product_linkages_url, (params[:dialog] ? {:class => 'btn', 'data-close-dialog' => params[:dialog]} : {:class => 'btn'}))
+    = link_to(tl(:cancel), backend_product_linkages_path, (params[:dialog] ? {:class => 'btn', 'data-close-dialog' => params[:dialog]} : {:class => 'btn'}))

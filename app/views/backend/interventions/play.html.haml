@@ -1,19 +1,19 @@
--reference = @procedure.reference
-=form_tag(:action => :jump) do
-  -if reference.variables.size > 0
-    =field_set :parameters do
-      -for variable in reference.variables.values
-        -if variable.new?
+- reference = @intervention.reference
+= form_tag(:action => :jump) do
+  - if reference.variables.size > 0
+    = field_set :parameters do
+      - for variable in reference.variables.values
+        - if variable.new?
           .control-group
             %label.control-label=variable.human_name
             .controls
               NEW
-        -elsif variable.given?
+        - elsif variable.given?
           .control-group
             %label.control-label=variable.human_name
             .controls
               %label=variable.value
-        -else
+        - else
           .control-group
             %label.control-label=variable.human_name
             .controls
@@ -32,14 +32,14 @@
             %li=task.expression
 
   =form_actions do
-    =button_tag(:name => :redirect, :value => (@procedure.root? ? backend_procedures_url : backend_procedure_url(@procedure)), :class => "btn btn-save") do
+    =button_tag(:name => :redirect, :value => (@intervention.root? ? backend_interventions_path : backend_intervention_path(@intervention)), :class => "btn btn-save") do
       %i
       =:save.tl
-    -for following in @procedure.followings
+    -for following in @intervention.followings
       =button_tag(:name => :go_to, :value => following.name, :class => "btn btn-chevron-right") do
         %i
         =:save_and_go_to_x.tl(:x => following.human_name)
 
-    =link_to((params[:redirect] ? params[:redirect] : @procedure.root? ? backend_procedures_url : backend_procedure_url(@procedure)), :class => "btn btn-cancel") do
+    =link_to((params[:redirect] ? params[:redirect] : @intervention.root? ? backend_interventions_path : backend_intervention_path(@intervention)), :class => "btn btn-cancel") do
       %i
       =:cancel.tl

@@ -183,7 +183,7 @@ class Intervention < Ekylibre::Record::Base
     end
     return nil
   end
-  
+
   def status
     if self.undone?
       return (self.runnable? ? :caution : :stop)

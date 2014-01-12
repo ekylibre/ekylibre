@@ -1,21 +1,22 @@
--article = "#{self.controller_name}-#{self.action_name}" # search
--base_url = {:controller=>:help, :action=>:show}
--base_url[:dialog] = params[:dialog] if params[:dialog]
--#cache(:controller=>:help, :action=>:show, :locale=>::I18n.locale, :id=>article.split(/[^a-z0-9\-]/)[-2]) do
--# raise @article.inspect
--# raise article.inspect
--cache("#{I18n.locale}-#{article}") do
+:ruby
+  article = "#{self.controller_name}-#{self.action_name}" # search
+  base_params = {:controller => :help, :action => :show}
+  base_params[:dialog] = params[:dialog] if params[:dialog]
+  # cache(:controller=>:help, :action=>:show, :locale=>::I18n.locale, :id=>article.split(/[^a-z0-9\-]/)[-2]) do
+  # raise @article.inspect
+  # raise article.inspect
+- cache("#{I18n.locale}-#{article}") do
   .header
     .main-toolbar
       .btn-group.btn-group-help
-        =link_to(toggle_backend_helps_url, 'data-toggle' => 'help', :class => "btn active") do
+        = link_to(toggle_backend_helps_path, 'data-toggle' => 'help', :class => "btn active") do
           %i
-          =tl(:close)
-    %h1=tc(:help)
+          = tl(:close)
+    %h1= tc(:help)
   .content
-    -if article_exist?(article)
-      =article(article, "data-update" => "#help", :url => base_url)
-    -else
-      %h1=tc("missing_help")
-      .help-error=tc(:error_no_file, :article => article.to_s)
+    - if article_exist?(article)
+      = article(article, "data-update" => "#help", url: base_params)
+    - else
+      %h1= tc("missing_help")
+      .help-error= :error_no_file.tl(article: article.to_s)
     -#=Ekylibre.helps.inspect

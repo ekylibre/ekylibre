@@ -9,7 +9,7 @@
     = stylesheet_link_tag :application, "data-turbolinks-track" => true
     = javascript_include_tag :application, "data-turbolinks-track" => true
   - expiration = {}
-  - expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_url(:user_name => current_user.user_name)} if current_user and session[:expiration].to_i > 0
+  - expiration = {"timeout" => session[:expiration], "timeout-href" => renew_session_path(:user_name => current_user.user_name)} if current_user and session[:expiration].to_i > 0
   %body{:data => expiration}
     = navigation_tag
     - attrs = (help_shown? ? {:class => "show-help"} : {})
@@ -21,7 +21,7 @@
       #main
         %header.header
           - main_toolbar do |t|
-            - t.tool_to(content_tag(:i) + h(tl(:help)), toggle_backend_helps_url, 'data-toggle' => 'help', :class => "btn", :group => :help)
+            - t.tool_to(content_tag(:i) + h(tl(:help)), toggle_backend_helps_path, 'data-toggle' => 'help', :class => "btn", :group => :help)
           = main_toolbar_tag
           = heading_tag
         = deck(:id => :content) do
