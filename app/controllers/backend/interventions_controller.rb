@@ -45,11 +45,12 @@ class Backend::InterventionsController < BackendController
     t.column :production, url: true, hidden: true
     t.column :campaign, url: true
     t.column :activity, url: true, hidden: true
-    t.column :issue, url: true
     t.column :state, hidden: true
-    t.column :casting
     t.column :started_at
     t.column :stopped_at, hidden: true
+    t.status
+    t.column :issue, url: true
+    t.column :casting
     t.action :run, :if => :runnable?, method: :post, confirm: true
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?

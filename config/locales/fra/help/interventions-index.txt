@@ -2,7 +2,7 @@
 
 Les interventions permettent de saisir des opérations, évènements et indicateurs au sein d'un cadre méthodologique.
 
-Elles utilisent diverses nomenclatures métiers et enregistrent les éléments de traçabilité précis lié aux produits (changement de localisation, production, consommation...)
+Elles utilisent diverses procédures et nomenclatures métiers et enregistrent les éléments de traçabilité précis lié aux produits (changement de localisation, production, consommation...)
 
 !!! Une intervention s'effectue dans le cadre d'une [[>backend/productions|production]].
 
@@ -10,4 +10,8 @@ Elles utilisent diverses nomenclatures métiers et enregistrent les éléments d
 
 >>> Ex 2 : Alimentation de mon troupeau de vache dans le cadre de la production "Bovins Lait 2013"
 
-!!! Il faut executer une intervention après l'avoir saisie pour que les intrants, extrants... soient réellement mouvementés
+le statut d'une intervention est le suivant :
+
+!!! rouge : tous les paramétres ne sont pas renseignés
+!!! orange : tous les paramètres sont renseignés mais l'intervention n'a pas été exécuté
+!!! vert : l'intervention a été exécuté (les stocks ont été mouvementé)
