@@ -28,6 +28,7 @@
 #  creator_id       :integer
 #  credit           :decimal(19, 4)   default(0.0), not null
 #  currency         :string(3)        not null
+#  deals_count      :integer          default(0), not null
 #  debit            :decimal(19, 4)   default(0.0), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
@@ -45,6 +46,7 @@
 #   creator_id: 1
 #   credit: 0
 #   currency: "Lorem ipsum"
+#   deals_count: 0
 #   debit: 0
 #   id: 1
 #   third_id: 1

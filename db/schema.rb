@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "credit",                     precision: 19, scale: 4, default: 0.0,   null: false
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
+    t.integer  "deals_count",                                         default: 0,     null: false
     t.datetime "created_at",                                                          null: false
     t.datetime "updated_at",                                                          null: false
     t.integer  "creator_id"

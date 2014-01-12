@@ -28,6 +28,7 @@
 #  creator_id       :integer
 #  credit           :decimal(19, 4)   default(0.0), not null
 #  currency         :string(3)        not null
+#  deals_count      :integer          default(0), not null
 #  debit            :decimal(19, 4)   default(0.0), not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
@@ -68,8 +69,9 @@ class Affair < Ekylibre::Record::Base
   #]VALIDATORS]
 
   before_validation do
-    self.debit, self.credit = 0, 0
-    for deal in self.deals
+    deals = self.deals
+    self.debit, self.credit, self.deals_count = 0, 0, deals.count
+    for deal in deals
       self.debit  += deal.deal_debit_amount
       self.credit += deal.deal_credit_amount
     end
@@ -126,7 +128,7 @@ class Affair < Ekylibre::Record::Base
   # Checks if possible and updates amounts
   def attach(deal)
     if deal.currency != self.currency
-      raise ArgumentError.new("The deal currency (#{deal.currency}) is different of the affair currency(#{self.currency})")
+      raise ArgumentError, "The deal currency (#{deal.currency}) is different of the affair currency(#{self.currency})"
     end
     deal.affair = self
     deal.save!

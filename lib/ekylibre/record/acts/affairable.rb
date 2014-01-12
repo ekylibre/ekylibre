@@ -31,9 +31,12 @@ module Ekylibre::Record
 
           code << "delegate :credit, :debit, :closed?, to: :affair, prefix: true\n"
 
+          # default scope for affairable
+          code << "scope :affairable, -> { where('#{affair_id} IN (SELECT id FROM affairs WHERE deals_count <= 1)') }\n"
+
           # Marks model as affairable
           code << "def self.affairable_options\n"
-          code << "  return {:reflection => :#{affair}, :currency => :#{currency}, :third => :#{options[:role] || options[:third]}}\n"
+          code << "  return {reflection: :#{affair}, currency: :#{currency}, third: :#{options[:role] || options[:third]}}\n"
           code << "end\n"
 
           # Refresh after each save
@@ -75,7 +78,7 @@ module Ekylibre::Record
           elsif options[:debit].is_a?(Symbol)
             code << "  return self.#{options[:debit]}\n"
           else
-            raise ArgumentError.new("Option :debit must be boolean or Symbol")
+            raise ArgumentError, "Option :debit must be boolean or Symbol"
           end
           code << "end\n"
 

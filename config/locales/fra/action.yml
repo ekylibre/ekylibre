@@ -1898,6 +1898,7 @@ fra:
     bookkeeping_is_finished: "La bascule en comptabilité est finie."
     bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
     cannot_delete_entity: "Il n’est pas possible de supprimer cette fiche car elle possède un historique comptable" #?
+    # cannot_find_deal_to_attach: "Cannot find deal to attach"
     cannot_find_document_template: "Impossible de trouver le modèle de document" #?
     cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
     cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"

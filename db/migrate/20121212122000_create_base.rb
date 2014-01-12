@@ -54,6 +54,7 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :credit,                   precision: 19, scale: 4, default: 0.0,   null: false
       t.datetime   :accounted_at
       t.references :journal_entry,                                                                  index: true
+      t.integer    :deals_count,                                       default: 0,     null: false
       t.stamps
     end
 

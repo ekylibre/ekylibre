@@ -43,6 +43,8 @@ class Backend::AffairsController < BackendController
     return unless @affair = find_and_check
     if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
       @affair.attach(deal)
+    else
+      notify_error(:cannot_find_deal_to_attach)
     end
     redirect_to params[:redirect] || {:controller => params[:deal_type].pluralize, :action => :show, :id => params[:deal_id]}
   end

@@ -560,6 +560,7 @@ fra:
     data: "Données complémentaires"
     dead_at: "Décédé(e) le"
     dead_on: "Date de décès"
+    # deals_count: "Deals count"
     death: "Death"
     debit: "Débit"
     debtor: "Debiteur"
