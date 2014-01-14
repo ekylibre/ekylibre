@@ -184,6 +184,18 @@
       </item>
     </group>
     <group name="analytics" icon="tasks">
+      <item name="activities">
+        <page to="backend/activities#index"/>
+        <page to="backend/activities#create"/>
+        <page to="backend/activities#destroy"/>
+        <page to="backend/activities#edit"/>
+        <page to="backend/activities#list"/>
+        <page to="backend/activities#new"/>
+        <page to="backend/activities#show"/>
+        <page to="backend/activities#update"/>
+        <page to="backend/activities#list_productions"/>
+        <page to="backend/activities#unroll"/>
+      </item>
       <item name="analytic_repartitions">
         <page to="backend/analytic_repartitions#index"/>
         <page to="backend/analytic_repartitions#create"/>
@@ -533,18 +545,6 @@
         <page to="backend/productions#list_interventions"/>
         <page to="backend/productions#list_supports"/>
         <page to="backend/productions#unroll"/>
-      </item>
-      <item name="activities">
-        <page to="backend/activities#index"/>
-        <page to="backend/activities#create"/>
-        <page to="backend/activities#destroy"/>
-        <page to="backend/activities#edit"/>
-        <page to="backend/activities#list"/>
-        <page to="backend/activities#new"/>
-        <page to="backend/activities#show"/>
-        <page to="backend/activities#update"/>
-        <page to="backend/activities#list_productions"/>
-        <page to="backend/activities#unroll"/>
       </item>
     </group>
     <group name="animal_productions" icon="cow">

@@ -245,7 +245,7 @@ fra:
         animal_farming: "Élevage bovins"
         aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques" # vegetal_crops
         # beekeeping: "Beekeeping"                         # animal_farming
-        # beet_crops: "Beet crops"                         # vegetal_crops
+        beet_crops: "Betterave"                            # vegetal_crops
         cattle_farming: "Élevage"                          # animal_farming
         exploitation: "Exploitation"
         fallow_land: "Jachère"                             # vegetal_crops
@@ -266,7 +266,7 @@ fra:
         service: "Service"
         sheep_farming: "Élevage ovins"                     # animal_farming
         stocks: "Stocks"                                   # exploitation
-        # straw_cereal_crops: "Straw cereal crops"         # vegetal_crops
+        straw_cereal_crops: "Céréales à paille"            # vegetal_crops
         vegetal_crops: "Production végétale"
         # vine_wine: "Vine wine"                           # vegetal_crops
     charts_of_accounts:
@@ -823,6 +823,7 @@ fra:
         balance_sheet: "Bilan comptable"
         deposit: "Remise en banque"
         entity_sheet: "Fiche tiers"
+        exchange_accountancy_file_fr: "Fichier des Ecritures Comptables (FEC)"
         general_journal: "Journal général"
         general_ledger: "Grand livre"
         income_statement: "Compte de résultat"

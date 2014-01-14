@@ -241,6 +241,7 @@ spa:
         # accountancy: "Comptabilité"
         # animal_farming: "Élevage bovins"
         # aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques"
+        # beet_crops: "Betterave"
         # cattle_farming: "Élevage"
         # exploitation: "Exploitation"
         # fallow_land: "Jachère"
@@ -261,6 +262,7 @@ spa:
         # service: "Service"
         # sheep_farming: "Élevage ovins"
         # stocks: "Stocks"
+        # straw_cereal_crops: "Céréales à paille"
         # vegetal_crops: "Production végétale"
       # name: "Familles d’activité"
     charts_of_accounts:

@@ -36,6 +36,9 @@ eng:
         amount: "Amount" #?
       document:
         filename: "File"
+      document_archive:
+        # archived_at: "Archivé le"
+        # file_pages_count: "Nombre de page"
       document_template:
         managed: "Managed by the system"
       entity:

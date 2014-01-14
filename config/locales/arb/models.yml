@@ -159,6 +159,9 @@ arb:
       document:
         # filename: "Fichier"
         updater_id: "تحديث" #?
+      document_archive:
+        # archived_at: "Archivé le"
+        # file_pages_count: "Nombre de page"
       document_template:
         created_at: "انشأ في" #?
         filename: "اسم الملف" #?
