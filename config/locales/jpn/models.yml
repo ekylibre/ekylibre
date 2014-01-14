@@ -37,6 +37,9 @@ jpn:
       deposit: #?
       document:
         # filename: "Fichier"
+      document_archive:
+        # archived_at: "Archivé le"
+        # file_pages_count: "Nombre de page"
       document_template:
         # managed: "Géré par le système"
       entity:

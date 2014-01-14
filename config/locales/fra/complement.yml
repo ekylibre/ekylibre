@@ -8,6 +8,7 @@ fra:
         accountancy: "Comptabilité"
         animal_farming: "Élevage bovins"
         aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques"
+        beet_crops: "Betterave"
         cattle_farming: "Élevage"
         exploitation: "Exploitation"
         fallow_land: "Jachère"
@@ -28,6 +29,7 @@ fra:
         service: "Service"
         sheep_farming: "Élevage ovins"
         stocks: "Stocks"
+        straw_cereal_crops: "Céréales à paille"
         vegetal_crops: "Production végétale"
     animal:
       variety:
@@ -1077,6 +1079,7 @@ fra:
         balance_sheet: "Bilan comptable"
         deposit: "Remise en banque"
         entity_sheet: "Fiche tiers"
+        exchange_accountancy_file_fr: "Fichier des Ecritures Comptables (FEC)"
         general_journal: "Journal général"
         general_ledger: "Grand livre"
         income_statement: "Compte de résultat"
@@ -1108,6 +1111,7 @@ fra:
         balance_sheet: "Bilan comptable"
         deposit: "Remise en banque"
         entity_sheet: "Fiche tiers"
+        exchange_accountancy_file_fr: "Fichier des Ecritures Comptables (FEC)"
         general_journal: "Journal général"
         general_ledger: "Grand livre"
         income_statement: "Compte de résultat"

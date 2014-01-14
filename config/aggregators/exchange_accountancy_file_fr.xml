@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
+  <!-- REDMINE#204 arrêté du 29 juillet 2013 (Article A 47 A-1 du LPF) -->
+  <aggregator name="exchange_accountancy_file_fr" version="0.0" category="exploitation">
+    <parameters>
+      <parameter name="started_on" type="date" default="2013-01-01"/>
+      <parameter name="stopped_on" type="date" default="2013-12-31"/>
+    </parameters>
+    <section name="financial_years">
+      <variable name="company" value="Entity.of_company"/>
+      <property name="entity_name" value="company.full_name"/>
+      <property name="address" value="company.default_mail_address.coordinate"/>
+      <!-- looking for all Account used in journal_entry_items in the current period (started_on, stopped_on) -->
+      
+          <matrix name="items" for="item" in="JournalEntryItem.between(started_on, stopped_on).order(:id)">
+            <cell name="JournalCode" value="item.journal.code" of-type="record"/>
+            <cell name="JournalLib" value="item.journal.name" />
+            <cell name="EcritureNum" value="item.id" of-type="record"/>
+            <cell name="EcritureDate" value="item.printed_on" type="date"/>
+            <cell name="CompteNum" value="item.account.number" of-type="record"/>
+            <cell name="CompteLib" value="item.account.name"/>
+            <cell name="CompAuxNum" value="''"/>
+            <cell name="CompAuxLib" value="''"/>
+            <cell name="PieceRef" if="item.entry.resource" value="item.entry.resource.name"/>
+            <cell name="PieceDate" if="item.entry.resource" value="item.created_on" type="date"/>
+            <cell name="EcritureLib" value="item.name"/>
+            <cell name="Debit" value="item.debit" type="number"/>
+            <cell name="Credit" value="item.credit" type="number"/>
+            <cell name="EcritureLet" if="item.entry.resource" value="item.resource.id"/>
+            <cell name="DateLet" if="item.entry.resource" value="item.entry.created_on" type="date"/>
+            <cell name="ValidDate" if="item.state == 'confirm'" value="item.printed_on" type="date"/>
+            <cell name="Montantdevise" value="''"/>
+            <cell name="Idevise" value="''"/>
+          </matrix> 
+    </section>
+  </aggregator>
+</aggregators>
