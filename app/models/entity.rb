@@ -240,7 +240,7 @@ class Entity < Ekylibre::Record::Base
     natures, conversions = [:client, :supplier], {:payer => :client, :payee => :supplier}
     nature = conversions[nature] || nature
     unless natures.include?(nature)
-      raise ArgumentError, "Unknown nature #{nature.inspect} (#{natures.keys.to_sentence} are accepted)"
+      raise ArgumentError, "Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)"
     end
     valid_account = self.send("#{nature}_account")
     if valid_account.nil?

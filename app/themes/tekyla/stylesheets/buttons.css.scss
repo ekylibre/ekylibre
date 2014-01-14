@@ -83,6 +83,9 @@ $button-height: round($fs-normal*0.20) * 2 + round(1.4 * $fs-normal) + $menu-bor
 
 input[type="submit"], input[type="button"], input[type="reset"], input[type="search"] {
   @include button($is-input: true);
+  &.primary {
+    @include button($background-color: $base-color, $is-input: true);
+  }
   &.important {
     @include button($background-color: $important-color, $is-input: true);
   }
@@ -93,6 +96,9 @@ input[type="submit"], input[type="button"], input[type="reset"], input[type="sea
 
 a.btn, button {
   @include button();
+  &.primary {
+    @include button($background-color: $base-color);
+  }
   &.important {
     @include button($background-color: $important-color);
   }

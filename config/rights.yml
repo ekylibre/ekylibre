@@ -12,6 +12,7 @@
 # - "backend/activities#update"
 # - "backend/affairs#attach"
 # - "backend/affairs#detach"
+# - "backend/affairs#finish"
 # - "backend/affairs#index"
 # - "backend/affairs#list"
 # - "backend/affairs#select"

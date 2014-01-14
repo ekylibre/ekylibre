@@ -147,9 +147,9 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
           border-top: none;
         }
       }
+      @include list-colors($desktop-background);
     }
 
-    @include list-colors($desktop-background);
   }
   .extras {
     // z-index: 0;

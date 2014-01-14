@@ -1112,6 +1112,9 @@ arb:
     # contains: "Contient"
     # content_products: "Produits contenus"
     # contextual_help: "Aide contextuelle"
+    convert_balance_into:
+      # loss: "Passer le solde en perte"
+      # profit: "Passer le solde en profit"
     coordinates: "تنسيق"
     copy_of: "نسخ من %{source}"
     # cost: "Coût"

@@ -989,7 +989,7 @@ arb:
       # zone_property_title: "Titre de propriété foncière"
   attributes:
     # abilities: "Compétences"
-    # abilities_list: "Abilities list"
+    # abilities_list: "Liste des compétences"
     # absolute_credit: "Absolute credit"
     # absolute_currency: "Absolute currency"
     # absolute_debit: "Absolute debit"
@@ -1198,6 +1198,7 @@ arb:
     datetime_value: "قيمة التاريخ/الساعة" #?
     # dead_at: "Décédé(e) le"
     dead_on: "تاريغ الوفاة"
+    # deal_type: "Type de transaction"
     # death: "Death"
     debit: "الدين"
     # debtor: "Debiteur"
@@ -1273,6 +1274,7 @@ arb:
     # document_archives: "Archives documentaires"
     document_templates: "نماذج الوثائق" #?
     documents: "الوثائق"
+    # done_on: "Fait le"
     downpayment: "القسط"
     downpayment_amount: "قيمة القسط"
     downpayment_minimum: "الحد الادنى للمجموع"
@@ -1733,7 +1735,8 @@ arb:
     reduction_rate: "معدل الخصم" #?
     reduction_submissive: "خاضع للتخفيض" #?
     reductions: "طرق الخصومات"
-    # reference_name: "Reference name"
+    # reference: "Référence"
+    # reference_name: "Référence"
     # reference_number: "N°Référence"
     reflation_submissive: "خاضع لانعاش اقتصادي" #?
     # reflections: "Reflections"

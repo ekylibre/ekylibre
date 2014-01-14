@@ -37,21 +37,26 @@
 #  updater_id       :integer
 #
 class Gap < Ekylibre::Record::Base
+  enumerize :direction, in: [:profit, :loss], predicates: true
+  belongs_to :journal_entry
+  belongs_to :entity
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :direction, :number, allow_nil: true, maximum: 255
   validates_presence_of :affair, :amount, :currency, :direction, :entity, :number
   #]VALIDATORS]
-  enumerize :direction, in: [:profit, :loss], predicates: true
-  belongs_to :journal_entry
-  belongs_to :entity, class_name: "Entity"
 
   acts_as_numbered
-  acts_as_affairable debit: :profit?, third: :entity
+  acts_as_affairable debit: :profit?, third: :entity, role: :client, dealt_on: :created_at
+  alias_attribute :label, :number
+  alias_attribute :label, :number
+  alias_attribute :label, :number
 
   bookkeep do |b|
     # TODO Adds journal entry for gap
   end
+
 
 end

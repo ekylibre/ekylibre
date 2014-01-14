@@ -577,7 +577,7 @@ eng:
       # zone_property_title: "Titre de propriété foncière"
   attributes:
     # abilities: "Compétences"
-    # abilities_list: "Abilities list"
+    # abilities_list: "Liste des compétences"
     # absolute_credit: "Absolute credit"
     # absolute_currency: "Absolute currency"
     # absolute_debit: "Absolute debit"
@@ -782,6 +782,7 @@ eng:
     datetime_value: "Datetime value" #?
     dead_at: "Dead at"
     dead_on: "Dead on"
+    # deal_type: "Type de transaction"
     # death: "Death"
     debit: "Debit"
     # debtor: "Debiteur"
@@ -852,6 +853,7 @@ eng:
     # document_archives: "Archives documentaires"
     document_templates: "Document templates" #?
     documents: "Documents"
+    # done_on: "Fait le"
     downpayment: "Downpayment"
     downpayment_amount: "Downpayment amount"
     downpayment_minimum: "Downpayment minimum"
@@ -1320,7 +1322,8 @@ eng:
     reduction_rate: "Reduction rate" #?
     reduction_submissive: "Reduction submissive" #?
     reductions: "Reductions"
-    # reference_name: "Reference name"
+    # reference: "Référence"
+    # reference_name: "Référence"
     reference_number: "Reference number"
     reflation_submissive: "Reflation submissive" #?
     reflections: "Reflections"

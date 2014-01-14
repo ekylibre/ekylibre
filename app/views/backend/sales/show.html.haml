@@ -38,7 +38,7 @@
           = render :partial => "backend/sale_items/row_form"
         = list :items do
           %tr.total
-            %th{:colspan => 5}= tc(:total)
+            %th{:colspan => 4}= tc(:total)
             %td= @sale.pretax_amount.l(currency: @sale.currency)
             %td= @sale.amount.l(currency: @sale.currency)
             %th{:colspan => 3}

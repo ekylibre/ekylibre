@@ -992,6 +992,9 @@ eng:
     contains: "Contains"
     content_products: "Content products"
     contextual_help: "Help on current page"
+    convert_balance_into:
+      # loss: "Passer le solde en perte"
+      # profit: "Passer le solde en profit"
     coordinates: "Coordinates"
     copy_of: "Copy of %{source}"
     # cost: "Coût"

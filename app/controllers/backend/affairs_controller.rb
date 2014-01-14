@@ -42,19 +42,32 @@ class Backend::AffairsController < BackendController
   def attach
     return unless @affair = find_and_check
     if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
-      @affair.attach(deal)
+      deal.deal_with! @affair
+      # @affair.attach(deal)
+      redirect_to params[:redirect] || {controller: deal.name.tableize, action: :show, id: deal.id}
     else
       notify_error(:cannot_find_deal_to_attach)
+      redirect_to params[:redirect] || :back, status: :not_found
     end
-    redirect_to params[:redirect] || {:controller => params[:deal_type].pluralize, :action => :show, :id => params[:deal_id]}
   end
 
   def detach
     return unless @affair = find_and_check
     if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
-      @affair.detach(deal)
+      deal.undeal! @affair
+      # @affair.detach(deal)
+      redirect_to params[:redirect] || {controller: deal.name.tableize, action: :show, id: deal.id}
+    else
+      notify_error(:cannot_find_deal_to_detach)
+      redirect_to params[:redirect] || :back, status: :not_found
     end
-    redirect_to params[:redirect] || {:controller => params[:deal_type].pluralize, :action => :show, :id => params[:deal_id]}
+  end
+
+
+  def finish
+    return unless @affair = find_and_check
+    @affair.finish
+    redirect_to(params[:redirect] || :back)
   end
 
 end

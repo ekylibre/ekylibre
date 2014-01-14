@@ -1361,6 +1361,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="affairs">
+        <page to="backend/affairs#finish"/>
+      </item>
       <item name="animal_medicines">
         <page to="backend/animal_medicines#list_carried_linkages"/>
         <page to="backend/animal_medicines#list_carrier_linkages"/>

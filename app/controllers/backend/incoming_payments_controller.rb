@@ -18,7 +18,7 @@
 #
 
 class Backend::IncomingPaymentsController < BackendController
-  manage_restfully :to_bank_on => "Date.today".c, :paid_on => "Date.today".c, :responsible_id => "current_user.id".c, t3e: {payer: "RECORD.payer.full_name".c, entity: "RECORD.payer.full_name".c , number: "RECORD.number".c}
+  manage_restfully to_bank_on: "Date.today".c, paid_on: "Date.today".c, responsible_id: "current_user.id".c, mode_id: "params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:entity_id].to_i)) ? payer.incoming_payments.reorder(id: :desc).first.mode_id : nil".c, t3e: {payer: "RECORD.payer.full_name".c, entity: "RECORD.payer.full_name".c , number: "RECORD.number".c}
 
   unroll
 

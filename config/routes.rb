@@ -177,6 +177,7 @@ Ekylibre::Application.routes.draw do
         get :select
         post :attach
         delete :detach
+        post :finish
       end
     end
 

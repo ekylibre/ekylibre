@@ -51,7 +51,7 @@
 # Transfer        |         |    X    |
 #
 class Affair < Ekylibre::Record::Base
-  AFFAIRABLE_TYPES = ["Sale", "Purchase", "IncomingPayment", "OutgoingPayment"].freeze # , "Transfer"
+  AFFAIRABLE_TYPES = %w(Gap Sale Purchase IncomingPayment OutgoingPayment Transfer).freeze
   AFFAIRABLE_MODELS = AFFAIRABLE_TYPES.map(&:underscore).freeze
   belongs_to :third, class_name: "Entity"
   belongs_to :journal_entry
@@ -102,7 +102,7 @@ class Affair < Ekylibre::Record::Base
       end
       hash
     end.delete_if{|k, v| v.zero?}
-    b.journal_entry(Journal.various.first, :printed_on => (all_deals.last ? all_deals.last.dealt_on : Date.today), if: (self.debit == self.credit and !thirds.empty?)) do |entry|
+    b.journal_entry(Journal.various.first, printed_on: (all_deals.last ? all_deals.last.dealt_on : Date.today), :if => (self.debit == self.credit and !thirds.empty?)) do |entry|
       for account_id, amount in thirds
         entry.add_debit(label, account_id, amount)
       end
@@ -123,30 +123,72 @@ class Affair < Ekylibre::Record::Base
     self.debit - self.credit
   end
 
-
-  # Adds a deal in the affair
-  # Checks if possible and updates amounts
-  def attach(deal)
-    if deal.currency != self.currency
-      raise ArgumentError, "The deal currency (#{deal.currency}) is different of the affair currency(#{self.currency})"
-    end
-    deal.affair = self
-    deal.save!
-    return self.reload
-  end
-
-  # Removes a deal from the affair
-  # Checks if possible and updates amounts
-  def detach(deal)
-    deal.affair = nil
-    deal.save!
+  def refresh!
+    self.reload
     self.save!
-    return self.reload
   end
+
+  def losing?
+    self.debit < self.credit
+  end
+
+  # Adds a gap to close the affair
+  def finish
+    balance = self.balance.abs
+    return false if balance.zero?
+    self.gaps.create!(amount: balance, currency: self.currency, entity: self.third, direction: (self.debit > self.credit ? :loss : :profit))
+    self.refresh!
+    return true
+  end
+
+
+  # # Adds a deal in the affair
+  # # Checks if possible and updates amounts
+  # def attach(deal)
+  #   if deal.currency != self.currency
+  #     raise ArgumentError, "The deal currency (#{deal.currency}) is different of the affair currency(#{self.currency})"
+  #   end
+  #   # Adds all deals of the affair of the given deal
+  #   for d in deal.affair.deals
+  #     deal.deal_with(self)
+  #   end
+  #   self.class.clean_deads
+  #   return self.save!
+  # end
+
+  # # Adds a deal in the affair
+  # # Checks if possible and updates amounts
+  # def detach(deal)
+  #   deal.undeal
+  #   self.class.clean_deads
+  #   return self.save!
+  # end
+
+
+  # # # Adds a deal in the affair
+  # # # Checks if possible and updates amounts
+  # # def attach(deal)
+  # #   if deal.currency != self.currency
+  # #     raise ArgumentError, "The deal currency (#{deal.currency}) is different of the affair currency(#{self.currency})"
+  # #   end
+  # #   deal.affair = self
+  # #   deal.save!
+  # #   return self.reload
+  # # end
+
+  # # # Removes a deal from the affair
+  # # # Checks if possible and updates amounts
+  # # def detach(deal)
+  # #   deal.affair = nil
+  # #   deal.save!
+  # #   self.save!
+  # #   return self.reload
+  # # end
 
   # Returns heterogen list of deals of the affair
   def deals
-    return (self.sales.to_a +
+    return (self.gaps.to_a +
+            self.sales.to_a +
             self.purchases.to_a +
             self.incoming_payments.to_a +
             self.outgoing_payments.to_a +

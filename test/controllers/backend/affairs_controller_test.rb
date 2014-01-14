@@ -21,4 +21,19 @@ require 'test_helper'
 
 class Backend::AffairsControllerTest < ActionController::TestCase
   test_restfully_all_actions  select: {mode: :show, params: {third_id: 1, deal_type: "sale"}}, attach: {mode: :touch, params: {deal_id: 1, deal_type: "sale"}}, detach: {mode: :destroy, params: {deal_id: 1, deal_type: "sale"}}
+
+  def test_attach_invalid_deal
+    affair = affairs(:affairs_001)
+    assert affair.valid?
+    post :attach, {id: affair.id}
+    assert_response :error, "Error expected with no given deal"
+  end
+
+  def test_detach_invalid_deal
+    affair = affairs(:affairs_001)
+    assert affair.valid?
+    post :detach, {id: affair.id}
+    assert_response :error, "Error expected with no given deal"
+  end
+
 end

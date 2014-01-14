@@ -1663,7 +1663,7 @@ $form-actions-height: 48px;
 
 .affair {
   .deals {
-    //@include padding-left(4em);
+    // @include padding-left(4em);
     width: 100%;
     border-collapse: collapse;
     border: none;
@@ -1674,7 +1674,7 @@ $form-actions-height: 48px;
       &, & * {
         font-size: $fs-normal;
 	line-height: round($fs-normal*1.4);
-	vertical-align: baseline;
+	vertical-align: middle;
       }
       .dealt-on { width: 16ex; }
       .amount {
@@ -1702,11 +1702,7 @@ $form-actions-height: 48px;
       }
       td, th {
         &.total {
-          &, & * {
-            @include text-align(right);
-            font-weight: bold;
-            background: none;
-          }
+          @include text-align(right);
         }
         &.sum {
           border-top: 1px solid #777;
@@ -1860,6 +1856,12 @@ ul.tree {
   & > li > ul {
     margin-left: 0;
   }
+}
+
+.action-intro {
+  font-weight: bold;
+  margin-left: $fs-normal;
+  margin-right: $fs-normal;
 }
 
 .select-product {
