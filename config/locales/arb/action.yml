@@ -1586,11 +1586,11 @@ arb:
     # order: "Commande"
     order_amount_with_taxes: "قيمة الطلب مع الضرائب"
     order_print: "طباعة الطلب"
-    other_results: "...نتائج اخرى"
-    others: "اقتطاع القيم الضريبية المضافة الاخرى"
     other_assessable_operations: "اجراءات ضريبية اخرى"
     other_not_assessable_operations: "اجراءات غير ضريبية اخرى"
+    other_results: "...نتائج اخرى"
     other_services: "احتياجات وخدمات اخرى"
+    others: "اقتطاع القيم الضريبية المضافة الاخرى"
     out_line_create: "اضافة منتج صادر" #?
     out_vat_amount: "مبلغ الضريبة على القيمة المضافة"
     outgoing_delivery: "التسليم" #?

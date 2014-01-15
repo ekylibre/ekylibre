@@ -453,6 +453,7 @@ eng:
       financial_asset_depreciation: "Asset depreciation"
       financial_year: "Financial year"
       fungus: "Fungus"
+      # gap: ""
       # immatter: "Immatériel"
       incoming_delivery: "Purchase delivery"
       incoming_delivery_item: "Purchase delivery line"
@@ -1676,6 +1677,8 @@ eng:
       code:
         double: "FY%{first_year}/%{second_year}"
         single: "FY%{first_year}"
+    gap:
+      # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})"
       label: "%{number}. %{usable_amount}/%{amount}, %{mode} of %{payer} on %{date}"

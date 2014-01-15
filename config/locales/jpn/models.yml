@@ -354,6 +354,7 @@ jpn:
       # financial_asset_depreciation: "Amortissement d’immobilisation"
       # financial_year: "Exercice"
       # fungus: "Champignon"
+      # gap: ""
       # immatter: "Immatériel"
       # incoming_delivery: "Approvisionnement"
       # incoming_delivery_item: "Élément d’approvisionnement"
@@ -1121,6 +1122,8 @@ jpn:
       code:
         # double: "EX%{first_year}/%{second_year}"
         # single: "EX%{first_year}"
+    gap:
+      # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
       # bookkeep: "[%{resource} %{number}] %{mode} %{check_number} de %{payer}"
       # label: "%{number}. %{amount} du %{date} en %{mode} de %{payer}"

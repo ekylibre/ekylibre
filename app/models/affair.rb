@@ -151,7 +151,7 @@ class Affair < Ekylibre::Record::Base
     if thirds_repartition.values.sum != balance
       raise StandardError, "Cannot finish"
     end
-    
+
     for third in thirds
       attributes = {amount: balance, currency: self.currency, entity: self.third, direction: (self.debit > self.credit ? :loss : :profit), items: {}}
       self.gaps.create!(attributes)

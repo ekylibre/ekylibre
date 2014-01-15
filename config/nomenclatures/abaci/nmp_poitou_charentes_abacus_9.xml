@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
+  <!--  Le tableau suivant donne la valeur de Rf (en kgN/ha) en fonction des types de sols:  -->
+  <nomenclature name="nmp_poitou_charentes_abacus_9" hierarchical="false">
+    <attributes>
+      <attribute name="land_parcel_variety" type="choice" nomenclature="varieties" required="true"/> <!-- -land_parcel -->
+      <attribute name="rf" type="decimal" required="true"/><!-- en qt/ha -->
+      <attribute name="minimum_available_water_capacity" type="decimal" required="false"/>
+      <attribute name="maximum_available_water_capacity" type="decimal" required="false"/>
+    </attributes>
+    <items>
+      <item name="clay_limestone_min" land_parcel_variety="clay_limestone_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="120"/>
+      <item name="clay_limestone_max" land_parcel_variety="clay_limestone_soil" rf="20" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="aubues_min" land_parcel_variety="aubues_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="120"/>
+      <item name="aubues_max" land_parcel_variety="aubues_soil" rf="20" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="champagne_min" land_parcel_variety="champagne_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="120"/>
+      <item name="champagne_max" land_parcel_variety="champagne_soil" rf="20" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="red_chesnut_min" land_parcel_variety="red_chesnut_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="red_chesnut_med" land_parcel_variety="red_chesnut_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="red_chesnut_max" land_parcel_variety="red_chesnut_soil" rf="30" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="flap_silt_min" land_parcel_variety="flap_silt_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="flap_silt_med" land_parcel_variety="flap_silt_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="flap_silt_max" land_parcel_variety="flap_silt_soil" rf="30" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="hydromorph_sandy_clay_loam_min" land_parcel_variety="hydromorph_sandy_clay_loam_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="hydromorph_sandy_clay_loam_med" land_parcel_variety="hydromorph_sandy_clay_loam_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="black_valley_med" land_parcel_variety="black_valley_soil" rf="30" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="black_valley_max" land_parcel_variety="black_valley_soil" rf="40" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="valley_terrace_min" land_parcel_variety="valley_terrace_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="valley_terrace_med" land_parcel_variety="valley_terrace_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="valley_terrace_max" land_parcel_variety="valley_terrace_soil" rf="30" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="sand_min" land_parcel_variety="sand_soil" rf="5" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="sand_med" land_parcel_variety="sand_soil" rf="10" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="sand_max" land_parcel_variety="sand_soil" rf="15" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="silty_clay_loam_min" land_parcel_variety="silty_clay_loam_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="silty_clay_loam_med" land_parcel_variety="silty_clay_loam_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="silty_clay_loam_max" land_parcel_variety="silty_clay_loam_soil" rf="30" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="silty_clay_min" land_parcel_variety="silty_clay_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="silty_clay_med" land_parcel_variety="silty_clay_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="silty_clay_max" land_parcel_variety="silty_clay_soil" rf="30" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="granite_arena_min" land_parcel_variety="granite_arena_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="granite_arena_med" land_parcel_variety="granite_arena_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="granite_arena_max" land_parcel_variety="granite_arena_soil" rf="30" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="silt_schist_min" land_parcel_variety="silt_schist_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="silt_schist_med" land_parcel_variety="silt_schist_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="silt_schist_max" land_parcel_variety="silt_schist_soil" rf="30" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

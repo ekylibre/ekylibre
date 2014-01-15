@@ -1434,11 +1434,11 @@ spa:
     # order: "Commande"
     # order_amount_with_taxes: "Montant de la commande"
     # order_print: "Imprimer la commande"
-    other_results: "Otros resultados"
-    others: "Otra TVA a deducir"
     other_assessable_operations: "Autras operaciones imponibles"
     other_not_assessable_operations: "Autras operaciones no imponibles"
+    other_results: "Otros resultados"
     other_services: "Otros bienes y servicios"
+    others: "Otra TVA a deducir"
     out_vat_amount: "Basa fuera de tarifa"
     outgoing_payments_states:
       # all: "Tous"

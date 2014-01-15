@@ -23,6 +23,7 @@
     <items>
       <item name="gallus"/>
       <item name="anas"/>
+      <item name="numida"/>
     </items>
   </nomenclature>
   <nomenclature name="varieties-osteichthyes">
@@ -42,6 +43,7 @@
       <item name="bos"/>
       <item name="sus"/>
       <item name="lepus"/>
+      <item name="equus"/>
     </items>
   </nomenclature>
 </nomenclatures>

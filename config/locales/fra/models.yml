@@ -299,7 +299,7 @@ fra:
       financial_asset_depreciation: "Amortissement d’immobilisation"
       financial_year: "Exercice"
       fungus: "Champignon"
-      # gap: "Gap"
+      gap: ""
       # gap_item: "Gap item"
       immatter: "Immatériel"
       incoming_delivery: "Approvisionnement"
@@ -1111,8 +1111,6 @@ fra:
       label: "%{number} - %{name}"
     cash_transfer:
       bookkeep: "[%{resource} %{number}] De %{emission} à %{reception} %{description}"
-    gap:
-      bookkeep: "[%{resource} %{number}] %{entity}"
     catalog:
       cost:
         name: "Catalogue de coût d’utilisation"
@@ -1151,6 +1149,8 @@ fra:
       code:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
+    gap:
+      bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} de %{payer}"
       label: "%{number}. %{amount} du %{date} en %{mode} de %{payer}"

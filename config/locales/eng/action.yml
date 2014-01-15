@@ -1398,11 +1398,11 @@ eng:
     order: "Order"
     order_amount_with_taxes: "Order amount with taxes"
     order_print: "Print order"
-    other_results: "Other results..."
-    # others: "Autre TVA à déduire"
     # other_assessable_operations: "Autres opérations imposables"
     # other_not_assessable_operations: "Autres opérations non imposables"
+    other_results: "Other results..."
     # other_services: "Autres biens et services"
+    # others: "Autre TVA à déduire"
     # out_vat_amount: "Base hors taxe"
     outgoing_payments_states:
       all: "All"
