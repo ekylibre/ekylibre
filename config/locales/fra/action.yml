@@ -852,7 +852,7 @@ fra:
     account_mark: "Lettrer le compte"
     account_name: "Compte comptable"
     account_number: "N°Compte"
-    account_others_assets: "Divers"
+    account_other_assets: "Divers"
     account_provision: "Provisions pour risques et charges"
     account_supplier_to_create: "— Créer automatiquement un compte fournisseur —"
     account_tabbox:
@@ -1429,9 +1429,9 @@ fra:
     order_print: "Imprimer la commande"
     other_results: "Autres résultats…"
     others: "Autre TVA à déduire"
-    others_assessable_operations: "Autres opérations imposables"
-    others_not_assessable_operations: "Autres opérations non imposables"
-    others_services: "Autres biens et services"
+    other_assessable_operations: "Autres opérations imposables"
+    other_not_assessable_operations: "Autres opérations non imposables"
+    other_services: "Autres biens et services"
     out_vat_amount: "Base hors taxe"
     outgoing_payments_states:
       all: "Tous"

@@ -95,7 +95,7 @@
 	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
-        <section name="others_purchases" legend="others_purchases">
+        <section name="other_purchases" legend="other_purchases">
           <matrix name="items" for="item" in="Account.find_with_regexp('604X, 605X, 606X, 6084X, 6085X, 6086X, 6094X, 6095X, 6096X, 61X, 62X, ').order(:label)">
 	    <cell name="id" of="item" level="api"/>
 	    <cell name="label" of="item"/>
@@ -130,7 +130,7 @@
 	    <cell name="balance" value="item.journal_entry_items_calculate(:balance, started_on, stopped_on, :sum)" />
           </matrix>
         </section>
-        <section name="others_expenses" legend="others_expenses">
+        <section name="other_expenses" legend="other_expenses">
           <matrix name="items" for="item" in="Account.find_with_regexp('65X, ^655, ').order(:label)">
 	    <cell name="id" of="item" level="api"/>
 	    <cell name="label" of="item"/>

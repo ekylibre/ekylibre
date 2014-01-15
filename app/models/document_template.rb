@@ -53,7 +53,7 @@ class DocumentTemplate < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
 
-  has_default :scope => :nature
+  selects_among_all scope: :nature
 
   # default_scope order(:name)
   scope :of_nature, lambda { |nature|

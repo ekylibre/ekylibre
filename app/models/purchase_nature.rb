@@ -50,7 +50,7 @@ class PurchaseNature < Ekylibre::Record::Base
   validates_presence_of :currency
   validates_uniqueness_of :name
 
-  has_default
+  selects_among_all
 
   # default_scope -> { order(:by_default, :name) }
   scope :actives, -> { where(:active => true) }

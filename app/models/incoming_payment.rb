@@ -74,7 +74,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_presence_of :commission_account, :if => :with_commission?
 
   acts_as_numbered
-  acts_as_affairable dealt_on: :to_bank_on, third: :payer
+  acts_as_affairable :payer, dealt_on: :to_bank_on
   delegate :with_commission?, to: :mode
 
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
@@ -140,7 +140,7 @@ class IncomingPayment < Ekylibre::Record::Base
 
   # Build and return a label for the payment
   def label
-    tc(:label, :amount => I18n.localize(self.amount, :currency => self.mode.cash.currency), :date => I18n.localize(self.to_bank_on), :mode => self.mode.name, :payer => self.payer.full_name, :number => self.number) # , :usable_amount => I18n.localize(self.unused_amount, :currency => self.mode.cash.currency)
+    tc(:label, :amount => I18n.localize(self.amount, currency: self.mode.cash.currency), :date => I18n.localize(self.to_bank_on), :mode => self.mode.name, :payer => self.payer.full_name, :number => self.number) # , :usable_amount => I18n.localize(self.unused_amount, currency: self.mode.cash.currency)
   end
 
 end

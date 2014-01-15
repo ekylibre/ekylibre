@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "closed",                                              default: false, null: false
     t.datetime "closed_at"
     t.integer  "third_id",                                                            null: false
+    t.string   "third_role",                                                          null: false
     t.string   "currency",         limit: 3,                                          null: false
     t.decimal  "debit",                      precision: 19, scale: 4, default: 0.0,   null: false
     t.decimal  "credit",                     precision: 19, scale: 4, default: 0.0,   null: false
@@ -738,11 +739,34 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "financial_years", ["updated_at"], :name => "index_financial_years_on_updated_at"
   add_index "financial_years", ["updater_id"], :name => "index_financial_years_on_updater_id"
 
+  create_table "gap_items", force: true do |t|
+    t.integer  "gap_id",                                                         null: false
+    t.decimal  "pretax_amount",           precision: 19, scale: 4, default: 0.0, null: false
+    t.decimal  "amount",                  precision: 19, scale: 4, default: 0.0, null: false
+    t.integer  "tax_id"
+    t.string   "currency",      limit: 3,                                        null: false
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                     default: 0,   null: false
+  end
+
+  add_index "gap_items", ["created_at"], :name => "index_gap_items_on_created_at"
+  add_index "gap_items", ["creator_id"], :name => "index_gap_items_on_creator_id"
+  add_index "gap_items", ["gap_id"], :name => "index_gap_items_on_gap_id"
+  add_index "gap_items", ["tax_id"], :name => "index_gap_items_on_tax_id"
+  add_index "gap_items", ["updated_at"], :name => "index_gap_items_on_updated_at"
+  add_index "gap_items", ["updater_id"], :name => "index_gap_items_on_updater_id"
+
   create_table "gaps", force: true do |t|
     t.string   "number",                                                            null: false
+    t.date     "created_on",                                                        null: false
     t.string   "direction",                                                         null: false
     t.integer  "affair_id",                                                         null: false
     t.integer  "entity_id",                                                         null: false
+    t.string   "entity_role",                                                       null: false
+    t.decimal  "pretax_amount",              precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "amount",                     precision: 19, scale: 4, default: 0.0, null: false
     t.string   "currency",         limit: 3,                                        null: false
     t.datetime "accounted_at"
@@ -1117,16 +1141,18 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "journal_entry_items", ["updater_id"], :name => "index_journal_entry_items_on_updater_id"
 
   create_table "journals", force: true do |t|
-    t.string   "nature",       limit: 30,             null: false
-    t.string   "name",                                null: false
-    t.string   "code",         limit: 4,              null: false
-    t.date     "closed_on",                           null: false
-    t.string   "currency",     limit: 3,              null: false
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.string   "nature",           limit: 30,                 null: false
+    t.string   "name",                                        null: false
+    t.string   "code",             limit: 4,                  null: false
+    t.date     "closed_on",                                   null: false
+    t.string   "currency",         limit: 3,                  null: false
+    t.boolean  "used_for_affairs",            default: false, null: false
+    t.boolean  "used_for_gaps",               default: false, null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",            default: 0, null: false
+    t.integer  "lock_version",                default: 0,     null: false
   end
 
   add_index "journals", ["created_at"], :name => "index_journals_on_created_at"

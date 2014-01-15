@@ -66,7 +66,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   # default_scope -> { order("id DESC") }
 
   acts_as_numbered
-  acts_as_affairable :dealt_on => :to_bank_on, :debit => false, :third => :payee
+  acts_as_affairable :payee, dealt_on: :to_bank_on, debit: false
 
   before_validation(on: :create) do
     self.created_on ||= Date.today
@@ -98,7 +98,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   end
 
   def label
-    tc(:label, :amount => I18n.localize(self.amount, :currency => self.currency), :date => I18n.localize(self.created_at.to_date), :mode => self.mode.name, :payee => self.payee.full_name, :number => self.number) # , :usable_amount => I18n.localize(self.unused_amount, :currency => self.mode.cash.currency)
+    tc(:label, :amount => I18n.localize(self.amount, currency: self.currency), :date => I18n.localize(self.created_at.to_date), :mode => self.mode.name, :payee => self.payee.full_name, :number => self.number) # , :usable_amount => I18n.localize(self.unused_amount, currency: self.mode.cash.currency)
   end
 
 

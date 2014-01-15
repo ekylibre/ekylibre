@@ -50,7 +50,7 @@ class Catalog < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :code
 
-  has_default scope: :usage
+  selects_among_all scope: :usage
 
   scope :of_usage, lambda { |usage|
     where(usage: usage.to_s)

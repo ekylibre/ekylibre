@@ -34,9 +34,7 @@ class Backend::AffairsController < BackendController
   def select
     return unless @affair = find_and_check
     @third = Entity.find_by(id: params[:third_id])
-    @deals = params[:deal_type].to_s.pluralize
-    @deal_class = @deals.classify.constantize
-    @third_column = @deal_class.reflections[@deal_class.affairable_options[:third]].foreign_key
+    @deal_model = params[:deal_type].camelcase.constantize
   end
 
   def attach

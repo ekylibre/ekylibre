@@ -102,7 +102,7 @@ class CatalogPrice < Ekylibre::Record::Base
     stamper_id = self.class.stamper_class.stamper.id rescue nil
     nc = self.class.create!(self.attributes.merge(:started_at => current_time, :created_at => current_time, :updated_at => current_time, :creator_id => stamper_id, :updater_id => stamper_id).delete_if{|k,v| k.to_s == "id"})
     self.class.where(:id => self.id).update_all(:stopped_at => current_time)
-    nc.ensure_by_default_uniqueness
+    # nc.ensure_by_default_uniqueness
     return nc
   end
 

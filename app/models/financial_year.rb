@@ -231,7 +231,7 @@ class FinancialYear < Ekylibre::Record::Base
           x = x >> 1
         end
       end
-      year = self.class.create(:started_on => (self.stopped_on + 1), :stopped_on => (self.stopped_on >> months), :currency => self.currency)
+      year = self.class.create(:started_on => (self.stopped_on + 1), :stopped_on => (self.stopped_on >> months), currency: self.currency)
     end
     return year
   end
@@ -272,7 +272,7 @@ class FinancialYear < Ekylibre::Record::Base
   # Use I18n to produce string
   def debit_balance(accounts)
     if value = self.balance(accounts, false)
-      return value.l(:currency => self.currency)
+      return value.l(currency: self.currency)
     end
     return nil
   end
@@ -281,7 +281,7 @@ class FinancialYear < Ekylibre::Record::Base
   # Use I18n to produce string
   def credit_balance(accounts)
     if value = self.balance(accounts, true)
-      return value.l(:currency => self.currency)
+      return value.l(currency: self.currency)
     end
     return nil
   end

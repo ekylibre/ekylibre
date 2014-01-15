@@ -155,9 +155,7 @@ class Entity < Ekylibre::Record::Base
   accepts_nested_attributes_for :faxes,    reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :websites, reject_if: :all_blank, allow_destroy: true
 
-  def self.of_company
-    self.find_by(of_company: true)
-  end
+  selects_among_all :of_company
 
   before_validation do
     self.first_name = self.first_name.to_s.strip
@@ -235,7 +233,7 @@ class Entity < Ekylibre::Record::Base
   end
 
 
-  # This method creates automati.ally an account for the entity for its usage (client, supplier...)
+  # This method creates automatically an account for the entity for its usage (client, supplier...)
   def account(nature)
     natures, conversions = [:client, :supplier], {:payer => :client, :payee => :supplier}
     nature = conversions[nature] || nature

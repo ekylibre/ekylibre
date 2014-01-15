@@ -97,7 +97,7 @@ class Sale < Ekylibre::Record::Base
   validates_delay_format_of :payment_delay, :expiration_delay
 
   acts_as_numbered :number, :readonly => false
-  acts_as_affairable :debit => :credit, :third => :client
+  acts_as_affairable :client, debit: :credit
   accepts_nested_attributes_for :items # , :reject_if => :all_blank, :allow_destroy => true
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
 
@@ -195,7 +195,6 @@ class Sale < Ekylibre::Record::Base
         entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
     end
-    # self.uses.first.reconciliate if self.uses.first
   end
 
 

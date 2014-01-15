@@ -35,7 +35,6 @@
 
 
 class OutgoingDeliveryMode < Ekylibre::Record::Base
-  # attr_accessible :name, :code, :description, :with_transport
   has_many :deliveries, foreign_key: :mode_id, class_name: "OutgoingDelivery", inverse_of: :mode
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :code, allow_nil: true, maximum: 10
@@ -47,7 +46,7 @@ class OutgoingDeliveryMode < Ekylibre::Record::Base
 
   # Returns default outgoing delivery mode
   def self.by_default
-    if delivery = OutgoingDelivery.reorder("id DESC").first
+    if delivery = OutgoingDelivery.reorder(id: :desc).first
       return delivery.mode
     else
       return self.order(:name).first

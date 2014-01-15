@@ -300,6 +300,7 @@ fra:
       financial_year: "Exercice"
       fungus: "Champignon"
       # gap: "Gap"
+      # gap_item: "Gap item"
       immatter: "Immatériel"
       incoming_delivery: "Approvisionnement"
       incoming_delivery_item: "Élément d’approvisionnement"
@@ -642,6 +643,7 @@ fra:
     # entity_2_role: "Entity 2 role"
     entity_link_direction: "Entity link direction"
     entity_link_nature: "Type de lien permettant d’étendre l’abonnement"
+    entity_role: "Entity role"
     entries: "Écritures"
     entry: "Écriture"
     entry_items: "Lignes d’écritures"
@@ -684,6 +686,7 @@ fra:
     frozen_indicators_list: "Frozen indicators list"
     full_name: "Nom complet"
     function_title: "Civilités"
+    # gap: "Gap"
     # gaps: "Gaps"
     geometry_value: "Geometry value"
     global_balance: "Solde global"
@@ -1052,6 +1055,7 @@ fra:
     # theoric_population: "Theoric population"
     theoric_quantity: "Quantité théorique" #?
     third: "Tiers"
+    third_role: "Third role"
     thread: "Thread"
     title: "Titre"
     to: "Pour"
@@ -1081,6 +1085,8 @@ fra:
     usable_incoming_payments: "Encaissements utilisables"
     usage: "Utilisation"
     # usages: "Usages"
+    # used_for_affairs: "Used for affairs"
+    # used_for_gaps: "Used for gaps"
     useful_items: "Lignes utiles"
     user: "Utilisateur"
     users: "Utilisateurs"
@@ -1105,6 +1111,8 @@ fra:
       label: "%{number} - %{name}"
     cash_transfer:
       bookkeep: "[%{resource} %{number}] De %{emission} à %{reception} %{description}"
+    gap:
+      bookkeep: "[%{resource} %{number}] %{entity}"
     catalog:
       cost:
         name: "Catalogue de coût d’utilisation"

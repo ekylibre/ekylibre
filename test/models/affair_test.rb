@@ -34,6 +34,7 @@
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
 #  third_id         :integer          not null
+#  third_role       :string(255)      not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #

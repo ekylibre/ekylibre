@@ -25,38 +25,58 @@
 #  affair_id        :integer          not null
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  created_at       :datetime         not null
+#  created_on       :date             not null
 #  creator_id       :integer
 #  currency         :string(3)        not null
 #  direction        :string(255)      not null
 #  entity_id        :integer          not null
+#  entity_role      :string(255)      not null
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
 #  number           :string(255)      not null
+#  pretax_amount    :decimal(19, 4)   default(0.0), not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
+
+
 class Gap < Ekylibre::Record::Base
   enumerize :direction, in: [:profit, :loss], predicates: true
+  enumerize :entity_role, in: [:client, :supplier], predicates: true
   belongs_to :journal_entry
   belongs_to :entity
+  has_many :items, inverse_of: :gaps
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, allow_nil: true
+  validates_numericality_of :amount, :pretax_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :direction, :number, allow_nil: true, maximum: 255
-  validates_presence_of :affair, :amount, :currency, :direction, :entity, :number
+  validates_length_of :direction, :entity_role, :number, allow_nil: true, maximum: 255
+  validates_presence_of :affair, :amount, :created_on, :currency, :direction, :entity, :entity_role, :number, :pretax_amount
   #]VALIDATORS]
 
+  accepts_nested_attributes_for :items
   acts_as_numbered
-  acts_as_affairable debit: :profit?, third: :entity, role: :client, dealt_on: :created_at
-  alias_attribute :label, :number
-  alias_attribute :label, :number
+  acts_as_affairable :entity, debit: :profit?, role: :entity_role
   alias_attribute :label, :number
 
   bookkeep do |b|
-    # TODO Adds journal entry for gap
+    b.journal_entry(Journal.used_for_gaps, printed_on: self.created_on, :unless => self.amount.zero?) do |entry|
+      label = tc(:bookkeep, resource: self.direction.text, number: self.number, entity: self.entity.full_name)
+      if self.profit?
+        entry.add_debit(label, self.entity.account(self.entity_role).id, self.amount)
+        for item in self.items
+          entry.add_credit(label, Account.find_or_create_in_chart(:other_usual_running_expenses), item.pretax_amount)
+          entry.add_credit(label, item.tax.deduction_account_id, item.taxes_amount)
+        end
+      else
+        entry.add_credit(label, self.entity.account(self.entity_role).id, self.amount)
+        for item in self.items
+          entry.add_debit(label, Account.find_or_create_in_chart(:other_usual_running_profits), item.pretax_amount)
+          entry.add_debit(label, item.tax.collect_account_id, item.taxes_amount)
+        end
+      end
+    end
   end
-
 
 end

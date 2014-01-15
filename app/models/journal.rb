@@ -21,22 +21,23 @@
 #
 # == Table: journals
 #
-#  closed_on    :date             not null
-#  code         :string(4)        not null
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  currency     :string(3)        not null
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  name         :string(255)      not null
-#  nature       :string(30)       not null
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  closed_on        :date             not null
+#  code             :string(4)        not null
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  currency         :string(3)        not null
+#  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
+#  name             :string(255)      not null
+#  nature           :string(30)       not null
+#  updated_at       :datetime         not null
+#  updater_id       :integer
+#  used_for_affairs :boolean          not null
+#  used_for_gaps    :boolean          not null
 #
 
 
 class Journal < Ekylibre::Record::Base
-  # attr_accessible :code, :name, :nature, :currency
   attr_readonly :currency
   has_many :cashes
   has_many :entry_items, class_name: "JournalEntryItem", inverse_of: :journal
@@ -47,23 +48,27 @@ class Journal < Ekylibre::Record::Base
   validates_length_of :code, allow_nil: true, maximum: 4
   validates_length_of :nature, allow_nil: true, maximum: 30
   validates_length_of :name, allow_nil: true, maximum: 255
+  validates_inclusion_of :used_for_affairs, :used_for_gaps, in: [true, false]
   validates_presence_of :closed_on, :code, :currency, :name, :nature
   #]VALIDATORS]
   validates_uniqueness_of :code
   validates_uniqueness_of :name
 
-  # default_scope order(:name)
+  selects_among_all :used_for_affairs, :used_for_gaps, :if => :various?
+
   scope :used_for, lambda { |nature|
-    raise ArgumentError.new("Journal#used_for must be one of these: #{self.nature.values.join(', ')}") unless self.nature.values.include?(nature.to_s)
-    where(:nature => nature.to_s)
+    unless self.nature.values.include?(nature.to_s)
+      raise ArgumentError, "Journal#used_for must be one of these: #{self.nature.values.join(', ')}"
+    end
+    where(nature: nature.to_s)
   }
-  scope :sales,     -> { where(:nature => "sales") }
-  scope :purchases, -> { where(:nature => "purchases") }
-  scope :banks,     -> { where(:nature => "bank") }
-  scope :forwards,  -> { where(:nature => "forward") }
-  scope :various,   -> { where(:nature => "various") }
-  scope :cashes,    -> { where(:nature => "cashes") }
-  scope :banks_or_cashes,    -> { where(:nature => "cashes").or.where(:nature => "bank") }
+  scope :sales,     -> { where(nature: "sales") }
+  scope :purchases, -> { where(nature: "purchases") }
+  scope :banks,     -> { where(nature: "bank") }
+  scope :forwards,  -> { where(nature: "forward") }
+  scope :various,   -> { where(nature: "various") }
+  scope :cashes,    -> { where(nature: "cashes") }
+  scope :banks_or_cashes, -> { where(nature: "cashes").or.where(nature: "bank") }
 
   before_validation(on: :create) do
     if year = FinancialYear.first
@@ -111,7 +116,7 @@ class Journal < Ekylibre::Record::Base
     raise ArgumentError.new("Unvalid journal name: #{name.inspect}") unless self.class.preferences_reference.has_key? pref_name
     unless journal = self.preferred(pref_name)
       journal = self.journals.find_by_nature(name)
-      journal = self.journals.create!(:name => tc("default.journals.#{name}"), :nature => name, :currency => self.default_currency) unless journal
+      journal = self.journals.create!(:name => tc("default.journals.#{name}"), nature: name, currency: self.default_currency) unless journal
       self.prefer!(pref_name, journal)
     end
     return journal

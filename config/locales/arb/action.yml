@@ -915,7 +915,7 @@ arb:
     account_mark: "تسجيل الحسابات"
     account_name: "حسابات المحاسب"
     account_number: "رقم الحساب"
-    account_others_assets: "موجودات اخرى"
+    account_other_assets: "موجودات اخرى"
     account_provision: "احتياطات لمواجهة المخاطر والتكاليف"
     account_supplier_to_create: "-- انشاء حساب للممول بشكل اوتوماتيكي --"
     account_tabbox:
@@ -1588,9 +1588,9 @@ arb:
     order_print: "طباعة الطلب"
     other_results: "...نتائج اخرى"
     others: "اقتطاع القيم الضريبية المضافة الاخرى"
-    others_assessable_operations: "اجراءات ضريبية اخرى"
-    others_not_assessable_operations: "اجراءات غير ضريبية اخرى"
-    others_services: "احتياجات وخدمات اخرى"
+    other_assessable_operations: "اجراءات ضريبية اخرى"
+    other_not_assessable_operations: "اجراءات غير ضريبية اخرى"
+    other_services: "احتياجات وخدمات اخرى"
     out_line_create: "اضافة منتج صادر" #?
     out_vat_amount: "مبلغ الضريبة على القيمة المضافة"
     outgoing_delivery: "التسليم" #?

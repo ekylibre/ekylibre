@@ -46,15 +46,16 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :affairs do |t|
-      t.boolean    :closed,                                            default: false, null: false
+      t.boolean    :closed,                                  default: false, null: false
       t.datetime   :closed_at
-      t.references :third,                                                             null: false, index: true
-      t.string     :currency,       limit: 3,                                          null: false
-      t.decimal    :debit,                    precision: 19, scale: 4, default: 0.0,   null: false
-      t.decimal    :credit,                   precision: 19, scale: 4, default: 0.0,   null: false
+      t.references :third,                                                   null: false, index: true
+      t.string     :third_role,                                              null: false
+      t.string     :currency,       limit: 3,                                null: false
+      t.decimal    :debit,          precision: 19, scale: 4, default: 0.0,   null: false
+      t.decimal    :credit,         precision: 19, scale: 4, default: 0.0,   null: false
       t.datetime   :accounted_at
-      t.references :journal_entry,                                                                  index: true
-      t.integer    :deals_count,                                       default: 0,     null: false
+      t.references :journal_entry,                                                        index: true
+      t.integer    :deals_count,                             default: 0,     null: false
       t.stamps
     end
 
@@ -434,17 +435,29 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :gaps do |t|
-      t.string     :number,                                                             null: false
-      t.string     :direction,                                                          null: false
-      t.references :affair,                                                             null: false, index: true
-      t.references :entity,                                                             null: false, index: true
-      t.decimal    :amount,                    precision: 19, scale: 4, default: 0.0,   null: false
-      t.string     :currency,       limit: 3,                                           null: false
+      t.string     :number,                                                null: false
+      t.date       :created_on,                                            null: false
+      t.string     :direction,                                             null: false
+      t.references :affair,                                                null: false, index: true
+      t.references :entity,                                                null: false, index: true
+      t.string     :entity_role,                                           null: false
+      t.decimal    :pretax_amount,  precision: 19, scale: 4, default: 0.0, null: false
+      t.decimal    :amount,         precision: 19, scale: 4, default: 0.0, null: false
+      t.string     :currency,       limit: 3,                              null: false
       t.datetime   :accounted_at
-      t.references :journal_entry,                                                                  index: true
+      t.references :journal_entry,                                                      index: true
       t.stamps
       t.index      :number
       t.index      :direction
+    end
+
+    create_table :gap_items do |t|
+      t.references :gap,                                                   null: false, index: true
+      t.decimal    :pretax_amount,  precision: 19, scale: 4, default: 0.0, null: false
+      t.decimal    :amount,         precision: 19, scale: 4, default: 0.0, null: false
+      t.references :tax,                                                                index: true
+      t.string     :currency,       limit: 3,                              null: false
+      t.stamps
     end
 
     create_table :incoming_deliveries do |t|
@@ -651,6 +664,8 @@ class CreateBase < ActiveRecord::Migration
       t.string   :code,         limit: 4,              null: false
       t.date     :closed_on,                           null: false
       t.string   :currency,     limit: 3,              null: false
+      t.boolean  :used_for_affairs,                    null: false, default: false
+      t.boolean  :used_for_gaps,                       null: false, default: false
       t.stamps
     end
 

@@ -53,7 +53,7 @@ class Transfer < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :created_on, :client
 
-  acts_as_affairable :dealt_on => :created_on, :debit => false, :third => :client
+  acts_as_affairable :client, dealt_on: :created_on, debit: false
 
   before_validation do
     self.created_on ||= Date.today

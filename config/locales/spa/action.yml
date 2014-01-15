@@ -824,7 +824,7 @@ spa:
     account_mark: "Letra de cuento"
     account_name: "Cuento contable"
     account_number: "Numero de cuenta"
-    account_others_assets: "Autros"
+    account_other_assets: "Autros"
     account_provision: "Provisiones para riesgos y cargas"
     # account_supplier_to_create: "— Créer automatiquement un compte fournisseur —"
     account_tabbox:
@@ -1436,9 +1436,9 @@ spa:
     # order_print: "Imprimer la commande"
     other_results: "Otros resultados"
     others: "Otra TVA a deducir"
-    others_assessable_operations: "Autras operaciones imponibles"
-    others_not_assessable_operations: "Autras operaciones no imponibles"
-    others_services: "Otros bienes y servicios"
+    other_assessable_operations: "Autras operaciones imponibles"
+    other_not_assessable_operations: "Autras operaciones no imponibles"
+    other_services: "Otros bienes y servicios"
     out_vat_amount: "Basa fuera de tarifa"
     outgoing_payments_states:
       # all: "Tous"

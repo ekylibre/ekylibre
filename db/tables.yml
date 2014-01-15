@@ -67,6 +67,7 @@ affairs:
   journal_entry_id: {type: integer, references: journal_entry}
   lock_version: {type: integer, required: true, default: 0}
   third_id: {type: integer, references: entity, required: true}
+  third_role: {type: string, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -510,19 +511,35 @@ financial_years:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
+gap_items:
+  amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  currency: {type: string, limit: 3, required: true}
+  gap_id: {type: integer, references: gap, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  tax_id: {type: integer, references: tax}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
 gaps:
   accounted_at: {type: datetime}
   affair_id: {type: integer, references: affair, required: true}
   amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   created_at: {type: datetime, required: true}
+  created_on: {type: date, required: true}
   creator_id: {type: integer, references: user}
   currency: {type: string, limit: 3, required: true}
   direction: {type: string, required: true}
   entity_id: {type: integer, references: entity, required: true}
+  entity_role: {type: string, required: true}
   id: {type: integer, required: true}
   journal_entry_id: {type: integer, references: journal_entry}
   lock_version: {type: integer, required: true, default: 0}
   number: {type: string, required: true}
+  pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -776,6 +793,8 @@ journals:
   nature: {type: string, limit: 30, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
+  used_for_affairs: {type: boolean, required: true, default: false}
+  used_for_gaps: {type: boolean, required: true, default: false}
 
 listing_node_items:
   created_at: {type: datetime, required: true}

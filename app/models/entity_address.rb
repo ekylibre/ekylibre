@@ -73,7 +73,7 @@ class EntityAddress < Ekylibre::Record::Base
   validates_presence_of :mail_country, :if => :mail?
 
 
-  has_default :scope => [:entity_id, :canal]
+  selects_among_all scope: [:entity_id, :canal]
 
   # Use unscoped to get all historic
   default_scope -> { where("deleted_at IS NULL").order(:coordinate) }

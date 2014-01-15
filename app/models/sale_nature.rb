@@ -47,7 +47,6 @@
 
 
 class SaleNature < Ekylibre::Record::Base
-  # attr_accessible :name, :active, :currency, :downpayment, :downpayment_minimum, :downpayment_percentage, :expiration_delay, :journal_id, :payment_delay, :payment_mode_complement, :payment_mode_id, :sales_conditions, :with_accounting
   belongs_to :journal
   belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   has_many :sales
@@ -64,10 +63,9 @@ class SaleNature < Ekylibre::Record::Base
   validates_uniqueness_of :name
   validates_delay_format_of :payment_delay, :expiration_delay
 
-  has_default
+  selects_among_all
 
-  # default_scope -> { order(:by_default, :name) }
-  scope :actives, -> { where(:active => true) }
+  scope :actives, -> { where(active: true) }
 
   before_validation do
     self.expiration_delay = "0 minutes" if self.expiration_delay.blank?
@@ -79,12 +77,12 @@ class SaleNature < Ekylibre::Record::Base
   validate do
     if self.journal
       unless self.currency == self.journal.currency
-        errors.add(:journal, :currency_does_not_match, :currency => self.currency)
+        errors.add(:journal, :currency_does_not_match, currency: self.currency)
       end
     end
     if self.payment_mode
       unless self.currency == self.payment_mode.currency
-        errors.add(:payment_mode, :currency_does_not_match, :currency => self.currency)
+        errors.add(:payment_mode, :currency_does_not_match, currency: self.currency)
       end
     end
   end

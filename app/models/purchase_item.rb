@@ -111,7 +111,7 @@ class PurchaseItem < Ekylibre::Record::Base
   end
 
   #def name
-  #  options = {:product => self.product.name, :quantity => quantity.to_s, :amount => self.price.amount, :currency => self.price.currency.name} # , :unit => self.unit.name
+  #  options = {:product => self.product.name, :quantity => quantity.to_s, :amount => self.price.amount, currency: self.price.currency.name} # , :unit => self.unit.name
   #  if self.tracking
    #   options[:tracking] = self.tracking.name
   #    tc(:name_with_tracking, options)

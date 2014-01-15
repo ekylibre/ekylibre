@@ -28,7 +28,7 @@ end
 
 require_relative('record/bookkeep')
 require_relative('record/autosave')
-require_relative('record/default')
+require_relative('record/selects_among_all')
 require_relative('record/has_shape')
 require_relative('record/sums')
 require_relative('record/preference')

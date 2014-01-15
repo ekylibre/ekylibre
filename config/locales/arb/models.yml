@@ -1314,6 +1314,7 @@ arb:
     entity_links: "روابط الفرد" #?
     entity_name: "اسم المشترك" #?
     entity_natures: "انماط الفرد" #?
+    # entity_role: "Entity role"
     entries: "السجلات المحاسبية"
     entry: "سجل المحاسبة"
     entry_id: "سجا المحاسبة" #?
@@ -1867,6 +1868,7 @@ arb:
     text_nature: "النوع" #?
     theoric_quantity: "الكمية النظرية"
     # third: "Tiers"
+    # third_role: "Third role"
     # thread: "Thread"
     title: "اللقب"
     to: "ل"

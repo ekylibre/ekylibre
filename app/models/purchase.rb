@@ -73,7 +73,7 @@ class Purchase < Ekylibre::Record::Base
   validates_uniqueness_of :number
 
   acts_as_numbered
-  acts_as_affairable :third => :supplier
+  acts_as_affairable :supplier
   accepts_nested_attributes_for :items
   after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   state_machine :state, :initial => :draft do

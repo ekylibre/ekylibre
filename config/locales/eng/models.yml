@@ -900,6 +900,7 @@ eng:
     entity_links: "Person links" #?
     entity_name: "Person name" #?
     entity_natures: "Person types" #?
+    # entity_role: "Entity role"
     entries: "Entries"
     entry: "Entry"
     # entry_items: "Lignes d’écritures"
@@ -1444,6 +1445,7 @@ eng:
     text_nature: "Text type" #?
     theoric_quantity: "Theoric quantity"
     # third: "Tiers"
+    # third_role: "Third role"
     # thread: "Thread"
     title: "Title"
     to: "To"

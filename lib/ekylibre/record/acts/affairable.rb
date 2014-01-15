@@ -9,13 +9,15 @@ module Ekylibre::Record
       module ClassMethods
 
         def acts_as_affairable(*args)
-          options = (args[-1].is_a?(Hash) ? args.delete_at(-1) : {})
-          reflection = self.reflections[args[0] || options[:reflection] || :affair]
+          options = args.extract_options!
+          reflection = self.reflections[options[:reflection] || :affair]
           currency = options[:currency] || :currency
           options[:dealt_on] ||= :created_on
           options[:amount] ||= :amount
           options[:debit] = true unless options.has_key?(:debit)
 
+          options[:third] ||= args.shift || :third
+          options[:role]  ||= options[:third].to_s
           code  = ""
 
           affair, affair_id = :affair, :affair_id
@@ -23,7 +25,7 @@ module Ekylibre::Record
             affair, affair_id = reflection.name, reflection.foreign_key
           else
             unless self.columns_definition[affair_id]
-              Rails.logger.fatal "Unable to acts as affairable no affair column"
+              Rails.logger.fatal "Unable to acts as affairable without affair column"
               # raise StandardError, "Unable to acts as affairable no affair column"
             end
             code << "belongs_to :#{affair}, inverse_of: :#{self.name.underscore.pluralize}\n"
@@ -34,10 +36,10 @@ module Ekylibre::Record
           # default scope for affairable
           code << "scope :affairable, -> { where('#{affair_id} IN (SELECT id FROM affairs WHERE NOT closed)') }\n"
 
-          # Marks model as affairable
-          code << "def self.affairable_options\n"
-          code << "  return {reflection: :#{affair}, currency: :#{currency}, third: :#{options[:role] || options[:third]}}\n"
-          code << "end\n"
+          # # Marks model as affairable
+          # code << "def self.affairable_options\n"
+          # code << "  return {reflection: :#{affair}, currency: :#{currency}, third: :#{options[:third]}, third_role: :#{options[:role]}}\n"
+          # code << "end\n"
 
           # Refresh after each save
           code << "validate do\n"
@@ -87,7 +89,7 @@ module Ekylibre::Record
           # Create "empty" affair if missing before every save
           code << "after_save do\n"
           code << "  unless self.#{affair}\n"
-          code << "    #{affair} = Affair.create!(currency: self.#{currency}, third: self.deal_third)\n"
+          code << "    #{affair} = Affair.create!(currency: self.#{currency}, third: self.deal_third, third_role: self.deal_third_role)\n"
           code << "    self.deal_with!(affair)\n"
           code << "  end\n"
           code << "  return true\n"
@@ -145,13 +147,10 @@ module Ekylibre::Record
           code << "end\n"
 
           # Define which amount to take in account
-          if options[:amount].is_a?(Symbol)
-            code << "def deal_amount\n"
-            code << "  return self.#{options[:amount]}\n"
-            code << "end\n"
-          elsif options[:amount].is_a?(Proc)
-            define_method(:deal_amount, &options[:amount])
-          end
+          code << "alias_attribute :deal_amount, :#{options[:dealt_on]}\n"
+          # code << "def deal_amount\n"
+          # code << "  return self.#{options[:amount]}\n"
+          # code << "end\n"
 
           # Define debit amount
           code << "def deal_debit_amount\n"
@@ -169,22 +168,25 @@ module Ekylibre::Record
           code << "end\n"
 
           # Define which date to take in account
-          if options[:dealt_on].is_a?(Symbol)
-            code << "def dealt_on\n"
-            code << "  return self.#{options[:dealt_on]}\n"
-            code << "end\n"
-          elsif options[:dealt_on].is_a?(Proc)
-            define_method(:dealt_on, &options[:dealt_on])
-          end
+          code << "alias_attribute :dealt_on, :#{options[:dealt_on]}\n"
+          # code << "def dealt_on\n"
+          # code << "  return self.#{options[:dealt_on]}\n"
+          # code << "end\n"
 
           # Define the third of the deal
-          if options[:third].is_a?(Symbol)
-            code << "def deal_third\n"
-            code << "  return self.#{options[:third]}\n"
-            code << "end\n"
-          elsif options[:third].is_a?(Proc)
-            define_method(:deal_third, &options[:third])
+          code << "alias_attribute :deal_third, :#{options[:third]}\n"
+          # code << "def deal_third\n"
+          # code << "  return self.#{options[:third]}\n"
+          # code << "end\n"
+
+          # Define the third of the deal
+          code << "def deal_third_role\n"
+          if options[:role].is_a?(Symbol)
+            code << "  return self.#{options[:role]}\n"
+          else
+            code << "  return #{options[:role].to_sym.inspect}\n"
           end
+          code << "end\n"
 
           # code.split("\n").each_with_index{|x, i| puts((i+1).to_s.rjust(4)+": "+x)}
 
