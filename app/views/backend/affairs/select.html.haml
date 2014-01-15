@@ -1,4 +1,4 @@
-- controller_name = @deal_model.name.pluralize
+- controller_name = @deal_model.name.tableize
 = form_tag(:action => :attach) do |f|
   - if params[:redirect]
     = hidden_field_tag(:redirect, params[:redirect])

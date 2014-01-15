@@ -31,9 +31,9 @@ ActiveRecord::Base.transaction do
 
   Sequence.load_defaults
 
-  catalog = Catalog.create!(:code => "VENTE", name: I18n.t('models.catalog.sale.name'), currency: currency, :usage => :sale)
-  cost_catalog = Catalog.create!(:code => "COUT",name: I18n.t('models.catalog.cost.name'), currency: currency, :usage => :cost)
-  purchase_catalog = Catalog.create!(:code => "ACHAT",name: I18n.t('models.catalog.purchase.name'), currency: currency, :usage => :purchase)
+  catalog = Catalog.create!(code: "VENTE", name: I18n.t('models.catalog.sale.name'), currency: currency, usage: :sale)
+  cost_catalog = Catalog.create!(code: "COUT",name: I18n.t('models.catalog.cost.name'), currency: currency, usage: :cost)
+  purchase_catalog = Catalog.create!(code: "ACHAT",name: I18n.t('models.catalog.purchase.name'), currency: currency, usage: :purchase)
 
   undefined_nature = "entity"
   f = File.open(picture_company)

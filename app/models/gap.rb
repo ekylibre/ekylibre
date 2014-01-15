@@ -46,7 +46,7 @@ class Gap < Ekylibre::Record::Base
   enumerize :entity_role, in: [:client, :supplier], predicates: true
   belongs_to :journal_entry
   belongs_to :entity
-  has_many :items, inverse_of: :gaps
+  has_many :items, class_name: "GapItem", inverse_of: :gap
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
@@ -59,6 +59,10 @@ class Gap < Ekylibre::Record::Base
   acts_as_numbered
   acts_as_affairable :entity, debit: :profit?, role: :entity_role
   alias_attribute :label, :number
+
+  before_validation do
+    self.created_on ||= Date.today
+  end
 
   bookkeep do |b|
     b.journal_entry(Journal.used_for_gaps, printed_on: self.created_on, :unless => self.amount.zero?) do |entry|

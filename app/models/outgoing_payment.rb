@@ -66,7 +66,7 @@ class OutgoingPayment < Ekylibre::Record::Base
   # default_scope -> { order("id DESC") }
 
   acts_as_numbered
-  acts_as_affairable :payee, dealt_on: :to_bank_on, debit: false
+  acts_as_affairable :payee, dealt_on: :to_bank_on, debit: false, role: "supplier"
 
   before_validation(on: :create) do
     self.created_on ||= Date.today

@@ -52,6 +52,17 @@ module Ekylibre::Record
           code << "  return true\n"
           code << "end\n"
 
+          # Create "empty" affair if missing before every save
+          code << "after_save do\n"
+          code << "  unless self.#{affair}\n"
+          code << "    #{affair} = Affair.create(currency: self.#{currency}, third: self.deal_third, third_role: self.deal_third_role)\n"
+          code << "    puts #{affair}.errors.inspect\n"
+          code << "    #{affair} = Affair.create!(currency: self.#{currency}, third: self.deal_third, third_role: self.deal_third_role)\n"
+          code << "    self.deal_with!(#{affair})\n"
+          code << "  end\n"
+          code << "  return true\n"
+          code << "end\n"
+
           # Refresh after each save
           code << "def deal_with!(affair)\n"
           code << "  return self if self.#{affair_id} == affair.id\n"
@@ -78,22 +89,20 @@ module Ekylibre::Record
           code << "  Ekylibre::Record::Base.transaction do\n"
           code << "    old_affair = self.#{affair}\n"
           code << "    self.create_affair!(currency: self.deal_currency, third: self.deal_third)\n"
-          code << "    old_affair.save!\n"
+          code << "    self.affair.refresh!\n"
+          code << "    old_affair.refresh!\n"
           code << "    if old_affair.deals_count.zero?\n"
           code << "      old_affair.destroy!\n"
           code << "    end\n"
           code << "  end\n"
           code << "end\n"
 
-
-          # Create "empty" affair if missing before every save
-          code << "after_save do\n"
-          code << "  unless self.#{affair}\n"
-          code << "    #{affair} = Affair.create!(currency: self.#{currency}, third: self.deal_third, third_role: self.deal_third_role)\n"
-          code << "    self.deal_with!(affair)\n"
-          code << "  end\n"
-          code << "  return true\n"
+          # Define if detachable
+          code << "def detachable?\n"
+          code << "  return self.other_deals.any?\n"
           code << "end\n"
+
+
 
           # # Create "empty" affair if missing before every save
           # code << "before_save do\n"
@@ -147,7 +156,7 @@ module Ekylibre::Record
           code << "end\n"
 
           # Define which amount to take in account
-          code << "alias_attribute :deal_amount, :#{options[:dealt_on]}\n"
+          code << "alias_attribute :deal_amount, :#{options[:amount]}\n"
           # code << "def deal_amount\n"
           # code << "  return self.#{options[:amount]}\n"
           # code << "end\n"
@@ -160,6 +169,15 @@ module Ekylibre::Record
           # Define credit amount
           code << "def deal_credit_amount\n"
           code << "  return (self.deal_credit? ? self.deal_amount : 0)\n"
+          code << "end\n"
+
+          # Define debit amount
+          code << "def deal_balance_amount(debit = false)\n"
+          code << "  if debit\n"
+          code << "    return (self.deal_debit? ? self.deal_amount : -self.deal_amount)\n"
+          code << "  else\n"
+          code << "    return (self.deal_credit? ? self.deal_amount : -self.deal_amount)\n"
+          code << "  end\n"
           code << "end\n"
 
           # Returns other deals
@@ -178,6 +196,21 @@ module Ekylibre::Record
           # code << "def deal_third\n"
           # code << "  return self.#{options[:third]}\n"
           # code << "end\n"
+
+          code << "def self.deal_third\n"
+          code << "  return self.reflections[:#{options[:third]}]\n"
+          code << "end\n"
+
+          # Define the third of the deal
+          if options[:taxes].is_a?(Symbol)
+            code << "alias_attribute :deal_taxes, :#{options[:taxes]}\n"
+          elsif ![TrueClass].include?(options[:taxes].class)
+            # Computes based on opposite operation taxes
+            code << "def deal_taxes(debit = false)\n"
+            code << "  return [{amount: self.deal_balance_amount(debit)}]\n"
+            code << "end\n"
+          end
+
 
           # Define the third of the deal
           code << "def deal_third_role\n"

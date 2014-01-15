@@ -74,7 +74,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_presence_of :commission_account, :if => :with_commission?
 
   acts_as_numbered
-  acts_as_affairable :payer, dealt_on: :to_bank_on
+  acts_as_affairable :payer, dealt_on: :to_bank_on, role: "client"
   delegate :with_commission?, to: :mode
 
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }

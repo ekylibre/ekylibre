@@ -137,6 +137,18 @@ class Purchase < Ekylibre::Record::Base
     return (self.invoice? ? self.invoiced_on : self.created_on)
   end
 
+  # Globalizes taxes into an array of hash
+  def deal_taxes(debit = false)
+    taxes = {}
+    coeff = (self.send("deal_#{debit ? :debit : :credit}?") ? 1 : -1)
+    for item in self.items
+      tax_id = item.tax ? item.tax_id : :none
+      taxes[tax_id] ||= {amount: 0.0, tax: item.tax}
+      taxes[tax_id][:amount] += coeff * item.amount
+    end
+    return taxes.values
+  end
+
   def refresh
     self.save
   end
