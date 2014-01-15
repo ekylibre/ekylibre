@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
+  <!--  Le poste fourniture du sol Po intègre la contribution en azote du sol ainsi que l'arrière effet des retournements de prairie Contribution en azote du sol (en kgN/ha)  -->
+  <nomenclature name="nmp_poitou_charentes_abacus_10" hierarchical="false">
+    <attributes>
+      <attribute name="crop" type="choice" nomenclature="france_crops_sets" required="true"/> <!-- -land_parcel -->
+      <attribute name="po" type="decimal" required="true"/><!-- en kg N/ha -->
+      <attribute name="minimum_available_water_capacity" type="decimal" required="false"/>
+      <attribute name="maximum_available_water_capacity" type="decimal" required="false"/>
+       <attribute name="precipitations_started_period" type="string" required="false"/><!-- MM-JJ -->
+       <attribute name="precipitations_stopped_period" type="string" required="false"/><!-- MM-JJ -->
+       <attribute name="precipitations_min" type="decimal" required="true"/><!-- en mm d'eau soit l/m2 -->
+       <attribute name="precipitations_max" type="decimal" required="true"/><!-- en mm d'eau soit l/m2 -->
+    </attributes>
+    <items>
+      <!-- WHEAT -->
+      <item name="wheat_ru_min_1" 
+       crop="wheat"
+       po="65" 
+       minimum_available_water_capacity="0" 
+       maximum_available_water_capacity="80"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="0"
+       precipitations_max="350"
+       />
+       <item name="wheat_ru_min_2"
+       crop="wheat"
+       po="50"
+       minimum_available_water_capacity="0" 
+       maximum_available_water_capacity="80"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="350"
+       precipitations_max="1000"
+       />
+       <item name="wheat_ru_med_1" 
+       crop="wheat"
+       po="85" 
+       minimum_available_water_capacity="80" 
+       maximum_available_water_capacity="120"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="0"
+       precipitations_max="400"
+       />
+       <item name="wheat_ru_med_2"
+       crop="wheat"
+       po="70"
+       minimum_available_water_capacity="80" 
+       maximum_available_water_capacity="120"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="400"
+       precipitations_max="1000"
+       />
+        <item name="wheat_ru_max_1" 
+       crop="wheat"
+       po="105" 
+       minimum_available_water_capacity="120" 
+       maximum_available_water_capacity="200"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="0"
+       precipitations_max="400"
+       />
+       <item name="wheat_ru_max_2"
+       crop="wheat"
+       po="90"
+       minimum_available_water_capacity="120" 
+       maximum_available_water_capacity="200"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="400"
+       precipitations_max="1000"
+       />
+       <!-- SPRING CEREAL -->
+      <item name="spring_straw_cereal_ru_min_1" 
+       crop="spring_straw_cereal"
+       po="50" 
+       minimum_available_water_capacity="0" 
+       maximum_available_water_capacity="80"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="0"
+       precipitations_max="350"
+       />
+       <item name="spring_straw_cereal_ru_min_2"
+       crop="spring_straw_cereal"
+       po="35"
+       minimum_available_water_capacity="0" 
+       maximum_available_water_capacity="80"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="350"
+       precipitations_max="1000"
+       />
+       <item name="spring_straw_cereal_ru_med_1" 
+       crop="spring_straw_cereal"
+       po="60" 
+       minimum_available_water_capacity="80" 
+       maximum_available_water_capacity="120"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="0"
+       precipitations_max="400"
+       />
+       <item name="spring_straw_cereal_ru_med_2"
+       crop="spring_straw_cereal"
+       po="45"
+       minimum_available_water_capacity="80" 
+       maximum_available_water_capacity="120"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="400"
+       precipitations_max="1000"
+       />
+        <item name="spring_straw_cereal_ru_max_1" 
+       crop="spring_straw_cereal"
+       po="70" 
+       minimum_available_water_capacity="120" 
+       maximum_available_water_capacity="200"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="0"
+       precipitations_max="400"
+       />
+       <item name="spring_straw_cereal_ru_max_2"
+       crop="spring_straw_cereal"
+       po="55"
+       minimum_available_water_capacity="120" 
+       maximum_available_water_capacity="200"
+       precipitations_started_period="10-01"
+       precipitations_stopped_period="03-01"
+       precipitations_min="400"
+       precipitations_max="1000"
+       />
+    </items>
+  </nomenclature>
+</nomenclatures>

@@ -377,6 +377,7 @@
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
             />
             <!-- ORGANIC FERTILIZER -->
+                  <!-- CATTLE -->
       <item name="cattle_manure"
             nature="organic_fertilizer"
             variety="manure"
@@ -404,6 +405,151 @@
             derivative_of="bos"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.70cubic_meter, nitrogen_concentration: 0.8percent"
+            />
+            <!-- PIG -->
+      <item name="pig_manure"
+            nature="organic_fertilizer"
+            variety="manure"
+            derivative_of="sus"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.81percent"
+            />
+            <item name="pig_slurry"
+            nature="organic_fertilizer"
+            variety="slurry"
+            derivative_of="sus"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.45percent"
+            />
+            <item name="pig_compost"
+            nature="organic_fertilizer"
+            variety="compost"
+            derivative_of="sus"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.70cubic_meter, nitrogen_concentration: 0.84percent"
+            />
+            <!-- HEN -->
+            <item name="hen_manure"
+            nature="organic_fertilizer"
+            variety="manure"
+            derivative_of="gallus"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 2.2percent"
+            />
+            <item name="hen_compost"
+            nature="organic_fertilizer"
+            variety="compost"
+            derivative_of="gallus"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 3percent"
+            />
+            <item name="hen_slurry"
+            nature="organic_fertilizer"
+            variety="slurry"
+            derivative_of="gallus"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.68percent"
+            />
+            <item name="hen_guano"
+            nature="organic_fertilizer"
+            variety="guano"
+            derivative_of="gallus"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.70cubic_meter, nitrogen_concentration: 4.0percent"
+            />
+            <!-- Guineafowl -->
+            <item name="guineafowl_manure"
+            nature="organic_fertilizer"
+            variety="manure"
+            derivative_of="numida"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 2.2percent"
+            />
+            <!-- DUCK -->
+            <item name="duck_manure"
+            nature="organic_fertilizer"
+            variety="manure"
+            derivative_of="anas"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.1percent"
+            />
+            <item name="duck_slurry"
+            nature="organic_fertilizer"
+            variety="slurry"
+            derivative_of="anas"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.68percent"
+            />
+            <!-- OTHERS -->
+            <item name="ovis_manure"
+            nature="organic_fertilizer"
+            variety="manure"
+            derivative_of="ovis"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.67percent"
+            />
+            <item name="ovis_compost"
+            nature="organic_fertilizer"
+            variety="compost"
+            derivative_of="ovis"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.15percent"
+            />
+            <item name="capra_manure"
+            nature="organic_fertilizer"
+            variety="manure"
+            derivative_of="capra"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.61ercent"
+            />
+            <item name="rabbit_manure"
+            nature="organic_fertilizer"
+            variety="manure"
+            derivative_of="lepus"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.85percent"
+            />
+            <item name="horse_manure"
+            nature="organic_fertilizer"
+            variety="manure"
+            derivative_of="equus"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.82percent"
+            />
+            <item name="mud"
+            nature="organic_fertilizer"
+            variety="slurry"
+            derivative_of="animal"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.20percent, dry_matter_rate: 5.00percent"
+            />
+            <item name="urban_compost"
+            nature="organic_fertilizer"
+            variety="compost"
+            derivative_of="animal"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.00percent"
+            />
+            <item name="green_compost"
+            nature="organic_fertilizer"
+            variety="compost"
+            derivative_of="plant"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.2percent"
+            />
+            <item name="sugar_vinasse"
+            nature="organic_fertilizer"
+            variety="grain"
+            derivative_of="organic_matter"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 4.0percent"
+            />
+            <item name="wine_vinasse"
+            nature="organic_fertilizer"
+            variety="grain"
+            derivative_of="organic_matter"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.002percent"
             />
             <!-- SEED -->
       <item name="seed"

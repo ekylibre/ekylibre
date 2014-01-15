@@ -887,6 +887,7 @@ fra:
         varieties: "Variétés"
       items:
         alfalfa: "Luzerne"
+        # autumn_crop: "Autumn crop"
         bean: "Haricot"
         beet: "Betterave"
         carrot: "Carotte"
@@ -900,10 +901,12 @@ fra:
         nightshade: "Pomme de terre"
         peas: "Pois"
         rape: "Colza"
+        # spring_crop: "Spring crop"
         spring_straw_cereal: "Céréales à paille de printemps"
         straw_cereal: "Céréales à paille"
         sunflower: "Tournesol"
         vetch: "Féverole"
+        # wheat: "Wheat"
         winter_straw_cereal: "Céréales à paille d'hiver"
     indicators:
       name: "Indicateurs"
@@ -1019,7 +1022,7 @@ fra:
         dry_matter_rate: "Taux de matière sèche"
         economical_milk_index: "INEL (INdex Économique Laitier)"
         energy: "Energie"
-        # fat_matter_concentration_index: "Fat matter concentration index"
+        fat_matter_concentration_index: "TB (Taux Butyreux)"
         fat_matters_concentration: "Teneur en matières grasses"
         fertility_index: "Index de fertilité"
         freezing_point_temperature: "Point de solidification"
@@ -1033,13 +1036,13 @@ fra:
         length: "Longueur"
         lipolysis: "Lipolyse"
         livestock_unit: "UGB (Unité de Gros Bétail)"
-        # mammalia_born_condition: "Mammalia born condition"
-        # mammalia_born_cycle: "Mammalia born cycle"
+        mammalia_born_condition: "condition de naissance"
+        mammalia_born_cycle: "cycle de naissance"
         mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère"
-        # mammalia_reproduction_event_abortion: "Mammalia reproduction event abortion"
-        # mammalia_reproduction_method_embryo_transplant: "Mammalia reproduction method embryo transplant"
+        mammalia_reproduction_event_abortion: "Avortement"
+        mammalia_reproduction_method_embryo_transplant: "Transplantation embryonaire"
         mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
-        # mammalia_twins_condition: "Mammalia twins condition"
+        mammalia_twins_condition: "Naissance de jumeaux"
         maximum_load_net_mass: "Masse nette maximale en charge"
         maximum_load_net_volume: "Capacité volumique nette maximum"
         meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
@@ -1223,6 +1226,32 @@ fra:
         # secale_yield_17: "Secale yield 17"
         # secale_yield_79: "Secale yield 79"
         # secale_yield_86: "Secale yield 86"
+    nmp_poitou_charentes_abacus_10:
+      # name: "Nmp poitou charentes abacus 10"
+      attributes:
+        # crop: "Crop"
+        # maximum_available_water_capacity: "Maximum available water capacity"
+        # minimum_available_water_capacity: "Minimum available water capacity"
+        # po: "Po"
+        # precipitations_max: "Precipitations max"
+        # precipitations_min: "Precipitations min"
+        # precipitations_started_period: "Precipitations started period"
+        # precipitations_stopped_period: "Precipitations stopped period"
+      choices:
+        # crop: # Choices comes from nomenclature: france_crops_sets
+      items:
+        # spring_straw_cereal_ru_max_1: "Spring straw cereal ru max 1"
+        # spring_straw_cereal_ru_max_2: "Spring straw cereal ru max 2"
+        # spring_straw_cereal_ru_med_1: "Spring straw cereal ru med 1"
+        # spring_straw_cereal_ru_med_2: "Spring straw cereal ru med 2"
+        # spring_straw_cereal_ru_min_1: "Spring straw cereal ru min 1"
+        # spring_straw_cereal_ru_min_2: "Spring straw cereal ru min 2"
+        # wheat_ru_max_1: "Wheat ru max 1"
+        # wheat_ru_max_2: "Wheat ru max 2"
+        # wheat_ru_med_1: "Wheat ru med 1"
+        # wheat_ru_med_2: "Wheat ru med 2"
+        # wheat_ru_min_1: "Wheat ru min 1"
+        # wheat_ru_min_2: "Wheat ru min 2"
     nmp_poitou_charentes_abacus_2:
       # name: "Nmp poitou charentes abacus 2"
       attributes:
@@ -1607,6 +1636,104 @@ fra:
         # straw_cereal_export: "Straw cereal export"
         # sunflower: "Sunflower"
         # vetch: "Vetch"
+    nmp_poitou_charentes_abacus_8:
+      # name: "Nmp poitou charentes abacus 8"
+      attributes:
+        # crop: "Crop"
+        # input_method: "Input method"
+        # input_period_start: "Input period start"
+        # input_period_stop: "Input period stop"
+        # keq: "Keq"
+        # variant: "Variant"
+      choices:
+        # crop: # Choices comes from nomenclature: france_crops_sets
+        input_method:
+          # before_cipan: "Before cipan"
+          # buried: "Buried"
+          # on_top: "On top"
+        # variant: # Choices comes from nomenclature: product_nature_variants
+      items:
+        # cattle_compost_on_grass_1: "Cattle compost on grass 1"
+        # cattle_compost_on_grass_2: "Cattle compost on grass 2"
+        # cattle_compost_on_spring_straw_cereal_1: "Cattle compost on spring straw cereal 1"
+        # cattle_compost_on_spring_straw_cereal_2: "Cattle compost on spring straw cereal 2"
+        # cattle_manure_on_grass_1: "Cattle manure on grass 1"
+        # cattle_manure_on_grass_2: "Cattle manure on grass 2"
+        # cattle_manure_on_spring_straw_cereal_1: "Cattle manure on spring straw cereal 1"
+        # cattle_manure_on_spring_straw_cereal_2: "Cattle manure on spring straw cereal 2"
+        # cattle_slurry_on_autumn_crop: "Cattle slurry on autumn crop"
+        # cattle_slurry_on_grass_1: "Cattle slurry on grass 1"
+        # cattle_slurry_on_grass_2: "Cattle slurry on grass 2"
+        # cattle_slurry_on_spring_crop_1: "Cattle slurry on spring crop 1"
+        # cattle_slurry_on_spring_crop_2: "Cattle slurry on spring crop 2"
+        # hen_compost_on_spring_straw_cereal: "Hen compost on spring straw cereal"
+        # hen_guano_on_rape: "Hen guano on rape"
+        # hen_guano_on_spring_straw_cereal: "Hen guano on spring straw cereal"
+        # hen_guano_on_straw_cereal: "Hen guano on straw cereal"
+        # hen_manure_on_rape: "Hen manure on rape"
+        # hen_manure_on_spring_straw_cereal: "Hen manure on spring straw cereal"
+        # hen_manure_on_straw_cereal: "Hen manure on straw cereal"
+        # mud_on_autumn_crop: "Mud on autumn crop"
+        # mud_on_spring_crop_1: "Mud on spring crop 1"
+        # mud_on_spring_crop_2: "Mud on spring crop 2"
+        # pig_compost_on_grass_1: "Pig compost on grass 1"
+        # pig_compost_on_grass_2: "Pig compost on grass 2"
+        # pig_manure_on_grass_1: "Pig manure on grass 1"
+        # pig_manure_on_grass_2: "Pig manure on grass 2"
+        # pig_slurry_on_grass_1: "Pig slurry on grass 1"
+        # pig_slurry_on_grass_2: "Pig slurry on grass 2"
+        # pig_slurry_on_grass_3: "Pig slurry on grass 3"
+        # pig_slurry_on_rape: "Pig slurry on rape"
+        # pig_slurry_on_spring_straw_cereal: "Pig slurry on spring straw cereal"
+        # pig_slurry_on_straw_cereal: "Pig slurry on straw cereal"
+        # sugar_vinasse_on_spring_crop_1: "Sugar vinasse on spring crop 1"
+        # sugar_vinasse_on_spring_crop_2: "Sugar vinasse on spring crop 2"
+        # sugar_vinasse_on_spring_crop_3: "Sugar vinasse on spring crop 3"
+        # urban_compost_on_spring_crop: "Urban compost on spring crop"
+    nmp_poitou_charentes_abacus_9:
+      # name: "Nmp poitou charentes abacus 9"
+      attributes:
+        # land_parcel_variety: "Land parcel variety"
+        # maximum_available_water_capacity: "Maximum available water capacity"
+        # minimum_available_water_capacity: "Minimum available water capacity"
+        # rf: "Rf"
+      choices:
+        # land_parcel_variety: # Choices comes from nomenclature: varieties
+      items:
+        # aubues_max: "Aubues max"
+        # aubues_min: "Aubues min"
+        # black_valley_max: "Black valley max"
+        # black_valley_med: "Black valley med"
+        # champagne_max: "Champagne max"
+        # champagne_min: "Champagne min"
+        # clay_limestone_max: "Clay limestone max"
+        # clay_limestone_min: "Clay limestone min"
+        # flap_silt_max: "Flap silt max"
+        # flap_silt_med: "Flap silt med"
+        # flap_silt_min: "Flap silt min"
+        # granite_arena_max: "Granite arena max"
+        # granite_arena_med: "Granite arena med"
+        # granite_arena_min: "Granite arena min"
+        # hydromorph_sandy_clay_loam_med: "Hydromorph sandy clay loam med"
+        # hydromorph_sandy_clay_loam_min: "Hydromorph sandy clay loam min"
+        # red_chesnut_max: "Red chesnut max"
+        # red_chesnut_med: "Red chesnut med"
+        # red_chesnut_min: "Red chesnut min"
+        # sand_max: "Sand max"
+        # sand_med: "Sand med"
+        # sand_min: "Sand min"
+        # silt_schist_max: "Silt schist max"
+        # silt_schist_med: "Silt schist med"
+        # silt_schist_min: "Silt schist min"
+        # silty_clay_loam_max: "Silty clay loam max"
+        # silty_clay_loam_med: "Silty clay loam med"
+        # silty_clay_loam_min: "Silty clay loam min"
+        # silty_clay_max: "Silty clay max"
+        # silty_clay_med: "Silty clay med"
+        # silty_clay_min: "Silty clay min"
+        # valley_terrace_max: "Valley terrace max"
+        # valley_terrace_med: "Valley terrace med"
+        # valley_terrace_min: "Valley terrace min"
     procedure_natures:
       name: "Types de procédures"
       attributes:
@@ -1785,6 +1912,7 @@ fra:
         calf: "Veau"
         caphorn_wheat_crop: "Culture de blé tendre Caphorn"
         caphorn_wheat_seed_25: "Semence de blé tendre Caphorn"
+        capra_manure: "Fumier de caprin"
         cattle_compost: "Compost de bovins"
         cattle_herd: "Troupeau de bovins"
         cattle_liquid_slurry: "Purin de bovins"
@@ -1819,6 +1947,8 @@ fra:
         diesel: "Diesel"
         duck_band: "Bande de canards"
         duck_herd: "Groupe de canards"
+        duck_manure: "Fumier de canard"
+        duck_slurry: "Lisier de canard"
         electricity: "Électricité"
         equipment: "Équipement"
         equipment_building_division: "Emplacement de stockage du matériel"
@@ -1837,6 +1967,8 @@ fra:
         granite_arena_land_parcel: "Parcelle de sol sur arène granitique"
         grass: "Herbe"
         grass_seed_25: "Semence de prairie sac de 25kg"
+        green_compost: "Compost de déchets verts"
+        guineafowl_manure: "Fumier de pintades"
         hard_wheat_crop: "Culture de blé dur"
         hard_wheat_grain: "Graine de blé dur"
         hard_wheat_seed_25: "Semence de blé dur 25kg"
@@ -1844,6 +1976,11 @@ fra:
         hard_wheat_straw_bales: "Bottes de paille de blé dur"
         hay_rake: "Andaineur"
         helianthus_herbicide: "Herbicide tournesol"
+        # hen_compost: "Hen compost"
+        hen_guano: "Guano de poule"
+        hen_manure: "Fumier de poule"
+        hen_slurry: "Lisier de poule"
+        horse_manure: "Fumier de cheval"
         hydromorph_sandy_clay_loam_land_parcel: "Parcelle sablo-argileuse hydromorphe"
         insecticide: "Insecticide"
         irrigation_water: "Eau (irrigation)"
@@ -1859,20 +1996,27 @@ fra:
         miradoux_hard_wheat_crop: "Culture de blé dur Miradoux"
         miradoux_hard_wheat_seed_25: "Semence de blé dur Miradoux"
         mixed_chemical_fertilizer: "Mélange d’engrais"
-        # mixture_crop: "Mixture crop"
-        # mixture_seed: "Mixture seed"
+        mixture_crop: "Culture mixte"
+        mixture_seed: "Semence mixte"
         molluscicide: "Molluscicide"
         mower: "Faucheuse"
+        mud: "Boue"
         natural_water: "Eau de pluie / du puit"
         office_building: "Bureau"
         office_building_division: "Pièce de bureau"
         other_herbicide: "Herbicide autre"
+        ovis_compost: "Compost d'ovin"
+        ovis_manure: "Fumier d'ovin"
         pea_crop: "Culture de pois"
         pea_seed: "Semence de pois"
+        pig_compost: "Compost de porc"
+        pig_manure: "Fumier de porc"
+        pig_slurry: "Lisier de porc"
         plow: "Charrue"
         plum_crop: "Verger de pruniers"
         poacea_herbicide: "Herbicide graminées"
         poaceae_fungicide: "Fongicide céréales"
+        rabbit_manure: "Fumier de lapin"
         reaper: "Moissonneuse-batteuse"
         red_chesnut_land_parcel: "Parcelle de terres rouges à chataigniers"
         riflexine: "Riflexine"
@@ -1899,6 +2043,7 @@ fra:
         spreader_trailer: "Épandeur à fumier"
         spring_barley_crop: "Culture d’orge de printemps"
         spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
+        sugar_vinasse: "Vinasse de sucrerie"
         sunflower_crop: "Culture de tournesol"
         # superficial_plow: "Superficial plow"
         swamp_peaty_land_parcel: "Parcelle de marais tourbeux"
@@ -1908,6 +2053,7 @@ fra:
         temporary_meadow_crop: "Culture de prairie temporaire"
         tractor: "Tracteur"
         trailer: "Remorque"
+        urban_compost: "Compost urbain"
         valley_terrace_land_parcel: "Parcelle de sol de terrasse de vallée"
         vine_grape_berry: "Grappe de raisin"
         vine_grape_crop: "Culture de vigne"
@@ -1918,6 +2064,7 @@ fra:
         wheat_straw: "Paille de blé"
         wheat_straw_bales: "Bottes de paille de blé"
         wine: "Vin"
+        wine_vinasse: "Vinasse de distillerie"
         winter_barley_crop: "Culture d’orge d’hiver"
         winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
         zea_herbicide: "Herbicide maïs"
@@ -2192,6 +2339,7 @@ fra:
         easement: "Aménagement foncier"                    # zone
         electricity: "Electricité"                         # matter
         equipment: "Équipement"                            # matter
+        equus: "Equin"                                     # mammalia
         esperia: "Esperia"                                 # triticum_aestivum
         euclide: "Euclide"                                 # triticum_aestivum
         excrement: "Excrément"                             # organic_matter
@@ -2211,6 +2359,7 @@ fra:
         grass: "Herbe"                                     # organic_matter
         grenache: "Grenache"                               # vitis_vinifera
         grenache_noir: "Grenache noir"                     # vitis_vinifera
+        guano: "Guano"                                     # excrement
         harvest: "Récolte"                                 # equipment
         hay: "Foin"                                        # organic_matter
         helianthus: "Tournesol"                            # asteraceae
@@ -2253,6 +2402,7 @@ fra:
         mollusca: "Mollusque"                              # animal
         molluscicide: "Produit molluscicide"               # plant_medicine
         mower: "Faucheuse"                                 # equipment
+        numida: "Numididae"                                # aves
         oratorio: "Oratorio"                               # triticum_aestivum
         organic_matter: "Matière organique"                # matter
         oryza: "Riz"                                       # poaceae

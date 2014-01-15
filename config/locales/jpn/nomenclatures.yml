@@ -1148,6 +1148,7 @@ jpn:
         # dry_matter_rate: "Taux de matière sèche"
         # economical_milk_index: "INEL (INdex Économique Laitier)"
         # energy: "Energie"
+        # fat_matter_concentration_index: "TB (Taux Butyreux)"
         # fat_matters_concentration: "Teneur en matières grasses"
         # fertility_index: "Index de fertilité"
         # freezing_point_temperature: "Point de solidification"
@@ -1161,8 +1162,13 @@ jpn:
         # length: "Longueur"
         # lipolysis: "Lipolyse"
         # livestock_unit: "UGB (Unité de Gros Bétail)"
+        # mammalia_born_condition: "condition de naissance"
+        # mammalia_born_cycle: "cycle de naissance"
         # mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère"
+        # mammalia_reproduction_event_abortion: "Avortement"
+        # mammalia_reproduction_method_embryo_transplant: "Transplantation embryonaire"
         # mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
+        # mammalia_twins_condition: "Naissance de jumeaux"
         # maximum_load_net_mass: "Masse nette maximale en charge"
         # maximum_load_net_volume: "Capacité volumique nette maximum"
         # meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
@@ -1326,6 +1332,10 @@ jpn:
       attributes: #?
       choices: #?
       items: #?
+    nmp_poitou_charentes_abacus_10:
+      attributes: #?
+      choices: #?
+      items: #?
     nmp_poitou_charentes_abacus_2:
       attributes: #?
       choices: #?
@@ -1349,6 +1359,15 @@ jpn:
       attributes: #?
       choices:
         crop_destruction_method: #?
+      items: #?
+    nmp_poitou_charentes_abacus_8:
+      attributes: #?
+      choices:
+        input_method: #?
+      items: #?
+    nmp_poitou_charentes_abacus_9:
+      attributes: #?
+      choices: #?
       items: #?
     procedure_natures:
       attributes: #?
@@ -1514,6 +1533,7 @@ jpn:
         # calf: "Veau"
         # caphorn_wheat_crop: "Culture de blé tendre Caphorn"
         # caphorn_wheat_seed_25: "Semence de blé tendre Caphorn"
+        # capra_manure: "Fumier de caprin"
         # cattle_compost: "Compost de bovins"
         # cattle_herd: "Troupeau de bovins"
         # cattle_liquid_slurry: "Purin de bovins"
@@ -1548,6 +1568,8 @@ jpn:
         # diesel: "Diesel"
         # duck_band: "Bande de canards"
         # duck_herd: "Groupe de canards"
+        # duck_manure: "Fumier de canard"
+        # duck_slurry: "Lisier de canard"
         # electricity: "Électricité"
         # equipment: "Équipement"
         # equipment_building_division: "Emplacement de stockage du matériel"
@@ -1566,6 +1588,8 @@ jpn:
         # granite_arena_land_parcel: "Parcelle de sol sur arène granitique"
         # grass: "Herbe"
         # grass_seed_25: "Semence de prairie sac de 25kg"
+        # green_compost: "Compost de déchets verts"
+        # guineafowl_manure: "Fumier de pintades"
         # hard_wheat_crop: "Culture de blé dur"
         # hard_wheat_grain: "Graine de blé dur"
         # hard_wheat_seed_25: "Semence de blé dur 25kg"
@@ -1573,6 +1597,10 @@ jpn:
         # hard_wheat_straw_bales: "Bottes de paille de blé dur"
         # hay_rake: "Andaineur"
         # helianthus_herbicide: "Herbicide tournesol"
+        # hen_guano: "Guano de poule"
+        # hen_manure: "Fumier de poule"
+        # hen_slurry: "Lisier de poule"
+        # horse_manure: "Fumier de cheval"
         # hydromorph_sandy_clay_loam_land_parcel: "Parcelle sablo-argileuse hydromorphe"
         # insecticide: "Insecticide"
         # irrigation_water: "Eau (irrigation)"
@@ -1587,18 +1615,27 @@ jpn:
         # miradoux_hard_wheat_crop: "Culture de blé dur Miradoux"
         # miradoux_hard_wheat_seed_25: "Semence de blé dur Miradoux"
         # mixed_chemical_fertilizer: "Mélange d’engrais"
+        # mixture_crop: "Culture mixte"
+        # mixture_seed: "Semence mixte"
         # molluscicide: "Molluscicide"
         # mower: "Faucheuse"
+        # mud: "Boue"
         # natural_water: "Eau de pluie / du puit"
         # office_building: "Bureau"
         # office_building_division: "Pièce de bureau"
         # other_herbicide: "Herbicide autre"
+        # ovis_compost: "Compost d'ovin"
+        # ovis_manure: "Fumier d'ovin"
         # pea_crop: "Culture de pois"
         # pea_seed: "Semence de pois"
+        # pig_compost: "Compost de porc"
+        # pig_manure: "Fumier de porc"
+        # pig_slurry: "Lisier de porc"
         # plow: "Charrue"
         # plum_crop: "Verger de pruniers"
         # poacea_herbicide: "Herbicide graminées"
         # poaceae_fungicide: "Fongicide céréales"
+        # rabbit_manure: "Fumier de lapin"
         # reaper: "Moissonneuse-batteuse"
         # red_chesnut_land_parcel: "Parcelle de terres rouges à chataigniers"
         # riflexine: "Riflexine"
@@ -1625,6 +1662,7 @@ jpn:
         # spreader_trailer: "Épandeur à fumier"
         # spring_barley_crop: "Culture d’orge de printemps"
         # spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
+        # sugar_vinasse: "Vinasse de sucrerie"
         # sunflower_crop: "Culture de tournesol"
         # swamp_peaty_land_parcel: "Parcelle de marais tourbeux"
         # tablur_hard_wheat_crop: "Culture de blé dur Tablur"
@@ -1633,6 +1671,7 @@ jpn:
         # temporary_meadow_crop: "Culture de prairie temporaire"
         # tractor: "Tracteur"
         # trailer: "Remorque"
+        # urban_compost: "Compost urbain"
         # valley_terrace_land_parcel: "Parcelle de sol de terrasse de vallée"
         # vine_grape_berry: "Grappe de raisin"
         # vine_grape_crop: "Culture de vigne"
@@ -1643,6 +1682,7 @@ jpn:
         # wheat_straw: "Paille de blé"
         # wheat_straw_bales: "Bottes de paille de blé"
         # wine: "Vin"
+        # wine_vinasse: "Vinasse de distillerie"
         # winter_barley_crop: "Culture d’orge d’hiver"
         # winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
         # zea_herbicide: "Herbicide maïs"
@@ -1900,6 +1940,7 @@ jpn:
         # easement: "Aménagement foncier"
         # electricity: "Electricité"
         # equipment: "Équipement"
+        # equus: "Equin"
         # esperia: "Esperia"
         # euclide: "Euclide"
         # excrement: "Excrément"
@@ -1919,6 +1960,7 @@ jpn:
         # grass: "Herbe"
         # grenache: "Grenache"
         # grenache_noir: "Grenache noir"
+        # guano: "Guano"
         # harvest: "Récolte"
         # hay: "Foin"
         # helianthus: "Tournesol"
@@ -1961,6 +2003,7 @@ jpn:
         # mollusca: "Mollusque"
         # molluscicide: "Produit molluscicide"
         # mower: "Faucheuse"
+        # numida: "Numididae"
         # oratorio: "Oratorio"
         # organic_matter: "Matière organique"
         # oryza: "Riz"
