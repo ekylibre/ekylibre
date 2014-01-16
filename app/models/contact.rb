@@ -161,5 +161,11 @@ class Contact < CompanyRecord
     a += self.address.gsub(/\s*\,\s*/, "\n")
     a
   end
-  
+
+  def mail
+    return [self.entity.full_name, self.line_2, self.line_3, self.line_4, self.line_5, self.line_6].delete_if(&:blank?).collect do |l|
+        l.gsub(";", ",")
+    end.join(";")
+  end
+
 end
