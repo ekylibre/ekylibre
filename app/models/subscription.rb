@@ -20,7 +20,6 @@
 # 
 # == Table: subscriptions
 #
-#  _activation  :string(255)      
 #  comment      :text             
 #  company_id   :integer          not null
 #  contact_id   :integer          
@@ -59,7 +58,7 @@ class Subscription < CompanyRecord
   # Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :first_number, :last_number, :allow_nil => true, :only_integer => true
   validates_numericality_of :quantity, :allow_nil => true
-  validates_length_of :_activation, :number, :allow_nil => true, :maximum => 255
+  validates_length_of :number, :allow_nil => true, :maximum => 255
   validates_inclusion_of :suspended, :in => [true, false]
   validates_presence_of :company
   #]VALIDATORS]

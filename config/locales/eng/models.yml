@@ -294,7 +294,6 @@ eng:
       user: 'User'
       warehouse: 'Warehouse'
   attributes:
-    # _activation: ' activation'
     account: 'Account' #!
     account_balances: 'Account balances' #!
     account_id: 'Account'
