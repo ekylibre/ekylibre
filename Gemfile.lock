@@ -113,7 +113,7 @@ DEPENDENCIES
   exception_notification (~> 2.5.2)
   fastercsv (~> 1.5.4)
   formize (~> 0.0.20)
-  haml
+  haml (~> 4.0)
   jquery-rails (~> 1.0)
   libxml-ruby (~> 2.2.2)
   mysql

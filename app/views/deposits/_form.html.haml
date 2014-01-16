@@ -13,3 +13,7 @@
 
 %h2=tc :incoming_payments
 =list :depositable_payments
+.checker.pull-end
+  = link_to(tc(:check_all), "#", 'data-check' => '.list .chk input[type="checkbox"]')
+  %span= " &ndash; ".html_safe
+  = link_to(tc(:uncheck_all), "#", 'data-uncheck' => '.list .chk input[type="checkbox"]')

@@ -378,4 +378,19 @@
     $.behave("*:input:visible:first", "load", $.autoFocus);
     $.behave("*[data-autofocus]:visible", "load", $.autoFocus);
 
+
+    // Check
+    $.behave("a[data-check]", "click", function () {
+	var element = $(this);
+        $(element.data('check')).attr("checked", true);
+	return false;
+    });
+
+    // Uncheck
+    $.behave("a[data-uncheck]", "click", function () {
+	var element = $(this);
+        $(element.data('uncheck')).attr("checked", false);
+	return false;
+    });
+
 })( jQuery );

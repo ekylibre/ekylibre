@@ -721,3 +721,7 @@ html[dir="rtl"] input[data-unroll] { background-position: left center; padding-l
 
 
 .ui-dialog .ui-dialog-content.ajax-dialog { padding: 8px; }
+
+.checker { padding: 4px; } 
+html[dir="ltr"] .pull-end { text-align: right; }
+html[dir="rtl"] .pull-end { text-align: left; }

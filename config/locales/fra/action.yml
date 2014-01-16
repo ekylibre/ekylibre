@@ -551,6 +551,8 @@ fra:
         one: '%{count} erreur a empêché l''enregistrement (%{model})'
         other: '%{count} erreurs ont empêché l''enregistrement (%{model})'
   labels:
+    check_all: "Tout cocher"
+    uncheck_all: "Tout décocher"
     account_accruals: 'Comptes de régularisation' #!
     account_attorney_to_create: '-- Créer automatiquement un compte mandataire --' #!
     account_claims_assets: 'Créances' #!
