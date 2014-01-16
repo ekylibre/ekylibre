@@ -16,6 +16,7 @@ fra:
         germinate: "Germer"
         grind: "Broyer"
         harvest: "Récolter"
+        implant: "Planter"
         kill: "Tuer"
         manage: "Gérer"
         milk: "Traire"
@@ -268,7 +269,7 @@ fra:
         stocks: "Stocks"                                   # exploitation
         straw_cereal_crops: "Céréales à paille"            # vegetal_crops
         vegetal_crops: "Production végétale"
-        # vine_wine: "Vine wine"                           # vegetal_crops
+        vine_wine: "Vigne et vin"                          # vegetal_crops
     charts_of_accounts:
       name: "Plans de comptes"
       items:
@@ -887,7 +888,7 @@ fra:
         varieties: "Variétés"
       items:
         alfalfa: "Luzerne"
-        # autumn_crop: "Autumn crop"
+        autumn_crop: "Cultures d'automne"
         bean: "Haricot"
         beet: "Betterave"
         carrot: "Carotte"
@@ -901,12 +902,12 @@ fra:
         nightshade: "Pomme de terre"
         peas: "Pois"
         rape: "Colza"
-        # spring_crop: "Spring crop"
+        spring_crop: "Culture de printemps"
         spring_straw_cereal: "Céréales à paille de printemps"
         straw_cereal: "Céréales à paille"
         sunflower: "Tournesol"
         vetch: "Féverole"
-        # wheat: "Wheat"
+        wheat: "Blé"
         winter_straw_cereal: "Céréales à paille d'hiver"
     indicators:
       name: "Indicateurs"
@@ -1011,6 +1012,16 @@ fra:
             male: "Mâle"
             female: "Femelle"
             undefined: "Indéfini"
+        woodstock_variety:
+          choices:
+            rgm: "Rgm"
+            gravesac: "Gravesac"
+            fercal: "Fercal"
+            so4: "So4"
+            3309c: "3309c"
+            p1103: "P1103"
+            99r: "99r"
+            110r: "110r"
       items:
         animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
@@ -1073,6 +1084,7 @@ fra:
         usage_duration: "Durée d’utilisation"
         water_content_rate: "Teneur en eau"
         width: "Largeur"
+        woodstock_variety: "Variété du porte-greffe"
     issue_natures:
       name: "Types d’incident"
       attributes:
@@ -1082,7 +1094,7 @@ fra:
         accident: "Accident"                               # issue
         animal_pathology: "Pathologie animale"             # issue
         bacteria_disease: "Maladies bactériennes"          # vegetal_pathology
-        # climate_issue: "Climate issue"                   # issue
+        climate_issue: "Incident climatique"               # issue
         diarrhea: "Diarrhée"                               # animal_pathology
         fecondity_problem: "Problème de fécondité"         # animal_pathology
         fungus_disease: "Maladies cryptogamiques"          # vegetal_pathology
@@ -1750,6 +1762,8 @@ fra:
         harvest: "Récolte"
         haymaking: "Fenaison"
         # hoeing: "Hoeing"                                 # tillage
+        implant: "Plantation"                              # implantation
+        implantation: "Implantation d'une culture"
         milk_production: "Production laitière"             # animal_production
         oviparous_birth: "Reproduction (ovipare)"
         plant_fertilisation: "Fertilisation"
@@ -1759,7 +1773,7 @@ fra:
         raking: "Hersage"                                  # tillage
         # soil_cleaning: "Soil cleaning"
         soil_enrichment: "Amendement"
-        sowing: "Semis"
+        sowing: "Semis"                                    # implantation
         tillage: "Travail du sol"
         transformation: "Transformation"
         viviparous_birth: "Reproduction (vivipare)"
@@ -1843,6 +1857,7 @@ fra:
         milk: "Lait"
         natural_water: "Eau de pluie / puit"
         other_consumable: "Autres consommables"
+        plant: "Plant"
         plant_medicine: "Produit phytosanitaire"
         running_water: "Eau du réseau"
         seed: "Semence"
@@ -1976,12 +1991,13 @@ fra:
         hard_wheat_straw_bales: "Bottes de paille de blé dur"
         hay_rake: "Andaineur"
         helianthus_herbicide: "Herbicide tournesol"
-        # hen_compost: "Hen compost"
+        hen_compost: "Compost de poule"
         hen_guano: "Guano de poule"
         hen_manure: "Fumier de poule"
         hen_slurry: "Lisier de poule"
         horse_manure: "Fumier de cheval"
         hydromorph_sandy_clay_loam_land_parcel: "Parcelle sablo-argileuse hydromorphe"
+        implanter: "Planteuse"
         insecticide: "Insecticide"
         irrigation_water: "Eau (irrigation)"
         land_parcel: "Parcelle"
@@ -1989,7 +2005,9 @@ fra:
         male_adult_cow: "Taureau"
         male_young_cow: "Taurillon"
         manager: "Responsable"
+        manual_implanter: "Plantoir"
         manure_division: "Fumière"
+        merlot_noir_so4_vine_seedling: "Plant de Merlot Noir sur so4"
         milk_tank: "Tank à lait"
         mineral_cleaner: "Nettoyant chimique"
         # mineral_feed_block_25: "Mineral feed block 25"
@@ -2124,6 +2142,7 @@ fra:
         grass: "Herbe"
         hay_rake: "Andaineur"
         herbicide: "Herbicide"
+        implanter: "Planteuse"
         insecticide: "Insecticide"
         irrigation_water: "Eau (irrigation)"
         land_parcel: "Parcelle"
@@ -2155,7 +2174,9 @@ fra:
         technician: "Technicien"
         tractor: "Tracteur"
         trailer: "Remorque"
+        usual_vine_seedling: "Plant de vigne traditionnel"
         wine: "Vin"
+        wine_crop: "Vigne"
     roles:
       name: "Nom"
       items:
@@ -2372,6 +2393,7 @@ fra:
         hordeum_vernum_hypoproteinae: "Orge de printemps (faible teneur en protéïnes)" # hordeum_vernum
         hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe" # land_parcel
         immatter: "Immatérialisable"                       # product
+        implanter: "Planteuse"                             # equipment
         insecta: "Insecte"                                 # animal
         insecticide: "Produit insecticide"                 # plant_medicine
         isengrain: "Isengrain"                             # triticum_aestivum
@@ -2385,6 +2407,7 @@ fra:
         linum: "Lin"                                       # linaceae
         liquid_slurry: "Purin"                             # excrement
         lona: "Lona"                                       # triticum_aestivum
+        malbec: "Malbec"                                   # vitis_vinifera
         malus: "Pommier"                                   # plant
         mammalia: "Mammifère"                              # animal
         manital: "Manital"                                 # triticum_aestivum
@@ -2442,6 +2465,8 @@ fra:
         sculptur: "Sculptur"                               # triticum_durum
         secale: "Secale"                                   # poaceae
         seed: "Semence"                                    # organic_matter
+        seedling: "Plant"                                  # organic_matter
+        semillon_blanc: "Semillon blanc"                   # vitis_vinifera
         service: "Service"                                 # immatter
         settlement: "Agencement"                           # easement
         silt_schist_soil: "Limons sur schiste ou gneiss"   # land_parcel
@@ -2462,7 +2487,7 @@ fra:
         swamp_peaty_soil: "Terre de marais tourbeux"       # land_parcel
         sy_banco: "Sy banco"                               # triticum_durum
         sy_cysco: "Sy cysco"                               # triticum_durum
-        syrah: "Syrah"                                     # vitis_vinifera
+        syrah_noir: "Syrah noir"                           # vitis_vinifera
         tablur: "Tablur"                                   # triticum_durum
         tamaro: "Tamaro"                                   # triticum_aestivum
         tank: "Réservoir"                                  # equipment
