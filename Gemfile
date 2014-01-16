@@ -10,6 +10,7 @@ gem 'mysql'
 # gem 'mysql2', '0.2.18'
 gem 'sqlite3'
 
+gem 'i18n', '0.5.0'
 gem 'haml', '~> 4.0'
 gem 'fastercsv', '~> 1.5.4'
 gem 'libxml-ruby', '~> 2.2.2', :require=>'libxml'
