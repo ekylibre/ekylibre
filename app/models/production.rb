@@ -74,7 +74,7 @@ class Production < Ekylibre::Record::Base
     for activity in activities
       raise ArgumentError.new("Expected Activity, got #{activity.class.name}:#{activity.inspect}") unless activity.is_a?(Activity)
     end
-    where('activity_id IN (?)', activities.map(&:id))
+    where(activity_id: activities.map(&:id))
   }
 
   accepts_nested_attributes_for :supports, :reject_if => :all_blank, :allow_destroy => true

@@ -42,9 +42,52 @@ class Backend::Cells::MapCellsController < Backend::CellsController
         q = "INSERT INTO costs (" + insert.join(', ') + ") SELECT " + values.join(', ')
         cexec[q]
       end
-      render(:show, visualization: (params[:visualization] || :default))
     end
+    if @coop_map
+      cexec = Proc.new { |sql|
+        puts sql
+        puts Net::HTTP.get(URI.parse("http://#{@coop_map[:account]}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@coop_map[:key]}"))
+      }
+      data = []
+      company = @coop_map[:member]
+      activities = Activity.where(family: :vine_wine)
+      Intervention.includes(:production, :production_support, :issue, :recommender, :activity, :campaign, :storage).of_activities(activities).find_each do |intervention|
+        line = {
+          company: company,
+          campaign:   intervention.campaign.name,
+          activity:   intervention.activity.name,
+          production: intervention.production.name,
+          intervention_recommended: intervention.recommended,
+          intervention_recommender_name: (intervention.recommended ? intervention.recommender.name : nil),
+          intervention_name:    intervention.name,
+          intervention_start_time:    intervention.start_time,
+          intervention_duration:    intervention.duration,
+          the_geom:   (intervention.storage.shape ? intervention.storage.shape_as_ewkt : nil),
+          tool_cost:  intervention.cost(:tool),
+          input_cost: intervention.cost(:input),
+          time_cost:  intervention.cost(:doer)
+        }
+        data << line
+      end
+      cexec["DELETE FROM interventions"]
+      for line in data
+        insert = []
+        values = []
+        for name, value in line
+          insert << name
+          if name == :the_geom
+            values << "ST_Force2D(ST_Transform(SetSRID(" + ActiveRecord::Base.connection.quote(value) + ", 2154), 4326))"
+          else
+            values << ActiveRecord::Base.connection.quote(value)
+          end
+        end
+        q = "INSERT INTO interventions (" + insert.join(', ') + ") SELECT " + values.join(', ')
+        cexec[q]
+      end
+    end
+    render(:show, visualization: (params[:visualization] || :default))
   end
+
 
   protected
 
@@ -54,6 +97,12 @@ class Backend::Cells::MapCellsController < Backend::CellsController
       @map = YAML.load_file(api_file).deep_symbolize_keys[:cartodb]
       @account = @map[:account]
       @visualization = (@map[:visualizations] || {})[(params[:visualization] || :default).to_sym]
+    end
+    # FOR COOP
+    coop_api_file = Rails.root.join("config", "coop_api.yml")
+    if coop_api_file.exist?
+      @coop_map = YAML.load_file(coop_api_file).deep_symbolize_keys[:cartodb]
+      @coop_account = @coop_map[:account]
     end
   end
 
