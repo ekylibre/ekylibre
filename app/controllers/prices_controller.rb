@@ -48,7 +48,7 @@ class PricesController < ApplicationController
 
   def destroy
     return unless @price = find_and_check(:price)
-    @price.update_attributes(:active=>false)
+    @price.destroy # update_attributes!(:active=>false)
     redirect_to_current
   end
 

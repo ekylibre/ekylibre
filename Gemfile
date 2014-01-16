@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.11'
+gem 'rails', '3.0.20'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -10,18 +10,20 @@ gem 'mysql'
 # gem 'mysql2', '0.2.18'
 gem 'sqlite3'
 
-gem 'haml'
-gem 'fastercsv'
-gem 'libxml-ruby', :require=>'libxml'
-gem 'rubyzip', :require=>'zip/zip'
+gem 'haml', '3.1.4'
+gem 'fastercsv', '~> 1.5.4'
+gem 'libxml-ruby', '~> 2.2.2', :require=>'libxml'
+gem 'rubyzip', '< 1', :require=>'zip/zip'
 gem 'will_paginate', '~> 3.0'
-gem "exception_notification"
+gem "exception_notification", '~> 2.5.2'
 gem 'state_machine', '0.9.4'
-gem 'jquery-rails' # Necessary to call the Rails's generator
-gem 'combo_box' #, :path=>'../combo_box'
-gem 'formize' #, :path=>'../formize'
-gem 'spreet'
-gem 'prawn', '>= 0.10.0'
+gem 'jquery-rails', '~> 1.0' # Necessary to call the Rails's generator
+gem 'combo_box', '~> 0.0.10'
+gem 'formize', '~> 0.0.20'
+# gem 'spreet', '0.0.2'
+gem 'prawn', '~> 0.12.0'
+
+# gem 'rack', '1.2.4'
 
 group :development do
   # gem 'ruby-prof'

@@ -82,7 +82,7 @@ class Price < CompanyRecord
       self.amount = (self.pretax_amount.to_f+tax_amount).round(2)
       self.pretax_amount = self.amount.to_f - tax_amount.round(2)
     end
-    self.started_at = Time.now
+    self.started_at   ||= Time.now
     self.quantity_min ||= 0
     self.quantity_max ||= 0
   end
@@ -97,18 +97,20 @@ class Price < CompanyRecord
   # end
 
   def update # _without_callbacks
-    current_time = Time.now
+    now = Time.now
     stamper_id = self.class.stamper_class.stamper.id rescue nil
-    nc = self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:started_at=>current_time, :created_at=>current_time, :updated_at=>current_time, :creator_id=>stamper_id, :updater_id=>stamper_id, :active=>true))
-    self.class.update_all({:stopped_at=>current_time, :active=>false}, {:id=>self.id})
-    nc.set_by_default
+    nc = self.class.create!(self.attributes.delete_if{|k,v| [:company_id].include?(k.to_sym)}.merge(:started_at=>now, :created_at=>now, :updated_at=>now, :creator_id=>stamper_id, :updater_id=>stamper_id, :active=>true))
+    self.class.update_all({:stopped_at=>now, :active=>false}, {:id=>self.id})
+    nc.set_by_default if self.by_default
     return nc
   end
 
   def destroy # _without_callbacks
-    unless new_record?
-      current_time = Time.now
-      self.class.update_all({:stopped_at=>current_time, :active=>false}, {:id=>self.id})
+    if new_record?
+      super
+    else
+      now = Time.now
+      self.class.update_all({:stopped_at=>now, :active=>false}, {:id=>self.id})
     end
   end
 
