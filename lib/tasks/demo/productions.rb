@@ -9,7 +9,8 @@ demo :productions do
       "CEREA" => :straw_cereal_crops,
       "COPLI" => :oilseed_crops,
       "CUFOU" => :prairie,
-      "ANIMX" => :cattle_farming
+      "ANIMX" => :cattle_farming,
+      "VIGNE" => :vine_wine,
       # "XXXXX" => :none,
       # "NINCO" => :none
     }
@@ -27,6 +28,7 @@ demo :productions do
       "Prairie temporaire et artificielle" => :prairie,
       "Bovins lait" => :cattle_farming,
       "Veau 8-15 J" => :cattle_farming,
+      "Vigne" => :vine_wine,
       "Taurillons lait" => :cattle_farming,
       "ADMINISTRATIF" => :exploitation,
       "BATIMENT" => :exploitation,
