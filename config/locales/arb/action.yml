@@ -659,6 +659,7 @@ arb:
     change_price: 'تغيير وحدة السعر'
     # changes_reflected: 'Reflected changes'
     check: 'نحقق'
+    # check_all: 'Check all'
     # check_fields: 'You have to check at least one box in order to update'
     choices: 'خيارات'
     choose_mail_column: 'الرجاء اختيار العمود المستخدم للرسالة'
@@ -1360,6 +1361,7 @@ arb:
       financial_year: 'السنة المالية غير متوفرة %{value}' #!
       journal: 'الدفتر اليومي المطلوب غير متوفر (%{value})' #!
       product: 'المنتج المطلوب غير متوفر' #!
+    # uncheck_all: 'Uncheck all'
     undelivered: 'لم يتم التسليم'
     undeposited: 'لم يتم اي اقتطاع بنكي'
     uninvoiced_amount: 'قيمة غير مفوترة'

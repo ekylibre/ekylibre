@@ -15,10 +15,7 @@ jpn:
       month_letter: '%d %B %Y'
       short: '%b %d'
     month_names: ['', '一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
-    order: 
-    - :month
-    - :day
-    - :year
+    order: [:month, :day, :year]
   datetime:
     distance_in_words:
       about_x_hours:

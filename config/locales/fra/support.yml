@@ -15,10 +15,7 @@ fra:
       month_letter: '%d %B %Y'
       short: '%b %d'
     month_names: ['', 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre']
-    order: 
-    - :day
-    - :month
-    - :year
+    order: [:day, :month, :year]
   datetime:
     distance_in_words:
       about_x_hours:

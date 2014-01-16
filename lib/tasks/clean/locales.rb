@@ -12,7 +12,7 @@ task :locales => :environment do
       controller, action = (full_action.match(/\:\:/) ? full_action.split(/\W+/)[0..1] : [attributes['controller'].to_s, full_action])
       all_actions[controller] ||= []
       all_actions[controller] << action unless action.match /dy(li|ta)|delete|kame/
-    end if attributes['actions'].is_a? Array
+    end if attributes.is_a?(Hash) and attributes['actions'].is_a? Array
   end
   useful_actions = all_actions.dup
   useful_actions.delete("authentication")

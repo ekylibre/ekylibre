@@ -71,6 +71,8 @@ task :rights => :environment do
       else
         yaml += line+"\n"
       end
+    else
+      yaml << "  actions:\n"
     end
   end
   File.open(User.rights_file, "wb") do |file|
