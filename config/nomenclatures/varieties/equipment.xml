@@ -8,6 +8,7 @@
       <item name="worker"/>
       <item name="plower"/>
       <item name="sower"/>
+      <item name="implanter"/>
       <item name="mower"/>
       <item name="baler"/>
       <item name="spreader"/>

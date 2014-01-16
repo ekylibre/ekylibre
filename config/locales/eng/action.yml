@@ -2047,6 +2047,7 @@ eng:
       all: "{nature} ({created_at})" #? String excepted (Hash:{:all=>"{nature} ({created_at})"})
     backend/plants:  #? String excepted (Hash:{:all=>"{name} - {work_number}"})
       all: "{name} - {work_number}" #? String excepted (Hash:{:all=>"{name} - {work_number}"})
+    # backend/prescriptions: "{reference_number}"
     backend/product_indicators:  #? String excepted (Hash:{:all=>"{id}"})
       all: "{id}" #? String excepted (Hash:{:all=>"{id}"})
     backend/product_memberships:  #? String excepted (Hash:{:all=>"{started_at}"})

@@ -179,6 +179,17 @@
             storable="true"
             pictogram="matter"
             />
+       <item name="plant"
+            financial_asset_account="sustainables_plants_assets"
+            charge_account="seed_expenses"
+            product_account="revenues"
+            stock_account="seed_stock"
+            purchasable="true"
+            saleable="true"
+            depreciable="true"
+            storable="true"
+            pictogram="matter"
+            />
        <item name="seed"
             charge_account="seed_expenses"
             product_account="revenues"

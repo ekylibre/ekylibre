@@ -17,4 +17,4 @@ Les catégories de procédures apparaissent en gras
 Vous devez selectionner les produits qui font partis de cette intervention.
 
 >>> Produits qui n'existe pas encore et qui vont être créés à l'issue de l'éxécution de l'intervention
->>> Il faut saisir la quantité et le variante du futur produit
+>>> Il faut saisir la quantité et la variante du futur produit.

@@ -144,6 +144,15 @@
             frozen_indicators="net_surface_area"
             derivatives="fruit, straw"
             />
+      <item name="wine_crop"
+            category="crop"
+            variety="vitis"
+            population_counting="decimal"
+            abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
+            variable_indicators="population, shape, plant_life_state, woodstock_variety"
+            frozen_indicators="net_surface_area"
+            derivatives="fruit, straw"
+            />
       <item name="wine"
             category="wine"
             variety="wine"
@@ -252,7 +261,17 @@
             abilities="fertilize"
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
-            />
+            /> 
+        <!-- VINE INPLANT -->           
+       <item name="usual_vine_seedling"
+            category="plant"
+            variety="seedling"
+            derivative_of="vitis"
+            population_counting="integer"
+            abilities="implant"
+            variable_indicators="population"
+            frozen_indicators="woodstock_variety"
+            />     
        <item name="seed"
             category="seed"
             variety="seed"
@@ -438,6 +457,14 @@
             population_counting="unitary"
             abilities="sow"
             variable_indicators="maximum_load_net_volume, application_width, geographic_coordinate"
+            frozen_indicators="population"
+            />
+        <item name="implanter"
+            category="equipment"
+            variety="implanter"
+            population_counting="unitary"
+            abilities="implant"
+            variable_indicators="application_width, geographic_coordinate"
             frozen_indicators="population"
             />
       <item name="plow"

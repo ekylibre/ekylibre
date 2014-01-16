@@ -19,13 +19,20 @@
       <item name="plant_illness_treatment" roles="input, target, doer, tool"/>
       <item name="soil_enrichment" roles="input, target, tool, doer"/>
       <item name="soil_cleaning" roles="target"/>
-      <item name="sowing" roles="input, target, output, doer, tool"/>
+      <item name="implantation" roles="input, target, output, doer, tool"/>
       <item name="pruning" roles="doer, target"/>
       <item name="grinding" roles="input, output, doer, tool"/>
       <item name="growth_control" roles="target"/>
     </items>
   </nomenclature>
-
+  
+  <nomenclature name="procedure_natures-implantation">
+    <items>
+      <item name="sowing" roles="input, target, output, doer, tool"/>
+      <item name="implant" roles="input, target, output, doer, tool"/>
+    </items>
+  </nomenclature>
+  
   <nomenclature name="procedure_natures-tillage">
     <items>
       <item name="plowing" roles="target, doer"/>

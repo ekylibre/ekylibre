@@ -214,7 +214,7 @@
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="vine_grape_crop"
-            nature="fruit_crop"
+            nature="wine_crop"
             variety="vitis_vinifera"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
@@ -550,6 +550,13 @@
             derivative_of="organic_matter"
             unit_name="cubic_meter"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.002percent"
+            />
+            <!-- VINE INPLANT -->
+      <item name="merlot_noir_so4_vine_seedling"
+            nature="usual_vine_seedling"
+            derivative_of="merlot_noir"
+            unit_name="unit"
+            frozen_indicators_values="woodstock_variety: so4"
             />
             <!-- SEED -->
       <item name="seed"
@@ -896,6 +903,17 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+             <!-- EQUIPMENT FOR VINE -->
+       <item name="manual_implanter"
+            nature="implanter"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+       <item name="implanter"
+            nature="implanter"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />  
       <item name="spreader_trailer"
             nature="spreader_trailer"
             unit_name="equipment"

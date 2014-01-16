@@ -5,10 +5,14 @@
     = f.input :reference_name, as: :hidden
     = f.referenced_association :production_support
     = f.referenced_association :issue
-    = f.referenced_association :prescription
+    = f.input :recommended, show: :prescriptions
     -#= f.referenced_association :production
     = f.input :started_at
     = f.input :stopped_at
+
+  = field_set(:prescriptions) do
+    = f.referenced_association :prescription
+    = f.referenced_association :recommender
 
   = field_set :casting do
     - if f.object.new_record? and f.object.casts.empty?

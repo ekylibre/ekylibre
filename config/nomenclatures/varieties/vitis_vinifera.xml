@@ -8,10 +8,12 @@
       <item name="cabernet_franc" itis-tsn="00000"/>
       <item name="cabernet_sauvignon" itis-tsn="00000"/>
       <item name="sauvignon_blanc" itis-tsn="00000"/>
+      <item name="semillon_blanc" itis-tsn="00000"/>
       <item name="sauvignon" itis-tsn="00000"/>
       <item name="grenache" itis-tsn="00000"/>
       <item name="grenache_noir" itis-tsn="00000"/>
-      <item name="syrah" itis-tsn="00000"/>
+      <item name="syrah_noir" itis-tsn="00000"/>
+      <item name="malbec" itis-tsn="00000"/>
       <item name="chardonnay" itis-tsn="00000"/>
       <item name="ugni_blanc" itis-tsn="00000"/>
       <item name="pinot_noir" itis-tsn="00000"/>

@@ -23,6 +23,7 @@ eng:
       # outgoing_delivery: "%{product} est expédié"
       # owner_change: "%{product} change de propriétaire pout %{owner}"
       # ownership_loss: "%{product} perd son propriétaire"
+      # simple_attachment: "On attèle %{carrier} et %{carried}"
       # simple_measurement: "%{indicator} est mesuré"
   procedures:
     # animal_birth: "Naissance d’un animal"
@@ -45,6 +46,7 @@ eng:
     # sowing: "Semis"
     # straw_bunching: "Pressage de fourrages"
     # superficial_plowing: "Hersage"
+    # vine_plant: "Plantation de vigne"
     # wheat_crop: "Culture de blé (standard)"
   variables:
     # caregiver: "Soigneur"
@@ -61,6 +63,8 @@ eng:
     # grains: "Grains"
     # grinder: "Broyeur"
     # harrow: "Herse"
+    # implanter_man: "Planteur"
+    # implanter_tool: "Equipement de plantation"
     # land_parcel: "Parcelle"
     # mammal: "Animal à traire"
     # mammal_herd: "Troupeau à traire"
@@ -73,6 +77,8 @@ eng:
     # mower: "Faucheuse"
     # mower_driver: "Conducteur de faucheuse"
     # plant: "Culture végétale"
+    # plants: "Plants"
+    # plants_to_fix: "Plants à implanter"
     # plow: "Charrue"
     # second_child: "Second nouveau né"
     # seeder: "Semoir"
