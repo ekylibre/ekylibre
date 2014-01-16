@@ -160,7 +160,7 @@ class Affair < Ekylibre::Record::Base
           item[:currency] = self.currency
           attributes[:items] << GapItem.new(item)
         end
-        puts attributes.inspect
+        # puts attributes.inspect
         Gap.create!(attributes)
       end
       self.refresh!
@@ -236,9 +236,9 @@ class Affair < Ekylibre::Record::Base
   def tax_items_for(third, amount, debit = false)
     totals = {}
     for deal in self.deals_of(third)
-      puts "-" * 200
-      puts deal.inspect
-      puts deal.deal_taxes(debit)
+      # puts "-" * 200
+      # puts deal.inspect
+      # puts deal.deal_taxes(debit)
       for total in deal.deal_taxes(debit)
         tax_id = total[:tax] ? total[:tax].id : :none
         totals[tax_id] ||= {amount: 0.0, tax: total[:tax]}
