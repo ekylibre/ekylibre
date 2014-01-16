@@ -10,7 +10,7 @@ gem 'mysql'
 # gem 'mysql2', '0.2.18'
 gem 'sqlite3'
 
-gem 'haml', '3.1.4'
+gem 'haml', '~> 4.0'
 gem 'fastercsv', '~> 1.5.4'
 gem 'libxml-ruby', '~> 2.2.2', :require=>'libxml'
 gem 'rubyzip', '< 1', :require=>'zip/zip'
@@ -22,8 +22,6 @@ gem 'combo_box', '~> 0.0.10'
 gem 'formize', '~> 0.0.20'
 # gem 'spreet', '0.0.2'
 gem 'prawn', '~> 0.12.0'
-
-# gem 'rack', '1.2.4'
 
 group :development do
   # gem 'ruby-prof'
