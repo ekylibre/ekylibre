@@ -995,13 +995,15 @@
         <page to="backend/affairs#index"/>
         <page to="backend/affairs#attach"/>
         <page to="backend/affairs#detach"/>
-        <page to="backend/affairs#select"/>
         <page to="backend/affairs#list"/>
+        <page to="backend/affairs#select"/>
+        <page to="backend/affairs#show"/>
         <page to="backend/gaps#index"/>
         <page to="backend/gaps#create"/>
         <page to="backend/gaps#destroy"/>
         <page to="backend/gaps#edit"/>
         <page to="backend/gaps#list"/>
+        <page to="backend/gaps#list_items"/>
         <page to="backend/gaps#new"/>
         <page to="backend/gaps#show"/>
         <page to="backend/gaps#unroll"/>

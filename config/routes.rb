@@ -316,7 +316,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :gaps, concerns: [:list, :unroll]
+    resources :gaps, concerns: [:list, :unroll] do
+      member do
+        get :list_items
+      end
+    end
 
     resources :incoming_deliveries, concerns: [:list, :unroll] do
       member do

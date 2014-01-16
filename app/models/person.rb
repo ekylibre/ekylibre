@@ -67,12 +67,10 @@
 class Person < Entity
   enumerize :nature, in: Nomen::EntityNatures.all(:person), default: Nomen::EntityNatures.default(:person), predicates: {prefix: true}
 
-  scope :employees, lambda {
-    joins(:direct_links).merge(EntityLink.of_nature(:work))
-  }
+  scope :employees, -> { joins(:direct_links).merge(EntityLink.of_nature(:work)) }
 
-  scope :employees_of, lambda { |boss_id|
-    merge(EntityLink.of_nature(:work)).where(entity_2_id: boss_id)
+  scope :employees_of, lambda { |boss|
+    joins(:direct_links).merge(EntityLink.of_nature(:work).where(entity_2_id: (boss.respond_to?(:id) ? boss.id : boss))) 
   }
 
 end

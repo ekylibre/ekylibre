@@ -44,41 +44,35 @@
 
 
 class PurchaseItem < Ekylibre::Record::Base
-  # attr_accessible :annotation, :price_id, :product_id, :quantity, :tracking_serial, :price_amount, :purchase_id, :tax_id, :unit
   belongs_to :account
-  # belongs_to :building, foreign_key: :warehouse_id
   belongs_to :purchase, inverse_of: :items
   # belongs_to :price, class_name: "CatalogPrice"
   belongs_to :variant, class_name: "ProductNatureVariant"
   belongs_to :tax
-  # enumerize :unit, in: Nomen::Units.all
   has_many :delivery_items, class_name: "IncomingDeliveryItem", foreign_key: :purchase_item_id
-
-  # accepts_nested_attributes_for :price
-  delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
-  delegate :currency, to: :purchase, prefix: true
-  # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
-
-  acts_as_list :scope => :purchase
-  acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
-  sums :purchase, :items, :pretax_amount, :amount
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :amount, :pretax_amount, :quantity, :unit_price_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :indicator_name, allow_nil: true, maximum: 120
   validates_presence_of :account, :amount, :currency, :indicator_name, :pretax_amount, :purchase, :quantity, :tax, :unit_price_amount, :variant
   #]VALIDATORS]
-  validates_presence_of :account
+  validates_presence_of :account, :tax
   # validates_presence_of :pretax_amount, :price # Already defined in auto-validators
   # validates_uniqueness_of :tracking_serial, :scope => :price_id, allow_nil: true, if: Proc.new{|pl| !pl.tracking_serial.blank? }, :allow_blank => true
 
+  delegate :purchased?, :draft?, :order?, :supplier, to: :purchase
+  delegate :currency, to: :purchase, prefix: true
+  # delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
+
+  alias_attribute :name, :label
+
+  acts_as_list :scope => :purchase
+  acts_as_stockable :mode => :virtual, :direction => :in, :if => :purchased?
+  sums :purchase, :items, :pretax_amount, :amount
 
   before_validation do
-
     self.pretax_amount ||= 0
     self.amount ||= 0
-
     self.currency = self.purchase_currency
     if self.variant
       self.account   ||= self.variant.charge_account || Account.find_in_chart(:expenses)
@@ -87,37 +81,37 @@ class PurchaseItem < Ekylibre::Record::Base
       self.indicator_name ||= :population.to_s
     end
     amount = self.quantity * self.unit_price_amount
-      if self.tax
-        tax_amount = self.tax.compute(amount, false)
-        self.pretax_amount = amount
-        self.amount = (self.pretax_amount + tax_amount).round(2)
-      else
-        self.amount = self.pretax_amount = amount
-      end
+    if self.tax
+      tax_amount = self.tax.compute(amount, false)
+      self.pretax_amount = amount
+      self.amount = (self.pretax_amount + tax_amount).round(2)
+    else
+      self.amount = self.pretax_amount = amount
+    end
   end
 
   validate do
     errors.add(:currency, :invalid) if self.currency != self.purchase.currency
     errors.add(:quantity, :invalid) if self.quantity.zero?
-    # Validate that tracking serial is not used for a different product
+    # # Validate that tracking serial is not used for a different product
     # producer = self.purchase.supplier
     # unless self.tracking_serial.blank?
-      # errors.add(:tracking_serial, :serial_already_used_with_an_other_product) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
+    #   errors.add(:tracking_serial, :serial_already_used_with_an_other_product) if producer.has_another_tracking?(self.tracking_serial, self.product_id)
     # end
     # if self.price and self.purchase
-      # errors.add(:price_id, :invalid) if self.price.currency != self.purchase.currency
+    #   errors.add(:price_id, :invalid) if self.price.currency != self.purchase.currency
     # end
     # errors.add(:quantity, :invalid) if self.quantity.zero?
   end
 
-  #def name
-  #  options = {:product => self.product.name, :quantity => quantity.to_s, :amount => self.price.amount, currency: self.price.currency.name} # , :unit => self.unit.name
-  #  if self.tracking
-   #   options[:tracking] = self.tracking.name
-  #    tc(:name_with_tracking, options)
-  #  else
-  #    tc(:name, options)
-  # end
+  # def name
+  #   options = {:product => self.product.name, :quantity => quantity.to_s, :amount => self.price.amount, currency: self.price.currency.name} # , :unit => self.unit.name
+  #   if self.tracking
+  #     options[:tracking] = self.tracking.name
+  #     tc(:name_with_tracking, options)
+  #   else
+  #     tc(:name, options)
+  #   end
   # end
 
   def product_name
@@ -130,17 +124,13 @@ class PurchaseItem < Ekylibre::Record::Base
 
   def designation
     d  = self.product_name
-    d += "\n"+self.annotation.to_s unless self.annotation.blank?
-    d += "\n"+tc(:tracking, :serial => self.tracking.serial.to_s) if self.tracking
+    d << "\n" + self.annotation.to_s unless self.annotation.blank?
+    d << "\n" + tc(:tracking, serial: self.tracking.serial.to_s) if self.tracking
     d
   end
 
   def undelivered_quantity
     return self.quantity - self.delivery_items.sum(:quantity)
-  end
-
-  def label
-    self.variant.name
   end
 
 end

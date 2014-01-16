@@ -65,6 +65,12 @@ class Tax < Ekylibre::Record::Base
   validates_uniqueness_of :name
   validates_numericality_of :amount, in: 0..100, :if => :percentage?
 
+  # selects_among_all :used_for_untaxed_deals, :if => :null_amount?
+
+  def self.used_for_untaxed_deals
+    self.where(amount: 0).reorder(:id).first
+  end
+
   scope :percentages, -> { where(:computation_method => 'percentage') }
 
   protect(on: :destroy) do
@@ -92,6 +98,11 @@ class Tax < Ekylibre::Record::Base
   # Returns the amount of a pretax amount
   def amount_of(pretax_amount)
     return (self.percentage? ? (pretax_amount.to_d * coefficient) : (pretax_amount.to_d + self.amount.to_d))
+  end
+
+  # Returns true if amount is equal to 0
+  def null_amount?
+    self.amount.zero?
   end
 
   # Returns the matching coefficient k of the percentage

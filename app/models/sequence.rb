@@ -42,8 +42,8 @@
 
 class Sequence < Ekylibre::Record::Base
   enumerize :period, in: [:cweek, :month, :number, :year]
-  # TODO: Adds.all usage for sequence? or register_usage like Account ?
-  enumerize :usage, in: [:animals, :campaigns, :cash_transfers, :deposits, :entities, :financial_assets, :incoming_deliveries, :incoming_payments, :outgoing_deliveries, :outgoing_payments, :plants, :purchases, :sales_invoices, :sales, :stock_transfers, :subscriptions, :transports]
+  # TODO: Adds all usage for sequence? or register_usage like Account ?
+  enumerize :usage, in: [:affairs, :animals, :campaigns, :cash_transfers, :deposits, :entities, :financial_assets, :gaps, :incoming_deliveries, :incoming_payments, :outgoing_deliveries, :outgoing_payments, :plants, :purchases, :sales_invoices, :sales, :stock_transfers, :subscriptions, :transports]
   # cattr_reader :usages
 
   REPLACE_REGEXP = Regexp.new('\[(' + self.period.values.join('|') + ')(\|(\d+)(\|([^\]]*))?)?\]').freeze
@@ -88,9 +88,9 @@ class Sequence < Ekylibre::Record::Base
   def self.load_defaults
     for usage in self.usage.values
       unless sequence = self.find_by_usage(usage)
-        sequence = self.new(:usage => usage)
+        sequence = self.new(usage: usage)
         sequence.name = sequence.usage.text
-        sequence.number_format = "models.sequence.default.#{usage}".t(default: sequence.usage.to_s.upcase + "[number|12]")
+        sequence.number_format = "models.sequence.default.#{usage}".t(default: sequence.usage.to_s.split(/\_/).map{|w| w[0..0]}.join.upcase + "[number|12]")
         sequence.period = best_period_for(sequence.number_format)
         sequence.save
       end

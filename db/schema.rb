@@ -91,10 +91,12 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "activities", ["updater_id"], :name => "index_activities_on_updater_id"
 
   create_table "affairs", force: true do |t|
+    t.string   "number",                                                              null: false
     t.boolean  "closed",                                              default: false, null: false
     t.datetime "closed_at"
     t.integer  "third_id",                                                            null: false
-    t.string   "third_role",                                                          null: false
+    t.integer  "originator_id",                                                       null: false
+    t.string   "originator_type",                                                     null: false
     t.string   "currency",         limit: 3,                                          null: false
     t.decimal  "debit",                      precision: 19, scale: 4, default: 0.0,   null: false
     t.decimal  "credit",                     precision: 19, scale: 4, default: 0.0,   null: false
@@ -111,6 +113,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "affairs", ["created_at"], :name => "index_affairs_on_created_at"
   add_index "affairs", ["creator_id"], :name => "index_affairs_on_creator_id"
   add_index "affairs", ["journal_entry_id"], :name => "index_affairs_on_journal_entry_id"
+  add_index "affairs", ["number"], :name => "index_affairs_on_number", :unique => true
+  add_index "affairs", ["originator_id", "originator_type"], :name => "index_affairs_on_originator_id_and_originator_type"
   add_index "affairs", ["third_id"], :name => "index_affairs_on_third_id"
   add_index "affairs", ["updated_at"], :name => "index_affairs_on_updated_at"
   add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"

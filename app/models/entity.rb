@@ -236,6 +236,7 @@ class Entity < Ekylibre::Record::Base
   # This method creates automatically an account for the entity for its usage (client, supplier...)
   def account(nature)
     natures, conversions = [:client, :supplier], {:payer => :client, :payee => :supplier}
+    nature = nature.to_sym
     nature = conversions[nature] || nature
     unless natures.include?(nature)
       raise ArgumentError, "Unknown nature #{nature.inspect} (#{natures.to_sentence} are accepted)"

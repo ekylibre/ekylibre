@@ -19,7 +19,7 @@ module Ekylibre::Record
           unless self.columns_definition[column]
             Rails.logger.fatal "Method #{column.inspect} must be an existent column of the table #{self.table_name}"
           end
-          options = {:start => '00000001'}.merge(options)
+          options = {start: '00000001'}.merge(options)
 
           main_class = self
           while main_class.superclass != Ekylibre::Record::Base and main_class.superclass != ActiveRecord::Base

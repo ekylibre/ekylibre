@@ -68,6 +68,7 @@
 #   updated_at: 2013-10-26 18:34:04 +02:00
 #   updater_id: 1
 #
+
 incoming_payments_001:
   affair_id: 1
   amount: 123

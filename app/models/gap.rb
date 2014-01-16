@@ -57,7 +57,7 @@ class Gap < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :items
   acts_as_numbered
-  acts_as_affairable :entity, debit: :profit?, role: :entity_role
+  acts_as_affairable :entity, debit: :loss?, role: :entity_role, good: :profit?
   alias_attribute :label, :number
 
   before_validation do
@@ -67,7 +67,7 @@ class Gap < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(Journal.used_for_gaps, printed_on: self.created_on, :unless => self.amount.zero?) do |entry|
       label = tc(:bookkeep, resource: self.direction.text, number: self.number, entity: self.entity.full_name)
-      if self.profit?
+      if self.loss?
         entry.add_debit(label, self.entity.account(self.entity_role).id, self.amount)
         for item in self.items
           entry.add_credit(label, Account.find_or_create_in_chart(:other_usual_running_expenses), item.pretax_amount)
@@ -81,6 +81,11 @@ class Gap < Ekylibre::Record::Base
         end
       end
     end
+  end
+
+  # Gives the amount to use for affair bookkeeping
+  def deal_amount
+    return (self.loss? ? -self.amount : self.amount)
   end
 
 end

@@ -142,9 +142,8 @@ class Purchase < Ekylibre::Record::Base
     taxes = {}
     coeff = (self.send("deal_#{debit ? :debit : :credit}?") ? 1 : -1)
     for item in self.items
-      tax_id = item.tax ? item.tax_id : :none
-      taxes[tax_id] ||= {amount: 0.0, tax: item.tax}
-      taxes[tax_id][:amount] += coeff * item.amount
+      taxes[item.tax_id] ||= {amount: 0.0, tax: item.tax}
+      taxes[item.tax_id][:amount] += coeff * item.amount
     end
     return taxes.values
   end

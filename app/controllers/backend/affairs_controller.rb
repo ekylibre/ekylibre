@@ -18,17 +18,16 @@
 #
 
 class Backend::AffairsController < BackendController
+  manage_restfully only: [:index, :show]
 
   list do |t|
+    t.column :number, url: true
     t.column :debit, currency: true
     t.column :credit, currency: true
     t.column :closed, hidden: true
     t.column :closed_at
     t.column :third, url: true
     t.column :journal_entry, url: true
-  end
-
-  def index
   end
 
   def select
@@ -65,7 +64,7 @@ class Backend::AffairsController < BackendController
   def finish
     return unless @affair = find_and_check
     @affair.finish
-    redirect_to(params[:redirect] || :back)
+    redirect_to(params[:redirect] || {controller: @affair.originator_type.tableize, action: :show, id: @affair.originator_id})
   end
 
 end

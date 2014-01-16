@@ -81,7 +81,7 @@ class Sale < Ekylibre::Record::Base
   has_many :credits, class_name: "Sale", foreign_key: :origin_id
   has_many :deliveries, class_name: "OutgoingDelivery", dependent: :destroy, inverse_of: :sale
   has_many :documents, :as => :owner
-  has_many :items, -> { order("position, id") }, class_name: "SaleItem", foreign_key: :sale_id, dependent: :destroy, inverse_of: :sale
+  has_many :items, -> { order("position, id") }, class_name: "SaleItem", dependent: :destroy, inverse_of: :sale
   has_many :journal_entries, :as => :resource
   has_many :subscriptions, class_name: "Subscription"
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -97,7 +97,7 @@ class Sale < Ekylibre::Record::Base
   validates_delay_format_of :payment_delay, :expiration_delay
 
   acts_as_numbered :number, :readonly => false
-  acts_as_affairable :client, debit: :credit
+  acts_as_affairable :client, debit: :credit?
   accepts_nested_attributes_for :items # , :reject_if => :all_blank, :allow_destroy => true
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
 
@@ -214,9 +214,8 @@ class Sale < Ekylibre::Record::Base
     coeff = (self.credit? ? -1 : 1)
     coeff *= (self.send("deal_#{debit ? :debit : :credit}?") ? 1 : -1)
     for item in self.items
-      tax_id = item.tax ? item.tax_id : :none
-      taxes[tax_id] ||= {amount: 0.0, tax: item.tax}
-      taxes[tax_id][:amount] += coeff * item.amount
+      taxes[item.tax_id] ||= {amount: 0.0, tax: item.tax}
+      taxes[item.tax_id][:amount] += coeff * item.amount
     end
     return taxes.values
   end
@@ -466,7 +465,7 @@ class Sale < Ekylibre::Record::Base
   def cancel(items = {}, options = {})
     items = items.delete_if{|k,v| v.zero?}
     return false if !self.cancelable? or items.size.zero?
-    credit = self.class.new(:origin_id => self.id, :client_id => self.client_id, :credit => true, :responsible => options[:responsible]||self.responsible, :nature_id => self.nature_id)
+    credit = self.class.new(origin: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair)
     ActiveRecord::Base.transaction do
       if saved = credit.save
         for item in self.items.where(:id => items.keys)
@@ -491,6 +490,7 @@ class Sale < Ekylibre::Record::Base
         raise ActiveRecord::Rollback
       end
     end
+
     return credit
   end
 

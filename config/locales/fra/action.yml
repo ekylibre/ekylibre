@@ -18,11 +18,12 @@ fra:
       show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
     backend/activities:
-      edit: "Modifier une activité\_: %{name} "
+      edit: "Modifier une activité\_: %{name}"
       index: "Activités"
       new: "Nouvelle activité"
       show: "%{name}"
     backend/affairs:
+      show: "Affaire N°%{number}"
       attach: "Associer une transaction"
       detach: "Dissocier une transaction"
       # finish: "Finish backend/affair"
@@ -262,7 +263,7 @@ fra:
       # edit: "Edit backend/gap"
       # index: "Index backend/gap"
       # new: "New backend/gap"
-      # show: "Show backend/gap"
+      show: "Perte ou profit N°%{number}"
     backend/helps:
       index: "Aide"
       show: "Voir l’aide"
@@ -459,9 +460,9 @@ fra:
       show: "Culture\_: %{name}"
     backend/postal_zones:
       # autocomplete_for_name: "Autocomplete for name backend/postal zone"
-      # edit: "Edit backend/postal zone"
-      # index: "Index backend/postal zone"
-      # new: "New backend/postal zone"
+      edit: "Modifier la zone postale\_: %{name}"
+      index: "Zones postales"
+      new: "Nouvelle zone postale"
     backend/preferences:
       edit: "Modifier les préférences" #?
       index: "Préférences"

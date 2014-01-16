@@ -33,8 +33,9 @@
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
+#  originator_id    :integer          not null
+#  originator_type  :string(255)      not null
 #  third_id         :integer          not null
-#  third_role       :string(255)      not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -51,7 +52,7 @@ class AffairTest < ActiveSupport::TestCase
   end
 
   def test_attachment
-    affair = affairs(:affair_003)
+    affair = affairs(:affairs_003)
     deals = [incoming_payments(:incoming_payments_001), sales(:sales_001)]
     for deal in deals
       affair.attach(deal)

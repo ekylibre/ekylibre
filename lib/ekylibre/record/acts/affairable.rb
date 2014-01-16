@@ -18,6 +18,7 @@ module Ekylibre::Record
 
           options[:third] ||= args.shift || :third
           options[:role]  ||= options[:third].to_s
+          options[:good]  ||= :debit
           code  = ""
 
           affair, affair_id = :affair, :affair_id
@@ -52,16 +53,25 @@ module Ekylibre::Record
           code << "  return true\n"
           code << "end\n"
 
+          # Updates affair if already given
+          code << "after_create do\n"
+          code << "  if self.#{affair}\n"
+          code << "    self.#{affair}.refresh!\n"
+          code << "  end\n"
+          code << "  return true\n"
+          code << "end\n"
+
           # Create "empty" affair if missing before every save
           code << "after_save do\n"
-          code << "  unless self.#{affair}\n"
-          code << "    #{affair} = Affair.create(currency: self.#{currency}, third: self.deal_third, third_role: self.deal_third_role)\n"
-          code << "    puts #{affair}.errors.inspect\n"
-          code << "    #{affair} = Affair.create!(currency: self.#{currency}, third: self.deal_third, third_role: self.deal_third_role)\n"
+          code << "  if self.#{affair}\n"
+          code << "    self.affair.refresh!\n"
+          code << "  else\n"
+          code << "    #{affair} = Affair.create!(currency: self.#{currency}, third: self.deal_third, originator: self)\n"
           code << "    self.deal_with!(#{affair})\n"
           code << "  end\n"
           code << "  return true\n"
           code << "end\n"
+
 
           # Refresh after each save
           code << "def deal_with!(affair)\n"
@@ -132,6 +142,17 @@ module Ekylibre::Record
           # code << "end\n"
 
           # Return if deal is a debit for us
+          code << "def good_deal?\n"
+          if options[:good] == :debit
+            code << "  return self.deal_debit?\n"
+          elsif options[:good] == :credit
+            code << "  return self.deal_credit?\n"
+          else
+            code << "  return self.#{options[:good]}\n"
+          end
+          code << "end\n"
+
+          # Return if deal is a debit for us
           code << "def deal_debit?\n"
           if options[:debit].is_a?(TrueClass)
             code << "  return true\n"
@@ -157,9 +178,12 @@ module Ekylibre::Record
 
           # Define which amount to take in account
           code << "alias_attribute :deal_amount, :#{options[:amount]}\n"
-          # code << "def deal_amount\n"
-          # code << "  return self.#{options[:amount]}\n"
-          # code << "end\n"
+
+          # Define which date to take in account
+          code << "alias_attribute :dealt_on, :#{options[:dealt_on]}\n"
+
+          # Define the third of the deal
+          code << "alias_attribute :deal_third, :#{options[:third]}\n"
 
           # Define debit amount
           code << "def deal_debit_amount\n"
@@ -184,18 +208,6 @@ module Ekylibre::Record
           code << "def other_deals\n"
           code << "  return self.#{affair}.deals.delete_if{|x| x == self}\n"
           code << "end\n"
-
-          # Define which date to take in account
-          code << "alias_attribute :dealt_on, :#{options[:dealt_on]}\n"
-          # code << "def dealt_on\n"
-          # code << "  return self.#{options[:dealt_on]}\n"
-          # code << "end\n"
-
-          # Define the third of the deal
-          code << "alias_attribute :deal_third, :#{options[:third]}\n"
-          # code << "def deal_third\n"
-          # code << "  return self.#{options[:third]}\n"
-          # code << "end\n"
 
           code << "def self.deal_third\n"
           code << "  return self.reflections[:#{options[:third]}]\n"

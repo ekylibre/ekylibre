@@ -52,7 +52,6 @@ class SaleItem < Ekylibre::Record::Base
   attr_readonly :sale_id
   enumerize :indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}, default: :population
   belongs_to :account
-  # belongs_to :entity
   belongs_to :sale, inverse_of: :items
   belongs_to :credited_item, class_name: "SaleItem"
   belongs_to :price, class_name: "CatalogPrice"
@@ -71,6 +70,7 @@ class SaleItem < Ekylibre::Record::Base
   delegate :all_taxes_included?, to: :price
   delegate :name, to: :tax, prefix: true
   delegate :nature, :name, to: :variant, prefix: true
+  delegate :unit_name, :name, to: :variant
   delegate :subscribing?, :deliverable?, to: :product_nature, prefix: true
   delegate :entity_id, to: :address, prefix: true
 

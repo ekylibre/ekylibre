@@ -46,10 +46,12 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :affairs do |t|
+      t.string     :number,                                                  null: false
       t.boolean    :closed,                                  default: false, null: false
       t.datetime   :closed_at
       t.references :third,                                                   null: false, index: true
-      t.string     :third_role,                                              null: false
+      t.references :originator,     polymorphic: true,                       null: false, index: true
+      # t.string     :third_role,                                              null: false
       t.string     :currency,       limit: 3,                                null: false
       t.decimal    :debit,          precision: 19, scale: 4, default: 0.0,   null: false
       t.decimal    :credit,         precision: 19, scale: 4, default: 0.0,   null: false
@@ -57,6 +59,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :journal_entry,                                                        index: true
       t.integer    :deals_count,                             default: 0,     null: false
       t.stamps
+      t.index      :number, unique: true
     end
 
     create_table :analytic_repartitions do |t|

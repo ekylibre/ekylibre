@@ -33,8 +33,9 @@
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
+#  originator_id    :integer          not null
+#  originator_type  :string(255)      not null
 #  third_id         :integer          not null
-#  third_role       :string(255)      not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -47,15 +48,16 @@
 # PurchaseCredit  |         |    X    |
 # IncomingPayment |    X    |         |
 # OutgoingPayment |         |    X    |
-# ProfitGap       |    X    |         |
-# LossGap         |         |    X    |
+# ProfitGap       |         |    X    |
+# LossGap         |    X    |         |
 # Transfer        |         |    X    |
 #
 class Affair < Ekylibre::Record::Base
   AFFAIRABLE_TYPES = %w(Gap Sale Purchase IncomingPayment OutgoingPayment Transfer).freeze
   AFFAIRABLE_MODELS = AFFAIRABLE_TYPES.map(&:underscore).freeze
-  enumerize :third_role, in: [:client, :supplier], predicates: true
+  # enumerize :third_role, in: [:client, :supplier], predicates: true
   belongs_to :third, class_name: "Entity"
+  belongs_to :originator, polymorphic: true
   belongs_to :journal_entry
   has_many :gaps,              inverse_of: :affair, dependent: :nullify
   has_many :sales,             inverse_of: :affair, dependent: :nullify
@@ -66,11 +68,13 @@ class Affair < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :credit, :debit, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :third_role, allow_nil: true, maximum: 255
+  validates_length_of :originator_type, allow_nil: true, maximum: 255
   validates_inclusion_of :closed, in: [true, false]
-  validates_presence_of :credit, :currency, :debit, :third, :third_role
+  validates_presence_of :credit, :currency, :debit, :originator, :originator_type, :third
   #]VALIDATORS]
-  validates_inclusion_of :third_role, in: self.third_role.values
+  # validates_inclusion_of :third_role, in: self.third_role.values
+
+  acts_as_numbered
 
   before_validation do
     deals = self.deals
@@ -89,11 +93,14 @@ class Affair < Ekylibre::Record::Base
     end
   end
 
-  # after_save do
-  #   if self.deals.size.zero? and !self.journal_entry
-  #     self.destroy
-  #   end
-  # end
+  validate do
+    if self.originator
+      unless AFFAIRABLE_TYPES.include?(self.originator_type.to_s)
+        errors.add(:originator, :invalid)
+        errors.add(:originator_id, :invalid)
+      end
+    end
+  end
 
   bookkeep do |b|
     label = tc(:bookkeep)
@@ -107,7 +114,8 @@ class Affair < Ekylibre::Record::Base
       end
       hash
     end.delete_if{|k, v| v.zero?}
-    b.journal_entry(Journal.used_for_affairs, printed_on: (all_deals.last ? all_deals.last.dealt_on : Date.today), :if => (self.debit == self.credit and !thirds.empty?)) do |entry|
+    # b.journal_entry(Journal.used_for_affairs, printed_on: (all_deals.last ? all_deals.last.dealt_on : Date.today), :if => (self.debit == self.credit and !thirds.empty?)) do |entry|
+    b.journal_entry(Journal.used_for_affairs, printed_on: (all_deals.last ? all_deals.last.dealt_on : Date.today), :if => self.balanced?) do |entry|
       for account_id, amount in thirds
         entry.add_debit(label, account_id, amount)
       end
@@ -130,6 +138,11 @@ class Affair < Ekylibre::Record::Base
     self.debit - self.credit
   end
 
+  # Check if debit is equal to credit
+  def balanced?
+    !!(self.debit == self.credit)
+  end
+
   # Reload and save! affair to force counts and sums computation
   def refresh!
     self.reload
@@ -143,7 +156,7 @@ class Affair < Ekylibre::Record::Base
 
   # Adds a gap to close the affair
   def finish(distribution = nil)
-    balance = self.balance.abs
+    balance = self.balance
     return false if balance.zero?
     thirds = self.thirds
     if distribution.nil?
@@ -154,11 +167,20 @@ class Affair < Ekylibre::Record::Base
     end
     self.class.transaction do
       for third in thirds
-        attributes = {affair: self, amount: balance, currency: self.currency, entity: self.third, entity_role: self.third_role, direction: (losing? ? :profit : :loss), items: []}
-        self.tax_items_for(third, distribution[third.id], !losing?).each_with_index do |item, index|
-          item[:pretax_amount] = (item[:tax] ? item[:tax].pretax_amount_of(item[:amount]) : item[:amount])
+        attributes = {affair: self, amount: balance, currency: self.currency, entity: self.third, entity_role: self.third_role, direction: (losing? ? :loss : :profit), items: []}
+        pretax_amount = 0.0
+        self.tax_items_for(third, distribution[third.id], true).each_with_index do |item, index|
+          raw_pretax_amount = (item[:tax] ? item[:tax].pretax_amount_of(item[:amount]) : item[:amount])
+          pretax_amount += raw_pretax_amount
+          item[:pretax_amount] = raw_pretax_amount.round(currency_precision)
           item[:currency] = self.currency
           attributes[:items] << GapItem.new(item)
+        end
+        # Ensures no needed cents are forgotten or added
+        sum = attributes[:items].map(&:pretax_amount).sum
+        pretax_amount = pretax_amount.round(currency_precision)
+        unless sum != pretax_amount
+          attributes[:items].last.pretax_amount += (pretax_amount - sum)
         end
         # puts attributes.inspect
         Gap.create!(attributes)
@@ -168,17 +190,35 @@ class Affair < Ekylibre::Record::Base
     return true
   end
 
-  # Returns heterogen list of deals of the affair
-  def deals
-    return (self.gaps.to_a +
-            self.sales.to_a +
-            self.purchases.to_a +
-            self.incoming_payments.to_a +
-            self.outgoing_payments.to_a +
-            self.transfers.to_a).compact.sort do |a, b|
-      a.dealt_on <=> b.dealt_on
-    end
+  def third_role
+    self.originator.deal_third_role
   end
+
+  # Returns heterogen list of deals of the affair
+  def self.generate_deals_method
+    code  = "def deals\n"
+    array = AFFAIRABLE_TYPES.collect do |class_name|
+      "#{class_name}.where(affair_id: self.id).to_a"
+    end.join(" + ")
+    code << "  return (#{array}).compact.sort do |a, b|\n"
+    code << "    a.dealt_on <=> b.dealt_on\n"
+    code << "  end\n"
+    code << "end\n"
+    class_eval code
+  end
+
+  generate_deals_method
+
+  # def deals
+  #   return (self.gaps.to_a +
+  #           self.sales.to_a +
+  #           self.purchases.to_a +
+  #           self.incoming_payments.to_a +
+  #           self.outgoing_payments.to_a +
+  #           self.transfers.to_a).compact.sort do |a, b|
+  #     a.dealt_on <=> b.dealt_on
+  #   end
+  # end
 
   # Returns deals of the given third
   def deals_of(third)
@@ -192,13 +232,25 @@ class Affair < Ekylibre::Record::Base
     return self.deals.map(&:deal_third).uniq
   end
 
+
+  # Permit to attach a deal from affair
+  def attach(deal)
+    deal.deal_with!(self)
+  end
+
+  # Permit to detach a deal from affair
+  def attach(deal)
+    deal.undeal!(self)
+  end
+
+
   # Returns a hash with each amount for each third
   # Amounts are always positive although it'a loss or a profit
   # In case of a loss, credits are greater than debits. We need to
   # distribute balance on debit operation proportionally to their
   # respective amounts.
   def thirds_distribution(mode = :equity)
-    balance = (self.debit - self.credit).abs
+    balance = (self.debit - self.credit)
     tendency = (self.debit > self.credit ? :debit : :credit)
     # balance = (tendency == :debit ? self.debit : self.credit)
     tendency_method = "deal_#{tendency}?".to_sym
@@ -240,12 +292,11 @@ class Affair < Ekylibre::Record::Base
       # puts deal.inspect
       # puts deal.deal_taxes(debit)
       for total in deal.deal_taxes(debit)
-        tax_id = total[:tax] ? total[:tax].id : :none
-        totals[tax_id] ||= {amount: 0.0, tax: total[:tax]}
-        totals[tax_id][:amount] += total[:amount]
+        total[:tax] ||= Tax.used_for_untaxed_deals
+        totals[total[:tax].id] ||= {amount: 0.0, tax: total[:tax]}
+        totals[total[:tax].id][:amount] += total[:amount]
       end
     end
-    raise totals.inspect
     # Proratize amount against  tax submitted amounts
     total_amount = totals.values.collect{|t| t[:amount] }.sum
     amounts = totals.values.collect do |total|

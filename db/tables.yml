@@ -66,8 +66,9 @@ affairs:
   id: {type: integer, required: true}
   journal_entry_id: {type: integer, references: journal_entry}
   lock_version: {type: integer, required: true, default: 0}
+  originator_id: {type: integer, references: ~originator_type, required: true}
+  originator_type: {type: string, required: true}
   third_id: {type: integer, references: entity, required: true}
-  third_role: {type: string, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
