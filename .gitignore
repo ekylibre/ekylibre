@@ -15,3 +15,8 @@ installer/resources
 installer/releases
 installer/*.log
 /.ruby-version
+/doc/app
+/config/api.yml
+/config/tools.xml
+/coverage
+/pkg
