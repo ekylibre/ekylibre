@@ -23,6 +23,10 @@ module Ekylibre
         @null
       end
 
+      def references?
+        !@references.blank?
+      end
+
       def polymorphic?
         @references.is_a?(String)
       end

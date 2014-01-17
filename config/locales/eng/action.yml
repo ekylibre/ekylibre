@@ -25,6 +25,7 @@ eng:
       # detach: "Dissocier une transaction"
       index: "Affairs"
       # select: "Ajouter une transaction"
+      # show: "Affaire N°%{number}"
     backend/aggregators:
       # index: "Agrégateurs"
       # show: "%{name}"
@@ -274,7 +275,8 @@ eng:
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
-    backend/gaps: #?
+    backend/gaps:
+      # show: "Perte ou profit N°%{number}"
     backend/help:  #?
       index: "Help" #?
       show: "Help: %{title}" #?
@@ -449,7 +451,10 @@ eng:
       index: "Plants"
       new: "Create plant"
       show: "Plant\_: %{name} "
-    backend/postal_zones: #?
+    backend/postal_zones:
+      # edit: "Modifier la zone postale\_: %{name}"
+      # index: "Zones postales"
+      # new: "Nouvelle zone postale"
     backend/preferences:
       edit: "Edit preferences"
       index: "Preferences"

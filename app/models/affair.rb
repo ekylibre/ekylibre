@@ -33,6 +33,7 @@
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
+#  number           :string(255)      not null
 #  originator_id    :integer          not null
 #  originator_type  :string(255)      not null
 #  third_id         :integer          not null
@@ -68,9 +69,9 @@ class Affair < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :credit, :debit, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
-  validates_length_of :originator_type, allow_nil: true, maximum: 255
+  validates_length_of :number, :originator_type, allow_nil: true, maximum: 255
   validates_inclusion_of :closed, in: [true, false]
-  validates_presence_of :credit, :currency, :debit, :originator, :originator_type, :third
+  validates_presence_of :credit, :currency, :debit, :number, :originator, :originator_type, :third
   #]VALIDATORS]
   # validates_inclusion_of :third_role, in: self.third_role.values
 

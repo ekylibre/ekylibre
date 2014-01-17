@@ -16,7 +16,7 @@ jpn:
       # show: "Compte\_: %{number} - %{name}"
       # unmark: "Délettrer un compte"
     backend/activities:
-      # edit: "Modifier une activité\_: %{name} "
+      # edit: "Modifier une activité\_: %{name}"
       # index: "Activités"
       # new: "Nouvelle activité"
       # show: "%{name}"
@@ -27,6 +27,7 @@ jpn:
       # detach: "Dissocier une transaction"
       # index: "Transactions"
       # select: "Ajouter une transaction"
+      # show: "Affaire N°%{number}"
     backend/aggregators:
       # index: "Agrégateurs"
       # show: "%{name}"
@@ -243,7 +244,8 @@ jpn:
       # index: "Exercices comptables"
       # new: "Créer un nouvel exercice"
       # show: "Exercice comptable %{code}"
-    backend/gaps: #?
+    backend/gaps:
+      # show: "Perte ou profit N°%{number}"
     backend/help: #?
     backend/helps:
       # index: "Aide"
@@ -413,7 +415,10 @@ jpn:
       # index: "Cultures"
       # new: "Nouvelle culture"
       # show: "Culture\_: %{name}"
-    backend/postal_zones: #?
+    backend/postal_zones:
+      # edit: "Modifier la zone postale\_: %{name}"
+      # index: "Zones postales"
+      # new: "Nouvelle zone postale"
     backend/preferences:
       # edit: "Modifier les préférences"
       # index: "Préférences"

@@ -70,7 +70,7 @@ class Person < Entity
   scope :employees, -> { joins(:direct_links).merge(EntityLink.of_nature(:work)) }
 
   scope :employees_of, lambda { |boss|
-    joins(:direct_links).merge(EntityLink.of_nature(:work).where(entity_2_id: (boss.respond_to?(:id) ? boss.id : boss))) 
+    joins(:direct_links).merge(EntityLink.of_nature(:work).where(entity_2_id: (boss.respond_to?(:id) ? boss.id : boss)))
   }
 
 end

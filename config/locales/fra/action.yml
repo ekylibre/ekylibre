@@ -23,12 +23,12 @@ fra:
       new: "Nouvelle activité"
       show: "%{name}"
     backend/affairs:
-      show: "Affaire N°%{number}"
       attach: "Associer une transaction"
       detach: "Dissocier une transaction"
       # finish: "Finish backend/affair"
       index: "Transactions"
       select: "Ajouter une transaction"
+      show: "Affaire N°%{number}"
     backend/aggregators:
       index: "Agrégateurs"
       show: "%{name}"

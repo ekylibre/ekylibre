@@ -196,7 +196,17 @@ task :tests => :environment do
       end
 
       cols = columns.keys.map(&:to_s)
-      required_cols = columns.values.select{|c| !c.null? and c.default.nil?}.collect{|c| c.name.to_s}
+      required_cols = columns.values.select{|c| !c.null? and c.default.nil?}
+      dr_cols = required_cols.inject({}.with_indifferent_access) do |hash, col|
+        if col.references?
+          reflection_name = col.name.to_s.gsub(/_id$/, '')
+          hash[reflection_name] = [col.name.to_s]
+          hash[reflection_name] << col.references if col.polymorphic?
+        end
+        hash
+      end
+      required_cols = required_cols.collect{|c| c.name.to_s}
+
       if yaml.is_a?(Hash)
         ids = yaml.collect{|k,v| v["id"]}
         if ids.compact.any?
@@ -209,9 +219,12 @@ task :tests => :environment do
         for record_name, attributes in yaml
           requireds = required_cols.dup
           for attr_name, value in attributes
-            unless cols.include?(attr_name.to_s)
+            unless cols.include?(attr_name.to_s) or dr_cols[attr_name]
               errors[:fixtures] += 1
               log.write(" - Errors: Column #{attr_name} is unknown in #{file}\n")
+            end
+            if dr_cols[attr_name].is_a?(Array)
+              dr_cols[attr_name].each{|n| requireds.delete(n)}
             end
             requireds.delete(attr_name.to_s)
           end

@@ -33,6 +33,7 @@
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
+#  number           :string(255)      not null
 #  originator_id    :integer          not null
 #  originator_type  :string(255)      not null
 #  third_id         :integer          not null

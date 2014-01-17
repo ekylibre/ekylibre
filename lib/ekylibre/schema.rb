@@ -57,7 +57,7 @@ module Ekylibre
           tables[table] = columns.inject({}.with_indifferent_access) do |h, pair|
             options = pair.second
             type = options.delete(:type)
-            options[:null] = false if options.delete(:required)
+            options[:null] = !options.delete(:required)
             if ref = options[:references]
               options[:references] = (ref =~ /\A\~/ ? ref[1..-1] : ref.to_sym)
             end
