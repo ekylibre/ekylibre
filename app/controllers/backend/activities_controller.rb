@@ -27,7 +27,7 @@ class Backend::ActivitiesController < BackendController
     t.column :parent, url: true
     t.column :nature
     t.column :family
-    t.action :show, url: {:format => :pdf}, image: :print
+    # t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

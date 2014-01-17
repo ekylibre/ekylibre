@@ -35,7 +35,7 @@ class Backend::PurchasesController < BackendController
     t.column :state_label
     # t.column :paid_amount, currency: true
     t.column :amount, currency: true
-    t.action :show, url: {:format => :pdf}, image: :print
+    # t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

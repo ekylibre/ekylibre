@@ -31,7 +31,7 @@ class Backend::DepositsController < BackendController
     t.column :created_on
     t.column :description, hidden: true
     t.column :journal_entry, url: true
-    t.action :show, url: {:format => :pdf}, image: :print
+    # t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit, :unless => :locked?
     t.action :destroy, :unless => :locked?
   end

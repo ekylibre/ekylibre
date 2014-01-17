@@ -28,7 +28,7 @@ class Backend::TransportsController < BackendController
     #t.column :transport_on, :children => :moved_on
     t.column :transporter, label_method: :full_name, :children => :default_mail_coordinate, url: true
     t.column :net_mass
-    t.action :show, url: {:format => :pdf}, image: :print
+    # t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy
   end
