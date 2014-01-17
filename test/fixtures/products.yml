@@ -65,1099 +65,751 @@
 # == Fixture: products
 #
 # products_001:
-#   category_id: 1
+#   category: categories_001
 #   content_maximal_quantity: 0
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
-#   id: 1
+#   creator: users_001
 #   name: "Lorem ipsum"
-#   nature_id: 1
+#   nature: natures_001
 #   number: "Lorem ipsum"
 #   reservoir: true
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
-#   variant_id: 1
+#   updater: users_001
+#   variant: variants_001
 #   variety: "Lorem ipsum"
 #
-
-# -----------------------------------------------------------------------------
-# {29} AnimalGroups
-
+---
 animal_groups_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 29001
-  name: "AnimalGroup #1"
-  nature_id: 29
-  number: "29001"
-  type: 'AnimalGroup'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 29
-  variety: "animal_group"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'AnimalGroup #1'
+  nature: product_natures_029
+  number: '29001'
+  parent: products_001
+  type: AnimalGroup
+  updater: users_001
+  variant: product_nature_variants_029
+  variety: animal_group
 animal_groups_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 29002
-  name: "AnimalGroup #2"
-  nature_id: 29
-  number: "29002"
-  type: 'AnimalGroup'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 29
-  variety: "animal_group"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'AnimalGroup #2'
+  nature: product_natures_029
+  number: '29002'
+  parent: products_001
+  type: AnimalGroup
+  updater: users_001
+  variant: product_nature_variants_029
+  variety: animal_group
 animal_groups_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 29003
-  name: "AnimalGroup #3"
-  nature_id: 29
-  number: "29003"
-  type: 'AnimalGroup'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 29
-  variety: "animal_group"
-
-# -----------------------------------------------------------------------------
-# {12} AnimalMedicines
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'AnimalGroup #3'
+  nature: product_natures_029
+  number: '29003'
+  parent: products_001
+  type: AnimalGroup
+  updater: users_001
+  variant: product_nature_variants_029
+  variety: animal_group
 animal_medicines_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 12001
-  name: "AnimalMedicine #1"
-  nature_id: 1
-  number: "12001"
-  type: 'AnimalMedicine'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "animal_medicine"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'AnimalMedicine #1'
+  nature: product_natures_001
+  number: '12001'
+  parent: products_001
+  type: AnimalMedicine
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: animal_medicine
 animal_medicines_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 12002
-  name: "AnimalMedicine #2"
-  nature_id: 1
-  number: "12002"
-  type: 'AnimalMedicine'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "animal_medicine"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'AnimalMedicine #2'
+  nature: product_natures_001
+  number: '12002'
+  parent: products_001
+  type: AnimalMedicine
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: animal_medicine
 animal_medicines_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 12003
-  name: "AnimalMedicine #3"
-  nature_id: 1
-  number: "12003"
-  type: 'AnimalMedicine'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "animal_medicine"
-
-# -----------------------------------------------------------------------------
-# { 7} Animals
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'AnimalMedicine #3'
+  nature: product_natures_001
+  number: '12003'
+  parent: products_001
+  type: AnimalMedicine
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: animal_medicine
 animals_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 7001
-  identification_number: "A7001"
-  name: "Ionosphere"
-  nature_id: 1
-  number: "7001"
-  type: 'Animal'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "bos"
-
+  category: product_nature_categories_001
+  creator: users_001
+  identification_number: A7001
+  name: Ionosphere
+  nature: product_natures_001
+  number: '7001'
+  type: Animal
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: bos
 animals_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 7002
-  identification_number: "A7002"
-  name: "Isabelle"
-  nature_id: 5
-  number: "7002"
-  type: 'Animal'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "bos"
-
+  category: product_nature_categories_001
+  creator: users_001
+  identification_number: A7002
+  name: Isabelle
+  nature: product_natures_005
+  number: '7002'
+  type: Animal
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: bos
 animals_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 7003
-  identification_number: "A7003"
-  name: "Segolene"
-  nature_id: 1
-  number: "7003"
-  type: 'Animal'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "gallus"
-
+  category: product_nature_categories_001
+  creator: users_001
+  identification_number: A7003
+  name: Segolene
+  nature: product_natures_001
+  number: '7003'
+  type: Animal
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: gallus
 animals_004:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 7004
-  identification_number: "A7004"
-  name: "Marguerite"
-  nature_id: 1
-  number: "7004"
-  type: 'Animal'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 7
-  variety: "bos"
-
-# -----------------------------------------------------------------------------
-# {28} BuildingDivisions
-
+  category: product_nature_categories_001
+  creator: users_001
+  identification_number: A7004
+  name: Marguerite
+  nature: product_natures_001
+  number: '7004'
+  type: Animal
+  updater: users_001
+  variant: product_nature_variants_007
+  variety: bos
 building_divisions_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 28001
-  name: "BuildingDivision #1"
-  nature_id: 1
-  number: "28001"
-  type: 'BuildingDivision'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "building_division"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'BuildingDivision #1'
+  nature: product_natures_001
+  number: '28001'
+  parent: products_001
+  type: BuildingDivision
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: building_division
 building_divisions_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 28002
-  name: "BuildingDivision #2"
-  nature_id: 1
-  number: "28002"
-  type: 'BuildingDivision'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "building_division"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'BuildingDivision #2'
+  nature: product_natures_001
+  number: '28002'
+  parent: products_001
+  type: BuildingDivision
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: building_division
 building_divisions_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 28003
-  name: "BuildingDivision #3"
-  nature_id: 1
-  number: "28003"
-  type: 'BuildingDivision'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "building_division"
-
-# -----------------------------------------------------------------------------
-# {33} Buildings
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'BuildingDivision #3'
+  nature: product_natures_001
+  number: '28003'
+  parent: products_001
+  type: BuildingDivision
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: building_division
 buildings_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 33001
-  name: "Dock"
-  type: 'Building'
-  nature_id: 4
-  number: "33001"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 4
-  variety: "building"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Dock
+  nature: product_natures_004
+  number: '33001'
+  type: Building
+  updater: users_001
+  variant: product_nature_variants_004
+  variety: building
 buildings_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 33002
-  name: "Cabanon"
-  type: 'Building'
-  nature_id: 4
-  number: "33002"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 4
-  variety: "building"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Cabanon
+  nature: product_natures_004
+  number: '33002'
+  type: Building
+  updater: users_001
+  variant: product_nature_variants_004
+  variety: building
 buildings_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 33003
-  name: "Barn/Grange"
-  type: 'Building'
-  nature_id: 4
-  number: "33003"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 4
-  variety: "building"
-
-# -----------------------------------------------------------------------------
-# {32} CultivableZones
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Barn/Grange
+  nature: product_natures_004
+  number: '33003'
+  type: Building
+  updater: users_001
+  variant: product_nature_variants_004
+  variety: building
 cultivable_zones_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 32001
-  name: "CultivableZone #1"
-  nature_id: 1
-  number: "32001"
-  type: 'CultivableZone'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "cultivable_zone"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'CultivableZone #1'
+  nature: product_natures_001
+  number: '32001'
+  parent: products_001
+  type: CultivableZone
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: cultivable_zone
 cultivable_zones_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 32002
-  name: "CultivableZone #2"
-  nature_id: 1
-  number: "32002"
-  type: 'CultivableZone'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "cultivable_zone"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'CultivableZone #2'
+  nature: product_natures_001
+  number: '32002'
+  parent: products_001
+  type: CultivableZone
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: cultivable_zone
 cultivable_zones_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 32003
-  name: "CultivableZone #3"
-  nature_id: 1
-  number: "32003"
-  type: 'CultivableZone'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "cultivable_zone"
-
-# -----------------------------------------------------------------------------
-# {16} Equipments
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'CultivableZone #3'
+  nature: product_natures_001
+  number: '32003'
+  parent: products_001
+  type: CultivableZone
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: cultivable_zone
 equipments_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 16001
-  name: "Tractor"
-  nature_id: 1
-  number: "16001"
-  type: 'Equipment'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "equipment"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Tractor
+  nature: product_natures_001
+  number: '16001'
+  type: Equipment
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: equipment
 equipments_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 16002
-  name: "Useless tractor"
-  nature_id: 1
-  number: "16002"
-  type: 'Equipment'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "equipment"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Useless tractor
+  nature: product_natures_001
+  number: '16002'
+  type: Equipment
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: equipment
 equipments_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 16003
-  name: "Grinder"
-  nature_id: 1
-  number: "16003"
-  type: 'Equipment'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "equipment"
-
-# -----------------------------------------------------------------------------
-# { 4} Immatters
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Grinder
+  nature: product_natures_001
+  number: '16003'
+  type: Equipment
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: equipment
 immatters_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 4001
-  name: "Immatter #1"
-  nature_id: 1
-  number: "4001"
-  type: 'Immatter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "immatter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Immatter #1'
+  nature: product_natures_001
+  number: '4001'
+  parent: products_001
+  type: Immatter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: immatter
 immatters_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 4002
-  name: "Immatter #2"
-  nature_id: 1
-  number: "4002"
-  type: 'Immatter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "immatter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Immatter #2'
+  nature: product_natures_001
+  number: '4002'
+  parent: products_001
+  type: Immatter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: immatter
 immatters_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 4003
-  name: "Immatter #3"
-  nature_id: 1
-  number: "4003"
-  type: 'Immatter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "immatter"
-
-# -----------------------------------------------------------------------------
-# {31} LandParcelClusters
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Immatter #3'
+  nature: product_natures_001
+  number: '4003'
+  parent: products_001
+  type: Immatter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: immatter
 land_parcel_clusters_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 31001
-  name: "LandParcelCluster #1"
-  nature_id: 1
-  number: "31001"
-  type: 'LandParcelCluster'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "land_parcel_cluster"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'LandParcelCluster #1'
+  nature: product_natures_001
+  number: '31001'
+  parent: products_001
+  type: LandParcelCluster
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel_cluster
 land_parcel_clusters_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 31002
-  name: "LandParcelCluster #2"
-  nature_id: 1
-  number: "31002"
-  type: 'LandParcelCluster'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "land_parcel_cluster"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'LandParcelCluster #2'
+  nature: product_natures_001
+  number: '31002'
+  parent: products_001
+  type: LandParcelCluster
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel_cluster
 land_parcel_clusters_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 31003
-  name: "LandParcelCluster #3"
-  nature_id: 1
-  number: "31003"
-  type: 'LandParcelCluster'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "land_parcel_cluster"
-
-
-# -----------------------------------------------------------------------------
-# {30} LandParcelGroups
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'LandParcelCluster #3'
+  nature: product_natures_001
+  number: '31003'
+  parent: products_001
+  type: LandParcelCluster
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel_cluster
 land_parcel_groups_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 30001
-  name: "LandParcelGroup #1"
-  nature_id: 1
-  number: "30001"
-  type: 'LandParcelGroup'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "land_parcel_group"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'LandParcelGroup #1'
+  nature: product_natures_001
+  number: '30001'
+  parent: products_001
+  type: LandParcelGroup
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel_group
 land_parcel_groups_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 30002
-  name: "LandParcelGroup #2"
-  nature_id: 1
-  number: "30002"
-  type: 'LandParcelGroup'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "land_parcel_group"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'LandParcelGroup #2'
+  nature: product_natures_001
+  number: '30002'
+  parent: products_001
+  type: LandParcelGroup
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel_group
 land_parcel_groups_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 30003
-  name: "LandParcelGroup #3"
-  nature_id: 1
-  number: "30003"
-  type: 'LandParcelGroup'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "land_parcel_group"
-
-# -----------------------------------------------------------------------------
-# {40} LandParcels
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'LandParcelGroup #3'
+  nature: product_natures_001
+  number: '30003'
+  parent: products_001
+  type: LandParcelGroup
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel_group
 land_parcels_001:
-  category_id: 1
-  born_at: 1959-03-02 10:00:00 +01:00
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 40001
-  name: "LandParcel #1"
-  nature_id: 1
-  number: "40001"
-  type: 'LandParcel'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "land_parcel"
-
+  born_at: 1959-03-02 10:00:00.000000000 +01:00
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'LandParcel #1'
+  nature: product_natures_001
+  number: '40001'
+  type: LandParcel
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel
 land_parcels_002:
-  category_id: 1
-  born_at: 1959-07-02 10:00:00 +01:00
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 40002
-  name: "LandParcel #2"
-  nature_id: 1
-  number: "40002"
-  type: 'LandParcel'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "land_parcel"
-
-# -----------------------------------------------------------------------------
-# { 1} Matters
-
+  born_at: 1959-07-02 10:00:00.000000000 +01:00
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'LandParcel #2'
+  nature: product_natures_001
+  number: '40002'
+  type: LandParcel
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: land_parcel
 matters_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1001
-  name: "Sand"
-  nature_id: 1
-  number: "1001"
-  type: 'Matter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "matter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Sand
+  nature: product_natures_001
+  number: '1001'
+  type: Matter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: matter
 matters_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1002
-  name: "Book"
-  nature_id: 1
-  number: "1002"
-  type: 'Matter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "matter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Book
+  nature: product_natures_001
+  number: '1002'
+  type: Matter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: matter
 matters_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1003
-  name: "Iron grid"
-  nature_id: 1
-  number: "1003"
-  type: 'Matter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "matter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Iron grid
+  nature: product_natures_001
+  number: '1003'
+  type: Matter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: matter
 matters_004:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1004
-  name: "Deuterium"
-  nature_id: 1
-  number: "1004"
-  type: 'Matter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "matter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Deuterium
+  nature: product_natures_001
+  number: '1004'
+  type: Matter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: matter
 matters_005:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1005
-  name: "Oxygen"
-  nature_id: 1
-  number: "1005"
-  type: 'Matter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "matter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Oxygen
+  nature: product_natures_001
+  number: '1005'
+  type: Matter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: matter
 matters_006:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1006
-  name: "Sand II"
-  nature_id: 1
-  number: "1006"
-  type: 'Matter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "matter"
-
-# -----------------------------------------------------------------------------
-# {11} Medicines
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Sand II
+  nature: product_natures_001
+  number: '1006'
+  type: Matter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: matter
 medicines_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 11001
-  name: "Medicine #1"
-  nature_id: 1
-  number: "11001"
-  type: 'Medicine'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "medicine"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Medicine #1'
+  nature: product_natures_001
+  number: '11001'
+  parent: products_001
+  type: Medicine
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: medicine
 medicines_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 11002
-  name: "Medicine #2"
-  nature_id: 1
-  number: "11002"
-  type: 'Medicine'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "medicine"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Medicine #2'
+  nature: product_natures_001
+  number: '11002'
+  parent: products_001
+  type: Medicine
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: medicine
 medicines_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 11003
-  name: "Medicine #3"
-  nature_id: 1
-  number: "11003"
-  type: 'Medicine'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "medicine"
-
-# -----------------------------------------------------------------------------
-# { 6} MineralMatters
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Medicine #3'
+  nature: product_natures_001
+  number: '11003'
+  parent: products_001
+  type: Medicine
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: medicine
 mineral_matters_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 6001
-  name: "MineralMatter #1"
-  nature_id: 1
-  number: "6001"
-  type: 'MineralMatter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "mineral_matter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'MineralMatter #1'
+  nature: product_natures_001
+  number: '6001'
+  parent: products_001
+  type: MineralMatter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: mineral_matter
 mineral_matters_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 6002
-  name: "MineralMatter #2"
-  nature_id: 1
-  number: "6002"
-  type: 'MineralMatter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "mineral_matter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'MineralMatter #2'
+  nature: product_natures_001
+  number: '6002'
+  parent: products_001
+  type: MineralMatter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: mineral_matter
 mineral_matters_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 6003
-  name: "MineralMatter #3"
-  nature_id: 1
-  number: "6003"
-  type: 'MineralMatter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "mineral_matter"
-
-# -----------------------------------------------------------------------------
-# { 5} OrganicMatters
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'MineralMatter #3'
+  nature: product_natures_001
+  number: '6003'
+  parent: products_001
+  type: MineralMatter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: mineral_matter
 organic_matters_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 5001
-  name: "OrganicMatter #1"
-  nature_id: 1
-  number: "5001"
-  type: 'OrganicMatter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "organic_matter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'OrganicMatter #1'
+  nature: product_natures_001
+  number: '5001'
+  parent: products_001
+  type: OrganicMatter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: organic_matter
 organic_matters_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 5002
-  name: "OrganicMatter #2"
-  nature_id: 1
-  number: "5002"
-  type: 'OrganicMatter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "organic_matter"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'OrganicMatter #2'
+  nature: product_natures_001
+  number: '5002'
+  parent: products_001
+  type: OrganicMatter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: organic_matter
 organic_matters_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 5003
-  name: "OrganicMatter #3"
-  nature_id: 1
-  number: "5003"
-  type: 'OrganicMatter'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "organic_matter"
-
-
-# -----------------------------------------------------------------------------
-# {13} PlantMedicines
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'OrganicMatter #3'
+  nature: product_natures_001
+  number: '5003'
+  parent: products_001
+  type: OrganicMatter
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: organic_matter
 plant_medicines_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 13001
-  name: "PlantMedicine #1"
-  nature_id: 1
-  number: "13001"
-  type: 'PlantMedicine'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "plant_medicine"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'PlantMedicine #1'
+  nature: product_natures_001
+  number: '13001'
+  parent: products_001
+  type: PlantMedicine
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: plant_medicine
 plant_medicines_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 13002
-  name: "PlantMedicine #2"
-  nature_id: 1
-  number: "13002"
-  type: 'PlantMedicine'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "plant_medicine"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'PlantMedicine #2'
+  nature: product_natures_001
+  number: '13002'
+  parent: products_001
+  type: PlantMedicine
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: plant_medicine
 plant_medicines_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 13003
-  name: "PlantMedicine #3"
-  nature_id: 1
-  number: "13003"
-  type: 'PlantMedicine'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "plant_medicine"
-
-# -----------------------------------------------------------------------------
-# {10} Plants
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'PlantMedicine #3'
+  nature: product_natures_001
+  number: '13003'
+  parent: products_001
+  type: PlantMedicine
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: plant_medicine
 plants_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 10001
-  name: "Plant #1"
-  nature_id: 1
-  number: "10001"
-  type: 'Plant'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "plant"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Plant #1'
+  nature: product_natures_001
+  number: '10001'
+  parent: products_001
+  type: Plant
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: plant
 plants_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 10002
-  name: "Plant #2"
-  nature_id: 1
-  number: "10002"
-  type: 'Plant'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "plant"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Plant #2'
+  nature: product_natures_001
+  number: '10002'
+  parent: products_001
+  type: Plant
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: plant
 plants_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 10003
-  name: "Plant #3"
-  nature_id: 1
-  number: "10003"
-  type: 'Plant'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "plant"
-
-
-# -----------------------------------------------------------------------------
-# { 3} ProductGroup
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Plant #3'
+  nature: product_natures_001
+  number: '10003'
+  parent: products_001
+  type: Plant
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: plant
 product_groups_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 3001
-  name: "Troupeau 1"
-  nature_id: 1
-  number: "3001"
-  type: 'ProductGroup'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "product_group"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Troupeau 1
+  nature: product_natures_001
+  number: '3001'
+  parent: products_001
+  type: ProductGroup
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: product_group
 product_groups_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 3002
-  name: "Troupeau 2"
-  nature_id: 1
-  number: "3002"
-  type: 'ProductGroup'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "product_group"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Troupeau 2
+  nature: product_natures_001
+  number: '3002'
+  parent: products_001
+  type: ProductGroup
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: product_group
 product_groups_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 3003
-  name: "Troupeau 3"
-  nature_id: 1
-  number: "3003"
-  type: 'ProductGroup'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "product_group"
-
-
-# -----------------------------------------------------------------------------
-# { 0} Products
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Troupeau 3
+  nature: product_natures_001
+  number: '3003'
+  parent: products_001
+  type: ProductGroup
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: product_group
 products_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
   born_at: 2009-07-19
-  id: 1
-  name: "Product #1"
-  nature_id: 1
-  number: "0001"
-  type: 'Product'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "product"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Product #1'
+  nature: product_natures_001
+  number: '0001'
+  type: Product
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: product
 products_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
   born_at: 2009-07-31
-  id: 2
-  name: "Product #2"
-  nature_id: 1
-  number: "0002"
-  type: 'Product'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variant_id: 1
-  variety: "product"
-
-
-
-# -----------------------------------------------------------------------------
-# {19} Services
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Product #2'
+  nature: product_natures_001
+  number: '0002'
+  type: Product
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: product
 services_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 19001
-  name: "Service #1"
-  nature_id: 1
-  number: "19001"
-  type: 'Service'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "service"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Service #1'
+  nature: product_natures_001
+  number: '19001'
+  parent: products_001
+  type: Service
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: service
 services_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 19002
-  name: "Service #2"
-  nature_id: 1
-  number: "19002"
-  type: 'Service'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "service"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Service #2'
+  nature: product_natures_001
+  number: '19002'
+  parent: products_001
+  type: Service
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: service
 services_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 19003
-  name: "Service #3"
-  nature_id: 1
-  number: "19003"
-  type: 'Service'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "service"
-
-# -----------------------------------------------------------------------------
-# {20} Settlements
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Service #3'
+  nature: product_natures_001
+  number: '19003'
+  parent: products_001
+  type: Service
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: service
 settlements_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 20001
-  name: "Settlement #1"
-  nature_id: 1
-  number: "20001"
-  type: 'Settlement'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "settlement"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Settlement #1'
+  nature: product_natures_001
+  number: '20001'
+  parent: products_001
+  type: Settlement
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: settlement
 settlements_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 20002
-  name: "Settlement #2"
-  nature_id: 1
-  number: "20002"
-  type: 'Settlement'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "settlement"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Settlement #2'
+  nature: product_natures_001
+  number: '20002'
+  parent: products_001
+  type: Settlement
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: settlement
 settlements_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 20003
-  name: "Settlement #3"
-  nature_id: 1
-  number: "20003"
-  type: 'Settlement'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "settlement"
-
-
-# -----------------------------------------------------------------------------
-# {21} Workers
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Settlement #3'
+  nature: product_natures_001
+  number: '20003'
+  parent: products_001
+  type: Settlement
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: settlement
 workers_001:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 21001
-  name: "Alice"
-  nature_id: 1
-  number: "21001"
-  type: 'Worker'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "worker"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Alice
+  nature: product_natures_001
+  number: '21001'
+  parent: products_001
+  type: Worker
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: worker
 workers_002:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 21002
-  name: "Bob"
-  nature_id: 1
-  number: "21002"
-  type: 'Worker'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "worker"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Bob
+  nature: product_natures_001
+  number: '21002'
+  parent: products_001
+  type: Worker
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: worker
 workers_003:
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 21003
-  name: "Charlene"
-  nature_id: 1
-  number: "21003"
-  type: 'Worker'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  parent_id: 1
-  variant_id: 1
-  variety: "worker"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Charlene
+  nature: product_natures_001
+  number: '21003'
+  parent: products_001
+  type: Worker
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: worker

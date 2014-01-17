@@ -39,45 +39,31 @@
 # == Fixture: incoming_deliveries
 #
 # incoming_deliveries_001:
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
-#   id: 1
+#   creator: users_001
 #   number: "Lorem ipsum"
-#   sender_id: 1
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   sender: senders_001
+#   updater: users_001
 #
-
+---
 incoming_deliveries_001:
-  address_id: 3
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  mode_id: 1
-  number: 'INDEL000001'
-  sender_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  address: entity_addresses_003
+  creator: users_001
+  mode: incoming_delivery_modes_001
+  number: INDEL000001
+  sender: legal_entities_001
+  updater: users_001
 incoming_deliveries_002:
-  address_id: 3
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 2
-  mode_id: 1
-  number: 'INDEL000002'
-  sender_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  address: entity_addresses_003
+  creator: users_001
+  mode: incoming_delivery_modes_001
+  number: INDEL000002
+  sender: legal_entities_001
+  updater: users_001
 incoming_deliveries_003:
-  address_id: 3
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 3
-  mode_id: 1
-  number: 'INDEL000003'
-  purchase_id: 1
-  sender_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+  address: entity_addresses_003
+  creator: users_001
+  mode: incoming_delivery_modes_001
+  number: INDEL000003
+  purchase: purchases_001
+  sender: legal_entities_001
+  updater: users_001

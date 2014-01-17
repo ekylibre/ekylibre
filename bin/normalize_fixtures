@@ -1,0 +1,74 @@
+#!/usr/bin/env ruby
+require 'active_support/core_ext'
+require 'yaml'
+require 'pathname'
+require 'fileutils'
+require 'rgeo'
+
+# # Add domain type to read spatial type
+# YAML.add_domain_type("ekylibre.org,2014", "multipolygon") do |type, val|
+#   RGeo::Geographic.spherical_factory(srid: 4326).parse_wkt(val)
+# end
+
+root = Pathname.new(__FILE__).dirname.dirname
+
+UNWANTED = %w(created_at updated_at id)
+
+tables = YAML.load_file(root.join("db", "tables.yml"))
+
+
+labels = {}
+models = {}
+for file in Dir.glob(root.join("test", "fixtures", "*.yml")).sort
+  table = Pathname.new(file).basename(".yml").to_s
+  labels[table] ||= {}
+  hash = YAML.load_file(file)
+  for label, attributes in hash
+    models[label.gsub(/\_\d+\z/, '')] = table
+    if attributes["id"]
+      labels[table][attributes["id"]] = label
+    end
+  end
+end
+
+for file in Dir.glob(root.join("test", "fixtures", "*.yml")).sort
+  table = Pathname.new(file).basename(".yml").to_s
+  puts "[#{table}] #{file}"
+  hash = YAML.load_file(file)
+  for record in hash.keys
+    attributes = hash[record]
+    attributes.delete_if{|k,v| UNWANTED.include?(k)}
+    for name in hash[record].keys
+      if name =~ /\id\z/
+        new_name = name.gsub(/_id\z/, '')
+        unless attributes[new_name]
+          column = tables[table][name]
+          references = column['references']
+          if references =~ /\A\~/
+            type_attribute = "#{new_name}_type"
+            type = attributes[type_attribute]
+            attributes[new_name] = "#{type.underscore.pluralize}_#{attributes[name].to_s.rjust(3, '0')} (#{type})"
+            attributes.delete(type_attribute)
+          else
+            unless t = labels[models[references.pluralize]]
+              puts "*" * 200
+              puts references.pluralize
+            end
+            if t and label = t[attributes[name]]
+              attributes[new_name] = label
+            else
+              attributes[new_name] = "#{references.pluralize}_#{attributes[name].to_s.rjust(3, '0')}"
+            end
+          end
+          attributes.delete(name)
+        end
+      end
+    end
+    hash[record] = Hash[attributes.sort]
+
+  end
+  # puts hash.to_yaml
+  File.open(file, "wb") do |f|
+     f.write hash.to_yaml
+   end
+end

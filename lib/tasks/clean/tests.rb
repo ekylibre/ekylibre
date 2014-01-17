@@ -195,8 +195,8 @@ task :tests => :environment do
         next
       end
 
-      cols = columns.keys.map(&:to_s)
-      required_cols = columns.values.select{|c| !c.null? and c.default.nil?}.collect{|c| c.name.to_s}
+      cols = columns.keys.map(&:to_s).delete_if{|c| c =~ /\_id$/ }
+      required_cols = columns.values.select{|c| !c.null? and c.default.nil?}.collect{|c| c.name.to_s} - %w(created_at updated_at id)
       dr_cols = columns.values.inject({}.with_indifferent_access) do |hash, col|
         if col.references?
           reflection_name = col.name.to_s.gsub(/_id$/, '')
@@ -207,13 +207,13 @@ task :tests => :environment do
       end
 
       if yaml.is_a?(Hash)
-        ids = yaml.collect{|k,v| v["id"]}
-        if ids.compact.any?
-          if ids.uniq.size != ids.size
-            errors[:fixtures] += 1
-            log.write(" - Error: Duplicates id values in #{file}\n")
-          end
-        end
+        # ids = yaml.collect{|k,v| v["id"]}
+        # if ids.compact.any?
+        #   if ids.uniq.size != ids.size
+        #     errors[:fixtures] += 1
+        #     log.write(" - Error: Duplicates id values in #{file}\n")
+        #   end
+        # end
 
         for record_name, attributes in yaml
           requireds = required_cols.dup

@@ -50,49 +50,39 @@
 # sale_natures_001:
 #   active: true
 #   by_default: true
-#   catalog_id: 1
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
+#   catalog: catalogs_001
+#   creator: users_001
 #   currency: "Lorem ipsum"
 #   downpayment: true
 #   expiration_delay: "Lorem ipsum"
-#   id: 1
 #   name: "Lorem ipsum"
 #   payment_delay: "Lorem ipsum"
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #   with_accounting: true
 #
+---
 sale_natures_001:
   active: true
-  catalog_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  currency: 'EUR'
+  catalog: catalogs_001
+  creator: users_001
+  currency: EUR
   downpayment: true
   downpayment_minimum: 300
   downpayment_percentage: 30
-  expiration_delay: '15 days, bom, 10 days'
-  id: 1
-  journal_id: 3
-  name: "Lorem ipsum"
-  payment_delay: '12 days, eom, 1 week ago'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  expiration_delay: 15 days, bom, 10 days
+  journal: journals_003
+  name: Lorem ipsum
+  payment_delay: 12 days, eom, 1 week ago
+  updater: users_001
 sale_natures_002:
   active: true
-  catalog_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  currency: 'EUR'
+  catalog: catalogs_001
+  creator: users_001
+  currency: EUR
   downpayment: true
   downpayment_minimum: 0
   downpayment_percentage: 0
-  expiration_delay: '10 days'
-  id: 2
-  name: "Lorex"
-  payment_delay: '10 weeks'
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  expiration_delay: 10 days
+  name: Lorex
+  payment_delay: 10 weeks
+  updater: users_001

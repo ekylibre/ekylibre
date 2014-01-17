@@ -70,11 +70,9 @@
 # entities_001:
 #   active: true
 #   client: true
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
+#   creator: users_001
 #   currency: "Lorem ipsum"
 #   full_name: "Lorem ipsum"
-#   id: 1
 #   language: "Lorem ipsum"
 #   last_name: "Lorem ipsum"
 #   locked: true
@@ -84,121 +82,90 @@
 #   reminder_submissive: true
 #   supplier: true
 #   transporter: true
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #   vat_subjected: true
 #
-
+---
 legal_entities_001:
-  language: fra
-  currency: EUR
   client: false
-  number: 00001
+  creator: users_001
+  currency: EUR
   full_name: Ferstivall LTD
+  language: eng
   last_name: C. Ferstivall LTD
-  language: 'eng'
-  nature: "company"
+  nature: company
+  number: 1
   of_company: true
-  type: "LegalEntity"
-  id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
-legal_entities_002:
-  currency: EUR
-  language: fra
-  client: false
-  nature: company
-  number: 00002
-  full_name: Toley LTD
-  last_name: Toley LTD
-  type: "LegalEntity"
-  id: 2
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
-legal_entities_003:
-  currency: EUR
-  language: fra
-  client: true
-  nature: company
-  number: 00003
-  full_name: Yuey LTD
-  last_name: Yuey LTD
   type: LegalEntity
-  id: 3
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
-entities_001:
-  language: fra
-  currency: EUR
+  updater: users_001
+legal_entities_002:
   client: false
-  number: 00201
-  full_name: Ferstivall LTD
-  last_name: C. Ferstivall LTD
-  language: 'eng'
-  nature: "entity"
-  of_company: true
-  type: "Entity"
-  id: 201
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
-entities_002:
+  creator: users_001
   currency: EUR
-  language: fra
-  client: false
-  nature: entity
-  number: 00202
   full_name: Toley LTD
+  language: fra
   last_name: Toley LTD
-  type: "Entity"
-  id: 202
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  nature: company
+  number: 2
+  type: LegalEntity
+  updater: users_001
+legal_entities_003:
+  client: true
+  creator: users_001
+  currency: EUR
+  full_name: Yuey LTD
+  language: fra
+  last_name: Yuey LTD
+  nature: company
+  number: 3
+  type: LegalEntity
+  updater: users_001
+entities_001:
+  client: false
+  creator: users_001
+  currency: EUR
+  full_name: Ferstivall LTD
+  language: eng
+  last_name: C. Ferstivall LTD
+  nature: entity
+  number: 129
+  of_company: true
+  type: Entity
+  updater: users_001
+entities_002:
+  client: false
+  creator: users_001
+  currency: EUR
+  full_name: Toley LTD
+  language: fra
+  last_name: Toley LTD
+  nature: entity
+  number: 130
+  type: Entity
+  updater: users_001
 people_001:
   active: true
-  currency: EUR
-  language: fra
   client: true
-  nature: sir
-  number: 00301
-  full_name: Gendo IKARI
+  creator: users_001
+  currency: EUR
   first_name: Gendo
+  full_name: Gendo IKARI
+  language: fra
   last_name: IKARI
+  nature: sir
+  number: 193
   type: Person
-  id: 301
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  updater: users_001
 people_002:
   active: true
-  currency: EUR
-  language: fra
   client: true
-  nature: sir
-  number: 00302
-  full_name: Kozo FUYUTSUKI
+  creator: users_001
+  currency: EUR
   first_name: Kozo
+  full_name: Kozo FUYUTSUKI
+  language: fra
   last_name: FUYUTSUKI
+  nature: sir
+  number: 194
   type: Person
-  id: 302
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  updater: users_001

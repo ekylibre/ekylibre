@@ -466,7 +466,7 @@ fra:
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
     casts: "Casts"
-    # catalog: "Catalog"
+    catalog: "Catalog"
     catalog_description: "Description pour le catalogue" #?
     catalog_name: "Nom pour le catalogue" #?
     category: "Catégorie"

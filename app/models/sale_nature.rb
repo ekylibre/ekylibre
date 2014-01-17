@@ -47,6 +47,7 @@
 
 
 class SaleNature < Ekylibre::Record::Base
+  belongs_to :catalog
   belongs_to :journal
   belongs_to :payment_mode, class_name: "IncomingPaymentMode"
   has_many :sales
@@ -56,7 +57,7 @@ class SaleNature < Ekylibre::Record::Base
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :expiration_delay, :name, :payment_delay, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :by_default, :downpayment, :with_accounting, in: [true, false]
-  validates_presence_of :currency, :expiration_delay, :name, :payment_delay
+  validates_presence_of :catalog, :currency, :expiration_delay, :name, :payment_delay
   #]VALIDATORS]
   validates_presence_of :journal, if: :with_accounting?
   validates_presence_of :currency

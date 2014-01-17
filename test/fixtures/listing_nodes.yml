@@ -51,91 +51,69 @@
 # == Fixture: listing_nodes
 #
 # listing_nodes_001:
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
+#   creator: users_001
 #   depth: 0
 #   exportable: true
-#   id: 1
 #   label: "Lorem ipsum"
-#   listing_id: 1
+#   listing: listings_001
 #   name: "Lorem ipsum"
 #   nature: "Lorem ipsum"
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #
+---
 listing_nodes_001:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
+  creator: users_001
   exportable: true
-  id: 1
-  label: "Entities"
-  listing_id: 1
-  name: "entity"
   key: <%='k'+rand.to_s[2..-1]+'d'%>
-  nature: "root"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  label: Entities
+  listing: listings_001
+  name: entity
+  nature: root
+  updater: users_001
 listing_nodes_002:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  parent_id: 1
+  attribute_name: first_name
+  creator: users_001
   exportable: true
-  id: 2
-  label: "First name"
-  listing_id: 1
-  name: "entity.first_name"
-  attribute_name: "first_name"
-  sql_type: "string"
-  nature: "column"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
   key: <%='k'+rand.to_s[2..-1]+'d'%>
-
+  label: First name
+  listing: listings_001
+  name: entity.first_name
+  nature: column
+  parent: listing_nodes_001
+  sql_type: string
+  updater: users_001
 listing_nodes_003:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
+  attribute_name: addresses
+  creator: users_001
   exportable: true
-  id: 3
-  parent_id: 1
-  label: "Addresses"
-  listing_id: 1
-  name: "address_0"
-  attribute_name: "addresses"
-  nature: "has_many"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
   key: <%='k'+rand.to_s[2..-1]+'d'%>
-
+  label: Addresses
+  listing: listings_001
+  name: address_0
+  nature: has_many
+  parent: listing_nodes_001
+  updater: users_001
 listing_nodes_004:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  parent_id: 3
+  attribute_name: coordinate
+  creator: users_001
   exportable: true
-  id: 4
-  label: "Coordinate"
-  listing_id: 1
-  name: "address_0.coordinate"
-  attribute_name: "coordinate"
-  sql_type: "string"
-  nature: "column"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
   key: <%='k'+rand.to_s[2..-1]+'d'%>
-
+  label: Coordinate
+  listing: listings_001
+  name: address_0.coordinate
+  nature: column
+  parent: listing_nodes_003
+  sql_type: string
+  updater: users_001
 listing_nodes_005:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  parent_id: 3
+  attribute_name: canal
+  creator: users_001
   exportable: true
-  id: 5
-  label: "Canal"
-  listing_id: 1
-  name: "address_0.canal"
-  attribute_name: "canal"
-  nature: "column"
-  sql_type: "string"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
   key: <%='k'+rand.to_s[2..-1]+'d'%>
-
+  label: Canal
+  listing: listings_001
+  name: address_0.canal
+  nature: column
+  parent: listing_nodes_003
+  sql_type: string
+  updater: users_001

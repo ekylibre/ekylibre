@@ -1,6 +1,12 @@
 = main_toolbar do |t|
   - t.edit @issue
-  - for event in @issue.state_paths.events
+  - if @issue.can_close?
+    - t.close(@issue, :method => :post, "data-confirm" => are_you_sure_you_want_to(:close_issue))
+  - if @issue.can_abort?
+    - t.abort(@issue, :method => :post, "data-confirm" => are_you_sure_you_want_to(:abort_issue))
+  - if @issue.can_reopen?
+    - t.reopen(@issue, :method => :post, "data-confirm" => are_you_sure_you_want_to(:reopen_issue))
+  -# for event in @issue.state_paths.events
     - if @issue.send("can_#{event}?")
       - t.send(event, @issue, :method => :post, "data-confirm" => are_you_sure_you_want_to("#{event}_issue"))
   - t.destroy(@issue, :method => :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @issue.destroyable?

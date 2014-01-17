@@ -1084,6 +1084,7 @@ arb:
     cashes: "الحسابات المصرفية"
     cashes_accounts: "حسابات الصندوق النقدي"
     # casts: "Casts"
+    # catalog: "Catalog"
     catalog_description: "مواصفات للدليل"
     catalog_name: "اسم للدليل"
     category: "الفئة"

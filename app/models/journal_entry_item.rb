@@ -63,6 +63,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   # attr_accessible :entry_id, :journal_id, :real_credit, :real_debit, :account_id, :name
   attr_readonly :entry_id, :journal_id, :state
   belongs_to :account
+  belongs_to :financial_year
   belongs_to :journal, inverse_of: :entry_items
   belongs_to :entry, class_name: "JournalEntry", inverse_of: :items
   belongs_to :bank_statement
@@ -75,7 +76,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   validates_length_of :letter, allow_nil: true, maximum: 10
   validates_length_of :state, allow_nil: true, maximum: 30
   validates_length_of :entry_number, :name, allow_nil: true, maximum: 255
-  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :journal, :name, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
+  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :account, :balance, :credit, :cumulated_absolute_credit, :cumulated_absolute_debit, :currency, :debit, :entry, :entry_number, :financial_year, :journal, :name, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
   validates_numericality_of :debit, :credit, :real_debit, :real_credit, :greater_than_or_equal_to => 0
   validates_presence_of :account

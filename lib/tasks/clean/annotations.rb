@@ -72,23 +72,30 @@ module AnnotateModels
   def self.default_fixture(klass)
     info  = "#\n# == Fixture: #{klass.table_name}\n#\n"
     info += "# #{klass.table_name}_001:\n"
-    klass.columns.sort{|a,b| a.name<=>b.name}.each do |col|
-      if (!col.null and col.name != "lock_version") or [:creator_id, :updater_id].include?(col.name.to_sym)
-        info += "#   #{col.name}: "
-        if col.name.match(/_id$/) or col.name == "id"
-          info += '1'
-        elsif col.name.match(/_at$/)
-          info += "#{Date.today.year - 1}-#{Date.today.year.modulo(12).to_s.rjust(2, '0')}-#{Date.today.year.modulo(28).to_s.rjust(2, '0')} #{(Date.today.year.modulo(12) + 8).to_s.rjust(2, '0')}:#{Date.today.year.modulo(60).to_s.rjust(2, '0')}:#{Date.today.year.modulo(30).to_s.rjust(2, '0')} +02:00"
-        elsif col.name.match(/_on$/)
-          info += "#{Date.today.year - 1}-#{Date.today.year.modulo(12).to_s.rjust(2, '0')}-#{Date.today.year.modulo(28).to_s.rjust(2, '0')}"
-        elsif col.type == :boolean
-          info += 'true'
-        elsif col.type == :decimal or col.type == :integer
-          info += "0"
+    klass.columns.sort{|a,b| a.name <=> b.name}.each do |col|
+      next if [:created_at, :updated_at, :id, :lock_version].include? col.name.to_sym
+      next if col.name =~ /\_type$/ and klass.columns_hash[col.name.gsub(/\_type$/, "_id")]
+      if !col.null or [:creator_id, :updater_id].include?(col.name.to_sym)
+        if col.name.match(/_id$/)
+          name = col.name.gsub(/_id$/, '')
+          model = {"creator" => "user", "updater" => "user"}[name] || name
+          info << "#   #{name}: #{model.pluralize}_001"
+          info << " (Model)" if klass.columns_hash["#{name}_type"]
         else
-          info += '"Lorem ipsum"'
+          info << "#   #{col.name}: "
+          if col.name.match(/_at$/)
+            info << "#{Date.today.year - 1}-#{Date.today.year.modulo(12).to_s.rjust(2, '0')}-#{Date.today.year.modulo(28).to_s.rjust(2, '0')} #{(Date.today.year.modulo(12) + 8).to_s.rjust(2, '0')}:#{Date.today.year.modulo(60).to_s.rjust(2, '0')}:#{Date.today.year.modulo(30).to_s.rjust(2, '0')} +02:00"
+          elsif col.name.match(/_on$/)
+            info << "#{Date.today.year - 1}-#{Date.today.year.modulo(12).to_s.rjust(2, '0')}-#{Date.today.year.modulo(28).to_s.rjust(2, '0')}"
+          elsif col.type == :boolean
+            info << 'true'
+          elsif col.type == :decimal or col.type == :integer
+            info << "0"
+          else
+            info << '"Lorem ipsum"'
+          end
         end
-        info += "\n"
+        info << "\n"
       end
     end
     info << "#\n"

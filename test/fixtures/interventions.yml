@@ -47,43 +47,33 @@
 # == Fixture: interventions
 #
 # interventions_001:
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
-#   id: 1
+#   creator: users_001
 #   natures: "Lorem ipsum"
-#   production_id: 1
+#   production: productions_001
 #   provisional: true
 #   recommended: true
 #   reference_name: "Lorem ipsum"
 #   state: "Lorem ipsum"
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #
-
+---
 interventions_001:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  natures: "grinding, soil_enrichment"
-  reference_name: ":plant_grinding-0.0"
-  production_id: 1
+  creator: users_001
+  natures: grinding, soil_enrichment
+  production: productions_001
   provisional: false
-  state: "undone"
-  started_at: 2009-05-03 09:13:59 +02:00
-  stopped_at: 2009-05-03 12:17:23 +02:00
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  reference_name: ':plant_grinding-0.0'
+  started_at: 2009-05-03 09:13:59.000000000 +02:00
+  state: undone
+  stopped_at: 2009-05-03 12:17:23.000000000 +02:00
+  updater: users_001
 interventions_002:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 2
-  natures: "grinding, soil_enrichment"
-  reference_name: ":plant_grinding-0.0"
-  production_id: 1
+  creator: users_001
+  natures: grinding, soil_enrichment
+  production: productions_001
   provisional: false
-  state: "done"
-  started_at: 2009-06-03 09:13:59 +02:00
-  stopped_at: 2009-06-03 12:17:23 +02:00
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+  reference_name: ':plant_grinding-0.0'
+  started_at: 2009-06-03 09:13:59.000000000 +02:00
+  state: done
+  stopped_at: 2009-06-03 12:17:23.000000000 +02:00
+  updater: users_001
