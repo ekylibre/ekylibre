@@ -1066,6 +1066,7 @@ fra:
         nitrogen_input_per_area: "Quantité d'azote par unité de surface"
         phosphorus_concentration: "Teneur en phosphore"
         plant_life_state: "Phase du bioprocessus de vie d’un végétal"
+        # plant_per_area: "Plant per area"
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         population: "Population"
         potassium_concentration: "Teneur en potassium"

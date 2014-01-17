@@ -82,6 +82,7 @@
       <item name="energy" datatype="measure" unit="kilowatt_hour"/>
       <!-- @TODO waiting for choice througt nomenclature -->
       <item name="woodstock_variety" datatype="choice" choices="rgm,gravesac,fercal,so4,3309c,p1103,99r,110r"/>
+      <item name="plant_per_area" datatype="measure" unit="unity_per_hectare"/>
     </items>
   </nomenclature>
 </nomenclatures>

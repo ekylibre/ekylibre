@@ -792,6 +792,62 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "gaps", ["updated_at"], :name => "index_gaps_on_updated_at"
   add_index "gaps", ["updater_id"], :name => "index_gaps_on_updater_id"
 
+  create_table "guide_indicator_data", force: true do |t|
+    t.integer  "guide_id",                                                                                                              null: false
+    t.string   "aim",                                                                                                                   null: false
+    t.string   "subject"
+    t.string   "derivative"
+    t.string   "indicator_name",                                                                                                        null: false
+    t.string   "indicator_datatype",                                                                                                    null: false
+    t.boolean  "boolean_value",                                                                                         default: false, null: false
+    t.string   "choice_value"
+    t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
+    t.string   "measure_value_unit"
+    t.text     "string_value"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",                                                                                                            null: false
+    t.datetime "updated_at",                                                                                                            null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                                                          default: 0,     null: false
+    t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
+    t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
+  end
+
+  add_index "guide_indicator_data", ["created_at"], :name => "index_guide_indicator_data_on_created_at"
+  add_index "guide_indicator_data", ["creator_id"], :name => "index_guide_indicator_data_on_creator_id"
+  add_index "guide_indicator_data", ["guide_id"], :name => "index_guide_indicator_data_on_guide_id"
+  add_index "guide_indicator_data", ["indicator_name"], :name => "index_guide_indicator_data_on_indicator_name"
+  add_index "guide_indicator_data", ["started_at"], :name => "index_guide_indicator_data_on_started_at"
+  add_index "guide_indicator_data", ["stopped_at"], :name => "index_guide_indicator_data_on_stopped_at"
+  add_index "guide_indicator_data", ["updated_at"], :name => "index_guide_indicator_data_on_updated_at"
+  add_index "guide_indicator_data", ["updater_id"], :name => "index_guide_indicator_data_on_updater_id"
+
+  create_table "guides", force: true do |t|
+    t.string   "name"
+    t.string   "number"
+    t.string   "reference_name"
+    t.text     "description"
+    t.boolean  "active",               default: false, null: false
+    t.string   "picture_file_name"
+    t.string   "picture_content_type"
+    t.integer  "picture_file_size"
+    t.datetime "picture_updated_at"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",         default: 0,     null: false
+  end
+
+  add_index "guides", ["created_at"], :name => "index_guides_on_created_at"
+  add_index "guides", ["creator_id"], :name => "index_guides_on_creator_id"
+  add_index "guides", ["updated_at"], :name => "index_guides_on_updated_at"
+  add_index "guides", ["updater_id"], :name => "index_guides_on_updater_id"
+
   create_table "incoming_deliveries", force: true do |t|
     t.string   "number",                       null: false
     t.integer  "sender_id",                    null: false

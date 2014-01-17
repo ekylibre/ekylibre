@@ -278,6 +278,8 @@ eng:
       show: "Financial year %{code}"
     backend/gaps:
       # show: "Perte ou profit N°%{number}"
+    backend/guide_indicator_data: #?
+    backend/guides: #?
     backend/help:  #?
       index: "Help" #?
       show: "Help: %{title}" #?
