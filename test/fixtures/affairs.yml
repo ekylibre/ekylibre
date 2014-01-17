@@ -69,7 +69,7 @@ affairs_001:
   debit: 0
   id: 1
   number: "A000001"
-  originator: sales_001
+  originator: sales_001 (Sale)
   third_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -83,7 +83,7 @@ affairs_002:
   debit: 411.23
   id: 2
   number: "A000002"
-  originator: gaps_002
+  originator: gaps_002 (Gap)
   third_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -97,7 +97,7 @@ affairs_003:
   debit: 158
   id: 3
   number: "A000003"
-  originator: sales_003
+  originator: sales_003 (Sale)
   third_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -111,7 +111,7 @@ affairs_004:
   debit: 158
   id: 4
   number: "A000004"
-  originator: incoming_payments_001
+  originator: incoming_payments_001 (IncomingPayment)
   third_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
@@ -125,7 +125,7 @@ affairs_005:
   debit: 1158
   id: 5
   number: "A000005"
-  originator: incoming_payments_003
+  originator: incoming_payments_003 (IncomingPayment)
   third_id: 1
   updated_at: 2009-07-19 19:13:59 +02:00
   updater_id: 1
