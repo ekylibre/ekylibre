@@ -235,7 +235,7 @@ class Affair < Ekylibre::Record::Base
   end
 
   # Permit to detach a deal from affair
-  def attach(deal)
+  def detach(deal)
     deal.undeal!(self)
   end
 

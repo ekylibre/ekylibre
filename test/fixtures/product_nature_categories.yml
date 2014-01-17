@@ -73,8 +73,10 @@ product_nature_categories_001:
   number: PNC001
   product_account: accounts_001
   purchasable: true
+  purchase_taxes: taxes_001, taxes_002
   reductible: true
   saleable: true
+  sale_taxes: taxes_001, taxes_002
   stock_account: accounts_001
   storable: true
   subscribing: false
@@ -89,8 +91,10 @@ product_nature_categories_002:
   number: PNC002
   product_account: accounts_001
   purchasable: true
+  purchase_taxes: taxes_001, taxes_002
   reductible: true
   saleable: true
+  sale_taxes: taxes_001, taxes_002
   stock_account: accounts_001
   storable: true
   subscribing: false

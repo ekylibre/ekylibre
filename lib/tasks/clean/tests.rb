@@ -98,7 +98,7 @@ task :tests => :environment do
     errors[:models] += 1
     log.write(" - Error: Unexpected test file: #{file}\n")
   end
-  if files.size > 0
+  if files.any?
     log.write("   > git rm #{files.join(' ')}\n")
   end
 
@@ -137,7 +137,7 @@ task :tests => :environment do
     errors[:helpers] += 1
     log.write(" - Error: Unexpected test file: #{file}\n")
   end
-  if files.size > 0
+  if files.any?
     log.write("   > git rm #{files.join(' ')}\n")
   end
 
@@ -175,15 +175,16 @@ task :tests => :environment do
     errors[:controllers] += 1
     log.write(" - Error: Unexpected test files: #{file}\n")
   end
-  if files.size > 0
+  if files.any?
     log.write("   > git rm #{files.join(' ')}\n")
   end
   print_stat :controllers, errors
 
   # Check fixture files
   yaml = nil
-  files = Dir.glob(Rails.root.join("test", "fixtures", "*.yml")).collect{|f| f.to_s}
+  files = Dir.glob(Rails.root.join("test", "fixtures", "*.yml")).map(&:to_s)
   for table, columns in Ekylibre::Schema.tables
+    next unless columns.keys.include?("id")
     log.write("> fixtures #{table}\n") if verbose
     file = Rails.root.join("test", "fixtures", "#{table}.yml")
     if File.exist?(file)
@@ -195,41 +196,35 @@ task :tests => :environment do
         next
       end
 
-      cols = columns.keys.map(&:to_s).delete_if{|c| c =~ /\_id$/ }
-      required_cols = columns.values.select{|c| !c.null? and c.default.nil?}.collect{|c| c.name.to_s} - %w(created_at updated_at id)
-      dr_cols = columns.values.inject({}.with_indifferent_access) do |hash, col|
-        if col.references?
-          reflection_name = col.name.to_s.gsub(/_id$/, '')
-          hash[reflection_name] = [col.name.to_s]
-          hash[reflection_name] << col.references if col.polymorphic?
-        end
-        hash
+      model = table.singularize.camelize.constantize
+      attributes  = columns.keys.map(&:to_s).delete_if{|c| c =~ /\_id$/ }
+      attributes += model.reflections.keys.map(&:to_s)
+
+      required_attributes = columns.values.select{|c| !c.null? and c.default.nil?}.collect do |column|
+        column.name.to_s.gsub(/_id$/, '')
+      end.delete_if do |name|
+        name =~ /\_type$/ and attributes.include?(name.gsub(/\_type$/, ''))
       end
+      required_attributes -= %w(created_at updated_at id)
 
       if yaml.is_a?(Hash)
-        # ids = yaml.collect{|k,v| v["id"]}
-        # if ids.compact.any?
-        #   if ids.uniq.size != ids.size
-        #     errors[:fixtures] += 1
-        #     log.write(" - Error: Duplicates id values in #{file}\n")
-        #   end
-        # end
+        if yaml.keys.size != yaml.keys.uniq.size
+          errors[:fixtures] += 1
+          log.write(" - Error: Duplicates record labels in #{file}\n")
+        end
 
-        for record_name, attributes in yaml
-          requireds = required_cols.dup
-          for attr_name, value in attributes
-            unless cols.include?(attr_name.to_s) or dr_cols[attr_name]
+        for record_name, values in yaml
+          requireds = required_attributes.dup
+          for attribute, value in values
+            unless attributes.include?(attribute)
               errors[:fixtures] += 1
-              log.write(" - Errors: Column #{attr_name} is unknown in #{file}\n")
+              log.write(" - Errors: Attribute #{attribute} is unknown in #{file}\n")
             end
-            if dr_cols[attr_name].is_a?(Array)
-              dr_cols[attr_name].each{|n| requireds.delete(n)}
-            end
-            requireds.delete(attr_name.to_s)
+            requireds.delete(attribute)
           end
-          for col in requireds
+          for attribute in requireds
             errors[:fixtures] += 1
-            log.write(" - Errors: Missing required column #{col} in #{file}\n")
+            log.write(" - Errors: Missing required attribute #{attribute} in #{file}\n")
           end
         end
       else
@@ -251,7 +246,7 @@ task :tests => :environment do
     errors[:fixtures] += 1
     log.write(" - Error: Unexpected fixture file: #{file}\n")
   end
-  if files.size > 0
+  if files.any?
     log.write("   > git rm #{files.join(' ')}\n")
   end
 
