@@ -5,14 +5,8 @@ eng:
         family: "Family" #?
         nature: "Nature of analytic center"
         net_margin: "Net margin"
-        # nomen: "Code analytique"
         parent: "Parent Activity"
         # work_unit: "Unité d’œuvre"
-      analytic_repartition:
-        affected_on: "Affected on" #?
-        # journal_entry_item: "Ligne comptable concernée"
-        # product_nature: "Type de produit concerné"
-        # repartition_percentage: "Pourcentage d’affectation"
       animal:
         born_at: "Born at"
         dead_at: "Dead at" #?
@@ -26,18 +20,14 @@ eng:
         # content_maximal_quantity: "Quantité maximale supportée"
         # content_nature: "Type de Produit contenu"
         # variety: "Type"
-      campaign:
-        # harvest_year: "Année de récolte"
-      cultivable_land_parcel:
-        # area: "Superficie"
-      cultivable_zone:
-        # area: "Superficie"
+      campaign: #?
+      cultivable_land_parcel: #?
+      cultivable_zone: #?
       deposit:  #?
         amount: "Amount" #?
       document:
         filename: "File"
       document_archive:
-        # archived_at: "Archivé le"
         # file_pages_count: "Nombre de page"
       document_template:
         managed: "Managed by the system"
@@ -66,8 +56,8 @@ eng:
         # last_journal_entry: "Écriture de fin d’exercice"
         stopped_on: "Date of closing"
       incoming_payment:
-        amount: "Amount"
-        received: "Received"
+        amount: "Amount" #?
+        received: "Received" #?
         to_bank_on: "To bank on"
       intervention:
         # production_support: "Support de production"
@@ -92,11 +82,11 @@ eng:
       matter:
         # born_at: "Fabriqué le"
         # dead_at: "Détruit/consommé le"
-      meeting:
-        duration: "Duration (in minutes)"
-        place: "Place"
-      meeting_nature:
-        duration: "Duration by default (in min.)"
+      meeting:  #?
+        duration: "Duration (in minutes)" #?
+        place: "Place" #?
+      meeting_nature:  #?
+        duration: "Duration by default (in min.)" #?
       operation:  #?
         consumption: "Consumption" #?
         lines: "Incoming and outgoing products" #?
@@ -392,7 +382,7 @@ eng:
       account_balance: "Account balance"
       activity: "Activity"
       affair: "Affair"
-      analytic_repartition: "Analytic repartition"
+      analytic_distribution: "Analytic distribution"
       animal: "Animal"
       animal_diagnostic: "Animal diagnostic" #?
       animal_disease: "Animal disease" #?
@@ -620,6 +610,7 @@ eng:
     animal_race_nature: "Animal race nature" #?
     animals: "Animals" #?
     annotation: "Annotation"
+    # archived_at: "Archivé le"
     # archiving: "Méthode d’archivage"
     area_measure: "Area measure" #?
     area_unit: "Area unit" #?
@@ -852,6 +843,7 @@ eng:
     # discount_percentage: "Pourcentage d’escompte"
     disease: "Disease" #?
     diseases: "Diseases" #?
+    distributions: "Distributions"
     district: "District"
     districts: "Districts" #?
     division: "X" #?
@@ -970,6 +962,7 @@ eng:
     gravity: "Gravity"
     group: "Group"
     groups: "Groups"
+    # harvest_year: "Année de récolte"
     has_downpayment: "Has downpayment"
     hashed_password: "Hashed password" #?
     hour_duration: "Hour duration" #?
@@ -1338,7 +1331,6 @@ eng:
     remaining_duration: "Remaining duration"
     # remember_me: "Se souvenir de moi"
     # reminder_submissive: "Soumis à la relance"
-    repartitions: "Repartitions"
     # repeatable: "Répétable"
     reproductor: "Reproductor" #?
     required: "Required"

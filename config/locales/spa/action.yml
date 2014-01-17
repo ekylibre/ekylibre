@@ -27,7 +27,7 @@ spa:
       # index: "Activités"
       # new: "Nouvelle activité"
       # show: "%{name}"
-    backend/activity_repartitions: #?
+    backend/activity_distributions: #?
     backend/activity_watchings: #?
     backend/affairs:
       # attach: "Associer une affaire"
@@ -39,11 +39,7 @@ spa:
     backend/aggregators:
       # index: "Agrégateurs"
       # show: "%{name}"
-    backend/analytic_repartitions:
-      # edit: "Modifier la répartion analytique\_: %{id} "
-      # index: "Répartitions analytiques"
-      # new: "Nouvelle répartition analytique"
-      # show: "Répartition %{id}"
+    backend/analytic_distributions: #?
     backend/animal_groups:
       # edit: "Modifier le groupe d’animaux\_: %{name}"
       # index: "Groupes d’animaux"
@@ -710,7 +706,6 @@ spa:
     # backend/activities: "Activités"
     # backend/affairs: "Affaires"
     # backend/aggregators: "Agrégateurs"
-    # backend/analytic_repartitions: "Répartitions analytiques"
     # backend/animal_groups: "Groupes d’animaux"
     # backend/animals: "Animaux"
     backend/application: "Aplicación" #?
@@ -2089,19 +2084,18 @@ spa:
   unroll:
     # backend/accounts: "{number}. {name}"
     # backend/activities: "{name}"
-    backend/activity_repartitions: #?
-    # backend/analytic_repartitions: "{id}"
-    # backend/animals: "{name} - {work_number}"
+    # backend/analytic_distributions: "{id}"
+    # backend/animals: "{name} ‒ {work_number}"
     # backend/campaigns: "{name}"
     # backend/catalog_prices: "{name}"
     # backend/entity_links: "{started_at}"
     # backend/events: "{name}"
     # backend/journal_entry_items: "{name}"
     # backend/logs: "{observed_at}"
-    # backend/matters: "{name} - {work_number}"
+    # backend/matters: "{name} ‒ {work_number}"
     # backend/observations: "{content}"
     # backend/operations: "{reference_name} ({started_at})"
-    # backend/plants: "{name} - {work_number}"
+    # backend/plants: "{name} ‒ {work_number}"
     # backend/prescriptions: "{reference_number}"
     # backend/product_indicators: "{id}"
     # backend/product_memberships: "{started_at}"

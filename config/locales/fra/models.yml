@@ -4,13 +4,8 @@ fra:
       activity:
         nature: "Type de centre analytique"
         net_margin: "Marge nette"
-        nomen: "Code analytique"
         parent: "Activité parente"
         work_unit: "Unité d’œuvre"
-      analytic_repartition:
-        journal_entry_item: "Ligne comptable concernée"
-        product_nature: "Type de produit concerné"
-        repartition_percentage: "Pourcentage d’affectation"
       animal:
         born_at: "Né(e) le"
         variety: "Race"
@@ -21,16 +16,9 @@ fra:
         content_maximal_quantity: "Quantité maximale supportée"
         content_nature: "Type de Produit contenu"
         variety: "Type"
-      campaign:
-        harvest_year: "Année de récolte"
-      cultivable_land_parcel:
-        area: "Superficie"
-      cultivable_zone:
-        area: "Superficie"
       document:
         filename: "Fichier"
       document_archive:
-        archived_at: "Archivé le"
         file_pages_count: "Nombre de page"
       document_template:
         managed: "Géré par le système"
@@ -57,8 +45,6 @@ fra:
         last_journal_entry: "Écriture de fin d’exercice"
         stopped_on: "Date de clôture"
       incoming_payment:
-        amount: "Montant"
-        received: "Reçu"
         to_bank_on: "À encaisser le"
       intervention:
         production_support: "Support de production"
@@ -80,11 +66,6 @@ fra:
       matter:
         born_at: "Fabriqué le"
         dead_at: "Détruit/consommé le"
-      meeting:
-        duration: "Durée (en minutes)"
-        place: "Lieu"
-      meeting_nature:
-        duration: "Durée par défaut (en min.)"
       outgoing_delivery:
         items: "Lignes de livraison"
       outgoing_payment:
@@ -263,7 +244,7 @@ fra:
       account_balance: "Balance de compte"
       activity: "Activité"
       affair: "Affaire"
-      analytic_repartition: "Répartition analytique"
+      analytic_distribution: "Répartition analytique"
       animal: "Animal"
       animal_group: "Groupe d’animaux"
       animal_medicine: "Produits vétérinaires"
@@ -419,7 +400,7 @@ fra:
     amount: "Montant"
     amounts_scale: "Nombre de chiffres après le virgule" #?
     annotation: "Annotation"
-    # archived_at: "Archived at"
+    archived_at: "Archivé le"
     # archives: "Archives"
     # archives_count: "Archives count"
     archiving: "Méthode d’archivage"
@@ -611,6 +592,7 @@ fra:
     direct_links: "Liens directs"
     direction: "Type"
     discount_percentage: "Pourcentage d’escompte" #?
+    distributions: "Répartitions"
     district: "Zone administrative"
     document: "Document"
     document_archives: "Archives documentaires"
@@ -697,7 +679,7 @@ fra:
     gravity: "Gravité"
     group: "Groupe"
     groups: "Groupes"
-    # harvest_year: "Harvest year"
+    harvest_year: "Année de récolte"
     has_downpayment: "A un acompte"
     # horizontal_rotation: "Horizontal rotation"
     iban: "IBAN"
@@ -948,7 +930,7 @@ fra:
     real_currency_rate: "Real currency rate"
     real_debit: "Real debit"
     receipt: "Reçu électronique"
-    received: "Reçue"
+    received: "Reçu"
     received_at: "Reçu le"
     reception_amount: "Montant reçu"
     reception_cash: "Trésorerie réceptrice"
@@ -975,7 +957,6 @@ fra:
     # remember_created_at: "Remember created at"
     remember_me: "Se souvenir de moi"
     reminder_submissive: "Soumis à la relance"
-    repartitions: "Repartitions"
     repeatable: "Répétable"
     # reporter: "Reporter"
     required: "Obligatoire"

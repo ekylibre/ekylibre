@@ -62,7 +62,7 @@ class CreateBase < ActiveRecord::Migration
       t.index      :number, unique: true
     end
 
-    create_table :analytic_repartitions do |t|
+    create_table :analytic_distributions do |t|
       t.references :production,                                                null: false, index: true
       t.references :journal_entry_item,                                        null: false, index: true
       t.string     :state,                                                     null: false

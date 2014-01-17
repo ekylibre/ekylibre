@@ -17,15 +17,11 @@ arb:
       activity:
         # nature: "Type de centre analytique"
         # net_margin: "Marge nette"
-        # nomen: "Code analytique"
         # parent: "Activité parente"
         # work_unit: "Unité d’œuvre"
-      activity_repartition: #?
+      activity_distribution: #?
       activity_watching: #?
-      analytic_repartition:
-        # journal_entry_item: "Ligne comptable concernée"
-        # product_nature: "Type de produit concerné"
-        # repartition_percentage: "Pourcentage d’affectation"
+      analytic_distribution: #?
       animal:
         # born_at: "Né(e) le"
         # variety: "Race"
@@ -47,8 +43,7 @@ arb:
         # content_maximal_quantity: "Quantité maximale supportée"
         # content_nature: "Type de Produit contenu"
         # variety: "Type"
-      campaign:
-        # harvest_year: "Année de récolte"
+      campaign: #?
       cash:  #?
         account: "كاتب الحسابات المشار اليه" #?
         account_id: "كاتب الحسابات المشار اليه" #?
@@ -92,10 +87,8 @@ arb:
         entity: "الملف" #?
         entity_id: "ملف" #?
         website: "موقع على الانترنت" #?
-      cultivable_land_parcel:
-        # area: "Superficie"
-      cultivable_zone:
-        # area: "Superficie"
+      cultivable_land_parcel: #?
+      cultivable_zone: #?
       currency:  #?
         cashes: "الخزينة" #?
         comment: "تعليق" #?
@@ -160,7 +153,6 @@ arb:
         # filename: "Fichier"
         updater_id: "تحديث" #?
       document_archive:
-        # archived_at: "Archivé le"
         # file_pages_count: "Nombre de page"
       document_template:
         created_at: "انشأ في" #?
@@ -246,14 +238,13 @@ arb:
         stopped_on: "تاريخ الاغلاق"
       incoming_payment:
         accounted_at: "تمت محاسبته في" #?
-        amount: "القيمة"
+        amount: "القيمة" #?
         created_on: "انشأت يوم" #?
         depositer: "المسؤول" #?
         depositer_id: "المسؤول" #?
         mode_id: "نمط دفعة" #?
         paid_on: "سدد يوم" #?
         parts: "اجزاء الدفعة" #?
-        # received: "Reçu"
         to_bank_on: "تسديد الدفعة يوم"
       incoming_payment_mode:  #?
         cash: "الخزينة المستخدمة" #?
@@ -322,19 +313,18 @@ arb:
       matter:
         # born_at: "Fabriqué le"
         # dead_at: "Détruit/consommé le"
-      meeting:
+      meeting:  #?
         created_at: "تم انشائها في" #?
-        duration: "(المدة (بالدقائق"
+        duration: "(المدة (بالدقائق" #?
         location: "الموقع" #?
         nature: "النوع" #?
         nature_id: "النوع" #?
-        # place: "Lieu"
         responsible: "المتحدث" #?
         responsible_id: "المتحدث" #?
         started_at: "التاريخ والوقت" #?
         updater_id: "تحديث" #?
-      meeting_nature:
-        duration: "(المدة الافتراضية (بالدقائق"
+      meeting_nature:  #?
+        duration: "(المدة الافتراضية (بالدقائق" #?
         updated_at: "تم تحديثها في" #?
       observation:  #?
         company_id: "الشركة" #?
@@ -833,7 +823,7 @@ arb:
       account_balance: "رصيد الحساب"
       # activity: "Activité"
       # affair: "Affaire"
-      # analytic_repartition: "Répartition analytique"
+      # analytic_distribution: "Répartition analytique"
       # animal: "Animal"
       # animal_group: "Groupe d’animaux"
       # animal_medicine: "Produits vétérinaires"
@@ -1027,6 +1017,7 @@ arb:
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
     # amounts_scale: "Nombre de chiffres après le virgule"
     annotation: "ملاحظة"
+    # archived_at: "Archivé le"
     # archiving: "Méthode d’archivage"
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
@@ -1272,6 +1263,7 @@ arb:
     discount: "(%خصم (بنسبة  " #?
     # discount_percentage: "Pourcentage d’escompte"
     discount_rate: "سعر الخصم" #?
+    # distributions: "Répartitions"
     district: "المنطقة"
     district_id: "المنطقة الادارية" #?
     districts: "المناطق الادارية" #?
@@ -1385,6 +1377,7 @@ arb:
     # gravity: "Gravité"
     # group: "Groupe"
     # groups: "Groupes"
+    # harvest_year: "Année de récolte"
     has_downpayment: "لديه عربون واحد"
     hashed_password: "تشفير كلمة المرور" #?
     hour_duration: "(ساعة (ساعات" #?
@@ -1750,7 +1743,6 @@ arb:
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات "
     # remember_me: "Se souvenir de moi"
     # reminder_submissive: "Soumis à la relance"
-    # repartitions: "Repartitions"
     # repeatable: "Répétable"
     required: "الزامي"
     reservoir: "المخزن"

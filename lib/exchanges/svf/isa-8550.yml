@@ -118,9 +118,9 @@ lines:
       # - extra_thing_8: float-8.2
       # - extra_thing_9: float-8.2
     children:
-      - repartitions: analytic_repartitions-+
+      - distributions: analytic_distributions-+
 
-  analytic_repartition:
+  analytic_distribution:
     key: "ANAREP"
     cells:
       - activity_code: string-6

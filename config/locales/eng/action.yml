@@ -30,11 +30,11 @@ eng:
     backend/aggregators:
       # index: "Agrégateurs"
       # show: "%{name}"
-    backend/analytic_repartitions:
-      edit: "Edit a repartition\_: %{id} "
-      index: "Analytics repartitions"
-      new: "Create a repartition"
-      show: "Repartition %{id}"
+    backend/analytic_distributions:  #?
+      edit: "Edit a distribution\_: %{id} " #?
+      index: "Analytics distributions" #?
+      new: "Create a distribution" #?
+      show: "Distribution %{id}" #?
     backend/animal_groups:
       edit: "Edit animal's group\_: %{name}"
       index: "Animal's groups"
@@ -684,7 +684,7 @@ eng:
     backend/activities: "Activities"
     backend/affairs: "Affairs"
     # backend/aggregators: "Agrégateurs"
-    backend/analytic_repartitions: "Analytics repartitions"
+    backend/analytic_distributions: "Analytics distributions" #?
     # backend/animal_groups: "Groupes d’animaux"
     backend/animals: "Animals"
     backend/areas: "Postal areas" #?
@@ -1049,7 +1049,7 @@ eng:
     # delivery_natural_gas_and_electricity_assessable: "Livraisons de gaz naturel ou d’électricité imposables en France"
     # delivery_natural_gas_and_electricity_not_assessable: "Livraisons de gaz naturel ou d’électricité non imposables en France"
     demo_bar: "Bar"
-    demo_map: "Sales repartitions"
+    demo_map: "Sales distributions"
     demo_pie: "Pie"
     departments: "Departments"
     deposit: "Deposit"
@@ -2026,51 +2026,29 @@ eng:
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
     various_journal: "Default various operations journal"
   unroll:
-    backend/accounts:  #? String excepted (Hash:{:all=>"{number}. {name}"})
-      all: "{number}. {name}" #? String excepted (Hash:{:all=>"{number}. {name}"})
-    backend/activities:  #? String excepted (Hash:{:all=>"{name} ({family}/{nature})"})
-      all: "{name} ({family}/{nature})" #? String excepted (Hash:{:all=>"{name} ({family}/{nature})"})
-    backend/analytic_repartitions:  #? String excepted (Hash:{:all=>"{id}"})
-      all: "{id}" #? String excepted (Hash:{:all=>"{id}"})
-    backend/animals:  #? String excepted (Hash:{:all=>"{name} ({sex})"})
-      all: "{name} ({sex})" #? String excepted (Hash:{:all=>"{name} ({sex})"})
-    backend/campaigns:  #? String excepted (Hash:{:all=>"{name}"})
-      all: "{name}" #? String excepted (Hash:{:all=>"{name}"})
+    backend/accounts: "{number}. {name}"
+    backend/activities: "{name} ({family}/{nature})"
+    backend/analytic_distributions: "{id}"
+    backend/animals: "{name} #{work_number}"
+    backend/campaigns: "{name}"
     # backend/catalog_prices: "{name}"
-    backend/entity_links:  #? String excepted (Hash:{:all=>"{started_at}"})
-      all: "{started_at}" #? String excepted (Hash:{:all=>"{started_at}"})
-    backend/events:  #? String excepted (Hash:{:all=>"{reason}"})
-      all: "{reason}" #? String excepted (Hash:{:all=>"{reason}"})
-    backend/journal_entry_items:  #? String excepted (Hash:{:all=>"{name}"})
-      all: "{name}" #? String excepted (Hash:{:all=>"{name}"})
-    backend/logs:  #? String excepted (Hash:{:all=>"{observed_at}"})
-      all: "{observed_at}" #? String excepted (Hash:{:all=>"{observed_at}"})
-    backend/matters:  #? String excepted (Hash:{:all=>"{name} - {work_number}"})
-      all: "{name} - {work_number}" #? String excepted (Hash:{:all=>"{name} - {work_number}"})
-    backend/observations:  #? String excepted (Hash:{:all=>"{content}"})
-      all: "{content}" #? String excepted (Hash:{:all=>"{content}"})
-    backend/operations:  #? String excepted (Hash:{:all=>"{nature} ({created_at})"})
-      all: "{nature} ({created_at})" #? String excepted (Hash:{:all=>"{nature} ({created_at})"})
-    backend/plants:  #? String excepted (Hash:{:all=>"{name} - {work_number}"})
-      all: "{name} - {work_number}" #? String excepted (Hash:{:all=>"{name} - {work_number}"})
-    # backend/prescriptions: "{reference_number}"
-    backend/product_indicators:  #? String excepted (Hash:{:all=>"{id}"})
-      all: "{id}" #? String excepted (Hash:{:all=>"{id}"})
-    backend/product_memberships:  #? String excepted (Hash:{:all=>"{started_at}"})
-      all: "{started_at}" #? String excepted (Hash:{:all=>"{started_at}"})
-    backend/product_nature_prices:  #?
-      all: "{amount} {currency} / {pretax_amount} {currency}" #?
-    # backend/product_nature_variants: "{name} ({unit_name})"
-    backend/product_natures:  #? String excepted (Hash:{:all=>"{name}"})
-      all: "{name}" #? String excepted (Hash:{:all=>"{name}"})
-    backend/product_transfers:  #? String excepted (Hash:{:all=>"{id}"})
-      all: "{id}" #? String excepted (Hash:{:all=>"{id}"})
-    # backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
-    backend/products:  #? String excepted (Hash:{:all=>"{work_number} {name}"})
-      all: "{work_number} {name}" #? String excepted (Hash:{:all=>"{work_number} {name}"})
-    backend/units:  #?
-      all: "{label} ({name})" #?
-    backend/users:  #? String excepted (Hash:{:all=>"{first_name} {last_name}"})
-      all: "{first_name} {last_name}" #? String excepted (Hash:{:all=>"{first_name} {last_name}"})
-    bakend/entity_links:  #?
-      all: "{started_at}" #?
+    backend/entity_links: "{started_at}"
+    backend/events: "{reason}"
+    backend/journal_entry_items: "{name}"
+    backend/logs: "{observed_at}"
+    backend/matters: "{name} ‒ {work_number}"
+    backend/observations: "{content}"
+    backend/operations: "{nature} ({created_at})"
+    backend/plants: "{name} ‒ {work_number}"
+    backend/prescriptions: "{reference_number}"
+    backend/product_indicators: "{id}"
+    backend/product_memberships: "{started_at}"
+    backend/product_nature_prices: "{amount} {currency} / {pretax_amount} {currency}" #?
+    backend/product_nature_variants: "{name} ({unit_name})"
+    backend/product_natures: "{name}"
+    backend/product_transfers: "{id}"
+    backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
+    backend/products: "{work_number} {name}"
+    backend/units: "{label} ({name})" #?
+    backend/users: "{first_name} {last_name}"
+    bakend/entity_links: "{started_at}" #?

@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: analytic_repartitions
+# == Table: analytic_distributions
 #
 #  affectation_percentage :decimal(19, 4)   not null
 #  affected_on            :date             not null
@@ -35,7 +35,7 @@
 #
 require 'test_helper'
 
-class AnalyticRepartitionTest < ActiveSupport::TestCase
+class AnalyticDistributionTest < ActiveSupport::TestCase
 
   # Replace this with your real tests.'
   test "the truth" do

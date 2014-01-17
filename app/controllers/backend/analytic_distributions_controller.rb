@@ -17,7 +17,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnalyticRepartitionsController < BackendController
+class Backend::AnalyticDistributionsController < BackendController
   manage_restfully
 
   unroll
@@ -32,17 +32,17 @@ class Backend::AnalyticRepartitionsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  # Displays the main page with the list of analytic_repartitions.
+  # Displays the main page with the list
   def index
-    if Production.count.zero?
+    unless Production.any?
       notify(:need_to_create_productions)
       redirect_to :controller => :productions
       return
     end
     respond_to do |format|
       format.html
-      format.xml  { render :xml => AnalyticRepartition.all }
-      format.json { render :json => AnalyticRepartition.all }
+      format.xml  { render :xml => AnalyticDistribution.all }
+      format.json { render :json => AnalyticDistribution.all }
     end
   end
 

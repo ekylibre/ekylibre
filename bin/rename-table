@@ -132,37 +132,37 @@ end
 config = root.join("config")
 
 # config/locales/*/models.yml
-for file in Dir[config.join("locales", "*", "models.yml")].sort
+for file in Dir[config.join("locales", "*", "{models,enumerize}.yml")].sort
   lf = Pathname(file)
   tr = YAML.load_file(lf)
   locale = tr.keys.first
   if tr[locale]["activerecord"]
     if tr[locale]["activerecord"]["attributes"]
       if tr[locale]["activerecord"]["attributes"][old_table.singularize]
-        tr[locale]["activerecord"]["attributes"][new_table.singularize] = tr[locale]["activerecord"]["attributes"][old_table.singularize]
+        tr[locale]["activerecord"]["attributes"][new_table.singularize] = tr[locale]["activerecord"]["attributes"].delete(old_table.singularize)
       end
     end
     if tr[locale]["activerecord"]["errors"]
       if tr[locale]["activerecord"]["errors"]["models"]
         if tr[locale]["activerecord"]["errors"]["models"][old_table.singularize]
-          tr[locale]["activerecord"]["errors"]["models"][new_table.singularize] = tr[locale]["activerecord"]["errors"]["models"][old_table.singularize]
+          tr[locale]["activerecord"]["errors"]["models"][new_table.singularize] = tr[locale]["activerecord"]["errors"]["models"].delete(old_table.singularize)
         end
       end
     end
     if tr[locale]["activerecord"]["models"]
       if tr[locale]["activerecord"]["models"][old_table.singularize]
-        tr[locale]["activerecord"]["models"][new_table.singularize] = tr[locale]["activerecord"]["models"][old_table.singularize]
+        tr[locale]["activerecord"]["models"][new_table.singularize] = tr[locale]["activerecord"]["models"].delete(old_table.singularize)
       end
     end
   end
   if tr[locale]["enumerize"]
     if tr[locale]["enumerize"][old_table.singularize]
-      tr[locale]["enumerize"][new_table.singularize] = tr[locale]["enumerize"][old_table.singularize]
+      tr[locale]["enumerize"][new_table.singularize] = tr[locale]["enumerize"].delete(old_table.singularize)
     end
     end
   if tr[locale]["models"]
     if tr[locale]["models"][old_table.singularize]
-      tr[locale]["models"][new_table.singularize] = tr[locale]["models"][old_table.singularize]
+      tr[locale]["models"][new_table.singularize] = tr[locale]["models"].delete(old_table.singularize)
     end
   end
   
@@ -184,17 +184,17 @@ for file in Dir[config.join("locales", "*", "action.yml")].sort
   locale = tr.keys.first
   if tr[locale]["actions"]
     if tr[locale]["actions"][old_table]
-      tr[locale]["actions"][new_table] = tr[locale]["actions"][old_table]
+      tr[locale]["actions"][new_table] = tr[locale]["actions"].delete(old_table)
     end
   end
   if tr[locale]["controllers"]
     if tr[locale]["controllers"][old_table]
-      tr[locale]["controllers"][new_table] = tr[locale]["controllers"][old_table]
+      tr[locale]["controllers"][new_table] = tr[locale]["controllers"].delete(old_table)
     end
   end
   if tr[locale]["unroll"]
     if tr[locale]["unroll"][old_table]
-      tr[locale]["unroll"][new_table] = tr[locale]["unroll"][old_table]
+      tr[locale]["unroll"][new_table] = tr[locale]["unroll"].delete(old_table)
     end
   end
   

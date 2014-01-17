@@ -155,7 +155,7 @@ Ekylibre::Application.routes.draw do
 
     resources :aggregators, only: [:index, :show]
 
-    resources :analytic_repartitions, concerns: [:list, :unroll]
+    resources :analytic_distributions, concerns: [:list, :unroll]
 
     resources :animal_groups, concerns: [:list, :picture, :unroll] do
       member do

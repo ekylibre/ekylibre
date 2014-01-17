@@ -44,7 +44,7 @@ class Production < Ekylibre::Record::Base
   belongs_to :campaign
   belongs_to :variant, class_name: "ProductNatureVariant"
   # belongs_to :area_unit, class_name: "Unit"
-  has_many :repartitions, class_name: "AnalyticRepartition"
+  has_many :distributions, class_name: "AnalyticDistribution"
   has_many :supports, class_name: "ProductionSupport", inverse_of: :production
   has_many :markers, through: :supports, class_name: "ProductionSupportMarker"
   has_many :interventions, inverse_of: :production
@@ -109,7 +109,7 @@ class Production < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.interventions.any? or self.repartitions.any?
+    self.interventions.any? or self.distributions.any?
   end
 
   before_validation(on: :create) do

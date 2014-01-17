@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: analytic_repartitions
+# == Table: analytic_distributions
 #
 #  affectation_percentage :decimal(19, 4)   not null
 #  affected_on            :date             not null
@@ -33,24 +33,32 @@
 #  updated_at             :datetime         not null
 #  updater_id             :integer
 #
-class AnalyticRepartition < Ekylibre::Record::Base
-  # attr_accessible :state, :production_id, :affected_on,  :description, :journal_entry_item_id,  :percentage
-  belongs_to :production
-  belongs_to :journal_entry_item
-
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :affectation_percentage, allow_nil: true
-  validates_length_of :state, allow_nil: true, maximum: 255
-  validates_presence_of :affectation_percentage, :affected_on, :journal_entry_item, :production, :state
-  #]VALIDATORS]
-
-  state_machine :state, :initial => :draft do
-    state :draft
-    state :confirmed
-    state :closed
-  end
-
-  # default_scope -> { order(:name) }
-
-
-end
+#
+# == Fixture: analytic_distributions
+#
+# analytic_distributions_001:
+#   affectation_percentage: 0
+#   affected_on: 2013-10-26
+#   creator: users_001
+#   journal_entry_item: journal_entry_items_001
+#   production: productions_001
+#   state: "Lorem ipsum"
+#   updater: users_001
+#
+---
+analytic_distributions_001:
+  affectation_percentage: 100
+  affected_on: 2009-07-19
+  creator: users_001
+  journal_entry_item: journal_entry_items_001
+  production: productions_001
+  state: draft
+  updater: users_001
+analytic_distributions_002:
+  affectation_percentage: 100
+  affected_on: 2009-07-19
+  creator: users_001
+  journal_entry_item: journal_entry_items_001
+  production: productions_001
+  state: draft
+  updater: users_001

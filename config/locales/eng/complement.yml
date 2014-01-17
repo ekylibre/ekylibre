@@ -598,7 +598,7 @@ eng:
         account_balance: "Account balance"
         activity: "Activity"
         affair: "Affair"
-        analytic_repartition: "Analytic repartition"
+        analytic_distribution: "Analytic distribution"
         animal: "Animal"
         animal_diagnostic: "Animal diagnostic"
         animal_disease: "Animal disease"

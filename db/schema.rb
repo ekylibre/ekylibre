@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "affairs", ["updated_at"], :name => "index_affairs_on_updated_at"
   add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"
 
-  create_table "analytic_repartitions", force: true do |t|
+  create_table "analytic_distributions", force: true do |t|
     t.integer  "production_id",                                               null: false
     t.integer  "journal_entry_item_id",                                       null: false
     t.string   "state",                                                       null: false
@@ -132,12 +132,12 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "lock_version",                                    default: 0, null: false
   end
 
-  add_index "analytic_repartitions", ["created_at"], :name => "index_analytic_repartitions_on_created_at"
-  add_index "analytic_repartitions", ["creator_id"], :name => "index_analytic_repartitions_on_creator_id"
-  add_index "analytic_repartitions", ["journal_entry_item_id"], :name => "index_analytic_repartitions_on_journal_entry_item_id"
-  add_index "analytic_repartitions", ["production_id"], :name => "index_analytic_repartitions_on_production_id"
-  add_index "analytic_repartitions", ["updated_at"], :name => "index_analytic_repartitions_on_updated_at"
-  add_index "analytic_repartitions", ["updater_id"], :name => "index_analytic_repartitions_on_updater_id"
+  add_index "analytic_distributions", ["created_at"], :name => "index_analytic_distributions_on_created_at"
+  add_index "analytic_distributions", ["creator_id"], :name => "index_analytic_distributions_on_creator_id"
+  add_index "analytic_distributions", ["journal_entry_item_id"], :name => "index_analytic_distributions_on_journal_entry_item_id"
+  add_index "analytic_distributions", ["production_id"], :name => "index_analytic_distributions_on_production_id"
+  add_index "analytic_distributions", ["updated_at"], :name => "index_analytic_distributions_on_updated_at"
+  add_index "analytic_distributions", ["updater_id"], :name => "index_analytic_distributions_on_updater_id"
 
   create_table "bank_statements", force: true do |t|
     t.integer  "cash_id",                                                       null: false

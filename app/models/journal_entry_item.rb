@@ -60,14 +60,13 @@
 #   * absolute_(credit|debit|balance) are in currency of the company
 #   * cumulated_absolute_(credit|debit)are in currency of the company too
 class JournalEntryItem < Ekylibre::Record::Base
-  # attr_accessible :entry_id, :journal_id, :real_credit, :real_debit, :account_id, :name
   attr_readonly :entry_id, :journal_id, :state
   belongs_to :account
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entry_items
   belongs_to :entry, class_name: "JournalEntry", inverse_of: :items
   belongs_to :bank_statement
-  has_many :repartitions, class_name: "AnalyticRepartition", foreign_key: :journal_entry_item_id
+  has_many :distributions, class_name: "AnalyticDistribution", foreign_key: :journal_entry_item_id
   # delegate :real_currency, to: :entry
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
