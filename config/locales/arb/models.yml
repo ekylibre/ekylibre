@@ -988,6 +988,7 @@ arb:
     # absolute_credit: "Absolute credit"
     # absolute_currency: "Absolute currency"
     # absolute_debit: "Absolute debit"
+    # acceptance_status: "Acceptance status"
     account: "الحساب"
     account_balances: "ارصدة الحسابات"
     account_id: "حساب" #?
@@ -1361,6 +1362,7 @@ arb:
     for_sales: "منتجات البيع" #?
     format: "التصميم" #?
     # formats: "Formats"
+    # frequency: "Frequency"
     # frozen_indicators: "Frozen indicators"
     # frozen_indicators_list: "Frozen indicators list"
     full_name: "الاسم بالكامل"

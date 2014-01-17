@@ -1014,6 +1014,8 @@ spa:
         # wheat: "Blé"
         # winter_straw_cereal: "Céréales à paille d'hiver"
       # name: "Typologie de culture (France)"
+    guide_natures:
+      items: #?
     indicators:
       attributes:
         # choices: "Choix"

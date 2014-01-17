@@ -576,6 +576,7 @@ eng:
     # absolute_credit: "Absolute credit"
     # absolute_currency: "Absolute currency"
     # absolute_debit: "Absolute debit"
+    # acceptance_status: "Acceptance status"
     account: "Account"
     account_balances: "Account balances"
     account_number: "Account number" #?
@@ -945,7 +946,7 @@ eng:
     for_purchases: "For purchases" #?
     for_sales: "For sales" #?
     # formats: "Formats"
-    frequency: "Frequency" #?
+    frequency: "Frequency"
     # frozen_indicators: "Frozen indicators"
     # frozen_indicators_list: "Frozen indicators list"
     full_name: "Full name"

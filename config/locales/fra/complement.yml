@@ -1575,6 +1575,8 @@ fra:
         ZAR: "Rand"
         ZMK: "Kwacha zambien"
         ZWL: "Dollar zimbabwéen"
+    guide:
+
     immatter:
       variety:
         acetal: "Acetal"

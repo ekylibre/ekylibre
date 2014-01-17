@@ -1,0 +1,9 @@
+= beehive do |b|
+  - b.cell do
+    = attributes_list do |l|
+      - l.attribute :execution_number
+      - l.attribute :started_at
+      - l.attribute :stopped_at
+      - l.attribute :acceptance_status
+
+  -# TODO Details results based on XML structure with points results

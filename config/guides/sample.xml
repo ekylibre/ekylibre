@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<guide title="Minimal checkup" frequency="none" nature="best_pratices" xmlns="http://www.ekylibre.org/XML/2014/guides">
+  <sections>
+    <section name="general_checkup">
+      <test name="you_have_configured_your_own_email" test="current_user.email != 'admin@ekylibre.org'"/>
+      <section name="trade_checkup">
+	<test name="you_have_clients" mandatory="false">
+	  <when test="Entity.clients.order(:id).first.created_at - Time.now &lt; 3.months" passed="false" advice="too_early_to_say"/>
+	  <when test="Entity.clients.count &lt; 15" passed="false" advice="review_your_marketing_strategy"/>
+	  <when test="Entity.clients.order(:id).first.created_at - Time.now &gt; 12.months and Entity.clients.count &lt; 100" passed="false" advice="review_your_marketing_strategy"/>
+	  <when test="Entity.clients.order(:id).first.created_at - Time.now &lt; 12.months and Entity.clients.count &lt; 100" passed="true" advice="clients_begins_to_come_so_continue"/>
+	  <otherwise passed="true"/>
+	</test>
+      </section>
+    </section>
+  </sections>
+  <translations>
+    <key name="general_checkup">
+      <translation language="fra">Checkup global</translation>
+    </key>
+    <key name="you_have_configured_your_own_email">
+      <translation language="fra">Vous avez configuré votre propre adresse e-mail</translation>
+    </key>
+    <key name="trade_checkup">
+      <translation language="fra">Checkup commercial</translation>
+    </key>
+    <key name="you_have_clients">
+      <translation language="fra">Vous avez des clients</translation>
+    </key>
+    <key name="review_your_marketing_strategy">
+      <translation language="fra">Revoyez votre stratégie marketing.</translation>
+    </key>
+    <key name="clients_begins_to_come_so_continue">
+      <translation language="fra">Les clients commencent à arriver, continuez.</translation>
+    </key>
+  </translations>
+</guide>

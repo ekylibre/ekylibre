@@ -464,26 +464,30 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :guides do |t|
-      t.string     :name
-      t.string     :number
-      t.string     :reference_name
-      t.text       :description
+      t.string     :name,                                   null: false
+      t.string     :nature,                                 null: false
       t.boolean    :active,                 default: false, null: false
-      t.attachment :picture
+      t.boolean    :external,               default: false, null: false
+      t.string     :frequency,                              null: false
+      t.string     :reference_name
+      t.attachment :reference_source
       t.stamps
     end
 
-    create_table :guide_indicator_data do |t|
-      t.references :guide, null: false, index: true
-      t.string     :aim,     null: false
-      t.string     :subject
-      t.string     :derivative
-      t.indicator_datum      null: false, index: true
-      t.datetime   :started_at
-      t.datetime   :stopped_at
+    create_table :guide_analyses do |t|
+      t.references :guide,                                  null: false, index: true
+      t.integer    :execution_number,                       null: false
+      t.datetime   :started_at,                             null: false
+      t.datetime   :stopped_at,                             null: false
+      t.string     :acceptance_status,                      null: false
       t.stamps
-      t.index      :started_at
-      t.index      :stopped_at
+    end
+
+    create_table :guide_analysis_points do |t|
+      t.references :analysis,                               null: false, index: true
+      t.string     :reference_name,                         null: false
+      t.string     :acceptance_status,                      null: false
+      t.string     :advice_reference_name
       t.stamps
     end
 

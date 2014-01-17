@@ -1457,16 +1457,12 @@
       <item name="financial_years">
         <page to="backend/financial_years#list_financial_asset_depreciations"/>
       </item>
-      <item name="guide_indicator_data">
-        <page to="backend/guide_indicator_data#index"/>
-        <page to="backend/guide_indicator_data#create"/>
-        <page to="backend/guide_indicator_data#destroy"/>
-        <page to="backend/guide_indicator_data#edit"/>
-        <page to="backend/guide_indicator_data#list"/>
-        <page to="backend/guide_indicator_data#new"/>
-        <page to="backend/guide_indicator_data#show"/>
-        <page to="backend/guide_indicator_data#unroll"/>
-        <page to="backend/guide_indicator_data#update"/>
+      <item name="guide_analyses">
+        <page to="backend/guide_analyses#show"/>
+        <page to="backend/guide_analyses#unroll"/>
+      </item>
+      <item name="guides">
+        <page to="backend/guides#list_analyses"/>
       </item>
       <item name="incoming_deliveries">
         <page to="backend/incoming_deliveries#list_items"/>

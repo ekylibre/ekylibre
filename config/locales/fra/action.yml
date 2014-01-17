@@ -264,11 +264,8 @@ fra:
       # index: "Index backend/gap"
       # new: "New backend/gap"
       show: "Perte ou profit N°%{number}"
-    backend/guide_indicator_data:
-      # edit: "Edit backend/guide indicator datum"
-      # index: "Index backend/guide indicator datum"
-      # new: "New backend/guide indicator datum"
-      # show: "Show backend/guide indicator datum"
+    backend/guide_analyses:
+      # show: "Show backend/guide analysis"
     backend/guides:
       # edit: "Edit backend/guide"
       # index: "Index backend/guide"
@@ -744,7 +741,7 @@ fra:
     backend/financial_assets: "Immobilisations"
     backend/financial_years: "Exercices comptables"
     # backend/gaps: "Backend/gaps"
-    # backend/guide_indicator_data: "Backend/guide indicator data"
+    # backend/guide_analyses: "Backend/guide analyses"
     # backend/guides: "Backend/guides"
     # backend/helps: "Backend/helps"
     backend/incoming_deliveries: "Livraisons entrantes"

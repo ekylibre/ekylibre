@@ -21,26 +21,39 @@
 #
 # == Table: guides
 #
-#  active               :boolean          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  description          :text
-#  id                   :integer          not null, primary key
-#  lock_version         :integer          default(0), not null
-#  name                 :string(255)
-#  number               :string(255)
-#  picture_content_type :string(255)
-#  picture_file_name    :string(255)
-#  picture_file_size    :integer
-#  picture_updated_at   :datetime
-#  reference_name       :string(255)
-#  updated_at           :datetime         not null
-#  updater_id           :integer
+#  active                        :boolean          not null
+#  created_at                    :datetime         not null
+#  creator_id                    :integer
+#  external                      :boolean          not null
+#  frequency                     :string(255)      not null
+#  id                            :integer          not null, primary key
+#  lock_version                  :integer          default(0), not null
+#  name                          :string(255)      not null
+#  nature                        :string(255)      not null
+#  reference_name                :string(255)
+#  reference_source_content_type :string(255)
+#  reference_source_file_name    :string(255)
+#  reference_source_file_size    :integer
+#  reference_source_updated_at   :datetime
+#  updated_at                    :datetime         not null
+#  updater_id                    :integer
 #
+
 class Guide < Ekylibre::Record::Base
+  has_many :analyses, class_name: "GuideAnalysis"
+  has_one :last_analysis, -> { order(execution_number: :desc) }, class_name: "GuideAnalysis"
+  enumerize :nature, in: Nomen::GuideNatures.all
+  enumerize :frequency, in: [:hourly, :daily, :weekly, :monthly, :yearly, :decadely, :none]
+
+  has_attached_file :reference_source, path: ':rails_root/private/guides/:id/source.xml'
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_length_of :name, :number, :picture_content_type, :picture_file_name, :reference_name, allow_nil: true, maximum: 255
-  validates_inclusion_of :active, in: [true, false]
+  validates_numericality_of :reference_source_file_size, allow_nil: true, only_integer: true
+  validates_length_of :frequency, :name, :nature, :reference_name, :reference_source_content_type, :reference_source_file_name, allow_nil: true, maximum: 255
+  validates_inclusion_of :active, :external, in: [true, false]
+  validates_presence_of :frequency, :name, :nature
   #]VALIDATORS]
+
+  delegate :status, to: :last_analysis
+
 end

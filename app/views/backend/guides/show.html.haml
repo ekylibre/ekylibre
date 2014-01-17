@@ -3,5 +3,11 @@
 
 = beehive do |b|
   - b.cell do
-    = attributes_list(@guide) do |l|
+    = attributes_list do |l|
       - l.attribute :name
+      - l.attribute :active
+      - l.attribute :nature
+      - l.attribute :external
+
+  - b.cell :analyses do
+    = list :analyses

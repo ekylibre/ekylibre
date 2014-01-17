@@ -1,7 +1,7 @@
 # encoding: utf-8
 # == License
 # Ekylibre - Simple ERP
-# Copyright (C) 2013 Brice Texier, David Joulin
+# Copyright (C) 2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,12 +17,8 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::GuideIndicatorDataController < BackendController
-  manage_restfully
+class Backend::GuideAnalysesController < BackendController
+  manage_restfully only: [:show]
 
   unroll
-
-  list do |t|
-    t.column :name, url: true
-  end
 end

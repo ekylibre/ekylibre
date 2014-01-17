@@ -909,6 +909,12 @@ fra:
         vetch: "Féverole"
         wheat: "Blé"
         winter_straw_cereal: "Céréales à paille d'hiver"
+    guide_natures:
+      # name: "Guide natures"
+      items:
+        # best_practices: "Best practices"
+        # regulations: "Regulations"
+        # specifications: "Specifications"
     indicators:
       name: "Indicateurs"
       attributes:

@@ -1,7 +1,7 @@
 # encoding: utf-8
 # == License
 # Ekylibre - Simple ERP
-# Copyright (C) 2013 Brice Texier, David Joulin
+# Copyright (C) 2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,5 +24,19 @@ class Backend::GuidesController < BackendController
 
   list do |t|
     t.column :name, url: true
+    t.column :active
+    t.status
+    t.column :nature
+    t.column :external
+    t.action :edit
+    t.action :destroy
   end
+
+  list(:analyses, model: :guide_analyses, conditions: {guide_id: 'params[:id]'.c}, order: {execution_number: :desc}) do |t|
+    t.column :execution_number, url: true
+    t.status
+    t.column :started_at, hidden: true
+    t.column :stopped_at
+  end
+
 end

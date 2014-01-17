@@ -41,7 +41,8 @@
 - gap
 - gap_item
 - guide
-- guide_indicator_datum
+- guide_analysis
+- guide_analysis_point
 - immatter
 - incoming_delivery
 - incoming_delivery_item

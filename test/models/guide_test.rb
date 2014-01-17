@@ -21,21 +21,22 @@
 #
 # == Table: guides
 #
-#  active               :boolean          not null
-#  created_at           :datetime         not null
-#  creator_id           :integer
-#  description          :text
-#  id                   :integer          not null, primary key
-#  lock_version         :integer          default(0), not null
-#  name                 :string(255)
-#  number               :string(255)
-#  picture_content_type :string(255)
-#  picture_file_name    :string(255)
-#  picture_file_size    :integer
-#  picture_updated_at   :datetime
-#  reference_name       :string(255)
-#  updated_at           :datetime         not null
-#  updater_id           :integer
+#  active                        :boolean          not null
+#  created_at                    :datetime         not null
+#  creator_id                    :integer
+#  external                      :boolean          not null
+#  frequency                     :string(255)      not null
+#  id                            :integer          not null, primary key
+#  lock_version                  :integer          default(0), not null
+#  name                          :string(255)      not null
+#  nature                        :string(255)      not null
+#  reference_name                :string(255)
+#  reference_source_content_type :string(255)
+#  reference_source_file_name    :string(255)
+#  reference_source_file_size    :integer
+#  reference_source_updated_at   :datetime
+#  updated_at                    :datetime         not null
+#  updater_id                    :integer
 #
 require 'test_helper'
 
