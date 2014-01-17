@@ -705,6 +705,19 @@
       <!--   <page to="backend/settings#restore"/> -->
       <!-- </item> -->
     </group>
+    <group name="guides" icon="book">
+      <item name="guides">
+        <page to="backend/guides#index"/>
+        <page to="backend/guides#create"/>
+        <page to="backend/guides#destroy"/>
+        <page to="backend/guides#edit"/>
+        <page to="backend/guides#list"/>
+        <page to="backend/guides#new"/>
+        <page to="backend/guides#show"/>
+        <page to="backend/guides#unroll"/>
+        <page to="backend/guides#update"/>
+      </item>
+    </group>
     <group name="calculators_and_simulators" icon="compass">
       <item name="calculators">
         <page to="backend/calculators#index"/>
@@ -748,7 +761,7 @@
       <item name="aggregators">
         <page to="backend/aggregators#index"/>
         <page to="backend/aggregators#show"/>
-      </item>
+      </item> 
       <item name="import">
         <page to="backend/settings#import"/>
       </item>
@@ -1454,17 +1467,6 @@
         <page to="backend/guide_indicator_data#show"/>
         <page to="backend/guide_indicator_data#unroll"/>
         <page to="backend/guide_indicator_data#update"/>
-      </item>
-      <item name="guides">
-        <page to="backend/guides#index"/>
-        <page to="backend/guides#create"/>
-        <page to="backend/guides#destroy"/>
-        <page to="backend/guides#edit"/>
-        <page to="backend/guides#list"/>
-        <page to="backend/guides#new"/>
-        <page to="backend/guides#show"/>
-        <page to="backend/guides#unroll"/>
-        <page to="backend/guides#update"/>
       </item>
       <item name="incoming_deliveries">
         <page to="backend/incoming_deliveries#list_items"/>
