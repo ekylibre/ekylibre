@@ -44,20 +44,15 @@
 #
 # transfers_001:
 #   amount: 0
-#   client_id: 1
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
+#   client: clients_001
+#   creator: users_001
 #   currency: "Lorem ipsum"
-#   id: 1
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #
+---
 transfers_001:
   amount: 120
-  client_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  currency: "EUR"
-  id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+  client: legal_entities_001
+  creator: users_001
+  currency: EUR
+  updater: users_001

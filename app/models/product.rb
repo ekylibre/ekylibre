@@ -76,6 +76,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :default_storage, class_name: "Product"
   belongs_to :category, class_name: "ProductNatureCategory"
   belongs_to :content_nature, class_name: "ProductNature"
+  belongs_to :parent, class_name: "Product"
   belongs_to :father, class_name: "Product"
   belongs_to :initial_container, class_name: "Product"
   belongs_to :initial_owner, class_name: "Entity"

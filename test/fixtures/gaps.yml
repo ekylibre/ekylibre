@@ -43,48 +43,38 @@
 # == Fixture: gaps
 #
 # gaps_001:
-#   affair_id: 1
+#   affair: affairs_001
 #   amount: 0
-#   created_at: 2013-10-26 18:34:04 +02:00
 #   created_on: 2013-10-26
-#   creator_id: 1
+#   creator: users_001
 #   currency: "Lorem ipsum"
 #   direction: "Lorem ipsum"
-#   entity_id: 1
+#   entity: entities_001
 #   entity_role: "Lorem ipsum"
-#   id: 1
 #   number: "Lorem ipsum"
 #   pretax_amount: 0
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #
-
+---
 gaps_001:
-  affair_id: 1
+  affair: affairs_001
   amount: 0.53
-  created_at: 2009-07-19 19:13:59 +02:00
   created_on: 2005-07-19
-  creator_id: 1
-  currency: "EUR"
-  direction: "profit"
-  entity_id: 1
+  creator: users_001
+  currency: EUR
+  direction: profit
+  entity: entities_001
   entity_role: client
-  id: 1
-  number: "G001"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  number: G001
+  updater: users_001
 gaps_002:
-  affair_id: 1
+  affair: affairs_001
   amount: 0.17
-  created_at: 2009-07-19 19:13:59 +02:00
   created_on: 2005-04-01
-  creator_id: 1
-  currency: "EUR"
-  direction: "loss"
-  entity_id: 2
+  creator: users_001
+  currency: EUR
+  direction: loss
+  entity: entities_002
   entity_role: client
-  id: 2
-  number: "G002"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+  number: G002
+  updater: users_001

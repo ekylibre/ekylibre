@@ -45,104 +45,82 @@
 # == Fixture: purchase_items
 #
 # purchase_items_001:
-#   account_id: 1
+#   account: accounts_001
 #   amount: 0
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
+#   creator: users_001
 #   currency: "Lorem ipsum"
-#   id: 1
 #   indicator_name: "Lorem ipsum"
 #   pretax_amount: 0
-#   purchase_id: 1
+#   purchase: purchases_001
 #   quantity: 0
-#   tax_id: 1
+#   tax: taxes_001
 #   unit_price_amount: 0
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
-#   variant_id: 1
+#   updater: users_001
+#   variant: variants_001
 #
-
+---
 purchase_items_001:
-  account_id: 1
+  account: accounts_001
   amount: 10
+  creator: users_001
+  currency: EUR
+  indicator_name: population
   pretax_amount: 0
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  currency: "EUR"
-  id: 1
-  indicator_name: 'population'
-  purchase_id: 1
-  unit_price_amount: 5
-  variant_id: 1
+  purchase: purchases_001
   quantity: 1
-  tax_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  tax: taxes_001
+  unit_price_amount: 5
+  updater: users_001
+  variant: product_nature_variants_001
 purchase_items_002:
-  account_id: 1
+  account: accounts_001
   amount: 0
+  creator: users_001
+  currency: EUR
+  indicator_name: population
   pretax_amount: 0
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  currency: "EUR"
-  id: 2
-  indicator_name: 'population'
-  purchase_id: 1
-  unit_price_amount: 5
-  variant_id: 1
+  purchase: purchases_001
   quantity: 2
-  tax_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  tax: taxes_001
+  unit_price_amount: 5
+  updater: users_001
+  variant: product_nature_variants_001
 purchase_items_003:
-  account_id: 1
+  account: accounts_001
   amount: 0
+  creator: users_001
+  currency: EUR
+  indicator_name: population
   pretax_amount: 0
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  currency: "EUR"
-  id: 3
-  indicator_name: 'population'
-  purchase_id: 2
-  unit_price_amount: 5
-  variant_id: 1
+  purchase: purchases_002
   quantity: 3
-  tax_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  tax: taxes_001
+  unit_price_amount: 5
+  updater: users_001
+  variant: product_nature_variants_001
 purchase_items_004:
-  account_id: 1
+  account: accounts_001
   amount: 10
+  creator: users_001
+  currency: EUR
+  indicator_name: population
   pretax_amount: 10
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  currency: "EUR"
-  id: 4
-  indicator_name: 'population'
-  purchase_id: 3
-  unit_price_amount: 5
-  variant_id: 1
+  purchase: purchases_003
   quantity: 7
-  tax_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
-purchase_items_005:
-  account_id: 1
-  amount: 17
-  pretax_amount: 26
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  currency: "EUR"
-  id: 5
-  indicator_name: 'population'
-  purchase_id: 3
+  tax: taxes_001
   unit_price_amount: 5
-  variant_id: 1
+  updater: users_001
+  variant: product_nature_variants_001
+purchase_items_005:
+  account: accounts_001
+  amount: 17
+  creator: users_001
+  currency: EUR
+  indicator_name: population
+  pretax_amount: 26
+  purchase: purchases_003
   quantity: 9
-  tax_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+  tax: taxes_001
+  unit_price_amount: 5
+  updater: users_001
+  variant: product_nature_variants_001

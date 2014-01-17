@@ -54,60 +54,49 @@
 # == Fixture: financial_assets
 #
 # financial_assets_001:
-#   allocation_account_id: 1
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
+#   allocation_account: allocation_accounts_001
+#   creator: users_001
 #   currency: "Lorem ipsum"
 #   depreciable_amount: 0
 #   depreciated_amount: 0
 #   depreciation_method: "Lorem ipsum"
-#   id: 1
-#   journal_id: 1
+#   journal: journals_001
 #   name: "Lorem ipsum"
 #   number: "Lorem ipsum"
 #   started_on: 2013-10-26
 #   stopped_on: 2013-10-26
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #
-
+---
 financial_assets_001:
-  allocation_account_id: 1
-  charges_account_id: 3
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  currency: 'EUR'
-  depreciated_amount: 0
+  allocation_account: accounts_001
+  charges_account: accounts_003
+  creator: users_001
+  currency: EUR
   depreciable_amount: 150
-  depreciation_method: "linear"
-  id: 1
-  journal_id: 1
-  name: "Lorem ipsum"
-  number: "A09001"
+  depreciated_amount: 0
+  depreciation_method: linear
+  journal: journals_001
+  name: Lorem ipsum
+  number: A09001
   purchase_amount: 150
   purchased_on: 2009-07-19
   started_on: 1995-07-19
   stopped_on: 2015-08-31
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  updater: users_001
 financial_assets_002:
-  allocation_account_id: 1
-  charges_account_id: 3
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  currency: 'EUR'
-  depreciated_amount: 0
+  allocation_account: accounts_001
+  charges_account: accounts_003
+  creator: users_001
+  currency: EUR
   depreciable_amount: 0
-  depreciation_method: "linear"
-  id: 2
-  journal_id: 1
-  name: "Lorem ipsum 2"
-  number: "A09002"
+  depreciated_amount: 0
+  depreciation_method: linear
+  journal: journals_001
+  name: Lorem ipsum 2
+  number: A09002
   purchase_amount: 0
   purchased_on: 2009-07-19
   started_on: 1995-07-19
   stopped_on: 2015-08-31
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  updater: users_001

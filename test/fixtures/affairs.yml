@@ -45,88 +45,64 @@
 #
 # affairs_001:
 #   closed: true
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
+#   creator: users_001
 #   credit: 0
 #   currency: "Lorem ipsum"
 #   deals_count: 0
 #   debit: 0
-#   id: 1
 #   number: "Lorem ipsum"
-#   originator_id: 1
-#   originator_type: "Lorem ipsum"
-#   third_id: 1
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   originator: originators_001 (Model)
+#   third: thirds_001
+#   updater: users_001
 #
-
+---
 affairs_001:
   closed: true
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
+  creator: users_001
   credit: 0
-  currency: "EUR"
+  currency: EUR
   debit: 0
-  id: 1
-  number: "A000001"
+  number: A000001
   originator: sales_001 (Sale)
-  third_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  third: legal_entities_001
+  updater: users_001
 affairs_002:
   closed: true
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
+  creator: users_001
   credit: 411.23
-  currency: "EUR"
+  currency: EUR
   debit: 411.23
-  id: 2
-  number: "A000002"
+  number: A000002
   originator: gaps_002 (Gap)
-  third_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  third: legal_entities_001
+  updater: users_001
 affairs_003:
   closed: false
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
+  creator: users_001
   credit: 236
-  currency: "EUR"
+  currency: EUR
   debit: 158
-  id: 3
-  number: "A000003"
+  number: A000003
   originator: sales_003 (Sale)
-  third_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  third: legal_entities_001
+  updater: users_001
 affairs_004:
   closed: false
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
+  creator: users_001
   credit: 1236
-  currency: "EUR"
+  currency: EUR
   debit: 158
-  id: 4
-  number: "A000004"
+  number: A000004
   originator: incoming_payments_001 (IncomingPayment)
-  third_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  third: legal_entities_001
+  updater: users_001
 affairs_005:
   closed: false
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
+  creator: users_001
   credit: 236
-  currency: "EUR"
+  currency: EUR
   debit: 1158
-  id: 5
-  number: "A000005"
+  number: A000005
   originator: incoming_payments_003 (IncomingPayment)
-  third_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  third: legal_entities_001
+  updater: users_001

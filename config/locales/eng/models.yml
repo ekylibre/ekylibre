@@ -680,6 +680,7 @@ eng:
     cashes: "Bank accounts"
     cashes_accounts: "Cashes accounts"
     # casts: "Casts"
+    # catalog: "Catalog"
     catalog_description: "Catalog description"
     catalog_name: "Catalog name"
     category: "Category"

@@ -29,7 +29,7 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :container, url: true
     t.column :mother, url: true
     t.column :father, url: true
-    t.action :show, url: {:format => :pdf}, image: :print
+    # t.action :show, url: {:format => :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

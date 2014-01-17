@@ -39,36 +39,26 @@
 # analytic_repartitions_001:
 #   affectation_percentage: 0
 #   affected_on: 2013-10-26
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
-#   id: 1
-#   journal_entry_item_id: 1
-#   production_id: 1
+#   creator: users_001
+#   journal_entry_item: journal_entry_items_001
+#   production: productions_001
 #   state: "Lorem ipsum"
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #
-
+---
 analytic_repartitions_001:
-  affected_on: 2009-07-19
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  journal_entry_item_id: 1
   affectation_percentage: 100
-  production_id: 1
-  state: "draft"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  affected_on: 2009-07-19
+  creator: users_001
+  journal_entry_item: journal_entry_items_001
+  production: productions_001
+  state: draft
+  updater: users_001
 analytic_repartitions_002:
-  affected_on: 2009-07-19
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 2
-  journal_entry_item_id: 1
   affectation_percentage: 100
-  production_id: 1
-  state: "draft"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+  affected_on: 2009-07-19
+  creator: users_001
+  journal_entry_item: journal_entry_items_001
+  production: productions_001
+  state: draft
+  updater: users_001

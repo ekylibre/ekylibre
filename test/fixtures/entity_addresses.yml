@@ -52,66 +52,49 @@
 #   by_default: true
 #   canal: "Lorem ipsum"
 #   coordinate: "Lorem ipsum"
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
-#   entity_id: 1
-#   id: 1
+#   creator: users_001
+#   entity: entities_001
 #   mail_auto_update: true
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #
+---
 entity_addresses_001:
-  entity_id: 1
-  thread: AAAA
+  by_default: true
   canal: phone
   coordinate: 0123456789
-  by_default: true
-  id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  creator: users_001
+  entity: legal_entities_001
+  thread: AAAA
+  updater: users_001
 entity_addresses_002:
-  entity_id: 1
-  thread: AAAB
+  by_default: false
   canal: phone
   coordinate: 1234567890
-  by_default: false
-  id: 2
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  creator: users_001
+  entity: legal_entities_001
+  thread: AAAB
+  updater: users_001
 entity_addresses_003:
-  entity_id: 1
-  thread: AAAC
   by_default: true
   canal: mail
   coordinate: Mrs Jones, Somewhere, 12345 InTheWorld
+  creator: users_001
+  entity: legal_entities_001
   mail_line_1: Mrs Jones
   mail_line_4: Somewhere
   mail_line_6: 12345 InTheWorld
-  mail_postal_zone_id: 2
-  id: 3
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
-
-entity_addresses_004:
-  entity_id: 301
+  mail_postal_zone: postal_zones_002
   thread: AAAC
+  updater: users_001
+entity_addresses_004:
   by_default: true
   canal: mail
   coordinate: Mr Jones, Somewhere, 12345 InTheWorld
+  creator: users_001
+  entity: people_001
   mail_line_1: Mr Jones
   mail_line_4: 2 Somewhere
   mail_line_6: 12345 InTheWorld
-  mail_postal_zone_id: 2
-  id: 4
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  updated_at: 2006-07-19 19:13:59 +02:00
-  updater_id: 1
+  mail_postal_zone: postal_zones_002
+  thread: AAAC
+  updater: users_001

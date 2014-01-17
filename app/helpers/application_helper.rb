@@ -875,8 +875,8 @@ module ApplicationHelper
 
     def method_missing(method_name, *args, &block)
       raise ArgumentError.new("Block can not be accepted") if block_given?
-      args << {} unless args[-1].is_a?(Hash)
-      args[-1][:group] ||= new_group if args[-1][:variants]
+      args << {} unless args.last.is_a?(Hash)
+      args.last[:group] ||= new_group if args.last[:variants]
       add(:missing, method_name.to_s.gsub(/\_+$/, '').to_sym, *args)
     end
 

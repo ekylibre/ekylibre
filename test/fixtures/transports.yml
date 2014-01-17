@@ -44,33 +44,23 @@
 #
 # transports_001:
 #   amount: 0
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
-#   id: 1
+#   creator: users_001
 #   pretax_amount: 0
-#   transporter_id: 1
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   transporter: transporters_001
+#   updater: users_001
 #
+---
 transports_001:
   amount: 0
+  creator: users_001
+  number: TR0001
   pretax_amount: 0
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 1
-  number: "TR0001"
-  transporter_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  transporter: legal_entities_001
+  updater: users_001
 transports_002:
   amount: 0
+  creator: users_001
+  number: TR0002
   pretax_amount: 0
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 2
-  number: "TR0002"
-  transporter_id: 1
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  transporter: legal_entities_001
+  updater: users_001

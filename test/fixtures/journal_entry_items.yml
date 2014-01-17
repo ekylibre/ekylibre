@@ -60,20 +60,18 @@
 #   absolute_credit: 0
 #   absolute_currency: "Lorem ipsum"
 #   absolute_debit: 0
-#   account_id: 1
+#   account: accounts_001
 #   balance: 0
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
+#   creator: users_001
 #   credit: 0
 #   cumulated_absolute_credit: 0
 #   cumulated_absolute_debit: 0
 #   currency: "Lorem ipsum"
 #   debit: 0
-#   entry_id: 1
+#   entry: entries_001
 #   entry_number: "Lorem ipsum"
-#   financial_year_id: 1
-#   id: 1
-#   journal_id: 1
+#   financial_year: financial_years_001
+#   journal: journals_001
 #   name: "Lorem ipsum"
 #   printed_on: 2013-10-26
 #   real_credit: 0
@@ -81,55 +79,46 @@
 #   real_currency_rate: 0
 #   real_debit: 0
 #   state: "Lorem ipsum"
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #
-
+---
 journal_entry_items_001:
   absolute_credit: 0
-  absolute_currency: "EUR"
+  absolute_currency: EUR
   absolute_debit: 0
-  account_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
+  account: accounts_001
+  creator: users_001
   credit: 0
-  currency: 'EUR'
+  currency: EUR
   debit: 0
-  entry_id: 1
-  entry_number: "XYZ0001"
-  financial_year_id: 1
-  id: 1
-  journal_id: 1
-  name: "Lorem ipsum"
+  entry: journal_entries_001
+  entry_number: XYZ0001
+  financial_year: financial_years_001
+  journal: journals_001
+  name: Lorem ipsum
   printed_on: 2007-07-20
   real_credit: 0
+  real_currency: EUR
   real_debit: 0
-  real_currency: 'EUR'
   state: draft
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  updater: users_001
 journal_entry_items_002:
   absolute_credit: 0
-  absolute_currency: "EUR"
+  absolute_currency: EUR
   absolute_debit: 0
-  account_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
+  account: accounts_001
+  creator: users_001
   credit: 0
-  currency: 'EUR'
+  currency: EUR
   debit: 0
-  entry_id: 1
-  entry_number: "XYZ0001"
-  financial_year_id: 1
-  id: 2
-  journal_id: 1
-  name: "Lorem ipsum 2"
+  entry: journal_entries_001
+  entry_number: XYZ0001
+  financial_year: financial_years_001
+  journal: journals_001
+  name: Lorem ipsum 2
   printed_on: 2007-07-20
   real_credit: 0
+  real_currency: EUR
   real_debit: 0
-  real_currency: 'EUR'
   state: draft
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  updater: users_001

@@ -37,35 +37,25 @@
 # == Fixture: outgoing_delivery_items
 #
 # outgoing_delivery_items_001:
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
-#   delivery_id: 1
-#   id: 1
+#   creator: users_001
+#   delivery: deliveries_001
 #   population: 0
-#   product_id: 1
-#   source_product_id: 1
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   product: products_001
+#   source_product: source_products_001
+#   updater: users_001
 #
-
+---
 outgoing_delivery_items_001:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  delivery_id: 1
-  id: 1
-  product_id: 10
+  creator: users_001
+  delivery: outgoing_deliveries_001
   population: 0
-  source_product_id: 10
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-
+  product: products_010
+  source_product: products_010
+  updater: users_001
 outgoing_delivery_items_002:
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  delivery_id: 1
-  id: 2
-  product_id: 10
+  creator: users_001
+  delivery: outgoing_deliveries_001
   population: 1
-  source_product_id: 10
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
+  product: products_010
+  source_product: products_010
+  updater: users_001

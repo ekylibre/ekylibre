@@ -103,7 +103,7 @@ class Backend::EntitiesController < BackendController
     t.column :delivery_address, hidden: true
     t.column :state_label
     t.column :amount, currency: true
-    t.action :show, url: {:format => :pdf}, image: :print, hidden: true
+    # t.action :show, url: {:format => :pdf}, image: :print, hidden: true
     t.action :edit
     t.action :destroy, :if => :destroyable?, hidden: true
   end
@@ -114,7 +114,7 @@ class Backend::EntitiesController < BackendController
     t.column :created_on,  children: false, hidden: true
     t.column :state_label, children: false
     t.column :amount, currency: true
-    t.action :show, url: {:format => :pdf}, image: :print, hidden: true
+    # t.action :show, url: {:format => :pdf}, image: :print, hidden: true
     t.action :duplicate, :method => :post, hidden: true
     t.action :edit, :if => :draft?
     # t.action :destroy, :if => :aborted?

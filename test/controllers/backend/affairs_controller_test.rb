@@ -24,14 +24,14 @@ class Backend::AffairsControllerTest < ActionController::TestCase
 
   def test_attach_invalid_deal
     affair = affairs(:affairs_001)
-    assert affair.valid?
+    assert affair.valid?, "Affair 001 must be valid"
     post :attach, {id: affair.id}
     assert_response :error, "Error expected with no given deal"
   end
 
   def test_detach_invalid_deal
     affair = affairs(:affairs_001)
-    assert affair.valid?
+    assert affair.valid?, "Affair 001 must be valid"
     post :detach, {id: affair.id}
     assert_response :error, "Error expected with no given deal"
   end

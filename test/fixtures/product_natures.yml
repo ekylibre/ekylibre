@@ -52,99 +52,72 @@
 #
 # product_natures_001:
 #   active: true
-#   category_id: 1
-#   created_at: 2013-10-26 18:34:04 +02:00
-#   creator_id: 1
+#   category: categories_001
+#   creator: users_001
 #   evolvable: true
-#   id: 1
 #   name: "Lorem ipsum"
 #   number: "Lorem ipsum"
 #   population_counting: "Lorem ipsum"
-#   updated_at: 2013-10-26 18:34:04 +02:00
-#   updater_id: 1
+#   updater: users_001
 #   variety: "Lorem ipsum"
 #
-
+---
 product_natures_001:
   active: true
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
+  category: product_nature_categories_001
+  creator: users_001
   evolvable: true
-  frozen_indicators_list: "net_mass, net_volume"
-  id: 1
-  name: "Generic Product Type"
-  number: "PN001"
-  population_counting: "decimal"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variety: "product"
-
+  frozen_indicators_list: net_mass, net_volume
+  name: Generic Product Type
+  number: PN001
+  population_counting: decimal
+  updater: users_001
+  variety: product
 product_natures_002:
   active: true
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 2
-  id: 2
-  population_counting: "unitary"
-  name: "Lorem ipsum 2"
-  number: "LI2"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 2
-  variety: "animal"
-
+  category: product_nature_categories_001
+  creator: users_002
+  name: Lorem ipsum 2
+  number: LI2
+  population_counting: unitary
+  updater: users_002
+  variety: animal
 product_natures_003:
   active: true
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 3
-  population_counting: "unitary"
-  name: "Lorem ipsum 3"
-  number: "LI3"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variety: "plant"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Lorem ipsum 3
+  number: LI3
+  population_counting: unitary
+  updater: users_001
+  variety: plant
 product_natures_004:
   active: true
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 4
-  population_counting: "unitary"
-  name: "Building"
-  number: "BUILDING"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variety: "building"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Building
+  number: BUILDING
+  population_counting: unitary
+  updater: users_001
+  variety: building
 product_natures_005:
   active: true
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  derivatives_list: "meat, milk"
-  id: 5
-  frozen_indicators_list: "sex, population"
-  population_counting: "unitary"
-  name: "Female cow"
-  number: "FEMCOW"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variable_indicators_list: ""
-  variety: "bos"
-
+  category: product_nature_categories_001
+  creator: users_001
+  derivatives_list: meat, milk
+  frozen_indicators_list: sex, population
+  name: Female cow
+  number: FEMCOW
+  population_counting: unitary
+  updater: users_001
+  variable_indicators_list: ''
+  variety: bos
 product_natures_029:
   active: true
-  category_id: 1
-  created_at: 2009-07-19 19:13:59 +02:00
-  creator_id: 1
-  id: 29
-  population_counting: "unitary"
-  name: "Herd"
-  number: "HERD"
-  updated_at: 2009-07-19 19:13:59 +02:00
-  updater_id: 1
-  variety: "animal_group"
-
+  category: product_nature_categories_001
+  creator: users_001
+  name: Herd
+  number: HERD
+  population_counting: unitary
+  updater: users_001
+  variety: animal_group
