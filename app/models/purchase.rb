@@ -139,8 +139,9 @@ class Purchase < Ekylibre::Record::Base
 
   # Globalizes taxes into an array of hash
   def deal_taxes(debit = false)
+    return [] if self.deal_mode_amount(mode).zero?
     taxes = {}
-    coeff = (self.send("deal_#{debit ? :debit : :credit}?") ? 1 : -1)
+    coeff = 1 # (self.send("deal_#{mode}?") ? 1 : -1)
     for item in self.items
       taxes[item.tax_id] ||= {amount: 0.0, tax: item.tax}
       taxes[item.tax_id][:amount] += coeff * item.amount

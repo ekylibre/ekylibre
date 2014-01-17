@@ -209,10 +209,11 @@ class Sale < Ekylibre::Record::Base
   end
 
   # Globalizes taxes into an array of hash
-  def deal_taxes(debit = false)
+  def deal_taxes(mode = :debit)
+    return [] if self.deal_mode_amount(mode).zero?
     taxes = {}
     coeff = (self.credit? ? -1 : 1)
-    coeff *= (self.send("deal_#{debit ? :debit : :credit}?") ? 1 : -1)
+    # coeff *= (self.send("deal_#{mode}?") ? 1 : -1)
     for item in self.items
       taxes[item.tax_id] ||= {amount: 0.0, tax: item.tax}
       taxes[item.tax_id][:amount] += coeff * item.amount
@@ -440,7 +441,7 @@ class Sale < Ekylibre::Record::Base
     c << tc('sales_conditions.downpayment', :percentage => self.nature.downpayment_percentage, :amount => (self.nature.downpayment_percentage * 0.01 * self.amount).round(2)) if self.amount > self.nature.downpayment_minimum
     c << tc('sales_conditions.validity', :expiration => ::I18n.localize(self.expired_on, :format => :legal))
     c += self.nature.sales_conditions.to_s.split(/\s*\n\s*/)
-    c += self.responsible.department.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.department
+    c += self.responsible.team.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.team
     c
   end
 
@@ -461,36 +462,54 @@ class Sale < Ekylibre::Record::Base
     not self.credit? and self.invoice? and self.amount + self.credits.sum(:amount) > 0
   end
 
+  # # Create a credit for the selected invoice? guarding the reference
+  # def cancel(items = {}, options = {})
+  #   items = items.delete_if{|k,v| v.zero?}
+  #   return false if !self.cancelable? or items.size.zero?
+  #   credit = self.class.new(origin: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair)
+  #   ActiveRecord::Base.transaction do
+  #     if saved = credit.save
+  #       for item in self.items.where(:id => items.keys)
+  #         quantity = -items[item.id.to_s].abs
+  #         credit_item = credit.items.create(quantity: quantity, credited_item: item, variant: item.variant, price: item.price, reduction_percentage: item.reduction_percentage)
+  #         unless credit_item.save
+  #           saved = false
+  #           # credit.errors.add_from_record(credit_item)
+  #         end
+  #       end
+  #     else
+  #       raise credit.errors.full_messages.inspect
+  #     end
+  #     if saved
+  #       credit.reload
+  #       credit.propose!
+  #       # TODO: Manage returning deliveries because of the partial/total cancel
+  #       credit.confirm!
+  #       credit.invoice!
+  #       self.reload.save
+  #     else
+  #       raise ActiveRecord::Rollback
+  #     end
+  #   end
+
+  #   return credit
+  # end
+
   # Create a credit for the selected invoice? guarding the reference
   def cancel(items = {}, options = {})
     items = items.delete_if{|k,v| v.zero?}
-    return false if !self.cancelable? or items.size.zero?
-    credit = self.class.new(origin: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair)
-    ActiveRecord::Base.transaction do
-      if saved = credit.save
-        for item in self.items.where(:id => items.keys)
-          quantity = -items[item.id.to_s].abs
-          credit_item = credit.items.create(:quantity => quantity, :origin_id => item.id, :product_id => item.product_id, :price_id => item.price_id, :reduction_percentage => item.reduction_percentage)
-          unless credit_item.save
-            saved = false
-            credit.errors.add_from_record(credit_item)
-          end
-        end
-      else
-        raise credit.errors.full_messages.inspect
-      end
-      if saved
-        credit.reload
-        credit.propose!
-        # TODO: Manage returning deliveries because of the partial/total cancel
-        credit.confirm!
-        credit.invoice!
-        self.reload.save
-      else
-        raise ActiveRecord::Rollback
-      end
+    return false unless self.cancelable? and items.any?
+    attributes = {origin: self, client: self.client, credit: true, responsible: options[:responsible]||self.responsible, nature: self.nature, affair: self.affair, items: []}
+    for item in self.items.where(id: items.keys)
+      attributes[:items] << SaleItem.new(quantity: -items[item.id.to_s].abs, credited_item: item, variant: item.variant, price: item.price, reduction_percentage: item.reduction_percentage, tax: item.tax)
     end
-
+    credit = self.credits.new(attributes)
+    return credit unless credit.save!
+    credit.reload
+    credit.propose!
+    # TODO: Manage returning deliveries because of the partial/total cancel
+    credit.confirm!
+    credit.invoice!
     return credit
   end
 

@@ -21,8 +21,9 @@ eng:
       new: "Create an activity"
       show: "Activity\_: %{name}"
     backend/affairs:
-      # attach: "Associer une transaction"
-      # detach: "Dissocier une transaction"
+      # attach: "Associer une affaire"
+      # detach: "Dissocier une affaire"
+      # finish: "Passer en perte et profit le reliquat"
       index: "Affairs"
       # select: "Ajouter une transaction"
       # show: "Affaire N°%{number}"

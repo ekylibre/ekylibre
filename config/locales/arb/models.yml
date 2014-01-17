@@ -1946,6 +1946,8 @@ arb:
       default_account_name: "دفتر الحسابات %{number}" #?
       error_delete: "لا يمكن حذف حساب لاحتوائه على حسابات فرعية" #?
       label: "%{number} - %{name}"
+    affair:
+      # bookkeep: "[%{resource} %{number}] De %{third}"
     bank_statement:  #?
       error_account_children: ".لا يمكن حذف دفتر الحسابات لاحتوائه على حسابات فرعية" #?
       error_journal_statement: "بيان بنكي محدد لدى الدفتر اليومي" #?

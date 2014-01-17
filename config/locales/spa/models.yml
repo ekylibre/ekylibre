@@ -1079,6 +1079,8 @@ spa:
   models:
     account:
       # label: "%{number} - %{name}"
+    affair:
+      # bookkeep: "[%{resource} %{number}] De %{third}"
     cash_transfer:
       # bookkeep: "[%{resource} %{number}] De %{emission} à %{reception} %{description}"
     catalog:

@@ -104,7 +104,7 @@ class Affair < Ekylibre::Record::Base
   end
 
   bookkeep do |b|
-    label = tc(:bookkeep)
+    label = tc(:bookkeep, resource: self.class.model_name.human, number: self.number, third: self.third.full_name)
     all_deals = self.deals
     thirds = all_deals.inject({}) do |hash, deal|
       if third = deal.deal_third
@@ -115,8 +115,7 @@ class Affair < Ekylibre::Record::Base
       end
       hash
     end.delete_if{|k, v| v.zero?}
-    # b.journal_entry(Journal.used_for_affairs, printed_on: (all_deals.last ? all_deals.last.dealt_on : Date.today), :if => (self.debit == self.credit and !thirds.empty?)) do |entry|
-    b.journal_entry(Journal.used_for_affairs, printed_on: (all_deals.last ? all_deals.last.dealt_on : Date.today), :if => self.balanced?) do |entry|
+    b.journal_entry(Journal.used_for_affairs, printed_on: (all_deals.last ? all_deals.last.dealt_on : Date.today), :if => (self.balanced? and thirds.size > 1)) do |entry|
       for account_id, amount in thirds
         entry.add_debit(label, account_id, amount)
       end
@@ -144,6 +143,10 @@ class Affair < Ekylibre::Record::Base
     !!(self.debit == self.credit)
   end
 
+  def status
+    (self.closed? ? :go : self.deals_count > 1 ? :caution : :stop)
+  end
+
   # Reload and save! affair to force counts and sums computation
   def refresh!
     self.reload
@@ -167,10 +170,11 @@ class Affair < Ekylibre::Record::Base
       raise StandardError, "Cannot finish the affair with invalid distribution"
     end
     self.class.transaction do
+      # raise thirds.map(&:name).inspect
       for third in thirds
-        attributes = {affair: self, amount: balance, currency: self.currency, entity: self.third, entity_role: self.third_role, direction: (losing? ? :loss : :profit), items: []}
+        attributes = {affair: self, amount: balance, currency: self.currency, entity: third, entity_role: self.third_role, direction: (losing? ? :loss : :profit), items: []}
         pretax_amount = 0.0
-        self.tax_items_for(third, distribution[third.id], true).each_with_index do |item, index|
+        self.tax_items_for(third, distribution[third.id], :credit).each_with_index do |item, index|
           raw_pretax_amount = (item[:tax] ? item[:tax].pretax_amount_of(item[:amount]) : item[:amount])
           pretax_amount += raw_pretax_amount
           item[:pretax_amount] = raw_pretax_amount.round(currency_precision)
@@ -178,13 +182,15 @@ class Affair < Ekylibre::Record::Base
           attributes[:items] << GapItem.new(item)
         end
         # Ensures no needed cents are forgotten or added
-        sum = attributes[:items].map(&:pretax_amount).sum
-        pretax_amount = pretax_amount.round(currency_precision)
-        unless sum != pretax_amount
-          attributes[:items].last.pretax_amount += (pretax_amount - sum)
+        if attributes[:items].any?
+          sum = attributes[:items].map(&:pretax_amount).sum
+          pretax_amount = pretax_amount.round(currency_precision)
+          unless sum != pretax_amount
+            attributes[:items].last.pretax_amount += (pretax_amount - sum)
+          end
+
+          Gap.create!(attributes)
         end
-        # puts attributes.inspect
-        Gap.create!(attributes)
       end
       self.refresh!
     end
@@ -209,17 +215,6 @@ class Affair < Ekylibre::Record::Base
   end
 
   generate_deals_method
-
-  # def deals
-  #   return (self.gaps.to_a +
-  #           self.sales.to_a +
-  #           self.purchases.to_a +
-  #           self.incoming_payments.to_a +
-  #           self.outgoing_payments.to_a +
-  #           self.transfers.to_a).compact.sort do |a, b|
-  #     a.dealt_on <=> b.dealt_on
-  #   end
-  # end
 
   # Returns deals of the given third
   def deals_of(third)
@@ -286,28 +281,32 @@ class Affair < Ekylibre::Record::Base
   # of taxes.
   # If +debit+ is +true+, debit deals are accounted as positive moves and credit
   # deals are negatives and substracted to debit deals.
-  def tax_items_for(third, amount, debit = false)
+  def tax_items_for(third, amount, mode)
     totals = {}
+    # puts [third.name, self.deals_of(third)].inspect
     for deal in self.deals_of(third)
-      # puts "-" * 200
-      # puts deal.inspect
-      # puts deal.deal_taxes(debit)
-      for total in deal.deal_taxes(debit)
+      for total in deal.deal_taxes(mode)
         total[:tax] ||= Tax.used_for_untaxed_deals
         totals[total[:tax].id] ||= {amount: 0.0, tax: total[:tax]}
         totals[total[:tax].id][:amount] += total[:amount]
       end
     end
-    # Proratize amount against  tax submitted amounts
+    # raise totals.values.collect{|a| [a[:tax].name, a[:amount].to_f]}.inspect
+    # Proratize amount against tax submitted amounts
     total_amount = totals.values.collect{|t| t[:amount] }.sum
     amounts = totals.values.collect do |total|
+      # raise [amount, total[:amount], total_amount].map(&:to_f).inspect
       {tax: total[:tax], amount: (amount * (total[:amount] / total_amount)).round(currency_precision)}
     end
+    # raise amounts.collect{|a| [a[:tax].name, a[:amount].to_f]}.inspect
     # Ensures no needed cents are forgotten or added
-    sum = amounts.collect{|t| t[:amount] }.sum
-    unless sum != amount
-      amounts[-1][:amount] += (amount - sum)
+    if amounts.any?
+      sum = amounts.collect{|t| t[:amount] }.sum
+      unless sum != amount
+        amounts.last[:amount] += (amount - sum)
+      end
     end
+    # puts amounts.collect{|a| [a[:tax].name, a[:amount].to_f]}.inspect
     return amounts
   end
 

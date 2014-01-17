@@ -204,7 +204,7 @@ class Backend::SalesController < BackendController
     t.column :price_amount, through: :price, label_method: :amount
     # t.column :quantity
     t.column :credited_quantity, :datatype => :decimal
-    t.check_box  :validated, :value => "true".c, :label => 'OK'
+    t.check_box  :validated, :value => 'true'.c, :label => 'OK'
     t.text_field :quantity, :value => "RECORD.uncredited_quantity".c, :size => 6
   end
 
@@ -213,14 +213,19 @@ class Backend::SalesController < BackendController
     session[:sale_id] = @sale.id
     if request.post?
       items = {}
-      params[:creditable_items].select{|k,v| v[:validated].to_i == 1}.collect{ |k, v| items[k] = v[:quantity].to_f }
+      params[:creditable_items].select{|k,v| v[:validated].to_i == 1}.each do |k, v|
+        items[k] = v[:quantity].to_f
+      end
       if items.empty?
         notify_error_now(:need_quantities_to_cancel_an_sale)
         return
       end
-      responsible = Entity.find_by_id(params[:sale][:responsible_id]) if params[:sale]
-      if credit = @sale.cancel(items, :responsible => responsible || current_user)
+      responsible = Person.find_by_id(params[:sale][:responsible_id]) if params[:sale]
+      credit = @sale.cancel(items, :responsible => responsible || current_user.person)
+      if credit.valid?
         redirect_to :action => :show, :id => credit.id
+      else
+        raise credit.errors.inspect
       end
     end
     t3e @sale.attributes

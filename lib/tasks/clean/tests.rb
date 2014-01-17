@@ -196,8 +196,8 @@ task :tests => :environment do
       end
 
       cols = columns.keys.map(&:to_s)
-      required_cols = columns.values.select{|c| !c.null? and c.default.nil?}
-      dr_cols = required_cols.inject({}.with_indifferent_access) do |hash, col|
+      required_cols = columns.values.select{|c| !c.null? and c.default.nil?}.collect{|c| c.name.to_s}
+      dr_cols = columns.values.inject({}.with_indifferent_access) do |hash, col|
         if col.references?
           reflection_name = col.name.to_s.gsub(/_id$/, '')
           hash[reflection_name] = [col.name.to_s]
@@ -205,7 +205,6 @@ task :tests => :environment do
         end
         hash
       end
-      required_cols = required_cols.collect{|c| c.name.to_s}
 
       if yaml.is_a?(Hash)
         ids = yaml.collect{|k,v| v["id"]}

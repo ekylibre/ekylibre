@@ -67,17 +67,17 @@ class Gap < Ekylibre::Record::Base
   bookkeep do |b|
     b.journal_entry(Journal.used_for_gaps, printed_on: self.created_on, :unless => self.amount.zero?) do |entry|
       label = tc(:bookkeep, resource: self.direction.text, number: self.number, entity: self.entity.full_name)
-      if self.loss?
+      if self.profit?
         entry.add_debit(label, self.entity.account(self.entity_role).id, self.amount)
         for item in self.items
-          entry.add_credit(label, Account.find_or_create_in_chart(:other_usual_running_expenses), item.pretax_amount)
-          entry.add_credit(label, item.tax.deduction_account_id, item.taxes_amount)
+          entry.add_credit(label, Account.find_or_create_in_chart(:other_usual_running_profits), item.pretax_amount)
+          entry.add_credit(label, item.tax.collect_account_id, item.taxes_amount)
         end
       else
         entry.add_credit(label, self.entity.account(self.entity_role).id, self.amount)
         for item in self.items
-          entry.add_debit(label, Account.find_or_create_in_chart(:other_usual_running_profits), item.pretax_amount)
-          entry.add_debit(label, item.tax.collect_account_id, item.taxes_amount)
+          entry.add_debit(label, Account.find_or_create_in_chart(:other_usual_running_expenses), item.pretax_amount)
+          entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount)
         end
       end
     end

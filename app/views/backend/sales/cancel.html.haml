@@ -10,8 +10,8 @@
 = error_messages('sale', :object=>@credit) if @credit
 
 = form_tag() do
-  = field_set :cancellation do
-    = field Sale.human_attribute_name(:repsonsible), selector(:sale, :responsible, {:action => :unroll, :scope => :employees, :controller => :users})
+  = field_set :cancelation do
+    = field Sale.human_attribute_name(:responsible), selector(:sale, :responsible, {:action => :unroll, :scope => :employees, :controller => :people})
     = list :creditable_items
   = form_actions do
     = submit_tag(tc('validate'))

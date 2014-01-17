@@ -98,8 +98,9 @@ module Ekylibre::Record
           code << "  end\n"
           code << "  Ekylibre::Record::Base.transaction do\n"
           code << "    old_affair = self.#{affair}\n"
-          code << "    self.create_affair!(currency: self.deal_currency, third: self.deal_third)\n"
-          code << "    self.affair.refresh!\n"
+          code << "    affair = Affair.create!(currency: self.currency, third: self.deal_third, originator: self)\n"
+          code << "    self.update_column(:#{affair_id}, affair.id)\n"
+          code << "    affair.refresh!\n"
           code << "    old_affair.refresh!\n"
           code << "    if old_affair.deals_count.zero?\n"
           code << "      old_affair.destroy!\n"
@@ -195,12 +196,12 @@ module Ekylibre::Record
           code << "  return (self.deal_credit? ? self.deal_amount : 0)\n"
           code << "end\n"
 
-          # Define debit amount
-          code << "def deal_balance_amount(debit = false)\n"
-          code << "  if debit\n"
-          code << "    return (self.deal_debit? ? self.deal_amount : -self.deal_amount)\n"
+          # Define credit amount
+          code << "def deal_mode_amount(mode = :debit)\n"
+          code << "  if mode == :credit\n"
+          code << "    return (self.deal_credit? ? self.deal_amount : 0)\n"
           code << "  else\n"
-          code << "    return (self.deal_credit? ? self.deal_amount : -self.deal_amount)\n"
+          code << "    return (self.deal_debit?  ? self.deal_amount : 0)\n"
           code << "  end\n"
           code << "end\n"
 
@@ -218,8 +219,9 @@ module Ekylibre::Record
             code << "alias_attribute :deal_taxes, :#{options[:taxes]}\n"
           elsif ![TrueClass].include?(options[:taxes].class)
             # Computes based on opposite operation taxes
-            code << "def deal_taxes(debit = false)\n"
-            code << "  return [{amount: self.deal_balance_amount(debit)}]\n"
+            code << "def deal_taxes(mode = :debit)\n"
+            code << "  return [] if self.deal_mode_amount(mode).zero?\n"
+            code << "  return [{amount: self.deal_mode_amount(mode)}]\n"
             code << "end\n"
           end
 

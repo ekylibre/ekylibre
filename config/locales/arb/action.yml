@@ -30,9 +30,10 @@ arb:
     backend/activity_repartitions: #?
     backend/activity_watchings: #?
     backend/affairs:
-      # attach: "Associer une transaction"
-      # detach: "Dissocier une transaction"
-      # index: "Transactions"
+      # attach: "Associer une affaire"
+      # detach: "Dissocier une affaire"
+      # finish: "Passer en perte et profit le reliquat"
+      # index: "Affaires"
       # select: "Ajouter une transaction"
       # show: "Affaire N°%{number}"
     backend/aggregators:

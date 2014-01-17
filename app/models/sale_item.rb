@@ -89,7 +89,7 @@ class SaleItem < Ekylibre::Record::Base
   validates_presence_of :amount, :currency, :indicator_name, :pretax_amount, :price, :quantity, :reduction_percentage, :sale, :variant
   #]VALIDATORS]
   validates_presence_of :tax
-  validates_numericality_of :quantity, greater_than_or_equal_to: 0, :unless => :reduced_item
+  # validates_numericality_of :quantity, greater_than_or_equal_to: 0, :unless => :reduced_item
 
   scope :not_reduction, -> { where(reduced_item_id: nil) }
   # return all sale items  between two dates
