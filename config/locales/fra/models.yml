@@ -301,6 +301,8 @@ fra:
       fungus: "Champignon"
       gap: "Perte ou profit"
       gap_item: "Élément de perte ou profit"
+      # guide: "Guide"
+      # guide_indicator_datum: "Guide indicator datum"
       immatter: "Immatériel"
       incoming_delivery: "Approvisionnement"
       incoming_delivery_item: "Élément d’approvisionnement"

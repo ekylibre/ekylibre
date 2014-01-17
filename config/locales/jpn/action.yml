@@ -247,6 +247,8 @@ jpn:
       # show: "Exercice comptable %{code}"
     backend/gaps:
       # show: "Perte ou profit N°%{number}"
+    backend/guide_indicator_data: #?
+    backend/guides: #?
     backend/help: #?
     backend/helps:
       # index: "Aide"

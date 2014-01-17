@@ -463,6 +463,30 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
+    create_table :guides do |t|
+      t.string     :name
+      t.string     :number
+      t.string     :reference_name
+      t.text       :description
+      t.boolean    :active,                 default: false, null: false
+      t.attachment :picture
+      t.stamps
+    end
+
+    create_table :guide_indicator_data do |t|
+      t.references :guide, null: false, index: true
+      t.string     :aim,     null: false
+      t.string     :subject
+      t.string     :derivative
+      t.indicator_datum      null: false, index: true
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.stamps
+      t.index      :started_at
+      t.index      :stopped_at
+      t.stamps
+    end
+
     create_table :incoming_deliveries do |t|
       t.string     :number,                                             null: false
       t.references :sender,                                             null: false, index: true
