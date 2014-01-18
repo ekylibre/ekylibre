@@ -69,7 +69,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
         }
         data << line
       end
-      cexec["DELETE FROM interventions"]
+      cexec["DELETE FROM interventions WHERE company='#{company}'"]
       for line in data
         insert = []
         values = []

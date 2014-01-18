@@ -30,39 +30,41 @@ demo :buildings do
     end
 
   end
-
+    
   Ekylibre::fixturize :buildings_shapes do |w|
     #############################################################################
-
-    born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
-    RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_2013.shp").to_s, :srid => 2154) do |file|
-      # puts "File contains #{file.num_records} records."
-      file.each do |record|
-        building = Building.find_by_work_number(record.attributes['WORK_NUMBE'])
-        building ||= Building.create!(variant_id: standard_place_variant.id,
-                                      name: record.attributes['DESCRIPTION'].to_s,
-                                      :work_number => record.attributes['WORK_NUMBE'].to_s,
-                                      :born_at => born_at,
-                                      :default_storage => Building.first,
-                                      :identification_number => record.attributes['NUMERO'].to_s)
-        # raise record.geometry.inspect + record.geometry.methods.sort.to_sentence
-        building.is_measured!(:shape, record.geometry, at: born_at)
-        ind_area = building.shape_area
-        building.is_measured!(:net_surface_area, ind_area.in_square_meter, at: born_at)
-        # puts "Record number #{record.index}:"
-        # puts "  Geometry: #{record.geometry.as_text}"
-        # puts "  Attributes: #{record.attributes.inspect}"
-        w.check_point
+    buidling_file = Rails.root.join("test", "fixtures", "files", "buildings_2013.shp")
+    if File.exists?(buidling_file.to_s)
+      born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
+      RGeo::Shapefile::Reader.open(buidling_file.to_s, :srid => 2154) do |file|
+        # puts "File contains #{file.num_records} records."
+        file.each do |record|
+          building = Building.find_by_work_number(record.attributes['WORK_NUMBE'])
+          building ||= Building.create!(variant_id: standard_place_variant.id,
+                                        name: record.attributes['DESCRIPTION'].to_s,
+                                        :work_number => record.attributes['WORK_NUMBE'].to_s,
+                                        :born_at => born_at,
+                                        :default_storage => Building.first,
+                                        :identification_number => record.attributes['NUMERO'].to_s)
+          # raise record.geometry.inspect + record.geometry.methods.sort.to_sentence
+          building.is_measured!(:shape, record.geometry, at: born_at)
+          ind_area = building.shape_area
+          building.is_measured!(:net_surface_area, ind_area.in_square_meter, at: born_at)
+          # puts "Record number #{record.index}:"
+          # puts "  Geometry: #{record.geometry.as_text}"
+          # puts "  Attributes: #{record.attributes.inspect}"
+          w.check_point
+        end
       end
     end
-
   end
 
   Ekylibre::fixturize :building_divisions do |w|
 
+    buidling_file = Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp")
+    if File.exists?(buidling_file.to_s)
 
-
-    RGeo::Shapefile::Reader.open(Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp").to_s, :srid => 2154) do |file|
+    RGeo::Shapefile::Reader.open(buidling_file.to_s, :srid => 2154) do |file|
       # puts "File contains #{file.num_records} records."
       born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
       file.each do |record|
@@ -88,12 +90,13 @@ demo :buildings do
             building_division.save!
           end
         end
-
+        
         # puts "Record number #{record.index}:"
         # puts "  Geometry: #{record.geometry.as_text}"
         # puts "  Attributes: #{record.attributes.inspect}"
         w.check_point
       end
+    end
     end
   end
 
