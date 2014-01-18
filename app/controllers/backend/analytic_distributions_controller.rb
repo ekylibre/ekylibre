@@ -36,7 +36,7 @@ class Backend::AnalyticDistributionsController < BackendController
   def index
     unless Production.any?
       notify(:need_to_create_productions)
-      redirect_to :controller => :productions
+      redirect_to controller: :productions
       return
     end
     respond_to do |format|

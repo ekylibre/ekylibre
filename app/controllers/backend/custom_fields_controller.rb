@@ -18,7 +18,7 @@
 #
 
 class Backend::CustomFieldsController < BackendController
-  manage_restfully :redirect_to => '(RECORD.choice? ? {:action => :show, :id => "id"} : :back)'.c
+  manage_restfully :redirect_to => '(RECORD.choice? ? {action: :show, id: "id"} : :back)'.c
   manage_restfully_list
   unroll
 

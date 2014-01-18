@@ -83,7 +83,7 @@ class Backend::FinancialYearsController < BackendController
       params[:journal_id] = Journal.create!(:nature => "renew").id if params[:journal_id]=="0"
       if @financial_year.close(params[:financial_year][:stopped_on].to_date, :renew_id => params[:journal_id])
         notify_success(:closed_financial_years)
-        redirect_to(:action => :index)
+        redirect_to(action: :index)
       end
     else
       journal = Journal.used_for(:forward).first

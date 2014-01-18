@@ -56,7 +56,7 @@
 #   with_commission: true
 #   with_deposit: true
 #
----
+
 incoming_payment_modes_001:
   attorney_journal: journals_001
   cash: cashes_001
@@ -68,6 +68,7 @@ incoming_payment_modes_001:
   updater: users_001
   with_accounting: true
   with_deposit: true
+
 incoming_payment_modes_002:
   attorney_journal: journals_001
   cash: cashes_001

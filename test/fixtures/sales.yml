@@ -82,7 +82,7 @@
 #   state: "Lorem ipsum"
 #   updater: users_001
 #
----
+
 sales_001:
   address: entity_addresses_003
   affair: affairs_001
@@ -102,6 +102,7 @@ sales_001:
   pretax_amount: 123
   state: draft
   updater: users_001
+
 sales_002:
   address: entity_addresses_003
   affair: affairs_002
@@ -121,6 +122,7 @@ sales_002:
   pretax_amount: 0
   state: draft
   updater: users_001
+
 sales_003:
   address: entity_addresses_003
   affair: affairs_003
@@ -140,6 +142,7 @@ sales_003:
   pretax_amount: 10
   state: order
   updater: users_001
+
 sales_004:
   address: entity_addresses_003
   affair: affairs_004
@@ -157,6 +160,7 @@ sales_004:
   pretax_amount: 10
   state: draft
   updater: users_001
+
 sales_005:
   address: entity_addresses_003
   affair: affairs_005

@@ -120,7 +120,7 @@ class Backend::ListingNodesController < BackendController
     if request.xhr?
       render(:partial => "backend/listings/reflection", :object => parent)
     else
-      redirect_to :controller => :listings, :action => :edit, :id => @listing_node.listing_id
+      redirect_to controller: :listings, action: :edit, id: @listing_node.listing_id
     end
   end
 

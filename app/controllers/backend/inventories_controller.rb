@@ -100,7 +100,7 @@ class Backend::InventoriesController < BackendController
     if @inventory.save
       # TODO manage nested attributes
       # @inventory.set_items(params[:items_create].values)
-      redirect_to :action => :index
+      redirect_to action: :index
       return
     end
     # render_restfully_form
@@ -123,7 +123,7 @@ class Backend::InventoriesController < BackendController
           il = InventoryItem.find_by_id(id).update_attributes!(attributes)
         end
       end
-      redirect_to :action => :index
+      redirect_to action: :index
       return
     end
     # render_restfully_form
@@ -136,7 +136,7 @@ class Backend::InventoriesController < BackendController
     else
       notify_error(:changes_have_not_been_reflected)
     end
-    redirect_to :action => :index
+    redirect_to action: :index
   end
 
 end

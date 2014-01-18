@@ -55,17 +55,18 @@
 #   third: thirds_001
 #   updater: users_001
 #
----
+
 affairs_001:
-  closed: true
+  closed: false
   creator: users_001
   credit: 0
   currency: EUR
-  debit: 0
+  debit: 123
   number: A000001
   originator: sales_001 (Sale)
   third: legal_entities_001
   updater: users_001
+
 affairs_002:
   closed: true
   creator: users_001
@@ -76,6 +77,7 @@ affairs_002:
   originator: gaps_002 (Gap)
   third: legal_entities_001
   updater: users_001
+
 affairs_003:
   closed: false
   creator: users_001
@@ -86,6 +88,7 @@ affairs_003:
   originator: sales_003 (Sale)
   third: legal_entities_001
   updater: users_001
+
 affairs_004:
   closed: false
   creator: users_001
@@ -96,6 +99,7 @@ affairs_004:
   originator: incoming_payments_001 (IncomingPayment)
   third: legal_entities_001
   updater: users_001
+
 affairs_005:
   closed: false
   creator: users_001

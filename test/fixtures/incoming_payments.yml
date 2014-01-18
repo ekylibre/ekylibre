@@ -65,7 +65,7 @@
 #   to_bank_on: 2013-10-26
 #   updater: users_001
 #
----
+
 incoming_payments_001:
   affair: affairs_001
   amount: 123
@@ -78,6 +78,7 @@ incoming_payments_001:
   scheduled: true
   to_bank_on: 2009-07-19
   updater: users_001
+
 incoming_payments_002:
   affair: affairs_002
   amount: 0
@@ -90,6 +91,7 @@ incoming_payments_002:
   scheduled: true
   to_bank_on: 2009-07-19
   updater: users_001
+
 incoming_payments_003:
   affair: affairs_003
   amount: 0

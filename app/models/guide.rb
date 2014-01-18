@@ -53,6 +53,8 @@ class Guide < Ekylibre::Record::Base
   validates_inclusion_of :active, :external, in: [true, false]
   validates_presence_of :frequency, :name, :nature
   #]VALIDATORS]
+  validates_inclusion_of :nature, in: self.nature.values
+  validates_inclusion_of :frequency, in: self.frequency.values
 
   delegate :status, to: :last_analysis
 

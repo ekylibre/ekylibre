@@ -75,7 +75,6 @@ class IncomingPayment < Ekylibre::Record::Base
 
   acts_as_numbered
   acts_as_affairable :payer, dealt_on: :to_bank_on, role: "client"
-  delegate :with_commission?, to: :mode
 
   scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
   scope :depositables_for, lambda { |deposit, mode = nil|
@@ -114,10 +113,6 @@ class IncomingPayment < Ekylibre::Record::Base
     (self.deposit && self.deposit.protected_on_update?) or (self.journal_entry && self.journal_entry.closed?)
   end
 
-  def deposit?
-    !!self.deposit
-  end
-
   # This method permits to add journal entries corresponding to the payment
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
@@ -136,6 +131,17 @@ class IncomingPayment < Ekylibre::Record::Base
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
       end
     end
+  end
+
+  # Returns true if payment is already deposited
+  def deposited?
+    !!self.deposit
+  end
+  alias :deposit? :deposited?
+
+  # Returns if a commission is taken
+  def with_commission?
+    self.mode and self.mode.with_commission?
   end
 
   # Build and return a label for the payment

@@ -76,7 +76,7 @@ class Backend::JournalEntriesController < BackendController
     # raise @journal_entry_items.inspect
     if @journal_entry.save_with_items(@journal_entry_items)
       notify_success(:journal_entry_has_been_saved, :number => @journal_entry.number)
-      redirect_to :controller => :journal_entries, :action => :new, :journal_id => @journal.id # , :draft_mode => (1 if @journal_entry.draft_mode)
+      redirect_to controller: :journal_entries, action: :new, :journal_id => @journal.id # , :draft_mode => (1 if @journal_entry.draft_mode)
       return
     end
     t3e @journal.attributes

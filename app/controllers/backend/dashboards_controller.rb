@@ -101,7 +101,7 @@ class Backend::DashboardsController < BackendController
 
     if @search[:count] == 1
       record = @search[:records].first
-      redirect_to :controller => record['record_type'].tableize, :action => :show, :id => record['record_id'].to_i, :q => params[:q]
+      redirect_to controller: record['record_type'].tableize, action: :show, id: record['record_id'].to_i, :q => params[:q]
       return
     end
 
@@ -110,7 +110,7 @@ class Backend::DashboardsController < BackendController
     @search[:words] = words
 
     if @search[:count].zero? and page > 1
-      redirect_to(:action => :search, :q => params[:q], :page => 1)
+      redirect_to(action: :search, :q => params[:q], :page => 1)
     end
     params[:page] = page
     t3e :searched => params[:q]

@@ -103,7 +103,7 @@ class Backend::DepositsController < BackendController
     #   ActiveRecord::Base.transaction do
     #     payments = params[:depositable_payments].collect{|id, attrs| (attrs[:to_deposit].to_i==1 ? id.to_i : nil)}.compact
     #     IncomingPayment.where(:deposit_id => @deposit.id).update_all(:deposit_id => nil)
-    #     IncomingPayment.where(:id => payments).update_all(:deposit_id => @deposit.id)
+    #     IncomingPayment.where(id: payments).update_all(:deposit_id => @deposit.id)
     #   end
     #   @deposit.refresh
     #   return if save_and_redirect(@deposit, :saved => true)
@@ -126,7 +126,7 @@ class Backend::DepositsController < BackendController
         return unless deposit = find_and_check(:deposits, id)
         deposit.update_attributes!(:locked => true) if deposit and values[:validated].to_i == 1
       end
-      redirect_to :action => :unvalidateds
+      redirect_to action: :unvalidateds
     end
   end
 
@@ -135,17 +135,17 @@ class Backend::DepositsController < BackendController
   def find_mode(id = nil)
     unless mode = IncomingPaymentMode.find_by(id: id || params[:mode_id])
       notify_warning(:need_payment_mode_to_create_deposit)
-      redirect_to :action => :index
+      redirect_to action: :index
       return nil
     end
     if params[:deposit] and params[:deposit][:mode_id] and params[:deposit][:mode_id].to_i != mode.id
       notify_error(:need_payment_mode_to_create_deposit)
-      redirect_to :action => :index
+      redirect_to action: :index
       return nil
     end
     unless mode.depositable_payments.any?
       notify_warning(:no_payment_to_deposit)
-      redirect_to :action => :index
+      redirect_to action: :index
       return nil
     end
     return mode

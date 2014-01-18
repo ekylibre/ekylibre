@@ -18,7 +18,7 @@
 #
 
 class Backend::BankStatementsController < BackendController
-  manage_restfully :started_on => "Cash.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Date.today-1.month-2.days)".c, :stopped_on => "Cash.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Date.today-2.days)".c, :redirect_to => '{:action => :point, :id  => "id"}'.c
+  manage_restfully :started_on => "Cash.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Date.today-1.month-2.days)".c, :stopped_on => "Cash.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Date.today-2.days)".c, :redirect_to => '{action: :point, :id  => "id"}'.c
 
   unroll
 
@@ -62,14 +62,14 @@ class Backend::BankStatementsController < BackendController
     if request.post?
       # raise Exception.new(params[:journal_entry_item].inspect)
       if @bank_statement.point(params[:journal_entry_item].select{|k, v| v[:checked]=="1" and JournalEntryItem.find_by_id(k)}.collect{|k, v| k.to_i})
-        redirect_to :action => :index
+        redirect_to action: :index
         return
       end
     end
     @journal_entry_items = @bank_statement.eligible_items
     unless @journal_entry_items.size > 0
       notify_warning(:need_entries_to_point)
-      redirect_to :action => :index
+      redirect_to action: :index
     end
     t3e @bank_statement.attributes, :cash => @bank_statement.cash.name
   end

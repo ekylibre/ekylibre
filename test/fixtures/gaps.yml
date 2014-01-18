@@ -55,7 +55,7 @@
 #   pretax_amount: 0
 #   updater: users_001
 #
----
+
 gaps_001:
   affair: affairs_001
   amount: 0.53
@@ -67,6 +67,7 @@ gaps_001:
   entity_role: client
   number: G001
   updater: users_001
+
 gaps_002:
   affair: affairs_001
   amount: 0.17

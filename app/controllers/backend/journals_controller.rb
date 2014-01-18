@@ -91,7 +91,7 @@ class Backend::JournalsController < BackendController
   list(:mixed, model: :journal_entries, conditions: journal_entries_conditions, :children => :items, order: {created_at: :desc}, :per_page => 10) do |t|
     t.column :number, url: true, :children => :name
     t.column :printed_on, :datatype => :date, :children => false
-    # t.column :label, through: :account, url: {:action => :account}
+    # t.column :label, through: :account, url: {action: :account}
     t.column :state_label
     t.column :real_debit,  currency: :real_currency
     t.column :real_credit, currency: :real_currency
@@ -134,7 +134,7 @@ class Backend::JournalsController < BackendController
     return unless @journal = find_and_check
     unless @journal.closable?
       notify(:no_closable_journal)
-      redirect_to :action => :index
+      redirect_to action: :index
       return
     end
     if request.post?
@@ -150,7 +150,7 @@ class Backend::JournalsController < BackendController
     return unless @journal = find_and_check
     unless @journal.reopenable?
       notify(:no_reopenable_journal)
-      redirect_to :action => :index
+      redirect_to action: :index
       return
     end
     if request.post?
@@ -235,7 +235,7 @@ class Backend::JournalsController < BackendController
           end
         end
         notify_success(:bookkeeping_is_finished)
-        redirect_to :action => (state == :draft ? :draft : :bookkeep)
+        redirect_to action: (state == :draft ? :draft : :bookkeep)
       end
     end
 
@@ -282,7 +282,7 @@ class Backend::JournalsController < BackendController
 
   # TODO: Removes totally this old action in next buug cleaning
   # def reports()
-  #   # redirect_to :action => :index
+  #   # redirect_to action: :index
   #   @document_templates = DocumentTemplate.where(:family => "accountancy", :nature => ["journal", "general_journal", "general_ledger"]).order(:name)
   #   @document_template = DocumentTemplate.find_by_family_and_code("accountancy", params[:code])
   #   if request.xhr?

@@ -42,6 +42,7 @@ class GuideAnalysis < Ekylibre::Record::Base
   validates_length_of :acceptance_status, allow_nil: true, maximum: 255
   validates_presence_of :acceptance_status, :execution_number, :guide, :started_at, :stopped_at
   #]VALIDATORS]
+  validates_inclusion_of :acceptance_status, in: self.acceptance_status.values
 
   before_validation :set_execution_number, on: :create
   before_create :set_execution_number

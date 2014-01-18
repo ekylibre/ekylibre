@@ -45,7 +45,7 @@ class Backend::SalesController < BackendController
   end
 
   list(conditions: sales_conditions, joins: :client, order: {created_on: :desc, number: :desc}) do |t| # , :line_class => 'RECORD.tags'
-    t.column :number, url: {:action => :show, :step => :default}
+    t.column :number, url: {action: :show, step: :default}
     t.column :created_on
     t.column :invoiced_on
     t.column :client, url: true
@@ -162,12 +162,12 @@ class Backend::SalesController < BackendController
         end
         if params[:step] == "deliveries"
           if @sale.deliveries.size <= 0 and @sale.order? and @sale.has_content?
-            redirect_to :controller => :outgoing_deliveries, :action => :new, :sale_id => @sale.id
+            redirect_to controller: :outgoing_deliveries, action: :new, :sale_id => @sale.id
           elsif @sale.deliveries.size <= 0 and @sale.invoice?
             notify(:sale_already_invoiced)
           elsif @sale.items.size <= 0
             notify_warning(:no_items_found)
-            redirect_to :action => :show, :step => :products, :id => @sale.id
+            redirect_to action: :show, step: :products, id: @sale.id
           end
         end
         t3e @sale.attributes, :client => @sale.client.full_name, :state => @sale.state_label, :label => @sale.label
@@ -193,7 +193,7 @@ class Backend::SalesController < BackendController
     if request.post?
       @sale.abort
     end
-    redirect_to :action => :show, :id => @sale.id
+    redirect_to action: :show, id: @sale.id
   end
 
 
@@ -223,7 +223,7 @@ class Backend::SalesController < BackendController
       responsible = Person.find_by_id(params[:sale][:responsible_id]) if params[:sale]
       credit = @sale.cancel(items, :responsible => responsible || current_user.person)
       if credit.valid?
-        redirect_to :action => :show, :id => credit.id
+        redirect_to action: :show, id: credit.id
       else
         raise credit.errors.inspect
       end
@@ -236,7 +236,7 @@ class Backend::SalesController < BackendController
     if request.post?
       @sale.confirm
     end
-    redirect_to :action => :show, :step => :deliveries, :id => @sale.id
+    redirect_to action: :show, step: :deliveries, id: @sale.id
   end
 
   def contacts
@@ -254,7 +254,7 @@ class Backend::SalesController < BackendController
       @sale = Sale.find_by_id(params[:sale_id])||Sale.new(:address_id => address_id, :delivery_address_id => address_id, :invoice_address_id => address_id)
       render :partial => 'addresses_form', :locals => {:client => client, :object => @sale}
     else
-      redirect_to :action => :index
+      redirect_to action: :index
     end
   end
 
@@ -263,11 +263,11 @@ class Backend::SalesController < BackendController
     if request.post?
       @sale.correct
     end
-    redirect_to :action => :show, :step => :products, :id => @sale.id
+    redirect_to action: :show, step: :products, id: @sale.id
   end
 
   def new
-    nature = SaleNature.where(:id => params[:nature_id]).first
+    nature = SaleNature.where(id: params[:nature_id]).first
     nature ||= SaleNature.by_default
     @sale = Sale.new(:nature => nature)
     if client = Entity.find_by_id(params[:client_id]||params[:entity_id]||session[:current_entity_id])
@@ -288,14 +288,14 @@ class Backend::SalesController < BackendController
   def create
     @sale = Sale.new permitted_params
     @sale.number = ''
-    return if save_and_redirect(@sale, url: {:action => :show, :step => :products, :id => "id"})
+    return if save_and_redirect(@sale, url: {action: :show, step: :products, id: "id"})
   end
 
   def edit
     return unless @sale = find_and_check
     unless @sale.draft?
       notify_error(:sale_cannot_be_updated)
-      redirect_to :action => :show, :step => :products, :id => @sale.id
+      redirect_to action: :show, step: :products, id: @sale.id
       return
     end
     t3e @sale.attributes
@@ -306,11 +306,11 @@ class Backend::SalesController < BackendController
     return unless @sale = find_and_check
     unless @sale.draft?
       notify_error(:sale_cannot_be_updated)
-      redirect_to :action => :show, :step => :products, :id => @sale.id
+      redirect_to action: :show, step: :products, id: @sale.id
       return
     end
     if @sale.update_attributes(permitted_params)
-      redirect_to :action => :show, :step => :products, :id => @sale.id
+      redirect_to action: :show, step: :products, id: @sale.id
       return
     end
     t3e @sale.attributes
@@ -338,7 +338,7 @@ class Backend::SalesController < BackendController
       notify_error(:exception_raised, :message => e.message)
     end
     if copy
-      redirect_to :action => :show, :step => :products, :id => copy.id
+      redirect_to action: :show, step: :products, id: copy.id
       return
     end
     redirect_to_current
@@ -349,11 +349,11 @@ class Backend::SalesController < BackendController
     if request.post?
       ActiveRecord::Base.transaction do
         raise ActiveRecord::Rollback unless @sale.invoice
-        redirect_to :action => :show, :step => :summary, :id => @sale.id
+        redirect_to action: :show, step: :summary, id: @sale.id
         return
       end
     end
-    redirect_to :action => :show, :step => :products, :id => @sale.id
+    redirect_to action: :show, step: :products, id: @sale.id
   end
 
   def propose
@@ -361,7 +361,7 @@ class Backend::SalesController < BackendController
     if request.post?
       @sale.propose
     end
-    redirect_to :action => :show, :step => :products, :id => @sale.id
+    redirect_to action: :show, step: :products, id: @sale.id
   end
 
   def propose_and_invoice
@@ -374,7 +374,7 @@ class Backend::SalesController < BackendController
         raise ActiveRecord::Rollback unless @sale.invoice
       end
     end
-    redirect_to :action => :show, :step => :summary, :id => @sale.id
+    redirect_to action: :show, step: :summary, id: @sale.id
   end
 
   def refuse
@@ -382,7 +382,7 @@ class Backend::SalesController < BackendController
     if request.post?
       @sale.refuse
     end
-    redirect_to :action => :show, :step => :products, :id => @sale.id
+    redirect_to action: :show, step: :products, id: @sale.id
   end
 
 

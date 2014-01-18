@@ -57,14 +57,14 @@ guides_001:
   external: true
   frequency: "yearly"
   name: "Sample"
-  nature: "best_pratices"
+  nature: "best_practices"
   updater: users_001
 
 guides_002:
   active: true
   creator: users_001
   external: true
-  frequency: "yearly"
+  frequency: "none"
   name: "Sample"
-  nature: "best_pratices"
+  nature: "best_practices"
   updater: users_001
