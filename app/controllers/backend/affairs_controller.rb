@@ -35,7 +35,8 @@ class Backend::AffairsController < BackendController
   def select
     return unless @affair = find_and_check
     @deal_model = params[:deal_type].camelcase.constantize
-    @third = (params[:third_id] ? Entity.find_by(id: params[:third_id]) : @affair.third)
+    @third = Entity.find_by(id: params[:third_id]) if params[:third_id]
+    @third ||= @affair.third
   end
 
   def attach
@@ -43,7 +44,7 @@ class Backend::AffairsController < BackendController
     if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
       deal.deal_with! @affair
       # @affair.attach(deal)
-      redirect_to params[:redirect] || {controller: deal.name.tableize, action: :show, id: deal.id}
+      redirect_to params[:redirect] || {controller: deal.class_name.tableize, action: :show, id: deal.id}
     else
       notify_error(:cannot_find_deal_to_attach)
       redirect_to params[:redirect] || {controller: @affair.originator_type.tableize, action: :show, id: @affair.originator_id}, status: :not_found
@@ -55,7 +56,7 @@ class Backend::AffairsController < BackendController
     if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
       deal.undeal! @affair
       # @affair.detach(deal)
-      redirect_to params[:redirect] || {controller: deal.name.tableize, action: :show, id: deal.id}
+      redirect_to params[:redirect] || {controller: deal.class_name.tableize, action: :show, id: deal.id}
     else
       notify_error(:cannot_find_deal_to_detach)
       redirect_to params[:redirect] || {controller: @affair.originator_type.tableize, action: :show, id: @affair.originator_id}, status: :not_found

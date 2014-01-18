@@ -18,19 +18,24 @@
 #
 
 class Backend::SaleItemsController < BackendController
-  manage_restfully only: []
+  manage_restfully only: [:edit, :update, :destroy], t3e: {product: :variant_name}
 
+  def show
+    if @sale_item = SaleItem.find_by(id: params[:id])
+      redirect_to controller: :sales, id: @sale_item.sale_id
+    else
+      redirect_to backend_root_url
+    end
+  end
 
   def new
     return unless @sale = find_and_check(:sale, params[:sale_id])
     @sale_item = @sale.items.new(:unit_price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
     unless @sale.draft?
       notify_error(:impossible_to_add_items)
-      redirect_to :controller => :sales, :action => :show, :id => @sale.id, :step => :products
+      redirect_to controller: :sales, action: :show, id: @sale.id, step: :products
       return
     end
-    session[:current_currency] = @sale.currency
-    # render_restfully_form
   end
 
   def create
@@ -38,7 +43,7 @@ class Backend::SaleItemsController < BackendController
     @sale_item = @sale.items.new(:unit_price_amount => 0.0, :reduction_percentage => @sale.client.maximal_reduction_percentage)
     unless @sale.draft?
       notify_error(:impossible_to_add_items)
-      redirect_to :controller => :sales, :action => :show, :id => @sale.id, :step => :products
+      redirect_to controller: :sales, action: :show, id: @sale.id, step: :products
       return
     end
     @sale_item.attributes = permitted_params
@@ -51,15 +56,8 @@ class Backend::SaleItemsController < BackendController
         end
         raise ActiveRecord::Rollback unless saved
       end
-      return if save_and_redirect(@sale_item, url: {:controller => :sales, :action => :show, :id => @sale.id}, :saved => saved)
+      return if save_and_redirect(@sale_item, url: {controller: :sales, action: :show, id: @sale.id}, :saved => saved)
     end
-    # render_restfully_form
-  end
-
-  def destroy
-    return unless @sale_item = find_and_check
-    @sale_item.destroy
-    redirect_to_current
   end
 
   def detail
@@ -74,28 +72,6 @@ class Backend::SaleItemsController < BackendController
       render partial: "backend/sale_items/detail#{'_row' if params[:mode]=='row'}_form"
     else
       redirect_to sales_url
-    end
-  end
-
-  def edit
-    return unless @sale_item = find_and_check
-    @sale = @sale_item.sale
-    t3e :product => @sale_item.variant_name
-  end
-
-  def update
-    return unless @sale_item = find_and_check
-    @sale = @sale_item.sale
-    @sale_item.attributes = permitted_params
-    return if save_and_redirect(@sale_item)
-    t3e :product => @sale_item.product.name
-  end
-
-  def show
-    if @sale_item = SaleItem.find_by(id: params[:id])
-      redirect_to controller: :sales, id: @sale_item.sale_id
-    else
-      redirect_to backend_root_url
     end
   end
 

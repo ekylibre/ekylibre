@@ -59,7 +59,7 @@ class Backend::SubscriptionsController < BackendController
   def index
     if SubscriptionNature.count.zero?
       notify(:need_to_create_subscription_nature)
-      redirect_to :controller => :subscription_natures
+      redirect_to controller: :subscription_natures
       return
     end
     if request.xhr?

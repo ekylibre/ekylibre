@@ -92,8 +92,8 @@ class Backend::AccountsController < BackendController
   end
 
   list(:reconciliation, model: :journal_entry_items, joins: [:entry, :account], conditions: account_reconciliation_conditions, order: "accounts.number, journal_entries.printed_on") do |t|
-    t.column :account_number, through: :account, label_method: :number, url: {:action => :mark}
-    t.column :account_name, through: :account, label_method: :name, url: {:action => :mark}
+    t.column :account_number, through: :account, label_method: :number, url: {action: :mark}
+    t.column :account_name, through: :account, label_method: :name, url: {action: :mark}
     t.column :entry_number
     t.column :name
     t.column :real_debit,  currency: :real_currency, hidden: true

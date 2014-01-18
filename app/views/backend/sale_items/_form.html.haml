@@ -1,5 +1,5 @@
 -# TODO: Manage extra content in form
-= sale_steps unless request.xhr?
+= sale_steps(f.object.sale) unless request.xhr?
 
 -#=field_set @sale_item do
 -#  =f.referenced_association :sale, :field => :hidden

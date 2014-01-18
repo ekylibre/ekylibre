@@ -110,7 +110,7 @@ class Backend::TransportsController < BackendController
     @transport = Transport.new(permitted_params[:transport])
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
-    return if save_and_redirect(@transport, url: {:action => :show, :id => 'id'}) do |transport|
+    return if save_and_redirect(@transport, url: {action: :show, id: 'id'}) do |transport|
       transport.deliveries.clear
       params[:transportable_deliveries] ||= {}
       for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}
@@ -135,7 +135,7 @@ class Backend::TransportsController < BackendController
     return unless @transport = find_and_check
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
-    return if save_and_redirect(@transport, :attributes => permitted_params[:transport], url: {:action => :show, :id => 'id'}) do |transport|
+    return if save_and_redirect(@transport, :attributes => permitted_params[:transport], url: {action: :show, id: 'id'}) do |transport|
       transport.deliveries.clear
       params[:transportable_deliveries] ||= {}
       for delivery_id, delivery_attrs in params[:transportable_deliveries].select{|k,v| v["selected"].to_i == 1}

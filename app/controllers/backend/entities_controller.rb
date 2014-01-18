@@ -70,7 +70,7 @@ class Backend::EntitiesController < BackendController
 
   list(:mandates, conditions: {entity_id: 'params[:id]'.c}) do |t|
     t.column :title
-    t.column :organization, url: {:controller => :mandates, :action => :index}
+    t.column :organization, url: {controller: :mandates, action: :index}
     t.column :family, hidden: true
     t.column :started_on, :datatype => :date
     t.column :stopped_on, :datatype => :date
@@ -232,11 +232,11 @@ class Backend::EntitiesController < BackendController
         file = tmp.join("entities_import_#{data.original_filename.gsub(/[^\w]/,'_')}")
         File.open(file, "wb") { |f| f.write(data.read)}
         session[:entities_import_file] = file
-        redirect_to :action => :import, :id => :columns
+        redirect_to action: :import, id: :columns
       end
     elsif @step == :columns
       unless File.exist?(session[:entities_import_file].to_s)
-        redirect_to :action => :import, :id => :upload
+        redirect_to action: :import, id: :upload
       end
       csv = Ekylibre::CSV.open(session[:entities_import_file])
       @columns = csv.shift
@@ -262,14 +262,14 @@ class Backend::EntitiesController < BackendController
         end
         # raise Exception.new columns.inspect+"\n"+cols.inspect
         session[:entities_import_cols] = cols
-        redirect_to :action => :import, :id => :validate
+        redirect_to action: :import, id: :validate
       end
     elsif @step == :validate
       file, cols = session[:entities_import_file], session[:entities_import_cols]
       if request.post?
         @report = Entity.import(file, cols, :no_simulation => true, :ignore => session[:entities_import_ignore])
         notify_success(:importation_finished)
-        redirect_to :action => :import, :id => :upload
+        redirect_to action: :import, id: :upload
       else
         @report = Entity.import(file, cols)
         session[:entities_import_ignore] = @report[:errors].keys

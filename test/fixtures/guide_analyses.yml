@@ -63,3 +63,12 @@ guide_analyses_002:
   started_at: 2013-10-26 18:34:15 +02:00
   stopped_at: 2013-10-26 18:34:18 +02:00
   updater: users_001
+
+guide_analyses_003:
+  acceptance_status: "failed"
+  creator: users_001
+  execution_number: 0
+  guide: guides_002
+  started_at: 2013-10-26 18:34:15 +02:00
+  stopped_at: 2013-10-26 18:34:18 +02:00
+  updater: users_001

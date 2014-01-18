@@ -44,7 +44,7 @@ class Backend::HelpsController < BackendController
   def index
     per_page = 10
     if request.xhr?
-      render :inline => "<%=article(params[:article], :url=>{:controller=>:helps, :action=>:index, :id=>'\1'}, :update => :helpage)-%>"
+      render :inline => "<%=article(params[:article], :url=>{controller: :helps, action: :index, id: '\1'}, :update => :helpage)-%>"
     else
       @search = {}
       page = params[:page].to_i

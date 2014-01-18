@@ -127,7 +127,7 @@ class Purchase < Ekylibre::Record::Base
       label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.description.blank? ? self.items.collect{|x| x.name}.to_sentence : self.description))
       for item in self.items
         entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
-        entry.add_debit(label, item.tax.paid_account_id, item.taxes_amount) unless item.taxes_amount.zero?
+        entry.add_debit(label, item.tax.deduction_account_id, item.taxes_amount) unless item.taxes_amount.zero?
       end
       entry.add_credit(label, self.supplier.account(:supplier).id, self.amount)
     end
@@ -138,7 +138,7 @@ class Purchase < Ekylibre::Record::Base
   end
 
   # Globalizes taxes into an array of hash
-  def deal_taxes(debit = false)
+  def deal_taxes(mode = :debit)
     return [] if self.deal_mode_amount(mode).zero?
     taxes = {}
     coeff = 1 # (self.send("deal_#{mode}?") ? 1 : -1)
@@ -215,7 +215,7 @@ class Purchase < Ekylibre::Record::Base
 
   def status
     if self.accounted_at == nil
-      return (self.invoice ? :caution : :stop)
+      return (self.invoice? ? :caution : :stop)
     elsif self.accounted_at
       return :go
     end

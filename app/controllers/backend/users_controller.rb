@@ -26,11 +26,11 @@ class Backend::UsersController < BackendController
     t.column :full_name, url: true
     t.column :first_name, url: true
     t.column :last_name, url: true
-    t.column :role, url: {:action => :edit}
+    t.column :role, url: {action: :edit}
     t.column :administrator
     t.column :employed
-    t.action :locked, :actions => {true => {:action => :unlock}, false => {:action => :lock}}, :method => :post, :if => 'RECORD.id != current_user.id'.c
-    t.action :edit, :controller => :users
+    t.action :locked, :actions => {true => {action: :unlock}, false => {action: :lock}}, :method => :post, :if => 'RECORD.id != current_user.id'.c
+    t.action :edit, controller: :users
     t.action :destroy, :if => 'RECORD.id != current_user.id'.c
   end
 
@@ -65,7 +65,7 @@ class Backend::UsersController < BackendController
     @user.attributes = permitted_params
     @user.rights_array = (params[:rights]||{}).keys
     @rights = @user.rights_array
-    return if save_and_redirect(@user, url: {:action => :index})
+    return if save_and_redirect(@user, url: {action: :index})
     t3e @user.attributes
   end
 

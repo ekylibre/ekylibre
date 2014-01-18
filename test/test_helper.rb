@@ -22,6 +22,11 @@ class ActionController::TestCase
 
   class << self
 
+    # Returns ID of the given label
+    def identify(label)
+      ActiveRecord::FixtureSet.identify(label)
+    end
+
     def test_restfully_all_actions(options={})
       controller_name = self.controller_class.controller_name
       controller_path = self.controller_class.controller_path
@@ -73,6 +78,9 @@ class ActionController::TestCase
       ignored = self.controller_class.action_methods.to_a.map(&:to_sym) - actions
       puts "Ignore in #{controller_path}: " + ignored.join(', ') if ignored.any?
 
+
+      show_notification = '(flash[:notification].is_a?(Hash) ? "Notifications are: " + flash[:notification].collect{|k,v| "#{k}: " + v.to_sentence(locale: :eng)}.to_sentence(locale: :eng) : "No given notifications") + "."'
+
       for action in actions
         action_label = "#{controller_path}##{action}"
 
@@ -96,14 +104,14 @@ class ActionController::TestCase
         }
         if mode == :index
           code << "    get :#{action}, #{sanitized_params[]}\n"
-          code << "    assert_response :success\n"
+          code << "    assert_response :success, #{show_notification}\n"
           code << "    assert_select('html body #main #content', 1, 'Cannot find #main #content element')\n"
         elsif mode == :new_product
           code << "    get :#{action}, #{sanitized_params[]}\n"
           code << "    if ProductNatureVariant.of_variety('#{model_name.underscore}').any?\n"
-          code << "      assert_response :success\n"
+          code << "      assert_response :success, #{show_notification}\n"
           code << "    else\n"
-          code << "      assert_response :redirect\n"
+          code << "      assert_response :redirect, #{show_notification}\n"
           code << "    end\n"
         elsif mode == :show
           code << "    assert_nothing_raised do\n"
@@ -114,7 +122,7 @@ class ActionController::TestCase
             code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
             code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
             code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-            code << "    assert_response :success\n"
+            code << "    assert_response :success, #{show_notification}\n"
             code << "    assert_not_nil assigns(:#{record})\n"
           end
         elsif mode == :picture
@@ -123,7 +131,7 @@ class ActionController::TestCase
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
           code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           code << "    if #{record}.picture.file?\n"
-          code << "      assert_response :success\n"
+          code << "      assert_response :success, #{show_notification}\n"
           code << "      assert_not_nil assigns(:#{record})\n"
           code << "    end\n"
         elsif mode == :list_things
@@ -131,7 +139,7 @@ class ActionController::TestCase
           code << "    assert_equal 1, #{model_name}.where(id: #{record}.id).count\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
           code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          code << "    assert_response :success\n"
+          code << "    assert_response :success, #{show_notification}\n"
           for format in [:csv, :xcsv, :ods]
             code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c, format: format]}\n"
             code << "    assert_response :success, 'Action #{action} does not export in format #{format}'\n"
@@ -149,7 +157,7 @@ class ActionController::TestCase
           code << "    assert_nothing_raised do\n"
           code << "      delete :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           code << "    end\n"
-          code << "    assert_response :redirect\n"
+          code << "    assert_response :redirect, #{show_notification}\n"
         elsif mode == :list
           code << "    get :#{action}, #{sanitized_params[]}\n"
           code << "    assert_response :success, \"The action #{action.inspect} does not seem to support GET method \#{redirect_to_url} / \#{flash.inspect}\"\n"
@@ -162,31 +170,31 @@ class ActionController::TestCase
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
           code << "    post :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          code << "    assert_response :redirect\n"
+          code << "    assert_response :redirect, #{show_notification}\n"
         elsif mode == :soft_touch
           code << "    post :#{action}, #{sanitized_params[]}\n"
-          code << "    assert_response :success\n"
+          code << "    assert_response :success, #{show_notification}\n"
         elsif mode == :redirected_get # with ID
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
           code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          code << "    assert_response :redirect\n"
+          code << "    assert_response :redirect, #{show_notification}\n"
         elsif mode == :get_and_post # with ID
           code << "    get :#{action}, #{sanitized_params[id: 'NaID']}\n"
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
           code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          code << "    assert_response :success\n"
+          code << "    assert_response :success, #{show_notification}\n"
         elsif mode == :index_xhr
           code << "    get :#{action}, #{sanitized_params[]}\n"
-          code << "    assert_response :redirect\n"
+          code << "    assert_response :redirect, #{show_notification}\n"
           code << "    xhr :get, :#{action}, #{sanitized_params[]}\n"
-          code << "    assert_response :success\n"
+          code << "    assert_response :success, #{show_notification}\n"
         elsif mode == :show_xhr
           code << "    #{record} = #{fixture_table}(:#{fixture_name}_001)\n"
           code << "    assert #{record}.valid?, '#{fixture_name}_001 must be valid:' + #{record}.errors.inspect\n"
           code << "    get :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
-          code << "    assert_response :redirect\n"
+          code << "    assert_response :redirect, #{show_notification}\n"
           code << "    xhr :get, :#{action}, #{sanitized_params[id: 'RECORD.id'.c]}\n"
           code << "    assert_not_nil assigns(:#{record})\n"
         elsif mode == :unroll
@@ -196,7 +204,7 @@ class ActionController::TestCase
           # TODO test all scopes
         elsif mode == :get
           code << "    get :#{action}, #{sanitized_params[]}\n"
-          code << "    assert_response :success\n"
+          code << "    assert_response :success, #{show_notification}\n"
         else
           code << "    raise StandardError, 'What is this mode? #{mode.inspect}'\n"
         end

@@ -18,34 +18,32 @@
 #
 
 class Backend::PurchaseItemsController < BackendController
+  manage_restfully only: [:destroy]
+
+  def show
+    if @purchase_item = PurchaseItem.find_by(id: params[:id])
+      redirect_to controller: :purchases, id: @purchase_item.purchase_id
+    else
+      redirect_to backend_root_url
+    end
+  end
 
   def new
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
-    if Building.count.zero?
-      notify_warning(:need_building_to_create_purchase_item)
-      redirect_to :action=>:new, :controller=>:buildings
-      return
-    elsif not @purchase.draft?
+    unless @purchase.draft?
       notify_warning(:impossible_to_add_items_to_purchase)
-      redirect_to :action=>:show, :controller=>:purchases, :step=>:products, :id=>@purchase.id
+      redirect_to action: :show, controller: :purchases, step: :products, id: @purchase.id
       return
     end
     @purchase_item = @purchase.items.new
-    # @price = ProductPriceTemplate.new(:pretax_amount=>0.0, :currency => @purchase.currency)
-    # session[:current_currency] = @price.currency
     t3e @purchase.attributes
-    # render_restfully_form
   end
 
   def create
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])
-    if Building.count.zero?
-      notify_warning(:need_building_to_create_purchase_item)
-      redirect_to :action=>:new, :controller=>:buildings
-      return
-    elsif not @purchase.draft?
+    unless @purchase.draft?
       notify_warning(:impossible_to_add_items_to_purchase)
-      redirect_to :action=>:show, :controller=>:purchases, :step=>:products, :id=>@purchase.id
+      redirect_to action: :show, controller: :purchases, step: :products, id: @purchase.id
       return
     end
     return unless product = find_and_check(:product_natures, params[:purchase_item][:product_id].to_i)
@@ -56,15 +54,13 @@ class Backend::PurchaseItemsController < BackendController
       params[:purchase_item][:price_id] = price.id
     end
     @purchase_item = @purchase.items.new(params[:purchase_item])
-    return if save_and_redirect(@purchase_item, :url=>{:controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase.id})
+    return if save_and_redirect(@purchase_item, :url=>{controller: :purchases, action: :show, step: :products, id: @purchase.id})
     t3e @purchase.attributes
-    # render_restfully_form
   end
 
   def edit
     return unless @purchase_item = find_and_check
     t3e @purchase_item.attributes
-    # render_restfully_form
   end
 
   def update
@@ -77,25 +73,10 @@ class Backend::PurchaseItemsController < BackendController
       params[:purchase_item][:price_id] = price.id
     end
     if @purchase_item.update_attributes(params[:purchase_item])
-      redirect_to :controller=>:purchases, :action=>:show, :step=>:products, :id=>@purchase_item.purchase_id
+      redirect_to controller: :purchases, action: :show, step: :products, id: @purchase_item.purchase_id
       return
     end
     t3e @purchase_item.attributes
-    # render_restfully_form
-  end
-
-  def destroy
-    return unless @purchase_item = find_and_check
-    @purchase_item.destroy
-    redirect_to_current
-  end
-
-  def show
-    if item = PurchaseItem.find_by(id: params[:id])
-      redirect_to :controller => :purchases, :id => item.purchase_id
-    else
-      redirect_to backend_root_url
-    end
   end
 
 end

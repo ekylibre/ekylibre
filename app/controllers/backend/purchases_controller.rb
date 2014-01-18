@@ -18,13 +18,13 @@
 #
 
 class Backend::PurchasesController < BackendController
-  manage_restfully :planned_on => "Date.today+2".c, :redirect_to => '{:action => :show, :step => :products, :id => "id"}'.c
+  manage_restfully :planned_on => "Date.today+2".c, :redirect_to => '{action: :show, step: :products, id: "id"}'.c
 
   unroll
 
   list(conditions: search_conditions(:purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), joins: :supplier, :line_class => :status, order: {created_on: :desc, number: :desc}) do |t|
-    t.column :number, url: {:action => :show, :step => :default}
-    t.column :reference_number, url: {:action => :show, :step => :products}
+    t.column :number, url: {action: :show, step: :default}
+    t.column :reference_number, url: {action: :show, step: :products}
     t.column :created_on
     # t.column :planned_on
     # t.column :moved_on
@@ -84,17 +84,17 @@ class Backend::PurchasesController < BackendController
         if params[:step] and not ["products", "deliveries", "summary"].include?(params[:step])
           state  = @purchase.state
           params[:step] = (@purchase.invoice? ? :summary : @purchase.order? ? :deliveries : :products).to_s
-          # redirect_to :action => :show, :id => @purchase.id,  :step => (["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products)
+          # redirect_to action: :show, id: @purchase.id,  step: (["invoiced", "finished"].include?(state) ? :summary : state=="processing" ? :deliveries : :products)
           # return
         end
         if params[:step] == "deliveries"
           if @purchase.deliveries.size <= 0 and @purchase.order? and @purchase.has_content?
-            redirect_to :action => :new, :controller => :incoming_deliveries, purchase_id: @purchase.id
+            redirect_to action: :new, controller: :incoming_deliveries, purchase_id: @purchase.id
           elsif @purchase.deliveries.size <= 0 and @purchase.invoice?
             notify(:purchase_already_invoiced)
           elsif @purchase.items.size <= 0
             notify_warning(:no_items_found)
-            redirect_to :action => :show, :step => :products, :id => @purchase.id
+            redirect_to action: :show, step: :products, id: @purchase.id
           end
         end
         t3e @purchase.attributes, :supplier => @purchase.supplier.full_name, :state => @purchase.state_label
@@ -109,7 +109,7 @@ class Backend::PurchasesController < BackendController
     if request.post?
       @purchase.abort
     end
-    redirect_to :action => :show, :id => @purchase.id
+    redirect_to action: :show, id: @purchase.id
   end
 
   def confirm
@@ -118,7 +118,7 @@ class Backend::PurchasesController < BackendController
     if request.post?
       step = :deliveries if @purchase.confirm
     end
-    redirect_to :action => :show, :step => step, :id => @purchase.id
+    redirect_to action: :show, step: step, id: @purchase.id
   end
 
   def correct
@@ -126,17 +126,17 @@ class Backend::PurchasesController < BackendController
     if request.post?
       @purchase.correct
     end
-    redirect_to :action => :show, :step => :products, :id => @purchase.id
+    redirect_to action: :show, step: :products, id: @purchase.id
   end
 
   def invoice
     return unless @purchase = find_and_check
     ActiveRecord::Base.transaction do
       raise ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_on])
-      redirect_to :action => :show, :step => :summary, :id => @purchase.id
+      redirect_to action: :show, step: :summary, id: @purchase.id
       return
     end
-    redirect_to :action => :show, :step => :products, :id => @purchase.id
+    redirect_to action: :show, step: :products, id: @purchase.id
   end
 
   def propose
@@ -144,7 +144,7 @@ class Backend::PurchasesController < BackendController
     if request.post?
       @purchase.propose
     end
-    redirect_to :action => :show, :step => :products, :id => @purchase.id
+    redirect_to action: :show, step: :products, id: @purchase.id
   end
 
   def refuse
@@ -152,7 +152,7 @@ class Backend::PurchasesController < BackendController
     if request.post?
       @purchase.refuse
     end
-    redirect_to :action => :show, :step => :products, :id => @purchase.id
+    redirect_to action: :show, step: :products, id: @purchase.id
   end
 
 end
