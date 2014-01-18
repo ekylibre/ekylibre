@@ -278,9 +278,14 @@ eng:
       show: "Financial year %{code}"
     backend/gaps:
       # show: "Perte ou profit N°%{number}"
-    backend/guide_analyses: #?
+    backend/guide_analyses:
+      # show: "Autocontroles par rapport au référentiels"
     backend/guide_indicator_data: #?
-    backend/guides: #?
+    backend/guides:
+      # edit: "Editer le référentiel\_: %{name}"
+      # index: "Référentiels-Guides"
+      # new: "Nouveau Référentiel-Guide"
+      # show: "Référentiel\_: %{name}"
     backend/help:  #?
       index: "Help" #?
       show: "Help: %{title}" #?
@@ -321,9 +326,12 @@ eng:
       new: "Add a new inventory"
       show: "Inventory: %{number}"
     backend/issues:
+      # abort: "Annuler"
+      # close: "Fermer"
       # edit: "Modifier l’incident\_: %{name} (%{nature})"
       # index: "Incidents"
       # new: "Nouvel incident"
+      # reopen: "Réouvrir"
       # show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       edit: "Edit journal entry: %{number}"
@@ -1156,6 +1164,7 @@ eng:
     # ground_appearance: "Aspect du sol"
     group: "Group"
     groups: "Groups"
+    # guides: "Référentiels"
     # harvested_at: "Récolté le"
     help: "Help"
     hint: "Hint: %{value}"

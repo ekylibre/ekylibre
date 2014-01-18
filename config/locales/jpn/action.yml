@@ -243,9 +243,14 @@ jpn:
       # show: "Exercice comptable %{code}"
     backend/gaps:
       # show: "Perte ou profit N°%{number}"
-    backend/guide_analyses: #?
+    backend/guide_analyses:
+      # show: "Autocontroles par rapport au référentiels"
     backend/guide_indicator_data: #?
-    backend/guides: #?
+    backend/guides:
+      # edit: "Editer le référentiel\_: %{name}"
+      # index: "Référentiels-Guides"
+      # new: "Nouveau Référentiel-Guide"
+      # show: "Référentiel\_: %{name}"
     backend/help: #?
     backend/helps:
       # index: "Aide"
@@ -284,9 +289,12 @@ jpn:
       # new: "Nouvel inventaire"
       # show: "Inventaire %{number}"
     backend/issues:
+      # abort: "Annuler"
+      # close: "Fermer"
       # edit: "Modifier l’incident\_: %{name} (%{nature})"
       # index: "Incidents"
       # new: "Nouvel incident"
+      # reopen: "Réouvrir"
       # show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       # edit: "Modifier l’écriture\_: %{number}"
@@ -1069,6 +1077,7 @@ jpn:
     # ground_appearance: "Aspect du sol"
     # group: "Groupe"
     # groups: "Groupes"
+    # guides: "Référentiels"
     # harvested_at: "Récolté le"
     # help: "Aide"
     # hint: "Astuce\_: %{value}"

@@ -30,7 +30,7 @@ demo :buildings do
     end
 
   end
-    
+
   Ekylibre::fixturize :buildings_shapes do |w|
     #############################################################################
     buidling_file = Rails.root.join("test", "fixtures", "files", "buildings_2013.shp")
@@ -90,7 +90,7 @@ demo :buildings do
             building_division.save!
           end
         end
-        
+
         # puts "Record number #{record.index}:"
         # puts "  Geometry: #{record.geometry.as_text}"
         # puts "  Attributes: #{record.attributes.inspect}"

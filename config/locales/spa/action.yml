@@ -281,9 +281,14 @@ spa:
       show: "Exercicio contable %{code}"
     backend/gaps:
       # show: "Perte ou profit N°%{number}"
-    backend/guide_analyses: #?
+    backend/guide_analyses:
+      # show: "Autocontroles par rapport au référentiels"
     backend/guide_indicator_data: #?
-    backend/guides: #?
+    backend/guides:
+      # edit: "Editer le référentiel\_: %{name}"
+      # index: "Référentiels-Guides"
+      # new: "Nouveau Référentiel-Guide"
+      # show: "Référentiel\_: %{name}"
     backend/help: #?
     backend/helps:
       # index: "Aide"
@@ -326,9 +331,12 @@ spa:
       # show: "Inventaire %{number}"
     backend/inventory_lines: #?
     backend/issues:
+      # abort: "Annuler"
+      # close: "Fermer"
       # edit: "Modifier l’incident\_: %{name} (%{nature})"
       # index: "Incidents"
       # new: "Nouvel incident"
+      # reopen: "Réouvrir"
       # show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       edit: "Modificar la pieza N°%{numro} du %{fecha de creacion}"
@@ -1180,6 +1188,7 @@ spa:
     # ground_appearance: "Aspect du sol"
     # group: "Groupe"
     # groups: "Groupes"
+    # guides: "Référentiels"
     # harvested_at: "Récolté le"
     help: "Ayuda"
     # hint: "Astuce\_: %{value}"

@@ -61,6 +61,10 @@ class ProductionSupport < Ekylibre::Record::Base
     joins(:production).merge(Production.of_campaign(campaigns))
   }
 
+  scope :of_activity_families, lambda { |*families|
+    joins(:activity).merge(Activity.of_families(families.flatten))
+  }
+
   # Measure a product for a given indicator
   def is_measured!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
@@ -151,6 +155,13 @@ class ProductionSupport < Ekylibre::Record::Base
     return nil
   end
 
+  def plant_at
+    if plant_intervention = self.interventions.real.of_nature(:implant).first
+      return plant_intervention.started_at
+    end
+    return nil
+  end
+
   # return the started_at attribute of the intervention of nature harvesting if exist and if it's a vegetal production
   def harvested_at
     if harvest_intervention = self.interventions.real.of_nature(:harvest).first
@@ -165,6 +176,22 @@ class ProductionSupport < Ekylibre::Record::Base
       for harvest in self.interventions.real.of_nature(:harvest)
         for input in harvest.casts.of_role('harvest-output')
           q = (input.actor ? input.actor.net_mass(input).to_d(mass_unit) : 0.0) if input.actor.variety == 'grain'
+          total_yield << q
+        end
+      end
+      if self.storage.net_surface_area
+        return ((total_yield.compact.sum) / (net_surface_area.to_d(surface_unit)))
+      end
+    end
+    return nil
+  end
+
+  def vine_yield(volume_unit = :hectoliter, surface_unit = :hectare)
+    if self.interventions.real.of_nature(:harvest).count > 1
+      total_yield = []
+      for harvest in self.interventions.real.of_nature(:harvest)
+        for input in harvest.casts.of_role('harvest-output')
+          q = (input.actor ? input.actor.net_volume(input).to_d(volume_unit) : 0.0) if input.actor.variety == 'grape'
           total_yield << q
         end
       end

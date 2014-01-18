@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
+  <aggregator name="land_parcel_registry" version="0.0" category="land_parcel_management">
+    <parameters>
+      <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
+    </parameters>
+    <section name="campaigns">
+      <variable name="company" value="Entity.of_company"/>
+      <property name="entity_name" value="company.full_name"/>
+      <property name="address" value="company.default_mail_address.coordinate"/>
+      <sections for="campaign" in="campaigns">
+        <property name="id" of="campaign" level="api"/>
+        <title name="name" of="campaign"/>
+        <!-- looking for all CultivableLandParcel in current campaign -->
+        <sections for="zone" in="CultivableZone.of_campaign(campaign)" of-type="record">
+          <title name="name" of="zone"/>
+          <property name="work_number" of="zone"/>
+          <property name="clusters_work_number" of="zone"/>
+          <property name="soil_varieties" of="zone"/>
+          <property name="net_surface_area" value="net_surface_area.to_d(:hectare)" of="zone" type="measure"/>
+          <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
+          <property name="id" of="zone" level="api"/>
+          <property name="shape_svg" of="zone" type="svg" level="api"/>
+          <!-- looking for all Production in current zone and campaign -->
+          <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
+            <title name="storage.name" of="support"/>
+            <property name="variant_name" value="support.production.variant_name"/>
+            <property name="variant_variety" value="support.production.variant_variety"/>
+            <property name="plant_at" value="support.plant_at" type="datetime"/>
+            <property name="harvested_at" value="support.harvested_at" type="datetime"/>
+            <property name="vine_yield" value="support.vine_yield(:hectoliter)" type="measure"/>
+            <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
+            <sections for="intervention" in="support.interventions.real.where(state: 'done')" of-type="record">
+              <variable name="actor" value="intervention.casts.of_role(:'target').first.actor"/>
+              <title name="name" of="intervention"/>
+              <title name="name" of="actor"/>
+              <property name="id" of="intervention" level="api"/>
+              <property name="started_at" of="intervention" type="datetime"/>
+              <property name="stopped_at" of="intervention" type="datetime"/>
+              <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
+              <section name="issue" of="intervention.issue">
+                <property name="id" level="api"/>
+                <property name="name"/>
+                <property name="observed_at"/>
+                <property name="state" level="api"/>
+                <property name="description"/>
+              </section> 
+              <matrix name="inputs" for="input" in="intervention.casts.of_role(:'input')">
+                <cell name="id" of="input" level="api"/>
+                <within of="input.actor">
+                  <cell name="name"/>
+                  <cell name="nature_name"/>
+                  <cell name="variety" level="api"/>
+                </within>
+                <cell name="population" of="input" />
+                <cell name="unit_name" value="input.actor.unit_name" />
+              </matrix>
+            </sections>
+            <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
+          </sections>
+        </sections>
+      </sections>
+    </section>
+  </aggregator>
+</aggregators>

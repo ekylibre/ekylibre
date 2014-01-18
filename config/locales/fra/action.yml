@@ -265,12 +265,12 @@ fra:
       # new: "New backend/gap"
       show: "Perte ou profit N°%{number}"
     backend/guide_analyses:
-      # show: "Show backend/guide analysis"
+      show: "Autocontroles par rapport au référentiels"
     backend/guides:
-      # edit: "Edit backend/guide"
-      # index: "Index backend/guide"
-      # new: "New backend/guide"
-      # show: "Show backend/guide"
+      edit: "Editer le référentiel\_: %{name}"
+      index: "Référentiels-Guides"
+      new: "Nouveau Référentiel-Guide"
+      show: "Référentiel\_: %{name}"
     backend/helps:
       index: "Aide"
       show: "Voir l’aide"
@@ -308,13 +308,13 @@ fra:
       new: "Nouvel inventaire"
       show: "Inventaire %{number}"
     backend/issues:
-      # abort: "Abort backend/issue"
-      # close: "Close backend/issue"
+      abort: "Annuler"
+      close: "Fermer"
       edit: "Modifier l’incident\_: %{name} (%{nature})"
       index: "Incidents"
       new: "Nouvel incident"
       # picture: "Picture backend/issue"
-      # reopen: "Reopen backend/issue"
+      reopen: "Réouvrir"
       show: "Incident %{name} (%{nature})"
     backend/journal_entries:
       edit: "Modifier l’écriture\_: %{number}"
@@ -1194,6 +1194,7 @@ fra:
     ground_appearance: "Aspect du sol"
     group: "Groupe"
     groups: "Groupes"
+    guides: "Référentiels"
     harvested_at: "Récolté le"
     help: "Aide"
     hint: "Astuce\_: %{value}"

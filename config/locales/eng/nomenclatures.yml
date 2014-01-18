@@ -992,6 +992,7 @@ eng:
         # incoming_delivery_docket: "Bon de réception"
         # inventory: "Inventaire"
         # journal: "Journal"
+        # land_parcel_registry: "Cahier de tracabilité - Parcelles"
         # manure_management_plan: "Cahier d’épandage"
         # outgoing_deliveries_journal: "Journal de livraison"
         # outgoing_delivery_docket: "Bon de livraison"
@@ -1008,6 +1009,7 @@ eng:
         # stocks: "Stocks"
         # trial_balance: "Balance comptable"
         # veterinary_booklet: "Carnet vétérinaire"
+        # vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
       # name: "Types de document"
     entity_link_natures:
       attributes: #?
@@ -1067,6 +1069,7 @@ eng:
       # name: "Typologie de culture (France)"
     guide_natures:
       items: #?
+      # name: "Type de guides"
     incidents: #?
     indicators:
       attributes:
@@ -1274,6 +1277,7 @@ eng:
         # nitrogen_input_per_area: "Quantité d'azote par unité de surface"
         # phosphorus_concentration: "Teneur en phosphore"
         plant_life_state: "Plant life state"
+        # plant_per_area: "pied par unité de surface"
         plant_reproduction_state: "Plant reproduction state"
         # population: "Population"
         # potassium_concentration: "Teneur en potassium"
