@@ -705,7 +705,13 @@
       <!--   <page to="backend/settings#restore"/> -->
       <!-- </item> -->
     </group>
-    <group name="guides" icon="book">
+    <group name="decision_making" icon="compass">
+      <item name="calculators">
+        <page to="backend/calculators#index"/>
+        <page to="backend/calculators/nitrogen_inputs#show"/>
+        <page to="backend/calculators/nitrogen_inputs#edit"/>
+        <page to="backend/calculators/nitrogen_inputs#update"/>
+      </item>
       <item name="guides">
         <page to="backend/guides#index"/>
         <page to="backend/guides#create"/>
@@ -716,12 +722,6 @@
         <page to="backend/guides#show"/>
         <page to="backend/guides#unroll"/>
         <page to="backend/guides#update"/>
-      </item>
-    </group>
-    <group name="calculators_and_simulators" icon="compass">
-      <item name="calculators">
-        <page to="backend/calculators#index"/>
-        <page to="backend/calculators/nitrogen_inputs#show"/>
       </item>
     </group>
     <group name="issues" icon="bug">
@@ -1459,7 +1459,6 @@
       </item>
       <item name="guide_analyses">
         <page to="backend/guide_analyses#show"/>
-        <page to="backend/guide_analyses#unroll"/>
       </item>
       <item name="guides">
         <page to="backend/guides#list_analyses"/>

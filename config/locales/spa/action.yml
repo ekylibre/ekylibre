@@ -79,6 +79,7 @@ spa:
     backend/calculators:
       # index: "Calculateurs"
     backend/calculators/nitrogen_inputs:
+      # edit: "Calcul des apports d’azote"
       # show: "Calcul des apports d’azote"
     backend/campaigns:
       # edit: "Campagne\_: %{name}"
@@ -280,14 +281,15 @@ spa:
       new: "Crear un nuevo ejercicio"
       show: "Exercicio contable %{code}"
     backend/gaps:
+      # index: "Pertes et profits"
       # show: "Perte ou profit N°%{number}"
     backend/guide_analyses:
-      # show: "Autocontroles par rapport au référentiels"
+      # show: "Analyse %{execution_number} du référentiel %{guide}"
     backend/guide_indicator_data: #?
     backend/guides:
-      # edit: "Editer le référentiel\_: %{name}"
-      # index: "Référentiels-Guides"
-      # new: "Nouveau Référentiel-Guide"
+      # edit: "Modifier le référentiel\_: %{name}"
+      # index: "Référentiels"
+      # new: "Nouveau référentiel"
       # show: "Référentiel\_: %{name}"
     backend/help: #?
     backend/helps:
@@ -1330,7 +1332,7 @@ spa:
     menus:
       # accountancy: "Comptabilité"
       # archives: "Archives"
-      # calculators_and_simulators: "Calculs et simulations"
+      # decision_making: "Aide à la décision"
       # documents: "GED"
       # exchange: "Échange de données"
       # finances: "Finances"

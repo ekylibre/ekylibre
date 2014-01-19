@@ -73,6 +73,7 @@ fra:
       # picture: "Picture backend/building"
       show: "Détail du bâtiment\_: %{name}"
     backend/calculators/nitrogen_inputs:
+      edit: "Calcul des apports d’azote"
       show: "Calcul des apports d’azote"
     backend/calculators:
       index: "Calculateurs"
@@ -260,16 +261,14 @@ fra:
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
     backend/gaps:
-      # edit: "Edit backend/gap"
-      # index: "Index backend/gap"
-      # new: "New backend/gap"
+      index: "Pertes et profits"
       show: "Perte ou profit N°%{number}"
     backend/guide_analyses:
-      show: "Autocontroles par rapport au référentiels"
+      show: "Analyse %{execution_number} du référentiel %{guide}"
     backend/guides:
-      edit: "Editer le référentiel\_: %{name}"
-      index: "Référentiels-Guides"
-      new: "Nouveau Référentiel-Guide"
+      edit: "Modifier le référentiel\_: %{name}"
+      index: "Référentiels"
+      new: "Nouveau référentiel"
       show: "Référentiel\_: %{name}"
     backend/helps:
       index: "Aide"
@@ -1328,7 +1327,7 @@ fra:
     menus:
       accountancy: "Comptabilité"
       archives: "Archives"
-      calculators_and_simulators: "Calculs et simulations"
+      decision_making: "Aide à la décision"
       documents: "GED"
       exchange: "Échange de données"
       finances: "Finances"

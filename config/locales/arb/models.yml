@@ -1334,7 +1334,7 @@ arb:
     # exportable_columns: "Colonnes exportables"
     expression: "اسلوب للتعبير"
     extension: "التوسع" #?
-    # external: "Externe à l’exploitation"
+    # external: "Externe"
     # failed_attempts: "Tentatives de connexions échouées"
     family: "وحدة قياس"
     family_label: "وحدة قياس" #?

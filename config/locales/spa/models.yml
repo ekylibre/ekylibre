@@ -668,7 +668,7 @@ spa:
     # exportable: "Exportable"
     # exportable_columns: "Colonnes exportables"
     # expression: "Expression"
-    # external: "Externe à l’exploitation"
+    # external: "Externe"
     # failed_attempts: "Tentatives de connexions échouées"
     # family: "Famille"
     # father: "Père"

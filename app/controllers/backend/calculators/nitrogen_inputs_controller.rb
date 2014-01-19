@@ -18,7 +18,16 @@
 class Backend::Calculators::NitrogenInputsController < BackendController
 
   def show
+    redirect_to :action => :edit
+  end
+
+  def edit
     @campaign = Campaign.last
+    # Compute the array
+  end
+
+  def update
+
   end
 
 end

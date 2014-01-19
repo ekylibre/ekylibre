@@ -1228,7 +1228,7 @@ fra:
     nmp_poitou_charentes_abacus_1:
       # name: "Nmp poitou charentes abacus 1"
       attributes:
-        # department_number: "Department number"
+        # administrative_area: "Administrative area"
         # irrigated: "Irrigated"
         # plant_variety: "Plant variety"
         # yield: "Yield"

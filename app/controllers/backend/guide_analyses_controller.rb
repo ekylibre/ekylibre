@@ -18,7 +18,5 @@
 #
 
 class Backend::GuideAnalysesController < BackendController
-  manage_restfully only: [:show]
-
-  unroll
+  manage_restfully only: [:show], t3e: {guide: :guide_name}
 end

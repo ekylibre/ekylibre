@@ -1,0 +1,31 @@
+.active-list
+  %table.list
+    %thead
+      %th= ProductionSupport.human_attribute_name(:activity)
+      %th= ProductionSupport.human_attribute_name(:campaign)
+      %th= LandParcel.model_name.human
+      %th= ProductionSupport.human_attribute_name(:net_surface_area)
+      %th= Production.human_attribute_name(:variant)
+      %th= :method.tl
+      %th= ProductionSupport.human_attribute_name(:yield)
+      %th= ProductionSupport.human_attribute_name(:soil_nature)
+      %th= ProductionSupport.human_attribute_name(:nitrogen_input)
+    %tbody
+      - for support in @campaign.production_supports
+        - zone = support.storage
+        - next unless zone.is_a?(CultivableZone)
+        - for membership in zone.memberships
+          - land_parcel = membership.member
+          %tr
+            %td= support.activity.name
+            %td= support.campaign.name
+            %td= land_parcel.name
+            %td.dec= membership.net_surface_area.in(:hectare).round(3).l
+            %td= Nomen::Varieties[support.production.variant.variety].human_name
+            %td= select_tag(:method, options_for_select(Nomen::NmpMethods.selection))
+            %td
+              %span.input-append
+                = text_field_tag(:yield, 90, size: 4)
+                %span.add-on= Nomen::Units[:quintal_per_hectare].symbol
+            %td= select_tag(:variety, options_for_select(Nomen::Varieties.selection(:land_parcel), land_parcel.variety))
+            %td.dec= 0.0.in(:unity_per_hectare).l

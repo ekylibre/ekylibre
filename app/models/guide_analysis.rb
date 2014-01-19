@@ -44,6 +44,8 @@ class GuideAnalysis < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :acceptance_status, in: self.acceptance_status.values
 
+  delegate :name, to: :guide, prefix: true
+
   before_validation :set_execution_number, on: :create
   before_create :set_execution_number
 

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
+  <!--  abaque de rendement (qt / ha) par département et variété de culture  -->
+  <nomenclature name="nmp_poitou_charentes_abacus_1" hierarchical="false">
+    <attributes>
+      <attribute name="plant_variety" type="choice" nomenclature="varieties" required="true"/> <!-- poaceae -->
+      <attribute name="yield" type="decimal" required="false"/><!-- en qt/ha -->
+      <attribute name="administrative_area" type="string" required="true"/>
+      <attribute name="irrigated" type="boolean" required="false"/>
+    </attributes>
+    <items>
+      <!-- AVOINE -->
+      <item name="avena_yield_16" plant_variety="avena" administrative_area="FR-16" yield="43"/>
+      <item name="avena_yield_17" plant_variety="avena" administrative_area="FR-17" yield="38"/>
+      <item name="avena_yield_79" plant_variety="avena" administrative_area="FR-79" yield="42"/>
+      <item name="avena_yield_86" plant_variety="avena" administrative_area="FR-86" yield="42"/>
+       <!-- SEIGLE -->
+      <item name="secale_yield_16" plant_variety="secale" administrative_area="FR-16" yield="48"/>
+      <item name="secale_yield_17" plant_variety="secale" administrative_area="FR-17" yield="49"/>
+      <item name="secale_yield_79" plant_variety="secale" administrative_area="FR-79" yield="45"/>
+      <item name="secale_yield_86" plant_variety="secale" administrative_area="FR-86" yield="50"/>
+       <!-- MELANGE DE CEREALES -->
+      <item name="poa_yield_16" plant_variety="poa" administrative_area="FR-16" yield="48"/>
+      <item name="poa_yield_17" plant_variety="poa" administrative_area="FR-17" yield="49"/>
+      <item name="poa_yield_79" plant_variety="poa" administrative_area="FR-79" yield="45"/>
+      <item name="poa_yield_86" plant_variety="poa" administrative_area="FR-86" yield="50"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

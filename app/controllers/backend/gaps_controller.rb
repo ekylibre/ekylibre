@@ -18,7 +18,7 @@
 #
 
 class Backend::GapsController < BackendController
-  manage_restfully
+  manage_restfully only: [:index, :show]
 
   list do |t|
     t.column :entity, url: true
