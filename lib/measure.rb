@@ -13,6 +13,7 @@ end
 class Measure
   attr_reader :value, :unit
   cattr_reader :dimensions
+  delegate :symbol, to: :nomenclature_unit
 
   @@dimensions = Nomen::Dimensions
   @@units      = Nomen::Units
@@ -114,22 +115,80 @@ class Measure
 
   # Test if the other measure is equal to self
   def ==(other)
-    to_d == other.to_d(@unit)
+    unless measure.is_a?(Measure)
+      raise ArgumentError, "Only measure can be compared to another measure"
+    end
+    self.to_r == other.to_r(@unit)
   end
 
-  # Returns the dimension of a measure
-  def +(measure)
-    unless measure.is_a?(Measure)
+  # Returns if self is less than other
+  def <(other)
+    unless other.is_a?(Measure)
+      raise ArgumentError, "Only measure can be compared to another measure"
+    end
+    self.to_r < other.to_r(@unit)
+  end
+
+  # Returns if self is greater than other
+  def >(other)
+    unless other.is_a?(Measure)
+      raise ArgumentError, "Only measure can be compared to another measure"
+    end
+    self.to_r > other.to_r(@unit)
+  end
+
+  # Returns if self is less than or equal to other
+  def <=(other)
+    unless other.is_a?(Measure)
+      raise ArgumentError, "Only measure can be compared to another measure"
+    end
+    self.to_r <= other.to_r(@unit)
+  end
+
+  # Returns if self is greater than or equal to other
+  def >=(other)
+    unless other.is_a?(Measure)
+      raise ArgumentError, "Only measure can be compared to another measure"
+    end
+    self.to_r >= other.to_r(@unit)
+  end
+
+  # Returns if self is greater than other
+  def <=>(other)
+    unless other.is_a?(Measure)
+      raise ArgumentError, "Only measure can be compared to another measure"
+    end
+    self.to_r <=> other.to_r(@unit)
+  end
+
+  # Test if measure is null
+  def zero?
+    @value.zero?
+  end
+
+  # Returns the dimension of a other
+  def +(other)
+    unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be added to another measure"
     end
-    self.class.new(@value + measure.to_r(@unit), @unit)
+    self.class.new(@value + other.to_r(@unit), @unit)
   end
 
-  def -(measure)
-    unless measure.is_a?(Measure)
+  def -(other)
+    unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be substracted to another measure"
     end
-    self.class.new(@value - measure.to_r(@unit), @unit)
+    self.class.new(@value - other.to_r(@unit), @unit)
+  end
+
+  # Returns opposite of its value
+  def -@
+    self.class.new(-@value, @unit)
+  end
+
+  # Returns self of its value
+  def +@
+    self
   end
 
   def *(numeric_or_measure)
@@ -155,6 +214,7 @@ class Measure
       raise ArgumentError, "Only numerics and measures can divide to a measure"
     end
   end
+
 
   def to_r(unit = nil, precision = 16)
     if unit.nil?
@@ -190,6 +250,11 @@ class Measure
   # Localize a measure
   def l
     "#{self.value.to_f.l} #{@@units.items[@unit].symbol}"
+  end
+
+  # Returns the unit from the nomenclature
+  def nomenclature_unit
+    @@units[@unit]
   end
 
 end

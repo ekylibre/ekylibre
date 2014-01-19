@@ -1,2 +1,4 @@
-= form_tag ({action: :update}) do
+= form_tag({action: :update}, method: :patch) do
   = render "form"
+  = form_actions do
+    = submit_tag(:calculate.tl, 'data-disable-with' => :please_wait.tl)

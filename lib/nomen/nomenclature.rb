@@ -167,10 +167,34 @@ module Nomen
       @items.values.select do |item|
         valid = true
         for attribute, value in attributes
-          valid = false unless item.attr(attribute) == value
+          item_value = item.attr(attribute)
+          if value.is_a?(Array)
+            one_found = false
+            for val in value
+              one_found = true if item_value == val
+            end
+            valid = false unless one_found
+          else
+            valid = false unless item_value == value
+          end
         end
         valid
       end
+    end
+
+    # Returns the best match on nomenclature attributes
+    def best_match(attribute, searched_item)
+      items = []
+      begin
+        list.select do |item|
+          if item.attr(attribute) == searched_item.name
+            items << item
+          end
+        end
+        break if items.any?
+        searched_item = searched_item.parent
+      end while searched_item
+      return items
     end
 
     # Returns Attribute descriptor

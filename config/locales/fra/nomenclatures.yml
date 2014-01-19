@@ -1225,28 +1225,6 @@ fra:
       # name: "Nmp methods"
       items:
         # poitou_charentes: "Poitou charentes"
-    nmp_poitou_charentes_abacus_1:
-      # name: "Nmp poitou charentes abacus 1"
-      attributes:
-        # administrative_area: "Administrative area"
-        # irrigated: "Irrigated"
-        # plant_variety: "Plant variety"
-        # yield: "Yield"
-      choices:
-        # plant_variety: # Choices comes from nomenclature: varieties
-      items:
-        # avena_yield_16: "Avena yield 16"
-        # avena_yield_17: "Avena yield 17"
-        # avena_yield_79: "Avena yield 79"
-        # avena_yield_86: "Avena yield 86"
-        # poa_yield_16: "Poa yield 16"
-        # poa_yield_17: "Poa yield 17"
-        # poa_yield_79: "Poa yield 79"
-        # poa_yield_86: "Poa yield 86"
-        # secale_yield_16: "Secale yield 16"
-        # secale_yield_17: "Secale yield 17"
-        # secale_yield_79: "Secale yield 79"
-        # secale_yield_86: "Secale yield 86"
     nmp_poitou_charentes_abacus_10:
       # name: "Nmp poitou charentes abacus 10"
       attributes:
@@ -1273,18 +1251,316 @@ fra:
         # wheat_ru_med_2: "Wheat ru med 2"
         # wheat_ru_min_1: "Wheat ru min 1"
         # wheat_ru_min_2: "Wheat ru min 2"
-    nmp_poitou_charentes_abacus_2:
-      # name: "Nmp poitou charentes abacus 2"
+    nmp_poitou_charentes_abacus_6:
+      # name: "Nmp poitou charentes abacus 6"
       attributes:
-        # irrigated: "Irrigated"
+        # cereal_typology: "Cereal typology"
+        # maximum_age: "Maximum age"
+        # mhp: "Mhp"
+        # minimum_age: "Minimum age"
+        # rank: "Rank"
+      choices:
+        # cereal_typology: # Choices comes from nomenclature: france_crops_sets
+      items:
+        # autumn_0_120_second: "Autumn 0 120 second"
+        # autumn_0_120_third: "Autumn 0 120 third"
+        # autumn_0_18_first: "Autumn 0 18 first"
+        # autumn_120_first: "Autumn 120 first"
+        # autumn_18_36_first: "Autumn 18 36 first"
+        # autumn_36_60_first: "Autumn 36 60 first"
+        # autumn_60_120_first: "Autumn 60 120 first"
+        # spring_0_120_third: "Spring 0 120 third"
+        # spring_0_18_first: "Spring 0 18 first"
+        # spring_0_36_second: "Spring 0 36 second"
+        # spring_120_first: "Spring 120 first"
+        # spring_120_second: "Spring 120 second"
+        # spring_18_36_first: "Spring 18 36 first"
+        # spring_36_60_first: "Spring 36 60 first"
+        # spring_36_60_second: "Spring 36 60 second"
+        # spring_60_120_first: "Spring 60 120 first"
+        # spring_60_120_second: "Spring 60 120 second"
+    nmp_poitou_charentes_abacus_7:
+      # name: "Nmp poitou charentes abacus 7"
+      attributes:
+        # crop_destruction_method: "Crop destruction method"
+        # current_crop_implantation_period_start: "Current crop implantation period start"
+        # mr: "Mr"
+        # previous_crop: "Previous crop"
+        # previous_crop_destruction_period_start: "Previous crop destruction period start"
+        # previous_crop_destruction_period_stop: "Previous crop destruction period stop"
+        # previous_crop_maximum_age: "Previous crop maximum age"
+        # previous_crop_minimum_age: "Previous crop minimum age"
+      choices:
+        crop_destruction_method:
+        # previous_crop: # Choices comes from nomenclature: france_crops_sets
+      items:
+        # alfalfa_current_year: "Alfalfa current year"
+        # alfalfa_next_year: "Alfalfa next year"
+        # bean: "Bean"
+        # beet: "Beet"
+        # carrot: "Carrot"
+        # chicory: "Chicory"
+        # concealed_meadow: "Concealed meadow"
+        # flax: "Flax"
+        # grain_corn: "Grain corn"
+        # grass_fallow_land_A1: "Grass fallow land a1"
+        # grass_fallow_land_A2: "Grass fallow land a2"
+        # grass_fallow_land_A3: "Grass fallow land a3"
+        # grass_fallow_land_B1: "Grass fallow land b1"
+        # grass_fallow_land_B2: "Grass fallow land b2"
+        # grass_fallow_land_B3: "Grass fallow land b3"
+        # grass_leguminous_fallow_land: "Grass leguminous fallow land"
+        # grass_leguminous_fallow_land_A1: "Grass leguminous fallow land a1"
+        # grass_leguminous_fallow_land_A2: "Grass leguminous fallow land a2"
+        # grass_leguminous_fallow_land_A3: "Grass leguminous fallow land a3"
+        # grass_leguminous_fallow_land_B1: "Grass leguminous fallow land b1"
+        # grass_leguminous_fallow_land_B2: "Grass leguminous fallow land b2"
+        # grass_leguminous_fallow_land_B3: "Grass leguminous fallow land b3"
+        # leguminous_fallow_land: "Leguminous fallow land"
+        # leguminous_fallow_land_A1: "Leguminous fallow land a1"
+        # leguminous_fallow_land_A2: "Leguminous fallow land a2"
+        # leguminous_fallow_land_A3: "Leguminous fallow land a3"
+        # leguminous_fallow_land_B1: "Leguminous fallow land b1"
+        # leguminous_fallow_land_B2: "Leguminous fallow land b2"
+        # leguminous_fallow_land_B3: "Leguminous fallow land b3"
+        # meadow: "Meadow"
+        # nightshade: "Nightshade"
+        # peas: "Peas"
+        # rape: "Rape"
+        # silage_corn: "Silage corn"
+        # straw_cereal_buried: "Straw cereal buried"
+        # straw_cereal_export: "Straw cereal export"
+        # sunflower: "Sunflower"
+        # vetch: "Vetch"
+    nmp_poitou_charentes_abacus_8:
+      # name: "Nmp poitou charentes abacus 8"
+      attributes:
+        # crop: "Crop"
+        # input_method: "Input method"
+        # input_period_start: "Input period start"
+        # input_period_stop: "Input period stop"
+        # keq: "Keq"
+        # variant: "Variant"
+      choices:
+        # crop: # Choices comes from nomenclature: france_crops_sets
+        input_method:
+          # before_cipan: "Before cipan"
+          # buried: "Buried"
+          # on_top: "On top"
+        # variant: # Choices comes from nomenclature: product_nature_variants
+      items:
+        # cattle_compost_on_grass_1: "Cattle compost on grass 1"
+        # cattle_compost_on_grass_2: "Cattle compost on grass 2"
+        # cattle_compost_on_spring_straw_cereal_1: "Cattle compost on spring straw cereal 1"
+        # cattle_compost_on_spring_straw_cereal_2: "Cattle compost on spring straw cereal 2"
+        # cattle_manure_on_grass_1: "Cattle manure on grass 1"
+        # cattle_manure_on_grass_2: "Cattle manure on grass 2"
+        # cattle_manure_on_spring_straw_cereal_1: "Cattle manure on spring straw cereal 1"
+        # cattle_manure_on_spring_straw_cereal_2: "Cattle manure on spring straw cereal 2"
+        # cattle_slurry_on_autumn_crop: "Cattle slurry on autumn crop"
+        # cattle_slurry_on_grass_1: "Cattle slurry on grass 1"
+        # cattle_slurry_on_grass_2: "Cattle slurry on grass 2"
+        # cattle_slurry_on_spring_crop_1: "Cattle slurry on spring crop 1"
+        # cattle_slurry_on_spring_crop_2: "Cattle slurry on spring crop 2"
+        # hen_compost_on_spring_straw_cereal: "Hen compost on spring straw cereal"
+        # hen_guano_on_rape: "Hen guano on rape"
+        # hen_guano_on_spring_straw_cereal: "Hen guano on spring straw cereal"
+        # hen_guano_on_straw_cereal: "Hen guano on straw cereal"
+        # hen_manure_on_rape: "Hen manure on rape"
+        # hen_manure_on_spring_straw_cereal: "Hen manure on spring straw cereal"
+        # hen_manure_on_straw_cereal: "Hen manure on straw cereal"
+        # mud_on_autumn_crop: "Mud on autumn crop"
+        # mud_on_spring_crop_1: "Mud on spring crop 1"
+        # mud_on_spring_crop_2: "Mud on spring crop 2"
+        # pig_compost_on_grass_1: "Pig compost on grass 1"
+        # pig_compost_on_grass_2: "Pig compost on grass 2"
+        # pig_manure_on_grass_1: "Pig manure on grass 1"
+        # pig_manure_on_grass_2: "Pig manure on grass 2"
+        # pig_slurry_on_grass_1: "Pig slurry on grass 1"
+        # pig_slurry_on_grass_2: "Pig slurry on grass 2"
+        # pig_slurry_on_grass_3: "Pig slurry on grass 3"
+        # pig_slurry_on_rape: "Pig slurry on rape"
+        # pig_slurry_on_spring_straw_cereal: "Pig slurry on spring straw cereal"
+        # pig_slurry_on_straw_cereal: "Pig slurry on straw cereal"
+        # sugar_vinasse_on_spring_crop_1: "Sugar vinasse on spring crop 1"
+        # sugar_vinasse_on_spring_crop_2: "Sugar vinasse on spring crop 2"
+        # sugar_vinasse_on_spring_crop_3: "Sugar vinasse on spring crop 3"
+        # urban_compost_on_spring_crop: "Urban compost on spring crop"
+    nmp_poitou_charentes_abacus_9:
+      # name: "Nmp poitou charentes abacus 9"
+      attributes:
         # land_parcel_variety: "Land parcel variety"
         # maximum_available_water_capacity: "Maximum available water capacity"
         # minimum_available_water_capacity: "Minimum available water capacity"
-        # plant_variety: "Plant variety"
-        # yield: "Yield"
+        # rf: "Rf"
       choices:
         # land_parcel_variety: # Choices comes from nomenclature: varieties
-        # plant_variety: # Choices comes from nomenclature: varieties
+      items:
+        # aubues_max: "Aubues max"
+        # aubues_min: "Aubues min"
+        # black_valley_max: "Black valley max"
+        # black_valley_med: "Black valley med"
+        # champagne_max: "Champagne max"
+        # champagne_min: "Champagne min"
+        # clay_limestone_max: "Clay limestone max"
+        # clay_limestone_min: "Clay limestone min"
+        # flap_silt_max: "Flap silt max"
+        # flap_silt_med: "Flap silt med"
+        # flap_silt_min: "Flap silt min"
+        # granite_arena_max: "Granite arena max"
+        # granite_arena_med: "Granite arena med"
+        # granite_arena_min: "Granite arena min"
+        # hydromorph_sandy_clay_loam_med: "Hydromorph sandy clay loam med"
+        # hydromorph_sandy_clay_loam_min: "Hydromorph sandy clay loam min"
+        # red_chesnut_max: "Red chesnut max"
+        # red_chesnut_med: "Red chesnut med"
+        # red_chesnut_min: "Red chesnut min"
+        # sand_max: "Sand max"
+        # sand_med: "Sand med"
+        # sand_min: "Sand min"
+        # silt_schist_max: "Silt schist max"
+        # silt_schist_med: "Silt schist med"
+        # silt_schist_min: "Silt schist min"
+        # silty_clay_loam_max: "Silty clay loam max"
+        # silty_clay_loam_med: "Silty clay loam med"
+        # silty_clay_loam_min: "Silty clay loam min"
+        # silty_clay_max: "Silty clay max"
+        # silty_clay_med: "Silty clay med"
+        # silty_clay_min: "Silty clay min"
+        # valley_terrace_max: "Valley terrace max"
+        # valley_terrace_med: "Valley terrace med"
+        # valley_terrace_min: "Valley terrace min"
+    nmp_poitou_charentes_abacus_five:
+      # name: "Nmp poitou charentes abacus five"
+      attributes:
+        # cereal_crop: "Cereal crop"
+        # cereal_typology: "Cereal typology"
+        # husbandry: "Husbandry"
+        # husbandry_with_mixed_crop: "Husbandry with mixed crop"
+        # land_parcel_variety: "Land parcel variety"
+        # mixed_crop: "Mixed crop"
+      choices:
+        # cereal_typology: # Choices comes from nomenclature: france_crops_sets
+        # land_parcel_variety: # Choices comes from nomenclature: varieties
+      items:
+        # aubues_triticum_aestivum: "Aubues triticum aestivum"
+        # black_valley_triticum_aestivum: "Black valley triticum aestivum"
+        # champagne_triticum_aestivum: "Champagne triticum aestivum"
+        # clay_limestone_triticum_aestivum: "Clay limestone triticum aestivum"
+        # flap_silt_triticum_aestivum: "Flap silt triticum aestivum"
+        # granite_arena_triticum_aestivum: "Granite arena triticum aestivum"
+        # hydromorph_sandy_clay_loam_triticum_aestivum: "Hydromorph sandy clay loam triticum aestivum"
+        # red_chesnut_triticum_aestivum: "Red chesnut triticum aestivum"
+        # sand_triticum_aestivum: "Sand triticum aestivum"
+        # silt_schist_triticum_aestivum: "Silt schist triticum aestivum"
+        # silty_clay_loam_triticum_aestivum: "Silty clay loam triticum aestivum"
+        # silty_clay_triticum_aestivum: "Silty clay triticum aestivum"
+        # valley_terrace_triticum_aestivum: "Valley terrace triticum aestivum"
+    nmp_poitou_charentes_abacus_four:
+      # name: "Nmp poitou charentes abacus four"
+      attributes:
+        # absorbed_nitrogen: "Absorbed nitrogen"
+        # maximum_leaf_count: "Maximum leaf count"
+        # minimum_leaf_count: "Minimum leaf count"
+      items:
+        # good_growth: "Good growth"
+        # little_growth: "Little growth"
+        # no_growth: "No growth"
+    nmp_poitou_charentes_abacus_one:
+      # name: "Nmp poitou charentes abacus one"
+      attributes:
+        # administrative_area: "Administrative area"
+        # crop_yield: "Crop yield"
+        # cultivation_variety: "Cultivation variety"
+        # irrigated: "Irrigated"
+      choices:
+        # cultivation_variety: # Choices comes from nomenclature: varieties
+      items:
+        # avena_yield_16: "Avena yield 16"
+        # avena_yield_17: "Avena yield 17"
+        # avena_yield_79: "Avena yield 79"
+        # avena_yield_86: "Avena yield 86"
+        # poa_yield_16: "Poa yield 16"
+        # poa_yield_17: "Poa yield 17"
+        # poa_yield_79: "Poa yield 79"
+        # poa_yield_86: "Poa yield 86"
+        # secale_yield_16: "Secale yield 16"
+        # secale_yield_17: "Secale yield 17"
+        # secale_yield_79: "Secale yield 79"
+        # secale_yield_86: "Secale yield 86"
+    nmp_poitou_charentes_abacus_three:
+      # name: "Nmp poitou charentes abacus three"
+      attributes:
+        # coefficient: "Coefficient"
+        # cultivation_variety: "Cultivation variety"
+        # irrigated: "Irrigated"
+        # nitrogen_stock_before_bolting: "Nitrogen stock before bolting"
+      choices:
+        # cultivation_variety: # Choices comes from nomenclature: varieties
+      items:
+        # alexis_wheat_crop: "Alexis wheat crop"           # durum_wheat_crop
+        # apache_wheat_crop: "Apache wheat crop"           # non_improving_wheat_crop
+        # ascott_wheat_crop: "Ascott wheat crop"           # non_improving_wheat_crop
+        # autan_wheat_crop: "Autan wheat crop"             # non_improving_wheat_crop
+        # aventur_wheat_crop: "Aventur wheat crop"         # durum_wheat_crop
+        # aztec_wheat_crop: "Aztec wheat crop"             # non_improving_wheat_crop
+        # biensur_wheat_crop: "Biensur wheat crop"         # durum_wheat_crop
+        # brassage_barley_crop: "Brassage barley crop"
+        # bussard_wheat_crop: "Bussard wheat crop"         # improving_wheat_crop
+        # caphorn_wheat_crop: "Caphorn wheat crop"         # non_improving_wheat_crop
+        # courtot_wheat_crop: "Courtot wheat crop"         # improving_wheat_crop
+        # cultur_wheat_crop: "Cultur wheat crop"           # durum_wheat_crop
+        # durum_wheat_crop: "Durum wheat crop"
+        # esperia_wheat_crop: "Esperia wheat crop"         # improving_wheat_crop
+        # euclide_wheat_crop: "Euclide wheat crop"         # non_improving_wheat_crop
+        # fabulis_wheat_crop: "Fabulis wheat crop"         # durum_wheat_crop
+        # galibier_wheat_crop: "Galibier wheat crop"       # improving_wheat_crop
+        # improving_wheat_crop: "Improving wheat crop"
+        # irrigate_spring_barley_crop: "Irrigate spring barley crop" # spring_barley_crop
+        # isengrain_wheat_crop: "Isengrain wheat crop"     # non_improving_wheat_crop
+        # karur_wheat_crop: "Karur wheat crop"             # durum_wheat_crop
+        # levis_wheat_crop: "Levis wheat crop"             # improving_wheat_crop
+        # lona_wheat_crop: "Lona wheat crop"               # improving_wheat_crop
+        # low_protein_brassage_barley_crop: "Low protein brassage barley crop" # brassage_barley_crop
+        # low_protein_spring_barley_crop: "Low protein spring barley crop" # spring_barley_crop
+        # manital_wheat_crop: "Manital wheat crop"         # improving_wheat_crop
+        # miradoux_wheat_crop: "Miradoux wheat crop"       # durum_wheat_crop
+        # non_improving_wheat_crop: "Non improving wheat crop"
+        # oat_crop: "Oat crop"
+        # oratorio_wheat_crop: "Oratorio wheat crop"       # non_improving_wheat_crop
+        # other_crop: "Other crop"
+        # pescadou_wheat_crop: "Pescadou wheat crop"       # durum_wheat_crop
+        # qualital_wheat_crop: "Qualital wheat crop"       # improving_wheat_crop
+        # quality_wheat_crop: "Quality wheat crop"         # improving_wheat_crop
+        # quebon_wheat_crop: "Quebon wheat crop"           # improving_wheat_crop
+        # recital_wheat_crop: "Recital wheat crop"         # non_improving_wheat_crop
+        # renan_wheat_crop: "Renan wheat crop"             # improving_wheat_crop
+        # rubisko_wheat_crop: "Rubisko wheat crop"         # non_improving_wheat_crop
+        # runal_wheat_crop: "Runal wheat crop"             # improving_wheat_crop
+        # sculptur_wheat_crop: "Sculptur wheat crop"       # durum_wheat_crop
+        # secale_crop: "Secale crop"
+        # soissons_wheat_crop: "Soissons wheat crop"       # non_improving_wheat_crop
+        # spring_barley_crop: "Spring barley crop"
+        # sy_banco_wheat_crop: "Sy banco wheat crop"       # durum_wheat_crop
+        # sy_cysco_wheat_crop: "Sy cysco wheat crop"       # durum_wheat_crop
+        # tablur_wheat_crop: "Tablur wheat crop"           # durum_wheat_crop
+        # tamaro_wheat_crop: "Tamaro wheat crop"           # improving_wheat_crop
+        # texel_wheat_crop: "Texel wheat crop"             # non_improving_wheat_crop
+        # tremie_wheat_crop: "Tremie wheat crop"           # non_improving_wheat_crop
+        # triticosecale_crop: "Triticosecale crop"
+        # winter_barley_crop: "Winter barley crop"
+    nmp_poitou_charentes_abacus_two:
+      # name: "Nmp poitou charentes abacus two"
+      attributes:
+        # cultivation_variety: "Cultivation variety"
+        # irrigated: "Irrigated"
+        # maximum_available_water_capacity: "Maximum available water capacity"
+        # minimum_available_water_capacity: "Minimum available water capacity"
+        # soil_variety: "Soil variety"
+        # yield: "Yield"
+      choices:
+        # cultivation_variety: # Choices comes from nomenclature: varieties
+        # soil_variety: # Choices comes from nomenclature: varieties
       items:
         # aubues_durum_wheat_crop_max: "Aubues durum wheat crop max"
         # aubues_durum_wheat_crop_med: "Aubues durum wheat crop med"
@@ -1479,282 +1755,6 @@ fra:
         # valley_terrace_winter_barley_crop_max: "Valley terrace winter barley crop max"
         # valley_terrace_winter_barley_crop_med: "Valley terrace winter barley crop med"
         # valley_terrace_winter_barley_crop_min: "Valley terrace winter barley crop min"
-    nmp_poitou_charentes_abacus_3:
-      # name: "Nmp poitou charentes abacus 3"
-      attributes:
-        # b: "B"
-        # irrigated: "Irrigated"
-        # nitrogen_stock_before_bolting: "Nitrogen stock before bolting"
-        # plant_variety: "Plant variety"
-      choices:
-        # plant_variety: # Choices comes from nomenclature: varieties
-      items:
-        # alexis_wheat_crop: "Alexis wheat crop"           # durum_wheat_crop
-        # apache_wheat_crop: "Apache wheat crop"           # non_improving_wheat_crop
-        # ascott_wheat_crop: "Ascott wheat crop"           # non_improving_wheat_crop
-        # autan_wheat_crop: "Autan wheat crop"             # non_improving_wheat_crop
-        # aventur_wheat_crop: "Aventur wheat crop"         # durum_wheat_crop
-        # aztec_wheat_crop: "Aztec wheat crop"             # non_improving_wheat_crop
-        # biensur_wheat_crop: "Biensur wheat crop"         # durum_wheat_crop
-        # brassage_barley_crop: "Brassage barley crop"
-        # bussard_wheat_crop: "Bussard wheat crop"         # improving_wheat_crop
-        # caphorn_wheat_crop: "Caphorn wheat crop"         # non_improving_wheat_crop
-        # courtot_wheat_crop: "Courtot wheat crop"         # improving_wheat_crop
-        # cultur_wheat_crop: "Cultur wheat crop"           # durum_wheat_crop
-        # durum_wheat_crop: "Durum wheat crop"
-        # esperia_wheat_crop: "Esperia wheat crop"         # improving_wheat_crop
-        # euclide_wheat_crop: "Euclide wheat crop"         # non_improving_wheat_crop
-        # fabulis_wheat_crop: "Fabulis wheat crop"         # durum_wheat_crop
-        # galibier_wheat_crop: "Galibier wheat crop"       # improving_wheat_crop
-        # improving_wheat_crop: "Improving wheat crop"
-        # irrigate_spring_barley_crop: "Irrigate spring barley crop" # spring_barley_crop
-        # isengrain_wheat_crop: "Isengrain wheat crop"     # non_improving_wheat_crop
-        # karur_wheat_crop: "Karur wheat crop"             # durum_wheat_crop
-        # levis_wheat_crop: "Levis wheat crop"             # improving_wheat_crop
-        # lona_wheat_crop: "Lona wheat crop"               # improving_wheat_crop
-        # low_protein_brassage_barley_crop: "Low protein brassage barley crop" # brassage_barley_crop
-        # low_protein_spring_barley_crop: "Low protein spring barley crop" # spring_barley_crop
-        # manital_wheat_crop: "Manital wheat crop"         # improving_wheat_crop
-        # miradoux_wheat_crop: "Miradoux wheat crop"       # durum_wheat_crop
-        # non_improving_wheat_crop: "Non improving wheat crop"
-        # oat_crop: "Oat crop"
-        # oratorio_wheat_crop: "Oratorio wheat crop"       # non_improving_wheat_crop
-        # other_crop: "Other crop"
-        # pescadou_wheat_crop: "Pescadou wheat crop"       # durum_wheat_crop
-        # qualital_wheat_crop: "Qualital wheat crop"       # improving_wheat_crop
-        # quality_wheat_crop: "Quality wheat crop"         # improving_wheat_crop
-        # quebon_wheat_crop: "Quebon wheat crop"           # improving_wheat_crop
-        # recital_wheat_crop: "Recital wheat crop"         # non_improving_wheat_crop
-        # renan_wheat_crop: "Renan wheat crop"             # improving_wheat_crop
-        # rubisko_wheat_crop: "Rubisko wheat crop"         # non_improving_wheat_crop
-        # runal_wheat_crop: "Runal wheat crop"             # improving_wheat_crop
-        # sculptur_wheat_crop: "Sculptur wheat crop"       # durum_wheat_crop
-        # secale_crop: "Secale crop"
-        # soissons_wheat_crop: "Soissons wheat crop"       # non_improving_wheat_crop
-        # spring_barley_crop: "Spring barley crop"
-        # sy_banco_wheat_crop: "Sy banco wheat crop"       # durum_wheat_crop
-        # sy_cysco_wheat_crop: "Sy cysco wheat crop"       # durum_wheat_crop
-        # tablur_wheat_crop: "Tablur wheat crop"           # durum_wheat_crop
-        # tamaro_wheat_crop: "Tamaro wheat crop"           # improving_wheat_crop
-        # texel_wheat_crop: "Texel wheat crop"             # non_improving_wheat_crop
-        # tremie_wheat_crop: "Tremie wheat crop"           # non_improving_wheat_crop
-        # triticosecale_crop: "Triticosecale crop"
-        # winter_barley_crop: "Winter barley crop"
-    nmp_poitou_charentes_abacus_4:
-      # name: "Nmp poitou charentes abacus 4"
-      attributes:
-        # maximum_leaf_count: "Maximum leaf count"
-        # minimum_leaf_count: "Minimum leaf count"
-        # pi: "Pi"
-      items:
-        # good_growth: "Good growth"
-        # little_growth: "Little growth"
-        # no_growth: "No growth"
-    nmp_poitou_charentes_abacus_5:
-      # name: "Nmp poitou charentes abacus 5"
-      attributes:
-        # cereal_crop: "Cereal crop"
-        # cereal_typology: "Cereal typology"
-        # husbandry: "Husbandry"
-        # husbandry_with_mixed_crop: "Husbandry with mixed crop"
-        # land_parcel_variety: "Land parcel variety"
-        # mixed_crop: "Mixed crop"
-      choices:
-        # cereal_typology: # Choices comes from nomenclature: france_crops_sets
-        # land_parcel_variety: # Choices comes from nomenclature: varieties
-      items:
-        # aubues_triticum_aestivum: "Aubues triticum aestivum"
-        # black_valley_triticum_aestivum: "Black valley triticum aestivum"
-        # champagne_triticum_aestivum: "Champagne triticum aestivum"
-        # clay_limestone_triticum_aestivum: "Clay limestone triticum aestivum"
-        # flap_silt_triticum_aestivum: "Flap silt triticum aestivum"
-        # granite_arena_triticum_aestivum: "Granite arena triticum aestivum"
-        # hydromorph_sandy_clay_loam_triticum_aestivum: "Hydromorph sandy clay loam triticum aestivum"
-        # red_chesnut_triticum_aestivum: "Red chesnut triticum aestivum"
-        # sand_triticum_aestivum: "Sand triticum aestivum"
-        # silt_schist_triticum_aestivum: "Silt schist triticum aestivum"
-        # silty_clay_loam_triticum_aestivum: "Silty clay loam triticum aestivum"
-        # silty_clay_triticum_aestivum: "Silty clay triticum aestivum"
-        # valley_terrace_triticum_aestivum: "Valley terrace triticum aestivum"
-    nmp_poitou_charentes_abacus_6:
-      # name: "Nmp poitou charentes abacus 6"
-      attributes:
-        # cereal_typology: "Cereal typology"
-        # maximum_age: "Maximum age"
-        # mhp: "Mhp"
-        # minimum_age: "Minimum age"
-        # rank: "Rank"
-      choices:
-        # cereal_typology: # Choices comes from nomenclature: france_crops_sets
-      items:
-        # autumn_0_120_second: "Autumn 0 120 second"
-        # autumn_0_120_third: "Autumn 0 120 third"
-        # autumn_0_18_first: "Autumn 0 18 first"
-        # autumn_120_first: "Autumn 120 first"
-        # autumn_18_36_first: "Autumn 18 36 first"
-        # autumn_36_60_first: "Autumn 36 60 first"
-        # autumn_60_120_first: "Autumn 60 120 first"
-        # spring_0_120_third: "Spring 0 120 third"
-        # spring_0_18_first: "Spring 0 18 first"
-        # spring_0_36_second: "Spring 0 36 second"
-        # spring_120_first: "Spring 120 first"
-        # spring_120_second: "Spring 120 second"
-        # spring_18_36_first: "Spring 18 36 first"
-        # spring_36_60_first: "Spring 36 60 first"
-        # spring_36_60_second: "Spring 36 60 second"
-        # spring_60_120_first: "Spring 60 120 first"
-        # spring_60_120_second: "Spring 60 120 second"
-    nmp_poitou_charentes_abacus_7:
-      # name: "Nmp poitou charentes abacus 7"
-      attributes:
-        # crop_destruction_method: "Crop destruction method"
-        # current_crop_implantation_period_start: "Current crop implantation period start"
-        # mr: "Mr"
-        # previous_crop: "Previous crop"
-        # previous_crop_destruction_period_start: "Previous crop destruction period start"
-        # previous_crop_destruction_period_stop: "Previous crop destruction period stop"
-        # previous_crop_maximum_age: "Previous crop maximum age"
-        # previous_crop_minimum_age: "Previous crop minimum age"
-      choices:
-        crop_destruction_method:
-        # previous_crop: # Choices comes from nomenclature: france_crops_sets
-      items:
-        # alfalfa_current_year: "Alfalfa current year"
-        # alfalfa_next_year: "Alfalfa next year"
-        # bean: "Bean"
-        # beet: "Beet"
-        # carrot: "Carrot"
-        # chicory: "Chicory"
-        # concealed_meadow: "Concealed meadow"
-        # flax: "Flax"
-        # grain_corn: "Grain corn"
-        # grass_fallow_land_A1: "Grass fallow land a1"
-        # grass_fallow_land_A2: "Grass fallow land a2"
-        # grass_fallow_land_A3: "Grass fallow land a3"
-        # grass_fallow_land_B1: "Grass fallow land b1"
-        # grass_fallow_land_B2: "Grass fallow land b2"
-        # grass_fallow_land_B3: "Grass fallow land b3"
-        # grass_leguminous_fallow_land: "Grass leguminous fallow land"
-        # grass_leguminous_fallow_land_A1: "Grass leguminous fallow land a1"
-        # grass_leguminous_fallow_land_A2: "Grass leguminous fallow land a2"
-        # grass_leguminous_fallow_land_A3: "Grass leguminous fallow land a3"
-        # grass_leguminous_fallow_land_B1: "Grass leguminous fallow land b1"
-        # grass_leguminous_fallow_land_B2: "Grass leguminous fallow land b2"
-        # grass_leguminous_fallow_land_B3: "Grass leguminous fallow land b3"
-        # leguminous_fallow_land: "Leguminous fallow land"
-        # leguminous_fallow_land_A1: "Leguminous fallow land a1"
-        # leguminous_fallow_land_A2: "Leguminous fallow land a2"
-        # leguminous_fallow_land_A3: "Leguminous fallow land a3"
-        # leguminous_fallow_land_B1: "Leguminous fallow land b1"
-        # leguminous_fallow_land_B2: "Leguminous fallow land b2"
-        # leguminous_fallow_land_B3: "Leguminous fallow land b3"
-        # meadow: "Meadow"
-        # nightshade: "Nightshade"
-        # peas: "Peas"
-        # rape: "Rape"
-        # silage_corn: "Silage corn"
-        # straw_cereal_buried: "Straw cereal buried"
-        # straw_cereal_export: "Straw cereal export"
-        # sunflower: "Sunflower"
-        # vetch: "Vetch"
-    nmp_poitou_charentes_abacus_8:
-      # name: "Nmp poitou charentes abacus 8"
-      attributes:
-        # crop: "Crop"
-        # input_method: "Input method"
-        # input_period_start: "Input period start"
-        # input_period_stop: "Input period stop"
-        # keq: "Keq"
-        # variant: "Variant"
-      choices:
-        # crop: # Choices comes from nomenclature: france_crops_sets
-        input_method:
-          # before_cipan: "Before cipan"
-          # buried: "Buried"
-          # on_top: "On top"
-        # variant: # Choices comes from nomenclature: product_nature_variants
-      items:
-        # cattle_compost_on_grass_1: "Cattle compost on grass 1"
-        # cattle_compost_on_grass_2: "Cattle compost on grass 2"
-        # cattle_compost_on_spring_straw_cereal_1: "Cattle compost on spring straw cereal 1"
-        # cattle_compost_on_spring_straw_cereal_2: "Cattle compost on spring straw cereal 2"
-        # cattle_manure_on_grass_1: "Cattle manure on grass 1"
-        # cattle_manure_on_grass_2: "Cattle manure on grass 2"
-        # cattle_manure_on_spring_straw_cereal_1: "Cattle manure on spring straw cereal 1"
-        # cattle_manure_on_spring_straw_cereal_2: "Cattle manure on spring straw cereal 2"
-        # cattle_slurry_on_autumn_crop: "Cattle slurry on autumn crop"
-        # cattle_slurry_on_grass_1: "Cattle slurry on grass 1"
-        # cattle_slurry_on_grass_2: "Cattle slurry on grass 2"
-        # cattle_slurry_on_spring_crop_1: "Cattle slurry on spring crop 1"
-        # cattle_slurry_on_spring_crop_2: "Cattle slurry on spring crop 2"
-        # hen_compost_on_spring_straw_cereal: "Hen compost on spring straw cereal"
-        # hen_guano_on_rape: "Hen guano on rape"
-        # hen_guano_on_spring_straw_cereal: "Hen guano on spring straw cereal"
-        # hen_guano_on_straw_cereal: "Hen guano on straw cereal"
-        # hen_manure_on_rape: "Hen manure on rape"
-        # hen_manure_on_spring_straw_cereal: "Hen manure on spring straw cereal"
-        # hen_manure_on_straw_cereal: "Hen manure on straw cereal"
-        # mud_on_autumn_crop: "Mud on autumn crop"
-        # mud_on_spring_crop_1: "Mud on spring crop 1"
-        # mud_on_spring_crop_2: "Mud on spring crop 2"
-        # pig_compost_on_grass_1: "Pig compost on grass 1"
-        # pig_compost_on_grass_2: "Pig compost on grass 2"
-        # pig_manure_on_grass_1: "Pig manure on grass 1"
-        # pig_manure_on_grass_2: "Pig manure on grass 2"
-        # pig_slurry_on_grass_1: "Pig slurry on grass 1"
-        # pig_slurry_on_grass_2: "Pig slurry on grass 2"
-        # pig_slurry_on_grass_3: "Pig slurry on grass 3"
-        # pig_slurry_on_rape: "Pig slurry on rape"
-        # pig_slurry_on_spring_straw_cereal: "Pig slurry on spring straw cereal"
-        # pig_slurry_on_straw_cereal: "Pig slurry on straw cereal"
-        # sugar_vinasse_on_spring_crop_1: "Sugar vinasse on spring crop 1"
-        # sugar_vinasse_on_spring_crop_2: "Sugar vinasse on spring crop 2"
-        # sugar_vinasse_on_spring_crop_3: "Sugar vinasse on spring crop 3"
-        # urban_compost_on_spring_crop: "Urban compost on spring crop"
-    nmp_poitou_charentes_abacus_9:
-      # name: "Nmp poitou charentes abacus 9"
-      attributes:
-        # land_parcel_variety: "Land parcel variety"
-        # maximum_available_water_capacity: "Maximum available water capacity"
-        # minimum_available_water_capacity: "Minimum available water capacity"
-        # rf: "Rf"
-      choices:
-        # land_parcel_variety: # Choices comes from nomenclature: varieties
-      items:
-        # aubues_max: "Aubues max"
-        # aubues_min: "Aubues min"
-        # black_valley_max: "Black valley max"
-        # black_valley_med: "Black valley med"
-        # champagne_max: "Champagne max"
-        # champagne_min: "Champagne min"
-        # clay_limestone_max: "Clay limestone max"
-        # clay_limestone_min: "Clay limestone min"
-        # flap_silt_max: "Flap silt max"
-        # flap_silt_med: "Flap silt med"
-        # flap_silt_min: "Flap silt min"
-        # granite_arena_max: "Granite arena max"
-        # granite_arena_med: "Granite arena med"
-        # granite_arena_min: "Granite arena min"
-        # hydromorph_sandy_clay_loam_med: "Hydromorph sandy clay loam med"
-        # hydromorph_sandy_clay_loam_min: "Hydromorph sandy clay loam min"
-        # red_chesnut_max: "Red chesnut max"
-        # red_chesnut_med: "Red chesnut med"
-        # red_chesnut_min: "Red chesnut min"
-        # sand_max: "Sand max"
-        # sand_med: "Sand med"
-        # sand_min: "Sand min"
-        # silt_schist_max: "Silt schist max"
-        # silt_schist_med: "Silt schist med"
-        # silt_schist_min: "Silt schist min"
-        # silty_clay_loam_max: "Silty clay loam max"
-        # silty_clay_loam_med: "Silty clay loam med"
-        # silty_clay_loam_min: "Silty clay loam min"
-        # silty_clay_max: "Silty clay max"
-        # silty_clay_med: "Silty clay med"
-        # silty_clay_min: "Silty clay min"
-        # valley_terrace_max: "Valley terrace max"
-        # valley_terrace_med: "Valley terrace med"
-        # valley_terrace_min: "Valley terrace min"
     procedure_natures:
       name: "Types de procédures"
       attributes:
