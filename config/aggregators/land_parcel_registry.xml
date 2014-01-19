@@ -26,15 +26,19 @@
             <title name="storage.name" of="support"/>
             <property name="variant_name" value="support.production.variant_name"/>
             <property name="variant_variety" value="support.production.variant_variety"/>
-            <property name="plant_at" value="support.plant_at" type="datetime"/>
+            <property name="sowed_at" if="support.sowed_at" value="support.sowed_at" type="datetime"/>
+            <property name="plant_at" if="support.plant_at" value="support.plant_at" type="datetime"/>
             <property name="harvested_at" value="support.harvested_at" type="datetime"/>
+            <property name="grains_yield" value="support.grains_yield(:quintal)" type="measure"/>
             <property name="vine_yield" value="support.vine_yield(:hectoliter)" type="measure"/>
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
-            <sections for="intervention" in="support.interventions.real.where(state: 'done')" of-type="record">
-              <variable name="actor" value="intervention.casts.of_role(:'target').first.actor"/>
+            <sections for="intervention" in="support.interventions.real.where(state: 'done').reorder(:started_at)" of-type="record">
+              <variable name="target" value="intervention.casts.of_role(:'target').first.actor"/>
               <title name="name" of="intervention"/>
-              <title name="name" of="actor"/>
               <property name="id" of="intervention" level="api"/>
+              <property name="status" of="intervention"/>
+              <property name="casting" of="intervention" level="api"/>
+              <title name="target_name" value="target.name"/>
               <property name="started_at" of="intervention" type="datetime"/>
               <property name="stopped_at" of="intervention" type="datetime"/>
               <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
