@@ -120,6 +120,9 @@
 	<field name="input_unit_name" class="java.lang.String">
 		<fieldDescription><![CDATA[unit-name]]></fieldDescription>
 	</field>
+	<field name="intervention_url" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/@url]]></fieldDescription>
+	</field>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
 		<groupHeader>
@@ -352,7 +355,7 @@
 			<band height="30">
 				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
 				<textField>
-					<reportElement style="SubTitle" x="61" y="0" width="117" height="30" uuid="10349219-e790-424d-81b9-a92e2ca56970"/>
+					<reportElement style="SubTitle" x="34" y="0" width="144" height="30" uuid="10349219-e790-424d-81b9-a92e2ca56970"/>
 					<textElement verticalAlignment="Middle">
 						<font size="11" isBold="false"/>
 						<paragraph leftIndent="5"/>
@@ -383,9 +386,9 @@
 					<reportElement style="status" x="188" y="10" width="10" height="10" forecolor="#FFFFFF" uuid="2de4b227-f1f0-4b40-8079-4acf8d8f7570"/>
 				</ellipse>
 				<componentElement>
-					<reportElement x="2" y="0" width="59" height="30" uuid="c1c41218-c9c1-47f6-8444-d43c6b0a9fa1"/>
+					<reportElement x="2" y="0" width="32" height="30" uuid="c1c41218-c9c1-47f6-8444-d43c6b0a9fa1"/>
 					<jr:DataMatrix xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
-						<jr:codeExpression><![CDATA["https://demo.ergolis.com/backend/interventions/"+$F{intervention_id}]]></jr:codeExpression>
+						<jr:codeExpression><![CDATA[$F{intervention_url}]]></jr:codeExpression>
 					</jr:DataMatrix>
 				</componentElement>
 			</band>
