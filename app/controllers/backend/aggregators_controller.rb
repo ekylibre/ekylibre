@@ -34,7 +34,7 @@ class Backend::AggregatorsController < BackendController
       return
     end
     # raise params.inspect
-    @aggregator = klass.new(params)
+    @aggregator = klass.new(self, params)
     t3e :name => klass.human_name
     respond_with @aggregator
   end

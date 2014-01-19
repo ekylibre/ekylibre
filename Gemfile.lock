@@ -52,7 +52,7 @@ GEM
       beardley
     beardley-groovy (2.0.0)
       beardley
-    beardley-xml (1.0.0)
+    beardley-xml (1.1.0)
       beardley
     builder (3.1.4)
     calendar_helper (0.2.6)

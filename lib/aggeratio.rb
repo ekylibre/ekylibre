@@ -144,7 +144,8 @@ module Aggeratio
       code << "  end\n"
 
       params = "options"
-      code << "  def initialize(#{params} = {})\n"
+      code << "  def initialize(controller, #{params} = {})\n"
+      code << "    @controller = controller\n"
       for p in parameters
         if p.record_list?
           # campaigns
@@ -181,6 +182,10 @@ module Aggeratio
         end
       end
       code << "  end\n"
+
+      code << "   def url_for(params = {})\n"
+      code << "     @controller.url_for(params)\n"
+      code << "   end\n"
 
       # code << "  def to_json\n"
       # code << JSON.new(element).build.gsub(/^/, '    ')
