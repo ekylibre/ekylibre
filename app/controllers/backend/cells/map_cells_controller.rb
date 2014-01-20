@@ -1,15 +1,24 @@
 class Backend::Cells::MapCellsController < Backend::CellsController
   before_action :load_config
 
+  class CartoDBConnection
+    def initialize(account, key)
+      @account = account
+      @key = key
+    end
+
+    def exec(sql)
+      puts sql
+      puts Net::HTTP.get(URI.parse("http://#{@account}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@key}"))      
+    end
+  end
+
   def show
   end
 
   def update
     if @map
-      cexec = Proc.new { |sql|
-        puts sql
-        puts Net::HTTP.get(URI.parse("http://#{@map[:account]}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@map[:key]}"))
-      }
+      conn = CartoDBConnection.new(@map[:account], @map[:key])
       data = []
       ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
         line = {
@@ -27,7 +36,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
         }
         data << line
       end
-      cexec["DELETE FROM costs"]
+      conn.exec("DELETE FROM costs")
       for line in data
         insert = []
         values = []
@@ -40,16 +49,12 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           end
         end
         q = "INSERT INTO costs (" + insert.join(', ') + ") SELECT " + values.join(', ')
-        cexec[q]
+        conn.exec(q)
       end
-    end
-    if @coop_map
-      cexec = Proc.new { |sql|
-        puts sql
-        puts Net::HTTP.get(URI.parse("http://#{@coop_map[:account]}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@coop_map[:key]}"))
-      }
+
+      conn = CartoDBConnection.new(@cooperative_map[:account], @cooperative_map[:key])
       data = []
-      company = @coop_map[:member]
+      company = @cooperative_map[:member]
       activities = Activity.where(family: :vine_wine)
       Intervention.includes(:production, :production_support, :issue, :recommender, :activity, :campaign, :storage).of_activities(activities).find_each do |intervention|
         line = {
@@ -69,7 +74,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
         }
         data << line
       end
-      cexec["DELETE FROM interventions WHERE company='#{company}'"]
+      conn.exec("DELETE FROM interventions WHERE company='#{company}'")
       for line in data
         insert = []
         values = []
@@ -82,7 +87,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           end
         end
         q = "INSERT INTO interventions (" + insert.join(', ') + ") SELECT " + values.join(', ')
-        cexec[q]
+        conn.exec(q)
       end
     end
     render(:show, visualization: (params[:visualization] || :default))
@@ -97,12 +102,8 @@ class Backend::Cells::MapCellsController < Backend::CellsController
       @map = YAML.load_file(api_file).deep_symbolize_keys[:cartodb]
       @account = @map[:account]
       @visualization = (@map[:visualizations] || {})[(params[:visualization] || :default).to_sym]
-    end
-    # FOR COOP
-    coop_api_file = Rails.root.join("config", "coop_api.yml")
-    if coop_api_file.exist?
-      @coop_map = YAML.load_file(coop_api_file).deep_symbolize_keys[:cartodb]
-      @coop_account = @coop_map[:account]
+      @cooperative_account = @map[:cooperative_cartodb]
+      @cooperative_account[:member] = @map[:account]
     end
   end
 
