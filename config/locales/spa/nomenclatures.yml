@@ -1346,20 +1346,15 @@ spa:
       # name: "Langues"
     nmp_methods:
       items: #?
-    nmp_poitou_charentes_abacus_1:  #?
- #?
+    nmp_poitou_charentes_abacus_1: #?
     nmp_poitou_charentes_abacus_10:
       attributes: #?
       choices: #?
       items: #?
-    nmp_poitou_charentes_abacus_2:  #?
- #?
-    nmp_poitou_charentes_abacus_3:  #?
- #?
-    nmp_poitou_charentes_abacus_4:  #?
- #?
-    nmp_poitou_charentes_abacus_5:  #?
- #?
+    nmp_poitou_charentes_abacus_2: #?
+    nmp_poitou_charentes_abacus_3: #?
+    nmp_poitou_charentes_abacus_4: #?
+    nmp_poitou_charentes_abacus_5: #?
     nmp_poitou_charentes_abacus_6:
       attributes: #?
       choices: #?

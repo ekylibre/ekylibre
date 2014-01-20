@@ -9,7 +9,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
 
     def exec(sql)
       puts "[#{@account}] #{sql}"
-      puts "[#{@account}] " + Net::HTTP.get(URI.parse("http://#{@account}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@key}"))      
+      puts "[#{@account}] " + Net::HTTP.get(URI.parse("http://#{@account}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@key}"))
     end
   end
 

@@ -212,10 +212,10 @@ class Sale < Ekylibre::Record::Base
   def deal_taxes(mode = :debit)
     return [] if self.deal_mode_amount(mode).zero?
     taxes = {}
-    coeff = (self.credit? ? -1 : 1)
+    coeff = (self.credit? ? -1 : 1).to_d
     # coeff *= (self.send("deal_#{mode}?") ? 1 : -1)
     for item in self.items
-      taxes[item.tax_id] ||= {amount: 0.0, tax: item.tax}
+      taxes[item.tax_id] ||= {amount: 0.0.to_d, tax: item.tax}
       taxes[item.tax_id][:amount] += coeff * item.amount
     end
     return taxes.values
