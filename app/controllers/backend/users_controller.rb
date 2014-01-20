@@ -41,7 +41,7 @@ class Backend::UsersController < BackendController
       render :partial => "rights_form"
     else
       role = Role.first
-      @user = User.new(:administrator => false, :role => role, :employed => params[:employed], :language => Preference[:language])
+      @user = User.new(administrator: false, role: role, employed: params[:employed], language: Preference[:language])
       @rights = role ? role.rights_array : []
     end
   end
