@@ -298,9 +298,6 @@
         <page to="backend/sale_items#new"/>
         <page to="backend/sale_items#update"/>
       </item>
-      <item name="statistics">
-        <page to="backend/sales#statistics"/>
-      </item>
     </group>
     <group name="purchases" icon="shopping-cart">
       <item name="purchases">

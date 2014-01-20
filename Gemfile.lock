@@ -338,6 +338,7 @@ DEPENDENCIES
   capybara-webkit
   cocoon
   coffee-rails (~> 4.0.0)
+  colored
   compass (~> 0.13.alpha.10)
   compass-rails
   coveralls (>= 0.6)

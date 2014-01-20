@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-demo :interventions do
+load_data :interventions do |loader|
 
   class Booker
 
@@ -137,7 +137,7 @@ demo :interventions do
     Nomen::Varieties[n]
   end
 
-  Ekylibre::fixturize :cultural_interventions do |w|
+  loader.count :cultural_interventions do |w|
     for production in Production.all
       variety = production.variant.variety
       if (Nomen::Varieties[variety].self_and_parents & sowables).any?
@@ -210,7 +210,7 @@ demo :interventions do
   end
 
   # interventions for grass
-  Ekylibre::fixturize :grass_interventions do |w|
+  loader.count :grass_interventions do |w|
     for production in Production.all
       variety = production.variant.variety
       if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:poa])
@@ -250,7 +250,7 @@ demo :interventions do
   end
 
   # interventions for cereals
-  Ekylibre::fixturize :cereals_interventions do |w|
+  loader.count :cereals_interventions do |w|
     for production in Production.all
       variety = production.variant.variety
       if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:triticum_aestivum]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:triticum_durum]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:zea]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:hordeum])
@@ -278,7 +278,7 @@ demo :interventions do
     end
   end
 
-  Ekylibre::fixturize :animal_interventions do |w|
+  loader.count :animal_interventions do |w|
     for production in Production.all
       variety = production.variant.variety
       if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:bos])
@@ -301,39 +301,42 @@ demo :interventions do
     end
   end
 
-  Ekylibre::fixturize :animal_prescriptions do |w|
+  file = loader.path("prescription_1.jpg")
+  if file.exist?
+    loader.count :animal_prescriptions do |w|
 
-    # import veterinary prescription in PDF
-    document = Document.create!(key: "2100000303_prescription_001", name: "prescription-2100000303", nature: "prescription")
-    File.open(Rails.root.join("test", "fixtures", "files", "prescription_1.jpg"), "rb:ASCII-8BIT") do |f|
-      document.archive(f.read, :jpg)
-    end
+      # import veterinary prescription in PDF
+      document = Document.create!(key: "2100000303_prescription_001", name: "prescription-2100000303", nature: "prescription")
+      File.open(file, "rb:ASCII-8BIT") do |f|
+        document.archive(f.read, :jpg)
+      end
 
-    # create a veterinary
-    veterinary = Person.create!(
-                                :first_name => "Veto",
-                                :last_name => "PONTO",
-                                :nature => :person,
-                                :client => false,
-                                :supplier => false
-                                )
+      # create a veterinary
+      veterinary = Person.create!(
+                                  :first_name => "Veto",
+                                  :last_name => "PONTO",
+                                  :nature => :person,
+                                  :client => false,
+                                  :supplier => false
+                                  )
 
-    # create veterinary prescription with PDF and veterinary
-    prescription = Prescription.create!(prescriptor: veterinary, document: document, reference_number: "2100000303")
+      # create veterinary prescription with PDF and veterinary
+      prescription = Prescription.create!(prescriptor: veterinary, document: document, reference_number: "2100000303")
 
-    # create an issue for all interventions on animals and update them with prescription and recommender
-    for intervention in Intervention.of_nature(:animal_illness_treatment)
-      # create an issue
-      animal = intervention.casts.of_role(:'animal_illness_treatment-target').first.actor
-      started_at = (intervention.started_at - 1.day) || Time.now
-      issue = Issue.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, name: ["Mammite", "Œdème", "Boiterie", "Fièvre", "Toux"].sample, nature: :animal_pathology, state: ["opened", "closed", "aborted"].sample)
-      # add prescription on intervention
-      intervention.issue = issue
-      intervention.prescription = prescription
-      intervention.recommended = true
-      intervention.recommender = veterinary
-      intervention.save!
-      w.check_point
+      # create an issue for all interventions on animals and update them with prescription and recommender
+      for intervention in Intervention.of_nature(:animal_illness_treatment)
+        # create an issue
+        animal = intervention.casts.of_role(:'animal_illness_treatment-target').first.actor
+        started_at = (intervention.started_at - 1.day) || Time.now
+        issue = Issue.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, name: ["Mammite", "Œdème", "Boiterie", "Fièvre", "Toux"].sample, nature: :animal_pathology, state: ["opened", "closed", "aborted"].sample)
+        # add prescription on intervention
+        intervention.issue = issue
+        intervention.prescription = prescription
+        intervention.recommended = true
+        intervention.recommender = veterinary
+        intervention.save!
+        w.check_point
+      end
     end
 
   end

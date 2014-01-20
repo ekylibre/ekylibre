@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-demo :sales do
+load_data :sales do |loader|
 
-  Ekylibre::fixturize :variant_import do |w|
+  loader.count :variant_import do |w|
     # Create product_nature for crop plant product
     wheat_crop  = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
     barley_crop = ProductNatureVariant.import_from_nomenclature(:winter_barley_crop)
@@ -26,7 +26,7 @@ demo :sales do
     w.check_point
   end
 
-  Ekylibre::fixturize :wheat_sales do |w|
+  loader.count :wheat_sales do |w|
 
     unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Kazeni%".mb_chars.downcase).first
       cooperative = LegalEntity.create!(last_name: "Kazeni",
@@ -103,7 +103,7 @@ demo :sales do
     end
   end
 
-  Ekylibre::fixturize :calf_sales do |w|
+  loader.count :calf_sales do |w|
 
     unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Caroli%".mb_chars.downcase).first
       cooperative = LegalEntity.create!(last_name: "Caroli",
@@ -180,7 +180,7 @@ demo :sales do
     end
   end
 
-  Ekylibre::fixturize :milk_sales do |w|
+  loader.count :milk_sales do |w|
 
     unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%TerriLacti%".mb_chars.downcase).first
       cooperative = LegalEntity.create!(last_name: "TerriLacti",

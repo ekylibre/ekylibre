@@ -20,7 +20,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     fill_in("animal[work_number]", with: '9253')
     fill_in("animal[identification_number]", with: 'FR17129253')
     fill_unroll("animal-mother-input", with: "isa", select: "Isabelle", name: :animals)
-    attach_file('animal[picture]', Rails.root.join("test", "fixtures", "files", "animals-ld", "cow-8580.jpg"))
+    attach_file('animal[picture]', Rails.root.join("test", "fixtures", "files", "cow-photo.jpg"))
     shoot_screen "animals/new-before_create"
     click_on("Créer")
     shoot_screen "animals/new-after_create"

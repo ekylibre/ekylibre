@@ -887,7 +887,6 @@ consult_sales:
 - "backend/sales#list_items"
 - "backend/sales#list_undelivered_items"
 - "backend/sales#show"
-- "backend/sales#statistics"
 
 # Consult the stocks
 consult_stocks:

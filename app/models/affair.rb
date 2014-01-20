@@ -173,7 +173,7 @@ class Affair < Ekylibre::Record::Base
       # raise thirds.map(&:name).inspect
       for third in thirds
         attributes = {affair: self, amount: balance, currency: self.currency, entity: third, entity_role: self.third_role, direction: (losing? ? :loss : :profit), items: []}
-        pretax_amount = 0.0
+        pretax_amount = 0.0.to_d
         self.tax_items_for(third, distribution[third.id], :credit).each_with_index do |item, index|
           raw_pretax_amount = (item[:tax] ? item[:tax].pretax_amount_of(item[:amount]) : item[:amount])
           pretax_amount += raw_pretax_amount
@@ -287,7 +287,7 @@ class Affair < Ekylibre::Record::Base
     for deal in self.deals_of(third)
       for total in deal.deal_taxes(mode)
         total[:tax] ||= Tax.used_for_untaxed_deals
-        totals[total[:tax].id] ||= {amount: 0.0, tax: total[:tax]}
+        totals[total[:tax].id] ||= {amount: 0.0.to_d, tax: total[:tax]}
         totals[total[:tax].id][:amount] += total[:amount]
       end
     end

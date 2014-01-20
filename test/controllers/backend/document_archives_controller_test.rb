@@ -9,7 +9,7 @@ class Backend::DocumentArchivesControllerTest < ActionController::TestCase
       if archive.valid?
         assert archive.file.file?
       else
-        archive.file = fixture_file_upload("files/releve_apports.pdf", "application/pdf")
+        archive.file = fixture_file_upload("files/outgoing_deliveries.pdf", "application/pdf")
         assert archive.save
       end
     end
