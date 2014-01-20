@@ -2,7 +2,7 @@ require 'zip'
 
 module Ekylibre
   module FirstRun
-    autoload :Manifest
+    autoload :Manifest, 'ekylibre/first_run/manifest'
 
     IMPORTS = {
       telepac: {
@@ -25,6 +25,10 @@ module Ekylibre
     Mime::Type.register(MIME, :fra) unless defined? Mime::FRA
 
     class << self
+
+      def path
+        Rails.root.join("db", "first_runs")
+      end
 
       def build(path)
         spec = YAML.load_file(path).deep_symbolize_keys

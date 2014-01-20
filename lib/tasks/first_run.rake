@@ -25,16 +25,12 @@ module Ekylibre
     end
   end
 
-  def self.first_runs
-    Rails.root.join("db", "first_runs")
-  end
-
   class Loader
     attr_reader :folder
 
     def initialize(folder, options = {})
       @folder = folder.to_s
-      @folder_path = Ekylibre::first_runs.join(@folder)
+      @folder_path = Ekylibre::FirstRun.path.join(@folder)
       @max = (options[:max] || ENV["max"]).to_i
       @max = MAX if @max.zero?
     end
@@ -78,7 +74,7 @@ require 'pathname'
 def load_data(name, &block)
   task(name => :environment) do
     folder = ENV["folder"]
-    folder = "default" if Ekylibre::first_runs.join("default").exist?
+    folder = "default" if Ekylibre::FirstRun.path.join("default").exist?
     folder ||= "demo"
     ActiveRecord::Base.transaction do
       yield Ekylibre::Loader.new(folder)
