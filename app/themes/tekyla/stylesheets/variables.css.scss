@@ -1,0 +1,94 @@
+@import "agric/list";
+$symbolic-icons: $agric-icons;
+
+// Font sizes  
+$fs-ratio:   1.2 !default;
+$fs-normal: 13px !default;
+$fs-small:      ceil($fs-normal / $fs-ratio);
+$fs-large:     round($fs-normal * $fs-ratio);
+$fs-huge:      round($fs-large  * $fs-ratio);
+$fs-very-huge: round($fs-huge   * $fs-ratio);
+
+// Line heights
+$lh-ratio: 1.4 !default;
+$lh-small:     round($lh-ratio * $fs-small);
+$lh-normal:    round($lh-ratio * $fs-normal);
+$lh-large:     round($lh-ratio * $fs-large);
+$lh-huge:      round($lh-ratio * $fs-huge);
+$lh-very-huge: round($lh-ratio * $fs-very-huge);
+
+// Fingertip
+$fingertip-height: 32px !default;
+$fingertip-height: 2 * round($fingertip-height / 2) !default;
+
+// Colors
+$base-color:         #688ED8 !default;
+$neutral-color:      #777777 !default;
+$desktop-background: #F7F7F7 !default;
+$text-color:         #333333 !default;
+$invalid-color:      #D81E08 !default;
+$caution-color:      #FF8811 !default;
+$success-color:      #65A907 !default;
+$important-color: $success-color !default;
+
+$hover-transparency: 0.85 !default;
+$hover-mask: transparentize($base-color, $hover-transparency);
+
+$active-color: $base-color !default;
+$link-color:   darken($base-color, 10%) !default;
+$title-color:  darken($base-color, 40%) !default;
+$base-font-color:  $text-color !default;
+$base-font-reversed-color: #FFF !default;
+
+$neutral-background: change-color($neutral-color, $lightness: 90%) !default;
+$input-background:   $desktop-background;
+$light-color: mix($base-color, $desktop-background, 50%);
+
+// Menu colors
+$menu-background: #F0F0F0 !default;
+$menu-border-color: mix($menu-background, #000000, 87%);
+$menu-border-width: floor($fs-normal / 10);
+$menu-border: $menu-border-width solid $menu-border-color;
+$menu-width: $fs-normal * 13;
+$menu-padding: $menu-border-width;
+$menu-height:  $fingertip-height;
+$menu-text-height: 2 * round(1.4 * $fs-normal / 2);
+
+// Forms
+$input-border: $menu-border-width solid mix($desktop-background, $neutral-color, 60%);
+$label-width: 25% !default;
+
+$default-border-radius: round($fs-normal/5);
+/* Variation from center to  */
+$default-lightness-variation: 5%;
+$default-gap: round($fs-normal * 0.55);
+$cell-background: mix($desktop-background, $base-color, 82%);
+$cell-background-current: mix($desktop-background, $base-color, 62%);
+
+$buttons-names: (new create) (edit update) (destroy abort) (search) (confirm validate) (cancel) (lock) (unlock) (action reflect default) (up) (down) (left) (right) (configure) (column) (table) (duplicate) (point) (mark) (unmark) (true) (false) (page) (spreadsheet) (print) (filter) (mail) (nomail) (sort) (check) (divide) (load) (logout) (increment) (decrement) (close) (help) (merge) (spread) (rgreen) (rblue) (rblack) (nav) (general-informations) (genealogy) (group) (care) (treatment) (drug) (entity) (delay) (stock) (financial-asset) (animal) (vegetable) (document) (movement);
+$buttons-states: hover whited active disabled normal;
+$buttons-radius: $default-border-radius;
+
+$passive-bg: $menu-background;
+$active-bg: $base-color;
+
+// Font families
+$sans-font-family: 'Open Sans', 'Droid Sans', 'Liberation Sans', Helvetica, sans-serif !default;
+$base-font-family: $sans-font-family !default;
+$header-font-family: $base-font-family;
+$body-font-family: $base-font-family;
+
+// Other framework compatibilities
+$body-font-size: $fs-normal;
+$em-base: $fs-normal;
+$primary-color: $base-color;
+$topbar-height: $fingertip-height !default;
+$global-radius: $default-border-radius;
+$include-html-classes: false;
+
+// Screen widths
+$small-screen:   768px;
+$mini-screen:   1024px;
+$medium-screen: 1280px;
+$large-screen:  1440px;
+

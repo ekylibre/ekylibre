@@ -1,0 +1,118 @@
+@import "compass/reset";
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
+  margin:0;
+  padding:0;
+  font-family: $base-font-family;
+  vertical-align: middle;
+  font-size: $fs-normal;
+  color: $text-color;
+  @include text-align(left);
+}
+
+td, th, a, p, input, textarea, select, div { font-size: $fs-normal;}
+small, sup, sub { font-size: $fs-small; }
+a:link, a:visited, a:focus {
+  &, h1, h2, h3, h4, h5, h6 {
+    color: $link-color;
+    text-decoration: none;
+  }
+}
+
+
+// a:hover { color: $link-color; text-decoration: underline;}
+
+
+// color, date, datetime, datetime-local, email, month, number, range, search, tel, time, url, week,
+// input[type="button"], input[type="checkbox"], input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="file"], input[type="hidden"], input[type="image"], input[type="month"], input[type="number"], input[type="password"], input[type="radio"], input[type="range"], input[type="reset"], input[type="search"], input[type="submit"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"]
+
+// , input[type="file"]
+
+input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="image"], input[type="month"], input[type="number"], input[type="password"], input[type="range"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], input[type="search"], textarea, select {
+  border: $menu-border;
+  padding: round($fs-normal * 0.2);
+  @include box-sizing(content-box);
+  @include border-radius($default-border-radius);
+  background: #F9F9F9;
+  font-size: $fs-normal;
+  line-height: round(1.4 * $fs-normal);
+  height: round(1.4 * $fs-normal);
+  vertical-align: middle;
+  //  @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset, 0 0 round($fs-normal*0.6) rgba(white, 0.6));
+  @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset);
+  @include transition(box-shadow 0.2s, border-color 0.2s);
+  &:focus {
+    background: #FFF;
+    border-color: $base-color;
+    @include box-shadow(0 0 round($fs-normal*0.6) rgba($base-color, 0.6));
+  }
+}
+input[type="number"] {
+  @include text-align(right);
+}
+input[type="date"], input[type="datetime"] {
+  @include text-align(center);
+}
+input[type="date"] {
+  width: 12ex;
+}
+input[type="datetime"] {
+  width: 20ex;
+}
+
+
+textarea {
+  min-height: 3em;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  th, td {
+    padding: round($default-gap * 0.4);
+    font-size: $fs-normal;
+    line-height: $lh-normal;
+    min-height: $lh-normal;
+  }
+  th {
+    font-weight: bold;
+    color: $base-font-color;
+  }
+  td {
+    font-weight: normal;
+    color: $base-font-color;
+    &.decimal {
+      @include text-align(right);
+    }
+  }
+  thead {
+    tr:last-child {
+      th, td {
+        border-bottom: 1px solid $base-color;
+      }
+    }
+  }
+  tbody {
+    td {
+      border-top: 1px solid #AAA;
+    }
+    tr:first-child {
+      td {
+        border: none;
+      }
+    }
+  }
+  tr.total {
+    td, th {
+      font-size: $fs-large;
+      line-height: $lh-large;
+      min-height: $lh-large;
+    }
+  }
+}
+
+
+// , input[type="radio"], input[type="hidden"], input[type="button"], input[type="checkbox"], input[type="reset"], input[type="search"], input[type="submit"]
+

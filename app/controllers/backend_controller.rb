@@ -304,7 +304,14 @@ class BackendController < BaseController
 
   def themize()
     # TODO: Dynamic theme choosing
-    @current_theme = "tekyla"
+    if current_user
+      if %w(tekyla tekyla-sunrise).include?(params[:theme])
+        current_user.prefer!("theme", params[:theme])
+      end
+      @current_theme = current_user.preference("theme", "tekyla").value
+    else
+      @current_theme = "tekyla"
+    end
   end
 
 

@@ -170,6 +170,18 @@ class User < Ekylibre::Record::Base
   end
   alias :pref :preference
 
+  def prefer!(name, value, nature = :string)
+    unless p = self.preferences.reorder(:id).find_by(name: name)
+      p = self.preferences.build
+      p.name   = name
+      p.nature = nature.to_s
+    end
+    p.value = value
+    p.save!
+    return p
+  end
+ 
+
   # # Find and check user account
   # def self.authenticate(user_name, password)
   #   if user = self.find_by_user_name_and_loggable(user_name.to_s.downcase, true)

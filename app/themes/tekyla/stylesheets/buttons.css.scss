@@ -81,7 +81,7 @@
 $button-height: round($fs-normal*0.20) * 2 + round(1.4 * $fs-normal) + $menu-border-width * 2;
 
 
-input[type="submit"], input[type="button"], input[type="reset"], input[type="search"] {
+input[type="submit"], input[type="button"], input[type="reset"] {
   @include button($is-input: true);
   &.primary {
     @include button($background-color: $base-color, $is-input: true);
@@ -104,9 +104,9 @@ a.btn, button {
   }
 
   // Defines default names
-  @each $symbiol in $symbiols {
-    $symbol-name: nth($symbiol, 1);
-    $symbol-code: nth($symbiol, 2);
+  @each $symbolic-icon in $symbolic-icons {
+    $symbol-name: nth($symbolic-icon, 1);
+    $symbol-code: nth($symbolic-icon, 2);
     &.btn.#{$symbol-name}, &.btn-#{$symbol-name} {
       .icon, i {
         @include icon($symbol-code);
