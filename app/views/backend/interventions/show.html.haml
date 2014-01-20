@@ -19,8 +19,10 @@
         - if @intervention.issue
           - l.attribute :issue, url: true
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:casts) do
       = list(:casts)
+
+  - if @intervention.operations.any?
     - b.cell(:operations) do
       = list(:operations)

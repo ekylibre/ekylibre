@@ -115,7 +115,7 @@ a.btn, button {
   }
 
   // Adds synonyms
-  @each $renaming in (abort trash) (cancel undo) (destroy remove) (down chevron-down) (new plus) (merge resize-small) (divide resize-full) (duplicate copy) (load refresh) (statistics bar-chart) (index print) (unvalidateds ok) (close lock) (people group) {
+  @each $renaming in (abort trash) (cancel undo) (destroy remove) (down chevron-down) (new plus) (merge resize-small) (divide resize-full) (duplicate copy) (load refresh) (statistics bar-chart) (index print) (unvalidateds ok) (close lock) (people group) (veterinary_booklet cow){
     &.btn-#{nth($renaming, 1)} {
       .icon, i {
         @include use-icon(nth($renaming, 2));

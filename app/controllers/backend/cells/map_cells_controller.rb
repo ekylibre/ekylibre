@@ -8,8 +8,8 @@ class Backend::Cells::MapCellsController < Backend::CellsController
     end
 
     def exec(sql)
-      puts sql
-      puts Net::HTTP.get(URI.parse("http://#{@account}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@key}"))      
+      puts "[#{@account}] #{sql}"
+      puts "[#{@account}] " + Net::HTTP.get(URI.parse("http://#{@account}.cartodb.com/api/v2/sql?q=#{URI.encode(sql)}&api_key=#{@key}"))      
     end
   end
 
@@ -17,8 +17,8 @@ class Backend::Cells::MapCellsController < Backend::CellsController
   end
 
   def update
-    if @map
-      conn = CartoDBConnection.new(@map[:account], @map[:key])
+    if @config
+      conn = CartoDBConnection.new(@config[:account], @config[:key])
       data = []
       ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
         line = {
@@ -52,9 +52,9 @@ class Backend::Cells::MapCellsController < Backend::CellsController
         conn.exec(q)
       end
 
-      conn = CartoDBConnection.new(@cooperative_map[:account], @cooperative_map[:key])
+      conn = CartoDBConnection.new(@cooperative_config[:account], @cooperative_config[:key])
       data = []
-      company = @cooperative_map[:member]
+      company = @cooperative_config[:member]
       activities = Activity.where(family: :vine_wine)
       Intervention.includes(:production, :production_support, :issue, :recommender, :activity, :campaign, :storage).of_activities(activities).find_each do |intervention|
         line = {
@@ -99,11 +99,12 @@ class Backend::Cells::MapCellsController < Backend::CellsController
   def load_config
     api_file = Rails.root.join("config", "api.yml")
     if api_file.exist?
-      @map = YAML.load_file(api_file).deep_symbolize_keys[:cartodb]
-      @account = @map[:account]
-      @visualization = (@map[:visualizations] || {})[(params[:visualization] || :default).to_sym]
-      @cooperative_account = @map[:cooperative_cartodb]
-      @cooperative_account[:member] = @map[:account]
+      config = YAML.load_file(api_file).deep_symbolize_keys
+      @config = config[:cartodb]
+      @account = @config[:account]
+      @visualization = (@config[:visualizations] || {})[(params[:visualization] || :default).to_sym]
+      @cooperative_config = config[:cooperative_cartodb]
+      @cooperative_config[:member] = @config[:account]
     end
   end
 
