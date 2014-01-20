@@ -367,12 +367,12 @@
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{intervention_casting}]]></textFieldExpression>
 				</textField>
-				<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+				<textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
 					<reportElement x="206" y="0" width="71" height="30" uuid="0f30f8dc-93c8-4e78-9c5a-5cd100efd937"/>
 					<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 					<textFieldExpression><![CDATA[$F{intervention_started_at}]]></textFieldExpression>
 				</textField>
-				<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+				<textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
 					<reportElement x="277" y="0" width="70" height="30" uuid="f37901fc-4ab4-44eb-ae0b-e2308da0d007"/>
 					<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 					<textFieldExpression><![CDATA[$F{intervention_stopped_at}]]></textFieldExpression>
@@ -438,7 +438,7 @@
 		<band height="25" splitType="Stretch"/>
 	</pageHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="20" splitType="Prevent">
 			<textField>
 				<reportElement x="395" y="0" width="120" height="20" uuid="bcb91033-cd83-4151-9495-57259f8bd3c2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
