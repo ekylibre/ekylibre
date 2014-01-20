@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-demo :buildings do
+load_data :buildings do |loader|
 
   standard_place_variant = ProductNatureVariant.import_from_nomenclature(:building)
 
-  Ekylibre::fixturize :buildings do |w|
+  loader.count :buildings do |w|
     #############################################################################
     # Import (from nomenclature) a default product_nature to place animal
     animal_place_variant = ProductNatureVariant.import_from_nomenclature(:animal_building)
@@ -31,12 +31,12 @@ demo :buildings do
 
   end
 
-  Ekylibre::fixturize :buildings_shapes do |w|
-    #############################################################################
-    buidling_file = Rails.root.join("test", "fixtures", "files", "buildings_2013.shp")
-    if File.exists?(buidling_file.to_s)
+  file = loader.path("buildings_2013.shp")
+  if file.exist?
+    loader.count :buildings_shapes do |w|
+      #############################################################################
       born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
-      RGeo::Shapefile::Reader.open(buidling_file.to_s, :srid => 2154) do |file|
+      RGeo::Shapefile::Reader.open(file.to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
           building = Building.find_by_work_number(record.attributes['WORK_NUMBE'])
@@ -59,44 +59,43 @@ demo :buildings do
     end
   end
 
-  Ekylibre::fixturize :building_divisions do |w|
+  file = loader.path("buildings_division_2013.shp")
+  if file.exist?
+    loader.count :building_divisions do |w|
 
-    buidling_file = Rails.root.join("test", "fixtures", "files", "buildings_division_2013.shp")
-    if File.exists?(buidling_file.to_s)
+      RGeo::Shapefile::Reader.open(file.to_s, :srid => 2154) do |file|
+        # puts "File contains #{file.num_records} records."
+        born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
+        file.each do |record|
+          # find the building_division if exist
+          building_division   = BuildingDivision.find_by_work_number(record.attributes['WORK_NUMBE'])
+          # import the correct product_nature_variant with the NOMEN attributes in shp file
+          building_division_variant   = ProductNatureVariant.import_from_nomenclature(record.attributes['NOMEN'].to_sym)
+          building_division_variant ||= ProductNatureVariant.import_from_nomenclature(:building_division)
+          #  create the building_division
+          building_division ||= BuildingDivision.create!(variant_id: building_division_variant.id,
+                                                         name: record.attributes['DECRIPTION'].to_s,
+                                                         :work_number => record.attributes['WORK_NUMBE'].to_s,
+                                                         :born_at => born_at,
+                                                         :identification_number => record.attributes['NUMERO'].to_s)
+          building_division.is_measured!(:shape, record.geometry, at: born_at)
+          ind_area = building_division.shape_area
+          building_division.is_measured!(:net_surface_area, ind_area.in_square_meter, at: born_at)
 
-    RGeo::Shapefile::Reader.open(buidling_file.to_s, :srid => 2154) do |file|
-      # puts "File contains #{file.num_records} records."
-      born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
-      file.each do |record|
-        # find the building_division if exist
-        building_division   = BuildingDivision.find_by_work_number(record.attributes['WORK_NUMBE'])
-        # import the correct product_nature_variant with the NOMEN attributes in shp file
-        building_division_variant   = ProductNatureVariant.import_from_nomenclature(record.attributes['NOMEN'].to_sym)
-        building_division_variant ||= ProductNatureVariant.import_from_nomenclature(:building_division)
-        #  create the building_division
-        building_division ||= BuildingDivision.create!(variant_id: building_division_variant.id,
-                                                       name: record.attributes['DECRIPTION'].to_s,
-                                                       :work_number => record.attributes['WORK_NUMBE'].to_s,
-                                                       :born_at => born_at,
-                                                       :identification_number => record.attributes['NUMERO'].to_s)
-        building_division.is_measured!(:shape, record.geometry, at: born_at)
-        ind_area = building_division.shape_area
-        building_division.is_measured!(:net_surface_area, ind_area.in_square_meter, at: born_at)
-
-        if record.attributes['CONTAINER'].to_s
-          if building = Building.find_by_work_number(record.attributes['CONTAINER'].to_s)
-            building.add(building_division, born_at)
-            building_division.update_attributes(initial_container: building)
-            building_division.save!
+          if record.attributes['CONTAINER'].to_s
+            if building = Building.find_by_work_number(record.attributes['CONTAINER'].to_s)
+              building.add(building_division, born_at)
+              building_division.update_attributes(initial_container: building)
+              building_division.save!
+            end
           end
-        end
 
-        # puts "Record number #{record.index}:"
-        # puts "  Geometry: #{record.geometry.as_text}"
-        # puts "  Attributes: #{record.attributes.inspect}"
-        w.check_point
+          # puts "Record number #{record.index}:"
+          # puts "  Geometry: #{record.geometry.as_text}"
+          # puts "  Attributes: #{record.attributes.inspect}"
+          w.check_point
+        end
       end
-    end
     end
   end
 

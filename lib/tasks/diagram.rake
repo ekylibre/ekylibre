@@ -1,13 +1,8 @@
+require 'tasks/clean/support'
 
 desc "Build diagram with yuml.me"
 task :diagram => :environment do
-  list = if ActiveRecord::Base.respond_to? :descendants
-           ActiveRecord::Base.send(:descendants)
-         elsif ActiveRecord::Base.respond_to? :subclasses
-           ActiveRecord::Base.send(:subclasses)
-         else
-           Object.subclasses_of(ActiveRecord::Base)
-         end.select{|x| not x.name.match('::') and not x.abstract_class?}.uniq.sort{|a,b| a.name <=> b.name}
+  list = models_in_file
 
   yuml = '//Ekylibre'
   for model in list
