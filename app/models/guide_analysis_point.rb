@@ -41,4 +41,8 @@ class GuideAnalysisPoint < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :acceptance_status, in: self.acceptance_status.values
 
+  def status
+    {passed: :go, failed: :stop, errored: :stop, passed_with_warnings: :caution}.with_indifferent_access[self.acceptance_status]
+  end
+
 end

@@ -28,6 +28,7 @@ class Backend::GuidesController < BackendController
     t.status
     t.column :nature
     t.column :external
+    t.action :run, method: :post
     t.action :edit
     t.action :destroy
   end
@@ -37,6 +38,18 @@ class Backend::GuidesController < BackendController
     t.status
     t.column :started_at, hidden: true
     t.column :stopped_at
+  end
+
+  def run
+    notify_warning(:implemented_with_dummy_data)
+    @guide = find_and_check
+    statuses = [:passed, :failed, :passed_with_warnings]
+    analysis = @guide.analyses.create!(acceptance_status: statuses.sample, started_at: Time.now - 10, stopped_at: Time.now)
+    (14 * @guide.name.size).times do |i|
+      status = statuses.sample
+      analysis.points.create!(acceptance_status: status, reference_name: "#{@guide.name.parameterize.underscore}_check_#{i}", advice_reference_name: (status.to_s == "failed" ? "do_something" : nil))
+    end
+    redirect_to action: :show
   end
 
 end

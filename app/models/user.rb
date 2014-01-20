@@ -180,7 +180,7 @@ class User < Ekylibre::Record::Base
     p.save!
     return p
   end
- 
+
 
   # # Find and check user account
   # def self.authenticate(user_name, password)

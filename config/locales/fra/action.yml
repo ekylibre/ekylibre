@@ -33,10 +33,10 @@ fra:
       index: "Agrégateurs"
       show: "%{name}"
     backend/analytic_distributions:
-      # edit: "Edit backend/analytic distribution"
-      # index: "Index backend/analytic distribution"
-      # new: "New backend/analytic distribution"
-      # show: "Show backend/analytic distribution"
+      edit: "Modifier la répartition analytique"
+      index: "Répartitions analytiques"
+      new: "Nouvelle répartition analytique"
+      show: "Répartition analytique"
     backend/animal_groups:
       edit: "Modifier le groupe d’animaux\_: %{name}"
       index: "Groupes d’animaux"
@@ -264,11 +264,12 @@ fra:
       index: "Pertes et profits"
       show: "Perte ou profit N°%{number}"
     backend/guide_analyses:
-      show: "Analyse %{execution_number} du référentiel %{guide}"
+      show: "Analyse N°%{execution_number} du %{guide}"
     backend/guides:
       edit: "Modifier le référentiel\_: %{name}"
       index: "Référentiels"
       new: "Nouveau référentiel"
+      # run: "Run backend/guide"
       show: "Référentiel\_: %{name}"
     backend/helps:
       index: "Aide"
@@ -1935,6 +1936,7 @@ fra:
     exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
     expired_session: "Session expirée. Veuillez vous reconnecter."
     fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
+    # implemented_with_dummy_data: "Implemented with dummy data"
     import_succeeded: "Vos données ont été correctement importées" #?
     importation_cancelled: "Vos données n’ont été pas été importées. L’importation a été annulée" #?
     importation_finished: "L’importation est terminée."

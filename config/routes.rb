@@ -320,13 +320,18 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :guides, concerns: [:list, :unroll] do
+    resources :guide_analyses, concerns: [:list, :unroll] do
       member do
-        get :list_analyses
+        get :list_points
       end
     end
 
-    resources :guide_analyses, concerns: [:list, :unroll]
+    resources :guides, concerns: [:list, :unroll] do
+      member do
+        post :run
+        get :list_analyses
+      end
+    end
 
     resources :incoming_deliveries, concerns: [:list, :unroll] do
       member do

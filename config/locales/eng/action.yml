@@ -30,11 +30,11 @@ eng:
     backend/aggregators:
       # index: "Agrégateurs"
       # show: "%{name}"
-    backend/analytic_distributions:  #?
-      edit: "Edit a distribution\_: %{id} " #?
-      index: "Analytics distributions" #?
-      new: "Create a distribution" #?
-      show: "Distribution %{id}" #?
+    backend/analytic_distributions:
+      edit: "Edit a distribution\_: %{id} "
+      index: "Analytics distributions"
+      new: "Create a distribution"
+      show: "Distribution %{id}"
     backend/animal_groups:
       edit: "Edit animal's group\_: %{name}"
       index: "Animal's groups"
@@ -281,7 +281,7 @@ eng:
       # index: "Pertes et profits"
       # show: "Perte ou profit N°%{number}"
     backend/guide_analyses:
-      # show: "Analyse %{execution_number} du référentiel %{guide}"
+      # show: "Analyse N°%{execution_number} du %{guide}"
     backend/guide_indicator_data: #?
     backend/guides:
       # edit: "Modifier le référentiel\_: %{name}"

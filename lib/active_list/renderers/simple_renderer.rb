@@ -148,7 +148,7 @@ module ActiveList
                 column.options[:url][:controller] ||= column.class_name.tableize.to_sym # (self.generator.collection? ? "RECORD.class.name.tableize".c : column.class_name.tableize.to_sym)
                 # column.options[:url][:controller] ||= "#{value_code}.class.name.tableize".c
                 url = column.options[:url].collect{|k, v| "#{k}: " + urlify(v, record)}.join(", ")
-                value_code = "(#{value_code}.blank? ? '' : link_to(#{value_code}, #{url}))"
+                value_code = "(#{value_code}.blank? ? '' : link_to(#{value_code}.to_s, #{url}))"
               elsif column.options[:mode]||column.label_method == :email
                 value_code = "(#{value_code}.blank? ? '' : mail_to(#{value_code}))"
               elsif column.options[:mode]||column.label_method == :website

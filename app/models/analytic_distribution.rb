@@ -34,7 +34,6 @@
 #  updater_id             :integer
 #
 class AnalyticDistribution < Ekylibre::Record::Base
-  # attr_accessible :state, :production_id, :affected_on,  :description, :journal_entry_item_id,  :percentage
   belongs_to :production
   belongs_to :journal_entry_item
 
@@ -49,8 +48,5 @@ class AnalyticDistribution < Ekylibre::Record::Base
     state :confirmed
     state :closed
   end
-
-  # default_scope -> { order(:name) }
-
 
 end

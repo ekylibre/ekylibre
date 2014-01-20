@@ -19,4 +19,11 @@
 
 class Backend::GuideAnalysesController < BackendController
   manage_restfully only: [:show], t3e: {guide: :guide_name}
+
+  list(:points, model: :guide_analysis_points, conditions: {analysis_id: 'params[:id]'.c}, order: :id) do |t|
+    t.column :reference_name
+    t.status
+    t.column :advice_reference_name
+  end
+
 end

@@ -5,28 +5,28 @@
     font-size: 10pt;
     font-family: $base-font-family;
   }
-  
+
   h1 {
     font-size: 16pt;
     font-weight: normal;
     border-bottom: 0.1mm solid black;
     margin-bottom: 2mm;
   }
-  
+
   #top, #side, #help, #help-open, .toolbar, .act, .side-link, .search, .tabbox.journals {
     display: none;
   }
-  
+
   .view {
     a, span {
       display: none;
     }
   }
-  
+
   #main {
     width: 100%;
   }
-  
+
   .list {
     border-collapse: collapse;
     width: 100%;
@@ -63,23 +63,23 @@
       display: none;
     }
   }
-  
+
   .checkbox-true:before {
     content: '☑';
     font-size: 12pt;
   }
-  
+
   .checkbox-false:before {
     content: '☐';
     font-size: 12pt;
   }
-  
+
   .evalue .label {
     color: #888;
     padding: 0 2mm;
     font-weight: bold;
   }
-  
+
   @page {
     size: portrait;
     margin: 1cm;

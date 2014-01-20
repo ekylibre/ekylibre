@@ -44,6 +44,7 @@ class Guide < Ekylibre::Record::Base
   has_one :last_analysis, -> { order(execution_number: :desc) }, class_name: "GuideAnalysis"
   enumerize :nature, in: Nomen::GuideNatures.all
   enumerize :frequency, in: [:hourly, :daily, :weekly, :monthly, :yearly, :decadely, :none]
+  enumerize :reference_name, in: []
 
   has_attached_file :reference_source, path: ':rails_root/private/guides/:id/source.xml'
 
@@ -56,6 +57,10 @@ class Guide < Ekylibre::Record::Base
   validates_inclusion_of :nature, in: self.nature.values
   validates_inclusion_of :frequency, in: self.frequency.values
 
-  delegate :status, to: :last_analysis
+  delegate :status, to: :last_analysis, prefix: true
+
+  def status
+    self.last_analysis ? self.last_analysis_status : :undefined
+  end
 
 end

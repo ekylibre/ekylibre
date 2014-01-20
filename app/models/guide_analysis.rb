@@ -35,7 +35,7 @@
 #
 class GuideAnalysis < Ekylibre::Record::Base
   belongs_to :guide, inverse_of: :analyses
-  has_many :points, class_name: "GuideAnalysisPoint", inverse_of: :analysis
+  has_many :points, class_name: "GuideAnalysisPoint", inverse_of: :analysis, foreign_key: :analysis_id
   enumerize :acceptance_status, in: [:passed, :failed, :errored, :passed_with_warnings], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :execution_number, allow_nil: true, only_integer: true
@@ -51,11 +51,11 @@ class GuideAnalysis < Ekylibre::Record::Base
 
   # Sets the execution number with the last number incremented by 1
   def set_execution_number
-    self.execution_number = self.guide.analyses.max(:execution_number) + 1
+    self.execution_number = self.guide.analyses.maximum(:execution_number).to_i + 1
   end
 
   def status
-    {passed: :go, failing: :stop, errored: :stop, passed_with_warnings: :caution}
+    {passed: :go, failed: :stop, errored: :stop, passed_with_warnings: :caution}.with_indifferent_access[self.acceptance_status]
   end
 
 end

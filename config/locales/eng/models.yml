@@ -909,6 +909,7 @@ eng:
     examinated_at: "Examinated at" #?
     excise: "Excise" #?
     # exclusive: "Exclusif"
+    # execution_number: "N° d’exécution"
     expense: "Expense" #?
     expense_type: "Expense type" #?
     expenses: "Expenses" #?
@@ -963,6 +964,7 @@ eng:
     gravity: "Gravity"
     group: "Group"
     groups: "Groups"
+    # guide: "Référentiel"
     # harvest_year: "Année de récolte"
     has_downpayment: "Has downpayment"
     hashed_password: "Hashed password" #?

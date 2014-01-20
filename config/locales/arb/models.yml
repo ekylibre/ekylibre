@@ -1323,6 +1323,7 @@ arb:
     events: "الاحداث" #?
     excise: "عدد رسوم الدفع" #?
     # exclusive: "Exclusif"
+    # execution_number: "N° d’exécution"
     expense: "التكلفة" #?
     expense_id: "انفاق" #?
     expense_type: "نوع التكلفة" #?
@@ -1379,6 +1380,7 @@ arb:
     # gravity: "Gravité"
     # group: "Groupe"
     # groups: "Groupes"
+    # guide: "Référentiel"
     # harvest_year: "Année de récolte"
     has_downpayment: "لديه عربون واحد"
     hashed_password: "تشفير كلمة المرور" #?

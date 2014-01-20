@@ -39,7 +39,11 @@ spa:
     backend/aggregators:
       # index: "Agrégateurs"
       # show: "%{name}"
-    backend/analytic_distributions: #?
+    backend/analytic_distributions:
+      # edit: "Modifier la répartition analytique"
+      # index: "Répartitions analytiques"
+      # new: "Nouvelle répartition analytique"
+      # show: "Répartition analytique"
     backend/animal_groups:
       # edit: "Modifier le groupe d’animaux\_: %{name}"
       # index: "Groupes d’animaux"
@@ -284,7 +288,7 @@ spa:
       # index: "Pertes et profits"
       # show: "Perte ou profit N°%{number}"
     backend/guide_analyses:
-      # show: "Analyse %{execution_number} du référentiel %{guide}"
+      # show: "Analyse N°%{execution_number} du %{guide}"
     backend/guide_indicator_data: #?
     backend/guides:
       # edit: "Modifier le référentiel\_: %{name}"
