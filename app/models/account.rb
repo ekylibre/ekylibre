@@ -373,7 +373,7 @@ class Account < Ekylibre::Record::Base
     letter = self.last_letter
     letter = letter.blank? ? "AAA" : letter.succ
     self.update_column(:last_letter, letter)
-    # item = self.journal_entry_items.where(self.class.connection.length(self.class.connection.trim("letter"))+" > 0").order("letter DESC").first
+    # item = self.journal_entry_items.where("LENGTH(TRIM(letter)) > 0").order("letter DESC").first
     # return (item ? item.letter.succ : "AAA")
     return letter
   end
@@ -389,7 +389,7 @@ class Account < Ekylibre::Record::Base
   # Mark entry items with the given +letter+. If no +letter+ given, it uses a new letter.
   # Don't mark unless.all the marked items will be balanced together
   def mark(item_ids, letter = nil)
-    conditions = ["id IN (?) AND (letter IS NULL OR #{connection.length(connection.trim('letter'))} <= 0)", item_ids]
+    conditions = ["id IN (?) AND (letter IS NULL OR LENGTH(TRIM(letter)) <= 0)", item_ids]
     items = self.journal_entry_items.where(conditions)
     return nil unless item_ids.size > 1 and items.count == item_ids.size and items.collect{|l| l.debit-l.credit}.sum.to_f.zero?
     letter ||= self.new_letter

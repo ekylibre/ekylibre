@@ -12,17 +12,13 @@ require 'symbol_array'
 # Data exchanges
 require 'exchanges'
 
-# Record enhancements
-require 'activerecord'
+# App-specific libs
 require 'ekylibre'
 
 # XML definitions
 require 'nomen'
 require 'aggeratio'
 require 'procedo'
-
-# Specific calculators
-# autoload :Calculus, 'calculus'
 
 # Other things...
 require 'reporting'

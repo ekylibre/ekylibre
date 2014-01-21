@@ -699,12 +699,7 @@ class BackendController < BaseController
     code = ""
     code << "c = ['1=1']\n"
     code << "session[:#{model.name.underscore}_key].to_s.lower.split(/\\s+/).each{|kw| kw='%'+kw+'%';"
-    # This item is incompatible with MySQL...
-    if ActiveRecord::Base.connection.adapter_name.match(/^mysql/i)
-      code << "c[0] << ' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'}.join(' OR ')+")';\n"
-    else
-      code << "c[0] << ' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'}.join(' OR ')+")';\n"
-    end
+    code << "c[0] << ' AND ("+columns.collect{|x| 'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'}.join(' OR ')+")';\n"
     code << "c += [#{(['kw']*columns.size).join(',')}]"
     code << "}\n"
     code << "c"
@@ -729,12 +724,7 @@ class BackendController < BaseController
     code << "for kw in #{variable}.to_s.lower.split(/\\s+/)\n"
     code << "  kw = '%'+kw+'%'\n"
     filters = columns.collect do |x|
-      # This item is incompatible with MySQL...
-      if ActiveRecord::Base.connection.adapter_name.match(/^mysql/i)
-        'LOWER(CAST('+x.to_s+' AS CHAR)) LIKE ?'
-      else
-        'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'
-      end
+      'LOWER(CAST('+x.to_s+' AS VARCHAR)) LIKE ?'
     end
     values = '['+(['kw']*columns.size).join(', ')+']'
     for k, v in options[:filters]

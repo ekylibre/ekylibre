@@ -96,7 +96,7 @@ class EntityAddress < Ekylibre::Record::Base
         if self.mail_line_6.blank?
           self.mail_postal_zone_id = nil
         else
-          self.mail_postal_zone = PostalZone.where("LOWER(" + self.class.connection.trim("name") + ") LIKE ?", self.mail_line_6.lower).first
+          self.mail_postal_zone = PostalZone.where("LOWER(TRIM(name)) LIKE ?", self.mail_line_6.lower).first
           self.mail_postal_zone = PostalZone.create!(:name => self.mail_line_6, :country => self.mail_country) if self.mail_postal_zone.nil?
         end
       end
