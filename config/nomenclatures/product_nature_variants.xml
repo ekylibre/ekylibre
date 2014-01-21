@@ -732,7 +732,7 @@
             />
       <item name="red_chesnut_land_parcel"
             nature="land_parcel"
-            variety="red_chesnut_soil"
+            variety="chesnut_red_soil"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />

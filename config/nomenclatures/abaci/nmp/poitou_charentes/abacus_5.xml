@@ -43,7 +43,7 @@
        husbandry_with_mixed_crop="45"
        />
       <item name="red_chesnut_triticum_aestivum"
-       land_parcel_variety="red_chesnut_soil" 
+       land_parcel_variety="chesnut_red_soil" 
        cereal_typology="winter_straw_cereal"
        cereal_crop="35"
        husbandry="40"
@@ -148,7 +148,7 @@
        husbandry_with_mixed_crop="55"
        />
       <item name="red_chesnut_triticum_aestivum"
-       land_parcel_variety="red_chesnut_soil" 
+       land_parcel_variety="chesnut_red_soil" 
        cereal_typology="spring_straw_cereal"
        cereal_crop="50"
        husbandry="50"

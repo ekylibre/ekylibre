@@ -23,9 +23,9 @@
       <item name="aubues_wheat_crop_min" soil_variety="aubues_soil" cultivation_variety="triticum_aestivum" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="aubues_wheat_crop_med" soil_variety="aubues_soil" cultivation_variety="triticum_aestivum" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="aubues_wheat_crop_max" soil_variety="aubues_soil" cultivation_variety="triticum_aestivum" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="red_chesnut_wheat_crop_min" soil_variety="red_chesnut_soil" cultivation_variety="triticum_aestivum" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="red_chesnut_wheat_crop_med" soil_variety="red_chesnut_soil" cultivation_variety="triticum_aestivum" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="red_chesnut_wheat_crop_max" soil_variety="red_chesnut_soil" cultivation_variety="triticum_aestivum" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="red_chesnut_wheat_crop_min" soil_variety="chesnut_red_soil" cultivation_variety="triticum_aestivum" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="red_chesnut_wheat_crop_med" soil_variety="chesnut_red_soil" cultivation_variety="triticum_aestivum" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="red_chesnut_wheat_crop_max" soil_variety="chesnut_red_soil" cultivation_variety="triticum_aestivum" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
       <item name="flap_silt_wheat_crop_min" soil_variety="flap_silt_soil" cultivation_variety="triticum_aestivum" yield="60" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="flap_silt_wheat_crop_med" soil_variety="flap_silt_soil" cultivation_variety="triticum_aestivum" yield="70" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="flap_silt_wheat_crop_max" soil_variety="flap_silt_soil" cultivation_variety="triticum_aestivum" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
@@ -63,9 +63,9 @@
       <item name="aubues_durum_wheat_crop_min" soil_variety="aubues_soil" cultivation_variety="triticum_durum" yield="55" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="aubues_durum_wheat_crop_med" soil_variety="aubues_soil" cultivation_variety="triticum_durum" yield="63" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="aubues_durum_wheat_crop_max" soil_variety="aubues_soil" cultivation_variety="triticum_durum" yield="70" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="red_chesnut_durum_wheat_crop_min" soil_variety="red_chesnut_soil" cultivation_variety="triticum_durum" yield="55" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="red_chesnut_durum_wheat_crop_med" soil_variety="red_chesnut_soil" cultivation_variety="triticum_durum" yield="63" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="red_chesnut_durum_wheat_crop_max" soil_variety="red_chesnut_soil" cultivation_variety="triticum_durum" yield="70" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="red_chesnut_durum_wheat_crop_min" soil_variety="chesnut_red_soil" cultivation_variety="triticum_durum" yield="55" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="red_chesnut_durum_wheat_crop_med" soil_variety="chesnut_red_soil" cultivation_variety="triticum_durum" yield="63" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="red_chesnut_durum_wheat_crop_max" soil_variety="chesnut_red_soil" cultivation_variety="triticum_durum" yield="70" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
       <item name="flap_silt_durum_wheat_crop_min" soil_variety="flap_silt_soil" cultivation_variety="triticum_durum" yield="50" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="flap_silt_durum_wheat_crop_med" soil_variety="flap_silt_soil" cultivation_variety="triticum_durum" yield="60" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="flap_silt_durum_wheat_crop_max" soil_variety="flap_silt_soil" cultivation_variety="triticum_durum" yield="70" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
@@ -95,9 +95,9 @@
       <item name="aubues_spring_barley_crop_min" soil_variety="aubues_soil" cultivation_variety="hordeum_vernum" yield="50" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="aubues_spring_barley_crop_med" soil_variety="aubues_soil" cultivation_variety="hordeum_vernum" yield="60" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="aubues_spring_barley_crop_max" soil_variety="aubues_soil" cultivation_variety="hordeum_vernum" yield="70" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="red_chesnut_spring_barley_crop_min" soil_variety="red_chesnut_soil" cultivation_variety="hordeum_vernum" yield="45" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="red_chesnut_spring_barley_crop_med" soil_variety="red_chesnut_soil" cultivation_variety="hordeum_vernum" yield="55" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="red_chesnut_spring_barley_crop_max" soil_variety="red_chesnut_soil" cultivation_variety="hordeum_vernum" yield="65" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="red_chesnut_spring_barley_crop_min" soil_variety="chesnut_red_soil" cultivation_variety="hordeum_vernum" yield="45" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="red_chesnut_spring_barley_crop_med" soil_variety="chesnut_red_soil" cultivation_variety="hordeum_vernum" yield="55" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="red_chesnut_spring_barley_crop_max" soil_variety="chesnut_red_soil" cultivation_variety="hordeum_vernum" yield="65" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
       <item name="flap_silt_spring_barley_crop_min" soil_variety="flap_silt_soil" cultivation_variety="hordeum_vernum" yield="45" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="flap_silt_spring_barley_crop_med" soil_variety="flap_silt_soil" cultivation_variety="hordeum_vernum" yield="55" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="flap_silt_spring_barley_crop_max" soil_variety="flap_silt_soil" cultivation_variety="hordeum_vernum" yield="65" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
@@ -142,9 +142,9 @@
       <item name="aubues_winter_barley_crop_min" soil_variety="aubues_soil" cultivation_variety="hordeum_hibernum" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="aubues_winter_barley_crop_med" soil_variety="aubues_soil" cultivation_variety="hordeum_hibernum" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="aubues_winter_barley_crop_max" soil_variety="aubues_soil" cultivation_variety="hordeum_hibernum" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="red_chesnut_winter_barley_crop_min" soil_variety="red_chesnut_soil" cultivation_variety="hordeum_hibernum" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="red_chesnut_winter_barley_crop_med" soil_variety="red_chesnut_soil" cultivation_variety="hordeum_hibernum" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="red_chesnut_winter_barley_crop_max" soil_variety="red_chesnut_soil" cultivation_variety="hordeum_hibernum" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="red_chesnut_winter_barley_crop_min" soil_variety="chesnut_red_soil" cultivation_variety="hordeum_hibernum" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="red_chesnut_winter_barley_crop_med" soil_variety="chesnut_red_soil" cultivation_variety="hordeum_hibernum" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="red_chesnut_winter_barley_crop_max" soil_variety="chesnut_red_soil" cultivation_variety="hordeum_hibernum" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
       <item name="flap_silt_winter_barley_crop_min" soil_variety="flap_silt_soil" cultivation_variety="hordeum_hibernum" yield="60" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="flap_silt_winter_barley_crop_med" soil_variety="flap_silt_soil" cultivation_variety="hordeum_hibernum" yield="70" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="flap_silt_winter_barley_crop_max" soil_variety="flap_silt_soil" cultivation_variety="hordeum_hibernum" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
@@ -182,9 +182,9 @@
       <item name="aubues_triticosecale_crop_min" soil_variety="aubues_soil" cultivation_variety="triticosecale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="aubues_triticosecale_crop_med" soil_variety="aubues_soil" cultivation_variety="triticosecale" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="aubues_triticosecale_crop_max" soil_variety="aubues_soil" cultivation_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="red_chesnut_triticosecale_crop_min" soil_variety="red_chesnut_soil" cultivation_variety="triticosecale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="red_chesnut_triticosecale_crop_med" soil_variety="red_chesnut_soil" cultivation_variety="triticosecale" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="red_chesnut_triticosecale_crop_max" soil_variety="red_chesnut_soil" cultivation_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="red_chesnut_triticosecale_crop_min" soil_variety="chesnut_red_soil" cultivation_variety="triticosecale" yield="65" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="red_chesnut_triticosecale_crop_med" soil_variety="chesnut_red_soil" cultivation_variety="triticosecale" yield="73" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="red_chesnut_triticosecale_crop_max" soil_variety="chesnut_red_soil" cultivation_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
       <item name="flap_silt_triticosecale_crop_min" soil_variety="flap_silt_soil" cultivation_variety="triticosecale" yield="60" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="flap_silt_triticosecale_crop_med" soil_variety="flap_silt_soil" cultivation_variety="triticosecale" yield="70" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="flap_silt_triticosecale_crop_max" soil_variety="flap_silt_soil" cultivation_variety="triticosecale" yield="80" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>

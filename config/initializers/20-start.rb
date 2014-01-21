@@ -21,6 +21,9 @@ require 'nomen'
 require 'aggeratio'
 require 'procedo'
 
+# Specific calculators
+# autoload :Calculus, 'calculus'
+
 # Other things...
 require 'reporting'
 require 'enumerize/xml'

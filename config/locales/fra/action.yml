@@ -986,6 +986,7 @@ fra:
       stock_moves: "Mouvements de stock"
       stocks: "Stocks"
     buildings: "Voir la liste des lieux de stockage"
+    calculate: "Calculer"
     calendar: "Calendrier"
     canals: "Coordonnées"
     cancel: "Annuler"
@@ -1966,7 +1967,7 @@ fra:
     # need_to_create_productions: "Need to create productions"
     need_to_create_subscription_nature: "Vous devez créer un type d’abonnement pour pouvoir gérer vos abonnements"
     new_actual_number: "Le nouveau numéro en cours est %{actual_number}"
-    # new_values_are_computed: "New values are computed"
+    # new_values_are_calculated: "New values are calculated"
     no_authenticated: "Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le mot de passe doit être incorrect."
     no_balance_template: "Pas de modèle de document pour la balance" #?
     no_building: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks" #?

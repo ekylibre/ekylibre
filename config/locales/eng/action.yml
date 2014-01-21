@@ -950,6 +950,7 @@ eng:
       stock_moves: "Stocks moves"
       stocks: "Stocks"
     buildings: "Buildings"
+    # calculate: "Calculer"
     calendar: "Calendar"
     canals: "Canals"
     cancel: "Cancel"

@@ -1,0 +1,114 @@
+module Calculus
+  module NitrogenInputs
+
+    # A Zone which will receive nitrogen
+    class Zone
+      attr_reader :support, :membership
+      delegate :activity, :campaign, to: :support
+      delegate :net_surface_area, to: :membership
+
+      def initialize(support, membership)
+        @support = support
+        @membership = membership
+      end
+
+      def self.of_campaign(*campaigns)
+        zones = []
+        for campaign in campaigns
+          for support in campaign.production_supports.includes(:storage)
+            if support.storage.is_a?(CultivableZone)
+              for membership in support.storage.memberships
+                zones << new(support, membership)
+              end
+            end
+          end
+        end
+        return zones
+      end
+
+      # Computes markers with given options
+      def self.calculate!(*campaigns)
+        options = campaigns.extract_options!
+        for zone in of_campaign(*campaigns)
+          if params = options[zone.id]
+            inputs_method = "Calculus::NitrogenInputs::Methods::#{params.delete(:inputs_method).to_s.camelcase}".constantize.new(zone, params)
+            inputs_method.apply!
+          end
+        end
+      end
+
+
+      def id
+        "#{@support.id}-#{@membership.id}"
+      end
+
+
+      # Returns the land parcel
+      def land_parcel
+        @membership.member
+      end
+
+      def cultivation
+        # TODO How to know the cultivation and in many cultivations case, how to do ?
+        return nil
+      end
+
+      # Returns the variety of the cultivation
+      def cultivation_variety
+        @cultivation_variety ||= Nomen::Varieties[@support.production.variant.variety]
+      end
+
+      # Returns all matching varieties
+      def cultivation_varieties
+        if cultivation_variety
+          return cultivation_variety.self_and_parents.map(&:name)
+        end
+        return :undefined
+      end
+
+      # Returns the variety of the cultivation
+      def soil_variety
+        @soil_variety ||= Nomen::Varieties[land_parcel.variety]
+      end
+
+      # Returns all matching varieties
+      def soil_varieties
+        if soil_variety
+          return soil_variety.self_and_parents.map(&:name)
+        end
+        return :undefined
+      end
+
+      # Returns the inputs_method for the zone
+      def inputs_method(options = {})
+        method = nil
+        return method || :poitou_charentes
+      end
+
+      # Returns the crop yield for the zone
+      def crop_yield(options = {})
+        options = {unit: :quintal_per_hectare}.merge(options)
+        crop_yield = nil
+        # TODO get existing marker
+        return crop_yield || 0.in_quintal_per_hectare.in(options[:unit])
+      end
+
+      def nitrogen_inputs
+        nitrogen_inputs = nil
+        return nitrogen_inputs || 0.in_unity_per_hectare
+      end
+
+      def available_water_capacity
+        @available_water_capacity ||= land_parcel.available_water_capacity_per_area
+      end
+
+      # TODO Find a reliable way to determinate the administrative area of a land parcel
+      def administrative_area
+        return "FR-17"
+      end
+
+    end
+
+
+  end
+end

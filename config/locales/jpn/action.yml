@@ -874,6 +874,7 @@ jpn:
       # stock_moves: "Mouvements de stock"
       # stocks: "Stocks"
     # buildings: "Voir la liste des lieux de stockage"
+    # calculate: "Calculer"
     # calendar: "Calendrier"
     # canals: "Coordonnées"
     cancel: "取り消す"

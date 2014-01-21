@@ -17,9 +17,9 @@
       <item name="aubues_max" land_parcel_variety="aubues_soil" rf="20" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
       <item name="champagne_min" land_parcel_variety="champagne_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="120"/>
       <item name="champagne_max" land_parcel_variety="champagne_soil" rf="20" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
-      <item name="red_chesnut_min" land_parcel_variety="red_chesnut_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
-      <item name="red_chesnut_med" land_parcel_variety="red_chesnut_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
-      <item name="red_chesnut_max" land_parcel_variety="red_chesnut_soil" rf="30" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
+      <item name="red_chesnut_min" land_parcel_variety="chesnut_red_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="red_chesnut_med" land_parcel_variety="chesnut_red_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="red_chesnut_max" land_parcel_variety="chesnut_red_soil" rf="30" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>
       <item name="flap_silt_min" land_parcel_variety="flap_silt_soil" rf="15" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="flap_silt_med" land_parcel_variety="flap_silt_soil" rf="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="flap_silt_max" land_parcel_variety="flap_silt_soil" rf="30" minimum_available_water_capacity="120" maximum_available_water_capacity="200"/>

@@ -12,19 +12,20 @@
       %th= ProductionSupport.human_attribute_name(:soil_nature)
       %th= ProductionSupport.human_attribute_name(:nitrogen_input)
     %tbody
-      - for zone in @nitrogenous_zones
+      - for zone in @zones
         %tr
           %td= zone.activity.name
           %td= zone.campaign.name
           %td= zone.land_parcel.name
           %td.dec= zone.net_surface_area.in(:hectare).round(3).l
           %td= zone.cultivation_variety.human_name
-          %td= select_tag("nitrogenous_zones[#{zone.id}][inputs_method]", options_for_select(Nomen::NmpMethods.selection, zone.inputs_method))
+          %td= select_tag("zones[#{zone.id}][inputs_method]", options_for_select(Nomen::NmpMethods.selection, zone.inputs_method))
           %td
             %span.input-append
               - y = zone.crop_yield
-              = hidden_field_tag("nitrogenous_zones[#{zone.id}][crop_yield][unit]", y.unit)
-              = text_field_tag("nitrogenous_zones[#{zone.id}][crop_yield][value]", y.to_d, size: 4)
-              %span.add-on= y.symbol
-          %td= select_tag("nitrogenous_zones[#{zone.id}][soil_variety]", options_for_select(Nomen::Varieties.selection(:land_parcel), zone.soil_variety.name))
+              = text_field_tag("zones[#{zone.id}][crop_yield][value]", (y.zero? ? "" : y.to_d), size: 4)
+              %span.add-on
+                = hidden_field_tag("zones[#{zone.id}][crop_yield][unit]", y.unit)
+                = y.symbol
+          %td= select_tag("zones[#{zone.id}][soil_variety]", options_for_select(Nomen::Varieties.selection(:land_parcel), zone.soil_variety.name))
           %td.dec= zone.nitrogen_inputs.in(:unity_per_hectare).l

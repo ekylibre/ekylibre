@@ -972,6 +972,7 @@ spa:
       # stocks: "Stocks"
     building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito"
+    # calculate: "Calculer"
     # calendar: "Calendrier"
     # canals: "Coordonnées"
     # cancel: "Annuler"

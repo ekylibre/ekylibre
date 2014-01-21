@@ -2356,6 +2356,7 @@ fra:
         champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)" # land_parcel
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertiliser: "Engrais chimique"            # mineral_matter
+        chesnut_red_soil: "Terres rouges à chataigniers"   # land_parcel
         cichorium: "Chicoré"                               # asteraceae
         clay_limestone_soil: "Sol argilo-calcaire (Groies)" # land_parcel
         clay_soil: "Terre d’argile lourde"                 # land_parcel
@@ -2459,7 +2460,6 @@ fra:
         quebon: "Quebon"                                   # triticum_aestivum
         reaper: "Moissonneuse-batteuse"                    # equipment
         recital: "Recital"                                 # triticum_aestivum
-        red_chesnut_soil: "Terres rouges à chataigniers"   # land_parcel
         renan: "Renan"                                     # triticum_aestivum
         rubisko: "Rubisko"                                 # triticum_aestivum
         runal: "Runal"                                     # triticum_aestivum

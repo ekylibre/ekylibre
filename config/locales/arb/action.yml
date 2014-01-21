@@ -1066,6 +1066,7 @@ arb:
       # stocks: "Stocks"
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين"
+    # calculate: "Calculer"
     # calendar: "Calendrier"
     canals: "التنسيق"
     cancel: "الغاء"
