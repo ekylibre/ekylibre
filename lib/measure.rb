@@ -114,8 +114,16 @@ class Measure
   end
 
   # Test if the other measure is equal to self
+  def !=(other)
+    unless other.is_a?(Measure)
+      raise ArgumentError, "Only measure can be compared to another measure"
+    end
+    self.to_r != other.to_r(@unit)
+  end
+
+  # Test if the other measure is equal to self
   def ==(other)
-    unless measure.is_a?(Measure)
+    unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be compared to another measure"
     end
     self.to_r == other.to_r(@unit)

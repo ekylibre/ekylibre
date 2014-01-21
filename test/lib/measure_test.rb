@@ -42,6 +42,12 @@ class MeasureTest < ActiveSupport::TestCase
     assert_equal m1, 0.155.in_ton
     assert_equal m2, 1.045.in_ton
 
+    assert_equal m1 != m2
+    assert_equal m1 < m2
+    assert_equal m2 > m1
+    assert_equal m1 <= m2
+    assert_equal m2 >= m1
+
     m3 = nil
     assert_nothing_raised do
       m3 = m1 + m2
