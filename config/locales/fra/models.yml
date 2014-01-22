@@ -725,7 +725,7 @@ fra:
     invoiced: "Facturée" #?
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures" #?
-    # irrigated: "Irrigated"
+    irrigated: "Irrigué"
     issue: "Incident"
     issues: "Incidents"
     # item: "Item"

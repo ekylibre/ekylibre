@@ -24,8 +24,9 @@ class Backend::Calculators::NitrogenInputsController < BackendController
   end
 
   def edit
-    @campaign = Campaign.last
-    @zones = Calculus::NitrogenInputs::Zone.of_campaign(@campaign)
+    if @campaign = Campaign.find_by(id: params[:campaign_id])
+      @zones = Calculus::NitrogenInputs::Zone.of_campaign(@campaign)
+    end
   end
 
   def update

@@ -2055,8 +2055,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
-    t.datetime "started_at"
-    t.datetime "stopped_at"
     t.datetime "created_at",                                                                                                            null: false
     t.datetime "updated_at",                                                                                                            null: false
     t.integer  "creator_id"
@@ -2070,8 +2068,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "production_support_markers", ["created_at"], :name => "index_production_support_markers_on_created_at"
   add_index "production_support_markers", ["creator_id"], :name => "index_production_support_markers_on_creator_id"
   add_index "production_support_markers", ["indicator_name"], :name => "index_production_support_markers_on_indicator_name"
-  add_index "production_support_markers", ["started_at"], :name => "index_production_support_markers_on_started_at"
-  add_index "production_support_markers", ["stopped_at"], :name => "index_production_support_markers_on_stopped_at"
   add_index "production_support_markers", ["support_id"], :name => "index_production_support_markers_on_support_id"
   add_index "production_support_markers", ["updated_at"], :name => "index_production_support_markers_on_updated_at"
   add_index "production_support_markers", ["updater_id"], :name => "index_production_support_markers_on_updater_id"

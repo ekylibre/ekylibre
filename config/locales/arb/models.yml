@@ -1427,6 +1427,7 @@ arb:
     invoiced: "مفوتر"
     # invoiced_on: "Facturée le"
     # invoices_count: "Nombre de factures"
+    # irrigated: "Irrigué"
     is_debit: "مدين" #?
     # issue: "Incident"
     # issues: "Incidents"

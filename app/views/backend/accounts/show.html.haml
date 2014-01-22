@@ -3,14 +3,17 @@
   - t.mark(@account) if @account.reconcilable?
 
 = beehive do |b|
-  - b.cell do
-    = attributes_list do |l|
-      - l.attribute :number
-      - l.attribute :name
-      - l.attribute :reconcilable
-      - l.attribute :description
+  - b.hbox do
+    - b.cell do
+      = attributes_list do |l|
+        - l.attribute :number
+        - l.attribute :name
+        - l.attribute :reconcilable
+        - l.attribute :description
+    - b.cell(:entities) do
+      = list(:entities)
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:journal_entry_items) do
       = kujaku do |k|
         - k.text :b
@@ -38,5 +41,3 @@
             %td.value= totals[:balance_debit].l(currency: currency)
             %td.value= totals[:balance_credit].l(currency: currency)
             %th
-    - b.cell(:entities) do
-      = list(:entities)

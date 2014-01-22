@@ -100,10 +100,7 @@ module Procedo
 
   end
 
-  # Load all procedures
-  load
-
-  Rails.logger.info "Loaded procedures: " + names.to_sentence
 end
 
-
+Procedo.load
+Rails.logger.info "Loaded procedures: " + Procedo.names.to_sentence

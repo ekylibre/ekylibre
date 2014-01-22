@@ -4,7 +4,7 @@ fra:
       # edit: "Edit authentication/password"
       # new: "New authentication/password"
     authentication/sessions:
-      # _callback_before_11: " callback before 11 authentication/session"
+      # _callback_before_3: " callback before 3 authentication/session"
       destroy: "Se déconnecter" #?
       new: "Connexion"
       renew: "Renouveller la session" #?
@@ -667,7 +667,7 @@ fra:
       # edit: "Edit devise/registration"
       # new: "New devise/registration"
     devise/sessions:
-      # _callback_before_11: " callback before 11 devise/session"
+      # _callback_before_3: " callback before 3 devise/session"
       # new: "New devise/session"
     devise/unlocks:
       # new: "New devise/unlock"

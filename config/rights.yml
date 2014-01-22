@@ -1,4 +1,5 @@
 # Unused actions in rights
+# - "authentication/sessions#_callback_before_3"
 # - "backend/accounts#unroll"
 # - "backend/activities#create"
 # - "backend/activities#destroy"
@@ -747,7 +748,7 @@
 # - "devise/registrations#edit"
 # - "devise/registrations#new"
 # - "devise/registrations#update"
-# - "devise/sessions#_callback_before_11"
+# - "devise/sessions#_callback_before_3"
 # - "devise/sessions#create"
 # - "devise/sessions#destroy"
 # - "devise/sessions#new"
@@ -771,7 +772,7 @@ __minimum__:
 __public__:
 - "authentication/passwords#create"
 - "authentication/passwords#new"
-- "authentication/sessions#_callback_before_11"
+- "authentication/sessions#_callback_before_11" #?
 - "authentication/sessions#create"
 - "authentication/sessions#new"
 - "public#index"

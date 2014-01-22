@@ -1,8 +1,8 @@
-=main_toolbar do |t|
-  -t.edit @production_support
+= main_toolbar do |t|
+  - t.edit @production_support
 
-=beehive do |b|
-  -b.cell do
+= beehive do |b|
+  - b.cell do
     = attributes_list do |l|
       - l.attribute :name
       - l.attribute :storage, url: true
@@ -11,7 +11,7 @@
       - l.attribute :stopped_at
       - l.attribute :irrigated
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:interventions) do
       = toolbar do |t|
         - t.new(:params =>{:controller => :interventions, :production_support_id => @production_support.id})
