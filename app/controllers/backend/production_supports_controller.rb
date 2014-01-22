@@ -32,13 +32,11 @@ class Backend::ProductionSupportsController < BackendController
 
   # List procedures for one production
   list(:interventions, conditions: {production_support_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status) do |t|
-    # t.column :name
     t.column :name, url: true
-    #t.column :name, through: :storage, url: true
-    t.column :state
+    t.status
     t.column :issue, url: true
     t.column :started_at
-    t.column :stopped_at
+    t.column :stopped_at, hidden: true
     # t.column :provisional
   end
 

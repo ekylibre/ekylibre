@@ -1,8 +1,8 @@
-class IncompatibleLanguage < StandardError
-end
-
 # This class permits to manipulate String that is program's code
 class Code < String
+
+  class IncompatibleLanguage < StandardError
+  end
 
   @@default_language = :ruby
 
@@ -42,15 +42,4 @@ class Code < String
     self.to_s
   end
 
-end
-
-class ::String
-  # Convert a String to a Code fragment
-  def to_code(language = nil)
-    Code.new(self, language)
-  end
-
-  def c(language = nil)
-    Code.new(self, language)
-  end
 end

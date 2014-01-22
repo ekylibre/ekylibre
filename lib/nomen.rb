@@ -88,19 +88,15 @@ module Nomen
     def const_missing(name)
       n = name.to_s.underscore.to_sym
       unless @@list.has_key?(n)
-        raise MissingNomenclature.new("Nomenclature #{n} is missing.")
+        raise MissingNomenclature, "Nomenclature #{n} is missing. Availables are: #{names.to_sentence(locale: :eng)}"
       end
       return self[n]
     end
 
   end
 
-  # Load all nomenclatures
-  load
-
-  Rails.logger.info "Loaded nomenclatures: " + names.to_sentence
-
-
 end
 
+Nomen.load
+Rails.logger.info "Loaded nomenclatures: " + Nomen.names.to_sentence
 

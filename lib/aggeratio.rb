@@ -215,9 +215,8 @@ module Aggeratio
 
   end
 
-  # Load all aggregators
-  load
-
-  Rails.logger.info "Loaded aggregators: " + names.to_sentence
 
 end
+
+Aggeratio.load
+Rails.logger.info "Loaded aggregators: " + Aggeratio.names.to_sentence

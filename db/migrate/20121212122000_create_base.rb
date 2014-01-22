@@ -1134,11 +1134,11 @@ class CreateBase < ActiveRecord::Migration
       t.string     :subject
       t.string     :derivative
       t.indicator_datum      null: false, index: true
-      t.datetime   :started_at
-      t.datetime   :stopped_at
+      # t.datetime   :started_at
+      # t.datetime   :stopped_at
       t.stamps
-      t.index      :started_at
-      t.index      :stopped_at
+      # t.index      :started_at
+      # t.index      :stopped_at
     end
 
     create_table :productions do |t|

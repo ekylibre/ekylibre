@@ -1013,6 +1013,7 @@ eng:
     # invoiced: "Facturée"
     invoiced_on: "Invoiced on"
     invoices_count: "Invoices count"
+    # irrigated: "Irrigué"
     is_debit: "Is debit" #?
     # issue: "Incident"
     issues: "Issues"
