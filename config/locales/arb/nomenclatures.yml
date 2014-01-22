@@ -1020,7 +1020,9 @@ arb:
         # winter_straw_cereal: "Céréales à paille d'hiver"
       # name: "Typologie de culture (France)"
     guide_natures:
-      items: #?
+      items:
+        # best_practices: "Bonnes pratiques"
+        # regulations: "Réglementations"
       # name: "Type de guides"
     indicators:
       attributes:
@@ -1545,6 +1547,7 @@ arb:
         # animal_building_division: "Piece d’accueil pour les animaux"
         # animal_food_building_division: "Piece d’accueil pour les aliments"
         # animal_waste_building_division: "Zone des déchets organiques"
+        # annual_fallow_crop: "Jachère annuelle"
         # anti_slug: "Anti-limace"
         # apple_crop: "Verger de pommiers"
         # ascott_wheat_crop: "Culture de blé tendre Ascott"
@@ -1661,6 +1664,7 @@ arb:
         # ovis_manure: "Fumier d'ovin"
         # pea_crop: "Culture de pois"
         # pea_seed: "Semence de pois"
+        # permanent_meadow_crop: "Culture de prairie permanente"
         # pig_compost: "Compost de porc"
         # pig_manure: "Fumier de porc"
         # pig_slurry: "Lisier de porc"

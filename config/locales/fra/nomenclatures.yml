@@ -914,8 +914,8 @@ fra:
     guide_natures:
       name: "Type de guides"
       items:
-        # best_practices: "Best practices"
-        # regulations: "Regulations"
+        best_practices: "Bonnes pratiques"
+        regulations: "Réglementations"
         # specifications: "Specifications"
     indicators:
       name: "Indicateurs"
@@ -1919,7 +1919,7 @@ fra:
         animal_building_division: "Piece d’accueil pour les animaux"
         animal_food_building_division: "Piece d’accueil pour les aliments"
         animal_waste_building_division: "Zone des déchets organiques"
-        # annual_fallow_crop: "Annual fallow crop"
+        annual_fallow_crop: "Jachère annuelle"
         anti_slug: "Anti-limace"
         apple_crop: "Verger de pommiers"
         ascott_wheat_crop: "Culture de blé tendre Ascott"
@@ -2037,7 +2037,7 @@ fra:
         ovis_manure: "Fumier d'ovin"
         pea_crop: "Culture de pois"
         pea_seed: "Semence de pois"
-        # permanent_meadow_crop: "Permanent meadow crop"
+        permanent_meadow_crop: "Culture de prairie permanente"
         pig_compost: "Compost de porc"
         pig_manure: "Fumier de porc"
         pig_slurry: "Lisier de porc"

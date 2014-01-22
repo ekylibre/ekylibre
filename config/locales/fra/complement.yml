@@ -1581,7 +1581,9 @@ fra:
         ZMK: "Kwacha zambien"
         ZWL: "Dollar zimbabwéen"
     guide:
-
+      nature:
+        best_practices: "Bonnes pratiques"
+        regulations: "Réglementations"
     immatter:
       variety:
         acetal: "Acetal"

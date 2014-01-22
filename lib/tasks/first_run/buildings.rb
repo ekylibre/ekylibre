@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 load_data :buildings do |loader|
-  
+
   file = loader.path("buildings.shp")
   if file.exist?
   standard_place_variant = ProductNatureVariant.import_from_nomenclature(:building)
