@@ -55,7 +55,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
       conn = CartoDBConnection.new(@cooperative_config[:account], @cooperative_config[:key])
       data = []
       company = @cooperative_config[:member]
-      activities = Activity.where(family: :vine_wine)
+      activities = Activity.all #where(family: :vine_wine)
       Intervention.includes(:production, :production_support, :issue, :recommender, :activity, :campaign, :storage).of_activities(activities).find_each do |intervention|
         line = {
           company: company,
