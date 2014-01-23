@@ -272,8 +272,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       end
 
       # Add first indicators
+
       indicators = variant.variable_indicators.delete_if{|i| whole_indicators.include?(i) }
-      if indicators.any?
+      if self.object.new_record? and indicators.any?
 
         for indicator in indicators
           @object.indicator_data.build(indicator_name: indicator.name)
