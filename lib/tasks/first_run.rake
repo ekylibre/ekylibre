@@ -127,7 +127,7 @@ namespace :first_runs do
     code  = "desc 'Execute #{loaders.to_sentence}'\n"
     code << "task :#{loader} do\n"
     for d in loaders
-      code << "  puts ' * Execute first_run:#{d} task'\n"
+      code << "  puts 'Load #{d.to_s.red}'\n"
       code << "  Rake::Task['first_run:#{d}'].invoke\n"
     end
     code << "end"
@@ -140,7 +140,7 @@ end
 desc "Create first_run data independently -- also available " + Ekylibre::LOADERS.collect{|c| "first_run:#{c}"}.join(", ")
 task :first_runs => :environment do
   for loader in Ekylibre::LOADERS
-    puts " * Execute first_run:#{loader} task"
+    puts "Load #{loader.to_s.red}"
     Rake::Task["first_run:#{loader}"].invoke
   end
 end

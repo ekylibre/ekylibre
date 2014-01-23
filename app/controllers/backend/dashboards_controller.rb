@@ -19,6 +19,9 @@
 
 class Backend::DashboardsController < BackendController
 
+  def index
+  end
+
   for menu in Ekylibre::Modules.hash.keys
     code  = "def #{menu}\n"
     # code << " notify_warning_now(:dashboard_is_being_developed)"
@@ -27,7 +30,21 @@ class Backend::DashboardsController < BackendController
     class_eval code
   end
 
-  def index
+  def sandbox
+    if zone = CultivableZone.first
+      if datum = zone.indicator_datum(:shape)
+        wkt = datum.class.connection.select_one("SELECT ST_AsText(ST_Transform(ST_Centroid(ST_SetSRID(geometry_value, 2154)), 4326)) AS centroid, ST_AsText(ST_Force2D(ST_Transform(ST_SetSRID(geometry_value, 2154), 4326))) AS shape FROM #{datum.class.table_name} WHERE id = #{datum.id}").symbolize_keys
+        factory = RGeo::Geographic.spherical_factory
+        @coordinates = factory.parse_wkt(wkt[:centroid])
+        @points = factory.parse_wkt(wkt[:shape]).collect do |g|
+          g.exterior_ring.points.collect do |p|
+            [p.y, p.x]
+          end
+        end.first
+        # @points = datum.value.exterior_ring.points
+        # raise @points.inspect
+      end
+    end
   end
 
   SIMILAR_LETTERS = [

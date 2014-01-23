@@ -47,7 +47,7 @@
 #
 
 class ProductionSupportMarker < Ekylibre::Record::Base
-  include IndicatorDatumStorable, TimeLineable
+  include IndicatorDatumStorable
   enumerize :aim,        in: [:minimal, :maximal, :perfect], default: :perfect
   enumerize :derivative, in: Nomen::Varieties.all(:organic_matter)
   enumerize :subject,    in: [:production, :support, :derivative], default: :support
