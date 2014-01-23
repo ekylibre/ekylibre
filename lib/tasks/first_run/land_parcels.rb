@@ -13,7 +13,7 @@ load_data :land_parcels do |loader|
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          born_at = Time.new(record.attributes['CAMPAGNE'], 1, 1)
+          born_at = Time.new(1, 1, 2)
           land_parcel_cluster = LandParcelCluster.create!(:variant_id => land_parcel_group_variant.id,
                                                           :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s,
                                                           :work_number => record.attributes['NUMERO'].to_s,
@@ -55,42 +55,20 @@ load_data :land_parcels do |loader|
       # AGRI_BIO
       # ANNEE_ENGM
 
-      # for TYPE @TODO make a nomen for that because it sucks.
-      plant_telepac_typology = {
-        "BH" => :wheat_crop,
-        "TO" => :sunflower_crop,
-        "HC" => :fallow_crop,
-        "ME" => :corn_silage_crop,
-        "PT" => :temporary_meadow_crop,
-        "PN" => :permanent_meadow_crop,
-        "GA" => :annual_fallow_crop
-      }
-
-      # attributes to map family by activity name
-      families_by_activity_name = {
-        "BH" => :straw_cereal_crops,
-        "ME" => :maize_crops,
-        "GA" => :fallow_land,
-        "HC" => :fallow_land,
-        "TO" => :oilseed_crops,
-        "PN" => :prairie,
-        "PT" => :prairie
-      }
-
-      land_parcel_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
+      land_parcel_variant = ProductNatureVariant.import_from_nomenclature(:clay_limestone_land_parcel)
       cultivable_zone_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
 
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          born_at = Time.new(record.attributes['CAMPAGNE'], 1, 1)
+          born_at = Time.new(1, 1, 2)
 
           # create a land parcel for each entries
           #
           land_parcel = LandParcel.create!(:variant_id => land_parcel_variant.id,
-                                                          :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s,
+                                                          :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
                                                           :work_number => "P" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
-                                                          :variety => "land_parcel",
+                                                          :variety => "clay_limestone_soil",
                                                           :born_at => born_at,
                                                           :initial_owner => Entity.of_company,
                                                           :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
@@ -131,11 +109,13 @@ load_data :land_parcels do |loader|
           campaign ||= Campaign.create!(harvest_year: record.attributes['CAMPAGNE'].to_i, closed: false)
 
           # create an activity if not exist
-          activity   = Activity.find_by(family: families_by_activity_name[record.attributes['TYPE'].to_s])
-          activity ||= Activity.create!(:nature => :main, :family => families_by_activity_name[record.attributes['TYPE'].to_s], :name => record.attributes['TYPE'].to_s + " (TELEPAC)")
+          item = Nomen::ProductionNatures.where(telepac_crop_code: record.attributes['TYPE'].to_s).first
+          activity_family_item = Nomen::ActivityFamilies[item.activity] if item
+          activity   = Activity.find_by(family: activity_family_item.name)
+          activity ||= Activity.create!(:nature => :main, :family => activity_family_item.name, :name => item.human_name)
 
           # create a production if not exist
-          product_nature_variant_sup = ProductNatureVariant.import_from_nomenclature(plant_telepac_typology[record.attributes['TYPE'].to_s])
+          product_nature_variant_sup = ProductNatureVariant.import_from_nomenclature(item.variant_crop.to_s)
           product_support = cultivable_zone || nil
           if product_nature_variant_sup and !product_support.nil?
             # find a production corresponding to campaign , activity and product_nature
@@ -161,7 +141,7 @@ load_data :land_parcels do |loader|
     loader.count :land_parcel_import do |w|
       # Import land_parcel from Calc Sheet
 
-      land_parcel_nature_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
+      land_parcel_nature_variant = ProductNatureVariant.import_from_nomenclature(:clay_limestone_land_parcel)
 
       # Load file
       CSV.foreach(path, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|

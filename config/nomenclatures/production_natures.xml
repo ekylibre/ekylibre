@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <nomenclature name="production_natures">
+    <attributes>
+      <!-- Inside the model-->
+      <attribute name="activity" type="choice" nomenclature="activity_families" required="true"/>
+      <attribute name="telepac_crop_code" type="string" required="true"/>
+      <attribute name="variant_crop" type="choice" nomenclature="product_nature_variants" required="false"/>
+    </attributes>
+    <items>
+      <item name="winter_soft_wheat"
+            activity="straw_cereal_crops"
+            telepac_crop_code="BH"
+            variant_crop="wheat_crop"
+            />
+      <item name="winter_hard_wheat"
+            activity="straw_cereal_crops"
+            telepac_crop_code="BA"
+            variant_crop="hard_wheat_crop"
+            />
+      <item name="grain_corn"
+            activity="maize_crops"
+            telepac_crop_code="MA"
+            variant_crop="corn_grain_crop"
+            />
+      <item name="silage_corn"
+            activity="maize_crops"
+            telepac_crop_code="ME"
+            variant_crop="corn_silage_crop"
+            />
+      <item name="seed_corn"
+            activity="maize_crops"
+            telepac_crop_code="MS"
+            variant_crop="corn_seed_crop"
+            />
+      <item name="sunflower"
+            activity="oilseed_crops"
+            telepac_crop_code="TO"
+            variant_crop="sunflower_crop"
+            />   
+      <item name="without_crop"
+            activity="fallow_land"
+            telepac_crop_code="HC"
+            variant_crop="fallow_crop"
+            />
+      <item name="annual_frost_fallow_land"
+            activity="fallow_land"
+            telepac_crop_code="GA"
+            variant_crop="annual_fallow_crop"
+            />
+      <item name="temporary_meadow"
+            activity="meadow"
+            telepac_crop_code="PT"
+            variant_crop="temporary_meadow_crop"
+            />
+      <item name="permanent_meadow"
+            activity="meadow"
+            telepac_crop_code="PN"
+            variant_crop="permanent_meadow_crop"
+            />
+    </items>
+    
+  </nomenclature>
+  
+</nomenclatures>

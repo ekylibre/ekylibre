@@ -45,8 +45,6 @@ class Backend::ProductionSupportsController < BackendController
     t.column :indicator_name, url: true
     t.column :aim
     t.column :value
-    t.column :started_at
-    t.column :stopped_at
   end
 
 end

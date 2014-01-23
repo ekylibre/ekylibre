@@ -998,9 +998,10 @@ arb:
     accounts: "الحسابات" #?
     acquisition_amount: "قيمة الاقتناء"
     active: "فعال"
+    # active_prices: "Prix actifs"
     # activity: "Activité"
     activity_code: "APE/NAF رمز"
-    # actor: "Actor"
+    # actor: "Acteur"
     actual_number: "الرقم الحالي"
     address: "العنوان"
     # addresses: "Adresses"
@@ -1011,14 +1012,17 @@ arb:
     # affected_on: "Affecté le"
     # age: "Âge"
     agency_code: "رمز الوكالة" #?
-    # aim: "Aim"
+    # aim: "Objectif"
     # all_taxes_included: "Toutes taxes comprises"
     # allocation_account: "Compte de dotation"
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
     # amounts_scale: "Nombre de chiffres après le virgule"
+    # analysis: "Analyses"
     annotation: "ملاحظة"
     # archived_at: "Archivé le"
+    # archives: "Archives"
+    # archives_count: "Nombre d'archives"
     # archiving: "Méthode d’archivage"
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
@@ -1033,6 +1037,8 @@ arb:
     # attorney_journal: "Journal mandataire"
     # attorneys: "Mandataires"
     attribute_name: "اسم الصفة المميزة"
+    # authentication_token: "Clef d'authentification"
+    # author: "Auteur"
     authorized_payments_count: "عدد الدفعات المصرحة بها"
     # auto_updateable_addresses: "Adresses mises à jour automatiquement"
     available_prices: "الاسعار المتوفرة" #?
@@ -1057,7 +1063,7 @@ arb:
     base: "القاعدة" #?
     bban: "RIB" #?
     bic: "BIC" #?
-    # birth: "Birth"
+    # birth: "Naissance"
     boolean_value: "القيمة المنطقية"
     # born_at: "Né(e) le"
     born_on: "تاريخ الميلاد"
@@ -1075,7 +1081,7 @@ arb:
     # cash_transfers: "Virements internes"
     cashes: "الحسابات المصرفية"
     cashes_accounts: "حسابات الصندوق النقدي"
-    # casts: "Casts"
+    # casts: "Acteurs"
     # catalog: "Catalog"
     catalog_description: "مواصفات للدليل"
     catalog_name: "اسم للدليل"
@@ -1106,7 +1112,7 @@ arb:
     clients: "العملاء"
     # closable_financial_year: "Exercice clôturable"
     closed: "تم اغلاقه"
-    # closed_at: "Closed at"
+    # closed_at: "Clôturé à"
     closed_on: "تاريخ الاغلاق"
     code: "الرمز"
     code2: "الرمز الثاني" #?
@@ -1116,6 +1122,7 @@ arb:
     collected_account: "جمع قيمة الضريبة الاضافية" #?
     collected_account_id: "جمع قيمة الضريبة الاضافية" #?
     collected_amount: "قيمة الضريبة الاضافية الاجمالية"
+    # collected_taxes: "TVA collectées"
     # color: "Couleur"
     # column_name: "Nom de colonne"
     # columns: "Colonnes"
@@ -1399,14 +1406,14 @@ arb:
     incoming_payment_modes: "طرق تسديد الدفعات"
     incoming_payment_uses: "اجزاء الدفعات" #?
     incoming_payments: "الدفعات"
-    # indicator: "Indicator"
-    # indicator_data: "Indicator data"
-    # indicator_datatype: "Indicator datatype"
+    # indicator: "Indicateur"
+    # indicator_data: "Indicateur"
+    # indicator_datatype: "Type de l'indicateur"
     # indicator_datum: "Indicator datum"
-    # indicator_name: "Indicator name"
+    # indicator_name: "Indicateur"
     # indicators: "Indicators"
     indirect_links: "روابط مباشرة"
-    # individual: "Individual"
+    # individual: "Individuel"
     # initial_arrival_cause: "Initial arrival cause"
     # initial_container: "Initial container"
     # initial_number: "Numéro initial"
@@ -1447,8 +1454,9 @@ arb:
     journals: "الدفاتر اليومية" #?
     key: "المفتاح"
     label: "الملصق"
-    land_parcels: "الكتل" #?
+    land_parcels: "الكتل"
     language: "اللغة"
+    # last_analysis: "Dernières analyses"
     last_bank_statement: "(((LAST_BANK_STATEMENT)))"
     last_cweek: "الاسبوع السابق"
     # last_journal_entry: "Écriture de fin d’exercice"
@@ -1544,8 +1552,10 @@ arb:
     # nature_name: "Nature name"
     # natures: "Natures"
     # net_mass: "Masse nette"
+    # net_surface_area: "Surface"
     # net_volume: "Volume net"
     nic: "واجهة بطاقة الشبكة"
+    # nitrogen_input: "Apport azoté"
     node: "العقدة"
     node_id: "عقدة" #?
     nodes: "عقد الاستخراج"
@@ -1727,6 +1737,8 @@ arb:
     # reception_currency: "Reception currency"
     # reception_journal_entry: "Écriture de la réception"
     # recipient: "Destinataire"
+    # recommended: "Prescrit"
+    # recommender: "Prescripteur"
     # reconcilable: "Lettrable"
     record_value: "التسجيل"
     record_value_id: "تسجيل" #?
@@ -1802,6 +1814,7 @@ arb:
     # sign_in_count: "Nombre de connexions"
     siren: "رقم صفارة الانذار"
     siret: "SIRET رقم" #?
+    # soil_nature: "Nature du sol"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات" #?
     source: "المصدر"
     # spaced_iban: "IBAN"
@@ -1813,7 +1826,7 @@ arb:
     state: "الحالة"
     state_label: "حالة النص"
     # static_support: "Support statique"
-    # status: "Status"
+    # status: "Statut"
     stock: "انتاج السهم" #?
     # stock_account: "Compte de stock"
     stock_id: "انتاج سهم" #?
@@ -1939,6 +1952,7 @@ arb:
     with_tracking: "مع التتبع" #?
     # with_transport: "Avec transport"
     # work_number: "Numéro de travail"
+    # yield: "Rendement"
   models:
     account:
       default_account_name: "دفتر الحسابات %{number}" #?

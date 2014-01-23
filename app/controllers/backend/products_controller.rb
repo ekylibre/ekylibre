@@ -133,8 +133,6 @@ class Backend::ProductsController < BackendController
     t.column :production_name, through: :support, url: true
     t.column :indicator_name
     t.column :value, datatype: :measure
-    t.column :started_at
-    t.column :stopped_at
   end
 
   protected
