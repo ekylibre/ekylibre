@@ -1440,6 +1440,7 @@
         <page to="backend/dashboards#accountancy"/>
         <page to="backend/dashboards#production"/>
         <page to="backend/dashboards#relationship"/>
+        <page to="backend/dashboards#sandbox"/>
         <page to="backend/dashboards#search"/>
         <page to="backend/dashboards#settings"/>
         <page to="backend/dashboards#stocks"/>

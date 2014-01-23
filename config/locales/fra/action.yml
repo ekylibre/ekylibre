@@ -172,6 +172,7 @@ fra:
       purchases: "Tableau de bord des achats" #?
       relationship: "Tableau de bord de la gestion des relations"
       sales: "Tableau de bord des ventes" #?
+      # sandbox: "Sandbox backend/dashboard"
       search: "Recherche de\_: %{searched}"
       settings: "Configuration"
       stocks: "Tableau de bord des stocks"

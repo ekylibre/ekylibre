@@ -355,6 +355,8 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :intervention_casts
+
     resources :interventions, concerns: [:list, :unroll] do
       member do
         post :run

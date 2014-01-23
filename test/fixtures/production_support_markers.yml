@@ -55,7 +55,7 @@
 #   support: supports_001
 #   updater: users_001
 #
----
+
 production_support_markers_001:
   aim: minimal
   boolean_value: true
@@ -63,9 +63,9 @@ production_support_markers_001:
   decimal_value: 10
   indicator_datatype: decimal
   indicator_name: population
-  started_at: 0001-01-01 00:09:21.000000000 +00:09
   support: production_supports_001
   updater: users_001
+
 production_support_markers_002:
   aim: maximal
   boolean_value: true
@@ -73,9 +73,9 @@ production_support_markers_002:
   decimal_value: 1000
   indicator_datatype: decimal
   indicator_name: population
-  started_at: 0001-01-01 00:09:21.000000000 +00:09
   support: production_supports_001
   updater: users_001
+
 production_support_markers_003:
   aim: perfect
   boolean_value: true
@@ -83,6 +83,5 @@ production_support_markers_003:
   decimal_value: 100
   indicator_datatype: decimal
   indicator_name: population
-  started_at: 0001-01-01 00:09:21.000000000 +00:09
   support: production_supports_001
   updater: users_001

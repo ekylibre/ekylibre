@@ -135,6 +135,15 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
   end
 
+
+  def shape(attribute_name = :shape, options = {})
+    # raise @object.send(attribute_name)
+    geometry = @object.send(attribute_name)
+    geometry = RGeo::CoordSys::Proj4.transform(geometry.srid, geometry, 4326, geometry.factory)
+    return self.input(attribute_name, options.merge(input_html: {value: geometry.as_text, 'data-map' => :wkt}))
+  end
+
+
   def money(attribute_name, *args)
     options = args.extract_options!
     currency_attribute_name = args.shift || options[:currency_attribute] || :currency

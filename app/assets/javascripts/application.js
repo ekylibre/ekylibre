@@ -27,6 +27,8 @@
 //= require modernizr.mq
 //= require ui
 //= require jstz
+//= require wicket
 //= require leaflet
 //= require leaflet.draw
+//= require leaflet.wicket
 //= require_tree .

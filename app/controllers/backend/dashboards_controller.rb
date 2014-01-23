@@ -31,6 +31,7 @@ class Backend::DashboardsController < BackendController
   end
 
   def sandbox
+    @cast =  InterventionCast.where("shape IS NOT NULL").first
     if zone = CultivableZone.first
       if datum = zone.indicator_datum(:shape)
         wkt = datum.class.connection.select_one("SELECT ST_AsText(ST_Transform(ST_Centroid(ST_SetSRID(geometry_value, 2154)), 4326)) AS centroid, ST_AsText(ST_Force2D(ST_Transform(ST_SetSRID(geometry_value, 2154), 4326))) AS shape FROM #{datum.class.table_name} WHERE id = #{datum.id}").symbolize_keys

@@ -198,6 +198,7 @@
 # - "backend/cultivable_zones#update"
 # - "backend/custom_field_choices#unroll"
 # - "backend/custom_fields#unroll"
+# - "backend/dashboards#sandbox"
 # - "backend/dashboards#search"
 # - "backend/dashboards#tools"
 # - "backend/deposits#unroll"
