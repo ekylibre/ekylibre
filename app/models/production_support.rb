@@ -87,7 +87,14 @@ class ProductionSupport < Ekylibre::Record::Base
     started_at = options[:at] || Time.now
     return self.markers.where(indicator_name: indicator.name).where("started_at <= ?", started_at).reorder(started_at: :desc).first
   end
-
+  
+  def active?
+    if self.activity.fallow_land?
+      return false
+    else
+      return true
+    end
+  end
 
   def cost(role=:input)
     cost = []
