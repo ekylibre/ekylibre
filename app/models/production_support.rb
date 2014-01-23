@@ -208,8 +208,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     options = args.extract_options!
     aim = args.shift || options[:aim] || :perfect
-    at  = args.shift || options[:at]  || Time.now
-    markers = self.markers.at(at).where(indicator_name: indicator.name.to_s, aim: aim)
+    markers = self.markers.where(indicator_name: indicator.name.to_s, aim: aim)
     if markers.any?
       return markers.first.value
     end
