@@ -28,11 +28,11 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           support:    support.name,
           the_geom:   (support.shape ? support.shape_as_ewkt : nil),
           variant:    support.production.variant.name,
-          tool_cost:  support.tool_cost,
-          input_cost: support.input_cost,
-          time_cost:  support.time_cost,
-          nitrogen_balance: support.nitrogen_balance,
-          provisional_nitrogen_input: support.provisional_nitrogen_input
+          tool_cost:  support.tool_cost.round(2),
+          input_cost: support.input_cost.round(2),
+          time_cost:  support.time_cost.round(2),
+          nitrogen_balance: support.nitrogen_balance.round(2),
+          provisional_nitrogen_input: support.provisional_nitrogen_input.round(2)
         }
         data << line
       end
@@ -66,11 +66,11 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           intervention_recommender_name: (intervention.recommended ? intervention.recommender.name : nil),
           intervention_name:    intervention.name,
           intervention_start_time:    intervention.start_time,
-          intervention_duration:    intervention.duration,
+          intervention_duration:    intervention.duration.round(2),
           the_geom:   (intervention.storage.shape ? intervention.storage.shape_as_ewkt : nil),
-          tool_cost:  intervention.cost(:tool),
-          input_cost: intervention.cost(:input),
-          time_cost:  intervention.cost(:doer)
+          tool_cost:  intervention.cost(:tool).round(2),
+          input_cost: intervention.cost(:input).round(2),
+          time_cost:  intervention.cost(:doer).round(2)
         }
         data << line
       end
