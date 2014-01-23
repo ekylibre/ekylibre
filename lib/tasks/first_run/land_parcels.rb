@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 load_data :land_parcels do |loader|
 
-  path = loader.path("ilot_017005218.shp")
+  path = loader.path("ilot.shp")
   if path.exist?
     loader.count :telepac_shape_file_import do |w|
       #############################################################################
@@ -13,7 +13,7 @@ load_data :land_parcels do |loader|
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          born_at = Time.new(record.attributes['CAMPAGNE'], 1, 1)
+          born_at = Time.new(1, 1, 2)
           land_parcel_cluster = LandParcelCluster.create!(:variant_id => land_parcel_group_variant.id,
                                                           :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s,
                                                           :work_number => record.attributes['NUMERO'].to_s,
@@ -35,12 +35,113 @@ load_data :land_parcels do |loader|
 
   end
 
-  path = loader.path("land_parcel_017005218.csv")
+  path = loader.path("parcelle.shp")
+  if path.exist?
+    loader.count :telepac_landparcel_shape_file_import do |w|
+      #############################################################################
+      # Import landparcel_shapefile from TELEPAC
+      # -- field_name
+      # PACAGE
+      # NUMERO_SI (land_parcel number)
+      # NUMERO (land_parcel_cluster number id)
+      # CAMPAGNE (campaign)
+      # DPT_NUM (department zone number)
+      # SURF_TOT (land_parcel_cluster area)
+      # COMMUNE
+      # TYPE (cf http://www.maine-et-loire.gouv.fr/IMG/pdf/Dossier-PAC-2013_notice_cultures-varietes.pdf)
+      # CODE_VAR
+      # SURF_DECL (land_parcel area)
+      # TYPE_PARC
+      # AGRI_BIO
+      # ANNEE_ENGM
+
+      land_parcel_variant = ProductNatureVariant.import_from_nomenclature(:clay_limestone_land_parcel)
+      cultivable_zone_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
+
+      RGeo::Shapefile::Reader.open(path.to_s, :srid => 2154) do |file|
+        # puts "File contains #{file.num_records} records."
+        file.each do |record|
+          born_at = Time.new(1, 1, 2)
+
+          # create a land parcel for each entries
+          #
+          land_parcel = LandParcel.create!(:variant_id => land_parcel_variant.id,
+                                                          :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
+                                                          :work_number => "P" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
+                                                          :variety => "clay_limestone_soil",
+                                                          :born_at => born_at,
+                                                          :initial_owner => Entity.of_company,
+                                                          :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
+
+          land_parcel.is_measured!(:shape, record.geometry, at: born_at)
+          ind_area = land_parcel.shape_area
+          land_parcel.is_measured!(:population, ind_area.in_hectare, at: born_at)
+
+          # create a cultivable zone for each entries
+          #
+          cultivable_zone = CultivableZone.create!(:variant_id => cultivable_zone_variant.id,
+                                                          :name => CultivableZone.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s,
+                                                          :work_number => "ZC" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
+                                                          :variety => "cultivable_zone",
+                                                          :born_at => born_at,
+                                                          :initial_owner => Entity.of_company,
+                                                          :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
+
+          cultivable_zone.is_measured!(:shape, record.geometry, at: born_at)
+          ind_area = cultivable_zone.shape_area
+          cultivable_zone.is_measured!(:population, ind_area.in_hectare, at: born_at)
+
+          # link a land parcel to a land parcel cluster
+          land_parcel_cluster = LandParcelCluster.find_by_work_number(record.attributes['NUMERO'].to_s)
+          land_parcel_cluster.add(land_parcel) if land_parcel_cluster
+
+          # link cultivable zone and land parcel for each entries
+          #
+          cultivable_zone_membership = CultivableZoneMembership.where(group: cultivable_zone, member: land_parcel).first
+          cultivable_zone_membership ||= CultivableZoneMembership.create!(:group => cultivable_zone,
+                                                                          :member => land_parcel,
+                                                                          :shape => record.geometry,
+                                                                          :population => record.attributes['SURF_DECL'].to_d
+                                                                          )
+
+          # create a campaign if not exist
+          campaign = Campaign.find_by(harvest_year: record.attributes['CAMPAGNE'].to_i)
+          campaign ||= Campaign.create!(harvest_year: record.attributes['CAMPAGNE'].to_i, closed: false)
+
+          # create an activity if not exist
+          item = Nomen::ProductionNatures.where(telepac_crop_code: record.attributes['TYPE'].to_s).first
+          activity_family_item = Nomen::ActivityFamilies[item.activity] if item
+          activity   = Activity.find_by(family: activity_family_item.name)
+          activity ||= Activity.create!(:nature => :main, :family => activity_family_item.name, :name => item.human_name)
+
+          # create a production if not exist
+          product_nature_variant_sup = ProductNatureVariant.import_from_nomenclature(item.variant_crop.to_s)
+          product_support = cultivable_zone || nil
+          if product_nature_variant_sup and !product_support.nil?
+            # find a production corresponding to campaign , activity and product_nature
+            pro = Production.where(:campaign_id => campaign.id, :activity_id => activity.id, :variant_id => product_nature_variant_sup.id).first
+            # or create it
+            pro ||= activity.productions.create!(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id, :static_support => true)
+            # create a support for this production
+            support = pro.supports.create!(:storage_id => product_support.id)
+          elsif !product_nature_variant_sup.nil?
+            pro = Production.where(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id, :activity_id => activity.id).first
+            pro ||= activity.productions.create!(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id)
+          end
+
+          w.check_point
+        end
+      end
+    end
+
+  end
+
+  path = loader.path("land_parcel.csv")
   if path.exist?
     loader.count :land_parcel_import do |w|
       # Import land_parcel from Calc Sheet
 
-      land_parcel_nature_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
+      land_parcel_nature_variant = ProductNatureVariant.import_from_nomenclature(:clay_limestone_land_parcel)
 
       # Load file
       CSV.foreach(path, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|

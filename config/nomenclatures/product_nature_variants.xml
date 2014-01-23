@@ -165,6 +165,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="corn_seed_crop"
+            nature="crop"
+            variety="zea"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <item name="spelt_wheat_crop"
             nature="cereal_crop"
             variety="triticum_spelta"
@@ -183,6 +189,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="permanent_meadow_crop"
+            nature="crop"
+            variety="poa"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <item name="temporary_meadow_crop"
             nature="crop"
             variety="poa"
@@ -190,6 +202,12 @@
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="fallow_crop"
+            nature="crop"
+            variety="poa"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="annual_fallow_crop"
             nature="crop"
             variety="poa"
             unit_name="hectare"

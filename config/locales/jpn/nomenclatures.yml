@@ -250,12 +250,12 @@ jpn:
         # goat_farming: "Élevage caprins"
         # handicraft: "Artisanat"
         # maize_crops: "Culture de maïs"
+        # meadow: "Prairie"
         # oilseed_crops: "Culture oléagineuse"
         # palmiped_farming: "Élevage de palmipèdes"
         # pig_farming: "Élevage porcins"
         # potato_crops: "Culture de pomme de terre"
         # poultry_farming: "Élevage avicole"
-        # prairie: "Prairie"
         # protein_crops: "Culture protéagineuse"
         # purchases: "Achats"
         # rabbit_farming: "Élevage cunicole"
@@ -1022,7 +1022,9 @@ jpn:
         # winter_straw_cereal: "Céréales à paille d'hiver"
       # name: "Typologie de culture (France)"
     guide_natures:
-      items: #?
+      items:
+        # best_practices: "Bonnes pratiques"
+        # regulations: "Réglementations"
       # name: "Type de guides"
     indicators:
       attributes:
@@ -1547,6 +1549,7 @@ jpn:
         # animal_building_division: "Piece d’accueil pour les animaux"
         # animal_food_building_division: "Piece d’accueil pour les aliments"
         # animal_waste_building_division: "Zone des déchets organiques"
+        # annual_fallow_crop: "Jachère annuelle"
         # anti_slug: "Anti-limace"
         # apple_crop: "Verger de pommiers"
         # ascott_wheat_crop: "Culture de blé tendre Ascott"
@@ -1593,6 +1596,7 @@ jpn:
         # corn_grain: "Graine de maïs"
         # corn_grain_crop: "Culture de maïs grain"
         # corn_seed_25: "Semence de maïs sac de 25kg"
+        # corn_seed_crop: "Culture de maïs semence"
         # corn_silage_crop: "Culture de maïs ensilage"
         # cow_milk: "Lait de vache"
         # cultivable_zone: "Zone cultivable"
@@ -1663,6 +1667,7 @@ jpn:
         # ovis_manure: "Fumier d'ovin"
         # pea_crop: "Culture de pois"
         # pea_seed: "Semence de pois"
+        # permanent_meadow_crop: "Culture de prairie permanente"
         # pig_compost: "Compost de porc"
         # pig_manure: "Fumier de porc"
         # pig_slurry: "Lisier de porc"
@@ -1811,7 +1816,24 @@ jpn:
         # wine: "Vin"
         # wine_crop: "Vigne"
       # name: "Type de produits"
-    production_natures: #?
+    production_natures:
+      attributes:
+        # activity: "Activité"
+        # telepac_crop_code: "Code de type de culture TELEPAC"
+        # variant_crop: "variante de culture"
+      choices: #?
+      items:
+        # annual_frost_fallow_land: "Gel annuel"
+        # grain_corn: "Maïs grain"
+        # permanent_meadow: "Prairie permanente"
+        # seed_corn: "Maïs semence"
+        # silage_corn: "Maïs ensilage"
+        # sunflower: "Tournesol"
+        # temporary_meadow: "Prairie temporaire"
+        # winter_hard_wheat: "Blé dur d'hiver"
+        # winter_soft_wheat: "Blé tendre d'hiver"
+        # without_crop: "Hors culture"
+      # name: "Type de production"
     roles:
       items:
         # driver: "Conducteur"

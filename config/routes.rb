@@ -79,6 +79,7 @@ Ekylibre::Application.routes.draw do
         for mod in [:relationship, :accountancy, :trade, :stocks, :production, :tools, :settings]
           get mod
         end
+        get :sandbox
         get :list_my_future_events
         get :list_recent_events
         get :list_critic_stocks
@@ -353,6 +354,8 @@ Ekylibre::Application.routes.draw do
         post :reflect
       end
     end
+
+    resources :intervention_casts
 
     resources :interventions, concerns: [:list, :unroll] do
       member do

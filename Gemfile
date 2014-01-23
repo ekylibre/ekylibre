@@ -37,7 +37,7 @@ gem 'formize', '~> 1.1.0'
 # gem 'codemirror-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder' # , '~> 1.2'
+gem 'jbuilder'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -104,14 +104,13 @@ gem 'beardley-batik'
 gem 'beardley-charts'
 gem 'beardley-groovy'
 gem 'beardley-xml'
-# gem 'thinreports-rails'
-# gem 'prawn', '~> 0.12.0'
 
 # Import/Export
 gem 'fastercsv'
-gem 'rgeo-shapefile'
-gem 'rubyzip'
 gem 'ofx-parser'
+gem 'rgeo-shapefile'
+gem 'rgeo-geojson'
+gem 'rubyzip'
 
 # Demo data
 gem 'ffaker'
@@ -149,26 +148,15 @@ group :development do
 end
 
 group :development, :test do
-  # gem 'spinach-rails'
-
   gem 'factory_girl_rails'
   gem 'shoulda-context'
-  # gem 'rspec-expectations'
 
   gem 'capybara'
   gem 'capybara-webkit'
-  # gem 'headless'
-  # gem 'capybara-screenshot'
   # gem 'selenium-webdriver'
-  # gem "launchy"
-  # gem 'poltergeist'
-  # gem 'sauce', '~> 3.1.1'
-  # gem 'sauce-connect'
-  # gem 'parallel_tests'
 
   gem 'awesome_print'
   gem 'pry'
-  # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
   gem 'coveralls', '>= 0.6', require: false
 end

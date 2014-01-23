@@ -9,6 +9,8 @@
       <attribute name="coefficient" type="decimal" required="true"/>
       <attribute name="nitrogen_stock_before_bolting" type="decimal" required="true"/>
       <attribute name="irrigated" type="boolean" required="false"/>
+      <attribute name="minimum_yield_aim" type="decimal" required="false"/>
+      <attribute name="maximum_yield_aim" type="decimal" required="false"/>
     </attributes>
     <!-- TOUTES LES CEREALES -->
     <items>
@@ -96,5 +98,6 @@
       <item name="irrigate_spring_barley_crop" cultivation_variety="hordeum_vernum" coefficient="2.5" irrigated="true"/>
     </items>
   </nomenclature>
-
+    
+  
 </nomenclatures>

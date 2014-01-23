@@ -16,12 +16,12 @@ fra:
         goat_farming: "Élevage caprins"
         handicraft: "Artisanat"
         maize_crops: "Culture de maïs"
+        meadow: "Prairie"
         oilseed_crops: "Culture oléagineuse"
         palmiped_farming: "Élevage de palmipèdes"
         pig_farming: "Élevage porcins"
         potato_crops: "Culture de pomme de terre"
         poultry_farming: "Élevage avicole"
-        prairie: "Prairie"
         protein_crops: "Culture protéagineuse"
         purchases: "Achats"
         rabbit_farming: "Élevage cunicole"
@@ -1581,7 +1581,9 @@ fra:
         ZMK: "Kwacha zambien"
         ZWL: "Dollar zimbabwéen"
     guide:
-
+      nature:
+        best_practices: "Bonnes pratiques"
+        regulations: "Réglementations"
     immatter:
       variety:
         acetal: "Acetal"

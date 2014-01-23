@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 load_data :buildings do |loader|
 
+  file = loader.path("buildings.shp")
+  if file.exist?
   standard_place_variant = ProductNatureVariant.import_from_nomenclature(:building)
 
   loader.count :buildings do |w|
@@ -31,7 +33,7 @@ load_data :buildings do |loader|
 
   end
 
-  file = loader.path("buildings_2013.shp")
+  file = loader.path("buildings.shp")
   if file.exist?
     loader.count :buildings_shapes do |w|
       #############################################################################
@@ -59,7 +61,7 @@ load_data :buildings do |loader|
     end
   end
 
-  file = loader.path("buildings_division_2013.shp")
+  file = loader.path("building_divisions.shp")
   if file.exist?
     loader.count :building_divisions do |w|
 
@@ -98,5 +100,5 @@ load_data :buildings do |loader|
       end
     end
   end
-
+end
 end

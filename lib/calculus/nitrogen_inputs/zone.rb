@@ -4,7 +4,7 @@ module Calculus
     # A Zone which will receive nitrogen
     class Zone
       attr_reader :support, :membership
-      delegate :activity, :campaign, to: :support
+      delegate :activity, :campaign, :markers, to: :support
       delegate :net_surface_area, to: :membership
 
       def initialize(support, membership)
@@ -15,7 +15,7 @@ module Calculus
       def self.of_campaign(*campaigns)
         zones = []
         for campaign in campaigns
-          for support in campaign.production_supports.includes(:storage)
+          for support in campaign.production_supports.includes(:storage).order(:production_id, "products.name")
             if support.storage.is_a?(CultivableZone)
               for membership in support.storage.memberships
                 zones << new(support, membership)
@@ -61,7 +61,7 @@ module Calculus
       # Returns all matching varieties
       def cultivation_varieties
         if cultivation_variety
-          return cultivation_variety.self_and_parents.map(&:name)
+          return cultivation_variety.self_and_parents.map(&:name).map(&:to_sym)
         end
         return :undefined
       end
@@ -74,7 +74,7 @@ module Calculus
       # Returns all matching varieties
       def soil_varieties
         if soil_variety
-          return soil_variety.self_and_parents.map(&:name)
+          return soil_variety.self_and_parents.map(&:name).map(&:to_sym)
         end
         return :undefined
       end
@@ -89,13 +89,40 @@ module Calculus
       def crop_yield(options = {})
         options = {unit: :quintal_per_hectare}.merge(options)
         crop_yield = nil
-        # TODO get existing marker
+        if marker = crop_yield_marker
+          crop_yield = marker.value
+        end
         return crop_yield || 0.in_quintal_per_hectare.in(options[:unit])
       end
 
-      def nitrogen_inputs
-        nitrogen_inputs = nil
-        return nitrogen_inputs || 0.in_unity_per_hectare
+      def nitrogen_input_area_density
+        marker = aim(:nitrogen_input_area_density)
+        return (marker ? marker.value : 0.in_kilogram_per_hectare)
+      end
+
+      def mark(name, value, options = {})
+        options[:derivative] = :grain unless options.has_key?(:derivative)
+        options[:aim] ||= :perfect
+        options[:subject] ||= (options[:derivative] ? :derivative : :support)
+        unless marker = aim(name, options)
+          marker ||= @support.markers.build(indicator_name: name,
+                                            derivative: options[:derivative],
+                                            subject: options[:subject],
+                                            aim: options[:aim])
+        end
+        marker.value = value
+        marker.save!
+        return marker
+      end
+
+      def aim(name, options = {})
+        options[:derivative] = :grain unless options.has_key?(:derivative)
+        options[:aim] ||= :perfect
+        options[:subject] ||= (options[:derivative] ? :derivative : :support)
+        @support.markers.order(:id).find_by(indicator_name: name,
+                                            derivative: options[:derivative],
+                                            subject: options[:subject],
+                                            aim: options[:aim])
       end
 
       def available_water_capacity
@@ -105,6 +132,10 @@ module Calculus
       # TODO Find a reliable way to determinate the administrative area of a land parcel
       def administrative_area
         return "FR-17"
+      end
+
+      def crop_yield_marker
+        return aim(:mass_area_yield)
       end
 
     end

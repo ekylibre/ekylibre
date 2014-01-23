@@ -49,7 +49,6 @@ class Campaign < Ekylibre::Record::Base
   before_validation :set_default_values, on: :create
 
   acts_as_numbered :number, :readonly => false
-  # default_scope -> { where(:closed => false).order(:name) }
   scope :currents, -> { where(:closed => false).reorder(:harvest_year) }
 
   protect(on: :destroy) do

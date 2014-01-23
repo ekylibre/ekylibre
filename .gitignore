@@ -11,6 +11,12 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# Ignore the default first run files
+/db/first_runs/default
+/db/first_runs/demo_gaecmilkjug
+/db/first_runs/demo_gaecjoulin
+/db/first_runs/demo_ph64
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp

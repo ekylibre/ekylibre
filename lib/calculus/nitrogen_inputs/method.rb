@@ -2,20 +2,23 @@ module Calculus
   module NitrogenInputs
 
     class Method
-      attr_reader :zone
+      attr_reader :zone, :crop_yield
 
       def initialize(zone, options = {})
         @zone = zone
         @options = options
-        @crop_yield = @options.delete(:crop_yield)
-        @crop_yield = @crop_yield[:value].to_d.in(@crop_yield[:unit]) rescue nil
       end
 
       def apply!
+        set_crop_yield!
+        calculate!
+      end
+
+      def set_crop_yield!
         raise NotImplementedError
       end
 
-      def crop_yield
+      def calculate!
         raise NotImplementedError
       end
 

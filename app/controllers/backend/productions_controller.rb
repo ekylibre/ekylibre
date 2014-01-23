@@ -19,7 +19,7 @@
 
 # -*- coding: utf-8 -*-
 class Backend::ProductionsController < BackendController
-  manage_restfully(:t3e => {:name => :name})
+  manage_restfully(t3e: {name: :name})
 
   unroll
 
@@ -51,8 +51,6 @@ class Backend::ProductionsController < BackendController
     return code.c
   end
 
-
-
   list(conditions: productions_conditions, joins: [:activity, :variant, :campaign]) do |t|
     t.column :name, url: true
     t.column :activity, url: true
@@ -66,14 +64,16 @@ class Backend::ProductionsController < BackendController
 
   # List supports for one production
   list(:supports, model: :production_supports, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
-    t.column :name, through: :storage, url: true
-    t.column :population, through: :storage
-    t.column :created_at
+    t.column :name, url: true
+    t.column :population, through: :storage, datatype: :decimal, hidden: true
+    t.column :unit_name, through: :storage, hidden: true
+    t.column :started_at
+    t.column :stopped_at
     t.action :new, url: {controller: :interventions, production_support_id: 'RECORD.id'.c, id: nil}
   end
 
   # List supports for one production
-  list(:markers, model: :production_support_markers, order: {created_at: :desc}) do |t|
+  list(:markers, conditions: {production_id: 'params[:id]'.c}, model: :production_support_markers, order: {created_at: :desc}) do |t|
     t.column :name, through: :support, url: true
     t.column :indicator_name
     t.column :value
@@ -83,13 +83,11 @@ class Backend::ProductionsController < BackendController
 
   # List procedures for one production
   list(:interventions, conditions: {production_id: 'params[:id]'.c}, order: {created_at: :desc}, line_class: :status) do |t|
-    # t.column :name
     t.column :name, url: true
-    #t.column :name, through: :storage, url: true
-    t.column :state
+    t.status
     t.column :issue, url: true
     t.column :started_at
-    t.column :stopped_at
+    t.column :stopped_at, hidden: true
     # t.column :provisional
   end
 

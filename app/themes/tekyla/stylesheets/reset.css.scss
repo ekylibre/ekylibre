@@ -87,6 +87,7 @@ table {
       @include text-align(right);
     }
   }
+/*
   thead {
     tr:last-child {
       th, td {
@@ -94,6 +95,7 @@ table {
       }
     }
   }
+*/
   tbody {
     td {
       border-top: 1px solid #AAA;

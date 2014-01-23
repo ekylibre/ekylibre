@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'nomen'
 
 class AmbiguousUnit < ArgumentError
 end
@@ -263,21 +262,6 @@ class Measure
   # Returns the unit from the nomenclature
   def nomenclature_unit
     @@units[@unit]
-  end
-
-end
-
-class ::Numeric
-
-  eval(Measure.units.inject("") do |code, unit|
-         code << "def in_#{unit}\n"
-         code << "  Measure.new(self, :#{unit})\n"
-         code << "end\n"
-         code
-       end)
-
-  def in(unit)
-    Measure.new(self, unit)
   end
 
 end

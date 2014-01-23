@@ -1,0 +1,23 @@
+/*
+ * This is a manifest file that'll be compiled into screen.css, which will include all the files
+ * listed below.
+ *
+ *= require_self
+ */
+
+$base-color: #60AD60;
+
+// Core variables and mixins
+@import "variables";
+@import "mixins";
+
+// Reset
+@import "reset";
+@import "fonts";
+@import "print";
+
+// Specific
+@import "beehive";
+@import "tables";
+@import "buttons";
+@import "main";

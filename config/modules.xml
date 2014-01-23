@@ -366,6 +366,26 @@
         <page to="backend/deposits#update"/>
       </item>
     </group>
+    <group name="affairs" icon="folder">
+      <item name="affairs">
+        <page to="backend/affairs#index"/>
+        <page to="backend/affairs#attach"/>
+        <page to="backend/affairs#detach"/>
+        <page to="backend/affairs#list"/>
+        <page to="backend/affairs#select"/>
+        <page to="backend/affairs#show"/>
+        <page to="backend/gaps#index"/>
+        <page to="backend/gaps#create"/>
+        <page to="backend/gaps#destroy"/>
+        <page to="backend/gaps#edit"/>
+        <page to="backend/gaps#list"/>
+        <page to="backend/gaps#list_items"/>
+        <page to="backend/gaps#new"/>
+        <page to="backend/gaps#show"/>
+        <page to="backend/gaps#unroll"/>
+        <page to="backend/gaps#update"/>
+      </item>
+    </group>
   </module>
   <module name="stocks" icon="truck">
     <group name="stocks" icon="matter">
@@ -709,6 +729,10 @@
         <page to="backend/calculators/nitrogen_inputs#edit"/>
         <page to="backend/calculators/nitrogen_inputs#update"/>
       </item>
+      <item name="aggregators">
+        <page to="backend/aggregators#index"/>
+        <page to="backend/aggregators#show"/>
+      </item>
       <item name="guides">
         <page to="backend/guides#index"/>
         <page to="backend/guides#create"/>
@@ -757,10 +781,6 @@
         <page to="backend/listings#new"/>
         <page to="backend/listings#unroll"/>
         <page to="backend/listings#update"/>
-      </item>
-      <item name="aggregators">
-        <page to="backend/aggregators#index"/>
-        <page to="backend/aggregators#show"/>
       </item>
       <item name="import">
         <page to="backend/settings#import"/>
@@ -1003,24 +1023,6 @@
         <page to="backend/outgoing_payment_modes#unroll"/>
         <page to="backend/outgoing_payment_modes#up"/>
         <page to="backend/outgoing_payment_modes#update"/>
-      </item>
-      <item name="affairs">
-        <page to="backend/affairs#index"/>
-        <page to="backend/affairs#attach"/>
-        <page to="backend/affairs#detach"/>
-        <page to="backend/affairs#list"/>
-        <page to="backend/affairs#select"/>
-        <page to="backend/affairs#show"/>
-        <page to="backend/gaps#index"/>
-        <page to="backend/gaps#create"/>
-        <page to="backend/gaps#destroy"/>
-        <page to="backend/gaps#edit"/>
-        <page to="backend/gaps#list"/>
-        <page to="backend/gaps#list_items"/>
-        <page to="backend/gaps#new"/>
-        <page to="backend/gaps#show"/>
-        <page to="backend/gaps#unroll"/>
-        <page to="backend/gaps#update"/>
       </item>
     </group>
     <group name="sale" icon="bar-chart">
@@ -1376,6 +1378,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="sessions">
+        <page to="authentication/sessions#_callback_before_3"/>
+      </item>
       <item name="affairs">
         <page to="backend/affairs#finish"/>
       </item>
@@ -1435,6 +1440,7 @@
         <page to="backend/dashboards#accountancy"/>
         <page to="backend/dashboards#production"/>
         <page to="backend/dashboards#relationship"/>
+        <page to="backend/dashboards#sandbox"/>
         <page to="backend/dashboards#search"/>
         <page to="backend/dashboards#settings"/>
         <page to="backend/dashboards#stocks"/>
@@ -1793,7 +1799,7 @@
         <page to="backend/workers#unroll"/>
       </item>
       <item name="sessions">
-        <page to="devise/sessions#_callback_before_11"/>
+        <page to="devise/sessions#_callback_before_3"/>
       </item>
     </group>
   </untreated-actions>

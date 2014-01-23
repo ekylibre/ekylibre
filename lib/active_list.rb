@@ -18,6 +18,3 @@ module ActiveList
   autoload :Generator,  'active_list/generator'
   autoload :ActionPack, 'active_list/action_pack'
 end
-
-::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)
-::ActionView::Base.send(:include, ActiveList::ActionPack::ViewsHelper)

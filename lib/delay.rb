@@ -144,36 +144,33 @@ class Delay
     end
   end
 
-end
+  module Validation
 
-
-
-module ValidatesDelayFormat
-
-  module Validator
-    class DelayFormatValidator < ActiveModel::EachValidator
-      def validate_each(record, attribute, value)
-        begin
-          Delay.new(value)
-        rescue InvalidDelayExpression => e
-          record.errors.add(attributes, :invalid, options.merge(:value => value))
+    module Validator
+      class DelayFormatValidator < ActiveModel::EachValidator
+        def validate_each(record, attribute, value)
+          begin
+            Delay.new(value)
+          rescue InvalidDelayExpression => e
+            record.errors.add(attributes, :invalid, options.merge(:value => value))
+          end
         end
       end
     end
+
+    module ClassMethods
+      def validates_delay_format_of(*attr_names)
+        for attr_name in attr_names
+          validate attr_name, delay: true
+        end
+        # validates_with ActiveRecord::Base::DelayFormatValidator, *attr_names
+      end
+    end
+
   end
 
-  module ClassMethods
-    def validates_delay_format_of(*attr_names)
-      for attr_name in attr_names
-        validate attr_name, delay: true
-      end
-      # validates_with ActiveRecord::Base::DelayFormatValidator, *attr_names
-    end
-  end
 
 end
-# include InstanceMethods to expose the ExistenceValidator class to ActiveModel::Validations
-ActiveRecord::Base.send(:include, ValidatesDelayFormat::Validator)
 
-# extend the ClassMethods to expose the validates_presence_of method as a class level method of ActiveModel::Validations
-ActiveRecord::Base.send(:extend, ValidatesDelayFormat::ClassMethods)
+
+

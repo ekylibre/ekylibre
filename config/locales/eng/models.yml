@@ -585,10 +585,10 @@ eng:
     accounts: "Accounts" #?
     acquisition_amount: "Acquisition amount"
     active: "Active"
-    active_prices: "Active prices" #?
+    active_prices: "Active prices"
     activity: "Activity"
     activity_code: "Activity code"
-    # actor: "Actor"
+    # actor: "Acteur"
     actual_number: "Actual number"
     address: "Address"
     addresses: "Addresses"
@@ -599,11 +599,12 @@ eng:
     # affected_on: "Affecté le"
     age: "Age"
     agency_code: "Agency code" #?
-    # aim: "Aim"
+    # aim: "Objectif"
     # all_taxes_included: "Toutes taxes comprises"
     allocation_account: "Allocation account"
     amount: "Amount"
     # amounts_scale: "Nombre de chiffres après le virgule"
+    # analysis: "Analyses"
     animal: "Animal" #?
     animal_drugs: "Animal drugs" #?
     animal_events: "Animal events" #?
@@ -612,6 +613,8 @@ eng:
     animals: "Animals" #?
     annotation: "Annotation"
     # archived_at: "Archivé le"
+    # archives: "Archives"
+    # archives_count: "Nombre d'archives"
     # archiving: "Méthode d’archivage"
     area_measure: "Area measure" #?
     area_unit: "Area unit" #?
@@ -629,6 +632,8 @@ eng:
     attorney_journal: "Attorney journal"
     attorneys: "Attorneys"
     attribute_name: "Attribute name"
+    # authentication_token: "Clef d'authentification"
+    # author: "Auteur"
     authorized_payments_count: "Authorized payments count"
     # auto_updateable_addresses: "Adresses mises à jour automatiquement"
     automatic: "Automatic" #?
@@ -654,7 +659,7 @@ eng:
     base: "Base" #?
     bban: "BBAN" #?
     bic: "BIC" #?
-    # birth: "Birth"
+    # birth: "Naissance"
     boolean_value: "Boolean value"
     born_at: "Born at"
     born_on: "Born on"
@@ -671,7 +676,7 @@ eng:
     cash_transfers: "Cash transfers"
     cashes: "Bank accounts"
     cashes_accounts: "Cashes accounts"
-    # casts: "Casts"
+    # casts: "Acteurs"
     # catalog: "Catalog"
     catalog_description: "Catalog description"
     catalog_name: "Catalog name"
@@ -709,7 +714,7 @@ eng:
     # collect_taxes: "TVA collectées"
     collected_account: "Account collected" #?
     collected_amount: "Collected amount"
-    collected_taxes: "Collected taxes" #?
+    collected_taxes: "Collected taxes"
     color: "Color"
     column_name: "Column name"
     columns: "Columns"
@@ -987,13 +992,13 @@ eng:
     incoming_payment_uses: "Incoming payment parts" #?
     incoming_payments: "Incoming payments"
     indicator: "Indicator"
-    # indicator_data: "Indicator data"
-    # indicator_datatype: "Indicator datatype"
+    # indicator_data: "Indicateur"
+    # indicator_datatype: "Type de l'indicateur"
     # indicator_datum: "Indicator datum"
-    # indicator_name: "Indicator name"
+    # indicator_name: "Indicateur"
     indicators: "Indicators"
     indirect_links: "Indirect links"
-    # individual: "Individual"
+    # individual: "Individuel"
     indivisible: "Indivisible" #?
     # initial_arrival_cause: "Initial arrival cause"
     # initial_container: "Initial container"
@@ -1013,6 +1018,7 @@ eng:
     # invoiced: "Facturée"
     invoiced_on: "Invoiced on"
     invoices_count: "Invoices count"
+    # irrigated: "Irrigué"
     is_debit: "Is debit" #?
     # issue: "Incident"
     issues: "Issues"
@@ -1031,8 +1037,9 @@ eng:
     label: "Label"
     land_parcel_groups: "Land parcel groups" #?
     land_parcel_kinships: "Land parcel kinships" #?
-    land_parcels: "Land parcels" #?
+    land_parcels: "Land parcels"
     language: "Language"
+    # last_analysis: "Dernières analyses"
     last_bank_statement: "Last bank statement"
     last_cweek: "Last cweek"
     last_journal_entry: "Journal entry of end of year"
@@ -1120,8 +1127,10 @@ eng:
     nature_name: "Nature name"
     # natures: "Natures"
     net_mass: "Net mass (kg)"
+    # net_surface_area: "Surface"
     # net_volume: "Volume net"
     nic: "Nic"
+    # nitrogen_input: "Apport azoté"
     node: "Node"
     nodes: "Nodes"
     number: "Number"
@@ -1313,6 +1322,8 @@ eng:
     # reception_currency: "Reception currency"
     # reception_journal_entry: "Écriture de la réception"
     # recipient: "Destinataire"
+    # recommended: "Prescrit"
+    # recommender: "Prescripteur"
     reconcilable: "Reconcilable"
     record_value: "Record value"
     record_value_type: "Record value type"
@@ -1380,6 +1391,7 @@ eng:
     # sign_in_count: "Nombre de connexions"
     siren: "Siren"
     siret: "Siret" #?
+    # soil_nature: "Nature du sol"
     soundex: "Soundex" #?
     source: "Source"
     source_quantity: "Source quantity" #?
@@ -1528,6 +1540,7 @@ eng:
     with_transport: "With transport"
     work_center: "Work center" #?
     work_number: "Work number"
+    # yield: "Rendement"
     zone: "Zone" #?
   models:
     account:

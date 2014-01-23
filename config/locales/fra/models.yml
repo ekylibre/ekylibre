@@ -385,10 +385,10 @@ fra:
     accounted_at: "Date comptabilisation"
     acquisition_amount: "Montant des acquisition"
     active: "Actif"
-    # active_prices: "Active prices"
+    active_prices: "Prix actifs"
     activity: "Activité"
     activity_code: "Code APE/NAF"
-    actor: "Actor"
+    actor: "Acteur"
     actual_number: "Numéro en cours"
     address: "Adresse"
     addresses: "Adresses"
@@ -399,17 +399,17 @@ fra:
     # affectation_percentage: "Affectation percentage"
     affected_on: "Affecté le"
     age: "Âge" #?
-    aim: "Aim"
+    aim: "Objectif"
     all_taxes_included: "Toutes taxes comprises"
     allocation_account: "Compte de dotation"
     amount: "Montant"
     amounts_scale: "Nombre de chiffres après le virgule" #?
     # analyses: "Analyses"
-    # analysis: "Analysis"
+    analysis: "Analyses"
     annotation: "Annotation"
     archived_at: "Archivé le"
-    # archives: "Archives"
-    # archives_count: "Archives count"
+    archives: "Archives"
+    archives_count: "Nombre d'archives"
     archiving: "Méthode d’archivage"
     arrival_cause: "Cause d’entrée"
     arrived_on: "Date d’entrée" #?
@@ -419,8 +419,8 @@ fra:
     attorney_journal: "Journal mandataire"
     attorneys: "Mandataires" #?
     attribute_name: "Nom de l’attribut"
-    # authentication_token: "Authentication token"
-    # author: "Author"
+    authentication_token: "Clef d'authentification"
+    author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
     balance: "Solde"
@@ -436,7 +436,7 @@ fra:
     bank_name: "Nom de la banque"
     bank_statement: "Relevé de compte bancaire"
     bank_statements: "Relevés de compte bancaire"
-    birth: "Birth"
+    birth: "Naissance"
     boolean_value: "Valeur booléenne"
     born_at: "Né(e) le"
     born_on: "Date de naissance"
@@ -453,7 +453,7 @@ fra:
     cash_transfers: "Virements internes" #?
     cashes: "Trésoreries"
     cashes_accounts: "Comptes de caisse" #?
-    casts: "Casts"
+    casts: "Acteurs"
     catalog: "Catalog"
     catalog_description: "Description pour le catalogue" #?
     catalog_name: "Nom pour le catalogue" #?
@@ -478,14 +478,14 @@ fra:
     clients: "Clients"
     closable_financial_year: "Exercice clôturable" #?
     closed: "Clôturé"
-    closed_at: "Closed at"
+    closed_at: "Clôturé à"
     closed_on: "Date de clôture"
     code: "Code"
     coefficient: "Coefficient"
     collect_account: "TVA collectée"
     collect_taxes: "TVA collectées" #?
     collected_amount: "TVA brute"
-    # collected_taxes: "Collected taxes"
+    collected_taxes: "TVA collectées"
     color: "Couleur" #?
     column_name: "Nom de colonne"
     columns: "Colonnes"
@@ -702,14 +702,14 @@ fra:
     incoming_delivery_items: "Éléments d’approvisionnement"
     incoming_payment_modes: "Modes d’encaissement"
     incoming_payments: "Encaissements"
-    indicator: "Indicator"
-    indicator_data: "Indicator data"
-    indicator_datatype: "Indicator datatype"
+    indicator: "Indicateur"
+    indicator_data: "Indicateur"
+    indicator_datatype: "Type de l'indicateur"
     indicator_datum: "Indicator datum"
-    indicator_name: "Indicator name"
+    indicator_name: "Indicateur"
     indicators: "Indicators"
     indirect_links: "Liens indirects"
-    individual: "Individual" #?
+    individual: "Individuel" #?
     initial_arrival_cause: "Initial arrival cause"
     initial_container: "Initial container"
     initial_number: "Numéro initial"
@@ -725,7 +725,7 @@ fra:
     invoiced: "Facturée" #?
     invoiced_on: "Facturée le"
     invoices_count: "Nombre de factures" #?
-    # irrigated: "Irrigated"
+    irrigated: "Irrigué"
     issue: "Incident"
     issues: "Incidents"
     # item: "Item"
@@ -744,9 +744,9 @@ fra:
     journal_entry_items: "Lignes d’écritures"
     key: "Clé"
     label: "Libellé"
-    # land_parcels: "Land parcels"
+    land_parcels: "Parcelle"
     language: "Langue"
-    # last_analysis: "Last analysis"
+    last_analysis: "Dernières analyses"
     last_bank_statement: "Dernier relevé bancaire"
     last_cweek: "Dernière semaine"
     last_journal_entry: "Écriture de fin d’exercice"
@@ -817,8 +817,10 @@ fra:
     nature_name: "Nature name"
     natures: "Natures"
     net_mass: "Masse nette"
+    net_surface_area: "Surface"
     net_volume: "Volume net" #?
     nic: "NIC (Numéro Interne de Classement)" #?
+    nitrogen_input: "Apport azoté" #?
     node: "Nœud"
     nodes: "Nœuds d’extraction"
     number: "Numéro"
@@ -949,8 +951,8 @@ fra:
     reception_currency: "Reception currency"
     reception_journal_entry: "Écriture de la réception"
     recipient: "Destinataire"
-    # recommended: "Recommended"
-    # recommender: "Recommender"
+    recommended: "Prescrit"
+    recommender: "Prescripteur"
     reconcilable: "Lettrable"
     record_value: "Enregistrement"
     record_value_type: "Type d’enregistrement"
@@ -1009,6 +1011,7 @@ fra:
     shape: "Shape"
     sign_in_count: "Nombre de connexions"
     siren: "N° SIREN"
+    soil_nature: "Nature du sol" #?
     source: "Source"
     # source_product: "Source product"
     spaced_iban: "IBAN"
@@ -1019,7 +1022,7 @@ fra:
     state: "État"
     state_label: "État"
     static_support: "Support statique"
-    status: "Status"
+    status: "Statut"
     stock_account: "Compte de stock"
     stocks_categories: "Catégories de produits avec stock"
     stopped_at: "Arrêté à"
@@ -1103,6 +1106,7 @@ fra:
     with_deposit: "Utiliser les remises en banque"
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
+    yield: "Rendement" #?
   models:
     account:
       label: "%{number} - %{name}"

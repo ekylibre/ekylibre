@@ -37,19 +37,18 @@
 #  measure_value_value :decimal(19, 4)
 #  multi_polygon_value :spatial({:srid=>
 #  point_value         :spatial({:srid=>
-#  started_at          :datetime
-#  stopped_at          :datetime
 #  string_value        :text
 #  subject             :string(255)
 #  support_id          :integer          not null
 #  updated_at          :datetime         not null
 #  updater_id          :integer
 #
+
 class ProductionSupportMarker < Ekylibre::Record::Base
-  include IndicatorDatumStorable, TimeLineable
-  enumerize :aim,       in: [:minimal, :maximal, :perfect], default: :perfect
-  enumerize :derivative,      in: Nomen::Varieties.all(:organic_matter)
-  enumerize :subject,       in: [:production, :support, :derivative], default: :support
+  include IndicatorDatumStorable
+  enumerize :aim,        in: [:minimal, :maximal, :perfect], default: :perfect
+  enumerize :derivative, in: Nomen::Varieties.all(:organic_matter)
+  enumerize :subject,    in: [:production, :support, :derivative], default: :support
   belongs_to :support, class_name: "ProductionSupport", inverse_of: :markers
   has_one :production, through: :support
   has_one :storage, through: :support
