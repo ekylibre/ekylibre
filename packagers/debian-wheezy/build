@@ -1,8 +1,7 @@
 #!/bin/bash
-app=$1
-version=$2
-log=$3
-resdir=$4
+app=$BUILD_APP
+version=$BUILD_VERSION
+log=$BUILD_LOG
 
 release=${app}-${version}
 
@@ -21,25 +20,16 @@ ln -s $debdir $root/debian
 
 control=$debdir/control
 
-rm -fr copy
-cp -rL ${app} copy
-find copy -name .svn* -print0 | xargs -0 rm -rf
-find copy -name .git* -print0 | xargs -0 rm -rf
-find copy -name "*~"  -print0 | xargs -0 rm -rf
-find copy -name "#*#" -print0 | xargs -0 rm -rf
-
-pushd copy
+pushd $BUILD_DIR
 echo "Rails.application.config.action_controller.relative_url_root = '/ekylibre'" > config/initializers/relative_url_root.rb
 bundle install --quiet
 echo "production:" > config/database.yml
-echo "  adapter: sqlite3" >> config/database.yml
-echo "  database: db/production.sqlite3" >> config/database.yml
+echo "  adapter: postgis" >> config/database.yml
+# echo "  database: db/production.sqlite3" >> config/database.yml
 rake assets:precompile RAILS_ENV=production
 popd
 
-# Deactivates other adapters
-sed -i -e 's/gem "mysql/# gem "mysql/g' -i -e 's/gem "sqlite/# gem "sqlite/g' -i -e "s/gem 'mysql/# gem 'mysql/g" -i -e "s/gem 'sqlite/# gem 'sqlite/g" copy/Gemfile
-rm -f copy/config/database.yml
+rm -f  $BUILD_DIR/config/database.yml
 
 cd $root
 # dpkg --build $root
@@ -47,7 +37,7 @@ dpkg-buildpackage -us -uc -b >> $log
 
 cd ..
 
-rm -fr copy
-rm -fr $root
+# rm -fr copy
+# rm -fr $root
 
-mv ${app}_*.deb packages/
+mv ${app}_*.deb $BUILD_RELEASE/
