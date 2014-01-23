@@ -168,4 +168,12 @@ class Production < Ekylibre::Record::Base
     end
   end
 
+  def active?
+    if self.activity.fallow_land?
+      return false
+    else
+      return true
+    end
+  end
+
 end

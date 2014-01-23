@@ -139,11 +139,13 @@ load_data :interventions do |loader|
 
   loader.count :cultural_interventions do |w|
     for production in Production.all
+      if production.active?
       variety = production.variant.variety
       if (Nomen::Varieties[variety].self_and_parents & sowables).any?
         year = production.campaign.name.to_i
         Booker.production = production
         for support in production.supports
+          if support.active?
           land_parcel = support.storage
           if area = land_parcel.shape_area
             coeff = (area.to_s.to_f / 10000.0) / 6.0
@@ -203,8 +205,10 @@ load_data :interventions do |loader|
             end
 
           end
+          end
           w.check_point
         end
+      end
       end
     end
   end
@@ -212,11 +216,13 @@ load_data :interventions do |loader|
   # interventions for grass
   loader.count :grass_interventions do |w|
     for production in Production.all
+      if production.active?
       variety = production.variant.variety
       if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:poa])
         year = production.campaign.name.to_i
         Booker.production = production
         for support in production.supports
+          if support.active?
           land_parcel = support.storage
           if area = land_parcel.shape_area
             coeff = (area.to_s.to_f / 10000.0) / 6.0
@@ -243,8 +249,10 @@ load_data :interventions do |loader|
               end
             end
           end
+          end
           w.check_point
         end
+      end
       end
     end
   end
@@ -252,11 +260,13 @@ load_data :interventions do |loader|
   # interventions for cereals
   loader.count :cereals_interventions do |w|
     for production in Production.all
+      if production.active?
       variety = production.variant.variety
       if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:triticum_aestivum]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:triticum_durum]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:zea]) || Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:hordeum])
         year = production.campaign.name.to_i
         Booker.production = production
         for support in production.supports
+          if support.active?
           land_parcel = support.storage
           if area = land_parcel.shape_area
             coeff = (area.to_s.to_f / 10000.0) / 6.0
@@ -272,8 +282,10 @@ load_data :interventions do |loader|
               end
             end
           end
+          end
           w.check_point
         end
+      end
       end
     end
   end

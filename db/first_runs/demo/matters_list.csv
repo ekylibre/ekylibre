@@ -9,7 +9,7 @@ Semence de maïs,corn_seed_25,,2013-01-01,seed,zea,,Population : 6,,4.10
 Semence de prairie,grass_seed_25,,2013-01-01,seed,poa,,Population : 6,,5.23
 Semence de sorgho,sorghum_seed_25,,2013-01-01,seed,sorghum,,Population : 6,,5.63
 'Semence d''épeautre',spelt_seed_25,,2013-01-01,seed,triticum_spelta,,Population : 6,,5.36
-Ammonitrate 33 vrac,bulk_ammonitrate_33,,2013-01-01,chemical_fertiliser,,,Population : 2.47,,387
+Ammonitrate 33 vrac,bulk_ammonitrate_33,,2013-01-01,chemical_fertilizer,,,Population : 2.47,,387
 'Fumier de l''exploitation',cattle_manure,,2013-01-01,manure,bos,,Population : 4.55,,61
 Axial Pratic,poacea_herbicide,,2013-01-01,herbicide,,,Population : 50,,23.33
 Riflexine,riflexine,,2013-01-01,animal_medicine,,,Population : 40,,4

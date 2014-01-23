@@ -240,7 +240,7 @@
             />
        <item name="chemical_fertilizer"
             category="fertilizer"
-            variety="chemical_fertiliser"
+            variety="chemical_fertilizer"
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population"
@@ -248,7 +248,7 @@
             />
       <item name="mixed_chemical_fertilizer"
             category="fertilizer"
-            variety="chemical_fertiliser"
+            variety="chemical_fertilizer"
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
@@ -256,7 +256,7 @@
             />
       <item name="organic_fertilizer"
             category="fertilizer"
-            variety="manure" 
+            variety="excrement" 
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population"

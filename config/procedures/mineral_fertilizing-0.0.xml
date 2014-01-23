@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="mineral_fertilizing" natures="soil_enrichment" version="0.0" status="frozen">
     <variables>
-      <variable name="fertilizer" variety="mineral_matter" abilities="fertilize"/>
+      <variable name="fertilizer" variety="chemical_fertilizer" abilities="fertilize" roles="soil_enrichment-origin"/>
       <variable name="fertilizer_to_spread" new="parted-from: fertilizer" roles="soil_enrichment-input" />
       <variable name="spreader" abilities="spread(mineral_matter)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver" variety="worker" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->

@@ -55,10 +55,11 @@ module Calculus
           # @zone.mark(:absorbed_nitrogen_at_beginning_density, absorbed_nitrogen_at_beginning)
 
           # Ri
-          mineral_nitrogen_at_beginning = 35.in_kilogram_per_hectare
+          # @TODO between 0 and 35
+          mineral_nitrogen_at_beginning = 15.in_kilogram_per_hectare
 
           # Mh
-          humus_mineralization = 30.in_kilogram_per_hectare
+          humus_mineralization = 35.in_kilogram_per_hectare
           if false
             # TODO
           end
@@ -69,22 +70,22 @@ module Calculus
           end
 
           # Mr
-          residue_mineralization = 0.in_kilogram_per_hectare
+          residue_mineralization = 20.in_kilogram_per_hectare
 
           # Mrci
           intermediate_cultivation_residue_mineralization = 0.in_kilogram_per_hectare
 
           # Nirr
-          irrigation_water_nitrogen = 0.in_kilogram_per_hectare
+          irrigation_water_nitrogen = 5.in_kilogram_per_hectare
 
           # Xa
-          organic_fertilizer_mineral_fraction = 0.in_kilogram_per_hectare
+          organic_fertilizer_mineral_fraction = 20.in_kilogram_per_hectare
 
           # Rf
-          post_harvest_rest = 0.in_kilogram_per_hectare
+          post_harvest_rest = 15.in_kilogram_per_hectare
 
           # Po
-          soil_nitrogen_production = 0.in_kilogram_per_hectare
+          soil_nitrogen_production = 45.in_kilogram_per_hectare
 
           # X
           nitrogen_input = nil
