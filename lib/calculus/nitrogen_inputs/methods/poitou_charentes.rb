@@ -20,7 +20,7 @@ module Calculus
             elsif capacity = @zone.available_water_capacity and items = Nomen::NmpPoitouCharentesAbacusTwo.where(cultivation_variety: @zone.cultivation_varieties, soil_variety: @zone.soil_varieties) and items = items.select{|i| i.minimum_available_water_capacity.in_liter_per_square_meter <= capacity and capacity < i.maximum_available_water_capacity.in_liter_per_square_meter} and items.any?
               @crop_yield = items.first.crop_yield.in_quintal_per_hectare
             else
-              @crop_yield = 0.in_quintal_per_hectare
+              @crop_yield = 30.in_quintal_per_hectare
             end
           end
           if @crop_yield.zero?
@@ -118,7 +118,7 @@ module Calculus
             nitrogen_input *= 1.10.to_d
           end
 
-          @zone.mark(:nitrogen_input_area_density, nitrogen_input.round(3))
+          @zone.mark(:nitrogen_input_area_density, nitrogen_input.round(3), subject: :support)
 
           puts "-" * 80
           puts "crop_yield:     " + crop_yield.inspect

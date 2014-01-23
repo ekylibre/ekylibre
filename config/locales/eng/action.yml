@@ -149,7 +149,7 @@ eng:
       # edit: "Modifier la zone cultivable\_: %{name}"
       # index: "Zones cultivables"
       # new: "Nouvelle zone cultivable\_: %{name}"
-      # show: "Zone cultivable"
+      # show: "Zone cultivable %{name}"
     backend/custom_field_choices:
       edit: "Edit the option: %{name}"
       new: "Add a new option for a choices list"
@@ -876,6 +876,7 @@ eng:
     # add_x_html: "Ajouter «\_%{x}\_»"
     address: "Address"
     affair: "Affair"
+    # affairs: "Affaires"
     all: "All"
     all_accounts: "All accounts"
     all_areas: "All postal areas"

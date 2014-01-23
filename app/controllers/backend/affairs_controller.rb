@@ -44,7 +44,7 @@ class Backend::AffairsController < BackendController
     if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
       deal.deal_with! @affair
       # @affair.attach(deal)
-      redirect_to params[:redirect] || {controller: deal.class_name.tableize, action: :show, id: deal.id}
+      redirect_to params[:redirect] || {controller: deal.class.name.tableize, action: :show, id: deal.id}
     else
       notify_error(:cannot_find_deal_to_attach)
       redirect_to params[:redirect] || {controller: @affair.originator_type.tableize, action: :show, id: @affair.originator_id}, status: :not_found
@@ -56,7 +56,7 @@ class Backend::AffairsController < BackendController
     if deal = params[:deal_type].camelcase.constantize.find_by(id: params[:deal_id])
       deal.undeal! @affair
       # @affair.detach(deal)
-      redirect_to params[:redirect] || {controller: deal.class_name.tableize, action: :show, id: deal.id}
+      redirect_to params[:redirect] || {controller: deal.class.name.tableize, action: :show, id: deal.id}
     else
       notify_error(:cannot_find_deal_to_detach)
       redirect_to params[:redirect] || {controller: @affair.originator_type.tableize, action: :show, id: @affair.originator_id}, status: :not_found

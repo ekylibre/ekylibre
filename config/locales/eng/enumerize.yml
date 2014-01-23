@@ -202,6 +202,11 @@ eng:
       nature: #?
         input: "One in, many out" #?
         output: "Many in, one out" #?
+    production_support_marker:
+      aim:
+        # maximum: "Maximum"
+        # minimum: "Minimum"
+        # perfect: "Idéal"
     products_nature:  #?
       nature: #?
         product: "Product" #?

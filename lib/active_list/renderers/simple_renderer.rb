@@ -129,6 +129,8 @@ module ActiveList
                 value_code = "content_tag(:div, '', :class => 'checkbox-'+("+value_code.to_s+" ? 'true' : 'false'))"
               elsif [:date, :datetime, :timestamp, :measure].include? column.datatype
                 value_code = "(#{value_code}.nil? ? '' : #{value_code}.l)"
+              elsif [:item].include? column.datatype
+                value_code = "(#{value_code}.nil? ? '' : #{value_code}.human_name)"
               end
               if !column.options[:currency].is_a?(FalseClass) and currency = column.options[:currency]
                 currency = currency[nature] if currency.is_a?(Hash)

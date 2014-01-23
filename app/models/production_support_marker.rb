@@ -48,8 +48,10 @@ class ProductionSupportMarker < Ekylibre::Record::Base
   include IndicatorDatumStorable
   enumerize :aim,        in: [:minimal, :maximal, :perfect], default: :perfect
   enumerize :derivative, in: Nomen::Varieties.all(:organic_matter)
-  enumerize :subject,    in: [:production, :support, :derivative], default: :support
+  enumerize :subject,    in: [:production, :support, :derivative], default: :support, predicates: {prefix: true}
   belongs_to :support, class_name: "ProductionSupport", inverse_of: :markers
+  has_one :activity, through: :production
+  has_one :campaign, through: :production
   has_one :production, through: :support
   has_one :storage, through: :support
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
@@ -59,7 +61,14 @@ class ProductionSupportMarker < Ekylibre::Record::Base
   validates_presence_of :aim, :indicator_datatype, :indicator_name, :support
   #]VALIDATORS]
 
-  def siblings
-    (self.support ? self.support.markers.where(indicator_name: self.indicator_name) : self.class.none)
+  def subject_label
+    if subject_production?
+      return self.production.variant_name
+    elsif subject_support?
+      return self.support.name
+    elsif subject_derivative?
+      return :x_of_y.tl(x: Nomen::Varieties[self.derivative].human_name, y: Nomen::Varieties[self.production.variant_variety].human_name)
+    end
   end
+
 end

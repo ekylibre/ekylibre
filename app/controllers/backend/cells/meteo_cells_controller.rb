@@ -2,7 +2,8 @@
 class Backend::Cells::MeteoCellsController < Backend::CellsController
 
   def show
-    if zone = CultivableZone.first
+
+    if zone = (params[:id] ? CultivableZone.find_by(id: params[:id]) : CultivableZone.first)
       if datum = zone.indicator_datum(:shape)
         wkt = datum.class.connection.select_value("SELECT ST_AsText(ST_Transform(ST_Centroid(ST_SetSRID(geometry_value, 2154)), 4326)) FROM #{datum.class.table_name} WHERE id = #{datum.id}")
         factory = RGeo::Geographic.spherical_factory

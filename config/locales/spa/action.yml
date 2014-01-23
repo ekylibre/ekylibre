@@ -163,7 +163,7 @@ spa:
       # edit: "Modifier la zone cultivable\_: %{name}"
       # index: "Zones cultivables"
       # new: "Nouvelle zone cultivable\_: %{name}"
-      # show: "Zone cultivable"
+      # show: "Zone cultivable %{name}"
     backend/cultivations: #?
     backend/currencies: #?
     backend/custom_field_choices:
@@ -896,6 +896,7 @@ spa:
     # add_x_html: "Ajouter «\_%{x}\_»"
     # address: "Adresse"
     # affair: "Affaire"
+    # affairs: "Affaires"
     # all: "Tous"
     # all_accounts: "Tous les comptes"
     # all_areas: "— Toutes les zones postales —"

@@ -1019,6 +1019,7 @@ spa:
     # string_value: "Valeur textuelle"
     subdivision: "Y" #?
     # subject: "Objet"
+    # subject_label: "Objet"
     # subscriber: "Abonné"
     # subscription_duration: "Durée de l’abonnement"
     # subscription_nature: "Type d’abonnement"

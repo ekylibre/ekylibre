@@ -146,8 +146,9 @@ class JournalEntry < Ekylibre::Record::Base
     if self.journal
       self.real_currency = self.journal.currency
     end
-    self.financial_year = FinancialYear.at(self.printed_on)
-    self.currency = self.financial_year.currency
+    if self.financial_year = FinancialYear.at(self.printed_on)
+      self.currency = self.financial_year.currency
+    end
     if self.real_currency and self.financial_year
       if self.real_currency == self.financial_year.currency
         self.real_currency_rate = 1

@@ -67,7 +67,10 @@ class ActionController::TestCase
       code << "    assert_equal I18n.locale, I18n.locale, I18n.locale.inspect\n"
       code << "    @user = users(:users_001)\n"
       code << "    sign_in(@user)\n"
-      code << "    CustomField.all.each(&:save)\n"
+      code << "    for cf in [:custom_fields_001, :custom_fields_002]\n"
+      code << "      record = custom_fields(cf)\n"
+      code << "      assert record.save, record.errors.inspect\n"
+      code << "    end\n"
       code << "  end\n"
       code << "\n"
 
@@ -205,6 +208,9 @@ class ActionController::TestCase
         elsif mode == :get
           code << "    get :#{action}, #{sanitized_params[]}\n"
           code << "    assert_response :success, #{show_notification}\n"
+        elsif mode == :redirect
+          code << "    get :#{action}, #{sanitized_params[]}\n"
+          code << "    assert_response :redirect, #{show_notification}\n"
         else
           code << "    raise StandardError, 'What is this mode? #{mode.inspect}'\n"
         end

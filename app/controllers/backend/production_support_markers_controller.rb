@@ -23,11 +23,15 @@ class Backend::ProductionSupportMarkersController < BackendController
   unroll includes: [{production: [:activity, :campaign, :variant]}, :storage]
 
   list do |t|
-    t.column :indicator_name, url: true
+    t.column :campaign, url: true
+    t.column :activity, url: true, hidden: true
+    t.column :support, url: true
+    t.column :indicator, datatype: :item
     t.column :aim
-    t.column :value
-    t.column :started_at
-    t.column :stopped_at
+    t.column :subject_label
+    t.column :derivative, hidden: true
+    t.column :subject, hidden: true
+    t.column :value, datatype: :measure
   end
 
 end
