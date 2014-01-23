@@ -37,6 +37,8 @@
 #  measure_value_value :decimal(19, 4)
 #  multi_polygon_value :spatial({:srid=>
 #  point_value         :spatial({:srid=>
+#  started_at          :datetime
+#  stopped_at          :datetime
 #  string_value        :text
 #  subject             :string(255)
 #  support_id          :integer          not null

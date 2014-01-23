@@ -254,12 +254,12 @@ fra:
         goat_farming: "Élevage caprins"                    # animal_farming
         handicraft: "Artisanat"
         maize_crops: "Culture de maïs"                     # vegetal_crops
+        meadow: "Prairie"                                  # vegetal_crops
         oilseed_crops: "Culture oléagineuse"               # vegetal_crops
         palmiped_farming: "Élevage de palmipèdes"          # animal_farming
         pig_farming: "Élevage porcins"                     # animal_farming
         potato_crops: "Culture de pomme de terre"          # vegetal_crops
         poultry_farming: "Élevage avicole"                 # animal_farming
-        prairie: "Prairie"                                 # vegetal_crops
         protein_crops: "Culture protéagineuse"             # vegetal_crops
         purchases: "Achats"                                # exploitation
         rabbit_farming: "Élevage cunicole"                 # animal_farming
@@ -1496,6 +1496,8 @@ fra:
         # coefficient: "Coefficient"
         # cultivation_variety: "Cultivation variety"
         # irrigated: "Irrigated"
+        # maximum_yield_aim: "Maximum yield aim"
+        # minimum_yield_aim: "Minimum yield aim"
         # nitrogen_stock_before_bolting: "Nitrogen stock before bolting"
       choices:
         # cultivation_variety: # Choices comes from nomenclature: varieties
@@ -1968,6 +1970,7 @@ fra:
         corn_grain: "Graine de maïs"
         corn_grain_crop: "Culture de maïs grain"
         corn_seed_25: "Semence de maïs sac de 25kg"
+        corn_seed_crop: "Culture de maïs semence"
         corn_silage_crop: "Culture de maïs ensilage"
         cow_milk: "Lait de vache"
         cultivable_zone: "Zone cultivable"
@@ -2190,6 +2193,26 @@ fra:
         usual_vine_seedling: "Plant de vigne traditionnel"
         wine: "Vin"
         wine_crop: "Vigne"
+    production_natures:
+      name: "Type de production"
+      attributes:
+        activity: "Activité"
+        telepac_crop_code: "Code de type de culture TELEPAC"
+        variant_crop: "variante de culture"
+      choices:
+        # activity: # Choices comes from nomenclature: activity_families
+        # variant_crop: # Choices comes from nomenclature: product_nature_variants
+      items:
+        annual_frost_fallow_land: "Gel annuel"
+        grain_corn: "Maïs grain"
+        permanent_meadow: "Prairie permanente"
+        seed_corn: "Maïs semence"
+        silage_corn: "Maïs ensilage"
+        sunflower: "Tournesol"
+        temporary_meadow: "Prairie temporaire"
+        winter_hard_wheat: "Blé dur d'hiver"
+        winter_soft_wheat: "Blé tendre d'hiver"
+        without_crop: "Hors culture"
     roles:
       name: "Nom"
       items:

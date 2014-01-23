@@ -250,12 +250,12 @@ arb:
         # goat_farming: "Élevage caprins"
         # handicraft: "Artisanat"
         # maize_crops: "Culture de maïs"
+        # meadow: "Prairie"
         # oilseed_crops: "Culture oléagineuse"
         # palmiped_farming: "Élevage de palmipèdes"
         # pig_farming: "Élevage porcins"
         # potato_crops: "Culture de pomme de terre"
         # poultry_farming: "Élevage avicole"
-        # prairie: "Prairie"
         # protein_crops: "Culture protéagineuse"
         # purchases: "Achats"
         # rabbit_farming: "Élevage cunicole"
@@ -1594,6 +1594,7 @@ arb:
         # corn_grain: "Graine de maïs"
         # corn_grain_crop: "Culture de maïs grain"
         # corn_seed_25: "Semence de maïs sac de 25kg"
+        # corn_seed_crop: "Culture de maïs semence"
         # corn_silage_crop: "Culture de maïs ensilage"
         # cow_milk: "Lait de vache"
         # cultivable_zone: "Zone cultivable"
@@ -1813,7 +1814,24 @@ arb:
         # wine: "Vin"
         # wine_crop: "Vigne"
       # name: "Type de produits"
-    production_natures: #?
+    production_natures:
+      attributes:
+        # activity: "Activité"
+        # telepac_crop_code: "Code de type de culture TELEPAC"
+        # variant_crop: "variante de culture"
+      choices: #?
+      items:
+        # annual_frost_fallow_land: "Gel annuel"
+        # grain_corn: "Maïs grain"
+        # permanent_meadow: "Prairie permanente"
+        # seed_corn: "Maïs semence"
+        # silage_corn: "Maïs ensilage"
+        # sunflower: "Tournesol"
+        # temporary_meadow: "Prairie temporaire"
+        # winter_hard_wheat: "Blé dur d'hiver"
+        # winter_soft_wheat: "Blé tendre d'hiver"
+        # without_crop: "Hors culture"
+      # name: "Type de production"
     roles:
       items:
         # driver: "Conducteur"

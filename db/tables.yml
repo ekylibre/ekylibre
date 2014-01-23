@@ -1397,6 +1397,8 @@ production_support_markers:
   measure_value_value: {type: decimal, precision: 19, scale: 4}
   multi_polygon_value: {type: spatial}
   point_value: {type: spatial}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
   string_value: {type: text}
   subject: {type: string}
   support_id: {type: integer, references: production_support, required: true}
