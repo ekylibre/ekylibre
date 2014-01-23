@@ -27,5 +27,6 @@
 //= require modernizr.mq
 //= require ui
 //= require jstz
-//= require snap.svg
+//= require leaflet
+//= require leaflet.draw
 //= require_tree .
