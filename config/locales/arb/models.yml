@@ -1845,6 +1845,7 @@ arb:
     subdir: "المرجع الفرعي" #?
     subdivision: "Y الوضع" #?
     subject: "الموضوع"
+    # subject_label: "Objet"
     # subscriber: "Abonné"
     # subscription_duration: "Durée de l’abonnement"
     subscription_nature: "النوع"

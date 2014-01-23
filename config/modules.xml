@@ -366,7 +366,7 @@
         <page to="backend/deposits#update"/>
       </item>
     </group>
-    <group name="affairs" icon="folder">
+    <group name="affairs" icon="folder-close">
       <item name="affairs">
         <page to="backend/affairs#index"/>
         <page to="backend/affairs#attach"/>

@@ -155,7 +155,7 @@ fra:
       index: "Zones cultivables"
       new: "Nouvelle zone cultivable\_: %{name}"
       # picture: "Picture backend/cultivable zone"
-      show: "Zone cultivable"
+      show: "Zone cultivable %{name}"
     backend/custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
       new: " Création d’une option pour une liste de choix"
@@ -915,6 +915,7 @@ fra:
     add_x_html: "Ajouter «\_%{x}\_»"
     address: "Adresse"
     affair: "Affaire"
+    affairs: "Affaires"
     all: "Tous"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —"

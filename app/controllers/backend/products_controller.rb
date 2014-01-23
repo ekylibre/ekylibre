@@ -120,7 +120,7 @@ class Backend::ProductsController < BackendController
   end
 
   # issues of the consider product
-  list(:intervention_casts, conditions: {actor_id: 'params[:id]'.c}) do |t|
+  list(:intervention_casts, conditions: {actor_id: 'params[:id]'.c}, order: "interventions.started_at DESC") do |t|
     t.column :intervention, url: true
     t.column :roles
     t.column :name, sort: :reference_name
@@ -129,9 +129,15 @@ class Backend::ProductsController < BackendController
   end
 
   # List supports for one production
-  list(:markers, model: :production_support_markers, order: {created_at: :desc}) do |t|
-    t.column :production_name, through: :support, url: true
-    t.column :indicator_name
+  list(:markers, model: :production_support_markers, conditions: {production_supports: {storage_id: 'params[:id]'.c}}, order: {created_at: :desc}) do |t|
+    t.column :campaign, url: true
+    t.column :activity, url: true, hidden: true
+    t.column :support, url: true, hidden: true
+    t.column :indicator, datatype: :item
+    t.column :aim
+    t.column :subject_label
+    t.column :derivative, hidden: true
+    t.column :subject, hidden: true
     t.column :value, datatype: :measure
   end
 

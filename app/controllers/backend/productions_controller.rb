@@ -73,12 +73,10 @@ class Backend::ProductionsController < BackendController
   end
 
   # List supports for one production
-  list(:markers, conditions: {production_id: 'params[:id]'.c}, model: :production_support_markers, order: {created_at: :desc}) do |t|
+  list(:markers, conditions: {production_supports: {production_id: 'params[:id]'.c}}, model: :production_support_markers, order: {created_at: :desc}) do |t|
     t.column :name, through: :support, url: true
     t.column :indicator_name
     t.column :value
-    t.column :started_at
-    t.column :stopped_at
   end
 
   # List procedures for one production

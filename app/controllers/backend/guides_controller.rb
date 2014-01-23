@@ -41,8 +41,8 @@ class Backend::GuidesController < BackendController
   end
 
   def run
+    return unless @guide = find_and_check
     notify_warning(:implemented_with_dummy_data)
-    @guide = find_and_check
     statuses = [:passed, :failed, :passed_with_warnings]
     analysis = @guide.analyses.create!(acceptance_status: statuses.sample, started_at: Time.now - 10, stopped_at: Time.now)
     (14 * @guide.name.size).times do |i|

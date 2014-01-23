@@ -60,7 +60,7 @@ class Production < Ekylibre::Record::Base
 
   alias_attribute :label, :name
 
-  delegate :name , :variety, to: :variant, prefix: true
+  delegate :name, :variety, to: :variant, prefix: true
 
   scope :of_campaign, lambda { |*campaigns|
     campaigns.flatten!

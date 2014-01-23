@@ -1423,6 +1423,7 @@ eng:
     subdir: "Subdir" #?
     subdivision: "Y" #?
     subject: "Subject"
+    # subject_label: "Objet"
     # subscriber: "Abonné"
     # subscription_duration: "Durée de l’abonnement"
     subscription_nature: "Subscription type"

@@ -80,6 +80,11 @@ jpn:
         # exterior: "Sortie"
         # interior: "Entrée"
         # transfer: "Transfert"
+    production_support_marker:
+      aim:
+        # maximum: "Maximum"
+        # minimum: "Minimum"
+        # perfect: "Idéal"
     sequence:
       period:
         # cweek: "Semaine"

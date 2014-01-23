@@ -1032,6 +1032,7 @@ fra:
     story: "Historique"
     string_value: "Valeur textuelle"
     subject: "Objet"
+    subject_label: "Objet"
     # subject_type: "Subject type"
     subscriber: "Abonné"
     # subscribing: "Subscribing"

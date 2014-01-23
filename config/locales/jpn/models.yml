@@ -1019,6 +1019,7 @@ jpn:
     # story: "Historique"
     # string_value: "Valeur textuelle"
     # subject: "Objet"
+    # subject_label: "Objet"
     # subscriber: "Abonné"
     # subscription_duration: "Durée de l’abonnement"
     # subscription_nature: "Type d’abonnement"

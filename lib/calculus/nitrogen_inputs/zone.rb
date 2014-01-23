@@ -90,14 +90,14 @@ module Calculus
       def crop_yield(options = {})
         options = {unit: :quintal_per_hectare}.merge(options)
         crop_yield = nil
-        if marker = crop_yield_marker
+        if marker = aim(:mass_area_yield)
           crop_yield = marker.value
         end
         return crop_yield || 0.in_quintal_per_hectare.in(options[:unit])
       end
 
       def nitrogen_input_area_density
-        marker = aim(:nitrogen_input_area_density)
+        marker = aim(:nitrogen_input_area_density, subject: :support)
         return (marker ? marker.value : 0.in_kilogram_per_hectare)
       end
 
@@ -133,10 +133,6 @@ module Calculus
       # TODO Find a reliable way to determinate the administrative area of a land parcel
       def administrative_area
         return "FR-17"
-      end
-
-      def crop_yield_marker
-        return aim(:mass_area_yield)
       end
 
     end

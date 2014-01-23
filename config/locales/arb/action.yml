@@ -166,7 +166,7 @@ arb:
       # edit: "Modifier la zone cultivable\_: %{name}"
       # index: "Zones cultivables"
       # new: "Nouvelle zone cultivable\_: %{name}"
-      # show: "Zone cultivable"
+      # show: "Zone cultivable %{name}"
     backend/cultivations: #?
     backend/currencies: #?
     backend/custom_field_choices:
@@ -987,6 +987,7 @@ arb:
     # add_x_html: "Ajouter «\_%{x}\_»"
     address: "العنوان"
     # affair: "Affaire"
+    # affairs: "Affaires"
     all: "جميع الاسعار"
     # all_accounts: "Tous les comptes"
     all_areas: "--- جميع العناوين البريدية ---"
