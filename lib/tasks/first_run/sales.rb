@@ -94,8 +94,8 @@ load_data :sales do |loader|
             d += rand(5).days
             sale.invoice
             Sale.where(id: sale.id).update_all(:invoiced_on => d)
-            unless rand(4).zero?
-              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1 + rand(3))).round(2), to_bank_on: sale.invoiced_on + rand(60))
+            if !rand(4).zero? and sale.amount > 0
+              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_on: sale.invoiced_on + rand(60))
               sale.affair.attach(payment)
             end
           end
@@ -175,8 +175,8 @@ load_data :sales do |loader|
             d += rand(5).days
             sale.invoice
             Sale.where(id: sale.id).update_all(:invoiced_on => d)
-            unless rand(4).zero?
-              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1 + rand(3))).round(2), to_bank_on: sale.invoiced_on + rand(60))
+            if !rand(4).zero? and sale.amount > 0
+              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_on: sale.invoiced_on + rand(60))
               sale.affair.attach(payment)
             end
           end
@@ -250,8 +250,8 @@ load_data :sales do |loader|
             d += rand(5).days
             sale.invoice
             Sale.where(id: sale.id).update_all(:invoiced_on => d)
-            unless rand(4).zero?
-              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1 + rand(3))).round(2), to_bank_on: sale.invoiced_on + rand(60))
+            if !rand(4).zero? and sale.amount > 0
+              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_on: sale.invoiced_on + rand(60))
               sale.affair.attach(payment)
             end
           end
