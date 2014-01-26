@@ -2400,7 +2400,7 @@ fra:
         equus: "Equin"                                     # mammalia
         esperia: "Esperia"                                 # triticum_aestivum
         euclide: "Euclide"                                 # triticum_aestivum
-        excrement: "Excrément"                             # organic_matter
+        excrement: "Engrais organiques"                    # organic_matter
         fabaceae: "Fabaceae"                               # plant
         fabulis: "Fabulis"                                 # triticum_durum
         flap_silt_soil: "Limons battants"                  # land_parcel
