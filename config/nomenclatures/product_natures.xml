@@ -362,11 +362,11 @@
             variable_indicators="net_surface_area, shape"
             frozen_indicators="population"
             />
-      <item name="fertiliser_division"
+      <item name="fertilizer_division"
             category="building_division"
             variety="building_division"
             population_counting="unitary"
-            abilities="store(chemical_fertiliser)"
+            abilities="store(chemical_fertilizer)"
             variable_indicators="net_surface_area, shape"
             frozen_indicators="population"
             />

@@ -880,8 +880,8 @@
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
-      <item name="chemical_fertiliser_division"
-            nature="fertiliser_division"
+      <item name="chemical_fertilizer_division"
+            nature="fertilizer_division"
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
