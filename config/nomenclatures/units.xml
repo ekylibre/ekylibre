@@ -44,6 +44,7 @@
 
       <!-- distance -->
       <item name="millimeter" dimension="distance" symbol="mm" coefficients="0.001m" a="0.001"/>
+      <item name="centimeter" dimension="distance" symbol="cm" coefficients="0.01m" a="0.01"/>
       <item name="meter"      dimension="distance" symbol="m"  coefficients="1m"     a="1"/>
       <item name="kilometer"  dimension="distance" symbol="km" coefficients="1000m"  a="1000"/>
       <item name="liter_per_square_meter" dimension="distance" symbol="l/m²" coefficients="0.001m3*m-2" a="0.001"/>
@@ -98,13 +99,14 @@
 
 
       <item name="mass_percent" dimension="none" symbol="%kg"   coefficients="0.01" a="0.01"/>
-
+      <item name="parts_per_million" dimension="none" symbol="ppm" coefficients="0.000001" a="0.000001"/>
       
       <!-- mass_density -->
       <item name="unity_per_kilogram"     dimension="mass_density" symbol="u/kg"  coefficients="kg-1"                    a="1"/>
       <!-- <item name="kilogram_per_hundred_kilogram"     dimension="mass_density" symbol="kg/100kg"  coefficients="100kg-1"                    a="0.01"/>      -->
       <item name="thousand_per_kilogram"  dimension="mass_density" symbol="ku/kg" coefficients="1000*kg-1"               a="0.001"/>
       <item name="thousand_per_hectogram" dimension="mass_density" symbol="ku/hg" coefficients="1000*0.1kg-1"            a="0.0001"/>
+      
       <!-- <item name="kilogram_per_hectogram" dimension="mass_density" symbol="kg/100kg" coefficients="1*0.1kg-1"            a="0.0001"/> -->
       <!-- <item name="thousand_eq_per_hundred_gram" dimension="mass_density" symbol="meq/100g" coefficients="1000*0.1kg-1"/> -->
 

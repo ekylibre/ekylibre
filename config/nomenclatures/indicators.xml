@@ -68,21 +68,46 @@
       <item name="fat_matter_concentration_index" datatype="measure" unit="unity"/>
       <item name="calving_ease_index" datatype="measure" unit="unity"/>
       <item name="fertility_index" datatype="measure" unit="unity"/>
-      <!-- for fertilization plant's -->
+      <!-- for fertilization plant's and soil analysis -->
+          <!-- macro-element -->
+      <item name="organic_matter_concentration" datatype="measure" unit="percent"/>   
       <item name="nitrogen_concentration" datatype="measure" unit="percent"/>
       <item name="potassium_concentration" datatype="measure" unit="percent"/>
       <item name="phosphorus_concentration" datatype="measure" unit="percent"/>
-
+      <item name="calcium_concentration" datatype="measure" unit="percent"/>
+      <item name="magnesium_concentration" datatype="measure" unit="percent"/>
+      <item name="sulfur_concentration" datatype="measure" unit="percent"/>
+          <!-- oligo-element -->
+      <item name="boron_concentration" datatype="measure" unit="parts_per_million"/>
+      <item name="molybdenum_concentration" datatype="measure" unit="parts_per_million"/>
+      <item name="manganese_concentration" datatype="measure" unit="parts_per_million"/>
+      <item name="copper_concentration" datatype="measure" unit="parts_per_million"/> 
+      <item name="zinc_concentration" datatype="measure" unit="parts_per_million"/>
+      <item name="iron_concentration" datatype="measure" unit="parts_per_million"/>
+      <item name="aluminium_concentration" datatype="measure" unit="parts_per_million"/>
+          <!-- physical -->
+      <item name="soil_depth" datatype="measure" unit="centimeter"/>
+          <!-- chemical -->
+      <item name="ph" datatype="decimal" />
+      <item name="cation_exchange_capacity" datatype="measure" unit="mole"/>
+          <!-- analysis_method -->
+      <item name="cation_exchange_capacity_analysis_method" datatype="choice" choices="metson,cobaltihexamine"/>
+      <item name="phosphorus_analysis_method" datatype="choice" choices="dyer,joret_hebert,olsen"/>
+       
+       <!-- for support markers -->
       <item name="nitrogen_input_per_area" datatype="measure" unit="kilogram_per_hectare"/>
       <item name="nitrogen_input_area_density" datatype="measure" unit="kilogram_per_hectare"/>
       <item name="mass_area_yield" datatype="measure" unit="quintal_per_hectare"/>
+      <item name="cultural_plant_residue" datatype="choice" choices="buried,exported"/>
 
       <!-- TODO waiting for remove these 2 lines -->
       <item name="grain_yield_per_area" datatype="measure" unit="quintal_per_hectare"/>
       <item name="straw_yield_per_area" datatype="measure" unit="ton_per_hectare"/>
 
       <item name="irrigation_water_input_per_area" datatype="measure" unit="liter_per_square_meter"/>
+      <!-- for soil analysis -->
       <item name="available_water_capacity_per_area" datatype="measure" unit="liter_per_square_meter"/>
+      
       <item name="leaf_count" datatype="choice" choices="0,1,2,3,4,5,6,7,8"/>
       <!-- for energy consumption -->
       <item name="energy" datatype="measure" unit="kilowatt_hour"/>

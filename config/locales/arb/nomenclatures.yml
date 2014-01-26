@@ -1057,9 +1057,17 @@ arb:
             # first_growth: "Première croissance"
             # second_growth: "Seconde croissance"
         application_width: #?
+        cation_exchange_capacity_analysis_method:
+          choices:
+            # cobaltihexamine: "Cobaltihexamine"
+            # metson: "Metson"
         cells_concentration: #?
         choices: #?
         clostridial_spores_concentration: #?
+        cultural_plant_residue:
+          choices:
+            # buried: "Enfouis"
+            # exported: "Exportés"
         cultural_soil_state:
           choices:
             # covered: "Couvert végétal"
@@ -1116,6 +1124,11 @@ arb:
         net_surface_area: #?
         net_volume: #?
         nitrogen_concentration: #?
+        phosphorus_analysis_method:
+          choices:
+            # dyer: "Dyer"
+            # joret_hebert: "Joret-Hebert"
+            # olsen: "Olsen"
         phosphorus_concentration: #?
         plant_life_state:
           choices:
@@ -1158,12 +1171,19 @@ arb:
             # rgm: "Rgm"
             # so4: "So4"
       items:
+        # aluminium_concentration: "Teneur en Aluminium"
         # animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
         # animal_life_state: "Phase du bioprocessus de vie d’un animal"
         # application_width: "Largeur de travail"
         # available_water_capacity_per_area: "Réserve utile (RU)"
+        # boron_concentration: "Teneur en Bore"
+        # calcium_concentration: "Teneur en Calcium"
         # calving_ease_index: "Index de facilité de naissane"
+        # cation_exchange_capacity: "Capacité d'échange cationique (CEC)"
+        # cation_exchange_capacity_analysis_method: "Méthode d'analyse de la Capacité d'échange cationique (CEC)"
         # clostridial_spores_concentration: "Concentration en spores butyriques"
+        # copper_concentration: "Teneur en Cuivre"
+        # cultural_plant_residue: "Résidus de culture"
         # cultural_soil_state: "Etat cultural du sol"
         # dry_matter_rate: "Taux de matière sèche"
         # economical_milk_index: "INEL (INdex Économique Laitier)"
@@ -1177,11 +1197,13 @@ arb:
         # height: "Hauteur"
         # immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
         # inhibitors_presence: "Présence de résidus d’inhibiteurs"
+        # iron_concentration: "Teneur en Fer"
         # irrigation_water_input_per_area: "Quantité d’eau d’irrigation par unité de surface"
         # leaf_count: "Nombre de talles"
         # length: "Longueur"
         # lipolysis: "Lipolyse"
         # livestock_unit: "UGB (Unité de Gros Bétail)"
+        # magnesium_concentration: "Teneur en Magnesium"
         # mammalia_born_condition: "condition de naissance"
         # mammalia_born_cycle: "cycle de naissance"
         # mammalia_lactation_state: "Phase du bioprocessus de lactation d’un mammifère"
@@ -1189,11 +1211,13 @@ arb:
         # mammalia_reproduction_method_embryo_transplant: "Transplantation embryonaire"
         # mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
         # mammalia_twins_condition: "Naissance de jumeaux"
+        # manganese_concentration: "Teneur en Manganese"
         # mass_area_yield: "Rendement de masse surfacique"
         # maximum_load_net_mass: "Masse nette maximale en charge"
         # maximum_load_net_volume: "Capacité volumique nette maximum"
         # meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
         # milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
+        # molybdenum_concentration: "Teneur en Molybdene"
         # motor_power: "Puissance du moteur"
         # net_mass: "Masse nette"
         # net_surface_area: "Surface nette"
@@ -1201,6 +1225,9 @@ arb:
         # nitrogen_concentration: "Teneur en azote"
         # nitrogen_input_area_density: "Densité d’apport d’azote"
         # nitrogen_input_per_area: "Quantité d’azote par unité de surface"
+        # organic_matter_concentration: "Teneur en matière organique"
+        # ph: "ph"
+        # phosphorus_analysis_method: "Méthode d'analyse de la teneur en Phosphore"
         # phosphorus_concentration: "Teneur en phosphore"
         # plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         # plant_per_area: "pied par unité de surface"
@@ -1212,8 +1239,10 @@ arb:
         # reproductor: "Reproducteur"
         # sex: "Sexe"
         # shape: "Forme"
+        # soil_depth: "Profondeur du sol"
         # somatic_cell_concentration: "Dénombrement des cellules somatiques"
         # straw_yield_per_area: "Rendement en tige par unité de surface"
+        # sulfur_concentration: "Teneur en Soufre"
         # temperature: "Température"
         # thousand_grain_mass: "Poids de mille grains"
         # total_bacteria_concentration: "Dénombrement des germes totaux"
@@ -1223,6 +1252,7 @@ arb:
         # water_content_rate: "Teneur en eau"
         # width: "Largeur"
         # woodstock_variety: "Variété du porte-greffe"
+        # zinc_concentration: "Teneur en Zinc"
       # name: "Indicateurs"
     issue_natures:
       attributes:
@@ -1871,6 +1901,7 @@ arb:
         # bar: "Bar"
         # candela: "Candela"
         # celsius: "Celsius"
+        # centimeter: "Centimètre"
         # cubic_meter: "Mètre cube"
         # day: "Jour"
         # degree: "Degrée"
@@ -1914,6 +1945,7 @@ arb:
         # minute: "Minute"
         # mole: "Mole"
         # pair: "Paire"
+        # parts_per_million: "Partie par millions (ppm)"
         # pascal: "Pascal"
         # percent: "Pourcent"
         # quintal: "Quintal"
