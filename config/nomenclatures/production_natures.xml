@@ -5,59 +5,106 @@
     <attributes>
       <!-- Inside the model-->
       <attribute name="activity" type="choice" nomenclature="activity_families" required="true"/>
-      <attribute name="telepac_crop_code" type="string" required="true"/>
-      <attribute name="variant_crop" type="choice" nomenclature="product_nature_variants" required="false"/>
+      <attribute name="production_code" type="string" required="false"/>
+      <attribute name="telepac_crop_code" type="string" required="false"/>
+      <attribute name="variant_support" type="choice" nomenclature="product_nature_variants" required="false"/>
     </attributes>
     <items>
+      <!-- VEGETAL -->
       <item name="winter_soft_wheat"
+            production_code="1100"
             activity="straw_cereal_crops"
             telepac_crop_code="BH"
-            variant_crop="wheat_crop"
+            variant_support="wheat_crop"
+            />
+      <item name="triticale"
+            production_code="1800"
+            activity="straw_cereal_crops"
+            telepac_crop_code="TR"
+            variant_support="triticale_crop"
             />
       <item name="winter_hard_wheat"
+            production_code="1200"
             activity="straw_cereal_crops"
             telepac_crop_code="BA"
-            variant_crop="hard_wheat_crop"
+            variant_support="hard_wheat_crop"
+            />
+      <item name="winter_barley"
+            production_code="1410"
+            activity="straw_cereal_crops"
+            telepac_crop_code="OH"
+            variant_support="winter_barley_crop"
+            />
+      <item name="spring_barley"
+            production_code="1420"
+            activity="straw_cereal_crops"
+            telepac_crop_code="OP"
+            variant_support="spring_barley_crop"
             />
       <item name="grain_corn"
+            production_code="1710"
             activity="maize_crops"
             telepac_crop_code="MA"
-            variant_crop="corn_grain_crop"
+            variant_support="corn_grain_crop"
             />
       <item name="silage_corn"
             activity="maize_crops"
             telepac_crop_code="ME"
-            variant_crop="corn_silage_crop"
+            variant_support="corn_silage_crop"
             />
       <item name="seed_corn"
             activity="maize_crops"
             telepac_crop_code="MS"
-            variant_crop="corn_seed_crop"
+            variant_support="corn_seed_crop"
+            />
+      <item name="sorghum"
+            production_code="3210"
+            activity="fodder_crops"
+            telepac_crop_code="SH"
+            variant_support="sorghum_crop"
             />
       <item name="sunflower"
+            production_code="2380"
             activity="oilseed_crops"
             telepac_crop_code="TO"
-            variant_crop="sunflower_crop"
+            variant_support="sunflower_crop"
             />   
       <item name="without_crop"
             activity="fallow_land"
             telepac_crop_code="HC"
-            variant_crop="fallow_crop"
+            variant_support="fallow_crop"
             />
       <item name="annual_frost_fallow_land"
             activity="fallow_land"
             telepac_crop_code="GA"
-            variant_crop="annual_fallow_crop"
+            variant_support="annual_fallow_crop"
             />
       <item name="temporary_meadow"
+            production_code="3400"
             activity="meadow"
             telepac_crop_code="PT"
-            variant_crop="temporary_meadow_crop"
+            variant_support="temporary_meadow_crop"
             />
       <item name="permanent_meadow"
             activity="meadow"
             telepac_crop_code="PN"
-            variant_crop="permanent_meadow_crop"
+            variant_support="permanent_meadow_crop"
+            />
+      <!-- ANIMAL -->
+      <item name="milk_cattle"
+            production_code="8200"
+            activity="cattle_farming"
+            variant_support="female_adult_cow"
+            />
+      <item name="milk_bull_calf"
+            production_code="8270"
+            activity="cattle_farming"
+            variant_support="male_young_cow"
+            />
+      <item name="calf"
+            production_code="8230"
+            activity="cattle_farming"
+            variant_support="calf"
             />
     </items>
     

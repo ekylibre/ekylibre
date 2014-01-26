@@ -8,11 +8,13 @@ fra:
         accountancy: "Comptabilité"
         animal_farming: "Élevage bovins"
         aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques"
+        beekeeping: "Apiculture"
         beet_crops: "Betterave"
         cattle_farming: "Élevage"
         exploitation: "Exploitation"
         fallow_land: "Jachère"
         fish_farming: "Aquaculture"
+        fodder_crops: "Culture fourragères"
         goat_farming: "Élevage caprins"
         handicraft: "Artisanat"
         maize_crops: "Culture de maïs"
@@ -1603,6 +1605,7 @@ fra:
       nature:
         best_practices: "Bonnes pratiques"
         regulations: "Réglementations"
+        specifications: "Spécifications"
     immatter:
       variety:
         acetal: "Acetal"

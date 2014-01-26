@@ -245,12 +245,13 @@ fra:
         accountancy: "Comptabilité"                        # exploitation
         animal_farming: "Élevage bovins"
         aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques" # vegetal_crops
-        # beekeeping: "Beekeeping"                         # animal_farming
+        beekeeping: "Apiculture"                           # animal_farming
         beet_crops: "Betterave"                            # vegetal_crops
         cattle_farming: "Élevage"                          # animal_farming
         exploitation: "Exploitation"
         fallow_land: "Jachère"                             # vegetal_crops
         fish_farming: "Aquaculture"                        # animal_farming
+        fodder_crops: "Culture fourragères"                # vegetal_crops
         goat_farming: "Élevage caprins"                    # animal_farming
         handicraft: "Artisanat"
         maize_crops: "Culture de maïs"                     # vegetal_crops
@@ -916,7 +917,7 @@ fra:
       items:
         best_practices: "Bonnes pratiques"
         regulations: "Réglementations"
-        # specifications: "Specifications"
+        specifications: "Spécifications"
     indicators:
       name: "Indicateurs"
       attributes:
@@ -966,6 +967,7 @@ fra:
           choices:
             buried: "Enfouis"
             exported: "Exportés"
+            burned: "Brûlés"
         cultural_soil_state:
           choices:
             covered: "Couvert végétal"
@@ -2109,7 +2111,7 @@ fra:
         spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
         sugar_vinasse: "Vinasse de sucrerie"
         sunflower_crop: "Culture de tournesol"
-        # superficial_plow: "Superficial plow"
+        superficial_plow: "Cultipacker"
         swamp_peaty_land_parcel: "Parcelle de marais tourbeux"
         tablur_hard_wheat_crop: "Culture de blé dur Tablur"
         tablur_hard_wheat_seed_25: "Semence de blé dur Tablur sac de 25kg"
@@ -2117,6 +2119,7 @@ fra:
         temporary_meadow_crop: "Culture de prairie temporaire"
         tractor: "Tracteur"
         trailer: "Remorque"
+        triticale_crop: "Culture de Triticale"
         urban_compost: "Compost urbain"
         valley_terrace_land_parcel: "Parcelle de sol de terrasse de vallée"
         vine_grape_berry: "Grappe de raisin"
@@ -2227,19 +2230,27 @@ fra:
       name: "Type de production"
       attributes:
         activity: "Activité"
+        production_code: "Code"
         telepac_crop_code: "Code de type de culture TELEPAC"
-        variant_crop: "variante de culture"
+        variant_support: "Variant"
       choices:
         # activity: # Choices comes from nomenclature: activity_families
-        # variant_crop: # Choices comes from nomenclature: product_nature_variants
+        # variant_support: # Choices comes from nomenclature: product_nature_variants
       items:
         annual_frost_fallow_land: "Gel annuel"
+        calf: "Veau"
         grain_corn: "Maïs grain"
+        milk_bull_calf: "Taurillons Lait"
+        milk_cattle: "Bovins Lait"
         permanent_meadow: "Prairie permanente"
         seed_corn: "Maïs semence"
         silage_corn: "Maïs ensilage"
+        sorghum: "Sorgho"
+        spring_barley: "Orge de printemps"
         sunflower: "Tournesol"
         temporary_meadow: "Prairie temporaire"
+        triticale: "Triticale"
+        winter_barley: "Orge d'hiver"
         winter_hard_wheat: "Blé dur d’hiver"
         winter_soft_wheat: "Blé tendre d’hiver"
         without_crop: "Hors culture"

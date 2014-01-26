@@ -122,6 +122,13 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+        <!-- TRITICALE CROP -->      
+      <item name="triticale_crop"
+            nature="cereal_crop"
+            variety="triticosecale"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <!-- BARLEY CROP -->  
       <item name="winter_barley_crop"
             nature="cereal_crop"

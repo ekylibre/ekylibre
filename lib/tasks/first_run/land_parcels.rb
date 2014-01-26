@@ -115,7 +115,7 @@ load_data :land_parcels do |loader|
           activity ||= Activity.create!(:nature => :main, :family => activity_family_item.name, :name => item.human_name)
 
           # create a production if not exist
-          product_nature_variant_sup = ProductNatureVariant.import_from_nomenclature(item.variant_crop.to_s)
+          product_nature_variant_sup = ProductNatureVariant.import_from_nomenclature(item.variant_support.to_s)
           product_support = cultivable_zone || nil
           if product_nature_variant_sup and !product_support.nil?
             # find a production corresponding to campaign , activity and product_nature

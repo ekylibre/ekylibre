@@ -298,11 +298,13 @@ eng:
         # accountancy: "Comptabilité"
         # animal_farming: "Élevage bovins"
         # aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques"
+        # beekeeping: "Apiculture"
         # beet_crops: "Betterave"
         # cattle_farming: "Élevage"
         # exploitation: "Exploitation"
         # fallow_land: "Jachère"
         # fish_farming: "Aquaculture"
+        # fodder_crops: "Culture fourragères"
         # goat_farming: "Élevage caprins"
         # handicraft: "Artisanat"
         # maize_crops: "Culture de maïs"
@@ -1071,6 +1073,7 @@ eng:
       items:
         # best_practices: "Bonnes pratiques"
         # regulations: "Réglementations"
+        # specifications: "Spécifications"
       # name: "Type de guides"
     incidents: #?
     indicators:
@@ -1142,6 +1145,7 @@ eng:
         cultural_plant_residue:
           choices:
             # buried: "Enfouis"
+            # burned: "Brûlés"
             # exported: "Exportés"
         cultural_soil_state:
           choices:
@@ -1820,6 +1824,7 @@ eng:
         # spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
         # sugar_vinasse: "Vinasse de sucrerie"
         # sunflower_crop: "Culture de tournesol"
+        # superficial_plow: "Cultipacker"
         # swamp_peaty_land_parcel: "Parcelle de marais tourbeux"
         # tablur_hard_wheat_crop: "Culture de blé dur Tablur"
         # tablur_hard_wheat_seed_25: "Semence de blé dur Tablur sac de 25kg"
@@ -1827,6 +1832,7 @@ eng:
         # temporary_meadow_crop: "Culture de prairie temporaire"
         # tractor: "Tracteur"
         # trailer: "Remorque"
+        # triticale_crop: "Culture de Triticale"
         # urban_compost: "Compost urbain"
         # valley_terrace_land_parcel: "Parcelle de sol de terrasse de vallée"
         # vine_grape_berry: "Grappe de raisin"
@@ -1954,31 +1960,39 @@ eng:
     production_natures:
       attributes:
         # activity: "Activité"
+        # production_code: "Code"
         # telepac_crop_code: "Code de type de culture TELEPAC"
-        # variant_crop: "variante de culture"
+        # variant_support: "Variant"
       choices: #?
       items:
         animal_farming: "Animal farming" #?
         animal_global_documentation: "Animal global documentation" #?
         # annual_frost_fallow_land: "Gel annuel"
+        # calf: "Veau"
         feeding: "Feeding" #?
         # grain_corn: "Maïs grain"
         identification: "Identification" #?
         land_parcel_management: "Land parcel management" #?
         marketing: "Marketing" #?
+        # milk_bull_calf: "Taurillons Lait"
+        # milk_cattle: "Bovins Lait"
         # permanent_meadow: "Prairie permanente"
         production: "Production" #?
         reproduction: "Reproduction" #?
         sanitary: "Sanitary" #?
         # seed_corn: "Maïs semence"
         # silage_corn: "Maïs ensilage"
+        # sorghum: "Sorgho"
+        # spring_barley: "Orge de printemps"
         stock_management: "Stock management" #?
         # sunflower: "Tournesol"
         # temporary_meadow: "Prairie temporaire"
         transformation: "Transformation" #?
+        # triticale: "Triticale"
         vegetal_crops: "Vegetal crops" #?
         vegetal_global_documentation: "Vegetal global documentation" #?
         vinification: "Vinification" #?
+        # winter_barley: "Orge d'hiver"
         # winter_hard_wheat: "Blé dur d’hiver"
         # winter_soft_wheat: "Blé tendre d’hiver"
         # without_crop: "Hors culture"
