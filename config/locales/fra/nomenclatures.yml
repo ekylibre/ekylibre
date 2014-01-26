@@ -2145,7 +2145,7 @@ fra:
         female_adult_cattle_herd: "Troupeau de vaches"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
-        fertiliser_division: "Zone engrais"
+        fertilizer_division: "Zone de stockage des engrais"
         food: "Aliment"
         forager: "Ensileuse"
         fruit: "Fruit"
