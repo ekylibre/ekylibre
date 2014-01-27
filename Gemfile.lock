@@ -251,7 +251,7 @@ GEM
       rails (>= 3.2)
       rjb (>= 1.4.8)
     ruby-filemagic (0.4.2)
-    ruby-progressbar (1.4.0)
+    ruby-progressbar (1.4.1)
     rubyzip (1.1.0)
     sass (3.3.0.rc.2)
       listen (~> 1.1.0)
