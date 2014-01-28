@@ -21,8 +21,9 @@ class Backend::MineralMattersController < Backend::MattersController
 
   list do |t|
     t.column :name, url: true
-    t.column :population
-    t.column :net_mass
+    t.column :population, datatype: :decimal
+    t.column :unit_name, label: :unit
+    t.column :net_mass, datatype: :measure
     t.column :container, url: true
   end
 

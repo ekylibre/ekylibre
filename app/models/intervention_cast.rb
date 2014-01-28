@@ -119,6 +119,12 @@ class InterventionCast < Ekylibre::Record::Base
     self.roles.split(/[\,[[:space:]]]+/).collect{|role| role.split(/\-/)[0..1].map(&:to_sym) }
   end
 
+  def human_roles
+    self.roles_array.collect do |role|
+      :x_of_y.tl(x: Nomen::ProcedureRoles[role.second].human_name, y: Nomen::ProcedureNatures[role.first].human_name.mb_chars.downcase)
+    end.to_sentence
+  end
+
   # Define if the cast is valid for run
   def runnable?
     if self.reference.parted?

@@ -8,6 +8,8 @@ fra:
       creation: "%{producer} produit %{product}"
       death: "%{product} meurt"
       detachment: "On détache %{carrier} et %{carried}"
+      direct_entering: "%{product} entre directement dans %{localizable}"
+      direct_movement: "%{product} va directement à l'emplacement de %{localizable}"
       division: "%{product} est séparé de %{producer}"
       entering: "%{product} entre dans %{localizable}"
       given_home_coming: "%{product} va l'emplacement par défaut de  %{localizable}"

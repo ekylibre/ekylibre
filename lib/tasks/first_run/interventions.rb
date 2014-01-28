@@ -44,10 +44,10 @@ load_data :interventions do |loader|
 
 
       # Duration is expected to be in hours
-      def intervene(procedure, year, month, day, duration, options = {}, &block)
+      def intervene(procedure_code, year, month, day, duration, options = {}, &block)
         day_range = options[:range] || 30
 
-        duration += 1.25 - rand(0.5)
+        duration += 1.5 - rand(0.5)
 
         # Find actors
         booker = new(Time.new(year, month, day), duration)
@@ -58,11 +58,12 @@ load_data :interventions do |loader|
         end
 
         # Adds fixed durations to given time
-        procedure_name = "#{options[:namespace]}:#{procedure}-#{options[:version] || '0.0'}"
-        unless Procedo[procedure_name]
-          raise ArgumentError, "Unknown procedure #{procedure} (#{procedure_name})"
+        procedure_name = "#{options[:namespace]}:#{procedure_code}-#{options[:version] || '0.0'}"
+        unless procedure = Procedo[procedure_name]
+          raise ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
         end
-        duration += Procedo[procedure_name].fixed_duration / 3600
+        fixed_duration = procedure.fixed_duration / 3600
+        duration += fixed_duration
 
         # Estimate number of days to work
         duration_days = (duration / 8.0).ceil
@@ -82,12 +83,12 @@ load_data :interventions do |loader|
 
         # Split into many interventions
         periods = []
-        total = duration * 1.0
+        total = duration * 1.0 - fixed_duration
         duration_days.times do
           started_at = on.to_time + self.sunrise(on).hours + 1.hour
-          d = self.daytime_duration(on) - 2.0
+          d = self.daytime_duration(on) - 2.0 - fixed_duration
           d = total if d > total
-          periods << {started_at: started_at, duration: d * 3600} if d > 0
+          periods << {started_at: started_at, duration: (d + fixed_duration) * 3600} if d > 0
           total -= d
           on += 1
         end

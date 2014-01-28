@@ -81,11 +81,16 @@ class Operation < Ekylibre::Record::Base
   calculable period: :month, at: :started_at, column: :duration
 
   before_validation(on: :create) do
-    self.started_at ||= Time.now
-    # TODO Remove following line!!!
-    self.stopped_at ||= self.started_at
     if self.started_at and self.stopped_at
       self.duration = (self.stopped_at - self.started_at).to_i
+    end
+  end
+
+  validate do
+    if self.started_at and self.stopped_at
+      if self.stopped_at <= self.started_at
+        errors.add(:stopped_at, :posterior, to: self.started_at.l)
+      end
     end
   end
 
@@ -160,11 +165,13 @@ class Operation < Ekylibre::Record::Base
 
   def perform_movement(params)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
-    localization = params[:localizable].actor.localizations.at(self.stopped_at).first
-    while localization.container.nil?
-      break unless localization = localization.previous
+    if localization = params[:localizable].actor.localizations.at(self.stopped_at).first
+      while localization and localization.container.nil?
+        break unless localization = localization.previous
+      end
     end
-    container = localization.container || params[:localizable].actor.default_storage
+    container = localization.container if localization
+    container ||= params[:localizable].actor.default_storage
     self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: params[:product].actor, container: container)
   end
 

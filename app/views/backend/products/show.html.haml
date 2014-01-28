@@ -1,20 +1,20 @@
 = main_toolbar do |t|
-  - t.edit @product
-  - t.destroy(@product, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @product.destroyable?
+  - t.edit resource
+  - t.destroy(resource, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
 
 = beehive do |b|
   - b.cell :details do
 
+    - if resource.picture.exists?
+      = image_tag(resource.picture.url(:thumb))
     = attributes_list do |l| # liste des champs à afficher
       - l.attribute :name
       - l.attribute :variety, url: true
       - l.attribute :identification_number
       - l.attribute :description
-    - if @product.picture.exists?
-      = image_tag(@product.picture.url(:thumb))
 
   - b.tabbox do
-    - if @product.is_a?(ProductGroup)
+    - if resource.is_a?(ProductGroup)
       - b.cell(:members) do
         = list(:members)
     - b.cell(:groups) do
@@ -31,7 +31,7 @@
       = list(:intervention_casts)
     - b.cell(:issues) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :issues, :target_id => @product.id, :target_type => @product.class.name})
+        - t.new(:params =>{:controller => :issues, :target_id => resource.id, :target_type => resource.class.name})
       = list(:issues)
-    - b.cell(tl(:x_indicators, :count => @product.indicator_data.count)) do
+    - b.cell(tl(:x_indicators, :count => resource.indicator_data.count)) do
       = list(:indicators)

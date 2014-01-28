@@ -131,7 +131,7 @@ class Intervention < Ekylibre::Record::Base
     end
     if self.started_at and self.stopped_at
       if self.stopped_at <= self.started_at
-        errors.add(:stopped_at, :greater_than, count: self.stopped_at.l)
+        errors.add(:stopped_at, :posterior, to: self.started_at.l)
       end
     end
   end

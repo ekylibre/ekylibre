@@ -886,7 +886,7 @@ fra:
         sir: "Monsieur"                                    # person
         syndicate: "Syndicat"                              # legal_entity
     france_crops_sets:
-      name: "Typologie de culture (France)"
+      name: "Typologies de culture (France)"
       attributes:
         varieties: "Variétés"
       items:
@@ -913,7 +913,7 @@ fra:
         wheat: "Blé"
         winter_straw_cereal: "Céréales à paille d’hiver"
     guide_natures:
-      name: "Type de guides"
+      name: "Types de guide"
       items:
         best_practices: "Bonnes pratiques"
         regulations: "Réglementations"
@@ -1822,6 +1822,15 @@ fra:
         tillage: "Travail du sol"
         transformation: "Transformation"
         viviparous_birth: "Reproduction (vivipare)"
+    procedure_roles:
+      name: "Rôles de procédure"
+      items:
+        doer: "Faiseur"
+        input: "Intrant"
+        # origin: "Origin"
+        output: "Extrant"
+        target: "Cible"
+        tool: "Outil"
     product_nature_categories:
       name: "Catégories de produits"
       attributes:
@@ -2136,7 +2145,7 @@ fra:
         winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
         zea_herbicide: "Herbicide maïs"
     product_natures:
-      name: "Type de produits"
+      name: "Types de produits"
       attributes:
         abilities: "Compétences"
         category: "Categorie"
@@ -2227,7 +2236,7 @@ fra:
         wine: "Vin"
         wine_crop: "Vigne"
     production_natures:
-      name: "Type de production"
+      name: "Types de production"
       attributes:
         activity: "Activité"
         production_code: "Code"
@@ -2254,17 +2263,8 @@ fra:
         winter_hard_wheat: "Blé dur d’hiver"
         winter_soft_wheat: "Blé tendre d’hiver"
         without_crop: "Hors culture"
-    roles:
-      name: "Nom"
-      items:
-        driver: "Conducteur"
-        # gardener: "Gardener"
-        input: "Intrant"
-        output: "Produit"
-        target: "Cible"
-        tool: "Outil"
     taxes:
-      name: "Type de taxes"
+      name: "Taxes"
       attributes:
         active: "actif"
         amount: "valeur"
