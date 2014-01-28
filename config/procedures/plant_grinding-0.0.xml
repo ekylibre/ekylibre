@@ -5,7 +5,7 @@
       <variable name="cultivation" variety="plant" roles="grinding-input, soil_enrichment-origin"/>
       <variable name="tractor" abilities="tow(equipment)"/>
       <variable name="grinder" abilities="grind(plant)" roles="soil_enrichment-tool, grinding-tool"/>
-      <variable name="grinded" variety="straw" derivative-of="variety: cultivation" roles="grinding-output, soil_enrichment-input" new="produced-by: cultivation"/>
+      <variable name="grinded" variety="straw" derivative-of="variety: cultivation" roles="grinding-output, soil_enrichment-input" new="produced-by: cultivation" need="population"/>
       <variable name="land_parcel" variety="cultivable_zone" roles="soil_enrichment-target"/>
       <variable name="driver" variety="worker" roles="grinding-doer, soil_enrichment-doer"/>
     </variables>

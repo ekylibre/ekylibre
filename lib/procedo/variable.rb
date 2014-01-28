@@ -18,6 +18,7 @@ module Procedo
         @birth_nature  = new_array.shift.underscore.to_sym
         @producer_name = new_array.shift.to_sym
       end
+      @needs = element.attr("need").to_s.split(/\s*\,\s*/).map(&:to_sym)
       @value = element.attr("value").to_s
       @abilities = element.attr("abilities").to_s.strip.split(/\s*\,\s*/)
       @variety = element.attr("variety").to_s.strip if element.has_attribute?("variety")
@@ -56,6 +57,18 @@ module Procedo
     #
     def given?
       !@value.blank?
+    end
+
+    def needs
+      @needs
+    end
+
+    def need_population?
+      new? and @needs.include?(:population)
+    end
+
+    def need_shape?
+      new? and @needs.include?(:shape)
     end
 
     def new?

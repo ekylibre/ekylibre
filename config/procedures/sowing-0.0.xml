@@ -3,7 +3,7 @@
   <procedure name="sowing" natures="sowing" version="0.0" status="frozen">
     <variables>
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="germinate"/>
-      <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input"/>
+      <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" need="population"/>
       <variable name="sower"        abilities="sow" roles="sowing-tool"/>
       <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer"/>
       <variable name="tractor"      abilities="tow(equipment), move" roles="sowing-tool"/>

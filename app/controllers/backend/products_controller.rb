@@ -40,7 +40,7 @@ class Backend::ProductsController < BackendController
   end
 
   # content product list of the consider product
-  list(:contained_products, model: :product_localizations, conditions: {container_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
+  list(:contained_products, model: :product_localizations, conditions: {container_id: 'params[:id]'.c, stopped_at: nil}, order: {started_at: :desc}) do |t|
     t.column :product, url: true
     t.column :nature, hidden: true
     t.column :intervention, url: true

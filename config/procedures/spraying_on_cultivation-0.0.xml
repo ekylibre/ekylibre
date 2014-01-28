@@ -5,7 +5,7 @@
       <variable name="driver" variety="worker" roles="plant_illness_treatment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="catch(sprayer)" roles="plant_illness_treatment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="medicine" variety="plant_medicine"/>
-      <variable name="medicine_to_spray" new="parted-from: medicine" roles="plant_illness_treatment-input"/>
+      <variable name="medicine_to_spray" new="parted-from: medicine" roles="plant_illness_treatment-input" need="population"/>
       <variable name="sprayer" abilities="spray" roles="plant_illness_treatment-tool"/>
       <variable name="cultivation" variety="plant" roles="plant_illness_treatment-target"/>
     </variables>

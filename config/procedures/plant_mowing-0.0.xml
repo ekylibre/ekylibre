@@ -6,7 +6,7 @@
       <variable name="mower_driver" variety="worker" abilities="drive(tractor)" roles="harvest-doer"/>
       <variable name="mower"  abilities="mow" roles="harvest-tool"/>
       <variable name="cultivation" variety="plant" roles="harvest-target"/>
-      <variable name="straw" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output"/>
+      <variable name="straw" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" need="population" roles="harvest-output"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

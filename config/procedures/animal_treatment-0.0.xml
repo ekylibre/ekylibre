@@ -5,7 +5,7 @@
     <variables>
       <variable name="animal"           variety="animal" roles="animal_illness_treatment-target"/>
       <variable name="medicine"         variety="animal_medicine" abilities="care(animal)"/>
-      <variable name="medicine_to_give" new="parted-from: medicine" roles="animal_illness_treatment-input"/>
+      <variable name="medicine_to_give" new="parted-from: medicine" roles="animal_illness_treatment-input" need="population"/>
       <variable name="caregiver"        variety="worker" roles="animal_illness_treatment-doer"/>
     </variables>
     <operations>
