@@ -19,7 +19,7 @@
     .info
       %span.title= Intervention.human_attribute_name(:state)
       %span.value= @intervention.state.text
-    - for type in [:input, :equipment, :doer]
+    - for type in [:input, :tool, :doer]
       - cost = @intervention.cost(type) || 0.0
       .info
         %span.title= "#{type}_evaluated_cost".tl

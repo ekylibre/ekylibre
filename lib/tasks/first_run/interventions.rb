@@ -194,7 +194,7 @@ load_data :interventions do |loader|
 
             if w.count.modulo(3).zero? # AND NOT prairie
               # Treatment herbicide 01-04 30-04
-              Booker.intervene(:chemical_treatment, year, 4, 1, 1.07 * coeff, support: support) do |i|
+              Booker.intervene(:spraying_on_cultivation, year, 4, 1, 1.07 * coeff, support: support) do |i|
                 i.add_cast(reference_name: 'molecule', actor: i.find(Product, can: "kill(plant)"))
                 i.add_cast(reference_name: 'molecule_to_spray', population: 0.18 + 0.9 * coeff)
                 i.add_cast(reference_name: 'sprayer',  actor: i.find(Product, can: "spray"))

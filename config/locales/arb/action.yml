@@ -1924,6 +1924,7 @@ arb:
     # to_deposit: "À encaisser"
     # today: "Aujourd’hui"
     tool_create: "اضافة مادة" #?
+    # tool_evaluated_cost: "Coût outils"
     tool_update: "تعديل المادة" #?
     tools: "مادة مستخدمة"
     # tools_list: "Liste d’outils"
