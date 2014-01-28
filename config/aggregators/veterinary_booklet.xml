@@ -63,8 +63,8 @@
               <cell name="milk_withdrawal_period" value="milk_withdrawal_period" type="measure"/>
             </matrix>
             <matrix name="sale_dates">
-              <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period.to_d.send(meat_withdrawal_period.unit)).to_date" type="date"/>
-              <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period.to_d.send(milk_withdrawal_period.unit)).to_date" type="date"/>
+              <cell name="meat_saleable_on" value="(intervention.stopped_at + meat_withdrawal_period.to_d.send(meat_withdrawal_period.unit)).to_time" type="datetime"/>
+              <cell name="milk_saleable_on" value="(intervention.stopped_at + milk_withdrawal_period.to_d.send(milk_withdrawal_period.unit)).to_time" type="datetime"/>
             </matrix>
           </matrix>
         </sections>
