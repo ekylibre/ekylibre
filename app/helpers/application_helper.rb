@@ -266,7 +266,7 @@ module ApplicationHelper
     elsif value.respond_to?(:text)
       value = value.send(:text)
     elsif attribute.to_s.match(/(^|_)currency$/)
-      value = value.to_currency.label
+      value = Nomen::Currencies[value].human_name
     elsif options[:currency] and value.is_a?(Numeric)
       value = ::I18n.localize(value, currency: (options[:currency].is_a?(TrueClass) ? object.send(:currency) : options[:currency].is_a?(Symbol) ? object.send(options[:currency]) : options[:currency]))
       value = link_to(value.to_s, options[:url]) if options[:url]

@@ -47,6 +47,9 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
           overflow: visible;
           width: 16px;
           height: 16px;
+          .icon {
+            @include margin-right($default-gap);
+          }
           .list-menu {
             position: relative;
             background: none;
@@ -78,7 +81,7 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
                   html[dir="rtl"] & { left: $menu-width; }
                 }
 
-                a {
+                & > a {
                   .icon { @include is-icon }
                   &.pages     .icon { @include use-icon(reorder); }
                   &.columns   .icon { @include use-icon(columns); }
@@ -90,7 +93,7 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
                 &.unchecked .icon { @include use-icon(check-empty); }
                 &:hover {
                   text-decoration: none;
-                  background: background-hover($menu-background);
+                  // background: background-hover($menu-background);
                 }
                 &.separator {
                   @include menu-separator;
@@ -99,7 +102,7 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
               }
             }
             & > ul {
-              top: 19px;
+              top: 23px;
             }
 
           }
