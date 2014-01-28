@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version last-->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="veterinary_booklet" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="0.9558924531310702"/>
 	<property name="ireport.x" value="0"/>
@@ -235,7 +234,7 @@
 	<columnHeader>
 		<band height="47">
 			<staticText>
-				<reportElement style="table-th" mode="Transparent" x="0" y="0" width="81" height="47" uuid="deabb848-4856-4cdc-9f0f-320115ef4622"/>
+				<reportElement style="table-th" mode="Transparent" x="0" y="0" width="107" height="47" uuid="deabb848-4856-4cdc-9f0f-320115ef4622"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10"/>
 					<paragraph leftIndent="5"/>
@@ -243,7 +242,7 @@
 				<text><![CDATA[Date début / date fin]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table-th" mode="Transparent" x="81" y="0" width="111" height="47" uuid="8c03c7d1-59ce-4a3e-b107-731138094210"/>
+				<reportElement style="table-th" mode="Transparent" x="107" y="0" width="85" height="47" uuid="8c03c7d1-59ce-4a3e-b107-731138094210"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="DejaVu Sans" size="10"/>
 					<paragraph leftIndent="5"/>
@@ -319,23 +318,26 @@
 	<detail>
 		<band height="40" splitType="Stretch">
 			<rectangle>
+				<reportElement mode="Transparent" x="0" y="0" width="107" height="39" uuid="3bc54923-9c6a-4bbc-b071-67d7a9ecf1a1"/>
+			</rectangle>
+			<rectangle>
 				<reportElement mode="Transparent" x="708" y="0" width="78" height="39" uuid="2d99775a-646f-4357-b1d4-9e6b1e217177"/>
 			</rectangle>
 			<rectangle>
 				<reportElement mode="Transparent" x="358" y="0" width="89" height="39" uuid="95f32bce-eaff-4126-87bb-902735499158"/>
 			</rectangle>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement style="base" x="0" y="0" width="81" height="20" uuid="0339ffa3-8998-4dab-897d-fe28061d4c98"/>
+			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+				<reportElement style="base" x="0" y="0" width="107" height="20" uuid="0339ffa3-8998-4dab-897d-fe28061d4c98"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{started_at}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement style="base" x="0" y="20" width="81" height="20" uuid="edcf261a-fea8-4417-9c52-67d74ff54973"/>
+			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
+				<reportElement style="base" x="0" y="20" width="107" height="20" uuid="edcf261a-fea8-4417-9c52-67d74ff54973"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{stopped_at}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="base" x="81" y="20" width="111" height="20" uuid="ee5f9f81-ece7-485a-aded-f878c5f986e2"/>
+				<reportElement style="base" x="107" y="20" width="85" height="20" uuid="ee5f9f81-ece7-485a-aded-f878c5f986e2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{target_identification}]]></textFieldExpression>
 			</textField>
@@ -361,7 +363,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{worker_name}]]></textFieldExpression>
 			</textField>
-			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
+			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
 				<reportElement style="base" x="192" y="1" width="85" height="16" uuid="fe9ac1c4-f41e-42b1-9d4d-8deffb888e19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{observed_at}]]></textFieldExpression>
@@ -393,10 +395,7 @@
 				<textFieldExpression><![CDATA[$F{quantity}+" "+$F{unit_name}]]></textFieldExpression>
 			</textField>
 			<rectangle>
-				<reportElement mode="Transparent" x="0" y="0" width="81" height="39" uuid="3bc54923-9c6a-4bbc-b071-67d7a9ecf1a1"/>
-			</rectangle>
-			<rectangle>
-				<reportElement mode="Transparent" x="81" y="0" width="111" height="39" uuid="7a34b150-fc8b-451d-bc81-849a41f970ab"/>
+				<reportElement mode="Transparent" x="107" y="0" width="85" height="39" uuid="7a34b150-fc8b-451d-bc81-849a41f970ab"/>
 			</rectangle>
 			<rectangle>
 				<reportElement mode="Transparent" x="192" y="0" width="166" height="39" uuid="fcbd3841-1898-4f14-b865-676de0d0d238"/>
@@ -413,7 +412,7 @@
 				</reportElement>
 			</rectangle>
 			<textField isBlankWhenNull="true" hyperlinkType="Reference" hyperlinkTarget="Blank">
-				<reportElement style="base" x="81" y="0" width="111" height="20" uuid="e52b3426-4c76-46f7-85d6-7239447ab282"/>
+				<reportElement style="base" x="107" y="0" width="85" height="20" uuid="e52b3426-4c76-46f7-85d6-7239447ab282"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{target_name}]]></textFieldExpression>
 				<hyperlinkReferenceExpression><![CDATA["http://www.google.com"]]></hyperlinkReferenceExpression>
