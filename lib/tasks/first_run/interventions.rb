@@ -299,7 +299,7 @@ load_data :interventions do |loader|
         for support in production.supports
           if support.storage.is_a?(AnimalGroup)
             for animal in support.storage.members_at()
-              Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5) do |i|
+              Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5, support: support) do |i|
                 i.add_cast(reference_name: 'animal',           actor: animal)
                 i.add_cast(reference_name: 'caregiver',        actor: i.find(Worker))
                 i.add_cast(reference_name: 'molecule',         actor: i.find(AnimalMedicine, can: "care(bos)"))
