@@ -25,8 +25,8 @@
           <matrix name="interventions" for="intervention" in="Intervention.real.where(state: 'done').of_activities(activity).of_campaign(campaign).order(:started_at)">             
             <cell name="id" of="intervention" level="api"/>
             <cell name="name" of="intervention" of-type="record"/>
-            <cell name="production_support" if="intervention.production_support.storage" value="intervention.production_support.storage.name" of-type="record"/>
-            <cell name="production_support_area_value_in_hectare" if="intervention.production_support.storage" value="intervention.production_support.storage.area.round(2)" level="api"/>
+            <cell name="production_support" if="intervention.production_support and intervention.production_support.storage" value="intervention.production_support.storage.name" of-type="record"/>
+            <cell name="production_support_area_value_in_hectare" if="intervention.production_support and intervention.production_support.storage" value="intervention.production_support.storage.area.round(2)" level="api"/>
             <cell name="started_at" of="intervention" type="datetime"/>
             <cell name="stopped_at" of="intervention" type="datetime"/>
             <cell name="casting" of="intervention" level="api"/>
