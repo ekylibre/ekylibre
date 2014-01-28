@@ -57,7 +57,9 @@ module Backend::ChartsHelper
       if [:legend, :credits].include?(name)
         code << "    options[:#{name}][:enabled] ||= true\n"
       end
-      code << "    html_options['data-highchart-#{absolute_name}'] = options.delete(:#{name}).jsonize_keys.to_json\n"
+      code << "    if options[:#{name}]\n"
+      code << "      html_options['data-highchart-#{absolute_name}'] = options.delete(:#{name}).jsonize_keys.to_json\n"
+      code << "    end\n"
       code << "  end\n"
     end
     code << "  series = [series] unless series.is_a?(Array)\n"
@@ -82,7 +84,9 @@ end
 class ::Array
 
   def jsonize_keys
-    return map(&:jsonize_keys)
+    return map do |v|
+      (v.respond_to?(:jsonize_keys) ? v.jsonize_keys : v)
+    end
   end
 
 end

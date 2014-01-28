@@ -1,14 +1,16 @@
 = main_toolbar do |t|
-  - t.run  @guide, method: :post
-  - t.edit @guide
+  - t.run  resource, method: :post
+  - t.edit resource
 
 = beehive do |b|
-  - b.cell do
-    = attributes_list do |l|
-      - l.attribute :name
-      - l.attribute :active
-      - l.attribute :nature
-      - l.attribute :external
+  - b.hbox do
+    - b.cell do
+      = attributes_list do |l|
+        - l.attribute :name
+        - l.attribute :active
+        - l.attribute :nature
+        - l.attribute :external
+    - b.cell :guide_evolution, params: {id: resource.id}
 
   - b.cell :analyses do
     = list :analyses

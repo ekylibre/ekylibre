@@ -477,6 +477,7 @@ class CreateBase < ActiveRecord::Migration
     create_table :guide_analyses do |t|
       t.references :guide,                                  null: false, index: true
       t.integer    :execution_number,                       null: false
+      t.boolean    :latest,                 default: false, null: false
       t.datetime   :started_at,                             null: false
       t.datetime   :stopped_at,                             null: false
       t.string     :acceptance_status,                      null: false

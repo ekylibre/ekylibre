@@ -1411,6 +1411,9 @@
       <item name="events_cells">
         <page to="backend/cells/events_cells#show"/>
       </item>
+      <item name="guide_evolution_cells">
+        <page to="backend/cells/guide_evolution_cells#show"/>
+      </item>
       <item name="last_purchases_cells">
         <page to="backend/cells/last_purchases_cells#list"/>
         <page to="backend/cells/last_purchases_cells#show"/>

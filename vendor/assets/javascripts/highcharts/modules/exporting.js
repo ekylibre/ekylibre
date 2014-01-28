@@ -1,8 +1,8 @@
 /**
- * @license Highcharts JS v3.0.5 (2013-08-23)
+ * @license Highcharts JS v3.0.9 (2014-01-15)
  * Exporting module
  *
- * (c) 2010-2013 Torstein Hønsi
+ * (c) 2010-2014 Torstein Honsi
  *
  * License: www.highcharts.com/license
  */
@@ -101,6 +101,7 @@ defaultOptions.exporting = {
 	//scale: 2
 	buttons: {
 		contextButton: {
+			menuClassName: PREFIX + 'contextmenu',
 			//x: -10,
 			symbol: 'menu',
 			_titleKey: 'contextButtonTitle',
@@ -157,16 +158,16 @@ defaultOptions.exporting = {
 };
 
 // Add the Highcharts.post utility
-Highcharts.post = function (url, data) {
+Highcharts.post = function (url, data, formAttributes) {
 	var name,
 		form;
 
 	// create the form
-	form = createElement('form', {
+	form = createElement('form', merge({
 		method: 'post',
 		action: url,
 		enctype: 'multipart/form-data'
-	}, {
+	}, formAttributes), {
 		display: NONE
 	}, doc.body);
 
@@ -325,7 +326,7 @@ extend(Chart.prototype, {
 
 	/**
 	 * Submit the SVG representation of the chart to the server
-	 * @param {Object} options Exporting options. Possible members are url, type and width.
+	 * @param {Object} options Exporting options. Possible members are url, type, width and formAttributes.
 	 * @param {Object} chartOptions Additional chart options for the SVG representation of the chart
 	 */
 	exportChart: function (options, chartOptions) {
@@ -355,7 +356,7 @@ extend(Chart.prototype, {
 			width: options.width || 0, // IE8 fails to post undefined correctly, so use 0
 			scale: options.scale || 2,
 			svg: svg
-		});
+		}, options.formAttributes);
 
 	},
 
@@ -414,34 +415,39 @@ extend(Chart.prototype, {
 	/**
 	 * Display a popup menu for choosing the export type
 	 *
-	 * @param {String} name An identifier for the menu
+	 * @param {String} className An identifier for the menu
 	 * @param {Array} items A collection with text and onclicks for the items
 	 * @param {Number} x The x position of the opener button
 	 * @param {Number} y The y position of the opener button
 	 * @param {Number} width The width of the opener button
 	 * @param {Number} height The height of the opener button
 	 */
-	contextMenu: function (name, items, x, y, width, height, button) {
+	contextMenu: function (className, items, x, y, width, height, button) {
 		var chart = this,
 			navOptions = chart.options.navigation,
 			menuItemStyle = navOptions.menuItemStyle,
 			chartWidth = chart.chartWidth,
 			chartHeight = chart.chartHeight,
-			cacheName = 'cache-' + name,
+			cacheName = 'cache-' + className,
 			menu = chart[cacheName],
 			menuPadding = mathMax(width, height), // for mouse leave detection
 			boxShadow = '3px 3px 10px #888',
 			innerMenu,
 			hide,
 			hideTimer,
-			menuStyle;
+			menuStyle,
+			docMouseUpHandler = function (e) {
+				if (!chart.pointer.inClass(e.target, className)) {
+					hide();
+				}
+			};
 
 		// create the menu only the first time
 		if (!menu) {
 
 			// create a HTML element above the SVG
 			chart[cacheName] = menu = createElement(DIV, {
-				className: PREFIX + name
+				className: className
 			}, {
 				position: ABSOLUTE,
 				zIndex: 1000,
@@ -470,6 +476,13 @@ extend(Chart.prototype, {
 			});
 			addEvent(menu, 'mouseenter', function () {
 				clearTimeout(hideTimer);
+			});
+
+
+			// Hide it on clicking or touching outside the menu (#2258, #2335, #2407)
+			addEvent(document, 'mouseup', docMouseUpHandler);
+			addEvent(chart, 'destroy', function () {
+				removeEvent(document, 'mouseup', docMouseUpHandler);
 			});
 
 
@@ -541,13 +554,10 @@ extend(Chart.prototype, {
 				stroke: btnOptions.symbolStroke,
 				fill: btnOptions.symbolFill
 			},
-			symbolSize = btnOptions.symbolSize || 12,
-			menuKey;
-
+			symbolSize = btnOptions.symbolSize || 12;
 		if (!chart.btnCount) {
 			chart.btnCount = 0;
 		}
-		menuKey = chart.btnCount++;
 
 		// Keeps references to the button elements
 		if (!chart.exportDivElements) {
@@ -576,7 +586,7 @@ extend(Chart.prototype, {
 		} else if (menuItems) {
 			callback = function () {
 				chart.contextMenu(
-					'contextmenu',
+					button.menuClassName,
 					menuItems,
 					button.translateX,
 					button.translateY,
@@ -605,6 +615,7 @@ extend(Chart.prototype, {
 				title: chart.options.lang[btnOptions._titleKey],
 				'stroke-linecap': 'round'
 			});
+		button.menuClassName = options.menuClassName || PREFIX + 'menu-' + chart.btnCount++;
 
 		if (btnOptions.symbol) {
 			symbol = renderer.symbol(

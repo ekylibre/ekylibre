@@ -147,6 +147,7 @@
 # - "backend/cells/current_stocks_by_product_nature_cells#show"
 # - "backend/cells/elapsed_interventions_times_by_activities_cells#show"
 # - "backend/cells/events_cells#show"
+# - "backend/cells/guide_evolution_cells#show"
 # - "backend/cells/last_document_archives_cells#list"
 # - "backend/cells/last_document_archives_cells#show"
 # - "backend/cells/last_entities_cells#list"

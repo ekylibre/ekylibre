@@ -27,6 +27,7 @@
 #  execution_number  :integer          not null
 #  guide_id          :integer          not null
 #  id                :integer          not null, primary key
+#  latest            :boolean          not null
 #  lock_version      :integer          default(0), not null
 #  started_at        :datetime         not null
 #  stopped_at        :datetime         not null
@@ -41,6 +42,7 @@
 #   creator: users_001
 #   execution_number: 0
 #   guide: guides_001
+#   latest: true
 #   started_at: 2013-10-26 18:34:04 +02:00
 #   stopped_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001

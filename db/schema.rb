@@ -793,16 +793,17 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "gaps", ["updater_id"], :name => "index_gaps_on_updater_id"
 
   create_table "guide_analyses", force: true do |t|
-    t.integer  "guide_id",                      null: false
-    t.integer  "execution_number",              null: false
-    t.datetime "started_at",                    null: false
-    t.datetime "stopped_at",                    null: false
-    t.string   "acceptance_status",             null: false
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
+    t.integer  "guide_id",                          null: false
+    t.integer  "execution_number",                  null: false
+    t.boolean  "latest",            default: false, null: false
+    t.datetime "started_at",                        null: false
+    t.datetime "stopped_at",                        null: false
+    t.string   "acceptance_status",                 null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",      default: 0, null: false
+    t.integer  "lock_version",      default: 0,     null: false
   end
 
   add_index "guide_analyses", ["created_at"], :name => "index_guide_analyses_on_created_at"

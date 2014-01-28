@@ -757,6 +757,7 @@ fra:
     last_sign_in_at: "Dernière connexion à"
     last_sign_in_ip: "Dernière IP de connexion"
     last_year: "Dernière année"
+    # latest: "Latest"
     letter: "Lettre"
     letter_format: "Devis au format lettre"
     lft: "Limite gauche"

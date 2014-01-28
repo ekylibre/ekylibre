@@ -22,10 +22,11 @@ class Backend::GuidesController < BackendController
 
   unroll
 
-  list do |t|
+  list(order: :name) do |t|
     t.column :name, url: true
     t.column :active
     t.status
+    t.column :stopped_at, through: :last_analysis, label: :checked_at, datatype: :datetime
     t.column :nature
     t.column :external
     t.action :run, method: :post
@@ -43,12 +44,7 @@ class Backend::GuidesController < BackendController
   def run
     return unless @guide = find_and_check
     notify_warning(:implemented_with_dummy_data)
-    statuses = [:passed, :failed, :passed_with_warnings]
-    analysis = @guide.analyses.create!(acceptance_status: statuses.sample, started_at: Time.now - 10, stopped_at: Time.now)
-    (14 * @guide.name.size).times do |i|
-      status = statuses.sample
-      analysis.points.create!(acceptance_status: status, reference_name: "#{@guide.name.parameterize.underscore}_check_#{i}", advice_reference_name: (status.to_s == "failed" ? "do_something" : nil))
-    end
+    @guide.run!
     redirect_to action: :show
   end
 

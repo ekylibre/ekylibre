@@ -111,6 +111,12 @@ eng:
         # graduated: "Dégressive"
         # linear: "Linéaire"
         # simplified_linear: "Linéaire simplifiée"
+    guide_analysis:
+      status:
+        # errored: "Erroné"
+        # failed: "Échoué"
+        # passed: "Passé"
+        # passed_with_warnings: "Passé avec remarques"
     immatter: #?
     indicator_datum: #?
     intervention:

@@ -27,6 +27,7 @@
 #  execution_number  :integer          not null
 #  guide_id          :integer          not null
 #  id                :integer          not null, primary key
+#  latest            :boolean          not null
 #  lock_version      :integer          default(0), not null
 #  started_at        :datetime         not null
 #  stopped_at        :datetime         not null

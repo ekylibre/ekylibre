@@ -41,9 +41,9 @@
 
 class Guide < Ekylibre::Record::Base
   has_many :analyses, class_name: "GuideAnalysis"
-  has_one :last_analysis, -> { order(execution_number: :desc) }, class_name: "GuideAnalysis"
+  has_one :last_analysis, -> { where(latest: true) }, class_name: "GuideAnalysis"
   enumerize :nature, in: Nomen::GuideNatures.all
-  enumerize :frequency, in: [:hourly, :daily, :weekly, :monthly, :yearly, :decadely, :none]
+  enumerize :frequency, in: [:hourly, :daily, :weekly, :monthly, :yearly, :decadely, :none], default: :none
   enumerize :reference_name, in: []
 
   has_attached_file :reference_source, path: ':rails_root/private/guides/:id/source.xml'
@@ -61,6 +61,16 @@ class Guide < Ekylibre::Record::Base
 
   def status
     self.last_analysis ? self.last_analysis_status : :undefined
+  end
+
+  def run!(started_at = Time.now)
+    statuses = [:passed, :passed_with_warnings, :failed]
+    global_status = statuses.sample
+    analysis = self.analyses.create!(acceptance_status: global_status, started_at: started_at, stopped_at: started_at + 10)
+    (14 * self.name.size).times do |i|
+      status = statuses[0..(statuses.index(global_status))].sample
+      analysis.points.create!(acceptance_status: status, reference_name: "#{self.name.parameterize.underscore}_check_#{i}", advice_reference_name: (status.to_s == "failed" ? "do_something" : nil))
+    end
   end
 
 end

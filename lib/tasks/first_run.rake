@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 module Ekylibre
-  LOADERS = [:general_ledger, :entities, :buildings, :products, :animals, :land_parcels, :productions, :analyses, :sales, :deliveries, :interventions]
+  LOADERS = [:general_ledger, :entities, :buildings, :products, :animals, :land_parcels, :productions, :analyses, :sales, :deliveries, :interventions, :guides]
   LOADERS_OPERATIONS = [:buildings, :products, :land_parcels, :productions, :deliveries, :interventions]
 
   MAX = -1
@@ -43,7 +43,7 @@ module Ekylibre
       STDOUT.sync = true
       f = Counter.new(@max)
       start = Time.now
-      label_size = options[:label_size] || 32
+      label_size = options[:label_size] || 20
       label = name.to_s.humanize.rjust(label_size)
       if label.size > label_size
         first = ((label_size - 3).to_f / 2).round

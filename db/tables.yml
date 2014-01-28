@@ -552,6 +552,7 @@ guide_analyses:
   execution_number: {type: integer, required: true}
   guide_id: {type: integer, references: guide, required: true}
   id: {type: integer, required: true}
+  latest: {type: boolean, required: true, default: false}
   lock_version: {type: integer, required: true, default: 0}
   started_at: {type: datetime, required: true}
   stopped_at: {type: datetime, required: true}
