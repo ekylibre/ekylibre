@@ -1710,6 +1710,7 @@ fra:
     to_deliver: "Livrer"
     to_deposit: "À encaisser"
     today: "Aujourd’hui"
+    tool_evaluated_cost: "Coût outils"
     tools: "Outils"
     tools_list: "Liste d’outils"
     total: "Total"

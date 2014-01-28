@@ -1812,7 +1812,7 @@ fra:
         milk_production: "Production laitière"             # animal_production
         oviparous_birth: "Reproduction (ovipare)"
         plant_fertilisation: "Fertilisation"
-        plant_illness_treatment: "Traitements phytosanitaires"
+        plant_illness_treatment: "Protection des cultures"
         plowing: "Labour"                                  # tillage
         # pruning: "Pruning"
         raking: "Hersage"                                  # tillage

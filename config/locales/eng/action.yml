@@ -1696,6 +1696,7 @@ eng:
     to_deliver: "To deliver"
     to_deposit: "To deposit"
     today: "Today"
+    # tool_evaluated_cost: "Coût outils"
     tool_update: "Update tool" #?
     tools: "Tools"
     tools_list: "Tools"

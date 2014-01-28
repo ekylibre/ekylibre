@@ -1,14 +1,13 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="partial_chemical_treatment" natures="plant_illness_treatment" version="0.0" status="frozen">
+  <procedure name="spraying_on_cultivation" natures="plant_illness_treatment" version="0.0" status="frozen">
     <variables>
       <variable name="driver" variety="worker" roles="plant_illness_treatment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="catch(sprayer)" roles="plant_illness_treatment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="molecule" variety="plant_medicine"/>
       <variable name="molecule_to_spray" new="parted-from: molecule" roles="plant_illness_treatment-input"/>
-      <variable name="sprayer" variety="equipment" abilities="spray" roles="plant_illness_treatment-tool"/>
-      <variable name="cultivation" variety="plant"/>
-      <variable name="cultivation_to_target" new="parted-from: cultivation" roles="plant_illness_treatment-target"/>
+      <variable name="sprayer" abilities="spray" roles="plant_illness_treatment-tool"/>
+      <variable name="cultivation" variety="plant" roles="plant_illness_treatment-target"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
@@ -24,7 +23,7 @@
         <task do="[tractor] moves at [molecule]"/><!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
       </operation>
       <operation id="500" duration="1 minutes">
-        <task do="[molecule] parts-with [molecule_to_spray]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
+        <task do="[molecule] parts with [molecule_to_spray]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
       </operation>
       <operation id="600" duration="4 minutes">
         <task do="[molecule_to_spray] moves in [sprayer]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
