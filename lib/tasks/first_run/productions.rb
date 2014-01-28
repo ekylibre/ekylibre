@@ -76,7 +76,7 @@ load_data :productions do |loader|
             # or create it
             pro ||= activity.productions.create!(:variant_id => product_nature_variant_sup.id, :campaign_id => campaign.id, :static_support => true)
             # create a support for this production
-            support = pro.supports.create!(:storage_id => product_support.id)
+            support = pro.supports.create!(:storage_id => product_support.id, :started_at => Date.civil(campaign.harvest_year - 1, 10, 1),:stopped_at => Date.civil(campaign.harvest_year , 9, 30))
             if product_support.is_a?(CultivableZone)
               # create markers for yield and nitrogen
               if !r.provisional_grain_yield.nil?

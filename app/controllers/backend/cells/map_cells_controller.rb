@@ -28,11 +28,11 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           support:    support.name,
           the_geom:   (support.shape ? support.shape_as_ewkt : nil),
           variant:    support.production.variant.name,
-          tool_cost:  support.tool_cost.round(2),
-          input_cost: support.input_cost.round(2),
-          time_cost:  support.time_cost.round(2),
-          nitrogen_balance: support.nitrogen_balance.round(2),
-          provisional_nitrogen_input: support.provisional_nitrogen_input.round(2)
+          tool_cost:  support.tool_cost.to_f,
+          input_cost: support.input_cost.to_f,
+          time_cost:  support.time_cost.to_f,
+          nitrogen_balance: support.nitrogen_balance.to_f,
+          provisional_nitrogen_input: support.provisional_nitrogen_input.to_f
         }
         data << line
       end
@@ -55,7 +55,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
       conn = CartoDBConnection.new(@cooperative_config[:account], @cooperative_config[:key])
       data = []
       company = @cooperative_config[:member]
-      activities = Activity.all #where(family: :vine_wine)
+      activities = Activity.of_families(:vegetal_crops)
       Intervention.includes(:production, :production_support, :issue, :recommender, :activity, :campaign, :storage).of_activities(activities).find_each do |intervention|
         line = {
           company: company,
@@ -66,11 +66,11 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           intervention_recommender_name: (intervention.recommended ? intervention.recommender.name : nil),
           intervention_name:    intervention.name,
           intervention_start_time:    intervention.start_time,
-          intervention_duration:    intervention.duration.round(2),
+          intervention_duration:    intervention.duration.to_f,
           the_geom:   (intervention.storage.shape ? intervention.storage.shape_as_ewkt : nil),
-          tool_cost:  intervention.cost(:tool).round(2),
-          input_cost: intervention.cost(:input).round(2),
-          time_cost:  intervention.cost(:doer).round(2)
+          tool_cost:  intervention.cost(:tool).to_f,
+          input_cost: intervention.cost(:input).to_f,
+          time_cost:  intervention.cost(:doer).to_f
         }
         data << line
       end
