@@ -136,6 +136,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <!-- OTHER CROP --> 
       <item name="pea_crop"
             nature="cereal_crop"
             variety="pisum"
@@ -154,6 +155,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <!-- CORN CROP --> 
       <item name="corn_crop"
             nature="cereal_crop"
             variety="zea"
@@ -196,6 +198,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+       <!-- MEADOW CROP --> 
       <item name="permanent_meadow_crop"
             nature="crop"
             variety="poa"
@@ -226,6 +229,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+       <!-- TREE CROP --> 
       <item name="plum_crop"
             nature="fruit_crop"
             variety="prunus"
@@ -238,6 +242,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <!-- VINE CROP --> 
       <item name="vine_grape_crop"
             nature="wine_crop"
             variety="vitis_vinifera"
@@ -938,7 +943,13 @@
             nature="implanter"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
-            />  
+            />
+      <!-- EQUIPMENT FOR WINE -->
+       <item name="wine_tank"
+            nature="wine_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="spreader_trailer"
             nature="spreader_trailer"
             unit_name="equipment"
@@ -991,6 +1002,11 @@
             />
       <item name="reaper"
             nature="reaper"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="grape_reaper"
+            nature="grape_reaper"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />

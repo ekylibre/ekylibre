@@ -10,6 +10,7 @@ fra:
         catch: "Atteler"
         clean: "Nettoyer"
         consume: "Consommer"
+        cut: "Couper"
         drive: "Conduire"
         feed: "Nourrir"
         fertilize: "Fertiliser"
@@ -22,6 +23,7 @@ fra:
         milk: "Traire"
         move: "Se déplacer"
         mow: "Faucher"
+        pick: "Cueillir"
         plow: "Labourer"
         produce: "Produire"
         sow: "Semer"
@@ -33,6 +35,7 @@ fra:
         store_liquid: "Stocker du vrac liquide"
         # superficial_plow: "Superficial plow"
         # swath: "Swath"
+        take_root: "S'enraciner"
         tow: "Tracter"
     accounts:
       name: "Comptes comptables"
@@ -1814,7 +1817,7 @@ fra:
         plant_fertilisation: "Fertilisation"
         plant_illness_treatment: "Protection des cultures"
         plowing: "Labour"                                  # tillage
-        # pruning: "Pruning"
+        pruning: "Taille"
         raking: "Hersage"                                  # tillage
         # soil_cleaning: "Soil cleaning"
         soil_enrichment: "Amendement"
@@ -2036,6 +2039,7 @@ fra:
         gasoline: "Essence"
         goat_milk: "Lait de chèvre"
         granite_arena_land_parcel: "Parcelle de sol sur arène granitique"
+        grape_reaper: "Machine à vendanger"
         grass: "Herbe"
         grass_seed_25: "Semence de prairie sac de 25kg"
         green_compost: "Compost de déchets verts"
@@ -2140,6 +2144,7 @@ fra:
         wheat_straw: "Paille de blé"
         wheat_straw_bales: "Bottes de paille de blé"
         wine: "Vin"
+        wine_tank: "Cuve à vin"
         wine_vinasse: "Vinasse de distillerie"
         winter_barley_crop: "Culture d’orge d’hiver"
         winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
@@ -2197,6 +2202,7 @@ fra:
         gas: "Gaz"
         grain: "Céréale"
         grain_crop: "Culture à graines"
+        grape_reaper: "Machine à vendanger"
         grass: "Herbe"
         hay_rake: "Andaineur"
         herbicide: "Herbicide"
@@ -2235,6 +2241,7 @@ fra:
         usual_vine_seedling: "Plant de vigne traditionnel"
         wine: "Vin"
         wine_crop: "Vigne"
+        wine_tank: "Cuve à vin"
     production_natures:
       name: "Types de production"
       attributes:
@@ -2259,6 +2266,9 @@ fra:
         sunflower: "Tournesol"
         temporary_meadow: "Prairie temporaire"
         triticale: "Triticale"
+        vine: "Vigne"
+        wine_storehouse: "Cave"
+        winery: "Chai"
         winter_barley: "Orge d'hiver"
         winter_hard_wheat: "Blé dur d’hiver"
         winter_soft_wheat: "Blé tendre d’hiver"
@@ -2524,6 +2534,7 @@ fra:
         product: "Produit"
         product_group: "Groupe de produit"                 # product
         property_title: "Titre de propriété"               # immatter
+        pruner: "Sécateur"                                 # equipment
         prunus: "Prunier"                                  # plant
         qualital: "Qualital"                               # triticum_aestivum
         quality: "Quality"                                 # triticum_aestivum

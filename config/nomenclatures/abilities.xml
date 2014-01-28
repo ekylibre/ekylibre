@@ -29,10 +29,12 @@
       <item name="clean"/>
       <item name="sow"/>
       <item name="implant"/>
+      <item name="take_root"/>
       <item name="mow"/>
       <item name="bunch"/>
       <item name="swath"/>
       <item name="harvest" parameters="variety"/>
+      <item name="pick" parameters="variety"/>
       <item name="move"/>
       <item name="store" parameters="variety"/>
       <item name="store_fluid"/>
@@ -40,6 +42,7 @@
       <item name="store_gaz"/>
       <item name="milk" parameters="variety"/>
       <item name="tow" parameters="variety"/>
+      <item name="cut"/>
       <!-- @QUID : niveau de compétence (charge 4T , 10T ?)  -->
       <!-- @QUID : compétence liée à un outil (conduire un tracteur, conduire un tracteur + un semoir, conduire une moissonneuse, etc ) -->
     </items>

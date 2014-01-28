@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="mecanical_vine_harvest" natures="harvest" version="0.0" status="frozen">
+    <variables>
+      <variable name="grape_reaper_driver" variety="worker" abilities="drive(reaper)" roles="harvest-doer"/>
+      <variable name="grape_reaper" variety="reaper" abilities="harvest(vitis)" roles="harvest-tool"/>
+      <variable name="tank" variety="tank" abilities="store_liquid" roles="harvest-tool"/>
+      <variable name="cultivation" variety="vitis" abilities="produce(fruit)" roles="harvest-target"/>
+      <variable name="fruits" variety="fruit" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output"/>
+    </variables>
+    <operations>
+      <operation id="100" duration="4 minutes">
+        <task do="[grape_reaper_driver] moves in [grape_reaper]"/>
+      </operation>
+      <operation id="200" duration="18 minutes">
+        <task do="[grape_reaper] moves at [cultivation]"/>
+      </operation>
+      <operation id="300">
+        <task do="[cultivation] produces [fruits]"/>
+        <task do="[fruits] moves in [grape_reaper]"/> 
+      </operation>
+      <operation id="400" duration="4 minutes">
+        <task do="[grape_reaper] moves at [tank]"/>
+        <task do="[fruits] moves in [tank]"/>
+      </operation>
+      <operation id="500" duration="18 minutes">
+        <task do="[grape_reaper] moves in default storage"/>
+      </operation>        
+      <operation id="600" duration="4 minutes">
+        <task do="[grape_reaper_driver] moves in default storage"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>
