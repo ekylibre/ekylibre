@@ -118,6 +118,7 @@ arb:
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_product_nature_cells: #?
+    backend/cells/current_stocks_by_variety_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -1167,7 +1168,7 @@ arb:
     # currency_with_code: "%{code} - %{name}"
     current: "الحالية"
     current_letter: "البيانات الحالية : %{letter}"
-    # current_stocks_by_product_nature: "État des stocks"
+    # current_stocks_by_variety: "État des stocks"
     custom_field_choice_create: "اضافة خيار جديد للقائمة" #?
     custom_field_create: "انشاء حقل مخصص جديد" #?
     custom_field_sort: "تفريزة الخيارات حسب الاسم" #?

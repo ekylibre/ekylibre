@@ -90,6 +90,11 @@ for file in Dir[config.join("locales", "*", "action.yml")].sort
       tr[locale]["unroll"]["backend/cells/#{new_cell}"] = tr[locale]["unroll"].delete("backend/cells/#{old_cell}")
     end
   end
+  if tr[locale]["labels"]
+    if tr[locale]["labels"][old_cell.gsub(/_cells/, '')]
+      tr[locale]["labels"][new_cell.gsub(/_cells/, '')] = tr[locale]["labels"].delete(old_cell.gsub(/_cells/, ''))
+    end
+  end
   
   code = tr.to_yaml
   
@@ -120,6 +125,7 @@ File.open(nf, "rb") do |f|
 end
 unless @simulate
   source.gsub!(/(\"backend\/cells\/)#{old_cell}(\#)/, '\1' + new_cell + '\2')
+  source.gsub!(/(\")#{old_cell}(\")/, '\1' + new_cell + '\2')
   File.open(nf, "wb") do |f|
     f.write source
   end
@@ -178,7 +184,7 @@ end
 
 # General replacing
 print "replace "
-for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.yml")]
+for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.haml")] + Dir[app.join("**", "*.yml")]
   source = nil
   File.open(file, "rb") do |f|
     source = f.read
@@ -200,7 +206,7 @@ for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.yml")]
   ns.gsub!(/(list[\(\ ]+):#{old_cell}\s*(\)|\,|$)/, '\1:' + new_cell + '\2')
   ns.gsub!(/(list[\(\ ]+):#{old_cell.singularize}\s*(\)|\,|$)/, '\1:' + new_cell.singularize + '\2')
 
-  ns.gsub!(/cell\ *:#{old_cell}(\W)/, 'cell :' + new_cell + '\1')
+  ns.gsub!(/cell\ *:#{old_cell.gsub(/_cells\z/, '')}(\W)/, 'cell :' + new_cell.gsub(/_cells\z/, '') + '\1')
 
   ns.gsub!(/^(\ +)(search\_for)/, '\1# \2')
   # ns.gsub!(/(search\_for[\(\ ]+:[a-z\_]+\ *\,)\ *#{old_cell}\s*(\)|\,|$)/, '\1 ' + new_cell + '\2')

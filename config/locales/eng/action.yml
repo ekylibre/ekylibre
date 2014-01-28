@@ -117,6 +117,7 @@ eng:
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_product_nature_cells: #?
+    backend/cells/current_stocks_by_variety_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -1048,7 +1049,7 @@ eng:
     currency_with_code: "%{name} (%{code})"
     current: "Current"
     current_letter: "Current letter\_: %{letter}"
-    # current_stocks_by_product_nature: "État des stocks"
+    # current_stocks_by_variety: "État des stocks"
     custom_field_update: "Custom field update" #?
     data_to_export: "Data to export"
     data_to_extract: "Data to extract"
