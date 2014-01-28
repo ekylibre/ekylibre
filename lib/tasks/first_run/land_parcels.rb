@@ -153,7 +153,7 @@ load_data :land_parcels do |loader|
                            :land_parcel_shape => row[5],
                            :land_parcel_variant_nomen => row[6].blank? ? nil : row[6].to_sym,
                            :land_parcel_available_water_capacity => row[7].blank? ? nil : row[7].to_d,
-                           born_at: Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
+                           born_at: Time.new(1955, 1, 1, 10, 0, 0, "+00:00")
                            )
 
         if land_parcel_cluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
@@ -210,7 +210,7 @@ load_data :land_parcels do |loader|
                            :land_parcel_member_area => row[5].blank? ? nil : row[5].to_d,
                            :cultivable_zone_shape => row[6].blank? ? nil : row[6],
                            :land_parcel_member_shape => row[7].blank? ? nil : row[7],
-                           born_at: Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
+                           born_at: Time.new(1955, 1, 1, 10, 0, 0, "+00:00")
                            )
 
         cultivable_zone = CultivableZone.find_by_work_number(r.zone_cultural_work_number)
