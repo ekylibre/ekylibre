@@ -973,6 +973,7 @@ eng:
     changes_reflected: "Reflected changes"
     check: "Check"
     check_fields: "You have to check at least one box in order to update"
+    # checked_at: "Vérifié le"
     # children: "Descendance"
     childrens: "Childrens"
     # choice_options: "Indicateur avec liste de choix"

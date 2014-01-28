@@ -995,6 +995,7 @@ spa:
     # changes_reflected: "Changements répercutés"
     # check: "Vérifier"
     # check_fields: "Vous devez cocher au moins une case pour effectuer la modification"
+    # checked_at: "Vérifié le"
     # children: "Descendance"
     # childrens: "Enfants"
     # choice_options: "Indicateur avec liste de choix"
