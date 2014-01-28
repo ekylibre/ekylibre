@@ -3,7 +3,7 @@
 
   <nomenclature name="procedure_natures" hierarchical="true">
     <attributes>
-      <attribute name="roles" type="list" choices="input, output, target, doer, tool, origin" required="false"/>
+      <attribute name="roles" type="list" nomenclature="procedure_roles" required="false"/>
     </attributes>
     <items>
       <item name="animal_feeding" roles="input, target, doer"/>

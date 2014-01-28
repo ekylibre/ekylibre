@@ -1,6 +1,6 @@
 /**
  * Highcharts Drilldown plugin
- * 
+ *
  * Author: Torstein Honsi
  * License: MIT License
  *
@@ -44,19 +44,19 @@
 			cursor: 'pointer',
 			color: '#0d233a',
 			fontWeight: 'bold',
-			textDecoration: 'underline'			
+			textDecoration: 'underline'
 		},
 		activeDataLabelStyle: {
 			cursor: 'pointer',
 			color: '#0d233a',
 			fontWeight: 'bold',
-			textDecoration: 'underline'			
+			textDecoration: 'underline'
 		},
 		animation: {
 			duration: 500
 		},
 		drillUpButton: {
-			position: { 
+			position: {
 				align: 'right',
 				x: -10,
 				y: 10
@@ -64,7 +64,7 @@
 			// relativeTo: 'plotBox'
 			// theme
 		}
-	};	
+	};
 
 	/**
 	 * A general fadeIn method
@@ -93,12 +93,12 @@
 			color = point.color || oldSeries.color,
 			pointIndex,
 			level;
-			
+
 		ddOptions = extend({
 			color: color
 		}, ddOptions);
 		pointIndex = inArray(point, oldSeries.points);
-		
+
 		level = {
 			seriesOptions: oldSeries.userOptions,
 			shapeArgs: point.shapeArgs,
@@ -129,9 +129,9 @@
 			newSeries.animate = newSeries.animateDrilldown || noop;
 			newSeries.options.animation = true;
 		}
-		
+
 		oldSeries.remove(false);
-		
+
 		this.redraw();
 		this.showDrillUpButton();
 	};
@@ -149,20 +149,20 @@
 			buttonOptions = chart.options.drilldown.drillUpButton,
 			attr,
 			states;
-			
+
 
 		if (!this.drillUpButton) {
 			attr = buttonOptions.theme;
 			states = attr && attr.states;
-						
+
 			this.drillUpButton = this.renderer.button(
 				backText,
 				null,
 				null,
 				function () {
-					chart.drillUp(); 
+					chart.drillUp();
 				},
-				attr, 
+				attr,
 				states && states.hover,
 				states && states.select
 			)
@@ -186,7 +186,7 @@
 			oldSeries = chart.series[0],
 			oldExtremes = level.oldExtremes,
 			newSeries = chart.addSeries(level.seriesOptions, false);
-		
+
 		fireEvent(chart, 'drillup', { seriesOptions: level.seriesOptions });
 
 		if (newSeries.type === oldSeries.type) {
@@ -258,7 +258,7 @@
 	 * When drilling up, keep the upper series invisible until the lower series has
 	 * moved into place
 	 */
-	PieSeries.prototype.animateDrillupTo = 
+	PieSeries.prototype.animateDrillupTo =
 			ColumnSeries.prototype.animateDrillupTo = function (init) {
 		if (!init) {
 			var newSeries = this,
@@ -277,8 +277,8 @@
 
 			// Do dummy animation on first point to get to complete
 			setTimeout(function () {
-				each(newSeries.points, function (point, i) {  
-					// Fade in other points			  
+				each(newSeries.points, function (point, i) {
+					// Fade in other points
 					var verb = i === level.pointIndex ? 'show' : 'fadeIn';
 					point.graphic[verb]();
 					if (point.dataLabel) {
@@ -295,15 +295,15 @@
 		}
 
 	};
-	
+
 	ColumnSeries.prototype.animateDrilldown = function (init) {
 		var animateFrom = this.chart.drilldownLevels[this.chart.drilldownLevels.length - 1].shapeArgs,
 			animationOptions = this.chart.options.drilldown.animation;
-			
+
 		if (!init) {
 
 			animateFrom.x += (this.xAxis.oldPos - this.xAxis.pos);
-	
+
 			each(this.points, function (point) {
 				point.graphic
 					.attr(animateFrom)
@@ -313,14 +313,14 @@
 				}
 			});
 		}
-		
+
 	};
 
 	/**
 	 * When drilling up, pull out the individual point graphics from the lower series
 	 * and animate them into the origin point in the upper series.
 	 */
-	ColumnSeries.prototype.animateDrillupFrom = 
+	ColumnSeries.prototype.animateDrillupFrom =
 		PieSeries.prototype.animateDrillupFrom =
 	function (level) {
 		var animationOptions = this.chart.options.drilldown.animation,
@@ -353,46 +353,46 @@
 			/*jslint unparam: false*/
 		});
 	};
-	
+
 	H.Point.prototype.doDrilldown = function () {
 		var series = this.series,
 			chart = series.chart,
 			drilldown = chart.options.drilldown,
 			i = (drilldown.series || []).length,
 			seriesOptions;
-		
+
 		while (i-- && !seriesOptions) {
 			if (drilldown.series[i].id === this.drilldown) {
 				seriesOptions = drilldown.series[i];
 			}
 		}
 
-		// Fire the event. If seriesOptions is undefined, the implementer can check for 
+		// Fire the event. If seriesOptions is undefined, the implementer can check for
 		// seriesOptions, and call addSeriesAsDrilldown async if necessary.
-		fireEvent(chart, 'drilldown', { 
+		fireEvent(chart, 'drilldown', {
 			point: this,
 			seriesOptions: seriesOptions
 		});
-		
+
 		if (seriesOptions) {
 			chart.addSeriesAsDrilldown(this, seriesOptions);
 		}
 
 	};
-	
+
 	wrap(H.Point.prototype, 'init', function (proceed, series, options, x) {
 		var point = proceed.call(this, series, options, x),
 			chart = series.chart,
 			tick = series.xAxis && series.xAxis.ticks[x],
 			tickLabel = tick && tick.label;
-		
+
 		if (point.drilldown) {
-			
+
 			// Add the click event to the point label
 			H.addEvent(point, 'click', function () {
 				point.doDrilldown();
 			});
-			
+
 			// Make axis labels clickable
 			if (tickLabel) {
 				if (!tickLabel._basicStyle) {
@@ -406,12 +406,12 @@
 							point.doDrilldown();
 						}
 					});
-					
+
 			}
 		} else if (tickLabel && tickLabel._basicStyle) {
 			tickLabel.element.setAttribute('style', tickLabel._basicStyle);
 		}
-		
+
 		return point;
 	});
 
@@ -434,10 +434,10 @@
 		});
 	});
 
-	// Mark the trackers with a pointer 
+	// Mark the trackers with a pointer
 	ColumnSeries.prototype.supportsDrilldown = true;
 	PieSeries.prototype.supportsDrilldown = true;
-	var type, 
+	var type,
 		drawTrackerWrapper = function (proceed) {
 			proceed.call(this);
 			each(this.points, function (point) {
@@ -455,5 +455,5 @@
 			wrap(seriesTypes[type].prototype, 'drawTracker', drawTrackerWrapper);
 		}
 	}
-		
+
 }(Highcharts));

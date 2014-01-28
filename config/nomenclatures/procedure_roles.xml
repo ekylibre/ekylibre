@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="roles">
+  <nomenclature name="procedure_roles">
     <items>
       <item name="target"/>
       <item name="tool"/>
       <item name="input"/>
       <item name="output"/>
-      <item name="driver"/>
-      <item name="gardener"/>
+      <item name="doer"/>
+      <item name="origin"/> <!-- ? -->
     </items>
   </nomenclature>
 </nomenclatures>

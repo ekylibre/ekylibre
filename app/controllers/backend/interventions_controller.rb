@@ -59,9 +59,9 @@ class Backend::InterventionsController < BackendController
   # SHOW
 
   list(:casts, model: :intervention_casts, conditions: {intervention_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
-    t.column :reference_name
+    t.column :name, sort: :reference_name
     t.column :actor, url: true
-    t.column :roles
+    t.column :human_roles, sort: :roles, label: :roles
     t.column :population
     t.column :unit_name, through: :variant
     t.column :variant, url: true

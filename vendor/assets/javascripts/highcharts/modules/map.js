@@ -18,7 +18,7 @@
 		Series = H.Series,
 		SVGRenderer = H.SVGRenderer,
 		VMLRenderer = H.VMLRenderer,
-		
+
 		symbols = SVGRenderer.prototype.symbols,
 		each = H.each,
 		extend = H.extend,
@@ -95,7 +95,7 @@
 		// enableDoubleClickZoomTo: false
 		// enableMouseWheelZoom: null, // inherit from enabled
 	};
-	
+
 	/**
 	 * Utility for reading SVG paths directly.
 	 */
@@ -106,10 +106,10 @@
 		path = path.replace(/([A-Za-z])/g, ' $1 ');
 		// Trim
 		path = path.replace(/^\s*/, "").replace(/\s*$/, "");
-		
+
 		// Split on spaces and commas
 		path = path.split(/[ ,]+/);
-		
+
 		// Parse numbers
 		for (i = 0; i < path.length; i++) {
 			if (!/[a-zA-Z]/.test(path[i])) {
@@ -121,7 +121,7 @@
 
 	// A placeholder for map definitions
 	H.maps = {};
-	
+
 	/**
 	 * Override to use the extreme coordinates from the SVG shape, not the
 	 * data values
@@ -156,7 +156,7 @@
 					series.xData = xData[i]; // Reset xData array
 				}
 			});
-			
+
 			this.dataMin = dataMin;
 			this.dataMax = dataMax;
 		}
@@ -175,18 +175,18 @@
 			fixTo,
 			fixDiff;
 
-		
+
 		// Run the parent method
 		proceed.call(this);
-		
+
 		// On Y axis, handle both
 		if (chart.options.chart.preserveAspectRatio && this.coll === 'yAxis' && xAxis.transA !== UNDEFINED) {
-			
+
 			// Use the same translation for both axes
 			this.transA = xAxis.transA = Math.min(this.transA, xAxis.transA);
-			
+
 			mapRatio = chart.mapRatio = plotRatio / ((xAxis.max - xAxis.min) / (this.max - this.min));
-			
+
 			// What axis to pad to put the map in the middle
 			padAxis = mapRatio < 1 ? this : xAxis;
 
@@ -203,7 +203,7 @@
 					fixDiff = 0;
 				}
 				padAxis.minPixelPadding -= fixDiff;
-				
+
 			}
 		}
 	});
@@ -236,7 +236,7 @@
 					0.5,
 					chart.xAxis[0].toValue(e.chartX),
 					chart.yAxis[0].toValue(e.chartY),
-					e.chartX, 
+					e.chartX,
 					e.chartY
 				);
 			}
@@ -264,7 +264,7 @@
 			}
 		}
 	});
-	
+
 	// Implement the pinchType option
 	wrap(Pointer.prototype, 'init', function (proceed, chart, options) {
 
@@ -272,7 +272,7 @@
 
 		// Pinch status
 		if (pick(options.mapNavigation.enableTouchZoom, options.mapNavigation.enabled)) {
-			this.pinchX = this.pinchHor = 
+			this.pinchX = this.pinchHor =
 				this.pinchY = this.pinchVert = true;
 		}
 	});
@@ -287,13 +287,13 @@
 		if (this.chart.options.chart.type === 'map') {
 			xBigger = transform.scaleX > transform.scaleY;
 			this.pinchTranslateDirection(
-				!xBigger, 
-				pinchDown, 
-				touches, 
-				transform, 
-				selectionMarker, 
-				clip, 
-				lastValidTouch, 
+				!xBigger,
+				pinchDown,
+				touches,
+				transform,
+				selectionMarker,
+				clip,
+				lastValidTouch,
 				xBigger ? transform.scaleX : transform.scaleY
 			);
 		}
@@ -423,7 +423,7 @@
 			}
 		},
 
-		/** 
+		/**
 		 * Translate from a value to a color
 		 */
 		toColor: function (value, point) {
@@ -448,7 +448,7 @@
 							point.dataClass = i;
 						}
 						break;
-					}	
+					}
 				}
 
 			} else {
@@ -468,9 +468,9 @@
 
 				// The position within the gradient
 				pos = 1 - (to[0] - pos) / ((to[0] - from[0]) || 1);
-				
+
 				color = tweenColors(
-					from.color, 
+					from.color,
 					to.color,
 					pos
 				);
@@ -483,7 +483,7 @@
 			if (group) {
 
 				Axis.prototype.getOffset.call(this);
-				
+
 				if (!this.axisGroup.parentGroup) {
 
 					// Move the axis elements inside the legend group
@@ -504,7 +504,7 @@
 				horiz = this.horiz,
 				options = this.options;
 
-			grad = horiz ? [0, 0, 1, 0] : [0, 0, 0, 1]; 
+			grad = horiz ? [0, 0, 1, 0] : [0, 0, 0, 1];
 			this.legendColor = {
 				linearGradient: { x1: grad[0], y1: grad[1], x2: grad[2], y2: grad[3] },
 				stops: options.stops || [
@@ -564,7 +564,7 @@
 				crossPos,
 				axisPos = this.pos,
 				axisLen = this.len;
-			
+
 			if (point) {
 				crossPos = this.toPixels(point.value);
 				if (crossPos < axisPos) {
@@ -572,13 +572,13 @@
 				} else if (crossPos > axisPos + axisLen) {
 					crossPos = axisPos + axisLen + 2;
 				}
-				
+
 				point.plotX = crossPos;
 				point.plotY = this.len - crossPos;
 				Axis.prototype.drawCrosshair.call(this, e, point);
 				point.plotX = plotX;
 				point.plotY = plotY;
-				
+
 				if (!newCross && this.cross) {
 					this.cross
 						.attr({
@@ -590,8 +590,8 @@
 		},
 		getPlotLinePath: function (a, b, c, d, pos) {
 			if (pos) { // crosshairs only
-				return this.horiz ? 
-					['M', pos - 4, this.top - 6, 'L', pos + 4, this.top - 6, pos, this.top, 'Z'] : 
+				return this.horiz ?
+					['M', pos - 4, this.top - 6, 'L', pos + 4, this.top - 6, pos, this.top, 'Z'] :
 					['M', this.left, pos, 'L', this.left - 6, pos + 6, this.left - 6, pos - 6, 'Z'];
 			} else {
 				return Axis.prototype.getPlotLinePath.call(this, a, b, c, d);
@@ -622,7 +622,7 @@
 				var vis = true,
 					from = dataClass.from,
 					to = dataClass.to;
-				
+
 				// Assemble the default name. This can be overridden by legend.options.labelFormatter
 				name = '';
 				if (from === UNDEFINED) {
@@ -639,7 +639,7 @@
 				if (to !== UNDEFINED) {
 					name += numberFormat(to, valueDecimals) + valueSuffix;
 				}
-				
+
 				// Add a mock object to the legend items
 				legendItems.push(H.extend({
 					chart: chart,
@@ -657,7 +657,7 @@
 								}
 							});
 						});
-						
+
 						chart.legend.colorizeItem(this, vis);
 					}
 				}, dataClass));
@@ -667,7 +667,7 @@
 	});
 
 	/**
-	 * Wrap the legend getAllItems method to add the color axis. This also removes the 
+	 * Wrap the legend getAllItems method to add the color axis. This also removes the
 	 * axis' own series to prevent them from showing up individually.
 	 */
 	wrap(Legend.prototype, 'getAllItems', function (proceed) {
@@ -706,8 +706,8 @@
 				buttonOptions,
 				attr,
 				states,
-				outerHandler = function () { 
-					this.handler.call(chart); 
+				outerHandler = function () {
+					this.handler.call(chart);
 				};
 
 			if (pick(options.enableButtons, options.enabled) && !chart.renderer.forExport) {
@@ -717,14 +717,14 @@
 						attr = buttonOptions.theme;
 						states = attr.states;
 						button = chart.renderer.button(
-								buttonOptions.text, 
-								0, 
-								0, 
-								outerHandler, 
-								attr, 
+								buttonOptions.text,
+								0,
+								0,
+								outerHandler,
+								attr,
 								states && states.hover,
-								states && states.select, 
-								0, 
+								states && states.select,
+								0,
 								n === 'zoomIn' ? 'topbutton' : 'bottombutton'
 							)
 							.attr({
@@ -767,7 +767,7 @@
 					inner[pos] = outer[pos];
 				}
 			});
-			
+
 
 			return inner;
 		},
@@ -824,7 +824,7 @@
 				xAxis.setExtremes(undefined, undefined, false);
 				yAxis.setExtremes(undefined, undefined, false);
 			}
-			
+
 			// Prevent zooming until this one is finished animating
 			/*delay = animation ? animation.duration || 500 : 0;
 			if (delay) {
@@ -887,7 +887,7 @@
 	});
 
 
-	
+
 	/**
 	 * Extend the default options with map options
 	 */
@@ -934,10 +934,10 @@
 				mapPoint;
 
 			if (seriesOptions.mapData) {
-				mapPoint = joinBy ? 
+				mapPoint = joinBy ?
 					series.getMapData(joinBy, point[joinBy]) : // Join by a string
 					seriesOptions.mapData[point.x]; // Use array position (faster)
-					
+
 				if (mapPoint) {
 					// This applies only to bubbles
 					if (series.xyFromShape) {
@@ -949,7 +949,7 @@
 					point.value = point.value || null;
 				}
 			}
-			
+
 			return point;
 		},
 
@@ -969,7 +969,7 @@
 		},
 
 		/**
-		 * Stop the fade-out 
+		 * Stop the fade-out
 		 */
 		onMouseOver: function (e) {
 			clearTimeout(this.colorInterval);
@@ -1057,12 +1057,12 @@
 		 * Get the bounding box of all paths in the map combined.
 		 */
 		getBox: function (paths) {
-			var maxX = Number.MIN_VALUE, 
-				minX =  Number.MAX_VALUE, 
-				maxY = Number.MIN_VALUE, 
+			var maxX = Number.MIN_VALUE,
+				minX =  Number.MAX_VALUE,
+				maxY = Number.MIN_VALUE,
 				minY =  Number.MAX_VALUE,
 				hasBox;
-			
+
 			// Find the bounding box
 			each(paths || [], function (point) {
 
@@ -1074,9 +1074,9 @@
 					var path = point.path || [],
 						i = path.length,
 						even = false, // while loop reads from the end
-						pointMaxX = Number.MIN_VALUE, 
-						pointMinX =  Number.MAX_VALUE, 
-						pointMaxY = Number.MIN_VALUE, 
+						pointMaxX = Number.MIN_VALUE,
+						pointMinX =  Number.MAX_VALUE,
+						pointMaxY = Number.MIN_VALUE,
 						pointMinY =  Number.MAX_VALUE;
 
 					// The first time a map point is used, analyze its box
@@ -1120,7 +1120,7 @@
 				this.maxX = Math.max(maxX, pick(this.maxX, Number.MIN_VALUE));
 			}
 		},
-		
+
 		getExtremes: function () {
 			// Get the actual value extremes for colors
 			Series.prototype.getExtremes.call(this, this.valueData);
@@ -1137,13 +1137,13 @@
 			this.dataMin = this.minY;
 			this.dataMax = this.maxY;
 		},
-		
+
 		/**
 		 * Translate the path so that it automatically fits into the plot area box
 		 * @param {Object} path
 		 */
 		translatePath: function (path) {
-			
+
 			var series = this,
 				even = false, // while loop reads from the end
 				xAxis = series.xAxis,
@@ -1162,7 +1162,7 @@
 				i = path.length;
 				while (i--) {
 					if (typeof path[i] === 'number') {
-						ret[i] = even ? 
+						ret[i] = even ?
 							(path[i] - xMin) * xTransA + xMinPixelPadding :
 							(path[i] - yMin) * yTransA + yMinPixelPadding;
 						even = !even;
@@ -1174,9 +1174,9 @@
 
 			return ret;
 		},
-		
+
 		/**
-		 * Extend setData to join in mapData. If the allAreas option is true, all areas 
+		 * Extend setData to join in mapData. If the allAreas option is true, all areas
 		 * from the mapData are used, and those that don't correspond to a data value
 		 * are given null values.
 		 */
@@ -1185,7 +1185,7 @@
 				mapData = options.mapData,
 				joinBy = options.joinBy,
 				dataUsed = [];
-			
+
 
 			this.getBox(data);
 			this.getBox(mapData);
@@ -1201,7 +1201,7 @@
 				}
 
 				// Add those map points that don't correspond to data, which will be drawn as null points
-				dataUsed = '|' + dataUsed.join('|') + '|'; // String search is faster than array.indexOf 
+				dataUsed = '|' + dataUsed.join('|') + '|'; // String search is faster than array.indexOf
 				each(mapData, function (mapPoint) {
 					if (!joinBy || dataUsed.indexOf('|' + mapPoint[joinBy] + '|') === -1) {
 						data.push(merge(mapPoint, { value: null }));
@@ -1236,7 +1236,7 @@
 				}
 			}
 		},
-		
+
 		/**
 		 * In choropleth maps, the color is a result of the value, so this needs translation too
 		 */
@@ -1256,18 +1256,18 @@
 				}
 			});
 		},
-		
+
 		/**
 		 * No graph for the map series
 		 */
 		drawGraph: noop,
-		
+
 		/**
-		 * We need the points' bounding boxes in order to draw the data labels, so 
+		 * We need the points' bounding boxes in order to draw the data labels, so
 		 * we skip it now and call it from drawPoints instead.
 		 */
 		drawDataLabels: noop,
-		
+
 		/**
 		 * Add the path option for data points. Find the max value for color calculation.
 		 */
@@ -1275,18 +1275,18 @@
 			var series = this,
 				xAxis = series.xAxis,
 				yAxis = series.yAxis;
-	
+
 			series.generatePoints();
-			
+
 			each(series.data, function (point) {
-			
+
 				// Record the middle point (loosely based on centroid), determined
 				// by the middleX and middleY options.
 				point.plotX = xAxis.toPixels(point._midX, true);
 				point.plotY = yAxis.toPixels(point._midY, true);
 
 				if (series.isDirtyData || series.chart.renderer.isVML) {
-			
+
 					point.shapeType = 'path';
 					point.shapeArgs = {
 						//d: display ? series.translatePath(point.path) : ''
@@ -1295,11 +1295,11 @@
 					};
 				}
 			});
-			
+
 			series.translateColors();
 		},
-		
-		/** 
+
+		/**
 		 * Use the drawPoints method of column, that is able to handle simple shapeArgs.
 		 * Extend it by assigning the tooltip position.
 		 */
@@ -1334,7 +1334,7 @@
 					})
 					.add(group);
 			}
-			
+
 			// Draw the shapes again
 			if (series.isDirtyData || renderer.isVML) {
 
@@ -1343,7 +1343,7 @@
 				seriesTypes.column.prototype.drawPoints.apply(series);
 				series.group = group; // Reset
 
-				// Individual point actions	
+				// Individual point actions
 				each(series.points, function (point) {
 
 					// Reset color on update/redraw
@@ -1364,10 +1364,10 @@
 					translateY = 0;
 					scale = 1;
 
-				} else {	
-					translateX = getTranslate(xAxis, Math.max(1, series.chart.mapRatio)); 
+				} else {
+					translateX = getTranslate(xAxis, Math.max(1, series.chart.mapRatio));
 					translateY = getTranslate(yAxis, 1 / Math.min(1, series.chart.mapRatio));
-				} 
+				}
 
 				this.transformGroup.animate({
 					translateX: translateX,
@@ -1378,10 +1378,10 @@
 
 			}
 
-			
+
 			// Now draw the data labels
 			Series.prototype.drawDataLabels.call(series);
-			
+
 		},
 
 		/**
@@ -1402,7 +1402,7 @@
 		},
 
 		/**
-		 * The initial animation for the map series. By default, animation is disabled. 
+		 * The initial animation for the map series. By default, animation is disabled.
 		 * Animation of map shapes is not at all supported in VML browsers.
 		 */
 		animate: function (init) {
@@ -1421,10 +1421,10 @@
 						duration: 1000
 					};
 				}
-	
+
 				// Initialize the animation
 				if (init) {
-				
+
 					// Scale down the group and place it in the center
 					group.attr({
 						translateX: left + xAxis.len / 2,
@@ -1432,7 +1432,7 @@
 						scaleX: 0.001, // #1499
 						scaleY: 0.001
 					});
-				
+
 				// Run the animation
 				} else {
 					group.animate({
@@ -1441,7 +1441,7 @@
 						scaleX: 1,
 						scaleY: 1
 					}, animation);
-				
+
 					// Delete this function to allow it only once
 					this.animate = null;
 				}
@@ -1458,7 +1458,7 @@
 				fromBox = level.bBox,
 				animationOptions = this.chart.options.drilldown.animation,
 				scale;
-				
+
 			if (!init) {
 
 				scale = Math.min(fromBox.width / toBox.width, fromBox.height / toBox.height);
@@ -1468,7 +1468,7 @@
 					translateX: fromBox.x,
 					translateY: fromBox.y
 				};
-				
+
 				// TODO: Animate this.group instead
 				each(this.points, function (point) {
 
@@ -1485,7 +1485,7 @@
 
 				this.animate = null;
 			}
-			
+
 		},
 
 		drawLegendSymbol: H.LegendSymbolMixin.drawRectangle,
@@ -1566,7 +1566,7 @@
 	// Create symbols for the zoom buttons
 	function selectiveRoundedRect(attr, x, y, w, h, rTopLeft, rTopRight, rBottomRight, rBottomLeft) {
 		var normalize = (attr['stroke-width'] % 2 / 2);
-			
+
 		x -= normalize;
 		y -= normalize;
 
@@ -1605,12 +1605,12 @@
 		});
 	}
 
-	
+
 	/**
 	 * A wrapper for Chart with all the default values for a Map
 	 */
 	H.Map = function (options, callback) {
-		
+
 		var hiddenAxis = {
 				endOnTick: false,
 				gridLineWidth: 0,
@@ -1624,21 +1624,21 @@
 				//gridZIndex: 10
 			},
 			seriesOptions;
-		
+
 		// Don't merge the data
 		seriesOptions = options.series;
 		options.series = null;
-		
+
 		options = merge({
 			chart: {
 				panning: 'xy',
 				type: 'map'
 			},
 			xAxis: hiddenAxis,
-			yAxis: merge(hiddenAxis, { reversed: true })	
+			yAxis: merge(hiddenAxis, { reversed: true })
 		},
 		options, // user's options
-	
+
 		{ // forced options
 			chart: {
 				inverted: false,
@@ -1646,11 +1646,11 @@
 				preserveAspectRatio: true
 			}
 		});
-	
+
 		options.series = seriesOptions;
-	
-	
+
+
 		return new Chart(options, callback);
 	};
 }(Highcharts));
-	
+

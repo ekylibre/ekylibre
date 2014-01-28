@@ -1068,13 +1068,13 @@ eng:
         # vetch: "Féverole"
         # wheat: "Blé"
         # winter_straw_cereal: "Céréales à paille d’hiver"
-      # name: "Typologie de culture (France)"
+      # name: "Typologies de culture (France)"
     guide_natures:
       items:
         # best_practices: "Bonnes pratiques"
         # regulations: "Réglementations"
         # specifications: "Spécifications"
-      # name: "Type de guides"
+      # name: "Types de guide"
     incidents: #?
     indicators:
       attributes:
@@ -1544,6 +1544,14 @@ eng:
         treatment: "Treatment" #?
         # viviparous_birth: "Reproduction (vivipare)"
       name: "Name"
+    procedure_roles:
+      items:
+        # doer: "Faiseur"
+        # input: "Intrant"
+        # output: "Extrant"
+        # target: "Cible"
+        # tool: "Outil"
+      # name: "Rôles de procédure"
     product_nature_categories:
       attributes:
         # charge_account: "Compte de charge"
@@ -1997,14 +2005,8 @@ eng:
         # winter_soft_wheat: "Blé tendre d’hiver"
         # without_crop: "Hors culture"
       name: "Name"
-    roles:
-      items:
-        # driver: "Conducteur"
-        # input: "Intrant"
-        # output: "Produit"
-        # target: "Cible"
-        # tool: "Outil"
-      # name: "Nom"
+    roles:  #?
+ #?
     taxes:
       attributes:
         # active: "actif"
@@ -2024,7 +2026,7 @@ eng:
         # fr_vat_null: "TVA 0.00%"
         # fr_vat_particular: "TVA 2.10%"
         # fr_vat_reduced: "TVA 5.00%"
-      # name: "Type de taxes"
+      # name: "Taxes"
     units:
       attributes: #?
       choices: #?

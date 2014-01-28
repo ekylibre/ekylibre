@@ -1,7 +1,7 @@
 (function (H) {
 	var seriesTypes = H.seriesTypes,
 		each = H.each;
-	
+
 	seriesTypes.heatmap = H.extendClass(seriesTypes.map, {
 		useMapGeometry: false,
 		pointArrayMap: ['y', 'value'],
@@ -17,7 +17,7 @@
 				yAxis = series.yAxis;
 
 			series.generatePoints();
-	
+
 			each(series.points, function (point) {
 				var xPad = (options.colsize || 1) / 2,
 					yPad = (options.rowsize || 1) / 2,
@@ -37,11 +37,11 @@
 					height: Math.abs(y2 - y1)
 				};
 			});
-			
+
 			series.pointRange = options.colsize || 1;
 			series.translateColors();
 		},
-		
+
 		animate: function () {},
 		getBox: function () {},
 
@@ -54,7 +54,7 @@
 			// Get the extremes from the y data
 			H.Series.prototype.getExtremes.call(this);
 		}
-			
+
 	});
-	
+
 }(Highcharts));

@@ -42,11 +42,11 @@ class Backend::ProductsController < BackendController
   # content product list of the consider product
   list(:contained_products, model: :product_localizations, conditions: {container_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :product, url: true
-    t.column :nature
+    t.column :nature, hidden: true
     t.column :intervention, url: true
     t.column :started_at
     t.column :arrival_cause, hidden: true
-    t.column :stopped_at
+    t.column :stopped_at, hidden: true
     t.column :departure_cause, hidden: true
   end
 
@@ -122,10 +122,10 @@ class Backend::ProductsController < BackendController
   # issues of the consider product
   list(:intervention_casts, conditions: {actor_id: 'params[:id]'.c}, order: "interventions.started_at DESC") do |t|
     t.column :intervention, url: true
-    t.column :roles
+    t.column :roles, hidden: true
     t.column :name, sort: :reference_name
-    t.column :started_at, through: :intervention
-    t.column :stopped_at, through: :intervention
+    t.column :started_at, through: :intervention, datatype: :datetime
+    t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
   end
 
   # List supports for one production

@@ -1,13 +1,14 @@
 module TimeLineable
   extend ActiveSupport::Concern
 
+  # Stopped_at is never included in the period because it is the started_at of the next period!
   included do
     validates_presence_of :started_at # , :if => :has_previous?
     validates_presence_of :stopped_at, :if => :has_followings?
 
-    scope :at,      lambda { |at| where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", at, at, at) }
-    scope :after,   lambda { |at| where("COALESCE(started_at, ?) > ?", at, at) }
-    scope :before,  lambda { |at| where("COALESCE(started_at, ?) < ?", at, at) }
+    scope :at,      lambda { |at| where("started_at <= ? AND (stopped_at IS NULL OR ? < stopped_at)", at, at) }
+    scope :after,   lambda { |at| where("started_at > ?", at) }
+    scope :before,  lambda { |at| where("started_at < ?", at) }
     scope :current, -> { at(Time.now) }
 
     before_validation do
@@ -18,6 +19,14 @@ module TimeLineable
           self.started_at ||= Time.new(1, 1, 1, 0, 0, 0, "+00:00")
         end
         self.stopped_at = nil
+      end
+    end
+
+    validate do
+      if self.started_at and self.stopped_at
+        if self.stopped_at <= self.started_at
+          errors.add(:stopped_at, :posterior, to: self.started_at.l)
+        end
       end
     end
 

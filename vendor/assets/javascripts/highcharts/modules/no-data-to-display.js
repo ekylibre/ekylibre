@@ -9,7 +9,7 @@
  */
 
 (function (H) { // docs
-	
+
 	var seriesTypes = H.seriesTypes,
 		chartPrototype = H.Chart.prototype,
 		defaultOptions = H.getOptions(),
@@ -19,27 +19,27 @@
 	extend(defaultOptions.lang, {
 		noData: 'No data to display'
 	});
-	
+
 	// Add default display options for message
 	defaultOptions.noData = {
 		position: {
 			x: 0,
-			y: 0,			
+			y: 0,
 			align: 'center',
 			verticalAlign: 'middle'
 		},
-		attr: {						
+		attr: {
 		},
-		style: {	
-			fontWeight: 'bold',		
+		style: {
+			fontWeight: 'bold',
 			fontSize: '12px',
-			color: '#60606a'		
+			color: '#60606a'
 		}
 	};
 
 	/**
 	 * Define hasData functions for series. These return true if there are data points on this series within the plot area
-	 */	
+	 */
 	function hasDataPie() {
 		return !!this.points.length; /* != 0 */
 	}
@@ -57,11 +57,11 @@
 	H.Series.prototype.hasData = function () {
 		return this.dataMax !== undefined && this.dataMin !== undefined;
 	};
-	
+
 	/**
 	 * Display a no-data message.
 	 *
-	 * @param {String} str An optional message to show in place of the default one 
+	 * @param {String} str An optional message to show in place of the default one
 	 */
 	chartPrototype.showNoData = function (str) {
 		var chart = this,
@@ -79,8 +79,8 @@
 	};
 
 	/**
-	 * Hide no-data message	
-	 */	
+	 * Hide no-data message
+	 */
 	chartPrototype.hideNoData = function () {
 		var chart = this;
 		if (chart.noDataLabel) {
@@ -90,16 +90,16 @@
 
 	/**
 	 * Returns true if there are data points within the plot area now
-	 */	
+	 */
 	chartPrototype.hasData = function () {
 		var chart = this,
 			series = chart.series,
 			i = series.length;
 
 		while (i--) {
-			if (series[i].hasData() && !series[i].options.isInternal) { 
+			if (series[i].hasData() && !series[i].options.isInternal) {
 				return true;
-			}	
+			}
 		}
 
 		return false;

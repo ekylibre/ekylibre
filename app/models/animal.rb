@@ -116,4 +116,8 @@ class Animal < Bioproduct
   #   response.body
   # end
 
+  def sex_text
+    "nomenclatures.indicators.item_lists.sex.choices.#{self.sex}".t
+  end
+
 end
