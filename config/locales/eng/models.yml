@@ -21,7 +21,6 @@ eng:
         # content_nature: "Type de Produit contenu"
         # variety: "Type"
       campaign: #?
-      cultivable_land_parcel: #?
       cultivable_zone: #?
       deposit:  #?
         amount: "Amount" #?

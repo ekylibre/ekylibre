@@ -103,7 +103,7 @@ Ekylibre::Application.routes.draw do
       resource :calendar_cell, only: :show, concerns: :list
       resource :collected_taxes_cell, only: :show
       resource :cropping_plan_cell, only: :show
-      resource :cropping_plan_on_cultivable_land_parcels_cell, only: :show
+      resource :cropping_plan_on_cultivable_zones_cell, only: :show
       resource :current_stocks_by_product_nature_cell, only: :show
       resource :elapsed_interventions_times_by_activities_cell, only: :show
       resource :events_cell, only: :show

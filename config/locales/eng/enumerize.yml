@@ -28,7 +28,7 @@ eng:
       nature:
         bank_account: "Bank account"
         cash_box: "Cash box"
-    cultivable_land_parcel: #?
+    cultivable_zone: #?
     custom_field:
       nature:
         boolean: "Check box"

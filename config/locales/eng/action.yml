@@ -115,6 +115,7 @@ eng:
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
+    backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_product_nature_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
@@ -145,7 +146,6 @@ eng:
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
-    backend/cultivable_land_parcels: #?
     backend/cultivable_zones:
       # edit: "Modifier la zone cultivable\_: %{name}"
       # index: "Zones cultivables"
@@ -1041,7 +1041,7 @@ eng:
     critic_stock_min: "Critic stock min"
     critic_stocks: "Stocks below critical threshold"
     # cropping_plan: "Assolement"
-    # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
+    # cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)"
     csv_statistics: "CSV statistics"
     cumul: "Accumulation of tattle and previous balance N°%{number}"
     # currency: "Devise"

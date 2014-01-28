@@ -2432,8 +2432,7 @@ fra:
         clay_soil: "Terre d’argile lourde"                 # land_parcel
         compost: "Compost"                                 # excrement
         courtot: "Courtot"                                 # triticum_aestivum
-        cultivable_land_parcel: "Parcelle culturale"       # land_parcel_group
-        cultivable_zone: "Zone cultivable"                 # zone
+        cultivable_zone: "Zone cultivable"                 # land_parcel_group
         cultur: "Cultur"                                   # triticum_durum
         daucus: "Carotte"                                  # apiaceae
         disinfectant: "Désinfectant"                       # antiseptic
