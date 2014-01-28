@@ -1,4 +1,8 @@
 = beehive(:tools) do |b|
+  - b.hbox do
+    - b.cell :last_issues
+    -# b.cell :last_document_archives
+    - b.cell :guide_evolution
   - file = Rails.root.join("config", "tools.xml")
   - if file.exist?
     :ruby
@@ -33,7 +37,4 @@
                       - if item[:access] == "paid"
                         %i.lock
                     %p= item[:description]
-  - b.hbox do
-    - b.cell :last_issues
-    - b.cell :last_document_archives
 

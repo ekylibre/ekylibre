@@ -25,7 +25,7 @@
 
     $.fn.highchartsFromData = function () {
         $(this).each(function () {
-            var chart = $(this), options = {}, s, i, d;
+            var chart = $(this), options = {};
             if (chart.prop('highchartLoaded') !== true) {
                 options.chart = chart.data('highchart');
                 //  OPTIONS: colors, credits, exporting, labels, legend, loading, navigation, pane, plot-options, series, subtitle, title, tooltip, x-axis, y-axis

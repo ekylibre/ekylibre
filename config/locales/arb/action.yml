@@ -124,6 +124,7 @@ arb:
     backend/cells/elevage_rss_cells: #?
     backend/cells/events_cells: #?
     backend/cells/expense_chart_cells: #?
+    backend/cells/guide_evolution_cells: #?
     backend/cells/last_document_archives_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?

@@ -37,7 +37,7 @@
 class GuideAnalysis < Ekylibre::Record::Base
   belongs_to :guide, inverse_of: :analyses
   has_many :points, class_name: "GuideAnalysisPoint", inverse_of: :analysis, foreign_key: :analysis_id
-  enumerize :acceptance_status, in: [:passed, :failed, :errored, :passed_with_warnings], predicates: true
+  enumerize :acceptance_status, in: [:passed, :passed_with_warnings, :failed, :errored], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :execution_number, allow_nil: true, only_integer: true
   validates_length_of :acceptance_status, allow_nil: true, maximum: 255
@@ -46,6 +46,7 @@ class GuideAnalysis < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :acceptance_status, in: self.acceptance_status.values
 
+  scope :latests, -> { where(latest: true) }
   selects_among_all :latest, scope: :guide_id
 
   delegate :name, to: :guide, prefix: true
@@ -61,6 +62,10 @@ class GuideAnalysis < Ekylibre::Record::Base
 
   def status
     {passed: :go, failed: :stop, errored: :stop, passed_with_warnings: :caution}.with_indifferent_access[self.acceptance_status]
+  end
+
+  def points_count(status)
+    self.points.where(acceptance_status: status).count
   end
 
 end

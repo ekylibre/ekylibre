@@ -1,8 +1,8 @@
 /**
- * @license Highcharts JS v3.0.5 (2013-08-23)
+ * @license Highcharts JS v3.0.9 (2014-01-15)
  * MooTools adapter
  *
- * (c) 2010-2013 Torstein Hønsi
+ * (c) 2010-2014 Torstein Honsi
  *
  * License: www.highcharts.com/license
  */
@@ -68,18 +68,18 @@ win.HighchartsAdapter = {
 		};
 		/*jslint unparam: false*/
 	},
-
+	
 	/**
 	 * Run a general method on the framework, following jQuery syntax
 	 * @param {Object} el The HTML element
 	 * @param {String} method Which method to run on the wrapped element
 	 */
 	adapterRun: function (el, method) {
-
+		
 		// This currently works for getting inner width and height. If adding
 		// more methods later, we need a conditional implementation for each.
 		if (method === 'width' || method === 'height') {
-			return parseInt($(el).getStyle(method), 10);
+			return parseInt(document.id(el).getStyle(method), 10);
 		}
 	},
 
@@ -120,6 +120,9 @@ win.HighchartsAdapter = {
 			};
 			// dirty hack to trick Moo into handling el as an element wrapper
 			el.$family = function () { return true; };
+			el.getComputedStyle = function () {
+				return el.element.getComputedStyle.apply(el.element, arguments);
+			};
 		}
 
 		// stop running animations
@@ -127,7 +130,7 @@ win.HighchartsAdapter = {
 
 		// define and run the effect
 		effect = new Fx.Morph(
-			isSVGElement ? el : $(el),
+			isSVGElement ? el : document.id(el),
 			$extend({
 				transition: Fx.Transitions.Quad.easeInOut
 			}, options)
@@ -182,7 +185,7 @@ win.HighchartsAdapter = {
 	grep: function (arr, fn) {
 		return arr.filter(fn);
 	},
-
+	
 	/**
 	 * Return the index of an item in an array, or -1 if not matched
 	 */
@@ -209,7 +212,7 @@ win.HighchartsAdapter = {
 		// like series or point
 		if (!el.addEvent) {
 			if (el.nodeName) {
-				el = $(el); // a dynamically generated node
+				el = document.id(el); // a dynamically generated node
 			} else {
 				$extend(el, new Events()); // a custom object
 			}
@@ -240,13 +243,13 @@ win.HighchartsAdapter = {
 			// el.removeEvents below apperantly calls this method again. Do not quite understand why, so for now just bail out.
 			return;
 		}
-
+		
 		if (el.addEvent) { // If el doesn't have an addEvent method, there are no events to remove
 			if (type) {
 				if (type === 'unload') { // Moo self destructs before custom unload events
 					type = 'beforeunload';
 				}
-
+	
 				if (fn) {
 					el.removeEvent(type, fn);
 				} else if (el.removeEvents) { // #958
@@ -288,7 +291,7 @@ win.HighchartsAdapter = {
 			defaultFunction(event);
 		}
 	},
-
+	
 	/**
 	 * Set back e.pageX and e.pageY that MooTools has abstracted away. #1165, #1346.
 	 */

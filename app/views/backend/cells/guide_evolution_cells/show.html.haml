@@ -1,0 +1,22 @@
+- if @guide
+  :ruby
+    series = []
+    data = {}
+    categories = []
+    statuses = GuideAnalysis.acceptance_status.values
+    for analysis in @guide.analyses.order(:execution_number)
+      x = analysis.execution_number # analysis.started_at.to_usec
+      categories << x
+      for status in statuses
+        data[status] ||= {}
+        data[status][x] = analysis.points_count(status)
+      end
+    end
+    for status in statuses
+      series << {name: "enumerize.guide_analysis.status.#{status}".t, data: data[status].values}
+    end
+
+  = area_chart(series, colors: ["#8bbc21", "#A17000", "#910000", "#777777"], legend: {}, y_axis: {title: { text: GuideAnalysis.human_attribute_name(:points)}, min: 0}, x_axis: {categories: categories}, plot_options: {area: {stacking: 'normal'}}, title: (@show_title ? {text: @guide.name} : nil))
+
+- else
+  = no_data
