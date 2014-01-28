@@ -1,17 +1,18 @@
 eng:
   enumerize:
-    activity:  #?
-      family: #?
+    activity:
+      family:  #?
         animal: "Animal" #?
         none: "None" #?
         perenne_vegetal: "Pluri-annual plant" #?
         processing: "Processing" #?
         service: "Service" #?
         vegetal: "Annual plant" #?
-      nature: #?
+      nature:
+        # auxiliaire: "Auxiliaire"
         auxiliary: "Auxiliary" #?
-        main: "Main" #?
-        none: "None" #?
+        main: "Main"
+        none: "None"
     animal: #?
     animal_group: #?
     animal_medicine: #?

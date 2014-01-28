@@ -976,6 +976,7 @@ arb:
     add_payment: "اضافة دفعة"
     # add_phone: "Ajouter un n° de téléphone"
     # add_posology: "Ajouter une posologie"
+    # add_product: "Ajouter un produit"
     # add_production: "Ajouter une production"
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"

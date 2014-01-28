@@ -528,7 +528,7 @@ eng:
         land_parcel: "Land parcel"
         manure: "Manure"
         manure_to_spread: "Manure to spread"
-        molecule: "Molecule"
+        matter: "Molecule"
         plow: "Plow"
         seeder: "Seeder"
         seeds: "Seeds"

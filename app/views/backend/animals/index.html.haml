@@ -1,10 +1,10 @@
--#=kujaku
-=main_toolbar do |t|
-  -t.export do |e|
-    -e.animal_list Time.now.to_s, @animals
-  -t.new
-=beehive(:stock) do |b|
+-# =kujaku
+= main_toolbar do |t|
+  - t.export do |e|
+    - e.animal_list Time.now.to_s, @animals
+  - t.new
+= beehive do |b|
   - b.cell do
     = list
   - b.tabbox do
-    - b.cell :current_stocks_by_product_nature, :params => {variety: 'animal'}
+    - b.cell :current_stocks_by_product_nature, :params => {variety: 'animal', indicator: :population}

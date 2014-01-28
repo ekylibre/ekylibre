@@ -28,6 +28,13 @@
             %span.title= :related_people.tl
             %span.value= Entity.related_to(resource).map{|p| link_to(p.full_name, controller: p.type.tableize, action: :show, id: p.id)}.to_sentence.html_safe
 
+    - b.cell(tl(:x_observations, count: resource.observations.count)) do
+      = toolbar do |t|
+        - t.new(params: {controller: :observations, entity_id: resource.id})
+      = list(:observations)
+
+  - b.hbox do
+
     - b.cell :details do
       = attributes_list(resource) do |l|
         - l.attribute :last_name
@@ -60,11 +67,12 @@
     - b.cell :historic do
       = historic_of(resource)
 
-  - b.hbox do
-    - b.cell(tl(:x_observations, count: resource.observations.count)) do
+    - b.cell(tl(:x_entity_links, count: EntityLink.of_entity(resource).count)) do
       = toolbar do |t|
-        - t.new(params: {controller: :observations, entity_id: resource.id})
-      = list(:observations)
+        - t.new(params: {controller: :entity_links, entity_id: resource.id})
+      = list(:links)
+
+  - b.hbox do
 
     -# b.cell(tl(:x_subscriptions, count: resource.subscriptions.count)) do
       = toolbar do |t|
@@ -76,22 +84,16 @@
         - t.new(params: {controller: :events, entity_id: resource.id})
       = list(:event_participations)
 
-    - b.cell(tl(:x_entity_links, count: EntityLink.of_entity(resource).count)) do
-      = toolbar do |t|
-        - t.new(params: {controller: :entity_links, entity_id: resource.id})
-      = list(:links)
-
-  - b.hbox do
     - b.cell(tl(:x_mandates, count: resource.mandates.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :mandates, entity_id: resource.id})
       = list(:mandates)
 
-
     - if File.exist?(Pathname.new(__FILE__).dirname.join("_extra.html.haml"))
       - b.cell("Extra") do
         =  render "extra"
 
+  - b.hbox do
     - b.cell(tl(:x_sales, count: resource.sales.count)) do
       = toolbar do |t|
         - t.new(params: {controller: :sales, :client_id => resource.id})

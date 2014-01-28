@@ -183,7 +183,7 @@ class Product < Ekylibre::Record::Base
   acts_as_numbered force: false
   delegate :serial_number, :producer, to: :tracking
   delegate :name, to: :nature, prefix: true
-  delegate :variety, :derivative_of, :name, to: :variant, prefix: true
+  delegate :variety, :derivative_of, :name, :nature, to: :variant, prefix: true
   delegate :unit_name, to: :variant
   delegate :subscribing?, :deliverable?, :asset_account, :product_account, :charge_account, :stock_account, to: :nature
   delegate :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :linkage_points, :linkage_points_list, to: :nature
@@ -193,12 +193,23 @@ class Product < Ekylibre::Record::Base
   before_validation :set_default_values, on: :create
   before_validation :update_default_values, on: :update
 
+  before_validation do
+    if self.variant
+      self.nature ||= self.variant_nature
+    end
+  end
+
   after_validation do
     self.default_storage ||= self.initial_container
     self.initial_container ||= self.default_storage
   end
 
   validate do
+    if self.nature and self.variant
+      if self.variant.nature_id != self.nature_id
+        errors.add(:nature_id, :invalid)
+      end
+    end
     if self.variant
       unless Nomen::Varieties.all(self.variant_variety).include?(self.variety.to_s)
         errors.add(:variety, :invalid)

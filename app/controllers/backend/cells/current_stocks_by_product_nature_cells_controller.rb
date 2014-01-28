@@ -3,7 +3,8 @@ class Backend::Cells::CurrentStocksByProductNatureCellsController < Backend::Cel
 
   def show
     @variety = params[:variety] || :product
-    @mass_unit = params[:mass_unit] || :kilogram
+    @indicator = Nomen::Indicators[params[:indicator] || :net_mass]
+    @unit = (params[:unit] ? Nomen::Units[params[:unit]] : @indicator.unit)
   end
 
 end
