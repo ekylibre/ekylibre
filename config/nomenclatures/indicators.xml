@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="indicators">
     <attributes>
-      <attribute name="datatype" type="choice" choices="string, decimal, boolean, choice, measure, point, multi_polygon, geometry" required="true"/>
+      <attribute name="datatype" type="choice" choices="string, integer, decimal, boolean, choice, measure, point, multi_polygon, geometry" required="true"/>
       <attribute name="related_to" type="choice" choices="whole, individual" default="individual"/>
       <attribute name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
       <attribute name="gathering" type="choice" choices="proportional_to_population"/>
@@ -23,7 +23,8 @@
       <item name="width"  datatype="measure" unit="meter"/>
       <item name="length" datatype="measure" unit="meter"/>
       <item name="height" datatype="measure" unit="meter"/>
-      <!-- <item name="figure" datatype="choice" choices="building, cylinder, cuboid, hemispheroid, spheroid, biped, quadruped"/> -->
+      <item name="figure" datatype="choice" choices="building, cylinder, cuboid, hemispheroid, spheroid, biped, quadruped"/>
+      <item name="horizontal_rotation" datatype="measure" unit="degree"/>
       <item name="livestock_unit" datatype="decimal" gathering="proportional_to_population"/>
        <!-- state of cultivable_zone -->
       <item name="cultural_soil_state" datatype="choice" choices="covered, raw, nude, plowed, grown"/>

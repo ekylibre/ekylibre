@@ -25,16 +25,13 @@
 #  category_id            :integer          not null
 #  commercial_description :text
 #  commercial_name        :string(255)      not null
-#  contour                :string(255)
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  derivative_of          :string(120)
-#  horizontal_rotation    :integer          default(0), not null
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)
 #  nature_id              :integer          not null
-#  nature_name            :string(255)      not null
 #  number                 :string(255)
 #  picture_content_type   :string(255)
 #  picture_file_name      :string(255)

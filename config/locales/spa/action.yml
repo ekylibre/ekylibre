@@ -59,7 +59,7 @@ spa:
       # index: "Animaux"
       # new: "Nouvel animal"
       # picture: "Photo"
-      # show: "%{nature_name}\_: %{name}"
+      # show: "%{nature}\_: %{name}"
     backend/application: #?
     backend/areas: #?
     backend/assets: #?
@@ -579,7 +579,7 @@ spa:
       # edit: "Modifier un produit"
       # index: "Produits"
       # new: "Créer un produit"
-      # show: "%{nature_name}\_: %{name}"
+      # show: "%{nature}\_: %{name}"
     backend/professions: #?
     backend/public: #?
     backend/purchase_items:

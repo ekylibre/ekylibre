@@ -32,6 +32,7 @@
 #  id                  :integer          not null, primary key
 #  indicator_datatype  :string(255)      not null
 #  indicator_name      :string(255)      not null
+#  integer_value       :integer
 #  lock_version        :integer          default(0), not null
 #  measure_value_unit  :string(255)
 #  measure_value_value :decimal(19, 4)

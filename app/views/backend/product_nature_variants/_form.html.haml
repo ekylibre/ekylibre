@@ -5,10 +5,8 @@
   = f.input :active
 
 = field_set(:details) do
-  = f.input :commercial_description
-  = f.input :contour
   = f.picture
-  = f.input :horizontal_rotation
+  = f.input :commercial_description
 
 = field_set(:indicators) do
   = f.nested_association(:indicator_data, new: false)

@@ -59,7 +59,7 @@ arb:
       # index: "Animaux"
       # new: "Nouvel animal"
       # picture: "Photo"
-      # show: "%{nature_name}\_: %{name}"
+      # show: "%{nature}\_: %{name}"
     backend/areas:  #?
       edit: "تعديل العنوان البريدي : %{name}" #?
       index: "العناوين البريد" #?

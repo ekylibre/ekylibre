@@ -1064,6 +1064,7 @@ prescriptions:
   updater_id: {type: integer, references: user}
 
 product_births:
+  coproducer_id: {type: integer, references: product}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   id: {type: integer, required: true}
@@ -1123,6 +1124,7 @@ product_indicator_data:
   id: {type: integer, required: true}
   indicator_datatype: {type: string, required: true}
   indicator_name: {type: string, required: true}
+  integer_value: {type: integer}
   lock_version: {type: integer, required: true, default: 0}
   measure_value_unit: {type: string}
   measure_value_value: {type: decimal, precision: 19, scale: 4}
@@ -1181,6 +1183,7 @@ product_measurements:
   id: {type: integer, required: true}
   indicator_datatype: {type: string, required: true}
   indicator_name: {type: string, required: true}
+  integer_value: {type: integer}
   lock_version: {type: integer, required: true, default: 0}
   measure_value_unit: {type: string}
   measure_value_value: {type: decimal, precision: 19, scale: 4}
@@ -1258,6 +1261,7 @@ product_nature_variant_indicator_data:
   id: {type: integer, required: true}
   indicator_datatype: {type: string, required: true}
   indicator_name: {type: string, required: true}
+  integer_value: {type: integer}
   lock_version: {type: integer, required: true, default: 0}
   measure_value_unit: {type: string}
   measure_value_value: {type: decimal, precision: 19, scale: 4}
@@ -1273,16 +1277,13 @@ product_nature_variants:
   category_id: {type: integer, references: product_nature_category, required: true}
   commercial_description: {type: text}
   commercial_name: {type: string, required: true}
-  contour: {type: string}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   derivative_of: {type: string, limit: 120}
-  horizontal_rotation: {type: integer, required: true, default: 0}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string}
   nature_id: {type: integer, references: product_nature, required: true}
-  nature_name: {type: string, required: true}
   number: {type: string}
   picture_content_type: {type: string}
   picture_file_name: {type: string}
@@ -1393,6 +1394,7 @@ production_support_markers:
   id: {type: integer, required: true}
   indicator_datatype: {type: string, required: true}
   indicator_name: {type: string, required: true}
+  integer_value: {type: integer}
   lock_version: {type: integer, required: true, default: 0}
   measure_value_unit: {type: string}
   measure_value_value: {type: decimal, precision: 19, scale: 4}

@@ -25,16 +25,13 @@
 #  category_id            :integer          not null
 #  commercial_description :text
 #  commercial_name        :string(255)      not null
-#  contour                :string(255)
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  derivative_of          :string(120)
-#  horizontal_rotation    :integer          default(0), not null
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)
 #  nature_id              :integer          not null
-#  nature_name            :string(255)      not null
 #  number                 :string(255)
 #  picture_content_type   :string(255)
 #  picture_file_name      :string(255)
@@ -56,15 +53,15 @@ class ProductNatureVariant < Ekylibre::Record::Base
   has_many :indicator_data, class_name: "ProductNatureVariantIndicatorDatum", foreign_key: :variant_id, inverse_of: :variant
   has_many :prices, class_name: "CatalogPrice", foreign_key: :variant_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :horizontal_rotation, :picture_file_size, allow_nil: true, only_integer: true
+  validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
-  validates_length_of :commercial_name, :contour, :name, :nature_name, :number, :picture_content_type, :picture_file_name, :reference_name, :unit_name, allow_nil: true, maximum: 255
+  validates_length_of :commercial_name, :name, :number, :picture_content_type, :picture_file_name, :reference_name, :unit_name, allow_nil: true, maximum: 255
   validates_inclusion_of :active, in: [true, false]
-  validates_presence_of :category, :commercial_name, :horizontal_rotation, :nature, :nature_name, :unit_name, :variety
+  validates_presence_of :category, :commercial_name, :nature, :unit_name, :variety
   #]VALIDATORS]
 
   delegate :matching_model, :indicators, :population_frozen?, :population_modulo, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :whole_indicators_list, :whole_indicators, :individual_indicators_list, :individual_indicators, to: :nature
-  delegate :variety, :derivative_of, to: :nature, prefix: true
+  delegate :variety, :derivative_of, :name, to: :nature, prefix: true
   delegate :deliverable?, :purchasable?, :saleable?, :subscribing?, :financial_asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true

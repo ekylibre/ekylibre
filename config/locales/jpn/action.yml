@@ -52,7 +52,7 @@ jpn:
       # index: "Animaux"
       # new: "Nouvel animal"
       # picture: "Photo"
-      # show: "%{nature_name}\_: %{name}"
+      # show: "%{nature}\_: %{name}"
     backend/areas: #?
     backend/assets: #?
     backend/bank_statements:
@@ -514,7 +514,7 @@ jpn:
       # edit: "Modifier un produit"
       # index: "Produits"
       # new: "Créer un produit"
-      # show: "%{nature_name}\_: %{name}"
+      # show: "%{nature}\_: %{name}"
     backend/professions: #?
     backend/purchase_items:
       # edit: "Modifier une ligne de la commande"

@@ -18,14 +18,16 @@
 #
 
 class Backend::EntityLinksController < BackendController
-  manage_restfully entity_1_id: 'params[:entity_id]'.c, except: :index
+  manage_restfully entity_1_id: 'params[:entity_id]'.c, except: [:index, :show]
 
   def show
     if @entity_link = EntityLink.find_by(id: params[:id])
       redirect_to backend_entity_url(@entity_link.entity_1_id)
     else
-      redirect_to backend_root_url
+      redirect_to backend_entities_url
     end
   end
+
+  alias :index :show
 
 end

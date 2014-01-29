@@ -24,9 +24,12 @@ class Backend::PurchaseItemsController < BackendController
     if @purchase_item = PurchaseItem.find_by(id: params[:id])
       redirect_to controller: :purchases, id: @purchase_item.purchase_id
     else
-      redirect_to backend_root_url
+      redirect_to backend_purchases_url
     end
   end
+
+  alias :index :show
+
 
   def new
     return unless @purchase = find_and_check(:purchase, params[:purchase_id])

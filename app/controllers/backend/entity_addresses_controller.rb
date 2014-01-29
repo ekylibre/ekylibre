@@ -25,8 +25,10 @@ class Backend::EntityAddressesController < BackendController
     if @entity_address = EntityAddress.find_by(id: params[:id])
       redirect_to backend_entity_url(@entity_address.entity_id)
     else
-      redirect_to backend_root_url
+      redirect_to backend_entities_url
     end
   end
+
+  alias :index :show
 
 end

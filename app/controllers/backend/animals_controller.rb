@@ -55,12 +55,11 @@ class Backend::AnimalsController < Backend::MattersController
   # Show one animal with params_id
   def show
     return unless @animal = find_and_check
-    session[:current_animal_id] = @animal.id
-    t3e @animal, :nature_name => @animal.nature_name
-           respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :variant, :nature, :variety,
-                                                   {:indicator_data => {}},
-                                                   {:memberships => {:include =>:group}},
-                                                   {:localizations => {:include =>:container}}])
+    t3e @animal, nature: @animal.nature_name
+    respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :variant, :nature, :variety,
+                                                                  {:indicator_data => {}},
+                                                                  {:memberships => {:include =>:group}},
+                                                                  {:localizations => {:include =>:container}}])
 
   end
 

@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::PurchaseItemsControllerTest < ActionController::TestCase
-  test_restfully_all_actions show: :redirected_get, new: {purchase_id: identify(:purchases_001)}
+  test_restfully_all_actions show: :redirected_get, new: {purchase_id: identify(:purchases_001)}, index: :redirect
 end

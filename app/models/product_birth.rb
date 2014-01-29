@@ -21,6 +21,7 @@
 #
 # == Table: product_births
 #
+#  coproducer_id   :integer
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
@@ -43,7 +44,8 @@ class ProductBirth < Ekylibre::Record::Base
   include Taskable
   belongs_to :product, inverse_of: :birth
   belongs_to :producer, class_name: "Product"
-  enumerize :nature, in: [:division, :creation], predicates: true
+  belongs_to :coproducer, class_name: "Product"
+  enumerize :nature, in: [:division, :creation, :mixing], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
   validates_length_of :nature, :originator_type, allow_nil: true, maximum: 255

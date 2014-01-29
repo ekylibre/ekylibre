@@ -12,13 +12,15 @@ module IndicatorDatumStorable
     validates_inclusion_of :indicator_name, in: self.indicator_name.values
     validates_inclusion_of :indicator_datatype, in: self.indicator_datatype.values
 
-    validates_presence_of :point_value,    :if => :indicator_datatype_point?
-    validates_presence_of :multi_polygon_value, :if => :indicator_datatype_multi_polygon?
-    validates_presence_of :string_value,   :if => :indicator_datatype_string?
-    validates_presence_of :measure_value,  :if => :indicator_datatype_measure?
     validates_inclusion_of :boolean_value, in: [true, false], :if => :indicator_datatype_boolean?
     validates_presence_of :choice_value,   :if => :indicator_datatype_choice?
     validates_presence_of :decimal_value,  :if => :indicator_datatype_decimal?
+    validates_presence_of :geometry_value, :if => :indicator_datatype_geometry?
+    validates_presence_of :integer_value,  :if => :indicator_datatype_integer?
+    validates_presence_of :measure_value,  :if => :indicator_datatype_measure?
+    validates_presence_of :multi_polygon_value, :if => :indicator_datatype_multi_polygon?
+    validates_presence_of :point_value,    :if => :indicator_datatype_point?
+    validates_presence_of :string_value,   :if => :indicator_datatype_string?
 
     # Keep this format to ensure inheritance
     before_validation :set_datatype
@@ -60,6 +62,8 @@ module IndicatorDatumStorable
       #   object = factory.multi_polygon(object)
       elsif datatype == :decimal
         object = object.to_d
+      elsif datatype == :integer
+        object = object.to_i
       end
     end
     self.send("#{datatype}_value=", object)

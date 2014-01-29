@@ -1565,6 +1565,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "originator_type"
     t.string   "nature",                                                                                     null: false
     t.integer  "producer_id"
+    t.integer  "coproducer_id"
     t.integer  "product_id",                                                                                 null: false
     t.decimal  "population",                                            precision: 19, scale: 4
     t.datetime "started_at"
@@ -1577,6 +1578,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.spatial  "shape",           limit: {:srid=>0, :type=>"geometry"}
   end
 
+  add_index "product_births", ["coproducer_id"], :name => "index_product_births_on_coproducer_id"
   add_index "product_births", ["created_at"], :name => "index_product_births_on_created_at"
   add_index "product_births", ["creator_id"], :name => "index_product_births_on_creator_id"
   add_index "product_births", ["operation_id"], :name => "index_product_births_on_operation_id"
@@ -1652,6 +1654,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "boolean_value",                                                                                         default: false, null: false
     t.string   "choice_value"
     t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.integer  "integer_value"
     t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
@@ -1741,6 +1744,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "boolean_value",                                                                                         default: false, null: false
     t.string   "choice_value"
     t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.integer  "integer_value"
     t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
@@ -1859,6 +1863,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "boolean_value",                                                                                         default: false, null: false
     t.string   "choice_value"
     t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.integer  "integer_value"
     t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
@@ -1880,14 +1885,13 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_nature_variant_indicator_data", ["variant_id"], :name => "index_product_nature_variant_indicator_data_on_variant_id"
 
   create_table "product_nature_variants", force: true do |t|
-    t.integer  "nature_id",                                          null: false
     t.integer  "category_id",                                        null: false
+    t.integer  "nature_id",                                          null: false
     t.string   "name"
     t.string   "number"
     t.string   "variety",                limit: 120,                 null: false
     t.string   "derivative_of",          limit: 120
     t.string   "reference_name"
-    t.string   "nature_name",                                        null: false
     t.string   "unit_name",                                          null: false
     t.string   "commercial_name",                                    null: false
     t.text     "commercial_description"
@@ -1896,8 +1900,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "picture_content_type"
     t.integer  "picture_file_size"
     t.datetime "picture_updated_at"
-    t.string   "contour"
-    t.integer  "horizontal_rotation",                default: 0,     null: false
     t.datetime "created_at",                                         null: false
     t.datetime "updated_at",                                         null: false
     t.integer  "creator_id"
@@ -2053,6 +2055,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "boolean_value",                                                                                         default: false, null: false
     t.string   "choice_value"
     t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.integer  "integer_value"
     t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"

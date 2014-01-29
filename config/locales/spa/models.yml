@@ -826,7 +826,6 @@ spa:
     # name_1_to_2: "Nom «\_Personne 1 vers Personne 2\_»"
     # name_2_to_1: "Nom «\_Personne 2 vers Personne 1\_»"
     # nature: "Type"
-    # nature_name: "Nature name"
     # natures: "Natures"
     # net_mass: "Masse nette"
     # net_surface_area: "Surface"

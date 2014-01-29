@@ -1084,6 +1084,8 @@ arb:
             # raw: "Etat sauvage"
         dry_matter_rate: #?
         fat_matters_concentration: #?
+        figure:
+          choices: #?
         freezing_point_temperature: #?
         geographic_coordinate: #?
         hundred_grain_mass: #?

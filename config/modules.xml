@@ -1737,11 +1737,17 @@
         <page to="backend/products#list_markers"/>
         <page to="backend/products#list_measurements"/>
       </item>
+      <item name="purchase_items">
+        <page to="backend/purchase_items#index"/>
+      </item>
       <item name="purchases">
         <page to="backend/purchases#unroll"/>
       </item>
       <item name="roles">
         <page to="backend/roles#unroll"/>
+      </item>
+      <item name="sale_items">
+        <page to="backend/sale_items#index"/>
       </item>
       <item name="sale_natures">
         <page to="backend/sale_natures#unroll"/>

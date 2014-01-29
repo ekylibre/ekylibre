@@ -273,9 +273,9 @@ Ekylibre::Application.routes.draw do
 
     resources :entities, concerns: :entities
 
-    resources :entity_addresses, except: [:index], concerns: [:list, :unroll]
+    resources :entity_addresses, concerns: [:unroll]
 
-    resources :entity_links, except: [:index]
+    resources :entity_links
 
     resources :equipments, concerns: :products
 
@@ -304,7 +304,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    # resources :financial_asset_depreciations # , except: [:index]
+    # resources :financial_asset_depreciations
 
     resources :financial_years, concerns: [:list, :unroll] do
       member do
@@ -570,7 +570,7 @@ Ekylibre::Application.routes.draw do
 
     resources :professions, concerns: [:list, :unroll]
 
-    resources :purchase_items, except: [:index]
+    resources :purchase_items
 
     resources :purchase_natures, concerns: [:list, :unroll]
 
@@ -590,7 +590,7 @@ Ekylibre::Application.routes.draw do
 
     resources :roles, concerns: [:list, :unroll]
 
-    resources :sale_items, except: [:index], concerns: [:list, :unroll] do
+    resources :sale_items, concerns: [:list, :unroll] do
       collection do
         get :detail
       end

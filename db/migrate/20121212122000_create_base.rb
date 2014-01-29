@@ -989,6 +989,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :originator,        polymorphic: true,  index: true
       t.string     :nature,                   null: false
       t.references :producer,                              index: true
+      t.references :coproducer,                            index: true
       t.references :product,                  null: false, index: true
       t.decimal    :population,   precision: 19, scale: 4
       t.geometry   :shape
@@ -1071,14 +1072,14 @@ class CreateBase < ActiveRecord::Migration
 
 
     create_table :product_nature_variants do |t|
-      t.references :nature,                               null: false, index: true
-      t.references :category,                             null: false, index: true
+      t.references :category,                               null: false, index: true
+      t.references :nature,                                 null: false, index: true
       t.string     :name
       t.string     :number
       t.string     :variety,                limit: 120,     null: false
       t.string     :derivative_of,          limit: 120
       t.string     :reference_name
-      t.string     :nature_name,                            null: false
+      # t.string     :nature_name,                            null: false
       t.string     :unit_name,                              null: false
       t.string     :commercial_name,                        null: false
       t.text       :commercial_description
@@ -1086,8 +1087,8 @@ class CreateBase < ActiveRecord::Migration
       # t.text       :variable_indicators_list
       t.boolean    :active,                 default: false, null: false
       t.attachment :picture
-      t.string     :contour
-      t.integer    :horizontal_rotation,    default: 0,     null: false
+      # t.string     :contour
+      # t.integer    :horizontal_rotation,    default: 0,     null: false
       t.stamps
     end
 

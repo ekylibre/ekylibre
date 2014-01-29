@@ -69,7 +69,7 @@
           links << [n.human_name, default_params.merge(procedure_nature: n.name), class: "btn btn-important"]
         end
       end
-    end 
+    end
     if nature
       procedures = Procedo.procedures_of_nature(nature.name.to_sym)
       if procedures.any?

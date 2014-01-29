@@ -116,7 +116,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   def roles_array
-    self.roles.split(/[\,[[:space:]]]+/).collect{|role| role.split(/\-/)[0..1].map(&:to_sym) }
+    self.roles.to_s.split(/[\,[[:space:]]]+/).collect{|role| role.split(/\-/)[0..1].map(&:to_sym) }
   end
 
   def human_roles

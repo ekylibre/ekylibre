@@ -1548,7 +1548,6 @@ arb:
     nature_code: "الرمز" #?
     nature_id: "نوع" #?
     nature_label: "طبيعة الملصق" #?
-    # nature_name: "Nature name"
     # natures: "Natures"
     # net_mass: "Masse nette"
     # net_surface_area: "Surface"

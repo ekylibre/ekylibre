@@ -53,7 +53,7 @@ fra:
       index: "Animaux"
       new: "Nouvel animal"
       picture: "Photo"
-      show: "%{nature_name}\_: %{name}"
+      show: "%{nature}\_: %{name}"
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
       index: "Relevés de compte bancaire"
@@ -217,10 +217,12 @@ fra:
       show: "Fiche\_: %{full_name}"
     backend/entity_addresses:
       edit: "Modifier une coordonnée"
+      # index: "Index backend/entity address"
       new: "Ajouter une coordonnée"
       show: "Coordonnée"
     backend/entity_links:
       edit: "Modifier le lien"
+      # index: "Index backend/entity link"
       new: "Ajout d’un nouveau lien"
       show: "Lien"
     backend/equipments:
@@ -544,9 +546,10 @@ fra:
       index: "Produits"
       new: "Créer un produit"
       # picture: "Picture backend/product"
-      show: "%{nature_name}\_: %{name}"
+      show: "%{nature}\_: %{name}"
     backend/purchase_items:
       edit: "Modifier une ligne de la commande"
+      # index: "Index backend/purchase item"
       new: "Ajouter un produit à la commande"
       # show: "Show backend/purchase item"
     backend/purchase_natures:
@@ -573,6 +576,7 @@ fra:
     backend/sale_items:
       detail: "Détailler une ligne de la vente"
       edit: "Modifier une ligne de la vente"
+      # index: "Index backend/sale item"
       new: "Ajouter un produit à la vente"
       # show: "Show backend/sale item"
     backend/sale_natures:

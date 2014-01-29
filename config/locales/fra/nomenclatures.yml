@@ -937,6 +937,7 @@ fra:
           choice: "Liste de choix"
           decimal: "Chiffre (décimal)"
           geometry: "Forme spatiale"
+          # integer: "Integer"
           measure: "Mesure"
           multi_polygon: "Multi-polygone spatial"
           point: "Point spatial"
@@ -979,6 +980,15 @@ fra:
             nude: "Nu"
             plowed: "Guéret"
             grown: "Culture"
+        figure:
+          choices:
+            # building: "Building"
+            # cylinder: "Cylinder"
+            # cuboid: "Cuboid"
+            # hemispheroid: "Hemispheroid"
+            # spheroid: "Spheroid"
+            # biped: "Biped"
+            # quadruped: "Quadruped"
         inhibitors_presence:
           choices:
             negative: "Negatif"
@@ -1070,10 +1080,12 @@ fra:
         fat_matter_concentration_index: "TB (Taux Butyreux)"
         fat_matters_concentration: "Teneur en matières grasses"
         fertility_index: "Index de fertilité"
+        # figure: "Figure"
         freezing_point_temperature: "Point de solidification"
         geographic_coordinate: "Coordonnées géographiques"
         grain_yield_per_area: "Rendement en grain par unité de surface"
         height: "Hauteur"
+        # horizontal_rotation: "Horizontal rotation"
         immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
         inhibitors_presence: "Présence de résidus d’inhibiteurs"
         iron_concentration: "Teneur en Fer"

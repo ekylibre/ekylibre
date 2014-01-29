@@ -24,9 +24,11 @@ class Backend::SaleItemsController < BackendController
     if @sale_item = SaleItem.find_by(id: params[:id])
       redirect_to controller: :sales, id: @sale_item.sale_id
     else
-      redirect_to backend_root_url
+      redirect_to backend_sales_url
     end
   end
+
+  alias :index :show
 
   def new
     return unless @sale = find_and_check(:sale, params[:sale_id])

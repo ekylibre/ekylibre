@@ -50,7 +50,7 @@ eng:
       index: "Animals"
       new: "Create animal"
       picture: "Picture"
-      show: "%{nature_name}\_: %{name}"
+      show: "%{nature}\_: %{name}"
     backend/areas:  #?
       edit: "Edit the postal area: %{name}" #?
       index: "Postal areas" #?
@@ -563,7 +563,7 @@ eng:
       edit: "Edit the product: %{name}"
       index: "Products"
       new: "Add a new product"
-      show: "%{nature_name}\_: %{name}"
+      show: "%{nature}\_: %{name}"
     backend/professions:  #?
       edit: "Edit profession" #?
       index: "Professions" #?

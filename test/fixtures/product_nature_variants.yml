@@ -25,16 +25,13 @@
 #  category_id            :integer          not null
 #  commercial_description :text
 #  commercial_name        :string(255)      not null
-#  contour                :string(255)
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  derivative_of          :string(120)
-#  horizontal_rotation    :integer          default(0), not null
 #  id                     :integer          not null, primary key
 #  lock_version           :integer          default(0), not null
 #  name                   :string(255)
 #  nature_id              :integer          not null
-#  nature_name            :string(255)      not null
 #  number                 :string(255)
 #  picture_content_type   :string(255)
 #  picture_file_name      :string(255)
@@ -54,9 +51,7 @@
 #   category: categories_001
 #   commercial_name: "Lorem ipsum"
 #   creator: users_001
-#   horizontal_rotation: 0
 #   nature: natures_001
-#   nature_name: "Lorem ipsum"
 #   unit_name: "Lorem ipsum"
 #   updater: users_001
 #   variety: "Lorem ipsum"
@@ -67,69 +62,62 @@ product_nature_variants_001:
   category: product_nature_categories_001
   commercial_name: Generic Product Variant
   creator: users_001
-  horizontal_rotation: 0
   nature: product_natures_001
-  nature_name: Generic Product Type
   number: PNV001
   unit_name: unit
   updater: users_001
   variety: product
+
 product_nature_variants_002:
   active: true
   category: product_nature_categories_001
   commercial_name: Lorem ipsum 2
   creator: users_001
-  horizontal_rotation: 0
   nature: product_natures_001
-  nature_name: Lorem ipsum
   number: PNV002
   unit_name: unit
   updater: users_001
   variety: bos
+
 product_nature_variants_004:
   active: true
   category: product_nature_categories_001
   commercial_name: Building
   creator: users_001
-  horizontal_rotation: 0
   nature: product_natures_004
-  nature_name: Building
   number: PNV004
   unit_name: unit
   updater: users_001
   variety: building
+
 product_nature_variants_005:
   active: true
   category: product_nature_categories_001
   commercial_name: Dry matter
   creator: users_001
-  horizontal_rotation: 0
   nature: product_natures_001
-  nature_name: Generic Product Type
   number: PNV005
   unit_name: tas
   updater: users_001
   variety: organic_matter
+
 product_nature_variants_007:
   active: true
   category: product_nature_categories_001
   commercial_name: Cow
   creator: users_001
-  horizontal_rotation: 0
   nature: product_natures_005
-  nature_name: Cow
   number: PNV007
   unit_name: head
   updater: users_001
   variety: bos
+
 product_nature_variants_029:
   active: true
   category: product_nature_categories_001
   commercial_name: Herd
   creator: users_001
-  horizontal_rotation: 0
   nature: product_natures_029
-  nature_name: Herd
   number: PNV029
   unit_name: herd
   updater: users_001

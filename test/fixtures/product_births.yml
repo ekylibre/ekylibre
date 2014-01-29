@@ -21,6 +21,7 @@
 #
 # == Table: product_births
 #
+#  coproducer_id   :integer
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key

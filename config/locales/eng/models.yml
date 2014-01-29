@@ -1123,7 +1123,7 @@ eng:
     nature: "Nature"
     nature_code: "Type code" #?
     nature_label: "Type label" #?
-    nature_name: "Nature name"
+    nature_name: "Nature name" #?
     # natures: "Natures"
     net_mass: "Net mass (kg)"
     # net_surface_area: "Surface"
