@@ -36,7 +36,8 @@ load_data :productions do |loader|
                            :campaign_harvest_year => row[5].blank? ? nil : row[5].to_i,
                            :work_number_storage => row[6].blank? ? nil : row[6].to_s,
                            :provisional_grain_yield => row[7].blank? ? nil : row[7].to_d,
-                           :provisional_nitrogen_input => row[8].blank? ? nil : row[8].to_d
+                           :provisional_nitrogen_input => row[8].blank? ? nil : row[8].to_d,
+                           :provisional_residue_elimination_method => row[9].blank? ? nil : row[9].to_sym
                            )
 
         # Create a campaign if not exist
@@ -65,6 +66,10 @@ load_data :productions do |loader|
               if !r.provisional_nitrogen_input.nil?
                 support.is_measured!(:nitrogen_input_area_density, r.provisional_nitrogen_input.in_kilogram_per_hectare)
               end
+              if !r.provisional_residue_elimination_method.nil?
+                support.markers.create!(:indicator_name => :residue_elimination_method, :aim => :perfect, :choice_value => r.provisional_residue_elimination_method)
+              end
+              
             end
           elsif !product_nature_variant_sup.nil?
             pro = Production.where(variant_id: product_nature_variant_sup.id, campaign_id: campaign.id, :activity_id => activity.id).first
