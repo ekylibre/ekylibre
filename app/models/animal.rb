@@ -79,8 +79,8 @@ class Animal < Bioproduct
   def status
     if self.dead?
       return :stop
-    elsif self.indicators_list.include? :animal_disease_state
-      return (self.animal_disease_state.to_s == "healthy" ? :go : :caution)
+    elsif self.indicators_list.include? :healthy
+      return (self.healthy ? :go : :caution)
     else
       return :go
     end

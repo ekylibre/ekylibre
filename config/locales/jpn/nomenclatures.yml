@@ -1079,8 +1079,7 @@ jpn:
         related_to:
           # individual: "Individu"
           # whole: "Population"
-      item_lists:  #?
- #?
+      item_lists: #?
       items:
         # aluminium_concentration: "Teneur en Aluminium"
         # animal_life_state: "Phase du bioprocessus de vie d’un animal"

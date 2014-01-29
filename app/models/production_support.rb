@@ -73,20 +73,26 @@ class ProductionSupport < Ekylibre::Record::Base
     if value.nil?
       raise ArgumentError, "Value must be given"
     end
-    datum = self.markers.build(indicator_name: indicator.name, started_at: (options[:at] || Time.now))
-    datum.value = value
-    datum.save!
-    return datum
+    options[:indicator_name] = indicator.name
+    options[:aim] ||= :perfect
+    options.delete(:derivative) if options[:derivative].blank?
+    options[:subject] ||= (options[:derivative] ? :derivative : :support)
+    unless marker = self.markers.find_by(options)
+      marker = self.markers.build(options)
+    end
+    marker.value = value
+    marker.save!
+    return marker
   end
 
-  # Return the indicator datum
-  def indicator_datum(indicator, options = {})
-    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-    end
-    started_at = options[:at] || Time.now
-    return self.markers.where(indicator_name: indicator.name).where("started_at <= ?", started_at).reorder(started_at: :desc).first
-  end
+  # # Return the indicator datum
+  # def indicator_datum(indicator, options = {})
+  #   unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+  #     raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+  #   end
+  #   started_at = options[:at] || Time.now
+  #   return self.markers.where(indicator_name: indicator.name).first
+  # end
 
   def active?
     if self.activity.fallow_land?
