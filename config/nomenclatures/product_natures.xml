@@ -41,7 +41,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), produce(milk), move, produce(bos)"
-            variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_born_cycle, mammalia_reproduction_state, mammalia_twins_condition, mammalia_lactation_state, animal_disease_state, geographic_coordinate"
+            variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, geographic_coordinate"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat, milk"
             />
@@ -68,7 +68,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), move"
-            variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, mammalia_twins_condition, mammalia_born_cycle, animal_disease_state"
+            variable_indicators="net_mass, animal_life_state, mammalia_reproduction_event_abortion, mammalia_reproduction_state, mammalia_reproduction_method_embryo_transplant, last_birth_children_count, mammalia_birth_count, healthy"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat, milk"
             />
@@ -77,7 +77,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), move"
-            variable_indicators="net_mass, animal_life_state, animal_disease_state"
+            variable_indicators="net_mass, animal_life_state, healthy"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat"
             />
@@ -86,7 +86,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move"
-            variable_indicators="net_mass, animal_life_state, animal_disease_state, mammalia_born_condition"
+            variable_indicators="net_mass, animal_life_state, healthy, mammalia_birth_condition"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat"
             />
@@ -113,7 +113,7 @@
             variety="plant"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(straw)"
-            variable_indicators="population, shape, leaf_count, plant_life_state, plant_reproduction_state"
+            variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state"
             frozen_indicators="net_surface_area"
             derivatives="straw"
             />
@@ -122,7 +122,7 @@
             variety="plant"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(grain)"
-            variable_indicators="population, shape, leaf_count, plant_life_state, plant_reproduction_state"
+            variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state"
             frozen_indicators="net_surface_area"
             derivatives="grain"
             />
@@ -131,7 +131,7 @@
             variety="plant"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(grain), produce(straw)"
-            variable_indicators="population, shape, leaf_count, plant_life_state, plant_reproduction_state"
+            variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state"
             frozen_indicators="net_surface_area"
             derivatives="grain, straw"
             />
@@ -327,7 +327,7 @@
             variety="land_parcel"
             population_counting="decimal"
             abilities=""
-            variable_indicators="population, shape, available_water_capacity_per_area, soil_depth, ph, cation_exchange_capacity, cation_exchange_capacity_analysis_method, organic_matter_concentration, nitrogen_concentration, potassium_concentration, phosphorus_concentration, phosphorus_analysis_method, calcium_concentration, magnesium_concentration, sulfur_concentration, boron_concentration, molybdenum_concentration, manganese_concentration, copper_concentration, zinc_concentration, iron_concentration, aluminium_concentration"
+            variable_indicators="population, shape, available_water_capacity_per_area, soil_depth, potential_hydrogen, cation_exchange_capacity, cation_exchange_capacity_analysis_method, organic_matter_concentration, nitrogen_concentration, potassium_concentration, phosphorus_concentration, phosphorus_analysis_method, calcium_concentration, magnesium_concentration, sulfur_concentration, boron_concentration, molybdenum_concentration, manganese_concentration, copper_concentration, zinc_concentration, iron_concentration, aluminium_concentration"
             frozen_indicators="net_surface_area"
             />
       <item name="land_parcel_cluster"
@@ -343,7 +343,7 @@
             variety="cultivable_zone"
             population_counting="decimal"
             abilities="consume(water), consume(seed), produce(plant), store(plant)"
-            variable_indicators="population, shape, cultural_soil_state"
+            variable_indicators="population, shape, soil_cultural_state"
             frozen_indicators="net_surface_area"
             />
       <item name="building"

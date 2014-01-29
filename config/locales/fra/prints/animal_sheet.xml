@@ -60,9 +60,9 @@
 		</field>
 		<sortField name="measured-at"/>
 	</subDataset>
-	<subDataset name="animal_disease_state" uuid="c905c8ec-3a27-468e-93ba-0bd89e202ed8">
+	<subDataset name="healthy" uuid="c905c8ec-3a27-468e-93ba-0bd89e202ed8">
 		<queryString language="xPath">
-			<![CDATA[/animal/indicator-data/indicator-datum[indicator/@name="animal_disease_state"]]]>
+			<![CDATA[/animal/indicator-data/indicator-datum[indicator/@name="healthy"]]]>
 		</queryString>
 		<field name="string-value" class="java.lang.String">
 			<fieldDescription><![CDATA[string-value]]></fieldDescription>
@@ -483,7 +483,7 @@
 			<componentElement>
 				<reportElement uuid="d10352e4-d114-4e73-ab1e-6bf1b8d2ddf6" x="292" y="35" width="253" height="24"/>
 				<jr:list xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" printOrder="Vertical">
-					<datasetRun subDataset="animal_disease_state" uuid="4bb70f19-302e-4d8a-a623-1d64eeb573e5">
+					<datasetRun subDataset="healthy" uuid="4bb70f19-302e-4d8a-a623-1d64eeb573e5">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>

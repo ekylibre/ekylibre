@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="plant_life_states">
+    <!-- Before: germination, tillering, bolting, maturity, senescence -->
+    <items>
+      <item name="germination"/>
+      <item name="leaf_development"/>
+      <item name="tillering"/>
+      <item name="stem_elongation"/>
+      <item name="booting"/>
+      <item name="heading"/>
+      <item name="flowering"/>
+      <item name="development_of_fruit"/>
+      <item name="ripening"/>
+      <item name="senescence"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

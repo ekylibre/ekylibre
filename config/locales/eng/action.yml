@@ -893,7 +893,6 @@ eng:
     analytics: "Analytics"
     animal: "Animal"
     animal_bar: "Animals by category"
-    # animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
     animal_group_tabbox:
       animals: "Animal"
       cares: "Cares on animal"
@@ -1174,6 +1173,7 @@ eng:
     groups: "Groups"
     # guides: "Référentiels"
     # harvested_at: "Récolté le"
+    # healthy: "Phase du bioprocessus de maladie d’un animal"
     help: "Help"
     hint: "Hint: %{value}"
     # historic: "Historique"

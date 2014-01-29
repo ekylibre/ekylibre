@@ -3,7 +3,7 @@ module Nomen
   class AttributeDefinition
     attr_reader :nomenclature, :name, :type, :fallbacks, :default
 
-    TYPES = [:boolean, :choice, :date, :decimal, :integer, :list, :string, :symbol]
+    TYPES = [:boolean, :choice, :date, :decimal, :integer, :list, :nomenclature, :string, :symbol]
 
     # New item
     def initialize(nomenclature, element, options = {})
@@ -18,7 +18,9 @@ module Nomen
       end
       @required = !!(element.attr("required").to_s == "true")
       @inherit  = !!(element.attr("inherit").to_s == "true")
-      raise ArgumentError.new("Attribute #{@name} type is unknown") unless TYPES.include?(@type)
+      unless TYPES.include?(@type)
+        raise ArgumentError, "Attribute #{@name} type is unknown"
+      end
       if @type == :choice or @type == :list
         if element.has_attribute?("choices")
           @choices = element.attr("choices").to_s.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)

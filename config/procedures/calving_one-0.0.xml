@@ -11,9 +11,9 @@
       <operation id="100">
         <task do="[mother] produces [child]"/>
         <task do="[child] is at [mother]"/>
-        <task do="[caregiver] measures [child|mammalia_born_condition]"/>
-        <task do="[caregiver] measures [child|mammalia_twins_condition|none]"/>
-        <task do="[caregiver] measures [mother|mammalia_born_cycle]"/>
+        <task do="[caregiver] measures [child|mammalia_birth_condition]"/>
+        <task do="[caregiver] measures [child|last_birth_children_count|none]"/>
+        <task do="[caregiver] measures [mother|mammalia_birth_count]"/>
         <task do="[caregiver] measures [mother|mammalia_reproduction_method_embryo_transplant]"/>
         <task do="[caregiver] measures [mother|mammalia_reproduction_event_abortion]"/>
        </operation>

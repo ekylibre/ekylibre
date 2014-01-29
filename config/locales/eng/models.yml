@@ -767,8 +767,8 @@ eng:
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
     current_amount: "Current amount"
-    # current_animal_disease_state: "État de santé actuel"
     current_financial_year: "Current financial year" #?
+    # current_healthy: "État de santé actuel"
     # current_localization: "Current localization"
     # current_net_mass: "Dernière pesée"
     # current_ownership: "Current ownership"

@@ -29,7 +29,7 @@
       <operation id="500" repeatable="true">
         <task do="[tractor] acts on [land_parcel]"/>
         <!-- le tracteur et le chauffeur laboure la parcelle -->
-        <task do="[driver] measures [land_parcel|cultural_soil_state]"/>
+        <task do="[driver] measures [land_parcel|soil_cultural_state]"/>
         <!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de sa surface (valeur attendue = raw) -->
       </operation>
       <operation id="600" duration="18 minutes">

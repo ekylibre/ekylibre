@@ -819,7 +819,6 @@ jpn:
     # analytics: "Analytiques"
     # animal: "Animal"
     # animal_bar: "Animaux par lot"
-    # animal_disease_state: "Phase du bioprocessus de maladie d’un animal"
     animal_group_tabbox:
       # animals: "Animaux du lot"
       # cares: "Soins réalisés sur le lot"
@@ -1091,6 +1090,7 @@ jpn:
     # groups: "Groupes"
     # guides: "Référentiels"
     # harvested_at: "Récolté le"
+    # healthy: "Phase du bioprocessus de maladie d’un animal"
     # help: "Aide"
     # hint: "Astuce\_: %{value}"
     # historic: "Historique"

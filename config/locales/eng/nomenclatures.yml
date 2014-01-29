@@ -328,6 +328,18 @@ eng:
         # vegetal_crops: "Production végétale"
         # vine_wine: "Vigne et vin"
       # name: "Familles d’activité"
+    animal_life_states:
+      items:
+        # aging: "Adulte"
+        # first_growth: "Première croissance"
+        # second_growth: "Seconde croissance"
+        # senescence: "Sénescence"
+      # name: "États du dévelopment animal"
+    cation_exchange_capacity_analysis_methods:
+      items:
+        # cobaltihexamine: "Cobaltihexamine"
+        # metson: "Metson"
+      # name: "Méthodes d'analyse de la capacité d'échange cationique"
     charts_of_accounts:
       items:
         # fr_pcg82: "Plan comptable pcg82"
@@ -955,7 +967,8 @@ eng:
         # pressure: "Pression"
         # specific_volume: "Volume spécifique"
         # surface_area: "Superficie"
-        # temperature: "Temperature"
+        # surface_area_density: "Densité surfacique"
+        # temperature: "Température"
         # time: "Temps"
         # volume: "Volume"
       # name: "Dimensions"
@@ -1012,6 +1025,7 @@ eng:
         # sales_invoice: "Facture de vente"
         # sales_order: "Commande de vente"
         # stocks: "Stocks"
+        # tax_assessment: "Avis d'imposition"
         # trial_balance: "Balance comptable"
         # veterinary_booklet: "Carnet vétérinaire"
         # vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
@@ -1045,6 +1059,17 @@ eng:
         sir: "Sir"
         syndicate: "Syndicate"
       # name: "Types de tiers"
+    figures:
+      items:
+        # biped: "Bipède"
+        # building: "Bâtiment"
+        # cuboid: "Cuboïde"
+        # cylinder: "Cylindre"
+        # hemispheroid: "Hemisphéroïde"
+        # quadruped: "Quadrupède"
+        # spheroid: "Sphéroïde"
+        # vehicle: "Véhicule"
+      # name: "Formes"
     france_crops_sets:
       attributes:
         # varieties: "Variétés"
@@ -1127,136 +1152,10 @@ eng:
         related_to:
           # individual: "Individu"
           # whole: "Population"
-      item_lists:
-        animal_disease_state:
-          choices:
-            # healthy: "En bonne santé"
-            # sick: "Malade"
-        animal_life_state:
-          choices:
-            # aging: "Adulte"
-            # first_growth: "Première croissance"
-            # second_growth: "Seconde croissance"
-        application_width: #?
-        cation_exchange_capacity_analysis_method:
-          choices:
-            # cobaltihexamine: "Cobaltihexamine"
-            # metson: "Metson"
-        cells_concentration: #?
-        choices: #?
-        clostridial_spores_concentration: #?
-        cultural_plant_residue:
-          choices:
-            # buried: "Enfouis"
-            # burned: "Brûlés"
-            # exported: "Exportés"
-        cultural_soil_state:
-          choices:
-            # covered: "Couvert végétal"
-            # grown: "Culture"
-            # nude: "Nu"
-            # plowed: "Guéret"
-            # raw: "Etat sauvage"
-        dry_matter_rate: #?
-        fat_matters_concentration: #?
-        figure:
-          choices: #?
-        freezing_point_temperature: #?
-        geographic_coordinate: #?
-        hundred_grain_mass: #?
-        immunoglobulins_concentration: #?
-        inel_index: #?
-        inhibitors_presence:
-          choices:
-            # negative: "Negatif"
-            # positive: "Positif"
-        isu_index: #?
-        leaf_count:
-          choices: #?
-        lipolysis: #?
-        livestock_unit: #?
-        mammalia_born_condition:
-          choices:
-            # caesarean: "Par césarienne"
-            # cutting_calf: "En découpant le veau"
-            # few_help: "Avec un peu d’aide"
-            # great_help: "Avec des difficultés"
-            # without_help: "Sans aide"
-        mammalia_born_cycle: #?
-        mammalia_lactation_state:
-          choices:
-            # depletion: "Tarie"
-            # lactation: "Lactation"
-        mammalia_reproduction_event_abortion: #?
-        mammalia_reproduction_method_embryo_transplant: #?
-        mammalia_reproduction_state:
-          choices:
-            # back_heat: "Retour de chaleur"
-            # heat: "Chaleur"
-            # pregnancy: "Pleine"
-        mammalia_twins_condition:
-          choices:
-            # none: "N/A"
-            # triplets: "Triplés"
-            # twins: "Jumeaux"
-        maximum_load_net_mass: #?
-        maximum_load_net_volume: #?
-        meat_withdrawal_period: #?
-        milk_withdrawal_period: #?
-        motor_power: #?
-        net_mass: #?
-        net_surface_area: #?
-        net_volume: #?
-        nitrogen_concentration: #?
-        phosphorus_analysis_method:
-          choices:
-            # dyer: "Dyer"
-            # joret_hebert: "Joret-Hebert"
-            # olsen: "Olsen"
-        phosphorus_concentration: #?
-        plant_life_state:
-          choices:
-            # bolting: "Montaison"
-            # germination: "Germination"
-            # maturity: "Maturité"
-            # senescence: "Senescence"
-            # tillering: "Tallage"
-        plant_reproduction_state:
-          choices:
-            # flowering: "Floraison"
-            # grain_maturity: "Maturité du grain"
-            # grain_senescence: "Senescence du grain"
-            # heading: "Epiaison"
-        population: #?
-        potassium_concentration: #?
-        protein_matters_concentration: #?
-        reproductor: #?
-        sex:
-          choices:
-            # female: "Femelle"
-            # male: "Mâle"
-            # undefined: "Indéfini"
-        shape: #?
-        tb_index: #?
-        temperature: #?
-        total_bacteria_concentration: #?
-        tp_index: #?
-        urea_concentration: #?
-        usage_duration: #?
-        water_rate: #?
-        woodstock_variety:
-          choices:
-            # 110r: "110r"
-            # 3309c: "3309c"
-            # 99r: "99r"
-            # fercal: "Fercal"
-            # gravesac: "Gravesac"
-            # p1103: "P1103"
-            # rgm: "Rgm"
-            # so4: "So4"
+      item_lists:  #?
+ #?
       items:
         # aluminium_concentration: "Teneur en Aluminium"
-        animal_disease_state: "Animal disease state"
         animal_life_state: "Animal life state"
         # application_width: "Largeur de travail"
         # available_water_capacity_per_area: "Réserve utile (RU)"
@@ -1268,37 +1167,37 @@ eng:
         cells_concentration: "Cells concentration" #?
         clostridial_spores_concentration: "Clostridial spores concentration"
         # copper_concentration: "Teneur en Cuivre"
-        # cultural_plant_residue: "Résidus de culture"
-        # cultural_soil_state: "Etat cultural du sol"
         # dry_matter_rate: "Taux de matière sèche"
-        # economical_milk_index: "INEL (INdex Économique Laitier)"
-        # energy: "Energie"
-        # fat_matter_concentration_index: "TB (Taux Butyreux)"
+        # economical_milk_index: "Index économique laitier (INEL)"
+        # energy: "Énergie"
+        # fat_matter_concentration_index: "Taux butyreux (TB)"
         fat_matters_concentration: "Fat matters concentration"
         # fertility_index: "Index de fertilité"
+        # figure: "Forme"
         freezing_point_temperature: "Freezing point temperature"
         # geographic_coordinate: "Coordonnées géographiques"
-        # grain_yield_per_area: "Rendement en grain par unité de surface"
         ground_appearance: "Ground appearance" #?
+        healthy: "Animal disease state"
         # height: "Hauteur"
+        # horizontal_rotation: "Rotation horizontale"
         immunoglobulins_concentration: "Immunoglobulins concentration"
         in_production: "In production" #?
         inhibitors_presence: "Inhibitors presence"
         # iron_concentration: "Teneur en Fer"
-        # irrigation_water_input_per_area: "Quantité d’eau d’irrigation par unité de surface"
-        # leaf_count: "Nombre de talles"
+        # irrigation_water_input_area_density: "Densité surfacique d'apport d'eau d'irrigation"
+        # lactating: "En lactation"
+        # last_birth_children_count: "Nombre de nouveaux-nés lors de la dernière naissance"
         # length: "Longueur"
         lipolysis: "Lipolysis"
-        # livestock_unit: "UGB (Unité de Gros Bétail)"
-        # magnesium_concentration: "Teneur en Magnesium"
-        # mammalia_born_condition: "condition de naissance"
-        # mammalia_born_cycle: "cycle de naissance"
-        mammalia_lactation_state: "Mammalia lactation state"
+        # livestock_unit: "Unité de gros bétail (UGB)"
+        # magnesium_concentration: "Teneur en Magnésium"
+        # mammalia_birth_condition: "Condition de naissance"
+        # mammalia_birth_count: "Cycle de naissance"
+        mammalia_lactation_state: "Mammalia lactation state" #?
         # mammalia_reproduction_event_abortion: "Avortement"
         # mammalia_reproduction_method_embryo_transplant: "Transplantation embryonaire"
         mammalia_reproduction_state: "Mammalia reproduction state"
-        # mammalia_twins_condition: "Naissance de jumeaux"
-        # manganese_concentration: "Teneur en Manganese"
+        # manganese_concentration: "Teneur en Manganèse"
         # mass_area_yield: "Rendement de masse surfacique"
         # maximum_load_net_mass: "Masse nette maximale en charge"
         # maximum_load_net_volume: "Capacité volumique nette maximum"
@@ -1311,30 +1210,35 @@ eng:
         # net_volume: "Volume net"
         # nitrogen_concentration: "Teneur en azote"
         # nitrogen_input_area_density: "Densité d’apport d’azote"
-        # nitrogen_input_per_area: "Quantité d’azote par unité de surface"
         # organic_matter_concentration: "Teneur en matière organique"
-        # ph: "ph"
         # phosphorus_analysis_method: "Méthode d'analyse de la teneur en Phosphore"
         # phosphorus_concentration: "Teneur en phosphore"
         plant_life_state: "Plant life state"
-        # plant_per_area: "pied par unité de surface"
         plant_reproduction_state: "Plant reproduction state"
+        # plants_density: "Densité de plantation"
+        # plants_rows_interval: "Intervalle inter-rangs"
         # population: "Population"
         # potassium_concentration: "Teneur en potassium"
-        # protein_concentration_index: "TP (Taux Protéïque)"
+        # potential_hydrogen: "Potentiel hydrogène (pH)"
+        # protein_concentration_index: "Taux protéïque (TP)"
         protein_matters_concentration: "Protein matters concentration"
         # reproductor: "Reproducteur"
+        # residue_elimination_method: "Méthode d'élimination des résidus"
+        # row_plants_interval: "Intervalle inter-plants"
         # sex: "Sexe"
         # shape: "Forme"
+        # soil_cultural_state: "État cultural du sol"
         # soil_depth: "Profondeur du sol"
+        # soil_nature: "Type de sol"
         # somatic_cell_concentration: "Dénombrement des cellules somatiques"
         sowable: "Sowable" #?
-        # straw_yield_per_area: "Rendement en tige par unité de surface"
+        # subsoil_nature: "Type de sous-sol"
         # sulfur_concentration: "Teneur en Soufre"
         temperature: "Temperature"
         # thousand_grain_mass: "Poids de mille grains"
+        # tiller_count: "Nombre de talles"
         total_bacteria_concentration: "Total bacteria concentration"
-        # unique_synthesis_index: "ISU (Index de Synthèse Unique)"
+        # unique_synthesis_index: "Index de synthèse unique (ISU)"
         urea_concentration: "Urea concentration"
         # usage_duration: "Durée d’utilisation"
         # water_content_rate: "Teneur en eau"
@@ -1469,6 +1373,20 @@ eng:
         uzb: "Uzbek"
         vie: "Vietnamese"
       # name: "Langues"
+    mammalia_birth_conditions:
+      items:
+        # caesarean: "Par césarienne"
+        # few_help: "Avec un peu d’aide"
+        # great_help: "Avec des difficultés"
+        # newborn_cutting: "En découpant le nouveau-né"
+        # without_help: "Sans aide"
+      # name: "Conditions de naissance mammale"
+    mammalia_reproduction_states:
+      items:
+        # back_heat: "Retour de chaleur"
+        # heat: "Chaleur"
+        # pregnancy: "Pleine"
+      # name: "États de la reproduction mammale"
     nmp_methods:
       items: #?
     nmp_poitou_charentes_abacus_1: #?
@@ -1517,6 +1435,26 @@ eng:
       attributes: #?
       choices: #?
       items: #?
+    phosphorus_analysis_methods:
+      items:
+        # dyer: "Dyer"
+        # joret_hebert: "Joret-Hebert"
+        # olsen: "Olsen"
+      # name: "Méthodes d'analyse du phosphore"
+    plant_life_states:
+      items:
+        # booting: "Montaison"
+        # germination: "Germination"
+        # senescence: "Sénescence"
+        # tillering: "Tallage"
+      # name: "États du développement végétal"
+    plant_reproduction_states:
+      items:
+        # flowering: "Floraison"
+        # grain_maturity: "Maturité du grain"
+        # grain_senescence: "Senescence du grain"
+        # heading: "Épiaison"
+      # name: "États de la reproduction végétale"
     procedure_natures:
       attributes: #?
       items:
@@ -2018,7 +1956,48 @@ eng:
         # winter_soft_wheat: "Blé tendre d’hiver"
         # without_crop: "Hors culture"
       name: "Name"
+    residue_elimination_methods:
+      items:
+        # burning: "Combustion"
+        # burying: "Enfouissement"
+        # evacuation: "Évacuation"
+      # name: "Méthodes d'élimination des résidus"
     roles: #?
+    sexes:
+      items:
+        # female: "Femelle"
+        # hermaphrodite: "Hermaphrodite"
+        # male: "Mâle"
+      # name: "Sexes"
+    soil_cultural_states:
+      items:
+        # covered: "Couvert végétal"
+        # grown: "En culture"
+        # nude: "Nu"
+        # plowed: "Guéret"
+        # raw: "Etat sauvage"
+      # name: "États culturaux du sol"
+    soil_natures:
+      items:
+        # aubues_soil: "Sols sur craie Nord Vienne (Aubues)"
+        # black_valley_soil: "Terres noires de vallées"
+        # champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)"
+        # chesnut_red_soil: "Terres rouges à chataigniers"
+        # clay_limestone_soil: "Sol argilo-calcaire (Groies)"
+        # clay_soil: "Terre d’argile lourde"
+        # flap_silt_soil: "Limons battants"
+        # granite_arena_soil: "Sol sur arène granitique"
+        # hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe"
+        # sand_soil: "Sol sableux"
+        # sandy_clay_loam_soil: "Sol limono-argileux"
+        # sandy_clay_soil: "Sol argilo-sableux"
+        # silt_schist_soil: "Limons sur schiste ou gneiss"
+        # silt_soil: "Limon"
+        # silty_clay_loam_soil: "Sol limono-argileux"
+        # silty_clay_soil: "Sol argilo-limoneux"
+        # swamp_peaty_soil: "Terre de marais tourbeux"
+        # valley_terrace_soil: "Sols de terrasse de vallée"
+      # name: "Types de sols"
     taxes:
       attributes:
         # active: "actif"

@@ -4,23 +4,23 @@
   <procedure name="calving_twin" natures="viviparous_birth" version="0.0" status="frozen">
     <variables>
       <variable name="mother" variety="bos" abilities="produce(bos)" roles="viviparous_birth-target"/>
-      <variable name="first_child"  variety="bos" new="produced-by: mother" indicators="father: ?, mass: ?, mammalia_twins_condition: twins" roles="viviparous_birth-output"/>
-      <variable name="second_child" variety="bos" new="produced-by: mother" indicators="father: ?, mass: ?, mammalia_twins_condition: twins" roles="viviparous_birth-output"/>
+      <variable name="first_child"  variety="bos" new="produced-by: mother" indicators="father: ?, mass: ?, last_birth_children_count: twins" roles="viviparous_birth-output"/>
+      <variable name="second_child" variety="bos" new="produced-by: mother" indicators="father: ?, mass: ?, last_birth_children_count: twins" roles="viviparous_birth-output"/>
       <variable name="caregiver" variety="worker"/>
     </variables>
     <operations>
       <operation id="100">
         <task do="[mother] produces [first_child]"/><!-- une vache produit le premier veau -->
         <task do="[first_child] is at [mother]"/>
-        <task do="[caregiver] measures [first_child|mammalia_born_condition]"/>
+        <task do="[caregiver] measures [first_child|mammalia_birth_condition]"/>
       </operation>
       <operation id="200">
         <task do="[mother] produces [second_child]"/><!-- une vache produit le second veau -->
         <task do="[second_child] is at [mother]"/>
-        <task do="[caregiver] measures [second_child|mammalia_born_condition]"/>
+        <task do="[caregiver] measures [second_child|mammalia_birth_condition]"/>
       </operation>
       <operation id="300" duration="5 minutes">
-        <task do="[caregiver] measures [mother|mammalia_born_cycle]"/>
+        <task do="[caregiver] measures [mother|mammalia_birth_count]"/>
         <task do="[caregiver] measures [mother|mammalia_reproduction_method_embryo_transplant]"/>
         <task do="[caregiver] measures [mother|mammalia_reproduction_event_abortion]"/>      
       </operation>

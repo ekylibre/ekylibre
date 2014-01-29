@@ -54,7 +54,7 @@
       </operation>
       <operation id="750">
         <task do="cultivation|population|superficial_count:land_parcel is measured"/>
-        <task do="land_parcel|cultural_soil_state|covered is measured"/>
+        <task do="land_parcel|soil_cultural_state|covered is measured"/>
       </operation>
       <operation id="800" duration="18 minutes">
         <task do="[tractor] moves in default storage of [implanter_tool]"/>
