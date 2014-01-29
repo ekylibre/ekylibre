@@ -75,6 +75,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
   # Adds nested association support
   def nested_association(association, *args, &block)
+    options = args.extract_options!
     reflection = find_association_reflection(association)
     raise "Association #{association.inspect} not found" unless reflection
     ActiveSupport::Deprecation.warn "Nested association don't take code block anymore. Use partial '#{association.to_s.singularize}_fields' instead." if block_given?
@@ -83,10 +84,10 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     html = self.simple_fields_for(association) do |nested|
       @template.render("#{item}_fields", :f => nested)
     end
-    if reflection.macro == :has_many
-      # TODO Cleans this very dirty code...
-      # nested_partial = Pathname.new(caller.first.split(/\:/).first).relative_path_from(Rails.root.join("app", "views")).to_s.gsub(/\/\_/, '/').gsub(/(\.\w+)+$/, '') # , :partial => nested_partial
-      html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, :class => "nested-add add-#{item}"), :class => "links")
+    unless options[:new].is_a?(FalseClass)
+      if reflection.macro == :has_many
+        html << @template.content_tag(:div, @template.link_to_add_association("labels.add_#{item}".t, self, association, 'data-no-turbolink' => true, :class => "nested-add add-#{item}"), :class => "links")
+      end
     end
     return @template.content_tag(:div, html, :id => "#{association}-field")
   end
@@ -135,6 +136,10 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
   end
 
+  def indicator_input()
+
+  end
+
 
   def shape(attribute_name = :shape, options = {})
     # raise @object.send(attribute_name)
@@ -153,6 +158,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       html
     end
   end
+
+
 
 
 
@@ -240,6 +247,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
                   birth_fields.input_field(indicator.name, label: indicator.human_name, as: indicator.datatype) +
                     @template.content_tag(:span, variant.unit_name, :class => "add-on")
                 end
+              elsif indicator.name.to_s == "shape"
+                fbs << birth_fields.input(indicator.name, as: :text)
               else
                 fbs << birth_fields.input(indicator.name)
               end
@@ -325,7 +334,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       end
 
     else
-
+      clear_actions!
       variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
       if variants.any?
         html << @template.subheading(:choose_a_type_of_product)
@@ -344,9 +353,42 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   end
 
 
+  def fields(partial = 'form')
+    @template.content_tag(:div, @template.render(partial, f: self), class: "form-fields")
+  end
 
+  def actions
+    return nil unless @actions.any?
+    return @template.form_actions do
+      html = "".html_safe
+      for action in @actions
+        if action[:type] == :block
+          html << action[:content].html_safe
+        else
+          html << @template.send(action[:type], *action[:args])
+        end
+      end
+      html
+    end
+  end
+
+  def add(type = :block, *args, &block)
+    @actions ||= []
+    if type == :block
+      @actions << {type: type, content: @template.capture(&block)}
+    else
+      type = {submit: :submit_tag, link: :link_to}[type] || type
+      @actions << {type: type, args: args}
+    end
+    return true
+  end
+
+  def clear_actions!
+    @actions = []
+  end
 
   protected
+
 
   def clean_targets(targets)
     if targets.is_a?(Symbol)

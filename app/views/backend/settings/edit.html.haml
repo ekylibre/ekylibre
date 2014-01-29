@@ -1,9 +1,0 @@
-=form_tag({:action => :update}, {:method => :put}) do
-  =field_set :preferences do
-    -Preference.find_each do |preference|
-      =field t("preferences."+preference.name), {:datatype => preference.nature.to_sym, :model => preference.model, :value => preference.value, :name => "preference[#{preference.name}][value]"}
-
-  =form_actions do
-    =submit_tag tg(:update)
-    =link_to tg(:cancel), :back
-

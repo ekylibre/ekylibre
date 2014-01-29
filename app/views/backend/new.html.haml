@@ -1,0 +1,7 @@
+= backend_form_for(resource, (params[:dialog] ? {data: {dialog: params[:dialog]}} : {})) do |f|
+  - if params[:redirect]
+    = hidden_field_tag(:redirect, params[:redirect])
+  - f.add(:submit, :create.tl, data: {disable_with: :please_wait.tl})
+  = f.fields
+  - f.add(:link, :cancel.tl, {action: :index}, (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
+  = f.actions
