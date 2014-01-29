@@ -1,5 +1,10 @@
 spa:
   enumerize:
+    activity:
+      nature:
+        # auxiliaire: "Auxiliaire"
+        # main: "Principale"
+        # none: "―"
     asset: #?
     cash:
       mode:

@@ -25,7 +25,6 @@ spa:
       campaign: #?
       cash: #?
       company: #?
-      cultivable_land_parcel: #?
       cultivable_zone: #?
       deposit: #?
       document:

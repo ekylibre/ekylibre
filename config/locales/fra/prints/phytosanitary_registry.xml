@@ -87,7 +87,7 @@
 	<field name="plant_cluster_pac_number" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::plant/@cluster-pac-number]]></fieldDescription>
 	</field>
-	<field name="plant_cultivable_land_parcel" class="java.lang.String">
+	<field name="plant_cultivable_zone" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::plant/@cultivable-land-parcel]]></fieldDescription>
 	</field>
 	<field name="harvest_year" class="java.lang.String">
@@ -97,7 +97,7 @@
 		<fieldDescription><![CDATA[quantity-in-liter-per-hectare]]></fieldDescription>
 	</field>
 	<sortField name="campaign" order="Descending"/>
-	<sortField name="plant_cultivable_land_parcel"/>
+	<sortField name="plant_cultivable_zone"/>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
 		<groupHeader>
@@ -255,7 +255,7 @@
 				<textField evaluationTime="Group" evaluationGroup="plant_group" isBlankWhenNull="true">
 					<reportElement style="base" x="362" y="81" width="102" height="44" uuid="74c7d982-093d-4800-a44b-6804008111c7"/>
 					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{plant_cultivable_land_parcel}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{plant_cultivable_zone}]]></textFieldExpression>
 				</textField>
 				<rectangle radius="10">
 					<reportElement style="title" x="306" y="59" width="177" height="83" uuid="286af448-36cb-4abe-8109-e0e8fad9cf3b"/>

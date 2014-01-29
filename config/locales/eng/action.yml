@@ -115,7 +115,9 @@ eng:
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
+    backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_product_nature_cells: #?
+    backend/cells/current_stocks_by_variety_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -145,7 +147,6 @@ eng:
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
-    backend/cultivable_land_parcels: #?
     backend/cultivable_zones:
       # edit: "Modifier la zone cultivable\_: %{name}"
       # index: "Zones cultivables"
@@ -864,6 +865,7 @@ eng:
     add_payment: "Add payment"
     add_phone: "Add phone number"
     # add_posology: "Ajouter une posologie"
+    # add_product: "Ajouter un produit"
     add_production: "Add production"
     add_quickly_a_line: "Add quickly a line of product" #?
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
@@ -1040,14 +1042,14 @@ eng:
     critic_stock_min: "Critic stock min"
     critic_stocks: "Stocks below critical threshold"
     # cropping_plan: "Assolement"
-    # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
+    # cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)"
     csv_statistics: "CSV statistics"
     cumul: "Accumulation of tattle and previous balance N°%{number}"
     # currency: "Devise"
     currency_with_code: "%{name} (%{code})"
     current: "Current"
     current_letter: "Current letter\_: %{letter}"
-    # current_stocks_by_product_nature: "État des stocks"
+    # current_stocks_by_variety: "État des stocks"
     custom_field_update: "Custom field update" #?
     data_to_export: "Data to export"
     data_to_extract: "Data to extract"

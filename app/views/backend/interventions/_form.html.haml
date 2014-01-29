@@ -24,7 +24,7 @@
       = v.input :reference_name, as: :hidden
       - if reference.new?
         = v.input("actor", :wrapper => :append, :value => 0, wrapper_html: {class: "inline special"}, label: reference.human_name) do
-          - if reference.parted?
+          - if reference.need_population?
             = v.input_field :population
           - if reference.known_variant?
             %span.add-on= reference.variant_indication

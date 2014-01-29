@@ -196,8 +196,8 @@ load_data :interventions do |loader|
             if w.count.modulo(3).zero? # AND NOT prairie
               # Treatment herbicide 01-04 30-04
               Booker.intervene(:spraying_on_cultivation, year, 4, 1, 1.07 * coeff, support: support) do |i|
-                i.add_cast(reference_name: 'molecule', actor: i.find(Product, can: "kill(plant)"))
-                i.add_cast(reference_name: 'molecule_to_spray', population: 0.18 + 0.9 * coeff)
+                i.add_cast(reference_name: 'medicine', actor: i.find(Product, can: "kill(plant)"))
+                i.add_cast(reference_name: 'medicine_to_spray', population: 0.18 + 0.9 * coeff)
                 i.add_cast(reference_name: 'sprayer',  actor: i.find(Product, can: "spray"))
                 i.add_cast(reference_name: 'driver',   actor: i.find(Worker))
                 i.add_cast(reference_name: 'tractor',  actor: i.find(Product, can: "catch"))
@@ -303,8 +303,8 @@ load_data :interventions do |loader|
               Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5, support: support) do |i|
                 i.add_cast(reference_name: 'animal',           actor: animal)
                 i.add_cast(reference_name: 'caregiver',        actor: i.find(Worker))
-                i.add_cast(reference_name: 'molecule',         actor: i.find(AnimalMedicine, can: "care(bos)"))
-                i.add_cast(reference_name: 'molecule_to_give', population: 1 + rand(3))
+                i.add_cast(reference_name: 'medicine',         actor: i.find(AnimalMedicine, can: "care(bos)"))
+                i.add_cast(reference_name: 'medicine_to_give', population: 1 + rand(3))
               end
             end
             w.check_point

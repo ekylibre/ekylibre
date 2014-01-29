@@ -46,7 +46,7 @@ class Backend::EntitiesController < BackendController
     # t.action :destroy
   end
 
-  list(:incoming_payments, conditions: {payer_id: 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+  list(:incoming_payments, conditions: {payer_id: 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c, per_page: 5) do |t|
     t.column :number, url: true
     t.column :paid_on
     t.column :responsible, hidden: true

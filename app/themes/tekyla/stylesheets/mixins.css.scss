@@ -175,7 +175,7 @@
   height: $menu-height;
   min-width: $menu-width;
   list-style-type: none;
-  &:hover a {
+  &:hover > a {
     outline: none;
     background: background-hover($menu-background);
     @include transition(background 0.2s, box-shadow 0.2s);

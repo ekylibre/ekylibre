@@ -29,8 +29,8 @@ div[data-list-source] {
                 top: 20px;
                 padding: 1px;
                 margin:0;
-                 & { right: -1px;}
-                html[dir="rtl"] & { left: -1px;}
+                 & { right: 0px;}
+                html[dir="rtl"] & { left: 0px;}
                 li {
                   &[data-list-change-page-size], &[data-list-toggle-column] {
                     cursor: pointer;

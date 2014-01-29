@@ -87,7 +87,6 @@ arb:
         entity: "الملف" #?
         entity_id: "ملف" #?
         website: "موقع على الانترنت" #?
-      cultivable_land_parcel: #?
       cultivable_zone: #?
       currency:  #?
         cashes: "الخزينة" #?

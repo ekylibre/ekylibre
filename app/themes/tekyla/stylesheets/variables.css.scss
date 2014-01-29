@@ -49,8 +49,8 @@ $menu-background: #F0F0F0 !default;
 $menu-border-color: mix($menu-background, #000000, 87%);
 $menu-border-width: floor($fs-normal / 10);
 $menu-border: $menu-border-width solid $menu-border-color;
-$menu-width: $fs-normal * 13;
-$menu-padding: $menu-border-width;
+$menu-width: $fs-normal * 15;
+$menu-padding: 3 * $menu-border-width;
 $menu-height:  $fingertip-height;
 $menu-text-height: 2 * round(1.4 * $fs-normal / 2);
 

@@ -2170,7 +2170,6 @@ eng:
         # clay_soil: "Terre d’argile lourde"
         # compost: "Compost"
         # courtot: "Courtot"
-        # cultivable_land_parcel: "Parcelle culturale"
         # cultivable_zone: "Zone cultivable"
         # cultur: "Cultur"
         # daucus: "Carotte"
@@ -2373,7 +2372,7 @@ eng:
     land_parcel: "Land parcel" #?
     manure: "Manure" #?
     manure_to_spread: "Manure to spread" #?
-    molecule: "Molecule" #?
+    matter: "Molecule" #?
     plow: "Plow" #?
     seeder: "Seeder" #?
     seeds: "Seeds" #?

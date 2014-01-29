@@ -183,18 +183,18 @@ for file in Dir[config.join("locales", "*", "action.yml")].sort
   tr = YAML.load_file(lf)
   locale = tr.keys.first
   if tr[locale]["actions"]
-    if tr[locale]["actions"][old_table]
-      tr[locale]["actions"][new_table] = tr[locale]["actions"].delete(old_table)
+    if tr[locale]["actions"]["backend/#{old_table}"]
+      tr[locale]["actions"]["backend/#{new_table}"] = tr[locale]["actions"].delete("backend/#{old_table}")
     end
   end
   if tr[locale]["controllers"]
-    if tr[locale]["controllers"][old_table]
-      tr[locale]["controllers"][new_table] = tr[locale]["controllers"].delete(old_table)
+    if tr[locale]["controllers"]["backend/#{old_table}"]
+      tr[locale]["controllers"]["backend/#{new_table}"] = tr[locale]["controllers"].delete("backend/#{old_table}")
     end
   end
   if tr[locale]["unroll"]
-    if tr[locale]["unroll"][old_table]
-      tr[locale]["unroll"][new_table] = tr[locale]["unroll"].delete(old_table)
+    if tr[locale]["unroll"]["backend/#{old_table}"]
+      tr[locale]["unroll"]["backend/#{new_table}"] = tr[locale]["unroll"].delete("backend/#{old_table}")
     end
   end
   
@@ -240,7 +240,7 @@ File.open(nf, "rb") do |f|
   source = f.read
 end
 unless @simulate
-  source.gsub!(/(\")#{old_table}(\:\:)/, '\1' + new_table + '\2')
+  source.gsub!(/(\backend\/")#{old_table}(\#)/, '\1' + new_table + '\2')
   File.open(nf, "wb") do |f|
     f.write source
   end

@@ -22,10 +22,10 @@
 	<style name="Row" mode="Transparent"/>
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="land_parcel_input_prev" uuid="655036d4-b3dc-43cf-aca7-9ea6f0a004cd">
-		<parameter name="cultivable_land_parcel_id" class="java.lang.String"/>
-		<parameter name="cultivable_land_parcel_area" class="java.lang.String"/>
+		<parameter name="cultivable_zone_id" class="java.lang.String"/>
+		<parameter name="cultivable_zone_area" class="java.lang.String"/>
 		<queryString language="xPath">
-			<![CDATA[/campaigns/campaign/cultivable_land_parcel/production/provisional_intervention/inputs/input[ancestor::cultivable_land_parcel/@id=$P{cultivable_land_parcel_id}]]]>
+			<![CDATA[/campaigns/campaign/cultivable_zone/production/provisional_intervention/inputs/input[ancestor::cultivable_zone/@id=$P{cultivable_zone_id}]]]>
 		</queryString>
 		<field name="input" class="java.lang.String">
 			<fieldDescription><![CDATA[id]]></fieldDescription>
@@ -58,7 +58,7 @@
 			<fieldDescription><![CDATA[potassium-concentration-in-unity]]></fieldDescription>
 		</field>
 		<field name="quantity-in-kilogram" class="java.lang.String">
-			<fieldDescription><![CDATA[/campaigns/campaign/cultivable_land_parcel/production/intervention/inputs/input/quantity-in-kilogram]]></fieldDescription>
+			<fieldDescription><![CDATA[/campaigns/campaign/cultivable_zone/production/intervention/inputs/input/quantity-in-kilogram]]></fieldDescription>
 		</field>
 		<sortField name="started_at"/>
 		<variable name="total_prev_nitrogen_quantity" class="java.lang.Double" calculation="Sum">
@@ -71,17 +71,17 @@
 			<variableExpression><![CDATA[$F{input_quantity}.doubleValue()*$F{input_phosphorus_concentration}.doubleValue()*0.01]]></variableExpression>
 		</variable>
 		<variable name="total_prev_nitrogen_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/Double.valueOf($P{cultivable_land_parcel_area})]]></variableExpression>
+			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/Double.valueOf($P{cultivable_zone_area})]]></variableExpression>
 		</variable>
 		<variable name="total_prev_phosphorus_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/Double.valueOf($P{cultivable_land_parcel_area})]]></variableExpression>
+			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/Double.valueOf($P{cultivable_zone_area})]]></variableExpression>
 		</variable>
 	</subDataset>
 	<subDataset name="land_parcel_input_real" uuid="ec5668ea-c9c2-4e0d-b4a5-1ab7de9cfcc7">
-		<parameter name="cultivable_land_parcel_id" class="java.lang.String"/>
-		<parameter name="cultivable_land_parcel_area" class="java.lang.Double"/>
+		<parameter name="cultivable_zone_id" class="java.lang.String"/>
+		<parameter name="cultivable_zone_area" class="java.lang.Double"/>
 		<queryString language="xPath">
-			<![CDATA[/campaigns/campaign/zone/support/intervention/inputs/input[ancestor::zone/@id=$P{cultivable_land_parcel_id}]]]>
+			<![CDATA[/campaigns/campaign/zone/support/intervention/inputs/input[ancestor::zone/@id=$P{cultivable_zone_id}]]]>
 		</queryString>
 		<field name="input" class="java.lang.String">
 			<fieldDescription><![CDATA[id]]></fieldDescription>
@@ -142,16 +142,16 @@
 			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_phosphorus_concentration_in_unity}.doubleValue()]]></variableExpression>
 		</variable>
 		<variable name="total_prev_nitrogen_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/$P{cultivable_land_parcel_area}.doubleValue()]]></variableExpression>
+			<variableExpression><![CDATA[$V{total_prev_nitrogen_quantity}/$P{cultivable_zone_area}.doubleValue()]]></variableExpression>
 		</variable>
 		<variable name="total_prev_phosphorus_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/$P{cultivable_land_parcel_area}.doubleValue()]]></variableExpression>
+			<variableExpression><![CDATA[$V{total_prev_phosphorus_quantity}/$P{cultivable_zone_area}.doubleValue()]]></variableExpression>
 		</variable>
 		<variable name="total_prev_potassium_quantity" class="java.lang.Double" calculation="Sum">
 			<variableExpression><![CDATA[$F{input_quantity_in_kilogram}.doubleValue()*$F{input_potassium_concentration_in_unity}.doubleValue()]]></variableExpression>
 		</variable>
 		<variable name="total_prev_potassium_quantity_per_area" class="java.lang.Double">
-			<variableExpression><![CDATA[$V{total_prev_potassium_quantity}/($P{cultivable_land_parcel_area}.doubleValue())]]></variableExpression>
+			<variableExpression><![CDATA[$V{total_prev_potassium_quantity}/($P{cultivable_zone_area}.doubleValue())]]></variableExpression>
 		</variable>
 	</subDataset>
 	<parameter name="XML_DATA_DOCUMENT" class="java.lang.String" isForPrompting="false"/>
@@ -418,10 +418,10 @@
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="land_parcel_input_prev" uuid="6679ddff-2726-4146-9be3-88ec0ea302a8">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-						<datasetParameter name="cultivable_land_parcel_id">
+						<datasetParameter name="cultivable_zone_id">
 							<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
 						</datasetParameter>
-						<datasetParameter name="cultivable_land_parcel_area">
+						<datasetParameter name="cultivable_zone_area">
 							<datasetParameterExpression><![CDATA[$F{area_value}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
@@ -666,10 +666,10 @@
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="land_parcel_input_real" uuid="b9cc4c1f-d2e0-4993-8015-e95018d2b87c">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
-						<datasetParameter name="cultivable_land_parcel_id">
+						<datasetParameter name="cultivable_zone_id">
 							<datasetParameterExpression><![CDATA[$F{id}]]></datasetParameterExpression>
 						</datasetParameter>
-						<datasetParameter name="cultivable_land_parcel_area">
+						<datasetParameter name="cultivable_zone_area">
 							<datasetParameterExpression><![CDATA[$F{area_value}]]></datasetParameterExpression>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>

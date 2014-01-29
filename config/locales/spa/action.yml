@@ -115,7 +115,9 @@ spa:
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
+    backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_product_nature_cells: #?
+    backend/cells/current_stocks_by_variety_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -159,7 +161,6 @@ spa:
       listing_nodes: "Escoge las informaciones para extraer" #?
       welcome: "Bienvenido sobre Ekylibre, %{user}" #?
     backend/contacts: #?
-    backend/cultivable_land_parcels: #?
     backend/cultivable_zones:
       # edit: "Modifier la zone cultivable\_: %{name}"
       # index: "Zones cultivables"
@@ -885,6 +886,7 @@ spa:
     # add_payment: "Ajouter un encaissement"
     # add_phone: "Ajouter un n° de téléphone"
     # add_posology: "Ajouter une posologie"
+    # add_product: "Ajouter un produit"
     # add_production: "Ajouter une production"
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
@@ -1063,14 +1065,14 @@ spa:
     # critic_stock_min: "Stock minimum critique"
     critic_stocks: "Depósitos bajo el umbral crítico"
     # cropping_plan: "Assolement"
-    # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
+    # cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)"
     csv_statistics: "Statisticas a exportar al formato CSV"
     cumul: "Cumul del total y del saldo precedente N°%{number}"
     # currency: "Devise"
     # currency_with_code: "%{code} - %{name}"
     # current: "En cours"
     current_letter: "Carta en curso : %{carta}"
-    # current_stocks_by_product_nature: "État des stocks"
+    # current_stocks_by_variety: "État des stocks"
     data_to_export: "Datos a exportar"
     data_to_extract: "Datos para extraer"
     dates: "Marcar las fechas de empezo y termino por los periodos"

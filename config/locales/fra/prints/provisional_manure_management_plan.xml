@@ -56,7 +56,7 @@
 			<fieldDescription><![CDATA[potassium-concentration-in-unity]]></fieldDescription>
 		</field>
 		<field name="quantity-in-kilogram" class="java.lang.String">
-			<fieldDescription><![CDATA[/campaigns/campaign/cultivable_land_parcel/production/intervention/inputs/input/quantity-in-kilogram]]></fieldDescription>
+			<fieldDescription><![CDATA[/campaigns/campaign/cultivable_zone/production/intervention/inputs/input/quantity-in-kilogram]]></fieldDescription>
 		</field>
 		<sortField name="started_at"/>
 		<variable name="total_prev_nitrogen_quantity" class="java.lang.Double" calculation="Sum">

@@ -1,4 +1,4 @@
-class Backend::Cells::CroppingPlanOnCultivableLandParcelsCellsController < Backend::CellsController
+class Backend::Cells::CroppingPlanOnCultivableZonesCellsController < Backend::CellsController
 
   def show
     # GET DATA

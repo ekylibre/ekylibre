@@ -1,4 +1,4 @@
-=field_set do # partie info general de l entité animal
+= field_set do
   = f.referenced_association :activity, :source => :main
   = f.referenced_association :campaign, :source => :currents
   = f.referenced_association :variant
@@ -7,5 +7,5 @@
   = f.input :started_at
   = f.input :stopped_at
 
-=field_set(:supports) do
+= field_set(:supports) do
   = f.nested_association(:supports)

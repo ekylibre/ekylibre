@@ -14,7 +14,7 @@ module ActiveList
         :decimal => :dec,
         :measure => :dec,
         :float  => :flt,
-        :integer  => :int,
+        :integer => :int,
         :string  => :str,
         :text => :txt,
         :time => :tim,
@@ -228,7 +228,7 @@ module ActiveList
         menu << "<li class=\"parent\">"
         menu << "<a class=\"columns\"><span class=\"icon\"></span><span class=\"text\">' + ::I18n.translate('list.columns').gsub(/\'/,'&#39;') + '</span></a><ul>"
         for column in table.data_columns
-          menu << "<li data-list-toggle-column=\"#{column.name}\" class=\"'+(#{var_name(:params)}[:hidden_columns].include?('#{column.name}') ? 'unchecked' : 'checked')+'\"><a><span class=\"icon\"></span><span class=\"text\">'+h(#{column.header_code})+'</span></a></li>"
+          menu << "<li data-list-toggle-column=\"#{column.name}\" class=\"'+(#{var_name(:params)}[:hidden_columns].include?(:#{column.name}) ? 'unchecked' : 'checked')+'\"><a><span class=\"icon\"></span><span class=\"text\">'+h(#{column.header_code})+'</span></a></li>"
         end
         menu << "</ul></li>"
 

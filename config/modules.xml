@@ -658,7 +658,7 @@
       </item>
     </group>
     <group name="land_parcels" icon="land-parcels">
-      <item name="cultivable_land_parcels">
+      <item name="cultivable_zones">
         <page to="backend/cultivable_zones#index"/>
         <page to="backend/cultivable_zones#create"/>
         <page to="backend/cultivable_zones#destroy"/>
@@ -1324,11 +1324,11 @@
       <item name="cropping_plan_cells">
         <page to="backend/cells/cropping_plan_cells#show"/>
       </item>
-      <item name="cropping_plan_on_cultivable_land_parcels_cells">
-        <page to="backend/cells/cropping_plan_on_cultivable_land_parcels_cells#show"/>
+      <item name="cropping_plan_on_cultivable_zones_cells">
+        <page to="backend/cells/cropping_plan_on_cultivable_zones_cells#show"/>
       </item>
-      <item name="current_stocks_by_product_nature_cells">
-        <page to="backend/cells/current_stocks_by_product_nature_cells#show"/>
+      <item name="current_stocks_by_variety_cells">
+        <page to="backend/cells/current_stocks_by_variety_cells#show"/>
       </item>
       <item name="elapsed_interventions_times_by_activities_cells">
         <page to="backend/cells/elapsed_interventions_times_by_activities_cells#show"/>

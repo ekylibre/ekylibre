@@ -116,7 +116,9 @@ arb:
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
+    backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_product_nature_cells: #?
+    backend/cells/current_stocks_by_variety_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
@@ -162,7 +164,6 @@ arb:
     backend/contacts:  #?
       edit: "تعديل عنوان : %{entity}" #?
       new: "اضافة متصل جديد" #?
-    backend/cultivable_land_parcels: #?
     backend/cultivable_zones:
       # edit: "Modifier la zone cultivable\_: %{name}"
       # index: "Zones cultivables"
@@ -976,6 +977,7 @@ arb:
     add_payment: "اضافة دفعة"
     # add_phone: "Ajouter un n° de téléphone"
     # add_posology: "Ajouter une posologie"
+    # add_product: "Ajouter un produit"
     # add_production: "Ajouter une production"
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
@@ -1159,14 +1161,14 @@ arb:
     critic_stock_min: "الحد الادنى لانتقاد الاسهم"
     critic_stocks: "الاسهم على حافة الخطر"
     # cropping_plan: "Assolement"
-    # cropping_plan_on_cultivable_land_parcels: "Assolement (Parcelles culturales)"
+    # cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)"
     csv_statistics: "نموذج احصائيات القيمة النقدية"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"
     # currency: "Devise"
     # currency_with_code: "%{code} - %{name}"
     current: "الحالية"
     current_letter: "البيانات الحالية : %{letter}"
-    # current_stocks_by_product_nature: "État des stocks"
+    # current_stocks_by_variety: "État des stocks"
     custom_field_choice_create: "اضافة خيار جديد للقائمة" #?
     custom_field_create: "انشاء حقل مخصص جديد" #?
     custom_field_sort: "تفريزة الخيارات حسب الاسم" #?

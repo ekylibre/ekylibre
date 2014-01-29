@@ -1,0 +1,230 @@
+#!/usr/bin/env ruby
+require 'active_support/core_ext'
+require 'optparse'
+require 'pathname'
+require 'fileutils'
+
+STDOUT.sync = true
+
+@simulate = false
+
+def execute(command)
+  puts command
+  unless @simulate
+    system(command)
+  end
+end
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: #{$PROGRAM_NAME} [options] <old_cell> <new_cell>"
+
+  opts.on_tail("-h", "--help", "Show this message") do
+    puts opts
+    exit
+  end
+  opts.on_tail("-s", "--simulate", "Simulate changes") do
+    options[:simulate] = true
+    @simulate = true
+  end
+end.parse!
+
+old_cell = ARGV.shift
+new_cell = ARGV.shift
+
+unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
+  puts "Script must be started from Rails root."
+  exit 0
+end
+
+root = Pathname.new(".")
+
+app = root.join("app")
+
+# app/controllers/backend
+of = app.join("controllers", "backend", "cells", "#{old_cell}_controller.rb")
+nf = app.join("controllers", "backend", "cells", "#{new_cell}_controller.rb")
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
+  execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}Controller /class Backend::Cells::#{new_cell.camelcase}Controller /' #{nf}")  
+end
+
+# app/views/backend
+of = app.join("views", "backend", "cells", old_cell)
+nf = app.join("views", "backend", "cells", new_cell)
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+
+# app/helpers/backend
+of = app.join("helpers", "backend", "cells", "#{old_cell}_helper.rb")
+nf = app.join("helpers", "backend", "cells", "#{new_cell}_helper.rb")
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
+  execute("sed -i 's/module Backend::Cells::#{old_cell.camelcase}Helper/module Backend::Cells::#{new_cell.camelcase}Helper/' #{nf}")  
+end
+
+config = root.join("config")
+
+# config/locales/*/action.yml
+for file in Dir[config.join("locales", "*", "action.yml")].sort
+  lf = Pathname(file)
+  tr = YAML.load_file(lf)
+  locale = tr.keys.first
+  if tr[locale]["actions"]
+    if tr[locale]["actions"]["backend/cells/#{old_cell}"]
+      tr[locale]["actions"]["backend/cells/#{new_cell}"] = tr[locale]["actions"].delete("backend/cells/#{old_cell}")
+    end
+  end
+  if tr[locale]["controllers"]
+    if tr[locale]["controllers"]["backend/cells/#{old_cell}"]
+      tr[locale]["controllers"]["backend/cells/#{new_cell}"] = tr[locale]["controllers"].delete("backend/cells/#{old_cell}")
+    end
+  end
+  if tr[locale]["unroll"]
+    if tr[locale]["unroll"]["backend/cells/#{old_cell}"]
+      tr[locale]["unroll"]["backend/cells/#{new_cell}"] = tr[locale]["unroll"].delete("backend/cells/#{old_cell}")
+    end
+  end
+  if tr[locale]["labels"]
+    if tr[locale]["labels"][old_cell.gsub(/_cells/, '')]
+      tr[locale]["labels"][new_cell.gsub(/_cells/, '')] = tr[locale]["labels"].delete(old_cell.gsub(/_cells/, ''))
+    end
+  end
+  
+  code = tr.to_yaml
+  
+  puts "Update #{lf}"
+  unless @simulate
+    File.open(lf, "wb") do |f|
+      f.write code
+    end
+  end
+end
+
+# # config/locales/*/help/
+# for file in Dir[config.join("locales", "*", "help", "#{old_cell}-*.txt")].sort
+#   of = Pathname.new(file)
+#   nf = of.join("..", "#{new_cell}-" + of.basename.to_s.split(/[\-\.]+/)[1..-2].join('-') + ".txt")
+#   execute("git mv #{of} #{nf}")
+# end
+
+# TODO Updates links in help files
+
+
+# config/modules
+nf = config.join("modules.xml")
+puts "Update #{nf}"
+source = nil
+File.open(nf, "rb") do |f|
+  source = f.read
+end
+unless @simulate
+  source.gsub!(/(\"backend\/cells\/)#{old_cell}(\#)/, '\1' + new_cell + '\2')
+  source.gsub!(/(\")#{old_cell}(\")/, '\1' + new_cell + '\2')
+  File.open(nf, "wb") do |f|
+    f.write source
+  end
+end
+
+# config/rights
+nf = config.join("rights.yml")
+puts "Update #{nf}"
+source = nil
+File.open(nf, "rb") do |f|
+  source = f.read
+end
+unless @simulate
+  source.gsub!(/(\"backend\/cells\/)#{old_cell}(\#)/, '\1' + new_cell + '\2')
+  File.open(nf, "wb") do |f|
+    f.write source
+  end
+end
+
+# config/routes.rb
+nf = config.join("routes.rb")
+puts "Update #{nf}"
+source = nil
+File.open(nf, "rb") do |f|
+  source = f.read
+end
+unless @simulate
+  source.gsub!(/(resource\ )+:#{old_cell.singularize}(\,|\s|$)/, '\1:' + new_cell.singularize + '\2')
+  File.open(nf, "wb") do |f|
+    f.write source
+  end
+end
+
+test = root.join("test")
+
+
+# test/helpers/backend
+of = test.join("helpers", "backend", "cells", "#{old_cell}_helper_test.rb")
+nf = test.join("helpers", "backend", "cells", "#{new_cell}_helper_test.rb")
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
+  execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}HelperTest /class Backend::Cells::#{new_cell.camelcase}HelperTest /' #{nf}")  
+end
+
+# test/controllers/backend
+of = test.join("controllers", "backend", "cells", "#{old_cell}_controller_test.rb")
+nf = test.join("controllers", "backend", "cells", "#{new_cell}_controller_test.rb")
+if File.exist?(of)
+  execute("git mv #{of} #{nf}")
+end
+if File.exist?(nf)
+  execute("sed -i 's/class Backend::Cells::#{old_cell.camelcase}ControllerTest /class Backend::Cells::#{new_cell.camelcase}ControllerTest /' #{nf}")  
+end
+
+# General replacing
+print "replace "
+for file in Dir[app.join("**", "*.rb")] + Dir[app.join("**", "*.haml")] + Dir[app.join("**", "*.yml")]
+  source = nil
+  File.open(file, "rb") do |f|
+    source = f.read
+  end
+  ns = source.dup
+  ns.gsub!(/([^a-zA-Z0-9\_]|^)#{old_cell.classify}([^a-zA-Z0-9\_]|$)/, '\1' + new_cell.classify + '\2')
+  # ns.gsub!(/^(\ +)has\_many\ \:#{old_cell}(\s?)$/, '\1has_many :' + old_cell + ', :class_name => "'+ new_cell.classify + '"')
+  # ns.gsub!(/^(\ +)belongs\_to\ \:#{old_cell.singularize}(\s?)$/, '\1belongs_to :' + old_cell.singularize + ', :class_name => "'+ new_cell.classify + '"')
+  ns.gsub!(/^(\ +)has\_many\ \:#{old_cell}(\s?)$/, '\1has_many :' + old_cell + ', class_name: "'+ new_cell.classify + '"')
+  ns.gsub!(/^(\ +)belongs\_to\ \:#{old_cell.singularize}(\s?)$/, '\1belongs_to :' + old_cell.singularize + ', class_name: "'+ new_cell.classify + '"')
+  ns.gsub!(/:model\ *\=\>\ *:#{old_cell}([^a-z\_]|$)/, 'model: :' + new_cell + '\1')
+  ns.gsub!(/:model\ *\=\>\ *:#{old_cell.singularize}([^a-z\_]|$)/, 'model: :' + new_cell.singularize + '\1')
+  ns.gsub!(/model\:\ *:#{old_cell}([^a-z\_]|$)/, 'model: :' + new_cell + '\1')
+  ns.gsub!(/model\:\ *:#{old_cell.singularize}([^a-z\_]|$)/, 'model: :' + new_cell.singularize + '\1')
+  ns.gsub!(/(search\_conditions[\ \(]+):#{old_cell}(\ *\=\>)/, '\1:' + new_cell + '\2')
+  ns.gsub!(/(search\_conditions[\ \(]+):#{old_cell.singularize}(\ *\=\>)/, '\1:' + new_cell.singularize + '\2')
+  ns.gsub!(/(find\_and\_check[\(\ ]+):#{old_cell}\s*(\)|\,|$)/, '\1:' + new_cell + '\2')
+  ns.gsub!(/(find\_and\_check[\(\ ]+):#{old_cell.singularize}\s*(\)|\,|$)/, '\1:' + new_cell.singularize + '\2')
+  ns.gsub!(/(list[\(\ ]+):#{old_cell}\s*(\)|\,|$)/, '\1:' + new_cell + '\2')
+  ns.gsub!(/(list[\(\ ]+):#{old_cell.singularize}\s*(\)|\,|$)/, '\1:' + new_cell.singularize + '\2')
+
+  ns.gsub!(/cell\ *:#{old_cell.gsub(/_cells\z/, '')}(\W)/, 'cell :' + new_cell.gsub(/_cells\z/, '') + '\1')
+
+  ns.gsub!(/^(\ +)(search\_for)/, '\1# \2')
+  # ns.gsub!(/(search\_for[\(\ ]+:[a-z\_]+\ *\,)\ *#{old_cell}\s*(\)|\,|$)/, '\1 ' + new_cell + '\2')
+  # ns.gsub!(/(search\_for[\(\ ]+:[a-z\_]+\ *\,)\ *#{old_cell.singularize}\s*(\)|\,|$)/, '\1 ' + new_cell.singularize + '\2')
+  # ns.gsub!(/(search\_for[\(\ ]+:)#{old_cell}\s*(\)|\,|$)/, '\1:' + new_cell + '\2')
+  # ns.gsub!(/(search\_for[\(\ ]+:)#{old_cell.singularize}\s*(\)|\,|$)/, '\1:' + new_cell.singularize + '\2')
+
+  if ns != source
+    unless @simulate
+      File.open(file, "wb") do |f|
+        f.write ns
+      end    
+    end
+    print "+"
+  else
+    print "."
+  end
+end
+puts "!"
+
+puts "Clean with `rake clean` at the end"

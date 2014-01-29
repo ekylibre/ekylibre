@@ -3,7 +3,7 @@
   <procedure name="vine_plant" natures="implant" version="0.0" status="frozen">
     <variables>
       <variable name="plants"       variety="seedling" derivative-of="vitis" abilities="take_root"/>
-      <variable name="plants_to_fix" new="parted-from: plants" roles="implant-input"/>
+      <variable name="plants_to_fix" new="parted-from: plants" roles="implant-input" need="population"/>
       <variable name="implanter_tool"    abilities="implant" roles="implant-tool"/>
       <variable name="driver"       abilities="drive(equipment), move"/>
       <variable name="implanter_man" abilities="drive(equipment), move" roles="implant-doer"/>

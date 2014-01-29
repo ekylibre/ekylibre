@@ -41,7 +41,7 @@ class Backend::InterventionsController < BackendController
   # @TODO conditions: interventions_conditions, joins: [:production, :activity, :campaign, :storage]
 
   list(order: {started_at: :desc}, line_class: :status) do |t|
-    t.column :reference_name, label_method: :name, url: true
+    t.column :name, sort: :reference_name, url: true
     t.column :production, url: true, hidden: true
     t.column :campaign, url: true
     t.column :activity, url: true, hidden: true
