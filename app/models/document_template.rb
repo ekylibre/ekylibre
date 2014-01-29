@@ -40,7 +40,6 @@
 
 # Sources are stored in private/document_templates/:id/content.xml
 class DocumentTemplate < Ekylibre::Record::Base
-  # attr_accessible :active, :archiving, :by_default, :language, :name, :nature, :managed, :source, :formats
   enumerize :archiving, in: [:none_of_template, :first_of_template, :last_of_template, :all_of_template, :none, :first, :last, :all], default: :none, predicates: {prefix: true}
   enumerize :nature, in: Nomen::DocumentNatures.all, predicates: {prefix: true}
   has_many :document_archives, foreign_key: :template_id, dependent: :nullify

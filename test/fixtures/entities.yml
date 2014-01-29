@@ -129,7 +129,7 @@ entities_001:
   last_name: C. Ferstivall LTD
   nature: entity
   number: 129
-  of_company: true
+  of_company: false
   type: Entity
   updater: users_001
 entities_002:

@@ -22,6 +22,7 @@
       <item name="general_journal" category="accountancy"/>
       <item name="general_ledger" category="accountancy"/>
       <item name="trial_balance" category="accountancy"/>
+      <item name="tax_assessment" category="accountancy"/>
 
       <item name="inventory" category="exploitation"/>
       <item name="stocks" category="exploitation"/>

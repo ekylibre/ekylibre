@@ -850,6 +850,7 @@ fra:
         sales_invoice: "Facture de vente"
         sales_order: "Commande de vente"
         stocks: "Stocks"
+        # tax_assessment: "Tax assessment"
         trial_balance: "Balance comptable"
         veterinary_booklet: "Carnet vétérinaire"
         vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"

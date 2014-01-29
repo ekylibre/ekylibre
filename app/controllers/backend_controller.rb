@@ -192,7 +192,7 @@ class BackendController < BaseController
   # Adds :with and :key, :name parameters
   def respond_with_with_template(*resources, &block)
     resources << {} unless resources.last.is_a?(Hash)
-    resources[-1][:with] = (params[:template].match(/^\d+$/) ? params[:template].to_i : params[:template].to_s) if params[:template]
+    resources[-1][:with] = (params[:template].to_s.match(/^\d+$/) ? params[:template].to_i : params[:template].to_s) if params[:template]
     for param in [:key, :name]
       resources[-1][param] = params[param] if params[param]
     end

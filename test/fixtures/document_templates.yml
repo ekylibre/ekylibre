@@ -58,8 +58,9 @@ document_templates_001:
   creator: users_001
   language: fra
   name: AN
-  nature: sales_invoice
+  nature: tax_assessment
   updater: users_001
+
 document_templates_002:
   active: true
   archiving: all
@@ -67,5 +68,5 @@ document_templates_002:
   creator: users_001
   language: fra
   name: FA
-  nature: sales_invoice
+  nature: tax_assessment
   updater: users_001
