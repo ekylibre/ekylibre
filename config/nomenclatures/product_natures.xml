@@ -527,7 +527,7 @@
             category="equipment"
             variety="reaper"
             population_counting="unitary"
-            abilities="harvest(poaceae)"
+            abilities="harvest(plant)"
             variable_indicators="application_width, geographic_coordinate"
             frozen_indicators="population"
             />

@@ -6,7 +6,7 @@
       <variable name="grape_reaper" variety="reaper" abilities="harvest(vitis)" roles="harvest-tool"/>
       <variable name="tank" variety="tank" abilities="store_liquid" roles="harvest-tool"/>
       <variable name="cultivation" variety="vitis" abilities="produce(fruit)" roles="harvest-target"/>
-      <variable name="fruits" variety="fruit" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output"/>
+      <variable name="fruits" variety="fruit" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
