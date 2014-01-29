@@ -3,7 +3,7 @@
   = f.referenced_association :campaign, :source => :currents
   = f.referenced_association :variant
   = f.input :static_support, :show => :supports
-  = f.input :state
+  = f.input :state, as: :radio_buttons
   = f.input :started_at
   = f.input :stopped_at
 
