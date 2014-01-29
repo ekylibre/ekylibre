@@ -69,7 +69,7 @@ load_data :productions do |loader|
               if !r.provisional_residue_elimination_method.nil?
                 support.markers.create!(:indicator_name => :residue_elimination_method, :aim => :perfect, :choice_value => r.provisional_residue_elimination_method)
               end
-              
+
             end
           elsif !product_nature_variant_sup.nil?
             pro = Production.where(variant_id: product_nature_variant_sup.id, campaign_id: campaign.id, :activity_id => activity.id).first

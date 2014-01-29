@@ -33,6 +33,13 @@
     </items>
   </nomenclature>
   
+  <nomenclature name="procedure_natures-transformation">
+    <items>
+      <item name="transfer" roles="input, target, doer"/>
+      <item name="fermentation" roles="input, target, output, doer, tool"/>
+    </items>
+  </nomenclature>
+  
   <nomenclature name="procedure_natures-tillage">
     <items>
       <item name="plowing" roles="target, doer"/>

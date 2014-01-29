@@ -1778,6 +1778,7 @@ fra:
         animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_illness_treatment
         animal_production: "Productions animales"
         # cultipacking: "Cultipacking"                     # tillage
+        fermentation: "Fermentation"                       # transformation
         grinding: "Broyage"
         growth_control: "Contrôle de croissance"
         harvest: "Récolte"
@@ -1796,6 +1797,7 @@ fra:
         soil_enrichment: "Amendement"
         sowing: "Semis"                                    # implantation
         tillage: "Travail du sol"
+        transfer: "Transfert"                              # transformation
         transformation: "Transformation"
         viviparous_birth: "Reproduction (vivipare)"
     procedure_roles:

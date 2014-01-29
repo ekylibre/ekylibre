@@ -52,6 +52,7 @@ jpn:
     # superficial_plowing: "Hersage"
     # vine_plant: "Plantation de vigne"
     # wheat_crop: "Culture de blé (standard)"
+    # wine_transfer: "Transfert de vin"
   variables:
     # baler: "Botteleuse"
     # baler_driver: "Conducteur (tracteur-botteleuse)"
@@ -106,5 +107,9 @@ jpn:
     # straw_bales: "Bottes de fourrage"
     # straw_to_bunch: "Fourrage entrant"
     # straws: "Paille"
+    # tank: "Cuve"
     # tractor: "Tracteur"
     # trailer: "Remorque"
+    # wine: "Vin"
+    # wine_man: "Opérateur de chai"
+    # wine_to_move: "Vin à transférer"
