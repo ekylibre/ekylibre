@@ -16,7 +16,7 @@ module TimeLineable
         self.stopped_at = following.started_at
       else
         unless siblings.any?
-          self.started_at ||= Time.new(1, 1, 1, 0, 0, 0, 0)
+          self.started_at ||= Time.new(1, 1, 1, 0, 0, 0, "+00:00")
         end
         self.stopped_at = nil
       end
