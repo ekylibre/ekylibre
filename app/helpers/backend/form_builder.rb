@@ -231,31 +231,31 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           fs << self.input(:variety, collection: varieties)
         end
 
-        # Add birth
-        unless self.object.birth
-          self.object.build_birth(nature: :creation, started_at: Time.now - 1, stopped_at: Time.now)
-        end
-        fs << self.backend_fields_for(:birth) do |birth_fields|
-          fbs  = birth_fields.input(:started_at)
-          fbs << birth_fields.input(:nature, as: :hidden)
-          for indicator in whole_indicators
-            if variant.frozen_indicators.include?(indicator)
-              # fbs << birth_fields.input(indicator.name, value: variant.get(indicator), as: :hidden)
-            else
-              if indicator.name.to_s == "population"
-                fbs << birth_fields.input(indicator.name, wrapper: :append) do
-                  birth_fields.input_field(indicator.name, label: indicator.human_name, as: indicator.datatype) +
-                    @template.content_tag(:span, variant.unit_name, :class => "add-on")
-                end
-              elsif indicator.name.to_s == "shape"
-                fbs << birth_fields.input(indicator.name, as: :text)
-              else
-                fbs << birth_fields.input(indicator.name)
-              end
-            end
-          end
-          fbs
-        end
+        # # Add birth
+        # unless self.object.birth
+        #   self.object.build_birth(nature: :creation, started_at: Time.now - 1, stopped_at: Time.now)
+        # end
+        # fs << self.backend_fields_for(:birth) do |birth_fields|
+        #   fbs  = birth_fields.input(:started_at)
+        #   fbs << birth_fields.input(:nature, as: :hidden)
+        #   for indicator in whole_indicators
+        #     if variant.frozen_indicators.include?(indicator)
+        #       # fbs << birth_fields.input(indicator.name, value: variant.get(indicator), as: :hidden)
+        #     else
+        #       if indicator.name.to_s == "population"
+        #         fbs << birth_fields.input(indicator.name, wrapper: :append) do
+        #           birth_fields.input_field(indicator.name, label: indicator.human_name, as: indicator.datatype) +
+        #             @template.content_tag(:span, variant.unit_name, :class => "add-on")
+        #         end
+        #       elsif indicator.name.to_s == "shape"
+        #         fbs << birth_fields.input(indicator.name, as: :text)
+        #       else
+        #         fbs << birth_fields.input(indicator.name)
+        #       end
+        #     end
+        #   end
+        #   fbs
+        # end
 
         # error message for indicators
         fs << @object.errors.inspect if @object.errors.any?
