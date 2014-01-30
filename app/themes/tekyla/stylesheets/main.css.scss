@@ -1105,18 +1105,19 @@ span.rad, label.radio {
 
 $form-actions-height: 48px;
 .form-actions {
+  @include button-group;
+  display: block;
   margin: 0;
   padding: $fs-normal;
   // height: $form-actions-height;
   // line-height: $form-actions-height;
   vertical-align: middle;
   @include text-align(center);
-  @include background(linear-gradient(rgba(black, 0.05), rgba(black, 0), rgba(black, 0.06)));
+  @include background(linear-gradient(rgba(black, 0.05), rgba(black, 0.03), rgba(black, 0.06)));
   border-top: 1px solid rgba(black, 0.10);
   &:first-child {
     border-top: none;
   }
-  @include button-toolbar;
 }
 
 

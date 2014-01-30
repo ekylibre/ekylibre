@@ -160,9 +160,6 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   end
 
 
-
-
-
   # Load a partial
   def subset(name, options = {}, &block)
     options[:id] ||= name
@@ -231,7 +228,40 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
           fs << self.input(:variety, collection: varieties)
         end
 
-        # # Add birth
+        unless self.object.start_way
+          self.object.build_start_way(nature: :start, role: :product) # , junction_attributes: {type: 'ProductBirth', started_at: Time.now})
+        end
+        fs << self.backend_fields_for(:start_way) do |way_fields|
+          fbs  = way_fields.input(:nature, as: :hidden)
+          fbs << way_fields.input(:role,   as: :hidden)
+          for indicator in whole_indicators
+            if variant.frozen_indicators.include?(indicator)
+              # fbs << way_fields.input(indicator.name, value: variant.get(indicator), as: :hidden)
+            else
+              if indicator.name.to_s == "population"
+                fbs << way_fields.input(indicator.name, wrapper: :append) do
+                  way_fields.input_field(indicator.name, label: indicator.human_name, as: indicator.datatype) +
+                    @template.content_tag(:span, variant.unit_name, :class => "add-on")
+                end
+              elsif indicator.name.to_s == "shape"
+                fbs << way_fields.input(indicator.name, as: :text)
+              else
+                fbs << way_fields.input(indicator.name)
+              end
+            end
+          end
+          # Adds fields for junction
+          unless way_fields.object.junction
+            way_fields.object.junction = ProductBirth.new(started_at: Time.now)
+          end
+          way_fields.backend_fields_for(:junction) do |junction_fields|
+            fbs << junction_fields.input(:started_at)
+          end
+          fbs
+        end
+
+
+        # # Add birth ?
         # unless self.object.birth
         #   self.object.build_birth(nature: :creation, started_at: Time.now - 1, stopped_at: Time.now)
         # end

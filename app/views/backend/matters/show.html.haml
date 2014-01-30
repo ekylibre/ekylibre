@@ -1,32 +1,15 @@
 = main_toolbar do |t|
-  - t.edit @matter
-  - t.destroy(@matter, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @matter.destroyable?
+  - t.edit resource
+  - t.destroy(resource, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
 
 = beehive do |b|
-  - b.tabbox do
+  - b.hbox do
     - b.cell :general do
-      - if @matter.picture.exists?
-        .picture= image_tag(@matter.picture.url(:identity))
+      - if resource.picture.exists?
+        .picture= image_tag(resource.picture.url(:identity))
       .info
-        %span.title= Matter.human_attribute_name(:work_number)
-        %span.value= @matter.work_number
-      - if @matter.born_at
-        .info
-          %span.title=Matter.human_attribute_name(:age)
-          -#%span.value=distance_of_time_in_words(@animal.born_at, (@animal.dead_at||Time.now)) rescue @animal.born_at.l
-          %span.value
-            -seconds = (@matter.dead_at||Time.now) - @matter.born_at
-            -vals = []
-            -if (seconds/1.year).floor > 0
-              -vals << "labels.x_years".t(:count => (seconds/1.year).floor)
-              -seconds -= 1.year * (seconds/1.year).floor
-            -if (seconds/1.month).floor > 0
-              -vals << "labels.x_months".t(:count => (seconds/1.month).floor)
-              -seconds -= 1.month * (seconds/1.month).floor
-            -if (seconds/1.day).floor > 0
-              -vals << "labels.x_days".t(:count => (seconds/1.day).floor)
-              -seconds -= 1.day * (seconds/1.day).floor
-            =vals.to_sentence
+        %span.title= Matter.human_attribute_name(:net_mass)
+        %span.value= resource.net_mass.l
 
     - b.cell :details do
       = attributes_list do |l| # liste des champs à afficher
@@ -38,9 +21,39 @@
         - l.attribute :identification_number
         - l.attribute :description
 
-  - b.tabbox do
+  - b.hbox do
+    - b.cell(:stocks) do
+      :ruby
+        series = []
+        now, window = Time.now, 1.day
+        min = (resource.born_at ? resource.born_at : now - window)
+        min = now - window if (now - min) < window
+        for indicator in [:population, :nitrogen_concentration].collect{|i| Nomen::Indicators[i] }
+          items = ProductIndicatorDatum.where(indicator_name: indicator.name, product: resource).where("measured_at BETWEEN ? AND ?", min, now).order(:measured_at)
+          data = []
+          data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
+          data += items.sort.inject({}) do |hash, pair|
+            hash[pair.measured_at.to_usec] = pair.value.to_d
+            hash
+          end.collect{|k,v| [k, v.to_s.to_f] }
+          data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
+          series << {name: indicator.human_name, data: data }
+        end
+
+      = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom'}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
+
+    - b.cell(tl(:x_indicators, :count => resource.indicator_data.count)) do
+      = list(:indicators)
+
+  - b.hbox do
+    - b.cell(:interventions) do
+      = toolbar do |t|
+        - t.new(:params => {:controller => :interventions})
+      = list(:intervention_casts)
     - b.cell(:places) do
       = list(:places)
+
+  - b.hbox do
     - b.cell(:groups) do
       = list(:groups)
 

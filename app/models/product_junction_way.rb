@@ -48,7 +48,7 @@ class ProductJunctionWay < Ekylibre::Record::Base
 
   delegate :started_at, :stopped_at, to: :junction
 
-  # accepts_nested_attributes_for :product
+  accepts_nested_attributes_for :junction
 
   before_validation do
     if self.nature.blank?
@@ -57,7 +57,6 @@ class ProductJunctionWay < Ekylibre::Record::Base
       end
     end
   end
-
 
   before_update do
     unless self.continuity?
@@ -72,6 +71,9 @@ class ProductJunctionWay < Ekylibre::Record::Base
       if self.product and self.stopped_at != self.product.send(touch_column)
         self.product.update_column(touch_column, self.stopped_at)
       end
+      if self.start?
+        self.product.is_measured!(:population, self.population, at: self.stopped_at)
+      end
       if self.end?
         self.product.is_measured!(:population, 0, at: self.stopped_at)
       end
@@ -81,8 +83,9 @@ class ProductJunctionWay < Ekylibre::Record::Base
   before_destroy do
     unless self.continuity?
       old_record.product.update_attribute(touch_column, nil)
-      if self.end?
-        old_record.product.indicator_data.where(indicator: "population", measured_at: old_record.stopped_at).destroy_all
+      old_record.product.indicator_data.where(indicator: "population", measured_at: old_record.stopped_at).destroy_all
+      if self.start?
+        old_record.product.indicator_data.where(indicator: "population").where("measured_at > ?", old_record.stopped_at).update_all("population = population - ?", self.population)
       end
     end
   end

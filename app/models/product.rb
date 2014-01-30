@@ -93,6 +93,7 @@ class Product < Ekylibre::Record::Base
   has_many :groups, :through => :memberships
   has_many :measurements, class_name: "ProductMeasurement"
   has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
+  has_many :junctions, class_name: "ProductJunction", through: :junction_ways
   has_many :junction_ways, class_name: "ProductJunctionWay"
   has_many :linkages, class_name: "ProductLinkage", foreign_key: :carrier_id
   has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id
@@ -101,6 +102,10 @@ class Product < Ekylibre::Record::Base
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
   has_many :markers, :through => :supports
   has_many :variants, class_name: "ProductNatureVariant", :through => :phases
+  has_one :start_way, -> { where(nature: 'start') }, class_name: "ProductJunctionWay", inverse_of: :product
+  has_one :end_way,   -> { where(nature: 'end') },   class_name: "ProductJunctionWay", inverse_of: :product
+  has_one :start_junction, through: :start_way, source: :junction
+  has_one :end_junction,   through: :start_way, source: :junction
   # has_one :birth, class_name: "ProductBirth", inverse_of: :product
   # has_one :death, class_name: "ProductDeath", inverse_of: :product
   has_one :current_phase,        -> { current }, class_name: "ProductPhase",        foreign_key: :product_id
@@ -176,7 +181,7 @@ class Product < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name
 
-  # accepts_nested_attributes_for :birth
+  accepts_nested_attributes_for :start_way
   # accepts_nested_attributes_for :death
   accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum|
     !datum["indicator"] != "population" and datum[ProductIndicatorDatum.value_column(datum["indicator"]).to_s].blank?

@@ -1300,6 +1300,8 @@ arb:
     employees: "الموظفين"
     employment: "الوظيفة"
     # encrypted_password: "Mot de passe crypté"
+    # end_junction: "End junction"
+    # end_way: "End way"
     # enjoyments: "Enjoyments"
     entities: "الافراد" #?
     entity: "الفرد"
@@ -1413,11 +1415,11 @@ arb:
     # indicators: "Indicators"
     indirect_links: "روابط مباشرة"
     # individual: "Individuel"
-    # initial_arrival_cause: "Initial arrival cause"
-    # initial_container: "Initial container"
+    # initial_arrival_cause: "Cause initiale d'arrivée"
+    # initial_container: "Emplacement initial"
     # initial_number: "Numéro initial"
-    # initial_owner: "Initial owner"
-    # initial_population: "Initial population"
+    # initial_owner: "Propriétaire initial"
+    # initial_population: "Population initiale"
     integer_value: "قيمة العدد الصحيح"
     # intervention: "Intervention"
     # intervention_casts: "Intervention casts"
@@ -1452,6 +1454,7 @@ arb:
     journal_id: "الدفتر اليومي" #?
     journals: "الدفاتر اليومية" #?
     # junction_ways: "Junction ways"
+    # junctions: "Junctions"
     key: "المفتاح"
     label: "الملصق"
     land_parcels: "الكتل"
@@ -1823,6 +1826,8 @@ arb:
     # spaced_iban: "IBAN"
     sql_type: "SQL نوع"
     start: "البداية"
+    # start_junction: "Start junction"
+    # start_way: "Start way"
     started_at: "ابتدأ يوم"
     started_on: "ابتدأ يوم"
     started_sec: "(التاريخ والوقت (بالثواني" #?

@@ -79,7 +79,11 @@ class BackendController < BaseController
           raise StandardError, "Cannot handle #{name} for #{model.name}"
         end
       end
-      "\" + (#{i}.nil? ? '' : #{i}.l) + \""
+      steps = i.to_s.split('.')
+      expr = (0..(steps.size - 1)).to_a.collect do |s|
+        steps[0..s].join(".")
+      end
+      "\" + ((#{expr.join(' and ')}) ? #{i}.l : '') + \""
     end
     item_label.gsub!(/\A\"\"\s*\+\s*/, '')
     item_label.gsub!(/\s*\+\s*\"\"\z/, '')

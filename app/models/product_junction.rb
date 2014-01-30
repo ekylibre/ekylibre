@@ -42,6 +42,12 @@ class ProductJunction < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :originator_type, allow_nil: true, maximum: 255
   #]VALIDATORS]
+  validates_presence_of :started_at, :stopped_at
+
+  before_validation do
+    self.started_at ||= Time.now
+    self.stopped_at ||= self.started_at
+  end
 
   class << self
 
@@ -51,7 +57,6 @@ class ProductJunction < Ekylibre::Record::Base
       code = ""
       code << "has_one :#{name}_way, -> { where(role: '#{name}') }, class_name: 'ProductJunctionWay', foreign_key: :junction_id, inverse_of: :junction\n"
       code << "has_one :#{name}, through: :#{name}_way, source: :product\n"
-      # Needed to build a complete way
 
       code << "accepts_nested_attributes_for :#{name}_way\n"
       code << "accepts_nested_attributes_for :#{name}\n"
@@ -63,14 +68,6 @@ class ProductJunction < Ekylibre::Record::Base
       code << "  {nature: :#{options[:nature]}}\n"
       code << "end\n"
 
-      # Shortcut
-      # code << "def #{name}\n"
-      # code << "  return self.#{name}_way.product if self.#{name}_way\n"
-      # code << "end\n"
-      # code << "def #{name}=(product)\n"
-      # code << "  if self.#{name}_way\n"
-      # code << "    self.self.product_way = self.ways{product: product}\n"
-      # code << "end\n"
       class_eval(code)
     end
 

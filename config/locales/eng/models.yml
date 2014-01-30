@@ -888,6 +888,8 @@ eng:
     employees: "Employees"
     employment: "Employment"
     encrypted_password: "Encrypted password"
+    # end_junction: "End junction"
+    # end_way: "End way"
     # enjoyments: "Enjoyments"
     entities: "People" #?
     entity: "Entity"
@@ -999,11 +1001,11 @@ eng:
     indirect_links: "Indirect links"
     # individual: "Individuel"
     indivisible: "Indivisible" #?
-    # initial_arrival_cause: "Initial arrival cause"
-    # initial_container: "Initial container"
+    # initial_arrival_cause: "Cause initiale d'arrivée"
+    # initial_container: "Emplacement initial"
     initial_number: "Initial number"
-    # initial_owner: "Initial owner"
-    # initial_population: "Initial population"
+    # initial_owner: "Propriétaire initial"
+    # initial_population: "Population initiale"
     input_conveyors: "Input conveyors" #?
     integer_value: "Integer value"
     # intervention: "Intervention"
@@ -1033,6 +1035,7 @@ eng:
     journal_entry_lines: "Journal entry lines" #?
     journals: "Journals" #?
     # junction_ways: "Junction ways"
+    # junctions: "Junctions"
     key: "Key"
     label: "Label"
     land_parcel_groups: "Land parcel groups" #?
@@ -1402,6 +1405,8 @@ eng:
     # spaced_iban: "IBAN"
     sql_type: "Sql type"
     start: "Start"
+    # start_junction: "Start junction"
+    # start_way: "Start way"
     started_at: "Started at"
     started_on: "Started on"
     started_sec: "Started sec" #?
