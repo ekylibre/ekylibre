@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="wine_transfer" natures="transfer" version="0.0" status="frozen">
+    <variables>
+      <variable name="wine"       variety="wine" derivative-of="vitis" />
+      <variable name="wine_to_move" new="parted-from: wine" roles="transfer-input" need="population"/>
+      <variable name="tank" variety="tank" abilities="store_liquid" roles="transfer-target"/>
+      <variable name="wine_man" variety="worker" abilities="move" roles="transfer-doer"/>
+    </variables>
+    <operations>
+      <operation id="100" duration="4 minutes">
+        <task do="[wine_man] moves at [wine]"/>
+      </operation>
+      <operation id="200" duration="4 minutes">
+        <task do="[wine] parts with [wine_to_move]"/>
+      </operation>
+      <operation id="300" duration="7 minutes">
+        <task do="[wine_to_move] moves in [tank]"/>
+      </operation>
+      <operation id="400" duration="4 minutes">
+        <task do="[wine_man] moves in default storage"/>
+      </operation>
+    </operations>        
+  </procedure>
+</procedures>

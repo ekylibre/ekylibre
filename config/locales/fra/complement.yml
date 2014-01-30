@@ -1847,6 +1847,7 @@ fra:
         superficial_plowing: "Hersage"
         vine_plant: "Plantation de vigne"
         wheat_crop: "Culture de blé (standard)"
+        wine_transfer: "Transfert de vin"
     intervention_cast:
       reference_name:
         baler: "Botteleuse"
@@ -1902,8 +1903,12 @@ fra:
         straw_bales: "Bottes de fourrage"
         straw_to_bunch: "Fourrage entrant"
         straws: "Paille"
+        tank: "Cuve"
         tractor: "Tracteur"
         trailer: "Remorque"
+        wine: "Vin"
+        wine_man: "Opérateur de chai"
+        wine_to_move: "Vin à transférer"
     issue:
       nature:
         accident: "Accident"

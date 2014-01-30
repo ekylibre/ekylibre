@@ -1464,6 +1464,7 @@ eng:
         # animal_production: "Productions animales"
         enrichment: "Enrichment" #?
         feeding: "Feeding" #?
+        # fermentation: "Fermentation"
         # grinding: "Broyage"
         # growth_control: "Contrôle de croissance"
         # harvest: "Récolte"
@@ -1483,6 +1484,7 @@ eng:
         # sowing: "Semis"
         technical_guide: "Technical guide" #?
         tillage: "Tillage"
+        # transfer: "Transfert"
         # transformation: "Transformation"
         treatment: "Treatment" #?
         # viviparous_birth: "Reproduction (vivipare)"

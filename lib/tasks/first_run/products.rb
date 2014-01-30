@@ -14,7 +14,7 @@ load_data :products do |loader|
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
         r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
                            :variant_reference_name => row[1].downcase.to_sym,
-                           :variant => row[2].blank? ? nil : row[2],
+                           :work_number => row[2].blank? ? nil : row[2].to_s,
                            :born_at => (row[3].blank? ? Date.civil(2000, 2, 2) : row[3]).to_datetime,
                            :brand => row[4].blank? ? nil : row[4].to_s,
                            :model => row[5].blank? ? nil : row[5].to_s,
@@ -47,14 +47,14 @@ load_data :products do |loader|
         end
 
         # create the equipment
-        equipment = pmodel.create!(:variant_id => variant.id, :name => r.name, :born_at => r.born_at, :initial_owner => owner, :default_storage => building_division )
+        equipment = pmodel.create!(:variant_id => variant.id, :name => r.name, :born_at => r.born_at, :initial_owner => owner, :default_storage => building_division, :work_number => r.work_number )
 
         # create indicators linked to equipment
         for indicator, value in r.indicators
           equipment.is_measured!(indicator, value, at: r.born_at)
         end
 
-        w.check_point(0.2)
+        w.check_point
       end
 
     end
@@ -70,7 +70,7 @@ load_data :products do |loader|
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
         r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
                            :variant_reference_name => row[1].downcase.to_sym,
-                           :variant => row[2].blank? ? nil : row[2],
+                           :work_number => row[2].blank? ? nil : row[2].to_s,
                            :born_at => (row[3].blank? ? (Date.today - 200) : row[3]).to_datetime,
                            :variety => row[4].blank? ? nil : row[4].to_s,
                            :derivative_of => row[5].blank? ? nil : row[5].to_s,
@@ -102,7 +102,7 @@ load_data :products do |loader|
         end
 
         # create the product
-        product = pmodel.create!(:variant_id => variant.id,
+        product = pmodel.create!(:variant_id => variant.id, :work_number => r.work_number,
                                  :name => r.name, :born_at => r.born_at, :initial_owner => owner, :variety => r.variety, :derivative_of => r.derivative_of, :default_storage => building_division)
 
         # create indicators linked to equipment

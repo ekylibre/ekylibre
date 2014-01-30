@@ -314,6 +314,27 @@ load_data :interventions do |loader|
     end
   end
 
+  loader.count :wine_interventions do |w|
+    for production in Production.all
+      variety = production.variant.variety
+      if Nomen::Varieties[variety].self_and_parents.include?(Nomen::Varieties[:wine])
+        year = production.campaign.name.to_i
+        Booker.production = production
+        for support in production.supports
+          for wine in Product.of_variety(variety)
+              Booker.intervene(:wine_transfer, year - 1, 9, 15, 0.5, support: support ) do |i|
+                i.add_cast(reference_name: 'wine',           actor: wine)
+                i.add_cast(reference_name: 'wine_man',        actor: i.find(Worker))
+                i.add_cast(reference_name: 'tank',         actor: support.storage)
+                i.add_cast(reference_name: 'wine_to_move', population: 1 + rand(10))
+              end
+            end
+            w.check_point
+        end
+      end
+    end
+  end
+
   file = loader.path("prescription_1.jpg")
   if file.exist?
     loader.count :animal_prescriptions do |w|

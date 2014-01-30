@@ -1,38 +1,38 @@
-'name','variant_nomen','variant','born_at','marque','modèle','owner_name','indicateurs','notes','unit_price','price_indicator'
-'Brice TEXIER','technician',,'1983-01-01',,,,'Population : 1',,'11.74','usage_duration'
-'David JOULIN','technician',,'1981-01-01',,,,'Population : 1',,'11.74','usage_duration'
-'Yvan JOULIN','technician',,'1984-01-01',,,,'Population : 1',,'11.74','usage_duration'
-'Tank','milk_tank',,'1995-01-01',,,,'Population : 1 ; maximum_load_net_volume : 3000liter',,'0.5','usage_duration'
-'Cuve n°1','wine_tank',,'1995-01-01',,,,'Population : 1 ; maximum_load_net_volume : 30hectoliter',,'0.8','usage_duration'
-'Cuve n°2','wine_tank',,'1995-01-01',,,,'Population : 1 ; maximum_load_net_volume : 30hectoliter',,'0.8','usage_duration'
-'Cuve n°3','wine_tank',,'1995-01-01',,,,'Population : 1 ; maximum_load_net_volume : 30hectoliter',,'0.8','usage_duration'
-'Tracteur CASE-IH 533','tractor',,'1983-01-01','CASE-IH',533,,'Population : 1 ; Motor_power : 45ch',,8,'usage_duration'
-'Tracteur CASE-IH 745','tractor',,'1987-01-01','CASE-IH',745,,'Population : 1 ; Motor_power : 75ch',,10,'usage_duration'
-'Tracteur CASE-IH 745 Desilleuse fourche','tractor',,'1990-01-01','CASE-IH',745,,'Population : 1 ; Motor_power : 75ch',,18,'usage_duration'
-'Tracteur CASE-IH 4240','tractor',,'1994-07-15','CASE-IH',4240,,'Population : 1 ; Motor_power : 92 ch',,12,'usage_duration'
-'Tracteur RENAULT 110.54','tractor',,'2005-08-15','RENAULT','110.54',,'Population : 1 ; Motor_power : 110 ch',,16,'usage_duration'
-'Plantoir','manual_implanter',,'1999-10-01',,,,'Population : 1',,'0.27','usage_duration'
-'Machine à planter WAGNER Champion GPS','implanter',,'1999-10-01',,,'ETA','Population : 1',,'98.56','usage_duration'
-'Semoir engrais centrifuge','spreader',,'1999-10-01',,,,'Population : 1 ; maximum_load_net_volume : 700l ; application_width : 12m',,'5.27','usage_duration'
-'Semoir grains','sower',,'2006-05-15',,,,'Population : 1 ; application_width : 3m ; maximum_load_net_mass : 60 kg',,13,'usage_duration'
-'Semoir maïs','sower',,'1988-10-01',,,,'Population : 1 ; application_width : 2,2m ; maximum_load_net_mass : 40 kg','Co-propriété (BOUCHERIE)',14,'usage_duration'
-'Remorque 11T','trailer',,,,,,'Population : 1 ; maximum_load_net_mass : 11000 kg',,'0.68','usage_duration'
-'Remorque épandeur ','spreader_trailer',,,,,,'Population : 1 ; maximum_load_net_mass : 8000 kg',,8,'usage_duration'
-'Remorque monocoque','trailer',,,,,,'Population : 1 ; maximum_load_net_mass : 8000 kg',,'0.5','usage_duration'
-'Charrue 4 socs','plow',,,,,,'Population : 1 ; application_width : 1m',,18,'usage_duration'
-'Charrue réversible 5 socs','plow',,,,,,'Population : 1 ; application_width : 1,25m',,'19.69','usage_duration'
-'Vibroculteur','superficial_plow',,,,,,'Population : 1 ; application_width : 4m',,14,'usage_duration'
-'Pulvérisateur','sprayer',,,'BERTHOULD',,,'Population : 1 ; application_width : 12m ; maximum_load_net_volume : 900l',,20,'usage_duration'
-'Presse balle carré moyenne densité','baler',,,'CASE-IH',,,'Population : 1',,50,'usage_duration'
-'Covercrop','superficial_plow',,,,,'CUMA','Population : 1 ; application_width : 2,5m',,16,'usage_duration'
-'Herse','superficial_plow',,,,,'CUMA','Population : 1 ; application_width : 2,5m',,17,'usage_duration'
-'Cultipacker','superficial_plow',,,,,'CUMA','Population : 1 ; application_width : 2,5m',,4,'usage_duration'
-'Faucheuse','mower',,,,,'CUMA','Population : 1 ; application_width : 3,2m',,49,'usage_duration'
-'Andaineur','hay_rake',,,,,'CUMA','Population : 1 ; application_width : 5m',,18,'usage_duration'
-'Presse balle ronde','baler',,,,,'CUMA','Population : 1',,54,'usage_duration'
-'CLASS 98 SL','reaper',,,,,'ETA','Population : 1 ; application_width : 4,5m',,103,'usage_duration'
-'NH 250','grape_reaper',,,,,'ETA','Population : 1 ; application_width : 2,5m',,88,'usage_duration'
-'Epandeur chaux','spreader',,,,,'COOP','Population : 1',,18,'usage_duration'
-'Girobroyeur','mower',,,,,,'Population : 1 ; application_width : 1,8m',,9,'usage_duration'
-'Bineuse','superficial_plow',,,,,,'Population : 1 ; application_width : 3,2m',,35,'usage_duration'
-'Presse balle carré','baler',,,,,'ETA','Population : 1',,93,'usage_duration'
+name,variant_nomen,work_number,born_at,marque,modèle,owner_name,indicateurs,notes,unit_price,price_indicator
+Brice TEXIER,technician,,1983-01-01,,,,Population : 1,,11.74,usage_duration
+David JOULIN,technician,,1981-01-01,,,,Population : 1,,11.74,usage_duration
+Yvan JOULIN,technician,,1984-01-01,,,,Population : 1,,11.74,usage_duration
+Tank,milk_tank,,1995-01-01,,,,Population : 1 ; maximum_load_net_volume : 3000liter,,0.5,usage_duration
+Cuve n°1,wine_tank,TANK_1,1995-01-01,,,,Population : 1 ; maximum_load_net_volume : 30hectoliter,,0.8,usage_duration
+Cuve n°2,wine_tank,TANK_2,1995-01-01,,,,Population : 1 ; maximum_load_net_volume : 30hectoliter,,0.8,usage_duration
+Cuve n°3,wine_tank,TANK_3,1995-01-01,,,,Population : 1 ; maximum_load_net_volume : 30hectoliter,,0.8,usage_duration
+Tracteur CASE-IH 533,tractor,,1983-01-01,CASE-IH,533,,Population : 1 ; Motor_power : 45ch,,8,usage_duration
+Tracteur CASE-IH 745,tractor,,1987-01-01,CASE-IH,745,,Population : 1 ; Motor_power : 75ch,,10,usage_duration
+Tracteur CASE-IH 745 Desilleuse fourche,tractor,,1990-01-01,CASE-IH,745,,Population : 1 ; Motor_power : 75ch,,18,usage_duration
+Tracteur CASE-IH 4240,tractor,,1994-07-15,CASE-IH,4240,,Population : 1 ; Motor_power : 92 ch,,12,usage_duration
+Tracteur RENAULT 110.54,tractor,,2005-08-15,RENAULT,110.54,,Population : 1 ; Motor_power : 110 ch,,16,usage_duration
+Plantoir,manual_implanter,,1999-10-01,,,,Population : 1,,0.27,usage_duration
+Machine à planter WAGNER Champion GPS,implanter,,1999-10-01,,,ETA,Population : 1,,98.56,usage_duration
+Semoir engrais centrifuge,spreader,,1999-10-01,,,,Population : 1 ; maximum_load_net_volume : 700l ; application_width : 12m,,5.27,usage_duration
+Semoir grains,sower,,2006-05-15,,,,Population : 1 ; application_width : 3m ; maximum_load_net_mass : 60 kg,,13,usage_duration
+Semoir maïs,sower,,1988-10-01,,,,'Population : 1 ; application_width : 2,2m ; maximum_load_net_mass : 40 kg',Co-propriété (BOUCHERIE),14,usage_duration
+Remorque 11T,trailer,,,,,,Population : 1 ; maximum_load_net_mass : 11000 kg,,0.68,usage_duration
+Remorque épandeur ,spreader_trailer,,,,,,Population : 1 ; maximum_load_net_mass : 8000 kg,,8,usage_duration
+Remorque monocoque,trailer,,,,,,Population : 1 ; maximum_load_net_mass : 8000 kg,,0.5,usage_duration
+Charrue 4 socs,plow,,,,,,Population : 1 ; application_width : 1m,,18,usage_duration
+Charrue réversible 5 socs,plow,,,,,,'Population : 1 ; application_width : 1,25m',,19.69,usage_duration
+Vibroculteur,superficial_plow,,,,,,Population : 1 ; application_width : 4m,,14,usage_duration
+Pulvérisateur,sprayer,,,BERTHOULD,,,Population : 1 ; application_width : 12m ; maximum_load_net_volume : 900l,,20,usage_duration
+Presse balle carré moyenne densité,baler,,,CASE-IH,,,Population : 1,,50,usage_duration
+Covercrop,superficial_plow,,,,,CUMA,'Population : 1 ; application_width : 2,5m',,16,usage_duration
+Herse,superficial_plow,,,,,CUMA,'Population : 1 ; application_width : 2,5m',,17,usage_duration
+Cultipacker,superficial_plow,,,,,CUMA,'Population : 1 ; application_width : 2,5m',,4,usage_duration
+Faucheuse,mower,,,,,CUMA,'Population : 1 ; application_width : 3,2m',,49,usage_duration
+Andaineur,hay_rake,,,,,CUMA,Population : 1 ; application_width : 5m,,18,usage_duration
+Presse balle ronde,baler,,,,,CUMA,Population : 1,,54,usage_duration
+CLASS 98 SL,reaper,,,,,ETA,'Population : 1 ; application_width : 4,5m',,103,usage_duration
+NH 250,grape_reaper,,,,,ETA,'Population : 1 ; application_width : 2,5m',,88,usage_duration
+Epandeur chaux,spreader,,,,,COOP,Population : 1,,18,usage_duration
+Girobroyeur,mower,,,,,,'Population : 1 ; application_width : 1,8m',,9,usage_duration
+Bineuse,superficial_plow,,,,,,'Population : 1 ; application_width : 3,2m',,35,usage_duration
+Presse balle carré,baler,,,,,ETA,Population : 1,,93,usage_duration
