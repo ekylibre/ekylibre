@@ -79,9 +79,9 @@ class Plant < Bioproduct
 
   # Sets nature and variety from variant
   def set_name_and_number
-    if self.initial_container and self.variant
-      self.name = self.variant.name + " - " + self.initial_container.name if self.name.blank?
-      self.work_number = "PLANT-" + self.born_at.to_s if self.work_number.blank?
+    if self.default_storage and self.variant and self.name.blank?
+      self.name = self.variant.name + " - " + self.default_storage.name
+      self.work_number = "PLANT-" + self.born_at.to_s
     end
   end
 
