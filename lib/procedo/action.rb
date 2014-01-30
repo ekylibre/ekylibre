@@ -15,6 +15,7 @@ module Procedo
       birth:       {product: :product},
       creation:    {product: :product, producer: :product},
       division:    {product: :product, producer: :product},
+      mixing:      {product: :product, producer: :product, coproducer: :product},
       # Deaths
       death:       {product: :product},
       consumption: {product: :product, absorber: :product},

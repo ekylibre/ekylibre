@@ -35,13 +35,19 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-require 'test_helper'
+class ProductCreation < ProductBirth
+  has_way :producer
 
-class ProductBirthTest < ActiveSupport::TestCase
-
-  # Replace this with your real tests.'
-  test "the truth" do
-    assert true
+  after_save do
+    if self.producer
+      # Nothing to do
+    else
+      for indicator_name in self.product.whole_indicators_list
+        if self.send(indicator_name)
+          product.is_measured!(indicator_name, self.send(indicator_name), at: self.stopped_at, originator: self)
+        end
+      end
+    end
   end
 
 end

@@ -1063,41 +1063,6 @@ prescriptions:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
-product_births:
-  coproducer_id: {type: integer, references: product}
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  id: {type: integer, required: true}
-  lock_version: {type: integer, required: true, default: 0}
-  nature: {type: string, required: true}
-  operation_id: {type: integer, references: operation}
-  originator_id: {type: integer, references: ~originator_type}
-  originator_type: {type: string}
-  population: {type: decimal, precision: 19, scale: 4}
-  producer_id: {type: integer, references: product}
-  product_id: {type: integer, references: product, required: true}
-  shape: {type: spatial}
-  started_at: {type: datetime}
-  stopped_at: {type: datetime}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-
-product_deaths:
-  absorber_id: {type: integer, references: product}
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  id: {type: integer, required: true}
-  lock_version: {type: integer, required: true, default: 0}
-  nature: {type: string, required: true}
-  operation_id: {type: integer, references: operation}
-  originator_id: {type: integer, references: ~originator_type}
-  originator_type: {type: string}
-  product_id: {type: integer, references: product, required: true}
-  started_at: {type: datetime}
-  stopped_at: {type: datetime}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-
 product_enjoyments:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
@@ -1135,6 +1100,35 @@ product_indicator_data:
   point_value: {type: spatial}
   product_id: {type: integer, references: product, required: true}
   string_value: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_junction_ways:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  junction_id: {type: integer, references: product_junction, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  population: {type: decimal, precision: 19, scale: 4}
+  product_id: {type: integer, references: product, required: true}
+  role: {type: string, required: true}
+  shape: {type: spatial}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+product_junctions:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  tool_id: {type: integer, references: product}
+  type: {type: string}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 

@@ -984,15 +984,33 @@ class CreateBase < ActiveRecord::Migration
       t.index      :stopped_at
     end
 
-    create_table :product_births do |t|
+    # create_table :product_junctions do |t|
+    #   t.references :operation,                             index: true
+    #   t.references :originator,        polymorphic: true,  index: true
+    #   t.string     :type
+    #   t.references :stackholder,                           index: true
+    #   t.references :costackholder,                         index: true
+    #   # t.references :third_stackholder,                     index: true
+    #   t.references :tool,                                  index: true
+    #   t.references :product,                  null: false, index: true
+    #   t.decimal    :product_population,   precision: 19, scale: 4
+    #   t.geometry   :product_shape
+    #   t.references :coproduct,                             index: true
+    #   t.decimal    :coproduct_population, precision: 19, scale: 4
+    #   t.geometry   :coproduct_shape
+    #   t.datetime   :started_at
+    #   t.datetime   :stopped_at
+    #   t.stamps
+    #   t.index      :started_at
+    #   t.index      :stopped_at
+    # end
+
+
+    create_table :product_junctions do |t|
       t.references :operation,                             index: true
       t.references :originator,        polymorphic: true,  index: true
-      t.string     :nature,                   null: false
-      t.references :producer,                              index: true
-      t.references :coproducer,                            index: true
-      t.references :product,                  null: false, index: true
-      t.decimal    :population,   precision: 19, scale: 4
-      t.geometry   :shape
+      t.string     :type
+      t.references :tool,                                  index: true
       t.datetime   :started_at
       t.datetime   :stopped_at
       t.stamps
@@ -1000,18 +1018,58 @@ class CreateBase < ActiveRecord::Migration
       t.index      :stopped_at
     end
 
-    create_table :product_deaths do |t|
-      t.references :operation,                             index: true
-      t.references :originator,        polymorphic: true,  index: true
-      t.string     :nature,                   null: false
-      t.references :absorber,                              index: true
+    create_table :product_junction_ways do |t|
+      t.references :junction,                 null: false, index: true
+      t.string     :role,                     null: false
+      t.string     :nature,                   null: false  # starts/continues/ends
       t.references :product,                  null: false, index: true
-      t.datetime   :started_at
-      t.datetime   :stopped_at
+      t.decimal    :population, precision: 19, scale: 4
+      t.geometry   :shape
       t.stamps
-      t.index      :started_at
-      t.index      :stopped_at
+      t.index      :role
+      t.index      :nature
     end
+
+    # create_table :product_births do |t|
+    #   t.references :operation,                             index: true
+    #   t.references :originator,        polymorphic: true,  index: true
+    #   t.string     :nature,                   null: false
+    #   t.references :producer,                              index: true
+    #   t.references :product,                  null: false, index: true
+    #   t.decimal    :population,   precision: 19, scale: 4
+    #   t.geometry   :shape
+    #   t.datetime   :started_at
+    #   t.datetime   :stopped_at
+    #   t.stamps
+    #   t.index      :started_at
+    #   t.index      :stopped_at
+    # end
+
+    # create_table :product_deaths do |t|
+    #   t.references :operation,                             index: true
+    #   t.references :originator,        polymorphic: true,  index: true
+    #   t.string     :nature,                   null: false
+    #   t.references :absorber,                              index: true
+    #   t.references :product,                  null: false, index: true
+    #   t.datetime   :started_at
+    #   t.datetime   :stopped_at
+    #   t.stamps
+    #   t.index      :started_at
+    #   t.index      :stopped_at
+    # end
+
+    # create_table :product_mixings do |t|
+    #   t.references :operation,                             index: true
+    #   t.references :originator,        polymorphic: true,  index: true
+    #   t.references :producer,                 null: false, index: true
+    #   t.references :coproducer,               null: false, index: true
+    #   t.references :product,                  null: false, index: true
+    #   t.datetime   :started_at
+    #   t.datetime   :stopped_at
+    #   t.stamps
+    #   t.index      :started_at
+    #   t.index      :stopped_at
+    # end
 
     create_table :product_nature_categories do |t|
       t.string     :name,                                               null: false

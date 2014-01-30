@@ -1559,64 +1559,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "prescriptions", ["updated_at"], :name => "index_prescriptions_on_updated_at"
   add_index "prescriptions", ["updater_id"], :name => "index_prescriptions_on_updater_id"
 
-  create_table "product_births", force: true do |t|
-    t.integer  "operation_id"
-    t.integer  "originator_id"
-    t.string   "originator_type"
-    t.string   "nature",                                                                                     null: false
-    t.integer  "producer_id"
-    t.integer  "coproducer_id"
-    t.integer  "product_id",                                                                                 null: false
-    t.decimal  "population",                                            precision: 19, scale: 4
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.datetime "created_at",                                                                                 null: false
-    t.datetime "updated_at",                                                                                 null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                                                   default: 0, null: false
-    t.spatial  "shape",           limit: {:srid=>0, :type=>"geometry"}
-  end
-
-  add_index "product_births", ["coproducer_id"], :name => "index_product_births_on_coproducer_id"
-  add_index "product_births", ["created_at"], :name => "index_product_births_on_created_at"
-  add_index "product_births", ["creator_id"], :name => "index_product_births_on_creator_id"
-  add_index "product_births", ["operation_id"], :name => "index_product_births_on_operation_id"
-  add_index "product_births", ["originator_id", "originator_type"], :name => "index_product_births_on_originator_id_and_originator_type"
-  add_index "product_births", ["producer_id"], :name => "index_product_births_on_producer_id"
-  add_index "product_births", ["product_id"], :name => "index_product_births_on_product_id"
-  add_index "product_births", ["started_at"], :name => "index_product_births_on_started_at"
-  add_index "product_births", ["stopped_at"], :name => "index_product_births_on_stopped_at"
-  add_index "product_births", ["updated_at"], :name => "index_product_births_on_updated_at"
-  add_index "product_births", ["updater_id"], :name => "index_product_births_on_updater_id"
-
-  create_table "product_deaths", force: true do |t|
-    t.integer  "operation_id"
-    t.integer  "originator_id"
-    t.string   "originator_type"
-    t.string   "nature",                      null: false
-    t.integer  "absorber_id"
-    t.integer  "product_id",                  null: false
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",    default: 0, null: false
-  end
-
-  add_index "product_deaths", ["absorber_id"], :name => "index_product_deaths_on_absorber_id"
-  add_index "product_deaths", ["created_at"], :name => "index_product_deaths_on_created_at"
-  add_index "product_deaths", ["creator_id"], :name => "index_product_deaths_on_creator_id"
-  add_index "product_deaths", ["operation_id"], :name => "index_product_deaths_on_operation_id"
-  add_index "product_deaths", ["originator_id", "originator_type"], :name => "index_product_deaths_on_originator_id_and_originator_type"
-  add_index "product_deaths", ["product_id"], :name => "index_product_deaths_on_product_id"
-  add_index "product_deaths", ["started_at"], :name => "index_product_deaths_on_started_at"
-  add_index "product_deaths", ["stopped_at"], :name => "index_product_deaths_on_stopped_at"
-  add_index "product_deaths", ["updated_at"], :name => "index_product_deaths_on_updated_at"
-  add_index "product_deaths", ["updater_id"], :name => "index_product_deaths_on_updater_id"
-
   create_table "product_enjoyments", force: true do |t|
     t.integer  "operation_id"
     t.integer  "originator_id"
@@ -1676,6 +1618,54 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_indicator_data", ["product_id"], :name => "index_product_indicator_data_on_product_id"
   add_index "product_indicator_data", ["updated_at"], :name => "index_product_indicator_data_on_updated_at"
   add_index "product_indicator_data", ["updater_id"], :name => "index_product_indicator_data_on_updater_id"
+
+  create_table "product_junction_ways", force: true do |t|
+    t.integer  "junction_id",                                                                             null: false
+    t.string   "role",                                                                                    null: false
+    t.string   "nature",                                                                                  null: false
+    t.integer  "product_id",                                                                              null: false
+    t.decimal  "population",                                         precision: 19, scale: 4
+    t.datetime "created_at",                                                                              null: false
+    t.datetime "updated_at",                                                                              null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                                default: 0, null: false
+    t.spatial  "shape",        limit: {:srid=>0, :type=>"geometry"}
+  end
+
+  add_index "product_junction_ways", ["created_at"], :name => "index_product_junction_ways_on_created_at"
+  add_index "product_junction_ways", ["creator_id"], :name => "index_product_junction_ways_on_creator_id"
+  add_index "product_junction_ways", ["junction_id"], :name => "index_product_junction_ways_on_junction_id"
+  add_index "product_junction_ways", ["nature"], :name => "index_product_junction_ways_on_nature"
+  add_index "product_junction_ways", ["product_id"], :name => "index_product_junction_ways_on_product_id"
+  add_index "product_junction_ways", ["role"], :name => "index_product_junction_ways_on_role"
+  add_index "product_junction_ways", ["updated_at"], :name => "index_product_junction_ways_on_updated_at"
+  add_index "product_junction_ways", ["updater_id"], :name => "index_product_junction_ways_on_updater_id"
+
+  create_table "product_junctions", force: true do |t|
+    t.integer  "operation_id"
+    t.integer  "originator_id"
+    t.string   "originator_type"
+    t.string   "type"
+    t.integer  "tool_id"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",    default: 0, null: false
+  end
+
+  add_index "product_junctions", ["created_at"], :name => "index_product_junctions_on_created_at"
+  add_index "product_junctions", ["creator_id"], :name => "index_product_junctions_on_creator_id"
+  add_index "product_junctions", ["operation_id"], :name => "index_product_junctions_on_operation_id"
+  add_index "product_junctions", ["originator_id", "originator_type"], :name => "index_product_junctions_on_originator_id_and_originator_type"
+  add_index "product_junctions", ["started_at"], :name => "index_product_junctions_on_started_at"
+  add_index "product_junctions", ["stopped_at"], :name => "index_product_junctions_on_stopped_at"
+  add_index "product_junctions", ["tool_id"], :name => "index_product_junctions_on_tool_id"
+  add_index "product_junctions", ["updated_at"], :name => "index_product_junctions_on_updated_at"
+  add_index "product_junctions", ["updater_id"], :name => "index_product_junctions_on_updater_id"
 
   create_table "product_linkages", force: true do |t|
     t.integer  "operation_id"

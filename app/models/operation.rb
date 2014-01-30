@@ -42,10 +42,14 @@ class Operation < Ekylibre::Record::Base
   include PeriodicCalculable
   belongs_to :intervention, inverse_of: :operations
   has_many :product_births,        dependent: :destroy
+  has_many :product_consumptions,  dependent: :destroy
+  has_many :product_creations,     dependent: :destroy
   has_many :product_deaths,        dependent: :destroy
+  has_many :product_divisions,     dependent: :destroy
   has_many :product_enjoyments,    dependent: :destroy
   has_many :product_linkages,      dependent: :destroy
   has_many :product_localizations, dependent: :destroy
+  has_many :product_mergings,      dependent: :destroy
   has_many :product_measurements,  dependent: :destroy
   has_many :product_memberships,   dependent: :destroy
   has_many :product_ownerships,    dependent: :destroy
@@ -198,26 +202,30 @@ class Operation < Ekylibre::Record::Base
   # == Births
 
   def perform_creation(params)
-    self.product_births.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :creation, product: params[:product].actor, producer: params[:producer].actor)
+    self.product_creations.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, producer: params[:producer].actor)
   end
 
   def perform_division(params)
     producer = params[:producer].actor
-    attributes = {started_at: self.started_at, stopped_at: self.stopped_at, nature: :division, product: params[:product].actor, producer: producer}
+    attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {product: params[:product].actor}, producer: producer}
     for indicator_name in producer.whole_indicators_list
-      attributes[indicator_name] = params[:product].send(indicator_name)
+      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
     end
-    self.product_births.create!(attributes)
+    self.product_divisions.create!(attributes)
   end
 
   # == Deaths
 
+  def perform_death(params)
+    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor)
+  end
+
   def perform_consumption(params)
-    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :consumption, product: params[:product].actor, absorber: params[:absorber].actor)
+    self.product_consumptions.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, consumer: params[:absorber].actor)
   end
 
   def perform_merging(params)
-    self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, nature: :merging, product: params[:product].actor, absorber: params[:absorber].actor)
+    self.product_mergings.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, absorber: params[:absorber].actor)
   end
 
   # == Linkages

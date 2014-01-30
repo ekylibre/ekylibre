@@ -19,45 +19,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_births
+# == Table: product_junctions
 #
-#  coproducer_id   :integer
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  nature          :string(255)      not null
 #  operation_id    :integer
 #  originator_id   :integer
 #  originator_type :string(255)
-#  population      :decimal(19, 4)
-#  producer_id     :integer
-#  product_id      :integer          not null
-#  shape           :spatial({:srid=>
 #  started_at      :datetime
 #  stopped_at      :datetime
+#  tool_id         :integer
+#  type            :string(255)
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-#
-# == Fixture: product_births
-#
-# product_births_001:
-#   creator: users_001
-#   nature: "Lorem ipsum"
-#   product: products_001
-#   updater: users_001
-#
----
-product_births_001:
-  creator: users_001
-  nature: creation
-  producer: products_animals_001
-  product: products_animals_003
-  updater: users_001
-product_births_002:
-  creator: users_001
-  nature: division
-  producer: products_matters_001
-  product: products_matters_006
-  updater: users_001
+require 'test_helper'
+
+class ProductJunctionTest < ActiveSupport::TestCase
+
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
+  end
+
+end

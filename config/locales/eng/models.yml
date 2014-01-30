@@ -1032,6 +1032,7 @@ eng:
     # journal_entry_items: "Lignes d’écritures"
     journal_entry_lines: "Journal entry lines" #?
     journals: "Journals" #?
+    # junction_ways: "Junction ways"
     key: "Key"
     label: "Label"
     land_parcel_groups: "Land parcel groups" #?
@@ -1243,6 +1244,7 @@ eng:
     procedures: "Procedures"
     process: "Process"
     producer: "Producer"
+    # producer_way: "Producer way"
     # producible: "Produisible"
     product: "Product"
     # product_account: "Compte de produit"
@@ -1250,6 +1252,7 @@ eng:
     product_categories: "Product categories" #?
     product_components: "Product components" #?
     # product_deaths: "Product deaths"
+    # product_divisions: "Product divisions"
     # product_enjoyments: "Product enjoyments"
     product_events: "Product events"
     # product_indicator_data: "Product indicator data"
@@ -1257,9 +1260,11 @@ eng:
     # product_localizations: "Product localizations"
     # product_measurements: "Product measurements"
     # product_memberships: "Product memberships"
+    # product_mixings: "Product mixings"
     # product_moves: "Product moves"
     product_nature: "Product nature"
     # product_ownerships: "Product ownerships"
+    # product_way: "Product way"
     productable_products: "Productable products" #?
     production: "Production"
     production_chain: "Production chain" #?
@@ -1530,6 +1535,7 @@ eng:
     waiting_deliveries: "Waiting deliveries"
     waiting_transporters: "Waiting transporters" #?
     watcher: "Watcher" #?
+    # ways: "Ways"
     webpass: "Webpass" #?
     website: "Website" #?
     websites: "Websites"

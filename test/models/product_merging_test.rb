@@ -37,7 +37,7 @@
 #
 require 'test_helper'
 
-class ProductBirthTest < ActiveSupport::TestCase
+class ProductMergingTest < ActiveSupport::TestCase
 
   # Replace this with your real tests.'
   test "the truth" do

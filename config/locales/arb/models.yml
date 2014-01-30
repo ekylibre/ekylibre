@@ -1451,6 +1451,7 @@ arb:
     journal_entry_items: "المدخلات"
     journal_id: "الدفتر اليومي" #?
     journals: "الدفاتر اليومية" #?
+    # junction_ways: "Junction ways"
     key: "المفتاح"
     label: "الملصق"
     land_parcels: "الكتل"
@@ -1670,6 +1671,7 @@ arb:
     # process: "Process"
     producer: "المنتج"
     producer_id: "المنتج" #?
+    # producer_way: "Producer way"
     # producible: "Produisible"
     product: "الانتاج"
     # product_account: "Compte de produit"
@@ -1679,6 +1681,7 @@ arb:
     product_category_id: "فئة" #?
     product_components: "مكونات المنتج" #?
     # product_deaths: "Product deaths"
+    # product_divisions: "Product divisions"
     # product_enjoyments: "Product enjoyments"
     # product_events: "Product events"
     product_id: "المنتج" #?
@@ -1687,9 +1690,11 @@ arb:
     # product_localizations: "Product localizations"
     # product_measurements: "Product measurements"
     # product_memberships: "Product memberships"
+    # product_mixings: "Product mixings"
     # product_moves: "Product moves"
     # product_nature: "Product nature"
     # product_ownerships: "Product ownerships"
+    # product_way: "Product way"
     productable_products: "المنتجات الممكن انتاجها" #?
     # production: "Production"
     # productions: "Productions"
@@ -1942,6 +1947,7 @@ arb:
     virtual: "عملي" #?
     virtual_quantity: "الاسهم العملية" #?
     # waiting_deliveries: "Livraisons en attente"
+    # ways: "Ways"
     webpass: "كلمة مرور الموقع الااكتروني" #?
     website: "الموقع الالكتروني" #?
     # websites: "Sites web"

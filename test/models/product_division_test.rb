@@ -19,42 +19,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_deaths
+# == Table: product_junctions
 #
-#  absorber_id     :integer
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  nature          :string(255)      not null
 #  operation_id    :integer
 #  originator_id   :integer
 #  originator_type :string(255)
-#  product_id      :integer          not null
 #  started_at      :datetime
 #  stopped_at      :datetime
+#  tool_id         :integer
+#  type            :string(255)
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-#
-# == Fixture: product_deaths
-#
-# product_deaths_001:
-#   creator: users_001
-#   nature: "Lorem ipsum"
-#   product: products_001
-#   updater: users_001
-#
----
-product_deaths_001:
-  absorber: products_matters_006
-  creator: users_001
-  nature: merging
-  product: products_matters_001
-  updater: users_001
-product_deaths_002:
-  absorber: products_animals_001
-  creator: users_001
-  nature: consumption
-  product: products_plants_001
-  updater: users_001
+require 'test_helper'
+
+class ProductDivisionTest < ActiveSupport::TestCase
+
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
+  end
+
+end

@@ -27,7 +27,7 @@
         <!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
       </operation>
       <operation id="500" duration="1 minutes">
-        <task do="[fertilizer] parts-with [fertilizer_to_spread]"/>
+        <task do="[fertilizer] parts with [fertilizer_to_spread]"/>
         <!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
       </operation>
       <operation id="600" duration="4 minutes">

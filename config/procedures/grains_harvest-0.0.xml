@@ -31,7 +31,7 @@
         <task do="[cultivation] dies"/>
       </operation>
       <operation id="400" duration="4 minutes">
-        <task do="[grains] is-delivered"/>
+        <task do="[grains] is delivered"/>
       </operation>
       <operation id="500" duration="18 minutes">
         <task do="[cropper] moves in default storage"/>

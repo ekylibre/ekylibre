@@ -19,20 +19,19 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_deaths
+# == Table: product_junctions
 #
-#  absorber_id     :integer
 #  created_at      :datetime         not null
 #  creator_id      :integer
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
-#  nature          :string(255)      not null
 #  operation_id    :integer
 #  originator_id   :integer
 #  originator_type :string(255)
-#  product_id      :integer          not null
 #  started_at      :datetime
 #  stopped_at      :datetime
+#  tool_id         :integer
+#  type            :string(255)
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #

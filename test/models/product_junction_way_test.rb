@@ -19,25 +19,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_junctions
+# == Table: product_junction_ways
 #
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  id              :integer          not null, primary key
-#  lock_version    :integer          default(0), not null
-#  operation_id    :integer
-#  originator_id   :integer
-#  originator_type :string(255)
-#  started_at      :datetime
-#  stopped_at      :datetime
-#  tool_id         :integer
-#  type            :string(255)
-#  updated_at      :datetime         not null
-#  updater_id      :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  id           :integer          not null, primary key
+#  junction_id  :integer          not null
+#  lock_version :integer          default(0), not null
+#  nature       :string(255)      not null
+#  population   :decimal(19, 4)
+#  product_id   :integer          not null
+#  role         :string(255)      not null
+#  shape        :spatial({:srid=>
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 require 'test_helper'
 
-class ProductBirthTest < ActiveSupport::TestCase
+class ProductJunctionWayTest < ActiveSupport::TestCase
 
   # Replace this with your real tests.'
   test "the truth" do

@@ -15,16 +15,14 @@ module Procedo
       # Birth
       "{producer} produces {product}" =>           :creation,
       "{producer} parts with {product}" =>         :division,
-      "{producer} parts-with {product}" =>         :division,
       "{product} is separated from {producer}" =>  :division,
-      "{product} is-separated-from {producer}" =>  :division,
       # Death
       "{product} dies" =>                          :death,
       "{absorber} consumes {product}" =>           :consumption,
       "{absorber} merges with {product}" =>        :merging,
-      "{absorber} merges-with {product}" =>        :merging,
       "{product} is merged with {absorber}" =>     :merging,
-      "{product} is-merged-with {absorber}" =>     :merging,
+      # Mixing
+      "{producer} and {coproducer} are mixed into {product}" => :mixing,
       # Linkages
       "{carried} is attached to {carrier} at {point}" => :attachment,
       "{carried} is detached from {carrier}" =>          :detachment,
@@ -35,20 +33,15 @@ module Procedo
       # Membership
       "{group} includes {member}" =>       :group_inclusion,
       "{member} goes into {group}" =>      :group_inclusion,
-      "{member} goes-into {group}" =>      :group_inclusion,
       "{group} excludes {member}" =>       :group_exclusion,
       "{member} goes out {group}" =>       :group_exclusion,
-      "{member} goes-out {group}" =>       :group_exclusion,
       # Ownership
       "{product} loses its owner" =>                   :ownership_loss,
       # "we lose {product}" =>                           :ownership_loss,
       "{owner} becomes owner of {product}" =>          :owner_change,
-      "{owner} becomes-owner-of {product}" =>          :owner_change,
       "{product} is owned by {owner}" =>               :owner_change,
-      "{product} is-owned-by {owner}" =>               :owner_change,
       # Browse
       "{browser} acts on {browsed}" =>                 :browsing,
-      "{browser} acts-on {browsed}" =>                 :browsing,
       "{browser} browses {browsed}" =>                 :browsing,
       # Indicators
       "{indicator} is measured" =>                     :simple_measurement,
@@ -56,13 +49,9 @@ module Procedo
       "{reporter} measures {indicator} with {tool}" => :assisted_measurement,
       # Deliveries
       "{product} is delivered" =>                      :outgoing_delivery,
-      "{product} is-delivered" =>                      :outgoing_delivery,
       "{product} is delivered to {client}" =>          :identified_outgoing_delivery,
-      "{product} is-delivered-to {client}" =>          :identified_outgoing_delivery,
       "{product} is received" =>                       :incoming_delivery,
-      "{product} is-received" =>                       :incoming_delivery,
       "{product} is received from {supplier}" =>       :identified_incoming_delivery,
-      "{product} is-received-from {supplier}" =>       :identified_incoming_delivery
     }.collect{ |expr, type| Action.new(expr, type) }.freeze
 
     def initialize(operation, id, element)
