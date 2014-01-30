@@ -4,19 +4,24 @@
     <items>
       <item name="merlot_noir" itis-tsn="00000"/>
       <item name="merlot_blanc" itis-tsn="00000"/>
+      <item name="muscadelle_blanc" itis-tsn="00000"/>
       <item name="carignan" itis-tsn="00000"/>
-      <item name="cabernet_franc" itis-tsn="00000"/>
-      <item name="cabernet_sauvignon" itis-tsn="00000"/>
+      <item name="carmenere_noir" itis-tsn="00000"/>
+      <item name="cabernet_franc_noir" itis-tsn="00000"/>
+      <item name="cabernet_sauvignon_noir" itis-tsn="00000"/>
       <item name="sauvignon_blanc" itis-tsn="00000"/>
       <item name="semillon_blanc" itis-tsn="00000"/>
-      <item name="sauvignon" itis-tsn="00000"/>
+      <item name="sauvignon_gris" itis-tsn="00000"/>
+      <item name="sauvignon_noir" itis-tsn="00000"/>
       <item name="grenache" itis-tsn="00000"/>
       <item name="grenache_noir" itis-tsn="00000"/>
       <item name="syrah_noir" itis-tsn="00000"/>
-      <item name="malbec" itis-tsn="00000"/>
+      <item name="cot_noir" itis-tsn="00000"/>
       <item name="chardonnay" itis-tsn="00000"/>
       <item name="ugni_blanc" itis-tsn="00000"/>
+      <item name="colombar_blanc" itis-tsn="00000"/>
       <item name="pinot_noir" itis-tsn="00000"/>
+      <item name="petit_verdot_noir" itis-tsn="00000"/>
     </items>
   </nomenclature>
 </nomenclatures>

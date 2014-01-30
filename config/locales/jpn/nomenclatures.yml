@@ -901,6 +901,8 @@ jpn:
         ZWD: "ジンバブエ・ドル" #?
         # ZWL: "Dollar zimbabwéen"
       # name: "Monnaies"
+    designation_origins:
+      items: #?
     dimensions:
       attributes:
         # expression: "Expression"
@@ -2020,8 +2022,6 @@ jpn:
         # building: "Bâtiment"
         # building_division: "Pièce de bâtiment"
         # bussard: "Bussard"
-        # cabernet_franc: "Cabernet franc"
-        # cabernet_sauvignon: "Cabernet sauvignon"
         # caphorn: "Blé Caphorn"
         # capra: "Caprin"
         # carignan: "Carignan"
@@ -2088,7 +2088,6 @@ jpn:
         # linum: "Lin"
         # liquid_slurry: "Purin"
         # lona: "Lona"
-        # malbec: "Malbec"
         # malus: "Pommier"
         # mammalia: "Mammifère"
         # manital: "Manital"
@@ -2141,7 +2140,6 @@ jpn:
         # sand_soil: "Sol sableux"
         # sandy_clay_loam_soil: "Sol limono-argileux"
         # sandy_clay_soil: "Sol argilo-sableux"
-        # sauvignon: "Sauvignon"
         # sauvignon_blanc: "Sauvignon blanc"
         # sculptur: "Sculptur"
         # secale: "Secale"

@@ -29,6 +29,11 @@
       <item name="figure"         datatype="choice" choices="figures"/>
       <item name="horizontal_rotation" datatype="measure" unit="degree"/>
       <item name="livestock_unit" datatype="decimal" gathering="proportional_to_population"/>
+      
+      <!-- for wine product and production -->
+      <item name="reference_year" datatype="integer"/><!-- for "millesime" -->
+      <item name="designation_origin" datatype="choice" choices="designation_origins"/><!-- for "appellation" -->
+      
       <!-- state of cultivable_zone -->
       <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
       <item name="thousand_grain_mass" datatype="measure" unit="gram"/>
