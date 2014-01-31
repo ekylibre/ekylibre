@@ -21,11 +21,9 @@
 #
 # == Table: product_localizations
 #
-#  arrival_cause   :string(255)
 #  container_id    :integer
 #  created_at      :datetime         not null
 #  creator_id      :integer
-#  departure_cause :string(255)
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  nature          :string(255)      not null

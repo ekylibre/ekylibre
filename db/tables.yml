@@ -1111,7 +1111,7 @@ product_junction_ways:
   lock_version: {type: integer, required: true, default: 0}
   nature: {type: string, required: true}
   population: {type: decimal, precision: 19, scale: 4}
-  product_id: {type: integer, references: product, required: true}
+  road_id: {type: integer, references: product, required: true}
   role: {type: string, required: true}
   shape: {type: spatial}
   updated_at: {type: datetime, required: true}
@@ -1150,11 +1150,9 @@ product_linkages:
   updater_id: {type: integer, references: user}
 
 product_localizations:
-  arrival_cause: {type: string}
   container_id: {type: integer, references: product}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
-  departure_cause: {type: string}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   nature: {type: string, required: true}
@@ -1450,6 +1448,7 @@ products:
   id: {type: integer, required: true}
   identification_number: {type: string}
   initial_arrival_cause: {type: string, limit: 120}
+  initial_born_at: {type: datetime}
   initial_container_id: {type: integer, references: product}
   initial_owner_id: {type: integer, references: entity}
   initial_population: {type: decimal, precision: 19, scale: 4, default: 0.0}

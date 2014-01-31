@@ -37,6 +37,6 @@
 #
 class ProductMixing < ProductJunction
   has_start :product
-  has_end :producer
-  has_end :coproducer
+  has_finish :producer
+  has_finish :coproducer
 end

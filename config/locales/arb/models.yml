@@ -1362,6 +1362,8 @@ arb:
     financial_year_id: "مهنة" #?
     financial_years: "المهن" #?
     finish: "النهاية"
+    # finish_junction: "Finish junction"
+    # finish_way: "Finish way"
     first_met_on: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
@@ -1416,6 +1418,7 @@ arb:
     indirect_links: "روابط مباشرة"
     # individual: "Individuel"
     # initial_arrival_cause: "Cause initiale d'arrivée"
+    # initial_born_at: "Initial born at"
     # initial_container: "Emplacement initial"
     # initial_number: "Numéro initial"
     # initial_owner: "Propriétaire initial"

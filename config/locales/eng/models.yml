@@ -943,6 +943,8 @@ eng:
     financial_year_as_last: "Financial year (as last journal entry)"
     financial_years: "Financial years" #?
     finish: "Finish"
+    # finish_junction: "Finish junction"
+    # finish_way: "Finish way"
     first_financial_year: "First financial year" #?
     first_met_on: "First met on"
     first_name: "First name"
@@ -1002,6 +1004,7 @@ eng:
     # individual: "Individuel"
     indivisible: "Indivisible" #?
     # initial_arrival_cause: "Cause initiale d'arrivée"
+    # initial_born_at: "Initial born at"
     # initial_container: "Emplacement initial"
     initial_number: "Initial number"
     # initial_owner: "Propriétaire initial"

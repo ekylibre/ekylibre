@@ -38,7 +38,7 @@
 class ProductJunction < Ekylibre::Record::Base
   include Taskable
   belongs_to :tool, class_name: "Product"
-  has_many :ways, class_name: "ProductJunctionWay", inverse_of: :junction
+  has_many :ways, class_name: "ProductJunctionWay", inverse_of: :junction, foreign_key: :junction_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :originator_type, allow_nil: true, maximum: 255
   #]VALIDATORS]
@@ -56,13 +56,17 @@ class ProductJunction < Ekylibre::Record::Base
       options[:nature] ||= :continuity
       code = ""
       code << "has_one :#{name}_way, -> { where(role: '#{name}') }, class_name: 'ProductJunctionWay', foreign_key: :junction_id, inverse_of: :junction\n"
-      code << "has_one :#{name}, through: :#{name}_way, source: :product\n"
+      code << "has_one :#{name}, through: :#{name}_way, source: :road\n"
 
       code << "accepts_nested_attributes_for :#{name}_way\n"
-      code << "accepts_nested_attributes_for :#{name}\n"
+      # code << "accepts_nested_attributes_for :#{name}\n"
       # unless options[:presence].is_a?(FalseClass)
       #   code << "validates_presence_of :#{name}\n"
       # end
+
+      code << "def create_#{name}!(road)\n"
+      code << "  self.ways.create!(road: road, role: '#{name}',  nature: :#{options[:nature]})\n"
+      code << "end\n"
 
       code << "def self.#{name}_options\n"
       code << "  {nature: :#{options[:nature]}}\n"
@@ -71,9 +75,9 @@ class ProductJunction < Ekylibre::Record::Base
       class_eval(code)
     end
 
-    def has_end(name, *args)
+    def has_finish(name, *args)
       options = args.extract_options!
-      options[:nature] = :end
+      options[:nature] = :finish
       has_way(name, *args, options)
     end
 

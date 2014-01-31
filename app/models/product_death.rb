@@ -36,7 +36,7 @@
 #  updater_id      :integer
 #
 class ProductDeath < ProductJunction
-  has_end :product
+  has_finish :product
   # belongs_to :product, inverse_of: :death
   # belongs_to :absorber, class_name: "Product", foreign_key: :stakeholder_id
   # enumerize :nature, in: [:merging, :consumption]

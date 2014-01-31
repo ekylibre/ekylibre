@@ -39,6 +39,7 @@
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
 #  initial_arrival_cause    :string(120)
+#  initial_born_at          :datetime
 #  initial_container_id     :integer
 #  initial_owner_id         :integer
 #  initial_population       :decimal(19, 4)   default(0.0)
@@ -63,12 +64,10 @@
 #
 class Plant < Bioproduct
   enumerize :variety, in: Nomen::Varieties.all(:plant), predicates: {prefix: true}
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
 
   has_shape
 
-  before_validation :set_name_and_number, on: :create
+  # before_validation :set_name_and_number, on: :create
 
   #return all Plant object who is alive in the considers campaigns
   scope :of_campaign, lambda { |campaign|
@@ -77,12 +76,12 @@ class Plant < Bioproduct
     where('(dead_at <= ? OR dead_at IS NULL)', stopped_on)
   }
 
-  # Sets nature and variety from variant
-  def set_name_and_number
-    if self.default_storage and self.variant and self.name.blank?
-      self.name = self.variant.name + " - " + self.default_storage.name
-      self.work_number = "PLANT-" + self.born_at.to_s
-    end
-  end
+  # # Sets nature and variety from variant
+  # def set_name_and_number
+  #   if self.default_storage and self.variant
+  #     self.name = self.variant.name + " - " + self.default_storage.name
+  #     # self.work_number = "PLANT-" + self.born_at.to_s
+  #   end
+  # end
 
 end
