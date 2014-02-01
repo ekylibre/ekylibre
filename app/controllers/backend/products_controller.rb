@@ -45,9 +45,7 @@ class Backend::ProductsController < BackendController
     t.column :nature, hidden: true
     t.column :intervention, url: true
     t.column :started_at
-    t.column :arrival_cause, hidden: true
     t.column :stopped_at, hidden: true
-    t.column :departure_cause, hidden: true
   end
 
   # localization of the consider product
@@ -56,9 +54,7 @@ class Backend::ProductsController < BackendController
     t.column :container, url: true
     t.column :intervention, url: true
     t.column :started_at
-    t.column :arrival_cause, hidden: true
     t.column :stopped_at, hidden: true
-    t.column :departure_cause, hidden: true
   end
 
   list(:carried_linkages, model: :product_linkages, conditions: {carrier_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|

@@ -50,7 +50,6 @@ class ProductLocalization < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
   validates_presence_of :container, :if => :interior?
-  validates_presence_of :arrival_cause
 
   before_save do
     self.container = nil unless self.interior?
@@ -67,7 +66,7 @@ class ProductLocalization < Ekylibre::Record::Base
       if linkage.occupied? and carried = linkage.carried
         localization = carried.localizations.at(self.started_at).first
         if localization.nil? or (localization.nature != self.nature or localization.container_id != self.container_id)
-          self.product_localizations.create!(product: linkage.carried, operation: self.operation, nature: self.nature, container: self.container, started_at: self.started_at, arrival_cause: self.arrival_cause, departure_cause: self.departure_cause)
+          self.product_localizations.create!(product: linkage.carried, operation: self.operation, nature: self.nature, container: self.container, started_at: self.started_at)
         end
       end
     end

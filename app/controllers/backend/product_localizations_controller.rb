@@ -25,9 +25,7 @@ class Backend::ProductLocalizationsController < BackendController
     t.column :container, url: true
     t.column :nature
     t.column :intervention, url: true
-    t.column :arrival_cause, hidden: true
     t.column :started_at
-    t.column :departure_cause, hidden: true
     t.column :stopped_at
     t.action :edit,    :if => :editable?
     t.action :destroy, :if => :destroyable?

@@ -263,7 +263,7 @@ class Product < Ekylibre::Record::Base
     # self.enjoyments.create!(enjoyer: self.initial_enjoyer)
     # Add first localization on a product
     if self.initial_container # and self.initial_arrival_cause
-      self.localizations.create!(container: self.initial_container, nature: :interior, arrival_cause: self.initial_arrival_cause || :birth)
+      self.localizations.create!(container: self.initial_container, nature: :interior)
     end
     # add first frozen indicator on a product from his variant
     if self.variant
