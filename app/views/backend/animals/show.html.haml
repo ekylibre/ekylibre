@@ -48,8 +48,8 @@
         %span.title= Animal.human_attribute_name(:current_net_mass)
         %span.value= @animal.net_mass
       .info
-        %span.title= Animal.human_attribute_name(:current_animal_disease_state)
-        %span.value= @animal.animal_disease_state
+        %span.title= Animal.human_attribute_name(:current_healthy)
+        %span.value= @animal.healthy
       - if container = @animal.container
         .info
           %span.title= Animal.human_attribute_name(:container)
@@ -100,11 +100,11 @@
           #
           #  data for bar chart indicator and by month
           #
-          spline_indicators = [:animal_disease_state].collect{|i| Nomen::Indicators[i] }
+          spline_indicators = [:healthy].collect{|i| Nomen::Indicators[i] }
           for indicator in spline_indicators
-            items = ProductIndicatorDatum.where(indicator_name: indicator.name, :choice_value => :sick, :product => @animal).measured_between(started_on, stopped_on)
+            items = ProductIndicatorDatum.where(indicator_name: indicator.name, :product => @animal).measured_between(started_on, stopped_on)
             if items.count > 0
-              item_h = items.counts_of_periods(column: :choice_value).sort.inject({}) do |hash, pair|
+              item_h = items.counts_of_periods(column: :boolean_value).sort.inject({}) do |hash, pair|
                 hash[pair.expr.to_i.to_s] = pair.count.to_s.to_d
                 hash
               end
