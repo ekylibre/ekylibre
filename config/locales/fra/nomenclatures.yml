@@ -783,11 +783,11 @@ fra:
         ZMK: "Kwacha zambien"
         ZWL: "Dollar zimbabwéen"
     designation_origins:
-      # name: "Designation origins"
+      name: "Appellations"
       items:
-        # aoc_bordeaux: "Aoc bordeaux"
-        # aoc_bordeaux_sup: "Aoc bordeaux sup"
-        # aoc_cremant_de_bordeaux: "Aoc cremant de bordeaux"
+        aoc_bordeaux: "AOC Bordeaux"
+        aoc_bordeaux_sup: "AOC Bordeaux Supérieur"
+        aoc_cremant_de_bordeaux: "AOC Crémant de Bordeaux"
     dimensions:
       name: "Dimensions"
       attributes:
@@ -966,7 +966,7 @@ fra:
           choice: "Liste de choix"
           decimal: "Chiffre (décimal)"
           geometry: "Forme spatiale"
-          # integer: "Integer"
+          integer: "Entier"
           measure: "Mesure"
           multi_polygon: "Multi-polygone spatial"
           point: "Point spatial"
@@ -995,7 +995,7 @@ fra:
         cation_exchange_capacity_analysis_method: "Méthode d'analyse de la Capacité d'échange cationique (CEC)"
         clostridial_spores_concentration: "Concentration en spores butyriques"
         copper_concentration: "Teneur en Cuivre"
-        # designation_origin: "Designation origin"
+        designation_origin: "Appellation"
         dry_matter_rate: "Taux de matière sèche"
         economical_milk_index: "Index économique laitier (INEL)"
         energy: "Énergie"
@@ -1048,7 +1048,7 @@ fra:
         potential_hydrogen: "Potentiel hydrogène (pH)"
         protein_concentration_index: "Taux protéïque (TP)"
         protein_matters_concentration: "Teneur en matières protéïques"
-        # reference_year: "Reference year"
+        reference_year: "Millésime"
         reproductor: "Reproducteur"
         residue_elimination_method: "Méthode d'élimination des résidus"
         row_plants_interval: "Intervalle inter-plants"
@@ -2009,6 +2009,7 @@ fra:
         electricity: "Électricité"
         equipment: "Équipement"
         equipment_building_division: "Emplacement de stockage du matériel"
+        escourgeon_barley_crop: "Orge d'hiver Escourgeon"
         euclide_wheat_crop: "Culture de blé tendre Euclide"
         euclide_wheat_seed_25: "Semence de blé tendre Euclide"
         ewe_milk: "Lait de brebis"
@@ -2083,6 +2084,7 @@ fra:
         red_chesnut_land_parcel: "Parcelle de terres rouges à chataigniers"
         riflexine: "Riflexine"
         running_water: "Eau du réseau"
+        rye_crop: "Culture de seigle"
         sand_land_parcel: "Parcelle sableuse"
         sandy_clay_land_parcel: "Parcelle argilo-sableuse"
         sandy_clay_loam_land_parcel: "Parcelle limono-argileuse"
@@ -2105,6 +2107,7 @@ fra:
         spreader_trailer: "Épandeur à fumier"
         spring_barley_crop: "Culture d’orge de printemps"
         spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
+        spring_oat_crop: "Culture d'avoine de printemps"
         sugar_vinasse: "Vinasse de sucrerie"
         sunflower_crop: "Culture de tournesol"
         superficial_plow: "Cultipacker"
@@ -2131,6 +2134,7 @@ fra:
         wine_vinasse: "Vinasse de distillerie"
         winter_barley_crop: "Culture d’orge d’hiver"
         winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
+        winter_oat_crop: "Culture d'avoine d'hiver"
         zea_herbicide: "Herbicide maïs"
     product_natures:
       name: "Types de produits"
@@ -2238,14 +2242,17 @@ fra:
       items:
         annual_frost_fallow_land: "Gel annuel"
         calf: "Veau"
+        escourgeon_barley: "Orge escourgeon"
         grain_corn: "Maïs grain"
         milk_bull_calf: "Taurillons Lait"
         milk_cattle: "Bovins Lait"
         permanent_meadow: "Prairie permanente"
+        rye: "Seigle"
         seed_corn: "Maïs semence"
         silage_corn: "Maïs ensilage"
         sorghum: "Sorgho"
         spring_barley: "Orge de printemps"
+        spring_oat: "Avoine de printemps"
         sunflower: "Tournesol"
         temporary_meadow: "Prairie temporaire"
         triticale: "Triticale"
@@ -2254,6 +2261,7 @@ fra:
         winery: "Chai"
         winter_barley: "Orge d'hiver"
         winter_hard_wheat: "Blé dur d’hiver"
+        winter_oat: "Avoine d'hiver"
         winter_soft_wheat: "Blé tendre d’hiver"
         without_crop: "Hors culture"
     residue_elimination_methods:
@@ -2507,6 +2515,7 @@ fra:
         hordeum_hibernum_cerevisiae_hypoproteinae: "Orge d’hiver de brasserie (faible teneur en protéïnes)" # hordeum_hibernum_cerevisiae
         hordeum_vernum: "Orge de printemps"                # hordeum
         hordeum_vernum_hypoproteinae: "Orge de printemps (faible teneur en protéïnes)" # hordeum_vernum
+        hordeum_vulgare: "Orge escourgeon"                 # hordeum
         hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe" # land_parcel
         immatter: "Immatérialisable"                       # product
         implanter: "Planteuse"                             # equipment

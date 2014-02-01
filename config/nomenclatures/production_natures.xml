@@ -10,18 +10,12 @@
       <attribute name="variant_support" type="choice" nomenclature="product_nature_variants" required="false"/>
     </attributes>
     <items>
-      <!-- VEGETAL -->
+      <!-- 1 - CEREALS CROP -->
       <item name="winter_soft_wheat"
             production_code="1100"
             activity="straw_cereal_crops"
             telepac_crop_code="BH"
             variant_support="wheat_crop"
-            />
-      <item name="triticale"
-            production_code="1800"
-            activity="straw_cereal_crops"
-            telepac_crop_code="TR"
-            variant_support="triticale_crop"
             />
       <item name="winter_hard_wheat"
             production_code="1200"
@@ -29,33 +23,73 @@
             telepac_crop_code="BA"
             variant_support="hard_wheat_crop"
             />
+      <item name="rye"
+            production_code="1300"
+            activity="straw_cereal_crops"
+            telepac_crop_code="SE"
+            variant_support="rye_crop"
+            />
       <item name="winter_barley"
             production_code="1410"
             activity="straw_cereal_crops"
             telepac_crop_code="OH"
             variant_support="winter_barley_crop"
+            />    
+      <item name="escourgeon_barley"
+            production_code="1420"
+            activity="straw_cereal_crops"
+            telepac_crop_code="OH"
+            variant_support="escourgeon_barley_crop"
             />
       <item name="spring_barley"
-            production_code="1420"
+            production_code="1430"
             activity="straw_cereal_crops"
             telepac_crop_code="OP"
             variant_support="spring_barley_crop"
             />
-      <item name="grain_corn"
+       <item name="winter_oat"
+            production_code="1510"
+            activity="straw_cereal_crops"
+            telepac_crop_code="AH"
+            variant_support="winter_oat_crop"
+            />
+       <item name="spring_oat"
+            production_code="1520"
+            activity="straw_cereal_crops"
+            telepac_crop_code="AP"
+            variant_support="spring_oat_crop"
+            />     
+       <item name="grain_corn"
             production_code="1710"
             activity="maize_crops"
             telepac_crop_code="MA"
             variant_support="corn_grain_crop"
             />
-      <item name="silage_corn"
-            activity="maize_crops"
-            telepac_crop_code="ME"
-            variant_support="corn_silage_crop"
-            />
       <item name="seed_corn"
+            production_code="1712"
             activity="maize_crops"
             telepac_crop_code="MS"
             variant_support="corn_seed_crop"
+            />
+      <item name="triticale"
+            production_code="1800"
+            activity="straw_cereal_crops"
+            telepac_crop_code="TR"
+            variant_support="triticale_crop"
+            />
+      <!-- 2 - INDUSTRIALS, MEDICINES CROP -->
+       <item name="sunflower"
+            production_code="2380"
+            activity="oilseed_crops"
+            telepac_crop_code="TO"
+            variant_support="sunflower_crop"
+            />
+      <!-- 3 - FODDER CROP -->
+      <item name="silage_corn"
+            production_code="3150"
+            activity="maize_crops"
+            telepac_crop_code="ME"
+            variant_support="corn_silage_crop"
             />
       <item name="sorghum"
             production_code="3210"
@@ -63,34 +97,33 @@
             telepac_crop_code="SH"
             variant_support="sorghum_crop"
             />
-      <item name="sunflower"
-            production_code="2380"
-            activity="oilseed_crops"
-            telepac_crop_code="TO"
-            variant_support="sunflower_crop"
-            />   
-      <item name="without_crop"
-            activity="fallow_land"
-            telepac_crop_code="HC"
-            variant_support="fallow_crop"
-            />
-      <item name="annual_frost_fallow_land"
-            activity="fallow_land"
-            telepac_crop_code="GA"
-            variant_support="annual_fallow_crop"
-            />
-      <item name="temporary_meadow"
+       <item name="temporary_meadow"
             production_code="3400"
             activity="meadow"
             telepac_crop_code="PT"
             variant_support="temporary_meadow_crop"
             />
       <item name="permanent_meadow"
+            production_code="3800"
             activity="meadow"
             telepac_crop_code="PN"
             variant_support="permanent_meadow_crop"
+            />   
+      <item name="without_crop"
+            production_code="3900"
+            activity="fallow_land"
+            telepac_crop_code="HC"
+            variant_support="fallow_crop"
             />
-      <!-- VINE AND WINE -->
+      <item name="annual_frost_fallow_land"
+            production_code="3900"
+            activity="fallow_land"
+            telepac_crop_code="GA"
+            variant_support="annual_fallow_crop"
+            />
+      <!-- 4 - GARDENER CROP -->
+      <!-- 5 - FRUIT CROP -->
+      <!-- 6 - VINE CROP AND WINE -->
       <item name="vine"
             activity="vine_wine"
             variant_support="vine_grape_crop"
@@ -103,7 +136,8 @@
             activity="vine_wine"
             variant_support="wine"
             />
-      <!-- ANIMAL -->
+      <!-- 7 - TREE AND FLOWER CROP  -->
+      <!-- 8 - BIG ANIMALS -->
       <item name="milk_cattle"
             production_code="8200"
             activity="cattle_farming"
@@ -119,6 +153,7 @@
             activity="cattle_farming"
             variant_support="calf"
             />
+      <!-- 9 - OTHER ANIMALS -->
     </items>
     
   </nomenclature>

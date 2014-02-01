@@ -129,10 +129,42 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <!-- RYE CROP -->      
+      <item name="rye_crop"
+            nature="cereal_crop"
+            variety="secale"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <!-- BARLEY CROP -->  
       <item name="winter_barley_crop"
             nature="cereal_crop"
             variety="hordeum_hibernum"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="escourgeon_barley_crop"
+            nature="cereal_crop"
+            variety="hordeum_vulgare"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="spring_barley_crop"
+            nature="cereal_crop"
+            variety="hordeum_vernum"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <!-- OAT CROP -->
+      <item name="winter_oat_crop"
+            nature="cereal_crop"
+            variety="avena"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="spring_oat_crop"
+            nature="cereal_crop"
+            variety="avena"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -149,12 +181,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <item name="spring_barley_crop"
-            nature="cereal_crop"
-            variety="hordeum_vernum"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
-            />
+      
       <!-- CORN CROP --> 
       <item name="corn_crop"
             nature="cereal_crop"
