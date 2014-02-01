@@ -122,6 +122,30 @@
             variant_support="annual_fallow_crop"
             />
       <!-- 4 - GARDENER CROP -->
+      <item name="garlic"
+            production_code="4000"
+            activity="market_garden_crops"
+            telepac_crop_code="AI"
+            variant_support="garlic_crop"
+            />
+      <item name="asparagus"
+            production_code="4060"
+            activity="market_garden_crops"
+            telepac_crop_code="FG"
+            variant_support="asparagus_crop"
+            />
+      <item name="carrot"
+            production_code="4120"
+            activity="market_garden_crops"
+            telepac_crop_code="CT"
+            variant_support="carrot_crop"
+            />
+      <item name="strawberry"
+            production_code="4450"
+            activity="market_garden_crops"
+            telepac_crop_code="FR"
+            variant_support="strawberry_crop"
+            />   
       <!-- 5 - FRUIT CROP -->
       <!-- 6 - VINE CROP AND WINE -->
       <item name="vine"

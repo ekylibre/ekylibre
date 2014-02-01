@@ -256,6 +256,31 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+       <!-- GARDEN CROP --> 
+       <item name="garlic_crop"
+            nature="crop"
+            variety="allium"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="asparagus_crop"
+            nature="crop"
+            variety="asparagus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="strawberry_crop"
+            nature="crop"
+            variety="fragaria"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="carrot_crop"
+            nature="crop"
+            variety="daucus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />  
        <!-- TREE CROP --> 
       <item name="plum_crop"
             nature="fruit_crop"

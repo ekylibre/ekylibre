@@ -258,6 +258,7 @@ fra:
         goat_farming: "Élevage caprins"                    # animal_farming
         handicraft: "Artisanat"
         maize_crops: "Culture de maïs"                     # vegetal_crops
+        market_garden_crops: "Maraîchage"                  # vegetal_crops
         meadow: "Prairie"                                  # vegetal_crops
         oilseed_crops: "Culture oléagineuse"               # vegetal_crops
         palmiped_farming: "Élevage de palmipèdes"          # animal_farming
@@ -1955,6 +1956,7 @@ fra:
         apple_crop: "Verger de pommiers"
         ascott_wheat_crop: "Culture de blé tendre Ascott"
         ascott_wheat_seed_25: "Semence de blé tendre Ascott"
+        asparagus_crop: "Aspergeraie"
         aubues_land_parcel: "Parcelle sur craie Nord Vienne (Aubues)"
         baler: "Botteleuse"
         barley_grain: "Grain d’orge"
@@ -1969,6 +1971,7 @@ fra:
         caphorn_wheat_crop: "Culture de blé tendre Caphorn"
         caphorn_wheat_seed_25: "Semence de blé tendre Caphorn"
         capra_manure: "Fumier de caprin"
+        carrot_crop: "Culture de carotte"
         cattle_compost: "Compost de bovins"
         cattle_herd: "Troupeau de bovins"
         cattle_liquid_slurry: "Purin de bovins"
@@ -2019,6 +2022,7 @@ fra:
         female_young_cow: "Génisse"
         flap_silt_land_parcel: "Parcelle de limons battants"
         forager: "Ensileuse"
+        garlic_crop: "Culture d'ail"
         gas: "Gaz"
         gasoline: "Essence"
         goat_milk: "Lait de chèvre"
@@ -2108,6 +2112,7 @@ fra:
         spring_barley_crop: "Culture d’orge de printemps"
         spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
         spring_oat_crop: "Culture d'avoine de printemps"
+        strawberry_crop: "Culture de fraisier"
         sugar_vinasse: "Vinasse de sucrerie"
         sunflower_crop: "Culture de tournesol"
         superficial_plow: "Cultipacker"
@@ -2241,8 +2246,11 @@ fra:
         # variant_support: # Choices comes from nomenclature: product_nature_variants
       items:
         annual_frost_fallow_land: "Gel annuel"
+        asparagus: "Asperge"
         calf: "Veau"
+        carrot: "Carotte"
         escourgeon_barley: "Orge escourgeon"
+        garlic: "Ail"
         grain_corn: "Maïs grain"
         milk_bull_calf: "Taurillons Lait"
         milk_cattle: "Bovins Lait"
@@ -2253,6 +2261,7 @@ fra:
         sorghum: "Sorgho"
         spring_barley: "Orge de printemps"
         spring_oat: "Avoine de printemps"
+        strawberry: "Fraise"
         sunflower: "Tournesol"
         temporary_meadow: "Prairie temporaire"
         triticale: "Triticale"
@@ -2428,7 +2437,9 @@ fra:
         actilact: "Actilact"                               # animal_medicine
         additive: "Additif"                                # plant_medicine
         alexis: "Alexis"                                   # triticum_durum
+        allium: "Ail"                                      # amaryllidaceae
         amaranthaceae: "Amaranthaceae"                     # plant
+        amaryllidaceae: "Amaryllidaceae"                   # plant
         anas: "Palmipède"                                  # aves
         animal: "Animal"                                   # bioproduct
         animal_group: "Troupeau"                           # product_group
@@ -2438,6 +2449,7 @@ fra:
         apiaceae: "Apiaceae"                               # plant
         apis: "Apidés"                                     # insecta
         ascott: "Ascott"                                   # triticum_aestivum
+        asparagus: "Asperge"                               # liliaceae
         asteraceae: "Astéracée"                            # plant
         aubues_soil: "Sols sur craie Nord Vienne (Aubues)" # land_parcel
         autan: "Autan"                                     # triticum_aestivum
@@ -2492,6 +2504,7 @@ fra:
         fabulis: "Fabulis"                                 # triticum_durum
         flap_silt_soil: "Limons battants"                  # land_parcel
         forager: "Ensileuse"                               # equipment
+        fragaria: "Fraise"                                 # rosaceae
         fruit: "Fruit"                                     # organic_matter
         fuel: "Gasoil"                                     # organic_matter
         fungicide: "Produit fongicide"                     # plant_medicine
@@ -2528,6 +2541,7 @@ fra:
         land_parcel_group: "Groupe de parcelles physiques" # product_group
         lepus: "Lagomorphe"                                # mammalia
         levis: "Levis"                                     # triticum_aestivum
+        liliaceae: "Liliaceae"                             # plant
         linaceae: "Linaceae"                               # plant
         linum: "Lin"                                       # linaceae
         liquid_slurry: "Purin"                             # excrement
@@ -2578,6 +2592,7 @@ fra:
         reaper: "Moissonneuse-batteuse"                    # equipment
         recital: "Recital"                                 # triticum_aestivum
         renan: "Renan"                                     # triticum_aestivum
+        rosaceae: "Rosaceae"                               # plant
         rubisko: "Rubisko"                                 # triticum_aestivum
         runal: "Runal"                                     # triticum_aestivum
         salmo: "Salmonidé"                                 # osteichthyes
