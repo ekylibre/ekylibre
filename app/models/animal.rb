@@ -40,6 +40,7 @@
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
 #  initial_arrival_cause    :string(120)
+#  initial_born_at          :datetime
 #  initial_container_id     :integer
 #  initial_owner_id         :integer
 #  initial_population       :decimal(19, 4)   default(0.0)
@@ -77,7 +78,7 @@ class Animal < Bioproduct
   scope :mothers, -> { indicate(sex: "female", reproductor: true).order(:name) }
 
   def status
-    if self.dead?
+    if self.dead_at?
       return :stop
     elsif self.indicators_list.include? :healthy
       return (self.healthy ? :go : :caution)

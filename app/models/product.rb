@@ -40,6 +40,7 @@
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
 #  initial_arrival_cause    :string(120)
+#  initial_born_at          :datetime
 #  initial_container_id     :integer
 #  initial_owner_id         :integer
 #  initial_population       :decimal(19, 4)   default(0.0)
@@ -93,8 +94,8 @@ class Product < Ekylibre::Record::Base
   has_many :groups, :through => :memberships
   has_many :measurements, class_name: "ProductMeasurement"
   has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
-  has_many :junctions, class_name: "ProductJunction", through: :junction_ways
   has_many :junction_ways, class_name: "ProductJunctionWay"
+  has_many :junctions, class_name: "ProductJunction", through: :junction_ways
   has_many :linkages, class_name: "ProductLinkage", foreign_key: :carrier_id
   has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :product_id
@@ -102,10 +103,10 @@ class Product < Ekylibre::Record::Base
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
   has_many :markers, :through => :supports
   has_many :variants, class_name: "ProductNatureVariant", :through => :phases
-  has_one :start_way, -> { where(nature: 'start') }, class_name: "ProductJunctionWay", inverse_of: :product
-  has_one :end_way,   -> { where(nature: 'end') },   class_name: "ProductJunctionWay", inverse_of: :product
-  has_one :start_junction, through: :start_way, source: :junction
-  has_one :end_junction,   through: :start_way, source: :junction
+  has_one :start_way,  -> { where(nature: 'start') },  class_name: "ProductJunctionWay", inverse_of: :road
+  has_one :finish_way, -> { where(nature: 'finish') }, class_name: "ProductJunctionWay", inverse_of: :road
+  has_one :start_junction,  through: :start_way,  source: :junction
+  has_one :finish_junction, through: :finish_way, source: :junction
   # has_one :birth, class_name: "ProductBirth", inverse_of: :product
   # has_one :death, class_name: "ProductDeath", inverse_of: :product
   has_one :current_phase,        -> { current }, class_name: "ProductPhase",        foreign_key: :product_id
@@ -181,7 +182,7 @@ class Product < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name
 
-  accepts_nested_attributes_for :start_way
+  # accepts_nested_attributes_for :start_way
   # accepts_nested_attributes_for :death
   accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum|
     !datum["indicator"] != "population" and datum[ProductIndicatorDatum.value_column(datum["indicator"]).to_s].blank?
@@ -262,7 +263,7 @@ class Product < Ekylibre::Record::Base
     # self.enjoyments.create!(enjoyer: self.initial_enjoyer)
     # Add first localization on a product
     if self.initial_container # and self.initial_arrival_cause
-      self.localizations.create!(container: self.initial_container, nature: :interior, arrival_cause: self.initial_arrival_cause || :birth)
+      self.localizations.create!(container: self.initial_container, nature: :interior)
     end
     # add first frozen indicator on a product from his variant
     if self.variant
@@ -368,7 +369,7 @@ class Product < Ekylibre::Record::Base
 
 
   def dead?
-    return !self.death.nil?
+    return !self.finish_way.nil?
   end
 
   # Returns groups of the product at a given time (or now by default)

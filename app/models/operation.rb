@@ -207,7 +207,7 @@ class Operation < Ekylibre::Record::Base
 
   def perform_division(params)
     producer = params[:producer].actor
-    attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {product: params[:product].actor}, producer: producer}
+    attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, producer: producer}
     for indicator_name in producer.whole_indicators_list
       attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
     end

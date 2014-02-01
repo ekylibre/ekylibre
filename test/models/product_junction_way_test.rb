@@ -28,7 +28,7 @@
 #  lock_version :integer          default(0), not null
 #  nature       :string(255)      not null
 #  population   :decimal(19, 4)
-#  product_id   :integer          not null
+#  road_id      :integer          not null
 #  role         :string(255)      not null
 #  shape        :spatial({:srid=>
 #  updated_at   :datetime         not null

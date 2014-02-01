@@ -21,11 +21,9 @@
 #
 # == Table: product_localizations
 #
-#  arrival_cause   :string(255)
 #  container_id    :integer
 #  created_at      :datetime         not null
 #  creator_id      :integer
-#  departure_cause :string(255)
 #  id              :integer          not null, primary key
 #  lock_version    :integer          default(0), not null
 #  nature          :string(255)      not null
@@ -44,15 +42,14 @@ class ProductLocalization < Ekylibre::Record::Base
   belongs_to :container, class_name: "Product"
   belongs_to :product
   enumerize :nature, in: [:transfer, :interior, :exterior], predicates: true
-  enumerize :arrival_cause,   in: [:other, :birth, :housing, :purchase], default: :other, predicates: {prefix: true}
-  enumerize :departure_cause, in: [:other, :death, :consumption, :sale], default: :other, predicates: {prefix: true}
+  # enumerize :arrival_cause,   in: [:other, :birth, :housing, :purchase], default: :other, predicates: {prefix: true}
+  # enumerize :departure_cause, in: [:other, :death, :consumption, :sale], default: :other, predicates: {prefix: true}
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :arrival_cause, :departure_cause, :nature, :originator_type, allow_nil: true, maximum: 255
+  validates_length_of :nature, :originator_type, allow_nil: true, maximum: 255
   validates_presence_of :nature, :product
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
   validates_presence_of :container, :if => :interior?
-  validates_presence_of :arrival_cause
 
   before_save do
     self.container = nil unless self.interior?
@@ -69,7 +66,7 @@ class ProductLocalization < Ekylibre::Record::Base
       if linkage.occupied? and carried = linkage.carried
         localization = carried.localizations.at(self.started_at).first
         if localization.nil? or (localization.nature != self.nature or localization.container_id != self.container_id)
-          self.product_localizations.create!(product: linkage.carried, operation: self.operation, nature: self.nature, container: self.container, started_at: self.started_at, arrival_cause: self.arrival_cause, departure_cause: self.departure_cause)
+          self.product_localizations.create!(product: linkage.carried, operation: self.operation, nature: self.nature, container: self.container, started_at: self.started_at)
         end
       end
     end

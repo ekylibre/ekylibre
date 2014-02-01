@@ -28,7 +28,7 @@
 #  lock_version :integer          default(0), not null
 #  nature       :string(255)      not null
 #  population   :decimal(19, 4)
-#  product_id   :integer          not null
+#  road_id      :integer          not null
 #  role         :string(255)      not null
 #  shape        :spatial({:srid=>
 #  updated_at   :datetime         not null
@@ -41,7 +41,7 @@
 #   creator: users_001
 #   junction: junctions_001
 #   nature: "Lorem ipsum"
-#   product: products_001
+#   road: roads_001
 #   role: "Lorem ipsum"
 #   updater: users_001
 #
@@ -51,7 +51,7 @@ product_junction_ways_001:
   creator: users_001
   junction: product_births_001
   nature: "start"
-  product: products_001
+  road: products_001
   role: "product"
   updater: users_001
 
@@ -59,7 +59,7 @@ product_junction_ways_002:
   creator: users_001
   junction: product_births_002
   nature: "start"
-  product: products_001
+  road: products_001
   role: "product"
   updater: users_001
 
@@ -67,7 +67,7 @@ product_junction_ways_003:
   creator: users_001
   junction: product_creations_001
   nature: "start"
-  product: products_002
+  road: products_002
   role: "product"
   updater: users_001
 
@@ -75,7 +75,7 @@ product_junction_ways_004:
   creator: users_001
   junction: product_creations_001
   nature: "continuity"
-  product: products_002
+  road: products_002
   role: "producer"
   updater: users_001
 

@@ -1005,7 +1005,7 @@ fra:
         figure: "Forme"
         freezing_point_temperature: "Point de solidification"
         geographic_coordinate: "Coordonnées géographiques"
-        healthy: "Phase du bioprocessus de maladie d’un animal"
+        healthy: "Bonne santé"
         height: "Hauteur"
         horizontal_rotation: "Rotation horizontale"
         immunoglobulins_concentration: "Concentration en immunoglobulines Gamma"
@@ -1759,9 +1759,9 @@ fra:
       items:
         booting: "Montaison"
         # development_of_fruit: "Development of fruit"
-        # flowering: "Flowering"
+        flowering: "Floraison"
         germination: "Germination"
-        # heading: "Heading"
+        heading: "Tallage"
         # leaf_development: "Leaf development"
         # ripening: "Ripening"
         senescence: "Sénescence"
@@ -2452,12 +2452,12 @@ fra:
         building: "Bâtiment"                               # product_group
         building_division: "Pièce de bâtiment"             # sub_zone
         bussard: "Bussard"                                 # triticum_aestivum
-        # cabernet_franc_noir: "Cabernet franc noir"       # vitis_vinifera
-        # cabernet_sauvignon_noir: "Cabernet sauvignon noir" # vitis_vinifera
+        cabernet_franc_noir: "Cabernet franc noir"         # vitis_vinifera
+        cabernet_sauvignon_noir: "Cabernet sauvignon noir" # vitis_vinifera
         caphorn: "Blé Caphorn"                             # triticum_aestivum
         capra: "Caprin"                                    # mammalia
         carignan: "Carignan"                               # vitis_vinifera
-        # carmenere_noir: "Carmenere noir"                 # vitis_vinifera
+        carmenere_noir: "Carmenere noir"                   # vitis_vinifera
         champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)" # land_parcel
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertilizer: "Engrais chimique"            # mineral_matter
@@ -2465,9 +2465,9 @@ fra:
         cichorium: "Chicoré"                               # asteraceae
         clay_limestone_soil: "Sol argilo-calcaire (Groies)" # land_parcel
         clay_soil: "Terre d’argile lourde"                 # land_parcel
-        # colombar_blanc: "Colombar blanc"                 # vitis_vinifera
+        colombar_blanc: "Colombar blanc"                   # vitis_vinifera
         compost: "Compost"                                 # excrement
-        # cot_noir: "Cot noir"                             # vitis_vinifera
+        cot_noir: "Cot noir"                               # vitis_vinifera
         courtot: "Courtot"                                 # triticum_aestivum
         cultivable_zone: "Zone cultivable"                 # land_parcel_group
         cultur: "Cultur"                                   # triticum_durum
@@ -2540,7 +2540,7 @@ fra:
         mollusca: "Mollusque"                              # animal
         molluscicide: "Produit molluscicide"               # plant_medicine
         mower: "Faucheuse"                                 # equipment
-        # muscadelle_blanc: "Muscadelle blanc"             # vitis_vinifera
+        muscadelle_blanc: "Muscadelle blanc"               # vitis_vinifera
         numida: "Numididae"                                # aves
         oratorio: "Oratorio"                               # triticum_aestivum
         organic_matter: "Matière organique"                # matter
@@ -2548,7 +2548,7 @@ fra:
         osteichthyes: "Poissons osseux"                    # animal
         ovis: "Ovin"                                       # mammalia
         pescadou: "Pescadou"                               # triticum_durum
-        # petit_verdot_noir: "Petit verdot noir"           # vitis_vinifera
+        petit_verdot_noir: "Petit verdot noir"             # vitis_vinifera
         phaseolus: "Haricot"                               # fabaceae
         pinot_noir: "Pinot noir"                           # vitis_vinifera
         pisum: "Pisum"                                     # fabaceae
@@ -2578,8 +2578,8 @@ fra:
         sandy_clay_loam_soil: "Sol limono-argileux"        # land_parcel
         sandy_clay_soil: "Sol argilo-sableux"              # land_parcel
         sauvignon_blanc: "Sauvignon blanc"                 # vitis_vinifera
-        # sauvignon_gris: "Sauvignon gris"                 # vitis_vinifera
-        # sauvignon_noir: "Sauvignon noir"                 # vitis_vinifera
+        sauvignon_gris: "Sauvignon gris"                   # vitis_vinifera
+        sauvignon_noir: "Sauvignon noir"                   # vitis_vinifera
         sculptur: "Sculptur"                               # triticum_durum
         secale: "Secale"                                   # poaceae
         seed: "Semence"                                    # organic_matter

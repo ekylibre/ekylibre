@@ -28,7 +28,7 @@
 #  lock_version :integer          default(0), not null
 #  nature       :string(255)      not null
 #  population   :decimal(19, 4)
-#  product_id   :integer          not null
+#  road_id      :integer          not null
 #  role         :string(255)      not null
 #  shape        :spatial({:srid=>
 #  updated_at   :datetime         not null
@@ -37,18 +37,19 @@
 class ProductJunctionWay < Ekylibre::Record::Base
   attr_readonly :nature
   belongs_to :junction, class_name: "ProductJunction", inverse_of: :ways
-  belongs_to :product, inverse_of: :junction_ways
-  enumerize :nature, in: [:start, :continuity, :end], predicates: true
+  belongs_to :road, inverse_of: :junction_ways, class_name: "Product"
+  enumerize :nature, in: [:start, :continuity, :finish], predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
   validates_length_of :nature, :role, allow_nil: true, maximum: 255
-  validates_presence_of :junction, :nature, :product, :role
+  validates_presence_of :junction, :nature, :road, :role
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
 
   delegate :started_at, :stopped_at, to: :junction
 
-  accepts_nested_attributes_for :junction
+  # DO NOT USE NESTED ATTRIBUTES LIKE THAT
+  # accepts_nested_attributes_for :junction
 
   before_validation do
     if self.nature.blank?
@@ -60,38 +61,38 @@ class ProductJunctionWay < Ekylibre::Record::Base
 
   before_update do
     unless self.continuity?
-      if self.product_id != old_record.product_id
-        old_record.product.update_column(touch_column, nil)
+      if self.road_id != old_record.road_id
+        old_record.road.update_column(touch_column, nil)
       end
     end
   end
 
   after_save do
     unless self.continuity?
-      if self.product and self.stopped_at != self.product.send(touch_column)
-        self.product.update_column(touch_column, self.stopped_at)
+      if self.road and self.stopped_at != self.road.send(touch_column)
+        self.road.update_column(touch_column, self.stopped_at)
       end
-      if self.start?
-        self.product.is_measured!(:population, self.population, at: self.stopped_at)
+      if self.start? and self.population
+        self.road.is_measured!(:population, self.population, at: self.stopped_at)
       end
-      if self.end?
-        self.product.is_measured!(:population, 0, at: self.stopped_at)
+      if self.finish?
+        self.road.is_measured!(:population, 0, at: self.stopped_at)
       end
     end
   end
 
   before_destroy do
     unless self.continuity?
-      old_record.product.update_attribute(touch_column, nil)
-      old_record.product.indicator_data.where(indicator: "population", measured_at: old_record.stopped_at).destroy_all
-      if self.start?
-        old_record.product.indicator_data.where(indicator: "population").where("measured_at > ?", old_record.stopped_at).update_all("population = population - ?", self.population)
+      old_record.road.update_attribute(touch_column, nil)
+      old_record.road.indicator_data.where(indicator: "population", measured_at: old_record.stopped_at).destroy_all
+      if self.start? and self.population
+        old_record.road.indicator_data.where(indicator: "population").where("measured_at > ?", old_record.stopped_at).update_all("population = population - ?", self.population)
       end
     end
   end
 
   def touch_column
-    (self.start? ? :born_at : self.end? ? :dead_at : nil)
+    (self.start? ? :born_at : self.finish? ? :dead_at : nil)
   end
 
 end

@@ -16,7 +16,7 @@ gem 'sass-rails', '~> 4.0.1'
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .js.coffee assets and views
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.0.1'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
@@ -25,7 +25,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '~> 2.1.0'
+gem 'turbolinks', '~> 2.2.1'
 gem 'jquery-turbolinks'
 
 # jQuery UI Javascript framework
@@ -33,7 +33,7 @@ gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
 
 # Forms helper
-gem 'formize', '~> 1.1.0'
+gem 'formize', '~> 1.1.2'
 # gem 'codemirror-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -70,7 +70,7 @@ gem "simple_calendar"
 # Models helpers
 gem 'acts_as_list'
 gem 'state_machine'
-gem 'awesome_nested_set', '~> 3.0.0.rc2'
+gem 'awesome_nested_set', '~> 3.0.0.rc3'
 gem 'enumerize'
 
 # Authentication

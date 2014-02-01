@@ -419,7 +419,7 @@ fra:
     archives: "Archives"
     archives_count: "Nombre d'archives"
     archiving: "Méthode d’archivage"
-    arrival_cause: "Cause d’entrée"
+    arrival_cause: "Cause d’entrée" #?
     arrived_on: "Date d’entrée" #?
     assimilated_taxes_amount: "Montant des taxes assimilées"
     attorney: "Mandataire" #?
@@ -550,7 +550,7 @@ fra:
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
     current_amount: "Montant actuel"
-    current_healthy: "État de santé actuel" #?
+    current_healthy: "Bonne santé actuelle" #?
     current_localization: "Current localization"
     current_net_mass: "Dernière pesée" #?
     current_ownership: "Current ownership"
@@ -587,7 +587,7 @@ fra:
     delivery: "Livraison"
     delivery_address: "Adresse pour la livraison"
     delivery_items: "Lignes de livraison"
-    departure_cause: "Causes de sortie"
+    departure_cause: "Causes de sortie" #?
     deposit: "Remise en banque"
     depositable_payments: "Encaissements encaissables"
     depositables_account: "Compte d’attente pour les encaissements à encaisser"
@@ -635,8 +635,8 @@ fra:
     employees: "employés"
     employment: "Emploi/Rôle"
     encrypted_password: "Mot de passe crypté"
-    end_junction: "End junction"
-    end_way: "End way"
+    end_junction: "End junction" #?
+    end_way: "End way" #?
     # enjoyer: "Enjoyer"
     enjoyments: "Enjoyments"
     entity: "Personne"
@@ -682,6 +682,8 @@ fra:
     financial_year: "Exercice"
     financial_year_as_last: "Exercice (en tant que écriture de fin d’exercice)"
     finish: "Fin"
+    finish_junction: "Finish junction"
+    finish_way: "Finish way"
     first_met_on: "Date de la première rencontre"
     first_name: "Prénom"
     first_number: "Premier numéro"
@@ -724,6 +726,7 @@ fra:
     indirect_links: "Liens indirects"
     individual: "Individuel" #?
     initial_arrival_cause: "Cause initiale d'arrivée"
+    initial_born_at: "Initial born at"
     initial_container: "Emplacement initial"
     initial_number: "Numéro initial"
     initial_owner: "Propriétaire initial"
@@ -1012,6 +1015,7 @@ fra:
     # restricted: "Restricted"
     rgt: "Limite droite"
     rights: "Droits"
+    # road: "Road"
     role: "Rôle de base"
     roles: "Rôles"
     root_model: "Racine"

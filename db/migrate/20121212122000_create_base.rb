@@ -920,8 +920,6 @@ class CreateBase < ActiveRecord::Migration
       t.references :product,                  null: false, index: true
       t.string     :nature,                   null: false
       t.references :container,                             index: true
-      t.string     :arrival_cause
-      t.string     :departure_cause
       t.datetime   :started_at
       t.datetime   :stopped_at
       t.stamps
@@ -1021,8 +1019,8 @@ class CreateBase < ActiveRecord::Migration
     create_table :product_junction_ways do |t|
       t.references :junction,                 null: false, index: true
       t.string     :role,                     null: false
-      t.string     :nature,                   null: false  # starts/continues/ends
-      t.references :product,                  null: false, index: true
+      t.string     :nature,                   null: false  # start/continuity/finish
+      t.references :road,                     null: false, index: true
       t.decimal    :population, precision: 19, scale: 4
       t.geometry   :shape
       t.stamps
@@ -1221,6 +1219,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :type
       t.string     :name,                                                                          null: false
       t.string     :number,                                                                        null: false
+      t.datetime   :initial_born_at
       t.references :initial_container,                                                                          index: true
       t.string     :initial_arrival_cause,     limit: 120
       t.references :initial_owner,                                                                              index: true

@@ -1623,7 +1623,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "junction_id",                                                                             null: false
     t.string   "role",                                                                                    null: false
     t.string   "nature",                                                                                  null: false
-    t.integer  "product_id",                                                                              null: false
+    t.integer  "road_id",                                                                                 null: false
     t.decimal  "population",                                         precision: 19, scale: 4
     t.datetime "created_at",                                                                              null: false
     t.datetime "updated_at",                                                                              null: false
@@ -1637,7 +1637,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_junction_ways", ["creator_id"], :name => "index_product_junction_ways_on_creator_id"
   add_index "product_junction_ways", ["junction_id"], :name => "index_product_junction_ways_on_junction_id"
   add_index "product_junction_ways", ["nature"], :name => "index_product_junction_ways_on_nature"
-  add_index "product_junction_ways", ["product_id"], :name => "index_product_junction_ways_on_product_id"
+  add_index "product_junction_ways", ["road_id"], :name => "index_product_junction_ways_on_road_id"
   add_index "product_junction_ways", ["role"], :name => "index_product_junction_ways_on_role"
   add_index "product_junction_ways", ["updated_at"], :name => "index_product_junction_ways_on_updated_at"
   add_index "product_junction_ways", ["updater_id"], :name => "index_product_junction_ways_on_updater_id"
@@ -1702,8 +1702,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "product_id",                  null: false
     t.string   "nature",                      null: false
     t.integer  "container_id"
-    t.string   "arrival_cause"
-    t.string   "departure_cause"
     t.datetime "started_at"
     t.datetime "stopped_at"
     t.datetime "created_at",                  null: false
@@ -2121,6 +2119,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "type"
     t.string   "name",                                                                          null: false
     t.string   "number",                                                                        null: false
+    t.datetime "initial_born_at"
     t.integer  "initial_container_id"
     t.string   "initial_arrival_cause",    limit: 120
     t.integer  "initial_owner_id"
