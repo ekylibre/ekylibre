@@ -5,6 +5,9 @@
       <item name="poaceae">
         <attribute name="itis-tsn" value="40351"/>
       </item>
+      <item name="amaryllidaceae">
+        <attribute name="itis-tsn" value="182703"/>
+      </item>
       <item name="fabaceae">
         <attribute name="itis-tsn" value="500059"/>
       </item>
@@ -31,6 +34,12 @@
       </item>
       <item name="linaceae">
         <attribute name="itis-tsn" value="29200"/>
+      </item>
+      <item name="liliaceae">
+        <attribute name="itis-tsn" value="42633"/>
+      </item>
+      <item name="rosaceae">
+        <attribute name="itis-tsn" value="24538"/>
       </item>
       <item name="solanaceae">
         <attribute name="itis-tsn" value="30411"/>

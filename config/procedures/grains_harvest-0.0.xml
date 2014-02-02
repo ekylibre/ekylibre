@@ -25,18 +25,15 @@
         <task do="[cultivation] produces [grains]"/>
         <task do="[cultivation] produces [straws]"/>
         <!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
-        <task do="[grains] moves in [cropper]"/>
         <!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
         <task do="[straws] is at [cultivation]"/>
+        <task do="[grains] is at [cultivation]"/>
         <task do="[cultivation] dies"/>
       </operation>
-      <operation id="400" duration="4 minutes">
-        <task do="[grains] is delivered"/>
-      </operation>
-      <operation id="500" duration="18 minutes">
+      <operation id="400" duration="18 minutes">
         <task do="[cropper] moves in default storage"/>
       </operation>        
-      <operation id="600" duration="4 minutes">
+      <operation id="500" duration="4 minutes">
         <task do="[cropper_driver] moves in default storage"/>
       </operation>
     </operations>

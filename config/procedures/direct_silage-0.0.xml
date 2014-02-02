@@ -4,7 +4,7 @@
     <variables>
       <variable name="forager" variety="forager" abilities="harvest(plant)" roles="harvest-tool"/>
       <variable name="forager_driver" variety="worker" abilities="drive(forager)" roles="harvest-doer"/>
-      <variable name="cultivation" variety="plant" roles="harvest-target"/>
+      <variable name="cultivation" variety="poaceae" roles="harvest-target"/>
       <variable name="silage" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population"/>
     </variables>
     <operations>
@@ -16,8 +16,8 @@
       </operation>
       <operation id="300">
         <task do="[forager] consumes [cultivation]"/>
-        <task do="[forager] produces [straw]"/>
-        <task do="[straw] is at [cultivation]"/>
+        <task do="[forager] produces [silage]"/>
+        <task do="[silage] is at [cultivation]"/>
       </operation>
       <operation id="400" duration="18 minutes">
         <task do="[forager] moves in default storage"/>

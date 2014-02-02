@@ -258,6 +258,7 @@ fra:
         goat_farming: "Élevage caprins"                    # animal_farming
         handicraft: "Artisanat"
         maize_crops: "Culture de maïs"                     # vegetal_crops
+        market_garden_crops: "Maraîchage"                  # vegetal_crops
         meadow: "Prairie"                                  # vegetal_crops
         oilseed_crops: "Culture oléagineuse"               # vegetal_crops
         palmiped_farming: "Élevage de palmipèdes"          # animal_farming
@@ -783,11 +784,11 @@ fra:
         ZMK: "Kwacha zambien"
         ZWL: "Dollar zimbabwéen"
     designation_origins:
-      # name: "Designation origins"
+      name: "Appellations"
       items:
-        # aoc_bordeaux: "Aoc bordeaux"
-        # aoc_bordeaux_sup: "Aoc bordeaux sup"
-        # aoc_cremant_de_bordeaux: "Aoc cremant de bordeaux"
+        aoc_bordeaux: "AOC Bordeaux"
+        aoc_bordeaux_sup: "AOC Bordeaux Supérieur"
+        aoc_cremant_de_bordeaux: "AOC Crémant de Bordeaux"
     dimensions:
       name: "Dimensions"
       attributes:
@@ -966,7 +967,7 @@ fra:
           choice: "Liste de choix"
           decimal: "Chiffre (décimal)"
           geometry: "Forme spatiale"
-          # integer: "Integer"
+          integer: "Entier"
           measure: "Mesure"
           multi_polygon: "Multi-polygone spatial"
           point: "Point spatial"
@@ -995,7 +996,7 @@ fra:
         cation_exchange_capacity_analysis_method: "Méthode d'analyse de la Capacité d'échange cationique (CEC)"
         clostridial_spores_concentration: "Concentration en spores butyriques"
         copper_concentration: "Teneur en Cuivre"
-        # designation_origin: "Designation origin"
+        designation_origin: "Appellation"
         dry_matter_rate: "Taux de matière sèche"
         economical_milk_index: "Index économique laitier (INEL)"
         energy: "Énergie"
@@ -1048,7 +1049,7 @@ fra:
         potential_hydrogen: "Potentiel hydrogène (pH)"
         protein_concentration_index: "Taux protéïque (TP)"
         protein_matters_concentration: "Teneur en matières protéïques"
-        # reference_year: "Reference year"
+        reference_year: "Millésime"
         reproductor: "Reproducteur"
         residue_elimination_method: "Méthode d'élimination des résidus"
         row_plants_interval: "Intervalle inter-plants"
@@ -1955,6 +1956,7 @@ fra:
         apple_crop: "Verger de pommiers"
         ascott_wheat_crop: "Culture de blé tendre Ascott"
         ascott_wheat_seed_25: "Semence de blé tendre Ascott"
+        asparagus_crop: "Aspergeraie"
         aubues_land_parcel: "Parcelle sur craie Nord Vienne (Aubues)"
         baler: "Botteleuse"
         barley_grain: "Grain d’orge"
@@ -1969,6 +1971,7 @@ fra:
         caphorn_wheat_crop: "Culture de blé tendre Caphorn"
         caphorn_wheat_seed_25: "Semence de blé tendre Caphorn"
         capra_manure: "Fumier de caprin"
+        carrot_crop: "Culture de carotte"
         cattle_compost: "Compost de bovins"
         cattle_herd: "Troupeau de bovins"
         cattle_liquid_slurry: "Purin de bovins"
@@ -2009,6 +2012,7 @@ fra:
         electricity: "Électricité"
         equipment: "Équipement"
         equipment_building_division: "Emplacement de stockage du matériel"
+        escourgeon_barley_crop: "Orge d'hiver Escourgeon"
         euclide_wheat_crop: "Culture de blé tendre Euclide"
         euclide_wheat_seed_25: "Semence de blé tendre Euclide"
         ewe_milk: "Lait de brebis"
@@ -2018,6 +2022,7 @@ fra:
         female_young_cow: "Génisse"
         flap_silt_land_parcel: "Parcelle de limons battants"
         forager: "Ensileuse"
+        garlic_crop: "Culture d'ail"
         gas: "Gaz"
         gasoline: "Essence"
         goat_milk: "Lait de chèvre"
@@ -2083,6 +2088,7 @@ fra:
         red_chesnut_land_parcel: "Parcelle de terres rouges à chataigniers"
         riflexine: "Riflexine"
         running_water: "Eau du réseau"
+        rye_crop: "Culture de seigle"
         sand_land_parcel: "Parcelle sableuse"
         sandy_clay_land_parcel: "Parcelle argilo-sableuse"
         sandy_clay_loam_land_parcel: "Parcelle limono-argileuse"
@@ -2105,6 +2111,8 @@ fra:
         spreader_trailer: "Épandeur à fumier"
         spring_barley_crop: "Culture d’orge de printemps"
         spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
+        spring_oat_crop: "Culture d'avoine de printemps"
+        strawberry_crop: "Culture de fraisier"
         sugar_vinasse: "Vinasse de sucrerie"
         sunflower_crop: "Culture de tournesol"
         superficial_plow: "Cultipacker"
@@ -2131,6 +2139,7 @@ fra:
         wine_vinasse: "Vinasse de distillerie"
         winter_barley_crop: "Culture d’orge d’hiver"
         winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
+        winter_oat_crop: "Culture d'avoine d'hiver"
         zea_herbicide: "Herbicide maïs"
     product_natures:
       name: "Types de produits"
@@ -2237,15 +2246,22 @@ fra:
         # variant_support: # Choices comes from nomenclature: product_nature_variants
       items:
         annual_frost_fallow_land: "Gel annuel"
+        asparagus: "Asperge"
         calf: "Veau"
+        carrot: "Carotte"
+        escourgeon_barley: "Orge escourgeon"
+        garlic: "Ail"
         grain_corn: "Maïs grain"
         milk_bull_calf: "Taurillons Lait"
         milk_cattle: "Bovins Lait"
         permanent_meadow: "Prairie permanente"
+        rye: "Seigle"
         seed_corn: "Maïs semence"
         silage_corn: "Maïs ensilage"
         sorghum: "Sorgho"
         spring_barley: "Orge de printemps"
+        spring_oat: "Avoine de printemps"
+        strawberry: "Fraise"
         sunflower: "Tournesol"
         temporary_meadow: "Prairie temporaire"
         triticale: "Triticale"
@@ -2254,6 +2270,7 @@ fra:
         winery: "Chai"
         winter_barley: "Orge d'hiver"
         winter_hard_wheat: "Blé dur d’hiver"
+        winter_oat: "Avoine d'hiver"
         winter_soft_wheat: "Blé tendre d’hiver"
         without_crop: "Hors culture"
     residue_elimination_methods:
@@ -2420,7 +2437,9 @@ fra:
         actilact: "Actilact"                               # animal_medicine
         additive: "Additif"                                # plant_medicine
         alexis: "Alexis"                                   # triticum_durum
+        allium: "Ail"                                      # amaryllidaceae
         amaranthaceae: "Amaranthaceae"                     # plant
+        amaryllidaceae: "Amaryllidaceae"                   # plant
         anas: "Palmipède"                                  # aves
         animal: "Animal"                                   # bioproduct
         animal_group: "Troupeau"                           # product_group
@@ -2430,6 +2449,7 @@ fra:
         apiaceae: "Apiaceae"                               # plant
         apis: "Apidés"                                     # insecta
         ascott: "Ascott"                                   # triticum_aestivum
+        asparagus: "Asperge"                               # liliaceae
         asteraceae: "Astéracée"                            # plant
         aubues_soil: "Sols sur craie Nord Vienne (Aubues)" # land_parcel
         autan: "Autan"                                     # triticum_aestivum
@@ -2484,6 +2504,7 @@ fra:
         fabulis: "Fabulis"                                 # triticum_durum
         flap_silt_soil: "Limons battants"                  # land_parcel
         forager: "Ensileuse"                               # equipment
+        fragaria: "Fraise"                                 # rosaceae
         fruit: "Fruit"                                     # organic_matter
         fuel: "Gasoil"                                     # organic_matter
         fungicide: "Produit fongicide"                     # plant_medicine
@@ -2507,6 +2528,7 @@ fra:
         hordeum_hibernum_cerevisiae_hypoproteinae: "Orge d’hiver de brasserie (faible teneur en protéïnes)" # hordeum_hibernum_cerevisiae
         hordeum_vernum: "Orge de printemps"                # hordeum
         hordeum_vernum_hypoproteinae: "Orge de printemps (faible teneur en protéïnes)" # hordeum_vernum
+        hordeum_vulgare: "Orge escourgeon"                 # hordeum
         hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe" # land_parcel
         immatter: "Immatérialisable"                       # product
         implanter: "Planteuse"                             # equipment
@@ -2519,6 +2541,7 @@ fra:
         land_parcel_group: "Groupe de parcelles physiques" # product_group
         lepus: "Lagomorphe"                                # mammalia
         levis: "Levis"                                     # triticum_aestivum
+        liliaceae: "Liliaceae"                             # plant
         linaceae: "Linaceae"                               # plant
         linum: "Lin"                                       # linaceae
         liquid_slurry: "Purin"                             # excrement
@@ -2569,6 +2592,7 @@ fra:
         reaper: "Moissonneuse-batteuse"                    # equipment
         recital: "Recital"                                 # triticum_aestivum
         renan: "Renan"                                     # triticum_aestivum
+        rosaceae: "Rosaceae"                               # plant
         rubisko: "Rubisko"                                 # triticum_aestivum
         runal: "Runal"                                     # triticum_aestivum
         salmo: "Salmonidé"                                 # osteichthyes
