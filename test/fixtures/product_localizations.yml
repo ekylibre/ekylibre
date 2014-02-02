@@ -56,6 +56,7 @@ product_localizations_001:
   updater: users_001
 
 product_localizations_002:
+  container: building_divisions_001
   creator: users_001
   nature: transfer
   product: animals_001
