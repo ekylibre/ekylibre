@@ -1,0 +1,8 @@
+= form_tag({:action => :update}, {:method => :put}) do
+  = field_set :general do
+    - for preference in Preference.global.order(:name)
+      = field t("preferences."+preference.name), {:datatype => preference.nature.to_sym, :model => preference.model, :value => preference.value, :name => "preference[#{preference.name}][value]"}
+
+  = form_actions do
+    = submit_tag tg(:update), class: 'primary'
+    = link_to tg(:cancel), :back, class: 'btn'

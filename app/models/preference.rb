@@ -59,6 +59,8 @@ class Preference < Ekylibre::Record::Base
   validates_inclusion_of :nature, in: @@natures
   validates_uniqueness_of :name, :scope => [:user_id]
 
+  scope :global, -> { where(name: @@reference.keys.map(&:to_s), user_id: nil) }
+
   def self.prefer(name, nature, default_value)
     @@reference ||= HashWithIndifferentAccess.new
     unless self.nature.values.include?(nature.to_s)
