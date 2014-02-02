@@ -418,9 +418,7 @@ arb:
         updater: "التحدبث" #?
       product_indicator_datum: #?
       product_localization:
-        # arrival_cause: "Cause d’entrée"
         # container: "Contenant"
-        # departure_cause: "Cause de sortie"
         # started_at: "Entrée"
         # stopped_at: "Sortie"
       product_move:  #?
@@ -1021,7 +1019,7 @@ arb:
     annotation: "ملاحظة"
     # archived_at: "Archivé le"
     # archives: "Archives"
-    # archives_count: "Nombre d'archives"
+    # archives_count: "Nombre d’archives"
     # archiving: "Méthode d’archivage"
     area_measure: "المساحة" #?
     area_unit: "وحدة المساحة" #?
@@ -1036,7 +1034,7 @@ arb:
     # attorney_journal: "Journal mandataire"
     # attorneys: "Mandataires"
     attribute_name: "اسم الصفة المميزة"
-    # authentication_token: "Clef d'authentification"
+    # authentication_token: "Clef d’authentification"
     # author: "Auteur"
     authorized_payments_count: "عدد الدفعات المصرحة بها"
     # auto_updateable_addresses: "Adresses mises à jour automatiquement"
@@ -1238,7 +1236,7 @@ arb:
     department: "المبنى" #?
     department_id: "مبنى" #?
     departments: "الخدمات" #?
-    # departure_cause: "Causes de sortie"
+    # departure_cause: "Cause de sortie"
     deposit: "الاقتطاع المصرفي"
     deposit_id: "اقتطاع مرفي" #?
     depositable_payments: "تسديد الدفعات نقدا"
@@ -1411,18 +1409,19 @@ arb:
     incoming_payments: "الدفعات"
     # indicator: "Indicateur"
     # indicator_data: "Indicateur"
-    # indicator_datatype: "Type de l'indicateur"
+    # indicator_datatype: "Type de l’indicateur"
     # indicator_datum: "Indicator datum"
     # indicator_name: "Indicateur"
-    # indicators: "Indicators"
+    # indicators: "Indicateurs"
     indirect_links: "روابط مباشرة"
     # individual: "Individuel"
-    # initial_arrival_cause: "Cause initiale d'arrivée"
     # initial_born_at: "Initial born at"
     # initial_container: "Emplacement initial"
+    # initial_enjoyer: "Initial enjoyer"
     # initial_number: "Numéro initial"
     # initial_owner: "Propriétaire initial"
     # initial_population: "Population initiale"
+    # initial_shape: "Initial shape"
     integer_value: "قيمة العدد الصحيح"
     # intervention: "Intervention"
     # intervention_casts: "Intervention casts"

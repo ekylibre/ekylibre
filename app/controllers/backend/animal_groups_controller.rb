@@ -44,9 +44,7 @@ class Backend::AnimalGroupsController < BackendController
     t.column :container, url: true
     t.column :nature
     t.column :started_at
-    t.column :arrival_cause
     t.column :stopped_at
-    t.column :departure_cause
   end
 
 end

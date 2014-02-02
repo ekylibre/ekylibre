@@ -39,11 +39,12 @@
 #  financial_asset_id       :integer
 #  id                       :integer          not null, primary key
 #  identification_number    :string(255)
-#  initial_arrival_cause    :string(120)
 #  initial_born_at          :datetime
 #  initial_container_id     :integer
+#  initial_enjoyer_id       :integer
 #  initial_owner_id         :integer
 #  initial_population       :decimal(19, 4)   default(0.0)
+#  initial_shape            :spatial({:srid=>
 #  lock_version             :integer          default(0), not null
 #  mother_id                :integer
 #  name                     :string(255)      not null
@@ -71,7 +72,6 @@ class Product < Ekylibre::Record::Base
   enumerize :derivative_of, in: Nomen::Varieties.all
   enumerize :content_indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}
   enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
-  enumerize :initial_arrival_cause, in: [:birth, :housing, :other, :purchase], default: :birth, predicates: {prefix: true}
   belongs_to :address, class_name: "EntityAddress"
   belongs_to :financial_asset
   belongs_to :default_storage, class_name: "Product"
@@ -81,7 +81,7 @@ class Product < Ekylibre::Record::Base
   belongs_to :father, class_name: "Product"
   belongs_to :initial_container, class_name: "Product"
   belongs_to :initial_owner, class_name: "Entity"
-  # belongs_to :initial_enjoyer, class_name: "Entity"
+  belongs_to :initial_enjoyer, class_name: "Entity"
   belongs_to :mother, class_name: "Product"
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :tracking
@@ -175,7 +175,7 @@ class Product < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
   validates_numericality_of :content_maximal_quantity, :initial_population, allow_nil: true
-  validates_length_of :derivative_of, :initial_arrival_cause, :variety, allow_nil: true, maximum: 120
+  validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
   validates_length_of :content_indicator_name, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, allow_nil: true, maximum: 255
   validates_inclusion_of :reservoir, in: [true, false]
   validates_presence_of :category, :content_maximal_quantity, :name, :nature, :number, :variant, :variety
@@ -262,7 +262,7 @@ class Product < Ekylibre::Record::Base
     # # Add first enjoyer on a product
     # self.enjoyments.create!(enjoyer: self.initial_enjoyer)
     # Add first localization on a product
-    if self.initial_container # and self.initial_arrival_cause
+    if self.initial_container
       self.localizations.create!(container: self.initial_container, nature: :interior)
     end
     # add first frozen indicator on a product from his variant

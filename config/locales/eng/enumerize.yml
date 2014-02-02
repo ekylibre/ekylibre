@@ -179,16 +179,8 @@ eng:
     product_group: #?
     product_indicator_datum: #?
     product_localization:
-      arrival_cause:
-        # birth: "Naissance"
-        # housing: "Pension"
-        # other: "Autres"
-        # purchase: "Achat"
-      departure_cause:
-        # consumption: "Autoconsommation"
-        # death: "Décès"
-        # other: "Autres"
-        # sale: "Vente"
+      arrival_cause: #?
+      departure_cause: #?
       nature:
         # exterior: "Sortie"
         # interior: "Entrée"

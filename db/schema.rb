@@ -2117,18 +2117,18 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "products", force: true do |t|
     t.string   "type"
-    t.string   "name",                                                                          null: false
-    t.string   "number",                                                                        null: false
+    t.string   "name",                                                                                                    null: false
+    t.string   "number",                                                                                                  null: false
     t.datetime "initial_born_at"
     t.integer  "initial_container_id"
-    t.string   "initial_arrival_cause",    limit: 120
     t.integer  "initial_owner_id"
-    t.decimal  "initial_population",                   precision: 19, scale: 4, default: 0.0
-    t.string   "variety",                  limit: 120,                                          null: false
+    t.integer  "initial_enjoyer_id"
+    t.decimal  "initial_population",                                             precision: 19, scale: 4, default: 0.0
+    t.string   "variety",                  limit: 120,                                                                    null: false
     t.string   "derivative_of",            limit: 120
-    t.integer  "variant_id",                                                                    null: false
-    t.integer  "nature_id",                                                                     null: false
-    t.integer  "category_id",                                                                   null: false
+    t.integer  "variant_id",                                                                                              null: false
+    t.integer  "nature_id",                                                                                               null: false
+    t.integer  "category_id",                                                                                             null: false
     t.integer  "tracking_id"
     t.integer  "financial_asset_id"
     t.datetime "born_at"
@@ -2143,18 +2143,19 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "father_id"
     t.integer  "mother_id"
     t.integer  "address_id"
-    t.boolean  "reservoir",                                                     default: false, null: false
+    t.boolean  "reservoir",                                                                               default: false, null: false
     t.integer  "content_nature_id"
     t.string   "content_indicator_name"
     t.string   "content_indicator_unit"
-    t.decimal  "content_maximal_quantity",             precision: 19, scale: 4, default: 0.0,   null: false
+    t.decimal  "content_maximal_quantity",                                       precision: 19, scale: 4, default: 0.0,   null: false
     t.integer  "parent_id"
     t.integer  "default_storage_id"
-    t.datetime "created_at",                                                                    null: false
-    t.datetime "updated_at",                                                                    null: false
+    t.datetime "created_at",                                                                                              null: false
+    t.datetime "updated_at",                                                                                              null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                  default: 0,     null: false
+    t.integer  "lock_version",                                                                            default: 0,     null: false
+    t.spatial  "initial_shape",            limit: {:srid=>0, :type=>"geometry"}
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"
@@ -2166,6 +2167,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "products", ["father_id"], :name => "index_products_on_father_id"
   add_index "products", ["financial_asset_id"], :name => "index_products_on_financial_asset_id"
   add_index "products", ["initial_container_id"], :name => "index_products_on_initial_container_id"
+  add_index "products", ["initial_enjoyer_id"], :name => "index_products_on_initial_enjoyer_id"
   add_index "products", ["initial_owner_id"], :name => "index_products_on_initial_owner_id"
   add_index "products", ["mother_id"], :name => "index_products_on_mother_id"
   add_index "products", ["name"], :name => "index_products_on_name"

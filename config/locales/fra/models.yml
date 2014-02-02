@@ -78,9 +78,7 @@ fra:
         reproductor: "Multiplication"
         variety: "Variété"
       product_localization:
-        arrival_cause: "Cause d’entrée"
         container: "Contenant"
-        departure_cause: "Cause de sortie"
         started_at: "Entrée"
         stopped_at: "Sortie"
       product_nature:
@@ -417,7 +415,7 @@ fra:
     annotation: "Annotation"
     archived_at: "Archivé le"
     archives: "Archives"
-    archives_count: "Nombre d'archives"
+    archives_count: "Nombre d’archives"
     archiving: "Méthode d’archivage"
     arrival_cause: "Cause d’entrée" #?
     arrived_on: "Date d’entrée" #?
@@ -427,7 +425,7 @@ fra:
     attorney_journal: "Journal mandataire"
     attorneys: "Mandataires" #?
     attribute_name: "Nom de l’attribut"
-    authentication_token: "Clef d'authentification"
+    authentication_token: "Clef d’authentification"
     author: "Auteur"
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
@@ -587,7 +585,7 @@ fra:
     delivery: "Livraison"
     delivery_address: "Adresse pour la livraison"
     delivery_items: "Lignes de livraison"
-    departure_cause: "Causes de sortie" #?
+    departure_cause: "Cause de sortie" #?
     deposit: "Remise en banque"
     depositable_payments: "Encaissements encaissables"
     depositables_account: "Compte d’attente pour les encaissements à encaisser"
@@ -719,18 +717,19 @@ fra:
     incoming_payments: "Encaissements"
     indicator: "Indicateur"
     indicator_data: "Indicateur"
-    indicator_datatype: "Type de l'indicateur"
+    indicator_datatype: "Type de l’indicateur"
     indicator_datum: "Indicator datum"
     indicator_name: "Indicateur"
-    indicators: "Indicators"
+    indicators: "Indicateurs"
     indirect_links: "Liens indirects"
     individual: "Individuel" #?
-    initial_arrival_cause: "Cause initiale d'arrivée"
     initial_born_at: "Initial born at"
     initial_container: "Emplacement initial"
+    initial_enjoyer: "Initial enjoyer"
     initial_number: "Numéro initial"
     initial_owner: "Propriétaire initial"
     initial_population: "Population initiale"
+    initial_shape: "Initial shape"
     integer_value: "Valeur entière"
     intervention: "Intervention"
     intervention_casts: "Intervention casts"

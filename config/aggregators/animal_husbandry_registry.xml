@@ -45,8 +45,10 @@
             <matrix name="animal_localizations" for="localization" in="animal.localizations">
               <cell name="id" of="localization" level="api"/>
               <cell name="container_name" if="localization.container" value="localization.container.name"/>
-              <cell name="arrival_cause" of="localization"/>
-              <cell name="departure_cause" of="localization"/>
+              <!-- 
+		   <cell name="arrival_cause" of="localization"/>
+		   <cell name="departure_cause" of="localization"/> 
+	      -->
               <cell name="started_at" of="localization" if="localization.started_at" type="datetime"/>
               <cell name="stopped_at" of="localization" if="localization.stopped_at" type="datetime"/>
             </matrix>

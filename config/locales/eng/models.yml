@@ -117,9 +117,9 @@ eng:
       product_indicator_datum:  #?
         indicator: "Indicator" #?
       product_localization:
-        arrival_cause: "Arrival cause"
+        arrival_cause: "Arrival cause" #?
         container: "Product container"
-        departure_cause: "Departure cause"
+        departure_cause: "Departure cause" #?
         started_at: "Started at"
         stopped_at: "Stopped at"
       product_move:  #?
@@ -613,7 +613,7 @@ eng:
     annotation: "Annotation"
     # archived_at: "Archivé le"
     # archives: "Archives"
-    # archives_count: "Nombre d'archives"
+    # archives_count: "Nombre d’archives"
     # archiving: "Méthode d’archivage"
     area_measure: "Area measure" #?
     area_unit: "Area unit" #?
@@ -631,7 +631,7 @@ eng:
     attorney_journal: "Attorney journal"
     attorneys: "Attorneys"
     attribute_name: "Attribute name"
-    # authentication_token: "Clef d'authentification"
+    # authentication_token: "Clef d’authentification"
     # author: "Auteur"
     authorized_payments_count: "Authorized payments count"
     # auto_updateable_addresses: "Adresses mises à jour automatiquement"
@@ -996,19 +996,20 @@ eng:
     incoming_payments: "Incoming payments"
     indicator: "Indicator"
     # indicator_data: "Indicateur"
-    # indicator_datatype: "Type de l'indicateur"
+    # indicator_datatype: "Type de l’indicateur"
     # indicator_datum: "Indicator datum"
     # indicator_name: "Indicateur"
     indicators: "Indicators"
     indirect_links: "Indirect links"
     # individual: "Individuel"
     indivisible: "Indivisible" #?
-    # initial_arrival_cause: "Cause initiale d'arrivée"
     # initial_born_at: "Initial born at"
     # initial_container: "Emplacement initial"
+    # initial_enjoyer: "Initial enjoyer"
     initial_number: "Initial number"
     # initial_owner: "Propriétaire initial"
     # initial_population: "Population initiale"
+    # initial_shape: "Initial shape"
     input_conveyors: "Input conveyors" #?
     integer_value: "Integer value"
     # intervention: "Intervention"

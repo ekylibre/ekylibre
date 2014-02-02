@@ -76,16 +76,6 @@ fra:
         normal: "Normale"
         notice: "Faible"
     product_localization:
-      arrival_cause:
-        birth: "Naissance"
-        housing: "Pension"
-        other: "Autres"
-        purchase: "Achat"
-      departure_cause:
-        consumption: "Autoconsommation"
-        death: "Décès"
-        other: "Autres"
-        sale: "Vente"
       nature:
         exterior: "Sortie"
         interior: "Entrée"

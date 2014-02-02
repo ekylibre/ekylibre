@@ -1221,9 +1221,10 @@ class CreateBase < ActiveRecord::Migration
       t.string     :number,                                                                        null: false
       t.datetime   :initial_born_at
       t.references :initial_container,                                                                          index: true
-      t.string     :initial_arrival_cause,     limit: 120
       t.references :initial_owner,                                                                              index: true
+      t.references :initial_enjoyer,                                                                            index: true
       t.decimal    :initial_population,                   precision: 19, scale: 4, default: 0.0
+      t.geometry   :initial_shape
       t.string     :variety,                  limit: 120,                                          null: false
       t.string     :derivative_of,            limit: 120
       t.references :variant,                                                                       null: false, index: true

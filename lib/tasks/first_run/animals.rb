@@ -54,9 +54,9 @@ load_data :animals do |loader|
     loader.count :synel_animal_import do |w|
       #############################################################################
 
-      initial_arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
-      arrival_causes = {"N" => :interior, "A" => :exterior, "P" => :exterior, "" => :interior }
-      departure_causes = {"M" => :exterior, "B" => :exterior, "" => :exterior, "C" => :interior , "E" => :exterior}
+      # initial_arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
+      # arrival_causes = {"N" => :interior, "A" => :exterior, "P" => :exterior, "" => :interior }
+      # departure_causes = {"M" => :exterior, "B" => :exterior, "" => :exterior, "C" => :interior , "E" => :exterior}
 
 
       pictures = Dir.glob(loader.path("animals-ld", "*.jpg"))
@@ -71,10 +71,10 @@ load_data :animals do |loader|
                            :born_on => (row[4].blank? ? nil : Date.civil(*row[4].to_s.split(/\//).reverse.map(&:to_i))),
                            :corabo => row[5],
                            :sex => (row[6] == "F" ? :female : :male),
-                           :arrival_cause => (arrival_causes[row[7]] || row[7]),
-                           :initial_arrival_cause => (initial_arrival_causes[row[7]] || row[7]),
+                           # :arrival_cause => (arrival_causes[row[7]] || row[7]),
+                           # :initial_arrival_cause => (initial_arrival_causes[row[7]] || row[7]),
                            :arrived_on => (row[8].blank? ? nil : Date.civil(*row[8].to_s.split(/\//).reverse.map(&:to_i))),
-                           :departure_cause => (departure_causes[row[9]] ||row[9]),
+                           # :departure_cause => (departure_causes[row[9]] ||row[9]),
                            :departed_on => (row[10].blank? ? nil : Date.civil(*row[10].to_s.split(/\//).reverse.map(&:to_i)))
                            )
 
@@ -84,7 +84,7 @@ load_data :animals do |loader|
           f = File.open(photo_v)
           animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number,
                                   :work_number => r.work_number, :born_at => r.born_on, :dead_at => r.departed_on,
-                                  :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.initial_arrival_cause, :initial_container => place_v, :default_storage => place_v
+                                  :picture => f, :initial_owner => Entity.of_company, :initial_container => place_v, :default_storage => place_v
                                   )
           f.close
           # set default indicators
@@ -96,7 +96,7 @@ load_data :animals do |loader|
           animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
           # place the current animal in the default group with born_at
           if place_v and group_v
-            ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :nature => r.arrival_cause, :started_at => r.arrived_on, :stopped_at => r.departed_on)
+            ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :started_at => r.arrived_on, :stopped_at => r.departed_on)
             # add animal in group
             group_v.add(animal, r.arrived_on)
             # remove animal from group if r.departed_on
@@ -109,7 +109,7 @@ load_data :animals do |loader|
           animal = Animal.create!(:variant_id => cow_gen.id, :name => r.name, :variety => "bos",
                                   :identification_number => r.identification_number, :work_number => r.work_number,
                                   :born_at => r.born_on, :dead_at => r.departed_on,
-                                  :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.initial_arrival_cause, :initial_container => place_gen, :default_storage => place_gen
+                                  :picture => f, :initial_owner => Entity.of_company, :initial_container => place_gen, :default_storage => place_gen
                                   )
           f.close
           # set default indicators
@@ -122,7 +122,7 @@ load_data :animals do |loader|
           animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
           if place_gen and group_gen1
             # place the current animal in the default group with born_at
-            ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => r.arrival_cause, :started_at => r.arrived_on, :stopped_at => r.departed_on)
+            ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :started_at => r.arrived_on, :stopped_at => r.departed_on)
             # add animal in group
             group_gen1.add(animal, r.arrived_on)
             # remove animal from group if r.departed_on
@@ -135,7 +135,7 @@ load_data :animals do |loader|
           animal = Animal.create!(:variant_id => cow_gen.id, :name => r.name, :variety => "bos",
                                   :identification_number => r.identification_number, :work_number => r.work_number,
                                   :born_at => r.born_on, :dead_at => r.departed_on,
-                                  :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.initial_arrival_cause, :initial_container => place_gen, :default_storage => place_gen
+                                  :picture => f, :initial_owner => Entity.of_company, :initial_container => place_gen, :default_storage => place_gen
                                   )
           f.close
           # set default indicators
@@ -149,7 +149,7 @@ load_data :animals do |loader|
           animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
           if place_gen and group_gen3
             # place the current animal in the default group with born_at
-            ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :nature => r.arrival_cause, :started_at => r.arrived_on, :stopped_at => r.departed_on)
+            ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :started_at => r.arrived_on, :stopped_at => r.departed_on)
             # add animal in group
             group_gen3.add(animal, r.arrived_on)
             # remove animal from group if r.departed_on
@@ -162,7 +162,7 @@ load_data :animals do |loader|
           animal = Animal.create!(:variant_id => cow_vl.id, :name => r.name, :variety => "bos",
                                   :identification_number => r.identification_number, :work_number => r.work_number,
                                   :born_at => r.born_on, :dead_at => r.departed_on,
-                                  :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.initial_arrival_cause, :initial_container => place_vl, :default_storage => place_vl
+                                  :picture => f, :initial_owner => Entity.of_company, :initial_container => place_vl, :default_storage => place_vl
                                   )
           f.close
           # set default indicators
@@ -177,7 +177,7 @@ load_data :animals do |loader|
           animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
           if place_vl and group_vl
             # place the current animal in the default group with born_at
-            ProductLocalization.create!(:container_id => place_vl.id, :product_id => animal.id, :nature => r.arrival_cause, :started_at => r.arrived_on, :stopped_at => r.departed_on)
+            ProductLocalization.create!(:container_id => place_vl.id, :product_id => animal.id, :started_at => r.arrived_on, :stopped_at => r.departed_on)
             # add animal in group
             group_vl.add(animal, r.arrived_on)
             # remove animal from group if r.departed_on
@@ -190,7 +190,7 @@ load_data :animals do |loader|
           animal = Animal.create!(:variant_id => cow_taur.id, :name => r.name, :variety => "bos",
                                   :identification_number => r.identification_number, :work_number => r.work_number,
                                   :born_at => r.born_on, :dead_at => r.departed_on,
-                                  :picture => f, :initial_owner => Entity.of_company, :initial_arrival_cause => r.initial_arrival_cause, :initial_container => place_taur, :default_storage => place_taur
+                                  :picture => f, :initial_owner => Entity.of_company, :initial_container => place_taur, :default_storage => place_taur
                                   )
           f.close
           # set default indicators
@@ -205,7 +205,7 @@ load_data :animals do |loader|
           animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
           if place_taur and group_taur
             # place the current animal in the default group with born_at
-            ProductLocalization.create!(:container_id => place_taur.id, :product_id => animal.id, :nature => r.arrival_cause, :started_at => r.arrived_on, :stopped_at => r.departed_on)
+            ProductLocalization.create!(:container_id => place_taur.id, :product_id => animal.id, :started_at => r.arrived_on, :stopped_at => r.departed_on)
             # add animal in group
             group_taur.add(animal, r.arrived_on)
             # remove animal from group if r.departed_on
@@ -237,7 +237,7 @@ load_data :animals do |loader|
                            :tb => row[11].to_f
                            )
         # case = TAUREAU REPRO
-        animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :initial_owner => Entity.where(:of_company => false).all.sample, :initial_arrival_cause => :other)
+        animal = Animal.create!(:variant_id => cow_trepro.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :initial_owner => Entity.where(:of_company => false).all.sample)
         # set default indicators
         animal.is_measured!(:unique_synthesis_index,  r.isu.in_unity,  at: now)
         animal.is_measured!(:economical_milk_index, r.inel.in_unity, at: now)
@@ -274,7 +274,7 @@ load_data :animals do |loader|
             unless r.mother_identification_number.blank?
               # case = VL
               animal_mother = Animal.create!(:variant_id => cow_vl.id, :name => r.mother_name, :variety => "bos",
-                                             :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :initial_owner => Entity.of_company, :initial_arrival_cause => :birth, :initial_container => place_vl, :default_storage => place_vl )
+                                             :identification_number => r.mother_identification_number, :work_number => r.mother_identification_number[-4..-1], :initial_owner => Entity.of_company, :initial_container => place_vl, :default_storage => place_vl )
 
               # set default indicators
               animal_mother.is_measured!(:healthy, true)
@@ -288,7 +288,7 @@ load_data :animals do |loader|
           else
             unless r.father_identification_number.blank?
               # case = TAUREAU REPRO
-              animal_father = Animal.create!(:variant_id => cow_trepro.id, :name => r.father_name, :variety => "bos", :identification_number => r.father_identification_number, :initial_owner => Entity.where(:of_company => false).all.sample, :initial_arrival_cause => :other)
+              animal_father = Animal.create!(:variant_id => cow_trepro.id, :name => r.father_name, :variety => "bos", :identification_number => r.father_identification_number, :initial_owner => Entity.where(:of_company => false).all.sample)
               # set default indicators
               animal.father = animal_father
             end

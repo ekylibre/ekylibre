@@ -1447,11 +1447,12 @@ products:
   financial_asset_id: {type: integer, references: financial_asset}
   id: {type: integer, required: true}
   identification_number: {type: string}
-  initial_arrival_cause: {type: string, limit: 120}
   initial_born_at: {type: datetime}
   initial_container_id: {type: integer, references: product}
+  initial_enjoyer_id: {type: integer, references: entity}
   initial_owner_id: {type: integer, references: entity}
   initial_population: {type: decimal, precision: 19, scale: 4, default: 0.0}
+  initial_shape: {type: spatial}
   lock_version: {type: integer, required: true, default: 0}
   mother_id: {type: integer, references: product}
   name: {type: string, required: true}

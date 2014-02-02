@@ -68,7 +68,7 @@ eng:
         store_fluid: "Store fluid"
         store_gaz: "Store gaz"
         store_liquid: "Store liquid"
-        # take_root: "S'enraciner"
+        # take_root: "S’enraciner"
         tow: "Tow"
       name: "Name"
     accounts:
@@ -340,7 +340,7 @@ eng:
       items:
         # cobaltihexamine: "Cobaltihexamine"
         # metson: "Metson"
-      # name: "Méthodes d'analyse de la capacité d'échange cationique"
+      # name: "Méthodes d’analyse de la capacité d’échange cationique"
     charts_of_accounts:
       items:
         # fr_pcg82: "Plan comptable pcg82"
@@ -1032,7 +1032,7 @@ eng:
         # sales_invoice: "Facture de vente"
         # sales_order: "Commande de vente"
         # stocks: "Stocks"
-        # tax_assessment: "Avis d'imposition"
+        # tax_assessment: "Avis d’imposition"
         # trial_balance: "Balance comptable"
         # veterinary_booklet: "Carnet vétérinaire"
         # vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
@@ -1169,8 +1169,8 @@ eng:
         # boron_concentration: "Teneur en Bore"
         # calcium_concentration: "Teneur en Calcium"
         # calving_ease_index: "Index de facilité de naissane"
-        # cation_exchange_capacity: "Capacité d'échange cationique (CEC)"
-        # cation_exchange_capacity_analysis_method: "Méthode d'analyse de la Capacité d'échange cationique (CEC)"
+        # cation_exchange_capacity: "Capacité d’échange cationique (CEC)"
+        # cation_exchange_capacity_analysis_method: "Méthode d’analyse de la Capacité d’échange cationique (CEC)"
         cells_concentration: "Cells concentration" #?
         clostridial_spores_concentration: "Clostridial spores concentration"
         # copper_concentration: "Teneur en Cuivre"
@@ -1192,7 +1192,7 @@ eng:
         in_production: "In production" #?
         inhibitors_presence: "Inhibitors presence"
         # iron_concentration: "Teneur en Fer"
-        # irrigation_water_input_area_density: "Densité surfacique d'apport d'eau d'irrigation"
+        # irrigation_water_input_area_density: "Densité surfacique d’apport d’eau d’irrigation"
         # lactating: "En lactation"
         # last_birth_children_count: "Nombre de nouveaux-nés lors de la dernière naissance"
         # length: "Longueur"
@@ -1219,7 +1219,7 @@ eng:
         # nitrogen_concentration: "Teneur en azote"
         # nitrogen_input_area_density: "Densité d’apport d’azote"
         # organic_matter_concentration: "Teneur en matière organique"
-        # phosphorus_analysis_method: "Méthode d'analyse de la teneur en Phosphore"
+        # phosphorus_analysis_method: "Méthode d’analyse de la teneur en Phosphore"
         # phosphorus_concentration: "Teneur en phosphore"
         plant_life_state: "Plant life state"
         plant_reproduction_state: "Plant reproduction state"
@@ -1232,7 +1232,7 @@ eng:
         protein_matters_concentration: "Protein matters concentration"
         # reference_year: "Millésime"
         # reproductor: "Reproducteur"
-        # residue_elimination_method: "Méthode d'élimination des résidus"
+        # residue_elimination_method: "Méthode d’élimination des résidus"
         # row_plants_interval: "Intervalle inter-plants"
         # sex: "Sexe"
         # shape: "Forme"
@@ -1449,7 +1449,7 @@ eng:
         # dyer: "Dyer"
         # joret_hebert: "Joret-Hebert"
         # olsen: "Olsen"
-      # name: "Méthodes d'analyse du phosphore"
+      # name: "Méthodes d’analyse du phosphore"
     plant_life_states:
       items:
         # booting: "Montaison"
@@ -1695,7 +1695,7 @@ eng:
         # electricity: "Électricité"
         # equipment: "Équipement"
         # equipment_building_division: "Emplacement de stockage du matériel"
-        # escourgeon_barley_crop: "Orge d'hiver Escourgeon"
+        # escourgeon_barley_crop: "Orge d’hiver Escourgeon"
         # euclide_wheat_crop: "Culture de blé tendre Euclide"
         # euclide_wheat_seed_25: "Semence de blé tendre Euclide"
         # ewe_milk: "Lait de brebis"
@@ -1705,7 +1705,7 @@ eng:
         # female_young_cow: "Génisse"
         # flap_silt_land_parcel: "Parcelle de limons battants"
         # forager: "Ensileuse"
-        # garlic_crop: "Culture d'ail"
+        # garlic_crop: "Culture d’ail"
         # gas: "Gaz"
         # gasoline: "Essence"
         # goat_milk: "Lait de chèvre"
@@ -1793,7 +1793,7 @@ eng:
         # spreader_trailer: "Épandeur à fumier"
         # spring_barley_crop: "Culture d’orge de printemps"
         # spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
-        # spring_oat_crop: "Culture d'avoine de printemps"
+        # spring_oat_crop: "Culture d’avoine de printemps"
         # strawberry_crop: "Culture de fraisier"
         # sugar_vinasse: "Vinasse de sucrerie"
         # sunflower_crop: "Culture de tournesol"
@@ -1821,7 +1821,7 @@ eng:
         # wine_vinasse: "Vinasse de distillerie"
         # winter_barley_crop: "Culture d’orge d’hiver"
         # winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
-        # winter_oat_crop: "Culture d'avoine d'hiver"
+        # winter_oat_crop: "Culture d’avoine d’hiver"
         # zea_herbicide: "Herbicide maïs"
       # name: "Variantes de produits"
     product_natures:
@@ -1979,9 +1979,9 @@ eng:
         vinification: "Vinification" #?
         # wine_storehouse: "Cave"
         # winery: "Chai"
-        # winter_barley: "Orge d'hiver"
+        # winter_barley: "Orge d’hiver"
         # winter_hard_wheat: "Blé dur d’hiver"
-        # winter_oat: "Avoine d'hiver"
+        # winter_oat: "Avoine d’hiver"
         # winter_soft_wheat: "Blé tendre d’hiver"
         # without_crop: "Hors culture"
       name: "Name"
@@ -1990,7 +1990,7 @@ eng:
         # burning: "Combustion"
         # burying: "Enfouissement"
         # evacuation: "Évacuation"
-      # name: "Méthodes d'élimination des résidus"
+      # name: "Méthodes d’élimination des résidus"
     roles: #?
     sexes:
       items:
