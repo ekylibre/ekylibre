@@ -1,6 +1,0 @@
--for name, item in subnavigation
-  -attrs = (item.items.size > 0 ? {:class => "has-dropdown"} : {})
-  %li{attrs}>
-    =link_to(item.human_name, item.default_page.url_options)
-    -if item.items.size > 0
-      %ul.dropdown>=render(:partial => "layouts/subnavigation", :object => item.items, :locals => {:depth => depth + 1})

@@ -57,7 +57,7 @@
 
   #home {
     @include float(left);
-    display: none;
+    font-size: 0;
     i {
       @include is-icon(21px);
       @include use-icon(home);
@@ -699,12 +699,22 @@ form.search {
 
 
 #legals, footer {
-  font-size: $fs-small;
-  line-height: round(1.4*$fs-small);
   @include text-align(center);
   padding: round(0.7*$fs-small);
-  color: rgba(#000,0.6);
-  @include text-shadow(1px 1px 1px #FFF);
+  .brand {
+    font-size: 0;
+    i {
+      @include is-icon(14px);
+      @include use-icon(ekylibre);
+    }    
+  }
+  &, * {
+    font-size: $fs-small;
+    vertical-align: middle;
+    line-height: round(1.4*$fs-small);
+    color: rgba(#000, 0.6);
+    @include text-shadow(1px 1px 1px #FFF);
+  }
 }
 
 

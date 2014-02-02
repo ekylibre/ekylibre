@@ -73,6 +73,7 @@ module ApplicationHelper
     # "Ekylibre " << Ekylibre.version << " - Ruby on Rails " << Rails.version << " - Ruby #{RUBY_VERSION} - " << ActiveRecord::Base.connection.adapter_name << " - " << ActiveRecord::Migrator.current_version.to_s
     nbsp = "&nbsp;".html_safe # ,  h("Ruby on Rails") + nbsp + Rails.version, ("HTML" + nbsp + "5").html_sa, h("CSS 3")
     return [h("Ekylibre") + nbsp + Ekylibre.version].join(" &ndash; ").html_safe # ,  h("Ruby") + nbsp + RUBY_VERSION.to_s
+    # return content_tag(:span, content_tag(:i, '') + nbsp + h("Ekylibre"), class: "brand") + nbsp + h(Ekylibre.version)
   end
 
   def choices_yes_no

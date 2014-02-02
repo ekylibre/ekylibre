@@ -4,9 +4,13 @@
   = link_to("#side", id: "menu", "data-toggle" => "side") do
     %i
 
-  = link_to(backend_root_path, id: "brand") do
+  -#= link_to(backend_root_path, id: "brand") do
     %i
     %h1= "Ekylibre"
+
+  = link_to(backend_root_path, id: "home") do
+    %i
+    = :home.tl
 
 
   = link_to(Ekylibre::Modules.human_name(current_module), {controller: "/backend/dashboards", action: current_module}, id: "module") if current_module
