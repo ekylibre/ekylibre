@@ -78,6 +78,66 @@
             variant_support="triticale_crop"
             />
       <!-- 2 - INDUSTRIALS, MEDICINES CROP -->
+       <item name="horsebean"
+            production_code="2020"
+            activity="market_garden_crops"
+            telepac_crop_code="FL"
+            variant_support="horsebean_crop"
+            />
+       <item name="bean"
+            production_code="2040"
+            activity="market_garden_crops"
+            telepac_crop_code="HI"
+            variant_support="bean_crop"
+            />
+       <item name="lentil"
+            production_code="2050"
+            activity="market_garden_crops"
+            telepac_crop_code="LH"
+            variant_support="lentil_crop"
+            />
+       <item name="spring_pea"
+            production_code="2080"
+            activity="market_garden_crops"
+            telepac_crop_code="PP"
+            variant_support="pea_crop"
+            />
+       <item name="winter_pea"
+            production_code="2080"
+            activity="market_garden_crops"
+            telepac_crop_code="PH"
+            variant_support="pea_crop"
+            />
+       <item name="soy"
+            production_code="2120"
+            activity="oilseed_crops"
+            telepac_crop_code="SJ"
+            variant_support="soy_crop"
+            />   
+       <item name="beet"
+            production_code="2210"
+            activity="market_garden_crops"
+            telepac_crop_code="BT"
+            variant_support="beet_crop"
+            />
+       <item name="potato"
+            production_code="2270"
+            activity="market_garden_crops"
+            telepac_crop_code="PE"
+            variant_support="potato_crop"
+            />
+       <item name="spring_rapeseed"
+            production_code="2310"
+            activity="oilseed_crops"
+            telepac_crop_code="C3"
+            variant_support="rape_crop"
+            />
+       <item name="winter_rapeseed"
+            production_code="2320"
+            activity="oilseed_crops"
+            telepac_crop_code="CS"
+            variant_support="rape_crop"
+            />
        <item name="sunflower"
             production_code="2380"
             activity="oilseed_crops"

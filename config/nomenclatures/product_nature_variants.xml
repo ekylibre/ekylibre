@@ -103,7 +103,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-                   <!-- HARD WHEAT CROP --> 
+      <!-- HARD WHEAT CROP --> 
       <item name="hard_wheat_crop"
             nature="cereal_crop"
             variety="triticum_durum"
@@ -169,12 +169,7 @@
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <!-- OTHER CROP --> 
-      <item name="pea_crop"
-            nature="cereal_crop"
-            variety="pisum"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
-            />
+      
       <item name="alfalfa_crop"
             nature="crop"
             variety="medicago"
@@ -213,13 +208,62 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+       <!-- INDUSTRIAL CROP -->     
       <item name="sunflower_crop"
             nature="grain_crop"
             variety="helianthus"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <item name="sorghum_crop"
+      <item name="rape_crop"
+            nature="grain_crop"
+            variety="brassica_napus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="soy_crop"
+            nature="grain_crop"
+            variety="glycine"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="bean_crop"
+            nature="grain_crop"
+            variety="phaseolus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="lentil_crop"
+            nature="grain_crop"
+            variety="lens"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="pea_crop"
+            nature="grain_crop"
+            variety="pisum"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="horsebean_crop"
+            nature="grain_crop"
+            variety="vicia"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="beet_crop"
+            nature="crop"
+            variety="beta"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            /> 
+       <item name="potato_crop"
+            nature="crop"
+            variety="solanum"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="sorghum_crop"
             nature="crop"
             variety="sorghum"
             unit_name="hectare"
