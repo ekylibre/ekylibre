@@ -49,6 +49,12 @@ class ProductLocalization < Ekylibre::Record::Base
   validates_inclusion_of :nature, in: self.nature.values
   validates_presence_of :container, :if => :interior?
 
+  before_validation do
+    if self.nature.blank? and container = self.product.container_at(self.started_at)
+      self.nature = (container.owner == Entity.of_company ? :interior : :exterior)
+    end
+  end
+
   before_save do
     self.container = nil unless self.interior?
     return true

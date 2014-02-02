@@ -399,13 +399,13 @@ class Product < Ekylibre::Record::Base
     return nil
   end
 
-  # # Returns the current container for the product
-  # def container(at = Time.now)
-  #   if l = self.localizations.at(at).first
-  #     return l.container
-  #   end
-  #   return self.default_storage
-  # end
+  # Returns the container for the product at a given time
+  def container_at(at)
+    if l = self.localizations.at(at).first
+      return l.container
+    end
+    return nil
+  end
 
   def picture_path(style=:original)
     self.picture.path(style)
