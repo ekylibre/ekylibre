@@ -45,11 +45,11 @@ class Backend::AnimalsController < Backend::MattersController
   end
 
    # Liste des enfants de l'animal considéré
-  list(:children, model: :animals, conditions: ["mother_id = ? OR father_id = ?", 'params[:id]'.c, 'params[:id]'.c], order: {born_at: :desc}) do |t|
-    t.column :name, url: true
-    t.column :born_at
-    t.column :sex
-    t.column :description
+  list(:children, model: :product_links, conditions: ["linked_id = ? AND nature IN (?)", 'params[:id]'.c, %w(father mother)], order: {started_at: :desc}) do |t|
+    t.column :name, through: :product, url: true
+    t.column :born_at, through: :product
+    t.column :sex, through: :product
+    t.column :description, through: :product
   end
 
   # Show one animal with params_id

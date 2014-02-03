@@ -63,8 +63,6 @@
 
 class Animal < Bioproduct
   enumerize :variety, in: Nomen::Varieties.all(:animal), predicates: {prefix: true}
-  belongs_to :father, class_name: "Animal"
-  belongs_to :mother, class_name: "Animal"
 
   validates_presence_of :identification_number
   validates_uniqueness_of :identification_number
@@ -113,7 +111,7 @@ class Animal < Bioproduct
   # end
 
   def sex_text
-    "nomenclatures.indicators.item_lists.sex.choices.#{self.sex}".t
+    "nomenclatures.sexes.items.#{self.sex}".t
   end
 
 end

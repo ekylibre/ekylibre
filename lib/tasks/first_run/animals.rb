@@ -112,7 +112,7 @@ load_data :animals do |loader|
                            :work_number => row[2],
                            :name => (row[3].blank? ? Faker::Name.first_name + " (MN)" : row[3].capitalize),
                            :born_on => born_on,
-                           born_at: (born_on ? born_on.to_datetime : nil),
+                           born_at: (born_on ? born_on.to_datetime + 10.hours : nil),
                            age: (born_on ? (Date.today - born_on) : 0),
                            :corabo => row[5],
                            :sex => (row[6] == "F" ? :female : :male),
@@ -151,10 +151,10 @@ load_data :animals do |loader|
         weighted_at = r.born_at
         variation = 0.05
         while (r.dead_at.nil? or weighted_at < r.dead_at) and weighted_at < Time.now
-          age = (weighted_at - r.born_at) / 1.day
+          age = (weighted_at - r.born_at).to_f
           weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
           weight += rand(weight * variation * 2) - (weight * variation)
-          animal.is_measured!(:net_mass, weight.in_kilogram, at: weighted_at)
+          animal.is_measured!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
           weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
         end
 
