@@ -1149,6 +1149,22 @@ product_linkages:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
+product_links:
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  id: {type: integer, required: true}
+  linked_id: {type: integer, references: product}
+  lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string, required: true}
+  operation_id: {type: integer, references: operation}
+  originator_id: {type: integer, references: ~originator_type}
+  originator_type: {type: string}
+  product_id: {type: integer, references: product, required: true}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
 product_localizations:
   container_id: {type: integer, references: product}
   created_at: {type: datetime, required: true}
@@ -1433,28 +1449,25 @@ products:
   address_id: {type: integer, references: entity_address}
   born_at: {type: datetime}
   category_id: {type: integer, references: product_nature_category, required: true}
-  content_indicator_name: {type: string}
-  content_indicator_unit: {type: string}
-  content_maximal_quantity: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
-  content_nature_id: {type: integer, references: product_nature}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   dead_at: {type: datetime}
   default_storage_id: {type: integer, references: product}
   derivative_of: {type: string, limit: 120}
   description: {type: text}
-  father_id: {type: integer, references: product}
   financial_asset_id: {type: integer, references: financial_asset}
   id: {type: integer, required: true}
   identification_number: {type: string}
   initial_born_at: {type: datetime}
   initial_container_id: {type: integer, references: product}
+  initial_dead_at: {type: datetime}
   initial_enjoyer_id: {type: integer, references: entity}
+  initial_father_id: {type: integer, references: product}
+  initial_mother_id: {type: integer, references: product}
   initial_owner_id: {type: integer, references: entity}
   initial_population: {type: decimal, precision: 19, scale: 4, default: 0.0}
   initial_shape: {type: spatial}
   lock_version: {type: integer, required: true, default: 0}
-  mother_id: {type: integer, references: product}
   name: {type: string, required: true}
   nature_id: {type: integer, references: product_nature, required: true}
   number: {type: string, required: true}
@@ -1463,7 +1476,6 @@ products:
   picture_file_name: {type: string}
   picture_file_size: {type: integer}
   picture_updated_at: {type: datetime}
-  reservoir: {type: boolean, required: true, default: false}
   tracking_id: {type: integer, references: tracking}
   type: {type: string}
   updated_at: {type: datetime, required: true}

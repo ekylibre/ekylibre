@@ -1695,6 +1695,33 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_linkages", ["updated_at"], :name => "index_product_linkages_on_updated_at"
   add_index "product_linkages", ["updater_id"], :name => "index_product_linkages_on_updater_id"
 
+  create_table "product_links", force: true do |t|
+    t.integer  "operation_id"
+    t.integer  "originator_id"
+    t.string   "originator_type"
+    t.integer  "product_id",                  null: false
+    t.string   "nature",                      null: false
+    t.integer  "linked_id"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",    default: 0, null: false
+  end
+
+  add_index "product_links", ["created_at"], :name => "index_product_links_on_created_at"
+  add_index "product_links", ["creator_id"], :name => "index_product_links_on_creator_id"
+  add_index "product_links", ["linked_id"], :name => "index_product_links_on_linked_id"
+  add_index "product_links", ["operation_id"], :name => "index_product_links_on_operation_id"
+  add_index "product_links", ["originator_id", "originator_type"], :name => "index_product_links_on_originator_id_and_originator_type"
+  add_index "product_links", ["product_id"], :name => "index_product_links_on_product_id"
+  add_index "product_links", ["started_at"], :name => "index_product_links_on_started_at"
+  add_index "product_links", ["stopped_at"], :name => "index_product_links_on_stopped_at"
+  add_index "product_links", ["updated_at"], :name => "index_product_links_on_updated_at"
+  add_index "product_links", ["updater_id"], :name => "index_product_links_on_updater_id"
+
   create_table "product_localizations", force: true do |t|
     t.integer  "operation_id"
     t.integer  "originator_id"
@@ -2117,18 +2144,21 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "products", force: true do |t|
     t.string   "type"
-    t.string   "name",                                                                                                    null: false
-    t.string   "number",                                                                                                  null: false
+    t.string   "name",                                                                                               null: false
+    t.string   "number",                                                                                             null: false
+    t.integer  "variant_id",                                                                                         null: false
+    t.integer  "nature_id",                                                                                          null: false
+    t.integer  "category_id",                                                                                        null: false
     t.datetime "initial_born_at"
+    t.datetime "initial_dead_at"
     t.integer  "initial_container_id"
     t.integer  "initial_owner_id"
     t.integer  "initial_enjoyer_id"
-    t.decimal  "initial_population",                                             precision: 19, scale: 4, default: 0.0
-    t.string   "variety",                  limit: 120,                                                                    null: false
-    t.string   "derivative_of",            limit: 120
-    t.integer  "variant_id",                                                                                              null: false
-    t.integer  "nature_id",                                                                                               null: false
-    t.integer  "category_id",                                                                                             null: false
+    t.decimal  "initial_population",                                          precision: 19, scale: 4, default: 0.0
+    t.integer  "initial_father_id"
+    t.integer  "initial_mother_id"
+    t.string   "variety",               limit: 120,                                                                  null: false
+    t.string   "derivative_of",         limit: 120
     t.integer  "tracking_id"
     t.integer  "financial_asset_id"
     t.datetime "born_at"
@@ -2140,36 +2170,28 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.datetime "picture_updated_at"
     t.string   "identification_number"
     t.string   "work_number"
-    t.integer  "father_id"
-    t.integer  "mother_id"
     t.integer  "address_id"
-    t.boolean  "reservoir",                                                                               default: false, null: false
-    t.integer  "content_nature_id"
-    t.string   "content_indicator_name"
-    t.string   "content_indicator_unit"
-    t.decimal  "content_maximal_quantity",                                       precision: 19, scale: 4, default: 0.0,   null: false
     t.integer  "parent_id"
     t.integer  "default_storage_id"
-    t.datetime "created_at",                                                                                              null: false
-    t.datetime "updated_at",                                                                                              null: false
+    t.datetime "created_at",                                                                                         null: false
+    t.datetime "updated_at",                                                                                         null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                            default: 0,     null: false
-    t.spatial  "initial_shape",            limit: {:srid=>0, :type=>"geometry"}
+    t.integer  "lock_version",                                                                         default: 0,   null: false
+    t.spatial  "initial_shape",         limit: {:srid=>0, :type=>"geometry"}
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"
   add_index "products", ["category_id"], :name => "index_products_on_category_id"
-  add_index "products", ["content_nature_id"], :name => "index_products_on_content_nature_id"
   add_index "products", ["created_at"], :name => "index_products_on_created_at"
   add_index "products", ["creator_id"], :name => "index_products_on_creator_id"
   add_index "products", ["default_storage_id"], :name => "index_products_on_default_storage_id"
-  add_index "products", ["father_id"], :name => "index_products_on_father_id"
   add_index "products", ["financial_asset_id"], :name => "index_products_on_financial_asset_id"
   add_index "products", ["initial_container_id"], :name => "index_products_on_initial_container_id"
   add_index "products", ["initial_enjoyer_id"], :name => "index_products_on_initial_enjoyer_id"
+  add_index "products", ["initial_father_id"], :name => "index_products_on_initial_father_id"
+  add_index "products", ["initial_mother_id"], :name => "index_products_on_initial_mother_id"
   add_index "products", ["initial_owner_id"], :name => "index_products_on_initial_owner_id"
-  add_index "products", ["mother_id"], :name => "index_products_on_mother_id"
   add_index "products", ["name"], :name => "index_products_on_name"
   add_index "products", ["nature_id"], :name => "index_products_on_nature_id"
   add_index "products", ["number"], :name => "index_products_on_number", :unique => true

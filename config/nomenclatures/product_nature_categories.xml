@@ -8,7 +8,7 @@
       <attribute name="charge_account" type="choice" nomenclature="accounts" required="false"/>
       <attribute name="product_account" type="choice" nomenclature="accounts" required="false"/>
       <attribute name="stock_account" type="choice" nomenclature="accounts" required="false"/>
-      <attribute name="pictogram" type="choice" choices="land_parcels,wrench,wheat,tractor,truck,drop,plane,phone,mushroom,medkit,matter,male,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,barn,legal,bolt,pill,desktop,gift,road"/>
+      <attribute name="pictogram" type="choice" choices="land_parcels,wrench,wheat,tractor,truck,drop,plane,phone,mushroom,medkit,matter,male,light_bulb,lemon,leaf,home,building,group,credit_card,cow,food,bug,beaker,barn,legal,bolt,pill,desktop,gift,road,fish"/>
       <attribute name="purchasable" type="boolean" required="true" default="false"/>
       <attribute name="saleable"    type="boolean" required="true" default="false"/>
       <attribute name="depreciable" type="boolean" required="true" default="false"/>
@@ -104,6 +104,26 @@
             depreciable="false"
             storable="true"
             pictogram="cow"
+            />
+       <item name="fish_band"
+            charge_account="other_animal_expenses"
+            product_account="other_animal_revenues"
+            stock_account="short_time_animal_stock"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            pictogram="fish"
+            />
+      <item name="oyster_band"
+            charge_account="other_animal_expenses"
+            product_account="other_animal_revenues"
+            stock_account="short_time_animal_stock"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            pictogram="fish"
             />
       <item name="crop"
             product_account="plant_derivatives_revenues"

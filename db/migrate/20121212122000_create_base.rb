@@ -914,6 +914,19 @@ class CreateBase < ActiveRecord::Migration
       t.index      :stopped_at
     end
 
+    create_table :product_links do |t|
+      t.references :operation,                             index: true
+      t.references :originator,        polymorphic: true,  index: true
+      t.references :product,                  null: false, index: true
+      t.string     :nature,                   null: false
+      t.references :linked,                                index: true
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.stamps
+      t.index      :started_at
+      t.index      :stopped_at
+    end
+
     create_table :product_localizations do |t|
       t.references :operation,                             index: true
       t.references :originator,        polymorphic: true
@@ -982,28 +995,6 @@ class CreateBase < ActiveRecord::Migration
       t.index      :stopped_at
     end
 
-    # create_table :product_junctions do |t|
-    #   t.references :operation,                             index: true
-    #   t.references :originator,        polymorphic: true,  index: true
-    #   t.string     :type
-    #   t.references :stackholder,                           index: true
-    #   t.references :costackholder,                         index: true
-    #   # t.references :third_stackholder,                     index: true
-    #   t.references :tool,                                  index: true
-    #   t.references :product,                  null: false, index: true
-    #   t.decimal    :product_population,   precision: 19, scale: 4
-    #   t.geometry   :product_shape
-    #   t.references :coproduct,                             index: true
-    #   t.decimal    :coproduct_population, precision: 19, scale: 4
-    #   t.geometry   :coproduct_shape
-    #   t.datetime   :started_at
-    #   t.datetime   :stopped_at
-    #   t.stamps
-    #   t.index      :started_at
-    #   t.index      :stopped_at
-    # end
-
-
     create_table :product_junctions do |t|
       t.references :operation,                             index: true
       t.references :originator,        polymorphic: true,  index: true
@@ -1015,6 +1006,7 @@ class CreateBase < ActiveRecord::Migration
       t.index      :started_at
       t.index      :stopped_at
     end
+
 
     create_table :product_junction_ways do |t|
       t.references :junction,                 null: false, index: true
@@ -1028,46 +1020,6 @@ class CreateBase < ActiveRecord::Migration
       t.index      :nature
     end
 
-    # create_table :product_births do |t|
-    #   t.references :operation,                             index: true
-    #   t.references :originator,        polymorphic: true,  index: true
-    #   t.string     :nature,                   null: false
-    #   t.references :producer,                              index: true
-    #   t.references :product,                  null: false, index: true
-    #   t.decimal    :population,   precision: 19, scale: 4
-    #   t.geometry   :shape
-    #   t.datetime   :started_at
-    #   t.datetime   :stopped_at
-    #   t.stamps
-    #   t.index      :started_at
-    #   t.index      :stopped_at
-    # end
-
-    # create_table :product_deaths do |t|
-    #   t.references :operation,                             index: true
-    #   t.references :originator,        polymorphic: true,  index: true
-    #   t.string     :nature,                   null: false
-    #   t.references :absorber,                              index: true
-    #   t.references :product,                  null: false, index: true
-    #   t.datetime   :started_at
-    #   t.datetime   :stopped_at
-    #   t.stamps
-    #   t.index      :started_at
-    #   t.index      :stopped_at
-    # end
-
-    # create_table :product_mixings do |t|
-    #   t.references :operation,                             index: true
-    #   t.references :originator,        polymorphic: true,  index: true
-    #   t.references :producer,                 null: false, index: true
-    #   t.references :coproducer,               null: false, index: true
-    #   t.references :product,                  null: false, index: true
-    #   t.datetime   :started_at
-    #   t.datetime   :stopped_at
-    #   t.stamps
-    #   t.index      :started_at
-    #   t.index      :stopped_at
-    # end
 
     create_table :product_nature_categories do |t|
       t.string     :name,                                               null: false
@@ -1219,17 +1171,20 @@ class CreateBase < ActiveRecord::Migration
       t.string     :type
       t.string     :name,                                                                          null: false
       t.string     :number,                                                                        null: false
+      t.references :variant,                                                                       null: false, index: true
+      t.references :nature,                                                                        null: false, index: true
+      t.references :category,                                                                      null: false, index: true
       t.datetime   :initial_born_at
+      t.datetime   :initial_dead_at
       t.references :initial_container,                                                                          index: true
       t.references :initial_owner,                                                                              index: true
       t.references :initial_enjoyer,                                                                            index: true
       t.decimal    :initial_population,                   precision: 19, scale: 4, default: 0.0
       t.geometry   :initial_shape
+      t.references :initial_father,                                                                             index: true
+      t.references :initial_mother,                                                                             index: true
       t.string     :variety,                  limit: 120,                                          null: false
       t.string     :derivative_of,            limit: 120
-      t.references :variant,                                                                       null: false, index: true
-      t.references :nature,                                                                        null: false, index: true
-      t.references :category,                                                                      null: false, index: true
       t.references :tracking,                                                                                   index: true
       t.references :financial_asset,                                                                            index: true
       t.datetime   :born_at
@@ -1238,14 +1193,14 @@ class CreateBase < ActiveRecord::Migration
       t.attachment :picture
       t.string     :identification_number
       t.string     :work_number
-      t.references :father,                                                                                     index: true
-      t.references :mother,                                                                                     index: true
+      # t.references :father,                                                                                     index: true
+      # t.references :mother,                                                                                     index: true
       t.references :address,                                                                                    index: true
-      t.boolean    :reservoir,                                                     default: false, null: false
-      t.references :content_nature,                                                                             index: true
-      t.string     :content_indicator_name
-      t.string     :content_indicator_unit
-      t.decimal    :content_maximal_quantity,             precision: 19, scale: 4, default: 0.0,   null: false
+      # t.boolean    :reservoir,                                                     default: false, null: false
+      # t.references :content_nature,                                                                             index: true
+      # t.string     :content_indicator_name
+      # t.string     :content_indicator_unit
+      # t.decimal    :content_maximal_quantity,             precision: 19, scale: 4, default: 0.0,   null: false
       t.references :parent,                                                                                     index: true
       t.references :default_storage,                                                                            index: true
       t.stamps

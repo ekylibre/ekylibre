@@ -93,6 +93,7 @@
 - product_indicator_datum
 - product_junction
 - product_junction_way
+- product_link
 - product_linkage
 - product_localization
 - product_measurement

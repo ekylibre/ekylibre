@@ -202,13 +202,38 @@
             />
       <item name="strawberry"
             production_code="4450"
-            activity="market_garden_crops"
+            activity="fruits_crops"
             telepac_crop_code="FR"
             variant_support="strawberry_crop"
             />   
       <!-- 5 - FRUIT CROP -->
+      <item name="apple"
+            production_code="5000"
+            activity="fruits_crops"
+            telepac_crop_code="VE"
+            variant_support="apple_crop"
+            />
+      <item name="plum"
+            production_code="5500"
+            activity="fruits_crops"
+            telepac_crop_code="PU"
+            variant_support="plum_crop"
+            />
+      <item name="walnut"
+            production_code="5750"
+            activity="fruits_crops"
+            telepac_crop_code="NX"
+            variant_support="walnut_crop"
+            />
+      <item name="hazel"
+            production_code="5760"
+            activity="fruits_crops"
+            telepac_crop_code="NS"
+            variant_support="hazel_crop"
+            />
       <!-- 6 - VINE CROP AND WINE -->
       <item name="vine"
+            production_code="6000"
             activity="vine_wine"
             variant_support="vine_grape_crop"
             />
@@ -238,6 +263,31 @@
             variant_support="calf"
             />
       <!-- 9 - OTHER ANIMALS -->
+      <item name="laying_hen"
+            production_code="9020"
+            activity="poultry_farming"
+            variant_support="female_hen_band"
+            />
+      <item name="chicken"
+            production_code="9050"
+            activity="poultry_farming"
+            variant_support="male_hen_band"
+            />
+      <item name="duck"
+            production_code="9120"
+            activity="palmiped_farming"
+            variant_support="duck_band"
+            />
+      <item name="salmon"
+            production_code="9660"
+            activity="fish_farming"
+            variant_support="salmon_band"
+            />
+      <item name="oyster"
+            production_code="9720"
+            activity="fish_farming"
+            variant_support="oyster_band"
+            />
     </items>
     
   </nomenclature>

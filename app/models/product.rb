@@ -22,47 +22,43 @@
 #
 # == Table: products
 #
-#  address_id               :integer
-#  born_at                  :datetime
-#  category_id              :integer          not null
-#  content_indicator_name   :string(255)
-#  content_indicator_unit   :string(255)
-#  content_maximal_quantity :decimal(19, 4)   default(0.0), not null
-#  content_nature_id        :integer
-#  created_at               :datetime         not null
-#  creator_id               :integer
-#  dead_at                  :datetime
-#  default_storage_id       :integer
-#  derivative_of            :string(120)
-#  description              :text
-#  father_id                :integer
-#  financial_asset_id       :integer
-#  id                       :integer          not null, primary key
-#  identification_number    :string(255)
-#  initial_born_at          :datetime
-#  initial_container_id     :integer
-#  initial_enjoyer_id       :integer
-#  initial_owner_id         :integer
-#  initial_population       :decimal(19, 4)   default(0.0)
-#  initial_shape            :spatial({:srid=>
-#  lock_version             :integer          default(0), not null
-#  mother_id                :integer
-#  name                     :string(255)      not null
-#  nature_id                :integer          not null
-#  number                   :string(255)      not null
-#  parent_id                :integer
-#  picture_content_type     :string(255)
-#  picture_file_name        :string(255)
-#  picture_file_size        :integer
-#  picture_updated_at       :datetime
-#  reservoir                :boolean          not null
-#  tracking_id              :integer
-#  type                     :string(255)
-#  updated_at               :datetime         not null
-#  updater_id               :integer
-#  variant_id               :integer          not null
-#  variety                  :string(120)      not null
-#  work_number              :string(255)
+#  address_id            :integer
+#  born_at               :datetime
+#  category_id           :integer          not null
+#  created_at            :datetime         not null
+#  creator_id            :integer
+#  dead_at               :datetime
+#  default_storage_id    :integer
+#  derivative_of         :string(120)
+#  description           :text
+#  financial_asset_id    :integer
+#  id                    :integer          not null, primary key
+#  identification_number :string(255)
+#  initial_born_at       :datetime
+#  initial_container_id  :integer
+#  initial_dead_at       :datetime
+#  initial_enjoyer_id    :integer
+#  initial_father_id     :integer
+#  initial_mother_id     :integer
+#  initial_owner_id      :integer
+#  initial_population    :decimal(19, 4)   default(0.0)
+#  initial_shape         :spatial({:srid=>
+#  lock_version          :integer          default(0), not null
+#  name                  :string(255)      not null
+#  nature_id             :integer          not null
+#  number                :string(255)      not null
+#  parent_id             :integer
+#  picture_content_type  :string(255)
+#  picture_file_name     :string(255)
+#  picture_file_size     :integer
+#  picture_updated_at    :datetime
+#  tracking_id           :integer
+#  type                  :string(255)
+#  updated_at            :datetime         not null
+#  updater_id            :integer
+#  variant_id            :integer          not null
+#  variety               :string(120)      not null
+#  work_number           :string(255)
 #
 
 
@@ -70,20 +66,22 @@ class Product < Ekylibre::Record::Base
   include Versionable
   enumerize :variety, in: Nomen::Varieties.all, predicates: {prefix: true}
   enumerize :derivative_of, in: Nomen::Varieties.all
-  enumerize :content_indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}
-  enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
+  # enumerize :content_indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}
+  # enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
   belongs_to :address, class_name: "EntityAddress"
-  belongs_to :financial_asset
-  belongs_to :default_storage, class_name: "Product"
   belongs_to :category, class_name: "ProductNatureCategory"
-  belongs_to :content_nature, class_name: "ProductNature"
-  belongs_to :parent, class_name: "Product"
-  belongs_to :father, class_name: "Product"
+  # belongs_to :content_nature, class_name: "ProductNature"
+  belongs_to :default_storage, class_name: "Product"
+  # belongs_to :father, class_name: "Product"
+  belongs_to :financial_asset
   belongs_to :initial_container, class_name: "Product"
   belongs_to :initial_owner, class_name: "Entity"
   belongs_to :initial_enjoyer, class_name: "Entity"
-  belongs_to :mother, class_name: "Product"
+  belongs_to :initial_father, class_name: "Product"
+  belongs_to :initial_mother, class_name: "Product"
+  # belongs_to :mother, class_name: "Product"
   belongs_to :nature, class_name: "ProductNature"
+  belongs_to :parent, class_name: "Product"
   belongs_to :tracking
   belongs_to :variant, class_name: "ProductNatureVariant"
   has_many :carrier_linkages, class_name: "ProductLinkage", foreign_key: :carried_id
@@ -97,6 +95,7 @@ class Product < Ekylibre::Record::Base
   has_many :junction_ways, class_name: "ProductJunctionWay"
   has_many :junctions, class_name: "ProductJunction", through: :junction_ways
   has_many :linkages, class_name: "ProductLinkage", foreign_key: :carrier_id
+  has_many :links, class_name: "ProductLink", foreign_key: :product_id
   has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :product_id
   has_many :phases, class_name: "ProductPhase"
@@ -174,11 +173,10 @@ class Product < Ekylibre::Record::Base
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
-  validates_numericality_of :content_maximal_quantity, :initial_population, allow_nil: true
+  validates_numericality_of :initial_population, allow_nil: true
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
-  validates_length_of :content_indicator_name, :content_indicator_unit, :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, allow_nil: true, maximum: 255
-  validates_inclusion_of :reservoir, in: [true, false]
-  validates_presence_of :category, :content_maximal_quantity, :name, :nature, :number, :variant, :variety
+  validates_length_of :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, allow_nil: true, maximum: 255
+  validates_presence_of :category, :name, :nature, :number, :variant, :variety
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name
 
@@ -378,12 +376,12 @@ class Product < Ekylibre::Record::Base
   end
 
   # Returns the current contents of the product at a given time (or now by default)
-  def contains(content_class = Product, at = Time.now)
+  def contains(stored_class = Product, at = Time.now)
     localizations = ProductLocalization.where(container: self).where("started_at <= ?",at)
     if localizations.any?
       object = {}
       for localization in localizations
-        object << localization.product if localization.product.is_a(content_class)
+        object << localization.product if localization.product.is_a(stored_class)
       end
       return object
      else

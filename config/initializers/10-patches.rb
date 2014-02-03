@@ -117,6 +117,10 @@ ActionView::Base.send :include, Ekylibre::I18n::ContextualHelpers
 module ::I18n
 
   # def self.valid_locales
+  #   return [:fra, :eng, :spa, :jpn, :arb]
+  # end
+
+  # def self.valid_locales
   #   return [:fra, :eng, :spa, :jpn, :arb] # , :spa, :jpn, :arb
   #   # FIXME Call to active_locales fails during migrate
   #   self.available_locales.select{|x| x.to_s.size == 3}

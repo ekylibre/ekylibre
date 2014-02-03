@@ -1182,9 +1182,11 @@ arb:
     # currency_precision: "Nombre de décimales"
     currency_rate: "سعر الصرف"
     # current_amount: "Montant actuel"
+    # current_father_link: "Current father link"
     current_financial_year: "الفترة المحاسبية الحالية" #?
     # current_healthy: "Bonne santé actuelle"
     # current_localization: "Current localization"
+    # current_mother_link: "Current mother link"
     # current_net_mass: "Dernière pesée"
     # current_ownership: "Current ownership"
     # current_phase: "Current phase"
@@ -1417,7 +1419,10 @@ arb:
     # individual: "Individuel"
     # initial_born_at: "Initial born at"
     # initial_container: "Emplacement initial"
+    # initial_dead_at: "Initial dead at"
     # initial_enjoyer: "Initial enjoyer"
+    # initial_father: "Initial father"
+    # initial_mother: "Initial mother"
     # initial_number: "Numéro initial"
     # initial_owner: "Propriétaire initial"
     # initial_population: "Population initiale"
@@ -1487,6 +1492,7 @@ arb:
     lines: "طرق تسديد الفاتورة" #?
     # linkage_points_list: "Points d’attache"
     # linkages: "Attaches"
+    # links: "Links"
     listing: "الاستخراج"
     listing_id: "استخاج" #?
     listing_node_items: "عناصر العقدة المستخرجة" #?

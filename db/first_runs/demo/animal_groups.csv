@@ -1,0 +1,8 @@
+Name,Nature,Member nature,Code,Minimum age (days),Maximum age (days),Sex,Place,Description
+Veaux,cattle_herd,calf,VEAU,1,120,,B09_D1,
+Génisses 1,cattle_herd,female_young_cow,GEN_1,120,366,female,B03_D9,
+Taurillon 1,cattle_herd,male_young_cow,TAUR_1,120,366,male,B04_D4,
+Génisses 2,cattle_herd,female_young_cow,GEN_2,366,732,female,B03_D9,
+Taurillon 2,cattle_herd,male_young_cow,TAUR_2,366,,male,B04_D4,Taurillons vendus entre 21 et 26 mois
+Génisses 3,cattle_herd,female_young_cow,GEN_3,732,998,female,B03_D9,
+Vaches laitières,cattle_herd,female_adult_cow,VL,998,,female,B07_D2,
