@@ -122,8 +122,8 @@ gem 'feedzirra'
 gem 'colored'
 
 # Compass
-gem 'compass', '~> 0.13.alpha.10'
-gem 'compass-rails' # , '~> 2.0.alpha.0' # github: 'Compass/compass-rails', branch: 'rails4-hack' # '~> 2.0.alpha.0'
+gem 'compass'
+gem 'compass-rails'
 gem 'oily_png'
 
 # Iconic font
