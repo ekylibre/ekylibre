@@ -2,6 +2,7 @@
   <nomenclature name="varieties-organic_matter">
     <items>
       <item name="meat" derivative_of="animal"/>
+      <item name="egg" derivative_of="aves"/>
       <item name="milk" derivative_of="mammalia"/>
       <item name="wine" derivative_of="vitis_vinifera"/>
       <item name="excrement" derivative_of="animal"/>
@@ -13,6 +14,7 @@
       <item name="seed" derivative_of="plant"/>
       <item name="seedling" derivative_of="plant"/>
       <item name="grain" derivative_of="plant"/>
+      <item name="walnut" derivative_of="plant"/>
       <item name="fruit" derivative_of="plant"/>
       <item name="gas"/>
       <item name="fuel"/>

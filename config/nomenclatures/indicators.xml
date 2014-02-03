@@ -16,6 +16,7 @@
       <item name="net_mass"       datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
       <item name="net_volume"     datatype="measure" unit="liter" gathering="proportional_to_population"/>
       <item name="net_surface_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
+      <item name="easement_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="shape"          datatype="geometry" related_to="whole"/>
       <item name="geographic_coordinate" datatype="point"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
@@ -30,6 +31,14 @@
       <item name="horizontal_rotation" datatype="measure" unit="degree"/>
       <item name="livestock_unit" datatype="decimal" gathering="proportional_to_population"/>
       
+      <!-- for product capacity -->
+      <item name="maximal_storable_net_mass"       datatype="measure" unit="kilogram" />
+      <item name="nominal_storable_net_mass"       datatype="measure" unit="kilogram" />
+      <item name="maximal_storable_net_volume"     datatype="measure" unit="liter" />
+      <item name="nominal_storable_net_volume"     datatype="measure" unit="liter" />
+      <item name="maximal_storable_easement_area" datatype="measure" unit="square_meter" />
+      <item name="nominal_storable_easement_area" datatype="measure" unit="square_meter" />
+      
       <!-- for wine product and production -->
       <item name="reference_year" datatype="integer"/><!-- for "millesime" -->
       <item name="designation_origin" datatype="choice" choices="designation_origins"/><!-- for "appellation" -->
@@ -40,8 +49,6 @@
       <!-- equipment -->
       <item name="motor_power"              datatype="measure" unit="french_horsepower"/>
       <item name="application_width"        datatype="measure" unit="meter" gathering="proportional_to_population"/>
-      <item name="maximum_load_net_volume"  datatype="measure" unit="liter" gathering="proportional_to_population"/>
-      <item name="maximum_load_net_mass"    datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
       <item name="animal_life_state"        datatype="choice" choices="animal_life_states"/>
       <item name="mammalia_birth_condition" datatype="choice" choices="mammalia_birth_conditions"/>
       <item name="mammalia_birth_count"     datatype="integer" />

@@ -44,6 +44,12 @@
       <item name="solanaceae">
         <attribute name="itis-tsn" value="30411"/>
       </item>
+      <item name="juglandaceae">
+        <attribute name="itis-tsn" value="19222"/>
+      </item>
+      <item name="betulaceae">
+        <attribute name="itis-tsn" value="19465"/>
+      </item>
     </items>
   </nomenclature>
 </nomenclatures>
