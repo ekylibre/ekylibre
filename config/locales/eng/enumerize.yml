@@ -247,10 +247,14 @@ eng:
         gain: "Gain" #?
         transfer: "Transfer" #?
         waste: "Loss" #?
-    subscription_nature:  #?
-      nature: #?
-        period: "Subscription by date" #?
-        quantity: "Subscription by number" #?
+    subscription_nature:
+      entity_link_direction:
+        # all: "Bidirectionnel"
+        # direct: "Direct"
+        # indirect: "Indirect"
+      nature:
+        period: "Subscription by date"
+        quantity: "Subscription by number"
     tax:
       nature:
         amount: "Amount"

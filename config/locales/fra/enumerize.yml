@@ -109,6 +109,14 @@ fra:
         stock_transfers: "Numérotation des transferts de stock"
         subscriptions: "Numérotation des abonnements"
         transports: "Numérotation des transports"
+    subscription_nature:
+      entity_link_direction:
+        all: "Bidirectionnel"
+        direct: "Direct"
+        indirect: "Indirect"
+      nature:
+        period: "Par dates"
+        quantity: "Par numéros"
     tax:
       nature:
         amount: "Montant"

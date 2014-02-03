@@ -1,10 +1,10 @@
-=field_set do
-  =f.input :nature, :show => {:quantity => :number_options}
-  =f.input :name
-  =f.input :reduction_percentage
-  =f.input :entity_link_nature
-  =f.input :entity_link_direction
-  =f.input :description
+= field_set do
+  = f.input :nature, as: :radio_buttons, show: {quantity: :number_options}
+  = f.input :name
+  = f.input :reduction_percentage
+  = f.input :entity_link_nature
+  = f.input :entity_link_direction, as: :radio_buttons
+  = f.input :description
 
-=field_set(:number_options) do
-  =f.input :actual_number
+= field_set(:number_options) do
+  = f.input :actual_number

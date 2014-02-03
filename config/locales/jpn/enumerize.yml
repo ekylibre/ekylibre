@@ -113,6 +113,14 @@ jpn:
         # subscriptions: "Numérotation des abonnements"
         # transports: "Numérotation des transports"
     sex: #?
+    subscription_nature:
+      entity_link_direction:
+        # all: "Bidirectionnel"
+        # direct: "Direct"
+        # indirect: "Indirect"
+      nature:
+        # period: "Par dates"
+        # quantity: "Par numéros"
     tax:
       nature:
         # amount: "Montant"
