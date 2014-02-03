@@ -38,32 +38,4 @@
 
 class ProductBirth < ProductJunction
   has_start :product
-  # include Taskable
-  # has_one :producer
-  # has_one :producer_route, -> { where(role: "producer") }, through: :routes
-  # has_one :product_route, -> { where(role: "product") }, through: :routes
-  # belongs_to :product, inverse_of: :birth
-  # belongs_to :producer, class_name: "Product", foreign_key: :stakeholder_id
-  # enumerize :nature, in: [:division, :creation], predicates: true
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  #]VALIDATORS]
-  # validates_inclusion_of :nature, in: self.nature.values
-
-  # before_update do
-  #   if self.product_id != old_record.product_id
-  #     old_record.product.update_column(:born_at, nil)
-  #   end
-  # end
-
-  # after_save do
-  #   if self.product
-  #     if self.stopped_at != self.product.born_at
-  #       self.product.update_column(:born_at, self.stopped_at)
-  #     end
-  #   end
-  # end
-
-  # before_destroy do
-  #   old_record.product.update_attribute(:born_at, nil)
-  # end
 end

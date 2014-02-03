@@ -241,7 +241,7 @@ class Operation < Ekylibre::Record::Base
   end
 
   def perform_simple_attachment(params)
-    self.product_linkages.create!(started_at: self.stopped_at, point: params[:carrier].actor.linkage_points_list.first, carrier: params[:carrier].actor, carried: params[:carried].actor, nature: "occupied")
+    self.product_linkages.create!(started_at: self.stopped_at, point: params[:carrier].actor.linkage_points.first, carrier: params[:carrier].actor, carried: params[:carried].actor, nature: "occupied")
   end
 
   def perform_simple_detachment(params)

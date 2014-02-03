@@ -537,7 +537,7 @@
             />
       <item name="baler"
             category="equipment"
-            variety="harvest"
+            variety="harvester"
             population_counting="unitary"
             abilities="bunch"
             variable_indicators="application_width"
@@ -545,7 +545,7 @@
             />
        <item name="mower"
             category="equipment"
-            variety="harvest"
+            variety="harvester"
             population_counting="unitary"
             abilities="mow"
             variable_indicators="application_width"
@@ -553,7 +553,7 @@
             />
        <item name="hay_rake"
             category="equipment"
-            variety="harvest"   
+            variety="harvester"   
             population_counting="unitary"
             abilities="swath"
             variable_indicators="application_width"

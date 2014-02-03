@@ -1145,6 +1145,7 @@ fra:
     with_transport: "Avec transport"
     work_number: "Numéro de travail"
     yield: "Rendement" #?
+    # zone_memberships: "Zone memberships"
   models:
     account:
       label: "%{number} - %{name}"

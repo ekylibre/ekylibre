@@ -170,7 +170,7 @@ load_data :animals do |loader|
         # if r.born_on > (Date.today - 3.months) and r.born_on < (Date.today)
         #   f = File.open(photo_v)
         #   animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number,
-        #                           :work_number => r.work_number, :born_at => r.born_at, :dead_at => r.departed_on,
+        #                           :work_number => r.work_number, :initial_born_at => r.born_at, :dead_at => r.departed_on,
         #                           :picture => f, :initial_owner => Entity.of_company, :initial_container => place_v, :default_storage => place_v
         #                           )
         #   f.close
@@ -195,7 +195,7 @@ load_data :animals do |loader|
         #   f = File.open(pictures.sample)
         #   animal = Animal.create!(:variant_id => cow_gen.id, :name => r.name, :variety => "bos",
         #                           :identification_number => r.identification_number, :work_number => r.work_number,
-        #                           :born_at => r.born_on, :dead_at => r.departed_on,
+        #                           :initial_born_at => r.born_on, :dead_at => r.departed_on,
         #                           :picture => f, :initial_owner => Entity.of_company, :initial_container => place_gen, :default_storage => place_gen
         #                           )
         #   f.close
@@ -221,7 +221,7 @@ load_data :animals do |loader|
         #   f = File.open(pictures.sample)
         #   animal = Animal.create!(:variant_id => cow_gen.id, :name => r.name, :variety => "bos",
         #                           :identification_number => r.identification_number, :work_number => r.work_number,
-        #                           :born_at => r.born_on, :dead_at => r.departed_on,
+        #                           :initial_born_at => r.born_on, :dead_at => r.departed_on,
         #                           :picture => f, :initial_owner => Entity.of_company, :initial_container => place_gen, :default_storage => place_gen
         #                           )
         #   f.close
@@ -248,7 +248,7 @@ load_data :animals do |loader|
         #   f = File.open(pictures.sample)
         #   animal = Animal.create!(:variant_id => cow_vl.id, :name => r.name, :variety => "bos",
         #                           :identification_number => r.identification_number, :work_number => r.work_number,
-        #                           :born_at => r.born_on, :dead_at => r.departed_on,
+        #                           :initial_born_at => r.born_on, :dead_at => r.departed_on,
         #                           :picture => f, :initial_owner => Entity.of_company, :initial_container => place_vl, :default_storage => place_vl
         #                           )
         #   f.close
@@ -276,7 +276,7 @@ load_data :animals do |loader|
         #   f = File.open(photo_taur)
         #   animal = Animal.create!(:variant_id => cow_taur.id, :name => r.name, :variety => "bos",
         #                           :identification_number => r.identification_number, :work_number => r.work_number,
-        #                           :born_at => r.born_on, :dead_at => r.departed_on,
+        #                           :initial_born_at => r.born_on, :dead_at => r.departed_on,
         #                           :picture => f, :initial_owner => Entity.of_company, :initial_container => place_taur, :default_storage => place_taur
         #                           )
         #   f.close

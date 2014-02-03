@@ -2523,11 +2523,11 @@ fra:
         caphorn: "Blé Caphorn"                             # triticum_aestivum
         capra: "Caprin"                                    # mammalia
         carignan: "Carignan"                               # vitis_vinifera
-        carmenere_noir: "Carmenere noir"                   # vitis_vinifera
+        carmenere_noir: "Carménère noir"                   # vitis_vinifera
         champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)" # land_parcel
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertilizer: "Engrais chimique"            # mineral_matter
-        chesnut_red_soil: "Terres rouges à chataigniers"   # land_parcel
+        chesnut_red_soil: "Terres rouges à châtaigniers"   # land_parcel
         cichorium: "Chicoré"                               # asteraceae
         clay_limestone_soil: "Sol argilo-calcaire (Groies)" # land_parcel
         clay_soil: "Terre d’argile lourde"                 # land_parcel
@@ -2567,7 +2567,7 @@ fra:
         grenache: "Grenache"                               # vitis_vinifera
         grenache_noir: "Grenache noir"                     # vitis_vinifera
         guano: "Guano"                                     # excrement
-        harvest: "Récolte"                                 # equipment
+        harvester: "Moissonneuse"                          # equipment
         hay: "Foin"                                        # organic_matter
         helianthus: "Tournesol"                            # asteraceae
         herbicide: "Produit herbicide"                     # plant_medicine
@@ -2661,7 +2661,7 @@ fra:
         secale: "Secale"                                   # poaceae
         seed: "Semence"                                    # organic_matter
         seedling: "Plant"                                  # organic_matter
-        semillon_blanc: "Semillon blanc"                   # vitis_vinifera
+        semillon_blanc: "Sémillon blanc"                   # vitis_vinifera
         service: "Service"                                 # immatter
         settlement: "Agencement"                           # easement
         silt_schist_soil: "Limons sur schiste ou gneiss"   # land_parcel
@@ -2676,7 +2676,7 @@ fra:
         sower: "Semoir"                                    # equipment
         sprayer: "Pulvérisateur"                           # equipment
         spreader: "Épandeur"                               # equipment
-        straw: "Pailles"                                   # organic_matter
+        straw: "Paille"                                    # organic_matter
         sub_zone: "Sous zone"                              # zone
         sus: "Porcin"                                      # mammalia
         swamp_peaty_soil: "Terre de marais tourbeux"       # land_parcel

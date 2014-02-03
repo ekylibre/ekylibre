@@ -92,7 +92,7 @@ class Product < Ekylibre::Record::Base
   has_many :groups, :through => :memberships
   has_many :measurements, class_name: "ProductMeasurement"
   has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
-  has_many :junction_ways, class_name: "ProductJunctionWay"
+  has_many :junction_ways, class_name: "ProductJunctionWay", foreign_key: :road_id
   has_many :junctions, class_name: "ProductJunction", through: :junction_ways
   has_many :linkages, class_name: "ProductLinkage", foreign_key: :carrier_id
   has_many :links, class_name: "ProductLink", foreign_key: :product_id
@@ -102,8 +102,8 @@ class Product < Ekylibre::Record::Base
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
   has_many :markers, :through => :supports
   has_many :variants, class_name: "ProductNatureVariant", :through => :phases
-  has_one :start_way,  -> { where(nature: 'start') },  class_name: "ProductJunctionWay", inverse_of: :road
-  has_one :finish_way, -> { where(nature: 'finish') }, class_name: "ProductJunctionWay", inverse_of: :road
+  has_one :start_way,  -> { where(nature: 'start') },  class_name: "ProductJunctionWay", inverse_of: :road, foreign_key: :road_id
+  has_one :finish_way, -> { where(nature: 'finish') }, class_name: "ProductJunctionWay", inverse_of: :road, foreign_key: :road_id
   has_one :start_junction,  through: :start_way,  source: :junction
   has_one :finish_junction, through: :finish_way, source: :junction
   # has_one :birth, class_name: "ProductBirth", inverse_of: :product
@@ -183,7 +183,7 @@ class Product < Ekylibre::Record::Base
   # accepts_nested_attributes_for :start_way
   # accepts_nested_attributes_for :death
   accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum|
-    !datum["indicator"] != "population" and datum[ProductIndicatorDatum.value_column(datum["indicator"]).to_s].blank?
+    !datum["indicator_name"] != "population" and datum[ProductIndicatorDatum.value_column(datum["indicator_name"]).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: false
@@ -192,7 +192,7 @@ class Product < Ekylibre::Record::Base
   delegate :variety, :derivative_of, :name, :nature, to: :variant, prefix: true
   delegate :unit_name, to: :variant
   delegate :subscribing?, :deliverable?, :asset_account, :product_account, :charge_account, :stock_account, to: :nature
-  delegate :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :linkage_points, :linkage_points_list, to: :nature
+  delegate :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :frozen_indicators, :variable_indicators, :linkage_points, :linkage_points_list, to: :nature
 
   after_initialize :choose_default_name
   after_create :set_initial_values
@@ -258,10 +258,17 @@ class Product < Ekylibre::Record::Base
     # Add first owner on a product
     self.ownerships.create!(owner: self.initial_owner)
     # # Add first enjoyer on a product
-    # self.enjoyments.create!(enjoyer: self.initial_enjoyer)
+    self.enjoyments.create!(enjoyer: self.initial_enjoyer || self.initial_owner)
     # Add first localization on a product
     if self.initial_container
       self.localizations.create!(container: self.initial_container, nature: :interior)
+    end
+    #
+    unless self.start_junction
+      ProductBirth.create!(product_way_attributes: {road: self, population: self.initial_population, shape: self.initial_shape}, started_at: self.initial_born_at)
+    end
+    if self.initial_dead_at and !self.finish_junction
+      ProductDeath.create!(product: self, started_at: self.initial_dead_at)
     end
     # add first frozen indicator on a product from his variant
     if self.variant

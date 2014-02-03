@@ -47,7 +47,7 @@ load_data :products do |loader|
         end
 
         # create the equipment
-        equipment = pmodel.create!(:variant_id => variant.id, :name => r.name, :born_at => r.born_at, :initial_owner => owner, :default_storage => building_division, :work_number => r.work_number )
+        equipment = pmodel.create!(:variant_id => variant.id, :name => r.name, :initial_born_at => r.born_at, :initial_owner => owner, :default_storage => building_division, :work_number => r.work_number )
 
         # create indicators linked to equipment
         for indicator, value in r.indicators
@@ -103,7 +103,7 @@ load_data :products do |loader|
 
         # create the product
         product = pmodel.create!(:variant_id => variant.id, :work_number => r.work_number,
-                                 :name => r.name, :born_at => r.born_at, :initial_owner => owner, :variety => r.variety, :derivative_of => r.derivative_of, :default_storage => building_division)
+                                 :name => r.name, :initial_born_at => r.born_at, :initial_owner => owner, :variety => r.variety, :derivative_of => r.derivative_of, :default_storage => building_division)
 
         # create indicators linked to equipment
         for indicator, value in r.indicators

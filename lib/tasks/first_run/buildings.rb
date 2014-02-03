@@ -26,7 +26,7 @@ load_data :buildings do |loader|
                      {variant_id: animal_place_variant.id,     name: "Poulailler 2 (côté Forêt)", :work_number => "B10", :identification_number => "BAT_POULAILLER_2"}
                     ]
       unless Building.find_by_work_number(building[:work_number])
-        Building.create!({:initial_owner => Entity.of_company, :born_at => born_at, :default_storage => Building.first}.merge(building))
+        Building.create!({:initial_owner => Entity.of_company, :initial_born_at => born_at, :default_storage => Building.first}.merge(building))
         w.check_point
       end
     end
@@ -45,7 +45,7 @@ load_data :buildings do |loader|
           building ||= Building.create!(variant_id: standard_place_variant.id,
                                         name: record.attributes['DESCRIPTION'].to_s,
                                         :work_number => record.attributes['WORK_NUMBE'].to_s,
-                                        :born_at => born_at,
+                                        :initial_born_at => born_at,
                                         :default_storage => Building.first,
                                         :identification_number => record.attributes['NUMERO'].to_s)
           # raise record.geometry.inspect + record.geometry.methods.sort.to_sentence
@@ -78,7 +78,7 @@ load_data :buildings do |loader|
           building_division ||= BuildingDivision.create!(variant_id: building_division_variant.id,
                                                          name: record.attributes['DECRIPTION'].to_s,
                                                          :work_number => record.attributes['WORK_NUMBE'].to_s,
-                                                         :born_at => born_at,
+                                                         :initial_born_at => born_at,
                                                          :identification_number => record.attributes['NUMERO'].to_s)
           building_division.is_measured!(:shape, record.geometry, at: born_at)
           ind_area = building_division.shape_area

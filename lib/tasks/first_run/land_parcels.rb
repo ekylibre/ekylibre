@@ -18,7 +18,7 @@ load_data :land_parcels do |loader|
                                                           :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s,
                                                           :work_number => record.attributes['NUMERO'].to_s,
                                                           :variety => "land_parcel_cluster",
-                                                          :born_at => born_at,
+                                                          :initial_born_at => born_at,
                                                           :initial_owner => Entity.of_company,
                                                           :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
           land_parcel_cluster.is_measured!(:shape, record.geometry, at: born_at)
@@ -69,7 +69,7 @@ load_data :land_parcels do |loader|
                                                           :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
                                                           :work_number => "P" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
                                                           :variety => "clay_limestone_soil",
-                                                          :born_at => born_at,
+                                                          :initial_born_at => born_at,
                                                           :initial_owner => Entity.of_company,
                                                           :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
 
@@ -83,7 +83,7 @@ load_data :land_parcels do |loader|
                                                           :name => CultivableZone.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s,
                                                           :work_number => "ZC" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
                                                           :variety => "cultivable_zone",
-                                                          :born_at => born_at,
+                                                          :initial_born_at => born_at,
                                                           :initial_owner => Entity.of_company,
                                                           :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
 
@@ -163,7 +163,7 @@ load_data :land_parcels do |loader|
           land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
           land_parcel ||= LandParcel.create!(:variant => land_parcel_variant,
                                              :name => r.land_parcel_name,
-                                             born_at: r.born_at,
+                                             initial_born_at: r.born_at,
                                              :work_number => r.land_parcel_work_number,
                                              :initial_owner => Entity.of_company,
                                              :identification_number => r.land_parcel_work_number)
@@ -217,7 +217,7 @@ load_data :land_parcels do |loader|
         cultivable_zone ||= CultivableZone.create!(:variant_id => cultivable_zone_variant.id,
                                                    :name => r.cultivable_zone_name,
                                                    :work_number => r.cultivable_zone_work_number,
-                                                   born_at: r.born_at,
+                                                   initial_born_at: r.born_at,
                                                    :variety => "cultivable_zone",
                                                    :initial_owner => Entity.of_company,
                                                    :identification_number => r.cultivable_zone_work_number)

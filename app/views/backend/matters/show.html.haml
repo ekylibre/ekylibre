@@ -22,22 +22,24 @@
         - l.attribute :description
 
   - b.hbox do
-    - b.cell(:stocks) do
+    - b.cell(:variable_indicators) do
       :ruby
+        indicators = resource.variable_indicators.delete_if{|i| ![:measure, :decimal].include?(i.datatype)}
         series = []
-        now, window = Time.now, 1.day
+        now, window = (Time.now + 7.days), 1.day
         min = (resource.born_at ? resource.born_at : now - window)
         min = now - window if (now - min) < window
-        for indicator in [:population, :nitrogen_concentration].collect{|i| Nomen::Indicators[i] }
-          items = ProductIndicatorDatum.where(indicator_name: indicator.name, product: resource).where("measured_at BETWEEN ? AND ?", min, now).order(:measured_at)
+        for indicator in indicators # [:population, :nitrogen_concentration].collect{|i| Nomen::Indicators[i] }
+          items = ProductIndicatorDatum.where(indicator_name: indicator.name, product: resource).where("? < measured_at AND measured_at < ?", min, now).order(:measured_at)
+          next unless items.any?
           data = []
-          data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
-          data += items.sort.inject({}) do |hash, pair|
+          data << [min.to_usec, resource.get(indicator, at: min).to_f.to_s.to_f]
+          data += items.inject({}) do |hash, pair|
             hash[pair.measured_at.to_usec] = pair.value.to_d
             hash
           end.collect{|k,v| [k, v.to_s.to_f] }
-          data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
-          series << {name: indicator.human_name, data: data }
+          data << [now.to_usec, resource.get(indicator, at: now).to_f.to_s.to_f]
+          series << {name: indicator.human_name, data: data}
         end
 
       = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom'}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})

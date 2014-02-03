@@ -121,7 +121,7 @@ load_data :deliveries do |loader|
                                                                   )
 
           product_model = product_nature_variant.nature.matching_model
-          incoming_item ||= product_model.create!(:variant => product_nature_variant, :name => r.matter_name, :initial_owner => Entity.of_company, :identification_number => r.order_number, :born_at => r.ordered_on, :created_at => r.ordered_on, :default_storage => building_division)
+          incoming_item ||= product_model.create!(:variant => product_nature_variant, :name => r.matter_name, :initial_owner => Entity.of_company, :identification_number => r.order_number, :initial_born_at => r.ordered_on, :created_at => r.ordered_on, :default_storage => building_division)
           incoming_item.is_measured!(:population, r.quantity, :at => r.ordered_on.to_datetime)
 
           if incoming_item.present?
@@ -195,7 +195,7 @@ load_data :deliveries do |loader|
   #   #   product_nature ||= ProductNature.create!(:stock_account_id => stock_account_nature_coop.id, :charge_account_id => charge_account_nature_coop.id, :name => r.product_nature_name, :number => r.product_nature_name,  :saleable => false, :purchasable => true, :active => true, :storable => true, :variety_id => b.id, :unit_id => unit_u.id, :category_id => ProductNatureCategory.by_default.id)
   #   #   # create a product (Matter) if not exist
   #   #   product   = Matter.find_by_name(r.matter_name)
-  #   #   product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
+  #   #   product ||= Matter.create!(:name => r.matter_name, :identification_number => r.matter_name, :work_number => r.matter_name, :initial_born_at => Time.now, :nature_id => product_nature.id, :owner_id => Entity.of_company.id, :number => r.matter_name) #
   #   #   # create a product_price_template if not exist
   #   #   product_price   = CatalogPriceTemplate.find_by_product_nature_id_and_supplier_id_and_assignment_pretax_amount(product_nature.id, coop.id, r.product_unit_price)
   #   #   product_price ||= CatalogPriceTemplate.create!(:currency => "EUR", :assignment_pretax_amount => r.product_unit_price, :product_nature_id => product_nature.id, :tax_id => tax_price_nature_appro.id, :supplier_id => coop.id)

@@ -90,6 +90,10 @@ module Nomen
         return self.attr(name).collect do |i|
           ["nomenclatures.#{@nomenclature.name}.item_lists.#{self.name}.#{name}.#{i}".t, i]
         end
+      elsif attribute.type == :nomenclature
+        return Nomen[self.attr(name)].list.collect do |i|
+          [i.human_name, i.name]
+        end
       else
         raise StandardError, "Cannot call selection for a non-list attribute"
       end

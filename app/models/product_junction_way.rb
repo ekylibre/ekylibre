@@ -72,8 +72,12 @@ class ProductJunctionWay < Ekylibre::Record::Base
       if self.road and self.stopped_at != self.road.send(touch_column)
         self.road.update_column(touch_column, self.stopped_at)
       end
-      if self.start? and self.population
-        self.road.is_measured!(:population, self.population, at: self.stopped_at)
+      if self.start?
+        for indicator in self.road.whole_indicators_list
+          if self.send(indicator)
+            self.road.is_measured!(indicator, self.send(indicator), at: self.stopped_at)
+          end
+        end
       end
       if self.finish?
         self.road.is_measured!(:population, 0, at: self.stopped_at)

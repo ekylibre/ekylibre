@@ -83,8 +83,9 @@ class Backend::SettingsController < BackendController
     @supported_files = [["EBP.EDI", :ebp_edi]]
     if request.post?
       data = params[:upload]
-      file = "#{Rails.root.to_s}/tmp/uploads/#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}"
-      File.open(file, "wb") {|f| f.write(data.read)}
+      file = Rails.root.join("tmp", "uploads", "#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}")
+      FileUtils.mkdir_p(file.dirname)
+      File.write(file, data.read)
       if params[:nature] == "ebp_edi"
         Exchanges::EbpEdi.import(file)
       else
