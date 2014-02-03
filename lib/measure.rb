@@ -125,7 +125,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be compared to another measure"
     end
-    self.to_r == other.to_r(@unit)
+    self.to_f == other.to_f(@unit)
   end
 
   # Returns if self is less than other

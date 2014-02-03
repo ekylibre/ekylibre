@@ -3,7 +3,7 @@ require 'test_helper'
 
 class MeasureTest < ActiveSupport::TestCase
 
-  def test_instanciation
+  test "instanciation" do
     assert_nothing_raised do
       Measure.new(55.23, "kilogram")
     end
@@ -17,6 +17,12 @@ class MeasureTest < ActiveSupport::TestCase
       Measure.new("55.23kilogram")
     end
     assert_nothing_raised do
+      Measure.new("55.23 kg")
+    end
+    assert_nothing_raised do
+      Measure.new("55.23kg")
+    end
+    assert_nothing_raised do
       55.23.in_kilogram
     end
     assert_nothing_raised do
@@ -27,7 +33,7 @@ class MeasureTest < ActiveSupport::TestCase
     end
   end
 
-  def test_convertions
+  test "conversions" do
     m = 1452.218534748545.in_ton
     assert_equal m.to_f, 1452.218534748545
     assert_equal m.to_d, 1452.218534748545
@@ -35,18 +41,18 @@ class MeasureTest < ActiveSupport::TestCase
   end
 
 
-  def test_operations
+  test "operations" do
     m1 = 155.in_kilogram
     m2 = 1.045.in_ton
 
     assert_equal m1, 0.155.in_ton
     assert_equal m2, 1.045.in_ton
 
-    assert_equal m1 != m2
-    assert_equal m1 < m2
-    assert_equal m2 > m1
-    assert_equal m1 <= m2
-    assert_equal m2 >= m1
+    assert m1 != m2
+    assert m1 < m2
+    assert m2 > m1
+    assert m1 <= m2
+    assert m2 >= m1
 
     m3 = nil
     assert_nothing_raised do
