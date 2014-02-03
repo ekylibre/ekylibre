@@ -372,7 +372,7 @@ DEPENDENCIES
   quiet_assets
   railroady
   rails (= 4.0.2)
-  rails_best_practices
+  rails_best_practices (~> 1.14.0)
   rgeo-geojson
   rgeo-shapefile
   rubyzip

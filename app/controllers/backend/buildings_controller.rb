@@ -24,15 +24,14 @@ class Backend::BuildingsController < Backend::ProductGroupsController
     t.column :description
     # t.column :name, through: :establishment
     # t.column :name, through: :parent, url: true
-    # t.column :reservoir
     t.action :edit
     t.action :destroy
   end
 
   # Displays the main page with the list of buildings
   def index
-    super
     notify_now(:need_building_to_record_stock_moves) unless Building.any?
+    super
   end
 
   # List divisions of a building
