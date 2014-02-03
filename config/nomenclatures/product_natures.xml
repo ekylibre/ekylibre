@@ -41,7 +41,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), produce(milk), move, produce(bos)"
-            variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, geographic_coordinate"
+            variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat, milk"
             />
@@ -359,7 +359,7 @@
             variety="building_division"
             population_counting="unitary"
             abilities="store(product)"
-            variable_indicators="net_surface_area, shape"
+            variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />
       <item name="fertilizer_division"
@@ -367,7 +367,7 @@
             variety="building_division"
             population_counting="unitary"
             abilities="store(chemical_fertilizer)"
-            variable_indicators="net_surface_area, shape"
+            variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />
       <item name="manure_division"
@@ -375,7 +375,7 @@
             variety="building_division"
             population_counting="unitary"
             abilities="store(manure)"
-            variable_indicators="net_surface_area, shape"
+            variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />
       <item name="administrative_division"
@@ -391,7 +391,7 @@
             variety="building_division"
             population_counting="unitary"
             abilities="store(animal)"
-            variable_indicators="net_surface_area, shape"
+            variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />
       <item name="equipment_building_division"
@@ -399,7 +399,7 @@
             variety="building_division"
             population_counting="unitary"
             abilities="store(equipment)"
-            variable_indicators="net_surface_area, shape"
+            variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />
       <item name="animal_food_building_division"
@@ -407,7 +407,7 @@
             variety="building_division"
             population_counting="unitary"
             abilities="store(organic_matter)"
-            variable_indicators="net_surface_area, shape"
+            variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />
       <item name="tractor"
@@ -424,7 +424,7 @@
             variety="trailer"
             population_counting="unitary"
             abilities="store_fluid, store(grain), store(straw), store(mineral_matter), move"
-            variable_indicators="maximum_load_net_mass, maximum_load_net_volume"
+            variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass"
             frozen_indicators="population"
             />
        <item name="wine_tank"
@@ -432,7 +432,7 @@
             variety="tank"
             population_counting="unitary"
             abilities="store_liquid"
-            variable_indicators="maximum_load_net_volume"
+            variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
        <item name="milk_tank"
@@ -440,7 +440,7 @@
             variety="tank"
             population_counting="unitary"
             abilities="store(milk)"
-            variable_indicators="maximum_load_net_mass, maximum_load_net_volume"
+            variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
        <item name="spreader_trailer"
@@ -448,7 +448,7 @@
             variety="trailer"
             population_counting="unitary"
             abilities="store(matter), move, spread(organic_matter)"
-            variable_indicators="maximum_load_net_mass, maximum_load_net_volume"
+            variable_indicators="nominal_storable_net_mass, nominal_storable_net_volume"
             frozen_indicators="population"
             />
       <item name="spreader"
@@ -456,7 +456,7 @@
             variety="spreader"
             population_counting="unitary"
             abilities="spread(mineral_matter)"
-            variable_indicators="maximum_load_net_volume, application_width"
+            variable_indicators="nominal_storable_net_volume, application_width"
             frozen_indicators="population"
             />
       <item name="sower"
@@ -464,7 +464,7 @@
             variety="sower"
             population_counting="unitary"
             abilities="sow"
-            variable_indicators="maximum_load_net_volume, application_width"
+            variable_indicators="nominal_storable_net_volume, application_width"
             frozen_indicators="population"
             />
         <item name="implanter"
