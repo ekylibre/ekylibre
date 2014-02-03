@@ -12,6 +12,7 @@
     </attributes>
     <items>
       <!-- ANIMAL -->
+      <!-- CATTLE -->
       <item name="cattle_herd"
             nature="cattle_herd"
             derivative_of="bos"
@@ -67,6 +68,18 @@
             unit_name="head"
             frozen_indicators_values="population: 1, livestock_unit: 0.4"
             />
+      <!-- HEN -->
+      <item name="female_hen_band"
+            nature="hen_band"
+            unit_name="band"
+            frozen_indicators_values="sex: female, reproductor: true"
+            />
+      <item name="male_hen_band"
+            nature="hen_band"
+            unit_name="band"
+            frozen_indicators_values="sex: male, reproductor: false"
+            />
+      <!-- DUCK -->
       <item name="duck_herd"
             nature="duck_herd"
             unit_name="band"
@@ -74,6 +87,17 @@
             />      
       <item name="duck_band"
             nature="duck_band"
+            unit_name="band"
+            frozen_indicators_values=""
+            />
+      <!-- FISH -->
+      <item name="salmon_band"
+            nature="salmon_band"
+            unit_name="band"
+            frozen_indicators_values=""
+            />
+      <item name="oyster_band"
+            nature="oyster_band"
             unit_name="band"
             frozen_indicators_values=""
             />
@@ -338,6 +362,19 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="walnut_crop"
+            nature="walnut_crop"
+            variety="juglans"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+      <item name="hazel_crop"
+            nature="walnut_crop"
+            variety="corylus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />      
+            
       <!-- VINE CROP --> 
       <item name="vine_grape_crop"
             nature="wine_crop"
