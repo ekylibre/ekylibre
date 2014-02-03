@@ -26,7 +26,7 @@ load_data :buildings do |loader|
                      {variant_id: animal_place_variant.id,     name: "Poulailler 2 (côté Forêt)", :work_number => "B10", :identification_number => "BAT_POULAILLER_2"}
                     ]
       unless Building.find_by_work_number(building[:work_number])
-        Building.create!({:initial_owner => Entity.of_company, :born_at => born_at, :reservoir => false, :default_storage => Building.first}.merge(building))
+        Building.create!({:initial_owner => Entity.of_company, :born_at => born_at, :default_storage => Building.first}.merge(building))
         w.check_point
       end
     end

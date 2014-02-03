@@ -767,9 +767,11 @@ eng:
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
     current_amount: "Current amount"
+    # current_father_link: "Current father link"
     current_financial_year: "Current financial year" #?
     # current_healthy: "Bonne santé actuelle"
     # current_localization: "Current localization"
+    # current_mother_link: "Current mother link"
     # current_net_mass: "Dernière pesée"
     # current_ownership: "Current ownership"
     # current_phase: "Current phase"
@@ -1005,7 +1007,10 @@ eng:
     indivisible: "Indivisible" #?
     # initial_born_at: "Initial born at"
     # initial_container: "Emplacement initial"
+    # initial_dead_at: "Initial dead at"
     # initial_enjoyer: "Initial enjoyer"
+    # initial_father: "Initial father"
+    # initial_mother: "Initial mother"
     initial_number: "Initial number"
     # initial_owner: "Propriétaire initial"
     # initial_population: "Population initiale"
@@ -1063,6 +1068,7 @@ eng:
     lines: "Lines" #?
     # linkage_points_list: "Points d’attache"
     # linkages: "Attaches"
+    # links: "Links"
     listing: "Listing"
     listing_node_items: "Listing node items" #?
     listing_nodes: "Listing nodes" #?

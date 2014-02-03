@@ -23,7 +23,7 @@ ActiveRecord::Base.transaction do
   user[:employed] = true
   user = User.new(user)
 
-  company = ENV["company"] || "GAEC DUPONT"
+  company_name = ENV["company"] || "GAEC DUPONT"
 
   Preference.get(:language).set!(language)
   Preference.get(:currency).set!(currency)
@@ -37,9 +37,9 @@ ActiveRecord::Base.transaction do
 
   undefined_nature = "entity"
   f = File.open(picture_company)
-  firm = LegalEntity.create!(nature: "company", :language => language, :last_name => company, currency: currency, :of_company => true, :picture => f)
+  company = LegalEntity.create!(nature: "company", :language => language, :last_name => company_name, currency: currency, :of_company => true, :picture => f)
   f.close
-  firm.addresses.create!(:canal => :mail, :mail_line_4 => "8 rue du Bouil Bleu", :mail_line_6 => "17250 SAINT-PORCHAIRE", :mail_country => "fr", :by_default => true)
+  company.addresses.create!(:canal => :mail, :mail_line_4 => "8 rue du Bouil Bleu", :mail_line_6 => "17250 SAINT-PORCHAIRE", :mail_country => "fr", :by_default => true)
 
   user.administrator = true
   user.language = language

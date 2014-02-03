@@ -157,11 +157,6 @@ class SaleItem < Ekylibre::Record::Base
       self.label ||= self.variant.commercial_name
     end
 
-    #     if self.building.reservoir && self.building.product_id != self.product_id
-    #       check_reservoir = false
-    #       errors.add(:building_id, :building_can_not_transfer_product, :building => self.building.name, :product => self.product.name, :contained_product => self.building.product.name, :account_id => 0, :unit => self.unit)
-    #     end
-    #     check_reservoir
   end
 
 
