@@ -56,7 +56,7 @@ class Inventory < Ekylibre::Record::Base
   end
 
   def reflectable?
-    !self.reflected? and self.class.unreflecteds.where(arel_table[:created_at].lt(self.created_at)).empty?
+    !self.reflected? and self.class.unreflecteds.where(self.class.arel_table[:created_at].lt(self.created_at)).empty?
   end
 
   def reflect(reflected_at = Time.now)
