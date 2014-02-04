@@ -1,16 +1,16 @@
 # This file contains statistics about translations
 arb:
   statistics:
-    translation_rate: 0.3632183908045977
+    translation_rate: 0.3618684461391802
 eng:
   statistics:
-    translation_rate: 0.5772030651340996
+    translation_rate: 0.5754051477597713
 fra:
   statistics:
-    translation_rate: 0.918903803131991
+    translation_rate: 0.9191299498047965
 jpn:
   statistics:
-    translation_rate: 0.1132183908045977
+    translation_rate: 0.11267874165872259
 spa:
   statistics:
-    translation_rate: 0.19674329501915708
+    translation_rate: 0.19580552907530982
