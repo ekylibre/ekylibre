@@ -11,7 +11,7 @@
     date = started_at
     while date < stopped_at
       categories[date.year.to_s + date.month.to_s.rjust(2, '0')] = date.l(:format => "%b %Y")
-      date = date >> 1
+      date = date + 1.month
     end
 
     for tax in taxes
