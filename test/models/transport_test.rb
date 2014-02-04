@@ -23,8 +23,8 @@
 #
 #  amount           :decimal(19, 4)   not null
 #  created_at       :datetime         not null
-#  created_on       :date
 #  creator_id       :integer
+#  departed_at      :datetime
 #  description      :text
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
@@ -34,7 +34,6 @@
 #  purchase_id      :integer
 #  reference_number :string(255)
 #  responsible_id   :integer
-#  transport_on     :date
 #  transporter_id   :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer

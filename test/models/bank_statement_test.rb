@@ -30,8 +30,8 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  number       :string(255)      not null
-#  started_on   :date             not null
-#  stopped_on   :date             not null
+#  started_at   :datetime         not null
+#  stopped_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

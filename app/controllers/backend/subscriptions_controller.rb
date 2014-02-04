@@ -34,7 +34,7 @@ class Backend::SubscriptionsController < BackendController
     code << "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.first_number AND #{Subscription.table_name}.last_number\"\n"
     code << "    conditions << session[:subscriptions_instant]\n"
     code << "  elsif session[:subscriptions_nature_nature] == 'period'\n"
-    code << "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on\"\n"
+    code << "    conditions[0] += \" AND ? BETWEEN #{Subscription.table_name}.started_at AND #{Subscription.table_name}.stopped_at\"\n"
     code << "    conditions << session[:subscriptions_instant]\n"
     code << "  end\n"
     code << "end\n"

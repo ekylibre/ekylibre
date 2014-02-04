@@ -17,7 +17,7 @@ arb:
       edit: "تعديل الحساب : %{number} - %{name}"
       index: "مخطط الحساب"
       # load: "Charger un plan de compte"
-      mark: "تسجيل حساب رقم %{number} من %{started_on} الى %{stopped_on}"
+      mark: "تسجيل حساب رقم %{number} من %{started_at} الى %{stopped_at}"
       new: "انشاء حساب جديد"
       reconciliation: "كتابة حسابات"
       show: "الحساب : %{number} - %{name}"
@@ -206,10 +206,10 @@ arb:
       index: "الوظائف/المهام" #?
       new: "اضافة وظيفة جديدة" #?
     backend/deposits:
-      edit: "تعديل اقتطاعات البنك من %{created_on}"
+      edit: "تعديل اقتطاعات البنك من %{created_at}"
       index: "اقتطاعات البنك"
       new: "انشاء اقتطاع : %{mode}"
-      show: "اقتطاع البنك %{number} من %{created_on}"
+      show: "اقتطاع البنك %{number} من %{created_at}"
       unvalidateds: "التأكد من اقتطاعات البنك"
     backend/districts:
       edit: "تعديل عنوان بريدي : %{name}"
@@ -366,9 +366,9 @@ arb:
       # reopen: "Réouvrir"
       # show: "Incident %{name} (%{nature})"
     backend/journal_entries:
-      edit: "تعديل السجل رقم %{number} من %{created_on}"
+      edit: "تعديل السجل رقم %{number} من %{created_at}"
       new: "اضافة سجل"
-      show: "رقم سجل المحاسبة%{number} من %{created_on}"
+      show: "رقم سجل المحاسبة%{number} من %{created_at}"
     backend/journal_entry_items:
       # new: "Ajouter une nouvelle ligne d’écriture"
     backend/journal_entry_lines: #?
@@ -738,7 +738,7 @@ arb:
       edit: "انشاء تصريح"
       index: "تصريح عن قيمة الضريبة الاضافية"
       new: "Créer une déclaration"
-      show: "%{nature} للمدة الزمنية من %{started_on} الى %{stopped_on}"
+      show: "%{nature} للمدة الزمنية من %{started_at} الى %{stopped_at}"
     backend/taxes:
       edit: "تعديل الضريبة : %{name}"
       index: "الضرائب"
@@ -764,7 +764,7 @@ arb:
       edit: "تعديل وسيلة النقل"
       index: "وسائل النقل"
       new: "اضافة وسيلة نقل جديدة"
-      show: "نقلت من %{created_on}"
+      show: "نقلت من %{created_at}"
     backend/units:  #?
       edit: "تعديل الوحدة : %{label}" #?
       index: "وحدات القياس" #?
@@ -951,7 +951,7 @@ arb:
     accountancy: "المحاسبة"
     # accounting_balance: "Balance comptable"
     accounts: "حسابات المحاسب المستخدمة"
-    # accounts_only_used_on: "Comptes utilisés seulement sur"
+    # accounts_only_used_at: "Comptes utilisés seulement sur"
     # accounts_to_load: "Plan de compte à charger"
     active: "فعال"
     active_balance_sheet: "رصيد دائر"
@@ -1089,7 +1089,6 @@ arb:
     centralize: "مركزية حسابات المحاسب"
     centralized_account: "مركزية الحسابات %{name}"
     change_price: "تغيير وحدة السعر"
-    # changes_reflected: "Changements répercutés"
     check: "نحقق"
     # check_fields: "Vous devez cocher au moins une case pour effectuer la modification"
     # checked_at: "Vérifié le"
@@ -1127,7 +1126,7 @@ arb:
       filter_on_attribute_of_class: "التصفية وفق %{attribute} (%{class})"
       special-subscriber: "تصفية وفق الاشتراك"
     confirmed: "تأكيد"
-    confirmed_on: "تم تأكيده في"
+    confirmed_at: "تم تأكيده في"
     connect: "الدخول"
     consult: "استشارة"
     contact: "العنوان"
@@ -1148,9 +1147,9 @@ arb:
     counts_by_nature: "عدد ونوع السجلات"
     create: "انشاء"
     create_journal: "-- انشاء دفتر يومي --"
+    created_at: "انشأ في"
     # created_at_by: "Créé le %{at} par %{by}."
-    created_between: "تم التسجيل بين %{started_on} و %{stopped_on}"
-    created_on: "انشأ في"
+    created_between: "تم التسجيل بين %{started_at} و %{stopped_at}"
     credit: "رصيد دائن"
     credits: "الائتمانات"
     criterion_modes:
@@ -1374,7 +1373,7 @@ arb:
     # isu_index: "Index génétique ISU"
     # items: "Éléments"
     journal: "دفتراليومية"
-    journal_detail: "اغلق في %{closed_on}"
+    journal_detail: "اغلق في %{closed_at}"
     journal_entries: "المدخالات"
     # journal_entries_states: "États des écritures utilisées"
     journal_entry_lines_states: "بيان المدخلات المستخدمة" #?
@@ -1515,7 +1514,7 @@ arb:
     # month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
     # months: "Mois"
-    # moved_on: "Fait le"
+    # moved_at: "Fait le"
     # movement: "Mouvements"
     moves: "حركات الاسهم"
     my_company: "عن شركتك"
@@ -1633,7 +1632,7 @@ arb:
     page_title_by_default: "Ekylibre - %{action}"
     page_title_special: "%{company_code} - %{action}"
     paid_amount: "القيمة المسدودة"
-    paid_on: "تم التسديد في"
+    paid_at: "تم التسديد في"
     parameters: "عامل متغير"
     passive_balance_sheet: "رصيد ثابت"
     passive_capital_sum: "مجموع رأس المال"
@@ -1643,9 +1642,9 @@ arb:
     password: "كلمة المرور"
     payback: "طلب الاستحقاق"
     # payment_amount: "Montant de l’encaissement"
+    payment_at: "سدد في"
     payment_label: "%{number}. %{amount} (%{usable_amount} المتبقي)  %{date} بواسطة %{mode} لاجل %{entity}"
     payment_mode: "طريقة تسديد الدفعة"
-    payment_on: "سدد في"
     payment_uses: "الدفعات" #?
     payments: "الدفعات"
     payments_amount: "تم تسديد القيمة"
@@ -1661,7 +1660,7 @@ arb:
     # picture: "Photo"
     # placeholder: "Espace réservé"
     # places: "Lieux"
-    planned_on: "قرر يوم"
+    planned_at: "قرر يوم"
     # plant_life_state: "Phase du bioprocessus de vie d’un végétal"
     # plant_medicines: "Produits phytosanitaires"
     # plant_productions: "Productions végétales"
@@ -1688,7 +1687,7 @@ arb:
     # prices_for_suppliers: "Les prix d’achat du fournisseur"
     prices_import: "CSV استيراد بيان الاسعار  ضمن"
     print: "طباعة"
-    print_on: "ال"
+    print_at: "ال"
     # print_with_template: "Imprimer %{name}"
     # procedure_natures: "Types de procédures"
     # procedures: "Procédures"
@@ -1749,6 +1748,7 @@ arb:
     record_has_been_correctly_removed: "قد تم حذف السجلات بشكل صحيح"
     record_has_not_been_removed: "لم يتم حذف السجلات"
     reflect: "يعكس"
+    # reflected: "Changements répercutés"
     refresh: "تحديث"
     register: "تسجيل شركة جديدة" #?
     # related_people: "En lien avec"
@@ -1893,8 +1893,8 @@ arb:
     # string_options: "Indicateur de type Texte"
     subject: "الموضوع"
     submit: "ارسال"
-    subscriber_period: "تم التسجيل في %{subscribed_on}"
-    subscriber_quantity: "عدد المشتركيين %{subscribed_on}"
+    subscriber_period: "تم التسجيل في %{subscribed_at}"
+    subscriber_quantity: "عدد المشتركيين %{subscribed_at}"
     subscription_create: "اضافة اشتراك" #?
     subscription_nature: "نوع الاشتراك"
     subscription_nature_create: "اضافة نوع اشتراك جديد" #?
@@ -1921,7 +1921,7 @@ arb:
     # third_informations: "Informations tierces"
     # time_zone: "Fuseau horaire"
     to: "الى"
-    # to_bank_on: "À encaisser le"
+    # to_bank_at: "À encaisser le"
     to_date: "الى تاريخ"
     to_deliver: "للتسليم"
     # to_deposit: "À encaisser"
@@ -2180,11 +2180,11 @@ arb:
     impossible_to_add_lines: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب" #?
     impossible_to_add_lines_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك" #?
     invalid_file_nature: "نوع الملف غير صحيح"
-    journal_closed_on: "  ال%{journal} تم اغلاقه في %{closed_on} بشكل صحيح."
+    journal_closed_at: "  ال%{journal} تم اغلاقه في %{closed_at} بشكل صحيح."
     journal_entry_already_validated: "قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه"
     journal_entry_has_been_saved: "رقم السجل%{number} تم تسجيله بشكل صحيح"
     # journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
-    journal_reopened_on: "%{journal} تم اعادة فتحه في %{closed_on} بشكل صحيح."
+    journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح."
     mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
     need_balanced_journal_to_tax_declaration: "يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ"
     # need_building_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat"

@@ -29,9 +29,8 @@
 #  annotation          :text
 #  client_id           :integer          not null
 #  conclusion          :text
-#  confirmed_on        :date
+#  confirmed_at        :datetime
 #  created_at          :datetime         not null
-#  created_on          :date             not null
 #  creator_id          :integer
 #  credit              :boolean          not null
 #  currency            :string(3)        not null
@@ -39,22 +38,22 @@
 #  description         :text
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_delay    :string(255)
-#  expired_on          :date
+#  expired_at          :datetime
 #  function_title      :string(255)
 #  has_downpayment     :boolean          not null
 #  id                  :integer          not null, primary key
 #  initial_number      :string(60)
 #  introduction        :text
 #  invoice_address_id  :integer
-#  invoiced_on         :date
+#  invoiced_at         :datetime
 #  journal_entry_id    :integer
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer
 #  number              :string(60)       not null
 #  origin_id           :integer
+#  payment_at          :datetime
 #  payment_delay       :string(255)      not null
-#  payment_on          :date
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)
 #  responsible_id      :integer
@@ -67,7 +66,7 @@
 
 
 class Sale < Ekylibre::Record::Base
-  attr_readonly :created_on, :currency
+  attr_readonly :currency
   belongs_to :client, class_name: "Entity"
   belongs_to :payer, class_name: "Entity", foreign_key: :client_id
   belongs_to :address, class_name: "EntityAddress"
@@ -90,10 +89,10 @@ class Sale < Ekylibre::Record::Base
   validates_length_of :initial_number, :number, :state, allow_nil: true, maximum: 60
   validates_length_of :expiration_delay, :function_title, :payment_delay, :reference_number, :subject, allow_nil: true, maximum: 255
   validates_inclusion_of :credit, :has_downpayment, :letter_format, in: [true, false]
-  validates_presence_of :amount, :client, :created_on, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
+  validates_presence_of :amount, :client, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature
-  validates_presence_of :invoiced_on, :if => :invoice?
+  validates_presence_of :invoiced_at, :if => :invoice?
   validates_delay_format_of :payment_delay, :expiration_delay
 
   acts_as_numbered :number, :readonly => false
@@ -103,8 +102,8 @@ class Sale < Ekylibre::Record::Base
 
   delegate :closed, to: :affair, prefix: true
 
-  scope :invoiced_between, lambda { |started_on, stopped_on|
-    where("invoiced_on BETWEEN ? AND ?", started_on, stopped_on)
+  scope :invoiced_between, lambda { |started_at, stopped_at|
+    where("invoiced_at BETWEEN ? AND ?", started_at, stopped_at)
   }
 
   state_machine :state, :initial => :draft do
@@ -143,7 +142,7 @@ class Sale < Ekylibre::Record::Base
   before_validation(on: :create) do
     self.state ||= self.class.state_machine.initial_state(self)
     self.currency = self.nature.currency if self.nature
-    self.created_on = Date.today
+    self.created_at = Time.now
   end
 
   before_validation do
@@ -153,11 +152,11 @@ class Sale < Ekylibre::Record::Base
     end
     self.delivery_address_id ||= self.address_id
     self.invoice_address_id  ||= self.delivery_address_id
-    self.created_on ||= Date.today
+    self.created_at ||= Time.now
     self.nature ||= SaleNature.by_default if self.nature.nil?
     if self.nature
       self.expiration_delay ||= self.nature.expiration_delay
-      self.expired_on ||= Delay.new(self.expiration_delay).compute(self.created_on)
+      self.expired_at ||= Delay.new(self.expiration_delay).compute(self.created_at)
       self.payment_delay ||= self.nature.payment_delay
       self.has_downpayment = self.nature.downpayment if self.has_downpayment.nil?
       self.downpayment_amount ||= (self.amount * self.nature.downpayment_percentage * 0.01) if self.amount >= self.nature.downpayment_minimum
@@ -187,7 +186,7 @@ class Sale < Ekylibre::Record::Base
 
   # This method bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, :printed_on => self.invoiced_on, :if => (self.nature.with_accounting? and self.invoice?)) do |entry|
+    b.journal_entry(self.nature.journal, printed_at: self.invoiced_at, :if => (self.nature.with_accounting? and self.invoice?)) do |entry|
       label = tc(:bookkeep, :resource => self.state_label, :number => self.number, :client => self.client.full_name, :products => (self.description.blank? ? self.items.collect{|x| x.label}.to_sentence : self.description), :sale => self.initial_number)
       entry.add_debit(label, self.client.account(:client).id, self.amount) unless self.amount.zero?
       for item in self.items
@@ -199,8 +198,8 @@ class Sale < Ekylibre::Record::Base
 
 
   # Gives the date to use for affair bookkeeping
-  def dealt_on
-    return (self.invoice? ? self.invoiced_on : self.created_on)
+  def dealt_at
+    return (self.invoice? ? self.invoiced_at : self.created_at)
   end
 
   # Gives the amount to use for affair bookkeeping
@@ -268,9 +267,9 @@ class Sale < Ekylibre::Record::Base
   end
 
   # Confirm the sale order. This permits to define deliveries and assert validity of sale
-  def confirm(validated_on=Date.today, *args)
+  def confirm(validated_at=Time.now, *args)
     return false unless self.can_confirm?
-    self.reload.update_attributes!(:confirmed_on => validated_on||Date.today)
+    self.reload.update_attributes!(:confirmed_at => validated_at||Time.now)
     return super
   end
 
@@ -290,7 +289,7 @@ class Sale < Ekylibre::Record::Base
   #     end
   #   end
   #   if items.count > 0
-  #     delivery = self.deliveries.create!(:pretax_amount => 0, :amount => 0, :planned_on => Date.today, :moved_on => Date.today, :address_id => self.delivery_address_id)
+  #     delivery = self.deliveries.create!(:pretax_amount => 0, :amount => 0, :planned_at => Time.now, :moved_at => Time.now, :address_id => self.delivery_address_id)
   #     for item in items
   #       delivery.items.create! item
   #     end
@@ -307,8 +306,8 @@ class Sale < Ekylibre::Record::Base
     self.confirm
     ActiveRecord::Base.transaction do
       # Set values for invoice
-      self.invoiced_on = Date.today
-      self.payment_on ||= Delay.new(self.payment_delay).compute(self.invoiced_on)
+      self.invoiced_at = Time.now
+      self.payment_at ||= Delay.new(self.payment_delay).compute(self.invoiced_at)
       self.initial_number = self.number
       if sequence = Sequence.of(:sales_invoices)
         self.number = sequence.next_value
@@ -432,21 +431,21 @@ class Sale < Ekylibre::Record::Base
   end
 
   def usable_payments
-    self.client.incoming_payments.where("COALESCE(used_amount, 0)<COALESCE(amount, 0)").joins(:mode => :cash).where(currency: self.currency).order("to_bank_on")
+    self.client.incoming_payments.where("COALESCE(used_amount, 0)<COALESCE(amount, 0)").joins(:mode => :cash).where(currency: self.currency).order("to_bank_at")
   end
 
   # Build general sales condition for the sale order
   def sales_conditions
     c = []
     c << tc('sales_conditions.downpayment', :percentage => self.nature.downpayment_percentage, :amount => (self.nature.downpayment_percentage * 0.01 * self.amount).round(2)) if self.amount > self.nature.downpayment_minimum
-    c << tc('sales_conditions.validity', :expiration => ::I18n.localize(self.expired_on, :format => :legal))
+    c << tc('sales_conditions.validity', :expiration => ::I18n.localize(self.expired_at, :format => :legal))
     c += self.nature.sales_conditions.to_s.split(/\s*\n\s*/)
     c += self.responsible.team.sales_conditions.to_s.split(/\s*\n\s*/) if self.responsible and self.responsible.team
     c
   end
 
   def unpaid_days
-    (Date.today - self.invoiced_on) if self.invoice?
+    (Time.now - self.invoiced_at) if self.invoice?
   end
 
   def products

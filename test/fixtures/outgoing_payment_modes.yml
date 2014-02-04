@@ -21,18 +21,17 @@
 #
 # == Table: outgoing_payment_modes
 #
-#  active              :boolean          not null
-#  attorney_journal_id :integer
-#  cash_id             :integer
-#  created_at          :datetime         not null
-#  creator_id          :integer
-#  id                  :integer          not null, primary key
-#  lock_version        :integer          default(0), not null
-#  name                :string(50)       not null
-#  position            :integer
-#  updated_at          :datetime         not null
-#  updater_id          :integer
-#  with_accounting     :boolean          not null
+#  active          :boolean          not null
+#  cash_id         :integer
+#  created_at      :datetime         not null
+#  creator_id      :integer
+#  id              :integer          not null, primary key
+#  lock_version    :integer          default(0), not null
+#  name            :string(50)       not null
+#  position        :integer
+#  updated_at      :datetime         not null
+#  updater_id      :integer
+#  with_accounting :boolean          not null
 #
 #
 # == Fixture: outgoing_payment_modes
@@ -44,16 +43,15 @@
 #   updater: users_001
 #   with_accounting: true
 #
----
+
 outgoing_payment_modes_001:
-  attorney_journal: journals_001
   cash: cashes_001
   creator: users_001
   name: Lorem ipsum
   updater: users_001
   with_accounting: true
+
 outgoing_payment_modes_002:
-  attorney_journal: journals_001
   creator: users_001
   name: Lorem ipsum 2
   updater: users_001

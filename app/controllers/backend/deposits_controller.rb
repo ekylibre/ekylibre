@@ -28,7 +28,7 @@ class Backend::DepositsController < BackendController
     t.column :payments_count
     t.column :cash, url: true
     t.column :responsible, url: true
-    t.column :created_on
+    t.column :created_at
     t.column :description, hidden: true
     t.column :journal_entry, url: true
     # t.action :show, url: {:format => :pdf}, image: :print
@@ -50,7 +50,7 @@ class Backend::DepositsController < BackendController
     t.column :bank_name
     t.column :bank_account_number
     t.column :bank_check_number
-    t.column :paid_on
+    t.column :paid_at
     t.column :amount, currency: true, url: true
   end
 
@@ -66,21 +66,21 @@ class Backend::DepositsController < BackendController
   end
 
 
-  list(:depositable_payments, model: :incoming_payments, conditions: ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", 'params[:id]'.c, '(resource.mode_id rescue params[:mode_id])'.c], paginate: false, order: [:to_bank_on, :created_at], :line_class => "((resource.payments.exists?(RECORD) rescue false) ? 'success' : (RECORD.to_bank_on||Date.yesterday) > Date.today ? 'critic' : '')".c) do |t|
+  list(:depositable_payments, model: :incoming_payments, conditions: ["deposit_id=? OR (mode_id=? AND deposit_id IS NULL)", 'params[:id]'.c, '(resource.mode_id rescue params[:mode_id])'.c], paginate: false, order: [:to_bank_at, :created_at], :line_class => "((resource.payments.exists?(RECORD) rescue false) ? 'success' : (RECORD.to_bank_at||Date.yesterday) > Date.today ? 'critic' : '')".c) do |t|
     t.column :number, url: true
     t.column :payer, url: true
     t.column :bank_name
     t.column :bank_account_number
     t.column :bank_check_number
-    t.column :paid_on
+    t.column :paid_at
     t.column :responsible
     t.column :amount, currency: true
-    t.check_box :to_deposit, value: '(resource.payments.exists?(RECORD) rescue false) || (RECORD.to_bank_on<=Date.today and (params[:id].blank? ? (RECORD.responsible.nil? or RECORD.responsible_id == current_user.person_id) : (RECORD.deposit_id == params[:id])))'.c, label: tc(:to_deposit), form_name: "deposit[payment_ids][]", form_value: "RECORD.id".c
+    t.check_box :to_deposit, value: '(resource.payments.exists?(RECORD) rescue false) || (RECORD.to_bank_at<=Date.today and (params[:id].blank? ? (RECORD.responsible.nil? or RECORD.responsible_id == current_user.person_id) : (RECORD.deposit_id == params[:id])))'.c, label: tc(:to_deposit), form_name: "deposit[payment_ids][]", form_value: "RECORD.id".c
   end
 
   def new
     return unless mode = find_mode
-    @deposit = Deposit.new(created_on: Date.today, mode: mode, responsible: current_user.person)
+    @deposit = Deposit.new(created_at: Date.today, mode: mode, responsible: current_user.person)
     t3e mode: @deposit.mode.name
   end
 
@@ -112,11 +112,11 @@ class Backend::DepositsController < BackendController
   end
 
   list(:unvalidateds, model: :deposits, conditions: {:locked => false}) do |t|
-    t.column :created_on
+    t.column :created_at
     t.column :amount
     t.column :payments_count
     t.column :cash, url: true
-    t.check_box :validated, :value => 'RECORD.created_on<=Date.today-(15)'.c
+    t.check_box :validated, :value => 'RECORD.created_at<=Date.today-(15)'.c
   end
 
   def unvalidateds

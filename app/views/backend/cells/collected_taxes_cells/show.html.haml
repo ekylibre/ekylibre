@@ -3,30 +3,30 @@
     #
     taxes = Tax.all
 
-    started_on = @financial_years.started_on
-    stopped_on = @financial_years.stopped_on
+    started_at = @financial_years.started_at
+    stopped_at = @financial_years.stopped_at
 
     series = []
     categories = {}
-    date = started_on
-    while date < stopped_on
+    date = started_at
+    while date < stopped_at
       categories[date.year.to_s + date.month.to_s.rjust(2, '0')] = date.l(:format => "%b %Y")
-      date = date >> 1
+      date = date + 1.month
     end
 
     for tax in taxes
-      items_collected = tax.lasts_of_periods(started_on, stopped_on, mode = :collect)
+      items_collected = tax.lasts_of_periods(started_at, stopped_at, mode = :collect)
       if items_collected.count > 0
         item_h = items_collected.sort.inject({}) do |hash, pair|
-          hash[pair.printed_on.l(:format => "%b %Y")] = (pair.cumulated_absolute_debit - pair.cumulated_absolute_credit).to_d
+          hash[pair.printed_at.l(:format => "%b %Y")] = (pair.cumulated_absolute_debit - pair.cumulated_absolute_credit).to_d
           hash
         end
         series << {name: tax.name + " " + Tax.human_attribute_name(:collect_taxes) ,data: item_h.collect{|k,v| v.to_s.to_f } }
       end
-      items_paid = tax.lasts_of_periods(started_on, stopped_on, mode = :deduction)
+      items_paid = tax.lasts_of_periods(started_at, stopped_at, mode = :deduction)
       if items_paid.count > 0
         item_h = items_paid.sort.inject({}) do |hash, pair|
-          hash[pair.printed_on.l(:format => "%b %Y")] = (pair.cumulated_absolute_debit - pair.cumulated_absolute_credit).to_d
+          hash[pair.printed_at.l(:format => "%b %Y")] = (pair.cumulated_absolute_debit - pair.cumulated_absolute_credit).to_d
           hash
         end
         series << {name: tax.name + " " + Tax.human_attribute_name(:deduction_taxes) ,data: item_h.collect{|k,v| v.to_s.to_f } }

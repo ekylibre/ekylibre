@@ -1,0 +1,49 @@
+currency: EUR
+country: fr
+language: fra
+company:
+  last_name: GAEC DUPONT
+  addresses:
+    email: contact@gaec-dupont.fr
+    mail:
+      line_4: 8 rue du Bouil Bleu
+      line_6: 17250 SAINT-PORCHAIRE
+users:
+  admin@ekylibre.org:
+    first_name: Jean
+    last_name: DUPONT
+chart_of_account: fr_pcga
+financial_years:
+  EX1995:
+    started_at: 1995-03-07
+    stopped_at: 1995-12-31
+catalogs:
+  VENTE:
+    name: Prix de vente
+    usage: sale
+  COUT:
+    name: "Prix d'usage"
+    usage: cost
+  ACHAT:
+    name: "Prix d'achat"
+    usage: purchase
+accounts:
+  banque:
+    name: Banque CA
+    number: 51210000
+  caisse:
+    name: Caisse Boutique
+    number: 531101
+cashes:
+  caisse:
+    name: Caisse
+    nature: cash_box
+    journal: cash
+    account: caisse
+  banque:
+    name: Compte courant CA
+    journal: bank
+    account: banque
+    mode: iban
+    country: fr
+    iban: "FR7611111222223333333333391"

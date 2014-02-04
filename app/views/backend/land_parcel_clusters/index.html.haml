@@ -1,5 +1,5 @@
 -#=kujaku do |k|
-  -k.date :viewed_on
+  -k.date :viewed_at
 
 = main_toolbar do |t|
   - t.new
@@ -19,10 +19,10 @@
 -# TODO Review presentation of land_parcels
 -#=form_tag do
   -LandParcelCluster.find_each do |group|
-    -total_area = group.area(session[:viewed_on], unit)
+    -total_area = group.area(session[:viewed_at], unit)
     .group
       %h2=group.name
-      -land_parcels = group.land_parcels_on(session[:viewed_on])
+      -land_parcels = group.land_parcels_at(session[:viewed_at])
       -next if land_parcels.size.zero?
       %table.treemap
         %tr
@@ -32,13 +32,13 @@
               .bmenu
                 =link_to(land_parcel.name, {:action=>:show, :id=>land_parcel.id}, :class=>:name)
                 %ul
-                  %li=link_to(::I18n.t("actions.operations.new"), {:controller=>:operations, :action=>:new, :target_id=>land_parcel.id, :planned_on=>session[:viewed_on]}, :class=>"icon im-new")
+                  %li=link_to(::I18n.t("actions.operations.new"), {:controller=>:operations, :action=>:new, :target_id=>land_parcel.id, :planned_at=>session[:viewed_at]}, :class=>"icon im-new")
                   %li=link_to(tl(:divide), {:controller=>:land_parcels, :action=>:divide, :id=>land_parcel.id}, :class=>"icon im-divide")
                   %li=link_to(tl(:update), {:controller=>:land_parcels, :action=>:edit, :id=>land_parcel.id}, :class=>"icon im-edit")
                   %li=link_to(tl(:delete), {:controller=>:land_parcels, :action=>:destroy, :id=>land_parcel.id}, :method=>:delete, "data-confirm" => :are_you_sure_you_want_to_delete, :class=>"icon im-destroy")
               .area=tl(:x_unit, :quantity=>land_parcel.area_measure, :unit=>land_parcel.area_unit.name)
               .desc=land_parcel.description
               %ul.operations
-                -for operation in land_parcel.operations.find(:all, :conditions=>["COALESCE(moved_on, planned_on) < ? ", session[:viewed_on]], :limit=>5)
+                -for operation in land_parcel.operations.find(:all, :conditions=>["COALESCE(moved_at, planned_at) < ? ", session[:viewed_at]], :limit=>5)
                   %li=link_to(operation.name, {:action=>:show, :controller=>:operations, :id=>operation.id})
 

@@ -25,17 +25,17 @@
 #  active                    :boolean          default(TRUE), not null
 #  activity_code             :string(30)
 #  authorized_payments_count :integer
-#  born_on                   :date
+#  born_at                   :datetime
 #  client                    :boolean          not null
 #  client_account_id         :integer
 #  country                   :string(2)
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  currency                  :string(255)      not null
-#  dead_on                   :date
+#  dead_at                   :datetime
 #  deliveries_conditions     :string(60)
 #  description               :text
-#  first_met_on              :date
+#  first_met_at              :datetime
 #  first_name                :string(255)
 #  full_name                 :string(255)      not null
 #  id                        :integer          not null, primary key
@@ -98,20 +98,20 @@ class Entity < Ekylibre::Record::Base
   has_many :observations, :as => :subject
   has_many :participations, class_name: "EventParticipation", foreign_key: :participant_id
   has_many :prices, class_name: "ProductPriceTemplate"
-  has_many :purchase_invoices, -> { where(state: "invoice").order("created_on desc") }, class_name: "Purchase", foreign_key: :supplier_id
+  has_many :purchase_invoices, -> { where(state: "invoice").order(created_at: :desc) }, class_name: "Purchase", foreign_key: :supplier_id
   has_many :purchases, foreign_key: :supplier_id
   has_many :outgoing_deliveries, foreign_key: :transporter_id
   has_many :outgoing_payments, foreign_key: :payee_id
-  has_many :sales_invoices, -> { where(state: "invoice").order("created_on desc") }, class_name: "Sale", foreign_key: :client_id
-  has_many :sales, -> { order("created_on desc") }, foreign_key: :client_id
+  has_many :sales_invoices, -> { where(state: "invoice").order(created_at: :desc) }, class_name: "Sale", foreign_key: :client_id
+  has_many :sales, -> { order(created_at: :desc) }, foreign_key: :client_id
   has_many :sale_items, class_name: "SaleItem"
   has_many :subscriptions, foreign_key: :subscriber_id
   has_many :trackings, foreign_key: :producer_id
   has_many :transfers, foreign_key: :supplier_id
   has_many :transports, foreign_key: :transporter_id
-  has_many :transporter_sales, -> { order("created_on desc") }, foreign_key: :transporter_id, class_name: "Sale"
+  has_many :transporter_sales, -> { order(created_at: :desc) }, foreign_key: :transporter_id, class_name: "Sale"
   has_many :usable_incoming_payments, -> { where("used_amount < amount") }, class_name: "IncomingPayment", foreign_key: :payer_id
-  has_many :waiting_deliveries, -> { where("moved_on IS NULL AND planned_on <= CURRENT_DATE") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
+  has_many :waiting_deliveries, -> { where("moved_at IS NULL AND planned_at <= CURRENT_DATE") }, class_name: "OutgoingDelivery", foreign_key: :transporter_id
   has_one :default_mail_address, -> { where(by_default: true, canal: "mail") }, class_name: "EntityAddress"
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -208,12 +208,6 @@ class Entity < Ekylibre::Record::Base
     self.number.to_s + '. ' + self.full_name.to_s
   end
 
-  #
-  def created_on
-    self.created_at.to_date
-  end
-
-
   def last_incoming_payment
     self.incoming_payments.last_updateds.first
   end
@@ -292,10 +286,10 @@ class Entity < Ekylibre::Record::Base
     end
   end
 
-  def maximal_reduction_percentage(computed_on = Date.today)
+  def maximal_reduction_percentage(computed_at = Date.today)
     return Subscription
       .joins("JOIN #{SubscriptionNature.table_name} AS sn ON (#{Subscription.table_name}.nature_id = sn.id) LEFT JOIN #{EntityLink.table_name} AS el ON (el.nature = sn.entity_link_nature AND #{Subscription.table_name}.subscriber_id IN (entity_1_id, entity_2_id))")
-      .where("? IN (#{Subscription.table_name}.subscriber_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_on AND #{Subscription.table_name}.stopped_on AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_on)
+      .where("? IN (#{Subscription.table_name}.subscriber_id, entity_1_id, entity_2_id) AND ? BETWEEN #{Subscription.table_name}.started_at AND #{Subscription.table_name}.stopped_at AND COALESCE(#{Subscription.table_name}.sale_id, 0) NOT IN (SELECT id FROM #{Sale.table_name} WHERE state='estimate')", self.id, computed_at)
       .maximum(:reduction_percentage).to_f || 0.0
   end
 
@@ -345,7 +339,7 @@ class Entity < Ekylibre::Record::Base
     # columns << [tc("import.generate_choice_custom_field"), "special-generate_choice_custom_field"]
     cols = Entity.content_columns.delete_if{|c| [:active, :full_name, :soundex, :lock_version, :updated_at, :created_at].include?(c.name.to_sym) or c.type == :boolean}.collect{|c| c.name}
     columns += cols.collect{|c| [Entity.model_name.human+"/"+Entity.human_attribute_name(c), "entity-"+c]}.sort
-    cols = EntityAddress.content_columns.collect{|c| c.name}.delete_if{|c| [:number, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_on, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["item_6_city", "item_6_code"]
+    cols = EntityAddress.content_columns.collect{|c| c.name}.delete_if{|c| [:number, :started_at, :stopped_at, :deleted, :address, :by_default, :closed_at, :lock_version, :active,  :updated_at, :created_at].include?(c.to_sym)}+["item_6_city", "item_6_code"]
     columns += cols.collect{|c| [EntityAddress.model_name.human+"/"+EntityAddress.human_attribute_name(c), "address-"+c]}.sort
     columns += ["name", "abbreviation"].collect{|c| [EntityNature.model_name.human+"/"+EntityNature.human_attribute_name(c), "entity_nature-"+c]}.sort
     # columns += ["name"].collect{|c| [Catalog.model_name.human+"/"+Catalog.human_attribute_name(c), "product_price_listing-"+c]}.sort

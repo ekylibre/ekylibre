@@ -25,7 +25,6 @@
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  cash_id          :integer          not null
 #  created_at       :datetime         not null
-#  created_on       :date             not null
 #  creator_id       :integer
 #  description      :text
 #  id               :integer          not null, primary key

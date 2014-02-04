@@ -57,6 +57,7 @@ class Catalog < Ekylibre::Record::Base
   }
 
   before_validation do
+    self.currency ||= Preference[:currency]
     self.code = self.name.to_s.codeize if self.code.blank?
     self.code = self.code[0..19]
   end

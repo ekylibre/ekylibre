@@ -23,7 +23,6 @@ class Backend::IncomingPaymentModesController < BackendController
 
   unroll
 
-  # TODO: Adds detail_payments and attorney_journal
   list(order: :position) do |t|
     t.column :name
     t.column :cash, url: true
@@ -43,7 +42,7 @@ class Backend::IncomingPaymentModesController < BackendController
   def reflect
     return unless incoming_payment_mode = find_and_check
     incoming_payment_mode.unlocked_payments.find_each do |payment|
-      payment.update_attributes(:commission_account_id => nil, :commission_amount => nil)
+      payment.update_attributes(commission_account_id: nil, commission_amount: nil)
     end
     redirect_to action: :index
   end

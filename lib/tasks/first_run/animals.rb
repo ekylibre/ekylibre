@@ -6,49 +6,6 @@ load_data :animals do |loader|
   cattling_number = Preference.where(:nature => :string, :name => "entity_identification.ede.cattling_number", :string_value => "FR17387001").first_or_create
   owner_number = Preference.where(:nature => :string, :name => "entity_identification.ede.owner_number", :string_value => "FR01700006989").first_or_create
 
-  # # import variant for creating animal
-  # cow_vl     = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
-  # cow_trepro = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
-  # cow_gen    = ProductNatureVariant.import_from_nomenclature(:female_young_cow)
-  # cow_taur   = ProductNatureVariant.import_from_nomenclature(:male_young_cow)
-  # cow_v      = ProductNatureVariant.import_from_nomenclature(:calf)
-  # herd       = ProductNatureVariant.import_from_nomenclature(:cattle_herd)
-
-  # # find place for creating animal
-  # place_v = BuildingDivision.find_by_work_number("B09_D1")
-  # place_gen = BuildingDivision.find_by_work_number("B03_D9")
-  # place_taur = BuildingDivision.find_by_work_number("B04_D4")
-  # place_vl = BuildingDivision.find_by_work_number("B07_D2")
-
-
-
-  # loader.count :animal_natures do |w|
-  #   #############################################################################
-  #   for group in [{:name => "Vaches Laitières", :work_number => "VL", :default_storage => place_vl},
-  #                 {:name => "Génisses 3",  :work_number => "GEN_3", :default_storage => place_gen},
-  #                 {:name => "Génisses 2",  :work_number => "GEN_2", :default_storage => place_gen},
-  #                 {:name => "Génisses 1",  :work_number => "GEN_1", :default_storage => place_gen},
-  #                 {:name => "Veaux Niche", :work_number => "VEAU", :description => "Veaux en niche individuel", :default_storage => place_v},
-  #                 {:name => "Veaux 8-15j", :work_number => "VEAU_8_15", :description => "Veaux vendus à 8-15 J", :default_storage => place_v},
-  #                 {:name => "Taurillons", :work_number => "TAUR", :description => "Taurillons vendus entre 21 et 26 mois", :default_storage => place_taur}
-  #                ]
-  #     unless AnimalGroup.find_by_work_number(group[:work_number])
-  #       AnimalGroup.create!({ :variant_id => herd.id}.merge(group))
-  #     end
-  #     w.check_point
-  #   end
-  # end
-
-  # # find groupe for creating animal
-  # group_v = AnimalGroup.find_by_work_number("VEAU")
-  # group_gen1 = AnimalGroup.find_by_work_number("GEN_1")
-  # group_gen2 = AnimalGroup.find_by_work_number("GEN_2")
-  # group_gen3 = AnimalGroup.find_by_work_number("GEN_3")
-  # group_taur = AnimalGroup.find_by_work_number("TAUR")
-  # group_vl = AnimalGroup.find_by_work_number("VL")
-
-
-
   groups = []
 
   file = loader.path("animal_groups.csv")
@@ -95,14 +52,6 @@ load_data :animals do |loader|
     loader.count :synel_animal_import do |w|
       #############################################################################
 
-      # initial_arrival_causes = {"N" => :birth, "A" => :purchase, "P" => :housing, "" => :other }
-      # arrival_causes = {"N" => :interior, "A" => :exterior, "P" => :exterior, "" => :interior }
-      # departure_causes = {"M" => :exterior, "B" => :exterior, "" => :exterior, "C" => :interior , "E" => :exterior}
-
-
-      # pictures = Dir.glob(loader.path("animals-ld", "*.jpg"))
-      # photo_taur = loader.path("animals", "taurillon.jpg")
-      # photo_v = loader.path("animals", "veau.jpg")
       CSV.foreach(file, encoding: "CP1252", col_sep: ";", headers: true) do |row|
         next if row[4].blank?
         born_on = (row[4].blank? ? nil : Date.civil(*row[4].to_s.split(/\//).reverse.map(&:to_i)))
@@ -165,143 +114,7 @@ load_data :animals do |loader|
         group.record.add(animal, r.arrived_on)
         group.record.remove(animal, r.departed_on) if r.departed_on
 
-
-        # # case = VEAU
-        # if r.born_on > (Date.today - 3.months) and r.born_on < (Date.today)
-        #   f = File.open(photo_v)
-        #   animal = Animal.create!(:variant_id => cow_v.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number,
-        #                           :work_number => r.work_number, :initial_born_at => r.born_at, :dead_at => r.departed_on,
-        #                           :picture => f, :initial_owner => Entity.of_company, :initial_container => place_v, :default_storage => place_v
-        #                           )
-        #   f.close
-        #   # set default indicators
-        #   animal.is_measured!(:sex, r.sex, at: r.born_on.to_datetime)
-        #   animal.is_measured!(:net_mass, 55.45.in_kilogram, at: r.born_on.to_datetime)
-        #   animal.is_measured!(:net_mass, 75.89.in_kilogram, at: (r.born_on.to_datetime + 2.months))
-        #   animal.is_measured!(:healthy, true)
-        #   animal.is_measured!(:healthy, false, at: (Time.now - 2.days))
-        #   animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
-        #   # place the current animal in the default group with born_at
-        #   if place_v and group_v
-        #     ProductLocalization.create!(:container_id => place_v.id, :product_id => animal.id, :started_at => r.arrived_on, :stopped_at => r.departed_on)
-        #     # add animal in group
-        #     group_v.add(animal, r.arrived_on)
-        #     # remove animal from group if r.departed_on
-        #     group_v.remove(animal, r.departed_on) if r.departed_on
-        #   end
-
-        #   # case = GENISSE 1
-        # elsif r.born_on > (Date.today - 12.months) and r.born_on < (Date.today - 3.months) and r.sex == :female
-        #   f = File.open(pictures.sample)
-        #   animal = Animal.create!(:variant_id => cow_gen.id, :name => r.name, :variety => "bos",
-        #                           :identification_number => r.identification_number, :work_number => r.work_number,
-        #                           :initial_born_at => r.born_on, :dead_at => r.departed_on,
-        #                           :picture => f, :initial_owner => Entity.of_company, :initial_container => place_gen, :default_storage => place_gen
-        #                           )
-        #   f.close
-        #   # set default indicators
-        #   animal.is_measured!(:net_mass, 55.45.in_kilogram, at: r.born_on.to_datetime)
-        #   animal.is_measured!(:net_mass, 75.89.in_kilogram, at: (r.born_on.to_datetime + 2.months))
-        #   animal.is_measured!(:net_mass, 89.56.in_kilogram, at: (r.born_on.to_datetime + 4.months))
-        #   animal.is_measured!(:net_mass, 129.56.in_kilogram, at: (r.born_on.to_datetime + 8.months))
-        #   animal.is_measured!(:healthy, true)
-        #   animal.is_measured!(:healthy, false, at: (Time.now - 2.days))
-        #   animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
-        #   if place_gen and group_gen1
-        #     # place the current animal in the default group with born_at
-        #     ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :started_at => r.arrived_on, :stopped_at => r.departed_on)
-        #     # add animal in group
-        #     group_gen1.add(animal, r.arrived_on)
-        #     # remove animal from group if r.departed_on
-        #     group_gen1.remove(animal, r.departed_on) if r.departed_on
-        #   end
-
-        #   # case = GENISSE 3
-        # elsif r.born_on > (Date.today - 28.months) and r.born_on < (Date.today - 12.months) and r.sex == :female
-        #   f = File.open(pictures.sample)
-        #   animal = Animal.create!(:variant_id => cow_gen.id, :name => r.name, :variety => "bos",
-        #                           :identification_number => r.identification_number, :work_number => r.work_number,
-        #                           :initial_born_at => r.born_on, :dead_at => r.departed_on,
-        #                           :picture => f, :initial_owner => Entity.of_company, :initial_container => place_gen, :default_storage => place_gen
-        #                           )
-        #   f.close
-        #   # set default indicators
-        #   animal.is_measured!(:net_mass, 55.45.in_kilogram, at: r.born_on.to_datetime)
-        #   animal.is_measured!(:net_mass, 75.89.in_kilogram, at: (r.born_on.to_datetime + 2.months))
-        #   animal.is_measured!(:net_mass, 89.56.in_kilogram, at: (r.born_on.to_datetime + 4.months))
-        #   animal.is_measured!(:net_mass, 129.56.in_kilogram, at: (r.born_on.to_datetime + 8.months))
-        #   animal.is_measured!(:net_mass, 189.56.in_kilogram, at: (r.born_on.to_datetime + 12.months))
-        #   animal.is_measured!(:healthy, true)
-        #   animal.is_measured!(:healthy, false, at: (Time.now - 2.days))
-        #   animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
-        #   if place_gen and group_gen3
-        #     # place the current animal in the default group with born_at
-        #     ProductLocalization.create!(:container_id => place_gen.id, :product_id => animal.id, :started_at => r.arrived_on, :stopped_at => r.departed_on)
-        #     # add animal in group
-        #     group_gen3.add(animal, r.arrived_on)
-        #     # remove animal from group if r.departed_on
-        #     group_gen3.remove(animal, r.departed_on) if r.departed_on
-        #   end
-
-        #   # case = VL
-        # elsif r.born_on > (Date.today - 20.years) and r.born_on < (Date.today - 28.months) and r.sex == :female
-        #   f = File.open(pictures.sample)
-        #   animal = Animal.create!(:variant_id => cow_vl.id, :name => r.name, :variety => "bos",
-        #                           :identification_number => r.identification_number, :work_number => r.work_number,
-        #                           :initial_born_at => r.born_on, :dead_at => r.departed_on,
-        #                           :picture => f, :initial_owner => Entity.of_company, :initial_container => place_vl, :default_storage => place_vl
-        #                           )
-        #   f.close
-        #   # set default indicators
-        #   animal.is_measured!(:net_mass, 55.45.in_kilogram, at: r.born_on.to_datetime)
-        #   animal.is_measured!(:net_mass, 75.89.in_kilogram, at: (r.born_on.to_datetime + 2.months))
-        #   animal.is_measured!(:net_mass, 89.56.in_kilogram, at: (r.born_on.to_datetime + 4.months))
-        #   animal.is_measured!(:net_mass, 129.56.in_kilogram, at: (r.born_on.to_datetime + 8.months))
-        #   animal.is_measured!(:net_mass, 189.56.in_kilogram, at: (r.born_on.to_datetime + 12.months))
-        #   animal.is_measured!(:net_mass, 389.56.in_kilogram, at: (r.born_on.to_datetime + 24.months))
-        #   animal.is_measured!(:healthy, true)
-        #   animal.is_measured!(:healthy, false, at: (Time.now - 2.days))
-        #   animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
-        #   if place_vl and group_vl
-        #     # place the current animal in the default group with born_at
-        #     ProductLocalization.create!(:container_id => place_vl.id, :product_id => animal.id, :started_at => r.arrived_on, :stopped_at => r.departed_on)
-        #     # add animal in group
-        #     group_vl.add(animal, r.arrived_on)
-        #     # remove animal from group if r.departed_on
-        #     group_vl.remove(animal, r.departed_on) if r.departed_on
-        #   end
-
-        #   # case = TAURILLON
-        # elsif r.born_on > (Date.today - 10.years) and r.born_on < (Date.today - 3.months) and r.sex == :male
-        #   f = File.open(photo_taur)
-        #   animal = Animal.create!(:variant_id => cow_taur.id, :name => r.name, :variety => "bos",
-        #                           :identification_number => r.identification_number, :work_number => r.work_number,
-        #                           :initial_born_at => r.born_on, :dead_at => r.departed_on,
-        #                           :picture => f, :initial_owner => Entity.of_company, :initial_container => place_taur, :default_storage => place_taur
-        #                           )
-        #   f.close
-        #   # set default indicators
-        #   animal.is_measured!(:net_mass, 55.45.in_kilogram, at: r.born_on.to_datetime)
-        #   animal.is_measured!(:net_mass, 75.89.in_kilogram, at: (r.born_on.to_datetime + 2.months))
-        #   animal.is_measured!(:net_mass, 89.56.in_kilogram, at: (r.born_on.to_datetime + 4.months))
-        #   animal.is_measured!(:net_mass, 129.56.in_kilogram, at: (r.born_on.to_datetime + 8.months))
-        #   animal.is_measured!(:net_mass, 189.56.in_kilogram, at: (r.born_on.to_datetime + 12.months))
-        #   animal.is_measured!(:net_mass, 389.56.in_kilogram, at: (r.born_on.to_datetime + 24.months))
-        #   animal.is_measured!(:healthy, true)
-        #   animal.is_measured!(:healthy, false, at: (Time.now - 2.days))
-        #   animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
-        #   if place_taur and group_taur
-        #     # place the current animal in the default group with born_at
-        #     ProductLocalization.create!(:container_id => place_taur.id, :product_id => animal.id, :started_at => r.arrived_on, :stopped_at => r.departed_on)
-        #     # add animal in group
-        #     group_taur.add(animal, r.arrived_on)
-        #     # remove animal from group if r.departed_on
-        #     group_taur.remove(animal, r.departed_on) if r.departed_on
-        #   end
-
-        # end
         w.check_point
-
       end
     end
   end

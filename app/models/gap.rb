@@ -25,7 +25,6 @@
 #  affair_id        :integer          not null
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  created_at       :datetime         not null
-#  created_on       :date             not null
 #  creator_id       :integer
 #  currency         :string(3)        not null
 #  direction        :string(255)      not null
@@ -36,6 +35,7 @@
 #  lock_version     :integer          default(0), not null
 #  number           :string(255)      not null
 #  pretax_amount    :decimal(19, 4)   default(0.0), not null
+#  printed_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -52,7 +52,7 @@ class Gap < Ekylibre::Record::Base
   validates_numericality_of :amount, :pretax_amount, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :direction, :entity_role, :number, allow_nil: true, maximum: 255
-  validates_presence_of :affair, :amount, :created_on, :currency, :direction, :entity, :entity_role, :number, :pretax_amount
+  validates_presence_of :affair, :amount, :currency, :direction, :entity, :entity_role, :number, :pretax_amount, :printed_at
   #]VALIDATORS]
 
   accepts_nested_attributes_for :items
@@ -61,11 +61,11 @@ class Gap < Ekylibre::Record::Base
   alias_attribute :label, :number
 
   before_validation do
-    self.created_on ||= Date.today
+    self.printed_at ||= Time.now
   end
 
   bookkeep do |b|
-    b.journal_entry(Journal.used_for_gaps, printed_on: self.created_on, :unless => self.amount.zero?) do |entry|
+    b.journal_entry(Journal.used_for_gaps, printed_at: self.printed_at, :unless => self.amount.zero?) do |entry|
       label = tc(:bookkeep, resource: self.direction.text, number: self.number, entity: self.entity.full_name)
       if self.profit?
         entry.add_debit(label, self.entity.account(self.entity_role).id, self.amount)

@@ -22,7 +22,7 @@
 # == Table: analytic_distributions
 #
 #  affectation_percentage :decimal(19, 4)   not null
-#  affected_on            :date             not null
+#  affected_at            :datetime         not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  id                     :integer          not null, primary key
@@ -40,7 +40,7 @@ class AnalyticDistribution < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :affectation_percentage, allow_nil: true
   validates_length_of :state, allow_nil: true, maximum: 255
-  validates_presence_of :affectation_percentage, :affected_on, :journal_entry_item, :production, :state
+  validates_presence_of :affectation_percentage, :affected_at, :journal_entry_item, :production, :state
   #]VALIDATORS]
 
   state_machine :state, :initial => :draft do

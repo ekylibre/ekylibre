@@ -30,7 +30,6 @@
 #  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
-#  created_on            :date
 #  creator_id            :integer
 #  currency              :string(3)        not null
 #  deposit_id            :integer
@@ -40,13 +39,13 @@
 #  lock_version          :integer          default(0), not null
 #  mode_id               :integer          not null
 #  number                :string(255)
-#  paid_on               :date
+#  paid_at               :datetime
 #  payer_id              :integer
 #  receipt               :text
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer
 #  scheduled             :boolean          not null
-#  to_bank_on            :date             default(CURRENT_DATE), not null
+#  to_bank_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
@@ -62,7 +61,7 @@
 #   mode: modes_001
 #   received: true
 #   scheduled: true
-#   to_bank_on: 2013-10-26
+#   to_bank_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001
 #
 
@@ -76,7 +75,7 @@ incoming_payments_001:
   payer: legal_entities_001
   received: true
   scheduled: true
-  to_bank_on: 2009-07-19
+  to_bank_at: 2009-07-19
   updater: users_001
 
 incoming_payments_002:
@@ -89,7 +88,7 @@ incoming_payments_002:
   payer: legal_entities_001
   received: true
   scheduled: true
-  to_bank_on: 2009-07-19
+  to_bank_at: 2009-07-19
   updater: users_001
 
 incoming_payments_003:
@@ -102,5 +101,5 @@ incoming_payments_003:
   payer: legal_entities_003
   received: true
   scheduled: false
-  to_bank_on: 2009-07-19
+  to_bank_at: 2009-07-19
   updater: users_001

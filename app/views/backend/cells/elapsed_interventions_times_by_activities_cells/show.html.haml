@@ -1,16 +1,16 @@
 - if @campaign and Operation.of_campaign(@campaign).any?
   :ruby
-    started_on = Operation.of_campaign(@campaign).reorder(:started_at).first.started_at.to_date
-    stopped_on = Operation.of_campaign(@campaign).reorder(:started_at).last.stopped_at.to_date
+    started_at = Operation.of_campaign(@campaign).reorder(:started_at).first.started_at.to_date
+    stopped_at = Operation.of_campaign(@campaign).reorder(:started_at).last.stopped_at.to_date
 
     unit = Nomen::Units[:hour]
 
     series = []
     categories = {}
 
-    date = started_on
-    stopped_on = started_on + 1 if started_on >= stopped_on
-    while date < stopped_on
+    date = started_at
+    stopped_at = started_at + 1 if started_at >= stopped_at
+    while date < stopped_at
       categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
       date = date >> 1
     end

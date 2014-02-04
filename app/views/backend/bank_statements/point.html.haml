@@ -2,8 +2,8 @@
   - t.edit @bank_statement
 = attributes_list do |l|
   - l.attribute(:number)
-  - l.attribute(:started_on)
-  - l.attribute(:stopped_on)
+  - l.attribute(:started_at)
+  - l.attribute(:stopped_at)
 
 %h2= tc(:entries_to_point)
 = form_tag do
@@ -13,7 +13,7 @@
         %tr
           %th
           %th= JournalEntry.human_attribute_name("number")
-          %th= JournalEntry.human_attribute_name("printed_on")
+          %th= JournalEntry.human_attribute_name("printed_at")
           %th= JournalEntryItem.human_attribute_name("name")
           %th= JournalEntryItem.human_attribute_name("debit")
           %th= JournalEntryItem.human_attribute_name("credit")
@@ -24,11 +24,11 @@
           %td#total-credit{"data-use"=>"tr.notice .credit"}= @bank_statement.credit || 0
         - if previous = @bank_statement.previous
           %tr.total
-            %th{:colspan=>4}= tc(:previous_bank_statement, :number=>previous.number, :started_on=>previous.started_on, :stopped_on=>previous.stopped_on)
+            %th{:colspan=>4}= tc(:previous_bank_statement, :number=>previous.number, :started_at=>previous.started_at, :stopped_at=>previous.stopped_at)
             %td#previous-debit= previous.balance_debit || 0
             %td#previous-credit= previous.balance_credit || 0
           %tr.total
-            %th{:colspan=>4}= tc(:cumul, :number=>previous.number, :started_on=>previous.started_on, :stopped_on=>previous.stopped_on)
+            %th{:colspan=>4}= tc(:cumul, :number=>previous.number, :started_at=>previous.started_at, :stopped_at=>previous.stopped_at)
             %td#cumul-debit{"data-use"=>"#total-debit, #previous-debit"}= previous.balance_debit || 0
             %td#cumul-credit{"data-use"=>"#total-credit, #previous-credit"}= previous.balance_credit || 0
           %tr.total
@@ -47,7 +47,7 @@
               - else
                 = link_to(@journal_entry_item.bank_statement.number, :action=>:show, :id=>@journal_entry_item.bank_statement.id)
             %td{conf}= link_to(@journal_entry_item.entry.number, :action=>:show, :controller=>:journal_entries, :id=>@journal_entry_item.entry_id)
-            %td.date{conf}= I18n.localize(@journal_entry_item.entry.printed_on)
+            %td.date{conf}= I18n.localize(@journal_entry_item.entry.printed_at)
             %td{conf}= @journal_entry_item.name
             %td.dec.debit{conf}= number_to_accountancy(@journal_entry_item.debit)
             %td.dec.credit{conf}= number_to_accountancy(@journal_entry_item.credit)

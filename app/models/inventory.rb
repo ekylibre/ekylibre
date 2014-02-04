@@ -21,69 +21,51 @@
 #
 # == Table: inventories
 #
-#  accounted_at      :datetime
-#  changes_reflected :boolean          not null
-#  created_at        :datetime         not null
-#  created_on        :date             not null
-#  creator_id        :integer
-#  id                :integer          not null, primary key
-#  journal_entry_id  :integer
-#  lock_version      :integer          default(0), not null
-#  moved_on          :date
-#  number            :string(20)
-#  responsible_id    :integer
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  accounted_at     :datetime
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  id               :integer          not null, primary key
+#  journal_entry_id :integer
+#  lock_version     :integer          default(0), not null
+#  number           :string(20)
+#  reflected        :boolean          not null
+#  reflected_at     :datetime
+#  responsible_id   :integer
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 
 
 class Inventory < Ekylibre::Record::Base
   belongs_to :responsible, class_name: "Entity"
   has_many :items, class_name: "InventoryItem", dependent: :destroy, inverse_of: :inventory
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, allow_nil: true, maximum: 20
-  validates_inclusion_of :changes_reflected, in: [true, false]
-  validates_presence_of :created_on
+  validates_inclusion_of :reflected, in: [true, false]
   #]VALIDATORS]
 
-  scope :unreflecteds, -> { where(changes_reflected: false) }
+  scope :unreflecteds, -> { where(reflected: false) }
 
   accepts_nested_attributes_for :items
-
-  before_validation do
-    self.created_on ||= Date.today
-  end
 
   bookkeep on: :nothing do |b|
   end
 
   protect do
-    self.changes_reflected?
+    self.reflected?
   end
 
   def reflectable?
-    !self.changes_reflected? and self.class.unreflecteds.where("created_on < ?", self.created_on).empty?
+    !self.reflected? and self.class.unreflecteds.where(self.class.arel_table[:created_at].lt(self.created_at)).empty?
   end
 
-  def reflect_changes(moved_on=Date.today)
-    self.moved_on = moved_on
-    self.changes_reflected = true
+  def reflect(reflected_at = Time.now)
+    self.reflected_at = reflected_at
+    self.reflected = true
     for item in self.items
-      # item.confirm_stock_move(moved_on)
+      # item.confirm_stock_move(reflected_at)
     end
     self.save
   end
-
-  # def set_items(items)
-  #   # (Re)init items
-  #   self.items.clear
-  #   # Load (new) values
-  #   for item in items
-  #     l = self.items.new(item)
-  #     l.stock_id = item[:stock_id].to_i if item[:stock_id]
-  #     l.save!
-  #   end
-  # end
 
 end

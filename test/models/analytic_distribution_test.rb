@@ -22,7 +22,7 @@
 # == Table: analytic_distributions
 #
 #  affectation_percentage :decimal(19, 4)   not null
-#  affected_on            :date             not null
+#  affected_at            :datetime         not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  id                     :integer          not null, primary key

@@ -33,8 +33,6 @@
 #  nature       :string(255)      not null
 #  parent_id    :integer
 #  rgt          :integer
-#  started_at   :datetime
-#  stopped_at   :datetime
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #

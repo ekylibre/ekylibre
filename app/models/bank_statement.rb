@@ -30,8 +30,8 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  number       :string(255)      not null
-#  started_on   :date             not null
-#  stopped_on   :date             not null
+#  started_at   :datetime         not null
+#  stopped_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
@@ -44,7 +44,7 @@ class BankStatement < Ekylibre::Record::Base
   validates_numericality_of :credit, :debit, allow_nil: true
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :number, allow_nil: true, maximum: 255
-  validates_presence_of :cash, :credit, :currency, :debit, :number, :started_on, :stopped_on
+  validates_presence_of :cash, :credit, :currency, :debit, :number, :started_at, :stopped_at
   #]VALIDATORS]
 
   before_validation do
@@ -54,7 +54,7 @@ class BankStatement < Ekylibre::Record::Base
 
   # A bank account statement has to contain.all the planned records.
   validate do
-    errors.add(:stopped_on, :posterior, to: ::I18n.localize(self.started_on)) if self.started_on >= self.stopped_on
+    errors.add(:stopped_at, :posterior, to: ::I18n.localize(self.started_at)) if self.started_at >= self.stopped_at
   end
 
   def balance_credit
@@ -66,15 +66,15 @@ class BankStatement < Ekylibre::Record::Base
   end
 
   def previous
-    self.class.where(:stopped_on => self.started_on-1).first
+    self.class.where(:stopped_at => self.started_at-1).first
   end
 
   def next
-    self.class.where(:started_on => self.stopped_on+1).first
+    self.class.where(:started_at => self.stopped_at+1).first
   end
 
   def eligible_items
-    JournalEntryItem.where("bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_on BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_on, self.stopped_on).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_on DESC, #{JournalEntryItem.table_name}.position")
+    JournalEntryItem.where("bank_statement_id = ? OR (account_id = ? AND (bank_statement_id IS NULL OR journal_entries.created_at BETWEEN ? AND ?))", self.id, self.cash.account_id, self.started_at, self.stopped_at).joins("INNER JOIN #{JournalEntry.table_name} AS journal_entries ON journal_entries.id = entry_id").order("bank_statement_id DESC, #{JournalEntry.table_name}.printed_at DESC, #{JournalEntryItem.table_name}.position")
   end
 
   def point(ids)

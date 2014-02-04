@@ -81,14 +81,14 @@
         :ruby
           #
           #
-          started_on = @animal.born_at.to_date
-          stopped_on = @animal.dead_at.to_date if @animal.dead_at
-          stopped_on ||= Date.today
+          started_at = @animal.born_at.to_date
+          stopped_at = @animal.dead_at.to_date if @animal.dead_at
+          stopped_at ||= Date.today
 
           series = []
           categories = {}
-          date = started_on
-          while date < stopped_on
+          date = started_at
+          while date < stopped_at
             categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(:format => "%b %Y")
             date = date >> 1
           end
@@ -98,7 +98,7 @@
           #
           bar_indicators = [:net_mass].collect{|i| Nomen::Indicators[i] }
           for indicator in bar_indicators
-            items = ProductIndicatorDatum.where(indicator_name: indicator.name, :product => @animal).measured_between(started_on, stopped_on)
+            items = ProductIndicatorDatum.where(indicator_name: indicator.name, :product => @animal).measured_between(started_at, stopped_at)
             if items.count > 0
               item_h = items.averages_of_periods.sort.inject({}) do |hash, pair|
                 hash[pair.expr.to_i.to_s] = pair.average.to_s.to_d
@@ -113,7 +113,7 @@
           #
           spline_indicators = [:healthy].collect{|i| Nomen::Indicators[i] }
           for indicator in spline_indicators
-            items = ProductIndicatorDatum.where(indicator_name: indicator.name, :product => @animal).measured_between(started_on, stopped_on)
+            items = ProductIndicatorDatum.where(indicator_name: indicator.name, :product => @animal).measured_between(started_at, stopped_at)
             if items.count > 0
               item_h = items.counts_of_periods(column: :boolean_value).sort.inject({}) do |hash, pair|
                 hash[pair.expr.to_i.to_s] = pair.count.to_s.to_d

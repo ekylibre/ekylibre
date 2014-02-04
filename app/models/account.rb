@@ -82,12 +82,12 @@ class Account < Ekylibre::Record::Base
     where("usages ~ E?", usages.sort.map { |usage| "\\\\m#{usage.to_s.gsub(/\W/, '')}\\\\M" }.join(".*|"))
   }
 
-  scope :used_between, lambda { |started_on, stopped_on|
-    where("id IN (SELECT account_id FROM #{JournalEntryItem.table_name} WHERE printed_on BETWEEN ? AND ? )", started_on, stopped_on)
+  scope :used_between, lambda { |started_at, stopped_at|
+    where("id IN (SELECT account_id FROM #{JournalEntryItem.table_name} WHERE printed_at BETWEEN ? AND ? )", started_at, stopped_at)
   }
 
-  #scope :used_in_journal_entry_items, lambda { |started_on, stopped_on|
-  #  joins("JOIN #{JournalEntryItem.table_name} AS journal_entry_items ON (journal_entry_items.account_id=id)").joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, journal_entries.id, journal_entry_items.id")
+  #scope :used_in_journal_entry_items, lambda { |started_at, stopped_at|
+  #  joins("JOIN #{JournalEntryItem.table_name} AS journal_entry_items ON (journal_entry_items.account_id=id)").joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_at BETWEEN ? AND ? ", started_at, stopped_at).order("printed_at, journal_entries.id, journal_entry_items.id")
  #}
 
   # scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
@@ -365,8 +365,8 @@ class Account < Ekylibre::Record::Base
   end
 
 
-  def reconcilable_entry_items(period, started_on, stopped_on)
-    self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_on, stopped_on, 'je')).order("letter DESC, je.number DESC, #{JournalEntryItem.table_name}.position")
+  def reconcilable_entry_items(period, started_at, stopped_at)
+    self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id)").where(JournalEntry.period_condition(period, started_at, stopped_at, 'je')).order("letter DESC, je.number DESC, #{JournalEntryItem.table_name}.position")
   end
 
   def new_letter
@@ -423,13 +423,13 @@ class Account < Ekylibre::Record::Base
   end
 
 
-  # def journal_entry_items_between(started_on, stopped_on)
-  #   self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).order("printed_on, journal_entries.id, #{JournalEntryItem.table_name}.id")
+  # def journal_entry_items_between(started_at, stopped_at)
+  #   self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_at BETWEEN ? AND ? ", started_at, stopped_at).order("printed_at, journal_entries.id, #{JournalEntryItem.table_name}.id")
   # end
 
-  def journal_entry_items_calculate(column, started_on, stopped_on, operation=:sum)
+  def journal_entry_items_calculate(column, started_at, stopped_at, operation=:sum)
     column = (column == :balance ? "#{JournalEntryItem.table_name}.real_debit - #{JournalEntryItem.table_name}.real_credit" : "#{JournalEntryItem.table_name}.real_#{column}")
-    self.journal_entry_items.where("printed_on BETWEEN ? AND ? ", started_on, stopped_on).calculate(operation, column)
+    self.journal_entry_items.where("printed_at BETWEEN ? AND ? ", started_at, stopped_at).calculate(operation, column)
   end
 
 
@@ -450,8 +450,8 @@ class Account < Ekylibre::Record::Base
     res_balance = 0
 
     for account in accounts
-      debit  = account.journal_entry_items.sum(:debit,  :conditions  => ["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
-      credit = account.journal_entry_items.sum(:credit, :conditions  => ["r.created_on BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+      debit  = account.journal_entry_items.sum(:debit,  :conditions  => ["r.created_at BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+      credit = account.journal_entry_items.sum(:credit, :conditions  => ["r.created_at BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
 
       compute=HashWithIndifferentAccess.new
       compute[:id] = account.id.to_i
@@ -517,7 +517,7 @@ class Account < Ekylibre::Record::Base
     accounts.each do |account|
       compute=[] #HashWithIndifferentAccess.new
 
-      journal_entry_items = account.journal_entry_items.where("r.created_on BETWEEN ? AND ?", from, to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order("r.number ASC")
+      journal_entry_items = account.journal_entry_items.where("r.created_at BETWEEN ? AND ?", from, to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order("r.number ASC")
 
       if journal_entry_items.size > 0
         entries = []
@@ -525,7 +525,7 @@ class Account < Ekylibre::Record::Base
         compute << account.name.to_s
         journal_entry_items.each do |e|
           entry = HashWithIndifferentAccess.new
-          entry[:date] = e.entry.created_on
+          entry[:date] = e.entry.created_at
           entry[:name] = e.name.to_s
           entry[:number_entry] = e.entry.number
           entry[:journal] = e.entry.journal.name.to_s

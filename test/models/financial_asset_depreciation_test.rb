@@ -25,7 +25,6 @@
 #  accounted_at       :datetime
 #  amount             :decimal(19, 4)   not null
 #  created_at         :datetime         not null
-#  created_on         :date             not null
 #  creator_id         :integer
 #  depreciable_amount :decimal(19, 4)
 #  depreciated_amount :decimal(19, 4)
@@ -36,8 +35,8 @@
 #  lock_version       :integer          default(0), not null
 #  locked             :boolean          not null
 #  position           :integer
-#  started_on         :date             not null
-#  stopped_on         :date             not null
+#  started_at         :datetime         not null
+#  stopped_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  updater_id         :integer
 #

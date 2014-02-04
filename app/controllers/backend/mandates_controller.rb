@@ -34,11 +34,11 @@ class Backend::MandatesController < BackendController
     code << "    conditions[0] += ' AND organization = ?'\n"
     code << "    conditions << session[:mandates][:organization]\n"
     code << "  end\n"
-    code << "  unless session[:mandates][:viewed_on].blank?\n"
-    code << "    conditions[0] += ' AND (? BETWEEN COALESCE(started_on, stopped_on, ?)  AND COALESCE(stopped_on, ?) )'\n"
-    code << "    conditions << session[:mandates][:viewed_on]\n"
-    code << "    conditions << session[:mandates][:viewed_on]\n"
-    code << "    conditions << session[:mandates][:viewed_on]\n"
+    code << "  unless session[:mandates][:viewed_at].blank?\n"
+    code << "    conditions[0] += ' AND (? BETWEEN COALESCE(started_at, stopped_at, ?)  AND COALESCE(stopped_at, ?) )'\n"
+    code << "    conditions << session[:mandates][:viewed_at]\n"
+    code << "    conditions << session[:mandates][:viewed_at]\n"
+    code << "    conditions << session[:mandates][:viewed_at]\n"
     code << "  end\n"
     code << "end\n"
     code << "conditions\n"
@@ -50,8 +50,8 @@ class Backend::MandatesController < BackendController
     t.column :title
     t.column :organization
     t.column :family
-    t.column :started_on
-    t.column :stopped_on
+    t.column :started_at
+    t.column :stopped_at
     t.action :edit
     t.action :destroy
   end
@@ -62,7 +62,7 @@ class Backend::MandatesController < BackendController
     @organizations = Mandate.select(' DISTINCT organization ')
     session[:mandates] ||= {}
     session[:mandates][:organization] = params[:organization]||session[:mandates][:organization]||''
-    session[:mandates][:viewed_on] = (params[:viewed_on]||session[:mandates][:viewed_on]).to_date rescue Date.today
+    session[:mandates][:viewed_at] = (params[:viewed_at]||session[:mandates][:viewed_at]).to_date rescue Date.today
   end
 
   def configure

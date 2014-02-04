@@ -41,7 +41,7 @@ load_data :products do |loader|
         # create the owner if not exist
         if r.external == true
           owner = Entity.where(:last_name => r.owner_name.to_s).first
-          owner ||= Entity.create!(:born_on => Date.today, :last_name => r.owner_name.to_s, :currency => Preference[:currency], :language => Preference[:language], :nature => "company")
+          owner ||= Entity.create!(:born_at => Date.today, :last_name => r.owner_name.to_s, :currency => Preference[:currency], :language => Preference[:language], :nature => "company")
         else
           owner = Entity.of_company
         end
@@ -96,7 +96,7 @@ load_data :products do |loader|
         # create the owner if not exist
         if r.external == true
           owner = Entity.where(:last_name => r.owner_name.to_s).first
-          owner ||= Entity.create!(:born_on => Date.today, :last_name => r.owner_name.to_s, :currency => "EUR", :language => "fra", :nature => "company")
+          owner ||= Entity.create!(:born_at => Date.today, :last_name => r.owner_name.to_s, :currency => "EUR", :language => "fra", :nature => "company")
         else
           owner = Entity.of_company
         end

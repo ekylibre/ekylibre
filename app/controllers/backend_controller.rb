@@ -757,7 +757,7 @@ class BackendController < BaseController
   def self.crit_params(hash)
     nh = {}
     keys = JournalEntry.state_machine.states.collect{|s| s.name}
-    keys += [:period, :started_on, :stopped_on, :accounts, :centralize]
+    keys += [:period, :started_at, :stopped_at, :accounts, :centralize]
     for k, v in hash
       nh[k] = hash[k] if k.to_s.match(/^(journal|level)_\d+$/) or keys.include? k.to_sym
     end
@@ -791,7 +791,7 @@ class BackendController < BaseController
   def self.journal_period_crit(variable, conditions='c')
     variable = "params[:#{variable}]" unless variable.is_a? String
     code = ""
-    code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_on], #{variable}[:stopped_on])\n"
+    code << "#{conditions}[0] += ' AND '+JournalEntry.period_condition(#{variable}[:period], #{variable}[:started_at], #{variable}[:stopped_at])\n"
     return code.c
   end
 
@@ -808,9 +808,9 @@ class BackendController < BaseController
     code = "\n"
     code << "c||=['1=1']\n"
     code << "if #{state}=='unconfirmed'\n"
-    code << "  c[0] += ' AND moved_on IS NULL'\n"
+    code << "  c[0] += ' AND moved_at IS NULL'\n"
     code << "elsif #{state}=='confirmed'\n"
-    code << "  c[0] += ' AND moved_on IS NOT NULL'\n"
+    code << "  c[0] += ' AND moved_at IS NOT NULL'\n"
     code << "end\n"
     code << "c\n"
     return code.c

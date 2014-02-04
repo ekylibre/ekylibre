@@ -69,8 +69,8 @@ class Plant < Bioproduct
   #return all Plant object who is alive in the considers campaigns
   scope :of_campaign, lambda { |campaign|
     raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
-    stopped_on = Date.new(campaign.harvest_year.to_f, 12, 31)
-    where('(dead_at <= ? OR dead_at IS NULL)', stopped_on)
+    stopped_at = Date.new(campaign.harvest_year.to_f, 12, 31)
+    where('(dead_at <= ? OR dead_at IS NULL)', stopped_at)
   }
 
   # # Sets nature and variety from variant

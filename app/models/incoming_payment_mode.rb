@@ -22,7 +22,6 @@
 # == Table: incoming_payment_modes
 #
 #  active                  :boolean
-#  attorney_journal_id     :integer
 #  cash_id                 :integer
 #  commission_account_id   :integer
 #  commission_base_amount  :decimal(19, 4)   default(0.0), not null
@@ -47,7 +46,6 @@
 class IncomingPaymentMode < Ekylibre::Record::Base
   attr_readonly :cash_id, :cash
   acts_as_list
-  belongs_to :attorney_journal, class_name: "Journal"
   belongs_to :cash
   belongs_to :commission_account, class_name: "Account"
   belongs_to :depositables_account, class_name: "Account"
@@ -63,7 +61,6 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   validates_presence_of :commission_base_amount, :commission_percentage, :name
   #]VALIDATORS]
   validates_numericality_of :commission_percentage, :greater_than_or_equal_to => 0, if: :with_commission?
-  validates_presence_of :attorney_journal, if: :with_accounting?
   validates_presence_of :depositables_account, if: :with_deposit?
   validates_presence_of :depositables_journal, if: :with_deposit?
   validates_presence_of :cash

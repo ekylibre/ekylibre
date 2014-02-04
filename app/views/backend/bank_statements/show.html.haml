@@ -7,8 +7,8 @@
   - l.attribute(:cash, url: true)
   - l.attribute(:credit)
   - l.attribute(:debit)
-  - l.attribute(:started_on)
-  - l.attribute(:stopped_on)
+  - l.attribute(:started_at)
+  - l.attribute(:stopped_at)
 
 %h2=BankStatement.human_attribute_name("items")
 =list(:items)

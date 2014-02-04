@@ -18,15 +18,15 @@
 #
 
 class Backend::BankStatementsController < BackendController
-  manage_restfully :started_on => "Cash.find(params[:cash_id]).last_bank_statement.stopped_on+1 rescue (Date.today-1.month-2.days)".c, :stopped_on => "Cash.find(params[:cash_id]).last_bank_statement.stopped_on>>1 rescue (Date.today-2.days)".c, :redirect_to => '{action: :point, :id  => "id"}'.c
+  manage_restfully :started_at => "Cash.find(params[:cash_id]).last_bank_statement.stopped_at+1 rescue (Date.today-1.month-2.days)".c, :stopped_at => "Cash.find(params[:cash_id]).last_bank_statement.stopped_at>>1 rescue (Date.today-2.days)".c, :redirect_to => '{action: :point, :id  => "id"}'.c
 
   unroll
 
-  list(order: {started_on: :desc}) do |t|
+  list(order: {started_at: :desc}) do |t|
     t.column :number, url: true
     t.column :cash,   url: true
-    t.column :started_on
-    t.column :stopped_on
+    t.column :started_at
+    t.column :stopped_at
     t.column :debit,  currency: true
     t.column :credit, currency: true
     t.action :point
@@ -48,7 +48,7 @@ class Backend::BankStatementsController < BackendController
   list(:items, model: :journal_entry_items, conditions: {bank_statement_id: 'params[:id]'.c}, order: :entry_id) do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
-    t.column :printed_on
+    t.column :printed_at
     t.column :name
     t.column :account, url: true
     t.column :debit, currency: true

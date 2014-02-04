@@ -47,7 +47,7 @@ module Ekylibre::Record  #:nodoc:
       def transfer(options = {}, &block)
         raise ArgumentError.new("No given block") unless block_given?
         raise ArgumentError.new("Wrong number of arguments (#{block.arity} for 1)") unless block.arity == 1
-        configuration = { :on=>Ekylibre::Record::Transfer::actions, :method_name=>:transfer, :virtual=>"self.moved_on.nil\?", :moves=>:stock_moves }
+        configuration = { :on=>Ekylibre::Record::Transfer::actions, :method_name=>:transfer, :virtual=>"self.moved_at.nil\?", :moves=>:stock_moves }
         configuration.update(options) if options.is_a?(Hash)
         raise Exception.new("Need #{configuration[:moves]} reflection. Change :moves option or create reflection") unless self.reflections.has_key? configuration[:moves]
 

@@ -34,8 +34,8 @@ class CreateBase < ActiveRecord::Migration
       t.string     :description
       t.string     :family
       t.string     :nature,                   null: false
-      t.datetime   :started_at
-      t.datetime   :stopped_at
+      # t.datetime   :started_at
+      # t.datetime   :stopped_at
       t.references :parent,                                index: true
       t.integer    :lft
       t.integer    :rgt
@@ -66,7 +66,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :production,                                                null: false, index: true
       t.references :journal_entry_item,                                        null: false, index: true
       t.string     :state,                                                     null: false
-      t.date       :affected_on,                                               null: false
+      t.datetime   :affected_at,                                               null: false
       t.decimal    :affectation_percentage, precision: 19, scale: 4,           null: false
       t.stamps
     end
@@ -84,8 +84,8 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :bank_statements do |t|
       t.references :cash,                                                null: false, index: true
-      t.date       :started_on,                                          null: false
-      t.date       :stopped_on,                                          null: false
+      t.datetime   :started_at,                                          null: false
+      t.datetime   :stopped_at,                                          null: false
       t.string     :number,                                              null: false
       t.decimal    :debit,        precision: 19, scale: 4, default: 0.0, null: false
       t.decimal    :credit,       precision: 19, scale: 4, default: 0.0, null: false
@@ -106,7 +106,7 @@ class CreateBase < ActiveRecord::Migration
     create_table :cash_transfers do |t|
       t.string     :number,                                               null: false
       t.text       :description
-      t.date       :transfered_on,                                        null: false
+      t.datetime   :transfered_at,                                        null: false
       t.datetime   :accounted_at
       t.decimal    :emission_amount,            precision: 19, scale: 4,  null: false
       t.string     :emission_currency,          limit: 3,                 null: false
@@ -205,7 +205,6 @@ class CreateBase < ActiveRecord::Migration
       t.string     :number,                                                    null: false
       t.references :cash,                                                      null: false, index: true
       t.references :mode,                                                      null: false, index: true
-      t.date       :created_on,                                                null: false
       t.decimal    :amount,           precision: 19, scale: 4, default: 0.0,   null: false
       t.integer    :payments_count,                            default: 0,     null: false
       t.text       :description
@@ -270,8 +269,8 @@ class CreateBase < ActiveRecord::Migration
       t.string     :full_name,                                                                     null: false
       t.string     :number,                    limit: 60
       t.boolean    :active,                                                        default: true,  null: false
-      t.date       :born_on
-      t.date       :dead_on
+      t.datetime   :born_at
+      t.datetime   :dead_at
       # t.string   :soundex,                   limit: 4
       t.boolean    :client,                                                        default: false, null: false
       t.references :client_account,                                                                            index: true
@@ -295,7 +294,7 @@ class CreateBase < ActiveRecord::Migration
       # t.string     :payment_delay
       # t.integer    :invoices_count
       t.string     :origin
-      t.date       :first_met_on
+      t.datetime   :first_met_at
       t.string     :activity_code,             limit: 30
       t.string     :vat_number,                limit: 20
       t.string     :siren,                     limit: 9
@@ -387,10 +386,9 @@ class CreateBase < ActiveRecord::Migration
       t.references :financial_asset,                                             null: false, index: true
       t.references :journal_entry,                                                            index: true
       t.boolean    :accountable,                                 default: false, null: false
-      t.date       :created_on,                                                  null: false
       t.datetime   :accounted_at
-      t.date       :started_on,                                                  null: false
-      t.date       :stopped_on,                                                  null: false
+      t.datetime   :started_at,                                                  null: false
+      t.datetime   :stopped_at,                                                  null: false
       t.decimal    :amount,             precision: 19, scale: 4,                 null: false
       t.integer    :position
       t.boolean    :locked,                                      default: false, null: false
@@ -406,16 +404,16 @@ class CreateBase < ActiveRecord::Migration
       t.string     :name,                                                         null: false
       t.string     :number,                                                       null: false
       t.text       :description
-      t.date       :purchased_on
+      t.datetime   :purchased_at
       t.references :purchase,                                                                  index: true
       t.references :purchase_item,                                                             index: true
       t.boolean    :ceded
-      t.date       :ceded_on
+      t.datetime   :ceded_at
       t.references :sale,                                                                      index: true
       t.references :sale_item,                                                                 index: true
       t.decimal    :purchase_amount,                   precision: 19, scale: 4
-      t.date       :started_on,                                                   null: false
-      t.date       :stopped_on,                                                   null: false
+      t.datetime   :started_at,                                                   null: false
+      t.datetime   :stopped_at,                                                   null: false
       t.decimal    :depreciable_amount,                precision: 19, scale: 4,   null: false
       t.decimal    :depreciated_amount,                precision: 19, scale: 4,   null: false
       t.string     :depreciation_method,                                          null: false
@@ -429,8 +427,8 @@ class CreateBase < ActiveRecord::Migration
     create_table :financial_years do |t|
       t.string     :code,                  limit: 20,                 null: false
       t.boolean    :closed,                           default: false, null: false
-      t.date       :started_on,                                       null: false
-      t.date       :stopped_on,                                       null: false
+      t.datetime   :started_at,                                       null: false
+      t.datetime   :stopped_at,                                       null: false
       t.string     :currency,              limit: 3,                  null: false
       t.integer    :currency_precision
       t.references :last_journal_entry,                                            index: true
@@ -439,7 +437,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :gaps do |t|
       t.string     :number,                                                null: false
-      t.date       :created_on,                                            null: false
+      t.datetime   :printed_at,                                            null: false
       t.string     :direction,                                             null: false
       t.references :affair,                                                null: false, index: true
       t.references :entity,                                                null: false, index: true
@@ -527,7 +525,7 @@ class CreateBase < ActiveRecord::Migration
       t.boolean    :active,                                                      default: false
       t.integer    :position
       t.boolean    :with_accounting,                                             default: false, null: false
-      t.references :attorney_journal,                                                                         index: true
+      # t.references :attorney_journal,                                                                         index: true
       t.boolean    :with_commission,                                             default: false, null: false
       t.decimal    :commission_percentage,              precision: 19, scale: 4, default: 0.0,   null: false
       t.decimal    :commission_base_amount,             precision: 19, scale: 4, default: 0.0,   null: false
@@ -540,28 +538,27 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :incoming_payments do |t|
-      t.date       :paid_on
-      t.decimal    :amount,                          precision: 19, scale: 4,                        null: false
-      t.references :mode,                                                                            null: false, index: true
+      t.datetime   :paid_at
+      t.decimal    :amount,                          precision: 19, scale: 4,                 null: false
+      t.references :mode,                                                                     null: false, index: true
       t.string     :bank_name
       t.string     :bank_check_number
       t.string     :bank_account_number
       t.references :payer,                                                                                        index: true
-      t.date       :to_bank_on,                                               default: '0001-01-01', null: false
+      t.datetime   :to_bank_at,                                                               null: false
       t.references :deposit,                                                                                      index: true
       t.references :responsible,                                                                                  index: true
-      t.boolean    :scheduled,                                                default: false,        null: false
-      t.boolean    :received,                                                 default: true,         null: false
+      t.boolean    :scheduled,                                                default: false, null: false
+      t.boolean    :received,                                                 default: true,  null: false
       t.string     :number
-      t.date       :created_on
       t.datetime   :accounted_at
       t.text       :receipt
-      t.references :journal_entry,                                                                                index: true
-      t.references :commission_account,                                                                           index: true
-      t.decimal    :commission_amount,               precision: 19, scale: 4, default: 0.0,          null: false
-      t.string     :currency,              limit: 3,                                                 null: false
-      t.boolean    :downpayment,                                              default: true,         null: false
-      t.references :affair,                                                                                       index: true
+      t.references :journal_entry,                                                                         index: true
+      t.references :commission_account,                                                                    index: true
+      t.decimal    :commission_amount,               precision: 19, scale: 4, default: 0.0,   null: false
+      t.string     :currency,              limit: 3,                                          null: false
+      t.boolean    :downpayment,                                              default: true,  null: false
+      t.references :affair,                                                                                index: true
       t.stamps
       t.index      :accounted_at
     end
@@ -601,9 +598,8 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :inventories do |t|
       t.string     :number,            limit: 20
-      t.date       :created_on,                               null: false
-      t.date       :moved_on
-      t.boolean    :changes_reflected,        default: false, null: false
+      t.datetime   :reflected_at
+      t.boolean    :reflected,                default: false, null: false
       t.references :responsible,                                           index: true
       t.datetime   :accounted_at
       t.references :journal_entry,                                         index: true
@@ -642,8 +638,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :number,                                                                null: false
       t.references :resource,           polymorphic: true,                                              index: true
       t.string     :state,              limit: 30,                                         null: false
-      t.date       :created_on,                                                            null: false
-      t.date       :printed_on,                                                            null: false
+      t.datetime   :printed_at,                                                            null: false
       t.decimal    :real_debit,                    precision: 19, scale: 4,  default: 0.0, null: false
       t.decimal    :real_credit,                   precision: 19, scale: 4,  default: 0.0, null: false
       t.string     :real_currency,      limit: 3,                                          null: false
@@ -665,7 +660,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :bank_statement,                                                                            index: true
       t.references :financial_year,                                                               null: false, index: true
       t.string     :state,                     limit: 30,                                         null: false
-      t.date       :printed_on,                                                                   null: false
+      t.datetime   :printed_at,                                                                   null: false
       t.string     :entry_number,                                                                 null: false
       t.string     :letter,                    limit: 10
       t.integer    :position
@@ -694,7 +689,7 @@ class CreateBase < ActiveRecord::Migration
       t.string   :nature,       limit: 30,             null: false
       t.string   :name,                                null: false
       t.string   :code,         limit: 4,              null: false
-      t.date     :closed_on,                           null: false
+      t.datetime :closed_at,                           null: false
       t.string   :currency,     limit: 3,              null: false
       t.boolean  :used_for_affairs,                    null: false, default: false
       t.boolean  :used_for_gaps,                       null: false, default: false
@@ -750,8 +745,8 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :mandates do |t|
       t.references :entity,                   null: false, index: true
-      t.date       :started_on
-      t.date       :stopped_on
+      t.datetime   :started_at
+      t.datetime   :stopped_at
       t.string     :family,                   null: false
       t.string     :organization,             null: false
       t.string     :title,                    null: false
@@ -826,7 +821,7 @@ class CreateBase < ActiveRecord::Migration
       t.boolean    :with_accounting,                default: false, null: false
       t.references :cash,                                                        index: true
       t.integer    :position
-      t.references :attorney_journal,                                            index: true
+      # t.references :attorney_journal,                                            index: true
       t.boolean    :active,                         default: false, null: false
       t.stamps
     end
@@ -836,14 +831,13 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :amount,                   precision: 19, scale: 4, default: 0.0,  null: false
       t.string     :bank_check_number
       t.boolean    :delivered,                                         default: true, null: false
-      t.date       :created_on
       t.references :journal_entry,                                                                 index: true
       t.references :responsible,                                                      null: false, index: true
       t.references :payee,                                                            null: false, index: true
       t.references :mode,                                                             null: false, index: true
       t.string     :number
-      t.date       :paid_on
-      t.date       :to_bank_on,                                                       null: false
+      t.datetime   :paid_at
+      t.datetime   :to_bank_at,                                                       null: false
       t.references :cash,                                                             null: false, index: true
       t.string     :currency,         limit: 3,                                       null: false
       t.boolean    :downpayment,                                       default: true, null: false
@@ -1259,14 +1253,13 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :amount,                         precision: 19, scale: 4, default: 0.0, null: false
       t.references :delivery_address,                                                                   index: true
       t.text       :description
-      t.date       :planned_on
-      t.date       :invoiced_on
-      t.date       :created_on
+      t.datetime   :planned_at
+      t.datetime   :confirmed_at
+      t.datetime   :invoiced_at
       t.datetime   :accounted_at
       t.references :journal_entry,                                                                      index: true
       t.string     :reference_number
       t.string     :state,               limit: 60
-      t.date       :confirmed_on
       t.references :responsible,                                                                        index: true
       t.string     :currency,            limit: 3,                                         null: false
       t.references :nature,                                                                             index: true
@@ -1327,12 +1320,11 @@ class CreateBase < ActiveRecord::Migration
     create_table :sales do |t|
       t.references :client,                                                                  null: false, index: true
       t.references :nature,                                                                               index: true
-      t.date       :created_on,                                                              null: false
       t.string     :number,              limit: 60,                                          null: false
       t.decimal    :pretax_amount,                  precision: 19, scale: 4, default: 0.0,   null: false
       t.decimal    :amount,                         precision: 19, scale: 4, default: 0.0,   null: false
       t.string     :state,               limit: 60,                                          null: false
-      t.date       :expired_on
+      t.datetime   :expired_at
       t.boolean    :has_downpayment,                                         default: false, null: false
       t.decimal    :downpayment_amount,             precision: 19, scale: 4, default: 0.0,   null: false
       t.references :address,                                                                              index: true
@@ -1343,7 +1335,7 @@ class CreateBase < ActiveRecord::Migration
       t.text       :introduction
       t.text       :conclusion
       t.text       :description
-      t.date       :confirmed_on
+      t.datetime   :confirmed_at
       t.references :responsible,                                                                          index: true
       t.boolean    :letter_format,                                           default: true,  null: false
       t.text       :annotation
@@ -1351,9 +1343,9 @@ class CreateBase < ActiveRecord::Migration
       t.datetime   :accounted_at
       t.references :journal_entry,                                                                        index: true
       t.string     :reference_number
-      t.date       :invoiced_on
+      t.datetime   :invoiced_at
       t.boolean    :credit,                                                  default: false, null: false
-      t.date       :payment_on
+      t.datetime   :payment_at
       t.references :origin,                                                                               index: true
       t.string     :initial_number,      limit: 60
       t.string     :currency,            limit: 3,                                           null: false
@@ -1391,8 +1383,8 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :subscriptions do |t|
-      t.date       :started_on
-      t.date       :stopped_on
+      t.datetime   :started_at
+      t.datetime   :stopped_at
       t.integer    :first_number
       t.integer    :last_number
       t.references :sale,                                            index: true
@@ -1411,8 +1403,8 @@ class CreateBase < ActiveRecord::Migration
     create_table :tax_declarations do |t|
       t.string     :nature,                   default: "normal",      null: false
       t.string     :address
-      t.date       :declared_on
-      t.date       :paid_on
+      t.datetime   :declared_at
+      t.datetime   :paid_at
       t.decimal    :collected_amount,         precision: 19, scale: 4
       t.decimal    :paid_amount,              precision: 19, scale: 4
       t.decimal    :balance_amount,           precision: 19, scale: 4
@@ -1421,8 +1413,8 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :acquisition_amount,       precision: 19, scale: 4
       t.decimal    :amount,                   precision: 19, scale: 4
       t.references :financial_year,                                                index: true
-      t.date       :started_on
-      t.date       :stopped_on
+      t.datetime   :started_at
+      t.datetime   :stopped_at
       t.datetime   :accounted_at
       t.references :journal_entry,                                                 index: true
       t.stamps
@@ -1467,10 +1459,9 @@ class CreateBase < ActiveRecord::Migration
       t.string     :currency,       limit: 3,                null: false
       t.references :client,                                  null: false, index: true
       t.string     :label
+      t.string     :number
       t.string     :description
-      t.date       :started_on
-      t.date       :stopped_on
-      t.date       :created_on
+      t.datetime   :printed_at
       t.datetime   :accounted_at
       t.references :journal_entry,                                        index: true
       t.references :affair,                                               index: true
@@ -1482,8 +1473,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :transporter,                               null: false, index: true
       t.references :responsible,                                            index: true
       t.decimal    :net_mass,         precision: 19, scale: 4
-      t.date       :created_on
-      t.date       :transport_on
+      t.datetime   :departed_at
       t.text       :description
       t.string     :number
       t.string     :reference_number
@@ -1503,7 +1493,7 @@ class CreateBase < ActiveRecord::Migration
       t.decimal    :maximal_grantable_reduction_percentage,     precision: 19, scale: 4, default: 5.0,   null: false
       t.boolean    :administrator,                                                       default: true,  null: false
       t.text       :rights
-      # t.date       :arrived_on
+      # t.datetime   :arrived_at
       t.text       :description
       t.boolean    :commercial,                                                          default: false, null: false
       # t.datetime   :departed_at
@@ -1547,7 +1537,7 @@ class CreateBase < ActiveRecord::Migration
       t.text       :item_changes
       t.datetime   :created_at,                       null: false
       t.index      :created_at
-      t.references :creator,                                        index: true
+      t.references :creator,                                       index: true
       t.string     :creator_name
     end
 

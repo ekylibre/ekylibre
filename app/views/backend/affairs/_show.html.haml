@@ -2,7 +2,7 @@
   %table.list.deals
     %thead
       %tr
-        %th= Gap.human_attribute_name(:done_on)
+        %th= Gap.human_attribute_name(:done_at)
         %th= Gap.human_attribute_name(:deal_type)
         %th= Gap.human_attribute_name(:third)
         %th= Gap.human_attribute_name(:reference)
@@ -32,9 +32,9 @@
         %td.total.amount.sum{:class => (affair.balance == 0 ? "debit" : "credit")}= affair.balance.l(:currency => affair.currency)
         %td.act
     %tbody
-      - for deal in affair.deals.sort{|a,b| a.dealt_on <=> b.dealt_on and a.created_at <=> b.created_at }
+      - for deal in affair.deals.sort{|a,b| a.dealt_at <=> b.dealt_at and a.created_at <=> b.created_at }
         %tr
-          %td.dat.dealt-on= deal.dealt_on.l
+          %td.dat.dealt-on= deal.dealt_at.l
           %td.type= deal.class.model_name.human
           %td.third= link_to(deal.deal_third.full_name, send("backend_#{deal.deal_third.class.name.underscore}_path", deal.deal_third))
           %td.name= link_to(deal.label, :controller => "/backend/"+deal.class.table_name, :action => :show, :id => deal.id)

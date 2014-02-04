@@ -30,7 +30,7 @@
 #  collected_amount         :decimal(19, 4)
 #  created_at               :datetime         not null
 #  creator_id               :integer
-#  declared_on              :date
+#  declared_at              :datetime
 #  deferred_payment         :boolean
 #  financial_year_id        :integer
 #  id                       :integer          not null, primary key
@@ -38,16 +38,16 @@
 #  lock_version             :integer          default(0), not null
 #  nature                   :string(255)      default("normal"), not null
 #  paid_amount              :decimal(19, 4)
-#  paid_on                  :date
-#  started_on               :date
-#  stopped_on               :date
+#  paid_at                  :datetime
+#  started_at               :datetime
+#  stopped_at               :datetime
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #
 
 
 class TaxDeclaration < Ekylibre::Record::Base
-  # attr_accessible :address, :started_on, :stopped_on
+  # attr_accessible :address, :started_at, :stopped_at
   belongs_to :financial_year
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :acquisition_amount, :amount, :assimilated_taxes_amount, :balance_amount, :collected_amount, :paid_amount, allow_nil: true
@@ -60,11 +60,11 @@ class TaxDeclaration < Ekylibre::Record::Base
 
   # this method:allows to verify the different characteristics of the tax declaration.
   validate do
-    errors.add(:stopped_on, :one_data_to_record_tax_declaration)  if self.collected_amount.zero? and self.acquisition_amount.zero? and self.assimilated_taxes_amount.zero? and self.paid_amount.zero? and self.balance_amount.zero?
-    errors.add(:started_on, :overlapped_period_declaration) if TaxDeclaration.where("? BETWEEN started_on AND stopped_on", self.started_on).first
-    errors.add(:stopped_on, :overlapped_period_declaration) if TaxDeclaration.where("? BETWEEN started_on AND stopped_on", self.started_on).first
+    errors.add(:stopped_at, :one_data_to_record_tax_declaration)  if self.collected_amount.zero? and self.acquisition_amount.zero? and self.assimilated_taxes_amount.zero? and self.paid_amount.zero? and self.balance_amount.zero?
+    errors.add(:started_at, :overlapped_period_declaration) if TaxDeclaration.where("? BETWEEN started_at AND stopped_at", self.started_at).first
+    errors.add(:stopped_at, :overlapped_period_declaration) if TaxDeclaration.where("? BETWEEN started_at AND stopped_at", self.started_at).first
     unless self.financial_year.nil?
-      errors.add(:declared_on, :declaration_date_after_period) if self.declared_on < self.financial_year.stopped_on
+      errors.add(:declared_at, :declaration_date_after_period) if self.declared_at < self.financial_year.stopped_at
     end
   end
 

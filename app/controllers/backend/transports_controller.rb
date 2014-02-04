@@ -24,8 +24,8 @@ class Backend::TransportsController < BackendController
   list(:children => :deliveries, conditions: search_conditions(:transports => [:number, :description], :entities => [:number, :full_name])) do |t|
     t.column :number, url: true
     t.column :description
-    #t.column :created_on, :children => :planned_on
-    #t.column :transport_on, :children => :moved_on
+    #t.column :created_at, :children => :planned_at
+    #t.column :departed_at, :children => :moved_at
     t.column :transporter, label_method: :full_name, :children => :default_mail_coordinate, url: true
     t.column :net_mass
     # t.action :show, url: {:format => :pdf}, image: :print
@@ -36,7 +36,7 @@ class Backend::TransportsController < BackendController
   list(:deliveries, model: :outgoing_deliveries, :children => :items, conditions: {:transport_id => 'params[:id]'.c}) do |t|
     t.column :address, label_method: :coordinate, :children => :product_name
     t.column :sent_at, children: false
-    #t.column :moved_on, children: false
+    #t.column :moved_at, children: false
     t.column :number, url: true, children: false
     # t.column :number, through: :sale, url: true, children: false
     #t.column :quantity
@@ -82,7 +82,7 @@ class Backend::TransportsController < BackendController
     t.check_box :selected, :value => '(session[:current_transport_id].to_i.zero? ? RECORD.sent_at <= Date.today : RECORD.transport_id == session[:current_transport_id])'.c
     t.column :address, label_method: :coordinate, :children => :product_name
     t.column :sent_at, children: false
-    #t.column :moved_on, children: false
+    #t.column :moved_at, children: false
     t.column :number, url: true, children: false
     # t.column :number, through: :sale, url: true, children: false
     t.column :transporter, children: false, url: true
@@ -93,7 +93,7 @@ class Backend::TransportsController < BackendController
   end
 
   def new
-    @transport = Transport.new(:transport_on => Date.today, :responsible_id => current_user.id, :transporter_id => params[:transporter_id], :responsible_id => current_user.id)
+    @transport = Transport.new(departed_at: Time.now, responsible: current_user.person, :transporter_id => params[:transporter_id])
     session[:current_transport_id] = @transport.id
     session[:current_transporter_id] = @transport.transporter_id
     if request.xhr?

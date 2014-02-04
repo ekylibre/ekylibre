@@ -4,7 +4,6 @@
   = f.input :with_accounting, :show => :accountancy_options
 
 = field_set(:accountancy, :in => :accountancy_options) do
-  = f.referenced_association :attorney_journal
   = f.input :with_deposit, :show => :deposit
   = f.input :with_commission, :show => :commission
 

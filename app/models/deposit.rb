@@ -25,7 +25,6 @@
 #  amount           :decimal(19, 4)   default(0.0), not null
 #  cash_id          :integer          not null
 #  created_at       :datetime         not null
-#  created_on       :date             not null
 #  creator_id       :integer
 #  description      :text
 #  id               :integer          not null, primary key
@@ -52,7 +51,7 @@ class Deposit < Ekylibre::Record::Base
   validates_numericality_of :amount, allow_nil: true
   validates_length_of :number, allow_nil: true, maximum: 255
   validates_inclusion_of :locked, in: [true, false]
-  validates_presence_of :amount, :cash, :created_on, :mode, :number
+  validates_presence_of :amount, :cash, :mode, :number
   #]VALIDATORS]
   validates_presence_of :responsible, :cash
 
@@ -67,8 +66,6 @@ class Deposit < Ekylibre::Record::Base
 
   after_save do
     self.update_columns(amount: self.payments.sum(:amount), payments_count: self.payments.count)
-    # self.reload
-    # return true
   end
 
   # validate do

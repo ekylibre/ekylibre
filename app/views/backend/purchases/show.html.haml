@@ -21,9 +21,9 @@
         - l.attribute :reference_number
         - l.attribute :state
         - l.attribute :responsible, :label=>:full_name
-        - l.attribute :created_on
-        - l.attribute :confirmed_on
-        - l.attribute :planned_on
+        - l.attribute :created_at
+        - l.attribute :confirmed_at
+        - l.attribute :planned_at
         - l.attribute :currency unless @purchase.currency == Entity.of_company.currency
         - l.attribute :description
         - l.attribute :delivery_address, :label=>:coordinate

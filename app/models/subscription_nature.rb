@@ -71,7 +71,7 @@ class SubscriptionNature < Ekylibre::Record::Base
 
   def fields
     if self.period?
-      return :started_on, :stopped_on
+      return :started_at, :stopped_at
     else
       return :first_number, :last_number
     end

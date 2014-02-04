@@ -30,7 +30,7 @@
 #  collected_amount         :decimal(19, 4)
 #  created_at               :datetime         not null
 #  creator_id               :integer
-#  declared_on              :date
+#  declared_at              :datetime
 #  deferred_payment         :boolean
 #  financial_year_id        :integer
 #  id                       :integer          not null, primary key
@@ -38,9 +38,9 @@
 #  lock_version             :integer          default(0), not null
 #  nature                   :string(255)      default("normal"), not null
 #  paid_amount              :decimal(19, 4)
-#  paid_on                  :date
-#  started_on               :date
-#  stopped_on               :date
+#  paid_at                  :datetime
+#  started_at               :datetime
+#  stopped_at               :datetime
 #  updated_at               :datetime         not null
 #  updater_id               :integer
 #

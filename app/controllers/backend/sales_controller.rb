@@ -44,10 +44,10 @@ class Backend::SalesController < BackendController
     return code.c
   end
 
-  list(conditions: sales_conditions, joins: :client, order: {created_on: :desc, number: :desc}) do |t| # , :line_class => 'RECORD.tags'
+  list(conditions: sales_conditions, joins: :client, order: {created_at: :desc, number: :desc}) do |t| # , :line_class => 'RECORD.tags'
     t.column :number, url: {action: :show, step: :default}
-    t.column :created_on
-    t.column :invoiced_on
+    t.column :created_at
+    t.column :invoiced_at
     t.column :client, url: true
     t.column :responsible, hidden: true
     t.column :description, hidden: true
@@ -65,17 +65,17 @@ class Backend::SalesController < BackendController
     respond_to do |format|
       format.html
       format.xml  { render :xml => @sales }
-      # format.pdf  { render_print_sales(params[:established_on]||Date.today) }
+      # format.pdf  { render_print_sales(params[:established_at]||Date.today) }
       format.pdf  { render :pdf => @sales, :with => params[:template] }
-      # format.odt  { render_print_sales(params[:established_on]||Date.today) }
-      # format.docx { render_print_sales(params[:established_on]||Date.today) }
+      # format.odt  { render_print_sales(params[:established_at]||Date.today) }
+      # format.docx { render_print_sales(params[:established_at]||Date.today) }
     end
   end
 
   list(:credits, model: :sales, conditions: {:origin_id => 'params[:id]'.c }, :children => :items) do |t|
     t.column :number, url: true, :children => :designation
     t.column :client, children: false
-    t.column :created_on, children: false
+    t.column :created_at, children: false
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
   end
@@ -84,8 +84,8 @@ class Backend::SalesController < BackendController
     t.column :number, :children => :product_name
     t.column :transporter, children: false, url: true
     t.column :address, label_method: :coordinate, children: false
-    # t.column :planned_on, children: false
-    # t.column :moved_on, children: false
+    # t.column :planned_at, children: false
+    # t.column :moved_at, children: false
     t.column :population
     # t.column :pretax_amount, currency: true
     # t.column :amount, currency: true
@@ -100,8 +100,8 @@ class Backend::SalesController < BackendController
   #   t.column :payment_way
   #   t.column :scheduled, through: :payment, :datatype => :boolean, :label => :column
   #   t.column :downpayment
-  #   # t.column :paid_on, through: :payment, :label => :column, :datatype => :date
-  #   t.column :to_bank_on, through: :payment, :label => :column, :datatype => :date
+  #   # t.column :paid_at, through: :payment, :label => :column, :datatype => :date
+  #   t.column :to_bank_at, through: :payment, :label => :column, :datatype => :date
   #   t.action :destroy
   # end
 

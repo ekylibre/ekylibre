@@ -36,8 +36,8 @@ arb:
       bank_statement:  #?
         number: "رقم" #?
         real_debit: "الدين" #?
-        started_on: "من" #?
-        stopped_on: "الى" #?
+        started_at: "من" #?
+        stopped_at: "الى" #?
       building:
         # born_at: "Construit le"
         # content_maximal_quantity: "Quantité maximale supportée"
@@ -62,7 +62,7 @@ arb:
         description: "مواصفات" #?
       company:  #?
         account_balances: "ارصدة الحساب" #?
-        born_on: "انشأ في" #?
+        born_at: "انشأ في" #?
         cashes: "الخزينة" #?
         code: "الرمز الداخلي" #?
         created_at: "تم انشاءه في" #?
@@ -116,9 +116,9 @@ arb:
         lines: "خطوط التسليم" #?
         mode: "النوع" #?
         mode_id: "نوع" #?
-        moved_on: "استمر" #?
+        moved_at: "استمر" #?
         order_id: "طلب البيع" #?
-        planned_on: "مقرر ليوم" #?
+        planned_at: "مقرر ليوم" #?
         sales_invoice: "فاتورة" #?
         transporter_id: "الناقلة" #?
       delivery_item:  #?
@@ -141,8 +141,7 @@ arb:
         cash: "حساب مصرفي" #?
         cash_id: "حساب مصرفي" #?
         comment: "تعليق" #?
-        created_at: "انشأ في" #?
-        created_on: "انشاء يوم" #?
+        created_at: "انشاء يوم" #?
         mode: "نوع الدفعة" #?
         mode_id: "نوع الدفعة" #?
       district:  #?
@@ -193,8 +192,8 @@ arb:
         created_at: "تم انشائها في" #?
         nature: "الرابط" #?
         nature_id: "رابط" #?
-        started_on: "بدأ يوم" #?
-        stopped_on: "انتهى يوم" #?
+        started_at: "بدأ يوم" #?
+        stopped_at: "انتهى يوم" #?
       entity_link_nature:  #?
         created_at: "تم انشائها في" #?
       entity_nature:  #?
@@ -233,18 +232,18 @@ arb:
         account_balances: "رصائد الحسابات" #?
         journal_records: "السجلات المحاسبية" #?
         # last_journal_entry: "Écriture de fin d’exercice"
-        started_on: "بدأ ب" #?
-        stopped_on: "تاريخ الاغلاق"
+        started_at: "بدأ ب" #?
+        stopped_at: "تاريخ الاغلاق"
       incoming_payment:
         accounted_at: "تمت محاسبته في" #?
         amount: "القيمة" #?
-        created_on: "انشأت يوم" #?
+        created_at: "انشأت يوم" #?
         depositer: "المسؤول" #?
         depositer_id: "المسؤول" #?
         mode_id: "نمط دفعة" #?
-        paid_on: "سدد يوم" #?
+        paid_at: "سدد يوم" #?
         parts: "اجزاء الدفعة" #?
-        to_bank_on: "تسديد الدفعة يوم"
+        to_bank_at: "تسديد الدفعة يوم"
       incoming_payment_mode:  #?
         cash: "الخزينة المستخدمة" #?
         cash_id: "الخزينة المستخدمة" #?
@@ -259,7 +258,7 @@ arb:
         # storage: "Support"
       inventory:  #?
         comment: "تعليق" #?
-        created_on: "اكتمل يوم" #?
+        created_at: "اكتمل يوم" #?
         journal_record_id: "السجلات الحسلبية" #?
         lines: "طرق عملية الجرد" #?
       inventory_item:
@@ -273,8 +272,7 @@ arb:
         updated_at: "تم تحديثها في" #?
       journal_entry:  #?
         company: "شركة" #?
-        created_at: "انشأـ في" #?
-        created_on: "انشأت يوم" #?
+        created_at: "انشأت يوم" #?
         incoming_payments: "دفعات" #?
         outgoing_payment_uses: "اجزاء الدفعات" #?
         outgoing_payments: "دفعات" #?
@@ -307,8 +305,8 @@ arb:
         entity: "ملف" #?
         entity_id: "ملف" #?
         family: "الفصيلة" #?
-        started_on: "ابتدأ في" #?
-        stopped_on: "انتهى في" #?
+        started_at: "ابتدأ في" #?
+        stopped_at: "انتهى في" #?
       matter:
         # born_at: "Fabriqué le"
         # dead_at: "Détruit/consommé le"
@@ -331,9 +329,9 @@ arb:
         updater: "تم تحديثه في" #?
       operation:  #?
         lines: "الواردات / الصادرات" #?
-        moved_on: "اجرى يوم" #?
+        moved_at: "اجرى يوم" #?
         nature: "النوع" #?
-        planned_on: "المقرر عقده يوم" #?
+        planned_at: "المقرر عقده يوم" #?
         started_at: "من" #?
         stopped_at: "الى" #?
       operation_item:  #?
@@ -519,14 +517,14 @@ arb:
         # amount: "Montant TTC"
         amount_with_taxes: "القيمة مع كل الضرائب" #?
         comment: "تعليق" #?
-        created_on: "انشأت يوم" #?
+        created_at: "انشأت يوم" #?
         currency: "العملة" #?
         # items: "Lignes d’achat"
         label: "طلب تجاري"
         lines: "طرق الشراء" #?
-        moved_on: "وردت يوم"
+        moved_at: "وردت يوم"
         number: "رقم" #?
-        planned_on: "مقرر الاستقبال يوم"
+        planned_at: "مقرر الاستقبال يوم"
         received: "المستلم" #?
       purchase_item:
         account: "حساب الرسوم المستخدمة" #?
@@ -548,7 +546,7 @@ arb:
         contact: "عنوان للاقتياس"
         contact_id: "عنوان للاقتباس" #?
         created_at: "انشأ في" #?
-        expired_on: "ينتهي يوم" #?
+        expired_at: "ينتهي يوم" #?
         has_downpayment: "صرف القسط"
         # items: "Lignes de vente"
         lines: "طرق طلب البيع" #?
@@ -666,7 +664,7 @@ arb:
         created_at: "انشأ في" #?
         parts_amount: "القيمة المسددة" #?
         payment_uses: "اجزاء الدفعة" #?
-        started_on: "ايتدأ يوم" #?
+        started_at: "ايتدأ يوم" #?
         updated_at: "تم تحديثه" #?
         updater_id: "تحديث" #?
       transport:  #?
@@ -746,24 +744,24 @@ arb:
           nature_do_not_allow_a_first_name: "«%{nature}» لا يسمح النوع المختار بمعرفة الاسم الاول"
         financial_asset:
           attributes:
-            started_on:
+            started_at:
               # invalid_date: "La période d’amortissement doit débuter le %{start} ou en début de mois"
         financial_year:
           attributes:
-            started_on:
+            started_at:
               consecutive: "يجب ان تكون محاسبة السنة المالية بصف آخر، ويجب ان تبدأ بعد نهاية العام السابق"
-            stopped_on:
+            stopped_at:
               end_of_month: "%{attribute} يجب ان يكون التاريخ في نهاية الشهر"
           overlap: "%{attribute} متواجد على قائمة السنة المالية الحالية"
         incoming_delivery_item:
           # greater_than_undelivered_quantity: "La quantité de produit %{product} à livrer dépasse la quantité non livrée (%{maximum}%{unit})"
         journal:
           attributes:
-            closed_on:
-              # draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}"
-              end_of_month: "%{attribute} يجب ان تطابق تاريخ نهاية الشهر (%{closed_on})"
+            closed_at:
+              # draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_at}"
+              end_of_month: "%{attribute} يجب ان تطابق تاريخ نهاية الشهر (%{closed_at})"
         journal_entry:
-          closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_on} تم اغلاق الدفتر اليومي في"
+          closed_journal: ".مما لا يمكنك انشاءخ او تعديله او الغاءه لغاية هذا التاريخ %{closed_at} تم اغلاق الدفتر اليومي في"
           # out_of_existing_financial_year: "L’écriture doit être enregistrée dans un exercice comptable existant."
           out_of_financial_year: "يجب اغتنام السجل خلال السنة المالية" #?
           unbalanced: "ان السجل غير متعادل"
@@ -1006,7 +1004,7 @@ arb:
     # administrator: "Administrateur système"
     # affair: "Affaire"
     # affairs: "Affaires"
-    # affected_on: "Affecté le"
+    # affected_at: "Affecté le"
     # age: "Âge"
     agency_code: "رمز الوكالة" #?
     # aim: "Objectif"
@@ -1025,7 +1023,7 @@ arb:
     area_unit: "وحدة المساحة" #?
     area_unit_id: "وحدة مساحة" #?
     # arrival_cause: "Cause d’entrée"
-    arrived_on: "وصل يوم"
+    arrived_at: "وصل يوم"
     assimilated_taxes_amount: "قيمة الضرائب المماثلة"
     attorney: "الوكيل"
     attorney_account: "حساب مساعد الوكيل"
@@ -1062,8 +1060,7 @@ arb:
     bic: "BIC" #?
     # birth: "Naissance"
     boolean_value: "القيمة المنطقية"
-    # born_at: "Né(e) le"
-    born_on: "تاريخ الميلاد"
+    born_at: "تاريخ الميلاد"
     building: "موقع التخزين"
     building_id: "موقع التخزين" #?
     buildings: "مواقع التخزين"
@@ -1085,8 +1082,7 @@ arb:
     category: "الفئة"
     category_id: "الفئة" #?
     # ceded: "Cédé"
-    # ceded_on: "Cédé le"
-    changes_reflected: "انعكاس التغييرات"
+    # ceded_at: "Cédé le"
     # charge_account: "Compte d’achat"
     # charges_account: "Comptes de charge"
     charges_accounts: "حسابات الحمولة"
@@ -1109,8 +1105,7 @@ arb:
     clients: "العملاء"
     # closable_financial_year: "Exercice clôturable"
     closed: "تم اغلاقه"
-    # closed_at: "Clôturé à"
-    closed_on: "تاريخ الاغلاق"
+    closed_at: "تاريخ الاغلاق"
     code: "الرمز"
     code2: "الرمز الثاني" #?
     coefficient: "الدرجة"
@@ -1146,7 +1141,7 @@ arb:
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
     conditions: "(SQL) شروط"
-    confirmed_on: "تم التأكيد عليه يوم"
+    confirmed_at: "تم التأكيد عليه يوم"
     connected_at: "سجل الدخول في" #?
     consumption: "الاستهلاك" #?
     contact: "العنوان" #?
@@ -1164,8 +1159,7 @@ arb:
     counterpart: "النسخة المطابقة" #?
     counterpart_id: "النسخة المطالقة" #?
     country: "البلد"
-    created_at: "انشأت في"
-    created_on: "انشأ يوم"
+    created_at: "انشأ يوم"
     creator: "المنتج"
     creator_id: "المنتج" #?
     credit: "الائتمان"
@@ -1200,8 +1194,7 @@ arb:
     data: "بيانات اضافية"
     date_value: "قيمة التاريخ" #?
     datetime_value: "قيمة التاريخ/الساعة" #?
-    # dead_at: "Décédé(e) le"
-    dead_on: "تاريغ الوفاة"
+    dead_at: "تاريغ الوفاة"
     # deal_type: "Type de transaction"
     # death: "Death"
     debit: "الدين"
@@ -1210,7 +1203,7 @@ arb:
     decimal_max: "ارتفاع المدى" #?
     decimal_min: "انخفاض المدى" #?
     decimal_value: "القيمة العشرية"
-    declared_on: "صرح يوم"
+    declared_at: "صرح يوم"
     # deduction_account: "TVA déductible"
     # deduction_taxes: "TVA déductible"
     default_contact: "الشخص المتوقع الاتصال به" #?
@@ -1222,8 +1215,7 @@ arb:
     deleted_at: "الغيه في"
     # deliverable: "Livrable"
     delivered: "تم التسليم"
-    # delivered_at: "Reçu le"
-    delivered_on: "تم التسليم في" #?
+    delivered_at: "تم التسليم في"
     deliveries: "التسليم"
     deliveries_conditions: "شروط التسليم"
     delivery: "التسليم"
@@ -1234,7 +1226,7 @@ arb:
     delivery_items: "طرق التسليم"
     delivery_modes: "اسلوب التسليم" #?
     density_label: "الكثافة" #?
-    departed_on: "غادر يوم" #?
+    departed_at: "نقل يوم"
     department: "المبنى" #?
     department_id: "مبنى" #?
     departments: "الخدمات" #?
@@ -1279,7 +1271,7 @@ arb:
     # document_archives: "Archives documentaires"
     document_templates: "نماذج الوثائق" #?
     documents: "الوثائق"
-    # done_on: "Fait le"
+    # done_at: "Fait le"
     downpayment: "القسط"
     downpayment_amount: "قيمة القسط"
     downpayment_minimum: "الحد الادنى للمجموع"
@@ -1338,7 +1330,7 @@ arb:
     expiration: "تأخير المهلة" #?
     # expiration_delay: "Délai d’expiration"
     expiration_id: "تأخير مهلة" #?
-    expired_on: "انتهى يوم"
+    expired_at: "انتهى يوم"
     exportable: "قبل للتصدير"
     # exportable_columns: "Colonnes exportables"
     expression: "اسلوب للتعبير"
@@ -1364,7 +1356,7 @@ arb:
     finish: "النهاية"
     # finish_junction: "Finish junction"
     # finish_way: "Finish way"
-    first_met_on: "تاريخ اول مقابلة"
+    first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
     for_immobilizations: "منتجات ساكنة" #?
@@ -1440,7 +1432,7 @@ arb:
     invoice_contact: "العنوان للفاتورة" #?
     invoice_contact_id: "العنوان للفاتورة" #?
     invoiced: "مفوتر"
-    # invoiced_on: "Facturée le"
+    # invoiced_at: "Facturée le"
     # invoices_count: "Nombre de factures"
     # irrigated: "Irrigué"
     is_debit: "مدين" #?
@@ -1551,7 +1543,7 @@ arb:
     mode: "نمط الدفعة"
     mode_id: "طريقة تسديد دفعة" #?
     # mother: "Mère"
-    moved_on: "انجز يوم"
+    moved_at: "انجز يوم"
     # multi_polygon_value: "Multi polygon value"
     name: "الاسم"
     name_1_to_2: "الملف الاول الى الثاني"
@@ -1609,7 +1601,7 @@ arb:
     paid_account: "سددت القيمة الضريبية الاضافية" #?
     paid_account_id: "سددت القيمة الضريبية الاضافية" #?
     paid_amount: "خصمة من قيمة الضريبة الاضافية"
-    paid_on: "سددت يوم"
+    paid_at: "سددت يوم"
     # paid_taxes: "Taxes payées"
     parent: "النسب"
     parent_id: "نسب" #?
@@ -1625,6 +1617,7 @@ arb:
     payer: "دافع القيمة"
     payer_id: "دافع القيمة" #?
     payment: "الدفعة" #?
+    payment_at: "تسدد في مدة لا تتجاوز"
     payment_delay: "تأجيل الدفعة"
     payment_delay_id: "تأجيل دفعة" #?
     payment_id: "دفعة" #?
@@ -1632,7 +1625,6 @@ arb:
     payment_mode_complement: "معلومات اضافية عن نمط الدفعة"
     payment_mode_id: "نمط دفعة" #?
     payment_modes: "طريقة تسديد الدفعة" #?
-    payment_on: "تسدد في مدة لا تتجاوز"
     payment_uses: "اجزاء الدفعات" #?
     payment_way: "نمط الدفعة" #?
     payments: "الدفعات"
@@ -1654,8 +1646,8 @@ arb:
     # picture_file_size: "Taille du fichier photo"
     # picture_updated_at: "Fichier photo mis à jour le"
     # place: "Place"
+    planned_at: "قرر يوم"
     # planned_depreciations: "Amortissements prévus"
-    planned_on: "قرر يوم"
     # point: "Point"
     # point_value: "Point value"
     polygon: "متناسقين" #?
@@ -1675,8 +1667,7 @@ arb:
     price_amount: "القيمة دون الضرائب" #?
     price_id: "سعر الوحدة" #?
     prices: "الاسعار"
-    printed_at: "طبعت في" #?
-    printed_on: "طبع يوم"
+    printed_at: "طبع يوم"
     # priority: "Priorité"
     # procedures: "Procédures"
     # process: "Process"
@@ -1728,7 +1719,7 @@ arb:
     # purchase_invoices: "Factures d’achats"
     # purchase_item: "Ligne d’achat"
     purchase_items: "طرق طلب الشراء"
-    # purchased_on: "Acheté le"
+    # purchased_at: "Acheté le"
     purchases: "المشتريات"
     purchases_account: "رسوم المحاسبة" #?
     purchases_account_id: "رسوم المحاسبة" #?
@@ -1770,6 +1761,7 @@ arb:
     # reference_name: "Référence"
     # reference_number: "N°Référence"
     reflation_submissive: "خاضع لانعاش اقتصادي" #?
+    reflected: "انعكاس التغييرات"
     # reflections: "Reflections"
     remaining_duration: "(مدة الاستخدام المتبقي (ساعات "
     # remember_me: "Se souvenir de moi"
@@ -1824,7 +1816,7 @@ arb:
     sha256: "SHA256" #?
     # shape: "Shape"
     shipped: "المستلم" #?
-    shipped_on: "شحنها يوم" #?
+    shipped_at: "شحنها يوم" #?
     # sign_in_count: "Nombre de connexions"
     siren: "رقم صفارة الانذار"
     siret: "SIRET رقم" #?
@@ -1837,7 +1829,6 @@ arb:
     # start_junction: "Start junction"
     # start_way: "Start way"
     started_at: "ابتدأ يوم"
-    started_on: "ابتدأ يوم"
     started_sec: "(التاريخ والوقت (بالثواني" #?
     state: "الحالة"
     state_label: "حالة النص"
@@ -1852,8 +1843,7 @@ arb:
     stockable_products: "منتجات للتخزين" #?
     stocks: "اسهم الانتاج" #?
     # stocks_categories: "Catégories de produits avec stock"
-    stopped_at: "انتهى يوم"
-    stopped_on: "توقف يوم"
+    stopped_at: "توقف يوم"
     # storable: "Gérer les stocks"
     # storage: "Storage"
     story: "واقع"
@@ -1903,7 +1893,7 @@ arb:
     title: "اللقب"
     to: "ل"
     to_archive: "وثائق للارشفة" #?
-    to_bank_on: "يسدد يوم"
+    to_bank_at: "يسدد يوم"
     tool: "الاداة"
     tool_id: "اداة" #?
     tools: "الادوات" #?
@@ -1915,7 +1905,6 @@ arb:
     transfers: "التحويلات"
     transport: "وسيلة النقل"
     transport_id: "وسيلة النقل" #?
-    transport_on: "نقل يوم"
     transporter: "الناقلة"
     transporter_id: "ناقل" #?
     # transporter_sales: "Ventes de transporteurs"
@@ -2043,9 +2032,9 @@ arb:
               filename: "[name] (الدفتر اليومي)" #?
           management: #?
             deposit: #?
-              filename: "[created_on] اقتطاع البنك من" #?
+              filename: "[created_at] اقتطاع البنك من" #?
             inventory: #?
-              filename: "[created_on] جرد ل" #?
+              filename: "[created_at] جرد ل" #?
             purchase: #?
               filename: "[number]شراء" #?
             sale: #?
@@ -2056,22 +2045,22 @@ arb:
             stocks: #?
               filename: "حالة الاسهم" #?
             transport: #?
-              filename: "[created_on] توصيل ل" #?
+              filename: "[created_at] توصيل ل" #?
           relations: #?
             entity: #?
               filename: " [full_name] ملف ال" #?
         document_templates_filenames: #?
           balance_sheet: "[code]الميزانية العمومية" #?
-          deposit: "[created_on] الاقتطاع البنكي ل" #?
+          deposit: "[created_at] الاقتطاع البنكي ل" #?
           entity: "[full_name] ملف" #?
           income_statement: "[code] بيان حسابات الدخل" #?
           inventory: "[date] عملية الجرد" #?
-          order_preparation: "[created_on] تجهيز الطلب من" #?
+          order_preparation: "[created_at] تجهيز الطلب من" #?
           other: "Fichier" #?
           purchase: "[number] شراء" #?
           sale: "[number] بيع" #?
           sales_invoice: "[number] فاتورة" #?
-          transport: "[created_on] توصيل ل" #?
+          transport: "[created_at] توصيل ل" #?
         establishment_name: "المؤسسة الرئيسية" #?
         financial_year_code: "1A2" #?
         incoming_payment_modes: #?
@@ -2531,7 +2520,7 @@ arb:
       currency_is_not_sale_currency: "لا يتطابق سعر المنتج مع العملة المحددة للبيع"
       error_no_found_price: "لم يتم العثور على اي سعر لهذا المنتج من قائمة الرسوم الجمركية" #?
       # no_product: "[Pas de produit]"
-      reduction_on: "تخفيض بنسبة %{percent}% على : %{product}"
+      reduction_at: "تخفيض بنسبة %{percent}% على : %{product}"
       tracking: "رقم الحصة : %{serial}"
     sale_nature:
       default:

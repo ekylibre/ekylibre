@@ -1,7 +1,4 @@
-=field_set do
-  =f.input :name
-  =f.referenced_association :cash
-  =f.input :with_accounting, :show => :accountancy
-
-=field_set(:accountancy) do
-  =f.referenced_association :attorney_journal
+= field_set do
+  = f.input :name
+  = f.referenced_association :cash
+  = f.input :with_accounting

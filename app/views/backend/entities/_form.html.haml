@@ -3,7 +3,7 @@
   = f.input :language, :collection => languages, :field => :select
   = f.input :last_name
   = f.input :first_name
-  = f.input :active, :hide => :dead_on
+  = f.input :active, :hide => :dead_at
   -# = f.input :number
   = f.input :prospect
   = f.input :client, :show => :client_informations
@@ -15,15 +15,15 @@
   = f.input :siren
   = f.input :activity_code
   = f.input :vat_number
-  = f.input :born_on
-  = f.input :dead_on
+  = f.input :born_at
+  = f.input :dead_at
   = f.input :picture
   -# = f.input :ean13
   = f.custom_fields
 
 = field_set(:client_informations) do
   = f.input :origin, :autocomplete => true
-  = f.input :first_met_on
+  = f.input :first_met_at
   = f.referenced_association :proposer
   = f.referenced_association :responsible, :source => :employees
   = f.input :vat_subjected

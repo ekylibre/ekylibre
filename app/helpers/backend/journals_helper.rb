@@ -42,11 +42,11 @@ module Backend::JournalsHelper
     value ||= params[name] || options[:default]
     list = []
     list << [tc(:all_periods), "all"]
-    for year in FinancialYear.reorder("started_on DESC")
-      list << [year.code, year.started_on.to_s << "_" << year.stopped_on.to_s]
+    for year in FinancialYear.reorder("started_at DESC")
+      list << [year.code, year.started_at.to_s << "_" << year.stopped_at.to_s]
       list2 = []
-      date = year.started_on
-      while date < year.stopped_on and date < Date.today
+      date = year.started_at
+      while date < year.stopped_at and date < Date.today
         date2 = date.end_of_month
         list2 << [tc(:month_period, :year => date.year, :month => t("date.month_names")[date.month], :code => year.code), date.to_s << "_" << date2.to_s]
         date = date2 + 1
@@ -56,13 +56,13 @@ module Backend::JournalsHelper
     code = ""
     code << content_tag(:label, options[:label] || tc(:period), :for => configuration[:id]) + " "
     fy = FinancialYear.current
-    params[:period] = value = value || :all # (fy ? fy.started_on.to_s + "_" + fy.stopped_on.to_s : :all)
+    params[:period] = value = value || :all # (fy ? fy.started_at.to_s + "_" + fy.stopped_at.to_s : :all)
     custom_id = "#{configuration[:id]}_#{configuration[:custom]}"
     toggle_method = "toggle#{custom_id.camelcase}"
     if configuration[:custom]
-      params[:started_on] = params[:started_on].to_date rescue (fy ? fy.started_on : Date.today)
-      params[:stopped_on] = params[:stopped_on].to_date rescue (fy ? fy.stopped_on : Date.today)
-      params[:stopped_on] = params[:started_on] if params[:started_on] > params[:stopped_on]
+      params[:started_at] = params[:started_at].to_date rescue (fy ? fy.started_at : Date.today)
+      params[:stopped_at] = params[:stopped_at].to_date rescue (fy ? fy.stopped_at : Date.today)
+      params[:stopped_at] = params[:started_at] if params[:started_at] > params[:stopped_at]
       list.insert(0, [tc(configuration[:custom]), configuration[:custom]])
     end
 
@@ -73,7 +73,7 @@ module Backend::JournalsHelper
     code << select_tag(name, options_for_select(list, value), :id => configuration[:id], "data-show-value" => "##{configuration[:id]}_")
 
     if configuration[:custom]
-      code << " " << content_tag(:span, tc(:manual_period, :start => date_field_tag(:started_on, params[:started_on], :size => 10), :finish => date_field_tag(:stopped_on, params[:stopped_on], :size => 10)).html_safe, :id => custom_id)
+      code << " " << content_tag(:span, tc(:manual_period, :start => date_field_tag(:started_at, params[:started_at], :size => 10), :finish => date_field_tag(:stopped_at, params[:stopped_at], :size => 10)).html_safe, :id => custom_id)
     end
     return code.html_safe
   end

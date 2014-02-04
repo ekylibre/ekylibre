@@ -26,7 +26,6 @@
 #  amount           :decimal(19, 4)   not null
 #  client_id        :integer          not null
 #  created_at       :datetime         not null
-#  created_on       :date
 #  creator_id       :integer
 #  currency         :string(3)        not null
 #  description      :string(255)
@@ -34,8 +33,8 @@
 #  journal_entry_id :integer
 #  label            :string(255)
 #  lock_version     :integer          default(0), not null
-#  started_on       :date
-#  stopped_on       :date
+#  number           :string(255)
+#  printed_at       :datetime
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #

@@ -28,9 +28,8 @@
 #  annotation          :text
 #  client_id           :integer          not null
 #  conclusion          :text
-#  confirmed_on        :date
+#  confirmed_at        :datetime
 #  created_at          :datetime         not null
-#  created_on          :date             not null
 #  creator_id          :integer
 #  credit              :boolean          not null
 #  currency            :string(3)        not null
@@ -38,22 +37,22 @@
 #  description         :text
 #  downpayment_amount  :decimal(19, 4)   default(0.0), not null
 #  expiration_delay    :string(255)
-#  expired_on          :date
+#  expired_at          :datetime
 #  function_title      :string(255)
 #  has_downpayment     :boolean          not null
 #  id                  :integer          not null, primary key
 #  initial_number      :string(60)
 #  introduction        :text
 #  invoice_address_id  :integer
-#  invoiced_on         :date
+#  invoiced_at         :datetime
 #  journal_entry_id    :integer
 #  letter_format       :boolean          default(TRUE), not null
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer
 #  number              :string(60)       not null
 #  origin_id           :integer
+#  payment_at          :datetime
 #  payment_delay       :string(255)      not null
-#  payment_on          :date
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)
 #  responsible_id      :integer
@@ -110,9 +109,9 @@ class SaleTest < ActiveSupport::TestCase
         # # DocumentTemplate.print(:sales_order, @sale.number, Ekylibre::Datasource::SalesOrder.to_xml(@sale))
         # # DocumentTemplate.print(:sales_order, @sale.number, @sale)
 
-        # # DocumentTemplate.print(:balance, started_on, stopped_on, options...)
+        # # DocumentTemplate.print(:balance, started_at, stopped_at, options...)
 
-        # # balance_template.print(started_on, stopped_on, options...)
+        # # balance_template.print(started_at, stopped_at, options...)
 
         # # DocumentTemplate.print(:animal_list)
         # # animal_list_template.print
@@ -131,7 +130,7 @@ class SaleTest < ActiveSupport::TestCase
       setup do
         @sale = Sale.new(:client => entities(:legal_entities_003), :nature => sale_natures(:sale_natures_001))
         assert @sale.save, @sale.errors.inspect
-        assert_equal Date.today, @sale.created_on
+        assert_equal Date.today, @sale.created_at.to_date
         assert !@sale.affair.nil?, "A sale must be linked to an affair"
         assert_equal @sale.amount, @sale.affair_credit, "Affair amount is not the same as the sale amount (#{@sale.affair.inspect})"
 
@@ -148,7 +147,7 @@ class SaleTest < ActiveSupport::TestCase
         assert @sale.confirm
         assert @sale.invoice
         assert_equal "invoice", @sale.state
-        assert_equal Date.today, @sale.invoiced_on
+        assert_equal Date.today, @sale.invoiced_at.to_date
       end
 
       # @TODO test have to be modify in order to work when updating model was finished
