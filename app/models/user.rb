@@ -76,7 +76,7 @@ class User < Ekylibre::Record::Base
   has_many :sales_invoices, -> { where(:state => "invoice") }, foreign_key: :responsible_id, class_name: "Sale"
   has_many :sales, class_name: "Sale", foreign_key: :responsible_id
   has_many :transports, class_name: "Transport", foreign_key: :responsible_id
-  has_many :unpaid_sales, -> { order("created_on").where("state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false) }, class_name: "Sale", foreign_key: :responsible_id
+  has_many :unpaid_sales, -> { order("created_at").where("state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false) }, class_name: "Sale", foreign_key: :responsible_id
 
   scope :employees, -> { where(:employed => true) }
 

@@ -22,7 +22,6 @@
 # == Table: incoming_payment_modes
 #
 #  active                  :boolean
-#  attorney_journal_id     :integer
 #  cash_id                 :integer
 #  commission_account_id   :integer
 #  commission_base_amount  :decimal(19, 4)   default(0.0), not null
@@ -58,21 +57,19 @@
 #
 
 incoming_payment_modes_001:
-  attorney_journal: journals_001
   cash: cashes_001
   creator: users_001
   depositables_account: accounts_001
   depositables_journal: journals_001
   detail_payments: true
-  name: Lorem ipsum
+  name: "In cash!"
   updater: users_001
   with_accounting: true
   with_deposit: true
 
 incoming_payment_modes_002:
-  attorney_journal: journals_001
   cash: cashes_001
   creator: users_001
-  name: Lorem ipsum 2
+  name: "By check"
   updater: users_001
   with_accounting: true

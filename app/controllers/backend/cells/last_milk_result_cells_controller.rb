@@ -12,9 +12,9 @@ class Backend::Cells::LastMilkResultCellsController < Backend::CellsController
     # @campaign =  camp || Campaign.currents.reorder('harvest_year DESC').first
     months = params[:months].to_i
     months = 12 if months.zero?
-    @stopped_on = params[:stopped_on].to_date rescue Date.today.end_of_month << 1
-    @started_on = params[:started_on].to_date rescue @stopped_on.beginning_of_month << (months - 1)
-    @stopped_on = @started_on.end_of_month if @stopped_on < @started_on
+    @stopped_at = params[:stopped_at].to_date rescue Date.today.end_of_month << 1
+    @started_at = params[:started_at].to_date rescue @stopped_at.beginning_of_month << (months - 1)
+    @stopped_at = @started_at.end_of_month if @stopped_at < @started_at
   end
 
 end

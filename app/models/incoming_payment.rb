@@ -30,7 +30,6 @@
 #  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
-#  created_on            :date
 #  creator_id            :integer
 #  currency              :string(3)        not null
 #  deposit_id            :integer
@@ -40,13 +39,13 @@
 #  lock_version          :integer          default(0), not null
 #  mode_id               :integer          not null
 #  number                :string(255)
-#  paid_on               :date
+#  paid_at               :datetime
 #  payer_id              :integer
 #  receipt               :text
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer
 #  scheduled             :boolean          not null
-#  to_bank_on            :date             default(CURRENT_DATE), not null
+#  to_bank_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #
@@ -66,27 +65,26 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :bank_account_number, :bank_check_number, :bank_name, :number, allow_nil: true, maximum: 255
   validates_inclusion_of :downpayment, :received, :scheduled, in: [true, false]
-  validates_presence_of :amount, :commission_amount, :currency, :mode, :to_bank_on
+  validates_presence_of :amount, :commission_amount, :currency, :mode, :to_bank_at
   #]VALIDATORS]
   validates_numericality_of :amount, greater_than: 0.0
   validates_numericality_of :commission_amount, greater_than_or_equal_to: 0.0
-  validates_presence_of :payer, :created_on
+  validates_presence_of :payer
   validates_presence_of :commission_account, :if => :with_commission?
 
   acts_as_numbered
-  acts_as_affairable :payer, dealt_on: :to_bank_on, role: "client"
+  acts_as_affairable :payer, dealt_at: :to_bank_at, role: "client"
 
-  scope :depositables, -> { where("deposit_id IS NULL AND to_bank_on <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Date.today, true) }
+  scope :depositables, -> { where("deposit_id IS NULL AND to_bank_at <= ? AND mode_id IN (SELECT id FROM #{IncomingPaymentMode.table_name} WHERE with_deposit = ?)", Time.now, true) }
   scope :depositables_for, lambda { |deposit, mode = nil|
     deposit = Deposit.find(deposit) unless deposit.is_a?(Deposit)
-    where("to_bank_on <= ?", Date.today).where("deposit_id = ? OR (deposit_id IS NULL AND mode_id = ?)", deposit.id, (mode ? mode_id : deposit.mode_id))
+    where("to_bank_at <= ?", Time.now).where("deposit_id = ? OR (deposit_id IS NULL AND mode_id = ?)", deposit.id, (mode ? mode_id : deposit.mode_id))
   }
   scope :last_updateds, -> { order("updated_at DESC") }
 
   before_validation(on: :create) do
-    self.created_on ||= Date.today
-    self.to_bank_on ||= Date.today
-    self.scheduled = (self.to_bank_on > Date.today ? true : false)
+    self.to_bank_at ||= Time.now
+    self.scheduled = (self.to_bank_at > Time.now ? true : false)
     self.received = false if self.scheduled
     true
   end
@@ -119,13 +117,13 @@ class IncomingPayment < Ekylibre::Record::Base
     mode = self.mode
     label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :payer => self.payer.full_name, :mode => mode.name, :check_number => self.bank_check_number)
     if mode.with_deposit?
-      b.journal_entry(mode.depositables_journal, :printed_on => self.to_bank_on, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
+      b.journal_entry(mode.depositables_journal, printed_at: self.to_bank_at, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.depositables_account_id, self.amount-self.commission_amount)
         entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
       end
     else
-      b.journal_entry(mode.cash_journal, :printed_on => self.to_bank_on, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
+      b.journal_entry(mode.cash_journal, printed_at: self.to_bank_at, :unless => (!mode or !mode.with_accounting? or !self.received)) do |entry|
         entry.add_debit(label,  mode.cash.account_id, self.amount-self.commission_amount)
         entry.add_debit(label,  self.commission_account_id, self.commission_amount) if self.commission_amount > 0
         entry.add_credit(label, self.payer.account(:client).id, self.amount) unless self.amount.zero?
@@ -146,7 +144,7 @@ class IncomingPayment < Ekylibre::Record::Base
 
   # Build and return a label for the payment
   def label
-    tc(:label, :amount => I18n.localize(self.amount, currency: self.mode.cash.currency), :date => I18n.localize(self.to_bank_on), :mode => self.mode.name, :payer => self.payer.full_name, :number => self.number) # , :usable_amount => I18n.localize(self.unused_amount, currency: self.mode.cash.currency)
+    tc(:label, :amount => I18n.localize(self.amount, currency: self.mode.cash.currency), :date => I18n.localize(self.to_bank_at), :mode => self.mode.name, :payer => self.payer.full_name, :number => self.number) # , :usable_amount => I18n.localize(self.unused_amount, currency: self.mode.cash.currency)
   end
 
 end

@@ -26,7 +26,6 @@
 #  absolute_debit     :decimal(19, 4)   default(0.0), not null
 #  balance            :decimal(19, 4)   default(0.0), not null
 #  created_at         :datetime         not null
-#  created_on         :date             not null
 #  creator_id         :integer
 #  credit             :decimal(19, 4)   default(0.0), not null
 #  currency           :string(3)        not null
@@ -36,7 +35,7 @@
 #  journal_id         :integer          not null
 #  lock_version       :integer          default(0), not null
 #  number             :string(255)      not null
-#  printed_on         :date             not null
+#  printed_at         :datetime         not null
 #  real_credit        :decimal(19, 4)   default(0.0), not null
 #  real_currency      :string(3)        not null
 #  real_currency_rate :decimal(19, 10)  default(0.0), not null
@@ -54,7 +53,7 @@
 #  - real_*     in financial year currency
 #  - absolute_* in global currency (the same as current financial year's)
 class JournalEntry < Ekylibre::Record::Base
-  attr_readonly :journal_id, :created_on
+  attr_readonly :journal_id
   belongs_to :financial_year
   belongs_to :journal, inverse_of: :entries
   belongs_to :resource, :polymorphic => true
@@ -72,7 +71,7 @@ class JournalEntry < Ekylibre::Record::Base
   validates_length_of :absolute_currency, :currency, :real_currency, allow_nil: true, maximum: 3
   validates_length_of :state, allow_nil: true, maximum: 30
   validates_length_of :number, :resource_type, allow_nil: true, maximum: 255
-  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :balance, :created_on, :credit, :currency, :debit, :journal, :number, :printed_on, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
+  validates_presence_of :absolute_credit, :absolute_currency, :absolute_debit, :balance, :credit, :currency, :debit, :journal, :number, :printed_at, :real_credit, :real_currency, :real_currency_rate, :real_debit, :state
   #]VALIDATORS]
   validates_presence_of :real_currency
   validates_format_of :number, :with => /\A[\dA-Z]+\z/
@@ -118,18 +117,18 @@ class JournalEntry < Ekylibre::Record::Base
   end
 
   # Build a condition for filter journal entries on period
-  def self.period_condition(period, started_on, stopped_on, table_name=nil)
+  def self.period_condition(period, started_at, stopped_at, table_name=nil)
     table = table_name || self.table_name
     if period.to_s == 'all'
       return self.connection.quoted_true
     else
       conditions = []
-      started_on, stopped_on = period.to_s.split('_')[0..1] unless period == 'interval'
-      if (started_on = started_on.to_date rescue nil)
-        conditions << "#{table}.printed_on >= #{self.connection.quote(started_on)}"
+      started_at, stopped_at = period.to_s.split('_')[0..1] unless period == 'interval'
+      if (started_at = started_at.to_date rescue nil)
+        conditions << "#{table}.printed_at >= #{self.connection.quote(started_at)}"
       end
-      if (stopped_on = stopped_on.to_date rescue nil)
-        conditions << "#{table}.printed_on <= #{self.connection.quote(stopped_on)}"
+      if (stopped_at = stopped_at.to_date rescue nil)
+        conditions << "#{table}.printed_at <= #{self.connection.quote(stopped_at)}"
       end
       return self.connection.quoted_false if conditions.empty?
       return '('+conditions.join(' AND ')+')'
@@ -146,7 +145,7 @@ class JournalEntry < Ekylibre::Record::Base
     if self.journal
       self.real_currency = self.journal.currency
     end
-    if self.financial_year = FinancialYear.at(self.printed_on)
+    if self.financial_year = FinancialYear.at(self.printed_at)
       self.currency = self.financial_year.currency
     end
     if self.real_currency and self.financial_year
@@ -170,7 +169,6 @@ class JournalEntry < Ekylibre::Record::Base
       self.absolute_debit = self.real_debit
       self.absolute_credit = self.real_credit
     end
-    self.created_on = Date.today
     if self.journal and not self.number
       self.number ||= self.journal.next_number
     end
@@ -184,21 +182,20 @@ class JournalEntry < Ekylibre::Record::Base
   #
   validate do
     # TODO: Validates number has journal's code as prefix
-    return unless self.created_on
     if self.journal
-      errors.add(:printed_on, :closed_journal, :journal => self.journal.name, :closed_on => ::I18n.localize(self.journal.closed_on)) if self.printed_on <= self.journal.closed_on
+      errors.add(:printed_at, :closed_journal, :journal => self.journal.name, :closed_at => ::I18n.localize(self.journal.closed_at)) if self.printed_at <= self.journal.closed_at
     end
     unless self.financial_year
-      errors.add(:printed_on, :out_of_existing_financial_year)
+      errors.add(:printed_at, :out_of_existing_financial_year)
     end
   end
 
   after_save do
-    JournalEntryItem.where(:entry_id => self.id).update_all(:state => self.state, :journal_id => self.journal_id, :financial_year_id => self.financial_year_id, :printed_on => self.printed_on, :entry_number => self.number, :real_currency => self.real_currency, :real_currency_rate => self.real_currency_rate)
+    JournalEntryItem.where(:entry_id => self.id).update_all(:state => self.state, :journal_id => self.journal_id, :financial_year_id => self.financial_year_id, printed_at: self.printed_at, :entry_number => self.number, :real_currency => self.real_currency, :real_currency_rate => self.real_currency_rate)
   end
 
   protect do
-    self.printed_on <= self.journal.closed_on or self.closed?
+    self.printed_at <= self.journal.closed_at or self.closed?
   end
 
   def self.state_label(state)
@@ -225,7 +222,7 @@ class JournalEntry < Ekylibre::Record::Base
   # Create counter-entry_items
   def cancel
     reconcilable_accounts = []
-    entry = self.class.new(:journal => self.journal, :resource => self.resource, :real_currency => self.real_currency, :real_currency_rate => self.real_currency_rate, :printed_on => self.printed_on)
+    entry = self.class.new(:journal => self.journal, :resource => self.resource, :real_currency => self.real_currency, :real_currency_rate => self.real_currency_rate, printed_at: self.printed_at)
     ActiveRecord::Base.transaction do
       entry.save!
       for item in self.useful_items

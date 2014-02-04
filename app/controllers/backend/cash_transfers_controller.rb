@@ -18,7 +18,7 @@
 #
 
 class Backend::CashTransfersController < BackendController
-  manage_restfully transfered_on: 'Date.today'.c
+  manage_restfully transfered_at: 'Date.today'.c
 
   unroll
 
@@ -28,7 +28,7 @@ class Backend::CashTransfersController < BackendController
     t.column :emission_cash,    url: true
     t.column :reception_amount,            currency: :reception_currency
     t.column :reception_cash,   url: true
-    t.column :transfered_on
+    t.column :transfered_at
     t.column :description
     t.action :edit
     t.action :destroy

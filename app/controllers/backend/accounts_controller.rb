@@ -28,7 +28,7 @@ class Backend::AccountsController < BackendController
     code << "[0] += ' AND number LIKE ?'\n"
     code << "c << params[:prefix].to_s+'%'\n"
     code << "unless params[:period].blank?\n"
-    code << "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_on], params[:stopped_on], 'je')+')'\n"
+    code << "  c[0] += ' AND id IN (SELECT account_id FROM #{JournalEntryItem.table_name} AS jel JOIN #{JournalEntry.table_name} AS je ON (entry_id=je.id) WHERE '+JournalEntry.period_condition(params[:period], params[:started_at], params[:stopped_at], 'je')+')'\n"
     code << "end\n"
     code << "c\n"
     # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
@@ -63,7 +63,7 @@ class Backend::AccountsController < BackendController
   list(:journal_entry_items, joins: :entry, conditions: account_moves_conditions, order: "entry_id DESC, #{JournalEntryItem.table_name}.position") do |t|
     t.column :journal, url: true
     t.column :entry_number, url: true
-    t.column :printed_on, :datatype => :date, :label => :column
+    t.column :printed_at, :datatype => :date, :label => :column
     t.column :name
     t.column :state_label
     t.column :letter
@@ -91,7 +91,7 @@ class Backend::AccountsController < BackendController
     return code.c
   end
 
-  list(:reconciliation, model: :journal_entry_items, joins: [:entry, :account], conditions: account_reconciliation_conditions, order: "accounts.number, journal_entries.printed_on") do |t|
+  list(:reconciliation, model: :journal_entry_items, joins: [:entry, :account], conditions: account_reconciliation_conditions, order: "accounts.number, journal_entries.printed_at") do |t|
     t.column :account_number, through: :account, label_method: :number, url: {action: :mark}
     t.column :account_name, through: :account, label_method: :name, url: {action: :mark}
     t.column :entry_number

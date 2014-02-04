@@ -48,7 +48,7 @@ class Backend::EntitiesController < BackendController
 
   list(:incoming_payments, conditions: {payer_id: 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c, per_page: 5) do |t|
     t.column :number, url: true
-    t.column :paid_on
+    t.column :paid_at
     t.column :responsible, hidden: true
     t.column :mode
     t.column :bank_name, hidden: true
@@ -72,8 +72,8 @@ class Backend::EntitiesController < BackendController
     t.column :title
     t.column :organization, url: {controller: :mandates, action: :index}
     t.column :family, hidden: true
-    t.column :started_on, :datatype => :date
-    t.column :stopped_on, :datatype => :date
+    t.column :started_at, :datatype => :date
+    t.column :stopped_at, :datatype => :date
     t.action :edit
     t.action :destroy
   end
@@ -87,7 +87,7 @@ class Backend::EntitiesController < BackendController
 
   list(:outgoing_payments, conditions: {:payee_id => 'params[:id]'.c}, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
-    t.column :paid_on
+    t.column :paid_at
     t.column :responsible, hidden: true
     t.column :mode, hidden: true
     t.column :bank_check_number, hidden: true
@@ -98,8 +98,8 @@ class Backend::EntitiesController < BackendController
 
   list(:purchases, conditions: {:supplier_id => 'params[:id]'.c}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true
-    t.column :created_on, hidden: true
-    t.column :invoiced_on
+    t.column :created_at, hidden: true
+    t.column :invoiced_at
     t.column :delivery_address, hidden: true
     t.column :state_label
     t.column :amount, currency: true
@@ -108,10 +108,10 @@ class Backend::EntitiesController < BackendController
     t.action :destroy, :if => :destroyable?, hidden: true
   end
 
-  list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, order: {created_on: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
+  list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
     t.column :number, url: true, :children => :label
     t.column :responsible, children: false, hidden: true
-    t.column :created_on,  children: false, hidden: true
+    t.column :created_at,  children: false, hidden: true
     t.column :state_label, children: false
     t.column :amount, currency: true
     # t.action :show, url: {:format => :pdf}, image: :print, hidden: true
@@ -121,7 +121,7 @@ class Backend::EntitiesController < BackendController
   end
 
 
-  list(:subscriptions, conditions: {subscriber_id:  'params[:id]'.c}, order: 'stopped_on DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')".c) do |t|
+  list(:subscriptions, conditions: {subscriber_id:  'params[:id]'.c}, order: 'stopped_at DESC, first_number DESC', :line_class => "(RECORD.active? ? 'enough' : '')".c) do |t|
     t.column :number
     t.column :nature
     t.column :start
@@ -178,23 +178,23 @@ class Backend::EntitiesController < BackendController
                        products = "product_id IN (#{products.join(', ')})" if products.size > 0
                        products = "#{products+' OR ' if products.is_a?(String) and subn[:no_products]}#{'product_id IS NULL' if subn[:no_products]}"
                        products = " AND (#{products})" unless products.blank?
-                       subscribed_on = ""
-                       if subn[:use_subscribed_on]
-                         subscribed_on = " AND ("+
+                       subscribed_at = ""
+                       if subn[:use_subscribed_at]
+                         subscribed_at = " AND ("+
                            if nature.period?
-                             x = subn[:subscribed_on].to_date rescue Date.today
+                             x = subn[:subscribed_at].to_date rescue Date.today
                              "'"+ActiveRecord::Base.connection.quoted_date(x)+"'"
                            else
-                             subn[:subscribed_on].to_i.to_s
+                             subn[:subscribed_at].to_i.to_s
                            end+" BETWEEN #{nature.start} AND #{nature.finish})"
                        end
                        timestamp = ""
                        if condition[:use_timestamp]
-                         x = condition[:timestamp][:started_on].to_date rescue Date.today
-                         y = condition[:timestamp][:stopped_on].to_date rescue Date.today
+                         x = condition[:timestamp][:started_at].to_date rescue Date.today
+                         y = condition[:timestamp][:stopped_at].to_date rescue Date.today
                          timestamp = " AND (created_at BETWEEN '#{ActiveRecord::Base.connection.quoted_date(x)}' AND '#{ActiveRecord::Base.connection.quoted_date(y)}')"
                        end
-                       "entity.id IN (SELECT entity_id FROM #{Subscription.table_name} AS subscriptions WHERE nature_id=#{nature.id}"+products+subscribed_on+timestamp+")"
+                       "entity.id IN (SELECT entity_id FROM #{Subscription.table_name} AS subscriptions WHERE nature_id=#{nature.id}"+products+subscribed_at+timestamp+")"
                      else
                        "true"
                      end

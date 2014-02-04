@@ -35,8 +35,8 @@
 #  quantity          :decimal(19, 4)
 #  sale_id           :integer
 #  sale_item_id      :integer
-#  started_on        :date
-#  stopped_on        :date
+#  started_at        :datetime
+#  stopped_at        :datetime
 #  subscriber_id     :integer
 #  suspended         :boolean          not null
 #  updated_at        :datetime         not null
@@ -76,8 +76,8 @@ subscriptions_003:
   creator: users_001
   nature: subscription_natures_003
   number: SUB0003
-  started_on: 2001-01-01
-  stopped_on: 2002-12-31
+  started_at: 2001-01-01
+  stopped_at: 2002-12-31
   subscriber: legal_entities_001
   suspended: true
   updater: users_001

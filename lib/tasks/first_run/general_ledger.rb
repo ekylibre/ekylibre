@@ -14,8 +14,8 @@ load_data :general_ledger do |loader|
 
       year = 2010
       fy = FinancialYear.first
-      fy.started_on = Date.civil(year,  1,  1)
-      fy.stopped_on = Date.civil(year, 12, 31)
+      fy.started_at = Date.civil(year,  1,  1)
+      fy.stopped_at = Date.civil(year, 12, 31)
       fy.code = "EX#{year}"
       fy.save!
 
@@ -40,7 +40,7 @@ load_data :general_ledger do |loader|
         unless entry = JournalEntry.find_by(:journal_id => r.journal.id, :number => r.entry_number)
           number = r.entry_number
           number = r.journal.code + rand(10000000000).to_s(36) if number.blank?
-          entry = r.journal.entries.create!(:printed_on => r.printed_on, :number => number.mb_chars.upcase)
+          entry = r.journal.entries.create!(:printed_at => r.printed_on.to_datetime, :number => number.mb_chars.upcase)
         end
         column = (r.debit.zero? ? :credit : :debit)
         entry.send("add_#{column}", r.entry_name, r.account, r.send(column))

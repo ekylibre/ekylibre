@@ -1,14 +1,14 @@
 = kujaku do |k|
   - k.criterion do
-    = tc(:manual_period, start: date_field_tag(:started_on, params[:started_on], size: 8), finish: date_field_tag(:stopped_on, params[:stopped_on], size: 8)).html_safe
+    = tc(:manual_period, start: date_field_tag(:started_at, params[:started_at], size: 8), finish: date_field_tag(:stopped_at, params[:stopped_at], size: 8)).html_safe
 
 
 :ruby
   conditions = Proc.new{ |x|
-    ["state = 'invoice' AND ? BETWEEN ? AND ? ", x, params[:started_on], params[:stopped_on]]
+    ["state = 'invoice' AND ? BETWEEN ? AND ? ", x, params[:started_at], params[:stopped_at]]
   }
 = beehive do |b|
-  - b.cell :x_sales_invoices, count: current_user.sales.where(conditions[:invoiced_on]).count(:id) do
+  - b.cell :x_sales_invoices, count: current_user.sales.where(conditions[:invoiced_at]).count(:id) do
     %table.list
       %tr.total
         %th= Sale.human_attribute_name(:pretax_amount)
@@ -16,12 +16,12 @@
       %tr.total
         %th= Sale.human_attribute_name(:amount)
         %td
-          - invoiced_amount = current_user.sales.where(conditions[:invoiced_on]).sum(:amount)
+          - invoiced_amount = current_user.sales.where(conditions[:invoiced_at]).sum(:amount)
           = invoiced_amount.l(currency: Preference[:currency])
       %tr.total
         %th= tc(:total_paid_amount)
         %td
-          - paid_amount = current_user.sales.where(conditions[:invoiced_on]).sum(:downpayment_amount)
+          - paid_amount = current_user.sales.where(conditions[:invoiced_at]).sum(:downpayment_amount)
           = paid_amount.l(currency: Preference[:currency])
       %tr.total
         %th= tc(:total_unpaid_amount)
@@ -30,7 +30,7 @@
         %tr.total
           %th= tc(:profitability)
           %td= number_to_percentage 100*(paid_amount/invoiced_amount)
-  - started_at, stopped_at = params[:started_on].beginning_of_day, params[:stopped_on].end_of_day
+  - started_at, stopped_at = params[:started_at].beginning_of_day, params[:stopped_at].end_of_day
   - cond = ["created_at BETWEEN ? AND ?", started_at, stopped_at]
   -# b.cell :x_events, count: current_user.events.where(cond).count do
     %ul

@@ -112,15 +112,15 @@ class Tax < Ekylibre::Record::Base
     return (1.0 + 0.01*self.amount.to_d)
   end
 
-  def lasts_of_periods(started_on, stopped_on, mode = :deduction, period = :month)
+  def lasts_of_periods(started_at, stopped_at, mode = :deduction, period = :month)
     account = self.send("#{mode}_account")
-    account.journal_entry_items.between(started_on, stopped_on).lasts_of_periods(period)
+    account.journal_entry_items.between(started_at, stopped_at).lasts_of_periods(period)
   end
 
   # Load a tax from tax nomenclature
   def self.import_from_nomenclature(reference_name)
     unless item = Nomen::Taxes.find(reference_name)
-      raise ArgumentError.new("The tax #{reference_name.inspect} is not known")
+      raise ArgumentError, "The tax #{reference_name.inspect} is not known"
     end
     unless tax = Tax.find_by_reference_name(reference_name)
       attributes = {

@@ -91,13 +91,15 @@ class EntityAddress < Ekylibre::Record::Base
       self.coordinate.downcase!
     end
     if self.mail?
+      self.mail_country = Preference[:country] if self.mail_country.blank?
       if self.mail_line_6
         self.mail_line_6 = self.mail_line_6.to_s.gsub(/\s+/,' ').strip
         if self.mail_line_6.blank?
           self.mail_postal_zone_id = nil
         else
-          self.mail_postal_zone = PostalZone.where("LOWER(TRIM(name)) LIKE ?", self.mail_line_6.lower).first
-          self.mail_postal_zone = PostalZone.create!(:name => self.mail_line_6, :country => self.mail_country) if self.mail_postal_zone.nil?
+          unless self.mail_postal_zone = PostalZone.where("LOWER(TRIM(name)) LIKE ?", self.mail_line_6.lower).first
+            self.mail_postal_zone = PostalZone.create!(name: self.mail_line_6, country: self.mail_country)
+          end
         end
       end
       self.mail_line_1 = self.entity.full_name if self.mail_line_1.blank?
@@ -140,7 +142,7 @@ class EntityAddress < Ekylibre::Record::Base
   end
 
   def self.exportable_columns
-    return self.content_columns.delete_if{|c| [:deleted_at, :closed_on, :lock_version, :thread, :created_at, :updated_at].include?(c.name.to_sym)}
+    return self.content_columns.delete_if{|c| [:deleted_at, :closed_at, :lock_version, :thread, :created_at, :updated_at].include?(c.name.to_sym)}
   end
 
   def label

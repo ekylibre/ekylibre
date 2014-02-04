@@ -24,20 +24,19 @@
 #  accounted_at        :datetime
 #  affair_id           :integer
 #  amount              :decimal(19, 4)   default(0.0), not null
-#  confirmed_on        :date
+#  confirmed_at        :datetime
 #  created_at          :datetime         not null
-#  created_on          :date
 #  creator_id          :integer
 #  currency            :string(3)        not null
 #  delivery_address_id :integer
 #  description         :text
 #  id                  :integer          not null, primary key
-#  invoiced_on         :date
+#  invoiced_at         :datetime
 #  journal_entry_id    :integer
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer
 #  number              :string(60)       not null
-#  planned_on          :date
+#  planned_at          :datetime
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)
 #  responsible_id      :integer

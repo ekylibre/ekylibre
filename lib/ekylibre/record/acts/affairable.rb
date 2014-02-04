@@ -12,7 +12,7 @@ module Ekylibre::Record
           options = args.extract_options!
           reflection = self.reflections[options[:reflection] || :affair]
           currency = options[:currency] || :currency
-          options[:dealt_on] ||= :created_on
+          options[:dealt_at] ||= :created_at
           options[:amount] ||= :amount
           options[:debit] = true unless options.has_key?(:debit)
 
@@ -181,7 +181,7 @@ module Ekylibre::Record
           code << "alias_attribute :deal_amount, :#{options[:amount]}\n"
 
           # Define which date to take in account
-          code << "alias_attribute :dealt_on, :#{options[:dealt_on]}\n"
+          code << "alias_attribute :dealt_at, :#{options[:dealt_at]}\n"
 
           # Define the third of the deal
           code << "alias_attribute :deal_third, :#{options[:third]}\n"

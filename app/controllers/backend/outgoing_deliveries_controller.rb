@@ -29,7 +29,7 @@ class Backend::OutgoingDeliveriesController < BackendController
     t.column :transporter, url: true
     t.column :reference_number
     t.column :sent_at
-    # t.column :moved_on
+    # t.column :moved_at
     t.column :mode
     # t.column :number, through: :sale, url: true
     t.column :net_mass

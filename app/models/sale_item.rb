@@ -93,15 +93,15 @@ class SaleItem < Ekylibre::Record::Base
 
   scope :not_reduction, -> { where(reduced_item_id: nil) }
   # return all sale items  between two dates
-  scope :between, lambda { |started_on, stopped_on|
-    joins(:sale).merge(Sale.invoiced_between(started_on, stopped_on))
+  scope :between, lambda { |started_at, stopped_at|
+    joins(:sale).merge(Sale.invoiced_between(started_at, stopped_at))
   }
   # return all sale items for the consider product_nature
   scope :by_product_nature, lambda { |product_nature|
     joins(:variant).merge(ProductNatureVariant.of_natures(product_nature))
   }
 
-  calculable period: :month, at: "invoiced_on", column: :pretax_amount
+  calculable period: :month, at: "invoiced_at", column: :pretax_amount
 
   before_validation do
 
@@ -184,7 +184,7 @@ class SaleItem < Ekylibre::Record::Base
   def set_reduction
     if self.reduction_percentage > 0 and self.product_nature.reduction_submissive and self.reduced_item_id.nil?
       reduction = self.reduction || self.build_reduction
-      reduction.attributes = {:reduced_item_id => self.id, :price_id => self.price_id, :variant_id => self.variant_id, :sale_id => self.sale_id, :quantity => -self.quantity*reduction_percentage/100, :label => tc('reduction_on', :product => self.variant.commercial_name, :percentage => self.reduction_percentage)}
+      reduction.attributes = {:reduced_item_id => self.id, :price_id => self.price_id, :variant_id => self.variant_id, :sale_id => self.sale_id, :quantity => -self.quantity*reduction_percentage/100, :label => tc('reduction_at', :product => self.variant.commercial_name, :percentage => self.reduction_percentage)}
       reduction.save!
     elsif self.reduction
       self.reduction.destroy
@@ -225,8 +225,8 @@ class SaleItem < Ekylibre::Record::Base
     nature  = subscription.nature
     if nature
       if nature.period?
-        subscription.started_on ||= Date.today
-        subscription.stopped_on ||= Delay.compute((product.subscription_period||'1 year')+", 1 day ago", subscription.started_on)
+        subscription.started_at ||= Date.today
+        subscription.stopped_at ||= Delay.compute((product.subscription_period||'1 year')+", 1 day ago", subscription.started_at)
       else
         subscription.first_number ||= nature.actual_number.to_i
         subscription.last_number  ||= subscription.first_number+(product.subscription_quantity||1)-1

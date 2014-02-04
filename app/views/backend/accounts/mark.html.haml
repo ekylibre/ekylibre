@@ -14,7 +14,7 @@
 
 =form_tag() do
   .fields
-    -for x in [:period, :started_on, :stopped_on]
+    -for x in [:period, :started_at, :stopped_at]
       =hidden_field_tag(x, params[x])
     .active-list
       %table.list
@@ -22,14 +22,14 @@
           %tr
             %th=JournalEntryItem.human_attribute_name("letter")
             %th.act
-            %th=JournalEntry.human_attribute_name("printed_on")
+            %th=JournalEntry.human_attribute_name("printed_at")
             %th=Journal.model_name.human
             %th=JournalEntry.model_name.human
             %th=JournalEntryItem.human_attribute_name("name")
             %th=JournalEntryItem.human_attribute_name("debit")
             %th=JournalEntryItem.human_attribute_name("credit")
         %tbody
-          -for item in @account.reconcilable_entry_items(params[:period], params[:started_on], params[:stopped_on])
+          -for item in @account.reconcilable_entry_items(params[:period], params[:started_at], params[:stopped_at])
             -checked = (item.letter.blank? and (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
             -trid, conf = "e#{item.id}", {}
             %tr{:id=>trid, :class=>(item.closed? ? "disabled " : checked ? "notice " : "")+cycle("even", "odd")}
@@ -40,7 +40,7 @@
                 -else
                   =item.letter
               %td.act=link_to("labels.unmark".t, {:action=>:unmark, :id=>@account.id, :letter=>item.letter}, :class => "unmark", :method=>:post, "data-confirm" => tg(:are_you_sure)) unless item.letter.blank? or item.closed?
-              %td.dat{conf}=I18n.localize(item.entry.printed_on)
+              %td.dat{conf}=I18n.localize(item.entry.printed_at)
               %td{conf}=link_to(item.journal.name, {:action=>:show, :controller=>:journals, :id=>item.journal_id}, :keep=>true)
               %td.code{conf}=link_to(item.entry.number, {:action=>:show, :controller=>:journal_entries, :id=>item.entry_id}, :keep=>true)
               %td{conf}=item.name

@@ -27,7 +27,6 @@
 #  bank_check_number :string(255)
 #  cash_id           :integer          not null
 #  created_at        :datetime         not null
-#  created_on        :date
 #  creator_id        :integer
 #  currency          :string(3)        not null
 #  delivered         :boolean          default(TRUE), not null
@@ -37,10 +36,10 @@
 #  lock_version      :integer          default(0), not null
 #  mode_id           :integer          not null
 #  number            :string(255)
-#  paid_on           :date
+#  paid_at           :datetime
 #  payee_id          :integer          not null
 #  responsible_id    :integer          not null
-#  to_bank_on        :date             not null
+#  to_bank_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #

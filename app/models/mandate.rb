@@ -28,8 +28,8 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  organization :string(255)      not null
-#  started_on   :date
-#  stopped_on   :date
+#  started_at   :datetime
+#  stopped_at   :datetime
 #  title        :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer
@@ -37,11 +37,11 @@
 
 
 class Mandate < Ekylibre::Record::Base
-  # attr_accessible :entity_id, :family, :organization, :started_on, :stopped_on, :title
+  # attr_accessible :entity_id, :family, :organization, :started_at, :stopped_at, :title
   belongs_to :entity
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :family, :organization, :title, allow_nil: true, maximum: 255
   validates_presence_of :entity, :family, :organization, :title
   #]VALIDATORS]
-  # validates_presence_of :started_on, :stopped_on
+  # validates_presence_of :started_at, :stopped_at
 end

@@ -28,8 +28,8 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  organization :string(255)      not null
-#  started_on   :date
-#  stopped_on   :date
+#  started_at   :datetime
+#  stopped_at   :datetime
 #  title        :string(255)      not null
 #  updated_at   :datetime         not null
 #  updater_id   :integer

@@ -61,8 +61,8 @@ load_data :sales do |loader|
     sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
     (140 + rand(20)).times do |i|
       # Sale
-      d = Date.today - (7*i - rand(4)).days
-      sale = Sale.create!(:created_on => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
+      d = Time.now - (7*i - rand(4)).days
+      sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
       # Sale items
       (rand(5) + 1).times do
         # # find or create a price
@@ -70,32 +70,32 @@ load_data :sales do |loader|
         # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
         price = catalog.prices.find_by(:variant_id => wheat.id, :amount => 100.0)
         price ||= catalog.prices.create!(:currency => "EUR",
-                                       :started_at => d.to_time,
-                                       :amount => rand(60) + 180,
-                                       :indicator_name => :population,
-                                       :reference_tax_id => wheat_taxes.sample.id,
-                                       :variant_id => wheat.id
-                                       )
+                                         :started_at => d.to_time,
+                                         :amount => rand(60) + 180,
+                                         :indicator_name => :population,
+                                         :reference_tax => wheat_taxes.sample,
+                                         :variant_id => wheat.id
+                                         )
 
         sale.items.create!(:quantity => rand(12.5) + 0.5,
-                           :tax_id => wheat_taxes.sample.id,
+                           :tax => wheat_taxes.sample,
                            :price => price)
       end
       if !rand(20).zero?
-        Sale.where(id: sale.id).update_all(:created_on => d)
+        Sale.where(id: sale.id).update_all(:created_at => d)
         sale.propose
         if rand(5).zero?
           sale.abort
         elsif !rand(4).zero?
           d += rand(15).days
           sale.confirm(d)
-          Sale.where(id: sale.id).update_all(:confirmed_on => d)
+          Sale.where(id: sale.id).update_all(:confirmed_at => d)
           if !rand(25).zero?
             d += rand(5).days
             sale.invoice
-            Sale.where(id: sale.id).update_all(:invoiced_on => d)
+            Sale.where(id: sale.id).update_all(:invoiced_at => d)
             if !rand(4).zero? and sale.amount > 0
-              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_on: sale.invoiced_on + rand(60))
+              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: sale.invoiced_at + rand(60))
               sale.affair.attach(payment)
             end
           end
@@ -141,8 +141,8 @@ load_data :sales do |loader|
     sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
     (140 + rand(20)).times do |i|
       # Sale
-      d = Date.today - (7*i - rand(4)).days
-      sale = Sale.create!(:created_on => d, :client_id => cooperative.id, :nature_id => sale_nature.id)
+      d = Time.now - (7*i - rand(4)).days
+      sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id)
       # Sale items
       (rand(5) + 1).times do
         # # find or create a price
@@ -150,12 +150,12 @@ load_data :sales do |loader|
         # price = ble.price(:amount => rand(150)+25, :tax => wheat_price_template_tax)
         price = catalog.prices.find_by(:variant_id => cow.id, :amount => 180.00)
         price ||= catalog.prices.create!(:amount => rand(40) + 140,
-                                       :started_at => d.to_time,
-                                       :currency => "EUR",
-                                       :indicator_name => :population,
-                                       :reference_tax_id => cow_price_template_taxes.sample.id,
-                                       :variant_id => cow.id
-                                       )
+                                         :started_at => d.to_time,
+                                         :currency => "EUR",
+                                         :indicator_name => :population,
+                                         :reference_tax_id => cow_price_template_taxes.sample.id,
+                                         :variant_id => cow.id
+                                         )
 
         sale.items.create!(:quantity => rand(4) + 1,
                            :price => price,
@@ -163,20 +163,20 @@ load_data :sales do |loader|
                            )
       end
       if !rand(20).zero?
-        Sale.where(id: sale.id).update_all(:created_on => d)
+        Sale.where(id: sale.id).update_all(:created_at => d)
         sale.propose
         if rand(5).zero?
           sale.abort
         elsif !rand(4).zero?
           d += rand(15).days
           sale.confirm(d)
-          Sale.where(id: sale.id).update_all(:confirmed_on => d)
+          Sale.where(id: sale.id).update_all(:confirmed_at => d)
           if !rand(25).zero?
             d += rand(5).days
             sale.invoice
-            Sale.where(id: sale.id).update_all(:invoiced_on => d)
+            Sale.where(id: sale.id).update_all(:invoiced_at => d)
             if !rand(4).zero? and sale.amount > 0
-              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_on: sale.invoiced_on + rand(60))
+              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: sale.invoiced_at + rand(60))
               sale.affair.attach(payment)
             end
           end
@@ -220,8 +220,8 @@ load_data :sales do |loader|
     sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
     240.times do |i|
       # Sale
-      d = Date.today - i.months
-      sale = Sale.create!(created_on: d, client: cooperative, nature: sale_nature)
+      d = Time.now - i.months
+      sale = Sale.create!(created_at: d, client: cooperative, nature: sale_nature)
       # Sale items
       price = catalog.prices.find_by(variant: milk, amount: rand(0.04) + 0.340)
       price ||= catalog.prices.create!(:amount => rand(0.04)+0.340,
@@ -232,26 +232,26 @@ load_data :sales do |loader|
                                        :variant_id => milk.id
                                        )
 
-        sale.items.create!(:quantity => rand(5000) + 30000,
-                           :price => price,
-                           :tax_id => milk_price_template_taxes.id
-                           )
+      sale.items.create!(:quantity => rand(5000) + 30000,
+                         :price => price,
+                         :tax_id => milk_price_template_taxes.id
+                         )
 
       if !rand(72).zero?
-        Sale.where(id: sale.id).update_all(:created_on => d)
+        Sale.where(id: sale.id).update_all(:created_at => d)
         sale.propose
         if rand(24).zero?
           sale.abort
         elsif !rand(48).zero?
           d += rand(15).days
           sale.confirm(d)
-          Sale.where(id: sale.id).update_all(:confirmed_on => d)
+          Sale.where(id: sale.id).update_all(:confirmed_at => d)
           unless rand(96).zero?
             d += rand(5).days
             sale.invoice
-            Sale.where(id: sale.id).update_all(:invoiced_on => d)
+            Sale.where(id: sale.id).update_all(:invoiced_at => d)
             if !rand(4).zero? and sale.amount > 0
-              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_on: sale.invoiced_on + rand(60))
+              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: sale.invoiced_at + rand(60))
               sale.affair.attach(payment)
             end
           end

@@ -35,8 +35,8 @@
 #  quantity          :decimal(19, 4)
 #  sale_id           :integer
 #  sale_item_id      :integer
-#  started_on        :date
-#  stopped_on        :date
+#  started_at        :datetime
+#  stopped_at        :datetime
 #  subscriber_id     :integer
 #  suspended         :boolean          not null
 #  updated_at        :datetime         not null
@@ -46,7 +46,7 @@
 
 class Subscription < Ekylibre::Record::Base
   acts_as_numbered
-  # attr_accessible :address_id, :description, :first_number, :last_number, :started_on, :stopped_on, :suspended, :sale_item_id, :nature_id
+  # attr_accessible :address_id, :description, :first_number, :last_number, :started_at, :stopped_at, :suspended, :sale_item_id, :nature_id
   belongs_to :address, class_name: "EntityAddress"
   belongs_to :subscriber, class_name: "Entity"
   belongs_to :nature, class_name: "SubscriptionNature"
@@ -59,7 +59,7 @@ class Subscription < Ekylibre::Record::Base
   validates_length_of :number, allow_nil: true, maximum: 255
   validates_inclusion_of :suspended, in: [true, false]
   #]VALIDATORS]
-  validates_presence_of :started_on, :stopped_on, if: Proc.new{|u| u.nature and u.nature.period?}
+  validates_presence_of :started_at, :stopped_at, if: Proc.new{|u| u.nature and u.nature.period?}
   validates_presence_of :first_number, :last_number, if: Proc.new{|u| u.nature and u.nature.quantity?}
   validates_presence_of :nature, :subscriber
   validates_presence_of :sale_item, if: Proc.new{|s| !s.sale.nil?}, on: :create
@@ -81,8 +81,8 @@ class Subscription < Ekylibre::Record::Base
           period = '1 year'
         end
         #raise Exception.new "ok"+period.inspect+self.product.subscription_period.inspect
-        self.started_on ||= Date.today
-        self.stopped_on ||= Delay.compute(period+", 1 day ago", self.started_on)
+        self.started_at ||= Date.today
+        self.stopped_at ||= Delay.compute(period+", 1 day ago", self.started_at)
       elsif self.nature.quantity?
         if self.product_nature
           period = (self.product_nature.subscription_quantity.blank? ? 1 : self.product_nature.subscription_quantity)||1
@@ -123,10 +123,10 @@ class Subscription < Ekylibre::Record::Base
     if self.nature.quantity?
       self.first_number
     elsif self.nature.period?
-      if self.started_on.nil?
+      if self.started_at.nil?
         ''
       else
-        ::I18n.localize(self.started_on)
+        ::I18n.localize(self.started_at)
       end
     end
   end
@@ -135,10 +135,10 @@ class Subscription < Ekylibre::Record::Base
     if self.nature.quantity?
       self.last_number
     elsif self.nature.period?
-      if self.stopped_on.nil?
+      if self.stopped_at.nil?
         ''
       else
-        ::I18n.localize(self.stopped_on)
+        ::I18n.localize(self.stopped_at)
       end
     end
   end
@@ -149,7 +149,7 @@ class Subscription < Ekylibre::Record::Base
       self.first_number <= instant and instant <= self.last_number
     elsif self.nature.period?
       instant ||= Date.today
-      self.started_on <= instant and instant <= self.stopped_on
+      self.started_at <= instant and instant <= self.stopped_at
     end
   end
 

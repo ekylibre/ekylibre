@@ -18,7 +18,7 @@
 #
 
 class Backend::OutgoingPaymentsController < BackendController
-  manage_restfully :to_bank_on => "Date.today".c, :paid_on => "Date.today".c, :responsible_id => "current_user.id".c, :payee_id => "params[:payee_id]".c, :amount => "params[:amount].to_f".c, t3e: {payee: "RECORD.payee.full_name".c}
+  manage_restfully :to_bank_at => "Date.today".c, :paid_at => "Date.today".c, :responsible_id => "current_user.id".c, :payee_id => "params[:payee_id]".c, :amount => "params[:amount].to_f".c, t3e: {payee: "RECORD.payee.full_name".c}
 
   unroll
 
@@ -28,7 +28,7 @@ class Backend::OutgoingPaymentsController < BackendController
     code << "  c[0] += ' AND delivered=?'\n"
     code << "  c << false\n"
     code << "elsif params[:s] == 'waiting'\n"
-    code << "  c[0] += ' AND to_bank_on > ?'\n"
+    code << "  c[0] += ' AND to_bank_at > ?'\n"
     code << "  c << Date.today\n"
     code << "elsif params[:s] == 'unparted'\n"
     # code << "  c[0] += ' AND used_amount != amount'\n"
@@ -37,14 +37,14 @@ class Backend::OutgoingPaymentsController < BackendController
     return code.c
   end
 
-  list(conditions: outgoing_payments_conditions, joins: :payee, order: {to_bank_on: :desc}) do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
+  list(conditions: outgoing_payments_conditions, joins: :payee, order: {to_bank_at: :desc}) do |t| # , :line_class => "(RECORD.used_amount.zero? ? 'critic' : RECORD.unused_amount>0 ? 'warning' : '')"
     t.column :number, url: true
     t.column :payee, url: true
-    t.column :paid_on
+    t.column :paid_at
     t.column :amount, currency: true, url: true
     t.column :mode
     t.column :bank_check_number
-    t.column :to_bank_on
+    t.column :to_bank_at
     # t.column :label, through: :responsible
     t.action :edit, :if => :updateable?
     t.action :destroy, :if => :destroyable?

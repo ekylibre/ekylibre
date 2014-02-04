@@ -58,7 +58,7 @@ class Cash < Ekylibre::Record::Base
   has_many :deposits
   has_many :outgoing_payment_modes
   has_many :incoming_payment_modes
-  has_one :last_bank_statement, -> { order("stopped_on DESC") }, class_name: "BankStatement"
+  has_one :last_bank_statement, -> { order("stopped_at DESC") }, class_name: "BankStatement"
   enumerize :nature, in: [:bank_account, :cash_box], default: :bank_account, predicates: true
   enumerize :mode, in: [:iban, :bban], default: :iban, predicates: {prefix: true}
 
@@ -158,15 +158,15 @@ class Cash < Ekylibre::Record::Base
     return country_code + (98 - (iban.to_i.modulo 97)).to_s + bban
   end
 
-  def monthly_sums(started_on, stopped_on, expr = "debit - credit")
-    self.account.journal_entry_items.between(started_on, stopped_on).group("EXTRACT(YEAR FROM printed_on)*100 + EXTRACT(MONTH FROM printed_on)").sum(expr).sort.inject({}) do |hash, pair|
+  def monthly_sums(started_at, stopped_at, expr = "debit - credit")
+    self.account.journal_entry_items.between(started_at, stopped_at).group("EXTRACT(YEAR FROM printed_at)*100 + EXTRACT(MONTH FROM printed_at)").sum(expr).sort.inject({}) do |hash, pair|
       hash[pair[0].to_i.to_s] = pair[1].to_d
       hash
     end
   end
 
-  def lasts_of_periods(started_on, stopped_on, period = :month)
-    self.account.journal_entry_items.between(started_on, stopped_on).lasts_of_periods(period)
+  def lasts_of_periods(started_at, stopped_at, period = :month)
+    self.account.journal_entry_items.between(started_at, stopped_at).lasts_of_periods(period)
   end
 
 end

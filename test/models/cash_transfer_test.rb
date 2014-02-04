@@ -37,7 +37,7 @@
 #  reception_cash_id          :integer          not null
 #  reception_currency         :string(3)        not null
 #  reception_journal_entry_id :integer
-#  transfered_on              :date             not null
+#  transfered_at              :datetime         not null
 #  updated_at                 :datetime         not null
 #  updater_id                 :integer
 #

@@ -22,7 +22,7 @@
 # == Table: analytic_distributions
 #
 #  affectation_percentage :decimal(19, 4)   not null
-#  affected_on            :date             not null
+#  affected_at            :datetime         not null
 #  created_at             :datetime         not null
 #  creator_id             :integer
 #  id                     :integer          not null, primary key
@@ -38,7 +38,7 @@
 #
 # analytic_distributions_001:
 #   affectation_percentage: 0
-#   affected_on: 2013-10-26
+#   affected_at: 2013-10-26 18:34:04 +02:00
 #   creator: users_001
 #   journal_entry_item: journal_entry_items_001
 #   production: productions_001
@@ -48,7 +48,7 @@
 ---
 analytic_distributions_001:
   affectation_percentage: 100
-  affected_on: 2009-07-19
+  affected_at: 2009-07-19
   creator: users_001
   journal_entry_item: journal_entry_items_001
   production: productions_001
@@ -56,7 +56,7 @@ analytic_distributions_001:
   updater: users_001
 analytic_distributions_002:
   affectation_percentage: 100
-  affected_on: 2009-07-19
+  affected_at: 2009-07-19
   creator: users_001
   journal_entry_item: journal_entry_items_001
   production: productions_001

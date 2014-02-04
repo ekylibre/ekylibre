@@ -23,8 +23,8 @@
 #
 #  amount           :decimal(19, 4)   not null
 #  created_at       :datetime         not null
-#  created_on       :date
 #  creator_id       :integer
+#  departed_at      :datetime
 #  description      :text
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
@@ -34,7 +34,6 @@
 #  purchase_id      :integer
 #  reference_number :string(255)
 #  responsible_id   :integer
-#  transport_on     :date
 #  transporter_id   :integer          not null
 #  updated_at       :datetime         not null
 #  updater_id       :integer
@@ -43,7 +42,7 @@
 
 class Transport < Ekylibre::Record::Base
   acts_as_numbered
-  belongs_to :responsible, class_name: "User"
+  belongs_to :responsible, class_name: "Person"
   belongs_to :transporter, class_name: "Entity"
   has_many :deliveries, class_name: "OutgoingDelivery", dependent: :nullify
 
@@ -52,11 +51,6 @@ class Transport < Ekylibre::Record::Base
   validates_length_of :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :amount, :pretax_amount, :transporter
   #]VALIDATORS]
-
-  before_validation(on: :create) do
-    self.created_on ||= Date.today
-    return true
-  end
 
   protect(on: :destroy) do
     self.deliveries.any?

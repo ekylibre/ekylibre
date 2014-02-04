@@ -69,8 +69,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "description"
     t.string   "family"
     t.string   "nature",                   null: false
-    t.datetime "started_at"
-    t.datetime "stopped_at"
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
@@ -123,7 +121,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "production_id",                                               null: false
     t.integer  "journal_entry_item_id",                                       null: false
     t.string   "state",                                                       null: false
-    t.date     "affected_on",                                                 null: false
+    t.datetime "affected_at",                                                 null: false
     t.decimal  "affectation_percentage", precision: 19, scale: 4,             null: false
     t.datetime "created_at",                                                  null: false
     t.datetime "updated_at",                                                  null: false
@@ -141,8 +139,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "bank_statements", force: true do |t|
     t.integer  "cash_id",                                                       null: false
-    t.date     "started_on",                                                    null: false
-    t.date     "stopped_on",                                                    null: false
+    t.datetime "started_at",                                                    null: false
+    t.datetime "stopped_at",                                                    null: false
     t.string   "number",                                                        null: false
     t.decimal  "debit",                  precision: 19, scale: 4, default: 0.0, null: false
     t.decimal  "credit",                 precision: 19, scale: 4, default: 0.0, null: false
@@ -182,7 +180,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "cash_transfers", force: true do |t|
     t.string   "number",                                                                     null: false
     t.text     "description"
-    t.date     "transfered_on",                                                              null: false
+    t.datetime "transfered_at",                                                              null: false
     t.datetime "accounted_at"
     t.decimal  "emission_amount",                      precision: 19, scale: 4,              null: false
     t.string   "emission_currency",          limit: 3,                                       null: false
@@ -353,7 +351,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "number",                                                    null: false
     t.integer  "cash_id",                                                   null: false
     t.integer  "mode_id",                                                   null: false
-    t.date     "created_on",                                                null: false
     t.decimal  "amount",           precision: 19, scale: 4, default: 0.0,   null: false
     t.integer  "payments_count",                            default: 0,     null: false
     t.text     "description"
@@ -469,8 +466,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "full_name",                                            null: false
     t.string   "number",                    limit: 60
     t.boolean  "active",                               default: true,  null: false
-    t.date     "born_on"
-    t.date     "dead_on"
+    t.datetime "born_at"
+    t.datetime "dead_at"
     t.boolean  "client",                               default: false, null: false
     t.integer  "client_account_id"
     t.boolean  "supplier",                             default: false, null: false
@@ -488,7 +485,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "responsible_id"
     t.integer  "proposer_id"
     t.string   "origin"
-    t.date     "first_met_on"
+    t.datetime "first_met_at"
     t.string   "activity_code",             limit: 30
     t.string   "vat_number",                limit: 20
     t.string   "siren",                     limit: 9
@@ -655,10 +652,9 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "financial_asset_id",                                          null: false
     t.integer  "journal_entry_id"
     t.boolean  "accountable",                                 default: false, null: false
-    t.date     "created_on",                                                  null: false
     t.datetime "accounted_at"
-    t.date     "started_on",                                                  null: false
-    t.date     "stopped_on",                                                  null: false
+    t.datetime "started_at",                                                  null: false
+    t.datetime "stopped_at",                                                  null: false
     t.decimal  "amount",             precision: 19, scale: 4,                 null: false
     t.integer  "position"
     t.boolean  "locked",                                      default: false, null: false
@@ -686,16 +682,16 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "name",                                                                   null: false
     t.string   "number",                                                                 null: false
     t.text     "description"
-    t.date     "purchased_on"
+    t.datetime "purchased_at"
     t.integer  "purchase_id"
     t.integer  "purchase_item_id"
     t.boolean  "ceded"
-    t.date     "ceded_on"
+    t.datetime "ceded_at"
     t.integer  "sale_id"
     t.integer  "sale_item_id"
     t.decimal  "purchase_amount",                   precision: 19, scale: 4
-    t.date     "started_on",                                                             null: false
-    t.date     "stopped_on",                                                             null: false
+    t.datetime "started_at",                                                             null: false
+    t.datetime "stopped_at",                                                             null: false
     t.decimal  "depreciable_amount",                precision: 19, scale: 4,             null: false
     t.decimal  "depreciated_amount",                precision: 19, scale: 4,             null: false
     t.string   "depreciation_method",                                                    null: false
@@ -725,8 +721,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "financial_years", force: true do |t|
     t.string   "code",                  limit: 20,                 null: false
     t.boolean  "closed",                           default: false, null: false
-    t.date     "started_on",                                       null: false
-    t.date     "stopped_on",                                       null: false
+    t.datetime "started_at",                                       null: false
+    t.datetime "stopped_at",                                       null: false
     t.string   "currency",              limit: 3,                  null: false
     t.integer  "currency_precision"
     t.integer  "last_journal_entry_id"
@@ -765,7 +761,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "gaps", force: true do |t|
     t.string   "number",                                                            null: false
-    t.date     "created_on",                                                        null: false
+    t.datetime "printed_at",                                                        null: false
     t.string   "direction",                                                         null: false
     t.integer  "affair_id",                                                         null: false
     t.integer  "entity_id",                                                         null: false
@@ -921,7 +917,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.boolean  "active",                                                      default: false
     t.integer  "position"
     t.boolean  "with_accounting",                                             default: false, null: false
-    t.integer  "attorney_journal_id"
     t.boolean  "with_commission",                                             default: false, null: false
     t.decimal  "commission_percentage",              precision: 19, scale: 4, default: 0.0,   null: false
     t.decimal  "commission_base_amount",             precision: 19, scale: 4, default: 0.0,   null: false
@@ -937,7 +932,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "lock_version",                                                default: 0,     null: false
   end
 
-  add_index "incoming_payment_modes", ["attorney_journal_id"], :name => "index_incoming_payment_modes_on_attorney_journal_id"
   add_index "incoming_payment_modes", ["cash_id"], :name => "index_incoming_payment_modes_on_cash_id"
   add_index "incoming_payment_modes", ["commission_account_id"], :name => "index_incoming_payment_modes_on_commission_account_id"
   add_index "incoming_payment_modes", ["created_at"], :name => "index_incoming_payment_modes_on_created_at"
@@ -948,33 +942,32 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "incoming_payment_modes", ["updater_id"], :name => "index_incoming_payment_modes_on_updater_id"
 
   create_table "incoming_payments", force: true do |t|
-    t.date     "paid_on"
-    t.decimal  "amount",                          precision: 19, scale: 4,                        null: false
-    t.integer  "mode_id",                                                                         null: false
+    t.datetime "paid_at"
+    t.decimal  "amount",                          precision: 19, scale: 4,                 null: false
+    t.integer  "mode_id",                                                                  null: false
     t.string   "bank_name"
     t.string   "bank_check_number"
     t.string   "bank_account_number"
     t.integer  "payer_id"
-    t.date     "to_bank_on",                                               default: '0001-01-01', null: false
+    t.datetime "to_bank_at",                                                               null: false
     t.integer  "deposit_id"
     t.integer  "responsible_id"
-    t.boolean  "scheduled",                                                default: false,        null: false
-    t.boolean  "received",                                                 default: true,         null: false
+    t.boolean  "scheduled",                                                default: false, null: false
+    t.boolean  "received",                                                 default: true,  null: false
     t.string   "number"
-    t.date     "created_on"
     t.datetime "accounted_at"
     t.text     "receipt"
     t.integer  "journal_entry_id"
     t.integer  "commission_account_id"
-    t.decimal  "commission_amount",               precision: 19, scale: 4, default: 0.0,          null: false
-    t.string   "currency",              limit: 3,                                                 null: false
-    t.boolean  "downpayment",                                              default: true,         null: false
+    t.decimal  "commission_amount",               precision: 19, scale: 4, default: 0.0,   null: false
+    t.string   "currency",              limit: 3,                                          null: false
+    t.boolean  "downpayment",                                              default: true,  null: false
     t.integer  "affair_id"
-    t.datetime "created_at",                                                                      null: false
-    t.datetime "updated_at",                                                                      null: false
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                             default: 0,            null: false
+    t.integer  "lock_version",                                             default: 0,     null: false
   end
 
   add_index "incoming_payments", ["accounted_at"], :name => "index_incoming_payments_on_accounted_at"
@@ -1053,18 +1046,17 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "interventions", ["updater_id"], :name => "index_interventions_on_updater_id"
 
   create_table "inventories", force: true do |t|
-    t.string   "number",            limit: 20
-    t.date     "created_on",                                   null: false
-    t.date     "moved_on"
-    t.boolean  "changes_reflected",            default: false, null: false
+    t.string   "number",           limit: 20
+    t.datetime "reflected_at"
+    t.boolean  "reflected",                   default: false, null: false
     t.integer  "responsible_id"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                 default: 0,     null: false
+    t.integer  "lock_version",                default: 0,     null: false
   end
 
   add_index "inventories", ["created_at"], :name => "index_inventories_on_created_at"
@@ -1131,8 +1123,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "resource_id"
     t.string   "resource_type"
     t.string   "state",              limit: 30,                                         null: false
-    t.date     "created_on",                                                            null: false
-    t.date     "printed_on",                                                            null: false
+    t.datetime "printed_at",                                                            null: false
     t.decimal  "real_debit",                    precision: 19, scale: 4,  default: 0.0, null: false
     t.decimal  "real_credit",                   precision: 19, scale: 4,  default: 0.0, null: false
     t.string   "real_currency",      limit: 3,                                          null: false
@@ -1166,7 +1157,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "bank_statement_id"
     t.integer  "financial_year_id",                                                            null: false
     t.string   "state",                     limit: 30,                                         null: false
-    t.date     "printed_on",                                                                   null: false
+    t.datetime "printed_at",                                                                   null: false
     t.string   "entry_number",                                                                 null: false
     t.string   "letter",                    limit: 10
     t.integer  "position"
@@ -1209,7 +1200,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "nature",           limit: 30,                 null: false
     t.string   "name",                                        null: false
     t.string   "code",             limit: 4,                  null: false
-    t.date     "closed_on",                                   null: false
+    t.datetime "closed_at",                                   null: false
     t.string   "currency",         limit: 3,                  null: false
     t.boolean  "used_for_affairs",            default: false, null: false
     t.boolean  "used_for_gaps",               default: false, null: false
@@ -1306,8 +1297,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "mandates", force: true do |t|
     t.integer  "entity_id",                null: false
-    t.date     "started_on"
-    t.date     "stopped_on"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
     t.string   "family",                   null: false
     t.string   "organization",             null: false
     t.string   "title",                    null: false
@@ -1436,20 +1427,18 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "outgoing_delivery_modes", ["updater_id"], :name => "index_outgoing_delivery_modes_on_updater_id"
 
   create_table "outgoing_payment_modes", force: true do |t|
-    t.string   "name",                limit: 50,                 null: false
-    t.boolean  "with_accounting",                default: false, null: false
+    t.string   "name",            limit: 50,                 null: false
+    t.boolean  "with_accounting",            default: false, null: false
     t.integer  "cash_id"
     t.integer  "position"
-    t.integer  "attorney_journal_id"
-    t.boolean  "active",                         default: false, null: false
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
+    t.boolean  "active",                     default: false, null: false
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                   default: 0,     null: false
+    t.integer  "lock_version",               default: 0,     null: false
   end
 
-  add_index "outgoing_payment_modes", ["attorney_journal_id"], :name => "index_outgoing_payment_modes_on_attorney_journal_id"
   add_index "outgoing_payment_modes", ["cash_id"], :name => "index_outgoing_payment_modes_on_cash_id"
   add_index "outgoing_payment_modes", ["created_at"], :name => "index_outgoing_payment_modes_on_created_at"
   add_index "outgoing_payment_modes", ["creator_id"], :name => "index_outgoing_payment_modes_on_creator_id"
@@ -1461,14 +1450,13 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "amount",                      precision: 19, scale: 4, default: 0.0,  null: false
     t.string   "bank_check_number"
     t.boolean  "delivered",                                            default: true, null: false
-    t.date     "created_on"
     t.integer  "journal_entry_id"
     t.integer  "responsible_id",                                                      null: false
     t.integer  "payee_id",                                                            null: false
     t.integer  "mode_id",                                                             null: false
     t.string   "number"
-    t.date     "paid_on"
-    t.date     "to_bank_on",                                                          null: false
+    t.datetime "paid_at"
+    t.datetime "to_bank_at",                                                          null: false
     t.integer  "cash_id",                                                             null: false
     t.string   "currency",          limit: 3,                                         null: false
     t.boolean  "downpayment",                                          default: true, null: false
@@ -2262,14 +2250,13 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "amount",                         precision: 19, scale: 4, default: 0.0, null: false
     t.integer  "delivery_address_id"
     t.text     "description"
-    t.date     "planned_on"
-    t.date     "invoiced_on"
-    t.date     "created_on"
+    t.datetime "planned_at"
+    t.datetime "confirmed_at"
+    t.datetime "invoiced_at"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
     t.string   "reference_number"
     t.string   "state",               limit: 60
-    t.date     "confirmed_on"
     t.integer  "responsible_id"
     t.string   "currency",            limit: 3,                                         null: false
     t.integer  "nature_id"
@@ -2381,12 +2368,11 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "sales", force: true do |t|
     t.integer  "client_id",                                                               null: false
     t.integer  "nature_id"
-    t.date     "created_on",                                                              null: false
     t.string   "number",              limit: 60,                                          null: false
     t.decimal  "pretax_amount",                  precision: 19, scale: 4, default: 0.0,   null: false
     t.decimal  "amount",                         precision: 19, scale: 4, default: 0.0,   null: false
     t.string   "state",               limit: 60,                                          null: false
-    t.date     "expired_on"
+    t.datetime "expired_at"
     t.boolean  "has_downpayment",                                         default: false, null: false
     t.decimal  "downpayment_amount",             precision: 19, scale: 4, default: 0.0,   null: false
     t.integer  "address_id"
@@ -2397,7 +2383,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.text     "introduction"
     t.text     "conclusion"
     t.text     "description"
-    t.date     "confirmed_on"
+    t.datetime "confirmed_at"
     t.integer  "responsible_id"
     t.boolean  "letter_format",                                           default: true,  null: false
     t.text     "annotation"
@@ -2405,9 +2391,9 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
     t.string   "reference_number"
-    t.date     "invoiced_on"
+    t.datetime "invoiced_at"
     t.boolean  "credit",                                                  default: false, null: false
-    t.date     "payment_on"
+    t.datetime "payment_at"
     t.integer  "origin_id"
     t.string   "initial_number",      limit: 60
     t.string   "currency",            limit: 3,                                           null: false
@@ -2482,8 +2468,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "subscription_natures", ["updater_id"], :name => "index_subscription_natures_on_updater_id"
 
   create_table "subscriptions", force: true do |t|
-    t.date     "started_on"
-    t.date     "stopped_on"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
     t.integer  "first_number"
     t.integer  "last_number"
     t.integer  "sale_id"
@@ -2517,8 +2503,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "tax_declarations", force: true do |t|
     t.string   "nature",                                            default: "normal", null: false
     t.string   "address"
-    t.date     "declared_on"
-    t.date     "paid_on"
+    t.datetime "declared_at"
+    t.datetime "paid_at"
     t.decimal  "collected_amount",         precision: 19, scale: 4
     t.decimal  "paid_amount",              precision: 19, scale: 4
     t.decimal  "balance_amount",           precision: 19, scale: 4
@@ -2527,8 +2513,8 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "acquisition_amount",       precision: 19, scale: 4
     t.decimal  "amount",                   precision: 19, scale: 4
     t.integer  "financial_year_id"
-    t.date     "started_on"
-    t.date     "stopped_on"
+    t.datetime "started_at"
+    t.datetime "stopped_at"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
     t.datetime "created_at",                                                           null: false
@@ -2616,10 +2602,9 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.string   "currency",         limit: 3,                                      null: false
     t.integer  "client_id",                                                       null: false
     t.string   "label"
+    t.string   "number"
     t.string   "description"
-    t.date     "started_on"
-    t.date     "stopped_on"
-    t.date     "created_on"
+    t.datetime "printed_at"
     t.datetime "accounted_at"
     t.integer  "journal_entry_id"
     t.integer  "affair_id"
@@ -2643,8 +2628,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "transporter_id",                                        null: false
     t.integer  "responsible_id"
     t.decimal  "net_mass",         precision: 19, scale: 4
-    t.date     "created_on"
-    t.date     "transport_on"
+    t.datetime "departed_at"
     t.text     "description"
     t.string   "number"
     t.string   "reference_number"

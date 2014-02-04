@@ -18,16 +18,16 @@
 #
 
 class Backend::PurchasesController < BackendController
-  manage_restfully :planned_on => "Date.today+2".c, :redirect_to => '{action: :show, step: :products, id: "id"}'.c
+  manage_restfully :planned_at => "Date.today+2".c, :redirect_to => '{action: :show, step: :products, id: "id"}'.c
 
   unroll
 
-  list(conditions: search_conditions(:purchases => [:created_on, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), joins: :supplier, :line_class => :status, order: {created_on: :desc, number: :desc}) do |t|
+  list(conditions: search_conditions(:purchases => [:created_at, :pretax_amount, :amount, :number, :reference_number, :description], :entities => [:code, :full_name]), joins: :supplier, :line_class => :status, order: {created_at: :desc, number: :desc}) do |t|
     t.column :number, url: {action: :show, step: :default}
     t.column :reference_number, url: {action: :show, step: :products}
-    t.column :created_on
-    # t.column :planned_on
-    # t.column :moved_on
+    t.column :created_at
+    # t.column :planned_at
+    # t.column :moved_at
     t.column :supplier, url: true
     t.column :description
     # t.column :shipped
@@ -132,7 +132,7 @@ class Backend::PurchasesController < BackendController
   def invoice
     return unless @purchase = find_and_check
     ActiveRecord::Base.transaction do
-      raise ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_on])
+      raise ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_at])
       redirect_to action: :show, step: :summary, id: @purchase.id
       return
     end

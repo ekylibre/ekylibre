@@ -76,11 +76,7 @@ load_data :base do |loader|
       end
     end
     attributes[:password_confirmation] = attributes[:password]
-    picture = loader.path("users", "#{email}.jpg")
-    f = picture.exist? ? File.open(picture) : nil
-    attributes[:picture] = f
     User.create!(attributes)
-    f.close if f
   end
 
   # Catalogs
@@ -100,7 +96,7 @@ load_data :base do |loader|
 
   # Load taxes from nomenclatures
   if loader.can_load?(:taxes)
-    Tax.import_all_from_nomenclature(country)
+    Tax.import_all_from_nomenclature(country.to_sym)
   end
 
   # Load all the document templates

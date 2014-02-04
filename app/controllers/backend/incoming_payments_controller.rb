@@ -18,7 +18,7 @@
 #
 
 class Backend::IncomingPaymentsController < BackendController
-  manage_restfully to_bank_on: "Date.today".c, paid_on: "Date.today".c, responsible_id: "current_user.id".c, mode_id: "params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:entity_id].to_i)) ? payer.incoming_payments.reorder(id: :desc).first.mode_id : nil".c, t3e: {payer: "RECORD.payer.full_name".c, entity: "RECORD.payer.full_name".c , number: "RECORD.number".c}
+  manage_restfully to_bank_at: "Date.today".c, paid_at: "Date.today".c, responsible_id: "current_user.id".c, mode_id: "params[:mode_id] ? params[:mode_id] : (payer = Entity.find_by(id: params[:entity_id].to_i)) ? payer.incoming_payments.reorder(id: :desc).first.mode_id : nil".c, t3e: {payer: "RECORD.payer.full_name".c, entity: "RECORD.payer.full_name".c , number: "RECORD.number".c}
 
   unroll
 
@@ -28,7 +28,7 @@ class Backend::IncomingPaymentsController < BackendController
     code << "  c[0] += ' AND received=?'\n"
     code << "  c << false\n"
     code << "elsif params[:s] == 'waiting'\n"
-    code << "  c[0] += ' AND to_bank_on > ?'\n"
+    code << "  c[0] += ' AND to_bank_at > ?'\n"
     code << "  c << Date.today\n"
     code << "elsif params[:s] == 'undeposited'\n"
     code << "  c[0] += ' AND deposit_id IS NULL AND #{IncomingPaymentMode.table_name}.with_deposit'\n"
@@ -39,14 +39,14 @@ class Backend::IncomingPaymentsController < BackendController
     return code.c
   end
 
-  list(conditions: incoming_payments_conditions, joins: :payer, order: {to_bank_on: :desc}) do |t|
+  list(conditions: incoming_payments_conditions, joins: :payer, order: {to_bank_at: :desc}) do |t|
     t.column :number, url: true
     t.column :payer, url: true
-    t.column :paid_on
+    t.column :paid_at
     t.column :amount, currency: true, url: true
     t.column :mode
     t.column :bank_check_number
-    t.column :to_bank_on
+    t.column :to_bank_at
     t.column :deposit, url: true
     t.action :edit, :unless => :deposit?
     t.action :destroy, :if => :destroyable?

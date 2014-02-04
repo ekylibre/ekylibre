@@ -27,7 +27,6 @@
 #  bank_check_number :string(255)
 #  cash_id           :integer          not null
 #  created_at        :datetime         not null
-#  created_on        :date
 #  creator_id        :integer
 #  currency          :string(3)        not null
 #  delivered         :boolean          default(TRUE), not null
@@ -37,10 +36,10 @@
 #  lock_version      :integer          default(0), not null
 #  mode_id           :integer          not null
 #  number            :string(255)
-#  paid_on           :date
+#  paid_at           :datetime
 #  payee_id          :integer          not null
 #  responsible_id    :integer          not null
-#  to_bank_on        :date             not null
+#  to_bank_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  updater_id        :integer
 #
@@ -57,7 +56,7 @@
 #   mode: modes_001
 #   payee: payees_001
 #   responsible: responsibles_001
-#   to_bank_on: 2013-10-26
+#   to_bank_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001
 #
 ---
@@ -71,7 +70,7 @@ outgoing_payments_001:
   number: OP001
   payee: legal_entities_001
   responsible: users_001
-  to_bank_on: 2009-07-19
+  to_bank_at: 2009-07-19
   updater: users_001
 outgoing_payments_002:
   affair: affairs_002
@@ -83,5 +82,5 @@ outgoing_payments_002:
   number: OP002
   payee: legal_entities_001
   responsible: users_001
-  to_bank_on: 2009-07-19
+  to_bank_at: 2009-07-19
   updater: users_001

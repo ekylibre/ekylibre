@@ -48,8 +48,6 @@ activities:
   nature: {type: string, required: true}
   parent_id: {type: integer, references: activity}
   rgt: {type: integer}
-  started_at: {type: datetime}
-  stopped_at: {type: datetime}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -75,7 +73,7 @@ affairs:
 
 analytic_distributions:
   affectation_percentage: {type: decimal, precision: 19, scale: 4, required: true}
-  affected_on: {type: date, required: true}
+  affected_at: {type: datetime, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   id: {type: integer, required: true}
@@ -96,8 +94,8 @@ bank_statements:
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   number: {type: string, required: true}
-  started_on: {type: date, required: true}
-  stopped_on: {type: date, required: true}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -132,7 +130,7 @@ cash_transfers:
   reception_cash_id: {type: integer, references: cash, required: true}
   reception_currency: {type: string, limit: 3, required: true}
   reception_journal_entry_id: {type: integer, references: journal_entry}
-  transfered_on: {type: date, required: true}
+  transfered_at: {type: datetime, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -242,7 +240,6 @@ deposits:
   amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   cash_id: {type: integer, references: cash, required: true}
   created_at: {type: datetime, required: true}
-  created_on: {type: date, required: true}
   creator_id: {type: integer, references: user}
   description: {type: text}
   id: {type: integer, required: true}
@@ -317,17 +314,17 @@ entities:
   active: {type: boolean, required: true, default: true}
   activity_code: {type: string, limit: 30}
   authorized_payments_count: {type: integer}
-  born_on: {type: date}
+  born_at: {type: datetime}
   client: {type: boolean, required: true, default: false}
   client_account_id: {type: integer, references: account}
   country: {type: string, limit: 2}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   currency: {type: string, required: true}
-  dead_on: {type: date}
+  dead_at: {type: datetime}
   deliveries_conditions: {type: string, limit: 60}
   description: {type: text}
-  first_met_on: {type: date}
+  first_met_at: {type: datetime}
   first_name: {type: string}
   full_name: {type: string, required: true}
   id: {type: integer, required: true}
@@ -452,7 +449,6 @@ financial_asset_depreciations:
   accounted_at: {type: datetime}
   amount: {type: decimal, precision: 19, scale: 4, required: true}
   created_at: {type: datetime, required: true}
-  created_on: {type: date, required: true}
   creator_id: {type: integer, references: user}
   depreciable_amount: {type: decimal, precision: 19, scale: 4}
   depreciated_amount: {type: decimal, precision: 19, scale: 4}
@@ -463,15 +459,15 @@ financial_asset_depreciations:
   lock_version: {type: integer, required: true, default: 0}
   locked: {type: boolean, required: true, default: false}
   position: {type: integer}
-  started_on: {type: date, required: true}
-  stopped_on: {type: date, required: true}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
 financial_assets:
   allocation_account_id: {type: integer, references: account, required: true}
   ceded: {type: boolean}
-  ceded_on: {type: date}
+  ceded_at: {type: datetime}
   charges_account_id: {type: integer, references: account}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
@@ -490,11 +486,11 @@ financial_assets:
   purchase_amount: {type: decimal, precision: 19, scale: 4}
   purchase_id: {type: integer, references: purchase}
   purchase_item_id: {type: integer, references: purchase_item}
-  purchased_on: {type: date}
+  purchased_at: {type: datetime}
   sale_id: {type: integer, references: sale}
   sale_item_id: {type: integer, references: sale_item}
-  started_on: {type: date, required: true}
-  stopped_on: {type: date, required: true}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -508,8 +504,8 @@ financial_years:
   id: {type: integer, required: true}
   last_journal_entry_id: {type: integer, references: journal_entry}
   lock_version: {type: integer, required: true, default: 0}
-  started_on: {type: date, required: true}
-  stopped_on: {type: date, required: true}
+  started_at: {type: datetime, required: true}
+  stopped_at: {type: datetime, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -531,7 +527,6 @@ gaps:
   affair_id: {type: integer, references: affair, required: true}
   amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   created_at: {type: datetime, required: true}
-  created_on: {type: date, required: true}
   creator_id: {type: integer, references: user}
   currency: {type: string, limit: 3, required: true}
   direction: {type: string, required: true}
@@ -542,6 +537,7 @@ gaps:
   lock_version: {type: integer, required: true, default: 0}
   number: {type: string, required: true}
   pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
+  printed_at: {type: datetime, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -630,7 +626,6 @@ incoming_delivery_modes:
 
 incoming_payment_modes:
   active: {type: boolean, default: false}
-  attorney_journal_id: {type: integer, references: journal}
   cash_id: {type: integer, references: cash}
   commission_account_id: {type: integer, references: account}
   commission_base_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
@@ -660,7 +655,6 @@ incoming_payments:
   commission_account_id: {type: integer, references: account}
   commission_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   created_at: {type: datetime, required: true}
-  created_on: {type: date}
   creator_id: {type: integer, references: user}
   currency: {type: string, limit: 3, required: true}
   deposit_id: {type: integer, references: deposit}
@@ -670,13 +664,13 @@ incoming_payments:
   lock_version: {type: integer, required: true, default: 0}
   mode_id: {type: integer, references: incoming_payment_mode, required: true}
   number: {type: string}
-  paid_on: {type: date}
+  paid_at: {type: datetime}
   payer_id: {type: integer, references: entity}
   receipt: {type: text}
   received: {type: boolean, required: true, default: true}
   responsible_id: {type: integer, references: user}
   scheduled: {type: boolean, required: true, default: false}
-  to_bank_on: {type: date, required: true, default: 0001-01-01}
+  to_bank_at: {type: datetime, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -720,15 +714,14 @@ interventions:
 
 inventories:
   accounted_at: {type: datetime}
-  changes_reflected: {type: boolean, required: true, default: false}
   created_at: {type: datetime, required: true}
-  created_on: {type: date, required: true}
   creator_id: {type: integer, references: user}
   id: {type: integer, required: true}
   journal_entry_id: {type: integer, references: journal_entry}
   lock_version: {type: integer, required: true, default: 0}
-  moved_on: {type: date}
   number: {type: string, limit: 20}
+  reflected: {type: boolean, required: true, default: false}
+  reflected_at: {type: datetime}
   responsible_id: {type: integer, references: entity}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
@@ -773,7 +766,6 @@ journal_entries:
   absolute_debit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   balance: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   created_at: {type: datetime, required: true}
-  created_on: {type: date, required: true}
   creator_id: {type: integer, references: user}
   credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   currency: {type: string, limit: 3, required: true}
@@ -783,7 +775,7 @@ journal_entries:
   journal_id: {type: integer, references: journal, required: true}
   lock_version: {type: integer, required: true, default: 0}
   number: {type: string, required: true}
-  printed_on: {type: date, required: true}
+  printed_at: {type: datetime, required: true}
   real_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   real_currency: {type: string, limit: 3, required: true}
   real_currency_rate: {type: decimal, precision: 19, scale: 10, required: true, default: 0.0}
@@ -818,7 +810,7 @@ journal_entry_items:
   lock_version: {type: integer, required: true, default: 0}
   name: {type: string, required: true}
   position: {type: integer}
-  printed_on: {type: date, required: true}
+  printed_at: {type: datetime, required: true}
   real_credit: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   real_currency: {type: string, limit: 3, required: true}
   real_currency_rate: {type: decimal, precision: 19, scale: 10, required: true, default: 0.0}
@@ -828,7 +820,7 @@ journal_entry_items:
   updater_id: {type: integer, references: user}
 
 journals:
-  closed_on: {type: date, required: true}
+  closed_at: {type: datetime, required: true}
   code: {type: string, limit: 4, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
@@ -904,8 +896,8 @@ mandates:
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   organization: {type: string, required: true}
-  started_on: {type: date}
-  stopped_on: {type: date}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
   title: {type: string, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
@@ -982,7 +974,6 @@ outgoing_delivery_modes:
 
 outgoing_payment_modes:
   active: {type: boolean, required: true, default: false}
-  attorney_journal_id: {type: integer, references: journal}
   cash_id: {type: integer, references: cash}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
@@ -1001,7 +992,6 @@ outgoing_payments:
   bank_check_number: {type: string}
   cash_id: {type: integer, references: cash, required: true}
   created_at: {type: datetime, required: true}
-  created_on: {type: date}
   creator_id: {type: integer, references: user}
   currency: {type: string, limit: 3, required: true}
   delivered: {type: boolean, required: true, default: true}
@@ -1011,10 +1001,10 @@ outgoing_payments:
   lock_version: {type: integer, required: true, default: 0}
   mode_id: {type: integer, references: outgoing_payment_mode, required: true}
   number: {type: string}
-  paid_on: {type: date}
+  paid_at: {type: datetime}
   payee_id: {type: integer, references: entity, required: true}
   responsible_id: {type: integer, references: user, required: true}
-  to_bank_on: {type: date, required: true}
+  to_bank_at: {type: datetime, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -1524,20 +1514,19 @@ purchases:
   accounted_at: {type: datetime}
   affair_id: {type: integer, references: affair}
   amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
-  confirmed_on: {type: date}
+  confirmed_at: {type: datetime}
   created_at: {type: datetime, required: true}
-  created_on: {type: date}
   creator_id: {type: integer, references: user}
   currency: {type: string, limit: 3, required: true}
   delivery_address_id: {type: integer, references: entity_address}
   description: {type: text}
   id: {type: integer, required: true}
-  invoiced_on: {type: date}
+  invoiced_at: {type: datetime}
   journal_entry_id: {type: integer, references: journal_entry}
   lock_version: {type: integer, required: true, default: 0}
   nature_id: {type: integer, references: purchase_nature}
   number: {type: string, limit: 60, required: true}
-  planned_on: {type: date}
+  planned_at: {type: datetime}
   pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   reference_number: {type: string}
   responsible_id: {type: integer, references: user}
@@ -1613,9 +1602,8 @@ sales:
   annotation: {type: text}
   client_id: {type: integer, references: entity, required: true}
   conclusion: {type: text}
-  confirmed_on: {type: date}
+  confirmed_at: {type: datetime}
   created_at: {type: datetime, required: true}
-  created_on: {type: date, required: true}
   creator_id: {type: integer, references: user}
   credit: {type: boolean, required: true, default: false}
   currency: {type: string, limit: 3, required: true}
@@ -1623,22 +1611,22 @@ sales:
   description: {type: text}
   downpayment_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   expiration_delay: {type: string}
-  expired_on: {type: date}
+  expired_at: {type: datetime}
   function_title: {type: string}
   has_downpayment: {type: boolean, required: true, default: false}
   id: {type: integer, required: true}
   initial_number: {type: string, limit: 60}
   introduction: {type: text}
   invoice_address_id: {type: integer, references: entity_address}
-  invoiced_on: {type: date}
+  invoiced_at: {type: datetime}
   journal_entry_id: {type: integer, references: journal_entry}
   letter_format: {type: boolean, required: true, default: true}
   lock_version: {type: integer, required: true, default: 0}
   nature_id: {type: integer, references: sale_nature}
   number: {type: string, limit: 60, required: true}
   origin_id: {type: integer, references: sale}
+  payment_at: {type: datetime}
   payment_delay: {type: string, required: true}
-  payment_on: {type: date}
   pretax_amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}
   reference_number: {type: string}
   responsible_id: {type: integer, references: person}
@@ -1696,8 +1684,8 @@ subscriptions:
   quantity: {type: decimal, precision: 19, scale: 4}
   sale_id: {type: integer, references: sale}
   sale_item_id: {type: integer, references: sale_item}
-  started_on: {type: date}
-  stopped_on: {type: date}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
   subscriber_id: {type: integer, references: entity}
   suspended: {type: boolean, required: true, default: false}
   updated_at: {type: datetime, required: true}
@@ -1713,7 +1701,7 @@ tax_declarations:
   collected_amount: {type: decimal, precision: 19, scale: 4}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
-  declared_on: {type: date}
+  declared_at: {type: datetime}
   deferred_payment: {type: boolean, default: false}
   financial_year_id: {type: integer, references: financial_year}
   id: {type: integer, required: true}
@@ -1721,9 +1709,9 @@ tax_declarations:
   lock_version: {type: integer, required: true, default: 0}
   nature: {type: string, required: true, default: "normal"}
   paid_amount: {type: decimal, precision: 19, scale: 4}
-  paid_on: {type: date}
-  started_on: {type: date}
-  stopped_on: {type: date}
+  paid_at: {type: datetime}
+  started_at: {type: datetime}
+  stopped_at: {type: datetime}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -1779,7 +1767,6 @@ transfers:
   amount: {type: decimal, precision: 19, scale: 4, required: true}
   client_id: {type: integer, references: entity, required: true}
   created_at: {type: datetime, required: true}
-  created_on: {type: date}
   creator_id: {type: integer, references: user}
   currency: {type: string, limit: 3, required: true}
   description: {type: string}
@@ -1787,16 +1774,16 @@ transfers:
   journal_entry_id: {type: integer, references: journal_entry}
   label: {type: string}
   lock_version: {type: integer, required: true, default: 0}
-  started_on: {type: date}
-  stopped_on: {type: date}
+  number: {type: string}
+  printed_at: {type: datetime}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
 transports:
   amount: {type: decimal, precision: 19, scale: 4, required: true}
   created_at: {type: datetime, required: true}
-  created_on: {type: date}
   creator_id: {type: integer, references: user}
+  departed_at: {type: datetime}
   description: {type: text}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
@@ -1805,8 +1792,7 @@ transports:
   pretax_amount: {type: decimal, precision: 19, scale: 4, required: true}
   purchase_id: {type: integer, references: purchase}
   reference_number: {type: string}
-  responsible_id: {type: integer, references: user}
-  transport_on: {type: date}
+  responsible_id: {type: integer, references: person}
   transporter_id: {type: integer, references: entity, required: true}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}

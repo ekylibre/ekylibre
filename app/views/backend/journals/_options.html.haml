@@ -10,5 +10,5 @@
 -if [:journal, :general_journal, :general_ledger].include?(nature)
   =formalize do |f|
     -f.title :period
-    -f.field tg("from"), date_field_tag(:started_on, params[:started_on]||(Date.today-1.month))
-    -f.field tg("to"),   date_field_tag(:stopped_on, params[:stopped_on]||Date.today)
+    -f.field tg("from"), date_field_tag(:started_at, params[:started_at]||(Date.today-1.month))
+    -f.field tg("to"),   date_field_tag(:stopped_at, params[:stopped_at]||Date.today)

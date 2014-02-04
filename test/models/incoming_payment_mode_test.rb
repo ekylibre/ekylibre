@@ -22,7 +22,6 @@
 # == Table: incoming_payment_modes
 #
 #  active                  :boolean
-#  attorney_journal_id     :integer
 #  cash_id                 :integer
 #  commission_account_id   :integer
 #  commission_base_amount  :decimal(19, 4)   default(0.0), not null

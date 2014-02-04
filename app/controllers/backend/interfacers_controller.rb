@@ -209,7 +209,7 @@ class Backend::InterfacersController < BackendController
 
   # search_for(:incoming_delivery_contacts, :contact, :columns => ['entity.full_name', :address], :conditions  => ["#{Contact.table_name}.deleted_at IS NULL AND entity.of_company"], joins: [:entities])
   # search_for(:operation_products, :product, :columns => [:code, :name], :conditions  => {:active => true})
-  # search_for(:outgoing_deliveries, :columns => [:planned_on, "contact.address"], conditions: ["transport_id IS NULL"], joins: [:contact])
+  # search_for(:outgoing_deliveries, :columns => [:planned_at, "contact.address"], conditions: ["transport_id IS NULL"], joins: [:contact])
   # search_for(:outgoing_delivery_contacts, :contacts, :columns => ['entity.full_name', :address], conditions: ["#{Contact.table_name}.deleted_at IS NULL"], joins: [:entity])
   # search_for(:paid_account, :account, :columns => ["number:X%", :name])
   # search_for(:purchase_products, :product, :columns => [:code, :name], conditions: {:active => true}, order: :name)
@@ -217,7 +217,7 @@ class Backend::InterfacersController < BackendController
 
   # # search_for(:incoming_delivery_addresses, :address, :columns => ['entity.full_name', :address], :conditions  => ["#{EntityAddress.table_name}.deleted_at IS NULL AND entity.of_company"], joins: [:entities])
   # search_for(:operation_products, :product, :columns => [:code, :name], :conditions  => {:active => true})
-  # # search_for(:outgoing_deliveries, :columns => [:planned_on, "address.address"], conditions: ["transport_id IS NULL"], joins: [:address])
+  # # search_for(:outgoing_deliveries, :columns => [:planned_at, "address.address"], conditions: ["transport_id IS NULL"], joins: [:address])
   # # search_for(:outgoing_delivery_addresses, :addresses, :columns => ['entity.full_name', :address], conditions: ["#{EntityAddress.table_name}.deleted_at IS NULL"], joins: [:entity])
   # search_for(:paid_account, :account, :columns => ["number:X%", :name])
   # search_for(:purchase_products, :product, :columns => [:code, :name], conditions: {:active => true}, order: :name)

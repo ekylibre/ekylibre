@@ -19,11 +19,11 @@ module Ekylibre::Record
           origin = options.delete(:origin)
           record = self.name.underscore.to_s
           attributes = {}
-          [:quantity, :product, :unit, :warehouse, :tracking, :moved_on].each do |attr|
+          [:quantity, :product, :unit, :warehouse, :tracking, :moved_at].each do |attr|
             attributes[attr] = options.delete(attr) || attr
           end
           attributes[:origin] =  (origin ? "self.#{origin}" : "self")
-          attributes[:moved_on] = "#{attributes[:origin]}.#{attributes[:moved_on]}" if attributes[:moved_on].is_a? Symbol
+          attributes[:moved_at] = "#{attributes[:origin]}.#{attributes[:moved_at]}" if attributes[:moved_at].is_a? Symbol
           attributes[:generated] = "true"
           attrs = attributes.collect{|k, v| ":#{k} => " + (v.is_a?(Symbol) ? "self.#{v}" : "(#{v})") }.join(", ")
           code  = ""
@@ -59,9 +59,9 @@ module Ekylibre::Record
           code << "  self.reload\n"
           code << "end\n"
 
-          code << "def confirm_#{stock_move}(moved_on = Date.today)\n"
+          code << "def confirm_#{stock_move}(moved_at = Date.today)\n"
           code << "  if self.#{stock_move}\n"
-          code << "    self.#{stock_move}.moved_on = moved_on\n"
+          code << "    self.#{stock_move}.moved_at = moved_at\n"
           code << "    self.#{stock_move}.save!\n"
           code << "  end\n"
           code << "end\n"

@@ -23,8 +23,8 @@ class Backend::InventoriesController < BackendController
   unroll
 
   list do |t|
-    t.column :created_on
-    t.column :changes_reflected
+    t.column :created_at
+    t.column :reflected
     t.column :responsible, url: true
     # t.column :description
     # t.action :show, url: {:format => :pdf}, image: :print
@@ -116,7 +116,7 @@ class Backend::InventoriesController < BackendController
   def update
     return unless @inventory = find_and_check
     session[:current_inventory_id] = @inventory.id
-    unless @inventory.changes_reflected
+    unless @inventory.reflected
       if @inventory.update_attributes(permitted_params)
         # @inventory.set_items(params[:items_create].values)
         for id, attributes in (params[:items_update]||{})
@@ -131,7 +131,7 @@ class Backend::InventoriesController < BackendController
 
   def reflect
     return unless @inventory = find_and_check
-    if @inventory.reflect_changes
+    if @inventory.reflect
       notify_success(:changes_have_been_reflected)
     else
       notify_error(:changes_have_not_been_reflected)

@@ -2079,8 +2079,6 @@ eng:
         # collect_account: "compte de TVA collectée (radical)"
         # country: "pays"
         # deduction_account: "compte de TVA déductible (radical)"
-        # started_on: "débuté le"
-        # stopped_on: "arrêté le"
         # suffix: "suffixe du compte comptable"
       choices:
         computation_method: #?

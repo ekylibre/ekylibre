@@ -4,7 +4,7 @@
   - b.tabbox do
     - b.cell do
       = f.referenced_association :client # , :source => :clients
-      = f.subset :addresses, :depend_on => :client
+      = f.subset :addresses, :depend_at => :client
 
     - b.cell :sales_conditions do
       = f.association :nature, :as => :hidden

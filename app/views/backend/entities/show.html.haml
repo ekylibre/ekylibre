@@ -46,13 +46,13 @@
         - l.attribute :siren unless resource.siren.blank?
         - l.attribute :activity_code unless resource.activity_code.blank?
         - l.attribute :vat_number unless resource.vat_number.blank?
-        - l.attribute :born_on unless resource.born_on.blank?
-        - l.attribute :dead_on unless resource.dead_on.blank?
+        - l.attribute :born_at unless resource.born_at.blank?
+        - l.attribute :dead_at unless resource.dead_at.blank?
         - l.attribute :prospect
         - l.attribute :client
         - if resource.client
           -#l.attribute :category, :label => :name, url: true
-          - l.attribute :first_met_on unless resource.first_met_on.blank?
+          - l.attribute :first_met_at unless resource.first_met_at.blank?
           - l.attribute :proposer, :label => :full_name unless resource.proposer.nil?
           - l.attribute :vat_subjected
           - l.attribute :reminder_submissive unless resource.reminder_submissive?

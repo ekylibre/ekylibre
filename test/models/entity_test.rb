@@ -24,17 +24,17 @@
 #  active                    :boolean          default(TRUE), not null
 #  activity_code             :string(30)
 #  authorized_payments_count :integer
-#  born_on                   :date
+#  born_at                   :datetime
 #  client                    :boolean          not null
 #  client_account_id         :integer
 #  country                   :string(2)
 #  created_at                :datetime         not null
 #  creator_id                :integer
 #  currency                  :string(255)      not null
-#  dead_on                   :date
+#  dead_at                   :datetime
 #  deliveries_conditions     :string(60)
 #  description               :text
-#  first_met_on              :date
+#  first_met_at              :datetime
 #  first_name                :string(255)
 #  full_name                 :string(255)      not null
 #  id                        :integer          not null, primary key

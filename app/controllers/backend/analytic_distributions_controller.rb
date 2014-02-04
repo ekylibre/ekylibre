@@ -23,7 +23,7 @@ class Backend::AnalyticDistributionsController < BackendController
   unroll
 
   list do |t|
-    t.column :affected_on
+    t.column :affected_at
     t.column :production, url: true
     # t.column :journal_entry_item, url: true
     t.column :state

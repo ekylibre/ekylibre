@@ -24,20 +24,19 @@
 #  accounted_at        :datetime
 #  affair_id           :integer
 #  amount              :decimal(19, 4)   default(0.0), not null
-#  confirmed_on        :date
+#  confirmed_at        :datetime
 #  created_at          :datetime         not null
-#  created_on          :date
 #  creator_id          :integer
 #  currency            :string(3)        not null
 #  delivery_address_id :integer
 #  description         :text
 #  id                  :integer          not null, primary key
-#  invoiced_on         :date
+#  invoiced_at         :datetime
 #  journal_entry_id    :integer
 #  lock_version        :integer          default(0), not null
 #  nature_id           :integer
 #  number              :string(60)       not null
-#  planned_on          :date
+#  planned_at          :datetime
 #  pretax_amount       :decimal(19, 4)   default(0.0), not null
 #  reference_number    :string(255)
 #  responsible_id      :integer
@@ -49,7 +48,6 @@
 
 
 class Purchase < Ekylibre::Record::Base
-  # attr_accessible :confirmed_on, :description, :delivery_address_id, :items_attributes, :nature_id, :planned_on, :reference_number, :responsible_id, :supplier_id, :created_on, :currency, :state
   attr_readonly :currency
   belongs_to :delivery_address, class_name: "EntityAddress"
   belongs_to :journal_entry
@@ -69,7 +67,7 @@ class Purchase < Ekylibre::Record::Base
   validates_length_of :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :amount, :currency, :number, :payee, :pretax_amount, :supplier
   #]VALIDATORS]
-  validates_presence_of :planned_on, :created_on, :currency, :state, :nature
+  validates_presence_of :planned_at, :created_at, :currency, :state, :nature
   validates_uniqueness_of :number
 
   acts_as_numbered
@@ -84,20 +82,20 @@ class Purchase < Ekylibre::Record::Base
     state :invoice
     state :aborted
     event :propose do
-      transition :draft => :estimate, if: :has_content?
+      transition :draft => :estimate, :if => :has_content?
     end
     event :correct do
       transition [:estimate, :refused, :order] => :draft
     end
     event :refuse do
-      transition :estimate => :refused, if: :has_content?
+      transition :estimate => :refused, :if => :has_content?
     end
     event :confirm do
-      transition :estimate => :order, if: :has_content?
+      transition :estimate => :order, :if => :has_content?
     end
     event :invoice do
-      transition :order => :invoice, if: :has_content?
-      transition :estimate => :invoice, if: :has_content_not_deliverable?
+      transition :order => :invoice, :if => :has_content?
+      transition :estimate => :invoice, :if => :has_content_not_deliverable?
     end
     event :abort do
       transition [:draft, :estimate] => :aborted # , :order
@@ -110,11 +108,9 @@ class Purchase < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.created_on ||= Date.today
-    self.planned_on ||= self.created_on
-    if eoc = Entity.of_company
-      self.currency ||= eoc.currency
-    end
+    self.created_at ||= Time.now
+    self.planned_at ||= self.created_at
+    self.currency ||= Preference[:currency]
     self.pretax_amount = self.items.sum(:pretax_amount)
     self.amount = self.items.sum(:amount)
     return true
@@ -123,7 +119,7 @@ class Purchase < Ekylibre::Record::Base
   # This method permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, if: self.invoice?) do |entry|
+    b.journal_entry(self.nature.journal, :if => self.invoice?) do |entry|
       label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.description.blank? ? self.items.collect{|x| x.name}.to_sentence : self.description))
       for item in self.items
         entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?
@@ -133,8 +129,8 @@ class Purchase < Ekylibre::Record::Base
     end
   end
 
-  def dealt_on
-    return (self.invoice? ? self.invoiced_on : self.created_on)
+  def dealt_at
+    return (self.invoice? ? self.invoiced_at : self.created_at)
   end
 
   # Globalizes taxes into an array of hash
@@ -185,17 +181,17 @@ class Purchase < Ekylibre::Record::Base
   end
 
   # Save the last date when the purchase was confirmed
-  def confirm(validated_on=Date.today, *args)
+  def confirm(validated_at = Time.now, *args)
     return false unless self.can_confirm?
-    self.reload.update_attributes!(:confirmed_on => validated_on||Date.today)
+    self.reload.update_attributes!(confirmed_at: validated_at)
     return super
   end
 
   # Save the last date when the invoice of purchase was received
-  def invoice(invoiced_on=nil, *args)
+  def invoice(invoiced_at = nil, *args)
     return false unless self.can_invoice?
-    invoiced_on ||= self.planned_on
-    self.reload.update_attributes!(:invoiced_on => invoiced_on)
+    invoiced_at ||= self.planned_at
+    self.reload.update_attributes!(invoiced_at: invoiced_at)
     return super
   end
 

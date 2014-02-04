@@ -53,11 +53,11 @@ eng:
         # depreciable_amount: "Valeur nette comptable (VNC)"
       financial_year:
         # last_journal_entry: "Écriture de fin d’exercice"
-        stopped_on: "Date of closing"
+        stopped_at: "Date of closing"
       incoming_payment:
         amount: "Amount" #?
         received: "Received" #?
-        to_bank_on: "To bank on"
+        to_bank_at: "To bank on"
       intervention:
         # production_support: "Support de production"
         provisional: "Provisional" #?
@@ -176,9 +176,9 @@ eng:
         # items: "Lignes d’achat"
         label: "Purchase order"
         lines: "Purhase order lines" #?
-        moved_on: "Recevied on"
+        moved_at: "Recevied on"
         payment_uses: "Parts of disbursements" #?
-        planned_on: "Reception on"
+        planned_at: "Reception on"
       purchase_item:
         amount: "Amount with taxes"
         order: "Purchase order" #?
@@ -276,7 +276,7 @@ eng:
       models:
         asset:  #?
           attributes: #?
-            started_on: #?
+            started_at: #?
               invalid_date: "The depreciation must start on %{start} or on a beginning of month" #?
         cash:
           currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
@@ -293,13 +293,13 @@ eng:
           nature_do_not_allow_a_first_name: "The selectected type “%{nature}” does not allow a first name"
         financial_asset:
           attributes:
-            started_on:
+            started_at:
               invalid_date: "The depreciation must start on %{start} or on a beginning of month"
         financial_year:
           attributes:
-            started_on:
+            started_at:
               consecutive: "The financial years must be consecutives. It must start after the end of the previous."
-            stopped_on:
+            stopped_at:
               end_of_month: "%{attribute} must be an en of month"
           overlap: "%{attribute} overlaps an existing financial year"
         incoming_delivery_item:
@@ -307,11 +307,11 @@ eng:
         incoming_delivery_line: #?
         journal:
           attributes:
-            closed_on:
-              # draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_on}"
-              end_of_month: "%{attribute} must be an end of month (%{closed_on})"
+            closed_at:
+              # draft_entry_items: "Des écritures du brouillard sont encore présente avant le %{closed_at}"
+              end_of_month: "%{attribute} must be an end of month (%{closed_at})"
         journal_entry:
-          closed_journal: "The journal %{journal} is closed on %{closed_on}. No updates are possible until this date."
+          closed_journal: "The journal %{journal} is closed on %{closed_at}. No updates are possible until this date."
           out_of_existing_financial_year: "The journal entry must be recorded in a period corresponding to an existing financial year."
           unbalanced: "The journal entry is unbalanced"
         journal_entry_item:
@@ -595,7 +595,7 @@ eng:
     # administrator: "Administrateur système"
     affair: "Affair"
     affairs: "Affairs"
-    # affected_on: "Affecté le"
+    # affected_at: "Affecté le"
     age: "Age"
     agency_code: "Agency code" #?
     # aim: "Objectif"
@@ -618,7 +618,7 @@ eng:
     area_measure: "Area measure" #?
     area_unit: "Area unit" #?
     arrival_cause: "Arrival cause"
-    arrived_on: "Arrived on"
+    arrived_at: "Arrived on"
     asset: "Asset" #?
     asset_amount: "Accountable value" #?
     asset_depreciations: "Asset depreciations" #?
@@ -660,8 +660,7 @@ eng:
     bic: "BIC" #?
     # birth: "Naissance"
     boolean_value: "Boolean value"
-    born_at: "Born at"
-    born_on: "Born on"
+    born_at: "Born on"
     building: "Building"
     buildings: "Buildings"
     by_default: "By default"
@@ -681,8 +680,7 @@ eng:
     catalog_name: "Catalog name"
     category: "Category"
     ceded: "Ceded"
-    ceded_on: "Ceded on"
-    changes_reflected: "Changes reflected"
+    ceded_at: "Ceded on"
     charge_account: "Charge account"
     charges_account: "Charges account"
     charges_accounts: "Charges accounts"
@@ -704,8 +702,7 @@ eng:
     clients: "Clients"
     closable_financial_year: "Closable financial year"
     closed: "Closed"
-    closed_at: "Closed at"
-    closed_on: "Closed on"
+    closed_at: "Closed on"
     code: "Code"
     code2: "Code2" #?
     coefficient: "Coefficient"
@@ -736,7 +733,7 @@ eng:
     condition_operator: "Condition operator"
     condition_value: "Condition value"
     conditions: "Conditions"
-    confirmed_on: "Confirmed on"
+    confirmed_at: "Confirmed on"
     connected_at: "Connected at" #?
     consumption: "Consumption" #?
     contact: "Contact" #?
@@ -752,8 +749,7 @@ eng:
     conveyors: "Conveyors" #?
     coordinate: "Coordinate"
     country: "Country"
-    created_at: "Created at"
-    created_on: "Created on"
+    created_at: "Created on"
     creator: "Creator"
     credit: "Credit"
     # credit_lines: "Lignes d’avoir"
@@ -784,8 +780,7 @@ eng:
     data: "Data"
     date_value: "Date value" #?
     datetime_value: "Datetime value" #?
-    dead_at: "Dead at"
-    dead_on: "Dead on"
+    dead_at: "Dead on"
     # deal_type: "Type de transaction"
     # death: "Death"
     debit: "Debit"
@@ -794,7 +789,7 @@ eng:
     decimal_max: "Decimal max" #?
     decimal_min: "Decimal min" #?
     decimal_value: "Decimal value"
-    declared_on: "Declared on"
+    declared_at: "Declared on"
     # deduction_account: "TVA déductible"
     # deduction_taxes: "TVA déductible"
     default_address: "Default address" #?
@@ -808,8 +803,7 @@ eng:
     deleted_at: "Deleted at"
     deliverable: "Deliverable"
     delivered: "Delivered"
-    # delivered_at: "Reçu le"
-    delivered_on: "Reçu le" #?
+    delivered_at: "Reçu le"
     deliveries: "Delivered on"
     deliveries_conditions: "Deliveries conditions"
     delivery: "Delivery"
@@ -818,8 +812,7 @@ eng:
     # delivery_items: "Lignes de livraison"
     delivery_lines: "Delivery lines" #?
     density_label: "Density label" #?
-    departed_at: "Parti le" #?
-    departed_on: "Departed at" #?
+    departed_at: "Transport on"
     department: "Department" #?
     departments: "Departments" #?
     departure_cause: "Departure cause"
@@ -858,7 +851,7 @@ eng:
     # document_archives: "Archives documentaires"
     document_templates: "Document templates" #?
     documents: "Documents"
-    # done_on: "Fait le"
+    # done_at: "Fait le"
     downpayment: "Downpayment"
     downpayment_amount: "Downpayment amount"
     downpayment_minimum: "Downpayment minimum"
@@ -923,7 +916,7 @@ eng:
     expenses: "Expenses" #?
     expiration: "Expiration" #?
     # expiration_delay: "Délai d’expiration"
-    expired_on: "Expired on"
+    expired_at: "Expired on"
     exportable: "Exportable"
     exportable_columns: "Exportable columns"
     expression: "Expression"
@@ -948,7 +941,7 @@ eng:
     # finish_junction: "Finish junction"
     # finish_way: "Finish way"
     first_financial_year: "First financial year" #?
-    first_met_on: "First met on"
+    first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number"
     flow: "Flow" #?
@@ -1026,7 +1019,7 @@ eng:
     inventory_lines: "Inventory lines" #?
     invoice_address: "Invoice address"
     # invoiced: "Facturée"
-    invoiced_on: "Invoiced on"
+    invoiced_at: "Invoiced on"
     invoices_count: "Invoices count"
     # irrigated: "Irrigué"
     is_debit: "Is debit" #?
@@ -1127,8 +1120,7 @@ eng:
     mode: "Mode"
     mother: "Mother"
     move: "Move" #?
-    moved_at: "Moved at" #?
-    moved_on: "Moved on"
+    moved_at: "Moved on"
     moves: "Moves" #?
     # multi_polygon_value: "Multi polygon value"
     name: "Name"
@@ -1183,7 +1175,7 @@ eng:
     paid: "Paid" #?
     paid_account: "Account paid" #?
     paid_amount: "Paid amount"
-    paid_on: "Paid on"
+    paid_at: "Paid on"
     paid_taxes: "Paid taxes"
     parent: "Parent"
     parent_kinships: "Parent kinships" #?
@@ -1197,11 +1189,11 @@ eng:
     payee: "Payee"
     payer: "Payer"
     payment: "Payment" #?
+    payment_at: "Payment on"
     payment_delay: "Payment delay"
     payment_mode: "Payment mode"
     payment_mode_complement: "Payment mode complement"
     payment_modes: "Payment modes" #?
-    payment_on: "Payment on"
     payment_uses: "Payment parts" #?
     payment_way: "Payment way" #?
     payments: "Payments"
@@ -1227,9 +1219,8 @@ eng:
     picture_file_size: "Picture file size"
     picture_updated_at: "Picture updated at"
     place: "Place"
-    planned_at: "Planned at" #?
+    planned_at: "Planned on"
     planned_depreciations: "Planned depreciations"
-    planned_on: "Planned on"
     # point: "Point"
     # point_value: "Point value"
     # population: "Population"
@@ -1250,8 +1241,7 @@ eng:
     price: "Price"
     price_amount: "Price amount" #?
     prices: "Prices"
-    printed_at: "Printed at" #?
-    printed_on: "Printed on"
+    printed_at: "Printed on"
     priority: "Priority"
     procedure: "Procedure" #?
     procedures: "Procedures"
@@ -1310,7 +1300,7 @@ eng:
     purchase_line: "Purchase line" #?
     purchase_lines: "Purchase order lines" #?
     purchase_natures: "Purchase natures" #?
-    purchased_on: "Purchased on"
+    purchased_at: "Purchased on"
     purchases: "Purchase orders"
     purchases_account: "Purchases account" #?
     purchases_products: "Purchases products" #?
@@ -1344,7 +1334,7 @@ eng:
     reconcilable: "Reconcilable"
     record_value: "Record value"
     record_value_type: "Record value type"
-    recruited_on: "Recruited on" #?
+    recruited_at: "Recruited on" #?
     reductible: "Reductible"
     reduction: "Reduction"
     reduction_origin: "Reduction origin"
@@ -1357,6 +1347,7 @@ eng:
     # reference_name: "Référence"
     reference_number: "Reference number"
     reflation_submissive: "Reflation submissive" #?
+    reflected: "Changes reflected"
     reflections: "Reflections"
     relative_humidity: "Relative humidity" #?
     remaining_duration: "Remaining duration"
@@ -1417,8 +1408,7 @@ eng:
     start: "Start"
     # start_junction: "Start junction"
     # start_way: "Start way"
-    started_at: "Started at"
-    started_on: "Started on"
+    started_at: "Started on"
     started_sec: "Started sec" #?
     state: "State"
     state_label: "State"
@@ -1433,8 +1423,7 @@ eng:
     stockable_products: "Stockable products" #?
     stocks: "Stocks" #?
     # stocks_categories: "Catégories de produits avec stock"
-    stopped_at: "Stopped at"
-    stopped_on: "Stopped on"
+    stopped_at: "Stopped on"
     storable: "Gérer les stocks"
     # storage: "Storage"
     story: "Story"
@@ -1480,7 +1469,7 @@ eng:
     title: "Title"
     to: "To"
     to_archive: "To archive" #?
-    to_bank_on: "To bank on"
+    to_bank_at: "To bank on"
     to_deposit: "To deposit" #?
     tool: "Tool"
     tools: "Tools" #?
@@ -1493,7 +1482,6 @@ eng:
     trackings: "Trackings"
     transfers: "Transfers"
     transport: "Transport"
-    transport_on: "Transport on"
     transporter: "Transporter"
     transporter_sales: "Transporter sales"
     transporters: "Transporters" #?
@@ -1685,7 +1673,7 @@ eng:
           stocks: #?
             filename: "Stocks" #?
           transport: #?
-            filename: "Transport [created_on]" #?
+            filename: "Transport [created_at]" #?
         relations: #?
           entity: #?
             filename: "[full_name]" #?
@@ -1930,14 +1918,14 @@ eng:
       can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity"
       currency_is_not_sale_currency: "The currency of the price differs from the sale currency"
       no_product: "[No product]"
-      reduction_on: "Reduction of %{percentage}%  on %{product}"
+      reduction_at: "Reduction of %{percentage}%  on %{product}"
       tracking: "S/N: %{serial}"
     sale_line:  #?
       building_can_not_transfer_product: "The product %{product} can not be used with %{building}, because it contains only %{contained_product} " #?
       can_not_use_this_tracking: "You can not use the tracking %{name}, the requested quantity is greater than the available quantity" #?
       currency_is_not_sale_currency: "The currency of the price differs from the sale currency" #?
       no_product: "[No product]" #?
-      reduction_on: "Reduction of %{percentage}%  on %{product}" #?
+      reduction_at: "Reduction of %{percentage}%  on %{product}" #?
       tracking: "S/N: %{serial}" #?
     sale_nature:
       default:

@@ -93,13 +93,13 @@ class OutgoingDelivery < Ekylibre::Record::Base
 
   # Ships the delivery and move the real stocks. This operation locks the delivery.
   # This permits to manage stocks.
-  def ship(shipped_on=Date.today)
-    # self.confirm_transfer(shipped_on)
+  def ship(shipped_at=Date.today)
+    # self.confirm_transfer(shipped_at)
     # self.items.each{|l| l.confirm_move}
     for item in self.items.where("quantity > 0")
-      item.product.move_outgoing_stock(:origin => item, :building_id => item.sale_item.building_id, :planned_on => self.sent_at, :moved_on => shipped_on)
+      item.product.move_outgoing_stock(:origin => item, :building_id => item.sale_item.building_id, :planned_at => self.sent_at, :moved_at => shipped_at)
     end
-    self.sent_at = shipped_on if self.sent_at.nil?
+    self.sent_at = shipped_at if self.sent_at.nil?
     self.save
   end
 

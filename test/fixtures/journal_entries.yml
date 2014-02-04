@@ -26,7 +26,6 @@
 #  absolute_debit     :decimal(19, 4)   default(0.0), not null
 #  balance            :decimal(19, 4)   default(0.0), not null
 #  created_at         :datetime         not null
-#  created_on         :date             not null
 #  creator_id         :integer
 #  credit             :decimal(19, 4)   default(0.0), not null
 #  currency           :string(3)        not null
@@ -36,7 +35,7 @@
 #  journal_id         :integer          not null
 #  lock_version       :integer          default(0), not null
 #  number             :string(255)      not null
-#  printed_on         :date             not null
+#  printed_at         :datetime         not null
 #  real_credit        :decimal(19, 4)   default(0.0), not null
 #  real_currency      :string(3)        not null
 #  real_currency_rate :decimal(19, 10)  default(0.0), not null
@@ -55,14 +54,13 @@
 #   absolute_currency: "Lorem ipsum"
 #   absolute_debit: 0
 #   balance: 0
-#   created_on: 2013-10-26
 #   creator: users_001
 #   credit: 0
 #   currency: "Lorem ipsum"
 #   debit: 0
 #   journal: journals_001
 #   number: "Lorem ipsum"
-#   printed_on: 2013-10-26
+#   printed_at: 2013-10-26 18:34:04 +02:00
 #   real_credit: 0
 #   real_currency: "Lorem ipsum"
 #   real_currency_rate: 0
@@ -75,7 +73,7 @@ journal_entries_001:
   absolute_credit: 0
   absolute_currency: EUR
   absolute_debit: 0
-  created_on: 2007-07-22
+  created_at: 2007-07-22
   creator: users_001
   credit: 0
   currency: EUR
@@ -83,7 +81,7 @@ journal_entries_001:
   financial_year: financial_years_001
   journal: journals_001
   number: XYZ0001
-  printed_on: 2007-07-20
+  printed_at: 2007-07-20
   real_credit: 0
   real_currency: EUR
   real_currency_rate: 1
@@ -94,7 +92,7 @@ journal_entries_002:
   absolute_credit: 0
   absolute_currency: EUR
   absolute_debit: 0
-  created_on: 2009-07-19
+  created_at: 2009-07-19
   creator: users_001
   credit: 0
   currency: EUR
@@ -102,7 +100,7 @@ journal_entries_002:
   financial_year: financial_years_001
   journal: journals_001
   number: XYZ0002
-  printed_on: 2007-07-25
+  printed_at: 2007-07-25
   real_credit: 0
   real_currency: EUR
   real_currency_rate: 1
@@ -113,7 +111,7 @@ journal_entries_003:
   absolute_credit: 0
   absolute_currency: EUR
   absolute_debit: 0
-  created_on: 2009-07-19
+  created_at: 2009-07-19
   creator: users_001
   credit: 0
   currency: EUR
@@ -121,7 +119,7 @@ journal_entries_003:
   financial_year: financial_years_001
   journal: journals_001
   number: XYZ0003
-  printed_on: 2007-05-19
+  printed_at: 2007-05-19
   real_credit: 0
   real_currency: EUR
   real_currency_rate: 1
@@ -132,7 +130,7 @@ journal_entries_004:
   absolute_credit: 0
   absolute_currency: EUR
   absolute_debit: 0
-  created_on: 2009-07-19
+  created_at: 2009-07-19
   creator: users_001
   credit: 0
   currency: EUR
@@ -140,7 +138,7 @@ journal_entries_004:
   financial_year: financial_years_001
   journal: journals_001
   number: XYZ0004
-  printed_on: 2007-01-19
+  printed_at: 2007-01-19
   real_credit: 0
   real_currency: EUR
   real_currency_rate: 1

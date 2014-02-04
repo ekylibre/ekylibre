@@ -50,9 +50,9 @@
         - l.attribute :initial_number if @sale.invoice?
         - l.attribute :state_label
         - l.attribute :responsible, :label => :full_name
-        - l.attribute :created_on
-        - l.attribute :confirmed_on if @sale.confirmed_on?
-        - l.attribute :invoiced_on if @sale.invoiced_on?
+        - l.attribute :created_at
+        - l.attribute :confirmed_at if @sale.confirmed_at?
+        - l.attribute :invoiced_at if @sale.invoiced_at?
         - l.attribute :origin, url: true if @sale.invoice? and @sale.origin
         - l.attribute :payment_delay, :label => :name
         - l.attribute :nature

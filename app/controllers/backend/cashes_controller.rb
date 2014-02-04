@@ -33,17 +33,17 @@ class Backend::CashesController < BackendController
     t.action :destroy
   end
 
-  list(:bank_statements, conditions: {cash_id: 'params[:id]'.c}, order: {started_on: :desc}) do |t|
+  list(:bank_statements, conditions: {cash_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :number, url: true
-    t.column :started_on
-    t.column :stopped_on
+    t.column :started_at
+    t.column :stopped_at
     t.column :credit, currency: true
     t.column :debit, currency: true
   end
 
-  list(:deposits, conditions: {cash_id: 'params[:id]'.c}, order: {created_on: :desc}) do |t|
+  list(:deposits, conditions: {cash_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :number, url: true
-    t.column :created_on
+    t.column :created_at
     t.column :payments_count
     t.column :amount, currency: true
     t.column :mode

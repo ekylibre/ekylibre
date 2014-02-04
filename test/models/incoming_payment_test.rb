@@ -30,7 +30,6 @@
 #  commission_account_id :integer
 #  commission_amount     :decimal(19, 4)   default(0.0), not null
 #  created_at            :datetime         not null
-#  created_on            :date
 #  creator_id            :integer
 #  currency              :string(3)        not null
 #  deposit_id            :integer
@@ -40,13 +39,13 @@
 #  lock_version          :integer          default(0), not null
 #  mode_id               :integer          not null
 #  number                :string(255)
-#  paid_on               :date
+#  paid_at               :datetime
 #  payer_id              :integer
 #  receipt               :text
 #  received              :boolean          default(TRUE), not null
 #  responsible_id        :integer
 #  scheduled             :boolean          not null
-#  to_bank_on            :date             default(CURRENT_DATE), not null
+#  to_bank_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  updater_id            :integer
 #

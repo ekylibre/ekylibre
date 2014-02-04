@@ -2368,8 +2368,8 @@ fra:
         # computation_method: "Computation method"
         country: "pays"
         deduction_account: "compte de TVA déductible (radical)"
-        started_on: "débuté le"
-        stopped_on: "arrêté le"
+        # started_on: "Started on"
+        # stopped_on: "Stopped on"
         suffix: "suffixe du compte comptable"
       choices:
         # collect_account: # Choices comes from nomenclature: accounts

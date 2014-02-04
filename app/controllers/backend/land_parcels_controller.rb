@@ -27,8 +27,8 @@ class Backend::LandParcelsController < Backend::MattersController
     # t.column :description
     # t.column :real_quantity
     # t.column :unit
-    # t.column :started_on
-    # t.column :stopped_on
+    # t.column :started_at
+    # t.column :stopped_at
     # t.action :divide
     t.action :edit
     t.action :destroy

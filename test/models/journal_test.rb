@@ -21,7 +21,7 @@
 #
 # == Table: journals
 #
-#  closed_on        :date             not null
+#  closed_at        :datetime         not null
 #  code             :string(4)        not null
 #  created_at       :datetime         not null
 #  creator_id       :integer

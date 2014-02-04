@@ -59,10 +59,10 @@ class ProductIndicatorDatum < Ekylibre::Record::Base
   validates_presence_of :indicator_datatype, :indicator_name, :measured_at, :product
   #]VALIDATORS]
 
-  scope :between, lambda { |started_on, stopped_on|
-    where("measured_at BETWEEN ? AND ?", started_on, stopped_on)
+  scope :between, lambda { |started_at, stopped_at|
+    where("measured_at BETWEEN ? AND ?", started_at, stopped_at)
   }
-  scope :measured_between, lambda { |started_on, stopped_on| between(started_on, stopped_on) }
+  scope :measured_between, lambda { |started_at, stopped_at| between(started_at, stopped_at) }
   scope :of_products, lambda { |products, indicator_name, at = nil|
     at ||= Time.now
     where("id IN (SELECT p1.id FROM #{self.indicator_table_name(indicator_name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(indicator_name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator_name = p2.indicator_name AND (p1.measured_at < p2.measured_at OR (p1.measured_at = p2.measured_at AND p1.id < p2.id)) AND p2.measured_at <= ?) WHERE p1.measured_at <= ? AND p1.product_id IN (?) AND p1.indicator_name = ? AND p2 IS NULL)", at, at, products.pluck(:id), indicator_name)

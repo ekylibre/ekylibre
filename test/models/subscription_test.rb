@@ -35,8 +35,8 @@
 #  quantity          :decimal(19, 4)
 #  sale_id           :integer
 #  sale_item_id      :integer
-#  started_on        :date
-#  stopped_on        :date
+#  started_at        :datetime
+#  stopped_at        :datetime
 #  subscriber_id     :integer
 #  suspended         :boolean          not null
 #  updated_at        :datetime         not null

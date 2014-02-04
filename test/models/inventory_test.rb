@@ -21,19 +21,18 @@
 #
 # == Table: inventories
 #
-#  accounted_at      :datetime
-#  changes_reflected :boolean          not null
-#  created_at        :datetime         not null
-#  created_on        :date             not null
-#  creator_id        :integer
-#  id                :integer          not null, primary key
-#  journal_entry_id  :integer
-#  lock_version      :integer          default(0), not null
-#  moved_on          :date
-#  number            :string(20)
-#  responsible_id    :integer
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  accounted_at     :datetime
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  id               :integer          not null, primary key
+#  journal_entry_id :integer
+#  lock_version     :integer          default(0), not null
+#  number           :string(20)
+#  reflected        :boolean          not null
+#  reflected_at     :datetime
+#  responsible_id   :integer
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 
 
