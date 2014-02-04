@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 module Ekylibre
-  LOADERS = [:general_ledger, :entities, :buildings, :products, :animals, :land_parcels, :productions, :analyses, :sales, :deliveries, :interventions, :guides]
-  LOADERS_OPERATIONS = [:buildings, :products, :land_parcels, :productions, :deliveries, :interventions]
+  LOADERS = [:base, :general_ledger, :entities, :buildings, :products, :animals, :land_parcels, :productions, :analyses, :sales, :deliveries, :interventions, :guides]
+  LOADERS_OPERATIONS = [:base, :buildings, :products, :land_parcels, :productions, :deliveries, :interventions]
 
   MAX = -1
 
@@ -33,7 +33,56 @@ module Ekylibre
       @folder_path = Ekylibre::FirstRun.path.join(@folder)
       @max = (options[:max] || ENV["max"]).to_i
       @max = MAX if @max.zero?
+      @records = {}.with_indifferent_access
     end
+
+    def manifest
+      unless @manifest
+        file = path("manifest.yml")
+        @manifest = (file.exist? ? YAML.load_file(file).deep_symbolize_keys : {})
+        @manifest[:company] ||= {}
+      end
+      return @manifest
+    end
+
+    def can_load?(key)
+      !@manifest[key].is_a?(FalseClass)
+    end
+
+    def can_load_default?(key)
+      can_load?(key) and !@manifest[key].is_a?(Hash)
+    end
+
+    def create_from_manifest(records, *args)
+      options = args.extract_options!
+      main_column = args.shift || :name
+      model = records.to_s.classify.constantize
+      if data = @manifest[records]
+        @records[records] ||= {}.with_indifferent_access
+        unless data.is_a?(Hash)
+          raise "Cannot load #{records}: Hash expected, got #{records.class.name} (#{records.inspect})"
+        end
+        for identifier, attributes in data
+          attributes = attributes.with_indifferent_access
+          attributes[main_column] = identifier.to_s
+          for reflection in model.reflections.values
+            if attributes[reflection.name] and not attributes[reflection.name].class < ActiveRecord::Base
+              attributes[reflection.name] = get(reflection.class_name.tableize, attributes[reflection.name].to_s)
+            end
+          end
+          @records[records][identifier] = model.create!(attributes)
+        end
+      end
+    end
+
+    # Returns the record corresponding to the identifier
+    def get(records, identifier)
+      if @records[records]
+        return @records[records][identifier]
+      end
+      return nil
+    end
+
 
     def path(*args)
       return @folder_path.join(*args)
