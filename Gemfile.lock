@@ -1,3 +1,11 @@
+PATH
+  remote: ../formize
+  specs:
+    formize (2.0.0)
+      jquery-rails (>= 3)
+      jquery-ui-rails (>= 4)
+      rails (>= 3.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -54,6 +62,8 @@ GEM
       beardley
     beardley-xml (1.1.0)
       beardley
+    bootstrap-sass (3.1.0.1)
+      sass (~> 3.2)
     builder (3.1.4)
     calendar_helper (0.2.6)
       open4
@@ -128,10 +138,6 @@ GEM
       loofah (~> 1.2.1)
       sax-machine (~> 0.2.1)
     ffaker (1.23.0)
-    formize (1.1.2)
-      jquery-rails (>= 3)
-      jquery-ui-rails (>= 4)
-      rails (>= 3.2)
     fssm (0.2.10)
     haml (4.0.5)
       tilt
@@ -153,7 +159,7 @@ GEM
     jquery-ui-rails (4.1.1)
       railties (>= 3.1.0)
     json (1.8.1)
-    kgio (2.8.1)
+    kgio (2.9.0)
     libv8 (3.16.14.3)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
@@ -278,7 +284,7 @@ GEM
     state_machine (1.2.0)
     term-ansicolor (1.2.2)
       tins (~> 0.8)
-    therubyracer (0.12.0)
+    therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
     thin (1.6.1)
@@ -324,6 +330,7 @@ DEPENDENCIES
   beardley-charts
   beardley-groovy
   beardley-xml
+  bootstrap-sass (~> 3.1)
   calendar_helper (~> 0.2.5)
   capybara
   capybara-webkit
@@ -342,7 +349,7 @@ DEPENDENCIES
   fastercsv
   feedzirra
   ffaker
-  formize (~> 1.1.2)
+  formize (~> 2.0)!
   haml
   http_accept_language
   i18n-complements

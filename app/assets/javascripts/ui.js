@@ -1,4 +1,6 @@
 /* -*- mode: javascript; indent-tabs-mode: nil; -*- */
+//= require bootstrap/dropdown
+//= require bootstrap/datetimepicker
 
 (function ($) {
     "use strict";
@@ -710,32 +712,32 @@
         var element = $(this), locale, options = {}, name, hidden;
         if (element.attr("autocomplete") !== "off") {
             locale = element.attr("lang");
-            if ($.timepicker.regional[locale] === null || $.timepicker.regional[locale] === undefined) {
-                locale = "en";
-            }
-            $.timepicker.setDefaults( $.timepicker.regional[locale] );
-            name = element.attr("name");
-            element.removeAttr("name");
-            hidden = $("<input type='hidden' name='" + name + "'/>");
-            hidden.val(element.val());
-            element.before(hidden);
-            element.val(element.data('human-value'));
+            // // if ($.datetimepicker.regional[locale] === null || $.datetimepicker.regional[locale] === undefined) {
+            // //     locale = "en";
+            // // }
+            // // $.timepicker.setDefaults( $.datetimepicker.regional[locale] );
+            // name = element.attr("name");
+            // element.removeAttr("name");
+            // hidden = $("<input type='hidden' name='" + name + "'/>");
+            // hidden.val(element.val());
+            // element.before(hidden);
+            // element.val(element.data('human-value'));
 
-            options['dateFormat']  = element.data("format");
-            options['altFieldTimeOnly']  = false;
-            options['altField']    = hidden;
-            options['altFormat']   = 'yy-mm-dd';
-            options['altTimeFormat'] = 'HH:mm';
-            options['isRTL'] = !!($("html").attr("dir") === "rtl");
-            options['stepMinute'] = 5;
+            // options['dateFormat']  = element.data("format");
+            // options['altFieldTimeOnly']  = false;
+            // options['altField']    = hidden;
+            // options['altFormat']   = 'yy-mm-dd';
+            // options['altTimeFormat'] = 'HH:mm';
+            // options['isRTL'] = !!($("html").attr("dir") === "rtl");
+            // options['stepMinute'] = 5;
 
-            // Check for dependents
-            if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
-                if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
-	            hidden.attr('data-observe', '1000');
-                }
-            }
-            element.datetimepicker(options);
+            // // Check for dependents
+            // if (hidden.data('dependents') !== undefined && hidden.data('dependents') !== null) {
+            //     if (hidden.data('observe') === undefined || hidden.data('observe') === null) {
+	    //         hidden.attr('data-observe', '1000');
+            //     }
+            // }
+            element.datetimepicker({format: 'yyyy-mm-dd hh:ii', language: 'en'}); // options);
             element.attr("autocomplete", "off");
         }
     });

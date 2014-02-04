@@ -33,7 +33,7 @@ gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
 
 # Forms helper
-gem 'formize', '~> 1.1.2'
+gem 'formize', '~> 2.0', path: '../formize'
 # gem 'codemirror-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -124,6 +124,7 @@ gem 'colored'
 # Compass
 gem 'compass'
 gem 'compass-rails'
+gem 'bootstrap-sass', '~> 3.1'
 gem 'oily_png'
 
 # Iconic font

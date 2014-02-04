@@ -1,3 +1,8 @@
+// Needs base HighCharts files
+//
+//= require highcharts/highcharts
+//= require highcharts/highcharts-more
+
 (function ($, undefined) {
     "use strict";
 
