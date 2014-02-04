@@ -16,6 +16,7 @@ Machine à planter WAGNER Champion GPS,implanter,,1999-10-01,,,ETA,Population :
 Semoir engrais centrifuge,spreader,,1999-10-01,,,,Population : 1 ; nominal_storable_net_volume : 700l ; application_width : 12m,,5.27,usage_duration
 Semoir grains,sower,,2006-05-15,,,,Population : 1 ; application_width : 3m ; nominal_storable_net_mass : 60 kg,,13,usage_duration
 Semoir maïs,sower,,1988-10-01,,,,'Population : 1 ; application_width : 2,2m ; nominal_storable_net_mass : 40 kg',Co-propriété (BOUCHERIE),14,usage_duration
+Semoir maïs dispersseurs,all_inclusive_corn_sower,,2005-10-01,,,,'Population : 1 ; application_width : 2,5m',Co-propriété (PH),22,usage_duration
 Remorque 11T,trailer,,,,,,Population : 1 ; nominal_storable_net_mass : 11000 kg,,0.68,usage_duration
 Remorque épandeur ,spreader_trailer,,,,,,Population : 1 ; nominal_storable_net_mass : 8000 kg,,8,usage_duration
 Remorque monocoque,trailer,,,,,,Population : 1 ; nominal_storable_net_mass : 8000 kg,,0.5,usage_duration
@@ -34,5 +35,5 @@ CLASS 98 SL,reaper,,,,,ETA,'Population : 1 ; application_width : 4,5m',,103,u
 NH 250,grape_reaper,,,,,ETA,'Population : 1 ; application_width : 2,5m',,88,usage_duration
 Epandeur chaux,spreader,,,,,COOP,Population : 1,,18,usage_duration
 Girobroyeur,mower,,,,,,'Population : 1 ; application_width : 1,8m',,9,usage_duration
-Bineuse,superficial_plow,,,,,,'Population : 1 ; application_width : 3,2m',,35,usage_duration
+Bineuse,hoe,,,,,,'Population : 1 ; application_width : 3,2m',,35,usage_duration
 Presse balle carré,baler,,,,,ETA,Population : 1,,93,usage_duration

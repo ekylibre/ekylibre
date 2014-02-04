@@ -23,9 +23,11 @@
       <!-- @QUID : niveau de compétence (normal, précision)  -->
       <item name="spread" parameters="variety"/>
       <item name="spray"/>
-      <!-- @QUID : niveau de compétence (normal, précision)  -->
+      <!-- Soil working  -->
       <item name="plow"/>
       <item name="superficial_plow"/>
+      <item name="hoe"/>
+      <item name="uncompact"/>
       <item name="clean"/>
       <item name="sow"/>
       <item name="implant"/>
