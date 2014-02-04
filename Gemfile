@@ -33,7 +33,7 @@ gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
 
 # Forms helper
-gem 'formize', '~> 2.0', path: '../formize'
+gem 'formize', '~> 2.0.0'
 # gem 'codemirror-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
