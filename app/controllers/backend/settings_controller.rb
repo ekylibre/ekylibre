@@ -85,7 +85,9 @@ class Backend::SettingsController < BackendController
       data = params[:upload]
       file = Rails.root.join("tmp", "uploads", "#{data.original_filename}.#{rand.to_s[2..-1].to_i.to_s(36)}")
       FileUtils.mkdir_p(file.dirname)
-      File.write(file, data.read)
+      File.open(file, "wb:ASCII-8BIT") do |f|
+        f.write data.read
+      end
       if params[:nature] == "ebp_edi"
         Exchanges::EbpEdi.import(file)
       else
