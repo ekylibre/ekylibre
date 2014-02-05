@@ -12,6 +12,7 @@ users:
   admin@ekylibre.org:
     first_name: Jean
     last_name: DUPONT
+    password: 12345678
 chart_of_account: fr_pcga
 financial_years:
   EX1995:

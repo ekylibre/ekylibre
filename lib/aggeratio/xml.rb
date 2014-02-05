@@ -106,7 +106,7 @@ module Aggeratio
              else
                value
              end
-      return code               
+      return code
     end
 
 

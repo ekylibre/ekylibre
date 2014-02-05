@@ -41,6 +41,8 @@ class InterventionCast < Ekylibre::Record::Base
   belongs_to :intervention, inverse_of: :casts
   belongs_to :actor, class_name: "Product", inverse_of: :intervention_casts
   belongs_to :variant, class_name: "ProductNatureVariant"
+  has_one :activity, through: :intervention
+  has_one :campaign, through: :intervention
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
   validates_length_of :reference_name, allow_nil: true, maximum: 255
@@ -124,6 +126,35 @@ class InterventionCast < Ekylibre::Record::Base
       :x_of_y.tl(x: Nomen::ProcedureRoles[role.second].human_name, y: Nomen::ProcedureNatures[role.first].human_name.mb_chars.downcase)
     end.to_sentence
   end
+
+
+  # Change name with default name like described in procedure
+  # if default-name attribute is given too.
+  # It uses interpolation to compose the wanted name. Not very i18nized
+  # for now, but permits to do the job.
+  def set_default_name!
+    if self.reference.default_name? and actor = self.actor
+      name = self.reference.default_name
+      interpolations = {
+        variant: actor.variant_name,
+        variety: Nomen::Varieties[actor.variety],
+        derivative_of: (actor.derivative_of ? Nomen::Varieties[actor.variety] : nil),
+        campaign: self.campaign.name,
+        activity: self.activity.name,
+        container: (actor.container ? actor.container.name : nil),
+        default_storage: (actor.default_storage ? actor.default_storage.name : nil),
+        born_at: actor.born_at.l,
+        birth_year: actor.born_at.year,
+        birth_month: actor.born_at.month,
+        birth_day: actor.born_at.day
+      }
+      for code, value in interpolations
+        name.gsub!("{{#{code}}}", value.to_s)
+      end
+      actor.update_column(:name, name)
+    end
+  end
+
 
   # Define if the cast is valid for run
   def runnable?

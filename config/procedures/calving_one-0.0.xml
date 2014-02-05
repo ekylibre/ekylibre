@@ -4,7 +4,7 @@
   <procedure name="calving_one" natures="viviparous_birth" version="0.0" status="frozen">
     <variables>
       <variable name="mother" variety="bos" abilities="produce(bos)" roles="viviparous_birth-target"/>
-      <variable name="child"  variety="bos" new="produced-by: mother" indicators="father: ?, mass: ?" roles="viviparous_birth-output"/>
+      <variable name="child"  variety="bos" new="produced-by: mother" before-run="work_number, identification_number, description, picture" roles="viviparous_birth-output"/>
       <variable name="caregiver" variety="worker"/>
     </variables>
     <operations>
