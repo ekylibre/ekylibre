@@ -4,11 +4,11 @@
 <jasperTemplate>
 	<style name="address" forecolor="#000000" pattern="" fontName="DejaVu Sans Mono"/>
 	<style name="base" mode="Transparent" hAlign="Left" vAlign="Middle" fontName="Open Sans" fontSize="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-	<style name="emphasis" style="base" mode="Opaque" fontName="Open Sans Light" fontSize="10" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique"/>
-	<style name="strong" style="base" fontName="Open Sans Semibold" fontSize="12" isBold="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold">
+	<style name="emphasis" style="base" mode="Opaque" fontName="Open Sans" fontSize="10" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Oblique"/>
+	<style name="strong" style="base" fontName="Open Sans" fontSize="12" isBold="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold">
 		<pen lineWidth="2.0" lineColor="#7C9DDD"/>
 	</style>
-	<style name="title" style="strong" mode="Transparent" forecolor="#7C9DDD" fill="Solid" fontName="Open Sans Extrabold" fontSize="16" isItalic="false">
+	<style name="title" style="strong" mode="Transparent" forecolor="#7C9DDD" fill="Solid" fontName="Open Sans" fontSize="16" isItalic="false">
 		<box topPadding="1" leftPadding="4" bottomPadding="1" rightPadding="4"/>
 		<paragraph leftIndent="20" rightIndent="20"/>
 	</style>
@@ -32,13 +32,13 @@
 	</style>
 	<style name="label" mode="Transparent" forecolor="#666666" hAlign="Left" vAlign="Middle" fontName="Open Sans" fontSize="10" isBold="false" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
 	<style name="label-strong" mode="Transparent" forecolor="#666666" hAlign="Left" vAlign="Middle" fontName="Open Sans" fontSize="12" isBold="true" isItalic="true" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
-	<style name="error" mode="Transparent" forecolor="#D81E08" fontName="Open Sans Extrabold" fontSize="12" isBold="true">
+	<style name="error" mode="Transparent" forecolor="#D81E08" fontName="Open Sans" fontSize="12" isBold="true">
 		<pen lineWidth="2.0"/>
 	</style>
-	<style name="warning" forecolor="#FF9900" fontName="Open Sans Extrabold" fontSize="12" isBold="true">
+	<style name="warning" forecolor="#FF9900" fontName="Open Sans" fontSize="12" isBold="true">
 		<pen lineWidth="2.0"/>
 	</style>
-	<style name="success" forecolor="#009900" fontName="Open Sans Extrabold" fontSize="12" isBold="true">
+	<style name="success" forecolor="#009900" fontName="Open Sans" fontSize="12" isBold="true">
 		<pen lineWidth="2.0"/>
 	</style>
 	<style name="table-td-info" mode="Transparent" hAlign="Left" vAlign="Middle" fontName="Open Sans" fontSize="10" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false">
@@ -51,7 +51,7 @@
 		</box>
 		<paragraph leftIndent="5"/>
 	</style>
-	<style name="sub-title" style="strong" mode="Transparent" forecolor="#7C9DDD" fill="Solid" hAlign="Center" fontName="Open Sans Semibold" fontSize="14" isBold="false" isItalic="false" isStrikeThrough="false">
+	<style name="sub-title" style="strong" mode="Transparent" forecolor="#7C9DDD" fill="Solid" hAlign="Center" fontName="Open Sans" fontSize="14" isBold="false" isItalic="false" isStrikeThrough="false">
 		<box topPadding="1" leftPadding="4" bottomPadding="1" rightPadding="4"/>
 		<paragraph leftIndent="20" rightIndent="20"/>
 	</style>

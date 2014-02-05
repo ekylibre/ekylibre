@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sale_estimate" language="groovy" pageWidth="595" pageHeight="842" columnWidth="545" leftMargin="25" rightMargin="25" topMargin="25" bottomMargin="25" isFloatColumnFooter="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.4019755979255695"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="432"/>
+	<property name="ireport.y" value="480"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.xml"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
@@ -369,14 +369,14 @@
 			<textField>
 				<reportElement style="strong" x="343" y="11" width="71" height="31" uuid="b0485431-9720-4e37-8f53-e65780f5888d"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans Semibold"/>
+					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{pretax-amount}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
 				<reportElement style="strong" x="414" y="11" width="76" height="31" uuid="43a970b2-f527-4b15-997a-6925442462cb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans Semibold"/>
+					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{taxes-amount}]]></textFieldExpression>
 			</textField>
@@ -397,7 +397,7 @@
 			<textField pattern="###0.00" isBlankWhenNull="true">
 				<reportElement style="strong" x="414" y="42" width="76" height="31" uuid="124e0f89-744c-4b93-8f8a-5f19e3854ee4"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans Extrabold"/>
+					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
 			</textField>
