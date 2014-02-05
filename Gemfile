@@ -104,6 +104,7 @@ gem 'beardley-batik'
 gem 'beardley-charts'
 gem 'beardley-groovy'
 gem 'beardley-xml'
+gem 'beardley-open_sans'
 
 # Import/Export
 gem 'fastercsv'
@@ -139,7 +140,7 @@ group :development do
   # gem 'binding_of_caller'
 
   # Project management
-  gem 'rails_best_practices', '~> 1.14.0'
+  gem 'rails_best_practices'
   gem 'railroady'
   # gem 'rails-erd', github: "burisu/rails-erd"
 
