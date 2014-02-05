@@ -15,7 +15,7 @@
       <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer,soil_enrichment-doer,soil_enrichment-doer,plant_illness_treatment-doer"/>
       <variable name="tractor"      abilities="tow(equipment), move" roles="sowing-tool"/>
       <variable name="land_parcel"  abilities="store(plant)" roles="sowing-target,soil_enrichment-target"/>
-      <variable name="cultivation"  variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output,plant_illness_treatment-target" hidden="true"/>
+      <variable name="cultivation"  variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output,plant_illness_treatment-target" hidden="true" default-name="{{variant}} {{birth_year}} ({{container}})"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

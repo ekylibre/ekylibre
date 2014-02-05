@@ -5,7 +5,7 @@
       <variable name="forager" variety="forager" abilities="harvest(plant)" roles="transformation-tool"/>
       <variable name="forager_driver" variety="worker" abilities="drive(forager)" roles="transformation-doer"/>
       <variable name="straw_to_bunch" variety="straw" derivative_of="poaceae" roles="transformation-input" />
-      <variable name="silage"    variant=":straw_to_bunch" new="produced-by: straw_to_bunch" roles="transformation-output" need="population"/>
+      <variable name="silage"    variant=":straw_to_bunch" new="produced-by: straw_to_bunch" roles="transformation-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
