@@ -83,7 +83,7 @@ module Aggeratio
     end
 
     def build_cell(element)
-      return "xml.send('#{normalize_name(element)}', #{value_of(element)})\n"
+      return "xml.send('#{normalize_name(element)}', #{xml_value_of(element)})\n"
     end
 
     def build_properties_hash(items, options = {})
@@ -91,9 +91,22 @@ module Aggeratio
       code = "#{var} = {}\n"
       max = items.collect{|i| i.attr("name").size}.max
       items.collect do |item|
-        code << conditionate(("#{var}['" + normalize_name(item) + "'] = ").ljust(max + 7 + var.size) + value_of(item) + "\n", item)
+        code << conditionate(("#{var}['" + normalize_name(item) + "'] = ").ljust(max + 7 + var.size) + xml_value_of(item) + "\n", item)
       end
       return code
+    end
+
+    def xml_value_of(*args)
+      options = args.extract_options!
+      element = args.shift
+      value = value_of(element)
+      type = (element.has_attribute?("type") ? element.attr("type").to_s : :string).to_s.gsub('-', '_').to_sym
+      code = if type == :date or type == :datetime
+               "(#{value} ? #{value}.xmlschema : #{value})"
+             else
+               value
+             end
+      return code               
     end
 
 
