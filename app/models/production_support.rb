@@ -161,7 +161,7 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   # return the started_at attribute of the intervention of nature sowing if exist and if it's a vegetal production
-  
+
   # when a plant is born in a production context ?
   def implanted_at
     # case wine or tree

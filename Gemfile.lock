@@ -32,7 +32,7 @@ GEM
     agric (1.0.0)
       railties (>= 3.2, < 5.0)
       sass-rails
-    arel (4.0.1)
+    arel (4.0.2)
     atomic (1.1.14)
     awesome_nested_set (3.0.0.rc.3)
       activerecord (>= 4.0.0, < 5)
@@ -157,7 +157,7 @@ GEM
     jquery-ui-rails (4.1.1)
       railties (>= 3.1.0)
     json (1.8.1)
-    kgio (2.9.0)
+    kgio (2.9.1)
     libv8 (3.16.14.3)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
@@ -303,7 +303,7 @@ GEM
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unicorn (4.8.1)
+    unicorn (4.8.2)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)

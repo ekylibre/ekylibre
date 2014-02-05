@@ -39,10 +39,10 @@
             hash
           end.collect{|k,v| [k, v.to_s.to_f] }
           data << [now.to_usec, resource.get(indicator, at: now).to_f.to_s.to_f]
-          series << {name: indicator.human_name, data: data}
+          series << {name: indicator.human_name, data: data, step: "right"}
         end
 
-      = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom'}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
+      = line_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom'}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
 
     - b.cell(tl(:x_indicators, :count => resource.indicator_data.count)) do
       = list(:indicators)

@@ -133,26 +133,35 @@ class InterventionCast < Ekylibre::Record::Base
   # It uses interpolation to compose the wanted name. Not very i18nized
   # for now, but permits to do the job.
   def set_default_name!
-    if self.reference.default_name? and actor = self.actor
-      name = self.reference.default_name
-      interpolations = {
-        variant: actor.variant_name,
-        variety: Nomen::Varieties[actor.variety],
-        derivative_of: (actor.derivative_of ? Nomen::Varieties[actor.variety] : nil),
-        campaign: self.campaign.name,
-        activity: self.activity.name,
-        container: (actor.container ? actor.container.name : nil),
-        default_storage: (actor.default_storage ? actor.default_storage.name : nil),
-        born_at: actor.born_at.l,
-        birth_year: actor.born_at.year,
-        birth_month: actor.born_at.month,
-        birth_day: actor.born_at.day
-      }
-      for code, value in interpolations
-        name.gsub!("{{#{code}}}", value.to_s)
-      end
-      actor.update_column(:name, name)
+    if self.reference.default_name? and produced = self.actor
+      produced.update_column(:name, self.default_name)
     end
+  end
+
+  # Compute a default with given environment
+  def default_name
+    text = nil
+    if self.reference.default_name?
+      words = {
+        campaign: self.campaign.name,
+        activity: self.activity.name
+      }.with_indifferent_access
+      if produced = self.actor
+        words[:variant]     = produced.variant_name
+        words[:variety]     = Nomen::Varieties[produced.variety]
+        words[:derivative_of] = (produced.derivative_of ? Nomen::Varieties[produced.variety] : nil)
+        words[:container]   = (produced.container ? produced.container.name : nil)
+        words[:default_storage] = (produced.default_storage ? produced.default_storage.name : nil)
+        words[:born_at]     = produced.born_at.l
+        words[:birth_year]  = produced.born_at.year
+        words[:birth_month] = produced.born_at.month
+        words[:birth_day]   = produced.born_at.day
+      end
+      text = self.reference.default_name.dup.gsub(/\{\{\w+\}\}/) do |key|
+        words[key[2..-3]]
+      end
+    end
+    return text
   end
 
 

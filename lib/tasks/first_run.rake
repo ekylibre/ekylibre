@@ -94,9 +94,10 @@ module Ekylibre
       start = Time.now
       label_size = options[:label_size] || 20
       label = name.to_s.humanize.rjust(label_size)
+      ellipsis = "…"
       if label.size > label_size
-        first = ((label_size - 3).to_f / 2).round
-        label = label[0..(first-1)] + "..." + label[-(label_size - first - 3)..-1]
+        first = ((label_size - ellipsis.size).to_f / 2).round
+        label = label[0..(first-1)] + ellipsis + label[-(label_size - first - ellipsis.size)..-1]
         # label = "..." + label[(-label_size + 3)..-1]
       end
       # ActiveRecord::Base.transaction do
