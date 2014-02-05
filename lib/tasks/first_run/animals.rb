@@ -5,7 +5,8 @@ load_data :animals do |loader|
   synel_login = Preference.where(:nature => :string, :name => "services.synel17.login", :string_value => "17387001").first_or_create
   cattling_number = Preference.where(:nature => :string, :name => "entity_identification.ede.cattling_number", :string_value => "FR17387001").first_or_create
   owner_number = Preference.where(:nature => :string, :name => "entity_identification.ede.owner_number", :string_value => "FR01700006989").first_or_create
-
+   
+  
   groups = []
 
   file = loader.path("animal_groups.csv")
@@ -42,9 +43,6 @@ load_data :animals do |loader|
       end
     end
   end
-
-
-
 
   file = loader.path("animals-synel17.csv")
   if file.exist?

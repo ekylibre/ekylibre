@@ -145,7 +145,8 @@ class Backend::SalesController < BackendController
   # Displays details of one sale selected with +params[:id]+
   def show
     return unless @sale = find_and_check
-    respond_with(@sale, :methods => [:taxes_amount, :affair_closed, :client_number ],
+    @sale.other_deals
+    respond_with(@sale, :methods => [:taxes_amount, :affair_closed, :client_number],
                         :include => {:address => {:methods => [:mail_coordinate]},
                                      :supplier => {:methods => [:picture_path], :include => {:default_mail_address => {:methods => [:mail_coordinate]}}},
                                      :credits => {},

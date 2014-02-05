@@ -56,8 +56,9 @@ class Backend::AnimalsController < Backend::MattersController
   def show
     return unless @animal = find_and_check
     t3e @animal, nature: @animal.nature_name
-    respond_with(@animal, :methods => :picture_path, :include => [:father, :mother, :variant, :nature, :variety,
+    respond_with(@animal, :methods => [:picture_path, :sex_text], :include => [:father, :mother, :variant, :nature, :variety,
                                                                   {:indicator_data => {}},
+                                                                  {:intervention_casts => {:include =>:intervention}},
                                                                   {:memberships => {:include =>:group}},
                                                                   {:localizations => {:include =>:container}}])
 
