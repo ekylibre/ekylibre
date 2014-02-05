@@ -6,8 +6,9 @@ module Exchanges
     # Import from simple files EBP.EDI
     def self.import(file, options={})
       File.open(file, "rb:CP1252") do |f|
-        unless f.readline.match(/^EBP\.EDI$/)
-          raise NotWellFormedFileError.new("Start is not valid")
+        header = f.readline
+        unless header == "EBP.EDI"
+          raise NotWellFormedFileError.new("Start is not valid. Got #{header.inspect}.")
         end
         encoding = f.readline
         f.readline
