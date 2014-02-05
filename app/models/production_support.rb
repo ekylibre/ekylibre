@@ -161,16 +161,15 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   # return the started_at attribute of the intervention of nature sowing if exist and if it's a vegetal production
-  def sowed_at
-    if sowing_intervention = self.interventions.real.of_nature(:sowing).first
-      return sowing_intervention.started_at
-    end
-    return nil
-  end
-
-  def plant_at
-    if plant_intervention = self.interventions.real.of_nature(:implant).first
-      return plant_intervention.started_at
+  
+  # when a plant is born in a production context ?
+  def implanted_at
+    # case wine or tree
+    if implant_intervention = self.interventions.real.of_nature(:implant).first
+      return implant_intervention.started_at
+    # case annual crop like cereals
+    elsif implant_intervention = self.interventions.real.of_nature(:sowing).first
+      return implant_intervention.started_at
     end
     return nil
   end
@@ -184,7 +183,7 @@ class ProductionSupport < Ekylibre::Record::Base
   end
 
   def grains_yield(mass_unit = :quintal, surface_unit = :hectare)
-    if self.interventions.real.of_nature(:harvest).count > 1
+    if self.interventions.real.of_nature(:harvest).count > 0
       total_yield = []
       for harvest in self.interventions.real.of_nature(:harvest)
         for input in harvest.casts.of_role('harvest-output')
@@ -193,14 +192,14 @@ class ProductionSupport < Ekylibre::Record::Base
         end
       end
       if self.storage.net_surface_area
-        return ((total_yield.compact.sum) / (net_surface_area.to_d(surface_unit)))
+        return ((total_yield.compact.sum) / (self.storage.net_surface_area.to_d(surface_unit)))
       end
     end
     return nil
   end
 
   def vine_yield(volume_unit = :hectoliter, surface_unit = :hectare)
-    if self.interventions.real.of_nature(:harvest).count > 1
+    if self.interventions.real.of_nature(:harvest).count > 0
       total_yield = []
       for harvest in self.interventions.real.of_nature(:harvest)
         for input in harvest.casts.of_role('harvest-output')
@@ -209,7 +208,7 @@ class ProductionSupport < Ekylibre::Record::Base
         end
       end
       if self.storage.net_surface_area
-        return ((total_yield.compact.sum) / (net_surface_area.to_d(surface_unit)))
+        return ((total_yield.compact.sum) / (self.storage.net_surface_area.to_d(surface_unit)))
       end
     end
     return nil

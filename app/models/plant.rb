@@ -64,21 +64,11 @@ class Plant < Bioproduct
 
   has_shape
 
-  before_validation :choose_default_name, on: :create
-
   #return all Plant object who is alive in the considers campaigns
   scope :of_campaign, lambda { |campaign|
     raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     stopped_at = Date.new(campaign.harvest_year.to_f, 12, 31)
     where('(dead_at <= ? OR dead_at IS NULL)', stopped_at)
   }
-
-  # Sets nature and variety from variant
-  def choose_default_name
-    if self.default_storage and self.variant
-      self.name = self.variant.name + " - " + self.default_storage.name
-      # self.work_number = "PLANT-" + self.born_at.to_s
-    end
-  end
 
 end

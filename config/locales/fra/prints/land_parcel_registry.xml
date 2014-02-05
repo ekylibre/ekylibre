@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="land_parcel_fertilization_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="432"/>
+	<property name="ireport.y" value="448"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="land_parcel_registry"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
@@ -78,11 +78,11 @@
 	<field name="previous_production_name" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::support/@previous-production-name]]></fieldDescription>
 	</field>
-	<field name="plant_at" class="java.util.Date">
-		<fieldDescription><![CDATA[ancestor::support/@plant-at]]></fieldDescription>
+	<field name="implanted_at" class="java.util.Date">
+		<fieldDescription><![CDATA[ancestor::support/@implanted-at]]></fieldDescription>
 	</field>
-	<field name="harvested_at" class="java.lang.String">
-		<fieldDescription><![CDATA[ancestor::support/@harvest-at]]></fieldDescription>
+	<field name="harvested_at" class="java.util.Date">
+		<fieldDescription><![CDATA[ancestor::support/@harvested-at]]></fieldDescription>
 	</field>
 	<field name="intervention_id" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/@id]]></fieldDescription>
@@ -122,6 +122,12 @@
 	</field>
 	<field name="intervention_url" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/@url]]></fieldDescription>
+	</field>
+	<field name="grains_yield" class="java.lang.Double">
+		<fieldDescription><![CDATA[ancestor::support/@grains-yield]]></fieldDescription>
+	</field>
+	<field name="provisionnal_yield" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::support/@provisionnal-yield]]></fieldDescription>
 	</field>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
@@ -256,7 +262,7 @@
 				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" pattern="dd/MM/yyyy" isBlankWhenNull="true">
 					<reportElement style="base" x="516" y="29" width="71" height="22" uuid="16ea4441-d6b6-4091-889e-dab92704fd83"/>
 					<textElement verticalAlignment="Middle"/>
-					<textFieldExpression><![CDATA[$F{plant_at}]]></textFieldExpression>
+					<textFieldExpression><![CDATA[$F{implanted_at}]]></textFieldExpression>
 				</textField>
 				<textField evaluationTime="Group" evaluationGroup="land_parcel_group" pattern="dd/MM/yyyy" isBlankWhenNull="true">
 					<reportElement style="base" x="516" y="50" width="71" height="23" uuid="b623543d-b15d-4c5e-9665-b20156bc5971"/>
@@ -346,6 +352,16 @@
 				<line direction="BottomUp">
 					<reportElement style="strong" x="404" y="15" width="1" height="121" uuid="df008e70-af27-4486-8c86-edebc98ba444"/>
 				</line>
+				<textField pattern="###0.00" isBlankWhenNull="true">
+					<reportElement x="516" y="97" width="71" height="27" uuid="797f783e-4c0a-4089-b715-6bc27354549c"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{grains_yield}]]></textFieldExpression>
+				</textField>
+				<textField pattern="" isBlankWhenNull="true">
+					<reportElement x="515" y="73" width="72" height="24" uuid="e722d8b1-af3d-49f8-8f74-3e212ff128bc"/>
+					<textElement verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{provisionnal_yield}]]></textFieldExpression>
+				</textField>
 			</band>
 		</groupHeader>
 	</group>
@@ -441,17 +457,17 @@
 		<band height="20" splitType="Prevent">
 			<textField>
 				<reportElement x="395" y="0" width="120" height="20" uuid="bcb91033-cd83-4151-9495-57259f8bd3c2"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{input_name}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="515" y="0" width="100" height="20" uuid="c5f86e29-609a-4294-942f-70e918c89882"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{input_nature_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
 				<reportElement x="615" y="0" width="171" height="20" uuid="d4816323-184c-4e99-bf3f-1de9d715c4d8"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{input_population}+" "+$F{input_unit_name}]]></textFieldExpression>
