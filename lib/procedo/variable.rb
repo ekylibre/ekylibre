@@ -3,7 +3,7 @@ module Procedo
   class Variable
     autoload :Indicator, 'procedo/variable/indicator'
 
-    attr_reader :name, :procedure, :value, :abilities, :variety, :derivative_of, :roles, :birth_nature, :producer_name
+    attr_reader :name, :procedure, :value, :abilities, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name
 
     def initialize(procedure, element)
       @procedure = procedure
@@ -18,6 +18,7 @@ module Procedo
         @birth_nature  = new_array.shift.underscore.to_sym
         @producer_name = new_array.shift.to_sym
       end
+      @default_name = element.attr("default-name").to_s
       @needs = element.attr("need").to_s.split(/\s*\,\s*/).map(&:to_sym)
       @value = element.attr("value").to_s
       @abilities = element.attr("abilities").to_s.strip.split(/\s*\,\s*/)
@@ -81,6 +82,10 @@ module Procedo
 
     def produced?
       new? and @birth_nature == :produced_by
+    end
+
+    def default_name?
+      !@default_name.blank?
     end
 
     def producer

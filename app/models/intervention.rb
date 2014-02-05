@@ -260,6 +260,12 @@ class Intervention < Ekylibre::Record::Base
       self.stopped_at = started_at
       self.state = :done
       self.save!
+
+      # Sets name for newborns
+      for variable in reference.new_variables
+        self.casts.find_by!(reference_name: variable.name).set_default_name!
+      end
+
     end
   end
 
