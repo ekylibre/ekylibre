@@ -2173,11 +2173,12 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "products", force: true do |t|
     t.string   "type"
-    t.string   "name",                                                                                               null: false
-    t.string   "number",                                                                                             null: false
-    t.integer  "variant_id",                                                                                         null: false
-    t.integer  "nature_id",                                                                                          null: false
-    t.integer  "category_id",                                                                                        null: false
+    t.string   "name",                                                                                                 null: false
+    t.string   "number",                                                                                               null: false
+    t.integer  "variant_id",                                                                                           null: false
+    t.integer  "nature_id",                                                                                            null: false
+    t.integer  "category_id",                                                                                          null: false
+    t.boolean  "extjuncted",                                                                           default: false, null: false
     t.datetime "initial_born_at"
     t.datetime "initial_dead_at"
     t.integer  "initial_container_id"
@@ -2186,7 +2187,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "initial_population",                                          precision: 19, scale: 4, default: 0.0
     t.integer  "initial_father_id"
     t.integer  "initial_mother_id"
-    t.string   "variety",               limit: 120,                                                                  null: false
+    t.string   "variety",               limit: 120,                                                                    null: false
     t.string   "derivative_of",         limit: 120
     t.integer  "tracking_id"
     t.integer  "financial_asset_id"
@@ -2202,11 +2203,11 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "address_id"
     t.integer  "parent_id"
     t.integer  "default_storage_id"
-    t.datetime "created_at",                                                                                         null: false
-    t.datetime "updated_at",                                                                                         null: false
+    t.datetime "created_at",                                                                                           null: false
+    t.datetime "updated_at",                                                                                           null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                         default: 0,   null: false
+    t.integer  "lock_version",                                                                         default: 0,     null: false
     t.spatial  "initial_shape",         limit: {:srid=>0, :type=>"geometry"}
   end
 

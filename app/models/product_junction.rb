@@ -59,10 +59,6 @@ class ProductJunction < Ekylibre::Record::Base
       code << "has_one :#{name}, through: :#{name}_way, source: :road\n"
 
       code << "accepts_nested_attributes_for :#{name}_way\n"
-      # code << "accepts_nested_attributes_for :#{name}\n"
-      # unless options[:presence].is_a?(FalseClass)
-      #   code << "validates_presence_of :#{name}\n"
-      # end
 
       code << "def create_#{name}!(road)\n"
       code << "  self.ways.create!(road: road, role: '#{name}',  nature: :#{options[:nature]})\n"

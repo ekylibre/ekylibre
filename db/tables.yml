@@ -1473,6 +1473,7 @@ products:
   default_storage_id: {type: integer, references: product}
   derivative_of: {type: string, limit: 120}
   description: {type: text}
+  extjuncted: {type: boolean, required: true, default: false}
   financial_asset_id: {type: integer, references: financial_asset}
   id: {type: integer, required: true}
   identification_number: {type: string}

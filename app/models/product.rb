@@ -31,6 +31,7 @@
 #  default_storage_id    :integer
 #  derivative_of         :string(120)
 #  description           :text
+#  extjuncted            :boolean          not null
 #  financial_asset_id    :integer
 #  id                    :integer          not null, primary key
 #  identification_number :string(255)
@@ -149,6 +150,7 @@ class Product < Ekylibre::Record::Base
   validates_numericality_of :initial_population, allow_nil: true
   validates_length_of :derivative_of, :variety, allow_nil: true, maximum: 120
   validates_length_of :identification_number, :name, :number, :picture_content_type, :picture_file_name, :work_number, allow_nil: true, maximum: 255
+  validates_inclusion_of :extjuncted, in: [true, false]
   validates_presence_of :category, :name, :nature, :number, :variant, :variety
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name
@@ -171,12 +173,6 @@ class Product < Ekylibre::Record::Base
   after_create :set_initial_values
   before_validation :set_default_values, on: :create
   before_validation :update_default_values, on: :update
-
-  before_validation do
-    if self.variant
-      self.nature ||= self.variant_nature
-    end
-  end
 
   after_validation do
     self.default_storage ||= self.initial_container
@@ -226,22 +222,25 @@ class Product < Ekylibre::Record::Base
 
   # set initial owner and localization
   def set_initial_values
-    # Set population
-    # self.is_measured!(:population, self.initial_population)
     # Add first owner on a product
     self.ownerships.create!(owner: self.initial_owner)
-    # # Add first enjoyer on a product
+    # Add first enjoyer on a product
     self.enjoyments.create!(enjoyer: self.initial_enjoyer || self.initial_owner)
     # Add first localization on a product
     if self.initial_container
       self.localizations.create!(container: self.initial_container, nature: :interior)
     end
-    #
-    unless self.start_junction
-      ProductBirth.create!(product_way_attributes: {road: self, population: self.initial_population, shape: self.initial_shape}, started_at: self.initial_born_at)
-    end
-    if self.initial_dead_at and !self.finish_junction
-      ProductDeath.create!(product: self, started_at: self.initial_dead_at)
+    unless self.extjuncted?
+      # Add default start junction
+      unless self.start_junction
+        ProductBirth.create!(product_way_attributes: {road: self, population: self.initial_population, shape: self.initial_shape}, started_at: self.initial_born_at)
+        self.reload
+      end
+      # Add default finish junction
+      if self.initial_dead_at and !self.finish_junction
+        ProductDeath.create!(product: self, started_at: self.initial_dead_at)
+        self.reload
+      end
     end
     # add first frozen indicator on a product from his variant
     if self.variant
@@ -277,9 +276,9 @@ class Product < Ekylibre::Record::Base
   # Sets nature and variety from variant
   def set_default_values
     if self.variant
-      self.nature    = self.variant.nature
+      self.nature    = self.variant_nature
       self.variety ||= self.variant_variety
-      if self.derivative_of.blank? and not self.variant.derivative_of.blank?
+      if self.derivative_of.blank? and not self.variant_derivative_of.blank?
         self.derivative_of = self.variant_derivative_of
       end
     end
@@ -291,9 +290,9 @@ class Product < Ekylibre::Record::Base
   # Update nature and variety and variant from phase
   def update_default_values
     if self.current_phase
-      self.nature    = self.current_phase.variant.nature
+      self.nature    = self.current_phase.variant_nature
       self.variety ||= self.current_phase.variant_variety
-      if self.derivative_of.blank? and not self.current_phase.variant.derivative_of.blank?
+      if self.derivative_of.blank? and not self.current_phase.variant_derivative_of.blank?
         self.derivative_of = self.current_phase.variant_derivative_of
       end
     end

@@ -925,6 +925,7 @@ eng:
     expression: "Expression"
     extension: "Extension" #?
     external: "External"
+    # extjuncted: "Extjuncted"
     # failed_attempts: "Tentatives de connexions échouées"
     family: "Family"
     father: "Father"

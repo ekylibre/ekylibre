@@ -1182,6 +1182,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :variant,                                                                       null: false, index: true
       t.references :nature,                                                                        null: false, index: true
       t.references :category,                                                                      null: false, index: true
+      t.boolean    :extjuncted,                                                    default: false, null: false
       t.datetime   :initial_born_at
       t.datetime   :initial_dead_at
       t.references :initial_container,                                                                          index: true

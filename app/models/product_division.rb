@@ -42,10 +42,11 @@ class ProductDivision < ProductBirth
     # Duplicate individual indicator data
     product.copy_indicator_data_of!(producer, at: self.stopped_at, taken_at: self.started_at, originator: self)
 
-    # Add whole indicator data
+    # Impact on following readings
     for indicator_name in producer.whole_indicators_list
+      producer.is_measured!(indicator_name, producer.get(indicator_name, at: self.stopped_at), at: self.stopped_at)
       if product_datum_value = self.product_way.send(indicator_name)
-        producer.substract_to_indicator_data(indicator_name, product_datum_value, after: self.stopped_at, originator: self)
+        producer.substract_to_indicator_data(indicator_name, product_datum_value, after: self.stopped_at)
       else
         raise StandardError, "No given value for #{indicator_name}."
       end

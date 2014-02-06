@@ -37,17 +37,4 @@
 #
 class ProductCreation < ProductBirth
   has_way :producer
-
-  after_save do
-    if self.producer
-      # Nothing to do
-    else
-      for indicator_name in self.product.whole_indicators_list
-        if self.send(indicator_name)
-          product.is_measured!(indicator_name, self.send(indicator_name), at: self.stopped_at, originator: self)
-        end
-      end
-    end
-  end
-
 end

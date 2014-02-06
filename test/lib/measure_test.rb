@@ -53,7 +53,7 @@ class MeasureTest < ActiveSupport::TestCase
     assert_equal m1, 0.155.in_ton
     assert_equal m2, 1.045.in_ton
     assert_equal 1045.in_kilogram, m2.in_kilogram
-    # Checks that value is not impacted by previous conversion 
+    # Checks that value is not impacted by previous conversion
     # due to a possible side effect
     assert_equal m2.unit, "ton"
     assert_equal m2.value, 1.045

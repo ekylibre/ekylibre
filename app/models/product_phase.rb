@@ -48,6 +48,8 @@ class ProductPhase < Ekylibre::Record::Base
   validates_presence_of :category, :nature, :product, :variant
   #]VALIDATORS]
 
+  delegate :variety, :derivative_of, :name, :nature, to: :variant, prefix: true
+
   before_validation :set_default_values, on: :create
 
   # Sets nature and variety from variant

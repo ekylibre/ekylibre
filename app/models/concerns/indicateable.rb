@@ -59,8 +59,14 @@ module Indicateable
     if value.nil?
       raise ArgumentError, "Value must be given"
     end
-    options[:at] = Time.new(1, 1, 1, 0, 0, 0, "+00:00") if options[:at] == :origin
-    datum = self.indicator_data.build(indicator_name: indicator.name, measured_at: (options[:at] || Time.now), originator: options[:originator])
+    if !options[:force] and self.frozen_indicators.include?(indicator)
+      raise ArgumentError, "A frozen indicator (#{indicator.name}) cannot be measured"
+    end
+    options[:at]   = Time.new(1, 1, 1, 0, 0, 0, "+00:00") if options[:at] == :origin
+    options[:at] ||= Time.now
+    unless datum = self.indicator_data.find_by(indicator_name: indicator.name, measured_at: options[:at])
+      datum = self.indicator_data.build(indicator_name: indicator.name, measured_at: options[:at], originator: options[:originator])
+    end
     datum.value = value
     datum.save!
     return datum
@@ -159,7 +165,7 @@ module Indicateable
   def copy_indicator_data_of!(other, options = {})
     options[:at] ||= Time.now
     options[:taken_at] ||= options[:at]
-    for indicator_name in other.individual_indicators_list
+    for indicator_name in other.individual_indicators_list - self.frozen_indicators_list
       if datum = other.indicator_datum(indicator_name, at: options[:taken_at])
         self.is_measured!(indicator_name, datum.value, at: options[:at], originator: options[:originator])
       end

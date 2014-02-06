@@ -93,7 +93,8 @@ load_data :animals do |loader|
                                 default_storage: group.record.default_storage
                                 )
         f.close if f
-        animal.is_measured!(:sex, r.sex, at: r.born_at)
+        # Sex is already known
+        # animal.is_measured!(:sex, r.sex, at: r.born_at)
 
         weighted_at = r.born_at
         variation = 0.05

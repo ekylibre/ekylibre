@@ -73,12 +73,13 @@ class ProductJunctionWay < Ekylibre::Record::Base
         self.road.update_column(touch_column, self.stopped_at)
       end
       if self.start?
+        # Sets frozen and given indicators
         for datum in self.road.variant.indicator_data
-          self.road.is_measured!(datum.indicator_name, datum.value, at: self.stopped_at)
+          self.road.is_measured!(datum.indicator_name, datum.value, at: self.stopped_at, force: true)
         end
         for indicator in self.road.whole_indicators_list - self.road.frozen_indicators_list
           if self.send(indicator)
-            self.road.is_measured!(indicator, self.send(indicator), at: self.stopped_at)
+            self.road.is_measured!(indicator, self.send(indicator), at: self.stopped_at, force: true)
           end
         end
       end

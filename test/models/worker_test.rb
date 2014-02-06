@@ -30,6 +30,7 @@
 #  default_storage_id    :integer
 #  derivative_of         :string(120)
 #  description           :text
+#  extjuncted            :boolean          not null
 #  financial_asset_id    :integer
 #  id                    :integer          not null, primary key
 #  identification_number :string(255)

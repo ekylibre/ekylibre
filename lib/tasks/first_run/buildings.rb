@@ -26,7 +26,7 @@ load_data :buildings do |loader|
                        {variant_id: animal_place_variant.id,     name: "Poulailler 2 (côté Forêt)", :work_number => "B10", :identification_number => "BAT_POULAILLER_2"}
                       ]
         unless Building.find_by_work_number(building[:work_number])
-          Building.create!({:initial_owner => Entity.of_company, :initial_born_at => born_at, :default_storage => Building.first}.merge(building))
+          Building.create!({initial_owner: Entity.of_company, initial_born_at: born_at}.merge(building)) # , default_storage: Building.first
           w.check_point
         end
       end
@@ -46,16 +46,11 @@ load_data :buildings do |loader|
           building ||= Building.create!(variant_id: standard_place_variant.id,
                                         name: record.attributes['DESCRIPTION'].to_s,
                                         :work_number => record.attributes['WORK_NUMBE'].to_s,
-                                        :initial_born_at => born_at,
-                                        :default_storage => Building.first,
+                                        initial_born_at: born_at,
+                                        # default_storage: Building.first,
                                         :identification_number => record.attributes['NUMERO'].to_s)
-          # raise record.geometry.inspect + record.geometry.methods.sort.to_sentence
-          building.is_measured!(:shape, record.geometry, at: born_at)
-          ind_area = building.shape_area
-          building.is_measured!(:net_surface_area, ind_area.in_square_meter, at: born_at)
-          # puts "Record number #{record.index}:"
-          # puts "  Geometry: #{record.geometry.as_text}"
-          # puts "  Attributes: #{record.attributes.inspect}"
+          building.is_measured!(:shape, record.geometry, at: born_at, force: true)
+          building.is_measured!(:net_surface_area, building.shape_area, at: born_at)
           w.check_point
         end
       end

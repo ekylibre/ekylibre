@@ -228,7 +228,7 @@ class Intervention < Ekylibre::Record::Base
         if variable.parted?
           # Parted from
           variant = producer.variant
-          produced.actor = variant.matching_model.new(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, name: producer.name)
+          produced.actor = variant.matching_model.new(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, name: producer.name, extjuncted: true)
           unless produced.actor.save
             puts "*" * 80 + variant.matching_model.name
             puts produced.actor.inspect
@@ -236,13 +236,12 @@ class Intervention < Ekylibre::Record::Base
             puts produced.actor.errors.inspect
             raise "Stop"
           end
-          # produced.actor.is_measured!(:population,
         elsif variable.produced?
           # Produced by
           unless variant = produced.variant || variable.variant(self)
             raise StandardError, "No variant for #{variable.name} in intervention ##{self.id} (#{self.reference_name})"
           end
-          produced.actor = variant.matching_model.create!(variant: variant, born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape)
+          produced.actor = variant.matching_model.create!(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, extjuncted: true)
         else
           raise StandardError, "Don't known how to create the variable #{variable.name} for procedure #{self.reference_name}"
         end
