@@ -309,6 +309,9 @@ class Product < Ekylibre::Record::Base
     if self.variant
       self.nature    = self.variant.nature
       self.variety ||= self.variant_variety
+      if self.derivative_of.blank? and not self.variant.derivative_of.blank?
+        self.derivative_of = self.variant_derivative_of
+      end
     end
     if self.nature
       self.category = self.nature.category
@@ -320,6 +323,9 @@ class Product < Ekylibre::Record::Base
     if self.current_phase
       self.nature    = self.current_phase.variant.nature
       self.variety ||= self.current_phase.variant_variety
+      if self.derivative_of.blank? and not self.current_phase.variant.derivative_of.blank?
+        self.derivative_of = self.current_phase.variant_derivative_of
+      end
     end
     if self.nature
       self.category = self.nature.category
