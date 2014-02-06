@@ -52,7 +52,7 @@ GEM
       beardley
     beardley-groovy (2.0.0)
       beardley
-    beardley-open_sans (0.0.0)
+    beardley-open_sans (0.0.1)
       beardley
     beardley-xml (1.1.1)
       beardley
