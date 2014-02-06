@@ -31,14 +31,19 @@
 #
 class NetService < Ekylibre::Record::Base
   enumerize :reference_name, in: Nomen::NetServices.all
-  has_many :identifiers, class_name: "Identifier"
+  has_many :identifiers
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :reference_name, allow_nil: true, maximum: 255
   validates_presence_of :reference_name
   #]VALIDATORS]
-
+  validates_uniqueness_of :reference_name
+  
   def name
     self.reference_name.text
+  end
+
+  def reference
+    Nomen::NetServices[self.reference_name]
   end
 
 end

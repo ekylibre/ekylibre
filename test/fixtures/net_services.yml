@@ -39,8 +39,12 @@
 #
 
 
-# # Empty samples of net_services
 net_services_001:
+  creator: users_001
+  reference_name: 'telepac'
+  updater: users_001
+
+net_services_002:
   creator: users_001
   reference_name: 'telepac'
   updater: users_001

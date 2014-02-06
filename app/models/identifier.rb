@@ -33,9 +33,16 @@
 #
 class Identifier < Ekylibre::Record::Base
   enumerize :nature, in: Nomen::IdentifierNatures.all
-  belongs_to :net_service, class_name: "NetService"
+  belongs_to :net_service
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :value, allow_nil: true, maximum: 255
   validates_presence_of :nature, :value
   #]VALIDATORS]
+
+  validate do
+    if self.net_service and self.net_service.reference
+      errors.add(:nature, :invalid) unless self.net_service.reference.identifiers.include?(self.nature)
+    end
+  end
+
 end
