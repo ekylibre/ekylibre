@@ -45,12 +45,27 @@ class MeasureTest < ActiveSupport::TestCase
     m1 = 155.in_kilogram
     m2 = 1.045.in_ton
 
+    assert_equal m1.unit, "kilogram"
+    assert_equal m1.value, 155
+    assert_equal m2.unit, "ton"
+    assert_equal m2.value, 1.045
+    # Test equality with conversion
     assert_equal m1, 0.155.in_ton
     assert_equal m2, 1.045.in_ton
     assert_equal 1045.in_kilogram, m2.in_kilogram
+    # Checks that value is not impacted by previous conversion 
+    # due to a possible side effect
     assert_equal m2.unit, "ton"
     assert_equal m2.value, 1.045
     assert_equal m2, 1.045.in_ton
+
+    assert_raise IncompatibleDimensions do
+      (m2 != 1.045.in_square_meter)
+    end
+
+    assert_raise IncompatibleDimensions do
+      (m2 == 1.045.in_square_meter)
+    end
 
     assert m1 != m2
     assert m1 < m2

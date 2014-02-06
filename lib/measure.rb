@@ -122,7 +122,7 @@ class Measure
   # Test if the other measure is equal to self
   def ==(other)
     return false unless other.is_a?(Measure)
-    self.to_f == other.to_f(unit)
+    self.to_r == other.to_r(unit)
   end
 
   # Returns if self is less than other
@@ -220,24 +220,24 @@ class Measure
   end
 
 
-  def to_r(unit = nil, precision = 16)
-    if unit.nil?
+  def to_r(other_unit = nil, precision = 16)
+    if other_unit.nil?
       return value
     else
-      unit = unit.name if unit.is_a?(Nomen::Item)
-      unless @@units[unit]
-        raise ArgumentError, "Unknown unit: #{unit.inspect}"
+      other_unit = other_unit.name if other_unit.is_a?(Nomen::Item)
+      unless @@units[other_unit]
+        raise ArgumentError, "Unknown unit: #{other_unit.inspect}"
       end
-      if @@units[unit.to_s].dimension != @@units[unit.to_s].dimension
-        raise IncompatibleDimensions, "Measure can't be converted from one dimension (#{@@units[unit].dimension}) to an other (#{@@units[unit].dimension})"
+      if @@units[unit.to_s].dimension != @@units[other_unit.to_s].dimension
+        raise IncompatibleDimensions, "Measure can't be converted from one dimension (#{@@units[unit].dimension}) to an other (#{@@units[other_unit].dimension})"
       end
+      return value if unit.to_s == other_unit.to_s
       # Reduce to base
       ref = @@units[unit]
       reduced = ((ref.a * value.to_d(precision)) / ref.d) + ref.b
       # Coeff to dest
-      ref = @@units[unit]
-      value = ref.d * ((reduced - ref.b) / ref.a)
-      return value.to_r
+      ref = @@units[other_unit]
+      return (ref.d * ((reduced - ref.b) / ref.a)).to_r
     end
   end
 
