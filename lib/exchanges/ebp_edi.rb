@@ -6,7 +6,7 @@ module Exchanges
     # Import from simple files EBP.EDI
     def self.import(file, options={})
       File.open(file, "rb:CP1252") do |f|
-        header = f.readline
+        header = f.readline.strip
         unless header == "EBP.EDI"
           raise NotWellFormedFileError.new("Start is not valid. Got #{header.inspect}.")
         end
