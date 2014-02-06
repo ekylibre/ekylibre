@@ -355,6 +355,8 @@ jpn:
         ZWD: "ジンバブエ・ドル"
     guide:
 
+    identifier:
+
     immatter:
 
     intervention:
@@ -375,6 +377,8 @@ jpn:
     matter:
 
     medicine:
+
+    net_service:
 
     operation_task:
 

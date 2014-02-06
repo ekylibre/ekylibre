@@ -43,6 +43,7 @@
 - guide
 - guide_analysis
 - guide_analysis_point
+- identifier
 - immatter
 - incoming_delivery
 - incoming_delivery_item
@@ -68,6 +69,7 @@
 - matter
 - medicine
 - mineral_matter
+- net_service
 - observation
 - operation
 - organic_matter

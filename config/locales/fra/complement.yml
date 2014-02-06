@@ -1725,6 +1725,8 @@ fra:
         best_practices: "Bonnes pratiques"
         regulations: "Réglementations"
         specifications: "Spécifications"
+    identifier:
+
     immatter:
       variety:
         acetal: "Acetal"
@@ -3129,6 +3131,8 @@ fra:
         zea: "Maïs"
         zone: "Zone physique"
         zone_property_title: "Titre de propriété terrienne"
+    net_service:
+
     operation_task:
       nature:
         assisted_measurement: "%{reporter} mesure %{indicator} avec %{tool}"

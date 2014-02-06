@@ -1063,6 +1063,11 @@ spa:
         # regulations: "Réglementations"
         # specifications: "Spécifications"
       # name: "Types de guide"
+    identifier_natures:
+      attributes: #?
+      item_lists: #?
+      items: #?
+    identifiers: #?
     indicators:
       attributes:
         # choices: "Choix"
@@ -1323,6 +1328,12 @@ spa:
         # heat: "Chaleur"
         # pregnancy: "Pleine"
       # name: "États de la reproduction mammale"
+    net_services:
+      attributes: #?
+      choices:
+        approach: #?
+        data_acces_method: #?
+      items: #?
     nmp_methods:
       items: #?
     nmp_poitou_charentes_abacus_1: #?

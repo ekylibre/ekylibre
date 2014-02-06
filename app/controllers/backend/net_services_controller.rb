@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+# encoding: utf-8
 # == License
 # Ekylibre - Simple ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2013 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,16 +17,12 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PreferencesController < BackendController
-  manage_restfully only: :index
+class Backend::NetServicesController < BackendController
+  manage_restfully
 
-  # unroll
+  unroll
 
-  list() do |t|
+  list do |t|
     t.column :name, url: true
-    t.column :nature
-    t.column :value
-    t.action :edit
-    t.action :destroy, :if => :destroyable?
   end
 end

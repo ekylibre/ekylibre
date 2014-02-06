@@ -490,6 +490,14 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
+    create_table :identifiers do |t|
+      t.references :net_service,                            index: true
+      t.string     :nature,                                 null: false
+      t.string     :value,                                  null: false
+      t.stamps
+      t.index :nature
+    end
+
     create_table :incoming_deliveries do |t|
       t.string     :number,                                             null: false
       t.references :sender,                                             null: false, index: true
@@ -751,6 +759,12 @@ class CreateBase < ActiveRecord::Migration
       t.string     :organization,             null: false
       t.string     :title,                    null: false
       t.stamps
+    end
+
+    create_table :net_services do |t|
+      t.string     :reference_name,                                 null: false
+      t.stamps
+      t.index :reference_name
     end
 
     create_table :observations do |t|

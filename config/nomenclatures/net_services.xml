@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <nomenclature name="net_services">
+    <attributes>
+      <attribute name="nature" type="choice" nomenclature="activity_families" required="true"/>
+      <attribute name="url" type="string" required="false"/>
+      <attribute name="approach" type="choice" choices="human,rest,soap,email" required="false"/>  
+      <attribute name="identifiers" type="list" nomenclature="identifier_natures" required="true"/>
+    </attributes>
+    <items>
+      <!-- CROP -->
+      <item name="telepac"
+          nature="vegetal_crops"
+          url="https://www3.telepac.agriculture.gouv.fr/telepac/auth/accueil.action"
+          approach="human"
+          identifiers="pacage_number, password"
+          />
+      <!-- ANIMAL FARMING -->
+      <item name="synel17"
+          nature="animal_farming"
+          url="http://www.synel17.com/"
+          approach="human"
+          identifiers="synel17_username, password"
+          />
+      <item name="lilco"
+          nature="animal_farming"
+          url="http://www.lilco-s.com/"
+          approach="human"
+          identifiers="lilco_labratory_code, password"
+          />
+      <!-- EXPLOITATIONS -->
+      <item name="msa"
+          nature="exploitation"
+          url="http://www.msa.fr/lfr/espace-prive"
+          approach="human"
+          identifiers="msa_username, password"
+          />
+      <item name="coop_charentes_alliance"
+          nature="exploitation"
+          url="http://www.charentes-alliance.fr/HP/HomePage.aspx"
+          approach="human"
+          identifiers="charentes_alliance_extranet_username, password"
+          />
+    </items>
+    
+  </nomenclature>
+  
+</nomenclatures>

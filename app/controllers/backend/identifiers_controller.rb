@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
+# encoding: utf-8
 # == License
 # Ekylibre - Simple ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2013 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,7 +17,14 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-require 'test_helper'
-class Backend::PreferencesControllerTest < ActionController::TestCase
-  test_restfully_all_actions
+class Backend::IdentifiersController < BackendController
+  manage_restfully
+
+  unroll
+
+  list do |t|
+    t.column :net_service, label_method: :name, url: true
+    t.column :nature
+    t.column :value
+  end
 end

@@ -1,4 +1,5 @@
 Ekylibre::Application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -335,6 +336,8 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :identifiers, concerns: [:list, :unroll]
+
     resources :incoming_deliveries, concerns: [:list, :unroll] do
       member do
         get :list_items
@@ -458,6 +461,8 @@ Ekylibre::Application.routes.draw do
 
     resources :mineral_matters, concerns: :products
 
+    resources :net_services, concerns: [:list, :unroll]
+
     resources :observations
 
     resources :operations, concerns: [:list, :unroll]
@@ -497,7 +502,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :preferences, concerns: [:list, :unroll]
+    # resources :preferences, concerns: [:list, :unroll]
 
     resources :prescriptions, concerns: [:list, :unroll] do
       member do

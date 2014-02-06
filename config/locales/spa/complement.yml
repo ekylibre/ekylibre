@@ -363,6 +363,8 @@ spa:
         ZWL: "Dólar zimbabuense"
     guide:
 
+    identifier:
+
     immatter:
 
     intervention:
@@ -383,6 +385,8 @@ spa:
     matter:
 
     medicine:
+
+    net_service:
 
     operation_task:
 

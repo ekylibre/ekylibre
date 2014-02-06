@@ -297,6 +297,7 @@ eng:
       index: "Help"
       # show: "Voir l’aide"
       # toggle: "Basculer l’aide"
+    backend/identifiers: #?
     backend/incoming_deliveries:
       confirm: "Confirm incoming delivery"
       edit: "Edit the incoming delivery"
@@ -418,6 +419,7 @@ eng:
       change_password: "Change my password"
       show: "My informations"
       statistics: "My statistics"
+    backend/net_services: #?
     backend/observations:
       edit: "Edit the observation"
       new: "Add a new observation"
@@ -471,11 +473,11 @@ eng:
       # edit: "Modifier la zone postale\_: %{name}"
       # index: "Zones postales"
       # new: "Nouvelle zone postale"
-    backend/preferences:
-      edit: "Edit preferences"
-      index: "Preferences"
-      new: "New preferences"
-      show: "Preference\_: %{name}"
+    backend/preferences:  #?
+      edit: "Edit preferences" #?
+      index: "Preferences" #?
+      new: "New preferences" #?
+      show: "Preference\_: %{name}" #?
     backend/prescriptions:
       # edit: "Modifier la prescription\_: %{reference_number}"
       # index: "Prescriptions"
@@ -765,7 +767,7 @@ eng:
     # backend/people: "Personnes"
     # backend/plant_medicines: "Produits phytosanitaires"
     # backend/plants: "Cultures"
-    backend/preferences: "Preferences"
+    backend/preferences: "Preferences" #?
     backend/prices: "Prices" #?
     backend/product_groups: "Product groups"
     backend/product_localizations: "Product localizations"

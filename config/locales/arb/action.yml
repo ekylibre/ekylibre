@@ -321,6 +321,7 @@ arb:
       # index: "Aide"
       # show: "Voir l’aide"
       # toggle: "Basculer l’aide"
+    backend/identifiers: #?
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de l’approvisionnement"
       # edit: "Modifier l’approvisionnement: %{number}"
@@ -452,6 +453,7 @@ arb:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"
       statistics: "احصائياتي"
+    backend/net_services: #?
     backend/observations:
       edit: "تعديل الملاحظة"
       new: "اضافة ملاحظة"
@@ -513,11 +515,7 @@ arb:
       # edit: "Modifier la zone postale\_: %{name}"
       # index: "Zones postales"
       # new: "Nouvelle zone postale"
-    backend/preferences:
-      # edit: "Modifier les préférences"
-      # index: "Préférences"
-      # new: "Nouvelle préférence"
-      # show: "Préférence"
+    backend/preferences: #?
     backend/prescriptions:
       # edit: "Modifier la prescription\_: %{reference_number}"
       # index: "Prescriptions"
@@ -867,7 +865,6 @@ arb:
     # backend/people: "Personnes"
     # backend/plant_medicines: "Produits phytosanitaires"
     # backend/plants: "Cultures"
-    # backend/preferences: "Préférences"
     backend/prices: "الاسعار" #?
     backend/product_categories: "فئات المنتج" #?
     # backend/product_groups: "Groupes de produits"
