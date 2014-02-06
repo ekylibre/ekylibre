@@ -302,6 +302,7 @@ spa:
       # index: "Aide"
       # show: "Voir l’aide"
       # toggle: "Basculer l’aide"
+    backend/identifiers: #?
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de l’approvisionnement"
       # edit: "Modifier l’approvisionnement: %{number}"
@@ -430,6 +431,7 @@ spa:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"
       # statistics: "Mes statistiques"
+    backend/net_services: #?
     backend/observations:
       # edit: "Modifier une observation"
       # new: "Ajouter une observation"
@@ -490,11 +492,7 @@ spa:
       # edit: "Modifier la zone postale\_: %{name}"
       # index: "Zones postales"
       # new: "Nouvelle zone postale"
-    backend/preferences:
-      # edit: "Modifier les préférences"
-      # index: "Préférences"
-      # new: "Nouvelle préférence"
-      # show: "Préférence"
+    backend/preferences: #?
     backend/prescriptions:
       # edit: "Modifier la prescription\_: %{reference_number}"
       # index: "Prescriptions"
@@ -785,7 +783,6 @@ spa:
     # backend/people: "Personnes"
     # backend/plant_medicines: "Produits phytosanitaires"
     # backend/plants: "Cultures"
-    # backend/preferences: "Préférences"
     # backend/product_groups: "Groupes de produits"
     # backend/product_localizations: "Emplacements"
     # backend/product_nature_categories: "Catégories de types de produit"

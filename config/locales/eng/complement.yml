@@ -484,6 +484,8 @@ eng:
         ZWL: "Zimbabwe Dollar"
     guide:
 
+    identifier:
+
     immatter:
       variety:
         animal: "Animal"
@@ -793,6 +795,8 @@ eng:
         service: "Service"
         worker: "Worker"
         zone: "Zone"
+    net_service:
+
     operation_task:
 
     person:

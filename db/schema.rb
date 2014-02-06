@@ -849,6 +849,24 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "guides", ["updated_at"], :name => "index_guides_on_updated_at"
   add_index "guides", ["updater_id"], :name => "index_guides_on_updater_id"
 
+  create_table "identifiers", force: true do |t|
+    t.integer  "net_service_id"
+    t.string   "nature",                     null: false
+    t.string   "value",                      null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",   default: 0, null: false
+  end
+
+  add_index "identifiers", ["created_at"], :name => "index_identifiers_on_created_at"
+  add_index "identifiers", ["creator_id"], :name => "index_identifiers_on_creator_id"
+  add_index "identifiers", ["nature"], :name => "index_identifiers_on_nature"
+  add_index "identifiers", ["net_service_id"], :name => "index_identifiers_on_net_service_id"
+  add_index "identifiers", ["updated_at"], :name => "index_identifiers_on_updated_at"
+  add_index "identifiers", ["updater_id"], :name => "index_identifiers_on_updater_id"
+
   create_table "incoming_deliveries", force: true do |t|
     t.string   "number",                       null: false
     t.integer  "sender_id",                    null: false
@@ -1314,6 +1332,21 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "mandates", ["entity_id"], :name => "index_mandates_on_entity_id"
   add_index "mandates", ["updated_at"], :name => "index_mandates_on_updated_at"
   add_index "mandates", ["updater_id"], :name => "index_mandates_on_updater_id"
+
+  create_table "net_services", force: true do |t|
+    t.string   "reference_name",             null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",   default: 0, null: false
+  end
+
+  add_index "net_services", ["created_at"], :name => "index_net_services_on_created_at"
+  add_index "net_services", ["creator_id"], :name => "index_net_services_on_creator_id"
+  add_index "net_services", ["reference_name"], :name => "index_net_services_on_reference_name"
+  add_index "net_services", ["updated_at"], :name => "index_net_services_on_updated_at"
+  add_index "net_services", ["updater_id"], :name => "index_net_services_on_updater_id"
 
   create_table "observations", force: true do |t|
     t.integer  "subject_id",                          null: false

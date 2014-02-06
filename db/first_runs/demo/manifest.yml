@@ -48,3 +48,22 @@ cashes:
     mode: iban
     country: fr
     iban: "FR7611111222223333333333391"
+net_services:
+  telepac:
+    pacage_number: toto
+    password: 12345
+  synel17:
+    synel17_username: toto
+    password: 12345
+  lilco:
+    lilco_labratory_code: toto
+    password: 12345
+  msa:
+    msa_username: toto
+    password: 12345
+  coop_charentes_alliance:
+    charentes_alliance_extranet_username: toto
+    password: 12345
+identifiers:
+  pacage_number: 12346578
+  husbandry_owner_number: 12345689

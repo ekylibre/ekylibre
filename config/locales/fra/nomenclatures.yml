@@ -955,6 +955,20 @@ fra:
         best_practices: "Bonnes pratiques"
         regulations: "Réglementations"
         specifications: "Spécifications"
+    identifier_natures:
+      # name: "Identifier natures"
+      attributes:
+        # fallbacks: "Fallbacks"
+        # password: "Password"
+      item_lists:
+      items:
+        # charentes_alliance_extranet_username: "Charentes alliance extranet username"
+        # husbandry_owner_number: "Husbandry owner number"
+        # lilco_labratory_code: "Lilco labratory code"
+        # msa_username: "Msa username"
+        # pacage_number: "Pacage number"
+        # password: "Password"
+        # synel17_username: "Synel17 username"
     indicators:
       name: "Indicateurs"
       attributes:
@@ -1221,6 +1235,26 @@ fra:
         back_heat: "Retour de chaleur"
         heat: "Chaleur"
         pregnancy: "Pleine"
+    net_services:
+      # name: "Net services"
+      attributes:
+        # approach: "Approach"
+        # identifiers: "Identifiers"
+        # nature: "Nature"
+        # url: "Url"
+      choices:
+        approach:
+          # email: "Email"
+          # human: "Human"
+          # rest: "Rest"
+          # soap: "Soap"
+        # nature: # Choices comes from nomenclature: activity_families
+      items:
+        # coop_charentes_alliance: "Coop charentes alliance"
+        # lilco: "Lilco"
+        # msa: "Msa"
+        # synel17: "Synel17"
+        # telepac: "Telepac"
     nmp_methods:
       # name: "Nmp methods"
       items:

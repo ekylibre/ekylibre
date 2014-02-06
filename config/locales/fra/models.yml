@@ -283,6 +283,7 @@ fra:
       # guide: "Guide"
       # guide_analysis: "Guide analysis"
       # guide_analysis_point: "Guide analysis point"
+      # identifier: "Identifier"
       immatter: "Immatériel"
       incoming_delivery: "Approvisionnement"
       incoming_delivery_item: "Élément d’approvisionnement"
@@ -308,6 +309,7 @@ fra:
       matter: "Matière"
       medicine: "Médicament"
       mineral_matter: "Matière minérale"
+      # net_service: "Net service"
       observation: "Observation"
       operation: "Opération"
       organic_matter: "Matière organique"
@@ -706,6 +708,7 @@ fra:
     iban: "IBAN"
     id: "ID"
     identification_number: "Numéro d’identification"
+    # identifiers: "Identifiers"
     importance: "Importance"
     in_cash: "En espèce" #?
     included: "Incluse"
@@ -838,6 +841,7 @@ fra:
     nature: "Type"
     natures: "Natures"
     net_mass: "Masse nette"
+    # net_service: "Net service"
     net_surface_area: "Surface"
     net_volume: "Volume net" #?
     nic: "NIC (Numéro Interne de Classement)" #?

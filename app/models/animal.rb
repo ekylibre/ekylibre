@@ -65,7 +65,7 @@ class Animal < Bioproduct
   enumerize :variety, in: Nomen::Varieties.all(:animal), predicates: {prefix: true}
   belongs_to :initial_father, class_name: "Animal"
   belongs_to :initial_mother, class_name: "Animal"
-  
+
   validates_presence_of :identification_number
   validates_uniqueness_of :identification_number
 
