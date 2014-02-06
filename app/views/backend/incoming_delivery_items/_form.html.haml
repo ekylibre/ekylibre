@@ -10,4 +10,4 @@
     - instance_variable_set(iv, f.object.product || model.new(variant: variant))
     = f.backend_fields_for(:product, instance_variable_get(iv)) do |p|
       = p.hidden_field(:type)
-      = render "backend/#{model.name.tableize}/form", f: p
+      = p.product_form # render "backend/#{model.name.tableize}/form", f: p

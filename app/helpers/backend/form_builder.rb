@@ -188,6 +188,15 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   end
 
 
+  def product_form
+    model = self.object.class
+    while !@template.lookup_context.exists?("backend/#{model.name.tableize}/form", [], true) do
+      model = model.superclass
+      break if model == ActiveRecord::Base or model == Ekylibre::Record::Base
+    end
+    @template.render "backend/#{model.name.tableize}/form", f: self
+  end
+
 
   # Build a frame for all product _forms
   def product_form_frame(options = {}, &block)
