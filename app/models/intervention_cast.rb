@@ -153,9 +153,14 @@ class InterventionCast < Ekylibre::Record::Base
         words[:container]   = (produced.container ? produced.container.name : nil)
         words[:default_storage] = (produced.default_storage ? produced.default_storage.name : nil)
         words[:born_at]     = produced.born_at.l
-        words[:birth_year]  = produced.born_at.year
-        words[:birth_month] = produced.born_at.month
-        words[:birth_day]   = produced.born_at.day
+        words[:born_on]     = produced.born_at.to_date.l
+        words[:birth_year]  = produced.born_at.year.to_s.rjust(4, '0')
+        words[:birth_month] = produced.born_at.month.to_s.rjust(2, '0')
+        words[:birth_day]   = produced.born_at.day.to_s.rjust(2, '0')
+        words[:birth_month_name] = "date.month_names".t[produced.born_at.month]
+        words[:birth_day_name]   = "date.day_names"[produced.born_at.wday]
+        words[:birth_month_abbr] = "date.abbr_month_names".t[produced.born_at.month]
+        words[:birth_day_abbr]   = "date.abbr_day_names"[produced.born_at.wday]
       end
       text = self.reference.default_name.dup.gsub(/\{\{\w+\}\}/) do |key|
         words[key[2..-3]]

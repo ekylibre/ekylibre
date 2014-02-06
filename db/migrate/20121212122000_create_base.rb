@@ -1532,7 +1532,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :versions do |t|
       t.string     :event,                            null: false
-      t.references :item,          polymorphic: true, null: false, index: true
+      t.references :item,          polymorphic: true,              index: true
       t.text       :item_object
       t.text       :item_changes
       t.datetime   :created_at,                       null: false

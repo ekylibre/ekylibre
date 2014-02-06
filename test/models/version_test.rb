@@ -27,9 +27,9 @@
 #  event        :string(255)      not null
 #  id           :integer          not null, primary key
 #  item_changes :text
-#  item_id      :integer          not null
+#  item_id      :integer
 #  item_object  :text
-#  item_type    :string(255)      not null
+#  item_type    :string(255)
 #
 require 'test_helper'
 

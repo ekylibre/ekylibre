@@ -1845,6 +1845,6 @@ versions:
   event: {type: string, required: true}
   id: {type: integer, required: true}
   item_changes: {type: text}
-  item_id: {type: integer, references: ~item_type, required: true}
+  item_id: {type: integer, references: ~item_type}
   item_object: {type: text}
-  item_type: {type: string, required: true}
+  item_type: {type: string}
