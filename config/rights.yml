@@ -548,8 +548,6 @@
 # - "backend/plants#unroll"
 # - "backend/plants#update"
 # - "backend/postal_zones#unroll"
-# - "backend/preferences#index"
-# - "backend/preferences#list"
 # - "backend/prescriptions#create"
 # - "backend/prescriptions#destroy"
 # - "backend/prescriptions#edit"

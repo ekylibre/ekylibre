@@ -497,7 +497,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :preferences, concerns: [:list, :unroll]
+    # resources :preferences, concerns: [:list, :unroll]
 
     resources :prescriptions, concerns: [:list, :unroll] do
       member do
