@@ -34,6 +34,7 @@ class Backend::Calculators::NitrogenInputsController < BackendController
     Calculus::NitrogenInputs::Zone.calculate!(@campaign, params[:zones])
     notify_now(:new_values_are_calculated)
     @zones = Calculus::NitrogenInputs::Zone.of_campaign(@campaign)
+    render action: :edit
   end
 
 end
