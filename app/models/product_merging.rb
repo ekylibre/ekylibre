@@ -37,4 +37,20 @@
 #
 class ProductMerging < ProductDeath
   has_way :absorber
+
+  after_save do
+    # Duplicate individual indicator data
+    product.copy_indicator_data_of!(producer, at: self.stopped_at, taken_at: self.started_at, originator: self)
+
+    # Add whole indicator data
+    for indicator_name in absorber.whole_indicators_list
+      if product_datum_value = self.product_way.send(indicator_name)
+        absorber.add_to_indicator_data(indicator_name, product_datum_value, after: self.stopped_at, originator: self)
+      else
+        raise StandardError, "No given value for #{indicator_name}."
+      end
+    end
+
+  end
+
 end

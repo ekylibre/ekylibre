@@ -73,25 +73,28 @@ class ProductJunctionWay < Ekylibre::Record::Base
         self.road.update_column(touch_column, self.stopped_at)
       end
       if self.start?
-        for indicator in self.road.whole_indicators_list
+        for datum in self.road.variant.indicator_data
+          self.road.is_measured!(datum.indicator_name, datum.value, at: self.stopped_at)
+        end
+        for indicator in self.road.whole_indicators_list - self.road.frozen_indicators_list
           if self.send(indicator)
             self.road.is_measured!(indicator, self.send(indicator), at: self.stopped_at)
           end
         end
       end
-      if self.finish?
-        self.road.is_measured!(:population, 0, at: self.stopped_at)
-      end
+      # if self.finish?
+      #   self.road.is_measured!(:population, 0, at: self.stopped_at)
+      # end
     end
   end
 
   before_destroy do
     unless self.continuity?
       old_record.road.update_attribute(touch_column, nil)
-      old_record.road.indicator_data.where(indicator: "population", measured_at: old_record.stopped_at).destroy_all
-      if self.start? and self.population
-        old_record.road.indicator_data.where(indicator: "population").where("measured_at > ?", old_record.stopped_at).update_all("population = population - ?", self.population)
-      end
+      # old_record.road.indicator_data.where(indicator: "population", measured_at: old_record.stopped_at).destroy_all
+      # if self.start? and self.population
+      #   old_record.road.indicator_data.where(indicator: "population").where("measured_at > ?", old_record.stopped_at).update_all("population = population - ?", self.population)
+      # end
     end
   end
 

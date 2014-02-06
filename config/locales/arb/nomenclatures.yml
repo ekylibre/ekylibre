@@ -1074,6 +1074,7 @@ arb:
         # unit: "Unité"
       choices:
         choices: #?
+        curve: #?
         datatype:
           # boolean: "Case à cocher"
           # choice: "Liste de choix"

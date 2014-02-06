@@ -134,11 +134,13 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   # Measure a product for a given indicator
-  def is_measured!(indicator_name, value, options = {})
-    unless Nomen::Indicators[indicator_name]
-      raise ArgumentError, "Unknown indicator #{indicator_name.inspect}"
+  def is_measured!(indicator, value, options = {})
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
-    datum = self.indicator_data.build(indicator_name: indicator_name)
+    unless datum = self.indicator_data.find_by(indicator_name: indicator.name)
+      datum = self.indicator_data.build(indicator_name: indicator.name)
+    end
     datum.value = value
     datum.save!
     return datum

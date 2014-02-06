@@ -37,31 +37,4 @@
 #
 class ProductDeath < ProductJunction
   has_finish :product
-  # belongs_to :product, inverse_of: :death
-  # belongs_to :absorber, class_name: "Product", foreign_key: :stakeholder_id
-  # enumerize :nature, in: [:merging, :consumption]
-
-  # before_update do
-  #   if self.product.id != old_record.product_id
-  #     old_record.product.update_column(:dead_at, nil)
-  #   end
-  # end
-
-  # before_save do
-  #   if self.product
-  #     if self.stopped_at != self.product.dead_at
-  #       self.product.update_column(:dead_at, self.stopped_at)
-  #     end
-  #   end
-  # end
-
-  # after_save do
-  #   self.product.is_measured!(:population, 0, at: self.stopped_at)
-  # end
-
-  # before_destroy do
-  #   old_record.product.indicator_data.where(indicator: "population", measured_at: old_record.stopped_at).destroy_all
-  #   old_record.product.update_column(:dead_at, nil)
-  # end
-
 end

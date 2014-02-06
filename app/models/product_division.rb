@@ -40,27 +40,33 @@ class ProductDivision < ProductBirth
 
   after_save do
     # Duplicate individual indicator data
-    for indicator_name in producer.individual_indicators_list
-      if datum = producer.indicator_datum(indicator_name, at: self.started_at)
-        product.is_measured!(indicator_name, datum.value, at: self.stopped_at, originator: self)
-      end
-    end
+    product.copy_indicator_data_of!(producer, at: self.stopped_at, taken_at: self.started_at, originator: self)
+
     # Add whole indicator data
     for indicator_name in producer.whole_indicators_list
-      producer_datum_value = producer.send(indicator_name, at: self.started_at)
-      product_datum_value = self.product_way.send(indicator_name)
-      if producer_datum_value and product_datum_value
-        product.is_measured!(indicator_name,  product_datum_value, at: self.stopped_at, originator: self)
-        producer.is_measured!(indicator_name, producer_datum_value - product_datum_value, at: self.stopped_at, originator: self)
+      if product_datum_value = self.product_way.send(indicator_name)
+        producer.substract_to_indicator_data(indicator_name, product_datum_value, after: self.stopped_at, originator: self)
       else
-        if producer_datum_value.nil? and product_datum_value.nil?
-          puts "Cannot divide empty #{indicator_name.to_s.pluralize} between producer ##{producer.id} and produced ##{product.id}."
-        else
-          raise "Need to divide #{indicator_name} but no way to do it properly\n" +
-            {producer: producer_datum_value, produced: product_datum_value}.collect{|k,v| "#{k}: #{v.inspect}"}.join("\n")
-        end
+        raise StandardError, "No given value for #{indicator_name}."
       end
     end
+
+    # # Add whole indicator data
+    # for indicator_name in producer.whole_indicators_list
+    #   producer_datum_value = producer.send(indicator_name, at: self.started_at)
+    #   product_datum_value = self.product_way.send(indicator_name)
+    #   if producer_datum_value and product_datum_value
+    #     product.is_measured!(indicator_name,  product_datum_value, at: self.stopped_at, originator: self)
+    #     producer.is_measured!(indicator_name, producer_datum_value - product_datum_value, at: self.stopped_at, originator: self)
+    #   else
+    #     if producer_datum_value.nil? and product_datum_value.nil?
+    #       puts "Cannot divide empty #{indicator_name.to_s.pluralize} between producer ##{producer.id} and produced ##{product.id}."
+    #     else
+    #       raise "Need to divide #{indicator_name} but no way to do it properly\n" +
+    #         {producer: producer_datum_value, produced: product_datum_value}.collect{|k,v| "#{k}: #{v.inspect}"}.join("\n")
+    #     end
+    #   end
+    # end
   end
 
 end

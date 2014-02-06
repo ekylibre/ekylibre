@@ -1577,25 +1577,27 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   create_table "product_indicator_data", force: true do |t|
     t.integer  "originator_id"
     t.string   "originator_type"
-    t.integer  "product_id",                                                                                                            null: false
-    t.datetime "measured_at",                                                                                                           null: false
-    t.string   "indicator_name",                                                                                                        null: false
-    t.string   "indicator_datatype",                                                                                                    null: false
-    t.boolean  "boolean_value",                                                                                         default: false, null: false
+    t.integer  "product_id",                                                                                                                     null: false
+    t.datetime "measured_at",                                                                                                                    null: false
+    t.string   "indicator_name",                                                                                                                 null: false
+    t.string   "indicator_datatype",                                                                                                             null: false
+    t.decimal  "absolute_measure_value_value",                                                          precision: 19, scale: 4
+    t.string   "absolute_measure_value_unit"
+    t.boolean  "boolean_value",                                                                                                  default: false, null: false
     t.string   "choice_value"
-    t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.decimal  "decimal_value",                                                                         precision: 19, scale: 4
     t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                                   precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
-    t.datetime "created_at",                                                                                                            null: false
-    t.datetime "updated_at",                                                                                                            null: false
+    t.datetime "created_at",                                                                                                                     null: false
+    t.datetime "updated_at",                                                                                                                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                          default: 0,     null: false
-    t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
-    t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
-    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
+    t.integer  "lock_version",                                                                                                   default: 0,     null: false
+    t.spatial  "geometry_value",               limit: {:srid=>0, :type=>"geometry", :has_z=>true}
+    t.spatial  "multi_polygon_value",          limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",                  limit: {:srid=>0, :type=>"point", :has_z=>true}
   end
 
   add_index "product_indicator_data", ["created_at"], :name => "index_product_indicator_data_on_created_at"
@@ -1741,28 +1743,30 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "operation_id"
     t.integer  "originator_id"
     t.string   "originator_type"
-    t.integer  "product_id",                                                                                                            null: false
-    t.string   "indicator_name",                                                                                                        null: false
-    t.string   "indicator_datatype",                                                                                                    null: false
-    t.boolean  "boolean_value",                                                                                         default: false, null: false
+    t.integer  "product_id",                                                                                                                     null: false
+    t.string   "indicator_name",                                                                                                                 null: false
+    t.string   "indicator_datatype",                                                                                                             null: false
+    t.decimal  "absolute_measure_value_value",                                                          precision: 19, scale: 4
+    t.string   "absolute_measure_value_unit"
+    t.boolean  "boolean_value",                                                                                                  default: false, null: false
     t.string   "choice_value"
-    t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.decimal  "decimal_value",                                                                         precision: 19, scale: 4
     t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                                   precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
     t.integer  "reporter_id"
     t.integer  "tool_id"
-    t.datetime "started_at",                                                                                                            null: false
+    t.datetime "started_at",                                                                                                                     null: false
     t.datetime "stopped_at"
-    t.datetime "created_at",                                                                                                            null: false
-    t.datetime "updated_at",                                                                                                            null: false
+    t.datetime "created_at",                                                                                                                     null: false
+    t.datetime "updated_at",                                                                                                                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                          default: 0,     null: false
-    t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
-    t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
-    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
+    t.integer  "lock_version",                                                                                                   default: 0,     null: false
+    t.spatial  "geometry_value",               limit: {:srid=>0, :type=>"geometry", :has_z=>true}
+    t.spatial  "multi_polygon_value",          limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",                  limit: {:srid=>0, :type=>"point", :has_z=>true}
   end
 
   add_index "product_measurements", ["created_at"], :name => "index_product_measurements_on_created_at"
@@ -1860,24 +1864,26 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_nature_categories_sale_taxes", ["tax_id"], :name => "index_product_nature_categories_sale_taxes_on_tax_id"
 
   create_table "product_nature_variant_indicator_data", force: true do |t|
-    t.integer  "variant_id",                                                                                                            null: false
-    t.string   "indicator_name",                                                                                                        null: false
-    t.string   "indicator_datatype",                                                                                                    null: false
-    t.boolean  "boolean_value",                                                                                         default: false, null: false
+    t.integer  "variant_id",                                                                                                                     null: false
+    t.string   "indicator_name",                                                                                                                 null: false
+    t.string   "indicator_datatype",                                                                                                             null: false
+    t.decimal  "absolute_measure_value_value",                                                          precision: 19, scale: 4
+    t.string   "absolute_measure_value_unit"
+    t.boolean  "boolean_value",                                                                                                  default: false, null: false
     t.string   "choice_value"
-    t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.decimal  "decimal_value",                                                                         precision: 19, scale: 4
     t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                                   precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
-    t.datetime "created_at",                                                                                                            null: false
-    t.datetime "updated_at",                                                                                                            null: false
+    t.datetime "created_at",                                                                                                                     null: false
+    t.datetime "updated_at",                                                                                                                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                          default: 0,     null: false
-    t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
-    t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
-    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
+    t.integer  "lock_version",                                                                                                   default: 0,     null: false
+    t.spatial  "geometry_value",               limit: {:srid=>0, :type=>"geometry", :has_z=>true}
+    t.spatial  "multi_polygon_value",          limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",                  limit: {:srid=>0, :type=>"point", :has_z=>true}
   end
 
   add_index "product_nature_variant_indicator_data", ["created_at"], :name => "index_product_nature_variant_indicator_data_on_created_at"
@@ -2049,27 +2055,29 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_processes", ["variety"], :name => "index_product_processes_on_variety"
 
   create_table "production_support_markers", force: true do |t|
-    t.integer  "support_id",                                                                                                            null: false
-    t.string   "aim",                                                                                                                   null: false
+    t.integer  "support_id",                                                                                                                     null: false
+    t.string   "aim",                                                                                                                            null: false
     t.string   "subject"
     t.string   "derivative"
-    t.string   "indicator_name",                                                                                                        null: false
-    t.string   "indicator_datatype",                                                                                                    null: false
-    t.boolean  "boolean_value",                                                                                         default: false, null: false
+    t.string   "indicator_name",                                                                                                                 null: false
+    t.string   "indicator_datatype",                                                                                                             null: false
+    t.decimal  "absolute_measure_value_value",                                                          precision: 19, scale: 4
+    t.string   "absolute_measure_value_unit"
+    t.boolean  "boolean_value",                                                                                                  default: false, null: false
     t.string   "choice_value"
-    t.decimal  "decimal_value",                                                                precision: 19, scale: 4
+    t.decimal  "decimal_value",                                                                         precision: 19, scale: 4
     t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                          precision: 19, scale: 4
+    t.decimal  "measure_value_value",                                                                   precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
-    t.datetime "created_at",                                                                                                            null: false
-    t.datetime "updated_at",                                                                                                            null: false
+    t.datetime "created_at",                                                                                                                     null: false
+    t.datetime "updated_at",                                                                                                                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                          default: 0,     null: false
-    t.spatial  "geometry_value",      limit: {:srid=>0, :type=>"geometry", :has_z=>true}
-    t.spatial  "multi_polygon_value", limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
-    t.spatial  "point_value",         limit: {:srid=>0, :type=>"point", :has_z=>true}
+    t.integer  "lock_version",                                                                                                   default: 0,     null: false
+    t.spatial  "geometry_value",               limit: {:srid=>0, :type=>"geometry", :has_z=>true}
+    t.spatial  "multi_polygon_value",          limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",                  limit: {:srid=>0, :type=>"point", :has_z=>true}
   end
 
   add_index "production_support_markers", ["created_at"], :name => "index_production_support_markers_on_created_at"

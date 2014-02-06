@@ -3,34 +3,35 @@ load_data :buildings do |loader|
 
   file = loader.path("buildings.shp")
   if file.exist?
-  standard_place_variant = ProductNatureVariant.import_from_nomenclature(:building)
+    standard_place_variant = ProductNatureVariant.import_from_nomenclature(:building)
 
-  loader.count :buildings do |w|
-    #############################################################################
-    # Import (from nomenclature) a default product_nature to place animal
-    animal_place_variant = ProductNatureVariant.import_from_nomenclature(:animal_building)
-    settlement_place_variant = ProductNatureVariant.import_from_nomenclature(:screed_building)
-    office_place_variant = ProductNatureVariant.import_from_nomenclature(:office_building)
-    born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
+    loader.count :buildings do |w|
+      #############################################################################
+      # Import (from nomenclature) a default product_nature to place animal
+      animal_place_variant = ProductNatureVariant.import_from_nomenclature(:animal_building)
+      settlement_place_variant = ProductNatureVariant.import_from_nomenclature(:screed_building)
+      office_place_variant = ProductNatureVariant.import_from_nomenclature(:office_building)
+      born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
 
-    # TODO Localize or externalize localized data
-    for building in [{variant_id: standard_place_variant.id,   name: "Bâtiment historique", :work_number => "B05", :identification_number => "STABULATION_05"},
-                     {variant_id: settlement_place_variant.id, name: "Aire bétonnée", :work_number => "B06", :identification_number => "STABULATION_06"},
-                     {variant_id: animal_place_variant.id,     name: "Stabulation principale", :work_number => "B07", :identification_number => "STABULATION_07"},
-                     {variant_id: animal_place_variant.id,     name: "Bâtiment Taurillons Bois", :work_number => "B04", :identification_number => "BAT_TAURILLON"},
-                     {variant_id: animal_place_variant.id,     name: "Bâtiment Bouquet en L Genisse", :work_number => "B03", :identification_number => "BAT_GEN"},
-                     {variant_id: animal_place_variant.id,     name: "Poulailler 1 (côté Jardin)", :work_number => "B09", :identification_number => "BAT_POULAILLER_1"},
-                     {variant_id: office_place_variant.id,     name: "Bureau", :work_number => "B08", :identification_number => "BUREAU"},
-                     {variant_id: settlement_place_variant.id, name: "Silo bas", :work_number => "B01", :identification_number => "SILO_BAS"},
-                     {variant_id: settlement_place_variant.id, name: "Fosse eaux brunes", :work_number => "B02", :identification_number => "FOSSE"},
-                     {variant_id: animal_place_variant.id,     name: "Poulailler 2 (côté Forêt)", :work_number => "B10", :identification_number => "BAT_POULAILLER_2"}
-                    ]
-      unless Building.find_by_work_number(building[:work_number])
-        Building.create!({:initial_owner => Entity.of_company, :initial_born_at => born_at, :default_storage => Building.first}.merge(building))
-        w.check_point
+      # TODO Localize or externalize localized data
+      for building in [{variant_id: standard_place_variant.id,   name: "Bâtiment historique", :work_number => "B05", :identification_number => "STABULATION_05"},
+                       {variant_id: settlement_place_variant.id, name: "Aire bétonnée", :work_number => "B06", :identification_number => "STABULATION_06"},
+                       {variant_id: animal_place_variant.id,     name: "Stabulation principale", :work_number => "B07", :identification_number => "STABULATION_07"},
+                       {variant_id: animal_place_variant.id,     name: "Bâtiment Taurillons Bois", :work_number => "B04", :identification_number => "BAT_TAURILLON"},
+                       {variant_id: animal_place_variant.id,     name: "Bâtiment Bouquet en L Genisse", :work_number => "B03", :identification_number => "BAT_GEN"},
+                       {variant_id: animal_place_variant.id,     name: "Poulailler 1 (côté Jardin)", :work_number => "B09", :identification_number => "BAT_POULAILLER_1"},
+                       {variant_id: office_place_variant.id,     name: "Bureau", :work_number => "B08", :identification_number => "BUREAU"},
+                       {variant_id: settlement_place_variant.id, name: "Silo bas", :work_number => "B01", :identification_number => "SILO_BAS"},
+                       {variant_id: settlement_place_variant.id, name: "Fosse eaux brunes", :work_number => "B02", :identification_number => "FOSSE"},
+                       {variant_id: animal_place_variant.id,     name: "Poulailler 2 (côté Forêt)", :work_number => "B10", :identification_number => "BAT_POULAILLER_2"}
+                      ]
+        unless Building.find_by_work_number(building[:work_number])
+          Building.create!({:initial_owner => Entity.of_company, :initial_born_at => born_at, :default_storage => Building.first}.merge(building))
+          w.check_point
+        end
       end
-    end
 
+    end
   end
 
   file = loader.path("buildings.shp")
@@ -100,5 +101,6 @@ load_data :buildings do |loader|
       end
     end
   end
-end
+
+
 end

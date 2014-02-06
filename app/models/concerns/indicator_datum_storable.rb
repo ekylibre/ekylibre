@@ -7,6 +7,7 @@ module IndicatorDatumStorable
     enumerize :measure_value_unit, in: Nomen::Units.all, predicates: {prefix: true}
 
     composed_of :measure_value, class_name: "Measure", mapping: [%w(measure_value_value value), %w(measure_value_unit unit)]
+    composed_of :absolute_measure_value, class_name: "Measure", mapping: [%w(absolute_measure_value_value value), %w(absolute_measure_value_unit unit)]
     # composed_of :indicator_datum, mapping: [%w(indicator_name name), %w(value value)]
 
     validates_inclusion_of :indicator_name, in: self.indicator_name.values
@@ -17,18 +18,25 @@ module IndicatorDatumStorable
     validates_presence_of :decimal_value,  :if => :indicator_datatype_decimal?
     validates_presence_of :geometry_value, :if => :indicator_datatype_geometry?
     validates_presence_of :integer_value,  :if => :indicator_datatype_integer?
-    validates_presence_of :measure_value,  :if => :indicator_datatype_measure?
+    validates_presence_of :measure_value, :absolute_measure_value, :if => :indicator_datatype_measure?
     validates_presence_of :multi_polygon_value, :if => :indicator_datatype_multi_polygon?
     validates_presence_of :point_value,    :if => :indicator_datatype_point?
     validates_presence_of :string_value,   :if => :indicator_datatype_string?
 
     # Keep this format to ensure inheritance
     before_validation :set_datatype
+    before_validation :absolutize_measure
     validate :validate_value
   end
 
   def set_datatype
     self.indicator_datatype = self.indicator.datatype
+  end
+
+  def absolutize_measure
+    if self.indicator_datatype_measure? and self.measure_value.is_a?(Measure)
+      self.absolute_measure_value = self.measure_value.in(self.indicator.unit)
+    end
   end
 
   def validate_value

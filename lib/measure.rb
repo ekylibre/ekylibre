@@ -84,7 +84,8 @@ class Measure
   end
 
   def convert(unit)
-    return (@unit == unit.to_s ? self : Measure.new(self.to_r(unit), unit))
+    # return (@unit == unit.to_s ? self : Measure.new(self.to_r(unit), unit))
+    return Measure.new(self.to_r(unit), unit)
   end
   alias :in :convert
 
@@ -109,23 +110,19 @@ class Measure
 
   # Returns the dimension of a measure
   def dimension
-    self.class.dimension(@unit)
+    self.class.dimension(unit)
   end
 
   # Test if the other measure is equal to self
   def !=(other)
-    unless other.is_a?(Measure)
-      raise ArgumentError, "Only measure can be compared to another measure"
-    end
-    self.to_r != other.to_r(@unit)
+    return true unless other.is_a?(Measure)
+    self.to_r != other.to_r(unit)
   end
 
   # Test if the other measure is equal to self
   def ==(other)
-    unless other.is_a?(Measure)
-      raise ArgumentError, "Only measure can be compared to another measure"
-    end
-    self.to_f == other.to_f(@unit)
+    return false unless other.is_a?(Measure)
+    self.to_f == other.to_f(unit)
   end
 
   # Returns if self is less than other
@@ -133,7 +130,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be compared to another measure"
     end
-    self.to_r < other.to_r(@unit)
+    self.to_r < other.to_r(unit)
   end
 
   # Returns if self is greater than other
@@ -141,7 +138,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be compared to another measure"
     end
-    self.to_r > other.to_r(@unit)
+    self.to_r > other.to_r(unit)
   end
 
   # Returns if self is less than or equal to other
@@ -149,7 +146,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be compared to another measure"
     end
-    self.to_r <= other.to_r(@unit)
+    self.to_r <= other.to_r(unit)
   end
 
   # Returns if self is greater than or equal to other
@@ -157,7 +154,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be compared to another measure"
     end
-    self.to_r >= other.to_r(@unit)
+    self.to_r >= other.to_r(unit)
   end
 
   # Returns if self is greater than other
@@ -165,7 +162,7 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be compared to another measure"
     end
-    self.to_r <=> other.to_r(@unit)
+    self.to_r <=> other.to_r(unit)
   end
 
   # Test if measure is null
@@ -178,19 +175,19 @@ class Measure
     unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be added to another measure"
     end
-    self.class.new(@value + other.to_r(@unit), @unit)
+    self.class.new(@value + other.to_r(unit), unit)
   end
 
   def -(other)
     unless other.is_a?(Measure)
       raise ArgumentError, "Only measure can be substracted to another measure"
     end
-    self.class.new(@value - other.to_r(@unit), @unit)
+    self.class.new(@value - other.to_r(unit), unit)
   end
 
   # Returns opposite of its value
   def -@
-    self.class.new(-@value, @unit)
+    self.class.new(-value, unit)
   end
 
   # Returns self of its value
@@ -200,11 +197,11 @@ class Measure
 
   def *(numeric_or_measure)
     if numeric_or_measure.is_a? Numeric
-      self.class.new(@value * numeric_or_measure.to_r, @unit)
+      self.class.new(@value * numeric_or_measure.to_r, unit)
     elsif numeric_or_measure.is_a? Measure
       # Find matching dimension
       # Convert
-      raise NotImplementedError.new
+      raise NotImplementedError
     else
       raise ArgumentError, "Only numerics and measures can be multiplicated to a measure"
     end
@@ -212,11 +209,11 @@ class Measure
 
   def /(numeric_or_measure)
     if numeric_or_measure.is_a? Numeric
-      self.class.new(@value / numeric_or_measure.to_r, @unit)
+      self.class.new(@value / numeric_or_measure.to_r, unit)
     elsif numeric_or_measure.is_a? Measure
       # Find matching dimension
       # Convert
-      raise NotImplementedError.new
+      raise NotImplementedError
     else
       raise ArgumentError, "Only numerics and measures can divide to a measure"
     end
@@ -225,18 +222,18 @@ class Measure
 
   def to_r(unit = nil, precision = 16)
     if unit.nil?
-      return @value
+      return value
     else
       unit = unit.name if unit.is_a?(Nomen::Item)
       unless @@units[unit]
         raise ArgumentError, "Unknown unit: #{unit.inspect}"
       end
-      if @@units[@unit.to_s].dimension != @@units[unit.to_s].dimension
-        raise IncompatibleDimensions, "Measure can't be converted from one dimension (#{@@units[@unit].dimension}) to an other (#{@@units[unit].dimension})"
+      if @@units[unit.to_s].dimension != @@units[unit.to_s].dimension
+        raise IncompatibleDimensions, "Measure can't be converted from one dimension (#{@@units[unit].dimension}) to an other (#{@@units[unit].dimension})"
       end
       # Reduce to base
-      ref = @@units[@unit]
-      reduced = ((ref.a * @value.to_d(precision)) / ref.d) + ref.b
+      ref = @@units[unit]
+      reduced = ((ref.a * value.to_d(precision)) / ref.d) + ref.b
       # Coeff to dest
       ref = @@units[unit]
       value = ref.d * ((reduced - ref.b) / ref.a)
@@ -256,12 +253,12 @@ class Measure
 
   # Localize a measure
   def l
-    "#{self.value.to_f.l} #{@@units.items[@unit].symbol}"
+    "#{self.value.to_f.l} #{@@units.items[unit].symbol}"
   end
 
   # Returns the unit from the nomenclature
   def nomenclature_unit
-    @@units[@unit]
+    @@units[unit]
   end
 
 end

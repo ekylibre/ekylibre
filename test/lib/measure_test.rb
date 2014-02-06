@@ -47,6 +47,10 @@ class MeasureTest < ActiveSupport::TestCase
 
     assert_equal m1, 0.155.in_ton
     assert_equal m2, 1.045.in_ton
+    assert_equal 1045.in_kilogram, m2.in_kilogram
+    assert_equal m2.unit, "ton"
+    assert_equal m2.value, 1.045
+    assert_equal m2, 1.045.in_ton
 
     assert m1 != m2
     assert m1 < m2

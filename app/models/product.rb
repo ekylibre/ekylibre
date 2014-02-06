@@ -63,7 +63,7 @@
 
 
 class Product < Ekylibre::Record::Base
-  include Versionable
+  include Versionable, Indicateable
   enumerize :variety, in: Nomen::Varieties.all, predicates: {prefix: true}
   enumerize :derivative_of, in: Nomen::Varieties.all
   # enumerize :content_indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}
@@ -87,7 +87,6 @@ class Product < Ekylibre::Record::Base
   has_many :carrier_linkages, class_name: "ProductLinkage", foreign_key: :carried_id
   has_many :enjoyments, class_name: "ProductEnjoyment", foreign_key: :product_id
   has_many :issues, as: :target
-  has_many :indicator_data, class_name: "ProductIndicatorDatum", dependent: :destroy, inverse_of: :product
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
   has_many :groups, :through => :memberships
   has_many :measurements, class_name: "ProductMeasurement"
@@ -141,30 +140,6 @@ class Product < Ekylibre::Record::Base
     where(nature_id: nature.id)
   }
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
-  scope :indicate, lambda { |indicator_values, options = {}|
-    measured_at = options[:at] || Time.now
-    conditions = []
-    # TODO Build conditions to filter on indicator_values
-    for name, value in indicator_values
-      data = ProductIndicatorDatum.of_products(self, name, measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
-      if data.any?
-        conditions << " id IN (" + data.pluck(:product_id).join(", ") + ")"
-      end
-    end
-    where(conditions.join(" AND "))
-  }
-  scope :not_indicate, lambda { |indicator_values, options = {}|
-    measured_at = options[:at] || Time.now
-    conditions = []
-    # TODO Build conditions to filter on indicator_values
-    for name, value in indicator_values
-      data = ProductIndicatorDatum.of_products(self, name, measured_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
-      if data.any?
-        conditions << " id IN (" + data.pluck(:product_id).join(", ") + ")"
-      end
-    end
-    where.not(conditions.join(" AND "))
-  }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
   scope :production_supports,  -> { where(variety: ["cultivable_zone"]) }
@@ -192,7 +167,7 @@ class Product < Ekylibre::Record::Base
   delegate :variety, :derivative_of, :name, :nature, to: :variant, prefix: true
   delegate :unit_name, to: :variant
   delegate :subscribing?, :deliverable?, :asset_account, :product_account, :charge_account, :stock_account, to: :nature
-  delegate :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :frozen_indicators, :variable_indicators, :linkage_points, :linkage_points_list, to: :nature
+  delegate :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :linkage_points, :linkage_points_list, to: :nature
 
   after_initialize :choose_default_name
   after_create :set_initial_values
@@ -272,9 +247,6 @@ class Product < Ekylibre::Record::Base
     end
     # add first frozen indicator on a product from his variant
     if self.variant
-      for datum in self.variant.indicator_data
-        self.is_measured!(datum.indicator_name, datum.value, at: :origin)
-      end
       self.phases.create!(variant: self.variant)
     end
   end
@@ -372,7 +344,6 @@ class Product < Ekylibre::Record::Base
     return price
   end
 
-
   def dead?
     return !self.finish_way.nil?
   end
@@ -416,149 +387,6 @@ class Product < Ekylibre::Record::Base
     self.picture.path(style)
   end
 
-  # def net_surface_area(*args)
-  #   if self.indicators_list.include?(:net_surface_area)
-  #     return self.get(:net_surface_area, *args)
-  #   elsif self.whole_indicators_list.include?(:shape)
-  #     options = args.extract_options!
-  #     at = args.shift || options[:at] || Time.now
-  #     # TODO Manage InterventionCast ?
-  #     return self.shape_area(at: at) rescue 0.0.in_square_meter
-  #   end
-  #   return 0.0.in_square_meter
-  # end
-
-  # def net_surface_area(*args)
-  #   unless value = self.get(:net_surface_area, *args)
-  #     if self.whole_indicators_list.include?(:shape)
-  #       options = args.extract_options!
-  #       at = args.shift || options[:at] || Time.now
-  #       # TODO Manage InterventionCast ?
-  #       value = self.shape_area(at: at) # rescue 0.0.in_square_meter
-  #     end
-  #   end
-  #   return value
-  # end
-
-  def area(unit = :hectare, at = Time.now)
-    ActiveSupport::Deprecation.warn("Product#area is deprecated. Please use Product#net_surface_area instead.")
-    return net_surface_area(at).in(unit)
-  end
-
-  def mass(unit = :kilogram, at = Time.now)
-    ActiveSupport::Deprecation.warn("Product#mass is deprecated. Please use Product#net_mass instead.")
-    return net_mass(at).in(unit)
-  end
-
-  def population(*args)
-    return self.get(:population, *args) || 0.0
-  end
-
-
-  # Measure a product for a given indicator
-  def is_measured!(indicator, value, options = {})
-    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-    end
-    if value.nil?
-      raise ArgumentError, "Value must be given"
-    end
-    options[:at] = Time.new(1, 1, 1, 0, 0, 0, "+00:00") if options[:at] == :origin
-    datum = self.indicator_data.build(indicator_name: indicator.name, measured_at: (options[:at] || Time.now), originator: options[:originator])
-    datum.value = value
-    datum.save!
-    return datum
-  end
-
-  # Return the indicator datum
-  def indicator_datum(indicator, options = {})
-    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-    end
-    measured_at = options[:at] || Time.now
-    return self.indicator_data.where(indicator_name: indicator.name).where("measured_at <= ?", measured_at).reorder(measured_at: :desc).first
-  end
-
-  # Get indicator value
-  # if option :at specify at which moment
-  # if option :interpolate is true, it returns the interpolated value
-  def get(indicator, *args)
-    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-    end
-    options = args.extract_options!
-    cast_or_time = args.shift || options[:cast] || options[:at] || Time.now
-    value = nil
-    if cast_or_time.is_a?(Time)
-      # Find value
-      if options[:interpolate]
-        if [:measure, :decimal].include?(indicator.datatype)
-          raise NotImplementedError, "Interpolation is not available for now"
-        end
-        raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"
-      elsif datum = self.indicator_datum(indicator.name, at: cast_or_time)
-        value = datum.value
-      elsif !options[:default].is_a?(FalseClass)
-        if indicator.datatype == :measure
-          value = 0.0.in(indicator.unit)
-        elsif indicator.datatype == :decimal
-          value = 0.0
-        end
-      end
-      # Adjust value
-      if value and indicator.gathering and !options[:gathering].is_a?(FalseClass)
-        if indicator.gathering == :proportional_to_population
-          value *= self.send(:population, at: cast_or_time)
-          # @TODO puts method to compute nitrogen,....
-        end
-      end
-    elsif cast_or_time.is_a?(InterventionCast)
-      if cast_or_time.actor and cast_or_time.actor.whole_indicators_list.include?(indicator.name.to_sym)
-        value = cast_or_time.send(indicator.name)
-      elsif cast_or_time.reference.new?
-        unless variant = cast_or_time.variant || cast_or_time.reference.variant(cast.intervention)
-          raise StandardError, "Need variant to know how to measure it"
-        end
-        if variant.frozen_indicators.include?(indicator)
-          value = variant.get(indicator)
-        else
-          raise StandardError, "Cannot find a frozen indicator #{indicator.name} for variant"
-        end
-      elsif datum = self.indicator_datum(indicator.name, at: cast_or_time.intervention.started_at)
-        value = datum.value
-      else
-        raise "What ?"
-      end
-      # Adjust value
-      if value and indicator.gathering and !options[:gathering].is_a?(FalseClass)
-        if indicator.gathering == :proportional_to_population
-          value *= cast_or_time.population
-        end
-      end
-    else
-      raise "Cannot support #{cast_or_time.inspect} parameter"
-    end
-    return value
-  end
-
-
-  def get!(indicator, *args)
-    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-    end
-    unless value = get(indicator, *args)
-      raise "Cannot get value of #{indicator.name} for product ##{self.id}"
-    end
-    return value
-  end
-
-  # # Returns indicators for a set of product
-  # def self.indicator_data(name, options = {})
-  #   measured_at = options[:at] || Time.now
-  #   ProductIndicatorDatum.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator = p2.indicator AND (p1.measured_at < p2.measured_at OR (p1.measured_at = p2.measured_at AND p1.id < p2.id)) AND p2.measured_at <= ?) WHERE p1.measured_at <= ? AND p1.product_id IN (?) AND p1.indicator = ? AND p2 IS NULL)", measured_at, measured_at, self.pluck(:id), name)
-  # end
-
-
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
     if Nomen::Indicators.all.include?(method_name.to_s.gsub(/\!\z/, ''))
@@ -570,10 +398,5 @@ class Product < Ekylibre::Record::Base
     end
     return super
   end
-
-  # # Give the indicator table name
-  # def self.indicator_table_name(indicator)
-  #   ProductIndicatorDatum.table_name
-  # end
 
 end

@@ -1070,6 +1070,8 @@ product_enjoyments:
   updater_id: {type: integer, references: user}
 
 product_indicator_data:
+  absolute_measure_value_unit: {type: string}
+  absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
   boolean_value: {type: boolean, required: true, default: false}
   choice_value: {type: string}
   created_at: {type: datetime, required: true}
@@ -1172,6 +1174,8 @@ product_localizations:
   updater_id: {type: integer, references: user}
 
 product_measurements:
+  absolute_measure_value_unit: {type: string}
+  absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
   boolean_value: {type: boolean, required: true, default: false}
   choice_value: {type: string}
   created_at: {type: datetime, required: true}
@@ -1250,6 +1254,8 @@ product_nature_categories_sale_taxes:
   tax_id: {type: integer, references: tax, required: true}
 
 product_nature_variant_indicator_data:
+  absolute_measure_value_unit: {type: string}
+  absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
   boolean_value: {type: boolean, required: true, default: false}
   choice_value: {type: string}
   created_at: {type: datetime, required: true}
@@ -1381,6 +1387,8 @@ product_processes:
   variety: {type: string, limit: 120, required: true}
 
 production_support_markers:
+  absolute_measure_value_unit: {type: string}
+  absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
   aim: {type: string, required: true}
   boolean_value: {type: boolean, required: true, default: false}
   choice_value: {type: string}

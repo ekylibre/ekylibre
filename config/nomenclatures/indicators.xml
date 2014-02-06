@@ -8,6 +8,7 @@
       <attribute name="gathering" type="choice" choices="proportional_to_population"/>
       <attribute name="unit" type="choice" nomenclature="units" required="false"/>
       <attribute name="choices" type="nomenclature" required="false"/>
+      <attribute name="curve" type="choice" default="spline" choices="line, spline, step, bar" required="false"/>
       <!-- <attribute name="choices" type="list" required="false"/> -->
     </attributes>
     <items>

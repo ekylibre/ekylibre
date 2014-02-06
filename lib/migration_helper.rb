@@ -62,6 +62,8 @@ module MigrationHelper
         options[:null] = true unless options.has_key?(:null)
         self.string        :indicator_name,        null: options[:null]
         self.string        :indicator_datatype,    null: options[:null]
+        self.decimal       :absolute_measure_value_value,   precision: 19, scale: 4
+        self.string        :absolute_measure_value_unit
         self.boolean       :boolean_value,         default: false, null: false
         self.string        :choice_value
         self.decimal       :decimal_value,         precision: 19, scale: 4

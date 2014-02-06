@@ -959,12 +959,18 @@ fra:
       name: "Indicateurs"
       attributes:
         choices: "Choix"
+        # curve: "Curve"
         datatype: "Datatype"
         # gathering: "Gathering"
         interpolation: "Interpolation"
         # related_to: "Related to"
         unit: "Unité"
       choices:
+        curve:
+          # bar: "Bar"
+          # line: "Line"
+          # spline: "Spline"
+          # step: "Step"
         datatype:
           boolean: "Case à cocher"
           choice: "Liste de choix"

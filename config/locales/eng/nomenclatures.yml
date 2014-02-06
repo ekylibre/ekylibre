@@ -1149,6 +1149,7 @@ eng:
           sick: "Sick" #?
           swelling: "Swelling" #?
           tillering: "Tillering" #?
+        curve: #?
         datatype:
           # boolean: "Case à cocher"
           # choice: "Liste de choix"
