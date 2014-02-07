@@ -6,8 +6,8 @@ module IndicatorDatumStorable
     enumerize :indicator_datatype, in: Nomen::Indicators.datatype.choices, predicates: {prefix: true}
     enumerize :measure_value_unit, in: Nomen::Units.all, predicates: {prefix: true}
 
-    composed_of :measure_value, class_name: "Measure", mapping: [%w(measure_value_value value), %w(measure_value_unit unit)]
-    composed_of :absolute_measure_value, class_name: "Measure", mapping: [%w(absolute_measure_value_value value), %w(absolute_measure_value_unit unit)]
+    composed_of :measure_value, class_name: "Measure", mapping: [%w(measure_value_value to_d), %w(measure_value_unit unit)]
+    composed_of :absolute_measure_value, class_name: "Measure", mapping: [%w(absolute_measure_value_value to_d), %w(absolute_measure_value_unit unit)]
     # composed_of :indicator_datum, mapping: [%w(indicator_name name), %w(value value)]
 
     validates_inclusion_of :indicator_name, in: self.indicator_name.values
@@ -76,8 +76,6 @@ module IndicatorDatumStorable
     end
     self.send("#{datatype}_value=", object)
   end
-
-
 
   # # Retrieve datatype from nomenclature NOT from database
   # def theoric_datatype
