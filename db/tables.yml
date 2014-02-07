@@ -1481,8 +1481,8 @@ products:
   initial_container_id: {type: integer, references: product}
   initial_dead_at: {type: datetime}
   initial_enjoyer_id: {type: integer, references: entity}
-  initial_father_id: {type: integer, references: }
-  initial_mother_id: {type: integer, references: }
+  initial_father_id: {type: integer, references: product}
+  initial_mother_id: {type: integer, references: product}
   initial_owner_id: {type: integer, references: entity}
   initial_population: {type: decimal, precision: 19, scale: 4, default: 0.0}
   initial_shape: {type: spatial}

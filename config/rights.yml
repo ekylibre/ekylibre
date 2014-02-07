@@ -1,5 +1,4 @@
 # Unused actions in rights
-# - "authentication/sessions#_callback_before_3"
 # - "backend/accounts#unroll"
 # - "backend/activities#create"
 # - "backend/activities#destroy"
@@ -602,14 +601,6 @@
 # - "backend/product_groups#show"
 # - "backend/product_groups#unroll"
 # - "backend/product_groups#update"
-# - "backend/product_localizations#create"
-# - "backend/product_localizations#destroy"
-# - "backend/product_localizations#edit"
-# - "backend/product_localizations#index"
-# - "backend/product_localizations#list"
-# - "backend/product_localizations#new"
-# - "backend/product_localizations#show"
-# - "backend/product_localizations#update"
 # - "backend/product_nature_categories#create"
 # - "backend/product_nature_categories#destroy"
 # - "backend/product_nature_categories#edit"
@@ -654,11 +645,6 @@
 # - "backend/product_processes#new"
 # - "backend/product_processes#unroll"
 # - "backend/product_processes#update"
-# - "backend/product_readings#create"
-# - "backend/product_readings#destroy"
-# - "backend/product_readings#edit"
-# - "backend/product_readings#new"
-# - "backend/product_readings#update"
 # - "backend/production_support_markers#create"
 # - "backend/production_support_markers#destroy"
 # - "backend/production_support_markers#edit"
@@ -775,7 +761,6 @@
 # - "devise/registrations#edit"
 # - "devise/registrations#new"
 # - "devise/registrations#update"
-# - "devise/sessions#_callback_before_3"
 # - "devise/sessions#create"
 # - "devise/sessions#destroy"
 # - "devise/sessions#new"
@@ -799,17 +784,9 @@ __minimum__:
 __public__:
 - "authentication/passwords#create"
 - "authentication/passwords#new"
-- "authentication/sessions#_callback_before_11" #?
 - "authentication/sessions#create"
 - "authentication/sessions#new"
 - "public#index"
-
-# Make and reload backups
-backup_company:
-- "backend/dashboards#settings"
-- "backend/settings#backup" #?
-- "backend/settings#backups" #?
-- "backend/settings#restore" #?
 
 # Transfer commercial data in accountancy
 bookkeep:

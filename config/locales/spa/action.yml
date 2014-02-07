@@ -532,11 +532,7 @@ spa:
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
     backend/product_links: #?
-    backend/product_localizations:
-      # edit: "Modifier une localisation d’un produit"
-      # index: "Localisation des produits"
-      # new: "Nouvelle localisation d’un produit"
-      # show: "Détail d’une localisation d’un produit"
+    backend/product_localizations: #?
     backend/product_memberships: #?
     backend/product_moves: #?
     backend/product_nature_abilities: #?
@@ -566,11 +562,7 @@ spa:
     backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
-    backend/product_readings:
-      # edit: "Modifier la valeur d’un indicateur"
-      # index: "Indicateurs Produits"
-      # new: "Nouvelle valeur d’indicateur pour un produit"
-      # show: "Valeurs"
+    backend/product_readings: #?
     backend/product_species: #?
     backend/product_stock_moves: #?
     backend/product_stocks: #?
@@ -798,7 +790,6 @@ spa:
     # backend/plant_medicines: "Produits phytosanitaires"
     # backend/plants: "Cultures"
     # backend/product_groups: "Groupes de produits"
-    # backend/product_localizations: "Emplacements"
     # backend/product_nature_categories: "Catégories de types de produit"
     # backend/product_nature_variants: "Variantes de produits"
     # backend/product_natures: "Types de produits"

@@ -33,6 +33,11 @@ class Backend::SubscriptionNaturesController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
+  def show
+    return unless subscription_nature = find_and_check
+    redirect_to backend_subscriptions_url(nature_id: subscription_nature.id)
+  end
+
   def decrement
     return unless subscription_nature = find_and_check
     subscription_nature.decrement!(:actual_number)

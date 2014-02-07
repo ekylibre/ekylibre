@@ -517,11 +517,11 @@ eng:
       new: "Create a group"
       show: "Group\_: %{name}"
     backend/product_links: #?
-    backend/product_localizations:
-      edit: "Edit a product localization"
-      index: "Product localizations"
-      new: "Create a localization"
-      show: "Product localization"
+    backend/product_localizations:  #?
+      edit: "Edit a product localization" #?
+      index: "Product localizations" #?
+      new: "Create a localization" #?
+      show: "Product localization" #?
     backend/product_memberships: #?
     backend/product_moves:  #?
       edit: "Edit the stock move: %{name}" #?
@@ -551,11 +551,11 @@ eng:
     backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
-    backend/product_readings:
-      edit: "Edit product indicator data"
-      index: "Product indicator data"
-      new: "Create a value for a product indicator"
-      show: "Indicator data"
+    backend/product_readings:  #?
+      edit: "Edit product indicator data" #?
+      index: "Product indicator data" #?
+      new: "Create a value for a product indicator" #?
+      show: "Indicator data" #?
     backend/product_transfers:  #?
       confirm: "Waiting stock transfers" #?
       confirm_all: "Confirm all stock transfer" #?
@@ -784,7 +784,7 @@ eng:
     backend/preferences: "Preferences" #?
     backend/prices: "Prices" #?
     backend/product_groups: "Product groups"
-    backend/product_localizations: "Product localizations"
+    backend/product_localizations: "Product localizations" #?
     backend/product_moves: "Stock moves" #?
     backend/product_nature_categories: "Product categories"
     # backend/product_nature_variants: "Variantes de produits"

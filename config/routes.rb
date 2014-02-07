@@ -524,11 +524,11 @@ Ekylibre::Application.routes.draw do
 
     resources :product_groups, concerns: :products
 
-    resources :product_readings # , concerns: [:list, :unroll]
+    # resources :product_readings, concerns: [:list, :unroll]
 
-    resources :product_linkages, concerns: [:list, :unroll]
+    # resources :product_linkages, concerns: [:list, :unroll]
 
-    resources :product_localizations, concerns: [:list, :unroll]
+    # resources :product_localizations, concerns: [:list, :unroll]
 
     resources :product_natures, concerns: [:list, :unroll] do
       collection do
@@ -556,9 +556,9 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_ownerships, concerns: [:list, :unroll]
+    # resources :product_ownerships, concerns: [:list, :unroll]
 
-    resources :product_phases, concerns: [:list, :unroll]
+    # resources :product_phases, concerns: [:list, :unroll]
 
     resources :product_processes, concerns: [:list, :unroll]
 

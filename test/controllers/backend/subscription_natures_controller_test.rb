@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::SubscriptionNaturesControllerTest < ActionController::TestCase
-  test_restfully_all_actions :except=>[:show]
+  test_restfully_all_actions show: :redirected_get
 end

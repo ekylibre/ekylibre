@@ -136,7 +136,7 @@ module CleanSupport
       controllers = controllers_in_file
       ref = HashWithIndifferentAccess.new
       for controller in controllers_in_file
-        ref[controller.controller_path] = controller.action_methods.to_a.sort
+        ref[controller.controller_path] = controller.action_methods.to_a.sort.delete_if{|a| a.to_s =~ /\A\_/ }
       end
       return ref
     end

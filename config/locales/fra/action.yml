@@ -4,7 +4,6 @@ fra:
       # edit: "Edit authentication/password"
       # new: "New authentication/password"
     authentication/sessions:
-      # _callback_before_3: " callback before 3 authentication/session"
       destroy: "Se déconnecter" #?
       new: "Connexion"
       renew: "Renouveller la session" #?
@@ -506,11 +505,6 @@ fra:
       new: "Créer un groupe"
       # picture: "Picture backend/product group"
       show: "Groupe\_: %{name}"
-    backend/product_localizations:
-      edit: "Modifier une localisation d’un produit"
-      index: "Localisation des produits"
-      new: "Nouvelle localisation d’un produit"
-      show: "Détail d’une localisation d’un produit"
     backend/product_nature_categories:
       edit: "Modifier la catégorie du produit\_: %{name}"
       index: "Catégories de produits"
@@ -536,11 +530,6 @@ fra:
       # edit: "Edit backend/product process"
       # index: "Index backend/product process"
       # new: "New backend/product process"
-    backend/product_readings:
-      edit: "Modifier la valeur d’un indicateur"
-      index: "Indicateurs Produits" #?
-      new: "Nouvelle valeur d’indicateur pour un produit"
-      show: "Valeurs" #?
     backend/production_support_markers:
       # edit: "Edit backend/production support marker"
       # index: "Index backend/production support marker"
@@ -689,7 +678,6 @@ fra:
       # edit: "Edit devise/registration"
       # new: "New devise/registration"
     devise/sessions:
-      # _callback_before_3: " callback before 3 devise/session"
       # new: "New devise/session"
     devise/unlocks:
       # new: "New devise/unlock"
@@ -816,7 +804,6 @@ fra:
     # backend/prescriptions: "Backend/prescriptions"
     backend/product_groups: "Groupes de produits"
     # backend/product_linkages: "Backend/product linkages"
-    backend/product_localizations: "Emplacements"
     # backend/product_memberships: "Backend/product memberships"
     backend/product_nature_categories: "Catégories de types de produit"
     # backend/product_nature_variant_readings: "Backend/product nature variant readings"
@@ -826,7 +813,6 @@ fra:
     # backend/product_phases: "Backend/product phases"
     # backend/product_process_phases: "Backend/product process phases"
     # backend/product_processes: "Backend/product processes"
-    # backend/product_readings: "Backend/product readings"
     # backend/production_support_markers: "Backend/production support markers"
     # backend/production_supports: "Backend/production supports"
     backend/productions: "Productions"
