@@ -27,7 +27,7 @@ class Backend::ProductsController < BackendController
 
   unroll
 
-  list do |t|
+  list(conditions: search_conditions(products: [:name, :number], product_nature_variants: [:name])) do |t|
     t.column :number, url: true
     t.column :name, url: true
     t.column :variant, url: true
