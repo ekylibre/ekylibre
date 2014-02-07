@@ -5,7 +5,7 @@ load_data :animals do |loader|
   synel_login = Preference.where(:nature => :string, :name => "services.synel17.login", :string_value => "17387001").first_or_create
   cattling_number = Preference.where(:nature => :string, :name => "entity_identification.ede.cattling_number", :string_value => "FR17387001").first_or_create
   owner_number = Preference.where(:nature => :string, :name => "entity_identification.ede.owner_number", :string_value => "FR01700006989").first_or_create
-
+  cattling_root_number = '173513'
 
   groups = []
 
@@ -46,7 +46,6 @@ load_data :animals do |loader|
 
   file = loader.path("animals-synel17.csv")
   if file.exist?
-
     loader.count :synel_animal_import do |w|
       #############################################################################
 
@@ -161,16 +160,30 @@ load_data :animals do |loader|
   if file.exist?
     loader.count :assign_parents_with_inventory do |w|
 
-      CSV.foreach(file, encoding: "CP1252", col_sep: ",", headers: true) do |row|
-        next if row[4].blank?
-        r = OpenStruct.new(:identification_number => row[3],
-                           :name => (row[4].blank? ? Faker::Name.first_name+" (MN)" : row[4].capitalize),
-                           :mother_identification_number => row[13],
-                           :mother_work_number => (row[13] ? row[13][-4..-1] : nil),
-                           :mother_name => (row[14].blank? ? Faker::Name.first_name : row[14].capitalize),
-                           :father_identification_number => row[16],
-                           :father_work_number => (row[16] ? row[16][-4..-1] : nil),
-                           :father_name => (row[17].blank? ? Faker::Name.first_name : row[17].capitalize)
+      CSV.foreach(file, encoding: "UTF-8", col_sep: "\t", headers: false) do |row|
+
+        born_on = (row[4].blank? ? nil : Date.civil(*row[4].to_s.split(/\//).reverse.map(&:to_i)))
+        incoming_on = (row[6].blank? ? nil : Date.civil(*row[6].to_s.split(/\//).reverse.map(&:to_i)))
+        outgoing_on = (row[12].blank? ? nil : Date.civil(*row[12].to_s.split(/\//).reverse.map(&:to_i)))
+
+        r = OpenStruct.new(:work_number => row[0],
+                           :identification_number => (row[0] ? cattling_root_number+row[0].to_s : nil),
+                           :name => (row[1].blank? ? Faker::Name.first_name+" (MN)" : row[1].capitalize),
+                           :sex => (row[3].blank? ? nil : (row[3] == "F" ? :female : :male)),
+                           :born_on => born_on,
+                           born_at: (born_on ? born_on.to_datetime + 10.hours : nil),
+                           :incoming_cause => row[5],
+                           :incoming_on => incoming_on,
+                           incoming_at: (incoming_on ? incoming_on.to_datetime + 10.hours : nil),
+                           :mother_identification_number => row[7],
+                           :mother_work_number => (row[7] ? row[7][-4..-1] : nil),
+                           :mother_name => (row[8].blank? ? Faker::Name.first_name : row[8].capitalize),
+                           :father_identification_number => row[9],
+                           :father_work_number => (row[9] ? row[9][-4..-1] : nil),
+                           :father_name => (row[10].blank? ? Faker::Name.first_name : row[10].capitalize),
+                           :outgoing_cause => row[11],
+                           :outgoing_on => outgoing_on,
+                           outgoing_at: (outgoing_on ? outgoing_on.to_datetime + 10.hours : nil)
                            )
         # check if animal is present in DB
         next unless animal = Animal.find_by_identification_number(r.identification_number)
@@ -223,7 +236,6 @@ load_data :animals do |loader|
         w.check_point
       end
 
-    end
   end
-
+  end
 end
