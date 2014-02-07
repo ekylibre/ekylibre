@@ -41,7 +41,7 @@ class Identifier < Ekylibre::Record::Base
 
   validate do
     if self.net_service and self.net_service.reference
-      errors.add(:nature, :invalid) unless self.net_service.reference.identifiers.include?(self.nature)
+      errors.add(:nature, :invalid) unless self.net_service.reference.identifiers.include?(self.nature.to_sym)
     end
   end
 
