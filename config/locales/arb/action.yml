@@ -44,6 +44,8 @@ arb:
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition analytique"
+    backend/animal_foods:
+      # index: "Alimentation animale"
     backend/animal_groups:
       # edit: "Modifier le groupe d’animaux\_: %{name}"
       # index: "Groupes d’animaux"
@@ -54,6 +56,8 @@ arb:
       # index: "Produits vétérinaires"
       # new: "Nouveau produit vétérinaire"
       # show: "Produit vétérinaire\_: %{name}"
+    backend/animal_products:
+      # index: "Produits animaux"
     backend/animals:
       # edit: "Modifier l’animal\_: %{name}"
       # index: "Animaux"
@@ -453,7 +457,11 @@ arb:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"
       statistics: "احصائياتي"
-    backend/net_services: #?
+    backend/net_services:
+      # edit: "Modifier un service en ligne"
+      # index: "Services en ligne"
+      # new: "Nouveau service en ligne"
+      # show: "Service en ligne\_: %{name}"
     backend/observations:
       edit: "تعديل الملاحظة"
       new: "اضافة ملاحظة"
@@ -500,11 +508,17 @@ arb:
       # new: "Nouvelle personne"
       # show: "Personne\_: %{full_name}"
     backend/places: #?
+    backend/plant_fertilizers:
+      # index: "Engrais"
     backend/plant_medicines:
       # edit: "Modifier le produit phytosanitaire\_: %{name}"
       # index: "Produits phytosanitaires"
       # new: "Nouveau produit phytosanitaire"
       # show: "Produit phytosanitaire\_: %{name}"
+    backend/plant_products:
+      # index: "Produits végétaux"
+    backend/plant_seedlings:
+      # index: "Plants et semences"
     backend/plants:
       # edit: "Modifier la culture\_: %{name}"
       # index: "Cultures"
@@ -1360,6 +1374,7 @@ arb:
     international_reduce_vat_collected: "معدل ضريبة القيمة المضافة الدولية المخفضة %2.1"
     international_vat_collected: "مجموع ضريبة القيمة المضافة الدولية"
     interval: "المدة الزمنية المخصصة"
+    # inventories: "Inventaires"
     inventory: "عدل الجرد"
     inventory_create: "تأدية عملية جرد جديدة" #?
     inventory_print: "طباعة الجرد"
@@ -1512,7 +1527,7 @@ arb:
     monthly: "Mensuelle"
     # months: "Mois"
     # moved_at: "Fait le"
-    # movement: "Mouvements"
+    # movements: "Mouvements"
     moves: "حركات الاسهم"
     my_company: "عن شركتك"
     my_self: "عن نفسك"

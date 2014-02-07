@@ -158,6 +158,8 @@ Ekylibre::Application.routes.draw do
 
     resources :analytic_distributions, concerns: [:list, :unroll]
 
+    resources :animal_foods, only: [:index]
+
     resources :animal_groups, concerns: [:list, :picture, :unroll] do
       member do
         get :list_animals
@@ -165,13 +167,15 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :animal_medicines, concerns: :products
+
+    resources :animal_products, only: [:index]
+
     resources :animals, concerns: :products do
       member do
         get :list_children
       end
     end
-
-    resources :animal_medicines, concerns: :products
 
     resources :affairs, concerns: [:list] do
       member do
@@ -492,9 +496,15 @@ Ekylibre::Application.routes.draw do
 
     resources :people, concerns: :entities
 
-    resources :plants, concerns: :products
+    resources :plant_fertilizers, only: [:index]
 
     resources :plant_medicines, concerns: :products
+
+    resources :plant_products, only: [:index]
+
+    resources :plant_seedlings, only: [:index]
+
+    resources :plants, concerns: :products
 
     resources :postal_zones, concerns: [:list, :unroll] do
       collection do

@@ -408,6 +408,7 @@
         <page to="backend/products#list_places"/>
         <page to="backend/products#picture"/>
       </item>
+      <!--
       <item name="organic_matters">
         <page to="backend/organic_matters#index"/>
         <page to="backend/organic_matters#create"/>
@@ -452,6 +453,9 @@
         <page to="backend/product_groups#list_places"/>
         <page to="backend/product_groups#unroll"/>
       </item>
+-->
+    </group>
+    <group name="inventories" icon="check-sign">
       <item name="inventories">
         <page to="backend/inventories#index"/>
         <page to="backend/inventories#create"/>
@@ -467,7 +471,7 @@
         <page to="backend/inventories#update"/>
       </item>
     </group>
-    <group name="movement" icon="truck">
+    <group name="movements" icon="truck">
       <item name="incoming_deliveries">
         <page to="backend/incoming_deliveries#index"/>
         <page to="backend/incoming_deliveries#confirm"/>
@@ -540,6 +544,16 @@
         <page to="backend/interventions#list_operations"/>
         <page to="backend/interventions#run"/>
         <page to="backend/interventions#unroll"/>
+      </item>
+      <item name="prescriptions">
+        <page to="backend/prescriptions#index"/>
+        <page to="backend/prescriptions#create"/>
+        <page to="backend/prescriptions#destroy"/>
+        <page to="backend/prescriptions#edit"/>
+        <page to="backend/prescriptions#list"/>
+        <page to="backend/prescriptions#new"/>
+        <page to="backend/prescriptions#show"/>
+        <page to="backend/prescriptions#update"/>
       </item>
       <item name="productions">
         <page to="backend/productions#index"/>
@@ -614,6 +628,9 @@
         <page to="backend/animals#list_places"/>
         <page to="backend/animals#unroll"/>
       </item>
+      <item name="animal_foods">
+        <page to="backend/animal_foods#index"/>
+      </item>
       <item name="animal_medicines">
         <page to="backend/animal_medicines#index"/>
         <page to="backend/animal_medicines#create"/>
@@ -634,15 +651,8 @@
         <page to="backend/animal_medicines#list_places"/>
         <page to="backend/animal_medicines#picture"/>
       </item>
-      <item name="prescriptions">
-        <page to="backend/prescriptions#index"/>
-        <page to="backend/prescriptions#create"/>
-        <page to="backend/prescriptions#destroy"/>
-        <page to="backend/prescriptions#edit"/>
-        <page to="backend/prescriptions#list"/>
-        <page to="backend/prescriptions#new"/>
-        <page to="backend/prescriptions#show"/>
-        <page to="backend/prescriptions#update"/>
+      <item name="animal_products">
+        <page to="backend/animal_products#index"/>
       </item>
     </group>
     <group name="plant_productions" icon="wheat">
@@ -657,6 +667,12 @@
         <page to="backend/plants#show"/>
         <page to="backend/plants#update"/>
       </item>
+      <item name="plant_seedlings">
+        <page to="backend/plant_seedlings#index"/>
+      </item>
+      <item name="plant_fertilizers">
+        <page to="backend/plant_fertilizers#index"/>
+      </item>
       <item name="plant_medicines">
         <page to="backend/plant_medicines#index"/>
         <page to="backend/plant_medicines#create"/>
@@ -667,6 +683,9 @@
         <page to="backend/plant_medicines#new"/>
         <page to="backend/plant_medicines#show"/>
         <page to="backend/plant_medicines#update"/>
+      </item>
+      <item name="plant_products">
+        <page to="backend/plant_products#index"/>
       </item>
     </group>
     <group name="land_parcels" icon="land-parcels">
@@ -1611,16 +1630,27 @@
         <page to="backend/medicines#update"/>
       </item>
       <item name="mineral_matters">
+        <page to="backend/mineral_matters#index"/>
+        <page to="backend/mineral_matters#create"/>
+        <page to="backend/mineral_matters#destroy"/>
+        <page to="backend/mineral_matters#edit"/>
+        <page to="backend/mineral_matters#list"/>
         <page to="backend/mineral_matters#list_carried_linkages"/>
         <page to="backend/mineral_matters#list_carrier_linkages"/>
         <page to="backend/mineral_matters#list_contained_products"/>
         <page to="backend/mineral_matters#list_groups"/>
+        <page to="backend/mineral_matters#list_indicators"/>
+        <page to="backend/mineral_matters#list_intervention_casts"/>
         <page to="backend/mineral_matters#list_issues"/>
         <page to="backend/mineral_matters#list_markers"/>
         <page to="backend/mineral_matters#list_measurements"/>
         <page to="backend/mineral_matters#list_members"/>
         <page to="backend/mineral_matters#list_places"/>
+        <page to="backend/mineral_matters#new"/>
         <page to="backend/mineral_matters#picture"/>
+        <page to="backend/mineral_matters#show"/>
+        <page to="backend/mineral_matters#unroll"/>
+        <page to="backend/mineral_matters#update"/>
       </item>
       <item name="net_services">
         <page to="backend/net_services#index"/>
@@ -1634,16 +1664,27 @@
         <page to="backend/net_services#update"/>
       </item>
       <item name="organic_matters">
+        <page to="backend/organic_matters#index"/>
+        <page to="backend/organic_matters#create"/>
+        <page to="backend/organic_matters#destroy"/>
+        <page to="backend/organic_matters#edit"/>
+        <page to="backend/organic_matters#list"/>
         <page to="backend/organic_matters#list_carried_linkages"/>
         <page to="backend/organic_matters#list_carrier_linkages"/>
         <page to="backend/organic_matters#list_contained_products"/>
         <page to="backend/organic_matters#list_groups"/>
+        <page to="backend/organic_matters#list_indicators"/>
+        <page to="backend/organic_matters#list_intervention_casts"/>
         <page to="backend/organic_matters#list_issues"/>
         <page to="backend/organic_matters#list_markers"/>
         <page to="backend/organic_matters#list_measurements"/>
         <page to="backend/organic_matters#list_members"/>
         <page to="backend/organic_matters#list_places"/>
+        <page to="backend/organic_matters#new"/>
         <page to="backend/organic_matters#picture"/>
+        <page to="backend/organic_matters#show"/>
+        <page to="backend/organic_matters#unroll"/>
+        <page to="backend/organic_matters#update"/>
       </item>
       <item name="outgoing_deliveries">
         <page to="backend/outgoing_deliveries#unroll"/>
@@ -1686,12 +1727,27 @@
         <page to="backend/prescriptions#unroll"/>
       </item>
       <item name="product_groups">
+        <page to="backend/product_groups#index"/>
+        <page to="backend/product_groups#create"/>
+        <page to="backend/product_groups#destroy"/>
+        <page to="backend/product_groups#edit"/>
+        <page to="backend/product_groups#list"/>
         <page to="backend/product_groups#list_carried_linkages"/>
         <page to="backend/product_groups#list_carrier_linkages"/>
+        <page to="backend/product_groups#list_contained_products"/>
+        <page to="backend/product_groups#list_groups"/>
+        <page to="backend/product_groups#list_indicators"/>
         <page to="backend/product_groups#list_intervention_casts"/>
+        <page to="backend/product_groups#list_issues"/>
         <page to="backend/product_groups#list_markers"/>
         <page to="backend/product_groups#list_measurements"/>
+        <page to="backend/product_groups#list_members"/>
+        <page to="backend/product_groups#list_places"/>
+        <page to="backend/product_groups#new"/>
         <page to="backend/product_groups#picture"/>
+        <page to="backend/product_groups#show"/>
+        <page to="backend/product_groups#unroll"/>
+        <page to="backend/product_groups#update"/>
       </item>
       <item name="product_indicator_data">
         <page to="backend/product_indicator_data#create"/>

@@ -35,6 +35,8 @@ eng:
       index: "Analytics distributions"
       new: "Create a distribution"
       show: "Distribution %{id}"
+    backend/animal_foods:
+      # index: "Alimentation animale"
     backend/animal_groups:
       edit: "Edit animal's group\_: %{name}"
       index: "Animal's groups"
@@ -45,6 +47,8 @@ eng:
       index: "Animal medicines"
       new: "Create an animal medicine"
       show: "Animal medicine\_: %{name}"
+    backend/animal_products:
+      # index: "Produits animaux"
     backend/animals:
       edit: "Edit animal\_: %{name}"
       index: "Animals"
@@ -419,7 +423,11 @@ eng:
       change_password: "Change my password"
       show: "My informations"
       statistics: "My statistics"
-    backend/net_services: #?
+    backend/net_services:
+      # edit: "Modifier un service en ligne"
+      # index: "Services en ligne"
+      # new: "Nouveau service en ligne"
+      # show: "Service en ligne\_: %{name}"
     backend/observations:
       edit: "Edit the observation"
       new: "Add a new observation"
@@ -459,11 +467,17 @@ eng:
       # index: "Personnes"
       # new: "Nouvelle personne"
       # show: "Personne\_: %{full_name}"
+    backend/plant_fertilizers:
+      # index: "Engrais"
     backend/plant_medicines:
       edit: "Edit plant medicine\_: %{name}"
       index: "Plant medicines"
       new: "Create plant medicine"
       show: "Plant medicine\_: %{name}"
+    backend/plant_products:
+      # index: "Produits végétaux"
+    backend/plant_seedlings:
+      # index: "Plants et semences"
     backend/plants:
       edit: "Edit plant\_: %{name}"
       index: "Plants"
@@ -1218,6 +1232,7 @@ eng:
     # international_reduce_vat_collected: "Taux réduit à 2,1%"
     # international_vat_collected: "Opérations réalisées dans les DOM"
     interval: "Personalized Interval"
+    # inventories: "Inventaires"
     inventory: "Inventory"
     inventory_print: "Printing inventory"
     invoiced_amount: "Sales invoiced amount"
@@ -1342,7 +1357,7 @@ eng:
     monthly: "Monthly"
     # months: "Mois"
     moved_at: "Made on"
-    movement: "Movements"
+    movements: "Movements"
     moves: "Moves"
     my_company: "About your company"
     my_self: "About you"
