@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2008-2013 David Joulin, Brice Texier
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,6 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductIndicatorDataController < BackendController
+class Backend::ProductNatureVariantReadingsController < BackendController
   manage_restfully except: [:index, :show]
 end

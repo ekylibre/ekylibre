@@ -94,7 +94,7 @@ load_data :animals do |loader|
                                 )
         f.close if f
         # Sex is already known
-        # animal.is_measured!(:sex, r.sex, at: r.born_at)
+        # animal.read!(:sex, r.sex, at: r.born_at)
 
         weighted_at = r.born_at
         variation = 0.05
@@ -102,13 +102,13 @@ load_data :animals do |loader|
           age = (weighted_at - r.born_at).to_f
           weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
           weight += rand(weight * variation * 2) - (weight * variation)
-          animal.is_measured!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
+          animal.read!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
           weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
         end
 
-        animal.is_measured!(:healthy, true, at: (Time.now - 3.days))
-        animal.is_measured!(:healthy, false, at: (Time.now - 2.days))
-        animal.is_measured!(:healthy, true)
+        animal.read!(:healthy, true, at: (Time.now - 3.days))
+        animal.read!(:healthy, false, at: (Time.now - 2.days))
+        animal.read!(:healthy, true)
 
         group.record.add(animal, r.arrived_on)
         group.record.remove(animal, r.departed_on) if r.departed_on
@@ -145,10 +145,10 @@ load_data :animals do |loader|
         animal = Animal.create!(:variant_id => male_adult_cow.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :initial_owner => Entity.where(:of_company => false).all.sample, picture: f)
         f.close if f
         # set default indicators
-        animal.is_measured!(:unique_synthesis_index,         r.isu.in_unity,  at: now)
-        animal.is_measured!(:economical_milk_index,          r.inel.in_unity, at: now)
-        animal.is_measured!(:protein_concentration_index,    r.tp.in_unity,   at: now)
-        animal.is_measured!(:fat_matter_concentration_index, r.tb.in_unity,   at: now)
+        animal.read!(:unique_synthesis_index,         r.isu.in_unity,  at: now)
+        animal.read!(:economical_milk_index,          r.inel.in_unity, at: now)
+        animal.read!(:protein_concentration_index,    r.tp.in_unity,   at: now)
+        animal.read!(:fat_matter_concentration_index, r.tb.in_unity,   at: now)
         # put in an external localization
         animal.localizations.create!(nature: :exterior)
         w.check_point

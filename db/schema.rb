@@ -1085,23 +1085,23 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "inventories", ["updater_id"], :name => "index_inventories_on_updater_id"
 
   create_table "inventory_items", force: true do |t|
-    t.integer  "inventory_id",                                                null: false
-    t.integer  "product_id",                                                  null: false
-    t.integer  "product_measurement_id"
-    t.decimal  "theoric_population",     precision: 19, scale: 4,             null: false
-    t.decimal  "population",             precision: 19, scale: 4,             null: false
-    t.datetime "created_at",                                                  null: false
-    t.datetime "updated_at",                                                  null: false
+    t.integer  "inventory_id",                                                 null: false
+    t.integer  "product_id",                                                   null: false
+    t.integer  "product_reading_task_id"
+    t.decimal  "theoric_population",      precision: 19, scale: 4,             null: false
+    t.decimal  "population",              precision: 19, scale: 4,             null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                    default: 0, null: false
+    t.integer  "lock_version",                                     default: 0, null: false
   end
 
   add_index "inventory_items", ["created_at"], :name => "index_inventory_items_on_created_at"
   add_index "inventory_items", ["creator_id"], :name => "index_inventory_items_on_creator_id"
   add_index "inventory_items", ["inventory_id"], :name => "index_inventory_items_on_inventory_id"
   add_index "inventory_items", ["product_id"], :name => "index_inventory_items_on_product_id"
-  add_index "inventory_items", ["product_measurement_id"], :name => "index_inventory_items_on_product_measurement_id"
+  add_index "inventory_items", ["product_reading_task_id"], :name => "index_inventory_items_on_product_reading_task_id"
   add_index "inventory_items", ["updated_at"], :name => "index_inventory_items_on_updated_at"
   add_index "inventory_items", ["updater_id"], :name => "index_inventory_items_on_updater_id"
 
@@ -1607,41 +1607,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_enjoyments", ["updated_at"], :name => "index_product_enjoyments_on_updated_at"
   add_index "product_enjoyments", ["updater_id"], :name => "index_product_enjoyments_on_updater_id"
 
-  create_table "product_indicator_data", force: true do |t|
-    t.integer  "originator_id"
-    t.string   "originator_type"
-    t.integer  "product_id",                                                                                                                     null: false
-    t.datetime "measured_at",                                                                                                                    null: false
-    t.string   "indicator_name",                                                                                                                 null: false
-    t.string   "indicator_datatype",                                                                                                             null: false
-    t.decimal  "absolute_measure_value_value",                                                          precision: 19, scale: 4
-    t.string   "absolute_measure_value_unit"
-    t.boolean  "boolean_value",                                                                                                  default: false, null: false
-    t.string   "choice_value"
-    t.decimal  "decimal_value",                                                                         precision: 19, scale: 4
-    t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                                   precision: 19, scale: 4
-    t.string   "measure_value_unit"
-    t.text     "string_value"
-    t.datetime "created_at",                                                                                                                     null: false
-    t.datetime "updated_at",                                                                                                                     null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                                   default: 0,     null: false
-    t.spatial  "geometry_value",               limit: {:srid=>0, :type=>"geometry", :has_z=>true}
-    t.spatial  "multi_polygon_value",          limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
-    t.spatial  "point_value",                  limit: {:srid=>0, :type=>"point", :has_z=>true}
-  end
-
-  add_index "product_indicator_data", ["created_at"], :name => "index_product_indicator_data_on_created_at"
-  add_index "product_indicator_data", ["creator_id"], :name => "index_product_indicator_data_on_creator_id"
-  add_index "product_indicator_data", ["indicator_name"], :name => "index_product_indicator_data_on_indicator_name"
-  add_index "product_indicator_data", ["measured_at"], :name => "index_product_indicator_data_on_measured_at"
-  add_index "product_indicator_data", ["originator_id", "originator_type"], :name => "index_product_indicator_data_on_originator"
-  add_index "product_indicator_data", ["product_id"], :name => "index_product_indicator_data_on_product_id"
-  add_index "product_indicator_data", ["updated_at"], :name => "index_product_indicator_data_on_updated_at"
-  add_index "product_indicator_data", ["updater_id"], :name => "index_product_indicator_data_on_updater_id"
-
   create_table "product_junction_ways", force: true do |t|
     t.integer  "junction_id",                                                                             null: false
     t.string   "role",                                                                                    null: false
@@ -1772,49 +1737,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_localizations", ["updated_at"], :name => "index_product_localizations_on_updated_at"
   add_index "product_localizations", ["updater_id"], :name => "index_product_localizations_on_updater_id"
 
-  create_table "product_measurements", force: true do |t|
-    t.integer  "operation_id"
-    t.integer  "originator_id"
-    t.string   "originator_type"
-    t.integer  "product_id",                                                                                                                     null: false
-    t.string   "indicator_name",                                                                                                                 null: false
-    t.string   "indicator_datatype",                                                                                                             null: false
-    t.decimal  "absolute_measure_value_value",                                                          precision: 19, scale: 4
-    t.string   "absolute_measure_value_unit"
-    t.boolean  "boolean_value",                                                                                                  default: false, null: false
-    t.string   "choice_value"
-    t.decimal  "decimal_value",                                                                         precision: 19, scale: 4
-    t.integer  "integer_value"
-    t.decimal  "measure_value_value",                                                                   precision: 19, scale: 4
-    t.string   "measure_value_unit"
-    t.text     "string_value"
-    t.integer  "reporter_id"
-    t.integer  "tool_id"
-    t.datetime "started_at",                                                                                                                     null: false
-    t.datetime "stopped_at"
-    t.datetime "created_at",                                                                                                                     null: false
-    t.datetime "updated_at",                                                                                                                     null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                                                                                   default: 0,     null: false
-    t.spatial  "geometry_value",               limit: {:srid=>0, :type=>"geometry", :has_z=>true}
-    t.spatial  "multi_polygon_value",          limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
-    t.spatial  "point_value",                  limit: {:srid=>0, :type=>"point", :has_z=>true}
-  end
-
-  add_index "product_measurements", ["created_at"], :name => "index_product_measurements_on_created_at"
-  add_index "product_measurements", ["creator_id"], :name => "index_product_measurements_on_creator_id"
-  add_index "product_measurements", ["indicator_name"], :name => "index_product_measurements_on_indicator_name"
-  add_index "product_measurements", ["operation_id"], :name => "index_product_measurements_on_operation_id"
-  add_index "product_measurements", ["originator_id", "originator_type"], :name => "index_product_measurements_on_originator_id_and_originator_type"
-  add_index "product_measurements", ["product_id"], :name => "index_product_measurements_on_product_id"
-  add_index "product_measurements", ["reporter_id"], :name => "index_product_measurements_on_reporter_id"
-  add_index "product_measurements", ["started_at"], :name => "index_product_measurements_on_started_at"
-  add_index "product_measurements", ["stopped_at"], :name => "index_product_measurements_on_stopped_at"
-  add_index "product_measurements", ["tool_id"], :name => "index_product_measurements_on_tool_id"
-  add_index "product_measurements", ["updated_at"], :name => "index_product_measurements_on_updated_at"
-  add_index "product_measurements", ["updater_id"], :name => "index_product_measurements_on_updater_id"
-
   create_table "product_memberships", force: true do |t|
     t.integer  "operation_id"
     t.integer  "originator_id"
@@ -1896,7 +1818,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_nature_categories_sale_taxes", ["product_nature_category_id"], :name => "index_product_nature_categories_sale_taxes_on_category_id"
   add_index "product_nature_categories_sale_taxes", ["tax_id"], :name => "index_product_nature_categories_sale_taxes_on_tax_id"
 
-  create_table "product_nature_variant_indicator_data", force: true do |t|
+  create_table "product_nature_variant_readings", force: true do |t|
     t.integer  "variant_id",                                                                                                                     null: false
     t.string   "indicator_name",                                                                                                                 null: false
     t.string   "indicator_datatype",                                                                                                             null: false
@@ -1919,12 +1841,12 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.spatial  "point_value",                  limit: {:srid=>0, :type=>"point", :has_z=>true}
   end
 
-  add_index "product_nature_variant_indicator_data", ["created_at"], :name => "index_product_nature_variant_indicator_data_on_created_at"
-  add_index "product_nature_variant_indicator_data", ["creator_id"], :name => "index_product_nature_variant_indicator_data_on_creator_id"
-  add_index "product_nature_variant_indicator_data", ["indicator_name"], :name => "index_product_nature_variant_indicator_data_on_indicator_name"
-  add_index "product_nature_variant_indicator_data", ["updated_at"], :name => "index_product_nature_variant_indicator_data_on_updated_at"
-  add_index "product_nature_variant_indicator_data", ["updater_id"], :name => "index_product_nature_variant_indicator_data_on_updater_id"
-  add_index "product_nature_variant_indicator_data", ["variant_id"], :name => "index_product_nature_variant_indicator_data_on_variant_id"
+  add_index "product_nature_variant_readings", ["created_at"], :name => "index_product_nature_variant_readings_on_created_at"
+  add_index "product_nature_variant_readings", ["creator_id"], :name => "index_product_nature_variant_readings_on_creator_id"
+  add_index "product_nature_variant_readings", ["indicator_name"], :name => "index_product_nature_variant_readings_on_indicator_name"
+  add_index "product_nature_variant_readings", ["updated_at"], :name => "index_product_nature_variant_readings_on_updated_at"
+  add_index "product_nature_variant_readings", ["updater_id"], :name => "index_product_nature_variant_readings_on_updater_id"
+  add_index "product_nature_variant_readings", ["variant_id"], :name => "index_product_nature_variant_readings_on_variant_id"
 
   create_table "product_nature_variants", force: true do |t|
     t.integer  "category_id",                                        null: false
@@ -2086,6 +2008,84 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_processes", ["updated_at"], :name => "index_product_processes_on_updated_at"
   add_index "product_processes", ["updater_id"], :name => "index_product_processes_on_updater_id"
   add_index "product_processes", ["variety"], :name => "index_product_processes_on_variety"
+
+  create_table "product_reading_tasks", force: true do |t|
+    t.integer  "operation_id"
+    t.integer  "originator_id"
+    t.string   "originator_type"
+    t.integer  "product_id",                                                                                                                     null: false
+    t.string   "indicator_name",                                                                                                                 null: false
+    t.string   "indicator_datatype",                                                                                                             null: false
+    t.decimal  "absolute_measure_value_value",                                                          precision: 19, scale: 4
+    t.string   "absolute_measure_value_unit"
+    t.boolean  "boolean_value",                                                                                                  default: false, null: false
+    t.string   "choice_value"
+    t.decimal  "decimal_value",                                                                         precision: 19, scale: 4
+    t.integer  "integer_value"
+    t.decimal  "measure_value_value",                                                                   precision: 19, scale: 4
+    t.string   "measure_value_unit"
+    t.text     "string_value"
+    t.integer  "reporter_id"
+    t.integer  "tool_id"
+    t.datetime "started_at",                                                                                                                     null: false
+    t.datetime "stopped_at"
+    t.datetime "created_at",                                                                                                                     null: false
+    t.datetime "updated_at",                                                                                                                     null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                                                                   default: 0,     null: false
+    t.spatial  "geometry_value",               limit: {:srid=>0, :type=>"geometry", :has_z=>true}
+    t.spatial  "multi_polygon_value",          limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",                  limit: {:srid=>0, :type=>"point", :has_z=>true}
+  end
+
+  add_index "product_reading_tasks", ["created_at"], :name => "index_product_reading_tasks_on_created_at"
+  add_index "product_reading_tasks", ["creator_id"], :name => "index_product_reading_tasks_on_creator_id"
+  add_index "product_reading_tasks", ["indicator_name"], :name => "index_product_reading_tasks_on_indicator_name"
+  add_index "product_reading_tasks", ["operation_id"], :name => "index_product_reading_tasks_on_operation_id"
+  add_index "product_reading_tasks", ["originator_id", "originator_type"], :name => "index_product_reading_tasks_on_originator"
+  add_index "product_reading_tasks", ["product_id"], :name => "index_product_reading_tasks_on_product_id"
+  add_index "product_reading_tasks", ["reporter_id"], :name => "index_product_reading_tasks_on_reporter_id"
+  add_index "product_reading_tasks", ["started_at"], :name => "index_product_reading_tasks_on_started_at"
+  add_index "product_reading_tasks", ["stopped_at"], :name => "index_product_reading_tasks_on_stopped_at"
+  add_index "product_reading_tasks", ["tool_id"], :name => "index_product_reading_tasks_on_tool_id"
+  add_index "product_reading_tasks", ["updated_at"], :name => "index_product_reading_tasks_on_updated_at"
+  add_index "product_reading_tasks", ["updater_id"], :name => "index_product_reading_tasks_on_updater_id"
+
+  create_table "product_readings", force: true do |t|
+    t.integer  "originator_id"
+    t.string   "originator_type"
+    t.integer  "product_id",                                                                                                                     null: false
+    t.datetime "read_at",                                                                                                                        null: false
+    t.string   "indicator_name",                                                                                                                 null: false
+    t.string   "indicator_datatype",                                                                                                             null: false
+    t.decimal  "absolute_measure_value_value",                                                          precision: 19, scale: 4
+    t.string   "absolute_measure_value_unit"
+    t.boolean  "boolean_value",                                                                                                  default: false, null: false
+    t.string   "choice_value"
+    t.decimal  "decimal_value",                                                                         precision: 19, scale: 4
+    t.integer  "integer_value"
+    t.decimal  "measure_value_value",                                                                   precision: 19, scale: 4
+    t.string   "measure_value_unit"
+    t.text     "string_value"
+    t.datetime "created_at",                                                                                                                     null: false
+    t.datetime "updated_at",                                                                                                                     null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                                                                   default: 0,     null: false
+    t.spatial  "geometry_value",               limit: {:srid=>0, :type=>"geometry", :has_z=>true}
+    t.spatial  "multi_polygon_value",          limit: {:srid=>0, :type=>"multi_polygon", :has_z=>true}
+    t.spatial  "point_value",                  limit: {:srid=>0, :type=>"point", :has_z=>true}
+  end
+
+  add_index "product_readings", ["created_at"], :name => "index_product_readings_on_created_at"
+  add_index "product_readings", ["creator_id"], :name => "index_product_readings_on_creator_id"
+  add_index "product_readings", ["indicator_name"], :name => "index_product_readings_on_indicator_name"
+  add_index "product_readings", ["originator_id", "originator_type"], :name => "index_product_readings_on_originator"
+  add_index "product_readings", ["product_id"], :name => "index_product_readings_on_product_id"
+  add_index "product_readings", ["read_at"], :name => "index_product_readings_on_read_at"
+  add_index "product_readings", ["updated_at"], :name => "index_product_readings_on_updated_at"
+  add_index "product_readings", ["updater_id"], :name => "index_product_readings_on_updater_id"
 
   create_table "production_support_markers", force: true do |t|
     t.integer  "support_id",                                                                                                                     null: false

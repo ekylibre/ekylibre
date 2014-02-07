@@ -156,12 +156,14 @@ class Backend::EntitiesController < BackendController
           if k.match(/^custom_field\-/)
             id = k.split('-')[1][2..-1].to_i
             if custom_field = CustomField.find_by_id(id)
-              from += " LEFT JOIN #{CustomFieldDatum.table_name} AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.custom_field_id=#{id})"
+              # from += " LEFT JOIN #{CustomFieldDatum.table_name} AS _c#{id} ON (entity.id=_c#{id}.entity_id AND _c#{id}.custom_field_id=#{id})"
               if custom_field.nature == "choice"
-              select_array << [ "_cc#{id}.value AS custom_field_#{id}", v[:label]]
-                from += " LEFT JOIN #{CustomFieldChoice.table_name} AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
+                select_array << [ "_cc#{id}.value AS custom_field_#{id}", v[:label]]
+                # from += " LEFT JOIN #{CustomFieldChoice.table_name} AS _cc#{id} ON (_cc#{id}.id=_c#{id}.choice_value_id)"
+                from += " LEFT JOIN #{CustomFieldChoice.table_name} AS _cc#{id} ON (_cc#{id}.id=#{custom_field.column_name})"
               else
-                select_array << [ "_c#{id}.#{custom_field.nature}_value AS custom_field_#{id}", v[:label]]
+                # select_array << [ "_c#{id}.#{custom_field.nature}_value AS custom_field_#{id}", v[:label]]
+                select_array << [ "#{custom_field.column_name} AS custom_field_#{id}", v[:label]]
               end
             end
           else

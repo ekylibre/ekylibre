@@ -62,12 +62,12 @@
         min = (resource.born_at ? resource.born_at : now - window)
         min = now - window if (now - min) < window
         for indicator in indicators # [:population, :nitrogen_concentration].collect{|i| Nomen::Indicators[i] }
-          items = ProductIndicatorDatum.where(indicator_name: indicator.name, product: resource).where("? < measured_at AND measured_at < ?", min, now).order(:measured_at)
+          items = ProductReading.where(indicator_name: indicator.name, product: resource).where("? < read_at AND read_at < ?", min, now).order(:read_at)
           next unless items.any?
           data = []
           data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
           data += items.inject({}) do |hash, pair|
-            hash[pair.measured_at.to_usec] = pair.value.to_d
+            hash[pair.read_at.to_usec] = pair.value.to_d
             hash
           end.collect{|k,v| [k, v.to_s.to_f] }
           data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
@@ -98,7 +98,7 @@
           #
           bar_indicators = [:net_mass].collect{|i| Nomen::Indicators[i] }
           for indicator in bar_indicators
-            items = ProductIndicatorDatum.where(indicator_name: indicator.name, :product => @animal).measured_between(started_at, stopped_at)
+            items = ProductReading.where(indicator_name: indicator.name, :product => @animal).measured_between(started_at, stopped_at)
             if items.count > 0
               item_h = items.averages_of_periods.sort.inject({}) do |hash, pair|
                 hash[pair.expr.to_i.to_s] = pair.average.to_s.to_d
@@ -113,7 +113,7 @@
           #
           spline_indicators = [:healthy].collect{|i| Nomen::Indicators[i] }
           for indicator in spline_indicators
-            items = ProductIndicatorDatum.where(indicator_name: indicator.name, :product => @animal).measured_between(started_at, stopped_at)
+            items = ProductReading.where(indicator_name: indicator.name, :product => @animal).measured_between(started_at, stopped_at)
             if items.count > 0
               item_h = items.counts_of_periods(column: :boolean_value).sort.inject({}) do |hash, pair|
                 hash[pair.expr.to_i.to_s] = pair.count.to_s.to_d
@@ -136,7 +136,7 @@
         - l.attribute :variety, url: true
         - l.attribute :born_at
         - l.attribute :dead_at
-        - l.attribute :sex, :through => :indicator_data
+        - l.attribute :sex, :through => :readings
         - l.attribute :mother, url: true
         - l.attribute :father, url: true
         - l.attribute :identification_number
@@ -159,7 +159,7 @@
       = toolbar do |t|
         - t.new(:params =>{:controller => :interventions, :target_id => @animal.id})
       = list(:intervention_casts)
-    - b.cell(tl(:x_indicators, :count => @animal.indicator_data.count)) do
+    - b.cell(tl(:x_indicators, :count => @animal.readings.count)) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :product_indicator_data, :product_id => @animal.id})
+        - t.new(:params =>{:controller => :product_readings, :product_id => @animal.id})
       = list(:indicators)

@@ -50,7 +50,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   belongs_to :nature, class_name: "ProductNature", inverse_of: :variants
   belongs_to :category, class_name: "ProductNatureCategory", inverse_of: :variants
   has_many :products, foreign_key: :variant_id
-  has_many :indicator_data, class_name: "ProductNatureVariantIndicatorDatum", foreign_key: :variant_id, inverse_of: :variant
+  has_many :readings, class_name: "ProductNatureVariantReading", foreign_key: :variant_id, inverse_of: :variant
   has_many :prices, class_name: "CatalogPrice", foreign_key: :variant_id
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :picture_file_size, allow_nil: true, only_integer: true
@@ -65,7 +65,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   delegate :deliverable?, :purchasable?, :saleable?, :subscribing?, :financial_asset_account, :product_account, :charge_account, :stock_account, to: :category
 
   accepts_nested_attributes_for :products, :reject_if => :all_blank, :allow_destroy => true
-  accepts_nested_attributes_for :indicator_data, :reject_if => :all_blank, :allow_destroy => true
+  accepts_nested_attributes_for :readings, :reject_if => :all_blank, :allow_destroy => true
   accepts_nested_attributes_for :prices, :reject_if => :all_blank, :allow_destroy => true
   acts_as_numbered
 
@@ -134,24 +134,24 @@ class ProductNatureVariant < Ekylibre::Record::Base
   end
 
   # Measure a product for a given indicator
-  def is_measured!(indicator, value, options = {})
+  def read!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
-    unless datum = self.indicator_data.find_by(indicator_name: indicator.name)
-      datum = self.indicator_data.build(indicator_name: indicator.name)
+    unless reading = self.readings.find_by(indicator_name: indicator.name)
+      reading = self.readings.build(indicator_name: indicator.name)
     end
-    datum.value = value
-    datum.save!
-    return datum
+    reading.value = value
+    reading.save!
+    return reading
   end
 
-  # Return the indicator datum
-  def indicator_datum(indicator)
+  # Return the reading
+  def reading(indicator)
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
-    return self.indicator_data.where(indicator_name: indicator.name).first
+    return self.readings.where(indicator_name: indicator.name).first
   end
 
   # Returns the direct value of an indicator of variant
@@ -159,8 +159,8 @@ class ProductNatureVariant < Ekylibre::Record::Base
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
-    if datum = indicator_datum(indicator.name)
-      return datum.value
+    if reading = reading(indicator.name)
+      return reading.value
     elsif indicator.datatype == :measure
       return 0.0.in(indicator.unit)
     elsif indicator.datatype == :decimal
@@ -180,9 +180,9 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
   # Get indicator value
   # if option :at specify at which moment
-  # if option :datum is true, it returns the ProductNatureVariantIndicatorDatum record
+  # if option :reading is true, it returns the ProductNatureVariantReading record
   # if option :interpolate is true, it returns the interpolated value
-  # :interpolate and :datum options are incompatible
+  # :interpolate and :reading options are incompatible
   def method_missing(method_name, *args)
     return super unless Nomen::Indicators.items[method_name]
     return get(method_name)
@@ -194,7 +194,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
     # # Returns indicators for a set of product
     # def indicator(name, options = {})
     #   created_at = options[:at] || Time.now
-    #   ProductNatureVariantIndicatorDatum.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.variant_id = p2.variant_id AND (p1.created_at < p2.created_at OR (p1.created_at = p2.created_at AND p1.id < p2.id)) AND p2.created_at <= ?) WHERE p1.created_at <= ? AND p1.variant_id IN (?) AND p2 IS NULL)", created_at, created_at, self.pluck(:id))
+    #   ProductNatureVariantReading.where("id IN (SELECT p1.id FROM #{self.indicator_table_name(name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(name)} AS p2 ON (p1.variant_id = p2.variant_id AND (p1.created_at < p2.created_at OR (p1.created_at = p2.created_at AND p1.id < p2.id)) AND p2.created_at <= ?) WHERE p1.created_at <= ? AND p1.variant_id IN (?) AND p2 IS NULL)", created_at, created_at, self.pluck(:id))
     # end
 
 
@@ -258,7 +258,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         # create frozen indicator for each pair indicator, value ":population => 1unity"
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
           .collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.each do |i|
-          variant.is_measured!(i.first.strip.downcase.to_sym, i.second)
+          variant.read!(i.first.strip.downcase.to_sym, i.second)
         end
       end
 
@@ -267,7 +267,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
     # # Give the indicator table name
     # def indicator_table_name(indicator)
-    #   ProductNatureVariantIndicatorDatum.table_name
+    #   ProductNatureVariantReading.table_name
     # end
 
   end

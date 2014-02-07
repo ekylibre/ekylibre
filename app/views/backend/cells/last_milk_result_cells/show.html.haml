@@ -13,7 +13,7 @@
     #
     bar_indicators = [:total_bacteria_concentration, :somatic_cell_concentration, :clostridial_spores_concentration].collect{|i| Nomen::Indicators[i] }
     for indicator in bar_indicators
-      items = ProductIndicatorDatum.where(indicator_name: indicator.name).between(@started_at, @stopped_at)
+      items = ProductReading.where(indicator_name: indicator.name).between(@started_at, @stopped_at)
       if items.any?
         item_h = items.averages_of_periods.sort.inject({}) do |hash, pair|
           hash[pair.expr.to_i.to_s] = pair.average.to_s.to_d
@@ -28,7 +28,7 @@
     #
     spline_indicators = [:fat_matters_concentration, :protein_matters_concentration, :urea_concentration].collect{|i| Nomen::Indicators[i] }
     for indicator in spline_indicators
-      items = ProductIndicatorDatum.where(indicator_name: indicator.name).between(@started_at, @stopped_at)
+      items = ProductReading.where(indicator_name: indicator.name).between(@started_at, @stopped_at)
       if items.any?
         item_h = items.averages_of_periods.sort.inject({}) do |hash, pair|
           hash[pair.expr.to_i.to_s] = pair.average.to_d

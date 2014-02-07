@@ -40,9 +40,9 @@ module Procedo
       # Browsings
       browsing: {browser: :product, browsed: :product},
       # Measurement
-      simple_measurement:   {indicator: :indicator},
-      measurement:          {indicator: :indicator, reporter: :product},
-      assisted_measurement: {indicator: :indicator, reporter: :product, tool: :product},
+      simple_reading_task:   {indicator: :indicator},
+      reading_task:          {indicator: :indicator, reporter: :product},
+      assisted_reading_task: {indicator: :indicator, reporter: :product, tool: :product},
       # Deliveries
       outgoing_delivery:            {product: :product},
       identified_outgoing_delivery: {product: :product, client: :entity},

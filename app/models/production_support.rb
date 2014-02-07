@@ -66,7 +66,7 @@ class ProductionSupport < Ekylibre::Record::Base
   }
 
   # Measure a product for a given indicator
-  def is_measured!(indicator, value, options = {})
+  def read!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
     end
@@ -84,15 +84,6 @@ class ProductionSupport < Ekylibre::Record::Base
     marker.save!
     return marker
   end
-
-  # # Return the indicator datum
-  # def indicator_datum(indicator, options = {})
-  #   unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
-  #     raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
-  #   end
-  #   started_at = options[:at] || Time.now
-  #   return self.markers.where(indicator_name: indicator.name).first
-  # end
 
   def active?
     if self.activity.fallow_land?

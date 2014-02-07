@@ -92,7 +92,7 @@ class Backend::ProductsController < BackendController
   end
 
   # indicators of the consider product
-  list(:measurements, model: :product_measurements, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+  list(:reading_tasks, model: :product_reading_tasks, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :indicator_name
     t.column :value
     t.column :reporter
@@ -100,9 +100,9 @@ class Backend::ProductsController < BackendController
   end
 
   # indicators of the consider product
-  list(:indicators, model: :product_indicator_data, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+  list(:indicators, model: :product_readings, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :indicator_name
-    t.column :measured_at
+    t.column :read_at
     t.column :value
   end
 

@@ -288,7 +288,7 @@ eng:
       # show: "Perte ou profit N°%{number}"
     backend/guide_analyses:
       # show: "Analyse N°%{execution_number} du %{guide}"
-    backend/guide_indicator_data: #?
+    backend/guide_readings: #?
     backend/guides:
       # edit: "Modifier le référentiel\_: %{name}"
       # index: "Référentiels"
@@ -516,11 +516,6 @@ eng:
       index: "Product groups"
       new: "Create a group"
       show: "Group\_: %{name}"
-    backend/product_indicator_data:
-      edit: "Edit product indicator data"
-      index: "Product indicator data"
-      new: "Create a value for a product indicator"
-      show: "Indicator data"
     backend/product_links: #?
     backend/product_localizations:
       edit: "Edit a product localization"
@@ -536,7 +531,7 @@ eng:
       index: "Product categories"
       new: "Add a new product category"
       show: "Product category: %{name}"
-    backend/product_nature_variant_indicator_data: #?
+    backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       edit: "Edit product variant\_: %{name}"
       index: "Product variant"
@@ -556,13 +551,18 @@ eng:
     backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
+    backend/product_readings:
+      edit: "Edit product indicator data"
+      index: "Product indicator data"
+      new: "Create a value for a product indicator"
+      show: "Indicator data"
     backend/product_transfers:  #?
       confirm: "Waiting stock transfers" #?
       confirm_all: "Confirm all stock transfer" #?
       edit: "Edit the stock transfer/loss" #?
       index: "Transfers and loss" #?
       new: "Add a new stock transfer or loss" #?
-    backend/production_support_marker_indicator_data: #?
+    backend/production_support_marker_readings: #?
     backend/production_support_markers: #?
     backend/production_supports:
       # edit: "Modifier un support de production"
@@ -871,7 +871,6 @@ eng:
     add_diagnostic: "Add diagnostic"
     add_email: "Add email"
     add_fax: "Add fax"
-    add_indicator_datum: "Add a value for an indicator"
     add_item: "Add an element"
     add_mail: "Add postal adress"
     # add_marker: "Ajouter un objectif"
@@ -885,6 +884,7 @@ eng:
     add_production: "Add production"
     add_quickly_a_line: "Add quickly a line of product" #?
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
+    add_reading: "Add a value for an indicator"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
     # add_support: "Ajouter un support de production"
     add_treatment: "Add treatment"
@@ -1567,7 +1567,7 @@ eng:
     # related_people: "En lien avec"
     relationship: "Relationship management"
     remove_diagnostic: "Remove diagnostic"
-    remove_indicator_datum: "Remove indicator value"
+    remove_reading: "Remove indicator value"
     remove_treatment: "Remove treatment"
     remove_watching: "Remove product reference"
     reopen: "Reopen"

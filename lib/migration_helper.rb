@@ -51,14 +51,14 @@ module MigrationHelper
 
   end
 
-  module IndicatorDatum
+  module Reading
 
     def self.included(base) # :nodoc:
       base.send(:include, InstanceMethods)
     end
 
     module InstanceMethods
-      def indicator_datum(options = {})
+      def reading(options = {})
         options[:null] = true unless options.has_key?(:null)
         self.string        :indicator_name,        null: options[:null]
         self.string        :indicator_datatype,    null: options[:null]
@@ -85,4 +85,4 @@ module MigrationHelper
 end
 
 ActiveRecord::Migration.send(:include, MigrationHelper::Indexes)
-ActiveRecord::ConnectionAdapters::TableDefinition.send(:include, MigrationHelper::IndicatorDatum)
+ActiveRecord::ConnectionAdapters::TableDefinition.send(:include, MigrationHelper::Reading)

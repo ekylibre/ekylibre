@@ -88,7 +88,7 @@ class Product < Ekylibre::Record::Base
   has_many :issues, as: :target
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
   has_many :groups, :through => :memberships
-  has_many :measurements, class_name: "ProductMeasurement"
+  has_many :reading_tasks, class_name: "ProductReadingTask"
   has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
   has_many :junction_ways, class_name: "ProductJunctionWay", foreign_key: :road_id
   has_many :junctions, class_name: "ProductJunction", through: :junction_ways
@@ -157,8 +157,8 @@ class Product < Ekylibre::Record::Base
 
   # accepts_nested_attributes_for :start_way
   # accepts_nested_attributes_for :death
-  accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum|
-    !datum["indicator_name"] != "population" and datum[ProductIndicatorDatum.value_column(datum["indicator_name"]).to_s].blank?
+  accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
+    !reading["indicator_name"] != "population" and reading[ProductReading.value_column(reading["indicator_name"]).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: false

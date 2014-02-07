@@ -40,13 +40,13 @@ class ProductMerging < ProductDeath
 
   after_save do
     # Duplicate individual indicator data
-    product.copy_indicator_data_of!(absorber, at: self.stopped_at, taken_at: self.started_at, originator: self)
+    product.copy_readings_of!(absorber, at: self.stopped_at, taken_at: self.started_at, originator: self)
 
     # Add whole indicator data
     for indicator_name in absorber.whole_indicators_list
-      absorber.is_measured!(indicator_name, absorber.get(indicator_name, at: self.stopped_at), at: self.stopped_at)
-      if product_datum_value = self.product_way.send(indicator_name)
-        absorber.add_to_indicator_data(indicator_name, product_datum_value, after: self.stopped_at)
+      absorber.read!(indicator_name, absorber.get(indicator_name, at: self.stopped_at), at: self.stopped_at)
+      if product_reading_value = self.product_way.send(indicator_name)
+        absorber.add_to_readings(indicator_name, product_reading_value, after: self.stopped_at)
       else
         raise StandardError, "No given value for #{indicator_name}."
       end

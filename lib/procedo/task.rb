@@ -44,9 +44,9 @@ module Procedo
       "{browser} acts on {browsed}" =>                 :browsing,
       "{browser} browses {browsed}" =>                 :browsing,
       # Indicators
-      "{indicator} is measured" =>                     :simple_measurement,
-      "{reporter} measures {indicator}" =>             :measurement,
-      "{reporter} measures {indicator} with {tool}" => :assisted_measurement,
+      "{indicator} is measured" =>                     :simple_reading_task,
+      "{reporter} measures {indicator}" =>             :reading_task,
+      "{reporter} measures {indicator} with {tool}" => :assisted_reading_task,
       # Deliveries
       "{product} is delivered" =>                      :outgoing_delivery,
       "{product} is delivered to {client}" =>          :identified_outgoing_delivery,

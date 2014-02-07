@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_indicator_data
+# == Table: product_readings
 #
 #  absolute_measure_value_unit  :string(255)
 #  absolute_measure_value_value :decimal(19, 4)
@@ -36,85 +36,85 @@
 #  lock_version                 :integer          default(0), not null
 #  measure_value_unit           :string(255)
 #  measure_value_value          :decimal(19, 4)
-#  measured_at                  :datetime         not null
 #  multi_polygon_value          :spatial({:srid=>
 #  originator_id                :integer
 #  originator_type              :string(255)
 #  point_value                  :spatial({:srid=>
 #  product_id                   :integer          not null
+#  read_at                      :datetime         not null
 #  string_value                 :text
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
 #
-# == Fixture: product_indicator_data
+# == Fixture: product_readings
 #
-# product_indicator_data_001:
+# product_readings_001:
 #   boolean_value: true
 #   creator: users_001
 #   indicator_datatype: "Lorem ipsum"
 #   indicator_name: "Lorem ipsum"
-#   measured_at: 2013-10-26 18:34:04 +02:00
 #   product: products_001
+#   read_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001
 #
 ---
-product_indicator_data_001:
+product_readings_001:
   boolean_value: false
   creator: users_001
   indicator_datatype: measure
   indicator_name: net_mass
   measure_value_unit: kilogram
   measure_value_value: '250.00'
-  measured_at: 1995-01-19 18:13:59.000000000 +01:00
+  read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: animals_001
   updater: users_001
-product_indicator_data_002:
+product_readings_002:
   boolean_value: false
   creator: users_001
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((407256.989 6529291.381,407228.445 6529342.561,407273.051 6529421.056,407248.169 6529430.302,407280.649 6529497.007,407244.786 6529506.224,407216.324 6529455.522,407137.385 6529447.238,407113.997 6529525.383,407113.168 6529536.38,407135.155 6529537.118,407139.973 6529525.169,407154.09 6529529.979,407161.172 6529541.94,407169.222 6529559.849,407178.164 6529575.571,407244.306 6529545.154,407252.237 6529563.173,407260.364 6529577.065,407307.085 6529551.733,407293.928 6529523.905,407359.676 6529501.394,407256.989 6529291.381)))"
   indicator_datatype: geometry
   indicator_name: shape
-  measured_at: 1995-01-19 18:13:59.000000000 +01:00
+  read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: land_parcel_clusters_001
   updater: users_001
-product_indicator_data_003:
+product_readings_003:
   boolean_value: false
   creator: users_001
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
   indicator_datatype: geometry
   indicator_name: shape
-  measured_at: 1995-01-19 18:13:59.000000000 +01:00
+  read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: land_parcel_clusters_002
   updater: users_001
-product_indicator_data_004:
+product_readings_004:
   boolean_value: false
   creator: users_001
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
   indicator_datatype: geometry
   indicator_name: shape
-  measured_at: 1995-01-19 18:13:59.000000000 +01:00
+  read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: land_parcel_clusters_003
   updater: users_001
-product_indicator_data_005:
+product_readings_005:
   boolean_value: false
   creator: users_001
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
   indicator_datatype: geometry
   indicator_name: shape
-  measured_at: 1995-01-19 18:13:59.000000000 +01:00
+  read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: land_parcel_groups_001
   updater: users_001
-product_indicator_data_006:
+product_readings_006:
   boolean_value: false
   creator: users_001
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957 6531686.83,405754.948 6531676.641,405785.777 6531666.427,405711.112 6531580.045,405673.109 6531691.271)))"
   indicator_datatype: geometry
   indicator_name: shape
-  measured_at: 1995-01-19 18:13:59.000000000 +01:00
+  read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: land_parcel_groups_002
   updater: users_001
-product_indicator_data_007:
+product_readings_007:
   boolean_value: false
   creator: users_001
   geometry_value: !ekylibre.org,2014/multipolygon "MULTIPOLYGON(((405673.109 6531691.271,405692.998 6531687.101,405725.957
@@ -122,38 +122,38 @@ product_indicator_data_007:
     6531691.271)))"
   indicator_datatype: geometry
   indicator_name: shape
-  measured_at: 1995-01-19 18:13:59.000000000 +01:00
+  read_at: 1995-01-19 18:13:59.000000000 +01:00
   product: land_parcel_groups_003
   updater: users_001
-product_indicator_data_008:
+product_readings_008:
   choice_value: female
   creator: users_001
   indicator_datatype: choice
   indicator_name: sex
-  measured_at: 0001-01-19 17:23:20.000000000 +00:09
+  read_at: 0001-01-19 17:23:20.000000000 +00:09
   product: animals_004
   updater: users_001
-product_indicator_data_009:
+product_readings_009:
   creator: users_001
   decimal_value: 1
   indicator_datatype: decimal
   indicator_name: population
-  measured_at: 0001-01-19 17:23:20.000000000 +00:09
+  read_at: 0001-01-19 17:23:20.000000000 +00:09
   product: animals_004
   updater: users_001
-product_indicator_data_010:
+product_readings_010:
   choice_value: female
   creator: users_001
   indicator_datatype: choice
   indicator_name: sex
-  measured_at: 0001-01-19 17:23:20.000000000 +00:09
+  read_at: 0001-01-19 17:23:20.000000000 +00:09
   product: animals_002
   updater: users_001
-product_indicator_data_011:
+product_readings_011:
   creator: users_001
   decimal_value: 1
   indicator_datatype: decimal
   indicator_name: population
-  measured_at: 0001-01-19 17:23:20.000000000 +00:09
+  read_at: 0001-01-19 17:23:20.000000000 +00:09
   product: animals_002
   updater: users_001

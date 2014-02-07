@@ -1,5 +1,5 @@
 # Non persistent model to manage indicator data
-class IndicatorDatum
+class Reading
 
   def initialize(indicator, value)
     unless @indicator = Nomen::Indicators[indicator]

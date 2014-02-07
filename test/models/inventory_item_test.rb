@@ -21,17 +21,17 @@
 #
 # == Table: inventory_items
 #
-#  created_at             :datetime         not null
-#  creator_id             :integer
-#  id                     :integer          not null, primary key
-#  inventory_id           :integer          not null
-#  lock_version           :integer          default(0), not null
-#  population             :decimal(19, 4)   not null
-#  product_id             :integer          not null
-#  product_measurement_id :integer
-#  theoric_population     :decimal(19, 4)   not null
-#  updated_at             :datetime         not null
-#  updater_id             :integer
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  id                      :integer          not null, primary key
+#  inventory_id            :integer          not null
+#  lock_version            :integer          default(0), not null
+#  population              :decimal(19, 4)   not null
+#  product_id              :integer          not null
+#  product_reading_task_id :integer
+#  theoric_population      :decimal(19, 4)   not null
+#  updated_at              :datetime         not null
+#  updater_id              :integer
 #
 
 

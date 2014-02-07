@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_measurements
+# == Table: product_reading_tasks
 #
 #  absolute_measure_value_unit  :string(255)
 #  absolute_measure_value_value :decimal(19, 4)
@@ -50,34 +50,36 @@
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
-#
-# == Fixture: product_measurements
-#
-# product_measurements_001:
-#   boolean_value: true
-#   creator: users_001
-#   indicator_datatype: "Lorem ipsum"
-#   indicator_name: "Lorem ipsum"
-#   product: products_001
-#   started_at: 2013-10-26 18:34:04 +02:00
-#   updater: users_001
-#
----
-product_measurements_001:
-  creator: users_001
-  indicator_datatype: measure
-  indicator_name: temperature
-  measure_value_unit: celsius
-  measure_value_value: 37
-  product: products_animals_003
-  started_at: 2009-07-19 19:13:59.000000000 +02:00
-  updater: users_001
-product_measurements_002:
-  creator: users_001
-  indicator_datatype: measure
-  indicator_name: net_mass
-  measure_value_unit: kilogram
-  measure_value_value: 81.5
-  product: products_animals_003
-  started_at: 2009-07-19 19:13:59.000000000 +02:00
-  updater: users_001
+class ProductReadingTask < Ekylibre::Record::Base
+  include Taskable, TimeLineable, ReadingStorable
+  belongs_to :product
+  belongs_to :reporter, class_name: "Worker"
+  belongs_to :tool, class_name: "Product"
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :integer_value, allow_nil: true, only_integer: true
+  validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
+  validates_length_of :absolute_measure_value_unit, :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, :originator_type, allow_nil: true, maximum: 255
+  validates_inclusion_of :boolean_value, in: [true, false]
+  validates_presence_of :indicator_datatype, :indicator_name, :product, :started_at
+  #]VALIDATORS]
+
+  validate do
+    if self.product and self.indicator
+      unless self.product.indicators.include?(self.indicator)
+        errors.add(:indicator_name, :invalid)
+      end
+    end
+  end
+
+  after_create do
+    self.product.read!(self.indicator, self.value, at: self.stopped_at)
+    # reading = self.product_readings.build(product: self.product, indicator: self.indicator, read_at: self.stopped_at)
+    # reading.value = self.value
+    # reading.save!
+  end
+
+  def siblings
+    self.product.reading_tasks
+  end
+
+end

@@ -414,7 +414,6 @@ arb:
         comment: "تعليق" #?
         product_id: "الانتاج" #?
         updater: "التحدبث" #?
-      product_indicator_datum: #?
       product_localization:
         # container: "Contenant"
         # started_at: "Entrée"
@@ -474,6 +473,7 @@ arb:
         product_id: "الانتاج" #?
         sales_invoice_items: "طرق تسدسد الفاتورة" #?
         started_at: "ابتدأ يوم\_" #?
+      product_reading: #?
       product_specy: #?
       product_stock:  #?
         critic_quantity_min: "الكمية المنتقدة كحد ادنى" #?
@@ -922,7 +922,6 @@ arb:
       product_category: "فئة الانتاج" #?
       product_component: "عنصر الانتاج" #?
       # product_group: "Groupe de produit"
-      # product_indicator_datum: "Valeur d’indicateur"
       # product_linkage: "Lien entre produits"
       # product_localization: "Passage d’un produit en un lieu"
       # product_membership: "Passage d’un produit dans un groupe"
@@ -932,12 +931,13 @@ arb:
       product_nature_component: "عنصر الانتاج" #?
       product_nature_price: "الاسعار" #?
       # product_nature_variant: "Variante de type de produit"
-      # product_nature_variant_indicator_datum: "Valeur d’indicateur de variante"
+      # product_nature_variant_reading: "Valeur d’indicateur de variante"
       # product_ownership: "Propriété de produit"
       product_price_listing: "فئة الفرد" #?
       product_price_template: "الاسعار" #?
       # product_process: "Processus"
       # product_process_phase: "Phase de processus"
+      # product_reading: "Valeur d’indicateur"
       product_stock: "سهم الانتاج" #?
       product_stock_move: "حركة السهم" #?
       product_transfer: "تحول او ضياع السهم" #?
@@ -1406,9 +1406,7 @@ arb:
     incoming_payment_uses: "اجزاء الدفعات" #?
     incoming_payments: "الدفعات"
     # indicator: "Indicateur"
-    # indicator_data: "Indicateur"
     # indicator_datatype: "Type de l’indicateur"
-    # indicator_datum: "Indicator datum"
     # indicator_name: "Indicateur"
     # indicators: "Indicateurs"
     indirect_links: "روابط مباشرة"
@@ -1531,8 +1529,6 @@ arb:
     # measure_value: "Valeur de la mesure"
     # measure_value_unit: "Measure value unit"
     # measure_value_value: "Measure value value"
-    # measured_at: "Mesuré à"
-    # measurements: "Measurements"
     # meat_withdrawal_period: "Délai d’attente (viande)"
     # member: "Membre"
     # members: "Membres"
@@ -1691,15 +1687,15 @@ arb:
     # product_enjoyments: "Product enjoyments"
     # product_events: "Product events"
     product_id: "المنتج" #?
-    # product_indicator_data: "Product indicator data"
     # product_linkages: "Product linkages"
     # product_localizations: "Product localizations"
-    # product_measurements: "Product measurements"
     # product_memberships: "Product memberships"
     # product_mixings: "Product mixings"
     # product_moves: "Product moves"
     # product_nature: "Product nature"
     # product_ownerships: "Product ownerships"
+    # product_reading_tasks: "Product reading_tasks"
+    # product_readings: "Product indicator data"
     # product_way: "Product way"
     productable_products: "المنتجات الممكن انتاجها" #?
     # production: "Production"
@@ -1733,8 +1729,12 @@ arb:
     query: "التساؤل"
     range: "فترة فاصلة" #?
     rate: "معدل سعر الصرف" #?
+    # read_at: "Mesuré à"
+    # reading: "Relevé"
+    # reading_tasks: "Relevé de valeur"
+    # readings: "Relevés"
     real_credit: "الائتمان"
-    # real_currency: "Real currency"
+    # real_currency: "Débit réel"
     # real_currency_rate: "Real currency rate"
     real_debit: "الدين المطلوب"
     reason: "الدافع" #?

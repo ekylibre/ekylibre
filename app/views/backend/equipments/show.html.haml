@@ -31,7 +31,7 @@
     - if resource.linkage_points.any?
       - b.cell(:carried_linkages) do
         = list(:carried_linkages)
-    - b.cell(tl(:x_indicators, :count => resource.indicator_data.count)) do
+    - b.cell(tl(:x_indicators, :count => resource.readings.count)) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :product_indicator_data, :product_id => resource.id})
+        - t.new(:params =>{:controller => :product_readings, :product_id => resource.id})
       = list(:indicators)
