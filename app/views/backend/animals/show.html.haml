@@ -65,12 +65,12 @@
           items = ProductIndicatorDatum.where(indicator_name: indicator.name, product: resource).where("? < measured_at AND measured_at < ?", min, now).order(:measured_at)
           next unless items.any?
           data = []
-          data << [min.to_usec, resource.get(indicator, at: min).to_f.to_s.to_f]
+          data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
           data += items.inject({}) do |hash, pair|
             hash[pair.measured_at.to_usec] = pair.value.to_d
             hash
           end.collect{|k,v| [k, v.to_s.to_f] }
-          data << [now.to_usec, resource.get(indicator, at: now).to_f.to_s.to_f]
+          data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
           series << {name: indicator.human_name, data: data, step: 'left'}
         end
 
