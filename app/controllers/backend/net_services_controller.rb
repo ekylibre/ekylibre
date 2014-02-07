@@ -18,7 +18,7 @@
 #
 
 class Backend::NetServicesController < BackendController
-  manage_restfully
+  manage_restfully t3e: {name: :name}
 
   unroll
 
