@@ -24,7 +24,7 @@ module Exchanges
             rescue
               break
             end
-            unless FinancialYear.find_by_started_on_and_stopped_on(started_on, stopped_on)
+            unless FinancialYear.find_by_started_at_and_stopped_at(started_on, stopped_on)
               FinancialYear.create!(started_at: started_on, stopped_at: stopped_on)
             end
             line = line.encode("utf-8").split(/\;/)
@@ -34,12 +34,12 @@ module Exchanges
               end
             elsif line[0] == "E"
               unless journal = Journal.find_by_code(line[3])
-                journal = Journal.create!(code: line[3], name: line[3], nature: Journal.natures[-1][1].to_s, closed_on: started_on-1)
+                journal = Journal.create!(code: line[3], name: line[3], nature: Journal.natures[-1][1].to_s, closed_at: started_on-1)
               end
               number = line[4].blank? ? "000000" : line[4]
               line[2] = Date.civil(line[2][4..7].to_i, line[2][2..3].to_i, line[2][0..1].to_i)
-              unless entry = journal.entries.find_by_number_and_printed_on(number, line[2])
-                entry = journal.entries.create!(number: number, printed_on: line[2])
+              unless entry = journal.entries.find_by_number_and_printed_at(number, line[2])
+                entry = journal.entries.create!(number: number, printed_at: line[2])
               end
               unless account = Account.find_by_number(line[1])
                 account = Account.create!(number: line[1], name: line[1])
