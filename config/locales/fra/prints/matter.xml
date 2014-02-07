@@ -3,10 +3,10 @@
 	<property name="ireport.zoom" value="1.3310000000000093"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
-	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
-	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
-	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
-	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Title" fontName="Open Sans" fontSize="50" isBold="true" pdfFontName="Open Sans"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Open Sans" fontSize="12"/>
 	<style name="Row" mode="Transparent"/>
 	<style name="table">
 		<box>
@@ -153,14 +153,14 @@
 			<staticText>
 				<reportElement uuid="762330c6-a035-463c-be4a-d3d1f4e26fd6" style="Title" mode="Opaque" x="-21" y="25" width="596" height="41" backcolor="#688ED8"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<textField>
 				<reportElement uuid="662de52c-0c71-4d48-aa52-88a284773ba8" x="0" y="25" width="415" height="41" forecolor="#FFFFFF"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="24" isBold="false"/>
+					<font fontName="Open Sans" size="24" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
@@ -173,7 +173,7 @@
 			<textField isBlankWhenNull="true">
 				<reportElement uuid="82d6a344-4d57-4408-8b15-28595d78b787" x="52" y="74" width="88" height="22"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{race-name}]]></textFieldExpression>
 			</textField>
@@ -191,7 +191,7 @@
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
 				<reportElement uuid="affdffdc-32dd-48d1-a280-349fec173194" x="282" y="74" width="62" height="22"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans"/>
+					<font fontName="Open Sans"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{born-at}]]></textFieldExpression>
 			</textField>
@@ -204,14 +204,14 @@
 			<staticText>
 				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="0" y="74" width="53" height="22"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[variété]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="52d5043d-384e-4840-a3c3-eb48a3871d11" style="Column header" x="160" y="74" width="122" height="22"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[date de production]]></text>
 			</staticText>

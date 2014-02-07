@@ -4,10 +4,10 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="480"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.xml"]]></template>
-	<style name="Title" fontName="DejaVu Sans" fontSize="50" isBold="true" pdfFontName="Times-Bold"/>
-	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
-	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
-	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<style name="Title" fontName="Open Sans" fontSize="50" isBold="true" pdfFontName="Open Sans"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Open Sans" fontSize="12"/>
 	<style name="Row" mode="Transparent"/>
 	<subDataset name="sale_items" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
 		<queryString language="xPath">
@@ -207,7 +207,7 @@
 				<staticText>
 					<reportElement style="strong" mode="Opaque" x="0" y="33" width="544" height="2" backcolor="#7C9DDD" uuid="cbc83fb6-5fe3-4a5f-aaed-ad8878ca75a7"/>
 					<textElement verticalAlignment="Middle">
-						<font pdfFontName="Times-Roman"/>
+						<font pdfFontName="Open Sans"/>
 					</textElement>
 					<text><![CDATA[]]></text>
 				</staticText>
@@ -216,7 +216,7 @@
 						<printWhenExpression><![CDATA[$F{credit} == "true"]]></printWhenExpression>
 					</reportElement>
 					<textElement verticalAlignment="Middle">
-						<font fontName="Open Sans Light" size="12" isItalic="true"/>
+						<font fontName="Open Sans" size="12" isItalic="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA["Lié à la facture "+$F{invoice-credit-number}]]></textFieldExpression>
 				</textField>
@@ -235,28 +235,28 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="0" y="0" width="70" height="35" uuid="e9d0ed32-7c70-4573-ac89-3b121d3c250c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Code]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="70" y="0" width="137" height="35" uuid="bd4cb338-364f-45d0-86b8-b8b9bc736141"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Désignation]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="207" y="0" width="51" height="35" uuid="81560c3d-ba73-4193-b9b6-dd9c17f21cd1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Qté.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="258" y="0" width="85" height="35" uuid="5de0274d-7863-48ea-8190-985687753255"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Prix unitaire
  HT]]></text>
@@ -264,21 +264,21 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="343" y="0" width="71" height="35" uuid="1bc74b56-51d2-4b66-9afd-718773705fb2"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Montant HT]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="414" y="0" width="76" height="35" uuid="9a274a35-2948-4ab7-8cdc-423e7c842e5c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Montant TVA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="490" y="0" width="54" height="35" uuid="78c7a07c-7dc5-4928-8beb-f4d5b170e2be"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 				</textElement>
 				<text><![CDATA[Taux TVA]]></text>
 			</staticText>
@@ -383,14 +383,14 @@
 			<staticText>
 				<reportElement style="label-strong" mode="Transparent" x="258" y="11" width="85" height="32" uuid="1c01c258-98f5-40a2-b54f-98d66d34e25d"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans Semibold" size="10" isBold="false"/>
+					<font fontName="Open Sans" size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[  Totaux]]></text>
 			</staticText>
 			<textField>
 				<reportElement style="label-strong" x="258" y="42" width="154" height="31" uuid="2dd91c21-afd5-4d55-9b01-dc9356042c07"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Open Sans Semibold" isBold="false"/>
+					<font fontName="Open Sans" isBold="false"/>
 				</textElement>
 				<textFieldExpression><![CDATA["  Net à payer ( "+$F{currency}+" )"]]></textFieldExpression>
 			</textField>
@@ -406,7 +406,7 @@
 					<printWhenExpression><![CDATA[$F{state} == "refused"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans Light" size="24" isBold="true"/>
+					<font fontName="Open Sans" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[ANNULE]]></text>
 			</staticText>
@@ -415,7 +415,7 @@
 					<printWhenExpression><![CDATA[$F{state} == "draft"]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans Light" size="24" isBold="true"/>
+					<font fontName="Open Sans" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[BROUILLON]]></text>
 			</staticText>
@@ -447,7 +447,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="118" y="13" width="332" height="2" backcolor="#7C9DDD" uuid="3c317b4e-0f4a-4f81-84f1-ad99e10b61aa"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -481,21 +481,21 @@
 			<staticText>
 				<reportElement style="label" mode="Transparent" x="331" y="37" width="126" height="22" uuid="a2888312-9ded-4ce8-8277-81d11ba47548"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Open Sans Semibold" size="8" isBold="false"/>
+					<font fontName="Open Sans" size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Net à payer]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="label" mode="Transparent" x="138" y="37" width="79" height="22" uuid="2ba1437e-fb6a-4748-92c0-1662fc680f90"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Open Sans Semibold" size="8" isBold="false"/>
+					<font fontName="Open Sans" size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Numéro Pièce]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="label" mode="Transparent" x="0" y="37" width="53" height="22" uuid="1b70041e-02af-44d0-b27a-f170010feb01"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Open Sans Semibold" size="8" isBold="false"/>
+					<font fontName="Open Sans" size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Client]]></text>
 			</staticText>
@@ -509,7 +509,7 @@
 			<staticText>
 				<reportElement style="label" mode="Transparent" x="331" y="8" width="126" height="29" uuid="25783841-7346-4a4b-8b62-009a5dd05294"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
-					<font fontName="Open Sans Semibold" size="8" isBold="false"/>
+					<font fontName="Open Sans" size="8" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Date limite de paiement]]></text>
 			</staticText>
@@ -553,7 +553,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="118" y="71" width="332" height="2" backcolor="#7C9DDD" uuid="acaceaa4-1492-48e5-8b79-8b21447b1625"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -566,7 +566,7 @@
 			<textField>
 				<reportElement style="address" x="3" y="82" width="540" height="17" uuid="f2ed0a8a-6895-40e4-a004-5ab79e8273a4"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="DejaVu Sans" size="6"/>
+					<font fontName="Open Sans" size="6"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{supplier-vat-number} == null ? "" : "N° TVA Intracommunautaire : "+$F{supplier-vat-number})+
 ($F{supplier-siren} == null ? "" : " - SIREN : "+$F{supplier-siren})+

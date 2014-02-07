@@ -260,7 +260,7 @@
 					<printWhenExpression><![CDATA[$F{dead-at} != null && $F{active} == false]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans Light" size="24" isBold="true"/>
+					<font fontName="Open Sans" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SORTIE]]></text>
 			</staticText>
@@ -269,7 +269,7 @@
 					<printWhenExpression><![CDATA[$F{dead-at} == null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans Light" size="24" isBold="true"/>
+					<font fontName="Open Sans" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[PRESENT]]></text>
 			</staticText>
@@ -290,7 +290,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="0" y="33" width="415" height="2" backcolor="#7C9DDD" uuid="6b3b0803-00f0-48c7-b822-16a58f7bba05"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -324,7 +324,7 @@
 					<printWhenExpression><![CDATA[$F{dead-at} != null]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Open Sans Light" size="24" isBold="true"/>
+					<font fontName="Open Sans" size="24" isBold="true"/>
 				</textElement>
 				<text><![CDATA[DECEDE]]></text>
 			</staticText>
@@ -348,7 +348,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="1" y="20" width="212" height="2" backcolor="#7C9DDD" uuid="d8e970b1-ab1e-4be5-91e5-7d6310e6eace"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -498,7 +498,7 @@
 			<staticText>
 				<reportElement style="strong" positionType="Float" mode="Opaque" x="292" y="22" width="264" height="2" backcolor="#7C9DDD" uuid="118b1109-faab-46ed-8b39-cf6833b1c3e0"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -514,7 +514,7 @@
 			<staticText>
 				<reportElement style="strong" positionType="Float" mode="Opaque" x="0" y="22" width="555" height="2" backcolor="#7C9DDD" uuid="1d09461f-bf41-4f21-9bce-51ed4dc3d252"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -605,7 +605,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="1" y="22" width="555" height="2" backcolor="#7C9DDD" uuid="3d76d773-7f33-4321-97ce-9faa6a44b3e4"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -813,7 +813,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="0" y="22" width="555" height="2" backcolor="#7C9DDD" uuid="71b6ea50-573a-49f2-aa29-65439441a737"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -855,7 +855,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="115" y="10" width="347" height="2" backcolor="#7C9DDD" uuid="35d5ce42-0709-465b-a34f-cc6e18657954"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -873,7 +873,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="115" y="10" width="347" height="2" backcolor="#7C9DDD" uuid="dcf2f93d-5d06-4193-b15a-4ad2dcfab135"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
