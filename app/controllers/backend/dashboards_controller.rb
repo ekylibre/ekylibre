@@ -34,7 +34,8 @@ class Backend::DashboardsController < BackendController
     @cast =  InterventionCast.where("shape IS NOT NULL").first
     if zone = CultivableZone.first
       if reading = zone.reading(:shape)
-        wkt = reading.class.connection.select_one("SELECT ST_AsText(ST_Transform(ST_Centroid(ST_SetSRID(geometry_value, 2154)), 4326)) AS centroid, ST_AsText(ST_Force2D(ST_Transform(ST_SetSRID(geometry_value, 2154), 4326))) AS shape FROM #{reading.class.table_name} WHERE id = #{reading.id}").symbolize_keys
+        # wkt = reading.class.connection.select_one("SELECT ST_AsText(ST_Transform(ST_Centroid(ST_SetSRID(geometry_value, 2154)), 4326)) AS centroid, ST_AsText(ST_Force2D(ST_Transform(ST_SetSRID(geometry_value, 2154), 4326))) AS shape FROM #{reading.class.table_name} WHERE id = #{reading.id}").symbolize_keys
+        wkt = reading.class.connection.select_one("SELECT ST_AsText(ST_Transform(ST_Centroid(ST_SetSRID(geometry_value, 2154)), 4326)) AS centroid, ST_AsText(ST_Transform(ST_SetSRID(ST_Force_2D(geometry_value), 2154), 4326)) AS shape FROM #{reading.class.table_name} WHERE id = #{reading.id}").symbolize_keys
         factory = RGeo::Geographic.spherical_factory
         @coordinates = factory.parse_wkt(wkt[:centroid])
         @points = factory.parse_wkt(wkt[:shape]).collect do |g|
