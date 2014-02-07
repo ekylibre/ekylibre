@@ -10,7 +10,7 @@ class InvalidExpression < ArgumentError
 end
 
 class Measure
-  attr_reader :value, :unit
+  attr_reader :unit, :value
   cattr_reader :dimensions
   delegate :symbol, to: :nomenclature_unit
 
@@ -22,7 +22,9 @@ class Measure
     # Lists all units. Can be filtered on a given dimension
     def units(dimension = nil)
       return @@units.all unless dimension
-      raise ArgumentError.new("Unknown dimension #{dimension.inspect}") unless @@dimensions.all.include?(dimension.to_s)
+      unless @@dimensions.all.include?(dimension.to_s)
+        raise ArgumentError, "Unknown dimension #{dimension.inspect}"
+      end
       @@units.items.select do |n, i|
         i.dimension.to_s == dimension.to_s
       end.keys.map(&:to_sym)

@@ -37,6 +37,8 @@ fra:
       index: "Répartitions analytiques"
       new: "Nouvelle répartition analytique"
       show: "Répartition analytique"
+    backend/animal_foods:
+      index: "Alimentation animale"
     backend/animal_groups:
       edit: "Modifier le groupe d’animaux\_: %{name}"
       index: "Groupes d’animaux"
@@ -48,6 +50,8 @@ fra:
       new: "Nouveau produit vétérinaire"
       # picture: "Picture backend/animal medicine"
       show: "Produit vétérinaire\_: %{name}"
+    backend/animal_products:
+      index: "Produits animaux"
     backend/animals:
       edit: "Modifier l’animal\_: %{name}"
       index: "Animaux"
@@ -421,10 +425,10 @@ fra:
       show: "Mes informations"
       statistics: "Mes statistiques" #?
     backend/net_services:
-      # edit: "Edit backend/net service"
-      # index: "Index backend/net service"
-      # new: "New backend/net service"
-      # show: "Show backend/net service"
+      edit: "Modifier un service en ligne"
+      index: "Services en ligne"
+      new: "Nouveau service en ligne"
+      show: "Service en ligne\_: %{name}"
     backend/observations:
       edit: "Modifier une observation"
       new: "Ajouter une observation"
@@ -468,12 +472,18 @@ fra:
       new: "Nouvelle personne"
       # picture: "Picture backend/person"
       show: "Personne\_: %{full_name}"
+    backend/plant_fertilizers:
+      index: "Engrais"
     backend/plant_medicines:
       edit: "Modifier le produit phytosanitaire\_: %{name}"
       index: "Produits phytosanitaires"
       new: "Nouveau produit phytosanitaire"
       # picture: "Picture backend/plant medicine"
       show: "Produit phytosanitaire\_: %{name}"
+    backend/plant_products:
+      index: "Produits végétaux"
+    backend/plant_seedlings:
+      index: "Plants et semences"
     backend/plants:
       edit: "Modifier la culture\_: %{name}"
       index: "Cultures"
@@ -695,8 +705,10 @@ fra:
     backend/affairs: "Affaires"
     backend/aggregators: "Agrégateurs"
     # backend/analytic_distributions: "Backend/analytic distributions"
+    # backend/animal_foods: "Backend/animal foods"
     backend/animal_groups: "Groupes d’animaux"
     # backend/animal_medicines: "Backend/animal medicines"
+    # backend/animal_products: "Backend/animal products"
     backend/animals: "Animaux"
     backend/bank_statements: "Relevés de compte bancaire"
     # backend/building_divisions: "Backend/building divisions"
@@ -795,7 +807,10 @@ fra:
     backend/outgoing_payment_modes: "Modes de décaissement"
     backend/outgoing_payments: "Décaissements"
     backend/people: "Personnes"
+    # backend/plant_fertilizers: "Backend/plant fertilizers"
     backend/plant_medicines: "Produits phytosanitaires"
+    # backend/plant_products: "Backend/plant products"
+    # backend/plant_seedlings: "Backend/plant seedlings"
     backend/plants: "Cultures"
     # backend/postal_zones: "Backend/postal zones"
     # backend/prescriptions: "Backend/prescriptions"
@@ -1253,6 +1268,7 @@ fra:
     international_reduce_vat_collected: "Taux réduit à 2,1%"
     international_vat_collected: "Opérations réalisées dans les DOM"
     interval: "Intervalle personnalisé"
+    inventories: "Inventaires"
     inventory: "Inventaire"
     inventory_print: "Imprimer l’inventaire"
     invoiced_amount: "Montant facturé"
@@ -1375,7 +1391,7 @@ fra:
     monthly: "Mensuelle"
     months: "Mois"
     moved_at: "Fait le"
-    movement: "Mouvements"
+    movements: "Mouvements"
     moves: "Mouvements de stocks"
     my_company: "Saisissez les informations sur votre société"
     my_self: "Saisissez les informations vous concernant"

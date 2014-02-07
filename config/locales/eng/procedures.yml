@@ -21,7 +21,7 @@ eng:
       # incoming_delivery: "%{product} est réceptionné"
       # measurement: "%{reporter} mesure %{indicator}"
       # merging: "%{absorber} fusionne avec %{product}"
-      # movement: "%{product} va à l'emplacement de %{localizable}"
+      # movements: "%{product} va à l'emplacement de %{localizable}"
       # outgoing_delivery: "%{product} est expédié"
       # owner_change: "%{product} change de propriétaire pout %{owner}"
       # ownership_loss: "%{product} perd son propriétaire"

@@ -49,7 +49,6 @@ class InterventionCast < Ekylibre::Record::Base
   validates_length_of :roles, allow_nil: true, maximum: 320
   validates_presence_of :intervention, :reference_name
   #]VALIDATORS]
-  # composed_of :population, class_name: "Measure", :mapping => [%w(measure_population value), %w(measure_unit unit)]
 
   delegate :name, to: :actor, prefix: true
   delegate :evaluated_price, to: :actor

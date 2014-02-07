@@ -37,6 +37,8 @@ jpn:
       # index: "Répartitions analytiques"
       # new: "Nouvelle répartition analytique"
       # show: "Répartition analytique"
+    backend/animal_foods:
+      # index: "Alimentation animale"
     backend/animal_groups:
       # edit: "Modifier le groupe d’animaux\_: %{name}"
       # index: "Groupes d’animaux"
@@ -47,6 +49,8 @@ jpn:
       # index: "Produits vétérinaires"
       # new: "Nouveau produit vétérinaire"
       # show: "Produit vétérinaire\_: %{name}"
+    backend/animal_products:
+      # index: "Produits animaux"
     backend/animals:
       # edit: "Modifier l’animal\_: %{name}"
       # index: "Animaux"
@@ -382,7 +386,11 @@ jpn:
       # change_password: "Changer de mot de passe"
       # show: "Mes informations"
       # statistics: "Mes statistiques"
-    backend/net_services: #?
+    backend/net_services:
+      # edit: "Modifier un service en ligne"
+      # index: "Services en ligne"
+      # new: "Nouveau service en ligne"
+      # show: "Service en ligne\_: %{name}"
     backend/observations:
       # edit: "Modifier une observation"
       # new: "Ajouter une observation"
@@ -423,11 +431,17 @@ jpn:
       # new: "Nouvelle personne"
       # show: "Personne\_: %{full_name}"
     backend/places: #?
+    backend/plant_fertilizers:
+      # index: "Engrais"
     backend/plant_medicines:
       # edit: "Modifier le produit phytosanitaire\_: %{name}"
       # index: "Produits phytosanitaires"
       # new: "Nouveau produit phytosanitaire"
       # show: "Produit phytosanitaire\_: %{name}"
+    backend/plant_products:
+      # index: "Produits végétaux"
+    backend/plant_seedlings:
+      # index: "Plants et semences"
     backend/plants:
       # edit: "Modifier la culture\_: %{name}"
       # index: "Cultures"
@@ -1127,6 +1141,7 @@ jpn:
     # international_reduce_vat_collected: "Taux réduit à 2,1%"
     # international_vat_collected: "Opérations réalisées dans les DOM"
     # interval: "Intervalle personnalisé"
+    # inventories: "Inventaires"
     # inventory: "Inventaire"
     # inventory_print: "Imprimer l’inventaire"
     # invoiced_amount: "Montant facturé"
@@ -1254,7 +1269,7 @@ jpn:
     # monthly: "Mensuelle"
     # months: "Mois"
     # moved_at: "Fait le"
-    # movement: "Mouvements"
+    # movements: "Mouvements"
     # moves: "Mouvements de stocks"
     # my_company: "Saisissez les informations sur votre société"
     # my_self: "Saisissez les informations vous concernant"

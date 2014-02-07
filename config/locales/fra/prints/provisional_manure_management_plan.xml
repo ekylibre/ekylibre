@@ -4,10 +4,10 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="246"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
-	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
-	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
-	<style name="Column header" forecolor="#666666" fontName="DejaVu Sans" fontSize="12" isBold="true"/>
-	<style name="Detail" fontName="Arial" fontSize="12">
+	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Open Sans" fontSize="12">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{dead-at} != null]]></conditionExpression>
 			<style mode="Transparent" forecolor="#FF3333" fill="Solid" vAlign="Top" isBold="false" isItalic="false" isUnderline="false"/>
@@ -169,7 +169,7 @@
 				<staticText>
 					<reportElement style="strong" mode="Opaque" x="2" y="24" width="784" height="2" backcolor="#7C9DDD" uuid="3d0054b5-1969-4fcc-af4f-243f0460a2b7"/>
 					<textElement verticalAlignment="Middle">
-						<font pdfFontName="Times-Roman"/>
+						<font pdfFontName="Open Sans"/>
 					</textElement>
 					<text><![CDATA[]]></text>
 				</staticText>
@@ -341,14 +341,14 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="2" y="29" width="784" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="title" x="0" y="0" width="786" height="29" uuid="dc35e306-d03e-4288-b40e-74e3bb33d471"/>
 				<textElement>
-					<font fontName="Open Sans" size="16" pdfFontName="Times-Roman"/>
+					<font fontName="Open Sans" size="16" pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[Plan prévisionnel de fumure (PPF)]]></text>
 			</staticText>
@@ -405,7 +405,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="3740387f-1656-45d4-b5a7-a671b9df52d6"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -421,7 +421,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="6a745fd5-25a2-4de3-87b6-1d920ef1a4c0"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>

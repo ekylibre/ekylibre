@@ -44,13 +44,13 @@ class DocumentArchive < Ekylibre::Record::Base
     Ekylibre.private_directory.join('document-archives')
   end
 
-  belongs_to :document, :counter_cache => :archives_count, inverse_of: :archives
+  belongs_to :document, counter_cache: :archives_count, inverse_of: :archives
   belongs_to :template, class_name: "DocumentTemplate"
   has_attached_file :file, {
-    :path => self.private_directory.join(':id_partition', ':style.:extension').to_s,
-    :styles => {
-      default: {:clean => true, :format => :pdf, :processors => [:reader, :counter, :freezer]},
-      :thumbnail => {:processors => [:sketcher], :format => :jpg}
+    path: self.private_directory.join(':id_partition', ':style.:extension').to_s,
+    styles: {
+      default:   {format: :pdf, processors: [:reader, :counter, :freezer], clean: true},
+      thumbnail: {format: :jpg, processors: [:sketcher]}
     }
   }
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

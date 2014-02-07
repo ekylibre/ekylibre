@@ -33,16 +33,16 @@
           items = ProductIndicatorDatum.where(indicator_name: indicator.name, product: resource).where("? < measured_at AND measured_at < ?", min, now).order(:measured_at)
           next unless items.any?
           data = []
-          data << [min.to_usec, resource.get(indicator, at: min).to_f.to_s.to_f]
+          data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
           data += items.inject({}) do |hash, pair|
             hash[pair.measured_at.to_usec] = pair.value.to_d
             hash
           end.collect{|k,v| [k, v.to_s.to_f] }
-          data << [now.to_usec, resource.get(indicator, at: now).to_f.to_s.to_f]
+          data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
           series << {name: indicator.human_name, data: data, step: "left"}
         end
 
-      = line_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom'}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
+      = line_chart(series, legend: {}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
 
     - b.cell(tl(:x_indicators, :count => resource.indicator_data.count)) do
       = list(:indicators)

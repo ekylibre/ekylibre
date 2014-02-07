@@ -5,10 +5,10 @@
 	<property name="ireport.y" value="349"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="veterinary_booklet"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
-	<style name="Title" fontName="DejaVu Sans" fontSize="30" isBold="true" pdfFontName="Times-Bold"/>
-	<style name="SubTitle" forecolor="#736343" fontName="Arial" fontSize="18"/>
-	<style name="Column header" forecolor="#666666" fontName="DejaVu Sans" fontSize="12" isBold="true"/>
-	<style name="Detail" fontName="Arial" fontSize="12">
+	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
+	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Open Sans" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Open Sans" fontSize="12">
 		<conditionalStyle>
 			<conditionExpression><![CDATA[$F{dead-at} != null]]></conditionExpression>
 			<style mode="Transparent" forecolor="#FF3333" fill="Solid" vAlign="Top" isBold="false" isItalic="false" isUnderline="false"/>
@@ -144,14 +144,14 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="2" y="29" width="784" height="2" backcolor="#7C9DDD" uuid="5b202e71-e4a3-4be8-8dcb-f735cc04164a"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
 				<reportElement style="title" x="0" y="0" width="786" height="29" uuid="dc35e306-d03e-4288-b40e-74e3bb33d471"/>
 				<textElement>
-					<font fontName="Open Sans" size="16" pdfFontName="Times-Roman"/>
+					<font fontName="Open Sans" size="16" pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[Carnet sanitaire]]></text>
 			</staticText>
@@ -181,7 +181,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="192" y="26" width="238" height="44" uuid="6c3b38e3-fa18-4ce1-afca-00110dd02c2a"/>
 				<textElement textAlignment="Center" verticalAlignment="Top">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5" spacingBefore="5"/>
 				</textElement>
 				<text><![CDATA[Issue]]></text>
@@ -194,7 +194,7 @@
 			<staticText>
 				<reportElement style="base" mode="Transparent" x="208" y="48" width="56" height="22" uuid="edc9f11e-f430-4080-9bf8-bd2893724afb"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Non traité]]></text>
@@ -202,7 +202,7 @@
 			<staticText>
 				<reportElement style="base" mode="Transparent" x="287" y="48" width="49" height="22" uuid="8c8d3297-f23b-47c1-bf88-e89a2adde276"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[En cours]]></text>
@@ -224,7 +224,7 @@
 			<staticText>
 				<reportElement style="conditional_state" mode="Transparent" x="365" y="48" width="49" height="21" uuid="7c6117b6-6180-4d24-bcaa-5515d5fa8f19"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Résolu]]></text>
@@ -236,7 +236,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="0" y="0" width="107" height="47" uuid="deabb848-4856-4cdc-9f0f-320115ef4622"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Date début / date fin]]></text>
@@ -244,7 +244,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="107" y="0" width="85" height="47" uuid="8c03c7d1-59ce-4a3e-b107-731138094210"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Animal ou Groupe / n° identification]]></text>
@@ -252,7 +252,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="192" y="0" width="166" height="47" uuid="7f274133-db12-4509-990a-4d5105a59f59"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Date Issue / description]]></text>
@@ -260,7 +260,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="708" y="0" width="78" height="47" uuid="b02f454f-dfb7-4dc4-8434-563f3dff23ca"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Intervenant]]></text>
@@ -268,7 +268,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="358" y="0" width="89" height="47" uuid="f7f32060-e90c-44c5-bdcd-43dda3340a7a"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Ordonnance / prescripteur]]></text>
@@ -276,7 +276,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="447" y="0" width="144" height="16" uuid="da1e41ad-1aa3-4d74-960f-417dd3b212a3"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Traitements]]></text>
@@ -284,7 +284,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="447" y="16" width="144" height="31" uuid="3fb5daae-14c0-4710-9a8c-caba67180cd0"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Médicament / quantité - durée (jour)]]></text>
@@ -292,7 +292,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="591" y="0" width="117" height="30" uuid="47ebaa59-657b-4a3c-bf63-ecec8a5537b8"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Date de remise en vente]]></text>
@@ -300,7 +300,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="591" y="30" width="59" height="17" uuid="81c221d4-ac0f-4d69-b959-9903b6d7d6ca"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Lait]]></text>
@@ -308,7 +308,7 @@
 			<staticText>
 				<reportElement style="table-th" mode="Transparent" x="650" y="30" width="58" height="17" uuid="75f2faed-fe8f-4098-9353-19ff58c25923"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="DejaVu Sans" size="10"/>
+					<font fontName="Open Sans" size="10"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Viande]]></text>
@@ -452,7 +452,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="3740387f-1656-45d4-b5a7-a671b9df52d6"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
@@ -468,7 +468,7 @@
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="117" y="13" width="591" height="2" backcolor="#7C9DDD" uuid="6a745fd5-25a2-4de3-87b6-1d920ef1a4c0"/>
 				<textElement verticalAlignment="Middle">
-					<font pdfFontName="Times-Roman"/>
+					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
