@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="indicators">
     <attributes>
-      <attribute name="datatype" type="choice" choices="string, integer, decimal, boolean, choice, measure, point, multi_polygon, geometry" required="true"/>
+      <attribute name="datatype" type="choice" choices="string, integer, decimal, boolean, choice, measure, point, geometry" required="true"/>
       <attribute name="related_to" type="choice" choices="whole, individual" default="individual"/>
       <attribute name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
       <attribute name="gathering" type="choice" choices="proportional_to_population"/>

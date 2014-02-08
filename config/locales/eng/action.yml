@@ -154,7 +154,7 @@ eng:
     backend/cultivable_zones:
       # edit: "Modifier la zone cultivable\_: %{name}"
       # index: "Zones cultivables"
-      # new: "Nouvelle zone cultivable\_: %{name}"
+      # new: "Nouvelle zone cultivable"
       # show: "Zone cultivable %{name}"
     backend/custom_field_choices:
       edit: "Edit the option: %{name}"
@@ -1841,10 +1841,6 @@ eng:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
       zero: "0 incoming payments"
-    x_readings:
-      one: "%{count} indicator"
-      other: "%{count} indicators"
-      zero: "No indicator"
     x_intervention_casts:
       # one: "%{count} intervention"
       # other: "%{count} interventions"
@@ -1889,6 +1885,10 @@ eng:
       one: "1 purchase"
       other: "%{count} purchases"
       zero: "0 purchases"
+    x_readings:
+      one: "%{count} indicator"
+      other: "%{count} indicators"
+      zero: "No indicator"
     x_results:
       one: "%{count} result found"
       other: "%{count} results found"

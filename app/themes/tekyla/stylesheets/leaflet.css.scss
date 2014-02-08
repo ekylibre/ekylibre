@@ -1,4 +1,5 @@
 /* required styles */
+$map-button-size: round(2 * $fs-normal);
 
 .leaflet-map-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow, .leaflet-tile-pane, .leaflet-tile-container, .leaflet-overlay-pane, .leaflet-shadow-pane, .leaflet-marker-pane, .leaflet-popup-pane, .leaflet-overlay-pane svg, .leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer {
   position: absolute;
@@ -221,29 +222,53 @@
 
 /* general toolbar styles */
 
+.leaflet-control-layers-toggle {
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  display: block;
+}
+
+
 .leaflet-bar {
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
-  border-radius: 4px;
+  $default-opacity: 0.8;
+  // box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+  @include border-radius($default-border-radius * 2);
+  border: $default-border-radius solid rgba($neutral-color, $default-opacity / 2);
   a {
-    background-color: #fff;
-    border-bottom: 1px solid #ccc;
-    width: 26px;
-    height: 26px;
-    line-height: 26px;
+    @include is-icon;
+    background-color: rgba($mapbar-background-color, $default-opacity);
+    border-bottom: $menu-border;
+    width: $map-button-size;
+    height: $map-button-size;
+    line-height: $map-button-size;
     display: block;
-    text-align: center;
+    @include text-align(center);
     text-decoration: none;
-    color: black;
+    color: $text-color;
     &:hover {
-      background-color: #fff;
-      border-bottom: 1px solid #ccc;
-      width: 26px;
-      height: 26px;
-      line-height: 26px;
-      display: block;
-      text-align: center;
-      text-decoration: none;
-      color: black;
+      background-color: background-hover($mapbar-background-color);
+    }
+    &:first-child {
+      @include border-top-radius($default-border-radius);
+    }
+    &:last-child {
+      @include border-bottom-radius($default-border-radius);
+      border-bottom: none;
+    }
+    &.leaflet-disabled {
+      &, &:active, &:focus, &:hover {
+        outline: none;
+        cursor: default;
+        background-color: rgba($neutral-color, $default-opacity);
+        // color: #BBB;
+        @include opacity(0.5);
+        // @include text-shadow(-1px -1px 0 white);
+      }
+    }
+    .leaflet-touch & {
+      width: 30px;
+      height: 30px;
+      line-height: 30px;
     }
     background-position: 50% 50%;
     background-repeat: no-repeat;
@@ -251,49 +276,17 @@
   }
 }
 
-.leaflet-control-layers-toggle {
-  background-position: 50% 50%;
-  background-repeat: no-repeat;
-  display: block;
-}
-
-.leaflet-bar a {
-  &:hover {
-    background-color: #f4f4f4;
-  }
-  &:first-child {
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-  }
-  &:last-child {
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-bottom: none;
-  }
-  &.leaflet-disabled {
-    cursor: default;
-    background-color: #f4f4f4;
-    color: #bbb;
-  }
-}
-
-.leaflet-touch .leaflet-bar a {
-  width: 30px;
-  height: 30px;
-  line-height: 30px;
-}
-
 /* zoom control */
+.leaflet-control-zoom-in, .leaflet-control-zoom-out {
+  @include text-align(center);
+}
 
 .leaflet-control-zoom-in {
-  font: bold $fs-normal/$lh-normal $base-font-family;
-  text-indent: 1px;
+  @include use-icon(plus);
 }
 
 .leaflet-control-zoom-out {
-  font: bold $fs-normal/$lh-normal $base-font-family;
-  text-indent: 1px;
-  font-size: 20px;
+  @include use-icon(minus);
 }
 
 .leaflet-touch {
@@ -314,13 +307,13 @@
 }
 
 .leaflet-control-layers-toggle {
-  background-image: url(images/layers.png);
+  // background-image: url(images/layers.png);
   width: 36px;
   height: 36px;
 }
 
 .leaflet-retina .leaflet-control-layers-toggle {
-  background-image: url(images/layers-2x.png);
+  // background-image: url(images/layers-2x.png);
   background-size: 26px 26px;
 }
 
@@ -544,21 +537,6 @@
   border-bottom-right-radius: 0;
 }
 
-.leaflet-draw-toolbar a {
-  background-image: url('images/spritesheet.png');
-  background-repeat: no-repeat;
-}
-
-.leaflet-retina .leaflet-draw-toolbar a {
-  background-image: url('images/spritesheet-2x.png');
-  background-size: 270px 30px;
-}
-
-.leaflet-draw a {
-  display: block;
-  text-align: center;
-  text-decoration: none;
-}
 
 /* ================================================================== */
 /* Toolbar actions menu
@@ -570,14 +548,14 @@
   margin: 0;
   padding: 0;
   position: absolute;
-  left: 26px;
+  left: $map-button-size;
   /* leaflet-draw-toolbar.left + leaflet-draw-toolbar.width */
   top: 0;
   white-space: nowrap;
 }
 
 .leaflet-right .leaflet-draw-actions {
-  right: 26px;
+  right: $map-button-size;
   left: auto;
 }
 
@@ -622,14 +600,14 @@
 .leaflet-draw-actions-top {
   margin-top: 1px;
   a {
-    height: 27px;
-    line-height: 27px;
+    height: $map-button-size + 1px;
+    line-height: $map-button-size + 1px;
   }
 }
 
 .leaflet-draw-actions-bottom a {
-  height: 27px;
-  line-height: 27px;
+  height: $map-button-size + 1px;
+  line-height: $map-button-size + 1px;
 }
 
 .leaflet-draw-actions a:hover {
@@ -637,8 +615,8 @@
 }
 
 .leaflet-draw-actions-top.leaflet-draw-actions-bottom a {
-  height: 26px;
-  line-height: 26px;
+  height: $map-button-size;
+  line-height: $map-button-size;
 }
 
 /* ================================================================== */
@@ -647,31 +625,25 @@
 
 .leaflet-draw-toolbar {
   .leaflet-draw-draw-polyline {
-    background-position: -2px -2px;
+    @include use-icon(angle-down);
   }
   .leaflet-draw-draw-polygon {
-    background-position: -31px -2px;
+    @include use-icon(star-empty);
   }
   .leaflet-draw-draw-rectangle {
-    background-position: -62px -2px;
+    @include use-icon(check-empty);
   }
   .leaflet-draw-draw-circle {
-    background-position: -92px -2px;
+    @include use-icon(circle-blank);
   }
   .leaflet-draw-draw-marker {
-    background-position: -122px -2px;
+    @include use-icon(map-marker);
   }
   .leaflet-draw-edit-edit {
-    background-position: -152px -2px;
+    @include use-icon(edit);
   }
   .leaflet-draw-edit-remove {
-    background-position: -182px -2px;
-  }
-  .leaflet-draw-edit-edit.leaflet-disabled {
-    background-position: -212px -2px;
-  }
-  .leaflet-draw-edit-remove.leaflet-disabled {
-    background-position: -242px -2px;
+    @include use-icon(remove);
   }
 }
 

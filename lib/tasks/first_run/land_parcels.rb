@@ -144,13 +144,13 @@ load_data :land_parcels do |loader|
       land_parcel_nature_variant = ProductNatureVariant.import_from_nomenclature(:clay_limestone_land_parcel)
 
       # Load file
-      CSV.foreach(path, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
+      CSV.foreach(path, encoding: "UTF-8", col_sep: ",", headers: true, quote_char: "'") do |row|
         r = OpenStruct.new(:ilot_work_number => row[0],
                            :campaign => row[1],
                            :land_parcel_work_number => row[2],
                            :land_parcel_name => row[3].capitalize,
                            :land_parcel_area => row[4].blank? ? nil : row[4].to_d,
-                           :land_parcel_shape => row[5],
+                           land_parcel_shape: row[5],
                            :land_parcel_variant_nomen => row[6].blank? ? nil : row[6].to_sym,
                            :land_parcel_available_water_capacity => row[7].blank? ? nil : row[7].to_d,
                            born_at: Time.new(1955, 1, 1, 10, 0, 0, "+00:00")
@@ -223,10 +223,13 @@ load_data :land_parcels do |loader|
                                                    :identification_number => r.cultivable_zone_work_number)
 
         if r.cultivable_zone_shape
-          cultivable_zone.read!(:shape, r.cultivable_zone_shape, at: r.born_at)
-          ind_area = cultivable_zone.shape_area
-          area = (ind_area / 10000).round(2)
-          cultivable_zone.read!(:population, area, at: r.born_at)
+          # puts cultivable_zone.work_number
+          unless cultivable_zone.work_number == "ZC17"
+            cultivable_zone.read!(:shape, r.cultivable_zone_shape, at: r.born_at)
+            ind_area = cultivable_zone.shape_area
+            area = (ind_area / 10000).round(2)
+            cultivable_zone.read!(:population, area, at: r.born_at)
+          end
         elsif r.cultivable_zone_area
           cultivable_zone.read!(:population, r.cultivable_zone_area, at: r.born_at)
         end

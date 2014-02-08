@@ -113,5 +113,5 @@ task :schema => :environment do
   #   f.write("end\n")
   # end
 
-  print "#{errors.to_s.rjust(3)} errors\n"
+  puts "#{errors.to_s.rjust(3)} errors"
 end

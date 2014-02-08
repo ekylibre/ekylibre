@@ -1,5 +1,6 @@
 desc "Removes end spaces"
 task :code do
+  print " - White spaces: "
   files  = []
   Dir.chdir(Rails.root) do
     files += Dir["Gemfile*"]
@@ -17,13 +18,11 @@ task :code do
     files += Dir["**/*.sass"]
     files += Dir["**/*.css"]
   end
+  count = 0
   files.sort!
   for file in files
     next if File.directory?(file)
-    original = nil
-    File.open(file, "rb") do |f|
-      original = f.read
-    end
+    original = File.read(file)
     source = original.dup
 
     # source.gsub!(/(\w+)\ +/, '\1 ')
@@ -31,10 +30,10 @@ task :code do
     # source.gsub!(/\n+\n$/, "\n")
 
     if source != original
-      File.open(file, "wb") do |f|
-        f.write source
-      end
+      File.write(file, source)
+      count += 1
     end
   end
 
+  puts "#{count.to_s.rjust(3)} files updated"
 end

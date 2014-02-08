@@ -39,7 +39,7 @@ load_data :buildings do |loader|
     loader.count :buildings_shapes do |w|
       #############################################################################
       born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
-      RGeo::Shapefile::Reader.open(file.to_s, :srid => 2154) do |file|
+      RGeo::Shapefile::Reader.open(file.to_s, srid: 2154) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
           building = Building.find_by_work_number(record.attributes['WORK_NUMBE'])

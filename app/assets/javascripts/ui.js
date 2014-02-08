@@ -774,7 +774,6 @@
     // });
 
 
-
     $(document).ready(function () {
         $("input[type='checkbox'][data-show], input[type='checkbox'][data-hide], input[type='radio'][data-show], input[type='radio'][data-hide]").each($.toggleCheckboxes);
         $("select[data-auto-timezone]").val(jstz.determine().name());
