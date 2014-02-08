@@ -44,8 +44,8 @@
 
       = line_chart(series, legend: {}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
 
-    - b.cell(tl(:x_indicators, :count => resource.readings.count)) do
-      = list(:indicators)
+    - b.cell(tl(:x_readings, count: resource.readings.count)) do
+      = list(:readings)
 
   - b.hbox do
     - b.cell(:interventions) do

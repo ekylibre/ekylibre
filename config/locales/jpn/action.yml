@@ -1735,7 +1735,7 @@ jpn:
       # one: "%{count} encaissement"
       # other: "%{count} encaissements"
       # zero: "0 encaissement"
-    x_indicators:
+    x_readings:
       # one: "%{count} indicateur"
       # other: "%{count} indicateurs"
       # zero: "0 indicateur"

@@ -12,7 +12,7 @@
 
   =form_tag do
     =field_set :personalized_mail do
-      .count=tc(:mails, :count => @mails.size)
+      .count=tc(:mails, count: @mails.size)
       .count=tc(:available_columns, :columns => @columns.collect{|x| link_to(x, "#", "data-insert-into" => "#mail_body", "data-insert" => "{{#{x}}}").html_safe}.to_sentence).html_safe
       =field tc(:expedier), text_field_tag(:from, session[:mail][:from]||current_user.email, :size=>40)
       =field tc(:subject),  text_field_tag(:mail_subject, session[:mail][:subject]||tc(:default_subject, :company=>Entity.of_company.full_name), :size=>80)

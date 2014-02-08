@@ -127,7 +127,7 @@ GEM
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
     fastercsv (1.5.5)
-    feedzirra (0.7.0)
+    feedzirra (0.7.1)
       curb (~> 0.8.1)
       loofah (~> 1.2.1)
       sax-machine (~> 0.2.1)
@@ -280,8 +280,8 @@ GEM
       activesupport (>= 3.0)
       sprockets (~> 2.8)
     state_machine (1.2.0)
-    term-ansicolor (1.2.2)
-      tins (~> 0.8)
+    term-ansicolor (1.3.0)
+      tins (~> 1.0)
     therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
@@ -293,7 +293,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
-    tins (0.13.2)
+    tins (1.0.0)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)

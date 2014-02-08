@@ -1841,7 +1841,7 @@ eng:
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
       zero: "0 incoming payments"
-    x_indicators:
+    x_readings:
       one: "%{count} indicator"
       other: "%{count} indicators"
       zero: "No indicator"

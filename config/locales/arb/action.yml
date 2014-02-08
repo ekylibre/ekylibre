@@ -2063,7 +2063,7 @@ arb:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
       zero: "ولااية دفعة"
-    x_indicators:
+    x_readings:
       # one: "%{count} indicateur"
       # other: "%{count} indicateurs"
       # zero: "0 indicateur"
