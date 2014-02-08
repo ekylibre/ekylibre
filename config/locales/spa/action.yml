@@ -295,7 +295,7 @@ spa:
       # show: "Perte ou profit N°%{number}"
     backend/guide_analyses:
       # show: "Analyse N°%{execution_number} du %{guide}"
-    backend/guide_indicator_data: #?
+    backend/guide_readings: #?
     backend/guides:
       # edit: "Modifier le référentiel\_: %{name}"
       # index: "Référentiels"
@@ -528,20 +528,11 @@ spa:
       # new: "Créer un groupe"
       # show: "Groupe\_: %{name}"
     backend/product_indicator_choices: #?
-    backend/product_indicator_data:
-      # edit: "Modifier la valeur d’un indicateur"
-      # index: "Indicateurs Produits"
-      # new: "Nouvelle valeur d’indicateur pour un produit"
-      # show: "Valeurs"
     backend/product_indicator_nature_choices: #?
     backend/product_indicator_natures: #?
     backend/product_indicators: #?
     backend/product_links: #?
-    backend/product_localizations:
-      # edit: "Modifier une localisation d’un produit"
-      # index: "Localisation des produits"
-      # new: "Nouvelle localisation d’un produit"
-      # show: "Détail d’une localisation d’un produit"
+    backend/product_localizations: #?
     backend/product_memberships: #?
     backend/product_moves: #?
     backend/product_nature_abilities: #?
@@ -553,7 +544,7 @@ spa:
     backend/product_nature_components: #?
     backend/product_nature_indicators: #?
     backend/product_nature_prices: #?
-    backend/product_nature_variant_indicator_data: #?
+    backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       # edit: "Modifier la variante de produit\_: %{name}"
       # index: "Variantes de produits"
@@ -571,11 +562,12 @@ spa:
     backend/product_prices: #?
     backend/product_process_phases: #?
     backend/product_processes: #?
+    backend/product_readings: #?
     backend/product_species: #?
     backend/product_stock_moves: #?
     backend/product_stocks: #?
     backend/product_transfers: #?
-    backend/production_support_marker_indicator_data: #?
+    backend/production_support_marker_readings: #?
     backend/production_support_markers: #?
     backend/production_supports:
       # edit: "Modifier un support de production"
@@ -798,7 +790,6 @@ spa:
     # backend/plant_medicines: "Produits phytosanitaires"
     # backend/plants: "Cultures"
     # backend/product_groups: "Groupes de produits"
-    # backend/product_localizations: "Emplacements"
     # backend/product_nature_categories: "Catégories de types de produit"
     # backend/product_nature_variants: "Variantes de produits"
     # backend/product_natures: "Types de produits"
@@ -887,7 +878,6 @@ spa:
     # add_diagnostic: "Ajouter un diagnostic"
     # add_email: "Ajouter une adresse e-mail"
     # add_fax: "Ajouter un n° de fax"
-    # add_indicator_datum: "Ajouter une mesure pour un indicateur"
     # add_item: "Ajouter un élément"
     # add_mail: "Ajouter une adresse postale"
     # add_marker: "Ajouter un objectif"
@@ -900,6 +890,7 @@ spa:
     # add_product: "Ajouter un produit"
     # add_production: "Ajouter une production"
     # add_quickly_an_item: "Ajouter rapidement une ligne de produit"
+    # add_reading: "Ajouter une mesure pour un indicateur"
     # add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     # add_support: "Ajouter un support de production"
     # add_treatment: "Ajouter un traitement"
@@ -1593,7 +1584,7 @@ spa:
     relations: "Relaciones clientos/abastecedores" #?
     # relationship: "Gestion des relations clients/fournisseurs"
     # remove_diagnostic: "Supprimer un diagnostic"
-    # remove_indicator_datum: "Supprimer une mesure pour un indicateur"
+    # remove_reading: "Supprimer une mesure pour un indicateur"
     # remove_treatment: "Supprimer un traitement"
     # remove_watching: "Supprimer un produit de référence"
     reopen: "Volver a abrir el periodico"

@@ -68,7 +68,7 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
 
   after_create do
     # all indicators have the datetime of the receive delivery
-    self.product.indicator_data.update_all(measured_at: self.delivery.received_at)
+    self.product.readings.update_all(read_at: self.delivery.received_at)
     self.create_product_localization!(product: self.product, container: self.container, nature: :interior, started_at: self.delivery.received_at)
   end
 

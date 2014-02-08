@@ -40,16 +40,16 @@ load_data :analyses do |loader|
                            :ecoli => row[18]
                            )
 
-        product.is_measured!(:total_bacteria_concentration, r.germes, at: r.at)
-        product.is_measured!(:inhibitors_presence, r.inhib, at: r.at)
-        product.is_measured!(:fat_matters_concentration, r.mg, at: r.at)
-        product.is_measured!(:protein_matters_concentration, r.mp, at: r.at)
-        product.is_measured!(:somatic_cell_concentration, r.cells, at: r.at)
-        product.is_measured!(:clostridial_spores_concentration, r.buty, at: r.at)
-        product.is_measured!(:freezing_point_temperature, r.cryo, at: r.at)
-        product.is_measured!(:lipolysis, r.lipo, at: r.at)
-        product.is_measured!(:immunoglobulins_concentration, r.igg, at: r.at)
-        product.is_measured!(:urea_concentration, r.uree, at: r.at)
+        product.read!(:total_bacteria_concentration, r.germes, at: r.at)
+        product.read!(:inhibitors_presence, r.inhib, at: r.at)
+        product.read!(:fat_matters_concentration, r.mg, at: r.at)
+        product.read!(:protein_matters_concentration, r.mp, at: r.at)
+        product.read!(:somatic_cell_concentration, r.cells, at: r.at)
+        product.read!(:clostridial_spores_concentration, r.buty, at: r.at)
+        product.read!(:freezing_point_temperature, r.cryo, at: r.at)
+        product.read!(:lipolysis, r.lipo, at: r.at)
+        product.read!(:immunoglobulins_concentration, r.igg, at: r.at)
+        product.read!(:urea_concentration, r.uree, at: r.at)
 
         w.check_point
       end

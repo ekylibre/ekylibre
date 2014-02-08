@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_indicator_data
+# == Table: product_reading_tasks
 #
 #  absolute_measure_value_unit  :string(255)
 #  absolute_measure_value_value :decimal(19, 4)
@@ -36,18 +36,48 @@
 #  lock_version                 :integer          default(0), not null
 #  measure_value_unit           :string(255)
 #  measure_value_value          :decimal(19, 4)
-#  measured_at                  :datetime         not null
 #  multi_polygon_value          :spatial({:srid=>
+#  operation_id                 :integer
 #  originator_id                :integer
 #  originator_type              :string(255)
 #  point_value                  :spatial({:srid=>
 #  product_id                   :integer          not null
+#  reporter_id                  :integer
+#  started_at                   :datetime         not null
+#  stopped_at                   :datetime
 #  string_value                 :text
+#  tool_id                      :integer
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
-require 'test_helper'
-
-class ProductIndicatorDatumTest < ActiveSupport::TestCase
-
-end
+#
+# == Fixture: product_reading_tasks
+#
+# product_reading_tasks_001:
+#   boolean_value: true
+#   creator: users_001
+#   indicator_datatype: "Lorem ipsum"
+#   indicator_name: "Lorem ipsum"
+#   product: products_001
+#   started_at: 2013-10-26 18:34:04 +02:00
+#   updater: users_001
+#
+---
+product_reading_tasks_001:
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: temperature
+  measure_value_unit: celsius
+  measure_value_value: 37
+  product: products_animals_003
+  started_at: 2009-07-19 19:13:59.000000000 +02:00
+  updater: users_001
+product_reading_tasks_002:
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_mass
+  measure_value_unit: kilogram
+  measure_value_value: 81.5
+  product: products_animals_003
+  started_at: 2009-07-19 19:13:59.000000000 +02:00
+  updater: users_001

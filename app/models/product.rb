@@ -67,18 +67,15 @@ class Product < Ekylibre::Record::Base
   include Versionable, Indicateable
   enumerize :variety, in: Nomen::Varieties.all, predicates: {prefix: true}
   enumerize :derivative_of, in: Nomen::Varieties.all
-  # enumerize :content_indicator_name, in: Nomen::Indicators.all, predicates: {prefix: true}
-  # enumerize :content_indicator_unit, in: Nomen::Units.all, predicates: {prefix: true}
   belongs_to :address, class_name: "EntityAddress"
   belongs_to :category, class_name: "ProductNatureCategory"
-  # belongs_to :content_nature, class_name: "ProductNature"
   belongs_to :default_storage, class_name: "Product"
-  # belongs_to :father, class_name: "Product"
   belongs_to :financial_asset
   belongs_to :initial_container, class_name: "Product"
-  belongs_to :initial_owner, class_name: "Entity"
   belongs_to :initial_enjoyer, class_name: "Entity"
-  # belongs_to :mother, class_name: "Product"
+  belongs_to :initial_father, class_name: "Product"
+  belongs_to :initial_mother, class_name: "Product"
+  belongs_to :initial_owner, class_name: "Entity"
   belongs_to :nature, class_name: "ProductNature"
   belongs_to :parent, class_name: "Product"
   belongs_to :tracking
@@ -88,7 +85,7 @@ class Product < Ekylibre::Record::Base
   has_many :issues, as: :target
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
   has_many :groups, :through => :memberships
-  has_many :measurements, class_name: "ProductMeasurement"
+  has_many :reading_tasks, class_name: "ProductReadingTask"
   has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
   has_many :junction_ways, class_name: "ProductJunctionWay", foreign_key: :road_id
   has_many :junctions, class_name: "ProductJunction", through: :junction_ways
@@ -104,8 +101,6 @@ class Product < Ekylibre::Record::Base
   has_one :finish_way, -> { where(nature: 'finish') }, class_name: "ProductJunctionWay", inverse_of: :road, foreign_key: :road_id
   has_one :start_junction,  through: :start_way,  source: :junction
   has_one :finish_junction, through: :finish_way, source: :junction
-  # has_one :birth, class_name: "ProductBirth", inverse_of: :product
-  # has_one :death, class_name: "ProductDeath", inverse_of: :product
   has_one :current_phase,        -> { current }, class_name: "ProductPhase",        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: "ProductLocalization", foreign_key: :product_id
   has_one :current_ownership,    -> { current }, class_name: "ProductOwnership",    foreign_key: :product_id
@@ -155,10 +150,8 @@ class Product < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name
 
-  # accepts_nested_attributes_for :start_way
-  # accepts_nested_attributes_for :death
-  accepts_nested_attributes_for :indicator_data, allow_destroy: true, reject_if: lambda { |datum|
-    !datum["indicator_name"] != "population" and datum[ProductIndicatorDatum.value_column(datum["indicator_name"]).to_s].blank?
+  accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
+    !reading["indicator_name"] != "population" and reading[ProductReading.value_column(reading["indicator_name"]).to_s].blank?
   }
   accepts_nested_attributes_for :memberships, reject_if: :all_blank, allow_destroy: true
   acts_as_numbered force: false

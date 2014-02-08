@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_nature_variant_indicator_data
+# == Table: product_nature_variant_readings
 #
 #  absolute_measure_value_unit  :string(255)
 #  absolute_measure_value_value :decimal(19, 4)
@@ -43,47 +43,26 @@
 #  updater_id                   :integer
 #  variant_id                   :integer          not null
 #
-#
-# == Fixture: product_nature_variant_indicator_data
-#
-# product_nature_variant_indicator_data_001:
-#   boolean_value: true
-#   creator: users_001
-#   indicator_datatype: "Lorem ipsum"
-#   indicator_name: "Lorem ipsum"
-#   updater: users_001
-#   variant: variants_001
-#
----
-product_nature_variant_indicator_data_001:
-  boolean_value: false
-  creator: users_001
-  indicator_datatype: measure
-  indicator_name: net_mass
-  measure_value_unit: kilogram
-  measure_value_value: 1
-  updater: users_001
-  variant: product_nature_variants_001
-product_nature_variant_indicator_data_002:
-  boolean_value: false
-  creator: users_001
-  indicator_datatype: measure
-  indicator_name: net_volume
-  measure_value_unit: liter
-  measure_value_value: 0.2
-  updater: users_001
-  variant: product_nature_variants_001
-product_nature_variant_indicator_data_003:
-  choice_value: female
-  creator: users_001
-  indicator_datatype: choice
-  indicator_name: sex
-  updater: users_001
-  variant: product_nature_variants_007
-product_nature_variant_indicator_data_004:
-  creator: users_001
-  decimal_value: 1
-  indicator_datatype: decimal
-  indicator_name: population
-  updater: users_001
-  variant: product_nature_variants_007
+
+
+class ProductNatureVariantReading < Ekylibre::Record::Base
+  include ReadingStorable
+  belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :readings
+
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :integer_value, allow_nil: true, only_integer: true
+  validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
+  validates_length_of :absolute_measure_value_unit, :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, allow_nil: true, maximum: 255
+  validates_inclusion_of :boolean_value, in: [true, false]
+  validates_presence_of :indicator_datatype, :indicator_name, :variant
+  #]VALIDATORS]
+
+  validate do
+    if self.variant
+      unless self.variant.frozen_indicators.include?(self.indicator)
+        errors.add(:indicator, :invalid)
+      end
+    end
+  end
+
+end

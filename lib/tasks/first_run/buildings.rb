@@ -49,8 +49,8 @@ load_data :buildings do |loader|
                                         initial_born_at: born_at,
                                         # default_storage: Building.first,
                                         :identification_number => record.attributes['NUMERO'].to_s)
-          building.is_measured!(:shape, record.geometry, at: born_at, force: true)
-          building.is_measured!(:net_surface_area, building.shape_area, at: born_at)
+          building.read!(:shape, record.geometry, at: born_at, force: true)
+          building.read!(:net_surface_area, building.shape_area, at: born_at)
           w.check_point
         end
       end
@@ -76,9 +76,9 @@ load_data :buildings do |loader|
                                                          :work_number => record.attributes['WORK_NUMBE'].to_s,
                                                          :initial_born_at => born_at,
                                                          :identification_number => record.attributes['NUMERO'].to_s)
-          building_division.is_measured!(:shape, record.geometry, at: born_at)
+          building_division.read!(:shape, record.geometry, at: born_at)
           ind_area = building_division.shape_area
-          building_division.is_measured!(:net_surface_area, ind_area.in_square_meter, at: born_at)
+          building_division.read!(:net_surface_area, ind_area.in_square_meter, at: born_at)
 
           if record.attributes['CONTAINER'].to_s
             if building = Building.find_by_work_number(record.attributes['CONTAINER'].to_s)

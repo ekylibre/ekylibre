@@ -103,7 +103,6 @@ jpn:
       procedure: #?
       product: #?
       product_category: #?
-      product_indicator_datum: #?
       product_localization:
         # container: "Contenant"
         # started_at: "Entrée"
@@ -120,6 +119,7 @@ jpn:
         # contour: "Contour de la forme"
         # horizontal_rotation: "Rotation horizontale de la forme"
       product_price_template: #?
+      product_reading: #?
       product_specy: #?
       product_stock: #?
       product_stock_move: #?
@@ -381,17 +381,17 @@ jpn:
       # prescription: "Prescription"
       # product: "Produits"
       # product_group: "Groupe de produit"
-      # product_indicator_datum: "Valeur d’indicateur"
       # product_linkage: "Lien entre produits"
       # product_localization: "Passage d’un produit en un lieu"
       # product_membership: "Passage d’un produit dans un groupe"
       # product_move: ""
       # product_nature: "Type de produit"
       # product_nature_variant: "Variante de type de produit"
-      # product_nature_variant_indicator_datum: "Valeur d’indicateur de variante"
+      # product_nature_variant_reading: "Valeur d’indicateur de variante"
       # product_ownership: "Propriété de produit"
       # product_process: "Processus"
       # product_process_phase: "Phase de processus"
+      # product_reading: "Valeur d’indicateur"
       # production: "Production"
       # production_support: "Support de production"
       # property_title: "Titre de propriété"
@@ -724,9 +724,7 @@ jpn:
     # incoming_payment_modes: "Modes d’encaissement"
     # incoming_payments: "Encaissements"
     # indicator: "Indicateur"
-    # indicator_data: "Indicateur"
     # indicator_datatype: "Type de l’indicateur"
-    # indicator_datum: "Indicator datum"
     # indicator_name: "Indicateur"
     # indicators: "Indicateurs"
     # indirect_links: "Liens indirects"
@@ -819,8 +817,6 @@ jpn:
     # measure_value: "Valeur de la mesure"
     # measure_value_unit: "Measure value unit"
     # measure_value_value: "Measure value value"
-    # measured_at: "Mesuré à"
-    # measurements: "Measurements"
     # meat_withdrawal_period: "Délai d’attente (viande)"
     # member: "Membre"
     # members: "Membres"
@@ -929,15 +925,15 @@ jpn:
     # product_divisions: "Product divisions"
     # product_enjoyments: "Product enjoyments"
     # product_events: "Product events"
-    # product_indicator_data: "Product indicator data"
     # product_linkages: "Product linkages"
     # product_localizations: "Product localizations"
-    # product_measurements: "Product measurements"
     # product_memberships: "Product memberships"
     # product_mixings: "Product mixings"
     # product_moves: "Product moves"
     # product_nature: "Product nature"
     # product_ownerships: "Product ownerships"
+    # product_reading_tasks: "Product reading_tasks"
+    # product_readings: "Product indicator data"
     # product_way: "Product way"
     # production: "Production"
     # productions: "Productions"
@@ -957,8 +953,12 @@ jpn:
     # purchases: "Achats"
     # quantity: "Quantité"
     # query: "Requête"
-    # real_credit: "Real credit"
-    # real_currency: "Real currency"
+    # read_at: "Mesuré à"
+    # reading: "Relevé"
+    # reading_tasks: "Relevé de valeur"
+    # readings: "Relevés"
+    # real_credit: "Crédit réel"
+    # real_currency: "Débit réel"
     # real_currency_rate: "Real currency rate"
     # real_debit: "Real debit"
     # receipt: "Reçu électronique"

@@ -55,7 +55,7 @@
 	<style name="Crosstab Data Text" hAlign="Center"/>
 	<subDataset name="indicators" uuid="e1b74445-e266-4905-b7ca-c69a482d0793">
 		<queryString language="xPath">
-			<![CDATA[/matter/indicator-data/indicator-datum[descendant::name='germes_totaux' or descendant::name='butyriques' or descendant::name='cellules']]]>
+			<![CDATA[/matter/readings/reading[descendant::name='germes_totaux' or descendant::name='butyriques' or descendant::name='cellules']]]>
 		</queryString>
 		<field name="measured-at" class="java.util.Date">
 			<fieldDescription><![CDATA[measured-at]]></fieldDescription>

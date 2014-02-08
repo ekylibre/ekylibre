@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_nature_variant_indicator_data
+# == Table: product_reading_tasks
 #
 #  absolute_measure_value_unit  :string(255)
 #  absolute_measure_value_value :decimal(19, 4)
@@ -37,18 +37,26 @@
 #  measure_value_unit           :string(255)
 #  measure_value_value          :decimal(19, 4)
 #  multi_polygon_value          :spatial({:srid=>
+#  operation_id                 :integer
+#  originator_id                :integer
+#  originator_type              :string(255)
 #  point_value                  :spatial({:srid=>
+#  product_id                   :integer          not null
+#  reporter_id                  :integer
+#  started_at                   :datetime         not null
+#  stopped_at                   :datetime
 #  string_value                 :text
+#  tool_id                      :integer
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
-#  variant_id                   :integer          not null
 #
 require 'test_helper'
 
-class ProductNatureVariantIndicatorDatumTest < ActiveSupport::TestCase
+class ProductReadingTaskTest < ActiveSupport::TestCase
 
-  test "presence of fixtures" do
-    # assert_equal 2, ProductNatureVariantIndicatorDatum.count
+  # Replace this with your real tests.'
+  test "the truth" do
+    assert true
   end
 
 end

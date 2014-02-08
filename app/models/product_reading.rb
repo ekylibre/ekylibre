@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_measurements
+# == Table: product_readings
 #
 #  absolute_measure_value_unit  :string(255)
 #  absolute_measure_value_value :decimal(19, 4)
@@ -37,48 +37,43 @@
 #  measure_value_unit           :string(255)
 #  measure_value_value          :decimal(19, 4)
 #  multi_polygon_value          :spatial({:srid=>
-#  operation_id                 :integer
 #  originator_id                :integer
 #  originator_type              :string(255)
 #  point_value                  :spatial({:srid=>
 #  product_id                   :integer          not null
-#  reporter_id                  :integer
-#  started_at                   :datetime         not null
-#  stopped_at                   :datetime
+#  read_at                      :datetime         not null
 #  string_value                 :text
-#  tool_id                      :integer
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
 #
-class ProductMeasurement < Ekylibre::Record::Base
-  include Taskable, TimeLineable, IndicatorDatumStorable
-  belongs_to :product
-  belongs_to :reporter, class_name: "Worker"
-  belongs_to :tool, class_name: "Product"
+
+
+class ProductReading < Ekylibre::Record::Base
+  include ReadingStorable, PeriodicCalculable
+  belongs_to :product, inverse_of: :readings
+  belongs_to :originator, polymorphic: true
+  has_one :variant, through: :product
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
   validates_length_of :absolute_measure_value_unit, :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, :originator_type, allow_nil: true, maximum: 255
   validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :indicator_datatype, :indicator_name, :product, :started_at
+  validates_presence_of :indicator_datatype, :indicator_name, :product, :read_at
   #]VALIDATORS]
 
-  validate do
-    if self.product and self.indicator
-      unless self.product.indicators.include?(self.indicator)
-        errors.add(:indicator_name, :invalid)
-      end
-    end
-  end
+  scope :between, lambda { |started_at, stopped_at|
+    where("read_at BETWEEN ? AND ?", started_at, stopped_at)
+  }
+  scope :measured_between, lambda { |started_at, stopped_at| between(started_at, stopped_at) }
+  scope :of_products, lambda { |products, indicator_name, at = nil|
+    at ||= Time.now
+    where("id IN (SELECT p1.id FROM #{self.indicator_table_name(indicator_name)} AS p1 LEFT OUTER JOIN #{self.indicator_table_name(indicator_name)} AS p2 ON (p1.product_id = p2.product_id AND p1.indicator_name = p2.indicator_name AND (p1.read_at < p2.read_at OR (p1.read_at = p2.read_at AND p1.id < p2.id)) AND p2.read_at <= ?) WHERE p1.read_at <= ? AND p1.product_id IN (?) AND p1.indicator_name = ? AND p2 IS NULL)", at, at, products.pluck(:id), indicator_name)
+  }
 
-  after_create do
-    datum = self.product_indicator_data.build(product: self.product, indicator: self.indicator, measured_at: self.stopped_at)
-    datum.value = self.value
-    datum.save!
-  end
+  calculable period: :month, at: :read_at, column: :measure_value_value
 
-  def siblings
-    self.product.measurements
+  before_validation do
+    self.read_at ||= Time.now
   end
 
 end

@@ -1,7 +1,7 @@
 arb:
   procedo:
     actions:
-      # assisted_measurement: "%{reporter} mesure %{indicator} avec %{tool}"
+      # assisted_reading_task: "%{reporter} mesure %{indicator} avec %{tool}"
       # attachment: "On attache %{carrier} et %{carried}"
       # browsing: "%{browser} parcourt %{browsed}"
       # consumption: "%{absorber} consomme %{product}"
@@ -19,14 +19,14 @@ arb:
       # identified_incoming_delivery: "%{product} est réceptionné du %{supplier}"
       # identified_outgoing_delivery: "%{product} est expédié à %{client}"
       # incoming_delivery: "%{product} est réceptionné"
-      # measurement: "%{reporter} mesure %{indicator}"
       # merging: "%{absorber} fusionne avec %{product}"
       # movements: "%{product} va à l'emplacement de %{localizable}"
       # outgoing_delivery: "%{product} est expédié"
       # owner_change: "%{product} change de propriétaire pout %{owner}"
       # ownership_loss: "%{product} perd son propriétaire"
+      # reading_task: "%{reporter} mesure %{indicator}"
       # simple_attachment: "On attèle %{carrier} et %{carried}"
-      # simple_measurement: "%{indicator} est mesuré"
+      # simple_reading_task: "%{indicator} est mesuré"
   procedures:
     # all_in_one_sowing: "Semis 'tout-en-un'"
     # animal_birth: "Naissance d’un animal"

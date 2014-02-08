@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_nature_variant_indicator_data
+# == Table: product_nature_variant_readings
 #
 #  absolute_measure_value_unit  :string(255)
 #  absolute_measure_value_value :decimal(19, 4)
@@ -43,26 +43,12 @@
 #  updater_id                   :integer
 #  variant_id                   :integer          not null
 #
+require 'test_helper'
 
+class ProductNatureVariantReadingTest < ActiveSupport::TestCase
 
-class ProductNatureVariantIndicatorDatum < Ekylibre::Record::Base
-  include IndicatorDatumStorable
-  belongs_to :variant, class_name: "ProductNatureVariant", inverse_of: :indicator_data
-
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :integer_value, allow_nil: true, only_integer: true
-  validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
-  validates_length_of :absolute_measure_value_unit, :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, allow_nil: true, maximum: 255
-  validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :indicator_datatype, :indicator_name, :variant
-  #]VALIDATORS]
-
-  validate do
-    if self.variant
-      unless self.variant.frozen_indicators.include?(self.indicator)
-        errors.add(:indicator, :invalid)
-      end
-    end
+  test "presence of fixtures" do
+    # assert_equal 2, ProductNatureVariantReading.count
   end
 
 end

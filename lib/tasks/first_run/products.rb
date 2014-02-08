@@ -51,7 +51,7 @@ load_data :products do |loader|
 
         # create indicators linked to equipment
         for indicator, value in r.indicators
-          equipment.is_measured!(indicator, value, at: r.born_at, force: true)
+          equipment.read!(indicator, value, at: r.born_at, force: true)
         end
 
         w.check_point
@@ -107,7 +107,7 @@ load_data :products do |loader|
 
         # create indicators linked to equipment
         for indicator, value in r.indicators
-          product.is_measured!(indicator, value, at: r.born_at, force: true)
+          product.read!(indicator, value, at: r.born_at, force: true)
         end
 
         w.check_point

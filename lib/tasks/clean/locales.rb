@@ -56,10 +56,10 @@ module Clean
           end
         end
 
-        enumerize[:product_indicator_datum] ||= {}
-        enumerize[:product_indicator_datum][:indicator_name] = CleanSupport.rec(hash, locale, :nomenclatures, :indicators, :items)
-        enumerize[:product_nature_variant_indicator_datum] ||= {}
-        enumerize[:product_nature_variant_indicator_datum][:indicator_name] = CleanSupport.rec(hash, locale, :nomenclatures, :indicators, :items)
+        enumerize[:product_reading] ||= {}
+        enumerize[:product_reading][:indicator_name] = CleanSupport.rec(hash, locale, :nomenclatures, :indicators, :items)
+        enumerize[:product_nature_variant_reading] ||= {}
+        enumerize[:product_nature_variant_reading][:indicator_name] = CleanSupport.rec(hash, locale, :nomenclatures, :indicators, :items)
         enumerize[:production_support_marker] ||= {}
         enumerize[:production_support_marker][:indicator_name] = CleanSupport.rec(hash, locale, :nomenclatures, :indicators, :items)
         enumerize[:intervention] ||= {}

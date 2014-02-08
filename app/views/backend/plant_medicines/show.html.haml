@@ -13,5 +13,5 @@
       = toolbar do |t|
         - t.new(:params =>{:controller => :interventions})
       = list(:intervention_casts)
-    - b.cell(tl(:x_indicators, :count => @plant_medicine.indicator_data.count)) do
+    - b.cell(tl(:x_indicators, :count => @plant_medicine.readings.count)) do
       = list(:indicators)

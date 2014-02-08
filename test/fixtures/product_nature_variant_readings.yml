@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see http://www.gnu.org/licenses.
 #
-# == Table: product_measurements
+# == Table: product_nature_variant_readings
 #
 #  absolute_measure_value_unit  :string(255)
 #  absolute_measure_value_value :decimal(19, 4)
@@ -37,26 +37,53 @@
 #  measure_value_unit           :string(255)
 #  measure_value_value          :decimal(19, 4)
 #  multi_polygon_value          :spatial({:srid=>
-#  operation_id                 :integer
-#  originator_id                :integer
-#  originator_type              :string(255)
 #  point_value                  :spatial({:srid=>
-#  product_id                   :integer          not null
-#  reporter_id                  :integer
-#  started_at                   :datetime         not null
-#  stopped_at                   :datetime
 #  string_value                 :text
-#  tool_id                      :integer
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
+#  variant_id                   :integer          not null
 #
-require 'test_helper'
-
-class ProductMeasurementTest < ActiveSupport::TestCase
-
-  # Replace this with your real tests.'
-  test "the truth" do
-    assert true
-  end
-
-end
+#
+# == Fixture: product_nature_variant_readings
+#
+# product_nature_variant_readings_001:
+#   boolean_value: true
+#   creator: users_001
+#   indicator_datatype: "Lorem ipsum"
+#   indicator_name: "Lorem ipsum"
+#   updater: users_001
+#   variant: variants_001
+#
+---
+product_nature_variant_readings_001:
+  boolean_value: false
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_mass
+  measure_value_unit: kilogram
+  measure_value_value: 1
+  updater: users_001
+  variant: product_nature_variants_001
+product_nature_variant_readings_002:
+  boolean_value: false
+  creator: users_001
+  indicator_datatype: measure
+  indicator_name: net_volume
+  measure_value_unit: liter
+  measure_value_value: 0.2
+  updater: users_001
+  variant: product_nature_variants_001
+product_nature_variant_readings_003:
+  choice_value: female
+  creator: users_001
+  indicator_datatype: choice
+  indicator_name: sex
+  updater: users_001
+  variant: product_nature_variants_007
+product_nature_variant_readings_004:
+  creator: users_001
+  decimal_value: 1
+  indicator_datatype: decimal
+  indicator_name: population
+  updater: users_001
+  variant: product_nature_variants_007

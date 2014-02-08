@@ -1,10 +1,10 @@
 class Backend::Cells::LastMilkResultCellsController < Backend::CellsController
 
-  list(model: :product_indicator_data, joins: {product: :nature}, conditions: {indicator_name: 'milk'}, order: {measured_at: :desc, id: :desc}, per_page: 10) do |t|
+  list(model: :product_readings, joins: {product: :nature}, conditions: {indicator_name: 'milk'}, order: {read_at: :desc, id: :desc}, per_page: 10) do |t|
     t.column :indicator_name #, :url => true
     t.column :name, through: :product, url: {controller: "'/backend/products'"}
     t.column :value
-    t.column :measured_at
+    t.column :read_at
   end
 
   def show

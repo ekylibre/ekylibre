@@ -1,4 +1,4 @@
-module IndicatorDatumStorable
+module ReadingStorable
   extend ActiveSupport::Concern
 
   included do
@@ -8,7 +8,7 @@ module IndicatorDatumStorable
 
     composed_of :measure_value, class_name: "Measure", mapping: [%w(measure_value_value to_d), %w(measure_value_unit unit)]
     composed_of :absolute_measure_value, class_name: "Measure", mapping: [%w(absolute_measure_value_value to_d), %w(absolute_measure_value_unit unit)]
-    # composed_of :indicator_datum, mapping: [%w(indicator_name name), %w(value value)]
+    # composed_of :reading, mapping: [%w(indicator_name name), %w(value value)]
 
     validates_inclusion_of :indicator_name, in: self.indicator_name.values
     validates_inclusion_of :indicator_datatype, in: self.indicator_datatype.values

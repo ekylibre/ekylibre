@@ -265,23 +265,23 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       if self.object.new_record? and indicators.any?
 
         for indicator in indicators
-          @object.indicator_data.build(indicator_name: indicator.name)
-        end if @object.indicator_data.empty?
+          @object.readings.build(indicator_name: indicator.name)
+        end if @object.readings.empty?
 
         html << @template.field_set(:indicators) do
           fs = "".html_safe
-          for datum in @object.indicator_data
-            indicator = datum.indicator
+          for reading in @object.readings
+            indicator = reading.indicator
             # error message for indicators
-            fs << datum.errors.inspect if datum.errors.any?
-            fs << self.backend_fields_for(:indicator_data, datum) do |indfi|
+            fs << reading.errors.inspect if reading.errors.any?
+            fs << self.backend_fields_for(:readings, reading) do |indfi|
               fsi = "".html_safe
               fsi << indfi.input(:indicator_name, as: :hidden)
               fsi << indfi.input(:product_id, as: :hidden)
               fsi << indfi.input("#{indicator.datatype}_value_value", :wrapper => :append, :value => 0, :class => :inline, label: indicator.human_name) do
                 m = "".html_safe
                 if indicator.datatype == :measure
-                  datum.measure_value_unit ||= indicator.unit
+                  reading.measure_value_unit ||= indicator.unit
                   m << indfi.number_field("#{indicator.datatype}_value_value", label: indicator.human_name)
                   m << indfi.input_field("#{indicator.datatype}_value_unit", label: indicator.human_name, collection: Measure.siblings(indicator.unit).collect{|u| [Nomen::Units[u].human_name, u]})
                 elsif indicator.datatype == :choice

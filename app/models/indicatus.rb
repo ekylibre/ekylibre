@@ -14,8 +14,8 @@ class Indicatus
     @varicator.indicator_name
   end
 
-  def datum
-    IndicatorDatum.new(@varicator.indicator_name, computed_value)
+  def reading
+    Reading.new(@varicator.indicator_name, computed_value)
   end
 
   def actor

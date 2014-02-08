@@ -40,34 +40,17 @@ class ProductDivision < ProductBirth
 
   after_save do
     # Duplicate individual indicator data
-    product.copy_indicator_data_of!(producer, at: self.stopped_at, taken_at: self.started_at, originator: self)
+    product.copy_readings_of!(producer, at: self.stopped_at, taken_at: self.started_at, originator: self)
 
     # Impact on following readings
     for indicator_name in producer.whole_indicators_list
-      producer.is_measured!(indicator_name, producer.get(indicator_name, at: self.stopped_at), at: self.stopped_at)
-      if product_datum_value = self.product_way.send(indicator_name)
-        producer.substract_to_indicator_data(indicator_name, product_datum_value, after: self.stopped_at)
+      producer.read!(indicator_name, producer.get(indicator_name, at: self.stopped_at), at: self.stopped_at)
+      if product_reading_value = self.product_way.send(indicator_name)
+        producer.substract_to_readings(indicator_name, product_reading_value, after: self.stopped_at)
       else
         raise StandardError, "No given value for #{indicator_name}."
       end
     end
-
-    # # Add whole indicator data
-    # for indicator_name in producer.whole_indicators_list
-    #   producer_datum_value = producer.send(indicator_name, at: self.started_at)
-    #   product_datum_value = self.product_way.send(indicator_name)
-    #   if producer_datum_value and product_datum_value
-    #     product.is_measured!(indicator_name,  product_datum_value, at: self.stopped_at, originator: self)
-    #     producer.is_measured!(indicator_name, producer_datum_value - product_datum_value, at: self.stopped_at, originator: self)
-    #   else
-    #     if producer_datum_value.nil? and product_datum_value.nil?
-    #       puts "Cannot divide empty #{indicator_name.to_s.pluralize} between producer ##{producer.id} and produced ##{product.id}."
-    #     else
-    #       raise "Need to divide #{indicator_name} but no way to do it properly\n" +
-    #         {producer: producer_datum_value, produced: product_datum_value}.collect{|k,v| "#{k}: #{v.inspect}"}.join("\n")
-    #     end
-    #   end
-    # end
   end
 
 end

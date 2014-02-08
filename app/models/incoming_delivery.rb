@@ -75,7 +75,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   before_update do
     if self.received_at != old_record.received_at
       for product in self.products
-        product.indicator_data.where(measured_at: old_record.received_at).update_all(measured_at: self.received_at)
+        product.readings.where(read_at: old_record.received_at).update_all(read_at: self.received_at)
       end
     end
   end

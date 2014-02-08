@@ -48,7 +48,7 @@
 #
 
 class ProductionSupportMarker < Ekylibre::Record::Base
-  include IndicatorDatumStorable
+  include ReadingStorable
   enumerize :aim,        in: [:minimal, :maximal, :perfect], default: :perfect
   enumerize :derivative, in: Nomen::Varieties.all(:organic_matter)
   enumerize :subject,    in: [:production, :support, :derivative], default: :support, predicates: {prefix: true}

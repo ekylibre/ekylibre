@@ -21,9 +21,9 @@ load_data :land_parcels do |loader|
                                                           :initial_born_at => born_at,
                                                           :initial_owner => Entity.of_company,
                                                           :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s)
-          land_parcel_cluster.is_measured!(:shape, record.geometry, at: born_at)
+          land_parcel_cluster.read!(:shape, record.geometry, at: born_at)
           ind_area = land_parcel_cluster.shape_area
-          land_parcel_cluster.is_measured!(:population, ind_area.in_hectare, at: born_at)
+          land_parcel_cluster.read!(:population, ind_area.in_hectare, at: born_at)
 
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
@@ -73,9 +73,9 @@ load_data :land_parcels do |loader|
                                                           :initial_owner => Entity.of_company,
                                                           :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
 
-          land_parcel.is_measured!(:shape, record.geometry, at: born_at)
+          land_parcel.read!(:shape, record.geometry, at: born_at)
           ind_area = land_parcel.shape_area
-          land_parcel.is_measured!(:population, ind_area.in_hectare, at: born_at)
+          land_parcel.read!(:population, ind_area.in_hectare, at: born_at)
 
           # create a cultivable zone for each entries
           #
@@ -87,9 +87,9 @@ load_data :land_parcels do |loader|
                                                           :initial_owner => Entity.of_company,
                                                           :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
 
-          cultivable_zone.is_measured!(:shape, record.geometry, at: born_at)
+          cultivable_zone.read!(:shape, record.geometry, at: born_at)
           ind_area = cultivable_zone.shape_area
-          cultivable_zone.is_measured!(:population, ind_area.in_hectare, at: born_at)
+          cultivable_zone.read!(:population, ind_area.in_hectare, at: born_at)
 
           # link a land parcel to a land parcel cluster
           land_parcel_cluster = LandParcelCluster.find_by_work_number(record.attributes['NUMERO'].to_s)
@@ -169,16 +169,16 @@ load_data :land_parcels do |loader|
                                              :identification_number => r.land_parcel_work_number)
           # add shape and population indicator
           if r.land_parcel_shape
-            land_parcel.is_measured!(:shape, r.land_parcel_shape, at: r.born_at)
+            land_parcel.read!(:shape, r.land_parcel_shape, at: r.born_at)
             ind_area = land_parcel.shape_area
-            land_parcel.is_measured!(:population, (ind_area / 10000).round(3), at: r.born_at)
+            land_parcel.read!(:population, (ind_area / 10000).round(3), at: r.born_at)
           elsif r.land_parcel_area
-            land_parcel.is_measured!(:population, r.land_parcel_area, at: r.born_at)
+            land_parcel.read!(:population, r.land_parcel_area, at: r.born_at)
           end
 
           # add available_water_capacity indicator
           if r.land_parcel_available_water_capacity
-            land_parcel.is_measured!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
+            land_parcel.read!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
           end
 
           # add land_parcel in land_parcel_cluster group
@@ -223,12 +223,12 @@ load_data :land_parcels do |loader|
                                                    :identification_number => r.cultivable_zone_work_number)
 
         if r.cultivable_zone_shape
-          cultivable_zone.is_measured!(:shape, r.cultivable_zone_shape, at: r.born_at)
+          cultivable_zone.read!(:shape, r.cultivable_zone_shape, at: r.born_at)
           ind_area = cultivable_zone.shape_area
           area = (ind_area / 10000).round(2)
-          cultivable_zone.is_measured!(:population, area, at: r.born_at)
+          cultivable_zone.read!(:population, area, at: r.born_at)
         elsif r.cultivable_zone_area
-          cultivable_zone.is_measured!(:population, r.cultivable_zone_area, at: r.born_at)
+          cultivable_zone.read!(:population, r.cultivable_zone_area, at: r.born_at)
         end
 
 

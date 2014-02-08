@@ -619,7 +619,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :product,                                             null: false, index: true
       # t.references :tracking,                                                         index: true
       # t.references :warehouse,                                           null: false, index: true
-      t.references :product_measurement,                                              index: true
+      t.references :product_reading_task,                                             index: true
       t.decimal    :theoric_population,  precision: 19, scale: 4,        null: false
       t.decimal    :population,          precision: 19, scale: 4,        null: false
       t.stamps
@@ -883,18 +883,6 @@ class CreateBase < ActiveRecord::Migration
       t.index      :delivered_at
     end
 
-
-    create_table :product_indicator_data do |t|
-      # t.references :operation,                             index: true
-      t.references :originator,        polymorphic: true
-      t.references :product,                               null: false, index: true
-      t.datetime   :measured_at,                           null: false
-      t.indicator_datum                                    null: false, index: true
-      t.stamps
-      t.index      :measured_at
-      t.index      [:originator_id, :originator_type], name: :index_product_indicator_data_on_originator
-    end
-
     create_table :product_enjoyments do |t|
       t.references :operation,                             index: true
       t.references :originator,        polymorphic: true,  index: true
@@ -906,6 +894,30 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
       t.index      :started_at
       t.index      :stopped_at
+    end
+
+    create_table :product_junctions do |t|
+      t.references :operation,                             index: true
+      t.references :originator,        polymorphic: true,  index: true
+      t.string     :type
+      t.references :tool,                                  index: true
+      t.datetime   :started_at
+      t.datetime   :stopped_at
+      t.stamps
+      t.index      :started_at
+      t.index      :stopped_at
+    end
+
+    create_table :product_junction_ways do |t|
+      t.references :junction,                 null: false, index: true
+      t.string     :role,                     null: false
+      t.string     :nature,                   null: false  # start/continuity/finish
+      t.references :road,                     null: false, index: true
+      t.decimal    :population, precision: 19, scale: 4
+      t.geometry   :shape
+      t.stamps
+      t.index      :role
+      t.index      :nature
     end
 
     create_table :product_linkages do |t|
@@ -949,20 +961,6 @@ class CreateBase < ActiveRecord::Migration
       t.index      [:originator_id, :originator_type], name: :index_product_localizations_on_originator
     end
 
-    create_table :product_measurements do |t|
-      t.references :operation,                             index: true
-      t.references :originator,        polymorphic: true,  index: true
-      t.references :product,                  null: false, index: true
-      t.indicator_datum                       null: false, index: true
-      t.references :reporter,                              index: true
-      t.references :tool,                                  index: true
-      t.datetime   :started_at,               null: false
-      t.datetime   :stopped_at
-      t.stamps
-      t.index      :started_at
-      t.index      :stopped_at
-    end
-
     create_table :product_memberships do |t|
       t.references :operation,                             index: true
       t.references :originator,        polymorphic: true,  index: true
@@ -1003,29 +1001,30 @@ class CreateBase < ActiveRecord::Migration
       t.index      :stopped_at
     end
 
-    create_table :product_junctions do |t|
+    create_table :product_readings do |t|
+      # t.references :operation,                             index: true
+      t.references :originator,        polymorphic: true
+      t.references :product,                               null: false, index: true
+      t.datetime   :read_at,                               null: false
+      t.reading                                    null: false, index: true
+      t.stamps
+      t.index      :read_at
+      t.index      [:originator_id, :originator_type], name: :index_product_readings_on_originator
+    end
+
+    create_table :product_reading_tasks do |t|
       t.references :operation,                             index: true
-      t.references :originator,        polymorphic: true,  index: true
-      t.string     :type
+      t.references :originator,        polymorphic: true
+      t.references :product,                  null: false, index: true
+      t.reading                       null: false, index: true
+      t.references :reporter,                              index: true
       t.references :tool,                                  index: true
-      t.datetime   :started_at
+      t.datetime   :started_at,               null: false
       t.datetime   :stopped_at
       t.stamps
       t.index      :started_at
       t.index      :stopped_at
-    end
-
-
-    create_table :product_junction_ways do |t|
-      t.references :junction,                 null: false, index: true
-      t.string     :role,                     null: false
-      t.string     :nature,                   null: false  # start/continuity/finish
-      t.references :road,                     null: false, index: true
-      t.decimal    :population, precision: 19, scale: 4
-      t.geometry   :shape
-      t.stamps
-      t.index      :role
-      t.index      :nature
+      t.index      [:originator_id, :originator_type], name: :index_product_reading_tasks_on_originator
     end
 
 
@@ -1108,9 +1107,9 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
-    create_table :product_nature_variant_indicator_data do |t|
+    create_table :product_nature_variant_readings do |t|
       t.references :variant, null: false, index: true
-      t.indicator_datum      null: false, index: true
+      t.reading      null: false, index: true
       t.stamps
     end
 
@@ -1151,7 +1150,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :aim,     null: false
       t.string     :subject
       t.string     :derivative
-      t.indicator_datum      null: false, index: true
+      t.reading      null: false, index: true
       # t.datetime   :started_at
       # t.datetime   :stopped_at
       t.stamps

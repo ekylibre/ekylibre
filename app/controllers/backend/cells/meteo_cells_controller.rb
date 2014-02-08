@@ -4,8 +4,8 @@ class Backend::Cells::MeteoCellsController < Backend::CellsController
   def show
 
     if zone = (params[:id] ? CultivableZone.find_by(id: params[:id]) : CultivableZone.first)
-      if datum = zone.indicator_datum(:shape)
-        wkt = datum.class.connection.select_value("SELECT ST_AsText(ST_Transform(ST_Centroid(ST_SetSRID(geometry_value, 2154)), 4326)) FROM #{datum.class.table_name} WHERE id = #{datum.id}")
+      if reading = zone.reading(:shape)
+        wkt = reading.class.connection.select_value("SELECT ST_AsText(ST_Transform(ST_Centroid(ST_SetSRID(geometry_value, 2154)), 4326)) FROM #{reading.class.table_name} WHERE id = #{reading.id}")
         factory = RGeo::Geographic.spherical_factory
         coordinates = factory.parse_wkt(wkt)
         @forecast = JSON.load(open("http://api.openweathermap.org/data/2.5/forecast/daily?lat=#{coordinates.latitude}&lon=#{coordinates.longitude}&cnt=14&mode=json")).deep_symbolize_keys

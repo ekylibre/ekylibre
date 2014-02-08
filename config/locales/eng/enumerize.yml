@@ -119,7 +119,6 @@ eng:
         # passed: "Passé"
         # passed_with_warnings: "Passé avec remarques"
     immatter: #?
-    indicator_datum: #?
     intervention:
       state:
         done: "Done"
@@ -177,7 +176,6 @@ eng:
         other: "Other" #?
         purchase: "Purchase" #?
     product_group: #?
-    product_indicator_datum: #?
     product_localization:
       arrival_cause: #?
       departure_cause: #?
@@ -192,6 +190,7 @@ eng:
         subscription: "Subcription" #?
         transfer: "Transfer" #?
     product_nature_variant: #?
+    product_reading: #?
     product_transfer:  #?
       nature: #?
         gain: "Gain" #?
@@ -212,6 +211,7 @@ eng:
         service: "Service" #?
         subscription: "Subcription" #?
         transfer: "Transfer" #?
+    reading: #?
     sale_item: #?
     sequence:
       period:

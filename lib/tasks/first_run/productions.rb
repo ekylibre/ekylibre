@@ -61,10 +61,10 @@ load_data :productions do |loader|
             if product_support.is_a?(CultivableZone)
               # create markers for yield and nitrogen
               if !r.provisional_grain_yield.nil?
-                support.is_measured!(:mass_area_yield, r.provisional_grain_yield.in_quintal_per_hectare, derivative: :grain)
+                support.read!(:mass_area_yield, r.provisional_grain_yield.in_quintal_per_hectare, derivative: :grain)
               end
               if !r.provisional_nitrogen_input.nil?
-                support.is_measured!(:nitrogen_input_area_density, r.provisional_nitrogen_input.in_kilogram_per_hectare)
+                support.read!(:nitrogen_input_area_density, r.provisional_nitrogen_input.in_kilogram_per_hectare)
               end
               if !r.provisional_residue_elimination_method.nil?
                 support.markers.create!(:indicator_name => :residue_elimination_method, :aim => :perfect, :choice_value => r.provisional_residue_elimination_method)

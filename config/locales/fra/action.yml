@@ -4,7 +4,6 @@ fra:
       # edit: "Edit authentication/password"
       # new: "New authentication/password"
     authentication/sessions:
-      # _callback_before_3: " callback before 3 authentication/session"
       destroy: "Se déconnecter" #?
       new: "Connexion"
       renew: "Renouveller la session" #?
@@ -506,24 +505,14 @@ fra:
       new: "Créer un groupe"
       # picture: "Picture backend/product group"
       show: "Groupe\_: %{name}"
-    backend/product_indicator_data:
-      edit: "Modifier la valeur d’un indicateur"
-      index: "Indicateurs Produits" #?
-      new: "Nouvelle valeur d’indicateur pour un produit"
-      show: "Valeurs" #?
-    backend/product_localizations:
-      edit: "Modifier une localisation d’un produit"
-      index: "Localisation des produits"
-      new: "Nouvelle localisation d’un produit"
-      show: "Détail d’une localisation d’un produit"
     backend/product_nature_categories:
       edit: "Modifier la catégorie du produit\_: %{name}"
       index: "Catégories de produits"
       new: "Nouvelle catégorie"
       show: "Catégorie de produit\_: %{name}"
-    backend/product_nature_variant_indicator_data:
-      # edit: "Edit backend/product nature variant indicator datum"
-      # new: "New backend/product nature variant indicator datum"
+    backend/product_nature_variant_readings:
+      # edit: "Edit backend/product nature variant reading"
+      # new: "New backend/product nature variant reading"
     backend/product_nature_variants:
       edit: "Modifier la variante de produit\_: %{name}"
       index: "Variantes de produits"
@@ -689,7 +678,6 @@ fra:
       # edit: "Edit devise/registration"
       # new: "New devise/registration"
     devise/sessions:
-      # _callback_before_3: " callback before 3 devise/session"
       # new: "New devise/session"
     devise/unlocks:
       # new: "New devise/unlock"
@@ -815,12 +803,10 @@ fra:
     # backend/postal_zones: "Backend/postal zones"
     # backend/prescriptions: "Backend/prescriptions"
     backend/product_groups: "Groupes de produits"
-    # backend/product_indicator_data: "Backend/product indicator data"
     # backend/product_linkages: "Backend/product linkages"
-    backend/product_localizations: "Emplacements"
     # backend/product_memberships: "Backend/product memberships"
     backend/product_nature_categories: "Catégories de types de produit"
-    # backend/product_nature_variant_indicator_data: "Backend/product nature variant indicator data"
+    # backend/product_nature_variant_readings: "Backend/product nature variant readings"
     backend/product_nature_variants: "Variantes de produits"
     backend/product_natures: "Types de produits"
     # backend/product_ownerships: "Backend/product ownerships"
@@ -921,7 +907,6 @@ fra:
     add_diagnostic: "Ajouter un diagnostic"
     add_email: "Ajouter une adresse e-mail"
     add_fax: "Ajouter un n° de fax"
-    add_indicator_datum: "Ajouter une mesure pour un indicateur"
     add_item: "Ajouter un élément"
     add_mail: "Ajouter une adresse postale"
     add_marker: "Ajouter un objectif"
@@ -934,6 +919,7 @@ fra:
     add_product: "Ajouter un produit"
     add_production: "Ajouter une production"
     add_quickly_an_item: "Ajouter rapidement une ligne de produit"
+    add_reading: "Ajouter une mesure pour un indicateur"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production"
     add_treatment: "Ajouter un traitement"
@@ -1591,7 +1577,7 @@ fra:
     related_people: "En lien avec"
     relationship: "Gestion des relations clients/fournisseurs"
     remove_diagnostic: "Supprimer un diagnostic"
-    remove_indicator_datum: "Supprimer une mesure pour un indicateur"
+    remove_reading: "Supprimer une mesure pour un indicateur"
     remove_treatment: "Supprimer un traitement"
     remove_watching: "Supprimer un produit de référence"
     reopen: "Déclôturer"

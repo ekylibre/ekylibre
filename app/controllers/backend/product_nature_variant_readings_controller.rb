@@ -17,17 +17,6 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::ProductLocalizationsController < BackendController
-  manage_restfully
-
-  list do |t|
-    t.column :product, url: true
-    t.column :container, url: true
-    t.column :nature
-    t.column :intervention, url: true
-    t.column :started_at
-    t.column :stopped_at
-    t.action :edit,    :if => :editable?
-    t.action :destroy, :if => :destroyable?
-  end
+class Backend::ProductNatureVariantReadingsController < BackendController
+  manage_restfully except: [:index, :show]
 end

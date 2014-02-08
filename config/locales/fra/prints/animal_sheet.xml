@@ -47,7 +47,7 @@
 	</subDataset>
 	<subDataset name="mass" uuid="cc8022ce-12ea-4b67-a812-979a82dac442">
 		<queryString language="xPath">
-			<![CDATA[/animal/indicator-data/indicator-datum[indicator/@name="net_mass"]]]>
+			<![CDATA[/animal/readings/reading[indicator/@name="net_mass"]]]>
 		</queryString>
 		<field name="measure-value" class="java.lang.Double">
 			<fieldDescription><![CDATA[measure-value-value]]></fieldDescription>
@@ -62,7 +62,7 @@
 	</subDataset>
 	<subDataset name="healthy" uuid="c905c8ec-3a27-468e-93ba-0bd89e202ed8">
 		<queryString language="xPath">
-			<![CDATA[/animal/indicator-data/indicator-datum[indicator/@name="healthy"]]]>
+			<![CDATA[/animal/readings/reading[indicator/@name="healthy"]]]>
 		</queryString>
 		<field name="string-value" class="java.lang.String">
 			<fieldDescription><![CDATA[string-value]]></fieldDescription>
@@ -76,8 +76,8 @@
 		<field name="choice-value" class="java.lang.String">
 			<fieldDescription><![CDATA[choice-value]]></fieldDescription>
 		</field>
-		<field name="indicator-datatype" class="java.lang.String">
-			<fieldDescription><![CDATA[indicator-datatype/@name]]></fieldDescription>
+		<field name="readingstype" class="java.lang.String">
+			<fieldDescription><![CDATA[readingstype/@name]]></fieldDescription>
 		</field>
 		<field name="measure-value" class="java.lang.Double">
 			<fieldDescription><![CDATA[measure-value-value]]></fieldDescription>
@@ -87,9 +87,9 @@
 		</field>
 		<sortField name="measured-at"/>
 		<variable name="indicator_value" class="java.lang.String">
-			<variableExpression><![CDATA[($F{indicator-datatype} == "measure" ? ($F{measure-value}.toString()+" "+$F{measure-unit}) :
-    ( $F{indicator-datatype} == "choice" ? $F{choice-value} :
-        ( $F{indicator-datatype} == "string" ? $F{string-value} : $F{boolean-value}.toString())
+			<variableExpression><![CDATA[($F{readingstype} == "measure" ? ($F{measure-value}.toString()+" "+$F{measure-unit}) :
+    ( $F{readingstype} == "choice" ? $F{choice-value} :
+        ( $F{readingstype} == "string" ? $F{string-value} : $F{boolean-value}.toString())
     )
 )]]></variableExpression>
 		</variable>
@@ -160,7 +160,7 @@
 		<fieldDescription><![CDATA[mother/born-at]]></fieldDescription>
 	</field>
 	<field name="sex" class="java.lang.String">
-		<fieldDescription><![CDATA[indicator-data/indicator-datum[indicator/@name="sex"]/choice-value]]></fieldDescription>
+		<fieldDescription><![CDATA[readings/reading[indicator/@name="sex"]/choice-value]]></fieldDescription>
 	</field>
 	<field name="owner-description" class="java.lang.String">
 		<fieldDescription><![CDATA[owner/full-name]]></fieldDescription>

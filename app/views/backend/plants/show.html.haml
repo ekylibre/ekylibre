@@ -26,10 +26,10 @@
       = toolbar do |t|
         - t.new(:params =>{:controller => :issues, :target_id => @plant.id, :target_type => @plant.class.name})
       = list(:issues)
-    - b.cell(tl(:x_indicators, :count => @plant.indicator_data.count)) do
+    - b.cell(tl(:x_indicators, :count => @plant.readings.count)) do
       = list(:indicators)
-    - b.cell(:measurements) do
-      = list(:measurements)
+    - b.cell(:reading_tasks) do
+      = list(:reading_tasks)
     - b.cell(:places) do
       = list(:places)
 

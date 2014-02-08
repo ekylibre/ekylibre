@@ -38,15 +38,15 @@ module Ekylibre::Record
 
           code << "def self.#{indicator}_view_box(options = {})\n"
           code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
-          code << "  ids = ProductIndicatorDatum.of_products(self, :#{indicator}, options[:at]).pluck(:id)\n"
+          code << "  ids = ProductReading.of_products(self, :#{indicator}, options[:at]).pluck(:id)\n"
           code << "  return [] unless ids.any?\n"
-          code << "  values = self.connection.select_one(\"SELECT min(ST_XMin(\#{expr})) AS x_min, min(ST_YMin(\#{expr})) AS y_min, max(ST_XMax(\#{expr})) AS x_max, max(ST_YMax(\#{expr})) AS y_max FROM \#{ProductIndicatorDatum.indicator_table_name(:#{indicator})} WHERE id IN (\#{ids.join(',')})\").symbolize_keys\n"
+          code << "  values = self.connection.select_one(\"SELECT min(ST_XMin(\#{expr})) AS x_min, min(ST_YMin(\#{expr})) AS y_min, max(ST_XMax(\#{expr})) AS x_max, max(ST_YMax(\#{expr})) AS y_max FROM \#{ProductReading.indicator_table_name(:#{indicator})} WHERE id IN (\#{ids.join(',')})\").symbolize_keys\n"
           code << "  return [values[:x_min].to_f, -values[:y_max].to_f, (values[:x_max].to_f - values[:x_min].to_f), (values[:y_max].to_f - values[:y_min].to_f)]\n"
           code << "end\n"
 
           # As SVG
           code << "def self.#{indicator}_svg(options = {})\n"
-          code << "  ids = ProductIndicatorDatum.of_products(self, :shape, options[:at]).pluck(:product_id)\n"
+          code << "  ids = ProductReading.of_products(self, :shape, options[:at]).pluck(:product_id)\n"
           code << "  svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"'\n"
           code << "  return (svg + '/>').html_safe unless ids.any?\n"
           code << "  svg << ' class=\"#{indicator}\" preserveAspectRatio=\"xMidYMid meet\" width=\"100%\" height=\"100%\" viewBox=\"' + shape_view_box.join(' ') + '\"'\n"
@@ -60,7 +60,7 @@ module Ekylibre::Record
 
           # Return SVG as String
           code << "def #{indicator}_svg(options = {})\n"
-          code << "  return nil unless datum = self.indicator_datum(:#{indicator}, at: options[:at])\n"
+          code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
           code << "  return ('<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
           for attr, value in {:class => indicator, :preserve_aspect_ratio => 'xMidYMid meet', :width => 180, :height => 180, :view_box => "self.#{indicator}_view_box.join(' ')".c}
             code << " #{attr.to_s.camelcase(:lower)}=\"' + (options[:#{attr}] || #{value.inspect}).to_s + '\""
@@ -70,7 +70,7 @@ module Ekylibre::Record
 
           # Return ViewBox
           code << "def #{indicator}_view_box(options = {})\n"
-          code << "  return nil unless datum = self.indicator_datum(:#{indicator}, at: options[:at])\n"
+          code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
           code << "  return [self.#{indicator}_x_min(options), -self.#{indicator}_y_max(options), self.#{indicator}_width(options), self.#{indicator}_height(options)]\n"
           code << "end\n"
 
@@ -80,9 +80,9 @@ module Ekylibre::Record
 
           for attr in [:x_min, :x_max, :y_min, :y_max, :area, :as_svg, :as_gml, :as_kml, :as_geojson, :as_text, :as_binary, :as_ewkt]
             code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
-            code << "  return nil unless datum = self.indicator_datum(:#{indicator}, at: options[:at])\n"
+            code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
             code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
-            code << "  value = self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{expr}) FROM \#{ProductIndicatorDatum.indicator_table_name(:#{indicator})} WHERE id = \#{datum.id}\")\n"
+            code << "  value = self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(\#{expr}) FROM \#{ProductReading.indicator_table_name(:#{indicator})} WHERE id = \#{reading.id}\")\n"
             if attr.to_s =~ /\Aas\_/
               code << "  return value.to_s"
             else
@@ -97,8 +97,8 @@ module Ekylibre::Record
           # TODO : change geometry_value to a variable :column
           for attr in [:centroid, :point_on_surface]
             code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
-            code << "  return nil unless datum = self.indicator_datum(:#{indicator}, at: options[:at])\n"
-            code << "  self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(geometry_value) FROM \#{ProductIndicatorDatum.indicator_table_name(:#{indicator})} WHERE id = \#{datum.id}\")\n"
+            code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
+            code << "  self.class.connection.select_value(\"SELECT ST_#{attr.to_s.camelcase}(geometry_value) FROM \#{ProductReading.indicator_table_name(:#{indicator})} WHERE id = \#{reading.id}\")\n"
             code << "end\n"
           end
 

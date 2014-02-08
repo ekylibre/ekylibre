@@ -114,8 +114,6 @@ eng:
       product_category:  #?
         children: "Sub-product_categories" #?
         published: "Published" #?
-      product_indicator_datum:  #?
-        indicator: "Indicator" #?
       product_localization:
         arrival_cause: "Arrival cause" #?
         container: "Product container"
@@ -152,6 +150,8 @@ eng:
         amount: "Amount with taxes" #?
         category: "People category" #?
         entity: "Supplier" #?
+      product_reading:  #?
+        indicator: "Indicator" #?
       product_specy: #?
       product_stock:  #?
         quantity: "Real quantity" #?
@@ -506,7 +506,6 @@ eng:
       product_event: "Animal event" #?
       product_event_nature: "Animal event type" #?
       product_group: "Animal group"
-      # product_indicator_datum: "Valeur d’indicateur"
       # product_linkage: "Lien entre produits"
       # product_localization: "Passage d’un produit en un lieu"
       # product_membership: "Passage d’un produit dans un groupe"
@@ -516,12 +515,13 @@ eng:
       product_nature_component: "Product component" #?
       product_nature_price: "Price" #?
       # product_nature_variant: "Variante de type de produit"
-      # product_nature_variant_indicator_datum: "Valeur d’indicateur de variante"
+      # product_nature_variant_reading: "Valeur d’indicateur de variante"
       # product_ownership: "Propriété de produit"
       product_price_listing: "Person category" #?
       product_price_template: "Price" #?
       # product_process: "Processus"
       # product_process_phase: "Phase de processus"
+      # product_reading: "Valeur d’indicateur"
       product_specy: "Animal race" #?
       product_stock: "Stock" #?
       product_stock_move: "Stock move" #?
@@ -994,9 +994,7 @@ eng:
     incoming_payment_uses: "Incoming payment parts" #?
     incoming_payments: "Incoming payments"
     indicator: "Indicator"
-    # indicator_data: "Indicateur"
     # indicator_datatype: "Type de l’indicateur"
-    # indicator_datum: "Indicator datum"
     # indicator_name: "Indicateur"
     indicators: "Indicators"
     indirect_links: "Indirect links"
@@ -1108,8 +1106,6 @@ eng:
     # measure_value: "Valeur de la mesure"
     # measure_value_unit: "Measure value unit"
     # measure_value_value: "Measure value value"
-    # measured_at: "Mesuré à"
-    # measurements: "Measurements"
     # meat_withdrawal_period: "Délai d’attente (viande)"
     member: "Member"
     members: "Members"
@@ -1262,15 +1258,15 @@ eng:
     # product_divisions: "Product divisions"
     # product_enjoyments: "Product enjoyments"
     product_events: "Product events"
-    # product_indicator_data: "Product indicator data"
     # product_linkages: "Product linkages"
     # product_localizations: "Product localizations"
-    # product_measurements: "Product measurements"
     # product_memberships: "Product memberships"
     # product_mixings: "Product mixings"
     # product_moves: "Product moves"
     product_nature: "Product nature"
     # product_ownerships: "Product ownerships"
+    # product_reading_tasks: "Product reading_tasks"
+    # product_readings: "Product indicator data"
     # product_way: "Product way"
     productable_products: "Productable products" #?
     production: "Production"
@@ -1314,6 +1310,10 @@ eng:
     quantity_unit: "Quantity unit" #?
     query: "Query"
     range: "Range" #?
+    # read_at: "Mesuré à"
+    # reading: "Relevé"
+    # reading_tasks: "Relevé de valeur"
+    # readings: "Relevés"
     real_credit: "Original credit"
     real_currency: "Original currency"
     real_currency_rate: "Original currency rate"
