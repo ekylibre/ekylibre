@@ -302,6 +302,14 @@
             depreciable="true"
             pictogram="building"
             />
+      <item name="settlement"
+            financial_asset_account="general_installation_assets"
+            product_account="sales_assets_revenues"
+            purchasable="false"
+            saleable="true"
+            depreciable="true"
+            pictogram="building"
+            />
       <item name="building_division"
             purchasable="false"
             saleable="false"

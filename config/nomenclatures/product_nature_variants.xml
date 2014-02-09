@@ -999,6 +999,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <!-- SETTLEMENT --> 
+      <item name="settlement"
+            nature="settlement"
+            unit_name="building"
+            frozen_indicators_values="population: 1"
+            />
       <!-- BUILDING --> 
       <item name="animal_building"
             nature="building"
@@ -1020,6 +1026,7 @@
             unit_name="building"
             frozen_indicators_values="population: 1"
             />
+       <!-- BUILDING DIVISION -->      
       <item name="building_division"
             nature="building_division"
             unit_name="room"
@@ -1045,13 +1052,28 @@
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
-      <item name="animal_building_division"
+      <item name="animal_division"
             nature="animal_building_division"
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
-      <item name="animal_food_building_division"
+      <item name="food_equipment_division"
+            nature="food_equipment_division"
+            unit_name="room"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="milking_division"
+            nature="food_equipment_division"
+            unit_name="room"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="animal_food_division"
             nature="animal_food_building_division"
+            unit_name="room"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="silage_division"
+            nature="silage_division"
             unit_name="room"
             frozen_indicators_values="population: 1"
             />

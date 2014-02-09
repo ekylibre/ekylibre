@@ -1660,8 +1660,6 @@ eng:
         # alfalfa_seed: "Semence de luzerne"
         # all_inclusive_corn_sower: "Semoir Maïs tout intégré"
         # animal_building: "Bâtiment d’accueil pour les animaux"
-        # animal_building_division: "Piece d’accueil pour les animaux"
-        # animal_food_building_division: "Piece d’accueil pour les aliments"
         # animal_waste_building_division: "Zone des déchets organiques"
         # annual_fallow_crop: "Jachère annuelle"
         # anti_slug: "Anti-limace"

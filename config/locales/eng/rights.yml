@@ -1,6 +1,6 @@
 eng:
   rights:
-    backup_company: "Make and reload backups"
+    backup_company: "Make and reload backups" #?
     bookkeep: "Transfer commercial data in accountancy"
     cancel_sales_invoices: "Cancel sales_invoices"
     change_prices_on_sales: "Change prices on sales"
