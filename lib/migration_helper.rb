@@ -67,12 +67,12 @@ module MigrationHelper
         self.boolean       :boolean_value,         default: false, null: false
         self.string        :choice_value
         self.decimal       :decimal_value,         precision: 19, scale: 4
-        self.geometry      :geometry_value,        has_z: true
+        self.geometry      :geometry_value,        srid: 4326
         self.integer       :integer_value
         self.decimal       :measure_value_value,   precision: 19, scale: 4
         self.string        :measure_value_unit
-        self.multi_polygon :multi_polygon_value,   has_z: true
-        self.point         :point_value,           has_z: true
+        # self.multi_polygon :multi_polygon_value,   srid: 4326
+        self.point         :point_value,           srid: 4326
         self.text          :string_value
         if options[:index]
           options[:index] = {} unless options[:index].is_a?(Hash)

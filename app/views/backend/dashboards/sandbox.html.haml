@@ -1,6 +1,6 @@
 %h1= "Map test"
 
--# = backend_form_for(@cast) do |f|
+= backend_form_for(@cast) do |f|
   = f.shape
 
 
@@ -19,7 +19,7 @@
       input.after(map);
       // map.html(input.val());
       geometry = wkt.read(input.val());
-      map = L.map(map[0]).fitBounds(wkt.toObject().getBounds());
+      map = L.map(map[0], {zoomControl: false}).fitBounds(wkt.toObject().getBounds());
       L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       }).addTo(map);
@@ -27,7 +27,9 @@
   });
 
 
-  var map = L.map('map').setView(#{[@coordinates.latitude, @coordinates.longitude].inspect}, 18);
+  var map = L.map('map', {zoomControl: false}).setView(#{[@coordinates.latitude, @coordinates.longitude].inspect}, 18);
+
+  map.addControl(L.control.zoom({position: 'topleft', zoomInText: '', zoomOutText: ''}))
 
   // add an OpenStreetMap tile layer
   L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {

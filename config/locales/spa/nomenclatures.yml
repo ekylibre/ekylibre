@@ -1084,7 +1084,6 @@ spa:
           # geometry: "Forme spatiale"
           # integer: "Entier"
           # measure: "Mesure"
-          # multi_polygon: "Multi-polygone spatial"
           # point: "Point spatial"
           # string: "Texte"
         gathering: #?

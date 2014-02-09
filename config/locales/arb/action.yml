@@ -171,7 +171,7 @@ arb:
     backend/cultivable_zones:
       # edit: "Modifier la zone cultivable\_: %{name}"
       # index: "Zones cultivables"
-      # new: "Nouvelle zone cultivable\_: %{name}"
+      # new: "Nouvelle zone cultivable"
       # show: "Zone cultivable %{name}"
     backend/cultivations: #?
     backend/currencies: #?
@@ -2063,10 +2063,6 @@ arb:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"
       zero: "ولااية دفعة"
-    x_indicators:
-      # one: "%{count} indicateur"
-      # other: "%{count} indicateurs"
-      # zero: "0 indicateur"
     x_intervention_casts:
       # one: "%{count} intervention"
       # other: "%{count} interventions"
@@ -2111,6 +2107,10 @@ arb:
       # one: "%{count} achat"
       # other: "%{count} achats"
       # zero: "0 achat"
+    x_readings:
+      # one: "%{count} indicateur"
+      # other: "%{count} indicateurs"
+      # zero: "0 indicateur"
     x_results:
       # one: "%{count} résultat trouvé"
       # other: "%{count} résultats trouvés"

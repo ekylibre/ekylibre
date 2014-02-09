@@ -24,15 +24,15 @@
               seconds = (@animal.dead_at||Time.now) - @animal.born_at
               vals = []
               if (seconds/1.year).floor > 0
-                vals << "labels.x_years".t(:count => (seconds/1.year).floor)
+                vals << "labels.x_years".t(count: (seconds/1.year).floor)
                 seconds -= 1.year * (seconds/1.year).floor
               end
               if (seconds/1.month).floor > 0
-                vals << "labels.x_months".t(:count => (seconds/1.month).floor)
+                vals << "labels.x_months".t(count: (seconds/1.month).floor)
                 seconds -= 1.month * (seconds/1.month).floor
               end
               if (seconds/1.day).floor > 0
-                vals << "labels.x_days".t(:count => (seconds/1.day).floor)
+                vals << "labels.x_days".t(count: (seconds/1.day).floor)
                 seconds -= 1.day * (seconds/1.day).floor
               end
             = vals.to_sentence
@@ -155,11 +155,11 @@
       = toolbar do |t|
         - t.new(:params =>{:controller => :issues, :target_id => @animal.id, :target_type => @animal.class.name})
       = list(:issues)
-    - b.cell(tl(:x_intervention_casts, :count => @animal.intervention_casts.count)) do
+    - b.cell(tl(:x_intervention_casts, count: @animal.intervention_casts.count)) do
       = toolbar do |t|
         - t.new(:params =>{:controller => :interventions, :target_id => @animal.id})
       = list(:intervention_casts)
-    - b.cell(tl(:x_indicators, :count => @animal.readings.count)) do
+    - b.cell(tl(:x_readings, count: @animal.readings.count)) do
       = toolbar do |t|
         - t.new(:params =>{:controller => :product_readings, :product_id => @animal.id})
-      = list(:indicators)
+      = list(:readings)

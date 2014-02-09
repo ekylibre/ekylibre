@@ -27,14 +27,6 @@ class Reading
         object = Measure.new(object)
       elsif datatype == :boolean
         object = ["1", "ok", "t", "true", "y", "yes"].include?(object.to_s.strip.downcase)
-      # elsif datatype == :multi_polygon
-      #   factory = RGeo::Cartesian.simple_factory
-      #   if object.is_a?(WellKnownBinary)
-      #     object = WKRep::WKBParserfactory.parse_wkb(object)
-      #   elsif object.is_a?(String)
-      #     object = factory.parse_wkt(object)
-      #   end
-      #   object = factory.multi_polygon(object)
       elsif datatype == :decimal
         object = object.to_d
       end

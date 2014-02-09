@@ -31,6 +31,7 @@ $invalid-color:      #D81E08 !default;
 $caution-color:      #FF8811 !default;
 $success-color:      #65A907 !default;
 $important-color: $success-color !default;
+$mapbar-background-color: #FFFFFF !default;
 
 $hover-transparency: 0.85 !default;
 $hover-mask: transparentize($base-color, $hover-transparency);

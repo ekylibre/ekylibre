@@ -72,7 +72,7 @@
 
 
     - if @sale.subscriptions.any?
-      - b.cell tl(:x_subscriptions, :count => @sale.subscriptions.count) do
+      - b.cell tl(:x_subscriptions, count: @sale.subscriptions.count) do
         - if @sale.draft?
           = toolbar do |t|
             - for item in @sale.items.includes(:product, :reduction_origin)

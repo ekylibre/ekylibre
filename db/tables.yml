@@ -1233,7 +1233,6 @@ product_nature_variant_readings:
   lock_version: {type: integer, required: true, default: 0}
   measure_value_unit: {type: string}
   measure_value_value: {type: decimal, precision: 19, scale: 4}
-  multi_polygon_value: {type: spatial}
   point_value: {type: spatial}
   string_value: {type: text}
   updated_at: {type: datetime, required: true}
@@ -1366,7 +1365,6 @@ product_reading_tasks:
   lock_version: {type: integer, required: true, default: 0}
   measure_value_unit: {type: string}
   measure_value_value: {type: decimal, precision: 19, scale: 4}
-  multi_polygon_value: {type: spatial}
   operation_id: {type: integer, references: operation}
   originator_id: {type: integer, references: ~originator_type}
   originator_type: {type: string}
@@ -1396,7 +1394,6 @@ product_readings:
   lock_version: {type: integer, required: true, default: 0}
   measure_value_unit: {type: string}
   measure_value_value: {type: decimal, precision: 19, scale: 4}
-  multi_polygon_value: {type: spatial}
   originator_id: {type: integer, references: ~originator_type}
   originator_type: {type: string}
   point_value: {type: spatial}
@@ -1424,7 +1421,6 @@ production_support_markers:
   lock_version: {type: integer, required: true, default: 0}
   measure_value_unit: {type: string}
   measure_value_value: {type: decimal, precision: 19, scale: 4}
-  multi_polygon_value: {type: spatial}
   point_value: {type: spatial}
   string_value: {type: text}
   subject: {type: string}

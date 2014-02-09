@@ -39,7 +39,7 @@ class Backend::ProductsController < BackendController
     t.action :destroy, :if => :destroyable?
   end
 
-  # content product list of the consider product
+  # Lists contained products of the current product
   list(:contained_products, model: :product_localizations, conditions: {container_id: 'params[:id]'.c, stopped_at: nil}, order: {started_at: :desc}) do |t|
     t.column :product, url: true
     t.column :nature, hidden: true
@@ -48,7 +48,7 @@ class Backend::ProductsController < BackendController
     t.column :stopped_at, hidden: true
   end
 
-  # localization of the consider product
+  # Lists localizations of the current product
   list(:places, model: :product_localizations, conditions: {product_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :nature
     t.column :container, url: true
@@ -57,6 +57,7 @@ class Backend::ProductsController < BackendController
     t.column :stopped_at, hidden: true
   end
 
+  # Lists carried linkages of the current product
   list(:carried_linkages, model: :product_linkages, conditions: {carrier_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :carried, url: true
     t.column :point
@@ -66,6 +67,7 @@ class Backend::ProductsController < BackendController
     t.column :stopped_at, through: :intervention
   end
 
+  # Lists carrier linkages of the current product
   list(:carrier_linkages, model: :product_linkages, conditions: {carried_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :carrier, url: true
     t.column :point
@@ -75,7 +77,7 @@ class Backend::ProductsController < BackendController
     t.column :stopped_at
   end
 
-  # groups of the consider product
+  # Lists groups of the current product
   list(:groups, model: :product_memberships, conditions: {member_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|
     t.column :group, url: true
     t.column :intervention, url: true
@@ -83,7 +85,7 @@ class Backend::ProductsController < BackendController
     t.column :stopped_at
   end
 
-  # members of the consider product
+  # Lists members of the current product
   list(:members, model: :product_memberships, conditions: {group_id: 'params[:id]'.c}, order: :started_at) do |t|
     t.column :member, url: true
     t.column :intervention, url: true
@@ -91,7 +93,7 @@ class Backend::ProductsController < BackendController
     t.column :stopped_at
   end
 
-  # indicators of the consider product
+  # Lists reading tasks of the current product
   list(:reading_tasks, model: :product_reading_tasks, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :indicator_name
     t.column :value
@@ -99,14 +101,14 @@ class Backend::ProductsController < BackendController
     t.column :tool
   end
 
-  # indicators of the consider product
-  list(:indicators, model: :product_readings, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
+  # Lists readings of the current product
+  list(:readings, model: :product_readings, conditions: {product_id: 'params[:id]'.c}, order: {created_at: :desc}) do |t|
     t.column :indicator_name
     t.column :read_at
     t.column :value
   end
 
-  # issues of the consider product
+  # Lists issues of the current product
   list(:issues, conditions: {target_id: 'params[:id]'.c, target_type: 'controller_name.classify.constantize'.c}, order: {observed_at: :desc}) do |t|
     t.column :name, url: true
     t.column :nature
@@ -115,7 +117,7 @@ class Backend::ProductsController < BackendController
     t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}
   end
 
-  # issues of the consider product
+  # Lists intervention casts of the current product
   list(:intervention_casts, conditions: {actor_id: 'params[:id]'.c}, order: "interventions.started_at DESC") do |t|
     t.column :intervention, url: true
     t.column :roles, hidden: true
@@ -124,7 +126,7 @@ class Backend::ProductsController < BackendController
     t.column :stopped_at, through: :intervention, datatype: :datetime, hidden: true
   end
 
-  # List supports for one production
+  # Lists supports for the current product
   list(:markers, model: :production_support_markers, conditions: {production_supports: {storage_id: 'params[:id]'.c}}, order: {created_at: :desc}) do |t|
     t.column :campaign, url: true
     t.column :activity, url: true, hidden: true

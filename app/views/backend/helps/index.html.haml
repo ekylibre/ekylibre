@@ -1,6 +1,6 @@
 = kujaku
 
-= subheading(:x_results, :count => @search[:count], :here => true) if @search and @search[:count]
+= subheading(:x_results, count: @search[:count], :here => true) if @search and @search[:count]
 
 = search_results(@search) do |result|
   %h3

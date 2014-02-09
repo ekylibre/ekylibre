@@ -36,7 +36,6 @@
 #  lock_version                 :integer          default(0), not null
 #  measure_value_unit           :string(255)
 #  measure_value_value          :decimal(19, 4)
-#  multi_polygon_value          :spatial({:srid=>
 #  point_value                  :spatial({:srid=>
 #  string_value                 :text
 #  updated_at                   :datetime         not null

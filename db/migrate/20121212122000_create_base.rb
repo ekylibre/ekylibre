@@ -174,7 +174,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :group,                null: false, index: true
       t.references :member,               null: false, index: true
       t.decimal    :population,           precision: 19, scale: 4
-      t.geometry   :shape
+      t.geometry   :shape,                srid: 4326
       t.stamps
     end
 
@@ -325,7 +325,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :mail_line_6
       t.string     :mail_country,     limit: 2
       t.references :mail_postal_zone,                                                                index: true
-      t.point      :mail_geolocation, has_z: true
+      t.point      :mail_geolocation, srid: 4326
       t.boolean    :mail_auto_update,                                    default: false, null: false
       t.stamps
       t.index :by_default
@@ -576,7 +576,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :actor,                                                    index: true
       t.references :variant,                                                  index: true
       t.decimal    :population,         precision: 19, scale: 4
-      t.geometry   :shape
+      t.geometry   :shape,              srid: 4326
       t.string     :roles,              limit: 320
       t.string     :reference_name,                              null: false
       t.stamps
@@ -914,7 +914,7 @@ class CreateBase < ActiveRecord::Migration
       t.string     :nature,                   null: false  # start/continuity/finish
       t.references :road,                     null: false, index: true
       t.decimal    :population, precision: 19, scale: 4
-      t.geometry   :shape
+      t.geometry   :shape,      srid: 4326
       t.stamps
       t.index      :role
       t.index      :nature
@@ -1188,7 +1188,7 @@ class CreateBase < ActiveRecord::Migration
       t.references :initial_owner,                                                                              index: true
       t.references :initial_enjoyer,                                                                            index: true
       t.decimal    :initial_population,                   precision: 19, scale: 4, default: 0.0
-      t.geometry   :initial_shape
+      t.geometry   :initial_shape,                        srid: 4326
       t.references :initial_father,                                                                             index: true
       t.references :initial_mother,                                                                             index: true
       t.string     :variety,                  limit: 120,                                          null: false

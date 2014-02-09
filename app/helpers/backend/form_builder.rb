@@ -145,7 +145,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     # raise @object.send(attribute_name)
     geometry = @object.send(attribute_name)
     geometry = RGeo::CoordSys::Proj4.transform(geometry.srid, geometry, 4326, geometry.factory)
-    return self.input(attribute_name, options.merge(input_html: {value: geometry.as_text, 'data-map' => :wkt}))
+    return self.input(attribute_name, options.merge(input_html: {value: geometry.as_text, data: {map: :wkt}}))
   end
 
 

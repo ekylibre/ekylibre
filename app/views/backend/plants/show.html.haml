@@ -26,8 +26,8 @@
       = toolbar do |t|
         - t.new(:params =>{:controller => :issues, :target_id => @plant.id, :target_type => @plant.class.name})
       = list(:issues)
-    - b.cell(tl(:x_indicators, :count => @plant.readings.count)) do
-      = list(:indicators)
+    - b.cell(tl(:x_readings, count: @plant.readings.count)) do
+      = list(:readings)
     - b.cell(:reading_tasks) do
       = list(:reading_tasks)
     - b.cell(:places) do
