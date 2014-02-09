@@ -51,7 +51,7 @@ Ekylibre::Application.routes.draw do
       get :list_contained_products
       get :list_groups
       get :list_issues
-      get :list_indicators
+      get :list_readings
       get :list_intervention_casts
       get :list_reading_tasks
       get :list_members
