@@ -81,9 +81,6 @@ Ekylibre::Application.routes.draw do
           get mod
         end
         get :sandbox
-        get :list_my_future_events
-        get :list_recent_events
-        get :list_critic_stocks
       end
     end
 
@@ -710,10 +707,10 @@ Ekylibre::Application.routes.draw do
 
     resources :workers, concerns: :products
 
-    get :search, :controller => :dashboards, :as => :search
+    get :search, controller: :dashboards, as: :search
 
-    root :to => "dashboards#index"
+    root to: "dashboards#index"
   end
 
-  root :to => "public#index"
+  root to: "public#index"
 end
