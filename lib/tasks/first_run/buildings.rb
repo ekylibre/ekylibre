@@ -45,7 +45,7 @@ load_data :buildings do |loader|
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          if zone = Product.find_by_work_number(record.attributes['WORK_NUMBE'])
+          if zone = Product.find_by_work_number(record.attributes['work_numbe'])
             zone.read!(:shape, record.geometry, at: born_at, force: true)
             zone.read!(:net_surface_area, zone.shape_area, at: born_at)
           end
