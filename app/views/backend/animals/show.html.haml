@@ -1,27 +1,27 @@
 = main_toolbar do |t|
   - t.export do |e|
-    - e.animal_sheet @animal.identification_number, @animal
-  - t.new(:params =>{:controller => :issues, :target_id => @animal.id, :target_type => @animal.class.name})
-  - t.edit @animal
-  - t.destroy(@animal, :method=>:delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @animal.destroyable?
+    - e.animal_sheet resource.identification_number, resource
+  - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})
+  - t.edit resource
+  - t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if resource.destroyable?
 
 = beehive do |b|
   - b.hbox do
     - b.cell :general do
-      - if @animal.picture.exists?
-        .picture= image_tag(@animal.picture.url(:identity))
+      - if resource.picture.exists?
+        .picture= image_tag(resource.picture.url(:identity))
       .info
         %span.title= Animal.human_attribute_name(:work_number)
-        %span.value= @animal.work_number
+        %span.value= resource.work_number
       .info
         %span.title= Animal.human_attribute_name(:sex)
-        %span.value= @animal.sex
-      - if @animal.born_at
+        %span.value= resource.sex
+      - if resource.born_at
         .info
           %span.title= Animal.human_attribute_name(:age)
           %span.value
             :ruby
-              seconds = (@animal.dead_at||Time.now) - @animal.born_at
+              seconds = (resource.dead_at||Time.now) - resource.born_at
               vals = []
               if (seconds/1.year).floor > 0
                 vals << "labels.x_years".t(count: (seconds/1.year).floor)
@@ -36,21 +36,21 @@
                 seconds -= 1.day * (seconds/1.day).floor
               end
             = vals.to_sentence
-      - if @animal.mother
+      - if resource.mother
         .info
           %span.title= Animal.human_attribute_name(:mother)
-          %span.value= link_to(@animal.mother.name, {:action => :show, :id => @animal.mother.id})
-      - if @animal.father
+          %span.value= link_to(resource.mother.name, {action: :show, id: resource.mother.id})
+      - if resource.father
         .info
           %span.title= Animal.human_attribute_name(:father)
-          %span.value= link_to(@animal.father.name, {:action => :show, :id => @animal.father.id})
+          %span.value= link_to(resource.father.name, {action: :show, id: resource.father.id})
       .info
         %span.title= Animal.human_attribute_name(:current_net_mass)
-        %span.value= @animal.net_mass
+        %span.value= resource.net_mass
       .info
         %span.title= Animal.human_attribute_name(:current_healthy)
-        %span.value= @animal.healthy
-      - if container = @animal.container
+        %span.value= resource.healthy
+      - if container = resource.container
         .info
           %span.title= Animal.human_attribute_name(:container)
           %span.value= link_to(container.name, backend_product_path(container))
@@ -77,19 +77,19 @@
       = line_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom'}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
 
     -# b.cell :indicators_evolutions do
-      - if @animal.born_at
+      - if resource.born_at
         :ruby
           #
           #
-          started_at = @animal.born_at.to_date
-          stopped_at = @animal.dead_at.to_date if @animal.dead_at
+          started_at = resource.born_at.to_date
+          stopped_at = resource.dead_at.to_date if resource.dead_at
           stopped_at ||= Date.today
 
           series = []
           categories = {}
           date = started_at
           while date < stopped_at
-            categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(:format => "%b %Y")
+            categories[date.year.to_s + date.month.to_s.rjust(3, '0')] = date.l(format: "%b %Y")
             date = date >> 1
           end
 
@@ -98,7 +98,7 @@
           #
           bar_indicators = [:net_mass].collect{|i| Nomen::Indicators[i] }
           for indicator in bar_indicators
-            items = ProductReading.where(indicator_name: indicator.name, :product => @animal).measured_between(started_at, stopped_at)
+            items = ProductReading.where(indicator_name: indicator.name, :product => resource).measured_between(started_at, stopped_at)
             if items.count > 0
               item_h = items.averages_of_periods.sort.inject({}) do |hash, pair|
                 hash[pair.expr.to_i.to_s] = pair.average.to_s.to_d
@@ -113,7 +113,7 @@
           #
           spline_indicators = [:healthy].collect{|i| Nomen::Indicators[i] }
           for indicator in spline_indicators
-            items = ProductReading.where(indicator_name: indicator.name, :product => @animal).measured_between(started_at, stopped_at)
+            items = ProductReading.where(indicator_name: indicator.name, :product => resource).measured_between(started_at, stopped_at)
             if items.count > 0
               item_h = items.counts_of_periods(column: :boolean_value).sort.inject({}) do |hash, pair|
                 hash[pair.expr.to_i.to_s] = pair.count.to_s.to_d
@@ -153,13 +153,11 @@
   - b.hbox do
     - b.cell(:issues) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :issues, :target_id => @animal.id, :target_type => @animal.class.name})
+        - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})
       = list(:issues)
-    - b.cell(tl(:x_intervention_casts, count: @animal.intervention_casts.count)) do
+    - b.cell(tl(:x_intervention_casts, count: resource.intervention_casts.count)) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :interventions, :target_id => @animal.id})
+        - t.new(params: {controller: :interventions, :target_id => resource.id})
       = list(:intervention_casts)
-    - b.cell(tl(:x_readings, count: @animal.readings.count)) do
-      = toolbar do |t|
-        - t.new(:params =>{:controller => :product_readings, :product_id => @animal.id})
+    - b.cell(tl(:x_readings, count: resource.readings.count)) do
       = list(:readings)

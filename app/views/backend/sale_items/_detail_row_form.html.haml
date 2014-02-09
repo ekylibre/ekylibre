@@ -8,10 +8,10 @@
         %td=SaleItem.human_attribute_name("stock")
     %tr
       %td
-        =text_field(:sale_item, :quantity, :size=>5)
+        =text_field(:sale_item, :quantity, :size => 5)
         =product.unit.label
       -if current_user.can?(:give_discounts_on_sales) and product.reduction_submissive?
-        %td=text_field(:sale_item, :reduction_percentage, :size=>5)
+        %td=text_field(:sale_item, :reduction_percentage, :size => 5)
       -if product.stockable
         %td=select(:sale_item, :stock_id, product_stocks_options(product))
   -if product.nature == "subscrip"

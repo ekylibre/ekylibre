@@ -47,7 +47,7 @@
   - b.tabbox do
     -b.cell(:prices) do
       = toolbar do |t|
-        - t.new(:params => {:controller => :catalog_prices, :variant_id => resource.id})
+        - t.new(params: {controller: :catalog_prices, :variant_id => resource.id})
       = list(:prices)
     -b.cell(:prices_evolutions) do
       - if resource.prices.count > 0

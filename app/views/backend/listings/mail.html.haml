@@ -2,7 +2,7 @@
 
   =form_tag do
     =field_set :choose_mail_column do
-      =field :column.tl, @listing.coordinate_columns.collect{|node| radio_button(:node, :mail ,node.key, :checked=>true) + "&nbsp;".html_safe + content_tag(:label, node.label + " (" + node.name + ")", :for => 'node_' + node.key) }.join(" ").html_safe
+      =field :column.tl, @listing.coordinate_columns.collect{|node| radio_button(:node, :mail ,node.key, :checked => true) + "&nbsp;".html_safe + content_tag(:label, node.label + " (" + node.name + ")", :for => 'node_' + node.key) }.join(" ").html_safe
     =form_actions do
       =submit_tag(:validate.tl)
 
@@ -14,8 +14,8 @@
     =field_set :personalized_mail do
       .count=tc(:mails, count: @mails.size)
       .count=tc(:available_columns, :columns => @columns.collect{|x| link_to(x, "#", "data-insert-into" => "#mail_body", "data-insert" => "{{#{x}}}").html_safe}.to_sentence).html_safe
-      =field tc(:expedier), text_field_tag(:from, session[:mail][:from]||current_user.email, :size=>40)
-      =field tc(:subject),  text_field_tag(:mail_subject, session[:mail][:subject]||tc(:default_subject, :company=>Entity.of_company.full_name), :size=>80)
+      =field tc(:expedier), text_field_tag(:from, session[:mail][:from]||current_user.email, :size => 40)
+      =field tc(:subject),  text_field_tag(:mail_subject, session[:mail][:subject]||tc(:default_subject, :company => Entity.of_company.full_name), :size => 80)
       =field tc(:body),     text_area_tag(:mail_body, session[:mail][:body], :cols => 80, :rows => 20)
       =field tc(:attachment), file_field_tag(:attachment)
     =form_actions do

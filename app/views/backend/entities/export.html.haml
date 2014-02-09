@@ -1,4 +1,4 @@
-= form_tag({:id => @step}, :multipart => true) do
+= form_tag({id: @step}, :multipart => true) do
   .fields.vbox.flex{:style => 'overflow:none'}
     .form-column.aside
       - params[:columns] ||= {}
@@ -17,7 +17,7 @@
                 = hidden_field_tag("columns[#{code}][label]", klass.human_attribute_name(c.name))
                 = hidden_field_tag("columns[#{code}][order]", index+=1)
                 = hidden_field_tag("columns[#{code}][check]", 0)
-                = check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.type==:string), :id => "columns_#{code}_check_f")
+                = check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.type==:string), id: "columns_#{code}_check_f")
                 = content_tag(:label, klass.human_attribute_name(c.name), :for => "columns_#{code}_check_f")
         %tr.title
           %th= CustomField.model_name.human
@@ -30,7 +30,7 @@
               = hidden_field_tag("columns[#{code}][label]", klass.human_attribute_name(c.name))
               = hidden_field_tag("columns[#{code}][order]", index+=1)
               = hidden_field_tag("columns[#{code}][check]", 0)
-              = check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.nature!="boolean" and c.active), :id => "columns_#{code}_check_f")
+              = check_box_tag("columns[#{code}][check]", "1", params[:columns][code][:check]||(c.nature!="boolean" and c.active), id: "columns_#{code}_check_f")
               = content_tag(:label, klass.human_attribute_name(c.name), :for => "columns_#{code}_check_f")
 
       .end
@@ -39,7 +39,7 @@
         = field tc('check'), {:choices => [[tc(:all_conditions), :and], [tc(:one_condition), :or]], :datatype => :radio, :name => :check, :value => params[:check]||:and}
       .fastadd
         = select_tag("condition", options_for_select(@conditions.collect{|x| [condition_label(x), x]}.sort{|a,b| a[0] <=> b[0]}))
-        = link_to(tc(:add_condition), {:action => :export}, :remote => true, "data-update" => "#conditions", "data-update-at" => :bottom, "data-type" => :html, "data-with" => "#condition")
+        = link_to(tc(:add_condition), {action: :export}, :remote => true, "data-update" => "#conditions", "data-update-at" => :bottom, "data-type" => :html, "data-with" => "#condition")
       #conditions
       .end
   = form_actions do

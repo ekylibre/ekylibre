@@ -49,7 +49,7 @@ class AccountBalance < Ekylibre::Record::Base
   validates_length_of :currency, allow_nil: true, maximum: 255
   validates_presence_of :account, :currency, :financial_year, :global_balance, :global_credit, :global_debit, :local_balance, :local_credit, :local_debit
   #]VALIDATORS]
-  validates_uniqueness_of :account_id, :scope=>:financial_year_id
+  validates_uniqueness_of :account_id, :scope => :financial_year_id
 
   alias_attribute :debit, :local_debit
   alias_attribute :credit, :local_credit

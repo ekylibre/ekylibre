@@ -16,7 +16,7 @@
   -b.tabbox do
     -#b.cell :stocks do
       =toolbar do |t|
-        -t.new :controller => :stocks, :product_nature_id => @product_nature.id
+        -t.new controller: :stocks, :product_nature_id => @product_nature.id
       =list(:stocks)
 
     -#b.cell :stock_moves do

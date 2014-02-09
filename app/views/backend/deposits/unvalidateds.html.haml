@@ -2,8 +2,8 @@
   =form_tag do
     =list :unvalidateds
     .actions
-      =link_to tg(:previous), :action=>:index
+      =link_to tg(:previous), action: :index
       =submit_tag(tc('validate'))
 - else
-  %p{:style=>'text-align:center'}= tc('no_deposits')
+  %p{:style => 'text-align:center'}= tc('no_deposits')
 

@@ -3,6 +3,6 @@
   =f.referenced_association :delivery_address, :source => :mails
   =f.referenced_association :invoice_address, :source => :mails
 
--# f.field :sale, :contact_id,          :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:entity_id=>client.id}, :update=>:contacts
--# f.field :sale, :delivery_contact_id, :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:entity_id=>client.id}, :update=>:contacts
--# f.field :sale, :invoice_contact_id,  :choices=>{:reflection=>:contacts, :conditions=>{:entity_id=>client.id}}, :new=>{:entity_id=>client.id}, :update=>:contacts
+-# f.field :sale, :contact_id,          :choices => {:reflection => :contacts, :conditions => {:entity_id => client.id}}, :new => {:entity_id => client.id}, :update => :contacts
+-# f.field :sale, :delivery_contact_id, :choices => {:reflection => :contacts, :conditions => {:entity_id => client.id}}, :new => {:entity_id => client.id}, :update => :contacts
+-# f.field :sale, :invoice_contact_id,  :choices => {:reflection => :contacts, :conditions => {:entity_id => client.id}}, :new => {:entity_id => client.id}, :update => :contacts

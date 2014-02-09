@@ -14,9 +14,9 @@
   - b.hbox do
     - b.cell(:interventions) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :interventions, :production_support_id => @production_support.id})
+        - t.new(params: {controller: :interventions, :production_support_id => @production_support.id})
       = list(:interventions)
     - b.cell(:markers) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :production_support_markers, :support_id => @production_support.id})
+        - t.new(params: {controller: :production_support_markers, :support_id => @production_support.id})
       = list(:markers)

@@ -54,7 +54,7 @@ class Backend::SalesController < BackendController
     t.status
     t.column :state_label
     t.column :amount, currency: true
-    # t.action :show, url: {:format => :pdf}, image: :print
+    # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit, :if => :draft?
     t.action :cancel, :if => :cancelable?
     t.action :destroy, :if => :aborted?

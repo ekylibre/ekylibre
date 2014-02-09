@@ -15,7 +15,7 @@ module Ekylibre::Record
         code = ""
 
         code += "@@preferences ||= {}\n"
-        code += "@@preferences['#{name}'] = {:default=>#{options[:default].inspect}, :type=>#{type}, :nature=>'#{::Preference::type_to_nature(type)}', :record_value_type=>'#{type}'}\n"
+        code += "@@preferences['#{name}'] = {:default => #{options[:default].inspect}, :type => #{type}, :nature => '#{::Preference::type_to_nature(type)}', :record_value_type => '#{type}'}\n"
 
         preferences = (self.name == "Company" ? "self.preferences" : "self.company.preferences")
         unless self.methods.include? "preferences_reference"
@@ -47,8 +47,8 @@ module Ekylibre::Record
         unless self.instance_methods.include? "prefer!"
           code += "def prefer!(name, value)\n"
           code += "  unless preference = #{preferences}.find_by_name(name)\n"
-          code += "    attrs = {:name=>name}\n"
-          code += "    attrs.merge!(:nature=>@@preferences[name][:nature], :record_value_type=>@@preferences[name][:record_value_type]) if @@preferences.has_key?(name.to_s)\n"
+          code += "    attrs = {:name => name}\n"
+          code += "    attrs.merge!(:nature => @@preferences[name][:nature], :record_value_type => @@preferences[name][:record_value_type]) if @@preferences.has_key?(name.to_s)\n"
           code += "    preference = #{preferences}.build(attrs)\n"
           code += "  end\n"
           code += "  preference.value = value\n"
@@ -60,7 +60,7 @@ module Ekylibre::Record
           code += "def preferred(name)\n"
           code += "  preference = #{preferences}.find_by_name(name)\n"
           code += "  if preference.nil? and @@preferences.has_key?(name.to_s)\n"
-          code += "    preference = #{preferences}.new(:name=>name, :nature=>@@preferences[name][:nature], :record_value_type=>@@preferences[name][:record_value_type])\n"
+          code += "    preference = #{preferences}.new(:name => name, :nature => @@preferences[name][:nature], :record_value_type => @@preferences[name][:record_value_type])\n"
           code += "    preference.value = @@preferences[name][:default] if @@preferences[name][:default]\n"
           code += "    preference.save!\n"
           code += "  elsif preference.nil?\n"
@@ -74,7 +74,7 @@ module Ekylibre::Record
         code += "  return self.preferred('#{name}')\n"
 #         code += "  preference = #{preferences}.find_by_name('#{name}')\n"
 #         code += "  if preference.nil?\n"
-#         code += "    preference = #{preferences}.new(:name=>'#{name}', :nature=>'#{::Preference::type_to_nature(type)}', :record_value_type=>'#{type}')\n"
+#         code += "    preference = #{preferences}.new(:name => '#{name}', :nature => '#{::Preference::type_to_nature(type)}', :record_value_type => '#{type}')\n"
 #         code += "    preference.value = #{options[:default].inspect}\n" if options[:default]
 #         code += "    preference.save!\n"
 #         code += "  end\n"

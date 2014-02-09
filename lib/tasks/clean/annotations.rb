@@ -212,6 +212,6 @@ module AnnotateModels
 end
 
 desc "Add schema information (as comments) to model files"
-task :annotations=>:environment do
+task :annotations => :environment do
    AnnotateModels.do_annotations
 end

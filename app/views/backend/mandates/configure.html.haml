@@ -1,4 +1,4 @@
-=form_tag({:action => :configure}, :class => :flex) do
+=form_tag({action: :configure}, :class => :flex) do
   .fields.flex
     %table.list
       %tr
@@ -9,7 +9,7 @@
         %tr{:class => cycle('odd', 'even')}
           %td=tc "column_#{column}"
           %td=select_tag     "columns[#{column}][filter]", options_for_select(@filters)
-          %td=text_field_tag "columns[#{column}][search]", nil, "data-autocompletion" => url_for(:action => "autocomplete_for_#{column}")
+          %td=text_field_tag "columns[#{column}][search]", nil, "data-autocompletion" => url_for(action: "autocomplete_for_#{column}")
           %td=check_box_tag  "columns[#{column}][update]"
           %td=text_field_tag "columns[#{column}][new_value]"
   .actions

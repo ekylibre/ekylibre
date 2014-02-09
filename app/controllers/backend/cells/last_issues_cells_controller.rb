@@ -1,6 +1,6 @@
 class Backend::Cells::LastIssuesCellsController < Backend::CellsController
 
-  list(model: :issues, :order=>"observed_at DESC", :per_page=>10, line_class: :status) do |t|
+  list(model: :issues, :order => "observed_at DESC", :per_page => 10, line_class: :status) do |t|
     t.column :name,  :url => {controller: "/backend/issues"}
     t.column :nature
     t.column :observed_at

@@ -1,5 +1,5 @@
 - reference = @intervention.reference
-= form_tag(:action => :jump) do
+= form_tag(action: :jump) do
   - if reference.variables.size > 0
     = field_set :parameters do
       - for variable in reference.variables.values
@@ -19,7 +19,7 @@
             .controls
               .input-append
                 :ruby
-                  url = {:action => :unroll, :controller => :products}
+                  url = {action: :unroll, controller: :products}
                   url[:variety] = variable.variety if variable.variety
                   url[:abilities] = variable.abilities if variable.abilities
                 =text_field_tag("variables[#{variable.name}]", nil, 'data-selector' => url_for(url))

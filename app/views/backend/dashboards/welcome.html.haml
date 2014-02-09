@@ -7,7 +7,7 @@
     -cell :today do
       -date = Date.today
       %span#cell-date.date
-        %span.day-name=date.l(:format => '%A')
+        %span.day-name=date.l(format: '%A')
         %span.day=date.day
-        %span.month=date.l(:format => '%B')
+        %span.month=date.l(format: '%B')
         %span.year=date.year

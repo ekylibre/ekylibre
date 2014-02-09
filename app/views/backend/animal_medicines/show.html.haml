@@ -9,7 +9,7 @@
   - b.tabbox do
     - b.cell(:interventions) do
       = toolbar do |t|
-        - t.new(:params =>{:controller => :interventions})
+        - t.new(params: {controller: :interventions})
       = list(:intervention_casts)
     - b.cell(tl(:x_readings, count: @animal_medicine.readings.count)) do
       = list(:readings)

@@ -31,7 +31,7 @@ class Backend::IncomingDeliveriesController < BackendController
     t.column :received_at
     t.column :mode
     t.column :purchase, url: true
-    # t.action :confirm, :method => :post, :if => :confirmable?, confirm: true
+    # t.action :confirm, method: :post, :if => :confirmable?, confirm: true
     t.action :edit
     t.action :destroy
   end
@@ -51,7 +51,7 @@ class Backend::IncomingDeliveriesController < BackendController
   def confirm
     return unless incoming_delivery = find_and_check
     incoming_delivery.execute if request.post?
-    redirect_to action: :index, :mode => :unconfirmed
+    redirect_to action: :index, mode: :unconfirmed
   end
 
 end

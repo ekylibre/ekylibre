@@ -1,4 +1,4 @@
-=form_tag({:id => @step}, :multipart => true, :style => 'overflow:none') do
+=form_tag({id: @step}, :multipart => true, :style => 'overflow:none') do
   .form-fields
     -if @step == :upload
       =field_set(:select_file_to_upload) do
@@ -28,9 +28,9 @@
     .end
   =form_actions do
     -if @step == :validate
-      =link_to(tg(:previous), :action => :import, :id => :columns)
+      =link_to(tg(:previous), action: :import, id: :columns)
       =submit_tag(tg(:import))
     -else
-      =link_to(tg(:previous), :action => :import, :id => :upload) if @step == :columns
+      =link_to(tg(:previous), action: :import, id: :upload) if @step == :columns
       =submit_tag(tg(:next))
 

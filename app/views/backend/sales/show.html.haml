@@ -12,14 +12,14 @@
     - t.cancel(@sale) if @sale.cancelable?
   - t.edit @sale if @sale.draft?
   - if @sale.can_confirm?
-    - t.confirm @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
+    - t.confirm @sale, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
   - if @sale.can_propose?
-    - t.propose_and_invoice @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
+    - t.propose_and_invoice @sale, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
   - if @sale.can_invoice?
-    - t.invoice @sale, :method => :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
+    - t.invoice @sale, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
   - for event in [:propose, :correct, :refuse]
-    - t.send(event, @sale, :method => :post, "data-confirm" => tc(:are_you_sure)) if @sale.send("can_#{event}?")
-  - t.abort(@sale, :method => :post, "data-confirm" => tc(:are_you_sure)) if @sale.can_abort?
+    - t.send(event, @sale, method: :post, "data-confirm" => tc(:are_you_sure)) if @sale.send("can_#{event}?")
+  - t.abort(@sale, method: :post, "data-confirm" => tc(:are_you_sure)) if @sale.can_abort?
 
 = beehive do |b|
 
@@ -29,12 +29,12 @@
         -#.select-product
           %span= "labels.add_product".t
           %span.selector
-            = selector_tag("sale_item[product_id]", {:controller => :products, :action => :unroll_saleables}, {})
+            = selector_tag("sale_item[product_id]", {controller: :products, action: :unroll_saleables}, {})
           = button_tag(tl(:add), :class => "btn")
         -# @sale_item = @sale.items.new
         -# if @sale.draft?
           = toolbar do |t|
-            - t.new(:controller => :sale_items, :sale_id => @sale.id)
+            - t.new(controller: :sale_items, :sale_id => @sale.id)
           = render :partial => "backend/sale_items/row_form"
         = list :items do
           %tr.total
@@ -77,7 +77,7 @@
           = toolbar do |t|
             - for item in @sale.items.includes(:product, :reduction_origin)
               - if item.product.nature.subscribing? and not item.reduction_origin
-                - t.link :add_subscription_for_sale_item, {:action => :new, :controller => :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
+                - t.link :add_subscription_for_sale_item, {action: :new, controller: :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
         = list :subscriptions
 
   - if ["products", "summary", ""].include?(params[:step].to_s)
@@ -89,7 +89,7 @@
     - if @sale.deliverable?
       - b.cell tc(:undelivered) do
         = toolbar do |t|
-          - t.new :controller => :outgoing_deliveries, :sale_id => @sale.id
+          - t.new controller: :outgoing_deliveries, :sale_id => @sale.id
         = list :undelivered_items
       - if @sale.deliveries.count > 0
         - b.cell Sale.human_attribute_name("deliveries") do

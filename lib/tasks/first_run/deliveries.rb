@@ -83,8 +83,8 @@ load_data :deliveries do |loader|
         "Location semoir" => :spread_renting,
         "Nettoyants" => :mineral_cleaner,
         "Films plastiques" => :small_equipment,
-        "Recyclage"        => :small_equipment,
-        "Ficelles"         => :small_equipment
+        "Recyclage" => :small_equipment,
+        "Ficelles" => :small_equipment
       }
 
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|

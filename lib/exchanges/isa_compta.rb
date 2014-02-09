@@ -38,7 +38,7 @@ module Exchanges
                   raise ImcompatibleDataError.new("Financial year dates overlaps existing financial years")
                 else
                   raise ImcompatibleDataError.new("Accountancy must be in Euro (EUR) not in '#{isa_fy.currency}'") if isa_fy.currency != "EUR"
-                  fy = FinancialYear.create!(:started_on=>isa_fy.started_on, :stopped_on=>isa_fy.stopped_on)
+                  fy = FinancialYear.create!(:started_on => isa_fy.started_on, :stopped_on => isa_fy.stopped_on)
                 end
               end
 
@@ -49,7 +49,7 @@ module Exchanges
               benchmark "Import accounts" do
                 for isa_account in isa_fy.accounts
                   unless account = Account.find_by_number(isa_account.number)
-                    account = Account.create!(:name=>(isa_account.label.blank? ? isa_account.number : isa_account.label), :number=>isa_account.number, :reconcilable=>isa_account.reconcilable, :last_letter=>isa_account.letter, :is_debit=>(isa_account.input_direction=='de' ? true : false), :comment=>isa_account.to_s)
+                    account = Account.create!(:name => (isa_account.label.blank? ? isa_account.number : isa_account.label), :number => isa_account.number, :reconcilable => isa_account.reconcilable, :last_letter => isa_account.letter, :is_debit => (isa_account.input_direction=='de' ? true : false), :comment => isa_account.to_s)
                   end
                   all_accounts[isa_account.number] = account.id
                 end
@@ -74,7 +74,7 @@ module Exchanges
                     journals = Journal.where("TRANSLATE(LOWER(name), 'àâäéèêëìîïòôöùûüỳŷÿ', 'aaaeeeeiiiooouuuyyy') LIKE ? ", '%'+isa_journal.label.mb_chars.downcase.gsub(/\s+/, '%')+'%')
                     journal = journals[0] if journals.size == 1
                   end
-                  journal ||= Journal.create!(:code=>isa_journal.code, :name=>(isa_journal.label.blank? ? "[#{isa_journal.code}]" : isa_journal.label), :nature=>@@journal_natures[isa_journal.type]||:various) # , :closed_on=>isa_journal.last_close_on
+                  journal ||= Journal.create!(:code => isa_journal.code, :name => (isa_journal.label.blank? ? "[#{isa_journal.code}]" : isa_journal.label), :nature => @@journal_natures[isa_journal.type]||:various) # , :closed_on => isa_journal.last_close_on
                   all_journals[isa_journal.code] = journal.id
                 end
               end
@@ -121,7 +121,7 @@ module Exchanges
                       number = number[0..255]
                     end
                     unless entry
-                      entry = JournalEntry.create(:number=>number, :journal_id=>all_journals[isa_entry.journal], :printed_on=>isa_entry.printed_on, :created_on=>isa_entry.created_on, :updated_at=>isa_entry.updated_on, :lock_version=>isa_entry.version_number)  # , :state=>(isa_entry.unupdateable? ? :confirmed : :draft)
+                      entry = JournalEntry.create(:number => number, :journal_id => all_journals[isa_entry.journal], :printed_on => isa_entry.printed_on, :created_on => isa_entry.created_on, :updated_at => isa_entry.updated_on, :lock_version => isa_entry.version_number)  # , :state => (isa_entry.unupdateable? ? :confirmed : :draft)
                       raise isa_entry.inspect+"\n"+entry.errors.full_messages.to_sentence unless entry.valid?
                     end
                   end
@@ -135,20 +135,20 @@ module Exchanges
                       isa_line.debit = isa_line.credit.abs
                       isa_line.credit = debit.abs
                     end
-                    line =  entry.lines.create(:account_id=>all_accounts[isa_line.account], :name=>"#{isa_line.label} (#{isa_entry.label})", :real_debit=>isa_line.debit, :real_credit=>isa_line.credit, :letter=>(isa_line.lettering > 0 ? isa_line.letter : nil), :comment=>isa_line.to_s)
+                    line =  entry.lines.create(:account_id => all_accounts[isa_line.account], :name => "#{isa_line.label} (#{isa_entry.label})", :real_debit => isa_line.debit, :real_credit => isa_line.credit, :letter => (isa_line.lettering > 0 ? isa_line.letter : nil), :comment => isa_line.to_s)
                     raise isa_line.to_s+"\n"+line.errors.full_messages.to_sentence unless line.valid?
                   end
 
                   count += 1
                   if Time.now > next_start
-                    status = print_jauge(count, total_count, :replace=>status, :start=>start)
+                    status = print_jauge(count, total_count, :replace => status, :start => start)
                     next_start = Time.now + interval
                   end
                 end
 
 
 
-                print_jauge(count, total_count, :replace=>status, :start=>start, :time=>:elapsed, :new_line=>true)
+                print_jauge(count, total_count, :replace => status, :start => start, :time => :elapsed, :new_line => true)
                 if unused_entries.size > 0
                   puts "#{unused_entries.size} destroyed entries (on #{total_count})"
                   JournalEntry.destroy(unused_entries)

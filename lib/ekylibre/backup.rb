@@ -31,7 +31,7 @@ module Ekylibre
           end
         end
       end
-      # backup.add_attributes('count'=>n.to_s, 'generation-duration'=>(Time.now.to_i-start).to_s)
+      # backup.add_attributes('count' => n.to_s, 'generation-duration' => (Time.now.to_i-start).to_s)
       stream = doc.to_s
 
       Zip::File.open(file, Zip::File::CREATE) do |zile|

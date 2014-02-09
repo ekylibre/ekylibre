@@ -32,9 +32,9 @@ class Backend::IncomingPaymentModesController < BackendController
     t.column :depositables_account, url: true, hidden: true
     t.column :depositables_journal, url: true, hidden: true
     t.column :with_commission
-    t.action :up,   :method => :post, :unless => :first?
-    t.action :down, :method => :post, :unless => :last?
-    t.action :reflect, :method => :post, confirm: true
+    t.action :up,   method: :post, :unless => :first?
+    t.action :down, method: :post, :unless => :last?
+    t.action :reflect, method: :post, confirm: true
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

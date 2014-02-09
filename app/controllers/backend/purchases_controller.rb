@@ -35,7 +35,7 @@ class Backend::PurchasesController < BackendController
     t.column :state_label
     # t.column :paid_amount, currency: true
     t.column :amount, currency: true
-    # t.action :show, url: {:format => :pdf}, image: :print
+    # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
@@ -99,7 +99,7 @@ class Backend::PurchasesController < BackendController
         end
         t3e @purchase.attributes, :supplier => @purchase.supplier.full_name, :state => @purchase.state_label
       end
-      format.xml { render :xml  =>  @purchase.to_xml }
+      format.xml { render :xml => @purchase.to_xml }
       format.pdf { render_print_purchase(@purchase) }
     end
   end

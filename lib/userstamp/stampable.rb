@@ -43,9 +43,9 @@ module Userstamp
       #
       #   class Post < ActiveRecord::Base
       #     stampable :stamper_class_name => :person,
-      #               :creator_attribute  => :create_user,
-      #               :updater_attribute  => :update_user,
-      #               :deleter_attribute  => :delete_user
+      #               :creator_attribute => :create_user,
+      #               :updater_attribute => :update_user,
+      #               :deleter_attribute => :delete_user
       #   end
       #
       # The method will automatically setup all the associations, and create <tt>before_save</tt>
@@ -53,9 +53,9 @@ module Userstamp
       def stampable(options = {})
         defaults  = {
           :stamper_class_name => :user,
-          :creator_attribute  => :creator_id,
-          :updater_attribute  => :updater_id,
-          :deleter_attribute  => :deleter_id
+          :creator_attribute => :creator_id,
+          :updater_attribute => :updater_id,
+          :deleter_attribute => :deleter_id
         }.merge(options)
 
         self.stamper_class_name = defaults[:stamper_class_name].to_sym

@@ -12,12 +12,12 @@
         %tr.total#total_item{"data-valid-if-equality-between" => "#used-area, #total-area"}
           %th=tl(:total)
           %td
-            %span#used-area{"data-use"=>".area"}
+            %span#used-area{"data-use" => ".area"}
             %span="/"
             %span#total-area=@land_parcel.area_measure
           %th
           %th
       %tbody#subdivisions
-        =render :partial=>"backend/land_parcels/subdivision_form"
+        =render :partial => "backend/land_parcels/subdivision_form"
   =form_actions do
     =submit_tag(tl(:divide))

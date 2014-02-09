@@ -3,7 +3,7 @@
 - unless @search[:count].zero?
   = search_results(@search) do |result|
     %h3
-      = link_to(:controller => result["record_type"].tableize, :action => :show, :id => result["record_id"]) do
+      = link_to(controller: result["record_type"].tableize, action: :show, id: result["record_id"]) do
         = result["record_type"].constantize.model_name.human
         = " &mdash; ".html_safe
         = result["title"]

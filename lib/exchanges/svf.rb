@@ -15,7 +15,7 @@ module SVF
     def initialize(name, definition, start=nil)
       @name = name.to_sym
       if definition.is_a? String
-        definition = {:type=>definition}
+        definition = {:type => definition}
       elsif definition.is_a? Hash
         definition.symbolize_keys!
       else
@@ -23,7 +23,7 @@ module SVF
       end
       if definition[:type].match("-")
         type, format = definition[:type].split("-")[0..1]
-        definition = {:type=>type.to_sym}
+        definition = {:type => type.to_sym}
         if format.match(/^\d+$/)
           definition[:length] = format.to_i
         elsif type.to_sym == :float and format.match(/^\d+\.\d+$/)
@@ -212,7 +212,7 @@ module SVF
       code << "      base = Base.new\n"
       code << "      ::File.open(file, 'rb:ISO8859-1') do |f|\n"
       code << "        line_number = 0\n"
-      code << parse_code(@root, :file=>'f', :root=>'base').strip.gsub(/^/, '        ')+"\n"
+      code << parse_code(@root, :file => 'f', :root => 'base').strip.gsub(/^/, '        ')+"\n"
       code << "      end\n"
       code << "      return base\n"
       code << "    end\n\n"
@@ -220,7 +220,7 @@ module SVF
       code << "    # Build file as a string\n"
       code << "    def to_s\n"
       code << "      _string = ''\n"
-      code << build_code(@root, :variable=>'_string', :root=>'self').strip.gsub(/^/, '      ')+"\n"
+      code << build_code(@root, :variable => '_string', :root => 'self').strip.gsub(/^/, '      ')+"\n"
       code << "      return _string\n"
       code << "    end\n\n"
 
@@ -299,7 +299,7 @@ module SVF
           code << "    end\n"
         end
         if line.has_children?
-          code << parse_code(line.children, :file=>options[:file], :root=>sibling.line, :parents=>siblings, :all_parents=>siblings+all_parents).strip.gsub(/^/, '    ')+"\n"
+          code << parse_code(line.children, :file => options[:file], :root => sibling.line, :parents => siblings, :all_parents => siblings+all_parents).strip.gsub(/^/, '    ')+"\n"
         else
           code << "    line = self.parse_line(#{options[:file]}.gets)\n"
           code << "    line_number += 1\n"
@@ -336,11 +336,11 @@ module SVF
         code << "if #{sibling.name} = #{full_name}\n"
         if sibling.range.max == 1
           code << "  #{var} << #{sibling.name}.to_s\n"
-          code << build_code(line.children, :variable=>var, :root=>sibling.line).strip.gsub(/^/, '  ')+"\n" if line.has_children?
+          code << build_code(line.children, :variable => var, :root => sibling.line).strip.gsub(/^/, '  ')+"\n" if line.has_children?
         else
           code << "  for #{sibling.line} in #{sibling.name}\n"
           code << "    #{var} << #{sibling.line}.to_s\n"
-          code << build_code(line.children, :variable=>var, :root=>sibling.line).strip.gsub(/^/, '    ')+"\n" if line.has_children?
+          code << build_code(line.children, :variable => var, :root => sibling.line).strip.gsub(/^/, '    ')+"\n" if line.has_children?
           code << "  end\n"
         end
         code << "end\n"

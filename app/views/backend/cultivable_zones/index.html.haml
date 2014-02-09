@@ -8,7 +8,7 @@
         - CultivableZone.find_each do |cultivable_zone|
           %a{'xlink:href' => backend_cultivable_zone_path(cultivable_zone)}
             %path{:d => cultivable_zone.shape_as_svg, :title => cultivable_zone.name}
-    - b.cell :cropping_plan_on_cultivable_zones, :params => {campaign: Campaign.currents.first}
+    - b.cell :cropping_plan_on_cultivable_zones, params: {campaign: Campaign.currents.first}
   - b.tabbox do
     - b.cell :list do
       = list

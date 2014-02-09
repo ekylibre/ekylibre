@@ -24,7 +24,7 @@ module ActiveList
           link_options << ", :method => h('#{(@options['data-method']||@options[:method])}')"
         end
         action = @name
-        format = @options[:format] ? ", :format=>'#{@options[:format]}'" : ""
+        format = @options[:format] ? ", :format => '#{@options[:format]}'" : ""
         if @options[:remote]
           raise StandardError, "Sure to use :remote ?"
           # remote_options = @options.dup
@@ -46,7 +46,7 @@ module ActiveList
           for expected, url in @options[:actions]
             cases << record+"."+@name.to_s+" == " + expected.inspect + "\nlink_to(content_tag(:i) + h(#{url[:action].inspect}.tl)"+
               ", {"+(url[:controller] ? 'controller: :'+url[:controller].to_s+', ' : '')+"action: '"+url[:action].to_s+"', id: "+record+".id"+format+"}"+
-              ", {:class=>'#{@name}'"+link_options+"}"+
+              ", {:class => '#{@name}'"+link_options+"}"+
               ")\n"
           end
 

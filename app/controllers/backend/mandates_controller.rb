@@ -68,7 +68,7 @@ class Backend::MandatesController < BackendController
   def configure
     notify_now(:no_existing_mandates) if Mandate.count.zero?
 
-    filters = { :no_filters => '', :contains => '%X%', :is => 'X', :begins => 'X%', :finishes => '%X', :not_contains => '%X%', :not_is  => 'X', :not_begins => 'X%', :not_finishes => '%X' }
+    filters = { :no_filters => '', :contains => '%X%', :is => 'X', :begins => 'X%', :finishes => '%X', :not_contains => '%X%', :not_is => 'X', :not_begins => 'X%', :not_finishes => '%X' }
     shortcuts = { :fam => :family, :org => :organization, :tit => :title }
     @filters = filters.collect{|f,k| [tc(f), f]}.sort
 

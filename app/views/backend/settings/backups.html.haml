@@ -1,4 +1,4 @@
-=form_tag({:action => :backup}) do
+=form_tag({action: :backup}) do
   =field_set :export_backup do
     =field content_tag(:label, tc(:with_prints), :for => :with_prints), check_box_tag(:with_prints)
   =form_actions do
@@ -6,7 +6,7 @@
 
 .spacer
 
-=form_tag({:action => :restore}, :multipart=>true) do
+=form_tag({action: :restore}, :multipart => true) do
   =field_set :import_backup do
     =field tc(:file_to_upload), file_field(:file, :path)
   =form_actions do

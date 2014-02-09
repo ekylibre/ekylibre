@@ -51,13 +51,13 @@ class Backend::PurchaseItemsController < BackendController
     end
     return unless product = find_and_check(:product_natures, params[:purchase_item][:product_id].to_i)
     if params[:price]
-      price_attrs = params[:price].symbolize_keys.merge(:product_id=>product.id, :entity_id=>@purchase.supplier_id)
-      price = ProductPriceTemplate.find(:first, :conditions=>price_attrs)
-      price ||= ProductPriceTemplate.create!(price_attrs.merge(:active=>true))
+      price_attrs = params[:price].symbolize_keys.merge(:product_id => product.id, :entity_id => @purchase.supplier_id)
+      price = ProductPriceTemplate.find(:first, :conditions => price_attrs)
+      price ||= ProductPriceTemplate.create!(price_attrs.merge(:active => true))
       params[:purchase_item][:price_id] = price.id
     end
     @purchase_item = @purchase.items.new(params[:purchase_item])
-    return if save_and_redirect(@purchase_item, :url=>{controller: :purchases, action: :show, step: :products, id: @purchase.id})
+    return if save_and_redirect(@purchase_item, :url => {controller: :purchases, action: :show, step: :products, id: @purchase.id})
     t3e @purchase.attributes
   end
 
@@ -70,9 +70,9 @@ class Backend::PurchaseItemsController < BackendController
     return unless @purchase_item = find_and_check
     return unless product = find_and_check(:product_natures, params[:purchase_item][:product_id].to_i)
     if params[:price]
-      price_attrs = params[:price].symbolize_keys.merge(:product_id=>product.id, :entity_id=>@purchase_item.purchase.supplier_id)
-      price = ProductPriceTemplate.find(:first, :conditions=>price_attrs)
-      price ||= ProductPriceTemplate.create!(price_attrs.merge(:active=>true))
+      price_attrs = params[:price].symbolize_keys.merge(:product_id => product.id, :entity_id => @purchase_item.purchase.supplier_id)
+      price = ProductPriceTemplate.find(:first, :conditions => price_attrs)
+      price ||= ProductPriceTemplate.create!(price_attrs.merge(:active => true))
       params[:purchase_item][:price_id] = price.id
     end
     if @purchase_item.update_attributes(params[:purchase_item])

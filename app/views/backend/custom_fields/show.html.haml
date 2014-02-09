@@ -1,7 +1,7 @@
 = main_toolbar do |t|
   - if @custom_field.choice?
-    - t.new :controller=>:custom_field_choices, :custom_field_id=>@custom_field.id
-    - t.sort @custom_field, {:method=>:post}
+    - t.new controller: :custom_field_choices, :custom_field_id => @custom_field.id
+    - t.sort @custom_field, {method: :post}
   - t.edit @custom_field
 
 = beehive do |b|

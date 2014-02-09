@@ -7,11 +7,11 @@
         - for error in session[:errors]
           %li= error.to_s
 
-= error_messages('sale', :object=>@credit) if @credit
+= error_messages('sale', :object => @credit) if @credit
 
 = form_tag() do
   = field_set :cancelation do
-    = field Sale.human_attribute_name(:responsible), selector(:sale, :responsible, {:action => :unroll, :scope => :employees, :controller => :people})
+    = field Sale.human_attribute_name(:responsible), selector(:sale, :responsible, {action: :unroll, :scope => :employees, controller: :people})
     = list :creditable_items
   = form_actions do
     = submit_tag(tc('validate'))

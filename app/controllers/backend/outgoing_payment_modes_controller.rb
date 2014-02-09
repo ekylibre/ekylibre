@@ -27,8 +27,8 @@ class Backend::OutgoingPaymentModesController < BackendController
     t.column :name
     t.column :cash, url: true
     t.column :with_accounting
-    t.action :up,   :method => :post, :unless => :first?
-    t.action :down, :method => :post, :unless => :last?
+    t.action :up,   method: :post, :unless => :first?
+    t.action :down, method: :post, :unless => :last?
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

@@ -1,6 +1,6 @@
 
 -if @step == 1
-  =form_tag({}, :method => :put) do
+  =form_tag({}, method: :put) do
     =field_set :period do
       =field tc(:from), date_field_tag(:started_at, params[:started_at])
       =field tc(:to),   date_field_tag(:stopped_at, params[:stopped_at])
@@ -9,7 +9,7 @@
 
 
 -if @step == 2
-  =form_tag({}, :method => :post) do
+  =form_tag({}, method: :post) do
     =field_set :preferences do
       =field tc(:from), ::I18n.localize(params[:started_at])
       =field tc(:select_date_generation), ::I18n.localize(params[:stopped_at])
@@ -19,5 +19,5 @@
         =field nature.to_s.classify.constantize.model_name.human, @records[nature].size
     =form_actions do
       =submit_tag(tg(:save))
-      =link_to tg(:back), :action => :bookkeep, :finish_bookkeeping_at => params[:finish_bookkeeping_at]
+      =link_to tg(:back), action: :bookkeep, :finish_bookkeeping_at => params[:finish_bookkeeping_at]
 

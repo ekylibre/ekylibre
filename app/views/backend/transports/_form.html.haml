@@ -1,10 +1,10 @@
 -# TODO Check
 = field_set do
-  = f.referenced_association :transporter, :source => :necessary_transporters, :new => {:transporter => 1} # , "data-parameter-name"=>"transporter_id", "data-dependents"=>"#deliveries"
+  = f.referenced_association :transporter, :source => :necessary_transporters, :new => {:transporter => 1} # , "data-parameter-name" => "transporter_id", "data-dependents" => "#deliveries"
   = f.referenced_association :responsible, :source => :employees
   = f.input :reference_number
   = f.input :departed_at
   = f.input :description, :field => :text
 
 %h2= Transport.human_attribute_name(:deliveries)
-#deliveries{"data-refresh"=>url_for(:controller=>:transports, :action=>:new, :transport_id=>@transport.id), "data-refresh-mode"=>"update"}= render 'deliveries_form'
+#deliveries{"data-refresh" => url_for(controller: :transports, action: :new, :transport_id => @transport.id), "data-refresh-mode" => "update"}= render 'deliveries_form'

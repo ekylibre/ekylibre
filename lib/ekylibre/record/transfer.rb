@@ -27,12 +27,12 @@ module Ekylibre::Record  #:nodoc:
           use = @origin
         end
         # Find stock
-        conditions = {:product_id=>use.product_id, :warehouse_id=>use.warehouse_id, :tracking_id=>use.tracking_id}
-        stock = use.company.stocks.find(:first, :conditions=>conditions)
+        conditions = {:product_id => use.product_id, :warehouse_id => use.warehouse_id, :tracking_id => use.tracking_id}
+        stock = use.company.stocks.find(:first, :conditions => conditions)
         stock = use.company.stocks.create!(conditions) if stock.nil?
 
         # Move stock
-        stock.move(@origin, options.merge(:virtual=>@virtual))
+        stock.move(@origin, options.merge(:virtual => @virtual))
       end
 
 
@@ -47,7 +47,7 @@ module Ekylibre::Record  #:nodoc:
       def transfer(options = {}, &block)
         raise ArgumentError.new("No given block") unless block_given?
         raise ArgumentError.new("Wrong number of arguments (#{block.arity} for 1)") unless block.arity == 1
-        configuration = { :on=>Ekylibre::Record::Transfer::actions, :method_name=>:transfer, :virtual=>"self.moved_at.nil\?", :moves=>:stock_moves }
+        configuration = { :on => Ekylibre::Record::Transfer::actions, :method_name => :transfer, :virtual => "self.moved_at.nil\?", :moves => :stock_moves }
         configuration.update(options) if options.is_a?(Hash)
         raise Exception.new("Need #{configuration[:moves]} reflection. Change :moves option or create reflection") unless self.reflections.has_key? configuration[:moves]
 

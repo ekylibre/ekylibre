@@ -13,9 +13,9 @@ module ActiveList
         :datetime => :dtt,
         :decimal => :dec,
         :measure => :dec,
-        :float  => :flt,
+        :float => :flt,
         :integer => :int,
-        :string  => :str,
+        :string => :str,
         :text => :txt,
         :time => :tim,
         :timestamp => :dtt
@@ -275,7 +275,7 @@ module ActiveList
 
           x = '@@PAGE-NUMBER@@'
           y = '@@PAGE-COUNT@@'
-          pagination << "<span class=\"paginator\">'+::I18n.translate('list.page_x_on_y', :default => '%{x} / %{y}', :x => '#{x}', :y  => '#{y}').html_safe.gsub('#{x}', ('<input type=\"number\" size=\"4\" data-list-move-to-page=\"value\" value=\"'+#{var_name(:page)}.to_s+'\">').html_safe).gsub('#{y}', #{var_name(:last)}.to_s) + '</span>"
+          pagination << "<span class=\"paginator\">'+::I18n.translate('list.page_x_on_y', :default => '%{x} / %{y}', :x => '#{x}', :y => '#{y}').html_safe.gsub('#{x}', ('<input type=\"number\" size=\"4\" data-list-move-to-page=\"value\" value=\"'+#{var_name(:page)}.to_s+'\">').html_safe).gsub('#{y}', #{var_name(:last)}.to_s) + '</span>"
 
           pagination << "<a href=\"#\" data-list-move-to-page=\"' + (#{current_page} + 1).to_s + '\" class=\"next-page\"' + (#{current_page} != #{last_page} ? '' : ' disabled=\"true\"') + '><i></i>' + ::I18n.translate('list.pagination.next')+'</a>"
           pagination << "<a href=\"#\" data-list-move-to-page=\"' + (#{last_page}).to_s + '\" class=\"last-page\"' + (#{current_page} != #{last_page} ? '' : ' disabled=\"true\"') + '><i></i>' + ::I18n.translate('list.pagination.last')+'</a>"

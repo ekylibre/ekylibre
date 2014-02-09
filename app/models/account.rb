@@ -450,8 +450,8 @@ class Account < Ekylibre::Record::Base
     res_balance = 0
 
     for account in accounts
-      debit  = account.journal_entry_items.sum(:debit,  :conditions  => ["r.created_at BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
-      credit = account.journal_entry_items.sum(:credit, :conditions  => ["r.created_at BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+      debit  = account.journal_entry_items.sum(:debit,  :conditions => ["r.created_at BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+      credit = account.journal_entry_items.sum(:credit, :conditions => ["r.created_at BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
 
       compute=HashWithIndifferentAccess.new
       compute[:id] = account.id.to_i

@@ -7,6 +7,6 @@
       %abbr{:title => 'required'} *
       =OperationUse.human_attribute_name('tool')
     .controls
-      =selector(:operation_use, :tool, {:controller=>"tools", :action=>:unroll}, {:object => operation_use}, :id => 'operation_use-tool-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {:controller => :tools, :action => :new}, 'data-new-item' => 'operation_use-tool-input', :class => 'btn btn-new')
+      =selector(:operation_use, :tool, {controller: "tools", action: :unroll}, {:object => operation_use}, id: 'operation_use-tool-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {controller: :tools, action: :new}, 'data-new-item' => 'operation_use-tool-input', :class => 'btn btn-new')
       -for error in operation_use.errors['tool']
         %span.help-inline=error

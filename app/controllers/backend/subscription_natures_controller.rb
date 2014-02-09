@@ -27,8 +27,8 @@ class Backend::SubscriptionNaturesController < BackendController
     t.column :nature, children: false
     t.column :actual_number, children: false
     t.column :reduction_percentage, children: false
-    t.action :increment, :method => :post, :if => :quantity?
-    t.action :decrement, :method => :post, :if => :quantity?
+    t.action :increment, method: :post, :if => :quantity?
+    t.action :decrement, method: :post, :if => :quantity?
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

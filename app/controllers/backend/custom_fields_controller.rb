@@ -29,8 +29,8 @@ class Backend::CustomFieldsController < BackendController
     t.column :required
     t.column :active
     t.column :choices_count, :datatype => :integer
-    t.action :up, :method => :post, :unless => :first?
-    t.action :down, :method => :post, :unless => :last?
+    t.action :up, method: :post, :unless => :first?
+    t.action :down, method: :post, :unless => :last?
     t.action :edit
     t.action :show, image: :menulist, :if => :choice?
     t.action :destroy, :if => :destroyable?
@@ -39,8 +39,8 @@ class Backend::CustomFieldsController < BackendController
   list(:choices, model: :custom_field_choices, conditions: {custom_field_id: 'params[:id]'.c}, order: 'position') do |t|
     t.column :name
     t.column :value
-    t.action :up, :unless => :first?, :method => :post
-    t.action :down, :unless => :last?, :method => :post
+    t.action :up, :unless => :first?, method: :post
+    t.action :down, :unless => :last?, method: :post
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

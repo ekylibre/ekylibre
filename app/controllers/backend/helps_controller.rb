@@ -31,7 +31,7 @@ class Backend::HelpsController < BackendController
   def show
     file = search_article(params[:id])
     if request.xhr?
-      render :partial => 'search', :object=>file
+      render :partial => 'search', :object => file
       return
     else
       @help = file
@@ -44,7 +44,7 @@ class Backend::HelpsController < BackendController
   def index
     per_page = 10
     if request.xhr?
-      render :inline => "<%=article(params[:article], :url=>{controller: :helps, action: :index, id: '\1'}, :update => :helpage)-%>"
+      render :inline => "<%=article(params[:article], :url => {controller: :helps, action: :index, id: '\1'}, :update => :helpage)-%>"
     else
       @search = {}
       page = params[:page].to_i

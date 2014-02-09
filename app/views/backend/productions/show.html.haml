@@ -13,7 +13,7 @@
 
   - b.hbox do
     - if Nomen::Varieties[@production.variant.variety].self_and_parents.include?(Nomen::Varieties[:milk])
-      - b.cell :last_milk_result, :params => {campaign_id: @production.campaign_id}
+      - b.cell :last_milk_result, params: {campaign_id: @production.campaign_id}
 
     - elsif Nomen::Varieties[@production.variant.variety].self_and_parents.include?(Nomen::Varieties[:plant])
       - b.cell :map do

@@ -26,8 +26,8 @@ class Backend::SaleNaturesController < BackendController
     t.column :name, url: true
     t.column :active
     t.column :currency
-    # t.column :name, :through=>:expiration, url: true
-    # t.column :name, :through=>:payment_delay, url: true
+    # t.column :name, :through => :expiration, url: true
+    # t.column :name, :through => :payment_delay, url: true
     t.column :downpayment
     # t.column :downpayment_minimum
     # t.column :downpayment_percentage

@@ -20,7 +20,7 @@
 class Backend::Calculators::NitrogenInputsController < BackendController
 
   def show
-    redirect_to :action => :edit
+    redirect_to action: :edit
   end
 
   def edit

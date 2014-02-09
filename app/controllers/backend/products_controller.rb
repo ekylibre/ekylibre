@@ -34,7 +34,7 @@ class Backend::ProductsController < BackendController
     t.column :variety
     t.column :container, url: true
     t.column :description
-    # t.action :show, url: {:format => :pdf}, image: :print
+    # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end

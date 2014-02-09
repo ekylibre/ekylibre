@@ -29,7 +29,7 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :container, url: true
     t.column :mother, url: true
     t.column :father, url: true
-    # t.action :show, url: {:format => :pdf}, image: :print
+    # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
     t.action :destroy, :if => :destroyable?
   end
@@ -45,7 +45,7 @@ class Backend::AnimalsController < Backend::MattersController
   end
 
    # Liste des enfants de l'animal considéré
-  list(:children, model: :product_links, conditions: ["linked_id = ? AND nature IN (?)", 'params[:id]'.c, %w(father mother)], order: {started_at: :desc}) do |t|
+  list(:children, model: :product_links, conditions: {linked_id: 'params[:id]'.c, nature: %w(father mother)}, order: {started_at: :desc}) do |t|
     t.column :name, through: :product, url: true
     t.column :born_at, through: :product
     t.column :sex, through: :product
@@ -58,9 +58,9 @@ class Backend::AnimalsController < Backend::MattersController
     t3e @animal, nature: @animal.nature_name
     respond_with(@animal, :methods => [:picture_path, :sex_text], :include => [:father, :mother, :variant, :nature, :variety,
                                                                   {:readings => {}},
-                                                                  {:intervention_casts => {:include =>:intervention}},
-                                                                  {:memberships => {:include =>:group}},
-                                                                  {:localizations => {:include =>:container}}])
+                                                                  {:intervention_casts => {:include => :intervention}},
+                                                                  {:memberships => {:include => :group}},
+                                                                  {:localizations => {:include => :container}}])
 
   end
 

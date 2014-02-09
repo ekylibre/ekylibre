@@ -21,7 +21,7 @@
         - k.crit :journal_entries_states
 
       - items = JournalEntryItem.joins(:entry).where(eval(controller.class.account_moves_conditions))
-      -# currencies = items.joins(:entry=>:financial_year).select("DISTINCT currency")
+      -# currencies = items.joins(:entry => :financial_year).select("DISTINCT currency")
       - totals = {}
       - totals[:debit]  = items.sum(:debit)
       - totals[:credit] = items.sum(:credit)

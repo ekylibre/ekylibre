@@ -1,11 +1,11 @@
 = render 'search_form'
 
 - article = @help
-- base_params = {:controller=>:help, :action=>:show}
-- cache(:controller=>:help, :action=>:show, :locale=>::I18n.locale, :id=>article) do
-  .content.flex{:style=>'overflow:auto;'}
+- base_params = {controller: :help, action: :show}
+- cache(controller: :help, action: :show, :locale => ::I18n.locale, id: article) do
+  .content.flex{:style => 'overflow:auto;'}
     - if article.is_a? String
-      = article(article, "data-update"=>"#help", :url=>base_params, :without_title=>true)
+      = article(article, "data-update" => "#help", :url => base_params, :without_title => true)
     - else
       %h1= tc("missing_help")
-      .help-error= tc(:error_no_file, :article=>article.to_s)
+      .help-error= tc(:error_no_file, :article => article.to_s)

@@ -4,42 +4,42 @@
   - t.export :purchase, @purchase
   - t.edit @purchase if @purchase.draft?
   - if @purchase.can_confirm?
-    - t.confirm @purchase, :method=>:post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
+    - t.confirm @purchase, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
   - if @purchase.can_invoice?
-    - t.invoice @purchase, :method=>:post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
+    - t.invoice @purchase, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
   - for event in [:propose, :correct, :refuse]
-    - t.send(event, @purchase, :method=>:post, "data-confirm" => tc(:are_you_sure)) if @purchase.send("can_#{event}?")
-  - t.abort(@purchase, :method=>:post, "data-confirm" => tc(:are_you_sure)) if @purchase.can_abort?
+    - t.send(event, @purchase, method: :post, "data-confirm" => tc(:are_you_sure)) if @purchase.send("can_#{event}?")
+  - t.abort(@purchase, method: :post, "data-confirm" => tc(:are_you_sure)) if @purchase.can_abort?
 
 = beehive do |b|
 
   - b.tabbox do
     - b.cell do
       = attributes_list do |l|
-        - l.attribute :supplier, :label=>:label, url: true
+        - l.attribute :supplier, :label => :label, url: true
         - l.attribute :number
         - l.attribute :reference_number
         - l.attribute :state
-        - l.attribute :responsible, :label=>:full_name
+        - l.attribute :responsible, :label => :full_name
         - l.attribute :created_at
         - l.attribute :confirmed_at
         - l.attribute :planned_at
         - l.attribute :currency unless @purchase.currency == Entity.of_company.currency
         - l.attribute :description
-        - l.attribute :delivery_address, :label=>:coordinate
+        - l.attribute :delivery_address, :label => :coordinate
         - l.attribute :journal_entry, url: true
 
   - if ["products", "summary", ""].include? params[:step].to_s
     - b.cell Purchase.human_attribute_name("items") do
       - if @purchase.draft?
         = toolbar do |t|
-          - t.new(:params => {:controller=>:purchase_items, :purchase_id=>@purchase.id})
+          - t.new(params: {controller: :purchase_items, :purchase_id => @purchase.id})
       = list :items do
         %tr.total
-          %th{:colspan=>6}
+          %th{:colspan => 6}
           %td= @purchase.pretax_amount.l(currency: @purchase.currency)
           %td= @purchase.amount.l(currency: @purchase.currency)
-          %th{:colspan=>3}
+          %th{:colspan => 3}
 
   - if ["products", "summary", ""].include? params[:step].to_s
     - b.cell tc(:affair) do
@@ -49,7 +49,7 @@
     -# if @purchase.deliverable?
       - b.cell tc(:undelivered) do
         = toolbar do |t|
-          - t.new(:params =>{:controller=>:incoming_deliveries, :purchase=>@purchase.id})
+          - t.new(params: {controller: :incoming_deliveries, :purchase => @purchase.id})
         = list :undelivered_items
     - b.cell Purchase.human_attribute_name("deliveries") do
       = list :deliveries
