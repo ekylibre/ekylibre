@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 load_data :land_parcels do |loader|
 
-  path = loader.path("ilot.shp")
+  path = loader.path("telepac", "ilot.shp")
   if path.exist?
     loader.count :telepac_shape_file_import do |w|
       #############################################################################
@@ -35,7 +35,7 @@ load_data :land_parcels do |loader|
 
   end
 
-  path = loader.path("parcelle.shp")
+  path = loader.path("telepac", "parcelle.shp")
   if path.exist?
     loader.count :telepac_landparcel_shape_file_import do |w|
       #############################################################################
@@ -136,117 +136,78 @@ load_data :land_parcels do |loader|
 
   end
 
-  path = loader.path("land_parcel.csv")
+
+  shapes = {}.with_indifferent_access
+  path = loader.path("cultivable_zones.shp")
   if path.exist?
-    loader.count :land_parcel_import do |w|
-      # Import land_parcel from Calc Sheet
+    loader.count :cultivable_zones_shapes do |w|
+      #############################################################################
+      born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
+      RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
+        # puts "File contains #{file.num_records} records."
+        file.each do |record|
+          shapes[record.attributes['number']] = record.geometry 
+          w.check_point
+        end
+      end
+    end
+  end
 
-      land_parcel_nature_variant = ProductNatureVariant.import_from_nomenclature(:clay_limestone_land_parcel)
 
-      # Load file
-      CSV.foreach(path, encoding: "UTF-8", col_sep: ",", headers: true, quote_char: "'") do |row|
-        r = OpenStruct.new(:ilot_work_number => row[0],
-                           :campaign => row[1],
-                           :land_parcel_work_number => row[2],
-                           :land_parcel_name => row[3].capitalize,
-                           :land_parcel_area => row[4].blank? ? nil : row[4].to_d,
-                           land_parcel_shape: row[5],
-                           :land_parcel_variant_nomen => row[6].blank? ? nil : row[6].to_sym,
-                           :land_parcel_available_water_capacity => row[7].blank? ? nil : row[7].to_d,
-                           born_at: Time.new(1955, 1, 1, 10, 0, 0, "+00:00")
-                           )
+  path = loader.path("cultivable_zones.csv")
+  if path.exist?
+    born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
+    loader.count :cultivable_zones do |w|
+      CSV.foreach(path, headers: true) do |row|
+        r = OpenStruct.new(name: row[0].to_s,
+                           nature: (row[1].blank? ? nil : row[1].to_sym),
+                           code: (row[2].blank? ? nil : row[2].to_s),
+                           shape_number: (row[3].blank? ? nil : row[3].to_s),
+                           ilot_code: (row[4].blank? ? nil : row[4].to_s),
+                           place_code: (row[5].blank? ? nil : row[5].to_s),
+                           description: (row[6].blank? ? nil : row[6].to_s)
+                          )
 
-        if land_parcel_cluster = LandParcelCluster.find_by_work_number(r.ilot_work_number)
+        unless zone = Product.find_by_work_number(r.code)
+          zone_variant = ProductNatureVariant.find_by(:reference_name => r.nature) || ProductNatureVariant.import_from_nomenclature(r.nature)
+          pmodel = zone_variant.nature.matching_model
+          zone = pmodel.create!(:variant_id => zone_variant.id, :work_number => r.code,
+                                 :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company)
 
-          land_parcel_variant = ProductNatureVariant.import_from_nomenclature(r.land_parcel_variant_nomen)
-          land_parcel_variant ||= land_parcel_nature_variant
-          land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number)
-          land_parcel ||= LandParcel.create!(:variant => land_parcel_variant,
-                                             :name => r.land_parcel_name,
-                                             initial_born_at: r.born_at,
-                                             :work_number => r.land_parcel_work_number,
-                                             :initial_owner => Entity.of_company,
-                                             :identification_number => r.land_parcel_work_number)
-          # add shape and population indicator
-          if r.land_parcel_shape
-            land_parcel.read!(:shape, r.land_parcel_shape, at: r.born_at)
-            ind_area = land_parcel.shape_area
-            land_parcel.read!(:population, (ind_area / 10000).round(3), at: r.born_at)
-          elsif r.land_parcel_area
-            land_parcel.read!(:population, r.land_parcel_area, at: r.born_at)
-          end
+            if container = Product.find_by_work_number(r.place_code)
+              # container.add(zone, born_at)
+              zone.update_attributes(initial_container: container)
+              zone.save!
+            end
+        end
+        if geometry = shapes[r.shape_number]
+          zone.read!(:shape, geometry, at: born_at, force: true)
+          zone.read!(:net_surface_area, zone.shape_area, at: born_at)
+        end
+        
+         # add shape and population indicator
+         # if r.land_parcel_shape
+          #  land_parcel.read!(:shape, r.land_parcel_shape, at: r.born_at)
+          #  ind_area = land_parcel.shape_area
+          #  land_parcel.read!(:population, (ind_area / 10000).round(3), at: r.born_at)
+          #elsif r.land_parcel_area
+         #   land_parcel.read!(:population, r.land_parcel_area, at: r.born_at)
+         # end
 
           # add available_water_capacity indicator
-          if r.land_parcel_available_water_capacity
-            land_parcel.read!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
-          end
+         # if r.land_parcel_available_water_capacity
+         #   land_parcel.read!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
+         # end
 
           # add land_parcel in land_parcel_cluster group
-          land_parcel_cluster.add(land_parcel)
-
-        end
-
+         # land_parcel_cluster.add(land_parcel)
+        
+        
         w.check_point
-      end
-    end
+     end
+   end
   end
+  
 
-
-
-  path = loader.path("cultivable_zone_land_parcel.csv")
-  if path.exist?
-    loader.count :cultivable_zone_import do |w|
-      # Import land_parcel from Calc Sheet
-
-      cultivable_zone_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
-
-      # Load file
-      CSV.foreach(path, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
-        r = OpenStruct.new(:cultivable_zone_work_number => row[0],
-                           :cultivable_zone_name => row[1],
-                           :cultivable_zone_area => row[2].blank? ? nil : row[2].to_d,
-                           :land_parcel_work_number => row[3],
-                           :land_parcel_name => row[4].capitalize,
-                           :land_parcel_member_area => row[5].blank? ? nil : row[5].to_d,
-                           :cultivable_zone_shape => row[6].blank? ? nil : row[6],
-                           :land_parcel_member_shape => row[7].blank? ? nil : row[7],
-                           born_at: Time.new(1955, 1, 1, 10, 0, 0, "+00:00")
-                           )
-
-        cultivable_zone = CultivableZone.find_by_work_number(r.zone_cultural_work_number)
-        cultivable_zone ||= CultivableZone.create!(:variant_id => cultivable_zone_variant.id,
-                                                   :name => r.cultivable_zone_name,
-                                                   :work_number => r.cultivable_zone_work_number,
-                                                   initial_born_at: r.born_at,
-                                                   :variety => "cultivable_zone",
-                                                   :initial_owner => Entity.of_company,
-                                                   :identification_number => r.cultivable_zone_work_number)
-
-        if r.cultivable_zone_shape
-          # puts cultivable_zone.work_number
-          unless cultivable_zone.work_number == "ZC17"
-            cultivable_zone.read!(:shape, r.cultivable_zone_shape, at: r.born_at)
-            ind_area = cultivable_zone.shape_area
-            area = (ind_area / 10000).round(2)
-            cultivable_zone.read!(:population, area, at: r.born_at)
-          end
-        elsif r.cultivable_zone_area
-          cultivable_zone.read!(:population, r.cultivable_zone_area, at: r.born_at)
-        end
-
-
-        if land_parcel = LandParcel.find_by_work_number(r.land_parcel_work_number) || nil
-          cultivable_zone_membership = CultivableZoneMembership.where(group: cultivable_zone, member: land_parcel).first
-          cultivable_zone_membership ||= CultivableZoneMembership.create!(:group => cultivable_zone,
-                                                                          :member => land_parcel,
-                                                                          :shape => r.land_parcel_member_shape,
-                                                                          :population => r.land_parcel_member_area
-                                                                          )
-        end
-
-        w.check_point
-      end
-    end
-  end
 
 end
