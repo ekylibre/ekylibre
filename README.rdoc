@@ -17,6 +17,8 @@ https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre.
 
 == Screenshot
 
+https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png
+
 {<img src="https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png" />}
 
 == Installation
