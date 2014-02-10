@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 load_data :land_parcels do |loader|
 
-  path = loader.path("ilot.shp")
+  path = loader.path("telepac", "ilot.shp")
   if path.exist?
     loader.count :telepac_shape_file_import do |w|
       #############################################################################
@@ -35,7 +35,7 @@ load_data :land_parcels do |loader|
 
   end
 
-  path = loader.path("parcelle.shp")
+  path = loader.path("telepac", "parcelle.shp")
   if path.exist?
     loader.count :telepac_landparcel_shape_file_import do |w|
       #############################################################################
