@@ -1981,6 +1981,8 @@ spa:
         # swamp_peaty_soil: "Terre de marais tourbeux"
         # valley_terrace_soil: "Sols de terrasse de vallée"
       # name: "Types de sols"
+    spatial_reference_systems:  #?
+ #?
     taxes:
       attributes:
         # active: "actif"

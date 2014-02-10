@@ -8,10 +8,6 @@ module ReadingStorable
 
     composed_of :measure_value, class_name: "Measure", mapping: [%w(measure_value_value to_d), %w(measure_value_unit unit)]
     composed_of :absolute_measure_value, class_name: "Measure", mapping: [%w(absolute_measure_value_value to_d), %w(absolute_measure_value_unit unit)]
-    # composed_of :reading, mapping: [%w(indicator_name name), %w(value value)]
-
-    # set_rgeo_factory_for_column(:point_value, RGeo::Geographic.spherical_factory(srid: 4326))
-    # set_rgeo_factory_for_column(:geometry_value, RGeo::Geographic.spherical_factory(srid: 4326))
 
     validates_inclusion_of :indicator_name, in: self.indicator_name.values
     validates_inclusion_of :indicator_datatype, in: self.indicator_datatype.values
@@ -62,34 +58,15 @@ module ReadingStorable
       if datatype == :measure
         object = Measure.new(object)
       elsif datatype == :boolean
-        object = ["1", "ok", "t", "true", "y", "yes"].include?(object.to_s.strip.downcase)
-      elsif datatype == :geometry
-        if object =~ /\A[A-F0-9]+\z/
-          srid =  LandParcel.connection.select_value("SELECT ST_SRID(ST_GeomFromEWKB(E'\\\\x#{object}'))").to_i
-          srid = 2154 if srid.zero?
-          wkt =   LandParcel.connection.select_value("SELECT ST_AsText(ST_Force_2D(ST_GeomFromEWKB(E'\\\\x#{object}')))")
-          object = ::RGeo::Cartesian.preferred_factory(srid: srid).parse_wkt(wkt)
-          puts "SRID: #{srid.inspect}, WKT: #{wkt.inspect}" if object.nil?
-        else
-          raise "Cannot parse #{object.inspect}"
-        end
+        object = ["1", "t", "true", "y", "yes", "ok"].include?(object.to_s.strip.downcase)
       elsif datatype == :decimal
         object = object.to_d
       elsif datatype == :integer
         object = object.to_i
       end
     end
-    if object and datatype == :geometry
-      # factory = RGeo::Geographic.spherical_factory(srid: 4326, proj4: wgs84_proj4, coord_sys: wgs84_wkt)
-      # puts object.factory.proj4.inspect
-      factory = RGeo::Geographic.simple_mercator_factory
-      if new_object = RGeo::Feature.cast(object, factory: factory, project: true)
-        object = new_object
-      else
-        puts "--- " + object.inspect
-        puts "+++ " + new_object.inspect
-      end
-      # raise "Stop"
+    if datatype == :geometry
+      object = Charta::Geometry.transform(object, :WGS84).to_rgeo
     end
     self.send("#{datatype}_value=", object)
   end
