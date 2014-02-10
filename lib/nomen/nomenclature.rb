@@ -6,11 +6,12 @@ module Nomen
     attr_reader :attributes, :items, :name, :roots
 
     # Instanciate a new nomenclature
-    def initialize(name)
+    def initialize(name, translateable = true)
       @name = name.to_sym
       @items = HashWithIndifferentAccess.new
       @roots = []
       @attributes = HashWithIndifferentAccess.new
+      @translateable = !!translateable
     end
 
     class << self
@@ -25,11 +26,11 @@ module Nomen
 
         # Find root
         unless root = sets[:root]
-          raise ArgumentError.new("Missing root nomenclature in set #{nomenclature_name}")
+          raise ArgumentError, "Missing root nomenclature in set #{nomenclature_name}"
         end
 
         # Browse recursively nomenclatures and sub-nomenclatures
-        n = Nomenclature.new(nomenclature_name)
+        n = Nomenclature.new(nomenclature_name, !(root.attribute("translateable").to_s == "false"))
         n.harvest(root, sets, root: true)
         return n
       end
@@ -105,6 +106,10 @@ module Nomen
       return true
     end
 
+
+    def translateable?
+      @translateable
+    end
 
     # Return human name
     def human_name

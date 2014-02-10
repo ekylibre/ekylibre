@@ -309,6 +309,7 @@ task :locales => :environment do
   translation << "  nomenclatures:\n"
   for name in Nomen.names.sort{|a,b| a.to_s <=> b.to_s}
     nomenclature = Nomen[name]
+    next unless nomenclature.translateable?
     translation << "    #{nomenclature.name}:\n"
     translation << CleanSupport.exp(ref, nomenclature.name, :name, default: name.humanize).dig(3)
     choices = ""
