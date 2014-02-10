@@ -3,7 +3,7 @@
   <!-- root -->
   <!-- Annexe 10 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  Le tableau ci-dessous donne les valeurs de référence pour le coefficient d’équivalence engrais minéral efficace (Kéq) des principaux Produits Résiduaires Organiques (PRO): -->
-  <nomenclature name="nmp_poitou_charentes_abacus_8" hierarchical="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_8" hierarchical="false" translateable="false">
     <attributes>
       <attribute name="variant" type="choice" nomenclature="product_nature_variants" required="true"/>
       <attribute name="crop" type="choice" nomenclature="france_crops_sets" required="true"/>

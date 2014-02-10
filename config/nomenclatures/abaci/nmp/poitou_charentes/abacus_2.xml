@@ -3,7 +3,7 @@
   <!-- root -->
   <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  abaque de rendement (qt / ha) par variant de type de sol, variant de culture et réserve utile (RU) min et max  -->
-  <nomenclature name="nmp_poitou_charentes_abacus_two" hierarchical="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_two" hierarchical="false" translateable="false">
     <attributes>
       <attribute name="soil_variety" type="choice" nomenclature="varieties" required="false"/> <!-- -land_parcel -->
       <attribute name="cultivation_variety" type="choice" nomenclature="varieties" required="false"/> <!-- -poaceae -->

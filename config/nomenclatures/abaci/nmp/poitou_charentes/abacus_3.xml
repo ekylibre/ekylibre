@@ -3,7 +3,7 @@
   <!-- root -->
   <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  abaque de valeur d'azote par quintal à produire (kg de N/qt) par variété de céréale  -->
-  <nomenclature name="nmp_poitou_charentes_abacus_three" hierarchical="true">
+  <nomenclature name="nmp_poitou_charentes_abacus_three" hierarchical="true" translateable="false">
     <attributes>
       <attribute name="cultivation_variety" type="choice" nomenclature="varieties" required="false"/>
       <attribute name="coefficient" type="decimal" required="true"/>

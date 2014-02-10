@@ -3,7 +3,7 @@
   <!-- root -->
   <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  abaque de rendement (qt / ha) par département et variété de culture  -->
-  <nomenclature name="nmp_poitou_charentes_abacus_one" hierarchical="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_one" hierarchical="false" translateable="false">
     <attributes>
       <attribute name="cultivation_variety" type="choice" nomenclature="varieties" required="true"/> <!-- poaceae -->
       <attribute name="crop_yield" type="decimal" required="false"/><!-- in qt/ha -->
