@@ -1,44 +1,11 @@
--#=kujaku do |k|
-  -k.date :viewed_at
-
 = main_toolbar do |t|
   - t.new
-  -# t.merge, {}, :remote => Ntrue, method: :post, "data-confirm" => tl(:are_you_sure), "data-with" => "td.plot.selected input", "data-redirect" => true, "data-type" => "text"
 
 = beehive do |b|
-  - b.tabbox do
+  - b.hbox do
     - b.cell :map do
-      %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => LandParcelCluster.shape_view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "100%", :height => "400px", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
-        -LandParcelCluster.find_each do |land_parcel_cluster|
-          %a{'xlink:href' => backend_land_parcel_cluster_path(land_parcel_cluster)}
-            %path{:d => land_parcel_cluster.shape_as_svg, :title => land_parcel_cluster.name}
-    -b.cell :list do
-      =list
-
--#unit = Unit.find_by_base("m2")
--# TODO Review presentation of land_parcels
--#=form_tag do
-  -LandParcelCluster.find_each do |group|
-    -total_area = group.area(session[:viewed_at], unit)
-    .group
-      %h2=group.name
-      -land_parcels = group.land_parcels_at(session[:viewed_at])
-      -next if land_parcels.size.zero?
-      %table.treemap
-        %tr
-          -for land_parcel in land_parcels
-            %td.plot{:style => "width: #{100*land_parcel.area(unit).to_f/total_area}%;", :class => cycle("odd", "even"), "data-toggle-class" => "selected"}
-              =hidden_field_tag("land_parcel[#{land_parcel.id}]", "1", id: "land_parcel_#{land_parcel.id}")
-              .bmenu
-                =link_to(land_parcel.name, {action: :show, id: land_parcel.id}, :class => :name)
-                %ul
-                  %li=link_to(::I18n.t("actions.operations.new"), {controller: :operations, action: :new, :target_id => land_parcel.id, :planned_at => session[:viewed_at]}, :class => "icon im-new")
-                  %li=link_to(tl(:divide), {controller: :land_parcels, action: :divide, id: land_parcel.id}, :class => "icon im-divide")
-                  %li=link_to(tl(:update), {controller: :land_parcels, action: :edit, id: land_parcel.id}, :class => "icon im-edit")
-                  %li=link_to(tl(:delete), {controller: :land_parcels, action: :destroy, id: land_parcel.id}, method: :delete, "data-confirm" => :are_you_sure_you_want_to_delete, :class => "icon im-destroy")
-              .area=tl(:x_unit, :quantity => land_parcel.area_measure, :unit => land_parcel.area_unit.name)
-              .desc=land_parcel.description
-              %ul.operations
-                -for operation in land_parcel.operations.find(:all, :conditions => ["COALESCE(moved_at, planned_at) < ? ", session[:viewed_at]], :limit => 5)
-                  %li=link_to(operation.name, {action: :show, controller: :operations, id: operation.id})
+      = map(LandParcelCluster.all)
+  - b.hbox do
+    - b.cell :list do
+      = list
 

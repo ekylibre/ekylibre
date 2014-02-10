@@ -1,36 +1,15 @@
 = main_toolbar do |t|
-  - t.edit @land_parcel
-  -# t.divide @land_parcel
+  - t.edit resource
 
 = beehive do |b|
-  - b.tabbox do
+  - b.hbox do
     - b.cell :general do
-      .picture
-        = @land_parcel.shape_svg(:width => 180, :height => 180, :class => :map)
+      = map(resource, class: "picture mini-map")
       .info
         %span.title= LandParcel.human_attribute_name(:net_surface_area)
-        %span.value= @land_parcel.net_surface_area.in_hectare.round(2).l
+        %span.value= resource.net_surface_area.in_hectare.round(2).l
 
-
+  - b.hbox do
     - b.cell do
       = attributes_list do |l|
         - l.attribute :name
-        -# l.attribute :shape_svg_path
-        - l.attribute :description
-        -# l.attribute :started_at
-        -# l.attribute :stopped_at
-        -# l.attribute :area_measure
-        -# l.attribute :area_unit
-
--# Not operational
-  %table.stepper
-    %tr
-      %td.step=@land_parcel.parent_kinships.collect{|k| link_to(k.parent_land_parcel.name, action: :show, id: k.parent_land_parcel_id).html_safe}.to_sentence.html_safe
-      %td.step.active=@land_parcel.name
-      %td.step=@land_parcel.child_kinships.collect{|k| link_to(k.child_land_parcel.name, action: :show, id: k.child_land_parcel_id).html_safe}.to_sentence.html_safe
-
-  %h2=tc :operations
-  =toolbar do |t|
-    -t.new controller: :operations, :target_id => @land_parcel.id, :target_type => LandParcel.name
-  =list(:operations)
-  

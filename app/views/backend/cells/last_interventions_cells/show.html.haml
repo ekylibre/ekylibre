@@ -1,8 +1,6 @@
 - if @intervention
   - if @container.is_a?(CultivableZone)
-    .picture-block
-      = @container.shape_svg(:width => 160, :height => 160)
-      %p= @container.name
+    = map(@container)
   .info
     %span.title= Intervention.human_attribute_name(:name)
     %span.value= link_to(@intervention.name, controller: "/backend/interventions", action: :show, id: @intervention.to_param)

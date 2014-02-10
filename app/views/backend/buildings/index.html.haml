@@ -1,15 +1,10 @@
--#=kujaku do |k|
-  -k.date :viewed_at
-
 = main_toolbar do |t|
   - t.new
 
 = beehive do |b|
-  - b.tabbox do
+  - b.hbox do
     - b.cell :map do
-      %svg{:xmlns => "http://www.w3.org/2000/svg", :version => "1.1", :class => :map, :viewBox => Building.shape_view_box.join(" "), :preserveAspectRatio => "xMidYMid meet", :width => "100%", :height => "400px", "xmlns:xlink" => "http://www.w3.org/1999/xlink"}
-        - Building.find_each do |building|
-          %a{'xlink:href' => backend_building_path(building)}
-            %path{:d => building.shape_as_svg, :title => building.name}
+      = map(Building.all)
+  - b.hbox do
     - b.cell :list do
       = list

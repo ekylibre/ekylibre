@@ -244,7 +244,7 @@ $map-button-size: round(2 * $fs-normal);
     display: block;
     @include text-align(center);
     text-decoration: none;
-    color: $text-color;
+    color: $link-color;
     &:hover {
       background-color: background-hover($mapbar-background-color);
     }
@@ -260,7 +260,7 @@ $map-button-size: round(2 * $fs-normal);
         outline: none;
         cursor: default;
         background-color: rgba($neutral-color, $default-opacity);
-        // color: #BBB;
+        color: $text-color;
         @include opacity(0.5);
         // @include text-shadow(-1px -1px 0 white);
       }

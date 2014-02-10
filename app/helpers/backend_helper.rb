@@ -79,6 +79,7 @@ module BackendHelper
     return nil
   end
 
+
   class Menu
     attr_reader :items
 

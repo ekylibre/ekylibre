@@ -15,28 +15,25 @@ def execute(command)
   end
 end
 
-table = ARGV.shift
+cell = ARGV.shift
 
 unless $PROGRAM_NAME.match(/^(.\/)?bin\//)
   puts "Script must be started from Rails root."
   exit 0
 end
 
-raise "Not table given" if table.blank?
+raise "Not cell given" if cell.blank?
 
 root = Pathname.new(".")
 
-records = table
+records = cell
 record = records.singularize
 puts "Removes #{record}"
 
-files = ["app/models/#{record}.rb",
-         "app/controllers/backend/#{records}_controller.rb",
-         "app/helpers/backend/#{records}_helper.rb",
-         "app/views/backend/#{records}",
-         "test/fixtures/#{records}.yml",
-         "test/models/#{record}_test.rb",
-         "test/controllers/backend/#{records}_controller_test.rb"]
+files = ["app/controllers/backend/cells/#{cell}_cells_controller.rb",
+         "app/helpers/backend/cells/#{cell}_cells_helper.rb",
+         "app/views/backend/cells/#{cell}_cells",
+         "test/controllers/backend/#{cell}_cells_controller_test.rb"]
 
 for file in files
   if File.exist?(file)

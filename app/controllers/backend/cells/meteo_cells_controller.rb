@@ -5,10 +5,8 @@ class Backend::Cells::MeteoCellsController < Backend::CellsController
 
     if zone = (params[:id] ? CultivableZone.find_by(id: params[:id]) : CultivableZone.first)
       if reading = zone.reading(:shape)
-        wkt = reading.class.connection.select_value("SELECT ST_AsText(ST_Transform(ST_Centroid(ST_SetSRID(geometry_value, 2154)), 4326)) FROM #{reading.class.table_name} WHERE id = #{reading.id}")
-        factory = RGeo::Geographic.spherical_factory
-        coordinates = factory.parse_wkt(wkt)
-        @forecast = JSON.load(open("http://api.openweathermap.org/data/2.5/forecast/daily?lat=#{coordinates.latitude}&lon=#{coordinates.longitude}&cnt=14&mode=json")).deep_symbolize_keys
+        coordinates = Charta::Geometry.new(reading.geometry_value).centroid
+        @forecast = JSON.load(open("http://api.openweathermap.org/data/2.5/forecast/daily?lat=#{coordinates.first}&lon=#{coordinates.second}&cnt=14&mode=json")).deep_symbolize_keys
         @forecast[:list] = @forecast[:list].collect do |day|
           day.deep_symbolize_keys!
           {

@@ -66,7 +66,7 @@ module ReadingStorable
       end
     end
     if datatype == :geometry
-      object = Charta::Geometry.transform(object, :WGS84).to_rgeo
+      object = Charta::Geometry.new(object).transform(:WGS84).to_rgeo
     end
     self.send("#{datatype}_value=", object)
   end

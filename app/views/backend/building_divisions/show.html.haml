@@ -5,8 +5,7 @@
   - b.hbox do
     - b.cell :general do
       - if resource.shape
-        .picture
-          = resource.shape_svg(:width => 180, :height => 180, :class => :map)
+        = map(resource, class: "picture mini-map")
       = attributes_list do |l|
         - l.attribute :name
         - l.attribute :variant, url: true

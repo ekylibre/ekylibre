@@ -1341,34 +1341,22 @@ jpn:
     nmp_methods:
       items: #?
     nmp_poitou_charentes_abacus_1: #?
-    nmp_poitou_charentes_abacus_10:  #?
- #?
+    nmp_poitou_charentes_abacus_10: #?
     nmp_poitou_charentes_abacus_2: #?
     nmp_poitou_charentes_abacus_3: #?
     nmp_poitou_charentes_abacus_4: #?
     nmp_poitou_charentes_abacus_5: #?
-    nmp_poitou_charentes_abacus_6:  #?
- #?
+    nmp_poitou_charentes_abacus_6: #?
     nmp_poitou_charentes_abacus_7:  #?
-      choices: #?
- #?
  #?
     nmp_poitou_charentes_abacus_8:  #?
-      choices: #?
  #?
- #?
-    nmp_poitou_charentes_abacus_9:  #?
- #?
-    nmp_poitou_charentes_abacus_five:  #?
- #?
-    nmp_poitou_charentes_abacus_four:  #?
- #?
-    nmp_poitou_charentes_abacus_one:  #?
- #?
-    nmp_poitou_charentes_abacus_three:  #?
- #?
-    nmp_poitou_charentes_abacus_two:  #?
- #?
+    nmp_poitou_charentes_abacus_9: #?
+    nmp_poitou_charentes_abacus_five: #?
+    nmp_poitou_charentes_abacus_four: #?
+    nmp_poitou_charentes_abacus_one: #?
+    nmp_poitou_charentes_abacus_three: #?
+    nmp_poitou_charentes_abacus_two: #?
     phosphorus_analysis_methods:
       items:
         # dyer: "Dyer"

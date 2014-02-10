@@ -631,7 +631,11 @@ form.search {
   @include float(left);
   margin: 0 $default-gap;
   padding: $default-gap;
+}
 
+.mini-map {
+  width: 300px;
+  height: 300px;
 }
 
 .info {

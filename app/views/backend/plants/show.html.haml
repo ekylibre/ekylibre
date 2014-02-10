@@ -1,17 +1,16 @@
 = main_toolbar do |t|
-  - t.edit @plant
-  - t.destroy(@plant, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete))
+  - t.edit resource
+  - t.destroy(resource, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete))
 
 = beehive do |b|
   - b.cell :details do
-    .picture
-      - if @plant.picture.exists?
-        = image_tag(@plant.picture.url(:identity))
-      - else
-        = @plant.shape_svg(width: 180, height: 180, :class => :map)
+    - if resource.picture.exists?
+      .picture= image_tag(resource.picture.url(:identity))
+    - else
+      = map(resource, class: "mini-map picture")
     .info
       %span.title= Plant.human_attribute_name(:net_surface_area)
-      %span.value= @plant.net_surface_area.in_hectare.round(2).l
+      %span.value= resource.net_surface_area.in_hectare.round(2).l
     = attributes_list do |l| # liste des champs à afficher
       - l.attribute :name
       - l.attribute :born_at
@@ -24,9 +23,9 @@
       = list(:intervention_casts)
     - b.cell(:issues) do
       = toolbar do |t|
-        - t.new(params: {controller: :issues, :target_id => @plant.id, :target_type => @plant.class.name})
+        - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})
       = list(:issues)
-    - b.cell(tl(:x_readings, count: @plant.readings.count)) do
+    - b.cell(tl(:x_readings, count: resource.readings.count)) do
       = list(:readings)
     - b.cell(:reading_tasks) do
       = list(:reading_tasks)

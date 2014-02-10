@@ -66,12 +66,12 @@ load_data :land_parcels do |loader|
           # create a land parcel for each entries
           #
           land_parcel = LandParcel.create!(:variant_id => land_parcel_variant.id,
-                                                          :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
-                                                          :work_number => "P" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
-                                                          :variety => "clay_limestone_soil",
-                                                          :initial_born_at => born_at,
-                                                          :initial_owner => Entity.of_company,
-                                                          :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
+                                           :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
+                                           :work_number => "P" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
+                                           :variety => "clay_limestone_soil",
+                                           :initial_born_at => born_at,
+                                           :initial_owner => Entity.of_company,
+                                           :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
 
           land_parcel.read!(:shape, record.geometry, at: born_at)
           ind_area = land_parcel.shape_area
@@ -80,12 +80,12 @@ load_data :land_parcels do |loader|
           # create a cultivable zone for each entries
           #
           cultivable_zone = CultivableZone.create!(:variant_id => cultivable_zone_variant.id,
-                                                          :name => CultivableZone.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s,
-                                                          :work_number => "ZC" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
-                                                          :variety => "cultivable_zone",
-                                                          :initial_born_at => born_at,
-                                                          :initial_owner => Entity.of_company,
-                                                          :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
+                                                   :name => CultivableZone.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s,
+                                                   :work_number => "ZC" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
+                                                   :variety => "cultivable_zone",
+                                                   :initial_born_at => born_at,
+                                                   :initial_owner => Entity.of_company,
+                                                   :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
 
           cultivable_zone.read!(:shape, record.geometry, at: born_at)
           ind_area = cultivable_zone.shape_area
@@ -146,7 +146,7 @@ load_data :land_parcels do |loader|
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          shapes[record.attributes['number']] = record.geometry 
+          shapes[record.attributes['number']] = record.geometry
           w.check_point
         end
       end
@@ -166,48 +166,38 @@ load_data :land_parcels do |loader|
                            ilot_code: (row[4].blank? ? nil : row[4].to_s),
                            place_code: (row[5].blank? ? nil : row[5].to_s),
                            description: (row[6].blank? ? nil : row[6].to_s)
-                          )
+                           )
 
         unless zone = Product.find_by_work_number(r.code)
           zone_variant = ProductNatureVariant.find_by(:reference_name => r.nature) || ProductNatureVariant.import_from_nomenclature(r.nature)
           pmodel = zone_variant.nature.matching_model
           zone = pmodel.create!(:variant_id => zone_variant.id, :work_number => r.code,
-                                 :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company)
+                                :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company, initial_shape: shapes[r.shape_number])
 
-            if container = Product.find_by_work_number(r.place_code)
-              # container.add(zone, born_at)
-              zone.update_attributes(initial_container: container)
-              zone.save!
-            end
+          if container = Product.find_by_work_number(r.place_code)
+            # container.add(zone, born_at)
+            zone.update_attributes(initial_container: container)
+            zone.save!
+          end
         end
-        if geometry = shapes[r.shape_number]
-          zone.read!(:shape, geometry, at: born_at, force: true)
-          zone.read!(:net_surface_area, zone.shape_area, at: born_at)
-        end
-        
-         # add shape and population indicator
-         # if r.land_parcel_shape
-          #  land_parcel.read!(:shape, r.land_parcel_shape, at: r.born_at)
-          #  ind_area = land_parcel.shape_area
-          #  land_parcel.read!(:population, (ind_area / 10000).round(3), at: r.born_at)
-          #elsif r.land_parcel_area
-         #   land_parcel.read!(:population, r.land_parcel_area, at: r.born_at)
-         # end
+        # if geometry = shapes[r.shape_number]
+        #   zone.read!(:shape, geometry, at: born_at, force: true)
+        #   # zone.read!(:net_surface_area, zone.shape_area, at: born_at)
+        # end
 
-          # add available_water_capacity indicator
-         # if r.land_parcel_available_water_capacity
-         #   land_parcel.read!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
-         # end
+        # # Add available_water_capacity indicator
+        # if r.land_parcel_available_water_capacity
+        #   land_parcel.read!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)
+        # end
 
-          # add land_parcel in land_parcel_cluster group
-         # land_parcel_cluster.add(land_parcel)
-        
-        
+        # # Add land_parcel in land_parcel_cluster group
+        # land_parcel_cluster.add(land_parcel)
+
         w.check_point
-     end
-   end
+      end
+    end
   end
-  
+
 
 
 end
