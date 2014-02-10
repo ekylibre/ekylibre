@@ -1,0 +1,22 @@
+Name,Nature,Code,Shape Number,Ilot Code,Code Place,Description
+Petit champ,clay_limestone_land_parcel,LP01,ZC01,1,,
+Grand champ,clay_limestone_land_parcel,LP02,ZC02,2,,
+Bousseau,clay_limestone_land_parcel,LP03,ZC03,3,,
+Raguenaud,clay_limestone_land_parcel,LP04,ZC04,4,,
+Le terrier,clay_limestone_land_parcel,LP05,ZC05,5,,
+Enclouse des chatâigniers,flap_silt_land_parcel,LP06,ZC06,6,,
+Bois granger,flap_silt_land_parcel,LP07,ZC07,7,,
+Orme 5 têtes,flap_silt_land_parcel,LP08,LP08,8,,
+Chaumasse,clay_limestone_land_parcel,LP09,ZC10,8,,
+Parcours,clay_limestone_land_parcel,LP10,ZC11,8,,
+Zone Petit champ,cultivable_zone,ZC01,ZC01,1,LP01,
+Zone Grand champ,cultivable_zone,ZC02,ZC02,2,LP02,
+Zone Bousseau,cultivable_zone,ZC03,ZC03,3,LP03,
+Zone Raguenaud,cultivable_zone,ZC04,ZC04,4,LP04,
+Zone Le terrier,cultivable_zone,ZC05,ZC05,5,LP05,
+Zone Enclouse des chatâigniers,cultivable_zone,ZC06,ZC06,6,LP06,
+Zone Bois granger,cultivable_zone,ZC07,ZC07,7,LP07,
+Zone Orme 5 têtes 1,cultivable_zone,ZC08,ZC08,8,LP08,côté Ferme
+Zone Orme 5 têtes 2,cultivable_zone,ZC09,ZC09,8,LP08,côté Chaillou
+Zone Chaumasse,cultivable_zone,ZC10,ZC10,8,LP09,
+Zone Parcours,cultivable_zone,ZC11,ZC11,8,LP10,
