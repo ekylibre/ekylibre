@@ -38,7 +38,7 @@ module Charta
     end
 
     def geom
-      "ST_GeomFromEWKT('#{@ewkt}')"
+      "ST_MakeValid(ST_GeomFromEWKT('#{@ewkt}'))"
     end
 
     def srid
