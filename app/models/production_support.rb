@@ -100,7 +100,8 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return cost.compact.sum
   end
-
+  
+  # @TODO for nitrogen balance but will be refactorize for any chemical components
   def nitrogen_balance
     balance = []
     # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded
@@ -119,6 +120,45 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     return nitrogen_unity_per_hectare
   end
+  
+  def potassium_balance
+    balance = []
+    # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded
+    # m = net_mass of the input at intervention time
+    # n = nitrogen concentration (in %) of the input at intervention time
+    for intervention in self.interventions.real.of_nature(:soil_enrichment)
+      for input in intervention.casts.of_role('soil_enrichment-input')
+        m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
+        n = (input.actor ? input.actor.potassium_concentration(input).to_d(:unity) : 0.0)
+        balance <<  m * n
+      end
+    end
+    # if net_surface_area, make the division
+    if surface_area = self.storage_net_surface_area(self.started_at)
+      potassium_unity_per_hectare = (balance.compact.sum / surface_area.to_d(:hectare))
+    end
+    return potassium_unity_per_hectare
+  end
+  
+  def phosphorus_balance
+    balance = []
+    # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded
+    # m = net_mass of the input at intervention time
+    # n = nitrogen concentration (in %) of the input at intervention time
+    for intervention in self.interventions.real.of_nature(:soil_enrichment)
+      for input in intervention.casts.of_role('soil_enrichment-input')
+        m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
+        n = (input.actor ? input.actor.phosphorus_concentration(input).to_d(:unity) : 0.0)
+        balance <<  m * n
+      end
+    end
+    # if net_surface_area, make the division
+    if surface_area = self.storage_net_surface_area(self.started_at)
+      phosphorus_unity_per_hectare = (balance.compact.sum / surface_area.to_d(:hectare))
+    end
+    return phosphorus_unity_per_hectare
+  end
+  
 
   def provisional_nitrogen_input
     balance = []
