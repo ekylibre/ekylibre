@@ -15,6 +15,10 @@ More details can be found at in the doc directory or on the official website htt
 You can learn how to contribute in Ekylibre by following our official french guide
 https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre.
 
+== Screenshot
+
+![screenshot](https://raw.github.com/ekylibre/ekylibre/master/doc/screenshots/screens.png "Screenshot showing different views of Ekylibre in action")
+
 == Installation
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...).
