@@ -32,6 +32,8 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           input_cost: support.input_cost.to_s.to_f.round(2),
           time_cost:  support.time_cost.to_s.to_f.round(2),
           nitrogen_balance: support.nitrogen_balance.to_s.to_f.round(2),
+          phosphorus_balance: support.phosphorus_balance.to_s.to_f.round(2),
+          potassium_balance: support.potassium_balance.to_s.to_f.round(2),
           provisional_nitrogen_input: support.provisional_nitrogen_input.to_s.to_f.round(2)
         }
         data << line
