@@ -362,7 +362,7 @@
             category="land_parcel"
             variety="land_parcel"
             population_counting="decimal"
-            abilities=""
+            abilities="store(plant),store(animal),store(fungus)"
             variable_indicators="population, shape, available_water_capacity_per_area, soil_depth, potential_hydrogen, cation_exchange_capacity, cation_exchange_capacity_analysis_method, organic_matter_concentration, nitrogen_concentration, potassium_concentration, phosphorus_concentration, phosphorus_analysis_method, calcium_concentration, magnesium_concentration, sulfur_concentration, boron_concentration, molybdenum_concentration, manganese_concentration, copper_concentration, zinc_concentration, iron_concentration, aluminium_concentration"
             frozen_indicators="net_surface_area"
             />
@@ -507,7 +507,7 @@
             category="equipment"
             variety="trailer"
             population_counting="unitary"
-            abilities="store(matter), move, spread(organic_matter)"
+            abilities="store(organic_matter), move, spread(organic_matter)"
             variable_indicators="nominal_storable_net_mass, nominal_storable_net_volume"
             frozen_indicators="population"
             />
