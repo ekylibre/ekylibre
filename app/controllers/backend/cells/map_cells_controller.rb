@@ -26,7 +26,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           activity:   support.production.activity.name,
           production: support.production.name,
           support:    support.name,
-          the_geom:   (support.storage.shape ? support.storage.shape_to_ewkt : nil),
+          the_geom:   (support.shape ? support.shape_to_ewkt : nil),
           variant:    support.production.variant.name,
           tool_cost:  support.tool_cost.to_s.to_f.round(2),
           input_cost: support.input_cost.to_s.to_f.round(2),
@@ -83,15 +83,47 @@ class Backend::Cells::MapCellsController < Backend::CellsController
         values = []
         for name, value in line
           insert << name
-          if name == :the_geom
-            values << "ST_Force2D(ST_Transform(SetSRID(" + ActiveRecord::Base.connection.quote(value) + ", 2154), 4326))"
-          else
-            values << ActiveRecord::Base.connection.quote(value)
-          end
+          values << ActiveRecord::Base.connection.quote(value)
         end
         q = "INSERT INTO interventions (" + insert.join(', ') + ") SELECT " + values.join(', ')
         conn.exec(q)
       end
+      
+      data = []
+      ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
+        line = {
+          company: company,
+          campaign:   support.production.campaign.name,
+          activity:   support.production.activity.name,
+          production: support.production.name,
+          support:    support.name,
+          the_geom:   (support.shape ? support.shape_to_ewkt : nil),
+          variant:    support.production.variant.name,
+          tool_cost:  support.tool_cost.to_s.to_f.round(2),
+          input_cost: support.input_cost.to_s.to_f.round(2),
+          time_cost:  support.time_cost.to_s.to_f.round(2),
+          implanted_at: support.implanted_at,
+          harvested_at: support.harvested_at,
+          grains_yield: support.grains_yield.to_s.to_f.round(2),
+          nitrogen_balance: support.nitrogen_balance.to_s.to_f.round(2),
+          phosphorus_balance: support.phosphorus_balance.to_s.to_f.round(2),
+          potassium_balance: support.potassium_balance.to_s.to_f.round(2),
+          provisional_nitrogen_input: support.provisional_nitrogen_input.to_s.to_f.round(2)
+        }
+        data << line
+      end
+      conn.exec("DELETE FROM supports")
+      for line in data
+        insert = []
+        values = []
+        for name, value in line
+          insert << name
+          values << ActiveRecord::Base.connection.quote(value)
+        end
+        q = "INSERT INTO supports (" + insert.join(', ') + ") SELECT " + values.join(', ')
+        conn.exec(q)
+      end
+      
     end
     render(:show, visualization: (params[:visualization] || :default))
   end
