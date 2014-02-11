@@ -1,6 +1,7 @@
 currency: EUR
 country: fr
 language: fra
+map_measure_srid: 2154
 company:
   last_name: GAEC DUPONT
   addresses:

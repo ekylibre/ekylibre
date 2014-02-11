@@ -78,6 +78,7 @@ class Preference < Ekylibre::Record::Base
   prefer :language, :string, "fra"
   prefer :country,  :string, "fr"
   prefer :currency, :string, "EUR"
+  prefer :map_measure_srid, :integer, 0
 
   def self.type_to_nature(klass)
     klass = klass.to_s

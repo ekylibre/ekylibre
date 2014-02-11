@@ -19,13 +19,11 @@
 
 module Backend::MapsHelper
 
-  def map(resources, options = {}, &block)
+  def map(resources, options = {}, html_options = {}, &block)
     resources = [resources] unless resources.respond_to?(:each)
 
-    data = {}
-
     global = nil
-    data[:geometries] = resources.collect do |resource|
+    options[:geometries] = resources.collect do |resource|
       hash = (block_given? ? yield(resource) : {name: resource.name, shape: resource.shape})
       hash[:url] ||= url_for(controller: "/backend/#{resource.class.name.tableize}", action: :show, id: resource.id)
       if hash[:shape]
@@ -35,12 +33,26 @@ module Backend::MapsHelper
       hash
     end
 
+    # Box
+    options[:box] ||= {}
+    options[:box][:height] ||= 480
+
+    # View box
     if global
-      data[:view] ||= {}
-      data[:view][:bounding_box] = global.bounding_box
+      options[:view] ||= {}
+      options[:view][:bounding_box] = global.bounding_box
     end
 
-    return content_tag(:div, nil, options.merge(data: {map: data.jsonize_keys.to_json}))
+    return content_tag(:div, nil, html_options.merge(data: {map: options.jsonize_keys.to_json}))
+  end
+
+
+  def mini_map(resources, options = {}, html_options = {}, &block)
+    options[:box] ||= {}
+    options[:box] = {width: 300, height: 300}.merge(options[:box])
+    html_options[:class] ||= ""
+    html_options[:class] << " picture mini-map"
+    map(resources, options, html_options, &block)
   end
 
 end

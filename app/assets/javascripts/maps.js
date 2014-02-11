@@ -7,9 +7,19 @@
             var mapElement = $(this), options = {}, map = {}, wkt = new Wkt.Wkt();
             if (mapElement.prop('mapLoaded') !== true) {
                 options = mapElement.data('map');
-                mapElement.height('400px');
-                // mapElement.width('300px');
+                
+                // Box
+                if (options.box) {
+                    if (options.box.height) {
+                        mapElement.height(options.box.height);
+                    }
+                    if (options.box.width) {
+                        mapElement.width(options.box.width);
+                    }
+                }
                 mapElement.css({display: 'block'});
+
+
                 map = L.map(mapElement[0], {maxZoom: 23, zoomControl: false}); // .setView(, 18);
                 map.addControl(L.control.zoom({position: 'topleft', zoomInText: '', zoomOutText: ''}))
                 // Add an OpenStreetMap tile layer
@@ -25,6 +35,8 @@
                     }
                     layer.addTo(map);
                 });
+
+                // Bounding box
                 if (options.view && options.view.boundingBox) {
                     map.fitBounds(L.latLngBounds(options.view.boundingBox));
                 }

@@ -33,10 +33,6 @@ module Charta
       "<Geometry(#{@ewkt})>"
     end
 
-    def to_rgeo
-      @ewkt
-    end
-
     def geom
       "ST_MakeValid(ST_GeomFromEWKT('#{@ewkt}'))"
     end
@@ -45,25 +41,64 @@ module Charta
       return select_value("SELECT ST_SRID(#{self.geom})").to_i
     end
 
+    def to_rgeo
+      @ewkt
+    end
+
     def to_text
       return select_value("SELECT ST_AsText(#{self.geom})")
+    end
+
+    def to_ewkt
+      return @ewkt
+    end
+
+    def to_binary
+      return select_value("SELECT ST_AsEWKB(#{self.geom})")
+    end
+
+    def to_gml
+      return select_value("SELECT ST_AsGML(#{self.geom})")
+    end
+
+    def to_kml
+      return select_value("SELECT ST_AsKML(#{self.geom})")
+    end
+
+    def to_svg
+      return select_value("SELECT ST_AsSVG(#{self.geom})")
     end
 
     def to_geojson
       return JSON.parse(select_value("SELECT ST_AsGeoJSON(#{self.geom})"))
     end
 
+    # Returns area in square meter
+    def area
+      if srid = find_srid(Preference[:map_measure_srid])
+        value = select_value("SELECT ST_Area(ST_Transform(#{self.geom}, #{srid}))")
+      else
+        value = select_value("SELECT ST_Area(#{self.geom}::geography)")
+      end
+      puts value.red
+      return (value.blank? ? 0.0 : value.to_d).in_square_meter
+    end
+
     def centroid
       return select_row("SELECT ST_Y(ST_Centroid(#{self.geom})), ST_X(ST_Centroid(#{self.geom}))").map(&:to_f)
+    end
+
+    def point_on_surface
+      return select_row("SELECT ST_Y(ST_PointOnSurface(#{self.geom})), ST_X(ST_PointOnSurface(#{self.geom}))").map(&:to_f)
     end
 
     def transform(srid)
       return self.class.new(select_value("SELECT ST_AsEWKT(ST_Transform(#{self.geom}, #{find_srid(srid)}))"))
     end
 
-    def merge!(other_geometry)
-      @ewkt = self.merge(other_geometry).ewkt
-    end
+    # def merge!(other_geometry)
+    #   @ewkt = self.merge(other_geometry).ewkt
+    # end
 
     def merge(other_geometry)
       other = self.class.new(other_geometry).transform(self.srid)
@@ -71,11 +106,35 @@ module Charta
     end
 
     def bounding_box
-      values = select_row("SELECT " + [:YMin, :XMin, :YMax, :XMax].collect do |v|
-                               "ST_#{v}(#{self.geom})"
-                             end.join(", ")).map(&:to_f)
+      if @y_min and @x_min and @y_max and @x_max
+        values = [@y_min, @x_min, @y_max, @x_max]
+      else
+        values = select_row("SELECT " + [:YMin, :XMin, :YMax, :XMax].collect do |v|
+                              "ST_#{v}(#{self.geom})"
+                            end.join(", ")).map(&:to_f)
+        [:y_min, :x_min, :y_max, :x_max].each_with_index do |val, index|
+          self.instance_variable_set("@#{val}", values[index])
+        end
+      end
       return [values[0..1], values[2..3]]
     end
+
+    def x_min
+      @x_min ||= select_value("SELECT ST_XMin(#{self.geom})").to_i
+    end
+
+    def y_min
+      @y_min ||= select_value("SELECT ST_YMin(#{self.geom})").to_i
+    end
+
+    def x_max
+      @x_max ||= select_value("SELECT ST_XMax(#{self.geom})").to_i
+    end
+
+    def y_max
+      @y_max ||= select_value("SELECT ST_YMax(#{self.geom})").to_i
+    end
+    
 
 
 
@@ -121,10 +180,11 @@ module Charta
       # Check and returns the SRID matching with name or SRID.
       def find_srid(name_or_srid)
         if name_or_srid.is_a?(Symbol)
-          systems.items[name_or_srid].srid
+          item = systems.items[name_or_srid]
         else
-          systems.where(srid: name_or_srid).first.srid
+          item = systems.where(srid: name_or_srid).first
         end
+        return (item ? item.srid : nil)
       end
 
     end

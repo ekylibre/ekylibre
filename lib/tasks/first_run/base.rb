@@ -8,6 +8,9 @@ load_data :base do |loader|
   Preference.get(:language).set!(language)
   Preference.get(:currency).set!(currency)
   Preference.get(:country).set!(country)
+  if srid = loader.manifest[:map_measure_srid]
+    Preference.get(:map_measure_srid).set!(srid.to_i)
+  end
 
   # Sequences
   if loader.can_load?(:sequences)
