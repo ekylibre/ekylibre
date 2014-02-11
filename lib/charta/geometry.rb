@@ -86,6 +86,10 @@ module Charta
       return (value.blank? ? 0.0 : value.to_d).in_square_meter
     end
 
+    def empty?
+      return select_value("SELECT ST_IsEmpty(#{self.geom})") =~ /\At(rue)?\z/
+    end
+
     def centroid
       return select_row("SELECT ST_Y(ST_Centroid(#{self.geom})), ST_X(ST_Centroid(#{self.geom}))").map(&:to_f)
     end

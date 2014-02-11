@@ -143,15 +143,38 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
   def shape(attribute_name = :shape, options = {})
     # raise @object.send(attribute_name)
-    geometry = Charta::Geometry.new(@object.send(attribute_name) || Charta::Geometry.empty)
-    return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_geojson}}))
+    editor = {}
+    if geom = @object.send(attribute_name)
+      editor[:edit] = Charta::Geometry.new(geom).to_geojson
+    else
+      if sibling = @object.class.where("#{attribute_name} IS NOT NULL").first
+        editor[:view] = {center: Charta::Geometry.new(sibling.send(attribute_name)).centroid }
+      else zone = CultivableZone.first
+        editor[:view] = {center: zone.shape_centroid}
+      end
+    end
+    others = options.delete(:others) || @object.class.where("#{attribute_name} IS NOT NULL AND id != ?", @object.id || 0)
+    if others.any?
+      editor[:others] = others.collect do |obj|
+        Charta::Geometry.new(obj.send(attribute_name)).to_geojson
+      end
+    else
+      begin
+        editor[:others] = @object.class.where.not(id: @object.id || 0).collect do |obj|
+          Charta::Geometry.new(obj.send(:shape)).to_geojson
+        end 
+      rescue
+      end  
+    end
+    return self.input(attribute_name, options.merge(input_html: {data: {map_editor: editor}}))
   end
 
 
   def shape_field(attribute_name = :shape, options = {})
-    # raise @object.send(attribute_name)
+    raise @object.send(attribute_name)
     geometry = Charta::Geometry.new(@object.send(attribute_name) || Charta::Geometry.empty)
-    return self.input_field(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_geojson}}))
+    # return self.input(attribute_name, options.merge(input_html: {data: {spatial: geometry.to_geojson}}))
+    return self.input_field(attribute_name, options.merge(input_html: {data: {map_editor: {edit: geometry.to_geojson}}}))
   end
 
 

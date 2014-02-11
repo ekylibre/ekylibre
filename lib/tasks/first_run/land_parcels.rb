@@ -174,7 +174,7 @@ load_data :land_parcels do |loader|
           zone_variant = ProductNatureVariant.find_by(:reference_name => r.nature) || ProductNatureVariant.import_from_nomenclature(r.nature)
           pmodel = zone_variant.nature.matching_model
           zone = pmodel.create!(:variant_id => zone_variant.id, :work_number => r.code,
-                                :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company) # , initial_shape: shapes[r.shape_number])
+                                :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company, initial_shape: shapes[r.shape_number])
 
           if container = Product.find_by_work_number(r.place_code)
             # container.add(zone, born_at)
@@ -195,7 +195,7 @@ load_data :land_parcels do |loader|
          # link cultivable zone and land parcel for each entries
          #
         if land_parcel = LandParcel.find_by_work_number(r.place_code) and zone.is_a?(CultivableZone)
-         
+          geometry = shapes[r.shape_number]
           cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
           cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
                                                                             :member => land_parcel,
