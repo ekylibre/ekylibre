@@ -45,7 +45,7 @@ Zone Poteau edf,cultivable_zone,ZC14,ZC14,,LP13,
 Zone le silo,cultivable_zone,ZC15,ZC15,,LP14,
 Zone les aiguilles,cultivable_zone,ZC16,ZC16,,LP15,
 Zone Champ guillon,cultivable_zone,ZC17,ZC17,,LP16,LP16 ; LP17
-Zone Bernessard entier,cultivable_zone,ZC18,LP18,,LP18,
+Zone Bernessard entier,cultivable_zone,ZC18,ZC18,,LP18,
 Zone Bernessard en haut,cultivable_zone,ZC19,ZC19,,LP18,
 Zone Bernessard en bas,cultivable_zone,ZC20,ZC20,,LP18,
 Zone a côté de la vigne,cultivable_zone,ZC21,LP19,,LP19,
