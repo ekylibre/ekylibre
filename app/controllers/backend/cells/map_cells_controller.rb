@@ -26,7 +26,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           activity:   support.production.activity.name,
           production: support.production.name,
           support:    support.name,
-          the_geom:   (support.shape ? support.shape_as_ewkt : nil),
+          the_geom:   (support.shape ? support.shape_to_ewkt : nil),
           variant:    support.production.variant.name,
           tool_cost:  support.tool_cost.to_s.to_f.round(2),
           input_cost: support.input_cost.to_s.to_f.round(2),
@@ -69,7 +69,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           intervention_name:    intervention.name,
           intervention_start_time:    intervention.start_time,
           intervention_duration:    intervention.duration.to_s.to_f.round(2),
-          the_geom:   (intervention.storage.shape ? intervention.storage.shape_as_ewkt : nil),
+          the_geom:   (intervention.storage.shape ? intervention.storage.shape_to_ewkt : nil),
           tool_cost:  intervention.cost(:tool).to_s.to_f.round(2),
           input_cost: intervention.cost(:input).to_s.to_f.round(2),
           time_cost:  intervention.cost(:doer).to_s.to_f.round(2)
