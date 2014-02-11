@@ -34,6 +34,7 @@
 //= require jstz
 //= require wicket
 //= require leaflet
-//= require leaflet.draw
-//= require leaflet.wicket
+//= require leaflet/draw
+//= require leaflet/wicket
+//= require leaflet/fullscreen
 //= require_tree .

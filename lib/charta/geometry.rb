@@ -14,6 +14,9 @@ module Charta
           else
             @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKB(E'\\\\x#{coordinates}'))")
           end
+        elsif coordinates =~ /\A\{.*\}\z/ # GeoJSON
+          srid = find_srid(srs)
+          @ewkt = select_value("SELECT ST_AsEWKT(ST_SetSRID(ST_GeomFromGeoJSON('#{coordinates}'), #{srid}))")
         else # WKT expected
           if srs and srid = find_srid(srs)
             @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates}', #{srid}))")
@@ -158,6 +161,10 @@ module Charta
       # Link to the nomenclature
       def systems
         Nomen::SpatialReferenceSystems
+      end
+
+      def empty(srid = :WGS84)
+        new("GEOMETRYCOLLECTION EMPTY", srid)
       end
 
       # # Converts coordinates of a Geometry into the reference of the given SRID

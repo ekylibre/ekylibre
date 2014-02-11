@@ -30,6 +30,8 @@
             %span.add-on= reference.variant_indication
           - else
             = v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}
+          -# if reference.need_shape?
+            = v.shape_field # shadow: self.shadow_shape
       - else
         = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
 

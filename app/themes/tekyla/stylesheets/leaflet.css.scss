@@ -289,6 +289,10 @@ $map-button-size: round(2 * $fs-normal);
   @include use-icon(minus);
 }
 
+.leaflet-control-zoom-fullscreen {
+  @include use-icon(fullscreen);
+}
+
 .leaflet-touch {
   .leaflet-control-zoom-in {
     font-size: 22px;

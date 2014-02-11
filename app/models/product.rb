@@ -383,6 +383,15 @@ class Product < Ekylibre::Record::Base
     self.picture.path(style)
   end
 
+  def initial_shape=(value)
+    if value.is_a?(String)
+      geo_json = JSON.parse(value).to_json
+      # raise .inspect
+      self["initial_shape"] = Charta::Geometry.new(value, :WGS84).to_rgeo
+    end
+  end
+  
+
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)
     if Nomen::Indicators.all.include?(method_name.to_s.gsub(/\!\z/, ''))
