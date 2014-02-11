@@ -80,7 +80,6 @@ module Charta
       else
         value = select_value("SELECT ST_Area(#{self.geom}::geography)")
       end
-      puts value.red
       return (value.blank? ? 0.0 : value.to_d).in_square_meter
     end
 
