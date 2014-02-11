@@ -162,9 +162,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       begin
         editor[:others] = @object.class.where.not(id: @object.id || 0).collect do |obj|
           Charta::Geometry.new(obj.send(:shape)).to_geojson
-        end 
+        end
       rescue
-      end  
+      end
     end
     return self.input(attribute_name, options.merge(input_html: {data: {map_editor: editor}}))
   end

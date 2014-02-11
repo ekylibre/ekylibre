@@ -1,7 +1,7 @@
 module Charta
   # Represents a Geometry with SRID
   class GeoJSON
-    
+
     def initialize(data, srid = nil)
       @json = (data.is_a?(Hash) ? data : JSON.parse(data))
       @srid = srid

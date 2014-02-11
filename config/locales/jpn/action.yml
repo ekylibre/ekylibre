@@ -965,6 +965,7 @@ jpn:
     # critic_stock_min: "Stock minimum critique"
     # critic_stocks: "Stocks sous le seuil critique"
     # cropping_plan: "Assolement"
+    # cropping_plan_chart: "Assolement"
     # cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)"
     # csv_statistics: "Statistiques à exporter au format CSV"
     # cumul: "Cumul du total et du solde précédent N°%{number}"

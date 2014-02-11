@@ -1161,6 +1161,7 @@ arb:
     critic_stock_min: "الحد الادنى لانتقاد الاسهم"
     critic_stocks: "الاسهم على حافة الخطر"
     # cropping_plan: "Assolement"
+    # cropping_plan_chart: "Assolement"
     # cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)"
     csv_statistics: "نموذج احصائيات القيمة النقدية"
     cumul: "رقم الرصيد التراكمي الكلي والسابق%{number}"

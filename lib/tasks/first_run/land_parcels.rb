@@ -191,7 +191,7 @@ load_data :land_parcels do |loader|
           zone.read!(:population, (geometry.area / zone.variant.net_surface_area.to_d(:square_meter)), at: born_at, force: true)
           # zone.read!(:net_surface_area, zone.shape_area, at: born_at)
         end
-        
+
          # link cultivable zone and land parcel for each entries
          #
         if land_parcel = LandParcel.find_by_work_number(r.place_code) and zone.is_a?(CultivableZone)

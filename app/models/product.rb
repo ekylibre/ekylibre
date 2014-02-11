@@ -390,7 +390,7 @@ class Product < Ekylibre::Record::Base
       self["initial_shape"] = Charta::Geometry.new(value, :WGS84).to_rgeo
     end
   end
-  
+
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)

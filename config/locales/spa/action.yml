@@ -1065,6 +1065,7 @@ spa:
     # critic_stock_min: "Stock minimum critique"
     critic_stocks: "Depósitos bajo el umbral crítico"
     # cropping_plan: "Assolement"
+    # cropping_plan_chart: "Assolement"
     # cropping_plan_on_cultivable_zones: "Assolement (Parcelles culturales)"
     csv_statistics: "Statisticas a exportar al formato CSV"
     cumul: "Cumul del total y del saldo precedente N°%{number}"

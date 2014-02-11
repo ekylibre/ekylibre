@@ -88,7 +88,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
         q = "INSERT INTO interventions (" + insert.join(', ') + ") SELECT " + values.join(', ')
         conn.exec(q)
       end
-      
+
       data = []
       ProductionSupport.includes({production: [:activity, :campaign, :variant]}, :storage).find_each do |support|
         line = {
@@ -123,7 +123,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
         q = "INSERT INTO supports (" + insert.join(', ') + ") SELECT " + values.join(', ')
         conn.exec(q)
       end
-      
+
     end
     render(:show, visualization: (params[:visualization] || :default))
   end

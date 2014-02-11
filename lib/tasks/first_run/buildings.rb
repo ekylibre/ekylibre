@@ -25,8 +25,8 @@ load_data :buildings do |loader|
             zone_variant = ProductNatureVariant.import_from_nomenclature(r.nature)
           end
           zone_variant.matching_model.create!(variant: zone_variant, work_number: r.code,
-                                              name: r.name, 
-                                              initial_born_at: born_at, 
+                                              name: r.name,
+                                              initial_born_at: born_at,
                                               initial_owner: Entity.of_company,
                                               initial_container: Product.find_by_work_number(r.place_code))
         end

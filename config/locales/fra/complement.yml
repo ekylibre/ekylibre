@@ -3154,7 +3154,7 @@ fra:
         identified_outgoing_delivery: "%{product} est expédié à %{client}"
         incoming_delivery: "%{product} est réceptionné"
         merging: "%{absorber} fusionne avec %{product}"
-        movements: "%{product} va à l'emplacement de %{localizable}"
+        movement: "%{product} va à l'emplacement de %{localizable}"
         outgoing_delivery: "%{product} est expédié"
         owner_change: "%{product} change de propriétaire pout %{owner}"
         ownership_loss: "%{product} perd son propriétaire"
