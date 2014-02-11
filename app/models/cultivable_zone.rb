@@ -92,6 +92,15 @@ class CultivableZone < Zone
     joins(:productions).where('production_id IN (?)', productions.map(&:id))
   }
 
+  after_create do
+    # Compute population
+    if self.variable_indicators_list.include?(:net_surface_area)
+      self.read!(:net_surface_area, ::Charta::Geometry.new(self.initial_shape).area, at: self.initial_born_at)
+    elsif self.variable_indicators_list.include?(:population)
+      self.read!(:population, ::Charta::Geometry.new(self.initial_shape).area / self.variant.net_surface_area, at: self.initial_born_at)
+    end
+  end
+
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)
     LandParcel.zone_members_of(self)
