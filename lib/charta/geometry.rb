@@ -7,6 +7,9 @@ module Charta
     def initialize(coordinates, srs = nil)
       if coordinates.is_a?(self.class)
         @ewkt = coordinates.ewkt
+      elsif coordinates.is_a?(Hash) or (coordinates.is_a?(String) and coordinates =~ /\A\{.*\}\z/) # GeoJSON
+        srid = find_srid(srs)
+        @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKT('#{::Charta::GeoJSON.new(coordinates, srid).to_ewkt}'))")
       elsif coordinates.is_a?(String)
         if coordinates =~ /\A[A-F0-9]+\z/ # WKB
           if srs and srid = find_srid(srs)
@@ -14,9 +17,6 @@ module Charta
           else
             @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromEWKB(E'\\\\x#{coordinates}'))")
           end
-        elsif coordinates =~ /\A\{.*\}\z/ # GeoJSON
-          srid = find_srid(srs)
-          @ewkt = select_value("SELECT ST_AsEWKT(ST_SetSRID(ST_GeomFromGeoJSON('#{coordinates}'), #{srid}))")
         else # WKT expected
           if srs and srid = find_srid(srs)
             @ewkt = select_value("SELECT ST_AsEWKT(ST_GeomFromText('#{coordinates}', #{srid}))")
@@ -164,7 +164,7 @@ module Charta
       end
 
       def empty(srid = :WGS84)
-        new("GEOMETRYCOLLECTION EMPTY", srid)
+        new("MULTIPOLYGON EMPTY", srid)
       end
 
       # # Converts coordinates of a Geometry into the reference of the given SRID
