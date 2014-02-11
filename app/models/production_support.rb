@@ -49,7 +49,7 @@ class ProductionSupport < Ekylibre::Record::Base
 
   delegate :net_surface_area, :shape_area, to: :storage, prefix: true
   delegate :name, to: :production, prefix: true
-  delegate :name, :shape, :shape_as_ewkt, to: :storage
+  delegate :name, :shape, :shape_to_ewkt, to: :storage
 
   accepts_nested_attributes_for :markers, :reject_if => :all_blank, :allow_destroy => true
 
