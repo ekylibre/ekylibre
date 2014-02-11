@@ -7,7 +7,7 @@
             var mapElement = $(this), options = {}, map = {}, wkt = new Wkt.Wkt();
             if (mapElement.prop('mapLoaded') !== true) {
                 options = mapElement.data('map');
-                
+
                 // Box
                 if (options.box) {
                     if (options.box.height) {

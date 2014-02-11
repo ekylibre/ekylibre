@@ -377,7 +377,9 @@ $map-button-size: round(2 * $fs-normal);
 
 .leaflet-container {
   .leaflet-control-attribution, .leaflet-control-scale {
-    font-size: 11px;
+    &, * {
+      font-size: $fs-small;
+    }
   }
 }
 
@@ -392,9 +394,9 @@ $map-button-size: round(2 * $fs-normal);
 .leaflet-control-scale-line {
   border: 2px solid #777;
   border-top: none;
-  line-height: 1.1;
+  line-height: 1.1em;
   padding: 2px 5px 1px;
-  font-size: 11px;
+  font-size: $fs-small;
   white-space: nowrap;
   overflow: hidden;
   -moz-box-sizing: content-box;

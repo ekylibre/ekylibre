@@ -148,4 +148,18 @@ load_data :base do |loader|
     loader.manifest[:sale_natures] = {default: {name: "models.purchase_nature.default.name".t, active: true, currency: currency, with_accounting: true, journal: :purchases}}
   end
   loader.create_from_manifest(:purchase_natures)
+
+  # Load net services
+  for name, identifiers in loader.manifest[:net_services]
+    service = NetService.create!(reference_name: name)
+    for nature, value in identifiers
+      service.identifiers.create!(nature: nature, value: value)
+    end
+  end
+
+  # Load identifiers
+  for nature, value in loader.manifest[:identifiers]
+    Identifier.create!(nature: nature, value: value)
+  end
+
 end

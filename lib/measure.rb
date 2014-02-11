@@ -215,7 +215,11 @@ class Measure
     elsif numeric_or_measure.is_a? Measure
       # Find matching dimension
       # Convert
-      raise NotImplementedError
+      if self.dimension == numeric_or_measure.dimension
+        self.to_d / numeric_or_measure.to_d(unit)
+      else
+        raise NotImplementedError
+      end
     else
       raise ArgumentError, "Only numerics and measures can divide to a measure"
     end

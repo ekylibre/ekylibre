@@ -41,6 +41,8 @@ module Ekylibre
         file = path("manifest.yml")
         @manifest = (file.exist? ? YAML.load_file(file).deep_symbolize_keys : {})
         @manifest[:company] ||= {}
+        @manifest[:net_services] ||= {}
+        @manifest[:identifiers] ||= {}
       end
       return @manifest
     end

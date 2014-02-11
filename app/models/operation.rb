@@ -202,7 +202,13 @@ class Operation < Ekylibre::Record::Base
   # == Births
 
   def perform_creation(params)
-    self.product_creations.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, producer: params[:producer].actor)
+    # self.product_creations.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, producer: params[:producer].actor)
+    producer = params[:producer].actor
+    attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, producer: producer}
+    for indicator_name in producer.whole_indicators_list
+      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
+    end
+    self.product_creations.create!(attributes)
   end
 
   def perform_division(params)

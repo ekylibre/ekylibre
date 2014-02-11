@@ -146,7 +146,9 @@ load_data :land_parcels do |loader|
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
         # puts "File contains #{file.num_records} records."
         file.each do |record|
-          shapes[record.attributes['number']] = record.geometry
+          if record.geometry
+            shapes[record.attributes['number']] = Charta::Geometry.new(record.geometry)
+          end
           w.check_point
         end
       end
@@ -172,7 +174,7 @@ load_data :land_parcels do |loader|
           zone_variant = ProductNatureVariant.find_by(:reference_name => r.nature) || ProductNatureVariant.import_from_nomenclature(r.nature)
           pmodel = zone_variant.nature.matching_model
           zone = pmodel.create!(:variant_id => zone_variant.id, :work_number => r.code,
-                                :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company, initial_shape: shapes[r.shape_number])
+                                :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company) # , initial_shape: shapes[r.shape_number])
 
           if container = Product.find_by_work_number(r.place_code)
             # container.add(zone, born_at)
@@ -180,10 +182,11 @@ load_data :land_parcels do |loader|
             zone.save!
           end
         end
-        # if geometry = shapes[r.shape_number]
-        #   zone.read!(:shape, geometry, at: born_at, force: true)
-        #   # zone.read!(:net_surface_area, zone.shape_area, at: born_at)
-        # end
+        if geometry = shapes[r.shape_number]
+          zone.read!(:shape, geometry, at: born_at, force: true)
+          zone.read!(:population, (geometry.area / zone.variant.net_surface_area.to_d(:square_meter)), at: born_at, force: true)
+          # zone.read!(:net_surface_area, zone.shape_area, at: born_at)
+        end
 
         # # Add available_water_capacity indicator
         # if r.land_parcel_available_water_capacity

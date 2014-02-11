@@ -31,6 +31,8 @@ module Ekylibre::Record
           code << "#{callback} :#{method_name}\n"
         end
 
+        from = options.delete(:from)
+
         code << "def #{method_name}\n"
         code << "  return unless self.#{target}\n"
         code << "  " + options.values.join(" = ") + " = 0\n"
@@ -39,7 +41,7 @@ module Ekylibre::Record
         # code << "  #{self.name}.where(#{target_id}: self.#{target_id}).find_each do |#{record}|\n"
         code << "  #{target}.#{children}.find_each do |#{record}|\n"
         for k, v in options
-          code << "    #{v} += " + (k.is_a?(Symbol) ? "#{record}.#{k}" : k) + "#{options[:from] ? '.to_s.to_f' : ''}\n"
+          code << "    #{v} += " + (k.is_a?(Symbol) ? "#{record}.#{k}" : k) + "#{from ? '.to_s.to_f' : ''}\n"
         end
         code << "  end\n"
         # code << "  " + Ekylibre::Schema.references(self.name.underscore.to_sym, target_id).to_s.camelcase + ".where(id: self.#{target_id}).update_all(" + options.collect{|k, v| "#{v}: #{v}"}.join(", ") + ")\n"

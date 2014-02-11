@@ -133,7 +133,7 @@ module Charta
     def y_max
       @y_max ||= select_value("SELECT ST_YMax(#{self.geom})").to_i
     end
-    
+
 
 
 
