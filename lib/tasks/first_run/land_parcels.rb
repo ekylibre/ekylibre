@@ -100,7 +100,7 @@ load_data :land_parcels do |loader|
           cultivable_zone_membership = CultivableZoneMembership.where(group: cultivable_zone, member: land_parcel).first
           cultivable_zone_membership ||= CultivableZoneMembership.create!(:group => cultivable_zone,
                                                                           :member => land_parcel,
-                                                                          :shape => record.geometry,
+                                                                          :shape => Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo,
                                                                           :population => record.attributes['SURF_DECL'].to_d
                                                                           )
 
