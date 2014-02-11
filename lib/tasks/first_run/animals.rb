@@ -46,6 +46,7 @@ load_data :animals do |loader|
 
   file = loader.path("animals-synel17.csv")
   if file.exist?
+    now = Time.now
     loader.count :synel_animal_import do |w|
       #############################################################################
 
@@ -105,9 +106,9 @@ load_data :animals do |loader|
           weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
         end
 
-        animal.read!(:healthy, true, at: (Time.now - 3.days))
-        animal.read!(:healthy, false, at: (Time.now - 2.days))
-        animal.read!(:healthy, true)
+        animal.read!(:healthy, true,  at: (now - 3.days))
+        animal.read!(:healthy, false, at: (now - 2.days))
+        animal.read!(:healthy, true,  at: now)
 
         group.record.add(animal, r.arrived_on)
         group.record.remove(animal, r.departed_on) if r.departed_on

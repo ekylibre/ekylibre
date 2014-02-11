@@ -71,7 +71,7 @@ class ProductReadingTask < Ekylibre::Record::Base
   end
 
   after_create do
-    self.product.read!(self.indicator, self.value, at: self.stopped_at)
+    self.product.read!(self.indicator, self.value, at: self.started_at)
     # reading = self.product_readings.build(product: self.product, indicator: self.indicator, read_at: self.stopped_at)
     # reading.value = self.value
     # reading.save!

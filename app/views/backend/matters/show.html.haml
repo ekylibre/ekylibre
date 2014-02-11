@@ -23,26 +23,7 @@
 
   - b.hbox do
     - b.cell(:variable_indicators) do
-      :ruby
-        indicators = resource.variable_indicators.delete_if{|i| ![:measure, :decimal].include?(i.datatype)}
-        series = []
-        now, window = (Time.now + 7.days), 1.day
-        min = (resource.born_at ? resource.born_at : now - window)
-        min = now - window if (now - min) < window
-        for indicator in indicators # [:population, :nitrogen_concentration].collect{|i| Nomen::Indicators[i] }
-          items = ProductReading.where(indicator_name: indicator.name, product: resource).where("? < read_at AND read_at < ?", min, now).order(:read_at)
-          next unless items.any?
-          data = []
-          data << [min.to_usec, resource.get(indicator, at: min).to_d.to_s.to_f]
-          data += items.inject({}) do |hash, pair|
-            hash[pair.read_at.to_usec] = pair.value.to_d
-            hash
-          end.collect{|k,v| [k, v.to_s.to_f] }
-          data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
-          series << {name: indicator.human_name, data: data, step: "left"}
-        end
-
-      = line_chart(series, legend: {}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
+      = variable_readings(resource)
 
     - b.cell(tl(:x_readings, count: resource.readings.count)) do
       = list(:readings)

@@ -62,8 +62,8 @@ module Indicateable
     if !options[:force] and self.frozen_indicators.include?(indicator)
       raise ArgumentError, "A frozen indicator (#{indicator.name}) cannot be read"
     end
-    options[:at]   = Time.new(1, 1, 1, 0, 0, 0, "+00:00") if options[:at] == :origin
-    options[:at] ||= Time.now
+    options[:at] = Time.new(1, 1, 1, 0, 0, 0, "+00:00") if options[:at] == :origin
+    options[:at] = Time.now unless options.has_key?(:at)
     unless reading = self.readings.find_by(indicator_name: indicator.name, read_at: options[:at])
       reading = self.readings.build(indicator_name: indicator.name, read_at: options[:at], originator: options[:originator])
     end

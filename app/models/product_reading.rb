@@ -70,9 +70,4 @@ class ProductReading < Ekylibre::Record::Base
   }
 
   calculable period: :month, at: :read_at, column: :measure_value_value
-
-  before_validation do
-    self.read_at ||= Time.now
-  end
-
 end
