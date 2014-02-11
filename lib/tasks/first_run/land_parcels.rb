@@ -181,13 +181,28 @@ load_data :land_parcels do |loader|
             zone.update_attributes(initial_container: container)
             zone.save!
           end
+          # link a land parcel to a land parcel cluster
+          if land_parcel_cluster = LandParcelCluster.find_by_work_number(r.ilot_code)
+            land_parcel_cluster.add(zone)
+          end
         end
         if geometry = shapes[r.shape_number]
           zone.read!(:shape, geometry, at: born_at, force: true)
           zone.read!(:population, (geometry.area / zone.variant.net_surface_area.to_d(:square_meter)), at: born_at, force: true)
           # zone.read!(:net_surface_area, zone.shape_area, at: born_at)
         end
-
+        
+         # link cultivable zone and land parcel for each entries
+         #
+        if land_parcel = LandParcel.find_by_work_number(r.place_code) and zone.is_a?(CultivableZone)
+         
+          cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
+          cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
+                                                                            :member => land_parcel,
+                                                                            :shape => Charta::Geometry.new(geometry).transform(:WGS84).to_rgeo,
+                                                                            :population => (geometry.area / zone.variant.net_surface_area.to_d(:square_meter))
+                                                                            )
+        end
         # # Add available_water_capacity indicator
         # if r.land_parcel_available_water_capacity
         #   land_parcel.read!(:available_water_capacity_per_area, r.land_parcel_available_water_capacity.in_liter_per_square_meter, at: r.born_at)

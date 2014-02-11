@@ -43,7 +43,8 @@ class CultivableZoneMembership < Ekylibre::Record::Base
   #]VALIDATORS]
 
   def net_surface_area
-    return self.class.where(id: self.id).select("ST_Area(shape) AS area").first.area.in_square_meter
+    return Charta::Geometry.new(self.shape).area
+    #return self.class.where(id: self.id).select("ST_Area(shape) AS area").first.area.in_square_meter
   end
 
 end
