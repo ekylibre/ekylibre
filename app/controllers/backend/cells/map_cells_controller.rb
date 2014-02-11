@@ -26,7 +26,7 @@ class Backend::Cells::MapCellsController < Backend::CellsController
           activity:   support.production.activity.name,
           production: support.production.name,
           support:    support.name,
-          the_geom:   (support.shape ? support.shape_to_ewkt : nil),
+          the_geom:   (support.storage.shape ? support.storage.shape_to_ewkt : nil),
           variant:    support.production.variant.name,
           tool_cost:  support.tool_cost.to_s.to_f.round(2),
           input_cost: support.input_cost.to_s.to_f.round(2),
@@ -44,11 +44,12 @@ class Backend::Cells::MapCellsController < Backend::CellsController
         values = []
         for name, value in line
           insert << name
-          if name == :the_geom
-            values << "ST_Force2D(ST_Transform(SetSRID(" + ActiveRecord::Base.connection.quote(value) + ", 2154), 4326))"
-          else
-            values << ActiveRecord::Base.connection.quote(value)
-          end
+          values << ActiveRecord::Base.connection.quote(value)
+          #if name == :the_geom
+          #  values << "ST_Force2D(ST_Transform(SetSRID(" + ActiveRecord::Base.connection.quote(value) + ", 2154), 4326))"
+          #else
+          #  values << ActiveRecord::Base.connection.quote(value)
+          #end
         end
         q = "INSERT INTO costs (" + insert.join(', ') + ") SELECT " + values.join(', ')
         conn.exec(q)
