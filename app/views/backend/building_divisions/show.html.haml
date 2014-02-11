@@ -5,7 +5,7 @@
   - b.hbox do
     - b.cell :general do
       - if resource.shape
-        = map(resource, class: "picture mini-map")
+        = mini_map(resource)
       = attributes_list do |l|
         - l.attribute :name
         - l.attribute :variant, url: true

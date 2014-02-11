@@ -3,7 +3,7 @@
 
 = beehive do |b|
   - b.cell :general do
-    = map(resource, class: "picture mini-map")
+    = mini_map(resource)
     .info
       %span.title= LandParcelGroup.human_attribute_name(:name)
       %span.value= resource.name

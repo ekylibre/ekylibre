@@ -7,7 +7,7 @@
     - if resource.picture.exists?
       .picture= image_tag(resource.picture.url(:identity))
     - else
-      = map(resource, class: "mini-map picture")
+      = mini_map(resource)
     .info
       %span.title= Plant.human_attribute_name(:net_surface_area)
       %span.value= resource.net_surface_area.in_hectare.round(2).l

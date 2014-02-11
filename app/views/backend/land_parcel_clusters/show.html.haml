@@ -4,7 +4,7 @@
 = beehive do |b|
   - b.tabbox do
     - b.cell :general do
-      = map(resource, class: "picture mini-map")
+      = mini_map(resource)
       .info
         %span.title= LandParcelCluster.human_attribute_name(:net_surface_area)
         %span.value= resource.net_surface_area.in_hectare.round(2).l
