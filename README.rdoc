@@ -1,7 +1,8 @@
 = Ekylibre
 
-Ekylibre is a simple enterprise management web application written with Ruby on Rails framework.
-More details can be found at in the doc directory or on the official website http://ekylibre.org.
+Ekylibre is a simple enterprise management web application for farmers and small enterprises.
+Ekylibre is written with Ruby on Rails framework and use Postgresql/Postgis stack.
+More details can be found on the official website http://ekylibre.org.
 
 == Code status
 
@@ -26,7 +27,7 @@ This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint..
 This a short explanation on installation steps for developers:
 * Before all, install all distribution dependencies:
     sudo apt-get install postgresql-9.1 postgresql-server-dev-9.1 libpq-dev libqtwebkit-dev libmagic-dev libxml2-dev libxslt1-dev libgdal1-dev libjson0-dev zlib1g-dev build-essential wget openjdk-7-jdk graphicsmagick tesseract-ocr tesseract-ocr-fra tesseract-ocr-eng tesseract-ocr-spa pdftk libreoffice poppler-utils poppler-data ghostscript
-* Install PostGIS (≥ 2.0) from source:
+* Install PostGIS (≥= 2.1) from source:
   * Download and install Geos (≥ 3.4) from http://trac.osgeo.org/geos:
       wget http://download.osgeo.org/geos/geos-3.4.2.tar.bz2
       tar xjvf geos-3.4.2.tar.bz2
@@ -45,7 +46,7 @@ This a short explanation on installation steps for developers:
       sudo make install
     Or in one line:
       wget http://download.osgeo.org/proj/proj-4.8.0.tar.gz && tar xzvf proj-4.8.0.tar.gz && cd proj-4.8.0 && ./configure && make && sudo make install
-  * Download and install PostGIS (≥ 2.0) from http://postgis.net:
+  * Download and install PostGIS (≥= 2.1) from http://postgis.net:
       wget http://download.osgeo.org/postgis/source/postgis-2.1.0.tar.gz
       tar xzvf postgis-2.1.0.tar.gz
       cd postgis-2.1.0
@@ -64,9 +65,9 @@ This a short explanation on installation steps for developers:
 * Move to Ekylibre directory root and install gems with bundler:
     JAVA_HOME=/usr/lib/jvm/java-7-openjdk NOKOGIRI_USE_SYSTEM_LIBRARIES=1 bundle install
 * Create and migrate database:
-    rake db:create db:migrate db:seed
-* Optionally, it's possible to load anonymized data of a real (french) farm:
-    rake demo
+    rake db:create db:migrate
+* Optionally, it's possible to load anonymized data of a real (french polycultural-cattling) farm :
+    rake first_run max=50
 * Launch server:
     rails server
 * Open your web browser and go to http://localhost:3000!
@@ -93,6 +94,14 @@ Some additional tools are needed to manipulate some images of the project:
 * Forum: https://ekylibre.org/forum
 * Map: http://www.mindmeister.com/fr/233765234/ekylibre-1-0-2013
 * Documentation: https://github.com/ekylibre/ekylibre-doc
+* Demo: https://demo.ergolis.com
+
+== Follow us
+
+* Twitter: https://twitter.com/EkylibreERP
+* Facebook: https://www.facebook.com/ekylibre
+* Google+: https://plus.google.com/106303796269953490281/about
+* YouTube: http://www.youtube.com/channel/UC_yYJGkq-aqC-So8DlXtM5g
 
 == License
 
