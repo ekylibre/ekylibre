@@ -1579,6 +1579,7 @@ fra:
         irrigation_water: "Eau (irrigation)"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
+        lavender_crop: "Culture de lavande"
         lentil_crop: "Culture de lentille"
         male_adult_cow: "Taureau"
         male_hen_band: "Bande de poulet"
@@ -1586,6 +1587,7 @@ fra:
         manager: "Responsable"
         manual_implanter: "Plantoir"
         manure_division: "Fumière"
+        melon_crop: "Culture de melon"
         merlot_noir_so4_vine_seedling: "Plant de Merlot Noir sur so4"
         milk_tank: "Tank à lait"
         milking_division: "Laiterie"
@@ -1660,6 +1662,7 @@ fra:
         tablur_hard_wheat_seed_25: "Semence de blé dur Tablur sac de 25kg"
         technician: "Technicien"
         temporary_meadow_crop: "Culture de prairie temporaire"
+        tobacco_crop: "Culture de tabac"
         tractor: "Tracteur"
         trailer: "Remorque"
         triticale_crop: "Culture de Triticale"
@@ -1808,8 +1811,10 @@ fra:
         grain_corn: "Maïs grain"
         hazel: "Noisettier"
         horsebean: "Féverolle"
+        lavender: "Lavande"
         laying_hen: "Poule pondeuse"
         lentil: "Lentille"
+        melon: "Melon"
         milk_bull_calf: "Taurillons Lait"
         milk_cattle: "Bovins Lait"
         oyster: "Huître"
@@ -1829,6 +1834,7 @@ fra:
         strawberry: "Fraise"
         sunflower: "Tournesol"
         temporary_meadow: "Prairie temporaire"
+        tobacco: "Tabac"
         triticale: "Triticale"
         vine: "Vigne"
         walnut: "Noyer"
@@ -2059,6 +2065,8 @@ fra:
         corylus: "Corylus"                                 # betulaceae
         cot_noir: "Cot noir"                               # vitis_vinifera
         courtot: "Courtot"                                 # triticum_aestivum
+        cucumis: "Melon"                                   # cucurbitaceae
+        cucurbitaceae: "Cucurbitaceae"                     # plant
         cultivable_zone: "Zone cultivable"                 # land_parcel_group
         cultur: "Cultur"                                   # triticum_durum
         daucus: "Carotte"                                  # apiaceae
@@ -2110,9 +2118,11 @@ fra:
         juglandaceae: "Juglandaceae"                       # plant
         juglans: "Juglans"                                 # juglandaceae
         karur: "Karur"                                     # triticum_durum
+        lamiaceae: "Lamiaceae"                             # plant
         land_parcel: "Parcelle physique"                   # easement
         land_parcel_cluster: "Îlot"                        # land_parcel_group
         land_parcel_group: "Groupe de parcelles physiques" # product_group
+        lavandula: "Lavande"                               # lamiaceae
         lens: "Lentille"                                   # fabaceae
         lepus: "Lagomorphe"                                # mammalia
         levis: "Levis"                                     # triticum_aestivum
@@ -2139,6 +2149,7 @@ fra:
         molluscicide: "Produit molluscicide"               # plant_medicine
         mower: "Faucheuse"                                 # equipment
         muscadelle_blanc: "Muscadelle blanc"               # vitis_vinifera
+        nicotiana: "Tabac"                                 # solanaceae
         numida: "Numididae"                                # aves
         oratorio: "Oratorio"                               # triticum_aestivum
         organic_matter: "Matière organique"                # matter

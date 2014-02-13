@@ -50,6 +50,12 @@
       <item name="betulaceae">
         <attribute name="itis-tsn" value="19465"/>
       </item>
+      <item name="lamiaceae">
+        <attribute name="itis-tsn" value="32251"/>
+      </item>
+      <item name="cucurbitaceae">
+        <attribute name="itis-tsn" value="22337"/>
+      </item>
     </items>
   </nomenclature>
 </nomenclatures>

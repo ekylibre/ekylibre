@@ -144,6 +144,18 @@
             telepac_crop_code="TO"
             variant_support="sunflower_crop"
             />
+        <item name="tobacco"
+            production_code="2530"
+            activity="aromatic_and_medicinal_plants"
+            telepac_crop_code="TD"
+            variant_support="tobacco_crop"
+            />
+        <item name="lavender"
+            production_code="2790"
+            activity="aromatic_and_medicinal_plants"
+            telepac_crop_code="LA"
+            variant_support="lavender_crop"
+            />
       <!-- 3 - FODDER CROP -->
       <item name="silage_corn"
             production_code="3150"
@@ -205,7 +217,13 @@
             activity="fruits_crops"
             telepac_crop_code="FR"
             variant_support="strawberry_crop"
-            />   
+            />
+      <item name="melon"
+            production_code="4570"
+            activity="fruits_crops"
+            telepac_crop_code="MN"
+            variant_support="melon_crop"
+            />
       <!-- 5 - FRUIT CROP -->
       <item name="apple"
             production_code="5000"
@@ -222,13 +240,13 @@
       <item name="walnut"
             production_code="5750"
             activity="fruits_crops"
-            telepac_crop_code="NX"
+            telepac_crop_code="NC"
             variant_support="walnut_crop"
             />
       <item name="hazel"
             production_code="5760"
             activity="fruits_crops"
-            telepac_crop_code="NS"
+            telepac_crop_code="NO"
             variant_support="hazel_crop"
             />
       <!-- 6 - VINE CROP AND WINE -->

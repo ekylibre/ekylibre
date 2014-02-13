@@ -293,6 +293,18 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+       <item name="lavender_crop"
+            nature="crop"
+            variety="lavandula"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="tobacco_crop"
+            nature="crop"
+            variety="nicotiana"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
        <!-- MEADOW CROP --> 
       <item name="permanent_meadow_crop"
             nature="crop"
@@ -346,6 +358,12 @@
        <item name="carrot_crop"
             nature="crop"
             variety="daucus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
+       <item name="melon_crop"
+            nature="crop"
+            variety="cucumis"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />  

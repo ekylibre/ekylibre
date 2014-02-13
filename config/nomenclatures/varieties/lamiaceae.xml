@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-solanaceae" hierarchical="true">
+  <nomenclature name="varieties-lamiaceae" hierarchical="true">
     <items>
-      <item name="solanum" itis-tsn="30412"/>
-      <item name="nicotiana" itis-tsn="30562"/>
+      <item name="lavandula" itis-tsn="500370"/>
     </items>
   </nomenclature>
 </nomenclatures>
