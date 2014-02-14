@@ -10,7 +10,7 @@ module Aggeratio
       code << "builder = Nokogiri::HTML::Builder.with(#{document_variable}) do |xml|\n"
       code << build_element(@root).dig
       code << "end\n"
-      code << "puts #{document_variable}.to_html\n"
+      # code << "puts #{document_variable}.to_html\n"
       code << "return #{document_variable}.to_html.html_safe\n"
       return code
     end

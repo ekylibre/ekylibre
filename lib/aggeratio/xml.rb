@@ -7,7 +7,7 @@ module Aggeratio
       code << "builder = Nokogiri::XML::Builder.new do |xml|\n"
       code << build_element(@root).dig
       code << "end\n"
-      code << "puts builder.to_xml\n"
+      # code << "puts builder.to_xml\n"
       code << "return builder.to_xml\n"
       return code
     end
