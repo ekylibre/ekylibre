@@ -284,10 +284,10 @@ fra:
       show: "Voir l’aide"
       toggle: "Basculer l’aide"
     backend/identifiers:
-      # edit: "Edit backend/identifier"
-      # index: "Index backend/identifier"
-      # new: "New backend/identifier"
-      # show: "Show backend/identifier"
+      edit: "Modifier l'identifiant\_: %{name}"
+      index: "Identifiants"
+      new: "Nouvel identifiant"
+      show: "Identifiant\_: %{name}"
     backend/incoming_deliveries:
       confirm: "Confirmer l’arrivée de l’approvisionnement"
       edit: "Modifier l’approvisionnement: %{number}"

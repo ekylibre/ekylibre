@@ -24,5 +24,7 @@ class Backend::NetServicesController < BackendController
 
   list do |t|
     t.column :name, url: true
+    t.action :edit
+    t.action :destroy
   end
 end

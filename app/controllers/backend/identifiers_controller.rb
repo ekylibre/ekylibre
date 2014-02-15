@@ -22,9 +22,11 @@ class Backend::IdentifiersController < BackendController
 
   unroll
 
-  list do |t|
+  list conditions: {net_service_id: nil} do |t|
     t.column :net_service, label_method: :name, url: true
     t.column :nature
     t.column :value
+    t.action :edit
+    t.action :destroy
   end
 end
