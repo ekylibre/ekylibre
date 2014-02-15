@@ -9,7 +9,7 @@
       <variable name="implanter_man" abilities="drive(equipment), move" roles="implant-doer"/>
       <variable name="tractor"      abilities="tow(equipment), move" roles="implant-tool"/>
       <variable name="land_parcel"  abilities="store(plant)" roles="implant-target"/>
-      <variable name="cultivation"  variety="derivative-of: plants" new="produced-by: land_parcel" roles="implant-output" hidden="true" default-name="{{variant}} {{variety}} {{birth_year}} ({{container}})"/>
+      <variable name="cultivation"  variety="derivative-of: plants" new="produced-by: land_parcel" roles="implant-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
