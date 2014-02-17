@@ -268,7 +268,11 @@ jpn:
       # index: "Aide"
       # show: "Voir l’aide"
       # toggle: "Basculer l’aide"
-    backend/identifiers: #?
+    backend/identifiers:
+      # edit: "Modifier l'identifiant\_: %{name}"
+      # index: "Identifiants"
+      # new: "Nouvel identifiant"
+      # show: "Identifiant\_: %{name}"
     backend/incoming_deliveries:
       # confirm: "Confirmer l’arrivée de l’approvisionnement"
       # edit: "Modifier l’approvisionnement: %{number}"
