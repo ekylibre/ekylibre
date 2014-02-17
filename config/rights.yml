@@ -472,6 +472,7 @@
 # - "backend/net_services#edit"
 # - "backend/net_services#index"
 # - "backend/net_services#list"
+# - "backend/net_services#list_identifiers"
 # - "backend/net_services#new"
 # - "backend/net_services#show"
 # - "backend/net_services#unroll"

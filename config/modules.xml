@@ -1735,6 +1735,9 @@
   </inaccessible-actions>
   <untreated-actions>
     <group>
+      <item name="net_services">
+        <page to="backend/net_services#list_identifiers"/>
+      </item>
       <item name="product_process_phases">
         <page to="backend/product_process_phases#create"/>
         <page to="backend/product_process_phases#destroy"/>

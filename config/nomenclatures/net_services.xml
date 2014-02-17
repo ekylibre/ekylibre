@@ -21,7 +21,7 @@
           nature="animal_farming"
           url="http://www.synel17.com/"
           approach="human"
-          identifiers="synel17_username, password"
+          identifiers="synel_username, password"
           />
       <item name="lilco"
           nature="animal_farming"
@@ -36,7 +36,7 @@
           approach="human"
           identifiers="msa_username, password"
           />
-      <item name="coop_charentes_alliance"
+      <item name="charentes_alliance_extranet"
           nature="exploitation"
           url="http://www.charentes-alliance.fr/HP/HomePage.aspx"
           approach="human"

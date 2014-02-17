@@ -1,29 +1,6 @@
 # -*- coding: utf-8 -*-
 load_data :deliveries do |loader|
 
-  # Search or create coop legal_entity
-
-  unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Kazeni%".mb_chars.downcase).first
-    cooperative = LegalEntity.create!(last_name: "Kazeni",
-                                      nature: :cooperative,
-                                      vat_number: "FR00123456789",
-                                      supplier: true, client: true,
-                                      mails_attributes: {
-                                        0 => {
-                                          canal: "mail",
-                                          mail_line_4: "145 rue du port",
-                                          mail_line_6: "17000 LAROCHELLE",
-                                          mail_country: :fr
-                                        }
-                                      },
-                                      emails_attributes: {
-                                        0 => {
-                                          canal: "email",
-                                          coordinate: "contact@kazeni.coop"
-                                        }
-                                      })
-  end
-
   unless IncomingDeliveryMode.count > 1
     IncomingDeliveryMode.find_or_create_by!(code: "EXW", name: "Récupéré chez le fournisseur")
     IncomingDeliveryMode.find_or_create_by!(code: "DAP", name: "Livré sur l'exploitation")
@@ -40,10 +17,12 @@ load_data :deliveries do |loader|
   suppliers ||= LegalEntity.create!(:sale_catalog_id => catalog.id, :nature => "company", :language => "fra", :last_name => "All", :supplier_account_id => supplier_account.id, :currency => "eur", :supplier => true)
 
 
-
-  file = loader.path("coop_appro.csv")
+  # @TODO refactorize to make import for n entities
+  file = loader.path("incoming_deliveries", "kazeni.coop.csv")
   if file.exist?
-
+    
+    cooperative = Entity.find_by_last_name("Kazeni")
+    
     loader.count :cooperative_incoming_deliveries do |w|
       # map sub_family to product_nature_variant XML Nomenclature
 
@@ -55,7 +34,6 @@ load_data :deliveries do |loader|
         "A livrer" => :estimate,
         "Supprimé" => :aborted
       }
-
 
       pnature = {
         "Maïs classe a" => :corn_seed_50TG,
