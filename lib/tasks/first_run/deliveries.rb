@@ -58,13 +58,14 @@ load_data :deliveries do |loader|
 
 
       pnature = {
-        "Maïs classe a" => :seed,
+        "Maïs classe a" => :corn_seed_50TG,
         "Graminées fourragères" => :seed,
         "Légumineuses fourragères" => :seed,
         "Divers" => :seed,
         "Blé tendre" => :wheat_seed_25,
         "Blé dur" => :hard_wheat_seed_25,
         "Orge hiver escourgeon" => :winter_barley_seed_25,
+        "Tournesol oléique" => :sunflower_seed_150TG,
         "Couverts environnementaux enherbeme" => :seed,
         "Engrais" => :bulk_ammonitrate_33,
         "Fongicides céréales" => :poaceae_fungicide,

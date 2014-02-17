@@ -8,7 +8,7 @@
       <attribute name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <attribute name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <attribute name="frozen_indicators_values" type="string" required="false"/>
-      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band" required="true" default="unit"/>
+      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band" required="true" default="unit"/>
     </attributes>
     <items>
       <!-- ANIMAL -->
@@ -200,7 +200,6 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      
       <!-- CORN CROP --> 
       <item name="corn_crop"
             nature="cereal_crop"
@@ -751,6 +750,7 @@
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram, thousand_grain_mass: 45gram"
             />
+            <!-- WHEAT SEED -->
       <item name="wheat_seed_25"
             nature="seed"
             derivative_of="triticum_aestivum"
@@ -774,12 +774,6 @@
             derivative_of="ascott"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grain_mass: 50gram"
-            />
-       <item name="mixture_seed"
-            nature="seed"
-            derivative_of="poa"
-            unit_name="kilogram"
-            frozen_indicators_values="net_mass: 1.00kilogram, thousand_grain_mass: 50gram"
             />
       <item name="hard_wheat_seed_25"
             nature="seed"
@@ -817,17 +811,25 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grain_mass: 42gram"
             />
+            <!-- CORN SEED -->
+      <item name="corn_seed_50TG"
+            nature="seed"
+            derivative_of="zea"
+            unit_name="50TG_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grain_mass: 300gram"
+            />
       <item name="corn_seed_25"
             nature="seed"
             derivative_of="zea"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grain_mass: 42gram"
             />
-      <item name="grass_seed_25"
+            <!-- SUNFLOWER SEED -->
+      <item name="sunflower_seed_150TG"
             nature="seed"
-            derivative_of="poa"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grain_mass: 42gram"
+            derivative_of="helianthus"
+            unit_name="150TG_bag"
+            frozen_indicators_values="net_mass: 7.50kilogram, thousand_grain_mass: 50gram"
             />
       <item name="pea_seed"
             nature="seed"
@@ -840,6 +842,18 @@
             derivative_of="medicago"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grain_mass: 42gram"
+            />
+       <item name="mixture_seed"
+            nature="seed"
+            derivative_of="poa"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1.00kilogram, thousand_grain_mass: 50gram"
+            />
+      <item name="grass_seed_25"
+            nature="seed"
+            derivative_of="poa"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grain_mass: 50gram"
             />
       <item name="sorghum_seed_25"
             nature="seed"

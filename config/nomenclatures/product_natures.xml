@@ -307,7 +307,8 @@
             abilities="take_root"
             variable_indicators="population"
             frozen_indicators="woodstock_variety"
-            />     
+            />
+        <!-- SEED -->   
        <item name="seed"
             category="seed"
             variety="seed"
