@@ -156,8 +156,10 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     others = options.delete(:others) || @object.class.where("#{attribute_name} IS NOT NULL AND id != ?", @object.id || 0)
     if others.any?
       editor[:others] = others.collect do |obj|
-        Charta::Geometry.new(obj.send(attribute_name)).to_geojson
-      end
+        if shape = obj.send(attribute_name)
+          Charta::Geometry.new(shape).to_geojson
+        end
+      end.compact
     else
       begin
         editor[:others] = @object.class.where.not(id: @object.id || 0).collect do |obj|

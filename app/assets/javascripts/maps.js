@@ -26,13 +26,16 @@
                 L.tileLayer.provider('OpenStreetMap.HOT').addTo(map);
 
                 $.each(options.geometries, function (index, value) {
-                    var layer = L.GeoJSON.geometryToLayer(value.shape).setStyle({weight: 2});
-                    if (value.url) {
-                        layer.on("click", function (e) {
-                            window.location.assign(value.url);
-                        });
+                    var layer;
+                    if (value.shape) {
+                        layer = L.GeoJSON.geometryToLayer(value.shape).setStyle({weight: 2});
+                        if (value.url) {
+                            layer.on("click", function (e) {
+                                window.location.assign(value.url);
+                            });
+                        }
+                        layer.addTo(map);
                     }
-                    layer.addTo(map);
                 });
 
 		// Scale
