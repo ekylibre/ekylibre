@@ -2,7 +2,7 @@
   - t.edit resource
 
 = beehive do |b|
-  - b.tabbox do
+  - b.hbox do
     - b.cell do
       .info
         %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
@@ -19,7 +19,7 @@
         - if resource.picture.exists?
           = image_tag(resource.picture.url(:thumb))
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell(:products) do
       = list(:products)
     - b.cell(:stocks) do
@@ -44,7 +44,7 @@
       - else
         = no_data
 
-  - b.tabbox do
+  - b.hbox do
     -b.cell(:prices) do
       = toolbar do |t|
         - t.new(params: {controller: :catalog_prices, :variant_id => resource.id})
