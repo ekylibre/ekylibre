@@ -10,8 +10,10 @@
       <!-- TELEPAC -->
       <item name="pacage_number" />
       <!-- HUSBANDRY --> 
-      <item name="synel17_username" />
+      <item name="synel_username" />
       <item name="husbandry_owner_number" />
+      <item name="cattling_root_number" />
+      <item name="cattling_number" />
       <!-- ANALYSIS LABRATORY -->
       <item name="lilco_labratory_code" />
       <!-- COOPERATIVE -->

@@ -1751,7 +1751,14 @@ fra:
         regulations: "Réglementations"
         specifications: "Spécifications"
     identifier:
-
+      nature:
+        charentes_alliance_extranet_username: "Login Extranet Charentes alliance "
+        husbandry_owner_number: "Code éleveur propriétaire"
+        lilco_labratory_code: "Code laboratoire LILCO"
+        msa_username: "Login MSA"
+        pacage_number: "Numéro de PACAGE"
+        password: "Mot de passe"
+        synel17_username: "Login Synel17"
     immatter:
       variety:
         acetal: "Acetal"

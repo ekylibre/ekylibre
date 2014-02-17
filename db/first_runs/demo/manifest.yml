@@ -54,7 +54,7 @@ net_services:
     pacage_number: toto
     password: 12345
   synel17:
-    synel17_username: toto
+    synel_username: 17387001
     password: 12345
   lilco:
     lilco_labratory_code: toto
@@ -62,9 +62,11 @@ net_services:
   msa:
     msa_username: toto
     password: 12345
-  coop_charentes_alliance:
+  charentes_alliance_extranet:
     charentes_alliance_extranet_username: toto
     password: 12345
 identifiers:
   pacage_number: 12346578
-  husbandry_owner_number: 12345689
+  husbandry_owner_number: FR01700006989
+  cattling_root_number: 173513
+  cattling_number: FR17387001

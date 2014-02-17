@@ -18,7 +18,7 @@
 #
 
 class Backend::IdentifiersController < BackendController
-  manage_restfully
+  manage_restfully t3e: {name: :nature}
 
   unroll
 

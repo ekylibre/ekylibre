@@ -57,7 +57,7 @@ load_data :entities do |loader|
 
 
 
-  file = loader.path("associate_entities.csv")
+  file = loader.path("entities", "entities.csv")
   if file.exist?
     loader.count :associates do |w|
 
@@ -73,7 +73,8 @@ load_data :entities do |loader|
                          :town => row[8].blank? ? nil : row[8].to_s,
                          :phone_number => row[9].blank? ? nil : row[9].to_s,
                          :link_nature => row[10].blank? ? :undefined : row[10].to_sym,
-                         :origin => (row[0].to_s + " " + row[1].to_s)
+                         :origin => (row[0].to_s + " " + row[1].to_s),
+                         :file_code_prefix => row[11].blank? ? nil : row[11].to_s.downcase
                          )
 
       klass = r.nature.camelcase.constantize
@@ -102,6 +103,12 @@ load_data :entities do |loader|
       end
       if r.link_nature
         person.is_linked_to!(Entity.of_company, as: r.link_nature)
+      end
+      if r.file_code_prefix and picture = loader.path("entities", r.file_code_prefix + ".gif")
+        f = File.open(picture) rescue nil
+        person.picture = f
+        person.save!
+        f.close unless f.nil?
       end
       w.check_point
     end

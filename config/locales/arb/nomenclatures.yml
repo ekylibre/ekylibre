@@ -1067,9 +1067,18 @@ arb:
         # specifications: "Spécifications"
       # name: "Types de guide"
     identifier_natures:
-      attributes: #?
+      attributes:
+        # password: "Mot de passe"
       item_lists: #?
-      items: #?
+      items:
+        # charentes_alliance_extranet_username: "Login Extranet Charentes alliance "
+        # husbandry_owner_number: "Code éleveur propriétaire"
+        # lilco_labratory_code: "Code laboratoire LILCO"
+        # msa_username: "Login MSA"
+        # pacage_number: "Numéro de PACAGE"
+        # password: "Mot de passe"
+        # synel17_username: "Login Synel17"
+      # name: "Type d'identifiant"
     identifiers: #?
     indicators:
       attributes:

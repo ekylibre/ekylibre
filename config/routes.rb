@@ -462,7 +462,11 @@ Ekylibre::Application.routes.draw do
 
     resources :mineral_matters, concerns: :products
 
-    resources :net_services, concerns: [:list, :unroll]
+    resources :net_services, concerns: [:list, :unroll] do
+      member do
+        get :list_identifiers
+      end
+    end
 
     resources :observations
 

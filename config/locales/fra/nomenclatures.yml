@@ -956,19 +956,19 @@ fra:
         regulations: "Réglementations"
         specifications: "Spécifications"
     identifier_natures:
-      # name: "Identifier natures"
+      name: "Type d'identifiant"
       attributes:
         # fallbacks: "Fallbacks"
-        # password: "Password"
+        password: "Mot de passe"
       item_lists:
       items:
-        # charentes_alliance_extranet_username: "Charentes alliance extranet username"
-        # husbandry_owner_number: "Husbandry owner number"
-        # lilco_labratory_code: "Lilco labratory code"
-        # msa_username: "Msa username"
-        # pacage_number: "Pacage number"
-        # password: "Password"
-        # synel17_username: "Synel17 username"
+        charentes_alliance_extranet_username: "Login Extranet Charentes alliance "
+        husbandry_owner_number: "Code éleveur propriétaire"
+        lilco_labratory_code: "Code laboratoire LILCO"
+        msa_username: "Login MSA"
+        pacage_number: "Numéro de PACAGE"
+        password: "Mot de passe"
+        synel17_username: "Login Synel17"
     indicators:
       name: "Indicateurs"
       attributes:
@@ -1558,6 +1558,7 @@ fra:
         granulated_insecticide_12: "Insecticide granulés"
         grape_reaper: "Machine à vendanger"
         grass: "Herbe"
+        # grass_seed_25: "Grass seed 25"
         green_compost: "Compost de déchets verts"
         guineafowl_manure: "Fumier de pintades"
         hard_wheat_crop: "Culture de blé dur"
