@@ -44,6 +44,6 @@
       <operation id="900" duration="4 minutes">
         <task do="[driver] moves in default storage"/>
       </operation>
-    </operations>        
+    </operations>
   </procedure>
 </procedures>

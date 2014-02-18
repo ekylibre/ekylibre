@@ -32,7 +32,7 @@
       <item name="figure"         datatype="choice" choices="figures"/>
       <item name="horizontal_rotation" datatype="measure" unit="degree"/>
       <item name="livestock_unit" datatype="decimal" gathering="proportional_to_population"/>
-      
+
       <!-- for product capacity -->
       <item name="maximal_storable_net_mass"       datatype="measure" unit="kilogram" />
       <item name="nominal_storable_net_mass"       datatype="measure" unit="kilogram" />
@@ -40,11 +40,11 @@
       <item name="nominal_storable_net_volume"     datatype="measure" unit="liter" />
       <item name="maximal_storable_easement_area" datatype="measure" unit="square_meter" />
       <item name="nominal_storable_easement_area" datatype="measure" unit="square_meter" />
-      
+
       <!-- for wine product and production -->
       <item name="reference_year" datatype="integer"/><!-- for "millesime" -->
       <item name="designation_origin" datatype="choice" choices="designation_origins"/><!-- for "appellation" -->
-      
+
       <!-- state of cultivable_zone -->
       <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
       <item name="thousand_grains_mass" datatype="measure" unit="gram"/>
@@ -79,7 +79,7 @@
       <item name="immunoglobulins_concentration"    datatype="measure" unit="unity_per_liter"/>
       <item name="urea_concentration"               datatype="measure" unit="milligram_per_liter"/>
       <!-- for animal medicine -->
-      <item name="meat_withdrawal_period" datatype="measure" unit="day"/> 
+      <item name="meat_withdrawal_period" datatype="measure" unit="day"/>
       <item name="milk_withdrawal_period" datatype="measure" unit="day"/>
       <!-- for genetic animal's reproduction  -->
       <item name="unique_synthesis_index"         datatype="measure" unit="unity"/>
@@ -90,7 +90,7 @@
       <item name="fertility_index"                datatype="measure" unit="unity"/>
       <!-- for fertilization plant's and soil analysis -->
       <!-- macro-element -->
-      <item name="organic_matter_concentration"   datatype="measure" unit="percent"/>   
+      <item name="organic_matter_concentration"   datatype="measure" unit="percent"/>
       <item name="nitrogen_concentration"   datatype="measure" unit="percent"/>
       <item name="potassium_concentration"  datatype="measure" unit="percent"/>
       <item name="phosphorus_concentration" datatype="measure" unit="percent"/>
@@ -101,7 +101,7 @@
       <item name="boron_concentration"      datatype="measure" unit="parts_per_million"/>
       <item name="molybdenum_concentration" datatype="measure" unit="parts_per_million"/>
       <item name="manganese_concentration"  datatype="measure" unit="parts_per_million"/>
-      <item name="copper_concentration"     datatype="measure" unit="parts_per_million"/> 
+      <item name="copper_concentration"     datatype="measure" unit="parts_per_million"/>
       <item name="zinc_concentration"       datatype="measure" unit="parts_per_million"/>
       <item name="iron_concentration"       datatype="measure" unit="parts_per_million"/>
       <item name="aluminium_concentration"  datatype="measure" unit="parts_per_million"/>
@@ -114,7 +114,7 @@
       <!-- analysis_method -->
       <item name="cation_exchange_capacity_analysis_method" datatype="choice" choices="cation_exchange_capacity_analysis_methods"/>
       <item name="phosphorus_analysis_method" datatype="choice" choices="phosphorus_analysis_methods"/>
-      
+
       <!-- for support markers -->
       <!-- <item name="nitrogen_input_per_area" datatype="measure" unit="kilogram_per_hectare"/> -->
       <!-- <item name="nitrogen_input_area_density" datatype="measure" unit="kilogram_per_hectare"/> -->

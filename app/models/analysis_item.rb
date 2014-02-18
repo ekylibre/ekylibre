@@ -44,11 +44,13 @@
 #  updater_id                   :integer
 #
 class AnalysisItem < Ekylibre::Record::Base
+  include ReadingStorable
+  belongs_to :analysis
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
   validates_length_of :absolute_measure_value_unit, :choice_value, :description, :indicator_datatype, :indicator_name, :measure_value_unit, allow_nil: true, maximum: 255
   validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :indicator_datatype, :indicator_name
+  validates_presence_of :analysis, :indicator_datatype, :indicator_name
   #]VALIDATORS]
 end

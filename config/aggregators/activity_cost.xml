@@ -20,9 +20,9 @@
           <property name="area_value_in_hectare" value="activity.area(campaign).in_hectare.round(2).value" level="api"/>
           <property name="id" of="activity" level="api"/>
           <property name="intervention_durations" value="activity.interventions_duration(campaign).in_second.convert(:hour).round(2)" type="measure" />
-          
+
           <!-- looking for all Interventions in current campaign and activity -->
-          <matrix name="interventions" for="intervention" in="Intervention.real.where(state: 'done').of_activities(activity).of_campaign(campaign).order(:started_at)">             
+          <matrix name="interventions" for="intervention" in="Intervention.real.where(state: 'done').of_activities(activity).of_campaign(campaign).order(:started_at)">
             <cell name="id" of="intervention" level="api"/>
             <cell name="name" of="intervention" of-type="record"/>
             <cell name="production_support" if="intervention.production_support and intervention.production_support.storage" value="intervention.production_support.storage.name" of-type="record"/>
@@ -36,7 +36,7 @@
             <cell name="input_cost" if="intervention.cost(:input)" value="intervention.cost(:input).round(2)" type="money"/>
             <cell name="doer_cost" if="intervention.cost(:doer)" value="intervention.cost(:doer).round(2)" type="money"/>
             <cell name="tool_cost" if="intervention.cost(:tool)" value="intervention.cost(:tool).round(2)" type="money"/>
-          </matrix>          
+          </matrix>
         </sections>
       </sections>
     </section>

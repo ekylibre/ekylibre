@@ -6,7 +6,7 @@
       <attribute name="debtor" type="boolean" required="false" default="false"/>
       <attribute name="fr_pcg82" type="string" required="false" fallbacks="fr_pcga"/>
       <attribute name="fr_pcga" type="string" required="false" fallbacks="fr_pcg82"/>
-    </attributes>  
+    </attributes>
     <items>
       <!--                      CAPITAL                -->
       <item name="capitals" fr_pcg82="1"/>
@@ -37,16 +37,16 @@
       <item name="land_parcel_assets" fr_pcga="2111"/>
       <item name="building_assets" fr_pcga="2141"/>
       <item name="general_installation_assets" fr_pcga="2145"/>
-      <item name="equipment_assets" fr_pcga="2154"/>    
+      <item name="equipment_assets" fr_pcga="2154"/>
       <item name="other_general_installation_assets" fr_pcga="2181"/>
       <item name="transport_vehicle_assets" fr_pcga="2182"/>
       <item name="office_equipment_assets" fr_pcga="2183"/>
       <item name="office_furniture_assets" fr_pcga="2184"/>
       <item name="sustainable_packaging_assets" fr_pcga="2186"/>
-      <item name="other_assets" fr_pcga="2188"/>    
+      <item name="other_assets" fr_pcga="2188"/>
       <item name="adult_animal_assets" fr_pcga="241"/>
       <item name="young_animal_assets" fr_pcga="242"/>
-      <item name="service_animal_assets" fr_pcga="243"/>   
+      <item name="service_animal_assets" fr_pcga="243"/>
       <item name="sustainables_plants_assets" fr_pcga="246"/>
       <item name="sustainables_plants_on_own_land_parcel_assets" fr_pcga="2461"/>
       <item name="sustainables_plants_on_other_land_parcel_assets" fr_pcga="2465"/>
@@ -75,8 +75,8 @@
       <item name="other_asset_depreciations" fr_pcga="28188"/>
       <item name="biocorporeal_asset_depreciations" fr_pcga="284"/>
       <item name="adult_animal_asset_depreciations" fr_pcga="2841"/>
-      <item name="service_animal_asset_depreciations" fr_pcga="2843"/>   
-      <item name="sustainables_plants_asset_depreciations" fr_pcga="2846"/>   
+      <item name="service_animal_asset_depreciations" fr_pcga="2843"/>
+      <item name="sustainables_plants_asset_depreciations" fr_pcga="2846"/>
 
       <!--                      STOCKS                -->
       <item name="stocks" fr_pcg82="3"/>

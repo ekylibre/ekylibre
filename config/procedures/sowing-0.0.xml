@@ -6,7 +6,7 @@
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" need="population">
         <handler indicator="net_mass"            unit="kilogram"               method="value / self::individual.net_mass" to="population" /> <!-- kg    -->
         <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   method="(value * cultivation.net_surface_area) / self::individual.net_mass" to="population"/> <!-- kg/ha -->
-        <handler indicator="grains_area_density" unit="unity_per_square_meter" method="(((value * self.thousand_grains_mass) / 1000) * cultivation.net_surface_area) / self::individual.net_mass" to="population" /> <!--  u/m² -->          
+        <handler indicator="grains_area_density" unit="unity_per_square_meter" method="(((value * self.thousand_grains_mass) / 1000) * cultivation.net_surface_area) / self::individual.net_mass" to="population" /> <!--  u/m² -->
         <handler indicator="grains_area_density" unit="thousand_per_hectare"   method="(((value * self.thousand_grains_mass) / 1000) * cultivation.net_surface_area) / self::individual.net_mass" to="population" /> <!--  M/ha -->
         <handler indicator="grains_count"        unit="thousand"               method="((value * self.thousand_grains_mass) / 1000) / self::individual.net_mass" to="population" /> <!--  M    -->
       </variable>
@@ -34,7 +34,7 @@
         <task do="[tractor] moves at [seeds]"/>
       </operation>
       <operation id="500" duration="4 minutes">
-        <!--  on sépare les semences que l'on va mettre dans le semoir du stock --> 
+        <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
         <task do="[seeds] parts with [seeds_to_sow]"/>
         <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
         <task do="[seeds_to_sow] moves in [sower]"/>
@@ -72,7 +72,7 @@
       </operation>
       <operation id="1100" duration="4 minutes">
         <task do="[driver] moves in default storage"/>
-      </operation> 
-    </operations>        
+      </operation>
+    </operations>
   </procedure>
 </procedures>

@@ -47,7 +47,7 @@
                 <property name="observed_at"/>
                 <property name="state" level="api"/>
                 <property name="description"/>
-              </section> 
+              </section>
               <matrix name="inputs" for="input" in="intervention.casts.of_role(:'soil_enrichment-input')">
                 <cell name="id" of="input" level="api"/>
                 <within of="input.actor">

@@ -11,7 +11,7 @@
       <property name="entity_name" value="company.full_name"/>
       <property name="address" value="company.default_mail_address.coordinate"/>
       <!-- looking for all Account used in journal_entry_items in the current period (started_on, stopped_on) -->
-      
+
           <matrix name="items" for="item" in="JournalEntryItem.between(started_on, stopped_on).order(:id)">
             <cell name="JournalCode" value="item.journal.code" of-type="record"/>
             <cell name="JournalLib" value="item.journal.name" />
@@ -31,7 +31,7 @@
             <cell name="ValidDate" if="item.state == 'confirm'" value="item.printed_on" type="date"/>
             <cell name="Montantdevise" value="''"/>
             <cell name="Idevise" value="''"/>
-          </matrix> 
+          </matrix>
     </section>
   </aggregator>
 </aggregators>

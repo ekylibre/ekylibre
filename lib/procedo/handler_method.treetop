@@ -12,7 +12,7 @@ module Procedo
     rule addition
       operand '+' operand
     end
-        
+
     rule division
       operand '/' operand
     end
@@ -21,9 +21,21 @@ module Procedo
       operand '-' operand
     end
 
+    rule operand
+      (number / variable)
+    end
+
+    rule number
+      '-'? [1-9] [0-9]* ('.' [0-9]+)?
+    end
+
+    rule variable
+      [a-z]+
+    end
+
     rule space
       [[:space:]]+
     end
-        
+
   end
 end

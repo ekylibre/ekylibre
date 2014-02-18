@@ -172,6 +172,6 @@ module Procedo
       end
       return "unknown_variant".tl
     end
-    
+
   end
 end

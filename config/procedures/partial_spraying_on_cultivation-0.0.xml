@@ -24,7 +24,7 @@
         <task do="[tractor] moves at [medicine]"/><!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
       </operation>
       <operation id="500" duration="1 minutes">
-        <task do="[medicine] parts with [medicine_to_spray]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
+        <task do="[medicine] parts with [medicine_to_spray]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global -->
       </operation>
       <operation id="600" duration="4 minutes">
         <task do="[medicine_to_spray] moves in [sprayer]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
@@ -52,7 +52,7 @@
       </operation>
       <operation id="1200" duration="4 minutes">
         <task do="[driver] moves in default storage"/>
-      </operation>      
-    </operations>        
+      </operation>
+    </operations>
   </procedure>
 </procedures>

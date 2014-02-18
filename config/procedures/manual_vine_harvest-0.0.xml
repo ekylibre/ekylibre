@@ -22,7 +22,7 @@
       </operation>
       <operation id="400" duration="18 minutes">
         <task do="[grape_picker] moves in default storage"/>
-      </operation>        
+      </operation>
     </operations>
   </procedure>
 </procedures>

@@ -31,10 +31,10 @@
               <property name="started_at" of="intervention" type="datetime"/>
               <property name="stopped_at" of="intervention" type="datetime"/>
               <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
-              <variable name="working_area" value="intervention.casts.of_role(:'plant_illness_treatment-target').first.population"/> 
+              <variable name="working_area" value="intervention.casts.of_role(:'plant_illness_treatment-target').first.population"/>
                 <property name="working_area" value="working_area" level="api"/>
               <!-- @TODO find a way to allow input working area<variable name="working_area" value="intervention.casts.of_role(:'plant_illness_treatment-target').first.quantity"/> -->
-              
+
               <property name="doer_name" if="intervention.casts.of_role(:'plant_illness_treatment-doer').first.actor" value="intervention.casts.of_role(:'plant_illness_treatment-doer').first.actor.name"/>
               <section name="issue" of="intervention.issue">
                 <property name="id" level="api"/>
@@ -42,7 +42,7 @@
                 <property name="observed_at"/>
                 <property name="state" level="api"/>
                 <property name="description"/>
-              </section> 
+              </section>
               <matrix name="inputs" for="input" in="intervention.casts.of_role(:'plant_illness_treatment-input')">
                 <cell name="id" of="input" level="api" />
                 <within of="input.actor">
@@ -54,7 +54,7 @@
                   <cell name="variety" level="api"/>
                 </within>
               </matrix>
-            </sections>            
+            </sections>
         </sections>
       </sections>
     </section>

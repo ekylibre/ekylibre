@@ -72,7 +72,7 @@ affairs:
   updater_id: {type: integer, references: user}
 
 analyses:
-  analyser_id: {type: integer, references: }
+  analyser_id: {type: integer, references: entity}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   description: {type: string}
@@ -82,7 +82,7 @@ analyses:
   made_at: {type: datetime}
   product_id: {type: integer, references: product}
   sampled_at: {type: datetime, required: true}
-  sampler_id: {type: integer, references: }
+  sampler_id: {type: integer, references: entity}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 

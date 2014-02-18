@@ -268,7 +268,7 @@
             depreciable="false"
             storable="true"
             pictogram="wrench"
-            />    
+            />
       <item name="land_parcel"
             financial_asset_account="land_parcel_assets"
             charge_account="land_parcel_rent_expenses"
@@ -395,7 +395,7 @@
             pictogram="bolt"
             />
     </items>
-    
+
   </nomenclature>
-  
+
 </nomenclatures>

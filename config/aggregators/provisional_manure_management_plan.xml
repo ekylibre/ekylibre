@@ -41,7 +41,7 @@
               <property name="id" of="provisional_intervention" level="api"/>
               <property name="started_at" of="provisional_intervention" type="datetime"/>
               <property name="stopped_at" of="provisional_intervention" type="datetime"/>
-              <property name="period" value="((provisional_intervention.stopped_at - provisional_intervention.started_at).to_d/(60*60*24)).round(2).in(:day)"/> 
+              <property name="period" value="((provisional_intervention.stopped_at - provisional_intervention.started_at).to_d/(60*60*24)).round(2).in(:day)"/>
               <matrix name="inputs" for="input" in="provisional_intervention.casts.of_role(:'soil_enrichment-input')">
                 <cell name="id" of="input" level="api"/>
                 <cell name="name" of="input" />

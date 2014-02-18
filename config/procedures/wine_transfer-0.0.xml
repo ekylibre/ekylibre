@@ -20,6 +20,6 @@
       <operation id="400" duration="4 minutes">
         <task do="[wine_man] moves in default storage"/>
       </operation>
-    </operations>        
+    </operations>
   </procedure>
 </procedures>

@@ -13,7 +13,7 @@
           <property name="ede_owner_number" value="Preference.get('entity_identification.ede.owner_number').value" />
       </section>
       <sections for="campaign" in="campaigns">
-      <property name="name" of="campaign"/> 
+      <property name="name" of="campaign"/>
       <section name="plan">
         <variable name="animal_building_division" value="ProductNature.find_by_reference_name(:animal_building_division)"/>
         <property name="plan_svg" value="BuildingDivision.of_nature(animal_building_division).shape_svg" type="svg" level="api"/>
@@ -45,9 +45,9 @@
             <matrix name="animal_localizations" for="localization" in="animal.localizations">
               <cell name="id" of="localization" level="api"/>
               <cell name="container_name" if="localization.container" value="localization.container.name"/>
-              <!-- 
+              <!--
 		   <cell name="arrival_cause" of="localization"/>
-		   <cell name="departure_cause" of="localization"/> 
+		   <cell name="departure_cause" of="localization"/>
 	      -->
               <cell name="started_at" of="localization" if="localization.started_at" type="datetime"/>
               <cell name="stopped_at" of="localization" if="localization.stopped_at" type="datetime"/>

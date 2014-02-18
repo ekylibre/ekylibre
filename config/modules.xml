@@ -666,6 +666,26 @@
         <page to="backend/prescriptions#unroll"/>
         <page to="backend/prescriptions#update"/>
       </item>
+      <item name="analyses" icon="beaker">
+        <page to="backend/analyses#index"/>
+        <page to="backend/analyses#create"/>
+        <page to="backend/analyses#destroy"/>
+        <page to="backend/analyses#edit"/>
+        <page to="backend/analyses#list"/>
+        <page to="backend/analyses#new"/>
+        <page to="backend/analyses#show"/>
+        <page to="backend/analyses#unroll"/>
+        <page to="backend/analyses#update"/>
+        <page to="backend/analysis_items#index"/>
+        <page to="backend/analysis_items#create"/>
+        <page to="backend/analysis_items#destroy"/>
+        <page to="backend/analysis_items#edit"/>
+        <page to="backend/analysis_items#list"/>
+        <page to="backend/analysis_items#new"/>
+        <page to="backend/analysis_items#show"/>
+        <page to="backend/analysis_items#unroll"/>
+        <page to="backend/analysis_items#update"/>
+      </item>
       <item name="productions">
         <page to="backend/productions#index"/>
         <page to="backend/productions#create"/>
@@ -1715,29 +1735,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="analyses">
-        <page to="backend/analyses#index"/>
-        <page to="backend/analyses#create"/>
-        <page to="backend/analyses#destroy"/>
-        <page to="backend/analyses#edit"/>
-        <page to="backend/analyses#list"/>
-        <page to="backend/analyses#new"/>
-        <page to="backend/analyses#show"/>
-        <page to="backend/analyses#unroll"/>
-        <page to="backend/analyses#update"/>
-      </item>
-      <item name="analysis_items">
-        <page to="backend/analysis_items#index"/>
-        <page to="backend/analysis_items#create"/>
-        <page to="backend/analysis_items#destroy"/>
-        <page to="backend/analysis_items#edit"/>
-        <page to="backend/analysis_items#list"/>
-        <page to="backend/analysis_items#new"/>
-        <page to="backend/analysis_items#show"/>
-        <page to="backend/analysis_items#unroll"/>
-        <page to="backend/analysis_items#update"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>

@@ -15,9 +15,9 @@
       </operation>
       <operation id="200" duration="10 minutes">
         <task do="[medicine] parts with [medicine_to_give]"/>
-        <task do="[animal] consumes [medicine_to_give]"/>    
+        <task do="[animal] consumes [medicine_to_give]"/>
       </operation>
-    </operations>        
+    </operations>
   </procedure>
 
 </procedures>

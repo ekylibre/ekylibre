@@ -34,7 +34,7 @@
             activity="straw_cereal_crops"
             telepac_crop_code="OH"
             variant_support="winter_barley_crop"
-            />    
+            />
       <item name="escourgeon_barley"
             production_code="1420"
             activity="straw_cereal_crops"
@@ -58,7 +58,7 @@
             activity="straw_cereal_crops"
             telepac_crop_code="AP"
             variant_support="spring_oat_crop"
-            />     
+            />
        <item name="grain_corn"
             production_code="1710"
             activity="maize_crops"
@@ -113,7 +113,7 @@
             activity="oilseed_crops"
             telepac_crop_code="SJ"
             variant_support="soy_crop"
-            />   
+            />
        <item name="beet"
             production_code="2210"
             activity="market_garden_crops"
@@ -180,7 +180,7 @@
             activity="meadow"
             telepac_crop_code="PN"
             variant_support="permanent_meadow_crop"
-            />   
+            />
       <item name="without_crop"
             production_code="3900"
             activity="fallow_land"
@@ -307,7 +307,7 @@
             variant_support="oyster_band"
             />
     </items>
-    
+
   </nomenclature>
-  
+
 </nomenclatures>

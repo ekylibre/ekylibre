@@ -84,7 +84,7 @@
             nature="duck_herd"
             unit_name="band"
             frozen_indicators_values="population: 1"
-            />      
+            />
       <item name="duck_band"
             nature="duck_band"
             unit_name="band"
@@ -102,7 +102,7 @@
             frozen_indicators_values=""
             />
       <!-- CROP -->
-                   <!-- WHEAT CROP -->      
+                   <!-- WHEAT CROP -->
       <item name="wheat_crop"
             nature="cereal_crop"
             variety="triticum_aestivum"
@@ -127,7 +127,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <!-- HARD WHEAT CROP --> 
+      <!-- HARD WHEAT CROP -->
       <item name="hard_wheat_crop"
             nature="cereal_crop"
             variety="triticum_durum"
@@ -146,21 +146,21 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-        <!-- TRITICALE CROP -->      
+        <!-- TRITICALE CROP -->
       <item name="triticale_crop"
             nature="cereal_crop"
             variety="triticosecale"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <!-- RYE CROP -->      
+      <!-- RYE CROP -->
       <item name="rye_crop"
             nature="cereal_crop"
             variety="secale"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <!-- BARLEY CROP -->  
+      <!-- BARLEY CROP -->
       <item name="winter_barley_crop"
             nature="cereal_crop"
             variety="hordeum_hibernum"
@@ -192,15 +192,15 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <!-- OTHER CROP --> 
-      
+      <!-- OTHER CROP -->
+
       <item name="alfalfa_crop"
             nature="crop"
             variety="medicago"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <!-- CORN CROP --> 
+      <!-- CORN CROP -->
       <item name="corn_crop"
             nature="cereal_crop"
             variety="zea"
@@ -231,7 +231,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <!-- INDUSTRIAL CROP -->     
+       <!-- INDUSTRIAL CROP -->
       <item name="sunflower_crop"
             nature="grain_crop"
             variety="helianthus"
@@ -279,7 +279,7 @@
             variety="beta"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
-            /> 
+            />
        <item name="potato_crop"
             nature="crop"
             variety="solanum"
@@ -304,7 +304,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <!-- MEADOW CROP --> 
+       <!-- MEADOW CROP -->
       <item name="permanent_meadow_crop"
             nature="crop"
             variety="poa"
@@ -335,7 +335,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <!-- GARDEN CROP --> 
+       <!-- GARDEN CROP -->
        <item name="garlic_crop"
             nature="crop"
             variety="allium"
@@ -365,8 +365,8 @@
             variety="cucumis"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
-            />  
-       <!-- TREE CROP --> 
+            />
+       <!-- TREE CROP -->
       <item name="plum_crop"
             nature="fruit_crop"
             variety="prunus"
@@ -390,9 +390,9 @@
             variety="corylus"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
-            />      
-            
-      <!-- VINE CROP --> 
+            />
+
+      <!-- VINE CROP -->
       <item name="vine_grape_crop"
             nature="wine_crop"
             variety="vitis_vinifera"
@@ -445,25 +445,25 @@
       <!-- triticum_aestivum was replaced by triticum-->
       <item name="wheat_straw"
             nature="straw"
-            derivative_of="triticum_aestivum" 
+            derivative_of="triticum_aestivum"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
       <item name="hard_wheat_straw"
             nature="straw"
-            derivative_of="triticum_durum" 
+            derivative_of="triticum_durum"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
       <item name="wheat_straw_bales"
             nature="straw"
-            derivative_of="triticum_aestivum" 
+            derivative_of="triticum_aestivum"
             unit_name="unit"
             frozen_indicators_values="net_mass: 1.00ton"
             />
       <item name="hard_wheat_straw_bales"
             nature="straw"
-            derivative_of="triticum_durum" 
+            derivative_of="triticum_durum"
             unit_name="unit"
             frozen_indicators_values="net_mass: 1.00ton"
             />
@@ -906,7 +906,7 @@
             unit_name="unit"
             frozen_indicators_values="population: 1"
             />
-      <!-- LAND PARCEL --> 
+      <!-- LAND PARCEL -->
       <item name="land_parcel"
             nature="land_parcel"
             unit_name="hectare"
@@ -1019,7 +1019,7 @@
             variety="swamp_peaty_soil"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
-            />            
+            />
       <item name="land_parcel_cluster"
             nature="land_parcel_cluster"
             unit_name="hectare"
@@ -1031,13 +1031,13 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-      <!-- SETTLEMENT --> 
+      <!-- SETTLEMENT -->
       <item name="settlement"
             nature="settlement"
             unit_name="building"
             frozen_indicators_values="population: 1"
             />
-      <!-- BUILDING --> 
+      <!-- BUILDING -->
       <item name="animal_building"
             nature="building"
             unit_name="building"
@@ -1058,7 +1058,7 @@
             unit_name="building"
             frozen_indicators_values="population: 1"
             />
-       <!-- BUILDING DIVISION -->      
+       <!-- BUILDING DIVISION -->
       <item name="building_division"
             nature="building_division"
             unit_name="room"
@@ -1114,7 +1114,7 @@
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
-       <!-- EQUIPMENT --> 
+       <!-- EQUIPMENT -->
       <item name="tractor"
             nature="tractor"
             unit_name="equipment"
@@ -1161,7 +1161,7 @@
             nature="complete_sower"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
-            /> 
+            />
       <item name="plow"
             nature="plow"
             unit_name="equipment"
@@ -1232,7 +1232,7 @@
             unit_name="person"
             frozen_indicators_values="population: 1"
             />
-       <!-- GENERIC PRODUCT --> 
+       <!-- GENERIC PRODUCT -->
       <item name="running_water"
             nature="running_water"
             unit_name="liter"
@@ -1267,8 +1267,8 @@
             nature="fuel"
             unit_name="liter"
             frozen_indicators_values="energy: 9.85kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram"
-            />          
-  
+            />
+
       <!-- Coop variants -->
             <!-- SEED -->
       <item name="coop:bth_s_caphorn_r1_gau+red_25kg"
@@ -1343,10 +1343,10 @@
             nature="small_equipment"
             unit_name="unit"
             frozen_indicators_values="population: 1"
-            />    
+            />
 
     </items>
-    
+
   </nomenclature>
-  
+
 </nomenclatures>

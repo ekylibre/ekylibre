@@ -16,6 +16,6 @@
         <task do="[mammal_herd_to_milk] produces [milk]"/>
         <task do="[milk] is in [container]"/>
       </operation>
-    </operations>        
+    </operations>
   </procedure>
 </procedures>

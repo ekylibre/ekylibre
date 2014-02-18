@@ -22,7 +22,7 @@
       <item name="hundred"  dimension="none" symbol="Ⅽ"  coefficients="100"     a="100"/>
       <item name="thousand" dimension="none" symbol="Ⅿ"  coefficients="1000"    a="1000"/>
       <item name="million"  dimension="none" symbol="ⅯⅯ" coefficients="1000000" a="1000000"/>
-      
+
 
       <!-- angle -->
       <item name="degree"   dimension="angle" symbol="°"   a="3.141592653589793238462643383279502884197" d="180"/>
@@ -68,11 +68,11 @@
       <item name="day"    dimension="time" symbol="d"   coefficients="86400s"  a="86400"/>
 
       <!-- electric_current -->
-      <item name="ampere"  dimension="electric_current" symbol="A" coefficients="A" a="1"/>    
-      
+      <item name="ampere"  dimension="electric_current" symbol="A" coefficients="A" a="1"/>
+
       <!-- amount_of_substance -->
       <item name="mole"    dimension="amount_of_substance" symbol="mol" coefficients="mol" a="1"/>
-      
+
       <!-- luminous_intensity -->
       <item name="candela" dimension="luminous_intensity" symbol="cd" coefficients="cd" a="1"/>
 
@@ -81,7 +81,7 @@
       <item name="milligram_per_liter" dimension="mass_concentration" symbol="mg/l" coefficients="0.000001kg*0.001m-3"   a="1000"/>
       <item name="gram_per_liter"      dimension="mass_concentration" symbol="g/l"  coefficients="0.001kg*0.001m-3"      a="1"/>
       <item name="kilogram_per_liter"  dimension="mass_concentration" symbol="kg/l" coefficients="kg*0.001m-3"           a="0.001"/>
-      
+
       <!-- mass_area_density -->
       <item name="kilogram_per_square_meter"  dimension="mass_area_density" symbol="kg/m²" coefficients="kg*m-2"           a="1"/>
       <item name="kilogram_per_hectare"  dimension="mass_area_density" symbol="kg/ha" coefficients="kg*10000m-2"           a="0.0001"/>
@@ -90,7 +90,7 @@
 
       <!-- surface_area_density -->
       <item name="unity_per_square_meter" dimension="surface_area_density" symbol="/m²" coefficients="m-2"           a="1"/>
-      <item name="unity_per_hectare"      dimension="surface_area_density" symbol="/ha" coefficients="0.00001m-2"           a="1" d="10000"/>      
+      <item name="unity_per_hectare"      dimension="surface_area_density" symbol="/ha" coefficients="0.00001m-2"           a="1" d="10000"/>
 
       <!-- concentration -->
       <item name="unity_per_liter"         dimension="concentration" symbol="/l"   coefficients="0.001m-3"              a="0.001"/>
@@ -100,13 +100,13 @@
 
       <item name="mass_percent" dimension="none" symbol="%kg"   coefficients="0.01" a="0.01"/>
       <item name="parts_per_million" dimension="none" symbol="ppm" coefficients="0.000001" a="0.000001"/>
-      
+
       <!-- mass_density -->
       <item name="unity_per_kilogram"     dimension="mass_density" symbol="u/kg"  coefficients="kg-1"                    a="1"/>
       <!-- <item name="kilogram_per_hundred_kilogram"     dimension="mass_density" symbol="kg/100kg"  coefficients="100kg-1"                    a="0.01"/>      -->
       <item name="thousand_per_kilogram"  dimension="mass_density" symbol="ku/kg" coefficients="1000*kg-1"               a="0.001"/>
       <item name="thousand_per_hectogram" dimension="mass_density" symbol="ku/hg" coefficients="1000*0.1kg-1"            a="0.0001"/>
-      
+
       <!-- <item name="kilogram_per_hectogram" dimension="mass_density" symbol="kg/100kg" coefficients="1*0.1kg-1"            a="0.0001"/> -->
       <!-- <item name="thousand_eq_per_hundred_gram" dimension="mass_density" symbol="meq/100g" coefficients="1000*0.1kg-1"/> -->
 
@@ -114,14 +114,14 @@
       <!-- energy -->
       <item name="joule"  dimension="energy" symbol="J" a="1"/>
       <item name="kilowatt_hour"  dimension="energy" symbol="kWh" a="3600000"/>
-      
+
       <!-- power -->
       <item name="french_horsepower"  dimension="power" symbol="ch" a="735.5"/>
       <item name="english_horsepower" dimension="power" symbol="hp" a="745.6998"/>
       <item name="watt"     dimension="power" symbol="W" a="1"/>
       <item name="kilowatt" dimension="power" symbol="kW" a="1000"/>
       <item name="megawatt" dimension="power" symbol="MW" a="1000000"/>
-      
+
       <!-- pressure -->
       <item name="pascal"      dimension="pressure" symbol="Pa"/>
       <item name="hectopascal" dimension="pressure" symbol="hPa" a="100"/>
@@ -132,7 +132,7 @@
       <item name="meter_per_second"     dimension="distance_speed" symbol="m/s"/>
       <item name="kilometer_per_hour"   dimension="distance_speed" symbol="km/h" d="3.6"/>
       <item name="kilometer_per_second" dimension="distance_speed" symbol="km/s" a="1000"/>
-      
+
     </items>
   </nomenclature>
 </nomenclatures>

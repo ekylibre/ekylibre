@@ -8,7 +8,7 @@
       <attribute name="number" type="string" required="true" default="2"/>
       <attribute name="cash" type="list"/>
       <attribute name="symbol" type="string"/>
-    </attributes>  
+    </attributes>
     <items>
       <item name="AED" precision="2" active="true" countries="ae" number="784"/>
       <item name="AFN" precision="2" active="true" countries="af" number="971"/>

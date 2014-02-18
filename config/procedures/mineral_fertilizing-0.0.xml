@@ -9,7 +9,7 @@
       <variable name="tractor" variety="equipment" abilities="tow(spreader)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="land_parcel" variety="cultivable_zone" roles="soil_enrichment-target"/>
     </variables>
-    <operations>  
+    <operations>
       <operation id="100" duration="4 minutes">
         <task do="[driver] moves in [tractor]"/>
         <!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
@@ -28,7 +28,7 @@
       </operation>
       <operation id="500" duration="1 minutes">
         <task do="[fertilizer] parts with [fertilizer_to_spread]"/>
-        <!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global --> 
+        <!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global -->
       </operation>
       <operation id="600" duration="4 minutes">
         <task do="[fertilizer_to_spread] moves in [spreader]"/>
@@ -57,6 +57,6 @@
       <operation id="1200" duration="4 minutes">
         <task do="[driver] moves in default storage"/>
       </operation>
-    </operations> 
+    </operations>
   </procedure>
 </procedures>

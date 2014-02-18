@@ -3,7 +3,7 @@
   <nomenclature name="countries" reference="iso-3166-1">
     <attributes>
       <attribute name="number" type="string"/>
-    </attributes>  
+    </attributes>
     <items>
       <item name="ad"/>
       <item name="ae"/>

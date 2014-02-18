@@ -6,7 +6,7 @@
     </attributes>
     <items>
       <!--
-          [Product] it can ...  
+          [Product] it can ...
           Abilities are ACTIVE (not PASSIVE)
       -->
       <item name="consume" parameters="variety"/>
@@ -18,7 +18,7 @@
       <item name="manage"  parameters="variety"/> <!-- ? -->
       <item name="germinate"/>
       <item name="feed"/>
-      <item name="fertilize"/>  
+      <item name="fertilize"/>
       <item name="catch" parameters="variety"/>
       <!-- @QUID : niveau de compétence (normal, précision)  -->
       <item name="spread" parameters="variety"/>

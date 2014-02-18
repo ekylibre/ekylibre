@@ -1201,7 +1201,6 @@ eng:
         # fertility_index: "Index de fertilité"
         # figure: "Forme"
         freezing_point_temperature: "Freezing point temperature"
-        # geographic_coordinate: "Coordonnées géographiques"
         ground_appearance: "Ground appearance" #?
         healthy: "Animal disease state"
         # height: "Hauteur"
@@ -1236,7 +1235,6 @@ eng:
         # net_surface_area: "Surface nette"
         # net_volume: "Volume net"
         # nitrogen_concentration: "Teneur en azote"
-        # nitrogen_input_area_density: "Densité d’apport d’azote"
         # nominal_storable_easement_area: "Capacité de stockage surfacique nominale (emprise au sol)"
         # nominal_storable_net_mass: "Capacité de stockage massique nominale"
         # nominal_storable_net_volume: "Capacité de stockage volumique nominale"

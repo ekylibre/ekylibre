@@ -57,7 +57,7 @@
       <item name="milk"
             category="milk"
             variety="milk"
-            derivative_of="mammalia" 
+            derivative_of="mammalia"
             population_counting="decimal"
             abilities="feed(mammalia)"
             variable_indicators="population, temperature, total_bacteria_concentration, inhibitors_presence, fat_matters_concentration, protein_matters_concentration, somatic_cell_concentration, clostridial_spores_concentration, freezing_point_temperature, lipolysis, immunoglobulins_concentration, urea_concentration"
@@ -134,7 +134,7 @@
             variable_indicators="population"
             frozen_indicators=""
             derivatives=""
-            />   
+            />
        <item name="crop"
             category="crop"
             variety="plant"
@@ -192,7 +192,7 @@
       <item name="wine"
             category="wine"
             variety="wine"
-            derivative_of="vitis_vinifera" 
+            derivative_of="vitis_vinifera"
             population_counting="decimal"
             abilities=""
             variable_indicators="population, temperature, total_bacteria_concentration, reference_year, designation_origin"
@@ -292,13 +292,13 @@
             />
       <item name="organic_fertilizer"
             category="fertilizer"
-            variety="excrement" 
+            variety="excrement"
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
-            /> 
-        <!-- VINE INPLANT -->           
+            />
+        <!-- VINE INPLANT -->
        <item name="usual_vine_seedling"
             category="plant"
             variety="seedling"
@@ -308,7 +308,7 @@
             variable_indicators="population"
             frozen_indicators="woodstock_variety"
             />
-        <!-- SEED -->   
+        <!-- SEED -->
        <item name="seed"
             category="seed"
             variety="seed"
@@ -353,12 +353,12 @@
             />
       <item name="small_equipment"
             category="small_equipment"
-            variety="equipment"  
+            variety="equipment"
             population_counting="unitary"
             abilities=""
             variable_indicators="net_mass"
             frozen_indicators="population"
-            />    
+            />
       <item name="land_parcel"
             category="land_parcel"
             variety="land_parcel"
@@ -594,7 +594,7 @@
             />
        <item name="hay_rake"
             category="equipment"
-            variety="harvester"   
+            variety="harvester"
             population_counting="unitary"
             abilities="swath"
             variable_indicators="application_width"
@@ -695,9 +695,9 @@
             abilities=""
             variable_indicators="population"
             frozen_indicators="energy, net_volume, net_mass"
-            />  
+            />
     </items>
-    
+
   </nomenclature>
-  
+
 </nomenclatures>

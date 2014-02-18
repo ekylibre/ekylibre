@@ -40,7 +40,7 @@
                 <property name="observed_at"/>
                 <property name="state" level="api"/>
                 <property name="description"/>
-              </section> 
+              </section>
               <matrix name="inputs" for="input" in="intervention.casts.of_role(:'plant_illness_treatment-input')">
                 <cell name="id" of="input" level="api"/>
                 <within of="input.actor">
@@ -51,7 +51,7 @@
                   <cell name="variety" level="api"/>
                 </within>
               </matrix>
-            </sections>            
+            </sections>
         </sections>
       </sections>
     </section>

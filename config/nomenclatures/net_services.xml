@@ -5,7 +5,7 @@
     <attributes>
       <attribute name="nature" type="choice" nomenclature="activity_families" required="true"/>
       <attribute name="url" type="string" required="false"/>
-      <attribute name="approach" type="choice" choices="human,rest,soap,email" required="false"/>  
+      <attribute name="approach" type="choice" choices="human,rest,soap,email" required="false"/>
       <attribute name="identifiers" type="list" nomenclature="identifier_natures" required="true"/>
     </attributes>
     <items>
@@ -43,7 +43,7 @@
           identifiers="charentes_alliance_extranet_username, password"
           />
     </items>
-    
+
   </nomenclature>
-  
+
 </nomenclatures>

@@ -35,7 +35,11 @@
 #  updated_at   :datetime         not null
 #  updater_id   :integer
 #
+
 class Analysis < Ekylibre::Record::Base
+  belongs_to :analyser, class_name: "Entity"
+  belongs_to :sampler, class_name: "Entity"
+  belongs_to :product
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :description, allow_nil: true, maximum: 255
   validates_presence_of :sampled_at

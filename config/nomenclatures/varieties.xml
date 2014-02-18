@@ -5,7 +5,7 @@
     <attributes>
       <!-- <attribute name="derivatives" type="list" required="false" inherit="true" merge="true"/> -->
       <attribute name="derivative_of" type="choice" required="false" nomenclature="varieties" inherit="true"/>
-    
+
     </attributes>
     <items>
       <item name="product"/>
@@ -57,9 +57,9 @@
     </attributes>
     <items>
       <item name="animal"/>
-      <item name="plant"/>  
+      <item name="plant"/>
       <item name="fungus"/>
-      <!-- 
+      <!--
 	   <item name="bacteria"/>
 	   <item name="chromista"/>
 	   <item name="protozoa"/>
@@ -92,14 +92,14 @@
     <items>
       <item name="zone_property_title"/>
     </items>
-  </nomenclature> 
+  </nomenclature>
    <!-- level 2 - branch 3 - sub-branch 1-->
   <nomenclature name="varieties-land_parcel_group">
     <items>
       <item name="land_parcel_cluster"/>
       <item name="cultivable_zone"/>
     </items>
-  </nomenclature>   
+  </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 3 - leaf 1 -->
   <nomenclature name="varieties-easement">
     <items>

@@ -9,7 +9,7 @@
     <items>
       <!-- TELEPAC -->
       <item name="pacage_number" />
-      <!-- HUSBANDRY --> 
+      <!-- HUSBANDRY -->
       <item name="synel_username" />
       <item name="husbandry_owner_number" />
       <item name="cattling_root_number" />
@@ -23,5 +23,5 @@
       <item name="password" password="true"/>
     </items>
   </nomenclature>
-  
+
 </nomenclatures>

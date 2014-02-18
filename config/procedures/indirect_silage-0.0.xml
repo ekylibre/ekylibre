@@ -21,7 +21,7 @@
       </operation>
       <operation id="400" duration="18 minutes">
         <task do="[forager] moves in default storage"/>
-      </operation>        
+      </operation>
       <operation id="500" duration="4 minutes">
         <task do="[forager_driver] moves in default storage"/>
       </operation>

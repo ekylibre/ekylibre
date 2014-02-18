@@ -28,13 +28,13 @@
       </operation>
       <operation id="600" duration="18 minutes">
         <task do="[tractor] moves in default storage of [baler]"/>
-      </operation>        
+      </operation>
       <operation id="700" duration="7 minutes">
         <task do="[tractor] releases [baler]"/>
-      </operation>        
+      </operation>
       <operation id="800" duration="4 minutes">
         <task do="[tractor] moves in default storage"/>
-      </operation>        
+      </operation>
       <operation id="900" duration="4 minutes">
         <task do="[baler_driver] moves in default storage"/>
       </operation>

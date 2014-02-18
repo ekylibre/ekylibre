@@ -418,6 +418,7 @@ fra:
     allocation_account: "Compte de dotation"
     amount: "Montant"
     amounts_scale: "Nombre de chiffres après le virgule" #?
+    # analyser: "Analyser"
     # analyses: "Analyses"
     analysis: "Analyses"
     annotation: "Annotation"
@@ -1048,6 +1049,7 @@ fra:
     sales_conditions: "Conditions Générales de Vente"
     sales_invoices: "Factures"
     # sampled_at: "Sampled at"
+    # sampler: "Sampler"
     scheduled: "Encaissement programmé"
     sender: "Expéditeur"
     sent_at: "Expédié le"

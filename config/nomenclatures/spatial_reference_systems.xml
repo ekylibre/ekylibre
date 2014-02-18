@@ -4,7 +4,7 @@
     <attributes>
       <attribute name="srid" type="integer" required="true"/>
       <attribute name="authority_reference" type="string" required="false"/>
-    </attributes>  
+    </attributes>
     <items>
       <item name="EPSG_2000" srid="2000" authority_reference="EPSG:2000"/>
       <item name="EPSG_2001" srid="2001" authority_reference="EPSG:2001"/>

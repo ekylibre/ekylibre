@@ -26,7 +26,7 @@
       <item name="other_crop" cultivation_variety="poaceae" coefficient="2.5"/>
     </items>
   </nomenclature>
-  
+
   <!-- BLE NON AMELIORANT - Tableau 1 -->
   <nomenclature name="nmp_poitou_charentes_abacus_three-non_improving_wheat_crop">
     <items>
@@ -46,7 +46,7 @@
       <item name="rubisko_wheat_crop" cultivation_variety="rubisko" coefficient="3" />
     </items>
   </nomenclature>
-  
+
   <!-- BLE AMELIORANT - Tableau 2 -->
   <nomenclature name="nmp_poitou_charentes_abacus_three-improving_wheat_crop">
     <items>
@@ -65,7 +65,7 @@
       <item name="tamaro_wheat_crop" cultivation_variety="tamaro" coefficient="4.1" nitrogen_stock_before_bolting="80"/>
     </items>
   </nomenclature>
-  
+
   <!-- BLE DUR - Tableau 3 -->
   <nomenclature name="nmp_poitou_charentes_abacus_three-durum_wheat_crop">
     <items>
@@ -83,14 +83,14 @@
       <item name="tablur_wheat_crop" cultivation_variety="tablur" coefficient="4.1" nitrogen_stock_before_bolting="80"/>
     </items>
   </nomenclature>
-  
+
   <!-- ORGE - Tableau 4 -->
   <nomenclature name="nmp_poitou_charentes_abacus_three-brassage_barley_crop">
     <items>
       <item name="low_protein_brassage_barley_crop" cultivation_variety="hordeum_hibernum_cerevisiae_hypoproteinae" coefficient="2.5"/>
     </items>
   </nomenclature>
-  
+
   <!-- ORGE - Tableau 4 -->
   <nomenclature name="nmp_poitou_charentes_abacus_three-spring_barley_crop">
     <items>
@@ -98,6 +98,6 @@
       <item name="irrigate_spring_barley_crop" cultivation_variety="hordeum_vernum" coefficient="2.5" irrigated="true"/>
     </items>
   </nomenclature>
-    
-  
+
+
 </nomenclatures>

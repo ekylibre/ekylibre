@@ -29,7 +29,7 @@
         <task do="[tractor] moves at [plants]"/>
       </operation>
       <operation id="500" duration="4 minutes">
-        <!--  on sépare les semences que l'on va mettre dans le semoir du stock --> 
+        <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
         <task do="[plants] parts with [plants_to_fix]"/>
         <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
         <task do="[plants_to_fix] moves in [implanter_tool]"/>
@@ -67,7 +67,7 @@
       </operation>
       <operation id="1100" duration="4 minutes">
         <task do="[driver] moves in default storage"/>
-      </operation> 
-    </operations>        
+      </operation>
+    </operations>
   </procedure>
 </procedures>

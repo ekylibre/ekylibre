@@ -2,13 +2,13 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-animal">
     <items>
-      <item name="mammalia">  
+      <item name="mammalia">
         <attribute name="itis-tsn" value="179913"/>
       </item>
-      <item name="aves">  
+      <item name="aves">
         <attribute name="itis-tsn" value="174371"/>
       </item>
-      <item name="osteichthyes">  
+      <item name="osteichthyes">
         <attribute name="itis-tsn" value="161030"/>
       </item>
       <item name="insecta">

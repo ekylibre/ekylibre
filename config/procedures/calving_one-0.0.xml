@@ -17,6 +17,6 @@
         <task do="[caregiver] measures [mother|mammalia_reproduction_method_embryo_transplant]"/>
         <task do="[caregiver] measures [mother|mammalia_reproduction_event_abortion]"/>
        </operation>
-    </operations>        
+    </operations>
   </procedure>
 </procedures>

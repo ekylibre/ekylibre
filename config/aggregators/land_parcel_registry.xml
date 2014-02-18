@@ -31,7 +31,7 @@
             <property name="grains_yield" if="support.grains_yield(:quintal)" value="support.grains_yield(:quintal).round(2)" type="measure"/>
             <property name="vine_yield" if="support.vine_yield(:hectoliter)" value="support.vine_yield(:hectoliter).round(2)" type="measure"/>
             <property name="provisionnal_yield" if="support.get(:mass_area_yield)" value="support.get(:mass_area_yield).l" type="measure"/>
-            
+
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="intervention" in="support.interventions.real.where(state: 'done').reorder(:started_at)" of-type="record">
               <variable name="target" value="intervention.casts.of_role(:'target').first.actor"/>
@@ -50,7 +50,7 @@
                 <property name="observed_at"/>
                 <property name="state" level="api"/>
                 <property name="description"/>
-              </section> 
+              </section>
               <matrix name="inputs" for="input" in="intervention.casts.of_role(:'input')">
                 <cell name="id" of="input" level="api"/>
                 <within of="input.actor">
