@@ -4,4 +4,13 @@
 = beehive do |b|
   - b.cell do
     = attributes_list do |l|
-      - l.attribute :name
+      - l.attribute :number
+      - l.attribute :reference_number
+      - l.attribute :sampler, url: true
+      - l.attribute :sampled_at
+      - l.attribute :analyser, url: true
+      - l.attribute :made_at
+
+  - b.cell :items do
+    = list :items
+    

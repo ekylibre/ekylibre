@@ -232,11 +232,13 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   # Build a frame for all product _forms
   def product_form_frame(options = {}, &block)
     html = "".html_safe
-
-    variant = @object.variant || ProductNatureVariant.where(:id => @template.params[:variant_id].to_i).first
+    
+    variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
+    unless variant = @object.variant || ProductNatureVariant.where(id: @template.params[:variant_id].to_i).first
+      variant = variants.first if variants.count == 1
+    end
 
     if variant
-
       whole_indicators = variant.whole_indicators
 
       # Add product type selector
@@ -336,7 +338,6 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
     else
       clear_actions!
-      variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
       if variants.any?
         html << @template.subheading(:choose_a_type_of_product)
         html << @template.content_tag(:div, :class => "variant-list proposal-list") do

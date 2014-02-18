@@ -23,6 +23,19 @@ class Backend::AnalysesController < BackendController
   unroll
 
   list do |t|
-    t.column :name, url: true
+    t.column :number, url: true
+    t.column :reference_number, url: true
+    t.column :product, url: true
+    t.column :analyser, url: true
+    t.column :made_at
+    t.column :sampled_at, hidden: true
+    t.column :sampler, url: true, hidden: true
   end
+
+  list :items, conditions: {analysis_id: 'params[:id]'.c} do |t|
+    t.column :indicator
+    t.column :value
+    t.column :annotation
+  end
+
 end

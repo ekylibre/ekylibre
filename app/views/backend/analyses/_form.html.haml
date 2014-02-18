@@ -1,2 +1,7 @@
 = field_set do
-  = f.input :name
+  = f.input :number
+  = f.input :reference_number
+  = f.input :sampled_at
+  = f.referenced_association :sampler
+  = f.input :made_at
+  = f.referenced_association :analyser
