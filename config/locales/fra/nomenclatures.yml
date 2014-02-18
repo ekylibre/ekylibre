@@ -1052,6 +1052,7 @@ fra:
         mammalia_reproduction_method_embryo_transplant: "Transplantation embryonaire"
         mammalia_reproduction_state: "Phase du bioprocessus de reproduction d’un mammifère"
         manganese_concentration: "Teneur en Manganèse"
+        # mass_area_density: "Mass area density"
         mass_area_yield: "Rendement de masse surfacique"
         maximal_storable_easement_area: "Capacité de stockage surfacique maximale (emprise au sol)"
         maximal_storable_net_mass: "Capacité de stockage massique maximale"
@@ -1926,15 +1927,13 @@ fra:
       attributes:
         # a: "A"
         # b: "B"
-        # coefficient: "Coefficient"
-        # coefficients: "Coefficients"
         # d: "D"
         # dimension: "Dimension"
-        # start: "Start"
         # symbol: "Symbol"
       choices:
         # dimension: # Choices comes from nomenclature: dimensions
       items:
+        # acre: "Acre"
         ampere: "Ampère"
         are: "Are"
         bar: "Bar"
@@ -1976,6 +1975,7 @@ fra:
         meter_per_second: "Métre par seconde"
         microgram: "Microgramme"
         microgram_per_liter: "Microgramme par litre"
+        # milliampere: "Milliampere"
         milligram: "Milligramme"
         milligram_per_liter: "Milligramme par litre"
         milliliter: "Millilitre"
@@ -1994,6 +1994,7 @@ fra:
         square_meter: "Mètre carré"
         ten: "Dix"
         thousand: "Millier"
+        # thousand_per_hectare: "Thousand per hectare"
         thousand_per_hectogram: "Millier par hectogramme"
         thousand_per_kilogram: "Millier par kilogramme"
         thousand_per_liter: "Millier par litre"
