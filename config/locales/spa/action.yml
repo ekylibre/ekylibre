@@ -39,6 +39,8 @@ spa:
     backend/aggregators:
       # index: "Agrégateurs"
       # show: "%{name}"
+    backend/analyses: #?
+    backend/analysis_items: #?
     backend/analytic_distributions:
       # edit: "Modifier la répartition analytique"
       # index: "Répartitions analytiques"

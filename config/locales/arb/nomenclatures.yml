@@ -1077,7 +1077,6 @@ arb:
         # msa_username: "Login MSA"
         # pacage_number: "Numéro de PACAGE"
         # password: "Mot de passe"
-        # synel17_username: "Login Synel17"
       # name: "Type d'identifiant"
     identifiers: #?
     indicators:

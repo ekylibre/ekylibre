@@ -71,14 +71,21 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
-    create_table :postal_zones do |t|
-      t.string     :postal_code,                              null: false
-      t.string     :name,                                  null: false
-      t.string     :country,      limit: 2, null: false
-      t.references :district,                                          index: true
-      t.string     :city
-      t.string     :city_name
-      t.string     :code
+    create_table :analyses do |t|
+      t.references :product,      index: true
+      t.string     :description
+      t.point      :geolocation,  srid: 4326
+      t.datetime   :sampled_at,   null: false
+      t.references :sampler,      index: true
+      t.references :analyser,     index: true
+      t.datetime   :made_at
+      t.stamps
+    end
+
+    create_table :analysis_items do |t|
+      t.references :analysis,      null: false, index: true
+      t.reading                   null: false, index: true
+      t.string     :description
       t.stamps
     end
 
@@ -856,6 +863,17 @@ class CreateBase < ActiveRecord::Migration
       t.string     :currency,         limit: 3,                                       null: false
       t.boolean    :downpayment,                                       default: true, null: false
       t.references :affair,                                                                        index: true
+      t.stamps
+    end
+
+    create_table :postal_zones do |t|
+      t.string     :postal_code,                              null: false
+      t.string     :name,                                  null: false
+      t.string     :country,      limit: 2, null: false
+      t.references :district,                                          index: true
+      t.string     :city
+      t.string     :city_name
+      t.string     :code
       t.stamps
     end
 
