@@ -27,6 +27,7 @@ class Backend::AnimalsController < Backend::MattersController
     t.status
     t.column :net_mass, datatype: :measure
     t.column :container, url: true
+    #t.column :groups, url: true
     t.column :mother, url: true
     t.column :father, url: true
     # t.action :show, url: {format: :pdf}, image: :print
