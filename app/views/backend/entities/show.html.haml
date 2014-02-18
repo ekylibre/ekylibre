@@ -84,11 +84,6 @@
         - t.new(params: {controller: :events, entity_id: resource.id})
       = list(:event_participations)
 
-    - b.cell(tl(:x_mandates, count: resource.mandates.count)) do
-      = toolbar do |t|
-        - t.new(params: {controller: :mandates, entity_id: resource.id})
-      = list(:mandates)
-
     - if File.exist?(Pathname.new(__FILE__).dirname.join("_extra.html.haml"))
       - b.cell("Extra") do
         =  render "extra"

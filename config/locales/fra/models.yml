@@ -305,7 +305,7 @@ fra:
       listing: "Extraction"
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
-      mandate: "Responsabilité"
+      mandate: "Responsabilité" #?
       matter: "Matière"
       medicine: "Médicament"
       mineral_matter: "Matière minérale"
@@ -347,8 +347,8 @@ fra:
       product_nature_variant_reading: "Valeur d’indicateur de variante"
       product_ownership: "Propriété de produit"
       # product_phase: "Product phase"
-      product_process: "Processus"
-      product_process_phase: "Phase de processus"
+      product_process: "Processus" #?
+      product_process_phase: "Phase de processus" #?
       product_reading: "Valeur d’indicateur"
       # product_reading_task: "Product reading task"
       production: "Production"
@@ -369,7 +369,7 @@ fra:
       subscription: "Abonnement"
       subscription_nature: "Type d’abonnement"
       tax: "Taxe"
-      tax_declaration: "Déclaration de taxes"
+      tax_declaration: "Déclaration de taxes" #?
       team: "Service"
       tracking: "Lot traçable"
       transfer: "Transfert"
@@ -395,7 +395,7 @@ fra:
     account_balances: "Balances de compte"
     accountable: "Comptabilisable"
     accounted_at: "Date comptabilisation"
-    acquisition_amount: "Montant des acquisition"
+    acquisition_amount: "Montant des acquisition" #?
     active: "Actif"
     active_prices: "Prix actifs"
     activity: "Activité"
@@ -425,7 +425,7 @@ fra:
     archiving: "Méthode d’archivage"
     arrival_cause: "Cause d’entrée" #?
     arrived_at: "Date d’entrée" #?
-    assimilated_taxes_amount: "Montant des taxes assimilées"
+    assimilated_taxes_amount: "Montant des taxes assimilées" #?
     attorney: "Mandataire" #?
     attorney_account: "Compte mandataire" #?
     attorney_journal: "Journal mandataire" #?
@@ -436,7 +436,7 @@ fra:
     authorized_payments_count: "Nombre d’encaissements autorisés"
     auto_updateable_addresses: "Adresses mises à jour automatiquement"
     balance: "Solde"
-    balance_amount: "Solde"
+    balance_amount: "Solde" #?
     balances: "Balances de compte"
     bank_account_key: "Clé RIB"
     bank_account_number: "Numéro de compte bancaire"
@@ -493,7 +493,7 @@ fra:
     coefficient: "Coefficient"
     collect_account: "TVA collectée"
     collect_taxes: "TVA collectées" #?
-    collected_amount: "TVA brute"
+    collected_amount: "TVA brute" #?
     collected_taxes: "TVA collectées"
     color: "Couleur" #?
     column_name: "Nom de colonne"
@@ -571,13 +571,13 @@ fra:
     debtor: "Debiteur"
     decimal: "Décimal" #?
     decimal_value: "Valeur décimale"
-    declared_at: "Déclarée le"
+    declared_at: "Déclarée le" #?
     deduction_account: "TVA déductible"
     deduction_taxes: "TVA déductible" #?
     default_mail_address: "Adresse email par défaut"
     default_storage: "Emplacement par défaut"
     # default_variant: "Default variant"
-    deferred_payment: "Crédit à reporter"
+    deferred_payment: "Crédit à reporter" #?
     deleted_at: "Supprimé le"
     deliverable: "Livrable" #?
     delivered: "Livré"
@@ -813,7 +813,7 @@ fra:
     mail_postal_zone: "Zone postale"
     mails: "Emails"
     managed: "Géré par le système"
-    mandates: "Responsabilités"
+    mandates: "Responsabilités" #?
     markers: "Repères"
     mass: "Poids (kg)"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
@@ -859,7 +859,7 @@ fra:
     old_password: "Mot de passe actuel"
     operation: "Travail"
     operations: "Travaux"
-    organization: "Organisation"
+    organization: "Organisation" #?
     origin: "Origine"
     originator: "Originator"
     originator_type: "Originator type"
@@ -870,7 +870,7 @@ fra:
     outgoing_payments: "Décaissements"
     owner: "Propriétaire"
     ownerships: "Ownerships"
-    paid_amount: "Montant payé"
+    paid_amount: "Montant payé" #?
     paid_at: "Réglé le"
     paid_taxes: "Taxes payées"
     parent: "Parent"
@@ -891,7 +891,6 @@ fra:
     payments_to_deposit_accounts: "Comptes des encaissements à encaisser" #?
     period: "Périodicité"
     person: "Personne"
-    # phase_delay: "Phase delay"
     phases: "Phases"
     phones: "Téléphones"
     pictogram: "Pictogramme"
@@ -922,7 +921,7 @@ fra:
     printed_at: "Datée du"
     priority: "Priorité"
     procedures: "Procédures" #?
-    process: "Process"
+    process: "Process" #?
     producer: "Producteur"
     producer_way: "Producer way"
     producible: "Produisible" #?
@@ -1014,7 +1013,7 @@ fra:
     # remember_created_at: "Remember created at"
     remember_me: "Se souvenir de moi"
     reminder_submissive: "Soumis à la relance"
-    repeatable: "Répétable"
+    repeatable: "Répétable" #?
     # reporter: "Reporter"
     required: "Obligatoire"
     reservoir: "Réservoir" #?
@@ -1098,7 +1097,7 @@ fra:
     third: "Tiers"
     third_role: "Third role"
     thread: "Thread"
-    title: "Titre"
+    title: "Titre" #?
     to: "Pour"
     to_bank_at: "À décaisser le"
     tool: "Outil"
@@ -1384,14 +1383,14 @@ fra:
         stock_transfers: "TS[year|4][number|4]"
         subscriptions: "ABO[number|8]"
         transports: "TR[number|8]"
-    tax_declaration:
-      deferment: "Reporté"
-      monthly: "Mensuelle"
-      normal: "Réel normal"
-      other: "Personnalisée"
-      payback: "Remboursement"
-      quarterly: "Trimestrielle"
-      simplified: "Réel simplifié"
+    tax_declaration: #?
+      deferment: "Reporté" #?
+      monthly: "Mensuelle" #?
+      normal: "Réel normal" #?
+      other: "Personnalisée" #?
+      payback: "Remboursement" #?
+      quarterly: "Trimestrielle" #?
+      simplified: "Réel simplifié" #?
       yearly: "Annuelle"
     team:
       default: "Général"

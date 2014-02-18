@@ -33,7 +33,6 @@ Ekylibre::Application.routes.draw do
       get :list_event_participations
       get :list_incoming_payments
       get :list_links
-      get :list_mandates
       get :list_purchases
       get :list_observations
       get :list_outgoing_payments
@@ -447,15 +446,6 @@ Ekylibre::Application.routes.draw do
 
     resources :versions, concerns: [:list, :unroll]
 
-    resources :mandates, concerns: [:list, :unroll] do
-      collection do
-        get :autocomplete_for_family
-        get :autocomplete_for_organization
-        get :autocomplete_for_title
-        match "configure", via: [:get, :post]
-      end
-    end
-
     resources :matters, concerns: :products
 
     resources :medicines, concerns: :products
@@ -560,10 +550,6 @@ Ekylibre::Application.routes.draw do
     # resources :product_ownerships, concerns: [:list, :unroll]
 
     # resources :product_phases, concerns: [:list, :unroll]
-
-    resources :product_processes, concerns: [:list, :unroll]
-
-    resources :product_process_phases # , concerns: [:list, :unroll]
 
     resources :productions, concerns: [:list, :unroll] do
       member do

@@ -20,9 +20,9 @@ load_data :deliveries do |loader|
   # @TODO refactorize to make import for n entities
   file = loader.path("incoming_deliveries", "kazeni.coop.csv")
   if file.exist?
-    
+
     cooperative = Entity.find_by_last_name("Kazeni")
-    
+
     loader.count :cooperative_incoming_deliveries do |w|
       # map sub_family to product_nature_variant XML Nomenclature
 

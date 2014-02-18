@@ -16,7 +16,6 @@
         <page to="backend/entities#list_events"/>
         <page to="backend/entities#list_incoming_payments"/>
         <page to="backend/entities#list_links"/>
-        <page to="backend/entities#list_mandates"/>
         <page to="backend/entities#list_observations"/>
         <page to="backend/entities#list_outgoing_payments"/>
         <page to="backend/entities#list_purchases"/>
@@ -73,7 +72,6 @@
         <page to="backend/legal_entities#list_event_participations"/>
         <page to="backend/legal_entities#list_incoming_payments"/>
         <page to="backend/legal_entities#list_links"/>
-        <page to="backend/legal_entities#list_mandates"/>
         <page to="backend/legal_entities#list_observations"/>
         <page to="backend/legal_entities#list_outgoing_payments"/>
         <page to="backend/legal_entities#list_purchases"/>
@@ -88,7 +86,6 @@
         <page to="backend/people#list_event_participations"/>
         <page to="backend/people#list_incoming_payments"/>
         <page to="backend/people#list_links"/>
-        <page to="backend/people#list_mandates"/>
         <page to="backend/people#list_observations"/>
         <page to="backend/people#list_outgoing_payments"/>
         <page to="backend/people#list_purchases"/>
@@ -131,23 +128,6 @@
         <page to="backend/subscriptions#new"/>
         <page to="backend/subscriptions#unroll"/>
         <page to="backend/subscriptions#update"/>
-      </item>
-    </group>
-    <group name="mandates" icon="trophy">
-      <item name="mandates">
-        <page to="backend/mandates#index"/>
-        <page to="backend/mandates#configure"/>
-        <page to="backend/mandates#create"/>
-        <page to="backend/mandates#destroy"/>
-        <page to="backend/mandates#autocomplete_for_family"/>
-        <page to="backend/mandates#autocomplete_for_organization"/>
-        <page to="backend/mandates#autocomplete_for_title"/>
-        <page to="backend/mandates#edit"/>
-        <page to="backend/mandates#list"/>
-        <page to="backend/mandates#new"/>
-        <page to="backend/mandates#update"/>
-        <page to="backend/mandates#show"/>
-        <page to="backend/mandates#unroll"/>
       </item>
     </group>
   </module>
@@ -1064,6 +1044,7 @@
         <page to="backend/net_services#destroy"/>
         <page to="backend/net_services#edit"/>
         <page to="backend/net_services#list"/>
+        <page to="backend/net_services#list_identifiers"/>
         <page to="backend/net_services#new"/>
         <page to="backend/net_services#show"/>
         <page to="backend/net_services#unroll"/>
@@ -1734,27 +1715,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="net_services">
-        <page to="backend/net_services#list_identifiers"/>
-      </item>
-      <item name="product_process_phases">
-        <page to="backend/product_process_phases#create"/>
-        <page to="backend/product_process_phases#destroy"/>
-        <page to="backend/product_process_phases#edit"/>
-        <page to="backend/product_process_phases#new"/>
-        <page to="backend/product_process_phases#update"/>
-      </item>
-      <item name="product_processes">
-        <page to="backend/product_processes#index"/>
-        <page to="backend/product_processes#create"/>
-        <page to="backend/product_processes#destroy"/>
-        <page to="backend/product_processes#edit"/>
-        <page to="backend/product_processes#list"/>
-        <page to="backend/product_processes#new"/>
-        <page to="backend/product_processes#unroll"/>
-        <page to="backend/product_processes#update"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>

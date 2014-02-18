@@ -962,13 +962,15 @@ fra:
         password: "Mot de passe"
       item_lists:
       items:
+        # cattling_number: "Cattling number"
+        # cattling_root_number: "Cattling root number"
         charentes_alliance_extranet_username: "Login Extranet Charentes alliance "
         husbandry_owner_number: "Code éleveur propriétaire"
         lilco_labratory_code: "Code laboratoire LILCO"
         msa_username: "Login MSA"
         pacage_number: "Numéro de PACAGE"
         password: "Mot de passe"
-        synel17_username: "Login Synel17"
+        # synel_username: "Synel username"
     indicators:
       name: "Indicateurs"
       attributes:
@@ -1255,7 +1257,7 @@ fra:
           # soap: "Soap"
         # nature: # Choices comes from nomenclature: activity_families
       items:
-        # coop_charentes_alliance: "Coop charentes alliance"
+        # charentes_alliance_extranet: "Charentes alliance extranet"
         # lilco: "Lilco"
         # msa: "Msa"
         # synel17: "Synel17"

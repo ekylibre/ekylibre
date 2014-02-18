@@ -68,16 +68,6 @@ class Backend::EntitiesController < BackendController
     t.action :destroy
   end
 
-  list(:mandates, conditions: {entity_id: 'params[:id]'.c}) do |t|
-    t.column :title
-    t.column :organization, url: {controller: :mandates, action: :index}
-    t.column :family, hidden: true
-    t.column :started_at, :datatype => :date
-    t.column :stopped_at, :datatype => :date
-    t.action :edit
-    t.action :destroy
-  end
-
   list(:observations, conditions: {subject_id: 'params[:id]'.c, subject_type: ["Entity", "LegalEntity", "Person"]}, line_class: :importance, per_page: 5) do |t|
     t.column :content
     t.column :importance

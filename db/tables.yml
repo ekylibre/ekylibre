@@ -899,20 +899,6 @@ listings:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
-mandates:
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  entity_id: {type: integer, references: entity, required: true}
-  family: {type: string, required: true}
-  id: {type: integer, required: true}
-  lock_version: {type: integer, required: true, default: 0}
-  organization: {type: string, required: true}
-  started_at: {type: datetime}
-  stopped_at: {type: datetime}
-  title: {type: string, required: true}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-
 net_services:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
@@ -1322,33 +1308,6 @@ product_phases:
   updater_id: {type: integer, references: user}
   variant_id: {type: integer, references: product_nature_variant, required: true}
 
-product_process_phases:
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  description: {type: string}
-  id: {type: integer, required: true}
-  lock_version: {type: integer, required: true, default: 0}
-  name: {type: string, required: true}
-  nature: {type: string, required: true}
-  phase_delay: {type: string}
-  position: {type: integer}
-  process_id: {type: integer, references: product_process, required: true}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-
-product_processes:
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  description: {type: string}
-  id: {type: integer, required: true}
-  lock_version: {type: integer, required: true, default: 0}
-  name: {type: string, required: true}
-  nature: {type: string, required: true}
-  repeatable: {type: boolean, required: true, default: false}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-  variety: {type: string, limit: 120, required: true}
-
 product_reading_tasks:
   absolute_measure_value_unit: {type: string}
   absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
@@ -1713,30 +1672,6 @@ subscriptions:
   stopped_at: {type: datetime}
   subscriber_id: {type: integer, references: entity}
   suspended: {type: boolean, required: true, default: false}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-
-tax_declarations:
-  accounted_at: {type: datetime}
-  acquisition_amount: {type: decimal, precision: 19, scale: 4}
-  address: {type: string}
-  amount: {type: decimal, precision: 19, scale: 4}
-  assimilated_taxes_amount: {type: decimal, precision: 19, scale: 4}
-  balance_amount: {type: decimal, precision: 19, scale: 4}
-  collected_amount: {type: decimal, precision: 19, scale: 4}
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  declared_at: {type: datetime}
-  deferred_payment: {type: boolean, default: false}
-  financial_year_id: {type: integer, references: financial_year}
-  id: {type: integer, required: true}
-  journal_entry_id: {type: integer, references: journal_entry}
-  lock_version: {type: integer, required: true, default: 0}
-  nature: {type: string, required: true, default: "normal"}
-  paid_amount: {type: decimal, precision: 19, scale: 4}
-  paid_at: {type: datetime}
-  started_at: {type: datetime}
-  stopped_at: {type: datetime}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 

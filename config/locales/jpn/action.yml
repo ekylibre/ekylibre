@@ -363,11 +363,7 @@ jpn:
       # mail: "Envoyer un e-mail pour\_: %{name}"
       # new: "Création d’une nouvelle extraction"
     backend/logs: #?
-    backend/mandates:
-      # configure: "Configuration des responsabilités"
-      # edit: "Modifier la responsabilité"
-      # index: "Responsabilités"
-      # new: "Créer une responsabilité"
+    backend/mandates: #?
     backend/matters:
       # edit: "Modifier la matière\_: %{name}"
       # index: "Matières"
@@ -601,11 +597,7 @@ jpn:
       # edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
       # index: "Abonnements"
       # new: "Création d’un abonnement"
-    backend/tax_declarations:
-      # edit: "Créer une déclaration"
-      # index: "Déclaration de TVA"
-      # new: "Créer une déclaration"
-      # show: "%{nature} pour la période du %{started_at} au %{stopped_at}"
+    backend/tax_declarations: #?
     backend/taxes:
       # edit: "Modifier la taxe\_: %{name}"
       # index: "Taxes"
@@ -689,7 +681,6 @@ jpn:
     # backend/listing_node_items: "Élement de nœuds d’extractions"
     # backend/listing_nodes: "Nœuds d’extractions"
     # backend/listings: "Exportations et mailings"
-    # backend/mandates: "Responsabilités"
     # backend/matters: "Matières"
     # backend/medicines: "Médicaments"
     # backend/mineral_matters: "Matières minérales"
@@ -722,7 +713,6 @@ jpn:
     # backend/settings: "Paramètres"
     # backend/subscription_natures: "Types d’abonnements"
     # backend/subscriptions: "Abonnements"
-    # backend/tax_declarations: "Déclarations de TVA"
     # backend/taxes: "Taxes"
     # backend/teams: "Équipes"
     # backend/transfers: "Transferts"

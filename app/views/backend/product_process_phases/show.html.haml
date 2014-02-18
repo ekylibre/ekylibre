@@ -1,7 +1,0 @@
-= main_toolbar do |t|
-  - t.edit @product_process_phase
-  - t.destroy(@product_process_phase, method: :delete, "data-confirm" => tg(:are_you_sure_you_want_to_delete)) if @product_process_phase.destroyable?
-
-= attributes_list do |l|
-  - l.attribute :name
-  - l.attribute :nature
