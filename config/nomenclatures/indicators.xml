@@ -19,7 +19,8 @@
       <item name="net_surface_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="easement_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="shape"          datatype="geometry" related_to="whole"/>
-      <item name="geographic_coordinate" datatype="point"/>
+      <!-- <item name="geographic_coordinate" datatype="point"/> -->
+      <item name="geolocation"    datatype="point"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
       <item name="sex"            datatype="choice" choices="sexes"/>
       <item name="soil_nature"    datatype="choice" choices="soil_natures"/>
@@ -46,7 +47,9 @@
       
       <!-- state of cultivable_zone -->
       <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
-      <item name="thousand_grain_mass" datatype="measure" unit="gram"/>
+      <item name="thousand_grains_mass" datatype="measure" unit="gram"/>
+      <item name="grains_count" datatype="integer"/>
+      <item name="grains_area_density" datatype="measure" unit="unity_per_square_meter"/>
       <!-- equipment -->
       <item name="motor_power"              datatype="measure" unit="french_horsepower"/>
       <item name="application_width"        datatype="measure" unit="meter" gathering="proportional_to_population"/>
@@ -114,7 +117,8 @@
       
       <!-- for support markers -->
       <!-- <item name="nitrogen_input_per_area" datatype="measure" unit="kilogram_per_hectare"/> -->
-      <item name="nitrogen_input_area_density" datatype="measure" unit="kilogram_per_hectare"/>
+      <!-- <item name="nitrogen_input_area_density" datatype="measure" unit="kilogram_per_hectare"/> -->
+      <item name="nitrogen_area_density" datatype="measure" unit="kilogram_per_hectare"/>
       <item name="mass_area_yield"             datatype="measure" unit="quintal_per_hectare"/>
       <item name="residue_elimination_method"  datatype="choice" choices="residue_elimination_methods"/>
 

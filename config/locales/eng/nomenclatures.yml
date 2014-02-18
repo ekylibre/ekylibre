@@ -1266,7 +1266,7 @@ eng:
         # subsoil_nature: "Type de sous-sol"
         # sulfur_concentration: "Teneur en Soufre"
         temperature: "Temperature"
-        # thousand_grain_mass: "Poids de mille grains"
+        # thousand_grains_mass: "Poids de mille grains"
         # tiller_count: "Nombre de talles"
         total_bacteria_concentration: "Total bacteria concentration"
         # unique_synthesis_index: "Index de synthèse unique (ISU)"

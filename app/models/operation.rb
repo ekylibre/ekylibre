@@ -129,7 +129,7 @@ class Operation < Ekylibre::Record::Base
       parameter = pair.second
       hash[pair.first] = if parameter.is_a?(Procedo::Variable)
                            self.casts.find_by!(reference_name: parameter.name.to_s)
-                         elsif parameter.is_a?(Procedo::VariableIndicator)
+                         elsif parameter.is_a?(Procedo::Indicator)
                            # [self.casts.find_by!(reference_name: parameter.stakeholder.name.to_s), parameter]
                            Indicatus.new(parameter, self)
                          else

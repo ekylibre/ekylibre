@@ -1188,7 +1188,7 @@ jpn:
         # subsoil_nature: "Type de sous-sol"
         # sulfur_concentration: "Teneur en Soufre"
         # temperature: "Température"
-        # thousand_grain_mass: "Poids de mille grains"
+        # thousand_grains_mass: "Poids de mille grains"
         # tiller_count: "Nombre de talles"
         # total_bacteria_concentration: "Dénombrement des germes totaux"
         # unique_synthesis_index: "Index de synthèse unique (ISU)"
