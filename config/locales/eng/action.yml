@@ -398,11 +398,11 @@ eng:
       mail: "Send an email to: %{name}"
       new: "Add a new listing"
     backend/logs: #?
-    backend/mandates:
-      configure: "Configure responsibility"
-      edit: "Edit the responsibility"
-      index: "Responsibilities"
-      new: "Add a responsibility"
+    backend/mandates:  #?
+      configure: "Configure responsibility" #?
+      edit: "Edit the responsibility" #?
+      index: "Responsibilities" #?
+      new: "Add a responsibility" #?
     backend/matters:
       edit: "Edit matter\_: %{name}"
       index: "Matters"
@@ -667,11 +667,11 @@ eng:
       edit: "Edit subscription: %{number} from %{start} to %{finish}"
       index: "Subscriptions"
       new: "Add a new subscription"
-    backend/tax_declarations:
-      edit: "Create a Tax Declaration"
-      index: "VAT Declaration"
-      new: "Create a Tax report"
-      show: "%{nature} for period from %{started_at} to %{stopped_at}"
+    backend/tax_declarations:  #?
+      edit: "Create a Tax Declaration" #?
+      index: "VAT Declaration" #?
+      new: "Create a Tax report" #?
+      show: "%{nature} for period from %{started_at} to %{stopped_at}" #?
     backend/taxes:
       edit: "Edit tax: %{name}"
       index: "Taxes"
@@ -771,7 +771,7 @@ eng:
     backend/listing_nodes: "Listing nodes"
     backend/listings: "Listings and mailings"
     backend/logs: "Logs" #?
-    backend/mandates: "Mandates"
+    backend/mandates: "Mandates" #?
     backend/matters: "Matters"
     # backend/medicines: "Médicaments"
     # backend/mineral_matters: "Matières minérales"
@@ -811,7 +811,7 @@ eng:
     backend/settings: "Settings"
     backend/subscription_natures: "Subscription types"
     backend/subscriptions: "Subscriptions"
-    backend/tax_declarations: "Tax declarations"
+    backend/tax_declarations: "Tax declarations" #?
     backend/taxes: "Taxes"
     # backend/teams: "Équipes"
     backend/transfers: "Transfers"

@@ -1366,26 +1366,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "listings", ["updated_at"], :name => "index_listings_on_updated_at"
   add_index "listings", ["updater_id"], :name => "index_listings_on_updater_id"
 
-  create_table "mandates", force: true do |t|
-    t.integer  "entity_id",                null: false
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.string   "family",                   null: false
-    t.string   "organization",             null: false
-    t.string   "title",                    null: false
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
-  end
-
-  add_index "mandates", ["created_at"], :name => "index_mandates_on_created_at"
-  add_index "mandates", ["creator_id"], :name => "index_mandates_on_creator_id"
-  add_index "mandates", ["entity_id"], :name => "index_mandates_on_entity_id"
-  add_index "mandates", ["updated_at"], :name => "index_mandates_on_updated_at"
-  add_index "mandates", ["updater_id"], :name => "index_mandates_on_updater_id"
-
   create_table "net_services", force: true do |t|
     t.string   "reference_name",             null: false
     t.datetime "created_at",                 null: false
@@ -2022,45 +2002,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "product_phases", ["updater_id"], :name => "index_product_phases_on_updater_id"
   add_index "product_phases", ["variant_id"], :name => "index_product_phases_on_variant_id"
 
-  create_table "product_process_phases", force: true do |t|
-    t.integer  "process_id",               null: false
-    t.string   "name",                     null: false
-    t.string   "nature",                   null: false
-    t.integer  "position"
-    t.string   "phase_delay"
-    t.string   "description"
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version", default: 0, null: false
-  end
-
-  add_index "product_process_phases", ["created_at"], :name => "index_product_process_phases_on_created_at"
-  add_index "product_process_phases", ["creator_id"], :name => "index_product_process_phases_on_creator_id"
-  add_index "product_process_phases", ["process_id"], :name => "index_product_process_phases_on_process_id"
-  add_index "product_process_phases", ["updated_at"], :name => "index_product_process_phases_on_updated_at"
-  add_index "product_process_phases", ["updater_id"], :name => "index_product_process_phases_on_updater_id"
-
-  create_table "product_processes", force: true do |t|
-    t.string   "variety",      limit: 120,                 null: false
-    t.string   "name",                                     null: false
-    t.string   "nature",                                   null: false
-    t.string   "description"
-    t.boolean  "repeatable",               default: false, null: false
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",             default: 0,     null: false
-  end
-
-  add_index "product_processes", ["created_at"], :name => "index_product_processes_on_created_at"
-  add_index "product_processes", ["creator_id"], :name => "index_product_processes_on_creator_id"
-  add_index "product_processes", ["updated_at"], :name => "index_product_processes_on_updated_at"
-  add_index "product_processes", ["updater_id"], :name => "index_product_processes_on_updater_id"
-  add_index "product_processes", ["variety"], :name => "index_product_processes_on_variety"
-
   create_table "product_reading_tasks", force: true do |t|
     t.integer  "operation_id"
     t.integer  "originator_id"
@@ -2590,37 +2531,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "subscriptions", ["subscriber_id"], :name => "index_subscriptions_on_subscriber_id"
   add_index "subscriptions", ["updated_at"], :name => "index_subscriptions_on_updated_at"
   add_index "subscriptions", ["updater_id"], :name => "index_subscriptions_on_updater_id"
-
-  create_table "tax_declarations", force: true do |t|
-    t.string   "nature",                                            default: "normal", null: false
-    t.string   "address"
-    t.datetime "declared_at"
-    t.datetime "paid_at"
-    t.decimal  "collected_amount",         precision: 19, scale: 4
-    t.decimal  "paid_amount",              precision: 19, scale: 4
-    t.decimal  "balance_amount",           precision: 19, scale: 4
-    t.boolean  "deferred_payment",                                  default: false
-    t.decimal  "assimilated_taxes_amount", precision: 19, scale: 4
-    t.decimal  "acquisition_amount",       precision: 19, scale: 4
-    t.decimal  "amount",                   precision: 19, scale: 4
-    t.integer  "financial_year_id"
-    t.datetime "started_at"
-    t.datetime "stopped_at"
-    t.datetime "accounted_at"
-    t.integer  "journal_entry_id"
-    t.datetime "created_at",                                                           null: false
-    t.datetime "updated_at",                                                           null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",                                      default: 0,        null: false
-  end
-
-  add_index "tax_declarations", ["created_at"], :name => "index_tax_declarations_on_created_at"
-  add_index "tax_declarations", ["creator_id"], :name => "index_tax_declarations_on_creator_id"
-  add_index "tax_declarations", ["financial_year_id"], :name => "index_tax_declarations_on_financial_year_id"
-  add_index "tax_declarations", ["journal_entry_id"], :name => "index_tax_declarations_on_journal_entry_id"
-  add_index "tax_declarations", ["updated_at"], :name => "index_tax_declarations_on_updated_at"
-  add_index "tax_declarations", ["updater_id"], :name => "index_tax_declarations_on_updater_id"
 
   create_table "taxes", force: true do |t|
     t.string   "name",                                                                      null: false

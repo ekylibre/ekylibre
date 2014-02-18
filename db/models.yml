@@ -67,7 +67,6 @@
 - listing
 - listing_node
 - listing_node_item
-- mandate
 - matter
 - medicine
 - mineral_matter
@@ -108,8 +107,6 @@
 - product_nature_variant_reading
 - product_ownership
 - product_phase
-- product_process
-- product_process_phase
 - product_reading
 - product_reading_task
 - production
@@ -130,7 +127,6 @@
 - subscription
 - subscription_nature
 - tax
-- tax_declaration
 - team
 - tracking
 - transfer

@@ -939,7 +939,7 @@ listings:
 
 mandates:
   created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
+  creator_id: {type: integer, references: }
   entity_id: {type: integer, references: entity, required: true}
   family: {type: string, required: true}
   id: {type: integer, required: true}
@@ -949,7 +949,7 @@ mandates:
   stopped_at: {type: datetime}
   title: {type: string, required: true}
   updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
+  updater_id: {type: integer, references: }
 
 net_services:
   created_at: {type: datetime, required: true}
@@ -1362,7 +1362,7 @@ product_phases:
 
 product_process_phases:
   created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
+  creator_id: {type: integer, references: }
   description: {type: string}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
@@ -1370,13 +1370,13 @@ product_process_phases:
   nature: {type: string, required: true}
   phase_delay: {type: string}
   position: {type: integer}
-  process_id: {type: integer, references: product_process, required: true}
+  process_id: {type: integer, references: , required: true}
   updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
+  updater_id: {type: integer, references: }
 
 product_processes:
   created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
+  creator_id: {type: integer, references: }
   description: {type: string}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
@@ -1384,7 +1384,7 @@ product_processes:
   nature: {type: string, required: true}
   repeatable: {type: boolean, required: true, default: false}
   updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
+  updater_id: {type: integer, references: }
   variety: {type: string, limit: 120, required: true}
 
 product_reading_tasks:
@@ -1763,7 +1763,7 @@ tax_declarations:
   balance_amount: {type: decimal, precision: 19, scale: 4}
   collected_amount: {type: decimal, precision: 19, scale: 4}
   created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
+  creator_id: {type: integer, references: }
   declared_at: {type: datetime}
   deferred_payment: {type: boolean, default: false}
   financial_year_id: {type: integer, references: financial_year}
@@ -1776,7 +1776,7 @@ tax_declarations:
   started_at: {type: datetime}
   stopped_at: {type: datetime}
   updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
+  updater_id: {type: integer, references: }
 
 taxes:
   amount: {type: decimal, precision: 19, scale: 4, required: true, default: 0.0}

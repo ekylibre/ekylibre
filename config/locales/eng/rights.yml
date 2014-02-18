@@ -47,10 +47,10 @@ eng:
     manage_journals: "Manage, close and reopen journals"
     manage_land_parcels: "Manage fields"
     manage_listings: "Manage listings"
-    manage_mandates: "Manage mandates"
+    manage_mandates: "Manage mandates" #?
     manage_meetings: "Manage meetings" #?
     manage_observations: "Manage observations"
-    manage_operations: "Manage operations"
+    manage_operations: "Manage operations" #?
     manage_outgoing_delivery_modes: "Manage outgoing delivery modes"
     manage_outgoing_payment_modes: "Manage disbursement modes"
     manage_outgoing_payments: "Manage disbursements"

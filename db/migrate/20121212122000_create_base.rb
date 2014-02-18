@@ -34,8 +34,6 @@ class CreateBase < ActiveRecord::Migration
       t.string     :description
       t.string     :family
       t.string     :nature,                   null: false
-      # t.datetime   :started_at
-      # t.datetime   :stopped_at
       t.references :parent,                                index: true
       t.integer    :lft
       t.integer    :rgt
@@ -758,16 +756,6 @@ class CreateBase < ActiveRecord::Migration
       t.index    :root_model
     end
 
-    create_table :mandates do |t|
-      t.references :entity,                   null: false, index: true
-      t.datetime   :started_at
-      t.datetime   :stopped_at
-      t.string     :family,                   null: false
-      t.string     :organization,             null: false
-      t.string     :title,                    null: false
-      t.stamps
-    end
-
     create_table :net_services do |t|
       t.string     :reference_name,                                 null: false
       t.stamps
@@ -794,17 +782,6 @@ class CreateBase < ActiveRecord::Migration
       t.index      :started_at
       t.index      :stopped_at
     end
-
-    # create_table :operation_tasks do |t|
-    #   t.references :operation,                                    null: false, index: true
-    #   t.references :parent,                                                    index: true
-    #   t.string     :nature,                                       null: false
-    #   t.string     :reference_name,                               null: false
-    #   t.boolean    :prorated,                     default: false, null: false
-    #   t.stamps
-    #   t.index      :nature
-    #   t.index      :reference_name
-    # end
 
     create_table :outgoing_deliveries do |t|
       t.string     :number,                                    null: false, index: true
@@ -1131,26 +1108,6 @@ class CreateBase < ActiveRecord::Migration
       t.stamps
     end
 
-    create_table :product_process_phases do |t|
-      t.references :process,                null: false, index: true
-      t.string   :name,                     null: false
-      t.string   :nature,                   null: false
-      t.integer  :position
-      t.string   :phase_delay
-      t.string   :description
-      t.stamps
-    end
-
-    create_table :product_processes do |t|
-      t.string   :variety,      limit: 120,                 null: false
-      t.string   :name,                                     null: false
-      t.string   :nature,                                   null: false
-      t.string   :description
-      t.boolean  :repeatable,               default: false, null: false
-      t.stamps
-      t.index    :variety
-    end
-
     create_table :production_supports do |t|
       t.references :production,                  null: false, index: true
       t.references :storage,                     null: false, index: true
@@ -1235,13 +1192,6 @@ class CreateBase < ActiveRecord::Migration
       t.index      :variety
       t.index      :number,                 unique: true
     end
-
-    # create_table :professions do |t|
-    #   t.string   :name,                         null: false
-    #   t.string   :code
-    #   t.boolean  :commercial,   default: false, null: false
-    #   t.stamps
-    # end
 
     create_table :purchase_items do |t|
       t.references :purchase,                                                 null: false, index: true
@@ -1429,26 +1379,6 @@ class CreateBase < ActiveRecord::Migration
       t.text       :description
       t.string     :number
       t.references :sale_item,                                       index: true
-      t.stamps
-    end
-
-    create_table :tax_declarations do |t|
-      t.string     :nature,                   default: "normal",      null: false
-      t.string     :address
-      t.datetime   :declared_at
-      t.datetime   :paid_at
-      t.decimal    :collected_amount,         precision: 19, scale: 4
-      t.decimal    :paid_amount,              precision: 19, scale: 4
-      t.decimal    :balance_amount,           precision: 19, scale: 4
-      t.boolean    :deferred_payment,         default: false
-      t.decimal    :assimilated_taxes_amount, precision: 19, scale: 4
-      t.decimal    :acquisition_amount,       precision: 19, scale: 4
-      t.decimal    :amount,                   precision: 19, scale: 4
-      t.references :financial_year,                                                index: true
-      t.datetime   :started_at
-      t.datetime   :stopped_at
-      t.datetime   :accounted_at
-      t.references :journal_entry,                                                 index: true
       t.stamps
     end
 

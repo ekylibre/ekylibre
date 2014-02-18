@@ -403,14 +403,6 @@ fra:
       index: "Exportations et mailings"
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Création d’une nouvelle extraction"
-    backend/mandates:
-      # autocomplete_for_family: "Autocomplete for family backend/mandate"
-      # autocomplete_for_organization: "Autocomplete for organization backend/mandate"
-      # autocomplete_for_title: "Autocomplete for title backend/mandate"
-      configure: "Configuration des responsabilités"
-      edit: "Modifier la responsabilité"
-      index: "Responsabilités"
-      new: "Créer une responsabilité"
     backend/matters:
       edit: "Modifier la matière\_: %{name}"
       index: "Matières"
@@ -533,13 +525,6 @@ fra:
       index: "Types de produits"
       new: "Nouveau type de produit"
       show: "Type de produit\_: %{name}"
-    backend/product_process_phases:
-      # edit: "Edit backend/product process phase"
-      # new: "New backend/product process phase"
-    backend/product_processes:
-      # edit: "Edit backend/product process"
-      # index: "Index backend/product process"
-      # new: "New backend/product process"
     backend/production_support_markers:
       # edit: "Edit backend/production support marker"
       # index: "Index backend/production support marker"
@@ -643,11 +628,6 @@ fra:
       edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
       index: "Abonnements"
       new: "Création d’un abonnement"
-    backend/tax_declarations:
-      edit: "Créer une déclaration" #?
-      index: "Déclaration de TVA" #?
-      new: "Créer une déclaration" #?
-      show: "%{nature} pour la période du %{started_at} au %{stopped_at}" #?
     backend/taxes:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
@@ -792,7 +772,6 @@ fra:
     backend/listing_node_items: "Élement de nœuds d’extractions"
     backend/listing_nodes: "Nœuds d’extractions"
     backend/listings: "Exportations et mailings"
-    backend/mandates: "Responsabilités"
     backend/matters: "Matières"
     backend/medicines: "Médicaments"
     backend/mineral_matters: "Matières minérales"
@@ -823,8 +802,6 @@ fra:
     backend/product_natures: "Types de produits"
     # backend/product_ownerships: "Backend/product ownerships"
     # backend/product_phases: "Backend/product phases"
-    # backend/product_process_phases: "Backend/product process phases"
-    # backend/product_processes: "Backend/product processes"
     # backend/production_support_markers: "Backend/production support markers"
     # backend/production_supports: "Backend/production supports"
     backend/productions: "Productions"
@@ -842,7 +819,6 @@ fra:
     # backend/snippets: "Backend/snippets"
     backend/subscription_natures: "Types d’abonnements"
     backend/subscriptions: "Abonnements"
-    backend/tax_declarations: "Déclarations de TVA"
     backend/taxes: "Taxes"
     backend/teams: "Équipes"
     # backend/trackings: "Backend/trackings"
@@ -2007,7 +1983,7 @@ fra:
     no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
     no_closable_journal: "Vous ne pouvez pas clôturer ce journal."
     no_depositable_payments: "Il n’y a pas de réglements à remettre en banque"
-    no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant"
+    no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant" #?
     no_financial_year: "Aucun exercice enregistré" #?
     no_items_found: "Aucun pruduit n’a été ajouté à la commande "
     no_payment_to_deposit: "Aucun règlement à encaisser"
@@ -2029,8 +2005,8 @@ fra:
     sale_cannot_be_updated: "Le devis n’est plus modifiable."
     sale_cant_be_deleted: "La vente ne peut plus être supprimée"
     select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
-    specify_filter: "Vous choisir appliquer au moins un filtre de recherche"
-    specify_updates: "Vous devez spécifier au moins un champ à modifier"
+    specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
+    specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
     unavailable_model: "%{model} indisponible ou inexistante (%{id})"
     unknown_action: "La page demandée est indisponible (%{url})" #?
     unknown_company: "Société inconnue" #?

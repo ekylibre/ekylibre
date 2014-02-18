@@ -51,9 +51,9 @@ arb:
     manage_journals: "ادارة وفتح واغلاق الدفاتر اليومية"
     manage_land_parcels: "ادارة الهيئة"
     manage_listings: "ادارة المستخرج"
-    manage_mandates: "ادارة التفويضات"
+    manage_mandates: "ادارة التفويضات" #?
     manage_observations: "ادارة الملاحظات"
-    manage_operations: "ادارة الاجراءات"
+    manage_operations: "ادارة الاجراءات" #?
     manage_outgoing_deliveries: "ادارة انواع التسليم" #?
     # manage_outgoing_delivery_modes: "Gérer les types de livraison"
     # manage_outgoing_payment_modes: "Gérer les modes de décaissement"

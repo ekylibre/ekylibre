@@ -93,7 +93,6 @@ class Entity < Ekylibre::Record::Base
   has_many :godchildren, class_name: "Entity", foreign_key: "proposer_id"
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
   has_many :indirect_links, class_name: "EntityLink", foreign_key: :entity_2_id
-  has_many :mandates
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :powner_id
   has_many :observations, :as => :subject
   has_many :participations, class_name: "EventParticipation", foreign_key: :participant_id
@@ -309,7 +308,7 @@ class Entity < Ekylibre::Record::Base
     raise Exception.new("Company entity is not mergeable") if entity.of_company?
     Ekylibre::Record::Base.transaction do
       # Classics
-      for many in [:direct_links, :events, :godchildren, :indirect_links, :mandates, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_items, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
+      for many in [:direct_links, :events, :godchildren, :indirect_links, :observations, :prices, :purchases, :outgoing_deliveries, :outgoing_payments, :sales, :sale_items, :incoming_payments, :subscriptions, :trackings, :transfers, :transports, :transporter_sales]
         ref = self.class.reflections[many]
         ref.class_name.constantize.where(ref.foreign_key => entity.id).update_all(ref.foreign_key => self.id)
       end

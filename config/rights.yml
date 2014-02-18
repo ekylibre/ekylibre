@@ -308,18 +308,6 @@
 # - "backend/interfacers#toggle_view_mode"
 # - "backend/interfacers#unroll"
 # - "backend/interfacers#unroll_options"
-# - "backend/interventions#create"
-# - "backend/interventions#destroy"
-# - "backend/interventions#edit"
-# - "backend/interventions#index"
-# - "backend/interventions#list"
-# - "backend/interventions#list_casts"
-# - "backend/interventions#list_operations"
-# - "backend/interventions#new"
-# - "backend/interventions#run"
-# - "backend/interventions#show"
-# - "backend/interventions#unroll"
-# - "backend/interventions#update"
 # - "backend/inventories#unroll"
 # - "backend/issues#abort"
 # - "backend/issues#close"
@@ -408,7 +396,6 @@
 # - "backend/legal_entities#list_event_participations"
 # - "backend/legal_entities#list_incoming_payments"
 # - "backend/legal_entities#list_links"
-# - "backend/legal_entities#list_mandates"
 # - "backend/legal_entities#list_observations"
 # - "backend/legal_entities#list_outgoing_payments"
 # - "backend/legal_entities#list_purchases"
@@ -421,7 +408,6 @@
 # - "backend/legal_entities#unroll"
 # - "backend/legal_entities#update"
 # - "backend/listings#unroll"
-# - "backend/mandates#unroll"
 # - "backend/matters#create"
 # - "backend/matters#destroy"
 # - "backend/matters#edit"
@@ -495,6 +481,8 @@
 # - "backend/net_services#show"
 # - "backend/net_services#unroll"
 # - "backend/net_services#update"
+# - "backend/operations#index"
+# - "backend/operations#show"
 # - "backend/organic_matters#create"
 # - "backend/organic_matters#destroy"
 # - "backend/organic_matters#edit"
@@ -531,7 +519,6 @@
 # - "backend/people#list_event_participations"
 # - "backend/people#list_incoming_payments"
 # - "backend/people#list_links"
-# - "backend/people#list_mandates"
 # - "backend/people#list_observations"
 # - "backend/people#list_outgoing_payments"
 # - "backend/people#list_purchases"
@@ -651,19 +638,6 @@
 # - "backend/product_natures#list_products"
 # - "backend/product_natures#show"
 # - "backend/product_natures#unroll"
-# - "backend/product_process_phases#create"
-# - "backend/product_process_phases#destroy"
-# - "backend/product_process_phases#edit"
-# - "backend/product_process_phases#new"
-# - "backend/product_process_phases#update"
-# - "backend/product_processes#create"
-# - "backend/product_processes#destroy"
-# - "backend/product_processes#edit"
-# - "backend/product_processes#index"
-# - "backend/product_processes#list"
-# - "backend/product_processes#new"
-# - "backend/product_processes#unroll"
-# - "backend/product_processes#update"
 # - "backend/production_support_markers#create"
 # - "backend/production_support_markers#destroy"
 # - "backend/production_support_markers#edit"
@@ -1102,7 +1076,6 @@ manage_entities:
 - "backend/entities#edit"
 - "backend/entities#list_event_participations"
 - "backend/entities#list_incoming_payments"
-- "backend/entities#list_mandates"
 - "backend/entities#list_purchases"
 - "backend/entities#list_sales"
 - "backend/entities#list_subscriptions"
@@ -1251,6 +1224,22 @@ manage_incoming_payments:
 - "backend/incoming_payments#update"
 - "backend/sales#show"
 
+# translation missing: eng.rights.manage_interventions
+manage_interventions:
+- "backend/dashboards#production"
+- "backend/interventions#create"
+- "backend/interventions#destroy"
+- "backend/interventions#edit"
+- "backend/interventions#index"
+- "backend/interventions#list"
+- "backend/interventions#list_casts"
+- "backend/interventions#list_operations"
+- "backend/interventions#new"
+- "backend/interventions#run"
+- "backend/interventions#show"
+- "backend/interventions#unroll"
+- "backend/interventions#update"
+
 # Manage inventories
 manage_inventories:
 - "backend/dashboards#trade"
@@ -1335,21 +1324,6 @@ manage_listings:
 - "backend/listings#new"
 - "backend/listings#update"
 
-# Manage mandates
-manage_mandates:
-- "backend/dashboards#relationship"
-- "backend/mandates#autocomplete_for_family"
-- "backend/mandates#autocomplete_for_organization"
-- "backend/mandates#autocomplete_for_title"
-- "backend/mandates#configure"
-- "backend/mandates#create"
-- "backend/mandates#destroy"
-- "backend/mandates#edit"
-- "backend/mandates#index"
-- "backend/mandates#list"
-- "backend/mandates#new"
-- "backend/mandates#update"
-
 # Manage observations
 manage_observations:
 - "backend/dashboards#relationship"
@@ -1359,18 +1333,6 @@ manage_observations:
 - "backend/observations#edit"
 - "backend/observations#new"
 - "backend/observations#update"
-
-# Manage operations
-manage_operations:
-- "backend/dashboards#production"
-- "backend/operations#create" #?
-- "backend/operations#destroy" #?
-- "backend/operations#edit" #?
-- "backend/operations#index"
-- "backend/operations#list" #?
-- "backend/operations#new" #?
-- "backend/operations#show"
-- "backend/operations#update" #?
 
 # Manage outgoing delivery modes
 manage_outgoing_delivery_modes:
