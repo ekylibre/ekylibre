@@ -32,7 +32,7 @@ eng:
         managed: "Managed by the system"
       entity:
         active: "Active"
-        origin: "First meeting location"
+        origin: "First meeting location" #?
       equipment:
         born_at: "putting into service at"
         # content_indicator: "Indicateur de mesure du réservoir"
@@ -1105,9 +1105,10 @@ eng:
     # maximal_length: "Longueur maximale"
     # maximal_value: "Valeur maximale"
     # measure_value: "Valeur de la mesure"
-    # measure_value_unit: "Measure value unit"
-    # measure_value_value: "Measure value value"
+    # measure_value_unit: "Unité de la mesure"
+    # measure_value_value: "Valeur de la mesure"
     # meat_withdrawal_period: "Délai d’attente (viande)"
+    # meeting_origin: "Origine de la rencontre"
     member: "Member"
     members: "Members"
     # memberships: "Membres du groupe"

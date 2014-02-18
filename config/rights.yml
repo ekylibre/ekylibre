@@ -28,15 +28,6 @@
 # - "backend/analyses#show"
 # - "backend/analyses#unroll"
 # - "backend/analyses#update"
-# - "backend/analysis_items#create"
-# - "backend/analysis_items#destroy"
-# - "backend/analysis_items#edit"
-# - "backend/analysis_items#index"
-# - "backend/analysis_items#list"
-# - "backend/analysis_items#new"
-# - "backend/analysis_items#show"
-# - "backend/analysis_items#unroll"
-# - "backend/analysis_items#update"
 # - "backend/analytic_distributions#create"
 # - "backend/analytic_distributions#destroy"
 # - "backend/analytic_distributions#edit"
@@ -875,7 +866,6 @@ consult_purchases:
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
 - "backend/purchases#list_items"
-- "backend/purchases#list_undelivered_items" #?
 - "backend/purchases#show"
 
 # Consult the sales
@@ -1113,7 +1103,6 @@ manage_equipments:
 
 # Create and update estimates
 manage_estimates:
-- "backend/catalog_prices#find" #?
 - "backend/dashboards#trade"
 - "backend/sale_items#create"
 - "backend/sale_items#destroy"
@@ -1388,8 +1377,6 @@ manage_prices:
 - "backend/catalog_prices#create"
 - "backend/catalog_prices#destroy"
 - "backend/catalog_prices#edit"
-- "backend/catalog_prices#export" #?
-- "backend/catalog_prices#import" #?
 - "backend/catalog_prices#list"
 - "backend/catalog_prices#new"
 - "backend/catalog_prices#update"
@@ -1415,7 +1402,6 @@ manage_products:
 - "backend/product_natures#destroy"
 - "backend/product_natures#edit"
 - "backend/product_natures#list"
-- "backend/product_natures#list_prices" #?
 - "backend/product_natures#new"
 - "backend/product_natures#update"
 
@@ -1465,7 +1451,6 @@ manage_purchases:
 - "backend/purchases#list"
 - "backend/purchases#list_deliveries"
 - "backend/purchases#list_items"
-- "backend/purchases#list_undelivered_items" #?
 - "backend/purchases#new"
 - "backend/purchases#propose"
 - "backend/purchases#refuse"

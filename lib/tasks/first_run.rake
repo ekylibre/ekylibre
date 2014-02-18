@@ -179,7 +179,7 @@ namespace :first_runs do
     code  = "desc 'Execute #{loaders.to_sentence}'\n"
     code << "task :#{loader} do\n"
     for d in loaders
-      code << "  puts 'Load #{d.to_s.red}'\n"
+      code << "  puts 'Load #{d.to_s.red}:'\n"
       code << "  Rake::Task['first_run:#{d}'].invoke\n"
     end
     code << "end"

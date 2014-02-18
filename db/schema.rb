@@ -118,24 +118,28 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"
 
   create_table "analyses", force: true do |t|
+    t.string   "number",                                                             null: false
+    t.string   "reference_number"
     t.integer  "product_id"
-    t.string   "description"
-    t.datetime "sampled_at",                                                     null: false
     t.integer  "sampler_id"
     t.integer  "analyser_id"
+    t.text     "description"
+    t.datetime "sampled_at",                                                         null: false
     t.datetime "made_at"
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
+    t.datetime "created_at",                                                         null: false
+    t.datetime "updated_at",                                                         null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                       default: 0, null: false
-    t.spatial  "geolocation",  limit: {:srid=>4326, :type=>"point"}
+    t.integer  "lock_version",                                           default: 0, null: false
+    t.spatial  "geolocation",      limit: {:srid=>4326, :type=>"point"}
   end
 
   add_index "analyses", ["analyser_id"], :name => "index_analyses_on_analyser_id"
   add_index "analyses", ["created_at"], :name => "index_analyses_on_created_at"
   add_index "analyses", ["creator_id"], :name => "index_analyses_on_creator_id"
+  add_index "analyses", ["number"], :name => "index_analyses_on_number"
   add_index "analyses", ["product_id"], :name => "index_analyses_on_product_id"
+  add_index "analyses", ["reference_number"], :name => "index_analyses_on_reference_number"
   add_index "analyses", ["sampler_id"], :name => "index_analyses_on_sampler_id"
   add_index "analyses", ["updated_at"], :name => "index_analyses_on_updated_at"
   add_index "analyses", ["updater_id"], :name => "index_analyses_on_updater_id"
@@ -153,7 +157,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
     t.string   "measure_value_unit"
     t.text     "string_value"
-    t.string   "description"
+    t.text     "annotation"
     t.datetime "created_at",                                                                                                     null: false
     t.datetime "updated_at",                                                                                                     null: false
     t.integer  "creator_id"
@@ -537,7 +541,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "authorized_payments_count"
     t.integer  "responsible_id"
     t.integer  "proposer_id"
-    t.string   "origin"
+    t.string   "meeting_origin"
     t.datetime "first_met_at"
     t.string   "activity_code",             limit: 30
     t.string   "vat_number",                limit: 20

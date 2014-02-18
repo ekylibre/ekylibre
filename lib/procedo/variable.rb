@@ -23,6 +23,10 @@ module Procedo
       element.xpath('xmlns:handler').each do |handler|
         @handlers << Handler.new(self, handler)
       end
+      hnames = @handlers.map(&:short_name)
+      if hnames.size != hnames.uniq.size
+        raise StandardError, "Duplicated handlers in #{@procedure.name}##{@name}"
+      end
       @value = element.attr("value").to_s
       @abilities = element.attr("abilities").to_s.strip.split(/\s*\,\s*/)
       @variety = element.attr("variety").to_s.strip if element.has_attribute?("variety")

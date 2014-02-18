@@ -39,7 +39,11 @@ spa:
     backend/aggregators:
       # index: "Agrégateurs"
       # show: "%{name}"
-    backend/analyses: #?
+    backend/analyses:
+      # edit: "Modifier l’analyse N°%{number}"
+      # index: "Analyses"
+      # new: "Nouvelle analyse"
+      # show: "Analyse N°%{number}"
     backend/analysis_items: #?
     backend/analytic_distributions:
       # edit: "Modifier la répartition analytique"
@@ -309,7 +313,7 @@ spa:
       # show: "Voir l’aide"
       # toggle: "Basculer l’aide"
     backend/identifiers:
-      # edit: "Modifier l'identifiant\_: %{name}"
+      # edit: "Modifier l’identifiant\_: %{name}"
       # index: "Identifiants"
       # new: "Nouvel identifiant"
       # show: "Identifiant\_: %{name}"

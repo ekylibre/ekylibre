@@ -44,9 +44,9 @@ def write_helper_test_file(klass)
 end
 
 def print_stat(name, count, first = false)
-  print ", " unless first
+  # print ", " unless first
   count = count[name] if count.is_a?(Hash)
-  print "#{name.to_s.humanize}: #{count.to_s} errors"
+  puts "#{count.to_s.rjust(3, ' ')} errors on #{name.to_s}"
 end
 
 
@@ -56,17 +56,15 @@ task :tests => :environment do
   log = File.open(Rails.root.join("log", "clean-tests.log"), "wb")
   log.write(">> Init\n") if verbose
 
-  print " - Tests: "
-  errors = {:models => 0, :controllers => 0, :helpers => 0, :fixtures => 0}
+  errors = {models: 0, controllers: 0, helpers: 0, fixtures: 0}
   source = nil
-  log.write(">> Search models\n") if verbose
-  models      = CleanSupport.models_in_file
-  log.write(">> Search controllers\n") if verbose
-  controllers = CleanSupport.controllers_in_file
 
   log.write(">> Start!\n") if verbose
 
   # Check model test files
+  print " - Tests: "
+  log.write(">> Search models\n") if verbose
+  models      = CleanSupport.models_in_file
   files = Dir.glob(Rails.root.join("test", "models", "**", "*.rb")).map(&:to_s)
   for model in models
     log.write("> #{model}\n") if verbose
@@ -106,6 +104,7 @@ task :tests => :environment do
 
 
   # Check helper test files
+  print " - Tests: "
   files = Dir.glob(Rails.root.join("test", "helpers", "**", "*_test.rb")).map(&:to_s)
   for helper_name in CleanSupport.helpers_in_file.to_a
     log.write("> #{helper_name}\n")  if verbose
@@ -145,6 +144,9 @@ task :tests => :environment do
 
 
   # Check controller test files
+  print " - Tests: "
+  log.write(">> Search controllers\n") if verbose
+  controllers = CleanSupport.controllers_in_file
   files = Dir.glob(Rails.root.join("test", "controllers", "**", "*.rb")).collect{|f| f.to_s}
   for controller in controllers
     log.write("> #{controller}\n") if verbose
@@ -181,6 +183,7 @@ task :tests => :environment do
   print_stat :controllers, errors
 
   # Check fixture files
+  print " - Tests: "
   yaml = nil
   files = Dir.glob(Rails.root.join("test", "fixtures", "*.yml")).map(&:to_s)
   for table, columns in Ekylibre::Schema.tables
@@ -253,7 +256,7 @@ task :tests => :environment do
   print_stat :fixtures, errors
 
   # puts " " + errors.collect{|k,v| "#{k.to_s.humanize}: #{v.to_s.rjust(3)} errors"}.join(", ")
-  puts ""
+  # puts ""
   log.close
 end
 

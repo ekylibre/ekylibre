@@ -70,20 +70,24 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :analyses do |t|
-      t.references :product,      index: true
-      t.string     :description
-      t.point      :geolocation,  srid: 4326
-      t.datetime   :sampled_at,   null: false
-      t.references :sampler,      index: true
-      t.references :analyser,     index: true
+      t.string     :number,                       null: false
+      t.string     :reference_number
+      t.references :product,                                   index: true
+      t.references :sampler,                                   index: true
+      t.references :analyser,                                  index: true
+      t.text       :description
+      t.point      :geolocation,      srid: 4326
+      t.datetime   :sampled_at,                   null: false
       t.datetime   :made_at
       t.stamps
+      t.index      :number
+      t.index      :reference_number
     end
 
     create_table :analysis_items do |t|
       t.references :analysis,      null: false, index: true
-      t.reading                   null: false, index: true
-      t.string     :description
+      t.reading                    null: false, index: true
+      t.text       :annotation
       t.stamps
     end
 
@@ -176,10 +180,10 @@ class CreateBase < ActiveRecord::Migration
     end
 
     create_table :cultivable_zone_memberships do |t|
-      t.references :group,                null: false, index: true
-      t.references :member,               null: false, index: true
-      t.decimal    :population,           precision: 19, scale: 4
-      t.geometry   :shape,                srid: 4326
+      t.references :group,                               null: false, index: true
+      t.references :member,                              null: false, index: true
+      t.decimal    :population, precision: 19, scale: 4
+      t.geometry   :shape,      srid: 4326
       t.stamps
     end
 
@@ -276,7 +280,6 @@ class CreateBase < ActiveRecord::Migration
       t.boolean    :active,                                                        default: true,  null: false
       t.datetime   :born_at
       t.datetime   :dead_at
-      # t.string   :soundex,                   limit: 4
       t.boolean    :client,                                                        default: false, null: false
       t.references :client_account,                                                                            index: true
       t.boolean    :supplier,                                                      default: false, null: false
@@ -286,8 +289,6 @@ class CreateBase < ActiveRecord::Migration
       t.boolean    :vat_subjected,                                                 default: true,  null: false
       t.boolean    :reminder_submissive,                                           default: false, null: false
       t.string     :deliveries_conditions,     limit: 60
-      # t.decimal    :discount_percentage,                  precision: 19, scale: 4
-      # t.decimal    :reduction_percentage,                 precision: 19, scale: 4
       t.text       :description
       t.string     :language,                  limit: 3,                                           null: false
       t.string     :country,                   limit: 2
@@ -295,16 +296,11 @@ class CreateBase < ActiveRecord::Migration
       t.integer    :authorized_payments_count
       t.references :responsible,                                                                                index: true
       t.references :proposer,                                                                                   index: true
-      # t.references :payment_mode
-      # t.string     :payment_delay
-      # t.integer    :invoices_count
-      t.string     :origin
+      t.string     :meeting_origin
       t.datetime   :first_met_at
       t.string     :activity_code,             limit: 30
       t.string     :vat_number,                limit: 20
       t.string     :siren,                     limit: 9
-      # t.boolean    :attorney,                                                      default: false, null: false
-      # t.references :attorney_account
       t.boolean    :locked,                                                        default: false, null: false
       t.boolean    :of_company,                                                    default: false, null: false
       t.attachment :picture
@@ -333,9 +329,9 @@ class CreateBase < ActiveRecord::Migration
       t.point      :mail_geolocation, srid: 4326
       t.boolean    :mail_auto_update,                                    default: false, null: false
       t.stamps
-      t.index :by_default
-      t.index :deleted_at
-      t.index :thread
+      t.index      :by_default
+      t.index      :deleted_at
+      t.index      :thread
     end
 
     create_table :entity_links do |t|
@@ -497,10 +493,10 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :identifiers do |t|
       t.references :net_service,                            index: true
-      t.string     :nature,                                 null: false
-      t.string     :value,                                  null: false
+      t.string     :nature,                    null: false
+      t.string     :value,                     null: false
       t.stamps
-      t.index :nature
+      t.index      :nature
     end
 
     create_table :incoming_deliveries do |t|
@@ -622,8 +618,6 @@ class CreateBase < ActiveRecord::Migration
     create_table :inventory_items do |t|
       t.references :inventory,                                           null: false, index: true
       t.references :product,                                             null: false, index: true
-      # t.references :tracking,                                                         index: true
-      # t.references :warehouse,                                           null: false, index: true
       t.references :product_reading_task,                                             index: true
       t.decimal    :theoric_population,  precision: 19, scale: 4,        null: false
       t.decimal    :population,          precision: 19, scale: 4,        null: false
@@ -759,7 +753,7 @@ class CreateBase < ActiveRecord::Migration
     create_table :net_services do |t|
       t.string     :reference_name,                                 null: false
       t.stamps
-      t.index :reference_name
+      t.index      :reference_name
     end
 
     create_table :observations do |t|

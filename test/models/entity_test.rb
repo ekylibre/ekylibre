@@ -42,10 +42,10 @@
 #  last_name                 :string(255)      not null
 #  lock_version              :integer          default(0), not null
 #  locked                    :boolean          not null
+#  meeting_origin            :string(255)
 #  nature                    :string(255)      not null
 #  number                    :string(60)
 #  of_company                :boolean          not null
-#  origin                    :string(255)
 #  picture_content_type      :string(255)
 #  picture_file_name         :string(255)
 #  picture_file_size         :integer

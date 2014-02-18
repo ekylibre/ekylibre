@@ -43,10 +43,10 @@
 #  last_name                 :string(255)      not null
 #  lock_version              :integer          default(0), not null
 #  locked                    :boolean          not null
+#  meeting_origin            :string(255)
 #  nature                    :string(255)      not null
 #  number                    :string(60)
 #  of_company                :boolean          not null
-#  origin                    :string(255)
 #  picture_content_type      :string(255)
 #  picture_file_name         :string(255)
 #  picture_file_size         :integer
@@ -69,7 +69,7 @@
 require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
-  include Versionable
+  include Versionable, Observable
   attr_accessor :password_confirmation, :old_password
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
@@ -94,7 +94,6 @@ class Entity < Ekylibre::Record::Base
   has_many :incoming_payments, foreign_key: :payer_id, inverse_of: :payer
   has_many :indirect_links, class_name: "EntityLink", foreign_key: :entity_2_id
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :powner_id
-  has_many :observations, :as => :subject
   has_many :participations, class_name: "EventParticipation", foreign_key: :participant_id
   has_many :prices, class_name: "ProductPriceTemplate"
   has_many :purchase_invoices, -> { where(state: "invoice").order(created_at: :desc) }, class_name: "Purchase", foreign_key: :supplier_id
@@ -139,7 +138,7 @@ class Entity < Ekylibre::Record::Base
   validates_length_of :vat_number, allow_nil: true, maximum: 20
   validates_length_of :activity_code, allow_nil: true, maximum: 30
   validates_length_of :deliveries_conditions, :number, allow_nil: true, maximum: 60
-  validates_length_of :currency, :first_name, :full_name, :last_name, :nature, :origin, :picture_content_type, :picture_file_name, allow_nil: true, maximum: 255
+  validates_length_of :currency, :first_name, :full_name, :last_name, :meeting_origin, :nature, :picture_content_type, :picture_file_name, allow_nil: true, maximum: 255
   validates_inclusion_of :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, in: [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]

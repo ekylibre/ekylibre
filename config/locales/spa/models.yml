@@ -35,7 +35,6 @@ spa:
         # managed: "Géré par le système"
       entity:
         # active: "Active"
-        # origin: "Lieu de la première rencontre"
       entity_event: #?
       entity_event_nature: #?
       equipment:
@@ -816,9 +815,10 @@ spa:
     # maximal_length: "Longueur maximale"
     # maximal_value: "Valeur maximale"
     # measure_value: "Valeur de la mesure"
-    # measure_value_unit: "Measure value unit"
-    # measure_value_value: "Measure value value"
+    # measure_value_unit: "Unité de la mesure"
+    # measure_value_value: "Valeur de la mesure"
     # meat_withdrawal_period: "Délai d’attente (viande)"
+    # meeting_origin: "Origine de la rencontre"
     # member: "Membre"
     # members: "Membres"
     # memberships: "Membres du groupe"

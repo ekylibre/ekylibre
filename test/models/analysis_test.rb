@@ -21,19 +21,21 @@
 #
 # == Table: analyses
 #
-#  analyser_id  :integer
-#  created_at   :datetime         not null
-#  creator_id   :integer
-#  description  :string(255)
-#  geolocation  :spatial({:srid=>
-#  id           :integer          not null, primary key
-#  lock_version :integer          default(0), not null
-#  made_at      :datetime
-#  product_id   :integer
-#  sampled_at   :datetime         not null
-#  sampler_id   :integer
-#  updated_at   :datetime         not null
-#  updater_id   :integer
+#  analyser_id      :integer
+#  created_at       :datetime         not null
+#  creator_id       :integer
+#  description      :text
+#  geolocation      :spatial({:srid=>
+#  id               :integer          not null, primary key
+#  lock_version     :integer          default(0), not null
+#  made_at          :datetime
+#  number           :string(255)      not null
+#  product_id       :integer
+#  reference_number :string(255)
+#  sampled_at       :datetime         not null
+#  sampler_id       :integer
+#  updated_at       :datetime         not null
+#  updater_id       :integer
 #
 require 'test_helper'
 

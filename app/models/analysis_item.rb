@@ -24,12 +24,12 @@
 #  absolute_measure_value_unit  :string(255)
 #  absolute_measure_value_value :decimal(19, 4)
 #  analysis_id                  :integer          not null
+#  annotation                   :text
 #  boolean_value                :boolean          not null
 #  choice_value                 :string(255)
 #  created_at                   :datetime         not null
 #  creator_id                   :integer
 #  decimal_value                :decimal(19, 4)
-#  description                  :string(255)
 #  geometry_value               :spatial({:srid=>
 #  id                           :integer          not null, primary key
 #  indicator_datatype           :string(255)      not null
@@ -49,7 +49,7 @@ class AnalysisItem < Ekylibre::Record::Base
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
-  validates_length_of :absolute_measure_value_unit, :choice_value, :description, :indicator_datatype, :indicator_name, :measure_value_unit, allow_nil: true, maximum: 255
+  validates_length_of :absolute_measure_value_unit, :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, allow_nil: true, maximum: 255
   validates_inclusion_of :boolean_value, in: [true, false]
   validates_presence_of :analysis, :indicator_datatype, :indicator_name
   #]VALIDATORS]

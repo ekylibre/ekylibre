@@ -159,7 +159,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :analysis_items, concerns: [:list, :unroll]
+    # resources :analysis_items, concerns: [:list, :unroll]
 
     resources :analytic_distributions, concerns: [:list, :unroll]
 

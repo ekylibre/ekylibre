@@ -32,15 +32,10 @@ fra:
       index: "Agrégateurs"
       show: "%{name}"
     backend/analyses:
-      # edit: "Edit backend/analysis"
-      # index: "Index backend/analysis"
-      # new: "New backend/analysis"
-      # show: "Show backend/analysis"
-    backend/analysis_items:
-      # edit: "Edit backend/analysis item"
-      # index: "Index backend/analysis item"
-      # new: "New backend/analysis item"
-      # show: "Show backend/analysis item"
+      edit: "Modifier l’analyse N°%{number}"
+      index: "Analyses"
+      new: "Nouvelle analyse"
+      show: "Analyse N°%{number}"
     backend/analytic_distributions:
       edit: "Modifier la répartition analytique"
       index: "Répartitions analytiques"
@@ -294,7 +289,7 @@ fra:
       show: "Voir l’aide"
       toggle: "Basculer l’aide"
     backend/identifiers:
-      edit: "Modifier l'identifiant\_: %{name}"
+      edit: "Modifier l’identifiant\_: %{name}"
       index: "Identifiants"
       new: "Nouvel identifiant"
       show: "Identifiant\_: %{name}"
@@ -683,7 +678,6 @@ fra:
     backend/affairs: "Affaires"
     backend/aggregators: "Agrégateurs"
     # backend/analyses: "Backend/analyses"
-    # backend/analysis_items: "Backend/analysis items"
     # backend/analytic_distributions: "Backend/analytic distributions"
     # backend/animal_foods: "Backend/animal foods"
     backend/animal_groups: "Groupes d’animaux"

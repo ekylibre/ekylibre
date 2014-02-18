@@ -4,6 +4,7 @@
     <variables>
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="germinate"/>
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" need="population">
+	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               method="value / self::individual.net_mass" to="population" /> <!-- kg    -->
         <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   method="(value * cultivation.net_surface_area) / self::individual.net_mass" to="population"/> <!-- kg/ha -->
         <handler indicator="grains_area_density" unit="unity_per_square_meter" method="(((value * self.thousand_grains_mass) / 1000) * cultivation.net_surface_area) / self::individual.net_mass" to="population" /> <!--  u/m² -->
