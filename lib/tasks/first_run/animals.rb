@@ -6,7 +6,7 @@ load_data :animals do |loader|
 
   groups = []
 
-  file = loader.path("animal_groups.csv")
+  file = loader.path("animals", "animal_groups.csv")
   if file.exist?
     loader.count :animal_groups do |w|
       CSV.foreach(file, headers: true) do |row|
@@ -24,7 +24,7 @@ load_data :animals do |loader|
 
 
         unless r.record = AnimalGroup.find_by_work_number(r.code)
-          picture_path = loader.path("animal_groups", "#{r.code}.jpg")
+          picture_path = loader.path("animals", "pictures", "#{r.code}.jpg")
           f = (picture_path.exist? ? File.open(picture_path) : nil)
           r.record = AnimalGroup.create!(name: r.name,
                                          picture: f,
@@ -41,7 +41,7 @@ load_data :animals do |loader|
     end
   end
 
-  file = loader.path("animals-synel17.csv")
+  file = loader.path("animals", "animals-synel.csv")
   if file.exist?
     now = Time.now
     loader.count :synel_animal_import do |w|
@@ -74,7 +74,7 @@ load_data :animals do |loader|
           raise "Cannot find a valid group for the given"
         end
 
-        picture_path = loader.path("animals", "#{r.work_number}.jpg")
+        picture_path = loader.path("animals", "pictures", "#{r.work_number}.jpg")
         f = (picture_path.exist? ? File.open(picture_path) : nil)
         variant = ProductNatureVariant.import_from_nomenclature(group.member_nature)
         animal = Animal.create!(variant: variant,
@@ -120,7 +120,7 @@ load_data :animals do |loader|
   female_adult_cow = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
   place   = BuildingDivision.last # find_by_work_number("B07_D2")
 
-  file = loader.path("liste_males_reproducteurs_race_normande_ISU_130.txt")
+  file = loader.path("animals", "liste_males_reproducteurs.txt")
   if file.exist?
     loader.count :upra_reproductor_list_import do |w|
       now = Time.now - 2.months
@@ -154,7 +154,7 @@ load_data :animals do |loader|
   end
 
 
-  file = loader.path("animals-synel17_inventory.csv")
+  file = loader.path("animals", "animals-synel_inventory.csv")
   if file.exist?
     loader.count :assign_parents_with_inventory do |w|
 

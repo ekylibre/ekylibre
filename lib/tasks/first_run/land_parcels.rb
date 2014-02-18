@@ -138,7 +138,7 @@ load_data :land_parcels do |loader|
 
 
   shapes = {}.with_indifferent_access
-  path = loader.path("cultivable_zones.shp")
+  path = loader.path("zones", "cultivable_zones.shp")
   if path.exist?
     loader.count :cultivable_zones_shapes do |w|
       #############################################################################
@@ -156,7 +156,7 @@ load_data :land_parcels do |loader|
   end
 
 
-  path = loader.path("cultivable_zones.csv")
+  path = loader.path("zones", "cultivable_zones.csv")
   if path.exist?
     born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
     loader.count :cultivable_zones do |w|
