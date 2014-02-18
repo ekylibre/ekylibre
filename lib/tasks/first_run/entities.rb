@@ -14,9 +14,9 @@ load_data :entities do |loader|
                            :entity_name => row[5])
 
         if r.account.number.match(/^401/)
-          unless Entity.find_by_origin(r.entity_name)
+          unless Entity.find_by_meeting_origin(r.entity_name)
             f = File.open(picture_undefined) rescue nil
-            entity = LegalEntity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature => en_org, :supplier => true, :supplier_account_id => r.account.id, :picture => f, :origin => r.entity_name)
+            entity = LegalEntity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature => en_org, :supplier => true, :supplier_account_id => r.account.id, :picture => f, :meeting_origin => r.entity_name)
             f.close unless f.nil?
             entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
             entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
@@ -24,9 +24,9 @@ load_data :entities do |loader|
         end
 
         if r.account.number.match(/^411/)
-          unless Entity.find_by_origin(r.entity_name)
+          unless Entity.find_by_meeting_origin(r.entity_name)
             f = File.open(picture_undefined) rescue nil
-            entity = LegalEntity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature => en_org, :client => true, :client_account_id => r.account.id, :picture => f, :origin => r.entity_name)
+            entity = LegalEntity.create!(:last_name => r.entity_name.mb_chars.capitalize, :nature => en_org, :client => true, :client_account_id => r.account.id, :picture => f, :meeting_origin => r.entity_name)
             f.close unless f.nil?
             entity.addresses.create!(:canal => :email, :coordinate => ["contact", "info", r.entity_name.parameterize].sample + "@" + r.entity_name.parameterize + "." + ["fr", "com", "org", "eu"].sample)
             entity.addresses.create!(:canal => :phone, :coordinate => "+33" + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s + rand(10).to_s)
@@ -78,14 +78,14 @@ load_data :entities do |loader|
                          )
 
       klass = r.nature.camelcase.constantize
-      unless person = klass.find_by_origin(r.origin)
+      unless person = klass.find_by_meeting_origin(r.origin)
         person = klass.create!(
                                :first_name => r.first_name,
                                :last_name => r.last_name,
                                :nature => r.nature,
                                :client => true,
                                :client_account_id => Account.get(r.client_account_number, :name => r.origin),
-                               :origin => r.origin,
+                               :meeting_origin => r.origin,
                                :supplier => true,
                                :supplier_account_id => Account.get(r.supplier_account_number, :name => r.origin)
                                )

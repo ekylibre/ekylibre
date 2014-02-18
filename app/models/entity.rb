@@ -69,7 +69,7 @@
 require "digest/sha2"
 
 class Entity < Ekylibre::Record::Base
-  include Versionable, Observable
+  include Versionable, Commentable
   attr_accessor :password_confirmation, :old_password
   # belongs_to :attorney_account, class_name: "Account"
   belongs_to :client_account, class_name: "Account"
@@ -319,7 +319,7 @@ class Entity < Ekylibre::Record::Base
       for attr, value in entity.attributes.sort
         observation << " - #{Entity.human_attribute_name(attr)} : #{entity.send(attr).to_s}\n"
       end
-      self.observations.create!(:description => observation, :importance => "normal")
+      self.observations.create!(description: observation, importance: "normal")
 
       # Remove doublon
       entity.destroy

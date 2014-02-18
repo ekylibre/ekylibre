@@ -192,7 +192,7 @@ end
 desc "Create first_run data independently -- also available " + Ekylibre::LOADERS.collect{|c| "first_run:#{c}"}.join(", ")
 task :first_runs => :environment do
   for loader in Ekylibre::LOADERS
-    puts "Load #{loader.to_s.red}"
+    puts "Load #{loader.to_s.red}:"
     Rake::Task["first_run:#{loader}"].invoke
   end
 end
