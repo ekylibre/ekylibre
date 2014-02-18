@@ -232,7 +232,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   # Build a frame for all product _forms
   def product_form_frame(options = {}, &block)
     html = "".html_safe
-    
+
     variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
     unless variant = @object.variant || ProductNatureVariant.where(id: @template.params[:variant_id].to_i).first
       variant = variants.first if variants.count == 1

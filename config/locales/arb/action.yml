@@ -1363,6 +1363,7 @@ arb:
     index: "العودة الى دليل ادارة الاعمال" #?
     indicator: "لوحة التحكم"
     # indicator_value: "Valeur de l’indicateur"
+    # indicator_with_unit: "%{indicator} (%{unit})"
     # indicators: "Indicateurs"
     # indicators_evolutions: "Évolutions des indicateurs"
     # inel_index: "Index génétique INEL"

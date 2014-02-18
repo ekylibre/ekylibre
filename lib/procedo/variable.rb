@@ -1,7 +1,7 @@
 module Procedo
   class Variable
 
-    attr_reader :name, :procedure, :value, :abilities, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name
+    attr_reader :name, :procedure, :value, :abilities, :handlers, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name
 
     def initialize(procedure, element)
       @procedure = procedure
@@ -17,7 +17,6 @@ module Procedo
         @producer_name = new_array.shift.to_sym
       end
       @default_name = element.attr("default-name").to_s
-      @needs = element.attr("need").to_s.split(/\s*\,\s*/).map(&:to_sym)
       # Handlers
       @handlers = []
       element.xpath('xmlns:handler').each do |handler|
@@ -26,6 +25,12 @@ module Procedo
       hnames = @handlers.map(&:short_name)
       if hnames.size != hnames.uniq.size
         raise StandardError, "Duplicated handlers in #{@procedure.name}##{@name}"
+      end
+      if @handlers.empty?
+        @needs = element.attr("need").to_s.split(/\s*\,\s*/).map(&:to_sym)
+        for need in @needs
+          @handlers << Handler.new(self, indicator: need, method: "value")
+        end
       end
       @value = element.attr("value").to_s
       @abilities = element.attr("abilities").to_s.strip.split(/\s*\,\s*/)

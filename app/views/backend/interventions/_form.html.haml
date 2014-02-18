@@ -22,15 +22,27 @@
       - reference = v.object.reference
       = v.input :reference_name, as: :hidden
       - if reference.new?
-        = v.input("actor", :wrapper => :append, :value => 0, wrapper_html: {class: "inline special"}, label: reference.human_name) do
-          - if reference.need_population?
-            = v.input_field :population
-          - if reference.known_variant?
-            %span.add-on= reference.variant_indication
-          - else
-            = v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}
-          -# if reference.need_shape?
-            = v.shape_field # shadow: self.shadow_shape
+        = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
+          .handlers
+            - for handler in reference.handlers
+              .handler
+                .title= handler.indicator.human_name
+                .value
+                  = number_field_tag(handler.unique_name)
+                  - if handler.unit?
+                    .add-on= handler.unit.symbol
+            - unless reference.known_variant?
+              .handler.long
+                .title= InterventionCast.human_attribute_name(:variant)
+                .value= v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}
+          -#
+            - if reference.need_population?
+              = v.input_field :population
+            - if reference.known_variant?
+              %span.add-on= reference.variant_indication
+
+            -# if reference.need_shape?
+              = v.shape_field # shadow: self.shadow_shape
       - else
         = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
 

@@ -1230,6 +1230,7 @@ eng:
       waiting: "To deposit later"
     indicator: "Indicators"
     # indicator_value: "Valeur de l’indicateur"
+    # indicator_with_unit: "%{indicator} (%{unit})"
     indicators: "Indicators"
     # indicators_evolutions: "Évolutions des indicateurs"
     # inel_index: "Index génétique INEL"

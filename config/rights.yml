@@ -24,6 +24,7 @@
 # - "backend/analyses#edit"
 # - "backend/analyses#index"
 # - "backend/analyses#list"
+# - "backend/analyses#list_items"
 # - "backend/analyses#new"
 # - "backend/analyses#show"
 # - "backend/analyses#unroll"

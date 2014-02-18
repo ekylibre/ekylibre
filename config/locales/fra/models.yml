@@ -858,7 +858,7 @@ fra:
     number_format: "Format du numéro"
     number_increment: "Incrément"
     number_start: "Début de la numération"
-    observations: "Observations" #?
+    observations: "Observations"
     observed_at: "Observé à"
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier" #?

@@ -18,15 +18,13 @@
     </attributes>
     <items>
       <!-- none -->
-      <item name="percent"  dimension="none" symbol="%"   a="0.01"/>
-      <item name="unity"    dimension="none" symbol="u"/>
-      <item name="pair"     dimension="none" symbol="Ⅱ"  a="2"/>
-      <item name="ten"      dimension="none" symbol="Ⅹ"   a="10"/>
-      <item name="dozen"    dimension="none" symbol="Ⅻ" a="12"/>
-      <item name="hundred"  dimension="none" symbol="Ⅽ"  a="100"/>
-      <item name="thousand" dimension="none" symbol="Ⅿ"  a="1000"/>
-      <item name="million"  dimension="none" symbol="ⅯⅯ" a="1000000"/>
-
+      <item name="millionth"  dimension="none" symbol="µ"  a="0.000001"/>
+      <item name="thousandth" dimension="none" symbol="m"  a="0.001"/>
+      <item name="unity"      dimension="none" symbol="u"/>
+      <item name="ten"        dimension="none" symbol="da" a="10"/>
+      <item name="hundred"    dimension="none" symbol="h"  a="100"/>
+      <item name="thousand"   dimension="none" symbol="k"  a="1000"/>
+      <item name="million"    dimension="none" symbol="M"  a="1000000"/>
 
       <!-- angle -->
       <item name="degree"   dimension="angle" symbol="°"   a="3.141592653589793238462643383279502884197" d="180"/>
@@ -67,10 +65,11 @@
       <item name="milliliter"  dimension="volume" symbol="ml" a="0.000001"/>
 
       <!-- time -->
-      <item name="second" dimension="time" symbol="s"/>
-      <item name="minute" dimension="time" symbol="min" a="60"/>
-      <item name="hour"   dimension="time" symbol="h"   a="3600"/>
-      <item name="day"    dimension="time" symbol="d"   a="86400"/>
+      <item name="millisecond" dimension="time" symbol="ms"  a="0.001"/>
+      <item name="second"      dimension="time" symbol="s"/>
+      <item name="minute"      dimension="time" symbol="min" a="60"/>
+      <item name="hour"        dimension="time" symbol="h"   a="3600"/>
+      <item name="day"         dimension="time" symbol="d"   a="86400"/>
 
       <!-- electric_current -->
       <item name="ampere"      dimension="electric_current" symbol="A"/>
@@ -121,10 +120,9 @@
       <item name="thousand_per_liter"      dimension="concentration" symbol="k/l"  a="1000" d="0.001"/>
       <item name="thousand_per_milliliter" dimension="concentration" symbol="k/ml" a="1000" d="0.000001"/>
 
-      <!-- mass_percent ? -->
+      <!-- per things ? -->
+      <item name="percent"           dimension="none" symbol="%"   d="100"/>
       <item name="mass_percent"      dimension="none" symbol="%kg" d="100"/>
-
-      <!-- parts per count ? -->
       <item name="parts_per_million" dimension="none" symbol="ppm" d="1000000"/>
 
       <!-- mass_density -->

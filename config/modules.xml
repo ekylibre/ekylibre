@@ -672,6 +672,7 @@
         <page to="backend/analyses#destroy"/>
         <page to="backend/analyses#edit"/>
         <page to="backend/analyses#list"/>
+        <page to="backend/analyses#list_items"/>
         <page to="backend/analyses#new"/>
         <page to="backend/analyses#show"/>
         <page to="backend/analyses#unroll"/>

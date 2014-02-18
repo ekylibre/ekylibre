@@ -1103,6 +1103,34 @@ $controls-margin-left: round($label-width * 1.1);
   }
 }
 
+.handlers {
+  .handler {
+    @include inline-block;
+    padding: round($default-gap / 2);
+    min-width: 20ex;
+    .title {
+      padding: round($default-gap / 2);
+      @include text-align(center);
+    }
+    .value {
+      @include button-group;
+      display: block;
+      @include text-align(center);
+      input {
+        @include box-sizing(border-box);
+        width: 10ex;
+        height: auto;
+      }
+    }
+    &.long {
+      .value {
+        input {
+          width: 50ex;
+        }
+      }
+    }
+  }
+}
 
 
 span.rad, label.radio {

@@ -155,7 +155,7 @@ a.btn, button {
   position: relative;
   vertical-align: middle;
   white-space: nowrap;
-  height: $button-height;
+  // height: $button-height;
   & + & {
     @include margin-left($default-gap);
   }

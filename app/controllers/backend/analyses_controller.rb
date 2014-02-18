@@ -32,7 +32,7 @@ class Backend::AnalysesController < BackendController
     t.column :sampler, url: true, hidden: true
   end
 
-  list :items, conditions: {analysis_id: 'params[:id]'.c} do |t|
+  list :items, model: :analysis_items, conditions: {analysis_id: 'params[:id]'.c} do |t|
     t.column :indicator
     t.column :value
     t.column :annotation
