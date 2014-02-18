@@ -117,6 +117,59 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "affairs", ["updated_at"], :name => "index_affairs_on_updated_at"
   add_index "affairs", ["updater_id"], :name => "index_affairs_on_updater_id"
 
+  create_table "analyses", force: true do |t|
+    t.integer  "product_id"
+    t.string   "description"
+    t.datetime "sampled_at",                                                     null: false
+    t.integer  "sampler_id"
+    t.integer  "analyser_id"
+    t.datetime "made_at"
+    t.datetime "created_at",                                                     null: false
+    t.datetime "updated_at",                                                     null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                       default: 0, null: false
+    t.spatial  "geolocation",  limit: {:srid=>4326, :type=>"point"}
+  end
+
+  add_index "analyses", ["analyser_id"], :name => "index_analyses_on_analyser_id"
+  add_index "analyses", ["created_at"], :name => "index_analyses_on_created_at"
+  add_index "analyses", ["creator_id"], :name => "index_analyses_on_creator_id"
+  add_index "analyses", ["product_id"], :name => "index_analyses_on_product_id"
+  add_index "analyses", ["sampler_id"], :name => "index_analyses_on_sampler_id"
+  add_index "analyses", ["updated_at"], :name => "index_analyses_on_updated_at"
+  add_index "analyses", ["updater_id"], :name => "index_analyses_on_updater_id"
+
+  create_table "analysis_items", force: true do |t|
+    t.integer  "analysis_id",                                                                                                    null: false
+    t.string   "indicator_name",                                                                                                 null: false
+    t.string   "indicator_datatype",                                                                                             null: false
+    t.decimal  "absolute_measure_value_value",                                          precision: 19, scale: 4
+    t.string   "absolute_measure_value_unit"
+    t.boolean  "boolean_value",                                                                                  default: false, null: false
+    t.string   "choice_value"
+    t.decimal  "decimal_value",                                                         precision: 19, scale: 4
+    t.integer  "integer_value"
+    t.decimal  "measure_value_value",                                                   precision: 19, scale: 4
+    t.string   "measure_value_unit"
+    t.text     "string_value"
+    t.string   "description"
+    t.datetime "created_at",                                                                                                     null: false
+    t.datetime "updated_at",                                                                                                     null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                                                   default: 0,     null: false
+    t.spatial  "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
+    t.spatial  "point_value",                  limit: {:srid=>4326, :type=>"point"}
+  end
+
+  add_index "analysis_items", ["analysis_id"], :name => "index_analysis_items_on_analysis_id"
+  add_index "analysis_items", ["created_at"], :name => "index_analysis_items_on_created_at"
+  add_index "analysis_items", ["creator_id"], :name => "index_analysis_items_on_creator_id"
+  add_index "analysis_items", ["indicator_name"], :name => "index_analysis_items_on_indicator_name"
+  add_index "analysis_items", ["updated_at"], :name => "index_analysis_items_on_updated_at"
+  add_index "analysis_items", ["updater_id"], :name => "index_analysis_items_on_updater_id"
+
   create_table "analytic_distributions", force: true do |t|
     t.integer  "production_id",                                               null: false
     t.integer  "journal_entry_item_id",                                       null: false

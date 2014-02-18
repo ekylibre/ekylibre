@@ -6,7 +6,7 @@ load_data :productions do |loader|
   # Collect activity family matchings
   activity_families = {}.with_indifferent_access
 
-  file = loader.path("activity_families.csv")
+  file = loader.path("activities", "activity_families.csv")
   if file.exist?
     CSV.foreach(file, headers: true) do |row|
       activity_families[row[0]] = row[1].to_sym
@@ -16,14 +16,14 @@ load_data :productions do |loader|
   # Collect activity natures
   activity_natures = {}.with_indifferent_access
 
-  file = loader.path("activity_natures.csv")
+  file = loader.path("activities", "activity_natures.csv")
   if file.exist?
     CSV.foreach(file, headers: true) do |row|
       activity_natures[row[0]] = row[1].to_sym
     end
   end
 
-  file = loader.path("activities.csv")
+  file = loader.path("activities", "activities.csv")
   if file.exist?
     loader.count :activities_import do |w|
       # Load file

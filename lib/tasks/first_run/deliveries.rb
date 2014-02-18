@@ -120,7 +120,7 @@ load_data :deliveries do |loader|
   ##############################################################################
   ## Demo data for document                                                   ##
   ##############################################################################
-  file = loader.path("releve_apports.pdf")
+  file = loader.path("documents", "releve_apports.pdf")
   if file.exist?
     loader.count :numerize_outgoing_deliveries do |w|
       # import an outgoing_deliveries_journal in PDF

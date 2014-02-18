@@ -98,7 +98,7 @@ class Account < Ekylibre::Record::Base
   scope :banks, -> { of_usage(:banks) }
   scope :cashes, -> { of_usage(:cashes) }
   scope :banks_or_cashes, -> { of_usages(:cashes, :banks) }
-  scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associated_accounts, :attorneys) }
+  scope :thirds, -> { of_usages(:suppliers, :clients, :social_agricultural_mutuality, :usual_associated_accounts, :attorneys, :compensation_operations) }
   # scope :supplier_thirds,          lambda { where('number LIKE ?', self.chart_number(:supplier_thirds)+"%").order(:number, :name) }
   # scope :product_natures,          lambda { where('number LIKE ?', self.chart_number(:product_natures)+"%").order(:number, :name) }
   # scope :charges,                  lambda { where('number LIKE ?', self.chart_number(:charges)+"%").order(:number, :name) }

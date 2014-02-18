@@ -1,6 +1,6 @@
 load_data :analyses do |loader|
 
-  file = loader.path("milk_analyses.csv")
+  file = loader.path("analyses", "milk_analyses.csv")
   if file.exist?
     loader.count :milk_analyses_import do |w|
 

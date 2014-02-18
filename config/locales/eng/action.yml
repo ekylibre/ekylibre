@@ -30,6 +30,8 @@ eng:
     backend/aggregators:
       # index: "Agrégateurs"
       # show: "%{name}"
+    backend/analyses: #?
+    backend/analysis_items: #?
     backend/analytic_distributions:
       edit: "Edit a distribution\_: %{id} "
       index: "Analytics distributions"

@@ -71,6 +71,44 @@ affairs:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
+analyses:
+  analyser_id: {type: integer, references: }
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  description: {type: string}
+  geolocation: {type: spatial}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  made_at: {type: datetime}
+  product_id: {type: integer, references: product}
+  sampled_at: {type: datetime, required: true}
+  sampler_id: {type: integer, references: }
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+analysis_items:
+  absolute_measure_value_unit: {type: string}
+  absolute_measure_value_value: {type: decimal, precision: 19, scale: 4}
+  analysis_id: {type: integer, references: analysis, required: true}
+  boolean_value: {type: boolean, required: true, default: false}
+  choice_value: {type: string}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  decimal_value: {type: decimal, precision: 19, scale: 4}
+  description: {type: string}
+  geometry_value: {type: spatial}
+  id: {type: integer, required: true}
+  indicator_datatype: {type: string, required: true}
+  indicator_name: {type: string, required: true}
+  integer_value: {type: integer}
+  lock_version: {type: integer, required: true, default: 0}
+  measure_value_unit: {type: string}
+  measure_value_value: {type: decimal, precision: 19, scale: 4}
+  point_value: {type: spatial}
+  string_value: {type: text}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
 analytic_distributions:
   affectation_percentage: {type: decimal, precision: 19, scale: 4, required: true}
   affected_at: {type: datetime, required: true}
@@ -558,7 +596,7 @@ guide_analyses:
 guide_analysis_points:
   acceptance_status: {type: string, required: true}
   advice_reference_name: {type: string}
-  analysis_id: {type: integer, references: guide_analysis, required: true}
+  analysis_id: {type: integer, references: analysis, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   id: {type: integer, required: true}

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 load_data :general_ledger do |loader|
 
-  file = loader.path("general_ledger-istea.txt")
+  file = loader.path("accountancy", "general_ledger-istea.txt")
   if file.exist?
     loader.count :general_ledger do |w|
       #############################################################################
       # Import accountancy
       journals = {}
-      journals_file = loader.path("journals-istea.yml")
+      journals_file = loader.path("accountancy", "journals-istea.yml")
       if journals_file.exist?
         journals = YAML.load_file(journals_file).stringify_keys.with_indifferent_access
       end

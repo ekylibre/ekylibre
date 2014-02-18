@@ -1,5 +1,6 @@
 Ekylibre::Application.routes.draw do
 
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -151,6 +152,14 @@ Ekylibre::Application.routes.draw do
     end
 
     resources :aggregators, only: [:index, :show]
+
+    resources :analyses, concerns: [:list, :unroll] do
+      member do
+        get :list_items
+      end
+    end
+
+    resources :analysis_items, concerns: [:list, :unroll]
 
     resources :analytic_distributions, concerns: [:list, :unroll]
 

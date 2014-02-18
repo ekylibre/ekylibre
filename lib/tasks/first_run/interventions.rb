@@ -335,7 +335,7 @@ load_data :interventions do |loader|
     end
   end
 
-  file = loader.path("prescription_1.jpg")
+  file = loader.path("documents", "prescription_1.jpg")
   if file.exist?
     loader.count :animal_prescriptions do |w|
 

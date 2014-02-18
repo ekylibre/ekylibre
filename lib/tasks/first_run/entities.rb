@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 load_data :entities do |loader|
 
-  file = loader.path("general_ledger-istea.txt")
+  file = loader.path("accountancy", "general_ledger-istea.txt")
   if file.exist?
     loader.count :entities do |w|
 
-      picture_undefined = loader.path("portrait-undefined.png")
+      picture_undefined = loader.path("entities", "pictures", "portrait-undefined.png")
       en_org = "legal_entity"
 
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
@@ -104,7 +104,7 @@ load_data :entities do |loader|
       if r.link_nature
         person.is_linked_to!(Entity.of_company, as: r.link_nature)
       end
-      if r.file_code_prefix and picture = loader.path("entities", r.file_code_prefix + ".gif")
+      if r.file_code_prefix and picture = loader.path("entities", "pictures", r.file_code_prefix + ".gif")
         f = File.open(picture) rescue nil
         person.picture = f
         person.save!
