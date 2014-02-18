@@ -29,12 +29,15 @@ module Procedo
   XMLNS = "http://www.ekylibre.org/XML/2013/procedures".freeze
   NS_SEPARATOR = "-"
 
-  autoload :Procedure,         'procedo/procedure'
-  autoload :Variable,          'procedo/variable'
-  autoload :Operation,         'procedo/operation'
-  autoload :Task,              'procedo/task'
-  autoload :Action,            'procedo/action'
-  autoload :VariableIndicator, 'procedo/variable_indicator'
+  autoload :Procedure,           'procedo/procedure'
+  autoload :Variable,            'procedo/variable'
+  autoload :Handler,             'procedo/handler'
+  # autoload :HandlerMethod,       'procedo/handler_method'
+  autoload :HandlerMethodParser, 'procedo/handler_method'
+  autoload :Operation,           'procedo/operation'
+  autoload :Task,                'procedo/task'
+  autoload :Indicator,           'procedo/indicator'
+  autoload :Action,              'procedo/action'
 
   @@list = HashWithIndifferentAccess.new
 

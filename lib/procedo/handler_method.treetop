@@ -1,0 +1,29 @@
+module Procedo
+  grammar HandlerMethod
+
+    rule expression
+      (multiplication / addition / division / substraction / variable)
+    end
+
+    rule multiplication
+      operand '*' operand
+    end
+
+    rule addition
+      operand '+' operand
+    end
+        
+    rule division
+      operand '/' operand
+    end
+
+    rule substraction
+      operand '-' operand
+    end
+
+    rule space
+      [[:space:]]+
+    end
+        
+  end
+end

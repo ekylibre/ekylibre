@@ -96,6 +96,9 @@ gem 'nokogiri', '~> 1.6.0'
 # gem 'mechanize'
 # gem 'savon', '= 2.2.0' # waiting for SOAP and EDE Webservices
 
+# Parse LALR or LR-1 grammars
+gem 'treetop'
+
 # Reporting
 # Need rjb which need openjdk-7-jdk (sudo apt-get install openjdk-7-jdk)
 gem 'beardley'

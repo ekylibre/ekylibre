@@ -1,6 +1,5 @@
 module Procedo
-
-  class VariableIndicator
+  class Indicator
 
     attr_reader :task, :stakeholder, :indicator, :value
 

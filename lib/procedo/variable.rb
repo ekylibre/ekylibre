@@ -1,7 +1,5 @@
 module Procedo
-
   class Variable
-    autoload :Indicator, 'procedo/variable/indicator'
 
     attr_reader :name, :procedure, :value, :abilities, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name
 
@@ -20,6 +18,11 @@ module Procedo
       end
       @default_name = element.attr("default-name").to_s
       @needs = element.attr("need").to_s.split(/\s*\,\s*/).map(&:to_sym)
+      # Handlers
+      @handlers = []
+      element.xpath('xmlns:handler').each do |handler|
+        @handlers << Handler.new(self, handler)
+      end
       @value = element.attr("value").to_s
       @abilities = element.attr("abilities").to_s.strip.split(/\s*\,\s*/)
       @variety = element.attr("variety").to_s.strip if element.has_attribute?("variety")
@@ -169,7 +172,6 @@ module Procedo
       end
       return "unknown_variant".tl
     end
-
+    
   end
-
 end
