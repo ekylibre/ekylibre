@@ -94,4 +94,26 @@ class MeasureTest < ActiveSupport::TestCase
     end
   end
 
+  test "special units" do
+    m1 = Measure.new("1000.")
+    m2 = Measure.new("1k.")
+    assert_equal m1, m2
+  end
+
+  test "all units" do
+    value = 5123.23
+    for unit in Nomen::Units.list
+      assert_nothing_raised do
+        Measure.new("#{value} #{unit.symbol}")
+        Measure.new("#{value}#{unit.symbol}")
+        Measure.new("#{value} #{unit.name}")
+        Measure.new("#{value}#{unit.name}")
+        Measure.new(value, unit.name.to_s)
+        Measure.new(value, unit.name.to_sym)
+        value.in(unit.name.to_s)
+        value.in(unit.name.to_sym)
+      end
+    end
+  end
+
 end

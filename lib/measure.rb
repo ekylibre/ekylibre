@@ -54,11 +54,11 @@ class Measure
     value, unit = nil, nil
     if args.size == 1
       expr  = args.shift.to_s.gsub(/[[:space:]]+/, ' ').strip
-      unless expr.match(/\A([\,\.]\d+|\d+([\,\.]\d+)?)\s*[a-zA-Z].*\z/)
+      unless expr.match(/\A([\,\.]\d+|\d+([\,\.]\d+)?)\s*[^\s]+\z/)
         raise InvalidExpression, "#{expr} cannot be parsed."
       end
-      unit  = expr.gsub(/\A[\d\.\,\s]+/, '')
-      value = expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
+      unit  = expr.gsub(/\A([\,\.]\d+|\d+([\,\.]\d+)?)\s*/, '').strip
+      value = expr[0..-(unit.size)].strip.to_d # expr.split(/[a-zA-Z\s]/).first.strip.gsub(/\,/, '.').to_d
     elsif args.size == 2
       value = args.shift
       unit  = args.shift
