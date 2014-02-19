@@ -3,32 +3,36 @@
 
 (($) ->
   'use strict'
-  $.procedures = 
+  $.procedures =
     base:
       allInOneSowing:
         v00:
           seedsToSow:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="seeds_to_sow_population"]').val(population * 3)
                 true
           fertilizerToSpread:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="fertilizer_to_spread_population"]').val(population * 3)
                 true
           insecticideToInput:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="insecticide_to_input_population"]').val(population * 3)
                 true
           moluscicideToInput:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="moluscicide_to_input_population"]').val(population * 3)
                 true
       animalTreatment:
@@ -36,7 +40,8 @@
           medicineToGive:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="medicine_to_give_population"]').val(population * 3)
                 true
       directSilage:
@@ -44,7 +49,8 @@
           silage:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="silage_population"]').val(population * 3)
                 true
       grainsHarvest:
@@ -52,13 +58,15 @@
           grains:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="grains_population"]').val(population * 3)
                 true
           straws:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="straws_population"]').val(population * 3)
                 true
       indirectSilage:
@@ -66,7 +74,8 @@
           silage:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="silage_population"]').val(population * 3)
                 true
       mammalHerdMilking:
@@ -74,7 +83,8 @@
           milk:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="milk_population"]').val(population * 3)
                 true
       mammalMilking:
@@ -82,7 +92,8 @@
           milk:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="milk_population"]').val(population * 3)
                 true
       manualVineHarvest:
@@ -90,7 +101,8 @@
           fruits:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="fruits_population"]').val(population * 3)
                 true
       mecanicalVineHarvest:
@@ -98,7 +110,8 @@
           fruits:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="fruits_population"]').val(population * 3)
                 true
       mineralFertilizing:
@@ -106,7 +119,8 @@
           fertilizerToSpread:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="fertilizer_to_spread_population"]').val(population * 3)
                 true
       organicFertilizing:
@@ -114,7 +128,8 @@
           manureToSpread:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="manure_to_spread_population"]').val(population * 3)
                 true
       partialSprayingOnCultivation:
@@ -122,13 +137,15 @@
           medicineToSpray:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="medicine_to_spray_population"]').val(population * 3)
                 true
           cultivationToTarget:
             shape:
               updateOtherHandlers: (input) ->
-                shape = parseFloat(input.val())
+                value = parseFloat(input.val())
+                shape = value
                 $('input[data-variable-destination="cultivation_to_target_shape"]').val(shape * 3)
                 true
       plantGrinding:
@@ -136,7 +153,8 @@
           grinded:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="grinded_population"]').val(population * 3)
                 true
       plantMowing:
@@ -144,7 +162,8 @@
           straw:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="straw_population"]').val(population * 3)
                 true
       sowing:
@@ -152,70 +171,77 @@
           seedsToSow:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="seeds_to_sow_population"]').val(population * 3)
                 $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-net_mass-kilogram"]').val(population * 2)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-mass_area_density-kilogram_per_hectare"]').val(population * 4)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-unity_per_square_meter"]').val(population * 3)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-mass_area_density-kilogram_per_hectare"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-unity_per_square_meter"]').val(population * 2)
                 $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-thousand_per_hectare"]').val(population * 2)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_count-thousand"]').val(population * 5)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_count-thousand"]').val(population * 2)
                 true
             netMassKilogram:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="seeds_to_sow_population"]').val(population * 3)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-population"]').val(population * 1)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-mass_area_density-kilogram_per_hectare"]').val(population * 4)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-unity_per_square_meter"]').val(population * 3)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-population"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-mass_area_density-kilogram_per_hectare"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-unity_per_square_meter"]').val(population * 2)
                 $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-thousand_per_hectare"]').val(population * 2)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_count-thousand"]').val(population * 5)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_count-thousand"]').val(population * 2)
                 true
             massAreaDensityKilogramPerHectare:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="seeds_to_sow_population"]').val(population * 3)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-population"]').val(population * 1)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-net_mass-kilogram"]').val(population * 4)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-population"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-net_mass-kilogram"]').val(population * 2)
                 $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-unity_per_square_meter"]').val(population * 2)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-thousand_per_hectare"]').val(population * 5)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_count-thousand"]').val(population * 5)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-thousand_per_hectare"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_count-thousand"]').val(population * 2)
                 true
             grainsAreaDensityUnityPerSquareMeter:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="seeds_to_sow_population"]').val(population * 3)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-population"]').val(population * 3)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-net_mass-kilogram"]').val(population * 5)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-mass_area_density-kilogram_per_hectare"]').val(population * 5)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-thousand_per_hectare"]').val(population * 1)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_count-thousand"]').val(population * 4)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-population"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-net_mass-kilogram"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-mass_area_density-kilogram_per_hectare"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-thousand_per_hectare"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_count-thousand"]').val(population * 2)
                 true
             grainsAreaDensityThousandPerHectare:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="seeds_to_sow_population"]').val(population * 3)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-population"]').val(population * 5)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-net_mass-kilogram"]').val(population * 1)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-mass_area_density-kilogram_per_hectare"]').val(population * 5)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-unity_per_square_meter"]').val(population * 1)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_count-thousand"]').val(population * 5)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-population"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-net_mass-kilogram"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-mass_area_density-kilogram_per_hectare"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-unity_per_square_meter"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_count-thousand"]').val(population * 2)
                 true
             grainsCountThousand:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="seeds_to_sow_population"]').val(population * 3)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-population"]').val(population * 5)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-net_mass-kilogram"]').val(population * 5)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-mass_area_density-kilogram_per_hectare"]').val(population * 4)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-unity_per_square_meter"]').val(population * 3)
-                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-thousand_per_hectare"]').val(population * 4)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-population"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-net_mass-kilogram"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-mass_area_density-kilogram_per_hectare"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-unity_per_square_meter"]').val(population * 2)
+                $('input[data-variable-handler="base-sowing-v0_0-seeds_to_sow-grains_area_density-thousand_per_hectare"]').val(population * 2)
                 true
       sprayingOnCultivation:
         v00:
           medicineToSpray:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="medicine_to_spray_population"]').val(population * 3)
                 true
       strawBunching:
@@ -223,7 +249,8 @@
           strawBales:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="straw_bales_population"]').val(population * 3)
                 true
       vinePlant:
@@ -231,7 +258,8 @@
           plantsToFix:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="plants_to_fix_population"]').val(population * 3)
                 true
       wineTransfer:
@@ -239,7 +267,8 @@
           wineToMove:
             population:
               updateOtherHandlers: (input) ->
-                population = parseFloat(input.val())
+                value = parseFloat(input.val())
+                population = value
                 $('input[data-variable-destination="wine_to_move_population"]').val(population * 3)
                 true
   # Adds events on inputs

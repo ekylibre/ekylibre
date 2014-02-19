@@ -11,9 +11,9 @@ namespace :procedures do
     script << "  'use strict'\n"
 
     events = ""
-    
-    
-    script << "  $.procedures = \n"
+
+
+    script << "  $.procedures =\n"
     for namespace, procedures in Procedo.procedures_tree
       next unless procedures.values.map(&:values).flatten.map(&:handled_variables).flatten.any?
       path = []
@@ -37,15 +37,17 @@ namespace :procedures do
               # Updates other handlers
               method = "updateOtherHandlers: (input) ->\n"
               # Back to destination
-              method << "  #{handler.destination} = parseFloat(input.val())\n"
+              method << "  value = parseFloat(input.val())\n"
+              puts handler.method_tree.inspect
+              method << "  #{handler.destination} = value\n"
               # Update destination
-              method << "  $('input[data-variable-destination=\"#{handler.destination_unique_name}\"]').val(#{handler.destination} * 3)\n"              
+              method << "  $('input[data-variable-destination=\"#{handler.destination_unique_name}\"]').val(#{handler.destination} * 3)\n"
               # Update others
               for h in handler.others
-                method << "  $('input[data-variable-handler=\"#{h.uid}\"]').val(#{handler.destination} * #{rand(5) + 1})\n"
+                method << "  $('input[data-variable-handler=\"#{h.uid}\"]').val(#{handler.destination} * #{2})\n"
               end
               method << "  true\n"
-              
+
               hn_script << method.dig
               va_script << hn_script.dig
             end

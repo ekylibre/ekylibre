@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 load_data :interventions do |loader|
-  
+
   class Booker
 
     cattr_accessor :production
@@ -139,7 +139,7 @@ load_data :interventions do |loader|
   end
 
   if loader.manifest[:demo]
-  
+
   loader.count :cultural_interventions do |w|
     for production in Production.all
       if production.active?
@@ -377,5 +377,5 @@ load_data :interventions do |loader|
 
   end
   end
-  
+
 end

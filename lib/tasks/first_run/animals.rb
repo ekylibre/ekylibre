@@ -36,7 +36,7 @@ load_data :animals do |loader|
       end
     end
   end
-  
+
   male_adult_cow   = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
   female_adult_cow = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
   place   = BuildingDivision.last # find_by_work_number("B07_D2")
@@ -70,7 +70,7 @@ load_data :animals do |loader|
       end
     end
   end
-  
+
   # attach picture if exist for each group
   for group in AnimalGroup.all
     picture_path = loader.path("alamano", "animal_groups_pictures", "#{group.work_number}.jpg")
@@ -81,7 +81,7 @@ load_data :animals do |loader|
       f.close
     end
   end
-  
+
   # build name of synel animals file
   if loader.manifest[:net_services][:synel]
     synel_first_part = loader.manifest[:net_services][:synel][:synel_username].to_s
@@ -93,7 +93,7 @@ load_data :animals do |loader|
     end
   else synel_file_name = "animaux.csv"
   end
-  
+
   file = loader.path("synel", synel_file_name.to_s)
   if file.exist?
     now = Time.now
@@ -238,7 +238,7 @@ load_data :animals do |loader|
 
   end
   end
-  
+
   # attach picture if exist for each animal
   for animal in Animal.all
     picture_path = loader.path("alamano", "animals_pictures", "#{animal.work_number}.jpg")
@@ -249,5 +249,5 @@ load_data :animals do |loader|
       f.close
     end
   end
-  
+
 end

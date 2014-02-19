@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 load_data :sales do |loader|
-  
+
   if loader.manifest[:demo]
-  
+
   loader.count :variant_import do |w|
     # Create product_nature for crop plant product
     wheat_crop  = ProductNatureVariant.import_from_nomenclature(:wheat_crop)
@@ -264,6 +264,6 @@ load_data :sales do |loader|
       w.check_point
     end
   end
-  
+
   end
 end

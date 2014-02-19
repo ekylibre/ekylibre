@@ -2,59 +2,63 @@ module Procedo
   grammar HandlerMethod
 
     rule expression
-      additive
-    end
-
-    rule additive
-      operand_1:multitive
-      space operator:additive_op space
-      operand_2:additive <BinaryOperation>
-      /
-      multitive
-    end
-
-    rule additive_op
-      '+' / '-'
+      additive / primary
     end
 
     rule multitive
-      operand_1:primary
-      space operator:multitive_op space
-      operand_2:multitive <BinaryOperation>
-      /
-      primary
+        head:primary space? "*" space? operand:multitive <Multiplication>
+      / head:primary space? "/" space? operand:multitive <Division>
+      / primary
     end
-    
-    rule multitive_op
-      '*' / '/'
-    end 
+
+    rule additive
+        head:multitive space? "+" space? operand:additive <Addition>
+      / head:multitive space? "-" space? operand:additive <Substraction>
+      / multitive
+    end
 
     rule primary
-      variable / number / '(' space expression space ')' 
-    end
-
-    rule number
-      ('-'? [1-9] [0-9]* ('.' [0-9]+)? / '0') {
-        def eval(env = {})
-          text_value.to_d
-        end
-      }
-    end
-
-    rule value
-      "value"
-    end
-
-    rule self
-      "self"
-    end
-
-    rule variable
-      [a-z]+ / value / self
+      value / number / reading / "(" space? expression space? ")" <Expression>
     end
 
     rule space
-      [[:space:]]*
+      " "*
+    end
+
+    rule reading
+      individual_reading / whole_reading
+    end
+
+    rule individual_reading
+      actor '::' indicator <IndividualReading>
+    end
+
+    rule whole_reading
+      actor '.' indicator <WholeReading>
+    end
+
+    rule actor
+      self / variable
+    end
+
+    rule variable
+      [a-z] [a-z0-9]* ('_' [a-z0-9]+)* <Variable>
+    end
+
+    rule indicator
+      [a-z] [a-z0-9]* ('_' [a-z0-9]+)* <Indicator>
+    end
+
+    rule number
+      ('.' [0-9]+) <Number> / ([1-9] [0-9]* / '0') ('.' [0-9]+)? <Number>
+    end
+
+    rule self
+      "self" <Self>
+    end
+
+    rule value
+      "value" <Value>
     end
 
   end
