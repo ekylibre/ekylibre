@@ -6,7 +6,7 @@ load_data :products do |loader|
   end
 
 
-  file = loader.path("equipments_list.csv")
+  file = loader.path("alamano", "lists", "equipments_list.csv")
   if file.exist?
     loader.count :equipments do |w|
       #############################################################################
@@ -61,7 +61,7 @@ load_data :products do |loader|
   end
 
 
-  file = loader.path("matters_list.csv")
+  file = loader.path("alamano", "lists", "matters_list.csv")
   if file.exist?
 
     loader.count :matters do |w|

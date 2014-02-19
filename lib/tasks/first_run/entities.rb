@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 load_data :entities do |loader|
 
-  file = loader.path("accountancy", "general_ledger-istea.txt")
+  file = loader.path("istea", "general_ledger.txt")
   if file.exist?
     loader.count :entities do |w|
 
-      picture_undefined = loader.path("entities", "pictures", "portrait-undefined.png")
+      picture_undefined = loader.path("alamano", "entities", "pictures", "portrait-undefined.png")
       en_org = "legal_entity"
 
       CSV.foreach(file, :encoding => "CP1252", :col_sep => ";") do |row|
@@ -57,7 +57,7 @@ load_data :entities do |loader|
 
 
 
-  file = loader.path("entities", "entities.csv")
+  file = loader.path("alamano", "entities", "entities.csv")
   if file.exist?
     loader.count :associates do |w|
 
