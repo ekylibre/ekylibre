@@ -84,8 +84,8 @@ load_data :animals do |loader|
   
   # build name of synel animals file
   if loader.manifest[:net_services][:synel]
-    synel_first_part = loader.manifest[:net_services][:synel][:synel_username]
-    synel_second_part = loader.manifest[:identifiers][:cattling_number]
+    synel_first_part = loader.manifest[:net_services][:synel][:synel_username].to_s
+    synel_second_part = loader.manifest[:identifiers][:cattling_number].to_s
     synel_last_part = "IP"
     synel_file_extension = ".csv"
     if synel_first_part and synel_second_part
