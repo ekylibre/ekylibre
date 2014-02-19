@@ -6,7 +6,7 @@ load_data :animals do |loader|
 
   groups = []
 
-  file = loader.path("alamano", "animals", "animal_groups.csv")
+  file = loader.path("alamano", "animal_groups.csv")
   if file.exist?
     loader.count :animal_groups do |w|
       CSV.foreach(file, headers: true) do |row|
@@ -24,15 +24,11 @@ load_data :animals do |loader|
 
 
         unless r.record = AnimalGroup.find_by_work_number(r.code)
-          picture_path = loader.path("alamano", "animals", "pictures", "#{r.code}.jpg")
-          f = (picture_path.exist? ? File.open(picture_path) : nil)
           r.record = AnimalGroup.create!(name: r.name,
-                                         picture: f,
                                          work_number: r.code,
                                          variant: ProductNatureVariant.import_from_nomenclature(r.nature),
                                          default_storage: BuildingDivision.find_by(work_number: r.place),
                                          description: r.description)
-          f.close if f
         end
 
         groups << r
@@ -40,8 +36,65 @@ load_data :animals do |loader|
       end
     end
   end
+  
+  male_adult_cow   = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
+  female_adult_cow = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
+  place   = BuildingDivision.last # find_by_work_number("B07_D2")
 
-  file = loader.path("synel", "animals-synel.csv")
+  file = loader.path("alamano", "liste_males_reproducteurs.txt")
+  if file.exist?
+    loader.count :upra_reproductor_list_import do |w|
+      now = Time.now - 2.months
+      CSV.foreach(file, encoding: "CP1252", col_sep: "\t", headers: true) do |row|
+        next if row[4].blank?
+        r = OpenStruct.new(:order => row[0],
+                           :name => row[1],
+                           :identification_number => row[2],
+                           :work_number => row[2][-4..-1],
+                           :father => row[3],
+                           :provider => row[4],
+                           :isu => row[5].to_i,
+                           :inel => row[9].to_i,
+                           :tp => row[10].to_f,
+                           :tb => row[11].to_f
+                           )
+        animal = Animal.create!(:variant_id => male_adult_cow.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :initial_owner => Entity.where(:of_company => false).all.sample)
+        # set default indicators
+        animal.read!(:unique_synthesis_index,         r.isu.in_unity,  at: now)
+        animal.read!(:economical_milk_index,          r.inel.in_unity, at: now)
+        animal.read!(:protein_concentration_index,    r.tp.in_unity,   at: now)
+        animal.read!(:fat_matter_concentration_index, r.tb.in_unity,   at: now)
+        # put in an external localization
+        animal.localizations.create!(nature: :exterior)
+        w.check_point
+      end
+    end
+  end
+  
+  # attach picture if exist for each group
+  for group in AnimalGroup.all
+    picture_path = loader.path("alamano", "animal_groups_pictures", "#{group.work_number}.jpg")
+    f = (picture_path.exist? ? File.open(picture_path) : nil)
+    if f
+      group.picture = f
+      group.save!
+      f.close
+    end
+  end
+  
+  # build name of synel animals file
+  if loader.manifest[:net_services][:synel]
+    synel_first_part = loader.manifest[:net_services][:synel][:synel_username].to_s
+    synel_second_part = loader.manifest[:identifiers][:cattling_number].to_s
+    synel_last_part = "IP"
+    synel_file_extension = ".csv"
+    if synel_first_part and synel_second_part
+      synel_file_name = synel_first_part + synel_second_part + synel_last_part + synel_file_extension
+    end
+  else synel_file_name = "animaux.csv"
+  end
+  
+  file = loader.path("synel", synel_file_name.to_s)
   if file.exist?
     now = Time.now
     loader.count :synel_animal_import do |w|
@@ -74,8 +127,6 @@ load_data :animals do |loader|
           raise "Cannot find a valid group for the given"
         end
 
-        picture_path = loader.path("alamano", "animals", "pictures", "#{r.work_number}.jpg")
-        f = (picture_path.exist? ? File.open(picture_path) : nil)
         variant = ProductNatureVariant.import_from_nomenclature(group.member_nature)
         animal = Animal.create!(variant: variant,
                                 name: r.name,
@@ -86,10 +137,8 @@ load_data :animals do |loader|
                                 initial_dead_at: r.dead_at,
                                 initial_owner: Entity.of_company,
                                 initial_container: group.record.default_storage,
-                                picture: f,
                                 default_storage: group.record.default_storage
                                 )
-        f.close if f
         # Sex is already known
         # animal.read!(:sex, r.sex, at: r.born_at)
 
@@ -115,46 +164,7 @@ load_data :animals do |loader|
     end
   end
 
-
-  male_adult_cow   = ProductNatureVariant.import_from_nomenclature(:male_adult_cow)
-  female_adult_cow = ProductNatureVariant.import_from_nomenclature(:female_adult_cow)
-  place   = BuildingDivision.last # find_by_work_number("B07_D2")
-
-  file = loader.path("alamano", "animals", "liste_males_reproducteurs.txt")
-  if file.exist?
-    loader.count :upra_reproductor_list_import do |w|
-      now = Time.now - 2.months
-      CSV.foreach(file, encoding: "CP1252", col_sep: "\t", headers: true) do |row|
-        next if row[4].blank?
-        r = OpenStruct.new(:order => row[0],
-                           :name => row[1],
-                           :identification_number => row[2],
-                           :work_number => row[2][-4..-1],
-                           :father => row[3],
-                           :provider => row[4],
-                           :isu => row[5].to_i,
-                           :inel => row[9].to_i,
-                           :tp => row[10].to_f,
-                           :tb => row[11].to_f
-                           )
-        picture_path = loader.path("animals", "#{r.work_number}.jpg")
-        f = (picture_path.exist? ? File.open(picture_path) : nil)
-        animal = Animal.create!(:variant_id => male_adult_cow.id, :name => r.name, :variety => "bos", :identification_number => r.identification_number[-10..-1], :initial_owner => Entity.where(:of_company => false).all.sample, picture: f)
-        f.close if f
-        # set default indicators
-        animal.read!(:unique_synthesis_index,         r.isu.in_unity,  at: now)
-        animal.read!(:economical_milk_index,          r.inel.in_unity, at: now)
-        animal.read!(:protein_concentration_index,    r.tp.in_unity,   at: now)
-        animal.read!(:fat_matter_concentration_index, r.tb.in_unity,   at: now)
-        # put in an external localization
-        animal.localizations.create!(nature: :exterior)
-        w.check_point
-      end
-    end
-  end
-
-
-  file = loader.path("synel", "animals-synel_inventory.csv")
+  file = loader.path("synel", "inventaire.csv")
   if file.exist?
     loader.count :assign_parents_with_inventory do |w|
 
@@ -191,34 +201,26 @@ load_data :animals do |loader|
         # Find or create mother
         unless linkeds[:mother] = Animal.find_by_identification_number(r.mother_identification_number)
           unless r.mother_identification_number.blank?
-            picture_path = loader.path("animals", "#{r.mother_work_number}.jpg")
-            f = (picture_path.exist? ? File.open(picture_path) : nil)
             linkeds[:mother] = Animal.create!(:variant_id => female_adult_cow.id,
                                               :name => r.mother_name,
                                               :variety => "bos",
                                               :identification_number => r.mother_identification_number,
                                               work_number: r.mother_work_number,
-                                              picture: f,
                                               :initial_owner => Entity.of_company,
                                               :initial_container => place,
                                               :default_storage => place)
-            f.close if f
           end
         end
 
         # Find or create father
         unless linkeds[:father] = Animal.find_by_identification_number(r.father_identification_number)
           unless r.father_identification_number.blank?
-            picture_path = loader.path("animals", "#{r.father_work_number}.jpg")
-            f = (picture_path.exist? ? File.open(picture_path) : nil)
             linkeds[:father] = Animal.create!(:variant_id => male_adult_cow.id,
                                               :name => r.father_name,
                                               :variety => "bos",
                                               :identification_number => r.father_identification_number,
                                               work_number: r.father_work_number,
-                                              picture: f,
                                               :initial_owner => Entity.where(of_company: false).all.sample)
-            f.close if f
           end
         end
 
@@ -236,4 +238,16 @@ load_data :animals do |loader|
 
   end
   end
+  
+  # attach picture if exist for each animal
+  for animal in Animal.all
+    picture_path = loader.path("alamano", "animals_pictures", "#{animal.work_number}.jpg")
+    f = (picture_path.exist? ? File.open(picture_path) : nil)
+    if f
+      animal.picture = f
+      animal.save!
+      f.close
+    end
+  end
+  
 end

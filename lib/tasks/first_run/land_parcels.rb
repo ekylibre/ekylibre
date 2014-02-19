@@ -156,7 +156,7 @@ load_data :land_parcels do |loader|
   end
 
 
-  path = loader.path("alamano", "zones", "cultivable_zones.csv")
+  path = loader.path("alamano", "cultivable_zones.csv")
   if path.exist?
     born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
     loader.count :cultivable_zones do |w|

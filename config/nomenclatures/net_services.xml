@@ -17,9 +17,9 @@
           identifiers="pacage_number, password"
           />
       <!-- ANIMAL FARMING -->
-      <item name="synel17"
+      <item name="synel"
           nature="animal_farming"
-          url="http://www.synel17.com/"
+          url="http://www.synel.net/"
           approach="human"
           identifiers="synel_username, password"
           />
