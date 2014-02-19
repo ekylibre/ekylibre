@@ -18,7 +18,7 @@ load_data :deliveries do |loader|
 
 
   # @TODO refactorize to make import for n entities
-  file = loader.path("incoming_deliveries", "kazeni.coop.csv")
+  file = loader.path("kazeni", "appros.csv")
   if file.exist?
 
     cooperative = Entity.find_by_last_name("Kazeni")
@@ -120,7 +120,7 @@ load_data :deliveries do |loader|
   ##############################################################################
   ## Demo data for document                                                   ##
   ##############################################################################
-  file = loader.path("documents", "releve_apports.pdf")
+  file = loader.path("alamano", "documents", "releve_apports.pdf")
   if file.exist?
     loader.count :numerize_outgoing_deliveries do |w|
       # import an outgoing_deliveries_journal in PDF

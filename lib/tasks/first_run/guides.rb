@@ -1,6 +1,6 @@
 load_data :guides do |loader|
 
-  file = loader.path("guides.csv")
+  file = loader.path("alamano", "guides", "guides.csv")
   if file.exist?
     loader.count :guides do |w|
       CSV.foreach(file, headers: true) do |row|
