@@ -102,6 +102,10 @@ module Procedo
     end
     alias :uid :name
 
+    def flat_version
+      "v" + self.version.to_s.gsub(/\W/, '_')
+    end
+
     # Returns if the procedure is system
     def system?
       @system
@@ -145,6 +149,10 @@ module Procedo
     # Returns only variables which must be built during runnning process
     def new_variables
       @variables.values.select(&:new?)
+    end
+
+    def handled_variables
+      @variables.values.select(&:handled?)
     end
 
   end

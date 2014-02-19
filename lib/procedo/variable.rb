@@ -71,6 +71,11 @@ module Procedo
       "variables.#{name}".t(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize])
     end
 
+    # 
+    def handled?
+      @handlers.any?
+    end
+
     #
     def given?
       !@value.blank?

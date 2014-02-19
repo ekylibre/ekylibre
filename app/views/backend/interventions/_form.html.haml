@@ -24,13 +24,13 @@
       - if reference.new?
         = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
           - for need in reference.needs
-            = v.input_field(need)
+            = v.input_field(need, as: :hidden, input_html: {data: {variable_destination: "#{variable.name}_#{need}"}})
           .handlers
             - for handler in reference.handlers
               .handler
                 .title= handler.indicator.human_name
                 .value
-                  = number_field_tag(handler.unique_name)
+                  = number_field_tag(nil, nil, data: {variable_handler: handler.uid})
                   - if handler.unit?
                     .add-on= handler.unit.symbol
             - unless reference.known_variant?

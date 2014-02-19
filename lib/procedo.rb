@@ -30,7 +30,7 @@ module Procedo
   end
 
   XMLNS = "http://www.ekylibre.org/XML/2013/procedures".freeze
-  DEFAULT_NAMESPACE = 'base'
+  DEFAULT_NAMESPACE = :base
   NAMESPACE_SEPARATOR = '-'
   VERSION_SEPARATOR = NAMESPACE_SEPARATOR
 
@@ -64,6 +64,22 @@ module Procedo
     # Give access to named procedures
     def [](name)
       @@list[name]
+    end
+
+    # Returns a tree of procedures: namespace -> short_name -> version
+    def procedures_tree
+      tree = {}
+      for namespace in @@list.values.map(&:namespace).uniq
+        tree[namespace] ||= {}
+        procedures = @@list.values.select{|p| p.namespace == namespace }
+        for short_name in procedures.map(&:short_name).uniq
+          tree[namespace][short_name] ||= {}
+          for procedure in procedures.select{|p| p.short_name == short_name }
+            tree[namespace][short_name][procedure.version] = procedure
+          end
+        end
+      end
+      return tree
     end
 
     # Returns direct procedures of nature

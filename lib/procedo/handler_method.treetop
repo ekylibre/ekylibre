@@ -2,39 +2,59 @@ module Procedo
   grammar HandlerMethod
 
     rule expression
-      (multiplication / addition / division / substraction / variable)
+      additive
     end
 
-    rule multiplication
-      operand '*' operand
+    rule additive
+      operand_1:multitive
+      space operator:additive_op space
+      operand_2:additive <BinaryOperation>
+      /
+      multitive
     end
 
-    rule addition
-      operand '+' operand
+    rule additive_op
+      '+' / '-'
     end
 
-    rule division
-      operand '/' operand
+    rule multitive
+      operand_1:primary
+      space operator:multitive_op space
+      operand_2:multitive <BinaryOperation>
+      /
+      primary
     end
+    
+    rule multitive_op
+      '*' / '/'
+    end 
 
-    rule substraction
-      operand '-' operand
-    end
-
-    rule operand
-      (number / variable)
+    rule primary
+      variable / number / '(' space expression space ')' 
     end
 
     rule number
-      '-'? [1-9] [0-9]* ('.' [0-9]+)?
+      ('-'? [1-9] [0-9]* ('.' [0-9]+)? / '0') {
+        def eval(env = {})
+          text_value.to_d
+        end
+      }
+    end
+
+    rule value
+      "value"
+    end
+
+    rule self
+      "self"
     end
 
     rule variable
-      [a-z]+
+      [a-z]+ / value / self
     end
 
     rule space
-      [[:space:]]+
+      [[:space:]]*
     end
 
   end

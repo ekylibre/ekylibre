@@ -52,6 +52,15 @@ module Procedo
       "#{@variable.name}-#{short_name}"
     end
 
+    def destination_unique_name
+      "#{@variable.name}_#{destination}"
+    end
+
+    # Unique identifier for a given handler
+    def uid
+      "#{self.procedure.namespace}-#{procedure.short_name}-#{procedure.flat_version}-#{self.unique_name}"
+    end
+
     def short_name
       if unit?
         "#{@indicator.name}-#{@unit.name}"
@@ -59,6 +68,20 @@ module Procedo
         @indicator.name
       end
     end
+
+    def name
+      if unit?
+        "#{@indicator.name}_#{@unit.name}"
+      else
+        @indicator.name
+      end
+    end
+
+    # Returns other handlers in the current variable scope
+    def others
+      @variable.handlers.select{|h| h != self }
+    end
+
 
     # Returns the human name of the handler
     def human_name
