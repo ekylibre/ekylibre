@@ -58,7 +58,7 @@ load_data :interventions do |loader|
         end
 
         # Adds fixed durations to given time
-        procedure_name = "#{options[:namespace]}:#{procedure_code}-#{options[:version] || '0.0'}"
+        procedure_name = "#{options[:namespace] || Procedo::DEFAULT_NAMESPACE}#{Procedo::NAMESPACE_SEPARATOR}#{procedure_code}#{Procedo::VERSION_SEPARATOR}#{options[:version] || '0.0'}"
         unless procedure = Procedo[procedure_name]
           raise ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
         end

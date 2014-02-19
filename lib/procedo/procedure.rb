@@ -6,12 +6,13 @@ module Procedo
     attr_reader :id, :short_name, :namespace, :operations, :natures, :parent, :position, :variables, :variable_names, :version
 
     def initialize(element, options = {})
-      short_name = element.attr("name").to_s.split(NS_SEPARATOR)
+      short_name = element.attr("name").to_s.split(NAMESPACE_SEPARATOR)
       if short_name.size == 2
         @namespace = short_name.shift.to_sym
       elsif short_name.size != 1
-        raise ArgumentError.new("Bad name of procedure: #{element.attr("name").to_s.inspect}")
+        raise ArgumentError, "Bad name of procedure: #{element.attr("name").to_s.inspect}"
       end
+      @namespace = DEFAULT_NAMESPACE if @namespace.blank?
       @short_name = short_name.shift.to_s.to_sym
       @required = (element.attr('required').to_s == "true" ? true : false)
       @parent = options[:parent] if options[:parent]
@@ -93,11 +94,11 @@ module Procedo
     end
 
     def not_so_short_name
-      namespace.to_s + ":" + short_name.to_s
+      namespace.to_s + NAMESPACE_SEPARATOR + short_name.to_s
     end
 
     def name
-      not_so_short_name + "-" + self.version.to_s
+      not_so_short_name + VERSION_SEPARATOR + self.version.to_s
     end
     alias :uid :name
 
@@ -113,12 +114,9 @@ module Procedo
 
     # Returns human_name of the procedure
     def human_name
-      path, default = "procedures.#{short_name}".to_sym, []
-      if namespace
-        default << path
-        default << "labels.procedures.#{not_so_short_name}".to_sym
-        path = "procedure.#{not_so_short_name}"
-      end
+      path, default = "procedures.#{not_so_short_name}".to_sym, []
+      default << "procedures.#{short_name}".to_sym
+      default << "labels.procedures.#{not_so_short_name}".to_sym
       default << "labels.procedures.#{short_name}".to_sym
       default << "labels.#{short_name}".to_sym
       default << short_name.to_s.humanize

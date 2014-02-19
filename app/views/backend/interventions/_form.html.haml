@@ -23,6 +23,8 @@
       = v.input :reference_name, as: :hidden
       - if reference.new?
         = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
+          - for need in reference.needs
+            = v.input_field(need)
           .handlers
             - for handler in reference.handlers
               .handler

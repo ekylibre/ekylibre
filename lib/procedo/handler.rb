@@ -2,20 +2,27 @@ module Procedo
   class Handler
 
     @@method_parser = ::Procedo::HandlerMethodParser.new
+    @@whole_indicators = Nomen::Indicators.where(related_to: :whole).collect{|i| i.name.to_sym }
 
-    attr_reader :unit, :indicator
+    attr_reader :unit, :indicator, :destination
 
     def initialize(variable, element = nil)
       @variable = variable
       # Extract attributes from XML element
       unless element.is_a?(Hash)
-        element = %w(method indicator unit).inject({}) do |hash, attr|
+        element = %w(method indicator unit to).inject({}) do |hash, attr|
           if element.has_attribute?(attr)
             hash[attr.to_sym] = element.attr(attr)
           end
           hash
         end
       end
+      element[:to] ||= element[:indicator]
+      element[:to] = element[:to].to_sym
+      unless @@whole_indicators.include?(element[:to])
+        raise InvalidHandler, "Handler must have a valid destination (#{@@whole_indicators.to_sentence} expected, got #{element[:to]})"
+      end
+      @destination = element[:to]
       # Load values
       @method = @@method_parser.parse(element[:method].to_s)
       unless @indicator = Nomen::Indicators[element[:indicator]]

@@ -30,7 +30,9 @@ module Procedo
   end
 
   XMLNS = "http://www.ekylibre.org/XML/2013/procedures".freeze
-  NS_SEPARATOR = "-"
+  DEFAULT_NAMESPACE = 'base'
+  NAMESPACE_SEPARATOR = '-'
+  VERSION_SEPARATOR = NAMESPACE_SEPARATOR
 
   autoload :Procedure,           'procedo/procedure'
   autoload :Variable,            'procedo/variable'

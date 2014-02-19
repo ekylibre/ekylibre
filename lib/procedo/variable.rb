@@ -18,9 +18,13 @@ module Procedo
       end
       @default_name = element.attr("default-name").to_s
       # Handlers
-      @handlers = []
-      element.xpath('xmlns:handler').each do |handler|
-        @handlers << Handler.new(self, handler)
+      @handlers, @needs = [], []
+      element.xpath('xmlns:handler').each do |el|
+        handler = Handler.new(self, el)
+        @handlers << handler
+        unless @needs.include?(handler.destination)
+          @needs << handler.destination
+        end
       end
       hnames = @handlers.map(&:short_name)
       if hnames.size != hnames.uniq.size
