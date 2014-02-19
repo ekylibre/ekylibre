@@ -25,7 +25,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks', '~> 2.2.1'
+gem 'turbolinks' # , '~> 2.2.1'
 gem 'jquery-turbolinks'
 
 # jQuery UI Javascript framework
@@ -55,9 +55,6 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
-# Use backup system
-gem 'backup'
 
 # General
 gem 'exception_notification'

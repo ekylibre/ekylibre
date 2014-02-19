@@ -1,5 +1,4 @@
 module Ekylibre
-  # autoload :Backup,    'ekylibre/backup'
   autoload :Export,    'ekylibre/export'
   autoload :FirstRun,  'ekylibre/first_run'
   autoload :Modules,   'ekylibre/modules'
