@@ -18,7 +18,7 @@ load_data :deliveries do |loader|
 
 
   # @TODO refactorize to make import for n entities
-  file = loader.path("kazeni", "appros.csv")
+  file = loader.path("charentes_alliance", "appros.csv")
   if file.exist?
 
     cooperative = Entity.find_by_last_name("Kazeni")

@@ -2,6 +2,7 @@ currency: EUR
 country: fr
 language: fra
 map_measure_srid: 2154
+demo: true
 company:
   last_name: GAEC DUPONT
   addresses:
@@ -53,7 +54,7 @@ net_services:
   telepac:
     pacage_number: toto
     password: 12345
-  synel17:
+  synel:
     synel_username: 17387001
     password: 12345
   lilco:

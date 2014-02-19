@@ -18,7 +18,7 @@ load_data :base do |loader|
   end
 
   # Company entity
-  company_picture = loader.path("alamano", "company", "picture.jpg")
+  company_picture = loader.path("alamano", "logo.jpeg")
   f = company_picture.exist? ? File.open(company_picture) : nil
   attributes = {language: language, currency: currency, nature: "company", last_name: "Ekylibre"}.merge(loader.manifest[:company].select{|k,v| ![:addresses].include?(k) }).merge(of_company: true, picture: f)
   company = LegalEntity.create!(attributes)

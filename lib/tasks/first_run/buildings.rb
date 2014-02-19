@@ -6,7 +6,7 @@ load_data :buildings do |loader|
   LandParcel.create!(:variant_id => land_parcel_variant.id, :work_number => "LP00",
                      :name => "Parcelle par défault", :initial_born_at => Time.new(1995, 1, 1, 10, 0, 0, "+00:00"), :initial_owner => Entity.of_company, :default_storage => nil)
 
-  path = loader.path("alamano", "zones", "zones.csv")
+  path = loader.path("alamano", "zones.csv")
   if path.exist?
     born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
     default_place = LandParcel.first

@@ -57,7 +57,7 @@ load_data :entities do |loader|
 
 
 
-  file = loader.path("alamano", "entities", "entities.csv")
+  file = loader.path("alamano", "entities.csv")
   if file.exist?
     loader.count :associates do |w|
 
@@ -104,7 +104,7 @@ load_data :entities do |loader|
       if r.link_nature
         person.is_linked_to!(Entity.of_company, as: r.link_nature)
       end
-      if r.file_code_prefix and picture = loader.path("entities", "pictures", r.file_code_prefix + ".gif")
+      if r.file_code_prefix and picture = loader.path("alamano", "entities_pictures", r.file_code_prefix + ".gif")
         f = File.open(picture) rescue nil
         person.picture = f
         person.save!
