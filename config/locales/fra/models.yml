@@ -241,7 +241,7 @@ fra:
       account_balance: "Balance de compte"
       activity: "Activité"
       affair: "Affaire"
-      # analysis: "Analysis"
+      analysis: "Analyse"
       # analysis_item: "Analysis item"
       analytic_distribution: "Répartition analytique"
       animal: "Animal"
@@ -417,8 +417,8 @@ fra:
     allocation_account: "Compte de dotation"
     amount: "Montant"
     amounts_scale: "Nombre de chiffres après le virgule" #?
-    # analyser: "Analyser"
-    # analyses: "Analyses"
+    analyser: "Analyseur"
+    analyses: "Analyses"
     analysis: "Analyses"
     annotation: "Annotation"
     archived_at: "Archivé le"
@@ -536,7 +536,7 @@ fra:
     country: "Pays"
     created_at: "Date de création"
     creator: "Créateur"
-    # creator_name: "Creator name"
+    creator_name: "Nom du créateur"
     credit: "Crédit"
     credit_lines: "Lignes d’avoir" #?
     # credited_item: "Credited item"
@@ -544,7 +544,7 @@ fra:
     credits: "Avoirs"
     critic_quantity_min: "Quantité minimum critique" #?
     critic_stocks: "Stocks critiques" #?
-    # cultivable_zones: "Cultivable zones"
+    cultivable_zones: "Zones cultivables"
     # cumulated_absolute_credit: "Cumulated absolute credit"
     # cumulated_absolute_debit: "Cumulated absolute debit"
     currency: "Devise"
@@ -579,7 +579,7 @@ fra:
     deduction_taxes: "TVA déductible" #?
     default_mail_address: "Adresse email par défaut"
     default_storage: "Emplacement par défaut"
-    # default_variant: "Default variant"
+    default_variant: "Variant par défault"
     deferred_payment: "Crédit à reporter" #?
     deleted_at: "Supprimé le"
     deliverable: "Livrable" #?
@@ -641,7 +641,7 @@ fra:
     encrypted_password: "Mot de passe crypté"
     end_junction: "End junction" #?
     end_way: "End way" #?
-    # enjoyer: "Enjoyer"
+    enjoyer: "Usufruitier"
     enjoyments: "Enjoyments"
     entity: "Personne"
     entity_1: "Personne 1"
@@ -657,7 +657,7 @@ fra:
     # entry_number: "Entry number"
     establishment: "Établissement"
     event: "Évènement"
-    # events: "Events"
+    events: "Évènements"
     # evolvable: "Evolvable"
     exclusive: "Exclusif"
     execution_number: "N° d’exécution"
@@ -698,9 +698,9 @@ fra:
     frozen_indicators_list: "Frozen indicators list"
     full_name: "Nom complet"
     function_title: "Civilités"
-    # gap: "Gap"
-    # gaps: "Gaps"
-    # geolocation: "Geolocation"
+    gap: "Ecart"
+    gaps: "Ecarts"
+    geolocation: "Géolocalisation"
     geometry_value: "Geometry value"
     global_balance: "Solde global"
     global_count: "Population globale"
@@ -716,7 +716,7 @@ fra:
     iban: "IBAN"
     id: "ID"
     identification_number: "Numéro d’identification"
-    # identifiers: "Identifiers"
+    identifiers: "Identifiants"
     importance: "Importance"
     in_cash: "En espèce" #?
     included: "Incluse"
@@ -802,7 +802,7 @@ fra:
     lock_version: "Version"
     locked: "Verrouillé"
     locked_at: "Verrouillé à"
-    # made_at: "Made at"
+    made_at: "Fait le"
     mail: "E-mail"
     mail_addresses: "Adresses postales"
     mail_auto_update: "Mettre à jour l’adresse automatiquement"
@@ -1048,8 +1048,8 @@ fra:
     sales: "Ventes"
     sales_conditions: "Conditions Générales de Vente"
     sales_invoices: "Factures"
-    # sampled_at: "Sampled at"
-    # sampler: "Sampler"
+    sampled_at: "Prélevé le"
+    sampler: "Préleveur"
     scheduled: "Encaissement programmé"
     sender: "Expéditeur"
     sent_at: "Expédié le"
