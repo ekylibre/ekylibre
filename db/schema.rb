@@ -119,6 +119,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "analyses", force: true do |t|
     t.string   "number",                                                             null: false
+    t.string   "nature",                                                             null: false
     t.string   "reference_number"
     t.integer  "product_id"
     t.integer  "sampler_id"
@@ -137,6 +138,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "analyses", ["analyser_id"], :name => "index_analyses_on_analyser_id"
   add_index "analyses", ["created_at"], :name => "index_analyses_on_created_at"
   add_index "analyses", ["creator_id"], :name => "index_analyses_on_creator_id"
+  add_index "analyses", ["nature"], :name => "index_analyses_on_nature"
   add_index "analyses", ["number"], :name => "index_analyses_on_number"
   add_index "analyses", ["product_id"], :name => "index_analyses_on_product_id"
   add_index "analyses", ["reference_number"], :name => "index_analyses_on_reference_number"
@@ -146,6 +148,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "analysis_items", force: true do |t|
     t.integer  "analysis_id",                                                                                                    null: false
+    t.datetime "read_at",                                                                                                        null: false
     t.string   "indicator_name",                                                                                                 null: false
     t.string   "indicator_datatype",                                                                                             null: false
     t.decimal  "absolute_measure_value_value",                                          precision: 19, scale: 4
@@ -171,6 +174,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "analysis_items", ["created_at"], :name => "index_analysis_items_on_created_at"
   add_index "analysis_items", ["creator_id"], :name => "index_analysis_items_on_creator_id"
   add_index "analysis_items", ["indicator_name"], :name => "index_analysis_items_on_indicator_name"
+  add_index "analysis_items", ["read_at"], :name => "index_analysis_items_on_read_at"
   add_index "analysis_items", ["updated_at"], :name => "index_analysis_items_on_updated_at"
   add_index "analysis_items", ["updater_id"], :name => "index_analysis_items_on_updater_id"
 

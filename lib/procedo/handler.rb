@@ -34,19 +34,19 @@ module Procedo
     class IndividualReading < Base
       def to_hash
         {individual_reading: [elements[0].to_hash, elements[1].to_hash]}
-      end      
+      end
     end
 
     class WholeReading < Base
       def to_hash
         {whole_reading: [elements[0].to_hash, elements[1].to_hash]}
-      end      
+      end
     end
 
     class Variable < Base
       def to_hash
         self.text_value.to_sym
-      end      
+      end
     end
 
     class Indicator < Base
@@ -91,7 +91,7 @@ module Procedo
       end
 
     end
-    
+
   end
 
   class Handler

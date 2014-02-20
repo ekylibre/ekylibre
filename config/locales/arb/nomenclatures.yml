@@ -277,6 +277,15 @@ arb:
         # vegetal_crops: "Production végétale"
         # vine_wine: "Vigne et vin"
       # name: "Familles d’activité"
+    analysis_natures:
+      attributes:
+        # items: "Items"
+        # target_derivative_of: "Derivé de la cible"
+        # target_variety: "Variété de la cible"
+      choices: #?
+      items:
+        # cow_milk_analysis: "Analyse de lait de vache"
+      # name: "Type d'analyse"
     animal_life_states:
       items:
         # aging: "Adulte"
@@ -1796,7 +1805,7 @@ arb:
         # calf: "Veau"
         # cattle_herd: "Troupeau de bovins"
         # cereal_crop: "Culture de céréales"
-        # chemical_fertilizer: "Engrais chimique"
+        # chemical_fertilizer: "Engrais minéral"
         # complete_sower: "Semoir équipé"
         # crop: "Culture"
         # cultivable_zone: "Zone cultivable"
@@ -2116,7 +2125,7 @@ arb:
         # carmenere_noir: "Carménère noir"
         # champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)"
         # chardonnay: "Chardonnay"
-        # chemical_fertilizer: "Engrais chimique"
+        # chemical_fertilizer: "Engrais minéral"
         # chesnut_red_soil: "Terres rouges à châtaigniers"
         # cichorium: "Chicoré"
         # clay_limestone_soil: "Sol argilo-calcaire (Groies)"

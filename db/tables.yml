@@ -80,6 +80,7 @@ analyses:
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   made_at: {type: datetime}
+  nature: {type: string, required: true}
   number: {type: string, required: true}
   product_id: {type: integer, references: product}
   reference_number: {type: string}

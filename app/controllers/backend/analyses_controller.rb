@@ -25,6 +25,7 @@ class Backend::AnalysesController < BackendController
   list do |t|
     t.column :number, url: true
     t.column :reference_number, url: true
+    t.column :nature
     t.column :product, url: true
     t.column :analyser, url: true
     t.column :made_at
@@ -33,7 +34,7 @@ class Backend::AnalysesController < BackendController
   end
 
   list :items, model: :analysis_items, conditions: {analysis_id: 'params[:id]'.c} do |t|
-    t.column :indicator
+    t.column :indicator_name
     t.column :value
     t.column :annotation
   end

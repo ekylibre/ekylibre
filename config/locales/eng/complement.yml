@@ -5,6 +5,8 @@ eng:
   enumerize:
     activity:
 
+    analysis:
+
     animal:
       variety:
         animal: "Animal"
