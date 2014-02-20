@@ -1,22 +1,14 @@
 module Procedo
 
   module HandlerMethod
+
     class Base < Treetop::Runtime::SyntaxNode
-      def to_hash
-        self
-      end
     end
 
     class Expression < Base
-      def to_hash
-        self.elements[0].to_hash
-      end
     end
 
     class Operation < Base
-      def to_hash
-        {self.class.name.underscore.split('/').last.to_sym => {head: self.elements[0].to_hash, operand: self.elements[1].to_hash}}
-      end
     end
 
     class Multiplication < Operation
@@ -31,55 +23,48 @@ module Procedo
     class Substraction < Operation
     end
 
-    class IndividualReading < Base
-      def to_hash
-        {individual_reading: [elements[0].to_hash, elements[1].to_hash]}
-      end      
+    class Reading < Base
     end
 
-    class WholeReading < Base
-      def to_hash
-        {whole_reading: [elements[0].to_hash, elements[1].to_hash]}
-      end      
+    class MeasureReading < Reading
+    end
+
+    class IndividualReading < Reading
+    end
+
+    class WholeReading < Reading
+    end
+
+    class IndividualMeasureReading < MeasureReading
+    end
+
+    class WholeMeasureReading < MeasureReading
     end
 
     class Variable < Base
-      def to_hash
-        self.text_value.to_sym
-      end      
     end
 
     class Indicator < Base
-      def to_hash
-        Nomen::Indicators[self.text_value]
-      end
+    end
+
+    class Unit < Base
     end
 
     class Self < Base
-      def to_hash
-        :self
-      end
     end
 
-    class Number < Base
-      def to_hash
-        self.text_value.to_d
-      end
+    class Numeric < Base
     end
 
     class Value < Base
-      def to_hash
-        :value
-      end
     end
 
     class << self
 
       def parse(text)
         @@parser ||= ::Procedo::HandlerMethodParser.new
-        if tree = @@parser.parse(text.to_s)
-          clean_tree(tree)
-          tree = tree.to_hash
+        unless tree = @@parser.parse(text.to_s)
+          raise SyntaxError, "Parse error at offset #{@@parser.index} in #{text.to_s.inspect}"
         end
         return tree
       end
@@ -91,20 +76,20 @@ module Procedo
       end
 
     end
-    
+
   end
 
   class Handler
 
     @@whole_indicators = Nomen::Indicators.where(related_to: :whole).collect{|i| i.name.to_sym }
 
-    attr_reader :unit, :indicator, :destination, :method_tree
+    attr_reader :unit, :indicator, :destination, :forward_tree, :backward_tree
 
     def initialize(variable, element = nil)
       @variable = variable
       # Extract attributes from XML element
       unless element.is_a?(Hash)
-        element = %w(method indicator unit to).inject({}) do |hash, attr|
+        element = %w(forward backward indicator unit to datatype).inject({}) do |hash, attr|
           if element.has_attribute?(attr)
             hash[attr.to_sym] = element.attr(attr)
           end
@@ -116,9 +101,20 @@ module Procedo
       unless @@whole_indicators.include?(element[:to])
         raise InvalidHandler, "Handler must have a valid destination (#{@@whole_indicators.to_sentence} expected, got #{element[:to]})"
       end
+      element[:forward]  = "value" if element[:forward].blank?
+      element[:backward] = "value" if element[:backward].blank?
       @destination = element[:to]
       # Load values
-      @method_tree = HandlerMethod.parse(element[:method].to_s)
+      begin
+        @forward_tree = HandlerMethod.parse(element[:forward].to_s)
+      rescue SyntaxError => e
+        raise SyntaxError, "A procedure handler (#{element.inspect}) #{variable.procedure.name} has a syntax error on forward formula: #{e.message}"
+      end
+      begin
+        @backward_tree = HandlerMethod.parse(element[:backward].to_s)
+      rescue SyntaxError => e
+        raise SyntaxError, "A procedure handler (#{element.inspect}) #{variable.procedure.name} has a syntax error on backward formula: #{e.message}"
+      end
 
       unless @indicator = Nomen::Indicators[element[:indicator]]
         raise InvalidHandler, "Handler must have a valid 'indicator' attribute. Got: #{element[:indicator].inspect}"
@@ -154,6 +150,10 @@ module Procedo
     # Unique identifier for a given handler
     def uid
       "#{self.procedure.namespace}-#{procedure.short_name}-#{procedure.flat_version}-#{self.unique_name}"
+    end
+
+    def datatype
+      @indicator.datatype
     end
 
     def short_name

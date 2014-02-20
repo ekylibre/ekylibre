@@ -24,7 +24,7 @@
       - if reference.new?
         = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
           - for need in reference.needs
-            = v.input_field(need, as: :hidden, input_html: {data: {variable_destination: "#{variable.name}_#{need}"}})
+            = v.input_field(need, as: :hidden, data: {variable_destination: "#{reference.name}_#{need}"})
           .handlers
             - for handler in reference.handlers
               .handler

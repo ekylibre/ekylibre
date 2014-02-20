@@ -33,7 +33,7 @@ module Procedo
       if @handlers.empty?
         @needs = element.attr("need").to_s.split(/\s*\,\s*/).map(&:to_sym)
         for need in @needs
-          @handlers << Handler.new(self, indicator: need, method: "value")
+          @handlers << Handler.new(self, indicator: need)
         end
       end
       @value = element.attr("value").to_s

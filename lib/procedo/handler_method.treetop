@@ -18,23 +18,27 @@ module Procedo
     end
 
     rule primary
-      value / number / reading / "(" space? expression space? ")" <Expression>
-    end
-
-    rule space
-      " "*
+      value / numeric / reading / "(" space? expression space? ")" <Expression>
     end
 
     rule reading
-      individual_reading / whole_reading
+      individual_measure_reading / individual_reading / whole_measure_reading / whole_reading
+    end
+
+    rule individual_measure_reading
+      actor ".." indicator "(" unit ")" <IndividualMeasureReading>
+    end
+
+    rule whole_measure_reading
+      actor "." indicator "(" unit ")" <WholeMeasureReading>
     end
 
     rule individual_reading
-      actor '::' indicator <IndividualReading>
+      actor ".." indicator <IndividualReading>
     end
 
     rule whole_reading
-      actor '.' indicator <WholeReading>
+      actor "." indicator <WholeReading>
     end
 
     rule actor
@@ -49,8 +53,16 @@ module Procedo
       [a-z] [a-z0-9]* ('_' [a-z0-9]+)* <Indicator>
     end
 
-    rule number
-      ('.' [0-9]+) <Number> / ([1-9] [0-9]* / '0') ('.' [0-9]+)? <Number>
+    rule unit
+      [a-z] [a-z0-9]* ('_' [a-z0-9]+)* <Unit>
+    end
+
+    rule numeric
+      ([1-9] [0-9]* / '0') ('.' [0-9]+)? <Numeric>
+    end
+
+    rule space
+      [\s\n]*
     end
 
     rule self
