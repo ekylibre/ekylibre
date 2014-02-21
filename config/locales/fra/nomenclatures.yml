@@ -2065,7 +2065,7 @@ fra:
         carmenere_noir: "Carménère noir"                   # vitis_vinifera
         champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)" # land_parcel
         chardonnay: "Chardonnay"                           # vitis_vinifera
-        chemical_fertilizer: "Engrais minéral"            # mineral_matter
+        chemical_fertilizer: "Engrais minéral"             # mineral_matter
         chesnut_red_soil: "Terres rouges à châtaigniers"   # land_parcel
         cichorium: "Chicoré"                               # asteraceae
         clay_limestone_soil: "Sol argilo-calcaire (Groies)" # land_parcel

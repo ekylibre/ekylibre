@@ -371,6 +371,9 @@ Ekylibre::Application.routes.draw do
     resources :intervention_casts
 
     resources :interventions, concerns: [:list, :unroll] do
+      collection do
+        get :compute
+      end
       member do
         post :run
         get :list_casts

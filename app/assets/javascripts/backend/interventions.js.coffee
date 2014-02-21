@@ -1,50 +1,60 @@
 (($) ->
   'use strict'
-  $.readings =
-    individual: (indicatorName, actor) ->
-      1.0
-
-    whole: (indicatorName, actor) ->
-      1.0
-
-    individualMeasure: (indicatorName, actor, unit) ->
-      1.0
-
-    wholeMeasure: (indicatorName, actor, unit) ->
-      1.0
-
-  class $.Procedure
-    constructor: (@name) ->
-
-    actor: (name) ->
-      new $.Actor(@name, name)
-
-  class $.Actor
-    constructor: (@procedure, @name) ->
-
-    getValue: (indicatorName, options = {}) ->
-      # Find input
-      # Get ID of selected product
-      # If new, only "needed" indicator are available
-      # Cache ?!
-      1.0
-
-    individual: (indicatorName) ->
-      this.getValue(indicatorName, whole: false)
-
-    whole: (indicatorName) ->
-      this.getValue(indicatorName, whole: true)
-
-    individualMeasure: (indicatorName, unit) ->
-      this.getValue(indicatorName, whole: false, unit: unit)
-
-    wholeMeasure: (indicatorName, unit) ->
-      this.getValue(indicatorName, whole: true, unit: unit)
 
   $.procedures =
-    procedure:
-      findActor: (name) ->
-        new $.Actor(name)
+    refresh: (origin) ->
+      # Serialize object
+      procedure = origin.data('procedure')
+      computing = $('*[data-procedure-computing="' + procedure + '"]').first?()
+
+      unless computing.prop('waiting')
+        intervention =
+          procedure: procedure
+          updater: origin.data('intervention-updater')
+          casting: {}
+
+        $('*[data-procedure="' + procedure + '"][data-variable-handler]').each (index) ->
+          element = $(this)
+          intervention.casting[element.data('variable')] ?= {}
+          intervention.casting[element.data('variable')].handlers ?= {}
+          intervention.casting[element.data('variable')].handlers[element.data('variable-handler')] = element.val()
+          true
+
+        $('*[data-procedure="' + procedure + '"][data-variable-destination]').each (index) ->
+          element = $(this)
+          intervention.casting[element.data('variable')] ?= {}
+          intervention.casting[element.data('variable')].destinations ?= {}
+          intervention.casting[element.data('variable')].destinations[element.data('variable-destination')] = element.val()
+          true
+
+        $('*[data-procedure="' + procedure + '"][data-variable-actor]').each (index) ->
+          element = $(this)
+          intervention.casting[element.data('variable')] ?= {}
+          intervention.casting[element.data('variable')].actor = this.hiddenInput.val()
+          true
+
+        $('*[data-procedure="' + procedure + '"][data-variable-variant]').each (index) ->
+          element = $(this)
+          intervention.casting[element.data('variable')] ?= {}
+          intervention.casting[element.data('variable')].variant = this.hiddenInput.val()
+          true
+        # Send to server
+        $.ajax
+          url: computing.val()
+          data: intervention
+          beforeSend: ->
+            computing.prop 'waiting', true
+          success: (data, status, request) ->
+            # Updates elements with new values
+            computing.prop 'waiting', false
+            console.log "Updates other items"
+
+  $(document).on 'keyup', '*[data-variable-handler]', ->
+    $.procedures.refresh($(this))
+
+  $('*[data-variable-actor]').each (index) ->
+    $(this).on 'change', ->
+      $.procedures.refresh($(this))
 
   true
 ) jQuery

@@ -140,7 +140,7 @@ module Procedo
 
     # Returns the unique name of an handler inside a given procedure
     def unique_name
-      "#{@variable.name}-#{short_name}"
+      "#{@variable.name}-#{name}"
     end
 
     def destination_unique_name
@@ -149,24 +149,24 @@ module Procedo
 
     # Unique identifier for a given handler
     def uid
-      "#{self.procedure.namespace}-#{procedure.short_name}-#{procedure.flat_version}-#{self.unique_name}"
+      "#{self.procedure.name}-#{self.unique_name}"
     end
 
     def datatype
       @indicator.datatype
     end
 
-    def short_name
-      if unit?
-        "#{@indicator.name}-#{@unit.name}"
-      else
-        @indicator.name
-      end
-    end
+    # def short_name
+    #   if unit?
+    #     "#{@indicator.name}-#{@unit.name}"
+    #   else
+    #     @indicator.name
+    #   end
+    # end
 
     def name
       if unit?
-        "#{@indicator.name}_#{@unit.name}"
+        "#{@indicator.name}-#{@unit.name}"
       else
         @indicator.name
       end

@@ -381,6 +381,7 @@ eng:
       account_balance: "Account balance"
       activity: "Activity"
       affair: "Affair"
+      # analysis: "Analyse"
       analytic_distribution: "Analytic distribution"
       animal: "Animal"
       animal_diagnostic: "Animal diagnostic" #?
@@ -606,6 +607,8 @@ eng:
     allocation_account: "Allocation account"
     amount: "Amount"
     # amounts_scale: "Nombre de chiffres après le virgule"
+    # analyser: "Analyseur"
+    # analyses: "Analyses"
     # analysis: "Analyses"
     animal: "Animal" #?
     animal_drugs: "Animal drugs" #?
@@ -754,6 +757,7 @@ eng:
     country: "Country"
     created_at: "Created on"
     creator: "Creator"
+    # creator_name: "Nom du créateur"
     credit: "Credit"
     # credit_lines: "Lignes d’avoir"
     credited_quantity: "Credited quantity"
@@ -762,6 +766,7 @@ eng:
     critic_stocks: "Critic stocks"
     crypt_key: "Crypt key" #?
     crypt_mode: "Crypt mode" #?
+    # cultivable_zones: "Zones cultivables"
     currency: "Currency"
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
@@ -802,6 +807,7 @@ eng:
     default_mail_address: "Default mail address"
     default_stock: "Default stock" #?
     # default_storage: "Emplacement par défaut"
+    # default_variant: "Variant par défault"
     deferred_payment: "Deferred payment"
     delays: "Delays" #?
     deleted_at: "Deleted at"
@@ -889,6 +895,7 @@ eng:
     encrypted_password: "Encrypted password"
     # end_junction: "End junction"
     # end_way: "End way"
+    # enjoyer: "Usufruitier"
     # enjoyments: "Enjoyments"
     entities: "People" #?
     entity: "Entity"
@@ -910,7 +917,7 @@ eng:
     establishments: "Establishments" #?
     event: "Event"
     event_natures: "Event types" #?
-    events: "Events" #?
+    events: "Events"
     examinated_at: "Examinated at" #?
     excise: "Excise" #?
     # exclusive: "Exclusif"
@@ -962,7 +969,10 @@ eng:
     full_name_format: "Full name format" #?
     function_title: "Function title"
     future_events: "Future events" #?
+    # gap: "Ecart"
+    # gaps: "Ecarts"
     generated: "Generated" #?
+    # geolocation: "Géolocalisation"
     # geometry_value: "Geometry value"
     global_balance: "Global balance"
     global_count: "Global count"
@@ -981,6 +991,7 @@ eng:
     iban_label: "IBAN" #?
     id: "ID"
     identification_number: "Identification number"
+    # identifiers: "Identifiants"
     immobilizations_products: "Immobilizations products" #?
     importance: "Importance"
     in_cash: "In cash"
@@ -1082,6 +1093,7 @@ eng:
     longitude: "Longitude" #?
     lost: "Lost" #?
     luminance: "Luminance" #?
+    # made_at: "Fait le"
     mail: "Mail"
     # mail_addresses: "Adresses postales"
     mail_auto_update: "Mail auto update"
@@ -1388,6 +1400,8 @@ eng:
     sales_invoices: "Sales invoices"
     sales_products: "Sales products" #?
     salt: "Salt" #?
+    # sampled_at: "Prélevé le"
+    # sampler: "Préleveur"
     scheduled: "Scheduled"
     second_building: "Second building" #?
     second_stock_move: "Second stock move" #?

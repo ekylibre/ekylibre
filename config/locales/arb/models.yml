@@ -818,6 +818,7 @@ arb:
       account_balance: "رصيد الحساب"
       # activity: "Activité"
       # affair: "Affaire"
+      # analysis: "Analyse"
       # analytic_distribution: "Répartition analytique"
       # animal: "Animal"
       # animal_group: "Groupe d’animaux"
@@ -1016,6 +1017,8 @@ arb:
     amount: "القيمة من دون الضرائب"
     amount_with_taxes: "القيمة مع كامل الضرائب" #?
     # amounts_scale: "Nombre de chiffres après le virgule"
+    # analyser: "Analyseur"
+    # analyses: "Analyses"
     # analysis: "Analyses"
     annotation: "ملاحظة"
     # archived_at: "Archivé le"
@@ -1165,6 +1168,7 @@ arb:
     created_at: "انشأ يوم"
     creator: "المنتج"
     creator_id: "المنتج" #?
+    # creator_name: "Nom du créateur"
     credit: "الائتمان"
     credit_items: "اساليب الائتمانات" #?
     # credit_lines: "Lignes d’avoir"
@@ -1174,6 +1178,7 @@ arb:
     # critic_stocks: "Stocks critiques"
     crypt_key: "مفتاح التشفير" #?
     crypt_mode: "طؤيقة التشفير" #?
+    # cultivable_zones: "Zones cultivables"
     currencies: "العملات" #?
     currency: "عملة"
     # currency_precision: "Nombre de décimales"
@@ -1214,6 +1219,7 @@ arb:
     default_currency: "العملة الافتراضية" #?
     # default_mail_address: "Adresse email par défaut"
     # default_storage: "Emplacement par défaut"
+    # default_variant: "Variant par défault"
     deferred_payment: "ائتمان معلق"
     delays: "تأخير" #?
     deleted_at: "الغيه في"
@@ -1298,6 +1304,7 @@ arb:
     # encrypted_password: "Mot de passe crypté"
     # end_junction: "End junction"
     # end_way: "End way"
+    # enjoyer: "Usufruitier"
     # enjoyments: "Enjoyments"
     entities: "الافراد" #?
     entity: "الفرد"
@@ -1324,7 +1331,7 @@ arb:
     establishments: "المؤسسات" #?
     # event: "Évènement"
     event_natures: "نوع الحدث" #?
-    events: "الاحداث" #?
+    events: "الاحداث"
     excise: "عدد رسوم الدفع" #?
     # exclusive: "Exclusif"
     # execution_number: "N° d’exécution"
@@ -1377,7 +1384,10 @@ arb:
     full_name_format: "التصميم" #?
     function_title: "الكياسة"
     future_events: "احداث المستقبل" #?
+    # gap: "Ecart"
+    # gaps: "Ecarts"
     generated: "ولدت" #?
+    # geolocation: "Géolocalisation"
     # geometry_value: "Geometry value"
     global_balance: "الرصيد العالمي"
     global_count: "مجموع السكان"
@@ -1396,6 +1406,7 @@ arb:
     iban_label: "IBAN" #?
     id: "ID"
     # identification_number: "Numéro d’identification"
+    # identifiers: "Identifiants"
     immobilizations_account_id: "الحساب الساكن" #?
     importance: "ذو شأن"
     # in_cash: "En espèce"
@@ -1503,6 +1514,7 @@ arb:
     # locked_at: "Verrouillé à"
     longitude: "خطوط الطول" #?
     lost: "الضائع" #?
+    # made_at: "Fait le"
     mail: "البريد الالكتروني"
     # mail_addresses: "Adresses postales"
     # mail_auto_update: "Mettre à jour l’adresse automatiquement"
@@ -1806,6 +1818,8 @@ arb:
     sales_invoices: "الفواتير"
     sales_invoices_count: "عدد الفواتير" #?
     salt: "الملح" #?
+    # sampled_at: "Prélevé le"
+    # sampler: "Préleveur"
     scheduled: "الدفعة المبرمجة"
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?

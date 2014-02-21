@@ -26,7 +26,7 @@ module Procedo
           @needs << handler.destination
         end
       end
-      hnames = @handlers.map(&:short_name)
+      hnames = @handlers.map(&:name)
       if hnames.size != hnames.uniq.size
         raise StandardError, "Duplicated handlers in #{@procedure.name}##{@name}"
       end
@@ -74,6 +74,11 @@ module Procedo
     #
     def handled?
       @handlers.any?
+    end
+
+    # Returns an handler by its name
+    def [](name)
+      @handlers.select{|h| h.name.to_s == name.to_s}
     end
 
     #

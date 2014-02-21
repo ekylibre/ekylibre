@@ -300,6 +300,7 @@
 # - "backend/interfacers#toggle_view_mode"
 # - "backend/interfacers#unroll"
 # - "backend/interfacers#unroll_options"
+# - "backend/interventions#compute"
 # - "backend/inventories#unroll"
 # - "backend/issues#abort"
 # - "backend/issues#close"

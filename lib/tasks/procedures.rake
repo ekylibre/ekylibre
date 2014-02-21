@@ -78,10 +78,32 @@ namespace :procedures do
     script << "(($) ->\n"
     script << "  'use strict'\n"
 
-    events = ""
 
+    script << "  $.procedures ?= {}\n"
+    script << "  $.procedures.list ?= {}\n"
+
+    for procedure in Procedo.list.values
+      script << "  $.procedures.list['#{procedure.name}'] = new $.Procedure '#{procedure.name}',\n"
+      script << "    namespace: '#{procedure.namespace}'\n"
+      script << "    shortName: '#{procedure.short_name}'\n"
+      script << "    version: '#{procedure.version}'\n"
+      script << "    casting:\n"
+      for variable in procedure.variables.values
+        script << "      #{variable.name}:\n"
+        script << "        name: '#{variable.name}'\n"
+        script << "        variety: '#{variable.variety}'\n" if variable.variety
+        script << "        derivative_of: '#{variable.derivative_of}'\n" if variable.derivative_of
+        if variable.handled?
+          script << "        handlers:\n"
+          for handler in variable.handlers
+            script << "          '#{handler.name}': 0\n"
+          end
+        end
+      end
+    end
 
     script << "  $.handlers =\n"
+    events = ""
     torrefactor = Procedures::Torrefactor.new
     for namespace, procedures in Procedo.procedures_tree
       next unless procedures.values.map(&:values).flatten.map(&:handled_variables).flatten.any?
@@ -99,7 +121,7 @@ namespace :procedures do
             path[3] = variable.name.to_s.camelcase(:lower)
             va_script = "#{path[3]}:\n"
             for handler in variable.handlers
-              path[4] = handler.name.to_s.camelcase(:lower)
+              path[4] = handler.name.to_s.underscore.camelcase(:lower)
               hn_script = "#{path[4]}:\n"
 
               events << "$(document).on 'keyup', 'input[data-variable-handler=\"#{handler.uid}\"]', -> $.handlers.#{path.join('.')}.updateOtherHandlers($(this))\n"
@@ -121,14 +143,15 @@ namespace :procedures do
               decls << "self = __procedure__.actor('#{variable.name}')\n"
               local_variables = torrefactor.variables
 
-              puts ("=" * 80).yellow
+              # puts ("=" * 80).yellow
               # puts handler.forward_tree.inspect
-              puts torrefactor.compiled.blue
+              # puts torrefactor.compiled.blue
 
               method  = "# Computations\n"
               method << "#{handler.destination} = #{torrefactor.compiled}\n"
               # Update destination
-              method << "$('input[data-variable-destination=\"#{handler.destination_unique_name}\"]').val(#{handler.destination})\n"
+              # method << "$('input[data-variable-destination=\"#{handler.destination_unique_name}\"]').val(#{handler.destination})\n"
+              method << "self.setDestination('#{handler.destination}', #{handler.destination})\n"
 
               # Update others
               torrefactor.value = handler.destination.to_s
@@ -136,7 +159,8 @@ namespace :procedures do
                 # Compute back calculus from destination to handler
                 torrefactor.compile(h.backward_tree)
                 local_variables += torrefactor.variables
-                method << "$('input[data-variable-handler=\"#{h.uid}\"]').val(#{torrefactor.compiled})\n"
+                # method << "$('input[data-variable-handler=\"#{h.uid}\"]').val(#{torrefactor.compiled})\n"
+                method << "self.setHandler('#{h.name}', #{torrefactor.compiled})\n"
               end
               method << "true\n"
 
@@ -144,7 +168,17 @@ namespace :procedures do
                 # if procedure.variables[var].new?
                 #   raise "You cannot compute on not-created variables... #{var}"
                 # end
-                decls << "#{var} = __procedure__.actor('#{var}')\n"
+                options = {}
+                ref = procedure.variables[var]
+                if ref.new?
+                  options[:new_actor] = true
+                  if ref.parted?
+                    options[:parted] = true
+                    options[:parted_from] = ref.producer_name.to_s
+                  end
+                end
+                options = options.collect{|k, v| "#{k.to_s.camelcase(:lower)}: #{v.inspect}" }.join(", ")
+                decls << "#{var} = __procedure__.actor('#{var}', #{options})\n"
               end
 
               hn_script << ("updateOtherHandlers: (input) ->\n" + decls.dig + method.dig).dig
