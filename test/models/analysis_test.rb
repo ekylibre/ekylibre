@@ -29,6 +29,7 @@
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  made_at          :datetime
+#  nature           :string(255)      not null
 #  number           :string(255)      not null
 #  product_id       :integer
 #  reference_number :string(255)

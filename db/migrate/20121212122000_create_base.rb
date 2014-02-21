@@ -71,6 +71,7 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :analyses do |t|
       t.string     :number,                       null: false
+      t.string     :nature,                       null: false
       t.string     :reference_number
       t.references :product,                                   index: true
       t.references :sampler,                                   index: true
@@ -81,14 +82,17 @@ class CreateBase < ActiveRecord::Migration
       t.datetime   :made_at
       t.stamps
       t.index      :number
+      t.index      :nature
       t.index      :reference_number
     end
 
     create_table :analysis_items do |t|
       t.references :analysis,      null: false, index: true
+      t.datetime   :read_at,       null: false
       t.reading                    null: false, index: true
       t.text       :annotation
       t.stamps
+      t.index      :read_at
     end
 
     create_table :bank_statements do |t|

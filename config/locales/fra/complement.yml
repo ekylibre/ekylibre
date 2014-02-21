@@ -36,6 +36,9 @@ fra:
         straw_cereal_crops: "Céréales à paille"
         vegetal_crops: "Production végétale"
         vine_wine: "Vigne et vin"
+    analysis:
+      nature:
+        cow_milk_analysis: "Analyse de lait de vache"
     animal:
       variety:
         acetal: "Acetal"

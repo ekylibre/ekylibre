@@ -29,6 +29,7 @@
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  made_at          :datetime
+#  nature           :string(255)      not null
 #  number           :string(255)      not null
 #  product_id       :integer
 #  reference_number :string(255)
@@ -39,13 +40,58 @@
 #
 
 class Analysis < Ekylibre::Record::Base
+  enumerize :nature, in: Nomen::AnalysisNatures.all, predicates: true
   belongs_to :analyser, class_name: "Entity"
   belongs_to :sampler, class_name: "Entity"
   belongs_to :product
+  has_many :items, class_name: "AnalysisItem", foreign_key: :analysis_id, inverse_of: :analysis
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :number, :reference_number, allow_nil: true, maximum: 255
-  validates_presence_of :number, :sampled_at
+  validates_length_of :nature, :number, :reference_number, allow_nil: true, maximum: 255
+  validates_presence_of :nature, :number, :sampled_at
   #]VALIDATORS]
 
   acts_as_numbered
+  
+  scope :between, lambda { |started_at, stopped_at|
+    where("sampled_at BETWEEN ? AND ?", started_at, stopped_at)
+  }
+  
+  # Measure a product for a given indicator
+  def read!(indicator, value, options = {})
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
+    if value.nil?
+      raise ArgumentError, "Value must be given"
+    end
+    options[:indicator_name] = indicator.name
+    options[:at] = Time.now unless options.has_key?(:at)
+    unless item = self.items.find_by(indicator_name: indicator.name, read_at: options[:at])
+      item = self.items.build(indicator_name: indicator.name, read_at: options[:at])
+    end
+    item.value = value
+    item.save!
+    return item
+  end
+
+  def get(indicator, *args)
+    unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
+      raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
+    options = args.extract_options!
+    items = self.items.where(indicator_name: indicator.name.to_s)
+    if items.any?
+      return items.first.value
+    end
+    return nil
+  end
+
+  # Returns value of an indicator if its name correspond to
+  def method_missing(method_name, *args)
+    if Nomen::Indicators.all.include?(method_name.to_s)
+      return get(method_name, *args)
+    end
+    return super
+  end
+
 end

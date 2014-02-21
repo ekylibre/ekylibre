@@ -44,7 +44,7 @@
 #  updater_id                   :integer
 #
 class AnalysisItem < Ekylibre::Record::Base
-  include ReadingStorable
+  include ReadingStorable, PeriodicCalculable
   belongs_to :analysis
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
@@ -53,4 +53,13 @@ class AnalysisItem < Ekylibre::Record::Base
   validates_inclusion_of :boolean_value, in: [true, false]
   validates_presence_of :analysis, :indicator_datatype, :indicator_name
   #]VALIDATORS]
+  
+  delegate :sampled_at, to: :analysis
+  
+  calculable period: :month, at: :read_at, column: :measure_value_value
+  
+  scope :between, lambda { |started_at, stopped_at|
+    joins(:analysis).merge(Analysis.between(started_at, stopped_at))
+  }
+  
 end

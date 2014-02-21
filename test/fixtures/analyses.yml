@@ -29,6 +29,7 @@
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
 #  made_at          :datetime
+#  nature           :string(255)      not null
 #  number           :string(255)      not null
 #  product_id       :integer
 #  reference_number :string(255)
@@ -42,6 +43,7 @@
 #
 # analyses_001:
 #   creator: users_001
+#   nature: "Lorem ipsum"
 #   number: "Lorem ipsum"
 #   sampled_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001

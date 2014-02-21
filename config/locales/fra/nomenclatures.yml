@@ -278,6 +278,17 @@ fra:
         straw_cereal_crops: "Céréales à paille"            # vegetal_crops
         vegetal_crops: "Production végétale"
         vine_wine: "Vigne et vin"                          # vegetal_crops
+    analysis_natures:
+      name: "Type d'analyse"
+      attributes:
+        items: "Items"
+        target_derivative_of: "Derivé de la cible"
+        target_variety: "Variété de la cible"
+      choices:
+        # target_derivative_of: # Choices comes from nomenclature: varieties
+        # target_variety: # Choices comes from nomenclature: varieties
+      items:
+        cow_milk_analysis: "Analyse de lait de vache"
     animal_life_states:
       name: "États du dévelopment animal"
       items:
