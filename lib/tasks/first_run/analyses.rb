@@ -84,4 +84,8 @@ load_data :analyses do |loader|
       end
     end
   end
+  
+  # @TODO need a method for each file in a folder like loader.glob('lca/*.csv') do |file|
+  
+  
 end

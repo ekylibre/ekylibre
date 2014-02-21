@@ -39,6 +39,7 @@
 #  measure_value_unit           :string(255)
 #  measure_value_value          :decimal(19, 4)
 #  point_value                  :spatial({:srid=>
+#  read_at                      :datetime         not null
 #  string_value                 :text
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
@@ -52,6 +53,7 @@
 #   creator: users_001
 #   indicator_datatype: "Lorem ipsum"
 #   indicator_name: "Lorem ipsum"
+#   read_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001
 #
 analysis_items_001:

@@ -51,11 +51,11 @@ class Analysis < Ekylibre::Record::Base
   #]VALIDATORS]
 
   acts_as_numbered
-  
+
   scope :between, lambda { |started_at, stopped_at|
     where("sampled_at BETWEEN ? AND ?", started_at, stopped_at)
   }
-  
+
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]

@@ -108,6 +108,7 @@ analysis_items:
   measure_value_unit: {type: string}
   measure_value_value: {type: decimal, precision: 19, scale: 4}
   point_value: {type: spatial}
+  read_at: {type: datetime, required: true}
   string_value: {type: text}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}

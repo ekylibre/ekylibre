@@ -39,6 +39,7 @@
 #  measure_value_unit           :string(255)
 #  measure_value_value          :decimal(19, 4)
 #  point_value                  :spatial({:srid=>
+#  read_at                      :datetime         not null
 #  string_value                 :text
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
@@ -51,15 +52,15 @@ class AnalysisItem < Ekylibre::Record::Base
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
   validates_length_of :absolute_measure_value_unit, :choice_value, :indicator_datatype, :indicator_name, :measure_value_unit, allow_nil: true, maximum: 255
   validates_inclusion_of :boolean_value, in: [true, false]
-  validates_presence_of :analysis, :indicator_datatype, :indicator_name
+  validates_presence_of :analysis, :indicator_datatype, :indicator_name, :read_at
   #]VALIDATORS]
-  
+
   delegate :sampled_at, to: :analysis
-  
+
   calculable period: :month, at: :read_at, column: :measure_value_value
-  
+
   scope :between, lambda { |started_at, stopped_at|
     joins(:analysis).merge(Analysis.between(started_at, stopped_at))
   }
-  
+
 end
