@@ -87,4 +87,27 @@ class Backend::InterventionsController < BackendController
     redirect_to backend_intervention_url(intervention)
   end
 
+  def compute
+    updates = {}
+    if procedure = Procedo[params[:procedure]]
+      # Get updater
+      updater = params[:updater].split(':')
+      variable = procedure.variables[updater.shift]
+      aspect = updater.shift.to_sym
+      # Re-computes dependencies
+      if aspect == :handler
+        handler = variable[updater.shift]
+      elsif aspect == :actor
+      elsif aspect == :variant
+      # elsif aspect == :destination
+      else
+        raise "What?"
+      end
+    end
+    respond_to do |format|
+      format.xml  { render xml: updates.to_xml }
+      format.json { render xml: updates.to_json }
+    end
+  end
+
 end

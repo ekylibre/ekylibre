@@ -15,6 +15,7 @@
     = f.referenced_association :recommender
 
   = field_set :casting do
+    = hidden_field_tag nil, compute_backend_interventions_url(format: :json), data: {procedure_computing: procedure.name}
     - if f.object.new_record? and f.object.casts.empty?
       - for name, variable in procedure.variables
         - f.object.casts.new(reference_name: name)
@@ -24,19 +25,19 @@
       - if reference.new?
         = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
           - for need in reference.needs
-            = v.input_field(need, as: :hidden, input_html: {data: {variable_destination: "#{variable.name}_#{need}"}})
+            = v.input_field(need, as: :hidden, data: {procedure: procedure.name, variable: reference.name, variable_destination: need})
           .handlers
             - for handler in reference.handlers
               .handler
                 .title= handler.indicator.human_name
                 .value
-                  = number_field_tag(nil, nil, data: {variable_handler: handler.uid})
+                  = number_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "#{reference.name}:handler:#{handler.name}"})
                   - if handler.unit?
                     .add-on= handler.unit.symbol
             - unless reference.known_variant?
               .handler.long
                 .title= InterventionCast.human_attribute_name(:variant)
-                .value= v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}
+                .value= v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "#{reference.name}:variant"}}
           -#
             - if reference.need_population?
               = v.input_field :population
@@ -46,7 +47,7 @@
             -# if reference.need_shape?
               = v.shape_field # shadow: self.shadow_shape
       - else
-        = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}
+        = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "#{reference.name}:actor"}}
 
   -# field_set :operations do
     - if f.object.operations.empty? or f.object.new_record?

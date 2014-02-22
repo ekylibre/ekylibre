@@ -5,11 +5,26 @@
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="germinate"/>
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" need="population">
 	<handler indicator="population" />
-        <handler indicator="net_mass"            unit="kilogram"               method="value / self::net_mass" to="population" /> <!-- kg    -->
-        <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   method="(value * cultivation.net_surface_area) / self::net_mass" to="population"/> <!-- kg/ha -->
-        <handler indicator="grains_area_density" unit="unity_per_square_meter" method="(((value * self.thousand_grains_mass) / 1000) * cultivation.net_surface_area) / self::net_mass" to="population" /> <!--  u/m² -->
-        <handler indicator="grains_area_density" unit="thousand_per_hectare"   method="(((value * self.thousand_grains_mass) / 1000) * cultivation.net_surface_area) / self::net_mass" to="population" /> <!--  M/ha -->
-        <handler indicator="grains_count"        unit="thousand"               method="((value * self.thousand_grains_mass) / 1000) / self::net_mass" to="population" /> <!--  M    -->
+        <handler indicator="net_mass"            unit="kilogram"               to="population"
+                 forward="value / self..net_mass(kilogram)"
+                 backward="value * self..net_mass(kilogram)"
+                 /> <!-- kg    -->
+        <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
+                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg/ha -->
+        <handler indicator="grains_area_density" unit="unity_per_square_meter" to="population"
+                 forward="(((value * self.thousand_grains_mass(gram)) / 1000) * cultivation.net_surface_area(square_meter)) / self..net_mass(gram)"
+                 backward="(((value * self..net_mass(gram)) / cultivation.net_surface_area(square_meter)) * 1000) / self.thousand_grains_mass(gram)"
+                 /> <!--  u/m² -->
+        <handler indicator="grains_area_density" unit="thousand_per_hectare"   to="population"
+                 forward="(value * self.thousand_grains_mass(gram) * cultivation.net_surface_area(hectare)) / self..net_mass(gram)"
+                 backward="(value * self..net_mass(gram)) / (cultivation.net_surface_area(hectare) * self.thousand_grains_mass(gram))"
+                 /> <!--  M/ha -->
+        <handler indicator="grains_count"        unit="thousand"               to="population"
+                 forward="(value * self.thousand_grains_mass(gram)) / self..net_mass(gram)"
+                 backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)"
+                 /> <!--  M    -->
       </variable>
       <variable name="sower"        abilities="sow" roles="sowing-tool"/>
       <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer"/>

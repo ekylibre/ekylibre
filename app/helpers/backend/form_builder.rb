@@ -30,9 +30,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
       raise ArgumentError, "Reflection #{reflection.name} must be a belongs_to"
     end
 
-    return self.association(association) if options[:field] == :hidden
+    if (options.delete(:as) || options.delete(:field)) == :hidden
+      return self.association(association)
+    end
 
-    choices = options[:source] || {}
+    choices = options.delete(:source) || {}
     choices = {:scope => choices} if choices.is_a?(Symbol)
     choices[:action] ||= :unroll
     choices[:controller] ||= reflection.class_name.underscore.pluralize
@@ -44,8 +46,10 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     model = @object.class
     input_id = model.name.underscore + "-" + association.to_s + "-input"
 
-    return input(reflection.foreign_key, options.merge(:wrapper => :append, :reflection => reflection)) do
-      self.input_field(reflection.foreign_key, as: :string, 'data-selector' => @template.url_for(choices), :id => input_id, 'data-selector-new-item' => @template.url_for(new_url))
+    html_options = options.delete(:input_html) || {}
+
+    return input(reflection.foreign_key, options.merge(wrapper: :append, reflection: reflection)) do
+      self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), selector_new_item: @template.url_for(new_url)}))
     end
   end
 
@@ -55,9 +59,11 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     raise "Association #{association.inspect} not found" unless reflection
     raise ArgumentError.new("Reflection #{reflection.name} must be a belongs_to") if reflection.macro != :belongs_to
 
-    return self.association(association) if options[:field] == :hidden
+    if (options.delete(:as) || options.delete(:field)) == :hidden
+      return self.association(association)
+    end
 
-    choices = options[:source] || {}
+    choices = options.delete(:source) || {}
     choices = {:scope => choices} if choices.is_a?(Symbol)
     choices[:action] ||= :unroll
     choices[:controller] ||= reflection.class_name.underscore.pluralize
@@ -69,8 +75,9 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     model = @object.class
     input_id = model.name.underscore + "-" + association.to_s + "-input"
 
-    # return input(reflection.foreign_key, options.merge(:wrapper => :append, :reflection => reflection)) do
-    return self.input_field(reflection.foreign_key, as: :string, 'data-selector' => @template.url_for(choices), :id => input_id, 'data-selector-new-item' => @template.url_for(new_url))
+    html_options = options.delete(:input_html) || {}
+
+    return self.input_field(reflection.foreign_key, html_options.deep_merge(as: :string, id: input_id, data: {selector: @template.url_for(choices), selector_new_item: @template.url_for(new_url)}))
   end
 
   # Adds nested association support
@@ -235,7 +242,10 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
     variants = ProductNatureVariant.of_variety(@object.class.name.underscore)
     unless variant = @object.variant || ProductNatureVariant.where(id: @template.params[:variant_id].to_i).first
-      variant = variants.first if variants.count == 1
+      # if variants.count == 1
+      #   variant = variants.first
+      #   @template.params[:variant_id] = variant.id
+      # end
     end
 
     if variant
