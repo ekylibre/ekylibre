@@ -23,6 +23,7 @@
       <item name="pruning" roles="doer, target"/>
       <item name="grinding" roles="input, output, doer, tool"/>
       <item name="growth_control" roles="target"/>
+      <item name="maintenance" roles="target, doer"/>
     </items>
   </nomenclature>
 
@@ -30,6 +31,14 @@
     <items>
       <item name="sowing" roles="input, target, output, doer, tool"/>
       <item name="implant" roles="input, target, output, doer, tool"/>
+    </items>
+  </nomenclature>
+
+  <nomenclature name="procedure_natures-maintenance">
+    <items>
+      <item name="building_maintenance" roles="target, doer"/>
+      <item name="equipment_maintenance" roles="target, doer, input"/>
+      <item name="installation_maintenance" roles="target, doer"/>
     </items>
   </nomenclature>
 

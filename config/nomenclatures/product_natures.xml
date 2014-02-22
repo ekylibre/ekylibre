@@ -475,7 +475,7 @@
             category="equipment"
             variety="tractor"
             population_counting="unitary"
-            abilities="catch(equipment), move, tow(matter)"
+            abilities="catch(equipment), move, tow(matter), consume(oil), consume(fuel)"
             variable_indicators="net_surface_area, motor_power"
             frozen_indicators="population"
             linkage_points="rear, front"
@@ -604,7 +604,7 @@
             category="equipment"
             variety="reaper"
             population_counting="unitary"
-            abilities="harvest(plant)"
+            abilities="harvest(plant), consume(oil), consume(fuel)"
             variable_indicators="application_width"
             frozen_indicators="population"
             />
@@ -612,7 +612,7 @@
             category="equipment"
             variety="reaper"
             population_counting="unitary"
-            abilities="harvest(vitis)"
+            abilities="harvest(vitis), consume(oil), consume(fuel)"
             variable_indicators="application_width"
             frozen_indicators="population"
             />
@@ -620,7 +620,7 @@
             category="equipment"
             variety="forager"
             population_counting="unitary"
-            abilities="harvest(plant)"
+            abilities="harvest(plant), consume(oil), consume(fuel)"
             variable_indicators="application_width"
             frozen_indicators="population"
             />
@@ -632,11 +632,21 @@
             variable_indicators=""
             frozen_indicators="population"
             />
+
+      <!-- WORKERS -->
       <item name="technician"
             category="worker"
             variety="worker"
             population_counting="unitary"
-            abilities="drive(equipment), move, milk(mammalia)"
+            abilities="drive(equipment), move, milk(mammalia), repair(equipment)"
+            variable_indicators=""
+            frozen_indicators="population"
+            />
+      <item name="mechanic"
+            category="worker"
+            variety="worker"
+            population_counting="unitary"
+            abilities="drive(equipment), move, repair(equipment)"
             variable_indicators=""
             frozen_indicators="population"
             />
@@ -695,6 +705,30 @@
             abilities=""
             variable_indicators="population"
             frozen_indicators="energy, net_volume, net_mass"
+            />
+         <item name="motor_oil"
+            category="fuel"
+            variety="oil"
+            population_counting="decimal"
+            abilities="lubricate(tractor), lubricate(forager), lubricate(harvester)"
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_mass"
+            />
+         <item name="hydraulic_oil"
+            category="fuel"
+            variety="oil"
+            population_counting="decimal"
+            abilities="lubricate(equipment)"
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_mass"
+            />
+         <item name="mechanic_item"
+            category="small_equipment"
+            variety="item"
+            population_counting="integer"
+            abilities="make_up(equipment)"
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_mass"
             />
     </items>
 

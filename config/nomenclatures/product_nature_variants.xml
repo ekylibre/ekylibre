@@ -1268,6 +1268,21 @@
             unit_name="liter"
             frozen_indicators_values="energy: 9.85kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram"
             />
+       <item name="motor_oil"
+            nature="motor_oil"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1liter, net_mass: 0.8kilogram"
+            />
+       <item name="hydraulic_oil"
+            nature="hydraulic_oil"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1liter, net_mass: 0.8kilogram"
+            />
+       <item name="bolt"
+            nature="mechanic_item"
+            unit_name="unit"
+            frozen_indicators_values="net_volume: 40milliliter, net_mass: 40gram"
+            />
 
       <!-- Coop variants -->
             <!-- SEED -->

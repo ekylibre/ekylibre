@@ -18,6 +18,7 @@
       <item name="fruit" derivative_of="plant"/>
       <item name="gas"/>
       <item name="fuel"/>
+      <item name="oil"/>
     </items>
   </nomenclature>
 </nomenclatures>

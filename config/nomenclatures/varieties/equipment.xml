@@ -12,6 +12,7 @@
       <item name="pruner"/>
       <item name="mower"/>
       <item name="baler"/>
+      <item name="item"/>
       <item name="spreader"/>
       <item name="sprayer"/>
       <item name="reaper"/>

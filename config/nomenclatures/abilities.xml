@@ -45,6 +45,10 @@
       <item name="milk" parameters="variety"/>
       <item name="tow" parameters="variety"/>
       <item name="cut"/>
+
+      <item name="make_up" parameters="variety"/>
+      <item name="repair" parameters="variety"/>
+      <item name="lubricate" parameters="variety"/>
       <!-- @QUID : niveau de compétence (charge 4T , 10T ?)  -->
       <!-- @QUID : compétence liée à un outil (conduire un tracteur, conduire un tracteur + un semoir, conduire une moissonneuse, etc ) -->
     </items>

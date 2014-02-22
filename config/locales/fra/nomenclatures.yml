@@ -20,6 +20,8 @@ fra:
         hoe: "Biner"
         implant: "Planter"
         kill: "Tuer"
+        lubricate: "Lubrifier"
+        make_up: "Composer"
         manage: "Gérer"
         milk: "Traire"
         move: "Se déplacer"
@@ -27,6 +29,7 @@ fra:
         pick: "Cueillir"
         plow: "Labourer"
         produce: "Produire"
+        repair: "Réparer"
         sow: "Semer"
         spray: "Pulvériser"
         spread: "Épandre"
@@ -973,15 +976,15 @@ fra:
         password: "Mot de passe"
       item_lists:
       items:
-        # cattling_number: "Cattling number"
-        # cattling_root_number: "Cattling root number"
+        cattling_number: "Numéro de détenteur"
+        cattling_root_number: "Numéro racine du troupeau"
         charentes_alliance_extranet_username: "Login Extranet Charentes alliance "
         husbandry_owner_number: "Code éleveur propriétaire"
         lilco_labratory_code: "Code laboratoire LILCO"
         msa_username: "Login MSA"
         pacage_number: "Numéro de PACAGE"
         password: "Mot de passe"
-        # synel_username: "Synel username"
+        synel_username: "Login Synel"
     indicators:
       name: "Indicateurs"
       attributes:
@@ -1041,9 +1044,9 @@ fra:
         fertility_index: "Index de fertilité"
         figure: "Forme"
         freezing_point_temperature: "Point de solidification"
-        # geolocation: "Geolocation"
-        # grains_area_density: "Grains area density"
-        # grains_count: "Grains count"
+        geolocation: "Geolocalisation"
+        grains_area_density: "Densité de grains par surface"
+        grains_count: "Nombre de grains"
         healthy: "Bonne santé"
         height: "Hauteur"
         horizontal_rotation: "Rotation horizontale"
@@ -1271,11 +1274,11 @@ fra:
           # soap: "Soap"
         # nature: # Choices comes from nomenclature: activity_families
       items:
-        # charentes_alliance_extranet: "Charentes alliance extranet"
-        # lilco: "Lilco"
-        # msa: "Msa"
-        # synel: "Synel"
-        # telepac: "Telepac"
+        charentes_alliance_extranet: "Charentes alliance extranet"
+        lilco: "Lilco"
+        msa: "Msa"
+        synel: "Synel"
+        telepac: "Telepac"
     nmp_methods:
       # name: "Nmp methods"
       items:
@@ -1317,7 +1320,9 @@ fra:
         animal_illness_treatment: "Traitement des maladies animales"
         animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_illness_treatment
         animal_production: "Productions animales"
+        building_maintenance: "Maintenance des bâtiments"  # maintenance
         # cultipacking: "Cultipacking"                     # tillage
+        equipment_maintenance: "Maintenance des équipements" # maintenance
         fermentation: "Fermentation"                       # transformation
         grinding: "Broyage"
         growth_control: "Contrôle de croissance"
@@ -1326,6 +1331,8 @@ fra:
         hoeing: "Binage"                                   # tillage
         implant: "Plantation"                              # implantation
         implantation: "Implantation d’une culture"
+        installation_maintenance: "Maintenance des installations" # maintenance
+        maintenance: "Maintenance"
         milk_production: "Production laitière"             # animal_production
         oviparous_birth: "Reproduction (ovipare)"
         plant_fertilisation: "Fertilisation"
@@ -1502,6 +1509,7 @@ fra:
         bean_crop: "Culture de haricot"
         beet_crop: "Culture de betterave"
         black_valley_land_parcel: "Parcelle de terre noire de vallées"
+        bolt: "Boulon"
         brassicaceae_fungicide: "Fongicide colza"
         building: "Bâtiment"
         building_division: "Pièce ou zone d’un bâtiment"
@@ -1592,6 +1600,7 @@ fra:
         hoe: "Bineuse"
         horse_manure: "Fumier de cheval"
         horsebean_crop: "Culture de féverolle"
+        hydraulic_oil: "Fluide hydraulique"
         hydromorph_sandy_clay_loam_land_parcel: "Parcelle sablo-argileuse hydromorphe"
         implanter: "Planteuse"
         insecticide: "Insecticide"
@@ -1618,6 +1627,7 @@ fra:
         mixture_crop: "Culture mixte"
         mixture_seed: "Semence mixte"
         molluscicide: "Molluscicide"
+        motor_oil: "Huile moteur"
         mower: "Faucheuse"
         mud: "Boue"
         natural_water: "Eau de pluie / du puit"
@@ -1765,6 +1775,7 @@ fra:
         hen_band: "Bande de gallinacé"
         herbicide: "Herbicide"
         hoe: "Bineuse"
+        hydraulic_oil: "Huile hydraulique"
         implanter: "Planteuse"
         insecticide: "Insecticide"
         irrigation_water: "Eau (irrigation)"
@@ -1774,11 +1785,14 @@ fra:
         male_young_cow: "Taurillon"
         manager: "Responsable"
         manure_division: "Zone fumière"
+        mechanic: "Mécanicien"
+        mechanic_item: "Pièce mécanique"
         milk: "Lait"
         milk_tank: "Tank à lait"
         mineral_cleaner: "Nettoyant chimique"
         mixed_chemical_fertilizer: "Mélange d’engrais"
         molluscicide: "Molluscicide"
+        motor_oil: "Huile moteur"
         mower: "Faucheuse"
         natural_water: "Eau de pluie ou de puit"
         organic_fertilizer: "Engrais organique"
@@ -1985,14 +1999,14 @@ fra:
         meter_per_second: "Métre par seconde"
         microgram: "Microgramme"
         microgram_per_liter: "Microgramme par litre"
-        # milliampere: "Milliampere"
+        milliampere: "Milliampere"
         milligram: "Milligramme"
         milligram_per_liter: "Milligramme par litre"
         milliliter: "Millilitre"
         millimeter: "Millimètre"
         million: "Million"
         # millionth: "Millionth"
-        # millisecond: "Millisecond"
+        millisecond: "Millisecond"
         minute: "Minute"
         mole: "Mole"
         parts_per_million: "Partie par millions (ppm)"
@@ -2005,7 +2019,7 @@ fra:
         square_meter: "Mètre carré"
         ten: "Dix"
         thousand: "Millier"
-        # thousand_per_hectare: "Thousand per hectare"
+        thousand_per_hectare: "Millier par hectare"
         thousand_per_hectogram: "Millier par hectogramme"
         thousand_per_kilogram: "Millier par kilogramme"
         thousand_per_liter: "Millier par litre"
@@ -2136,6 +2150,7 @@ fra:
         insecta: "Insecte"                                 # animal
         insecticide: "Produit insecticide"                 # plant_medicine
         isengrain: "Isengrain"                             # triticum_aestivum
+        item: "Pièce"                                      # equipment
         juglandaceae: "Juglandaceae"                       # plant
         juglans: "Juglans"                                 # juglandaceae
         karur: "Karur"                                     # triticum_durum
@@ -2172,6 +2187,7 @@ fra:
         muscadelle_blanc: "Muscadelle blanc"               # vitis_vinifera
         nicotiana: "Tabac"                                 # solanaceae
         numida: "Numididae"                                # aves
+        oil: "Huile"                                       # organic_matter
         oratorio: "Oratorio"                               # triticum_aestivum
         organic_matter: "Matière organique"                # matter
         oryza: "Riz"                                       # poaceae
