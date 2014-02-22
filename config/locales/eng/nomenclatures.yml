@@ -1241,6 +1241,7 @@ eng:
         # mammalia_reproduction_method_embryo_transplant: "Transplantation embryonaire"
         mammalia_reproduction_state: "Mammalia reproduction state"
         # manganese_concentration: "Teneur en Manganèse"
+        # mass_area_density: "masse par unité de surface"
         # mass_area_yield: "Rendement de masse surfacique"
         # maximal_storable_easement_area: "Capacité de stockage surfacique maximale (emprise au sol)"
         # maximal_storable_net_mass: "Capacité de stockage massique maximale"
@@ -1252,6 +1253,7 @@ eng:
         # net_mass: "Masse nette"
         # net_surface_area: "Surface nette"
         # net_volume: "Volume net"
+        # nitrogen_area_density: "unité d'azote par unité de surface"
         # nitrogen_concentration: "Teneur en azote"
         # nominal_storable_easement_area: "Capacité de stockage surfacique nominale (emprise au sol)"
         # nominal_storable_net_mass: "Capacité de stockage massique nominale"
@@ -1435,18 +1437,30 @@ eng:
         # pregnancy: "Pleine"
       # name: "États de la reproduction mammale"
     net_services:
-      attributes: #?
+      attributes:
+        # approach: "Approche"
+        # identifiers: "Identifiants"
+        # nature: "Type"
+        # url: "Url"
       choices:
-        approach: #?
+        approach:
+          # email: "Email"
+          # human: "Humaine"
+          # rest: "Rest"
+          # soap: "Soap"
         data_acces_method: #?
       items:
         # charentes_alliance_extranet: "Charentes alliance extranet"
+        # est_elevage: "Est élevage"
         # lilco: "Lilco"
         # msa: "Msa"
+        # selso: "Selso"
         # synel: "Synel"
+        # synest: "Synel Est"
         # telepac: "Telepac"
     nmp_methods:
-      items: #?
+      items:
+        # poitou_charentes: "Poitou charentes"
     nmp_poitou_charentes_abacus_1: #?
     nmp_poitou_charentes_abacus_10: #?
     nmp_poitou_charentes_abacus_2: #?
@@ -1968,7 +1982,7 @@ eng:
         # male_young_cow: "Taurillon"
         # manager: "Responsable"
         # manure_division: "Zone fumière"
-        # mechanic: "Mécanisien"
+        # mechanic: "Mécanicien"
         # mechanic_item: "Pièce mécanique"
         milk: "Milk"
         # milk_tank: "Tank à lait"
