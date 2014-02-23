@@ -2,7 +2,7 @@
 #
 desc "Update and sort rights.yml"
 task :rights => :environment do
-  print " - Rights: "
+  print " - Rights:  "
   # new_right = '__not_used__'
 
   # Load list of all actions of all controllers

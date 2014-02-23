@@ -72,6 +72,7 @@ affairs:
   updater_id: {type: integer, references: user}
 
 analyses:
+  analysed_at: {type: datetime}
   analyser_id: {type: integer, references: entity}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
@@ -79,7 +80,6 @@ analyses:
   geolocation: {type: spatial}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
-  made_at: {type: datetime}
   nature: {type: string, required: true}
   number: {type: string, required: true}
   product_id: {type: integer, references: product}
@@ -108,7 +108,6 @@ analysis_items:
   measure_value_unit: {type: string}
   measure_value_value: {type: decimal, precision: 19, scale: 4}
   point_value: {type: spatial}
-  read_at: {type: datetime, required: true}
   string_value: {type: text}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}

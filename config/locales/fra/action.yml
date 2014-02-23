@@ -1934,7 +1934,7 @@ fra:
     closed_financial_years: "L’exercice a été correctement clôturé"
     columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
     dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
-    draft_entry_items_are_validated:
+    draft_entry_items_are_validated: 
       one: "%{count} ligne de brouillard validée"
       other: "%{count} lignes de brouillard validées"
       zero: "Aucune ligne de brouillard validée"
@@ -2009,7 +2009,7 @@ fra:
     unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel"
     update_is_done: "La mise à jour a été effectuée"
     validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau"
-    x_unpointed_journal_entry_items:
+    x_unpointed_journal_entry_items: 
       one: "Il y a une écriture à pointer"
       other: "Il y a %{count} écritures à pointer"
       zero: "Il n’y a pas d’écritures à pointer pour l’instant"

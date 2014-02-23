@@ -21,6 +21,7 @@
 #
 # == Table: analyses
 #
+#  analysed_at      :datetime
 #  analyser_id      :integer
 #  created_at       :datetime         not null
 #  creator_id       :integer
@@ -28,7 +29,6 @@
 #  geolocation      :spatial({:srid=>
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  made_at          :datetime
 #  nature           :string(255)      not null
 #  number           :string(255)      not null
 #  product_id       :integer

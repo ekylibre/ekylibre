@@ -28,7 +28,7 @@ class Backend::AnalysesController < BackendController
     t.column :nature
     t.column :product, url: true
     t.column :analyser, url: true
-    t.column :made_at
+    t.column :analysed_at
     t.column :sampled_at, hidden: true
     t.column :sampler, url: true, hidden: true
   end
