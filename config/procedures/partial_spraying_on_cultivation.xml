@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="spraying_on_cultivation" natures="plant_illness_treatment" version="0.0" status="frozen">
+  <procedure name="partial_spraying_on_cultivation" natures="plant_illness_treatment" version="0" status="frozen">
     <variables>
       <variable name="driver" variety="worker" roles="plant_illness_treatment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="catch(sprayer)" roles="plant_illness_treatment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="medicine" variety="plant_medicine"/>
       <variable name="medicine_to_spray" new="parted-from: medicine" roles="plant_illness_treatment-input" need="population"/>
-      <variable name="sprayer" abilities="spray" roles="plant_illness_treatment-tool"/>
-      <variable name="cultivation" variety="plant" roles="plant_illness_treatment-target"/>
+      <variable name="sprayer" variety="equipment" abilities="spray" roles="plant_illness_treatment-tool"/>
+      <variable name="cultivation" variety="plant"/>
+      <variable name="cultivation_to_target" new="parted-from: cultivation" roles="plant_illness_treatment-target" need="shape"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

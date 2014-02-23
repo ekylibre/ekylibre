@@ -22,9 +22,10 @@ module Procedo
 
       # Check version
       @version = element.attr("version").to_s
-      if @version.blank?
-        raise MissingAttribute, "Attribute 'version' must be given for a <procedure>"
+      unless @version =~ /\A\d+\z/
+        raise MissingAttribute, "Valid attribute 'version' must be given for the procedure #{not_so_short_name}"
       end
+      @version = @version.to_i
 
       # Collect procedure natures
       @natures = element.attr('natures').to_s.strip.split(/[\s\,]+/).compact.map(&:to_sym)

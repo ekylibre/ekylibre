@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
-  <procedure name="fuel_up" natures="equipment_maintenance" version="0.0" status="frozen">
+  <procedure name="fuel_up" natures="equipment_maintenance" version="0" status="frozen">
     <variables>
       <variable name="equipment"      variety="equipment" abilities="consume(fuel)" roles="equipment_maintenance-target"/>
       <variable name="fuel"           variety="fuel" />

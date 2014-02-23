@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="mecanical_vine_harvest" natures="harvest" version="0.0" status="frozen">
+  <procedure name="mecanical_vine_harvest" natures="harvest" version="0" status="frozen">
     <variables>
       <variable name="grape_reaper_driver" variety="worker" abilities="drive(reaper)" roles="harvest-doer"/>
       <variable name="grape_reaper" variety="reaper" abilities="harvest(vitis)" roles="harvest-tool"/>

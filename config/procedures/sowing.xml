@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="sowing" natures="sowing" version="0.0" status="frozen">
+  <procedure name="sowing" natures="sowing" version="0" status="frozen">
     <variables>
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="germinate"/>
       <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" need="population">

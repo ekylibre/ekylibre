@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
-  <procedure name="oil_replacement" natures="equipment_maintenance" version="0.0" status="frozen">
+  <procedure name="item_replacement" natures="equipment_maintenance" version="0" status="frozen">
     <variables>
-      <variable name="equipment"      variety="equipment" abilities="consume(oil)" roles="equipment_maintenance-target"/>
-      <variable name="oil"           variety="oil" abilities="lubricate(equipment)"/>
-      <variable name="oil_to_input"  new="parted-from: oil" roles="equipment_maintenance-input" need="population"/>
+      <variable name="equipment"       variety="equipment" roles="equipment_maintenance-target"/>
+      <variable name="item"            variety="item" abilities="make_up(equipment)"/>
+      <variable name="item_to_change"  new="parted-from: item" roles="equipment_maintenance-input" need="population"/>
       <variable name="mechanic"        variety="worker" abilities="repair(equipment)" roles="equipment_maintenance-doer"/>
     </variables>
     <operations>
@@ -14,8 +14,8 @@
         <task do="[mechanic] measures [equipment|healthy]"/>
       </operation>
       <operation id="200" duration="10 minutes">
-        <task do="[oil] parts with [oil_to_input]"/>
-        <task do="[equipment] consumes [oil_to_input]"/>
+        <task do="[item] parts with [item_to_change]"/>
+        <task do="[equipment] consumes [item_to_change]"/>
       </operation>
     </operations>
   </procedure>
