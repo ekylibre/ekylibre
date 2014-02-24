@@ -120,7 +120,7 @@ class Backend::JournalsController < BackendController
   # Displays details of one journal selected with +params[:id]+
   def show
     return unless @journal = find_and_check
-    journal_view = @current_user.preference("interface.journal.#{@journal.code}.view")
+    journal_view = current_user.preference("interface.journal.#{@journal.code}.view")
     journal_view.value = self.journal_views[0] unless self.journal_views.include? journal_view.value
     if view = self.journal_views.detect{|x| params[:view] == x}
       journal_view.value = view

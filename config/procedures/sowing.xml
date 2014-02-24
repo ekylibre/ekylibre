@@ -10,16 +10,16 @@
                  backward="value * self..net_mass(kilogram)"
                  /> <!-- kg    -->
         <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
-                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
-                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / self..net_mass(kilogram)"
+                 backward="(value * self..net_mass(kilogram)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg/ha -->
         <handler indicator="grains_area_density" unit="unity_per_square_meter" to="population"
-                 forward="(((value * self.thousand_grains_mass(gram)) / 1000) * cultivation.net_surface_area(square_meter)) / self..net_mass(gram)"
-                 backward="(((value * self..net_mass(gram)) / cultivation.net_surface_area(square_meter)) * 1000) / self.thousand_grains_mass(gram)"
+                 forward="(((value * self.thousand_grains_mass(gram)) / 1000) * land_parcel.net_surface_area(square_meter)) / self..net_mass(gram)"
+                 backward="(((value * self..net_mass(gram)) / land_parcel.net_surface_area(square_meter)) * 1000) / self.thousand_grains_mass(gram)"
                  /> <!--  u/m² -->
         <handler indicator="grains_area_density" unit="thousand_per_hectare"   to="population"
-                 forward="(value * self.thousand_grains_mass(gram) * cultivation.net_surface_area(hectare)) / self..net_mass(gram)"
-                 backward="(value * self..net_mass(gram)) / (cultivation.net_surface_area(hectare) * self.thousand_grains_mass(gram))"
+                 forward="(value * self.thousand_grains_mass(gram) * land_parcel.net_surface_area(hectare)) / self..net_mass(gram)"
+                 backward="(value * self..net_mass(gram)) / (land_parcel.net_surface_area(hectare) * self.thousand_grains_mass(gram))"
                  /> <!--  M/ha -->
         <handler indicator="grains_count"        unit="thousand"               to="population"
                  forward="(value * self.thousand_grains_mass(gram)) / self..net_mass(gram)"
