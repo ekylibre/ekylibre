@@ -30,7 +30,7 @@ class Backend::OutgoingPaymentModesController < BackendController
     t.action :up,   method: :post, :unless => :first?
     t.action :down, method: :post, :unless => :last?
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
 end

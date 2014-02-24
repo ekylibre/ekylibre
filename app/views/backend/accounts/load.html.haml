@@ -1,4 +1,4 @@
-=form_tag({}, :class => "flex") do
+=form_tag({}, class: "flex") do
   =field_set do
     =field(tl(:accounts_to_load), select_tag("chart", options_for_select(Account.charts.collect{|c| [Account.chart_name(c), c]}.sort)))
 

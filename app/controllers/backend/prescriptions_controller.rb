@@ -28,7 +28,7 @@ class Backend::PrescriptionsController < BackendController
     t.column :prescriptor, url: true
     t.column :document, url: true
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
    # List of interventions with precription_id

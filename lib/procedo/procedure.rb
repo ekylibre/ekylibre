@@ -281,7 +281,7 @@ module Procedo
       elsif datatype == :boolean
         "['t', 'true', '1'].include?(#{expr}.to_s)"
       elsif datatype == :point or datatype == :geometry
-        "Charta::Geometry.new(#{expr})"
+        "(#{expr}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{expr}))"
       else
         "#{expr}.to_s"
       end
@@ -364,28 +364,28 @@ module Procedo
         # Variable
         code << "    def impact_#{variable.new? ? :variant : :actor}!\n"
         if variable.new? and (variable.variety.present? or variable.derivative_of.present?)
-          # Check the depending data matches
-          code << "      # Check variety and derivative_of\n"
-          code << "      if @variant\n"
-          for constraint in [:variety, :derivative_of]
-            unless variable.send(constraint).blank?
-              code << "        #{constraint} = Nomen::Varieties[@variant.#{constraint}]\n"
-              if variable.send(constraint) =~ /\:/
-                ref = variable.send(constraint).split(/\:/).second.strip
-                code << "        if procedure.#{ref}.variant and master_#{constraint} = Nomen::Varieties[procedure.#{ref}.variant.#{constraint}]\n"
-                code << "          if #{constraint} and !master_#{constraint}.include?(#{constraint})\n"
-                code << "            procedure.#{ref}.variant = nil\n"
-                code << "            procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
-                code << "          end\n"
-                code << "        end\n"
-              else
-                code << "        unless Nomen::Varieties[:#{variable.send(constraint).strip}].include?(#{constraint})\n"
-                code << "          @variant = nil\n"
-                code << "        end\n"
-              end
-            end
-          end
-          code << "      end\n"
+          # # Check the depending data matches
+          # code << "      # Check variety and derivative_of\n"
+          # code << "      if @variant\n"
+          # for constraint in [:variety, :derivative_of]
+          #   unless variable.send(constraint).blank?
+          #     code << "        #{constraint} = Nomen::Varieties[@variant.#{constraint}]\n"
+          #     if variable.send(constraint) =~ /\:/
+          #       ref = variable.send(constraint).split(/\:/).second.strip
+          #       code << "        if procedure.#{ref}.variant and master_#{constraint} = Nomen::Varieties[procedure.#{ref}.variant.#{constraint}]\n"
+          #       code << "          if #{constraint} and !master_#{constraint}.include?(#{constraint})\n"
+          #       code << "            procedure.#{ref}.variant = nil\n"
+          #       code << "            procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
+          #       code << "          end\n"
+          #       code << "        end\n"
+          #     else
+          #       code << "        unless Nomen::Varieties[:#{variable.send(constraint).strip}].include?(#{constraint})\n"
+          #       code << "          @variant = nil\n"
+          #       code << "        end\n"
+          #     end
+          #   end
+          # end
+          # code << "      end\n"
           for handler in variable.handlers
             if handler.depend_on?(:self)
               code << "      impact_handler_#{handler.name}!\n"
@@ -393,42 +393,67 @@ module Procedo
           end
         end
 
-        # Check dependent variables depending on my variety or derivative_of if they are OK
-        if variable.dependent_variables.any?
-          code << "      # Dependents\n"
-          code << "      if variant = #{variable.new? ? '@variant' :  '(@actor ? @actor.variant : nil)'}\n"
-          for dependent in variable.dependent_variables
-            ref = dependent.name
-            if dependent.parted? and dependent.producer == variable
-              code << "        if procedure.#{ref}.variant != variant\n"
-              code << "          procedure.#{ref}.variant = variant\n"            
-              code << "          procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
-              code << "        end\n"            
-            end
-            for constraint in [:variety, :derivative_of]
-              unless dependent.send(constraint).blank?
-                code << "        master_#{constraint} = Nomen::Varieties[variant.#{constraint}]\n"
-                if dependent.send(constraint) =~ /\:/
-                  code << "        if procedure.#{ref}.variant and #{constraint} = Nomen::Varieties[procedure.#{ref}.variant.#{constraint}]\n"
-                  code << "          if master_#{constraint} and !master_#{constraint}.include?(#{constraint})\n"
-                  code << "            procedure.#{ref}.variant = nil\n"
-                  code << "            procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
-                  code << "          end\n"
-                  code << "        end\n"
-                elsif variable.new?
-                  code << "        unless Nomen::Varieties[:#{variable.send(constraint).strip}].include?(master_#{constraint})\n"
-                  code << "          @variant = nil\n"
-                  code << "        end\n"
-                end
+        # Sets default destinations
+        for dependent in variable.others
+          ref = dependent.name
+          for destination in dependent.destinations
+            if dependent.default(destination) =~ /\:\s*#{variable.name}\s*\z/
+              code << "      # Updates default #{destination} of #{ref} if possible\n"
+              dest = "procedure.#{ref}.destinations[:#{destination}]"
+              code << "      if #{dest}.blank?\n"
+              code << "        #{dest} = "
+              code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
+              code << "self.get(:#{destination}, at: now)\n"            
+              if [:geometry, :point].include?(Nomen::Indicators[destination].datatype)
+                code << "        puts #{dest}.inspect.red\n"
+                code << "        #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
+                code << "        puts #{dest}.inspect.green\n"
               end
+              code << "        procedure.#{ref}.impact_destination_#{destination}!\n"
+              code << "      end\n"            
             end
           end
-          code << "      end\n"
         end
+          
+        # Check dependent variables depending on my variety or derivative_of if they are OK
+        # if variable.dependent_variables.any?
+        code << "      if variant = #{variable.new? ? '@variant' :  '(@actor ? @actor.variant : nil)'}\n"
+        for dependent in variable.others
+          ref = dependent.name
+          
+          if dependent.parted? and dependent.producer == variable
+            code << "        # Updates variant of #{ref} if possible\n"
+            code << "        if procedure.#{ref}.variant != variant\n"
+            code << "          procedure.#{ref}.variant = variant\n"            
+            code << "          procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
+            code << "        end\n"            
+          end
+
+          # for constraint in [:variety, :derivative_of]
+          #   unless dependent.send(constraint).blank?
+          #     code << "        master_#{constraint} = Nomen::Varieties[variant.#{constraint}]\n"
+          #     if dependent.send(constraint) =~ /\:\s*#{variable.name}\s*\z/
+          #       code << "        if procedure.#{ref}.variant and #{constraint} = Nomen::Varieties[procedure.#{ref}.variant.#{constraint}]\n"
+          #       code << "          if master_#{constraint} and !master_#{constraint}.include?(#{constraint})\n"
+          #       code << "            procedure.#{ref}.variant = nil\n"
+          #       code << "            procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
+          #       code << "          end\n"
+          #       code << "        end\n"
+          #     elsif variable.new?
+          #       code << "        unless Nomen::Varieties[:#{variable.send(constraint).strip}].include?(master_#{constraint})\n"
+          #       code << "          @variant = nil\n"
+          #       code << "        end\n"
+          #     end
+          #   end
+          # end
+        end
+        code << "      end\n"
+        # end
         # Refresh depending handlers
         for other in variable.others
           for handler in other.handlers
             if handler.depend_on?(variable.name)
+              code << "      # Updates #{handler.name} of #{other.name} if possible\n"
               code << "      procedure.#{other.name}.impact_handler_#{handler.name}!\n"
             end
           end
@@ -473,13 +498,21 @@ module Procedo
           vcode << "{variant: @#{variable.name}.variant_id"          
           vcode << ", destinations: {"
           vcode << variable.destinations.collect do |destination|
-            "#{destination}: @#{variable.name}.destinations[:#{destination}]"
+            indicator = Nomen::Indicators[destination]
+            if [:geometry, :point].include?(indicator.datatype)
+              "#{destination}: @#{variable.name}.destinations[:#{destination}].to_geojson"
+            else
+              "#{destination}: @#{variable.name}.destinations[:#{destination}]"
+            end
           end.join(', ')
           vcode << "}, handlers: {"
           vcode << variable.handlers.collect do |handler|
-            if [:measure, :decimal].include?(handler.indicator.datatype)
+            indicator = handler.indicator
+            if [:measure, :decimal].include?(indicator.datatype)
               "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}].round(3).to_f"
-            elsif handler.indicator.datatype == :integer
+            elsif [:geometry, :point].include?(indicator.datatype)
+              "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}].to_geojson"
+            elsif indicator.datatype == :integer
               "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}].to_i"
             else
               "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}]"

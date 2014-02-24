@@ -28,9 +28,9 @@ class Backend::InventoriesController < BackendController
     t.column :responsible, url: true
     # t.column :description
     # t.action :show, url: {format: :pdf}, image: :print
-    t.action :reflect, :if => :reflectable?, image: "action", :confirm => :are_you_sure
-    t.action :edit,    :if => :editable?
-    t.action :destroy, :if => :destroyable?
+    t.action :reflect, if: :reflectable?, image: "action", :confirm => :are_you_sure
+    t.action :edit,    if: :editable?
+    t.action :destroy, if: :destroyable?
   end
 
   # Displays the main page with the list of inventories

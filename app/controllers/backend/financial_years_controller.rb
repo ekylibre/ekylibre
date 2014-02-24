@@ -29,7 +29,7 @@ class Backend::FinancialYearsController < BackendController
     t.column :stopped_at, url: true
     t.column :currency
     # t.column :currency_precision
-    # t.action :close, :if => '!RECORD.closed and RECORD.closable?'
+    # t.action :close, if: '!RECORD.closed and RECORD.closable?'
     t.action :edit, :unless => :closed?
     t.action :destroy, :unless => :closed?
   end

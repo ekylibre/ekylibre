@@ -27,7 +27,7 @@ class Backend::CampaignsController < BackendController
     t.column :harvest_year
     t.column :closed
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   # List of productions for one campaign

@@ -83,8 +83,8 @@ class Backend::JournalsController < BackendController
     t.column :credit, currency: true, hidden: true
     t.column :absolute_debit,  currency: :absolute_currency, hidden: true
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
-    t.action :edit, :if => :updateable?
-    t.action :destroy, :if => :destroyable?
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
   end
 
   # FIXME RECORD.real_currency does not exist
@@ -99,8 +99,8 @@ class Backend::JournalsController < BackendController
     t.column :credit, currency: true, hidden: true
     t.column :absolute_debit,  currency: :absolute_currency, hidden: true
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
-    t.action :edit, :if => :updateable?
-    t.action :destroy, :if => :destroyable?
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
   end
 
   #FIXME undefined method `human_name' for nil:NilClass
@@ -111,8 +111,8 @@ class Backend::JournalsController < BackendController
     #t.column :currency
     t.column :closed_at
     # t.action :document_print, url: {:code => :JOURNAL, :journal => "RECORD.id"}
-    t.action :close, :if => 'RECORD.closable?(Date.today)'.c, image: :unlock
-    t.action :reopen, :if => :reopenable?, image: :lock
+    t.action :close, if: 'RECORD.closable?(Date.today)'.c, image: :unlock
+    t.action :reopen, if: :reopenable?, image: :lock
     t.action :edit
     t.action :destroy
   end

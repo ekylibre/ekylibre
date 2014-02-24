@@ -25,7 +25,7 @@ class Backend::ProductGroupsController < Backend::ProductsController
     t.column :description
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
 end

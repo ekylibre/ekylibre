@@ -63,9 +63,9 @@ class Tax < Ekylibre::Record::Base
   validates_presence_of :collect_account
   validates_presence_of :deduction_account
   validates_uniqueness_of :name
-  validates_numericality_of :amount, in: 0..100, :if => :percentage?
+  validates_numericality_of :amount, in: 0..100, if: :percentage?
 
-  # selects_among_all :used_for_untaxed_deals, :if => :null_amount?
+  # selects_among_all :used_for_untaxed_deals, if: :null_amount?
 
   def self.used_for_untaxed_deals
     self.where(amount: 0).reorder(:id).first

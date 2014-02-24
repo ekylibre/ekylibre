@@ -36,7 +36,7 @@ class Backend::IncomingPaymentModesController < BackendController
     t.action :down, method: :post, :unless => :last?
     t.action :reflect, method: :post, confirm: true
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   def reflect

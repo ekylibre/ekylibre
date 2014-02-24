@@ -10,14 +10,14 @@
     %th=IncomingDeliveryItem.human_attribute_name(:pretax_amount)
     %th=IncomingDeliveryItem.human_attribute_name(:amount)
   -for item in @incoming_delivery_items
-    %tr{:class => cycle('odd','even')}
+    %tr{class: cycle('odd','even')}
       %td=item.purchase_item.label
-      %td.dec{:class => "pta-#{item.purchase_item_id}"}=item.purchase_item.price.pretax_amount
-      %td.dec{:class => "awt-#{item.purchase_item_id}"}=item.purchase_item.price.amount
+      %td.dec{class: "pta-#{item.purchase_item_id}"}=item.purchase_item.price.pretax_amount
+      %td.dec{class: "awt-#{item.purchase_item_id}"}=item.purchase_item.price.amount
       %td.dec=item.purchase_item.quantity
       %td=item.purchase_item.unit.text
       %td.dec=item.purchase_item.undelivered_quantity
-      %td=text_field_tag "incoming_delivery_item[#{item.purchase_item_id}][quantity]", item.quantity, id: "incoming_delivery_item_#{item.purchase_item_id}_quantity", :class => "pta-#{item.purchase_item_id} awt-#{item.purchase_item_id}", "data-less-than-or-equal-to" => item.quantity+item.purchase_item.undelivered_quantity
+      %td=text_field_tag "incoming_delivery_item[#{item.purchase_item_id}][quantity]", item.quantity, id: "incoming_delivery_item_#{item.purchase_item_id}_quantity", class: "pta-#{item.purchase_item_id} awt-#{item.purchase_item_id}", "data-less-than-or-equal-to" => item.quantity+item.purchase_item.undelivered_quantity
       %td.dec.pta{"data-use" => ".pta-#{item.purchase_item_id}", "data-calculate" => "mul"}
       %td.dec.awt{"data-use" => ".awt-#{item.purchase_item_id}", "data-calculate" => "mul"}
   %tr.total

@@ -49,7 +49,7 @@ class Backend::IncomingPaymentsController < BackendController
     t.column :to_bank_at
     t.column :deposit, url: true
     t.action :edit, :unless => :deposit?
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
 end

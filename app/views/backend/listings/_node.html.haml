@@ -1,4 +1,4 @@
-%li{:class => (node.reflection? ? "reflection" : "column")}
+%li{class: (node.reflection? ? "reflection" : "column")}
   %span.item
     %span.drift
       %span.drift
@@ -8,7 +8,7 @@
       %span.attribute="(#{node.name})"
       %span.tool-adder
         =select_tag(:nature, grouped_options_for_select(node.available_nodes), id: "#{node.key}-nature")
-        =link_to(tg(:add), {controller: :listing_nodes, action: :create, :parent_id => node.id}, :remote => true, method: :post, "data-update" => "##{node.key}", "data-type" => :html, "data-with" => "##{node.key}-nature", :class => "btn")
+        =link_to(tg(:add), {controller: :listing_nodes, action: :create, :parent_id => node.id}, :remote => true, method: :post, "data-update" => "##{node.key}", "data-type" => :html, "data-with" => "##{node.key}-nature", class: "btn")
     -else
       %span.tool-export=check_box_tag(:exportable, "1", node.exportable, "data-remote" => true, "data-url" => url_for(action: :update, controller: :listing_nodes, id: node.id, :type => "exportable"), "data-method" => "put")
       %span.tool-label{id: "#{node.key}_label"}
@@ -21,20 +21,20 @@
         %span.tool-position{id: "#{node.key}_position"}
           =render(:partial => "backend/listing_nodes/position", :object => node)
       %span.tool-delete
-        =tool_to(tg(:delete), {action: :destroy, controller: :listing_nodes, id: node.id}, method: :delete, :remote => true, "data-update" => "#" + node.parent.key, "data-type" => :html, :class => "icon im-delete")
+        =tool_to(tg(:delete), {action: :destroy, controller: :listing_nodes, id: node.id}, method: :delete, :remote => true, "data-update" => "#" + node.parent.key, "data-type" => :html, class: "icon im-delete")
 
 
       -#%table
         %tr
           %td.ic
-            .icon{:class => (node.reflection? ? "table" : "column")}
+            .icon{class: (node.reflection? ? "table" : "column")}
           -if node.reflection?
             %td
               =link_to(node.label, "#", "data-toggle-visibility" => "##{node.key}")
               %span.attribute="(#{node.name})"
             %td
               =select_tag(:nature, grouped_options_for_select(node.available_nodes), id: "#{node.key}-nature")
-              =link_to(tg(:add), {controller: :listing_nodes, action: :create, :parent_id => node.id}, :remote => true, method: :post, "data-update" => "##{node.key}", "data-type" => :html, "data-with" => "##{node.key}-nature", :class => "btn")
+              =link_to(tg(:add), {controller: :listing_nodes, action: :create, :parent_id => node.id}, :remote => true, method: :post, "data-update" => "##{node.key}", "data-type" => :html, "data-with" => "##{node.key}-nature", class: "btn")
           -else
             %td.export=check_box_tag(:exportable, "1", node.exportable, "data-remote" => true, "data-url" => url_for(action: :update, controller: :listing_nodes, id: node.id, :type => "exportable"), "data-method" => "put")
             %td.link.label{id: "#{node.key}_label"}
@@ -45,7 +45,7 @@
             -unless node.reflection?
               %td.item-tool.position{id: "#{node.key}_position"}=render(:partial => "backend/listing_nodes/position", :object => node)
             %td.item-tool.delete
-              =tool_to(tg(:delete), {action: :destroy, controller: :listing_nodes, id: node.id}, method: :delete, :remote => true, "data-update" => "#" + node.parent.key, "data-type" => :html, :class => "icon im-delete")
+              =tool_to(tg(:delete), {action: :destroy, controller: :listing_nodes, id: node.id}, method: :delete, :remote => true, "data-update" => "#" + node.parent.key, "data-type" => :html, class: "icon im-delete")
 
   -if node.reflection?
     %ul{id: node.key}=render(:partial => "backend/listings/reflection", :object => node)

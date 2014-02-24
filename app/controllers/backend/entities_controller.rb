@@ -55,8 +55,8 @@ class Backend::EntitiesController < BackendController
     t.column :bank_check_number, hidden: true
     t.column :amount, currency: true, url: true
     t.column :deposit, url: true, hidden: true
-    t.action :edit, :if => :updateable?
-    t.action :destroy, :if => :destroyable?
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
   end
 
   list(:links, model: :entity_links, conditions: ["#{EntityLink.table_name}.stopped_at IS NULL AND (#{EntityLink.table_name}.entity_1_id = ? OR #{EntityLink.table_name}.entity_2_id = ?)", 'params[:id]'.c, 'params[:id]'.c], :per_page => 5) do |t|
@@ -83,7 +83,7 @@ class Backend::EntitiesController < BackendController
     t.column :bank_check_number, hidden: true
     t.column :amount, currency: true, url: true
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   list(:purchases, conditions: {:supplier_id => 'params[:id]'.c}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
@@ -95,7 +95,7 @@ class Backend::EntitiesController < BackendController
     t.column :amount, currency: true
     # t.action :show, url: {format: :pdf}, image: :print, hidden: true
     t.action :edit
-    t.action :destroy, :if => :destroyable?, hidden: true
+    t.action :destroy, if: :destroyable?, hidden: true
   end
 
   list(:sales, conditions: {:client_id => 'params[:id]'.c}, :children => :items, :per_page => 5, order: {created_at: :desc}, :line_class => "(RECORD.affair_closed? ? nil : 'warning')".c) do |t|
@@ -106,8 +106,8 @@ class Backend::EntitiesController < BackendController
     t.column :amount, currency: true
     # t.action :show, url: {format: :pdf}, image: :print, hidden: true
     t.action :duplicate, method: :post, hidden: true
-    t.action :edit, :if => :draft?
-    # t.action :destroy, :if => :aborted?
+    t.action :edit, if: :draft?
+    # t.action :destroy, if: :aborted?
   end
 
 

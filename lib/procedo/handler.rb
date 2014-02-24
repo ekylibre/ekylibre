@@ -83,13 +83,13 @@ module Procedo
 
     @@whole_indicators = Nomen::Indicators.where(related_to: :whole).collect{|i| i.name.to_sym }
 
-    attr_reader :name, :unit, :indicator, :destination, :forward_tree, :backward_tree
+    attr_reader :name, :unit, :indicator, :destination, :widget, :forward_tree, :backward_tree
 
     def initialize(variable, element = nil)
       @variable = variable
       # Extract attributes from XML element
       unless element.is_a?(Hash)
-        element = %w(forward backward indicator unit to datatype name).inject({}) do |hash, attr|
+        element = %w(forward backward indicator unit to datatype name widget).inject({}) do |hash, attr|
           if element.has_attribute?(attr)
             hash[attr.to_sym] = element.attr(attr)
           end
@@ -104,6 +104,7 @@ module Procedo
       element[:forward]  = "value" if element[:forward].blank?
       element[:backward] = "value" if element[:backward].blank?
       @destination = element[:to].to_sym
+      @widget = (element[:widget] || (@destination == :shape ? :map : :number)).to_sym
       # Load values
       begin
         @forward_tree = HandlerMethod.parse(element[:forward].to_s)

@@ -5,7 +5,7 @@
       %abbr{:title => 'required'} *
       =ProductPrice.human_attribute_name('listing')
     .controls
-      =selector(:price, :listing, {controller: "backend/product_price_listing", action: :unroll}, {:object => price}, id: 'price-category-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {controller: :entity_categories, action: :new}, 'data-new-item' => 'price-category-input', :class => 'btn btn-new')
+      =selector(:price, :listing, {controller: "backend/product_price_listing", action: :unroll}, {:object => price}, id: 'price-category-input', class: 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {controller: :entity_categories, action: :new}, 'data-new-item' => 'price-category-input', class: 'btn btn-new')
       -for error in price.errors['category']
         %span.help-inline=error
   =f.input(:pretax_amount, wrapper_html: {id: 'pretax-amount-field'})
@@ -14,7 +14,7 @@
       %abbr{:title => 'required'} *
       =ProductPrice.human_attribute_name('tax')
     .controls
-      =selector(:price, :tax, {controller: "taxes", action: :unroll}, {:object => price}, id: 'price-tax-input', :class => 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {controller: :taxes, action: :new}, 'data-new-item' => 'price-tax-input', :class => 'btn btn-new')
+      =selector(:price, :tax, {controller: "taxes", action: :unroll}, {:object => price}, id: 'price-tax-input', class: 'selector required') + link_to(('<span class="icon"></span><span class="text">' + h('labels.new'.t) + '</span>').html_safe, {controller: :taxes, action: :new}, 'data-new-item' => 'price-tax-input', class: 'btn btn-new')
       -for error in price.errors['tax']
         %span.help-inline=error
   =f.input(:currency, :collection => currencies, wrapper_html: {id: 'currency-field'})

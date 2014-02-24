@@ -54,7 +54,7 @@ class Journal < Ekylibre::Record::Base
   validates_uniqueness_of :code
   validates_uniqueness_of :name
 
-  selects_among_all :used_for_affairs, :used_for_gaps, :if => :various?
+  selects_among_all :used_for_affairs, :used_for_gaps, if: :various?
 
   scope :used_for, lambda { |nature|
     unless self.nature.values.include?(nature.to_s)

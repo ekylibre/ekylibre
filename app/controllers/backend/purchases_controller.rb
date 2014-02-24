@@ -37,7 +37,7 @@ class Backend::PurchasesController < BackendController
     t.column :amount, currency: true
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   list(:deliveries, model: :incoming_deliveries, :children => :items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
@@ -46,8 +46,8 @@ class Backend::PurchasesController < BackendController
     # t.column :population, :datatype => :decimal
     # t.column :pretax_amount, currency: true
     # t.column :amount, currency: true
-    t.action :edit, :if => :order?
-    t.action :destroy, :if => :order?
+    t.action :edit, if: :order?
+    t.action :destroy, if: :order?
   end
 
   # list(:undelivered_items, model: :purchase_items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
@@ -69,8 +69,8 @@ class Backend::PurchasesController < BackendController
     # t.column :pretax_amount, currency: true, through: :price
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
-    t.action :edit, :if => :draft?
-    t.action :destroy, :if => :draft?
+    t.action :edit, if: :draft?
+    t.action :destroy, if: :draft?
   end
 
 

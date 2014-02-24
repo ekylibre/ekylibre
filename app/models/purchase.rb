@@ -82,20 +82,20 @@ class Purchase < Ekylibre::Record::Base
     state :invoice
     state :aborted
     event :propose do
-      transition :draft => :estimate, :if => :has_content?
+      transition :draft => :estimate, if: :has_content?
     end
     event :correct do
       transition [:estimate, :refused, :order] => :draft
     end
     event :refuse do
-      transition :estimate => :refused, :if => :has_content?
+      transition :estimate => :refused, if: :has_content?
     end
     event :confirm do
-      transition :estimate => :order, :if => :has_content?
+      transition :estimate => :order, if: :has_content?
     end
     event :invoice do
-      transition :order => :invoice, :if => :has_content?
-      transition :estimate => :invoice, :if => :has_content_not_deliverable?
+      transition :order => :invoice, if: :has_content?
+      transition :estimate => :invoice, if: :has_content_not_deliverable?
     end
     event :abort do
       transition [:draft, :estimate] => :aborted # , :order
@@ -119,7 +119,7 @@ class Purchase < Ekylibre::Record::Base
   # This method permits to add journal entries corresponding to the purchase order/invoice
   # It depends on the preference which permit to activate the "automatic bookkeeping"
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, :if => self.invoice?) do |entry|
+    b.journal_entry(self.nature.journal, if: self.invoice?) do |entry|
       label = tc(:bookkeep, :resource => self.class.model_name.human, :number => self.number, :supplier => self.supplier.full_name, :products => (self.description.blank? ? self.items.collect{|x| x.name}.to_sentence : self.description))
       for item in self.items
         entry.add_debit(label, (item.account||item.variant.purchases_account), item.pretax_amount) unless item.pretax_amount.zero?

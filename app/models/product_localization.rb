@@ -47,7 +47,7 @@ class ProductLocalization < Ekylibre::Record::Base
   validates_presence_of :nature, :product
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
-  validates_presence_of :container, :if => :interior?
+  validates_presence_of :container, if: :interior?
 
   before_validation do
     if self.nature.blank? and container = self.product.container_at(self.started_at)

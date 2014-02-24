@@ -27,7 +27,7 @@ class Backend::ProductNatureVariantsController < BackendController
     t.column :nature, url: true
     t.column :unit_name
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   list(:prices, model: :catalog_prices, conditions: {variant_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|

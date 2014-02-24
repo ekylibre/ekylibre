@@ -32,14 +32,14 @@
             %li=task.expression
 
   =form_actions do
-    =button_tag(:name => :redirect, :value => (@intervention.root? ? backend_interventions_path : backend_intervention_path(@intervention)), :class => "btn btn-save") do
+    =button_tag(:name => :redirect, :value => (@intervention.root? ? backend_interventions_path : backend_intervention_path(@intervention)), class: "btn btn-save") do
       %i
       =:save.tl
     -for following in @intervention.followings
-      =button_tag(:name => :go_to, :value => following.name, :class => "btn btn-chevron-right") do
+      =button_tag(:name => :go_to, :value => following.name, class: "btn btn-chevron-right") do
         %i
         =:save_and_go_to_x.tl(:x => following.human_name)
 
-    =link_to((params[:redirect] ? params[:redirect] : @intervention.root? ? backend_interventions_path : backend_intervention_path(@intervention)), :class => "btn btn-cancel") do
+    =link_to((params[:redirect] ? params[:redirect] : @intervention.root? ? backend_interventions_path : backend_intervention_path(@intervention)), class: "btn btn-cancel") do
       %i
       =:cancel.tl

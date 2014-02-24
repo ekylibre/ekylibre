@@ -41,7 +41,7 @@ class Backend::AccountsController < BackendController
     t.column :reconcilable
     t.column :description
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   # Displays the main page with the list of accounts

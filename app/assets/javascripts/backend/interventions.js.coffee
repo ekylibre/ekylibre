@@ -82,6 +82,9 @@
                   $("*[data-procedure='#{procedure}'][data-variable='#{variable}'][data-variable-destination='#{destination}']").val(value)
             console.log "Updates other items"
 
+
+  ##############################################################################
+  # Triggers
   $(document).on 'keyup', '*[data-variable-handler]', ->
     $.procedures.refresh($(this))
 

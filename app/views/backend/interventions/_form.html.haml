@@ -28,12 +28,15 @@
             = v.input_field(need, as: :hidden, data: {procedure: procedure.name, variable: reference.name, variable_destination: need})
           .handlers
             - for handler in reference.handlers
-              .handler
+              .handler{class: handler.destination}
                 .title= handler.human_name
                 .value
-                  = number_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "#{reference.name}:handlers:#{handler.name}"})
-                  - if handler.unit?
-                    .add-on= handler.unit.symbol
+                  - if handler.widget == :number
+                    = number_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "#{reference.name}:handlers:#{handler.name}"})
+                    - if handler.unit?
+                      .add-on= handler.unit.symbol
+                  - elsif handler.widget == :map
+                    = shape_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "#{reference.name}:handlers:#{handler.name}"})
             - if reference.known_variant?
               = v.association :variant, as: :hidden, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "#{reference.name}:variant"}}
             - else

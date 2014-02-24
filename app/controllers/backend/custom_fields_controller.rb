@@ -32,8 +32,8 @@ class Backend::CustomFieldsController < BackendController
     t.action :up, method: :post, :unless => :first?
     t.action :down, method: :post, :unless => :last?
     t.action :edit
-    t.action :show, image: :menulist, :if => :choice?
-    t.action :destroy, :if => :destroyable?
+    t.action :show, image: :menulist, if: :choice?
+    t.action :destroy, if: :destroyable?
   end
 
   list(:choices, model: :custom_field_choices, conditions: {custom_field_id: 'params[:id]'.c}, order: 'position') do |t|
@@ -42,7 +42,7 @@ class Backend::CustomFieldsController < BackendController
     t.action :up, :unless => :first?, method: :post
     t.action :down, :unless => :last?, method: :post
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   # Sort.all choices by name

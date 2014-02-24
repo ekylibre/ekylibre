@@ -9,7 +9,7 @@
       -params[:columns] ||= {}
       =field_set(:columns) do
         -@columns.each_index do |index|
-          =field(@columns[index], select_tag("columns[#{index}]", options_for_select(@options, params[:columns][index.to_s]||(@options.detect{|x| x[0].match(/#{@columns[index]}/)}[1] rescue nil)))+" "+content_tag(:span, @first_line[index], :class => :note))
+          =field(@columns[index], select_tag("columns[#{index}]", options_for_select(@options, params[:columns][index.to_s]||(@options.detect{|x| x[0].match(/#{@columns[index]}/)}[1] rescue nil)))+" "+content_tag(:span, @first_line[index], class: :note))
     -elsif @step == :validate
       .flash.information
         %h3=tg('notifications.information')

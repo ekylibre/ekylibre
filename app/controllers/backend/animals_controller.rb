@@ -32,7 +32,7 @@ class Backend::AnimalsController < Backend::MattersController
     t.column :father, url: true
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   # Show a list of animal groups

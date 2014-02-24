@@ -32,8 +32,8 @@ class Backend::JournalEntriesController < BackendController
     t.column :credit, currency: true, hidden: true
     t.column :absolute_debit,  currency: :absolute_currency, hidden: true
     t.column :absolute_credit, currency: :absolute_currency, hidden: true
-    t.action :edit, :if => :updateable?
-    t.action :destroy, :if => :destroyable?
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
   end
 
   list(:items, model: :journal_entry_items, conditions: {:entry_id => 'params[:id]'.c}, order: "entry_id DESC, position") do |t|

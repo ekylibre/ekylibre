@@ -11,7 +11,7 @@
   %span= :add_item.tl
   %span.input-append= text_field_tag(:variant_id, nil, 'data-selector' => url_for(controller: :product_nature_variants, action: :unroll, :scope => :deliverables), 'data-selector-new-item' => url_for(action: :new, controller: :product_nature_variants), 'data-value-field' => "##{id}")
   = hidden_field_tag(:variant_id, nil, id: id)
-  = link_to(:add.tl, {action: :new, controller: :incoming_delivery_items, :external => "false"}, :class => "btn", :remote => true, 'data-update' => '#items', 'data-update-at' => 'bottom', 'data-with' => "##{id}")
+  = link_to(:add.tl, {action: :new, controller: :incoming_delivery_items, :external => "false"}, class: "btn", :remote => true, 'data-update' => '#items', 'data-update-at' => 'bottom', 'data-with' => "##{id}")
 
   :ruby
     # Trick to force form as multipart...

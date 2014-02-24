@@ -29,7 +29,7 @@ class Backend::AnalyticDistributionsController < BackendController
     t.column :state
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   # Displays the main page with the list

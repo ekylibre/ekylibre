@@ -30,8 +30,8 @@ class Backend::TaxesController < BackendController
     t.column :reductible
     t.column :deduction_account, url: true
     t.column :collect_account, url: true
-    t.action :edit, :if => :updateable?
-    t.action :destroy, :if => :destroyable?
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
   end
 
 end

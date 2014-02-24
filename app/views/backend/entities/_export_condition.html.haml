@@ -4,7 +4,7 @@
 -params[:conditions][id] ||= {}
 .condition{id: id}
   .title
-    .right-menu=link_to(tg(:delete), "#", "data-remove" => "##{id}", :class => "icon im-delete")
+    .right-menu=link_to(tg(:delete), "#", "data-remove" => "##{id}", class: "icon im-delete")
     .right-menu
       =check_box_tag("conditions[#{id}][reverse]", "1", params[:conditions][id][:reverse], id: "conditions_#{id}_reverse")
       %label{:for => "conditions_#{id}_reverse"}=tc(:reverse)

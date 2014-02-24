@@ -29,9 +29,9 @@ class Backend::UsersController < BackendController
     t.column :role, url: {action: :edit}
     t.column :administrator
     t.column :employed
-    t.action :locked, :actions => {true => {action: :unlock}, false => {action: :lock}}, method: :post, :if => 'RECORD.id != current_user.id'.c
+    t.action :locked, :actions => {true => {action: :unlock}, false => {action: :lock}}, method: :post, if: 'RECORD.id != current_user.id'.c
     t.action :edit, controller: :users
-    t.action :destroy, :if => 'RECORD.id != current_user.id'.c
+    t.action :destroy, if: 'RECORD.id != current_user.id'.c
   end
 
   def new

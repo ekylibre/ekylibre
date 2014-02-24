@@ -23,10 +23,10 @@ class Backend::RolesController < BackendController
 
   list(order: :name, :children => :users) do |t|
     t.column :name, :children => :label
-    t.column :diff_more, :class => 'rights more'
-    t.column :diff_less, :class => 'rights less'
+    t.column :diff_more, class: 'rights more'
+    t.column :diff_less, class: 'rights less'
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   def new

@@ -30,7 +30,7 @@ class Backend::DocumentTemplatesController < BackendController
     t.column :archiving
     t.column :language
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   # Loads ou reloads.all managed document templates

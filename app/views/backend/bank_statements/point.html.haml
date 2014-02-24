@@ -39,7 +39,7 @@
         - for @journal_entry_item in @journal_entry_items
           - checked = (@journal_entry_item.bank_statement_id==@bank_statement.id)
           - trid, conf = "e#{@journal_entry_item.id}", {}
-          %tr{id: trid, :class => (checked ? "notice " : "")+cycle("even", "odd")}
+          %tr{id: trid, class: (checked ? "notice " : "")+cycle("even", "odd")}
             %td.chk
               - if @journal_entry_item.bank_statement_id.nil? or checked
                 = check_box_tag("journal_entry_item[#{@journal_entry_item.id}][checked]", "1", checked, id: "journal_entry_item_#{@journal_entry_item.id}_checked", "data-add-class" => "notice", "data-add-class-to" => "##{trid}")

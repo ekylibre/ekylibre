@@ -29,7 +29,7 @@ class Backend::ActivitiesController < BackendController
     t.column :family
     # t.action :show, url: {format: :pdf}, image: :print
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   # List of productions for one activity

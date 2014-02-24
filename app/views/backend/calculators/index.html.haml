@@ -4,7 +4,7 @@
       - for calculator in @calculators
         - calculator_path = "backend/calculators/#{calculator}"
         - name = "actions.#{calculator_path}.show".t
-        = link_to({controller: calculator_path, action: :show}, :class => "btn btn-big btn-#{calculator}", title: name) do
+        = link_to({controller: calculator_path, action: :show}, class: "btn btn-big btn-#{calculator}", title: name) do
           %i
           = name
   

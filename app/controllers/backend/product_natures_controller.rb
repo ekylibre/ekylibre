@@ -45,7 +45,7 @@ class Backend::ProductNaturesController < BackendController
     t.column :variety
     t.column :derivative_of
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   list(:products, conditions: {nature_id: 'params[:id]'.c}, order: {born_at: :desc}) do |t|

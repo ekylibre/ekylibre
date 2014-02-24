@@ -30,7 +30,7 @@
           %span= "labels.add_product".t
           %span.selector
             = selector_tag("sale_item[product_id]", {controller: :products, action: :unroll_saleables}, {})
-          = button_tag(tl(:add), :class => "btn")
+          = button_tag(tl(:add), class: "btn")
         -# @sale_item = @sale.items.new
         -# if @sale.draft?
           = toolbar do |t|

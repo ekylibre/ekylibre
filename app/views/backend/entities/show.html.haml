@@ -11,7 +11,7 @@
           .picture= image_tag(resource.picture.url(:identity))
         - for address in resource.addresses.order(:canal, :by_default)
           .info
-            %span.title{:class => "canal-"+address.canal.to_s}= address.canal.text
+            %span.title{class: "canal-"+address.canal.to_s}= address.canal.text
             %span.value
               - if address.email?
                 = mail_to(address.coordinate, address.coordinate)

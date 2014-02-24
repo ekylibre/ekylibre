@@ -30,7 +30,7 @@ class Backend::ProductNatureCategoriesController < BackendController
     t.column :storable
     t.column :depreciable
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   list(:products, conditions: {category_id: 'params[:id]'.c}, order: {born_at: :desc}) do |t|
@@ -46,7 +46,7 @@ class Backend::ProductNatureCategoriesController < BackendController
     t.column :name, url: true
     t.column :variety
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
 end

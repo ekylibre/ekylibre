@@ -37,6 +37,13 @@ module Procedo
         end
       end
       @destinations = @handlers.collect(&:destination).uniq
+      @default_destinations = {}.with_indifferent_access
+      for destination in @destinations
+        attr_name = "default-#{destination}"
+        if element.has_attribute?(attr_name)
+          @default_destinations[destination] = element.attr(attr_name)
+        end
+      end
       @value = element.attr("value").to_s
       @abilities = element.attr("abilities").to_s.strip.split(/\s*\,\s*/)
       if element.has_attribute?("variety")
@@ -207,6 +214,11 @@ module Procedo
         return "same_variant_as_x".tl(x: v.human_name)
       end
       return "unknown_variant".tl
+    end
+
+    # Returns default given destination if exists
+    def default(destination)
+      @default_destinations[destination]
     end
 
     # Returns dependent variables. Variables that point on me

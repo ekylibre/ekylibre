@@ -47,7 +47,7 @@ class ProductLinkage < Ekylibre::Record::Base
   validates_length_of :nature, :originator_type, :point, allow_nil: true, maximum: 255
   validates_presence_of :carrier, :nature, :point
   #]VALIDATORS]
-  validates_presence_of :carried, :if => :occupied?
+  validates_presence_of :carried, if: :occupied?
 
   scope :with, lambda { |point| where(point: point) }
 

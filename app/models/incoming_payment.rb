@@ -53,7 +53,7 @@
 
 class IncomingPayment < Ekylibre::Record::Base
   attr_readonly :payer_id
-  attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, :if => Proc.new{ self.deposit and self.deposit.locked? }
+  attr_readonly :amount, :account_number, :bank, :bank_check_number, :mode_id, if: Proc.new{ self.deposit and self.deposit.locked? }
   belongs_to :commission_account, class_name: "Account"
   belongs_to :responsible, class_name: "User"
   belongs_to :deposit, inverse_of: :payments
@@ -70,7 +70,7 @@ class IncomingPayment < Ekylibre::Record::Base
   validates_numericality_of :amount, greater_than: 0.0
   validates_numericality_of :commission_amount, greater_than_or_equal_to: 0.0
   validates_presence_of :payer
-  validates_presence_of :commission_account, :if => :with_commission?
+  validates_presence_of :commission_account, if: :with_commission?
 
   acts_as_numbered
   acts_as_affairable :payer, dealt_at: :to_bank_at, role: "client"

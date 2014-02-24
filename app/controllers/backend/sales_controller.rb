@@ -55,9 +55,9 @@ class Backend::SalesController < BackendController
     t.column :state_label
     t.column :amount, currency: true
     # t.action :show, url: {format: :pdf}, image: :print
-    t.action :edit, :if => :draft?
-    t.action :cancel, :if => :cancelable?
-    t.action :destroy, :if => :aborted?
+    t.action :edit, if: :draft?
+    t.action :cancel, if: :cancelable?
+    t.action :destroy, if: :aborted?
   end
 
   # Displays the main page with the list of sales
@@ -89,8 +89,8 @@ class Backend::SalesController < BackendController
     t.column :population
     # t.column :pretax_amount, currency: true
     # t.column :amount, currency: true
-    t.action :edit, :if => :updateable?
-    t.action :destroy, :if => :destroyable?
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
   end
 
   # list(:payment_uses, model: :incoming_payment_uses, conditions: ["#{IncomingPaymentUse.table_name}.expense_id=? AND #{IncomingPaymentUse.table_name}.expense_type=?", 'params[:id]'.c, 'Sale']) do |t|
@@ -138,8 +138,8 @@ class Backend::SalesController < BackendController
     t.column :unit_price_amount
     t.column :pretax_amount, currency: true
     t.column :amount, currency: true
-    # t.action :edit, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
-    # t.action :destroy, :if => 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
+    # t.action :edit, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
+    # t.action :destroy, if: 'RECORD.sale.draft? and RECORD.reduction_origin_id.nil? '
   end
 
   # Displays details of one sale selected with +params[:id]+

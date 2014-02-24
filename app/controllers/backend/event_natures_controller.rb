@@ -26,7 +26,7 @@ class Backend::EventNaturesController < BackendController
     t.column :name
     t.column :usage
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   # Displays the main page with the list of event natures

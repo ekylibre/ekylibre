@@ -3,7 +3,7 @@
   <procedure name="sowing" natures="sowing" version="0" status="frozen">
     <variables>
       <variable name="seeds"        variety="seed" derivative-of="plant" abilities="germinate"/>
-      <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" need="population">
+      <variable name="seeds_to_sow" new="parted-from: seeds" roles="sowing-input" default-population=":seeds">
 	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
                  forward="value / self..net_mass(kilogram)"
@@ -30,7 +30,8 @@
       <variable name="driver"       abilities="drive(equipment), move" roles="sowing-doer"/>
       <variable name="tractor"      abilities="tow(equipment), move" roles="sowing-tool"/>
       <variable name="land_parcel"  abilities="store(plant)" roles="sowing-target"/>
-      <variable name="cultivation"  variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})"/>
+      <variable name="cultivation"  variety="derivative-of: seeds" new="produced-by: land_parcel" roles="sowing-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" need="shape" default-shape=":land_parcel">
+      </variable>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

@@ -29,7 +29,7 @@ class Backend::DocumentsController < BackendController
     t.column :created_at
     t.column :archives_count, hidden: true
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   list(:archives, model: :document_archive, conditions: {:document_id => 'params[:id]'.c}) do |t|
@@ -39,7 +39,7 @@ class Backend::DocumentsController < BackendController
     t.column :file_file_size
     t.column :file_content_text, hidden: true
     t.column :file_fingerprint, hidden: true
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
 end

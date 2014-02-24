@@ -37,7 +37,7 @@ class Backend::IssuesController < BackendController
     t.column :priority, hidden: true
     t.action :edit
     t.action :new, url: {controller: :interventions, issue_id: 'RECORD.id'.c, id: nil}
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
   list(:interventions, conditions: {issue_id: 'params[:id]'.c}, order: {started_at: :desc}) do |t|

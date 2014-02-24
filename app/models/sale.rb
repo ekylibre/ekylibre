@@ -92,10 +92,10 @@ class Sale < Ekylibre::Record::Base
   validates_presence_of :amount, :client, :currency, :downpayment_amount, :number, :payer, :payment_delay, :pretax_amount, :state
   #]VALIDATORS]
   validates_presence_of :client, :currency, :nature
-  validates_presence_of :invoiced_at, :if => :invoice?
+  validates_presence_of :invoiced_at, if: :invoice?
   validates_delay_format_of :payment_delay, :expiration_delay
 
-  acts_as_numbered :number, :readonly => false
+  acts_as_numbered :number, readonly: false
   acts_as_affairable :client, debit: :credit?
   accepts_nested_attributes_for :items # , :reject_if => :all_blank, :allow_destroy => true
   after_create {|r| r.client.add_event(:sale, r.updater_id)}
@@ -115,23 +115,23 @@ class Sale < Ekylibre::Record::Base
     state :aborted
 
     event :propose do
-      transition :draft => :estimate, :if => :has_content?
+      transition :draft => :estimate, if: :has_content?
     end
     event :correct do
       transition :estimate => :draft
       transition :refused => :draft
       # @TODO define a method to replace paid_amount in Affair
-      transition :order => :draft#, :if => Proc.new{|so| so.paid_amount <= 0}
+      transition :order => :draft#, if: Proc.new{|so| so.paid_amount <= 0}
     end
     event :refuse do
-      transition :estimate => :refused, :if => :has_content?
+      transition :estimate => :refused, if: :has_content?
     end
     event :confirm do
-      transition :estimate => :order, :if => :has_content?
+      transition :estimate => :order, if: :has_content?
     end
     event :invoice do
-      transition :order => :invoice, :if => :has_content?
-      transition :estimate => :invoice, :if => :has_content_not_deliverable?
+      transition :order => :invoice, if: :has_content?
+      transition :estimate => :invoice, if: :has_content_not_deliverable?
     end
     event :abort do
       # transition [:draft, :estimate] => :aborted # , :order
@@ -186,7 +186,7 @@ class Sale < Ekylibre::Record::Base
 
   # This method bookkeeps the sale depending on its state
   bookkeep do |b|
-    b.journal_entry(self.nature.journal, printed_at: self.invoiced_at, :if => (self.nature.with_accounting? and self.invoice?)) do |entry|
+    b.journal_entry(self.nature.journal, printed_at: self.invoiced_at, if: (self.nature.with_accounting? and self.invoice?)) do |entry|
       label = tc(:bookkeep, :resource => self.state_label, :number => self.number, :client => self.client.full_name, :products => (self.description.blank? ? self.items.pluck(:label).to_sentence : self.description), :sale => self.initial_number)
       entry.add_debit(label, self.client.account(:client).id, self.amount) unless self.amount.zero?
       for item in self.items

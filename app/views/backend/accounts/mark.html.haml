@@ -32,14 +32,14 @@
           -for item in @account.reconcilable_entry_items(params[:period], params[:started_at], params[:stopped_at])
             -checked = (item.letter.blank? and (params[:journal_entry_item]||{}).keys.include?(item.id.to_s))
             -trid, conf = "e#{item.id}", {}
-            %tr{id: trid, :class => (item.closed? ? "disabled " : checked ? "notice " : "")+cycle("even", "odd")}
+            %tr{id: trid, class: (item.closed? ? "disabled " : checked ? "notice " : "")+cycle("even", "odd")}
               %td.chk
                 -if item.letter.blank? and not item.closed?
                   =check_box_tag("journal_entry_item[#{item.id}][to_mark]", "1", checked, id: "journal_entry_item_#{item.id}_to_mark", "data-add-class" => "notice", "data-add-class-to" => "##{trid}")
                   -conf = {"data-click" => "#journal_entry_item_#{item.id}_to_mark"}
                 -else
                   =item.letter
-              %td.act=link_to("labels.unmark".t, {action: :unmark, id: @account.id, :letter => item.letter}, :class => "unmark", method: :post, "data-confirm" => tg(:are_you_sure)) unless item.letter.blank? or item.closed?
+              %td.act=link_to("labels.unmark".t, {action: :unmark, id: @account.id, :letter => item.letter}, class: "unmark", method: :post, "data-confirm" => tg(:are_you_sure)) unless item.letter.blank? or item.closed?
               %td.dat{conf}=I18n.localize(item.entry.printed_at)
               %td{conf}=link_to(item.journal.name, {action: :show, controller: :journals, id: item.journal_id}, :keep => true)
               %td.code{conf}=link_to(item.entry.number, {action: :show, controller: :journal_entries, id: item.entry_id}, :keep => true)

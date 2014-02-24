@@ -46,8 +46,8 @@ class Backend::OutgoingPaymentsController < BackendController
     t.column :bank_check_number
     t.column :to_bank_at
     # t.column :label, through: :responsible
-    t.action :edit, :if => :updateable?
-    t.action :destroy, :if => :destroyable?
+    t.action :edit, if: :updateable?
+    t.action :destroy, if: :destroyable?
   end
 
 end

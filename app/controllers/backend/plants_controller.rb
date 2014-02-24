@@ -26,7 +26,7 @@ class Backend::PlantsController < Backend::MattersController
     t.column :net_surface_area, datatype: :measure
     t.column :born_at
     t.action :edit
-    t.action :destroy, :if => :destroyable?
+    t.action :destroy, if: :destroyable?
   end
 
 end
