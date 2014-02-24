@@ -127,14 +127,14 @@ module Procedo
           @unit = @indicator.unit
         end
       end
-      @name = element[:name].to_s
-      if @name.blank?
-        @name = @indicator.name.to_s
-        if @unit and @variable.handlers.detect{|h| h.name.to_s == @name}
-          @name << "_in_#{@unit.name}" 
+      name = element[:name].to_s
+      if name.blank?
+        name = @indicator.name.dup
+        if @unit and @variable.handlers.detect{|h| h.name.to_s == name}
+          name << "_in_#{@unit.name}" 
         end
       end
-      @name = @name.to_sym
+      @name = name.to_sym
     end
 
 
@@ -160,17 +160,17 @@ module Procedo
     end
 
     def destination_unique_name
-      "#{@variable.name}_#{@destination}"
+      "#{@variable.name}_#{destination}"
     end
 
     # Returns the unique name of an handler inside a given procedure
     def unique_name
-      "#{@variable.name}-#{@name}"
+      "#{@variable.name}-#{name}"
     end
 
     # Unique identifier for a given handler
     def uid
-      "#{self.procedure.name}-#{self.unique_name}"
+      "#{self.procedure.name}-#{unique_name}"
     end
 
     def datatype
@@ -184,13 +184,13 @@ module Procedo
 
     # Returns the human name of the handler
     def human_name
-      default, params = [], {indicator: @indicator.human_name}
+      default, params = [], {indicator: indicator.human_name}
       if unit?
         default << :indicator_with_unit 
-        params[:unit] = @unit.symbol
+        params[:unit] = unit.symbol
       end
       default << @indicator.human_name
-      "procedures.handlers.#{name}".t(params.merge(default: default))
+      return "procedures.handlers.#{name}".t(params.merge(default: default))
     end
 
     # Returns keys

@@ -478,7 +478,7 @@ module Procedo
           vcode << "}, handlers: {"
           vcode << variable.handlers.collect do |handler|
             if [:measure, :decimal].include?(handler.indicator.datatype)
-              "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}].round(6).to_f"
+              "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}].round(3).to_f"
             elsif handler.indicator.datatype == :integer
               "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}].to_i"
             else

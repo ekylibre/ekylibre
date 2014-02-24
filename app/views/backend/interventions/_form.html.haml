@@ -29,7 +29,7 @@
           .handlers
             - for handler in reference.handlers
               .handler
-                .title= handler.indicator.human_name
+                .title= handler.human_name
                 .value
                   = number_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "#{reference.name}:handlers:#{handler.name}"})
                   - if handler.unit?
