@@ -232,7 +232,7 @@
             population_counting="decimal"
             abilities="feed(animal)"
             variable_indicators="population"
-            frozen_indicators="net_mass"
+            frozen_indicators="net_mass, net_volume"
             />
       <item name="herbicide"
             category="plant_medicine"

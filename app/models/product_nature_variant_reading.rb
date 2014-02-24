@@ -59,6 +59,7 @@ class ProductNatureVariantReading < Ekylibre::Record::Base
   validate do
     if self.variant
       unless self.variant.frozen_indicators.include?(self.indicator)
+        puts "#{self.indicator.inspect} not in #{self.variant.reference_name}#{self.variant.frozen_indicators.inspect}".red
         errors.add(:indicator, :invalid)
       end
     end
