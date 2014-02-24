@@ -724,9 +724,10 @@
             />
          <item name="mechanic_item"
             category="small_equipment"
-            variety="item"
+            variety="matter"
+            derivative_of="equipment"
             population_counting="integer"
-            abilities="make_up(equipment)"
+            abilities=""
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
