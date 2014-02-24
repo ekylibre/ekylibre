@@ -312,22 +312,18 @@ module Procedo
         code << "    end\n\n"
 
         code << "    def get(indicator, options = {})\n"
-        code << "      value = nil\n"
-        if variable.new?
-          code << "      if @variant\n"
-          code << "        value = @variant.get(indicator)\n"
-        else
-          code << "      if @actor\n"
-          code << "        value = @actor.get(indicator, at: now, gathering: !options[:individual])\n"
-        end
-        code << "      else\n"
+        code << "      unless #{variable.new? ? '@variant' : '@actor'}\n"
         code << "        raise UnavailableReading, \"No way to access \#{'individual ' if options[:individual]}readings for #{variable.name}#\#{indicator.inspect}\"\n"
         code << "      end\n"
-        code << "      unless value\n"
+        if variable.new?
+          code << "      unless value = @variant.get(indicator)\n"
+        else
+          code << "      unless value = @actor.get(indicator, at: now, gathering: !options[:individual])\n"
+        end
         code << "        raise UnavailableReading, \"Nil \#{'individual' if options[:individual]}reading given #{variable.name}#\#{indicator.inspect}\"\n"
         code << "      end\n"
         code << "      return value\n"
-        code << "    end\n"
+        code << "    end\n\n"
 
         rubyist.self_value = "self"
 
@@ -355,22 +351,21 @@ module Procedo
           code << "    def impact_handler_#{h.name}!\n"
           rubyist.value = "@handlers[:#{h.name}]"
           rubyist.compile(h.forward_tree)
-          code << "      begin\n"
-          code << "        value = #{rubyist.compiled}\n"
-          code << "        if value != @destinations[:#{h.destination}]\n"
-          code << "          @destinations[:#{destination}] = value\n"
-          code << "          impact_destination_#{h.destination}!\n"
-          code << "        end\n"
-          code << "      rescue UnavailableReading => e\n"
-          code << "        puts e.message.red\n"
+          code << "      value = #{rubyist.compiled}\n"
+          code << "      if value != @destinations[:#{h.destination}]\n"
+          code << "        @destinations[:#{destination}] = value\n"
+          code << "        impact_destination_#{h.destination}!\n"
           code << "      end\n"
+          code << "    rescue UnavailableReading => e\n"
+          code << "      puts e.message.red\n"
           code << "    end\n\n"
         end
 
         # Variable
         code << "    def impact_#{variable.new? ? :variant : :actor}!\n"
-        if variable.new?
+        if variable.new? and (variable.variety.present? or variable.derivative_of.present?)
           # Check the depending data matches
+          code << "      # Check variety and derivative_of\n"
           code << "      if @variant\n"
           for constraint in [:variety, :derivative_of]
             unless variable.send(constraint).blank?
@@ -399,34 +394,45 @@ module Procedo
         end
 
         # Check dependent variables depending on my variety or derivative_of if they are OK
-        code << "      if variant = #{variable.new? ? '@variant' :  '(@actor ? @actor.variant : nil)'}\n"
-        for dependent in variable.dependent_variables
-          ref = dependent.name
-          if dependent.parted? and dependent.producer == variable
-            code << "        if procedure.#{ref}.variant != variant\n"
-            code << "          procedure.#{ref}.variant = variant\n"            
-            code << "          procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
-            code << "        end\n"            
-          end
-          for constraint in [:variety, :derivative_of]
-            unless dependent.send(constraint).blank?
-              code << "        master_#{constraint} = Nomen::Varieties[variant.#{constraint}]\n"
-              if dependent.send(constraint) =~ /\:/
-                code << "        if procedure.#{ref}.variant and #{constraint} = Nomen::Varieties[procedure.#{ref}.variant.#{constraint}]\n"
-                code << "          if master_#{constraint} and !master_#{constraint}.include?(#{constraint})\n"
-                code << "            procedure.#{ref}.variant = nil\n"
-                code << "            procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
-                code << "          end\n"
-                code << "        end\n"
-              elsif variable.new?
-                code << "        unless Nomen::Varieties[:#{variable.send(constraint).strip}].include?(master_#{constraint})\n"
-                code << "          @variant = nil\n"
-                code << "        end\n"
+        if variable.dependent_variables.any?
+          code << "      # Dependents\n"
+          code << "      if variant = #{variable.new? ? '@variant' :  '(@actor ? @actor.variant : nil)'}\n"
+          for dependent in variable.dependent_variables
+            ref = dependent.name
+            if dependent.parted? and dependent.producer == variable
+              code << "        if procedure.#{ref}.variant != variant\n"
+              code << "          procedure.#{ref}.variant = variant\n"            
+              code << "          procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
+              code << "        end\n"            
+            end
+            for constraint in [:variety, :derivative_of]
+              unless dependent.send(constraint).blank?
+                code << "        master_#{constraint} = Nomen::Varieties[variant.#{constraint}]\n"
+                if dependent.send(constraint) =~ /\:/
+                  code << "        if procedure.#{ref}.variant and #{constraint} = Nomen::Varieties[procedure.#{ref}.variant.#{constraint}]\n"
+                  code << "          if master_#{constraint} and !master_#{constraint}.include?(#{constraint})\n"
+                  code << "            procedure.#{ref}.variant = nil\n"
+                  code << "            procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
+                  code << "          end\n"
+                  code << "        end\n"
+                elsif variable.new?
+                  code << "        unless Nomen::Varieties[:#{variable.send(constraint).strip}].include?(master_#{constraint})\n"
+                  code << "          @variant = nil\n"
+                  code << "        end\n"
+                end
               end
             end
           end
+          code << "      end\n"
         end
-        code << "      end\n"
+        # Refresh depending handlers
+        for other in variable.others
+          for handler in other.handlers
+            if handler.depend_on?(variable.name)
+              code << "      procedure.#{other.name}.impact_handler_#{handler.name}!\n"
+            end
+          end
+        end
         code << "    end\n\n"
         
         code << "  end\n\n"

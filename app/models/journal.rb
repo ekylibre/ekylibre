@@ -258,7 +258,7 @@ class Journal < Ekylibre::Record::Base
     query << from_where
     query << journal_entries_states
     query << account_range
-    query << " AND NOT centralized" unless centralize.empty?
+    query << " AND NOT #{centralized}" unless centralize.empty?
     query << " GROUP BY #{accounts}.id, #{accounts}.number"
     query << " ORDER BY #{accounts}.number"
     items += conn.select_rows(query)

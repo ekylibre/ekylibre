@@ -78,6 +78,12 @@ module Procedo
       "variables.#{name}".t(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize])
     end
 
+    def others
+      @procedure.variables.values.select do |v|
+        v != self
+      end
+    end
+
     #
     def handled?
       @handlers.any?
