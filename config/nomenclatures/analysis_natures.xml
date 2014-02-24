@@ -14,6 +14,11 @@
             target_derivative_of="bos"
             items="total_bacteria_concentration, inhibitors_presence, fat_matters_concentration, protein_matters_concentration, somatic_cell_concentration, clostridial_spores_concentration, freezing_point_temperature, lipolysis, immunoglobulins_concentration, urea_concentration"
             />
+      <item name="unitary_cow_milk_analysis"
+            target_variety="milk"
+            target_derivative_of="bos"
+            items="fat_matters_concentration, protein_matters_concentration, somatic_cell_concentration"
+            />
     </items>
 
   </nomenclature>
