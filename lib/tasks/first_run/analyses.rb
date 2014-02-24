@@ -131,15 +131,15 @@ load_data :analyses do |loader|
 
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => "\t", :headers => true) do |row|
         r = OpenStruct.new(:at => (row[0].blank? ? nil : Date.civil(*row[0].to_s.split(/\//).reverse.map(&:to_i))),
-                           :reference_number => ,
+                           :reference_number => row[1].to_s + row[5].to_s + row[6].to_s,
                            :animal_work_number => row[4],
                            :lactation_number => row[5],
                            :control_number => row[6],
                            :milk_daily_production => row[7],
-                           :tb_daily_production => row[9],
-                           :tp_daily_production => row[10],
+                           :tb_daily_production => (row[9].blank? ? 0 : (row[9].to_d)/100).in_gram_per_liter,
+                           :tp_daily_production => (row[10].blank? ? 0 : (row[10].to_d)/100).in_gram_per_liter,
                            :animal_state => row[11],
-                           :somatic_cell_concentration => row[12],
+                           :somatic_cell_concentration => (row[12].blank? ? 0 : row[12].to_i).in_thousand_per_milliliter,
                            :calving_date => row[13],
                            :day_from_calving_date => row[14],
                            :milk_production_from_calving_date => row[15],
@@ -150,19 +150,13 @@ load_data :analyses do |loader|
 
         unless analysis = Analysis.where(reference_number: r.reference_number, analyser: analyser).first
           analysis = Analysis.create!(reference_number: r.reference_number, nature: "unitary_cow_milk_analysis",
-                                      analyser: analyser, sampled_at: r.at, made_at: r.at
+                                      analyser: analyser, sampled_at: r.at, analysed_at: r.at
                                      )
 
-          analysis.read!(:total_bacteria_concentration, r.germes, at: r.at)
-          analysis.read!(:inhibitors_presence, r.inhib, at: r.at)
-          analysis.read!(:fat_matters_concentration, r.mg, at: r.at)
-          analysis.read!(:protein_matters_concentration, r.mp, at: r.at)
-          analysis.read!(:somatic_cell_concentration, r.cells, at: r.at)
-          analysis.read!(:clostridial_spores_concentration, r.buty, at: r.at)
-          analysis.read!(:freezing_point_temperature, r.cryo, at: r.at)
-          analysis.read!(:lipolysis, r.lipo, at: r.at)
-          analysis.read!(:immunoglobulins_concentration, r.igg, at: r.at)
-          analysis.read!(:urea_concentration, r.uree, at: r.at)
+          
+          analysis.read!(:fat_matters_concentration, r.tb_daily_production)
+          analysis.read!(:protein_matters_concentration, r.tp_daily_production)
+          analysis.read!(:somatic_cell_concentration, r.somatic_cell_concentration)
 
         end
         w.check_point
