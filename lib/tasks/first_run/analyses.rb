@@ -64,20 +64,23 @@ load_data :analyses do |loader|
                            )
 
         unless analysis = Analysis.where(reference_number: r.reference_number, analyser: analyser).first
-          analysis = Analysis.create!(reference_number: r.reference_number, nature: "cow_milk_analysis",
-                                      analyser: analyser, sampled_at: r.at, made_at: r.at
+          analysis = Analysis.create!(reference_number: r.reference_number,
+                                      nature: "cow_milk_analysis",
+                                      analyser: analyser,
+                                      analysed_at: r.at,
+                                      sampled_at: r.at
                                      )
 
-          analysis.read!(:total_bacteria_concentration, r.germes, at: r.at)
-          analysis.read!(:inhibitors_presence, r.inhib, at: r.at)
-          analysis.read!(:fat_matters_concentration, r.mg, at: r.at)
-          analysis.read!(:protein_matters_concentration, r.mp, at: r.at)
-          analysis.read!(:somatic_cell_concentration, r.cells, at: r.at)
-          analysis.read!(:clostridial_spores_concentration, r.buty, at: r.at)
-          analysis.read!(:freezing_point_temperature, r.cryo, at: r.at)
-          analysis.read!(:lipolysis, r.lipo, at: r.at)
-          analysis.read!(:immunoglobulins_concentration, r.igg, at: r.at)
-          analysis.read!(:urea_concentration, r.uree, at: r.at)
+          analysis.read!(:total_bacteria_concentration, r.germes)
+          analysis.read!(:inhibitors_presence, r.inhib)
+          analysis.read!(:fat_matters_concentration, r.mg)
+          analysis.read!(:protein_matters_concentration, r.mp)
+          analysis.read!(:somatic_cell_concentration, r.cells)
+          analysis.read!(:clostridial_spores_concentration, r.buty)
+          analysis.read!(:freezing_point_temperature, r.cryo)
+          analysis.read!(:lipolysis, r.lipo)
+          analysis.read!(:immunoglobulins_concentration, r.igg)
+          analysis.read!(:urea_concentration, r.uree)
 
         end
         w.check_point

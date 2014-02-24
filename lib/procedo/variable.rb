@@ -1,7 +1,7 @@
 module Procedo
   class Variable
 
-    attr_reader :name, :procedure, :value, :abilities, :handlers, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name
+    attr_reader :name, :procedure, :value, :abilities, :handlers, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name, :destinations
 
     def initialize(procedure, element)
       @procedure = procedure
@@ -36,12 +36,19 @@ module Procedo
           @handlers << Handler.new(self, indicator: need)
         end
       end
+      @destinations = @handlers.collect(&:destination).uniq
       @value = element.attr("value").to_s
       @abilities = element.attr("abilities").to_s.strip.split(/\s*\,\s*/)
-      @variety = element.attr("variety").to_s.strip if element.has_attribute?("variety")
-      # @variety = @variety.to_sym if @variety.is_a?(String) and @variety !=~ /\:/
-      @derivative_of = element.attr("derivative-of").to_s.strip if element.has_attribute?("derivative-of")
-      # @derivative_of = @derivative_of.to_sym if @derivative_of.is_a?(String) and @derivative_of !=~ /\:/
+      if element.has_attribute?("variety")
+        @variety = element.attr("variety").to_s.strip 
+      elsif parted?
+        @variety = ":#{@producer_name}"
+      end
+      if element.has_attribute?("derivative-of")
+        @derivative_of = element.attr("derivative-of").to_s.strip 
+      elsif parted? and 
+        @derivative_of = ":#{@producer_name}"
+      end
       @roles = element.attr("roles").to_s.strip.split(/\s*\,\s*/)
       if element.has_attribute?("variant")
         if parted?
@@ -78,7 +85,7 @@ module Procedo
 
     # Returns an handler by its name
     def [](name)
-      @handlers.select{|h| h.name.to_s == name.to_s}
+      @handlers.select{|h| h.name.to_s == name.to_s}.first
     end
 
     #
@@ -194,6 +201,20 @@ module Procedo
         return "same_variant_as_x".tl(x: v.human_name)
       end
       return "unknown_variant".tl
+    end
+
+    # Returns dependent variables. Variables that point on me
+    def dependent_variables
+      procedure.variables.values.select do |v|
+        # v.producer == self or 
+        v.variety =~ /\:\s*#{self.name}\z/ or v.derivative_of =~ /\:\s*#{self.name}\z/
+      end
+    end
+
+    # Returns dependings variables. Variables that I point
+    def depending_variables
+      # self.producer
+      [procedure.variables[self.variety.split(/\:\s*/)], procedure.variables[self.derivative_of.split(/\:\s*/)]].compact
     end
 
   end

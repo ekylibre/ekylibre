@@ -79,7 +79,7 @@ class CreateBase < ActiveRecord::Migration
       t.text       :description
       t.point      :geolocation,      srid: 4326
       t.datetime   :sampled_at,                   null: false
-      t.datetime   :made_at
+      t.datetime   :analysed_at
       t.stamps
       t.index      :number
       t.index      :nature
@@ -88,11 +88,9 @@ class CreateBase < ActiveRecord::Migration
 
     create_table :analysis_items do |t|
       t.references :analysis,      null: false, index: true
-      t.datetime   :read_at,       null: false
       t.reading                    null: false, index: true
       t.text       :annotation
       t.stamps
-      t.index      :read_at
     end
 
     create_table :bank_statements do |t|

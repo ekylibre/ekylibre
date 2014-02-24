@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="manual_vine_harvest" natures="harvest" version="0.0" status="frozen">
+  <procedure name="manual_vine_harvest" natures="harvest" version="0" status="frozen">
     <variables>
       <variable name="grape_picker" variety="worker" abilities="pick(fruit)" roles="harvest-doer"/>
       <variable name="pruner" variety="pruner" abilities="cut" roles="harvest-tool"/>

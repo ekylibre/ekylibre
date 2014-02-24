@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
 <!--
-  <procedure name="inventory" natures="inventory" version="0.0" status="frozen" system="true">
+  <procedure name="inventory" natures="inventory" version="0" status="frozen" system="true">
     <variables>
       <variable name="stock"/>
     </variables>
@@ -12,7 +12,7 @@
 -->
 
 <!--
-  <procedure name="pruning_test" natures="pruning" version="0.0" status="frozen" system="true">
+  <procedure name="pruning_test" natures="pruning" version="0" status="frozen" system="true">
     <variables>
       <variable name="pruned" variety="plant" roles="pruning-target"/>
       <variable name="branches" variety="organic_matter" derivative_of="variety: pruned" roles="pruning-output"/>

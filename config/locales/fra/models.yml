@@ -417,6 +417,7 @@ fra:
     allocation_account: "Compte de dotation"
     amount: "Montant"
     amounts_scale: "Nombre de chiffres après le virgule" #?
+    # analysed_at: "Analysed at"
     analyser: "Analyseur"
     analyses: "Analyses"
     analysis: "Analyses"
@@ -802,7 +803,7 @@ fra:
     lock_version: "Version"
     locked: "Verrouillé"
     locked_at: "Verrouillé à"
-    made_at: "Fait le"
+    made_at: "Fait le" #?
     mail: "E-mail"
     mail_addresses: "Adresses postales"
     mail_auto_update: "Mettre à jour l’adresse automatiquement"

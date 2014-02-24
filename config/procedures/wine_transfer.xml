@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="wine_transfer" natures="transfer" version="0.0" status="frozen">
+  <procedure name="wine_transfer" natures="transfer" version="0" status="frozen">
     <variables>
       <variable name="wine"       variety="wine" derivative-of="vitis" />
       <variable name="wine_to_move" new="parted-from: wine" roles="transfer-input" need="population"/>

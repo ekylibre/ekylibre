@@ -419,26 +419,16 @@ module Procedo
       end
 
       i0 = index
-      r1 = _nt_individual_measure_reading
+      r1 = _nt_individual_reading
       if r1
         r0 = r1
       else
-        r2 = _nt_individual_reading
+        r2 = _nt_whole_reading
         if r2
           r0 = r2
         else
-          r3 = _nt_whole_measure_reading
-          if r3
-            r0 = r3
-          else
-            r4 = _nt_whole_reading
-            if r4
-              r0 = r4
-            else
-              @index = i0
-              r0 = nil
-            end
-          end
+          @index = i0
+          r0 = nil
         end
       end
 
@@ -447,173 +437,24 @@ module Procedo
       r0
     end
 
-    module IndividualMeasureReading0
-      def actor
-        elements[0]
-      end
-
-      def indicator
-        elements[2]
-      end
-
-      def unit
-        elements[4]
-      end
-
-    end
-
-    def _nt_individual_measure_reading
-      start_index = index
-      if node_cache[:individual_measure_reading].has_key?(index)
-        cached = node_cache[:individual_measure_reading][index]
-        if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
-          @index = cached.interval.end
-        end
-        return cached
-      end
-
-      i0, s0 = index, []
-      r1 = _nt_actor
-      s0 << r1
-      if r1
-        if has_terminal?("..", false, index)
-          r2 = instantiate_node(SyntaxNode,input, index...(index + 2))
-          @index += 2
-        else
-          terminal_parse_failure("..")
-          r2 = nil
-        end
-        s0 << r2
-        if r2
-          r3 = _nt_indicator
-          s0 << r3
-          if r3
-            if has_terminal?("(", false, index)
-              r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
-            else
-              terminal_parse_failure("(")
-              r4 = nil
-            end
-            s0 << r4
-            if r4
-              r5 = _nt_unit
-              s0 << r5
-              if r5
-                if has_terminal?(")", false, index)
-                  r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                  @index += 1
-                else
-                  terminal_parse_failure(")")
-                  r6 = nil
-                end
-                s0 << r6
-              end
-            end
-          end
-        end
-      end
-      if s0.last
-        r0 = instantiate_node(IndividualMeasureReading,input, i0...index, s0)
-        r0.extend(IndividualMeasureReading0)
-      else
-        @index = i0
-        r0 = nil
-      end
-
-      node_cache[:individual_measure_reading][start_index] = r0
-
-      r0
-    end
-
-    module WholeMeasureReading0
-      def actor
-        elements[0]
-      end
-
-      def indicator
-        elements[2]
-      end
-
-      def unit
-        elements[4]
-      end
-
-    end
-
-    def _nt_whole_measure_reading
-      start_index = index
-      if node_cache[:whole_measure_reading].has_key?(index)
-        cached = node_cache[:whole_measure_reading][index]
-        if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
-          @index = cached.interval.end
-        end
-        return cached
-      end
-
-      i0, s0 = index, []
-      r1 = _nt_actor
-      s0 << r1
-      if r1
-        if has_terminal?(".", false, index)
-          r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
-        else
-          terminal_parse_failure(".")
-          r2 = nil
-        end
-        s0 << r2
-        if r2
-          r3 = _nt_indicator
-          s0 << r3
-          if r3
-            if has_terminal?("(", false, index)
-              r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
-            else
-              terminal_parse_failure("(")
-              r4 = nil
-            end
-            s0 << r4
-            if r4
-              r5 = _nt_unit
-              s0 << r5
-              if r5
-                if has_terminal?(")", false, index)
-                  r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                  @index += 1
-                else
-                  terminal_parse_failure(")")
-                  r6 = nil
-                end
-                s0 << r6
-              end
-            end
-          end
-        end
-      end
-      if s0.last
-        r0 = instantiate_node(WholeMeasureReading,input, i0...index, s0)
-        r0.extend(WholeMeasureReading0)
-      else
-        @index = i0
-        r0 = nil
-      end
-
-      node_cache[:whole_measure_reading][start_index] = r0
-
-      r0
-    end
-
     module IndividualReading0
+      def unit
+        elements[1]
+      end
+
+    end
+
+    module IndividualReading1
       def actor
         elements[0]
       end
 
       def indicator
         elements[2]
+      end
+
+      def options
+        elements[3]
       end
     end
 
@@ -643,11 +484,49 @@ module Procedo
         if r2
           r3 = _nt_indicator
           s0 << r3
+          if r3
+            i5, s5 = index, []
+            if has_terminal?("(", false, index)
+              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
+            else
+              terminal_parse_failure("(")
+              r6 = nil
+            end
+            s5 << r6
+            if r6
+              r7 = _nt_unit
+              s5 << r7
+              if r7
+                if has_terminal?(")", false, index)
+                  r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                  @index += 1
+                else
+                  terminal_parse_failure(")")
+                  r8 = nil
+                end
+                s5 << r8
+              end
+            end
+            if s5.last
+              r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+              r5.extend(IndividualReading0)
+            else
+              @index = i5
+              r5 = nil
+            end
+            if r5
+              r4 = r5
+            else
+              r4 = instantiate_node(SyntaxNode,input, index...index)
+            end
+            s0 << r4
+          end
         end
       end
       if s0.last
         r0 = instantiate_node(IndividualReading,input, i0...index, s0)
-        r0.extend(IndividualReading0)
+        r0.extend(IndividualReading1)
       else
         @index = i0
         r0 = nil
@@ -659,12 +538,23 @@ module Procedo
     end
 
     module WholeReading0
+      def unit
+        elements[1]
+      end
+
+    end
+
+    module WholeReading1
       def actor
         elements[0]
       end
 
       def indicator
         elements[2]
+      end
+
+      def options
+        elements[3]
       end
     end
 
@@ -694,11 +584,49 @@ module Procedo
         if r2
           r3 = _nt_indicator
           s0 << r3
+          if r3
+            i5, s5 = index, []
+            if has_terminal?("(", false, index)
+              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
+            else
+              terminal_parse_failure("(")
+              r6 = nil
+            end
+            s5 << r6
+            if r6
+              r7 = _nt_unit
+              s5 << r7
+              if r7
+                if has_terminal?(")", false, index)
+                  r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                  @index += 1
+                else
+                  terminal_parse_failure(")")
+                  r8 = nil
+                end
+                s5 << r8
+              end
+            end
+            if s5.last
+              r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+              r5.extend(WholeReading0)
+            else
+              @index = i5
+              r5 = nil
+            end
+            if r5
+              r4 = r5
+            else
+              r4 = instantiate_node(SyntaxNode,input, index...index)
+            end
+            s0 << r4
+          end
         end
       end
       if s0.last
         r0 = instantiate_node(WholeReading,input, i0...index, s0)
-        r0.extend(WholeReading0)
+        r0.extend(WholeReading1)
       else
         @index = i0
         r0 = nil

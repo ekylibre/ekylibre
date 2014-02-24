@@ -126,7 +126,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "analyser_id"
     t.text     "description"
     t.datetime "sampled_at",                                                         null: false
-    t.datetime "made_at"
+    t.datetime "analysed_at"
     t.datetime "created_at",                                                         null: false
     t.datetime "updated_at",                                                         null: false
     t.integer  "creator_id"
@@ -148,7 +148,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
 
   create_table "analysis_items", force: true do |t|
     t.integer  "analysis_id",                                                                                                    null: false
-    t.datetime "read_at",                                                                                                        null: false
     t.string   "indicator_name",                                                                                                 null: false
     t.string   "indicator_datatype",                                                                                             null: false
     t.decimal  "absolute_measure_value_value",                                          precision: 19, scale: 4
@@ -174,7 +173,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "analysis_items", ["created_at"], :name => "index_analysis_items_on_created_at"
   add_index "analysis_items", ["creator_id"], :name => "index_analysis_items_on_creator_id"
   add_index "analysis_items", ["indicator_name"], :name => "index_analysis_items_on_indicator_name"
-  add_index "analysis_items", ["read_at"], :name => "index_analysis_items_on_read_at"
   add_index "analysis_items", ["updated_at"], :name => "index_analysis_items_on_updated_at"
   add_index "analysis_items", ["updater_id"], :name => "index_analysis_items_on_updater_id"
 

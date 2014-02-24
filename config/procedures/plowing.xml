@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="plowing" natures="plowing" version="0.0" status="frozen">
+  <procedure name="plowing" natures="plowing" version="0" status="frozen">
     <variables>
       <!-- paramètre réprésentant des objets de type Humain qui possède la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="driver" variety="worker" roles="plowing-doer"/>

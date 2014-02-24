@@ -21,6 +21,7 @@
 #
 # == Table: analyses
 #
+#  analysed_at      :datetime
 #  analyser_id      :integer
 #  created_at       :datetime         not null
 #  creator_id       :integer
@@ -28,7 +29,6 @@
 #  geolocation      :spatial({:srid=>
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  made_at          :datetime
 #  nature           :string(255)      not null
 #  number           :string(255)      not null
 #  product_id       :integer
@@ -65,9 +65,8 @@ class Analysis < Ekylibre::Record::Base
       raise ArgumentError, "Value must be given"
     end
     options[:indicator_name] = indicator.name
-    options[:at] = Time.now unless options.has_key?(:at)
-    unless item = self.items.find_by(indicator_name: indicator.name, read_at: options[:at])
-      item = self.items.build(indicator_name: indicator.name, read_at: options[:at])
+    unless item = self.items.find_by(indicator_name: indicator.name)
+      item = self.items.build(indicator_name: indicator.name)
     end
     item.value = value
     item.save!

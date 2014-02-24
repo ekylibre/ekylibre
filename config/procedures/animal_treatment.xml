@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
-  <procedure name="animal_treatment" natures="animal_illness_treatment" version="0.0" status="frozen">
+  <procedure name="animal_treatment" natures="animal_illness_treatment" version="0" status="frozen">
     <variables>
       <variable name="animal"           variety="animal" roles="animal_illness_treatment-target"/>
       <variable name="medicine"         variety="animal_medicine" abilities="care(animal)"/>

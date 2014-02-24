@@ -1,21 +1,21 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="indirect_silage" natures="transformation" version="0.0" status="frozen">
+  <procedure name="direct_silage" natures="harvest" version="0" status="frozen">
     <variables>
-      <variable name="forager" variety="forager" abilities="harvest(plant)" roles="transformation-tool"/>
-      <variable name="forager_driver" variety="worker" abilities="drive(forager)" roles="transformation-doer"/>
-      <variable name="straw_to_bunch" variety="straw" derivative_of="poaceae" roles="transformation-input" />
-      <variable name="silage"    variant=":straw_to_bunch" new="produced-by: straw_to_bunch" roles="transformation-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})"/>
+      <variable name="forager" variety="forager" abilities="harvest(plant)" roles="harvest-tool"/>
+      <variable name="forager_driver" variety="worker" abilities="drive(forager)" roles="harvest-doer"/>
+      <variable name="cultivation" variety="poaceae" roles="harvest-target"/>
+      <variable name="silage" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
         <task do="[forager_driver] moves in [forager]"/>
       </operation>
       <operation id="200" duration="18 minutes">
-        <task do="[forager] moves at [straw_to_bunch]"/>
+        <task do="[forager] moves at [cultivation]"/>
       </operation>
       <operation id="300">
-        <task do="[forager] consumes [straw_to_bunch]"/>
+        <task do="[forager] consumes [cultivation]"/>
         <task do="[forager] produces [silage]"/>
         <task do="[silage] is at [cultivation]"/>
       </operation>

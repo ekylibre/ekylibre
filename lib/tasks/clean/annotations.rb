@@ -127,7 +127,9 @@ module AnnotateModels
       # Write it back
       # File.open(file_name, "w") { |f| f.puts info_block.gsub(/\n\n/, "\n#\n") +"\n"+ content }
 
-      File.open(file_name, "w") { |f| f.puts content.sub(/# #{PREFIX}.*\n(#.*\n)*/, info_block) }
+      File.open(file_name, "w") { |f|
+        f.puts content.sub(/# #{PREFIX}.*\n(#.*\n)*/, info_block).gsub!(/\ +\n/, "\n")
+      }
     end
   end
 

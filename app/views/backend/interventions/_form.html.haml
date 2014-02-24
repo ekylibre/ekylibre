@@ -31,10 +31,12 @@
               .handler
                 .title= handler.indicator.human_name
                 .value
-                  = number_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "#{reference.name}:handler:#{handler.name}"})
+                  = number_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "#{reference.name}:handlers:#{handler.name}"})
                   - if handler.unit?
                     .add-on= handler.unit.symbol
-            - unless reference.known_variant?
+            - if reference.known_variant?
+              = v.association :variant, as: :hidden, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "#{reference.name}:variant"}}
+            - else
               .handler.long
                 .title= InterventionCast.human_attribute_name(:variant)
                 .value= v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "#{reference.name}:variant"}}

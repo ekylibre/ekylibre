@@ -63,7 +63,7 @@ task :modules => :environment do
   File.open(menu_file, 'wb') do |f|
     f.write doc.to_s
   end
-  print " #{unused_actions.size.to_s.rjust(3)} unused actions, #{deleted.to_s.rjust(3)} deletable actions\n"
+  print "#{unused_actions.size.to_s.rjust(3)} unused actions, #{deleted.to_s.rjust(3)} deletable actions\n"
 
 end
 
