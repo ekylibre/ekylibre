@@ -123,6 +123,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
   validate do
     if self.nature
       unless Nomen::Varieties.all(self.nature_variety).include?(self.variety.to_s)
+        puts "#{self.nature_variety}#{Nomen::Varieties.all(self.nature_variety)} not include #{self.variety.inspect}".red
         errors.add(:variety, :invalid)
       end
       if self.derivative_of
@@ -215,16 +216,12 @@ class ProductNatureVariant < Ekylibre::Record::Base
           end
           h
         end
-        # puts [variety, derivative_of].inspect
-        # puts "NOMENCLATURE: " + nomenclature.inspect
         # Filter and imports
         filtereds = nomenclature.select do |item|
           item[:variety].include?(variety) and
             ((derivative_of and item[:derivative_of] and item[:derivative_of].include?(derivative_of)) or (derivative_of.blank? and item[:derivative_of].blank?))
         end
-        # puts "FILTEREDS: " + filtereds.inspect
         filtereds.each do |item|
-          # puts "Import #{item[:reference_name]}!"
           import_from_nomenclature(item[:reference_name])
         end
       end

@@ -410,7 +410,7 @@
             nature="fruit"
             derivative_of="vitis_vinifera"
             unit_name="hectoliter"
-            frozen_indicators_values="net_volume: 100.00liter"
+            frozen_indicators_values="net_mass: 99.00 kilogram, net_volume: 100.00liter"
             />
       <item name="wine"
             nature="wine"
@@ -685,7 +685,7 @@
             variety="manure"
             derivative_of="capra"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.61ercent"
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.61percent"
             />
             <item name="rabbit_manure"
             nature="organic_fertilizer"
@@ -706,8 +706,8 @@
             variety="slurry"
             derivative_of="animal"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.20percent, dry_matter_rate: 5.00percent"
-            />
+            frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.20percent" 
+            /><!-- , dry_matter_rate: 5.00percent -->
             <item name="urban_compost"
             nature="organic_fertilizer"
             variety="compost"
