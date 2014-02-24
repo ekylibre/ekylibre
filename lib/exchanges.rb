@@ -14,10 +14,10 @@ module Exchanges
     @@verbose = false
 
     def self.import(*args)
-      raise NotImplementedError.new
+      raise NotImplementedError
     end
     def self.export(*args)
-      raise NotImplementedError.new
+      raise NotImplementedError
     end
 
     def self.benchmark(text, &block)

@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+require 'iconv'
+
 module Ekylibre
 
   module Export
@@ -49,7 +52,7 @@ module Ekylibre
         end
         code += '"\r\n"'+")\n"
         code += "end\n"
-        ic = Iconv.new('cp1252', 'utf-8')
+        ic = ::Iconv.new('cp1252', 'utf-8')
         filename ||= "#{company.code}.ECC"
         file = Rails.root.join("tmp", "#{filename}.zip")
 
