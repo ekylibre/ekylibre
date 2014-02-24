@@ -22,23 +22,24 @@ module Procedo
     end
 
     rule reading
-      individual_measure_reading / individual_reading / whole_measure_reading / whole_reading
+      # individual_measure_reading / individual_reading / whole_measure_reading / whole_reading
+      individual_reading / whole_reading
     end
 
-    rule individual_measure_reading
-      actor ".." indicator "(" unit ")" <IndividualMeasureReading>
-    end
+    # rule individual_measure_reading
+    #   actor ".." indicator "(" unit ")" <IndividualMeasureReading>
+    # end
 
-    rule whole_measure_reading
-      actor "." indicator "(" unit ")" <WholeMeasureReading>
-    end
+    # rule whole_measure_reading
+    #   actor "." indicator "(" unit ")" <WholeMeasureReading>
+    # end
 
     rule individual_reading
-      actor ".." indicator <IndividualReading>
+      actor ".." indicator options:("(" unit ")")? <IndividualReading>
     end
 
     rule whole_reading
-      actor "." indicator <WholeReading>
+      actor "." indicator options:("(" unit ")")? <WholeReading>
     end
 
     rule actor

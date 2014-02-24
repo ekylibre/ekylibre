@@ -83,13 +83,13 @@ module Procedo
 
     @@whole_indicators = Nomen::Indicators.where(related_to: :whole).collect{|i| i.name.to_sym }
 
-    attr_reader :unit, :indicator, :destination, :forward_tree, :backward_tree
+    attr_reader :name, :unit, :indicator, :destination, :forward_tree, :backward_tree
 
     def initialize(variable, element = nil)
       @variable = variable
       # Extract attributes from XML element
       unless element.is_a?(Hash)
-        element = %w(forward backward indicator unit to datatype).inject({}) do |hash, attr|
+        element = %w(forward backward indicator unit to datatype name).inject({}) do |hash, attr|
           if element.has_attribute?(attr)
             hash[attr.to_sym] = element.attr(attr)
           end
@@ -103,7 +103,7 @@ module Procedo
       end
       element[:forward]  = "value" if element[:forward].blank?
       element[:backward] = "value" if element[:backward].blank?
-      @destination = element[:to]
+      @destination = element[:to].to_sym
       # Load values
       begin
         @forward_tree = HandlerMethod.parse(element[:forward].to_s)
@@ -115,7 +115,6 @@ module Procedo
       rescue SyntaxError => e
         raise SyntaxError, "A procedure handler (#{element.inspect}) #{variable.procedure.name} has a syntax error on backward formula: #{e.message}"
       end
-
       unless @indicator = Nomen::Indicators[element[:indicator]]
         raise InvalidHandler, "Handler must have a valid 'indicator' attribute. Got: #{element[:indicator].inspect}"
       end
@@ -128,7 +127,29 @@ module Procedo
           @unit = @indicator.unit
         end
       end
+      @name = element[:name].to_s
+      if @name.blank?
+        @name = @indicator.name.to_s
+        if @unit and @variable.handlers.detect{|h| h.name.to_s == @name}
+          @name << "_in_#{@unit.name}" 
+        end
+      end
+      @name = @name.to_sym
     end
+
+
+    def self.count_variables(node, name)
+      if (node.is_a?(Procedo::HandlerMethod::Self) and name == :self) or 
+          (node.is_a?(Procedo::HandlerMethod::Variable) and name.to_s == node.text_value)
+        return 1
+      end
+      return 0 unless node.elements
+      return node.elements.inject(0) do |count, child|
+        count += count_variables(child, name)
+        count
+      end
+    end
+
 
     def procedure
       @variable.procedure
@@ -138,13 +159,13 @@ module Procedo
       !@unit.nil?
     end
 
-    # Returns the unique name of an handler inside a given procedure
-    def unique_name
-      "#{@variable.name}-#{name}"
+    def destination_unique_name
+      "#{@variable.name}_#{@destination}"
     end
 
-    def destination_unique_name
-      "#{@variable.name}_#{destination}"
+    # Returns the unique name of an handler inside a given procedure
+    def unique_name
+      "#{@variable.name}-#{@name}"
     end
 
     # Unique identifier for a given handler
@@ -156,35 +177,26 @@ module Procedo
       @indicator.datatype
     end
 
-    # def short_name
-    #   if unit?
-    #     "#{@indicator.name}-#{@unit.name}"
-    #   else
-    #     @indicator.name
-    #   end
-    # end
-
-    def name
-      if unit?
-        "#{@indicator.name}-#{@unit.name}"
-      else
-        @indicator.name
-      end
-    end
-
     # Returns other handlers in the current variable scope
     def others
       @variable.handlers.select{|h| h != self }
     end
 
-
     # Returns the human name of the handler
     def human_name
+      default, params = [], {indicator: @indicator.human_name}
       if unit?
-        :indicator_with_unit.tl(indicator: @indicator.human_name, unit: @unit.symbol)
-      else
-        @indicator.human_name
+        default << :indicator_with_unit 
+        params[:unit] = @unit.symbol
       end
+      default << @indicator.human_name
+      "procedures.handlers.#{name}".t(params.merge(default: default))
+    end
+
+    # Returns keys
+    def depend_on?(variable_name)
+      self.class.count_variables(@forward_tree, variable_name) > 0 or 
+        self.class.count_variables(@backward_tree, variable_name) > 0
     end
 
   end

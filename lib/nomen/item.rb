@@ -50,10 +50,10 @@ module Nomen
     end
 
     # Returns true if the given item name match the current item or its children
-    def include?(name)
-      name = name.to_s
+    def include?(item)
+      item = nomenclature.items[item] unless item.is_a?(Item)
       return self_and_children.detect do |item|
-        item.name == name
+        item == self
       end
     end
 

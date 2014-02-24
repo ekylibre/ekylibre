@@ -157,6 +157,8 @@
             if (selected[0] !== null && selected[0] !== undefined) {
                 if (selected.is("[data-item-label][data-item-id]")) {
                     $.EkylibreSelector.select(selector, selected.data("item-id"), selected.data("item-label"));
+                    selector.trigger("change");
+                    selector[0].hiddenInput.trigger("change");
                 } else if (selected.is("[data-new-item]")) {
                     parameters = {};
                     if (selected.data('new-item').length > 0) {
@@ -168,6 +170,8 @@
                             success: function (frame, data, status, request) {
                                 var record_id = request.getResponseHeader("X-Saved-Record-Id");
                                 $.EkylibreSelector.set(selector, record_id);
+                                selector.trigger("change");
+                                selector[0].hiddenInput.trigger("change");
                                 frame.dialog("close");
                             },
                             invalid: function (frame, data, textStatus, request) {

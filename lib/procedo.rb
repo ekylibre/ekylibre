@@ -1,4 +1,8 @@
 module Procedo
+  # Namespace used to "store" compiled procedures
+  module CompiledProcedures
+  end
+
   class MissingAttribute < StandardError
   end
 
@@ -43,6 +47,7 @@ module Procedo
   autoload :Task,                'procedo/task'
   autoload :Indicator,           'procedo/indicator'
   autoload :Action,              'procedo/action'
+  autoload :CompiledProcedure,   'procedo/compiled_procedure'
 
   @@list = HashWithIndifferentAccess.new
 
