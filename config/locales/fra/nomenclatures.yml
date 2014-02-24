@@ -21,7 +21,6 @@ fra:
         implant: "Planter"
         kill: "Tuer"
         lubricate: "Lubrifier"
-        make_up: "Composer"
         manage: "Gérer"
         milk: "Traire"
         move: "Se déplacer"
@@ -292,6 +291,7 @@ fra:
         # target_variety: # Choices comes from nomenclature: varieties
       items:
         cow_milk_analysis: "Analyse de lait de vache"
+        # unitary_cow_milk_analysis: "Unitary cow milk analysis"
     animal_life_states:
       name: "États du dévelopment animal"
       items:
@@ -1323,9 +1323,8 @@ fra:
         animal_illness_treatment: "Traitement des maladies animales"
         animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_illness_treatment
         animal_production: "Productions animales"
-        building_maintenance: "Maintenance des bâtiments"  # maintenance
+        # consummables_addition: "Consummables addition"   # maintenance
         # cultipacking: "Cultipacking"                     # tillage
-        equipment_maintenance: "Maintenance des équipements" # maintenance
         fermentation: "Fermentation"                       # transformation
         grinding: "Broyage"
         growth_control: "Contrôle de croissance"
@@ -1334,10 +1333,10 @@ fra:
         hoeing: "Binage"                                   # tillage
         implant: "Plantation"                              # implantation
         implantation: "Implantation d’une culture"
-        installation_maintenance: "Maintenance des installations" # maintenance
         maintenance: "Maintenance"
         milk_production: "Production laitière"             # animal_production
         oviparous_birth: "Reproduction (ovipare)"
+        # piece_replacement: "Piece replacement"           # maintenance
         plant_fertilisation: "Fertilisation"
         plant_illness_treatment: "Protection des cultures"
         plowing: "Labour"                                  # tillage

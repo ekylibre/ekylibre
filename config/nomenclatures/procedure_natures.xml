@@ -23,7 +23,7 @@
       <item name="pruning" roles="doer, target"/>
       <item name="grinding" roles="input, output, doer, tool"/>
       <item name="growth_control" roles="target"/>
-      <item name="maintenance" roles="target, doer"/>
+      <item name="maintenance" roles="target"/>
     </items>
   </nomenclature>
 
@@ -36,9 +36,8 @@
 
   <nomenclature name="procedure_natures-maintenance">
     <items>
-      <item name="building_maintenance" roles="target, doer"/>
-      <item name="equipment_maintenance" roles="target, doer, input"/>
-      <item name="installation_maintenance" roles="target, doer"/>
+      <item name="consummables_addition" roles="target, doer, input"/>
+      <item name="piece_replacement" roles="target, doer, input"/>
     </items>
   </nomenclature>
 

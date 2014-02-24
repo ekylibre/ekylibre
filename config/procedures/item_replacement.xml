@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
-  <procedure name="item_replacement" natures="equipment_maintenance" version="0" status="frozen">
+  <procedure name="item_replacement" natures="piece_replacement" version="0" status="frozen">
     <variables>
-      <variable name="equipment"       variety="equipment" roles="equipment_maintenance-target"/>
-      <variable name="item"            variety="item" abilities="make_up(equipment)"/>
-      <variable name="item_to_change"  new="parted-from: item" roles="equipment_maintenance-input" need="population"/>
-      <variable name="mechanic"        variety="worker" abilities="repair(equipment)" roles="equipment_maintenance-doer"/>
+      <variable name="equipment"       variety="equipment" roles="piece_replacement-target"/>
+      <variable name="item"            variety="matter" derivative_of="variety:equipment" />
+      <variable name="item_to_change"  new="parted-from: item" roles="piece_replacement-input" need="population"/>
+      <variable name="mechanic"        variety="worker" abilities="repair(equipment)" roles="piece_replacement-doer"/>
     </variables>
     <operations>
       <operation id="100">

@@ -56,7 +56,6 @@ eng:
         # implant: "Planter"
         kill: "Kill"
         # lubricate: "Lubrifier"
-        # make_up: "Composer"
         # manage: "Gérer"
         # milk: "Traire"
         move: "Move"
@@ -1505,9 +1504,7 @@ eng:
         # animal_illness_treatment: "Traitement des maladies animales"
         # animal_preventive_medicine_admission: "Traitement préventif des maladies animales"
         # animal_production: "Productions animales"
-        # building_maintenance: "Maintenance des bâtiments"
         enrichment: "Enrichment" #?
-        # equipment_maintenance: "Maintenance des équipements"
         feeding: "Feeding" #?
         # fermentation: "Fermentation"
         # grinding: "Broyage"
@@ -1517,7 +1514,6 @@ eng:
         # hoeing: "Binage"
         # implant: "Plantation"
         # implantation: "Implantation d’une culture"
-        # installation_maintenance: "Maintenance des installations"
         # maintenance: "Maintenance"
         # milk_production: "Production laitière"
         # oviparous_birth: "Reproduction (ovipare)"
