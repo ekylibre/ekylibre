@@ -15,18 +15,19 @@ load_data :products do |loader|
         r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
                            :variant_reference_name => row[1].downcase.to_sym,
                            :work_number => row[2].blank? ? nil : row[2].to_s,
-                           :born_at => (row[3].blank? ? Date.civil(2000, 2, 2) : row[3]).to_datetime,
-                           :brand => row[4].blank? ? nil : row[4].to_s,
-                           :model => row[5].blank? ? nil : row[5].to_s,
-                           :external => !row[6].blank?,
-                           :indicators => row[7].blank? ? {} : row[7].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                           :place_code => row[3].blank? ? nil : row[3].to_s,
+                           :born_at => (row[4].blank? ? Date.civil(2000, 2, 2) : row[4]).to_datetime,
+                           :brand => row[5].blank? ? nil : row[5].to_s,
+                           :model => row[6].blank? ? nil : row[6].to_s,
+                           :external => !row[7].blank?,
+                           :owner_name => row[7].blank? ? nil : row[7].to_s,
+                           :indicators => row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
                              h[i.first.strip.downcase.to_sym] = i.second
                              h
                            },
-                           :owner_name => row[6].blank? ? nil : row[6].to_s,
-                           :notes => row[8].blank? ? nil : row[8].to_s,
-                           :unit_price => row[9].blank? ? nil : row[9].to_d,
-                           :price_indicator => row[10].blank? ? nil : row[10].to_sym
+                           :notes => row[9].blank? ? nil : row[9].to_s,
+                           :unit_price => row[10].blank? ? nil : row[10].to_d,
+                           :price_indicator => row[11].blank? ? nil : row[11].to_sym
                            )
 
         # find or import from variant reference_nameclature the correct ProductNatureVariant
@@ -53,7 +54,13 @@ load_data :products do |loader|
         for indicator, value in r.indicators
           equipment.read!(indicator, value, at: r.born_at, force: true)
         end
-
+        
+        if container = Product.find_by_work_number(r.place_code)
+          # container.add(zone, born_at)
+          equipment.update_attributes(initial_container: container)
+          equipment.save!
+        end
+        
         w.check_point
       end
 
