@@ -37,6 +37,7 @@
                       .add-on= handler.unit.symbol
                   - elsif handler.widget == :map
                     = shape_field_tag(nil, nil, data: {procedure: procedure.name, variable: reference.name, variable_handler: handler.name, intervention_updater: "#{reference.name}:handlers:#{handler.name}"})
+            -# Variant
             - if reference.known_variant?
               = v.association :variant, as: :hidden, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "#{reference.name}:variant"}}
             - else

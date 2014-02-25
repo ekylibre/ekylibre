@@ -281,7 +281,7 @@ module Procedo
       elsif datatype == :boolean
         "['t', 'true', '1'].include?(#{expr}.to_s)"
       elsif datatype == :point or datatype == :geometry
-        "(#{expr}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{expr}))"
+        "(#{expr}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{expr}, :WGS84))"
       else
         "#{expr}.to_s"
       end

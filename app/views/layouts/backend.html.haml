@@ -20,7 +20,7 @@
       #main
         %header.header
           - main_toolbar do |t|
-            - t.tool_to(content_tag(:i) + h(tl(:help)), toggle_backend_helps_path, 'data-toggle' => 'help', :class => "btn", :group => :help)
+            - t.tool_to(content_tag(:i) + h(tl(:help)), toggle_backend_helps_path, data: {toggle: 'help'}, :class => "btn", :group => :help)
           = main_toolbar_tag
           = heading_tag
         = deck(:id => :content) do

@@ -4,6 +4,7 @@
     <attributes>
       <attribute name="srid" type="integer" required="true"/>
       <attribute name="authority_reference" type="string" required="false"/>
+      <attribute name="urn" type="string" required="false"/>
     </attributes>
     <items>
       <item name="EPSG_2000" srid="2000" authority_reference="EPSG:2000"/>
@@ -2115,7 +2116,7 @@
       <item name="EPSG_4319" srid="4319" authority_reference="EPSG:4319"/>
       <item name="EPSG_4322" srid="4322" authority_reference="EPSG:4322"/>
       <item name="EPSG_4324" srid="4324" authority_reference="EPSG:4324"/>
-      <item name="WGS84"     srid="4326" authority_reference="EPSG:4326"/>
+      <item name="WGS84"     srid="4326" authority_reference="EPSG:4326" urn="urn:ogc:def:crs:OGC:1.3:CRS84"/>
       <item name="EPSG_4414" srid="4414" authority_reference="EPSG:4414"/>
       <item name="EPSG_4415" srid="4415" authority_reference="EPSG:4415"/>
       <item name="EPSG_4417" srid="4417" authority_reference="EPSG:4417"/>
