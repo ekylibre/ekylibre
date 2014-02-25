@@ -24,11 +24,12 @@ class Backend::UsersController < BackendController
 
   list(order: "locked, last_name", :line_class => "(RECORD.locked ? 'critic' : '')".c) do |t|
     t.column :full_name, url: true
-    t.column :first_name, url: true
-    t.column :last_name, url: true
+    t.column :first_name, url: true, hidden: true
+    t.column :last_name, url: true, hidden: true
     t.column :role, url: {action: :edit}
+    t.column :team, url: true, hidden: true
     t.column :administrator
-    t.column :employed
+    t.column :employed, hidden: true
     t.action :locked, :actions => {true => {action: :unlock}, false => {action: :lock}}, method: :post, if: 'RECORD.id != current_user.id'.c
     t.action :edit, controller: :users
     t.action :destroy, if: 'RECORD.id != current_user.id'.c
