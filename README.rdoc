@@ -25,7 +25,9 @@ https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre.
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...).
 
-https://github.com/ekylibre/ekylibre/wiki/Installation_for_developers.
+[Installation ENG](https://github.com/ekylibre/ekylibre/wiki/Installation_for_developers).
+
+[Installation FRA](https://github.com/ekylibre/ekylibre/wiki/Jour-3-2-Ruby,-Rails-et-dépendances).
 
 == Contributing
 
