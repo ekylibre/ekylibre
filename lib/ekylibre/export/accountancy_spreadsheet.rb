@@ -56,6 +56,7 @@ module Ekylibre
         filename ||= "#{company.code}.ECC"
         file = Rails.root.join("tmp", "#{filename}.zip")
 
+        FileUtils.mkdir_p(file.dirname)
         Zip::ZipFile.open(file, Zip::ZipFile::CREATE) do |zile|
           zile.get_output_stream(filename) do |f| 
             eval(code)
