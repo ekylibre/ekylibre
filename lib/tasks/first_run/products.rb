@@ -70,7 +70,7 @@ load_data :products do |loader|
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
         r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
                            :variant_reference_name => row[1].downcase.to_sym,
-                           :work_number => row[2].blank? ? nil : row[2].to_s,
+                           :place_code => row[2].blank? ? nil : row[2].to_s,
                            :born_at => (row[3].blank? ? (Date.today - 200) : row[3]).to_datetime,
                            :variety => row[4].blank? ? nil : row[4].to_s,
                            :derivative_of => row[5].blank? ? nil : row[5].to_s,
@@ -109,7 +109,13 @@ load_data :products do |loader|
         for indicator, value in r.indicators
           product.read!(indicator, value, at: r.born_at, force: true)
         end
-
+        
+        if container = Product.find_by_work_number(r.place_code)
+          # container.add(zone, born_at)
+          product.update_attributes(initial_container: container)
+          product.save!
+        end
+        
         w.check_point
       end
     end
