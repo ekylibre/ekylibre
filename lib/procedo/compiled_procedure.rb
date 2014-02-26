@@ -1,8 +1,6 @@
 module Procedo
   class CompiledProcedure
 
-    attr_reader :now, :updater
-    
     # def initialize(casting = {})
     #   cast(casting) if casting
     # end
@@ -20,6 +18,19 @@ module Procedo
     #   @casting = casting
     #   @now = Time.now
     # end
+
+    # Returns the moment of the execution of the intervention
+    def now!
+      @__now__
+    end
+
+    # Checks "updater path"
+    def updater?(*args)
+      args.each_with_index do |arg, index|
+        return false if arg != @__updater__[index]
+      end
+      return true
+    end
 
     @@list = {}.with_indifferent_access
 

@@ -36,6 +36,7 @@
           zoomInText: ""
           zoomOutText: ""
         scale:
+          position: "bottomright"
           imperial: false
           maxWidth: 200
 

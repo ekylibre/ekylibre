@@ -94,7 +94,7 @@ class Backend::InterventionsController < BackendController
       head :not_found
       return
     end
-    updates = procedure.impact(params[:updater], params[:casting])
+    updates = procedure.impact(params[:casting], params[:global], params[:updater])
     respond_to do |format|
       format.xml  { render xml: updates.to_xml }
       format.json { render xml: updates.to_json }

@@ -48,11 +48,13 @@
 
     value: (newValue) ->
       return this.id unless newValue?
-      console.log "Set new value #{newValue}!"
+      console.log "Setting new value #{newValue}..."
       this._set(newValue)
+      console.log "New value #{newValue}!"
                   
     _set: (id) ->
       return this.id if id is null or id is undefined or id is ""
+      that = this
       $.ajax
         url: this.sourceURL,
         dataType: "json"
@@ -61,7 +63,7 @@
         success: (data, status, request) ->
           listItem = $.parseJSON(request.responseText)[0]
           if listItem?
-            this._select listItem.id, listItem.label
+            that._select listItem.id, listItem.label
           else
             console.log "JSON cannot be parsed. Get: #{request.responseText}."
         error: (request, status, error) ->
@@ -79,8 +81,6 @@
       this.id = parseInt id
       if this.dropDownMenu.is(":visible")
         this.dropDownMenu.hide() 
-      this.element.trigger "change"
-      # this.valueField.trigger "change"
       this
 
     _openMenu: (search) ->
@@ -130,15 +130,18 @@
       if selected[0]?
         if selected.is("[data-item-label][data-item-id]")
           this._select selected.data("itemId"), selected.data("itemLabel")
+          this.element.trigger "change"
         else if selected.is("[data-new-item]")
           parameters = {}
           if selected.data("newItem").length > 0
-            parameters.name = selected.data("newItem")  
+            parameters.name = selected.data("newItem")
+          that = this
           $.ajaxDialog this.element.data("selectorNewItem"),
             data: parameters
             returns:
               success: (frame, data, status, request) ->
-                this._set request.getResponseHeader("X-Saved-Record-Id")
+                that._set request.getResponseHeader("X-Saved-Record-Id")
+                that.element.trigger "change"
                 frame.dialog "close"
               invalid: (frame, data, textStatus, request) ->
                 frame.html request.responseText

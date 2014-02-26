@@ -48,7 +48,7 @@ class ProductionSupport < Ekylibre::Record::Base
   validates_uniqueness_of :storage_id, scope: :production_id
 
   delegate :net_surface_area, :shape_area, to: :storage, prefix: true
-  delegate :name, to: :production, prefix: true
+  delegate :name, :variant, to: :production, prefix: true
   delegate :name, :shape, :shape_to_ewkt, to: :storage
 
   accepts_nested_attributes_for :markers, :reject_if => :all_blank, :allow_destroy => true

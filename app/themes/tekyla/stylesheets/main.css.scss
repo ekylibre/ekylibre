@@ -1475,7 +1475,7 @@ $form-actions-height: 48px;
   @include float(left);
   background: white;
   border: 1px solid #AAA;
-  z-index: 4;
+  z-index: 10;
   @include incrust-shadow;
   .items-list {
     $item-padding: round($default-gap / 2);

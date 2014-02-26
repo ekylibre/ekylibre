@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 module Procedo
 
+  FORMULA_TRUC = {
+    shape: ["whole#net_surface_area"]
+  }
+
   class UnavailableReading < StandardError
   end
 
@@ -17,7 +21,7 @@ module Procedo
     end
 
     def now
-      @procedure.now
+      @procedure.now!
     end
 
     def actor_id
@@ -27,21 +31,6 @@ module Procedo
     def variant_id
       (@variant ? @variant.id : nil)
     end
-
-    # def get(indicator, options = {})
-    #   value = nil
-    #   if options[:individual] and variant = (@variant ? @variant : @actor ? @actor.variant : nil)
-    #     value = variant.get(indicator)
-    #   elsif !options[:individual] and @actor
-    #     value = @actor.get(indicator, at: now)
-    #   else
-    #     raise UnavailableReading, "No way to access #{'individual ' if options[:individual]}readings for #{self.class.name}##{indicator.inspect}"
-    #   end
-    #   unless value
-    #     raise UnavailableReading, "Nil #{'individual' if options[:individual]}reading given #{self.class.name}##{indicator.inspect}"
-    #   end
-    #   return value
-    # end
 
   end
 
@@ -311,18 +300,31 @@ module Procedo
         end
         code << "    end\n\n"
 
+        # Method to get indicator values on @actor/@variant
         code << "    def get(indicator, options = {})\n"
-        code << "      unless #{variable.new? ? '@variant' : '@actor'}\n"
-        code << "        raise UnavailableReading, \"No way to access \#{'individual ' if options[:individual]}readings for #{variable.name}#\#{indicator.inspect}\"\n"
-        code << "      end\n"
-        if variable.new?
-          code << "      unless value = @variant.get(indicator)\n"
+        if variable.new? and variable.destinations.include?(:shape)
+          code << "      if !@destinations[:shape].empty? and indicator == :net_surface_area and !options[:individual]\n"
+          code << "        value = @destinations[:shape].area\n"
+          code << "      elsif @variant\n"
+          code << "        value = @variant.get(indicator)\n"
+          code << "      else\n"
+          code << "        raise UnavailableReading, \"No way to access \#{'individual ' if options[:individual]}readings for #{variable.name}#\#{indicator.inspect}\"\n"
+          code << "      end\n"
         else
-          code << "      unless value = @actor.get(indicator, at: now, gathering: !options[:individual])\n"
+          code << "      unless #{variable.new? ? '@variant' : '@actor'}\n"
+          code << "        raise UnavailableReading, \"No way to access \#{'individual ' if options[:individual]}readings for #{variable.name}#\#{indicator.inspect}\"\n"
+          code << "      end\n"
+          if variable.new?
+            code << "      value = @variant.get(indicator)\n"
+          else
+            code << "      value = @actor.get(indicator, at: now, gathering: !options[:individual])\n"
+          end
         end
+        code << "      unless value\n"
         code << "        raise UnavailableReading, \"Nil \#{'individual' if options[:individual]}reading given #{variable.name}#\#{indicator.inspect}\"\n"
         code << "      end\n"
-        code << "      return value\n"
+        code << "      datatype = Nomen::Indicators[indicator].datatype\n"
+        code << "      return (datatype == :decimal ? value.to_f : value)\n"
         code << "    end\n\n"
 
         rubyist.self_value = "self"
@@ -330,12 +332,15 @@ module Procedo
         # Destinations
         for destination in variable.destinations
           code << "    def impact_destination_#{destination}!\n"
+          code << "      puts \"#{variable.name}#impact_destination_#{destination}!\".yellow\n"
+          # Updates handlers through backward formula
           for h in variable.handlers.select{|h| h.destination == destination }
             rubyist.value = "@destinations[:#{destination}]"
             rubyist.compile(h.backward_tree)
             code << "      begin\n"
             code << "        value = #{rubyist.compiled}\n"
             code << "        if value != @handlers[:#{h.name}]\n"
+            code << "          puts \"#{variable.name}##{h.name}: \#{value.inspect} (\#{@handlers[:#{h.name}].inspect})\".red\n"
             code << "          @handlers[:#{h.name}] = value\n"
             code << "          impact_handler_#{h.name}!\n"
             code << "        end\n"
@@ -343,16 +348,28 @@ module Procedo
             code << "        puts e.message.red\n"
             code << "      end\n"
           end
+          # Impacts on handlers of other variables that uses "our" destination
+          for other in variable.others
+            for handler in other.handlers
+              if handler.depend_on?(variable.name)
+                code << "      # Updates #{handler.name} of #{other.name} if possible\n"
+                code << "      procedure.#{other.name}.impact_handler_#{handler.name}!\n"
+              end
+            end
+          end
+
           code << "    end\n\n"
         end
         
         # Handlers
         for h in variable.handlers
           code << "    def impact_handler_#{h.name}!\n"
+          code << "      puts \"#{variable.name}#impact_handler_#{h.name}!\".yellow\n"
           rubyist.value = "@handlers[:#{h.name}]"
           rubyist.compile(h.forward_tree)
           code << "      value = #{rubyist.compiled}\n"
           code << "      if value != @destinations[:#{h.destination}]\n"
+          code << "        puts \"#{variable.name}#value: \#{value.inspect} (\#{@destinations[:#{destination}].inspect})\".red\n"
           code << "        @destinations[:#{destination}] = value\n"
           code << "        impact_destination_#{h.destination}!\n"
           code << "      end\n"
@@ -363,44 +380,34 @@ module Procedo
 
         # Variable
         code << "    def impact_#{variable.new? ? :variant : :actor}!\n"
-        if variable.new? and (variable.variety.present? or variable.derivative_of.present?)
-          # # Check the depending data matches
-          # code << "      # Check variety and derivative_of\n"
-          # code << "      if @variant\n"
-          # for constraint in [:variety, :derivative_of]
-          #   unless variable.send(constraint).blank?
-          #     code << "        #{constraint} = Nomen::Varieties[@variant.#{constraint}]\n"
-          #     if variable.send(constraint) =~ /\:/
-          #       ref = variable.send(constraint).split(/\:/).second.strip
-          #       code << "        if procedure.#{ref}.variant and master_#{constraint} = Nomen::Varieties[procedure.#{ref}.variant.#{constraint}]\n"
-          #       code << "          if #{constraint} and !master_#{constraint}.include?(#{constraint})\n"
-          #       code << "            procedure.#{ref}.variant = nil\n"
-          #       code << "            procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
-          #       code << "          end\n"
-          #       code << "        end\n"
-          #     else
-          #       code << "        unless Nomen::Varieties[:#{variable.send(constraint).strip}].include?(#{constraint})\n"
-          #       code << "          @variant = nil\n"
-          #       code << "        end\n"
-          #     end
-          #   end
-          # end
-          # code << "      end\n"
-          for handler in variable.handlers
-            if handler.depend_on?(:self)
-              code << "      impact_handler_#{handler.name}!\n"
-            end
+        code << "      puts \"#{variable.name}#impact_#{variable.new? ? :variant : :actor}!\".yellow\n"
+
+        variant      = (variable.new? ? "@variant" : "@actor.variant")
+        variant_test = (variable.new? ? variant : "@actor and #{variant}")
+        code << "      if #{variant_test}\n"
+
+        # Set variants of "parted-from variables"
+        for other in variable.others
+          if other.parted? and other.producer == variable
+            code << "        # Updates variant of #{other.name} if possible\n"
+            code << "        if procedure.#{other.name}.variant != #{variant}\n"
+            code << "          procedure.#{other.name}.variant = #{variant}\n"            
+            code << "          procedure.#{other.name}.impact_#{other.new? ? :variant : :actor}!\n"
+            code << "        end\n"            
           end
         end
+        code << "      end\n"
 
         # Sets default destinations
-        for dependent in variable.others
-          ref = dependent.name
-          for destination in dependent.destinations
-            if dependent.default(destination) =~ /\:\s*#{variable.name}\s*\z/
+        for other in variable.others
+          ref = other.name
+          for destination in other.destinations
+            if other.default(destination) =~ /\:\s*#{variable.name}\s*\z/
               code << "      # Updates default #{destination} of #{ref} if possible\n"
               dest = "procedure.#{ref}.destinations[:#{destination}]"
-              code << "      if #{dest}.blank? or procedure.updater.first == :#{variable.name}\n"
+              code << "      if #{dest}.blank? or procedure.updater?(:casting, :#{variable.name})"
+              code << " or procedure.updater?(:global, :support)" if variable.default_actor == "storage"
+              code << "\n"
               code << "        #{dest} = "
               code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
               code << "self.get(:#{destination}, at: now)\n"            
@@ -414,42 +421,18 @@ module Procedo
             end
           end
         end
-          
-        # Check dependent variables depending on my variety or derivative_of if they are OK
-        # if variable.dependent_variables.any?
-        code << "      if variant = #{variable.new? ? '@variant' :  '(@actor ? @actor.variant : nil)'}\n"
-        for dependent in variable.others
-          ref = dependent.name
-          
-          if dependent.parted? and dependent.producer == variable
-            code << "        # Updates variant of #{ref} if possible\n"
-            code << "        if procedure.#{ref}.variant != variant\n"
-            code << "          procedure.#{ref}.variant = variant\n"            
-            code << "          procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
-            code << "        end\n"            
-          end
 
-          # for constraint in [:variety, :derivative_of]
-          #   unless dependent.send(constraint).blank?
-          #     code << "        master_#{constraint} = Nomen::Varieties[variant.#{constraint}]\n"
-          #     if dependent.send(constraint) =~ /\:\s*#{variable.name}\s*\z/
-          #       code << "        if procedure.#{ref}.variant and #{constraint} = Nomen::Varieties[procedure.#{ref}.variant.#{constraint}]\n"
-          #       code << "          if master_#{constraint} and !master_#{constraint}.include?(#{constraint})\n"
-          #       code << "            procedure.#{ref}.variant = nil\n"
-          #       code << "            procedure.#{ref}.impact_#{@variables[ref].new? ? :variant : :actor}!\n"
-          #       code << "          end\n"
-          #       code << "        end\n"
-          #     elsif variable.new?
-          #       code << "        unless Nomen::Varieties[:#{variable.send(constraint).strip}].include?(master_#{constraint})\n"
-          #       code << "          @variant = nil\n"
-          #       code << "        end\n"
-          #     end
-          #   end
-          # end
-        end
-        code << "      end\n"
-        # end
         # Refresh depending handlers
+        # for destination in variable.destinations
+        #   code << "      impact_destination_#{destination}!\n"
+        # end
+        for handler in variable.handlers
+          if handler.depend_on?(:self)
+            code << "      # Updates #{handler.name} of self if possible\n"
+            code << "      impact_handler_#{handler.name}!\n"
+          end
+        end
+
         for other in variable.others
           for handler in other.handlers
             if handler.depend_on?(variable.name)
@@ -465,52 +448,58 @@ module Procedo
 
       code << "  attr_reader " + @variables.keys.collect{|v| ":#{v}" }.join(', ') + "\n\n"
 
-      code << "  def initialize(casting)\n"
+      code << "  def initialize(casting, global, updater)\n"
       max = @variables.keys.map(&:size).max
       for variable in @variables.keys
         code << "    @#{variable.ljust(max)} = #{variable.camelcase}.new(self, casting[:#{variable}])\n"
       end
+      code << "    @__support__ = ProductionSupport.find_by(id: global[:support])\n"
+      code << "    @__now__     = global[:at].blank? ? nil : global[:at].to_time\n"
+      code << "    @__updater__ = updater.split(':').map(&:to_sym)\n"
       code << "  end\n\n"
       
-      # updaters = self.variables.values.collect do |variable|
-      #   ["#{variable.name}:#{variable.new? ? :variant : :actor}"] + variable.handlers.collect{|h| "#{variable.name}:handlers:#{h.name}" }
-      # end.flatten.compact.map{|u| u.split(':') }
-
-
-      code << "  def impact!(updater)\n"
-      code << "    @now = Time.now\n"
-      code << "    @updater = updater.split(':').map(&:to_sym)\n"
+      
+      code << "  def impact!\n"
+      code << "    if @__updater__.first == :global\n"
+      code << "      if @__updater__.second == :support\n"
+      for variable in self.variables.values
+        if variable.default_actor == "storage" and !variable.new?
+          code << "        #{variable.name}.actor = @__support__.storage\n"
+          code << "        #{variable.name}.impact_actor!\n"
+        end
+        if variable.default_variant == "production" and variable.new?
+          code << "        #{variable.name}.variant = @__support__.production_variant\n"
+          code << "        #{variable.name}.impact_variant!\n"
+        end        
+      end
+      code << "      elsif @__updater__.second == :at\n"
+      # What to do ? Check existence and destinations of products at this moment ?
+      code << "      end\n"
+      code << "    elsif @__updater__.first == :casting\n"
       code << self.variables.values.collect do |variable|
-        vcode  = "if @updater.first == :#{variable.name}\n"
-        vcode << "  if @updater.second == :#{variable.new? ? :variant : :actor}\n"
+        vcode  = "if @__updater__.second == :#{variable.name}\n"
+        vcode << "  if @__updater__.third == :#{variable.new? ? :variant : :actor}\n"
         vcode << "    #{variable.name}.impact_#{variable.new? ? :variant : :actor}!\n"
         if variable.handlers.any?
-          vcode << "  elsif @updater.second == :handlers\n"
+          vcode << "  elsif @__updater__.third == :handlers\n"
           vcode << variable.handlers.collect do |handler|
-            hcode  = "if @updater.third == :#{handler.name}\n"
+            hcode  = "if @__updater__.fourth == :#{handler.name}\n"
             hcode << "  #{variable.name}.impact_handler_#{handler.name}!\n"
           end.join("els").dig(2)
           vcode << "    else\n"
-          vcode << "      raise \"Unknown handler \#{@updater.third} for \#{@updater.first}\"\n"
+          vcode << "      raise \"Unknown handler \#{@__updater__.fourth} for \#{@__updater__.second}\"\n"
           vcode << "    end\n"
         end
         vcode << "  else\n"
-        vcode << "    raise \"Unknown aspect \#{@updater.second} for \#{@updater.first}\"\n"
+        vcode << "    raise \"Unknown aspect \#{@__updater__.third} for \#{@__updater__.fourth}\"\n"
         vcode << "  end\n"
-      end.join("els").dig(2)
+      end.join("els").dig(3)
+      code << "      else\n"
+      code << "        raise \"Unknown variable \#{@__updater__.second}\"\n"
+      code << "      end\n"
       code << "    else\n"
-      code << "      raise \"Unknown variable \#{@updater.first}\"\n"
+      code << "      raise \"Unknown part \#{@__updater__.first}\"\n"
       code << "    end\n"
-      # code << "    if updater.nil?\n"
-      # code << "      raise 'Need updater!'\n"
-      # for updater in updaters
-      #   code << "    elsif updater == '#{updater.join(':')}'\n"
-      #   code << "      #{updater[0]}.impact#{updater[1] == 'handlers' ? '_handler_' + updater[2] : '_' + updater[1]}!"
-      #   code << "\n"
-      # end
-      # code << "    else\n"
-      # code << "      raise 'What ??? ' + updater.inspect\n"
-      # code << "    end\n"
       code << "  end\n\n"
 
       code << "  def casting\n"
@@ -566,14 +555,13 @@ module Procedo
       Procedo::CompiledProcedure[self.name] = full_name.join("::").constantize
     end
 
-
     # Computes what have to be updated if the a given value in
     # the casting is considered to be updated
     # Returns a hash with the list of updates
-    def impact(updater, casting)
-      proc = Procedo::CompiledProcedure[self.name].new(casting)
+    def impact(casting, global, updater)
+      proc = Procedo::CompiledProcedure[self.name].new(casting, global, updater)
       before = proc.casting
-      proc.impact!(updater)
+      proc.impact!
       after = proc.casting
       puts before.inspect.red
       puts after.inspect.green

@@ -1,7 +1,7 @@
 module Procedo
   class Variable
 
-    attr_reader :name, :procedure, :value, :abilities, :handlers, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name, :destinations
+    attr_reader :name, :procedure, :value, :abilities, :handlers, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name, :destinations, :default_actor, :default_variant
 
     def initialize(procedure, element)
       @procedure = procedure
@@ -17,6 +17,8 @@ module Procedo
         @producer_name = new_array.shift.to_sym
       end
       @default_name = element.attr("default-name").to_s
+      @default_actor = element.attr("default-actor").to_s
+      @default_variant = element.attr("default-variant").to_s
       # Handlers
       @handlers, @needs = [], []
       element.xpath('xmlns:handler').each do |el|
