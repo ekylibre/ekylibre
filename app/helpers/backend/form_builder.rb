@@ -160,20 +160,24 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
         editor[:view] = {center: zone.shape_centroid}
       end
     end
-    others = options.delete(:others) || @object.class.where("#{attribute_name} IS NOT NULL AND id != ?", @object.id || 0)
-    if others.any?
-      editor[:others] = others.collect do |obj|
+    show = options.delete(:show) || @object.class.where("#{attribute_name} IS NOT NULL AND id != ?", @object.id || 0)
+    union = Charta::Geometry.empty
+    if show.any?
+      show.collect do |obj|
         if shape = obj.send(attribute_name)
-          Charta::Geometry.new(shape).to_geojson
+          union = union.merge(Charta::Geometry.new(shape))
         end
       end.compact
     else
       begin
-        editor[:others] = @object.class.where.not(id: @object.id || 0).collect do |obj|
-          Charta::Geometry.new(obj.send(:shape)).to_geojson
+        for obj in @object.class.where.not(id: @object.id || 0)
+          union = union.merge Charta::Geometry.new(obj.send(:shape))
         end
       rescue
       end
+    end
+    unless union.empty?
+      editor[:show] = union.to_geojson
     end
     return self.input(attribute_name, options.merge(input_html: {data: {map_editor: editor}}))
   end
@@ -249,6 +253,8 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
     end
 
     if variant
+      @object.nature ||= variant.nature
+
       whole_indicators = variant.whole_indicators
 
       # Add product type selector

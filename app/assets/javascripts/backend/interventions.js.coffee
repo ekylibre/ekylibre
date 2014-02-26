@@ -27,55 +27,61 @@
       $("*[data-procedure='#{procedure}'][data-variable-actor]").each (index) ->
         element = $(this)
         casting[element.data('variable')] ?= {}
-        if this.hiddenInput?
-          casting[element.data('variable')].actor = this.hiddenInput.val()
+        if element.is(":ui-selector")
+          casting[element.data('variable')].actor = element.selector("value")
         else
-          casting[element.data('variable')].actor = $(this).val()
+          casting[element.data('variable')].actor = element.val()
 
       $("*[data-procedure='#{procedure}'][data-variable-variant]").each (index) ->
         element = $(this)
         casting[element.data('variable')] ?= {}
-        if this.hiddenInput?
-          casting[element.data('variable')].variant = this.hiddenInput.val()
+        if element.is(":ui-selector")
+          casting[element.data('variable')].variant = element.selector("value")
         else
-          casting[element.data('variable')].variant = $(this).val()
+          casting[element.data('variable')].variant = element.val()
 
       casting
 
     unserialize: (procedure, casting) ->
+      console.log "Unserialize!"
       for variable, attributes of casting
         if attributes.actor?
           $("*[data-procedure='#{procedure}'][data-variable-actor='#{variable}']").each (index) ->
-            if this.hiddenInput? and attributes.actor != parseInt this.hiddenInput.val()
-              $.EkylibreSelector.set($(this), attributes.actor)
-            else if attributes.actor != parseInt $(this).val()
-              $(this).val(attributes.actor)
+            element = $(this)
+            if element.is(":ui-selector")
+              if attributes.actor != element.selector("value")
+                element.selector("value", attributes.actor)
+            else if attributes.actor != parseInt element.val()
+              element.val(attributes.actor)
                 
         if attributes.variant?
           $("*[data-procedure='#{procedure}'][data-variable-variant='#{variable}']").each (index) ->
-            if this.hiddenInput? and attributes.variant != parseInt this.hiddenInput.val()
-              $.EkylibreSelector.set($(this), attributes.variant)
-            else if attributes.variant != parseInt $(this).val()
-              $(this).val(attributes.variant)
+            element = $(this)
+            if element.is(":ui-selector")
+              if attributes.variant != element.selector("value")
+                element.selector("value", attributes.actor)
+            else if attributes.variant != parseInt element.val()
+              element.val(attributes.variant)
                 
         if attributes.handlers?
           for handler, value of attributes.handlers
             $("*[data-procedure='#{procedure}'][data-variable='#{variable}'][data-variable-handler='#{handler}']").each (index) ->
-              if $(this).prop("map")? # test if shape is different too
-                map = $(this).prop("map")
-                map.editedLayer.clearLayers()
-                layer = L.GeoJSON.geometryToLayer(value).setStyle(
-                  weight: 1
-                  color: "#333"
-                ).addTo map
-                map.editedLayer.addLayer layer
-                map.fitBounds(map.editedLayer.getBounds())
+              if $(this).is(":ui-mapeditor")
+                $(this).mapeditor "show", value
+                $(this).mapeditor "edit", value
+                try
+                  $(this).mapeditor "view", "edit"
               else if value != parseFloat $(this).val()
                 $(this).val(value)
                 
         if attributes.destinations?
           for destination, value of attributes.destinations
-            $("*[data-procedure='#{procedure}'][data-variable='#{variable}'][data-variable-destination='#{destination}']").val(value)
+            $("*[data-procedure='#{procedure}'][data-variable='#{variable}'][data-variable-destination='#{destination}']").each (index) ->
+              # TODO: Find a better way later to manage different datatypes like geometry
+              if destination is 'shape'
+                $(this).val(JSON.stringify(value))
+              else
+                $(this).val(value)
       
 
     refresh: (origin) ->
@@ -104,7 +110,8 @@
 
   ##############################################################################
   # Triggers
-  $(document).on 'keyup', '*[data-variable-handler]', ->
+  $(document).on 'keyup mapchange', '*[data-variable-handler]', ->
+    console.log "Handler change!"
     $(this).each ->
       $.interventions.refresh($(this))
 

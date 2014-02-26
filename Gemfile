@@ -31,6 +31,7 @@ gem 'jquery-turbolinks'
 # jQuery UI Javascript framework
 gem 'jquery-ui-rails'
 # gem 'jquery_mobile_rails'
+gem "jquery-scrollto-rails"
 
 # Forms helper
 gem 'formize', '~> 2.0.0'

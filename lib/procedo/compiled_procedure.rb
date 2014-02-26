@@ -1,7 +1,7 @@
 module Procedo
   class CompiledProcedure
 
-    attr_reader :now
+    attr_reader :now, :updater
     
     # def initialize(casting = {})
     #   cast(casting) if casting

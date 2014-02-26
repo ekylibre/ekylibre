@@ -290,7 +290,7 @@ module Procedo
     # Compile a procedure to manage interventions
     def compile!
       rubyist = Procedo::Rubyist.new
-      full_name = ["::Procedo", "CompiledProcedures", self.namespace.to_s.camelcase, self.short_name.to_s.camelcase, "Version#{self.version}"]
+      full_name = ["::Procedo", "CompiledProcedures", self.namespace.to_s.camelcase, self.short_name.to_s.camelcase, "V#{self.version}"]
       code = "class #{full_name.last} < ::Procedo::CompiledProcedure\n\n"
       
       for variable in @variables.values
@@ -400,7 +400,7 @@ module Procedo
             if dependent.default(destination) =~ /\:\s*#{variable.name}\s*\z/
               code << "      # Updates default #{destination} of #{ref} if possible\n"
               dest = "procedure.#{ref}.destinations[:#{destination}]"
-              code << "      if #{dest}.blank?\n"
+              code << "      if #{dest}.blank? or procedure.updater.first == :#{variable.name}\n"
               code << "        #{dest} = "
               code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
               code << "self.get(:#{destination}, at: now)\n"            
@@ -472,23 +472,45 @@ module Procedo
       end
       code << "  end\n\n"
       
-      updaters = self.variables.values.collect do |variable|
-        ["#{variable.name}:#{variable.new? ? :variant : :actor}"] + variable.handlers.collect{|h| "#{variable.name}:handlers:#{h.name}" }
-      end.flatten.compact.map{|u| u.split(':') }
+      # updaters = self.variables.values.collect do |variable|
+      #   ["#{variable.name}:#{variable.new? ? :variant : :actor}"] + variable.handlers.collect{|h| "#{variable.name}:handlers:#{h.name}" }
+      # end.flatten.compact.map{|u| u.split(':') }
 
 
       code << "  def impact!(updater)\n"
       code << "    @now = Time.now\n"
-      code << "    if updater.nil?\n"
-      code << "      raise 'Need updater!'\n"
-      for updater in updaters
-        code << "    elsif updater == '#{updater.join(':')}'\n"
-        code << "      #{updater[0]}.impact#{updater[1] == 'handlers' ? '_handler_' + updater[2] : '_' + updater[1]}!"
-        code << "\n"
-      end
+      code << "    @updater = updater.split(':').map(&:to_sym)\n"
+      code << self.variables.values.collect do |variable|
+        vcode  = "if @updater.first == :#{variable.name}\n"
+        vcode << "  if @updater.second == :#{variable.new? ? :variant : :actor}\n"
+        vcode << "    #{variable.name}.impact_#{variable.new? ? :variant : :actor}!\n"
+        if variable.handlers.any?
+          vcode << "  elsif @updater.second == :handlers\n"
+          vcode << variable.handlers.collect do |handler|
+            hcode  = "if @updater.third == :#{handler.name}\n"
+            hcode << "  #{variable.name}.impact_handler_#{handler.name}!\n"
+          end.join("els").dig(2)
+          vcode << "    else\n"
+          vcode << "      raise \"Unknown handler \#{@updater.third} for \#{@updater.first}\"\n"
+          vcode << "    end\n"
+        end
+        vcode << "  else\n"
+        vcode << "    raise \"Unknown aspect \#{@updater.second} for \#{@updater.first}\"\n"
+        vcode << "  end\n"
+      end.join("els").dig(2)
       code << "    else\n"
-      code << "      raise 'What ??? ' + updater.inspect\n"
+      code << "      raise \"Unknown variable \#{@updater.first}\"\n"
       code << "    end\n"
+      # code << "    if updater.nil?\n"
+      # code << "      raise 'Need updater!'\n"
+      # for updater in updaters
+      #   code << "    elsif updater == '#{updater.join(':')}'\n"
+      #   code << "      #{updater[0]}.impact#{updater[1] == 'handlers' ? '_handler_' + updater[2] : '_' + updater[1]}!"
+      #   code << "\n"
+      # end
+      # code << "    else\n"
+      # code << "      raise 'What ??? ' + updater.inspect\n"
+      # code << "    end\n"
       code << "  end\n\n"
 
       code << "  def casting\n"
