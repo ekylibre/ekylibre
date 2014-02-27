@@ -8,7 +8,7 @@
       <attribute name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <attribute name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <attribute name="frozen_indicators_values" type="string" required="false"/>
-      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, bag, box, building, can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band" required="true" default="unit"/>
+      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale" required="true" default="unit"/>
     </attributes>
     <items>
       <!-- ANIMAL -->
@@ -329,7 +329,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="mixture_crop"
+       <item name="mixture_vetch_oat_pea_crop"
             nature="crop"
             variety="plant"
             unit_name="hectare"
@@ -443,43 +443,89 @@
             frozen_indicators_values="net_mass: 1.00ton"
             />
       <!-- triticum_aestivum was replaced by triticum-->
-      <item name="wheat_straw"
+      
+      <!-- STRAW -->
+      <item name="bulk_wheat_straw"
             nature="straw"
-            derivative_of="triticum_aestivum"
+            derivative_of="triticum"
             unit_name="ton"
-            frozen_indicators_values="net_mass: 1.00ton"
+            frozen_indicators_values="net_mass: 1.00ton, net_volume: 20.00cubic_meter"
             />
-      <item name="hard_wheat_straw"
+      <item name="wheat_straw_round_bales"
             nature="straw"
-            derivative_of="triticum_durum"
+            derivative_of="triticum"
+            unit_name="round_bale"
+            frozen_indicators_values="net_mass: 150.00kilogram, net_volume: 1.87cubic_meter"
+            />
+      <item name="wheat_straw_big_rectangular_bales"
+            nature="straw"
+            derivative_of="triticum"
+            unit_name="big_rectangular_bale"
+            frozen_indicators_values="net_mass: 219.00kilogram, net_volume: 2.30cubic_meter"
+            />
+      <item name="wheat_straw_small_rectangular_bales"
+            nature="straw"
+            derivative_of="triticum"
+            unit_name="small_rectangular_bale"
+            frozen_indicators_values="net_mass: 12.50kilogram, net_volume: 0.16cubic_meter"
+            />   
+      <!-- INDUSTRIAL CATTLE FEED -->
+      <item name="bulk_animal_food"
+            nature="animal_food"
+            derivative_of="plant"
             unit_name="ton"
-            frozen_indicators_values="net_mass: 1.00ton"
+            frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.00cubic_meter"
             />
-      <item name="wheat_straw_bales"
-            nature="straw"
-            derivative_of="triticum_aestivum"
-            unit_name="unit"
-            frozen_indicators_values="net_mass: 1.00ton"
+      <item name="bulk_kg_animal_food"
+            nature="animal_food"
+            derivative_of="plant"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 0.001cubic_meter"
             />
-      <item name="hard_wheat_straw_bales"
-            nature="straw"
-            derivative_of="triticum_durum"
-            unit_name="unit"
-            frozen_indicators_values="net_mass: 1.00ton"
+      <item name="25kg_bag_animal_food"
+            nature="animal_food"
+            derivative_of="plant"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, net_volume: 0.030cubic_meter"
             />
+      <!-- HAY -->
       <item name="bulk_hay"
             nature="grass"
             derivative_of="poaceae"
             unit_name="ton"
-            frozen_indicators_values="net_mass: 1.00ton"
+            frozen_indicators_values="net_mass: 1.00ton, net_volume: 10.00cubic_meter"
+            />
+      <item name="hay_round_bales"
+            nature="grass"
+            derivative_of="poaceae"
+            unit_name="round_bale"
+            frozen_indicators_values="net_mass: 300.00kilogram, net_volume: 1.87cubic_meter"
+            />
+      <item name="hay_big_rectangular_bales"
+            nature="grass"
+            derivative_of="poaceae"
+            unit_name="big_rectangular_bale"
+            frozen_indicators_values="net_mass: 438.00kilogram, net_volume: 2.30cubic_meter"
+            />
+      <item name="hay_small_rectangular_bales"
+            nature="grass"
+            derivative_of="poaceae"
+            unit_name="small_rectangular_bale"
+            frozen_indicators_values="net_mass: 25.00kilogram, net_volume: 0.16cubic_meter"
             />
       <item name="grass"
             nature="grass"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
-      <item name="silage"
-            nature="grass"
+      <item name="grass_silage"
+            nature="silage"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />
+      <item name="corn_silage"
+            nature="silage"
+            derivative_of="zea"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
@@ -489,7 +535,7 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-      <item name="poacea_herbicide"
+      <item name="poaceae_herbicide"
             nature="herbicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
@@ -862,15 +908,15 @@
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="cereals_feed_bag_25"
-            nature="food"
-            variety="plant_food"
+            nature="animal_food"
+            variety="mix"
             derivative_of="poaceae"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram"
             />
       <item name="mineral_feed_block_25"
-            nature="food"
-            variety="mineral_food"
+            nature="animal_food"
+            variety="mix"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram"
             />
@@ -890,22 +936,34 @@
             unit_name="1l_dose"
             frozen_indicators_values="net_volume: 1liter, net_mass: 1kilogram, meat_withdrawal_period: 0day, milk_withdrawal_period: 0day"
             />
-       <!-- OTHER PRODUCT -->
+      <!-- OTHER PRODUCT -->
       <item name="spread_renting"
             nature="spread_renting"
             unit_name="hour"
             frozen_indicators_values="usage_duration: 1hour"
-            />
-      <item name="mineral_cleaner"
-            nature="mineral_cleaner"
-            unit_name="liter"
-            frozen_indicators_values="net_mass: 1kilogram, net_volume: 1.00liter"
             />
       <item name="small_equipment"
             nature="small_equipment"
             unit_name="unit"
             frozen_indicators_values="population: 1"
             />
+      <!-- CLEANNING PRODUCT -->
+      <item name="mineral_cleaner"
+            nature="mineral_cleaner"
+            unit_name="liter"
+            frozen_indicators_values="net_mass: 1kilogram, net_volume: 1.00liter"
+            />
+      <item name="dairy_equipment_cleaner"
+            nature="mineral_cleaner"
+            unit_name="24liter_can"
+            frozen_indicators_values="net_mass: 24kilogram, net_volume: 24.00liter"
+            />
+      <item name="livestock_cleanliness_product"
+            nature="mineral_cleaner"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25kilogram, net_volume: 25.00liter"
+            />
+      
       <!-- LAND PARCEL -->
       <item name="land_parcel"
             nature="land_parcel"
@@ -1136,12 +1194,7 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-      <!-- EQUIPMENT FOR WINE -->
-       <item name="wine_tank"
-            nature="wine_tank"
-            unit_name="equipment"
-            frozen_indicators_values="population: 1"
-            />
+      
       <item name="spreader_trailer"
             nature="spreader_trailer"
             unit_name="equipment"
@@ -1187,8 +1240,35 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <!-- TANK -->
+      <!-- EQUIPMENT FOR WINE -->
+       <item name="wine_tank"
+            nature="wine_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="milk_tank"
             nature="milk_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="fuel_tank"
+            nature="fuel_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="food_tank"
+            nature="food_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="plant_medicine_tank"
+            nature="plant_medicine_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="animal_medicine_tank"
+            nature="animal_medicine_tank"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
@@ -1349,8 +1429,8 @@
             frozen_indicators_values="net_volume: 20.00liter, net_mass: 20.00kilogram"
             />
       <item name="coop:sel_mer_essore_la_baleine_sac_25kg"
-            nature="food"
-            variety="mineral_food"
+            nature="animal_food"
+            variety="mix"
             unit_name="bag"
             frozen_indicators_values="net_mass: 25.00kilogram"
             />

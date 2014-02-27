@@ -17,7 +17,7 @@
       <item name="drive"   parameters="variety"/>
       <item name="manage"  parameters="variety"/> <!-- ? -->
       <item name="germinate"/>
-      <item name="feed"/>
+      <item name="feed" parameters="variety"/>
       <item name="fertilize"/>
       <item name="catch" parameters="variety"/>
       <!-- @QUID : niveau de compétence (normal, précision)  -->

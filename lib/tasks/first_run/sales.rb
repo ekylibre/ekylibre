@@ -17,9 +17,9 @@ load_data :sales do |loader|
 
     # Create product_nature for derivative plant product
     grain  = ProductNatureVariant.import_from_nomenclature(:wheat_grain)
-    straw  = ProductNatureVariant.import_from_nomenclature(:wheat_straw)
+    straw  = ProductNatureVariant.import_from_nomenclature(:bulk_wheat_straw)
     hay    = ProductNatureVariant.import_from_nomenclature(:bulk_hay)
-    silage = ProductNatureVariant.import_from_nomenclature(:silage)
+    silage = ProductNatureVariant.import_from_nomenclature(:grass_silage)
     grass  = ProductNatureVariant.import_from_nomenclature(:grass)
 
     # Create product_nature_price for wheat product
