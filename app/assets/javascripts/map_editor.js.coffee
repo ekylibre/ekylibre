@@ -70,17 +70,17 @@
         widget.element.trigger "mapchange"
 
       this._resize()
-      console.log "resized"
+      # console.log "resized"
       this._refreshBackgroundLayer()
-      console.log "backgrounded"
+      # console.log "backgrounded"
       this._refreshReferenceLayerGroup()
-      console.log "shown"
+      # console.log "shown"
       this._refreshEditionLayerGroup()
-      console.log "edited"
+      # console.log "edited"
       this._refreshView()
-      console.log "viewed"
+      # console.log "viewed"
       this._refreshControls()
-      console.log "controlled"
+      # console.log "controlled"
      
     _destroy: ->
       this.element.attr this.oldElementType
@@ -213,7 +213,6 @@
         this.map.addControl this.controls.scale
 
     _saveUpdates: ->
-      console.log "Save!"
       if this.edition?
         this.element.val JSON.stringify(this.edition.toGeoJSON())
       true

@@ -1,60 +1,51 @@
 (($) ->
   'use strict'
 
+  $.value = (element) ->
+    if element.is(":ui-selector")
+      return element.selector("value")
+    else
+      return element.val()
+
   # Interventions permit to enhances data input through context computation
   # The concept is: When an update is done, we ask server which are the impact on
   # other fields and on updater itself if necessary
   $.interventions =
+
     # Serialize global data with data-procedure-global attribute
     serializeGlobal: (procedure) ->
       global = {}
       $("*[data-procedure='#{procedure}'][data-procedure-global]").each ->
-        element = $(this)
-        if element.is(":ui-selector")
-          global[element.data('procedure-global')] = element.selector("value")
-        else
-          global[element.data('procedure-global')] = element.val()
+        global[$(this).data('procedure-global')] = $.value $(this)
       global
 
     serialize: (procedure) ->
       casting = {}
       $("*[data-procedure='#{procedure}'][data-variable-handler]").each (index) ->
-        element = $(this)
-        casting[element.data('variable')] ?= {}
-        casting[element.data('variable')].handlers ?= {}
-        if element.prop("map")?
-          map = element.prop("map")
-          value = map.editedLayer.toGeoJSON()
-        else
-          value = element.val()
-        casting[element.data('variable')].handlers[element.data('variable-handler')] = value
+        variable = $(this).data('variable')
+        casting[variable] ?= {}
+        casting[variable].handlers ?= {}
+        casting[variable].handlers[$(this).data('variable-handler')] = $.value $(this)
 
       $("*[data-procedure='#{procedure}'][data-variable-destination]").each (index) ->
-        element = $(this)
-        casting[element.data('variable')] ?= {}
-        casting[element.data('variable')].destinations ?= {}
-        casting[element.data('variable')].destinations[element.data('variable-destination')] = element.val()
+        variable = $(this).data('variable')
+        casting[variable] ?= {}
+        casting[variable].destinations ?= {}
+        casting[variable].destinations[$(this).data('variable-destination')] = $.value $(this)
 
       $("*[data-procedure='#{procedure}'][data-variable-actor]").each (index) ->
-        element = $(this)
-        casting[element.data('variable')] ?= {}
-        if element.is(":ui-selector")
-          casting[element.data('variable')].actor = element.selector("value")
-        else
-          casting[element.data('variable')].actor = element.val()
+        variable = $(this).data('variable')
+        casting[variable] ?= {}
+        casting[variable].actor = $.value $(this)
 
       $("*[data-procedure='#{procedure}'][data-variable-variant]").each (index) ->
-        element = $(this)
-        casting[element.data('variable')] ?= {}
-        if element.is(":ui-selector")
-          casting[element.data('variable')].variant = element.selector("value")
-        else
-          casting[element.data('variable')].variant = element.val()
+        variable = $(this).data('variable')
+        casting[variable] ?= {}
+        casting[variable].variant = $.value $(this)
 
       casting
 
-    unserialize: (procedure, casting) ->
-      console.log "Unserialize!"
+    unserialize: (procedure, casting, updater) ->
       for variable, attributes of casting
         if attributes.actor?
           $("*[data-procedure='#{procedure}'][data-variable-actor='#{variable}']").each (index) ->
@@ -83,7 +74,8 @@
                 try
                   $(this).mapeditor "view", "edit"
               else if value != parseFloat $(this).val()
-                $(this).val(value)
+                unless updater == $(this).data('intervention-updater')
+                  $(this).val(value)
                 
         if attributes.destinations?
           for destination, value of attributes.destinations
@@ -102,42 +94,39 @@
         console.log "No computing element for #{procedure}"
         console.log computing
       computing = computing.first()
-      if computing.length > 0 and !computing.prop('waiting')
-        console.log "Main serialization"
+      if computing.prop('state') isnt 'waiting'
         # Serialize data
         intervention =
           procedure: procedure
           updater: origin.data('intervention-updater')
           global:  $.interventions.serializeGlobal(procedure)
           casting: $.interventions.serialize(procedure)
-            
+
         # Ask server for reverberated updates
-        console.log "Asking #{computing.val()}..."
+        initialValue = $.value($("*[data-intervention-updater='#{intervention.updater}']").first())
         $.ajax
           url: computing.val()
           data: intervention
           beforeSend: ->
-            computing.prop 'waiting', true
+            computing.prop 'state', 'waiting'
           error: (request, status, error) ->
-            computing.prop 'waiting', false          
+            computing.prop 'state', 'ready'
           success: (data, status, request) ->
+            computing.prop 'state', 'ready'
             # Updates elements with new values
-            computing.prop 'waiting', false
-            $.interventions.unserialize(procedure, data)
-            console.log "Updates other items"
-
+            $.interventions.unserialize(procedure, data, intervention.updater)
+            if initialValue != $.value($("*[data-intervention-updater='#{intervention.updater}']").first())
+              $.interventions.refresh origin
 
   ##############################################################################
   # Triggers
   $(document).on 'keyup mapchange', '*[data-variable-handler]', ->
-    console.log "Handler change!"
     $(this).each ->
-      $.interventions.refresh($(this))
+      $.interventions.refresh $(this)
 
   $(document).on 'change', '*[data-variable-actor], *[data-variable-variant], *[data-procedure-global]', ->
-    console.log "Change!"
     $(this).each ->
-      $.interventions.refresh($(this))
+      $.interventions.refresh $(this)
 
   true
 ) jQuery
