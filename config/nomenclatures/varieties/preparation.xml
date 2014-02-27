@@ -1,0 +1,18 @@
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-preparation">
+    <!-- http://e-phy.agriculture.gouv.fr/ -->
+    <items>
+      <item name="mix"/>
+      <item name="medicine"/>
+    </items>
+  </nomenclature>
+  
+   <nomenclature name="varieties-medicine">
+    <items>
+      <item name="animal_medicine"/>
+      <item name="plant_medicine"/>
+      <item name="antiseptic"/>
+    </items>
+  </nomenclature>
+  
+</nomenclatures>

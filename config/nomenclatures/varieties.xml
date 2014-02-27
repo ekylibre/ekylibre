@@ -24,7 +24,7 @@
     <items>
       <item name="bioproduct"/>
       <item name="equipment"/>
-      <item name="medicine"/>
+      <item name="preparation"/>
       <item name="organic_matter"/>
       <item name="mineral_matter"/>
       <item name="water"/>
@@ -80,13 +80,7 @@
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 - sub-branch 4 -->
-  <nomenclature name="varieties-medicine">
-    <items>
-      <item name="animal_medicine"/>
-      <item name="plant_medicine"/>
-      <item name="antiseptic"/>
-    </items>
-  </nomenclature>
+ 
   <!-- level 2 - branch 2 - sub-branch 1-->
   <nomenclature name="varieties-property_title">
     <items>

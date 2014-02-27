@@ -53,7 +53,7 @@ load_data :deliveries do |loader|
         "Herbicides totaux" => :complete_herbicide,
         "Adjuvants" => :additive,
         "Herbicides autres" => :other_herbicide,
-        "Herbicides céréales et fouragères" => :poacea_herbicide,
+        "Herbicides céréales et fouragères" => :poaceae_herbicide,
         "Céréales" => :cereals_feed_bag_25,
         "Chevaux" => :cereals_feed_bag_25,
         "Compléments nutritionnels" => :cereals_feed_bag_25,
