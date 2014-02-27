@@ -6,7 +6,7 @@
     <attributes>
       <attribute name="minimum_age" type="integer" required="true"/><!-- en mois -->
       <attribute name="maximum_age" type="integer" required="false"/>
-      <attribute name="cereal_typology" type="choice" nomenclature="france_crops_sets" required="false"/>
+      <attribute name="cereal_typology" type="choice" nomenclature="crop_sets" required="false"/>
       <attribute name="rank" type="integer" required="false"/>
       <attribute name="mhp" type="decimal" required="false"/><!-- en qt/ha -->
     </attributes>

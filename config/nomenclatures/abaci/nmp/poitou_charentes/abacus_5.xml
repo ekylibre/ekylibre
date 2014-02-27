@@ -6,7 +6,7 @@
   <nomenclature name="nmp_poitou_charentes_abacus_five" hierarchical="false" translateable="false">
     <attributes>
       <attribute name="land_parcel_variety" type="choice" nomenclature="varieties" required="true"/> <!-- -land_parcel -->
-      <attribute name="cereal_typology" type="choice" nomenclature="france_crops_sets" required="false"/> <!-- -poaceae -->
+      <attribute name="cereal_typology" type="choice" nomenclature="crop_sets" required="false"/> <!-- -poaceae -->
       <attribute name="cereal_crop" type="integer" required="false"/>
       <attribute name="husbandry" type="integer" required="false"/>
       <attribute name="mixed_crop" type="integer" required="false"/>

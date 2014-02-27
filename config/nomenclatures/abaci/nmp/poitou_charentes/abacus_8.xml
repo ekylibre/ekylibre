@@ -6,7 +6,7 @@
   <nomenclature name="nmp_poitou_charentes_abacus_8" hierarchical="false" translateable="false">
     <attributes>
       <attribute name="variant" type="choice" nomenclature="product_nature_variants" required="true"/>
-      <attribute name="crop" type="choice" nomenclature="france_crops_sets" required="true"/>
+      <attribute name="crop" type="choice" nomenclature="crop_sets" required="true"/>
       <attribute name="input_method" type="choice" choices="before_cipan,on_top,buried" required="false"/>
       <attribute name="input_period_start" type="string" required="false"/><!-- Y-MM -->
       <attribute name="input_period_stop" type="string" required="false"/><!-- Y-MM -->

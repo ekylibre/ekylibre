@@ -69,20 +69,6 @@ module Ekylibre
         end
       end
 
-      def method_missing(symbol, *args)
-        if symbol.to_s =~ /\=\z/
-
-        else
-
-        end
-      end
-
-      private
-
-      def set(*args)
-        @config.set(
-      end
-
     end
   end
 end
