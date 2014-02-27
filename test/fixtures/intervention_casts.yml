@@ -28,6 +28,7 @@
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
 #  population      :decimal(19, 4)
+#  position        :integer          not null
 #  reference_name  :string(255)      not null
 #  roles           :string(320)
 #  shape           :spatial({:srid=>
@@ -41,63 +42,77 @@
 # intervention_casts_001:
 #   creator: users_001
 #   intervention: interventions_001
+#   position: 0
 #   reference_name: "Lorem ipsum"
 #   updater: users_001
 #
----
+
 intervention_casts_001:
   actor: equipments_003
   creator: users_001
   intervention: interventions_001
   population: 1
+  position: 1
   reference_name: grinder
   roles: soil_enrichment-tool, grinding-tool
   updater: users_001
+
 intervention_casts_002:
   actor: organic_matters_003
   creator: users_001
   intervention: interventions_002
   population: 12
+  position: 1
   reference_name: grinded
   roles: grinding-output, soil_enrichment-input
   updater: users_001
+
 intervention_casts_003:
   actor: plants_001
   creator: users_001
   intervention: interventions_001
   population: 1.8
+  position: 1
   reference_name: cultivation
   roles: grinding-input
   updater: users_001
+
 intervention_casts_004:
   actor: equipments_001
   creator: users_001
   intervention: interventions_001
   population: 1
+  position: 1
   reference_name: tractor
   updater: users_001
+
 intervention_casts_005:
   actor: organic_matters_003
   creator: users_001
   intervention: interventions_001
   population: 12
+  position: 1
   reference_name: grinded
   roles: grinding-output, soil_enrichment-input
   updater: users_001
   variant: product_nature_variants_005
+
 intervention_casts_006:
   actor: cultivable_zones_003
   creator: users_001
   intervention: interventions_001
   population: 1.8
+  position: 1
   reference_name: land_parcel
   roles: soil_enrichment-target
   updater: users_001
+
 intervention_casts_007:
   actor: workers_003
   creator: users_001
   intervention: interventions_001
   population: 1
+  position: 1
   reference_name: driver
   roles: grinding-doer, soil_enrichment-doer
   updater: users_001

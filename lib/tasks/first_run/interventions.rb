@@ -170,7 +170,7 @@ load_data :interventions do |loader|
               i.add_cast(reference_name: 'driver',       actor: i.find(Worker))
               i.add_cast(reference_name: 'tractor',      actor: i.find(Product, can: "tow(sower)"))
               i.add_cast(reference_name: 'land_parcel',  actor: land_parcel)
-              i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety).first) # , population: (area.to_s.to_f / 10000.0), shape: land_parcel.shape)
+              i.add_cast(reference_name: 'cultivation',  variant: ProductNatureVariant.find_or_import!(variety).first, population: (area.to_s.to_f / 10000.0), shape: land_parcel.shape)
             end
 
             cultivation = int.casts.find_by(reference_name: 'cultivation').actor

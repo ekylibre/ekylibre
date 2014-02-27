@@ -582,6 +582,7 @@ class CreateBase < ActiveRecord::Migration
       t.geometry   :shape,              srid: 4326
       t.string     :roles,              limit: 320
       t.string     :reference_name,                              null: false
+      t.integer    :position,                                    null: false
       t.stamps
       t.index      :reference_name
     end

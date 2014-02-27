@@ -12,6 +12,7 @@ load_data :products do |loader|
       #############################################################################
 
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
+        next if row[0].blank?
         r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
                            :variant_reference_name => row[1].downcase.to_sym,
                            :work_number => row[2].blank? ? nil : row[2].to_s,
@@ -75,6 +76,7 @@ load_data :products do |loader|
       #############################################################################
 
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
+        next if row[0].blank?
         r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
                            :variant_reference_name => row[1].downcase.to_sym,
                            :place_code => row[2].blank? ? nil : row[2].to_s,

@@ -1,7 +1,6 @@
 nom,variant_nomen,code place,date naissance,variété,dérivé,nom du propriétaire,indicateurs,notes,prix unitaire
-Plant de vigne Trad(GS-RN) MERLOT_NOIR SO4,merlot_noir_so4_vine_seedling,,2013-01-01,seedling,merlot_noir,,Population : 8500,,0.96
-Merlot Rouge 2012,wine,,2012-10-01,wine,merlot_noir,,Population : 40; reference_year : 2012; designation_origin : aoc_bordeaux,,100.20
-Merlot Rouge 2013,wine,,2013-10-01,wine,merlot_noir,,Population : 50; reference_year : 2013; designation_origin : aoc_bordeaux_sup,,111.20
+,SEMENCE ET PLANT,,,,,,,,
+Plant de vigne Trad(GS-RN) MERLOT_NOIR SO4,merlot_noir_so4_vine_seedling,,2013-01-01,seedling,merlot_noir,,Population : 8500 ; ,,0.96
 Semence de blé dur,hard_wheat_seed_25,,2013-01-01,seed,triticum_durum,,Population : 4,,3.39
 Semence de blé tendre CAPHORN,wheat_seed_25,,2013-01-01,seed,caphorn,,Population : 6,,3.40
 Semence de tournesol,seed,,2013-01-01,seed,helianthus,,Population : 2 ; net_mass : 40kg,,3.56
@@ -11,14 +10,52 @@ Semence de maïs,corn_seed_25,,2013-01-01,seed,zea,,Population : 6,,4.10
 Semence de prairie,grass_seed_25,,2013-01-01,seed,poa,,Population : 6,,5.23
 Semence de sorgho,sorghum_seed_25,,2013-01-01,seed,sorghum,,Population : 6,,5.63
 'Semence d''épeautre',spelt_seed_25,,2013-01-01,seed,triticum_spelta,,Population : 6,,5.36
+,FERTILISANT,,,,,,,,
 Ammonitrate 33 vrac,bulk_ammonitrate_33,,2013-01-01,chemical_fertilizer,,,Population : 2.47,,387
 'Fumier de l''exploitation',cattle_manure,,2013-01-01,manure,bos,,Population : 4.55,,61
+,DEFENSES DES VEGETAUX,,,,,,,,
 Axial Pratic,poacea_herbicide,,2013-01-01,herbicide,,,Population : 50,,23.33
 Riflexine,riflexine,,2013-01-01,animal_medicine,,,Population : 40,,4
 Actilact,actilact,,2013-01-01,animal_medicine,,,Population : 150,,2.85
 Acetal,acetal,,2013-01-01,animal_medicine,,,Population : 4,,15.58
 Belem 0.8 MG,granulated_insecticide_12,,2013-01-01,insecticide,,,Population : 2,,50.23
+,CARBURANT ET LUBRIFIANT,,,,,,,,
 Huile moteur MOTUL ,motor_oil,,2013-01-01,oil,,,Population : 220,,2.87
 Huile hydraulique PROBEOL HV,hydraulic_oil,,2013-01-01,oil,,,Population : 80,,4.24
 Gasoil,diesel,,2013-01-01,fuel,,,Population : 4500,,0.61
-Boulons,bolt,,2013-01-01,item,,,Population : 80,,1.05
+,PIECE ET CONSOMMABLE,,,,,,,,
+Boulons,bolt,,2013-01-01,,,,Population : 80,,1.05
+,FOURRAGE,,,,,,,,
+Ensilage Herbe – Silo Génisse,grass_silage,S03_D02,2014-01-01,,,,Population : 49,,29
+Ensilage Herbe – Silo VL 2,grass_silage,S05_D02,2014-01-01,,,,Population : 140,,29
+Ensilage Maïs – Silo Intrabois,corn_silage,S06_D01,2014-01-01,,,,Population : 250,,27
+Ensilage Maïs – Silo VL1,corn_silage,S05_D01,2014-01-01,,,,Population : 85,,27
+Ensilage Maïs – Silo Taupinière,corn_silage,S04_D01,2014-01-01,,,,Population : 140,,27
+Ensilage Maïs – Silo Génisse,corn_silage,S03_D01,2014-01-01,,,,Population : 36,,27
+Foin bottes cubiques  - Génisse,hay_big_rectangular_bales,S03_D07,2014-01-01,,,,Population : 14,6,39.85
+Foin bottes rondes - Intrabois,hay_round_bales,S06_D02,2014-01-01,,,,Population : 25,'7,5',27.3
+Foin bottes cubiques  - Intrabois,hay_big_rectangular_bales,S06_D02,2014-01-01,,,,Population : 50,22,39.85
+Foin petites bottes  - Crêche,hay_small_rectangular_bales,S05_D08,2014-01-01,,,,Population : 350,'8,75',2.27
+Paille bottes cubiques  - Intrabois,wheat_straw_big_rectangular_bales,S06_D02,2014-01-01,,,,Population : 140,'30,66',8.32
+Paille bottes cubiques  - Nurserie,wheat_straw_big_rectangular_bales,S03_D12,2014-01-01,,,,Population : 40,'8,76',8.32
+Paille bottes cubiques  - Silo VL 3,wheat_straw_big_rectangular_bales,S05_D03,2014-01-01,,,,Population : 40,'8,76',8.32
+,PRODUIT HYGIENE ELEVAGE,,,,,,,,
+ALCALIN,dairy_equipment_cleaner,S05_D09,2014-01-01,,,,Population : 2.00,,20.52
+ARCACID,dairy_equipment_cleaner,S05_D09,2014-01-01,,,,Population : 2.00,,23.56
+FERT HYGIENOR,livestock_cleanliness_product,S05_D09,2014-01-01,,,,Population : 16.00,,33.12
+PHYTEOS,livestock_cleanliness_product,S05_D09,2014-01-01,,,,Population : 2.00,,120.47
+,ALIMENT,,,,,,,,
+ECA PACK TONUS - Silo gauche,bulk_animal_food,TANK_1G_S05,2014-01-01,,,,Population : 0.50,,339.90
+ECA PACK TONUS - Silo droite,bulk_animal_food,TANK_1D_S05,2014-01-01,,,,Population : 0.40,,339.90
+AZUR HERBE,25kg_bag_animal_food,S05_D07,2014-01-01,,,,Population : 4,4.00,16.29
+DIGEST OLIGO SACS,25kg_bag_animal_food,S05_D07,2014-01-01,,,,Population : 20,20.00,27.25
+CRISTALOR TARIE SAC,25kg_bag_animal_food,S05_D07,2014-01-01,,,,Population : 1,1.00,35.88
+ESTIM NEOMILK 20/12,25kg_bag_animal_food,S05_D07,2014-01-01,,,,Population : 3,3.00,62.37
+ESTIM SANDIBOOST 26/12,bulk_animal_food,TANK_1_S05_D07,2014-01-01,,,,Population : 4.50,4.50,415.60
+FLORI ECLAIR SAC ,25kg_bag_animal_food,S05_D07,2014-01-01,,,,Population : 18,18.00,12.07
+FLORIJUNIOR SAC,25kg_bag_animal_food,S05_D07,2014-01-01,,,,Population : 9,9.00,11.13
+RUMIDECOX,bulk_kg_animal_food,S05_D07,2014-01-01,,,,Population : 500,500.00,0.49
+,PRODUIT VEGETAUX,,,,,,,,
+Blé tendre en stockage à façon à la coopérative,wheat_grain,,2014-01-01,,,,Population : 27.7,,180
+Merlot Rouge 2012,wine,,2012-10-01,wine,merlot_noir,,Population : 40; reference_year : 2012; designation_origin : aoc_bordeaux,,100.20
+Merlot Rouge 2013,wine,,2013-10-01,wine,merlot_noir,,Population : 50; reference_year : 2013; designation_origin : aoc_bordeaux_sup,,111.20

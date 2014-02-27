@@ -29,6 +29,7 @@
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
 #  population      :decimal(19, 4)
+#  position        :integer          not null
 #  reference_name  :string(255)      not null
 #  roles           :string(320)
 #  shape           :spatial({:srid=>
@@ -65,6 +66,7 @@ class InterventionCast < Ekylibre::Record::Base
   before_validation do
     if self.reference
       self.roles = self.reference.roles.join(', ')
+      self.position = self.reference.position
     end
     if self.actor.is_a?(Product)
       self.variant  ||= self.actor.variant
@@ -104,6 +106,17 @@ class InterventionCast < Ekylibre::Record::Base
   def name
     self.reference.human_name
   end
+
+
+  def shape=(value)
+    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
+    elsif !value.blank?
+      value = Charta::Geometry.new(value).to_rgeo
+    end
+    self["shape"] = value
+  end
+
 
   for role in [:input, :output, :target, :tool, :doer]
     code  = "def #{role}?(procedure_nature = nil)\n"

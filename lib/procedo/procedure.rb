@@ -146,9 +146,10 @@ module Procedo
       end
 
       # Load and check variables
-      given_roles = []
+      given_roles, position = [], 1
       @variables = element.xpath("xmlns:variables/xmlns:variable").inject(HashWithIndifferentAccess.new) do |hash, variable|
-        v = Variable.new(self, variable)
+        v = Variable.new(self, variable, position)
+        position += 1
         for role in v.roles
           if roles.include?(role)
             given_roles << role
@@ -340,7 +341,7 @@ module Procedo
             code << "      begin\n"
             code << "        value = #{rubyist.compiled}\n"
             code << "        if value != @handlers[:#{h.name}]\n"
-            code << "          puts \"#{variable.name}##{h.name}: \#{value.inspect} (\#{@handlers[:#{h.name}].inspect})\".red\n"
+            # code << "          puts \"#{variable.name}:handlers:#{h.name}: \#{value.inspect} (\#{@handlers[:#{h.name}].inspect})\".red\n"
             code << "          @handlers[:#{h.name}] = value\n"
             code << "          impact_handler_#{h.name}!\n"
             code << "        end\n"
@@ -382,21 +383,24 @@ module Procedo
         code << "    def impact_#{variable.new? ? :variant : :actor}!\n"
         code << "      puts \"#{variable.name}#impact_#{variable.new? ? :variant : :actor}!\".yellow\n"
 
-        variant      = (variable.new? ? "@variant" : "@actor.variant")
-        variant_test = (variable.new? ? variant : "@actor and #{variant}")
-        code << "      if #{variant_test}\n"
 
-        # Set variants of "parted-from variables"
-        for other in variable.others
-          if other.parted? and other.producer == variable
-            code << "        # Updates variant of #{other.name} if possible\n"
-            code << "        if procedure.#{other.name}.variant != #{variant}\n"
-            code << "          procedure.#{other.name}.variant = #{variant}\n"            
-            code << "          procedure.#{other.name}.impact_#{other.new? ? :variant : :actor}!\n"
-            code << "        end\n"            
+        if variable.others.detect{|other| other.parted? and other.producer == variable }
+          variant      = (variable.new? ? "@variant" : "@actor.variant")
+          variant_test = (variable.new? ? variant : "@actor and #{variant}")
+          code << "      if #{variant_test}\n"
+          
+          # Set variants of "parted-from variables"
+          for other in variable.others
+            if other.parted? and other.producer == variable
+              code << "        # Updates variant of #{other.name} if possible\n"
+              code << "        if procedure.#{other.name}.variant != #{variant}\n"
+              code << "          procedure.#{other.name}.variant = #{variant}\n"            
+              code << "          procedure.#{other.name}.impact_#{other.new? ? :variant : :actor}!\n"
+              code << "        end\n"            
+            end
           end
+          code << "      end\n"
         end
-        code << "      end\n"
 
         # Sets default destinations
         for other in variable.others
@@ -408,15 +412,18 @@ module Procedo
               code << "      if #{dest}.blank? or procedure.updater?(:casting, :#{variable.name})"
               code << " or procedure.updater?(:global, :support)" if variable.default_actor == "storage"
               code << "\n"
-              code << "        #{dest} = "
+
+              code << "        begin\n"
+              code << "          #{dest} = "
               code << "@destinations[:#{destination}] || " if variable.destinations.include?(destination)
               code << "self.get(:#{destination}, at: now)\n"            
               if [:geometry, :point].include?(Nomen::Indicators[destination].datatype)
-                code << "        puts #{dest}.inspect.red\n"
-                code << "        #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
-                code << "        puts #{dest}.inspect.green\n"
+                code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
               end
-              code << "        procedure.#{ref}.impact_destination_#{destination}!\n"
+              code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
+              code << "        rescue UnavailableReading => e\n"
+              code << "          puts e.message.red\n"
+              code << "        end\n"            
               code << "      end\n"            
             end
           end
@@ -472,8 +479,15 @@ module Procedo
           code << "        #{variable.name}.impact_variant!\n"
         end        
       end
+      # global:at is called at every interventions form call so we use it
+      # TODO replace this with more clean way with a global updater like "global:start"
       code << "      elsif @__updater__.second == :at\n"
       # What to do ? Check existence and destinations of products at this moment ?
+      for variable in self.variables.values
+        for destination in variable.destinations
+          code << "        #{variable.name}.impact_destination_#{destination}!\n"
+        end
+      end
       code << "      end\n"
       code << "    elsif @__updater__.first == :casting\n"
       code << self.variables.values.collect do |variable|
@@ -487,11 +501,11 @@ module Procedo
             hcode << "  #{variable.name}.impact_handler_#{handler.name}!\n"
           end.join("els").dig(2)
           vcode << "    else\n"
-          vcode << "      raise \"Unknown handler \#{@__updater__.fourth} for \#{@__updater__.second}\"\n"
+          vcode << "      raise \"Unknown handler \#{@__updater__.fourth} for #{variable.name}\"\n"
           vcode << "    end\n"
         end
         vcode << "  else\n"
-        vcode << "    raise \"Unknown aspect \#{@__updater__.third} for \#{@__updater__.fourth}\"\n"
+        vcode << "    raise \"Unknown aspect \#{@__updater__.third} for #{variable.name}\"\n"
         vcode << "  end\n"
       end.join("els").dig(3)
       code << "      else\n"

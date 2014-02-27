@@ -1,10 +1,11 @@
 module Procedo
   class Variable
 
-    attr_reader :name, :procedure, :value, :abilities, :handlers, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name, :destinations, :default_actor, :default_variant
+    attr_reader :name, :procedure, :value, :abilities, :handlers, :variety, :derivative_of, :roles, :birth_nature, :producer_name, :default_name, :destinations, :default_actor, :default_variant, :position
 
-    def initialize(procedure, element)
+    def initialize(procedure, element, position)
       @procedure = procedure
+      @position = position
       @name = element.attr("name").to_sym
       if element.has_attribute?("new")
         @new_variable = true

@@ -56,7 +56,7 @@ class Intervention < Ekylibre::Record::Base
   belongs_to :prescription
   belongs_to :provisional_intervention, class_name: "Intervention"
   belongs_to :recommender, class_name: "Entity"
-  has_many :casts, -> { order(:id) }, class_name: "InterventionCast", inverse_of: :intervention
+  has_many :casts, -> { order(:position) }, class_name: "InterventionCast", inverse_of: :intervention
   has_many :operations, inverse_of: :intervention
   has_one :activity, through: :production
   has_one :campaign, through: :production

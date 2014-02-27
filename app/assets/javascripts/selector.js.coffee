@@ -127,23 +127,23 @@
 
     _choose: (selected) ->
       selected ?= this.dropDownMenu.find("ul li.selected.item").first()
-      if selected[0]?
+      if selected.length > 0
         if selected.is("[data-item-label][data-item-id]")
-          this._select selected.data("itemId"), selected.data("itemLabel")
+          this._select selected.data("itemId"), selected.data("item-label")
           this.element.trigger "change"
         else if selected.is("[data-new-item]")
           parameters = {}
-          if selected.data("newItem").length > 0
-            parameters.name = selected.data("newItem")
+          if selected.data("new-item").length > 0
+            parameters.name = selected.data("new-item")
           that = this
-          $.ajaxDialog this.element.data("selectorNewItem"),
+          $.ajaxDialog this.element.data("selector-new-item"),
             data: parameters
             returns:
               success: (frame, data, status, request) ->
                 that._set request.getResponseHeader("X-Saved-Record-Id")
                 that.element.trigger "change"
                 frame.dialog "close"
-              invalid: (frame, data, textStatus, request) ->
+              invalid: (frame, data, status, request) ->
                 frame.html request.responseText
         else
           alert "Don't known how to manage this option"

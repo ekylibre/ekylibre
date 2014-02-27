@@ -1,4 +1,6 @@
-code_activite,nom_activite,famille_activite,nomen_product_nature_variant,type_activite,campagne,work_number_parcelle,provisionnal_grain_yield,provisionnal_nitrogen_input,provisional_residue_elimination_method
+code_activite,nom_activite,famille_activite,Nomen variant support,type_activite,campagne,code support,provisionnal_grain_yield,provisionnal_nitrogen_input,provisional_residue_elimination_method
+,2014,,,,,,,,
+,PRODUCTION ANIMALE,,,,,,,,
 8200,Bovins lait,ANIMX,female_young_cow,PRINC,2014,GEN_1,,,
 8200,Bovins lait,ANIMX,female_young_cow,PRINC,2014,GEN_2,,,
 8200,Bovins lait,ANIMX,female_young_cow,PRINC,2014,GEN_3,,,
@@ -6,6 +8,7 @@ code_activite,nom_activite,famille_activite,nomen_product_nature_variant,type_ac
 8200,Bovins lait,ANIMX,calf,PRINC,2014,VEAU,,,
 8230,Veau 8-15 J,ANIMX,calf,PRINC,2014,VEAU_8_15,,,
 8200,Bovins lait,ANIMX,female_adult_cow,PRINC,2014,VL,,,
+,PRODUCTION VEGETALE,,,,,,,,
 1410,Orge hiver,CEREA,winter_barley_crop,PRINC,2014,ZC01,78,200,burying
 1410,Orge hiver,CEREA,winter_barley_crop,PRINC,2014,ZC02,75,190,evacuation
 1200,Blé dur,CEREA,tablur_hard_wheat_crop,PRINC,2014,ZC03,77,198,evacuation
@@ -22,9 +25,6 @@ code_activite,nom_activite,famille_activite,nomen_product_nature_variant,type_ac
 3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2014,ZC14,,,
 3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2014,ZC15,,,
 5000,Vigne,VIGNE,vine_grape_crop,PRINC,2014,ZC16,,,
-5000,Chai,VIGNE,wine,PRINC,2014,TANK_1,,,
-5000,Chai,VIGNE,wine,PRINC,2014,TANK_2,,,
-5000,Chai,VIGNE,wine,PRINC,2014,TANK_3,,,
 1420,Orge printemps,CEREA,spring_barley_crop,PRINC,2014,ZC17,75,190,evacuation
 1710,Maïs sec,CEREA,corn_crop,PRINC,2014,ZC18,75,190,evacuation
 1100,Blé tendre,CEREA,caphorn_wheat_crop,PRINC,2014,ZC19,85,205,evacuation
@@ -39,9 +39,16 @@ code_activite,nom_activite,famille_activite,nomen_product_nature_variant,type_ac
 1100,Blé tendre,CEREA,euclide_wheat_crop,PRINC,2014,ZC30,75,190,evacuation
 3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2014,ZC31,,,
 3400,Prairie temporaire et artificielle,CUFOU,alfalfa_crop,PRINC,2014,ZC25,,,
+,TRANSFORMATION,,,,,,,,
+5000,Chai,VIGNE,wine,PRINC,2014,TANK_1,,,
+5000,Chai,VIGNE,wine,PRINC,2014,TANK_2,,,
+5000,Chai,VIGNE,wine,PRINC,2014,TANK_3,,,
+,2013,,,,,,,,
+,PRODUCTION ANIMALE,,,,,,,,
 8200,Bovins lait,ANIMX,female_young_cow,PRINC,2013,GEN_1,,,
 8200,Bovins lait,ANIMX,female_young_cow,PRINC,2013,GEN_2,,,
 8200,Bovins lait,ANIMX,female_young_cow,PRINC,2013,GEN_3,,,
+,PRODUCTION VEGETALE,,,,,,,,
 1200,Blé dur,CEREA,hard_wheat_crop,PRINC,2013,ZC01,70,175,evacuation
 3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,ZC10,,,
 3400,Prairie temporaire et artificielle,CUFOU,temporary_meadow_crop,PRINC,2013,ZC11,,,

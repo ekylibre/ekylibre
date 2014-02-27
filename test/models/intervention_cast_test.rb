@@ -28,6 +28,7 @@
 #  intervention_id :integer          not null
 #  lock_version    :integer          default(0), not null
 #  population      :decimal(19, 4)
+#  position        :integer          not null
 #  reference_name  :string(255)      not null
 #  roles           :string(320)
 #  shape           :spatial({:srid=>
