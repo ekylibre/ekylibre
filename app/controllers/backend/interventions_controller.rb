@@ -64,6 +64,7 @@ class Backend::InterventionsController < BackendController
     t.column :human_roles, sort: :roles, label: :roles
     t.column :population
     t.column :unit_name, through: :variant
+    t.column :shape
     t.column :variant, url: true
     # t.column :indicator
     # t.column :measure_quantity

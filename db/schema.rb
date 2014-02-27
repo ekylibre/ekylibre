@@ -1067,6 +1067,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.decimal  "population",                                               precision: 19, scale: 4
     t.string   "roles",           limit: 320
     t.string   "reference_name",                                                                                null: false
+    t.integer  "position",                                                                                      null: false
     t.datetime "created_at",                                                                                    null: false
     t.datetime "updated_at",                                                                                    null: false
     t.integer  "creator_id"

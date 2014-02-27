@@ -386,11 +386,12 @@ class Product < Ekylibre::Record::Base
   end
 
   def initial_shape=(value)
-    if value.is_a?(String)
-      geo_json = JSON.parse(value).to_json
-      # raise .inspect
-      self["initial_shape"] = Charta::Geometry.new(value, :WGS84).to_rgeo
+    if value.is_a?(String) and value =~ /\A\{.*\}\z/
+      value = Charta::Geometry.new(JSON.parse(value).to_json, :WGS84).to_rgeo
+    elsif !value.blank?
+      value = Charta::Geometry.new(value).to_rgeo
     end
+    self["initial_shape"] = value
   end
 
 
