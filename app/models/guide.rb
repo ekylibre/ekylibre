@@ -67,7 +67,7 @@ class Guide < Ekylibre::Record::Base
     statuses = [:passed, :passed_with_warnings, :failed]
     global_status = statuses.sample
     analysis = self.analyses.create!(acceptance_status: global_status, started_at: started_at, stopped_at: started_at + 10)
-    (14 * self.name.size).times do |i|
+    (4 * self.name.size).times do |i|
       status = statuses[0..(statuses.index(global_status))].sample
       analysis.points.create!(acceptance_status: status, reference_name: "#{self.name.parameterize.underscore}_check_#{i}", advice_reference_name: (status.to_s == "failed" ? "do_something" : nil))
     end

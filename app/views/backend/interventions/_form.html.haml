@@ -25,8 +25,10 @@
       - if reference.new?
         = v.input("actor", wrapper_html: {class: "inline special"}, label: reference.human_name) do
           - for need in reference.needs
+            - v.object.send("#{need}=", v.object.send(need))
             = v.input_field(need, as: :hidden, data: {procedure: procedure.name, variable: reference.name, variable_destination: need})
           .handlers
+            -# Handlers
             - for handler in reference.handlers
               .handler{class: handler.destination}
                 .title= handler.human_name
@@ -44,25 +46,8 @@
               .handler.long
                 .title= InterventionCast.human_attribute_name(:variant)
                 .value= v.referenced_association_field :variant, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_variant: reference.name, intervention_updater: "casting:#{reference.name}:variant"}}
-          -#
-            - if reference.need_population?
-              = v.input_field :population
-            - if reference.known_variant?
-              %span.add-on= reference.variant_indication
-
-            -# if reference.need_shape?
-              = v.shape_field # shadow: self.shadow_shape
       - else
         = v.referenced_association :actor, label: reference.human_name, source: {scope: reference.scope_hash.merge(availables: true)}, input_html: {data: {procedure: procedure.name, variable: reference.name, variable_actor: reference.name, intervention_updater: "casting:#{reference.name}:actor"}}
-
-  -# field_set :operations do
-    - if f.object.operations.empty? or f.object.new_record?
-      - for id, operation in procedure.operations
-        - f.object.operations.new(position: id)
-    = f.backend_fields_for :operations do |v|
-      = v.input :position, as: :hidden
-      = v.input :started_at, label: v.object.reference.human_name, hint: v.object.reference.human_expressions.to_sentence
-      -# = v.input :stopped_at, label: v.object.reference.human_name
 
   - if f.object.errors.count > 0
     = f.object.errors.messages.inspect
