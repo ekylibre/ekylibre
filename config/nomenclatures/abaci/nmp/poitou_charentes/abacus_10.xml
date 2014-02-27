@@ -5,7 +5,7 @@
   <!--  Le poste fourniture du sol Po intègre la contribution en azote du sol ainsi que l'arrière effet des retournements de prairie Contribution en azote du sol (en kgN/ha)  -->
   <nomenclature name="nmp_poitou_charentes_abacus_10" hierarchical="false" translateable="false">
     <attributes>
-      <attribute name="crop" type="choice" nomenclature="france_crops_sets" required="true"/> <!-- -land_parcel -->
+      <attribute name="crop" type="choice" nomenclature="crop_sets" required="true"/> <!-- -land_parcel -->
       <attribute name="po" type="decimal" required="true"/><!-- en kg N/ha -->
       <attribute name="minimum_available_water_capacity" type="decimal" required="false"/>
       <attribute name="maximum_available_water_capacity" type="decimal" required="false"/>

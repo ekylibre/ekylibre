@@ -5,7 +5,7 @@
   <!--  abaque de valeur de Mr (kg de N / ha)  selon la nature du précédent  -->
   <nomenclature name="nmp_poitou_charentes_abacus_7" hierarchical="false" translateable="false">
     <attributes>
-      <attribute name="previous_crop" type="choice" nomenclature="france_crops_sets" required="true"/>
+      <attribute name="previous_crop" type="choice" nomenclature="crop_sets" required="true"/>
       <attribute name="crop_destruction_method" type="choice" choices="" required="false"/>
       <attribute name="previous_crop_minimum_age" type="integer" required="false"/><!-- en mois -->
       <attribute name="previous_crop_maximum_age" type="integer" required="false"/><!-- en mois -->
