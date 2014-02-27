@@ -28,6 +28,7 @@ load_data :productions do |loader|
     loader.count :activities_import do |w|
       # Load file
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
+        next if row[0].blank?
         r = OpenStruct.new(:description => row[0],
                            :name => row[1].downcase.capitalize,
                            :family => activity_families[row[1]],
