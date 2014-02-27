@@ -2,6 +2,14 @@ require 'zip'
 
 module Ekylibre
   module FirstRun
+
+    LOADERS = [:base, :general_ledger, :entities, :buildings, :products, :animals, :land_parcels, :productions, :analyses, :sales, :deliveries, :interventions, :guides]
+    
+    class CountExceeded < StandardError
+    end
+    
+    autoload :Counter,  'ekylibre/first_run/counter'
+    autoload :Loader,   'ekylibre/first_run/loader'
     autoload :Manifest, 'ekylibre/first_run/manifest'
 
     IMPORTS = {
