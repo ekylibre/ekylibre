@@ -1953,6 +1953,7 @@ arb:
     production_natures:
       choices: #?
       items:
+        # administrative: "Administratif"
         # annual_frost_fallow_land: "Gel annuel"
         # apple: "Pomme"
         # asparagus: "Asperge"
@@ -1970,6 +1971,7 @@ arb:
         # lavender: "Lavande"
         # laying_hen: "Poule pondeuse"
         # lentil: "Lentille"
+        # maintenance: "Maintenance"
         # melon: "Melon"
         # milk_bull_calf: "Taurillons Lait"
         # milk_cattle: "Bovins Lait"
@@ -1991,6 +1993,7 @@ arb:
         # sunflower: "Tournesol"
         # temporary_meadow: "Prairie temporaire"
         # tobacco: "Tabac"
+        # trade: "Commerce"
         # triticale: "Triticale"
         # vine: "Vigne"
         # walnut: "Noyer"

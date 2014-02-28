@@ -2059,6 +2059,7 @@ eng:
     production_natures:
       choices: #?
       items:
+        # administrative: "Administratif"
         animal_farming: "Animal farming" #?
         animal_global_documentation: "Animal global documentation" #?
         # annual_frost_fallow_land: "Gel annuel"
@@ -2081,6 +2082,7 @@ eng:
         # lavender: "Lavande"
         # laying_hen: "Poule pondeuse"
         # lentil: "Lentille"
+        # maintenance: "Maintenance"
         marketing: "Marketing" #?
         # melon: "Melon"
         # milk_bull_calf: "Taurillons Lait"
@@ -2107,6 +2109,7 @@ eng:
         # sunflower: "Tournesol"
         # temporary_meadow: "Prairie temporaire"
         # tobacco: "Tabac"
+        # trade: "Commerce"
         transformation: "Transformation" #?
         # triticale: "Triticale"
         vegetal_crops: "Vegetal crops" #?
