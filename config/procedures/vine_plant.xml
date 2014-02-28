@@ -3,13 +3,19 @@
   <procedure name="vine_plant" natures="implant" version="0" status="frozen">
     <variables>
       <variable name="plants"       variety="seedling" derivative-of="vitis" abilities="take_root"/>
-      <variable name="plants_to_fix" new="parted-from: plants" roles="implant-input" need="population"/>
+      <variable name="plants_to_fix" new="parted-from: plants" roles="implant-input" default-population=":plants">
+      <handler indicator="population" />
+        <handler indicator="plants_density" unit="unity_per_hectare"   to="population"
+                 forward="(cultivation.net_surface_area(hectare)) / (value)"
+                 backward="(value) / (cultivation.net_surface_area(hectare))"
+                 /> <!--  u/ha -->
+      </variable>
       <variable name="implanter_tool"    abilities="implant" roles="implant-tool"/>
       <variable name="driver"       abilities="drive(equipment), move"/>
       <variable name="implanter_man" abilities="drive(equipment), move" roles="implant-doer"/>
       <variable name="tractor"      abilities="tow(equipment), move" roles="implant-tool"/>
-      <variable name="land_parcel"  abilities="store(plant)" roles="implant-target"/>
-      <variable name="cultivation"  variety="derivative-of: plants" new="produced-by: land_parcel" roles="implant-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})"/>
+      <variable name="land_parcel"  abilities="store(plant)" roles="implant-target" default-actor="storage"/>
+      <variable name="cultivation"  variety="derivative-of: plants" new="produced-by: land_parcel" roles="implant-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" need="shape" default-shape=":land_parcel" default-variant="production"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
@@ -50,10 +56,10 @@
         <!-- le chauffeur du tracteur mesure / observe l'état de la parcelle au niveau de son passage en production (valeur attendue = true)-->
         <!-- a terme, on devrait être capable de faire IF le semoir est vide alors j'arrete de semer -->
         <!-- et je retourne charger des semences sur le tas global-->
-        <task do="cultivation|shape|:land_parcel is measured"/>
+        <!-- <task do="cultivation|shape|:land_parcel is measured"/>-->
       </operation>
       <operation id="750">
-        <task do="cultivation|population|superficial_count:land_parcel is measured"/>
+        <task do="cultivation|population|superficial_count:cultivation is measured"/>
         <task do="land_parcel|soil_cultural_state|covered is measured"/>
       </operation>
       <operation id="800" duration="18 minutes">
