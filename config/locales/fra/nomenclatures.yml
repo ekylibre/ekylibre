@@ -281,7 +281,7 @@ fra:
         vegetal_crops: "Production végétale"
         vine_wine: "Vigne et vin"                          # vegetal_crops
     analysis_natures:
-      name: "Types d’analyse"
+      name: "Types d’analyses"
       property_natures:
         items: "Éléments analysés"
         target_derivative_of: "Dérivé de la cible"
@@ -293,7 +293,7 @@ fra:
         cow_milk_analysis: "Analyse de lait de vache"
         unitary_cow_milk_analysis: "Analyse d'un contrôle laitier"
     animal_life_states:
-      name: "États du dévelopment animal"
+      name: "États du développement animal"
       items:
         aging: "Adulte"
         first_growth: "Première croissance"
@@ -563,7 +563,7 @@ fra:
         zm: "Zambie"
         zw: "Zimbabwe"
     crop_sets:
-      name: "Typologies de culture (France)"
+      name: "Typologies de culture"
       property_natures:
         varieties: "Variétés"
       items:
@@ -880,7 +880,7 @@ fra:
         vegetal_crops: "Cultures"
         vinification: "Vinification"
     document_natures:
-      name: "Types de document"
+      name: "Types de documents"
       property_natures:
         category: "Catégories"
       items:
@@ -964,13 +964,13 @@ fra:
         spheroid: "Sphéroïde"
         vehicle: "Véhicule"
     guide_natures:
-      name: "Types de guide"
+      name: "Types de guides"
       items:
         best_practices: "Bonnes pratiques"
         regulations: "Réglementations"
         specifications: "Spécifications"
     identifier_natures:
-      name: "Type d’identifiant"
+      name: "Types d’identifiants"
       property_natures:
         # fallbacks: "Fallbacks"
         password: "Mot de passe"
@@ -1119,7 +1119,7 @@ fra:
         woodstock_variety: "Variété du porte-greffe"
         zinc_concentration: "Teneur en zinc"
     issue_natures:
-      name: "Types d’incident"
+      name: "Types d’incidents"
       property_natures:
         target: "Cible"
         treatments: "Traitements"
@@ -1246,7 +1246,7 @@ fra:
         uzb: "Ou(s)zbek"
         vie: "Vietnamien"
     mammalia_birth_conditions:
-      name: "Conditions de naissance mammale"
+      name: "Conditions de naissance mammifère"
       items:
         caesarean: "Par césarienne"
         few_help: "Avec un peu d’aide"
@@ -1254,13 +1254,13 @@ fra:
         newborn_cutting: "En découpant le nouveau-né"
         without_help: "Sans aide"
     mammalia_reproduction_states:
-      name: "États de la reproduction mammale"
+      name: "États de la reproduction mammifère"
       items:
         back_heat: "Retour de chaleur"
         heat: "Chaleur"
         pregnancy: "Pleine"
     net_services:
-      name: "Services Web"
+      name: "Services en ligne"
       property_natures:
         approach: "Approche"
         identifiers: "Identifiants"
@@ -1283,7 +1283,7 @@ fra:
         synest: "Synel Est"
         telepac: "Telepac"
     nmp_methods:
-      name: "Méthode de calcul du bilan azoté"
+      name: "Méthodes de calcul du bilan azoté"
       items:
         poitou_charentes: "Poitou charentes"
     phosphorus_analysis_methods:
@@ -1350,7 +1350,7 @@ fra:
         transformation: "Transformation"
         viviparous_birth: "Reproduction (vivipare)"
     procedure_roles:
-      name: "Rôles de procédure"
+      name: "Rôles de procédures"
       items:
         doer: "Faiseur"
         input: "Intrant"
@@ -1848,7 +1848,7 @@ fra:
         wine_crop: "Vigne"
         wine_tank: "Cuve à vin"
     production_natures:
-      name: "Types de production"
+      name: "Types de productions"
       property_natures:
         activity: "Activité"
         production_code: "Code"

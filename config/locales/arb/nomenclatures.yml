@@ -284,7 +284,7 @@ arb:
       items:
         # cow_milk_analysis: "Analyse de lait de vache"
         # unitary_cow_milk_analysis: "Analyse d'un contrôle laitier"
-      # name: "Types d’analyse"
+      # name: "Types d’analyses"
       property_natures:
         # items: "Éléments analysés"
         # target_derivative_of: "Dérivé de la cible"
@@ -295,7 +295,7 @@ arb:
         # first_growth: "Première croissance"
         # second_growth: "Seconde croissance"
         # senescence: "Sénescence"
-      # name: "États du dévelopment animal"
+      # name: "États du développement animal"
     cation_exchange_capacity_analysis_methods:
       items:
         # cobaltihexamine: "Cobaltihexamine"
@@ -583,7 +583,7 @@ arb:
         # vetch: "Féverole"
         # wheat: "Blé"
         # winter_straw_cereal: "Céréales à paille d’hiver"
-      # name: "Typologies de culture (France)"
+      # name: "Typologies de culture"
       property_natures:
         # varieties: "Variétés"
     currencies:
@@ -1031,7 +1031,7 @@ arb:
         # trial_balance: "Balance comptable"
         # veterinary_booklet: "Carnet vétérinaire"
         # vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
-      # name: "Types de document"
+      # name: "Types de documents"
       property_natures:
         # category: "Catégories"
     entity_link_natures:
@@ -1078,7 +1078,7 @@ arb:
         # best_practices: "Bonnes pratiques"
         # regulations: "Réglementations"
         # specifications: "Spécifications"
-      # name: "Types de guide"
+      # name: "Types de guides"
     identifier_natures:
       item_lists: #?
       items:
@@ -1091,7 +1091,7 @@ arb:
         # pacage_number: "Numéro de PACAGE"
         # password: "Mot de passe"
         # synel_username: "Login Synel"
-      # name: "Type d’identifiant"
+      # name: "Types d’identifiants"
       property_natures:
         # password: "Mot de passe"
     identifiers: #?
@@ -1237,7 +1237,7 @@ arb:
         # protozoa_disease: "Maladies virales"
         # respiratory_problem: "Problèmes respiratoires"
         # vegetal_pathology: "Pathologie végétale"
-      # name: "Types d’incident"
+      # name: "Types d’incidents"
       property_natures:
         # target: "Cible"
         # treatments: "Traitements"
@@ -1355,13 +1355,13 @@ arb:
         # great_help: "Avec des difficultés"
         # newborn_cutting: "En découpant le nouveau-né"
         # without_help: "Sans aide"
-      # name: "Conditions de naissance mammale"
+      # name: "Conditions de naissance mammifère"
     mammalia_reproduction_states:
       items:
         # back_heat: "Retour de chaleur"
         # heat: "Chaleur"
         # pregnancy: "Pleine"
-      # name: "États de la reproduction mammale"
+      # name: "États de la reproduction mammifère"
     net_services:
       choices:
         approach:
@@ -1379,7 +1379,7 @@ arb:
         # synel: "Synel"
         # synest: "Synel Est"
         # telepac: "Telepac"
-      # name: "Services Web"
+      # name: "Services en ligne"
       property_natures:
         # approach: "Approche"
         # identifiers: "Identifiants"
@@ -1388,7 +1388,7 @@ arb:
     nmp_methods:
       items:
         # poitou_charentes: "Poitou charentes"
-      # name: "Méthode de calcul du bilan azoté"
+      # name: "Méthodes de calcul du bilan azoté"
     nmp_poitou_charentes_abacus_1: #?
     nmp_poitou_charentes_abacus_10: #?
     nmp_poitou_charentes_abacus_2: #?
@@ -1469,7 +1469,7 @@ arb:
         # output: "Extrant"
         # target: "Cible"
         # tool: "Outil"
-      # name: "Rôles de procédure"
+      # name: "Rôles de procédures"
     product_nature_categories:
       choices:
         pictogram:
@@ -2006,7 +2006,7 @@ arb:
         # winter_rapeseed: "Colza d’hiver"
         # winter_soft_wheat: "Blé tendre d’hiver"
         # without_crop: "Hors culture"
-      # name: "Types de production"
+      # name: "Types de productions"
       property_natures:
         # activity: "Activité"
         # production_code: "Code"

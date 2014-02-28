@@ -9,6 +9,7 @@ module Ekylibre
     end
     
     autoload :Counter,  'ekylibre/first_run/counter'
+    autoload :Booker,   'ekylibre/first_run/booker'
     autoload :Loader,   'ekylibre/first_run/loader'
     autoload :Manifest, 'ekylibre/first_run/manifest'
 
