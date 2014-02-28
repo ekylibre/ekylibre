@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="entity_link_natures" notions="direct_sens, indirect_sens">
-    <attributes>
-      <attribute name="entity_1" type="symbol"/>
-      <attribute name="entity_2" type="symbol"/>
-      <attribute name="symmetric" type="boolean" default="false" required="true"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="entity_1" type="symbol"/>
+      <property-nature name="entity_2" type="symbol"/>
+      <property-nature name="symmetric" type="boolean" default="false" required="true"/>
+    </property-natures>
     <items>
       <item name="undefined"      entity_1="entity"       entity_2="entity" symmetric="true"/>
       <item name="direct_kinship" entity_1="parent"       entity_2="child"/>

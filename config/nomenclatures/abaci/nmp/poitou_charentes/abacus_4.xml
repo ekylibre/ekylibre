@@ -4,11 +4,11 @@
   <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  abaque de valeur de Pi (kg de N / ha)  selon le nombre de talles  -->
   <nomenclature name="nmp_poitou_charentes_abacus_four" hierarchical="false" translateable="false">
-    <attributes>
-      <attribute name="minimum_leaf_count" type="integer" required="true"/>
-      <attribute name="maximum_leaf_count" type="integer" required="false"/>
-      <attribute name="absorbed_nitrogen" type="decimal" required="false"/><!-- en qt/ha -->
-    </attributes>
+    <property-natures>
+      <property-nature name="minimum_leaf_count" type="integer" required="true"/>
+      <property-nature name="maximum_leaf_count" type="integer" required="false"/>
+      <property-nature name="absorbed_nitrogen" type="decimal" required="false"/><!-- en qt/ha -->
+    </property-natures>
     <items>
       <item name="no_growth" minimum_leaf_count="0" maximum_leaf_count="1" absorbed_nitrogen="10"/>
       <item name="little_growth" minimum_leaf_count="2" maximum_leaf_count="3" absorbed_nitrogen="30"/>

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="spatial_reference_systems" translateable="false">
-    <attributes>
-      <attribute name="srid" type="integer" required="true"/>
-      <attribute name="authority_reference" type="string" required="false"/>
-      <attribute name="urn" type="string" required="false"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="srid" type="integer" required="true"/>
+      <property-nature name="authority_reference" type="string" required="false"/>
+      <property-nature name="urn" type="string" required="false"/>
+    </property-natures>
     <items>
       <item name="EPSG_2000" srid="2000" authority_reference="EPSG:2000"/>
       <item name="EPSG_2001" srid="2001" authority_reference="EPSG:2001"/>

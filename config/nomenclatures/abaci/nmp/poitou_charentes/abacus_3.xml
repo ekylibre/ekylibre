@@ -4,14 +4,14 @@
   <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  abaque de valeur d'azote par quintal à produire (kg de N/qt) par variété de céréale  -->
   <nomenclature name="nmp_poitou_charentes_abacus_three" hierarchical="true" translateable="false">
-    <attributes>
-      <attribute name="cultivation_variety" type="choice" nomenclature="varieties" required="false"/>
-      <attribute name="coefficient" type="decimal" required="true"/>
-      <attribute name="nitrogen_stock_before_bolting" type="decimal" required="true"/>
-      <attribute name="irrigated" type="boolean" required="false"/>
-      <attribute name="minimum_yield_aim" type="decimal" required="false"/>
-      <attribute name="maximum_yield_aim" type="decimal" required="false"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="cultivation_variety" type="choice" nomenclature="varieties" required="false"/>
+      <property-nature name="coefficient" type="decimal" required="true"/>
+      <property-nature name="nitrogen_stock_before_bolting" type="decimal" required="true"/>
+      <property-nature name="irrigated" type="boolean" required="false"/>
+      <property-nature name="minimum_yield_aim" type="decimal" required="false"/>
+      <property-nature name="maximum_yield_aim" type="decimal" required="false"/>
+    </property-natures>
     <!-- TOUTES LES CEREALES -->
     <items>
       <item name="non_improving_wheat_crop" cultivation_variety="triticum_aestivum" coefficient="3"/>

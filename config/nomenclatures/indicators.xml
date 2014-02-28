@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="indicators">
-    <attributes>
-      <attribute name="datatype" type="choice" choices="string, integer, decimal, boolean, choice, measure, point, geometry" required="true"/>
-      <attribute name="related_to" type="choice" choices="whole, individual" default="individual"/>
-      <attribute name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
-      <attribute name="gathering" type="choice" choices="proportional_to_population"/>
-      <attribute name="unit" type="choice" nomenclature="units" required="false"/>
-      <attribute name="choices" type="nomenclature" required="false"/>
-      <attribute name="curve" type="choice" default="spline" choices="line, spline, step, bar" required="false"/>
-      <!-- <attribute name="choices" type="list" required="false"/> -->
-    </attributes>
+    <property-natures>
+      <property-nature name="datatype" type="choice" choices="string, integer, decimal, boolean, choice, measure, point, geometry" required="true"/>
+      <property-nature name="related_to" type="choice" choices="whole, individual" default="individual"/>
+      <property-nature name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
+      <property-nature name="gathering" type="choice" choices="proportional_to_population"/>
+      <property-nature name="unit" type="choice" nomenclature="units" required="false"/>
+      <property-nature name="choices" type="nomenclature" required="false"/>
+      <property-nature name="curve" type="choice" default="spline" choices="line, spline, step, bar" required="false"/>
+      <!-- <property-nature name="choices" type="list" required="false"/> -->
+    </property-natures>
     <items>
       <item name="population"     datatype="decimal" related_to="whole" curve="step"/>
       <item name="temperature"    datatype="measure" unit="celsius"/>

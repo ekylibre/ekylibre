@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-rosaceae" hierarchical="true">
     <items>
-      <item name="fragaria" itis-tsn="24624"/>
+      <item name="fragaria" itis_tsn="24624"/>
     </items>
   </nomenclature>
 </nomenclatures>

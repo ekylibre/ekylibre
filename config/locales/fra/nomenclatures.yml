@@ -2,7 +2,7 @@ fra:
   nomenclatures:
     abilities:
       name: "Compétences"
-      attributes:
+      property_natures:
         # parameters: "Parameters"
       items:
         bunch: "Boteller"
@@ -43,7 +43,7 @@ fra:
         uncompact: "Décompacter"
     accounts:
       name: "Comptes comptables"
-      attributes:
+      property_natures:
         debtor: "Compte de débit"
         fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007"
         fr_pcga: "Plan comptable agricole - Arrêté du 11/12/1986"
@@ -282,7 +282,7 @@ fra:
         vine_wine: "Vigne et vin"                          # vegetal_crops
     analysis_natures:
       name: "Types d’analyse"
-      attributes:
+      property_natures:
         items: "Éléments analysés"
         target_derivative_of: "Dérivé de la cible"
         target_variety: "Variété de la cible"
@@ -312,7 +312,7 @@ fra:
         ifrs: "IFRS"
     countries:
       name: "Pays"
-      attributes:
+      property_natures:
         number: "Numéro"
       items:
         ad: "Andorre"
@@ -564,7 +564,7 @@ fra:
         zw: "Zimbabwe"
     crop_sets:
       name: "Typologies de culture (France)"
-      attributes:
+      property_natures:
         varieties: "Variétés"
       items:
         alfalfa: "Luzerne"
@@ -591,7 +591,7 @@ fra:
         winter_straw_cereal: "Céréales à paille d’hiver"
     currencies:
       name: "Monnaies"
-      attributes:
+      property_natures:
         active: "Active"
         # cash: "Cash"
         # countries: "Countries"
@@ -835,7 +835,7 @@ fra:
         aoc_cremant_de_bordeaux: "AOC Crémant de Bordeaux"
     dimensions:
       name: "Dimensions"
-      attributes:
+      property_natures:
         expression: "Expression"
       items:
         amount_of_substance: "Quantité de matière"
@@ -861,7 +861,7 @@ fra:
         volume: "Volume"
     document_categories:
       name: "Catégories de documents"
-      attributes:
+      property_natures:
         acta_category: "Category"
       items:
         accountancy: "Comptabilité"
@@ -881,7 +881,7 @@ fra:
         vinification: "Vinification"
     document_natures:
       name: "Types de document"
-      attributes:
+      property_natures:
         category: "Catégories"
       items:
         activity_cost: "Coût de production par activité et intervention"
@@ -919,7 +919,7 @@ fra:
         vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
     entity_link_natures:
       name: "Types de liens sociaux"
-      attributes:
+      property_natures:
         # entity_1: "Entity 1"
         # entity_2: "Entity 2"
         # symmetric: "Symmetric"
@@ -971,7 +971,7 @@ fra:
         specifications: "Spécifications"
     identifier_natures:
       name: "Type d’identifiant"
-      attributes:
+      property_natures:
         # fallbacks: "Fallbacks"
         password: "Mot de passe"
       item_lists:
@@ -987,7 +987,7 @@ fra:
         synel_username: "Login Synel"
     indicators:
       name: "Indicateurs"
-      attributes:
+      property_natures:
         choices: "Choix"
         curve: "Courbe"
         datatype: "Datatype"
@@ -1120,7 +1120,7 @@ fra:
         zinc_concentration: "Teneur en zinc"
     issue_natures:
       name: "Types d’incident"
-      attributes:
+      property_natures:
         target: "Cible"
         treatments: "Traitements"
       items:
@@ -1261,7 +1261,7 @@ fra:
         pregnancy: "Pleine"
     net_services:
       name: "Services Web"
-      attributes:
+      property_natures:
         approach: "Approche"
         identifiers: "Identifiants"
         nature: "Type"
@@ -1315,7 +1315,7 @@ fra:
         # swelling: "Swelling"
     procedure_natures:
       name: "Types de procédures"
-      attributes:
+      property_natures:
         # roles: "Roles"
       items:
         # animal_curative_medicine_admission: "Animal curative medicine admission" # animal_illness_treatment
@@ -1360,7 +1360,7 @@ fra:
         tool: "Outil"
     product_nature_categories:
       name: "Catégories de produits"
-      attributes:
+      property_natures:
         charge_account: "Compte de charge"
         depreciable: "Immobilisable"
         financial_asset_account: "Compte d’immobilisation"
@@ -1452,7 +1452,7 @@ fra:
         worker: "Responsable"
     product_nature_variants:
       name: "Variantes de produits"
-      attributes:
+      property_natures:
         derivative_of: "Dérivé de la variété"
         frozen_indicators_values: "Valeur d’indicateur fixe"
         nature: "Type de produit"
@@ -1735,7 +1735,7 @@ fra:
         zea_herbicide: "Herbicide maïs"
     product_natures:
       name: "Types de produits"
-      attributes:
+      property_natures:
         abilities: "Compétences"
         category: "Categorie"
         derivative_of: "Dérivé"
@@ -1846,7 +1846,7 @@ fra:
         wine_tank: "Cuve à vin"
     production_natures:
       name: "Types de production"
-      attributes:
+      property_natures:
         activity: "Activité"
         production_code: "Code"
         telepac_crop_code: "Code de type de culture TELEPAC"
@@ -1948,7 +1948,7 @@ fra:
         valley_terrace_soil: "Sols de terrasse de vallée"
     taxes:
       name: "Taxes"
-      attributes:
+      property_natures:
         active: "actif"
         amount: "valeur"
         collect_account: "compte de TVA collectée (radical)"
@@ -1973,7 +1973,7 @@ fra:
         fr_vat_reduced: "TVA 5.00%"
     units:
       name: "Unités de mesure"
-      attributes:
+      property_natures:
         # a: "A"
         # b: "B"
         # d: "D"
@@ -2059,10 +2059,10 @@ fra:
         watt: "Watt"
     varieties:
       name: "Variétés"
-      attributes:
+      property_natures:
         derivative_of: "Dérivé"
-        europa-tsn: "Identifiant EUROPA"
-        itis-tsn: "Identifiant ITIS"
+        # europa_tsn: "Europa tsn"
+        # itis_tsn: "Itis tsn"
       choices:
         # derivative_of: # Choices comes from nomenclature: varieties
       items:

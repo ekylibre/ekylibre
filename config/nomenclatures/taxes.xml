@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="taxes">
-    <attributes>
-      <attribute name="active" type="boolean" required="true"/>
-      <attribute name="started_on" type="date" required="false"/>
-      <attribute name="stopped_on" type="date" required="false"/>
-      <attribute name="computation_method" type="choice"  choices="percentage, amount" required="true" default="percentage"/>
-      <attribute name="amount" type="decimal" required="true"/>
-      <attribute name="country" type="choice" nomenclature="countries" required="true"/>
-      <attribute name="deduction_account" type="choice" nomenclature="accounts" required="true"/>
-      <attribute name="collect_account" type="choice" nomenclature="accounts" required="true"/>
-      <attribute name="suffix" type="string" required="false"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="active" type="boolean" required="true"/>
+      <property-nature name="started_on" type="date" required="false"/>
+      <property-nature name="stopped_on" type="date" required="false"/>
+      <property-nature name="computation_method" type="choice"  choices="percentage, amount" required="true" default="percentage"/>
+      <property-nature name="amount" type="decimal" required="true"/>
+      <property-nature name="country" type="choice" nomenclature="countries" required="true"/>
+      <property-nature name="deduction_account" type="choice" nomenclature="accounts" required="true"/>
+      <property-nature name="collect_account" type="choice" nomenclature="accounts" required="true"/>
+      <property-nature name="suffix" type="string" required="false"/>
+    </property-natures>
     <items>
       <!--
       French VAT on 01-01-2014

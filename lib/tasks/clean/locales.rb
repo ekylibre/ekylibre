@@ -314,21 +314,21 @@ task :locales => :environment do
     translation << CleanSupport.exp(ref, nomenclature.name, :name, default: name.humanize).dig(3)
     choices = ""
     item_lists = []
-    if nomenclature.attributes.any?
-      translation << "      attributes:\n"
-      for name, attribute in nomenclature.attributes.sort{|a,b| a.first.to_s <=> b.first.to_s}
-        translation << CleanSupport.exp(ref, nomenclature.name, :attributes, name.to_sym).dig(4)
-        if attribute.type == :choice
-          if attribute.inline_choices?
+    if nomenclature.property_natures.any?
+      translation << "      property_natures:\n"
+      for name, property_nature in nomenclature.property_natures.sort{|a,b| a.first.to_s <=> b.first.to_s}
+        translation << CleanSupport.exp(ref, nomenclature.name, :property_natures, name.to_sym).dig(4)
+        if property_nature.type == :choice
+          if property_nature.inline_choices?
             choices << "#{name}:\n"
-            for choice in attribute.choices.sort{|a,b| a.to_s <=> b.to_s}
+            for choice in property_nature.choices.sort{|a,b| a.to_s <=> b.to_s}
               choices << CleanSupport.exp(ref, nomenclature.name, :choices, name.to_sym, choice.to_sym).dig
             end
           else
-            choices << "# #{name}: # Choices comes from nomenclature: #{attribute.choices_nomenclature}\n"
+            choices << "# #{name}: # Choices comes from nomenclature: #{property_nature.choices_nomenclature}\n"
           end
-        elsif attribute.type == :list and attribute.choices_nomenclature.nil?
-          item_lists << attribute.name.to_sym
+        elsif property_nature.type == :list and property_nature.choices_nomenclature.nil?
+          item_lists << property_nature.name.to_sym
         end
       end
     end

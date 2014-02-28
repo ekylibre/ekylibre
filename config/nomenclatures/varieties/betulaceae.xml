@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-betulaceae" hierarchical="true">
     <items>
-      <item name="corylus" itis-tsn="19505"/>
+      <item name="corylus" itis_tsn="19505"/>
     </items>
   </nomenclature>
 </nomenclatures>

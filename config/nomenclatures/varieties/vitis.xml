@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-vitis" hierarchical="true">
     <items>
-      <item name="vitis_vinifera" itis-tsn="28629"/>
+      <item name="vitis_vinifera" itis_tsn="28629"/>
     </items>
   </nomenclature>
 </nomenclatures>
