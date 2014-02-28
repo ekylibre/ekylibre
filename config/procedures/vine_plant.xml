@@ -6,8 +6,8 @@
       <variable name="plants_to_fix" new="parted-from: plants" roles="implant-input" default-population=":plants">
       <handler indicator="population" />
         <handler indicator="plants_density" unit="unity_per_hectare"   to="population"
-                 forward="(cultivation.net_surface_area(hectare)) / (value)"
-                 backward="(value) / (cultivation.net_surface_area(hectare))"
+                 forward="cultivation.net_surface_area(hectare) * value"
+                 backward="value / cultivation.net_surface_area(hectare)"
                  /> <!--  u/ha -->
       </variable>
       <variable name="implanter_tool"    abilities="implant" roles="implant-tool"/>
