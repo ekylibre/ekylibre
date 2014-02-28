@@ -10,6 +10,22 @@
       <property-nature name="variant_support" type="choice" nomenclature="product_nature_variants" required="false"/>
     </property-natures>
     <items>
+      
+      <!-- A - ADMINISTRATIVE ACTIVITIES -->
+      <item name="administrative"
+            production_code="A100"
+            activity="exploitation"
+            />
+      <!-- C - COMMERCIAL ACTIVITIES -->
+      <item name="trade"
+            production_code="C100"
+            activity="exploitation"
+            />
+      <!-- M - MAINTENANCE ACTIVITIES -->
+      <item name="maintenance"
+            production_code="M100"
+            activity="exploitation"
+            />
       <!-- 1 - CEREALS CROP -->
       <item name="winter_soft_wheat"
             production_code="1100"
