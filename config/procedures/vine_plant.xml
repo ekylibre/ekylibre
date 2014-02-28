@@ -8,7 +8,10 @@
         <handler indicator="plants_density" unit="unity_per_hectare"   to="population"
                  forward="cultivation.net_surface_area(hectare) * value"
                  backward="value / cultivation.net_surface_area(hectare)"
-                 /> <!--  u/ha -->
+                 />
+                 <!--  d = plants(u) / s(ha) -->
+                 <!--  forward => plants = s * d -->
+                 <!--  backward => d = plants / d -->
       </variable>
       <variable name="implanter_tool"    abilities="implant" roles="implant-tool"/>
       <variable name="driver"       abilities="drive(equipment), move"/>

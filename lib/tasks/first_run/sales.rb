@@ -10,7 +10,6 @@ load_data :sales do |loader|
     corn_crop   = ProductNatureVariant.import_from_nomenclature(:corn_crop)
     durum_wheat_crop = ProductNatureVariant.import_from_nomenclature(:hard_wheat_crop)
     fallow_crop = ProductNatureVariant.import_from_nomenclature(:fallow_crop)
-    # @FIXME : find the triticale.
     sunflower_crop = ProductNatureVariant.import_from_nomenclature(:sunflower_crop)
     sorghum_crop   = ProductNatureVariant.import_from_nomenclature(:sorghum_crop)
     temporary_meadow_crop = ProductNatureVariant.import_from_nomenclature(:temporary_meadow_crop)
@@ -21,7 +20,7 @@ load_data :sales do |loader|
     hay    = ProductNatureVariant.import_from_nomenclature(:bulk_hay)
     silage = ProductNatureVariant.import_from_nomenclature(:grass_silage)
     grass  = ProductNatureVariant.import_from_nomenclature(:grass)
-
+    
     # Create product_nature_price for wheat product
     # wheat_price_template   = ProductPriceTemplate.find_by_product_nature_id(wheat.id)
     # wheat_price_template ||= ProductPriceTemplate.create!(:assignment_amount => 211, :currency => "EUR", :assignment_pretax_amount => 200, :product_nature_id => wheat.id, :tax_id => wheat_price_template_tax.id, :listing_id => price_listing.id, :supplier_id => Entity.of_company.id )
@@ -265,5 +264,168 @@ load_data :sales do |loader|
     end
   end
 
+  
+  loader.count :bottle_wine_sales do |w|
+
+    unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
+      cooperative = LegalEntity.create!(last_name: "Vitis",
+                                        nature: :cooperative,
+                                        vat_number: "FR00123456789",
+                                        supplier: true, client: true,
+                                        mails_attributes: {
+                                          0 => {
+                                            canal: "mail",
+                                            mail_line_4: "145 rue du port",
+                                            mail_line_6: "17300 JONZAC",
+                                            mail_country: :fr
+                                          }
+                                        },
+                                        emails_attributes: {
+                                          0 => {
+                                            canal: "email",
+                                            coordinate: "contact@vitis.coop"
+                                          }
+                                        })
+    end
+
+    # Create wheat product
+    wine = ProductNatureVariant.import_from_nomenclature(:bottle_75cl_wine)
+    catalog = Catalog.first
+    wine_taxes = Tax.all
+
+    responsibles = Person.where(id: User.pluck(:person_id))
+
+    # Sale nature
+    sale_nature   = SaleNature.actives.first
+    sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
+    (140 + rand(20)).times do |i|
+      # Sale
+      d = Time.now - (7*i - rand(4)).days
+      sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
+      # Sale items
+      (rand(5) + 1).times do
+        # # find or create a price
+        # # @FIXME = waiting for a working method in ProductPrice.price
+        # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
+        price = catalog.prices.find_by(:variant_id => wine.id, :amount => 8.00)
+        price ||= catalog.prices.create!(:currency => "EUR",
+                                         :started_at => d.to_time,
+                                         :amount => rand(2.8) + 8,
+                                         :indicator_name => :population,
+                                         :reference_tax => wine_taxes.sample,
+                                         :variant_id => wine.id
+                                         )
+
+        sale.items.create!(:quantity => rand(120) + 60,
+                           :tax => wine_taxes.sample,
+                           :price => price)
+      end
+      if !rand(20).zero?
+        Sale.where(id: sale.id).update_all(:created_at => d)
+        sale.propose
+        if rand(5).zero?
+          sale.abort
+        elsif !rand(4).zero?
+          d += rand(15).days
+          sale.confirm(d)
+          Sale.where(id: sale.id).update_all(:confirmed_at => d)
+          if !rand(25).zero?
+            d += rand(5).days
+            sale.invoice
+            Sale.where(id: sale.id).update_all(:invoiced_at => d)
+            if !rand(4).zero? and sale.amount > 0
+              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: sale.invoiced_at + rand(60))
+              sale.affair.attach(payment)
+            end
+          end
+        end
+      else
+        sale.save
+      end
+      w.check_point
+    end
+  end
+  
+  loader.count :bulk_wine_sales do |w|
+
+    unless cooperative = LegalEntity.where("LOWER(full_name) LIKE ?", "%Vitis%".mb_chars.downcase).first
+      cooperative = LegalEntity.create!(last_name: "Vitis",
+                                        nature: :cooperative,
+                                        vat_number: "FR00123456789",
+                                        supplier: true, client: true,
+                                        mails_attributes: {
+                                          0 => {
+                                            canal: "mail",
+                                            mail_line_4: "145 rue du port",
+                                            mail_line_6: "17300 JONZAC",
+                                            mail_country: :fr
+                                          }
+                                        },
+                                        emails_attributes: {
+                                          0 => {
+                                            canal: "email",
+                                            coordinate: "contact@vitis.coop"
+                                          }
+                                        })
+    end
+
+    # Create wheat product
+    wine = ProductNatureVariant.import_from_nomenclature(:wine)
+    catalog = Catalog.first
+    wine_taxes = Tax.all
+
+    responsibles = Person.where(id: User.pluck(:person_id))
+
+    # Sale nature
+    sale_nature   = SaleNature.actives.first
+    sale_nature ||= SaleNature.create!(:name => I18n.t('models.sale_nature.default.name'), :currency => "EUR", :active => true)
+    (2 + rand(2)).times do |i|
+      # Sale
+      d = Time.now - (7*i - rand(4)).days
+      sale = Sale.create!(:created_at => d, :client_id => cooperative.id, :nature_id => sale_nature.id, responsible: responsibles.sample)
+      # Sale items
+      (rand(5) + 1).times do
+        # # find or create a price
+        # # @FIXME = waiting for a working method in ProductPrice.price
+        # price = ble.price(:amount => rand(150)+25, :tax => wheat_tax)
+        price = catalog.prices.find_by(:variant_id => wine.id, :amount => 850.00)
+        price ||= catalog.prices.create!(:currency => "EUR",
+                                         :started_at => d.to_time,
+                                         :amount => rand(130) + 850,
+                                         :indicator_name => :population,
+                                         :reference_tax => wine_taxes.sample,
+                                         :variant_id => wine.id
+                                         )
+
+        sale.items.create!(:quantity => rand(25) + 10,
+                           :tax => wine_taxes.sample,
+                           :price => price)
+      end
+      if !rand(20).zero?
+        Sale.where(id: sale.id).update_all(:created_at => d)
+        sale.propose
+        if rand(5).zero?
+          sale.abort
+        elsif !rand(4).zero?
+          d += rand(15).days
+          sale.confirm(d)
+          Sale.where(id: sale.id).update_all(:confirmed_at => d)
+          if !rand(25).zero?
+            d += rand(5).days
+            sale.invoice
+            Sale.where(id: sale.id).update_all(:invoiced_at => d)
+            if !rand(4).zero? and sale.amount > 0
+              payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: sale.invoiced_at + rand(60))
+              sale.affair.attach(payment)
+            end
+          end
+        end
+      else
+        sale.save
+      end
+      w.check_point
+    end
+  end
+  
   end
 end
