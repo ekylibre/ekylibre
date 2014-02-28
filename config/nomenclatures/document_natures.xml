@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="document_natures">
-    <attributes>
-      <attribute name="category" type="list" nomenclature="document_categories"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="category" type="list" nomenclature="document_categories"/>
+    </property-natures>
     <items>
       <item name="sales_order" category="marketing"/>
       <item name="sales_estimate" category="marketing"/>

@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-brassicaceae" hierarchical="true">
     <items>
-      <item name="brassica" itis-tsn="23054"/>
+      <item name="brassica" itis_tsn="23054"/>
     </items>
   </nomenclature>
 </nomenclatures>

@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-amaryllidaceae" hierarchical="true">
     <items>
-      <item name="allium" itis-tsn="42634"/>
+      <item name="allium" itis_tsn="42634"/>
     </items>
   </nomenclature>
 </nomenclatures>

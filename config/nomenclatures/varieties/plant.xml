@@ -2,60 +2,24 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-plant" hierarchical="true">
     <items>
-      <item name="poaceae">
-        <attribute name="itis-tsn" value="40351"/>
-      </item>
-      <item name="amaryllidaceae">
-        <attribute name="itis-tsn" value="182703"/>
-      </item>
-      <item name="fabaceae">
-        <attribute name="itis-tsn" value="500059"/>
-      </item>
-      <item name="asteraceae">
-        <attribute name="itis-tsn" value="35420"/>
-      </item>
-      <item name="brassicaceae">
-        <attribute name="itis-tsn" value="12345"/>
-      </item>
-      <item name="vitis">
-        <attribute name="itis-tsn" value="28606"/>
-      </item>
-      <item name="prunus">
-        <attribute name="itis-tsn" value="24762"/>
-      </item>
-      <item name="malus">
-        <attribute name="itis-tsn" value="25254"/>
-      </item>
-      <item name="amaranthaceae">
-        <attribute name="itis-tsn" value="20714"/>
-      </item>
-      <item name="apiaceae">
-        <attribute name="itis-tsn" value="500042"/>
-      </item>
-      <item name="linaceae">
-        <attribute name="itis-tsn" value="29200"/>
-      </item>
-      <item name="liliaceae">
-        <attribute name="itis-tsn" value="42633"/>
-      </item>
-      <item name="rosaceae">
-        <attribute name="itis-tsn" value="24538"/>
-      </item>
-      <item name="solanaceae">
-        <attribute name="itis-tsn" value="30411"/>
-      </item>
-      <item name="juglandaceae">
-        <attribute name="itis-tsn" value="19222"/>
-      </item>
-      <item name="betulaceae">
-        <attribute name="itis-tsn" value="19465"/>
-      </item>
-      <item name="lamiaceae">
-        <attribute name="itis-tsn" value="32251"/>
-      </item>
-      <item name="cucurbitaceae">
-        <attribute name="itis-tsn" value="22337"/>
-      </item>
+      <item name="poaceae" itis_tsn="40351"/>
+      <item name="amaryllidaceae" itis_tsn="182703"/>
+      <item name="fabaceae" itis_tsn="500059"/>
+      <item name="asteraceae" itis_tsn="35420"/>
+      <item name="brassicaceae" itis_tsn="12345"/>
+      <item name="vitis" itis_tsn="28606"/>
+      <item name="prunus" itis_tsn="24762"/>
+      <item name="malus" itis_tsn="25254"/>
+      <item name="amaranthaceae" itis_tsn="20714"/>
+      <item name="apiaceae" itis_tsn="500042"/>
+      <item name="linaceae" itis_tsn="29200"/>
+      <item name="liliaceae" itis_tsn="42633"/>
+      <item name="rosaceae" itis_tsn="24538"/>
+      <item name="solanaceae" itis_tsn="30411"/>
+      <item name="juglandaceae" itis_tsn="19222"/>
+      <item name="betulaceae" itis_tsn="19465"/>
+      <item name="lamiaceae" itis_tsn="32251"/>
+      <item name="cucurbitaceae" itis_tsn="22337"/>
     </items>
   </nomenclature>
 </nomenclatures>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="abilities">
-    <attributes>
-      <attribute name="parameters" type="list" choices="variety" required="false"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="parameters" type="list" choices="variety" required="false"/>
+    </property-natures>
     <items>
       <!--
           [Product] it can ...

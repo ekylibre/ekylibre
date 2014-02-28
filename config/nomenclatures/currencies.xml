@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="currencies" reference="iso-4217">
-    <attributes>
-      <attribute name="countries" type="list" nomenclature="countries"/>
-      <attribute name="active" type="boolean" required="false" default="false"/>
-      <attribute name="precision" type="integer" required="true" default="2"/>
-      <attribute name="number" type="string" required="true" default="2"/>
-      <attribute name="cash" type="list"/>
-      <attribute name="symbol" type="string"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="countries" type="list" nomenclature="countries"/>
+      <property-nature name="active" type="boolean" required="false" default="false"/>
+      <property-nature name="precision" type="integer" required="true" default="2"/>
+      <property-nature name="number" type="string" required="true" default="2"/>
+      <property-nature name="cash" type="list"/>
+      <property-nature name="symbol" type="string"/>
+    </property-natures>
     <items>
       <item name="AED" precision="2" active="true" countries="ae" number="784"/>
       <item name="AFN" precision="2" active="true" countries="af" number="971"/>

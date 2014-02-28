@@ -1,6 +1,6 @@
 module Nomen
 
-  class AttributeDefinition
+  class PropertyNature
     attr_reader :nomenclature, :name, :type, :fallbacks, :default
 
     TYPES = [:boolean, :choice, :date, :decimal, :integer, :list, :nomenclature, :string, :symbol]
@@ -19,7 +19,7 @@ module Nomen
       @required = !!(element.attr("required").to_s == "true")
       @inherit  = !!(element.attr("inherit").to_s == "true")
       unless TYPES.include?(@type)
-        raise ArgumentError, "Attribute #{@name} type is unknown"
+        raise ArgumentError, "Property #{@name} type is unknown"
       end
       if @type == :choice or @type == :list
         if element.has_attribute?("choices")
@@ -27,17 +27,17 @@ module Nomen
         elsif element.has_attribute?("nomenclature")
           @choices = element.attr("nomenclature").to_s.strip.to_sym
         elsif @type != :list
-          raise ArgumentError, "[#{@nomenclature.name}] Attribute #{@name} must have choices or nomenclature attribute"
+          raise ArgumentError, "[#{@nomenclature.name}] Property #{@name} must have choices or nomenclature property"
         end
       end
     end
 
-    # Returns if attribute is required
+    # Returns if property is required
     def required?
       @required
     end
 
-    # Returns if attribute is required
+    # Returns if property is required
     def inherit?
       @inherit
     end
@@ -50,7 +50,7 @@ module Nomen
       @choices
     end
 
-    # Returns list of choices for a given attribute
+    # Returns list of choices for a given property
     def choices
       if inline_choices?
         return @choices || []
@@ -59,9 +59,9 @@ module Nomen
       end
     end
 
-    # Return human name of attribute
+    # Return human name of property
     def human_name
-      "nomenclatures.#{nomenclature.name}.attributes.#{name}".t(:default => ["attributes.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize])
+      "nomenclatures.#{nomenclature.name}.property_natures.#{name}".t(:default => ["nomenclatures.#{nomenclature.name}.properties.#{name}".to_sym, "properties.#{name}".to_sym, "enumerize.#{nomenclature.name}.#{name}".to_sym, "labels.#{name}".to_sym, name.humanize])
     end
     alias :humanize :human_name
 

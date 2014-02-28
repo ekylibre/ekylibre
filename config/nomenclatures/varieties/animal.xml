@@ -2,21 +2,11 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-animal">
     <items>
-      <item name="mammalia">
-        <attribute name="itis-tsn" value="179913"/>
-      </item>
-      <item name="aves">
-        <attribute name="itis-tsn" value="174371"/>
-      </item>
-      <item name="osteichthyes">
-        <attribute name="itis-tsn" value="161030"/>
-      </item>
-      <item name="insecta">
-        <attribute name="itis-tsn" value="99208"/>
-      </item>
-      <item name="mollusca">
-        <attribute name="itis-tsn" value="69458"/>
-      </item>
+      <item name="mammalia" itis_tsn="179913"/>
+      <item name="aves" itis_tsn="174371"/>
+      <item name="osteichthyes" itis_tsn="161030"/>
+      <item name="insecta" itis_tsn="99208"/>
+      <item name="mollusca" itis_tsn="69458"/>
     </items>
   </nomenclature>
   <nomenclature name="varieties-aves">
@@ -33,7 +23,7 @@
   </nomenclature>
   <nomenclature name="varieties-mollusca">
     <items>
-      <item name="ostreidae" itis-tsn="79866"/>
+      <item name="ostreidae" itis_tsn="79866"/>
     </items>
   </nomenclature>
   <nomenclature name="varieties-insecta">

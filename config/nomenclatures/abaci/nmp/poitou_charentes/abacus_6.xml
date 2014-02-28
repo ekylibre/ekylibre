@@ -3,13 +3,13 @@
   <!-- root -->
   <!--  abaque de valeur de Mhp  -->
   <nomenclature name="nmp_poitou_charentes_abacus_6" hierarchical="false" translateable="false">
-    <attributes>
-      <attribute name="minimum_age" type="integer" required="true"/><!-- en mois -->
-      <attribute name="maximum_age" type="integer" required="false"/>
-      <attribute name="cereal_typology" type="choice" nomenclature="crop_sets" required="false"/>
-      <attribute name="rank" type="integer" required="false"/>
-      <attribute name="mhp" type="decimal" required="false"/><!-- en qt/ha -->
-    </attributes>
+    <property-natures>
+      <property-nature name="minimum_age" type="integer" required="true"/><!-- en mois -->
+      <property-nature name="maximum_age" type="integer" required="false"/>
+      <property-nature name="cereal_typology" type="choice" nomenclature="crop_sets" required="false"/>
+      <property-nature name="rank" type="integer" required="false"/>
+      <property-nature name="mhp" type="decimal" required="false"/><!-- en qt/ha -->
+    </property-natures>
     <items>
       <!-- PRINTEMPS  ligne 1 -->
       <item name="spring_0_18_first" cereal_typology="spring_straw_cereal" minimum_age="0" maximum_age="18" rank="1" mhp="20"/>

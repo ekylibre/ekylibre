@@ -2,10 +2,10 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <nomenclature name="issue_natures-root">
-    <attributes>
-      <attribute name="target" type="list" nomenclature="varieties" required="true" inherit="true"/>
-      <attribute name="treatments" type="list" nomenclature="procedure_natures" required="false" inherit="true"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="target" type="list" nomenclature="varieties" required="true" inherit="true"/>
+      <property-nature name="treatments" type="list" nomenclature="procedure_natures" required="false" inherit="true"/>
+    </property-natures>
     <items>
       <item name="issue" target="product"/>
     </items>

@@ -2,12 +2,12 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <nomenclature name="net_services">
-    <attributes>
-      <attribute name="nature" type="choice" nomenclature="activity_families" required="true"/>
-      <attribute name="url" type="string" required="false"/>
-      <attribute name="approach" type="choice" choices="human,rest,soap,email" required="false"/>
-      <attribute name="identifiers" type="list" nomenclature="identifier_natures" required="true"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="nature" type="choice" nomenclature="activity_families" required="true"/>
+      <property-nature name="url" type="string" required="false"/>
+      <property-nature name="approach" type="choice" choices="human,rest,soap,email" required="false"/>
+      <property-nature name="identifiers" type="list" nomenclature="identifier_natures" required="true"/>
+    </property-natures>
     <items>
       <!-- CROP -->
       <item name="telepac"

@@ -1,65 +1,65 @@
 <?xml version="1.0"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="nomenclatures" translateable="false">
-    <attributes>
-      <attribute name="attributes" type="list"/>
-      <attribute name="translateable" type="boolean" default="true"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="property_natures" type="list"/>
+      <property-nature name="translateable" type="boolean" default="true"/>
+    </property-natures>
     <items>
-      <item name="abilities" attributes="parameters"/>
-      <item name="accounts" attributes="debtor, fr_pcg82, fr_pcga"/>
+      <item name="abilities" property_natures="parameters"/>
+      <item name="accounts" property_natures="debtor, fr_pcg82, fr_pcga"/>
       <item name="activity_families"/>
-      <item name="analysis_natures" attributes="target_variety, target_derivative_of, items"/>
+      <item name="analysis_natures" property_natures="target_variety, target_derivative_of, items"/>
       <item name="animal_life_states"/>
       <item name="cation_exchange_capacity_analysis_methods"/>
       <item name="charts_of_accounts"/>
-      <item name="countries" attributes="number"/>
-      <item name="crop_sets" attributes="varieties"/>
-      <item name="currencies" attributes="countries, active, precision, number, cash, symbol"/>
+      <item name="countries" property_natures="number"/>
+      <item name="crop_sets" property_natures="varieties"/>
+      <item name="currencies" property_natures="countries, active, precision, number, cash, symbol"/>
       <item name="designation_origins"/>
-      <item name="dimensions" attributes="expression"/>
-      <item name="document_categories" attributes="acta_category"/>
-      <item name="document_natures" attributes="category"/>
-      <item name="entity_link_natures" attributes="entity_1, entity_2, symmetric"/>
+      <item name="dimensions" property_natures="expression"/>
+      <item name="document_categories" property_natures="acta_category"/>
+      <item name="document_natures" property_natures="category"/>
+      <item name="entity_link_natures" property_natures="entity_1, entity_2, symmetric"/>
       <item name="entity_natures"/>
       <item name="figures"/>
       <item name="guide_natures"/>
-      <item name="identifier_natures" attributes="password, fallbacks"/>
-      <item name="indicators" attributes="datatype, related_to, interpolation, gathering, unit, choices, curve"/>
-      <item name="issue_natures" attributes="target, treatments"/>
+      <item name="identifier_natures" property_natures="password, fallbacks"/>
+      <item name="indicators" property_natures="datatype, related_to, interpolation, gathering, unit, choices, curve"/>
+      <item name="issue_natures" property_natures="target, treatments"/>
       <item name="languages"/>
       <item name="mammalia_birth_conditions"/>
       <item name="mammalia_reproduction_states"/>
-      <item name="net_services" attributes="nature, url, approach, identifiers"/>
+      <item name="net_services" property_natures="nature, url, approach, identifiers"/>
       <item name="nmp_methods"/>
-      <item name="nmp_poitou_charentes_abacus_10" translateable="false" attributes="crop, po, minimum_available_water_capacity, maximum_available_water_capacity, precipitations_started_period, precipitations_stopped_period, precipitations_min, precipitations_max"/>
-      <item name="nmp_poitou_charentes_abacus_6" translateable="false" attributes="minimum_age, maximum_age, cereal_typology, rank, mhp"/>
-      <item name="nmp_poitou_charentes_abacus_7" translateable="false" attributes="previous_crop, crop_destruction_method, previous_crop_minimum_age, previous_crop_maximum_age, previous_crop_destruction_period_start, previous_crop_destruction_period_stop, current_crop_implantation_period_start, mr"/>
-      <item name="nmp_poitou_charentes_abacus_8" translateable="false" attributes="variant, crop, input_method, input_period_start, input_period_stop, keq"/>
-      <item name="nmp_poitou_charentes_abacus_9" translateable="false" attributes="land_parcel_variety, rf, minimum_available_water_capacity, maximum_available_water_capacity"/>
-      <item name="nmp_poitou_charentes_abacus_five" translateable="false" attributes="land_parcel_variety, cereal_typology, cereal_crop, husbandry, mixed_crop, husbandry_with_mixed_crop"/>
-      <item name="nmp_poitou_charentes_abacus_four" translateable="false" attributes="minimum_leaf_count, maximum_leaf_count, absorbed_nitrogen"/>
-      <item name="nmp_poitou_charentes_abacus_one" translateable="false" attributes="cultivation_variety, crop_yield, administrative_area, irrigated"/>
-      <item name="nmp_poitou_charentes_abacus_three" translateable="false" attributes="cultivation_variety, coefficient, nitrogen_stock_before_bolting, irrigated, minimum_yield_aim, maximum_yield_aim"/>
-      <item name="nmp_poitou_charentes_abacus_two" translateable="false" attributes="soil_variety, cultivation_variety, crop_yield, minimum_available_water_capacity, maximum_available_water_capacity, irrigated"/>
-      <item name="nomenclatures" translateable="false" attributes="attributes, translateable"/>
+      <item name="nmp_poitou_charentes_abacus_10" translateable="false" property_natures="crop, po, minimum_available_water_capacity, maximum_available_water_capacity, precipitations_started_period, precipitations_stopped_period, precipitations_min, precipitations_max"/>
+      <item name="nmp_poitou_charentes_abacus_6" translateable="false" property_natures="minimum_age, maximum_age, cereal_typology, rank, mhp"/>
+      <item name="nmp_poitou_charentes_abacus_7" translateable="false" property_natures="previous_crop, crop_destruction_method, previous_crop_minimum_age, previous_crop_maximum_age, previous_crop_destruction_period_start, previous_crop_destruction_period_stop, current_crop_implantation_period_start, mr"/>
+      <item name="nmp_poitou_charentes_abacus_8" translateable="false" property_natures="variant, crop, input_method, input_period_start, input_period_stop, keq"/>
+      <item name="nmp_poitou_charentes_abacus_9" translateable="false" property_natures="land_parcel_variety, rf, minimum_available_water_capacity, maximum_available_water_capacity"/>
+      <item name="nmp_poitou_charentes_abacus_five" translateable="false" property_natures="land_parcel_variety, cereal_typology, cereal_crop, husbandry, mixed_crop, husbandry_with_mixed_crop"/>
+      <item name="nmp_poitou_charentes_abacus_four" translateable="false" property_natures="minimum_leaf_count, maximum_leaf_count, absorbed_nitrogen"/>
+      <item name="nmp_poitou_charentes_abacus_one" translateable="false" property_natures="cultivation_variety, crop_yield, administrative_area, irrigated"/>
+      <item name="nmp_poitou_charentes_abacus_three" translateable="false" property_natures="cultivation_variety, coefficient, nitrogen_stock_before_bolting, irrigated, minimum_yield_aim, maximum_yield_aim"/>
+      <item name="nmp_poitou_charentes_abacus_two" translateable="false" property_natures="soil_variety, cultivation_variety, crop_yield, minimum_available_water_capacity, maximum_available_water_capacity, irrigated"/>
+      <item name="nomenclatures" translateable="false" property_natures="property_natures, translateable"/>
       <item name="phosphorus_analysis_methods"/>
       <item name="plant_life_states"/>
       <item name="plant_reproduction_states"/>
-      <item name="procedure_natures" attributes="roles"/>
+      <item name="procedure_natures" property_natures="roles"/>
       <item name="procedure_roles"/>
-      <item name="product_nature_categories" attributes="financial_asset_account, charge_account, product_account, stock_account, pictogram, purchasable, saleable, depreciable, storable, reductible"/>
-      <item name="product_nature_variants" attributes="variety, derivative_of, nature, frozen_indicators_values, unit_name"/>
-      <item name="product_natures" attributes="category, variety, derivative_of, population_counting, reductible, abilities, derivatives, frozen_indicators, variable_indicators, linkage_points"/>
-      <item name="production_natures" attributes="activity, production_code, telepac_crop_code, variant_support"/>
+      <item name="product_nature_categories" property_natures="financial_asset_account, charge_account, product_account, stock_account, pictogram, purchasable, saleable, depreciable, storable, reductible"/>
+      <item name="product_nature_variants" property_natures="variety, derivative_of, nature, frozen_indicators_values, unit_name"/>
+      <item name="product_natures" property_natures="category, variety, derivative_of, population_counting, reductible, abilities, derivatives, frozen_indicators, variable_indicators, linkage_points"/>
+      <item name="production_natures" property_natures="activity, production_code, telepac_crop_code, variant_support"/>
       <item name="residue_elimination_methods"/>
       <item name="sexes"/>
       <item name="soil_cultural_states"/>
       <item name="soil_natures"/>
-      <item name="spatial_reference_systems" translateable="false" attributes="srid, authority_reference, urn"/>
-      <item name="taxes" attributes="active, started_on, stopped_on, computation_method, amount, country, deduction_account, collect_account, suffix"/>
-      <item name="units" attributes="dimension, symbol, a, d, b"/>
-      <item name="varieties" attributes="derivative_of, itis-tsn, europa-tsn"/>
+      <item name="spatial_reference_systems" translateable="false" property_natures="srid, authority_reference, urn"/>
+      <item name="taxes" property_natures="active, started_on, stopped_on, computation_method, amount, country, deduction_account, collect_account, suffix"/>
+      <item name="units" property_natures="dimension, symbol, a, d, b"/>
+      <item name="varieties" property_natures="derivative_of, itis_tsn, europa_tsn"/>
     </items>
   </nomenclature>
 </nomenclatures>

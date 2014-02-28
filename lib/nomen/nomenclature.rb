@@ -3,14 +3,14 @@ module Nomen
   # This class represent a nomenclature
   class Nomenclature
 
-    attr_reader :attributes, :items, :name, :roots
+    attr_reader :property_natures, :items, :name, :roots
 
     # Instanciate a new nomenclature
     def initialize(name, translateable = true)
       @name = name.to_sym
       @items = HashWithIndifferentAccess.new
       @roots = []
-      @attributes = HashWithIndifferentAccess.new
+      @property_natures = {}.with_indifferent_access
       @translateable = !!translateable
     end
 
@@ -30,7 +30,7 @@ module Nomen
         end
 
         # Browse recursively nomenclatures and sub-nomenclatures
-        n = Nomenclature.new(nomenclature_name, !(root.attribute("translateable").to_s == "false"))
+        n = Nomenclature.new(nomenclature_name, !(root.attr("translateable").to_s == "false"))
         n.harvest(root, sets, root: true)
         return n
       end
@@ -39,15 +39,15 @@ module Nomen
 
     # Browse and harvest items recursively
     def harvest(nomenclature, sets, options = {})
-      for attribute in nomenclature.xpath('xmlns:attributes/xmlns:attribute')
-        add_attribute(attribute)
+      for nature in nomenclature.xpath('xmlns:property-natures/xmlns:property-nature')
+        add_property_nature(nature)
       end
       # Items
       for item in nomenclature.xpath('xmlns:items/xmlns:item')
-        i = self.add_item(item, parent: options[:parent]) # , :attributes => attributes
+        i = self.add_item(item, parent: options[:parent]) # , :property_natures => property_natures
         @roots << i if options[:root]
         if sets[i.name]
-          self.harvest(sets[i.name], sets, :parent => i) # , :attributes => attributes
+          self.harvest(sets[i.name], sets, :parent => i) # , :property_natures => property_natures
         end
       end
       return self
@@ -60,42 +60,42 @@ module Nomen
       return i
     end
 
-    # Add an attribute to the nomenclature
-    def add_attribute(element, options = {})
-      a = AttributeDefinition.new(self, element, options)
-      @attributes[a.name] = a
+    # Add an property_nature to the nomenclature
+    def add_property_nature(element, options = {})
+      a = PropertyNature.new(self, element, options)
+      @property_natures[a.name] = a
       return a
     end
 
     def check!
-      # Check attributes
-      for attribute in @attributes.values
-        if attribute.choices_nomenclature and !attribute.inline_choices? and !Nomen[attribute.choices_nomenclature.to_s]
-          raise InvalidAttribute, "[#{self.name}] #{attribute.name} nomenclature attribute must refer to an existing nomenclature. Got #{attribute.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}"
+      # Check property_natures
+      for property_nature in @property_natures.values
+        if property_nature.choices_nomenclature and !property_nature.inline_choices? and !Nomen[property_nature.choices_nomenclature.to_s]
+          raise InvalidPropertyNature, "[#{self.name}] #{property_nature.name} nomenclature property_nature must refer to an existing nomenclature. Got #{property_nature.choices_nomenclature.inspect}. Expecting: #{Nomen.names.inspect}"
         end
-        if attribute.type == :choice and attribute.default
-          unless attribute.choices.include?(attribute.default)
-            raise InvalidAttribute, "The default choice #{attribute.default.inspect} is invalid (in #{self.name}##{attribute.name}). Pick one from #{attribute.choices.sort.inspect}."
+        if property_nature.type == :choice and property_nature.default
+          unless property_nature.choices.include?(property_nature.default)
+            raise InvalidPropertyNature, "The default choice #{property_nature.default.inspect} is invalid (in #{self.name}##{property_nature.name}). Pick one from #{property_nature.choices.sort.inspect}."
           end
         end
       end
 
       # Check items
       for item in list
-        for attribute in @attributes.values
-          choices = attribute.choices
-          if item.attr(attribute.name) and attribute.type == :choice
+        for property_nature in @property_natures.values
+          choices = property_nature.choices
+          if item.property(property_nature.name) and property_nature.type == :choice
             # Cleans for parametric reference
-            name = item.attr(attribute.name).to_s.split(/\(/).first.to_sym
+            name = item.property(property_nature.name).to_s.split(/\(/).first.to_sym
             unless choices.include?(name)
-              raise InvalidAttribute, "The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}."
+              raise InvalidProperty, "The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}."
             end
-          elsif item.attr(attribute.name) and attribute.type == :list and attribute.choices_nomenclature
-            for name in item.attr(attribute.name) || []
+          elsif item.property(property_nature.name) and property_nature.type == :list and property_nature.choices_nomenclature
+            for name in item.property(property_nature.name) || []
               # Cleans for parametric reference
               name = name.to_s.split(/\(/).first.to_sym
               unless choices.include?(name)
-                raise InvalidAttribute, "The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}."
+                raise InvalidProperty, "The given choice #{name.inspect} is invalid (in #{self.name}##{item.name}). Pick one from #{choices.sort.inspect}."
               end
             end
           end
@@ -167,12 +167,12 @@ module Nomen
     #   return list.each(&block)
     # end
 
-    # List items with attributes filtering
-    def where(attributes)
+    # List items with property_natures filtering
+    def where(properties)
       @items.values.select do |item|
         valid = true
-        for attribute, value in attributes
-          item_value = item.attr(attribute)
+        for name, value in properties
+          item_value = item.property(name)
           if value.is_a?(Array)
             one_found = false
             for val in value
@@ -187,12 +187,12 @@ module Nomen
       end
     end
 
-    # Returns the best match on nomenclature attributes
-    def best_match(attribute, searched_item)
+    # Returns the best match on nomenclature properties
+    def best_match(property_name, searched_item)
       items = []
       begin
         list.select do |item|
-          if item.attr(attribute) == searched_item.name
+          if item.property(property_name) == searched_item.name
             items << item
           end
         end
@@ -202,9 +202,9 @@ module Nomen
       return items
     end
 
-    # Returns Attribute descriptor
+    # Returns property nature
     def method_missing(method_name, *args)
-      return @attributes[method_name] || super
+      return @property_natures[method_name] || super
     end
 
   end

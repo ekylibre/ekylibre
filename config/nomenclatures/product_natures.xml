@@ -2,21 +2,21 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <nomenclature name="product_natures">
-    <attributes>
+    <property-natures>
       <!-- Inside the model-->
-      <attribute name="category" type="choice" nomenclature="product_nature_categories" required="true"/>
-      <attribute name="variety" type="choice" nomenclature="varieties" required="true"/>
-      <attribute name="derivative_of" type="string"/>
-      <attribute name="population_counting" type="choice" choices="unitary, integer, decimal" required="true"/>
-      <attribute name="reductible" type="boolean" required="true" default="false"/>
-      <!-- <attribute name="subscribing" type="boolean" required="true"/> -->
+      <property-nature name="category" type="choice" nomenclature="product_nature_categories" required="true"/>
+      <property-nature name="variety" type="choice" nomenclature="varieties" required="true"/>
+      <property-nature name="derivative_of" type="string"/>
+      <property-nature name="population_counting" type="choice" choices="unitary, integer, decimal" required="true"/>
+      <property-nature name="reductible" type="boolean" required="true" default="false"/>
+      <!-- <property-nature name="subscribing" type="boolean" required="true"/> -->
       <!-- Inside the model-->
-      <attribute name="abilities" type="list" nomenclature="abilities" required="false"/>
-      <attribute name="derivatives" type="list" nomenclature="varieties" required="false"/>
-      <attribute name="frozen_indicators" type="list" nomenclature="indicators" required="false"/>
-      <attribute name="variable_indicators" type="list" nomenclature="indicators" required="false"/>
-      <attribute name="linkage_points" type="list" choices="rear, front" required="false"/>
-    </attributes>
+      <property-nature name="abilities" type="list" nomenclature="abilities" required="false"/>
+      <property-nature name="derivatives" type="list" nomenclature="varieties" required="false"/>
+      <property-nature name="frozen_indicators" type="list" nomenclature="indicators" required="false"/>
+      <property-nature name="variable_indicators" type="list" nomenclature="indicators" required="false"/>
+      <property-nature name="linkage_points" type="list" choices="rear, front" required="false"/>
+    </property-natures>
     <items>
       <item name="cattle_herd"
             category="cattle_herd"

@@ -2,12 +2,12 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <nomenclature name="analysis_natures">
-    <attributes>
+    <property-natures>
       <!-- Inside the model-->
-      <attribute name="target_variety" type="choice" nomenclature="varieties" required="true"/>
-      <attribute name="target_derivative_of" type="choice" nomenclature="varieties" required="false"/>
-      <attribute name="items" type="list" nomenclature="indicators" required="true"/>
-    </attributes>
+      <property-nature name="target_variety" type="choice" nomenclature="varieties" required="true"/>
+      <property-nature name="target_derivative_of" type="choice" nomenclature="varieties" required="false"/>
+      <property-nature name="items" type="list" nomenclature="indicators" required="true"/>
+    </property-natures>
     <items>
       <item name="cow_milk_analysis"
             target_variety="milk"

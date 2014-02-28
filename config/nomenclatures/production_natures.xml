@@ -2,13 +2,13 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <nomenclature name="production_natures">
-    <attributes>
+    <property-natures>
       <!-- Inside the model-->
-      <attribute name="activity" type="choice" nomenclature="activity_families" required="true"/>
-      <attribute name="production_code" type="string" required="false"/>
-      <attribute name="telepac_crop_code" type="string" required="false"/>
-      <attribute name="variant_support" type="choice" nomenclature="product_nature_variants" required="false"/>
-    </attributes>
+      <property-nature name="activity" type="choice" nomenclature="activity_families" required="true"/>
+      <property-nature name="production_code" type="string" required="false"/>
+      <property-nature name="telepac_crop_code" type="string" required="false"/>
+      <property-nature name="variant_support" type="choice" nomenclature="product_nature_variants" required="false"/>
+    </property-natures>
     <items>
       <!-- 1 - CEREALS CROP -->
       <item name="winter_soft_wheat"

@@ -2,15 +2,15 @@ module Nomen
 
   # An item of a nomenclature is the core data.
   class Item
-    attr_reader :nomenclature, :name, :attributes, :children, :parent
+    attr_reader :nomenclature, :name, :properties, :children, :parent
 
     # New item
     def initialize(nomenclature, element, options = {})
       @nomenclature = nomenclature
       @name = element.attr("name").to_s
       @parent = options[:parent]
-      @attributes = element.attributes.inject(HashWithIndifferentAccess.new) do |h, pair|
-        h[pair[0]] = cast_attribute(pair[0], pair[1].to_s)
+      @properties = element.attributes.inject(HashWithIndifferentAccess.new) do |h, pair|
+        h[pair[0]] = cast_property(pair[0], pair[1].to_s)
         h
       end
     end
@@ -23,7 +23,6 @@ module Nomen
       return self.parent.name.to_sym unless root?
       return nil
     end
-
 
     # Returns children recursively by default
     def children(recursively = true)
@@ -69,75 +68,75 @@ module Nomen
       "#{@nomenclature.name}-#{@name}"
     end
 
-    # Returns attribute value
-    def attr(name)
-      attribute = @nomenclature.attributes[name]
-      value = @attributes[name]
-      if value.nil? and attribute.fallbacks
-        for fallback in attribute.fallbacks
-          value ||= @attributes[fallback]
+    # Returns property value
+    def property(name)
+      property_nature = @nomenclature.property_natures[name]
+      value = @properties[name]
+      if value.nil? and property_nature.fallbacks
+        for fallback in property_nature.fallbacks
+          value ||= @properties[fallback]
           break if value
         end
       end
-      if attribute.default
-        value ||= cast_attribute(name, attribute.default)
+      if property_nature.default
+        value ||= cast_property(name, property_nature.default)
       end
       return value
     end
 
     def selection(name)
-      attribute = @nomenclature.attributes[name]
-      if attribute.type == :list
-        return self.attr(name).collect do |i|
+      property_nature = @nomenclature.property_natures[name]
+      if property_nature.type == :list
+        return self.property(name).collect do |i|
           ["nomenclatures.#{@nomenclature.name}.item_lists.#{self.name}.#{name}.#{i}".t, i]
         end
-      elsif attribute.type == :nomenclature
-        return Nomen[self.attr(name)].list.collect do |i|
+      elsif property_nature.type == :nomenclature
+        return Nomen[self.property(name)].list.collect do |i|
           [i.human_name, i.name]
         end
       else
-        raise StandardError, "Cannot call selection for a non-list attribute"
+        raise StandardError, "Cannot call selection for a non-list property_nature"
       end
     end
 
 
-    # Checks if item has attribute with given name
-    def has_attribute?(name)
-      !@nomenclature.attributes[name].nil?
+    # Checks if item has property with given name
+    def has_property?(name)
+      !@nomenclature.property_natures[name].nil?
     end
 
-    # Returns Attribute descriptor
+    # Returns property descriptor
     def method_missing(method_name, *args)
-      return attr(method_name) if has_attribute?(method_name)
+      return property(method_name) if has_property?(method_name)
       return super
     end
 
     private
 
-    def cast_attribute(name, value)
+    def cast_property(name, value)
       value = value.to_s
-      if attribute = @nomenclature.attributes[name]
-        if attribute.type == :choice
+      if property_nature = @nomenclature.property_natures[name]
+        if property_nature.type == :choice
           if value =~ /\,/
-            raise InvalidAttribute, "An attribute of choice type cannot contain commas"
+            raise InvalidPropertyNature, "A property nature of choice type cannot contain commas"
           end
           value = value.strip.to_sym
-        elsif attribute.type == :list
+        elsif property_nature.type == :list
           value = value.strip.split(/[[:space:]]*\,[[:space:]]*/).map(&:to_sym)
-        elsif attribute.type == :boolean
+        elsif property_nature.type == :boolean
           value = (value == "true" ? true : value == "false" ? false : nil)
-        elsif attribute.type == :decimal
+        elsif property_nature.type == :decimal
           value = value.to_d
-        elsif attribute.type == :integer
+        elsif property_nature.type == :integer
           value = value.to_i
-        elsif attribute.type == :symbol
+        elsif property_nature.type == :symbol
           unless value =~ /\A\w+\z/
-            raise InvalidAttribute, "An attribute #{name} must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"
+            raise InvalidPropertyNature, "A property '#{name}' must contains a symbol. /[a-z0-9_]/ accepted. No spaces. Got #{value.inspect}"
           end
           value = value.to_sym
         end
       elsif name.to_s != "name" # the only system name
-        raise ArgumentError, "Undefined attribute #{name} in #{@nomenclature.name}"
+        raise ArgumentError, "Undefined property '#{name}' in #{@nomenclature.name}"
       end
       return value
     end

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="countries" reference="iso-3166-1">
-    <attributes>
-      <attribute name="number" type="string"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="number" type="string"/>
+    </property-natures>
     <items>
       <item name="ad"/>
       <item name="ae"/>
