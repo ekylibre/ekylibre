@@ -14,7 +14,7 @@ Semence de sorgho,sorghum_seed_25,,2013-01-01,seed,sorghum,,Population : 6,,5.6
 Ammonitrate 33 vrac,bulk_ammonitrate_33,,2013-01-01,chemical_fertilizer,,,Population : 2.47,,387
 'Fumier de l''exploitation',cattle_manure,,2013-01-01,manure,bos,,Population : 4.55,,61
 ,DEFENSES DES VEGETAUX,,,,,,,,
-Axial Pratic,poacea_herbicide,,2013-01-01,herbicide,,,Population : 50,,23.33
+Axial Pratic,poaceae_herbicide,,2013-01-01,herbicide,,,Population : 50,,23.33
 Riflexine,riflexine,,2013-01-01,animal_medicine,,,Population : 40,,4
 Actilact,actilact,,2013-01-01,animal_medicine,,,Population : 150,,2.85
 Acetal,acetal,,2013-01-01,animal_medicine,,,Population : 4,,15.58
