@@ -137,6 +137,7 @@ arb:
     backend/cells/events_cells: #?
     backend/cells/expense_chart_cells: #?
     backend/cells/guide_evolution_cells: #?
+    backend/cells/last_analyses_cells: #?
     backend/cells/last_document_archives_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
@@ -1408,6 +1409,7 @@ arb:
     land_parcel_update: "تعديل النظام" #?
     land_parcels: "قائمة بالنظام"
     # language: "Langue"
+    # last_analyses: "Dernières analyses de lait"
     # last_animals: "Dernières naissances"
     # last_clients: "Derniers clients"
     # last_computed_balance: "Dernière balance calculée"
@@ -1417,7 +1419,6 @@ arb:
     # last_incoming_deliveries: "Derniers approvisionnements"
     # last_interventions: "Dernières interventions"
     # last_issues: "Derniers incidents"
-    # last_milk_result: "Dernières analyses de lait"
     # last_outgoing_deliveries: "Dernières livraisons"
     # last_payment_amount: "Montant du dernier encaissement"
     # last_payment_date: "Date du dernier encaissement"

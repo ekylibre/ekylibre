@@ -135,6 +135,7 @@ eng:
     backend/cells/events_cells: #?
     backend/cells/expense_chart_cells: #?
     backend/cells/guide_evolution_cells: #?
+    backend/cells/last_analyses_cells: #?
     backend/cells/last_document_archives_cells: #?
     backend/cells/last_entities_cells: #?
     backend/cells/last_events_cells: #?
@@ -1268,6 +1269,7 @@ eng:
     land_parcel_update: "Update land parcel" #?
     land_parcels: "Land parcels"
     # language: "Langue"
+    last_analyses: "Last milk analysis"
     last_animals: "Last birth"
     # last_clients: "Derniers clients"
     last_computed_balance: "Last computed balance"
@@ -1277,7 +1279,6 @@ eng:
     # last_incoming_deliveries: "Derniers approvisionnements"
     # last_interventions: "Dernières interventions"
     # last_issues: "Derniers incidents"
-    last_milk_result: "Last milk analysis"
     # last_outgoing_deliveries: "Dernières livraisons"
     last_payment_amount: "Amount of the last payment"
     last_payment_date: "Date of the last payment"

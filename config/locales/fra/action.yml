@@ -128,6 +128,8 @@ fra:
       # show: "Show backend/cells/events cell"
     backend/cells/guide_evolution_cells:
       # show: "Show backend/cells/guide evolution cell"
+    backend/cells/last_analyses_cells:
+      # show: "Show backend/cells/last analyses cell"
     backend/cells/last_document_archives_cells:
       # show: "Show backend/cells/last document archives cell"
     backend/cells/last_entities_cells:
@@ -140,8 +142,6 @@ fra:
       # show: "Show backend/cells/last interventions cell"
     backend/cells/last_issues_cells:
       # show: "Show backend/cells/last issues cell"
-    backend/cells/last_milk_result_cells:
-      # show: "Show backend/cells/last milk result cell"
     backend/cells/last_outgoing_deliveries_cells:
       # show: "Show backend/cells/last outgoing deliveries cell"
     backend/cells/last_products_cells:
@@ -704,13 +704,13 @@ fra:
     # backend/cells/elapsed_interventions_times_by_activities_cells: "Backend/cells/elapsed interventions times by activities cells"
     # backend/cells/events_cells: "Backend/cells/events cells"
     # backend/cells/guide_evolution_cells: "Backend/cells/guide evolution cells"
+    # backend/cells/last_analyses_cells: "Backend/cells/last analyses cells"
     # backend/cells/last_document_archives_cells: "Backend/cells/last document archives cells"
     # backend/cells/last_entities_cells: "Backend/cells/last entities cells"
     # backend/cells/last_events_cells: "Backend/cells/last events cells"
     # backend/cells/last_incoming_deliveries_cells: "Backend/cells/last incoming deliveries cells"
     # backend/cells/last_interventions_cells: "Backend/cells/last interventions cells"
     # backend/cells/last_issues_cells: "Backend/cells/last issues cells"
-    # backend/cells/last_milk_result_cells: "Backend/cells/last milk result cells"
     # backend/cells/last_outgoing_deliveries_cells: "Backend/cells/last outgoing deliveries cells"
     # backend/cells/last_products_cells: "Backend/cells/last products cells"
     # backend/cells/last_purchases_cells: "Backend/cells/last purchases cells"
@@ -1261,6 +1261,7 @@ fra:
     land_parcel_name: "Parcelle"
     land_parcels: "Parcelles"
     language: "Langue"
+    last_analyses: "Dernières analyses de lait"
     last_animals: "Dernières naissances"
     last_clients: "Derniers clients"
     last_computed_balance: "Dernière balance calculée"
@@ -1270,7 +1271,6 @@ fra:
     last_incoming_deliveries: "Derniers approvisionnements"
     last_interventions: "Dernières interventions"
     last_issues: "Derniers incidents"
-    last_milk_result: "Dernières analyses de lait"
     last_outgoing_deliveries: "Dernières livraisons"
     last_payment_amount: "Montant du dernier encaissement"
     last_payment_date: "Date du dernier encaissement"

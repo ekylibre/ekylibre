@@ -44,7 +44,7 @@ load_data :analyses do |loader|
                            :month => row[1],
                            :order => row[2],
                            :reference_number => (row[0].to_s + row[1].to_s + row[2].to_s),
-                           :at => Date.civil(row[0].to_i, row[1].to_i, row[2].to_i),
+                           :at => Date.civil(row[0].to_i, row[1].to_i, row[2].to_i*9),
                            :germes => (row[3].blank? ? 0 : row[3].to_i).in_thousand_per_milliliter,
                            :inhib => (row[4].blank? ? "negative" : trans_inhib[row[4]]),
                            :mg => (row[5].blank? ? 0 : (row[5].to_d)/100).in_gram_per_liter,

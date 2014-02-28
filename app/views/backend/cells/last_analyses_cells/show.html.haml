@@ -1,0 +1,19 @@
+- if @nature and @started_at and @stopped_at
+  :ruby
+    data = {}.with_indifferent_access
+    for analysis in Analysis.where(nature: @nature.name).between(@started_at, @stopped_at).order(:sampled_at)
+      at = analysis.sampled_at.to_usec
+      for item in analysis.items
+        data[item.indicator.name] ||= []
+        data[item.indicator.name] << [at, item.value.to_s.to_f]
+      end
+    end
+    series = []
+    for item in @nature.items
+      item = Nomen::Indicators[item]
+      series << {type: item.curve, name: item.human_name, data: data[item.name]}
+    end
+
+  = spline_chart(series, y_axis: {title: {text: :indicator_value.tl} , opposite: true}, x_axis: {type: 'datetime'}, legend: {})
+- else
+  = no_data

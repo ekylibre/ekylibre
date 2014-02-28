@@ -59,7 +59,7 @@ class AnalysisItem < Ekylibre::Record::Base
   # calculable period: :month, at: :read_at, column: :measure_value_value
 
   # scope :between, lambda { |started_at, stopped_at|
-  #   joins(:analysis).merge(Analysis.between(started_at, stopped_at))
+  #   joins(:analysis).where(merge(Analysis.between(started_at, stopped_at))
   # }
 
 end
