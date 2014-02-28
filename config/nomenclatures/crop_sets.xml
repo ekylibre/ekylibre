@@ -4,9 +4,9 @@
   <!--  nomenclatures de classification des variétés selon un critère -->
   <!-- USED Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <nomenclature name="crop_sets" hierarchical="false">
-    <attributes>
-      <attribute name="varieties" type="list" nomenclature="varieties" required="true"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="varieties" type="list" nomenclature="varieties" required="true"/>
+    </property-natures>
     <items>
       <item name="winter_straw_cereal" varieties="hordeum_hibernum,poa,secale,triticosecale,triticum,avena" />
       <item name="spring_straw_cereal" varieties="hordeum_vernum" />

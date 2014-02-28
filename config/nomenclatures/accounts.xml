@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="accounts">
-    <attributes>
-      <!-- These attributes permits to know the code in the matching charts of accounts -->
-      <attribute name="debtor" type="boolean" required="false" default="false"/>
-      <attribute name="fr_pcg82" type="string" required="false" fallbacks="fr_pcga"/>
-      <attribute name="fr_pcga" type="string" required="false" fallbacks="fr_pcg82"/>
-    </attributes>
+    <property-natures>
+      <!-- These property-natures permits to know the code in the matching charts of accounts -->
+      <property-nature name="debtor" type="boolean" required="false" default="false"/>
+      <property-nature name="fr_pcg82" type="string" required="false" fallbacks="fr_pcga"/>
+      <property-nature name="fr_pcga" type="string" required="false" fallbacks="fr_pcg82"/>
+    </property-natures>
     <items>
       <!--                      CAPITAL                -->
       <item name="capitals" fr_pcg82="1"/>

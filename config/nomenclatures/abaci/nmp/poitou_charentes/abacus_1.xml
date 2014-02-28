@@ -4,12 +4,12 @@
   <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  abaque de rendement (qt / ha) par département et variété de culture  -->
   <nomenclature name="nmp_poitou_charentes_abacus_one" hierarchical="false" translateable="false">
-    <attributes>
-      <attribute name="cultivation_variety" type="choice" nomenclature="varieties" required="true"/> <!-- poaceae -->
-      <attribute name="crop_yield" type="decimal" required="false"/><!-- in qt/ha -->
-      <attribute name="administrative_area" type="string" required="true"/>
-      <attribute name="irrigated" type="boolean" required="false"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="cultivation_variety" type="choice" nomenclature="varieties" required="true"/> <!-- poaceae -->
+      <property-nature name="crop_yield" type="decimal" required="false"/><!-- in qt/ha -->
+      <property-nature name="administrative_area" type="string" required="true"/>
+      <property-nature name="irrigated" type="boolean" required="false"/>
+    </property-natures>
     <items>
       <!-- AVOINE -->
       <item name="avena_yield_16" cultivation_variety="avena" administrative_area="FR-16" crop_yield="43"/>

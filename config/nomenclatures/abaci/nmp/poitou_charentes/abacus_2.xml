@@ -4,14 +4,14 @@
   <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  abaque de rendement (qt / ha) par variant de type de sol, variant de culture et réserve utile (RU) min et max  -->
   <nomenclature name="nmp_poitou_charentes_abacus_two" hierarchical="false" translateable="false">
-    <attributes>
-      <attribute name="soil_variety" type="choice" nomenclature="varieties" required="false"/> <!-- -land_parcel -->
-      <attribute name="cultivation_variety" type="choice" nomenclature="varieties" required="false"/> <!-- -poaceae -->
-      <attribute name="crop_yield" type="decimal" required="false"/><!-- en qt/ha -->
-      <attribute name="minimum_available_water_capacity" type="decimal" required="false"/>
-      <attribute name="maximum_available_water_capacity" type="decimal" required="false"/>
-      <attribute name="irrigated" type="boolean" required="false"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="soil_variety" type="choice" nomenclature="varieties" required="false"/> <!-- -land_parcel -->
+      <property-nature name="cultivation_variety" type="choice" nomenclature="varieties" required="false"/> <!-- -poaceae -->
+      <property-nature name="crop_yield" type="decimal" required="false"/><!-- en qt/ha -->
+      <property-nature name="minimum_available_water_capacity" type="decimal" required="false"/>
+      <property-nature name="maximum_available_water_capacity" type="decimal" required="false"/>
+      <property-nature name="irrigated" type="boolean" required="false"/>
+    </property-natures>
     <items>
       <!-- BLE TENDRE EN SEC -->
       <item name="clay_limestone_wheat_crop_min" soil_variety="clay_limestone_soil" cultivation_variety="triticum_aestivum" crop_yield="55" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>

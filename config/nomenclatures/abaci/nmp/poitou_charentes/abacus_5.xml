@@ -4,18 +4,18 @@
   <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  abaque de Mh (kgN / ha) par type de sol , variété de culture et type d'exploitation  -->
   <nomenclature name="nmp_poitou_charentes_abacus_five" hierarchical="false" translateable="false">
-    <attributes>
-      <attribute name="land_parcel_variety" type="choice" nomenclature="varieties" required="true"/> <!-- -land_parcel -->
-      <attribute name="cereal_typology" type="choice" nomenclature="crop_sets" required="false"/> <!-- -poaceae -->
-      <attribute name="cereal_crop" type="integer" required="false"/>
-      <attribute name="husbandry" type="integer" required="false"/>
-      <attribute name="mixed_crop" type="integer" required="false"/>
-      <attribute name="husbandry_with_mixed_crop" type="integer" required="false"/>
+    <property-natures>
+      <property-nature name="land_parcel_variety" type="choice" nomenclature="varieties" required="true"/> <!-- -land_parcel -->
+      <property-nature name="cereal_typology" type="choice" nomenclature="crop_sets" required="false"/> <!-- -poaceae -->
+      <property-nature name="cereal_crop" type="integer" required="false"/>
+      <property-nature name="husbandry" type="integer" required="false"/>
+      <property-nature name="mixed_crop" type="integer" required="false"/>
+      <property-nature name="husbandry_with_mixed_crop" type="integer" required="false"/>
       <!--
       "farm_typology" choices="cereal_crop,livestock,mixed_crop,husbandry_with_mixed_crop"
       mh_indicators_values="cereal_crop: ,husbandry: ,mixed_crop: ,husbandry_with_mixed_crop: "
        -->
-    </attributes>
+    </property-natures>
     <items>
       <!-- CEREALES A PAILLE D'HIVER - TOUTES CEREALES SAUF ORGE DE PRINTEMPS (BLE TENDRE,...) -->
       <item name="clay_limestone_triticum_aestivum"

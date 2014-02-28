@@ -2,7 +2,6 @@ jpn:
   enumerize: #?
   nomenclatures:
     abilities:
-      attributes: #?
       items:
         # bunch: "Boteller"
         # care: "Soigner"
@@ -40,11 +39,8 @@ jpn:
         # tow: "Tracter"
         # uncompact: "Décompacter"
       # name: "Compétences"
+      property_natures: #?
     accounts:
-      attributes:
-        # debtor: "Compte de débit"
-        # fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007"
-        # fr_pcga: "Plan comptable agricole - Arrêté du 11/12/1986"
       items:
         # accrued_bank_interests: "Intérêts courus"
         # accrued_interests: "Intérêts courus"
@@ -245,6 +241,10 @@ jpn:
         # young_animal_expenses: "Animaux reproducteurs (jeunes de renouvellement)"
         # young_animal_revenues: "Animaux reproducteurs (jeunes de renouvellement)"
       # name: "Comptes comptables"
+      property_natures:
+        # debtor: "Compte de débit"
+        # fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007"
+        # fr_pcga: "Plan comptable agricole - Arrêté du 11/12/1986"
     activity_families:
       items:
         # accountancy: "Comptabilité"
@@ -280,15 +280,15 @@ jpn:
         # vine_wine: "Vigne et vin"
       # name: "Familles d’activité"
     analysis_natures:
-      attributes:
-        # items: "Éléments analysés"
-        # target_derivative_of: "Dérivé de la cible"
-        # target_variety: "Variété de la cible"
       choices: #?
       items:
         # cow_milk_analysis: "Analyse de lait de vache"
         # unitary_cow_milk_analysis: "Analyse d'un contrôle laitier"
       # name: "Types d’analyse"
+      property_natures:
+        # items: "Éléments analysés"
+        # target_derivative_of: "Dérivé de la cible"
+        # target_variety: "Variété de la cible"
     animal_life_states:
       items:
         # aging: "Adulte"
@@ -308,8 +308,6 @@ jpn:
         # ifrs: "IFRS"
       # name: "Plans de comptes"
     countries:
-      attributes:
-        # number: "Numéro"
       items:
         ad: "アンドラ"
         ae: "アラブ首長国連邦"
@@ -559,9 +557,9 @@ jpn:
         zm: "ザンビア"
         zw: "ジンバブエ"
       # name: "Pays"
+      property_natures:
+        # number: "Numéro"
     crop_sets:
-      attributes:
-        # varieties: "Variétés"
       items:
         # alfalfa: "Luzerne"
         # autumn_crop: "Cultures d’automne"
@@ -586,9 +584,9 @@ jpn:
         # wheat: "Blé"
         # winter_straw_cereal: "Céréales à paille d’hiver"
       # name: "Typologies de culture (France)"
+      property_natures:
+        # varieties: "Variétés"
     currencies:
-      attributes:
-        # active: "Active"
       item_lists:
         AED: #?
         AFN: #?
@@ -946,6 +944,8 @@ jpn:
         ZWD: "ジンバブエ・ドル" #?
         # ZWL: "Dollar zimbabwéen"
       # name: "Monnaies"
+      property_natures:
+        # active: "Active"
     designation_origins:
       items:
         # aoc_bordeaux: "AOC Bordeaux"
@@ -953,8 +953,6 @@ jpn:
         # aoc_cremant_de_bordeaux: "AOC Crémant de Bordeaux"
       # name: "Appellations"
     dimensions:
-      attributes:
-        # expression: "Expression"
       items:
         # amount_of_substance: "Quantité de matière"
         # angle: "Angle"
@@ -978,9 +976,9 @@ jpn:
         # time: "Temps"
         # volume: "Volume"
       # name: "Dimensions"
+      property_natures:
+        # expression: "Expression"
     document_categories:
-      attributes:
-        # acta_category: "Category"
       items:
         # accountancy: "Comptabilité"
         # animal_farming: "Élevage"
@@ -998,9 +996,9 @@ jpn:
         # vegetal_crops: "Cultures"
         # vinification: "Vinification"
       # name: "Catégories de documents"
+      property_natures:
+        # acta_category: "Category"
     document_natures:
-      attributes:
-        # category: "Catégories"
       items:
         # activity_cost: "Coût de production par activité et intervention"
         # animal_husbandry_registry: "Registre d’élevage"
@@ -1036,14 +1034,16 @@ jpn:
         # veterinary_booklet: "Carnet vétérinaire"
         # vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
       # name: "Types de document"
+      property_natures:
+        # category: "Catégories"
     entity_link_natures:
-      attributes: #?
       choices: #?
       items:
         # direct_kinship: "Parenté directe"
         # undefined: "Indéfini"
         # work: "Collaboration"
       # name: "Types de liens sociaux"
+      property_natures: #?
     entity_natures:
       items:
         # association: "Association"
@@ -1082,8 +1082,6 @@ jpn:
         # specifications: "Spécifications"
       # name: "Types de guide"
     identifier_natures:
-      attributes:
-        # password: "Mot de passe"
       item_lists: #?
       items:
         # cattling_number: "Numéro de détenteur"
@@ -1096,14 +1094,10 @@ jpn:
         # password: "Mot de passe"
         # synel_username: "Login Synel"
       # name: "Type d’identifiant"
+      property_natures:
+        # password: "Mot de passe"
     identifiers: #?
     indicators:
-      attributes:
-        # choices: "Choix"
-        # curve: "Courbe"
-        # datatype: "Datatype"
-        # interpolation: "Interpolation"
-        # unit: "Unité"
       choices:
         choices: #?
         curve:
@@ -1223,10 +1217,13 @@ jpn:
         # woodstock_variety: "Variété du porte-greffe"
         # zinc_concentration: "Teneur en zinc"
       # name: "Indicateurs"
+      property_natures:
+        # choices: "Choix"
+        # curve: "Courbe"
+        # datatype: "Datatype"
+        # interpolation: "Interpolation"
+        # unit: "Unité"
     issue_natures:
-      attributes:
-        # target: "Cible"
-        # treatments: "Traitements"
       items:
         # accident: "Accident"
         # animal_pathology: "Pathologie animale"
@@ -1243,6 +1240,9 @@ jpn:
         # respiratory_problem: "Problèmes respiratoires"
         # vegetal_pathology: "Pathologie végétale"
       # name: "Types d’incident"
+      property_natures:
+        # target: "Cible"
+        # treatments: "Traitements"
     languages:
       items:
         afr: "アフリカーンス語"
@@ -1365,11 +1365,6 @@ jpn:
         # pregnancy: "Pleine"
       # name: "États de la reproduction mammale"
     net_services:
-      attributes:
-        # approach: "Approche"
-        # identifiers: "Identifiants"
-        # nature: "Type"
-        # url: "Url"
       choices:
         approach:
           # email: "Email"
@@ -1387,6 +1382,11 @@ jpn:
         # synest: "Synel Est"
         # telepac: "Telepac"
       # name: "Services Web"
+      property_natures:
+        # approach: "Approche"
+        # identifiers: "Identifiants"
+        # nature: "Type"
+        # url: "Url"
     nmp_methods:
       items:
         # poitou_charentes: "Poitou charentes"
@@ -1431,7 +1431,6 @@ jpn:
         # heading: "Épiaison"
       # name: "États de la reproduction végétale"
     procedure_natures:
-      attributes: #?
       items:
         # animal_feeding: "Alimentation des animaux"
         # animal_illness_treatment: "Traitement des maladies animales"
@@ -1464,6 +1463,7 @@ jpn:
         # transformation: "Transformation"
         # viviparous_birth: "Reproduction (vivipare)"
       # name: "Types de procédures"
+      property_natures: #?
     procedure_roles:
       items:
         # doer: "Faiseur"
@@ -1473,17 +1473,6 @@ jpn:
         # tool: "Outil"
       # name: "Rôles de procédure"
     product_nature_categories:
-      attributes:
-        # charge_account: "Compte de charge"
-        # depreciable: "Immobilisable"
-        # financial_asset_account: "Compte d’immobilisation"
-        # pictogram: "Pictogramme"
-        # product_account: "Compte de produit"
-        # purchasable: "Achetable"
-        # reductible: "Peut présenter des réductions"
-        # saleable: "Vendable"
-        # stock_account: "Compte de stock"
-        # storable: "Stockable"
       choices:
         pictogram:
           # barn: "Grange"
@@ -1560,13 +1549,18 @@ jpn:
         # wine: "Vin"
         # worker: "Responsable"
       # name: "Catégories de produits"
+      property_natures:
+        # charge_account: "Compte de charge"
+        # depreciable: "Immobilisable"
+        # financial_asset_account: "Compte d’immobilisation"
+        # pictogram: "Pictogramme"
+        # product_account: "Compte de produit"
+        # purchasable: "Achetable"
+        # reductible: "Peut présenter des réductions"
+        # saleable: "Vendable"
+        # stock_account: "Compte de stock"
+        # storable: "Stockable"
     product_nature_variants:
-      attributes:
-        # derivative_of: "Dérivé de la variété"
-        # frozen_indicators_values: "Valeur d’indicateur fixe"
-        # nature: "Type de produit"
-        # unit_name: "Nom de l’unité"
-        # variety: "Variété"
       choices:
         unit_name:
           # 100g_dose: "dose de 100g"
@@ -1577,6 +1571,7 @@ jpn:
           # 24liter_can: "Bidon de 24 litres"
           # 25kg_bag: "sac de 25kg"
           # 50TG_bag: "sac de 50.000 grains"
+          # 75cl_bottle: "Bouteille de 75cl"
           # bag: "sac"
           # band: "Bande"
           # big_rectangular_bale: "Balle ronde moyenne densité"
@@ -1594,6 +1589,7 @@ jpn:
           # liter: "litre"
           # person: "personne"
           # room: "salle"
+          # round_bale: "Botte ronde"
           # small_rectangular_bale: "Botte rectangulaire petit format (100*40*40)"
           # ton: "tonne"
           # unit: "unité"
@@ -1623,6 +1619,7 @@ jpn:
         # beet_crop: "Culture de betterave"
         # black_valley_land_parcel: "Parcelle de terre noire de vallées"
         # bolt: "Boulon"
+        # bottle_75cl_wine: "Bouteille de vin (75cl)"
         # brassicaceae_fungicide: "Fongicide colza"
         # building: "Bâtiment"
         # building_division: "Pièce ou zone d’un bâtiment"
@@ -1702,6 +1699,7 @@ jpn:
         # granulated_insecticide_12: "Insecticide granulés"
         # grape_reaper: "Machine à vendanger"
         # grass: "Herbe"
+        # grass_seed_25: "Sac de 25kg de semence de prairie"
         # grass_silage: "Ensilage d'herbe"
         # green_compost: "Compost de déchets verts"
         # guineafowl_manure: "Fumier de pintades"
@@ -1791,6 +1789,7 @@ jpn:
         # silty_clay_land_parcel: "Parcelle argilo-limoneuse"
         # silty_clay_loam_land_parcel: "Parcelle limono-argileuse"
         # small_equipment: "Petit matériel"
+        # so4_vine_seedling: "Plant de vigne standard (So4)"
         # sorghum_crop: "Culture de sorgho"
         # sorghum_seed_25: "Semence de sorgho - sac de 25kg"
         # sower: "Semoir"
@@ -1838,18 +1837,13 @@ jpn:
         # winter_oat_crop: "Culture d’avoine d’hiver"
         # zea_herbicide: "Herbicide maïs"
       # name: "Variantes de produits"
-    product_natures:
-      attributes:
-        # abilities: "Compétences"
-        # category: "Categorie"
-        # derivative_of: "Dérivé"
-        # derivatives: "Produits dérivés"
-        # frozen_indicators: "Indicateurs fixes"
-        # linkage_points: "Points d’attelage"
-        # population_counting: "Mode de gestion de la population"
-        # reductible: "Réductible"
-        # variable_indicators: "Indicateurs variables"
+      property_natures:
+        # derivative_of: "Dérivé de la variété"
+        # frozen_indicators_values: "Valeur d’indicateur fixe"
+        # nature: "Type de produit"
+        # unit_name: "Nom de l’unité"
         # variety: "Variété"
+    product_natures:
       choices:
         population_counting:
           # decimal: "Décimal"
@@ -1947,12 +1941,18 @@ jpn:
         # wine_crop: "Vigne"
         # wine_tank: "Cuve à vin"
       # name: "Types de produits"
+      property_natures:
+        # abilities: "Compétences"
+        # category: "Categorie"
+        # derivative_of: "Dérivé"
+        # derivatives: "Produits dérivés"
+        # frozen_indicators: "Indicateurs fixes"
+        # linkage_points: "Points d’attelage"
+        # population_counting: "Mode de gestion de la population"
+        # reductible: "Réductible"
+        # variable_indicators: "Indicateurs variables"
+        # variety: "Variété"
     production_natures:
-      attributes:
-        # activity: "Activité"
-        # production_code: "Code"
-        # telepac_crop_code: "Code de type de culture TELEPAC"
-        # variant_support: "Variant"
       choices: #?
       items:
         # annual_frost_fallow_land: "Gel annuel"
@@ -2006,6 +2006,11 @@ jpn:
         # winter_soft_wheat: "Blé tendre d’hiver"
         # without_crop: "Hors culture"
       # name: "Types de production"
+      property_natures:
+        # activity: "Activité"
+        # production_code: "Code"
+        # telepac_crop_code: "Code de type de culture TELEPAC"
+        # variant_support: "Variant"
     residue_elimination_methods:
       items:
         # burning: "Combustion"
@@ -2050,13 +2055,6 @@ jpn:
       # name: "Types de sols"
     spatial_reference_systems: #?
     taxes:
-      attributes:
-        # active: "actif"
-        # amount: "valeur"
-        # collect_account: "compte de TVA collectée (radical)"
-        # country: "pays"
-        # deduction_account: "compte de TVA déductible (radical)"
-        # suffix: "suffixe du compte comptable"
       choices:
         computation_method: #?
         nature: #?
@@ -2067,8 +2065,14 @@ jpn:
         # fr_vat_particular: "TVA 2.10%"
         # fr_vat_reduced: "TVA 5.00%"
       # name: "Taxes"
+      property_natures:
+        # active: "actif"
+        # amount: "valeur"
+        # collect_account: "compte de TVA collectée (radical)"
+        # country: "pays"
+        # deduction_account: "compte de TVA déductible (radical)"
+        # suffix: "suffixe du compte comptable"
     units:
-      attributes: #?
       choices: #?
       items:
         # acre: "Acre"
@@ -2077,6 +2081,7 @@ jpn:
         # bar: "Bar"
         # candela: "Candela"
         # celsius: "Celsius"
+        # centiliter: "Centilitre"
         # centimeter: "Centimètre"
         # cubic_meter: "Mètre cube"
         # day: "Jour"
@@ -2147,11 +2152,8 @@ jpn:
         # unity_per_square_meter: "Unité par mètre carré"
         # watt: "Watt"
       # name: "Unités de mesure"
+      property_natures: #?
     varieties:
-      attributes:
-        # derivative_of: "Dérivé"
-        # europa-tsn: "Identifiant EUROPA"
-        # itis-tsn: "Identifiant ITIS"
       choices: #?
       items:
         # acetal: "Acetal"
@@ -2392,6 +2394,8 @@ jpn:
         # zone: "Zone physique"
         # zone_property_title: "Titre de propriété terrienne"
       # name: "Variétés"
+      property_natures:
+        # derivative_of: "Dérivé"
     varieties-animal: #?
     varieties-asteraceae: #?
     varieties-equipment: #?

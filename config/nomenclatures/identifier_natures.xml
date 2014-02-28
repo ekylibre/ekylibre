@@ -2,10 +2,10 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <nomenclature name="identifier_natures">
-    <attributes>
-      <attribute name="password" type="boolean" />
-      <attribute name="fallbacks" type="list" />
-    </attributes>
+    <property-natures>
+      <property-nature name="password" type="boolean" />
+      <property-nature name="fallbacks" type="list" />
+    </property-natures>
     <items>
       <!-- TELEPAC -->
       <item name="pacage_number" />

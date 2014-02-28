@@ -5,12 +5,15 @@ module Nomen
   class MissingNomenclature < StandardError
   end
 
-  class InvalidAttribute < StandardError
+  class InvalidPropertyNature < StandardError
+  end
+
+  class InvalidProperty < StandardError
   end
 
   autoload :Nomenclature,        'nomen/nomenclature'
   autoload :Item,                'nomen/item'
-  autoload :AttributeDefinition, 'nomen/attribute_definition'
+  autoload :PropertyNature,      'nomen/property_nature'
 
 
   @@list = HashWithIndifferentAccess.new

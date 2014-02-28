@@ -2,14 +2,14 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <nomenclature name="product_nature_variants">
-    <attributes>
+    <property-natures>
       <!-- Inside the model-->
-      <attribute name="variety" type="choice" nomenclature="varieties" required="false"/>
-      <attribute name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
-      <attribute name="nature" type="choice" nomenclature="product_natures" required="true"/>
-      <attribute name="frozen_indicators_values" type="string" required="false"/>
-      <attribute name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale" required="true" default="unit"/>
-    </attributes>
+      <property-nature name="variety" type="choice" nomenclature="varieties" required="false"/>
+      <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
+      <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
+      <property-nature name="frozen_indicators_values" type="string" required="false"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle" required="true" default="unit"/>
+    </property-natures>
     <items>
       <!-- ANIMAL -->
       <!-- CATTLE -->
@@ -399,6 +399,15 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <!-- TRANSFORM PRODUCT -->
+          <!-- VINE BASED -->
+      <item name="bottle_75cl_wine"
+            nature="wine"
+            derivative_of="vitis_vinifera"
+            unit_name="75cl_bottle"
+            frozen_indicators_values="net_mass: 760gram, net_volume: 75.00centiliter"
+            />
+      
       <!-- ORGANIC PRODUCT -->
       <item name="vine_grape_berry"
             nature="fruit"
@@ -442,7 +451,6 @@
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton"
             />
-      <!-- triticum_aestivum was replaced by triticum-->
       
       <!-- STRAW -->
       <item name="bulk_wheat_straw"
@@ -786,6 +794,11 @@
       <item name="merlot_noir_so4_vine_seedling"
             nature="usual_vine_seedling"
             derivative_of="merlot_noir"
+            unit_name="unit"
+            frozen_indicators_values="woodstock_variety: so4"
+            />
+      <item name="so4_vine_seedling"
+            nature="usual_vine_seedling"
             unit_name="unit"
             frozen_indicators_values="woodstock_variety: so4"
             />

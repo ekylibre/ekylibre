@@ -2,26 +2,26 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-vitis_vinifera" hierarchical="true">
     <items>
-      <item name="merlot_noir" itis-tsn="00000"/>
-      <item name="merlot_blanc" itis-tsn="00000"/>
-      <item name="muscadelle_blanc" itis-tsn="00000"/>
-      <item name="carignan" itis-tsn="00000"/>
-      <item name="carmenere_noir" itis-tsn="00000"/>
-      <item name="cabernet_franc_noir" itis-tsn="00000"/>
-      <item name="cabernet_sauvignon_noir" itis-tsn="00000"/>
-      <item name="sauvignon_blanc" itis-tsn="00000"/>
-      <item name="semillon_blanc" itis-tsn="00000"/>
-      <item name="sauvignon_gris" itis-tsn="00000"/>
-      <item name="sauvignon_noir" itis-tsn="00000"/>
-      <item name="grenache" itis-tsn="00000"/>
-      <item name="grenache_noir" itis-tsn="00000"/>
-      <item name="syrah_noir" itis-tsn="00000"/>
-      <item name="cot_noir" itis-tsn="00000"/>
-      <item name="chardonnay" itis-tsn="00000"/>
-      <item name="ugni_blanc" itis-tsn="00000"/>
-      <item name="colombar_blanc" itis-tsn="00000"/>
-      <item name="pinot_noir" itis-tsn="00000"/>
-      <item name="petit_verdot_noir" itis-tsn="00000"/>
+      <item name="merlot_noir" itis_tsn="00000"/>
+      <item name="merlot_blanc" itis_tsn="00000"/>
+      <item name="muscadelle_blanc" itis_tsn="00000"/>
+      <item name="carignan" itis_tsn="00000"/>
+      <item name="carmenere_noir" itis_tsn="00000"/>
+      <item name="cabernet_franc_noir" itis_tsn="00000"/>
+      <item name="cabernet_sauvignon_noir" itis_tsn="00000"/>
+      <item name="sauvignon_blanc" itis_tsn="00000"/>
+      <item name="semillon_blanc" itis_tsn="00000"/>
+      <item name="sauvignon_gris" itis_tsn="00000"/>
+      <item name="sauvignon_noir" itis_tsn="00000"/>
+      <item name="grenache" itis_tsn="00000"/>
+      <item name="grenache_noir" itis_tsn="00000"/>
+      <item name="syrah_noir" itis_tsn="00000"/>
+      <item name="cot_noir" itis_tsn="00000"/>
+      <item name="chardonnay" itis_tsn="00000"/>
+      <item name="ugni_blanc" itis_tsn="00000"/>
+      <item name="colombar_blanc" itis_tsn="00000"/>
+      <item name="pinot_noir" itis_tsn="00000"/>
+      <item name="petit_verdot_noir" itis_tsn="00000"/>
     </items>
   </nomenclature>
 </nomenclatures>

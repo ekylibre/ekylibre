@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-cucurbitaceae" hierarchical="true">
     <items>
-      <item name="cucumis" itis-tsn="22359"/>
+      <item name="cucumis" itis_tsn="22359"/>
     </items>
   </nomenclature>
 </nomenclatures>

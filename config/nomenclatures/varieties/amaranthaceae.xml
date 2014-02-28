@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-amaranthaceae" hierarchical="true">
     <items>
-      <item name="beta" itis-tsn="20680"/>
+      <item name="beta" itis_tsn="20680"/>
     </items>
   </nomenclature>
 </nomenclatures>

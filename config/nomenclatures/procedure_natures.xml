@@ -2,9 +2,9 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
 
   <nomenclature name="procedure_natures" hierarchical="true">
-    <attributes>
-      <attribute name="roles" type="list" nomenclature="procedure_roles" required="false"/>
-    </attributes>
+    <property-natures>
+      <property-nature name="roles" type="list" nomenclature="procedure_roles" required="false"/>
+    </property-natures>
     <items>
       <item name="animal_feeding" roles="input, target, doer"/>
       <item name="animal_illness_treatment" roles="input, target, doer"/>

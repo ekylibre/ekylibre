@@ -2,12 +2,12 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-fabaceae" hierarchical="true">
     <items>
-      <item name="pisum" itis-tsn="26866"/>
-      <item name="medicago" itis-tsn="183622"/>
-      <item name="vicia" itis-tsn="26329"/>
-      <item name="phaseolus" itis-tsn="203844"/>
-      <item name="glycine" itis-tsn="26715"/>
-      <item name="lens" itis-tsn="26762"/>
+      <item name="pisum" itis_tsn="26866"/>
+      <item name="medicago" itis_tsn="183622"/>
+      <item name="vicia" itis_tsn="26329"/>
+      <item name="phaseolus" itis_tsn="203844"/>
+      <item name="glycine" itis_tsn="26715"/>
+      <item name="lens" itis_tsn="26762"/>
     </items>
   </nomenclature>
 </nomenclatures>
