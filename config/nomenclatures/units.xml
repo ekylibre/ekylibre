@@ -62,6 +62,7 @@
       <item name="cubic_meter" dimension="volume" symbol="m³"/>
       <item name="hectoliter"  dimension="volume" symbol="hl" a="0.1"/>
       <item name="liter"       dimension="volume" symbol="l"  a="0.001"/>
+      <item name="centiliter"  dimension="volume" symbol="cl"  a="0.00001"/>
       <item name="milliliter"  dimension="volume" symbol="ml" a="0.000001"/>
 
       <!-- time -->
