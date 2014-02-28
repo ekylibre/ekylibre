@@ -1,59 +1,59 @@
-currency: EUR 							#code monnaie
-country: fr 							#code pays
-language: fra 							#code langue
-map_measure_srid: 2154 						#code référentiel spatial
-demo: true 							#mode démo (oui/non)
+currency: EUR                                                   # Code monnaie
+country: fr                                                     # Code pays
+language: fra                                                   # Code langue
+map_measure_srid: 2154                                          # Code référentiel spatial
+demo: true                                                      # Mode démo (oui/non)
 company:
-  last_name: GAEC DUPONT 					#nom
+  last_name: GAEC DUPONT                                        # Nom
   addresses:
-    email: gaec.dupont@truc.com 				#email de votre société
+    email: gaec.dupont@truc.com                                 # Adresse e-mail de votre société
     mail:
-      line_4: 8 rue du bouil bleu 				#adresse de votre société 
-      line_6: 17250 SAINT-PORCHAIRE 				#code postal et ville de votre société
+      line_4: 8 rue du bouil bleu                               # Adresse de votre société 
+      line_6: 17250 SAINT-PORCHAIRE                             # Code postal et ville de votre société
 users:
-  admin@ekylibre.org: 						#email de l'utilisateur 1 qui sert d'identifiant
-    first_name: Christian 					#prénom
-    last_name: DUPONT 						#nom
-    password: 12345678 						#mot_de_passe
-chart_of_account: fr_pcga 					#code plan comptable
+  admin@ekylibre.org:                                           # Adresse e-mail de l'utilisateur 1 qui sert d'identifiant
+    first_name: Christian                                       # Prénom
+    last_name: DUPONT                                           # Nom de famille
+    password: 12345678                                          # Mot de passe
+chart_of_account: fr_pcga                                       # Code plan comptable
 financial_years:
-  EX2010: 							#code de l'exercice comptable
-    started_at: 2010-01-01 					#début exercice comptable (format AAAA-MM-JJ)
-    stopped_at: 2010-12-31					#fin exercice comptable (format AAAA-MM-JJ)
+  EX2010:                                                       # Code d'un exercice comptable
+    started_at: 2010-01-01                                      # Début d'un exercice comptable (format AAAA-MM-JJ)
+    stopped_at: 2010-12-31                                      # Fin d'un exercice comptable (format AAAA-MM-JJ)
 catalogs:
-  VENTE: 							#code d'un catalogue de prix
-    name: Prix de vente 					#nom d'un catalogue de prix
-    usage: sale 						#usage d'un catalogue de prix
+  VENTE:                                                        # Code d'un catalogue de prix
+    name: Prix de vente                                         # Nom d'un catalogue de prix
+    usage: sale                                                 # Usage d'un catalogue de prix
   COUT:
     name: "Prix d'usage"
     usage: cost
   ACHAT:
     name: "Prix d'achat"
     usage: purchase
-accounts:							#description de codes comptables
-  banque: 							#code d'un compte comptable de banque
-    name: Banque CRCA   					#nom du compte de banque
-    number: 51210000    					#code comptable du code de banque
-  caisse:							#code d'un compte comptable de caisse
-    name: Caisse 						#nom d'un compte comptable de caisse
-    number: 531101 						#code comptable du compte de caisse
+accounts:                                                       # Description de compte comptables
+  banque:                                                       # Code d'un compte comptable de banque
+    name: Banque CRCA                                           # Nom d'un compte de banque
+    number: 51210000                                            # Numéro d'un compte de banque
+  caisse:                                                       # Code d'un compte comptable de caisse
+    name: Caisse                                                # Nom d'un compte comptable de caisse
+    number: 531101                                              # Numéro d'un compte de caisse
 cashes:
-  caisse: 							#code d'une trésorerie
-    name: Caisse 						#nom d'une trésorerie
-    nature: cash_box						#nature d'une trésorerie
-    journal: cash						#code journal d'une trésorerie
-    account: caisse						#code comptable d'une trésorerie (décrit au dessus)
+  caisse:                                                       # Code d'une trésorerie
+    name: Caisse                                                # Nom d'une trésorerie
+    nature: cash_box                                            # Type d'une trésorerie (compte bancaire ou caisse)
+    journal: cash                                               # Code journal d'une trésorerie
+    account: caisse                                             # Code comptable d'une trésorerie (décrit au dessus)
   banque:
-    name: Compte courant CA 			
+    name: Compte courant CA                         
     journal: bank 
     account: banque 
-    mode: iban 							#mode
-    country: fr 						#code pays
-    iban: "FR7611111222223333333333391" 			#numéro IBAN du compte
-net_services:							#services web
-  telepac:							#nom d'un service web (ex: TELEPAC)
-    pacage_number: toto						#nom et valeur du premier identifiant pour ce service
-    password: 12345						#nom et valeur du second identifiant pour ce service
+    mode: iban                                                  # Mode de saisie IBAN ou BBAN (RIB)
+    country: fr                                                 # Code pays de la banque
+    iban: "FR7611111222223333333333391"                         # Numéro IBAN du compte
+net_services:                                                   # Services en ligne
+  telepac:                                                      # Nom d'un service web (ex: TELEPAC)
+    pacage_number: 852364554                                    # Nom et valeur du premier identifiant pour ce service
+    password: 12345                                             # Nom et valeur du second identifiant pour ce service
   synel:
     synel_username: 17387001
     password: 12345
@@ -66,8 +66,8 @@ net_services:							#services web
   charentes_alliance_extranet:
     charentes_alliance_extranet_username: toto
     password: 12345
-identifiers:							#identifiants
-  pacage_number: 12346578					#nom et valeur d'un identifiant
+identifiers:                                                    # Identifiants
+  pacage_number: 12346578                                       # Nom et valeur d'un identifiant
   husbandry_owner_number: FR01700006989
   cattling_root_number: 173513
   cattling_number: FR17387001
