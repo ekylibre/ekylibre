@@ -1858,6 +1858,7 @@ fra:
         # activity: # Choices comes from nomenclature: activity_families
         # variant_support: # Choices comes from nomenclature: product_nature_variants
       items:
+        administrative: "Administratif"
         annual_frost_fallow_land: "Gel annuel"
         apple: "Pomme"
         asparagus: "Asperge"
@@ -1875,6 +1876,7 @@ fra:
         lavender: "Lavande"
         laying_hen: "Poule pondeuse"
         lentil: "Lentille"
+        maintenance: "Maintenance"
         melon: "Melon"
         milk_bull_calf: "Taurillons Lait"
         milk_cattle: "Bovins Lait"
@@ -1896,6 +1898,7 @@ fra:
         sunflower: "Tournesol"
         temporary_meadow: "Prairie temporaire"
         tobacco: "Tabac"
+        trade: "Commerce"
         triticale: "Triticale"
         vine: "Vigne"
         walnut: "Noyer"
