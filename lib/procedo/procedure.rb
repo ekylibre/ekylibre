@@ -325,7 +325,7 @@ module Procedo
         code << "        raise UnavailableReading, \"Nil \#{'individual' if options[:individual]}reading given #{variable.name}#\#{indicator.inspect}\"\n"
         code << "      end\n"
         code << "      datatype = Nomen::Indicators[indicator].datatype\n"
-        code << "      return (datatype == :decimal ? value.to_f : value)\n"
+        code << "      return (datatype == :decimal ? value.to_s('F').to_f : value)\n"
         code << "    end\n\n"
 
         rubyist.self_value = "self"
@@ -333,7 +333,7 @@ module Procedo
         # Destinations
         for destination in variable.destinations
           code << "    def impact_destination_#{destination}!\n"
-          code << "      puts \"#{variable.name}#impact_destination_#{destination}!\".yellow\n"
+          code << "      puts \"#{variable.name}#impact_destination_#{destination}!(\#{@destinations[:#{destination}]})\".yellow\n"
           # Updates handlers through backward formula
           for h in variable.handlers.select{|h| h.destination == destination }
             rubyist.value = "@destinations[:#{destination}]"
@@ -406,7 +406,7 @@ module Procedo
         for other in variable.others
           ref = other.name
           for destination in other.destinations
-            if other.default(destination) =~ /\:\s*#{variable.name}\s*\z/
+            if other.default(destination) =~ /\A\:\s*#{variable.name}\s*\z/
               code << "      # Updates default #{destination} of #{ref} if possible\n"
               dest = "procedure.#{ref}.destinations[:#{destination}]"
               code << "      if #{dest}.blank? or procedure.updater?(:casting, :#{variable.name})"
@@ -461,7 +461,7 @@ module Procedo
         code << "    @#{variable.ljust(max)} = #{variable.camelcase}.new(self, casting[:#{variable}])\n"
       end
       code << "    @__support__ = ProductionSupport.find_by(id: global[:support])\n"
-      code << "    @__now__     = global[:at].blank? ? nil : global[:at].to_time\n"
+      code << "    @__now__     = global[:at].blank? ? Time.now : global[:at].to_time\n"
       code << "    @__updater__ = updater.split(':').map(&:to_sym)\n"
       code << "  end\n\n"
       

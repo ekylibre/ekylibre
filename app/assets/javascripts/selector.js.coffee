@@ -12,16 +12,17 @@
 
     _create: ->
       this.element.attr "autocomplete", "off"
-      this.dropDownButton = $("<a><i></i></a>")
-        .attr
+      this.dropDownButton = $ "<a>",
           href: "##{this.element.attr('id')}"
           rel: 'dropdown'
           class: 'selector-dropdown'
+        .append $("<i>")
         .insertAfter this.element
       this.lastSearch = this.element.val()
       this.dropDownMenu = $ "<div>",
-        class: "items-menu"
-      this.dropDownMenu.hide().insertAfter(this.element)
+          class: "items-menu"
+        .hide()
+        .insertAfter(this.element)
       if this.element.data("valueField")?
         this.valueField = $ this.element.data("valueField")
       else
@@ -47,12 +48,10 @@
       this._set this.element.val()
 
     value: (newValue) ->
-      return this.id unless newValue?
-      console.log "Setting new value #{newValue}..."
+      return this.valueField.val() unless newValue?
       this._set(newValue)
-      console.log "New value #{newValue}!"
                   
-    _set: (id) ->
+    _set: (id, trigger = false) ->
       return this.id if id is null or id is undefined or id is ""
       that = this
       $.ajax
@@ -63,7 +62,7 @@
         success: (data, status, request) ->
           listItem = $.parseJSON(request.responseText)[0]
           if listItem?
-            that._select listItem.id, listItem.label
+            that._select listItem.id, listItem.label, trigger
           else
             console.log "JSON cannot be parsed. Get: #{request.responseText}."
         error: (request, status, error) ->
@@ -71,7 +70,7 @@
       this
       
 
-    _select: (id, label) ->
+    _select: (id, label, trigger = false) ->
       this.lastSearch = label
       len = 10 * Math.round(Math.round(1.5 * label.length) / 10)
       this.element.attr "size", ((if len < 20 then 20 else (if len > 80 then 80 else len)))
@@ -80,7 +79,9 @@
       this.valueField.val id
       this.id = parseInt id
       if this.dropDownMenu.is(":visible")
-        this.dropDownMenu.hide() 
+        this.dropDownMenu.hide()
+      if trigger is true
+        this.element.trigger "change"
       this
 
     _openMenu: (search) ->
@@ -92,7 +93,6 @@
           paramName = $(this).data("parameter-name") || $(this).attr("name") || $(this).attr("id")
           if paramName?
             data[paramName] = $(this).val() || $.trim($(this).html())
-          return
       menu = this.dropDownMenu
       $.ajax
         url: this.sourceURL
@@ -126,11 +126,10 @@
       true
 
     _choose: (selected) ->
-      selected ?= this.dropDownMenu.find("ul li.selected.item").first()
+      selected ?= this.dropDownMenu.find("ul li.item.selected").first()
       if selected.length > 0
         if selected.is("[data-item-label][data-item-id]")
-          this._select selected.data("itemId"), selected.data("item-label")
-          this.element.trigger "change"
+          this._select(selected.data("item-id"), selected.data("item-label"), true)
         else if selected.is("[data-new-item]")
           parameters = {}
           if selected.data("new-item").length > 0
@@ -140,14 +139,14 @@
             data: parameters
             returns:
               success: (frame, data, status, request) ->
-                that._set request.getResponseHeader("X-Saved-Record-Id")
-                that.element.trigger "change"
+                that._set(request.getResponseHeader("X-Saved-Record-Id"), true)
                 frame.dialog "close"
               invalid: (frame, data, status, request) ->
                 frame.html request.responseText
         else
-          alert "Don't known how to manage this option"
           console.log "Don't known how to manage this option"
+          console.log selected
+          alert "Don't known how to manage this option"
       else
         console.log "No selected item to choose..."
       this
@@ -157,11 +156,11 @@
       code = (event.keyCode or event.which)
       if code is 13 or code is 10 # Enter
         if this.dropDownMenu.is(":visible")
-          this._choose
+          this._choose()
           return false
       else if code is 40 # Down
         if this.dropDownMenu.is(":hidden")
-          this._openMenu this.element.val()
+          this._openMenu(this.element.val())
           return false
       true
     
@@ -219,8 +218,8 @@
       item.closest("ul").find("li.item.selected").removeClass "selected"
       item.addClass "selected"
       false
-                 
-  $(document).ready ->
+
+  $(document).behave "load", "input[data-selector]", (event) ->
     $("input[data-selector]").each ->
       $(this).selector()
 

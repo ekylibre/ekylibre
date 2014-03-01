@@ -19,7 +19,7 @@
         global[$(this).data('procedure-global')] = $.value $(this)
       global
 
-    serialize: (procedure) ->
+    serializeCasting: (procedure) ->
       casting = {}
       $("*[data-procedure='#{procedure}'][data-variable-handler]").each (index) ->
         variable = $(this).data('variable')
@@ -100,7 +100,7 @@
           procedure: procedure
           updater: origin.data('intervention-updater')
           global:  $.interventions.serializeGlobal(procedure)
-          casting: $.interventions.serialize(procedure)
+          casting: $.interventions.serializeCasting(procedure)
 
         # Ask server for reverberated updates
         initialValue = $.value($("*[data-intervention-updater='#{intervention.updater}']").first())

@@ -64,19 +64,14 @@ class Backend::InterventionsController < BackendController
     t.column :human_roles, sort: :roles, label: :roles
     t.column :population
     t.column :unit_name, through: :variant
-    t.column :shape
+    t.column :shape, hidden: true
     t.column :variant, url: true
-    # t.column :indicator
-    # t.column :measure_quantity
-    # t.column :measure_unit
   end
 
   list(:operations, conditions: {intervention_id: 'params[:id]'.c}, order: :started_at) do |t|
     t.column :reference_name
     t.column :description
     # t.column :name, url: true
-    # t.column :description
-    # t.column :duration
     t.column :started_at
     t.column :stopped_at
     t.column :duration
