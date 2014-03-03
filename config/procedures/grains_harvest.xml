@@ -8,8 +8,28 @@
       <variable name="cropper" variety="reaper" abilities="harvest(plant)" roles="harvest-tool"/>
       <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
       <variable name="cultivation" variety="plant" abilities="produce(grain), produce(straw)" roles="harvest-target"/>
-      <variable name="grains" variety="grain" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})"/>
-      <variable name="straws" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})"/>
+      <variable name="grains" variety="grain" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+        <handler indicator="population" />
+        <handler indicator="net_mass"            unit="ton"               to="population"
+                 forward="value / self..net_mass(ton)"
+                 backward="value * self..net_mass(ton)"
+                 /> <!-- t    -->
+        <handler indicator="mass_area_density"   unit="quintal_per_hectare"   to="population"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(quintal)"
+                 backward="(value * self..net_mass(quintal)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- qt/ha --> 
+      </variable>
+      <variable name="straws" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+        <handler indicator="population" />
+        <handler indicator="net_mass"            unit="ton"               to="population"
+                 forward="value / self..net_mass(ton)"
+                 backward="value * self..net_mass(ton)"
+                 /> <!-- t    -->
+        <handler indicator="mass_area_density"   unit="ton_per_hectare"   to="population"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"
+                 backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- t/ha --> 
+      </variable>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

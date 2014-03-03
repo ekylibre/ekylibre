@@ -4,6 +4,7 @@
     <items>
       <item name="mix"/>
       <item name="medicine"/>
+      <item name="silage" derivative_of="plant"/>
     </items>
   </nomenclature>
   

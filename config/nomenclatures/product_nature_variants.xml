@@ -529,13 +529,13 @@
       <item name="grass_silage"
             nature="silage"
             unit_name="ton"
-            frozen_indicators_values="net_mass: 1.00ton"
+            frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.351cubic_meter"
             />
       <item name="corn_silage"
             nature="silage"
             derivative_of="zea"
             unit_name="ton"
-            frozen_indicators_values="net_mass: 1.00ton"
+            frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.666cubic_meter"
             />
       <!-- PLANT MEDICINE -->
       <item name="helianthus_herbicide"

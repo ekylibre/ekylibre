@@ -5,7 +5,21 @@
       <variable name="forager" variety="forager" abilities="harvest(plant)" roles="harvest-tool"/>
       <variable name="forager_driver" variety="worker" abilities="drive(forager)" roles="harvest-doer"/>
       <variable name="cultivation" variety="poaceae" roles="harvest-target"/>
-      <variable name="silage" variety="straw" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})"/>
+      <variable name="silage" variety="silage" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <handler indicator="population" />
+        <handler indicator="net_mass"            unit="ton"               to="population"
+                 forward="value / self..net_mass(ton)"
+                 backward="value * self..net_mass(ton)"
+                 /> <!-- t -->
+        <handler indicator="net_volume"            unit="cubic_meter"               to="population"
+                 forward="value / self..net_volume(cubic_meter)"
+                 backward="value * self..net_volume(cubic_meter)"
+                 /> <!-- t -->
+        <handler indicator="mass_area_density"   unit="ton_per_hectare"   to="population"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"
+                 backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- qt/ha -->        
+      </variable>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
