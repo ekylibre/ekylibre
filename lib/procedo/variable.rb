@@ -18,8 +18,8 @@ module Procedo
         @producer_name = new_array.shift.to_sym
       end
       @default_name = element.attr("default-name").to_s
-      @default_actor = element.attr("default-actor").to_s
-      @default_variant = element.attr("default-variant").to_s
+      @default_actor   = element.has_attribute?('default-actor')   ? element.attr("default-actor").underscore.to_sym   : :none
+      @default_variant = element.has_attribute?('default-variant') ? element.attr("default-variant").underscore.to_sym : :none
       # Handlers
       @handlers, @needs = [], []
       element.xpath('xmlns:handler').each do |el|

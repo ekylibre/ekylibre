@@ -369,11 +369,12 @@ class Product < Ekylibre::Record::Base
   end
 
   def containeds(at = Time.now)
-    list = ProductLocalization.where(container: self).at(at)
-    for localization in list
+    localizations = ProductLocalization.where(container: self).at(at)
+    list = localizations.map(&:product)
+    for localization in localizations
       list += localization.product.containeds(at)
     end
-    return list.map(&:product)
+    return list
   end
 
   # Returns the current container for the product

@@ -6,7 +6,7 @@
       <variable name="driver" variety="worker" roles="plowing-doer"/>
       <!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="tractor" abilities="tow(equipment)"/>
-      <variable name="land_parcel" variety="cultivable_zone" roles="plowing-target"/>
+      <variable name="land_parcel" variety="cultivable_zone" roles="plowing-target" default-actor="storage"/>
       <variable name="plow"  abilities="plow"/>
     </variables>
     <operations>

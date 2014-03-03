@@ -2267,7 +2267,7 @@ fra:
         semillon_blanc: "Sémillon blanc"                   # vitis_vinifera
         service: "Service"                                 # immatter
         settlement: "Agencement"                           # easement
-        silage: "Ensilage"                                 # organic_matter
+        silage: "Ensilage"                                 # preparation
         silt_schist_soil: "Limons sur schiste ou gneiss"   # land_parcel
         silt_soil: "Limon"                                 # land_parcel
         silty_clay_loam_soil: "Sol limono-argileux"        # land_parcel

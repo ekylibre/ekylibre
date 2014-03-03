@@ -290,20 +290,20 @@ module Procedo
         code << "      super(procedure)\n"
         if variable.new?
           code << "      @variant = (attributes[:variant].present? ? ProductNatureVariant.find(attributes[:variant]) : nil)\n"
-          for destination in variable.destinations
-            code << "      @destinations[:#{destination}] = " + cast_expr("attributes[:destinations][:#{destination}]", Nomen::Indicators[destination].datatype) + "\n"
-          end
-          for handler in variable.handlers
-            code << "      @handlers[:#{handler.name}] = " + cast_expr("attributes[:handlers][:#{handler.name}]", handler.indicator.datatype) + "\n"
-          end
         else
           code << "      @actor = (attributes[:actor].blank? ? nil : Product.find(attributes[:actor]))\n"
+        end
+        for destination in variable.destinations
+          code << "      @destinations[:#{destination}] = " + cast_expr("attributes[:destinations][:#{destination}]", Nomen::Indicators[destination].datatype) + "\n"
+        end
+        for handler in variable.handlers
+          code << "      @handlers[:#{handler.name}] = " + cast_expr("attributes[:handlers][:#{handler.name}]", handler.indicator.datatype) + "\n"
         end
         code << "    end\n\n"
 
         # Method to get indicator values on @actor/@variant
         code << "    def get(indicator, options = {})\n"
-        if variable.new? and variable.destinations.include?(:shape)
+        if variable.destinations.include?(:shape)
           code << "      if !@destinations[:shape].empty? and indicator == :net_surface_area and !options[:individual]\n"
           code << "        value = @destinations[:shape].area\n"
           code << "      elsif @variant\n"
@@ -379,9 +379,11 @@ module Procedo
           code << "    end\n\n"
         end
 
-        # Variable
+        # Actor or Variant
         code << "    def impact_#{variable.new? ? :variant : :actor}!\n"
         code << "      puts \"#{variable.name}#impact_#{variable.new? ? :variant : :actor}!\".yellow\n"
+
+        
 
 
         if variable.others.detect{|other| other.parted? and other.producer == variable }
@@ -410,7 +412,7 @@ module Procedo
               code << "      # Updates default #{destination} of #{ref} if possible\n"
               dest = "procedure.#{ref}.destinations[:#{destination}]"
               code << "      if #{dest}.blank? or procedure.updater?(:casting, :#{variable.name})"
-              code << " or procedure.updater?(:global, :support)" if variable.default_actor == "storage"
+              code << " or procedure.updater?(:global, :support)" if [:storage, :variant_localized_in_storage].include?(variable.default_actor)
               code << "\n"
 
               code << "        begin\n"
@@ -426,6 +428,21 @@ module Procedo
               code << "        end\n"            
               code << "      end\n"            
             end
+          end
+        end
+
+        unless variable.new?
+          for destination in variable.destinations
+            dest = "@destinations[:#{destination}]"
+            code << "        begin\n"
+            code << "          #{dest} = self.get(:#{destination}, at: now)\n"            
+            if [:geometry, :point].include?(Nomen::Indicators[destination].datatype)
+              code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n" 
+            end
+            code << "          impact_destination_#{destination}!\n"
+            code << "        rescue UnavailableReading => e\n"
+            code << "          puts e.message.red\n"
+            code << "        end\n"            
           end
         end
 
@@ -470,20 +487,25 @@ module Procedo
       code << "    if @__updater__.first == :global\n"
       code << "      if @__updater__.second == :support\n"
       for variable in self.variables.values
-        if variable.default_actor == "storage" and !variable.new?
-          code << "        #{variable.name}.actor = @__support__.storage\n"
-          code << "        #{variable.name}.impact_actor!\n"
-        elsif variable.default_actor == "variant-localized-in-storage" and !variable.new?
-          code << "        __localizeds__ = @__support__.storage.localized_variants(@__support__.production_variant, at: now!)\n"
-          code << "        if __localizeds__.any?\n"
-          code << "          #{variable.name}.actor = __localizeds__.first\n"
-          code << "          #{variable.name}.impact_actor!\n"
-          code << "        end\n"
+        if variable.new?
+          if variable.default_variant == :production
+            code << "        #{variable.name}.variant = @__support__.production_variant\n"
+            code << "        #{variable.name}.impact_variant!\n"
+          end
+        else
+          if variable.default_actor == :storage
+            code << "        #{variable.name}.actor = @__support__.storage\n"
+            code << "        #{variable.name}.impact_actor!\n"
+          elsif variable.default_actor == :variant_localized_in_storage
+            code << "        __localizeds__ = @__support__.storage.localized_variants(@__support__.production_variant, at: now!)\n"
+            code << "        if __localizeds__.any?\n"
+            code << "          #{variable.name}.actor = __localizeds__.first\n"
+            code << "          #{variable.name}.impact_actor!\n"
+            code << "        end\n"
+          elsif variable.default_actor != :none
+            raise "Invalid default-actor expression: #{variable.default_actor.inspect}"
+          end
         end
-        if variable.default_variant == "production" and variable.new?
-          code << "        #{variable.name}.variant = @__support__.production_variant\n"
-          code << "        #{variable.name}.impact_variant!\n"
-        end        
       end
       # global:at is called at every interventions form call so we use it
       # TODO replace this with more clean way with a global updater like "global:start"
@@ -526,7 +548,11 @@ module Procedo
       code << "    { " + @variables.values.collect do |variable|
         vcode = "#{variable.name}: "
         if variable.new?
-          vcode << "{variant: @#{variable.name}.variant_id"          
+          vcode << "{variant: @#{variable.name}.variant_id"
+        else
+          vcode << "{actor: @#{variable.name}.actor_id"
+        end
+        if variable.handlers.any?
           vcode << ", destinations: {"
           vcode << variable.destinations.collect do |destination|
             indicator = Nomen::Indicators[destination]
@@ -550,10 +576,8 @@ module Procedo
             end
           end.join(', ')
           vcode << "}"
-          vcode << "}"
-        else
-          vcode << "{actor: @#{variable.name}.actor_id}"          
         end
+        vcode << "}"
         vcode
       end.join(",\n").dig(3).strip + "\n"
       code << "    }\n"
