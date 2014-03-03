@@ -69,7 +69,6 @@
           alert "Cannot get details of item on #{this.sourceURL} (#{status}): #{error}"
       this
       
-
     _select: (id, label, trigger = false) ->
       this.lastSearch = label
       len = 10 * Math.round(Math.round(1.5 * label.length) / 10)
@@ -149,8 +148,7 @@
           alert "Don't known how to manage this option"
       else
         console.log "No selected item to choose..."
-      this
-    
+      this    
       
     _keypress: (event) ->
       code = (event.keyCode or event.which)
@@ -195,7 +193,6 @@
       true
 
     _focusOut: (event) ->
-      # this._closeMenu()
       that = this
       setTimeout ->
         that._closeMenu()
@@ -210,7 +207,7 @@
       false
       
     _menuClick: (event) ->
-      this._choose $(event.target)
+      this._choose()
       false
 
     _menuMouseEnter: (event) ->
