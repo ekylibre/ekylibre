@@ -27,6 +27,10 @@ fra:
       reading_task: "%{reporter} mesure %{indicator}"
       simple_attachment: "On attèle %{carrier} et %{carried}"
       simple_reading_task: "%{indicator} est mesuré"
+  handlers:
+    nitrogen_unities_density: "Unités d'azote par surface"
+    phosphorus_unities_density: "Unités de phosphore par surface"
+    potassium_unities_density: "Unités de potassium par surface"
   procedures:
     base-all_in_one_sowing: "Semis 'tout-en-un'"
     base-animal_birth: "Naissance d’un animal"
