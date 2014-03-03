@@ -48,11 +48,13 @@
       this._set this.element.val()
 
     value: (newValue) ->
-      return this.id unless newValue is null or newValue is undefined
+      if newValue is null or newValue is undefined or newValue is ""
+        return this.valueField.val() 
       this._set(newValue)
                   
     _set: (id, triggerEvents = false) ->
-      return this.id if id is null or id is undefined or id is ""
+      if id is null or id is undefined or id is ""
+        return this.valueField.val() 
       that = this
       $.ajax
         url: this.sourceURL,

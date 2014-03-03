@@ -1,4 +1,8 @@
 spa:
+  handlers:
+    # nitrogen_unities_density: "Unités d'azote par surface"
+    # phosphorus_unities_density: "Unités de phosphore par surface"
+    # potassium_unities_density: "Unités de potassium par surface"
   procedo:
     actions:
       # assisted_reading_task: "%{reporter} mesure %{indicator} avec %{tool}"
