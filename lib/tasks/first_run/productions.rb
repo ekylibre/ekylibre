@@ -9,7 +9,7 @@ load_data :productions do |loader|
       # Load file
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
         next if row[0].blank?
-        r = OpenStruct.new(:production_code => row[0].to_sym,
+        r = OpenStruct.new(:production_nature => Nomen::ProductionNatures[row[0].to_sym],
                            :name => row[1].blank? ? nil : row[1].to_s,
                            :variant_reference_name => row[2].blank? ? nil : row[2].to_sym,
                            :nature => (row[3].blank? ? :main : row[3].to_sym || :none),
@@ -34,18 +34,18 @@ load_data :productions do |loader|
         end
         
         #create an activity if not exist with production_code
-          item = Nomen::ProductionNatures[r.production_code]
-          activity_family_item = Nomen::ActivityFamilies[item.activity] if item
-          activity = Activity.find_by(family: activity_family_item.name)  
-          activity ||= Activity.create!(:nature => r.nature, :family => activity_family_item.name, :name => (r.name ? item.human_name : r.name))
+        activity_family_item = Nomen::ActivityFamilies[r.production_nature.activity]
+        unless activity = Activity.find_by(:nature => r.nature, family: activity_family_item.name)  
+          activity = Activity.create!(:nature => r.nature, :family => activity_family_item.name, :name => (r.name ? r.production_nature.human_name : r.name))
+        end
         
         # if a variant_reference_name is present
         if r.variant_reference_name
           # import from nomen with r.variant_reference_name in file
           product_nature_variant = ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
-        elsif item.variant_support
+        elsif r.production_nature.variant_support
           # import from nomen with item of ProductionNature
-          product_nature_variant = ProductNatureVariant.import_from_nomenclature(item.variant_support.to_s)
+          product_nature_variant = ProductNatureVariant.import_from_nomenclature(r.production_nature.variant_support.to_s)
         end
         
         if product_nature_variant
