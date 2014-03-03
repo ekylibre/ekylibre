@@ -992,6 +992,7 @@ fra:
         curve: "Courbe"
         datatype: "Datatype"
         # gathering: "Gathering"
+        # individual_identifier: "Individual identifier"
         interpolation: "Interpolation"
         # related_to: "Related to"
         unit: "Unité"
