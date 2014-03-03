@@ -473,6 +473,12 @@ module Procedo
         if variable.default_actor == "storage" and !variable.new?
           code << "        #{variable.name}.actor = @__support__.storage\n"
           code << "        #{variable.name}.impact_actor!\n"
+        elsif variable.default_actor == "variant-localized-in-storage" and !variable.new?
+          code << "        __localizeds__ = @__support__.storage.localized_variants(@__support__.production_variant, at: now!)\n"
+          code << "        if __localizeds__.any?\n"
+          code << "          #{variable.name}.actor = __localizeds__.first\n"
+          code << "          #{variable.name}.impact_actor!\n"
+          code << "        end\n"
         end
         if variable.default_variant == "production" and variable.new?
           code << "        #{variable.name}.variant = @__support__.production_variant\n"

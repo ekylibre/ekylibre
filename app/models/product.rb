@@ -135,6 +135,9 @@ class Product < Ekylibre::Record::Base
   scope :of_nature, lambda { |nature|
     where(nature_id: nature.id)
   }
+  scope :of_variant, lambda { |variant, at = Time.now|
+    where(variant_id: variant.id)
+  }
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
@@ -353,7 +356,7 @@ class Product < Ekylibre::Record::Base
 
   # Returns the current contents of the product at a given time (or now by default)
   def contains(stored_class = Product, at = Time.now)
-    localizations = ProductLocalization.where(container: self).where("started_at <= ?",at)
+    localizations = ProductLocalization.where(container: self).at(at)
     if localizations.any?
       object = {}
       for localization in localizations
@@ -363,6 +366,14 @@ class Product < Ekylibre::Record::Base
      else
        return nil
     end
+  end
+
+  def containeds(at = Time.now)
+    list = ProductLocalization.where(container: self).at(at)
+    for localization in list
+      list += localization.product.containeds(at)
+    end
+    return list.map(&:product)
   end
 
   # Returns the current container for the product
@@ -392,6 +403,12 @@ class Product < Ekylibre::Record::Base
       value = Charta::Geometry.new(value).to_rgeo
     end
     self["initial_shape"] = value
+  end
+
+  # Returns all contained products of the given variant
+  def localized_variants(variant, options = {})
+    options[:at] ||= Time.now
+    return self.containeds.select{|p| p.variant == variant }
   end
 
 
