@@ -4,9 +4,10 @@ module Ekylibre
 
   module Export
 
+    # Starts from 1 under IsaCompta
     class AccountancySpreadsheet
 
-
+      
       @@format = [
                   [3,  "jel.journal.code[0..1]"], # Code journal
                   [8,  "jel.entry.number[0..1]+jel.entry.number[-6..-1]"], # Numéro de pièce
