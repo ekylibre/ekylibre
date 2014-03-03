@@ -6,6 +6,7 @@
       <property-nature name="related_to" type="choice" choices="whole, individual" default="individual"/>
       <property-nature name="interpolation" type="choice" choices="none, previous, nearest, linear, sine" default="previous"/>
       <property-nature name="gathering" type="choice" choices="proportional_to_population"/>
+      <property-nature name="individual_identifier" type="boolean"/>
       <property-nature name="unit" type="choice" nomenclature="units" required="false"/>
       <property-nature name="choices" type="nomenclature" required="false"/>
       <property-nature name="curve" type="choice" default="spline" choices="line, spline, step, bar" required="false"/>
@@ -13,12 +14,12 @@
     </property-natures>
     <items>
       <item name="population"     datatype="decimal" related_to="whole" curve="step"/>
+      <item name="shape"          datatype="geometry" related_to="whole" individual_identifier="true"/>
       <item name="temperature"    datatype="measure" unit="celsius"/>
       <item name="net_mass"       datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
       <item name="net_volume"     datatype="measure" unit="liter" gathering="proportional_to_population"/>
       <item name="net_surface_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="easement_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
-      <item name="shape"          datatype="geometry" related_to="whole"/>
       <!-- <item name="geographic_coordinate" datatype="point"/> -->
       <item name="geolocation"    datatype="point"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
