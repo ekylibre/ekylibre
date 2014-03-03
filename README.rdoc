@@ -13,9 +13,9 @@ More details can be found on the official website http://ekylibre.org.
 
 == Guides
 
-You can learn how to contribute in Ekylibre by following our official french guide
+You can learn how to contribute in Ekylibre by following our official guide:
 
-https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre.
+ * {Guide (Français)}[https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre]
 
 == Screenshot
 
@@ -25,14 +25,14 @@ https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre.
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...).
 
-* {Installation (English)}[https://github.com/ekylibre/ekylibre/wiki/Installation-for-developers].
-* {Installation (Français)}[https://github.com/ekylibre/ekylibre/wiki/Jour-3-2-Ruby,-Rails-et-dépendances].
+* {Installation (English)}[https://github.com/ekylibre/ekylibre/wiki/Installation-for-developers]
+* {Installation (Français)}[https://github.com/ekylibre/ekylibre/wiki/Jour-3-2-Ruby,-Rails-et-dépendances]
 
 == Contributing
 
 We encourage you to contribute to Ekylibre.
 
-* See our conventions (FR) https://github.com/ekylibre/ekylibre/wiki/Conventions-de-d%C3%A9veloppement
+* See our conventions ({Français}[https://github.com/ekylibre/ekylibre/wiki/Conventions-de-d%C3%A9veloppement])
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
 * Check out the issue tracker to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
