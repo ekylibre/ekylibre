@@ -35,23 +35,23 @@
         keypress: "_keypress"
         keyup: "_keyup"
         focusout: "_focusOut"
-        blur: "_focusOut"
+        # blur: "_focusOut"
       this._on this.dropDownButton,
         click: "_unrollClick"
         focusout: "_focusOut"
-        blur: "_focusOut"
+        # blur: "_focusOut"
       this._on this.dropDownMenu,
         "click ul li.item": "_menuClick"
         "mouseenter ul li.item": "_menuMouseEnter"
-        "hover ul li.item": "_menuMouseEnter"
+        # "hover ul li.item": "_menuMouseEnter"
       this.sourceURL = this.element.data("selector")
       this._set this.element.val()
 
     value: (newValue) ->
-      return this.valueField.val() unless newValue?
+      return this.id unless newValue is null or newValue is undefined
       this._set(newValue)
                   
-    _set: (id, trigger = false) ->
+    _set: (id, triggerEvents = false) ->
       return this.id if id is null or id is undefined or id is ""
       that = this
       $.ajax
@@ -62,28 +62,30 @@
         success: (data, status, request) ->
           listItem = $.parseJSON(request.responseText)[0]
           if listItem?
-            that._select listItem.id, listItem.label, trigger
+            that._select listItem.id, listItem.label, triggerEvents
           else
             console.log "JSON cannot be parsed. Get: #{request.responseText}."
         error: (request, status, error) ->
           alert "Cannot get details of item on #{this.sourceURL} (#{status}): #{error}"
       this
       
-    _select: (id, label, trigger = false) ->
+    _select: (id, label, triggerEvents = false) ->
+      console.log "select"
       this.lastSearch = label
       len = 10 * Math.round(Math.round(1.5 * label.length) / 10)
-      this.element.attr "size", ((if len < 20 then 20 else (if len > 80 then 80 else len)))
+      this.element.attr "size", (if len < 20 then 20 else (if len > 80 then 80 else len))
       this.element.val label
       this.valueField.prop "itemLabel", label
       this.valueField.val id
       this.id = parseInt id
       if this.dropDownMenu.is(":visible")
         this.dropDownMenu.hide()
-      if trigger is true
-        this.element.trigger "change"
+      if triggerEvents is true
+        this.element.trigger "selector:change"
       this
 
     _openMenu: (search) ->
+      console.log "openMenu"
       data = {}
       if search?
         data.q = search
@@ -107,6 +109,7 @@
           alert "Selector failure on #{this.sourceURL} (#{status}): #{error}"
 
     _closeMenu: ->
+      console.log "closeMenu"
       if this.element.attr("required") is "true"        
         # Restore last value if possible
         if this.valueField.val().length > 0
@@ -125,6 +128,7 @@
       true
 
     _choose: (selected) ->
+      console.log "choose"
       selected ?= this.dropDownMenu.find("ul li.item.selected").first()
       if selected.length > 0
         if selected.is("[data-item-label][data-item-id]")
@@ -193,6 +197,7 @@
       true
 
     _focusOut: (event) ->
+      console.log "focusout"
       that = this
       setTimeout ->
         that._closeMenu()
@@ -207,6 +212,8 @@
       false
       
     _menuClick: (event) ->
+      console.log "menuclick"
+      console.log event.target
       this._choose()
       false
 

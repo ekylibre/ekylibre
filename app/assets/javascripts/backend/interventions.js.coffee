@@ -124,7 +124,11 @@
     $(this).each ->
       $.interventions.refresh $(this)
 
-  $(document).on 'change', '*[data-variable-actor], *[data-variable-variant], *[data-procedure-global]', ->
+  $(document).on 'selector:change', '*[data-variable-actor], *[data-variable-variant], *[data-procedure-global="support"]', ->
+    $(this).each ->
+      $.interventions.refresh $(this)
+
+  $(document).on 'change', '*[data-procedure-global="at"]', ->
     $(this).each ->
       $.interventions.refresh $(this)
 
