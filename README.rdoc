@@ -1,7 +1,7 @@
 = Ekylibre
 
 Ekylibre is a simple enterprise management web application for farmers and small enterprises.
-Ekylibre is written with Ruby on Rails framework and use Postgresql/Postgis stack.
+Ekylibre is written with Ruby on Rails framework and use PostgreSQL/PostGIS stack.
 More details can be found on the official website http://ekylibre.org.
 
 == Code status
@@ -25,9 +25,8 @@ https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre.
 
 This installation method works with Debian-like OS (Debian, Ubuntu, Linux Mint...).
 
-{Installation ENG}[https://github.com/ekylibre/ekylibre/wiki/Installation_for_developers].
-
-{Installation FRA}[https://github.com/ekylibre/ekylibre/wiki/Jour-3-2-Ruby,-Rails-et-dépendances].
+* {Installation (English)}[https://github.com/ekylibre/ekylibre/wiki/Installation-for-developers].
+* {Installation (Français)}[https://github.com/ekylibre/ekylibre/wiki/Jour-3-2-Ruby,-Rails-et-dépendances].
 
 == Contributing
 
@@ -48,19 +47,18 @@ Some additional tools are needed to manipulate some images of the project:
 
 == See also
 
-* Forum: https://ekylibre.org/forum
-* Map: http://www.mindmeister.com/fr/233765234/ekylibre-1-0-2013
-* Documentation: https://github.com/ekylibre/ekylibre-doc
-* Demo: https://demo.ergolis.com
+* {Forum}[https://ekylibre.org/forum]
+* {MindMeister}[http://www.mindmeister.com/fr/233765234/ekylibre-1-0-2013]
+* {Documentation}[https://github.com/ekylibre/ekylibre-doc]
+* {Demo}[https://demo.ergolis.com]
 
 == Follow us
 
-* Twitter: https://twitter.com/EkylibreERP
-* Facebook: https://www.facebook.com/ekylibre
-* Google+: https://plus.google.com/106303796269953490281/about
-* YouTube: http://www.youtube.com/channel/UC_yYJGkq-aqC-So8DlXtM5g
+* {Twitter}[https://twitter.com/EkylibreERP]
+* {Facebook}[https://www.facebook.com/ekylibre]
+* {Google+}[https://plus.google.com/106303796269953490281/about]
+* {YouTube}[http://www.youtube.com/channel/UC_yYJGkq-aqC-So8DlXtM5g]
 
 == License
 
-Ekylibre is released under the GNU/GPL3 license:
-* http://opensource.org/licenses/GPL-3.0
+Ekylibre is released under the {GNU/GPL3}[http://opensource.org/licenses/GPL-3.0] license.
