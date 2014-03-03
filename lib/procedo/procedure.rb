@@ -325,7 +325,7 @@ module Procedo
         code << "        raise UnavailableReading, \"Nil \#{'individual' if options[:individual]}reading given #{variable.name}#\#{indicator.inspect}\"\n"
         code << "      end\n"
         code << "      datatype = Nomen::Indicators[indicator].datatype\n"
-        code << "      return (datatype == :decimal ? value.to_s('F').to_f : value)\n"
+        code << "      return (datatype == :decimal ? value.to_s.to_f : value)\n"
         code << "    end\n\n"
 
         rubyist.self_value = "self"
