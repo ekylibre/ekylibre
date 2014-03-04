@@ -357,6 +357,12 @@ eng:
         # cobaltihexamine: "Cobaltihexamine"
         # metson: "Metson"
       # name: "Méthodes d’analyse de la capacité d’échange cationique"
+    certification_labels:
+      items: #?
+    certifications:
+      choices: #?
+      items: #?
+      property_natures: #?
     charts_of_accounts:
       items:
         # fr_pcg82: "Plan comptable (PCG1982)"
@@ -991,12 +997,8 @@ eng:
       # name: "Monnaies"
       property_natures:
         # active: "Active"
-    designation_origins:
-      items:
-        # aoc_bordeaux: "AOC Bordeaux"
-        # aoc_bordeaux_sup: "AOC Bordeaux Supérieur"
-        # aoc_cremant_de_bordeaux: "AOC Crémant de Bordeaux"
-      # name: "Appellations"
+    designation_origins:  #?
+ #?
     dimensions:
       items:
         # amount_of_substance: "Quantité de matière"
@@ -1204,7 +1206,6 @@ eng:
         cells_concentration: "Cells concentration" #?
         clostridial_spores_concentration: "Clostridial spores concentration"
         # copper_concentration: "Teneur en cuivre"
-        # designation_origin: "Appellation"
         # dry_matter_rate: "Taux de matière sèche"
         # easement_area: "Emprise au sol"
         # economical_milk_index: "Index économique laitier (INEL)"
@@ -1321,6 +1322,8 @@ eng:
       property_natures:
         # target: "Cible"
         # treatments: "Traitements"
+    lands:
+      items: #?
     languages:
       items:
         afr: "Afrikaans"

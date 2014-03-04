@@ -44,7 +44,7 @@
 
       <!-- for wine product and production -->
       <item name="reference_year" datatype="integer"/><!-- for "millesime" -->
-      <item name="designation_origin" datatype="choice" choices="designation_origins"/><!-- for "appellation" -->
+      <item name="certification" datatype="choice" choices="certifications"/><!-- for "appellation" -->
 
       <!-- state of cultivable_zone -->
       <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>

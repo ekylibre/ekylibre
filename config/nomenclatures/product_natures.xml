@@ -185,7 +185,7 @@
             variety="vitis"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
-            variable_indicators="population, shape, plant_life_state, woodstock_variety, designation_origin"
+            variable_indicators="population, shape, plant_life_state, woodstock_variety, certification"
             frozen_indicators="net_surface_area"
             derivatives="fruit, straw"
             />
@@ -195,7 +195,7 @@
             derivative_of="vitis_vinifera"
             population_counting="decimal"
             abilities=""
-            variable_indicators="population, temperature, total_bacteria_concentration, reference_year, designation_origin"
+            variable_indicators="population, temperature, total_bacteria_concentration, reference_year, certification"
             frozen_indicators="net_volume, net_mass"
             />
       <item name="grain"

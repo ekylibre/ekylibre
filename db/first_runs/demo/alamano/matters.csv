@@ -58,5 +58,5 @@ FLORIJUNIOR SAC,25kg_bag_animal_food,S05_D07,2014-01-01,,,,Population : 9,9.00,
 RUMIDECOX,bulk_kg_animal_food,S05_D07,2014-01-01,,,,Population : 500,500.00,0.49
 ,PRODUIT VEGETAUX,,,,,,,,
 Blé tendre en stockage à façon à la coopérative,wheat_grain,,2014-01-01,,,,Population : 27.7,,180
-Merlot Rouge 2012,wine,,2012-10-01,wine,merlot_noir,,Population : 40; reference_year : 2012; designation_origin : aoc_bordeaux,,100.20
-Merlot Rouge 2013,wine,,2013-10-01,wine,merlot_noir,,Population : 50; reference_year : 2013; designation_origin : aoc_bordeaux_sup,,111.20
+Merlot Rouge 2012,wine,,2012-10-01,wine,merlot_noir,,Population : 40; reference_year : 2012; certification : bordeaux_rouge,,100.20
+Merlot Rouge 2013,wine,,2013-10-01,wine,merlot_noir,,Population : 50; reference_year : 2013; certification : bordeaux_superieur_rouge,,111.20
