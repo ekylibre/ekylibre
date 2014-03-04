@@ -15,7 +15,7 @@ More details can be found on the official website http://ekylibre.org.
 
 You can learn how to contribute in Ekylibre by following our official guide:
 
- * {Guide (Français)}[https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre]
+* {Guide (Français)}[https://github.com/ekylibre/ekylibre/wiki/Une-semaine-en-Ekylibre]
 
 == Screenshot
 
