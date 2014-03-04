@@ -49,8 +49,7 @@
       <item name="centimeter" dimension="distance" symbol="cm" a="0.01"/>
       <item name="meter"      dimension="distance" symbol="m"/>
       <item name="kilometer"  dimension="distance" symbol="km" a="1000"/>
-      <!-- s -->
-      <item name="liter_per_square_meter" dimension="distance" symbol="l/m²" a="0.001"/>
+     
 
       <!-- surface_area -->
       <item name="square_meter" dimension="surface_area" symbol="m²"/>
@@ -110,7 +109,11 @@
       <item name="kilogram_per_hectare"      dimension="mass_area_density" symbol="kg/ha"           d="10000"/>
       <item name="quintal_per_hectare"       dimension="mass_area_density" symbol="qt/ha"  a="100"  d="10000"/>
       <item name="ton_per_hectare"           dimension="mass_area_density" symbol="t/ha"   a="1000" d="10000"/>
-
+      
+       <!-- s -->
+      <item name="liter_per_square_meter" dimension="distance" symbol="l/m²" a="0.001"/>
+      <item name="hectoliter_per_hectare" dimension="distance" symbol="hl/ha" a="0.1"/>
+      
       <!-- surface_area_density -->
       <item name="unity_per_square_meter" dimension="surface_area_density" symbol="./m²"/>
       <item name="unity_per_hectare"      dimension="surface_area_density" symbol="./ha"           d="10000"/>

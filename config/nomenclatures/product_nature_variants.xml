@@ -407,19 +407,18 @@
             unit_name="75cl_bottle"
             frozen_indicators_values="net_mass: 760gram, net_volume: 75.00centiliter"
             />
-      
       <!-- ORGANIC PRODUCT -->
       <item name="vine_grape_berry"
             nature="fruit"
             derivative_of="vitis_vinifera"
-            unit_name="ton"
-            frozen_indicators_values="net_mass: 1.00ton"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
             />
       <item name="vine_grape_must"
             nature="fruit"
             derivative_of="vitis_vinifera"
             unit_name="hectoliter"
-            frozen_indicators_values="net_mass: 99.00 kilogram, net_volume: 100.00liter"
+            frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
             />
       <item name="wine"
             nature="wine"

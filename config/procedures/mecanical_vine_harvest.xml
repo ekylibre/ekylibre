@@ -5,8 +5,26 @@
       <variable name="grape_reaper_driver" variety="worker" abilities="drive(reaper)" roles="harvest-doer"/>
       <variable name="grape_reaper" variety="reaper" abilities="harvest(vitis)" roles="harvest-tool"/>
       <variable name="tank" variety="tank" abilities="store_liquid" roles="harvest-tool"/>
-      <variable name="cultivation" variety="vitis" abilities="produce(fruit)" roles="harvest-target"/>
-      <variable name="fruits" variety="fruit" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})"/>
+      <variable name="cultivation" variety="vitis_vinifera" abilities="produce(fruit)" roles="harvest-target" default-actor="variant-localized-in-storage"/>
+      <variable name="fruits" variety="fruit" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+        <handler indicator="population" />
+        <handler indicator="net_mass"            unit="ton"               to="population"
+                 forward="value / self..net_mass(ton)"
+                 backward="value * self..net_mass(ton)"
+                 /> <!-- t    -->
+        <handler indicator="net_mass"            unit="kilogram"               to="population"
+                 forward="value / self..net_mass(kilogram)"
+                 backward="value * self..net_mass(kilogram)"
+                 /> <!-- kg    -->
+        <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
+                 backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg/ha -->
+        <handler indicator="mass_area_density"   unit="hectoliter_per_hectare"   to="population"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_volume(hectoliter)"
+                 backward="(value * self..net_volume(hectoliter)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg/ha -->         
+      </variable>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
