@@ -121,6 +121,7 @@
       <!-- <item name="nitrogen_input_area_density" datatype="measure" unit="kilogram_per_hectare"/> -->
       <item name="nitrogen_area_density" datatype="measure" unit="kilogram_per_hectare"/>
       <item name="mass_area_density"           datatype="measure" unit="kilogram_per_square_meter"/>
+      <item name="volume_area_density"         datatype="measure" unit="liter_per_square_meter"/>
       <item name="mass_area_yield"             datatype="measure" unit="quintal_per_hectare"/>
       <item name="residue_elimination_method"  datatype="choice" choices="residue_elimination_methods"/>
 
