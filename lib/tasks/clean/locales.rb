@@ -466,12 +466,12 @@ task :locales => :environment do
   end
 
 
-  # Write stats file
-  File.open(Rails.root.join("config", "locales", "statistics.yml"), "wb") do |f|
-    f.write "# This file contains statistics about translations"
-    for locale, stat in stats.sort{|a,b| a[0] <=> b[0]}
-      f.write CleanSupport.hash_to_yaml({locale => {:statistics => stat}})
-    end
-  end
+  # # Write stats file
+  # File.open(Rails.root.join("config", "locales", "statistics.yml"), "wb") do |f|
+  #   f.write "# This file contains statistics about translations"
+  #   for locale, stat in stats.sort{|a,b| a[0] <=> b[0]}
+  #     f.write CleanSupport.hash_to_yaml({locale => {:statistics => stat}})
+  #   end
+  # end
   log.close
 end
