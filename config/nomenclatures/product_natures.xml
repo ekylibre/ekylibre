@@ -374,7 +374,7 @@
             population_counting="decimal"
             abilities=""
             variable_indicators="population, shape, available_water_capacity_per_area, soil_depth, potential_hydrogen, cation_exchange_capacity, cation_exchange_capacity_analysis_method, organic_matter_concentration, nitrogen_concentration, potassium_concentration, phosphorus_concentration, phosphorus_analysis_method, calcium_concentration, magnesium_concentration, sulfur_concentration, boron_concentration, molybdenum_concentration, manganese_concentration, copper_concentration, zinc_concentration, iron_concentration, aluminium_concentration"
-            frozen_indicators="net_surface_area"
+            frozen_indicators="net_surface_area, soil_nature"
             />
       <item name="land_parcel_cluster"
             category="land_parcel_cluster"

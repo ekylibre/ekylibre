@@ -27,5 +27,5 @@
               %span.add-on
                 = hidden_field_tag("zones[#{zone.id}][crop_yield][unit]", y.unit)
                 = y.symbol
-          %td= select_tag("zones[#{zone.id}][soil_variety]", options_for_select(Nomen::Varieties.selection(:land_parcel), zone.soil_variety.name))
+          %td= select_tag("zones[#{zone.id}][soil_nature]", options_for_select(Nomen::SoilNatures.selection, zone.soil_nature.name))
           %td.dec= zone.nitrogen_input_area_density.l

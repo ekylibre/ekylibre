@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module Calculus
   module NitrogenInputs
 
@@ -68,14 +69,14 @@ module Calculus
       end
 
       # Returns the variety of the cultivation
-      def soil_variety
-        @soil_variety ||= Nomen::Varieties[land_parcel.variety]
+      def soil_nature
+        @soil_nature ||= Nomen::SoilNatures[land_parcel.soil_nature]
       end
 
       # Returns all matching varieties
-      def soil_varieties
-        if soil_variety
-          return soil_variety.self_and_parents.map(&:name).map(&:to_sym)
+      def soil_natures
+        if soil_nature
+          return soil_nature.self_and_parents.map(&:name).map(&:to_sym)
         end
         return :undefined
       end
@@ -97,7 +98,7 @@ module Calculus
       end
 
       def nitrogen_input_area_density
-        marker = aim(:nitrogen_input_area_density, subject: :support)
+        marker = aim(:nitrogen_area_density, subject: :support)
         return (marker ? marker.value : 0.in_kilogram_per_hectare)
       end
 

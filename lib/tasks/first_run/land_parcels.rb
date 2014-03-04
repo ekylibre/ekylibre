@@ -68,7 +68,7 @@ load_data :land_parcels do |loader|
           land_parcel = LandParcel.create!(:variant_id => land_parcel_variant.id,
                                            :name => LandParcel.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
                                            :work_number => "P" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
-                                           :variety => "clay_limestone_soil",
+                                           :variety => "land_parcel",
                                            :initial_born_at => born_at,
                                            :initial_owner => Entity.of_company,
                                            :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)

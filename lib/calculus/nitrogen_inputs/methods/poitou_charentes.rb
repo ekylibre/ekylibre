@@ -17,7 +17,7 @@ module Calculus
           if @crop_yield.nil? or @crop_yield.zero?
             if items = Nomen::NmpPoitouCharentesAbacusOne.where(cultivation_variety: @zone.cultivation_varieties, administrative_area: @zone.administrative_area || :undefined) and items.any?
               @crop_yield = items.first.crop_yield.in_quintal_per_hectare
-            elsif capacity = @zone.available_water_capacity and items = Nomen::NmpPoitouCharentesAbacusTwo.where(cultivation_variety: @zone.cultivation_varieties, soil_variety: @zone.soil_varieties) and items = items.select{|i| i.minimum_available_water_capacity.in_liter_per_square_meter <= capacity and capacity < i.maximum_available_water_capacity.in_liter_per_square_meter} and items.any?
+            elsif capacity = @zone.available_water_capacity and items = Nomen::NmpPoitouCharentesAbacusTwo.where(cultivation_variety: @zone.cultivation_varieties, soil_nature: @zone.soil_natures) and items = items.select{|i| i.minimum_available_water_capacity.in_liter_per_square_meter <= capacity and capacity < i.maximum_available_water_capacity.in_liter_per_square_meter} and items.any?
               @crop_yield = items.first.crop_yield.in_quintal_per_hectare
             else
               @crop_yield = 30.in_quintal_per_hectare
@@ -89,7 +89,7 @@ module Calculus
 
           # X
           nitrogen_input = nil
-          if zone.soil_varieties.include?(:clay_limestone_soil) or zone.soil_varieties.include?(:chesnut_red_soil)
+          if zone.soil_natures.include?(:clay_limestone_soil) or zone.soil_natures.include?(:chesnut_red_soil)
             # CAU = 0.8
             # X = [(Pf - Po - Mr - MrCi - Nirr) / CAU] - Xa
             fertilizer_apparent_use_coeffient = 0.8.to_d
@@ -113,13 +113,13 @@ module Calculus
                               post_harvest_rest)
           end
 
-          if zone.soil_varieties.include?(:clay_limestone_soil)
+          if zone.soil_natures.include?(:clay_limestone_soil)
             nitrogen_input *= 1.15.to_d
           else
             nitrogen_input *= 1.10.to_d
           end
 
-          @zone.mark(:nitrogen_input_area_density, nitrogen_input.round(3), subject: :support)
+          @zone.mark(:nitrogen_area_density, nitrogen_input.round(3), subject: :support)
 
           puts "-" * 80
           puts "crop_yield:     " + crop_yield.inspect

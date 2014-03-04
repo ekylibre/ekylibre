@@ -2121,7 +2121,6 @@ fra:
         ascott: "Ascott"                                   # triticum_aestivum
         asparagus: "Asperge"                               # liliaceae
         asteraceae: "Astéracée"                            # plant
-        aubues_soil: "Sols sur craie Nord Vienne (Aubues)" # land_parcel
         autan: "Autan"                                     # triticum_aestivum
         avena: "Avena"                                     # poaceae
         aventur: "Aventur"                                 # triticum_durum
@@ -2133,7 +2132,6 @@ fra:
         betulaceae: "Betulaceae"                           # plant
         biensur: "Biensur"                                 # triticum_durum
         bioproduct: "Produit vivant"                       # matter
-        black_valley_soil: "Terres noires de vallées"      # land_parcel
         bos: "Bovin"                                       # mammalia
         brassica: "Colza"                                  # brassicaceae
         brassica_napus: "Colza"                            # brassica
@@ -2149,13 +2147,9 @@ fra:
         capra: "Caprin"                                    # mammalia
         carignan: "Carignan"                               # vitis_vinifera
         carmenere_noir: "Carménère noir"                   # vitis_vinifera
-        champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)" # land_parcel
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertilizer: "Engrais minéral"             # mineral_matter
-        chesnut_red_soil: "Terres rouges à châtaigniers"   # land_parcel
         cichorium: "Chicoré"                               # asteraceae
-        clay_limestone_soil: "Sol argilo-calcaire (Groies)" # land_parcel
-        clay_soil: "Terre d’argile lourde"                 # land_parcel
         colombar_blanc: "Colombar blanc"                   # vitis_vinifera
         compost: "Compost"                                 # excrement
         corylus: "Corylus"                                 # betulaceae
@@ -2177,7 +2171,6 @@ fra:
         excrement: "Engrais organiques"                    # organic_matter
         fabaceae: "Fabaceae"                               # plant
         fabulis: "Fabulis"                                 # triticum_durum
-        flap_silt_soil: "Limons battants"                  # land_parcel
         forager: "Ensileuse"                               # equipment
         fragaria: "Fraise"                                 # rosaceae
         fruit: "Fruit"                                     # organic_matter
@@ -2189,7 +2182,6 @@ fra:
         gas: "Essence"                                     # organic_matter
         glycine: "Glycine"                                 # fabaceae
         grain: "Grain"                                     # organic_matter
-        granite_arena_soil: "Sol sur arène granitique"     # land_parcel
         grass: "Herbe"                                     # organic_matter
         grenache: "Grenache"                               # vitis_vinifera
         grenache_noir: "Grenache noir"                     # vitis_vinifera
@@ -2205,7 +2197,6 @@ fra:
         hordeum_vernum: "Orge de printemps"                # hordeum
         hordeum_vernum_hypoproteinae: "Orge de printemps (faible teneur en protéïnes)" # hordeum_vernum
         hordeum_vulgare: "Orge escourgeon"                 # hordeum
-        hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe" # land_parcel
         immatter: "Immatérialisable"                       # product
         implanter: "Planteuse"                             # equipment
         insecta: "Insecte"                                 # animal
@@ -2283,9 +2274,6 @@ fra:
         salmo: "Salmonidé"                                 # osteichthyes
         salt: "Sel"                                        # mineral_matter
         sand: "Sable"                                      # mineral_matter
-        sand_soil: "Sol sableux"                           # land_parcel
-        sandy_clay_loam_soil: "Sol limono-argileux"        # land_parcel
-        sandy_clay_soil: "Sol argilo-sableux"              # land_parcel
         sauvignon_blanc: "Sauvignon blanc"                 # vitis_vinifera
         sauvignon_gris: "Sauvignon gris"                   # vitis_vinifera
         sauvignon_noir: "Sauvignon noir"                   # vitis_vinifera
@@ -2297,10 +2285,6 @@ fra:
         service: "Service"                                 # immatter
         settlement: "Agencement"                           # easement
         silage: "Ensilage"                                 # preparation
-        silt_schist_soil: "Limons sur schiste ou gneiss"   # land_parcel
-        silt_soil: "Limon"                                 # land_parcel
-        silty_clay_loam_soil: "Sol limono-argileux"        # land_parcel
-        silty_clay_soil: "Sol argilo-limoneux"             # land_parcel
         slurry: "Lisier"                                   # excrement
         soissons: "Soissons"                               # triticum_aestivum
         solanaceae: "Solanaceae"                           # plant
@@ -2312,7 +2296,6 @@ fra:
         straw: "Paille"                                    # organic_matter
         sub_zone: "Sous zone"                              # zone
         sus: "Porcin"                                      # mammalia
-        swamp_peaty_soil: "Terre de marais tourbeux"       # land_parcel
         sy_banco: "Sy banco"                               # triticum_durum
         sy_cysco: "Sy cysco"                               # triticum_durum
         syrah_noir: "Syrah noir"                           # vitis_vinifera
@@ -2329,7 +2312,6 @@ fra:
         triticum_durum: "Blé dur"                          # triticum
         triticum_spelta: "Épeautre"                        # triticum
         ugni_blanc: "Ugni blanc"                           # vitis_vinifera
-        valley_terrace_soil: "Sols de terrasse de vallée"  # land_parcel
         vicia: "Vesces - Féverolle"                        # fabaceae
         vitis: "Vigne"                                     # plant
         vitis_vinifera: "Vitis vinifera"                   # vitis
