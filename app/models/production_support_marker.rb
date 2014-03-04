@@ -49,7 +49,7 @@
 class ProductionSupportMarker < Ekylibre::Record::Base
   include ReadingStorable
   enumerize :aim,        in: [:minimal, :maximal, :perfect], default: :perfect
-  enumerize :derivative, in: Nomen::Varieties.all(:organic_matter)
+  enumerize :derivative, in: Nomen::Varieties.all(:matter)
   enumerize :subject,    in: [:production, :support, :derivative], default: :support, predicates: {prefix: true}
   belongs_to :support, class_name: "ProductionSupport", inverse_of: :markers
   has_one :activity, through: :production
