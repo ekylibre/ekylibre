@@ -952,8 +952,7 @@ jpn:
       # name: "Monnaies"
       property_natures:
         # active: "Active"
-    designation_origins:  #?
- #?
+    designation_origins: #?
     dimensions:
       items:
         # amount_of_substance: "Quantité de matière"
