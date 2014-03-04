@@ -85,7 +85,7 @@ module Procedo
 
     # Translate the name of the variable
     def human_name
-      "variables.#{name}".t(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize])
+      "procedure_variables.#{name}".t(default: ["labels.#{name}".to_sym, "attributes.#{name}".to_sym, name.to_s.humanize])
     end
 
     def others
