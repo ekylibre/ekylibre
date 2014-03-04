@@ -17,6 +17,7 @@ module ActiveList
 
       # Find data
       query_code = "#{class_name}"
+      query_code << self.scope_code if self.scope_code
       query_code << ".select(#{self.select_code})" if self.select_code
       query_code << ".where(#{self.conditions_code})" unless @table.options[:conditions].blank?
       query_code << ".joins(#{@table.options[:joins].inspect})" unless @table.options[:joins].blank?
@@ -61,6 +62,17 @@ module ActiveList
       return hash
     end
 
+
+    def scope_code
+      return nil unless scopes = @table.options[:scope]
+      scopes = [scopes].flatten
+      code  = ""
+      for scope in scopes
+        code << ".#{scope}"
+      end
+      return code
+    end
+    
 
     # Generate the code from a conditions option
     def conditions_code

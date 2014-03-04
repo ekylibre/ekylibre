@@ -99,7 +99,7 @@
             variable_indicators=""
             frozen_indicators="population"
             />
-       <item name="duck_band"
+      <item name="duck_band"
             category="aves_band"
             variety="anas"
             population_counting="integer"
@@ -108,7 +108,7 @@
             frozen_indicators=""
             derivatives="meat"
             />
-       <item name="hen_band"
+      <item name="hen_band"
             category="aves_band"
             variety="gallus"
             population_counting="integer"
@@ -117,7 +117,7 @@
             frozen_indicators="sex, reproductor"
             derivatives="meat,egg"
             />
-         <item name="salmon_band"
+      <item name="salmon_band"
             category="fish_band"
             variety="salmo"
             population_counting="integer"
@@ -126,7 +126,7 @@
             frozen_indicators=""
             derivatives=""
             />
-        <item name="oyster_band"
+      <item name="oyster_band"
             category="oyster_band"
             variety="ostreidae"
             population_counting="integer"
@@ -135,7 +135,7 @@
             frozen_indicators=""
             derivatives=""
             />
-       <item name="crop"
+      <item name="crop"
             category="crop"
             variety="plant"
             population_counting="decimal"
@@ -275,7 +275,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-       <item name="molluscicide"
+      <item name="molluscicide"
             category="plant_medicine"
             variety="molluscicide"
             population_counting="decimal"
@@ -283,7 +283,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-       <item name="chemical_fertilizer"
+      <item name="chemical_fertilizer"
             category="fertilizer"
             variety="chemical_fertilizer"
             population_counting="decimal"
@@ -307,23 +307,23 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
             />
-        <!-- VINE INPLANT -->
-       <item name="usual_vine_seedling"
+      <!-- VINE INPLANT -->
+      <item name="usual_vine_seedling"
             category="plant"
             variety="seedling"
             derivative_of="vitis"
             population_counting="integer"
-            abilities="take_root"
+            abilities="grow"
             variable_indicators="population"
             frozen_indicators="woodstock_variety"
             />
-        <!-- SEED -->
-       <item name="seed"
+      <!-- SEED -->
+      <item name="seed"
             category="seed"
             variety="seed"
             derivative_of="plant"
             population_counting="decimal"
-            abilities="germinate"
+            abilities="grow"
             variable_indicators="population"
             frozen_indicators="net_mass, thousand_grains_mass"
             />
@@ -400,7 +400,7 @@
             variable_indicators="net_surface_area, shape"
             frozen_indicators="population"
             />
-       <item name="settlement"
+      <item name="settlement"
             category="settlement"
             variety="settlement"
             population_counting="unitary"
@@ -497,7 +497,7 @@
             variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass"
             frozen_indicators="population"
             />
-       <item name="wine_tank"
+      <item name="wine_tank"
             category="equipment"
             variety="tank"
             population_counting="unitary"
@@ -505,7 +505,7 @@
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
-       <item name="milk_tank"
+      <item name="milk_tank"
             category="equipment"
             variety="tank"
             population_counting="unitary"
@@ -513,7 +513,7 @@
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
-       <item name="fuel_tank"
+      <item name="fuel_tank"
             category="equipment"
             variety="tank"
             population_counting="unitary"
@@ -521,7 +521,7 @@
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
-       <item name="food_tank"
+      <item name="food_tank"
             category="equipment"
             variety="tank"
             population_counting="unitary"
@@ -529,7 +529,7 @@
             variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass"
             frozen_indicators="population"
             />
-       <item name="plant_medicine_tank"
+      <item name="plant_medicine_tank"
             category="equipment"
             variety="tank"
             population_counting="unitary"
@@ -537,7 +537,7 @@
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
-       <item name="animal_medicine_tank"
+      <item name="animal_medicine_tank"
             category="equipment"
             variety="tank"
             population_counting="unitary"
@@ -545,7 +545,7 @@
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />     
-       <item name="spreader_trailer"
+      <item name="spreader_trailer"
             category="equipment"
             variety="trailer"
             population_counting="unitary"
@@ -569,7 +569,7 @@
             variable_indicators="nominal_storable_net_volume, application_width"
             frozen_indicators="population"
             />
-        <item name="complete_sower"
+      <item name="complete_sower"
             category="equipment"
             variety="sower"
             population_counting="unitary"
@@ -577,7 +577,7 @@
             variable_indicators="nominal_storable_net_volume, application_width"
             frozen_indicators="population"
             />
-        <item name="implanter"
+      <item name="implanter"
             category="equipment"
             variety="implanter"
             population_counting="unitary"
@@ -597,7 +597,7 @@
             category="equipment"
             variety="plower"
             population_counting="unitary"
-            abilities="superficial_plow"
+            abilities="plow_superficially"
             variable_indicators="application_width"
             frozen_indicators="population"
             />
@@ -605,7 +605,7 @@
             category="equipment"
             variety="plower"
             population_counting="unitary"
-            abilities="superficial_plow,hoe"
+            abilities="plow_superficially, hoe"
             variable_indicators="application_width"
             frozen_indicators="population"
             />
@@ -625,7 +625,7 @@
             variable_indicators="application_width"
             frozen_indicators="population"
             />
-       <item name="mower"
+      <item name="mower"
             category="equipment"
             variety="harvester"
             population_counting="unitary"
@@ -633,7 +633,7 @@
             variable_indicators="application_width"
             frozen_indicators="population"
             />
-       <item name="hay_rake"
+      <item name="hay_rake"
             category="equipment"
             variety="harvester"
             population_counting="unitary"
@@ -699,7 +699,7 @@
             variable_indicators=""
             frozen_indicators="population"
             />
-       <item name="running_water"
+      <item name="running_water"
             category="running_water"
             variety="water"
             population_counting="decimal"
@@ -707,7 +707,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-       <item name="irrigation_water"
+      <item name="irrigation_water"
             category="irrigation_water"
             variety="water"
             population_counting="decimal"
@@ -715,7 +715,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-       <item name="natural_water"
+      <item name="natural_water"
             category="natural_water"
             variety="water"
             population_counting="decimal"
@@ -723,7 +723,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-        <item name="electricity"
+      <item name="electricity"
             category="electricity"
             variety="electricity"
             population_counting="decimal"
@@ -731,7 +731,7 @@
             variable_indicators="population"
             frozen_indicators="energy"
             />
-        <item name="gas"
+      <item name="gas"
             category="gas"
             variety="gas"
             population_counting="decimal"
@@ -739,7 +739,7 @@
             variable_indicators="population"
             frozen_indicators="energy"
             />
-         <item name="fuel"
+      <item name="fuel"
             category="fuel"
             variety="fuel"
             population_counting="decimal"
@@ -747,7 +747,7 @@
             variable_indicators="population"
             frozen_indicators="energy, net_volume, net_mass"
             />
-         <item name="motor_oil"
+      <item name="motor_oil"
             category="fuel"
             variety="oil"
             population_counting="decimal"
@@ -755,7 +755,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-         <item name="hydraulic_oil"
+      <item name="hydraulic_oil"
             category="fuel"
             variety="oil"
             population_counting="decimal"
@@ -763,7 +763,7 @@
             variable_indicators="population"
             frozen_indicators="net_volume, net_mass"
             />
-         <item name="mechanic_item"
+      <item name="mechanic_item"
             category="small_equipment"
             variety="matter"
             derivative_of="equipment"

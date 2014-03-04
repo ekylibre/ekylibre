@@ -1728,6 +1728,22 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="animal_foods">
+        <page to="backend/animal_foods#list"/>
+      </item>
+      <item name="animal_products">
+        <page to="backend/animal_products#list"/>
+      </item>
+      <item name="plant_fertilizers">
+        <page to="backend/plant_fertilizers#list"/>
+      </item>
+      <item name="plant_products">
+        <page to="backend/plant_products#list"/>
+      </item>
+      <item name="plant_seedlings">
+        <page to="backend/plant_seedlings#list"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

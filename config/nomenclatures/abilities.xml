@@ -16,7 +16,6 @@
       <item name="care"    parameters="variety"/>
       <item name="drive"   parameters="variety"/>
       <item name="manage"  parameters="variety"/> <!-- ? -->
-      <item name="germinate"/>
       <item name="feed" parameters="variety"/>
       <item name="fertilize"/>
       <item name="catch" parameters="variety"/>
@@ -25,13 +24,13 @@
       <item name="spray"/>
       <!-- Soil working  -->
       <item name="plow"/>
-      <item name="superficial_plow"/>
+      <item name="plow_superficially"/>
       <item name="hoe"/>
       <item name="uncompact"/>
       <item name="clean"/>
       <item name="sow"/>
       <item name="implant"/>
-      <item name="take_root"/>
+      <item name="grow"/>
       <item name="mow"/>
       <item name="bunch"/>
       <item name="swath"/>

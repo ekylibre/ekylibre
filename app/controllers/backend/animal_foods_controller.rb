@@ -19,8 +19,16 @@
 
 class Backend::AnimalFoodsController < BackendController
 
+  list model: :products, scope: [:availables, "can('feed(animal)')".c] do |t|
+    t.column :number, url: true
+    t.column :name, url: true
+    t.column :net_mass, datatype: :measure
+    t.column :container, url: true
+    t.action :edit
+    t.action :destroy, if: :destroyable?
+  end
+
   def index
-    redirect_to backend_products_url
   end
 
 end

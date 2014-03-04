@@ -1,4 +1,4 @@
 require 'test_helper'
 class Backend::PlantFertilizersControllerTest < ActionController::TestCase
-  test_restfully_all_actions index: :redirect
+  test_restfully_all_actions
 end

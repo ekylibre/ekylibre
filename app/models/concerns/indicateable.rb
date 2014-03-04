@@ -6,28 +6,28 @@ module Indicateable
 
     scope :indicate, lambda { |indicator_values, options = {}|
       read_at = options[:at] || Time.now
-      conditions = []
+      ids = []
       # TODO Build conditions to filter on indicator_values
       for name, value in indicator_values
         data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
         if data.any?
-          conditions << " id IN (" + data.pluck(:product_id).join(", ") + ")"
+          ids << data.pluck(:product_id)
         end
       end
-      where(conditions.join(" AND "))
+      where(id: ids)
     }
 
     scope :not_indicate, lambda { |indicator_values, options = {}|
       read_at = options[:at] || Time.now
-      conditions = []
+      ids = []
       # TODO Build conditions to filter on indicator_values
       for name, value in indicator_values
         data = ProductReading.of_products(self, name, read_at).where("#{Nomen::Indicators[name].datatype}_value" => value)
         if data.any?
-          conditions << " id IN (" + data.pluck(:product_id).join(", ") + ")"
+          ids << data.pluck(:product_id)
         end
       end
-      where.not(conditions.join(" AND "))
+      where.not(id: ids)
     }
 
   end

@@ -102,7 +102,7 @@
             frozen_indicators_values=""
             />
       <!-- CROP -->
-                   <!-- WHEAT CROP -->
+      <!-- WHEAT CROP -->
       <item name="wheat_crop"
             nature="cereal_crop"
             variety="triticum_aestivum"
@@ -146,7 +146,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-        <!-- TRITICALE CROP -->
+      <!-- TRITICALE CROP -->
       <item name="triticale_crop"
             nature="cereal_crop"
             variety="triticosecale"
@@ -231,7 +231,7 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <!-- INDUSTRIAL CROP -->
+      <!-- INDUSTRIAL CROP -->
       <item name="sunflower_crop"
             nature="grain_crop"
             variety="helianthus"
@@ -274,37 +274,37 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="beet_crop"
+      <item name="beet_crop"
             nature="crop"
             variety="beta"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="potato_crop"
+      <item name="potato_crop"
             nature="crop"
             variety="solanum"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="sorghum_crop"
+      <item name="sorghum_crop"
             nature="crop"
             variety="sorghum"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="lavender_crop"
+      <item name="lavender_crop"
             nature="crop"
             variety="lavandula"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="tobacco_crop"
+      <item name="tobacco_crop"
             nature="crop"
             variety="nicotiana"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <!-- MEADOW CROP -->
+      <!-- MEADOW CROP -->
       <item name="permanent_meadow_crop"
             nature="crop"
             variety="poa"
@@ -323,50 +323,50 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="annual_fallow_crop"
+      <item name="annual_fallow_crop"
             nature="crop"
             variety="poa"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="mixture_vetch_oat_pea_crop"
+      <item name="mixture_vetch_oat_pea_crop"
             nature="crop"
             variety="plant"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <!-- GARDEN CROP -->
-       <item name="garlic_crop"
+      <!-- GARDEN CROP -->
+      <item name="garlic_crop"
             nature="crop"
             variety="allium"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="asparagus_crop"
+      <item name="asparagus_crop"
             nature="crop"
             variety="asparagus"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="strawberry_crop"
+      <item name="strawberry_crop"
             nature="crop"
             variety="fragaria"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="carrot_crop"
+      <item name="carrot_crop"
             nature="crop"
             variety="daucus"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <item name="melon_crop"
+      <item name="melon_crop"
             nature="crop"
             variety="cucumis"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
-       <!-- TREE CROP -->
+      <!-- TREE CROP -->
       <item name="plum_crop"
             nature="fruit_crop"
             variety="prunus"
@@ -400,7 +400,7 @@
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <!-- TRANSFORM PRODUCT -->
-          <!-- VINE BASED -->
+      <!-- VINE BASED -->
       <item name="bottle_75cl_wine"
             nature="wine"
             derivative_of="vitis_vinifera"
@@ -599,7 +599,7 @@
             frozen_indicators_values="net_volume: 12.00liter, net_mass: 12.00kilogram"
             />
       <!-- PLANT INTRANT -->
-              <!-- MINERAL FERTILIZER -->
+      <!-- MINERAL FERTILIZER -->
       <item name="bulk_ammonitrate_33"
             nature="chemical_fertilizer"
             unit_name="ton"
@@ -615,8 +615,8 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
             />
-            <!-- ORGANIC FERTILIZER -->
-                  <!-- CATTLE -->
+      <!-- ORGANIC FERTILIZER -->
+      <!-- CATTLE -->
       <item name="cattle_manure"
             nature="organic_fertilizer"
             variety="manure"
@@ -624,28 +624,28 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.54percent, potassium_concentration: 0.30percent, phosphorus_concentration: 0.11percent"
             />
-            <item name="cattle_slurry"
+      <item name="cattle_slurry"
             nature="organic_fertilizer"
             variety="slurry"
             derivative_of="bos"
             unit_name="cubic_meter"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.40percent"
             />
-            <item name="cattle_liquid_slurry"
+      <item name="cattle_liquid_slurry"
             nature="organic_fertilizer"
             variety="liquid_slurry"
             derivative_of="bos"
             unit_name="cubic_meter"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.30percent"
             />
-            <item name="cattle_compost"
+      <item name="cattle_compost"
             nature="organic_fertilizer"
             variety="compost"
             derivative_of="bos"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.70cubic_meter, nitrogen_concentration: 0.8percent"
             />
-            <!-- PIG -->
+      <!-- PIG -->
       <item name="pig_manure"
             nature="organic_fertilizer"
             variety="manure"
@@ -653,144 +653,144 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.81percent"
             />
-            <item name="pig_slurry"
+      <item name="pig_slurry"
             nature="organic_fertilizer"
             variety="slurry"
             derivative_of="sus"
             unit_name="cubic_meter"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.45percent"
             />
-            <item name="pig_compost"
+      <item name="pig_compost"
             nature="organic_fertilizer"
             variety="compost"
             derivative_of="sus"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.70cubic_meter, nitrogen_concentration: 0.84percent"
             />
-            <!-- HEN -->
-            <item name="hen_manure"
+      <!-- HEN -->
+      <item name="hen_manure"
             nature="organic_fertilizer"
             variety="manure"
             derivative_of="gallus"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 2.2percent"
             />
-            <item name="hen_compost"
+      <item name="hen_compost"
             nature="organic_fertilizer"
             variety="compost"
             derivative_of="gallus"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 3percent"
             />
-            <item name="hen_slurry"
+      <item name="hen_slurry"
             nature="organic_fertilizer"
             variety="slurry"
             derivative_of="gallus"
             unit_name="cubic_meter"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.68percent"
             />
-            <item name="hen_guano"
+      <item name="hen_guano"
             nature="organic_fertilizer"
             variety="guano"
             derivative_of="gallus"
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.70cubic_meter, nitrogen_concentration: 4.0percent"
             />
-            <!-- Guineafowl -->
-            <item name="guineafowl_manure"
+      <!-- Guineafowl -->
+      <item name="guineafowl_manure"
             nature="organic_fertilizer"
             variety="manure"
             derivative_of="numida"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 2.2percent"
             />
-            <!-- DUCK -->
-            <item name="duck_manure"
+      <!-- DUCK -->
+      <item name="duck_manure"
             nature="organic_fertilizer"
             variety="manure"
             derivative_of="anas"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.1percent"
             />
-            <item name="duck_slurry"
+      <item name="duck_slurry"
             nature="organic_fertilizer"
             variety="slurry"
             derivative_of="anas"
             unit_name="cubic_meter"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.68percent"
             />
-            <!-- OTHERS -->
-            <item name="ovis_manure"
+      <!-- OTHERS -->
+      <item name="ovis_manure"
             nature="organic_fertilizer"
             variety="manure"
             derivative_of="ovis"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.67percent"
             />
-            <item name="ovis_compost"
+      <item name="ovis_compost"
             nature="organic_fertilizer"
             variety="compost"
             derivative_of="ovis"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.15percent"
             />
-            <item name="capra_manure"
+      <item name="capra_manure"
             nature="organic_fertilizer"
             variety="manure"
             derivative_of="capra"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.61percent"
             />
-            <item name="rabbit_manure"
+      <item name="rabbit_manure"
             nature="organic_fertilizer"
             variety="manure"
             derivative_of="lepus"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.85percent"
             />
-            <item name="horse_manure"
+      <item name="horse_manure"
             nature="organic_fertilizer"
             variety="manure"
             derivative_of="equus"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.82percent"
             />
-            <item name="mud"
+      <item name="mud"
             nature="organic_fertilizer"
             variety="slurry"
             derivative_of="animal"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.20percent" 
             /><!-- , dry_matter_rate: 5.00percent -->
-            <item name="urban_compost"
+      <item name="urban_compost"
             nature="organic_fertilizer"
             variety="compost"
             derivative_of="animal"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.00percent"
             />
-            <item name="green_compost"
+      <item name="green_compost"
             nature="organic_fertilizer"
             variety="compost"
             derivative_of="plant"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 1.2percent"
             />
-            <item name="sugar_vinasse"
+      <item name="sugar_vinasse"
             nature="organic_fertilizer"
             variety="grain"
             derivative_of="organic_matter"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 4.0percent"
             />
-            <item name="wine_vinasse"
+      <item name="wine_vinasse"
             nature="organic_fertilizer"
             variety="grain"
             derivative_of="organic_matter"
             unit_name="cubic_meter"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.002percent"
             />
-            <!-- VINE INPLANT -->
+      <!-- VINE INPLANT -->
       <item name="merlot_noir_so4_vine_seedling"
             nature="usual_vine_seedling"
             derivative_of="merlot_noir"
@@ -802,14 +802,14 @@
             unit_name="unit"
             frozen_indicators_values="woodstock_variety: so4"
             />
-            <!-- SEED -->
+      <!-- SEED -->
       <item name="seed"
             nature="seed"
             derivative_of="plant"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram, thousand_grains_mass: 45gram"
             />
-            <!-- WHEAT SEED -->
+      <!-- WHEAT SEED -->
       <item name="wheat_seed_25"
             nature="seed"
             derivative_of="triticum_aestivum"
@@ -870,7 +870,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-            <!-- CORN SEED -->
+      <!-- CORN SEED -->
       <item name="corn_seed_50TG"
             nature="seed"
             derivative_of="zea"
@@ -883,7 +883,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-            <!-- SUNFLOWER SEED -->
+      <!-- SUNFLOWER SEED -->
       <item name="sunflower_seed_150TG"
             nature="seed"
             derivative_of="helianthus"
@@ -896,13 +896,13 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-       <item name="alfalfa_seed"
+      <item name="alfalfa_seed"
             nature="seed"
             derivative_of="medicago"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-       <item name="mixture_seed"
+      <item name="mixture_seed"
             nature="seed"
             derivative_of="poa"
             unit_name="kilogram"
@@ -1008,7 +1008,7 @@
             unit_name="hectare"
             frozen_indicators_values="soil_nature: granite_arena_soil, net_surface_area: 1.00hectare"
             />
-       <item name="silt_schist_land_parcel"
+      <item name="silt_schist_land_parcel"
             nature="land_parcel"
             unit_name="hectare"
             frozen_indicators_values="soil_nature: silt_schist_soil, net_surface_area: 1.00hectare"
@@ -1063,12 +1063,12 @@
             unit_name="hectare"
             frozen_indicators_values="soil_nature: silt_soil, net_surface_area: 1.00hectare"
             />
-       <item name="flap_silt_land_parcel"
+      <item name="flap_silt_land_parcel"
             nature="land_parcel"
             unit_name="hectare"
             frozen_indicators_values="soil_nature: flap_silt_soil, net_surface_area: 1.00hectare"
             />
-       <item name="swamp_peaty_land_parcel"
+      <item name="swamp_peaty_land_parcel"
             nature="land_parcel"
             unit_name="hectare"
             frozen_indicators_values="soil_nature: swamp_peaty_soil, net_surface_area: 1.00hectare"
@@ -1111,7 +1111,7 @@
             unit_name="building"
             frozen_indicators_values="population: 1"
             />
-       <!-- BUILDING DIVISION -->
+      <!-- BUILDING DIVISION -->
       <item name="building_division"
             nature="building_division"
             unit_name="room"
@@ -1167,7 +1167,7 @@
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
-       <!-- EQUIPMENT -->
+      <!-- EQUIPMENT -->
       <item name="tractor"
             nature="tractor"
             unit_name="equipment"
@@ -1178,13 +1178,13 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-             <!-- EQUIPMENT FOR VINE -->
-       <item name="manual_implanter"
+      <!-- EQUIPMENT FOR VINE -->
+      <item name="manual_implanter"
             nature="implanter"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-       <item name="implanter"
+      <item name="implanter"
             nature="implanter"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
@@ -1237,7 +1237,7 @@
             />
       <!-- TANK -->
       <!-- EQUIPMENT FOR WINE -->
-       <item name="wine_tank"
+      <item name="wine_tank"
             nature="wine_tank"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
@@ -1296,7 +1296,7 @@
             nature="forager"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
-      />
+	    />
       <item name="technician"
             nature="technician"
             unit_name="person"
@@ -1307,60 +1307,60 @@
             unit_name="person"
             frozen_indicators_values="population: 1"
             />
-       <!-- GENERIC PRODUCT -->
+      <!-- GENERIC PRODUCT -->
       <item name="running_water"
             nature="running_water"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-       <item name="irrigation_water"
+      <item name="irrigation_water"
             nature="irrigation_water"
             unit_name="cubic_meter"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
             />
-       <item name="natural_water"
+      <item name="natural_water"
             nature="natural_water"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-        <item name="electricity"
+      <item name="electricity"
             nature="electricity"
             unit_name="kilowatt_hour"
             frozen_indicators_values="energy: 1.00kilowatt_hour"
             />
-        <item name="gas"
+      <item name="gas"
             nature="gas"
             unit_name="kilowatt_hour"
             frozen_indicators_values="energy: 1.00kilowatt_hour"
             />
-       <item name="diesel"
+      <item name="diesel"
             nature="fuel"
             unit_name="liter"
             frozen_indicators_values="energy: 10.67kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram"
             />
-       <item name="gasoline"
+      <item name="gasoline"
             nature="fuel"
             unit_name="liter"
             frozen_indicators_values="energy: 9.85kilowatt_hour, net_volume: 1liter, net_mass: 0.8kilogram"
             />
-       <item name="motor_oil"
+      <item name="motor_oil"
             nature="motor_oil"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1liter, net_mass: 0.8kilogram"
             />
-       <item name="hydraulic_oil"
+      <item name="hydraulic_oil"
             nature="hydraulic_oil"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1liter, net_mass: 0.8kilogram"
             />
-       <item name="bolt"
+      <item name="bolt"
             nature="mechanic_item"
             unit_name="unit"
             frozen_indicators_values="net_volume: 40milliliter, net_mass: 40gram"
             />
 
       <!-- Coop variants -->
-            <!-- SEED -->
+      <!-- SEED -->
       <item name="coop:bth_s_caphorn_r1_gau+red_25kg"
             nature="seed"
             derivative_of="caphorn"
@@ -1391,7 +1391,7 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-            <!-- FERTILIZER -->
+      <!-- FERTILIZER -->
       <item name="coop:ammonitre_33,5%_vr"
             nature="chemical_fertilizer"
             unit_name="ton"
@@ -1412,7 +1412,7 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, potassium_concentration: 60percent"
             />
-       <!-- PLANT MEDICINE -->
+      <!-- PLANT MEDICINE -->
       <item name="coop:metarex_rg_tds_20kg"
             nature="molluscicide"
             unit_name="bag"

@@ -82,7 +82,6 @@ module ActiveList
       return code
     end
 
-
     def session_initialization_code
       code  = "options = {} unless options.is_a? Hash\n"
       code << "options.update(params)\n"
