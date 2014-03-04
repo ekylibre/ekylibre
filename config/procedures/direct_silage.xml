@@ -15,7 +15,7 @@
                  forward="value / self..net_volume(cubic_meter)"
                  backward="value * self..net_volume(cubic_meter)"
                  /> <!-- t -->
-        <handler indicator="mass_area_density"   unit="ton_per_hectare" to="population"
+        <handler indicator="mass_area_density"   unit="ton_per_hectare" to="population" name="dry_matter_mass_area_density"
                  forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"
                  backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)"
                  /> <!-- qt/ha -->        

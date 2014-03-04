@@ -191,7 +191,7 @@ module Procedo
         params[:unit] = unit.symbol
       end
       default << @indicator.human_name
-      return "procedures.handlers.#{name}".t(params.merge(default: default))
+      return "procedure_handlers.#{name}".t(params.merge(default: default))
     end
 
     # Returns keys
