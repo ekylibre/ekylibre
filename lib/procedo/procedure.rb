@@ -306,8 +306,13 @@ module Procedo
         if variable.destinations.include?(:shape)
           code << "      if !@destinations[:shape].empty? and indicator == :net_surface_area and !options[:individual]\n"
           code << "        value = @destinations[:shape].area\n"
-          code << "      elsif @variant\n"
-          code << "        value = @variant.get(indicator)\n"
+          if variable.new?
+            code << "      elsif @variant\n"
+            code << "        value = @variant.get(indicator)\n"
+          else
+            code << "      elsif @actor\n"
+            code << "        value = @actor.get(indicator, at: now, gathering: !options[:individual])\n"
+          end
           code << "      else\n"
           code << "        raise UnavailableReading, \"No way to access \#{'individual ' if options[:individual]}readings for #{variable.name}#\#{indicator.inspect}\"\n"
           code << "      end\n"
