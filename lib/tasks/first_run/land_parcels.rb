@@ -59,8 +59,8 @@ load_data :land_parcels do |loader|
       # AGRI_BIO
       # ANNEE_ENGM
 
-      land_parcel_variant = ProductNatureVariant.import_from_nomenclature(:clay_limestone_land_parcel)
-      cultivable_zone_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
+      land_parcel_variant = ProductNatureVariant.import_from_nomenclature(:land_parcel)
+      
 
       RGeo::Shapefile::Reader.open(path.to_s, :srid => 2154) do |file|
         # puts "File contains #{file.num_records} records."
@@ -184,6 +184,7 @@ load_data :land_parcels do |loader|
         if r.available_water_capacity_per_area
           zone.read!(:available_water_capacity_per_area, r.available_water_capacity_per_area.in_liter_per_square_meter, at: born_at, force: true)
         end
+        w.check_point
       end
     end
   end
@@ -216,15 +217,16 @@ load_data :land_parcels do |loader|
 
          # link cultivable zone and land parcel for each entries
          #
-        for land_parcel_work_number in members
+        for land_parcel_work_number in r.members
           land_parcel = LandParcel.find_by_work_number(land_parcel_work_number)
-          geometry = shapes[r.shape_number]
-          cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
-          cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
-                                                                            :member => land_parcel,
-                                                                            :shape => Charta::Geometry.new(geometry).transform(:WGS84).to_rgeo,
-                                                                            :population => (geometry.area / zone.variant.net_surface_area.to_d(:square_meter))
-                                                                            )
+          if lp_geometry = shapes[land_parcel_work_number]
+            cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
+            cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
+                                                                              :member => land_parcel,
+                                                                              :shape => lp_geometry,
+                                                                              :population => (lp_geometry.area / land_parcel.variant.net_surface_area.to_d(:square_meter))
+                                                                              )
+          end
         end
         # # Add available_water_capacity indicator
         # if r.land_parcel_available_water_capacity
@@ -239,31 +241,33 @@ load_data :land_parcels do |loader|
     end
   else
     # create a cultivable zone for each entries
-          #
+    cultivable_zone_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
+    for landparcel in LandParcel.all
+      
           cultivable_zone = CultivableZone.create!(:variant_id => cultivable_zone_variant.id,
-                                                   :name => CultivableZone.model_name.human(locale: Preference[:language]) + " " + record.attributes['NUMERO'].to_s,
-                                                   :work_number => "ZC" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s,
+                                                   :name => CultivableZone.model_name.human(locale: Preference[:language]) + " " + landparcel.name,
+                                                   :work_number => landparcel.work_number.tr("LP","ZC"),
                                                    :variety => "cultivable_zone",
-                                                   :initial_born_at => born_at,
+                                                   :initial_born_at => landparcel.born_at,
                                                    :initial_owner => Entity.of_company,
-                                                   :identification_number => record.attributes['PACAGE'].to_s + record.attributes['CAMPAGNE'].to_s + record.attributes['NUMERO'].to_s + record.attributes['NUMERO_SI'].to_s)
+                                                   :identification_number => landparcel.identification_number.tr("LP","ZC"))
+          
+          if zc_geometry = shapes[landparcel.work_number]
+            cultivable_zone.read!(:shape, zc_geometry, at: born_at)
+            ind_area = cultivable_zone.shape_area
+          
+            cultivable_zone.read!(:population, landparcel.population, at: born_at)
 
-          cultivable_zone.read!(:shape, record.geometry, at: born_at)
-          ind_area = cultivable_zone.shape_area
-          cultivable_zone.read!(:population, ind_area.in_hectare, at: born_at)
-
-          # link a land parcel to a land parcel cluster
-          land_parcel_cluster = LandParcelCluster.find_by_work_number(record.attributes['NUMERO'].to_s)
-          land_parcel_cluster.add(land_parcel) if land_parcel_cluster
-
-          # link cultivable zone and land parcel for each entries
-          #
-          cultivable_zone_membership = CultivableZoneMembership.where(group: cultivable_zone, member: land_parcel).first
-          cultivable_zone_membership ||= CultivableZoneMembership.create!(:group => cultivable_zone,
+            # link cultivable zone and land parcel for each entries
+            #
+            cultivable_zone_membership = CultivableZoneMembership.where(group: cultivable_zone, member: land_parcel).first
+            cultivable_zone_membership ||= CultivableZoneMembership.create!(:group => cultivable_zone,
                                                                           :member => land_parcel,
-                                                                          :shape => Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo,
-                                                                          :population => record.attributes['SURF_DECL'].to_d
+                                                                          :shape => Charta::Geometry.new(land_parcel.shape).transform(:WGS84).to_rgeo,
+                                                                          :population => landparcel.population
                                                                           )
+        end
+    end
   end
 
 
