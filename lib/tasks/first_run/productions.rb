@@ -43,7 +43,7 @@ load_data :productions do |loader|
           raise "No activity family. (#{r.inspect})"          
         end
 
-        unless activity = Activity.find_by(nature: r.nature, family: activity_family.name)  
+        unless activity = Activity.find_by(nature: r.nature, family: activity_family.name, name: (r.name ? r.production_nature.human_name : r.name))  
           activity = Activity.create!(nature: r.nature, family: activity_family.name, name: (r.name ? r.production_nature.human_name : r.name))
         end
         
