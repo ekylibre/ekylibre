@@ -19,8 +19,7 @@
       <item name="net_mass"       datatype="measure" unit="kilogram" gathering="proportional_to_population"/>
       <item name="net_volume"     datatype="measure" unit="liter" gathering="proportional_to_population"/>
       <item name="net_surface_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
-      <item name="easement_area" datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
-      <!-- <item name="geographic_coordinate" datatype="point"/> -->
+      <item name="easement_area"  datatype="measure" unit="square_meter" gathering="proportional_to_population"/>
       <item name="geolocation"    datatype="point"/>
       <item name="usage_duration" datatype="measure" unit="hour"/>
       <item name="sex"            datatype="choice" choices="sexes"/>
@@ -30,17 +29,17 @@
       <item name="width"          datatype="measure" unit="meter"/>
       <item name="length"         datatype="measure" unit="meter"/>
       <item name="height"         datatype="measure" unit="meter"/>
-      <item name="figure"         datatype="choice" choices="figures"/>
+      <item name="figure"              datatype="choice" choices="figures"/>
       <item name="horizontal_rotation" datatype="measure" unit="degree"/>
-      <item name="livestock_unit" datatype="decimal" gathering="proportional_to_population"/>
+      <item name="livestock_unit"      datatype="decimal" gathering="proportional_to_population"/>
 
       <!-- for product capacity -->
       <item name="maximal_storable_net_mass"       datatype="measure" unit="kilogram" />
       <item name="nominal_storable_net_mass"       datatype="measure" unit="kilogram" />
       <item name="maximal_storable_net_volume"     datatype="measure" unit="liter" />
       <item name="nominal_storable_net_volume"     datatype="measure" unit="liter" />
-      <item name="maximal_storable_easement_area" datatype="measure" unit="square_meter" />
-      <item name="nominal_storable_easement_area" datatype="measure" unit="square_meter" />
+      <item name="maximal_storable_easement_area"  datatype="measure" unit="square_meter" />
+      <item name="nominal_storable_easement_area"  datatype="measure" unit="square_meter" />
 
       <!-- for wine product and production -->
       <item name="reference_year" datatype="integer"/><!-- for "millesime" -->

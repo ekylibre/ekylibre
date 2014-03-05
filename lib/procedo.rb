@@ -1,53 +1,27 @@
 module Procedo
-  # Namespace used to "store" compiled procedures
-  module CompiledProcedures
-  end
-
-  class MissingAttribute < StandardError
-  end
-
-  class MissingVariable < StandardError
-  end
-
-  class MissingProcedure < StandardError
-  end
-
-  class MissingRole < StandardError
-  end
-
-  class NotUniqueIdentifier < StandardError
-  end
-
-  class UnknownProcedureNature < StandardError
-  end
-
-  class UnknownRole < StandardError
-  end
-
-  class InvalidExpression < StandardError
-  end
-
-  class InvalidHandler < StandardError
-  end
-
-  class AmbiguousExpression < InvalidExpression
-  end
-
-  XMLNS = "http://www.ekylibre.org/XML/2013/procedures".freeze
-  DEFAULT_NAMESPACE = :base
+  XML_NAMESPACE       = "http://www.ekylibre.org/XML/2013/procedures".freeze
+  DEFAULT_NAMESPACE   = :base
   NAMESPACE_SEPARATOR = '-'
-  VERSION_SEPARATOR = NAMESPACE_SEPARATOR
+  VERSION_SEPARATOR   = NAMESPACE_SEPARATOR
 
+  autoload :Errors,              'procedo/errors'
   autoload :Procedure,           'procedo/procedure'
   autoload :Variable,            'procedo/variable'
   autoload :Handler,             'procedo/handler'
-  # autoload :HandlerMethod,       'procedo/handler_method'
+  autoload :Converter,           'procedo/converter'
   autoload :HandlerMethodParser, 'procedo/handler_method'
   autoload :Operation,           'procedo/operation'
   autoload :Task,                'procedo/task'
   autoload :Indicator,           'procedo/indicator'
   autoload :Action,              'procedo/action'
+  autoload :Compilers,           'procedo/compilers'
   autoload :CompiledProcedure,   'procedo/compiled_procedure'
+  autoload :CompiledVariable,    'procedo/compiled_variable'
+  autoload :FormulaFunctions,    'procedo/formula_functions'
+
+  # Namespace used to "store" compiled procedures
+  module CompiledProcedures
+  end
 
   @@list = HashWithIndifferentAccess.new
 
@@ -110,13 +84,13 @@ module Procedo
         end
         f.close
         # Add a better syntax check
-        if document.root.namespace.href.to_s == XMLNS
+        if document.root.namespace.href.to_s == XML_NAMESPACE
           document.root.xpath('xmlns:procedure').each do |element|
             procedure = Procedure.new(element)
             @@list[procedure.name] = procedure
           end
         else
-          Rails.logger.info("File #{path} is not a procedure as defined by #{XMLNS}")
+          Rails.logger.info("File #{path} is not a procedure as defined by #{XML_NAMESPACE}")
         end
       end
       return true

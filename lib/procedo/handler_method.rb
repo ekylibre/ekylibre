@@ -344,59 +344,64 @@ module Procedo
           if r3
             r0 = r3
           else
-            i4, s4 = index, []
-            if has_terminal?("(", false, index)
-              r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
-            else
-              terminal_parse_failure("(")
-              r5 = nil
-            end
-            s4 << r5
-            if r5
-              r7 = _nt_space
-              if r7
-                r6 = r7
-              else
-                r6 = instantiate_node(SyntaxNode,input, index...index)
-              end
-              s4 << r6
-              if r6
-                r8 = _nt_expression
-                s4 << r8
-                if r8
-                  r10 = _nt_space
-                  if r10
-                    r9 = r10
-                  else
-                    r9 = instantiate_node(SyntaxNode,input, index...index)
-                  end
-                  s4 << r9
-                  if r9
-                    if has_terminal?(")", false, index)
-                      r11 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                      @index += 1
-                    else
-                      terminal_parse_failure(")")
-                      r11 = nil
-                    end
-                    s4 << r11
-                  end
-                end
-              end
-            end
-            if s4.last
-              r4 = instantiate_node(Expression,input, i4...index, s4)
-              r4.extend(Primary0)
-            else
-              @index = i4
-              r4 = nil
-            end
+            r4 = _nt_function_call
             if r4
               r0 = r4
             else
-              @index = i0
-              r0 = nil
+              i5, s5 = index, []
+              if has_terminal?("(", false, index)
+                r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                @index += 1
+              else
+                terminal_parse_failure("(")
+                r6 = nil
+              end
+              s5 << r6
+              if r6
+                r8 = _nt_space
+                if r8
+                  r7 = r8
+                else
+                  r7 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s5 << r7
+                if r7
+                  r9 = _nt_expression
+                  s5 << r9
+                  if r9
+                    r11 = _nt_space
+                    if r11
+                      r10 = r11
+                    else
+                      r10 = instantiate_node(SyntaxNode,input, index...index)
+                    end
+                    s5 << r10
+                    if r10
+                      if has_terminal?(")", false, index)
+                        r12 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                        @index += 1
+                      else
+                        terminal_parse_failure(")")
+                        r12 = nil
+                      end
+                      s5 << r12
+                    end
+                  end
+                end
+              end
+              if s5.last
+                r5 = instantiate_node(Expression,input, i5...index, s5)
+                r5.extend(Primary0)
+              else
+                @index = i5
+                r5 = nil
+              end
+              if r5
+                r0 = r5
+              else
+                @index = i0
+                r0 = nil
+              end
             end
           end
         end
@@ -1117,6 +1122,319 @@ module Procedo
       end
 
       node_cache[:numeric][start_index] = r0
+
+      r0
+    end
+
+    module FunctionCall0
+      def argument
+        elements[3]
+      end
+    end
+
+    module FunctionCall1
+      def first_arg
+        elements[1]
+      end
+
+      def other_args
+        elements[2]
+      end
+
+    end
+
+    module FunctionCall2
+      def function_name
+        elements[0]
+      end
+
+      def args
+        elements[2]
+      end
+
+    end
+
+    def _nt_function_call
+      start_index = index
+      if node_cache[:function_call].has_key?(index)
+        cached = node_cache[:function_call][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      r1 = _nt_function_name
+      s0 << r1
+      if r1
+        if has_terminal?("(", false, index)
+          r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
+        else
+          terminal_parse_failure("(")
+          r2 = nil
+        end
+        s0 << r2
+        if r2
+          i4, s4 = index, []
+          r6 = _nt_space
+          if r6
+            r5 = r6
+          else
+            r5 = instantiate_node(SyntaxNode,input, index...index)
+          end
+          s4 << r5
+          if r5
+            r7 = _nt_argument
+            s4 << r7
+            if r7
+              s8, i8 = [], index
+              loop do
+                i9, s9 = index, []
+                r11 = _nt_space
+                if r11
+                  r10 = r11
+                else
+                  r10 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s9 << r10
+                if r10
+                  if has_terminal?(",", false, index)
+                    r12 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                    @index += 1
+                  else
+                    terminal_parse_failure(",")
+                    r12 = nil
+                  end
+                  s9 << r12
+                  if r12
+                    r14 = _nt_space
+                    if r14
+                      r13 = r14
+                    else
+                      r13 = instantiate_node(SyntaxNode,input, index...index)
+                    end
+                    s9 << r13
+                    if r13
+                      r15 = _nt_argument
+                      s9 << r15
+                    end
+                  end
+                end
+                if s9.last
+                  r9 = instantiate_node(SyntaxNode,input, i9...index, s9)
+                  r9.extend(FunctionCall0)
+                else
+                  @index = i9
+                  r9 = nil
+                end
+                if r9
+                  s8 << r9
+                else
+                  break
+                end
+              end
+              r8 = instantiate_node(SyntaxNode,input, i8...index, s8)
+              s4 << r8
+              if r8
+                r17 = _nt_space
+                if r17
+                  r16 = r17
+                else
+                  r16 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s4 << r16
+              end
+            end
+          end
+          if s4.last
+            r4 = instantiate_node(SyntaxNode,input, i4...index, s4)
+            r4.extend(FunctionCall1)
+          else
+            @index = i4
+            r4 = nil
+          end
+          if r4
+            r3 = r4
+          else
+            r3 = instantiate_node(SyntaxNode,input, index...index)
+          end
+          s0 << r3
+          if r3
+            if has_terminal?(")", false, index)
+              r18 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
+            else
+              terminal_parse_failure(")")
+              r18 = nil
+            end
+            s0 << r18
+          end
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(FunctionCall,input, i0...index, s0)
+        r0.extend(FunctionCall2)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:function_call][start_index] = r0
+
+      r0
+    end
+
+    module FunctionName0
+    end
+
+    module FunctionName1
+    end
+
+    def _nt_function_name
+      start_index = index
+      if node_cache[:function_name].has_key?(index)
+        cached = node_cache[:function_name][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      if has_terminal?('\G[a-z]', true, index)
+        r1 = true
+        @index += 1
+      else
+        r1 = nil
+      end
+      s0 << r1
+      if r1
+        s2, i2 = [], index
+        loop do
+          if has_terminal?('\G[a-z0-9]', true, index)
+            r3 = true
+            @index += 1
+          else
+            r3 = nil
+          end
+          if r3
+            s2 << r3
+          else
+            break
+          end
+        end
+        r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
+        s0 << r2
+        if r2
+          s4, i4 = [], index
+          loop do
+            i5, s5 = index, []
+            if has_terminal?('_', false, index)
+              r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
+            else
+              terminal_parse_failure('_')
+              r6 = nil
+            end
+            s5 << r6
+            if r6
+              s7, i7 = [], index
+              loop do
+                if has_terminal?('\G[a-z0-9]', true, index)
+                  r8 = true
+                  @index += 1
+                else
+                  r8 = nil
+                end
+                if r8
+                  s7 << r8
+                else
+                  break
+                end
+              end
+              if s7.empty?
+                @index = i7
+                r7 = nil
+              else
+                r7 = instantiate_node(SyntaxNode,input, i7...index, s7)
+              end
+              s5 << r7
+            end
+            if s5.last
+              r5 = instantiate_node(SyntaxNode,input, i5...index, s5)
+              r5.extend(FunctionName0)
+            else
+              @index = i5
+              r5 = nil
+            end
+            if r5
+              s4 << r5
+            else
+              break
+            end
+          end
+          r4 = instantiate_node(SyntaxNode,input, i4...index, s4)
+          s0 << r4
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(FunctionName,input, i0...index, s0)
+        r0.extend(FunctionName1)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:function_name][start_index] = r0
+
+      r0
+    end
+
+    def _nt_argument
+      start_index = index
+      if node_cache[:argument].has_key?(index)
+        cached = node_cache[:argument][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0 = index
+      r1 = _nt_value
+      if r1
+        r0 = r1
+      else
+        r2 = _nt_numeric
+        if r2
+          r0 = r2
+        else
+          r3 = _nt_reading
+          if r3
+            r0 = r3
+          else
+            r4 = _nt_function_call
+            if r4
+              r0 = r4
+            else
+              r5 = _nt_expression
+              if r5
+                r0 = r5
+              else
+                @index = i0
+                r0 = nil
+              end
+            end
+          end
+        end
+      end
+
+      node_cache[:argument][start_index] = r0
 
       r0
     end

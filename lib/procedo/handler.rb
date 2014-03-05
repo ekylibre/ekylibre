@@ -1,133 +1,41 @@
 module Procedo
 
-  module HandlerMethod
-
-    class Base < Treetop::Runtime::SyntaxNode
-    end
-
-    class Expression < Base
-    end
-
-    class Operation < Base
-    end
-
-    class Multiplication < Operation
-    end
-
-    class Division < Operation
-    end
-
-    class Addition < Operation
-    end
-
-    class Substraction < Operation
-    end
-
-    class Reading < Base
-    end
-
-    class MeasureReading < Reading
-    end
-
-    class IndividualReading < Reading
-    end
-
-    class WholeReading < Reading
-    end
-
-    class IndividualMeasureReading < MeasureReading
-    end
-
-    class WholeMeasureReading < MeasureReading
-    end
-
-    class Variable < Base
-    end
-
-    class Indicator < Base
-    end
-
-    class Unit < Base
-    end
-
-    class Self < Base
-    end
-
-    class Numeric < Base
-    end
-
-    class Value < Base
-    end
-
-    class << self
-
-      def parse(text)
-        @@parser ||= ::Procedo::HandlerMethodParser.new
-        unless tree = @@parser.parse(text.to_s)
-          raise SyntaxError, "Parse error at offset #{@@parser.index} in #{text.to_s.inspect}"
-        end
-        return tree
-      end
-
-      def clean_tree(root)
-        return if root.elements.nil?
-        root.elements.delete_if{ |node| node.class.name == "Treetop::Runtime::SyntaxNode" }
-        root.elements.each{ |node| clean_tree(node) }
-      end
-
-    end
-
-  end
-
   class Handler
 
-    @@whole_indicators = Nomen::Indicators.where(related_to: :whole).collect{|i| i.name.to_sym }
-
-    attr_reader :name, :unit, :indicator, :destination, :widget, :forward_tree, :backward_tree
+    attr_reader :name, :unit, :indicator, :converters, :widget
 
     def initialize(variable, element = nil)
       @variable = variable
       # Extract attributes from XML element
       unless element.is_a?(Hash)
-        element = %w(forward backward indicator unit to datatype name widget).inject({}) do |hash, attr|
-          if element.has_attribute?(attr)
+        element = %w(forward backward indicator unit to datatype name widget converters).inject({}) do |hash, attr|
+          if attr == 'converters'
+            puts element.xpath('xmlns:converter').to_a.inspect.red
+            hash[:converters] = element.xpath('xmlns:converter').to_a
+          elsif element.has_attribute?(attr)
             hash[attr.to_sym] = element.attr(attr)
           end
           hash
         end
       end
-      element[:to] ||= element[:indicator]
-      element[:to] = element[:to].to_sym
-      unless @@whole_indicators.include?(element[:to])
-        raise InvalidHandler, "Handler must have a valid destination (#{@@whole_indicators.to_sentence} expected, got #{element[:to]})"
-      end
-      element[:forward]  = "value" if element[:forward].blank?
-      element[:backward] = "value" if element[:backward].blank?
-      @destination = element[:to].to_sym
-      @widget = (element[:widget] || (@destination == :shape ? :map : :number)).to_sym
-      # Load values
-      begin
-        @forward_tree = HandlerMethod.parse(element[:forward].to_s)
-      rescue SyntaxError => e
-        raise SyntaxError, "A procedure handler (#{element.inspect}) #{variable.procedure.name} has a syntax error on forward formula: #{e.message}"
-      end
-      begin
-        @backward_tree = HandlerMethod.parse(element[:backward].to_s)
-      rescue SyntaxError => e
-        raise SyntaxError, "A procedure handler (#{element.inspect}) #{variable.procedure.name} has a syntax error on backward formula: #{e.message}"
-      end
+
+      # Check indicator
       unless @indicator = Nomen::Indicators[element[:indicator]]
-        raise InvalidHandler, "Handler must have a valid 'indicator' attribute. Got: #{element[:indicator].inspect}"
+        raise Procedo::Errors::InvalidHandler, "Handler of #{@variable.name} must have a valid 'indicator' attribute. Got: #{element[:indicator].inspect}"
       end
+
+      # Get and check measure unit
       if @indicator.datatype == :measure
         if element.has_key?(:unit)
           unless @unit = Nomen::Units[element[:unit]]
-            raise InvalidHandler, "Handler must have a valid 'unit' attribute. Got: #{element[:unit].inspect}"
+            raise Procedo::Errors::InvalidHandler, "Handler must have a valid 'unit' attribute. Got: #{element[:unit].inspect}"
           end
         else
           @unit = @indicator.unit
         end
       end
+
+      # Set name
       name = element[:name].to_s
       if name.blank?
         name = @indicator.name.dup
@@ -136,21 +44,26 @@ module Procedo
         end
       end
       @name = name.to_sym
-    end
 
-
-    def self.count_variables(node, name)
-      if (node.is_a?(Procedo::HandlerMethod::Self) and name == :self) or 
-          (node.is_a?(Procedo::HandlerMethod::Variable) and name.to_s == node.text_value)
-        return 1
+      # Collect converters
+      @converters = []
+      if element[:converters] and element[:converters].any?
+        for converter in element[:converters]
+          @converters << Converter.new(self, converter)          
+        end
+      else
+        element[:to] ||= @indicator.name
+        converter = {to: element[:to].to_sym}
+        converter[:forward]  = (element[:forward].blank?  ? "value" : element[:forward])
+        converter[:backward] = (element[:backward].blank? ? "value" : element[:backward])
+        @converters << Converter.new(self, converter)
+      # else
+      #   raise Procedo::Errors::InvalidHandler, "Handler #{unique_name} (in #{procedure.name}) must have one converter at least with attribute 'to' or <converter> tags."
       end
-      return 0 unless node.elements
-      return node.elements.inject(0) do |count, child|
-        count += count_variables(child, name)
-        count
-      end
-    end
 
+      # Define widget
+      @widget = (element[:widget] || (@indicator.datatype == :geometry ? :map : :number)).to_sym
+    end
 
     def procedure
       @variable.procedure
@@ -160,9 +73,13 @@ module Procedo
       !@unit.nil?
     end
 
-    def destination_unique_name
-      "#{@variable.name}_#{destination}"
+    def destinations
+      converters.map(&:destination).uniq
     end
+
+    # def destination_unique_name
+    #   "#{@variable.name}_#{destination}"
+    # end
 
     # Returns the unique name of an handler inside a given procedure
     def unique_name
@@ -194,10 +111,29 @@ module Procedo
       return "procedure_handlers.#{name}".t(params.merge(default: default))
     end
 
+    def backward_converters
+      converters.select(&:backward?)
+    end
+    
+    def forward_converters
+      converters.select(&:forward?)
+    end
+    
+
     # Returns keys
-    def depend_on?(variable_name)
-      self.class.count_variables(@forward_tree, variable_name) > 0 or 
-        self.class.count_variables(@backward_tree, variable_name) > 0
+    def depend_on?(variable_name, mode = nil)
+      self.converters.each do |converter|
+        return true if converter.depend_on?(variable_name, mode)
+      end
+      return false
+    end
+    
+    def forward_depend_on?(variable_name)
+      depend_on?(variable_name, :forward)
+    end
+
+    def backward_depend_on?(variable_name)
+      depend_on?(variable_name, :backward)
     end
 
   end

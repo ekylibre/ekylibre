@@ -18,21 +18,12 @@ module Procedo
     end
 
     rule primary
-      value / numeric / reading / "(" space? expression space? ")" <Expression>
+      value / numeric / reading / function_call / "(" space? expression space? ")" <Expression>
     end
 
     rule reading
-      # individual_measure_reading / individual_reading / whole_measure_reading / whole_reading
       individual_reading / whole_reading
     end
-
-    # rule individual_measure_reading
-    #   actor ".." indicator "(" unit ")" <IndividualMeasureReading>
-    # end
-
-    # rule whole_measure_reading
-    #   actor "." indicator "(" unit ")" <WholeMeasureReading>
-    # end
 
     rule individual_reading
       actor ".." indicator options:("(" unit ")")? <IndividualReading>
@@ -60,6 +51,18 @@ module Procedo
 
     rule numeric
       ([1-9] [0-9]* / '0') ('.' [0-9]+)? <Numeric>
+    end
+
+    rule function_call
+      function_name "(" args:(space? first_arg:argument other_args:(space? "," space? argument)* space? )? ")" <FunctionCall>
+    end
+
+    rule function_name
+      [a-z] [a-z0-9]* ('_' [a-z0-9]+)* <FunctionName>
+    end
+
+    rule argument
+      value / numeric / reading / function_call / expression
     end
 
     rule space
