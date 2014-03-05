@@ -870,7 +870,7 @@
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <!-- CORN SEED -->
-      <item name="corn_seed_50TG"
+      <item name="corn_seed_50tg"
             nature="seed"
             derivative_of="zea"
             unit_name="50TG_bag"
@@ -883,7 +883,7 @@
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <!-- SUNFLOWER SEED -->
-      <item name="sunflower_seed_150TG"
+      <item name="sunflower_seed_150tg"
             nature="seed"
             derivative_of="helianthus"
             unit_name="150TG_bag"
