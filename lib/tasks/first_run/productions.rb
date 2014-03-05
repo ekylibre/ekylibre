@@ -2,7 +2,8 @@
 load_data :productions do |loader|
 
   #############################################################################
-
+  if loader.manifest[:create_activities_from_telepac] == false
+  #
   file = loader.path("alamano", "activities.csv")
   if file.exist?
     loader.count :activities_import do |w|
@@ -85,6 +86,7 @@ load_data :productions do |loader|
         w.check_point
       end
     end
+  end
   end
 
 end

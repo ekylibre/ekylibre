@@ -9,7 +9,7 @@
     <items>
       <!-- MAPING GIS -->
       <item name="cartodb_login" />
-      <item name="cartodb_url" />
+      <item name="cartodb_subdomain" />
       <item name="cartodb_api_key" />
       <!-- TELEPAC -->
       <item name="pacage_number" />
