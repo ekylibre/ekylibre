@@ -3,6 +3,9 @@ require 'zip'
 module Ekylibre
   module FirstRun
 
+    COUNTER_MAX = -1
+    
+
     LOADERS = [:base, :general_ledger, :entities, :buildings, :products, :animals, :land_parcels, :productions, :analyses, :sales, :deliveries, :interventions, :guides]
     
     class CountExceeded < StandardError
