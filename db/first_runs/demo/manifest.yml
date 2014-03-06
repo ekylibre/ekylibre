@@ -3,6 +3,7 @@ country: fr                                      # Code pays
 language: fra                                    # Code langue
 map_measure_srid: 2154                           # Code référentiel spatial
 demo: true                                       # Mode démo (oui/non)
+create_activities_from_telepac: false		 # Création des activités uniquement à partir des fichiers TELEPAC
 company:
   last_name: GAEC DUPONT                         # Nom
   addresses:

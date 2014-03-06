@@ -9,12 +9,18 @@
       <property-nature name="identifiers" type="list" nomenclature="identifier_natures" required="true"/>
     </property-natures>
     <items>
-      <!-- CROP -->
+      <!-- CROP MAPING GIS-->
       <item name="telepac"
           nature="vegetal_crops"
           url="https://www3.telepac.agriculture.gouv.fr/telepac/auth/accueil.action"
           approach="human"
           identifiers="pacage_number, password"
+          />
+      <item name="cartodb"
+          nature="exploitation"
+          url="https://cartodb.com"
+          approach="human"
+          identifiers="cartodb_login, password"
           />
       <!-- ANIMAL FARMING -->
       <!-- ANIMAL IDENTIFICATION -->

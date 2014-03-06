@@ -870,7 +870,7 @@
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <!-- CORN SEED -->
-      <item name="corn_seed_50TG"
+      <item name="corn_seed_50tg"
             nature="seed"
             derivative_of="zea"
             unit_name="50TG_bag"
@@ -883,7 +883,7 @@
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <!-- SUNFLOWER SEED -->
-      <item name="sunflower_seed_150TG"
+      <item name="sunflower_seed_150tg"
             nature="seed"
             derivative_of="helianthus"
             unit_name="150TG_bag"
@@ -980,97 +980,7 @@
       <item name="land_parcel"
             nature="land_parcel"
             unit_name="hectare"
-            frozen_indicators_values="soil_nature: sandy_clay_loam_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="clay_limestone_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: clay_limestone_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="champagne_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: champagne_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="aubues_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: aubues_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="red_chesnut_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: chesnut_red_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="granite_arena_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: granite_arena_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="silt_schist_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: silt_schist_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="black_valley_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: black_valley_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="valley_terrace_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: valley_terrace_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="sandy_clay_loam_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: sandy_clay_loam_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="hydromorph_sandy_clay_loam_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: hydromorph_sandy_clay_loam_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="sandy_clay_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: sandy_clay_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="clay_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: clay_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="silty_clay_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: silty_clay_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="silty_clay_loam_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: silty_clay_loam_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="sand_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: sand_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="silt_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: silt_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="flap_silt_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: flap_silt_soil, net_surface_area: 1.00hectare"
-            />
-      <item name="swamp_peaty_land_parcel"
-            nature="land_parcel"
-            unit_name="hectare"
-            frozen_indicators_values="soil_nature: swamp_peaty_soil, net_surface_area: 1.00hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="land_parcel_cluster"
             nature="land_parcel_cluster"

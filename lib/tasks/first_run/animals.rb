@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 load_data :animals do |loader|
-
+  
+  file = loader.path("alamano", "animal_groups.csv")
+  if file.exist?
   # find animals credentials in preferences
   cattling_root_number = Identifier.find_by_nature(:cattling_root_number).value
 
@@ -249,5 +251,5 @@ load_data :animals do |loader|
       f.close
     end
   end
-
+  end
 end
