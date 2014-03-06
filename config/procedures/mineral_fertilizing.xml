@@ -10,16 +10,16 @@
                  backward="(value * self..net_mass(kilogram)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg N/ha -->
        <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self..nitrogen_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self..nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg N/ha -->          
        <handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self..phosphorus_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self..phosphorus_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg P/ha -->         
       <handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self..potassium_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self..potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg P/ha -->            
                  
       </variable>  
