@@ -25,9 +25,8 @@ module Procedo
       element.xpath('xmlns:handler').each do |el|
         handler = Handler.new(self, el)
         @handlers << handler
-        unless @needs.include?(handler.destination)
-          @needs << handler.destination
-        end
+        @needs += handler.destinations
+        @needs.uniq!
       end
       hnames = @handlers.map(&:name)
       if hnames.size != hnames.uniq.size
@@ -39,7 +38,7 @@ module Procedo
           @handlers << Handler.new(self, indicator: need)
         end
       end
-      @destinations = @handlers.collect(&:destination).uniq
+      @destinations = @handlers.map(&:destinations).flatten.uniq
       @default_destinations = {}.with_indifferent_access
       for destination in @destinations
         attr_name = "default-#{destination}"
@@ -162,7 +161,7 @@ module Procedo
           attr = "derivative_of" if attr.blank?
           attr.gsub!(/\-/, "_")
           unless variable = @procedure.variables[other]
-            raise MissingVariable, "Variable #{other.inspect} can not be found"
+            raise Procedo::Errors::MissingVariable, "Variable #{other.inspect} can not be found"
           end
           return variable.send("computed_#{attr}")
         else
@@ -223,6 +222,16 @@ module Procedo
     def default(destination)
       @default_destinations[destination]
     end
+
+    # Returns backward converters from a given destination
+    def backward_converters_from(destination)
+      return handlers.collect do |handler|
+        handler.converters.select do |converter|
+          converter.destination == destination and converter.backward?
+        end
+      end.flatten.compact
+    end
+
 
     # Returns dependent variables. Variables that point on me
     def dependent_variables

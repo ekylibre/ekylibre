@@ -1152,6 +1152,9 @@ eng:
     identifier_natures:
       item_lists: #?
       items:
+        # cartodb_api_key: "Cartodb api key"
+        # cartodb_login: "Cartodb login"
+        # cartodb_subdomain: "Cartodb subdomain"
         # cattling_number: "Numéro de détenteur"
         # cattling_root_number: "Numéro racine du troupeau"
         # charentes_alliance_extranet_username: "Login Extranet Charentes alliance "
@@ -1480,6 +1483,7 @@ eng:
           # soap: "Soap"
         data_acces_method: #?
       items:
+        # cartodb: "Cartodb"
         # charentes_alliance_extranet: "Charentes alliance extranet"
         # est_elevage: "Est élevage"
         # lilco: "Lilco"
@@ -1771,7 +1775,6 @@ eng:
         # corn_grain: "Graine de maïs"
         # corn_grain_crop: "Culture de maïs grain"
         # corn_seed_25: "Semence de maïs - sac de 25kg"
-        # corn_seed_50TG: "Semence de maïs - sac de 50.000 grains"
         # corn_seed_crop: "Culture de maïs semence"
         # corn_silage: "Ensilage de maïs"
         # corn_silage_crop: "Culture de maïs ensilage"
@@ -1904,7 +1907,6 @@ eng:
         # strawberry_crop: "Culture de fraisier"
         # sugar_vinasse: "Vinasse de sucrerie"
         # sunflower_crop: "Culture de tournesol"
-        # sunflower_seed_150TG: "Semence de tournesol - sac de 150.000 grains"
         # superficial_plow: "Cultipacker"
         # tablur_hard_wheat_crop: "Culture de blé dur Tablur"
         # tablur_hard_wheat_seed_25: "Semence de blé dur Tablur sac de 25kg"

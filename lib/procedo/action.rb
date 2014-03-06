@@ -72,7 +72,7 @@ module Procedo
         end
       end
       if stakeholders.any?
-        raise InvalidExpression, "Expression #{@expression.inspect} doesn't give all stakeholders. Missing stakeholders: #{stakeholders.inspect}"
+        raise Procedo::Errors::InvalidExpression, "Expression #{@expression.inspect} doesn't give all stakeholders. Missing stakeholders: #{stakeholders.inspect}"
       end
       exp = "\\A" + @expression.gsub(/[[:space:]]+/, '\\s+').gsub(/\{[^\}]+\}/) do |actor|
         actor = actor[1..-2].to_sym

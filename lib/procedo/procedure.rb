@@ -5,98 +5,6 @@ module Procedo
     shape: ["whole#net_surface_area"]
   }
 
-  class UnavailableReading < StandardError
-  end
-
-  class CompiledVariable
-    attr_accessor :destinations, :handlers, :procedure, :actor, :variant
-
-    def initialize(procedure)
-      raise "Invalid procedure" unless procedure.is_a?(Procedo::CompiledProcedure)
-      @procedure = procedure
-      @destinations = {}.with_indifferent_access
-      @handlers = {}.with_indifferent_access
-      @actor = nil
-      @variant = nil
-    end
-
-    def now
-      @procedure.now!
-    end
-
-    def actor_id
-      (@actor ? @actor.id : nil)
-    end
-
-    def variant_id
-      (@variant ? @variant.id : nil)
-    end
-
-  end
-
-  class Rubyist
-
-    attr_reader :variables, :compiled, :value_calls_count
-    attr_accessor :value, :self_value
-
-    def initialize(options = {})
-      @self_value  = options[:self]  || "self"
-      @value = options[:value] || "value"
-    end
-
-    def compile(object)
-      @variables = []
-      @value_calls_count = 0
-      @compiled = rewrite(object)
-      return compiled
-    end
-
-    protected
-
-    def rewrite(object)
-      if object.is_a?(Procedo::HandlerMethod::Expression)
-        "(" + rewrite(object.expression) + ")"
-      elsif object.is_a?(Procedo::HandlerMethod::Multiplication)
-        rewrite(object.head) + " * " + rewrite(object.operand)
-      elsif object.is_a?(Procedo::HandlerMethod::Division)
-        rewrite(object.head) + " / " + rewrite(object.operand)
-      elsif object.is_a?(Procedo::HandlerMethod::Addition)
-        rewrite(object.head) + " + " + rewrite(object.operand)
-      elsif object.is_a?(Procedo::HandlerMethod::Substraction)
-        rewrite(object.head) + " - " + rewrite(object.operand)
-      elsif object.is_a?(Procedo::HandlerMethod::Value)
-        @value_calls_count += 1
-        @value.to_s
-      elsif object.is_a?(Procedo::HandlerMethod::Self)
-        @self_value.to_s
-      elsif object.is_a?(Procedo::HandlerMethod::Variable)
-        @variables << object.text_value.to_sym
-        "procedure.#{object.text_value}"
-      elsif object.is_a?(Procedo::HandlerMethod::Numeric)
-        object.text_value.to_s
-      elsif object.is_a?(Procedo::HandlerMethod::Reading)
-        unit = nil
-        if object.options
-          unless unit = Nomen::Units[object.options.unit.text_value]
-            raise "Valid unit expected in #{object.inspect}"
-          end
-        end
-        rewrite(object.actor) +
-          ".get(:" + Nomen::Indicators[object.indicator.text_value].name.to_s +
-          (object.is_a?(Procedo::HandlerMethod::IndividualReading) ? ", individual: true" : "") +
-          ")" +
-          (unit ? ".to_f(:#{unit.name})" : "")
-      elsif object.nil?
-        "null"
-      else
-        puts object.class.name.red
-        "(" + object.class.name + ")"
-      end
-    end
-
-  end
-
-
 
   # This class represents a procedure
   class Procedure
@@ -121,7 +29,7 @@ module Procedo
       # Check version
       @version = element.attr("version").to_s
       unless @version =~ /\A\d+\z/
-        raise MissingAttribute, "Valid attribute 'version' must be given for the procedure #{not_so_short_name}"
+        raise Procedo::Errors::MissingAttribute, "Valid attribute 'version' must be given for the procedure #{not_so_short_name}"
       end
       @version = @version.to_i
 
@@ -132,7 +40,7 @@ module Procedo
       roles  = []
       for nature in @natures
         unless item = Nomen::ProcedureNatures[nature]
-          raise UnknownProcedureNature, "Procedure nature #{nature} is unknown for #{self.name}."
+          raise Procedo::Errors::UnknownProcedureNature, "Procedure nature #{nature} is unknown for #{self.name}."
         end
         # List all roles
         roles += item.roles.collect{|role| "#{nature}-#{role}"}
@@ -154,7 +62,7 @@ module Procedo
           if roles.include?(role)
             given_roles << role
           else
-            raise UnknownRole, "Role #{role} is ungiveable in procedure #{self.name}"
+            raise Procedo::Errors::UnknownRole, "Role #{role} is ungiveable in procedure #{self.name}"
           end
         end
         hash[variable.attr("name").to_s] = v
@@ -164,7 +72,7 @@ module Procedo
       # Check ungiven roles
       remaining_roles = roles - given_roles.uniq
       if remaining_roles.any?
-        raise MissingRole, "Remaining roles of procedure #{self.name} are not given: #{remaining_roles.join(', ')}"
+        raise Procedo::Errors::MissingRole, "Remaining roles of procedure #{self.name} are not given: #{remaining_roles.join(', ')}"
       end
 
       # Check producers
@@ -180,7 +88,7 @@ module Procedo
         hash
       end
       unless @operations.keys.size == element.xpath("xmlns:operations/xmlns:operation").size
-        raise NotUniqueIdentifier.new("Each operation must have a unique identifier (#{self.name})")
+        raise Procedo::Errors::NotUniqueIdentifier.new("Each operation must have a unique identifier (#{self.name})")
       end
 
       # Compile it
@@ -279,7 +187,7 @@ module Procedo
 
     # Compile a procedure to manage interventions
     def compile!
-      rubyist = Procedo::Rubyist.new
+      rubyist = Procedo::Compilers::Rubyist.new
       full_name = ["::Procedo", "CompiledProcedures", self.namespace.to_s.camelcase, self.short_name.to_s.camelcase, "V#{self.version}"]
       code = "class #{full_name.last} < ::Procedo::CompiledProcedure\n\n"
       
@@ -314,11 +222,11 @@ module Procedo
             code << "        value = @actor.get(indicator, at: now, gathering: !options[:individual])\n"
           end
           code << "      else\n"
-          code << "        raise UnavailableReading, \"No way to access \#{'individual ' if options[:individual]}readings for #{variable.name}#\#{indicator.inspect}\"\n"
+          code << "        raise Procedo::Errors::UnavailableReading, \"No way to access \#{'individual ' if options[:individual]}readings for #{variable.name}#\#{indicator.inspect}\"\n"
           code << "      end\n"
         else
           code << "      unless #{variable.new? ? '@variant' : '@actor'}\n"
-          code << "        raise UnavailableReading, \"No way to access \#{'individual ' if options[:individual]}readings for #{variable.name}#\#{indicator.inspect}\"\n"
+          code << "        raise Procedo::Errors::UnavailableReading, \"No way to access \#{'individual ' if options[:individual]}readings for #{variable.name}#\#{indicator.inspect}\"\n"
           code << "      end\n"
           if variable.new?
             code << "      value = @variant.get(indicator)\n"
@@ -327,7 +235,7 @@ module Procedo
           end
         end
         code << "      unless value\n"
-        code << "        raise UnavailableReading, \"Nil \#{'individual' if options[:individual]}reading given #{variable.name}#\#{indicator.inspect}\"\n"
+        code << "        raise Procedo::Errors::UnavailableReading, \"Nil \#{'individual' if options[:individual]}reading given #{variable.name}#\#{indicator.inspect}\"\n"
         code << "      end\n"
         code << "      datatype = Nomen::Indicators[indicator].datatype\n"
         code << "      return (datatype == :decimal ? value.to_s.to_f : value)\n"
@@ -340,24 +248,23 @@ module Procedo
           code << "    def impact_destination_#{destination}!\n"
           code << "      puts \"#{variable.name}#impact_destination_#{destination}!(\#{@destinations[:#{destination}]})\".yellow\n"
           # Updates handlers through backward formula
-          for h in variable.handlers.select{|h| h.destination == destination }
+          for converter in variable.backward_converters_from(destination)
             rubyist.value = "@destinations[:#{destination}]"
-            rubyist.compile(h.backward_tree)
+            rubyist.compile(converter.backward_tree)
             code << "      begin\n"
             code << "        value = #{rubyist.compiled}\n"
-            code << "        if value != @handlers[:#{h.name}]\n"
-            # code << "          puts \"#{variable.name}:handlers:#{h.name}: \#{value.inspect} (\#{@handlers[:#{h.name}].inspect})\".red\n"
-            code << "          @handlers[:#{h.name}] = value\n"
-            code << "          impact_handler_#{h.name}!\n"
+            code << "        if value != @handlers[:#{converter.handler.name}]\n"
+            code << "          @handlers[:#{converter.handler.name}] = value\n"
+            code << "          impact_handler_#{converter.handler.name}!\n"
             code << "        end\n"
-            code << "      rescue UnavailableReading => e\n"
+            code << "      rescue Procedo::Errors::UncomputableFormula => e\n"
             code << "        puts e.message.red\n"
             code << "      end\n"
           end
           # Impacts on handlers of other variables that uses "our" destination
           for other in variable.others
             for handler in other.handlers
-              if handler.depend_on?(variable.name)
+              if handler.forward_depend_on?(variable.name)
                 code << "      # Updates #{handler.name} of #{other.name} if possible\n"
                 code << "      procedure.#{other.name}.impact_handler_#{handler.name}!\n"
               end
@@ -371,25 +278,26 @@ module Procedo
         for h in variable.handlers
           code << "    def impact_handler_#{h.name}!\n"
           code << "      puts \"#{variable.name}#impact_handler_#{h.name}!\".yellow\n"
-          rubyist.value = "@handlers[:#{h.name}]"
-          rubyist.compile(h.forward_tree)
-          code << "      value = #{rubyist.compiled}\n"
-          code << "      if value != @destinations[:#{h.destination}]\n"
-          code << "        puts \"#{variable.name}#value: \#{value.inspect} (\#{@destinations[:#{destination}].inspect})\".red\n"
-          code << "        @destinations[:#{destination}] = value\n"
-          code << "        impact_destination_#{h.destination}!\n"
-          code << "      end\n"
-          code << "    rescue UnavailableReading => e\n"
-          code << "      puts e.message.red\n"
+          for converter in h.forward_converters
+            rubyist.value = "@handlers[:#{h.name}]"
+            rubyist.compile(converter.forward_tree)
+            code << "      begin\n"
+            code << "        value = #{rubyist.compiled}\n"
+            code << "        if value != @destinations[:#{converter.destination}]\n"
+            code << "          puts \"#{variable.name}#value: \#{value.inspect} (\#{@destinations[:#{converter.destination}].inspect})\".blue\n"
+            code << "          @destinations[:#{converter.destination}] = value\n"
+            code << "          impact_destination_#{converter.destination}!\n"
+            code << "        end\n"
+            code << "      rescue Procedo::Errors::UncomputableFormula => e\n"
+            code << "        puts e.message.red\n"
+            code << "      end\n"
+          end
           code << "    end\n\n"
         end
 
         # Actor or Variant
         code << "    def impact_#{variable.new? ? :variant : :actor}!\n"
         code << "      puts \"#{variable.name}#impact_#{variable.new? ? :variant : :actor}!\".yellow\n"
-
-        
-
 
         if variable.others.detect{|other| other.parted? and other.producer == variable }
           variant      = (variable.new? ? "@variant" : "@actor.variant")
@@ -428,7 +336,7 @@ module Procedo
                 code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
               end
               code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
-              code << "        rescue UnavailableReading => e\n"
+              code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
               code << "          puts e.message.red\n"
               code << "        end\n"            
               code << "      end\n"            
@@ -445,31 +353,39 @@ module Procedo
               code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n" 
             end
             code << "          impact_destination_#{destination}!\n"
-            code << "        rescue UnavailableReading => e\n"
+            code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
             code << "          puts e.message.red\n"
             code << "        end\n"            
           end
         end
 
         # Refresh depending handlers
-        # for destination in variable.destinations
-        #   code << "      impact_destination_#{destination}!\n"
-        # end
         for handler in variable.handlers
-          if handler.depend_on?(:self)
+          if handler.forward_depend_on?(:self)
             code << "      # Updates #{handler.name} of self if possible\n"
             code << "      impact_handler_#{handler.name}!\n"
+          elsif handler.backward_depend_on?(:self)
+            for converter in handler.converters.select{|c| c.backward_depend_on?(:self) }
+              code << "      # Updates #{converter.destination} of self if possible\n"
+              code << "      impact_destination_#{converter.destination}!\n"
+            end
           end
         end
 
         for other in variable.others
           for handler in other.handlers
-            if handler.depend_on?(variable.name)
+            if handler.forward_depend_on?(variable.name)
               code << "      # Updates #{handler.name} of #{other.name} if possible\n"
               code << "      procedure.#{other.name}.impact_handler_#{handler.name}!\n"
+            elsif handler.backward_depend_on?(variable.name)
+              for converter in handler.converters.select{|c| c.backward_depend_on?(variable.name) }
+                code << "      # Updates #{converter.destination} of self if possible\n"
+                code << "      impact_destination_#{converter.destination}!\n"
+              end
             end
           end
         end
+
         code << "    end\n\n"
         
         code << "  end\n\n"

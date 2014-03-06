@@ -1684,6 +1684,9 @@ fra:
         specifications: "Spécifications"
     identifier:
       nature:
+        cartodb_api_key: "Cartodb api key"
+        cartodb_login: "Cartodb login"
+        cartodb_subdomain: "Cartodb subdomain"
         cattling_number: "Numéro de détenteur"
         cattling_root_number: "Numéro racine du troupeau"
         charentes_alliance_extranet_username: "Login Extranet Charentes alliance "
@@ -2992,6 +2995,7 @@ fra:
         zone_property_title: "Titre de propriété terrienne"
     net_service:
       reference_name:
+        cartodb: "Cartodb"
         charentes_alliance_extranet: "Charentes alliance extranet"
         est_elevage: "Est élevage"
         lilco: "Lilco"

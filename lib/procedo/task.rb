@@ -60,21 +60,21 @@ module Procedo
       if element.has_attribute?("do")
         @expression = element.attr("do").to_s.strip.gsub(/[[:space:]]+/, ' ')
       else
-        raise MissingAttribute, "Attribute 'do' is mandatory"
+        raise Procedo::Errors::MissingAttribute, "Attribute 'do' is mandatory"
       end
       @action = nil
 
       for action in ACTIONS
         if action.match(@expression)
           if @action
-            raise AmbiguousExpression, "Given expression #{@expression.inspect} match with many actions: #{@action.name} and #{action.name}"
+            raise Procedo::Errors::AmbiguousExpression, "Given expression #{@expression.inspect} match with many actions: #{@action.name} and #{action.name}"
           else
             @action = action
           end
         end
       end
       unless @action
-        raise InvalidExpression, "Expression #{@expression.inspect} is invalid"
+        raise Procedo::Errors::InvalidExpression, "Expression #{@expression.inspect} is invalid"
       end
 
       # Returns a hash with parameters

@@ -68,14 +68,18 @@
         if attributes.handlers?
           for handler, value of attributes.handlers
             $("*[data-procedure='#{procedure}'][data-variable='#{variable}'][data-variable-handler='#{handler}']").each (index) ->
-              if $(this).is(":ui-mapeditor")
-                $(this).mapeditor "show", value
-                $(this).mapeditor "edit", value
+              element = $(this)
+              if element.is(":ui-mapeditor")
+                console.log "Yeah?"
+                console.log value
+                element.mapeditor "show", value
+                element.mapeditor "edit", value
                 try
-                  $(this).mapeditor "view", "edit"
-              else if value != parseFloat $(this).val()
-                unless updater == $(this).data('intervention-updater')
-                  $(this).val(value)
+                  element.mapeditor "view", "edit"
+                console.log "Yeah!!!"
+              else if value != parseFloat element.val()
+                unless updater == element.data('intervention-updater')
+                  element.val(value)
                 
         if attributes.destinations?
           for destination, value of attributes.destinations

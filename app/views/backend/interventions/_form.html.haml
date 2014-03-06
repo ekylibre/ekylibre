@@ -30,7 +30,7 @@
           .handlers
             -# Handlers
             - for handler in reference.handlers
-              .handler{class: handler.destination}
+              .handler{class: handler.widget}
                 .title= handler.human_name
                 .value
                   - if handler.widget == :number

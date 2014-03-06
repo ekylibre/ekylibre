@@ -8,7 +8,7 @@ module Procedo
       if element.has_attribute?('id')
         @id = element.attr('id').to_s
       else
-        raise MissingAttribute.new("Each operation must have an id attribute (which must be a decimal integer). In: #{@procedure.signature}.")
+        raise Procedo::Errors::MissingAttribute.new("Each operation must have an id attribute (which must be a decimal integer). In: #{@procedure.signature}.")
       end
       if element.has_attribute?('duration')
         expr = element.attr('duration').to_s.strip.split(/\s+/)
