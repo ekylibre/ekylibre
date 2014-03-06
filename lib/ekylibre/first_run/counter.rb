@@ -1,8 +1,6 @@
 module Ekylibre
   module FirstRun
     
-    MAX = -1
-    
     class Counter
       attr_reader :count
       

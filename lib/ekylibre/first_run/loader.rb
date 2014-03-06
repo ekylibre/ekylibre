@@ -9,7 +9,7 @@ module Ekylibre
         @folder = folder.to_s
         @folder_path = Ekylibre::FirstRun.path.join(@folder)
         @max = (options[:max] || ENV["max"]).to_i
-        @max = MAX if @max.zero?
+        @max = COUNTER_MAX if @max.zero?
         @records = {}.with_indifferent_access
       end
       
@@ -89,7 +89,7 @@ module Ekylibre
         print "[#{@folder.green}] #{label.blue}: "
         begin
           yield(f)
-          print " " * (@max - f.count) if @max != MAX and f.count < @max
+          print " " * (@max - f.count) if @max != COUNTER_MAX and f.count < @max
           print "  "
         rescue CountExceeded => e
           print "! "
