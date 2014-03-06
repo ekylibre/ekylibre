@@ -11,6 +11,10 @@
       <item name="cartodb_login" />
       <item name="cartodb_subdomain" />
       <item name="cartodb_api_key" />
+      <item name="cartodb_visualization_default" />
+      <item name="cartodb_visualization_nitrogen_footprint" />
+      <item name="cooperative_cartodb_account" />
+      <item name="cooperative_cartodb_key" />
       <!-- TELEPAC -->
       <item name="pacage_number" />
       <!-- HUSBANDRY -->
