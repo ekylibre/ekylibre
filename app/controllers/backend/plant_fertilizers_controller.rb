@@ -20,7 +20,7 @@
 class Backend::PlantFertilizersController < BackendController
 
 
-  list model: :products, scope: [:availables, "can('feed(plant)')".c] do |t|
+  list model: :products, scope: [:availables, "can('fertilize', 'feed(plant)')".c] do |t|
     t.column :number, url: true
     t.column :name, url: true
     t.column :net_mass, datatype: :measure

@@ -27,7 +27,7 @@ load_data :land_parcels do |loader|
           ind_area = land_parcel_cluster.shape_area
           land_parcel_cluster.read!(:population, ind_area.in_hectare, at: born_at)
           if record.geometry
-            shapes[record.attributes['NUMERO'].to_s] = Charta::Geometry.new(record.geometry)
+            shapes[record.attributes['NUMERO'].to_s] = Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
           end
           # puts "Record number #{record.index}:"
           # puts "  Geometry: #{record.geometry.as_text}"
@@ -81,7 +81,7 @@ load_data :land_parcels do |loader|
           ind_area = land_parcel.shape_area
           land_parcel.read!(:population, ind_area.in_hectare, at: born_at)
           if record.geometry
-            shapes["LP" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s] = Charta::Geometry.new(record.geometry)
+            shapes["LP" + record.attributes['NUMERO'].to_s + "-" + record.attributes['NUMERO_SI'].to_s] = Charta::Geometry.new(record.geometry).transform(:WGS84).to_rgeo
           end
           
           
@@ -211,7 +211,7 @@ load_data :land_parcels do |loader|
         end
         if geometry = shapes[r.shape_number]
           zone.read!(:shape, geometry, at: born_at, force: true)
-          zone.read!(:population, (geometry.area / zone.variant.net_surface_area.to_d(:square_meter)), at: born_at, force: true)
+          zone.read!(:population, (zone.shape_area / zone.variant.net_surface_area.to_d(:square_meter)), at: born_at, force: true)
           # zone.read!(:net_surface_area, zone.shape_area, at: born_at)
         end
 
@@ -219,12 +219,12 @@ load_data :land_parcels do |loader|
          #
         for land_parcel_work_number in r.members
           land_parcel = LandParcel.find_by_work_number(land_parcel_work_number)
-          if lp_geometry = shapes[land_parcel_work_number]
+          if land_parcel.shape
             cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
             cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
                                                                               :member => land_parcel,
-                                                                              :shape => lp_geometry,
-                                                                              :population => (lp_geometry.area / land_parcel.variant.net_surface_area.to_d(:square_meter))
+                                                                              :shape => land_parcel.shape,
+                                                                              :population => (land_parcel.shape_area / land_parcel.variant.net_surface_area.to_d(:square_meter))
                                                                               )
           end
         end
