@@ -33,17 +33,12 @@ module Procedo
         elsif object.is_a?(Procedo::HandlerMethod::Substraction)
           rewrite(object.head) + " - " + rewrite(object.operand)
         elsif object.is_a?(Procedo::HandlerMethod::FunctionCall)
-          puts object.inspect.blue
           arguments = ""
           if args = object.args
             arguments << rewrite(args.first_arg)
-            if args.other_args
-              puts args.other_args.inspect.green
-              for other_arg in args.other_args.elements
-                puts other_arg.argument.inspect.yellow
-                arguments << ", " + rewrite(other_arg.argument)
-              end
-            end
+            for other_arg in args.other_args.elements
+              arguments << ", " + rewrite(other_arg.argument)
+            end if args.other_args
           end
           "::Procedo::FormulaFunctions.#{object.function_name.text_value}(" + arguments + ")"
         elsif object.is_a?(Procedo::HandlerMethod::Value)

@@ -10,7 +10,6 @@ module Procedo
       unless element.is_a?(Hash)
         element = %w(forward backward indicator unit to datatype name widget converters).inject({}) do |hash, attr|
           if attr == 'converters'
-            puts element.xpath('xmlns:converter').to_a.inspect.red
             hash[:converters] = element.xpath('xmlns:converter').to_a
           elsif element.has_attribute?(attr)
             hash[attr.to_sym] = element.attr(attr)

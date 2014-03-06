@@ -76,6 +76,20 @@ module Charta
       return JSON.parse(select_value("SELECT ST_AsGeoJSON(#{self.geom})"))
     end
 
+
+    # Test if the other measure is equal to self
+    def ==(other_geometry)
+      other = self.class.new(other_geometry).transform(self.srid)
+      return select_value("SELECT ST_Equals(#{self.geom}, #{other.geom})") =~ /\At(rue)?\z/
+    end
+
+    # Test if the other measure is equal to self
+    def !=(other_geometry)
+      other = self.class.new(other_geometry).transform(self.srid)
+      return select_value("SELECT NOT ST_Equals(#{self.geom}, #{other.geom})") =~ /\At(rue)?\z/
+    end
+
+
     # Returns area in square meter
     def area
       if srid = find_srid(Preference[:map_measure_srid])
@@ -109,6 +123,11 @@ module Charta
     def merge(other_geometry)
       other = self.class.new(other_geometry).transform(self.srid)
       self.class.new(select_value("SELECT ST_AsEWKT(ST_Union(#{self.geom}, #{other.geom}))"))
+    end
+
+    def intersection(other_geometry)
+      other = self.class.new(other_geometry).transform(self.srid)
+      self.class.new(select_value("SELECT ST_AsEWKT(ST_Multi(ST_CollectionExtract(ST_CollectionHomogenize(ST_Multi(ST_Intersection(#{self.geom}, #{other.geom}))), 3)))"))
     end
 
     def bounding_box

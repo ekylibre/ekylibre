@@ -257,7 +257,7 @@ module Procedo
             code << "          @handlers[:#{converter.handler.name}] = value\n"
             code << "          impact_handler_#{converter.handler.name}!\n"
             code << "        end\n"
-            code << "      rescue Procedo::Errors::UnavailableReading => e\n"
+            code << "      rescue Procedo::Errors::UncomputableFormula => e\n"
             code << "        puts e.message.red\n"
             code << "      end\n"
           end
@@ -284,11 +284,11 @@ module Procedo
             code << "      begin\n"
             code << "        value = #{rubyist.compiled}\n"
             code << "        if value != @destinations[:#{converter.destination}]\n"
-            code << "          puts \"#{variable.name}#value: \#{value.inspect} (\#{@destinations[:#{converter.destination}].inspect})\".red\n"
+            code << "          puts \"#{variable.name}#value: \#{value.inspect} (\#{@destinations[:#{converter.destination}].inspect})\".blue\n"
             code << "          @destinations[:#{converter.destination}] = value\n"
             code << "          impact_destination_#{converter.destination}!\n"
             code << "        end\n"
-            code << "      rescue Procedo::Errors::UnavailableReading => e\n"
+            code << "      rescue Procedo::Errors::UncomputableFormula => e\n"
             code << "        puts e.message.red\n"
             code << "      end\n"
           end
@@ -336,7 +336,7 @@ module Procedo
                 code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n"
               end
               code << "          procedure.#{ref}.impact_destination_#{destination}!\n"
-              code << "        rescue Procedo::Errors::UnavailableReading => e\n"
+              code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
               code << "          puts e.message.red\n"
               code << "        end\n"            
               code << "      end\n"            
@@ -353,31 +353,39 @@ module Procedo
               code << "          #{dest} = (#{dest}.blank? ? Charta::Geometry.empty : Charta::Geometry.new(#{dest}))\n" 
             end
             code << "          impact_destination_#{destination}!\n"
-            code << "        rescue Procedo::Errors::UnavailableReading => e\n"
+            code << "        rescue Procedo::Errors::UncomputableFormula => e\n"
             code << "          puts e.message.red\n"
             code << "        end\n"            
           end
         end
 
         # Refresh depending handlers
-        # for destination in variable.destinations
-        #   code << "      impact_destination_#{destination}!\n"
-        # end
         for handler in variable.handlers
-          if handler.depend_on?(:self)
+          if handler.forward_depend_on?(:self)
             code << "      # Updates #{handler.name} of self if possible\n"
             code << "      impact_handler_#{handler.name}!\n"
+          elsif handler.backward_depend_on?(:self)
+            for converter in handler.converters.select{|c| c.backward_depend_on?(:self) }
+              code << "      # Updates #{converter.destination} of self if possible\n"
+              code << "      impact_destination_#{converter.destination}!\n"
+            end
           end
         end
 
         for other in variable.others
           for handler in other.handlers
-            if handler.depend_on?(variable.name)
+            if handler.forward_depend_on?(variable.name)
               code << "      # Updates #{handler.name} of #{other.name} if possible\n"
               code << "      procedure.#{other.name}.impact_handler_#{handler.name}!\n"
+            elsif handler.backward_depend_on?(variable.name)
+              for converter in handler.converters.select{|c| c.backward_depend_on?(variable.name) }
+                code << "      # Updates #{converter.destination} of self if possible\n"
+                code << "      impact_destination_#{converter.destination}!\n"
+              end
             end
           end
         end
+
         code << "    end\n\n"
         
         code << "  end\n\n"

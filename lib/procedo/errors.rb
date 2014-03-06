@@ -31,7 +31,13 @@ module Procedo
     class AmbiguousExpression < InvalidExpression
     end
 
-    class UnavailableReading < StandardError
+    class UncomputableFormula < StandardError
+    end
+
+    class UnavailableReading < UncomputableFormula
+    end
+
+    class FailedFunctionCall < UncomputableFormula
     end
 
   end

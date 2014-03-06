@@ -758,6 +758,7 @@
       </item>
       <item name="animal_foods">
         <page to="backend/animal_foods#index"/>
+        <page to="backend/animal_foods#list"/>
       </item>
       <item name="animal_medicines">
         <page to="backend/animal_medicines#index"/>
@@ -785,6 +786,7 @@
       </item>
       <item name="animal_products">
         <page to="backend/animal_products#index"/>
+        <page to="backend/animal_products#list"/>
       </item>
     </group>
     <group name="plant_productions" icon="wheat">
@@ -814,9 +816,11 @@
       </item>
       <item name="plant_seedlings">
         <page to="backend/plant_seedlings#index"/>
+        <page to="backend/plant_seedlings#list"/>
       </item>
       <item name="plant_fertilizers">
         <page to="backend/plant_fertilizers#index"/>
+        <page to="backend/plant_fertilizers#list"/>
       </item>
       <item name="plant_medicines">
         <page to="backend/plant_medicines#index"/>
@@ -844,6 +848,7 @@
       </item>
       <item name="plant_products">
         <page to="backend/plant_products#index"/>
+        <page to="backend/plant_products#list"/>
       </item>
     </group>
     <group name="land_parcels" icon="land-parcels">
@@ -1728,22 +1733,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="animal_foods">
-        <page to="backend/animal_foods#list"/>
-      </item>
-      <item name="animal_products">
-        <page to="backend/animal_products#list"/>
-      </item>
-      <item name="plant_fertilizers">
-        <page to="backend/plant_fertilizers#list"/>
-      </item>
-      <item name="plant_products">
-        <page to="backend/plant_products#list"/>
-      </item>
-      <item name="plant_seedlings">
-        <page to="backend/plant_seedlings#list"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>

@@ -5,12 +5,16 @@ module Procedo
 
 
       def area(shape)
-        return 0.0.in_square_meter
+        return shape.area.to_f(:square_meter)
+      rescue
+        raise FailedFunctionCall
       end
 
 
-      def intersect(shape, other_shape)
-        return shape
+      def intersection(shape, other_shape)
+        return shape.intersection(other_shape)
+      rescue
+        raise FailedFunctionCall
       end
 
     end
