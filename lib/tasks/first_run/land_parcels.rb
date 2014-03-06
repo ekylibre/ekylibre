@@ -218,14 +218,15 @@ load_data :land_parcels do |loader|
          # link cultivable zone and land parcel for each entries
          #
         for land_parcel_work_number in r.members
-          land_parcel = LandParcel.find_by_work_number(land_parcel_work_number)
-          if land_parcel.shape
-            cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
-            cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
-                                                                              :member => land_parcel,
-                                                                              :shape => land_parcel.shape,
-                                                                              :population => (land_parcel.shape_area / land_parcel.variant.net_surface_area.to_d(:square_meter))
-                                                                              )
+          if land_parcel = LandParcel.find_by_work_number(land_parcel_work_number)
+            if land_parcel.shape
+              cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
+              cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
+                                                                                :member => land_parcel,
+                                                                                :shape => land_parcel.shape,
+                                                                                :population => (land_parcel.shape_area / land_parcel.variant.net_surface_area.to_d(:square_meter))
+                                                                                )
+            end
           end
         end
         # # Add available_water_capacity indicator
