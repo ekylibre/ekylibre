@@ -1556,7 +1556,6 @@ eng:
       items:
         animal_cares: "Animal cares" #?
         # animal_feeding: "Alimentation des animaux"
-        # animal_illness_treatment: "Traitement des maladies animales"
         # animal_preventive_medicine_admission: "Traitement préventif des maladies animales"
         # animal_production: "Productions animales"
         # consummables_addition: "Mise à niveau"

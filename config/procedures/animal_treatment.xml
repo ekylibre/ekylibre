@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
-  <procedure name="animal_treatment" natures="animal_illness_treatment" version="0" status="frozen">
+  <procedure name="animal_treatment" natures="animal_curative_medicine_admission" version="0" status="frozen">
     <variables>
-      <variable name="animal"           variety="animal" roles="animal_illness_treatment-target"/>
+      <variable name="animal"           variety="animal" roles="animal_curative_medicine_admission-target"/>
       <variable name="medicine"         variety="animal_medicine" abilities="care(animal)"/>
-      <variable name="medicine_to_give" new="parted-from: medicine" roles="animal_illness_treatment-input" need="population"/>
-      <variable name="caregiver"        variety="worker" roles="animal_illness_treatment-doer"/>
+      <variable name="medicine_to_give" new="parted-from: medicine" roles="animal_curative_medicine_admission-input" need="population"/>
+      <variable name="caregiver"        variety="worker" roles="animal_curative_medicine_admission-doer"/>
     </variables>
     <operations>
       <operation id="100">

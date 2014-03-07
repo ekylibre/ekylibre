@@ -6,8 +6,8 @@
       <property-nature name="roles" type="list" nomenclature="procedure_roles" required="false"/>
     </property-natures>
     <items>
-      <item name="animal_feeding" roles="input, target, doer"/>
-      <item name="animal_illness_treatment" roles="input, target, doer"/>
+      <item name="animal_feeding" roles="input, target"/>
+      <item name="animal_health" roles="input, target, doer"/>
       <item name="animal_production" roles="target, output, doer"/>
       <item name="viviparous_birth" roles="target, output"/>
       <item name="oviparous_birth" roles="target, output"/>
@@ -57,7 +57,7 @@
     </items>
   </nomenclature>
 
-  <nomenclature name="procedure_natures-animal_illness_treatment">
+  <nomenclature name="procedure_natures-animal_health">
     <items>
       <item name="animal_curative_medicine_admission" roles="input, target, doer"/>
       <item name="animal_preventive_medicine_admission" roles="input, target, doer"/>
@@ -67,6 +67,15 @@
   <nomenclature name="procedure_natures-animal_production">
     <items>
       <item name="milk_production" roles="output, target, doer"/>
+      <item name="cleaning" roles="output, target, doer, tool"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="procedure_natures-animal_feeding">
+    <items>
+      <item name="pasturing" roles="output, target, tool"/>
+      <item name="silage_autosupply" roles="input, target"/>
+      <item name="food_supply" roles="input, target, doer, tool"/>
     </items>
   </nomenclature>
 

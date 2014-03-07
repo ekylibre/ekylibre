@@ -1206,6 +1206,16 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
 	    />
+	    <item name="silage_distributor"
+            nature="food_distributor"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+      />
+      <item name="animal_housing_cleaner"
+            nature="animal_housing_cleaner"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+      />
       <item name="technician"
             nature="technician"
             unit_name="person"

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <!-- ######################################## PRODUCTION LAITIERE ########################################### -->
+  <procedure name="animal_housing_cleaning" natures="cleaning" version="0" status="frozen">
+    <variables>
+      <variable name="herd" variety="animal_group" derivative-of="mammalia" abilities="produce(excrement)"  roles="cleaning-target"/>
+      <variable name="excrement"          variety="excrement" derivative-of="derivative-of: herd" roles="cleaning-output" new="produced-by: herd" need="population" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}"/>
+      
+      <variable name="cleaner"            variety="cleaner" roles="cleaning-tool"/>
+      <variable name="driver"             abilities="drive(equipment), move" roles="cleaning-doer"/>
+      <variable name="tractor"            abilities="tow(equipment), move" roles="cleaning-tool"/>
+      
+      <variable name="storable_zone"      abilities="store(excrement)"/>
+      
+    </variables>
+    <operations>
+      <operation id="100" duration="10 minutes">
+        <task do="[caregiver] moves at [mammal_herd_to_milk]"/>
+      </operation>
+      <operation id="200">
+        <task do="[mammal_herd_to_milk] produces [milk]"/>
+        <task do="[milk] is in [container]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

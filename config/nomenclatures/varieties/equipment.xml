@@ -18,6 +18,8 @@
       <item name="reaper"/>
       <item name="harvester"/>
       <item name="tank"/>
+      <item name="food_deliver"/>
+      <item name="cleaner"/>
     </items>
   </nomenclature>
 </nomenclatures>

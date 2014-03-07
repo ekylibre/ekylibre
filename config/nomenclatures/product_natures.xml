@@ -625,6 +625,22 @@
             variable_indicators="application_width"
             frozen_indicators="population"
             />
+       <item name="food_distributor"
+            category="equipment"
+            variety="food_deliver"
+            population_counting="unitary"
+            abilities="deliver(silage),deliver(straw),deliver(hay)"
+            variable_indicators="nominal_storable_net_volume, nominal_storable_net_mass"
+            frozen_indicators="population"
+            />
+      <item name="animal_housing_cleaner"
+            category="equipment"
+            variety="cleaner"
+            population_counting="unitary"
+            abilities="clean(settlement),clean(building_division)"
+            variable_indicators="application_width"
+            frozen_indicators="population"
+            />      
       <item name="mower"
             category="equipment"
             variety="harvester"
