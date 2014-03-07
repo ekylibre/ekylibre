@@ -123,7 +123,7 @@ load_data :animals do |loader|
                            dead_at: (dead_on ? dead_on.to_datetime : nil)
                            )
 
-        unless group = groups.detect do |g|
+          unless group = groups.detect do |g|
             (g.sex.blank? or g.sex == r.sex) and (g.minimal_age.blank? or r.age >= g.minimal_age) and (g.maximal_age.blank? or r.age < g.maximal_age)
           end
           raise "Cannot find a valid group for the given"
@@ -141,26 +141,29 @@ load_data :animals do |loader|
                                 initial_container: group.record.default_storage,
                                 default_storage: group.record.default_storage
                                 )
-        # Sex is already known
-        # animal.read!(:sex, r.sex, at: r.born_at)
-
-        weighted_at = r.born_at
-        variation = 0.05
-        while (r.dead_at.nil? or weighted_at < r.dead_at) and weighted_at < Time.now
-          age = (weighted_at - r.born_at).to_f
-          weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
-          weight += rand(weight * variation * 2) - (weight * variation)
-          animal.read!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
-          weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
+        # Sex is already known but not if the group has no sex
+        animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
+        
+        # load demo data weight and state
+        if loader.manifest[:demo]
+          weighted_at = r.born_at
+          variation = 0.05
+          while (r.dead_at.nil? or weighted_at < r.dead_at) and weighted_at < Time.now
+            age = (weighted_at - r.born_at).to_f
+            weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
+            weight += rand(weight * variation * 2) - (weight * variation)
+            animal.read!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
+            weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
+          end
+  
+          animal.read!(:healthy, true,  at: (now - 3.days))
+          animal.read!(:healthy, false, at: (now - 2.days))
+          animal.read!(:healthy, true,  at: now)
         end
-
-        animal.read!(:healthy, true,  at: (now - 3.days))
-        animal.read!(:healthy, false, at: (now - 2.days))
-        animal.read!(:healthy, true,  at: now)
-
+        
         group.record.add(animal, r.arrived_on)
         group.record.remove(animal, r.departed_on) if r.departed_on
-
+        
         w.check_point
       end
     end

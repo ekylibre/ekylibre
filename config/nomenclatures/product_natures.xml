@@ -41,7 +41,7 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), consume(mix), consume(silage), produce(excrement), produce(milk), move, produce(bos)"
-            variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy"
+            variable_indicators="net_mass, animal_life_state, unique_synthesis_index, economical_milk_index, protein_concentration_index, fat_matter_concentration_index, mammalia_reproduction_event_abortion, mammalia_reproduction_method_embryo_transplant, mammalia_birth_count, mammalia_reproduction_state, last_birth_children_count, lactating, healthy, milk_daily_production"
             frozen_indicators="population, sex, reproductor, livestock_unit"
             derivatives="meat, milk"
             />
@@ -86,8 +86,8 @@
             variety="bos"
             population_counting="unitary"
             abilities="consume(water), consume(poaceae), produce(excrement), consume(milk), move, consume(mix), consume(silage)"
-            variable_indicators="net_mass, animal_life_state, healthy, mammalia_birth_condition"
-            frozen_indicators="population, sex, reproductor, livestock_unit"
+            variable_indicators="net_mass, sex, animal_life_state, healthy, mammalia_birth_condition"
+            frozen_indicators="population, reproductor, livestock_unit"
             derivatives="meat"
             />
       <item name="duck_herd"

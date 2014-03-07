@@ -31,6 +31,10 @@
       <item name="power"                expression="J*s-1"/>
       <item name="pressure"             expression="N.m-2"/>
       <item name="distance_speed"       expression="m.s-1"/>
+      <item name="mass_flow"            expression="kg*s-1"/>
+      <item name="volume_flow"          expression="m3*s-1"/>
+      <item name="amount_of_substance_density"          expression="mol*kg-1"/>
+      
 
     </items>
   </nomenclature>

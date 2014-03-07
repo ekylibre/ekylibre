@@ -54,6 +54,7 @@
         .info
           %span.title= Animal.human_attribute_name(:container)
           %span.value= link_to(container.name, backend_product_path(container))
+    - b.cell :last_analyses, params: {nature: :unitary_cow_milk_analysis, product_id: resource.id}
     - b.cell(:variable_indicators) do
       :ruby
         indicators = resource.variable_indicators.delete_if{|i| ![:measure, :decimal].include?(i.datatype)}
