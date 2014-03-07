@@ -242,10 +242,10 @@ load_data :analyses do |loader|
                            :lactation_number => row[5].to_s,
                            :control_number => row[6].to_s,
                            :milk_daily_production => row[7].blank? ? nil : (row[7].to_d).in_kilogram_per_day,
-                           :tb_daily_production => (row[9].blank? ? 0 : row[9].to_d).in_gram_per_liter,
-                           :tp_daily_production => (row[10].blank? ? 0 : row[10].to_d).in_gram_per_liter,
+                           :tb_daily_production => (row[9].blank? ? nil : row[9].to_d).in_gram_per_liter,
+                           :tp_daily_production => (row[10].blank? ? nil : row[10].to_d).in_gram_per_liter,
                            :animal_state => (row[11].blank? ? nil : trans_animal_state[row[11].to_s]),
-                           :somatic_cell_concentration => (row[12].blank? ? 0 : row[12].to_i).in_thousand_per_milliliter,
+                           :somatic_cell_concentration => (row[12].blank? ? nil : row[12].to_i).in_thousand_per_milliliter,
                            :calving_date => (row[13].blank? ? nil : Date.civil(*row[0].to_s.split(/\//).reverse.map(&:to_i))),
                            :day_from_calving_date => row[14],
                            :milk_production_from_calving_date => row[15],
@@ -259,9 +259,9 @@ load_data :analyses do |loader|
                                       analyser: analyser, sampled_at: r.at, analysed_at: r.at
                                      )
 
-          analysis.read!(:fat_matters_concentration, r.tb_daily_production) if r.tb_daily_production != 0
-          analysis.read!(:protein_matters_concentration, r.tp_daily_production) if r.tp_daily_production != 0
-          analysis.read!(:somatic_cell_concentration, r.somatic_cell_concentration) if r.somatic_cell_concentration != 0
+          analysis.read!(:fat_matters_concentration, r.tb_daily_production) if r.tb_daily_production != nil
+          analysis.read!(:protein_matters_concentration, r.tp_daily_production) if r.tp_daily_production != nil
+          analysis.read!(:somatic_cell_concentration, r.somatic_cell_concentration) if r.somatic_cell_concentration != nil
           analysis.read!(:healthy, r.animal_state) if r.animal_state != nil
           analysis.read!(:milk_daily_production, r.milk_daily_production) if r.milk_daily_production != nil
 
@@ -270,13 +270,44 @@ load_data :analyses do |loader|
         if animal = Animal.find_by_work_number(r.animal_work_number)
           analysis.product = animal
           analysis.save!
-          animal.read!(:healthy, true,  at: r.at) if r.animal_state == :good
-          animal.read!(:healthy, false,  at: r.at) if r.animal_state == :bad
+          animal.read!(:healthy, true,  at: r.at, force: true) if r.animal_state == :good
+          animal.read!(:healthy, false,  at: r.at, force: true) if r.animal_state == :bad
         end
         
         w.check_point
       end
     end
   end
+  
+  file = loader.path("bovins_croissance", "perf.csv")
+  if file.exist?
+    loader.count :weight_unitary_control_analyses_import do |w|
 
+      CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
+        r = OpenStruct.new(:animal_weight_at_birth => (row[13].blank? ? nil : row[13].to_d).in_kilogram,
+                           :animal_work_number => row[18].to_s,
+                           :first_weighting_at => (row[52].blank? ? nil : Date.civil(*row[52].to_s.split(/\//).reverse.map(&:to_i))),
+                           :first_weighting_value => row[53].blank? ? nil : (row[53].to_d).in_kilogram,
+                           :second_weighting_at => (row[55].blank? ? nil : Date.civil(*row[55].to_s.split(/\//).reverse.map(&:to_i))),
+                           :second_weighting_value => row[56].blank? ? nil : (row[56].to_d).in_kilogram,
+                           :third_weighting_at => (row[58].blank? ? nil : Date.civil(*row[58].to_s.split(/\//).reverse.map(&:to_i))),
+                           :third_weighting_value => row[59].blank? ? nil : (row[59].to_d).in_kilogram,
+                           :fourth_weighting_at => (row[61].blank? ? nil : Date.civil(*row[61].to_s.split(/\//).reverse.map(&:to_i))),
+                           :fourth_weighting_value => row[62].blank? ? nil : (row[62].to_d).in_kilogram
+                           )
+        # if an animal exist , link to weight
+        if animal = Animal.find_by_work_number(r.animal_work_number)
+          animal.read!(:net_mass, r.animal_weight_at_birth,  at: animal.born_at, force: true) if r.animal_weight_at_birth
+          animal.read!(:net_mass, r.first_weighting_value,  at: r.first_weighting_at, force: true) if r.first_weighting_at
+          animal.read!(:net_mass, r.second_weighting_value,  at: r.second_weighting_at, force: true) if r.second_weighting_at
+          animal.read!(:net_mass, r.third_weighting_value,  at: r.third_weighting_at, force: true) if r.third_weighting_at
+          animal.read!(:net_mass, r.fourth_weighting_value,  at: r.fourth_weighting_at, force: true) if r.fourth_weighting_at
+        end
+        
+        w.check_point
+      end
+    end
+  end
+  
+  
 end

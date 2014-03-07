@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, 220TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL -->
@@ -1269,7 +1269,15 @@
             />
 
       <!-- Coop variants -->
+      
       <!-- SEED -->
+      <item name="coop:sorgho_ensilage_bmr_333_220mg"
+            nature="seed"
+            derivative_of="sorghum"
+            unit_name="220TG_bag"
+            frozen_indicators_values="net_mass: 22.00kilogram, thousand_grains_mass: 100gram"
+            />
+      
       <item name="coop:bth_s_caphorn_r1_gau+red_25kg"
             nature="seed"
             derivative_of="caphorn"
@@ -1326,6 +1334,11 @@
             nature="molluscicide"
             unit_name="bag"
             frozen_indicators_values="net_volume: 20.00liter, net_mass: 20.00kilogram"
+            />
+      <item name="coop:aviator_xpro_5l"
+            nature="fungicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
       <item name="coop:metarex_ino_20kg"
             nature="molluscicide"
