@@ -1261,7 +1261,7 @@ fra:
     land_parcel_name: "Parcelle"
     land_parcels: "Parcelles"
     language: "Langue"
-    last_analyses: "Dernières analyses de lait"
+    last_analyses: "Dernières analyses"
     last_animals: "Dernières naissances"
     last_clients: "Derniers clients"
     last_computed_balance: "Dernière balance calculée"
