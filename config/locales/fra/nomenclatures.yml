@@ -11,7 +11,7 @@ fra:
         clean: "Nettoyer"
         consume: "Consommer"
         cut: "Couper"
-        # deliver: "Deliver"
+        deliver: "Distribuer"
         drive: "Conduire"
         feed: "Nourrir"
         fertilize: "Fertiliser"
@@ -1365,15 +1365,16 @@ fra:
         # roles: "Roles"
       items:
         # animal_curative_medicine_admission: "Animal curative medicine admission" # animal_health
+        # animal_environment: "Animal environment"         # animal_health
         animal_feeding: "Alimentation des animaux"
-        # animal_health: "Animal health"
+        animal_health: "Hygiène des animaux"
         animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_health
         animal_production: "Productions animales"
-        # cleaning: "Cleaning"                             # animal_production
+        cleaning: "Nettoyage"                             # animal_production
         consummables_addition: "Mise à niveau"             # maintenance
         cultipacking: "Cultipacking"                       # tillage
         fermentation: "Fermentation"                       # transformation
-        # food_supply: "Food supply"                       # animal_feeding
+        food_supply: "Alimentation"                       # animal_feeding
         grinding: "Broyage"
         growth_control: "Contrôle de croissance"
         harvest: "Récolte"
@@ -1384,14 +1385,14 @@ fra:
         maintenance: "Maintenance"
         milk_production: "Production laitière"             # animal_production
         oviparous_birth: "Reproduction (ovipare)"
-        # pasturing: "Pasturing"                           # animal_feeding
+        pasturing: "Pâturage"                           # animal_feeding
         piece_replacement: "Remplacement de pièces"        # maintenance
         plant_fertilisation: "Fertilisation"
         plant_illness_treatment: "Protection des cultures"
         plowing: "Labour"                                  # tillage
         pruning: "Taille"
         raking: "Hersage"                                  # tillage
-        # silage_autosupply: "Silage autosupply"           # animal_feeding
+        silage_autosupply: "Alimentation en libre service"           # animal_feeding
         soil_cleaning: "Désinfection du sol"
         soil_enrichment: "Amendement"
         sowing: "Semis"                                    # implantation
@@ -1517,7 +1518,7 @@ fra:
           12kg_bag: "sac de 12kg"
           150TG_bag: "sac de 150.000 grains"
           1l_dose: "dose de 1l"
-          # 220TG_bag: "220tg bag"
+          220TG_bag: "sac de 220.000 grains"
           24liter_can: "Bidon de 24 litres"
           25kg_bag: "sac de 25kg"
           50TG_bag: "sac de 50.000 grains"
@@ -1555,7 +1556,7 @@ fra:
         animal_building: "Bâtiment d’accueil pour les animaux"
         animal_division: "Zone accueillant des animaux"
         animal_food_division: "Zone accueillant des aliments pour animaux"
-        # animal_housing_cleaner: "Animal housing cleaner"
+        animal_housing_cleaner: "Rabot"
         animal_medicine_tank: "Réserve de médicaments"
         animal_waste_building_division: "Zone des déchets organiques"
         annual_fallow_crop: "Jachère annuelle"
@@ -1593,7 +1594,7 @@ fra:
         chemical_fertilizer_division: "Emplacement de stockage des engrais"
         complete_herbicide: "Herbicide total"
         coop:ammonitre_33,5%_vr: "ammonitre COOP 33,5% vrac"
-        # coop:aviator_xpro_5l: "Coop:aviator xpro 5l"
+        coop:aviator_xpro_5l: "Aviator xpro 5l"
         coop:bd_s_miradoux_r1_cel_gold_net_25kg: "Semence de Blé tendre Miradoux ( r1 cel gold) sac de 25kg"
         coop:bth_s_ascott_r1_gau+_red_25kg: "Semence de Blé tendre Ascott (r1 gau+ red) sac de 25kg"
         coop:bth_s_caphorn_r1_gau+red_25kg: "Semence de Blé tendre Caphorn (r1 gau+ red) sac de 25kg"
@@ -1604,7 +1605,7 @@ fra:
         coop:metarex_ino_20kg: "metarex ino sac de 20kg"
         coop:metarex_rg_tds_20kg: "metarex rg tds - sac de 20kg"
         coop:sel_mer_essore_la_baleine_sac_25kg: "sel mer essore la baleine - sac de 25kg"
-        # coop:sorgho_ensilage_bmr_333_220mg: "Coop:sorgho ensilage bmr 333 220mg"
+        coop:sorgho_ensilage_bmr_333_220mg: "Semence de sorgho ensilage bmr 333 220mg"
         coop:super_46%_gr._vr: "super 46% COOP gr vrac"
         coop:uree_gr_vrac: "uree gr vrac"
         corn_crop: "Culture de maïs"
@@ -1725,7 +1726,7 @@ fra:
         screed_building: "Construction béton (silo, chape, terrasse)"
         seed: "Semence"
         settlement: "Aménagement"
-        # silage_distributor: "Silage distributor"
+        silage_distributor: "Désileuse"
         silage_division: "Zone de stockage de l’ensilage"
         small_equipment: "Petit matériel"
         so4_vine_seedling: "Plant de vigne standard (So4)"
@@ -1799,7 +1800,7 @@ fra:
         animal_building_division: "Zone dédiée aux animaux"
         animal_food: "Aliment du bétail"
         animal_food_building_division: "Zone de stockage dédiée aux aliments"
-        # animal_housing_cleaner: "Animal housing cleaner"
+        animal_housing_cleaner: "Matériel de nettoyage"
         animal_medicine: "Produit vétérinaire"
         animal_medicine_tank: "Reserve de médicaments"
         baler: "Botteleuse"
@@ -1821,7 +1822,7 @@ fra:
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         fertilizer_division: "Zone de stockage des engrais"
-        # food_distributor: "Food distributor"
+        food_distributor: "Matériel de distribution d'aliments"
         food_equipment_division: "Zone de stockage des équipements et des aliments"
         food_tank: "Silo à aliments"
         forager: "Ensileuse"
@@ -2169,7 +2170,7 @@ fra:
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertilizer: "Engrais minéral"             # mineral_matter
         cichorium: "Chicoré"                               # asteraceae
-        # cleaner: "Cleaner"                               # equipment
+        cleaner: "Rabot"                               # equipment
         colombar_blanc: "Colombar blanc"                   # vitis_vinifera
         compost: "Compost"                                 # excrement
         corylus: "Corylus"                                 # betulaceae
@@ -2191,7 +2192,7 @@ fra:
         excrement: "Engrais organiques"                    # organic_matter
         fabaceae: "Fabaceae"                               # plant
         fabulis: "Fabulis"                                 # triticum_durum
-        # food_deliver: "Food deliver"                     # equipment
+        food_deliver: "Désileuse"                     # equipment
         forager: "Ensileuse"                               # equipment
         fragaria: "Fraise"                                 # rosaceae
         fruit: "Fruit"                                     # organic_matter

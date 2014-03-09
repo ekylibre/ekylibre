@@ -61,6 +61,7 @@
     <items>
       <item name="animal_curative_medicine_admission" roles="input, target, doer"/>
       <item name="animal_preventive_medicine_admission" roles="input, target, doer"/>
+      <item name="animal_environment" roles="input, target, doer, tool"/>
     </items>
   </nomenclature>
 
