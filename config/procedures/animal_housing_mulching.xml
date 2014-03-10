@@ -3,7 +3,7 @@
   <!-- ######################################## PRODUCTION LAITIERE ########################################### -->
   <procedure name="animal_housing_mulching" natures="animal_environment" version="0" status="frozen">
     <variables>
-      <variable name="animal_housing" variety="building_division" abilities="store(animal)"  roles="animal_environment-target" need="shape">
+      <variable name="animal_housing" variety="building_division" abilities="store(animal)"  roles="animal_environment-target" default-actor="storage" need="shape" default-shape=":animal_housing">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, animal_housing.shape)" backward="value"/>
           <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
