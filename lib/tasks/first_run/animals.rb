@@ -20,7 +20,11 @@ load_data :animals do |loader|
                              maximum_age: (row[5].blank? ? nil : row[5].to_i),
                              sex: (row[6].blank? ? nil : row[6].to_sym),
                              place: (row[7].blank? ? nil : row[7].to_sym),
-                             description: row[8].to_s,
+                             indicators_at: (row[8].blank? ? (Date.today) : row[8]).to_datetime,
+                             indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                             h[i.first.strip.downcase.to_sym] = i.second
+                             h
+                           },
                              record: nil
                              )
 
@@ -29,8 +33,12 @@ load_data :animals do |loader|
             r.record = AnimalGroup.create!(name: r.name,
                                            work_number: r.code,
                                            variant: ProductNatureVariant.import_from_nomenclature(r.nature),
-                                           default_storage: BuildingDivision.find_by(work_number: r.place),
-                                           description: r.description)
+                                           default_storage: BuildingDivision.find_by(work_number: r.place)
+                                           )
+            # create indicators linked to equipment
+            for indicator, value in r.indicators
+              r.record.read!(indicator, value, at: r.indicators_at, force: true)
+            end
           end
 
           groups << r

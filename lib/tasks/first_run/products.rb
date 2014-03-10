@@ -67,8 +67,7 @@ load_data :products do |loader|
 
     end
   end
-
-
+  
   file = loader.path("alamano", "matters.csv")
   if file.exist?
 
@@ -129,6 +128,22 @@ load_data :products do |loader|
       end
     end
 
+  end
+  
+  path = loader.path("alamano", "zones", "equipments.shp")
+  if path.exist?
+    loader.count :equipments_shapes do |w|
+      #############################################################################
+      RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
+        # puts "File contains #{file.num_records} records."
+        file.each do |record|
+          if zone = Product.find_by_work_number(record.attributes['number'])
+            zone.read!(:shape, record.geometry, at: zone.born_at, force: true)
+          end
+          w.check_point
+        end
+      end
+    end
   end
 
 end

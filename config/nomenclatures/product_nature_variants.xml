@@ -17,13 +17,13 @@
             nature="cattle_herd"
             derivative_of="bos"
             unit_name="head"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
       <item name="female_adult_cattle_herd"
             nature="female_adult_cattle_herd"
             derivative_of="bos"
             unit_name="head"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values="sex: female, reproductor: true"
             />
       <item name="female_adult_cow"
             nature="female_adult_cow"
