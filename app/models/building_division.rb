@@ -65,7 +65,7 @@ class BuildingDivision < SubZone
   enumerize :variety, in: Nomen::Varieties.all(:building_division), predicates: {prefix: true}
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id
   has_many :productions, class_name: "Production", through: :supports
-  
+
   scope :of_production, lambda { |*productions|
     productions.flatten!
     for production in productions
@@ -73,5 +73,5 @@ class BuildingDivision < SubZone
     end
     joins(:productions).where('production_id IN (?)', productions.map(&:id))
   }
-  
+
 end

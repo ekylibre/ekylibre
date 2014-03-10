@@ -13,6 +13,8 @@ arb:
 
     animal_medicine:
 
+    building_division:
+
     catalog_price:
       currency:
         AED: "درهم إماراتي"
@@ -182,6 +184,8 @@ arb:
     entity:
 
     entity_link:
+
+    equipment:
 
     financial_asset:
       currency:

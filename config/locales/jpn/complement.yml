@@ -13,6 +13,8 @@ jpn:
 
     animal_medicine:
 
+    building_division:
+
     catalog_price:
       currency:
         AED: "UAE ディルハム"
@@ -189,6 +191,8 @@ jpn:
     entity:
 
     entity_link:
+
+    equipment:
 
     financial_asset:
       currency:

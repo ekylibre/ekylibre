@@ -66,7 +66,7 @@ class Equipment < Matter
   enumerize :variety, in: Nomen::Varieties.all(:equipment), predicates: {prefix: true}
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id
   has_many :productions, class_name: "Production", through: :supports
-  
+
   scope :of_production, lambda { |*productions|
     productions.flatten!
     for production in productions
