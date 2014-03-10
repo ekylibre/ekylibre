@@ -1577,7 +1577,6 @@ eng:
         # maintenance: "Maintenance"
         # milk_production: "Production laitière"
         # oviparous_birth: "Reproduction (ovipare)"
-        # pasturing: "Pâturage"
         # piece_replacement: "Remplacement de pièces"
         # plant_fertilisation: "Fertilisation"
         # plant_illness_treatment: "Protection des cultures"
@@ -1586,7 +1585,6 @@ eng:
         # pruning: "Taille"
         # raking: "Hersage"
         reproduction: "Reproduction" #?
-        # silage_autosupply: "Alimentation en libre service"
         # soil_cleaning: "Désinfection du sol"
         # soil_enrichment: "Amendement"
         # sowing: "Semis"

@@ -6,12 +6,12 @@ load_data :products do |loader|
   end
 
 
-  file = loader.path("alamano", "equipments.csv")
-  if file.exist?
+  path = loader.path("alamano", "equipments.csv")
+  if path.exist?
     loader.count :equipments do |w|
       #############################################################################
 
-      CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
+      CSV.foreach(path, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
         next if row[0].blank?
         r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
                            :variant_reference_name => row[1].downcase.to_sym,
@@ -68,13 +68,13 @@ load_data :products do |loader|
     end
   end
   
-  file = loader.path("alamano", "matters.csv")
-  if file.exist?
+  path = loader.path("alamano", "matters.csv")
+  if path.exist?
 
     loader.count :matters do |w|
       #############################################################################
 
-      CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
+      CSV.foreach(path, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
         next if row[0].blank?
         r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
                            :variant_reference_name => row[1].downcase.to_sym,

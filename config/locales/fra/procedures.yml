@@ -30,6 +30,7 @@ fra:
   procedure_handlers:
     dry_matter_mass: "Masse de matière sèche"
     dry_matter_mass_area_density: "Masse de matière sèche par surface"
+    food_mass_per_animal: "Masse d'aliment par animal"
     nitrogen_unities_density: "Unités d'azote par surface"
     phosphorus_unities_density: "Unités de phosphore par surface"
     potassium_unities_density: "Unités de potassium par surface"

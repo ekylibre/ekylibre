@@ -62,20 +62,18 @@
       <item name="animal_curative_medicine_admission" roles="input, target, doer"/>
       <item name="animal_preventive_medicine_admission" roles="input, target, doer"/>
       <item name="animal_environment" roles="input, target, doer, tool"/>
+      <item name="cleaning" roles="output, target, doer, tool"/>
     </items>
   </nomenclature>
 
   <nomenclature name="procedure_natures-animal_production">
     <items>
       <item name="milk_production" roles="output, target, doer"/>
-      <item name="cleaning" roles="output, target, doer, tool"/>
     </items>
   </nomenclature>
   
   <nomenclature name="procedure_natures-animal_feeding">
     <items>
-      <item name="pasturing" roles="output, target, tool"/>
-      <item name="silage_autosupply" roles="input, target"/>
       <item name="food_supply" roles="input, target, doer, tool"/>
     </items>
   </nomenclature>

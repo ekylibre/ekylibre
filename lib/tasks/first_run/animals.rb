@@ -32,6 +32,7 @@ load_data :animals do |loader|
           unless r.record = AnimalGroup.find_by_work_number(r.code)
             r.record = AnimalGroup.create!(name: r.name,
                                            work_number: r.code,
+                                           initial_born_at: r.indicators_at,
                                            variant: ProductNatureVariant.import_from_nomenclature(r.nature),
                                            default_storage: BuildingDivision.find_by(work_number: r.place)
                                            )
@@ -39,6 +40,8 @@ load_data :animals do |loader|
             for indicator, value in r.indicators
               r.record.read!(indicator, value, at: r.indicators_at, force: true)
             end
+            r.record.initial_population = r.record.population
+            r.record.save!
           end
 
           groups << r
