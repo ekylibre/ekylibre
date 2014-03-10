@@ -1,23 +1,24 @@
+# -*- coding: utf-8 -*-
 load_data :analyses do |loader|
   
   # Collect activity family matchings
-      landparcels_transcode = {}.with_indifferent_access
-    
-      file = loader.path("charentes_alliance", "landparcels_transcode.csv")
-      if file.exist?
-        CSV.foreach(file, headers: true) do |row|
-          landparcels_transcode[row[0]] = row[1].to_s
-        end
-      end
-      
-      soil_natures_transcode = {}.with_indifferent_access
-      
-      file = loader.path("charentes_alliance", "soil_natures_transcode.csv")
-      if file.exist?
-        CSV.foreach(file, headers: true) do |row|
-          soil_natures_transcode[row[0]] = row[1].to_sym
-        end
-      end
+  landparcels_transcode = {}.with_indifferent_access
+  
+  file = loader.path("charentes_alliance", "landparcels_transcode.csv")
+  if file.exist?
+    CSV.foreach(file, headers: true) do |row|
+      landparcels_transcode[row[0]] = row[1].to_s
+    end
+  end
+  
+  soil_natures_transcode = {}.with_indifferent_access
+  
+  file = loader.path("charentes_alliance", "soil_natures_transcode.csv")
+  if file.exist?
+    CSV.foreach(file, headers: true) do |row|
+      soil_natures_transcode[row[0]] = row[1].to_sym
+    end
+  end
   
   
   file = loader.path("charentes_alliance", "analyses_sol.txt")
@@ -25,24 +26,24 @@ load_data :analyses do |loader|
     loader.count :soil_analyses_import do |w|
 
       unless analyser = LegalEntity.where("LOWER(full_name) LIKE ?", "%AGRO-Systèmes%".mb_chars.downcase).first
-      analyser = LegalEntity.create!(last_name: "AGRO-Systèmes",
-                                        nature: :legal_entity,
-                                        vat_number: "FR00123456789",
-                                        supplier: true, client: false,
-                                        mails_attributes: {
-                                          0 => {
-                                            canal: "mail",
-                                            mail_line_4: "Route de Saint Roch",
-                                            mail_line_6: "37390 La Membrolle Choisille",
-                                            mail_country: :fr
-                                          }
-                                        },
-                                        emails_attributes: {
-                                          0 => {
-                                            canal: "email",
-                                            coordinate: "contact@agro-systemes.fr"
-                                          }
-                                        })
+        analyser = LegalEntity.create!(last_name: "AGRO-Systèmes",
+                                       nature: :legal_entity,
+                                       vat_number: "FR00123456789",
+                                       supplier: true, client: false,
+                                       mails_attributes: {
+                                         0 => {
+                                           canal: "mail",
+                                           mail_line_4: "Route de Saint Roch",
+                                           mail_line_6: "37390 La Membrolle Choisille",
+                                           mail_country: :fr
+                                         }
+                                       },
+                                       emails_attributes: {
+                                         0 => {
+                                           canal: "email",
+                                           coordinate: "contact@agro-systemes.fr"
+                                         }
+                                       })
       end
 
       CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
@@ -66,16 +67,16 @@ load_data :analyses do |loader|
                            :fe_ppm_value => row[94].blank? ? nil : (row[94].to_d).in_parts_per_million,
                            :sampled_at => (row[179].blank? ? nil : Date.civil(*row[179].to_s.split(/\//).reverse.map(&:to_i)))                           
                            )
-                           
+        
 
-                           
-                           
-                           
-                           
+        
+        
+        
+        
         unless analysis = Analysis.where(reference_number: r.reference_number, analyser: analyser).first
           analysis = Analysis.create!(reference_number: r.reference_number, nature: "soil_analysis",
                                       analyser: analyser, sampled_at: r.sampled_at, analysed_at: r.at
-                                     )
+                                      )
 
           analysis.read!(:soil_nature, r.analyse_soil_nature) if r.analyse_soil_nature
           analysis.read!(:organic_matter_concentration, r.organic_matter_concentration) if r.organic_matter_concentration
@@ -110,24 +111,24 @@ load_data :analyses do |loader|
     loader.count :milk_analyses_import do |w|
 
       unless analyser = LegalEntity.where("LOWER(full_name) LIKE ?", "%Lilco%".mb_chars.downcase).first
-      analyser = LegalEntity.create!(last_name: "Lilco",
-                                        nature: :cooperative,
-                                        vat_number: "FR00123456789",
-                                        supplier: true, client: false,
-                                        mails_attributes: {
-                                          0 => {
-                                            canal: "mail",
-                                            mail_line_4: "44 Rue Jean Jaures",
-                                            mail_line_6: "17700 SURGERES",
-                                            mail_country: :fr
-                                          }
-                                        },
-                                        emails_attributes: {
-                                          0 => {
-                                            canal: "email",
-                                            coordinate: "contact@lilco-s.com"
-                                          }
-                                        })
+        analyser = LegalEntity.create!(last_name: "Lilco",
+                                       nature: :cooperative,
+                                       vat_number: "FR00123456789",
+                                       supplier: true, client: false,
+                                       mails_attributes: {
+                                         0 => {
+                                           canal: "mail",
+                                           mail_line_4: "44 Rue Jean Jaures",
+                                           mail_line_6: "17700 SURGERES",
+                                           mail_country: :fr
+                                         }
+                                       },
+                                       emails_attributes: {
+                                         0 => {
+                                           canal: "email",
+                                           coordinate: "contact@lilco-s.com"
+                                         }
+                                       })
       end
 
       # import Milk result to make automatic quality indicators
@@ -174,7 +175,7 @@ load_data :analyses do |loader|
                                       analyser: analyser,
                                       analysed_at: r.at,
                                       sampled_at: r.at
-                                     )
+                                      )
 
           analysis.read!(:total_bacteria_concentration, r.germes)
           analysis.read!(:inhibitors_presence, r.inhib)
@@ -200,24 +201,24 @@ load_data :analyses do |loader|
     loader.count :milk_unitary_control_analyses_import do |w|
 
       unless analyser = LegalEntity.where("LOWER(full_name) LIKE ?", "%Atlantic Conseil Elevage%".mb_chars.downcase).first
-      analyser = LegalEntity.create!(last_name: "Atlantic Conseil Elevage",
-                                        nature: :cooperative,
-                                        vat_number: "FR00123456789",
-                                        supplier: true, client: false,
-                                        mails_attributes: {
-                                          0 => {
-                                            canal: "mail",
-                                            mail_line_4: "CS 10015 - Les Rochettes",
-                                            mail_line_6: "85036 La Roche-sur-Yon",
-                                            mail_country: :fr
-                                          }
-                                        },
-                                        emails_attributes: {
-                                          0 => {
-                                            canal: "email",
-                                            coordinate: "accueil@atlantic-conseil-elevage.fr"
-                                          }
-                                        })
+        analyser = LegalEntity.create!(last_name: "Atlantic Conseil Elevage",
+                                       nature: :cooperative,
+                                       vat_number: "FR00123456789",
+                                       supplier: true, client: false,
+                                       mails_attributes: {
+                                         0 => {
+                                           canal: "mail",
+                                           mail_line_4: "CS 10015 - Les Rochettes",
+                                           mail_line_6: "85036 La Roche-sur-Yon",
+                                           mail_country: :fr
+                                         }
+                                       },
+                                       emails_attributes: {
+                                         0 => {
+                                           canal: "email",
+                                           coordinate: "accueil@atlantic-conseil-elevage.fr"
+                                         }
+                                       })
       end
 
       # import Milk result to make automatic quality indicators
@@ -257,7 +258,7 @@ load_data :analyses do |loader|
         unless analysis = Analysis.where(reference_number: r.reference_number, analyser: analyser).first
           analysis = Analysis.create!(reference_number: r.reference_number, nature: "unitary_cow_milk_analysis",
                                       analyser: analyser, sampled_at: r.at, analysed_at: r.at
-                                     )
+                                      )
 
           analysis.read!(:fat_matters_concentration, r.tb_daily_production) if r.tb_daily_production != nil
           analysis.read!(:protein_matters_concentration, r.tp_daily_production) if r.tp_daily_production != nil

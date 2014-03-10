@@ -91,13 +91,13 @@ load_data :land_parcels do |loader|
             # create a campaign if not exist
             campaign = Campaign.find_by(harvest_year: record.attributes['CAMPAGNE'].to_i)
             campaign ||= Campaign.create!(harvest_year: record.attributes['CAMPAGNE'].to_i, closed: false)
-  
+            
             # create an activity if not exist
             item = Nomen::ProductionNatures.where(telepac_crop_code: record.attributes['TYPE'].to_s).first
             activity_family_item = Nomen::ActivityFamilies[item.activity] if item
             activity   = Activity.find_by(family: activity_family_item.name)
             activity ||= Activity.create!(:nature => :main, :family => activity_family_item.name, :name => item.human_name)
-  
+            
             # create a production if not exist
             product_nature_variant_sup = ProductNatureVariant.import_from_nomenclature(item.variant_support.to_s)
             product_support = cultivable_zone || nil
@@ -167,7 +167,7 @@ load_data :land_parcels do |loader|
                                 :name => r.name, :initial_born_at => born_at, :initial_owner => Entity.of_company, initial_shape: shapes[r.shape_number])
         end
         if container = Product.find_by_work_number(r.place_code)
-            # container.add(zone, born_at)
+          # container.add(zone, born_at)
           zone.update_attributes(initial_container: container)
           zone.save!
         end
@@ -215,17 +215,17 @@ load_data :land_parcels do |loader|
           # zone.read!(:net_surface_area, zone.shape_area, at: born_at)
         end
 
-         # link cultivable zone and land parcel for each entries
-         #
+        # link cultivable zone and land parcel for each entries
+        #
         for land_parcel_work_number in r.members
           if land_parcel = LandParcel.find_by_work_number(land_parcel_work_number)
             if land_parcel.shape
               cultivable_zone_membership = CultivableZoneMembership.where(group: zone, member: land_parcel).first
               cultivable_zone_membership ||= CultivableZoneMembership.create!( :group => zone,
-                                                                                :member => land_parcel,
-                                                                                :shape => land_parcel.shape,
-                                                                                :population => (land_parcel.shape_area / land_parcel.variant.net_surface_area.to_d(:square_meter))
-                                                                                )
+                                                                               :member => land_parcel,
+                                                                               :shape => land_parcel.shape,
+                                                                               :population => (land_parcel.shape_area / land_parcel.variant.net_surface_area.to_d(:square_meter))
+                                                                               )
             end
           end
         end
@@ -245,29 +245,29 @@ load_data :land_parcels do |loader|
     cultivable_zone_variant = ProductNatureVariant.import_from_nomenclature(:cultivable_zone)
     for landparcel in LandParcel.all
       
-          cultivable_zone = CultivableZone.create!(:variant_id => cultivable_zone_variant.id,
-                                                   :name => CultivableZone.model_name.human(locale: Preference[:language]) + " " + landparcel.name,
-                                                   :work_number => landparcel.work_number.tr("LP","ZC"),
-                                                   :variety => "cultivable_zone",
-                                                   :initial_born_at => landparcel.born_at,
-                                                   :initial_owner => Entity.of_company,
-                                                   :identification_number => landparcel.identification_number.tr("LP","ZC"))
-          
-          if zc_geometry = shapes[landparcel.work_number]
-            cultivable_zone.read!(:shape, zc_geometry, at: born_at)
-            ind_area = cultivable_zone.shape_area
-          
-            cultivable_zone.read!(:population, landparcel.population, at: born_at)
+      cultivable_zone = CultivableZone.create!(:variant_id => cultivable_zone_variant.id,
+                                               :name => CultivableZone.model_name.human(locale: Preference[:language]) + " " + landparcel.name,
+                                               :work_number => landparcel.work_number.tr("LP","ZC"),
+                                               :variety => "cultivable_zone",
+                                               :initial_born_at => landparcel.born_at,
+                                               :initial_owner => Entity.of_company,
+                                               :identification_number => landparcel.identification_number.tr("LP","ZC"))
+      
+      if zc_geometry = shapes[landparcel.work_number]
+        cultivable_zone.read!(:shape, zc_geometry, at: born_at)
+        ind_area = cultivable_zone.shape_area
+        
+        cultivable_zone.read!(:population, landparcel.population, at: born_at)
 
-            # link cultivable zone and land parcel for each entries
-            #
-            cultivable_zone_membership = CultivableZoneMembership.where(group: cultivable_zone, member: land_parcel).first
-            cultivable_zone_membership ||= CultivableZoneMembership.create!(:group => cultivable_zone,
-                                                                          :member => land_parcel,
-                                                                          :shape => Charta::Geometry.new(land_parcel.shape).transform(:WGS84).to_rgeo,
-                                                                          :population => landparcel.population
-                                                                          )
-        end
+        # link cultivable zone and land parcel for each entries
+        #
+        cultivable_zone_membership = CultivableZoneMembership.where(group: cultivable_zone, member: land_parcel).first
+        cultivable_zone_membership ||= CultivableZoneMembership.create!(:group => cultivable_zone,
+                                                                        :member => land_parcel,
+                                                                        :shape => Charta::Geometry.new(land_parcel.shape).transform(:WGS84).to_rgeo,
+                                                                        :population => landparcel.population
+                                                                        )
+      end
     end
   end
 

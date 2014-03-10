@@ -1370,11 +1370,11 @@ fra:
         animal_health: "Hygiène des animaux"
         animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_health
         animal_production: "Productions animales"
-        cleaning: "Nettoyage"                             # animal_production
+        cleaning: "Nettoyage"                              # animal_production
         consummables_addition: "Mise à niveau"             # maintenance
         cultipacking: "Cultipacking"                       # tillage
         fermentation: "Fermentation"                       # transformation
-        food_supply: "Alimentation"                       # animal_feeding
+        food_supply: "Alimentation"                        # animal_feeding
         grinding: "Broyage"
         growth_control: "Contrôle de croissance"
         harvest: "Récolte"
@@ -1385,14 +1385,14 @@ fra:
         maintenance: "Maintenance"
         milk_production: "Production laitière"             # animal_production
         oviparous_birth: "Reproduction (ovipare)"
-        pasturing: "Pâturage"                           # animal_feeding
+        pasturing: "Pâturage"                              # animal_feeding
         piece_replacement: "Remplacement de pièces"        # maintenance
         plant_fertilisation: "Fertilisation"
         plant_illness_treatment: "Protection des cultures"
         plowing: "Labour"                                  # tillage
         pruning: "Taille"
         raking: "Hersage"                                  # tillage
-        silage_autosupply: "Alimentation en libre service"           # animal_feeding
+        silage_autosupply: "Alimentation en libre service" # animal_feeding
         soil_cleaning: "Désinfection du sol"
         soil_enrichment: "Amendement"
         sowing: "Semis"                                    # implantation
@@ -2170,7 +2170,7 @@ fra:
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertilizer: "Engrais minéral"             # mineral_matter
         cichorium: "Chicoré"                               # asteraceae
-        cleaner: "Rabot"                               # equipment
+        cleaner: "Rabot"                                   # equipment
         colombar_blanc: "Colombar blanc"                   # vitis_vinifera
         compost: "Compost"                                 # excrement
         corylus: "Corylus"                                 # betulaceae
@@ -2192,7 +2192,7 @@ fra:
         excrement: "Engrais organiques"                    # organic_matter
         fabaceae: "Fabaceae"                               # plant
         fabulis: "Fabulis"                                 # triticum_durum
-        food_deliver: "Désileuse"                     # equipment
+        food_deliver: "Désileuse"                          # equipment
         forager: "Ensileuse"                               # equipment
         fragaria: "Fraise"                                 # rosaceae
         fruit: "Fruit"                                     # organic_matter

@@ -106,6 +106,8 @@ arb:
   procedures:
     # base-all_in_one_sowing: "Semis 'tout-en-un'"
     # base-animal_birth: "Naissance d’un animal"
+    # base-animal_housing_cleaning: "Nettoyage de stabulation"
+    # base-animal_housing_mulching: "Paillage de stabulation"
     # base-animal_treatment: "Traitement animal"
     # base-calving_one: "Vêlage unique"
     # base-calving_twin: "Vêlage jumeaux"

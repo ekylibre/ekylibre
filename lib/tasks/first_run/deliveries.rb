@@ -18,11 +18,11 @@ load_data :deliveries do |loader|
 
   
   variants_transcode = {}.with_indifferent_access
-      
+  
   file = loader.path("charentes_alliance", "variants_transcode.csv")
   if file.exist?
     CSV.foreach(file, headers: true) do |row|
-     variants_transcode[row[0]] = row[1].to_sym
+      variants_transcode[row[0]] = row[1].to_sym
     end
   end
   
