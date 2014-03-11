@@ -127,6 +127,8 @@
        <!-- s -->
       <item name="liter_per_square_meter" dimension="distance" symbol="l/m²" a="0.001"/>
       <item name="hectoliter_per_hectare" dimension="distance" symbol="hl/ha" a="0.1"/>
+      <item name="liter_per_hectare"      dimension="distance" symbol="l/ha" a="10"/>
+      
       
       <!-- surface_area_density -->
       <item name="unity_per_square_meter" dimension="surface_area_density" symbol="./m²"/>

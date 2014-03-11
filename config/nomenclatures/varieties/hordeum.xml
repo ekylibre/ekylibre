@@ -11,6 +11,7 @@
   <nomenclature name="varieties-hordeum_hibernum" hierarchical="true">
     <items>
       <item name="hordeum_hibernum_cerevisiae"/>
+      <item name="etincel"/>
     </items>
   </nomenclature>
 
