@@ -47,7 +47,7 @@ load_data :deliveries do |loader|
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
         r = OpenStruct.new(:order_number => row[0],
                            :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
-                           :product_nature_name => (variants_transcode[row[3]] || "small_equipment"),
+                           :product_nature_name => (variants_transcode[row[3].to_s] || "small_equipment"),
                            :matter_name => row[4],
                            :coop_variant_reference_name => "coop:" + row[4].downcase.gsub(/\s+/, '_'),
                            :quantity => (row[5].blank? ? nil : row[5].to_d),
