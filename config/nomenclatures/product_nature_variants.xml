@@ -1152,6 +1152,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="subsoil_plow"
+            nature="plow"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="hoe"
             nature="hoe"
             unit_name="equipment"
@@ -1216,6 +1221,11 @@
             />
       <item name="grape_reaper"
             nature="grape_reaper"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="hazel_reaper"
+            nature="shell_fruit_reaper"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />

@@ -693,6 +693,14 @@
             variable_indicators="application_width"
             frozen_indicators="population"
             />
+       <item name="shell_fruit_reaper"
+            category="equipment"
+            variety="reaper"
+            population_counting="unitary"
+            abilities="harvest(prunus), harvest(corylus), consume(oil), consume(fuel)"
+            variable_indicators="application_width"
+            frozen_indicators="population"
+            />   
       <item name="forager"
             category="equipment"
             variety="forager"
