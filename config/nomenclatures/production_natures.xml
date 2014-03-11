@@ -203,10 +203,22 @@
             telepac_crop_code="HC"
             variant_support="fallow_crop"
             />
+      <item name="others_usages"
+            production_code="3900"
+            activity="fallow_land"
+            telepac_crop_code="AU"
+            variant_support="fallow_crop"
+            />
       <item name="annual_frost_fallow_land"
             production_code="3900"
             activity="fallow_land"
             telepac_crop_code="GA"
+            variant_support="annual_fallow_crop"
+            />
+      <item name="fixed_frost_fallow_land"
+            production_code="3900"
+            activity="fallow_land"
+            telepac_crop_code="GF"
             variant_support="annual_fallow_crop"
             />
       <!-- 4 - GARDENER CROP -->
@@ -262,7 +274,7 @@
       <item name="hazel"
             production_code="5760"
             activity="fruits_crops"
-            telepac_crop_code="NO"
+            telepac_crop_code="NS"
             variant_support="hazel_crop"
             />
       <!-- 6 - VINE CROP AND WINE -->

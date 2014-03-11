@@ -2109,6 +2109,7 @@ eng:
         # duck: "Canard"
         # escourgeon_barley: "Orge escourgeon"
         feeding: "Feeding" #?
+        # fixed_frost_fallow_land: "Gel fixe"
         # garlic: "Ail"
         # grain_corn: "Maïs grain"
         # hazel: "Noisettier"
@@ -2123,6 +2124,7 @@ eng:
         # melon: "Melon"
         # milk_bull_calf: "Taurillons Lait"
         # milk_cattle: "Bovins Lait"
+        # others_usages: "Autres utilisations (non admissibles)"
         # oyster: "Huître"
         # permanent_meadow: "Prairie permanente"
         # plum: "Prune"

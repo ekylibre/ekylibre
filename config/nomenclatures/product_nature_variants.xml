@@ -557,8 +557,18 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
+      <item name="herbicide_herbicide"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
       <item name="complete_herbicide"
             nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="fungicide"
+            nature="fungicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
@@ -571,7 +581,7 @@
             nature="fungicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
-            />
+            />   
       <item name="additive"
             nature="additive"
             unit_name="liter"
@@ -800,6 +810,19 @@
             nature="usual_vine_seedling"
             unit_name="unit"
             frozen_indicators_values="woodstock_variety: so4"
+            />
+      <!-- TREE INPLANT -->
+      <item name="plum_seedling"
+            nature="plum_seedling"
+            derivative_of="prunus"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="hazel_seedling"
+            nature="hazel_seedling"
+            derivative_of="corylus"
+            unit_name="unit"
+            frozen_indicators_values=""
             />
       <!-- SEED -->
       <item name="seed"
@@ -1216,7 +1239,22 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
       />
+      <!-- TREE CROP -->
+      <item name="pruning_platform"
+            nature="pruning_platform"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+      />
+      
+      
+      
+      <!-- WORKER -->
       <item name="technician"
+            nature="technician"
+            unit_name="person"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="employee"
             nature="technician"
             unit_name="person"
             frozen_indicators_values="population: 1"

@@ -16,7 +16,7 @@ fra:
         feed: "Nourrir"
         fertilize: "Fertiliser"
         grind: "Broyer"
-        # grow: "Grow"
+        grow: "Se développer"
         harvest: "Récolter"
         hoe: "Biner"
         implant: "Planter"
@@ -1623,6 +1623,7 @@ fra:
         duck_manure: "Fumier de canard"
         duck_slurry: "Lisier de canard"
         electricity: "Électricité"
+        employee: "Employé"
         equipment: "Équipement"
         equipment_building_division: "Emplacement de stockage du matériel"
         escourgeon_barley_crop: "Orge d’hiver Escourgeon"
@@ -1638,6 +1639,7 @@ fra:
         food_tank: "Silo à aliments"
         forager: "Ensileuse"
         fuel_tank: "Cuve à fioul"
+        fungicide: "Fongicide"
         garlic_crop: "Culture d’ail"
         gas: "Gaz"
         gasoline: "Essence"
@@ -1657,11 +1659,13 @@ fra:
         hay_round_bales: "Botte de foin - balle ronde"
         hay_small_rectangular_bales: "Botte de foin - petit format"
         hazel_crop: "Culture de noisettier"
+        hazel_seedling: "Plant de noisetier"
         helianthus_herbicide: "Herbicide tournesol"
         hen_compost: "Compost de poule"
         hen_guano: "Guano de poule"
         hen_manure: "Fumier de poule"
         hen_slurry: "Lisier de poule"
+        herbicide: "Herbicide"
         hoe: "Bineuse"
         horse_manure: "Fumier de cheval"
         horsebean_crop: "Culture de féverolle"
@@ -1711,9 +1715,11 @@ fra:
         plant_medicine_tank: "Réserve de produits phytosanitaires"
         plow: "Charrue"
         plum_crop: "Verger de pruniers"
+        plum_seedling: "Plant de prunier"
         poaceae_fungicide: "Fongicide céréales/graminées"
         poaceae_herbicide: "Herbicide céréales/graminées"
         potato_crop: "Culture de pomme de terre"
+        pruning_platform: "plate-forme de taille"
         rabbit_manure: "Fumier de lapin"
         rape_crop: "Culture de colza"
         reaper: "Moissonneuse-batteuse"
@@ -1835,6 +1841,7 @@ fra:
         grape_reaper: "Machine à vendanger"
         grass: "Herbe"
         hay_rake: "Andaineur"
+        hazel_seedling: "Plant de noisetier"
         hen_band: "Bande de gallinacé"
         herbicide: "Herbicide"
         hoe: "Bineuse"
@@ -1862,6 +1869,8 @@ fra:
         oyster_band: "Bande d’huître"
         plant_medicine_tank: "Réserve de produits phytosanitaires"
         plow: "Charrue"
+        plum_seedling: "Plant de prunier"
+        pruning_platform: "Plate-forme de taille"
         reaper: "Moissonneuse-batteuse"
         running_water: "Eau du réseau"
         salmon_band: "Bande de saumon"
@@ -1907,6 +1916,7 @@ fra:
         chicken: "Poulet"
         duck: "Canard"
         escourgeon_barley: "Orge escourgeon"
+        fixed_frost_fallow_land: "Gel fixe"
         garlic: "Ail"
         grain_corn: "Maïs grain"
         hazel: "Noisettier"
@@ -1918,6 +1928,7 @@ fra:
         melon: "Melon"
         milk_bull_calf: "Taurillons Lait"
         milk_cattle: "Bovins Lait"
+        others_usages: "Autres utilisations (non admissibles)"
         oyster: "Huître"
         permanent_meadow: "Prairie permanente"
         plum: "Prune"
@@ -2126,12 +2137,14 @@ fra:
         additive: "Additif"                                # plant_medicine
         alexis: "Alexis"                                   # triticum_durum
         allium: "Ail"                                      # amaryllidaceae
+        allo: "Allo"                                     # prunus_salicina
         amaranthaceae: "Amaranthaceae"                     # plant
         amaryllidaceae: "Amaryllidaceae"                   # plant
         anas: "Palmipède"                                  # aves
         animal: "Animal"                                   # bioproduct
         animal_group: "Troupeau"                           # product_group
         animal_medicine: "Médicament vétérinaire"          # medicine
+        anne_gold: "Anne gold"                           # prunus_salicina
         antiseptic: "Antiseptique"                         # medicine
         apache: "Blé Apache"                               # triticum_aestivum
         apiaceae: "Apiaceae"                               # plant
@@ -2143,13 +2156,17 @@ fra:
         avena: "Avena"                                     # poaceae
         aventur: "Aventur"                                 # triticum_durum
         aves: "Oiseau"                                     # animal
+        awaso: "Awaso"                                   # prunus_salicina
         aztec: "Aztec"                                     # triticum_aestivum
         baler: "Botteleuse"                                # equipment
         bambusa: "Bambou"                                  # poaceae
+        beauty: "Beauty"                                 # prunus_salicina
+        bernardina: "Bernardina"                         # prunus_domestica
         beta: "Betterave"                                  # amaranthaceae
         betulaceae: "Betulaceae"                           # plant
         biensur: "Biensur"                                 # triticum_durum
         bioproduct: "Produit vivant"                       # matter
+        bluefre: "Bluefre"                               # prunus_domestica
         bos: "Bovin"                                       # mammalia
         brassica: "Colza"                                  # brassicaceae
         brassica_napus: "Colza"                            # brassica
@@ -2165,13 +2182,16 @@ fra:
         capra: "Caprin"                                    # mammalia
         carignan: "Carignan"                               # vitis_vinifera
         carmenere_noir: "Carménère noir"                   # vitis_vinifera
+        carpatin: "Carpatin"                             # prunus_domestica
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertilizer: "Engrais minéral"             # mineral_matter
         cichorium: "Chicoré"                               # asteraceae
         cleaner: "Rabot"                                   # equipment
         colombar_blanc: "Colombar blanc"                   # vitis_vinifera
         compost: "Compost"                                 # excrement
+        corabel: "Corabel"                               # corylus_avellana
         corylus: "Corylus"                                 # betulaceae
+        corylus_avellana: "Corylus avellana"             # corylus
         cot_noir: "Cot noir"                               # vitis_vinifera
         courtot: "Courtot"                                 # triticum_aestivum
         cucumis: "Melon"                                   # cucurbitaceae
@@ -2183,6 +2203,7 @@ fra:
         easement: "Aménagement foncier"                    # zone
         egg: "Oeuf"                                        # organic_matter
         electricity: "Electricité"                         # matter
+        ennis: "Ennis"                                   # corylus_avellana
         equipment: "Équipement"                            # matter
         equus: "Equin"                                     # mammalia
         esperia: "Esperia"                                 # triticum_aestivum
@@ -2190,6 +2211,9 @@ fra:
         excrement: "Engrais organiques"                    # organic_matter
         fabaceae: "Fabaceae"                               # plant
         fabulis: "Fabulis"                                 # triticum_durum
+        fercoril_corabel: "Fercoril corabel"             # corylus_avellana
+        feriale: "Feriale"                               # corylus_avellana
+        fertile_coutard: "Fertile coutard"               # corylus_avellana
         food_deliver: "Désileuse"                          # equipment
         forager: "Ensileuse"                               # equipment
         fragaria: "Fraise"                                 # rosaceae
@@ -2234,6 +2258,7 @@ fra:
         lens: "Lentille"                                   # fabaceae
         lepus: "Lagomorphe"                                # mammalia
         levis: "Levis"                                     # triticum_aestivum
+        lewis: "Lewis"                                   # corylus_avellana
         liliaceae: "Liliaceae"                             # plant
         linaceae: "Linaceae"                               # plant
         linum: "Lin"                                       # linaceae
@@ -2249,6 +2274,7 @@ fra:
         medicine: "Médicament"                             # preparation
         merlot_blanc: "Merlot blanc"                       # vitis_vinifera
         merlot_noir: "Merlot noir"                         # vitis_vinifera
+        merveille: "Merveille"                           # corylus_avellana
         milk: "Lait"                                       # organic_matter
         mineral_matter: "Matière minérale"                 # matter
         miradoux: "Miradoux"                               # triticum_durum
@@ -2266,6 +2292,7 @@ fra:
         osteichthyes: "Poissons osseux"                    # animal
         ostreidae: "Ostreidae"                             # mollusca
         ovis: "Ovin"                                       # mammalia
+        pauetet: "Pauetet"                               # corylus_avellana
         pescadou: "Pescadou"                               # triticum_durum
         petit_verdot_noir: "Petit verdot noir"             # vitis_vinifera
         phaseolus: "Haricot"                               # fabaceae
@@ -2282,6 +2309,8 @@ fra:
         property_title: "Titre de propriété"               # immatter
         pruner: "Sécateur"                                 # equipment
         prunus: "Prunier"                                  # plant
+        prunus_domestica: "Prunus domestica"             # prunus
+        prunus_salicina: "Prunus salicina"               # prunus
         qualital: "Qualital"                               # triticum_aestivum
         quality: "Quality"                                 # triticum_aestivum
         quebon: "Quebon"                                   # triticum_aestivum
@@ -2301,6 +2330,7 @@ fra:
         secale: "Secale"                                   # poaceae
         seed: "Semence"                                    # organic_matter
         seedling: "Plant"                                  # organic_matter
+        segorbe: "Segorbe"                               # corylus_avellana
         semillon_blanc: "Sémillon blanc"                   # vitis_vinifera
         service: "Service"                                 # immatter
         settlement: "Agencement"                           # easement
@@ -2323,6 +2353,7 @@ fra:
         tamaro: "Tamaro"                                   # triticum_aestivum
         tank: "Réservoir"                                  # equipment
         texel: "Texel"                                     # triticum_aestivum
+        tonda_giffoni: "Tonda giffoni"                   # corylus_avellana
         tractor: "Tracteur"                                # equipment
         trailer: "Remorque"                                # equipment
         tremie: "Tremie"                                   # triticum_aestivum

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-prunus" hierarchical="true">
+    <items>
+      <item name="prunus_domestica" itis_tsn="24774"/>
+      <item name="prunus_salicina" itis_tsn="506232"/> 
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-prunus_domestica" hierarchical="true">
+    <items>
+      <item name="bernardina" itis_tsn="00000"/>
+      <item name="bluefre" itis_tsn="000000"/>
+      <item name="carpatin" itis_tsn="000000"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-prunus_salicina" hierarchical="true">
+    <items>
+      <item name="allo" itis_tsn="00000"/>
+      <item name="anne_gold" itis_tsn="000000"/>
+      <item name="awaso" itis_tsn="000000"/>
+      <item name="beauty" itis_tsn="000000"/>
+    </items>
+  </nomenclature>
+  
+</nomenclatures>
