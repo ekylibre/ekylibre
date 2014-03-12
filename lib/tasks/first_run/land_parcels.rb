@@ -127,7 +127,7 @@ load_data :land_parcels do |loader|
             end
             
             unless activity = Activity.find_by(family: activity_family.name)  
-              activity = Activity.create!(:nature => :main, :family => activity_family.name, :name => item.human_name)
+              activity = Activity.create!(:nature => :main, :family => activity_family.name, :name => activity_family.human_name)
             end
             
             
