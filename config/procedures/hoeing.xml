@@ -4,7 +4,12 @@
     <variables>
       <variable name="driver" variety="worker" abilities="drive(tractor)" roles="raking-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow(equipment),catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="land_parcel" variety="cultivable_zone" roles="raking-target"/>
+      <variable name="land_parcel" variety="cultivable_zone" roles="raking-target" default-actor="storage" need="shape" default-shape=":land_parcel">
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
       <variable name="cultivator" type="equipment" abilities="hoe" /><!-- paramètre réprésentant des objets qui possede la compétence "Travailler le sol"  -->
     </variables>
     <operations>
