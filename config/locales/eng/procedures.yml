@@ -122,6 +122,7 @@ eng:
     # base-fuel_up: "Plein de carburant"
     # base-grains_harvest: "Moisson"
     # base-hoeing: "Binage"
+    # base-implant: "Plantation"
     # base-indirect_silage: "Ensilage indirect"
     # base-item_replacement: "Remplacement de pièce"
     # base-mammal_herd_milking: "Traite d'un troupeau"
@@ -143,7 +144,6 @@ eng:
     # base-straw_bunching: "Pressage de fourrages"
     # base-superficial_plowing: "Déchaumage / Préparation du sol"
     # base-uncompacting: "Décompactage"
-    # base-vine_plant: "Plantation de vigne"
     # base-wheat_crop: "Culture de blé (standard)"
     # base-wine_transfer: "Transfert de vin"
   variables: #?
