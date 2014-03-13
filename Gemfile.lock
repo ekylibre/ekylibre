@@ -260,7 +260,7 @@ GEM
       rdoc (~> 4.0, < 5.0)
     sexp_processor (4.4.1)
     shoulda-context (1.1.6)
-    simple_calendar (0.1.9)
+    simple_calendar (0.1.10)
       rails (>= 3.0)
     simple_form (3.0.1)
       actionpack (>= 4.0.0, < 4.1)
@@ -270,7 +270,7 @@ GEM
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
-    slop (3.4.7)
+    slop (3.5.0)
     sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
