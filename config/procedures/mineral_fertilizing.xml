@@ -5,28 +5,33 @@
       <variable name="fertilizer" variety="chemical_fertilizer" abilities="fertilize" roles="soil_enrichment-origin"/>
       <variable name="fertilizer_to_spread" new="parted-from: fertilizer" roles="soil_enrichment-input" default-population=":fertilizer">
       <handler indicator="population" />
-     <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
+      <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
                  forward="(value * land_parcel.net_surface_area(hectare)) / self..net_mass(kilogram)"
                  backward="(value * self..net_mass(kilogram)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg N/ha -->
        <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self..nitrogen_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self..nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg N/ha -->          
        <handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self..phosphorus_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self..phosphorus_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg P/ha -->         
       <handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare"   to="population"
-                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self..potassium_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(kilogram) * (self..potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
                  /> <!-- kg P/ha -->            
                  
       </variable>  
       <variable name="spreader" abilities="spread(mineral_matter)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver" variety="worker" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow(spreader)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="land_parcel" variety="cultivable_zone" roles="soil_enrichment-target" default-actor="storage" need="shape" default-shape=":land_parcel"/>
+      <variable name="land_parcel" variety="cultivable_zone" roles="soil_enrichment-target" default-actor="storage" need="shape" default-shape=":land_parcel">
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

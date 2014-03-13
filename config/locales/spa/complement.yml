@@ -13,6 +13,8 @@ spa:
 
     animal_medicine:
 
+    building_division:
+
     catalog_price:
       currency:
         AED: "Dirham de los Emiratos Árabes Unidos"
@@ -193,6 +195,8 @@ spa:
     entity:
 
     entity_link:
+
+    equipment:
 
     financial_asset:
       currency:

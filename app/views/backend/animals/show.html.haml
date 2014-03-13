@@ -54,6 +54,7 @@
         .info
           %span.title= Animal.human_attribute_name(:container)
           %span.value= link_to(container.name, backend_product_path(container))
+    - b.cell :last_analyses, params: {nature: :unitary_cow_milk_analysis, product_id: resource.id}
     - b.cell(:variable_indicators) do
       :ruby
         indicators = resource.variable_indicators.delete_if{|i| ![:measure, :decimal].include?(i.datatype)}
@@ -70,11 +71,11 @@
             hash[pair.read_at.to_usec] = pair.value.to_d
             hash
           end.collect{|k,v| [k, v.to_s.to_f] }
-          data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
+          # data << [now.to_usec, resource.get(indicator, at: now).to_d.to_s.to_f]
           series << {name: indicator.human_name, data: data, step: 'left'}
         end
 
-      = line_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom'}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
+      = spline_chart(series, legend: { layout: 'vertical', align: 'bottom', vertical_align: 'bottom'}, y_axis: {title: { text: :indicator.tl}}, x_axis: {type: 'datetime', title: { enabled: true, text: :months.tl}, min: min.to_usec})
 
     -# b.cell :indicators_evolutions do
       - if resource.born_at

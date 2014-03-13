@@ -27,7 +27,7 @@
       <item name="plow_superficially"/>
       <item name="hoe"/>
       <item name="uncompact"/>
-      <item name="clean"/>
+      <item name="clean" parameters="variety"/>
       <item name="sow"/>
       <item name="implant"/>
       <item name="grow"/>
@@ -44,6 +44,7 @@
       <item name="milk" parameters="variety"/>
       <item name="tow" parameters="variety"/>
       <item name="cut"/>
+      <item name="deliver" parameters="variety"/>
 
       <item name="repair" parameters="variety"/>
       <item name="lubricate" parameters="variety"/>

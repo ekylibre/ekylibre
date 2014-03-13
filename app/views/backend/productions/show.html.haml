@@ -14,7 +14,23 @@
   - b.hbox do
     - if Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:milk])
       - b.cell :last_analyses, params: {campaign_id: resource.campaign_id}
-
+    - elsif Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:equipment])
+      - b.cell(:supports) do
+        = list(:supports)
+    - elsif Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:organic_matter])
+      - b.cell :map do
+        = map(BuildingDivision.of_production(resource))
+      - b.cell :map do
+        = map(Equipment.of_production(resource))
+      - b.cell(:supports) do
+        = list(:supports)
+    - elsif Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:animal])
+      - b.cell :map do
+        = map(BuildingDivision.of_production(resource))
+      - b.cell :map do
+        = map(CultivableZone.of_production(resource))
+      - b.cell(:supports) do
+        = list(:supports)
     - elsif Nomen::Varieties[resource.variant.variety].self_and_parents.include?(Nomen::Varieties[:plant])
       - b.cell :map do
         = map(CultivableZone.of_production(resource))

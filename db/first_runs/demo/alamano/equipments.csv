@@ -4,9 +4,12 @@ Brice TEXIER,technician,,,1983-01-01,,,,Population : 1,,11.74,usage_duration
 David JOULIN,technician,,,1981-01-01,,,,Population : 1,,11.74,usage_duration
 Yvan JOULIN,technician,,,1984-01-01,,,,Population : 1,,11.74,usage_duration
 ,CUVE / SILO / RESERVE,,,,,,,,,,
-Cuve n°1,wine_tank,TANK_1,,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
-Cuve n°2,wine_tank,TANK_2,,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
-Cuve n°3,wine_tank,TANK_3,,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
+Cuve n°1,wine_tank,TANK_1_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
+Cuve n°2,wine_tank,TANK_2_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
+Cuve n°3,wine_tank,TANK_3_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
+Cuve n°4,wine_tank,TANK_4_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
+Cuve n°5,wine_tank,TANK_5_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
+Cuve n°6,wine_tank,TANK_6_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
 Tank Lait 3000,milk_tank,TANK_1_S05_D09,S05_D09,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 3000liter,,0.5,usage_duration
 Tank Lait 1500,milk_tank,TANK_2_S05_D09,S05_D09,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 1500liter,,0.5,usage_duration
 Silo Aliment Gauche,food_tank,TANK_1G_S05,S05,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 10cubic_meter ; nominal_storable_net_mass : 7ton,,0.8,usage_duration
@@ -16,11 +19,11 @@ Armoire produits phytosanitaires,plant_medicine_tank,RESERVE_1_S05_D07,S05_D07,1
 Pharmacie,animal_medicine_tank,RESERVE_1_S05_D09,S05_D09,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 3000liter,,0.8,usage_duration
 Cuve Fioul,fuel_tank,TANK_FUEL_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 1500liter,,0.8,usage_duration
 ,TRACTEUR,,,,,,,,,,
-Tracteur CASE-IH 533,tractor,,,1983-01-01,CASE-IH,533,,Population : 1 ; Motor_power : 45ch,,8,usage_duration
-Tracteur CASE-IH 745,tractor,,,1987-01-01,CASE-IH,745,,Population : 1 ; Motor_power : 75ch,,10,usage_duration
-Tracteur CASE-IH 745 Desilleuse fourche,tractor,,,1990-01-01,CASE-IH,745,,Population : 1 ; Motor_power : 75ch,,18,usage_duration
-Tracteur CASE-IH 4240,tractor,,,1994-07-15,CASE-IH,4240,,Population : 1 ; Motor_power : 92 ch,,12,usage_duration
-Tracteur RENAULT 110.54,tractor,,,2005-08-15,RENAULT,110.54,,Population : 1 ; Motor_power : 110 ch,,16,usage_duration
+Tracteur CASE-IH 533,tractor,TRAC_533,,1983-01-01,CASE-IH,533,,Population : 1 ; Motor_power : 45ch,,8,usage_duration
+Tracteur CASE-IH 745,tractor,TRAC_745,,1987-01-01,CASE-IH,745,,Population : 1 ; Motor_power : 75ch,,10,usage_duration
+Tracteur CASE-IH 745 Desilleuse fourche,tractor,TRAC_745D,,1990-01-01,CASE-IH,745,,Population : 1 ; Motor_power : 75ch,,18,usage_duration
+Tracteur CASE-IH 4240,tractor,TRAC_4240,,1994-07-15,CASE-IH,4240,,Population : 1 ; Motor_power : 92 ch,,12,usage_duration
+Tracteur RENAULT 110.54,tractor,TRAC_R110,,2005-08-15,RENAULT,110.54,,Population : 1 ; Motor_power : 110 ch,,16,usage_duration
 ,MATERIEL DE PLANTATION,,,,,,,,,,
 Plantoir,manual_implanter,,,1999-10-01,,,,Population : 1,,0.27,usage_duration
 Machine à planter WAGNER Champion GPS,implanter,,,1999-10-01,,,ETA,Population : 1,,98.56,usage_duration
@@ -53,3 +56,7 @@ Remorque épandeur ,spreader_trailer,,,,,,,Population : 1 ; nominal_storable_n
 Remorque monocoque,trailer,,,,,,,Population : 1 ; nominal_storable_net_mass : 8000 kg,,0.5,usage_duration
 ,ENTRETIEN,,,,,,,,,,
 Girobroyeur,mower,,,,,,,'Population : 1 ; application_width : 1,8m',,9,usage_duration
+,ELEVAGE,,,,,,,,,,
+Désileuse,silage_distributor,,,,,,,Population : 1 ; nominal_storable_net_volume : 1000l ; nominal_storable_net_mass : 500kg,,,
+Pailleuse,silage_distributor,,,,,,,Population : 1 ; nominal_storable_net_volume : 3000l ; nominal_storable_net_mass : 1500kg,,,
+Rabot 250,animal_housing_cleaner,,,,,,,'Population : 1 ; application_width : 2,5m',,,

@@ -78,6 +78,8 @@
       <item name="lipolysis"                        datatype="measure" unit="thousand_per_hectogram"/>
       <item name="immunoglobulins_concentration"    datatype="measure" unit="unity_per_liter"/>
       <item name="urea_concentration"               datatype="measure" unit="milligram_per_liter"/>
+      <!-- for milk unitary animal analysis -->
+      <item name="milk_daily_production"        datatype="measure" unit="kilogram_per_day"/>
       <!-- for animal medicine -->
       <item name="meat_withdrawal_period" datatype="measure" unit="day"/>
       <item name="milk_withdrawal_period" datatype="measure" unit="day"/>
@@ -92,8 +94,10 @@
       <!-- macro-element -->
       <item name="organic_matter_concentration"   datatype="measure" unit="percent"/>
       <item name="nitrogen_concentration"   datatype="measure" unit="percent"/>
-      <item name="potassium_concentration"  datatype="measure" unit="percent"/>
-      <item name="phosphorus_concentration" datatype="measure" unit="percent"/>
+      <item name="potash_concentration"     datatype="measure" unit="percent"/> <!-- K2O = 1.205 * K (mass approach) -->
+      <item name="potassium_concentration"  datatype="measure" unit="percent"/> <!-- K = 0.83 * K2O  (mass approach) -->
+      <item name="phosphate_concentration"  datatype="measure" unit="percent"/> <!-- P2O5 = 2.291 * P (mass approach) -->
+      <item name="phosphorus_concentration" datatype="measure" unit="percent"/> <!-- P = 0.436 * P2O5 (mass approach) -->
       <item name="calcium_concentration"    datatype="measure" unit="percent"/>
       <item name="magnesium_concentration"  datatype="measure" unit="percent"/>
       <item name="sulfur_concentration"     datatype="measure" unit="percent"/>
@@ -110,7 +114,7 @@
       <item name="soil_depth"              datatype="measure" unit="centimeter"/>
       <!-- chemical -->
       <item name="potential_hydrogen"       datatype="decimal" /> <!-- pH -->
-      <item name="cation_exchange_capacity" datatype="measure" unit="mole"/>
+      <item name="cation_exchange_capacity" datatype="measure" unit="milliequivalent_per_hundred_gram"/>
       <!-- analysis_method -->
       <item name="cation_exchange_capacity_analysis_method" datatype="choice" choices="cation_exchange_capacity_analysis_methods"/>
       <item name="phosphorus_analysis_method" datatype="choice" choices="phosphorus_analysis_methods"/>

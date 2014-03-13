@@ -11,11 +11,12 @@ fra:
         clean: "Nettoyer"
         consume: "Consommer"
         cut: "Couper"
+        deliver: "Distribuer"
         drive: "Conduire"
         feed: "Nourrir"
         fertilize: "Fertiliser"
         grind: "Broyer"
-        # grow: "Grow"
+        grow: "Se développer"
         harvest: "Récolter"
         hoe: "Biner"
         implant: "Planter"
@@ -290,6 +291,7 @@ fra:
         # target_variety: # Choices comes from nomenclature: varieties
       items:
         cow_milk_analysis: "Analyse de lait de vache"
+        soil_analysis: "Analyse de sol"
         unitary_cow_milk_analysis: "Analyse d'un contrôle laitier"
     animal_life_states:
       name: "États du développement animal"
@@ -860,6 +862,7 @@ fra:
         expression: "Expression"
       items:
         amount_of_substance: "Quantité de matière"
+        amount_of_substance_density: "Densité de quantité de matière"
         angle: "Angle"
         concentration: "Concentration"
         distance: "Distance"
@@ -871,6 +874,7 @@ fra:
         mass_area_density: "Quantité de matière par unité de surface"
         mass_concentration: "Concentration massique"
         mass_density: "Quantité de matière par unité de matière"
+        mass_flow: "Débit massique"
         none: "Aucune"
         power: "Puissance"
         pressure: "Pression"
@@ -880,6 +884,7 @@ fra:
         temperature: "Température"
         time: "Temps"
         volume: "Volume"
+        volume_flow: "Débit volumique"
     document_categories:
       name: "Catégories de documents"
       property_natures:
@@ -1000,9 +1005,13 @@ fra:
         cartodb_api_key: "Cartodb api key"
         cartodb_login: "Cartodb login"
         cartodb_subdomain: "Cartodb subdomain"
+        cartodb_visualization_default: "Cartodb visualisation par défault"
+        cartodb_visualization_nitrogen_footprint: "Cartodb visualisation de l'empreinte amendement"
         cattling_number: "Numéro de détenteur"
         cattling_root_number: "Numéro racine du troupeau"
         charentes_alliance_extranet_username: "Login Extranet Charentes alliance "
+        cooperative_cartodb_account: "Compte cooperative Cartodb"
+        cooperative_cartodb_key: "Clef cooperative Cartodb"
         husbandry_owner_number: "Code éleveur propriétaire"
         lilco_labratory_code: "Code laboratoire LILCO"
         msa_username: "Login MSA"
@@ -1097,6 +1106,7 @@ fra:
         maximal_storable_net_mass: "Capacité de stockage massique maximale"
         maximal_storable_net_volume: "Capacité de stockage volumique maximale"
         meat_withdrawal_period: "Période d’attente avant remise en vente de viande"
+        milk_daily_production: "Production laitière journalière"
         milk_withdrawal_period: "Période d’attente avant remise en vente de lait"
         molybdenum_concentration: "Teneur en molybdène"
         motor_power: "Puissance du moteur"
@@ -1109,6 +1119,7 @@ fra:
         nominal_storable_net_mass: "Capacité de stockage massique nominale"
         nominal_storable_net_volume: "Capacité de stockage volumique nominale"
         organic_matter_concentration: "Teneur en matière organique"
+        phosphate_concentration: "Teneur en phosphate (P2O5)"
         phosphorus_analysis_method: "Méthode d’analyse de la teneur en Phosphore"
         phosphorus_concentration: "Teneur en phosphore"
         plant_life_state: "Phase du bioprocessus de vie d’un végétal"
@@ -1116,6 +1127,7 @@ fra:
         plants_density: "Densité de plantation"
         plants_rows_interval: "Intervalle inter-rangs"
         population: "Population"
+        potash_concentration: "Teneur en potasse (K2O)"
         potassium_concentration: "Teneur en potassium"
         potential_hydrogen: "Potentiel hydrogène (pH)"
         protein_concentration_index: "Taux protéïque (TP)"
@@ -1352,14 +1364,17 @@ fra:
       property_natures:
         # roles: "Roles"
       items:
-        # animal_curative_medicine_admission: "Animal curative medicine admission" # animal_illness_treatment
+        # animal_curative_medicine_admission: "Animal curative medicine admission" # animal_health
+        # animal_environment: "Animal environment"         # animal_health
         animal_feeding: "Alimentation des animaux"
-        animal_illness_treatment: "Traitement des maladies animales"
-        animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_illness_treatment
+        animal_health: "Hygiène des animaux"
+        animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_health
         animal_production: "Productions animales"
+        cleaning: "Nettoyage"                              # animal_health
         consummables_addition: "Mise à niveau"             # maintenance
         cultipacking: "Cultipacking"                       # tillage
         fermentation: "Fermentation"                       # transformation
+        food_supply: "Alimentation"                        # animal_feeding
         grinding: "Broyage"
         growth_control: "Contrôle de croissance"
         harvest: "Récolte"
@@ -1501,6 +1516,7 @@ fra:
           12kg_bag: "sac de 12kg"
           150TG_bag: "sac de 150.000 grains"
           1l_dose: "dose de 1l"
+          220TG_bag: "sac de 220.000 grains"
           24liter_can: "Bidon de 24 litres"
           25kg_bag: "sac de 25kg"
           50TG_bag: "sac de 50.000 grains"
@@ -1538,6 +1554,7 @@ fra:
         animal_building: "Bâtiment d’accueil pour les animaux"
         animal_division: "Zone accueillant des animaux"
         animal_food_division: "Zone accueillant des aliments pour animaux"
+        animal_housing_cleaner: "Rabot"
         animal_medicine_tank: "Réserve de médicaments"
         animal_waste_building_division: "Zone des déchets organiques"
         annual_fallow_crop: "Jachère annuelle"
@@ -1575,23 +1592,37 @@ fra:
         chemical_fertilizer_division: "Emplacement de stockage des engrais"
         complete_herbicide: "Herbicide total"
         coop:ammonitre_33,5%_vr: "ammonitre COOP 33,5% vrac"
-        coop:bd_s_miradoux_r1_cel_gold_net_25kg: "Semence de Blé tendre Miradoux ( r1 cel gold) sac de 25kg"
+        coop:aviator_xpro_5l: "Aviator xpro 5l"
+        # coop:avoine_d'hiver_une_de_mai_red_25kg: "Coop:avoine d'hiver une de mai red 25kg"
+        coop:bd_s_miradoux_r1_cel_gold_net_25kg: "Semence de Blé tendre Miradoux ( r1 cel gold) - sac de 25kg"
+        coop:bd_s_tablur_r1_cel_gold_net_25kg: "Semence de Blé dur tablur r1 cel gold net - sac de 25kg"
+        coop:bd_s_tablur_r1_gau+red_25kg: "Semence de Blé dur tablur r1 gau+red - sac de 25kg"
         coop:bth_s_ascott_r1_gau+_red_25kg: "Semence de Blé tendre Ascott (r1 gau+ red) sac de 25kg"
         coop:bth_s_caphorn_r1_gau+red_25kg: "Semence de Blé tendre Caphorn (r1 gau+ red) sac de 25kg"
         coop:bth_s_euclide_r1_gau+red_25kg: "Semence de Blé tendre Euclide (r1 gau+ red) sac de 25kg"
         coop:bth_s_rubisko_r1_gau+red_25kg: "Semence de Blé tendre Rubisko (r1 gau+ red) sac de 25kg"
         coop:chlorure_60%_gr_vr: "chlorure COOP 60% gr vrac"
+        coop:elite_4_sc_5_l: "Coop:elite 4 sc 5 l"
+        coop:esc_s_etincel_r1_gau+red_s25kg: "Semence d'orge d'hiver escourgeon etincel r1 gau+red sac de 25kg"
         coop:ficelle_filogamm_350_bob_5kg: "ficelle filogamm 350  - bobine 5kg"
-        coop:metarex_ino_20kg: "metarex ino sac de 20kg"
+        coop:ma.aallexia_50mg: "Semence de maïs - aallexia - sac de 50.000 grains"
+        coop:ma.bergxxon_duo_50mg: "Semence de maïs -bergxxon duo - sac de 50.000 grains"
+        coop:ma.bergxxon_duo_sonido_d50mg: "Semence de maïs - bergxxon duo sonido d - sac de 50.000 grains"
+        coop:ma.lg3490_50mg: "Semence de maïs - lg3490 - sac de 50.000 grains"
+        coop:ma.lg3490_sonido_d50mg: "Semence de maïs - lg3490 sonido d - sac de 50.000 grains"
+        coop:metarex_ino_20kg: "metarex ino - sac de 20kg"
         coop:metarex_rg_tds_20kg: "metarex rg tds - sac de 20kg"
+        coop:nikeyl_5_l: "Nikeyl 5 l"
+        coop:prosaro_5_l: "Prosaro 5 l"
         coop:sel_mer_essore_la_baleine_sac_25kg: "sel mer essore la baleine - sac de 25kg"
+        coop:sorgho_ensilage_bmr_333_220mg: "Semence de sorgho ensilage bmr 333 220mg"
         coop:super_46%_gr._vr: "super 46% COOP gr vrac"
         coop:uree_gr_vrac: "uree gr vrac"
         corn_crop: "Culture de maïs"
         corn_grain: "Graine de maïs"
         corn_grain_crop: "Culture de maïs grain"
         corn_seed_25: "Semence de maïs - sac de 25kg"
-        # corn_seed_50tg: "Corn seed 50tg"
+        corn_seed_50tg: "Semence de maïs - sac de 50000 grains"
         corn_seed_crop: "Culture de maïs semence"
         corn_silage: "Ensilage de maïs"
         corn_silage_crop: "Culture de maïs ensilage"
@@ -1604,6 +1635,7 @@ fra:
         duck_manure: "Fumier de canard"
         duck_slurry: "Lisier de canard"
         electricity: "Électricité"
+        employee: "Employé"
         equipment: "Équipement"
         equipment_building_division: "Emplacement de stockage du matériel"
         escourgeon_barley_crop: "Orge d’hiver Escourgeon"
@@ -1619,6 +1651,7 @@ fra:
         food_tank: "Silo à aliments"
         forager: "Ensileuse"
         fuel_tank: "Cuve à fioul"
+        fungicide: "Fongicide"
         garlic_crop: "Culture d’ail"
         gas: "Gaz"
         gasoline: "Essence"
@@ -1638,11 +1671,14 @@ fra:
         hay_round_bales: "Botte de foin - balle ronde"
         hay_small_rectangular_bales: "Botte de foin - petit format"
         hazel_crop: "Culture de noisettier"
+        hazel_reaper: "Récolteuse de frutis à coques"
+        hazel_seedling: "Plant de noisetier"
         helianthus_herbicide: "Herbicide tournesol"
         hen_compost: "Compost de poule"
         hen_guano: "Guano de poule"
         hen_manure: "Fumier de poule"
         hen_slurry: "Lisier de poule"
+        herbicide: "Herbicide"
         hoe: "Bineuse"
         horse_manure: "Fumier de cheval"
         horsebean_crop: "Culture de féverolle"
@@ -1692,9 +1728,11 @@ fra:
         plant_medicine_tank: "Réserve de produits phytosanitaires"
         plow: "Charrue"
         plum_crop: "Verger de pruniers"
+        plum_seedling: "Plant de prunier"
         poaceae_fungicide: "Fongicide céréales/graminées"
         poaceae_herbicide: "Herbicide céréales/graminées"
         potato_crop: "Culture de pomme de terre"
+        pruning_platform: "plate-forme de taille"
         rabbit_manure: "Fumier de lapin"
         rape_crop: "Culture de colza"
         reaper: "Moissonneuse-batteuse"
@@ -1705,6 +1743,7 @@ fra:
         screed_building: "Construction béton (silo, chape, terrasse)"
         seed: "Semence"
         settlement: "Aménagement"
+        silage_distributor: "Désileuse"
         silage_division: "Zone de stockage de l’ensilage"
         small_equipment: "Petit matériel"
         so4_vine_seedling: "Plant de vigne standard (So4)"
@@ -1722,9 +1761,10 @@ fra:
         spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
         spring_oat_crop: "Culture d’avoine de printemps"
         strawberry_crop: "Culture de fraisier"
+        subsoil_plow: "Sous soleuse"
         sugar_vinasse: "Vinasse de sucrerie"
         sunflower_crop: "Culture de tournesol"
-        # sunflower_seed_150tg: "Sunflower seed 150tg"
+        sunflower_seed_150tg: "Semence de tournesol - sac de 150000 grains"
         superficial_plow: "Cultipacker"
         tablur_hard_wheat_crop: "Culture de blé dur Tablur"
         tablur_hard_wheat_seed_25: "Semence de blé dur Tablur sac de 25kg"
@@ -1778,6 +1818,7 @@ fra:
         animal_building_division: "Zone dédiée aux animaux"
         animal_food: "Aliment du bétail"
         animal_food_building_division: "Zone de stockage dédiée aux aliments"
+        animal_housing_cleaner: "Matériel de nettoyage"
         animal_medicine: "Produit vétérinaire"
         animal_medicine_tank: "Reserve de médicaments"
         baler: "Botteleuse"
@@ -1799,6 +1840,7 @@ fra:
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         fertilizer_division: "Zone de stockage des engrais"
+        food_distributor: "Matériel de distribution d'aliments"
         food_equipment_division: "Zone de stockage des équipements et des aliments"
         food_tank: "Silo à aliments"
         forager: "Ensileuse"
@@ -1813,6 +1855,7 @@ fra:
         grape_reaper: "Machine à vendanger"
         grass: "Herbe"
         hay_rake: "Andaineur"
+        hazel_seedling: "Plant de noisetier"
         hen_band: "Bande de gallinacé"
         herbicide: "Herbicide"
         hoe: "Bineuse"
@@ -1840,11 +1883,14 @@ fra:
         oyster_band: "Bande d’huître"
         plant_medicine_tank: "Réserve de produits phytosanitaires"
         plow: "Charrue"
+        plum_seedling: "Plant de prunier"
+        pruning_platform: "Plate-forme de taille"
         reaper: "Moissonneuse-batteuse"
         running_water: "Eau du réseau"
         salmon_band: "Bande de saumon"
         seed: "Semence"
         settlement: "Aménagement"
+        shell_fruit_reaper: "Récolteuse de fruits à coques"
         silage: "Ensilage"
         silage_division: "Zone de stockage de l’ensilage"
         small_equipment: "Petit matériel"
@@ -1885,6 +1931,7 @@ fra:
         chicken: "Poulet"
         duck: "Canard"
         escourgeon_barley: "Orge escourgeon"
+        fixed_frost_fallow_land: "Gel fixe"
         garlic: "Ail"
         grain_corn: "Maïs grain"
         hazel: "Noisettier"
@@ -1896,6 +1943,7 @@ fra:
         melon: "Melon"
         milk_bull_calf: "Taurillons Lait"
         milk_cattle: "Bovins Lait"
+        others_usages: "Autres utilisations (non admissibles)"
         oyster: "Huître"
         permanent_meadow: "Prairie permanente"
         plum: "Prune"
@@ -2012,6 +2060,8 @@ fra:
         celsius: "Celsius"
         centiliter: "Centilitre"
         centimeter: "Centimètre"
+        centimole: "Centimole"
+        centimole_per_kilogram: "Centimole par kilogramme"
         cubic_meter: "Mètre cube"
         day: "Jour"
         degree: "Degrée"
@@ -2020,18 +2070,21 @@ fra:
         french_horsepower: "Cheval-vapeur français"
         gradian: "Gradian"
         gram: "Gramme"
+        gram_per_kilogram: "Gramme par kilogramme"
         gram_per_liter: "Gramme par litre"
         hectare: "Hectare"
         hectoliter: "Hectolitre"
-        # hectoliter_per_hectare: "Hectoliter per hectare"
+        hectoliter_per_hectare: "Hectolitre par hectare"
         hectopascal: "Hectopascal"
         hour: "Heure"
         hundred: "Centaine"
         joule: "Joule"
         kelvin: "Kelvin"
         kilogram: "Kilogramme"
+        kilogram_per_day: "Kilogramme par jour"
         kilogram_per_hectare: "Kilogramme par hectare"
         kilogram_per_liter: "Kilogramme par litre"
+        kilogram_per_second: "Kilogramme par seconde"
         kilogram_per_square_meter: "Kilogramme par mètre carré"
         kilometer: "Kilomètre"
         kilometer_per_hour: "Kilomètre par heure"
@@ -2040,6 +2093,7 @@ fra:
         kilowatt: "Kilowatt"
         kilowatt_hour: "Kilowatt par heure"
         liter: "Litre"
+        liter_per_hectare: "Litre par hectare"
         liter_per_square_meter: "litre par mètre carré"
         mass_percent: "Pourcentage de masse"
         megawatt: "Mégawatt"
@@ -2048,7 +2102,10 @@ fra:
         microgram: "Microgramme"
         microgram_per_liter: "Microgramme par litre"
         milliampere: "Milliampere"
+        milliequivalent: "Milli-équivalent"
+        milliequivalent_per_hundred_gram: "Milli-équivalent pour 100 grammes"
         milligram: "Milligramme"
+        milligram_per_kilogram: "Milligramme par kilogramme"
         milligram_per_liter: "Milligramme par litre"
         milliliter: "Millilitre"
         millimeter: "Millimètre"
@@ -2057,6 +2114,7 @@ fra:
         millisecond: "Millisecond"
         minute: "Minute"
         mole: "Mole"
+        mole_per_kilogram: "Mole par kilogramme"
         parts_per_million: "Partie par millions (ppm)"
         pascal: "Pascal"
         percent: "Pourcent"
@@ -2090,17 +2148,20 @@ fra:
       choices:
         # derivative_of: # Choices comes from nomenclature: varieties
       items:
+        aallexia: "Aallexia"                               # zea
         acetal: "Acetal"                                   # animal_medicine
         actilact: "Actilact"                               # animal_medicine
         additive: "Additif"                                # plant_medicine
         alexis: "Alexis"                                   # triticum_durum
         allium: "Ail"                                      # amaryllidaceae
+        allo: "Allo"                                       # prunus_salicina
         amaranthaceae: "Amaranthaceae"                     # plant
         amaryllidaceae: "Amaryllidaceae"                   # plant
         anas: "Palmipède"                                  # aves
         animal: "Animal"                                   # bioproduct
         animal_group: "Troupeau"                           # product_group
         animal_medicine: "Médicament vétérinaire"          # medicine
+        anne_gold: "Anne gold"                             # prunus_salicina
         antiseptic: "Antiseptique"                         # medicine
         apache: "Blé Apache"                               # triticum_aestivum
         apiaceae: "Apiaceae"                               # plant
@@ -2112,13 +2173,18 @@ fra:
         avena: "Avena"                                     # poaceae
         aventur: "Aventur"                                 # triticum_durum
         aves: "Oiseau"                                     # animal
+        awaso: "Awaso"                                     # prunus_salicina
         aztec: "Aztec"                                     # triticum_aestivum
         baler: "Botteleuse"                                # equipment
         bambusa: "Bambou"                                  # poaceae
+        beauty: "Beauty"                                   # prunus_salicina
+        bergxxon: "Bergxxon"                               # zea
+        bernardina: "Bernardina"                           # prunus_domestica
         beta: "Betterave"                                  # amaranthaceae
         betulaceae: "Betulaceae"                           # plant
         biensur: "Biensur"                                 # triticum_durum
         bioproduct: "Produit vivant"                       # matter
+        bluefre: "Bluefre"                                 # prunus_domestica
         bos: "Bovin"                                       # mammalia
         brassica: "Colza"                                  # brassicaceae
         brassica_napus: "Colza"                            # brassica
@@ -2134,12 +2200,16 @@ fra:
         capra: "Caprin"                                    # mammalia
         carignan: "Carignan"                               # vitis_vinifera
         carmenere_noir: "Carménère noir"                   # vitis_vinifera
+        carpatin: "Carpatin"                               # prunus_domestica
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertilizer: "Engrais minéral"             # mineral_matter
         cichorium: "Chicoré"                               # asteraceae
+        cleaner: "Rabot"                                   # equipment
         colombar_blanc: "Colombar blanc"                   # vitis_vinifera
         compost: "Compost"                                 # excrement
+        corabel: "Corabel"                                 # corylus_avellana
         corylus: "Corylus"                                 # betulaceae
+        corylus_avellana: "Corylus avellana"               # corylus
         cot_noir: "Cot noir"                               # vitis_vinifera
         courtot: "Courtot"                                 # triticum_aestivum
         cucumis: "Melon"                                   # cucurbitaceae
@@ -2151,13 +2221,19 @@ fra:
         easement: "Aménagement foncier"                    # zone
         egg: "Oeuf"                                        # organic_matter
         electricity: "Electricité"                         # matter
+        ennis: "Ennis"                                     # corylus_avellana
         equipment: "Équipement"                            # matter
         equus: "Equin"                                     # mammalia
         esperia: "Esperia"                                 # triticum_aestivum
+        etincel: "Etincel"                                 # hordeum_hibernum
         euclide: "Euclide"                                 # triticum_aestivum
         excrement: "Engrais organiques"                    # organic_matter
         fabaceae: "Fabaceae"                               # plant
         fabulis: "Fabulis"                                 # triticum_durum
+        fercoril_corabel: "Fercoril corabel"               # corylus_avellana
+        feriale: "Feriale"                                 # corylus_avellana
+        fertile_coutard: "Fertile coutard"                 # corylus_avellana
+        food_deliver: "Désileuse"                          # equipment
         forager: "Ensileuse"                               # equipment
         fragaria: "Fraise"                                 # rosaceae
         fruit: "Fruit"                                     # organic_matter
@@ -2201,6 +2277,8 @@ fra:
         lens: "Lentille"                                   # fabaceae
         lepus: "Lagomorphe"                                # mammalia
         levis: "Levis"                                     # triticum_aestivum
+        lewis: "Lewis"                                     # corylus_avellana
+        lg3490: "Lg3490"                                   # zea
         liliaceae: "Liliaceae"                             # plant
         linaceae: "Linaceae"                               # plant
         linum: "Lin"                                       # linaceae
@@ -2216,6 +2294,7 @@ fra:
         medicine: "Médicament"                             # preparation
         merlot_blanc: "Merlot blanc"                       # vitis_vinifera
         merlot_noir: "Merlot noir"                         # vitis_vinifera
+        merveille: "Merveille"                             # corylus_avellana
         milk: "Lait"                                       # organic_matter
         mineral_matter: "Matière minérale"                 # matter
         miradoux: "Miradoux"                               # triticum_durum
@@ -2233,6 +2312,7 @@ fra:
         osteichthyes: "Poissons osseux"                    # animal
         ostreidae: "Ostreidae"                             # mollusca
         ovis: "Ovin"                                       # mammalia
+        pauetet: "Pauetet"                                 # corylus_avellana
         pescadou: "Pescadou"                               # triticum_durum
         petit_verdot_noir: "Petit verdot noir"             # vitis_vinifera
         phaseolus: "Haricot"                               # fabaceae
@@ -2249,6 +2329,8 @@ fra:
         property_title: "Titre de propriété"               # immatter
         pruner: "Sécateur"                                 # equipment
         prunus: "Prunier"                                  # plant
+        prunus_domestica: "Prunus domestica"               # prunus
+        prunus_salicina: "Prunus salicina"                 # prunus
         qualital: "Qualital"                               # triticum_aestivum
         quality: "Quality"                                 # triticum_aestivum
         quebon: "Quebon"                                   # triticum_aestivum
@@ -2268,6 +2350,7 @@ fra:
         secale: "Secale"                                   # poaceae
         seed: "Semence"                                    # organic_matter
         seedling: "Plant"                                  # organic_matter
+        segorbe: "Segorbe"                                 # corylus_avellana
         semillon_blanc: "Sémillon blanc"                   # vitis_vinifera
         service: "Service"                                 # immatter
         settlement: "Agencement"                           # easement
@@ -2290,6 +2373,7 @@ fra:
         tamaro: "Tamaro"                                   # triticum_aestivum
         tank: "Réservoir"                                  # equipment
         texel: "Texel"                                     # triticum_aestivum
+        tonda_giffoni: "Tonda giffoni"                     # corylus_avellana
         tractor: "Tracteur"                                # equipment
         trailer: "Remorque"                                # equipment
         tremie: "Tremie"                                   # triticum_aestivum

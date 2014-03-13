@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <!-- ######################################## PRODUCTION LAITIERE ########################################### -->
+  <procedure name="animal_housing_mulching" natures="animal_environment" version="0" status="frozen">
+    <variables>
+      <variable name="animal_housing" variety="building_division" abilities="store(animal)"  roles="animal_environment-target" default-actor="storage" need="shape" default-shape=":animal_housing">
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, animal_housing.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / animal_housing..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
+      
+      <variable name="straw"           variety="straw" />
+      <variable name="straw_to_mulch"  new="parted-from: straw" need="population" roles="animal_environment-input" />
+      
+      <variable name="cleaner"            variety="cleaner" roles="animal_environment-tool"/>
+      <variable name="driver"             abilities="drive(equipment), move" roles="animal_environment-doer"/>
+      <variable name="tractor"            abilities="tow(equipment), move" roles="animal_environment-tool"/>
+      
+    </variables>
+    <operations>
+      <operation id="100" duration="10 minutes">
+        <task do="[caregiver] moves at [mammal_herd_to_milk]"/>
+      </operation>
+      <operation id="200">
+        <task do="[mammal_herd_to_milk] produces [milk]"/>
+        <task do="[milk] is in [container]"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

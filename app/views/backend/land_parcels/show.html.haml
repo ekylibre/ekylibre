@@ -8,8 +8,4 @@
       .info
         %span.title= LandParcel.human_attribute_name(:net_surface_area)
         %span.value= resource.net_surface_area.in_hectare.round(2).l
-
-  - b.hbox do
-    - b.cell do
-      = attributes_list do |l|
-        - l.attribute :name
+    - b.cell :last_analyses, params: {nature: :soil_analysis, product_id: resource.id}

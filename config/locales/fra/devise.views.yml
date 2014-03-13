@@ -23,6 +23,11 @@ fra:
         message: "Votre compte a été bloqué suite à un nombre d’essais de connexions manqués trop important"
         subject: "Instructions pour débloquer votre compte"
     passwords:
+      edit:
+        change_my_password: "Changer mon mot de passe"
+        change_your_password: "Changer votre mot de passe"
+        confirm_new_password: "Confirmer votre nouveau mot de passe"
+        new_password: "Nouveau mot de passe"
       new:
         forgot_your_password: "Mot de passe oublié ?"
         send_me_reset_password_instructions: "Envoyez-moi des instructions pour réinitialiser mon mot de passe"

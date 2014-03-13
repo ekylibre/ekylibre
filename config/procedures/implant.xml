@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
-  <procedure name="vine_plant" natures="implant" version="0" status="frozen">
+  <procedure name="implant" natures="implant" version="0" status="frozen">
     <variables>
-      <variable name="plants"       variety="seedling" derivative-of="vitis" abilities="grow"/>
-      <variable name="plants_to_fix" new="parted-from: plants" roles="implant-input" default-population=":plants">
-      <handler indicator="population" />
+      <variable name="plants"       variety="seedling" derivative-of="plant" abilities="grow"/>
+      <variable name="plants_to_fix" new="parted-from: plants" roles="implant-input" default-population=":plants" default-name="{{variant}} - [{{derivative_of}}]">
+        <handler indicator="population" />
         <handler indicator="plants_density" unit="unity_per_hectare"   to="population"
                  forward="cultivation.net_surface_area(hectare) * value"
                  backward="value / cultivation.net_surface_area(hectare)"
@@ -18,7 +18,12 @@
       <variable name="implanter_man" abilities="drive(equipment), move" roles="implant-doer"/>
       <variable name="tractor"      abilities="tow(equipment), move" roles="implant-tool"/>
       <variable name="land_parcel"  abilities="store(plant)" roles="implant-target" default-actor="storage"/>
-      <variable name="cultivation"  variety="derivative-of: plants" new="produced-by: land_parcel" roles="implant-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" need="shape" default-shape=":land_parcel" default-variant="production"/>
+      <variable name="cultivation"  variety="derivative-of: plants" new="produced-by: land_parcel" roles="implant-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" need="shape" default-shape=":land_parcel" default-variant="production">
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
@@ -63,6 +68,7 @@
       </operation>
       <operation id="750">
         <task do="cultivation|population|superficial_count:cultivation is measured"/>
+         <!-- <task do="cultivation|plants_density|plants_density:plants_to_fix is measured"/> -->
         <task do="land_parcel|soil_cultural_state|covered is measured"/>
       </operation>
       <operation id="800" duration="18 minutes">

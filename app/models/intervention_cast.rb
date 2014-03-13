@@ -160,8 +160,8 @@ class InterventionCast < Ekylibre::Record::Base
       }.with_indifferent_access
       if produced = self.actor
         words[:variant]     = produced.variant_name
-        words[:variety]     = Nomen::Varieties[produced.variety]
-        words[:derivative_of] = (produced.derivative_of ? Nomen::Varieties[produced.variety] : nil)
+        words[:variety]     = Nomen::Varieties[produced.variety].human_name
+        words[:derivative_of] = (produced.derivative_of ? Nomen::Varieties[produced.variety].human_name : nil)
         words[:container]   = (produced.container ? produced.container.name : nil)
         words[:default_storage] = (produced.default_storage ? produced.default_storage.name : nil)
         words[:born_at]     = produced.born_at.l

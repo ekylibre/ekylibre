@@ -16,12 +16,21 @@ load_data :deliveries do |loader|
   suppliers = Entity.where(:of_company => false, :supplier => true).reorder(:supplier_account_id, :last_name)
   suppliers ||= LegalEntity.create!(:sale_catalog_id => catalog.id, :nature => "company", :language => "fra", :last_name => "All", :supplier_account_id => supplier_account.id, :currency => "eur", :supplier => true)
 
-
+  
+  variants_transcode = {}.with_indifferent_access
+  
+  file = loader.path("charentes_alliance", "variants_transcode.csv")
+  if file.exist?
+    CSV.foreach(file, headers: true) do |row|
+      variants_transcode[row[0]] = row[1].to_sym
+    end
+  end
+  
   # @TODO refactorize to make import for n entities
   file = loader.path("charentes_alliance", "appros.csv")
   if file.exist?
 
-    cooperative = Entity.find_by_last_name("Kazeni")
+    cooperative = Entity.find_by_last_name("Charentes Alliance")
 
     loader.count :cooperative_incoming_deliveries do |w|
       # map sub_family to product_nature_variant XML Nomenclature
@@ -35,41 +44,10 @@ load_data :deliveries do |loader|
         "Supprimé" => :aborted
       }
 
-      pnature = {
-        "Maïs classe a" => :corn_seed_50tg,
-        "Graminées fourragères" => :seed,
-        "Légumineuses fourragères" => :seed,
-        "Divers" => :seed,
-        "Blé tendre" => :wheat_seed_25,
-        "Blé dur" => :hard_wheat_seed_25,
-        "Orge hiver escourgeon" => :winter_barley_seed_25,
-        "Tournesol oléique" => :sunflower_seed_150tg,
-        "Couverts environnementaux enherbeme" => :seed,
-        "Engrais" => :bulk_ammonitrate_33,
-        "Fongicides céréales" => :poaceae_fungicide,
-        "Fongicides colza" => :brassicaceae_fungicide,
-        "Herbicides maïs" => :zea_herbicide,
-        "Herbicides tournesol" => :helianthus_herbicide,
-        "Herbicides totaux" => :complete_herbicide,
-        "Adjuvants" => :additive,
-        "Herbicides autres" => :other_herbicide,
-        "Herbicides céréales et fouragères" => :poaceae_herbicide,
-        "Céréales" => :cereals_feed_bag_25,
-        "Chevaux" => :cereals_feed_bag_25,
-        "Compléments nutritionnels" => :cereals_feed_bag_25,
-        "Minéraux sel blocs" => :mineral_feed_block_25,
-        "Anti-limaces" => :anti_slug,
-        "Location semoir" => :spread_renting,
-        "Nettoyants" => :mineral_cleaner,
-        "Films plastiques" => :small_equipment,
-        "Recyclage" => :small_equipment,
-        "Ficelles" => :small_equipment
-      }
-
       CSV.foreach(file, :encoding => "UTF-8", :col_sep => ";", :headers => true) do |row|
         r = OpenStruct.new(:order_number => row[0],
                            :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
-                           :product_nature_name => (pnature[row[3]] || "small_equipment"),
+                           :product_nature_name => (variants_transcode[row[3].to_s] || "small_equipment"),
                            :matter_name => row[4],
                            :coop_variant_reference_name => "coop:" + row[4].downcase.gsub(/\s+/, '_'),
                            :quantity => (row[5].blank? ? nil : row[5].to_d),

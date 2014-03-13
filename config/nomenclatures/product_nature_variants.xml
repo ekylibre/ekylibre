@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, 220TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL -->
@@ -17,13 +17,13 @@
             nature="cattle_herd"
             derivative_of="bos"
             unit_name="head"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values=""
             />
       <item name="female_adult_cattle_herd"
             nature="female_adult_cattle_herd"
             derivative_of="bos"
             unit_name="head"
-            frozen_indicators_values="population: 1"
+            frozen_indicators_values="sex: female, reproductor: true"
             />
       <item name="female_adult_cow"
             nature="female_adult_cow"
@@ -66,7 +66,7 @@
       <item name="calf"
             nature="calf"
             unit_name="head"
-            frozen_indicators_values="population: 1, livestock_unit: 0.4"
+            frozen_indicators_values="population: 1, livestock_unit: 0.4, reproductor: false"
             />
       <!-- HEN -->
       <item name="female_hen_band"
@@ -557,8 +557,18 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
+      <item name="herbicide"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
       <item name="complete_herbicide"
             nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="fungicide"
+            nature="fungicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
@@ -571,7 +581,7 @@
             nature="fungicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
-            />
+            />   
       <item name="additive"
             nature="additive"
             unit_name="liter"
@@ -800,6 +810,19 @@
             nature="usual_vine_seedling"
             unit_name="unit"
             frozen_indicators_values="woodstock_variety: so4"
+            />
+      <!-- TREE INPLANT -->
+      <item name="plum_seedling"
+            nature="plum_seedling"
+            derivative_of="prunus"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="hazel_seedling"
+            nature="hazel_seedling"
+            derivative_of="corylus"
+            unit_name="unit"
+            frozen_indicators_values=""
             />
       <!-- SEED -->
       <item name="seed"
@@ -1129,6 +1152,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="subsoil_plow"
+            nature="plow"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="hoe"
             nature="hoe"
             unit_name="equipment"
@@ -1196,6 +1224,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="hazel_reaper"
+            nature="shell_fruit_reaper"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="equipment"
             nature="equipment"
             unit_name="equipment"
@@ -1206,7 +1239,32 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
 	    />
+	    <item name="silage_distributor"
+            nature="food_distributor"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+      />
+      <item name="animal_housing_cleaner"
+            nature="animal_housing_cleaner"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+      />
+      <!-- TREE CROP -->
+      <item name="pruning_platform"
+            nature="pruning_platform"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+      />
+      
+      
+      
+      <!-- WORKER -->
       <item name="technician"
+            nature="technician"
+            unit_name="person"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="employee"
             nature="technician"
             unit_name="person"
             frozen_indicators_values="population: 1"
@@ -1269,7 +1327,46 @@
             />
 
       <!-- Coop variants -->
+      
       <!-- SEED -->
+      <item name="coop:sorgho_ensilage_bmr_333_220mg"
+            nature="seed"
+            derivative_of="sorghum"
+            unit_name="220TG_bag"
+            frozen_indicators_values="net_mass: 22.00kilogram, thousand_grains_mass: 100gram"
+            />
+      <!-- CORN -->
+      <item name="coop:ma.lg3490_50mg"
+            nature="seed"
+            derivative_of="lg3490"
+            unit_name="50TG_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma.lg3490_sonido_d50mg"
+            nature="seed"
+            derivative_of="lg3490"
+            unit_name="50TG_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma.aallexia_50mg"
+            nature="seed"
+            derivative_of="aallexia"
+            unit_name="50TG_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma.bergxxon_duo_50mg"
+            nature="seed"
+            derivative_of="bergxxon"
+            unit_name="50TG_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />     
+      <item name="coop:ma.bergxxon_duo_sonido_d50mg"
+            nature="seed"
+            derivative_of="bergxxon"
+            unit_name="50TG_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <!-- WHEAT -->     
       <item name="coop:bth_s_caphorn_r1_gau+red_25kg"
             nature="seed"
             derivative_of="caphorn"
@@ -1300,6 +1397,32 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
+      <item name="coop:bd_s_tablur_r1_gau+red_25kg"
+            nature="seed"
+            derivative_of="tablur"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            />
+      <item name="coop:bd_s_tablur_r1_cel_gold_net_25kg"
+            nature="seed"
+            derivative_of="tablur"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 48gram"
+            />
+      <!-- BARLEY -->      
+      <item name="coop:esc_s_etincel_r1_gau+red_s25kg"
+            nature="seed"
+            derivative_of="etincel"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 40gram"
+            />
+      <!-- AVENA -->
+      <item name="coop:avoine_d'hiver_une_de_mai_red_25kg"
+            nature="seed"
+            derivative_of="avena"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 35gram"
+            />
       <!-- FERTILIZER -->
       <item name="coop:ammonitre_33,5%_vr"
             nature="chemical_fertilizer"
@@ -1326,6 +1449,26 @@
             nature="molluscicide"
             unit_name="bag"
             frozen_indicators_values="net_volume: 20.00liter, net_mass: 20.00kilogram"
+            />
+      <item name="coop:aviator_xpro_5l"
+            nature="fungicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:prosaro_5_l"
+            nature="fungicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:nikeyl_5_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:elite_4_sc_5_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
       <item name="coop:metarex_ino_20kg"
             nature="molluscicide"
