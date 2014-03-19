@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.3'
+gem 'rails', '4.0.4'
 
 # Database adapters
 gem 'pg' # Needed for some tasks
@@ -118,7 +118,7 @@ gem 'rubyzip'
 gem 'ffaker'
 
 # Reading RSS feeds
-gem 'feedzirra'
+gem 'feedjira'
 
 # Adds colors in terminal
 gem 'colored'

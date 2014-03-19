@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="molecules">
+    <property-natures>
+      <!-- SMILES Notation: wikipedia.org/wiki/Simplified_Molecular_Input_Line_Entry_Specification -->
+      <property-nature name="formula" type="string"/>
+    </property-natures>
+    <items>
+      <item name="dinitrogen"       formula="N#N"/>
+      <item name="sodium_chloride"  formula="[Na+].[Cl-]"/>
+      <item name="copper_sulfate"   formula="[Cu+2].[O-]S(=O)(=O)[O-]"/>
+      <item name="dicopper_sulfate" formula="[O-]S(=O)(=O)[O-].[Cu+].[Cu+]"/>
+      <item name="glucose"          formula="OC[C@@H](O1)[C@@H](O)[C@H](O)[C@@H](O)[C@@H](O)1"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

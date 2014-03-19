@@ -1436,30 +1436,40 @@ fra:
         back_heat: "Retour de chaleur"
         heat: "Chaleur"
         pregnancy: "Pleine"
+    molecules:
+      name: "Molécules"
+      property_natures:
+        formula: "Formule"
+      items:
+        copper_sulfate: "Sulfate de cuivre (Ⅰ)"
+        dicopper_sulfate: "Sulfate de cuivre (Ⅱ)"
+        dinitrogen: "Diazote"
+        glucose: "Glucose"
+        sodium_chloride: "Chlorure de sodium"
     net_services:
       name: "Services en ligne"
       property_natures:
         approach: "Approche"
         identifiers: "Identifiants"
         nature: "Type"
-        url: "Url"
+        url: "URL"
       choices:
         approach:
-          email: "Email"
+          email: "Courriel"
           human: "Humaine"
-          rest: "Rest"
-          soap: "Soap"
+          rest: "REST"
+          soap: "SOAP"
         # nature: # Choices comes from nomenclature: activity_families
       items:
-        cartodb: "Cartodb"
-        charentes_alliance_extranet: "Charentes alliance extranet"
-        est_elevage: "Est élevage"
+        cartodb: "CartoDB"
+        charentes_alliance_extranet: "Charentes Alliance extranet"
+        est_elevage: "Est Élevage"
         lilco: "Lilco"
-        msa: "Msa"
-        selso: "Selso"
+        msa: "MSA"
+        selso: "SelSO"
         synel: "Synel"
         synest: "Synel Est"
-        telepac: "Telepac"
+        telepac: "TéléPAC"
     nmp_methods:
       name: "Méthodes de calcul du bilan azoté"
       items:

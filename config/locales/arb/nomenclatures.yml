@@ -1538,30 +1538,40 @@ arb:
         # heat: "Chaleur"
         # pregnancy: "Pleine"
       # name: "États de la reproduction mammifère"
+    molecules:
+      items:
+        # copper_sulfate: "Sulfate de cuivre (Ⅰ)"
+        # dicopper_sulfate: "Sulfate de cuivre (Ⅱ)"
+        # dinitrogen: "Diazote"
+        # glucose: "Glucose"
+        # sodium_chloride: "Chlorure de sodium"
+      # name: "Molécules"
+      property_natures:
+        # formula: "Formule"
     net_services:
       choices:
         approach:
-          # email: "Email"
+          # email: "Courriel"
           # human: "Humaine"
-          # rest: "Rest"
-          # soap: "Soap"
+          # rest: "REST"
+          # soap: "SOAP"
         data_acces_method: #?
       items:
-        # cartodb: "Cartodb"
-        # charentes_alliance_extranet: "Charentes alliance extranet"
-        # est_elevage: "Est élevage"
+        # cartodb: "CartoDB"
+        # charentes_alliance_extranet: "Charentes Alliance extranet"
+        # est_elevage: "Est Élevage"
         # lilco: "Lilco"
-        # msa: "Msa"
-        # selso: "Selso"
+        # msa: "MSA"
+        # selso: "SelSO"
         # synel: "Synel"
         # synest: "Synel Est"
-        # telepac: "Telepac"
+        # telepac: "TéléPAC"
       # name: "Services en ligne"
       property_natures:
         # approach: "Approche"
         # identifiers: "Identifiants"
         # nature: "Type"
-        # url: "Url"
+        # url: "URL"
     nmp_methods:
       items:
         # poitou_charentes: "Poitou charentes"
