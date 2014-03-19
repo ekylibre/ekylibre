@@ -1586,11 +1586,26 @@ arb:
     nmp_poitou_charentes_abacus_7: #?
     nmp_poitou_charentes_abacus_8: #?
     nmp_poitou_charentes_abacus_9: #?
-    nmp_poitou_charentes_abacus_five: #?
-    nmp_poitou_charentes_abacus_four: #?
-    nmp_poitou_charentes_abacus_one: #?
-    nmp_poitou_charentes_abacus_three: #?
-    nmp_poitou_charentes_abacus_two: #?
+    nmp_poitou_charentes_abacus_eight:
+      # name: "Abaque 8 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_five:
+      # name: "Abaque 5 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_four:
+      # name: "Abaque 4 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_nine:
+      # name: "Abaque 9 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_one:
+      # name: "Abaque 1 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_seven:
+      # name: "Abaque 7 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_six:
+      # name: "Abaque 6 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_ten:
+      # name: "Abaque 10 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_three:
+      # name: "Abaque 3 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_two:
+      # name: "Abaque 2 de la méthode de calcul de bilan azoté Poitou-Charentes"
     phosphorus_analysis_methods:
       items:
         # dyer: "Dyer"
@@ -2257,7 +2272,8 @@ arb:
         # swamp_peaty_soil: "Terre de marais tourbeux"
         # valley_terrace_soil: "Sols de terrasse de vallée"
       # name: "Types de sols"
-    spatial_reference_systems: #?
+    spatial_reference_systems:
+      # name: "Systèmes de coordonnées spatiales"
     taxes:
       choices:
         computation_method: #?

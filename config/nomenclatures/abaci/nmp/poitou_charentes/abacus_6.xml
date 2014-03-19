@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <!-- root -->
   <!--  abaque de valeur de Mhp  -->
-  <nomenclature name="nmp_poitou_charentes_abacus_6" hierarchical="false" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_six" hierarchical="false" translateable="false">
     <property-natures>
       <property-nature name="minimum_age" type="integer" required="true"/><!-- en mois -->
       <property-nature name="maximum_age" type="integer" required="false"/>

@@ -3,7 +3,7 @@
   <!-- root -->
   <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  Le tableau suivant donne la valeur de Rf (en kgN/ha) en fonction des types de sols:  -->
-  <nomenclature name="nmp_poitou_charentes_abacus_9" hierarchical="false" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_nine" hierarchical="false" translateable="false">
     <property-natures>
       <property-nature name="soil_nature" type="choice" nomenclature="soil_natures" required="true"/> <!-- -land_parcel -->
       <property-nature name="rf" type="decimal" required="true"/><!-- en qt/ha -->

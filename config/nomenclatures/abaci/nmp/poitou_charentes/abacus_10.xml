@@ -3,7 +3,7 @@
   <!-- root -->
   <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
   <!--  Le poste fourniture du sol Po intègre la contribution en azote du sol ainsi que l'arrière effet des retournements de prairie Contribution en azote du sol (en kgN/ha)  -->
-  <nomenclature name="nmp_poitou_charentes_abacus_10" hierarchical="false" translateable="false">
+  <nomenclature name="nmp_poitou_charentes_abacus_ten" hierarchical="false" translateable="false">
     <property-natures>
       <property-nature name="crop" type="choice" nomenclature="crop_sets" required="true"/> <!-- -land_parcel -->
       <property-nature name="po" type="decimal" required="true"/><!-- en kg N/ha -->
