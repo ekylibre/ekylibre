@@ -3,11 +3,16 @@
 
 = beehive do |b|
   - b.hbox do
-    - b.cell do
-      .info
+    - b.cell :general do
+      - for reading in resource.readings
+        .info
+          %span.title= reading.indicator.human_name
+          %span.value= reading.value
+         
+      -# .info
         %span.title= ProductNatureVariant.human_attribute_name(:net_mass)
         %span.value= resource.products.map(&:net_mass).compact.sum
-      .info
+      -# .info
         %span.title= ProductNatureVariant.human_attribute_name(:net_volume)
         %span.value= resource.products.map(&:net_volume).compact.sum
 
@@ -23,7 +28,7 @@
     - b.cell(:products) do
       = list(:products)
     - b.cell(:stocks) do
-      - if resource.products.count > 0
+      - if resource.products.any?
         :ruby
             dataset = resource.products
 
@@ -45,11 +50,11 @@
         = no_data
 
   - b.hbox do
-    -b.cell(:prices) do
+    - b.cell(:prices) do
       = toolbar do |t|
         - t.new(params: {controller: :catalog_prices, :variant_id => resource.id})
       = list(:prices)
-    -b.cell(:prices_evolutions) do
+    - b.cell(:prices_evolutions) do
       - if resource.prices.count > 0
         :ruby
             dataset = resource.prices.reorder(:started_at)

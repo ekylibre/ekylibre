@@ -10,6 +10,9 @@
       .info
         %span.title= Matter.human_attribute_name(:net_mass)
         %span.value= resource.net_mass.l
+      .info
+        %span.title= Matter.human_attribute_name(:variant)
+        %span.value= link_to(resource.variant_name, controller: :product_nature_variants, action: :show, id: resource.variant_id)
 
     - b.cell :details do
       = attributes_list do |l| # liste des champs à afficher
