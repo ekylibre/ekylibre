@@ -1566,6 +1566,8 @@ spa:
         # dicopper_sulfate: "Sulfate de cuivre (Ⅱ)"
         # dinitrogen: "Diazote"
         # glucose: "Glucose"
+        # phosphate: "Phosphate"
+        # potash: "Potasse"
         # sodium_chloride: "Chlorure de sodium"
       # name: "Molécules"
       property_natures:
@@ -1657,9 +1659,10 @@ spa:
       # name: "États de la reproduction végétale"
     procedure_natures:
       items:
-        # animal_curative_medicine_admission: "Animal curative medicine admission"
+        # animal_curative_medicine_admission: "Traitement curatif des maladies animales"
         # animal_feeding: "Alimentation des animaux"
         # animal_health: "Hygiène des animaux"
+        # animal_housing_maintenance: "Entretien des bâtiments d’élevage"
         # animal_preventive_medicine_admission: "Traitement préventif des maladies animales"
         # animal_production: "Productions animales"
         # cleaning: "Nettoyage"
