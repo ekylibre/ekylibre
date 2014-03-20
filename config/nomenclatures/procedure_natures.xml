@@ -17,7 +17,7 @@
       <item name="tillage" roles="target"/>
       <item name="plant_fertilisation" roles="input, target"/>
       <item name="plant_illness_treatment" roles="input, target, doer, tool"/>
-      <item name="soil_enrichment" roles="input, target, tool, doer, origin"/>
+      <item name="soil_enrichment" roles="input, target, tool, doer, input_origin"/>
       <item name="soil_cleaning" roles="target"/>
       <item name="implantation" roles="input, target, output, doer, tool"/>
       <item name="pruning" roles="doer, target"/>
@@ -61,7 +61,7 @@
     <items>
       <item name="animal_curative_medicine_admission" roles="input, target, doer"/>
       <item name="animal_preventive_medicine_admission" roles="input, target, doer"/>
-      <item name="animal_environment" roles="input, target, doer, tool"/>
+      <item name="animal_housing_maintenancnce" roles="input, target, doer, tool"/>
       <item name="cleaning" roles="output, target, doer, tool"/>
     </items>
   </nomenclature>

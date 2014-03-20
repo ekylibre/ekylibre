@@ -673,7 +673,7 @@
             category="equipment"
             variety="harvester"
             population_counting="unitary"
-            abilities="swath"
+            abilities="rake(straw), rake(hay)"
             variable_indicators="application_width"
             frozen_indicators="population"
             />

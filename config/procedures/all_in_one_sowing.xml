@@ -26,7 +26,7 @@
                  backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)"
                  /> <!--  M    -->
       </variable>
-      <variable name="fertilizer" variety="chemical_fertilizer" abilities="fertilize" roles="soil_enrichment-origin"/>
+      <variable name="fertilizer" variety="chemical_fertilizer" abilities="fertilize" roles="soil_enrichment-input_origin"/>
       <variable name="fertilizer_to_spread" new="parted-from: fertilizer" roles="soil_enrichment-input" default-population=":fertilizer">
         <handler indicator="population" />
 	<handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"

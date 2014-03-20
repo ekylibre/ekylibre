@@ -7,7 +7,7 @@
       <item name="input"/>
       <item name="output"/>
       <item name="doer"/>
-      <item name="origin"/> <!-- ? -->
+      <item name="input_origin"/>
     </items>
   </nomenclature>
 </nomenclatures>

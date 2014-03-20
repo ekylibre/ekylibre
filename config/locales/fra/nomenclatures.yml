@@ -30,6 +30,7 @@ fra:
         plow: "Labourer"
         plow_superficially: "Travailler le sol superficiellement"
         produce: "Produire"
+        rake: "Ratisser"
         repair: "Réparer"
         sow: "Semer"
         spray: "Pulvériser"
@@ -38,15 +39,14 @@ fra:
         store_fluid: "Stocker du vrac solide"
         store_gaz: "Stocker du gaz"
         store_liquid: "Stocker du vrac liquide"
-        # swath: "Swath"
         tow: "Tracter"
         uncompact: "Décompacter"
     accounts:
       name: "Comptes comptables"
       property_natures:
         debtor: "Compte de débit"
-        fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007"
-        fr_pcga: "Plan comptable agricole - Arrêté du 11/12/1986"
+        fr_pcg82: "Numéro dans le PCG1982"
+        fr_pcga: "Numéro dans le PCGA"
       items:
         accrued_bank_interests: "Intérêts courus"
         accrued_interests: "Intérêts courus"
@@ -292,7 +292,7 @@ fra:
       items:
         cow_milk_analysis: "Analyse de lait de vache"
         soil_analysis: "Analyse de sol"
-        unitary_cow_milk_analysis: "Analyse d'un contrôle laitier"
+        unitary_cow_milk_analysis: "Analyse d’un contrôle laitier"
     animal_life_states:
       name: "États du développement animal"
       items:
@@ -336,15 +336,15 @@ fra:
     charts_of_accounts:
       name: "Plans de comptes"
       items:
-        fr_pcg82: "Numéro dans le PCG1982"
-        fr_pcga: "Numéro dans le PCGA"
-        ifrs: "IFRS"
+        fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007"
+        fr_pcga: "Plan comptable agricole - Arrêté du 11/12/1986"
+        ifrs: "Normes internationales d’information financière (IFRS)"
     chemical_elements:
       name: "Éléments chimiques"
       property_natures:
         atomic_number: "Numéro atomique"
         atomic_weight: "Masse atomique"
-        boil_temperature: "Température d'ébullition"
+        boil_temperature: "Température d’ébullition"
         electro_negativity: "Électro-negativité"
         group: "Groupe"
         mass_density: "Densité massique"
@@ -754,11 +754,11 @@ fra:
       name: "Monnaies"
       property_natures:
         active: "Active"
-        # cash: "Cash"
-        # countries: "Countries"
-        # number: "Number"
-        # precision: "Precision"
-        # symbol: "Symbol"
+        cash: "Espèces"
+        countries: "Pays"
+        number: "Numéro (ISO)"
+        precision: "Nombre de décimales"
+        symbol: "Symbole"
       item_lists:
         EUR:
           cash:
@@ -1078,16 +1078,16 @@ fra:
     entity_link_natures:
       name: "Types de liens sociaux"
       property_natures:
-        # entity_1: "Entity 1"
-        # entity_2: "Entity 2"
-        # symmetric: "Symmetric"
+        entity_1: "Personne 1"
+        entity_2: "Personne 2"
+        symmetric: "Lien symétrique"
       items:
-        # association: "Association"
-        # collaboration: "Collaboration"
-        # cooperation: "Cooperation"
+        association: "Association"
+        collaboration: "Collaboration"
+        cooperation: "Coopération"
         direct_kinship: "Parenté directe"
-        # management: "Management"
-        # transform: "Transform"
+        management: "Management"
+        transform: "Changement de statut"
         undefined: "Indéfini"
         work: "Collaboration"
     entity_natures:
@@ -1130,20 +1130,20 @@ fra:
     identifier_natures:
       name: "Types d’identifiants"
       property_natures:
-        # fallbacks: "Fallbacks"
+        fallbacks: "Recours"
         password: "Mot de passe"
       item_lists:
       items:
-        cartodb_api_key: "Cartodb api key"
-        cartodb_login: "Cartodb login"
-        cartodb_subdomain: "Cartodb subdomain"
-        cartodb_visualization_default: "Cartodb visualisation par défault"
-        cartodb_visualization_nitrogen_footprint: "Cartodb visualisation de l'empreinte amendement"
-        cattling_number: "Numéro de détenteur"
+        cartodb_api_key: "Clé API CartoDB"
+        cartodb_login: "Login CartoDB"
+        cartodb_subdomain: "Sous-domaine CartoDB"
+        cartodb_visualization_default: "Visualisation CartoDB par défault"
+        cartodb_visualization_nitrogen_footprint: "Visualisation CartoDB de l’empreinte amendement"
+        cattling_number: "Numéro de détenteur de troupeau"
         cattling_root_number: "Numéro racine du troupeau"
-        charentes_alliance_extranet_username: "Login Extranet Charentes alliance "
-        cooperative_cartodb_account: "Compte cooperative Cartodb"
-        cooperative_cartodb_key: "Clef cooperative Cartodb"
+        charentes_alliance_extranet_username: "Login extranet Charentes Alliance "
+        cooperative_cartodb_account: "Compte coopérative CartoDB"
+        cooperative_cartodb_key: "Clé coopérative CartoDB"
         husbandry_owner_number: "Code éleveur propriétaire"
         lilco_labratory_code: "Code laboratoire LILCO"
         msa_username: "Login MSA"
@@ -1155,11 +1155,11 @@ fra:
       property_natures:
         choices: "Choix"
         curve: "Courbe"
-        datatype: "Datatype"
-        # gathering: "Gathering"
-        # individual_identifier: "Individual identifier"
-        interpolation: "Interpolation"
-        # related_to: "Related to"
+        datatype: "Type de donnée"
+        gathering: "Méthode de globalisation"
+        individual_identifier: "Indentifieur d’individu"
+        interpolation: "Méthode d’interpolation"
+        related_to: "Relatif à"
         unit: "Unité"
       choices:
         curve:
@@ -1177,13 +1177,13 @@ fra:
           point: "Point spatial"
           string: "Texte"
         gathering:
-          # proportional_to_population: "Proportional to population"
+          proportional_to_population: "Proportionnel à la population"
         interpolation:
-          # linear: "Linear"
-          # nearest: "Nearest"
-          # none: "None"
-          # previous: "Previous"
-          # sine: "Sine"
+          linear: "Linéaire"
+          nearest: "Plus proche"
+          none: "Aucune"
+          previous: "Précédent"
+          sine: "Sinusoidale"
         related_to:
           individual: "Individu"
           whole: "Population"
@@ -1283,7 +1283,7 @@ fra:
         unique_synthesis_index: "Index de synthèse unique (ISU)"
         urea_concentration: "Teneur moyenne en urée"
         usage_duration: "Durée d’utilisation"
-        # volume_area_density: "Volume area density"
+        volume_area_density: "Volume par surface"
         water_content_rate: "Teneur en eau"
         width: "Largeur"
         woodstock_variety: "Variété du porte-greffe"
@@ -1445,6 +1445,8 @@ fra:
         dicopper_sulfate: "Sulfate de cuivre (Ⅱ)"
         dinitrogen: "Diazote"
         glucose: "Glucose"
+        # phosphate: "Phosphate"
+        # potash: "Potash"
         sodium_chloride: "Chlorure de sodium"
     net_services:
       name: "Services en ligne"
@@ -1509,9 +1511,9 @@ fra:
         germination: "Germination"
         heading: "Tallage"
         leaf_development: "Développement des feuilles"
-        # ripening: "Ripening"
+        ripening: "Vieillissement"
         senescence: "Sénescence"
-        # stem_elongation: "Stem elongation"
+        stem_elongation: "Allongement de la tige"
         tillering: "Tallage"
     plant_reproduction_states:
       name: "États de la reproduction végétale"
@@ -1520,16 +1522,16 @@ fra:
         grain_maturity: "Maturité du grain"
         grain_senescence: "Senescence du grain"
         heading: "Épiaison"
-        # swelling: "Swelling"
+        swelling: "Gonflement"
     procedure_natures:
       name: "Types de procédures"
       property_natures:
-        # roles: "Roles"
+        roles: "Rôles"
       items:
-        # animal_curative_medicine_admission: "Animal curative medicine admission" # animal_health
-        # animal_environment: "Animal environment"         # animal_health
+        animal_curative_medicine_admission: "Animal curative medicine admission" # animal_health
         animal_feeding: "Alimentation des animaux"
         animal_health: "Hygiène des animaux"
+        # animal_housing_maintenancnce: "Animal housing maintenancnce" # animal_health
         animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_health
         animal_production: "Productions animales"
         cleaning: "Nettoyage"                              # animal_health
@@ -1565,7 +1567,7 @@ fra:
       items:
         doer: "Faiseur"
         input: "Intrant"
-        # origin: "Origin"
+        input_origin: "Origine de l’intrant"
         output: "Extrant"
         target: "Cible"
         tool: "Outil"
@@ -1706,7 +1708,7 @@ fra:
           unit: "unité"
         # variety: # Choices comes from nomenclature: varieties
       items:
-        25kg_bag_animal_food: "Sac d'aliment de 25kg"
+        25kg_bag_animal_food: "Sac d’aliment de 25kg"
         acetal: "Acetal"
         actilact: "Actilact"
         additive: "Adjuvant"
@@ -1765,7 +1767,7 @@ fra:
         coop:bth_s_rubisko_r1_gau+red_25kg: "Semence de Blé tendre Rubisko (r1 gau+ red) sac de 25kg"
         coop:chlorure_60%_gr_vr: "chlorure COOP 60% gr vrac"
         coop:elite_4_sc_5_l: "Coop:elite 4 sc 5 l"
-        coop:esc_s_etincel_r1_gau+red_s25kg: "Semence d'orge d'hiver escourgeon etincel r1 gau+red sac de 25kg"
+        coop:esc_s_etincel_r1_gau+red_s25kg: "Semence d’orge d’hiver escourgeon etincel r1 gau+red sac de 25kg"
         coop:ficelle_filogamm_350_bob_5kg: "ficelle filogamm 350  - bobine 5kg"
         coop:ma.aallexia_50mg: "Semence de maïs - aallexia - sac de 50.000 grains"
         coop:ma.bergxxon_duo_50mg: "Semence de maïs -bergxxon duo - sac de 50.000 grains"
@@ -1790,7 +1792,7 @@ fra:
         corn_silage_crop: "Culture de maïs ensilage"
         cow_milk: "Lait de vache"
         cultivable_zone: "Zone cultivable"
-        dairy_equipment_cleaner: "Produits d'hygiène de traite"
+        dairy_equipment_cleaner: "Produits d’hygiène de traite"
         diesel: "Diesel"
         duck_band: "Bande de canards"
         duck_herd: "Groupe de canards"
@@ -1822,7 +1824,7 @@ fra:
         grape_reaper: "Machine à vendanger"
         grass: "Herbe"
         grass_seed_25: "Sac de 25kg de semence de prairie"
-        grass_silage: "Ensilage d'herbe"
+        grass_silage: "Ensilage d’herbe"
         green_compost: "Compost de déchets verts"
         guineafowl_manure: "Fumier de pintades"
         hard_wheat_crop: "Culture de blé dur"
@@ -1852,7 +1854,7 @@ fra:
         land_parcel_cluster: "Îlot"
         lavender_crop: "Culture de lavande"
         lentil_crop: "Culture de lentille"
-        livestock_cleanliness_product: "Produit d'hygiène d'élevage"
+        livestock_cleanliness_product: "Produit d’hygiène d’élevage"
         male_adult_cow: "Taureau"
         male_hen_band: "Bande de poulet"
         male_young_cow: "Taurillon"
@@ -2002,7 +2004,7 @@ fra:
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         fertilizer_division: "Zone de stockage des engrais"
-        food_distributor: "Matériel de distribution d'aliments"
+        food_distributor: "Matériel de distribution d’aliments"
         food_equipment_division: "Zone de stockage des équipements et des aliments"
         food_tank: "Silo à aliments"
         forager: "Ensileuse"
@@ -2195,8 +2197,8 @@ fra:
       choices:
         # collect_account: # Choices comes from nomenclature: accounts
         computation_method:
-          # amount: "Amount"
-          # percentage: "Percentage"
+          amount: "Montant fixe"
+          percentage: "Pourcentage"
         # country: # Choices comes from nomenclature: countries
         # deduction_account: # Choices comes from nomenclature: accounts
       items:
@@ -2208,11 +2210,11 @@ fra:
     units:
       name: "Unités de mesure"
       property_natures:
-        # a: "A"
-        # b: "B"
-        # d: "D"
-        # dimension: "Dimension"
-        # symbol: "Symbol"
+        a: "A"
+        b: "B"
+        d: "D"
+        dimension: "Dimension"
+        symbol: "Symbole"
       choices:
         # dimension: # Choices comes from nomenclature: dimensions
       items:

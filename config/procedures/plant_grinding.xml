@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="plant_grinding" natures="grinding, soil_enrichment" version="0" status="frozen">
     <variables>
-      <variable name="cultivation" variety="plant" roles="grinding-input, soil_enrichment-origin" default-actor="variant-localized-in-storage"/>
+      <variable name="cultivation" variety="plant" roles="grinding-input, soil_enrichment-input_origin" default-actor="variant-localized-in-storage"/>
       <variable name="tractor"     abilities="tow(equipment)"/>
       <variable name="grinder"     abilities="grind(plant)" roles="soil_enrichment-tool, grinding-tool"/>
       <variable name="grinded"     variety="straw" derivative-of="variety: cultivation" roles="grinding-output, soil_enrichment-input" new="produced-by: cultivation" need="population"/>

@@ -47,7 +47,7 @@
                 <cell name="name" of="input" />
                 <cell name="population" of="input" />
               </matrix>
-              <matrix name="origins" for="input" in="provisional_intervention.casts.of_role(:'soil_enrichment-origin')">
+              <matrix name="origins" for="input" in="provisional_intervention.casts.of_role(:'soil_enrichment-input_origin')">
                 <cell name="id" of="input" level="api"/>
                 <cell name="variant_name" of="input.actor" />
                 <cell name="name" of="input.actor" />

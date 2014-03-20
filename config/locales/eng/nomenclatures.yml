@@ -65,6 +65,7 @@ eng:
         plow: "Plow"
         # plow_superficially: "Travailler le sol superficiellement"
         produce: "Produce"
+        # rake: "Ratisser"
         # repair: "Réparer"
         sow: "Sow"
         spray: "Spray"
@@ -342,7 +343,7 @@ eng:
       items:
         # cow_milk_analysis: "Analyse de lait de vache"
         # soil_analysis: "Analyse de sol"
-        # unitary_cow_milk_analysis: "Analyse d'un contrôle laitier"
+        # unitary_cow_milk_analysis: "Analyse d’un contrôle laitier"
       # name: "Types d’analyses"
       property_natures:
         # items: "Éléments analysés"
@@ -389,9 +390,9 @@ eng:
         # land: "Terroir"
     charts_of_accounts:
       items:
-        # fr_pcg82: "Numéro dans le PCG1982"
-        # fr_pcga: "Numéro dans le PCGA"
-        # ifrs: "IFRS"
+        # fr_pcg82: "Plan comptable général de 1982 - Arrêté du 14/12/2007"
+        # fr_pcga: "Plan comptable agricole - Arrêté du 11/12/1986"
+        # ifrs: "Normes internationales d’information financière (IFRS)"
       # name: "Plans de comptes"
     chemical_elements:
       items:
@@ -517,7 +518,7 @@ eng:
       property_natures:
         # atomic_number: "Numéro atomique"
         # atomic_weight: "Masse atomique"
-        # boil_temperature: "Température d'ébullition"
+        # boil_temperature: "Température d’ébullition"
         # electro_negativity: "Électro-negativité"
         # group: "Groupe"
         # mass_density: "Densité massique"
@@ -1153,6 +1154,11 @@ eng:
       # name: "Monnaies"
       property_natures:
         # active: "Active"
+        # cash: "Espèces"
+        # countries: "Pays"
+        # number: "Numéro (ISO)"
+        # precision: "Nombre de décimales"
+        # symbol: "Symbole"
     designation_origins: #?
     dimensions:
       items:
@@ -1244,11 +1250,19 @@ eng:
     entity_link_natures:
       choices: #?
       items:
+        # association: "Association"
+        # collaboration: "Collaboration"
+        # cooperation: "Coopération"
         # direct_kinship: "Parenté directe"
+        # management: "Management"
+        # transform: "Changement de statut"
         # undefined: "Indéfini"
         # work: "Collaboration"
       # name: "Types de liens sociaux"
-      property_natures: #?
+      property_natures:
+        # entity_1: "Personne 1"
+        # entity_2: "Personne 2"
+        # symmetric: "Lien symétrique"
     entity_natures:
       items:
         association: "Association"
@@ -1290,16 +1304,16 @@ eng:
     identifier_natures:
       item_lists: #?
       items:
-        # cartodb_api_key: "Cartodb api key"
-        # cartodb_login: "Cartodb login"
-        # cartodb_subdomain: "Cartodb subdomain"
-        # cartodb_visualization_default: "Cartodb visualisation par défault"
-        # cartodb_visualization_nitrogen_footprint: "Cartodb visualisation de l'empreinte amendement"
-        # cattling_number: "Numéro de détenteur"
+        # cartodb_api_key: "Clé API CartoDB"
+        # cartodb_login: "Login CartoDB"
+        # cartodb_subdomain: "Sous-domaine CartoDB"
+        # cartodb_visualization_default: "Visualisation CartoDB par défault"
+        # cartodb_visualization_nitrogen_footprint: "Visualisation CartoDB de l’empreinte amendement"
+        # cattling_number: "Numéro de détenteur de troupeau"
         # cattling_root_number: "Numéro racine du troupeau"
-        # charentes_alliance_extranet_username: "Login Extranet Charentes alliance "
-        # cooperative_cartodb_account: "Compte cooperative Cartodb"
-        # cooperative_cartodb_key: "Clef cooperative Cartodb"
+        # charentes_alliance_extranet_username: "Login extranet Charentes Alliance "
+        # cooperative_cartodb_account: "Compte coopérative CartoDB"
+        # cooperative_cartodb_key: "Clé coopérative CartoDB"
         # husbandry_owner_number: "Code éleveur propriétaire"
         # lilco_labratory_code: "Code laboratoire LILCO"
         # msa_username: "Login MSA"
@@ -1308,6 +1322,7 @@ eng:
         # synel_username: "Login Synel"
       # name: "Types d’identifiants"
       property_natures:
+        # fallbacks: "Recours"
         # password: "Mot de passe"
     identifiers: #?
     incidents: #?
@@ -1352,8 +1367,14 @@ eng:
           # measure: "Mesure"
           # point: "Point spatial"
           # string: "Texte"
-        gathering: #?
-        interpolation: #?
+        gathering:
+          # proportional_to_population: "Proportionnel à la population"
+        interpolation:
+          # linear: "Linéaire"
+          # nearest: "Plus proche"
+          # none: "Aucune"
+          # previous: "Précédent"
+          # sine: "Sinusoidale"
         related_to:
           # individual: "Individu"
           # whole: "Population"
@@ -1458,6 +1479,7 @@ eng:
         # unique_synthesis_index: "Index de synthèse unique (ISU)"
         urea_concentration: "Urea concentration"
         # usage_duration: "Durée d’utilisation"
+        # volume_area_density: "Volume par surface"
         # water_content_rate: "Teneur en eau"
         # width: "Largeur"
         # woodstock_variety: "Variété du porte-greffe"
@@ -1467,8 +1489,11 @@ eng:
         choice: "Choice" #?
         # choices: "Choix"
         # curve: "Courbe"
-        # datatype: "Datatype"
-        # interpolation: "Interpolation"
+        # datatype: "Type de donnée"
+        # gathering: "Méthode de globalisation"
+        # individual_identifier: "Indentifieur d’individu"
+        # interpolation: "Méthode d’interpolation"
+        # related_to: "Relatif à"
         type: "Type" #?
         # unit: "Unité"
     issue_natures:
@@ -1701,7 +1726,9 @@ eng:
         # germination: "Germination"
         # heading: "Tallage"
         # leaf_development: "Développement des feuilles"
+        # ripening: "Vieillissement"
         # senescence: "Sénescence"
+        # stem_elongation: "Allongement de la tige"
         # tillering: "Tallage"
       # name: "États du développement végétal"
     plant_reproduction_states:
@@ -1710,10 +1737,12 @@ eng:
         # grain_maturity: "Maturité du grain"
         # grain_senescence: "Senescence du grain"
         # heading: "Épiaison"
+        # swelling: "Gonflement"
       # name: "États de la reproduction végétale"
     procedure_natures:
       items:
         animal_cares: "Animal cares" #?
+        # animal_curative_medicine_admission: "Animal curative medicine admission"
         # animal_feeding: "Alimentation des animaux"
         # animal_health: "Hygiène des animaux"
         # animal_preventive_medicine_admission: "Traitement préventif des maladies animales"
@@ -1753,11 +1782,13 @@ eng:
         treatment: "Treatment" #?
         # viviparous_birth: "Reproduction (vivipare)"
       name: "Name"
-      property_natures: #?
+      property_natures:
+        # roles: "Rôles"
     procedure_roles:
       items:
         # doer: "Faiseur"
         # input: "Intrant"
+        # input_origin: "Origine de l’intrant"
         # output: "Extrant"
         # target: "Cible"
         # tool: "Outil"
@@ -1885,7 +1916,7 @@ eng:
           # ton: "tonne"
           # unit: "unité"
       items:
-        # 25kg_bag_animal_food: "Sac d'aliment de 25kg"
+        # 25kg_bag_animal_food: "Sac d’aliment de 25kg"
         # acetal: "Acetal"
         # actilact: "Actilact"
         # additive: "Adjuvant"
@@ -1943,7 +1974,7 @@ eng:
         # coop:bth_s_rubisko_r1_gau+red_25kg: "Semence de Blé tendre Rubisko (r1 gau+ red) sac de 25kg"
         # coop:chlorure_60%_gr_vr: "chlorure COOP 60% gr vrac"
         # coop:elite_4_sc_5_l: "Coop:elite 4 sc 5 l"
-        # coop:esc_s_etincel_r1_gau+red_s25kg: "Semence d'orge d'hiver escourgeon etincel r1 gau+red sac de 25kg"
+        # coop:esc_s_etincel_r1_gau+red_s25kg: "Semence d’orge d’hiver escourgeon etincel r1 gau+red sac de 25kg"
         # coop:ficelle_filogamm_350_bob_5kg: "ficelle filogamm 350  - bobine 5kg"
         # coop:ma.aallexia_50mg: "Semence de maïs - aallexia - sac de 50.000 grains"
         # coop:ma.bergxxon_duo_50mg: "Semence de maïs -bergxxon duo - sac de 50.000 grains"
@@ -1968,7 +1999,7 @@ eng:
         # corn_silage_crop: "Culture de maïs ensilage"
         # cow_milk: "Lait de vache"
         # cultivable_zone: "Zone cultivable"
-        # dairy_equipment_cleaner: "Produits d'hygiène de traite"
+        # dairy_equipment_cleaner: "Produits d’hygiène de traite"
         # diesel: "Diesel"
         # duck_band: "Bande de canards"
         # duck_herd: "Groupe de canards"
@@ -2000,7 +2031,7 @@ eng:
         # grape_reaper: "Machine à vendanger"
         # grass: "Herbe"
         # grass_seed_25: "Sac de 25kg de semence de prairie"
-        # grass_silage: "Ensilage d'herbe"
+        # grass_silage: "Ensilage d’herbe"
         # green_compost: "Compost de déchets verts"
         # guineafowl_manure: "Fumier de pintades"
         # hard_wheat_crop: "Culture de blé dur"
@@ -2030,7 +2061,7 @@ eng:
         # land_parcel_cluster: "Îlot"
         # lavender_crop: "Culture de lavande"
         # lentil_crop: "Culture de lentille"
-        # livestock_cleanliness_product: "Produit d'hygiène d'élevage"
+        # livestock_cleanliness_product: "Produit d’hygiène d’élevage"
         # male_adult_cow: "Taureau"
         # male_hen_band: "Bande de poulet"
         # male_young_cow: "Taurillon"
@@ -2175,7 +2206,7 @@ eng:
         # female_adult_cow: "Vache"
         # female_young_cow: "Génisse"
         # fertilizer_division: "Zone de stockage des engrais"
-        # food_distributor: "Matériel de distribution d'aliments"
+        # food_distributor: "Matériel de distribution d’aliments"
         # food_equipment_division: "Zone de stockage des équipements et des aliments"
         # food_tank: "Silo à aliments"
         # forager: "Ensileuse"
@@ -2397,7 +2428,9 @@ eng:
       # name: "Systèmes de coordonnées spatiales"
     taxes:
       choices:
-        computation_method: #?
+        computation_method:
+          # amount: "Montant fixe"
+          # percentage: "Pourcentage"
         nature: #?
       items:
         # fr_vat_intermediate: "TVA 10.00%"
@@ -2507,7 +2540,12 @@ eng:
         # unity_per_square_meter: "Unité par mètre carré"
         # watt: "Watt"
       name: "Name"
-      property_natures: #?
+      property_natures:
+        # a: "A"
+        # b: "B"
+        # d: "D"
+        # dimension: "Dimension"
+        # symbol: "Symbole"
     varieties:
       choices: #?
       items:

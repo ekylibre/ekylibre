@@ -33,7 +33,7 @@
       <item name="grow"/>
       <item name="mow"/>
       <item name="bunch"/>
-      <item name="swath"/>
+      <item name="rake" parameters="variety"/>
       <item name="harvest" parameters="variety"/>
       <item name="pick" parameters="variety"/>
       <item name="move"/>
