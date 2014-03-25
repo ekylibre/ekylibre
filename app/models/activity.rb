@@ -41,6 +41,7 @@ class Activity < Ekylibre::Record::Base
   enumerize :nature, in: [:main, :auxiliary, :none], default: :main
   enumerize :family, in: Nomen::ActivityFamilies.all, predicates: true
   has_many :productions
+  has_many :supports, through: :productions
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :depth, :lft, :rgt, allow_nil: true, only_integer: true
   validates_length_of :description, :family, :name, :nature, allow_nil: true, maximum: 255
@@ -55,7 +56,8 @@ class Activity < Ekylibre::Record::Base
     for campaign in campaigns
       raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     end
-    where("id IN (SELECT activity_id FROM #{Production.table_name} WHERE campaign_id IN (?))", campaigns.map(&:id))
+    joins(:productions).merge(Production.of_campaign(campaigns))
+    #where("id IN (SELECT activity_id FROM #{Production.table_name} WHERE campaign_id IN (?))", campaigns.map(&:id))
   }
 
   #scope :of_families, lambda { |*families|

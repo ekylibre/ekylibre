@@ -67,7 +67,7 @@ class Production < Ekylibre::Record::Base
     for campaign in campaigns
       raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     end
-    where('campaign_id IN (?)', campaigns.map(&:id))
+    where(campaign_id: campaigns.map(&:id))
   }
   scope :of_activities, lambda { |*activities|
     activities.flatten!
