@@ -17,6 +17,7 @@
 /db/first_runs/gaecjoulin
 /db/first_runs/haurigot
 /db/first_runs/earlgouget
+/db/first_runs/rouges-safran
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
