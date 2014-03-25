@@ -1,0 +1,13 @@
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+
+  <nomenclature name="roles">
+    <property-natures>
+      <property-nature name="accesses" type="list" choices="read, write, execute" default="read, write"/>
+    </property-natures>
+    <items>
+      <item name="accountant" accesses="accounts, own-accountancy_dashboard, calculators-read, calculators-execute"/>
+      <item name="farm_worker" accesses="own-interventions, other-interventions-read"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>

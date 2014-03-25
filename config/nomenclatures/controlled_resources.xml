@@ -1,0 +1,17 @@
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+
+  <nomenclature name="controlled_resources">
+    <property-natures>
+      <property-nature name="accesses" type="list" choices="read, write, execute" default="read, write"/>
+    </property-natures>
+    <items>
+      <item name="accountancy_dashboard"/> <!-- like that ? really absolute ? -->
+      <item name="accounts"/>
+      <item name="activities"/>
+      <item name="entities"/>
+      <item name="calculators" accesses="read, write, execute"/> <!-- ? to review...-->
+      <item name="interventions"/>
+    </items>
+  </nomenclature>
+
+</nomenclatures>
