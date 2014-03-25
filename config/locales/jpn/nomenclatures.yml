@@ -472,6 +472,9 @@ jpn:
         # period: "Période"
         # specific_heat_capacity: "Capacité thermique"
         # symbol: "Symbole"
+    controlled_resources:
+      items: #?
+      property_natures: #?
     countries:
       items:
         ad: "アンドラ"
@@ -2318,7 +2321,14 @@ jpn:
         # burying: "Enfouissement"
         # evacuation: "Évacuation"
       # name: "Méthodes d’élimination des résidus"
-    roles: #?
+    roles:
+      item_lists:
+        accountant:
+          accesses: #?
+        farm_worker:
+          accesses: #?
+      items: #?
+      property_natures: #?
     sexes:
       items:
         # female: "Femelle"
@@ -2519,22 +2529,15 @@ jpn:
         # building: "Bâtiment"
         # building_division: "Pièce de bâtiment"
         # bussard: "Bussard"
-        # cabernet_franc_noir: "Cabernet franc noir"
-        # cabernet_sauvignon_noir: "Cabernet sauvignon noir"
         # caphorn: "Blé Caphorn"
         # capra: "Caprin"
-        # carignan: "Carignan"
-        # carmenere_noir: "Carménère noir"
-        # chardonnay: "Chardonnay"
         # chemical_fertilizer: "Engrais minéral"
         # cichorium: "Chicoré"
         # cleaner: "Rabot"
-        # colombar_blanc: "Colombar blanc"
         # compost: "Compost"
         # corabel: "Corabel"
         # corylus: "Corylus"
         # corylus_avellana: "Corylus avellana"
-        # cot_noir: "Cot noir"
         # courtot: "Courtot"
         # crocus: "Crocus"
         # crocus_sativus: "Crocus sativus"
@@ -2578,8 +2581,6 @@ jpn:
         # glycine: "Glycine"
         # grain: "Grain"
         # grass: "Herbe"
-        # grenache: "Grenache"
-        # grenache_noir: "Grenache noir"
         # grossulariaceae: "Grossulariaceae"
         # guano: "Guano"
         # harvester: "Moissonneuse"
@@ -2626,8 +2627,6 @@ jpn:
         # meat: "Viande"
         # medicago: "Medicago"
         # medicine: "Médicament"
-        # merlot_blanc: "Merlot blanc"
-        # merlot_noir: "Merlot noir"
         # merveille: "Merveille"
         # milk: "Lait"
         # mineral_matter: "Matière minérale"
@@ -2637,7 +2636,6 @@ jpn:
         # molluscicide: "Produit molluscicide"
         # moraceae: "Moraceae"
         # mower: "Faucheuse"
-        # muscadelle_blanc: "Muscadelle blanc"
         # nicotiana: "Tabac"
         # numida: "Numididae"
         # oil: "Huile"
@@ -2649,9 +2647,7 @@ jpn:
         # ovis: "Ovin"
         # pauetet: "Pauetet"
         # pescadou: "Pescadou"
-        # petit_verdot_noir: "Petit verdot noir"
         # phaseolus: "Haricot"
-        # pinot_noir: "Pinot noir"
         # pisum: "Pisum"
         # plant: "Végétal"
         # plant_medicine: "Produit phytosanitaire"
@@ -2712,15 +2708,11 @@ jpn:
         # salmo: "Salmonidé"
         # salt: "Sel"
         # sand: "Sable"
-        # sauvignon_blanc: "Sauvignon blanc"
-        # sauvignon_gris: "Sauvignon gris"
-        # sauvignon_noir: "Sauvignon noir"
         # sculptur: "Sculptur"
         # secale: "Secale"
         # seed: "Semence"
         # seedling: "Plant"
         # segorbe: "Segorbe"
-        # semillon_blanc: "Sémillon blanc"
         # service: "Service"
         # settlement: "Agencement"
         # silage: "Ensilage"
@@ -2737,7 +2729,6 @@ jpn:
         # sus: "Porcin"
         # sy_banco: "Sy banco"
         # sy_cysco: "Sy cysco"
-        # syrah_noir: "Syrah noir"
         # tablur: "Tablur"
         # tamaro: "Tamaro"
         # tank: "Réservoir"
@@ -2751,7 +2742,6 @@ jpn:
         # triticum_aestivum: "Blé tendre"
         # triticum_durum: "Blé dur"
         # triticum_spelta: "Épeautre"
-        # ugni_blanc: "Ugni blanc"
         # vicia: "Vesces - Féverolle"
         # vitis: "Vigne"
         # vitis_vinifera: "Vitis vinifera"

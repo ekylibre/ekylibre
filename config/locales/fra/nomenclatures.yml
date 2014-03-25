@@ -474,6 +474,17 @@ fra:
         yttrium: "Yttrium"
         zinc: "Zinc"
         zirconium: "Zirconium"
+    controlled_resources:
+      # name: "Controlled resources"
+      property_natures:
+        # accesses: "Accesses"
+      items:
+        # accountancy_dashboard: "Accountancy dashboard"
+        # accounts: "Accounts"
+        # activities: "Activities"
+        # calculators: "Calculators"
+        # entities: "Entities"
+        # interventions: "Interventions"
     countries:
       name: "Pays"
       property_natures:
@@ -1710,6 +1721,7 @@ fra:
           room: "salle"
           round_bale: "Botte ronde"
           small_rectangular_bale: "Botte rectangulaire petit format (100*40*40)"
+          square_meter: "Mètre carré"
           ton: "tonne"
           unit: "unité"
         # variety: # Choices comes from nomenclature: varieties
@@ -1879,6 +1891,7 @@ fra:
         manager: "Responsable"
         manual_implanter: "Plantoir"
         manure_division: "Fumière"
+        market_gardening_crop: "Maraîchage"
         melon_crop: "Culture de melon"
         merlot_noir_so4_vine_seedling: "Plant de Merlot Noir sur so4"
         milk_tank: "Tank à lait"
@@ -2144,6 +2157,8 @@ fra:
         laying_hen: "Poule pondeuse"
         lentil: "Lentille"
         maintenance: "Maintenance"
+        market_gardening: "Maraîchage"
+        market_gardening_under_greenhouse: "Maraîchage sous serre"
         melon: "Melon"
         milk_bull_calf: "Taurillons Lait"
         milk_cattle: "Bovins Lait"
@@ -2190,6 +2205,24 @@ fra:
         burning: "Combustion"
         burying: "Enfouissement"
         evacuation: "Évacuation"
+    roles:
+      # name: "Roles"
+      property_natures:
+        # accesses: "Accesses"
+      item_lists:
+        accountant:
+          accesses:
+            # accounts: "Accounts"
+            # own-accountancy_dashboard: "Own-accountancy dashboard"
+            # calculators-read: "Calculators-read"
+            # calculators-execute: "Calculators-execute"
+        farm_worker:
+          accesses:
+            # own-interventions: "Own-interventions"
+            # other-interventions-read: "Other-interventions-read"
+      items:
+        # accountant: "Accountant"
+        # farm_worker: "Farm worker"
     sexes:
       name: "Sexes"
       items:
@@ -2399,22 +2432,15 @@ fra:
         building: "Bâtiment"                               # product_group
         building_division: "Pièce de bâtiment"             # sub_zone
         bussard: "Bussard"                                 # triticum_aestivum
-        cabernet_franc_noir: "Cabernet franc noir"         # vitis_vinifera
-        cabernet_sauvignon_noir: "Cabernet sauvignon noir" # vitis_vinifera
         caphorn: "Blé Caphorn"                             # triticum_aestivum
         capra: "Caprin"                                    # mammalia
-        carignan: "Carignan"                               # vitis_vinifera
-        carmenere_noir: "Carménère noir"                   # vitis_vinifera
-        chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertilizer: "Engrais minéral"             # mineral_matter
         cichorium: "Chicoré"                               # asteraceae
         cleaner: "Rabot"                                   # equipment
-        colombar_blanc: "Colombar blanc"                   # vitis_vinifera
         compost: "Compost"                                 # excrement
         corabel: "Corabel"                                 # corylus_avellana
         corylus: "Corylus"                                 # betulaceae
         corylus_avellana: "Corylus avellana"               # corylus
-        cot_noir: "Cot noir"                               # vitis_vinifera
         courtot: "Courtot"                                 # triticum_aestivum
         crocus: "Crocus"                                   # iridaceae
         crocus_sativus: "Crocus sativus"                   # crocus
@@ -2458,8 +2484,6 @@ fra:
         glycine: "Glycine"                                 # fabaceae
         grain: "Grain"                                     # organic_matter
         grass: "Herbe"                                     # organic_matter
-        grenache: "Grenache"                               # vitis_vinifera
-        grenache_noir: "Grenache noir"                     # vitis_vinifera
         grossulariaceae: "Grossulariaceae"                 # plant
         guano: "Guano"                                     # excrement
         harvester: "Moissonneuse"                          # equipment
@@ -2506,8 +2530,6 @@ fra:
         meat: "Viande"                                     # organic_matter
         medicago: "Medicago"                               # fabaceae
         medicine: "Médicament"                             # preparation
-        merlot_blanc: "Merlot blanc"                       # vitis_vinifera
-        merlot_noir: "Merlot noir"                         # vitis_vinifera
         merveille: "Merveille"                             # corylus_avellana
         milk: "Lait"                                       # organic_matter
         mineral_matter: "Matière minérale"                 # matter
@@ -2517,7 +2539,6 @@ fra:
         molluscicide: "Produit molluscicide"               # plant_medicine
         moraceae: "Moraceae"                               # plant
         mower: "Faucheuse"                                 # equipment
-        muscadelle_blanc: "Muscadelle blanc"               # vitis_vinifera
         nicotiana: "Tabac"                                 # solanaceae
         numida: "Numididae"                                # aves
         oil: "Huile"                                       # organic_matter
@@ -2529,9 +2550,7 @@ fra:
         ovis: "Ovin"                                       # mammalia
         pauetet: "Pauetet"                                 # corylus_avellana
         pescadou: "Pescadou"                               # triticum_durum
-        petit_verdot_noir: "Petit verdot noir"             # vitis_vinifera
         phaseolus: "Haricot"                               # fabaceae
-        pinot_noir: "Pinot noir"                           # vitis_vinifera
         pisum: "Pisum"                                     # fabaceae
         plant: "Végétal"                                   # bioproduct
         plant_medicine: "Produit phytosanitaire"           # medicine
@@ -2592,15 +2611,11 @@ fra:
         salmo: "Salmonidé"                                 # osteichthyes
         salt: "Sel"                                        # mineral_matter
         sand: "Sable"                                      # mineral_matter
-        sauvignon_blanc: "Sauvignon blanc"                 # vitis_vinifera
-        sauvignon_gris: "Sauvignon gris"                   # vitis_vinifera
-        sauvignon_noir: "Sauvignon noir"                   # vitis_vinifera
         sculptur: "Sculptur"                               # triticum_durum
         secale: "Secale"                                   # poaceae
         seed: "Semence"                                    # organic_matter
         seedling: "Plant"                                  # organic_matter
         segorbe: "Segorbe"                                 # corylus_avellana
-        semillon_blanc: "Sémillon blanc"                   # vitis_vinifera
         service: "Service"                                 # immatter
         settlement: "Agencement"                           # easement
         silage: "Ensilage"                                 # preparation
@@ -2617,7 +2632,6 @@ fra:
         sus: "Porcin"                                      # mammalia
         sy_banco: "Sy banco"                               # triticum_durum
         sy_cysco: "Sy cysco"                               # triticum_durum
-        syrah_noir: "Syrah noir"                           # vitis_vinifera
         tablur: "Tablur"                                   # triticum_durum
         tamaro: "Tamaro"                                   # triticum_aestivum
         tank: "Réservoir"                                  # equipment
@@ -2631,10 +2645,29 @@ fra:
         triticum_aestivum: "Blé tendre"                    # triticum
         triticum_durum: "Blé dur"                          # triticum
         triticum_spelta: "Épeautre"                        # triticum
-        ugni_blanc: "Ugni blanc"                           # vitis_vinifera
         vicia: "Vesces - Féverolle"                        # fabaceae
         vitis: "Vigne"                                     # plant
         vitis_vinifera: "Vitis vinifera"                   # vitis
+        vitis_vinifera_cabernet_franc_noir: "Vitis vinifera - cabernet franc noir" # vitis_vinifera
+        vitis_vinifera_cabernet_sauvignon_noir: "Vitis vinifera - cabernet sauvignon noir" # vitis_vinifera
+        vitis_vinifera_carignan: "Vitis vinifera - carignan" # vitis_vinifera
+        vitis_vinifera_carmenere_noir: "Vitis vinifera - carmenere noir" # vitis_vinifera
+        vitis_vinifera_chardonnay: "Vitis vinifera - chardonnay" # vitis_vinifera
+        vitis_vinifera_colombar_blanc: "Vitis vinifera - colombar blanc" # vitis_vinifera
+        vitis_vinifera_cot_noir: "Vitis vinifera - cot noir" # vitis_vinifera
+        vitis_vinifera_grenache: "Vitis vinifera - grenache" # vitis_vinifera
+        vitis_vinifera_grenache_noir: "Vitis vinifera - grenache noir" # vitis_vinifera
+        vitis_vinifera_merlot_blanc: "Vitis vinifera - merlot blanc" # vitis_vinifera
+        vitis_vinifera_merlot_noir: "Vitis vinifera - merlot noir" # vitis_vinifera
+        vitis_vinifera_muscadelle_blanc: "Vitis vinifera - muscadelle blanc" # vitis_vinifera
+        vitis_vinifera_petit_verdot_noir: "Vitis vinifera - petit verdot noir" # vitis_vinifera
+        vitis_vinifera_pinot_noir: "Vitis vinifera - pinot noir" # vitis_vinifera
+        vitis_vinifera_sauvignon_blanc: "Vitis vinifera - sauvignon blanc" # vitis_vinifera
+        vitis_vinifera_sauvignon_gris: "Vitis vinifera - sauvignon gris" # vitis_vinifera
+        vitis_vinifera_sauvignon_noir: "Vitis vinifera - sauvignon noir" # vitis_vinifera
+        vitis_vinifera_semillon_blanc: "Vitis vinifera - semillon blanc" # vitis_vinifera
+        vitis_vinifera_syrah_noir: "Vitis vinifera - syrah noir" # vitis_vinifera
+        vitis_vinifera_ugni_blanc: "Vitis vinifera - ugni blanc" # vitis_vinifera
         walnut: "Noyer"                                    # organic_matter
         water: "Eau"                                       # matter
         wine: "Vin"                                        # organic_matter

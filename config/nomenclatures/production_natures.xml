@@ -222,6 +222,18 @@
             variant_support="annual_fallow_crop"
             />
       <!-- 4 - GARDENER CROP -->
+      <item name="market_gardening"
+            production_code="4000"
+            activity="market_garden_crops"
+            telepac_crop_code="MX"
+            variant_support="market_gardening_crop"
+            />
+      <item name="market_gardening_under_greenhouse"
+            production_code="4000"
+            activity="market_garden_crops"
+            telepac_crop_code="MY"
+            variant_support="market_gardening_crop"
+            />
       <item name="garlic"
             production_code="4000"
             activity="market_garden_crops"
