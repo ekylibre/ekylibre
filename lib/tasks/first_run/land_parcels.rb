@@ -233,6 +233,7 @@ load_data :land_parcels do |loader|
     born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
     loader.count :cultivable_zones do |w|
       CSV.foreach(path, headers: true) do |row|
+        next if row[0].blank?
         r = OpenStruct.new(name: row[0].to_s,
                            nature: (row[1].blank? ? nil : row[1].to_sym),
                            code: (row[2].blank? ? nil : row[2].to_s),
@@ -279,7 +280,50 @@ load_data :land_parcels do |loader|
     end
   
   end
+  
+  path = loader.path("alamano", "cultivations.csv")
+  if path.exist?
+    
+    loader.count :cultivations do |w|
+      CSV.foreach(path, headers: true) do |row|
+        next if row[0].blank?
+        r = OpenStruct.new(name: row[0].to_s,
+                           work_number: row[1].to_s,
+                           variant: (row[2].blank? ? nil : row[2].to_sym),
+                           cultivable_zone_code: (row[3].blank? ? nil : row[3].to_s),
+                           born_at: (row[4].blank? ? nil : row[4].to_datetime),
+                           variety: (row[5].blank? ? nil : row[5].to_s),
+                           indicators: row[6].blank? ? {} : row[6].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                             h[i.first.strip.downcase.to_sym] = i.second
+                             h
+                           }
+                           )
+        # find or import from variant reference_nameclature the correct ProductNatureVariant
+        variant = ProductNatureVariant.find_by(:reference_name => r.variant) || ProductNatureVariant.import_from_nomenclature(r.variant)
+        pmodel = variant.nature.matching_model
+        # find the container
+        unless container = Product.find_by_work_number(r.cultivable_zone_code)
+          raise "No container for cultivation!"
+        end
+        
+        # create the plant
+        product = pmodel.create!(:variant_id => variant.id, :work_number => r.work_number,
+                                 :name => r.name, :initial_born_at => r.born_at, :initial_owner => Entity.of_company, :variety => r.variety, :initial_container => container)
 
+        # create indicators linked to equipment
+        for indicator, value in r.indicators
+          product.read!(indicator, value, at: r.born_at, force: true)
+        end
+        if geometry = shapes[r.cultivable_zone_code]
+          product.read!(:shape, geometry, at: born_at, force: true)
+          product.read!(:net_surface_area, (product.shape_area / r.indicators[:population].to_i), at: born_at, force: true)
+        end
+        
+        w.check_point
+      end
+    end
+  
+  end
 
 
 end
