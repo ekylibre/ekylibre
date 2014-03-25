@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, 220TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, 220TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, plants, gram" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL -->
@@ -370,34 +370,89 @@
       <item name="plum_crop"
             nature="fruit_crop"
             variety="prunus"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
+            unit_name="plants"
+            frozen_indicators_values=""
             />
       <item name="apple_crop"
             nature="fruit_crop"
             variety="malus"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
+            unit_name="plants"
+            frozen_indicators_values=""
             />
       <item name="walnut_crop"
             nature="walnut_crop"
             variety="juglans"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
+            unit_name="plants"
+            frozen_indicators_values=""
             />
       <item name="hazel_crop"
             nature="walnut_crop"
             variety="corylus"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
+            unit_name="plants"
+            frozen_indicators_values=""
             />
-
+      
+      <!-- FLOWER CROP -->
+      <item name="saffron_crop"
+            nature="flower_crop"
+            variety="crocus_sativus"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00square_meter"
+            />     
+     <item name="rose_crop"
+            nature="fruit_crop"
+            variety="rosa"
+            unit_name="hectare"
+            frozen_indicators_values=""
+            />
+     <item name="raspberry_crop"
+            nature="fruit_crop"
+            variety="rubus"
+            unit_name="plants"
+            frozen_indicators_values=""
+            />
+      <item name="strawberry_crop"
+            nature="fruit_crop"
+            variety="fragaria"
+            unit_name="plants"
+            frozen_indicators_values=""
+            />
+      <item name="gooseberry_crop"
+            nature="fruit_crop"
+            variety="ribes"
+            unit_name="plants"
+            frozen_indicators_values=""
+            />
+      <item name="blackcurrant_crop"
+            nature="fruit_crop"
+            variety="ribes_nigrum"
+            unit_name="plants"
+            frozen_indicators_values=""
+            />   
+      <item name="pear_crop"
+            nature="fruit_crop"
+            variety="pyrus"
+            unit_name="plants"
+            frozen_indicators_values=""
+            /> 
+      <item name="peach_crop"
+            nature="fruit_crop"
+            variety="prunus_persica"
+            unit_name="plants"
+            frozen_indicators_values=""
+            />
+      <item name="fig_crop"
+            nature="fruit_crop"
+            variety="ficus_carica"
+            unit_name="plants"
+            frozen_indicators_values=""
+            />
       <!-- VINE CROP -->
       <item name="vine_grape_crop"
             nature="wine_crop"
             variety="vitis_vinifera"
-            unit_name="hectare"
-            frozen_indicators_values="net_surface_area: 1.00hectare"
+            unit_name="plants"
+            frozen_indicators_values=""
             />
       <!-- TRANSFORM PRODUCT -->
       <!-- VINE BASED -->
@@ -407,7 +462,39 @@
             unit_name="75cl_bottle"
             frozen_indicators_values="net_mass: 760gram, net_volume: 75.00centiliter"
             />
-      <!-- ORGANIC PRODUCT -->
+      <!-- FLOWER BASED -->
+      <item name="saffron_pollen"
+            nature="species"
+            variety="pollen"
+            derivative_of="crocus_sativus"
+            unit_name="gram"
+            frozen_indicators_values="net_mass: 1.00gram, net_volume: 1.00milliliter"
+            /> 
+      <!-- FRUIT BASED -->
+      <item name="frozen_fruit"
+            nature="fruit"
+            derivative_of="plant"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
+            />
+      <item name="115g_jam"
+            nature="packaged_process_food"
+            derivative_of="plant"
+            unit_name="unit"
+            frozen_indicators_values="net_mass: 115gram, net_volume: 115milliliter"
+            />
+      <item name="230g_jam"
+            nature="packaged_process_food"
+            derivative_of="plant"
+            unit_name="unit"
+            frozen_indicators_values="net_mass: 230gram, net_volume: 230milliliter"
+            />      
+      <item name="fruit_derivative_good"
+            nature="process_food"
+            derivative_of="fruit"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
       <item name="vine_grape_berry"
             nature="fruit"
             derivative_of="vitis_vinifera"
@@ -426,6 +513,7 @@
             unit_name="hectoliter"
             frozen_indicators_values="net_volume: 100.00liter"
             />
+      <!-- GRAIN BASED -->
       <item name="wheat_grain"
             nature="grain"
             derivative_of="triticum_aestivum"
@@ -824,6 +912,66 @@
             unit_name="unit"
             frozen_indicators_values=""
             />
+      <!-- PLANT INPLANT -->     
+      <item name="saffron_seedling"
+            nature="seedling"
+            derivative_of="crocus_sativus"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="rose_seedling"
+            nature="seedling"
+            derivative_of="rosa"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="raspberry_seedling"
+            nature="seedling"
+            derivative_of="rubus"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="strawberry_seedling"
+            nature="seedling"
+            derivative_of="fragaria"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="gooseberry_seedling"
+            nature="seedling"
+            derivative_of="ribes"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="blackcurrant_seedling"
+            nature="seedling"
+            derivative_of="ribes_nigrum"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="pear_seedling"
+            nature="seedling"
+            derivative_of="pyrus"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="peach_seedling"
+            nature="seedling"
+            derivative_of="prunus_persica"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="fig_seedling"
+            nature="seedling"
+            derivative_of="ficus_carica"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="seedling"
+            nature="seedling"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
       <!-- SEED -->
       <item name="seed"
             nature="seed"
@@ -1194,6 +1342,16 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="freezer_tank"
+            nature="freezer_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="air_compressor"
+            nature="air_compressor"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="plant_medicine_tank"
             nature="plant_medicine_tank"
             unit_name="equipment"
@@ -1486,7 +1644,6 @@
             unit_name="unit"
             frozen_indicators_values="population: 1"
             />
-
     </items>
 
   </nomenclature>
