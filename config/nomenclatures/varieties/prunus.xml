@@ -3,25 +3,35 @@
   <nomenclature name="varieties-prunus" hierarchical="true">
     <items>
       <item name="prunus_domestica" itis_tsn="24774"/>
-      <item name="prunus_salicina" itis_tsn="506232"/> 
+      <item name="prunus_salicina" itis_tsn="506232"/>
+      <item name="prunus_persica" itis_tsn="24765"/>
     </items>
   </nomenclature>
   
   <nomenclature name="varieties-prunus_domestica" hierarchical="true">
     <items>
-      <item name="bernardina" itis_tsn="00000"/>
-      <item name="bluefre" itis_tsn="000000"/>
-      <item name="carpatin" itis_tsn="000000"/>
+      <item name="prunus_salicina_bernardina" itis_tsn="00000"/>
+      <item name="prunus_salicina_bluefre" itis_tsn="000000"/>
+      <item name="prunus_salicina_carpatin" itis_tsn="000000"/>
     </items>
   </nomenclature>
   
   <nomenclature name="varieties-prunus_salicina" hierarchical="true">
     <items>
-      <item name="allo" itis_tsn="00000"/>
-      <item name="anne_gold" itis_tsn="000000"/>
-      <item name="awaso" itis_tsn="000000"/>
-      <item name="beauty" itis_tsn="000000"/>
+      <item name="prunus_salicina_allo" itis_tsn="00000"/>
+      <item name="prunus_salicina_anne_gold" itis_tsn="000000"/>
+      <item name="prunus_salicina_awaso" itis_tsn="000000"/>
+      <item name="prunus_salicina_beauty" itis_tsn="000000"/>
     </items>
   </nomenclature>
+  
+   <nomenclature name="varieties-prunus_persica" hierarchical="true">
+    <items>
+      <item name="prunus_persica_saint_hilaire" itis_tsn="00000"/>
+      <item name="prunus_persica_madeleine" itis_tsn="00000"/>
+      <item name="prunus_persica_jh_hall" itis_tsn="00000"/>
+    </items>
+  </nomenclature>
+  
   
 </nomenclatures>

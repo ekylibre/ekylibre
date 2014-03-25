@@ -14,6 +14,8 @@
       <item name="grain" derivative_of="plant"/>
       <item name="walnut" derivative_of="plant"/>
       <item name="fruit" derivative_of="plant"/>
+      <item name="pollen" derivative_of="plant"/>
+      <item name="flower" derivative_of="plant"/>
       <item name="gas"/>
       <item name="fuel"/>
       <item name="oil"/>

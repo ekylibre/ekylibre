@@ -3,6 +3,11 @@
   <nomenclature name="varieties-rosaceae" hierarchical="true">
     <items>
       <item name="fragaria" itis_tsn="24624"/>
+      <item name="rosa" itis_tsn="24807"/>
+      <item name="rubus" itis_tsn="24848"/>
+      <item name="pyrus" itis_tsn="25294"/>
+      <item name="prunus" itis_tsn="25294"/>
+      <item name="malus" itis_tsn="25254"/>
     </items>
   </nomenclature>
 </nomenclatures>
