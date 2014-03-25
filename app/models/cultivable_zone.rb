@@ -102,7 +102,11 @@ class CultivableZone < Zone
       end
     end
   end
-
+  
+  protect(on: :destroy) do
+    self.supports.any?
+  end
+  
   # Returns members of the group at a given time (or now by default)
   def members_at(viewed_at = nil)
     LandParcel.zone_members_of(self)
