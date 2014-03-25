@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aggregators xmlns="http://www.ekylibre.org/XML/2013/aggregators">
+  <aggregator name="intervention_registry" version="0.0" category="land_parcel_management">
+    <parameters>
+      <parameter name="campaigns" type="record-list" of="campaign" default="currents"/>
+    </parameters>
+    <section name="campaigns">
+      <variable name="company" value="Entity.of_company"/>
+      <property name="entity_name" value="company.full_name"/>
+      <property name="address" value="company.default_mail_address.coordinate"/>
+      <sections for="campaign" in="campaigns">
+        <property name="id" of="campaign" level="api"/>
+        <title name="name" of="campaign"/>
+        <!-- looking for all CultivableLandParcel in current campaign -->
+        <sections for="activity" in="Activity.of_campaign(campaign).order(:name)" of-type="record">
+          <title name="name" of="activity"/>
+          <property name="family" value="family" of="activity"/>
+          <property name="nature" value="nature" of="activity"/>
+          <sections for="production" in="activity.productions.of_campaign(campaign).order(:name)" of-type="record">
+           <title name="name" of="production"/>
+           <property name="variant" of="production"/>
+           <property name="state" of="production"/>
+           <property name="started_at" of="production" type="datetime"/>
+           <property name="stopped_at" of="production" type="datetime"/>
+          <!-- looking for all Production in current zone and campaign -->
+          <sections for="support" in="production.supports.of_campaign(campaign)" of-type="record">
+            <title name="storage.name" of="support"/>
+            <property name="variant_name" value="support.production.variant_name"/>
+            <property name="variant_variety" value="support.production.variant_variety"/>
+            <property name="implanted_at" if="support.implanted_at" value="support.implanted_at" type="datetime"/>
+            <property name="harvested_at" if="support.harvested_at" value="support.harvested_at" type="datetime"/>
+            <property name="grains_yield" if="support.grains_yield(:quintal)" value="support.grains_yield(:quintal).round(2)" type="measure"/>
+            <property name="vine_yield" if="support.vine_yield(:hectoliter)" value="support.vine_yield(:hectoliter).round(2)" type="measure"/>
+            <property name="provisionnal_yield" if="support.get(:mass_area_yield)" value="support.get(:mass_area_yield).l" type="measure"/>
+
+            <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
+            <sections for="intervention" in="support.interventions.real.where(state: 'done').reorder(:started_at)" of-type="record">
+              <variable name="target" value="intervention.casts.of_role(:'target').first.actor"/>
+              <title name="name" of="intervention"/>
+              <property name="id" of="intervention" level="api"/>
+              <property name="url" value="url_for(controller: '/backend/interventions',action: :show, id: intervention.id)" level="api"/>
+              <property name="status" of="intervention"/>
+              <property name="casting" of="intervention" level="api"/>
+              <title name="target_name" value="target.name"/>
+              <property name="started_at" of="intervention" type="datetime"/>
+              <property name="stopped_at" of="intervention" type="datetime"/>
+              <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>
+              <section name="issue" of="intervention.issue">
+                <property name="id" level="api"/>
+                <property name="name"/>
+                <property name="observed_at"/>
+                <property name="state" level="api"/>
+                <property name="description"/>
+              </section>
+              <matrix name="inputs" for="input" in="intervention.casts">
+                <cell name="id" of="input" level="api"/>
+                <within of="input.actor">
+                  <cell name="name"/>
+                  <cell name="nature_name"/>
+                  <cell name="variety" level="api"/>
+                </within>
+                <cell name="population" of="input" />
+                <cell name="unit_name" value="input.actor.unit_name" />
+              </matrix>
+            </sections>
+            <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
+          </sections>
+          </sections>
+        </sections>
+      </sections>
+    </section>
+  </aggregator>
+</aggregators>
