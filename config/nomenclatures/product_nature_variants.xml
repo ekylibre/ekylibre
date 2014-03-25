@@ -890,7 +890,7 @@
       <!-- VINE INPLANT -->
       <item name="merlot_noir_so4_vine_seedling"
             nature="usual_vine_seedling"
-            derivative_of="merlot_noir"
+            derivative_of="vitis_vinifera_merlot_noir"
             unit_name="unit"
             frozen_indicators_values="woodstock_variety: so4"
             />
