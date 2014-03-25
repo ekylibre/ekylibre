@@ -13,7 +13,7 @@
                  backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
                  /> <!-- kg / ha -->
       </variable>
-      <variable name="mixture" variety="variety: plant_medicine"/>
+      <variable name="mixture" variety="variety: medicine"/>
       <variable name="sprayer" abilities="spray" roles="plant_illness_treatment-tool"/>
       <variable name="cultivation" variety="plant" roles="plant_illness_treatment-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
         <handler indicator="shape">
@@ -24,25 +24,25 @@
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
-        <task do="[driver] moves in [tractor]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
+        <task do="[driver] moves in [tractor]"/>
       </operation>
       <operation id="200" duration="7 minutes">
-        <task do="[tractor] moves at [sprayer]"/><!-- le chauffeur et le tracteur se déplace vers le lieu actuel de l'épandeur-->
+        <task do="[tractor] moves at [sprayer]"/>
       </operation>
       <operation id="300" duration="4 minutes">
-        <task do="[tractor] catches [sprayer]"/><!-- le chauffeur attache l'épandeur au tracteur -->
+        <task do="[tractor] catches [sprayer]"/>
       </operation>
       <operation id="400" duration="4 minutes">
-        <task do="[tractor] moves at [medicine]"/><!-- le chauffeur, tracteur et épandeur se déplacent vers le lieu actuel du tas de fumier-->
+        <task do="[tractor] moves at [medicine]"/>
       </operation>
       <operation id="500" duration="1 minutes">
-        <task do="[medicine] parts with [medicine_to_spray]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global -->
+        <task do="[medicine] parts with [medicine_to_spray]"/>
       </operation>
       <operation id="600" duration="4 minutes">
-        <task do="[water] moves in [sprayer]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
+        <task do="[water] moves in [sprayer]"/>
       </operation>
       <operation id="700" duration="4 minutes">
-        <task do="[medicine_to_spray] moves in [sprayer]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
+        <task do="[medicine_to_spray] moves in [sprayer]"/>
         <task do= "[medicine_to_spray] and [water] are mixed into [mixture]"/>
       </operation>
       <operation id="800" duration="18 minutes">
