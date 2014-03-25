@@ -2,7 +2,7 @@
 
   <nomenclature name="roles">
     <property-natures>
-      <property-nature name="accesses" type="list" choices="read, write, execute" default="read, write"/>
+      <property-nature name="accesses" type="list"/>
     </property-natures>
     <items>
       <item name="accountant" accesses="accounts, own-accountancy_dashboard, calculators-read, calculators-execute"/>
