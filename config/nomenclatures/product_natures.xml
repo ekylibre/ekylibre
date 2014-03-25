@@ -335,6 +335,14 @@
             variable_indicators="population, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
             frozen_indicators="net_volume, net_mass"
             />
+      <item name="mixed_liquid_fertilizer"
+            category="fertilizer"
+            variety="chemical_fertilizer"
+            population_counting="decimal"
+            abilities="fertilize"
+            variable_indicators="population, nitrogen_concentration, potassium_concentration, phosphorus_concentration, net_volume"
+            frozen_indicators="net_mass"
+            />
       <item name="organic_fertilizer"
             category="fertilizer"
             variety="excrement"

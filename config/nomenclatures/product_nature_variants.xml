@@ -713,11 +713,32 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 46percent"
             />
+      <item name="liquid_10_34_d1.4"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 0.714cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 10percent, potassium_concentration: 34percent"
+            />
+      <item name="liquid_10_25_d1.4"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 0.714cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 10percent, potassium_concentration: 25percent"
+            />
+      <item name="liquid_nitrogen_30_d1.3"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 0.769cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 30percent"
+            />
       <item name="mixed_chemical_fertilizer"
             nature="mixed_chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
             />
+       <item name="mixed_liquid_fertilizer"
+            nature="mixed_liquid_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_mass: 1.00ton"
+            />     
+            
       <!-- ORGANIC FERTILIZER -->
       <!-- CATTLE -->
       <item name="cattle_manure"

@@ -72,7 +72,7 @@ class LandParcel < Easement
     where("id IN (SELECT member_id FROM #{CultivableZoneMembership.table_name} WHERE group_id = ?)", group.id)
   }
   scope :zone_members_of, lambda { |group| members_of_zone(group) }
-  
+
   protect(on: :destroy) do
     self.cultivable_zones.any?
   end
