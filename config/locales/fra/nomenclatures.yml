@@ -5,6 +5,7 @@ fra:
       property_natures:
         parameters: "Paramètres"
       items:
+        blow: "Souffler"
         bunch: "Boteller"
         care: "Soigner"
         catch: "Atteler"
@@ -15,6 +16,7 @@ fra:
         drive: "Conduire"
         feed: "Nourrir"
         fertilize: "Fertiliser"
+        freeze: "Congeler"
         grind: "Broyer"
         grow: "Se développer"
         harvest: "Récolter"
@@ -270,6 +272,7 @@ fra:
         pig_farming: "Élevage porcins"                     # animal_farming
         potato_crops: "Culture de pomme de terre"          # vegetal_crops
         poultry_farming: "Élevage avicole"                 # animal_farming
+        processing: "Transformation"
         protein_crops: "Culture protéagineuse"             # vegetal_crops
         purchases: "Achats"                                # exploitation
         rabbit_farming: "Élevage cunicole"                 # animal_farming
@@ -1054,6 +1057,7 @@ fra:
         general_ledger: "Grand livre"
         income_statement: "Compte de résultat"
         incoming_delivery_docket: "Bon de réception"
+        intervention_registry: "Registre des interventions"
         inventory: "Inventaire"
         journal: "Journal"
         land_parcel_registry: "Cahier de tracabilité - Parcelles"
@@ -1693,6 +1697,7 @@ fra:
           can: "bidon"
           cubic_meter: "mètre cube"
           equipment: "équipement"
+          gram: "Gram"
           head: "tête"
           hectare: "hectare"
           hectoliter: "Hectolitre"
@@ -1701,6 +1706,7 @@ fra:
           kilowatt_hour: "Kilowatt Heure"
           liter: "litre"
           person: "personne"
+          plants: "Plants"
           room: "salle"
           round_bale: "Botte ronde"
           small_rectangular_bale: "Botte rectangulaire petit format (100*40*40)"
@@ -1708,10 +1714,13 @@ fra:
           unit: "unité"
         # variety: # Choices comes from nomenclature: varieties
       items:
+        115g_jam: "Pot de 115g de confiture"
+        230g_jam: "Pot de 230g de confiture"
         25kg_bag_animal_food: "Sac d’aliment de 25kg"
         acetal: "Acetal"
         actilact: "Actilact"
         additive: "Adjuvant"
+        air_compressor: "Compresseur"
         alfalfa_crop: "Culture de luzerne"
         alfalfa_seed: "Semence de luzerne"
         all_inclusive_corn_sower: "Semoir Maïs tout intégré"
@@ -1731,6 +1740,8 @@ fra:
         barley_grain: "Grain d’orge"
         bean_crop: "Culture de haricot"
         beet_crop: "Culture de betterave"
+        blackcurrant_crop: "Culture de cassissier"
+        blackcurrant_seedling: "Plant de cassissier"
         bolt: "Boulon"
         bottle_75cl_wine: "Bouteille de vin (75cl)"
         brassicaceae_fungicide: "Fongicide colza"
@@ -1757,7 +1768,7 @@ fra:
         complete_herbicide: "Herbicide total"
         coop:ammonitre_33,5%_vr: "ammonitre COOP 33,5% vrac"
         coop:aviator_xpro_5l: "Aviator xpro 5l"
-        # coop:avoine_d'hiver_une_de_mai_red_25kg: "Coop:avoine d'hiver une de mai red 25kg"
+        coop:avoine_d'hiver_une_de_mai_red_25kg: "Semence d'avoine d'hiver une de mai - sac de 25kg"
         coop:bd_s_miradoux_r1_cel_gold_net_25kg: "Semence de Blé tendre Miradoux ( r1 cel gold) - sac de 25kg"
         coop:bd_s_tablur_r1_cel_gold_net_25kg: "Semence de Blé dur tablur r1 cel gold net - sac de 25kg"
         coop:bd_s_tablur_r1_gau+red_25kg: "Semence de Blé dur tablur r1 gau+red - sac de 25kg"
@@ -1811,15 +1822,22 @@ fra:
         female_adult_cow: "Vache"
         female_hen_band: "Bande de poule"
         female_young_cow: "Génisse"
+        fig_crop: "Culture de figuier"
+        fig_seedling: "Plant de figuier"
         food_equipment_division: "Zone de stockage des aliments et du matériels"
         food_tank: "Silo à aliments"
         forager: "Ensileuse"
+        freezer_tank: "Congélateur"
+        frozen_fruit: "Fruits congelés"
+        fruit_derivative_good: "Produits à base de fruits"
         fuel_tank: "Cuve à fioul"
         fungicide: "Fongicide"
         garlic_crop: "Culture d’ail"
         gas: "Gaz"
         gasoline: "Essence"
         goat_milk: "Lait de chèvre"
+        gooseberry_crop: "Culture de groseillier"
+        gooseberry_seedling: "Plant de groseillier"
         granulated_insecticide_12: "Insecticide granulés"
         grape_reaper: "Machine à vendanger"
         grass: "Herbe"
@@ -1885,6 +1903,10 @@ fra:
         oyster_band: "Bande d’huître"
         pea_crop: "Culture de pois"
         pea_seed: "Semence de pois"
+        peach_crop: "Culture de pécher"
+        peach_seedling: "Plant de pécher"
+        pear_crop: "Culture de poirier"
+        pear_seedling: "Plant de poirier"
         permanent_meadow_crop: "Culture de prairie permanente"
         pig_compost: "Compost de porc"
         pig_manure: "Fumier de porc"
@@ -1899,13 +1921,21 @@ fra:
         pruning_platform: "plate-forme de taille"
         rabbit_manure: "Fumier de lapin"
         rape_crop: "Culture de colza"
+        raspberry_crop: "Culture de framboisier"
+        raspberry_seedling: "Plant de framboisier"
         reaper: "Moissonneuse-batteuse"
         riflexine: "Riflexine"
+        rose_crop: "Culture de rosier"
+        rose_seedling: "Plant de rosier"
         running_water: "Eau du réseau"
         rye_crop: "Culture de seigle"
+        saffron_crop: "Culture de safran"
+        saffron_pollen: "Pollen de safran"
+        saffron_seedling: "Bulbe de safran"
         salmon_band: "Bande de saumon"
         screed_building: "Construction béton (silo, chape, terrasse)"
         seed: "Semence"
+        seedling: "Plant"
         settlement: "Aménagement"
         silage_distributor: "Désileuse"
         silage_division: "Zone de stockage de l’ensilage"
@@ -1925,6 +1955,7 @@ fra:
         spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
         spring_oat_crop: "Culture d’avoine de printemps"
         strawberry_crop: "Culture de fraisier"
+        strawberry_seedling: "Plant de fraisier"
         subsoil_plow: "Sous soleuse"
         sugar_vinasse: "Vinasse de sucrerie"
         sunflower_crop: "Culture de tournesol"
@@ -1979,6 +2010,7 @@ fra:
       items:
         additive: "Adjuvant"
         administrative_division: "Zone Administrative"
+        air_compressor: "Compresseur"
         animal_building_division: "Zone dédiée aux animaux"
         animal_food: "Aliment du bétail"
         animal_food_building_division: "Zone de stockage dédiée aux aliments"
@@ -2004,10 +2036,12 @@ fra:
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
         fertilizer_division: "Zone de stockage des engrais"
+        flower_crop: "Culture florale"
         food_distributor: "Matériel de distribution d’aliments"
         food_equipment_division: "Zone de stockage des équipements et des aliments"
         food_tank: "Silo à aliments"
         forager: "Ensileuse"
+        freezer_tank: "Congélateur"
         fruit: "Fruit"
         fruit_crop: "Culture fruitière"
         fuel: "Carburant"
@@ -2045,20 +2079,24 @@ fra:
         natural_water: "Eau de pluie ou de puit"
         organic_fertilizer: "Engrais organique"
         oyster_band: "Bande d’huître"
+        packaged_process_food: "Aliments transformés et conditionnés"
         plant_medicine_tank: "Réserve de produits phytosanitaires"
         plow: "Charrue"
         plum_seedling: "Plant de prunier"
+        process_food: "Aliments transformés"
         pruning_platform: "Plate-forme de taille"
         reaper: "Moissonneuse-batteuse"
         running_water: "Eau du réseau"
         salmon_band: "Bande de saumon"
         seed: "Semence"
+        seedling: "Plant"
         settlement: "Aménagement"
         shell_fruit_reaper: "Récolteuse de fruits à coques"
         silage: "Ensilage"
         silage_division: "Zone de stockage de l’ensilage"
         small_equipment: "Petit matériel"
         sower: "Semoir"
+        species: "Epices"
         sprayer: "Pulvérisateur"
         spread_renting: "Location d’épandeur"
         spreader: "Épandeur à engrais"
@@ -2096,7 +2134,9 @@ fra:
         duck: "Canard"
         escourgeon_barley: "Orge escourgeon"
         fixed_frost_fallow_land: "Gel fixe"
+        fruit_processing: "Transformation de fruits"
         garlic: "Ail"
+        gooseberry: "Groseille"
         grain_corn: "Maïs grain"
         hazel: "Noisettier"
         horsebean: "Féverolle"
@@ -2109,10 +2149,15 @@ fra:
         milk_cattle: "Bovins Lait"
         others_usages: "Autres utilisations (non admissibles)"
         oyster: "Huître"
+        peach: "Péche"
+        pear: "Poire"
         permanent_meadow: "Prairie permanente"
         plum: "Prune"
         potato: "Pomme de terre"
+        raspberry: "Framboise"
+        rose: "Rose"
         rye: "Seigle"
+        saffron: "Safran"
         salmon: "Saumon"
         seed_corn: "Maïs semence"
         silage_corn: "Maïs ensilage"
@@ -2320,14 +2365,12 @@ fra:
         additive: "Additif"                                # plant_medicine
         alexis: "Alexis"                                   # triticum_durum
         allium: "Ail"                                      # amaryllidaceae
-        allo: "Allo"                                       # prunus_salicina
         amaranthaceae: "Amaranthaceae"                     # plant
         amaryllidaceae: "Amaryllidaceae"                   # plant
         anas: "Palmipède"                                  # aves
         animal: "Animal"                                   # bioproduct
         animal_group: "Troupeau"                           # product_group
         animal_medicine: "Médicament vétérinaire"          # medicine
-        anne_gold: "Anne gold"                             # prunus_salicina
         antiseptic: "Antiseptique"                         # medicine
         apache: "Blé Apache"                               # triticum_aestivum
         apiaceae: "Apiaceae"                               # plant
@@ -2339,18 +2382,14 @@ fra:
         avena: "Avena"                                     # poaceae
         aventur: "Aventur"                                 # triticum_durum
         aves: "Oiseau"                                     # animal
-        awaso: "Awaso"                                     # prunus_salicina
         aztec: "Aztec"                                     # triticum_aestivum
         baler: "Botteleuse"                                # equipment
         bambusa: "Bambou"                                  # poaceae
-        beauty: "Beauty"                                   # prunus_salicina
         bergxxon: "Bergxxon"                               # zea
-        bernardina: "Bernardina"                           # prunus_domestica
         beta: "Betterave"                                  # amaranthaceae
         betulaceae: "Betulaceae"                           # plant
         biensur: "Biensur"                                 # triticum_durum
         bioproduct: "Produit vivant"                       # matter
-        bluefre: "Bluefre"                                 # prunus_domestica
         bos: "Bovin"                                       # mammalia
         brassica: "Colza"                                  # brassicaceae
         brassica_napus: "Colza"                            # brassica
@@ -2366,7 +2405,6 @@ fra:
         capra: "Caprin"                                    # mammalia
         carignan: "Carignan"                               # vitis_vinifera
         carmenere_noir: "Carménère noir"                   # vitis_vinifera
-        carpatin: "Carpatin"                               # prunus_domestica
         chardonnay: "Chardonnay"                           # vitis_vinifera
         chemical_fertilizer: "Engrais minéral"             # mineral_matter
         cichorium: "Chicoré"                               # asteraceae
@@ -2378,6 +2416,8 @@ fra:
         corylus_avellana: "Corylus avellana"               # corylus
         cot_noir: "Cot noir"                               # vitis_vinifera
         courtot: "Courtot"                                 # triticum_aestivum
+        crocus: "Crocus"                                   # iridaceae
+        crocus_sativus: "Crocus sativus"                   # crocus
         cucumis: "Melon"                                   # cucurbitaceae
         cucurbitaceae: "Cucurbitaceae"                     # plant
         cultivable_zone: "Zone cultivable"                 # land_parcel_group
@@ -2399,9 +2439,15 @@ fra:
         fercoril_corabel: "Fercoril corabel"               # corylus_avellana
         feriale: "Feriale"                                 # corylus_avellana
         fertile_coutard: "Fertile coutard"                 # corylus_avellana
+        ficus: "Ficus"                                     # moraceae
+        ficus_carica: "Ficus carica"                       # ficus
+        ficus_carica_saint_pierre: "Ficus carica - Saint-Pierre" # ficus_carica
+        flower: "Fleur"                                    # organic_matter
         food_deliver: "Désileuse"                          # equipment
         forager: "Ensileuse"                               # equipment
         fragaria: "Fraise"                                 # rosaceae
+        fragaria_ananassa: "Fragaria ananassa"             # fragaria
+        fragaria_ananassa_mara_des_bois: "Fragaria ananassa - Mara des bois" # fragaria_ananassa
         fruit: "Fruit"                                     # organic_matter
         fuel: "Gasoil"                                     # organic_matter
         fungicide: "Produit fongicide"                     # plant_medicine
@@ -2414,6 +2460,7 @@ fra:
         grass: "Herbe"                                     # organic_matter
         grenache: "Grenache"                               # vitis_vinifera
         grenache_noir: "Grenache noir"                     # vitis_vinifera
+        grossulariaceae: "Grossulariaceae"                 # plant
         guano: "Guano"                                     # excrement
         harvester: "Moissonneuse"                          # equipment
         hay: "Foin"                                        # organic_matter
@@ -2430,6 +2477,7 @@ fra:
         implanter: "Planteuse"                             # equipment
         insecta: "Insecte"                                 # animal
         insecticide: "Produit insecticide"                 # plant_medicine
+        iridaceae: "Iridaceae"                             # plant
         isengrain: "Isengrain"                             # triticum_aestivum
         item: "Pièce"                                      # equipment
         juglandaceae: "Juglandaceae"                       # plant
@@ -2450,7 +2498,7 @@ fra:
         linum: "Lin"                                       # linaceae
         liquid_slurry: "Purin"                             # excrement
         lona: "Lona"                                       # triticum_aestivum
-        malus: "Pommier"                                   # plant
+        malus: "Pommier"                                   # rosaceae
         mammalia: "Mammifère"                              # animal
         manital: "Manital"                                 # triticum_aestivum
         manure: "Fumier"                                   # excrement
@@ -2467,6 +2515,7 @@ fra:
         mix: "Mélange"                                     # preparation
         mollusca: "Mollusque"                              # animal
         molluscicide: "Produit molluscicide"               # plant_medicine
+        moraceae: "Moraceae"                               # plant
         mower: "Faucheuse"                                 # equipment
         muscadelle_blanc: "Muscadelle blanc"               # vitis_vinifera
         nicotiana: "Tabac"                                 # solanaceae
@@ -2489,22 +2538,56 @@ fra:
         plower: "Charrue"                                  # equipment
         poa: "Prairie"                                     # poaceae
         poaceae: "Graminée"                                # plant
+        pollen: "Pollen"                                   # organic_matter
         preparation: "Préparation"                         # matter
         product: "Produit"
         product_group: "Groupe de produit"                 # product
         property_title: "Titre de propriété"               # immatter
         pruner: "Sécateur"                                 # equipment
-        prunus: "Prunier"                                  # plant
+        prunus: "Prunier"                                  # rosaceae
         prunus_domestica: "Prunus domestica"               # prunus
+        prunus_persica: "Prunus persica"                   # prunus
+        prunus_persica_jh_hall: "Prunus persica - JH hall" # prunus_persica
+        prunus_persica_madeleine: "Prunus persica - Madeleine" # prunus_persica
+        prunus_persica_saint_hilaire: "Prunus persica - Saint-Hilaire" # prunus_persica
         prunus_salicina: "Prunus salicina"                 # prunus
+        prunus_salicina_allo: "Prunus salicina - Allo"     # prunus_salicina
+        prunus_salicina_anne_gold: "Prunus salicina - Anne gold" # prunus_salicina
+        prunus_salicina_awaso: "Prunus salicina - Awaso"   # prunus_salicina
+        prunus_salicina_beauty: "Prunus salicina - Beauty" # prunus_salicina
+        prunus_salicina_bernardina: "Prunus salicina - Bernardina" # prunus_domestica
+        prunus_salicina_bluefre: "Prunus salicina - Bluefre" # prunus_domestica
+        prunus_salicina_carpatin: "Prunus salicina - Carpatin" # prunus_domestica
+        pyrus: "Pyrus"                                     # rosaceae
+        pyrus_communis: "Pyrus communis"                   # pyrus
+        pyrus_communis_beurre_hardy: "Pyrus communis - Beurre hardy" # pyrus_communis
+        pyrus_communis_william: "Pyrus communis - William" # pyrus_communis
+        pyrus_communis_william_bon_chretien: "Pyrus communis - William bon chretien" # pyrus_communis
         qualital: "Qualital"                               # triticum_aestivum
         quality: "Quality"                                 # triticum_aestivum
         quebon: "Quebon"                                   # triticum_aestivum
         reaper: "Moissonneuse-batteuse"                    # equipment
         recital: "Recital"                                 # triticum_aestivum
         renan: "Renan"                                     # triticum_aestivum
+        ribes: "Ribes"                                     # grossulariaceae
+        ribes_nigrum: "Ribes nigrum"                       # ribes
+        ribes_nigrum_andega: "Ribes nigrum - Andega"       # ribes_nigrum
+        ribes_rubrum: "Ribes rubrum"                       # ribes
+        ribes_rubrum_wilder: "Ribes rubrum - Wilder"       # ribes_rubrum
+        rosa: "Rosa"                                       # rosaceae
+        rosa_centifolia: "Rosa centifolia"                 # rosa
+        rosa_dades: "Rosa dades"                           # rosa
+        rosa_gallica: "Rosa gallica"                       # rosa
+        rosa_recht: "Rosa recht"                           # rosa
         rosaceae: "Rosaceae"                               # plant
         rubisko: "Rubisko"                                 # triticum_aestivum
+        rubus: "Rubus"                                     # rosaceae
+        rubus_idaeus: "Rubus idaeus"                       # rubus
+        rubus_idaeus_frida: "Rubus idaeus - Frida"         # rubus_idaeus
+        rubus_idaeus_mailling_promise: "Rubus idaeus - Mailling promise" # rubus_idaeus
+        rubus_idaeus_tulameen: "Rubus idaeus - Tulameen"   # rubus_idaeus
+        rubus_idaeus_willamette: "Rubus idaeus - Willamette" # rubus_idaeus
+        rubus_idaeus_zeva: "Rubus idaeus - Zeva"           # rubus_idaeus
         runal: "Runal"                                     # triticum_aestivum
         salmo: "Salmonidé"                                 # osteichthyes
         salt: "Sel"                                        # mineral_matter
