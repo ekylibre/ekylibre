@@ -8,7 +8,11 @@
       <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
                  forward="(value * land_parcel.net_surface_area(hectare)) / self..net_mass(kilogram)"
                  backward="(value * self..net_mass(kilogram)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg N/ha -->
+                 /> <!-- kg/ha -->
+       <handler indicator="volume_area_density"   unit="liter_per_hectare"   to="population"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / self..net_volume(liter)"
+                 backward="(value * self..net_volume(liter)) / land_parcel.net_surface_area(hectare)"
+                 /> <!-- l/ha -->
        <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population"
                  forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
                  backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
@@ -20,7 +24,7 @@
       <handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare"   to="population"
                  forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
                  backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg P/ha -->            
+                 /> <!-- kg K/ha -->            
                  
       </variable>  
       <variable name="spreader" abilities="spread(mineral_matter)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
