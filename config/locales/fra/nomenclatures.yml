@@ -2401,7 +2401,6 @@ fra:
         acetal: "Acetal"                                   # animal_medicine
         actilact: "Actilact"                               # animal_medicine
         additive: "Additif"                                # plant_medicine
-        alexis: "Alexis"                                   # triticum_durum
         allium: "Ail"                                      # amaryllidaceae
         amaranthaceae: "Amaranthaceae"                     # plant
         amaryllidaceae: "Amaryllidaceae"                   # plant
@@ -2410,23 +2409,17 @@ fra:
         animal_group: "Troupeau"                           # product_group
         animal_medicine: "Médicament vétérinaire"          # medicine
         antiseptic: "Antiseptique"                         # medicine
-        apache: "Blé Apache"                               # triticum_aestivum
         apiaceae: "Apiaceae"                               # plant
         apis: "Apidés"                                     # insecta
-        ascott: "Ascott"                                   # triticum_aestivum
         asparagus: "Asperge"                               # liliaceae
         asteraceae: "Astéracée"                            # plant
-        autan: "Autan"                                     # triticum_aestivum
         avena: "Avena"                                     # poaceae
-        aventur: "Aventur"                                 # triticum_durum
         aves: "Oiseau"                                     # animal
-        aztec: "Aztec"                                     # triticum_aestivum
         baler: "Botteleuse"                                # equipment
         bambusa: "Bambou"                                  # poaceae
         bergxxon: "Bergxxon"                               # zea
         beta: "Betterave"                                  # amaranthaceae
         betulaceae: "Betulaceae"                           # plant
-        biensur: "Biensur"                                 # triticum_durum
         bioproduct: "Produit vivant"                       # matter
         bos: "Bovin"                                       # mammalia
         brassica: "Colza"                                  # brassicaceae
@@ -2436,8 +2429,6 @@ fra:
         brassicaceae: "Crucifères"                         # plant
         building: "Bâtiment"                               # product_group
         building_division: "Pièce de bâtiment"             # sub_zone
-        bussard: "Bussard"                                 # triticum_aestivum
-        caphorn: "Blé Caphorn"                             # triticum_aestivum
         capra: "Caprin"                                    # mammalia
         chemical_fertilizer: "Engrais minéral"             # mineral_matter
         cichorium: "Chicoré"                               # asteraceae
@@ -2446,13 +2437,11 @@ fra:
         corabel: "Corabel"                                 # corylus_avellana
         corylus: "Corylus"                                 # betulaceae
         corylus_avellana: "Corylus avellana"               # corylus
-        courtot: "Courtot"                                 # triticum_aestivum
         crocus: "Crocus"                                   # iridaceae
         crocus_sativus: "Crocus sativus"                   # crocus
         cucumis: "Melon"                                   # cucurbitaceae
         cucurbitaceae: "Cucurbitaceae"                     # plant
         cultivable_zone: "Zone cultivable"                 # land_parcel_group
-        cultur: "Cultur"                                   # triticum_durum
         daucus: "Carotte"                                  # apiaceae
         disinfectant: "Désinfectant"                       # antiseptic
         easement: "Aménagement foncier"                    # zone
@@ -2461,12 +2450,9 @@ fra:
         ennis: "Ennis"                                     # corylus_avellana
         equipment: "Équipement"                            # matter
         equus: "Equin"                                     # mammalia
-        esperia: "Esperia"                                 # triticum_aestivum
         etincel: "Etincel"                                 # hordeum_hibernum
-        euclide: "Euclide"                                 # triticum_aestivum
         excrement: "Engrais organiques"                    # organic_matter
         fabaceae: "Fabaceae"                               # plant
-        fabulis: "Fabulis"                                 # triticum_durum
         fercoril_corabel: "Fercoril corabel"               # corylus_avellana
         feriale: "Feriale"                                 # corylus_avellana
         fertile_coutard: "Fertile coutard"                 # corylus_avellana
@@ -2483,7 +2469,6 @@ fra:
         fuel: "Gasoil"                                     # organic_matter
         fungicide: "Produit fongicide"                     # plant_medicine
         fungus: "Champignon"                               # bioproduct
-        galibier: "Galibier"                               # triticum_aestivum
         gallus: "Galinacée"                                # aves
         gas: "Essence"                                     # organic_matter
         glycine: "Glycine"                                 # fabaceae
@@ -2507,11 +2492,9 @@ fra:
         insecta: "Insecte"                                 # animal
         insecticide: "Produit insecticide"                 # plant_medicine
         iridaceae: "Iridaceae"                             # plant
-        isengrain: "Isengrain"                             # triticum_aestivum
         item: "Pièce"                                      # equipment
         juglandaceae: "Juglandaceae"                       # plant
         juglans: "Juglans"                                 # juglandaceae
-        karur: "Karur"                                     # triticum_durum
         lamiaceae: "Lamiaceae"                             # plant
         land_parcel: "Parcelle physique"                   # easement
         land_parcel_cluster: "Îlot"                        # land_parcel_group
@@ -2519,17 +2502,14 @@ fra:
         lavandula: "Lavande"                               # lamiaceae
         lens: "Lentille"                                   # fabaceae
         lepus: "Lagomorphe"                                # mammalia
-        levis: "Levis"                                     # triticum_aestivum
         lewis: "Lewis"                                     # corylus_avellana
         lg3490: "Lg3490"                                   # zea
         liliaceae: "Liliaceae"                             # plant
         linaceae: "Linaceae"                               # plant
         linum: "Lin"                                       # linaceae
         liquid_slurry: "Purin"                             # excrement
-        lona: "Lona"                                       # triticum_aestivum
         malus: "Pommier"                                   # rosaceae
         mammalia: "Mammifère"                              # animal
-        manital: "Manital"                                 # triticum_aestivum
         manure: "Fumier"                                   # excrement
         matter: "Matérialisable"                           # product
         meat: "Viande"                                     # organic_matter
@@ -2538,7 +2518,6 @@ fra:
         merveille: "Merveille"                             # corylus_avellana
         milk: "Lait"                                       # organic_matter
         mineral_matter: "Matière minérale"                 # matter
-        miradoux: "Miradoux"                               # triticum_durum
         mix: "Mélange"                                     # preparation
         mollusca: "Mollusque"                              # animal
         molluscicide: "Produit molluscicide"               # plant_medicine
@@ -2547,14 +2526,12 @@ fra:
         nicotiana: "Tabac"                                 # solanaceae
         numida: "Numididae"                                # aves
         oil: "Huile"                                       # organic_matter
-        oratorio: "Oratorio"                               # triticum_aestivum
         organic_matter: "Matière organique"                # matter
         oryza: "Riz"                                       # poaceae
         osteichthyes: "Poissons osseux"                    # animal
         ostreidae: "Ostreidae"                             # mollusca
         ovis: "Ovin"                                       # mammalia
         pauetet: "Pauetet"                                 # corylus_avellana
-        pescadou: "Pescadou"                               # triticum_durum
         phaseolus: "Haricot"                               # fabaceae
         pisum: "Pisum"                                     # fabaceae
         plant: "Végétal"                                   # bioproduct
@@ -2587,12 +2564,7 @@ fra:
         pyrus_communis_beurre_hardy: "Pyrus communis - Beurre hardy" # pyrus_communis
         pyrus_communis_william: "Pyrus communis - William" # pyrus_communis
         pyrus_communis_william_bon_chretien: "Pyrus communis - William bon chretien" # pyrus_communis
-        qualital: "Qualital"                               # triticum_aestivum
-        quality: "Quality"                                 # triticum_aestivum
-        quebon: "Quebon"                                   # triticum_aestivum
         reaper: "Moissonneuse-batteuse"                    # equipment
-        recital: "Recital"                                 # triticum_aestivum
-        renan: "Renan"                                     # triticum_aestivum
         ribes: "Ribes"                                     # grossulariaceae
         ribes_nigrum: "Ribes nigrum"                       # ribes
         ribes_nigrum_andega: "Ribes nigrum - Andega"       # ribes_nigrum
@@ -2604,7 +2576,6 @@ fra:
         rosa_gallica: "Rosa gallica"                       # rosa
         rosa_recht: "Rosa recht"                           # rosa
         rosaceae: "Rosaceae"                               # plant
-        rubisko: "Rubisko"                                 # triticum_aestivum
         rubus: "Rubus"                                     # rosaceae
         rubus_idaeus: "Rubus idaeus"                       # rubus
         rubus_idaeus_frida: "Rubus idaeus - Frida"         # rubus_idaeus
@@ -2612,11 +2583,9 @@ fra:
         rubus_idaeus_tulameen: "Rubus idaeus - Tulameen"   # rubus_idaeus
         rubus_idaeus_willamette: "Rubus idaeus - Willamette" # rubus_idaeus
         rubus_idaeus_zeva: "Rubus idaeus - Zeva"           # rubus_idaeus
-        runal: "Runal"                                     # triticum_aestivum
         salmo: "Salmonidé"                                 # osteichthyes
         salt: "Sel"                                        # mineral_matter
         sand: "Sable"                                      # mineral_matter
-        sculptur: "Sculptur"                               # triticum_durum
         secale: "Secale"                                   # poaceae
         seed: "Semence"                                    # organic_matter
         seedling: "Plant"                                  # organic_matter
@@ -2625,7 +2594,6 @@ fra:
         settlement: "Agencement"                           # easement
         silage: "Ensilage"                                 # preparation
         slurry: "Lisier"                                   # excrement
-        soissons: "Soissons"                               # triticum_aestivum
         solanaceae: "Solanaceae"                           # plant
         solanum: "Pomme de terre"                          # solanaceae
         sorghum: "Sorgho"                                  # poaceae
@@ -2635,20 +2603,52 @@ fra:
         straw: "Paille"                                    # organic_matter
         sub_zone: "Sous zone"                              # zone
         sus: "Porcin"                                      # mammalia
-        sy_banco: "Sy banco"                               # triticum_durum
-        sy_cysco: "Sy cysco"                               # triticum_durum
-        tablur: "Tablur"                                   # triticum_durum
-        tamaro: "Tamaro"                                   # triticum_aestivum
         tank: "Réservoir"                                  # equipment
-        texel: "Texel"                                     # triticum_aestivum
         tonda_giffoni: "Tonda giffoni"                     # corylus_avellana
         tractor: "Tracteur"                                # equipment
         trailer: "Remorque"                                # equipment
-        tremie: "Tremie"                                   # triticum_aestivum
         triticosecale: "Triticale"                         # poaceae
         triticum: "Blé"                                    # poaceae
         triticum_aestivum: "Blé tendre"                    # triticum
+        triticum_aestivum_apache: "Triticum aestivum - apache" # triticum_aestivum
+        triticum_aestivum_ascott: "Triticum aestivum - ascott" # triticum_aestivum
+        triticum_aestivum_autan: "Triticum aestivum - autan" # triticum_aestivum
+        triticum_aestivum_aztec: "Triticum aestivum - aztec" # triticum_aestivum
+        triticum_aestivum_bussard: "Triticum aestivum - bussard" # triticum_aestivum
+        triticum_aestivum_caphorn: "Triticum aestivum - caphorn" # triticum_aestivum
+        triticum_aestivum_courtot: "Triticum aestivum - courtot" # triticum_aestivum
+        triticum_aestivum_esperia: "Triticum aestivum - esperia" # triticum_aestivum
+        triticum_aestivum_euclide: "Triticum aestivum - euclide" # triticum_aestivum
+        triticum_aestivum_galibier: "Triticum aestivum - galibier" # triticum_aestivum
+        triticum_aestivum_isengrain: "Triticum aestivum - isengrain" # triticum_aestivum
+        triticum_aestivum_levis: "Triticum aestivum - levis" # triticum_aestivum
+        triticum_aestivum_lona: "Triticum aestivum - lona" # triticum_aestivum
+        triticum_aestivum_manital: "Triticum aestivum - manital" # triticum_aestivum
+        triticum_aestivum_oratorio: "Triticum aestivum - oratorio" # triticum_aestivum
+        triticum_aestivum_qualital: "Triticum aestivum - qualital" # triticum_aestivum
+        triticum_aestivum_quality: "Triticum aestivum - quality" # triticum_aestivum
+        triticum_aestivum_quebon: "Triticum aestivum - quebon" # triticum_aestivum
+        triticum_aestivum_recital: "Triticum aestivum - recital" # triticum_aestivum
+        triticum_aestivum_renan: "Triticum aestivum - renan" # triticum_aestivum
+        triticum_aestivum_rubisko: "Triticum aestivum - rubisko" # triticum_aestivum
+        triticum_aestivum_runal: "Triticum aestivum - runal" # triticum_aestivum
+        triticum_aestivum_soissons: "Triticum aestivum - soissons" # triticum_aestivum
+        triticum_aestivum_tamaro: "Triticum aestivum - tamaro" # triticum_aestivum
+        triticum_aestivum_texel: "Triticum aestivum - texel" # triticum_aestivum
+        triticum_aestivum_tremie: "Triticum aestivum - tremie" # triticum_aestivum
         triticum_durum: "Blé dur"                          # triticum
+        triticum_durum_alexis: "Triticum durum - alexis"   # triticum_durum
+        triticum_durum_aventur: "Triticum durum - aventur" # triticum_durum
+        triticum_durum_biensur: "Triticum durum - biensur" # triticum_durum
+        triticum_durum_cultur: "Triticum durum - cultur"   # triticum_durum
+        triticum_durum_fabulis: "Triticum durum - fabulis" # triticum_durum
+        triticum_durum_karur: "Triticum durum - karur"     # triticum_durum
+        triticum_durum_miradoux: "Triticum durum - miradoux" # triticum_durum
+        triticum_durum_pescadou: "Triticum durum - pescadou" # triticum_durum
+        triticum_durum_sculptur: "Triticum durum - sculptur" # triticum_durum
+        triticum_durum_sy_banco: "Triticum durum - sy banco" # triticum_durum
+        triticum_durum_sy_cysco: "Triticum durum - sy cysco" # triticum_durum
+        triticum_durum_tablur: "Triticum durum - tablur"   # triticum_durum
         triticum_spelta: "Épeautre"                        # triticum
         vicia: "Vesces - Féverolle"                        # fabaceae
         vitis: "Vigne"                                     # plant
