@@ -1,11 +1,11 @@
 nom,variant_nomen,code place,date naissance,variété,dérivé,nom du propriétaire,indicateurs,notes,prix unitaire
 ,SEMENCE ET PLANT,,,,,,,,
-Plant de vigne Trad(GS-RN) MERLOT_NOIR SO4,merlot_noir_so4_vine_seedling,,2013-01-01,seedling,merlot_noir,,Population : 8500,,0.96
-Plant de vigne Trad(GS-RN) UGNI BLANC SO4,so4_vine_seedling,,2013-01-01,seedling,ugni_blanc,,Population : 16250,,0.93
+Plant de vigne Trad(GS-RN) MERLOT_NOIR SO4,merlot_noir_so4_vine_seedling,,2013-01-01,seedling,vitis_vinifera_merlot_noir,,Population : 8500,,0.96
+Plant de vigne Trad(GS-RN) UGNI BLANC SO4,so4_vine_seedling,,2013-01-01,seedling,vitis_vinifera_ugni_blanc,,Population : 16250,,0.93
 Semence de blé dur,hard_wheat_seed_25,,2013-01-01,seed,triticum_durum,,Population : 4,,3.39
-Semence de blé tendre CAPHORN,wheat_seed_25,,2013-01-01,seed,caphorn,,Population : 6,,3.40
+Semence de blé tendre CAPHORN,wheat_seed_25,,2013-01-01,seed,triticum_aestivum_caphorn,,Population : 6,,3.40
 Semence de tournesol,seed,,2013-01-01,seed,helianthus,,Population : 2 ; net_mass : 40kg,,3.56
-Semence de blé tendre APACHE,wheat_seed_25,,2013-01-01,seed,apache,,Population : 6,,3.30
+Semence de blé tendre APACHE,wheat_seed_25,,2013-01-01,seed,triticum_aestivum_apache,,Population : 6,,3.30
 'Semence d''orge d''hiver',winter_barley_seed_25,,2013-01-01,seed,hordeum_hibernum,,Population : 6,,3.56
 Semence de maïs,corn_seed_25,,2013-01-01,seed,zea,,Population : 6,,4.10
 Semence de prairie,grass_seed_25,,2013-01-01,seed,poa,,Population : 6,,5.23
@@ -60,7 +60,7 @@ FLORIJUNIOR SAC,25kg_bag_animal_food,S05_D07,2014-01-01,,,,Population : 9,9.00,
 RUMIDECOX,bulk_kg_animal_food,S05_D07,2014-01-01,,,,Population : 500,500.00,0.49
 ,PRODUIT VEGETAUX,,,,,,,,
 Blé tendre en stockage à façon à la coopérative,wheat_grain,,2014-01-01,,,,Population : 27.7,,180
-Merlot Rouge 2012,wine,TANK_1,2012-10-01,wine,merlot_noir,,Population : 40; reference_year : 2012; certification : bordeaux_rouge,,100.20
-Merlot Rouge 2013,wine,TANK_2,2013-10-01,wine,merlot_noir,,Population : 50; reference_year : 2013; certification : bordeaux_superieur_rouge,,111.20
-Raisin Merlot 2013,vine_grape_berry,,2013-09-15,,merlot_noir,,Population : 150; reference_year : 2013; certification : bordeaux_superieur_rouge,,1.11
-Mout Merlot 2013 Cuve N°3,vine_grape_must,TANK_3,2013-09-15,,merlot_noir,,Population : 45; reference_year : 2013; certification : bordeaux_superieur_rouge,,70.00
+Merlot Rouge 2012,wine,TANK_1,2012-10-01,wine,vitis_vinifera_merlot_noir,,Population : 40; reference_year : 2012; certification : bordeaux_rouge,,100.20
+Merlot Rouge 2013,wine,TANK_2,2013-10-01,wine,vitis_vinifera_merlot_noir,,Population : 50; reference_year : 2013; certification : bordeaux_superieur_rouge,,111.20
+Raisin Merlot 2013,vine_grape_berry,,2013-09-15,,vitis_vinifera_merlot_noir,,Population : 150; reference_year : 2013; certification : bordeaux_superieur_rouge,,1.11
+Mout Merlot 2013 Cuve N°3,vine_grape_must,TANK_3,2013-09-15,,vitis_vinifera_merlot_noir,,Population : 45; reference_year : 2013; certification : bordeaux_superieur_rouge,,70.00
