@@ -111,19 +111,19 @@
             />
       <item name="ascott_wheat_crop"
             nature="cereal_crop"
-            variety="ascott"
+            variety="triticum_aestivum_ascott"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="caphorn_wheat_crop"
             nature="cereal_crop"
-            variety="caphorn"
+            variety="triticum_aestivum_caphorn"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="euclide_wheat_crop"
             nature="cereal_crop"
-            variety="euclide"
+            variety="triticum_aestivum_euclide"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -136,13 +136,13 @@
             />
       <item name="tablur_hard_wheat_crop"
             nature="cereal_crop"
-            variety="tablur"
+            variety="triticum_durum_tablur"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="miradoux_hard_wheat_crop"
             nature="cereal_crop"
-            variety="miradoux"
+            variety="triticum_durum_miradoux"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -1015,19 +1015,19 @@
             />
       <item name="caphorn_wheat_seed_25"
             nature="seed"
-            derivative_of="caphorn"
+            derivative_of="triticum_aestivum_caphorn"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram"
             />
       <item name="euclide_wheat_seed_25"
             nature="seed"
-            derivative_of="euclide"
+            derivative_of="triticum_aestivum_euclide"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram"
             />
       <item name="ascott_wheat_seed_25"
             nature="seed"
-            derivative_of="ascott"
+            derivative_of="triticum_aestivum_ascott"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram"
             />
@@ -1039,13 +1039,13 @@
             />
       <item name="tablur_hard_wheat_seed_25"
             nature="seed"
-            derivative_of="tablur"
+            derivative_of="triticum_durum_tablur"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram"
             />
       <item name="miradoux_hard_wheat_seed_25"
             nature="seed"
-            derivative_of="miradoux"
+            derivative_of="triticum_durum_miradoux"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 50gram"
             />
@@ -1554,43 +1554,43 @@
       <!-- WHEAT -->     
       <item name="coop:bth_s_caphorn_r1_gau+red_25kg"
             nature="seed"
-            derivative_of="caphorn"
+            derivative_of="triticum_aestivum_caphorn"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_rubisko_r1_gau+red_25kg"
             nature="seed"
-            derivative_of="rubisko"
+            derivative_of="triticum_aestivum_rubisko"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_euclide_r1_gau+red_25kg"
             nature="seed"
-            derivative_of="euclide"
+            derivative_of="triticum_aestivum_euclide"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bth_s_ascott_r1_gau+_red_25kg"
             nature="seed"
-            derivative_of="ascott"
+            derivative_of="triticum_aestivum_ascott"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bd_s_miradoux_r1_cel_gold_net_25kg"
             nature="seed"
-            derivative_of="miradoux"
+            derivative_of="triticum_durum_miradoux"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bd_s_tablur_r1_gau+red_25kg"
             nature="seed"
-            derivative_of="tablur"
+            derivative_of="triticum_durum_tablur"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
       <item name="coop:bd_s_tablur_r1_cel_gold_net_25kg"
             nature="seed"
-            derivative_of="tablur"
+            derivative_of="triticum_durum_tablur"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 48gram"
             />
