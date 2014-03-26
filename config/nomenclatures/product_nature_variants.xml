@@ -1523,31 +1523,31 @@
       <!-- CORN -->
       <item name="coop:ma.lg3490_50mg"
             nature="seed"
-            derivative_of="lg3490"
+            derivative_of="zea_lg3490"
             unit_name="50TG_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
       <item name="coop:ma.lg3490_sonido_d50mg"
             nature="seed"
-            derivative_of="lg3490"
+            derivative_of="zea_lg3490"
             unit_name="50TG_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
       <item name="coop:ma.aallexia_50mg"
             nature="seed"
-            derivative_of="aallexia"
+            derivative_of="zea_aallexia"
             unit_name="50TG_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
       <item name="coop:ma.bergxxon_duo_50mg"
             nature="seed"
-            derivative_of="bergxxon"
+            derivative_of="zea_bergxxon"
             unit_name="50TG_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />     
       <item name="coop:ma.bergxxon_duo_sonido_d50mg"
             nature="seed"
-            derivative_of="bergxxon"
+            derivative_of="zea_bergxxon"
             unit_name="50TG_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />

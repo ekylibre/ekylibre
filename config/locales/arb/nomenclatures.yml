@@ -2496,7 +2496,6 @@ arb:
     varieties:
       choices: #?
       items:
-        # aallexia: "Aallexia"
         # acetal: "Acetal"
         # actilact: "Actilact"
         # additive: "Additif"
@@ -2516,7 +2515,6 @@ arb:
         # aves: "Oiseau"
         # baler: "Botteleuse"
         # bambusa: "Bambou"
-        # bergxxon: "Bergxxon"
         # beta: "Betterave"
         # betulaceae: "Betulaceae"
         # bioproduct: "Produit vivant"
@@ -2602,7 +2600,6 @@ arb:
         # lens: "Lentille"
         # lepus: "Lagomorphe"
         # lewis: "Lewis"
-        # lg3490: "Lg3490"
         # liliaceae: "Liliaceae"
         # linaceae: "Linaceae"
         # linum: "Lin"
@@ -2777,6 +2774,9 @@ arb:
         # wine: "Vin"
         # worker: "Travailleur"
         # zea: "Maïs"
+        # zea_aallexia: "Zea - aallexia"
+        # zea_bergxxon: "Zea - bergxxon"
+        # zea_lg3490: "Zea - lg3490"
         # zone: "Zone physique"
         # zone_property_title: "Titre de propriété terrienne"
       # name: "Variétés"

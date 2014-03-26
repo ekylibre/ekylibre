@@ -2,9 +2,9 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-zea" hierarchical="true">
     <items>
-      <item name="aallexia" itis_tsn="00000"/>
-      <item name="bergxxon" itis_tsn="00000"/>
-      <item name="lg3490" itis_tsn="00000"/>
+      <item name="zea_aallexia" itis_tsn="00000"/>
+      <item name="zea_bergxxon" itis_tsn="00000"/>
+      <item name="zea_lg3490" itis_tsn="00000"/>
     </items>
   </nomenclature>
 </nomenclatures>

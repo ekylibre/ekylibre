@@ -2397,7 +2397,6 @@ fra:
       choices:
         # derivative_of: # Choices comes from nomenclature: varieties
       items:
-        aallexia: "Aallexia"                               # zea
         acetal: "Acetal"                                   # animal_medicine
         actilact: "Actilact"                               # animal_medicine
         additive: "Additif"                                # plant_medicine
@@ -2417,7 +2416,6 @@ fra:
         aves: "Oiseau"                                     # animal
         baler: "Botteleuse"                                # equipment
         bambusa: "Bambou"                                  # poaceae
-        bergxxon: "Bergxxon"                               # zea
         beta: "Betterave"                                  # amaranthaceae
         betulaceae: "Betulaceae"                           # plant
         bioproduct: "Produit vivant"                       # matter
@@ -2503,7 +2501,6 @@ fra:
         lens: "Lentille"                                   # fabaceae
         lepus: "Lagomorphe"                                # mammalia
         lewis: "Lewis"                                     # corylus_avellana
-        lg3490: "Lg3490"                                   # zea
         liliaceae: "Liliaceae"                             # plant
         linaceae: "Linaceae"                               # plant
         linum: "Lin"                                       # linaceae
@@ -2678,5 +2675,8 @@ fra:
         wine: "Vin"                                        # organic_matter
         worker: "Travailleur"                              # equipment
         zea: "Maïs"                                        # poaceae
+        zea_aallexia: "Zea - aallexia"                     # zea
+        zea_bergxxon: "Zea - bergxxon"                     # zea
+        zea_lg3490: "Zea - lg3490"                         # zea
         zone: "Zone physique"                              # matter
         zone_property_title: "Titre de propriété terrienne" # property_title
