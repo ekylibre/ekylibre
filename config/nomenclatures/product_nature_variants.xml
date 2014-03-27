@@ -502,13 +502,13 @@
             frozen_indicators_values=""
             />
       <item name="vine_grape_berry"
-            nature="fruit"
+            nature="grape"
             derivative_of="vitis_vinifera"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
             />
       <item name="vine_grape_must"
-            nature="fruit"
+            nature="grape"
             derivative_of="vitis_vinifera"
             unit_name="hectoliter"
             frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
@@ -517,7 +517,13 @@
             nature="wine"
             derivative_of="vitis_vinifera"
             unit_name="hectoliter"
-            frozen_indicators_values="net_volume: 100.00liter"
+            frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
+            />
+      <item name="vine_residu"
+            nature="fruit_residu"
+            variety="wine_coproduct"
+            unit_name="kilogram"
+            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
             />
       <!-- GRAIN BASED -->
       <item name="wheat_grain"
@@ -630,6 +636,27 @@
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.666cubic_meter"
             />
+      <!-- OENOLOGICAL PRODUCT -->      
+      <item name="so2_liquid_A8"
+            nature="so2_solution"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, sulfur_dioxyde_concentration: 8percent"
+            />
+      <item name="so2_liquid_P10"
+            nature="so2_solution"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, sulfur_dioxyde_concentration: 10percent"
+            />
+      <item name="so2_solid_2g"
+            nature="so2_solution"
+            unit_name="dose"
+            frozen_indicators_values="net_volume: 2.00centiliter, net_mass: 2.00gram, sulfur_dioxyde_concentration: 100percent"
+            />
+      <item name="so2_solid_5g"
+            nature="so2_solution"
+            unit_name="dose"
+            frozen_indicators_values="net_volume: 5.00centiliter, net_mass: 5.00gram, sulfur_dioxyde_concentration: 100percent"
+            />  
       <!-- PLANT MEDICINE -->
       <item name="helianthus_herbicide"
             nature="herbicide"
@@ -902,8 +929,8 @@
             />
       <item name="sugar_vinasse"
             nature="organic_fertilizer"
-            variety="grain"
-            derivative_of="organic_matter"
+            variety="wine_coproduct"
+            derivative_of="grape"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 4.0percent"
             />
@@ -1351,6 +1378,11 @@
       <!-- EQUIPMENT FOR WINE -->
       <item name="wine_tank"
             nature="wine_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="wine_press"
+            nature="wine_press"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />

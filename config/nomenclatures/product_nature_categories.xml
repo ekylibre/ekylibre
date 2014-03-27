@@ -179,6 +179,16 @@
             storable="true"
             pictogram="leaf"
             />
+      <item name="oenological_product"
+            charge_account="raw_material_expenses"
+            product_account="revenues"
+            stock_account="plant_medicine_stock"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            pictogram="beaker"
+            />
       <item name="plant_medicine"
             charge_account="plant_medicine_matter_expenses"
             product_account="revenues"

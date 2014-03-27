@@ -98,9 +98,10 @@
       <item name="potassium_concentration"  datatype="measure" unit="percent"/> <!-- K = 0.83 * K2O  (mass approach) -->
       <item name="phosphate_concentration"  datatype="measure" unit="percent"/> <!-- P2O5 = 2.291 * P (mass approach) -->
       <item name="phosphorus_concentration" datatype="measure" unit="percent"/> <!-- P = 0.436 * P2O5 (mass approach) -->
-      <item name="calcium_concentration"    datatype="measure" unit="percent"/>
-      <item name="magnesium_concentration"  datatype="measure" unit="percent"/>
-      <item name="sulfur_concentration"     datatype="measure" unit="percent"/>
+      <item name="calcium_concentration"            datatype="measure" unit="percent"/>
+      <item name="magnesium_concentration"          datatype="measure" unit="percent"/>
+      <item name="sulfur_concentration"             datatype="measure" unit="percent"/>
+      <item name="sulfur_dioxyde_concentration"     datatype="measure" unit="percent"/>
       <!-- oligo-element -->
       <item name="boron_concentration"      datatype="measure" unit="parts_per_million"/>
       <item name="molybdenum_concentration" datatype="measure" unit="parts_per_million"/>
@@ -111,7 +112,7 @@
       <item name="aluminium_concentration"  datatype="measure" unit="parts_per_million"/>
       <!-- physical -->
       <item name="available_water_capacity_per_area" datatype="measure" unit="liter_per_square_meter"/>
-      <item name="soil_depth"              datatype="measure" unit="centimeter"/>
+      <item name="soil_depth"                        datatype="measure" unit="centimeter"/>
       <!-- chemical -->
       <item name="potential_hydrogen"       datatype="decimal" /> <!-- pH -->
       <item name="cation_exchange_capacity" datatype="measure" unit="milliequivalent_per_hundred_gram"/>
@@ -122,12 +123,15 @@
       <!-- for support markers -->
       <!-- <item name="nitrogen_input_per_area" datatype="measure" unit="kilogram_per_hectare"/> -->
       <!-- <item name="nitrogen_input_area_density" datatype="measure" unit="kilogram_per_hectare"/> -->
-      <item name="nitrogen_area_density" datatype="measure" unit="kilogram_per_hectare"/>
+      <item name="nitrogen_area_density"       datatype="measure" unit="kilogram_per_hectare"/>
       <item name="mass_area_density"           datatype="measure" unit="kilogram_per_square_meter"/>
       <item name="volume_area_density"         datatype="measure" unit="liter_per_square_meter"/>
       <item name="mass_area_yield"             datatype="measure" unit="quintal_per_hectare"/>
       <item name="residue_elimination_method"  datatype="choice" choices="residue_elimination_methods"/>
-
+      
+      <item name="mass_volume_density"      datatype="measure" unit="kilogram_per_liter"/>
+      <item name="volume_density"           datatype="measure" unit="centiliter_per_hectoliter"/>
+      
       <!-- TODO waiting for remove these 2 lines -->
       <!--
           <item name="grain_yield_per_area" datatype="measure" unit="quintal_per_hectare"/>

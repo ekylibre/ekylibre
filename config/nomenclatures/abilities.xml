@@ -49,9 +49,12 @@
       <item name="blow"/>
       <item name="repair" parameters="variety"/>
       <item name="lubricate" parameters="variety"/>
-      
-      <!-- @QUID : niveau de compétence (charge 4T , 10T ?)  -->
-      <!-- @QUID : compétence liée à un outil (conduire un tracteur, conduire un tracteur + un semoir, conduire une moissonneuse, etc ) -->
+      <item name="press" parameters="variety"/>
+      <!-- Wine making  -->
+      <item name="chaptelise" parameters="variety"/>
+      <item name="sulfurize" parameters="variety"/>
+      <item name="fermentize" parameters="variety"/>
+      <item name="catalyze" parameters="variety"/>
     </items>
   </nomenclature>
 </nomenclatures>
