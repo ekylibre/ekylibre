@@ -217,6 +217,10 @@ class Product < Ekylibre::Record::Base
     false
   end
 
+  def available?
+    self.dead_at.nil? and !self.population.zero?
+  end
+
 
   # set initial owner and localization
   def set_initial_values
@@ -411,7 +415,6 @@ class Product < Ekylibre::Record::Base
     options[:at] ||= Time.now
     return self.containeds.select{|p| p.variant == variant }
   end
-
 
   # Returns value of an indicator if its name correspond to
   def method_missing(method_name, *args)

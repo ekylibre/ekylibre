@@ -24,6 +24,13 @@ module Procedo
       (@variant ? @variant.id : nil)
     end
 
+    def contents_count
+      if @actor
+        return @actor.containeds(at: now).select(&:available?).size
+      end
+      return 0
+    end
+
   end
 
 end

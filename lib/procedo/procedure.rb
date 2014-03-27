@@ -449,6 +449,14 @@ module Procedo
             code << "          #{variable.name}.actor = __localizeds__.first\n"
             code << "          #{variable.name}.impact_actor!\n"
             code << "        end\n"
+          elsif variable.default_actor.to_s =~ /\Afirst_localized_in\:/
+            unless v = self.variables[variable.default_actor.to_s.split(":").second.strip]
+              raise "Unknown variable used in #{variable.default_actor}"
+            end
+            code << "        if #{v.name}.actor and #{v.name}.actor.containeds(at: now!).any?\n"
+            code << "          #{variable.name}.actor = #{v.name}.actor.containeds.first\n"
+            code << "          #{variable.name}.impact_actor!\n"
+            code << "        end\n"
           elsif variable.default_actor != :none
             puts "Invalid default-actor expression: #{variable.default_actor.inspect}".red
           end
