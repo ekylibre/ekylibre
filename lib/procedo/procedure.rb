@@ -205,8 +205,18 @@ module Procedo
           code << "      @destinations[:#{destination}] = " + cast_expr("attributes[:destinations][:#{destination}]", Nomen::Indicators[destination].datatype) + "\n"
         end
         for handler in variable.handlers
-          code << "      @handlers[:#{handler.name}] = " + cast_expr("attributes[:handlers][:#{handler.name}]", handler.indicator.datatype) + "\n"
+          code << "      if attributes[:handlers][:#{handler.name}].is_a? Hash\n"
+          code << "        @handlers[:#{handler.name}] = " + cast_expr("attributes[:handlers][:#{handler.name}][:value]", handler.indicator.datatype) + "\n"
+          code << "      end\n"
         end
+        code << "    end\n\n"
+
+        code << "    def present?\n"
+        code << "      @#{variable.new? ? 'variant' : 'actor'}.is_a?(Ekylibre::Record::Base)\n"
+        code << "    end\n\n"
+
+        code << "    def has_indicator?(indicator)\n"
+        code << "      present? and @#{variable.new? ? 'variant' : 'actor'}.has_indicator?(indicator)\n"
         code << "    end\n\n"
 
         # Method to get indicator values on @actor/@variant
@@ -276,10 +286,26 @@ module Procedo
         
         # Handlers
         for h in variable.handlers
+          rubyist.value = "@handlers[:#{h.name}]"
+          # Method to check is handler is usable
+          code << "    def can_use_#{h.name}?\n"
+          if h.check_usability?
+            rubyist.compile(h.usability_tree)
+            code << "      #{rubyist.compiled}\n"
+            # code << "    rescue\n"
+            # code << "      return false\n"
+          else
+            code << "      return true\n"
+          end
+          code << "    end\n\n"
+
+          # Method to impact handler's new value
           code << "    def impact_handler_#{h.name}!\n"
           code << "      puts \"#{variable.name}#impact_handler_#{h.name}!\".yellow\n"
+          if h.check_usability?
+            code << "      return unless can_use_#{h.name}?\n"
+          end
           for converter in h.forward_converters
-            rubyist.value = "@handlers[:#{h.name}]"
             rubyist.compile(converter.forward_tree)
             code << "      begin\n"
             code << "        value = #{rubyist.compiled}\n"
@@ -486,15 +512,19 @@ module Procedo
           vcode << "}, handlers: {"
           vcode << variable.handlers.collect do |handler|
             indicator = handler.indicator
+            hcode = "#{handler.name}: {value: "
             if [:measure, :decimal].include?(indicator.datatype)
-              "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}].round(3).to_f"
+              hcode << "@#{variable.name}.handlers[:#{handler.name}].round(3).to_f"
             elsif [:geometry, :point].include?(indicator.datatype)
-              "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}].to_geojson"
+              hcode << "@#{variable.name}.handlers[:#{handler.name}].to_geojson"
             elsif indicator.datatype == :integer
-              "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}].to_i"
+              hcode << "@#{variable.name}.handlers[:#{handler.name}].to_i"
             else
-              "#{handler.name}: @#{variable.name}.handlers[:#{handler.name}]"
+              hcode << "@#{variable.name}.handlers[:#{handler.name}]"
             end
+            hcode << ", usable: @#{variable.name}.can_use_#{handler.name}?"
+            hcode << "}"
+            hcode
           end.join(', ')
           vcode << "}"
         end

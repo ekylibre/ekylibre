@@ -174,6 +174,10 @@ class ProductNature < Ekylibre::Record::Base
     return true
   end
 
+  def has_indicator?(indicator)
+    self.indicators_list.include? indicator
+  end
+
   # Returns the closest matching model based on the given variety
   def self.matching_model(variety)
     if item = Nomen::Varieties.find(variety)

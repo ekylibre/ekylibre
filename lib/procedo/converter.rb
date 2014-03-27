@@ -2,81 +2,60 @@ module Procedo
 
   module HandlerMethod
 
-    class Base < Treetop::Runtime::SyntaxNode
-    end
-
-    class Expression < Base
-    end
-
-    class Operation < Base
-    end
-
-    class Multiplication < Operation
-    end
-
-    class Division < Operation
-    end
-
-    class Intersection < Operation
-    end
-
-    class Addition < Operation
-    end
-
-    class Substraction < Operation
-    end
-
-    class Reading < Base
-    end
-
-    class IndividualReading < Reading
-    end
-
-    class WholeReading < Reading
-    end
-
-    class FunctionCall < Base
-    end
-
-    class FunctionName < Base
-    end
-
-    class OtherArgument < Base
-    end
-
-    class Variable < Base
-    end
-
-    class Indicator < Base
-    end
-
-    class Unit < Base
-    end
-
-    class Self < Base
-    end
-
-    class Numeric < Base
-    end
-
-    class Value < Base
-    end
+    class Base < Treetop::Runtime::SyntaxNode; end
+    class Expression                  < Base              ; end
+    class Condition                   < Base              ; end
+    class Operation                   < Base              ; end  # Abstract
+    class Multiplication              < Operation         ; end
+    class Division                    < Operation         ; end
+    class Addition                    < Operation         ; end
+    class Substraction                < Operation         ; end
+    class BooleanExpression           < Base              ; end
+    class BooleanOperation            < Base              ; end
+    class Conjunction                 < BooleanOperation  ; end
+    class Disjunction                 < BooleanOperation  ; end
+    class ExclusiveDisjunction        < BooleanOperation  ; end
+    class Test                        < Base              ; end # Abstract
+    class Comparison                  < Test              ; end # Abstract
+    class StrictSuperiorityComparison < Comparison        ; end
+    class StrictInferiortyComparison  < Comparison        ; end
+    class SuperiorityComparison       < Comparison        ; end
+    class InferiorityComparison       < Comparison        ; end
+    class EqualityComparison          < Comparison        ; end
+    class DifferenceComparison        < Comparison        ; end
+    class IndicatorPresenceTest       < Test              ; end
+    class ActorPresenceTest           < Test              ; end
+    class NegativeTest                < Test              ; end
+    class Access                      < Base              ; end
+    class Reading                     < Base              ; end # Abstract
+    class IndividualReading           < Reading           ; end
+    class WholeReading                < Reading           ; end
+    class FunctionCall                < Base              ; end
+    class FunctionName                < Base              ; end
+    class OtherArgument               < Base              ; end
+    class Variable                    < Base              ; end
+    class Accessor                    < Base              ; end
+    class Indicator                   < Base              ; end
+    class Unit                        < Base              ; end
+    class Self                        < Base              ; end
+    class Value                       < Base              ; end
+    class Numeric                     < Base              ; end
 
     class << self
 
-      def parse(text)
+      def parse(text, options = {})
         @@parser ||= ::Procedo::HandlerMethodParser.new
-        unless tree = @@parser.parse(text.to_s)
+        unless tree = @@parser.parse(text.to_s, options)
           raise SyntaxError, "Parse error at offset #{@@parser.index} in #{text.to_s.inspect}"
         end
         return tree
       end
 
-      def clean_tree(root)
-        return if root.elements.nil?
-        root.elements.delete_if{ |node| node.class.name == "Treetop::Runtime::SyntaxNode" }
-        root.elements.each{ |node| clean_tree(node) }
-      end
+      # def clean_tree(root)
+      #   return if root.elements.nil?
+      #   root.elements.delete_if{ |node| node.class.name == "Treetop::Runtime::SyntaxNode" }
+      #   root.elements.each{ |node| clean_tree(node) }
+      # end
 
     end
 

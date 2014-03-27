@@ -21,20 +21,142 @@ module Procedo
       end
 
       i0 = index
-      r1 = _nt_additive
+      r1 = _nt_conditive
       if r1
         r0 = r1
       else
-        r2 = _nt_primary
+        r2 = _nt_additive
         if r2
           r0 = r2
         else
-          @index = i0
-          r0 = nil
+          r3 = _nt_primary
+          if r3
+            r0 = r3
+          else
+            @index = i0
+            r0 = nil
+          end
         end
       end
 
       node_cache[:expression][start_index] = r0
+
+      r0
+    end
+
+    module Conditive0
+      def test
+        elements[0]
+      end
+
+      def if_true
+        elements[4]
+      end
+
+      def if_false
+        elements[8]
+      end
+    end
+
+    def _nt_conditive
+      start_index = index
+      if node_cache[:conditive].has_key?(index)
+        cached = node_cache[:conditive][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      r1 = _nt_boolean_expression
+      s0 << r1
+      if r1
+        r3 = _nt_space
+        if r3
+          r2 = r3
+        else
+          r2 = instantiate_node(SyntaxNode,input, index...index)
+        end
+        s0 << r2
+        if r2
+          if has_terminal?(" ? ", false, index)
+            r4 = instantiate_node(SyntaxNode,input, index...(index + 3))
+            @index += 3
+          else
+            terminal_parse_failure(" ? ")
+            r4 = nil
+          end
+          s0 << r4
+          if r4
+            r6 = _nt_space
+            if r6
+              r5 = r6
+            else
+              r5 = instantiate_node(SyntaxNode,input, index...index)
+            end
+            s0 << r5
+            if r5
+              r7 = _nt_argument
+              s0 << r7
+              if r7
+                r9 = _nt_space
+                if r9
+                  r8 = r9
+                else
+                  r8 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s0 << r8
+                if r8
+                  if has_terminal?(" : ", false, index)
+                    r10 = instantiate_node(SyntaxNode,input, index...(index + 3))
+                    @index += 3
+                  else
+                    terminal_parse_failure(" : ")
+                    r10 = nil
+                  end
+                  s0 << r10
+                  if r10
+                    r12 = _nt_space
+                    if r12
+                      r11 = r12
+                    else
+                      r11 = instantiate_node(SyntaxNode,input, index...index)
+                    end
+                    s0 << r11
+                    if r11
+                      i13 = index
+                      r14 = _nt_argument
+                      if r14
+                        r13 = r14
+                      else
+                        r15 = _nt_conditive
+                        if r15
+                          r13 = r15
+                        else
+                          @index = i13
+                          r13 = nil
+                        end
+                      end
+                      s0 << r13
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(Condition,input, i0...index, s0)
+        r0.extend(Conditive0)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:conditive][start_index] = r0
 
       r0
     end
@@ -344,63 +466,68 @@ module Procedo
           if r3
             r0 = r3
           else
-            r4 = _nt_function_call
+            r4 = _nt_access
             if r4
               r0 = r4
             else
-              i5, s5 = index, []
-              if has_terminal?("(", false, index)
-                r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
-              else
-                terminal_parse_failure("(")
-                r6 = nil
-              end
-              s5 << r6
-              if r6
-                r8 = _nt_space
-                if r8
-                  r7 = r8
-                else
-                  r7 = instantiate_node(SyntaxNode,input, index...index)
-                end
-                s5 << r7
-                if r7
-                  r9 = _nt_expression
-                  s5 << r9
-                  if r9
-                    r11 = _nt_space
-                    if r11
-                      r10 = r11
-                    else
-                      r10 = instantiate_node(SyntaxNode,input, index...index)
-                    end
-                    s5 << r10
-                    if r10
-                      if has_terminal?(")", false, index)
-                        r12 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                        @index += 1
-                      else
-                        terminal_parse_failure(")")
-                        r12 = nil
-                      end
-                      s5 << r12
-                    end
-                  end
-                end
-              end
-              if s5.last
-                r5 = instantiate_node(Expression,input, i5...index, s5)
-                r5.extend(Primary0)
-              else
-                @index = i5
-                r5 = nil
-              end
+              r5 = _nt_function_call
               if r5
                 r0 = r5
               else
-                @index = i0
-                r0 = nil
+                i6, s6 = index, []
+                if has_terminal?("(", false, index)
+                  r7 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                  @index += 1
+                else
+                  terminal_parse_failure("(")
+                  r7 = nil
+                end
+                s6 << r7
+                if r7
+                  r9 = _nt_space
+                  if r9
+                    r8 = r9
+                  else
+                    r8 = instantiate_node(SyntaxNode,input, index...index)
+                  end
+                  s6 << r8
+                  if r8
+                    r10 = _nt_expression
+                    s6 << r10
+                    if r10
+                      r12 = _nt_space
+                      if r12
+                        r11 = r12
+                      else
+                        r11 = instantiate_node(SyntaxNode,input, index...index)
+                      end
+                      s6 << r11
+                      if r11
+                        if has_terminal?(")", false, index)
+                          r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                          @index += 1
+                        else
+                          terminal_parse_failure(")")
+                          r13 = nil
+                        end
+                        s6 << r13
+                      end
+                    end
+                  end
+                end
+                if s6.last
+                  r6 = instantiate_node(Expression,input, i6...index, s6)
+                  r6.extend(Primary0)
+                else
+                  @index = i6
+                  r6 = nil
+                end
+                if r6
+                  r0 = r6
+                else
+                  @index = i0
+                  r0 = nil
+                end
               end
             end
           end
@@ -408,6 +535,107 @@ module Procedo
       end
 
       node_cache[:primary][start_index] = r0
+
+      r0
+    end
+
+    def _nt_argument
+      start_index = index
+      if node_cache[:argument].has_key?(index)
+        cached = node_cache[:argument][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0 = index
+      r1 = _nt_value
+      if r1
+        r0 = r1
+      else
+        r2 = _nt_numeric
+        if r2
+          r0 = r2
+        else
+          r3 = _nt_reading
+          if r3
+            r0 = r3
+          else
+            r4 = _nt_access
+            if r4
+              r0 = r4
+            else
+              r5 = _nt_function_call
+              if r5
+                r0 = r5
+              else
+                r6 = _nt_expression
+                if r6
+                  r0 = r6
+                else
+                  @index = i0
+                  r0 = nil
+                end
+              end
+            end
+          end
+        end
+      end
+
+      node_cache[:argument][start_index] = r0
+
+      r0
+    end
+
+    module Access0
+      def actor
+        elements[0]
+      end
+
+      def accessor
+        elements[2]
+      end
+    end
+
+    def _nt_access
+      start_index = index
+      if node_cache[:access].has_key?(index)
+        cached = node_cache[:access][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      r1 = _nt_actor
+      s0 << r1
+      if r1
+        if has_terminal?(":", false, index)
+          r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
+        else
+          terminal_parse_failure(":")
+          r2 = nil
+        end
+        s0 << r2
+        if r2
+          r3 = _nt_accessor
+          s0 << r3
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(Access,input, i0...index, s0)
+        r0.extend(Access0)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:access][start_index] = r0
 
       r0
     end
@@ -668,6 +896,30 @@ module Procedo
       end
 
       node_cache[:actor][start_index] = r0
+
+      r0
+    end
+
+    def _nt_accessor
+      start_index = index
+      if node_cache[:accessor].has_key?(index)
+        cached = node_cache[:accessor][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      if has_terminal?("contents-count", false, index)
+        r0 = instantiate_node(Accessor,input, index...(index + 14))
+        @index += 14
+      else
+        terminal_parse_failure("contents-count")
+        r0 = nil
+      end
+
+      node_cache[:accessor][start_index] = r0
 
       r0
     end
@@ -1394,51 +1646,6 @@ module Procedo
       r0
     end
 
-    def _nt_argument
-      start_index = index
-      if node_cache[:argument].has_key?(index)
-        cached = node_cache[:argument][index]
-        if cached
-          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
-          @index = cached.interval.end
-        end
-        return cached
-      end
-
-      i0 = index
-      r1 = _nt_value
-      if r1
-        r0 = r1
-      else
-        r2 = _nt_numeric
-        if r2
-          r0 = r2
-        else
-          r3 = _nt_reading
-          if r3
-            r0 = r3
-          else
-            r4 = _nt_function_call
-            if r4
-              r0 = r4
-            else
-              r5 = _nt_expression
-              if r5
-                r0 = r5
-              else
-                @index = i0
-                r0 = nil
-              end
-            end
-          end
-        end
-      end
-
-      node_cache[:argument][start_index] = r0
-
-      r0
-    end
-
     def _nt_space
       start_index = index
       if node_cache[:space].has_key?(index)
@@ -1515,6 +1722,935 @@ module Procedo
       end
 
       node_cache[:value][start_index] = r0
+
+      r0
+    end
+
+    def _nt_boolean_expression
+      start_index = index
+      if node_cache[:boolean_expression].has_key?(index)
+        cached = node_cache[:boolean_expression][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0 = index
+      r1 = _nt_disjunctive
+      if r1
+        r0 = r1
+      else
+        r2 = _nt_test
+        if r2
+          r0 = r2
+        else
+          @index = i0
+          r0 = nil
+        end
+      end
+
+      node_cache[:boolean_expression][start_index] = r0
+
+      r0
+    end
+
+    module Conjonctive0
+      def head
+        elements[0]
+      end
+
+      def operand
+        elements[4]
+      end
+    end
+
+    module Conjonctive1
+      def head
+        elements[0]
+      end
+
+      def operand
+        elements[4]
+      end
+    end
+
+    def _nt_conjonctive
+      start_index = index
+      if node_cache[:conjonctive].has_key?(index)
+        cached = node_cache[:conjonctive][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0 = index
+      i1, s1 = index, []
+      r2 = _nt_test
+      s1 << r2
+      if r2
+        r4 = _nt_space
+        if r4
+          r3 = r4
+        else
+          r3 = instantiate_node(SyntaxNode,input, index...index)
+        end
+        s1 << r3
+        if r3
+          if has_terminal?("&", false, index)
+            r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            @index += 1
+          else
+            terminal_parse_failure("&")
+            r5 = nil
+          end
+          s1 << r5
+          if r5
+            r7 = _nt_space
+            if r7
+              r6 = r7
+            else
+              r6 = instantiate_node(SyntaxNode,input, index...index)
+            end
+            s1 << r6
+            if r6
+              r8 = _nt_conjonctive
+              s1 << r8
+            end
+          end
+        end
+      end
+      if s1.last
+        r1 = instantiate_node(Conjunction,input, i1...index, s1)
+        r1.extend(Conjonctive0)
+      else
+        @index = i1
+        r1 = nil
+      end
+      if r1
+        r0 = r1
+      else
+        i9, s9 = index, []
+        r10 = _nt_test
+        s9 << r10
+        if r10
+          r12 = _nt_space
+          if r12
+            r11 = r12
+          else
+            r11 = instantiate_node(SyntaxNode,input, index...index)
+          end
+          s9 << r11
+          if r11
+            if has_terminal?("||", false, index)
+              r13 = instantiate_node(SyntaxNode,input, index...(index + 2))
+              @index += 2
+            else
+              terminal_parse_failure("||")
+              r13 = nil
+            end
+            s9 << r13
+            if r13
+              r15 = _nt_space
+              if r15
+                r14 = r15
+              else
+                r14 = instantiate_node(SyntaxNode,input, index...index)
+              end
+              s9 << r14
+              if r14
+                r16 = _nt_conjonctive
+                s9 << r16
+              end
+            end
+          end
+        end
+        if s9.last
+          r9 = instantiate_node(ExclusiveDisjunction,input, i9...index, s9)
+          r9.extend(Conjonctive1)
+        else
+          @index = i9
+          r9 = nil
+        end
+        if r9
+          r0 = r9
+        else
+          r17 = _nt_test
+          if r17
+            r0 = r17
+          else
+            @index = i0
+            r0 = nil
+          end
+        end
+      end
+
+      node_cache[:conjonctive][start_index] = r0
+
+      r0
+    end
+
+    module Disjunctive0
+      def head
+        elements[0]
+      end
+
+      def operand
+        elements[4]
+      end
+    end
+
+    def _nt_disjunctive
+      start_index = index
+      if node_cache[:disjunctive].has_key?(index)
+        cached = node_cache[:disjunctive][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0 = index
+      i1, s1 = index, []
+      r2 = _nt_conjonctive
+      s1 << r2
+      if r2
+        r4 = _nt_space
+        if r4
+          r3 = r4
+        else
+          r3 = instantiate_node(SyntaxNode,input, index...index)
+        end
+        s1 << r3
+        if r3
+          if has_terminal?("|", false, index)
+            r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            @index += 1
+          else
+            terminal_parse_failure("|")
+            r5 = nil
+          end
+          s1 << r5
+          if r5
+            r7 = _nt_space
+            if r7
+              r6 = r7
+            else
+              r6 = instantiate_node(SyntaxNode,input, index...index)
+            end
+            s1 << r6
+            if r6
+              r8 = _nt_disjunctive
+              s1 << r8
+            end
+          end
+        end
+      end
+      if s1.last
+        r1 = instantiate_node(Disjunction,input, i1...index, s1)
+        r1.extend(Disjunctive0)
+      else
+        @index = i1
+        r1 = nil
+      end
+      if r1
+        r0 = r1
+      else
+        r9 = _nt_conjonctive
+        if r9
+          r0 = r9
+        else
+          @index = i0
+          r0 = nil
+        end
+      end
+
+      node_cache[:disjunctive][start_index] = r0
+
+      r0
+    end
+
+    module Test0
+      def boolean_expression
+        elements[1]
+      end
+
+    end
+
+    def _nt_test
+      start_index = index
+      if node_cache[:test].has_key?(index)
+        cached = node_cache[:test][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0 = index
+      r1 = _nt_negative
+      if r1
+        r0 = r1
+      else
+        r2 = _nt_comparative
+        if r2
+          r0 = r2
+        else
+          r3 = _nt_indicative
+          if r3
+            r0 = r3
+          else
+            r4 = _nt_active
+            if r4
+              r0 = r4
+            else
+              i5, s5 = index, []
+              if has_terminal?("(", false, index)
+                r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                @index += 1
+              else
+                terminal_parse_failure("(")
+                r6 = nil
+              end
+              s5 << r6
+              if r6
+                r7 = _nt_boolean_expression
+                s5 << r7
+                if r7
+                  if has_terminal?(")", false, index)
+                    r8 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                    @index += 1
+                  else
+                    terminal_parse_failure(")")
+                    r8 = nil
+                  end
+                  s5 << r8
+                end
+              end
+              if s5.last
+                r5 = instantiate_node(BooleanExpression,input, i5...index, s5)
+                r5.extend(Test0)
+              else
+                @index = i5
+                r5 = nil
+              end
+              if r5
+                r0 = r5
+              else
+                @index = i0
+                r0 = nil
+              end
+            end
+          end
+        end
+      end
+
+      node_cache[:test][start_index] = r0
+
+      r0
+    end
+
+    module Comparative0
+      def head
+        elements[0]
+      end
+
+      def operator
+        elements[2]
+      end
+
+      def operand
+        elements[4]
+      end
+    end
+
+    module Comparative1
+      def head
+        elements[0]
+      end
+
+      def operator
+        elements[2]
+      end
+
+      def operand
+        elements[4]
+      end
+    end
+
+    module Comparative2
+      def head
+        elements[0]
+      end
+
+      def operator
+        elements[2]
+      end
+
+      def operand
+        elements[4]
+      end
+    end
+
+    module Comparative3
+      def head
+        elements[0]
+      end
+
+      def operator
+        elements[2]
+      end
+
+      def operand
+        elements[4]
+      end
+    end
+
+    module Comparative4
+      def head
+        elements[0]
+      end
+
+      def operator
+        elements[2]
+      end
+
+      def operand
+        elements[4]
+      end
+    end
+
+    module Comparative5
+      def head
+        elements[0]
+      end
+
+      def operator
+        elements[2]
+      end
+
+      def operand
+        elements[4]
+      end
+    end
+
+    def _nt_comparative
+      start_index = index
+      if node_cache[:comparative].has_key?(index)
+        cached = node_cache[:comparative][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0 = index
+      i1, s1 = index, []
+      r2 = _nt_primary
+      s1 << r2
+      if r2
+        r4 = _nt_space
+        if r4
+          r3 = r4
+        else
+          r3 = instantiate_node(SyntaxNode,input, index...index)
+        end
+        s1 << r3
+        if r3
+          if has_terminal?(">", false, index)
+            r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            @index += 1
+          else
+            terminal_parse_failure(">")
+            r5 = nil
+          end
+          s1 << r5
+          if r5
+            r7 = _nt_space
+            if r7
+              r6 = r7
+            else
+              r6 = instantiate_node(SyntaxNode,input, index...index)
+            end
+            s1 << r6
+            if r6
+              r8 = _nt_primary
+              s1 << r8
+            end
+          end
+        end
+      end
+      if s1.last
+        r1 = instantiate_node(StrictSuperiorityComparison,input, i1...index, s1)
+        r1.extend(Comparative0)
+      else
+        @index = i1
+        r1 = nil
+      end
+      if r1
+        r0 = r1
+      else
+        i9, s9 = index, []
+        r10 = _nt_primary
+        s9 << r10
+        if r10
+          r12 = _nt_space
+          if r12
+            r11 = r12
+          else
+            r11 = instantiate_node(SyntaxNode,input, index...index)
+          end
+          s9 << r11
+          if r11
+            if has_terminal?("<", false, index)
+              r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
+            else
+              terminal_parse_failure("<")
+              r13 = nil
+            end
+            s9 << r13
+            if r13
+              r15 = _nt_space
+              if r15
+                r14 = r15
+              else
+                r14 = instantiate_node(SyntaxNode,input, index...index)
+              end
+              s9 << r14
+              if r14
+                r16 = _nt_primary
+                s9 << r16
+              end
+            end
+          end
+        end
+        if s9.last
+          r9 = instantiate_node(StrictInferiortyComparison,input, i9...index, s9)
+          r9.extend(Comparative1)
+        else
+          @index = i9
+          r9 = nil
+        end
+        if r9
+          r0 = r9
+        else
+          i17, s17 = index, []
+          r18 = _nt_primary
+          s17 << r18
+          if r18
+            r20 = _nt_space
+            if r20
+              r19 = r20
+            else
+              r19 = instantiate_node(SyntaxNode,input, index...index)
+            end
+            s17 << r19
+            if r19
+              if has_terminal?(">=", false, index)
+                r21 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                @index += 2
+              else
+                terminal_parse_failure(">=")
+                r21 = nil
+              end
+              s17 << r21
+              if r21
+                r23 = _nt_space
+                if r23
+                  r22 = r23
+                else
+                  r22 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s17 << r22
+                if r22
+                  r24 = _nt_primary
+                  s17 << r24
+                end
+              end
+            end
+          end
+          if s17.last
+            r17 = instantiate_node(SuperiorityComparison,input, i17...index, s17)
+            r17.extend(Comparative2)
+          else
+            @index = i17
+            r17 = nil
+          end
+          if r17
+            r0 = r17
+          else
+            i25, s25 = index, []
+            r26 = _nt_primary
+            s25 << r26
+            if r26
+              r28 = _nt_space
+              if r28
+                r27 = r28
+              else
+                r27 = instantiate_node(SyntaxNode,input, index...index)
+              end
+              s25 << r27
+              if r27
+                if has_terminal?("<=", false, index)
+                  r29 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                  @index += 2
+                else
+                  terminal_parse_failure("<=")
+                  r29 = nil
+                end
+                s25 << r29
+                if r29
+                  r31 = _nt_space
+                  if r31
+                    r30 = r31
+                  else
+                    r30 = instantiate_node(SyntaxNode,input, index...index)
+                  end
+                  s25 << r30
+                  if r30
+                    r32 = _nt_primary
+                    s25 << r32
+                  end
+                end
+              end
+            end
+            if s25.last
+              r25 = instantiate_node(InferiorityComparison,input, i25...index, s25)
+              r25.extend(Comparative3)
+            else
+              @index = i25
+              r25 = nil
+            end
+            if r25
+              r0 = r25
+            else
+              i33, s33 = index, []
+              r34 = _nt_primary
+              s33 << r34
+              if r34
+                r36 = _nt_space
+                if r36
+                  r35 = r36
+                else
+                  r35 = instantiate_node(SyntaxNode,input, index...index)
+                end
+                s33 << r35
+                if r35
+                  if has_terminal?("==", false, index)
+                    r37 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                    @index += 2
+                  else
+                    terminal_parse_failure("==")
+                    r37 = nil
+                  end
+                  s33 << r37
+                  if r37
+                    r39 = _nt_space
+                    if r39
+                      r38 = r39
+                    else
+                      r38 = instantiate_node(SyntaxNode,input, index...index)
+                    end
+                    s33 << r38
+                    if r38
+                      r40 = _nt_primary
+                      s33 << r40
+                    end
+                  end
+                end
+              end
+              if s33.last
+                r33 = instantiate_node(EqualityComparison,input, i33...index, s33)
+                r33.extend(Comparative4)
+              else
+                @index = i33
+                r33 = nil
+              end
+              if r33
+                r0 = r33
+              else
+                i41, s41 = index, []
+                r42 = _nt_primary
+                s41 << r42
+                if r42
+                  r44 = _nt_space
+                  if r44
+                    r43 = r44
+                  else
+                    r43 = instantiate_node(SyntaxNode,input, index...index)
+                  end
+                  s41 << r43
+                  if r43
+                    if has_terminal?("!=", false, index)
+                      r45 = instantiate_node(SyntaxNode,input, index...(index + 2))
+                      @index += 2
+                    else
+                      terminal_parse_failure("!=")
+                      r45 = nil
+                    end
+                    s41 << r45
+                    if r45
+                      r47 = _nt_space
+                      if r47
+                        r46 = r47
+                      else
+                        r46 = instantiate_node(SyntaxNode,input, index...index)
+                      end
+                      s41 << r46
+                      if r46
+                        r48 = _nt_primary
+                        s41 << r48
+                      end
+                    end
+                  end
+                end
+                if s41.last
+                  r41 = instantiate_node(DifferenceComparison,input, i41...index, s41)
+                  r41.extend(Comparative5)
+                else
+                  @index = i41
+                  r41 = nil
+                end
+                if r41
+                  r0 = r41
+                else
+                  @index = i0
+                  r0 = nil
+                end
+              end
+            end
+          end
+        end
+      end
+
+      node_cache[:comparative][start_index] = r0
+
+      r0
+    end
+
+    module Active0
+      def actor
+        elements[0]
+      end
+
+    end
+
+    def _nt_active
+      start_index = index
+      if node_cache[:active].has_key?(index)
+        cached = node_cache[:active][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      r1 = _nt_actor
+      s0 << r1
+      if r1
+        if has_terminal?("?", false, index)
+          r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
+        else
+          terminal_parse_failure("?")
+          r2 = nil
+        end
+        s0 << r2
+      end
+      if s0.last
+        r0 = instantiate_node(ActorPresenceTest,input, i0...index, s0)
+        r0.extend(Active0)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:active][start_index] = r0
+
+      r0
+    end
+
+    module Indicative0
+      def actor
+        elements[0]
+      end
+
+      def indicator
+        elements[2]
+      end
+
+    end
+
+    def _nt_indicative
+      start_index = index
+      if node_cache[:indicative].has_key?(index)
+        cached = node_cache[:indicative][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      r1 = _nt_actor
+      s0 << r1
+      if r1
+        if has_terminal?(".", false, index)
+          r2 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
+        else
+          terminal_parse_failure(".")
+          r2 = nil
+        end
+        s0 << r2
+        if r2
+          r3 = _nt_indicator
+          s0 << r3
+          if r3
+            if has_terminal?("?", false, index)
+              r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
+              @index += 1
+            else
+              terminal_parse_failure("?")
+              r4 = nil
+            end
+            s0 << r4
+          end
+        end
+      end
+      if s0.last
+        r0 = instantiate_node(IndicatorPresenceTest,input, i0...index, s0)
+        r0.extend(Indicative0)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:indicative][start_index] = r0
+
+      r0
+    end
+
+    module Negative0
+      def negated_test
+        elements[1]
+      end
+    end
+
+    def _nt_negative
+      start_index = index
+      if node_cache[:negative].has_key?(index)
+        cached = node_cache[:negative][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0, s0 = index, []
+      if has_terminal?("!", false, index)
+        r1 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        terminal_parse_failure("!")
+        r1 = nil
+      end
+      s0 << r1
+      if r1
+        r2 = _nt_negated_test
+        s0 << r2
+      end
+      if s0.last
+        r0 = instantiate_node(NegativeTest,input, i0...index, s0)
+        r0.extend(Negative0)
+      else
+        @index = i0
+        r0 = nil
+      end
+
+      node_cache[:negative][start_index] = r0
+
+      r0
+    end
+
+    module NegatedTest0
+      def boolean_expression
+        elements[1]
+      end
+
+    end
+
+    def _nt_negated_test
+      start_index = index
+      if node_cache[:negated_test].has_key?(index)
+        cached = node_cache[:negated_test][index]
+        if cached
+          cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+          @index = cached.interval.end
+        end
+        return cached
+      end
+
+      i0 = index
+      r1 = _nt_indicative
+      if r1
+        r0 = r1
+      else
+        r2 = _nt_active
+        if r2
+          r0 = r2
+        else
+          i3, s3 = index, []
+          if has_terminal?("(", false, index)
+            r4 = instantiate_node(SyntaxNode,input, index...(index + 1))
+            @index += 1
+          else
+            terminal_parse_failure("(")
+            r4 = nil
+          end
+          s3 << r4
+          if r4
+            r5 = _nt_boolean_expression
+            s3 << r5
+            if r5
+              if has_terminal?(")", false, index)
+                r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+                @index += 1
+              else
+                terminal_parse_failure(")")
+                r6 = nil
+              end
+              s3 << r6
+            end
+          end
+          if s3.last
+            r3 = instantiate_node(BooleanExpression,input, i3...index, s3)
+            r3.extend(NegatedTest0)
+          else
+            @index = i3
+            r3 = nil
+          end
+          if r3
+            r0 = r3
+          else
+            @index = i0
+            r0 = nil
+          end
+        end
+      end
+
+      node_cache[:negated_test][start_index] = r0
 
       r0
     end

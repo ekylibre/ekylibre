@@ -1,8 +1,15 @@
 module Procedo
   grammar HandlerMethod
 
+    ############################################################################
+    # Numerical expression
+
     rule expression
-      additive / primary
+      conditive / additive / primary
+    end
+
+    rule conditive
+      test:boolean_expression space? " ? " space? if_true:argument space? " : " space? if_false:(argument / conditive) <Condition>
     end
 
     rule multitive
@@ -18,7 +25,15 @@ module Procedo
     end
 
     rule primary
-      value / numeric / reading / function_call / "(" space? expression space? ")" <Expression>
+      value / numeric / reading / access / function_call / "(" space? expression space? ")" <Expression>
+    end
+
+    rule argument
+      value / numeric / reading / access / function_call / expression
+    end
+
+    rule access
+      actor ":" accessor <Access>
     end
 
     rule reading
@@ -35,6 +50,11 @@ module Procedo
 
     rule actor
       self / variable
+    end
+
+    rule accessor
+      # [a-z] [a-z0-9]* ('-' [a-z0-9]+)* <Accessor>
+      "contents-count" <Accessor>
     end
 
     rule variable
@@ -61,10 +81,6 @@ module Procedo
       [a-z] [a-z0-9]* ('_' [a-z0-9]+)* <FunctionName>
     end
 
-    rule argument
-      value / numeric / reading / function_call / expression
-    end
-
     rule space
       [\s\n]*
     end
@@ -75,6 +91,53 @@ module Procedo
 
     rule value
       "value" <Value>
+    end
+
+    ############################################################################
+    # Boolean expression
+
+    rule boolean_expression
+      disjunctive / test
+    end
+
+    rule conjonctive
+        head:test space? "&"  space? operand:conjonctive <Conjunction>
+      / head:test space? "||" space? operand:conjonctive <ExclusiveDisjunction>
+      / test
+    end
+
+    rule disjunctive
+        head:conjonctive space? "|" space? operand:disjunctive <Disjunction>
+      / conjonctive
+    end
+
+    rule test
+      negative / comparative / indicative / active / "(" boolean_expression ")" <BooleanExpression>
+    end
+
+    rule comparative
+        head:primary space? operator:">"  space? operand:primary <StrictSuperiorityComparison>
+      / head:primary space? operator:"<"  space? operand:primary <StrictInferiortyComparison>
+      / head:primary space? operator:">=" space? operand:primary <SuperiorityComparison>
+      / head:primary space? operator:"<=" space? operand:primary <InferiorityComparison>
+      / head:primary space? operator:"==" space? operand:primary <EqualityComparison>
+      / head:primary space? operator:"!=" space? operand:primary <DifferenceComparison>
+    end
+
+    rule active
+      actor "?" <ActorPresenceTest>
+    end
+
+    rule indicative
+      actor "."  indicator "?" <IndicatorPresenceTest>
+    end
+
+    rule negative
+      "!" negated_test <NegativeTest>
+    end
+
+    rule negated_test
+      indicative / active / "(" boolean_expression ")" <BooleanExpression>
     end
 
   end

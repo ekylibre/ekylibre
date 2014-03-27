@@ -24,6 +24,16 @@ module Procedo
       def rewrite(object)
         if object.is_a?(Procedo::HandlerMethod::Expression)
           "(" + rewrite(object.expression) + ")"
+        elsif object.is_a?(Procedo::HandlerMethod::BooleanExpression)
+          "(" + rewrite(object.boolean_expression) + ")"
+        elsif object.is_a?(Procedo::HandlerMethod::Condition)
+          rewrite(object.test) + " ? " + rewrite(object.if_true) + " : " + rewrite(object.if_false)
+        elsif object.is_a?(Procedo::HandlerMethod::Conjunction)
+          rewrite(object.head) + " and " + rewrite(object.operand)
+        elsif object.is_a?(Procedo::HandlerMethod::ExclusiveDisjunction)
+          rewrite(object.head) + " xor " + rewrite(object.operand)
+        elsif object.is_a?(Procedo::HandlerMethod::Disjunction)
+          rewrite(object.head) + " or " + rewrite(object.operand)
         elsif object.is_a?(Procedo::HandlerMethod::Multiplication)
           rewrite(object.head) + " * " + rewrite(object.operand)
         elsif object.is_a?(Procedo::HandlerMethod::Division)
@@ -32,6 +42,10 @@ module Procedo
           rewrite(object.head) + " + " + rewrite(object.operand)
         elsif object.is_a?(Procedo::HandlerMethod::Substraction)
           rewrite(object.head) + " - " + rewrite(object.operand)
+        elsif object.is_a?(Procedo::HandlerMethod::Comparison)
+          rewrite(object.head) + " " + object.operator.text_value + " " + rewrite(object.operand)
+        elsif object.is_a?(Procedo::HandlerMethod::NegativeTest)
+          "not " + rewrite(object.negated_test)
         elsif object.is_a?(Procedo::HandlerMethod::FunctionCall)
           arguments = ""
           if args = object.args
@@ -51,6 +65,12 @@ module Procedo
           "procedure.#{object.text_value}"
         elsif object.is_a?(Procedo::HandlerMethod::Numeric)
           object.text_value.to_s
+        elsif object.is_a?(Procedo::HandlerMethod::Access)
+          rewrite(object.actor) + "." + object.accessor.text_value.gsub('-', '_')
+        elsif object.is_a?(Procedo::HandlerMethod::ActorPresenceTest)
+          rewrite(object.actor) + ".present?"
+        elsif object.is_a?(Procedo::HandlerMethod::IndicatorPresenceTest)
+          rewrite(object.actor) + ".has_indicator?(:" + object.indicator.text_value + ")"
         elsif object.is_a?(Procedo::HandlerMethod::Reading)
           unit = nil
           if object.options and object.options.respond_to? :unit

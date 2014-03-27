@@ -25,7 +25,8 @@
         variable = $(this).data('variable')
         casting[variable] ?= {}
         casting[variable].handlers ?= {}
-        casting[variable].handlers[$(this).data('variable-handler')] = $.value $(this)
+        casting[variable].handlers[$(this).data('variable-handler')] =
+          value: $.value($(this))
 
       $("*[data-procedure='#{procedure}'][data-variable-destination]").each (index) ->
         variable = $(this).data('variable')
@@ -66,9 +67,14 @@
               element.val(attributes.variant)
                 
         if attributes.handlers?
-          for handler, value of attributes.handlers
+          for handler, attrs of attributes.handlers
+            value = attrs.value
             $("*[data-procedure='#{procedure}'][data-variable='#{variable}'][data-variable-handler='#{handler}']").each (index) ->
               element = $(this)
+              if attrs.usable
+                element.closest(".handler").show()
+              else
+                element.closest(".handler").hide()
               if element.is(":ui-mapeditor")
                 console.log "Yeah?"
                 console.log value

@@ -2,13 +2,13 @@ module Procedo
 
   class Handler
 
-    attr_reader :name, :unit, :indicator, :converters, :widget
+    attr_reader :name, :unit, :indicator, :converters, :widget, :usability_tree
 
     def initialize(variable, element = nil)
       @variable = variable
       # Extract attributes from XML element
       unless element.is_a?(Hash)
-        element = %w(forward backward indicator unit to datatype name widget converters).inject({}) do |hash, attr|
+        element = %w(forward backward indicator unit to datatype name widget converters if).inject({}) do |hash, attr|
           if attr == 'converters'
             hash[:converters] = element.xpath('xmlns:converter').to_a
           elsif element.has_attribute?(attr)
@@ -60,6 +60,14 @@ module Procedo
       #   raise Procedo::Errors::InvalidHandler, "Handler #{unique_name} (in #{procedure.name}) must have one converter at least with attribute 'to' or <converter> tags."
       end
 
+      if element[:if]
+        begin
+          @usability_tree = HandlerMethod.parse(element[:if].to_s, root: "boolean_expression")
+        rescue SyntaxError => e
+          raise SyntaxError, "A procedure handler (#{element.inspect}) #{variable.procedure.name} has a syntax error on usability test (if): #{e.message}"
+        end
+      end
+
       # Define widget
       @widget = (element[:widget] || (@indicator.datatype == :geometry ? :map : :number)).to_sym
     end
@@ -74,6 +82,10 @@ module Procedo
 
     def destinations
       converters.map(&:destination).uniq
+    end
+
+    def check_usability?
+      !@usability_tree.nil?
     end
 
     # def destination_unique_name
