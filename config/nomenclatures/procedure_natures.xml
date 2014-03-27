@@ -54,9 +54,9 @@
   </nomenclature>
   
   <nomenclature name="procedure_natures-addition">
-    <items>
-      <item name="wine_addition" roles="input, target, doer"/>
-    </items>
+    <!-- <items> -->
+    <!--   <item name="wine_addition" roles="input, target, doer"/> -->
+    <!-- </items> -->
   </nomenclature>
   
   <nomenclature name="procedure_natures-tillage">

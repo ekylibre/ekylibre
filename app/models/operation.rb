@@ -234,13 +234,13 @@ class Operation < Ekylibre::Record::Base
   def perform_merging(params)
     self.product_mergings.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, absorber: params[:absorber].actor)
   end
-  
+
   # == Mixing
-  
+
   def perform_mixing(params)
     self.product_mixings.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, producer: params[:producer].actor, coproducer: params[:coproducer].actor)
   end
-  
+
   # == Linkages
 
   def perform_attachment(params)

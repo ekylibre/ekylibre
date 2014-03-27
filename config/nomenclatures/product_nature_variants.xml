@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, 220TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, plants, gram" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, 220TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, plants, gram" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL -->
@@ -649,12 +649,12 @@
             />
       <item name="so2_solid_2g"
             nature="so2_solution"
-            unit_name="dose"
+            unit_name="20ml_dose"
             frozen_indicators_values="net_volume: 2.00centiliter, net_mass: 2.00gram, sulfur_dioxyde_concentration: 100percent"
             />
       <item name="so2_solid_5g"
             nature="so2_solution"
-            unit_name="dose"
+            unit_name="50ml_dose"
             frozen_indicators_values="net_volume: 5.00centiliter, net_mass: 5.00gram, sulfur_dioxyde_concentration: 100percent"
             />  
       <!-- PLANT MEDICINE -->

@@ -450,7 +450,7 @@ module Procedo
             code << "          #{variable.name}.impact_actor!\n"
             code << "        end\n"
           elsif variable.default_actor != :none
-            raise "Invalid default-actor expression: #{variable.default_actor.inspect}"
+            puts "Invalid default-actor expression: #{variable.default_actor.inspect}".red
           end
         end
       end
