@@ -20,6 +20,7 @@
       <item name="tank"/>
       <item name="food_deliver"/>
       <item name="cleaner"/>
+      <item name="press"/>
     </items>
   </nomenclature>
 </nomenclatures>

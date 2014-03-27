@@ -40,14 +40,25 @@
       <item name="piece_replacement" roles="target, doer, input"/>
     </items>
   </nomenclature>
-
+  
   <nomenclature name="procedure_natures-transformation">
     <items>
       <item name="transfer" roles="input, target, doer"/>
       <item name="fermentation" roles="input, target, output, doer, tool"/>
+      <item name="pressing" roles="input, target, output, doer, tool"/>
+      <item name="blending" roles="input, target, output, doer"/>
+      <item name="addition" roles="input, target, doer"/>
+      <item name="filtration" roles="input, target, output, doer, tool"/>
+      <item name="remontage" roles="target, doer"/>
     </items>
   </nomenclature>
-
+  
+  <nomenclature name="procedure_natures-addition">
+    <items>
+      <item name="wine_addition" roles="input, target, doer"/>
+    </items>
+  </nomenclature>
+  
   <nomenclature name="procedure_natures-tillage">
     <items>
       <item name="plowing" roles="target, doer"/>

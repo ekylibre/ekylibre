@@ -22,6 +22,7 @@
       <item name="surface_area"         expression="m2"/>
       <item name="volume"               expression="m3"/>
       <item name="mass_concentration"   expression="kg*m-3"/>
+      <item name="volume_concentration" expression="m-3*m-3"/>
       <item name="mass_area_density"    expression="kg*m-2"/>
       <item name="specific_volume"      expression="m3*kg-1"/>
       <item name="surface_area_density" expression="m-2"/>

@@ -22,6 +22,10 @@ Riflexine,riflexine,,2013-01-01,animal_medicine,,,Population : 40,,4
 Actilact,actilact,,2013-01-01,animal_medicine,,,Population : 150,,2.85
 Acetal,acetal,,2013-01-01,animal_medicine,,,Population : 4,,15.58
 Belem 0.8 MG,granulated_insecticide_12,,2013-01-01,insecticide,,,Population : 2,,50.23
+,PRODUITS OENOLOGIQUES,,,,,,,,
+Solution Sulfureuse A8,so2_liquid_A8,,2013-01-01,,,,Population : 5,,
+'
+Comprimés de 5g',so2_solid_5g,,2013-01-01,,,,Population : 18,,
 ,CARBURANT ET LUBRIFIANT,,,,,,,,
 Huile moteur MOTUL ,motor_oil,,2013-01-01,oil,,,Population : 220,,2.87
 Huile hydraulique PROBEOL HV,hydraulic_oil,,2013-01-01,oil,,,Population : 80,,4.24
@@ -60,7 +64,7 @@ FLORIJUNIOR SAC,25kg_bag_animal_food,S05_D07,2014-01-01,,,,Population : 9,9.00,
 RUMIDECOX,bulk_kg_animal_food,S05_D07,2014-01-01,,,,Population : 500,500.00,0.49
 ,PRODUIT VEGETAUX,,,,,,,,
 Blé tendre en stockage à façon à la coopérative,wheat_grain,,2014-01-01,,,,Population : 27.7,,180
-Merlot Rouge 2012,wine,TANK_1,2012-10-01,wine,vitis_vinifera_merlot_noir,,Population : 40; reference_year : 2012; certification : bordeaux_rouge,,100.20
-Merlot Rouge 2013,wine,TANK_2,2013-10-01,wine,vitis_vinifera_merlot_noir,,Population : 50; reference_year : 2013; certification : bordeaux_superieur_rouge,,111.20
-Raisin Merlot 2013,vine_grape_berry,,2013-09-15,,vitis_vinifera_merlot_noir,,Population : 150; reference_year : 2013; certification : bordeaux_superieur_rouge,,1.11
-Mout Merlot 2013 Cuve N°3,vine_grape_must,TANK_3,2013-09-15,,vitis_vinifera_merlot_noir,,Population : 45; reference_year : 2013; certification : bordeaux_superieur_rouge,,70.00
+Merlot Rouge 2012,wine,TANK_1_S05_D06,2012-10-01,wine,vitis_vinifera_merlot_noir,,Population : 40; reference_year : 2012; certification : bordeaux_rouge,,100.20
+Merlot Rouge 2013,wine,TANK_2_S05_D06,2013-10-01,wine,vitis_vinifera_merlot_noir,,Population : 50; reference_year : 2013; certification : bordeaux_superieur_rouge,,111.20
+Raisin Merlot 2013,vine_grape_berry,TANK_6_S05_D06,2013-09-15,grape,vitis_vinifera_merlot_noir,,Population : 150; reference_year : 2013; certification : bordeaux_superieur_rouge,,1.11
+Mout Merlot 2013 Cuve N°3,vine_grape_must,TANK_3_S05_D06,2013-09-15,,vitis_vinifera_merlot_noir,,Population : 45; reference_year : 2013; certification : bordeaux_superieur_rouge,,70.00

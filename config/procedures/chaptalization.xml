@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <procedure name="chaptalization" natures="wine_addition" version="0" status="frozen">
+    <variables>
+      <variable name="tank" variety="tank" abilities="store_liquid" default-actor="storage"/>
+      <variable name="wine_to_treat" variety="wine" derivative-of="vitis" roles="addition-target" default-actor="actor-localized-in: tank" read-only="true" />
+      
+      <variable name="oenological_intrant" variety="matter" abilities="chaptelise(wine)"/>
+      <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="addition-input" need="population">
+        <handler indicator="population" />
+        <handler indicator="net_volume"            unit="liter"               to="population"
+                 forward="value / self..net_volume(liter)"
+                 backward="value * self..net_volume(liter)"
+                 /> <!-- l    -->
+        <handler indicator="volume_density" unit="centiliter_per_hectoliter" to="population"
+                 forward="(value / self..net_volume(centiliter)) * wine_to_treat.net_volume(hectoliter)"
+                 backward="(value * self..net_volume(centiliter)) / wine_to_treat.net_volume(hectoliter)"
+                 /> <!-- cl/hl   -->
+        <handler indicator="net_mass"            unit="gram"               to="population"
+                 forward="value / self..net_mass(gram)"
+                 backward="value * self..net_mass(gram)"
+                 /> <!-- g    -->
+        <handler indicator="mass_volume_density" unit="gram_per_hectoliter" to="population"
+                 forward="(value / self..net_mass(gram)) * wine_to_treat.net_volume(hectoliter)"
+                 backward="(value * self..net_mass(gram)) / wine_to_treat.net_volume(hectoliter)"
+                 /> <!-- g/hl   -->
+      </variable>
+      <variable name="wine_man" variety="worker" abilities="move" roles="addition-doer"/>
+    </variables>
+    <operations>
+      <operation id="100" duration="4 minutes">
+        <task do="[wine_man] moves at [tank]"/>
+      </operation>
+      <operation id="200" duration="4 minutes">
+        <task do="[oenological_intrant] parts with [oenological_intrant_to_put]"/>
+      </operation>
+      <operation id="300" duration="7 minutes">
+        <task do="[wine_to_treat] consumes [oenological_intrant_to_put]"/>
+      </operation>
+      <operation id="400" duration="4 minutes">
+        <task do="[wine_man] moves in default storage"/>
+      </operation>
+    </operations>
+  </procedure>
+</procedures>

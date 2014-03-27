@@ -252,6 +252,23 @@
             variable_indicators="population"
             frozen_indicators="net_mass, net_volume"
             />
+      <item name="grape"
+            category="fruit"
+            variety="grape"
+            derivative_of="vitis"
+            population_counting="decimal"
+            abilities="produce(wine)"
+            variable_indicators="population"
+            frozen_indicators="net_mass, net_volume"
+            />
+      <item name="fruit_residu"
+            category="fruit"
+            variety="organic_matter"
+            population_counting="decimal"
+            abilities="fertilize"
+            variable_indicators="population"
+            frozen_indicators="net_mass, net_volume"
+            />
       <item name="species"
             category="fruit"
             variety="pollen"
@@ -360,6 +377,15 @@
             abilities="grow"
             variable_indicators="population"
             frozen_indicators="woodstock_variety"
+            />
+      <!-- OENOLOGICAL PRODUCT -->
+      <item name="so2_solution"
+            category="oenological_product"
+            variety="mix"
+            population_counting="decimal"
+            abilities="sulfurize(wine)"
+            variable_indicators="population"
+            frozen_indicators="net_volume, net_mass, sulfur_dioxyde_concentration"
             />
       <!-- TREE INPLANT -->
       <item name="seedling"
@@ -775,6 +801,14 @@
             population_counting="unitary"
             abilities="harvest(plant), consume(oil), consume(fuel)"
             variable_indicators="application_width"
+            frozen_indicators="population"
+            />
+      <item name="wine_press"
+            category="equipment"
+            variety="press"
+            population_counting="unitary"
+            abilities="press(grape), press(grape_juice), press(wine)"
+            variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />
       <item name="equipment"

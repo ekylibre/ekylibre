@@ -1,21 +1,32 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-organic_matter">
     <items>
+      <!-- ANIMALS -->
       <item name="meat" derivative_of="animal"/>
       <item name="egg" derivative_of="aves"/>
       <item name="milk" derivative_of="mammalia"/>
-      <item name="wine" derivative_of="vitis_vinifera"/>
+      <!-- ANIMALS CO-PRODUCTS-->
       <item name="excrement" derivative_of="animal"/>
-      <item name="straw" derivative_of="plant"/>
-      <item name="hay" derivative_of="poaceae"/>
-      <item name="grass" derivative_of="poaceae"/>
-      <item name="seed" derivative_of="plant"/>
-      <item name="seedling" derivative_of="plant"/>
+      <!-- VEGETALS PRODUCTS-->
+      <item name="pollen" derivative_of="plant"/>
+      <item name="flower" derivative_of="plant"/>
       <item name="grain" derivative_of="plant"/>
       <item name="walnut" derivative_of="plant"/>
       <item name="fruit" derivative_of="plant"/>
-      <item name="pollen" derivative_of="plant"/>
-      <item name="flower" derivative_of="plant"/>
+      <item name="straw" derivative_of="plant"/>
+      <item name="hay" derivative_of="poaceae"/>
+      <item name="grass" derivative_of="poaceae"/>
+      <item name="grape" derivative_of="vitis"/>
+      <!-- VEGETALS INTRANTS-->
+      <item name="seed" derivative_of="plant"/>
+      <item name="seedling" derivative_of="plant"/>
+      <!-- VEGETALS PROCESSED PRODUCTS-->
+        <!-- VINE AND WINE -->
+      <item name="grape_juice" derivative_of="grape"/>
+      <item name="wine" derivative_of="grape"/>
+      <item name="wine_coproduct" derivative_of="grape"/>
+      <item name="fruit_juice" derivative_of="fruit"/>
+      <!-- GAS AND CO -->
       <item name="gas"/>
       <item name="fuel"/>
       <item name="oil"/>
