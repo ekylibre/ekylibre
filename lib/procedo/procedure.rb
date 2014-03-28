@@ -453,7 +453,7 @@ module Procedo
             unless v = self.variables[variable.default_actor.to_s.split(":").second.strip]
               raise "Unknown variable used in #{variable.default_actor}"
             end
-            code << "        if #{v.name}.actor and #{v.name}.actor.containeds(at: now!).any?\n"
+            code << "        if #{v.name}.actor and #{v.name}.actor.containeds(now!).any?\n"
             code << "          #{variable.name}.actor = #{v.name}.actor.containeds.first\n"
             code << "          #{variable.name}.impact_actor!\n"
             code << "        end\n"
