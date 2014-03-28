@@ -1,4 +1,4 @@
-= main_toolbar do |t|
+- main_toolbar do |t|
   - t.export do |e|
     - e.animal_sheet resource.identification_number, resource
   - t.new(params: {controller: :issues, :target_id => resource.id, :target_type => resource.class.name})

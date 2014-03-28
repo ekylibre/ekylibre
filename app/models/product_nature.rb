@@ -64,6 +64,16 @@ class ProductNature < Ekylibre::Record::Base
   has_many :variants, class_name: "ProductNatureVariant", foreign_key: :nature_id, inverse_of: :nature, dependent: :restrict_with_exception
   has_one :default_variant, -> { order(:id) }, class_name: "ProductNatureVariant", foreign_key: :nature_id
 
+  has_attached_file :picture, {
+    :url => '/backend/:class/:id/picture/:style',
+    :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
+    :styles => {
+      :thumb => ["64x64#", :jpg],
+      :identity => ["180x180#", :jpg]
+      # :large => ["600x600", :jpg]
+    }
+  }
+
   serialize :abilities_list, SymbolArray
   serialize :derivatives_list, SymbolArray
   serialize :frozen_indicators_list, SymbolArray
@@ -80,22 +90,13 @@ class ProductNature < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_uniqueness_of :number
   validates_uniqueness_of :name
+  validates_attachment_content_type :picture, content_type: /image/
 
   accepts_nested_attributes_for :variants, :reject_if => :all_blank, :allow_destroy => true
   acts_as_numbered force: false
 
   delegate :subscribing?, :deliverable?, :purchasable?, to: :category
   delegate :financial_asset_account, :product_account, :charge_account, :stock_account, to: :category
-
-  has_attached_file :picture, {
-    :url => '/backend/:class/:id/picture/:style',
-    :path => ':rails_root/private/:class/:attachment/:id_partition/:style.:extension',
-    :styles => {
-      :thumb => ["64x64#", :jpg],
-      :identity => ["180x180#", :jpg]
-      # :large => ["600x600", :jpg]
-    }
-  }
 
   # default_scope -> { order(:name) }
   scope :availables, -> { where(active: true).order(:name) }

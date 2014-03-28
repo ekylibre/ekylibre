@@ -77,7 +77,7 @@ gem 'devise-i18n-views'
 
 # Attachments
 gem 'paperclip'
-gem 'paperclip-document'
+gem 'paperclip-document', '~> 0.0'
 
 # Forms
 gem 'simple_form', '~> 3.0.0'

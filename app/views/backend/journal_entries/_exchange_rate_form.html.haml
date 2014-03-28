@@ -4,7 +4,7 @@
     =field_set :exchange_rate do
       =field :exchange_rate_from_x_to_y.tl(:x => @journal.currency.to_currency.name, :y => @financial_year.currency.to_currency.name), text_field(:journal_entry, :real_currency_rate)
 
-=main_toolbar do |t|
+- main_toolbar do |t|
   -t.new(params: {controller: :journal_entry_items, :printed_at => @journal_entry.printed_at, :journal_id => @journal.id}, :remote => true, "data-update" => "#items", "data-update-at" => :bottom, "data-type" => :html, method: :get)
 .active-list
   %table.list

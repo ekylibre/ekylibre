@@ -56,6 +56,7 @@ class Guide < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_inclusion_of :nature, in: self.nature.values
   validates_inclusion_of :frequency, in: self.frequency.values
+  validates_attachment_content_type :reference_source, content_type: /xml/
 
   delegate :status, to: :last_analysis, prefix: true
 

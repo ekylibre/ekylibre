@@ -1,6 +1,6 @@
 = sale_steps if params[:step]
 
-= main_toolbar do |t|
+- main_toolbar do |t|
   - t.export do |e|
     - if @sale.invoice?
       - e.sales_invoice @sale.number, @sale

@@ -1,4 +1,4 @@
-= main_toolbar do |t|
+- main_toolbar do |t|
   - t.edit @intervention
   - if @intervention.runnable?
     - t.run @intervention, method: :post, "data-confirm" => :are_you_sure.tl

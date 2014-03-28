@@ -397,18 +397,26 @@ html.authentication {
   }
 }
 
-.main-toolbar {
+.help-toolbar {
   @include toolbar();
   @include float(right);
   margin-top: round(($header-height - $button-height) / 2);
+  margin-bottom: round(($header-height - $button-height) / 2);
   @include margin-right($default-gap);
+}
+
+.main-toolbar {
+  @include toolbar();  
+  margin-top: round(($header-height - $button-height) / 2);
+  margin-bottom: round(($header-height - $button-height) / 2);
+  @include margin-left($default-gap);
   .btn-group {
     > .btn {
-      font-size: 0;
+      // font-size: 0;
       i {
-        margin: 0;
+        // margin: 0;
         // min-width: 18px;
-        text-align: center;
+        // text-align: center;
       }
     }
   }

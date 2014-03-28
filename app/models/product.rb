@@ -154,6 +154,7 @@ class Product < Ekylibre::Record::Base
   validates_presence_of :category, :name, :nature, :number, :variant, :variety
   #]VALIDATORS]
   validates_presence_of :nature, :variant, :name
+  validates_attachment_content_type :picture, content_type: /image/
 
   accepts_nested_attributes_for :readings, allow_destroy: true, reject_if: lambda { |reading|
     !reading["indicator_name"] != "population" and reading[ProductReading.value_column(reading["indicator_name"]).to_s].blank?

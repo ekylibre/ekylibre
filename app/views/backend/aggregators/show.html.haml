@@ -2,7 +2,7 @@
   - for parameter in @aggregator.class.parameters
     = render "parameter", :parameter => parameter, :k => k
 
-= main_toolbar do |t|
+- main_toolbar do |t|
   - t.export do |e|
     - e.send(@aggregator.class.aggregator_name, @aggregator.key, @aggregator)
 

@@ -725,7 +725,7 @@ module ApplicationHelper
   def toolbar_export(nature, record = nil, options = {}, &block)
     exporter = Ekylibre::Support::Lister.new(:natures)
     yield exporter if block_given?
-    if exporter.natures.size > 0
+    if exporter.natures.any?
 
       for nature in exporter.natures
         key = nature.args.shift
@@ -773,7 +773,7 @@ module ApplicationHelper
       end
 
       default = exporter.natures.first
-      return dropdown_button(content_tag(:i), '#' + default.name.to_s, :class => "btn btn-print", 'data-select-deck' => default.name) do |l|
+      return dropdown_button(content_tag(:i) + " " + :print.tl, '#' + default.name.to_s, :class => "btn btn-print", 'data-select-deck' => default.name) do |l|
         for nature in exporter.natures
           l.link_to(content_tag(:i) + h(nature.name.to_s.humanize), '#' + nature.name.to_s, 'data-select-deck' => nature.name)
         end if exporter.natures.size > 1
@@ -816,7 +816,9 @@ module ApplicationHelper
 
   # Build the main toolbar
   def main_toolbar_tag
-    content_tag(:div, content_for(:main_toolbar), :class => "main-toolbar")
+    if content_for?(:main_toolbar)
+      content_tag(:div, content_for(:main_toolbar), :class => "main-toolbar")
+    end
   end
 
   # Create the main toolbar with the same API as toolbar
