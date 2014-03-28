@@ -142,6 +142,7 @@ class Entity < Ekylibre::Record::Base
   validates_inclusion_of :active, :client, :locked, :of_company, :prospect, :reminder_submissive, :supplier, :transporter, :vat_subjected, in: [true, false]
   validates_presence_of :currency, :full_name, :language, :last_name, :nature
   #]VALIDATORS]
+  validates_attachment_content_type :picture, content_type: /image/
 
   alias_attribute :name, :full_name
 

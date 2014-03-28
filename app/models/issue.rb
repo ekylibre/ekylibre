@@ -47,14 +47,6 @@ class Issue < Ekylibre::Record::Base
   enumerize :nature, in: Nomen::IssueNatures.all, default: Nomen::IssueNatures.default, predicates: {prefix: true}
   has_many :interventions
   belongs_to :target , :polymorphic => true
-  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :gravity, :picture_file_size, :priority, allow_nil: true, only_integer: true
-  validates_length_of :name, :nature, :picture_content_type, :picture_file_name, :state, :target_type, allow_nil: true, maximum: 255
-  validates_presence_of :name, :nature, :observed_at, :target, :target_type
-  #]VALIDATORS]
-  validates_inclusion_of :priority, in: 0..5
-
-  delegate :name, to: :target, prefix: true
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -65,6 +57,16 @@ class Issue < Ekylibre::Record::Base
       # :large => ["600x600", :jpg]
     }
   }
+
+  #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_numericality_of :gravity, :picture_file_size, :priority, allow_nil: true, only_integer: true
+  validates_length_of :name, :nature, :picture_content_type, :picture_file_name, :state, :target_type, allow_nil: true, maximum: 255
+  validates_presence_of :name, :nature, :observed_at, :target, :target_type
+  #]VALIDATORS]
+  validates_inclusion_of :priority, in: 0..5
+  validates_attachment_content_type :picture, content_type: /image/
+
+  delegate :name, to: :target, prefix: true
 
   state_machine :state, :initial => :opened do
 
