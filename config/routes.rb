@@ -20,6 +20,13 @@ Ekylibre::Application.routes.draw do
     get :list, on: :collection
   end
 
+  concern :incorporate do
+    collection do
+      get :pick
+      post :incorporate
+    end
+  end
+
   concern :entities do
     concerns :list, :unroll
     collection do
@@ -533,7 +540,7 @@ Ekylibre::Application.routes.draw do
 
     # resources :product_localizations, concerns: [:list, :unroll]
 
-    resources :product_natures, concerns: [:list, :unroll] do
+    resources :product_natures, concerns: [:incorporate, :list, :unroll] do
       collection do
         get :change_quantities
       end
@@ -543,7 +550,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :product_nature_categories, concerns: [:list, :unroll] do
+    resources :product_nature_categories, concerns: [:incorporate, :list, :unroll] do
       member do
         get :list_products
         get :list_product_natures
@@ -552,7 +559,7 @@ Ekylibre::Application.routes.draw do
 
     resources :product_nature_variant_readings
 
-    resources :product_nature_variants, concerns: [:list, :picture, :unroll] do
+    resources :product_nature_variants, concerns: [:incorporate, :list, :picture, :unroll] do
       member do
         get :list_products
         get :list_prices

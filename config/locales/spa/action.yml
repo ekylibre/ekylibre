@@ -549,6 +549,7 @@ spa:
       # edit: "Modifier la catégorie du produit\_: %{name}"
       # index: "Catégories de produits"
       # new: "Nouvelle catégorie"
+      # pick: "Importer une catégorie de produits"
       # show: "Catégorie de produit\_: %{name}"
     backend/product_nature_components: #?
     backend/product_nature_indicators: #?
@@ -558,11 +559,13 @@ spa:
       # edit: "Modifier la variante de produit\_: %{name}"
       # index: "Variantes de produits"
       # new: "Nouvelle variante de produit"
+      # pick: "Importer une variante de produits"
       # show: "Variante de produit\_: %{name}"
     backend/product_natures:
       # edit: "Modifier le type de produit\_: %{name}"
       # index: "Types de produits"
       # new: "Nouveau type de produit"
+      # pick: "Importer un type de produit"
       # show: "Type de produit\_: %{name}"
     backend/product_ownerships: #?
     backend/product_phases: #?
@@ -1511,6 +1514,7 @@ spa:
     personalized_mail: "Enviar un correo electronico personalizado"
     pertinence: "%{value}%"
     # phone: "Tél."
+    # pick: "Importer"
     # picture: "Photo"
     # placeholder: "Espace réservé"
     # places: "Lieux"

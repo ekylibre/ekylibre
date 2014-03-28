@@ -200,7 +200,7 @@ module RestfullyManageable
       sort << "#{records}_count = #{records}.count(#{position})\n"
       sort << "unless #{records}_count == #{records}.uniq.count(#{position}) and #{records}.sum(#{position}) == #{records}_count*(#{records}_count+1)/2\n"
       sort << "  #{records}.each_with_index do |#{record_name}, i|\n"
-      sort << "    #{model.name}.where(:id => #{record_name}.id).update_all(#{position} => i+1)\n"
+      sort << "    #{model.name}.where(id: #{record_name}.id).update_all(#{position} => i+1)\n"
       sort << "  end\n"
       sort << "end\n"
 
@@ -221,6 +221,45 @@ module RestfullyManageable
       # list = code.split("\n"); list.each_index{|x| puts((x+1).to_s.rjust(4)+": "+list[x])}
       class_eval(code)
     end
+
+
+    # Build standard actions to manage records of a model
+    def manage_restfully_incorporation
+      name = self.controller_name
+      record_name = name.to_s.singularize
+      model = name.to_s.singularize.classify.constantize
+      records = model.name.underscore.pluralize
+      code = ''
+      
+      columns = model.columns_hash.keys
+      columns = columns.delete_if{|c| [:depth, :rgt, :lft, :id, :lock_version, :updated_at, :updater_id, :creator_id, :created_at].include?(c.to_sym) }
+      values = columns.inject({}) do |hash, attr|
+        hash[attr] = "params[:#{attr}]".c unless attr.blank? or attr.to_s.match(/_attributes$/)
+        hash
+      end.collect{|k,v| "#{k}: (#{v.inspect})"}.join(", ")
+      code << "def pick\n"
+      code << "  @#{record_name} = resource_model.new(#{values})\n"
+      code << "  @items = Nomen::#{controller_name.camelcase}.selection\n"
+      code << "end\n"
+
+      code << "def incorporate\n"
+      code << "  reference_name = params[:#{record_name}][:reference_name]\n"
+      code << "  if Nomen::#{controller_name.camelcase}[reference_name]\n"
+      code << "    @#{record_name} = #{model.name}.import_from_nomenclature(reference_name, true)\n"
+      code << "    notify_success(:record_has_been_imported)\n"
+      code << "    redirect_to :back\n"
+      code << "    return\n"
+      code << "  else\n"
+      code << "    @#{record_name} = resource_model.new(#{values})\n"
+      code << "    @items = Nomen::#{controller_name.camelcase}.selection\n"
+      code << "    notify_error :invalid_reference_name\n"
+      code << "  end\n"
+      code << "  render 'pick'\n"
+      code << "end\n"
+
+      class_eval(code)
+    end
+
 
     #
     def manage_restfully_picture

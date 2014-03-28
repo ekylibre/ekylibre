@@ -505,21 +505,27 @@ fra:
       show: "Groupe\_: %{name}"
     backend/product_nature_categories:
       edit: "Modifier la catégorie du produit\_: %{name}"
+      # incorporate: "Incorporate backend/product nature category"
       index: "Catégories de produits"
       new: "Nouvelle catégorie"
+      pick: "Importer une catégorie de produits"
       show: "Catégorie de produit\_: %{name}"
     backend/product_nature_variant_readings:
       # edit: "Edit backend/product nature variant reading"
       # new: "New backend/product nature variant reading"
     backend/product_nature_variants:
       edit: "Modifier la variante de produit\_: %{name}"
+      # incorporate: "Incorporate backend/product nature variant"
       index: "Variantes de produits"
       new: "Nouvelle variante de produit"
+      pick: "Importer une variante de produits"
       show: "Variante de produit\_: %{name}"
     backend/product_natures:
       edit: "Modifier le type de produit\_: %{name}"
+      # incorporate: "Incorporate backend/product nature"
       index: "Types de produits"
       new: "Nouveau type de produit"
+      pick: "Importer un type de produit"
       show: "Type de produit\_: %{name}"
     backend/production_support_markers:
       # edit: "Edit backend/production support marker"
@@ -1482,6 +1488,7 @@ fra:
     personalized_mail: "Envoyer un mail personnalisé"
     pertinence: "%{value}%"
     phone: "Tél."
+    pick: "Importer"
     picture: "Photo"
     placeholder: "Espace réservé"
     places: "Lieux"
@@ -1995,6 +2002,7 @@ fra:
     purchase_already_invoiced: "Achat déjà facturé"
     record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
     record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
+    # record_has_been_imported: "Record has been imported"
     record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
     restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)."
     sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison"

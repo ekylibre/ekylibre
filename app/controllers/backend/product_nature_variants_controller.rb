@@ -20,6 +20,8 @@
 class Backend::ProductNatureVariantsController < BackendController
   manage_restfully
 
+  manage_restfully_incorporation
+
   unroll
 
   list do |t|

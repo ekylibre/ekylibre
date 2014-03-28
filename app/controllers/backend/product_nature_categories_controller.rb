@@ -18,8 +18,9 @@
 #
 
 class Backend::ProductNatureCategoriesController < BackendController
-
   manage_restfully
+
+  manage_restfully_incorporation
 
   unroll
 

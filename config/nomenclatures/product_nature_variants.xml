@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, 220TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, plants, gram" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, 220TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, plant, gram" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL -->
@@ -376,25 +376,25 @@
       <item name="plum_crop"
             nature="fruit_crop"
             variety="prunus"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />
       <item name="apple_crop"
             nature="fruit_crop"
             variety="malus"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />
       <item name="walnut_crop"
             nature="walnut_crop"
             variety="juglans"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />
       <item name="hazel_crop"
             nature="walnut_crop"
             variety="corylus"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />
       
@@ -414,50 +414,50 @@
      <item name="raspberry_crop"
             nature="fruit_crop"
             variety="rubus"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />
       <item name="strawberry_crop"
             nature="fruit_crop"
             variety="fragaria"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />
       <item name="gooseberry_crop"
             nature="fruit_crop"
             variety="ribes"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />
       <item name="blackcurrant_crop"
             nature="fruit_crop"
             variety="ribes_nigrum"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />   
       <item name="pear_crop"
             nature="fruit_crop"
             variety="pyrus"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             /> 
       <item name="peach_crop"
             nature="fruit_crop"
             variety="prunus_persica"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />
       <item name="fig_crop"
             nature="fruit_crop"
             variety="ficus_carica"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />
       <!-- VINE CROP -->
       <item name="vine_grape_crop"
             nature="wine_crop"
             variety="vitis_vinifera"
-            unit_name="plants"
+            unit_name="plant"
             frozen_indicators_values=""
             />
       <!-- TRANSFORM PRODUCT -->
