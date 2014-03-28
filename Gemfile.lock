@@ -184,7 +184,7 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    paperclip-document (0.0.5)
+    paperclip-document (0.0.6)
       burisu-docsplit (>= 0.7.6)
       paperclip (>= 3.1, < 5)
     pg (0.17.1)
