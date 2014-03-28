@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 12kg_bag, 25kg_bag, 50TG_bag, 150TG_bag, 220TG_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, plant, gram" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 12kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, plant, gram, 2g_pill, 5g_pill" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL -->
@@ -636,7 +636,8 @@
             unit_name="ton"
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.666cubic_meter"
             />
-      <!-- OENOLOGICAL PRODUCT -->      
+      <!-- OENOLOGICAL PRODUCT -->
+      <!-- SO2 -->     
       <item name="so2_liquid_a8"
             nature="so2_solution"
             unit_name="liter"
@@ -649,14 +650,21 @@
             />
       <item name="so2_solid_2g"
             nature="so2_solution"
-            unit_name="20ml_dose"
-            frozen_indicators_values="net_volume: 2.00centiliter, net_mass: 2.00gram, sulfur_dioxyde_concentration: 100percent"
+            unit_name="2g_pill"
+            frozen_indicators_values="net_mass: 2.00gram, sulfur_dioxyde_concentration: 100percent"
             />
       <item name="so2_solid_5g"
             nature="so2_solution"
-            unit_name="50ml_dose"
-            frozen_indicators_values="net_volume: 5.00centiliter, net_mass: 5.00gram, sulfur_dioxyde_concentration: 100percent"
-            />  
+            unit_name="5g_pill"
+            frozen_indicators_values="net_mass: 5.00gram, sulfur_dioxyde_concentration: 100percent"
+            />
+        <!-- YEAST -->
+      <item name="oenological_yeast_sc_500g"
+            nature="oenological_yeast"
+            variety="saccharomyces_cerevisiae"
+            unit_name="bag"
+            frozen_indicators_values="net_mass: 500.00gram, cells_mass_concentration: 10billion_per_gram"
+            />
       <!-- PLANT MEDICINE -->
       <item name="helianthus_herbicide"
             nature="herbicide"
@@ -1098,7 +1106,7 @@
       <item name="corn_seed_50tg"
             nature="seed"
             derivative_of="zea"
-            unit_name="50TG_bag"
+            unit_name="50tg_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
       <item name="corn_seed_25"
@@ -1111,7 +1119,7 @@
       <item name="sunflower_seed_150tg"
             nature="seed"
             derivative_of="helianthus"
-            unit_name="150TG_bag"
+            unit_name="150tg_bag"
             frozen_indicators_values="net_mass: 7.50kilogram, thousand_grains_mass: 50gram"
             />
       <item name="pea_seed"
@@ -1549,38 +1557,38 @@
       <item name="coop:sorgho_ensilage_bmr_333_220mg"
             nature="seed"
             derivative_of="sorghum"
-            unit_name="220TG_bag"
+            unit_name="220tg_bag"
             frozen_indicators_values="net_mass: 22.00kilogram, thousand_grains_mass: 100gram"
             />
       <!-- CORN -->
       <item name="coop:ma.lg3490_50mg"
             nature="seed"
             derivative_of="zea_lg3490"
-            unit_name="50TG_bag"
+            unit_name="50tg_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
       <item name="coop:ma.lg3490_sonido_d50mg"
             nature="seed"
             derivative_of="zea_lg3490"
-            unit_name="50TG_bag"
+            unit_name="50tg_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
       <item name="coop:ma.aallexia_50mg"
             nature="seed"
             derivative_of="zea_aallexia"
-            unit_name="50TG_bag"
+            unit_name="50tg_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
       <item name="coop:ma.bergxxon_duo_50mg"
             nature="seed"
             derivative_of="zea_bergxxon"
-            unit_name="50TG_bag"
+            unit_name="50tg_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />     
       <item name="coop:ma.bergxxon_duo_sonido_d50mg"
             nature="seed"
             derivative_of="zea_bergxxon"
-            unit_name="50TG_bag"
+            unit_name="50tg_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
       <!-- WHEAT -->     

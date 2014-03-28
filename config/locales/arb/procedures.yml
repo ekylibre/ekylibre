@@ -34,6 +34,7 @@ arb:
     # nitrogen_unities_density: "Unités d'azote par surface"
     # phosphorus_unities_density: "Unités de phosphore par surface"
     # potassium_unities_density: "Unités de potassium par surface"
+    # sulfur_dioxyde_density: "Gramme de SO2 par hectolitre"
   procedure_variables:
     # adding_wine: "Vin (mineur)"
     # adding_wine_to_blend: "Vin à assembler (mineur)"
@@ -83,6 +84,8 @@ arb:
     # mother_animal: "Mère"
     # mower: "Faucheuse"
     # mower_driver: "Conducteur de faucheuse"
+    # oenological_intrant: "Produit oenologique"
+    # oenological_intrant_to_put: "Produit oenologique à mettre"
     # oil: "Huile"
     # oil_to_input: "Huile mise"
     # plant: "Culture végétale"
@@ -113,6 +116,7 @@ arb:
     # wine_man: "Opérateur de chai"
     # wine_to_blend: "Vin à assembler"
     # wine_to_move: "Vin à transférer"
+    # wine_to_treat: "Vin à traiter"
   procedures:
     # base-all_in_one_sowing: "Semis 'tout-en-un'"
     # base-animal_birth: "Naissance d’un animal"
@@ -146,6 +150,7 @@ arb:
     # base-sowing: "Semis"
     # base-spraying_on_cultivation: "Pulvérisation sur culture"
     # base-straw_bunching: "Pressage de fourrages"
+    # base-sulfur_addition: "Sulfitage"
     # base-superficial_plowing: "Déchaumage / Préparation du sol"
     # base-uncompacting: "Décompactage"
     # base-wheat_crop: "Culture de blé (standard)"

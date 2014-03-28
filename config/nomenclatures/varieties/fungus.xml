@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-fungus" hierarchical="true">
+    <items>
+      <item name="saccharomycetaceae" itis_tsn="194121"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-saccharomycetaceae" hierarchical="true">
+    <items>
+      <item name="saccharomyces" itis_tsn="194154"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-saccharomyces" hierarchical="true">
+    <items>
+      <item name="saccharomyces_cerevisiae" itis_tsn="194157"/>
+    </items>
+  </nomenclature>
+  
+</nomenclatures>

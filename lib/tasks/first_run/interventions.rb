@@ -196,7 +196,7 @@ load_data :interventions do |loader|
                 i.add_cast(reference_name: 'wine',           actor: wine)
                 i.add_cast(reference_name: 'wine_man',        actor: i.find(Worker))
                 i.add_cast(reference_name: 'tank',         actor: support.storage)
-                i.add_cast(reference_name: 'wine_to_move', population: 1 + rand(10))
+                i.add_cast(reference_name: 'wine_to_move', population: 1 + rand(2))
               end
             end
             w.check_point

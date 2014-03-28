@@ -6,8 +6,22 @@
       <variable name="wine_to_treat" variety="wine" derivative-of="vitis" roles="addition-target" default-actor="first-localized-in: tank" read-only="true" />
       
       <variable name="oenological_intrant"        variety="matter" abilities="sulfurize(wine)"/>
-      <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="addition-input" need="population"/>
-      
+      <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="addition-input" need="population">
+      <handler indicator="population" />
+      <handler indicator="mass_volume_density"   unit="gram_per_hectoliter"   to="population" if="tank? &amp; wine_to_treat?"
+                 forward="(value * wine_to_treat.net_volume(hectoliter)) / self..net_mass(gram)"
+                 backward="(value * self..net_mass(gram)) / wine_to_treat.net_volume(hectoliter)"
+                 /> <!-- g/hl -->
+      <handler indicator="volume_density"   unit="centiliter_per_hectoliter"   to="population" if="tank? &amp; wine_to_treat? &amp; self.net_volume? &amp; self.net_volume(liter) > 0"
+                 forward="(value * wine_to_treat.net_volume(hectoliter)) / self..net_volume(centiliter)"
+                 backward="(value * self..net_volume(centiliter)) / wine_to_treat.net_volume(hectoliter)"
+                 /> <!-- cl/hl -->
+      <handler indicator="mass_volume_density"   name="sulfur_dioxyde_density" unit="gram_per_hectoliter"   to="population" 
+     if="self.sulfur_dioxyde_concentration? &amp; self.sulfur_dioxyde_concentration(percent) > 0"
+                 forward="(value * wine_to_treat.net_volume(hectoliter)) / (self..net_mass(gram) * self.sulfur_dioxyde_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(gram) * (self.sulfur_dioxyde_concentration(percent) / 100)) / wine_to_treat.net_volume(hectoliter)"
+                 /> <!-- g SO2/hl -->
+      </variable>
       <variable name="wine_man" variety="worker" abilities="move" roles="addition-doer"/>
     </variables>
     <operations>
