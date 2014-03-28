@@ -8,16 +8,16 @@ fra:
         blow: "Souffler"
         bunch: "Boteller"
         care: "Soigner"
-        # catalyze: "Catalyze"
+        catalyze: "Catalyser"
         catch: "Atteler"
-        # chaptelise: "Chaptelise"
+        chaptelise: "Chaptaliser"
         clean: "Nettoyer"
         consume: "Consommer"
         cut: "Couper"
         deliver: "Distribuer"
         drive: "Conduire"
         feed: "Nourrir"
-        # fermentize: "Fermentize"
+        fermentize: "Fermenter"
         fertilize: "Fertiliser"
         freeze: "Congeler"
         grind: "Broyer"
@@ -34,7 +34,7 @@ fra:
         pick: "Cueillir"
         plow: "Labourer"
         plow_superficially: "Travailler le sol superficiellement"
-        # press: "Press"
+        press: "Presser"
         produce: "Produire"
         rake: "Ratisser"
         repair: "Réparer"
@@ -45,7 +45,7 @@ fra:
         store_fluid: "Stocker du vrac solide"
         store_gaz: "Stocker du gaz"
         store_liquid: "Stocker du vrac liquide"
-        # sulfurize: "Sulfurize"
+        sulfurize: "Sulfuriser"
         tow: "Tracter"
         uncompact: "Décompacter"
     accounts:
@@ -188,7 +188,7 @@ fra:
         own_building_expenses: "Constructions (sur sol propre)"
         ownership_assets: "Titres immobilisés (droits de propriété)"
         ownership_loan: "Prêts consentis"
-        # packaging: "Packaging"
+        packaging: "Emballages"
         pending_deposit_payments: "Valeurs à l’encaissement "
         plant_derivative_stock: "Stock de produits finis végétaux"
         plant_derivatives_revenues: "Vente de produits végétaux"
@@ -1036,7 +1036,7 @@ fra:
         temperature: "Température"
         time: "Temps"
         volume: "Volume"
-        # volume_concentration: "Volume concentration"
+        volume_concentration: "Concentration volumique"
         volume_flow: "Débit volumique"
     document_categories:
       name: "Catégories de documents"
@@ -1256,7 +1256,7 @@ fra:
         manganese_concentration: "Teneur en manganèse"
         mass_area_density: "Masse par surface"
         mass_area_yield: "Rendement en masse par surface"
-        # mass_volume_density: "Mass volume density"
+        mass_volume_density: "Masse par volume"
         maximal_storable_easement_area: "Capacité de stockage surfacique maximale (emprise au sol)"
         maximal_storable_net_mass: "Capacité de stockage massique maximale"
         maximal_storable_net_volume: "Capacité de stockage volumique maximale"
@@ -1298,8 +1298,8 @@ fra:
         soil_nature: "Type de sol"
         somatic_cell_concentration: "Dénombrement des cellules somatiques"
         subsoil_nature: "Type de sous-sol"
-        sulfur_concentration: "Teneur en Soufre"
-        # sulfur_dioxyde_concentration: "Sulfur dioxyde concentration"
+        sulfur_concentration: "Teneur en soufre"
+        sulfur_dioxyde_concentration: "Teneur en dioxyde de soufre (SO2)"
         temperature: "Température"
         thousand_grains_mass: "Poids de mille grains"
         tiller_count: "Nombre de talles"
@@ -1308,7 +1308,7 @@ fra:
         urea_concentration: "Teneur moyenne en urée"
         usage_duration: "Durée d’utilisation"
         volume_area_density: "Volume par surface"
-        # volume_density: "Volume density"
+        volume_density: "Densité en masse"
         water_content_rate: "Teneur en eau"
         width: "Largeur"
         woodstock_variety: "Variété du porte-greffe"
@@ -1553,19 +1553,19 @@ fra:
       property_natures:
         roles: "Rôles"
       items:
-        # addition: "Addition"                             # transformation
+        addition: "Ajout de produits"                      # transformation
         animal_curative_medicine_admission: "Traitement curatif des maladies animales" # animal_health
         animal_feeding: "Alimentation des animaux"
         animal_health: "Hygiène des animaux"
         animal_housing_maintenance: "Entretien des bâtiments d’élevage" # animal_health
         animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_health
         animal_production: "Productions animales"
-        # blending: "Blending"                             # transformation
+        blending: "Mélange"                                # transformation
         cleaning: "Nettoyage"                              # animal_health
         consummables_addition: "Mise à niveau"             # maintenance
         cultipacking: "Cultipacking"                       # tillage
         fermentation: "Fermentation"                       # transformation
-        # filtration: "Filtration"                         # transformation
+        filtration: "Filtration"                           # transformation
         food_supply: "Alimentation"                        # animal_feeding
         grinding: "Broyage"
         growth_control: "Contrôle de croissance"
@@ -1581,10 +1581,10 @@ fra:
         plant_fertilisation: "Fertilisation"
         plant_illness_treatment: "Protection des cultures"
         plowing: "Labour"                                  # tillage
-        # pressing: "Pressing"                             # transformation
+        pressing: "Pressage"                               # transformation
         pruning: "Taille"
         raking: "Hersage"                                  # tillage
-        # remontage: "Remontage"                           # transformation
+        remontage: "Remontage"                             # transformation
         soil_cleaning: "Désinfection du sol"
         soil_enrichment: "Amendement"
         sowing: "Semis"                                    # implantation
@@ -1682,7 +1682,7 @@ fra:
         male_young_cow: "Taurillon"
         milk: "Lait"
         natural_water: "Eau de pluie / puit"
-        # oenological_product: "Oenological product"
+        oenological_product: "Produit oenologique"
         other_consumable: "Autres consommables"
         oyster_band: "Huître"
         plant: "Plant"
@@ -1711,12 +1711,12 @@ fra:
           12kg_bag: "sac de 12kg"
           150TG_bag: "sac de 150.000 grains"
           1l_dose: "dose de 1l"
-          # 20ml_dose: "20ml dose"
+          20ml_dose: "Dose de 20 ml"
           220TG_bag: "sac de 220.000 grains"
           24liter_can: "Bidon de 24 litres"
           25kg_bag: "sac de 25kg"
           50TG_bag: "sac de 50.000 grains"
-          # 50ml_dose: "50ml dose"
+          50ml_dose: "Dose de 50 ml"
           75cl_bottle: "Bouteille de 75cl"
           bag: "sac"
           band: "Bande"
@@ -1975,10 +1975,10 @@ fra:
         silage_distributor: "Désileuse"
         silage_division: "Zone de stockage de l’ensilage"
         small_equipment: "Petit matériel"
-        # so2_liquid_A8: "So2 liquid a8"
-        # so2_liquid_P10: "So2 liquid p10"
-        # so2_solid_2g: "So2 solid 2g"
-        # so2_solid_5g: "So2 solid 5g"
+        so2_liquid_a8: "So2 liquide 8%"
+        so2_liquid_p10: "So2 liquide 10%"
+        so2_solid_2g: "So2 solide pur 2g"
+        so2_solid_5g: "So2 solide pur 5g"
         so4_vine_seedling: "Plant de vigne standard (So4)"
         sorghum_crop: "Culture de sorgho"
         sorghum_seed_25: "Semence de sorgho - sac de 25kg"
@@ -2012,7 +2012,7 @@ fra:
         vine_grape_berry: "Grappe de raisin"
         vine_grape_crop: "Culture de vigne"
         vine_grape_must: "Mout de raisin"
-        # vine_residu: "Vine residu"
+        vine_residu: "Co-produit du raisin"
         walnut_crop: "Culture de noyer"
         wheat_crop: "Culture de blé"
         wheat_grain: "Graine de blé"
@@ -2021,7 +2021,7 @@ fra:
         wheat_straw_round_bales: "Botte de paille de blé - balle ronde"
         wheat_straw_small_rectangular_bales: "Botte de paille de blé - botte petit format"
         wine: "Vin"
-        # wine_press: "Wine press"
+        wine_press: "Pressoir"
         wine_tank: "Cuve à vin"
         wine_vinasse: "Vinasse de distillerie"
         winter_barley_crop: "Culture d’orge d’hiver"
@@ -2085,14 +2085,14 @@ fra:
         freezer_tank: "Congélateur"
         fruit: "Fruit"
         fruit_crop: "Culture fruitière"
-        # fruit_residu: "Fruit residu"
+        fruit_residu: "Co-produit de fruits"
         fuel: "Carburant"
         fuel_tank: "Cuve à fioul"
         fungicide: "Fongicide"
         gas: "Gaz"
         grain: "Céréale"
         grain_crop: "Culture à graines"
-        # grape: "Grape"
+        grape: "Raisin"
         grape_reaper: "Machine à vendanger"
         grass: "Herbe"
         hay_rake: "Andaineur"
@@ -2139,7 +2139,7 @@ fra:
         silage: "Ensilage"
         silage_division: "Zone de stockage de l’ensilage"
         small_equipment: "Petit matériel"
-        # so2_solution: "So2 solution"
+        so2_solution: "Solution de dioxyde de soufre (SO2)"
         sower: "Semoir"
         species: "Epices"
         sprayer: "Pulvérisateur"
@@ -2155,7 +2155,7 @@ fra:
         walnut_crop: "Culture d’arbre à coques"
         wine: "Vin"
         wine_crop: "Vigne"
-        # wine_press: "Wine press"
+        wine_press: "Pressoir (vin)"
         wine_tank: "Cuve à vin"
     production_natures:
       name: "Types de productions"
@@ -2336,8 +2336,8 @@ fra:
         candela: "Candela"
         celsius: "Celsius"
         centiliter: "Centilitre"
-        # centiliter_per_hectoliter: "Centiliter per hectoliter"
-        # centiliter_per_liter: "Centiliter per liter"
+        centiliter_per_hectoliter: "Centilitre par hectolitre"
+        centiliter_per_liter: "Centilitre par litre"
         centimeter: "Centimètre"
         centimole: "Centimole"
         centimole_per_kilogram: "Centimole par kilogramme"
@@ -2349,7 +2349,7 @@ fra:
         french_horsepower: "Cheval-vapeur français"
         gradian: "Gradian"
         gram: "Gramme"
-        # gram_per_hectoliter: "Gram per hectoliter"
+        gram_per_hectoliter: "Gramme par hectolitre"
         gram_per_kilogram: "Gramme par kilogramme"
         gram_per_liter: "Gramme par litre"
         hectare: "Hectare"
@@ -2388,7 +2388,7 @@ fra:
         milligram_per_kilogram: "Milligramme par kilogramme"
         milligram_per_liter: "Milligramme par litre"
         milliliter: "Millilitre"
-        # milliliter_per_liter: "Milliliter per liter"
+        milliliter_per_liter: "Millilitre par litre"
         millimeter: "Millimètre"
         million: "Million"
         millionth: "Millionième"
@@ -2496,7 +2496,7 @@ fra:
         fragaria_ananassa: "Fragaria ananassa"             # fragaria
         fragaria_ananassa_mara_des_bois: "Fragaria ananassa - Mara des bois" # fragaria_ananassa
         fruit: "Fruit"                                     # organic_matter
-        # fruit_juice: "Fruit juice"                       # organic_matter
+        fruit_juice: "Jus de fruit"                        # organic_matter
         fuel: "Gasoil"                                     # organic_matter
         fungicide: "Produit fongicide"                     # plant_medicine
         fungus: "Champignon"                               # bioproduct
@@ -2504,8 +2504,8 @@ fra:
         gas: "Essence"                                     # organic_matter
         glycine: "Glycine"                                 # fabaceae
         grain: "Grain"                                     # organic_matter
-        # grape: "Grape"                                   # organic_matter
-        # grape_juice: "Grape juice"                       # organic_matter
+        grape: "Raisin"                                    # organic_matter
+        grape_juice: "Jus de raisin"                       # organic_matter
         grass: "Herbe"                                     # organic_matter
         grossulariaceae: "Grossulariaceae"                 # plant
         guano: "Guano"                                     # excrement
@@ -2573,7 +2573,7 @@ fra:
         poaceae: "Graminée"                                # plant
         pollen: "Pollen"                                   # organic_matter
         preparation: "Préparation"                         # matter
-        # press: "Press"                                   # equipment
+        press: "Pressoir"                                  # equipment
         product: "Produit"
         product_group: "Groupe de produit"                 # product
         property_title: "Titre de propriété"               # immatter
@@ -2709,7 +2709,7 @@ fra:
         walnut: "Noyer"                                    # organic_matter
         water: "Eau"                                       # matter
         wine: "Vin"                                        # organic_matter
-        # wine_coproduct: "Wine coproduct"                 # organic_matter
+        wine_coproduct: "Co-produit du vin"                # organic_matter
         worker: "Travailleur"                              # equipment
         zea: "Maïs"                                        # poaceae
         zea_aallexia: "Zea - aallexia"                     # zea
