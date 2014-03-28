@@ -148,6 +148,7 @@
       <!-- concentration -->
       <item name="unity_per_liter"         dimension="concentration" symbol="./l"            d="0.001"/>
       <item name="thousand_per_liter"      dimension="concentration" symbol="k./l"  a="1000" d="0.001"/>
+      <item name="million_per_liter"       dimension="concentration" symbol="M./l"  a="1000000" d="0.001"/>
       <item name="thousand_per_milliliter" dimension="concentration" symbol="k./ml" a="1000" d="0.000001"/>
 
       <!-- mass_density -->

@@ -393,7 +393,7 @@
             population_counting="decimal"
             abilities="fermentize(wine)"
             variable_indicators="population"
-            frozen_indicators="net_mass, cells_concentration"
+            frozen_indicators="net_mass, cells_mass_concentration"
             />    
       <!-- TREE INPLANT -->
       <item name="seedling"
