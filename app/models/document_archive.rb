@@ -60,6 +60,7 @@ class DocumentArchive < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :archived_at
   validates_attachment_presence :file
+  validates_attachment_content_type :file, content_type: /application/
 
   before_validation(on: :create) do
     self.archived_at ||= Time.now

@@ -25,7 +25,8 @@
       <item name="hundred"    dimension="none" symbol="h."  a="100"/>
       <item name="thousand"   dimension="none" symbol="k."  a="1000"/>
       <item name="million"    dimension="none" symbol="M."  a="1000000"/>
-
+      <item name="billion"    dimension="none" symbol="G."  a="1000000000"/>
+      
       <!-- angle -->
       <item name="degree"   dimension="angle" symbol="°"   a="3.141592653589793238462643383279502884197" d="180"/>
       <item name="radian"   dimension="angle" symbol="rad"/>
@@ -121,14 +122,16 @@
        
        <!-- mass_area_density -->
       <item name="kilogram_per_square_meter" dimension="mass_area_density" symbol="kg/m²"/>
+      <item name="gram_per_square_meter" dimension="mass_area_density" symbol="g/m²" a="0.001"/>
+      
       <item name="kilogram_per_hectare"      dimension="mass_area_density" symbol="kg/ha"           d="10000"/>
       <item name="quintal_per_hectare"       dimension="mass_area_density" symbol="qt/ha"  a="100"  d="10000"/>
       <item name="ton_per_hectare"           dimension="mass_area_density" symbol="t/ha"   a="1000" d="10000"/>
        
        <!-- volume_concentration -->
       <item name="milliliter_per_liter" dimension="volume_concentration" symbol="ml/l" a="0.000001"    d="0.001"/>
-      <item name="centiliter_per_liter"      dimension="volume_concentration" symbol="g/l"  a="0.00001"    d="0.001"/>
-      <item name="centiliter_per_hectoliter"      dimension="volume_concentration" symbol="g/l"  a="0.00001"    d="0.1"/>
+      <item name="centiliter_per_liter"      dimension="volume_concentration" symbol="cl/l"  a="0.00001"    d="0.001"/>
+      <item name="centiliter_per_hectoliter"      dimension="volume_concentration" symbol="cl/hl"  a="0.00001"    d="0.1"/>
        
        
        <!-- s -->
@@ -151,7 +154,8 @@
       <item name="unity_per_kilogram"     dimension="mass_density" symbol="./kg" />
       <item name="thousand_per_kilogram"  dimension="mass_density" symbol="k./kg" a="1000"/>
       <item name="thousand_per_hectogram" dimension="mass_density" symbol="k./hg" a="1000" d="0.1"/>
-
+      <item name="billion_per_gram"       dimension="mass_density" symbol="G./g" a="1000000000" d="1000"/>
+      
       <!-- distance_speed -->
       <item name="meter_per_second"     dimension="distance_speed" symbol="m/s"/>
       <item name="kilometer_per_hour"   dimension="distance_speed" symbol="km/h" a="1000" d="3600"/>

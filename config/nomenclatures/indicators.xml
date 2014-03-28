@@ -42,8 +42,9 @@
       <item name="nominal_storable_easement_area"  datatype="measure" unit="square_meter" />
 
       <!-- for wine product and production -->
-      <item name="reference_year" datatype="integer"/><!-- for "millesime" -->
-      <item name="certification" datatype="choice" choices="certifications"/><!-- for "appellation" -->
+      <item name="reference_year"       datatype="integer"/><!-- for "millesime" -->
+      <item name="certification"        datatype="choice" choices="certifications"/><!-- for "appellation" -->
+      <item name="cells_concentration" datatype="measure" unit="billion_per_gram"/>
 
       <!-- state of cultivable_zone -->
       <item name="soil_cultural_state" datatype="choice" choices="soil_cultural_states"/>
