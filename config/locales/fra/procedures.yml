@@ -35,6 +35,8 @@ fra:
     phosphorus_unities_density: "Unités de phosphore par surface"
     potassium_unities_density: "Unités de potassium par surface"
   procedure_variables:
+    adding_wine: "Vin (mineur)"
+    adding_wine_to_blend: "Vin à assembler (mineur)"
     baler: "Botteleuse"
     baler_driver: "Conducteur (tracteur-botteleuse)"
     caregiver: "Soigneur"
@@ -107,7 +109,9 @@ fra:
     tractor: "Tracteur"
     trailer: "Remorque"
     wine: "Vin"
+    wine_blended: "Vin assemblé"
     wine_man: "Opérateur de chai"
+    wine_to_blend: "Vin à assembler"
     wine_to_move: "Vin à transférer"
   procedures:
     base-all_in_one_sowing: "Semis 'tout-en-un'"
@@ -120,6 +124,7 @@ fra:
     base-direct_silage: "Ensilage direct"
     base-fuel_up: "Plein de carburant"
     base-grains_harvest: "Moisson"
+    base-grape_pressing: "Pressage de raisin"
     base-hoeing: "Binage"
     base-implant: "Plantation"
     base-indirect_silage: "Ensilage indirect"
@@ -144,4 +149,5 @@ fra:
     base-superficial_plowing: "Déchaumage / Préparation du sol"
     base-uncompacting: "Décompactage"
     base-wheat_crop: "Culture de blé (standard)"
+    base-wine_blending: "Assemblage de vin"
     base-wine_transfer: "Transfert de vin"
