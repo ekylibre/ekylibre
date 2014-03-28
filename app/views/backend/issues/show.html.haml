@@ -1,4 +1,4 @@
-= main_toolbar do |t|
+- main_toolbar do |t|
   - t.edit @issue
   - if @issue.can_close?
     - t.close(@issue, method: :post, "data-confirm" => are_you_sure_you_want_to(:close_issue))

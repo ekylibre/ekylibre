@@ -19,12 +19,13 @@
           %footer#legals= legals_sentence
       #main
         %header.header
-          - main_toolbar do |t|
-            - t.tool_to(content_tag(:i) + h(tl(:help)), toggle_backend_helps_path, data: {toggle: 'help'}, :class => "btn", :group => :help)
-          = main_toolbar_tag
+          .help-toolbar
+            .btn-group.btn-group-help
+              = tool_to(content_tag(:i) + h(" ") + h(:help.tl), toggle_backend_helps_path, data: {toggle: 'help'}, class: "btn")
           = heading_tag
         = deck(:id => :content) do
           = subheading_tag
+          - main_toolbar_tag
           = notifications_tag
           = yield
       #help

@@ -2,7 +2,7 @@
   -k.text
   -# k.radio :all, :waiting, :making, :ready, :shipped
 
-=main_toolbar do |t|
+- main_toolbar do |t|
   -# waiting_transporters = Entity.necessary_transporters
   -unless (count = OutgoingDelivery.without_transporter.count).zero?
     -t.new :label => :new_transport_of_x_deliveries.tl(count: count)

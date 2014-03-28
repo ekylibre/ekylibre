@@ -816,7 +816,9 @@ module ApplicationHelper
 
   # Build the main toolbar
   def main_toolbar_tag
-    content_tag(:div, content_for(:main_toolbar), :class => "main-toolbar")
+    if content_for?(:main_toolbar)
+      content_tag(:div, content_for(:main_toolbar), :class => "main-toolbar")
+    end
   end
 
   # Create the main toolbar with the same API as toolbar

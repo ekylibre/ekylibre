@@ -1,6 +1,6 @@
 = purchase_steps if params[:step]
 
-= main_toolbar do |t|
+- main_toolbar do |t|
   - t.export :purchase, @purchase
   - t.edit @purchase if @purchase.draft?
   - if @purchase.can_confirm?

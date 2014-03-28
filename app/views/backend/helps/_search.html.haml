@@ -7,11 +7,11 @@
   # raise article.inspect
 - cache("#{I18n.locale}-#{article}") do
   .header
-    .main-toolbar
+    .help-toolbar
       .btn-group.btn-group-help
         = link_to(toggle_backend_helps_path, 'data-toggle' => 'help', class: "btn active") do
           %i
-          = tl(:close)
+          = :help.tl
     %h1= tc(:help)
   .content
     - if article_exist?(article)

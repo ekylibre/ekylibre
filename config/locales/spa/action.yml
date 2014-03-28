@@ -1408,7 +1408,7 @@ spa:
     # net_surface_area: "Surface net"
     net_vat_amount: "TVA neta deuda"
     # net_volume: "Volume net"
-    # new: "Nouveau…"
+    # new: "Nouveau"
     new_deposit:
       # one: "Effectuer une remise\_: %{mode} (%{count} encaissement disponible)"
       # other: "Effectuer une remise\_: %{mode} (%{count} encaissements disponibles)"
