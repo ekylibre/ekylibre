@@ -637,12 +637,12 @@
             frozen_indicators_values="net_mass: 1.00ton, net_volume: 1.666cubic_meter"
             />
       <!-- OENOLOGICAL PRODUCT -->      
-      <item name="so2_liquid_A8"
+      <item name="so2_liquid_a8"
             nature="so2_solution"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, sulfur_dioxyde_concentration: 8percent"
             />
-      <item name="so2_liquid_P10"
+      <item name="so2_liquid_p10"
             nature="so2_solution"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, sulfur_dioxyde_concentration: 10percent"
