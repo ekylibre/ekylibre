@@ -232,14 +232,14 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
 
     # Load a product nature variant from product nature variant nomenclature
-    def import_from_nomenclature(reference_name)
+    def import_from_nomenclature(reference_name, force = false)
       unless item = Nomen::ProductNatureVariants[reference_name]
         raise ArgumentError, "The product_nature_variant #{reference_name.inspect} is not known"
       end
       unless nature_item = Nomen::ProductNatures[item.nature]
         raise ArgumentError, "The nature of the product_nature_variant #{item.nature.inspect} is not known"
       end
-      unless variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s)
+      unless !force and variant = ProductNatureVariant.find_by(reference_name: reference_name.to_s)
         attributes = {
           :name => item.human_name,
           :active => true,
@@ -253,7 +253,7 @@ class ProductNatureVariant < Ekylibre::Record::Base
         variant = self.create!(attributes)
       end
 
-      if variant and !item.frozen_indicators_values.to_s.blank?
+      unless item.frozen_indicators_values.to_s.blank?
         # create frozen indicator for each pair indicator, value ":population => 1unity"
         item.frozen_indicators_values.to_s.strip.split(/[[:space:]]*\,[[:space:]]*/)
           .collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.each do |i|
@@ -263,11 +263,6 @@ class ProductNatureVariant < Ekylibre::Record::Base
 
       return variant
     end
-
-    # # Give the indicator table name
-    # def indicator_table_name(indicator)
-    #   ProductNatureVariantReading.table_name
-    # end
 
   end
 end

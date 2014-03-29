@@ -289,31 +289,31 @@ class ProductNature < Ekylibre::Record::Base
   # end
 
   # Load a product nature from product nature nomenclature
-  def self.import_from_nomenclature(reference_name)
+  def self.import_from_nomenclature(reference_name, force = false)
     unless item = Nomen::ProductNatures.find(reference_name)
       raise ArgumentError, "The product_nature #{reference_name.inspect} is unknown"
     end
     unless category_item = Nomen::ProductNatureCategories.find(item.category)
       raise ArgumentError, "The category of the product_nature #{item.category.inspect} is unknown"
     end
-    unless nature = ProductNature.find_by_reference_name(reference_name)
-      attributes = {
-        :variety => item.variety,
-        :derivative_of => item.derivative_of.to_s,
-        :name => item.human_name,
-        :population_counting => item.population_counting,
-        :category => ProductNatureCategory.import_from_nomenclature(item.category),
-        :reference_name => item.name,
-        :abilities_list => item.abilities.sort,
-        :derivatives_list => (item.derivatives ? item.derivatives.sort : nil),
-        :frozen_indicators_list => item.frozen_indicators.sort,
-        :variable_indicators_list => item.variable_indicators.sort,
-        :active => true
-      }
-      attributes[:linkage_points_list] = item.linkage_points if item.linkage_points
-      nature = self.create!(attributes)
+    if !force and nature = ProductNature.find_by_reference_name(reference_name)
+      return nature
     end
-    return nature
+    attributes = {
+      :variety => item.variety,
+      :derivative_of => item.derivative_of.to_s,
+      :name => item.human_name,
+      :population_counting => item.population_counting,
+      :category => ProductNatureCategory.import_from_nomenclature(item.category),
+      :reference_name => item.name,
+      :abilities_list => item.abilities.sort,
+      :derivatives_list => (item.derivatives ? item.derivatives.sort : nil),
+      :frozen_indicators_list => item.frozen_indicators.sort,
+      :variable_indicators_list => item.variable_indicators.sort,
+      :active => true
+    }
+    attributes[:linkage_points_list] = item.linkage_points if item.linkage_points
+    return self.create!(attributes)
   end
 
   # Load.all product nature from product nature nomenclature

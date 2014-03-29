@@ -1306,10 +1306,12 @@
         <page to="backend/product_nature_categories#create"/>
         <page to="backend/product_nature_categories#destroy"/>
         <page to="backend/product_nature_categories#edit"/>
+        <page to="backend/product_nature_categories#incorporate"/>
         <page to="backend/product_nature_categories#list"/>
         <page to="backend/product_nature_categories#list_products"/>
         <page to="backend/product_nature_categories#list_product_natures"/>
         <page to="backend/product_nature_categories#new"/>
+        <page to="backend/product_nature_categories#pick"/>
         <page to="backend/product_nature_categories#show"/>
         <page to="backend/product_nature_categories#unroll"/>
         <page to="backend/product_nature_categories#update"/>
@@ -1320,6 +1322,7 @@
         <page to="backend/product_natures#create"/>
         <page to="backend/product_natures#destroy"/>
         <page to="backend/product_natures#edit"/>
+        <page to="backend/product_natures#incorporate"/>
         <page to="backend/product_natures#list"/>
         <page to="backend/product_natures#list_components"/>
         <page to="backend/product_natures#list_price_templates"/>
@@ -1327,6 +1330,7 @@
         <page to="backend/product_natures#list_stock_moves"/>
         <page to="backend/product_natures#list_stocks"/>
         <page to="backend/product_natures#new"/>
+        <page to="backend/product_natures#pick"/>
         <page to="backend/product_natures#show"/>
         <page to="backend/product_natures#update"/>
         <page to="backend/product_natures#list_prices"/>
@@ -1339,8 +1343,10 @@
         <page to="backend/product_nature_variants#create"/>
         <page to="backend/product_nature_variants#destroy"/>
         <page to="backend/product_nature_variants#edit"/>
+        <page to="backend/product_nature_variants#incorporate"/>
         <page to="backend/product_nature_variants#list"/>
         <page to="backend/product_nature_variants#new"/>
+        <page to="backend/product_nature_variants#pick"/>
         <page to="backend/product_nature_variants#show"/>
         <page to="backend/product_nature_variants#update"/>
         <page to="backend/product_nature_variants#list_prices"/>

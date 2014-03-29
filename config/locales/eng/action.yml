@@ -543,17 +543,20 @@ eng:
       edit: "Edit the product category: %{name}"
       index: "Product categories"
       new: "Add a new product category"
+      # pick: "Importer une catégorie de produits"
       show: "Product category: %{name}"
     backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       edit: "Edit product variant\_: %{name}"
       index: "Product variant"
       new: "Create a product variant"
+      # pick: "Importer une variante de produits"
       show: "Product variant\_: %{name}"
     backend/product_natures:
       edit: "Edit the product type: %{name}"
       index: "Product types"
       new: "Add a new product type"
+      # pick: "Importer un type de produit"
       show: "Product type: %{name}"
     backend/product_ownerships: #?
     backend/product_phases: #?
@@ -1499,6 +1502,7 @@ eng:
     personalized_mail: "Send a personalized mail"
     pertinence: "%{value}%"
     phone: "Pho."
+    # pick: "Importer"
     picture: "Picture"
     placeholder: "Placeholder"
     places: "Places"

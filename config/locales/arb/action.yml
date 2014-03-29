@@ -588,6 +588,7 @@ arb:
       edit: "تعديل فئة المنتج : %{name}"
       index: "فئات المنتج"
       new: "اضافة فئة جديدة للمنتج"
+      # pick: "Importer une catégorie de produits"
       show: "تفاصيل فئة: %{name}"
     backend/product_nature_components:  #?
       edit: "تعديل عنصر المنتج %{product} " #?
@@ -599,11 +600,13 @@ arb:
       # edit: "Modifier la variante de produit\_: %{name}"
       # index: "Variantes de produits"
       # new: "Nouvelle variante de produit"
+      # pick: "Importer une variante de produits"
       # show: "Variante de produit\_: %{name}"
     backend/product_natures:
       edit: "تعديل المنتج : %{name}"
       index: "المنتجات"
       new: "اضافة منتج جديد"
+      # pick: "Importer un type de produit"
       show: "المنتجات : %{name}"
     backend/product_ownerships: #?
     backend/product_phases: #?
@@ -1677,6 +1680,7 @@ arb:
     personalized_mail: "ارسال بريد الكتروني شخصي"
     pertinence: "%{value}%"
     # phone: "Tél."
+    # pick: "Importer"
     # picture: "Photo"
     # placeholder: "Espace réservé"
     # places: "Lieux"

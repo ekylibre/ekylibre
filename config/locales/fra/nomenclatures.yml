@@ -1664,7 +1664,7 @@ fra:
         cattle_herd: "Troupeau de bovins"
         crop: "Culture"
         cultivable_zone: "Zone cultivable"
-        electricity: "Electricité"
+        electricity: "Électricité"
         equipment: "Équipement"
         equipment_rent: "Location d’équipement"
         female_adult_cow: "Vache"
@@ -1711,41 +1711,41 @@ fra:
           100g_dose: "Dose de 100g"
           10ml_dose: "Dose de 10ml"
           12kg_bag: "Sac de 12kg"
-          150TG_bag: "Sac de 150.000 grains"
+          150tg_bag: "Sac de 150\_000 grains"
           1l_dose: "Dose de 1l"
-          20ml_dose: "Dose de 20 ml"
-          220TG_bag: "Sac de 220.000 grains"
-          24liter_can: "Bidon de 24 litres"
+          20ml_dose: "Dose de 20ml"
+          220tg_bag: "Sac de 220\_000 grains"
+          24liter_can: "Bidon de 24l"
           25kg_bag: "Sac de 25kg"
           2g_pill: "Comprimé de 2g"
-          50TG_bag: "Sac de 50.000 grains"
-          50ml_dose: "Dose de 50 ml"
+          50ml_dose: "Dose de 50ml"
+          50tg_bag: "Sac de 50\_000 grains"
           5g_pill: "Comprimé de 5g"
           75cl_bottle: "Bouteille de 75cl"
-          bag: "sac"
+          bag: "Sac"
           band: "Bande"
           big_rectangular_bale: "Balle ronde moyenne densité"
-          box: "boîte"
-          building: "bâtiment"
-          can: "bidon"
-          cubic_meter: "mètre cube"
-          equipment: "équipement"
-          gram: "Gram"
-          head: "tête"
-          hectare: "hectare"
+          box: "Boîte"
+          building: "Bâtiment"
+          can: "Bidon"
+          cubic_meter: "Mètre cube"
+          equipment: "Équipement"
+          gram: "Gramme"
+          head: "Tête"
+          hectare: "Hectare"
           hectoliter: "Hectolitre"
-          hour: "heure"
-          kilogram: "kilogramme"
-          kilowatt_hour: "Kilowatt Heure"
-          liter: "litre"
-          person: "personne"
-          plants: "Plants"
-          room: "salle"
+          hour: "Heure"
+          kilogram: "Kilogramme"
+          kilowatt_hour: "Kilowatt-heure"
+          liter: "Litre"
+          person: "Personne"
+          plant: "Plant"
+          room: "Salle"
           round_bale: "Botte ronde"
           small_rectangular_bale: "Botte rectangulaire petit format (100*40*40)"
           square_meter: "Mètre carré"
-          ton: "tonne"
-          unit: "unité"
+          ton: "Tonne"
+          unit: "Unité"
         # variety: # Choices comes from nomenclature: varieties
       items:
         115g_jam: "Pot de 115g de confiture"
@@ -2552,7 +2552,7 @@ fra:
         malus: "Pommier"                                   # rosaceae
         mammalia: "Mammifère"                              # animal
         manure: "Fumier"                                   # excrement
-        matter: "Matérialisable"                           # product
+        matter: "Matière"                                  # product
         meat: "Viande"                                     # organic_matter
         medicago: "Medicago"                               # fabaceae
         medicine: "Médicament"                             # preparation
@@ -2637,7 +2637,7 @@ fra:
         seedling: "Plant"                                  # organic_matter
         segorbe: "Segorbe"                                 # corylus_avellana
         service: "Service"                                 # immatter
-        settlement: "Agencement"                           # easement
+        settlement: "Aménagement"                          # easement
         silage: "Ensilage"                                 # preparation
         slurry: "Lisier"                                   # excrement
         solanaceae: "Solanaceae"                           # plant

@@ -18,9 +18,11 @@
 #
 
 class Backend::ProductNaturesController < BackendController
-  unroll
-
   manage_restfully
+
+  manage_restfully_incorporation
+
+  unroll
 
   # management -> product_conditions
   def self.product_natures_conditions(options={})

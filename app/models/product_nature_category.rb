@@ -154,31 +154,31 @@ class ProductNatureCategory < Ekylibre::Record::Base
   end
 
   # Load a product nature category from product nature category nomenclature
-  def self.import_from_nomenclature(reference_name)
+  def self.import_from_nomenclature(reference_name, force = false)
     unless item = Nomen::ProductNatureCategories.find(reference_name)
       raise ArgumentError, "The product_nature_category #{reference_name.inspect} is unknown"
     end
-    unless category = ProductNatureCategory.find_by_reference_name(reference_name)
-      attributes = {
-        :active => true,
-        :name => item.human_name,
-        :reference_name => item.name,
-        :pictogram => item.pictogram,
-        :depreciable => item.depreciable,
-        :purchasable => item.purchasable,
-        :reductible => item.reductible,
-        :saleable => item.saleable,
-        :storable => item.storable
-      }.with_indifferent_access
-      for account in [:financial_asset, :charge, :product, :stock]
-        name = item.send("#{account}_account")
-        unless name.blank?
-          attributes["#{account}_account"] = Account.find_or_create_in_chart(name)
-        end
-      end
-      category = self.create!(attributes)
+    if !force and category = ProductNatureCategory.find_by_reference_name(reference_name)
+      return category
     end
-    return category
+    attributes = {
+      :active => true,
+      :name => item.human_name,
+      :reference_name => item.name,
+      :pictogram => item.pictogram,
+      :depreciable => item.depreciable,
+      :purchasable => item.purchasable,
+      :reductible => item.reductible,
+      :saleable => item.saleable,
+      :storable => item.storable
+    }.with_indifferent_access
+    for account in [:financial_asset, :charge, :product, :stock]
+      name = item.send("#{account}_account")
+      unless name.blank?
+        attributes["#{account}_account"] = Account.find_or_create_in_chart(name)
+      end
+    end
+    return self.create!(attributes)
   end
 
   # Load.all product nature from product nature nomenclature

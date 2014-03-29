@@ -1,0 +1,7 @@
+= backend_form_for(resource, {url: {action: :incorporate}}.merge(params[:dialog] ? {data: {dialog: params[:dialog]}} : {})) do |f|
+  - if params[:redirect]
+    = hidden_field_tag(:redirect, params[:redirect])
+  - f.add(:submit, :import.tl, data: {disable_with: :please_wait.tl}, class: 'primary')
+  = f.input :reference_name, collection: @items
+  - f.add(:link, :cancel.tl, {action: :index}, (params[:dialog] ? {class: 'btn', data: {close_dialog: params[:dialog]}} : {class: 'btn'}))
+  = f.actions
