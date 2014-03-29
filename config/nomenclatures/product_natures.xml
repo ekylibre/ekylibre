@@ -198,15 +198,7 @@
             frozen_indicators=""
             derivatives="fruit, straw"
             />
-      <item name="wine"
-            category="wine"
-            variety="wine"
-            derivative_of="vitis_vinifera"
-            population_counting="decimal"
-            abilities=""
-            variable_indicators="population, temperature, total_bacteria_concentration, reference_year, certification"
-            frozen_indicators="net_volume, net_mass"
-            />
+      <!-- PRODUCT -->
       <item name="grain"
             category="grain"
             variety="grain"
@@ -278,10 +270,20 @@
             variable_indicators="population, reference_year"
             frozen_indicators="net_mass, net_volume"
             />
+      <!-- PROCESS PRODUCT  -->
+      <item name="wine"
+            category="wine"
+            variety="wine"
+            derivative_of="grape"
+            population_counting="decimal"
+            abilities=""
+            variable_indicators="population, temperature, total_bacteria_concentration, reference_year, certification"
+            frozen_indicators="net_volume, net_mass"
+            />      
       <item name="packaged_process_food"
             category="fruit"
             variety="mix"
-            derivative_of="plant"
+            derivative_of="fruit"
             population_counting="integer"
             abilities=""
             variable_indicators="population"
@@ -296,6 +298,7 @@
             variable_indicators="population, net_mass, net_volume"
             frozen_indicators=""
             />
+       <!-- INTRANT -->      
       <item name="herbicide"
             category="plant_medicine"
             variety="herbicide"
@@ -607,7 +610,7 @@
             category="equipment"
             variety="tank"
             population_counting="unitary"
-            abilities="store_liquid"
+            abilities="store(wine), store(grape), store(grape_juice)"
             variable_indicators="nominal_storable_net_volume"
             frozen_indicators="population"
             />

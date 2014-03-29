@@ -12,11 +12,13 @@
                  forward="(value * wine_to_treat.net_volume(hectoliter)) / self..net_mass(gram)"
                  backward="(value * self..net_mass(gram)) / wine_to_treat.net_volume(hectoliter)"
                  /> <!-- g/hl -->
-      <handler indicator="cells_concentration"   name="cells_density" unit="million_per_liter"   to="population" 
+      <!--NOT WORKING FOR INSTANCE
+        <handler indicator="cells_concentration"   name="cells_density" unit="million_per_liter"   to="population" 
      if="self.cells_mass_concentration? &amp; self.cells_mass_concentration(billion_per_gram) > 0"
                  forward="(value * wine_to_treat.net_volume(liter) * 1000) / (self..net_mass(gram) * self.cells_mass_concentration(billion_per_gram))"
                  backward="(value * self..net_mass(gram) * (self.cells_mass_concentration(billion_per_gram))) / (wine_to_treat.net_volume(liter) * 1000)"
-                 /> <!-- M de levures/l -->
+                 /> M de levures/l
+      -->
       </variable>
       <variable name="wine_man" variety="worker" abilities="move" roles="addition-doer"/>
     </variables>

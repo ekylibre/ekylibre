@@ -690,6 +690,7 @@ eng:
       # show: "Équipe\_: %{name}"
     backend/trackings:  #?
       show: "Tracking: %{name}" #?
+    backend/transformed_products: #?
     backend/transports:
       deliveries: "Transport's deliveries"
       delivery_delete: "Delete transport's deliveries"
@@ -709,6 +710,7 @@ eng:
       new: "Add a new user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
+    backend/wine_tanks: #?
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"

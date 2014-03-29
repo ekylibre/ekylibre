@@ -464,7 +464,6 @@
       <!-- VINE BASED -->
       <item name="bottle_75cl_wine"
             nature="wine"
-            derivative_of="vitis_vinifera"
             unit_name="75cl_bottle"
             frozen_indicators_values="net_mass: 760gram, net_volume: 75.00centiliter"
             />
@@ -515,7 +514,6 @@
             />
       <item name="wine"
             nature="wine"
-            derivative_of="vitis_vinifera"
             unit_name="hectoliter"
             frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
             />

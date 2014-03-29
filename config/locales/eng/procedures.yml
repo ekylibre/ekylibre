@@ -126,6 +126,7 @@ eng:
     # base-animal_treatment: "Traitement animal"
     # base-calving_one: "Vêlage unique"
     # base-calving_twin: "Vêlage jumeaux"
+    # base-chaptalization: "Chaptalisation"
     # base-direct_silage: "Ensilage direct"
     # base-fuel_up: "Plein de carburant"
     # base-grains_harvest: "Moisson"

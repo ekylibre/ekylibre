@@ -98,17 +98,18 @@ load_data :deliveries do |loader|
   ##############################################################################
   ## Demo data for document                                                   ##
   ##############################################################################
-  file = loader.path("alamano", "documents", "releve_apports.pdf")
-  if file.exist?
-    loader.count :numerize_outgoing_deliveries do |w|
+  # @FIXME : not working on my xubuntu 13.10 x64
+  #file = loader.path("alamano", "documents", "releve_apports.pdf")
+  #if file.exist?
+  #  loader.count :numerize_outgoing_deliveries do |w|
       # import an outgoing_deliveries_journal in PDF
       # bug in demo server for instance
-      document = Document.create!(key: "20130724_outgoing_001", name: "apport-20130724", nature: "outgoing_deliveries_journal")
-      File.open(file, "rb:ASCII-8BIT") do |f|
-        document.archive(f.read, :pdf)
-      end
-    end
-  end
+  #    document = Document.create!(key: "20130724_outgoing_001", name: "apport-20130724", nature: "outgoing_deliveries_journal")
+  #    File.open(file, "rb:ASCII-8BIT") do |f|
+  #      document.archive(f.read, :pdf)
+  #    end
+  #  end
+  #end
 
 
   # loader.count :cooperative_outgoing_deliveries do |w|

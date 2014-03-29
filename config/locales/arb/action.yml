@@ -775,6 +775,7 @@ arb:
     backend/trackings:  #?
       show: "الحصة %{name}" #?
     backend/transfers: #?
+    backend/transformed_products: #?
     backend/transports:
       deliveries: "تسليم وسيلة النقل"
       # delivery_delete: "Retirer la livraison du transport"
@@ -795,6 +796,7 @@ arb:
       statistics: "احصائياتي" #?
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?
+    backend/wine_tanks: #?
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"

@@ -65,7 +65,7 @@ FLORIJUNIOR SAC,25kg_bag_animal_food,S05_D07,2014-01-01,,,,Population : 9,9.00,
 RUMIDECOX,bulk_kg_animal_food,S05_D07,2014-01-01,,,,Population : 500,500.00,0.49
 ,PRODUIT VEGETAUX,,,,,,,,
 Blé tendre en stockage à façon à la coopérative,wheat_grain,,2014-01-01,,,,Population : 27.7,,180
-Merlot Rouge 2012,wine,TANK_1_S05_D06,2012-10-01,wine,vitis_vinifera_merlot_noir,,Population : 40; reference_year : 2012; certification : bordeaux_rouge,,100.20
-Merlot Rouge 2013,wine,TANK_2_S05_D06,2013-10-01,wine,vitis_vinifera_merlot_noir,,Population : 50; reference_year : 2013; certification : bordeaux_superieur_rouge,,111.20
+Merlot Rouge 2012,wine,TANK_1_S05_D06,2012-10-01,wine,,,Population : 40; reference_year : 2012; certification : bordeaux_rouge,,100.20
+Merlot Rouge 2013,wine,TANK_2_S05_D06,2013-10-01,wine,,,Population : 50; reference_year : 2013; certification : bordeaux_superieur_rouge,,111.20
 Raisin Merlot 2013,vine_grape_berry,TANK_6_S05_D06,2013-09-15,grape,vitis_vinifera_merlot_noir,,Population : 150; reference_year : 2013; certification : bordeaux_superieur_rouge,,1.11
-Mout Merlot 2013 Cuve N°3,vine_grape_must,TANK_3_S05_D06,2013-09-15,,vitis_vinifera_merlot_noir,,Population : 45; reference_year : 2013; certification : bordeaux_superieur_rouge,,70.00
+Mout Merlot 2013 Cuve N°3,vine_grape_must,TANK_3_S05_D06,2013-09-15,grape,vitis_vinifera_merlot_noir,,Population : 45; reference_year : 2013; certification : bordeaux_superieur_rouge,,70.00

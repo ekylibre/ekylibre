@@ -2506,7 +2506,6 @@ fra:
         fragaria_ananassa: "Fragaria ananassa"             # fragaria
         fragaria_ananassa_mara_des_bois: "Fragaria ananassa - Mara des bois" # fragaria_ananassa
         fruit: "Fruit"                                     # organic_matter
-        fruit_juice: "Jus de fruit"                        # organic_matter
         fuel: "Gasoil"                                     # organic_matter
         fungicide: "Produit fongicide"                     # plant_medicine
         fungus: "Champignon"                               # bioproduct
@@ -2515,7 +2514,6 @@ fra:
         glycine: "Glycine"                                 # fabaceae
         grain: "Grain"                                     # organic_matter
         grape: "Raisin"                                    # organic_matter
-        grape_juice: "Jus de raisin"                       # organic_matter
         grass: "Herbe"                                     # organic_matter
         grossulariaceae: "Grossulariaceae"                 # plant
         guano: "Guano"                                     # excrement
@@ -2538,6 +2536,7 @@ fra:
         item: "Pièce"                                      # equipment
         juglandaceae: "Juglandaceae"                       # plant
         juglans: "Juglans"                                 # juglandaceae
+        juice: "Jus"                                       # organic_matter
         lamiaceae: "Lamiaceae"                             # plant
         land_parcel: "Parcelle physique"                   # easement
         land_parcel_cluster: "Îlot"                        # land_parcel_group

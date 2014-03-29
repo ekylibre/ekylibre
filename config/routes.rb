@@ -686,6 +686,7 @@ Ekylibre::Application.routes.draw do
     end
 
     # resources :tracking_states
+    resources :transformed_products, only: [:index], concerns: [:list]
 
     resources :transports, concerns: [:list, :unroll] do
       collection do
@@ -706,6 +707,8 @@ Ekylibre::Application.routes.draw do
         post :unlock
       end
     end
+
+    resources :wine_tanks, only: [:index], concerns: [:list]
 
     resources :workers, concerns: :products
 

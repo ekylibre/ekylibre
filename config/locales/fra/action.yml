@@ -633,6 +633,8 @@ fra:
       index: "Équipes"
       new: "Nouvelle équipe"
       show: "Équipe\_: %{name}" #?
+    backend/transformed_products:
+      # index: "Index backend/transformed product"
     backend/transports:
       deliveries: "Livraisons du transport" #?
       delivery_delete: "Retirer la livraison du transport" #?
@@ -647,6 +649,8 @@ fra:
       new: "Création d’un nouvel utilisateur"
       show: "Utilisateur\_: %{first_name} %{last_name}"
       unlock: "Déverrouiller l’utilisateur"
+    backend/wine_tanks:
+      # index: "Index backend/wine tank"
     backend/workers:
       edit: "Modifier l’équipier %{name}"
       index: "Équipiers"
@@ -818,8 +822,10 @@ fra:
     backend/teams: "Équipes"
     # backend/trackings: "Backend/trackings"
     backend/transfers: "Transferts"
+    # backend/transformed_products: "Backend/transformed products"
     backend/transports: "Transports"
     backend/users: "Utilisateurs"
+    # backend/wine_tanks: "Backend/wine tanks"
     # backend/workers: "Backend/workers"
     # backend: "Backend"
     # base: "Base"

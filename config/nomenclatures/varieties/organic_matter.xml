@@ -22,10 +22,9 @@
       <item name="seedling" derivative_of="plant"/>
       <!-- VEGETALS PROCESSED PRODUCTS-->
         <!-- VINE AND WINE -->
-      <item name="grape_juice" derivative_of="grape"/>
-      <item name="wine" derivative_of="grape"/>
-      <item name="wine_coproduct" derivative_of="grape"/>
-      <item name="fruit_juice" derivative_of="fruit"/>
+      <item name="wine" derivative_of="organic_matter"/>
+      <item name="wine_coproduct" derivative_of="organic_matter"/>
+      <item name="juice" derivative_of="organic_matter"/>
       <!-- GAS AND CO -->
       <item name="gas"/>
       <item name="fuel"/>

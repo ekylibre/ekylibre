@@ -851,6 +851,16 @@
         <page to="backend/plant_products#list"/>
       </item>
     </group>
+    <group name="transformations" icon="barn">
+      <item name="wine_tanks">
+        <page to="backend/wine_tanks#index"/>
+        <page to="backend/wine_tanks#list"/>
+      </item>
+      <item name="transformed_products">
+        <page to="backend/transformed_products#index"/>
+        <page to="backend/transformed_products#list"/>
+      </item>
+    </group>
     <group name="land_parcels" icon="land-parcels">
       <item name="cultivable_zones">
         <page to="backend/cultivable_zones#index"/>
