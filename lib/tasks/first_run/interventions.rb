@@ -191,12 +191,12 @@ load_data :interventions do |loader|
           year = production.campaign.name.to_i
           Ekylibre::FirstRun::Booker.production = production
           for support in production.supports
-            for wine in Product.of_variety(variety)
-              Ekylibre::FirstRun::Booker.intervene(:wine_transfer, year - 1, 9, 15, 0.5, support: support ) do |i|
-                i.add_cast(reference_name: 'wine',           actor: wine)
-                i.add_cast(reference_name: 'wine_man',        actor: i.find(Worker))
+            if support.storage.contents.count > 0
+              Ekylibre::FirstRun::Booker.intervene(:complete_wine_transfer, year - 1, 9, 15, 0.5, support: support ) do |i|
                 i.add_cast(reference_name: 'tank',         actor: support.storage)
-                i.add_cast(reference_name: 'wine_to_move', population: 1 + rand(2))
+                i.add_cast(reference_name: 'wine',           actor: support.storage.contents.first)
+                i.add_cast(reference_name: 'wine_man',        actor: i.find(Worker))
+                i.add_cast(reference_name: 'destination_tank',         actor: i.find(Equipment, can: "store(wine)", can: "store_liquid"))
               end
             end
             w.check_point

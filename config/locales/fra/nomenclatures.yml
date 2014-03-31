@@ -488,7 +488,18 @@ fra:
         # accountancy_dashboard: "Accountancy dashboard"
         # accounts: "Accounts"
         # activities: "Activities"
+        # affairs: "Affairs"
+        # analysis: "Analysis"
+        # animal_groups: "Animal groups"
+        # animal_medicines: "Animal medicines"
+        # animals: "Animals"
+        # bank_statements: "Bank statements"
+        # bioproducts: "Bioproducts"
+        # building_divisions: "Building divisions"
+        # buildings: "Buildings"
         # calculators: "Calculators"
+        # campaigns: "Campaigns"
+        # cash_tranferts: "Cash tranferts"
         # entities: "Entities"
         # interventions: "Interventions"
     countries:
@@ -1800,6 +1811,7 @@ fra:
         cereals_feed_bag_25: "Aliments céréales - sac de 25 kg"
         chemical_fertilizer_division: "Emplacement de stockage des engrais"
         complete_herbicide: "Herbicide total"
+        concrete_tank: "Cuve béton"
         coop:ammonitre_33,5%_vr: "ammonitre COOP 33,5% vrac"
         coop:aviator_xpro_5l: "Aviator xpro 5l"
         coop:avoine_d'hiver_une_de_mai_red_25kg: "Semence d'avoine d'hiver une de mai - sac de 25kg"
@@ -1856,6 +1868,7 @@ fra:
         female_adult_cow: "Vache"
         female_hen_band: "Bande de poule"
         female_young_cow: "Génisse"
+        fiberglass_tank: "Cuve en fibre de verre"
         fig_crop: "Culture de figuier"
         fig_seedling: "Plant de figuier"
         food_equipment_division: "Zone de stockage des aliments et du matériels"
@@ -1957,6 +1970,7 @@ fra:
         plum_seedling: "Plant de prunier"
         poaceae_fungicide: "Fongicide céréales/graminées"
         poaceae_herbicide: "Herbicide céréales/graminées"
+        polyester_tank: "Cuve en polyester"
         potato_crop: "Culture de pomme de terre"
         pruning_platform: "plate-forme de taille"
         rabbit_manure: "Fumier de lapin"
@@ -1998,6 +2012,7 @@ fra:
         spring_barley_crop: "Culture d’orge de printemps"
         spring_barley_seed_25: "Semence d’orge de printemps - sac de 25kg"
         spring_oat_crop: "Culture d’avoine de printemps"
+        stainless_steel_tank: "Cuve en acier inox"
         strawberry_crop: "Culture de fraisier"
         strawberry_seedling: "Plant de fraisier"
         subsoil_plow: "Sous soleuse"
@@ -2016,7 +2031,8 @@ fra:
         urban_compost: "Compost urbain"
         vine_grape_berry: "Grappe de raisin"
         vine_grape_crop: "Culture de vigne"
-        vine_grape_must: "Mout de raisin"
+        vine_grape_juice: "Jus de raisin"
+        vine_grape_must: "Moût de raisin"
         vine_residu: "Co-produit du raisin"
         walnut_crop: "Culture de noyer"
         wheat_crop: "Culture de blé"
@@ -2027,7 +2043,6 @@ fra:
         wheat_straw_small_rectangular_bales: "Botte de paille de blé - botte petit format"
         wine: "Vin"
         wine_press: "Pressoir"
-        wine_tank: "Cuve à vin"
         wine_vinasse: "Vinasse de distillerie"
         winter_barley_crop: "Culture d’orge d’hiver"
         winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
@@ -2081,6 +2096,7 @@ fra:
         female_adult_cattle_herd: "Troupeau de vaches"
         female_adult_cow: "Vache"
         female_young_cow: "Génisse"
+        fermented_grape_juice: "Jus fermenté de raisin"
         fertilizer_division: "Zone de stockage des engrais"
         flower_crop: "Culture florale"
         food_distributor: "Matériel de distribution d’aliments"
@@ -2098,6 +2114,7 @@ fra:
         grain: "Céréale"
         grain_crop: "Culture à graines"
         grape: "Raisin"
+        grape_juice: "Jus de raisin"
         grape_reaper: "Machine à vendanger"
         grass: "Herbe"
         hay_rake: "Andaineur"
@@ -2495,6 +2512,7 @@ fra:
         fabaceae: "Fabaceae"                               # plant
         fercoril_corabel: "Fercoril corabel"               # corylus_avellana
         feriale: "Feriale"                                 # corylus_avellana
+        fermented_juice: "Jus fermenté"               # preparation
         fertile_coutard: "Fertile coutard"                 # corylus_avellana
         ficus: "Ficus"                                     # moraceae
         ficus_carica: "Ficus carica"                       # ficus
@@ -2512,13 +2530,13 @@ fra:
         gallus: "Galinacée"                                # aves
         gas: "Essence"                                     # organic_matter
         glycine: "Glycine"                                 # fabaceae
-        grain: "Grain"                                     # organic_matter
-        grape: "Raisin"                                    # organic_matter
+        grain: "Grain"                                     # fruit
+        grape: "Raisin"                                    # fruit
         grass: "Herbe"                                     # organic_matter
         grossulariaceae: "Grossulariaceae"                 # plant
         guano: "Guano"                                     # excrement
         harvester: "Moissonneuse"                          # equipment
-        hay: "Foin"                                        # organic_matter
+        hay: "Foin"                                        # grass
         helianthus: "Tournesol"                            # asteraceae
         herbicide: "Produit herbicide"                     # plant_medicine
         hordeum: "Orge"                                    # poaceae
@@ -2536,7 +2554,7 @@ fra:
         item: "Pièce"                                      # equipment
         juglandaceae: "Juglandaceae"                       # plant
         juglans: "Juglans"                                 # juglandaceae
-        juice: "Jus"                                       # organic_matter
+        juice: "Jus"                                       # preparation
         lamiaceae: "Lamiaceae"                             # plant
         land_parcel: "Parcelle physique"                   # easement
         land_parcel_cluster: "Îlot"                        # land_parcel_group
@@ -2581,6 +2599,7 @@ fra:
         poa: "Prairie"                                     # poaceae
         poaceae: "Graminée"                                # plant
         pollen: "Pollen"                                   # organic_matter
+        pomace: "Résidu (Tourteau, Marc)"                                 # preparation
         preparation: "Préparation"                         # matter
         press: "Pressoir"                                  # equipment
         product: "Produit"
@@ -2646,7 +2665,7 @@ fra:
         sower: "Semoir"                                    # equipment
         sprayer: "Pulvérisateur"                           # equipment
         spreader: "Épandeur"                               # equipment
-        straw: "Paille"                                    # organic_matter
+        straw: "Paille"                                    # grass
         sub_zone: "Sous zone"                              # zone
         sus: "Porcin"                                      # mammalia
         tank: "Réservoir"                                  # equipment
@@ -2719,10 +2738,9 @@ fra:
         vitis_vinifera_semillon_blanc: "Vitis vinifera - semillon blanc" # vitis_vinifera
         vitis_vinifera_syrah_noir: "Vitis vinifera - syrah noir" # vitis_vinifera
         vitis_vinifera_ugni_blanc: "Vitis vinifera - ugni blanc" # vitis_vinifera
-        walnut: "Noyer"                                    # organic_matter
+        walnut: "Noyer"                                    # fruit
         water: "Eau"                                       # matter
-        wine: "Vin"                                        # organic_matter
-        wine_coproduct: "Co-produit du vin"                # organic_matter
+        wine: "Vin"                                        # fermented_juice
         worker: "Travailleur"                              # equipment
         zea: "Maïs"                                        # poaceae
         zea_aallexia: "Zea - aallexia"                     # zea

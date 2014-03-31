@@ -24,7 +24,7 @@
                  backward="value * self..net_mass(kilogram)"
                  /> <!-- kg    -->
       </variable>
-      <variable name="residue"        variety="wine_coproduct" derivative-of="derivative_of: grape_to_press" new="produced-by: grape_to_press" roles="pressing-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="residue"        variety="pomace" derivative-of="derivative_of: grape_to_press" new="produced-by: grape_to_press" roles="pressing-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
                  forward="value / self..net_mass(kilogram)"

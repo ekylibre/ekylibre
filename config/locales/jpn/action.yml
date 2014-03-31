@@ -308,6 +308,7 @@ jpn:
       # edit: "Modifier l’intervention %{procedure_name} N°%{id}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
+      # run: "Exécuter l'intervention"
       # show: "%{procedure_name} N°%{id}"
     backend/inventories:
       # edit: "Modifier l’inventaire"
@@ -620,7 +621,8 @@ jpn:
       # new: "Nouvelle équipe"
       # show: "Équipe\_: %{name}"
     backend/tools: #?
-    backend/transformed_products: #?
+    backend/transformed_products:
+      # index: "Produits transformés"
     backend/transports:
       # deliveries: "Livraisons du transport"
       # delivery_delete: "Retirer la livraison du transport"
@@ -637,7 +639,8 @@ jpn:
       # show: "Utilisateur\_: %{first_name} %{last_name}"
       # unlock: "Déverrouiller l’utilisateur"
     backend/vegetals: #?
-    backend/wine_tanks: #?
+    backend/wine_tanks:
+      # index: "Cuverie"
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"
@@ -658,7 +661,10 @@ jpn:
     # backend/activities: "Activités"
     # backend/affairs: "Affaires"
     # backend/aggregators: "Agrégateurs"
+    # backend/analyses: "Analyses"
+    # backend/animal_foods: "Aliments pour animaux"
     # backend/animal_groups: "Groupes d’animaux"
+    # backend/animal_products: "Produits animaux"
     # backend/animals: "Animaux"
     # backend/bank_statements: "Relevés de compte bancaire"
     # backend/buildings: "Bâtiments"
@@ -685,6 +691,8 @@ jpn:
     # backend/incoming_payment_modes: "Modes d’encaissement"
     # backend/incoming_payments: "Encaissements"
     # backend/interfacers: "Interfaceurs"
+    # backend/intervention_casts: "Acteurs d'intervention"
+    # backend/interventions: "Interventions"
     # backend/inventories: "Inventaires"
     # backend/inventory_items: "Lignes d’inventaires"
     # backend/issues: "Incidents"
@@ -1142,6 +1150,7 @@ jpn:
     # international_reduce_vat_collected: "Taux réduit à 2,1%"
     # international_vat_collected: "Opérations réalisées dans les DOM"
     # interval: "Intervalle personnalisé"
+    # intervention_casts: "Actions dans les interventions"
     # inventories: "Inventaires"
     # inventory: "Inventaire"
     # inventory_print: "Imprimer l’inventaire"
@@ -1640,6 +1649,8 @@ jpn:
     # tp_index: "Index génétique Taux protéïque"
     # tracking: "Lot"
     # transfer: "Effectuer les transferts"
+    # transformations: "Transformations"
+    # transformed_products: "Produits transformés"
     # transport: "Transport"
     # transport_deliveries: "Livraisons du transport"
     transport_states:
@@ -1702,6 +1713,7 @@ jpn:
       # resized: "Mode «\_Tout à l’écran\_»"
     # virtual_quantity: "Quantité virtuelle"
     # wind_speed: "Vitesse du vent"
+    # wine_tanks: "Cuverie"
     # with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
     # with_prints: "Inclure les impressions (factures, commandes…)"
     x_cashes:

@@ -47,9 +47,14 @@ load_data :products do |loader|
         else
           owner = Entity.of_company
         end
-
+        
+        container = nil
+        unless container = Product.find_by_work_number(r.place_code)
+          container = building_division
+        end
+        
         # create the equipment
-        equipment = pmodel.create!(:variant_id => variant.id, :name => r.name, :initial_born_at => r.born_at, :initial_owner => owner, :default_storage => building_division, :work_number => r.work_number )
+        equipment = pmodel.create!(:variant_id => variant.id, :name => r.name, :initial_born_at => r.born_at, :initial_owner => owner, :initial_container => container, :default_storage => container, :work_number => r.work_number )
 
         # create indicators linked to equipment
         for indicator, value in r.indicators
@@ -59,7 +64,6 @@ load_data :products do |loader|
         if container = Product.find_by_work_number(r.place_code)
           # container.add(zone, born_at)
           equipment.update_attributes(initial_container: container)
-          equipment.save!
         end
         
         w.check_point
@@ -108,20 +112,19 @@ load_data :products do |loader|
         else
           owner = Entity.of_company
         end
-
+        
+        container = nil
+        unless container = Product.find_by_work_number(r.place_code)
+          container = building_division
+        end
+        
         # create the product
         product = pmodel.create!(:variant_id => variant.id, :work_number => r.work_number,
-                                 :name => r.name, :initial_born_at => r.born_at, :initial_owner => owner, :variety => r.variety, :derivative_of => r.derivative_of, :default_storage => building_division)
+                                 :name => r.name, :initial_born_at => r.born_at, :initial_owner => owner, :variety => r.variety, :derivative_of => r.derivative_of, :initial_container => container, :default_storage => container)
 
         # create indicators linked to equipment
         for indicator, value in r.indicators
           product.read!(indicator, value, at: r.born_at, force: true)
-        end
-        
-        if container = Product.find_by_work_number(r.place_code)
-          # container.add(zone, born_at)
-          product.update_attributes(initial_container: container)
-          product.save!
         end
         
         w.check_point
