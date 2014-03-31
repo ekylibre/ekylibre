@@ -81,6 +81,8 @@ class Product < Ekylibre::Record::Base
   belongs_to :tracking
   belongs_to :variant, class_name: "ProductNatureVariant"
   has_many :carrier_linkages, class_name: "ProductLinkage", foreign_key: :carried_id
+  has_many :content_localizations, class_name: "ProductLocalization", foreign_key: :container_id
+  has_many :contents, class_name: "Product", through: :content_localizations, source: :product
   has_many :enjoyments, class_name: "ProductEnjoyment", foreign_key: :product_id
   has_many :issues, as: :target
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
@@ -380,6 +382,10 @@ class Product < Ekylibre::Record::Base
       list += localization.product.containeds(at)
     end
     return list
+  end
+
+  def contents_name(at = Time.now)
+    self.containeds.map(&:name).compact.to_sentence
   end
 
   # Returns the current container for the product
