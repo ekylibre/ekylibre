@@ -1,1 +1,7 @@
-= list
+= beehive do |b|
+  - b.hbox do
+    - b.cell :map do
+      = map(Product.can('store(wine)','store_liquid'))
+  - b.tabbox do
+    - b.cell :list do
+      = list

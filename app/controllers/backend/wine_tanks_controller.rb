@@ -19,10 +19,10 @@
 
 class Backend::WineTanksController < BackendController
 
-  list model: :products, scope: [:availables, "can('store(wine)')".c, "can('store(grape)')".c, "can('store(juice)')".c] do |t|
-    t.column :number, url: true
+  list model: :products, scope: [:availables, "can('store(wine)')".c, "can('store_liquid')".c] do |t|
+    t.column :work_number, url: true
     t.column :name, url: true
-    t.column :net_volume, datatype: :measure
+    t.column :contents_name, datatype: :text
     t.column :nominal_storable_net_volume, datatype: :measure
     t.column :container, url: true
     t.action :edit
