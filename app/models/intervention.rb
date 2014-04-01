@@ -228,7 +228,7 @@ class Intervention < Ekylibre::Record::Base
         if variable.parted?
           # Parted from
           variant = producer.variant
-          produced.actor = variant.matching_model.new(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, name: producer.name, extjuncted: true)
+          produced.actor = variant.matching_model.new(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, name: producer.name, extjuncted: true, tracking: producer.tracking)
           unless produced.actor.save
             puts "*" * 80 + variant.matching_model.name
             puts produced.actor.inspect
