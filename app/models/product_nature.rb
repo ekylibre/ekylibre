@@ -157,6 +157,14 @@ class ProductNature < Ekylibre::Record::Base
     able_to(:and, *abilities)
   }
 
+  scope :of_working_set, lambda { |working_set|
+    if working_set == :oenological_regulateds
+      where("id IN (?) OR id IN (?)", of_variety(:saccharose, :concentrated_rectified_must, :potassium_ferrocyanide).pluck(:id), can('acidify(fermented_juice)', 'alkalinize(fermented_juice)').pluck(:id))
+    else
+      raise StandardError, "Invalid working set: #{working_set.inspect}"
+    end
+  }
+
   protect(on: :destroy) do
     self.variants.any? or self.products.any?
   end

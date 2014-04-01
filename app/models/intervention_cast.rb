@@ -63,6 +63,10 @@ class InterventionCast < Ekylibre::Record::Base
     where("roles ~ E?", "\\\\m#{role}\\\\M")
   }
 
+  scope :with_cast, lambda { |role, object|
+   self.of_role(role).where(actor_id: object.id)
+  }
+
   before_validation do
     if self.reference
       self.roles = self.reference.roles.join(', ')

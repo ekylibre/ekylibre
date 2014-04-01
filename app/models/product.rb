@@ -109,6 +109,7 @@ class Product < Ekylibre::Record::Base
   has_many :current_memberships,    -> { current }, class_name: "ProductMembership",    foreign_key: :product_id
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
+  has_one :incoming_delivery_item, class_name: "IncomingDeliveryItem", foreign_key: :product_id
 
   has_attached_file :picture, {
     :url => '/backend/:class/:id/picture/:style',
@@ -132,6 +133,10 @@ class Product < Ekylibre::Record::Base
   }
   scope :can_each, lambda { |*abilities|
     where(nature_id: ProductNature.can_each(*abilities))
+  }
+
+  scope :of_working_set, lambda { |working_set|
+    where(nature_id: ProductNature.of_working_set(working_set))
   }
 
   scope :of_nature, lambda { |nature|
