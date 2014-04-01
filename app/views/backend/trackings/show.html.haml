@@ -1,0 +1,9 @@
+- main_toolbar do |t|
+  - t.edit ressource
+
+= beehive do |b|
+  - b.hbox do
+    - b.cell do
+      = attributes_list do |l|
+        - l.attribute :name
+        - l.attribute :description

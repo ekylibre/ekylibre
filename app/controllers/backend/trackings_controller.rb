@@ -17,4 +17,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 class Backend::TrackingsController < BackendController
+  manage_restfully
+
+  unroll
+
+  list(order: :name) do |t|
+    t.column :active
+    t.column :serial
+    t.column :name
+    t.column :product
+    t.column :producer
+    t.action :edit
+    t.action :destroy
+  end
 end
