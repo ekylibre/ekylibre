@@ -341,6 +341,7 @@ eng:
       # edit: "Modifier l’intervention %{procedure_name} N°%{id}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
+      # run: "Exécuter l'intervention"
       # show: "%{procedure_name} N°%{id}"
     backend/inventories:
       edit: "Edit the inventory"
@@ -693,7 +694,8 @@ eng:
       # show: "Équipe\_: %{name}"
     backend/trackings:  #?
       show: "Tracking: %{name}" #?
-    backend/transformed_products: #?
+    backend/transformed_products:
+      # index: "Produits transformés"
     backend/transports:
       deliveries: "Transport's deliveries"
       delivery_delete: "Delete transport's deliveries"
@@ -713,7 +715,8 @@ eng:
       new: "Add a new user"
       show: "User: %{first_name} %{last_name}"
       unlock: "Unlock user"
-    backend/wine_tanks: #?
+    backend/wine_tanks:
+      # index: "Cuverie"
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"
@@ -733,8 +736,11 @@ eng:
     backend/activities: "Activities"
     backend/affairs: "Affairs"
     # backend/aggregators: "Agrégateurs"
+    # backend/analyses: "Analyses"
     backend/analytic_distributions: "Analytics distributions" #?
+    # backend/animal_foods: "Aliments pour animaux"
     # backend/animal_groups: "Groupes d’animaux"
+    # backend/animal_products: "Produits animaux"
     backend/animals: "Animals"
     backend/areas: "Postal areas" #?
     backend/assets: "Assets" #?
@@ -772,6 +778,8 @@ eng:
     backend/incoming_payment_modes: "Incoming payment modes"
     backend/incoming_payments: "Incoming payments"
     backend/interfacers: "Interfacers"
+    # backend/intervention_casts: "Acteurs d'intervention"
+    # backend/interventions: "Interventions"
     backend/inventories: "Inventories"
     backend/inventory_items: "Inventory items"
     # backend/issues: "Incidents"
@@ -1252,6 +1260,7 @@ eng:
     # international_reduce_vat_collected: "Taux réduit à 2,1%"
     # international_vat_collected: "Opérations réalisées dans les DOM"
     interval: "Personalized Interval"
+    # intervention_casts: "Actions dans les interventions"
     # inventories: "Inventaires"
     inventory: "Inventory"
     inventory_print: "Printing inventory"
@@ -1754,6 +1763,8 @@ eng:
     # tp_index: "Index génétique Taux protéïque"
     tracking: "Tracking"
     transfer: "Transfer"
+    # transformations: "Transformations"
+    # transformed_products: "Produits transformés"
     transport: "Transport"
     transport_deliveries: "Deliveries"
     transport_states:
@@ -1817,6 +1828,7 @@ eng:
       resized: "Resized mode"
     virtual_quantity: "Virtual quantity"
     # wind_speed: "Vitesse du vent"
+    # wine_tanks: "Cuverie"
     with_assets_depreciations: "With assets depreciations" #?
     # with_financial_assets_depreciations: "Inclure les amortissements des immobilisations"
     with_prints: "Include printing archives (sales invoices, purchases...)"

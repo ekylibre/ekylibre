@@ -37,10 +37,12 @@
       <item name="harvest" parameters="variety"/>
       <item name="pick" parameters="variety"/>
       <item name="move"/>
+      <!-- store matter  -->
       <item name="store" parameters="variety"/>
       <item name="store_fluid"/>
       <item name="store_liquid"/>
       <item name="store_gaz"/>
+      <!-- store matter  -->
       <item name="milk" parameters="variety"/>
       <item name="tow" parameters="variety"/>
       <item name="cut"/>

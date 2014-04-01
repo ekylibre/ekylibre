@@ -10,25 +10,32 @@
       <!-- VEGETALS PRODUCTS-->
       <item name="pollen" derivative_of="plant"/>
       <item name="flower" derivative_of="plant"/>
-      <item name="grain" derivative_of="plant"/>
-      <item name="walnut" derivative_of="plant"/>
       <item name="fruit" derivative_of="plant"/>
-      <item name="straw" derivative_of="plant"/>
-      <item name="hay" derivative_of="poaceae"/>
-      <item name="grass" derivative_of="poaceae"/>
-      <item name="grape" derivative_of="vitis"/>
+      <item name="grass" derivative_of="plant"/>  
       <!-- VEGETALS INTRANTS-->
       <item name="seed" derivative_of="plant"/>
       <item name="seedling" derivative_of="plant"/>
-      <!-- VEGETALS PROCESSED PRODUCTS-->
-        <!-- VINE AND WINE -->
-      <item name="wine" derivative_of="organic_matter"/>
-      <item name="wine_coproduct" derivative_of="organic_matter"/>
-      <item name="juice" derivative_of="organic_matter"/>
       <!-- GAS AND CO -->
       <item name="gas"/>
       <item name="fuel"/>
       <item name="oil"/>
     </items>
   </nomenclature>
+  
+  <nomenclature name="varieties-grass">
+    <items>
+      <item name="straw" derivative_of="plant"/>
+      <item name="hay" derivative_of="poaceae"/> 
+      
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-fruit">
+    <items>
+      <item name="grape" derivative_of="vitis"/>
+      <item name="grain" derivative_of="plant"/>
+      <item name="walnut" derivative_of="plant"/>
+    </items>
+  </nomenclature>
+  
 </nomenclatures>

@@ -506,9 +506,15 @@
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
             />
+      <item name="vine_grape_juice"
+            nature="grape_juice"
+            derivative_of="grape"
+            unit_name="hectoliter"
+            frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
+            />
       <item name="vine_grape_must"
-            nature="grape"
-            derivative_of="vitis_vinifera"
+            nature="fermented_grape_juice"
+            derivative_of="grape"
             unit_name="hectoliter"
             frozen_indicators_values="net_mass: 100.00 kilogram, net_volume: 100.00liter"
             />
@@ -519,7 +525,7 @@
             />
       <item name="vine_residu"
             nature="fruit_residu"
-            variety="wine_coproduct"
+            variety="pomace"
             unit_name="kilogram"
             frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
             />
@@ -935,7 +941,7 @@
             />
       <item name="sugar_vinasse"
             nature="organic_fertilizer"
-            variety="wine_coproduct"
+            variety="pomace"
             derivative_of="grape"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 4.0percent"
@@ -1380,18 +1386,36 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-      <!-- TANK -->
-      <!-- EQUIPMENT FOR WINE -->
-      <item name="wine_tank"
+      
+        <!-- EQUIPMENT FOR WINE -->
+          <!-- TANK FOR WINE -->
+      <item name="concrete_tank"
             nature="wine_tank"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="stainless_steel_tank"
+            nature="wine_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="fiberglass_tank"
+            nature="wine_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="polyester_tank"
+            nature="wine_tank"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+          <!-- PRESS FOR WINE -->
       <item name="wine_press"
             nature="wine_press"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <!-- TANK -->
       <item name="milk_tank"
             nature="milk_tank"
             unit_name="equipment"

@@ -1,10 +1,18 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-preparation">
-    <!-- http://e-phy.agriculture.gouv.fr/ -->
     <items>
       <item name="mix"/>
       <item name="medicine"/>
       <item name="silage" derivative_of="plant"/>
+      <item name="fermented_juice" derivative_of="fruit"/>
+      <item name="juice" derivative_of="fruit"/>
+      <item name="pomace" derivative_of="fruit"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-fermented_juice">
+    <items>
+      <item name="wine" derivative_of="fruit"/>
     </items>
   </nomenclature>
   
