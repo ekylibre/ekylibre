@@ -27,6 +27,12 @@ Solution Sulfureuse A8,so2_liquid_A8,S05_D07,2013-01-01,,,,Population : 5,,
 '
 Comprimés de 5g',so2_solid_5g,S05_D07,2013-01-01,,,,Population : 18,,
 Fermiflor 500g JB3,oenological_yeast_sc_500g,S05_D07,2013-01-01,,,,Population : 5,,
+Acide malique,malic_acid_25kg,S05_D07,2014-01-05,,,,Population : 4,,
+Acide lactique,lactic_acid_25kg,S05_D07,2014-01-05,,,,Population : 1,,
+' 	
+Carbonate de Chaux',calcium_carbonate_25kg,S05_D07,2014-01-05,,,,Population : 2.5,,
+Clarifiant Ferro-Cyanure,potassium_ferrocyanide_25kg,S05_D07,2014-01-05,,,,Population : 1,,
+Sucre,white_sugar_25kg,S05_D07,2014-01-05,,,,Population : 1,,
 ,CARBURANT ET LUBRIFIANT,,,,,,,,
 Huile moteur MOTUL ,motor_oil,S09_D01,2013-01-01,oil,,,Population : 220,,2.87
 Huile hydraulique PROBEOL HV,hydraulic_oil,S09_D01,2013-01-01,oil,,,Population : 80,,4.24
