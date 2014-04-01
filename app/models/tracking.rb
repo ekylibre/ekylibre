@@ -42,4 +42,6 @@ class Tracking < Ekylibre::Record::Base
   validates_inclusion_of :active, in: [true, false]
   validates_presence_of :name
   #]VALIDATORS]
+
+  alias_attribute :serial_number, :serial
 end
