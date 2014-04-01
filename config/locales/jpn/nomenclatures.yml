@@ -318,12 +318,12 @@ jpn:
       # name: "Méthodes d’analyse de la capacité d’échange cationique"
     certification_labels:
       items:
-        # aoc: "Aoc"
-        # aop: "Aop"
-        # aor: "Aor"
+        # aoc: "AOC"
+        # aop: "AOP"
+        # aor: "AOR"
         # bio: "Agriculture Biologique"
-        # ig: "Ig"
-        # igp: "Igp"
+        # ig: "IG"
+        # igp: "IGP"
         # label_rouge: "Label Rouge"
       # name: "Labels"
     certifications:
@@ -333,9 +333,9 @@ jpn:
         # bordeaux_blanc_avec_sucres: "Bordeaux blanc avec sucres"
         # bordeaux_clairet: "Bordeaux clairet"
         # bordeaux_claret: "Bordeaux claret"
-        # bordeaux_haut_benauge: "Bordeaux haut benauge"
-        # bordeaux_haut_benauge_avec_sucres: "Bordeaux haut benauge avec sucres"
-        # bordeaux_rose: "Bordeaux rose"
+        # bordeaux_haut_benauge: "Bordeaux Haut-Benauge"
+        # bordeaux_haut_benauge_avec_sucres: "Bordeaux Haut-Benauge avec sucres"
+        # bordeaux_rose: "Bordeaux rosé"
         # bordeaux_rouge: "Bordeaux rouge"
         # bordeaux_superieur_blanc: "Bordeaux supérieur blanc"
         # bordeaux_superieur_rouge: "Bordeaux supérieur rouge"
@@ -483,7 +483,9 @@ jpn:
         # symbol: "Symbole"
     controlled_resources:
       items: #?
-      property_natures: #?
+      # name: "Ressources métiers contrôlées"
+      property_natures:
+        # accesses: "Accès"
     countries:
       items:
         ad: "アンドラ"
@@ -1446,17 +1448,16 @@ jpn:
       items:
         # accident: "Accident"
         # animal_pathology: "Pathologie animale"
-        # bacteria_disease: "Maladies bactériennes"
+        # bacteria_disease: "Maladie bactérienne"
         # climate_issue: "Incident climatique"
         # diarrhea: "Diarrhée"
         # fecondity_problem: "Problème de fécondité"
-        # fungus_disease: "Maladies cryptogamiques"
+        # fungus_disease: "Maladie cryptogamique"
         # issue: "Incident"
         # mammite: "Mammite"
-        # nematoda_disease: "Maladies à nématodes"
-        # other: "Autre"
-        # protozoa_disease: "Maladies virales"
-        # respiratory_problem: "Problèmes respiratoires"
+        # nematoda_disease: "Maladie à nématodes"
+        # protozoa_disease: "Maladie virale"
+        # respiratory_problem: "Problème respiratoire"
         # vegetal_pathology: "Pathologie végétale"
       # name: "Types d’incidents"
       property_natures:
@@ -1466,7 +1467,7 @@ jpn:
       items:
         # blaye: "Blaye"
         # bordeaux: "Bordeaux"
-        # bordeaux_haut_benauge: "Bordeaux haut benauge"
+        # bordeaux_haut_benauge: "Bordeaux Haut-Benauge"
         # bordeaux_superieur: "Bordeaux supérieur"
       # name: "Terroir"
     languages:
@@ -1592,21 +1593,22 @@ jpn:
       # name: "États de la reproduction mammifère"
     molecules:
       items:
-        # calcium_carbonate: "Carbonate de calcium "
+        # calcium_carbonate: "Carbonate de calcium"
         # copper_sulfate: "Sulfate de cuivre (Ⅰ)"
         # dicopper_sulfate: "Sulfate de cuivre (Ⅱ)"
         # dinitrogen: "Diazote"
-        # diphosphorus_pentoxide: "Diphosphorus pentoxide"
+        # diphosphorus_pentoxide: "Pentoxyde de phosphore"
         # glucose: "Glucose"
-        # lactic_acid: "Acide lactique "
+        # lactic_acid: "Acide lactique"
         # malic_acid: "Acide malique"
         # phosphate: "Phosphate"
         # potash: "Potasse"
         # potassium_bicarbonate: "Bicarbonate de potassium"
         # potassium_ferrocyanide: "Ferrocyanide de potassium"
+        # potassium_oxide: "Oxyde de potassium"
         # sodium_chloride: "Chlorure de sodium"
-        # sucrose: "Sucrose"
-        # tetraphosphorus_decoxide: "Tetraphosphorus decoxide"
+        # sucrose: "Saccharose"
+        # tetraphosphorus_decoxide: "Décaoxyde de phosphore"
       # name: "Molécules"
       property_natures:
         # formula: "Formule"
@@ -1620,7 +1622,7 @@ jpn:
         data_acces_method: #?
       items:
         # cartodb: "CartoDB"
-        # charentes_alliance_extranet: "Charentes Alliance extranet"
+        # charentes_alliance_extranet: "Extranet Charentes Alliance"
         # est_elevage: "Est Élevage"
         # lilco: "Lilco"
         # msa: "MSA"
@@ -1813,7 +1815,7 @@ jpn:
         # male_young_cow: "Taurillon"
         # milk: "Lait"
         # natural_water: "Eau de pluie / puit"
-        # oenological_product: "Produit oenologique"
+        # oenological_product: "Produit œnologique"
         # other_consumable: "Autres consommables"
         # oyster_band: "Huître"
         # plant: "Plant"
@@ -1935,8 +1937,8 @@ jpn:
         # concrete_tank: "Cuve béton"
         # coop:ammonitre_33,5%_vr: "ammonitre COOP 33,5% vrac"
         # coop:aviator_xpro_5l: "Aviator xpro 5l"
-        # coop:avoine_d'hiver_une_de_mai_red_25kg: "Semence d'avoine d'hiver une de mai - sac de 25kg"
-        # coop:bd_s_miradoux_r1_cel_gold_net_25kg: "Semence de Blé tendre Miradoux ( r1 cel gold) - sac de 25kg"
+        # coop:avoine_d'hiver_une_de_mai_red_25kg: "Semence d’avoine d’hiver une de mai - sac de 25kg"
+        # coop:bd_s_miradoux_r1_cel_gold_net_25kg: "Semence de Blé tendre Miradoux (r1 cel gold) - sac de 25kg"
         # coop:bd_s_tablur_r1_cel_gold_net_25kg: "Semence de Blé dur tablur r1 cel gold net - sac de 25kg"
         # coop:bd_s_tablur_r1_gau+red_25kg: "Semence de Blé dur tablur r1 gau+red - sac de 25kg"
         # coop:bth_s_ascott_r1_gau+_red_25kg: "Semence de Blé tendre Ascott (r1 gau+ red) sac de 25kg"
@@ -2070,7 +2072,7 @@ jpn:
         # mower: "Faucheuse"
         # mud: "Boue"
         # natural_water: "Eau de pluie / du puit"
-        # oenological_yeast_sc_500g: "Levure oenologique - sachet de 500g"
+        # oenological_yeast_sc_500g: "Levure œnologique - sachet de 500g"
         # office_building: "Bureau"
         # office_building_division: "Pièce de bureau"
         # other_herbicide: "Herbicide autre"
@@ -2263,7 +2265,7 @@ jpn:
         # motor_oil: "Huile moteur"
         # mower: "Faucheuse"
         # natural_water: "Eau de pluie ou de puit"
-        # oenological_yeast: "Levure oenologique"
+        # oenological_yeast: "Levure œnologique"
         # organic_fertilizer: "Engrais organique"
         # oyster_band: "Bande d’huître"
         # packaged_process_food: "Aliments transformés et conditionnés"
@@ -2400,8 +2402,12 @@ jpn:
           accesses: #?
         farm_worker:
           accesses: #?
-      items: #?
-      property_natures: #?
+      items:
+        # accountant: "Comptable"
+        # farm_worker: "Ouvrier agricole"
+      # name: "Rôles"
+      property_natures:
+        # accesses: "Accès"
     sexes:
       items:
         # female: "Femelle"
@@ -2544,7 +2550,7 @@ jpn:
         # radian: "Radian"
         # second: "Seconde"
         # square_meter: "Mètre carré"
-        # ten: "Dix"
+        # ten: "Dizaine"
         # thousand: "Millier"
         # thousand_per_hectare: "Millier par hectare"
         # thousand_per_hectogram: "Millier par hectogramme"
@@ -2617,11 +2623,11 @@ jpn:
         # daucus: "Carotte"
         # disinfectant: "Désinfectant"
         # easement: "Aménagement foncier"
-        # egg: "Oeuf"
-        # electricity: "Electricité"
+        # egg: "Œuf"
+        # electricity: "Électricité"
         # ennis: "Ennis"
         # equipment: "Équipement"
-        # equus: "Equin"
+        # equus: "Équin"
         # etincel: "Etincel"
         # excrement: "Engrais organiques"
         # fabaceae: "Fabaceae"
@@ -2876,8 +2882,8 @@ jpn:
       # name: "Variétés"
       property_natures:
         # derivative_of: "Dérivé"
-        # europa_tsn: "Europa ID"
-        # itis_tsn: "Itis ID"
+        # europa_tsn: "ID Europa"
+        # itis_tsn: "ID ITIS"
     varieties-animal: #?
     varieties-asteraceae: #?
     varieties-equipment: #?
@@ -2886,8 +2892,8 @@ jpn:
     varieties-triticum_aestivum: #?
     working_sets:
       items:
-        # oenological_regulateds: "Produits oenologiques détenus"
-      # name: "Ensemble de produits"
+        # oenological_regulateds: "Produits œnologiques détenus"
+      # name: "Ensembles de produits"
       property_natures:
         # expression: "Expression"
   procedures: #?

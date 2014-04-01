@@ -28,7 +28,7 @@
       <item name="fecondity_problem" target="mammalia"/>
       <item name="diarrhea" target="mammalia"/>
       <item name="respiratory_problem" target="mammalia"/>
-      <item name="other" target="mammalia"/>
+      <!-- <item name="other" target="mammalia"/> -->
     </items>
   </nomenclature>
 
