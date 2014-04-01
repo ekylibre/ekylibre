@@ -11,8 +11,9 @@
       <item name="pollen" derivative_of="plant"/>
       <item name="flower" derivative_of="plant"/>
       <item name="fruit" derivative_of="plant"/>
-      <item name="grass" derivative_of="plant"/>  
-      <!-- VEGETALS INTRANTS-->
+      <item name="grass" derivative_of="plant"/>
+      <item name="sugar" derivative_of="plant"/> 
+      <!-- VEGETALS INTRANTS -->
       <item name="seed" derivative_of="plant"/>
       <item name="seedling" derivative_of="plant"/>
       <!-- GAS AND CO -->
@@ -22,11 +23,16 @@
     </items>
   </nomenclature>
   
+  <nomenclature name="varieties-sugar">
+    <items>
+      <item name="saccharose" derivative_of="plant"/>
+    </items>
+  </nomenclature>
+  
   <nomenclature name="varieties-grass">
     <items>
       <item name="straw" derivative_of="plant"/>
       <item name="hay" derivative_of="poaceae"/> 
-      
     </items>
   </nomenclature>
   

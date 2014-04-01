@@ -57,6 +57,9 @@
       <item name="sulfurize" parameters="variety"/>
       <item name="fermentize" parameters="variety"/>
       <item name="catalyze" parameters="variety"/>
+      <item name="acidify" parameters="variety"/>
+      <item name="alkalinize" parameters="variety"/>
+      <item name="clarify" parameters="variety"/>
     </items>
   </nomenclature>
 </nomenclatures>
