@@ -480,17 +480,17 @@
             nature="fruit"
             derivative_of="plant"
             unit_name="kilogram"
-            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter"
+            frozen_indicators_values="net_mass: 1.00kilogram, net_volume: 1.00liter, best_before_period: 180day"
             />
       <item name="115g_jam"
             nature="packaged_process_food"
-            derivative_of="plant"
+            derivative_of="fruit"
             unit_name="unit"
             frozen_indicators_values="net_mass: 115gram, net_volume: 115milliliter"
             />
       <item name="230g_jam"
             nature="packaged_process_food"
-            derivative_of="plant"
+            derivative_of="fruit"
             unit_name="unit"
             frozen_indicators_values="net_mass: 230gram, net_volume: 230milliliter"
             />      

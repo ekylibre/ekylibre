@@ -242,7 +242,7 @@
             population_counting="decimal"
             abilities="feed(animal)"
             variable_indicators="population"
-            frozen_indicators="net_mass, net_volume"
+            frozen_indicators="net_mass, net_volume, best_before_period"
             />
       <item name="grape"
             category="fruit"
@@ -304,7 +304,7 @@
             derivative_of="fruit"
             population_counting="integer"
             abilities=""
-            variable_indicators="population"
+            variable_indicators="population, best_before_period"
             frozen_indicators="net_mass, net_volume"
             />
       <item name="process_food"

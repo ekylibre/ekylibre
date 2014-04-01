@@ -700,7 +700,11 @@ spa:
     backend/tool_natures: #?
     backend/tools: #?
     backend/tracking_states: #?
-    backend/trackings: #?
+    backend/trackings:
+      # edit: "Modifier le numéro de suivi\_: %{name} - %{serial}"
+      # index: "Numéros de suivi"
+      # new: "Nouveau numéro de suivi"
+      # show: "Numéro de suivi\_: %{name} - %{serial}"
     backend/transfers: #?
     backend/transformed_products:
       # index: "Produits transformés"

@@ -776,8 +776,11 @@ arb:
       new: "اضافة مادة" #?
       show: "المادة : %{name}" #?
     backend/tracking_states: #?
-    backend/trackings:  #?
-      show: "الحصة %{name}" #?
+    backend/trackings:
+      # edit: "Modifier le numéro de suivi\_: %{name} - %{serial}"
+      # index: "Numéros de suivi"
+      # new: "Nouveau numéro de suivi"
+      show: "الحصة %{name}"
     backend/transfers: #?
     backend/transformed_products:
       # index: "Produits transformés"

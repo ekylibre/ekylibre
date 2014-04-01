@@ -10,9 +10,9 @@
   
   <nomenclature name="varieties-prunus_domestica" hierarchical="true">
     <items>
-      <item name="prunus_salicina_bernardina" itis_tsn="00000"/>
-      <item name="prunus_salicina_bluefre" itis_tsn="000000"/>
-      <item name="prunus_salicina_carpatin" itis_tsn="000000"/>
+      <item name="prunus_domestica_bernardina" itis_tsn="00000"/>
+      <item name="prunus_domestica_bluefre" itis_tsn="000000"/>
+      <item name="prunus_domestica_carpatin" itis_tsn="000000"/>
     </items>
   </nomenclature>
   

@@ -85,6 +85,9 @@
       <!-- for animal medicine -->
       <item name="meat_withdrawal_period" datatype="measure" unit="day"/>
       <item name="milk_withdrawal_period" datatype="measure" unit="day"/>
+      <!-- for alimentary product -->
+      <item name="best_before_period" datatype="measure" unit="day"/>
+      <item name="consumption_period" datatype="measure" unit="day"/>
       <!-- for genetic animal's reproduction  -->
       <item name="unique_synthesis_index"         datatype="measure" unit="unity"/>
       <item name="economical_milk_index"          datatype="measure" unit="unity"/>

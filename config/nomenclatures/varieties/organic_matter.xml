@@ -39,6 +39,11 @@
   <nomenclature name="varieties-fruit">
     <items>
       <item name="grape" derivative_of="vitis"/>
+      <item name="plum" derivative_of="prunus_domestica"/>
+      <item name="peach" derivative_of="prunus_persica"/>
+      <item name="pear" derivative_of="pyrus"/>
+      <item name="raspberry" derivative_of="rubus"/>
+      <item name="strawberry" derivative_of="fragaria"/>
       <item name="grain" derivative_of="plant"/>
       <item name="walnut" derivative_of="plant"/>
     </items>

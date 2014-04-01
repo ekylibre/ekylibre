@@ -1261,6 +1261,7 @@ eng:
         # trial_balance: "Balance comptable"
         # veterinary_booklet: "Carnet vétérinaire"
         # vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
+        # wine_detention_registry: "Registre de détention - Vin"
       # name: "Types de documents"
       property_natures:
         # category: "Catégories"
@@ -1401,6 +1402,7 @@ eng:
         animal_life_state: "Animal life state"
         # application_width: "Largeur de travail"
         # available_water_capacity_per_area: "Réserve utile d’eau (RU)"
+        # best_before_period: "Période de consommation 'de préférence'"
         # boron_concentration: "Teneur en Bore"
         # calcium_concentration: "Teneur en Calcium"
         # calving_ease_index: "Index de facilité de naissance"
@@ -1410,6 +1412,7 @@ eng:
         # cells_mass_concentration: "Concentration massique en cellules actives"
         # certification: "Certification"
         clostridial_spores_concentration: "Clostridial spores concentration"
+        # consumption_period: "Période de consommation 'limite'"
         # copper_concentration: "Teneur en cuivre"
         # dry_matter_rate: "Taux de matière sèche"
         # easement_area: "Emprise au sol"
@@ -2821,12 +2824,15 @@ eng:
         # ostreidae: "Ostreidae"
         # ovis: "Ovin"
         # pauetet: "Pauetet"
+        # peach: "Pêche"
+        # pear: "Poire"
         # phaseolus: "Haricot"
         phytosanitary: "Phytosanitary" #?
         # pisum: "Pisum"
         plant: "Plant"
         # plant_medicine: "Produit phytosanitaire"
         # plower: "Charrue"
+        # plum: "Prune"
         # poa: "Prairie"
         # poaceae: "Graminée"
         # pollen: "Pollen"
@@ -2840,6 +2846,9 @@ eng:
         # pruner: "Sécateur"
         # prunus: "Prunier"
         # prunus_domestica: "Prunus domestica"
+        # prunus_domestica_bernardina: "Prunus domestica - Bernardina"
+        # prunus_domestica_bluefre: "Prunus domestica - Bluefre"
+        # prunus_domestica_carpatin: "Prunus domestica - Carpatin"
         # prunus_persica: "Prunus persica"
         # prunus_persica_jh_hall: "Prunus persica - JH hall"
         # prunus_persica_madeleine: "Prunus persica - Madeleine"
@@ -2849,14 +2858,12 @@ eng:
         # prunus_salicina_anne_gold: "Prunus salicina - Anne gold"
         # prunus_salicina_awaso: "Prunus salicina - Awaso"
         # prunus_salicina_beauty: "Prunus salicina - Beauty"
-        # prunus_salicina_bernardina: "Prunus salicina - Bernardina"
-        # prunus_salicina_bluefre: "Prunus salicina - Bluefre"
-        # prunus_salicina_carpatin: "Prunus salicina - Carpatin"
         # pyrus: "Pyrus"
         # pyrus_communis: "Pyrus communis"
         # pyrus_communis_beurre_hardy: "Pyrus communis - Beurre hardy"
         # pyrus_communis_william: "Pyrus communis - William"
         # pyrus_communis_william_bon_chretien: "Pyrus communis - William bon chretien"
+        # raspberry: "Framboise"
         # reaper: "Moissonneuse-batteuse"
         # ribes: "Ribes"
         # ribes_nigrum: "Ribes nigrum"
@@ -2901,6 +2908,7 @@ eng:
         # sprayer: "Pulvérisateur"
         # spreader: "Épandeur"
         # straw: "Paille"
+        # strawberry: "Fraise"
         # sub_zone: "Sous zone"
         # sugar: "Sucre"
         # sus: "Porcin"
@@ -3010,7 +3018,9 @@ eng:
     working_sets:
       items:
         # oenological_regulateds: "Produits oenologiques détenus"
-      property_natures: #?
+      # name: "Ensemble de produits"
+      property_natures:
+        # expression: "Expression"
   procedures:  #?
     animal_birth: "Animal birth" #?
     calving_one: "Calving one" #?

@@ -621,6 +621,11 @@ jpn:
       # new: "Nouvelle équipe"
       # show: "Équipe\_: %{name}"
     backend/tools: #?
+    backend/trackings:
+      # edit: "Modifier le numéro de suivi\_: %{name} - %{serial}"
+      # index: "Numéros de suivi"
+      # new: "Nouveau numéro de suivi"
+      # show: "Numéro de suivi\_: %{name} - %{serial}"
     backend/transformed_products:
       # index: "Produits transformés"
     backend/transports:
