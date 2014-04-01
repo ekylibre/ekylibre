@@ -6,21 +6,21 @@
       <variable name="wine_to_treat" variety="wine" roles="addition-target" default-actor="first-localized-in: tank" read-only="true" />
       
       <variable name="oenological_intrant" variety="matter" abilities="chaptelise(wine)"/>
-      <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="addition-input" need="population">
+      <variable name="oenological_intrant_to_put" new="parted-from: oenological_intrant" roles="addition-input" default-name="{{variant}} ({{container}})">
         <handler indicator="population" />
-        <handler indicator="net_volume"            unit="liter"               to="population"
+        <handler indicator="net_volume"            unit="liter"               to="population" if="oenological_intrant_to_put? &amp; oenological_intrant_to_put.net_volume(liter) > 0"
                  forward="value / self..net_volume(liter)"
                  backward="value * self..net_volume(liter)"
                  /> <!-- l    -->
-        <handler indicator="volume_density" unit="centiliter_per_hectoliter" to="population"
+        <handler indicator="volume_density" unit="centiliter_per_hectoliter" to="population" if="oenological_intrant_to_put? &amp; oenological_intrant_to_put.net_volume(liter) > 0"
                  forward="(value / self..net_volume(centiliter)) * wine_to_treat.net_volume(hectoliter)"
                  backward="(value * self..net_volume(centiliter)) / wine_to_treat.net_volume(hectoliter)"
                  /> <!-- cl/hl   -->
-        <handler indicator="net_mass"            unit="gram"               to="population"
+        <handler indicator="net_mass"            unit="gram"               to="population" if="oenological_intrant_to_put? &amp; oenological_intrant_to_put.net_mass(gram) > 0"
                  forward="value / self..net_mass(gram)"
                  backward="value * self..net_mass(gram)"
                  /> <!-- g    -->
-        <handler indicator="mass_volume_density" unit="gram_per_hectoliter" to="population"
+        <handler indicator="mass_volume_density" unit="gram_per_hectoliter" to="population" if="oenological_intrant_to_put? &amp; oenological_intrant_to_put.net_mass(gram) > 0"
                  forward="(value / self..net_mass(gram)) * wine_to_treat.net_volume(hectoliter)"
                  backward="(value * self..net_mass(gram)) / wine_to_treat.net_volume(hectoliter)"
                  /> <!-- g/hl   -->

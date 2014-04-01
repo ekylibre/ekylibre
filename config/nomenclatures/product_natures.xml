@@ -402,7 +402,7 @@
       <!-- OENOLOGICAL PRODUCT -->
       <item name="so2_solution"
             category="oenological_product"
-            variety="mix"
+            variety="preparation"
             population_counting="decimal"
             abilities="sulfurize(wine)"
             variable_indicators="population"
@@ -415,7 +415,39 @@
             abilities="fermentize(wine)"
             variable_indicators="population"
             frozen_indicators="net_mass, cells_mass_concentration"
-            />    
+            />
+      <item name="wine_acidifying"
+            category="oenological_product"
+            variety="preparation"
+            population_counting="decimal"
+            abilities="acidify(fermented_juice), acidify(wine)"
+            variable_indicators="population"
+            frozen_indicators="net_mass"
+            />
+      <item name="wine_alkalinizing"
+            category="oenological_product"
+            variety="preparation"
+            population_counting="decimal"
+            abilities="alkalinize(fermented_juice), alkalinize(wine)"
+            variable_indicators="population"
+            frozen_indicators="net_mass"
+            />
+       <item name="clarification_solution"
+            category="oenological_product"
+            variety="matter"
+            population_counting="decimal"
+            abilities="clarify(fermented_juice), clarify(wine)"
+            variable_indicators="population"
+            frozen_indicators="net_mass"
+            />
+      <item name="sugar"
+            category="oenological_product"
+            variety="saccharose"
+            population_counting="decimal"
+            abilities="chaptelise(fermented_juice), chaptelise(juice)"
+            variable_indicators="population"
+            frozen_indicators="net_mass"
+            />      
       <!-- TREE INPLANT -->
       <item name="seedling"
             category="plant"

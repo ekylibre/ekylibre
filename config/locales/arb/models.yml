@@ -1415,6 +1415,7 @@ arb:
     in_name: "الاختصارات تشمل اسم الملف" #?
     included: "تضمنت"
     # incoming_deliveries: "Approvisionnements"
+    # incoming_delivery_item: "Incoming delivery item"
     # incoming_delivery_items: "Éléments d’approvisionnement"
     incoming_payment_modes: "طرق تسديد الدفعات"
     incoming_payment_uses: "اجزاء الدفعات" #?

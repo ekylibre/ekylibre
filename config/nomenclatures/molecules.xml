@@ -6,13 +6,21 @@
       <property-nature name="formula" type="string"/>
     </property-natures>
     <items>
-      <item name="dinitrogen"       formula="N#N"/>
-      <item name="phosphate"        formula="P2O5"/>
-      <item name="potash"           formula="K2O"/>
-      <item name="sodium_chloride"  formula="[Na+].[Cl-]"/>
-      <item name="copper_sulfate"   formula="[Cu+2].[O-]S(=O)(=O)[O-]"/>
-      <item name="dicopper_sulfate" formula="[O-]S(=O)(=O)[O-].[Cu+].[Cu+]"/>
-      <item name="glucose"          formula="OC[C@@H](O1)[C@@H](O)[C@H](O)[C@@H](O)[C@@H](O)1"/>
+      <item name="dinitrogen"                    formula="N#N"/>
+      <item name="diphosphorus_pentoxide"        formula="(=O)P(=O)(=O)P(=O)(=O)"/>
+      <item name="tetraphosphorus_decoxide"      formula="O=P13OP2(=O)OP(=O)(O1)OP(=O)(O2)O3"/>
+      <item name="potassium_ferrocyanide"        formula="C(#N)[Fe-4](C#N)(C#N)(C#N)(C#N)C#N.O.O.O.[K+].[K+].[K+].[K+]"/>
+      <item name="phosphate"                     formula="[O-]P(=O)([O-])[O-]"/>
+      <item name="potash"                        formula="[K]O[K]"/>
+      <item name="sodium_chloride"               formula="[Na+].[Cl-]"/>
+      <item name="copper_sulfate"                formula="[Cu+2].[O-]S(=O)(=O)[O-]"/>
+      <item name="dicopper_sulfate"              formula="[O-]S(=O)(=O)[O-].[Cu+].[Cu+]"/>
+      <item name="glucose"                       formula="OC[C@@H](O1)[C@@H](O)[C@H](O)[C@@H](O)[C@@H](O)1"/>
+      <item name="sucrose"                       formula="C([C@@H]1[C@H]([C@@H]([C@H]([C@H](O1)O[C@]2([C@H]([C@@H]([C@H](O2)CO)O)O)CO)O)O)O)O"/>
+      <item name="malic_acid"                    formula="O=C(O)CC(O)C(=O)O"/>
+      <item name="lactic_acid"                   formula="CC(O)C(=O)O"/>
+      <item name="potassium_bicarbonate"         formula="[K+].[O-]C(=O)O"/>
+      <item name="calcium_carbonate"             formula="[Ca+2].[O-]C([O-])=O"/>
     </items>
   </nomenclature>
 </nomenclatures>

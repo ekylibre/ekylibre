@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="working_sets" hierarchical="false">
+    <property-natures>
+      <property-nature name="expression" type="string" required="true"/>
+    </property-natures>
+    <items>
+      <item name="oenological_regulateds" expression="of_variety(saccharose) or of_variety(concentrated_rectified_must) or can(acidify) or can(alkalinize) or of_variety(potassium_ferrocyanide)" />
+    </items>
+  </nomenclature>
+</nomenclatures>

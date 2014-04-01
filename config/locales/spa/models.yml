@@ -734,6 +734,7 @@ spa:
     # in_cash: "En espèce"
     # included: "Incluse"
     # incoming_deliveries: "Approvisionnements"
+    # incoming_delivery_item: "Incoming delivery item"
     # incoming_delivery_items: "Éléments d’approvisionnement"
     # incoming_payment_modes: "Modes d’encaissement"
     # incoming_payments: "Encaissements"

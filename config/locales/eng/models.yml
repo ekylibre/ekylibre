@@ -1001,6 +1001,7 @@ eng:
     included: "Included"
     income_reasons: "Income reasons" #?
     incoming_deliveries: "Incoming deliveries"
+    # incoming_delivery_item: "Incoming delivery item"
     # incoming_delivery_items: "Éléments d’approvisionnement"
     incoming_delivery_lines: "Incoming delivery lines" #?
     incoming_delivery_modes: "Incoming delivery modes" #?

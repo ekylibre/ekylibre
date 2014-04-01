@@ -110,7 +110,7 @@ class Intervention < Ekylibre::Record::Base
   #    where("id IN (SELECT intervention_id FROM #{InterventionCast.table_name} WHERE target_id = ? AND role = ?)", object.id, role.to_s)
   # }
   scope :with_cast, lambda { |role, object|
-     where("id IN (SELECT intervention_id FROM #{InterventionCast.table_name} WHERE actor_id = ? AND roles ~ E?)", object.id, "\\\\m#{role}\\\\M")
+     where(id: InterventionCast.with_cast(role, object).pluck(:intervention_id))
   }
 
   before_validation do

@@ -96,6 +96,10 @@ class ProductNatureVariant < Ekylibre::Record::Base
   scope :can_each, Proc.new { |*abilities|
     where(nature_id: ProductNature.can_each(*abilities))
   }
+  scope :of_working_set, lambda { |working_set|
+    where(nature_id: ProductNature.of_working_set(working_set))
+  }
+
   scope :of_natures, lambda { |*natures|
     natures.flatten!
     for nature in natures

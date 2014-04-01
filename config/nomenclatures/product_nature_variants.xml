@@ -282,7 +282,7 @@
             />
       <item name="potato_crop"
             nature="crop"
-            variety="solanum"
+            variety="solanum_tuberosum"
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
@@ -669,6 +669,40 @@
             unit_name="bag"
             frozen_indicators_values="net_mass: 500.00gram, cells_mass_concentration: 10billion_per_gram"
             />
+      <!-- PH PRODUCT -->     
+      <item name="malic_acid_25kg"
+            nature="wine_acidifying"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram"
+            />
+      <item name="lactic_acid_25kg"
+            nature="wine_acidifying"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram"
+            />
+      <item name="potassium_bicarbonate_25kg"
+            nature="wine_alkalinizing"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram"
+            />
+      <item name="calcium_carbonate_25kg"
+            nature="wine_alkalinizing"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram"
+            />
+      <!-- CLARIFY PRODUCT -->
+      <item name="potassium_ferrocyanide_25kg"
+            nature="clarification_solution"
+            variety="potassium_ferrocyanide"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram"
+            />
+      <!-- SUGAR PRODUCT -->
+      <item name="white_sugar_25kg"
+            nature="sugar"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram"
+            />       
       <!-- PLANT MEDICINE -->
       <item name="helianthus_herbicide"
             nature="herbicide"

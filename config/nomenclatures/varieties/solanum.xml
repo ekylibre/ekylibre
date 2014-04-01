@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-solanum" hierarchical="true">
+    <items>
+      <item name="solanum_tuberosum" itis_tsn="505272"/>
+    </items>  
+  </nomenclature>
+  
+  <nomenclature name="varieties-solanum_tuberosum" hierarchical="true">
+    <items>
+      <item name="solanum_tuberosum_agata" itis_tsn="00000"/>
+    </items> 
+  </nomenclature>
+  
+</nomenclatures>

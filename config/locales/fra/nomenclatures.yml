@@ -5,12 +5,15 @@ fra:
       property_natures:
         parameters: "Paramètres"
       items:
+        acidify: "Acidifier"
+        alkalinize: "Alcaliniser"
         blow: "Souffler"
         bunch: "Boteller"
         care: "Soigner"
         catalyze: "Catalyser"
         catch: "Atteler"
         chaptelise: "Chaptaliser"
+        clarify: "Clarifier"
         clean: "Nettoyer"
         consume: "Consommer"
         cut: "Couper"
@@ -1108,6 +1111,7 @@ fra:
         trial_balance: "Balance comptable"
         veterinary_booklet: "Carnet vétérinaire"
         vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
+        # wine_detention_registry: "Wine detention registry"
     entity_link_natures:
       name: "Types de liens sociaux"
       property_natures:
@@ -1479,13 +1483,21 @@ fra:
       property_natures:
         formula: "Formule"
       items:
+        calcium_carbonate: "Carbonate de calcium "
         copper_sulfate: "Sulfate de cuivre (Ⅰ)"
         dicopper_sulfate: "Sulfate de cuivre (Ⅱ)"
         dinitrogen: "Diazote"
+        diphosphorus_pentoxide: "Diphosphorus pentoxide"
         glucose: "Glucose"
+        lactic_acid: "Acide lactique "
+        malic_acid: "Acide malique"
         phosphate: "Phosphate"
         potash: "Potasse"
+        potassium_bicarbonate: "Bicarbonate de potassium"
+        potassium_ferrocyanide: "Ferrocyanide de potassium"
         sodium_chloride: "Chlorure de sodium"
+        sucrose: "Sucrose"
+        tetraphosphorus_decoxide: "Tetraphosphorus decoxide"
     net_services:
       name: "Services en ligne"
       property_natures:
@@ -1798,6 +1810,7 @@ fra:
         bulk_kg_animal_food: "Aliment en vrac (kg)"
         bulk_urea_46: "Engrais Urée 46% VRAC"
         bulk_wheat_straw: "Paille de blé en vrac"
+        calcium_carbonate_25kg: "Carbonate de calcium - 25kg"
         calf: "Veau"
         caphorn_wheat_crop: "Culture de blé tendre Caphorn"
         caphorn_wheat_seed_25: "Semence de blé tendre Caphorn"
@@ -1915,6 +1928,7 @@ fra:
         implanter: "Planteuse"
         insecticide: "Insecticide"
         irrigation_water: "Eau (irrigation)"
+        lactic_acid_25kg: "Acide lactique - 25kg"
         land_parcel: "Parcelle"
         land_parcel_cluster: "Îlot"
         lavender_crop: "Culture de lavande"
@@ -1926,6 +1940,7 @@ fra:
         male_adult_cow: "Taureau"
         male_hen_band: "Bande de poulet"
         male_young_cow: "Taurillon"
+        malic_acid_25kg: "Acide malique - 25kg"
         manager: "Responsable"
         manual_implanter: "Plantoir"
         manure_division: "Fumière"
@@ -1971,6 +1986,8 @@ fra:
         poaceae_fungicide: "Fongicide céréales/graminées"
         poaceae_herbicide: "Herbicide céréales/graminées"
         polyester_tank: "Cuve en polyester"
+        potassium_bicarbonate_25kg: "Bicarbonate de potassium - 25kg"
+        potassium_ferrocyanide_25kg: "Ferrocyanide de potassium - 25kg"
         potato_crop: "Culture de pomme de terre"
         pruning_platform: "plate-forme de taille"
         rabbit_manure: "Fumier de lapin"
@@ -2041,6 +2058,7 @@ fra:
         wheat_straw_big_rectangular_bales: "Botte de paille de blé - botte grand format"
         wheat_straw_round_bales: "Botte de paille de blé - balle ronde"
         wheat_straw_small_rectangular_bales: "Botte de paille de blé - botte petit format"
+        white_sugar_25kg: "Sucre blanc - 25kg"
         wine: "Vin"
         wine_press: "Pressoir"
         wine_vinasse: "Vinasse de distillerie"
@@ -2085,6 +2103,7 @@ fra:
         cattle_herd: "Troupeau de bovins"
         cereal_crop: "Culture de céréales"
         chemical_fertilizer: "Engrais minéral"
+        clarification_solution: "Solution clarifiante"
         complete_sower: "Semoir équipé"
         crop: "Culture"
         cultivable_zone: "Zone cultivable"
@@ -2170,6 +2189,7 @@ fra:
         spreader: "Épandeur à engrais"
         spreader_trailer: "Épandeur à fumier"
         straw: "Paille"
+        sugar: "Sucre"
         superficial_plow: "Déchaumeuse"
         technician: "Technicien"
         tractor: "Tracteur"
@@ -2177,6 +2197,8 @@ fra:
         usual_vine_seedling: "Plant de vigne traditionnel"
         walnut_crop: "Culture d’arbre à coques"
         wine: "Vin"
+        wine_acidifying: "Acidifiant (vin)"
+        wine_alkalinizing: "Alcalinisant (vin)"
         wine_crop: "Vigne"
         wine_press: "Pressoir (vin)"
         wine_tank: "Cuve à vin"
@@ -2491,6 +2513,7 @@ fra:
         cichorium: "Chicoré"                               # asteraceae
         cleaner: "Rabot"                                   # equipment
         compost: "Compost"                                 # excrement
+        concentrated_rectified_must: "Moût concentré rectifié" # preparation
         corabel: "Corabel"                                 # corylus_avellana
         corylus: "Corylus"                                 # betulaceae
         corylus_avellana: "Corylus avellana"               # corylus
@@ -2512,7 +2535,7 @@ fra:
         fabaceae: "Fabaceae"                               # plant
         fercoril_corabel: "Fercoril corabel"               # corylus_avellana
         feriale: "Feriale"                                 # corylus_avellana
-        fermented_juice: "Jus fermenté"               # preparation
+        fermented_juice: "Jus fermenté"                    # preparation
         fertile_coutard: "Fertile coutard"                 # corylus_avellana
         ficus: "Ficus"                                     # moraceae
         ficus_carica: "Ficus carica"                       # ficus
@@ -2599,7 +2622,8 @@ fra:
         poa: "Prairie"                                     # poaceae
         poaceae: "Graminée"                                # plant
         pollen: "Pollen"                                   # organic_matter
-        pomace: "Résidu (Tourteau, Marc)"                                 # preparation
+        pomace: "Résidu (Tourteau, Marc)"                  # preparation
+        potassium_ferrocyanide: "Ferrocyanure de potassium" # mineral_matter
         preparation: "Préparation"                         # matter
         press: "Pressoir"                                  # equipment
         product: "Produit"
@@ -2648,6 +2672,7 @@ fra:
         saccharomyces_cerevisiae: "Saccharomyces cerevisiae" # saccharomyces
         saccharomyces_cerevisiae_jb3: "Saccharomyces cerevisiae - jb3" # saccharomyces_cerevisiae
         saccharomycetaceae: "Saccharomycetaceae"           # fungus
+        saccharose: "Saccharose"                           # sugar
         salmo: "Salmonidé"                                 # osteichthyes
         salt: "Sel"                                        # mineral_matter
         sand: "Sable"                                      # mineral_matter
@@ -2661,12 +2686,15 @@ fra:
         slurry: "Lisier"                                   # excrement
         solanaceae: "Solanaceae"                           # plant
         solanum: "Pomme de terre"                          # solanaceae
+        solanum_tuberosum: "Solanum tuberosum"             # solanum
+        solanum_tuberosum_agata: "Solanum tuberosum - Agata" # solanum_tuberosum
         sorghum: "Sorgho"                                  # poaceae
         sower: "Semoir"                                    # equipment
         sprayer: "Pulvérisateur"                           # equipment
         spreader: "Épandeur"                               # equipment
         straw: "Paille"                                    # grass
         sub_zone: "Sous zone"                              # zone
+        sugar: "Sucre"                                     # organic_matter
         sus: "Porcin"                                      # mammalia
         tank: "Réservoir"                                  # equipment
         tonda_giffoni: "Tonda giffoni"                     # corylus_avellana
@@ -2748,3 +2776,9 @@ fra:
         zea_lg3490: "Zea - lg3490"                         # zea
         zone: "Zone physique"                              # matter
         zone_property_title: "Titre de propriété terrienne" # property_title
+    working_sets:
+      # name: "Working sets"
+      property_natures:
+        # expression: "Expression"
+      items:
+        oenological_regulateds: "Produits oenologiques détenus"
