@@ -37,7 +37,7 @@ module Ekylibre::Record
           # code << "end\n"
 
           code << "def self.#{indicator}_view_box(options = {})\n"
-          code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.class.srid(options[:srid])})\" : '#{column}')\n"
+          code << "  expr = (options[:srid] ? \"ST_Transform(#{column}, \#{self.srid(options[:srid])})\" : '#{column}')\n"
           code << "  ids = ProductReading.of_products(self, :#{indicator}, options[:at]).pluck(:id)\n"
           code << "  return [] unless ids.any?\n"
           code << "  values = self.connection.select_one(\"SELECT min(ST_XMin(\#{expr})) AS x_min, min(ST_YMin(\#{expr})) AS y_min, max(ST_XMax(\#{expr})) AS x_max, max(ST_YMax(\#{expr})) AS y_max FROM \#{ProductReading.indicator_table_name(:#{indicator})} WHERE id IN (\#{ids.join(',')})\").symbolize_keys\n"
@@ -53,7 +53,7 @@ module Ekylibre::Record
           code << "  svg << ' class=\"#{indicator}\" preserveAspectRatio=\"xMidYMid meet\" width=\"100%\" height=\"100%\" viewBox=\"' + #{indicator}_view_box(options).join(' ') + '\"'\n"
           code << "  svg << '>'\n"
           code << "  for product in Product.where(id: ids)\n"
-          code << "    svg << '<path d=\"' + product.#{indicator}_to_svg(options) + '\"/>'\n"
+          code << "    svg << '<path d=\"' + product.#{indicator}_to_svg_path(options) + '\"/>'\n"
           code << "  end\n"
           code << "  svg << '</svg>'\n"
           code << "  return svg.html_safe\n"
@@ -62,12 +62,13 @@ module Ekylibre::Record
           # Return SVG as String
           code << "def #{indicator}_svg(options = {})\n"
           code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
-          code << "  options[:srid] ||= 2154\n"
-          code << "  return ('<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
-          for attr, value in {:class => indicator, :preserve_aspect_ratio => 'xMidYMid meet', :width => 180, :height => 180, :view_box => "self.#{indicator}_view_box(options).join(' ')".c}
-            code << " #{attr.to_s.camelcase(:lower)}=\"' + (options[:#{attr}] || #{value.inspect}).to_s + '\""
-          end
-          code << "><path d=\"' + self.#{indicator}_to_svg(options).to_s + '\"/></svg>').html_safe\n"
+          code << "  return Charta::Geometry.new(self.#{indicator}).to_svg(options)\n"
+          # code << "  options[:srid] ||= 2154\n"
+          # code << "  return ('<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
+          # for attr, value in {:class => indicator, :preserve_aspect_ratio => 'xMidYMid meet', :width => 180, :height => 180, :view_box => "self.#{indicator}_view_box(options).join(' ')".c}
+          #   code << " #{attr.to_s.camelcase(:lower)}=\"' + (options[:#{attr}] || #{value.inspect}).to_s + '\""
+          # end
+          # code << "><path d=\"' + self.#{indicator}_to_svg(options).to_s + '\"/></svg>').html_safe\n"
           code << "end\n"
 
           # Return ViewBox
@@ -80,7 +81,7 @@ module Ekylibre::Record
           # code << "  return self.#{indicator}_dir.join(format.to_s + '.' + (format == :original ? 'svg' : 'png'))\n"
           # code << "end\n"
 
-          for attr in [:x_min, :x_max, :y_min, :y_max, :area, :to_svg, :to_gml, :to_kml, :to_geojson, :to_text, :to_binary, :to_ewkt, :centroid, :point_on_surface]
+          for attr in [:x_min, :x_max, :y_min, :y_max, :area, :to_svg, :to_svg_path, :to_gml, :to_kml, :to_geojson, :to_text, :to_binary, :to_ewkt, :centroid, :point_on_surface]
             code << "def #{indicator}_#{attr.to_s.downcase}(options = {})\n"
             code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
             code << "  geometry = Charta::Geometry.new(reading.#{column})\n"

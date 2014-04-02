@@ -40,13 +40,15 @@
 
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="intervention" in="support.interventions.real.where(state: 'done').reorder(:started_at)" of-type="record">
-              <variable name="target" value="intervention.casts.of_role(:'target').first.actor"/>
+              <variable name="target_cast" value="intervention.casts.of_role('target').first"/>
+              <variable name="target" value="target_cast.actor"/>
               <title name="name" of="intervention"/>
               <property name="id" of="intervention" level="api"/>
               <property name="url" value="url_for(controller: '/backend/interventions',action: :show, id: intervention.id)" level="api"/>
               <property name="status" of="intervention"/>
               <property name="casting" of="intervention" level="api"/>
-              <title name="target_name" value="target.name"/>
+              <property name="target_name" value="target.name"/>
+              <property name="shape_svg" type="svg" if="target_cast.shape" of="target_cast" level="api"/>
               <property name="started_at" of="intervention" type="datetime"/>
               <property name="stopped_at" of="intervention" type="datetime"/>
               <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>

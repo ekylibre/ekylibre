@@ -40,7 +40,7 @@ module Backend::MapsHelper
     # View box
     if global
       options[:view] ||= {}
-      options[:view][:bounding_box] = global.bounding_box
+      options[:view][:bounding_box] = global.bounding_box.to_a
     end
 
     return content_tag(:div, nil, html_options.merge(data: {map: options.jsonize_keys.to_json}))
