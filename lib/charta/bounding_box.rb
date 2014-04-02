@@ -6,16 +6,6 @@ module Charta
 
     def initialize(y_min, x_min, y_max, x_max)
       @y_min, @x_min, @y_max, @x_max = y_min, x_min, y_max, x_max
-      if @y_min > @y_max
-        y = @y_min
-        @y_min = @y_max
-        @y_max = y
-      end
-      if @x_min > @x_max
-        x = @x_min
-        @x_min = @x_max
-        @x_max = x
-      end
     end
 
     def width
@@ -31,7 +21,7 @@ module Charta
     end
 
     def to_a
-      return [[@x_min, @y_min], [@x_max, @y_max]]
+      return [[@y_min, @x_min], [@y_max, @x_max]]
     end
 
   end

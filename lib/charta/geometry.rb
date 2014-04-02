@@ -69,14 +69,11 @@ module Charta
     end
 
     def to_svg(options = {})
-      options[:srid] ||= 2154
-      srid = find_srid(options[:srid])
-      geom = srid != @srid ? transform(srid) : self
       svg = "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
-      for attr, value in {preserve_aspect_ratio: 'xMidYMid meet', width: 180, height: 180, view_box: geom.bounding_box.svg_view_box.join(' ')}.merge(options)
+      for attr, value in {preserve_aspect_ratio: 'xMidYMid meet', width: 180, height: 180, view_box: self.bounding_box.svg_view_box.join(' ')}.merge(options)
         svg << " #{attr.to_s.camelcase(:lower)}=\"#{value}\""
       end
-      svg << "><path d=\"#{geom.to_svg_path}\"/></svg>"
+      svg << "><path d=\"#{self.to_svg_path}\"/></svg>"
       return svg
     end
 

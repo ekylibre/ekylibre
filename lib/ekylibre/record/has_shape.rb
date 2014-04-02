@@ -46,7 +46,7 @@ module Ekylibre::Record
 
           # As SVG
           code << "def self.#{indicator}_svg(options = {})\n"
-          code << "  options[:srid] ||= 2154\n"
+          # code << "  options[:srid] ||= 2154\n"
           code << "  ids = ProductReading.of_products(self, :#{indicator}, options[:at]).pluck(:product_id)\n"
           code << "  svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\"'\n"
           code << "  return (svg + '/>').html_safe unless ids.any?\n"
