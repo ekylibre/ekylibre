@@ -8182,4 +8182,4 @@ fra:
         fr_vat_normal: "TVA 20.00%"
         fr_vat_null: "TVA 0.00%"
         fr_vat_particular: "TVA 2.10%"
-        fr_vat_reduced: "TVA 5.00%"
+        fr_vat_reduced: "TVA 5.50%"
