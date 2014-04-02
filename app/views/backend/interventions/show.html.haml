@@ -4,7 +4,10 @@
     - t.run @intervention, method: :post, "data-confirm" => :are_you_sure.tl
 
 = beehive do |b|
-  - b.tabbox do
+  - b.hbox do
+    - if @intervention.casts.of_role(:target).first.actor.shape
+      - b.cell :map do
+        = mini_map(@intervention.casts.of_role(:target).first.actor)
     - b.cell do
       = attributes_list do |l|
         - l.attribute :name

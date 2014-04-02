@@ -19,11 +19,11 @@
 
 = field_set(:sales) do
   = f.referenced_association :product_account
-  = f.association :sale_taxes
+  = f.association :sale_taxes, as: :radio_buttons
 
 = field_set(:purchases) do
   = f.referenced_association :charge_account
-  = f.association :purchase_taxes
+  = f.association :purchase_taxes, as: :radio_buttons
 
 -# = field_set(:accountancy) do
 

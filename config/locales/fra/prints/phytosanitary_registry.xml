@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="phytosanitary_registry_list" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="483"/>
+	<property name="ireport.y" value="403"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
 	<style name="SubTitle" forecolor="#736343" fontName="Open Sans" fontSize="18"/>
@@ -95,6 +95,9 @@
 	</field>
 	<field name="input_quantity_in_liter_per_hectare" class="java.lang.Double">
 		<fieldDescription><![CDATA[quantity-in-liter-per-hectare]]></fieldDescription>
+	</field>
+	<field name="intervention_url" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/@url]]></fieldDescription>
 	</field>
 	<sortField name="campaign" order="Descending"/>
 	<sortField name="plant_cultivable_zone"/>
@@ -199,42 +202,42 @@
 					<text><![CDATA[Surface travaillée]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="330" y="191" width="134" height="53" uuid="1802a171-77a4-49b9-9a5a-2f6ad77f2599"/>
+					<reportElement style="table-th" x="306" y="191" width="134" height="53" uuid="1802a171-77a4-49b9-9a5a-2f6ad77f2599"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
 					<text><![CDATA[Produits utilisés]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="464" y="209" width="49" height="35" uuid="1ee9da2e-3a36-40b7-b70a-3de8338f1b05"/>
+					<reportElement style="table-th" x="440" y="209" width="49" height="35" uuid="1ee9da2e-3a36-40b7-b70a-3de8338f1b05"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
 					<text><![CDATA[direct]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="513" y="209" width="61" height="35" uuid="8e187241-b157-4b6e-b58d-181ba9de1534"/>
+					<reportElement style="table-th" x="489" y="209" width="61" height="35" uuid="8e187241-b157-4b6e-b58d-181ba9de1534"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
 					<text><![CDATA[en litre]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="574" y="209" width="60" height="35" uuid="db9ac3a4-49a9-4973-8943-d522f70ca10b"/>
+					<reportElement style="table-th" x="550" y="209" width="60" height="35" uuid="db9ac3a4-49a9-4973-8943-d522f70ca10b"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
 					<text><![CDATA[en litre par hectare]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="634" y="191" width="100" height="53" uuid="2854c438-a9cc-43df-b25a-55a5925df0c6"/>
+					<reportElement style="table-th" x="610" y="191" width="100" height="53" uuid="2854c438-a9cc-43df-b25a-55a5925df0c6"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
 					<text><![CDATA[Applicateur]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="187" y="191" width="143" height="53" uuid="b26948e4-82ea-46af-b24b-ba1b00065735"/>
+					<reportElement style="table-th" x="187" y="191" width="119" height="53" uuid="b26948e4-82ea-46af-b24b-ba1b00065735"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
@@ -264,11 +267,11 @@
 					<reportElement style="title" x="0" y="59" width="250" height="81" uuid="ed954d71-6d69-4db5-8a9f-dcbaeaf81679"/>
 				</rectangle>
 				<staticText>
-					<reportElement style="strong" x="0" y="171" width="734" height="20" uuid="1c5f55c2-fc3c-4d41-b2ce-16e830a94d1d"/>
+					<reportElement style="strong" x="0" y="171" width="710" height="20" uuid="1c5f55c2-fc3c-4d41-b2ce-16e830a94d1d"/>
 					<text><![CDATA[Interventions]]></text>
 				</staticText>
 				<staticText>
-					<reportElement style="table-th" x="464" y="191" width="170" height="18" uuid="0cb7b757-4d7c-4d9b-9014-301f24a9a992"/>
+					<reportElement style="table-th" x="440" y="191" width="170" height="18" uuid="0cb7b757-4d7c-4d9b-9014-301f24a9a992"/>
 					<textElement verticalAlignment="Middle">
 						<font fontName="Open Sans" size="10"/>
 					</textElement>
@@ -317,43 +320,49 @@
 		<band height="25" splitType="Stretch"/>
 	</pageHeader>
 	<detail>
-		<band height="36" splitType="Stretch">
+		<band height="50" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
-				<reportElement style="table-td" x="0" y="0" width="70" height="36" uuid="1e6653e4-ff27-4ed8-8e62-e3358c682bd2"/>
+				<reportElement style="table-td" x="0" y="0" width="70" height="50" uuid="1e6653e4-ff27-4ed8-8e62-e3358c682bd2"/>
 				<textFieldExpression><![CDATA[$F{intervention_started_at}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy HH.mm.ss" isBlankWhenNull="true">
-				<reportElement style="table-td" x="70" y="0" width="68" height="36" uuid="0045af3e-d7fe-4832-9420-5843e022bc4c"/>
+				<reportElement style="table-td" x="70" y="0" width="68" height="50" uuid="0045af3e-d7fe-4832-9420-5843e022bc4c"/>
 				<textFieldExpression><![CDATA[$F{intervention_stopped_at}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00 ha" isBlankWhenNull="true">
-				<reportElement style="table-td" x="138" y="0" width="49" height="36" uuid="9233a36c-8b51-43d9-9a30-3e561ac7a3e6"/>
+				<reportElement style="table-td" x="138" y="0" width="49" height="50" uuid="9233a36c-8b51-43d9-9a30-3e561ac7a3e6"/>
 				<textFieldExpression><![CDATA[$F{intervention_working_area}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="table-td" x="330" y="0" width="134" height="36" uuid="8e9f3ff8-d719-4cf4-9a64-ad0fbf5af86c"/>
+				<reportElement style="table-td" x="306" y="0" width="134" height="50" uuid="8e9f3ff8-d719-4cf4-9a64-ad0fbf5af86c"/>
 				<textFieldExpression><![CDATA[$F{input_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement style="table-td" x="464" y="0" width="49" height="36" uuid="bf628837-cd2a-477d-a345-d9dc292f4d87"/>
+				<reportElement style="table-td" x="440" y="0" width="49" height="50" uuid="bf628837-cd2a-477d-a345-d9dc292f4d87"/>
 				<textFieldExpression><![CDATA[$F{input_quantity}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="table-td" x="513" y="0" width="61" height="36" uuid="5c089255-6d22-4181-a6ce-17010b3a9e0d"/>
+				<reportElement style="table-td" x="489" y="0" width="61" height="50" uuid="5c089255-6d22-4181-a6ce-17010b3a9e0d"/>
 				<textFieldExpression><![CDATA[$F{input_quantity_in_liter}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="table-td" x="634" y="0" width="100" height="36" uuid="94b9254c-35d0-4f28-a592-00d743e7c6e9"/>
+				<reportElement style="table-td" x="610" y="0" width="100" height="50" uuid="94b9254c-35d0-4f28-a592-00d743e7c6e9"/>
 				<textFieldExpression><![CDATA[$F{intervention_doer_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="table-td" x="574" y="0" width="60" height="36" uuid="95c58b0d-8f95-497e-8345-5781b47ad27a"/>
+				<reportElement style="table-td" x="550" y="0" width="60" height="50" uuid="95c58b0d-8f95-497e-8345-5781b47ad27a"/>
 				<textFieldExpression><![CDATA[$F{input_quantity_in_liter_per_hectare}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement style="table-td" x="187" y="0" width="143" height="36" uuid="db743646-04d7-4989-8ca2-e448925f0c48"/>
+				<reportElement style="table-td" x="187" y="0" width="119" height="50" uuid="db743646-04d7-4989-8ca2-e448925f0c48"/>
 				<textFieldExpression><![CDATA[$F{input_variant_name}]]></textFieldExpression>
 			</textField>
+			<componentElement>
+				<reportElement x="721" y="0" width="54" height="50" uuid="587a49d2-0795-44cc-9899-32b301343f43"/>
+				<jr:DataMatrix xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{intervention_url}]]></jr:codeExpression>
+				</jr:DataMatrix>
+			</componentElement>
 		</band>
 	</detail>
 	<pageFooter>

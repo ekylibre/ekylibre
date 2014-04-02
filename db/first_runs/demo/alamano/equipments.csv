@@ -4,12 +4,12 @@ Brice TEXIER,technician,brice.texier,S09_D02,1983-01-01,,,,Population : 1,,11.7
 David JOULIN,technician,david.joulin,S09_D02,1981-01-01,,,,Population : 1,,11.74,usage_duration
 Yvan JOULIN,technician,yvan.joulin,S09_D02,1984-01-01,,,,Population : 1,,11.74,usage_duration
 ,CUVE / SILO / RESERVE,,,,,,,,,,
-Cuve n°1,concrete_tank,TANK_1_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
-Cuve n°2,concrete_tank,TANK_2_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
-Cuve n°3,stainless_steel_tank,TANK_3_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
-Cuve n°4,stainless_steel_tank,TANK_4_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
-Cuve n°5,fiberglass_tank,TANK_5_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
-Cuve n°6,polyester_tank,TANK_6_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 30hectoliter,,0.8,usage_duration
+Cuve n°1,concrete_tank,TANK_1_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 120hectoliter,,0.8,usage_duration
+Cuve n°2,fiberglass_tank,TANK_2_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 740hectoliter,,0.8,usage_duration
+Cuve n°3,stainless_steel_tank,TANK_3_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 60hectoliter,,0.8,usage_duration
+Cuve n°4,stainless_steel_tank,TANK_4_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 60hectoliter,,0.8,usage_duration
+Cuve n°5,polyester_tank,TANK_5_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 110hectoliter,,0.8,usage_duration
+Cuve n°6,polyester_tank,TANK_6_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 110hectoliter,,0.8,usage_duration
 Tank Lait 3000,milk_tank,TANK_1_S05_D09,S05_D09,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 3000liter,,0.5,usage_duration
 Tank Lait 1500,milk_tank,TANK_2_S05_D09,S05_D09,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 1500liter,,0.5,usage_duration
 Silo Aliment Gauche,food_tank,TANK_1G_S05,S05,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 10cubic_meter ; nominal_storable_net_mass : 7ton,,0.8,usage_duration

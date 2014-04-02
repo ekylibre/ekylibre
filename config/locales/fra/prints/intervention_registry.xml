@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="intervention_registry" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="402"/>
+	<property name="ireport.y" value="427"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="land_parcel_registry"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
@@ -127,12 +127,15 @@
 	<field name="support_svg_path" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::support/@shape-svg]]></fieldDescription>
 	</field>
+	<field name="intervention_svg_path" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::intervention/@shape-svg]]></fieldDescription>
+	</field>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
 		<groupHeader>
 			<band height="50">
 				<textField>
-					<reportElement isPrintRepeatedValues="false" x="306" y="10" width="114" height="29" printWhenGroupChanges="campaign" uuid="26989836-89a9-4862-8b1a-40c2b54e1ee3"/>
+					<reportElement style="strong" isPrintRepeatedValues="false" x="306" y="10" width="114" height="29" printWhenGroupChanges="campaign" uuid="26989836-89a9-4862-8b1a-40c2b54e1ee3"/>
 					<textElement textAlignment="Right" verticalAlignment="Middle">
 						<font size="14"/>
 					</textElement>
@@ -187,7 +190,7 @@
 	<group name="intervention" keepTogether="true">
 		<groupExpression><![CDATA[$F{intervention_id}]]></groupExpression>
 		<groupHeader>
-			<band height="62" splitType="Prevent">
+			<band height="70" splitType="Prevent">
 				<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.HorizontalRowLayout"/>
 				<textField>
 					<reportElement style="SubTitle" x="34" y="0" width="243" height="30" uuid="10349219-e790-424d-81b9-a92e2ca56970"/>
@@ -198,21 +201,21 @@
 					<textFieldExpression><![CDATA[$F{intervention_name}]]></textFieldExpression>
 				</textField>
 				<textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
-					<reportElement x="277" y="0" width="83" height="49" uuid="0f30f8dc-93c8-4e78-9c5a-5cd100efd937"/>
+					<reportElement style="strong" x="277" y="0" width="83" height="49" uuid="0f30f8dc-93c8-4e78-9c5a-5cd100efd937"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{intervention_started_at}]]></textFieldExpression>
 				</textField>
 				<textField pattern="dd/MM/yyyy HH.mm" isBlankWhenNull="true">
-					<reportElement x="360" y="0" width="79" height="49" uuid="f37901fc-4ab4-44eb-ae0b-e2308da0d007"/>
+					<reportElement style="strong" x="360" y="0" width="79" height="49" uuid="f37901fc-4ab4-44eb-ae0b-e2308da0d007"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle">
 						<font isBold="true"/>
 					</textElement>
 					<textFieldExpression><![CDATA[$F{intervention_stopped_at}]]></textFieldExpression>
 				</textField>
 				<textField pattern="###0.00 H" isBlankWhenNull="true">
-					<reportElement x="439" y="0" width="66" height="49" uuid="611ff757-faf7-4bca-8e75-81d6c27f8c2d"/>
+					<reportElement style="strong" x="439" y="0" width="66" height="49" uuid="611ff757-faf7-4bca-8e75-81d6c27f8c2d"/>
 					<textElement textAlignment="Center" verticalAlignment="Middle"/>
 					<textFieldExpression><![CDATA[$F{intervention_duration}]]></textFieldExpression>
 				</textField>
@@ -233,8 +236,14 @@
 					<textFieldExpression><![CDATA[$F{production_name}]]></textFieldExpression>
 				</textField>
 				<line>
-					<reportElement style="strong" x="249" y="59" width="537" height="1" uuid="399999a8-ec28-4088-a572-ea0c06d698b6"/>
+					<reportElement style="strong" x="249" y="66" width="537" height="1" uuid="399999a8-ec28-4088-a572-ea0c06d698b6"/>
 				</line>
+				<image onErrorType="Blank" evaluationTime="Group" evaluationGroup="intervention">
+					<reportElement x="569" y="0" width="83" height="60" isPrintWhenDetailOverflows="true" uuid="f6cc34c9-7be5-459d-9d36-e638ced93aa8">
+						<printWhenExpression><![CDATA[!$F{intervention_svg_path}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($F{intervention_svg_path})]]></imageExpression>
+				</image>
 			</band>
 		</groupHeader>
 		<groupFooter>
@@ -360,7 +369,7 @@
 				<reportElement x="34" y="356" width="203" height="47" uuid="260bc234-618d-4ec0-9aee-5d9f8eb1a164"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="60" y="372" width="147" height="20" uuid="f8981702-a617-45c9-8e12-38a80cba94d7"/>
+				<reportElement style="base" x="60" y="372" width="147" height="20" uuid="f8981702-a617-45c9-8e12-38a80cba94d7"/>
 				<text><![CDATA[Schéma de la zone travaillée]]></text>
 			</staticText>
 			<staticText>
@@ -390,24 +399,24 @@
 	<detail>
 		<band height="20" splitType="Prevent">
 			<textField isBlankWhenNull="true">
-				<reportElement x="369" y="0" width="143" height="20" uuid="bcb91033-cd83-4151-9495-57259f8bd3c2"/>
+				<reportElement style="base" x="369" y="0" width="143" height="20" uuid="bcb91033-cd83-4151-9495-57259f8bd3c2"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{input_name}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="251" y="0" width="118" height="20" uuid="c5f86e29-609a-4294-942f-70e918c89882"/>
+				<reportElement style="base" x="251" y="0" width="118" height="20" uuid="c5f86e29-609a-4294-942f-70e918c89882"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{input_variable_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="true">
-				<reportElement x="634" y="0" width="152" height="20" uuid="d4816323-184c-4e99-bf3f-1de9d715c4d8"/>
+				<reportElement style="base" x="634" y="0" width="152" height="20" uuid="d4816323-184c-4e99-bf3f-1de9d715c4d8"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{input_population}+" ( "+$F{input_unit_name}+" )"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="510" y="0" width="124" height="20" uuid="93af19c1-3f9c-426e-9e04-a3c297973887"/>
+				<reportElement style="base" x="510" y="0" width="124" height="20" uuid="93af19c1-3f9c-426e-9e04-a3c297973887"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{input_human_roles}]]></textFieldExpression>
 			</textField>

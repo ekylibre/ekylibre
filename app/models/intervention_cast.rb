@@ -53,6 +53,7 @@ class InterventionCast < Ekylibre::Record::Base
 
   delegate :name, to: :actor, prefix: true
   delegate :evaluated_price, to: :actor
+  delegate :tracking, to: :actor
   delegate :started_at, :stopped_at, to: :intervention
   delegate :matching_model, to: :variant
 
