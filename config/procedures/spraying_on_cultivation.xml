@@ -2,19 +2,22 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="spraying_on_cultivation" natures="plant_illness_treatment" version="0" status="frozen">
     <variables>
-      <variable name="driver" variety="worker" roles="plant_illness_treatment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="tractor" variety="equipment" abilities="catch(sprayer)" roles="plant_illness_treatment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="water" variety="water" need="population"/>
       <variable name="medicine" variety="plant_medicine"/>
       <variable name="medicine_to_spray" new="parted-from: medicine" roles="plant_illness_treatment-input" default-population=":medicine">
       <handler indicator="population" />
-      <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
+      <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="medicine_to_spray? &amp; medicine_to_spray..net_mass(kilogram) > 0"
                  forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(kilogram)"
                  backward="(value * self..net_mass(kilogram)) / cultivation.net_surface_area(hectare)"
                  /> <!-- kg / ha -->
+      <handler indicator="volume_area_density"   unit="liter_per_hectare"   to="population"
+        if="medicine_to_spray? &amp; medicine_to_spray..net_volume(liter) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_volume(liter)"
+                 backward="(value * self..net_volume(liter)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- l / ha -->
       </variable>
-      <variable name="mixture" variety="variety: medicine"/>
+      <variable name="tractor" variety="equipment" abilities="catch(sprayer)" roles="plant_illness_treatment-tool"/>
       <variable name="sprayer" abilities="spray" roles="plant_illness_treatment-tool"/>
+      <variable name="driver" variety="worker" roles="plant_illness_treatment-doer"/>
       <variable name="cultivation" variety="plant" roles="plant_illness_treatment-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
@@ -39,34 +42,30 @@
         <task do="[medicine] parts with [medicine_to_spray]"/>
       </operation>
       <operation id="600" duration="4 minutes">
-        <task do="[water] moves in [sprayer]"/>
-      </operation>
-      <operation id="700" duration="4 minutes">
         <task do="[medicine_to_spray] moves in [sprayer]"/>
-        <task do= "[medicine_to_spray] and [water] are mixed into [mixture]"/>
       </operation>
-      <operation id="800" duration="18 minutes">
+      <operation id="700" duration="18 minutes">
         <task do="[tractor] moves at [cultivation]"/>
         <!-- le chauffeur + son tracteur et son épandeur chargé de fumier se déplace vers la parcelle et rentre dedant (?) -->
       </operation>
-      <operation id="900">
+      <operation id="800">
         <!-- tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, le pulvé tourne) les task tournent -->
-        <task do="[mixture] moves in [cultivation]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
-        <task do="[cultivation] consumes [mixture]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
+        <task do="[medicine_to_spray] moves in [cultivation]"/><!-- le traitement tombe sur la sole de blé car le pulvé tourne (?) -->
+        <task do="[cultivation] consumes [medicine_to_spray]"/><!-- la sole de blé consomme le traitement épandu car il se dépose sur les feuilles des plants de blé -->
         <!-- Le bioprocess lié doit faire l'action suivante : [cultivation] consumes [fertilizer] in [land_parcel] -->
         <!-- À terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
         <!-- et je retourne charger de l'engrais sur le tas global-->
       </operation>
-      <operation id="1000" duration="18 minutes">
+      <operation id="900" duration="18 minutes">
         <task do="[tractor] moves in default storage of [sprayer]"/>
       </operation>
-      <operation id="1100" duration="4 minutes">
+      <operation id="1000" duration="4 minutes">
         <task do="[tractor] releases [sprayer]"/>
       </operation>
-      <operation id="1200" duration="7 minutes">
+      <operation id="1100" duration="7 minutes">
         <task do="[tractor] moves in default storage"/>
       </operation>
-      <operation id="1300" duration="4 minutes">
+      <operation id="1200" duration="4 minutes">
         <task do="[driver] moves in default storage"/>
       </operation>
     </operations>
