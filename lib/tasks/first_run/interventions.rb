@@ -68,6 +68,8 @@ load_data :interventions do |loader|
                     Ekylibre::FirstRun::Booker.intervene(:spraying_on_cultivation, year, 4, 1, 1.07 * coeff, support: support) do |i|
                       i.add_cast(reference_name: 'medicine', actor: i.find(Product, can: "kill(plant)"))
                       i.add_cast(reference_name: 'medicine_to_spray', population: 0.18 + 0.9 * coeff)
+                      i.add_cast(reference_name: 'water',    actor: i.find(Product, variety: :water))
+                      i.add_cast(reference_name: 'mixture',  actor: i.find(Product, variety: :medicine))
                       i.add_cast(reference_name: 'sprayer',  actor: i.find(Product, can: "spray"))
                       i.add_cast(reference_name: 'driver',   actor: i.find(Worker))
                       i.add_cast(reference_name: 'tractor',  actor: i.find(Product, can: "catch"))

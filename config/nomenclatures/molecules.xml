@@ -12,6 +12,7 @@
       <item name="potassium_ferrocyanide"        formula="C(#N)[Fe-4](C#N)(C#N)(C#N)(C#N)C#N.O.O.O.[K+].[K+].[K+].[K+]"/>
       <item name="phosphate"                     formula="[O-]P(=O)([O-])[O-]"/>
       <item name="potash"                        formula="[K]O[K]"/>
+      <item name="potassium_oxide"               formula="[K]O[K]"/>
       <item name="sodium_chloride"               formula="[Na+].[Cl-]"/>
       <item name="copper_sulfate"                formula="[Cu+2].[O-]S(=O)(=O)[O-]"/>
       <item name="dicopper_sulfate"              formula="[O-]S(=O)(=O)[O-].[Cu+].[Cu+]"/>
