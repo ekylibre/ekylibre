@@ -511,6 +511,17 @@
         <page to="backend/medicines#unroll"/>
         <page to="backend/medicines#update"/>
       </item>
+      <item name="trackings">
+        <page to="backend/trackings#index"/>
+        <page to="backend/trackings#create"/>
+        <page to="backend/trackings#destroy"/>
+        <page to="backend/trackings#edit"/>
+        <page to="backend/trackings#list"/>
+        <page to="backend/trackings#new"/>
+        <page to="backend/trackings#show"/>
+        <page to="backend/trackings#unroll"/>
+        <page to="backend/trackings#update"/>
+      </item>
       <!--
       <item name="organic_matters">
         <page to="backend/organic_matters#index"/>
@@ -940,17 +951,6 @@
         <page to="backend/documents#update"/>
         <page to="backend/document_archives#show"/>
         <page to="backend/documents#list_archives"/>
-      </item>
-      <item name="trackings">
-        <page to="backend/trackings#index"/>
-        <page to="backend/trackings#create"/>
-        <page to="backend/trackings#destroy"/>
-        <page to="backend/trackings#edit"/>
-        <page to="backend/trackings#list"/>
-        <page to="backend/trackings#new"/>
-        <page to="backend/trackings#show"/>
-        <page to="backend/trackings#unroll"/>
-        <page to="backend/trackings#update"/>
       </item>
       <!-- <item name="backups"> -->
       <!--   <page to="backend/settings#backups"/> -->
