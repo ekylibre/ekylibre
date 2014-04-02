@@ -775,7 +775,7 @@ inventories:
   number: {type: string, limit: 20}
   reflected: {type: boolean, required: true, default: false}
   reflected_at: {type: datetime}
-  responsible_id: {type: integer, references: entity}
+  responsible_id: {type: integer, references: person}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 

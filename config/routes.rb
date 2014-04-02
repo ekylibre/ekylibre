@@ -684,12 +684,12 @@ Ekylibre::Application.routes.draw do
       # collection do
       #   get :unroll
       # end
-      # member do
-      #   get :list_products
+      member do
+        get :list_products
       #   get :list_sale_items
       #   get :list_purchase_items
       #   get :list_operation_items
-      # end
+      end
     end
 
     # resources :tracking_states

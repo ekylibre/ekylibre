@@ -1,9 +1,15 @@
 - main_toolbar do |t|
-  - t.edit ressource
+  - t.edit resource
 
 = beehive do |b|
   - b.hbox do
     - b.cell do
       = attributes_list do |l|
         - l.attribute :name
+        - l.attribute :serial
         - l.attribute :description
+
+= beehive do |b|
+  - b.hbox do
+    - b.cell(:products) do
+      = list(:products)

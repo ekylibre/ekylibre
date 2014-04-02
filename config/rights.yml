@@ -726,6 +726,7 @@
 # - "backend/trackings#edit"
 # - "backend/trackings#index"
 # - "backend/trackings#list"
+# - "backend/trackings#list_products"
 # - "backend/trackings#new"
 # - "backend/trackings#show"
 # - "backend/trackings#unroll"

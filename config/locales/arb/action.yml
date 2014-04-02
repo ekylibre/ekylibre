@@ -2410,6 +2410,7 @@ arb:
     # backend/product_transfers: "{id}"
     # backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     # backend/products: "{work_number} {name} ({!population} {!unit_name})"
+    # backend/trackings: "{serial} ‒ {name} ‒ {producer.name}"
     # backend/users: "{first_name} {last_name}"
     logs: #?
     product_events: #?

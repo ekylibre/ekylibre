@@ -1760,6 +1760,10 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="trackings">
+        <page to="backend/trackings#list_products"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>
