@@ -1484,22 +1484,26 @@ fra:
       property_natures:
         formula: "Formule"
       items:
+        ammonia: "Ammoniac"
+        ammonium: "Ammonium"
         calcium_carbonate: "Carbonate de calcium"
         copper_sulfate: "Sulfate de cuivre (Ⅰ)"
         dicopper_sulfate: "Sulfate de cuivre (Ⅱ)"
         dinitrogen: "Diazote"
+        dioxygen: "Dioxygène"
         diphosphorus_pentoxide: "Pentoxyde de phosphore"
+        ethanol: "Éthanol"
         glucose: "Glucose"
         lactic_acid: "Acide lactique"
         malic_acid: "Acide malique"
         phosphate: "Phosphate"
-        potash: "Potasse"
         potassium_bicarbonate: "Bicarbonate de potassium"
         potassium_ferrocyanide: "Ferrocyanide de potassium"
         potassium_oxide: "Oxyde de potassium"
         sodium_chloride: "Chlorure de sodium"
         sucrose: "Saccharose"
-        tetraphosphorus_decoxide: "Décaoxyde de phosphore"
+        tetraphosphorus_decaoxide: "Décaoxyde de phosphore"
+        water: "Eau"
     net_services:
       name: "Services en ligne"
       property_natures:

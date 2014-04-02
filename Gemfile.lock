@@ -257,7 +257,7 @@ GEM
       json (~> 1.8)
       rdoc (~> 4.0, < 5.0)
     sexp_processor (4.4.3)
-    shoulda-context (1.2.0)
+    shoulda-context (1.2.1)
     simple_calendar (0.1.10)
       rails (>= 3.0)
     simple_form (3.0.1)
