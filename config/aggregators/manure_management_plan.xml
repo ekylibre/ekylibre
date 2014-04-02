@@ -20,7 +20,7 @@
           <property name="net_surface_area" value="net_surface_area.to_d(:hectare)" of="zone" type="measure"/>
           <property name="net_surface_area_in_hectare" value="net_surface_area.to_d(:hectare)" of="zone" type="measure" level="api"/>
           <property name="id" of="zone" level="api"/>
-          <property name="shape_svg" of="zone" type="svg" level="api"/>
+          <property name="shape_svg" value="zone.shape_svg(srid: 2154)" type="svg" level="api"/>
           <!-- looking for all Production in current zone and campaign -->
           <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
             <title name="storage.name" of="support"/>

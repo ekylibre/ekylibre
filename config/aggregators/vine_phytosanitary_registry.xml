@@ -23,7 +23,7 @@
           <property name="id" of="plant" level="api"/>
           <property name="cluster_pac_number" value="plant.current_localization.container.clusters_work_number"/>
           <property name="cultivable_zone" if="plant.current_localization.container" value="plant.current_localization.container.name"/>
-          <property name="shape_svg" value="plant.current_localization.container.shape_svg" type="svg" level="api"/>
+          <property name="shape_svg" value="plant.current_localization.container.shape_svg(srid: 2154)" type="svg" level="api"/>
           <!-- looking for all Production in current cultivable_zone and campaign -->
             <sections for="intervention" in="Intervention.real.where(state: 'done').of_nature(:plant_illness_treatment).with_cast(:'plant_illness_treatment-target', plant)" of-type="record">
               <title name="name" of="intervention"/>

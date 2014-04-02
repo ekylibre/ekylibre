@@ -28,7 +28,7 @@
           <sections for="support" in="production.supports.of_campaign(campaign)" of-type="record">
             <title name="support"  value="support.storage.name"/>
             <property name="id" value="support.storage.id" level="api"/>
-            <property name="shape_svg" if="support.storage.shape" value="support.storage.shape_svg" type="svg" level="api"/>
+            <property name="shape_svg" if="support.storage.shape" value="support.storage.shape_svg(srid: 2154)" type="svg" level="api"/>
             <property name="work_number" value="support.storage.work_number"/>
             <property name="variant_name" value="support.production.variant_name"/>
             <property name="variant_variety" value="support.production.variant_variety"/>
@@ -48,7 +48,7 @@
               <property name="status" of="intervention"/>
               <property name="casting" of="intervention" level="api"/>
               <property name="target_name" value="target.name"/>
-              <property name="shape_svg" type="svg" if="target_cast.shape" of="target_cast" level="api"/>
+              <property name="shape_svg" type="svg" if="target_cast.shape" value="target_cast.shape_svg(srid: 2154)" level="api"/>
               <property name="started_at" of="intervention" type="datetime"/>
               <property name="stopped_at" of="intervention" type="datetime"/>
               <property name="duration" value="((intervention.stopped_at - intervention.started_at).to_d/(60*60)).round(2)"/>

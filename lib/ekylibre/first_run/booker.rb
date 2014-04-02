@@ -49,8 +49,14 @@ module Ekylibre
 
           duration += 1.5 - rand(0.5)
 
+          # Find procedure
+          procedure_name = "#{options[:namespace] || Procedo::DEFAULT_NAMESPACE}#{Procedo::NAMESPACE_SEPARATOR}#{procedure_code}#{Procedo::VERSION_SEPARATOR}#{options[:version] || '0'}"
+          unless procedure = Procedo[procedure_name]
+            raise ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
+          end
+
           # Find actors
-          booker = new(Time.new(year, month, day), duration)
+          booker = new(procedure, Time.new(year, month, day), duration)
           yield booker
           actors = booker.casts.collect{|c| c[:actor]}.compact
           if actors.empty?
@@ -58,10 +64,6 @@ module Ekylibre
           end
 
           # Adds fixed durations to given time
-          procedure_name = "#{options[:namespace] || Procedo::DEFAULT_NAMESPACE}#{Procedo::NAMESPACE_SEPARATOR}#{procedure_code}#{Procedo::VERSION_SEPARATOR}#{options[:version] || '0'}"
-          unless procedure = Procedo[procedure_name]
-            raise ArgumentError, "Unknown procedure #{procedure_code} (#{procedure_name})"
-          end
           fixed_duration = procedure.fixed_duration / 3600
           duration += fixed_duration
 
@@ -110,15 +112,19 @@ module Ekylibre
 
       end
 
-      attr_reader :casts, :duration, :started_at
+      attr_reader :casts, :duration, :started_at, :reference
 
-      def initialize(started_at, duration)
+      def initialize(reference, started_at, duration)
+        @reference = reference
         @duration = duration
         @started_at = started_at
         @casts = []
       end
 
       def add_cast(options = {})
+        unless reference.variables[options[:reference_name]]
+          raise "Invalid variable: #{options[:reference_name]} in procedure #{reference.name}" 
+        end
         @casts << options
       end
 
