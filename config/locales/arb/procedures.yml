@@ -80,6 +80,7 @@ arb:
     # mechanic: "Mécanisien"
     # medicine: "Traitement"
     # medicine_to_give: "Traitement à donner"
+    # medicine_to_spray: "Traitement à pulvériser"
     # milk: "Lait"
     # moluscicide_to_input: "Moluscicide à distribuer"
     # mother_animal: "Mère"
