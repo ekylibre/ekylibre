@@ -1080,6 +1080,7 @@ fra:
     stopped_at: "Arrêté le"
     storable: "Gérer les stocks"
     storage: "Storage"
+    # storages: "Storages"
     story: "Historique"
     string_value: "Valeur textuelle"
     subject: "Objet"

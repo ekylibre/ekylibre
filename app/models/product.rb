@@ -240,14 +240,14 @@ class Product < Ekylibre::Record::Base
     end
     ownership.owner = self.initial_owner
     ownership.save!
-    
+
     # Add first enjoyer on a product
     unless enjoyment = self.enjoyments.first_of_all
       enjoyment = self.enjoyments.build
     end
     enjoyment.enjoyer = self.initial_enjoyer || self.initial_owner
     enjoyment.save!
-    
+
     # Add first localization on a product
     if self.initial_container
       unless localization = self.localizations.first_of_all
@@ -257,9 +257,9 @@ class Product < Ekylibre::Record::Base
       localization.container = self.initial_container
       localization.save!
     end
-    
+
     unless self.extjuncted?
-      
+
       # Add default start junction
       if self.start_junction
         self.start_junction.update_column(:started_at, self.initial_born_at)
@@ -271,7 +271,7 @@ class Product < Ekylibre::Record::Base
         ProductBirth.create!(product_way_attributes: {road: self, population: self.initial_population, shape: self.initial_shape}, started_at: self.initial_born_at)
         self.reload
       end
-      
+
       # Add default finish junction
       if self.finish_junction
         if self.initial_dead_at
@@ -283,9 +283,9 @@ class Product < Ekylibre::Record::Base
         ProductDeath.create!(product: self, started_at: self.initial_dead_at)
         self.reload
       end
-      
+
     end
-    
+
     # Add first frozen indicator on a product from his variant
     if self.variant
       unless phase = self.phases.first_of_all
@@ -294,7 +294,7 @@ class Product < Ekylibre::Record::Base
       phase.variant = self.variant
       phase.save!
     end
-    
+
   end
 
 

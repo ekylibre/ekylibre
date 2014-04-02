@@ -56,8 +56,9 @@ class Activity < Ekylibre::Record::Base
     for campaign in campaigns
       raise ArgumentError.new("Expected Campaign, got #{campaign.class.name}:#{campaign.inspect}") unless campaign.is_a?(Campaign)
     end
-    joins(:productions).merge(Production.of_campaign(campaigns))
-    #where("id IN (SELECT activity_id FROM #{Production.table_name} WHERE campaign_id IN (?))", campaigns.map(&:id))
+    # joins(:productions).merge(Production.of_campaign(campaigns))
+    # where("id IN (SELECT activity_id FROM #{Production.table_name} WHERE campaign_id IN (?))", campaigns.map(&:id))
+    where("id IN (?)", Production.of_campaign(campaigns).pluck(:activity_id))
   }
 
   #scope :of_families, lambda { |*families|
