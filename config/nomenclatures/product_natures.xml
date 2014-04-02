@@ -618,7 +618,7 @@
             category="building_division"
             variety="building_division"
             population_counting="unitary"
-            abilities="store(equipment), store(straw), store(hay), store(mix)"
+            abilities="store(equipment), store(grass), store(mix), store(seed)"
             variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />
@@ -626,7 +626,7 @@
             category="equipment"
             variety="building_division"
             population_counting="unitary"
-            abilities="store(straw), store(hay), store(mix)"
+            abilities="store(grass), store(mix)"
             variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />
@@ -652,7 +652,7 @@
             category="equipment"
             variety="trailer"
             population_counting="unitary"
-            abilities="store_fluid, store(grain), store(straw), store(mineral_matter), move"
+            abilities="store_fluid, store(grain), store(grass), store(mineral_matter), move"
             variable_indicators="nominal_storable_net_volume, nominal_storable_easement_area, nominal_storable_net_mass"
             frozen_indicators="population"
             />
