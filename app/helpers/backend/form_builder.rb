@@ -291,7 +291,7 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
 
 
         # Adds owner fields
-        if @object.new_record?
+        if @object.initializeable?
           fs << @template.render(partial: "backend/shared/initial_values_form", locals: {f: self})
         end
 

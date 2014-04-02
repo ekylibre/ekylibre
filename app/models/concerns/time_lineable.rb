@@ -49,7 +49,21 @@ module TimeLineable
         self.previous.update_column(:stopped_at, self.stopped_at)
       end
     end
+
   end
+
+  module ClassMethods
+
+    def first_of_all
+      reorder(:started_at).first
+    end
+    
+    def last_of_all
+      reorder(:started_at).last
+    end    
+
+  end
+
 
   def previous
     return nil unless self.started_at

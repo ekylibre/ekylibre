@@ -86,18 +86,20 @@ class Product < Ekylibre::Record::Base
   has_many :enjoyments, class_name: "ProductEnjoyment", foreign_key: :product_id
   has_many :issues, as: :target
   has_many :intervention_casts, foreign_key: :actor_id, inverse_of: :actor
-  has_many :groups, :through => :memberships
+  # has_many :groups, :through => :memberships
   has_many :reading_tasks, class_name: "ProductReadingTask"
-  has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
+  # has_many :incoming_delivery_items
   has_many :junction_ways, class_name: "ProductJunctionWay", foreign_key: :road_id
   has_many :junctions, class_name: "ProductJunction", through: :junction_ways
   has_many :linkages, class_name: "ProductLinkage", foreign_key: :carrier_id
   has_many :links, class_name: "ProductLink", foreign_key: :product_id
   has_many :localizations, class_name: "ProductLocalization", foreign_key: :product_id
+  has_many :markers, :through => :supports
+  has_many :memberships, class_name: "ProductMembership", foreign_key: :member_id
+  has_many :outgoing_delivery_items
   has_many :ownerships, class_name: "ProductOwnership", foreign_key: :product_id
   has_many :phases, class_name: "ProductPhase"
   has_many :supports, class_name: "ProductionSupport", foreign_key: :storage_id, inverse_of: :storage
-  has_many :markers, :through => :supports
   has_many :variants, class_name: "ProductNatureVariant", :through => :phases
   has_one :start_way,  -> { where(nature: 'start') },  class_name: "ProductJunctionWay", inverse_of: :road, foreign_key: :road_id
   has_one :finish_way, -> { where(nature: 'finish') }, class_name: "ProductJunctionWay", inverse_of: :road, foreign_key: :road_id
@@ -106,7 +108,7 @@ class Product < Ekylibre::Record::Base
   has_one :current_phase,        -> { current }, class_name: "ProductPhase",        foreign_key: :product_id
   has_one :current_localization, -> { current }, class_name: "ProductLocalization", foreign_key: :product_id
   has_one :current_ownership,    -> { current }, class_name: "ProductOwnership",    foreign_key: :product_id
-  has_many :current_memberships,    -> { current }, class_name: "ProductMembership",    foreign_key: :product_id
+  has_many :current_memberships, -> { current }, class_name: "ProductMembership",    foreign_key: :product_id
   has_one :container, through: :current_localization
   has_many :groups, through: :current_memberships
   has_one :incoming_delivery_item, class_name: "IncomingDeliveryItem", foreign_key: :product_id
@@ -176,7 +178,7 @@ class Product < Ekylibre::Record::Base
   delegate :has_indicator?, :individual_indicators_list, :whole_indicators_list, :abilities, :abilities_list, :indicators, :indicators_list, :frozen_indicators, :frozen_indicators_list, :variable_indicators, :variable_indicators_list, :linkage_points, :linkage_points_list, to: :nature
 
   after_initialize :choose_default_name
-  after_create :set_initial_values
+  after_save :set_initial_values, if: :initializeable?
   before_validation :set_default_values, on: :create
   before_validation :update_default_values, on: :update
 
@@ -233,29 +235,66 @@ class Product < Ekylibre::Record::Base
   # set initial owner and localization
   def set_initial_values
     # Add first owner on a product
-    self.ownerships.create!(owner: self.initial_owner)
+    unless ownership = self.ownerships.first_of_all
+      ownership = self.ownerships.build
+    end
+    ownership.owner = self.initial_owner
+    ownership.save!
+    
     # Add first enjoyer on a product
-    self.enjoyments.create!(enjoyer: self.initial_enjoyer || self.initial_owner)
+    unless enjoyment = self.enjoyments.first_of_all
+      enjoyment = self.enjoyments.build
+    end
+    enjoyment.enjoyer = self.initial_enjoyer || self.initial_owner
+    enjoyment.save!
+    
     # Add first localization on a product
     if self.initial_container
-      self.localizations.create!(container: self.initial_container, nature: :interior)
+      unless localization = self.localizations.first_of_all
+        localization = self.localizations.build
+      end
+      localization.nature = :interior
+      localization.container = self.initial_container
+      localization.save!
     end
+    
     unless self.extjuncted?
+      
       # Add default start junction
-      unless self.start_junction
+      if self.start_junction
+        self.start_junction.update_column(:started_at, self.initial_born_at)
+        way = self.start_junction.product_way
+        way.population = self.initial_population
+        way.shape = self.initial_shape
+        way.save!
+      else
         ProductBirth.create!(product_way_attributes: {road: self, population: self.initial_population, shape: self.initial_shape}, started_at: self.initial_born_at)
         self.reload
       end
+      
       # Add default finish junction
-      if self.initial_dead_at and !self.finish_junction
+      if self.finish_junction
+        if self.initial_dead_at
+          self.finish_junction.update_column(:started_at, self.initial_dead_at)
+        else
+          self.finish_junction.destroy
+        end
+      elsif self.initial_dead_at
         ProductDeath.create!(product: self, started_at: self.initial_dead_at)
         self.reload
       end
+      
     end
-    # add first frozen indicator on a product from his variant
+    
+    # Add first frozen indicator on a product from his variant
     if self.variant
-      self.phases.create!(variant: self.variant)
+      unless phase = self.phases.first_of_all
+        phase = self.phases.build
+      end
+      phase.variant = self.variant
+      phase.save!
     end
+    
   end
 
 
@@ -438,6 +477,11 @@ class Product < Ekylibre::Record::Base
       end
     end
     return super
+  end
+
+
+  def initializeable?
+    self.new_record? or !(self.incoming_delivery_item.present? or self.outgoing_delivery_items.any? or self.intervention_casts.any? or self.financial_asset.present?)
   end
 
 end
