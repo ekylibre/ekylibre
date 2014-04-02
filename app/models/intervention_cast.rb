@@ -122,6 +122,13 @@ class InterventionCast < Ekylibre::Record::Base
     self["shape"] = value
   end
 
+  # def shape
+  #   Charta::Geometry.new(self["shape"])
+  # end
+
+  def shape_svg(options = {})
+    Charta::Geometry.new(self["shape"]).to_svg
+  end
 
   for role in [:input, :output, :target, :tool, :doer]
     code  = "def #{role}?(procedure_nature = nil)\n"

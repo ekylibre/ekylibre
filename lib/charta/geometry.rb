@@ -68,7 +68,19 @@ module Charta
       return select_value("SELECT ST_AsKML(#{self.geom})")
     end
 
-    def to_svg
+    def to_svg(options = {})
+      options[:srid] ||= 2154
+      srid = find_srid(options[:srid])
+      geom = srid != @srid ? transform(srid) : self
+      svg = "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
+      for attr, value in {preserve_aspect_ratio: 'xMidYMid meet', width: 180, height: 180, view_box: geom.bounding_box.svg_view_box.join(' ')}.merge(options)
+        svg << " #{attr.to_s.camelcase(:lower)}=\"#{value}\""
+      end
+      svg << "><path d=\"#{geom.to_svg_path}\"/></svg>"
+      return svg
+    end
+
+    def to_svg_path
       return select_value("SELECT ST_AsSVG(#{self.geom})")
     end
 
@@ -131,39 +143,33 @@ module Charta
     end
 
     def bounding_box
-      if @y_min and @x_min and @y_max and @x_max
-        values = [@y_min, @x_min, @y_max, @x_max]
-      else
+      unless @bounding_box
         values = select_row("SELECT " + [:YMin, :XMin, :YMax, :XMax].collect do |v|
                               "ST_#{v}(#{self.geom})"
                             end.join(", ")).map(&:to_f)
         [:y_min, :x_min, :y_max, :x_max].each_with_index do |val, index|
           self.instance_variable_set("@#{val}", values[index])
         end
+        @bounding_box = BoundingBox.new(*values)
       end
-      return [values[0..1], values[2..3]]
+      return @bounding_box
     end
 
     def x_min
-      @x_min ||= select_value("SELECT ST_XMin(#{self.geom})").to_i
+      bounding_box.x_min
     end
 
     def y_min
-      @y_min ||= select_value("SELECT ST_YMin(#{self.geom})").to_i
+      bounding_box.y_min
     end
 
     def x_max
-      @x_max ||= select_value("SELECT ST_XMax(#{self.geom})").to_i
+      bounding_box.x_max
     end
 
     def y_max
-      @y_max ||= select_value("SELECT ST_YMax(#{self.geom})").to_i
+      bounding_box.y_max
     end
-
-
-
-
-
 
     def select_value(query)
       self.class.select_value(query)
