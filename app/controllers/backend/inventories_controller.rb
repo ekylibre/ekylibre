@@ -59,16 +59,16 @@ class Backend::InventoriesController < BackendController
   #   end
   # end
 
-  list(:items_create, model: :products, :pagination => :none, order: "#{ProductNature.table_name}.name") do |t|
-    # t.column :name, through: :building, url: true
+  list(:items_create, model: :products, :pagination => :none, order: :name) do |t|
     t.column :name, url: true
-    # t.column :serial_number, through: :tracking
-    # t.column :population, :precision => 3
+    t.column :container, url: true
+    #t.column :nature_name
+    t.column :net_mass, datatype: :measure
     t.column :unit_name
     t.text_field :population
   end
 
-  list(:items_update, model: :inventory_items, conditions: {inventory_id: 'params[:id]'.c}, :pagination => :none, order: "#{Product.table_name}.name") do |t|
+  list(:items_update, model: :inventory_items, conditions: {inventory_id: 'params[:id]'.c}, :pagination => :none, order: :name) do |t|
     t.column :container, url: true
     t.column :product, url: true
     # t.column :serial_number, through: :product
