@@ -160,4 +160,5 @@ eng:
     # base-uncompacting: "Décompactage"
     # base-wheat_crop: "Culture de blé (standard)"
     # base-wine_blending: "Assemblage de vin"
+    # base-wine_bottling: "Embouteillage de vin"
   variables: #?

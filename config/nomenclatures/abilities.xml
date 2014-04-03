@@ -60,6 +60,9 @@
       <item name="acidify" parameters="variety"/>
       <item name="alkalinize" parameters="variety"/>
       <item name="clarify" parameters="variety"/>
+      <!-- Wine bottling  -->
+      <item name="close" parameters="variety"/>
+      <item name="fill" parameters="variety"/>
     </items>
   </nomenclature>
 </nomenclatures>
