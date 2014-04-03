@@ -20,9 +20,9 @@
 class Backend::TransformedProductsController < BackendController
 
   list model: :products, scope: [:availables, "derivative_of(:organic_matter)".c] do |t|
-    t.column :number
-    t.column :work_number, url: true
-    t.column :identification_number
+    t.column :number, url: true
+    t.column :tracking
+    #t.column :identification_number
     t.column :name
     t.column :population
     t.column :net_volume, datatype: :measure
