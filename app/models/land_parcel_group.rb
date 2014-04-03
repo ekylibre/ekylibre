@@ -65,19 +65,22 @@
 class LandParcelGroup < ProductGroup
   enumerize :variety, in: Nomen::Varieties.all(:land_parcel_group), predicates: {prefix: true}
   has_shape
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
 
   # Add a member to the group
   def add(member, started_at = nil)
-    raise ArgumentError.new("LandParcel expected, got #{member.class}:#{member.inspect}") unless member.is_a?(LandParcel)
+    unless member.is_a?(LandParcel)
+      raise ArgumentError, "LandParcel expected, got #{member.class}:#{member.inspect}"
+    end
     super(member, started_at)
   end
 
   # Remove a member from the group
   def remove(member, stopped_at = nil)
-    raise ArgumentError.new("LandParcel expected, got #{member.class}:#{member.inspect}") unless member.is_a?(LandParcel)
+    unless member.is_a?(LandParcel)
+      raise ArgumentError, "LandParcel expected, got #{member.class}:#{member.inspect}"
+    end
     super(member, stopped_at)
   end
 

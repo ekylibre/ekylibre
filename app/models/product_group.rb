@@ -64,26 +64,26 @@
 
 class ProductGroup < Product
   enumerize :variety, in: Nomen::Varieties.all(:product_group), predicates: {prefix: true}
-
   belongs_to :parent, class_name: "ProductGroup"
   has_many :memberships, class_name: "ProductMembership", foreign_key: :group_id
   has_many :members, :through => :memberships
 
-  scope :groups_of, lambda { |member, viewed_at| where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, "interior", viewed_at, viewed_at, viewed_at) }
+  scope :groups_of, lambda { |member, viewed_at|
+    where("id IN (SELECT group_id FROM #{ProductMembership.table_name} WHERE member_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", member.id, "interior", viewed_at, viewed_at, viewed_at)
+  }
 
   # FIXME
   # accepts_nested_attributes_for :memberships, :reject_if => :all_blank, :allow_destroy => true
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-  # validates_uniqueness_of :name
 
   # Add a member to the group
   def add(member, started_at = nil)
     unless member.is_a?(Product)
       raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
     end
-    self.memberships.create!(:member_id => member.id, :started_at => (started_at || Time.now), nature: :interior)
+    self.memberships.create!(member: member, started_at: (started_at || Time.now), nature: :interior)
   end
 
   # Remove a member from the group
@@ -91,7 +91,7 @@ class ProductGroup < Product
     unless member.is_a?(Product)
       raise ArgumentError, "Product expected, got #{member.class}:#{member.inspect}"
     end
-    self.memberships.create!(:member_id => member.id, :started_at => (stopped_at || Time.now), nature: :exterior)
+    self.memberships.create!(member: member, started_at: (stopped_at || Time.now), nature: :exterior)
   end
 
 
