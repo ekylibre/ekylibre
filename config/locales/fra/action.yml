@@ -1218,7 +1218,7 @@ fra:
     help: "Aide"
     hint: "Astuce\_: %{value}"
     historic: "Historique"
-    home: "Retour à l’accueil de l’aide"
+    home: "Accueil"
     hour_duration:
       one: "Temps d’utilisation total\_: %{count} heure"
       other: "Temps d’utilisation total\_: %{count} heures"
