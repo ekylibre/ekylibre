@@ -64,7 +64,7 @@ module Ekylibre::Record
           code << "  return nil unless reading = self.reading(:#{indicator}, at: options[:at])\n"
           code << "  geom = Charta::Geometry.new(self.#{indicator})\n"
           code << "  geom = geom.transform(options[:srid]) if options[:srid]\n"
-          code << "  return Charta::Geometry.new(self.#{indicator}).to_svg(options)\n"
+          code << "  return geom.to_svg(options)\n"
           # code << "  options[:srid] ||= 2154\n"
           # code << "  return ('<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\""
           # for attr, value in {:class => indicator, :preserve_aspect_ratio => 'xMidYMid meet', :width => 180, :height => 180, :view_box => "self.#{indicator}_view_box(options).join(' ')".c}

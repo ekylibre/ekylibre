@@ -127,7 +127,9 @@ class InterventionCast < Ekylibre::Record::Base
   # end
 
   def shape_svg(options = {})
-    Charta::Geometry.new(self["shape"]).to_svg
+    geom = Charta::Geometry.new(self["shape"])
+    geom = geom.transform(options[:srid]) if options[:srid]
+    return geom.to_svg
   end
 
   for role in [:input, :output, :target, :tool, :doer]
