@@ -308,7 +308,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 				</textElement>
-				<text><![CDATA[Acteurs (Main d'oeuvre, matériels utilisés, intrants, parcelle...)]]></text>
+				<text><![CDATA[Acteurs (Main d'œuvre, matériels utilisés, intrants, parcelle...)]]></text>
 			</staticText>
 			<ellipse>
 				<reportElement x="12" y="318" width="10" height="10" forecolor="#FFFFFF" backcolor="#65A907" uuid="9d88d731-e0ff-4139-9b42-fa390601a67e"/>
@@ -415,7 +415,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" isBold="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{input_population}+" ( "+$F{input_unit_name}+" )"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{input_population}+" ("+$F{input_unit_name}+")"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
 				<reportElement style="table-td" x="509" y="0" width="125" height="20" uuid="93af19c1-3f9c-426e-9e04-a3c297973887"/>
