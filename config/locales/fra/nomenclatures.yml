@@ -1592,6 +1592,7 @@ fra:
         animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_health
         animal_production: "Productions animales"
         blending: "Mélange"                                # transformation
+        # bottling: "Bottling"                             # transformation
         cleaning: "Nettoyage"                              # animal_health
         consummables_addition: "Mise à niveau"             # maintenance
         cultipacking: "Cultipacking"                       # tillage

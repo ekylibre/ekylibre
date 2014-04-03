@@ -43,6 +43,7 @@
       <variable name="wine_man" variety="worker" abilities="move" roles="bottling-doer"/>
       <variable name="hand_drawn" variety="equipment" abilities="fill(bottle)" roles="bottling-tool"/>
       <variable name="corker" variety="equipment" abilities="close(bottle)" roles="bottling-tool"/>
+      <variable name="wine_bottles" roles="bottling-output"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
