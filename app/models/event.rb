@@ -47,6 +47,11 @@ class Event < Ekylibre::Record::Base
   validates_presence_of :name, :nature, :started_at
   #]VALIDATORS]
 
+  accepts_nested_attributes_for :participations
+
+  scope :between, lambda { |started_at, stopped_at|
+    where("started_at BETWEEN ? AND ?", started_at, stopped_at)
+  }
   scope :without_restrictions_for, lambda { |*entities|
     where("NOT restricted OR (restricted AND id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?)))", entities.map(&:id))
   }
@@ -63,4 +68,9 @@ class Event < Ekylibre::Record::Base
     self.participants.map(&:label).to_sentence
   end
 
+  def start_time
+    self.started_at
+  end
+
 end
+

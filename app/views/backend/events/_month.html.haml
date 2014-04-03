@@ -1,0 +1,9 @@
+= calendar @events, start_day: :monday do |event|
+  = link_to backend_event_path(event), class: "event", title: event.name do
+    -# FIXME Not internationalized
+    %h3= event.started_at.l(format: "%H:%M") + " " + event.name
+    - if event.participations.any?
+      %ul
+        - for participation in event.participations
+          %li{class: participation.state}= participation.participant.full_name
+

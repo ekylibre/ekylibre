@@ -1951,13 +1951,16 @@ svg.map {
       > div {
         min-height: 4 * $fs-normal;
         height: 100%;
-        .intervention {
+        .intervention, .event {
           padding: 0 round($default-gap * 0.4);
           display: block;
           background: #EEE;
           &, * {
             font-size: $fs-small;
           }
+          h3 {
+	      font-size: $fs-normal;
+	  }
           &.squeezed {
             text-decoration: line-through;
           }

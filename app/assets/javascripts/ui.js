@@ -1,6 +1,7 @@
 /* -*- mode: javascript; indent-tabs-mode: nil; -*- */
 //= require bootstrap/dropdown
 //= require bootstrap/datetimepicker
+//= require bootstrap/datetimepicker-i18n
 
 (function ($) {
     "use strict";
@@ -737,7 +738,7 @@
 	    //         hidden.attr('data-observe', '1000');
             //     }
             // }
-            element.datetimepicker({format: 'yyyy-mm-dd hh:ii', language: 'en'}); // options);
+            element.datetimepicker({format: 'yyyy-mm-dd hh:ii', language: locale, autoclose: true, minuteStep: 5, todayBtn: true}); // options);
             element.attr("autocomplete", "off");
         }
     });

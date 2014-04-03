@@ -905,6 +905,7 @@ eng:
     # add_marker: "Ajouter un objectif"
     add_mobile: "Add mobile phone number"
     add_new_record: "Add a new record"
+    # add_participation: "Ajouter une participation"
     # add_passage: "Ajouter un produit"
     add_payment: "Add payment"
     add_phone: "Add phone number"

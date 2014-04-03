@@ -46,6 +46,12 @@ arb:
         # purchase: "Création d’un achat"
         # sale: "Création d’un devis"
         # sales_invoice: "Création d’une facture"
+    event_participation:
+      state:
+        # accepted: "Accepté"
+        # informative: "Pour information"
+        # refused: "Refusé"
+        # waiting: "En attente de réponse"
     financial_asset:
       depreciation_method:
         # graduated: "Dégressive"

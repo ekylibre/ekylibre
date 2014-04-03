@@ -1,2 +1,2 @@
 = calendar @interventions, :start_day => :monday do |intervention|
-  = link_to intervention.name, backend_intervention_path(intervention), class: "intervention #{intervention.state}", title: intervention.casting
+  = link_to intervention.started_at.l(format: "%H:%M") + " " + intervention.name, backend_intervention_path(intervention), class: "intervention #{intervention.state}", title: intervention.casting

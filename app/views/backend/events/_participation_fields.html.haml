@@ -1,0 +1,4 @@
+.nested-fields
+  = link_to_remove_nested_association(:mail, f)
+  = f.referenced_association(:participant)
+  = f.input(:state, as: :radio_buttons)

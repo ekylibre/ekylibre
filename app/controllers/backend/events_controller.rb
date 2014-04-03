@@ -18,7 +18,7 @@
 #
 
 class Backend::EventsController < BackendController
-  manage_restfully :nature_id => "EventNature.first.id rescue nil".c, :started_at => "Time.now".c
+  manage_restfully except: :index, :nature_id => "EventNature.first.id rescue nil".c, :started_at => "Time.now".c
 
   unroll
 
@@ -35,6 +35,16 @@ class Backend::EventsController < BackendController
     t.action :destroy
   end
 
+  def index
+    year  = params[:year]  || Date.today.year
+    month = params[:month] || Date.today.month
+    started_at = Time.new(year.to_i, month.to_i, 1)
+    @events = Event.between(started_at, started_at.end_of_month)
+    if request.xhr? and params[:year] and params[:month]
+      render partial: "month"
+    end
+  end
+
   def change_minutes
     return unless nature = find_and_check(:event_nature, params[:nature_id])
     value = nature.send(params[:field] || :name)
@@ -42,8 +52,9 @@ class Backend::EventsController < BackendController
   end
 
   list(:participations, model: :event_participations, conditions: {event_id: 'params[:id]'.c}, order: :id) do |t|
-    t.column :participant
+    t.column :participant, url: true
     t.column :state
+    t.action :edit
     t.action :destroy
   end
 end

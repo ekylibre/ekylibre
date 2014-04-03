@@ -107,6 +107,12 @@ eng:
         purchase: "Creation of a purchase"
         sale: "Creation of a sale"
         sales_invoice: "Creation of a sales invoice"
+    event_participation:
+      state:
+        # accepted: "Accepté"
+        # informative: "Pour information"
+        # refused: "Refusé"
+        # waiting: "En attente de réponse"
     financial_asset:
       depreciation_method:
         # graduated: "Dégressive"
