@@ -129,7 +129,7 @@ GEM
       curb (~> 0.8.1)
       loofah (~> 1.2.1)
       sax-machine (~> 0.2.1)
-    ffaker (1.23.0)
+    ffaker (1.24.0)
     formize (2.0.0)
       jquery-rails (>= 3)
       jquery-ui-rails (>= 4)

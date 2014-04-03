@@ -45,7 +45,7 @@ load_data :interventions do |loader|
 
                   # Fertilizing  01-03-M -> 31-03-M
                   Ekylibre::FirstRun::Booker.intervene(:mineral_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
-                    i.add_cast(reference_name: 'fertilizer',  actor: i.find(Product, variety: :mineral_matter))
+                    i.add_cast(reference_name: 'fertilizer',  actor: i.find(Product, variety: :chemical_fertilizer), can: "fertilize")
                     i.add_cast(reference_name: 'fertilizer_to_spread', population: 0.4 + coeff * rand(0.6))
                     i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(mineral_matter)"))
                     i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
@@ -55,7 +55,7 @@ load_data :interventions do |loader|
 
                   # Organic Fertilizing  01-03-M -> 31-03-M
                   Ekylibre::FirstRun::Booker.intervene(:organic_fertilizing, year, 3, 1, 0.96 * coeff, support: support) do |i|
-                    i.add_cast(reference_name: 'manure',      actor: i.find(Product, variety: :manure, derivative_of: :bos))
+                    i.add_cast(reference_name: 'manure',      actor: i.find(Product, variety: :organic_matter, can: "fertilize"))
                     i.add_cast(reference_name: 'manure_to_spread', population: 0.2 + 4 * coeff)
                     i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(organic_matter)"))
                     i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
