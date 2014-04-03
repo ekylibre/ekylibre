@@ -259,7 +259,6 @@ class Product < Ekylibre::Record::Base
     end
 
     unless self.extjuncted?
-
       # Add default start junction
       if self.start_junction
         self.start_junction.update_column(:started_at, self.initial_born_at)
@@ -280,10 +279,9 @@ class Product < Ekylibre::Record::Base
           self.finish_junction.destroy
         end
       elsif self.initial_dead_at
-        ProductDeath.create!(product: self, started_at: self.initial_dead_at)
+        ProductDeath.create!(product_way_attributes: {road: self}, started_at: self.initial_dead_at)
         self.reload
       end
-
     end
 
     # Add first frozen indicator on a product from his variant
@@ -294,7 +292,6 @@ class Product < Ekylibre::Record::Base
       phase.variant = self.variant
       phase.save!
     end
-
   end
 
 

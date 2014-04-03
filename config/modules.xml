@@ -517,6 +517,7 @@
         <page to="backend/trackings#destroy"/>
         <page to="backend/trackings#edit"/>
         <page to="backend/trackings#list"/>
+        <page to="backend/trackings#list_products"/>
         <page to="backend/trackings#new"/>
         <page to="backend/trackings#show"/>
         <page to="backend/trackings#unroll"/>
@@ -1760,10 +1761,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="trackings">
-        <page to="backend/trackings#list_products"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>

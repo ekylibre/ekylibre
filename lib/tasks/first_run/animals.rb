@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 load_data :animals do |loader|
+
+  groups = []
   
   file = loader.path("alamano", "animal_groups.csv")
   if file.exist?
     # find animals credentials in preferences
     cattling_root_number = Identifier.find_by_nature(:cattling_root_number).value
 
-    groups = []
 
     file = loader.path("alamano", "animal_groups.csv")
     if file.exist?
@@ -22,9 +23,9 @@ load_data :animals do |loader|
                              place: (row[7].blank? ? nil : row[7].to_sym),
                              indicators_at: (row[8].blank? ? (Date.today) : row[8]).to_datetime,
                              indicators: row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
-                             h[i.first.strip.downcase.to_sym] = i.second
-                             h
-                           },
+                               h[i.first.strip.downcase.to_sym] = i.second
+                               h
+                             },
                              record: nil
                              )
 
@@ -133,7 +134,6 @@ load_data :animals do |loader|
                              :departed_on => dead_on,
                              dead_at: (dead_on ? dead_on.to_datetime : nil)
                              )
-
           unless group = groups.detect do |g|
               (g.sex.blank? or g.sex == r.sex) and (g.minimal_age.blank? or r.age >= g.minimal_age) and (g.maximal_age.blank? or r.age < g.maximal_age)
             end
@@ -149,24 +149,26 @@ load_data :animals do |loader|
                                   initial_born_at: r.born_at,
                                   initial_dead_at: r.dead_at,
                                   initial_owner: Entity.of_company,
-                                  initial_container: group.record.default_storage,
+                                  # initial_container: group.record.default_storage,
                                   default_storage: group.record.default_storage
                                   )
+
           # Sex is already known but not if the group has no sex
           animal.read!(:sex, r.sex, at: r.born_at) if animal.sex.blank?
           
           # load demo data weight and state
           if loader.manifest[:demo]
             weighted_at = r.born_at
-            variation = 0.05
-            while (r.dead_at.nil? or weighted_at < r.dead_at) and weighted_at < Time.now
-              age = (weighted_at - r.born_at).to_f
-              weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
-              weight += rand(weight * variation * 2) - (weight * variation)
-              animal.read!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
-              weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
+            if weighted_at and weighted_at < Time.now
+              variation = 0.05
+              while (r.dead_at.nil? or weighted_at < r.dead_at) and weighted_at < Time.now
+                age = (weighted_at - r.born_at).to_f
+                weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)
+                weight += rand(weight * variation * 2) - (weight * variation)
+                animal.read!(:net_mass, weight.in_kilogram.round(1), at: weighted_at)
+                weighted_at += (70 + rand(40)).days + 30.minutes - rand(60).minutes
+              end
             end
-            
             animal.read!(:healthy, true,  at: (now - 3.days))
             animal.read!(:healthy, false, at: (now - 2.days))
             animal.read!(:healthy, true,  at: now)
