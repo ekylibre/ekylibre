@@ -61,8 +61,8 @@
                  /> <!-- kg/ha -->
 	
       </variable>
-      <variable name="moluscicide" variety="molluscicide"/>
-      <variable name="moluscicide_to_input" new="parted-from: moluscicide" roles="plant_illness_treatment-input" default-population=":moluscicide">
+      <variable name="molluscicide" variety="molluscicide"/>
+      <variable name="molluscicide_to_input" new="parted-from: molluscicide" roles="plant_illness_treatment-input" default-population=":molluscicide">
 	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"
                  forward="value / self..net_mass(kilogram)"
@@ -122,15 +122,15 @@
       <operation id="800" duration="4 minutes">
         <!-- le chauffeur, tracteur et le semoir se déplacent vers le lieu actuel des semences-->
         <task do="[tractor] moves at [insecticide]"/>
-        <task do="[tractor] moves at [moluscicide]"/>
+        <task do="[tractor] moves at [molluscicide]"/>
       </operation>
       <operation id="900" duration="4 minutes">
         <!--  on sépare les semences que l'on va mettre dans le semoir du stock -->
         <task do="[insecticide] parts with [insecticide_to_input]"/>
-        <task do="[moluscicide] parts with [moluscicide_to_input]"/>
+        <task do="[molluscicide] parts with [molluscicide_to_input]"/>
         <!-- le chauffeur charge des semences dans le semoir qui est un lieu de stockage temporaire de semences (normalement plus complexe que cela)-->
         <task do="[insecticide_to_input] moves in [sower]"/>
-        <task do="[moluscicide_to_input] moves in [sower]"/>
+        <task do="[molluscicide_to_input] moves in [sower]"/>
       </operation>
 
       <operation id="1000" duration="18 minutes">
@@ -143,13 +143,13 @@
         <!-- les semences tombe par terre car le semoir tourne  -->
         <task do="[fertilizer_to_spread] moves in [land_parcel]"/>
         <task do="[insecticide_to_input] moves in [land_parcel]"/>
-        <task do="[moluscicide_to_input] moves in [land_parcel]"/>
+        <task do="[molluscicide_to_input] moves in [land_parcel]"/>
         <!-- l'engrais et les produits phyto tombent par terre car le semoir tourne  -->
         <task do="[land_parcel] consumes [seeds_to_sow]"/>
         <!-- la parcelle consomme les semences épandues -->
         <task do="[land_parcel] consumes [fertilizer_to_spread]"/>
         <task do="[land_parcel] consumes [insecticide_to_input]"/>
-        <task do="[land_parcel] consumes [moluscicide_to_input]"/>
+        <task do="[land_parcel] consumes [molluscicide_to_input]"/>
         <!-- la parcelle consomme l'engrais et les produits phyto épandus -->
         <task do="[land_parcel] produces [cultivation]"/>
         <!-- les semences tombées sur le sol produise une sole de blé -->

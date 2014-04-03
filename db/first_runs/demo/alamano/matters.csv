@@ -33,6 +33,10 @@ Acide lactique,lactic_acid_25kg,S05_D07,2014-01-05,,,,Population : 1,,
 Carbonate de Chaux',calcium_carbonate_25kg,S05_D07,2014-01-05,,,,Population : 2.5,,
 Clarifiant Ferro-Cyanure,potassium_ferrocyanide_25kg,S05_D07,2014-01-05,,,,Population : 1,,
 Sucre,white_sugar_25kg,S05_D07,2014-01-05,,,,Population : 1,,
+,MATIERES SECHES,,,,,,,,
+BORDELAISE SENSACION 75 cl,bordelaise_75cl_bottle,S05_D07,2014-01-05,,,,Population : 2500 ; net_volume: 75.00centiliter ; net_mass: 500gram ; length: 324.00millimeter,,0.69
+Bouchon liege,natural_cork,S05_D07,2014-01-05,,,,Population : 1000 ; width: 24.00millimeter ; length: 36.00millimeter,,0.25
+Bouchon Nomacorc S500,nomacorc_cork,S05_D07,2014-01-05,,,,Population : 1000 ; width: 23.00millimeter ; length: 44.00millimeter,,0.29
 ,CARBURANT ET LUBRIFIANT,,,,,,,,
 Huile moteur MOTUL ,motor_oil,S09_D01,2013-01-01,oil,,,Population : 220,,2.87
 Huile hydraulique PROBEOL HV,hydraulic_oil,S09_D01,2013-01-01,oil,,,Population : 80,,4.24
