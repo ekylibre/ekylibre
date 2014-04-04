@@ -61,7 +61,7 @@ class ProductReading < Ekylibre::Record::Base
   #]VALIDATORS]
 
   scope :between, lambda { |started_at, stopped_at|
-    where("read_at BETWEEN ? AND ?", started_at, stopped_at)
+    where(read_at: started_at..stopped_at)
   }
   scope :measured_between, lambda { |started_at, stopped_at| between(started_at, stopped_at) }
   scope :of_products, lambda { |products, indicator_name, at = nil|

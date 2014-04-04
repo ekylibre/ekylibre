@@ -46,6 +46,7 @@
 class AnalysisItem < Ekylibre::Record::Base
   include ReadingStorable
   belongs_to :analysis
+  has_one :product, through: :analysis
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
   validates_numericality_of :absolute_measure_value_value, :decimal_value, :measure_value_value, allow_nil: true
@@ -56,10 +57,22 @@ class AnalysisItem < Ekylibre::Record::Base
 
   delegate :sampled_at, to: :analysis
 
-  # calculable period: :month, at: :read_at, column: :measure_value_value
+  after_save do
+    if reading = self.reading
+      reading.value = value
+      reading.save!
+    else
+      self.product.read!(indicator, value, at: sampled_at)
+    end
+  end
 
-  # scope :between, lambda { |started_at, stopped_at|
-  #   joins(:analysis).where(merge(Analysis.between(started_at, stopped_at))
-  # }
+  before_destroy do
+    self.reading.destroy!
+  end
+
+  # Returns the matching reading of the product
+  def reading
+    self.product.reading(indicator, at: sampled_at)
+  end
 
 end

@@ -44,7 +44,7 @@ class Analysis < Ekylibre::Record::Base
   belongs_to :analyser, class_name: "Entity"
   belongs_to :sampler, class_name: "Entity"
   belongs_to :product
-  has_many :items, class_name: "AnalysisItem", foreign_key: :analysis_id, inverse_of: :analysis
+  has_many :items, class_name: "AnalysisItem", foreign_key: :analysis_id, inverse_of: :analysis, dependent: :destroy
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :nature, :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :nature, :number, :sampled_at
@@ -52,8 +52,8 @@ class Analysis < Ekylibre::Record::Base
 
   acts_as_numbered
 
-  scope :between, lambda { |started_at, stopped_at|
-    where("sampled_at BETWEEN ? AND ?", started_at, stopped_at)
+  scope :between, lambda { |started_at, stopped_at| 
+    where(sampled_at: started_at..stopped_at) 
   }
 
   # Measure a product for a given indicator

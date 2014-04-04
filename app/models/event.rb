@@ -50,7 +50,7 @@ class Event < Ekylibre::Record::Base
   accepts_nested_attributes_for :participations
 
   scope :between, lambda { |started_at, stopped_at|
-    where("started_at BETWEEN ? AND ?", started_at, stopped_at)
+    where(started_at: started_at..stopped_at)
   }
   scope :without_restrictions_for, lambda { |*entities|
     where("NOT restricted OR (restricted AND id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?)))", entities.map(&:id))

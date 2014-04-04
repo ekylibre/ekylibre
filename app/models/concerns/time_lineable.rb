@@ -6,7 +6,6 @@ module TimeLineable
     validates_presence_of :started_at # , :if => :has_previous?
     validates_presence_of :stopped_at, :if => :has_followings?
 
-    # scope :at,      lambda { |at| where("started_at <= ? AND (stopped_at IS NULL OR ? < stopped_at)", at, at) }
     scope :at,      lambda { |at| where(arel_table[:started_at].lteq(at).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at)))) }
     scope :after,   lambda { |at| where(arel_table[:started_at].gt(at)) }
     scope :before,  lambda { |at| where(arel_table[:started_at].lt(at)) }

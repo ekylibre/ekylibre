@@ -146,10 +146,10 @@ class Journal < Ekylibre::Record::Base
   # this method closes a journal.
   def close(closed_at)
     errors.add(:closed_at, :end_of_month) if self.closed_at != self.closed_at.end_of_month
-    errors.add(:closed_at, :draft_entry_items, :closed_at => closed_at.l) if self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)").where(:state => :draft).where("printed_at BETWEEN ? AND ? ", "draft", self.closed_at+1, closed_at).count > 0
+    errors.add(:closed_at, :draft_entry_items, :closed_at => closed_at.l) if self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (entry_id=journal_entries.id)").where(:state => :draft).where(printed_at: (self.closed_at+1)..closed_at).any?
     return false unless errors.empty?
     ActiveRecord::Base.transaction do
-      self.entries.where("printed_at BETWEEN ? AND ? ", self.closed_at+1, closed_at).find_each do |entry|
+      self.entries.where(printed_at: (self.closed_at+1)..closed_at).find_each do |entry|
         entry.close
       end
       self.update_column(:closed_at, closed_at)
@@ -159,7 +159,7 @@ class Journal < Ekylibre::Record::Base
 
 
   def reopenable?
-    return false unless self.reopenings.size > 0
+    return false unless self.reopenings.any?
     return true
   end
 
@@ -176,7 +176,7 @@ class Journal < Ekylibre::Record::Base
 
   def reopen(closed_at)
     ActiveRecord::Base.transaction do
-      for entry in self.entries.where("printed_at BETWEEN ? AND ? ", closed_at+1, self.closed_at)
+      for entry in self.entries.where(printed_at: (closed_at+1)..self.closed_at)
         entry.reopen
       end
       self.update_column(:closed_at, closed_at)
@@ -199,12 +199,12 @@ class Journal < Ekylibre::Record::Base
 
 
   def entry_items_between(started_at, stopped_at)
-    self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_at BETWEEN ? AND ? ", started_at, stopped_at).order("printed_at, journal_entries.id, journal_entry_items.id")
+    self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_at: started_at..stopped_at).order("printed_at, journal_entries.id, journal_entry_items.id")
   end
 
   def entry_items_calculate(column, started_at, stopped_at, operation=:sum)
     column = (column == :balance ? "#{JournalEntryItem.table_name}.real_debit - #{JournalEntryItem.table_name}.real_credit" : "#{JournalEntryItem.table_name}.real_#{column}")
-    self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_at BETWEEN ? AND ? ", started_at, stopped_at).calculate(operation, column)
+    self.entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_at: started_at..stopped_at).calculate(operation, column)
   end
 
 

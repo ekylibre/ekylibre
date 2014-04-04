@@ -103,7 +103,7 @@ class Sale < Ekylibre::Record::Base
   delegate :closed, to: :affair, prefix: true
 
   scope :invoiced_between, lambda { |started_at, stopped_at|
-    where("invoiced_at BETWEEN ? AND ?", started_at, stopped_at)
+    where(invoiced_at: started_at..stopped_at)
   }
 
   state_machine :state, :initial => :draft do
