@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="intervention_registry" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="786" leftMargin="28" rightMargin="28" topMargin="28" bottomMargin="28" isTitleNewPage="true" whenResourceMissingType="Empty" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
-	<property name="ireport.zoom" value="1.6105100000000008"/>
-	<property name="ireport.x" value="69"/>
-	<property name="ireport.y" value="911"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="383"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="land_parcel_registry"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="Title" fontName="Open Sans" fontSize="30" isBold="true" pdfFontName="Open Sans"/>
@@ -130,24 +130,22 @@
 	<field name="intervention_svg_path" class="java.lang.String">
 		<fieldDescription><![CDATA[ancestor::intervention/@shape-svg]]></fieldDescription>
 	</field>
+	<field name="production_cultivable_zone_svg_path" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::production/@cultivable-zone-svg]]></fieldDescription>
+	</field>
+	<field name="production_equipment_svg_path" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::production/@equipment-svg]]></fieldDescription>
+	</field>
+	<field name="production_url" class="java.lang.String">
+		<fieldDescription><![CDATA[ancestor::production/@url]]></fieldDescription>
+	</field>
 	<group name="campaign" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{campaign}]]></groupExpression>
-		<groupHeader>
-			<band height="50">
-				<textField>
-					<reportElement style="strong" isPrintRepeatedValues="false" x="306" y="10" width="114" height="29" printWhenGroupChanges="campaign" uuid="26989836-89a9-4862-8b1a-40c2b54e1ee3"/>
-					<textElement textAlignment="Right" verticalAlignment="Middle">
-						<font size="14"/>
-					</textElement>
-					<textFieldExpression><![CDATA[$F{campaign}]]></textFieldExpression>
-				</textField>
-			</band>
-		</groupHeader>
 	</group>
-	<group name="activity" isStartNewPage="true" isReprintHeaderOnEachPage="true">
+	<group name="activity" isStartNewPage="true" keepTogether="true">
 		<groupExpression><![CDATA[$F{activity_name}]]></groupExpression>
 		<groupHeader>
-			<band height="47">
+			<band height="365">
 				<textField>
 					<reportElement style="title" x="2" y="0" width="402" height="31" uuid="7748e9d5-539a-4d33-aa4e-1576e71a2d16"/>
 					<textFieldExpression><![CDATA[$F{activity_name}]]></textFieldExpression>
@@ -155,6 +153,31 @@
 				<rectangle radius="10">
 					<reportElement style="title" x="1" y="0" width="403" height="31" uuid="bd5f3d5d-eda9-40e0-ac15-a97942d216e8"/>
 				</rectangle>
+				<image onErrorType="Blank" evaluationTime="Group" evaluationGroup="production">
+					<reportElement x="365" y="72" width="420" height="253" uuid="deba7500-186c-45d6-9ec8-bca47480e5b2">
+						<printWhenExpression><![CDATA[!$F{production_cultivable_zone_svg_path}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($F{production_cultivable_zone_svg_path})]]></imageExpression>
+				</image>
+				<image onErrorType="Blank" evaluationTime="Group" evaluationGroup="production">
+					<reportElement x="4" y="72" width="363" height="253" uuid="32553ed2-9dbf-493c-85e4-61a9679b2d09">
+						<printWhenExpression><![CDATA[!$F{production_equipment_svg_path}.isEmpty()]]></printWhenExpression>
+					</reportElement>
+					<imageExpression><![CDATA[net.sf.jasperreports.renderers.BatikRenderer.getInstanceFromText($F{production_equipment_svg_path})]]></imageExpression>
+				</image>
+				<textField>
+					<reportElement style="title" x="509" y="0" width="100" height="31" uuid="c89c0c43-da21-40c8-a8e9-2bb33d9be74f"/>
+					<textFieldExpression><![CDATA[$F{campaign}]]></textFieldExpression>
+				</textField>
+				<break>
+					<reportElement x="0" y="337" width="100" height="1" uuid="e428cbd2-8502-4918-8ad6-bda16758d760"/>
+				</break>
+				<componentElement>
+					<reportElement x="708" y="0" width="80" height="72" uuid="a9854758-c521-4683-b01b-e56f79caddcc"/>
+					<jr:DataMatrix xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+						<jr:codeExpression><![CDATA[$F{production_url}]]></jr:codeExpression>
+					</jr:DataMatrix>
+				</componentElement>
 			</band>
 		</groupHeader>
 		<groupFooter>

@@ -147,6 +147,15 @@ class Product < Ekylibre::Record::Base
   scope :of_variant, lambda { |variant, at = Time.now|
     where(variant_id: variant.id)
   }
+  
+  scope :of_productions, lambda { |*productions|
+    productions.flatten!
+    for production in productions
+      raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
+    end
+    joins(:supports).merge(ProductionSupport.of_productions(productions))
+  }
+  
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }
