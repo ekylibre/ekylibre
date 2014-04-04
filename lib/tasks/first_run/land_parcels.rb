@@ -50,9 +50,9 @@ load_data :land_parcels do |loader|
       # NUMERO (land_parcel_cluster number id)
       # CAMPAGNE (campaign)
       # DPT_NUM (department zone number)
-      # SURF_TOT (land_parcel_cluster area)
+      # SURF_TOT (land_parcel_cluster area)
       # COMMUNE
-      # TYPE (cf http://www.maine-et-loire.gouv.fr/IMG/pdf/Dossier-PAC-2013_notice_cultures-varietes.pdf)
+      # TYPE (cf http://www.maine-et-loire.gouv.fr/IMG/pdf/Dossier-PAC-2013_notice_cultures-varietes.pdf)
       # CODE_VAR
       # SURF_DECL (land_parcel area)
       # TYPE_PARC
@@ -194,8 +194,8 @@ load_data :land_parcels do |loader|
                            soil_depth: (row[8].blank? ? nil : row[8].to_d)
                            )
 
-        if zone = LandParcel.find_by_work_number(r.code)
-          zone.update_attributes(:name => r.name)
+        if zone = LandParcel.find_by(work_number: r.code)
+          zone.update_attributes(name: r.name)
           zone.save!
         else
           zone_variant = ProductNatureVariant.find_by(:reference_name => r.nature) || ProductNatureVariant.import_from_nomenclature(r.nature)
@@ -209,7 +209,7 @@ load_data :land_parcels do |loader|
           zone.save!
         end
         # link a land parcel to a land parcel cluster
-        if land_parcel_cluster = LandParcelCluster.find_by_work_number(r.ilot_code)
+        if land_parcel_cluster = LandParcelCluster.find_by(work_number: r.ilot_code)
           land_parcel_cluster.add(zone)
         end
         if r.soil_nature

@@ -38,19 +38,15 @@ class ::Time
   end
 end
 
-if BigDecimal.new('1564.23').to_f.zero?
-  Rails.info "Overload BigDecimal#to_f"
-  puts "Overload BigDecimal#to_f".red
 
-  class ::BigDecimal
-
-    # Overwrite badly bigdecimal
-    def to_f
-      self.to_s('F').to_f
-    end
-
+class ::BigDecimal
+  
+  # Overwrite badly bigdecimal
+  # TODO What to do for that ?
+  def to_f
+    self.to_s('F').to_f
   end
-
+  
 end
 
 

@@ -5,9 +5,10 @@
 
 = beehive do |b|
   - b.hbox do
-    - if @intervention.casts.of_role(:target).first.actor.shape
-      - b.cell :map do
-        = mini_map(@intervention.casts.of_role(:target).first.actor)
+    - if @intervention.casts.of_role(:target).first
+      - if @intervention.casts.of_role(:target).first.actor.shape 
+        - b.cell :map do
+          = mini_map(@intervention.casts.of_role(:target).first.actor)
     - b.cell do
       = attributes_list do |l|
         - l.attribute :name

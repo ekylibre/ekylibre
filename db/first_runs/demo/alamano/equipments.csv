@@ -1,8 +1,8 @@
 nom,variant nomen,code,code place,date naissance,marque,modèle,nom du propriétaire,indicateurs,notes,prix unitaire,indicateur de prix
 ,COLLABORATEUR / SALARIE,,,,,,,,,,
-Brice TEXIER,technician,brice.texier,S09_D02,1983-01-01,,,,Population : 1,,11.74,usage_duration
-David JOULIN,technician,david.joulin,S09_D02,1981-01-01,,,,Population : 1,,11.74,usage_duration
-Yvan JOULIN,technician,yvan.joulin,S09_D02,1984-01-01,,,,Population : 1,,11.74,usage_duration
+Brice TEXIER,technician,BT,S09_D02,1983-01-01,,,,Population : 1,,11.74,usage_duration
+David JOULIN,technician,DJ,S09_D02,1981-01-01,,,,Population : 1,,11.74,usage_duration
+Yvan JOULIN,technician,YJ,S09_D02,1984-01-01,,,,Population : 1,,11.74,usage_duration
 ,CUVE / SILO / RESERVE,,,,,,,,,,
 Cuve n°1,concrete_tank,TANK_1_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 120hectoliter,,0.8,usage_duration
 Cuve n°2,fiberglass_tank,TANK_2_S05_D06,S05_D06,1995-01-01,,,,Population : 1 ; nominal_storable_net_volume : 740hectoliter,,0.8,usage_duration
@@ -32,6 +32,9 @@ Semoir maïs,sower,,S06_D02,1988-10-01,,,,'Population : 1 ; application_width�
 Semoir maïs dispersseurs,all_inclusive_corn_sower,,S06_D02,2005-10-01,,,,'Population : 1 ; application_width : 2,5m',Co-propriété (PH),22,usage_duration
 ,MATERIEL DE CUVERIE,,,,,,,,,,
 Pressoir Bucher RPZ 150,wine_press,,S05_D06,1995-01-01,Bucher,RPZ 150,,Population : 1 ; nominal_storable_net_volume : 150hectoliter,,5.56,usage_duration
+,MATERIEL D EMBOUTEILLAGE,,,,,,,,,,
+Tireuse PERRIER,hand_drawn,,S05_D06,2002-01-05,,,CAMION,Population : 1,,115,usage_duration
+Boucheuse BERTOLASO,corker,,S05_D06,2002-01-05,,,CAMION,Population : 1,,90,usage_duration
 ,TRAVAIL DU SOL,,,,,,,,,,
 Charrue 4 socs,plow,,S06_D02,,,,,Population : 1 ; application_width : 1m,,18,usage_duration
 Charrue réversible 5 socs,plow,,S06_D02,,,,,'Population : 1 ; application_width : 1,25m',,19.69,usage_duration

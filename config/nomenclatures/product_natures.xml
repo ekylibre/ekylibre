@@ -447,7 +447,24 @@
             abilities="chaptelise(fermented_juice), chaptelise(juice)"
             variable_indicators="population"
             frozen_indicators="net_mass"
-            />      
+            />
+      <!-- PACKAGED MATTER -->     
+      <item name="bottle"
+            category="wine_package_consumable"
+            variety="bottle"
+            population_counting="integer"
+            abilities="store(wine), store(juice)"
+            variable_indicators="population, net_mass, length"
+            frozen_indicators="net_volume"
+            />
+      <item name="cork"
+            category="wine_package_consumable"
+            variety="cork"
+            population_counting="integer"
+            abilities="close(cork_bottle)"
+            variable_indicators="population, width, length"
+            frozen_indicators=""
+            />
       <!-- TREE INPLANT -->
       <item name="seedling"
             category="plant"
@@ -870,6 +887,22 @@
             population_counting="unitary"
             abilities="press(grape), press(grape_juice), press(wine)"
             variable_indicators="nominal_storable_net_volume"
+            frozen_indicators="population"
+            />
+      <item name="hand_drawn"
+            category="equipment"
+            variety="bottling"
+            population_counting="unitary"
+            abilities="fill(bottle)"
+            variable_indicators="nominal_storable_net_volume"
+            frozen_indicators="population"
+            />
+     <item name="corker"
+            category="equipment"
+            variety="bottling"
+            population_counting="unitary"
+            abilities="close(bottle)"
+            variable_indicators=""
             frozen_indicators="population"
             />
       <item name="equipment"

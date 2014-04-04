@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 12kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, plant, gram, 2g_pill, 5g_pill" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 12kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL -->
@@ -1246,7 +1246,31 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25kilogram, net_volume: 25.00liter"
             />
-      
+      <!-- PACKAGING PRODUCT -->
+          <!-- CORK -->
+      <item name="natural_cork"
+            nature="cork"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+      <item name="nomacorc_cork"
+            nature="cork"
+            unit_name="unit"
+            frozen_indicators_values=""
+            />
+        <!-- BOTTLE -->
+      <item name="bordelaise_75cl_bottle"
+            nature="bottle"
+            variety="cork_bottle"
+            unit_name="75cl_bottle"
+            frozen_indicators_values="net_volume: 75.00centiliter"
+            />
+      <item name="bordelaise_100cl_bottle"
+            nature="bottle"
+            variety="cork_bottle"
+            unit_name="100cl_bottle"
+            frozen_indicators_values="net_volume: 100.00centiliter"
+            /> 
       <!-- LAND PARCEL -->
       <item name="land_parcel"
             nature="land_parcel"
@@ -1369,7 +1393,6 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
-      
       <item name="spreader_trailer"
             nature="spreader_trailer"
             unit_name="equipment"
@@ -1446,6 +1469,17 @@
           <!-- PRESS FOR WINE -->
       <item name="wine_press"
             nature="wine_press"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+          <!-- WINE BOTTLING -->
+      <item name="hand_drawn"
+            nature="hand_drawn"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="corker"
+            nature="corker"
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />

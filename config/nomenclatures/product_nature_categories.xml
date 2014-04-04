@@ -269,6 +269,16 @@
             storable="true"
             pictogram="matter"
             />
+      <item name="wine_package_consumable"
+            charge_account="other_consumable_matter_expenses"
+            product_account="revenues"
+            stock_account="other_consumables_stock"
+            purchasable="true"
+            saleable="true"
+            depreciable="false"
+            storable="true"
+            pictogram="matter"
+            />
       <item name="small_equipment"
             charge_account="maintenances_consumables_expenses"
             product_account="revenues"
