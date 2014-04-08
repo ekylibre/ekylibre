@@ -49,7 +49,7 @@ class ProductionSupport < Ekylibre::Record::Base
 
   delegate :net_surface_area, :shape_area, to: :storage, prefix: true
   delegate :name, :variant, to: :production, prefix: true
-  delegate :name, :shape, :shape_to_ewkt, to: :storage
+  delegate :name, :shape, :shape_to_ewkt, :shape_svg, to: :storage
 
   accepts_nested_attributes_for :markers, :reject_if => :all_blank, :allow_destroy => true
 
@@ -60,11 +60,27 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     joins(:production).merge(Production.of_campaign(campaigns))
   }
+  
+  scope :of_activities, lambda { |*activities|
+    activities.flatten!
+    for activity in activities
+      raise ArgumentError.new("Expected Activity, got #{activity.class.name}:#{activity.inspect}") unless activity.is_a?(Activity)
+    end
+    joins(:production).merge(Production.of_activities(activities))
+  }
 
   scope :of_activity_families, lambda { |*families|
     joins(:activity).merge(Activity.of_families(families.flatten))
   }
-
+  
+  scope :of_productions, lambda { |*productions|
+    productions.flatten!
+    for production in productions
+      raise ArgumentError.new("Expected Production, got #{production.class.name}:#{production.inspect}") unless production.is_a?(Production)
+    end
+    where(production_id: productions.map(&:id))
+  }
+  
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]

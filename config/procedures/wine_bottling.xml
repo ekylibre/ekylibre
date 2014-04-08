@@ -3,7 +3,7 @@
   <procedure name="wine_bottling" natures="bottling" version="0" status="frozen">
     <variables>
       <variable name="tank"   variety="equipment" abilities="store(wine)" default-actor="storage"/>
-      <variable name="wine"   variety="wine" default-actor="first-localized-in: tank" read-only="true" />
+      <variable name="wine"   variety="wine" default-actor="first-localized-in: tank" roles="bottling-target" read-only="true" />
       <variable name="wine_to_pack" new="parted-from: wine" roles="bottling-input" default-name="{{variant}} ({{container}})">
 	<handler indicator="population" />
         <handler indicator="net_volume"            unit="hectoliter"               to="population" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) > 0"
