@@ -54,13 +54,12 @@ class FinancialYear < Ekylibre::Record::Base
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  # default_scope order(:started_at)
   scope :currents,  -> { where(closed: false).reorder(:started_at) }
   scope :closables, -> { where(closed: false).where("stopped_at < ?", Time.now).reorder(:started_at).limit(1) }
 
   # Find or create if possible the requested financial year for the searched date
   def self.at(searched_at = Time.now)
-    year = self.where("? BETWEEN started_at AND stopped_at", searched_at).order("started_at DESC").first
+    year = self.where("? BETWEEN started_at AND stopped_at", searched_at).order(started_at: :desc).first
     unless year
       # First
       first = self.reorder(:started_at).first
@@ -108,7 +107,7 @@ class FinancialYear < Ekylibre::Record::Base
       errors.add(:stopped_at, :posterior, to: ::I18n.localize(self.started_at)) unless self.started_at < self.stopped_at
       # If some financial years are already present
       id = self.id || 0
-      if self.class.where("id != ?", id).count > 0
+      if self.class.where.not(id: id).any?
         errors.add(:started_at, :overlap) if self.class.where("id != ? AND ? BETWEEN started_at AND stopped_at", id, self.started_at).first
         errors.add(:stopped_at, :overlap) if self.class.where("id != ? AND ? BETWEEN started_at AND stopped_at", id, self.stopped_at).first
       end
@@ -116,10 +115,7 @@ class FinancialYear < Ekylibre::Record::Base
   end
 
   def journal_entries(conditions=nil)
-    unless conditions.nil?
-      conditions = " AND ("+self.class.send(:sanitize_sql_for_conditions, conditions)+")"
-    end
-    JournalEntry.where("printed_at BETWEEN ? AND ? #{conditions}", self.started_at, self.stopped_at)
+    JournalEntry.where(printed_at: self.started_at..self.stopped_at).where(conditions.nil? ? true : conditions)
   end
 
   def name

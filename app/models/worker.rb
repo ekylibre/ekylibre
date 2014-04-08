@@ -48,6 +48,7 @@
 #  nature_id             :integer          not null
 #  number                :string(255)      not null
 #  parent_id             :integer
+#  person_id             :integer
 #  picture_content_type  :string(255)
 #  picture_file_name     :string(255)
 #  picture_file_size     :integer
@@ -62,11 +63,8 @@
 #
 
 class Worker < Equipment
-  belongs_to :owner, class_name: "Entity"
+  belongs_to :person
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
-
-  def person_id
-    nil
-  end
+  validates_presence_of :person
 end

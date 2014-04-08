@@ -49,13 +49,13 @@ class EntityLink < Ekylibre::Record::Base
   validates_inclusion_of :nature, in: self.nature.values
 
   scope :of_entity, lambda { |entity|
-    where("stopped_at IS NULL AND ? IN (entity_1_id, entity_2_id)", entity.id)
+    # where("stopped_at IS NULL AND ? IN (entity_1_id, entity_2_id)", entity.id)
+    whare(stopped_at: nil, entity.id => [:entity_1_id, :entity_2_id])
   }
-
-  scope :actives, -> {
-    now = Time.now
-    where("? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?)", now, now, now)
+  scope :at, lambda { |at|
+    where(arel_table[:started_at].eq(nil).or(arel_table[:started_at].lt(at)).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at))) )
   }
+  scope :actives, -> { at(Time.now) }
 
   scope :of_nature, lambda { |*natures|
     where(nature: natures.collect{|v| Nomen::EntityLinkNatures.all(v.to_sym) }.flatten.map(&:to_s).uniq)

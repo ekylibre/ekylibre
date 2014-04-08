@@ -23,6 +23,7 @@
 #
 #  created_at                  :datetime         not null
 #  creator_id                  :integer
+#  event_id                    :integer
 #  id                          :integer          not null, primary key
 #  issue_id                    :integer
 #  lock_version                :integer          default(0), not null
@@ -49,6 +50,7 @@ end
 
 class Intervention < Ekylibre::Record::Base
   attr_readonly :reference_name, :production_id
+  belongs_to :event, dependent: :destroy
   belongs_to :ressource , polymorphic: true
   belongs_to :production, inverse_of: :interventions
   belongs_to :production_support
@@ -79,7 +81,7 @@ class Intervention < Ekylibre::Record::Base
   # @TODO in progress - need to .all parent reference_name to have the name of the procedure_nature
 
   scope :between, lambda { |started_at, stopped_at|
-    where("started_at BETWEEN ? AND ?", started_at, stopped_at)
+    where(started_at: started_at..stopped_at)
   }
 
   scope :of_nature, lambda { |*natures|
@@ -132,6 +134,16 @@ class Intervention < Ekylibre::Record::Base
       if self.stopped_at <= self.started_at
         errors.add(:stopped_at, :posterior, to: self.started_at.l)
       end
+    end
+  end
+
+  after_save do
+    columns = {name: self.name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention}
+    if self.event
+      self.event.update_columns(columns)
+    else
+      event = Event.create!(columns)
+      self.update_column(:event_id, event.id)
     end
   end
 

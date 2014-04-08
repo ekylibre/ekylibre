@@ -48,6 +48,7 @@
 #  nature_id             :integer          not null
 #  number                :string(255)      not null
 #  parent_id             :integer
+#  person_id             :integer
 #  picture_content_type  :string(255)
 #  picture_file_name     :string(255)
 #  picture_file_size     :integer

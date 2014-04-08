@@ -22,28 +22,31 @@
 #
 # == Table: intervention_casts
 #
-#  actor_id        :integer
-#  created_at      :datetime         not null
-#  creator_id      :integer
-#  id              :integer          not null, primary key
-#  intervention_id :integer          not null
-#  lock_version    :integer          default(0), not null
-#  population      :decimal(19, 4)
-#  position        :integer          not null
-#  reference_name  :string(255)      not null
-#  roles           :string(320)
-#  shape           :spatial({:srid=>
-#  updated_at      :datetime         not null
-#  updater_id      :integer
-#  variant_id      :integer
+#  actor_id               :integer
+#  created_at             :datetime         not null
+#  creator_id             :integer
+#  event_participation_id :integer
+#  id                     :integer          not null, primary key
+#  intervention_id        :integer          not null
+#  lock_version           :integer          default(0), not null
+#  population             :decimal(19, 4)
+#  position               :integer          not null
+#  reference_name         :string(255)      not null
+#  roles                  :string(320)
+#  shape                  :spatial({:srid=>
+#  updated_at             :datetime         not null
+#  updater_id             :integer
+#  variant_id             :integer
 #
 
 class InterventionCast < Ekylibre::Record::Base
-  belongs_to :intervention, inverse_of: :casts
   belongs_to :actor, class_name: "Product", inverse_of: :intervention_casts
+  belongs_to :event_participation, dependent: :destroy
+  belongs_to :intervention, inverse_of: :casts
   belongs_to :variant, class_name: "ProductNatureVariant"
   has_one :activity, through: :intervention
   has_one :campaign, through: :intervention
+  has_one :event,    through: :intervention
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :population, allow_nil: true
   validates_length_of :reference_name, allow_nil: true, maximum: 255
@@ -85,6 +88,20 @@ class InterventionCast < Ekylibre::Record::Base
 
   validate do
     errors.add(:reference_name, :invalid) unless self.reference
+  end
+
+  after_save do
+    if self.actor and self.actor.person
+      columns = {event_id: self.event.id, participant_id: self.actor.person_id, state: :accepted}
+      if self.event_participation
+        self.event_participation.update_columns(columns)
+      else
+        event_participation = EventParticipation.create!(columns)
+        self.update_column(:event_participation_id, event_participation.id)
+      end
+    elsif self.event_participation
+      self.event_participation.destroy!
+    end
   end
 
   # multiply evaluated_price of an actor(product) and used population in this cast

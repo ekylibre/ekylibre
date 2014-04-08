@@ -49,6 +49,7 @@
 #  nature_id             :integer          not null
 #  number                :string(255)      not null
 #  parent_id             :integer
+#  person_id             :integer
 #  picture_content_type  :string(255)
 #  picture_file_name     :string(255)
 #  picture_file_size     :integer
@@ -123,7 +124,10 @@ class Product < Ekylibre::Record::Base
     }
   }
 
-  scope :members_of, lambda { |group, viewed_at| where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, "interior", viewed_at, viewed_at, viewed_at)}
+  scope :members_of, lambda { |group, viewed_at|
+    # where("id IN (SELECT member_id FROM #{ProductMembership.table_name} WHERE group_id = ? AND nature = ? AND ? BETWEEN COALESCE(started_at, ?) AND COALESCE(stopped_at, ?))", group.id, "interior", viewed_at, viewed_at, viewed_at)
+    where(id: ProductMembership.select(:member_id).where(group_id: group.id, nature: "interior").at(viewed_at))
+  }
   scope :of_variety, lambda { |*varieties|
     where(variety: varieties.collect{|v| Nomen::Varieties.all(v.to_sym) }.flatten.map(&:to_s).uniq)
   }
@@ -147,7 +151,7 @@ class Product < Ekylibre::Record::Base
   scope :of_variant, lambda { |variant, at = Time.now|
     where(variant_id: variant.id)
   }
-  
+
   scope :of_productions, lambda { |*productions|
     productions.flatten!
     for production in productions
@@ -155,7 +159,7 @@ class Product < Ekylibre::Record::Base
     end
     joins(:supports).merge(ProductionSupport.of_productions(productions))
   }
-  
+
   # scope :saleables, -> { joins(:nature).where(:active => true, :product_natures => {:saleable => true}) }
   scope :saleables, -> { joins(:nature).merge(ProductNature.saleables) }
   scope :deliverables, -> { joins(:nature).merge(ProductNature.stockables) }

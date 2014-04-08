@@ -91,7 +91,7 @@ class JournalEntryItem < Ekylibre::Record::Base
   after_update  :update_entry
 
   scope :between, lambda { |started_at, stopped_at|
-    where("printed_at BETWEEN ? AND ?", started_at, stopped_at)
+    where(printed_at: started_at..stopped_at)
   }
   scope :lasts_of_periods, lambda { |period = :month|
     period = :doy if period == :day

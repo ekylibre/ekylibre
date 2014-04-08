@@ -83,11 +83,12 @@ class Account < Ekylibre::Record::Base
   }
 
   scope :used_between, lambda { |started_at, stopped_at|
-    where("id IN (SELECT account_id FROM #{JournalEntryItem.table_name} WHERE printed_at BETWEEN ? AND ? )", started_at, stopped_at)
+    # where("id IN (SELECT account_id FROM #{JournalEntryItem.table_name} WHERE printed_at BETWEEN ? AND ? )", started_at, stopped_at)
+    where(id: JournalEntryItem.between(started, stopped_at).select(:account_id))
   }
 
   #scope :used_in_journal_entry_items, lambda { |started_at, stopped_at|
-  #  joins("JOIN #{JournalEntryItem.table_name} AS journal_entry_items ON (journal_entry_items.account_id=id)").joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_at BETWEEN ? AND ? ", started_at, stopped_at).order("printed_at, journal_entries.id, journal_entry_items.id")
+  #  joins("JOIN #{JournalEntryItem.table_name} AS journal_entry_items ON (journal_entry_items.account_id=id)").joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_at: started_at..stopped_at).order("printed_at, journal_entries.id, journal_entry_items.id")
  #}
 
   # scope :deposit_pending_payments, lambda { where('number LIKE ?', self.chart_number(:deposit_pending_payments)+"%").order(:number, :name) }
@@ -424,12 +425,12 @@ class Account < Ekylibre::Record::Base
 
 
   # def journal_entry_items_between(started_at, stopped_at)
-  #   self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where("printed_at BETWEEN ? AND ? ", started_at, stopped_at).order("printed_at, journal_entries.id, #{JournalEntryItem.table_name}.id")
+  #   self.journal_entry_items.joins("JOIN #{JournalEntry.table_name} AS journal_entries ON (journal_entries.id=entry_id)").where(printed_at: started_at..stopped_at).order("printed_at, journal_entries.id, #{JournalEntryItem.table_name}.id")
   # end
 
   def journal_entry_items_calculate(column, started_at, stopped_at, operation=:sum)
     column = (column == :balance ? "#{JournalEntryItem.table_name}.real_debit - #{JournalEntryItem.table_name}.real_credit" : "#{JournalEntryItem.table_name}.real_#{column}")
-    self.journal_entry_items.where("printed_at BETWEEN ? AND ? ", started_at, stopped_at).calculate(operation, column)
+    self.journal_entry_items.where(printed_at: started_at..stopped_at).calculate(operation, column)
   end
 
 
@@ -450,8 +451,8 @@ class Account < Ekylibre::Record::Base
     res_balance = 0
 
     for account in accounts
-      debit  = account.journal_entry_items.sum(:debit,  :conditions => ["r.created_at BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
-      credit = account.journal_entry_items.sum(:credit, :conditions => ["r.created_at BETWEEN ? AND ?", from, to], :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+      debit  = account.journal_entry_items.sum(:debit,  :conditions => {"r.created_at" => from..to}, :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
+      credit = account.journal_entry_items.sum(:credit, :conditions => {"r.created_at" => from..to}, :joins => "INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").to_f
 
       compute=HashWithIndifferentAccess.new
       compute[:id] = account.id.to_i
@@ -517,7 +518,7 @@ class Account < Ekylibre::Record::Base
     accounts.each do |account|
       compute=[] #HashWithIndifferentAccess.new
 
-      journal_entry_items = account.journal_entry_items.where("r.created_at BETWEEN ? AND ?", from, to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order("r.number ASC")
+      journal_entry_items = account.journal_entry_items.where("r.created_at" => from..to).joins("INNER JOIN #{JournalEntry.table_name} AS r ON r.id=#{JournalEntryItem.table_name}.entry_id").order("r.number ASC")
 
       if journal_entry_items.size > 0
         entries = []

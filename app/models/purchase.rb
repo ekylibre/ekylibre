@@ -73,7 +73,6 @@ class Purchase < Ekylibre::Record::Base
   acts_as_numbered
   acts_as_affairable :supplier
   accepts_nested_attributes_for :items
-  after_create {|r| r.supplier.add_event(:purchase, r.updater_id)}
   state_machine :state, :initial => :draft do
     state :draft
     state :estimate
@@ -114,6 +113,10 @@ class Purchase < Ekylibre::Record::Base
     self.pretax_amount = self.items.sum(:pretax_amount)
     self.amount = self.items.sum(:amount)
     return true
+  end
+
+  after_create do
+    self.supplier.add_event(:purchase_creation, self.updater.person) if self.updater
   end
 
   # This method permits to add journal entries corresponding to the purchase order/invoice

@@ -273,7 +273,7 @@ fra:
       equipment: "Outil"
       establishment: "Établissement"
       event: "Évènement"
-      event_nature: "Type d’évènement"
+      event_nature: "Type d’évènement" #?
       event_participation: "Participation à un évènement"
       financial_asset: "Immobilisation"
       financial_asset_depreciation: "Amortissement d’immobilisation"
@@ -660,7 +660,8 @@ fra:
     # entry_number: "Entry number"
     establishment: "Établissement"
     event: "Évènement"
-    events: "Évènements"
+    # event_participation: "Event participation"
+    events: "Évènements" #?
     # evolvable: "Evolvable"
     exclusive: "Exclusif"
     execution_number: "N° d’exécution"
@@ -954,6 +955,7 @@ fra:
     product_nature: "Product nature"
     # product_nature_categories: "Product nature categories"
     product_ownerships: "Product ownerships"
+    # product_reading: "Product reading"
     # product_reading_task: "Product reading task"
     product_reading_tasks: "Product reading_tasks"
     product_readings: "Product indicator data"

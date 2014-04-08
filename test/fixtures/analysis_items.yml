@@ -39,6 +39,7 @@
 #  measure_value_unit           :string(255)
 #  measure_value_value          :decimal(19, 4)
 #  point_value                  :spatial({:srid=>
+#  product_reading_id           :integer
 #  string_value                 :text
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer

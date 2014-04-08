@@ -247,7 +247,6 @@
 # - "backend/equipments#picture"
 # - "backend/equipments#unroll"
 # - "backend/establishments#unroll"
-# - "backend/event_natures#unroll"
 # - "backend/event_participations#create"
 # - "backend/event_participations#destroy"
 # - "backend/event_participations#edit"
@@ -1154,13 +1153,6 @@ manage_estimates:
 # translation missing: eng.rights.manage_events
 manage_events:
 - "backend/dashboards#relationship"
-- "backend/event_natures#create"
-- "backend/event_natures#destroy"
-- "backend/event_natures#edit"
-- "backend/event_natures#index"
-- "backend/event_natures#list"
-- "backend/event_natures#new"
-- "backend/event_natures#update"
 - "backend/events#autocomplete_for_place"
 - "backend/events#change_minutes"
 - "backend/events#create"

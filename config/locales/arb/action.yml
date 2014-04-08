@@ -290,11 +290,10 @@ arb:
       edit: "تعديل نموذج المرفق : %{name}"
       index: "مرافق"
       new: "اضافة مرفق جديد"
-    backend/event_natures:
-      edit: "تعديل نوع الحدث: %{name}"
-      index: "انواع الاحداث"
-      new: "اضافة نوع الحدث"
-      # show: "Type d’évènement\_: %{name}"
+    backend/event_natures:  #?
+      edit: "تعديل نوع الحدث: %{name}" #?
+      index: "انواع الاحداث" #?
+      new: "اضافة نوع الحدث" #?
     backend/event_participations: #?
     backend/events:
       edit: "تعديل الحدث"

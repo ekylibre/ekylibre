@@ -5,72 +5,6 @@ load_data :products do |loader|
     raise "Need a BuildingDivision"
   end
 
-
-  path = loader.path("alamano", "equipments.csv")
-  if path.exist?
-    loader.count :equipments do |w|
-      #############################################################################
-
-      CSV.foreach(path, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
-        next if row[0].blank?
-        r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
-                           :variant_reference_name => row[1].downcase.to_sym,
-                           :work_number => row[2].blank? ? nil : row[2].to_s,
-                           :place_code => row[3].blank? ? nil : row[3].to_s,
-                           :born_at => (row[4].blank? ? Date.civil(2000, 2, 2) : row[4]).to_datetime,
-                           :brand => row[5].blank? ? nil : row[5].to_s,
-                           :model => row[6].blank? ? nil : row[6].to_s,
-                           :external => !row[7].blank?,
-                           :owner_name => row[7].blank? ? nil : row[7].to_s,
-                           :indicators => row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
-                             h[i.first.strip.downcase.to_sym] = i.second
-                             h
-                           },
-                           :notes => row[9].blank? ? nil : row[9].to_s,
-                           :unit_price => row[10].blank? ? nil : row[10].to_d,
-                           :price_indicator => row[11].blank? ? nil : row[11].to_sym
-                           )
-
-        # find or import from variant reference_nameclature the correct ProductNatureVariant
-        variant = ProductNatureVariant.find_by(:reference_name => r.variant_reference_name) || ProductNatureVariant.import_from_nomenclature(r.variant_reference_name)
-        pmodel = variant.nature.matching_model
-
-        # create a price
-        if r.unit_price
-          variant.prices.create!(catalog: Catalog.where(usage: :cost).first, all_taxes_included: false, amount: r.unit_price, currency: "EUR", indicator_name: r.price_indicator.to_s)
-        end
-
-        # create the owner if not exist
-        if r.external == true
-          owner = Entity.where(:last_name => r.owner_name.to_s).first
-          owner ||= Entity.create!(:born_at => Date.today, :last_name => r.owner_name.to_s, :currency => Preference[:currency], :language => Preference[:language], :nature => "company")
-        else
-          owner = Entity.of_company
-        end
-        
-        container = nil
-        unless container = Product.find_by_work_number(r.place_code)
-          container = building_division
-        end
-        
-        # create the equipment
-        equipment = pmodel.create!(:variant_id => variant.id, :name => r.name, :initial_born_at => r.born_at, :initial_owner => owner, :initial_container => container, :default_storage => container, :work_number => r.work_number )
-
-        # create indicators linked to equipment
-        for indicator, value in r.indicators
-          equipment.read!(indicator, value, at: r.born_at, force: true)
-        end
-        
-        if container = Product.find_by_work_number(r.place_code)
-          # container.add(zone, born_at)
-          equipment.update_attributes(initial_container: container)
-        end
-        
-        w.check_point
-      end
-
-    end
-  end
   
   path = loader.path("alamano", "matters.csv")
   if path.exist?
@@ -133,20 +67,4 @@ load_data :products do |loader|
 
   end
   
-  path = loader.path("alamano", "zones", "equipments.shp")
-  if path.exist?
-    loader.count :equipments_shapes do |w|
-      #############################################################################
-      RGeo::Shapefile::Reader.open(path.to_s, :srid => 4326) do |file|
-        # puts "File contains #{file.num_records} records."
-        file.each do |record|
-          if zone = Product.find_by_work_number(record.attributes['number'])
-            zone.read!(:shape, record.geometry, at: zone.born_at, force: true)
-          end
-          w.check_point
-        end
-      end
-    end
-  end
-
 end

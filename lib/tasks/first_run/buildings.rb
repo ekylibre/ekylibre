@@ -8,6 +8,7 @@ load_data :buildings do |loader|
 
   path = loader.path("alamano", "zones.csv")
   if path.exist?
+    # Zones, BuildingDivisions...
     born_at = Time.new(1995, 1, 1, 10, 0, 0, "+00:00")
     default_place = LandParcel.first
     loader.count :zone_groups do |w|

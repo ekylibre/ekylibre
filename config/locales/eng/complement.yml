@@ -349,6 +349,8 @@ eng:
         service: "Service"
         worker: "Worker"
         zone: "Zone"
+    event:
+
     financial_asset:
       currency:
         AED: "UAE Dirham"

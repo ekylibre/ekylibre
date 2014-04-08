@@ -56,7 +56,7 @@ class Version < ActiveRecord::Base
   scope :after,   lambda { |at| where("created_at > ?", at) }
   scope :before,  lambda { |at| where("created_at < ?", at) }
   scope :between, lambda { |started_at, stopped_at|
-    where("created_at BETWEEN ? AND ?", started_at, stopped_at).order(created_at: :desc)
+    where(created_at: started_at..stopped_at).order(created_at: :desc)
   }
 
   serialize :item_object,  HashWithIndifferentAccess

@@ -1149,6 +1149,34 @@ fra:
         public_interest_group: "Groupement d’intérêt public" # legal_entity
         sir: "Monsieur"                                    # person
         syndicate: "Syndicat"                              # legal_entity
+    event_natures:
+      name: "Types d’évènements"
+      property_natures:
+        default_duration: "Durée par défaut"
+      items:
+        absence: "Absence"
+        administrative_intervention: "Intervention administrative"
+        appointment: "Rendez-vous"                         # meeting
+        business_meal: "Repas d’affaire"                   # meeting
+        incoming_delivery_creation: "Enregistrement d’approvisionnement" # administrative_intervention
+        leave: "Congé"                                     # absence
+        mailing: "Mailing"                                 # administrative_intervention
+        maternity_leave: "Congé maternité"                 # leave
+        meeting: "Réunion"
+        outgoing_delivery_creation: "Enregistrement d’apport" # administrative_intervention
+        overtime_recovery: "Récupération d’heures supplémentaires" # leave
+        paid_leave: "Congé payé"                           # leave
+        parental_leave: "Congé parental"                   # leave
+        paternity_leave: "Congé parternité"                # leave
+        production_intervention: "Intervention de production"
+        sale_creation: "Enregistrement d’une vente"        # administrative_intervention
+        sale_invoice_creation: "Facturation d’une vente"   # administrative_intervention
+        sickness: "Maladie"                                # absence
+        sickness_leave: "Congé maladie"                    # leave
+        staff_meeting: "Réunion du personnel"              # meeting
+        unpaid_leave: "Congé sans solde"                   # leave
+        working_group: "Groupe de travail"                 # meeting
+        working_time_recovery: "Récupération de temps de travail (RTT)" # leave
     figures:
       name: "Formes"
       items:
@@ -1232,7 +1260,7 @@ fra:
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
         application_width: "Largeur de travail"
         available_water_capacity_per_area: "Réserve utile d’eau (RU)"
-        best_before_period: "Période de consommation 'de préférence'"
+        best_before_period: "Période de consommation ’de préférence’"
         boron_concentration: "Teneur en Bore"
         calcium_concentration: "Teneur en Calcium"
         calving_ease_index: "Index de facilité de naissance"
@@ -1242,7 +1270,7 @@ fra:
         cells_mass_concentration: "Concentration massique en cellules actives"
         certification: "Certification"
         clostridial_spores_concentration: "Concentration en spores butyriques"
-        consumption_period: "Période de consommation 'limite'"
+        consumption_period: "Période de consommation ’limite’"
         copper_concentration: "Teneur en cuivre"
         dry_matter_rate: "Taux de matière sèche"
         easement_area: "Emprise au sol"
@@ -2547,7 +2575,7 @@ fra:
         crocus_sativus: "Crocus sativus"                   # crocus
         cucumis: "Melon"                                   # cucurbitaceae
         cucurbitaceae: "Cucurbitaceae"                     # plant
-        cultivable_zone: "Zone cultivable"                 # land_parcel_group
+        cultivable_zone: "Zone cultivable"                 # zone
         daucus: "Carotte"                                  # apiaceae
         disinfectant: "Désinfectant"                       # antiseptic
         easement: "Aménagement foncier"                    # zone
