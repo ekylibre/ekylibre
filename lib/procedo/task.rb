@@ -22,7 +22,10 @@ module Procedo
       "{absorber} merges with {product}" => :merging,
       "{product} is merged with {absorber}" => :merging,
       # Mixing
-      "{producer} and {coproducer} are mixed into {product}" => :mixing,
+      "{first_producer} and {second_producer} are mixed into {product}" => :mixing,
+      "{first_producer}, {second_producer} and {third_producer} are mixed into {product}" => :triple_mixing,
+      "{first_producer}, {second_producer}, {third_producer} and {fourth_producer} are mixed into {product}" => :quadruple_mixing,
+      "{first_producer}, {second_producer}, {third_producer}, {fourth_producer} and {fifth_producer} are mixed into {product}" => :quintuple_mixing,
       # Linkages
       "{carried} is attached to {carrier} at {point}" => :attachment,
       "{carried} is detached from {carrier}" => :detachment,

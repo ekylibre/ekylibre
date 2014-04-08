@@ -49,11 +49,14 @@ class Operation < Ekylibre::Record::Base
   has_many :product_enjoyments,    dependent: :destroy
   has_many :product_linkages,      dependent: :destroy
   has_many :product_localizations, dependent: :destroy
+  has_many :product_memberships,   dependent: :destroy
   has_many :product_mergings,      dependent: :destroy
   has_many :product_mixings,       dependent: :destroy
-  has_many :product_reading_tasks, dependent: :destroy
-  has_many :product_memberships,   dependent: :destroy
   has_many :product_ownerships,    dependent: :destroy
+  has_many :product_quadruple_mixings,       dependent: :destroy
+  has_many :product_quintuple_mixings,       dependent: :destroy
+  has_many :product_reading_tasks, dependent: :destroy
+  has_many :product_triple_mixings,       dependent: :destroy
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, allow_nil: true, only_integer: true
@@ -236,11 +239,39 @@ class Operation < Ekylibre::Record::Base
   end
 
   # == Mixing
-
+  
   def perform_mixing(params)
-    self.product_mixings.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, producer: params[:producer].actor, coproducer: params[:coproducer].actor)
+    attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor}
+    for indicator_name in params[:product].actor.whole_indicators_list
+      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
+    end
+    self.product_mixings.create!(attributes)
   end
-
+  
+  def perform_triple_mixing(params)
+    attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor}
+    for indicator_name in params[:product].actor.whole_indicators_list
+      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
+    end
+    self.product_triple_mixings.create!(attributes)
+  end
+  
+  def perform_quadruple_mixing(params)
+    attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor, fourth_producer: params[:fourth_producer].actor}
+    for indicator_name in params[:product].actor.whole_indicators_list
+      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
+    end
+    self.product_quadruple_mixings.create!(attributes)
+  end
+  
+  def perform_quintuple_mixing(params)
+    attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor, fourth_producer: params[:fourth_producer].actor, fifth_producer: params[:fifth_producer].actor}
+    for indicator_name in params[:product].actor.whole_indicators_list
+      attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
+    end
+    self.product_quintuple_mixings.create!(attributes)
+  end
+  
   # == Linkages
 
   def perform_attachment(params)

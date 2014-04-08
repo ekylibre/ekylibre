@@ -15,7 +15,10 @@ module Procedo
       birth:       {product: :product},
       creation:    {product: :product, producer: :product},
       division:    {product: :product, producer: :product},
-      mixing:      {product: :product, producer: :product, coproducer: :product},
+      mixing:      {product: :product, first_producer: :product, second_producer: :product},
+      triple_mixing: {product: :product, first_producer: :product, second_producer: :product, third_producer: :product},
+      quadruple_mixing: {product: :product, first_producer: :product, second_producer: :product, third_producer: :product, fourth_producer: :product},
+      quintuple_mixing: {product: :product, first_producer: :product, second_producer: :product, third_producer: :product, fourth_producer: :product, fifth_producer: :product},
       # Deaths
       death:       {product: :product},
       consumption: {product: :product, absorber: :product},

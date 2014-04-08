@@ -35,8 +35,6 @@
 #  updated_at      :datetime         not null
 #  updater_id      :integer
 #
-class ProductMixing < ProductJunction
-  has_start :product
-  has_finish :first_producer
-  has_finish :second_producer
+class ProductQuintupleMixing < ProductQuadrupleMixing
+  has_finish :fifth_producer
 end
