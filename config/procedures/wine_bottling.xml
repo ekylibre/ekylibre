@@ -13,11 +13,7 @@
         <handler indicator="net_volume"            unit="liter"               to="population" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) > 0"
                  forward="value / self..net_volume(liter)"
                  backward="value * self..net_volume(liter)"
-                 /> <!-- l    -->
-        <handler indicator="net_volume"            unit="liter"   name="bottle_volume_unit"            to="population" if="wine_to_pack? &amp; wine_to_pack.net_volume(liter) > 0"
-                 forward="value / bottles_to_use..net_volume(liter)"
-                 backward="value * bottles_to_use..net_volume(liter)"
-                 /> <!-- l    -->        
+                 /> <!-- l    -->      
       </variable> 
       <variable name="bottles"        variety="cork_bottle" abilities="store(wine)"/>
       <variable name="bottles_to_use" new="parted-from: bottles" roles="bottling-input" default-name="{{variant}} ({{container}})">
@@ -41,6 +37,7 @@
       <variable name="wine_bottles" variety="wine" derivative-of=":wine_to_pack" new="produced-by: wine_to_pack" roles="bottling-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" >
 	<handler indicator="population" />
       </variable>
+    <variable name="wine_storage" variety="building_division" abilities="store(wine)" /> 
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">
@@ -52,12 +49,12 @@
         <task do="[corks] parts with [corks_to_use]"/>
       </operation>
       <operation id="300">
-        <task do="[wine_to_pack] produces [wine_bottles]"/>
-        <task do="[wine_bottles] consumes [bottles_to_use]"/>
-        <task do="[wine_bottles] consumes [wine_to_pack]"/>
-        <task do="[wine_bottles] consumes [corks_to_use]"/>
+        <task do="[wine_to_pack], [bottles_to_use] and [corks_to_use] are mixed into [wine_bottles]"/>
       </operation>
       <operation id="400" duration="4 minutes">
+        <task do="[wine_bottles] moves in [wine_storage]"/>
+      </operation>
+      <operation id="500" duration="4 minutes">
         <task do="[wine_man] moves in default storage"/>
       </operation>
     </operations>
