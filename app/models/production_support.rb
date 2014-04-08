@@ -60,7 +60,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     joins(:production).merge(Production.of_campaign(campaigns))
   }
-  
+
   scope :of_activities, lambda { |*activities|
     activities.flatten!
     for activity in activities
@@ -72,7 +72,7 @@ class ProductionSupport < Ekylibre::Record::Base
   scope :of_activity_families, lambda { |*families|
     joins(:activity).merge(Activity.of_families(families.flatten))
   }
-  
+
   scope :of_productions, lambda { |*productions|
     productions.flatten!
     for production in productions
@@ -80,7 +80,7 @@ class ProductionSupport < Ekylibre::Record::Base
     end
     where(production_id: productions.map(&:id))
   }
-  
+
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]

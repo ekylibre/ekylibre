@@ -2575,7 +2575,7 @@ fra:
         crocus_sativus: "Crocus sativus"                   # crocus
         cucumis: "Melon"                                   # cucurbitaceae
         cucurbitaceae: "Cucurbitaceae"                     # plant
-        cultivable_zone: "Zone cultivable"                 # land_parcel_group
+        cultivable_zone: "Zone cultivable"                 # zone
         daucus: "Carotte"                                  # apiaceae
         disinfectant: "Désinfectant"                       # antiseptic
         easement: "Aménagement foncier"                    # zone
