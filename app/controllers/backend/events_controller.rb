@@ -18,13 +18,13 @@
 #
 
 class Backend::EventsController < BackendController
-  manage_restfully except: :index, :nature_id => "EventNature.first.id rescue nil".c, :started_at => "Time.now".c
+  manage_restfully except: :index, nature: "Event.nature.default_value".c, :started_at => "Time.now".c
 
   unroll
 
   autocomplete_for :place
 
-  list(conditions: search_conditions(:events => [:duration, :place, :name, :description, :started_at], :event_natures => [:name]), order: {started_at: :desc}) do |t|
+  list(conditions: search_conditions(events: [:duration, :place, :name, :description, :started_at]), order: {started_at: :desc}) do |t|
     t.column :name
     t.column :casting
     t.column :duration
@@ -46,7 +46,7 @@ class Backend::EventsController < BackendController
   end
 
   def change_minutes
-    return unless nature = find_and_check(:event_nature, params[:nature_id])
+    return unless nature = Nomen::EventNatures[params[:nature]]
     value = nature.send(params[:field] || :name)
     render :text => value.to_s, :layout => false
   end

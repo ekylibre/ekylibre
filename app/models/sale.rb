@@ -98,7 +98,6 @@ class Sale < Ekylibre::Record::Base
   acts_as_numbered :number, readonly: false
   acts_as_affairable :client, debit: :credit?
   accepts_nested_attributes_for :items # , :reject_if => :all_blank, :allow_destroy => true
-  after_create {|r| r.client.add_event(:sale, r.updater_id)}
 
   delegate :closed, to: :affair, prefix: true
 
@@ -182,6 +181,10 @@ class Sale < Ekylibre::Record::Base
         end
       end
     end
+  end
+
+  after_create do
+    self.client.add_event(:sale_creation, self.updater.person) if self.updater
   end
 
   # This method bookkeeps the sale depending on its state
@@ -313,7 +316,7 @@ class Sale < Ekylibre::Record::Base
         self.number = sequence.next_value
       end
       self.save
-      self.client.add_event(:sales_invoice, self.updater_id)
+      self.client.add_event(:sales_invoice_creation, self.updater.person) if self.updater
       return super
     end
     return false

@@ -198,6 +198,8 @@ spa:
 
     equipment:
 
+    event:
+
     financial_asset:
       currency:
         AED: "Dirham de los Emiratos Árabes Unidos"

@@ -28,7 +28,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature_id    :integer          not null
+#  nature       :string(255)      not null
 #  place        :string(255)
 #  restricted   :boolean          not null
 #  started_at   :datetime         not null

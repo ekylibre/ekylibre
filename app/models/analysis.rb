@@ -52,9 +52,13 @@ class Analysis < Ekylibre::Record::Base
 
   acts_as_numbered
 
-  scope :between, lambda { |started_at, stopped_at| 
-    where(sampled_at: started_at..stopped_at) 
+  scope :between, lambda { |started_at, stopped_at|
+    where(sampled_at: started_at..stopped_at)
   }
+
+  after_save do
+    self.reload.items.each(&:save!)
+  end
 
   # Measure a product for a given indicator
   def read!(indicator, value, options = {})

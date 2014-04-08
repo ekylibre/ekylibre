@@ -39,6 +39,7 @@
 #  measure_value_unit           :string(255)
 #  measure_value_value          :decimal(19, 4)
 #  point_value                  :spatial({:srid=>
+#  product_reading_id           :integer
 #  string_value                 :text
 #  updated_at                   :datetime         not null
 #  updater_id                   :integer
@@ -46,6 +47,7 @@
 class AnalysisItem < Ekylibre::Record::Base
   include ReadingStorable
   belongs_to :analysis
+  belongs_to :product_reading, dependent: :destroy
   has_one :product, through: :analysis
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :integer_value, allow_nil: true, only_integer: true
@@ -58,21 +60,16 @@ class AnalysisItem < Ekylibre::Record::Base
   delegate :sampled_at, to: :analysis
 
   after_save do
-    if reading = self.reading
-      reading.value = value
-      reading.save!
-    else
-      self.product.read!(indicator, value, at: sampled_at)
+    if self.product
+      if reading = self.product_reading
+        reading.read_at = self.sampled_at
+        reading.value = self.value
+        reading.save!
+      else
+        reading = self.product.read!(indicator, self.value, at: self.sampled_at)
+        self.update_column(:product_reading_id, reading.id)
+      end
     end
-  end
-
-  before_destroy do
-    self.reading.destroy!
-  end
-
-  # Returns the matching reading of the product
-  def reading
-    self.product.reading(indicator, at: sampled_at)
   end
 
 end

@@ -160,7 +160,7 @@ load_data :animals do |loader|
           if loader.manifest[:demo]
             weighted_at = r.born_at
             if weighted_at and weighted_at < Time.now
-              variation = 0.05
+              variation = 0.02
               while (r.dead_at.nil? or weighted_at < r.dead_at) and weighted_at < Time.now
                 age = (weighted_at - r.born_at).to_f
                 weight = (age < 990 ? 700 * Math.sin(age / (100 * 2 * Math::PI)) + 50.0 : 750)

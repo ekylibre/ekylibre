@@ -28,7 +28,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature_id    :integer          not null
+#  nature       :string(255)      not null
 #  place        :string(255)
 #  restricted   :boolean          not null
 #  started_at   :datetime         not null
@@ -37,15 +37,19 @@
 #  updater_id   :integer
 #
 class Event < Ekylibre::Record::Base
-  belongs_to :nature, class_name: "EventNature"
-  has_many :participations, class_name: "EventParticipation"
+  has_one :intervention
+  has_many :participations, class_name: "EventParticipation", dependent: :destroy, inverse_of: :event
   has_many :participants, :through => :participations
+  enumerize :nature, in: Nomen::EventNatures.all, default: Nomen::EventNatures.default
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :duration, allow_nil: true, only_integer: true
-  validates_length_of :name, :place, allow_nil: true, maximum: 255
+  validates_length_of :name, :nature, :place, allow_nil: true, maximum: 255
   validates_inclusion_of :restricted, in: [true, false]
   validates_presence_of :name, :nature, :started_at
   #]VALIDATORS]
+  validates_inclusion_of :nature, in: self.nature.values
+  validates_presence_of :stopped_at
 
   accepts_nested_attributes_for :participations
 
@@ -61,6 +65,20 @@ class Event < Ekylibre::Record::Base
 
   before_validation do
     self.started_at ||= Time.now
+    if nature = Nomen::EventNatures[self.nature]
+      self.duration ||= nature.default_duration.to_i
+    end
+    if self.stopped_at and self.started_at
+      self.duration = (self.stopped_at - self.started_at).to_i
+    elsif self.started_at and self.duration
+      self.stopped_at = self.started_at + self.duration
+    else
+      self.duration = 0
+    end
+  end
+
+  protect on: :update do
+    self.intervention.present?
   end
 
   # TODO Make it better if possible

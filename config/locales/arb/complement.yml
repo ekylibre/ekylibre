@@ -187,6 +187,8 @@ arb:
 
     equipment:
 
+    event:
+
     financial_asset:
       currency:
         AED: "درهم إماراتي"

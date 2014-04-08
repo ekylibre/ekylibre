@@ -1166,17 +1166,6 @@
     </group>
     <group name="people" icon="group">
       <page to="backend/dashboards#settings_relationship"/>
-      <item name="event_natures">
-        <page to="backend/event_natures#index"/>
-        <page to="backend/event_natures#create"/>
-        <page to="backend/event_natures#destroy"/>
-        <page to="backend/event_natures#edit"/>
-        <page to="backend/event_natures#list"/>
-        <page to="backend/event_natures#new"/>
-        <page to="backend/event_natures#update"/>
-        <page to="backend/event_natures#show"/>
-        <page to="backend/event_natures#unroll"/>
-      </item>
       <item name="subscription_natures">
         <page to="backend/subscription_natures#index"/>
         <page to="backend/subscription_natures#create"/>

@@ -92,6 +92,7 @@ class User < Ekylibre::Record::Base
   validates_confirmation_of :password
   validates_numericality_of :maximal_grantable_reduction_percentage, :greater_than_or_equal_to => 0, :less_than_or_equal_to => 100
   validates_uniqueness_of :email, :person_id
+  # validates_presence_of :person
   # validates_format_of :email, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: lambda{|r| !r.email.blank?}
 
   # Include default devise modules. Others available are:

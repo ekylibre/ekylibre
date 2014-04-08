@@ -266,11 +266,9 @@ class Entity < Ekylibre::Record::Base
     #count += self.balance<0 ? 1 : 0
   end
 
-  def add_event(usage, user_id)
-    if user = Entity.find_by(id: user_id)
-      EventNature.where(usage: usage.to_s).each do |nature|
-        nature.events.create!(:started_at => Time.now, :duration => event_nature.duration.to_s, :entity_id => self.id, :responsible_id => user.id)
-      end
+  def add_event(usage, operator, at = Time.now)
+    if operator and item = Nomen::EventNatures[usage]
+      Event.create!(name: item.human_name, started_at: at, duration: item.default_duration.to_i, participations_attributes: {"0" => {participant_id: self.id, state: "informative"}, "1" => {participant_id: operator, state: "accepted"}})
     end
   end
 

@@ -28,7 +28,7 @@
 #  id           :integer          not null, primary key
 #  lock_version :integer          default(0), not null
 #  name         :string(255)      not null
-#  nature_id    :integer          not null
+#  nature       :string(255)      not null
 #  place        :string(255)
 #  restricted   :boolean          not null
 #  started_at   :datetime         not null
@@ -42,27 +42,29 @@
 # events_001:
 #   creator: users_001
 #   name: "Lorem ipsum"
-#   nature: natures_001
+#   nature: "Lorem ipsum"
 #   restricted: true
 #   started_at: 2013-10-26 18:34:04 +02:00
 #   updater: users_001
 #
----
+
 events_001:
   creator: users_001
   name: Nothing
-  nature: event_natures_001
+  nature: meeting
   started_at: <%=(t=Time.now-1.month).to_s(:db)%>
   updater: users_001
+
 events_002:
   creator: users_001
   name: Nothing too
-  nature: event_natures_001
+  nature: meeting
   started_at: <%=(t=Time.now-1.year).to_s(:db)%>
   updater: users_001
+
 events_003:
   creator: users_001
   name: Nothing too again
-  nature: event_natures_001
+  nature: meeting
   started_at: <%=(t=Time.now-2.year).to_s(:db)%>
   updater: users_001

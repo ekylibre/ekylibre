@@ -54,14 +54,12 @@ class FinancialYear < Ekylibre::Record::Base
 
   # This order must be the natural order
   # It permit to find the first and the last financial year
-  # default_scope order(:started_at)
   scope :currents,  -> { where(closed: false).reorder(:started_at) }
   scope :closables, -> { where(closed: false).where("stopped_at < ?", Time.now).reorder(:started_at).limit(1) }
 
   # Find or create if possible the requested financial year for the searched date
   def self.at(searched_at = Time.now)
-    # year = self.where("? BETWEEN started_at AND stopped_at", searched_at).order("started_at DESC").first
-    year = self.where(searched_at => :started_at..:stopped_at).order("started_at DESC").first
+    year = self.where("? BETWEEN started_at AND stopped_at", searched_at).order(started_at: :desc).first
     unless year
       # First
       first = self.reorder(:started_at).first

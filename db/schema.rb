@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20121212122000) do
+ActiveRecord::Schema.define(version: 20140407091156) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -167,6 +167,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "lock_version",                                                                                   default: 0,     null: false
     t.spatial  "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
     t.spatial  "point_value",                  limit: {:srid=>4326, :type=>"point"}
+    t.integer  "product_reading_id"
   end
 
   add_index "analysis_items", ["analysis_id"], :name => "index_analysis_items_on_analysis_id"
@@ -650,23 +651,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "establishments", ["updated_at"], :name => "index_establishments_on_updated_at"
   add_index "establishments", ["updater_id"], :name => "index_establishments_on_updater_id"
 
-  create_table "event_natures", force: true do |t|
-    t.string   "name",                                   null: false
-    t.string   "usage",        limit: 60
-    t.boolean  "active",                  default: true, null: false
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",            default: 0,    null: false
-  end
-
-  add_index "event_natures", ["created_at"], :name => "index_event_natures_on_created_at"
-  add_index "event_natures", ["creator_id"], :name => "index_event_natures_on_creator_id"
-  add_index "event_natures", ["name"], :name => "index_event_natures_on_name"
-  add_index "event_natures", ["updated_at"], :name => "index_event_natures_on_updated_at"
-  add_index "event_natures", ["updater_id"], :name => "index_event_natures_on_updater_id"
-
   create_table "event_participations", force: true do |t|
     t.integer  "event_id",                   null: false
     t.integer  "participant_id",             null: false
@@ -686,7 +670,6 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "event_participations", ["updater_id"], :name => "index_event_participations_on_updater_id"
 
   create_table "events", force: true do |t|
-    t.integer  "nature_id",                    null: false
     t.string   "name",                         null: false
     t.datetime "started_at",                   null: false
     t.datetime "stopped_at"
@@ -699,11 +682,11 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version", default: 0,     null: false
+    t.string   "nature",                       null: false
   end
 
   add_index "events", ["created_at"], :name => "index_events_on_created_at"
   add_index "events", ["creator_id"], :name => "index_events_on_creator_id"
-  add_index "events", ["nature_id"], :name => "index_events_on_nature_id"
   add_index "events", ["updated_at"], :name => "index_events_on_updated_at"
   add_index "events", ["updater_id"], :name => "index_events_on_updater_id"
 
@@ -1061,19 +1044,20 @@ ActiveRecord::Schema.define(version: 20121212122000) do
   add_index "incoming_payments", ["updater_id"], :name => "index_incoming_payments_on_updater_id"
 
   create_table "intervention_casts", force: true do |t|
-    t.integer  "intervention_id",                                                                               null: false
+    t.integer  "intervention_id",                                                                                      null: false
     t.integer  "actor_id"
     t.integer  "variant_id"
-    t.decimal  "population",                                               precision: 19, scale: 4
-    t.string   "roles",           limit: 320
-    t.string   "reference_name",                                                                                null: false
-    t.integer  "position",                                                                                      null: false
-    t.datetime "created_at",                                                                                    null: false
-    t.datetime "updated_at",                                                                                    null: false
+    t.decimal  "population",                                                      precision: 19, scale: 4
+    t.string   "roles",                  limit: 320
+    t.string   "reference_name",                                                                                       null: false
+    t.integer  "position",                                                                                             null: false
+    t.datetime "created_at",                                                                                           null: false
+    t.datetime "updated_at",                                                                                           null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                      default: 0, null: false
-    t.spatial  "shape",           limit: {:srid=>4326, :type=>"geometry"}
+    t.integer  "lock_version",                                                                             default: 0, null: false
+    t.spatial  "shape",                  limit: {:srid=>4326, :type=>"geometry"}
+    t.integer  "event_participation_id"
   end
 
   add_index "intervention_casts", ["actor_id"], :name => "index_intervention_casts_on_actor_id"
@@ -1106,6 +1090,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                default: 0,     null: false
+    t.integer  "event_id"
   end
 
   add_index "interventions", ["created_at"], :name => "index_interventions_on_created_at"
@@ -2206,6 +2191,7 @@ ActiveRecord::Schema.define(version: 20121212122000) do
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                            default: 0,     null: false
     t.spatial  "initial_shape",         limit: {:srid=>4326, :type=>"geometry"}
+    t.integer  "person_id"
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"

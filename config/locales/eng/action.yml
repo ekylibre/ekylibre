@@ -265,11 +265,10 @@ eng:
       edit: "Edit the establishment: %{name}"
       index: "Establishments"
       new: "Add a new establishment"
-    backend/event_natures:
-      edit: "Edit thee event type: %{name}"
-      index: "Event types"
-      new: "Add a new event type"
-      # show: "Type d’évènement\_: %{name}"
+    backend/event_natures:  #?
+      edit: "Edit thee event type: %{name}" #?
+      index: "Event types" #?
+      new: "Add a new event type" #?
     backend/event_participations: #?
     backend/events:
       change_minutes: "Change minutes for event" #?

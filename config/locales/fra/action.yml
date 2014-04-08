@@ -243,11 +243,6 @@ fra:
       edit: "Modifier l’établissement\_: %{name}"
       index: "Établissements"
       new: "Ajout d’un nouvel etablissement"
-    backend/event_natures:
-      edit: "Modifier le type d’évènement\_: %{name}"
-      index: "Types d’évènement"
-      new: "Nouveau type d’évènement"
-      show: "Type d’évènement\_: %{name}" #?
     backend/event_participations:
       # edit: "Edit backend/event participation"
       # new: "New backend/event participation"
@@ -750,7 +745,6 @@ fra:
     backend/entity_links: "Liens entre personnes"
     backend/equipments: "Équipements"
     backend/establishments: "Établissements"
-    # backend/event_natures: "Backend/event natures"
     # backend/event_participations: "Backend/event participations"
     # backend/events: "Backend/events"
     backend/financial_assets: "Immobilisations"
