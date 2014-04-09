@@ -1974,6 +1974,7 @@ eng:
         incoming_payments:  #? String excepted (Hash:{:number_format=>"P[year|4][number|6]", :period=>"year"})
           number_format: "P[year|4][number|6]" #? String excepted (Hash:{:number_format=>"P[year|4][number|6]", :period=>"year"})
           period: "year" #? String excepted (Hash:{:number_format=>"P[year|4][number|6]", :period=>"year"})
+        # interventions: "[number]"
         outgoing_deliveries:  #? String excepted (Hash:{:number_format=>"OD[year|4][number|6]", :period=>"year"})
           number_format: "OD[year|4][number|6]" #? String excepted (Hash:{:number_format=>"OD[year|4][number|6]", :period=>"year"})
           period: "year" #? String excepted (Hash:{:number_format=>"OD[year|4][number|6]", :period=>"year"})

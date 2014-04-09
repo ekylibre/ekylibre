@@ -90,14 +90,16 @@ class InterventionCast < Ekylibre::Record::Base
     errors.add(:reference_name, :invalid) unless self.reference
   end
 
-  after_save do
+  before_save do
     if self.actor and self.actor.respond_to?(:person) and self.actor.person
       columns = {event_id: self.event.id, participant_id: self.actor.person_id, state: :accepted}
       if self.event_participation
-        self.event_participation.update_columns(columns)
+        # self.event_participation.update_columns(columns)
+        self.event_participation.attributes = columns
       else
         event_participation = EventParticipation.create!(columns)
-        self.update_column(:event_participation_id, event_participation.id)
+        # self.update_column(:event_participation_id, event_participation.id)
+        self.event_participation_id = event_participation.id
       end
     elsif self.event_participation
       self.event_participation.destroy!

@@ -95,7 +95,7 @@ load_data :equipments do |loader|
       #############################################################################
 
       CSV.foreach(path, headers: true) do |row|
-        next if row[0].blank?
+        # next if row[0].blank?
         r = OpenStruct.new(name: row[0].blank? ? nil : row[0].to_s,
                            first_name: row[1],
                            last_name: row[2],

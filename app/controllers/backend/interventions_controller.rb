@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple ERP
 # Copyright (C) 2013 Brice Texier

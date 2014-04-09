@@ -1576,8 +1576,8 @@ fra:
         harvest: "Récolte"
         haymaking: "Fenaison"
         hoeing: "Binage"                                   #< tillage
-        implant: "Plantation"                              #< implantation
         implantation: "Implantation d’une culture"
+        implanting: "Plantation"                           #< implantation
         maintenance: "Maintenance"
         milk_production: "Production laitière"             #< animal_production
         oviparous_birth: "Reproduction (ovipare)"

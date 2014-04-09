@@ -1091,6 +1091,7 @@ ActiveRecord::Schema.define(version: 20140407091156) do
     t.integer  "updater_id"
     t.integer  "lock_version",                default: 0,     null: false
     t.integer  "event_id"
+    t.string   "number"
   end
 
   add_index "interventions", ["created_at"], :name => "index_interventions_on_created_at"

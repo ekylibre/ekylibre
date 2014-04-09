@@ -337,11 +337,11 @@ eng:
       show: "Incoming payment %{number} of %{entity}"
     backend/intervention_casts: #?
     backend/interventions:
-      # edit: "Modifier l’intervention %{procedure_name} N°%{id}"
+      # edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
       # run: "Exécuter l'intervention"
-      # show: "%{procedure_name} N°%{id}"
+      # show: "%{procedure_name} N°%{number}"
     backend/inventories:
       edit: "Edit the inventory"
       index: "Inventories"
@@ -1633,6 +1633,7 @@ eng:
     role: "Role"
     role_name: "Fill the name and check all the needed rights"
     roles: "Roles"
+    # run: "Exécuter"
     # running_cost: "Charges d’exploitation"
     # running_finished: "Produits d’exploitation"
     sale: "Sale"

@@ -311,12 +311,12 @@ fra:
       show: "Encaissement n°%{number} de %{entity}"
     backend/interventions:
       # compute: "Compute backend/intervention"
-      edit: "Modifier l’intervention %{procedure_name} N°%{id}"
+      edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
       run: "Exécuter l'intervention"
       # set: "Set backend/intervention"
-      show: "%{procedure_name} N°%{id}"
+      show: "%{procedure_name} N°%{number}"
     backend/inventories:
       edit: "Modifier l’inventaire"
       index: "Inventaires"
@@ -1610,6 +1610,7 @@ fra:
     role: "Rôle"
     role_name: "Entrez le nom du rôle puis attribuez lui ses droits"
     roles: "Rôles"
+    run: "Exécuter"
     running_cost: "Charges d’exploitation"
     running_finished: "Produits d’exploitation"
     sale: "Vente"

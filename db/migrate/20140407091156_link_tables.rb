@@ -2,11 +2,13 @@ class LinkTables < ActiveRecord::Migration
   def change
     add_reference :analysis_items, :product_reading
     add_reference :interventions, :event
+    add_column :interventions, :number, :string
+    execute "UPDATE interventions SET number = id"
     add_reference :intervention_casts, :event_participation
     add_reference :products, :person
 
     add_column :events, :nature, :string
-    execute "UPDATE events SET nature='meeting'"
+    execute "UPDATE events SET nature = 'meeting'"
     change_column_null :events, :nature, false
     remove_column :events, :nature_id
     drop_table :event_natures
