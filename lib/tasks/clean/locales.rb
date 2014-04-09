@@ -325,7 +325,7 @@ task :locales => :environment do
               choices << CleanSupport.exp(ref, nomenclature.name, :choices, name.to_sym, choice.to_sym).dig
             end
           else
-            choices << "# #{name}: # Choices comes from nomenclature: #{property_nature.choices_nomenclature}\n"
+            choices << "# #{name}: #! Choices comes from nomenclature: #{property_nature.choices_nomenclature}\n"
           end
         elsif property_nature.type == :list and property_nature.choices_nomenclature.nil?
           item_lists << property_nature.name.to_sym
@@ -336,36 +336,34 @@ task :locales => :environment do
       choices = "choices:\n" + choices.dig
       translation << choices.dig(3)
     end
-    if item_lists.any?
-      lists = "item_lists:\n"
-      for item in nomenclature.list.sort{|a,b| a.name.to_s <=> b.name.to_s}
-        liss = ""
-        for item_list in item_lists.sort{|a,b| a.to_s <=> b.to_s}
-          iss = ""
-          if is = item.send(item_list)
-            iss << "#{item_list}:\n"
-            for i in is
-              iss << CleanSupport.exp(ref, nomenclature.name, :item_lists, item.name.to_sym, item_list, i.to_sym).dig
-            end
-          end
-          liss << iss unless iss.blank?
-        end
-        lists << "  #{item.name}:\n" + liss.dig(2) unless liss.blank?
-      end
-      translation << lists.dig(3)
-    end
+    # if item_lists.any?
+    #   lists = "item_lists:\n"
+    #   for item in nomenclature.list.sort{|a,b| a.name.to_s <=> b.name.to_s}
+    #     liss = ""
+    #     for item_list in item_lists.sort{|a,b| a.to_s <=> b.to_s}
+    #       iss = ""
+    #       if is = item.send(item_list)
+    #         iss << "#{item_list}:\n"
+    #         for i in is
+    #           iss << CleanSupport.exp(ref, nomenclature.name, :item_lists, item.name.to_sym, item_list, i.to_sym).dig
+    #         end
+    #       end
+    #       liss << iss unless iss.blank?
+    #     end
+    #     lists << "  #{item.name}:\n" + liss.dig(2) unless liss.blank?
+    #   end
+    #   translation << lists.dig(3)
+    # end
     translation << "      items:\n"
     for item in nomenclature.list.sort{|a,b| a.name.to_s <=> b.name.to_s}
       line = CleanSupport.exp(ref, nomenclature.name, :items, item.name.to_sym)
-      translation << (item.root? ? line : line.ljust(50) + " # #{item.parent.name}").dig(4)
+      translation << (item.root? ? line : line.ljust(50) + " #< #{item.parent.name}").dig(4)
     end
   end
 
   File.open(file, "wb") do |file|
     file.write(translation)
   end
-
-
 
 
   # count = CleanSupport.sort_yaml_file :nomenclatures, log

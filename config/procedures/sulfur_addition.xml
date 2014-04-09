@@ -16,10 +16,10 @@
                  forward="(value * wine_to_treat.net_volume(hectoliter)) / self..net_volume(centiliter)"
                  backward="(value * self..net_volume(centiliter)) / wine_to_treat.net_volume(hectoliter)"
                  /> <!-- cl/hl -->
-      <handler indicator="mass_volume_density"   name="sulfur_dioxyde_density" unit="gram_per_hectoliter"   to="population" 
-     if="self.sulfur_dioxyde_concentration? &amp; self.sulfur_dioxyde_concentration(percent) > 0"
-                 forward="(value * wine_to_treat.net_volume(hectoliter)) / (self..net_mass(gram) * self.sulfur_dioxyde_concentration(percent) / 100)"
-                 backward="(value * self..net_mass(gram) * (self.sulfur_dioxyde_concentration(percent) / 100)) / wine_to_treat.net_volume(hectoliter)"
+      <handler indicator="mass_volume_density"   name="sulfur_dioxide_density" unit="gram_per_hectoliter"   to="population" 
+     if="self.sulfur_dioxide_concentration? &amp; self.sulfur_dioxide_concentration(percent) > 0"
+                 forward="(value * wine_to_treat.net_volume(hectoliter)) / (self..net_mass(gram) * self.sulfur_dioxide_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(gram) * (self.sulfur_dioxide_concentration(percent) / 100)) / wine_to_treat.net_volume(hectoliter)"
                  /> <!-- g SO2/hl -->
       </variable>
       <variable name="wine_man" variety="worker" abilities="move" roles="addition-doer"/>

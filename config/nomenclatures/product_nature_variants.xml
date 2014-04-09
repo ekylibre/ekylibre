@@ -645,22 +645,22 @@
       <item name="so2_liquid_a8"
             nature="so2_solution"
             unit_name="liter"
-            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, sulfur_dioxyde_concentration: 8percent"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, sulfur_dioxide_concentration: 8percent"
             />
       <item name="so2_liquid_p10"
             nature="so2_solution"
             unit_name="liter"
-            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, sulfur_dioxyde_concentration: 10percent"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram, sulfur_dioxide_concentration: 10percent"
             />
       <item name="so2_solid_2g"
             nature="so2_solution"
             unit_name="2g_pill"
-            frozen_indicators_values="net_mass: 2.00gram, sulfur_dioxyde_concentration: 100percent"
+            frozen_indicators_values="net_mass: 2.00gram, sulfur_dioxide_concentration: 100percent"
             />
       <item name="so2_solid_5g"
             nature="so2_solution"
             unit_name="5g_pill"
-            frozen_indicators_values="net_mass: 5.00gram, sulfur_dioxyde_concentration: 100percent"
+            frozen_indicators_values="net_mass: 5.00gram, sulfur_dioxide_concentration: 100percent"
             />
         <!-- YEAST -->
       <item name="oenological_yeast_sc_500g"

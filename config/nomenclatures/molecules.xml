@@ -14,8 +14,8 @@
       <item name="tetraphosphorus_decaoxide"     formula="O=P13OP2(=O)OP(=O)(O1)OP(=O)(O2)O3"/>
       <item name="potassium_ferrocyanide"        formula="C(#N)[Fe-4](C#N)(C#N)(C#N)(C#N)C#N.O.O.O.[K+].[K+].[K+].[K+]"/>
       <item name="phosphate"                     formula="[O-]P(=O)([O-])[O-]"/>
-      <!-- <item name="potash"                        formula="[K]O[K]"/> -->
       <item name="potassium_oxide"               formula="[K]O[K]"/>
+      <item name="sulfur_dioxide"                formula="O=S=O"/>
       <item name="sodium_chloride"               formula="[Na+].[Cl-]"/>
       <item name="copper_sulfate"                formula="[Cu+2].[O-]S(=O)(=O)[O-]"/>
       <item name="dicopper_sulfate"              formula="[O-]S(=O)(=O)[O-].[Cu+].[Cu+]"/>

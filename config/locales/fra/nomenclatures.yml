@@ -262,38 +262,38 @@ fra:
     activity_families:
       name: "Familles d’activité"
       items:
-        accountancy: "Comptabilité"                        # exploitation
+        accountancy: "Comptabilité"                        #< exploitation
         animal_farming: "Élevage bovins"
-        aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques" # vegetal_crops
-        beekeeping: "Apiculture"                           # animal_farming
-        beet_crops: "Betterave"                            # vegetal_crops
-        cattle_farming: "Élevage"                          # animal_farming
+        aromatic_and_medicinal_plants: "Plantes médicinales et aromatiques" #< vegetal_crops
+        beekeeping: "Apiculture"                           #< animal_farming
+        beet_crops: "Betterave"                            #< vegetal_crops
+        cattle_farming: "Élevage"                          #< animal_farming
         exploitation: "Exploitation"
-        fallow_land: "Jachère"                             # vegetal_crops
-        fish_farming: "Aquaculture"                        # animal_farming
-        fodder_crops: "Culture fourragères"                # vegetal_crops
-        fruits_crops: "Cultures fruitières"                # vegetal_crops
-        goat_farming: "Élevage caprins"                    # animal_farming
+        fallow_land: "Jachère"                             #< vegetal_crops
+        fish_farming: "Aquaculture"                        #< animal_farming
+        fodder_crops: "Culture fourragères"                #< vegetal_crops
+        fruits_crops: "Cultures fruitières"                #< vegetal_crops
+        goat_farming: "Élevage caprins"                    #< animal_farming
         handicraft: "Artisanat"
-        maize_crops: "Culture de maïs"                     # vegetal_crops
-        market_garden_crops: "Maraîchage"                  # vegetal_crops
-        meadow: "Prairie"                                  # vegetal_crops
-        oilseed_crops: "Culture oléagineuse"               # vegetal_crops
-        palmiped_farming: "Élevage de palmipèdes"          # animal_farming
-        pig_farming: "Élevage porcins"                     # animal_farming
-        potato_crops: "Culture de pomme de terre"          # vegetal_crops
-        poultry_farming: "Élevage avicole"                 # animal_farming
+        maize_crops: "Culture de maïs"                     #< vegetal_crops
+        market_garden_crops: "Maraîchage"                  #< vegetal_crops
+        meadow: "Prairie"                                  #< vegetal_crops
+        oilseed_crops: "Culture oléagineuse"               #< vegetal_crops
+        palmiped_farming: "Élevage de palmipèdes"          #< animal_farming
+        pig_farming: "Élevage porcins"                     #< animal_farming
+        potato_crops: "Culture de pomme de terre"          #< vegetal_crops
+        poultry_farming: "Élevage avicole"                 #< animal_farming
         processing: "Transformation"
-        protein_crops: "Culture protéagineuse"             # vegetal_crops
-        purchases: "Achats"                                # exploitation
-        rabbit_farming: "Élevage cunicole"                 # animal_farming
-        sales: "Ventes"                                    # exploitation
+        protein_crops: "Culture protéagineuse"             #< vegetal_crops
+        purchases: "Achats"                                #< exploitation
+        rabbit_farming: "Élevage cunicole"                 #< animal_farming
+        sales: "Ventes"                                    #< exploitation
         service: "Service"
-        sheep_farming: "Élevage ovins"                     # animal_farming
-        stocks: "Stocks"                                   # exploitation
-        straw_cereal_crops: "Céréales à paille"            # vegetal_crops
+        sheep_farming: "Élevage ovins"                     #< animal_farming
+        stocks: "Stocks"                                   #< exploitation
+        straw_cereal_crops: "Céréales à paille"            #< vegetal_crops
         vegetal_crops: "Production végétale"
-        vine_wine: "Vigne et vin"                          # vegetal_crops
+        vine_wine: "Vigne et vin"                          #< vegetal_crops
     analysis_natures:
       name: "Types d’analyses"
       property_natures:
@@ -301,8 +301,8 @@ fra:
         target_derivative_of: "Dérivé de la cible"
         target_variety: "Variété de la cible"
       choices:
-        # target_derivative_of: # Choices comes from nomenclature: varieties
-        # target_variety: # Choices comes from nomenclature: varieties
+        # target_derivative_of: #! Choices comes from nomenclature: varieties
+        # target_variety: #! Choices comes from nomenclature: varieties
       items:
         cow_milk_analysis: "Analyse de lait de vache"
         soil_analysis: "Analyse de sol"
@@ -335,7 +335,7 @@ fra:
         labels: "Labels"
         land: "Terroir"
       choices:
-        # land: # Choices comes from nomenclature: lands
+        # land: #! Choices comes from nomenclature: lands
       items:
         bordeaux_blanc: "Bordeaux blanc"
         bordeaux_blanc_avec_sucres: "Bordeaux blanc avec sucres"
@@ -486,27 +486,27 @@ fra:
         zinc: "Zinc"
         zirconium: "Zirconium"
     controlled_resources:
-      name: "Ressources métiers contrôlées"
+      name: "Ressources contrôlées"
       property_natures:
         accesses: "Accès"
       items:
-        # accountancy_dashboard: "Accountancy dashboard"
-        # accounts: "Accounts"
-        # activities: "Activities"
-        # affairs: "Affairs"
-        # analysis: "Analysis"
-        # animal_groups: "Animal groups"
-        # animal_medicines: "Animal medicines"
-        # animals: "Animals"
-        # bank_statements: "Bank statements"
-        # bioproducts: "Bioproducts"
-        # building_divisions: "Building divisions"
-        # buildings: "Buildings"
-        # calculators: "Calculators"
-        # campaigns: "Campaigns"
-        # cash_tranferts: "Cash tranferts"
-        # entities: "Entities"
-        # interventions: "Interventions"
+        accountancy_dashboard: "Tableau de bord de la comptabilité"
+        accounts: "Comptes comptables"
+        activities: "Activités"
+        affairs: "Affaires"
+        analysis: "Analyses"
+        animal_groups: "Troupeaux"
+        animal_medicines: "Médicaments vétérinaires"
+        animals: "Animaux"
+        bank_statements: "Relevés de banque"
+        bioproducts: "Bioproduits"
+        building_divisions: "Salles/zones de bâtiment"
+        buildings: "Bâtiments"
+        calculators: "Calculateurs"
+        campaigns: "Campagnes"
+        cash_tranfers: "Virements"
+        entities: "Personnes (physiques et morales)"
+        interventions: "Interventions"
     countries:
       name: "Pays"
       property_natures:
@@ -795,65 +795,6 @@ fra:
         number: "Numéro (ISO)"
         precision: "Nombre de décimales"
         symbol: "Symbole"
-      item_lists:
-        EUR:
-          cash:
-            # 0.01: "0.01"
-            # 0.02: "0.02"
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.2: "0.2"
-            # 0.5: "0.5"
-            # 1.0: "1.0"
-            # 2.0: "2.0"
-            # 5.0: "5.0"
-            # 10.0: "10.0"
-            # 20.0: "20.0"
-            # 50.0: "50.0"
-            # 100.0: "100.0"
-            # 200.0: "200.0"
-            # 500.0: "500.0"
-        FRF:
-          cash:
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.2: "0.2"
-            # 0.5: "0.5"
-            # 1: "1"
-            # 2: "2"
-            # 5: "5"
-            # 10: "10"
-            # 20: "20"
-            # 50: "50"
-            # 100: "100"
-            # 200: "200"
-            # 500: "500"
-        JPY:
-          cash:
-            # 1: "1"
-            # 5: "5"
-            # 10: "10"
-            # 50: "50"
-            # 100: "100"
-            # 500: "500"
-            # 1000: "1000"
-            # 2000: "2000"
-            # 5000: "5000"
-            # 10000: "10000"
-        USD:
-          cash:
-            # 0.01: "0.01"
-            # 0.05: "0.05"
-            # 0.1: "0.1"
-            # 0.25: "0.25"
-            # 0.5: "0.5"
-            # 1: "1"
-            # 2: "2"
-            # 5: "5"
-            # 10: "10"
-            # 20: "20"
-            # 50: "50"
-            # 100: "100"
       items:
         AED: "Dirham des Émirats"
         AFN: "Afghani"
@@ -1132,23 +1073,23 @@ fra:
     entity_natures:
       name: "Types de tiers"
       items:
-        association: "Association"                         # legal_entity
-        civil_society: "Société civile"                    # legal_entity
-        collectivity: "Collectivité"                       # legal_entity
-        company: "Société"                                 # legal_entity
-        cooperative: "Cooperative"                         # legal_entity
-        doctor: "Docteur"                                  # person
-        economic_interest_group: "Groupement d’intérêt économique" # legal_entity
+        association: "Association"                         #< legal_entity
+        civil_society: "Société civile"                    #< legal_entity
+        collectivity: "Collectivité"                       #< legal_entity
+        company: "Société"                                 #< legal_entity
+        cooperative: "Cooperative"                         #< legal_entity
+        doctor: "Docteur"                                  #< person
+        economic_interest_group: "Groupement d’intérêt économique" #< legal_entity
         entity: "Entité"
-        foundation: "Fondation"                            # legal_entity
-        legal_entity: "Personne morale"                    # entity
-        madam: "Madame"                                    # person
-        person: "Personne"                                 # entity
-        professor: "Professeur"                            # person
-        public_establishment: "Établissement public"       # legal_entity
-        public_interest_group: "Groupement d’intérêt public" # legal_entity
-        sir: "Monsieur"                                    # person
-        syndicate: "Syndicat"                              # legal_entity
+        foundation: "Fondation"                            #< legal_entity
+        legal_entity: "Personne morale"                    #< entity
+        madam: "Madame"                                    #< person
+        person: "Personne"                                 #< entity
+        professor: "Professeur"                            #< person
+        public_establishment: "Établissement public"       #< legal_entity
+        public_interest_group: "Groupement d’intérêt public" #< legal_entity
+        sir: "Monsieur"                                    #< person
+        syndicate: "Syndicat"                              #< legal_entity
     event_natures:
       name: "Types d’évènements"
       property_natures:
@@ -1156,27 +1097,27 @@ fra:
       items:
         absence: "Absence"
         administrative_intervention: "Intervention administrative"
-        appointment: "Rendez-vous"                         # meeting
-        business_meal: "Repas d’affaire"                   # meeting
-        incoming_delivery_creation: "Enregistrement d’approvisionnement" # administrative_intervention
-        leave: "Congé"                                     # absence
-        mailing: "Mailing"                                 # administrative_intervention
-        maternity_leave: "Congé maternité"                 # leave
+        appointment: "Rendez-vous"                         #< meeting
+        business_meal: "Repas d’affaire"                   #< meeting
+        incoming_delivery_creation: "Enregistrement d’approvisionnement" #< administrative_intervention
+        leave: "Congé"                                     #< absence
+        mailing: "Mailing"                                 #< administrative_intervention
+        maternity_leave: "Congé maternité"                 #< leave
         meeting: "Réunion"
-        outgoing_delivery_creation: "Enregistrement d’apport" # administrative_intervention
-        overtime_recovery: "Récupération d’heures supplémentaires" # leave
-        paid_leave: "Congé payé"                           # leave
-        parental_leave: "Congé parental"                   # leave
-        paternity_leave: "Congé parternité"                # leave
+        outgoing_delivery_creation: "Enregistrement d’apport" #< administrative_intervention
+        overtime_recovery: "Récupération d’heures supplémentaires" #< leave
+        paid_leave: "Congé payé"                           #< leave
+        parental_leave: "Congé parental"                   #< leave
+        paternity_leave: "Congé parternité"                #< leave
         production_intervention: "Intervention de production"
-        sale_creation: "Enregistrement d’une vente"        # administrative_intervention
-        sale_invoice_creation: "Facturation d’une vente"   # administrative_intervention
-        sickness: "Maladie"                                # absence
-        sickness_leave: "Congé maladie"                    # leave
-        staff_meeting: "Réunion du personnel"              # meeting
-        unpaid_leave: "Congé sans solde"                   # leave
-        working_group: "Groupe de travail"                 # meeting
-        working_time_recovery: "Récupération de temps de travail (RTT)" # leave
+        sale_creation: "Enregistrement d’une vente"        #< administrative_intervention
+        sale_invoice_creation: "Facturation d’une vente"   #< administrative_intervention
+        sickness: "Maladie"                                #< absence
+        sickness_leave: "Congé maladie"                    #< leave
+        staff_meeting: "Réunion du personnel"              #< meeting
+        unpaid_leave: "Congé sans solde"                   #< leave
+        working_group: "Groupe de travail"                 #< meeting
+        working_time_recovery: "Récupération de temps de travail (RTT)" #< leave
     figures:
       name: "Formes"
       items:
@@ -1199,7 +1140,6 @@ fra:
       property_natures:
         fallbacks: "Recours"
         password: "Mot de passe"
-      item_lists:
       items:
         cartodb_api_key: "Clé API CartoDB"
         cartodb_login: "Login CartoDB"
@@ -1254,7 +1194,7 @@ fra:
         related_to:
           individual: "Individu"
           whole: "Population"
-        # unit: # Choices comes from nomenclature: units
+        # unit: #! Choices comes from nomenclature: units
       items:
         aluminium_concentration: "Teneur en aluminium"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
@@ -1348,7 +1288,7 @@ fra:
         somatic_cell_concentration: "Dénombrement des cellules somatiques"
         subsoil_nature: "Type de sous-sol"
         sulfur_concentration: "Teneur en soufre"
-        sulfur_dioxyde_concentration: "Teneur en dioxyde de soufre (SO2)"
+        sulfur_dioxide_concentration: "Teneur en dioxyde de soufre (SO2)"
         temperature: "Température"
         thousand_grains_mass: "Poids de mille grains"
         tiller_count: "Nombre de talles"
@@ -1368,19 +1308,19 @@ fra:
         target: "Cible"
         treatments: "Traitements"
       items:
-        accident: "Accident"                               # issue
-        animal_pathology: "Pathologie animale"             # issue
-        bacteria_disease: "Maladie bactérienne"            # vegetal_pathology
-        climate_issue: "Incident climatique"               # issue
-        diarrhea: "Diarrhée"                               # animal_pathology
-        fecondity_problem: "Problème de fécondité"         # animal_pathology
-        fungus_disease: "Maladie cryptogamique"            # vegetal_pathology
+        accident: "Accident"                               #< issue
+        animal_pathology: "Pathologie animale"             #< issue
+        bacteria_disease: "Maladie bactérienne"            #< vegetal_pathology
+        climate_issue: "Incident climatique"               #< issue
+        diarrhea: "Diarrhée"                               #< animal_pathology
+        fecondity_problem: "Problème de fécondité"         #< animal_pathology
+        fungus_disease: "Maladie cryptogamique"            #< vegetal_pathology
         issue: "Incident"
-        mammite: "Mammite"                                 # animal_pathology
-        nematoda_disease: "Maladie à nématodes"            # vegetal_pathology
-        protozoa_disease: "Maladie virale"                 # vegetal_pathology
-        respiratory_problem: "Problème respiratoire"       # animal_pathology
-        vegetal_pathology: "Pathologie végétale"           # issue
+        mammite: "Mammite"                                 #< animal_pathology
+        nematoda_disease: "Maladie à nématodes"            #< vegetal_pathology
+        protozoa_disease: "Maladie virale"                 #< vegetal_pathology
+        respiratory_problem: "Problème respiratoire"       #< animal_pathology
+        vegetal_pathology: "Pathologie végétale"           #< issue
     lands:
       name: "Terroir"
       items:
@@ -1532,6 +1472,7 @@ fra:
         potassium_oxide: "Oxyde de potassium"
         sodium_chloride: "Chlorure de sodium"
         sucrose: "Saccharose"
+        sulfur_dioxide: "Dioxyde de soufre"
         tetraphosphorus_decaoxide: "Décaoxyde de phosphore"
         water: "Eau"
     net_services:
@@ -1547,7 +1488,7 @@ fra:
           human: "Humaine"
           rest: "REST"
           soap: "SOAP"
-        # nature: # Choices comes from nomenclature: activity_families
+        # nature: #! Choices comes from nomenclature: activity_families
       items:
         cartodb: "CartoDB"
         charentes_alliance_extranet: "Extranet Charentes Alliance"
@@ -1614,44 +1555,44 @@ fra:
       property_natures:
         roles: "Rôles"
       items:
-        addition: "Ajout de produits"                      # transformation
-        animal_curative_medicine_admission: "Traitement curatif des maladies animales" # animal_health
+        addition: "Ajout de produits"                      #< transformation
+        animal_curative_medicine_admission: "Traitement curatif des maladies animales" #< animal_health
         animal_feeding: "Alimentation des animaux"
         animal_health: "Hygiène des animaux"
-        animal_housing_maintenance: "Entretien des bâtiments d’élevage" # animal_health
-        animal_preventive_medicine_admission: "Traitement préventif des maladies animales" # animal_health
+        animal_housing_maintenance: "Entretien des bâtiments d’élevage" #< animal_health
+        animal_preventive_medicine_admission: "Traitement préventif des maladies animales" #< animal_health
         animal_production: "Productions animales"
-        blending: "Mélange"                                # transformation
-        bottling: "Embouteillage"                          # transformation
-        cleaning: "Nettoyage"                              # animal_health
-        consummables_addition: "Mise à niveau"             # maintenance
-        cultipacking: "Cultipacking"                       # tillage
-        fermentation: "Fermentation"                       # transformation
-        filtration: "Filtration"                           # transformation
-        food_supply: "Alimentation"                        # animal_feeding
+        blending: "Mélange"                                #< transformation
+        bottling: "Embouteillage"                          #< transformation
+        cleaning: "Nettoyage"                              #< animal_health
+        consummables_addition: "Mise à niveau"             #< maintenance
+        cultipacking: "Cultipacking"                       #< tillage
+        fermentation: "Fermentation"                       #< transformation
+        filtration: "Filtration"                           #< transformation
+        food_supply: "Alimentation"                        #< animal_feeding
         grinding: "Broyage"
         growth_control: "Contrôle de croissance"
         harvest: "Récolte"
         haymaking: "Fenaison"
-        hoeing: "Binage"                                   # tillage
-        implant: "Plantation"                              # implantation
+        hoeing: "Binage"                                   #< tillage
+        implant: "Plantation"                              #< implantation
         implantation: "Implantation d’une culture"
         maintenance: "Maintenance"
-        milk_production: "Production laitière"             # animal_production
+        milk_production: "Production laitière"             #< animal_production
         oviparous_birth: "Reproduction (ovipare)"
-        piece_replacement: "Remplacement de pièces"        # maintenance
+        piece_replacement: "Remplacement de pièces"        #< maintenance
         plant_fertilisation: "Fertilisation"
         plant_illness_treatment: "Protection des cultures"
-        plowing: "Labour"                                  # tillage
-        pressing: "Pressage"                               # transformation
+        plowing: "Labour"                                  #< tillage
+        pressing: "Pressage"                               #< transformation
         pruning: "Taille"
-        raking: "Hersage"                                  # tillage
-        remontage: "Remontage"                             # transformation
+        raking: "Hersage"                                  #< tillage
+        remontage: "Remontage"                             #< transformation
         soil_cleaning: "Désinfection du sol"
         soil_enrichment: "Amendement"
-        sowing: "Semis"                                    # implantation
+        sowing: "Semis"                                    #< implantation
         tillage: "Travail du sol"
-        transfer: "Transfert"                              # transformation
+        transfer: "Transfert"                              #< transformation
         transformation: "Transformation"
         viviparous_birth: "Reproduction (vivipare)"
     procedure_roles:
@@ -1677,8 +1618,8 @@ fra:
         stock_account: "Compte de stock"
         storable: "Stockable"
       choices:
-        # charge_account: # Choices comes from nomenclature: accounts
-        # financial_asset_account: # Choices comes from nomenclature: accounts
+        # charge_account: #! Choices comes from nomenclature: accounts
+        # financial_asset_account: #! Choices comes from nomenclature: accounts
         pictogram:
           barn: "Grange"
           beaker: "Bécher"
@@ -1711,8 +1652,8 @@ fra:
           truck: "Camion"
           wheat: "Blé"
           wrench: "Clé à molette"
-        # product_account: # Choices comes from nomenclature: accounts
-        # stock_account: # Choices comes from nomenclature: accounts
+        # product_account: #! Choices comes from nomenclature: accounts
+        # stock_account: #! Choices comes from nomenclature: accounts
       items:
         animal_food: "Aliment pour animaux"
         animal_medicine: "Produit vétérinaire"
@@ -1766,8 +1707,8 @@ fra:
         unit_name: "Nom de l’unité"
         variety: "Variété"
       choices:
-        # derivative_of: # Choices comes from nomenclature: varieties
-        # nature: # Choices comes from nomenclature: product_natures
+        # derivative_of: #! Choices comes from nomenclature: varieties
+        # nature: #! Choices comes from nomenclature: product_natures
         unit_name:
           100cl_bottle: "bouteille de 100cl"
           100g_dose: "Dose de 100g"
@@ -1808,7 +1749,7 @@ fra:
           square_meter: "Mètre carré"
           ton: "Tonne"
           unit: "Unité"
-        # variety: # Choices comes from nomenclature: varieties
+        # variety: #! Choices comes from nomenclature: varieties
       items:
         115g_jam: "Pot de 115g de confiture"
         230g_jam: "Pot de 230g de confiture"
@@ -2125,12 +2066,12 @@ fra:
         variable_indicators: "Indicateurs variables"
         variety: "Variété"
       choices:
-        # category: # Choices comes from nomenclature: product_nature_categories
+        # category: #! Choices comes from nomenclature: product_nature_categories
         population_counting:
           decimal: "Décimal"
           integer: "Entier"
           unitary: "Unitaire"
-        # variety: # Choices comes from nomenclature: varieties
+        # variety: #! Choices comes from nomenclature: varieties
       items:
         additive: "Adjuvant"
         administrative_division: "Zone Administrative"
@@ -2259,8 +2200,8 @@ fra:
         telepac_crop_code: "Code de type de culture TELEPAC"
         variant_support: "Variant"
       choices:
-        # activity: # Choices comes from nomenclature: activity_families
-        # variant_support: # Choices comes from nomenclature: product_nature_variants
+        # activity: #! Choices comes from nomenclature: activity_families
+        # variant_support: #! Choices comes from nomenclature: product_nature_variants
       items:
         administrative: "Administratif"
         annual_frost_fallow_land: "Gel annuel"
@@ -2336,17 +2277,6 @@ fra:
       name: "Rôles"
       property_natures:
         accesses: "Accès"
-      item_lists:
-        accountant:
-          accesses:
-            # accounts: "Accounts"
-            # own-accountancy_dashboard: "Own-accountancy dashboard"
-            # calculators-read: "Calculators-read"
-            # calculators-execute: "Calculators-execute"
-        farm_worker:
-          accesses:
-            # own-interventions: "Own-interventions"
-            # other-interventions-read: "Other-interventions-read"
       items:
         accountant: "Comptable"
         farm_worker: "Ouvrier agricole"
@@ -2400,12 +2330,12 @@ fra:
         stopped_on: "Arrêté le"
         suffix: "suffixe du compte comptable"
       choices:
-        # collect_account: # Choices comes from nomenclature: accounts
+        # collect_account: #! Choices comes from nomenclature: accounts
         computation_method:
           amount: "Montant fixe"
           percentage: "Pourcentage"
-        # country: # Choices comes from nomenclature: countries
-        # deduction_account: # Choices comes from nomenclature: accounts
+        # country: #! Choices comes from nomenclature: countries
+        # deduction_account: #! Choices comes from nomenclature: accounts
       items:
         fr_vat_intermediate: "TVA 10.00%"
         fr_vat_normal: "TVA 20.00%"
@@ -2421,7 +2351,7 @@ fra:
         dimension: "Dimension"
         symbol: "Symbole"
       choices:
-        # dimension: # Choices comes from nomenclature: dimensions
+        # dimension: #! Choices comes from nomenclature: dimensions
       items:
         acre: "Acre"
         ampere: "Ampère"
@@ -2525,320 +2455,320 @@ fra:
         europa_tsn: "ID Europa"
         itis_tsn: "ID ITIS"
       choices:
-        # derivative_of: # Choices comes from nomenclature: varieties
+        # derivative_of: #! Choices comes from nomenclature: varieties
       items:
-        acetal: "Acetal"                                   # animal_medicine
-        actilact: "Actilact"                               # animal_medicine
-        additive: "Additif"                                # plant_medicine
-        allium: "Ail"                                      # amaryllidaceae
-        amaranthaceae: "Amaranthaceae"                     # plant
-        amaryllidaceae: "Amaryllidaceae"                   # plant
-        anas: "Palmipède"                                  # aves
-        animal: "Animal"                                   # bioproduct
-        animal_group: "Troupeau"                           # product_group
-        animal_medicine: "Médicament vétérinaire"          # medicine
-        antiseptic: "Antiseptique"                         # medicine
-        apiaceae: "Apiaceae"                               # plant
-        apis: "Apidés"                                     # insecta
-        asparagus: "Asperge"                               # liliaceae
-        asteraceae: "Astéracée"                            # plant
-        avena: "Avena"                                     # poaceae
-        aves: "Oiseau"                                     # animal
-        baler: "Botteleuse"                                # equipment
-        bambusa: "Bambou"                                  # poaceae
-        beta: "Betterave"                                  # amaranthaceae
-        betulaceae: "Betulaceae"                           # plant
-        bioproduct: "Produit vivant"                       # matter
-        bos: "Bovin"                                       # mammalia
-        bottle: "Bouteille"                                # packaged_matter
-        bottling: "Embouteillage"                          # equipment
-        brassica: "Colza"                                  # brassicaceae
-        brassica_napus: "Colza"                            # brassica
-        brassica_nigra: "Moutarde noire"                   # brassica
-        brassica_rapa: "Navet"                             # brassica
-        brassicaceae: "Crucifères"                         # plant
-        building: "Bâtiment"                               # product_group
-        building_division: "Pièce de bâtiment"             # sub_zone
-        cap: "Capsule"                                     # packaged_matter
-        capra: "Caprin"                                    # mammalia
-        chemical_fertilizer: "Engrais minéral"             # mineral_matter
-        cichorium: "Chicoré"                               # asteraceae
-        cleaner: "Rabot"                                   # equipment
-        compost: "Compost"                                 # excrement
-        concentrated_rectified_must: "Moût concentré rectifié" # preparation
-        corabel: "Corabel"                                 # corylus_avellana
-        cork: "Bouchon"                                    # packaged_matter
-        cork_bottle: "Bouteille"                           # bottle
-        corylus: "Corylus"                                 # betulaceae
-        corylus_avellana: "Corylus avellana"               # corylus
-        crocus: "Crocus"                                   # iridaceae
-        crocus_sativus: "Crocus sativus"                   # crocus
-        cucumis: "Melon"                                   # cucurbitaceae
-        cucurbitaceae: "Cucurbitaceae"                     # plant
-        cultivable_zone: "Zone cultivable"                 # zone
-        daucus: "Carotte"                                  # apiaceae
-        disinfectant: "Désinfectant"                       # antiseptic
-        easement: "Aménagement foncier"                    # zone
-        egg: "Œuf"                                         # organic_matter
-        electricity: "Électricité"                         # matter
-        ennis: "Ennis"                                     # corylus_avellana
-        equipment: "Équipement"                            # matter
-        equus: "Équin"                                     # mammalia
-        etincel: "Etincel"                                 # hordeum_hibernum
-        excrement: "Engrais organiques"                    # organic_matter
-        fabaceae: "Fabaceae"                               # plant
-        fercoril_corabel: "Fercoril corabel"               # corylus_avellana
-        feriale: "Feriale"                                 # corylus_avellana
-        fermented_juice: "Jus fermenté"                    # preparation
-        fertile_coutard: "Fertile coutard"                 # corylus_avellana
-        ficus: "Ficus"                                     # moraceae
-        ficus_carica: "Ficus carica"                       # ficus
-        ficus_carica_saint_pierre: "Ficus carica - Saint-Pierre" # ficus_carica
-        flower: "Fleur"                                    # organic_matter
-        food_deliver: "Désileuse"                          # equipment
-        forager: "Ensileuse"                               # equipment
-        fragaria: "Fraise"                                 # rosaceae
-        fragaria_ananassa: "Fragaria ananassa"             # fragaria
-        fragaria_ananassa_mara_des_bois: "Fragaria ananassa - Mara des bois" # fragaria_ananassa
-        fruit: "Fruit"                                     # organic_matter
-        fuel: "Gasoil"                                     # organic_matter
-        fungicide: "Produit fongicide"                     # plant_medicine
-        fungus: "Champignon"                               # bioproduct
-        gallus: "Galinacée"                                # aves
-        gas: "Essence"                                     # organic_matter
-        glycine: "Glycine"                                 # fabaceae
-        grain: "Grain"                                     # fruit
-        grape: "Raisin"                                    # fruit
-        grass: "Herbe"                                     # organic_matter
-        grossulariaceae: "Grossulariaceae"                 # plant
-        guano: "Guano"                                     # excrement
-        harvester: "Moissonneuse"                          # equipment
-        hay: "Foin"                                        # grass
-        helianthus: "Tournesol"                            # asteraceae
-        herbicide: "Produit herbicide"                     # plant_medicine
-        hordeum: "Orge"                                    # poaceae
-        hordeum_hibernum: "Orge d’hiver"                   # hordeum
-        hordeum_hibernum_cerevisiae: "Orge d’hiver de brasserie" # hordeum_hibernum
-        hordeum_hibernum_cerevisiae_hypoproteinae: "Orge d’hiver de brasserie (faible teneur en protéïnes)" # hordeum_hibernum_cerevisiae
-        hordeum_vernum: "Orge de printemps"                # hordeum
-        hordeum_vernum_hypoproteinae: "Orge de printemps (faible teneur en protéïnes)" # hordeum_vernum
-        hordeum_vulgare: "Orge escourgeon"                 # hordeum
-        immatter: "Immatérialisable"                       # product
-        implanter: "Planteuse"                             # equipment
-        insecta: "Insecte"                                 # animal
-        insecticide: "Produit insecticide"                 # plant_medicine
-        iridaceae: "Iridaceae"                             # plant
-        item: "Pièce"                                      # equipment
-        juglandaceae: "Juglandaceae"                       # plant
-        juglans: "Juglans"                                 # juglandaceae
-        juice: "Jus"                                       # preparation
-        label: "Etiquette"                                 # packaged_matter
-        lamiaceae: "Lamiaceae"                             # plant
-        land_parcel: "Parcelle physique"                   # easement
-        land_parcel_cluster: "Îlot"                        # land_parcel_group
-        land_parcel_group: "Groupe de parcelles physiques" # product_group
-        lavandula: "Lavande"                               # lamiaceae
-        lens: "Lentille"                                   # fabaceae
-        lepus: "Lagomorphe"                                # mammalia
-        lewis: "Lewis"                                     # corylus_avellana
-        liliaceae: "Liliaceae"                             # plant
-        linaceae: "Linaceae"                               # plant
-        linum: "Lin"                                       # linaceae
-        liquid_slurry: "Purin"                             # excrement
-        malus: "Pommier"                                   # rosaceae
-        mammalia: "Mammifère"                              # animal
-        manure: "Fumier"                                   # excrement
-        matter: "Matière"                                  # product
-        meat: "Viande"                                     # organic_matter
-        medicago: "Medicago"                               # fabaceae
-        medicine: "Médicament"                             # preparation
-        merveille: "Merveille"                             # corylus_avellana
-        milk: "Lait"                                       # organic_matter
-        mineral_matter: "Matière minérale"                 # matter
-        mix: "Mélange"                                     # preparation
-        mollusca: "Mollusque"                              # animal
-        molluscicide: "Produit molluscicide"               # plant_medicine
-        moraceae: "Moraceae"                               # plant
-        mower: "Faucheuse"                                 # equipment
-        nicotiana: "Tabac"                                 # solanaceae
-        numida: "Numididae"                                # aves
-        oil: "Huile"                                       # organic_matter
-        organic_matter: "Matière organique"                # matter
-        oryza: "Riz"                                       # poaceae
-        osteichthyes: "Poissons osseux"                    # animal
-        ostreidae: "Ostreidae"                             # mollusca
-        ovis: "Ovin"                                       # mammalia
-        packaged_matter: "Matières composées"              # matter
-        pauetet: "Pauetet"                                 # corylus_avellana
-        peach: "Pêche"                                     # fruit
-        pear: "Poire"                                      # fruit
-        phaseolus: "Haricot"                               # fabaceae
-        pisum: "Pisum"                                     # fabaceae
-        plant: "Végétal"                                   # bioproduct
-        plant_medicine: "Produit phytosanitaire"           # medicine
-        plower: "Charrue"                                  # equipment
-        plum: "Prune"                                      # fruit
-        poa: "Prairie"                                     # poaceae
-        poaceae: "Graminée"                                # plant
-        pollen: "Pollen"                                   # organic_matter
-        pomace: "Résidu (Tourteau, Marc)"                  # preparation
-        potassium_ferrocyanide: "Ferrocyanure de potassium" # mineral_matter
-        preparation: "Préparation"                         # matter
-        press: "Pressoir"                                  # equipment
+        acetal: "Acetal"                                   #< animal_medicine
+        actilact: "Actilact"                               #< animal_medicine
+        additive: "Additif"                                #< plant_medicine
+        allium: "Ail"                                      #< amaryllidaceae
+        amaranthaceae: "Amaranthaceae"                     #< plant
+        amaryllidaceae: "Amaryllidaceae"                   #< plant
+        anas: "Palmipède"                                  #< aves
+        animal: "Animal"                                   #< bioproduct
+        animal_group: "Troupeau"                           #< product_group
+        animal_medicine: "Médicament vétérinaire"          #< medicine
+        antiseptic: "Antiseptique"                         #< medicine
+        apiaceae: "Apiaceae"                               #< plant
+        apis: "Apidés"                                     #< insecta
+        asparagus: "Asperge"                               #< liliaceae
+        asteraceae: "Astéracée"                            #< plant
+        avena: "Avena"                                     #< poaceae
+        aves: "Oiseau"                                     #< animal
+        baler: "Botteleuse"                                #< equipment
+        bambusa: "Bambou"                                  #< poaceae
+        beta: "Betterave"                                  #< amaranthaceae
+        betulaceae: "Betulaceae"                           #< plant
+        bioproduct: "Produit vivant"                       #< matter
+        bos: "Bovin"                                       #< mammalia
+        bottle: "Bouteille"                                #< packaged_matter
+        bottling: "Embouteillage"                          #< equipment
+        brassica: "Colza"                                  #< brassicaceae
+        brassica_napus: "Colza"                            #< brassica
+        brassica_nigra: "Moutarde noire"                   #< brassica
+        brassica_rapa: "Navet"                             #< brassica
+        brassicaceae: "Crucifères"                         #< plant
+        building: "Bâtiment"                               #< product_group
+        building_division: "Pièce de bâtiment"             #< sub_zone
+        cap: "Capsule"                                     #< packaged_matter
+        capra: "Caprin"                                    #< mammalia
+        chemical_fertilizer: "Engrais minéral"             #< mineral_matter
+        cichorium: "Chicoré"                               #< asteraceae
+        cleaner: "Rabot"                                   #< equipment
+        compost: "Compost"                                 #< excrement
+        concentrated_rectified_must: "Moût concentré rectifié" #< preparation
+        corabel: "Corabel"                                 #< corylus_avellana
+        cork: "Bouchon"                                    #< packaged_matter
+        cork_bottle: "Bouteille"                           #< bottle
+        corylus: "Corylus"                                 #< betulaceae
+        corylus_avellana: "Corylus avellana"               #< corylus
+        crocus: "Crocus"                                   #< iridaceae
+        crocus_sativus: "Crocus sativus"                   #< crocus
+        cucumis: "Melon"                                   #< cucurbitaceae
+        cucurbitaceae: "Cucurbitaceae"                     #< plant
+        cultivable_zone: "Zone cultivable"                 #< zone
+        daucus: "Carotte"                                  #< apiaceae
+        disinfectant: "Désinfectant"                       #< antiseptic
+        easement: "Aménagement foncier"                    #< zone
+        egg: "Œuf"                                         #< organic_matter
+        electricity: "Électricité"                         #< matter
+        ennis: "Ennis"                                     #< corylus_avellana
+        equipment: "Équipement"                            #< matter
+        equus: "Équin"                                     #< mammalia
+        etincel: "Etincel"                                 #< hordeum_hibernum
+        excrement: "Engrais organiques"                    #< organic_matter
+        fabaceae: "Fabaceae"                               #< plant
+        fercoril_corabel: "Fercoril corabel"               #< corylus_avellana
+        feriale: "Feriale"                                 #< corylus_avellana
+        fermented_juice: "Jus fermenté"                    #< preparation
+        fertile_coutard: "Fertile coutard"                 #< corylus_avellana
+        ficus: "Ficus"                                     #< moraceae
+        ficus_carica: "Ficus carica"                       #< ficus
+        ficus_carica_saint_pierre: "Ficus carica - Saint-Pierre" #< ficus_carica
+        flower: "Fleur"                                    #< organic_matter
+        food_deliver: "Désileuse"                          #< equipment
+        forager: "Ensileuse"                               #< equipment
+        fragaria: "Fraise"                                 #< rosaceae
+        fragaria_ananassa: "Fragaria ananassa"             #< fragaria
+        fragaria_ananassa_mara_des_bois: "Fragaria ananassa - Mara des bois" #< fragaria_ananassa
+        fruit: "Fruit"                                     #< organic_matter
+        fuel: "Gasoil"                                     #< organic_matter
+        fungicide: "Produit fongicide"                     #< plant_medicine
+        fungus: "Champignon"                               #< bioproduct
+        gallus: "Galinacée"                                #< aves
+        gas: "Essence"                                     #< organic_matter
+        glycine: "Glycine"                                 #< fabaceae
+        grain: "Grain"                                     #< fruit
+        grape: "Raisin"                                    #< fruit
+        grass: "Herbe"                                     #< organic_matter
+        grossulariaceae: "Grossulariaceae"                 #< plant
+        guano: "Guano"                                     #< excrement
+        harvester: "Moissonneuse"                          #< equipment
+        hay: "Foin"                                        #< grass
+        helianthus: "Tournesol"                            #< asteraceae
+        herbicide: "Produit herbicide"                     #< plant_medicine
+        hordeum: "Orge"                                    #< poaceae
+        hordeum_hibernum: "Orge d’hiver"                   #< hordeum
+        hordeum_hibernum_cerevisiae: "Orge d’hiver de brasserie" #< hordeum_hibernum
+        hordeum_hibernum_cerevisiae_hypoproteinae: "Orge d’hiver de brasserie (faible teneur en protéïnes)" #< hordeum_hibernum_cerevisiae
+        hordeum_vernum: "Orge de printemps"                #< hordeum
+        hordeum_vernum_hypoproteinae: "Orge de printemps (faible teneur en protéïnes)" #< hordeum_vernum
+        hordeum_vulgare: "Orge escourgeon"                 #< hordeum
+        immatter: "Immatérialisable"                       #< product
+        implanter: "Planteuse"                             #< equipment
+        insecta: "Insecte"                                 #< animal
+        insecticide: "Produit insecticide"                 #< plant_medicine
+        iridaceae: "Iridaceae"                             #< plant
+        item: "Pièce"                                      #< equipment
+        juglandaceae: "Juglandaceae"                       #< plant
+        juglans: "Juglans"                                 #< juglandaceae
+        juice: "Jus"                                       #< preparation
+        label: "Etiquette"                                 #< packaged_matter
+        lamiaceae: "Lamiaceae"                             #< plant
+        land_parcel: "Parcelle physique"                   #< easement
+        land_parcel_cluster: "Îlot"                        #< land_parcel_group
+        land_parcel_group: "Groupe de parcelles physiques" #< product_group
+        lavandula: "Lavande"                               #< lamiaceae
+        lens: "Lentille"                                   #< fabaceae
+        lepus: "Lagomorphe"                                #< mammalia
+        lewis: "Lewis"                                     #< corylus_avellana
+        liliaceae: "Liliaceae"                             #< plant
+        linaceae: "Linaceae"                               #< plant
+        linum: "Lin"                                       #< linaceae
+        liquid_slurry: "Purin"                             #< excrement
+        malus: "Pommier"                                   #< rosaceae
+        mammalia: "Mammifère"                              #< animal
+        manure: "Fumier"                                   #< excrement
+        matter: "Matière"                                  #< product
+        meat: "Viande"                                     #< organic_matter
+        medicago: "Medicago"                               #< fabaceae
+        medicine: "Médicament"                             #< preparation
+        merveille: "Merveille"                             #< corylus_avellana
+        milk: "Lait"                                       #< organic_matter
+        mineral_matter: "Matière minérale"                 #< matter
+        mix: "Mélange"                                     #< preparation
+        mollusca: "Mollusque"                              #< animal
+        molluscicide: "Produit molluscicide"               #< plant_medicine
+        moraceae: "Moraceae"                               #< plant
+        mower: "Faucheuse"                                 #< equipment
+        nicotiana: "Tabac"                                 #< solanaceae
+        numida: "Numididae"                                #< aves
+        oil: "Huile"                                       #< organic_matter
+        organic_matter: "Matière organique"                #< matter
+        oryza: "Riz"                                       #< poaceae
+        osteichthyes: "Poissons osseux"                    #< animal
+        ostreidae: "Ostreidae"                             #< mollusca
+        ovis: "Ovin"                                       #< mammalia
+        packaged_matter: "Matières composées"              #< matter
+        pauetet: "Pauetet"                                 #< corylus_avellana
+        peach: "Pêche"                                     #< fruit
+        pear: "Poire"                                      #< fruit
+        phaseolus: "Haricot"                               #< fabaceae
+        pisum: "Pisum"                                     #< fabaceae
+        plant: "Végétal"                                   #< bioproduct
+        plant_medicine: "Produit phytosanitaire"           #< medicine
+        plower: "Charrue"                                  #< equipment
+        plum: "Prune"                                      #< fruit
+        poa: "Prairie"                                     #< poaceae
+        poaceae: "Graminée"                                #< plant
+        pollen: "Pollen"                                   #< organic_matter
+        pomace: "Résidu (Tourteau, Marc)"                  #< preparation
+        potassium_ferrocyanide: "Ferrocyanure de potassium" #< mineral_matter
+        preparation: "Préparation"                         #< matter
+        press: "Pressoir"                                  #< equipment
         product: "Produit"
-        product_group: "Groupe de produit"                 # product
-        property_title: "Titre de propriété"               # immatter
-        pruner: "Sécateur"                                 # equipment
-        prunus: "Prunier"                                  # rosaceae
-        prunus_domestica: "Prunus domestica"               # prunus
-        prunus_domestica_bernardina: "Prunus domestica - Bernardina" # prunus_domestica
-        prunus_domestica_bluefre: "Prunus domestica - Bluefre" # prunus_domestica
-        prunus_domestica_carpatin: "Prunus domestica - Carpatin" # prunus_domestica
-        prunus_persica: "Prunus persica"                   # prunus
-        prunus_persica_jh_hall: "Prunus persica - JH hall" # prunus_persica
-        prunus_persica_madeleine: "Prunus persica - Madeleine" # prunus_persica
-        prunus_persica_saint_hilaire: "Prunus persica - Saint-Hilaire" # prunus_persica
-        prunus_salicina: "Prunus salicina"                 # prunus
-        prunus_salicina_allo: "Prunus salicina - Allo"     # prunus_salicina
-        prunus_salicina_anne_gold: "Prunus salicina - Anne gold" # prunus_salicina
-        prunus_salicina_awaso: "Prunus salicina - Awaso"   # prunus_salicina
-        prunus_salicina_beauty: "Prunus salicina - Beauty" # prunus_salicina
-        pyrus: "Pyrus"                                     # rosaceae
-        pyrus_communis: "Pyrus communis"                   # pyrus
-        pyrus_communis_beurre_hardy: "Pyrus communis - Beurre hardy" # pyrus_communis
-        pyrus_communis_william: "Pyrus communis - William" # pyrus_communis
-        pyrus_communis_william_bon_chretien: "Pyrus communis - William bon chretien" # pyrus_communis
-        raspberry: "Framboise"                             # fruit
-        reaper: "Moissonneuse-batteuse"                    # equipment
-        ribes: "Ribes"                                     # grossulariaceae
-        ribes_nigrum: "Ribes nigrum"                       # ribes
-        ribes_nigrum_andega: "Ribes nigrum - Andega"       # ribes_nigrum
-        ribes_rubrum: "Ribes rubrum"                       # ribes
-        ribes_rubrum_wilder: "Ribes rubrum - Wilder"       # ribes_rubrum
-        rosa: "Rosa"                                       # rosaceae
-        rosa_centifolia: "Rosa centifolia"                 # rosa
-        rosa_dades: "Rosa dades"                           # rosa
-        rosa_gallica: "Rosa gallica"                       # rosa
-        rosa_recht: "Rosa recht"                           # rosa
-        rosaceae: "Rosaceae"                               # plant
-        rubus: "Rubus"                                     # rosaceae
-        rubus_idaeus: "Rubus idaeus"                       # rubus
-        rubus_idaeus_frida: "Rubus idaeus - Frida"         # rubus_idaeus
-        rubus_idaeus_mailling_promise: "Rubus idaeus - Mailling promise" # rubus_idaeus
-        rubus_idaeus_tulameen: "Rubus idaeus - Tulameen"   # rubus_idaeus
-        rubus_idaeus_willamette: "Rubus idaeus - Willamette" # rubus_idaeus
-        rubus_idaeus_zeva: "Rubus idaeus - Zeva"           # rubus_idaeus
-        saccharomyces: "Saccharomyces"                     # saccharomycetaceae
-        saccharomyces_cerevisiae: "Saccharomyces cerevisiae" # saccharomyces
-        saccharomyces_cerevisiae_jb3: "Saccharomyces cerevisiae - jb3" # saccharomyces_cerevisiae
-        saccharomycetaceae: "Saccharomycetaceae"           # fungus
-        saccharose: "Saccharose"                           # sugar
-        salmo: "Salmonidé"                                 # osteichthyes
-        salt: "Sel"                                        # mineral_matter
-        sand: "Sable"                                      # mineral_matter
-        screw_bottle: "Bouteille (à vis)"                  # bottle
-        screw_cap: "Capsule (à vis)"                       # cap
-        secale: "Secale"                                   # poaceae
-        seed: "Semence"                                    # organic_matter
-        seedling: "Plant"                                  # organic_matter
-        segorbe: "Segorbe"                                 # corylus_avellana
-        service: "Service"                                 # immatter
-        settlement: "Aménagement"                          # easement
-        silage: "Ensilage"                                 # preparation
-        slurry: "Lisier"                                   # excrement
-        solanaceae: "Solanaceae"                           # plant
-        solanum: "Pomme de terre"                          # solanaceae
-        solanum_tuberosum: "Solanum tuberosum"             # solanum
-        solanum_tuberosum_agata: "Solanum tuberosum - Agata" # solanum_tuberosum
-        sorghum: "Sorgho"                                  # poaceae
-        sower: "Semoir"                                    # equipment
-        sprayer: "Pulvérisateur"                           # equipment
-        spreader: "Épandeur"                               # equipment
-        straw: "Paille"                                    # grass
-        strawberry: "Fraise"                               # fruit
-        sub_zone: "Sous zone"                              # zone
-        sugar: "Sucre"                                     # organic_matter
-        sus: "Porcin"                                      # mammalia
-        tank: "Réservoir"                                  # equipment
-        tonda_giffoni: "Tonda giffoni"                     # corylus_avellana
-        tractor: "Tracteur"                                # equipment
-        trailer: "Remorque"                                # equipment
-        triticosecale: "Triticale"                         # poaceae
-        triticum: "Blé"                                    # poaceae
-        triticum_aestivum: "Blé tendre"                    # triticum
-        triticum_aestivum_apache: "Triticum aestivum - apache" # triticum_aestivum
-        triticum_aestivum_ascott: "Triticum aestivum - ascott" # triticum_aestivum
-        triticum_aestivum_autan: "Triticum aestivum - autan" # triticum_aestivum
-        triticum_aestivum_aztec: "Triticum aestivum - aztec" # triticum_aestivum
-        triticum_aestivum_bussard: "Triticum aestivum - bussard" # triticum_aestivum
-        triticum_aestivum_caphorn: "Triticum aestivum - caphorn" # triticum_aestivum
-        triticum_aestivum_courtot: "Triticum aestivum - courtot" # triticum_aestivum
-        triticum_aestivum_esperia: "Triticum aestivum - esperia" # triticum_aestivum
-        triticum_aestivum_euclide: "Triticum aestivum - euclide" # triticum_aestivum
-        triticum_aestivum_galibier: "Triticum aestivum - galibier" # triticum_aestivum
-        triticum_aestivum_isengrain: "Triticum aestivum - isengrain" # triticum_aestivum
-        triticum_aestivum_levis: "Triticum aestivum - levis" # triticum_aestivum
-        triticum_aestivum_lona: "Triticum aestivum - lona" # triticum_aestivum
-        triticum_aestivum_manital: "Triticum aestivum - manital" # triticum_aestivum
-        triticum_aestivum_oratorio: "Triticum aestivum - oratorio" # triticum_aestivum
-        triticum_aestivum_qualital: "Triticum aestivum - qualital" # triticum_aestivum
-        triticum_aestivum_quality: "Triticum aestivum - quality" # triticum_aestivum
-        triticum_aestivum_quebon: "Triticum aestivum - quebon" # triticum_aestivum
-        triticum_aestivum_recital: "Triticum aestivum - recital" # triticum_aestivum
-        triticum_aestivum_renan: "Triticum aestivum - renan" # triticum_aestivum
-        triticum_aestivum_rubisko: "Triticum aestivum - rubisko" # triticum_aestivum
-        triticum_aestivum_runal: "Triticum aestivum - runal" # triticum_aestivum
-        triticum_aestivum_soissons: "Triticum aestivum - soissons" # triticum_aestivum
-        triticum_aestivum_tamaro: "Triticum aestivum - tamaro" # triticum_aestivum
-        triticum_aestivum_texel: "Triticum aestivum - texel" # triticum_aestivum
-        triticum_aestivum_tremie: "Triticum aestivum - tremie" # triticum_aestivum
-        triticum_durum: "Blé dur"                          # triticum
-        triticum_durum_alexis: "Triticum durum - alexis"   # triticum_durum
-        triticum_durum_aventur: "Triticum durum - aventur" # triticum_durum
-        triticum_durum_biensur: "Triticum durum - biensur" # triticum_durum
-        triticum_durum_cultur: "Triticum durum - cultur"   # triticum_durum
-        triticum_durum_fabulis: "Triticum durum - fabulis" # triticum_durum
-        triticum_durum_karur: "Triticum durum - karur"     # triticum_durum
-        triticum_durum_miradoux: "Triticum durum - miradoux" # triticum_durum
-        triticum_durum_pescadou: "Triticum durum - pescadou" # triticum_durum
-        triticum_durum_sculptur: "Triticum durum - sculptur" # triticum_durum
-        triticum_durum_sy_banco: "Triticum durum - sy banco" # triticum_durum
-        triticum_durum_sy_cysco: "Triticum durum - sy cysco" # triticum_durum
-        triticum_durum_tablur: "Triticum durum - tablur"   # triticum_durum
-        triticum_spelta: "Épeautre"                        # triticum
-        vicia: "Vesces - Féverolle"                        # fabaceae
-        vitis: "Vigne"                                     # plant
-        vitis_vinifera: "Vitis vinifera"                   # vitis
-        vitis_vinifera_cabernet_franc_noir: "Vitis vinifera - cabernet franc noir" # vitis_vinifera
-        vitis_vinifera_cabernet_sauvignon_noir: "Vitis vinifera - cabernet sauvignon noir" # vitis_vinifera
-        vitis_vinifera_carignan: "Vitis vinifera - carignan" # vitis_vinifera
-        vitis_vinifera_carmenere_noir: "Vitis vinifera - carmenere noir" # vitis_vinifera
-        vitis_vinifera_chardonnay: "Vitis vinifera - chardonnay" # vitis_vinifera
-        vitis_vinifera_colombar_blanc: "Vitis vinifera - colombar blanc" # vitis_vinifera
-        vitis_vinifera_cot_noir: "Vitis vinifera - cot noir" # vitis_vinifera
-        vitis_vinifera_grenache: "Vitis vinifera - grenache" # vitis_vinifera
-        vitis_vinifera_grenache_noir: "Vitis vinifera - grenache noir" # vitis_vinifera
-        vitis_vinifera_merlot_blanc: "Vitis vinifera - merlot blanc" # vitis_vinifera
-        vitis_vinifera_merlot_noir: "Vitis vinifera - merlot noir" # vitis_vinifera
-        vitis_vinifera_muscadelle_blanc: "Vitis vinifera - muscadelle blanc" # vitis_vinifera
-        vitis_vinifera_petit_verdot_noir: "Vitis vinifera - petit verdot noir" # vitis_vinifera
-        vitis_vinifera_pinot_noir: "Vitis vinifera - pinot noir" # vitis_vinifera
-        vitis_vinifera_sauvignon_blanc: "Vitis vinifera - sauvignon blanc" # vitis_vinifera
-        vitis_vinifera_sauvignon_gris: "Vitis vinifera - sauvignon gris" # vitis_vinifera
-        vitis_vinifera_sauvignon_noir: "Vitis vinifera - sauvignon noir" # vitis_vinifera
-        vitis_vinifera_semillon_blanc: "Vitis vinifera - semillon blanc" # vitis_vinifera
-        vitis_vinifera_syrah_noir: "Vitis vinifera - syrah noir" # vitis_vinifera
-        vitis_vinifera_ugni_blanc: "Vitis vinifera - ugni blanc" # vitis_vinifera
-        walnut: "Noyer"                                    # fruit
-        water: "Eau"                                       # matter
-        wine: "Vin"                                        # fermented_juice
-        worker: "Travailleur"                              # equipment
-        zea: "Maïs"                                        # poaceae
-        zea_aallexia: "Zea - aallexia"                     # zea
-        zea_bergxxon: "Zea - bergxxon"                     # zea
-        zea_lg3490: "Zea - lg3490"                         # zea
-        zone: "Zone physique"                              # matter
-        zone_property_title: "Titre de propriété terrienne" # property_title
+        product_group: "Groupe de produit"                 #< product
+        property_title: "Titre de propriété"               #< immatter
+        pruner: "Sécateur"                                 #< equipment
+        prunus: "Prunier"                                  #< rosaceae
+        prunus_domestica: "Prunus domestica"               #< prunus
+        prunus_domestica_bernardina: "Prunus domestica - Bernardina" #< prunus_domestica
+        prunus_domestica_bluefre: "Prunus domestica - Bluefre" #< prunus_domestica
+        prunus_domestica_carpatin: "Prunus domestica - Carpatin" #< prunus_domestica
+        prunus_persica: "Prunus persica"                   #< prunus
+        prunus_persica_jh_hall: "Prunus persica - JH hall" #< prunus_persica
+        prunus_persica_madeleine: "Prunus persica - Madeleine" #< prunus_persica
+        prunus_persica_saint_hilaire: "Prunus persica - Saint-Hilaire" #< prunus_persica
+        prunus_salicina: "Prunus salicina"                 #< prunus
+        prunus_salicina_allo: "Prunus salicina - Allo"     #< prunus_salicina
+        prunus_salicina_anne_gold: "Prunus salicina - Anne gold" #< prunus_salicina
+        prunus_salicina_awaso: "Prunus salicina - Awaso"   #< prunus_salicina
+        prunus_salicina_beauty: "Prunus salicina - Beauty" #< prunus_salicina
+        pyrus: "Pyrus"                                     #< rosaceae
+        pyrus_communis: "Pyrus communis"                   #< pyrus
+        pyrus_communis_beurre_hardy: "Pyrus communis - Beurre hardy" #< pyrus_communis
+        pyrus_communis_william: "Pyrus communis - William" #< pyrus_communis
+        pyrus_communis_william_bon_chretien: "Pyrus communis - William bon chretien" #< pyrus_communis
+        raspberry: "Framboise"                             #< fruit
+        reaper: "Moissonneuse-batteuse"                    #< equipment
+        ribes: "Ribes"                                     #< grossulariaceae
+        ribes_nigrum: "Ribes nigrum"                       #< ribes
+        ribes_nigrum_andega: "Ribes nigrum - Andega"       #< ribes_nigrum
+        ribes_rubrum: "Ribes rubrum"                       #< ribes
+        ribes_rubrum_wilder: "Ribes rubrum - Wilder"       #< ribes_rubrum
+        rosa: "Rosa"                                       #< rosaceae
+        rosa_centifolia: "Rosa centifolia"                 #< rosa
+        rosa_dades: "Rosa dades"                           #< rosa
+        rosa_gallica: "Rosa gallica"                       #< rosa
+        rosa_recht: "Rosa recht"                           #< rosa
+        rosaceae: "Rosaceae"                               #< plant
+        rubus: "Rubus"                                     #< rosaceae
+        rubus_idaeus: "Rubus idaeus"                       #< rubus
+        rubus_idaeus_frida: "Rubus idaeus - Frida"         #< rubus_idaeus
+        rubus_idaeus_mailling_promise: "Rubus idaeus - Mailling promise" #< rubus_idaeus
+        rubus_idaeus_tulameen: "Rubus idaeus - Tulameen"   #< rubus_idaeus
+        rubus_idaeus_willamette: "Rubus idaeus - Willamette" #< rubus_idaeus
+        rubus_idaeus_zeva: "Rubus idaeus - Zeva"           #< rubus_idaeus
+        saccharomyces: "Saccharomyces"                     #< saccharomycetaceae
+        saccharomyces_cerevisiae: "Saccharomyces cerevisiae" #< saccharomyces
+        saccharomyces_cerevisiae_jb3: "Saccharomyces cerevisiae - jb3" #< saccharomyces_cerevisiae
+        saccharomycetaceae: "Saccharomycetaceae"           #< fungus
+        saccharose: "Saccharose"                           #< sugar
+        salmo: "Salmonidé"                                 #< osteichthyes
+        salt: "Sel"                                        #< mineral_matter
+        sand: "Sable"                                      #< mineral_matter
+        screw_bottle: "Bouteille (à vis)"                  #< bottle
+        screw_cap: "Capsule (à vis)"                       #< cap
+        secale: "Secale"                                   #< poaceae
+        seed: "Semence"                                    #< organic_matter
+        seedling: "Plant"                                  #< organic_matter
+        segorbe: "Segorbe"                                 #< corylus_avellana
+        service: "Service"                                 #< immatter
+        settlement: "Aménagement"                          #< easement
+        silage: "Ensilage"                                 #< preparation
+        slurry: "Lisier"                                   #< excrement
+        solanaceae: "Solanaceae"                           #< plant
+        solanum: "Pomme de terre"                          #< solanaceae
+        solanum_tuberosum: "Solanum tuberosum"             #< solanum
+        solanum_tuberosum_agata: "Solanum tuberosum - Agata" #< solanum_tuberosum
+        sorghum: "Sorgho"                                  #< poaceae
+        sower: "Semoir"                                    #< equipment
+        sprayer: "Pulvérisateur"                           #< equipment
+        spreader: "Épandeur"                               #< equipment
+        straw: "Paille"                                    #< grass
+        strawberry: "Fraise"                               #< fruit
+        sub_zone: "Sous zone"                              #< zone
+        sugar: "Sucre"                                     #< organic_matter
+        sus: "Porcin"                                      #< mammalia
+        tank: "Réservoir"                                  #< equipment
+        tonda_giffoni: "Tonda giffoni"                     #< corylus_avellana
+        tractor: "Tracteur"                                #< equipment
+        trailer: "Remorque"                                #< equipment
+        triticosecale: "Triticale"                         #< poaceae
+        triticum: "Blé"                                    #< poaceae
+        triticum_aestivum: "Blé tendre"                    #< triticum
+        triticum_aestivum_apache: "Triticum aestivum - apache" #< triticum_aestivum
+        triticum_aestivum_ascott: "Triticum aestivum - ascott" #< triticum_aestivum
+        triticum_aestivum_autan: "Triticum aestivum - autan" #< triticum_aestivum
+        triticum_aestivum_aztec: "Triticum aestivum - aztec" #< triticum_aestivum
+        triticum_aestivum_bussard: "Triticum aestivum - bussard" #< triticum_aestivum
+        triticum_aestivum_caphorn: "Triticum aestivum - caphorn" #< triticum_aestivum
+        triticum_aestivum_courtot: "Triticum aestivum - courtot" #< triticum_aestivum
+        triticum_aestivum_esperia: "Triticum aestivum - esperia" #< triticum_aestivum
+        triticum_aestivum_euclide: "Triticum aestivum - euclide" #< triticum_aestivum
+        triticum_aestivum_galibier: "Triticum aestivum - galibier" #< triticum_aestivum
+        triticum_aestivum_isengrain: "Triticum aestivum - isengrain" #< triticum_aestivum
+        triticum_aestivum_levis: "Triticum aestivum - levis" #< triticum_aestivum
+        triticum_aestivum_lona: "Triticum aestivum - lona" #< triticum_aestivum
+        triticum_aestivum_manital: "Triticum aestivum - manital" #< triticum_aestivum
+        triticum_aestivum_oratorio: "Triticum aestivum - oratorio" #< triticum_aestivum
+        triticum_aestivum_qualital: "Triticum aestivum - qualital" #< triticum_aestivum
+        triticum_aestivum_quality: "Triticum aestivum - quality" #< triticum_aestivum
+        triticum_aestivum_quebon: "Triticum aestivum - quebon" #< triticum_aestivum
+        triticum_aestivum_recital: "Triticum aestivum - recital" #< triticum_aestivum
+        triticum_aestivum_renan: "Triticum aestivum - renan" #< triticum_aestivum
+        triticum_aestivum_rubisko: "Triticum aestivum - rubisko" #< triticum_aestivum
+        triticum_aestivum_runal: "Triticum aestivum - runal" #< triticum_aestivum
+        triticum_aestivum_soissons: "Triticum aestivum - soissons" #< triticum_aestivum
+        triticum_aestivum_tamaro: "Triticum aestivum - tamaro" #< triticum_aestivum
+        triticum_aestivum_texel: "Triticum aestivum - texel" #< triticum_aestivum
+        triticum_aestivum_tremie: "Triticum aestivum - tremie" #< triticum_aestivum
+        triticum_durum: "Blé dur"                          #< triticum
+        triticum_durum_alexis: "Triticum durum - alexis"   #< triticum_durum
+        triticum_durum_aventur: "Triticum durum - aventur" #< triticum_durum
+        triticum_durum_biensur: "Triticum durum - biensur" #< triticum_durum
+        triticum_durum_cultur: "Triticum durum - cultur"   #< triticum_durum
+        triticum_durum_fabulis: "Triticum durum - fabulis" #< triticum_durum
+        triticum_durum_karur: "Triticum durum - karur"     #< triticum_durum
+        triticum_durum_miradoux: "Triticum durum - miradoux" #< triticum_durum
+        triticum_durum_pescadou: "Triticum durum - pescadou" #< triticum_durum
+        triticum_durum_sculptur: "Triticum durum - sculptur" #< triticum_durum
+        triticum_durum_sy_banco: "Triticum durum - sy banco" #< triticum_durum
+        triticum_durum_sy_cysco: "Triticum durum - sy cysco" #< triticum_durum
+        triticum_durum_tablur: "Triticum durum - tablur"   #< triticum_durum
+        triticum_spelta: "Épeautre"                        #< triticum
+        vicia: "Vesces - Féverolle"                        #< fabaceae
+        vitis: "Vigne"                                     #< plant
+        vitis_vinifera: "Vitis vinifera"                   #< vitis
+        vitis_vinifera_cabernet_franc_noir: "Vitis vinifera - cabernet franc noir" #< vitis_vinifera
+        vitis_vinifera_cabernet_sauvignon_noir: "Vitis vinifera - cabernet sauvignon noir" #< vitis_vinifera
+        vitis_vinifera_carignan: "Vitis vinifera - carignan" #< vitis_vinifera
+        vitis_vinifera_carmenere_noir: "Vitis vinifera - carmenere noir" #< vitis_vinifera
+        vitis_vinifera_chardonnay: "Vitis vinifera - chardonnay" #< vitis_vinifera
+        vitis_vinifera_colombar_blanc: "Vitis vinifera - colombar blanc" #< vitis_vinifera
+        vitis_vinifera_cot_noir: "Vitis vinifera - cot noir" #< vitis_vinifera
+        vitis_vinifera_grenache: "Vitis vinifera - grenache" #< vitis_vinifera
+        vitis_vinifera_grenache_noir: "Vitis vinifera - grenache noir" #< vitis_vinifera
+        vitis_vinifera_merlot_blanc: "Vitis vinifera - merlot blanc" #< vitis_vinifera
+        vitis_vinifera_merlot_noir: "Vitis vinifera - merlot noir" #< vitis_vinifera
+        vitis_vinifera_muscadelle_blanc: "Vitis vinifera - muscadelle blanc" #< vitis_vinifera
+        vitis_vinifera_petit_verdot_noir: "Vitis vinifera - petit verdot noir" #< vitis_vinifera
+        vitis_vinifera_pinot_noir: "Vitis vinifera - pinot noir" #< vitis_vinifera
+        vitis_vinifera_sauvignon_blanc: "Vitis vinifera - sauvignon blanc" #< vitis_vinifera
+        vitis_vinifera_sauvignon_gris: "Vitis vinifera - sauvignon gris" #< vitis_vinifera
+        vitis_vinifera_sauvignon_noir: "Vitis vinifera - sauvignon noir" #< vitis_vinifera
+        vitis_vinifera_semillon_blanc: "Vitis vinifera - semillon blanc" #< vitis_vinifera
+        vitis_vinifera_syrah_noir: "Vitis vinifera - syrah noir" #< vitis_vinifera
+        vitis_vinifera_ugni_blanc: "Vitis vinifera - ugni blanc" #< vitis_vinifera
+        walnut: "Noyer"                                    #< fruit
+        water: "Eau"                                       #< matter
+        wine: "Vin"                                        #< fermented_juice
+        worker: "Travailleur"                              #< equipment
+        zea: "Maïs"                                        #< poaceae
+        zea_aallexia: "Zea - aallexia"                     #< zea
+        zea_bergxxon: "Zea - bergxxon"                     #< zea
+        zea_lg3490: "Zea - lg3490"                         #< zea
+        zone: "Zone physique"                              #< matter
+        zone_property_title: "Titre de propriété terrienne" #< property_title
     working_sets:
       name: "Ensembles de produits"
       property_natures:

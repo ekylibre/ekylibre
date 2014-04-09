@@ -91,7 +91,7 @@ class InterventionCast < Ekylibre::Record::Base
   end
 
   after_save do
-    if self.actor and self.actor.person
+    if self.actor and self.actor.respond_to?(:person) and self.actor.person
       columns = {event_id: self.event.id, participant_id: self.actor.person_id, state: :accepted}
       if self.event_participation
         self.event_participation.update_columns(columns)
