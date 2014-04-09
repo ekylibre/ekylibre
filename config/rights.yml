@@ -301,6 +301,7 @@
 # - "backend/interfacers#unroll"
 # - "backend/interfacers#unroll_options"
 # - "backend/interventions#compute"
+# - "backend/interventions#set"
 # - "backend/inventories#unroll"
 # - "backend/issues#abort"
 # - "backend/issues#close"

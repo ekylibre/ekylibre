@@ -18,7 +18,7 @@
       <item name="building_divisions"/>
       <item name="buildings"/>
       <item name="campaigns"/>
-      <item name="cash_tranferts"/>
+      <item name="cash_tranfers"/>
       <item name="entities"/>
       <item name="calculators" accesses="read, write, execute"/> <!-- ? to review...-->
       <item name="interventions"/>

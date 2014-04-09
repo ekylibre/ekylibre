@@ -315,6 +315,7 @@ fra:
       index: "Interventions"
       new: "Nouvelle intervention"
       run: "Exécuter l'intervention"
+      # set: "Set backend/intervention"
       show: "%{procedure_name} N°%{id}"
     backend/inventories:
       edit: "Modifier l’inventaire"

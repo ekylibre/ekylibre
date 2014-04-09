@@ -665,6 +665,7 @@
         <page to="backend/interventions#list_casts"/>
         <page to="backend/interventions#list_operations"/>
         <page to="backend/interventions#run"/>
+        <page to="backend/interventions#set"/>
         <page to="backend/interventions#unroll"/>
       </item>
       <item name="prescriptions">

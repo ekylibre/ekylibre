@@ -78,7 +78,7 @@ class Intervention < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :casts, :operations
 
-  # @TODO in progress - need to .all parent reference_name to have the name of the procedure_nature
+  # @TODO in progress - need to call parent reference_name to have the name of the procedure_nature
 
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
@@ -203,6 +203,11 @@ class Intervention < Ekylibre::Record::Base
       return :go
     end
   end
+
+  def need_parameters?
+    false
+  end
+
 
   def runnable?
     return false unless self.undone?

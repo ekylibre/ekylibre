@@ -78,8 +78,11 @@ module Procedo
               raise "Valid unit expected in #{object.inspect}"
             end
           end
+          unless indicator = Nomen::Indicators[object.indicator.text_value]
+            raise "Invalid indicator: #{object.indicator.text_value.inspect}"
+          end
           rewrite(object.actor) +
-            ".get(:" + Nomen::Indicators[object.indicator.text_value].name.to_s +
+            ".get(:" + indicator.name.to_s +
             (object.is_a?(Procedo::HandlerMethod::IndividualReading) ? ", individual: true" : "") +
             ")" +
             (unit ? ".to_f(:#{unit.name})" : "")
