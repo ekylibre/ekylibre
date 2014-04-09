@@ -785,16 +785,7 @@ jpn:
       property_natures:
         # varieties: "Variétés"
     currencies:
-      item_lists:  #?
-        EUR: #?
- #?
-        FRF: #?
- #?
-        JPY: #?
- #?
-        USD: #?
- #?
- #?
+      item_lists: #?
       items:
         AED: "UAE ディルハム"
         AFN: "アフガニ"
@@ -1283,7 +1274,7 @@ jpn:
         # plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         # plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         # plants_density: "Densité de plantation"
-        # plants_rows_interval: "Intervalle inter-rangs"
+        # plants_interval: "Intervalle inter-pieds"
         # population: "Population"
         # potash_concentration: "Teneur en potasse (K2O)"
         # potassium_concentration: "Teneur en potassium"
@@ -1293,7 +1284,8 @@ jpn:
         # reference_year: "Millésime"
         # reproductor: "Reproducteur"
         # residue_elimination_method: "Méthode d’élimination des résidus"
-        # row_plants_interval: "Intervalle inter-plants"
+        # rows_interval: "Intervalle inter-rangs"
+        # rows_orientation: "Orientation des rangs"
         # sex: "Sexe"
         # shape: "Forme"
         # soil_cultural_state: "État cultural du sol"
@@ -2297,11 +2289,7 @@ jpn:
         # evacuation: "Évacuation"
       # name: "Méthodes d’élimination des résidus"
     roles:
-      item_lists:  #?
-        accountant: #?
- #?
-        farm_worker: #?
- #?
+      item_lists: #?
       items:
         # accountant: "Comptable"
         # farm_worker: "Ouvrier agricole"

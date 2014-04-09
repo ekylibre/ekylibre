@@ -325,7 +325,7 @@ task :locales => :environment do
               choices << CleanSupport.exp(ref, nomenclature.name, :choices, name.to_sym, choice.to_sym).dig
             end
           else
-            choices << "# #{name}: #! Choices comes from nomenclature: #{property_nature.choices_nomenclature}\n"
+            choices << "#! #{name}: Choices comes from nomenclature: #{property_nature.choices_nomenclature}\n"
           end
         elsif property_nature.type == :list and property_nature.choices_nomenclature.nil?
           item_lists << property_nature.name.to_sym

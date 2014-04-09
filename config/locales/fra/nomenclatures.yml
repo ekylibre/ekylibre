@@ -301,8 +301,8 @@ fra:
         target_derivative_of: "Dérivé de la cible"
         target_variety: "Variété de la cible"
       choices:
-        # target_derivative_of: #! Choices comes from nomenclature: varieties
-        # target_variety: #! Choices comes from nomenclature: varieties
+        #! target_derivative_of: Choices comes from nomenclature: varieties
+        #! target_variety: Choices comes from nomenclature: varieties
       items:
         cow_milk_analysis: "Analyse de lait de vache"
         soil_analysis: "Analyse de sol"
@@ -335,7 +335,7 @@ fra:
         labels: "Labels"
         land: "Terroir"
       choices:
-        # land: #! Choices comes from nomenclature: lands
+        #! land: Choices comes from nomenclature: lands
       items:
         bordeaux_blanc: "Bordeaux blanc"
         bordeaux_blanc_avec_sucres: "Bordeaux blanc avec sucres"
@@ -1194,7 +1194,7 @@ fra:
         related_to:
           individual: "Individu"
           whole: "Population"
-        # unit: #! Choices comes from nomenclature: units
+        #! unit: Choices comes from nomenclature: units
       items:
         aluminium_concentration: "Teneur en aluminium"
         animal_life_state: "Phase du bioprocessus de vie d’un animal"
@@ -1269,7 +1269,7 @@ fra:
         plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         plants_density: "Densité de plantation"
-        plants_rows_interval: "Intervalle inter-rangs"
+        plants_interval: "Intervalle inter-pieds"
         population: "Population"
         potash_concentration: "Teneur en potasse (K2O)"
         potassium_concentration: "Teneur en potassium"
@@ -1279,7 +1279,8 @@ fra:
         reference_year: "Millésime"
         reproductor: "Reproducteur"
         residue_elimination_method: "Méthode d’élimination des résidus"
-        row_plants_interval: "Intervalle inter-plants"
+        rows_interval: "Intervalle inter-rangs"
+        rows_orientation: "Orientation des rangs"
         sex: "Sexe"
         shape: "Forme"
         soil_cultural_state: "État cultural du sol"
@@ -1488,7 +1489,7 @@ fra:
           human: "Humaine"
           rest: "REST"
           soap: "SOAP"
-        # nature: #! Choices comes from nomenclature: activity_families
+        #! nature: Choices comes from nomenclature: activity_families
       items:
         cartodb: "CartoDB"
         charentes_alliance_extranet: "Extranet Charentes Alliance"
@@ -1618,8 +1619,8 @@ fra:
         stock_account: "Compte de stock"
         storable: "Stockable"
       choices:
-        # charge_account: #! Choices comes from nomenclature: accounts
-        # financial_asset_account: #! Choices comes from nomenclature: accounts
+        #! charge_account: Choices comes from nomenclature: accounts
+        #! financial_asset_account: Choices comes from nomenclature: accounts
         pictogram:
           barn: "Grange"
           beaker: "Bécher"
@@ -1652,8 +1653,8 @@ fra:
           truck: "Camion"
           wheat: "Blé"
           wrench: "Clé à molette"
-        # product_account: #! Choices comes from nomenclature: accounts
-        # stock_account: #! Choices comes from nomenclature: accounts
+        #! product_account: Choices comes from nomenclature: accounts
+        #! stock_account: Choices comes from nomenclature: accounts
       items:
         animal_food: "Aliment pour animaux"
         animal_medicine: "Produit vétérinaire"
@@ -1707,8 +1708,8 @@ fra:
         unit_name: "Nom de l’unité"
         variety: "Variété"
       choices:
-        # derivative_of: #! Choices comes from nomenclature: varieties
-        # nature: #! Choices comes from nomenclature: product_natures
+        #! derivative_of: Choices comes from nomenclature: varieties
+        #! nature: Choices comes from nomenclature: product_natures
         unit_name:
           100cl_bottle: "bouteille de 100cl"
           100g_dose: "Dose de 100g"
@@ -1749,7 +1750,7 @@ fra:
           square_meter: "Mètre carré"
           ton: "Tonne"
           unit: "Unité"
-        # variety: #! Choices comes from nomenclature: varieties
+        #! variety: Choices comes from nomenclature: varieties
       items:
         115g_jam: "Pot de 115g de confiture"
         230g_jam: "Pot de 230g de confiture"
@@ -2066,12 +2067,12 @@ fra:
         variable_indicators: "Indicateurs variables"
         variety: "Variété"
       choices:
-        # category: #! Choices comes from nomenclature: product_nature_categories
+        #! category: Choices comes from nomenclature: product_nature_categories
         population_counting:
           decimal: "Décimal"
           integer: "Entier"
           unitary: "Unitaire"
-        # variety: #! Choices comes from nomenclature: varieties
+        #! variety: Choices comes from nomenclature: varieties
       items:
         additive: "Adjuvant"
         administrative_division: "Zone Administrative"
@@ -2200,8 +2201,8 @@ fra:
         telepac_crop_code: "Code de type de culture TELEPAC"
         variant_support: "Variant"
       choices:
-        # activity: #! Choices comes from nomenclature: activity_families
-        # variant_support: #! Choices comes from nomenclature: product_nature_variants
+        #! activity: Choices comes from nomenclature: activity_families
+        #! variant_support: Choices comes from nomenclature: product_nature_variants
       items:
         administrative: "Administratif"
         annual_frost_fallow_land: "Gel annuel"
@@ -2330,12 +2331,12 @@ fra:
         stopped_on: "Arrêté le"
         suffix: "suffixe du compte comptable"
       choices:
-        # collect_account: #! Choices comes from nomenclature: accounts
+        #! collect_account: Choices comes from nomenclature: accounts
         computation_method:
           amount: "Montant fixe"
           percentage: "Pourcentage"
-        # country: #! Choices comes from nomenclature: countries
-        # deduction_account: #! Choices comes from nomenclature: accounts
+        #! country: Choices comes from nomenclature: countries
+        #! deduction_account: Choices comes from nomenclature: accounts
       items:
         fr_vat_intermediate: "TVA 10.00%"
         fr_vat_normal: "TVA 20.00%"
@@ -2351,7 +2352,7 @@ fra:
         dimension: "Dimension"
         symbol: "Symbole"
       choices:
-        # dimension: #! Choices comes from nomenclature: dimensions
+        #! dimension: Choices comes from nomenclature: dimensions
       items:
         acre: "Acre"
         ampere: "Ampère"
@@ -2455,7 +2456,7 @@ fra:
         europa_tsn: "ID Europa"
         itis_tsn: "ID ITIS"
       choices:
-        # derivative_of: #! Choices comes from nomenclature: varieties
+        #! derivative_of: Choices comes from nomenclature: varieties
       items:
         acetal: "Acetal"                                   #< animal_medicine
         actilact: "Actilact"                               #< animal_medicine
