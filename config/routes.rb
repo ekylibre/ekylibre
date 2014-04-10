@@ -348,7 +348,7 @@ Ekylibre::Application.routes.draw do
     resources :guides, concerns: [:list, :unroll] do
       member do
         post :run
-        get :list_analyses
+        get  :list_analyses
       end
     end
 
@@ -379,12 +379,13 @@ Ekylibre::Application.routes.draw do
 
     resources :interventions, concerns: [:list, :unroll] do
       collection do
-        get :compute
+        get  :compute
       end
       member do
+        get  :set
         post :run
-        get :list_casts
-        get :list_operations
+        get  :list_casts
+        get  :list_operations
       end
     end
 

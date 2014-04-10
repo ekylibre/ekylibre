@@ -1,0 +1,5 @@
+-# Form to set asked reading values
+%ul
+  - for operation in @intervention.reference.operations
+    - for task in operation.tasks
+      %li= task.human_name

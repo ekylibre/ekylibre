@@ -364,11 +364,11 @@ arb:
     backend/interfacers: #?
     backend/intervention_casts: #?
     backend/interventions:
-      # edit: "Modifier l’intervention %{procedure_name} N°%{id}"
+      # edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
       # run: "Exécuter l'intervention"
-      # show: "%{procedure_name} N°%{id}"
+      # show: "%{procedure_name} N°%{number}"
     backend/inventories:
       edit: "تعديل الجرد"
       index: "الجرد"
@@ -1827,6 +1827,7 @@ arb:
     role_create: "اضافة مهام" #?
     role_name: "ادخل اسم المهام ومن ثم خصص له حقوقه"
     roles: "مهام / ادوار"
+    # run: "Exécuter"
     running_cost: "تكاليف الاستثمار"
     running_finished: "منتجات الاستثمار"
     sale: "الطلبات"

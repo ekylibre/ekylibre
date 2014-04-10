@@ -28,6 +28,7 @@
 #  issue_id                    :integer
 #  lock_version                :integer          default(0), not null
 #  natures                     :string(255)      not null
+#  number                      :string(255)
 #  prescription_id             :integer
 #  production_id               :integer          not null
 #  production_support_id       :integer
@@ -66,7 +67,7 @@ class Intervention < Ekylibre::Record::Base
   enumerize :reference_name, in: Procedo.names.sort
   enumerize :state, in: [:undone, :squeezed, :in_progress, :done], default: :undone, predicates: true
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :natures, :reference_name, :ressource_type, :state, allow_nil: true, maximum: 255
+  validates_length_of :natures, :number, :reference_name, :ressource_type, :state, allow_nil: true, maximum: 255
   validates_inclusion_of :provisional, :recommended, in: [true, false]
   validates_presence_of :natures, :production, :reference_name, :state
   #]VALIDATORS]
@@ -76,9 +77,10 @@ class Intervention < Ekylibre::Record::Base
 
   delegate :storage, to: :production_support
 
+  acts_as_numbered
   accepts_nested_attributes_for :casts, :operations
 
-  # @TODO in progress - need to .all parent reference_name to have the name of the procedure_nature
+  # @TODO in progress - need to call parent reference_name to have the name of the procedure_nature
 
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
@@ -137,13 +139,15 @@ class Intervention < Ekylibre::Record::Base
     end
   end
 
-  after_save do
+  before_save do
     columns = {name: self.name, started_at: self.started_at, stopped_at: self.stopped_at, nature: :production_intervention}
     if self.event
-      self.event.update_columns(columns)
+      # self.event.update_columns(columns)
+      self.event.attributes = columns
     else
       event = Event.create!(columns)
-      self.update_column(:event_id, event.id)
+      # self.update_column(:event_id, event.id)
+      self.event_id = event.id
     end
   end
 
@@ -159,7 +163,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def name
-    "models.intervention.name".t(intervention: self.reference.human_name, number: self.id)
+    "models.intervention.name".t(intervention: self.reference.human_name, number: self.number)
   end
 
   def start_time
@@ -203,6 +207,11 @@ class Intervention < Ekylibre::Record::Base
       return :go
     end
   end
+
+  def need_parameters?
+    false
+  end
+
 
   def runnable?
     return false unless self.undone?

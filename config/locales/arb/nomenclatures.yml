@@ -484,8 +484,25 @@ arb:
         # specific_heat_capacity: "Capacité thermique"
         # symbol: "Symbole"
     controlled_resources:
-      items: #?
-      # name: "Ressources métiers contrôlées"
+      items:
+        # accountancy_dashboard: "Tableau de bord de la comptabilité"
+        # accounts: "Comptes comptables"
+        # activities: "Activités"
+        # affairs: "Affaires"
+        # analysis: "Analyses"
+        # animal_groups: "Troupeaux"
+        # animal_medicines: "Médicaments vétérinaires"
+        # animals: "Animaux"
+        # bank_statements: "Relevés de banque"
+        # bioproducts: "Bioproduits"
+        # building_divisions: "Salles/zones de bâtiment"
+        # buildings: "Bâtiments"
+        # calculators: "Calculateurs"
+        # campaigns: "Campagnes"
+        # cash_tranfers: "Virements"
+        # entities: "Personnes (physiques et morales)"
+        # interventions: "Interventions"
+      # name: "Ressources contrôlées"
       property_natures:
         # accesses: "Accès"
     countries:
@@ -768,181 +785,7 @@ arb:
       property_natures:
         # varieties: "Variétés"
     currencies:
-      item_lists:
-        AED: #?
-        AFN: #?
-        ALL: #?
-        AMD: #?
-        ANG: #?
-        AOA: #?
-        ARS: #?
-        AUD: #?
-        AWG: #?
-        AZN: #?
-        BAM: #?
-        BBD: #?
-        BDT: #?
-        BGN: #?
-        BHD: #?
-        BIF: #?
-        BMD: #?
-        BND: #?
-        BOB: #?
-        BOV: #?
-        BRL: #?
-        BSD: #?
-        BTN: #?
-        BWP: #?
-        BYR: #?
-        BZD: #?
-        CAD: #?
-        CDF: #?
-        CHE: #?
-        CHF: #?
-        CHW: #?
-        CLF: #?
-        CLP: #?
-        CNY: #?
-        COP: #?
-        COU: #?
-        CRC: #?
-        CUC: #?
-        CUP: #?
-        CVE: #?
-        CZK: #?
-        DJF: #?
-        DKK: #?
-        DOP: #?
-        DZD: #?
-        EGP: #?
-        ERN: #?
-        ETB: #?
-        EUR:
-          cash: #?
-        FJD: #?
-        FKP: #?
-        FRF:
-          cash: #?
-        GBP: #?
-        GEL: #?
-        GHS: #?
-        GIP: #?
-        GMD: #?
-        GNF: #?
-        GTQ: #?
-        GYD: #?
-        HKD: #?
-        HNL: #?
-        HRK: #?
-        HTG: #?
-        HUF: #?
-        IDR: #?
-        ILS: #?
-        INR: #?
-        IQD: #?
-        IRR: #?
-        ISK: #?
-        JMD: #?
-        JOD: #?
-        JPY:
-          cash: #?
-        KES: #?
-        KGS: #?
-        KHR: #?
-        KMF: #?
-        KPW: #?
-        KRW: #?
-        KWD: #?
-        KYD: #?
-        KZT: #?
-        LAK: #?
-        LBP: #?
-        LKR: #?
-        LRD: #?
-        LSL: #?
-        LTL: #?
-        LVL: #?
-        LYD: #?
-        MAD: #?
-        MDL: #?
-        MGA: #?
-        MKD: #?
-        MMK: #?
-        MNT: #?
-        MOP: #?
-        MRO: #?
-        MUR: #?
-        MVR: #?
-        MWK: #?
-        MXN: #?
-        MXV: #?
-        MYR: #?
-        MZN: #?
-        NAD: #?
-        NGN: #?
-        NIO: #?
-        NOK: #?
-        NPR: #?
-        NZD: #?
-        OMR: #?
-        PAB: #?
-        PEN: #?
-        PGK: #?
-        PHP: #?
-        PKR: #?
-        PLN: #?
-        PYG: #?
-        QAR: #?
-        RON: #?
-        RSD: #?
-        RUB: #?
-        RWF: #?
-        SAR: #?
-        SBD: #?
-        SCR: #?
-        SDG: #?
-        SEK: #?
-        SGD: #?
-        SHP: #?
-        SLL: #?
-        SOS: #?
-        SRD: #?
-        SSP: #?
-        STD: #?
-        SVC: #?
-        SYP: #?
-        SZL: #?
-        THB: #?
-        TJS: #?
-        TMT: #?
-        TND: #?
-        TOP: #?
-        TRY: #?
-        TTD: #?
-        TWD: #?
-        TZS: #?
-        UAH: #?
-        UGX: #?
-        USD:
-          cash: #?
-        USN: #?
-        USS: #?
-        UYI: #?
-        UYU: #?
-        UZS: #?
-        VEF: #?
-        VND: #?
-        VUV: #?
-        WST: #?
-        XAF: #?
-        XCD: #?
-        XOF: #?
-        XPF: #?
-        YER: #?
-        ZAR: #?
-        ZMK: #?
-        ZWL: #?
-        cash: #?
+      item_lists: #?
       items:
         AED: "درهم إماراتي"
         AFN: "أفغاني"
@@ -1429,7 +1272,7 @@ arb:
         # plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         # plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         # plants_density: "Densité de plantation"
-        # plants_rows_interval: "Intervalle inter-rangs"
+        # plants_interval: "Intervalle inter-pieds"
         # population: "Population"
         # potash_concentration: "Teneur en potasse (K2O)"
         # potassium_concentration: "Teneur en potassium"
@@ -1439,7 +1282,8 @@ arb:
         # reference_year: "Millésime"
         # reproductor: "Reproducteur"
         # residue_elimination_method: "Méthode d’élimination des résidus"
-        # row_plants_interval: "Intervalle inter-plants"
+        # rows_interval: "Intervalle inter-rangs"
+        # rows_orientation: "Orientation des rangs"
         # sex: "Sexe"
         # shape: "Forme"
         # soil_cultural_state: "État cultural du sol"
@@ -1448,7 +1292,7 @@ arb:
         # somatic_cell_concentration: "Dénombrement des cellules somatiques"
         # subsoil_nature: "Type de sous-sol"
         # sulfur_concentration: "Teneur en soufre"
-        # sulfur_dioxyde_concentration: "Teneur en dioxyde de soufre (SO2)"
+        # sulfur_dioxide_concentration: "Teneur en dioxyde de soufre (SO2)"
         # temperature: "Température"
         # thousand_grains_mass: "Poids de mille grains"
         # tiller_count: "Nombre de talles"
@@ -1639,6 +1483,7 @@ arb:
         # potassium_oxide: "Oxyde de potassium"
         # sodium_chloride: "Chlorure de sodium"
         # sucrose: "Saccharose"
+        # sulfur_dioxide: "Dioxyde de soufre"
         # tetraphosphorus_decaoxide: "Décaoxyde de phosphore"
         # water: "Eau"
       # name: "Molécules"
@@ -1751,8 +1596,8 @@ arb:
         # harvest: "Récolte"
         # haymaking: "Fenaison"
         # hoeing: "Binage"
-        # implant: "Plantation"
         # implantation: "Implantation d’une culture"
+        # implanting: "Plantation"
         # maintenance: "Maintenance"
         # milk_production: "Production laitière"
         # oviparous_birth: "Reproduction (ovipare)"
@@ -2442,11 +2287,7 @@ arb:
         # evacuation: "Évacuation"
       # name: "Méthodes d’élimination des résidus"
     roles:
-      item_lists:
-        accountant:
-          accesses: #?
-        farm_worker:
-          accesses: #?
+      item_lists: #?
       items:
         # accountant: "Comptable"
         # farm_worker: "Ouvrier agricole"

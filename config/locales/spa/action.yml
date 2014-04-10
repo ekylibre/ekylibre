@@ -342,11 +342,11 @@ spa:
     backend/interfacers: #?
     backend/intervention_casts: #?
     backend/interventions:
-      # edit: "Modifier l’intervention %{procedure_name} N°%{id}"
+      # edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       # index: "Interventions"
       # new: "Nouvelle intervention"
       # run: "Exécuter l'intervention"
-      # show: "%{procedure_name} N°%{id}"
+      # show: "%{procedure_name} N°%{number}"
     backend/inventories:
       edit: "Modificacion del inventario"
       index: "Inventarios"
@@ -1646,6 +1646,7 @@ spa:
     role_create: "Añadir un papel" #?
     role_name: "Entrar el nombre del papel y atribuirle sus derechos"
     roles: "Papeles"
+    # run: "Exécuter"
     running_cost: "Cargas de explotación"
     running_finished: "Productos de explotación"
     sale: "Encargos"

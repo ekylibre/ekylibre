@@ -30,7 +30,7 @@
   <nomenclature name="procedure_natures-implantation">
     <items>
       <item name="sowing" roles="input, target, output, doer, tool"/>
-      <item name="implant" roles="input, target, output, doer, tool"/>
+      <item name="implanting" roles="input, target, output, doer, tool"/>
     </items>
   </nomenclature>
 

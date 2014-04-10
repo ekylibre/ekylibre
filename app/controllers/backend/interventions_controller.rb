@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple ERP
 # Copyright (C) 2013 Brice Texier
@@ -77,9 +76,17 @@ class Backend::InterventionsController < BackendController
     t.column :duration
   end
 
+  def set
+    return unless @intervention = find_and_check    
+  end
+
   def run
     return unless intervention = find_and_check
-    intervention.run!
+    if intervention.need_parameters? and !params[:parameters]
+      redirect_to action: :set, id: intervention.id
+      return
+    end
+    intervention.run!(params[:parameters])
     redirect_to backend_intervention_url(intervention)
   end
 

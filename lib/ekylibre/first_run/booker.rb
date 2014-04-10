@@ -21,6 +21,15 @@ module Ekylibre
             unless options[:default_storage].is_a?(FalseClass)
               attributes[:default_storage] = find(BuildingDivision, default_storage: find(Building, default_storage: false))
             end
+            if model == Worker
+              options[:first_name] ||= Faker::Name.first_name
+              options[:last_name]  ||= Faker::Name.last_name
+              options[:born_at]    ||= Date.new(1970 + rand(20), 1 + rand(12), 1 + rand(28))
+              unless person = Person.find_by(first_name: options[:first_name], last_name: options[:last_name])
+                person = Person.create!(first_name: options[:first_name], last_name: options[:last_name], born_at: options[:born_at])
+              end
+              attributes[:person] = person
+            end
             variants = ProductNatureVariant.find_or_import!(options[:variety] || model.name.underscore, derivative_of: options[:derivative_of])
             variants.can(options[:can]) if options[:can]
             unless attributes[:variant] = variants.first
