@@ -18,10 +18,11 @@
     </property-natures>
     <items>
       <!-- none -->
+      <item name="billionth"  dimension="none" symbol="n."  a="0.000000001"/>
       <item name="millionth"  dimension="none" symbol="µ."  a="0.000001"/>
       <item name="thousandth" dimension="none" symbol="m."  a="0.001"/>
       <item name="unity"      dimension="none" symbol="."/>
-      <item name="ten"        dimension="none" symbol="da." a="10"/>
+      <!-- <item name="ten"        dimension="none" symbol="da." a="10"/> -->
       <item name="hundred"    dimension="none" symbol="h."  a="100"/>
       <item name="thousand"   dimension="none" symbol="k."  a="1000"/>
       <item name="million"    dimension="none" symbol="M."  a="1000000"/>
@@ -122,45 +123,42 @@
        
        <!-- mass_area_density -->
       <item name="kilogram_per_square_meter" dimension="mass_area_density" symbol="kg/m²"/>
-      <item name="gram_per_square_meter" dimension="mass_area_density" symbol="g/m²" a="0.001"/>
-      
+      <item name="gram_per_square_meter"     dimension="mass_area_density" symbol="g/m²"   a="0.001"/>      
       <item name="kilogram_per_hectare"      dimension="mass_area_density" symbol="kg/ha"           d="10000"/>
       <item name="quintal_per_hectare"       dimension="mass_area_density" symbol="qt/ha"  a="100"  d="10000"/>
       <item name="ton_per_hectare"           dimension="mass_area_density" symbol="t/ha"   a="1000" d="10000"/>
        
        <!-- volume_concentration -->
-      <item name="milliliter_per_liter" dimension="volume_concentration" symbol="ml/l" a="0.000001"    d="0.001"/>
-      <item name="centiliter_per_liter"      dimension="volume_concentration" symbol="cl/l"  a="0.00001"    d="0.001"/>
-      <item name="centiliter_per_hectoliter"      dimension="volume_concentration" symbol="cl/hl"  a="0.00001"    d="0.1"/>
+      <item name="milliliter_per_liter"      dimension="volume_concentration" symbol="ml/l"  a="0.000001"  d="0.001"/>
+      <item name="centiliter_per_liter"      dimension="volume_concentration" symbol="cl/l"  a="0.00001"   d="0.001"/>
+      <item name="centiliter_per_hectoliter" dimension="volume_concentration" symbol="cl/hl" a="0.00001"   d="0.1"/>
        
-       
-       <!-- s -->
-      <item name="liter_per_square_meter" dimension="distance" symbol="l/m²" a="0.001"/>
-      <item name="hectoliter_per_hectare" dimension="distance" symbol="hl/ha" a="0.1"/>
-      <item name="liter_per_hectare"      dimension="distance" symbol="l/ha" a="10"/>
-      
+       <!-- volume_area_density -->
+      <item name="liter_per_square_meter"  dimension="volume_area_density" symbol="l/m²"  a="0.001"/>
+      <item name="hectoliter_per_hectare"  dimension="volume_area_density" symbol="hl/ha" a="0.1"   d="10000"/>
+      <item name="liter_per_hectare"       dimension="volume_area_density" symbol="l/ha"  a="0.001" d="10000"/>
       
       <!-- surface_area_density -->
-      <item name="unity_per_square_meter" dimension="surface_area_density" symbol="./m²"/>
-      <item name="unity_per_hectare"      dimension="surface_area_density" symbol="./ha"           d="10000"/>
-      <item name="thousand_per_hectare"   dimension="surface_area_density" symbol="k./ha" a="1000" d="10000"/>
+      <item name="unity_per_square_meter"  dimension="surface_area_density" symbol="./m²"/>
+      <item name="unity_per_hectare"       dimension="surface_area_density" symbol="./ha"           d="10000"/>
+      <item name="thousand_per_hectare"    dimension="surface_area_density" symbol="k./ha" a="1000" d="10000"/>
 
       <!-- concentration -->
-      <item name="unity_per_liter"         dimension="concentration" symbol="./l"            d="0.001"/>
-      <item name="thousand_per_liter"      dimension="concentration" symbol="k./l"  a="1000" d="0.001"/>
+      <item name="unity_per_liter"         dimension="concentration" symbol="./l"               d="0.001"/>
+      <item name="thousand_per_liter"      dimension="concentration" symbol="k./l"  a="1000"    d="0.001"/>
       <item name="million_per_liter"       dimension="concentration" symbol="M./l"  a="1000000" d="0.001"/>
-      <item name="thousand_per_milliliter" dimension="concentration" symbol="k./ml" a="1000" d="0.000001"/>
+      <item name="thousand_per_milliliter" dimension="concentration" symbol="k./ml" a="1000"    d="0.000001"/>
 
       <!-- mass_density -->
-      <item name="unity_per_kilogram"     dimension="mass_density" symbol="./kg" />
-      <item name="thousand_per_kilogram"  dimension="mass_density" symbol="k./kg" a="1000"/>
-      <item name="thousand_per_hectogram" dimension="mass_density" symbol="k./hg" a="1000" d="0.1"/>
-      <item name="billion_per_gram"       dimension="mass_density" symbol="G./g" a="1000000000" d="1000"/>
+      <item name="unity_per_kilogram"      dimension="mass_density" symbol="./kg" />
+      <item name="thousand_per_kilogram"   dimension="mass_density" symbol="k./kg" a="1000"/>
+      <item name="thousand_per_hectogram"  dimension="mass_density" symbol="k./hg" a="1000" d="0.1"/>
+      <item name="billion_per_gram"        dimension="mass_density" symbol="G./g" a="1000000000" d="1000"/>
       
       <!-- distance_speed -->
-      <item name="meter_per_second"     dimension="distance_speed" symbol="m/s"/>
-      <item name="kilometer_per_hour"   dimension="distance_speed" symbol="km/h" a="1000" d="3600"/>
-      <item name="kilometer_per_second" dimension="distance_speed" symbol="km/s" a="1000"/>
+      <item name="meter_per_second"        dimension="distance_speed" symbol="m/s"/>
+      <item name="kilometer_per_hour"      dimension="distance_speed" symbol="km/h" a="1000" d="3600"/>
+      <item name="kilometer_per_second"    dimension="distance_speed" symbol="km/s" a="1000"/>
       
       <!-- mass_flow -->
       <item name="kilogram_per_second"     dimension="mass_flow" symbol="kg/s"/>

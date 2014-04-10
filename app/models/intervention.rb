@@ -209,7 +209,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   def need_parameters?
-    false
+    self.reference.need_parameters?
   end
 
 
@@ -224,7 +224,7 @@ class Intervention < Ekylibre::Record::Base
   end
 
   # Run the procedure
-  def run!(period = {})
+  def run!(period = {}, parameters = {})
     # TODO raise something unless runnable?
     # raise StandardError unless self.runnable?
     self.class.transaction do

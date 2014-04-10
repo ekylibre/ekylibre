@@ -86,7 +86,7 @@ class Backend::InterventionsController < BackendController
       redirect_to action: :set, id: intervention.id
       return
     end
-    intervention.run!(params[:parameters])
+    intervention.run!({}, params[:parameters])
     redirect_to backend_intervention_url(intervention)
   end
 

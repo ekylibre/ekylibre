@@ -1,11 +1,12 @@
 @import "compass/reset";
 
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video, input, textarea, select, options {
-  margin:0;
-  padding:0;
+  margin:  0;
+  padding: 0;
   font-family: $base-font-family;
   vertical-align: middle;
   font-size: $fs-normal;
+  line-height: $lh-normal;
   color: $text-color;
   @include text-align(left);
 }
@@ -35,8 +36,8 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
   @include border-radius($default-border-radius);
   background: #F9F9F9;
   font-size: $fs-normal;
-  line-height: round(1.4 * $fs-normal);
-  height: round(1.4 * $fs-normal);
+  line-height: $lh-normal;
+  height: $lh-normal;
   vertical-align: middle;
   //  @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset, 0 0 round($fs-normal*0.6) rgba(white, 0.6));
   @include box-shadow(0 2px round($fs-normal/2) rgba(black, 0.1) inset);
@@ -114,7 +115,3 @@ table {
     }
   }
 }
-
-
-// , input[type="radio"], input[type="hidden"], input[type="button"], input[type="checkbox"], input[type="reset"], input[type="search"], input[type="submit"]
-

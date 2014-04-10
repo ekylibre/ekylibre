@@ -64,7 +64,6 @@ class Operation < Ekylibre::Record::Base
   delegate :reference, to: :intervention, prefix: true
   delegate :casts, to: :intervention
 
-  # default_scope -> { order(:started_at) }
   scope :unvalidateds, -> { where(:confirmed => false) }
 
   scope :of_campaign, lambda { |*campaigns|
@@ -289,9 +288,23 @@ class Operation < Ekylibre::Record::Base
   # == Measurements
 
   def perform_simple_reading_task(params)
+    do_reading_task(params)
+  end
+
+  def perform_reading_task(params)
+    do_reading_task(params, reporter: params[:reporter].actor)
+  end
+
+  def perform_assisted_reading_task(params)
+    do_reading_task(params, reporter: params[:reporter].actor, tool: params[:tool].actor)
+  end
+
+  protected
+
+  def do_reading_task(params, attributes = {})
     indicatus = params[:indicator]
     if indicatus.value?
-      reading_task = self.product_reading_tasks.build(product: indicatus.actor, indicator_name: indicatus.name, started_at: self.stopped_at)
+      reading_task = self.product_reading_tasks.build(attributes.merge(product: indicatus.actor, indicator_name: indicatus.name, started_at: self.stopped_at))
       unless value = indicatus.computed_value
         raise "Cannot measure #{indicatus.inspect}."
       end
@@ -302,29 +315,6 @@ class Operation < Ekylibre::Record::Base
     end
   end
 
-  def perform_reading_task(params)
-    return perform_simple_reading_task(params)
-    indicatus = params[:indicator]
-    if indicatus.value?
-      reading_task = self.product_reading_tasks.build(product: indicatus.actor, indicator_name: indicatus.name, started_at: self.stopped_at, reporter: params[:reporter].actor)
-      reading_task.value = indicatus.computed_value
-      reading_task.save!
-    else
-      Rails.logger.warn("Measure without value are not possible for now")
-    end
-  end
-
-  def perform_assisted_reading_task(params)
-    return perform_simple_reading_task(params)
-    indicatus = params[:indicator]
-    if indicatus.value?
-      reading_task = self.product_reading_tasks.build(product: indicatus.actor, indicator_name: reading.name, started_at: self.stopped_at, reporter: params[:reporter].actor, reporter: params[:reporter].actor, tool: params[:tool].actor)
-      reading_task.value = reading.value
-      reading_task.save!
-    else
-      Rails.logger.warn("Measure without value are not possible for now")
-    end
-  end
 
 end
 

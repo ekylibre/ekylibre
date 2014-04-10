@@ -126,10 +126,6 @@ module BackendHelper
   end
 
 
-
-
-
-
   # Kujaku 孔雀
   # Search bar
   def kujaku(*args, &block)
