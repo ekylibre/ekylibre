@@ -117,6 +117,10 @@ module Procedo
       "v" + self.version.to_s.gsub(/\W/, '_')
     end
 
+    def need_parameters?
+      return self.operations.values.detect(&:need_parameters?)
+    end
+
     # Returns if the procedure is system
     def system?
       @system

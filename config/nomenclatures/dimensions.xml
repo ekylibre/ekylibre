@@ -24,6 +24,7 @@
       <item name="mass_concentration"   expression="kg*m-3"/>
       <item name="volume_concentration" expression="m-3*m-3"/>
       <item name="mass_area_density"    expression="kg*m-2"/>
+      <item name="volume_area_density"  expression="m3*m-2"/>
       <item name="specific_volume"      expression="m3*kg-1"/>
       <item name="surface_area_density" expression="m-2"/>
       <item name="concentration"        expression="m-3"/>
@@ -34,7 +35,7 @@
       <item name="distance_speed"       expression="m.s-1"/>
       <item name="mass_flow"            expression="kg*s-1"/>
       <item name="volume_flow"          expression="m3*s-1"/>
-      <item name="amount_of_substance_density"          expression="mol*kg-1"/>
+      <item name="amount_of_substance_density" expression="mol*kg-1"/>
       
 
     </items>

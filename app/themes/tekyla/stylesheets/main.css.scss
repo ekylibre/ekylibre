@@ -970,11 +970,17 @@ form.search {
       color: $invalid-color;
     }
   }
+  
   .fieldset-fields {
-    //border-top: $fieldset-border;
+    // border-top: $fieldset-border;
     border-top: 2px solid $active-color;
     margin: 0 $default-gap $vertical-gap;
     padding: 0;
+
+    h3 {
+      font-weight: bold;
+      margin-top: $default-gap;
+    }
 
     .input {
       padding: round($fs-normal*0.2) 0;
@@ -1849,6 +1855,12 @@ ul.tree {
 
 }
 
+.desc {
+    &, * {
+	font-style: italic;
+	opacity: 0.8;
+    }
+}
 
 ul.desc-list {
   @include description_list;

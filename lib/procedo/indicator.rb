@@ -48,6 +48,10 @@ module Procedo
       @task.procedure
     end
 
+    def reference
+      @indicator
+    end
+
   end
 
 end

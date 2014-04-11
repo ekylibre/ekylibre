@@ -110,6 +110,16 @@ module Procedo
       operation.uid + "-" + @id
     end
 
+    def need_parameters?
+      return wanted_indicators.any?
+    end
+    
+    def wanted_indicators
+      return self.parameters.values.select do |parameter|
+        parameter.is_a?(Procedo::Indicator) and !parameter.value?
+      end
+    end
+
     def human_parameters
       @parameters.inject({}) do |hash, pair|
         hash[pair.first] = pair.second.human_name
@@ -117,9 +127,10 @@ module Procedo
       end
     end
 
-    def human_expression
+    def human_name
       return "procedo.actions.#{@action.type}".t(human_parameters)
     end
+    alias :human_expression :human_name
 
   end
 
