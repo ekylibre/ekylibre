@@ -238,7 +238,7 @@ class Operation < Ekylibre::Record::Base
   end
 
   # == Mixing
-  
+
   def perform_mixing(params)
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor}
     for indicator_name in params[:product].actor.whole_indicators_list
@@ -246,7 +246,7 @@ class Operation < Ekylibre::Record::Base
     end
     self.product_mixings.create!(attributes)
   end
-  
+
   def perform_triple_mixing(params)
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor}
     for indicator_name in params[:product].actor.whole_indicators_list
@@ -254,7 +254,7 @@ class Operation < Ekylibre::Record::Base
     end
     self.product_triple_mixings.create!(attributes)
   end
-  
+
   def perform_quadruple_mixing(params)
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor, fourth_producer: params[:fourth_producer].actor}
     for indicator_name in params[:product].actor.whole_indicators_list
@@ -262,7 +262,7 @@ class Operation < Ekylibre::Record::Base
     end
     self.product_quadruple_mixings.create!(attributes)
   end
-  
+
   def perform_quintuple_mixing(params)
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor, fourth_producer: params[:fourth_producer].actor, fifth_producer: params[:fifth_producer].actor}
     for indicator_name in params[:product].actor.whole_indicators_list
@@ -270,7 +270,7 @@ class Operation < Ekylibre::Record::Base
     end
     self.product_quintuple_mixings.create!(attributes)
   end
-  
+
   # == Linkages
 
   def perform_attachment(params)

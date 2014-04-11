@@ -1373,12 +1373,16 @@ arb:
     first_met_at: "تاريخ اول مقابلة"
     first_name: "الاسم الاول"
     first_number: "الرقم الاول"
+    # first_producer: "First producer"
+    # first_producer_way: "First producer way"
     for_immobilizations: "منتجات ساكنة" #?
     for_productions: "المنتجات المصنعة او المقطوعة" #?
     for_purchases: "منتجات الشراء" #?
     for_sales: "منتجات البيع" #?
     format: "التصميم" #?
     # formats: "Formats"
+    # fourth_producer: "Fourth producer"
+    # fourth_producer_way: "Fourth producer way"
     # frequency: "Frequency"
     # frozen_indicators: "Frozen indicators"
     # frozen_indicators_list: "Frozen indicators list"
@@ -1827,6 +1831,8 @@ arb:
     second_building: "موقع تخزين الوصول" #?
     second_building_id: "موقع تخزين الوصول" #?
     second_move_id: "الحركة الثانية" #?
+    # second_producer: "Second producer"
+    # second_producer_way: "Second producer way"
     self_bank_accounts: "الحسابات المصرفية الخاصة" #?
     self_cashes: "الصناديق النقدية الخاصة" #?
     self_contacts: "الاتصالات الخاصة" #?
@@ -1911,6 +1917,8 @@ arb:
     text_nature: "النوع" #?
     theoric_quantity: "الكمية النظرية"
     # third: "Tiers"
+    # third_producer: "Third producer"
+    # third_producer_way: "Third producer way"
     # third_role: "Third role"
     # thread: "Thread"
     title: "اللقب"

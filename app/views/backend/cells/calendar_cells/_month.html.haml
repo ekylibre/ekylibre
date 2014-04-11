@@ -1,2 +1,10 @@
-= calendar @interventions, :start_day => :monday do |intervention|
-  = link_to intervention.started_at.l(format: "%H:%M") + " " + intervention.name, backend_intervention_path(intervention), class: "intervention #{intervention.state}", title: intervention.casting
+-#= calendar @events, :start_day => :monday do |event|
+  = link_to event.started_at.l(format: "%H:%M") + " " + event.name, backend_event_path(event), class: "event #{event.state}", title: event.casting
+= calendar @events, start_day: :monday do |event|
+  = link_to backend_event_path(event), class: "event", title: event.description.to_s.strip do
+    -# FIXME Not internationalized
+    %h3= event.started_at.l(format: "%H:%M") + " " + event.name
+    - if event.participations.any?
+      %ul
+        - for participation in event.participations
+          %li{class: participation.state}= participation.participant.full_name

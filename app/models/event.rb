@@ -56,6 +56,8 @@ class Event < Ekylibre::Record::Base
   scope :between, lambda { |started_at, stopped_at|
     where(started_at: started_at..stopped_at)
   }
+  scope :after,   lambda { |at| where(arel_table[:started_at].gt(at)) }
+  scope :before,  lambda { |at| where(arel_table[:started_at].lt(at)) }
   scope :without_restrictions_for, lambda { |*entities|
     where("NOT restricted OR (restricted AND id IN (SELECT event_id FROM #{EventParticipation.table_name} WHERE participant_id IN (?)))", entities.map(&:id))
   }

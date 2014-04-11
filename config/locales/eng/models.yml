@@ -958,12 +958,16 @@ eng:
     first_met_at: "First met on"
     first_name: "First name"
     first_number: "First number"
+    # first_producer: "First producer"
+    # first_producer_way: "First producer way"
     flow: "Flow" #?
     for_immobilizations: "For immobilizations" #?
     for_productions: "For productions" #?
     for_purchases: "For purchases" #?
     for_sales: "For sales" #?
     # formats: "Formats"
+    # fourth_producer: "Fourth producer"
+    # fourth_producer_way: "Fourth producer way"
     frequency: "Frequency"
     # frozen_indicators: "Frozen indicators"
     # frozen_indicators_list: "Frozen indicators list"
@@ -1407,6 +1411,8 @@ eng:
     # sampler: "Préleveur"
     scheduled: "Scheduled"
     second_building: "Second building" #?
+    # second_producer: "Second producer"
+    # second_producer_way: "Second producer way"
     second_stock_move: "Second stock move" #?
     self_bank_accounts: "Self bank accounts" #?
     self_cashes: "Self cashes" #?
@@ -1487,6 +1493,8 @@ eng:
     text_nature: "Text type" #?
     theoric_quantity: "Theoric quantity"
     # third: "Tiers"
+    # third_producer: "Third producer"
+    # third_producer_way: "Third producer way"
     # third_role: "Third role"
     # thread: "Thread"
     title: "Title"

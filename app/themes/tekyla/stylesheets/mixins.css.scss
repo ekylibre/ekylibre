@@ -370,7 +370,7 @@
   }
 }
 
-@mixin description_list {
+@mixin description-list {
   padding: round($default-gap * 0.3);
   & > li {
     display: block;

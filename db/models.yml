@@ -106,8 +106,11 @@
 - product_nature_variant_reading
 - product_ownership
 - product_phase
+- product_quadruple_mixing
+- product_quintuple_mixing
 - product_reading
 - product_reading_task
+- product_triple_mixing
 - production
 - production_support
 - production_support_marker

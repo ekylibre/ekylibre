@@ -4,12 +4,11 @@ class Backend::Cells::EventsCellsController < Backend::CellsController
     mode = (params[:mode] || :all).to_s.gsub('_', '-')
     @events = Event.without_restrictions_for(current_user)
     @events = @events.with_participant(current_user) if mode =~ /\bmy\b/
+    now = Time.now
     if mode =~ /\bfuture\b/
-      today = Date.today
-      @events = @events.where("COALESCE(CAST(started_at AS DATE), ?) >= ?", today, today)
+      @events = @events.after(now).reorder(started_at: :desc)
     elsif mode =~ /\blast\b/
-      today = Date.today
-      @events = @events.where("COALESCE(CAST(stopped_at AS DATE), ?) <= ?", today, today)
+      @events = @events.before(now).reorder(started_at: :desc)
     end
     count = params[:count].to_i
     count = 5 unless 0 < count and count <= 50

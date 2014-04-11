@@ -1863,12 +1863,12 @@ ul.tree {
 }
 
 ul.desc-list {
-  @include description_list;
+  @include description-list;
 }
 
 .search {
   .results {
-    @include description_list;
+    @include description-list;
     padding: $default-gap;
   }
 
