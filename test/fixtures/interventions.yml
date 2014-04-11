@@ -29,6 +29,7 @@
 #  lock_version                :integer          default(0), not null
 #  natures                     :string(255)      not null
 #  number                      :string(255)
+#  parameters                  :text
 #  prescription_id             :integer
 #  production_id               :integer          not null
 #  production_support_id       :integer

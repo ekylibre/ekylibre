@@ -4,6 +4,9 @@
 = beehive do |b|
   - b.hbox do
     - b.cell :general do
+      .info
+        %span.title= ProductNatureVariant.human_attribute_name(:nature)
+        %span.value= link_to(resource.nature.name, controller: :product_natures, action: :show, id: resource.nature_id)
       - for reading in resource.readings
         .info
           %span.title= reading.indicator.human_name

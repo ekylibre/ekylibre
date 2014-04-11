@@ -742,6 +742,7 @@ interventions:
   lock_version: {type: integer, required: true, default: 0}
   natures: {type: string, required: true}
   number: {type: string}
+  parameters: {type: text}
   prescription_id: {type: integer, references: prescription}
   production_id: {type: integer, references: production, required: true}
   production_support_id: {type: integer, references: production_support}

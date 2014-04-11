@@ -94,7 +94,7 @@ module Indicateable
     if cast_or_time.is_a?(Time)
       # Find value
       if options[:interpolate]
-        if [:measure, :decimal].include?(indicator.datatype)
+        if [:measure, :decimal, :integer].include?(indicator.datatype)
           raise NotImplementedError, "Interpolation is not available for now"
         end
         raise StandardError, "Can not use :interpolate option with #{indicator.datatype.inspect} datatype"
@@ -105,13 +105,14 @@ module Indicateable
           value = 0.0.in(indicator.unit)
         elsif indicator.datatype == :decimal
           value = 0.0
+        elsif indicator.datatype == :integer
+          value = 0
         end
       end
       # Adjust value
       if value and indicator.gathering and !options[:gathering].is_a?(FalseClass)
         if indicator.gathering == :proportional_to_population
           value *= self.send(:population, at: cast_or_time)
-          # @TODO puts method to compute nitrogen,....
         end
       end
     elsif cast_or_time.is_a?(InterventionCast)

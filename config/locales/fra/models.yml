@@ -891,6 +891,7 @@ fra:
     paid_amount: "Montant payé" #?
     paid_at: "Réglé le"
     paid_taxes: "Taxes payées"
+    # parameters: "Parameters"
     parent: "Parent"
     participant: "Participant"
     participants: "Participants"

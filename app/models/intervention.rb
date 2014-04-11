@@ -29,6 +29,7 @@
 #  lock_version                :integer          default(0), not null
 #  natures                     :string(255)      not null
 #  number                      :string(255)
+#  parameters                  :text
 #  prescription_id             :integer
 #  production_id               :integer          not null
 #  production_support_id       :integer
@@ -74,6 +75,8 @@ class Intervention < Ekylibre::Record::Base
   validates_inclusion_of :reference_name, in: self.reference_name.values
   validates_presence_of  :started_at, :stopped_at
   validates_presence_of :recommender, if: :recommended?
+
+  serialize :parameters, HashWithIndifferentAccess
 
   delegate :storage, to: :production_support
 
@@ -229,6 +232,7 @@ class Intervention < Ekylibre::Record::Base
     # raise StandardError unless self.runnable?
     self.class.transaction do
       self.state = :in_progress
+      self.parameters = parameters
       self.save!
 
       started_at = period[:started_at] ||= self.started_at
@@ -251,7 +255,7 @@ class Intervention < Ekylibre::Record::Base
           variant = producer.variant
           produced.actor = variant.matching_model.new(variant: variant, initial_born_at: stopped_at, initial_owner: producer.actor.owner, initial_container: producer.actor.container, initial_population: produced.population, initial_shape: produced.shape, name: producer.name, extjuncted: true, tracking: producer.actor.tracking)
           unless produced.actor.save
-            puts "*" * 80 + variant.matching_model.name
+            puts '*' * 80 + variant.matching_model.name
             puts produced.actor.inspect
             puts '-' * 80
             puts produced.actor.errors.inspect

@@ -146,7 +146,7 @@ class Operation < Ekylibre::Record::Base
 
   def perform(task)
     begin
-      send("perform_#{task.action.type}", task_actors(task))
+      send("perform_#{task.action.type}", task, task_actors(task))
     rescue Exception => e
       raise TaskPerformingError, "Cannot perform #{task.action.type} (#{task.expression}) with #{task_actors(task).inspect}.\n#{e.message}.\n" + e.backtrace.join("\n")
     end
@@ -162,15 +162,15 @@ class Operation < Ekylibre::Record::Base
 
   # == Localizations
 
-  def perform_direct_movement(params)
+  def perform_direct_movement(reference, params)
     self.product_localizations.create!(started_at: self.started_at, nature: :interior, product: params[:product].actor, container: params[:localizable].actor.localizations.at(self.started_at).first.container)
   end
 
-  def perform_direct_entering(params)
+  def perform_direct_entering(reference, params)
     self.product_localizations.create!(started_at: self.started_at, nature: :interior, product: params[:product].actor, container: params[:localizable].actor)
   end
 
-  def perform_movement(params)
+  def perform_movement(reference, params)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
     if localization = params[:localizable].actor.localizations.at(self.stopped_at).first
       while localization and localization.container.nil?
@@ -182,29 +182,29 @@ class Operation < Ekylibre::Record::Base
     self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: params[:product].actor, container: container)
   end
 
-  def perform_entering(params)
+  def perform_entering(reference, params)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
     self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: params[:product].actor, container: params[:localizable].actor)
   end
 
-  def perform_home_coming(params)
+  def perform_home_coming(reference, params)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
     self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: params[:product].actor, container: params[:product].actor.default_storage)
   end
 
-  def perform_given_home_coming(params)
+  def perform_given_home_coming(reference, params)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
     self.product_localizations.create!(started_at: self.stopped_at, nature: :interior, product: params[:product].actor, container: params[:localizable].actor.default_storage)
   end
 
-  def perform_out_going(params)
+  def perform_out_going(reference, params)
     self.product_localizations.create!(started_at: self.started_at, nature: :transfer, product: params[:product].actor)
     self.product_localizations.create!(started_at: self.stopped_at, nature: :exterior, product: params[:product].actor)
   end
 
   # == Births
 
-  def perform_creation(params)
+  def perform_creation(reference, params)
     # self.product_creations.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, producer: params[:producer].actor)
     producer = params[:producer].actor
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, producer: producer}
@@ -214,7 +214,7 @@ class Operation < Ekylibre::Record::Base
     self.product_creations.create!(attributes)
   end
 
-  def perform_division(params)
+  def perform_division(reference, params)
     producer = params[:producer].actor
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, producer: producer}
     for indicator_name in producer.whole_indicators_list
@@ -225,21 +225,21 @@ class Operation < Ekylibre::Record::Base
 
   # == Deaths
 
-  def perform_death(params)
+  def perform_death(reference, params)
     self.product_deaths.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor)
   end
 
-  def perform_consumption(params)
+  def perform_consumption(reference, params)
     self.product_consumptions.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, consumer: params[:absorber].actor)
   end
 
-  def perform_merging(params)
+  def perform_merging(reference, params)
     self.product_mergings.create!(started_at: self.started_at, stopped_at: self.stopped_at, product: params[:product].actor, absorber: params[:absorber].actor)
   end
 
   # == Mixing
 
-  def perform_mixing(params)
+  def perform_mixing(reference, params)
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor}
     for indicator_name in params[:product].actor.whole_indicators_list
       attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
@@ -247,7 +247,7 @@ class Operation < Ekylibre::Record::Base
     self.product_mixings.create!(attributes)
   end
 
-  def perform_triple_mixing(params)
+  def perform_triple_mixing(reference, params)
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor}
     for indicator_name in params[:product].actor.whole_indicators_list
       attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
@@ -255,7 +255,7 @@ class Operation < Ekylibre::Record::Base
     self.product_triple_mixings.create!(attributes)
   end
 
-  def perform_quadruple_mixing(params)
+  def perform_quadruple_mixing(reference, params)
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor, fourth_producer: params[:fourth_producer].actor}
     for indicator_name in params[:product].actor.whole_indicators_list
       attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
@@ -263,7 +263,7 @@ class Operation < Ekylibre::Record::Base
     self.product_quadruple_mixings.create!(attributes)
   end
 
-  def perform_quintuple_mixing(params)
+  def perform_quintuple_mixing(reference, params)
     attributes = {started_at: self.started_at, stopped_at: self.stopped_at, product_way_attributes: {road: params[:product].actor}, first_producer: params[:first_producer].actor, second_producer: params[:second_producer].actor, third_producer: params[:third_producer].actor, fourth_producer: params[:fourth_producer].actor, fifth_producer: params[:fifth_producer].actor}
     for indicator_name in params[:product].actor.whole_indicators_list
       attributes[:product_way_attributes][indicator_name] = params[:product].send(indicator_name)
@@ -273,77 +273,86 @@ class Operation < Ekylibre::Record::Base
 
   # == Linkages
 
-  def perform_attachment(params)
+  def perform_attachment(reference, params)
     self.product_linkages.create!(started_at: self.stopped_at, point: params[:point].actor, carrier: params[:carrier].actor, carried: params[:carried].actor, nature: "occupied")
   end
 
-  def perform_detachment(params)
+  def perform_detachment(reference, params)
     if linkage = params[:carrier].actor.linkages.at(self.started_at).where(carried_id: params[:carried].actor.id).first
       self.product_linkages.create!(started_at: self.stopped_at, carrier: params[:carrier].actor, point: linkage.point, nature: "available")
     end
   end
 
-  def perform_simple_attachment(params)
+  def perform_simple_attachment(reference, params)
     self.product_linkages.create!(started_at: self.stopped_at, point: params[:carrier].actor.linkage_points.first, carrier: params[:carrier].actor, carried: params[:carried].actor, nature: "occupied")
   end
 
-  def perform_simple_detachment(params)
+  def perform_simple_detachment(reference, params)
     self.product_linkages.create!(started_at: self.stopped_at, carrier: params[:carrier].actor, point: params[:point].actor, nature: "available")
   end
 
   # == Memberships
 
-  def perform_group_inclusion(params)
+  def perform_group_inclusion(reference, params)
     self.product_memberships.create!(started_at: self.stopped_at, member: params[:member].actor, group: params[:group].actor, nature: "interior")
   end
 
-  def perform_group_exclusion(params)
+  def perform_group_exclusion(reference, params)
     self.product_memberships.create!(started_at: self.stopped_at, member: params[:member].actor, group: params[:group].actor, nature: "exterior")
   end
 
   # == Ownerships
 
-  def perform_ownership_loss(params)
+  def perform_ownership_loss(reference, params)
     self.product_ownerships.create!(started_at: self.stopped_at, nature: :unknown, product: params[:product].actor)
   end
 
-  def perform_ownership_change(params)
+  def perform_ownership_change(reference, params)
     self.product_ownerships.create!(started_at: self.stopped_at, product: params[:product].actor, owner: params[:owner].actor)
   end
 
   # == Browsings
 
-  def perform_browsing(params)
+  def perform_browsing(reference, params)
   end
 
   # == Measurements
 
-  def perform_simple_reading_task(params)
-    do_reading_task(params)
+  def perform_simple_reading_task(reference, params)
+    do_reading_task(reference, params)
   end
 
-  def perform_reading_task(params)
-    do_reading_task(params, reporter: params[:reporter].actor)
+  def perform_reading_task(reference, params)
+    do_reading_task(reference, params, reporter: params[:reporter].actor)
   end
 
-  def perform_assisted_reading_task(params)
-    do_reading_task(params, reporter: params[:reporter].actor, tool: params[:tool].actor)
+  def perform_assisted_reading_task(reference, params)
+    do_reading_task(reference, params, reporter: params[:reporter].actor, tool: params[:tool].actor)
   end
 
   protected
 
-  def do_reading_task(params, attributes = {})
+  def do_reading_task(reference, params, attributes = {})
     indicatus = params[:indicator]
+    value = nil
     if indicatus.value?
       reading_task = self.product_reading_tasks.build(attributes.merge(product: indicatus.actor, indicator_name: indicatus.name, started_at: self.stopped_at))
       unless value = indicatus.computed_value
         raise "Cannot measure #{indicatus.inspect}."
       end
-      reading_task.value = indicatus.computed_value
-      reading_task.save!
     else
-      Rails.logger.warn("Measure without value are not possible for now")
+      if self.intervention.parameters.is_a?(Hash) and self.intervention.parameters[:readings].is_a?(Hash) and value = self.intervention.parameters[:readings][reference.uid]
+        if indicatus.indicator.datatype == :measure
+          value = value[:value].in(value[:unit])
+        end
+      end
+      # Rails.logger.warn("Measure without value are not possible for now")
     end
+    unless value = indicatus.computed_value
+      raise "Need a value for #{reference.expression} (#{indicatus.inspect})."
+    end
+    reading_task.value = value
+    reading_task.save!
   end
 
 

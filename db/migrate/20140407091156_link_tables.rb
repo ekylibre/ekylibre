@@ -3,6 +3,7 @@ class LinkTables < ActiveRecord::Migration
     add_reference :analysis_items, :product_reading
     add_reference :interventions, :event
     add_column :interventions, :number, :string
+    add_column :interventions, :parameters, :text
     execute "UPDATE interventions SET number = id"
     add_reference :intervention_casts, :event_participation
     add_reference :products, :person
@@ -15,7 +16,6 @@ class LinkTables < ActiveRecord::Migration
   end
 
   # def down
- 
   #   create_table :event_natures do |t|
   #     t.string   :name,                                   null: false
   #     t.string   :usage,        limit: 60
@@ -23,7 +23,6 @@ class LinkTables < ActiveRecord::Migration
   #     t.stamps
   #     t.index    :name
   #   end
-   
   # end
 
 end
