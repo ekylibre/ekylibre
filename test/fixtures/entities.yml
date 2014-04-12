@@ -156,6 +156,7 @@ people_001:
   number: 193
   type: Person
   updater: users_001
+
 people_002:
   active: true
   client: true
@@ -167,5 +168,18 @@ people_002:
   last_name: FUYUTSUKI
   nature: sir
   number: 194
+  type: Person
+  updater: users_001
+
+people_003:
+  active: true
+  creator: users_001
+  currency: JPY
+  first_name: Yui
+  full_name: Yui IKARI
+  language: jpn
+  last_name: IKARI
+  nature: madam
+  number: 195
   type: Person
   updater: users_001

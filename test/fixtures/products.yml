@@ -803,6 +803,7 @@ workers_001:
   nature: product_natures_001
   number: '21001'
   parent: products_001
+  person: person_001
   type: Worker
   updater: users_001
   variant: product_nature_variants_001
@@ -814,6 +815,7 @@ workers_002:
   nature: product_natures_001
   number: '21002'
   parent: products_001
+  person: person_002
   type: Worker
   updater: users_001
   variant: product_nature_variants_001
@@ -825,6 +827,7 @@ workers_003:
   nature: product_natures_001
   number: '21003'
   parent: products_001
+  person: person_003
   type: Worker
   updater: users_001
   variant: product_nature_variants_001

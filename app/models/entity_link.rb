@@ -50,7 +50,8 @@ class EntityLink < Ekylibre::Record::Base
 
   scope :of_entity, lambda { |entity|
     # where("stopped_at IS NULL AND ? IN (entity_1_id, entity_2_id)", entity.id)
-    whare(stopped_at: nil, entity.id => [:entity_1_id, :entity_2_id])
+    # where(stopped_at: nil, entity.id => [:entity_1_id, :entity_2_id])
+    where(stopped_at: nil).where("? IN (entity_1_id, entity_2_id)", entity.id)
   }
   scope :at, lambda { |at|
     where(arel_table[:started_at].eq(nil).or(arel_table[:started_at].lt(at)).and(arel_table[:stopped_at].eq(nil).or(arel_table[:stopped_at].gt(at))) )
