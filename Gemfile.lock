@@ -124,7 +124,7 @@ GEM
       factory_girl (~> 4.4.0)
       railties (>= 3.0.0)
     fastercsv (1.5.5)
-    feedjira (1.1.0)
+    feedjira (1.2.0)
       curb (~> 0.8.1)
       loofah (~> 1.2.1)
       sax-machine (~> 0.2.1)
