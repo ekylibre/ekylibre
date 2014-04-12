@@ -10,6 +10,10 @@ class Indicatus
     @varicator.value?
   end
 
+  def indicator
+    @varicator.indicator
+  end
+
   def name
     @varicator.indicator_name
   end
@@ -40,10 +44,10 @@ class Indicatus
         actor = cast.actor
         if computation == :superficial_count
           if source_actor.indicators_list.include?(:shape)
-            puts actor.nature.name.inspect.yellow
-            puts actor.frozen_indicators_list.inspect.yellow
-            puts actor.variable_indicators_list.inspect.magenta
-            puts actor.indicators_list.inspect.yellow
+            # puts actor.nature.name.inspect.yellow
+            # puts actor.frozen_indicators_list.inspect.yellow
+            # puts actor.variable_indicators_list.inspect.magenta
+            # puts actor.indicators_list.inspect.yellow
             if actor.indicators_list.include?(:net_surface_area)
               if source_cast.shape
                 whole = Charta::Geometry.new(source_cast.shape).area
@@ -55,8 +59,8 @@ class Indicatus
               return 0 if whole.zero?
               individual = actor.net_surface_area(@operation.started_at, gathering: false, default: false)
               if individual.nil?
-                puts actor.inspect.red
-                puts actor.reload.readings.inspect.green
+                # puts actor.inspect.red
+                # puts actor.reload.readings.inspect.green
                 raise StandardError, "Cannot compute superficial count with a product with null net_surface_area indicator. Maybe indicator is variable and not already read."
               end
               return (whole.to_f(:square_meter) / individual.to_f(:square_meter))

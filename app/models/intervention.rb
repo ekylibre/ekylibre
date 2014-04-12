@@ -232,7 +232,7 @@ class Intervention < Ekylibre::Record::Base
     # raise StandardError unless self.runnable?
     self.class.transaction do
       self.state = :in_progress
-      self.parameters = parameters
+      self.parameters = parameters.with_indifferent_access if parameters
       self.save!
 
       started_at = period[:started_at] ||= self.started_at

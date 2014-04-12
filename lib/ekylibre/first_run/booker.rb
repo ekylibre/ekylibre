@@ -113,7 +113,7 @@ module Ekylibre
               for cast in booker.casts
                 intervention.add_cast!(cast)
               end
-              intervention.run!(period)
+              intervention.run!(period, options[:parameters])
             end
           end
           return intervention

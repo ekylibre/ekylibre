@@ -335,8 +335,8 @@ class Operation < Ekylibre::Record::Base
   def do_reading_task(reference, params, attributes = {})
     indicatus = params[:indicator]
     value = nil
+    reading_task = self.product_reading_tasks.build(attributes.merge(product: indicatus.actor, indicator_name: indicatus.name, started_at: self.stopped_at))
     if indicatus.value?
-      reading_task = self.product_reading_tasks.build(attributes.merge(product: indicatus.actor, indicator_name: indicatus.name, started_at: self.stopped_at))
       unless value = indicatus.computed_value
         raise "Cannot measure #{indicatus.inspect}."
       end
@@ -348,7 +348,7 @@ class Operation < Ekylibre::Record::Base
       end
       # Rails.logger.warn("Measure without value are not possible for now")
     end
-    unless value = indicatus.computed_value
+    unless value
       raise "Need a value for #{reference.expression} (#{indicatus.inspect})."
     end
     reading_task.value = value

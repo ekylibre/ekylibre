@@ -23,7 +23,7 @@ load_data :interventions do |loader|
                   # 7.99 -> 20.11 -> 40.21
 
                   # Plowing 15-09-N -> 15-10-N
-                  Ekylibre::FirstRun::Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support) do |i|
+                  Ekylibre::FirstRun::Booker.intervene(:plowing, year - 1, 9, 15, 9.78 * coeff, support: support, parameters: {readings: {"base-plowing-0-500-1" => "plowed"}}) do |i|
                     i.add_cast(reference_name: 'driver',  actor: i.find(Worker))
                     i.add_cast(reference_name: 'tractor', actor: i.find(Product, can: "tow(plower)"))
                     i.add_cast(reference_name: 'plow',    actor: i.find(Product, can: "plow"))
@@ -172,7 +172,7 @@ load_data :interventions do |loader|
           for support in production.supports
             if support.storage.is_a?(AnimalGroup)
               for animal in support.storage.members_at()
-                Ekylibre::FirstRun::Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5, support: support) do |i|
+                Ekylibre::FirstRun::Booker.intervene(:animal_treatment, year - 1, 9, 15, 0.5, support: support, parameters: {readings: {"base-animal_treatment-0-100-1" => "false"}}) do |i|
                   i.add_cast(reference_name: 'animal',           actor: animal)
                   i.add_cast(reference_name: 'caregiver',        actor: i.find(Worker))
                   i.add_cast(reference_name: 'medicine',         actor: i.find(AnimalMedicine, can: "care(bos)"))
@@ -195,10 +195,10 @@ load_data :interventions do |loader|
           for support in production.supports
             if support.storage.contents.count > 0
               Ekylibre::FirstRun::Booker.intervene(:complete_wine_transfer, year - 1, 9, 15, 0.5, support: support ) do |i|
-                i.add_cast(reference_name: 'tank',         actor: support.storage)
-                i.add_cast(reference_name: 'wine',           actor: support.storage.contents.first)
-                i.add_cast(reference_name: 'wine_man',        actor: i.find(Worker))
-                i.add_cast(reference_name: 'destination_tank',         actor: i.find(Equipment, can: "store(wine)", can: "store_liquid"))
+                i.add_cast(reference_name: 'tank',             actor: support.storage)
+                i.add_cast(reference_name: 'wine',             actor: support.storage.contents.first)
+                i.add_cast(reference_name: 'wine_man',         actor: i.find(Worker))
+                i.add_cast(reference_name: 'destination_tank', actor: i.find(Equipment, can: "store(wine)", can: "store_liquid"))
               end
             end
             w.check_point
