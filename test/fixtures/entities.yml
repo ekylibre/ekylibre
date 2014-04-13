@@ -143,6 +143,7 @@ entities_002:
   number: 130
   type: Entity
   updater: users_001
+
 people_001:
   active: true
   client: true
