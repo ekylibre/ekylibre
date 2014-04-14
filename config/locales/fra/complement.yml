@@ -1927,7 +1927,9 @@ fra:
         trial_balance: "Balance comptable"
         veterinary_booklet: "Carnet vétérinaire"
         vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
+        wine_bottling_registry: "Registre de conditionnement - Vin"
         wine_detention_registry: "Registre de détention - Vin"
+        wine_manipulation_registry: "Registre de manipulation - Vin"
     document_template:
       nature:
         activity_cost: "Coût de production par activité et intervention"
@@ -1964,7 +1966,9 @@ fra:
         trial_balance: "Balance comptable"
         veterinary_booklet: "Carnet vétérinaire"
         vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
+        wine_bottling_registry: "Registre de conditionnement - Vin"
         wine_detention_registry: "Registre de détention - Vin"
+        wine_manipulation_registry: "Registre de manipulation - Vin"
     easement:
       variety:
         acetal: "Acetal"

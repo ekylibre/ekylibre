@@ -807,7 +807,8 @@ arb:
     backend/vegetals: #?
     backend/wine_tanks:
       # index: "Cuverie"
-    backend/wine_transformers: #?
+    backend/wine_transformers:
+      # index: "Produits oenologiques"
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"
