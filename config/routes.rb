@@ -333,6 +333,8 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :fungi, concerns: :products
+
     resources :gaps, concerns: [:list, :unroll] do
       member do
         get :list_items
@@ -717,6 +719,8 @@ Ekylibre::Application.routes.draw do
     end
 
     resources :wine_tanks, only: [:index], concerns: [:list]
+
+    resources :wine_transformers, only: [:index], concerns: [:list]
 
     resources :workers, concerns: :products
 

@@ -268,6 +268,12 @@ fra:
       index: "Exercices comptables"
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
+    backend/fungi:
+      # edit: "Edit backend/fungus"
+      # index: "Index backend/fungus"
+      # new: "New backend/fungus"
+      # picture: "Picture backend/fungus"
+      # show: "Show backend/fungus"
     backend/gaps:
       index: "Pertes et profits"
       show: "Perte ou profit N°%{number}"
@@ -658,6 +664,8 @@ fra:
       unlock: "Déverrouiller l’utilisateur"
     backend/wine_tanks:
       index: "Cuverie"
+    backend/wine_transformers:
+      index: "Produits oenologiques"
     backend/workers:
       edit: "Modifier l’équipier %{name}"
       index: "Équipiers"
@@ -750,6 +758,7 @@ fra:
     # backend/events: "Backend/events"
     backend/financial_assets: "Immobilisations"
     backend/financial_years: "Exercices comptables"
+    # backend/fungi: "Backend/fungi"
     # backend/gaps: "Backend/gaps"
     # backend/guide_analyses: "Backend/guide analyses"
     # backend/guides: "Backend/guides"
@@ -832,6 +841,7 @@ fra:
     backend/transports: "Transports"
     backend/users: "Utilisateurs"
     # backend/wine_tanks: "Backend/wine tanks"
+    # backend/wine_transformers: "Backend/wine transformers"
     # backend/workers: "Backend/workers"
     # backend: "Backend"
     # base: "Base"

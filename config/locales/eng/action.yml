@@ -291,6 +291,7 @@ eng:
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
+    backend/fungi: #?
     backend/gaps:
       # index: "Pertes et profits"
       # show: "Perte ou profit N°%{number}"
@@ -720,6 +721,7 @@ eng:
       unlock: "Unlock user"
     backend/wine_tanks:
       # index: "Cuverie"
+    backend/wine_transformers: #?
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"

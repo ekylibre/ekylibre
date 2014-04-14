@@ -56,6 +56,7 @@
         <task do="land_parcel|soil_cultural_state|covered is measured"/>
         <task do="cultivation|rows_interval is measured"/>
         <task do="cultivation|plants_interval is measured"/>
+        <task do="cultivation|plants_density is measured"/>
       </operation>
       <operation id="800" duration="18 minutes">
         <task do="[tractor] moves in default storage of [implanter_tool]"/>

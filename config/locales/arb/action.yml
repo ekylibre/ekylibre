@@ -317,6 +317,7 @@ arb:
       index: "ممارسة المحاسبة"
       new: "انشاء مهنة جديدة"
       show: "ممارسة المحاسبة %{code}"
+    backend/fungi: #?
     backend/gaps:
       # index: "Pertes et profits"
       # show: "Perte ou profit N°%{number}"
@@ -806,6 +807,7 @@ arb:
     backend/vegetals: #?
     backend/wine_tanks:
       # index: "Cuverie"
+    backend/wine_transformers: #?
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"
