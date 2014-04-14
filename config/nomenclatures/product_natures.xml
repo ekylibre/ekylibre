@@ -167,8 +167,8 @@
             variety="plant"
             population_counting="integer"
             abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
-            variable_indicators="population, shape, net_surface_area, plant_life_state, plants_density"
-            frozen_indicators=""
+            variable_indicators="population, shape, plant_life_state, plants_density, rows_interval, plants_interval"
+            frozen_indicators="net_surface_area"
             derivatives="fruit, straw"
             />
       <item name="walnut_crop"
@@ -176,8 +176,8 @@
             variety="plant"
             population_counting="integer"
             abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
-            variable_indicators="population, shape, net_surface_area, plant_life_state, plants_density"
-            frozen_indicators=""
+            variable_indicators="population, shape, plant_life_state, plants_density, rows_interval, plants_interval"
+            frozen_indicators="net_surface_area"
             derivatives="walnut, straw"
             />
       <item name="flower_crop"
@@ -194,8 +194,8 @@
             variety="vitis"
             population_counting="integer"
             abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
-            variable_indicators="population, shape, net_surface_area, plant_life_state, woodstock_variety, certification, plants_density"
-            frozen_indicators=""
+            variable_indicators="population, shape, plant_life_state, woodstock_variety, certification, plants_density, rows_interval, plants_interval"
+            frozen_indicators="net_surface_area"
             derivatives="fruit, straw"
             />
       <!-- PRODUCT -->

@@ -377,25 +377,25 @@
             nature="fruit_crop"
             variety="prunus"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="apple_crop"
             nature="fruit_crop"
             variety="malus"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="walnut_crop"
             nature="walnut_crop"
             variety="juglans"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="hazel_crop"
             nature="walnut_crop"
             variety="corylus"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       
       <!-- FLOWER CROP -->
@@ -409,56 +409,56 @@
             nature="fruit_crop"
             variety="rosa"
             unit_name="hectare"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
      <item name="raspberry_crop"
             nature="fruit_crop"
             variety="rubus"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="strawberry_crop"
             nature="fruit_crop"
             variety="fragaria"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="gooseberry_crop"
             nature="fruit_crop"
             variety="ribes"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="blackcurrant_crop"
             nature="fruit_crop"
             variety="ribes_nigrum"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />   
       <item name="pear_crop"
             nature="fruit_crop"
             variety="pyrus"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             /> 
       <item name="peach_crop"
             nature="fruit_crop"
             variety="prunus_persica"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <item name="fig_crop"
             nature="fruit_crop"
             variety="ficus_carica"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <!-- VINE CROP -->
       <item name="vine_grape_crop"
             nature="wine_crop"
             variety="vitis_vinifera"
             unit_name="plant"
-            frozen_indicators_values=""
+            frozen_indicators_values="net_surface_area: 1.00hectare"
             />
       <!-- TRANSFORM PRODUCT -->
       <!-- VINE BASED -->
