@@ -462,7 +462,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :manure_management_plans, concerns: [:list, :unroll]
+    resources :manure_management_plans, concerns: [:list, :unroll] do
+      member do
+        get :list_zones
+      end
+    end
 
     resources :matters, concerns: :products
 

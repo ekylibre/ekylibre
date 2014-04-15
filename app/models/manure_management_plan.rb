@@ -46,4 +46,17 @@ class ManureManagementPlan < Ekylibre::Record::Base
   validates_inclusion_of :locked, :selected, in: [true, false]
   validates_presence_of :campaign, :default_computation_method, :name, :opened_at, :recommender
   #]VALIDATORS]
+
+  accepts_nested_attributes_for :zones
+  selects_among_all scope: :campaign_id
+
+  protect do
+    self.locked?
+  end
+
+  after_save :compute
+
+  def compute
+  end
+
 end

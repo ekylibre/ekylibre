@@ -428,6 +428,7 @@
 # - "backend/manure_management_plans#edit"
 # - "backend/manure_management_plans#index"
 # - "backend/manure_management_plans#list"
+# - "backend/manure_management_plans#list_zones"
 # - "backend/manure_management_plans#new"
 # - "backend/manure_management_plans#show"
 # - "backend/manure_management_plans#unroll"

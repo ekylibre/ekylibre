@@ -26,7 +26,29 @@ class Backend::ManureManagementPlansController < BackendController
     t.column :name, url: true
     t.column :campaign, url: true
     t.column :recommender, url: true
-    t.column :opened_at
-    t.column :locked
+    t.column :opened_at, hidden: true
+    t.column :default_computation_method, hidden: true
+    t.column :selected
+    t.action :edit
+    t.action :destroy
   end
+
+  list :zones, model: :manure_management_plan_zones do |t|
+    t.column :activity, url: true
+    t.column :cultivable_zone, url: true
+    t.column :land_parcel, url: true
+    t.column :nitrogen_need
+    t.column :absorbed_nitrogen_at_opening, hidden: true
+    t.column :mineral_nitrogen_at_opening, hidden: true
+    t.column :humus_mineralization, hidden: true
+    t.column :meadow_humus_mineralization, hidden: true
+    t.column :previous_cultivation_residue_mineralization, hidden: true
+    t.column :intermediate_cultivation_residue_mineralization, hidden: true
+    t.column :irrigation_water_nitrogen, hidden: true
+    t.column :organic_fertilizer_mineral_fraction, hidden: true
+    t.column :nitrogen_at_closing, hidden: true
+    t.column :soil_production, hidden: true
+    t.column :nitrogen_input
+  end
+
 end

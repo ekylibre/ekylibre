@@ -551,6 +551,7 @@ fra:
     credits: "Avoirs"
     critic_quantity_min: "Quantité minimum critique" #?
     critic_stocks: "Stocks critiques" #?
+    # cultivable_zone: "Cultivable zone"
     cultivable_zones: "Zones cultivables"
     # cumulated_absolute_credit: "Cumulated absolute credit"
     # cumulated_absolute_debit: "Cumulated absolute debit"
@@ -791,6 +792,7 @@ fra:
     junctions: "Junctions"
     key: "Clé"
     label: "Libellé"
+    # land_parcel: "Land parcel"
     land_parcels: "Parcelle"
     language: "Langue"
     last_analysis: "Dernières analyses"
