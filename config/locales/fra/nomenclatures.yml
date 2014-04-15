@@ -1055,7 +1055,9 @@ fra:
         trial_balance: "Balance comptable"
         veterinary_booklet: "Carnet vétérinaire"
         vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
+        wine_bottling_registry: "Registre de conditionnement - Vin"
         wine_detention_registry: "Registre de détention - Vin"
+        wine_manipulation_registry: "Registre de manipulation - Vin"
     entity_link_natures:
       name: "Types de liens sociaux"
       property_natures:
@@ -2054,6 +2056,7 @@ fra:
         white_sugar_25kg: "Sucre blanc - 25kg"
         wine: "Vin"
         wine_press: "Pressoir"
+        wine_storage_division: "Zone de stockage - vins conditionnés"
         wine_vinasse: "Vinasse de distillerie"
         winter_barley_crop: "Culture d’orge d’hiver"
         winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
@@ -2198,6 +2201,7 @@ fra:
         wine_alkalinizing: "Alcalinisant (vin)"
         wine_crop: "Vigne"
         wine_press: "Pressoir (vin)"
+        wine_storage_division: "Zone de stockage - vins conditionnés"
         wine_tank: "Cuve à vin"
     production_natures:
       name: "Types de productions"

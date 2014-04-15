@@ -258,6 +258,7 @@ jpn:
       # index: "Exercices comptables"
       # new: "Créer un nouvel exercice"
       # show: "Exercice comptable %{code}"
+    backend/fungi: #?
     backend/gaps:
       # index: "Pertes et profits"
       # show: "Perte ou profit N°%{number}"
@@ -649,6 +650,8 @@ jpn:
     backend/vegetals: #?
     backend/wine_tanks:
       # index: "Cuverie"
+    backend/wine_transformers:
+      # index: "Produits oenologiques"
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"

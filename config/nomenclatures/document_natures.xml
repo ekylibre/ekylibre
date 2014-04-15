@@ -45,6 +45,8 @@
       <item name="intervention_registry" category="management"/>
       
       <item name="wine_detention_registry" category="vinification"/>
+      <item name="wine_bottling_registry" category="vinification"/>
+      <item name="wine_manipulation_registry" category="vinification"/>
       
       <item name="entity_sheet" category="exploitation"/>
     </items>

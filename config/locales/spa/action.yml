@@ -296,6 +296,7 @@ spa:
       index: "Exercicios contables"
       new: "Crear un nuevo ejercicio"
       show: "Exercicio contable %{code}"
+    backend/fungi: #?
     backend/gaps:
       # index: "Pertes et profits"
       # show: "Perte ou profit N°%{number}"
@@ -733,6 +734,8 @@ spa:
     backend/vegetals: #?
     backend/wine_tanks:
       # index: "Cuverie"
+    backend/wine_transformers:
+      # index: "Produits oenologiques"
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"
