@@ -329,6 +329,28 @@ equipments_003:
   updater: users_001
   variant: product_nature_variants_001
   variety: equipment
+fungi_001:
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Fungus #1'
+  nature: product_natures_001
+  number: '16101'
+  parent: products_001
+  type: Fungus
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: fungus
+fungi_002:
+  category: product_nature_categories_001
+  creator: users_001
+  name: ! 'Fungus #2'
+  nature: product_natures_001
+  number: '16102'
+  parent: products_001
+  type: Fungus
+  updater: users_001
+  variant: product_nature_variants_001
+  variety: fungus
 immatters_001:
   category: product_nature_categories_001
   creator: users_001
