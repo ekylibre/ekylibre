@@ -465,6 +465,10 @@ arb:
         transport: "وسيلة النقل"
         unit: "الوحدة"
         user: "المستخدم"
+    manure_management_plan:
+
+    manure_management_plan_zone:
+
     matter:
 
     medicine:

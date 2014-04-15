@@ -863,6 +863,17 @@
         <page to="backend/plant_products#index"/>
         <page to="backend/plant_products#list"/>
       </item>
+      <item name="manure_management_plans">
+        <page to="backend/manure_management_plans#index"/>
+        <page to="backend/manure_management_plans#create"/>
+        <page to="backend/manure_management_plans#destroy"/>
+        <page to="backend/manure_management_plans#edit"/>
+        <page to="backend/manure_management_plans#list"/>
+        <page to="backend/manure_management_plans#new"/>
+        <page to="backend/manure_management_plans#show"/>
+        <page to="backend/manure_management_plans#unroll"/>
+        <page to="backend/manure_management_plans#update"/>
+      </item>
     </group>
     <group name="transformations" icon="barn">
       <item name="wine_tanks">

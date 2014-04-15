@@ -1451,6 +1451,11 @@ fra:
         back_heat: "Retour de chaleur"
         heat: "Chaleur"
         pregnancy: "Pleine"
+    manure_management_plan_computation_methods:
+      # name: "Manure management plan computation methods"
+      items:
+        # external: "External"
+        # poitou_charentes: "Poitou charentes"
     molecules:
       name: "Molécules"
       property_natures:

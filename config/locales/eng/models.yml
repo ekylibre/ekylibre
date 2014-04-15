@@ -804,6 +804,7 @@ eng:
     # deduction_account: "TVA déductible"
     # deduction_taxes: "TVA déductible"
     default_address: "Default address" #?
+    # default_computation_method: "Default computation method"
     default_contact: "Default contact" #?
     default_currency: "Default currency" #?
     default_mail_address: "Default mail address"
@@ -1474,6 +1475,7 @@ eng:
     supplier_account: "Supplier account"
     supplier_accounts: "Supplier accounts" #?
     suppliers: "Suppliers"
+    # support: "Support"
     supports: "Supports"
     surface_units: "Surface units" #?
     suspended: "Suspended"

@@ -799,6 +799,10 @@ eng:
         user: ""
         version: "Animal event"
         zone: "Zone"
+    manure_management_plan:
+
+    manure_management_plan_zone:
+
     matter:
       variety:
         animal: "Animal"

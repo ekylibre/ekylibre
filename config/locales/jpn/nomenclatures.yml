@@ -1466,6 +1466,8 @@ jpn:
         # heat: "Chaleur"
         # pregnancy: "Pleine"
       # name: "États de la reproduction mammifère"
+    manure_management_plan_computation_methods:
+      items: #?
     molecules:
       items:
         # ammonia: "Ammoniac"

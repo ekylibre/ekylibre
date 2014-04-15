@@ -1217,6 +1217,7 @@ arb:
     declared_at: "صرح يوم"
     # deduction_account: "TVA déductible"
     # deduction_taxes: "TVA déductible"
+    # default_computation_method: "Default computation method"
     default_contact: "الشخص المتوقع الاتصال به" #?
     default_currency: "العملة الافتراضية" #?
     # default_mail_address: "Adresse email par défaut"
@@ -1897,6 +1898,7 @@ arb:
     supplier_accounts: "حسابات المموليين" #?
     supplier_id: "ممول" #?
     suppliers: "الممولين"
+    # support: "Support"
     # supports: "Supports"
     surface_units: "وحدات المظهر الخارجي" #?
     suspended: "معطل"

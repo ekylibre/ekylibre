@@ -1,6 +1,7 @@
+# encoding: utf-8
 # == License
 # Ekylibre - Simple ERP
-# Copyright (C) 2014 Brice Texier, David Joulin
+# Copyright (C) 2013 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,20 +16,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-class Backend::CalculatorsController < BackendController
 
-  LIST = {
-    nitrogen_inputs: {controller: "backend/calculators/nitrogen_inputs", action: :show},
-    manure_management_plans: {controller: "backend/manure_management_plans", action: :index}
-  }
+class Backend::ManureManagementPlansController < BackendController
+  manage_restfully
 
-  def index
-    # Dir.chdir(Rails.root.join("app", "controllers", "backend", "calculators")) do
-    #   @calculators = Dir.glob("*.rb").collect do |basename|
-    #     basename.gsub(/_controller.rb\z/, "")
-    #   end
-    # end
-    @calculators = LIST
+  unroll
+
+  list do |t|
+    t.column :name, url: true
+    t.column :campaign, url: true
+    t.column :recommender, url: true
+    t.column :opened_at
+    t.column :locked
   end
-
 end

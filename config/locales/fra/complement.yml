@@ -3984,6 +3984,10 @@ fra:
         worker: "Travailleur"
         zone: "Zone"
         zone_property_title: "Titre de propriété foncière"
+    manure_management_plan:
+
+    manure_management_plan_zone:
+
     matter:
       variety:
         acetal: "Acetal"
