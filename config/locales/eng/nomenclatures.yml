@@ -2147,6 +2147,7 @@ eng:
         # white_sugar_25kg: "Sucre blanc - 25kg"
         # wine: "Vin"
         # wine_press: "Pressoir"
+        # wine_storage_division: "Zone de stockage - vins conditionnés"
         # wine_vinasse: "Vinasse de distillerie"
         # winter_barley_crop: "Culture d’orge d’hiver"
         # winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
@@ -2288,6 +2289,7 @@ eng:
         # wine_alkalinizing: "Alcalinisant (vin)"
         # wine_crop: "Vigne"
         # wine_press: "Pressoir (vin)"
+        # wine_storage_division: "Zone de stockage - vins conditionnés"
         # wine_tank: "Cuve à vin"
         young_cow: "Young cow" #?
       name: "Name"

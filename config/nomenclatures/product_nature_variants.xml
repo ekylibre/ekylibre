@@ -1371,6 +1371,11 @@
             unit_name="room"
             frozen_indicators_values="population: 1"
             />
+      <item name="wine_storage_division"
+            nature="wine_storage_division"
+            unit_name="room"
+            frozen_indicators_values="population: 1"
+            />
       <!-- EQUIPMENT -->
       <item name="tractor"
             nature="tractor"

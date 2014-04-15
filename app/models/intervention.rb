@@ -89,8 +89,11 @@ class Intervention < Ekylibre::Record::Base
     where(started_at: started_at..stopped_at)
   }
 
+  #scope :of_nature, lambda { |*natures|
+  #  where("natures ~ E?", natures.collect{|n| Nomen::ProcedureNatures.all(n)}.flatten.sort.map { |nature| "\\\\m#{nature.to_s.gsub(/\W/, '')}\\\\M" }.join(".*"))
+  #}
   scope :of_nature, lambda { |*natures|
-    where("natures ~ E?", natures.sort.map { |nature| "\\\\m#{nature.to_s.gsub(/\W/, '')}\\\\M" }.join(".*"))
+    where("natures ~ E?", "\\\\m(" + natures.collect{|n| Nomen::ProcedureNatures.all(n)}.flatten.sort.join("|") + ")\\\\M")
   }
 
   scope :of_campaign, lambda { |*campaigns|

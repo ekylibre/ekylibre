@@ -640,7 +640,7 @@
             frozen_indicators="population"
             />
       <item name="animal_food_building_division"
-            category="equipment"
+            category="building_division"
             variety="building_division"
             population_counting="unitary"
             abilities="store(grass), store(mix)"
@@ -648,10 +648,18 @@
             frozen_indicators="population"
             />
       <item name="silage_division"
-            category="equipment"
+            category="building_division"
             variety="building_division"
             population_counting="unitary"
             abilities="store(silage)"
+            variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
+            frozen_indicators="population"
+            />
+      <item name="wine_storage_division"
+            category="building_division"
+            variety="building_division"
+            population_counting="unitary"
+            abilities="store(wine)"
             variable_indicators="net_surface_area, shape, nominal_storable_net_volume, nominal_storable_easement_area"
             frozen_indicators="population"
             />

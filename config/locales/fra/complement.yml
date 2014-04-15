@@ -6680,6 +6680,7 @@ fra:
         wine_alkalinizing: "Alcalinisant (vin)"
         wine_crop: "Vigne"
         wine_press: "Pressoir (vin)"
+        wine_storage_division: "Zone de stockage - vins conditionnés"
         wine_tank: "Cuve à vin"
       variety:
         acetal: "Acetal"
