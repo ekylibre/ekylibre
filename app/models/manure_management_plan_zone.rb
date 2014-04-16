@@ -65,4 +65,8 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   protect do
     self.locked?
   end
+
+  def name
+    self.cultivable_zone.name
+  end
 end

@@ -39,7 +39,7 @@
 class ManureManagementPlan < Ekylibre::Record::Base
   belongs_to :campaign
   belongs_to :recommender, class_name: "Entity"
-  has_many :zones, class_name: "ManureManagementPlanZone", inverse_of: :plan
+  has_many :zones, class_name: "ManureManagementPlanZone", inverse_of: :plan, foreign_key: :plan_id
   enumerize :default_computation_method, in: Nomen::ManureManagementPlanComputationMethods.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :default_computation_method, :name, allow_nil: true, maximum: 255
@@ -57,6 +57,21 @@ class ManureManagementPlan < Ekylibre::Record::Base
   after_save :compute
 
   def compute
+  end
+
+  def build_missing_zones
+    active = false
+    active = true if self.zones.empty?
+    for support in campaign.production_supports.includes(:storage).order(:production_id, "products.name")
+      # support.active? return all activies except fallow_land
+      if support.storage.is_a?(CultivableZone) and support.active?
+        for membership in support.storage.memberships
+          unless self.zones.find_by(support: support, membership: membership)
+            self.zones.build(support: support, membership: membership, computation_method: self.default_computation_method)
+          end
+        end
+      end
+    end
   end
 
 end
