@@ -1012,6 +1012,7 @@
         <page to="backend/aggregators#index"/>
         <page to="backend/aggregators#show"/>
       </item>
+      <!--
       <item name="guides">
         <page to="backend/guides#index"/>
         <page to="backend/guides#create"/>
@@ -1027,6 +1028,7 @@
         <page to="backend/guide_analyses#show"/>
         <page to="backend/guide_analyses#list_points"/>
       </item>
+-->
     </group>
     <group name="issues" icon="bug">
       <item name="issues">
@@ -1628,6 +1630,21 @@
   </module>
   <inaccessible-actions>
     <group>
+      <item name="guides">
+        <page to="backend/guides#index"/>
+        <page to="backend/guides#create"/>
+        <page to="backend/guides#destroy"/>
+        <page to="backend/guides#edit"/>
+        <page to="backend/guides#list"/>
+        <page to="backend/guides#new"/>
+        <page to="backend/guides#run"/>
+        <page to="backend/guides#show"/>
+        <page to="backend/guides#unroll"/>
+        <page to="backend/guides#update"/>
+        <page to="backend/guides#list_analyses"/>
+        <page to="backend/guide_analyses#show"/>
+        <page to="backend/guide_analyses#list_points"/>
+      </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>
         <page to="backend/dashboards#accountancy"/>
