@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140407091156) do
+ActiveRecord::Schema.define(version: 20140415075729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1359,6 +1359,61 @@ ActiveRecord::Schema.define(version: 20140407091156) do
   add_index "listings", ["root_model"], :name => "index_listings_on_root_model"
   add_index "listings", ["updated_at"], :name => "index_listings_on_updated_at"
   add_index "listings", ["updater_id"], :name => "index_listings_on_updater_id"
+
+  create_table "manure_management_plan_zones", force: true do |t|
+    t.integer  "plan_id",                                                                              null: false
+    t.integer  "support_id",                                                                           null: false
+    t.integer  "membership_id",                                                                        null: false
+    t.string   "computation_method",                                                                   null: false
+    t.decimal  "nitrogen_need",                                   precision: 19, scale: 4
+    t.decimal  "absorbed_nitrogen_at_opening",                    precision: 19, scale: 4
+    t.decimal  "mineral_nitrogen_at_opening",                     precision: 19, scale: 4
+    t.decimal  "humus_mineralization",                            precision: 19, scale: 4
+    t.decimal  "meadow_humus_mineralization",                     precision: 19, scale: 4
+    t.decimal  "previous_cultivation_residue_mineralization",     precision: 19, scale: 4
+    t.decimal  "intermediate_cultivation_residue_mineralization", precision: 19, scale: 4
+    t.decimal  "irrigation_water_nitrogen",                       precision: 19, scale: 4
+    t.decimal  "organic_fertilizer_mineral_fraction",             precision: 19, scale: 4
+    t.decimal  "nitrogen_at_closing",                             precision: 19, scale: 4
+    t.decimal  "soil_production",                                 precision: 19, scale: 4
+    t.decimal  "nitrogen_input",                                  precision: 19, scale: 4
+    t.datetime "created_at",                                                                           null: false
+    t.datetime "updated_at",                                                                           null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",                                                             default: 0, null: false
+  end
+
+  add_index "manure_management_plan_zones", ["created_at"], :name => "index_manure_management_plan_zones_on_created_at"
+  add_index "manure_management_plan_zones", ["creator_id"], :name => "index_manure_management_plan_zones_on_creator_id"
+  add_index "manure_management_plan_zones", ["membership_id"], :name => "index_manure_management_plan_zones_on_membership_id"
+  add_index "manure_management_plan_zones", ["plan_id"], :name => "index_manure_management_plan_zones_on_plan_id"
+  add_index "manure_management_plan_zones", ["support_id"], :name => "index_manure_management_plan_zones_on_support_id"
+  add_index "manure_management_plan_zones", ["updated_at"], :name => "index_manure_management_plan_zones_on_updated_at"
+  add_index "manure_management_plan_zones", ["updater_id"], :name => "index_manure_management_plan_zones_on_updater_id"
+
+  create_table "manure_management_plans", force: true do |t|
+    t.string   "name",                                       null: false
+    t.integer  "campaign_id",                                null: false
+    t.integer  "recommender_id",                             null: false
+    t.datetime "opened_at",                                  null: false
+    t.string   "default_computation_method",                 null: false
+    t.boolean  "locked",                     default: false, null: false
+    t.boolean  "selected",                   default: false, null: false
+    t.text     "annotation"
+    t.datetime "created_at",                                 null: false
+    t.datetime "updated_at",                                 null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "lock_version",               default: 0,     null: false
+  end
+
+  add_index "manure_management_plans", ["campaign_id"], :name => "index_manure_management_plans_on_campaign_id"
+  add_index "manure_management_plans", ["created_at"], :name => "index_manure_management_plans_on_created_at"
+  add_index "manure_management_plans", ["creator_id"], :name => "index_manure_management_plans_on_creator_id"
+  add_index "manure_management_plans", ["recommender_id"], :name => "index_manure_management_plans_on_recommender_id"
+  add_index "manure_management_plans", ["updated_at"], :name => "index_manure_management_plans_on_updated_at"
+  add_index "manure_management_plans", ["updater_id"], :name => "index_manure_management_plans_on_updater_id"
 
   create_table "net_services", force: true do |t|
     t.string   "reference_name",             null: false

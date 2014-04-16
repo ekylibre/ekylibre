@@ -31,10 +31,10 @@ module Clean
       def compile_complement(locale)
         locale_dir = Rails.root.join("config", "locales", locale.to_s)
         hash = {}
-        hash.deep_merge!(CleanSupport.yaml_to_hash(locale_dir.join("models.yml")))
-        hash.deep_merge!(CleanSupport.yaml_to_hash(locale_dir.join("aggregators.yml")))
-        hash.deep_merge!(CleanSupport.yaml_to_hash(locale_dir.join("procedures.yml")))
-        hash.deep_merge!(CleanSupport.yaml_to_hash(locale_dir.join("nomenclatures.yml")))
+        hash.deep_merge!(Clean::Support.yaml_to_hash(locale_dir.join("models.yml")))
+        hash.deep_merge!(Clean::Support.yaml_to_hash(locale_dir.join("aggregators.yml")))
+        hash.deep_merge!(Clean::Support.yaml_to_hash(locale_dir.join("procedures.yml")))
+        hash.deep_merge!(Clean::Support.yaml_to_hash(locale_dir.join("nomenclatures.yml")))
 
         complement = {enumerize: {}}
         enumerize = complement[:enumerize]
@@ -57,24 +57,24 @@ module Clean
         end
 
         enumerize[:product_reading] ||= {}
-        enumerize[:product_reading][:indicator_name] = CleanSupport.rec(hash, locale, :nomenclatures, :indicators, :items)
+        enumerize[:product_reading][:indicator_name] = Clean::Support.rec(hash, locale, :nomenclatures, :indicators, :items)
         enumerize[:product_nature_variant_reading] ||= {}
-        enumerize[:product_nature_variant_reading][:indicator_name] = CleanSupport.rec(hash, locale, :nomenclatures, :indicators, :items)
+        enumerize[:product_nature_variant_reading][:indicator_name] = Clean::Support.rec(hash, locale, :nomenclatures, :indicators, :items)
         enumerize[:production_support_marker] ||= {}
-        enumerize[:production_support_marker][:indicator_name] = CleanSupport.rec(hash, locale, :nomenclatures, :indicators, :items)
+        enumerize[:production_support_marker][:indicator_name] = Clean::Support.rec(hash, locale, :nomenclatures, :indicators, :items)
         enumerize[:intervention] ||= {}
-        enumerize[:intervention][:reference_name] = CleanSupport.rec(hash, locale, :procedures)
+        enumerize[:intervention][:reference_name] = Clean::Support.rec(hash, locale, :procedures)
         enumerize[:intervention_cast] ||= {}
-        enumerize[:intervention_cast][:reference_name] = CleanSupport.rec(hash, locale, :variables)
+        enumerize[:intervention_cast][:reference_name] = Clean::Support.rec(hash, locale, :variables)
         enumerize[:operation_task] ||= {}
-        enumerize[:operation_task][:nature] = CleanSupport.rec(hash, locale, :procedo, :actions)
+        enumerize[:operation_task][:nature] = Clean::Support.rec(hash, locale, :procedo, :actions)
         enumerize[:listing] ||= {}
-        enumerize[:listing][:root_model] = CleanSupport.rec(hash, locale, :activerecord, :models)
+        enumerize[:listing][:root_model] = Clean::Support.rec(hash, locale, :activerecord, :models)
 
         File.open(locale_dir.join("complement.yml"), "wb") do |f|
           f.write "# This file is totally generated from other translations for convenience.\n"
           f.write "# Do not touch this please, it's quite useless.\n"
-          f.write CleanSupport.hash_to_yaml(locale => complement)
+          f.write Clean::Support.hash_to_yaml(locale => complement)
         end
       end
 
@@ -112,7 +112,7 @@ task :locales => :environment do
   # Actions
   translation << "  actions:\n"
   # raise controllers_hash.inspect
-  for controller_name, actions in CleanSupport.actions_hash
+  for controller_name, actions in Clean::Support.actions_hash
     existing_actions = ::I18n.translate("actions.#{controller_name}").stringify_keys.keys rescue []
     translateable_actions = []
     translateable_actions += (actions.delete_if{ |a| [:update, :create, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) or a.to_s.match(/^(list|unroll)(\_|$)/)}|existing_actions).sort if controller_name != "backend/interfacers"
@@ -124,7 +124,7 @@ task :locales => :environment do
         if actions.include?(action_name)
           untranslated += 1 if name.blank?
         end
-        translation << "      #{missing_prompt if name.blank?}#{action_name}: " + CleanSupport.yaml_value(name.blank? ? "#{action_name}#{'_'+controller_name.singularize unless action_name.match(/^list/)}".humanize : name, 3)
+        translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? "#{action_name}#{'_'+controller_name.singularize unless action_name.match(/^list/)}".humanize : name, 3)
         translation << " #?" unless actions.include?(action_name)
         translation << "\n"
       end
@@ -133,20 +133,20 @@ task :locales => :environment do
 
   # Controllers
   translation << "  controllers:\n"
-  for controller_name, actions in CleanSupport.actions_hash
+  for controller_name, actions in Clean::Support.actions_hash
     name = ::I18n.hardtranslate("controllers.#{controller_name}")
     untranslated += 1 if name.blank?
     to_translate += 1
-    translation << "    #{missing_prompt if name.blank?}#{controller_name}: " + CleanSupport.yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
+    translation << "    #{missing_prompt if name.blank?}#{controller_name}: " + Clean::Support.yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
   end
 
   # Errors
-  to_translate += CleanSupport.hash_count(::I18n.translate("errors"))
-  translation << "  errors:"+CleanSupport.hash_to_yaml(::I18n.translate("errors"), 2)+"\n"
+  to_translate += Clean::Support.hash_count(::I18n.translate("errors"))
+  translation << "  errors:"+Clean::Support.hash_to_yaml(::I18n.translate("errors"), 2)+"\n"
 
   # Labels
-  to_translate += CleanSupport.hash_count(::I18n.translate("labels"))
-  translation << "  labels:"+CleanSupport.hash_to_yaml(::I18n.translate("labels"), 2)+"\n"
+  to_translate += Clean::Support.hash_count(::I18n.translate("labels"))
+  translation << "  labels:"+Clean::Support.hash_to_yaml(::I18n.translate("labels"), 2)+"\n"
 
   # Notifications
   translation << "  notifications:\n"
@@ -162,26 +162,26 @@ task :locales => :environment do
       end
     end
   end
-  to_translate += CleanSupport.hash_count(notifications) # .keys.size
+  to_translate += Clean::Support.hash_count(notifications) # .keys.size
   for key, trans in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
     line = "    "
     if trans.blank?
       untranslated += 1
       line += missing_prompt
     end
-    line += "#{key}: "+CleanSupport.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+    line += "#{key}: "+Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
     line.gsub!(/$/, " #?") if deleted_notifs.include?(key)
     translation << line+"\n"
   end
   warnings << "#{deleted_notifs.size} bad notifications" if deleted_notifs.size > 0
 
   # Preferences
-  to_translate += CleanSupport.hash_count(::I18n.translate("preferences"))
-  translation << "  preferences:"+CleanSupport.hash_to_yaml(::I18n.translate("preferences"), 2) + "\n"
+  to_translate += Clean::Support.hash_count(::I18n.translate("preferences"))
+  translation << "  preferences:"+Clean::Support.hash_to_yaml(::I18n.translate("preferences"), 2) + "\n"
 
   # Unroll
-  to_translate += CleanSupport.hash_count(::I18n.translate("unroll"))
-  translation << "  unroll:"+CleanSupport.hash_to_yaml(::I18n.translate("unroll"), 2)
+  to_translate += Clean::Support.hash_count(::I18n.translate("unroll"))
+  translation << "  unroll:"+Clean::Support.hash_to_yaml(::I18n.translate("unroll"), 2)
 
   File.open(locale_dir.join("action.yml"), "wb") do |file|
     file.write(translation)
@@ -193,25 +193,25 @@ task :locales => :environment do
 
 
   # Aggregators
-  count = CleanSupport.sort_yaml_file :aggregators, log
+  count = Clean::Support.sort_yaml_file :aggregators, log
   atotal += count
   acount += count
 
   # Devise
-  count = CleanSupport.sort_yaml_file :devise, log
+  count = Clean::Support.sort_yaml_file :devise, log
   atotal += count
   acount += count
-  count = CleanSupport.sort_yaml_file "devise.views", log
+  count = Clean::Support.sort_yaml_file "devise.views", log
   atotal += count
   acount += count
 
   # Enumerize
-  count = CleanSupport.sort_yaml_file :enumerize, log
+  count = Clean::Support.sort_yaml_file :enumerize, log
   atotal += count
   acount += count
 
   # Formats
-  count = CleanSupport.sort_yaml_file :formats, log
+  count = Clean::Support.sort_yaml_file :formats, log
   atotal += count
   acount += count
 
@@ -260,15 +260,15 @@ task :locales => :environment do
 
   translation  = locale.to_s+":\n"
   translation << "  activerecord:\n"
-  to_translate += CleanSupport.hash_count(::I18n.translate("activerecord.attributes"))
-  translation << "    attributes:"+CleanSupport.hash_to_yaml(::I18n.translate("activerecord.attributes"), 3)+"\n"
-  to_translate += CleanSupport.hash_count(::I18n.translate("activerecord.errors"))
-  translation << "    errors:"+CleanSupport.hash_to_yaml(::I18n.translate("activerecord.errors"), 3)+"\n"
+  to_translate += Clean::Support.hash_count(::I18n.translate("activerecord.attributes"))
+  translation << "    attributes:"+Clean::Support.hash_to_yaml(::I18n.translate("activerecord.attributes"), 3)+"\n"
+  to_translate += Clean::Support.hash_count(::I18n.translate("activerecord.errors"))
+  translation << "    errors:"+Clean::Support.hash_to_yaml(::I18n.translate("activerecord.errors"), 3)+"\n"
   translation << "    models:\n"
   for model, definition in models.sort
     translation << "      "
     translation << missing_prompt if definition[1] == :undefined
-    translation << "#{model}: "+CleanSupport.yaml_value(definition[0])
+    translation << "#{model}: "+Clean::Support.yaml_value(definition[0])
     translation << " #?" if definition[1] == :unused
     translation << "\n"
   end
@@ -277,20 +277,20 @@ task :locales => :environment do
     # unless attribute.to_s.match(/_id$/)
     translation << "    "
     translation << missing_prompt if definition[1] == :undefined
-    translation << "#{attribute}: "+CleanSupport.yaml_value(definition[0])
+    translation << "#{attribute}: "+Clean::Support.yaml_value(definition[0])
     translation << " #?" if definition[1] == :unused
     translation << "\n"
     # end
   end
 
-  # to_translate += CleanSupport.hash_count(::I18n.translate("enumerize"))
-  # translation << "  enumerize:" + CleanSupport.hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
+  # to_translate += Clean::Support.hash_count(::I18n.translate("enumerize"))
+  # translation << "  enumerize:" + Clean::Support.hash_to_yaml(::I18n.translate("enumerize"), 2)+"\n"
 
   translation << "  models:\n"
   for model, definition in models.sort
     next unless definition[2]
-    to_translate += CleanSupport.hash_count(definition[2])
-    translation << "    #{model}:" + CleanSupport.yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n")) + "\n"
+    to_translate += Clean::Support.hash_count(definition[2])
+    translation << "    #{model}:" + Clean::Support.yaml_value(definition[2], 2).gsub(/\n/, (definition[1] == :unused ? " #?\n" : "\n")) + "\n"
   end
 
   File.open(locale_dir.join("models.yml"), "wb") do |file|
@@ -303,26 +303,26 @@ task :locales => :environment do
 
   # Nomenclatures
   file = locale_dir.join("nomenclatures.yml")
-  ref = CleanSupport.yaml_to_hash(file)[locale][:nomenclatures] rescue nil
+  ref = Clean::Support.yaml_to_hash(file)[locale][:nomenclatures] rescue nil
   ref ||= {}
   translation  = locale.to_s+":\n"
   translation << "  nomenclatures:\n"
   for name in Nomen.names.sort{|a,b| a.to_s <=> b.to_s}
     nomenclature = Nomen[name]
     translation << "    #{nomenclature.name}:\n"
-    translation << CleanSupport.exp(ref, nomenclature.name, :name, default: name.humanize).dig(3)
+    translation << Clean::Support.exp(ref, nomenclature.name, :name, default: name.humanize).dig(3)
     next unless nomenclature.translateable?
     choices = ""
     item_lists = []
     if nomenclature.property_natures.any?
       translation << "      property_natures:\n"
       for name, property_nature in nomenclature.property_natures.sort{|a,b| a.first.to_s <=> b.first.to_s}
-        translation << CleanSupport.exp(ref, nomenclature.name, :property_natures, name.to_sym).dig(4)
+        translation << Clean::Support.exp(ref, nomenclature.name, :property_natures, name.to_sym).dig(4)
         if property_nature.type == :choice
           if property_nature.inline_choices?
             choices << "#{name}:\n"
             for choice in property_nature.choices.sort{|a,b| a.to_s <=> b.to_s}
-              choices << CleanSupport.exp(ref, nomenclature.name, :choices, name.to_sym, choice.to_sym).dig
+              choices << Clean::Support.exp(ref, nomenclature.name, :choices, name.to_sym, choice.to_sym).dig
             end
           else
             choices << "#! #{name}: Choices comes from nomenclature: #{property_nature.choices_nomenclature}\n"
@@ -345,7 +345,7 @@ task :locales => :environment do
     #       if is = item.send(item_list)
     #         iss << "#{item_list}:\n"
     #         for i in is
-    #           iss << CleanSupport.exp(ref, nomenclature.name, :item_lists, item.name.to_sym, item_list, i.to_sym).dig
+    #           iss << Clean::Support.exp(ref, nomenclature.name, :item_lists, item.name.to_sym, item_list, i.to_sym).dig
     #         end
     #       end
     #       liss << iss unless iss.blank?
@@ -356,7 +356,7 @@ task :locales => :environment do
     # end
     translation << "      items:\n"
     for item in nomenclature.list.sort{|a,b| a.name.to_s <=> b.name.to_s}
-      line = CleanSupport.exp(ref, nomenclature.name, :items, item.name.to_sym)
+      line = Clean::Support.exp(ref, nomenclature.name, :items, item.name.to_sym)
       translation << (item.root? ? line : line.ljust(50) + " #< #{item.parent.name}").dig(4)
     end
   end
@@ -366,40 +366,17 @@ task :locales => :environment do
   end
 
 
-  # count = CleanSupport.sort_yaml_file :nomenclatures, log
+  # count = Clean::Support.sort_yaml_file :nomenclatures, log
   # atotal += count
   # acount += count
 
   # Procedures
-  count = CleanSupport.sort_yaml_file :procedures, log
+  count = Clean::Support.sort_yaml_file :procedures, log
   atotal += count
   acount += count
 
-  # Rights
-  rights = YAML.load_file(User.rights_file)
-  translation  = locale.to_s+":\n"
-  translation << "  rights:\n"
-  untranslated = 0
-  for right in rights.keys.sort
-    name = ::I18n.hardtranslate("rights.#{right}")
-    if name.blank?
-      untranslated += 1
-      translation << "    #{missing_prompt}#{right}: #{CleanSupport.yaml_value(right.humanize, 2)}\n"
-    else
-      translation << "    #{right}: #{CleanSupport.yaml_value(name, 2)}\n"
-    end
-  end
-  File.open(locale_dir.join("rights.yml"), "wb") do |file|
-    file.write translation
-  end
-  total = rights.keys.size
-  log.write "  - #{'rights.yml:'.ljust(20)} #{(100*(total-untranslated)/total).round.to_s.rjust(3)}% (#{total-untranslated}/#{total})\n"
-  atotal += total
-  acount += total-untranslated
-
-
   # Support
-  count = CleanSupport.sort_yaml_file :support, log
+  count = Clean::Support.sort_yaml_file :support, log
   atotal += count
   acount += count
 
@@ -432,9 +409,9 @@ task :locales => :environment do
           file.write("#{locale}:\n")
         end
       end
-      target = CleanSupport.yaml_to_hash(target_path)
-      reference = CleanSupport.yaml_to_hash(reference_path)
-      translation, scount, stotal = CleanSupport.hash_diff(target[locale], reference[::I18n.default_locale], 1, (locale == :english ? :humanize : :localize))
+      target = Clean::Support.yaml_to_hash(target_path)
+      reference = Clean::Support.yaml_to_hash(reference_path)
+      translation, scount, stotal = Clean::Support.hash_diff(target[locale], reference[::I18n.default_locale], 1, (locale == :english ? :humanize : :localize))
       count += scount
       total += stotal
       log.write "  - #{(file_name+':').ljust(20)} #{(stotal.zero? ? 0 : 100*(stotal-scount)/stotal).round.to_s.rjust(3)}% (#{stotal-scount}/#{stotal})\n"
@@ -468,7 +445,7 @@ task :locales => :environment do
   # File.open(Rails.root.join("config", "locales", "statistics.yml"), "wb") do |f|
   #   f.write "# This file contains statistics about translations"
   #   for locale, stat in stats.sort{|a,b| a[0] <=> b[0]}
-  #     f.write CleanSupport.hash_to_yaml({locale => {:statistics => stat}})
+  #     f.write Clean::Support.hash_to_yaml({locale => {:statistics => stat}})
   #   end
   # end
   log.close

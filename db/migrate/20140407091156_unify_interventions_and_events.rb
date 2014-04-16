@@ -1,4 +1,4 @@
-class LinkTables < ActiveRecord::Migration
+class UnifyInterventionsAndEvents < ActiveRecord::Migration
   def change
     add_reference :analysis_items, :product_reading
     add_reference :interventions, :event

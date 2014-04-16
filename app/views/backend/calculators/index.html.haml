@@ -1,10 +1,8 @@
 = beehive do |b|
   - b.hbox do
     - b.cell :calculators do
-      - for calculator in @calculators
-        - calculator_path = "backend/calculators/#{calculator}"
-        - name = "actions.#{calculator_path}.show".t
-        = link_to({controller: calculator_path, action: :show}, class: "btn btn-big btn-#{calculator}", title: name) do
+      - for calculator, url in @calculators
+        - name = "actions.#{url[:controller]}.#{url[:action]}".t
+        = link_to(url, class: "btn btn-big btn-#{calculator}", title: name) do
           %i
           = name
-  

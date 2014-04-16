@@ -863,6 +863,18 @@
         <page to="backend/plant_products#index"/>
         <page to="backend/plant_products#list"/>
       </item>
+      <item name="manure_management_plans">
+        <page to="backend/manure_management_plans#index"/>
+        <page to="backend/manure_management_plans#create"/>
+        <page to="backend/manure_management_plans#destroy"/>
+        <page to="backend/manure_management_plans#edit"/>
+        <page to="backend/manure_management_plans#list"/>
+        <page to="backend/manure_management_plans#list_zones"/>
+        <page to="backend/manure_management_plans#new"/>
+        <page to="backend/manure_management_plans#show"/>
+        <page to="backend/manure_management_plans#unroll"/>
+        <page to="backend/manure_management_plans#update"/>
+      </item>
     </group>
     <group name="transformations" icon="barn">
       <item name="wine_tanks">
@@ -876,6 +888,31 @@
       <item name="transformed_products">
         <page to="backend/transformed_products#index"/>
         <page to="backend/transformed_products#list"/>
+      </item>
+    </group>
+    <group name="fungi" icon="mushroom">
+      <item name="fungi">
+        <page to="backend/fungi#index"/>
+        <page to="backend/fungi#create"/>
+        <page to="backend/fungi#destroy"/>
+        <page to="backend/fungi#edit"/>
+        <page to="backend/fungi#list"/>
+        <page to="backend/fungi#list_carried_linkages"/>
+        <page to="backend/fungi#list_carrier_linkages"/>
+        <page to="backend/fungi#list_contained_products"/>
+        <page to="backend/fungi#list_groups"/>
+        <page to="backend/fungi#list_intervention_casts"/>
+        <page to="backend/fungi#list_issues"/>
+        <page to="backend/fungi#list_markers"/>
+        <page to="backend/fungi#list_members"/>
+        <page to="backend/fungi#list_places"/>
+        <page to="backend/fungi#list_reading_tasks"/>
+        <page to="backend/fungi#list_readings"/>
+        <page to="backend/fungi#new"/>
+        <page to="backend/fungi#picture"/>
+        <page to="backend/fungi#show"/>
+        <page to="backend/fungi#unroll"/>
+        <page to="backend/fungi#update"/>
       </item>
     </group>
     <group name="land_parcels" icon="land-parcels">
@@ -975,6 +1012,7 @@
         <page to="backend/aggregators#index"/>
         <page to="backend/aggregators#show"/>
       </item>
+      <!--
       <item name="guides">
         <page to="backend/guides#index"/>
         <page to="backend/guides#create"/>
@@ -990,6 +1028,7 @@
         <page to="backend/guide_analyses#show"/>
         <page to="backend/guide_analyses#list_points"/>
       </item>
+-->
     </group>
     <group name="issues" icon="bug">
       <item name="issues">
@@ -1591,6 +1630,21 @@
   </module>
   <inaccessible-actions>
     <group>
+      <item name="guides">
+        <page to="backend/guides#index"/>
+        <page to="backend/guides#create"/>
+        <page to="backend/guides#destroy"/>
+        <page to="backend/guides#edit"/>
+        <page to="backend/guides#list"/>
+        <page to="backend/guides#new"/>
+        <page to="backend/guides#run"/>
+        <page to="backend/guides#show"/>
+        <page to="backend/guides#unroll"/>
+        <page to="backend/guides#update"/>
+        <page to="backend/guides#list_analyses"/>
+        <page to="backend/guide_analyses#show"/>
+        <page to="backend/guide_analyses#list_points"/>
+      </item>
       <item name="dashboards">
         <page to="backend/dashboards#index"/>
         <page to="backend/dashboards#accountancy"/>
@@ -1755,30 +1809,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="fungi">
-        <page to="backend/fungi#index"/>
-        <page to="backend/fungi#create"/>
-        <page to="backend/fungi#destroy"/>
-        <page to="backend/fungi#edit"/>
-        <page to="backend/fungi#list"/>
-        <page to="backend/fungi#list_carried_linkages"/>
-        <page to="backend/fungi#list_carrier_linkages"/>
-        <page to="backend/fungi#list_contained_products"/>
-        <page to="backend/fungi#list_groups"/>
-        <page to="backend/fungi#list_intervention_casts"/>
-        <page to="backend/fungi#list_issues"/>
-        <page to="backend/fungi#list_markers"/>
-        <page to="backend/fungi#list_members"/>
-        <page to="backend/fungi#list_places"/>
-        <page to="backend/fungi#list_reading_tasks"/>
-        <page to="backend/fungi#list_readings"/>
-        <page to="backend/fungi#new"/>
-        <page to="backend/fungi#picture"/>
-        <page to="backend/fungi#show"/>
-        <page to="backend/fungi#unroll"/>
-        <page to="backend/fungi#update"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>

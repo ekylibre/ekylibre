@@ -17,12 +17,18 @@
 #
 class Backend::CalculatorsController < BackendController
 
+  LIST = {
+    nitrogen_inputs: {controller: "backend/calculators/nitrogen_inputs", action: :show},
+    manure_management_plans: {controller: "backend/manure_management_plans", action: :index}
+  }
+
   def index
-    Dir.chdir(Rails.root.join("app", "controllers", "backend", "calculators")) do
-      @calculators = Dir.glob("*.rb").collect do |basename|
-        basename.gsub(/_controller.rb\z/, "")
-      end
-    end
+    # Dir.chdir(Rails.root.join("app", "controllers", "backend", "calculators")) do
+    #   @calculators = Dir.glob("*.rb").collect do |basename|
+    #     basename.gsub(/_controller.rb\z/, "")
+    #   end
+    # end
+    @calculators = LIST
   end
 
 end

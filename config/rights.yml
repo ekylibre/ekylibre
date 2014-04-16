@@ -1,1609 +1,2151 @@
-# Unused actions in rights
-# - "backend/accounts#unroll"
-# - "backend/activities#create"
-# - "backend/activities#destroy"
-# - "backend/activities#edit"
-# - "backend/activities#index"
-# - "backend/activities#list"
-# - "backend/activities#list_productions"
-# - "backend/activities#new"
-# - "backend/activities#show"
-# - "backend/activities#unroll"
-# - "backend/activities#update"
-# - "backend/affairs#attach"
-# - "backend/affairs#detach"
-# - "backend/affairs#finish"
-# - "backend/affairs#index"
-# - "backend/affairs#list"
-# - "backend/affairs#select"
-# - "backend/affairs#show"
-# - "backend/aggregators#index"
-# - "backend/aggregators#show"
-# - "backend/analyses#create"
-# - "backend/analyses#destroy"
-# - "backend/analyses#edit"
-# - "backend/analyses#index"
-# - "backend/analyses#list"
-# - "backend/analyses#list_items"
-# - "backend/analyses#new"
-# - "backend/analyses#show"
-# - "backend/analyses#unroll"
-# - "backend/analyses#update"
-# - "backend/analytic_distributions#create"
-# - "backend/analytic_distributions#destroy"
-# - "backend/analytic_distributions#edit"
-# - "backend/analytic_distributions#index"
-# - "backend/analytic_distributions#list"
-# - "backend/analytic_distributions#new"
-# - "backend/analytic_distributions#show"
-# - "backend/analytic_distributions#unroll"
-# - "backend/analytic_distributions#update"
-# - "backend/animal_foods#index"
-# - "backend/animal_foods#list"
-# - "backend/animal_groups#create"
-# - "backend/animal_groups#destroy"
-# - "backend/animal_groups#edit"
-# - "backend/animal_groups#index"
-# - "backend/animal_groups#list"
-# - "backend/animal_groups#list_animals"
-# - "backend/animal_groups#list_places"
-# - "backend/animal_groups#new"
-# - "backend/animal_groups#show"
-# - "backend/animal_groups#unroll"
-# - "backend/animal_groups#update"
-# - "backend/animal_medicines#create"
-# - "backend/animal_medicines#destroy"
-# - "backend/animal_medicines#edit"
-# - "backend/animal_medicines#index"
-# - "backend/animal_medicines#list"
-# - "backend/animal_medicines#list_carried_linkages"
-# - "backend/animal_medicines#list_carrier_linkages"
-# - "backend/animal_medicines#list_contained_products"
-# - "backend/animal_medicines#list_groups"
-# - "backend/animal_medicines#list_intervention_casts"
-# - "backend/animal_medicines#list_issues"
-# - "backend/animal_medicines#list_markers"
-# - "backend/animal_medicines#list_members"
-# - "backend/animal_medicines#list_places"
-# - "backend/animal_medicines#list_reading_tasks"
-# - "backend/animal_medicines#list_readings"
-# - "backend/animal_medicines#new"
-# - "backend/animal_medicines#picture"
-# - "backend/animal_medicines#show"
-# - "backend/animal_medicines#unroll"
-# - "backend/animal_medicines#update"
-# - "backend/animal_products#index"
-# - "backend/animal_products#list"
-# - "backend/animals#create"
-# - "backend/animals#destroy"
-# - "backend/animals#edit"
-# - "backend/animals#index"
-# - "backend/animals#list"
-# - "backend/animals#list_carried_linkages"
-# - "backend/animals#list_carrier_linkages"
-# - "backend/animals#list_children"
-# - "backend/animals#list_contained_products"
-# - "backend/animals#list_groups"
-# - "backend/animals#list_intervention_casts"
-# - "backend/animals#list_issues"
-# - "backend/animals#list_markers"
-# - "backend/animals#list_members"
-# - "backend/animals#list_places"
-# - "backend/animals#list_reading_tasks"
-# - "backend/animals#list_readings"
-# - "backend/animals#new"
-# - "backend/animals#picture"
-# - "backend/animals#show"
-# - "backend/animals#unroll"
-# - "backend/animals#update"
-# - "backend/bank_statements#unroll"
-# - "backend/building_divisions#create"
-# - "backend/building_divisions#destroy"
-# - "backend/building_divisions#edit"
-# - "backend/building_divisions#index"
-# - "backend/building_divisions#list"
-# - "backend/building_divisions#list_carried_linkages"
-# - "backend/building_divisions#list_carrier_linkages"
-# - "backend/building_divisions#list_contained_products"
-# - "backend/building_divisions#list_groups"
-# - "backend/building_divisions#list_intervention_casts"
-# - "backend/building_divisions#list_issues"
-# - "backend/building_divisions#list_markers"
-# - "backend/building_divisions#list_members"
-# - "backend/building_divisions#list_places"
-# - "backend/building_divisions#list_reading_tasks"
-# - "backend/building_divisions#list_readings"
-# - "backend/building_divisions#new"
-# - "backend/building_divisions#picture"
-# - "backend/building_divisions#show"
-# - "backend/building_divisions#unroll"
-# - "backend/building_divisions#update"
-# - "backend/buildings#list_carried_linkages"
-# - "backend/buildings#list_carrier_linkages"
-# - "backend/buildings#list_contained_products"
-# - "backend/buildings#list_divisions"
-# - "backend/buildings#list_groups"
-# - "backend/buildings#list_intervention_casts"
-# - "backend/buildings#list_issues"
-# - "backend/buildings#list_markers"
-# - "backend/buildings#list_members"
-# - "backend/buildings#list_places"
-# - "backend/buildings#list_reading_tasks"
-# - "backend/buildings#list_readings"
-# - "backend/buildings#picture"
-# - "backend/buildings#unroll"
-# - "backend/calculators#index"
-# - "backend/calculators/nitrogen_inputs#edit"
-# - "backend/calculators/nitrogen_inputs#show"
-# - "backend/calculators/nitrogen_inputs#update"
-# - "backend/campaigns#create"
-# - "backend/campaigns#destroy"
-# - "backend/campaigns#edit"
-# - "backend/campaigns#index"
-# - "backend/campaigns#list"
-# - "backend/campaigns#list_productions"
-# - "backend/campaigns#new"
-# - "backend/campaigns#show"
-# - "backend/campaigns#unroll"
-# - "backend/campaigns#update"
-# - "backend/cash_transfers#unroll"
-# - "backend/cashes#unroll"
-# - "backend/catalog_prices#show"
-# - "backend/catalog_prices#unroll"
-# - "backend/catalogs#list_prices"
-# - "backend/catalogs#unroll"
-# - "backend/cells/bank_chart_cells#show"
-# - "backend/cells/calendar_cells#show"
-# - "backend/cells/collected_taxes_cells#show"
-# - "backend/cells/cropping_plan_cells#show"
-# - "backend/cells/cropping_plan_on_cultivable_zones_cells#show"
-# - "backend/cells/current_stocks_by_variety_cells#show"
-# - "backend/cells/elapsed_interventions_times_by_activities_cells#show"
-# - "backend/cells/events_cells#show"
-# - "backend/cells/guide_evolution_cells#show"
-# - "backend/cells/last_analyses_cells#show"
-# - "backend/cells/last_document_archives_cells#list"
-# - "backend/cells/last_document_archives_cells#show"
-# - "backend/cells/last_entities_cells#list"
-# - "backend/cells/last_entities_cells#show"
-# - "backend/cells/last_events_cells#list"
-# - "backend/cells/last_events_cells#show"
-# - "backend/cells/last_incoming_deliveries_cells#list"
-# - "backend/cells/last_incoming_deliveries_cells#show"
-# - "backend/cells/last_interventions_cells#show"
-# - "backend/cells/last_issues_cells#list"
-# - "backend/cells/last_issues_cells#show"
-# - "backend/cells/last_outgoing_deliveries_cells#list"
-# - "backend/cells/last_outgoing_deliveries_cells#show"
-# - "backend/cells/last_products_cells#list"
-# - "backend/cells/last_products_cells#show"
-# - "backend/cells/last_purchases_cells#list"
-# - "backend/cells/last_purchases_cells#show"
-# - "backend/cells/last_sales_cells#list"
-# - "backend/cells/last_sales_cells#show"
-# - "backend/cells/map_cells#show"
-# - "backend/cells/map_cells#update"
-# - "backend/cells/meteo_cells#show"
-# - "backend/cells/placeholder_cells#show"
-# - "backend/cells/revenues_by_product_nature_cells#show"
-# - "backend/cells/rss_cells#show"
-# - "backend/cultivable_zones#create"
-# - "backend/cultivable_zones#destroy"
-# - "backend/cultivable_zones#edit"
-# - "backend/cultivable_zones#index"
-# - "backend/cultivable_zones#list"
-# - "backend/cultivable_zones#list_carried_linkages"
-# - "backend/cultivable_zones#list_carrier_linkages"
-# - "backend/cultivable_zones#list_contained_products"
-# - "backend/cultivable_zones#list_groups"
-# - "backend/cultivable_zones#list_intervention_casts"
-# - "backend/cultivable_zones#list_issues"
-# - "backend/cultivable_zones#list_markers"
-# - "backend/cultivable_zones#list_members"
-# - "backend/cultivable_zones#list_places"
-# - "backend/cultivable_zones#list_productions"
-# - "backend/cultivable_zones#list_reading_tasks"
-# - "backend/cultivable_zones#list_readings"
-# - "backend/cultivable_zones#new"
-# - "backend/cultivable_zones#picture"
-# - "backend/cultivable_zones#show"
-# - "backend/cultivable_zones#unroll"
-# - "backend/cultivable_zones#update"
-# - "backend/custom_field_choices#unroll"
-# - "backend/custom_fields#unroll"
-# - "backend/dashboards#sandbox"
-# - "backend/dashboards#search"
-# - "backend/dashboards#tools"
-# - "backend/deposits#unroll"
-# - "backend/districts#unroll"
-# - "backend/document_archives#show"
-# - "backend/document_templates#unroll"
-# - "backend/documents#create"
-# - "backend/documents#destroy"
-# - "backend/documents#edit"
-# - "backend/documents#index"
-# - "backend/documents#list"
-# - "backend/documents#list_archives"
-# - "backend/documents#new"
-# - "backend/documents#show"
-# - "backend/documents#update"
-# - "backend/entities#unroll"
-# - "backend/entity_addresses#index"
-# - "backend/entity_addresses#show"
-# - "backend/entity_addresses#unroll"
-# - "backend/entity_links#index"
-# - "backend/entity_links#show"
-# - "backend/equipments#list_carried_linkages"
-# - "backend/equipments#list_carrier_linkages"
-# - "backend/equipments#list_contained_products"
-# - "backend/equipments#list_groups"
-# - "backend/equipments#list_intervention_casts"
-# - "backend/equipments#list_issues"
-# - "backend/equipments#list_markers"
-# - "backend/equipments#list_members"
-# - "backend/equipments#list_places"
-# - "backend/equipments#list_reading_tasks"
-# - "backend/equipments#list_readings"
-# - "backend/equipments#picture"
-# - "backend/equipments#unroll"
-# - "backend/establishments#unroll"
-# - "backend/event_participations#create"
-# - "backend/event_participations#destroy"
-# - "backend/event_participations#edit"
-# - "backend/event_participations#new"
-# - "backend/event_participations#update"
-# - "backend/events#list_participations"
-# - "backend/events#show"
-# - "backend/events#unroll"
-# - "backend/financial_assets#unroll"
-# - "backend/financial_years#unroll"
-# - "backend/fungi#create"
-# - "backend/fungi#destroy"
-# - "backend/fungi#edit"
-# - "backend/fungi#index"
-# - "backend/fungi#list"
-# - "backend/fungi#list_carried_linkages"
-# - "backend/fungi#list_carrier_linkages"
-# - "backend/fungi#list_contained_products"
-# - "backend/fungi#list_groups"
-# - "backend/fungi#list_intervention_casts"
-# - "backend/fungi#list_issues"
-# - "backend/fungi#list_markers"
-# - "backend/fungi#list_members"
-# - "backend/fungi#list_places"
-# - "backend/fungi#list_reading_tasks"
-# - "backend/fungi#list_readings"
-# - "backend/fungi#new"
-# - "backend/fungi#picture"
-# - "backend/fungi#show"
-# - "backend/fungi#unroll"
-# - "backend/fungi#update"
-# - "backend/gaps#index"
-# - "backend/gaps#list"
-# - "backend/gaps#list_items"
-# - "backend/gaps#show"
-# - "backend/guide_analyses#list_points"
-# - "backend/guide_analyses#show"
-# - "backend/guides#create"
-# - "backend/guides#destroy"
-# - "backend/guides#edit"
-# - "backend/guides#index"
-# - "backend/guides#list"
-# - "backend/guides#list_analyses"
-# - "backend/guides#new"
-# - "backend/guides#run"
-# - "backend/guides#show"
-# - "backend/guides#unroll"
-# - "backend/guides#update"
-# - "backend/identifiers#create"
-# - "backend/identifiers#destroy"
-# - "backend/identifiers#edit"
-# - "backend/identifiers#index"
-# - "backend/identifiers#list"
-# - "backend/identifiers#new"
-# - "backend/identifiers#show"
-# - "backend/identifiers#unroll"
-# - "backend/identifiers#update"
-# - "backend/incoming_deliveries#list_items"
-# - "backend/incoming_deliveries#show"
-# - "backend/incoming_deliveries#unroll"
-# - "backend/incoming_delivery_items#new"
-# - "backend/incoming_delivery_modes#unroll"
-# - "backend/incoming_payment_modes#unroll"
-# - "backend/incoming_payments#unroll"
-# - "backend/interfacers#autocomplete"
-# - "backend/interfacers#product_trackings"
-# - "backend/interfacers#product_units"
-# - "backend/interfacers#search_for"
-# - "backend/interfacers#select_options"
-# - "backend/interfacers#toggle_side"
-# - "backend/interfacers#toggle_tab"
-# - "backend/interfacers#toggle_view_mode"
-# - "backend/interfacers#unroll"
-# - "backend/interfacers#unroll_options"
-# - "backend/interventions#compute"
-# - "backend/interventions#set"
-# - "backend/inventories#unroll"
-# - "backend/issues#abort"
-# - "backend/issues#close"
-# - "backend/issues#create"
-# - "backend/issues#destroy"
-# - "backend/issues#edit"
-# - "backend/issues#index"
-# - "backend/issues#list"
-# - "backend/issues#list_interventions"
-# - "backend/issues#new"
-# - "backend/issues#picture"
-# - "backend/issues#reopen"
-# - "backend/issues#show"
-# - "backend/issues#unroll"
-# - "backend/issues#update"
-# - "backend/journal_entries#index"
-# - "backend/journal_entries#list"
-# - "backend/journal_entries#unroll"
-# - "backend/journal_entry_items#show"
-# - "backend/journal_entry_items#unroll"
-# - "backend/journals#unroll"
-# - "backend/kujakus#toggle"
-# - "backend/land_parcel_clusters#create"
-# - "backend/land_parcel_clusters#destroy"
-# - "backend/land_parcel_clusters#edit"
-# - "backend/land_parcel_clusters#index"
-# - "backend/land_parcel_clusters#list"
-# - "backend/land_parcel_clusters#list_carried_linkages"
-# - "backend/land_parcel_clusters#list_carrier_linkages"
-# - "backend/land_parcel_clusters#list_contained_products"
-# - "backend/land_parcel_clusters#list_groups"
-# - "backend/land_parcel_clusters#list_intervention_casts"
-# - "backend/land_parcel_clusters#list_issues"
-# - "backend/land_parcel_clusters#list_markers"
-# - "backend/land_parcel_clusters#list_members"
-# - "backend/land_parcel_clusters#list_places"
-# - "backend/land_parcel_clusters#list_reading_tasks"
-# - "backend/land_parcel_clusters#list_readings"
-# - "backend/land_parcel_clusters#new"
-# - "backend/land_parcel_clusters#picture"
-# - "backend/land_parcel_clusters#show"
-# - "backend/land_parcel_clusters#unroll"
-# - "backend/land_parcel_clusters#update"
-# - "backend/land_parcel_groups#create"
-# - "backend/land_parcel_groups#destroy"
-# - "backend/land_parcel_groups#edit"
-# - "backend/land_parcel_groups#index"
-# - "backend/land_parcel_groups#list"
-# - "backend/land_parcel_groups#list_carried_linkages"
-# - "backend/land_parcel_groups#list_carrier_linkages"
-# - "backend/land_parcel_groups#list_contained_products"
-# - "backend/land_parcel_groups#list_groups"
-# - "backend/land_parcel_groups#list_intervention_casts"
-# - "backend/land_parcel_groups#list_issues"
-# - "backend/land_parcel_groups#list_markers"
-# - "backend/land_parcel_groups#list_members"
-# - "backend/land_parcel_groups#list_places"
-# - "backend/land_parcel_groups#list_reading_tasks"
-# - "backend/land_parcel_groups#list_readings"
-# - "backend/land_parcel_groups#new"
-# - "backend/land_parcel_groups#picture"
-# - "backend/land_parcel_groups#show"
-# - "backend/land_parcel_groups#unroll"
-# - "backend/land_parcel_groups#update"
-# - "backend/land_parcels#list_carried_linkages"
-# - "backend/land_parcels#list_carrier_linkages"
-# - "backend/land_parcels#list_contained_products"
-# - "backend/land_parcels#list_groups"
-# - "backend/land_parcels#list_intervention_casts"
-# - "backend/land_parcels#list_issues"
-# - "backend/land_parcels#list_markers"
-# - "backend/land_parcels#list_members"
-# - "backend/land_parcels#list_places"
-# - "backend/land_parcels#list_reading_tasks"
-# - "backend/land_parcels#list_readings"
-# - "backend/land_parcels#picture"
-# - "backend/land_parcels#unroll"
-# - "backend/legal_entities#autocomplete_for_origin"
-# - "backend/legal_entities#create"
-# - "backend/legal_entities#destroy"
-# - "backend/legal_entities#edit"
-# - "backend/legal_entities#export"
-# - "backend/legal_entities#import"
-# - "backend/legal_entities#index"
-# - "backend/legal_entities#list"
-# - "backend/legal_entities#list_event_participations"
-# - "backend/legal_entities#list_incoming_payments"
-# - "backend/legal_entities#list_links"
-# - "backend/legal_entities#list_observations"
-# - "backend/legal_entities#list_outgoing_payments"
-# - "backend/legal_entities#list_purchases"
-# - "backend/legal_entities#list_sales"
-# - "backend/legal_entities#list_subscriptions"
-# - "backend/legal_entities#merge"
-# - "backend/legal_entities#new"
-# - "backend/legal_entities#picture"
-# - "backend/legal_entities#show"
-# - "backend/legal_entities#unroll"
-# - "backend/legal_entities#update"
-# - "backend/listings#unroll"
-# - "backend/matters#create"
-# - "backend/matters#destroy"
-# - "backend/matters#edit"
-# - "backend/matters#index"
-# - "backend/matters#list"
-# - "backend/matters#list_carried_linkages"
-# - "backend/matters#list_carrier_linkages"
-# - "backend/matters#list_contained_products"
-# - "backend/matters#list_groups"
-# - "backend/matters#list_intervention_casts"
-# - "backend/matters#list_issues"
-# - "backend/matters#list_markers"
-# - "backend/matters#list_members"
-# - "backend/matters#list_places"
-# - "backend/matters#list_reading_tasks"
-# - "backend/matters#list_readings"
-# - "backend/matters#new"
-# - "backend/matters#picture"
-# - "backend/matters#show"
-# - "backend/matters#unroll"
-# - "backend/matters#update"
-# - "backend/medicines#create"
-# - "backend/medicines#destroy"
-# - "backend/medicines#edit"
-# - "backend/medicines#index"
-# - "backend/medicines#list"
-# - "backend/medicines#list_carried_linkages"
-# - "backend/medicines#list_carrier_linkages"
-# - "backend/medicines#list_contained_products"
-# - "backend/medicines#list_groups"
-# - "backend/medicines#list_intervention_casts"
-# - "backend/medicines#list_issues"
-# - "backend/medicines#list_markers"
-# - "backend/medicines#list_members"
-# - "backend/medicines#list_places"
-# - "backend/medicines#list_reading_tasks"
-# - "backend/medicines#list_readings"
-# - "backend/medicines#new"
-# - "backend/medicines#picture"
-# - "backend/medicines#show"
-# - "backend/medicines#unroll"
-# - "backend/medicines#update"
-# - "backend/mineral_matters#create"
-# - "backend/mineral_matters#destroy"
-# - "backend/mineral_matters#edit"
-# - "backend/mineral_matters#index"
-# - "backend/mineral_matters#list"
-# - "backend/mineral_matters#list_carried_linkages"
-# - "backend/mineral_matters#list_carrier_linkages"
-# - "backend/mineral_matters#list_contained_products"
-# - "backend/mineral_matters#list_groups"
-# - "backend/mineral_matters#list_intervention_casts"
-# - "backend/mineral_matters#list_issues"
-# - "backend/mineral_matters#list_markers"
-# - "backend/mineral_matters#list_members"
-# - "backend/mineral_matters#list_places"
-# - "backend/mineral_matters#list_reading_tasks"
-# - "backend/mineral_matters#list_readings"
-# - "backend/mineral_matters#new"
-# - "backend/mineral_matters#picture"
-# - "backend/mineral_matters#show"
-# - "backend/mineral_matters#unroll"
-# - "backend/mineral_matters#update"
-# - "backend/net_services#create"
-# - "backend/net_services#destroy"
-# - "backend/net_services#edit"
-# - "backend/net_services#index"
-# - "backend/net_services#list"
-# - "backend/net_services#list_identifiers"
-# - "backend/net_services#new"
-# - "backend/net_services#show"
-# - "backend/net_services#unroll"
-# - "backend/net_services#update"
-# - "backend/operations#index"
-# - "backend/operations#show"
-# - "backend/organic_matters#create"
-# - "backend/organic_matters#destroy"
-# - "backend/organic_matters#edit"
-# - "backend/organic_matters#index"
-# - "backend/organic_matters#list"
-# - "backend/organic_matters#list_carried_linkages"
-# - "backend/organic_matters#list_carrier_linkages"
-# - "backend/organic_matters#list_contained_products"
-# - "backend/organic_matters#list_groups"
-# - "backend/organic_matters#list_intervention_casts"
-# - "backend/organic_matters#list_issues"
-# - "backend/organic_matters#list_markers"
-# - "backend/organic_matters#list_members"
-# - "backend/organic_matters#list_places"
-# - "backend/organic_matters#list_reading_tasks"
-# - "backend/organic_matters#list_readings"
-# - "backend/organic_matters#new"
-# - "backend/organic_matters#picture"
-# - "backend/organic_matters#show"
-# - "backend/organic_matters#unroll"
-# - "backend/organic_matters#update"
-# - "backend/outgoing_deliveries#unroll"
-# - "backend/outgoing_delivery_modes#unroll"
-# - "backend/outgoing_payment_modes#unroll"
-# - "backend/outgoing_payments#unroll"
-# - "backend/people#autocomplete_for_origin"
-# - "backend/people#create"
-# - "backend/people#destroy"
-# - "backend/people#edit"
-# - "backend/people#export"
-# - "backend/people#import"
-# - "backend/people#index"
-# - "backend/people#list"
-# - "backend/people#list_event_participations"
-# - "backend/people#list_incoming_payments"
-# - "backend/people#list_links"
-# - "backend/people#list_observations"
-# - "backend/people#list_outgoing_payments"
-# - "backend/people#list_purchases"
-# - "backend/people#list_sales"
-# - "backend/people#list_subscriptions"
-# - "backend/people#merge"
-# - "backend/people#new"
-# - "backend/people#picture"
-# - "backend/people#show"
-# - "backend/people#unroll"
-# - "backend/people#update"
-# - "backend/plant_fertilizers#index"
-# - "backend/plant_fertilizers#list"
-# - "backend/plant_medicines#create"
-# - "backend/plant_medicines#destroy"
-# - "backend/plant_medicines#edit"
-# - "backend/plant_medicines#index"
-# - "backend/plant_medicines#list"
-# - "backend/plant_medicines#list_carried_linkages"
-# - "backend/plant_medicines#list_carrier_linkages"
-# - "backend/plant_medicines#list_contained_products"
-# - "backend/plant_medicines#list_groups"
-# - "backend/plant_medicines#list_intervention_casts"
-# - "backend/plant_medicines#list_issues"
-# - "backend/plant_medicines#list_markers"
-# - "backend/plant_medicines#list_members"
-# - "backend/plant_medicines#list_places"
-# - "backend/plant_medicines#list_reading_tasks"
-# - "backend/plant_medicines#list_readings"
-# - "backend/plant_medicines#new"
-# - "backend/plant_medicines#picture"
-# - "backend/plant_medicines#show"
-# - "backend/plant_medicines#unroll"
-# - "backend/plant_medicines#update"
-# - "backend/plant_products#index"
-# - "backend/plant_products#list"
-# - "backend/plant_seedlings#index"
-# - "backend/plant_seedlings#list"
-# - "backend/plants#create"
-# - "backend/plants#destroy"
-# - "backend/plants#edit"
-# - "backend/plants#index"
-# - "backend/plants#list"
-# - "backend/plants#list_carried_linkages"
-# - "backend/plants#list_carrier_linkages"
-# - "backend/plants#list_contained_products"
-# - "backend/plants#list_groups"
-# - "backend/plants#list_intervention_casts"
-# - "backend/plants#list_issues"
-# - "backend/plants#list_markers"
-# - "backend/plants#list_members"
-# - "backend/plants#list_places"
-# - "backend/plants#list_reading_tasks"
-# - "backend/plants#list_readings"
-# - "backend/plants#new"
-# - "backend/plants#picture"
-# - "backend/plants#show"
-# - "backend/plants#unroll"
-# - "backend/plants#update"
-# - "backend/postal_zones#unroll"
-# - "backend/prescriptions#create"
-# - "backend/prescriptions#destroy"
-# - "backend/prescriptions#edit"
-# - "backend/prescriptions#index"
-# - "backend/prescriptions#list"
-# - "backend/prescriptions#list_interventions"
-# - "backend/prescriptions#new"
-# - "backend/prescriptions#show"
-# - "backend/prescriptions#unroll"
-# - "backend/prescriptions#update"
-# - "backend/product_groups#create"
-# - "backend/product_groups#destroy"
-# - "backend/product_groups#edit"
-# - "backend/product_groups#index"
-# - "backend/product_groups#list"
-# - "backend/product_groups#list_carried_linkages"
-# - "backend/product_groups#list_carrier_linkages"
-# - "backend/product_groups#list_contained_products"
-# - "backend/product_groups#list_groups"
-# - "backend/product_groups#list_intervention_casts"
-# - "backend/product_groups#list_issues"
-# - "backend/product_groups#list_markers"
-# - "backend/product_groups#list_members"
-# - "backend/product_groups#list_places"
-# - "backend/product_groups#list_reading_tasks"
-# - "backend/product_groups#list_readings"
-# - "backend/product_groups#new"
-# - "backend/product_groups#picture"
-# - "backend/product_groups#show"
-# - "backend/product_groups#unroll"
-# - "backend/product_groups#update"
-# - "backend/product_nature_categories#create"
-# - "backend/product_nature_categories#destroy"
-# - "backend/product_nature_categories#edit"
-# - "backend/product_nature_categories#incorporate"
-# - "backend/product_nature_categories#index"
-# - "backend/product_nature_categories#list"
-# - "backend/product_nature_categories#list_product_natures"
-# - "backend/product_nature_categories#list_products"
-# - "backend/product_nature_categories#new"
-# - "backend/product_nature_categories#pick"
-# - "backend/product_nature_categories#show"
-# - "backend/product_nature_categories#unroll"
-# - "backend/product_nature_categories#update"
-# - "backend/product_nature_variant_readings#create"
-# - "backend/product_nature_variant_readings#destroy"
-# - "backend/product_nature_variant_readings#edit"
-# - "backend/product_nature_variant_readings#new"
-# - "backend/product_nature_variant_readings#update"
-# - "backend/product_nature_variants#create"
-# - "backend/product_nature_variants#destroy"
-# - "backend/product_nature_variants#edit"
-# - "backend/product_nature_variants#incorporate"
-# - "backend/product_nature_variants#index"
-# - "backend/product_nature_variants#list"
-# - "backend/product_nature_variants#list_prices"
-# - "backend/product_nature_variants#list_products"
-# - "backend/product_nature_variants#new"
-# - "backend/product_nature_variants#pick"
-# - "backend/product_nature_variants#show"
-# - "backend/product_nature_variants#unroll"
-# - "backend/product_nature_variants#update"
-# - "backend/product_natures#incorporate"
-# - "backend/product_natures#list_product_nature_variants"
-# - "backend/product_natures#list_products"
-# - "backend/product_natures#pick"
-# - "backend/product_natures#show"
-# - "backend/product_natures#unroll"
-# - "backend/production_support_markers#create"
-# - "backend/production_support_markers#destroy"
-# - "backend/production_support_markers#edit"
-# - "backend/production_support_markers#index"
-# - "backend/production_support_markers#list"
-# - "backend/production_support_markers#new"
-# - "backend/production_support_markers#show"
-# - "backend/production_support_markers#unroll"
-# - "backend/production_support_markers#update"
-# - "backend/production_supports#create"
-# - "backend/production_supports#destroy"
-# - "backend/production_supports#edit"
-# - "backend/production_supports#index"
-# - "backend/production_supports#list"
-# - "backend/production_supports#list_interventions"
-# - "backend/production_supports#list_markers"
-# - "backend/production_supports#new"
-# - "backend/production_supports#show"
-# - "backend/production_supports#unroll"
-# - "backend/production_supports#update"
-# - "backend/productions#list_interventions"
-# - "backend/productions#list_markers"
-# - "backend/productions#list_supports"
-# - "backend/productions#unroll"
-# - "backend/products#create"
-# - "backend/products#destroy"
-# - "backend/products#edit"
-# - "backend/products#list_carried_linkages"
-# - "backend/products#list_carrier_linkages"
-# - "backend/products#list_contained_products"
-# - "backend/products#list_groups"
-# - "backend/products#list_intervention_casts"
-# - "backend/products#list_issues"
-# - "backend/products#list_markers"
-# - "backend/products#list_members"
-# - "backend/products#list_places"
-# - "backend/products#list_reading_tasks"
-# - "backend/products#list_readings"
-# - "backend/products#new"
-# - "backend/products#picture"
-# - "backend/products#show"
-# - "backend/products#unroll"
-# - "backend/products#update"
-# - "backend/purchase_items#index"
-# - "backend/purchase_items#show"
-# - "backend/purchase_natures#unroll"
-# - "backend/purchases#unroll"
-# - "backend/roles#unroll"
-# - "backend/sale_items#index"
-# - "backend/sale_items#show"
-# - "backend/sale_natures#unroll"
-# - "backend/sales#unroll"
-# - "backend/sequences#unroll"
-# - "backend/settlements#create"
-# - "backend/settlements#destroy"
-# - "backend/settlements#edit"
-# - "backend/settlements#index"
-# - "backend/settlements#list"
-# - "backend/settlements#list_carried_linkages"
-# - "backend/settlements#list_carrier_linkages"
-# - "backend/settlements#list_contained_products"
-# - "backend/settlements#list_groups"
-# - "backend/settlements#list_intervention_casts"
-# - "backend/settlements#list_issues"
-# - "backend/settlements#list_markers"
-# - "backend/settlements#list_members"
-# - "backend/settlements#list_places"
-# - "backend/settlements#list_reading_tasks"
-# - "backend/settlements#list_readings"
-# - "backend/settlements#new"
-# - "backend/settlements#picture"
-# - "backend/settlements#show"
-# - "backend/settlements#unroll"
-# - "backend/settlements#update"
-# - "backend/snippets#toggle"
-# - "backend/subscription_natures#show"
-# - "backend/subscription_natures#unroll"
-# - "backend/subscriptions#unroll"
-# - "backend/taxes#unroll"
-# - "backend/teams#unroll"
-# - "backend/trackings#create"
-# - "backend/trackings#destroy"
-# - "backend/trackings#edit"
-# - "backend/trackings#index"
-# - "backend/trackings#list"
-# - "backend/trackings#list_products"
-# - "backend/trackings#new"
-# - "backend/trackings#show"
-# - "backend/trackings#unroll"
-# - "backend/trackings#update"
-# - "backend/transformed_products#index"
-# - "backend/transformed_products#list"
-# - "backend/transports#unroll"
-# - "backend/users#unroll"
-# - "backend/wine_tanks#index"
-# - "backend/wine_tanks#list"
-# - "backend/wine_transformers#index"
-# - "backend/wine_transformers#list"
-# - "backend/workers#create"
-# - "backend/workers#destroy"
-# - "backend/workers#edit"
-# - "backend/workers#index"
-# - "backend/workers#list"
-# - "backend/workers#list_carried_linkages"
-# - "backend/workers#list_carrier_linkages"
-# - "backend/workers#list_contained_products"
-# - "backend/workers#list_groups"
-# - "backend/workers#list_intervention_casts"
-# - "backend/workers#list_issues"
-# - "backend/workers#list_markers"
-# - "backend/workers#list_members"
-# - "backend/workers#list_places"
-# - "backend/workers#list_reading_tasks"
-# - "backend/workers#list_readings"
-# - "backend/workers#new"
-# - "backend/workers#picture"
-# - "backend/workers#show"
-# - "backend/workers#unroll"
-# - "backend/workers#update"
-# - "devise/confirmations#create"
-# - "devise/confirmations#new"
-# - "devise/confirmations#show"
-# - "devise/passwords#create"
-# - "devise/passwords#edit"
-# - "devise/passwords#new"
-# - "devise/passwords#update"
-# - "devise/registrations#cancel"
-# - "devise/registrations#create"
-# - "devise/registrations#destroy"
-# - "devise/registrations#edit"
-# - "devise/registrations#new"
-# - "devise/registrations#update"
-# - "devise/sessions#create"
-# - "devise/sessions#destroy"
-# - "devise/sessions#new"
-# - "devise/unlocks#create"
-# - "devise/unlocks#new"
-# - "devise/unlocks#show"
-
-# Access to the minimum
-__minimum__:
-- "authentication/passwords#edit"
-- "authentication/passwords#update"
-- "authentication/sessions#destroy"
-- "backend/dashboards#index"
-- "backend/helps#index"
-- "backend/helps#show"
-- "backend/helps#toggle"
-- "backend/myselves#show"
-- "backend/settings#about"
-
-# Public access
-__public__:
-- "authentication/passwords#create"
-- "authentication/passwords#new"
-- "authentication/sessions#create"
-- "authentication/sessions#new"
-- "public#index"
-
-# Transfer commercial data in accountancy
-bookkeep:
-- "backend/dashboards#accountancy"
-- "backend/journals#bookkeep"
-
-# Cancel sales_invoices
-cancel_sales_invoices:
-- "backend/dashboards#trade"
-- "backend/sales#cancel"
-- "backend/sales#index"
-- "backend/sales#list_creditable_items"
-- "backend/sales#list_credits"
-
-# Change prices on sales
-change_prices_on_sales:
-
-# Close and reopen journals
-close_journals:
-- "backend/dashboards#accountancy"
-- "backend/journals#close"
-- "backend/journals#index"
-- "backend/journals#reopen"
-
-# Configure the options of the company
-configure_company:
-- "backend/dashboards#settings"
-- "backend/establishments#create"
-- "backend/establishments#destroy"
-- "backend/establishments#edit"
-- "backend/establishments#index"
-- "backend/establishments#list"
-- "backend/establishments#new"
-- "backend/establishments#update"
-- "backend/sequences#create"
-- "backend/sequences#destroy"
-- "backend/sequences#edit"
-- "backend/sequences#index"
-- "backend/sequences#list"
-- "backend/sequences#load"
-- "backend/sequences#new"
-- "backend/sequences#update"
-- "backend/settings#edit"
-- "backend/settings#update"
-- "backend/teams#create"
-- "backend/teams#destroy"
-- "backend/teams#edit"
-- "backend/teams#index"
-- "backend/teams#list"
-- "backend/teams#new"
-- "backend/teams#update"
-
-# Consult accounting documents
-consult_accounting_documents:
-- "backend/dashboards#accountancy"
-- "backend/journals#balance"
-- "backend/journals#general_ledger"
-- "backend/journals#list_general_ledger"
-
-# Consult the people
-consult_entities:
-- "backend/dashboards#relationship"
-- "backend/entities#index"
-- "backend/entities#list"
-- "backend/entities#list_event_participations"
-- "backend/entities#list_incoming_payments"
-- "backend/entities#list_outgoing_payments"
-- "backend/entities#list_purchases"
-- "backend/entities#list_sales"
-- "backend/entities#list_subscriptions"
-- "backend/entities#show"
-
-# Consult the journal entries
-consult_journal_entries:
-- "backend/dashboards#accountancy"
-- "backend/journals#index"
-- "backend/journals#show"
-
-# Consult the prices
-consult_prices:
-- "backend/catalog_prices#index"
-- "backend/dashboards#trade"
-
-# Consult the products
-consult_products:
-- "backend/dashboards#trade"
-- "backend/product_natures#index"
-
-# Consult the purchases
-consult_purchases:
-- "backend/dashboards#trade"
-- "backend/purchases#index"
-- "backend/purchases#list"
-- "backend/purchases#list_deliveries"
-- "backend/purchases#list_items"
-- "backend/purchases#show"
-
-# Consult the sales
-consult_sales:
-- "backend/dashboards#trade"
-- "backend/sales#index"
-- "backend/sales#list"
-- "backend/sales#list_deliveries"
-- "backend/sales#list_items"
-- "backend/sales#list_undelivered_items"
-- "backend/sales#show"
-
-# Consult the stocks
-consult_stocks:
-- "backend/dashboards#trade"
-- "backend/products#index"
-- "backend/products#list"
-
-# Consult the tracking informations
-consult_trackings:
-- "backend/dashboards#stocks"
-
-# Export listings
-extract_listings:
-- "backend/dashboards#settings"
-- "backend/listings#extract"
-- "backend/listings#index"
-
-# Set reduction on sales
-give_discounts_on_sales:
-
-# Import data from other software
-import_data:
-- "backend/dashboards#settings"
-- "backend/settings#import"
-
-# Import, export people listings
-import_export_entities:
-- "backend/dashboards#relationship"
-- "backend/entities#export"
-- "backend/entities#import"
-- "backend/entities#index"
-- "backend/entities#list"
-
-# Send mail to lists
-mail_to_listings:
-- "backend/dashboards#settings"
-- "backend/listings#index"
-- "backend/listings#mail"
-
-# Manage accounts
-manage_accounts:
-- "backend/accounts#create"
-- "backend/accounts#destroy"
-- "backend/accounts#edit"
-- "backend/accounts#index"
-- "backend/accounts#list"
-- "backend/accounts#list_entities"
-- "backend/accounts#list_journal_entry_items"
-- "backend/accounts#load"
-- "backend/accounts#new"
-- "backend/accounts#show"
-- "backend/accounts#update"
-- "backend/dashboards#accountancy"
-
-# Point bank statements
-manage_bank_statements:
-- "backend/bank_statements#create"
-- "backend/bank_statements#destroy"
-- "backend/bank_statements#edit"
-- "backend/bank_statements#index"
-- "backend/bank_statements#list"
-- "backend/bank_statements#list_items"
-- "backend/bank_statements#new"
-- "backend/bank_statements#point"
-- "backend/bank_statements#show"
-- "backend/bank_statements#update"
-- "backend/dashboards#accountancy"
-
-# Manage buildings
-manage_buildings:
-- "backend/buildings#create"
-- "backend/buildings#destroy"
-- "backend/buildings#edit"
-- "backend/buildings#index"
-- "backend/buildings#list"
-- "backend/buildings#new"
-- "backend/buildings#show"
-- "backend/buildings#update"
-- "backend/dashboards#trade"
-
-# Manage cash transfers
-manage_cash_transfers:
-- "backend/cash_transfers#create"
-- "backend/cash_transfers#destroy"
-- "backend/cash_transfers#edit"
-- "backend/cash_transfers#index"
-- "backend/cash_transfers#list"
-- "backend/cash_transfers#new"
-- "backend/cash_transfers#show"
-- "backend/cash_transfers#update"
-- "backend/dashboards#accountancy"
-
-# Manage cashes
-manage_cashes:
-- "backend/cashes#create"
-- "backend/cashes#destroy"
-- "backend/cashes#edit"
-- "backend/cashes#index"
-- "backend/cashes#list"
-- "backend/cashes#list_bank_statements"
-- "backend/cashes#list_deposits"
-- "backend/cashes#new"
-- "backend/cashes#show"
-- "backend/cashes#update"
-- "backend/dashboards#accountancy"
-
-# translation missing: eng.rights.manage_catalogs
-manage_catalogs:
-- "backend/catalogs#create"
-- "backend/catalogs#destroy"
-- "backend/catalogs#edit"
-- "backend/catalogs#index"
-- "backend/catalogs#list"
-- "backend/catalogs#new"
-- "backend/catalogs#show"
-- "backend/catalogs#update"
-- "backend/dashboards#trade"
-
-# Manage custom fields
-manage_custom_fields:
-- "backend/custom_field_choices#create"
-- "backend/custom_field_choices#destroy"
-- "backend/custom_field_choices#down"
-- "backend/custom_field_choices#edit"
-- "backend/custom_field_choices#new"
-- "backend/custom_field_choices#up"
-- "backend/custom_field_choices#update"
-- "backend/custom_fields#create"
-- "backend/custom_fields#destroy"
-- "backend/custom_fields#down"
-- "backend/custom_fields#edit"
-- "backend/custom_fields#index"
-- "backend/custom_fields#list"
-- "backend/custom_fields#list_choices"
-- "backend/custom_fields#new"
-- "backend/custom_fields#show"
-- "backend/custom_fields#sort"
-- "backend/custom_fields#up"
-- "backend/custom_fields#update"
-- "backend/dashboards#relationship"
-
-# Manage deposits
-manage_deposits:
-- "backend/dashboards#accountancy"
-- "backend/deposits#create"
-- "backend/deposits#destroy"
-- "backend/deposits#edit"
-- "backend/deposits#index"
-- "backend/deposits#list"
-- "backend/deposits#list_depositable_payments"
-- "backend/deposits#list_payments"
-- "backend/deposits#list_unvalidateds"
-- "backend/deposits#new"
-- "backend/deposits#show"
-- "backend/deposits#unvalidateds"
-- "backend/deposits#update"
-
-# Manage districts
-manage_districts:
-- "backend/dashboards#relationship"
-- "backend/districts#create"
-- "backend/districts#destroy"
-- "backend/districts#edit"
-- "backend/districts#index"
-- "backend/districts#list"
-- "backend/districts#new"
-- "backend/districts#update"
-
-# Manage document templates
-manage_document_templates:
-- "backend/dashboards#settings"
-- "backend/document_templates#create"
-- "backend/document_templates#destroy"
-- "backend/document_templates#edit"
-- "backend/document_templates#index"
-- "backend/document_templates#list"
-- "backend/document_templates#load"
-- "backend/document_templates#new"
-- "backend/document_templates#update"
-
-# Manage people
-manage_entities:
-- "backend/dashboards#relationship"
-- "backend/entities#autocomplete_for_origin"
-- "backend/entities#create"
-- "backend/entities#destroy"
-- "backend/entities#edit"
-- "backend/entities#list_event_participations"
-- "backend/entities#list_incoming_payments"
-- "backend/entities#list_purchases"
-- "backend/entities#list_sales"
-- "backend/entities#list_subscriptions"
-- "backend/entities#new"
-- "backend/entities#picture"
-- "backend/entities#update"
-- "backend/entity_addresses#create"
-- "backend/entity_addresses#destroy"
-- "backend/entity_addresses#edit"
-- "backend/entity_addresses#new"
-- "backend/entity_addresses#update"
-- "backend/postal_zones#autocomplete_for_name"
-
-# Manage people links
-manage_entity_links:
-- "backend/dashboards#relationship"
-- "backend/entities#list_links"
-- "backend/entity_links#create"
-- "backend/entity_links#destroy"
-- "backend/entity_links#edit"
-- "backend/entity_links#new"
-- "backend/entity_links#update"
-
-# Manage equipments
-manage_equipments:
-- "backend/dashboards#production"
-- "backend/equipments#create"
-- "backend/equipments#destroy"
-- "backend/equipments#edit"
-- "backend/equipments#index"
-- "backend/equipments#list"
-- "backend/equipments#new"
-- "backend/equipments#show"
-- "backend/equipments#update"
-
-# Create and update estimates
-manage_estimates:
-- "backend/dashboards#trade"
-- "backend/sale_items#create"
-- "backend/sale_items#destroy"
-- "backend/sale_items#detail"
-- "backend/sale_items#edit"
-- "backend/sale_items#new"
-- "backend/sale_items#update"
-- "backend/sales#abort"
-- "backend/sales#confirm"
-- "backend/sales#contacts"
-- "backend/sales#correct"
-- "backend/sales#create"
-- "backend/sales#duplicate"
-- "backend/sales#edit"
-- "backend/sales#list_subscriptions"
-- "backend/sales#new"
-- "backend/sales#propose"
-- "backend/sales#refuse"
-- "backend/sales#show"
-- "backend/sales#update"
-- "backend/subscriptions#coordinates"
-
-# translation missing: eng.rights.manage_events
-manage_events:
-- "backend/dashboards#relationship"
-- "backend/events#autocomplete_for_place"
-- "backend/events#change_minutes"
-- "backend/events#create"
-- "backend/events#destroy"
-- "backend/events#edit"
-- "backend/events#index"
-- "backend/events#list"
-- "backend/events#new"
-- "backend/events#update"
-
-# translation missing: eng.rights.manage_financial_assets
-manage_financial_assets:
-- "backend/dashboards#accountancy"
-- "backend/financial_assets#create"
-- "backend/financial_assets#destroy"
-- "backend/financial_assets#edit"
-- "backend/financial_assets#index"
-- "backend/financial_assets#list"
-- "backend/financial_assets#list_depreciations"
-- "backend/financial_assets#new"
-- "backend/financial_assets#show"
-- "backend/financial_assets#update"
-
-# Manage and close financial years
-manage_financial_years:
-- "backend/dashboards#accountancy"
-- "backend/financial_years#close"
-- "backend/financial_years#compute_balances"
-- "backend/financial_years#create"
-- "backend/financial_years#destroy"
-- "backend/financial_years#edit"
-- "backend/financial_years#generate_last_journal_entry"
-- "backend/financial_years#index"
-- "backend/financial_years#list"
-- "backend/financial_years#list_account_balances"
-- "backend/financial_years#list_financial_asset_depreciations"
-- "backend/financial_years#new"
-- "backend/financial_years#show"
-- "backend/financial_years#update"
-
-# Manage incoming delivery modes
-manage_incoming_delivery_modes:
-- "backend/dashboards#trade"
-- "backend/incoming_delivery_modes#create"
-- "backend/incoming_delivery_modes#destroy"
-- "backend/incoming_delivery_modes#edit"
-- "backend/incoming_delivery_modes#index"
-- "backend/incoming_delivery_modes#list"
-- "backend/incoming_delivery_modes#new"
-- "backend/incoming_delivery_modes#update"
-
-# Manage incoming payment modes
-manage_incoming_payment_modes:
-- "backend/dashboards#accountancy"
-- "backend/incoming_payment_modes#create"
-- "backend/incoming_payment_modes#destroy"
-- "backend/incoming_payment_modes#down"
-- "backend/incoming_payment_modes#edit"
-- "backend/incoming_payment_modes#index"
-- "backend/incoming_payment_modes#list"
-- "backend/incoming_payment_modes#new"
-- "backend/incoming_payment_modes#reflect"
-- "backend/incoming_payment_modes#up"
-- "backend/incoming_payment_modes#update"
-
-# Manage sale payments
-manage_incoming_payments:
-- "backend/dashboards#accountancy"
-- "backend/incoming_payments#create"
-- "backend/incoming_payments#destroy"
-- "backend/incoming_payments#edit"
-- "backend/incoming_payments#index"
-- "backend/incoming_payments#list"
-- "backend/incoming_payments#new"
-- "backend/incoming_payments#show"
-- "backend/incoming_payments#update"
-- "backend/sales#show"
-
-# translation missing: eng.rights.manage_interventions
-manage_interventions:
-- "backend/dashboards#production"
-- "backend/interventions#create"
-- "backend/interventions#destroy"
-- "backend/interventions#edit"
-- "backend/interventions#index"
-- "backend/interventions#list"
-- "backend/interventions#list_casts"
-- "backend/interventions#list_operations"
-- "backend/interventions#new"
-- "backend/interventions#run"
-- "backend/interventions#show"
-- "backend/interventions#unroll"
-- "backend/interventions#update"
-
-# Manage inventories
-manage_inventories:
-- "backend/dashboards#trade"
-- "backend/inventories#create"
-- "backend/inventories#destroy"
-- "backend/inventories#edit"
-- "backend/inventories#index"
-- "backend/inventories#list"
-- "backend/inventories#list_items"
-- "backend/inventories#list_items_create"
-- "backend/inventories#list_items_update"
-- "backend/inventories#new"
-- "backend/inventories#reflect"
-- "backend/inventories#show"
-- "backend/inventories#update"
-
-# Manage journal entries
-manage_journal_entries:
-- "backend/accounts#list_reconciliation"
-- "backend/accounts#mark"
-- "backend/accounts#reconciliation"
-- "backend/accounts#unmark"
-- "backend/dashboards#accountancy"
-- "backend/journal_entries#create"
-- "backend/journal_entries#destroy"
-- "backend/journal_entries#edit"
-- "backend/journal_entries#list_items"
-- "backend/journal_entries#new"
-- "backend/journal_entries#show"
-- "backend/journal_entries#update"
-- "backend/journal_entry_items#new"
-- "backend/journals#draft"
-- "backend/journals#import"
-- "backend/journals#index"
-- "backend/journals#list"
-- "backend/journals#list_draft_items"
-- "backend/journals#list_entries"
-- "backend/journals#list_items"
-- "backend/journals#list_mixed"
-- "backend/journals#show"
-
-# Manage, close and reopen journals
-manage_journals:
-- "backend/dashboards#accountancy"
-- "backend/journals#close"
-- "backend/journals#create"
-- "backend/journals#destroy"
-- "backend/journals#edit"
-- "backend/journals#index"
-- "backend/journals#list"
-- "backend/journals#new"
-- "backend/journals#reopen"
-- "backend/journals#show"
-- "backend/journals#update"
-
-# Manage fields
-manage_land_parcels:
-- "backend/dashboards#production"
-- "backend/land_parcels#create"
-- "backend/land_parcels#destroy"
-- "backend/land_parcels#edit"
-- "backend/land_parcels#index"
-- "backend/land_parcels#list"
-- "backend/land_parcels#new"
-- "backend/land_parcels#show"
-- "backend/land_parcels#update"
-
-# Manage listings
-manage_listings:
-- "backend/dashboards#settings"
-- "backend/listing_nodes#create"
-- "backend/listing_nodes#destroy"
-- "backend/listing_nodes#edit"
-- "backend/listing_nodes#new"
-- "backend/listing_nodes#update"
-- "backend/listings#create"
-- "backend/listings#destroy"
-- "backend/listings#duplicate"
-- "backend/listings#edit"
-- "backend/listings#index"
-- "backend/listings#list"
-- "backend/listings#new"
-- "backend/listings#update"
-
-# Manage observations
-manage_observations:
-- "backend/dashboards#relationship"
-- "backend/entities#list_observations"
-- "backend/observations#create"
-- "backend/observations#destroy"
-- "backend/observations#edit"
-- "backend/observations#new"
-- "backend/observations#update"
-
-# Manage outgoing delivery modes
-manage_outgoing_delivery_modes:
-- "backend/dashboards#trade"
-- "backend/outgoing_delivery_modes#create"
-- "backend/outgoing_delivery_modes#destroy"
-- "backend/outgoing_delivery_modes#edit"
-- "backend/outgoing_delivery_modes#index"
-- "backend/outgoing_delivery_modes#list"
-- "backend/outgoing_delivery_modes#new"
-- "backend/outgoing_delivery_modes#update"
-
-# Manage disbursement modes
-manage_outgoing_payment_modes:
-- "backend/dashboards#accountancy"
-- "backend/outgoing_payment_modes#create"
-- "backend/outgoing_payment_modes#destroy"
-- "backend/outgoing_payment_modes#down"
-- "backend/outgoing_payment_modes#edit"
-- "backend/outgoing_payment_modes#index"
-- "backend/outgoing_payment_modes#list"
-- "backend/outgoing_payment_modes#new"
-- "backend/outgoing_payment_modes#up"
-- "backend/outgoing_payment_modes#update"
-
-# Manage disbursements
-manage_outgoing_payments:
-- "backend/dashboards#accountancy"
-- "backend/outgoing_payments#create"
-- "backend/outgoing_payments#destroy"
-- "backend/outgoing_payments#edit"
-- "backend/outgoing_payments#index"
-- "backend/outgoing_payments#list"
-- "backend/outgoing_payments#new"
-- "backend/outgoing_payments#show"
-- "backend/outgoing_payments#update"
-- "backend/purchases#list_items"
-- "backend/purchases#show"
-
-# translation missing: eng.rights.manage_postal_zones
-manage_postal_zones:
-- "backend/dashboards#relationship"
-- "backend/postal_zones#create"
-- "backend/postal_zones#destroy"
-- "backend/postal_zones#edit"
-- "backend/postal_zones#index"
-- "backend/postal_zones#list"
-- "backend/postal_zones#new"
-- "backend/postal_zones#update"
-
-# Manage prices
-manage_prices:
-- "backend/catalog_prices#create"
-- "backend/catalog_prices#destroy"
-- "backend/catalog_prices#edit"
-- "backend/catalog_prices#list"
-- "backend/catalog_prices#new"
-- "backend/catalog_prices#update"
-- "backend/catalogs#index"
-- "backend/catalogs#list"
-- "backend/dashboards#trade"
-
-# Manage productions
-manage_productions:
-- "backend/productions#create"
-- "backend/productions#destroy"
-- "backend/productions#edit"
-- "backend/productions#index"
-- "backend/productions#list"
-- "backend/productions#new"
-- "backend/productions#show"
-- "backend/productions#update"
-
-# Manage products
-manage_products:
-- "backend/dashboards#trade"
-- "backend/product_natures#create"
-- "backend/product_natures#destroy"
-- "backend/product_natures#edit"
-- "backend/product_natures#list"
-- "backend/product_natures#new"
-- "backend/product_natures#update"
-
-# Manage purchase natures
-manage_purchase_natures:
-- "backend/dashboards#settings"
-- "backend/purchase_natures#create"
-- "backend/purchase_natures#destroy"
-- "backend/purchase_natures#edit"
-- "backend/purchase_natures#index"
-- "backend/purchase_natures#list"
-- "backend/purchase_natures#new"
-- "backend/purchase_natures#show"
-- "backend/purchase_natures#update"
-
-# Manage purchases
-manage_purchases:
-- "backend/dashboards#trade"
-- "backend/incoming_deliveries#confirm"
-- "backend/incoming_deliveries#create"
-- "backend/incoming_deliveries#destroy"
-- "backend/incoming_deliveries#edit"
-- "backend/incoming_deliveries#index"
-- "backend/incoming_deliveries#list"
-- "backend/incoming_deliveries#new"
-- "backend/incoming_deliveries#update"
-- "backend/incoming_delivery_modes#create"
-- "backend/incoming_delivery_modes#destroy"
-- "backend/incoming_delivery_modes#edit"
-- "backend/incoming_delivery_modes#index"
-- "backend/incoming_delivery_modes#list"
-- "backend/incoming_delivery_modes#new"
-- "backend/incoming_delivery_modes#update"
-- "backend/purchase_items#create"
-- "backend/purchase_items#destroy"
-- "backend/purchase_items#edit"
-- "backend/purchase_items#new"
-- "backend/purchase_items#update"
-- "backend/purchases#abort"
-- "backend/purchases#confirm"
-- "backend/purchases#correct"
-- "backend/purchases#create"
-- "backend/purchases#destroy"
-- "backend/purchases#edit"
-- "backend/purchases#index"
-- "backend/purchases#invoice"
-- "backend/purchases#list"
-- "backend/purchases#list_deliveries"
-- "backend/purchases#list_items"
-- "backend/purchases#new"
-- "backend/purchases#propose"
-- "backend/purchases#refuse"
-- "backend/purchases#show"
-- "backend/purchases#update"
-
-# Manage sales natures
-manage_sale_natures:
-- "backend/dashboards#settings"
-- "backend/sale_natures#create"
-- "backend/sale_natures#destroy"
-- "backend/sale_natures#edit"
-- "backend/sale_natures#index"
-- "backend/sale_natures#list"
-- "backend/sale_natures#new"
-- "backend/sale_natures#show"
-- "backend/sale_natures#update"
-
-# Manages sales
-manage_sales:
-- "backend/dashboards#trade"
-- "backend/outgoing_deliveries#create"
-- "backend/outgoing_deliveries#destroy"
-- "backend/outgoing_deliveries#edit"
-- "backend/outgoing_deliveries#index"
-- "backend/outgoing_deliveries#list"
-- "backend/outgoing_deliveries#list_items"
-- "backend/outgoing_deliveries#new"
-- "backend/outgoing_deliveries#show"
-- "backend/outgoing_deliveries#update"
-- "backend/sales#abort"
-- "backend/sales#confirm"
-- "backend/sales#correct"
-- "backend/sales#destroy"
-- "backend/sales#invoice"
-- "backend/sales#list_deliveries"
-- "backend/sales#list_undelivered_items"
-- "backend/sales#propose"
-- "backend/sales#propose_and_invoice"
-- "backend/sales#refuse"
-- "backend/sales#show"
-
-# Manage subscriptions
-manage_subscriptions:
-- "backend/dashboards#trade"
-- "backend/subscription_natures#create"
-- "backend/subscription_natures#decrement"
-- "backend/subscription_natures#destroy"
-- "backend/subscription_natures#edit"
-- "backend/subscription_natures#increment"
-- "backend/subscription_natures#index"
-- "backend/subscription_natures#list"
-- "backend/subscription_natures#new"
-- "backend/subscription_natures#update"
-- "backend/subscriptions#coordinates"
-- "backend/subscriptions#create"
-- "backend/subscriptions#destroy"
-- "backend/subscriptions#edit"
-- "backend/subscriptions#index"
-- "backend/subscriptions#list"
-- "backend/subscriptions#new"
-- "backend/subscriptions#update"
-
-# Manage taxes
-manage_taxes:
-- "backend/dashboards#accountancy"
-- "backend/taxes#create"
-- "backend/taxes#destroy"
-- "backend/taxes#edit"
-- "backend/taxes#index"
-- "backend/taxes#list"
-- "backend/taxes#new"
-- "backend/taxes#update"
-
-# Manage transports
-manage_transports:
-- "backend/dashboards#stocks"
-- "backend/transports#create"
-- "backend/transports#destroy"
-- "backend/transports#edit"
-- "backend/transports#index"
-- "backend/transports#list"
-- "backend/transports#list_deliveries"
-- "backend/transports#list_transportable_deliveries"
-- "backend/transports#new"
-- "backend/transports#show"
-- "backend/transports#update"
-
-# Manage users
-manage_users:
-- "backend/dashboards#settings"
-- "backend/roles#create"
-- "backend/roles#destroy"
-- "backend/roles#edit"
-- "backend/roles#index"
-- "backend/roles#list"
-- "backend/roles#new"
-- "backend/roles#update"
-- "backend/users#create"
-- "backend/users#destroy"
-- "backend/users#edit"
-- "backend/users#index"
-- "backend/users#list"
-- "backend/users#lock"
-- "backend/users#new"
-- "backend/users#show"
-- "backend/users#unlock"
-- "backend/users#update"
-
-# Merge people
-merge_entities:
-- "backend/dashboards#relationship"
-- "backend/entities#index"
-- "backend/entities#merge"
+# This following actions are not accessible after login
+#     - "authentication/passwords#create"
+#     - "authentication/passwords#edit"
+#     - "authentication/passwords#new"
+#     - "authentication/passwords#update"
+#     - "authentication/sessions#create"
+#     - "authentication/sessions#destroy"
+#     - "authentication/sessions#new"
+#     - "backend/calculators#index"
+#     - "backend/calculators/nitrogen_inputs#edit"
+#     - "backend/calculators/nitrogen_inputs#show"
+#     - "backend/calculators/nitrogen_inputs#update"
+#     - "backend/cells/bank_chart_cells#show"
+#     - "backend/cells/calendar_cells#show"
+#     - "backend/cells/collected_taxes_cells#show"
+#     - "backend/cells/cropping_plan_cells#show"
+#     - "backend/cells/cropping_plan_on_cultivable_zones_cells#show"
+#     - "backend/cells/current_stocks_by_variety_cells#show"
+#     - "backend/cells/elapsed_interventions_times_by_activities_cells#show"
+#     - "backend/cells/events_cells#show"
+#     - "backend/cells/guide_evolution_cells#show"
+#     - "backend/cells/last_analyses_cells#show"
+#     - "backend/cells/last_document_archives_cells#list"
+#     - "backend/cells/last_document_archives_cells#show"
+#     - "backend/cells/last_entities_cells#list"
+#     - "backend/cells/last_entities_cells#show"
+#     - "backend/cells/last_events_cells#list"
+#     - "backend/cells/last_events_cells#show"
+#     - "backend/cells/last_incoming_deliveries_cells#list"
+#     - "backend/cells/last_incoming_deliveries_cells#show"
+#     - "backend/cells/last_interventions_cells#show"
+#     - "backend/cells/last_issues_cells#list"
+#     - "backend/cells/last_issues_cells#show"
+#     - "backend/cells/last_outgoing_deliveries_cells#list"
+#     - "backend/cells/last_outgoing_deliveries_cells#show"
+#     - "backend/cells/last_products_cells#list"
+#     - "backend/cells/last_products_cells#show"
+#     - "backend/cells/last_purchases_cells#list"
+#     - "backend/cells/last_purchases_cells#show"
+#     - "backend/cells/last_sales_cells#list"
+#     - "backend/cells/last_sales_cells#show"
+#     - "backend/cells/map_cells#show"
+#     - "backend/cells/map_cells#update"
+#     - "backend/cells/meteo_cells#show"
+#     - "backend/cells/placeholder_cells#show"
+#     - "backend/cells/revenues_by_product_nature_cells#show"
+#     - "backend/cells/rss_cells#show"
+#     - "backend/dashboards#accountancy"
+#     - "backend/dashboards#index"
+#     - "backend/dashboards#production"
+#     - "backend/dashboards#relationship"
+#     - "backend/dashboards#sandbox"
+#     - "backend/dashboards#search"
+#     - "backend/dashboards#settings"
+#     - "backend/dashboards#stocks"
+#     - "backend/dashboards#tools"
+#     - "backend/dashboards#trade"
+#     - "backend/document_archives#show"
+#     - "backend/entities#merge"
+#     - "backend/event_participations#create"
+#     - "backend/event_participations#destroy"
+#     - "backend/event_participations#edit"
+#     - "backend/event_participations#new"
+#     - "backend/event_participations#update"
+#     - "backend/helps#index"
+#     - "backend/helps#show"
+#     - "backend/helps#toggle"
+#     - "backend/incoming_delivery_items#new"
+#     - "backend/interfacers#autocomplete"
+#     - "backend/interfacers#product_trackings"
+#     - "backend/interfacers#product_units"
+#     - "backend/interfacers#search_for"
+#     - "backend/interfacers#select_options"
+#     - "backend/interfacers#toggle_side"
+#     - "backend/interfacers#toggle_tab"
+#     - "backend/interfacers#toggle_view_mode"
+#     - "backend/interfacers#unroll"
+#     - "backend/interfacers#unroll_options"
+#     - "backend/kujakus#toggle"
+#     - "backend/listing_nodes#create"
+#     - "backend/listing_nodes#destroy"
+#     - "backend/listing_nodes#edit"
+#     - "backend/listing_nodes#new"
+#     - "backend/listing_nodes#update"
+#     - "backend/plant_fertilizers#index"
+#     - "backend/plant_fertilizers#list"
+#     - "backend/plant_medicines#create"
+#     - "backend/plant_medicines#destroy"
+#     - "backend/plant_medicines#edit"
+#     - "backend/plant_medicines#index"
+#     - "backend/plant_medicines#list"
+#     - "backend/plant_medicines#list_carried_linkages"
+#     - "backend/plant_medicines#list_carrier_linkages"
+#     - "backend/plant_medicines#list_contained_products"
+#     - "backend/plant_medicines#list_groups"
+#     - "backend/plant_medicines#list_intervention_casts"
+#     - "backend/plant_medicines#list_issues"
+#     - "backend/plant_medicines#list_markers"
+#     - "backend/plant_medicines#list_members"
+#     - "backend/plant_medicines#list_places"
+#     - "backend/plant_medicines#list_reading_tasks"
+#     - "backend/plant_medicines#list_readings"
+#     - "backend/plant_medicines#new"
+#     - "backend/plant_medicines#picture"
+#     - "backend/plant_medicines#show"
+#     - "backend/plant_medicines#unroll"
+#     - "backend/plant_medicines#update"
+#     - "backend/plant_products#index"
+#     - "backend/plant_products#list"
+#     - "backend/plant_seedlings#index"
+#     - "backend/plant_seedlings#list"
+#     - "backend/product_nature_variant_readings#create"
+#     - "backend/product_nature_variant_readings#destroy"
+#     - "backend/product_nature_variant_readings#edit"
+#     - "backend/product_nature_variant_readings#new"
+#     - "backend/product_nature_variant_readings#update"
+#     - "backend/production_support_markers#create"
+#     - "backend/production_support_markers#destroy"
+#     - "backend/production_support_markers#edit"
+#     - "backend/production_support_markers#index"
+#     - "backend/production_support_markers#list"
+#     - "backend/production_support_markers#new"
+#     - "backend/production_support_markers#show"
+#     - "backend/production_support_markers#unroll"
+#     - "backend/production_support_markers#update"
+#     - "backend/production_supports#create"
+#     - "backend/production_supports#destroy"
+#     - "backend/production_supports#edit"
+#     - "backend/production_supports#index"
+#     - "backend/production_supports#list"
+#     - "backend/production_supports#list_interventions"
+#     - "backend/production_supports#list_markers"
+#     - "backend/production_supports#new"
+#     - "backend/production_supports#show"
+#     - "backend/production_supports#unroll"
+#     - "backend/production_supports#update"
+#     - "backend/purchase_items#create"
+#     - "backend/purchase_items#destroy"
+#     - "backend/purchase_items#edit"
+#     - "backend/purchase_items#index"
+#     - "backend/purchase_items#new"
+#     - "backend/purchase_items#show"
+#     - "backend/purchase_items#update"
+#     - "backend/sale_items#create"
+#     - "backend/sale_items#destroy"
+#     - "backend/sale_items#detail"
+#     - "backend/sale_items#edit"
+#     - "backend/sale_items#index"
+#     - "backend/sale_items#new"
+#     - "backend/sale_items#show"
+#     - "backend/sale_items#update"
+#     - "backend/snippets#toggle"
+#     - "backend/transformed_products#index"
+#     - "backend/transformed_products#list"
+#     - "backend/wine_tanks#index"
+#     - "backend/wine_tanks#list"
+#     - "backend/wine_transformers#index"
+#     - "backend/wine_transformers#list"
+#     - "devise/confirmations#create"
+#     - "devise/confirmations#new"
+#     - "devise/confirmations#show"
+#     - "devise/passwords#create"
+#     - "devise/passwords#edit"
+#     - "devise/passwords#new"
+#     - "devise/passwords#update"
+#     - "devise/registrations#cancel"
+#     - "devise/registrations#create"
+#     - "devise/registrations#destroy"
+#     - "devise/registrations#edit"
+#     - "devise/registrations#new"
+#     - "devise/registrations#update"
+#     - "devise/sessions#create"
+#     - "devise/sessions#destroy"
+#     - "devise/sessions#new"
+#     - "devise/unlocks#create"
+#     - "devise/unlocks#new"
+#     - "devise/unlocks#show"
+#     - "public#index"
+
+accounts:
+  read:
+    actions:
+    - "backend/accounts#index"
+    - "backend/accounts#list"
+    - "backend/accounts#list_entities"
+    - "backend/accounts#list_journal_entry_items"
+    - "backend/accounts#list_reconciliation"
+    - "backend/accounts#show"
+    - "backend/accounts#unroll"
+  write:
+    depend-on:
+    - read-accounts
+    actions:
+    - "backend/accounts#create"
+    - "backend/accounts#destroy"
+    - "backend/accounts#edit"
+    - "backend/accounts#load"
+    - "backend/accounts#mark"
+    - "backend/accounts#new"
+    - "backend/accounts#reconciliation"
+    - "backend/accounts#unmark"
+    - "backend/accounts#update"
+
+activities:
+  read:
+    actions:
+    - "backend/activities#index"
+    - "backend/activities#list"
+    - "backend/activities#list_productions"
+    - "backend/activities#show"
+    - "backend/activities#unroll"
+  write:
+    depend-on:
+    - read-activities
+    actions:
+    - "backend/activities#create"
+    - "backend/activities#destroy"
+    - "backend/activities#edit"
+    - "backend/activities#new"
+    - "backend/activities#update"
+
+affairs:
+  read:
+    actions:
+    - "backend/affairs#index"
+    - "backend/affairs#list"
+    - "backend/affairs#show"
+  write:
+    depend-on:
+    - read-affairs
+    actions:
+    - "backend/affairs#attach"
+    - "backend/affairs#detach"
+    - "backend/affairs#finish"
+    - "backend/affairs#select"
+
+aggregators:
+  read:
+    actions:
+    - "backend/aggregators#index"
+    - "backend/aggregators#show"
+
+analyses:
+  read:
+    actions:
+    - "backend/analyses#index"
+    - "backend/analyses#list"
+    - "backend/analyses#list_items"
+    - "backend/analyses#show"
+    - "backend/analyses#unroll"
+  write:
+    depend-on:
+    - read-analyses
+    actions:
+    - "backend/analyses#create"
+    - "backend/analyses#destroy"
+    - "backend/analyses#edit"
+    - "backend/analyses#new"
+    - "backend/analyses#update"
+
+analytic_distributions:
+  read:
+    actions:
+    - "backend/analytic_distributions#index"
+    - "backend/analytic_distributions#list"
+    - "backend/analytic_distributions#show"
+    - "backend/analytic_distributions#unroll"
+  write:
+    depend-on:
+    - read-analytic_distributions
+    actions:
+    - "backend/analytic_distributions#create"
+    - "backend/analytic_distributions#destroy"
+    - "backend/analytic_distributions#edit"
+    - "backend/analytic_distributions#new"
+    - "backend/analytic_distributions#update"
+
+animal_foods:
+  read:
+    actions:
+    - "backend/animal_foods#index"
+    - "backend/animal_foods#list"
+  write:
+    depend-on:
+    - read-animal_foods
+
+animal_groups:
+  read:
+    actions:
+    - "backend/animal_groups#index"
+    - "backend/animal_groups#list"
+    - "backend/animal_groups#list_animals"
+    - "backend/animal_groups#list_places"
+    - "backend/animal_groups#show"
+    - "backend/animal_groups#unroll"
+  write:
+    depend-on:
+    - read-animal_groups
+    actions:
+    - "backend/animal_groups#create"
+    - "backend/animal_groups#destroy"
+    - "backend/animal_groups#edit"
+    - "backend/animal_groups#new"
+    - "backend/animal_groups#update"
+
+animal_medicines:
+  read:
+    actions:
+    - "backend/animal_medicines#index"
+    - "backend/animal_medicines#list"
+    - "backend/animal_medicines#list_carried_linkages"
+    - "backend/animal_medicines#list_carrier_linkages"
+    - "backend/animal_medicines#list_contained_products"
+    - "backend/animal_medicines#list_groups"
+    - "backend/animal_medicines#list_intervention_casts"
+    - "backend/animal_medicines#list_issues"
+    - "backend/animal_medicines#list_markers"
+    - "backend/animal_medicines#list_members"
+    - "backend/animal_medicines#list_places"
+    - "backend/animal_medicines#list_reading_tasks"
+    - "backend/animal_medicines#list_readings"
+    - "backend/animal_medicines#picture"
+    - "backend/animal_medicines#show"
+    - "backend/animal_medicines#unroll"
+  write:
+    depend-on:
+    - read-animal_medicines
+    actions:
+    - "backend/animal_medicines#create"
+    - "backend/animal_medicines#destroy"
+    - "backend/animal_medicines#edit"
+    - "backend/animal_medicines#new"
+    - "backend/animal_medicines#update"
+
+animal_products:
+  read:
+    actions:
+    - "backend/animal_products#index"
+    - "backend/animal_products#list"
+  write:
+    depend-on:
+    - read-animal_products
+
+animals:
+  read:
+    actions:
+    - "backend/animals#index"
+    - "backend/animals#list"
+    - "backend/animals#list_carried_linkages"
+    - "backend/animals#list_carrier_linkages"
+    - "backend/animals#list_children"
+    - "backend/animals#list_contained_products"
+    - "backend/animals#list_groups"
+    - "backend/animals#list_intervention_casts"
+    - "backend/animals#list_issues"
+    - "backend/animals#list_markers"
+    - "backend/animals#list_members"
+    - "backend/animals#list_places"
+    - "backend/animals#list_reading_tasks"
+    - "backend/animals#list_readings"
+    - "backend/animals#picture"
+    - "backend/animals#show"
+    - "backend/animals#unroll"
+  write:
+    depend-on:
+    - read-animals
+    actions:
+    - "backend/animals#create"
+    - "backend/animals#destroy"
+    - "backend/animals#edit"
+    - "backend/animals#new"
+    - "backend/animals#update"
+
+bank_statements:
+  read:
+    actions:
+    - "backend/bank_statements#index"
+    - "backend/bank_statements#list"
+    - "backend/bank_statements#list_items"
+    - "backend/bank_statements#show"
+    - "backend/bank_statements#unroll"
+  write:
+    depend-on:
+    - read-bank_statements
+    actions:
+    - "backend/bank_statements#create"
+    - "backend/bank_statements#destroy"
+    - "backend/bank_statements#edit"
+    - "backend/bank_statements#new"
+    - "backend/bank_statements#point"
+    - "backend/bank_statements#update"
+
+building_divisions:
+  read:
+    actions:
+    - "backend/building_divisions#index"
+    - "backend/building_divisions#list"
+    - "backend/building_divisions#list_carried_linkages"
+    - "backend/building_divisions#list_carrier_linkages"
+    - "backend/building_divisions#list_contained_products"
+    - "backend/building_divisions#list_groups"
+    - "backend/building_divisions#list_intervention_casts"
+    - "backend/building_divisions#list_issues"
+    - "backend/building_divisions#list_markers"
+    - "backend/building_divisions#list_members"
+    - "backend/building_divisions#list_places"
+    - "backend/building_divisions#list_reading_tasks"
+    - "backend/building_divisions#list_readings"
+    - "backend/building_divisions#picture"
+    - "backend/building_divisions#show"
+    - "backend/building_divisions#unroll"
+  write:
+    depend-on:
+    - read-building_divisions
+    actions:
+    - "backend/building_divisions#create"
+    - "backend/building_divisions#destroy"
+    - "backend/building_divisions#edit"
+    - "backend/building_divisions#new"
+    - "backend/building_divisions#update"
+
+buildings:
+  read:
+    actions:
+    - "backend/buildings#index"
+    - "backend/buildings#list"
+    - "backend/buildings#list_carried_linkages"
+    - "backend/buildings#list_carrier_linkages"
+    - "backend/buildings#list_contained_products"
+    - "backend/buildings#list_divisions"
+    - "backend/buildings#list_groups"
+    - "backend/buildings#list_intervention_casts"
+    - "backend/buildings#list_issues"
+    - "backend/buildings#list_markers"
+    - "backend/buildings#list_members"
+    - "backend/buildings#list_places"
+    - "backend/buildings#list_reading_tasks"
+    - "backend/buildings#list_readings"
+    - "backend/buildings#picture"
+    - "backend/buildings#show"
+    - "backend/buildings#unroll"
+  write:
+    depend-on:
+    - read-buildings
+    actions:
+    - "backend/buildings#create"
+    - "backend/buildings#destroy"
+    - "backend/buildings#edit"
+    - "backend/buildings#new"
+    - "backend/buildings#update"
+
+campaigns:
+  read:
+    actions:
+    - "backend/campaigns#index"
+    - "backend/campaigns#list"
+    - "backend/campaigns#list_productions"
+    - "backend/campaigns#show"
+    - "backend/campaigns#unroll"
+  write:
+    depend-on:
+    - read-campaigns
+    actions:
+    - "backend/campaigns#create"
+    - "backend/campaigns#destroy"
+    - "backend/campaigns#edit"
+    - "backend/campaigns#new"
+    - "backend/campaigns#update"
+
+cash_transfers:
+  read:
+    actions:
+    - "backend/cash_transfers#index"
+    - "backend/cash_transfers#list"
+    - "backend/cash_transfers#show"
+    - "backend/cash_transfers#unroll"
+  write:
+    depend-on:
+    - read-cash_transfers
+    actions:
+    - "backend/cash_transfers#create"
+    - "backend/cash_transfers#destroy"
+    - "backend/cash_transfers#edit"
+    - "backend/cash_transfers#new"
+    - "backend/cash_transfers#update"
+
+cashes:
+  read:
+    actions:
+    - "backend/cashes#index"
+    - "backend/cashes#list"
+    - "backend/cashes#list_bank_statements"
+    - "backend/cashes#list_deposits"
+    - "backend/cashes#show"
+    - "backend/cashes#unroll"
+  write:
+    depend-on:
+    - read-cashes
+    actions:
+    - "backend/cashes#create"
+    - "backend/cashes#destroy"
+    - "backend/cashes#edit"
+    - "backend/cashes#new"
+    - "backend/cashes#update"
+
+catalog_prices:
+  read:
+    actions:
+    - "backend/catalog_prices#index"
+    - "backend/catalog_prices#list"
+    - "backend/catalog_prices#show"
+    - "backend/catalog_prices#unroll"
+  write:
+    depend-on:
+    - read-catalog_prices
+    actions:
+    - "backend/catalog_prices#create"
+    - "backend/catalog_prices#destroy"
+    - "backend/catalog_prices#edit"
+    - "backend/catalog_prices#new"
+    - "backend/catalog_prices#update"
+
+catalogs:
+  read:
+    actions:
+    - "backend/catalogs#index"
+    - "backend/catalogs#list"
+    - "backend/catalogs#list_prices"
+    - "backend/catalogs#show"
+    - "backend/catalogs#unroll"
+  write:
+    depend-on:
+    - read-catalogs
+    actions:
+    - "backend/catalogs#create"
+    - "backend/catalogs#destroy"
+    - "backend/catalogs#edit"
+    - "backend/catalogs#new"
+    - "backend/catalogs#update"
+
+cultivable_zones:
+  read:
+    actions:
+    - "backend/cultivable_zones#index"
+    - "backend/cultivable_zones#list"
+    - "backend/cultivable_zones#list_carried_linkages"
+    - "backend/cultivable_zones#list_carrier_linkages"
+    - "backend/cultivable_zones#list_contained_products"
+    - "backend/cultivable_zones#list_groups"
+    - "backend/cultivable_zones#list_intervention_casts"
+    - "backend/cultivable_zones#list_issues"
+    - "backend/cultivable_zones#list_markers"
+    - "backend/cultivable_zones#list_members"
+    - "backend/cultivable_zones#list_places"
+    - "backend/cultivable_zones#list_productions"
+    - "backend/cultivable_zones#list_reading_tasks"
+    - "backend/cultivable_zones#list_readings"
+    - "backend/cultivable_zones#picture"
+    - "backend/cultivable_zones#show"
+    - "backend/cultivable_zones#unroll"
+  write:
+    depend-on:
+    - read-cultivable_zones
+    actions:
+    - "backend/cultivable_zones#create"
+    - "backend/cultivable_zones#destroy"
+    - "backend/cultivable_zones#edit"
+    - "backend/cultivable_zones#new"
+    - "backend/cultivable_zones#update"
+
+custom_fields:
+  read:
+    actions:
+    - "backend/custom_fields#index"
+    - "backend/custom_fields#list"
+    - "backend/custom_fields#list_choices"
+    - "backend/custom_fields#show"
+    - "backend/custom_fields#unroll"
+    - "backend/custom_field_choices#unroll"
+  write:
+    depend-on:
+    - read-custom_fields
+    actions:
+    - "backend/custom_fields#create"
+    - "backend/custom_fields#destroy"
+    - "backend/custom_fields#down"
+    - "backend/custom_fields#edit"
+    - "backend/custom_fields#new"
+    - "backend/custom_fields#sort"
+    - "backend/custom_fields#up"
+    - "backend/custom_fields#update"
+    - "backend/custom_field_choices#create"
+    - "backend/custom_field_choices#destroy"
+    - "backend/custom_field_choices#down"
+    - "backend/custom_field_choices#edit"
+    - "backend/custom_field_choices#new"
+    - "backend/custom_field_choices#up"
+    - "backend/custom_field_choices#update"
+
+deposits:
+  read:
+    actions:
+    - "backend/deposits#index"
+    - "backend/deposits#list"
+    - "backend/deposits#list_depositable_payments"
+    - "backend/deposits#list_payments"
+    - "backend/deposits#list_unvalidateds"
+    - "backend/deposits#show"
+    - "backend/deposits#unroll"
+  write:
+    depend-on:
+    - read-deposits
+    actions:
+    - "backend/deposits#create"
+    - "backend/deposits#destroy"
+    - "backend/deposits#edit"
+    - "backend/deposits#new"
+    - "backend/deposits#unvalidateds"
+    - "backend/deposits#update"
+
+districts:
+  read:
+    actions:
+    - "backend/districts#index"
+    - "backend/districts#list"
+    - "backend/districts#unroll"
+  write:
+    depend-on:
+    - read-districts
+    actions:
+    - "backend/districts#create"
+    - "backend/districts#destroy"
+    - "backend/districts#edit"
+    - "backend/districts#new"
+    - "backend/districts#update"
+
+document_templates:
+  read:
+    actions:
+    - "backend/document_templates#index"
+    - "backend/document_templates#list"
+    - "backend/document_templates#unroll"
+  write:
+    depend-on:
+    - read-document_templates
+    actions:
+    - "backend/document_templates#create"
+    - "backend/document_templates#destroy"
+    - "backend/document_templates#edit"
+    - "backend/document_templates#load"
+    - "backend/document_templates#new"
+    - "backend/document_templates#update"
+
+documents:
+  read:
+    actions:
+    - "backend/documents#index"
+    - "backend/documents#list"
+    - "backend/documents#list_archives"
+    - "backend/documents#show"
+  write:
+    depend-on:
+    - read-documents
+    actions:
+    - "backend/documents#create"
+    - "backend/documents#destroy"
+    - "backend/documents#edit"
+    - "backend/documents#new"
+    - "backend/documents#update"
+
+entities:
+  read:
+    actions:
+    - "backend/entities#index"
+    - "backend/entities#list"
+    - "backend/entities#list_event_participations"
+    - "backend/entities#list_incoming_payments"
+    - "backend/entities#list_links"
+    - "backend/entities#list_observations"
+    - "backend/entities#list_outgoing_payments"
+    - "backend/entities#list_purchases"
+    - "backend/entities#list_sales"
+    - "backend/entities#list_subscriptions"
+    - "backend/entities#picture"
+    - "backend/entities#show"
+    - "backend/entities#unroll"
+    - "backend/entity_addresses#index"
+    - "backend/entity_addresses#show"
+    - "backend/entity_addresses#unroll"
+    - "backend/entity_links#index"
+    - "backend/entity_links#show"
+  write:
+    depend-on:
+    - read-entities
+    actions:
+    - "backend/entities#autocomplete_for_origin"
+    - "backend/entities#create"
+    - "backend/entities#destroy"
+    - "backend/entities#edit"
+    - "backend/entities#export"
+    - "backend/entities#import"
+    - "backend/entities#new"
+    - "backend/entities#update"
+    - "backend/entity_addresses#create"
+    - "backend/entity_addresses#destroy"
+    - "backend/entity_addresses#edit"
+    - "backend/entity_addresses#new"
+    - "backend/entity_addresses#update"
+  link:
+    depend-on:
+    - read-entities
+    actions:
+    - "backend/entity_links#create"
+    - "backend/entity_links#destroy"
+    - "backend/entity_links#edit"
+    - "backend/entity_links#new"
+    - "backend/entity_links#update"
+
+equipments:
+  read:
+    actions:
+    - "backend/equipments#index"
+    - "backend/equipments#list"
+    - "backend/equipments#list_carried_linkages"
+    - "backend/equipments#list_carrier_linkages"
+    - "backend/equipments#list_contained_products"
+    - "backend/equipments#list_groups"
+    - "backend/equipments#list_intervention_casts"
+    - "backend/equipments#list_issues"
+    - "backend/equipments#list_markers"
+    - "backend/equipments#list_members"
+    - "backend/equipments#list_places"
+    - "backend/equipments#list_reading_tasks"
+    - "backend/equipments#list_readings"
+    - "backend/equipments#picture"
+    - "backend/equipments#show"
+    - "backend/equipments#unroll"
+  write:
+    depend-on:
+    - read-equipments
+    actions:
+    - "backend/equipments#create"
+    - "backend/equipments#destroy"
+    - "backend/equipments#edit"
+    - "backend/equipments#new"
+    - "backend/equipments#update"
+
+establishments:
+  read:
+    actions:
+    - "backend/establishments#index"
+    - "backend/establishments#list"
+    - "backend/establishments#unroll"
+  write:
+    depend-on:
+    - read-establishments
+    actions:
+    - "backend/establishments#create"
+    - "backend/establishments#destroy"
+    - "backend/establishments#edit"
+    - "backend/establishments#new"
+    - "backend/establishments#update"
+
+events:
+  read:
+    actions:
+    - "backend/events#index"
+    - "backend/events#list"
+    - "backend/events#list_participations"
+    - "backend/events#show"
+    - "backend/events#unroll"
+  write:
+    depend-on:
+    - read-events
+    actions:
+    - "backend/events#autocomplete_for_place"
+    - "backend/events#change_minutes"
+    - "backend/events#create"
+    - "backend/events#destroy"
+    - "backend/events#edit"
+    - "backend/events#new"
+    - "backend/events#update"
+
+financial_assets:
+  read:
+    actions:
+    - "backend/financial_assets#index"
+    - "backend/financial_assets#list"
+    - "backend/financial_assets#list_depreciations"
+    - "backend/financial_assets#show"
+    - "backend/financial_assets#unroll"
+  write:
+    depend-on:
+    - read-financial_assets
+    actions:
+    - "backend/financial_assets#create"
+    - "backend/financial_assets#destroy"
+    - "backend/financial_assets#edit"
+    - "backend/financial_assets#new"
+    - "backend/financial_assets#update"
+
+financial_years:
+  read:
+    actions:
+    - "backend/financial_years#index"
+    - "backend/financial_years#list"
+    - "backend/financial_years#list_account_balances"
+    - "backend/financial_years#list_financial_asset_depreciations"
+    - "backend/financial_years#show"
+    - "backend/financial_years#unroll"
+  write:
+    depend-on:
+    - read-financial_years
+    actions:
+    - "backend/financial_years#close"
+    - "backend/financial_years#compute_balances"
+    - "backend/financial_years#create"
+    - "backend/financial_years#destroy"
+    - "backend/financial_years#edit"
+    - "backend/financial_years#generate_last_journal_entry"
+    - "backend/financial_years#new"
+    - "backend/financial_years#update"
+  close:
+    depend-on:
+    - read-financial_years
+    actions:
+    - "backend/financial_years#close"
+    - "backend/financial_years#compute_balances"
+    - "backend/financial_years#create"
+    - "backend/financial_years#destroy"
+    - "backend/financial_years#edit"
+    - "backend/financial_years#generate_last_journal_entry"
+    - "backend/financial_years#new"
+    - "backend/financial_years#update"
+  reopen:
+    depend-on:
+    - read-financial_years
+    actions:
+    - "backend/financial_years#close"
+    - "backend/financial_years#compute_balances"
+    - "backend/financial_years#create"
+    - "backend/financial_years#destroy"
+    - "backend/financial_years#edit"
+    - "backend/financial_years#generate_last_journal_entry"
+    - "backend/financial_years#new"
+    - "backend/financial_years#update"
+
+fungi:
+  read:
+    actions:
+    - "backend/fungi#index"
+    - "backend/fungi#list"
+    - "backend/fungi#list_carried_linkages"
+    - "backend/fungi#list_carrier_linkages"
+    - "backend/fungi#list_contained_products"
+    - "backend/fungi#list_groups"
+    - "backend/fungi#list_intervention_casts"
+    - "backend/fungi#list_issues"
+    - "backend/fungi#list_markers"
+    - "backend/fungi#list_members"
+    - "backend/fungi#list_places"
+    - "backend/fungi#list_reading_tasks"
+    - "backend/fungi#list_readings"
+    - "backend/fungi#picture"
+    - "backend/fungi#show"
+    - "backend/fungi#unroll"
+  write:
+    depend-on:
+    - read-fungi
+    actions:
+    - "backend/fungi#create"
+    - "backend/fungi#destroy"
+    - "backend/fungi#edit"
+    - "backend/fungi#new"
+    - "backend/fungi#update"
+
+gaps:
+  read:
+    actions:
+    - "backend/gaps#index"
+    - "backend/gaps#list"
+    - "backend/gaps#list_items"
+    - "backend/gaps#show"
+  write:
+    depend-on:
+    - read-gaps
+
+guide_analyses:
+  read:
+    actions:
+    - "backend/guide_analyses#list_points"
+    - "backend/guide_analyses#show"
+
+guides:
+  read:
+    actions:
+    - "backend/guides#index"
+    - "backend/guides#list"
+    - "backend/guides#list_analyses"
+    - "backend/guides#show"
+    - "backend/guides#unroll"
+  write:
+    depend-on:
+    - read-guides
+    actions:
+    - "backend/guides#create"
+    - "backend/guides#destroy"
+    - "backend/guides#edit"
+    - "backend/guides#new"
+    - "backend/guides#run"
+    - "backend/guides#update"
+  execute:
+    depend-on:
+    - read-guides
+    actions:
+    - "backend/guides#create"
+    - "backend/guides#destroy"
+    - "backend/guides#edit"
+    - "backend/guides#new"
+    - "backend/guides#run"
+    - "backend/guides#update"
+
+identifiers:
+  read:
+    actions:
+    - "backend/identifiers#index"
+    - "backend/identifiers#list"
+    - "backend/identifiers#show"
+    - "backend/identifiers#unroll"
+  write:
+    depend-on:
+    - read-identifiers
+    actions:
+    - "backend/identifiers#create"
+    - "backend/identifiers#destroy"
+    - "backend/identifiers#edit"
+    - "backend/identifiers#new"
+    - "backend/identifiers#update"
+
+incoming_deliveries:
+  read:
+    actions:
+    - "backend/incoming_deliveries#index"
+    - "backend/incoming_deliveries#list"
+    - "backend/incoming_deliveries#list_items"
+    - "backend/incoming_deliveries#show"
+    - "backend/incoming_deliveries#unroll"
+  write:
+    depend-on:
+    - read-incoming_deliveries
+    actions:
+    - "backend/incoming_deliveries#confirm"
+    - "backend/incoming_deliveries#create"
+    - "backend/incoming_deliveries#destroy"
+    - "backend/incoming_deliveries#edit"
+    - "backend/incoming_deliveries#new"
+    - "backend/incoming_deliveries#update"
+
+incoming_delivery_modes:
+  read:
+    actions:
+    - "backend/incoming_delivery_modes#index"
+    - "backend/incoming_delivery_modes#list"
+    - "backend/incoming_delivery_modes#unroll"
+  write:
+    depend-on:
+    - read-incoming_delivery_modes
+    actions:
+    - "backend/incoming_delivery_modes#create"
+    - "backend/incoming_delivery_modes#destroy"
+    - "backend/incoming_delivery_modes#edit"
+    - "backend/incoming_delivery_modes#new"
+    - "backend/incoming_delivery_modes#update"
+
+incoming_payment_modes:
+  read:
+    actions:
+    - "backend/incoming_payment_modes#index"
+    - "backend/incoming_payment_modes#list"
+    - "backend/incoming_payment_modes#unroll"
+  write:
+    depend-on:
+    - read-incoming_payment_modes
+    actions:
+    - "backend/incoming_payment_modes#create"
+    - "backend/incoming_payment_modes#destroy"
+    - "backend/incoming_payment_modes#down"
+    - "backend/incoming_payment_modes#edit"
+    - "backend/incoming_payment_modes#new"
+    - "backend/incoming_payment_modes#reflect"
+    - "backend/incoming_payment_modes#up"
+    - "backend/incoming_payment_modes#update"
+
+incoming_payments:
+  read:
+    actions:
+    - "backend/incoming_payments#index"
+    - "backend/incoming_payments#list"
+    - "backend/incoming_payments#show"
+    - "backend/incoming_payments#unroll"
+  write:
+    depend-on:
+    - read-incoming_payments
+    actions:
+    - "backend/incoming_payments#create"
+    - "backend/incoming_payments#destroy"
+    - "backend/incoming_payments#edit"
+    - "backend/incoming_payments#new"
+    - "backend/incoming_payments#update"
+
+interventions:
+  read:
+    actions:
+    - "backend/interventions#index"
+    - "backend/interventions#list"
+    - "backend/interventions#list_casts"
+    - "backend/interventions#list_operations"
+    - "backend/interventions#show"
+    - "backend/interventions#unroll"
+    - "backend/operations#index"
+    - "backend/operations#show"
+  write:
+    depend-on:
+    - read-interventions
+    actions:
+    - "backend/interventions#compute"
+    - "backend/interventions#create"
+    - "backend/interventions#destroy"
+    - "backend/interventions#edit"
+    - "backend/interventions#new"
+    - "backend/interventions#update"
+  execute:
+    depend-on:
+    - read-interventions
+    actions:
+    - "backend/interventions#run"
+    - "backend/interventions#set"
+
+inventories:
+  read:
+    actions:
+    - "backend/inventories#index"
+    - "backend/inventories#list"
+    - "backend/inventories#list_items"
+    - "backend/inventories#list_items_create"
+    - "backend/inventories#list_items_update"
+    - "backend/inventories#show"
+    - "backend/inventories#unroll"
+  write:
+    depend-on:
+    - read-inventories
+    actions:
+    - "backend/inventories#create"
+    - "backend/inventories#destroy"
+    - "backend/inventories#edit"
+    - "backend/inventories#new"
+    - "backend/inventories#reflect"
+    - "backend/inventories#update"
+
+issues:
+  read:
+    actions:
+    - "backend/issues#index"
+    - "backend/issues#list"
+    - "backend/issues#list_interventions"
+    - "backend/issues#picture"
+    - "backend/issues#show"
+    - "backend/issues#unroll"
+  write:
+    depend-on:
+    - read-issues
+    actions:
+    - "backend/issues#abort"
+    - "backend/issues#close"
+    - "backend/issues#create"
+    - "backend/issues#destroy"
+    - "backend/issues#edit"
+    - "backend/issues#new"
+    - "backend/issues#reopen"
+    - "backend/issues#update"
+
+journal_entries:
+  read:
+    actions:
+    - "backend/journal_entries#index"
+    - "backend/journal_entries#list"
+    - "backend/journal_entries#list_items"
+    - "backend/journal_entries#show"
+    - "backend/journal_entries#unroll"
+    - "backend/journal_entry_items#show"
+    - "backend/journal_entry_items#unroll"
+  write:
+    depend-on:
+    - read-journal_entries
+    actions:
+    - "backend/journal_entries#create"
+    - "backend/journal_entries#destroy"
+    - "backend/journal_entries#edit"
+    - "backend/journal_entries#new"
+    - "backend/journal_entries#update"
+    - "backend/journal_entry_items#new"
+
+journals:
+  read:
+    actions:
+    - "backend/journals#index"
+    - "backend/journals#list"
+    - "backend/journals#list_draft_items"
+    - "backend/journals#list_entries"
+    - "backend/journals#list_general_ledger"
+    - "backend/journals#list_items"
+    - "backend/journals#list_mixed"
+    - "backend/journals#show"
+    - "backend/journals#unroll"
+  write:
+    depend-on:
+    - read-journals
+    actions:
+    - "backend/journals#balance"
+    - "backend/journals#bookkeep"
+    - "backend/journals#close"
+    - "backend/journals#create"
+    - "backend/journals#destroy"
+    - "backend/journals#draft"
+    - "backend/journals#edit"
+    - "backend/journals#general_ledger"
+    - "backend/journals#import"
+    - "backend/journals#new"
+    - "backend/journals#reopen"
+    - "backend/journals#update"
+  close:
+    depend-on:
+    - read-journals
+    actions:
+    - "backend/journals#balance"
+    - "backend/journals#bookkeep"
+    - "backend/journals#close"
+    - "backend/journals#create"
+    - "backend/journals#destroy"
+    - "backend/journals#draft"
+    - "backend/journals#edit"
+    - "backend/journals#general_ledger"
+    - "backend/journals#import"
+    - "backend/journals#new"
+    - "backend/journals#reopen"
+    - "backend/journals#update"
+  reopen:
+    depend-on:
+    - read-journals
+    actions:
+    - "backend/journals#balance"
+    - "backend/journals#bookkeep"
+    - "backend/journals#close"
+    - "backend/journals#create"
+    - "backend/journals#destroy"
+    - "backend/journals#draft"
+    - "backend/journals#edit"
+    - "backend/journals#general_ledger"
+    - "backend/journals#import"
+    - "backend/journals#new"
+    - "backend/journals#reopen"
+    - "backend/journals#update"
+
+land_parcel_clusters:
+  read:
+    actions:
+    - "backend/land_parcel_clusters#index"
+    - "backend/land_parcel_clusters#list"
+    - "backend/land_parcel_clusters#list_carried_linkages"
+    - "backend/land_parcel_clusters#list_carrier_linkages"
+    - "backend/land_parcel_clusters#list_contained_products"
+    - "backend/land_parcel_clusters#list_groups"
+    - "backend/land_parcel_clusters#list_intervention_casts"
+    - "backend/land_parcel_clusters#list_issues"
+    - "backend/land_parcel_clusters#list_markers"
+    - "backend/land_parcel_clusters#list_members"
+    - "backend/land_parcel_clusters#list_places"
+    - "backend/land_parcel_clusters#list_reading_tasks"
+    - "backend/land_parcel_clusters#list_readings"
+    - "backend/land_parcel_clusters#picture"
+    - "backend/land_parcel_clusters#show"
+    - "backend/land_parcel_clusters#unroll"
+  write:
+    depend-on:
+    - read-land_parcel_clusters
+    actions:
+    - "backend/land_parcel_clusters#create"
+    - "backend/land_parcel_clusters#destroy"
+    - "backend/land_parcel_clusters#edit"
+    - "backend/land_parcel_clusters#new"
+    - "backend/land_parcel_clusters#update"
+
+land_parcel_groups:
+  read:
+    actions:
+    - "backend/land_parcel_groups#index"
+    - "backend/land_parcel_groups#list"
+    - "backend/land_parcel_groups#list_carried_linkages"
+    - "backend/land_parcel_groups#list_carrier_linkages"
+    - "backend/land_parcel_groups#list_contained_products"
+    - "backend/land_parcel_groups#list_groups"
+    - "backend/land_parcel_groups#list_intervention_casts"
+    - "backend/land_parcel_groups#list_issues"
+    - "backend/land_parcel_groups#list_markers"
+    - "backend/land_parcel_groups#list_members"
+    - "backend/land_parcel_groups#list_places"
+    - "backend/land_parcel_groups#list_reading_tasks"
+    - "backend/land_parcel_groups#list_readings"
+    - "backend/land_parcel_groups#picture"
+    - "backend/land_parcel_groups#show"
+    - "backend/land_parcel_groups#unroll"
+  write:
+    depend-on:
+    - read-land_parcel_groups
+    actions:
+    - "backend/land_parcel_groups#create"
+    - "backend/land_parcel_groups#destroy"
+    - "backend/land_parcel_groups#edit"
+    - "backend/land_parcel_groups#new"
+    - "backend/land_parcel_groups#update"
+
+land_parcels:
+  read:
+    actions:
+    - "backend/land_parcels#index"
+    - "backend/land_parcels#list"
+    - "backend/land_parcels#list_carried_linkages"
+    - "backend/land_parcels#list_carrier_linkages"
+    - "backend/land_parcels#list_contained_products"
+    - "backend/land_parcels#list_groups"
+    - "backend/land_parcels#list_intervention_casts"
+    - "backend/land_parcels#list_issues"
+    - "backend/land_parcels#list_markers"
+    - "backend/land_parcels#list_members"
+    - "backend/land_parcels#list_places"
+    - "backend/land_parcels#list_reading_tasks"
+    - "backend/land_parcels#list_readings"
+    - "backend/land_parcels#picture"
+    - "backend/land_parcels#show"
+    - "backend/land_parcels#unroll"
+  write:
+    depend-on:
+    - read-land_parcels
+    actions:
+    - "backend/land_parcels#create"
+    - "backend/land_parcels#destroy"
+    - "backend/land_parcels#edit"
+    - "backend/land_parcels#new"
+    - "backend/land_parcels#update"
+
+legal_entities:
+  read:
+    actions:
+    - "backend/legal_entities#index"
+    - "backend/legal_entities#list"
+    - "backend/legal_entities#list_event_participations"
+    - "backend/legal_entities#list_incoming_payments"
+    - "backend/legal_entities#list_links"
+    - "backend/legal_entities#list_observations"
+    - "backend/legal_entities#list_outgoing_payments"
+    - "backend/legal_entities#list_purchases"
+    - "backend/legal_entities#list_sales"
+    - "backend/legal_entities#list_subscriptions"
+    - "backend/legal_entities#picture"
+    - "backend/legal_entities#show"
+    - "backend/legal_entities#unroll"
+  write:
+    depend-on:
+    - read-legal_entities
+    actions:
+    - "backend/legal_entities#autocomplete_for_origin"
+    - "backend/legal_entities#create"
+    - "backend/legal_entities#destroy"
+    - "backend/legal_entities#edit"
+    - "backend/legal_entities#export"
+    - "backend/legal_entities#import"
+    - "backend/legal_entities#merge"
+    - "backend/legal_entities#new"
+    - "backend/legal_entities#update"
+  link:
+    depend-on:
+    - read-legal_entities
+    actions:
+    - "backend/legal_entities#autocomplete_for_origin"
+    - "backend/legal_entities#create"
+    - "backend/legal_entities#destroy"
+    - "backend/legal_entities#edit"
+    - "backend/legal_entities#export"
+    - "backend/legal_entities#import"
+    - "backend/legal_entities#merge"
+    - "backend/legal_entities#new"
+    - "backend/legal_entities#update"
+
+listings:
+  read:
+    actions:
+    - "backend/listings#index"
+    - "backend/listings#list"
+    - "backend/listings#unroll"
+  write:
+    depend-on:
+    - read-listings
+    actions:
+    - "backend/listings#create"
+    - "backend/listings#destroy"
+    - "backend/listings#duplicate"
+    - "backend/listings#edit"
+    - "backend/listings#extract"
+    - "backend/listings#mail"
+    - "backend/listings#new"
+    - "backend/listings#update"
+  execute:
+    depend-on:
+    - read-listings
+    actions:
+    - "backend/listings#create"
+    - "backend/listings#destroy"
+    - "backend/listings#duplicate"
+    - "backend/listings#edit"
+    - "backend/listings#extract"
+    - "backend/listings#mail"
+    - "backend/listings#new"
+    - "backend/listings#update"
+
+manure_management_plans:
+  read:
+    actions:
+    - "backend/manure_management_plans#index"
+    - "backend/manure_management_plans#list"
+    - "backend/manure_management_plans#list_zones"
+    - "backend/manure_management_plans#show"
+    - "backend/manure_management_plans#unroll"
+  write:
+    depend-on:
+    - read-manure_management_plans
+    actions:
+    - "backend/manure_management_plans#create"
+    - "backend/manure_management_plans#destroy"
+    - "backend/manure_management_plans#edit"
+    - "backend/manure_management_plans#new"
+    - "backend/manure_management_plans#update"
+
+matters:
+  read:
+    actions:
+    - "backend/matters#index"
+    - "backend/matters#list"
+    - "backend/matters#list_carried_linkages"
+    - "backend/matters#list_carrier_linkages"
+    - "backend/matters#list_contained_products"
+    - "backend/matters#list_groups"
+    - "backend/matters#list_intervention_casts"
+    - "backend/matters#list_issues"
+    - "backend/matters#list_markers"
+    - "backend/matters#list_members"
+    - "backend/matters#list_places"
+    - "backend/matters#list_reading_tasks"
+    - "backend/matters#list_readings"
+    - "backend/matters#picture"
+    - "backend/matters#show"
+    - "backend/matters#unroll"
+  write:
+    depend-on:
+    - read-matters
+    actions:
+    - "backend/matters#create"
+    - "backend/matters#destroy"
+    - "backend/matters#edit"
+    - "backend/matters#new"
+    - "backend/matters#update"
+
+medicines:
+  read:
+    actions:
+    - "backend/medicines#index"
+    - "backend/medicines#list"
+    - "backend/medicines#list_carried_linkages"
+    - "backend/medicines#list_carrier_linkages"
+    - "backend/medicines#list_contained_products"
+    - "backend/medicines#list_groups"
+    - "backend/medicines#list_intervention_casts"
+    - "backend/medicines#list_issues"
+    - "backend/medicines#list_markers"
+    - "backend/medicines#list_members"
+    - "backend/medicines#list_places"
+    - "backend/medicines#list_reading_tasks"
+    - "backend/medicines#list_readings"
+    - "backend/medicines#picture"
+    - "backend/medicines#show"
+    - "backend/medicines#unroll"
+  write:
+    depend-on:
+    - read-medicines
+    actions:
+    - "backend/medicines#create"
+    - "backend/medicines#destroy"
+    - "backend/medicines#edit"
+    - "backend/medicines#new"
+    - "backend/medicines#update"
+
+mineral_matters:
+  read:
+    actions:
+    - "backend/mineral_matters#index"
+    - "backend/mineral_matters#list"
+    - "backend/mineral_matters#list_carried_linkages"
+    - "backend/mineral_matters#list_carrier_linkages"
+    - "backend/mineral_matters#list_contained_products"
+    - "backend/mineral_matters#list_groups"
+    - "backend/mineral_matters#list_intervention_casts"
+    - "backend/mineral_matters#list_issues"
+    - "backend/mineral_matters#list_markers"
+    - "backend/mineral_matters#list_members"
+    - "backend/mineral_matters#list_places"
+    - "backend/mineral_matters#list_reading_tasks"
+    - "backend/mineral_matters#list_readings"
+    - "backend/mineral_matters#picture"
+    - "backend/mineral_matters#show"
+    - "backend/mineral_matters#unroll"
+  write:
+    depend-on:
+    - read-mineral_matters
+    actions:
+    - "backend/mineral_matters#create"
+    - "backend/mineral_matters#destroy"
+    - "backend/mineral_matters#edit"
+    - "backend/mineral_matters#new"
+    - "backend/mineral_matters#update"
+
+myselves:
+  read:
+    actions:
+    - "backend/myselves#show"
+
+net_services:
+  read:
+    actions:
+    - "backend/net_services#index"
+    - "backend/net_services#list"
+    - "backend/net_services#list_identifiers"
+    - "backend/net_services#show"
+    - "backend/net_services#unroll"
+  write:
+    depend-on:
+    - read-net_services
+    actions:
+    - "backend/net_services#create"
+    - "backend/net_services#destroy"
+    - "backend/net_services#edit"
+    - "backend/net_services#new"
+    - "backend/net_services#update"
+
+observations:
+  write:
+    depend-on:
+    - read-observations
+    actions:
+    - "backend/observations#create"
+    - "backend/observations#destroy"
+    - "backend/observations#edit"
+    - "backend/observations#new"
+    - "backend/observations#update"
+
+organic_matters:
+  read:
+    actions:
+    - "backend/organic_matters#index"
+    - "backend/organic_matters#list"
+    - "backend/organic_matters#list_carried_linkages"
+    - "backend/organic_matters#list_carrier_linkages"
+    - "backend/organic_matters#list_contained_products"
+    - "backend/organic_matters#list_groups"
+    - "backend/organic_matters#list_intervention_casts"
+    - "backend/organic_matters#list_issues"
+    - "backend/organic_matters#list_markers"
+    - "backend/organic_matters#list_members"
+    - "backend/organic_matters#list_places"
+    - "backend/organic_matters#list_reading_tasks"
+    - "backend/organic_matters#list_readings"
+    - "backend/organic_matters#picture"
+    - "backend/organic_matters#show"
+    - "backend/organic_matters#unroll"
+  write:
+    depend-on:
+    - read-organic_matters
+    actions:
+    - "backend/organic_matters#create"
+    - "backend/organic_matters#destroy"
+    - "backend/organic_matters#edit"
+    - "backend/organic_matters#new"
+    - "backend/organic_matters#update"
+
+outgoing_deliveries:
+  read:
+    actions:
+    - "backend/outgoing_deliveries#index"
+    - "backend/outgoing_deliveries#list"
+    - "backend/outgoing_deliveries#list_items"
+    - "backend/outgoing_deliveries#show"
+    - "backend/outgoing_deliveries#unroll"
+  write:
+    depend-on:
+    - read-outgoing_deliveries
+    actions:
+    - "backend/outgoing_deliveries#create"
+    - "backend/outgoing_deliveries#destroy"
+    - "backend/outgoing_deliveries#edit"
+    - "backend/outgoing_deliveries#new"
+    - "backend/outgoing_deliveries#update"
+
+outgoing_delivery_items:
+  write:
+    depend-on:
+    - read-outgoing_delivery_items
+
+outgoing_delivery_modes:
+  read:
+    actions:
+    - "backend/outgoing_delivery_modes#index"
+    - "backend/outgoing_delivery_modes#list"
+    - "backend/outgoing_delivery_modes#unroll"
+  write:
+    depend-on:
+    - read-outgoing_delivery_modes
+    actions:
+    - "backend/outgoing_delivery_modes#create"
+    - "backend/outgoing_delivery_modes#destroy"
+    - "backend/outgoing_delivery_modes#edit"
+    - "backend/outgoing_delivery_modes#new"
+    - "backend/outgoing_delivery_modes#update"
+
+outgoing_payment_modes:
+  read:
+    actions:
+    - "backend/outgoing_payment_modes#index"
+    - "backend/outgoing_payment_modes#list"
+    - "backend/outgoing_payment_modes#unroll"
+  write:
+    depend-on:
+    - read-outgoing_payment_modes
+    actions:
+    - "backend/outgoing_payment_modes#create"
+    - "backend/outgoing_payment_modes#destroy"
+    - "backend/outgoing_payment_modes#down"
+    - "backend/outgoing_payment_modes#edit"
+    - "backend/outgoing_payment_modes#new"
+    - "backend/outgoing_payment_modes#up"
+    - "backend/outgoing_payment_modes#update"
+
+outgoing_payments:
+  read:
+    actions:
+    - "backend/outgoing_payments#index"
+    - "backend/outgoing_payments#list"
+    - "backend/outgoing_payments#show"
+    - "backend/outgoing_payments#unroll"
+  write:
+    depend-on:
+    - read-outgoing_payments
+    actions:
+    - "backend/outgoing_payments#create"
+    - "backend/outgoing_payments#destroy"
+    - "backend/outgoing_payments#edit"
+    - "backend/outgoing_payments#new"
+    - "backend/outgoing_payments#update"
+
+people:
+  read:
+    actions:
+    - "backend/people#index"
+    - "backend/people#list"
+    - "backend/people#list_event_participations"
+    - "backend/people#list_incoming_payments"
+    - "backend/people#list_links"
+    - "backend/people#list_observations"
+    - "backend/people#list_outgoing_payments"
+    - "backend/people#list_purchases"
+    - "backend/people#list_sales"
+    - "backend/people#list_subscriptions"
+    - "backend/people#picture"
+    - "backend/people#show"
+    - "backend/people#unroll"
+  write:
+    depend-on:
+    - read-people
+    actions:
+    - "backend/people#autocomplete_for_origin"
+    - "backend/people#create"
+    - "backend/people#destroy"
+    - "backend/people#edit"
+    - "backend/people#export"
+    - "backend/people#import"
+    - "backend/people#merge"
+    - "backend/people#new"
+    - "backend/people#update"
+  link:
+    depend-on:
+    - read-people
+    actions:
+    - "backend/people#autocomplete_for_origin"
+    - "backend/people#create"
+    - "backend/people#destroy"
+    - "backend/people#edit"
+    - "backend/people#export"
+    - "backend/people#import"
+    - "backend/people#merge"
+    - "backend/people#new"
+    - "backend/people#update"
+
+plants:
+  read:
+    actions:
+    - "backend/plants#index"
+    - "backend/plants#list"
+    - "backend/plants#list_carried_linkages"
+    - "backend/plants#list_carrier_linkages"
+    - "backend/plants#list_contained_products"
+    - "backend/plants#list_groups"
+    - "backend/plants#list_intervention_casts"
+    - "backend/plants#list_issues"
+    - "backend/plants#list_markers"
+    - "backend/plants#list_members"
+    - "backend/plants#list_places"
+    - "backend/plants#list_reading_tasks"
+    - "backend/plants#list_readings"
+    - "backend/plants#picture"
+    - "backend/plants#show"
+    - "backend/plants#unroll"
+  write:
+    depend-on:
+    - read-plants
+    actions:
+    - "backend/plants#create"
+    - "backend/plants#destroy"
+    - "backend/plants#edit"
+    - "backend/plants#new"
+    - "backend/plants#update"
+
+postal_zones:
+  read:
+    actions:
+    - "backend/postal_zones#index"
+    - "backend/postal_zones#list"
+    - "backend/postal_zones#unroll"
+  write:
+    depend-on:
+    - read-postal_zones
+    actions:
+    - "backend/postal_zones#autocomplete_for_name"
+    - "backend/postal_zones#create"
+    - "backend/postal_zones#destroy"
+    - "backend/postal_zones#edit"
+    - "backend/postal_zones#new"
+    - "backend/postal_zones#update"
+
+prescriptions:
+  read:
+    actions:
+    - "backend/prescriptions#index"
+    - "backend/prescriptions#list"
+    - "backend/prescriptions#list_interventions"
+    - "backend/prescriptions#show"
+    - "backend/prescriptions#unroll"
+  write:
+    depend-on:
+    - read-prescriptions
+    actions:
+    - "backend/prescriptions#create"
+    - "backend/prescriptions#destroy"
+    - "backend/prescriptions#edit"
+    - "backend/prescriptions#new"
+    - "backend/prescriptions#update"
+
+product_groups:
+  read:
+    actions:
+    - "backend/product_groups#index"
+    - "backend/product_groups#list"
+    - "backend/product_groups#list_carried_linkages"
+    - "backend/product_groups#list_carrier_linkages"
+    - "backend/product_groups#list_contained_products"
+    - "backend/product_groups#list_groups"
+    - "backend/product_groups#list_intervention_casts"
+    - "backend/product_groups#list_issues"
+    - "backend/product_groups#list_markers"
+    - "backend/product_groups#list_members"
+    - "backend/product_groups#list_places"
+    - "backend/product_groups#list_reading_tasks"
+    - "backend/product_groups#list_readings"
+    - "backend/product_groups#picture"
+    - "backend/product_groups#show"
+    - "backend/product_groups#unroll"
+  write:
+    depend-on:
+    - read-product_groups
+    actions:
+    - "backend/product_groups#create"
+    - "backend/product_groups#destroy"
+    - "backend/product_groups#edit"
+    - "backend/product_groups#new"
+    - "backend/product_groups#update"
+
+product_memberships:
+  write:
+    depend-on:
+    - read-product_memberships
+
+product_nature_categories:
+  read:
+    actions:
+    - "backend/product_nature_categories#index"
+    - "backend/product_nature_categories#list"
+    - "backend/product_nature_categories#list_product_natures"
+    - "backend/product_nature_categories#list_products"
+    - "backend/product_nature_categories#show"
+    - "backend/product_nature_categories#unroll"
+  write:
+    depend-on:
+    - read-product_nature_categories
+    actions:
+    - "backend/product_nature_categories#create"
+    - "backend/product_nature_categories#destroy"
+    - "backend/product_nature_categories#edit"
+    - "backend/product_nature_categories#incorporate"
+    - "backend/product_nature_categories#new"
+    - "backend/product_nature_categories#pick"
+    - "backend/product_nature_categories#update"
+
+product_nature_variants:
+  read:
+    actions:
+    - "backend/product_nature_variants#index"
+    - "backend/product_nature_variants#list"
+    - "backend/product_nature_variants#list_prices"
+    - "backend/product_nature_variants#list_products"
+    - "backend/product_nature_variants#show"
+    - "backend/product_nature_variants#unroll"
+  write:
+    depend-on:
+    - read-product_nature_variants
+    actions:
+    - "backend/product_nature_variants#create"
+    - "backend/product_nature_variants#destroy"
+    - "backend/product_nature_variants#edit"
+    - "backend/product_nature_variants#incorporate"
+    - "backend/product_nature_variants#new"
+    - "backend/product_nature_variants#pick"
+    - "backend/product_nature_variants#update"
+
+product_natures:
+  read:
+    actions:
+    - "backend/product_natures#index"
+    - "backend/product_natures#list"
+    - "backend/product_natures#list_product_nature_variants"
+    - "backend/product_natures#list_products"
+    - "backend/product_natures#show"
+    - "backend/product_natures#unroll"
+  write:
+    depend-on:
+    - read-product_natures
+    actions:
+    - "backend/product_natures#create"
+    - "backend/product_natures#destroy"
+    - "backend/product_natures#edit"
+    - "backend/product_natures#incorporate"
+    - "backend/product_natures#new"
+    - "backend/product_natures#pick"
+    - "backend/product_natures#update"
+
+productions:
+  read:
+    actions:
+    - "backend/productions#index"
+    - "backend/productions#list"
+    - "backend/productions#list_interventions"
+    - "backend/productions#list_markers"
+    - "backend/productions#list_supports"
+    - "backend/productions#show"
+    - "backend/productions#unroll"
+  write:
+    depend-on:
+    - read-productions
+    actions:
+    - "backend/productions#create"
+    - "backend/productions#destroy"
+    - "backend/productions#edit"
+    - "backend/productions#new"
+    - "backend/productions#update"
+
+products:
+  read:
+    actions:
+    - "backend/products#index"
+    - "backend/products#list"
+    - "backend/products#list_carried_linkages"
+    - "backend/products#list_carrier_linkages"
+    - "backend/products#list_contained_products"
+    - "backend/products#list_groups"
+    - "backend/products#list_intervention_casts"
+    - "backend/products#list_issues"
+    - "backend/products#list_markers"
+    - "backend/products#list_members"
+    - "backend/products#list_places"
+    - "backend/products#list_reading_tasks"
+    - "backend/products#list_readings"
+    - "backend/products#picture"
+    - "backend/products#show"
+    - "backend/products#unroll"
+  write:
+    depend-on:
+    - read-products
+    actions:
+    - "backend/products#create"
+    - "backend/products#destroy"
+    - "backend/products#edit"
+    - "backend/products#new"
+    - "backend/products#update"
+
+purchase_natures:
+  read:
+    actions:
+    - "backend/purchase_natures#index"
+    - "backend/purchase_natures#list"
+    - "backend/purchase_natures#show"
+    - "backend/purchase_natures#unroll"
+  write:
+    depend-on:
+    - read-purchase_natures
+    actions:
+    - "backend/purchase_natures#create"
+    - "backend/purchase_natures#destroy"
+    - "backend/purchase_natures#edit"
+    - "backend/purchase_natures#new"
+    - "backend/purchase_natures#update"
+
+purchases:
+  read:
+    actions:
+    - "backend/purchases#index"
+    - "backend/purchases#list"
+    - "backend/purchases#list_deliveries"
+    - "backend/purchases#list_items"
+    - "backend/purchases#show"
+    - "backend/purchases#unroll"
+  write:
+    depend-on:
+    - read-purchases
+    actions:
+    - "backend/purchases#abort"
+    - "backend/purchases#confirm"
+    - "backend/purchases#correct"
+    - "backend/purchases#create"
+    - "backend/purchases#destroy"
+    - "backend/purchases#edit"
+    - "backend/purchases#invoice"
+    - "backend/purchases#new"
+    - "backend/purchases#propose"
+    - "backend/purchases#refuse"
+    - "backend/purchases#update"
+
+roles:
+  read:
+    actions:
+    - "backend/roles#index"
+    - "backend/roles#list"
+    - "backend/roles#unroll"
+  write:
+    depend-on:
+    - read-roles
+    actions:
+    - "backend/roles#create"
+    - "backend/roles#destroy"
+    - "backend/roles#edit"
+    - "backend/roles#new"
+    - "backend/roles#update"
+
+sale_natures:
+  read:
+    actions:
+    - "backend/sale_natures#index"
+    - "backend/sale_natures#list"
+    - "backend/sale_natures#show"
+    - "backend/sale_natures#unroll"
+  write:
+    depend-on:
+    - read-sale_natures
+    actions:
+    - "backend/sale_natures#create"
+    - "backend/sale_natures#destroy"
+    - "backend/sale_natures#edit"
+    - "backend/sale_natures#new"
+    - "backend/sale_natures#update"
+
+sales:
+  read:
+    actions:
+    - "backend/sales#index"
+    - "backend/sales#list"
+    - "backend/sales#list_creditable_items"
+    - "backend/sales#list_credits"
+    - "backend/sales#list_deliveries"
+    - "backend/sales#list_items"
+    - "backend/sales#list_subscriptions"
+    - "backend/sales#list_undelivered_items"
+    - "backend/sales#show"
+    - "backend/sales#unroll"
+  write:
+    depend-on:
+    - read-sales
+    actions:
+    - "backend/sales#abort"
+    - "backend/sales#cancel"
+    - "backend/sales#confirm"
+    - "backend/sales#contacts"
+    - "backend/sales#correct"
+    - "backend/sales#create"
+    - "backend/sales#destroy"
+    - "backend/sales#duplicate"
+    - "backend/sales#edit"
+    - "backend/sales#invoice"
+    - "backend/sales#new"
+    - "backend/sales#propose"
+    - "backend/sales#propose_and_invoice"
+    - "backend/sales#refuse"
+    - "backend/sales#update"
+
+sequences:
+  read:
+    actions:
+    - "backend/sequences#index"
+    - "backend/sequences#list"
+    - "backend/sequences#unroll"
+  write:
+    depend-on:
+    - read-sequences
+    actions:
+    - "backend/sequences#create"
+    - "backend/sequences#destroy"
+    - "backend/sequences#edit"
+    - "backend/sequences#load"
+    - "backend/sequences#new"
+    - "backend/sequences#update"
+
+settings:
+  write:
+    depend-on:
+    - read-settings
+    actions:
+    - "backend/settings#about"
+    - "backend/settings#edit"
+    - "backend/settings#import"
+    - "backend/settings#update"
+
+settlements:
+  read:
+    actions:
+    - "backend/settlements#index"
+    - "backend/settlements#list"
+    - "backend/settlements#list_carried_linkages"
+    - "backend/settlements#list_carrier_linkages"
+    - "backend/settlements#list_contained_products"
+    - "backend/settlements#list_groups"
+    - "backend/settlements#list_intervention_casts"
+    - "backend/settlements#list_issues"
+    - "backend/settlements#list_markers"
+    - "backend/settlements#list_members"
+    - "backend/settlements#list_places"
+    - "backend/settlements#list_reading_tasks"
+    - "backend/settlements#list_readings"
+    - "backend/settlements#picture"
+    - "backend/settlements#show"
+    - "backend/settlements#unroll"
+  write:
+    depend-on:
+    - read-settlements
+    actions:
+    - "backend/settlements#create"
+    - "backend/settlements#destroy"
+    - "backend/settlements#edit"
+    - "backend/settlements#new"
+    - "backend/settlements#update"
+
+subscription_natures:
+  read:
+    actions:
+    - "backend/subscription_natures#index"
+    - "backend/subscription_natures#list"
+    - "backend/subscription_natures#show"
+    - "backend/subscription_natures#unroll"
+  write:
+    depend-on:
+    - read-subscription_natures
+    actions:
+    - "backend/subscription_natures#create"
+    - "backend/subscription_natures#decrement"
+    - "backend/subscription_natures#destroy"
+    - "backend/subscription_natures#edit"
+    - "backend/subscription_natures#increment"
+    - "backend/subscription_natures#new"
+    - "backend/subscription_natures#update"
+
+subscriptions:
+  read:
+    actions:
+    - "backend/subscriptions#index"
+    - "backend/subscriptions#list"
+    - "backend/subscriptions#unroll"
+  write:
+    depend-on:
+    - read-subscriptions
+    actions:
+    - "backend/subscriptions#coordinates"
+    - "backend/subscriptions#create"
+    - "backend/subscriptions#destroy"
+    - "backend/subscriptions#edit"
+    - "backend/subscriptions#new"
+    - "backend/subscriptions#update"
+
+taxes:
+  read:
+    actions:
+    - "backend/taxes#index"
+    - "backend/taxes#list"
+    - "backend/taxes#unroll"
+  write:
+    depend-on:
+    - read-taxes
+    actions:
+    - "backend/taxes#create"
+    - "backend/taxes#destroy"
+    - "backend/taxes#edit"
+    - "backend/taxes#new"
+    - "backend/taxes#update"
+
+teams:
+  read:
+    actions:
+    - "backend/teams#index"
+    - "backend/teams#list"
+    - "backend/teams#unroll"
+  write:
+    depend-on:
+    - read-teams
+    actions:
+    - "backend/teams#create"
+    - "backend/teams#destroy"
+    - "backend/teams#edit"
+    - "backend/teams#new"
+    - "backend/teams#update"
+
+trackings:
+  read:
+    actions:
+    - "backend/trackings#index"
+    - "backend/trackings#list"
+    - "backend/trackings#list_products"
+    - "backend/trackings#show"
+    - "backend/trackings#unroll"
+  write:
+    depend-on:
+    - read-trackings
+    actions:
+    - "backend/trackings#create"
+    - "backend/trackings#destroy"
+    - "backend/trackings#edit"
+    - "backend/trackings#new"
+    - "backend/trackings#update"
+
+transfers:
+  write:
+    depend-on:
+    - read-transfers
+
+transports:
+  read:
+    actions:
+    - "backend/transports#index"
+    - "backend/transports#list"
+    - "backend/transports#list_deliveries"
+    - "backend/transports#list_transportable_deliveries"
+    - "backend/transports#show"
+    - "backend/transports#unroll"
+  write:
+    depend-on:
+    - read-transports
+    actions:
+    - "backend/transports#create"
+    - "backend/transports#destroy"
+    - "backend/transports#edit"
+    - "backend/transports#new"
+    - "backend/transports#update"
+
+users:
+  read:
+    actions:
+    - "backend/users#index"
+    - "backend/users#list"
+    - "backend/users#show"
+    - "backend/users#unroll"
+  write:
+    depend-on:
+    - read-users
+    actions:
+    - "backend/users#create"
+    - "backend/users#destroy"
+    - "backend/users#edit"
+    - "backend/users#lock"
+    - "backend/users#new"
+    - "backend/users#unlock"
+    - "backend/users#update"
+  lock:
+    depend-on:
+    - read-users
+    actions:
+    - "backend/users#create"
+    - "backend/users#destroy"
+    - "backend/users#edit"
+    - "backend/users#lock"
+    - "backend/users#new"
+    - "backend/users#unlock"
+    - "backend/users#update"
+
+workers:
+  read:
+    actions:
+    - "backend/workers#index"
+    - "backend/workers#list"
+    - "backend/workers#list_carried_linkages"
+    - "backend/workers#list_carrier_linkages"
+    - "backend/workers#list_contained_products"
+    - "backend/workers#list_groups"
+    - "backend/workers#list_intervention_casts"
+    - "backend/workers#list_issues"
+    - "backend/workers#list_markers"
+    - "backend/workers#list_members"
+    - "backend/workers#list_places"
+    - "backend/workers#list_reading_tasks"
+    - "backend/workers#list_readings"
+    - "backend/workers#picture"
+    - "backend/workers#show"
+    - "backend/workers#unroll"
+  write:
+    depend-on:
+    - read-workers
+    actions:
+    - "backend/workers#create"
+    - "backend/workers#destroy"
+    - "backend/workers#edit"
+    - "backend/workers#new"
+    - "backend/workers#update"

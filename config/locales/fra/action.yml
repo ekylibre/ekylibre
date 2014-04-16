@@ -401,6 +401,11 @@ fra:
       index: "Exportations et mailings"
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Création d’une nouvelle extraction"
+    backend/manure_management_plans:
+      edit: "Modifier le plan de fumure\_: %{name}"
+      index: "Plans de fumure"
+      new: "Nouveau plan de fumure"
+      show: "Plan de fumure\_: %{name}"
     backend/matters:
       edit: "Modifier la matière\_: %{name}"
       index: "Matières"
@@ -786,6 +791,7 @@ fra:
     backend/listing_node_items: "Élement de nœuds d’extractions"
     backend/listing_nodes: "Nœuds d’extractions"
     backend/listings: "Exportations et mailings"
+    # backend/manure_management_plans: "Backend/manure management plans"
     backend/matters: "Matières"
     backend/medicines: "Médicaments"
     backend/mineral_matters: "Matières minérales"

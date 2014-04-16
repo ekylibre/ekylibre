@@ -390,6 +390,10 @@ spa:
     listing:
       root_model:
         company: "Compañía"
+    manure_management_plan:
+
+    manure_management_plan_zone:
+
     matter:
 
     medicine:

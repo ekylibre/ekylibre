@@ -483,28 +483,6 @@ arb:
         # period: "Période"
         # specific_heat_capacity: "Capacité thermique"
         # symbol: "Symbole"
-    controlled_resources:
-      items:
-        # accountancy_dashboard: "Tableau de bord de la comptabilité"
-        # accounts: "Comptes comptables"
-        # activities: "Activités"
-        # affairs: "Affaires"
-        # analysis: "Analyses"
-        # animal_groups: "Troupeaux"
-        # animal_medicines: "Médicaments vétérinaires"
-        # animals: "Animaux"
-        # bank_statements: "Relevés de banque"
-        # bioproducts: "Bioproduits"
-        # building_divisions: "Salles/zones de bâtiment"
-        # buildings: "Bâtiments"
-        # calculators: "Calculateurs"
-        # campaigns: "Campagnes"
-        # cash_tranfers: "Virements"
-        # entities: "Personnes (physiques et morales)"
-        # interventions: "Interventions"
-      # name: "Ressources contrôlées"
-      property_natures:
-        # accesses: "Accès"
     countries:
       items:
         ad: "علم أندورا أندورا"
@@ -1067,6 +1045,33 @@ arb:
       # name: "Types de documents"
       property_natures:
         # category: "Catégories"
+    enterprise_resource_actions:
+      items:
+        # close: "Fermer"
+        # execute: "Exécuter"
+        # link: "Lier"
+        # lock: "Verrouiller"
+        # read: "Lire"
+        # reopen: "Réouvrir"
+        # write: "Écrire"
+      # name: "Actions des ressources d’entreprise"
+    enterprise_resources:
+      items:
+        # accounts: "Comptes comptables"
+        # activities: "Activités"
+        # affairs: "Affaires"
+        # animal_groups: "Troupeaux"
+        # animal_medicines: "Médicaments vétérinaires"
+        # animals: "Animaux"
+        # bank_statements: "Relevés de banque"
+        # building_divisions: "Salles/zones de bâtiment"
+        # buildings: "Bâtiments"
+        # campaigns: "Campagnes"
+        # entities: "Personnes (physiques et morales)"
+        # interventions: "Interventions"
+      # name: "Ressources d’entreprise"
+      property_natures:
+        # accesses: "Accès"
     entity_link_natures:
       choices: #?
       items:
@@ -1466,6 +1471,8 @@ arb:
         # heat: "Chaleur"
         # pregnancy: "Pleine"
       # name: "États de la reproduction mammifère"
+    manure_management_plan_computation_methods:
+      items: #?
     molecules:
       items:
         # ammonia: "Ammoniac"

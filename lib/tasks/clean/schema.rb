@@ -3,7 +3,7 @@ desc "Update models list file in lib/models.rb"
 task :schema => :environment do
   print " - Schema: "
 
-  models = CleanSupport.models_in_file
+  models = Clean::Support.models_in_file
 
   symodels = models.collect{|x| x.name.underscore.to_sym}
 

@@ -935,6 +935,46 @@ listings:
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
+manure_management_plan_zones:
+  absorbed_nitrogen_at_opening: {type: decimal, precision: 19, scale: 4}
+  computation_method: {type: string, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  humus_mineralization: {type: decimal, precision: 19, scale: 4}
+  id: {type: integer, required: true}
+  intermediate_cultivation_residue_mineralization: {type: decimal, precision: 19, scale: 4}
+  irrigation_water_nitrogen: {type: decimal, precision: 19, scale: 4}
+  lock_version: {type: integer, required: true, default: 0}
+  meadow_humus_mineralization: {type: decimal, precision: 19, scale: 4}
+  membership_id: {type: integer, references: cultivable_zone_membership, required: true}
+  mineral_nitrogen_at_opening: {type: decimal, precision: 19, scale: 4}
+  nitrogen_at_closing: {type: decimal, precision: 19, scale: 4}
+  nitrogen_input: {type: decimal, precision: 19, scale: 4}
+  nitrogen_need: {type: decimal, precision: 19, scale: 4}
+  organic_fertilizer_mineral_fraction: {type: decimal, precision: 19, scale: 4}
+  plan_id: {type: integer, references: manure_management_plan, required: true}
+  previous_cultivation_residue_mineralization: {type: decimal, precision: 19, scale: 4}
+  soil_production: {type: decimal, precision: 19, scale: 4}
+  support_id: {type: integer, references: production_support, required: true}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
+manure_management_plans:
+  annotation: {type: text}
+  campaign_id: {type: integer, references: campaign, required: true}
+  created_at: {type: datetime, required: true}
+  creator_id: {type: integer, references: user}
+  default_computation_method: {type: string, required: true}
+  id: {type: integer, required: true}
+  lock_version: {type: integer, required: true, default: 0}
+  locked: {type: boolean, required: true, default: false}
+  name: {type: string, required: true}
+  opened_at: {type: datetime, required: true}
+  recommender_id: {type: integer, references: entity, required: true}
+  selected: {type: boolean, required: true, default: false}
+  updated_at: {type: datetime, required: true}
+  updater_id: {type: integer, references: user}
+
 net_services:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
