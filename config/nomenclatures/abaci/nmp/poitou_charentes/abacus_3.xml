@@ -9,8 +9,8 @@
       <property-nature name="coefficient" type="decimal" required="true"/>
       <property-nature name="nitrogen_stock_before_bolting" type="decimal" required="true"/>
       <property-nature name="irrigated" type="boolean" required="false"/>
-      <property-nature name="minimum_yield_aim" type="decimal" required="false"/>
-      <property-nature name="maximum_yield_aim" type="decimal" required="false"/>
+      <property-nature name="minimum_yield_aim" type="string" required="false"/>
+      <property-nature name="maximum_yield_aim" type="string" required="false"/>
     </property-natures>
     <!-- TOUTES LES CEREALES -->
     <items>
@@ -24,6 +24,12 @@
       <item name="triticosecale_crop" cultivation_variety="triticosecale" coefficient="2.6"/>
       <item name="secale_crop" cultivation_variety="secale" coefficient="2.3"/>
       <item name="other_crop" cultivation_variety="poaceae" coefficient="2.5"/>
+       <!-- Maïs -->
+      <item name="grain_corn_crop" cultivation_variety="zea" coefficient="2.3"/>
+      <item name="fodder_corn_crop" cultivation_variety="zea" coefficient="14"/>
+      <item name="seed_corn_crop" cultivation_variety="zea" coefficient="4"/>
+      <!-- Sorgho -->
+      <item name="sorghum_crop" cultivation_variety="sorghum" coefficient="2.4"/>
     </items>
   </nomenclature>
 
@@ -98,6 +104,34 @@
       <item name="irrigate_spring_barley_crop" cultivation_variety="hordeum_vernum" coefficient="2.5" irrigated="true"/>
     </items>
   </nomenclature>
-
+  
+  
+  <!-- Maïs grain - Annexe 2 - Tableau 1 -->
+  <nomenclature name="nmp_poitou_charentes_abacus_three-grain_corn_crop">
+    <items>
+      <item name="low_grain_corn_crop" cultivation_variety="zea" coefficient="2.3"  maximum_yield_aim="100.quintal_per_hectare"/>
+      <item name="mid_grain_corn_crop" cultivation_variety="zea" coefficient="2.2" minimum_yield_aim="100.quintal_per_hectare" maximum_yield_aim="120.quintal_per_hectare"/>
+      <item name="max_grain_corn_crop" cultivation_variety="zea" coefficient="2.1" minimum_yield_aim="120.quintal_per_hectare" />
+    </items>
+  </nomenclature>
+  
+  <!-- Maïs fourrage - Annexe 2 - Tableau 1 -->
+  <nomenclature name="nmp_poitou_charentes_abacus_three-fodder_corn_crop">
+    <items>
+      <item name="low_fodder_corn_crop" cultivation_variety="zea" coefficient="14"  maximum_yield_aim="12.ton_per_hectare"/>
+      <item name="mid_fodder_corn_crop" cultivation_variety="zea" coefficient="13" minimum_yield_aim="12.ton_per_hectare" maximum_yield_aim="18.ton_per_hectare"/>
+      <item name="max_fodder_corn_crop" cultivation_variety="zea" coefficient="12" minimum_yield_aim="18.ton_per_hectare" />
+    </items>
+  </nomenclature>
+  
+  <!-- Maïs semence - Annexe 2 - Tableau 1 -->
+  <nomenclature name="nmp_poitou_charentes_abacus_three-seed_corn_crop">
+    <items>
+      <item name="low_seed_corn_crop" cultivation_variety="zea" coefficient="4"  maximum_yield_aim="35.quintal_per_hectare"/>
+      <item name="mid_seed_corn_crop" cultivation_variety="zea" coefficient="3.5" minimum_yield_aim="35.quintal_per_hectare" maximum_yield_aim="40.quintal_per_hectare"/>
+      <item name="intermediate_seed_corn_crop" cultivation_variety="zea" coefficient="3" minimum_yield_aim="40.quintal_per_hectare" maximum_yield_aim="50.quintal_per_hectare"/>
+      <item name="max_seed_corn_crop" cultivation_variety="zea" coefficient="2.5" minimum_yield_aim="50.quintal_per_hectare" />
+    </items>
+  </nomenclature>
 
 </nomenclatures>
