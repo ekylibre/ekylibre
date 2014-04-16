@@ -64,7 +64,7 @@ task :tests => :environment do
   # Check model test files
   print " - Tests: "
   log.write(">> Search models\n") if verbose
-  models      = CleanSupport.models_in_file
+  models      = Clean::Support.models_in_file
   files = Dir.glob(Rails.root.join("test", "models", "**", "*.rb")).map(&:to_s)
   for model in models
     log.write("> #{model}\n") if verbose
@@ -106,7 +106,7 @@ task :tests => :environment do
   # Check helper test files
   print " - Tests: "
   files = Dir.glob(Rails.root.join("test", "helpers", "**", "*_test.rb")).map(&:to_s)
-  for helper_name in CleanSupport.helpers_in_file.to_a
+  for helper_name in Clean::Support.helpers_in_file.to_a
     log.write("> #{helper_name}\n")  if verbose
     test_class_name = (helper_name + "_test").classify
     file = Rails.root.join("test", "helpers", (test_class_name + ".rb").underscore)
@@ -146,7 +146,7 @@ task :tests => :environment do
   # Check controller test files
   print " - Tests: "
   log.write(">> Search controllers\n") if verbose
-  controllers = CleanSupport.controllers_in_file
+  controllers = Clean::Support.controllers_in_file
   files = Dir.glob(Rails.root.join("test", "controllers", "**", "*.rb")).collect{|f| f.to_s}
   for controller in controllers
     log.write("> #{controller}\n") if verbose

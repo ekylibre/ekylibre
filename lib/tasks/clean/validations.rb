@@ -45,7 +45,7 @@ task :validations => :environment do
   print " - Validations: "
 
   errors = []
-  CleanSupport.models_in_file.each do |model|
+  Clean::Support.models_in_file.each do |model|
     log.write("> " + model.name + "...\n")
     begin
       unless model.abstract_class?

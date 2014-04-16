@@ -63,6 +63,9 @@ module Nomen
     end
     alias :humanize :human_name
 
+    def <=>(other)
+      self.nomenclature.name <=> other.nomenclature.name and self.name <=> other.name
+    end
 
     def inspect
       "#{@nomenclature.name}-#{@name}"
