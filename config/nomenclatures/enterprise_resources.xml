@@ -70,6 +70,7 @@
       <item name="outgoing_payments"/>
       <item name="people" accesses="read, write, link"/>
       <item name="plants"/>
+      <item name="plant_medicines"/>
       <item name="postal_zones"/>
       <item name="prescriptions"/>
       <item name="product_groups"/>

@@ -1708,18 +1708,6 @@
       <item name="public">
         <page to="public#index"/>
       </item>
-      <item name="interfacers">
-        <page to="backend/interfacers#autocomplete"/>
-        <page to="backend/interfacers#product_trackings"/>
-        <page to="backend/interfacers#product_units"/>
-        <page to="backend/interfacers#search_for"/>
-        <page to="backend/interfacers#select_options"/>
-        <page to="backend/interfacers#toggle_side"/>
-        <page to="backend/interfacers#toggle_tab"/>
-        <page to="backend/interfacers#toggle_view_mode"/>
-        <page to="backend/interfacers#unroll"/>
-        <page to="backend/interfacers#unroll_options"/>
-      </item>
       <item name="bank_chart_cells">
         <page to="backend/cells/bank_chart_cells#show"/>
       </item>

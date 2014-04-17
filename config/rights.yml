@@ -55,100 +55,16 @@
 #     - "backend/dashboards#stocks"
 #     - "backend/dashboards#tools"
 #     - "backend/dashboards#trade"
-#     - "backend/document_archives#show"
-#     - "backend/entities#merge"
-#     - "backend/event_participations#create"
-#     - "backend/event_participations#destroy"
-#     - "backend/event_participations#edit"
-#     - "backend/event_participations#new"
-#     - "backend/event_participations#update"
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
-#     - "backend/incoming_delivery_items#new"
-#     - "backend/interfacers#autocomplete"
-#     - "backend/interfacers#product_trackings"
-#     - "backend/interfacers#product_units"
-#     - "backend/interfacers#search_for"
-#     - "backend/interfacers#select_options"
-#     - "backend/interfacers#toggle_side"
-#     - "backend/interfacers#toggle_tab"
-#     - "backend/interfacers#toggle_view_mode"
-#     - "backend/interfacers#unroll"
-#     - "backend/interfacers#unroll_options"
 #     - "backend/kujakus#toggle"
-#     - "backend/listing_nodes#create"
-#     - "backend/listing_nodes#destroy"
-#     - "backend/listing_nodes#edit"
-#     - "backend/listing_nodes#new"
-#     - "backend/listing_nodes#update"
 #     - "backend/plant_fertilizers#index"
 #     - "backend/plant_fertilizers#list"
-#     - "backend/plant_medicines#create"
-#     - "backend/plant_medicines#destroy"
-#     - "backend/plant_medicines#edit"
-#     - "backend/plant_medicines#index"
-#     - "backend/plant_medicines#list"
-#     - "backend/plant_medicines#list_carried_linkages"
-#     - "backend/plant_medicines#list_carrier_linkages"
-#     - "backend/plant_medicines#list_contained_products"
-#     - "backend/plant_medicines#list_groups"
-#     - "backend/plant_medicines#list_intervention_casts"
-#     - "backend/plant_medicines#list_issues"
-#     - "backend/plant_medicines#list_markers"
-#     - "backend/plant_medicines#list_members"
-#     - "backend/plant_medicines#list_places"
-#     - "backend/plant_medicines#list_reading_tasks"
-#     - "backend/plant_medicines#list_readings"
-#     - "backend/plant_medicines#new"
-#     - "backend/plant_medicines#picture"
-#     - "backend/plant_medicines#show"
-#     - "backend/plant_medicines#unroll"
-#     - "backend/plant_medicines#update"
 #     - "backend/plant_products#index"
 #     - "backend/plant_products#list"
 #     - "backend/plant_seedlings#index"
 #     - "backend/plant_seedlings#list"
-#     - "backend/product_nature_variant_readings#create"
-#     - "backend/product_nature_variant_readings#destroy"
-#     - "backend/product_nature_variant_readings#edit"
-#     - "backend/product_nature_variant_readings#new"
-#     - "backend/product_nature_variant_readings#update"
-#     - "backend/production_support_markers#create"
-#     - "backend/production_support_markers#destroy"
-#     - "backend/production_support_markers#edit"
-#     - "backend/production_support_markers#index"
-#     - "backend/production_support_markers#list"
-#     - "backend/production_support_markers#new"
-#     - "backend/production_support_markers#show"
-#     - "backend/production_support_markers#unroll"
-#     - "backend/production_support_markers#update"
-#     - "backend/production_supports#create"
-#     - "backend/production_supports#destroy"
-#     - "backend/production_supports#edit"
-#     - "backend/production_supports#index"
-#     - "backend/production_supports#list"
-#     - "backend/production_supports#list_interventions"
-#     - "backend/production_supports#list_markers"
-#     - "backend/production_supports#new"
-#     - "backend/production_supports#show"
-#     - "backend/production_supports#unroll"
-#     - "backend/production_supports#update"
-#     - "backend/purchase_items#create"
-#     - "backend/purchase_items#destroy"
-#     - "backend/purchase_items#edit"
-#     - "backend/purchase_items#index"
-#     - "backend/purchase_items#new"
-#     - "backend/purchase_items#show"
-#     - "backend/purchase_items#update"
-#     - "backend/sale_items#create"
-#     - "backend/sale_items#destroy"
-#     - "backend/sale_items#detail"
-#     - "backend/sale_items#edit"
-#     - "backend/sale_items#index"
-#     - "backend/sale_items#new"
-#     - "backend/sale_items#show"
-#     - "backend/sale_items#update"
 #     - "backend/snippets#toggle"
 #     - "backend/transformed_products#index"
 #     - "backend/transformed_products#list"
@@ -571,16 +487,23 @@ cultivable_zones:
 custom_fields:
   read:
     actions:
+    - "backend/custom_field_choices#unroll"
     - "backend/custom_fields#index"
     - "backend/custom_fields#list"
     - "backend/custom_fields#list_choices"
     - "backend/custom_fields#show"
     - "backend/custom_fields#unroll"
-    - "backend/custom_field_choices#unroll"
   write:
     depend-on:
     - read-custom_fields
     actions:
+    - "backend/custom_field_choices#create"
+    - "backend/custom_field_choices#destroy"
+    - "backend/custom_field_choices#down"
+    - "backend/custom_field_choices#edit"
+    - "backend/custom_field_choices#new"
+    - "backend/custom_field_choices#up"
+    - "backend/custom_field_choices#update"
     - "backend/custom_fields#create"
     - "backend/custom_fields#destroy"
     - "backend/custom_fields#down"
@@ -589,13 +512,6 @@ custom_fields:
     - "backend/custom_fields#sort"
     - "backend/custom_fields#up"
     - "backend/custom_fields#update"
-    - "backend/custom_field_choices#create"
-    - "backend/custom_field_choices#destroy"
-    - "backend/custom_field_choices#down"
-    - "backend/custom_field_choices#edit"
-    - "backend/custom_field_choices#new"
-    - "backend/custom_field_choices#up"
-    - "backend/custom_field_choices#update"
 
 deposits:
   read:
@@ -654,6 +570,7 @@ document_templates:
 documents:
   read:
     actions:
+    - "backend/document_archives#show"
     - "backend/documents#index"
     - "backend/documents#list"
     - "backend/documents#list_archives"
@@ -699,6 +616,7 @@ entities:
     - "backend/entities#edit"
     - "backend/entities#export"
     - "backend/entities#import"
+    - "backend/entities#merge"
     - "backend/entities#new"
     - "backend/entities#update"
     - "backend/entity_addresses#create"
@@ -773,6 +691,11 @@ events:
     depend-on:
     - read-events
     actions:
+    - "backend/event_participations#create"
+    - "backend/event_participations#destroy"
+    - "backend/event_participations#edit"
+    - "backend/event_participations#new"
+    - "backend/event_participations#update"
     - "backend/events#autocomplete_for_place"
     - "backend/events#change_minutes"
     - "backend/events#create"
@@ -945,6 +868,7 @@ incoming_deliveries:
     - "backend/incoming_deliveries#list_items"
     - "backend/incoming_deliveries#show"
     - "backend/incoming_deliveries#unroll"
+    - "backend/incoming_delivery_items#new"
   write:
     depend-on:
     - read-incoming_deliveries
@@ -1301,26 +1225,23 @@ listings:
     depend-on:
     - read-listings
     actions:
+    - "backend/listing_nodes#create"
+    - "backend/listing_nodes#destroy"
+    - "backend/listing_nodes#edit"
+    - "backend/listing_nodes#new"
+    - "backend/listing_nodes#update"
     - "backend/listings#create"
     - "backend/listings#destroy"
     - "backend/listings#duplicate"
     - "backend/listings#edit"
-    - "backend/listings#extract"
-    - "backend/listings#mail"
     - "backend/listings#new"
     - "backend/listings#update"
   execute:
     depend-on:
     - read-listings
     actions:
-    - "backend/listings#create"
-    - "backend/listings#destroy"
-    - "backend/listings#duplicate"
-    - "backend/listings#edit"
     - "backend/listings#extract"
     - "backend/listings#mail"
-    - "backend/listings#new"
-    - "backend/listings#update"
 
 manure_management_plans:
   read:
@@ -1607,6 +1528,35 @@ people:
     - "backend/people#new"
     - "backend/people#update"
 
+plant_medicines:
+  read:
+    actions:
+    - "backend/plant_medicines#index"
+    - "backend/plant_medicines#list"
+    - "backend/plant_medicines#list_carried_linkages"
+    - "backend/plant_medicines#list_carrier_linkages"
+    - "backend/plant_medicines#list_contained_products"
+    - "backend/plant_medicines#list_groups"
+    - "backend/plant_medicines#list_intervention_casts"
+    - "backend/plant_medicines#list_issues"
+    - "backend/plant_medicines#list_markers"
+    - "backend/plant_medicines#list_members"
+    - "backend/plant_medicines#list_places"
+    - "backend/plant_medicines#list_reading_tasks"
+    - "backend/plant_medicines#list_readings"
+    - "backend/plant_medicines#picture"
+    - "backend/plant_medicines#show"
+    - "backend/plant_medicines#unroll"
+  write:
+    depend-on:
+    - read-plant_medicines
+    actions:
+    - "backend/plant_medicines#create"
+    - "backend/plant_medicines#destroy"
+    - "backend/plant_medicines#edit"
+    - "backend/plant_medicines#new"
+    - "backend/plant_medicines#update"
+
 plants:
   read:
     actions:
@@ -1739,6 +1689,11 @@ product_nature_variants:
     depend-on:
     - read-product_nature_variants
     actions:
+    - "backend/product_nature_variant_readings#create"
+    - "backend/product_nature_variant_readings#destroy"
+    - "backend/product_nature_variant_readings#edit"
+    - "backend/product_nature_variant_readings#new"
+    - "backend/product_nature_variant_readings#update"
     - "backend/product_nature_variants#create"
     - "backend/product_nature_variants#destroy"
     - "backend/product_nature_variants#edit"
@@ -1771,6 +1726,16 @@ product_natures:
 productions:
   read:
     actions:
+    - "backend/production_support_markers#index"
+    - "backend/production_support_markers#list"
+    - "backend/production_support_markers#show"
+    - "backend/production_support_markers#unroll"
+    - "backend/production_supports#index"
+    - "backend/production_supports#list"
+    - "backend/production_supports#list_interventions"
+    - "backend/production_supports#list_markers"
+    - "backend/production_supports#show"
+    - "backend/production_supports#unroll"
     - "backend/productions#index"
     - "backend/productions#list"
     - "backend/productions#list_interventions"
@@ -1782,6 +1747,16 @@ productions:
     depend-on:
     - read-productions
     actions:
+    - "backend/production_support_markers#create"
+    - "backend/production_support_markers#destroy"
+    - "backend/production_support_markers#edit"
+    - "backend/production_support_markers#new"
+    - "backend/production_support_markers#update"
+    - "backend/production_supports#create"
+    - "backend/production_supports#destroy"
+    - "backend/production_supports#edit"
+    - "backend/production_supports#new"
+    - "backend/production_supports#update"
     - "backend/productions#create"
     - "backend/productions#destroy"
     - "backend/productions#edit"
@@ -1837,6 +1812,8 @@ purchase_natures:
 purchases:
   read:
     actions:
+    - "backend/purchase_items#index"
+    - "backend/purchase_items#show"
     - "backend/purchases#index"
     - "backend/purchases#list"
     - "backend/purchases#list_deliveries"
@@ -1847,6 +1824,11 @@ purchases:
     depend-on:
     - read-purchases
     actions:
+    - "backend/purchase_items#create"
+    - "backend/purchase_items#destroy"
+    - "backend/purchase_items#edit"
+    - "backend/purchase_items#new"
+    - "backend/purchase_items#update"
     - "backend/purchases#abort"
     - "backend/purchases#confirm"
     - "backend/purchases#correct"
@@ -1895,6 +1877,8 @@ sale_natures:
 sales:
   read:
     actions:
+    - "backend/sale_items#index"
+    - "backend/sale_items#show"
     - "backend/sales#index"
     - "backend/sales#list"
     - "backend/sales#list_creditable_items"
@@ -1909,6 +1893,12 @@ sales:
     depend-on:
     - read-sales
     actions:
+    - "backend/sale_items#create"
+    - "backend/sale_items#destroy"
+    - "backend/sale_items#detail"
+    - "backend/sale_items#edit"
+    - "backend/sale_items#new"
+    - "backend/sale_items#update"
     - "backend/sales#abort"
     - "backend/sales#cancel"
     - "backend/sales#confirm"
