@@ -1115,6 +1115,7 @@ fra:
         # outgoing_payment_modes: "Outgoing payment modes"
         # outgoing_payments: "Outgoing payments"
         # people: "People"
+        # plant_medicines: "Plant medicines"
         # plants: "Plants"
         # postal_zones: "Postal zones"
         # prescriptions: "Prescriptions"

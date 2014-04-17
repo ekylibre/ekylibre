@@ -791,7 +791,6 @@ spa:
     # backend/incoming_delivery_modes: "Modes de réception d’arrivage"
     # backend/incoming_payment_modes: "Modes d’encaissement"
     # backend/incoming_payments: "Encaissements"
-    # backend/interfacers: "Interfaceurs"
     # backend/intervention_casts: "Acteurs d'intervention"
     # backend/interventions: "Interventions"
     backend/inventories: "Inventarios"

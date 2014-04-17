@@ -878,7 +878,6 @@ arb:
     # backend/incoming_delivery_modes: "Modes de réception d’arrivage"
     backend/incoming_payment_modes: "طرق تسديد الدفعات"
     backend/incoming_payments: "الدفعات"
-    # backend/interfacers: "Interfaceurs"
     # backend/intervention_casts: "Acteurs d'intervention"
     # backend/interventions: "Interventions"
     backend/inventories: "الجرد"
