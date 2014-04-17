@@ -26,6 +26,22 @@
       <item name="poa_yield_17" cultivation_variety="poa" administrative_area="FR-17" crop_yield="49"/>
       <item name="poa_yield_79" cultivation_variety="poa" administrative_area="FR-79" crop_yield="45"/>
       <item name="poa_yield_86" cultivation_variety="poa" administrative_area="FR-86" crop_yield="50"/>
+       <!-- Maïs semence -->
+       # @FIXME Find a way to replace cultivation variety by a crop set or a variant to make a difference between seed corn and grain corn
+      <item name="seed_corn_yield_16" cultivation_variety="zea" administrative_area="FR-16" crop_yield="35"/>
+      <item name="seed_corn_yield_17" cultivation_variety="zea" administrative_area="FR-17" crop_yield="35"/>
+      <item name="seed_corn_yield_79" cultivation_variety="zea" administrative_area="FR-79" crop_yield="35"/>
+      <item name="seed_corn_yield_86" cultivation_variety="zea" administrative_area="FR-86" crop_yield="35"/>
+      <!-- Maïs fourrage -->
+      <item name="fodder_corn_yield_16" cultivation_variety="zea" administrative_area="FR-16" crop_yield="99"/>
+      <item name="fodder_corn_yield_17" cultivation_variety="zea" administrative_area="FR-17" crop_yield="118"/>
+      <item name="fodder_corn_yield_79" cultivation_variety="zea" administrative_area="FR-79" crop_yield="114"/>
+      <item name="fodder_corn_yield_86" cultivation_variety="zea" administrative_area="FR-86" crop_yield="110"/>
+      <!-- Sorgho grain -->
+      <item name="grain_sorghum_yield_16" cultivation_variety="sorghum" administrative_area="FR-16" crop_yield="52"/>
+      <item name="grain_sorghum_yield_17" cultivation_variety="sorghum" administrative_area="FR-17" crop_yield="56"/>
+      <item name="grain_sorghum_yield_79" cultivation_variety="sorghum" administrative_area="FR-79" crop_yield="53"/>
+      <item name="grain_sorghum_yield_86" cultivation_variety="sorghum" administrative_area="FR-86" crop_yield="53"/>
     </items>
   </nomenclature>
 </nomenclatures>

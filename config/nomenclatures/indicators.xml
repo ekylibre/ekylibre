@@ -150,6 +150,7 @@
       <item name="residue_elimination_method"  datatype="choice" choices="residue_elimination_methods"/>
       
       <item name="precocity_index"             datatype="decimal" />
+      <item name="plant_growth_level"          datatype="choice"  choices="plants_growth_levels"/>
       <item name="mass_volume_density"         datatype="measure" unit="kilogram_per_liter"/>
       <item name="volume_density"              datatype="measure" unit="centiliter_per_hectoliter"/>
       

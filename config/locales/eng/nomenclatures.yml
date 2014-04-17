@@ -801,14 +801,19 @@ eng:
         # carrot: "Carotte"
         # chicory: "Endive"
         # corn: "Maïs"
+        # corn_sorghum: "Maïs et sorgho"
+        # crucifers: "Crucifères"
         # flax: "Lin"
         # grass: "Graminée"
         # grass_leguminous: "Graminée et Legumineuse"
+        # leguminosae: "Légumineuses"
         # leguminous: "Legumineuse"
         # meadow: "Prairie"
         # nightshade: "Pomme de terre"
         # peas: "Pois"
         # rape: "Colza"
+        # secale_phacelia: "Seigle et phacélie"
+        # sorghum: "Sorgho"
         # spring_crop: "Culture de printemps"
         # spring_straw_cereal: "Céréales à paille de printemps"
         # straw_cereal: "Céréales à paille"
@@ -1354,6 +1359,7 @@ eng:
         # phosphate_concentration: "Teneur en phosphate (P2O5)"
         # phosphorus_analysis_method: "Méthode d’analyse de la teneur en Phosphore"
         # phosphorus_concentration: "Teneur en phosphore"
+        # plant_growth_level: "Niveau de croissance d'une plante"
         plant_life_state: "Plant life state"
         plant_reproduction_state: "Plant reproduction state"
         # plants_density: "Densité de plantation"
@@ -1362,6 +1368,7 @@ eng:
         # potash_concentration: "Teneur en potasse (K2O)"
         # potassium_concentration: "Teneur en potassium"
         # potential_hydrogen: "Potentiel hydrogène (pH)"
+        # precocity_index: "Index de précocité"
         # protein_concentration_index: "Taux protéïque (TP)"
         protein_matters_concentration: "Protein matters concentration"
         # reference_year: "Millésime"
@@ -1552,7 +1559,10 @@ eng:
         # pregnancy: "Pleine"
       # name: "États de la reproduction mammifère"
     manure_management_plan_computation_methods:
-      items: #?
+      items:
+        # external: "Externe"
+        # poitou_charentes: "Poitou charentes"
+      # name: "Méthodes de calcul (PPF)"
     molecules:
       items:
         # ammonia: "Ammoniac"
@@ -1619,6 +1629,8 @@ eng:
     nmp_poitou_charentes_abacus_9: #?
     nmp_poitou_charentes_abacus_eight:
       # name: "Abaque 8 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_eleven:
+      # name: "Abaque 11 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_five:
       # name: "Abaque 5 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_four:
@@ -1664,6 +1676,11 @@ eng:
         # heading: "Épiaison"
         # swelling: "Gonflement"
       # name: "États de la reproduction végétale"
+    plants_growth_levels:
+      items:
+        # hight: "Forte"
+        # low: "Faible"
+      # name: "Niveau de croissance des plantes"
     procedure_natures:
       items:
         # addition: "Ajout de produits"
@@ -2616,6 +2633,7 @@ eng:
         # beta: "Betterave"
         # betulaceae: "Betulaceae"
         bioproduct: "Bioproduct"
+        # boraginaceae: "Boraginaceae"
         # bos: "Bovin"
         # bottle: "Bouteille"
         # bottling: "Embouteillage"
@@ -2739,6 +2757,7 @@ eng:
         # pauetet: "Pauetet"
         # peach: "Pêche"
         # pear: "Poire"
+        # phacelia: "Phacelia"
         # phaseolus: "Haricot"
         phytosanitary: "Phytosanitary" #?
         # pisum: "Pisum"
@@ -2831,6 +2850,7 @@ eng:
         # tonda_giffoni: "Tonda giffoni"
         # tractor: "Tracteur"
         # trailer: "Remorque"
+        # trifolium: "Trifolium"
         # triticosecale: "Triticale"
         # triticum: "Blé"
         # triticum_aestivum: "Blé tendre"

@@ -749,14 +749,19 @@ fra:
         carrot: "Carotte"
         chicory: "Endive"
         corn: "Maïs"
+        corn_sorghum: "Maïs et sorgho"
+        crucifers: "Crucifères"
         flax: "Lin"
         grass: "Graminée"
         grass_leguminous: "Graminée et Legumineuse"
+        leguminosae: "Légumineuses"
         leguminous: "Legumineuse"
         meadow: "Prairie"
         nightshade: "Pomme de terre"
         peas: "Pois"
         rape: "Colza"
+        secale_phacelia: "Seigle et phacélie"
+        sorghum: "Sorgho"
         spring_crop: "Culture de printemps"
         spring_straw_cereal: "Céréales à paille de printemps"
         straw_cereal: "Céréales à paille"
@@ -1353,6 +1358,7 @@ fra:
         phosphate_concentration: "Teneur en phosphate (P2O5)"
         phosphorus_analysis_method: "Méthode d’analyse de la teneur en Phosphore"
         phosphorus_concentration: "Teneur en phosphore"
+        plant_growth_level: "Niveau de croissance d'une plante"
         plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         plants_density: "Densité de plantation"
@@ -1361,7 +1367,7 @@ fra:
         potash_concentration: "Teneur en potasse (K2O)"
         potassium_concentration: "Teneur en potassium"
         potential_hydrogen: "Potentiel hydrogène (pH)"
-        # precocity_index: "Precocity index"
+        precocity_index: "Index de précocité"
         protein_concentration_index: "Taux protéïque (TP)"
         protein_matters_concentration: "Teneur en matières protéïques"
         reference_year: "Millésime"
@@ -1539,10 +1545,10 @@ fra:
         heat: "Chaleur"
         pregnancy: "Pleine"
     manure_management_plan_computation_methods:
-      # name: "Manure management plan computation methods"
+      name: "Méthodes de calcul (PPF)"
       items:
-        # external: "External"
-        # poitou_charentes: "Poitou charentes"
+        external: "Externe"
+        poitou_charentes: "Poitou charentes"
     molecules:
       name: "Molécules"
       property_natures:
@@ -1599,6 +1605,8 @@ fra:
         poitou_charentes: "Poitou charentes"
     nmp_poitou_charentes_abacus_eight:
       name: "Abaque 8 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_eleven:
+      name: "Abaque 11 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_five:
       name: "Abaque 5 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_four:
@@ -1644,6 +1652,11 @@ fra:
         grain_senescence: "Senescence du grain"
         heading: "Épiaison"
         swelling: "Gonflement"
+    plants_growth_levels:
+      name: "Niveau de croissance des plantes"
+      items:
+        hight: "Forte"
+        low: "Faible"
     procedure_natures:
       name: "Types de procédures"
       property_natures:
@@ -2575,6 +2588,7 @@ fra:
         beta: "Betterave"                                  #< amaranthaceae
         betulaceae: "Betulaceae"                           #< plant
         bioproduct: "Produit vivant"                       #< matter
+        boraginaceae: "Boraginaceae"                       #< plant
         bos: "Bovin"                                       #< mammalia
         bottle: "Bouteille"                                #< packaged_matter
         bottling: "Embouteillage"                          #< equipment
@@ -2698,6 +2712,7 @@ fra:
         pauetet: "Pauetet"                                 #< corylus_avellana
         peach: "Pêche"                                     #< fruit
         pear: "Poire"                                      #< fruit
+        phacelia: "Phacelia"                               #< boraginaceae
         phaseolus: "Haricot"                               #< fabaceae
         pisum: "Pisum"                                     #< fabaceae
         plant: "Végétal"                                   #< bioproduct
@@ -2789,6 +2804,7 @@ fra:
         tonda_giffoni: "Tonda giffoni"                     #< corylus_avellana
         tractor: "Tracteur"                                #< equipment
         trailer: "Remorque"                                #< equipment
+        trifolium: "Trifolium"                             #< fabaceae
         triticosecale: "Triticale"                         #< poaceae
         triticum: "Blé"                                    #< poaceae
         triticum_aestivum: "Blé tendre"                    #< triticum

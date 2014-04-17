@@ -275,7 +275,48 @@
       <item name="clay_limestone_grain_corn_crop_med" soil_nature="clay_limestone_soil" cultivation_variety="zea" crop_yield="120" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="500"  irrigated="true"/>
       <item name="clay_limestone_grain_corn_crop_max" soil_nature="clay_limestone_soil" cultivation_variety="zea" crop_yield="125" minimum_available_water_capacity="120" minimum_precocity_index="500"  irrigated="true"/>
       
-     
+      <item name="aubues_grain_corn_crop_min" soil_nature="aubues_soil" cultivation_variety="zea" crop_yield="115" minimum_available_water_capacity="0" maximum_available_water_capacity="80" minimum_precocity_index="320 " maximum_precocity_index="400" irrigated="true"/>
+      <item name="aubues_grain_corn_crop_med" soil_nature="aubues_soil" cultivation_variety="zea" crop_yield="120" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="320" maximum_precocity_index="400" irrigated="true"/>
+      <item name="aubues_grain_corn_crop_max" soil_nature="aubues_soil" cultivation_variety="zea" crop_yield="125" minimum_available_water_capacity="120" minimum_precocity_index="320" maximum_precocity_index="400" irrigated="true"/>
+      
+      <item name="champagne_grain_corn_crop_min" soil_nature="champagne_soil" cultivation_variety="zea" crop_yield="115" minimum_available_water_capacity="0" maximum_available_water_capacity="80" minimum_precocity_index="400" maximum_precocity_index="500" irrigated="true"/>
+      <item name="champagne_grain_corn_crop_med" soil_nature="champagne_soil" cultivation_variety="zea" crop_yield="120" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="400" maximum_precocity_index="500" irrigated="true"/>
+      <item name="champagne_grain_corn_crop_max" soil_nature="champagne_soil" cultivation_variety="zea" crop_yield="125" minimum_available_water_capacity="120" minimum_precocity_index="400" maximum_precocity_index="500" irrigated="true"/>
+      
+      <item name="champagne_grain_corn_crop_min" soil_nature="champagne_soil" cultivation_variety="zea" crop_yield="120" minimum_available_water_capacity="0" maximum_available_water_capacity="80" minimum_precocity_index="500" irrigated="true"/>
+      <item name="champagne_grain_corn_crop_med" soil_nature="champagne_soil" cultivation_variety="zea" crop_yield="125" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="500"  irrigated="true"/>
+      <item name="champagne_grain_corn_crop_max" soil_nature="champagne_soil" cultivation_variety="zea" crop_yield="125" minimum_available_water_capacity="120" minimum_precocity_index="500"  irrigated="true"/>
+      
+      <item name="red_chesnut_grain_corn_crop_min" soil_nature="chesnut_red_soil" cultivation_variety="zea" crop_yield="115" minimum_available_water_capacity="0" maximum_available_water_capacity="80" minimum_precocity_index="320" maximum_precocity_index="500" irrigated="true"/>
+      <item name="red_chesnut_grain_corn_crop_med" soil_nature="chesnut_red_soil" cultivation_variety="zea" crop_yield="120" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="320" maximum_precocity_index="500" irrigated="true"/>
+      <item name="red_chesnut_grain_corn_crop_max" soil_nature="chesnut_red_soil" cultivation_variety="zea" crop_yield="125" minimum_available_water_capacity="120" minimum_precocity_index="320" maximum_precocity_index="500" irrigated="true"/>
+      
+      <item name="flap_silt_grain_corn_crop_min" soil_nature="flap_silt_soil" cultivation_variety="zea" crop_yield="105" minimum_available_water_capacity="0" maximum_available_water_capacity="80" minimum_precocity_index="320" maximum_precocity_index="500" irrigated="true"/>
+      <item name="flap_silt_grain_corn_crop_med" soil_nature="flap_silt_soil" cultivation_variety="zea" crop_yield="110" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="320" maximum_precocity_index="500" irrigated="true"/>
+      <item name="flap_silt_grain_corn_crop_max" soil_nature="flap_silt_soil" cultivation_variety="zea" crop_yield="115" minimum_available_water_capacity="120" minimum_precocity_index="320" maximum_precocity_index="500" irrigated="true"/>
+      
+      <item name="flap_silt_grain_corn_crop_min" soil_nature="flap_silt_soil" cultivation_variety="zea" crop_yield="110" minimum_available_water_capacity="0" maximum_available_water_capacity="80" minimum_precocity_index="500"  irrigated="true"/>
+      <item name="flap_silt_grain_corn_crop_med" soil_nature="flap_silt_soil" cultivation_variety="zea" crop_yield="115" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="500"  irrigated="true"/>
+      <item name="flap_silt_grain_corn_crop_max" soil_nature="flap_silt_soil" cultivation_variety="zea" crop_yield="120" minimum_available_water_capacity="120" minimum_precocity_index="500" irrigated="true"/>
+      
+      <item name="sand_grain_corn_crop_min" soil_nature="sand_soil" cultivation_variety="zea" crop_yield="105" minimum_available_water_capacity="0" maximum_available_water_capacity="80" minimum_precocity_index="320" maximum_precocity_index="500" irrigated="true"/>
+      <item name="sand_grain_corn_crop_med" soil_nature="sand_soil" cultivation_variety="zea" crop_yield="110" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="320" maximum_precocity_index="500" irrigated="true"/>
+      <item name="sand_grain_corn_crop_max" soil_nature="sand_soil" cultivation_variety="zea" crop_yield="115" minimum_available_water_capacity="120" minimum_precocity_index="320" maximum_precocity_index="500" irrigated="true"/>
+      
+      <item name="sand_grain_corn_crop_min" soil_nature="sand_soil" cultivation_variety="zea" crop_yield="110" minimum_available_water_capacity="0" maximum_available_water_capacity="80" minimum_precocity_index="500"  irrigated="true"/>
+      <item name="sand_grain_corn_crop_med" soil_nature="sand_soil" cultivation_variety="zea" crop_yield="115" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="500"  irrigated="true"/>
+      <item name="sand_grain_corn_crop_max" soil_nature="sand_soil" cultivation_variety="zea" crop_yield="120" minimum_available_water_capacity="120" minimum_precocity_index="500" irrigated="true"/>
+      
+      
+      <item name="silty_clay_loam_grain_corn_crop_min" soil_nature="silty_clay_loam_soil" cultivation_variety="zea" crop_yield="115" minimum_available_water_capacity="0" maximum_available_water_capacity="80" minimum_precocity_index="320" irrigated="true"/>
+      <item name="silty_clay_loam_grain_corn_crop_med" soil_nature="silty_clay_loam_soil" cultivation_variety="zea" crop_yield="120" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="320" irrigated="true"/>
+      <item name="silty_clay_loam_grain_corn_crop_max" soil_nature="silty_clay_loam_soil" cultivation_variety="zea" crop_yield="125" minimum_available_water_capacity="120" minimum_precocity_index="320" irrigated="true"/>
+      
+      
+      <item name="silty_clay_grain_corn_crop_min" soil_nature="silty_clay_soil" cultivation_variety="zea" crop_yield="115" minimum_available_water_capacity="0" maximum_available_water_capacity="80" minimum_precocity_index="320" irrigated="true"/>
+      <item name="silty_clay_grain_corn_crop_med" soil_nature="silty_clay_soil" cultivation_variety="zea" crop_yield="120" minimum_available_water_capacity="80" maximum_available_water_capacity="120" minimum_precocity_index="320" irrigated="true"/>
+      <item name="silty_clay_grain_corn_crop_max" soil_nature="silty_clay_soil" cultivation_variety="zea" crop_yield="125" minimum_available_water_capacity="120" minimum_precocity_index="320" irrigated="true"/>
+      
     </items>
   </nomenclature>
 </nomenclatures>
