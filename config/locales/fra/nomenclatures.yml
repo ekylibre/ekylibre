@@ -1362,6 +1362,7 @@ fra:
         potash_concentration: "Teneur en potasse (K2O)"
         potassium_concentration: "Teneur en potassium"
         potential_hydrogen: "Potentiel hydrogène (pH)"
+        # precocity_index: "Precocity index"
         protein_concentration_index: "Taux protéïque (TP)"
         protein_matters_concentration: "Teneur en matières protéïques"
         reference_year: "Millésime"
