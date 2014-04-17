@@ -485,28 +485,6 @@ fra:
         yttrium: "Yttrium"
         zinc: "Zinc"
         zirconium: "Zirconium"
-    controlled_resources:
-      name: "Ressources contrôlées"
-      property_natures:
-        accesses: "Accès"
-      items:
-        accountancy_dashboard: "Tableau de bord de la comptabilité"
-        accounts: "Comptes comptables"
-        activities: "Activités"
-        affairs: "Affaires"
-        analysis: "Analyses"
-        animal_groups: "Troupeaux"
-        animal_medicines: "Médicaments vétérinaires"
-        animals: "Animaux"
-        bank_statements: "Relevés de banque"
-        bioproducts: "Bioproduits"
-        building_divisions: "Salles/zones de bâtiment"
-        buildings: "Bâtiments"
-        calculators: "Calculateurs"
-        campaigns: "Campagnes"
-        cash_tranfers: "Virements"
-        entities: "Personnes (physiques et morales)"
-        interventions: "Interventions"
     countries:
       name: "Pays"
       property_natures:
@@ -771,14 +749,19 @@ fra:
         carrot: "Carotte"
         chicory: "Endive"
         corn: "Maïs"
+        corn_sorghum: "Maïs et sorgho"
+        crucifers: "Crucifères"
         flax: "Lin"
         grass: "Graminée"
         grass_leguminous: "Graminée et Legumineuse"
+        leguminosae: "Légumineuses"
         leguminous: "Legumineuse"
         meadow: "Prairie"
         nightshade: "Pomme de terre"
         peas: "Pois"
         rape: "Colza"
+        secale_phacelia: "Seigle et phacélie"
+        sorghum: "Sorgho"
         spring_crop: "Culture de printemps"
         spring_straw_cereal: "Céréales à paille de printemps"
         straw_cereal: "Céréales à paille"
@@ -1055,7 +1038,116 @@ fra:
         trial_balance: "Balance comptable"
         veterinary_booklet: "Carnet vétérinaire"
         vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
+        wine_bottling_registry: "Registre de conditionnement - Vin"
         wine_detention_registry: "Registre de détention - Vin"
+        wine_manipulation_registry: "Registre de manipulation - Vin"
+    enterprise_resource_actions:
+      name: "Actions des ressources d’entreprise"
+      items:
+        close: "Fermer"
+        execute: "Exécuter"
+        link: "Lier"
+        lock: "Verrouiller"
+        read: "Lire"
+        reopen: "Réouvrir"
+        write: "Écrire"
+    enterprise_resources:
+      name: "Ressources d’entreprise"
+      property_natures:
+        accesses: "Accès"
+      items:
+        accounts: "Comptes comptables"
+        activities: "Activités"
+        affairs: "Affaires"
+        # aggregators: "Aggregators"
+        # analyses: "Analyses"
+        # analytic_distributions: "Analytic distributions"
+        # animal_foods: "Animal foods"
+        animal_groups: "Troupeaux"
+        animal_medicines: "Médicaments vétérinaires"
+        # animal_products: "Animal products"
+        animals: "Animaux"
+        bank_statements: "Relevés de banque"
+        building_divisions: "Salles/zones de bâtiment"
+        buildings: "Bâtiments"
+        campaigns: "Campagnes"
+        # cash_transfers: "Cash transfers"
+        # cashes: "Cashes"
+        # catalog_prices: "Catalog prices"
+        # catalogs: "Catalogs"
+        # cultivable_zones: "Cultivable zones"
+        # custom_fields: "Custom fields"
+        # deposits: "Deposits"
+        # districts: "Districts"
+        # document_templates: "Document templates"
+        # documents: "Documents"
+        entities: "Personnes (physiques et morales)"
+        # equipments: "Equipments"
+        # establishments: "Establishments"
+        # events: "Events"
+        # financial_assets: "Financial assets"
+        # financial_years: "Financial years"
+        # fungi: "Fungi"
+        # gaps: "Gaps"
+        # guide_analyses: "Guide analyses"
+        # guides: "Guides"
+        # identifiers: "Identifiers"
+        # incoming_deliveries: "Incoming deliveries"
+        # incoming_delivery_modes: "Incoming delivery modes"
+        # incoming_payment_modes: "Incoming payment modes"
+        # incoming_payments: "Incoming payments"
+        interventions: "Interventions"
+        # inventories: "Inventories"
+        # issues: "Issues"
+        # journal_entries: "Journal entries"
+        # journals: "Journals"
+        # land_parcel_clusters: "Land parcel clusters"
+        # land_parcel_groups: "Land parcel groups"
+        # land_parcels: "Land parcels"
+        # legal_entities: "Legal entities"
+        # listings: "Listings"
+        # manure_management_plans: "Manure management plans"
+        # matters: "Matters"
+        # medicines: "Medicines"
+        # mineral_matters: "Mineral matters"
+        # myselves: "Myselves"
+        # net_services: "Net services"
+        # observations: "Observations"
+        # organic_matters: "Organic matters"
+        # outgoing_deliveries: "Outgoing deliveries"
+        # outgoing_delivery_items: "Outgoing delivery items"
+        # outgoing_delivery_modes: "Outgoing delivery modes"
+        # outgoing_payment_modes: "Outgoing payment modes"
+        # outgoing_payments: "Outgoing payments"
+        # people: "People"
+        # plant_medicines: "Plant medicines"
+        # plants: "Plants"
+        # postal_zones: "Postal zones"
+        # prescriptions: "Prescriptions"
+        # product_groups: "Product groups"
+        # product_memberships: "Product memberships"
+        # product_nature_categories: "Product nature categories"
+        # product_nature_variants: "Product nature variants"
+        # product_natures: "Product natures"
+        # productions: "Productions"
+        # products: "Products"
+        # purchase_natures: "Purchase natures"
+        # purchases: "Purchases"
+        # roles: "Roles"
+        # sale_natures: "Sale natures"
+        # sales: "Sales"
+        # sequences: "Sequences"
+        # settings: "Settings"
+        # settlements: "Settlements"
+        # subscription_natures: "Subscription natures"
+        # subscriptions: "Subscriptions"
+        # taxes: "Taxes"
+        # teams: "Teams"
+        # trackings: "Trackings"
+        # transfers: "Transfers"
+        # transports: "Transports"
+        # users: "Users"
+        # workers: "Workers"
     entity_link_natures:
       name: "Types de liens sociaux"
       property_natures:
@@ -1267,6 +1359,7 @@ fra:
         phosphate_concentration: "Teneur en phosphate (P2O5)"
         phosphorus_analysis_method: "Méthode d’analyse de la teneur en Phosphore"
         phosphorus_concentration: "Teneur en phosphore"
+        plant_growth_level: "Niveau de croissance d'une plante"
         plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         plants_density: "Densité de plantation"
@@ -1275,6 +1368,7 @@ fra:
         potash_concentration: "Teneur en potasse (K2O)"
         potassium_concentration: "Teneur en potassium"
         potential_hydrogen: "Potentiel hydrogène (pH)"
+        precocity_index: "Index de précocité"
         protein_concentration_index: "Taux protéïque (TP)"
         protein_matters_concentration: "Teneur en matières protéïques"
         reference_year: "Millésime"
@@ -1451,6 +1545,11 @@ fra:
         back_heat: "Retour de chaleur"
         heat: "Chaleur"
         pregnancy: "Pleine"
+    manure_management_plan_computation_methods:
+      name: "Méthodes de calcul (PPF)"
+      items:
+        external: "Externe"
+        poitou_charentes: "Poitou charentes"
     molecules:
       name: "Molécules"
       property_natures:
@@ -1507,6 +1606,8 @@ fra:
         poitou_charentes: "Poitou charentes"
     nmp_poitou_charentes_abacus_eight:
       name: "Abaque 8 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_eleven:
+      name: "Abaque 11 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_five:
       name: "Abaque 5 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_four:
@@ -1552,6 +1653,11 @@ fra:
         grain_senescence: "Senescence du grain"
         heading: "Épiaison"
         swelling: "Gonflement"
+    plants_growth_levels:
+      name: "Niveau de croissance des plantes"
+      items:
+        hight: "Forte"
+        low: "Faible"
     procedure_natures:
       name: "Types de procédures"
       property_natures:
@@ -2049,6 +2155,7 @@ fra:
         white_sugar_25kg: "Sucre blanc - 25kg"
         wine: "Vin"
         wine_press: "Pressoir"
+        wine_storage_division: "Zone de stockage - vins conditionnés"
         wine_vinasse: "Vinasse de distillerie"
         winter_barley_crop: "Culture d’orge d’hiver"
         winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
@@ -2193,6 +2300,7 @@ fra:
         wine_alkalinizing: "Alcalinisant (vin)"
         wine_crop: "Vigne"
         wine_press: "Pressoir (vin)"
+        wine_storage_division: "Zone de stockage - vins conditionnés"
         wine_tank: "Cuve à vin"
     production_natures:
       name: "Types de productions"
@@ -2481,6 +2589,7 @@ fra:
         beta: "Betterave"                                  #< amaranthaceae
         betulaceae: "Betulaceae"                           #< plant
         bioproduct: "Produit vivant"                       #< matter
+        boraginaceae: "Boraginaceae"                       #< plant
         bos: "Bovin"                                       #< mammalia
         bottle: "Bouteille"                                #< packaged_matter
         bottling: "Embouteillage"                          #< equipment
@@ -2604,6 +2713,7 @@ fra:
         pauetet: "Pauetet"                                 #< corylus_avellana
         peach: "Pêche"                                     #< fruit
         pear: "Poire"                                      #< fruit
+        phacelia: "Phacelia"                               #< boraginaceae
         phaseolus: "Haricot"                               #< fabaceae
         pisum: "Pisum"                                     #< fabaceae
         plant: "Végétal"                                   #< bioproduct
@@ -2695,6 +2805,7 @@ fra:
         tonda_giffoni: "Tonda giffoni"                     #< corylus_avellana
         tractor: "Tracteur"                                #< equipment
         trailer: "Remorque"                                #< equipment
+        trifolium: "Trifolium"                             #< fabaceae
         triticosecale: "Triticale"                         #< poaceae
         triticum: "Blé"                                    #< poaceae
         triticum_aestivum: "Blé tendre"                    #< triticum

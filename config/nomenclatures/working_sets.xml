@@ -5,7 +5,7 @@
       <property-nature name="expression" type="string" required="true"/>
     </property-natures>
     <items>
-      <item name="oenological_regulateds" expression="of_variety(saccharose) or of_variety(concentrated_rectified_must) or can(acidify) or can(alkalinize) or of_variety(potassium_ferrocyanide)" />
+      <item name="oenological_regulateds" expression="can('catalyze(wine), chaptelise(wine), fermentize(wine), sulfurize(wine)') or of_variety(concentrated_rectified_must) or can(acidify) or can(alkalinize) or of_variety(potassium_ferrocyanide) " />
     </items>
   </nomenclature>
 </nomenclatures>

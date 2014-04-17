@@ -483,28 +483,6 @@ jpn:
         # period: "Période"
         # specific_heat_capacity: "Capacité thermique"
         # symbol: "Symbole"
-    controlled_resources:
-      items:
-        # accountancy_dashboard: "Tableau de bord de la comptabilité"
-        # accounts: "Comptes comptables"
-        # activities: "Activités"
-        # affairs: "Affaires"
-        # analysis: "Analyses"
-        # animal_groups: "Troupeaux"
-        # animal_medicines: "Médicaments vétérinaires"
-        # animals: "Animaux"
-        # bank_statements: "Relevés de banque"
-        # bioproducts: "Bioproduits"
-        # building_divisions: "Salles/zones de bâtiment"
-        # buildings: "Bâtiments"
-        # calculators: "Calculateurs"
-        # campaigns: "Campagnes"
-        # cash_tranfers: "Virements"
-        # entities: "Personnes (physiques et morales)"
-        # interventions: "Interventions"
-      # name: "Ressources contrôlées"
-      property_natures:
-        # accesses: "Accès"
     countries:
       items:
         ad: "アンドラ"
@@ -766,14 +744,19 @@ jpn:
         # carrot: "Carotte"
         # chicory: "Endive"
         # corn: "Maïs"
+        # corn_sorghum: "Maïs et sorgho"
+        # crucifers: "Crucifères"
         # flax: "Lin"
         # grass: "Graminée"
         # grass_leguminous: "Graminée et Legumineuse"
+        # leguminosae: "Légumineuses"
         # leguminous: "Legumineuse"
         # meadow: "Prairie"
         # nightshade: "Pomme de terre"
         # peas: "Pois"
         # rape: "Colza"
+        # secale_phacelia: "Seigle et phacélie"
+        # sorghum: "Sorgho"
         # spring_crop: "Culture de printemps"
         # spring_straw_cereal: "Céréales à paille de printemps"
         # straw_cereal: "Céréales à paille"
@@ -1063,10 +1046,39 @@ jpn:
         # trial_balance: "Balance comptable"
         # veterinary_booklet: "Carnet vétérinaire"
         # vine_phytosanitary_registry: "Registre phytosanitaire - Vigne"
+        # wine_bottling_registry: "Registre de conditionnement - Vin"
         # wine_detention_registry: "Registre de détention - Vin"
+        # wine_manipulation_registry: "Registre de manipulation - Vin"
       # name: "Types de documents"
       property_natures:
         # category: "Catégories"
+    enterprise_resource_actions:
+      items:
+        # close: "Fermer"
+        # execute: "Exécuter"
+        # link: "Lier"
+        # lock: "Verrouiller"
+        # read: "Lire"
+        # reopen: "Réouvrir"
+        # write: "Écrire"
+      # name: "Actions des ressources d’entreprise"
+    enterprise_resources:
+      items:
+        # accounts: "Comptes comptables"
+        # activities: "Activités"
+        # affairs: "Affaires"
+        # animal_groups: "Troupeaux"
+        # animal_medicines: "Médicaments vétérinaires"
+        # animals: "Animaux"
+        # bank_statements: "Relevés de banque"
+        # building_divisions: "Salles/zones de bâtiment"
+        # buildings: "Bâtiments"
+        # campaigns: "Campagnes"
+        # entities: "Personnes (physiques et morales)"
+        # interventions: "Interventions"
+      # name: "Ressources d’entreprise"
+      property_natures:
+        # accesses: "Accès"
     entity_link_natures:
       choices: #?
       items:
@@ -1272,6 +1284,7 @@ jpn:
         # phosphate_concentration: "Teneur en phosphate (P2O5)"
         # phosphorus_analysis_method: "Méthode d’analyse de la teneur en Phosphore"
         # phosphorus_concentration: "Teneur en phosphore"
+        # plant_growth_level: "Niveau de croissance d'une plante"
         # plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         # plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
         # plants_density: "Densité de plantation"
@@ -1280,6 +1293,7 @@ jpn:
         # potash_concentration: "Teneur en potasse (K2O)"
         # potassium_concentration: "Teneur en potassium"
         # potential_hydrogen: "Potentiel hydrogène (pH)"
+        # precocity_index: "Index de précocité"
         # protein_concentration_index: "Taux protéïque (TP)"
         # protein_matters_concentration: "Teneur en matières protéïques"
         # reference_year: "Millésime"
@@ -1466,6 +1480,11 @@ jpn:
         # heat: "Chaleur"
         # pregnancy: "Pleine"
       # name: "États de la reproduction mammifère"
+    manure_management_plan_computation_methods:
+      items:
+        # external: "Externe"
+        # poitou_charentes: "Poitou charentes"
+      # name: "Méthodes de calcul (PPF)"
     molecules:
       items:
         # ammonia: "Ammoniac"
@@ -1532,6 +1551,8 @@ jpn:
     nmp_poitou_charentes_abacus_9: #?
     nmp_poitou_charentes_abacus_eight:
       # name: "Abaque 8 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_eleven:
+      # name: "Abaque 11 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_five:
       # name: "Abaque 5 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_four:
@@ -1577,6 +1598,11 @@ jpn:
         # heading: "Épiaison"
         # swelling: "Gonflement"
       # name: "États de la reproduction végétale"
+    plants_growth_levels:
+      items:
+        # hight: "Forte"
+        # low: "Faible"
+      # name: "Niveau de croissance des plantes"
     procedure_natures:
       items:
         # addition: "Ajout de produits"
@@ -2060,6 +2086,7 @@ jpn:
         # white_sugar_25kg: "Sucre blanc - 25kg"
         # wine: "Vin"
         # wine_press: "Pressoir"
+        # wine_storage_division: "Zone de stockage - vins conditionnés"
         # wine_vinasse: "Vinasse de distillerie"
         # winter_barley_crop: "Culture d’orge d’hiver"
         # winter_barley_seed_25: "Semence d’orge d’hiver sac de 25kg"
@@ -2197,6 +2224,7 @@ jpn:
         # wine_alkalinizing: "Alcalinisant (vin)"
         # wine_crop: "Vigne"
         # wine_press: "Pressoir (vin)"
+        # wine_storage_division: "Zone de stockage - vins conditionnés"
         # wine_tank: "Cuve à vin"
       # name: "Types de produits"
       property_natures:
@@ -2487,6 +2515,7 @@ jpn:
         # beta: "Betterave"
         # betulaceae: "Betulaceae"
         # bioproduct: "Produit vivant"
+        # boraginaceae: "Boraginaceae"
         # bos: "Bovin"
         # bottle: "Bouteille"
         # bottling: "Embouteillage"
@@ -2610,6 +2639,7 @@ jpn:
         # pauetet: "Pauetet"
         # peach: "Pêche"
         # pear: "Poire"
+        # phacelia: "Phacelia"
         # phaseolus: "Haricot"
         # pisum: "Pisum"
         # plant: "Végétal"
@@ -2701,6 +2731,7 @@ jpn:
         # tonda_giffoni: "Tonda giffoni"
         # tractor: "Tracteur"
         # trailer: "Remorque"
+        # trifolium: "Trifolium"
         # triticosecale: "Triticale"
         # triticum: "Blé"
         # triticum_aestivum: "Blé tendre"

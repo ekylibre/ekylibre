@@ -268,6 +268,12 @@ fra:
       index: "Exercices comptables"
       new: "Créer un nouvel exercice"
       show: "Exercice comptable %{code}"
+    backend/fungi:
+      # edit: "Edit backend/fungus"
+      # index: "Index backend/fungus"
+      # new: "New backend/fungus"
+      # picture: "Picture backend/fungus"
+      # show: "Show backend/fungus"
     backend/gaps:
       index: "Pertes et profits"
       show: "Perte ou profit N°%{number}"
@@ -395,6 +401,11 @@ fra:
       index: "Exportations et mailings"
       mail: "Envoyer un e-mail pour\_: %{name}"
       new: "Création d’une nouvelle extraction"
+    backend/manure_management_plans:
+      edit: "Modifier le plan de fumure\_: %{name}"
+      index: "Plans de fumure"
+      new: "Nouveau plan de fumure"
+      show: "Plan de fumure\_: %{name}"
     backend/matters:
       edit: "Modifier la matière\_: %{name}"
       index: "Matières"
@@ -658,6 +669,8 @@ fra:
       unlock: "Déverrouiller l’utilisateur"
     backend/wine_tanks:
       index: "Cuverie"
+    backend/wine_transformers:
+      index: "Produits oenologiques"
     backend/workers:
       edit: "Modifier l’équipier %{name}"
       index: "Équipiers"
@@ -750,6 +763,7 @@ fra:
     # backend/events: "Backend/events"
     backend/financial_assets: "Immobilisations"
     backend/financial_years: "Exercices comptables"
+    # backend/fungi: "Backend/fungi"
     # backend/gaps: "Backend/gaps"
     # backend/guide_analyses: "Backend/guide analyses"
     # backend/guides: "Backend/guides"
@@ -760,7 +774,6 @@ fra:
     backend/incoming_delivery_modes: "Modes de réception d’arrivage"
     backend/incoming_payment_modes: "Modes d’encaissement"
     backend/incoming_payments: "Encaissements"
-    backend/interfacers: "Interfaceurs"
     backend/intervention_casts: "Acteurs d'intervention"
     backend/interventions: "Interventions"
     backend/inventories: "Inventaires"
@@ -777,6 +790,7 @@ fra:
     backend/listing_node_items: "Élement de nœuds d’extractions"
     backend/listing_nodes: "Nœuds d’extractions"
     backend/listings: "Exportations et mailings"
+    # backend/manure_management_plans: "Backend/manure management plans"
     backend/matters: "Matières"
     backend/medicines: "Médicaments"
     backend/mineral_matters: "Matières minérales"
@@ -832,6 +846,7 @@ fra:
     backend/transports: "Transports"
     backend/users: "Utilisateurs"
     # backend/wine_tanks: "Backend/wine tanks"
+    # backend/wine_transformers: "Backend/wine transformers"
     # backend/workers: "Backend/workers"
     # backend: "Backend"
     # base: "Base"

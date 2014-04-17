@@ -1,6 +1,4 @@
 Ekylibre::Application.routes.draw do
-
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -270,8 +268,6 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    # resources :deposit_items
-
     resources :districts, concerns: [:list, :unroll]
 
     resources :document_archives
@@ -332,6 +328,8 @@ Ekylibre::Application.routes.draw do
         get :list_financial_asset_depreciations
       end
     end
+
+    resources :fungi, concerns: :products
 
     resources :gaps, concerns: [:list, :unroll] do
       member do
@@ -464,7 +462,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :versions, concerns: [:list, :unroll]
+    resources :manure_management_plans, concerns: [:list, :unroll] do
+      member do
+        get :list_zones
+      end
+    end
 
     resources :matters, concerns: :products
 
@@ -675,8 +677,6 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    # resources :tax_declarations
-
     resources :taxes, concerns: [:list, :unroll]
 
     resources :teams, concerns: [:list, :unroll]
@@ -687,13 +687,12 @@ Ekylibre::Application.routes.draw do
       # end
       member do
         get :list_products
-      #   get :list_sale_items
-      #   get :list_purchase_items
-      #   get :list_operation_items
+        #   get :list_sale_items
+        #   get :list_purchase_items
+        #   get :list_operation_items
       end
     end
 
-    # resources :tracking_states
     resources :transformed_products, only: [:index], concerns: [:list]
 
     resources :transports, concerns: [:list, :unroll] do
@@ -716,7 +715,11 @@ Ekylibre::Application.routes.draw do
       end
     end
 
+    resources :versions, concerns: [:list, :unroll]
+
     resources :wine_tanks, only: [:index], concerns: [:list]
+
+    resources :wine_transformers, only: [:index], concerns: [:list]
 
     resources :workers, concerns: :products
 

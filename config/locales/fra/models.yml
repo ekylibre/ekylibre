@@ -307,6 +307,8 @@ fra:
       listing_node: "Nœud d’extraction"
       listing_node_item: "Élément de nœud d’extraction"
       mandate: "Responsabilité" #?
+      # manure_management_plan: "Manure management plan"
+      # manure_management_plan_zone: "Manure management plan zone"
       matter: "Matière"
       medicine: "Médicament"
       mineral_matter: "Matière minérale"
@@ -392,6 +394,7 @@ fra:
     absolute_measure_value: "Absolute measure value"
     absolute_measure_value_unit: "Absolute measure value unit"
     absolute_measure_value_value: "Absolute measure value value"
+    # absorbed_nitrogen_at_opening: "Absorbed nitrogen at opening"
     # absorber: "Absorber"
     # absorber_way: "Absorber way"
     acceptance_status: "Acceptance status"
@@ -548,6 +551,7 @@ fra:
     credits: "Avoirs"
     critic_quantity_min: "Quantité minimum critique" #?
     critic_stocks: "Stocks critiques" #?
+    # cultivable_zone: "Cultivable zone"
     cultivable_zones: "Zones cultivables"
     # cumulated_absolute_credit: "Cumulated absolute credit"
     # cumulated_absolute_debit: "Cumulated absolute debit"
@@ -581,6 +585,7 @@ fra:
     declared_at: "Déclarée le" #?
     deduction_account: "TVA déductible"
     deduction_taxes: "TVA déductible" #?
+    default_computation_method: "Default computation method"
     default_mail_address: "Adresse email par défaut"
     default_storage: "Emplacement par défaut"
     default_variant: "Variant par défault"
@@ -724,6 +729,7 @@ fra:
     guide: "Référentiel"
     harvest_year: "Année de récolte"
     has_downpayment: "A un acompte"
+    # humus_mineralization: "Humus mineralization"
     iban: "IBAN"
     id: "ID"
     identification_number: "Numéro d’identification"
@@ -753,6 +759,7 @@ fra:
     initial_population: "Population initiale"
     initial_shape: "Initial shape"
     integer_value: "Valeur entière"
+    # intermediate_cultivation_residue_mineralization: "Intermediate cultivation residue mineralization"
     intervention: "Intervention"
     intervention_casts: "Intervention casts"
     interventions: "Interventions"
@@ -763,6 +770,7 @@ fra:
     invoiced_at: "Facturée le"
     invoices_count: "Nombre de factures" #?
     irrigated: "Irrigué"
+    # irrigation_water_nitrogen: "Irrigation water nitrogen"
     issue: "Incident"
     issues: "Incidents"
     # item: "Item"
@@ -784,6 +792,7 @@ fra:
     junctions: "Junctions"
     key: "Clé"
     label: "Libellé"
+    # land_parcel: "Land parcel"
     land_parcels: "Parcelle"
     language: "Langue"
     last_analysis: "Dernières analyses"
@@ -836,6 +845,7 @@ fra:
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
     maximal_length: "Longueur maximale"
     maximal_value: "Valeur maximale"
+    # meadow_humus_mineralization: "Meadow humus mineralization"
     measure_value: "Valeur de la mesure"
     measure_value_unit: "Unité de la mesure"
     measure_value_value: "Valeur de la mesure"
@@ -843,8 +853,10 @@ fra:
     meeting_origin: "Origine de la rencontre"
     member: "Membre"
     members: "Membres"
+    # membership: "Membership"
     memberships: "Membres du groupe"
     milk_withdrawal_period: "Délai d’attente (lait)" #?
+    # mineral_nitrogen_at_opening: "Mineral nitrogen at opening"
     minimal_length: "Longueur minimale"
     minimal_quantity: "Minimal quantity" #?
     minimal_value: "Valeur minimale"
@@ -863,7 +875,9 @@ fra:
     net_surface_area: "Surface"
     net_volume: "Volume net" #?
     nic: "NIC (Numéro Interne de Classement)" #?
-    nitrogen_input: "Apport azoté" #?
+    # nitrogen_at_closing: "Nitrogen at closing"
+    nitrogen_input: "Apport azoté"
+    # nitrogen_need: "Nitrogen need"
     node: "Nœud"
     nodes: "Nœuds d’extraction"
     number: "Numéro"
@@ -875,8 +889,10 @@ fra:
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier" #?
     old_password: "Mot de passe actuel"
+    # opened_at: "Opened at"
     operation: "Travail"
     operations: "Travaux"
+    # organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
     organization: "Organisation" #?
     origin: "Origine"
     originator: "Originator"
@@ -919,6 +935,7 @@ fra:
     picture_file_size: "Taille du fichier photo"
     picture_updated_at: "Fichier photo mis à jour le"
     place: "Place"
+    # plan: "Plan"
     planned_at: "Prévu le"
     planned_depreciations: "Amortissements prévus"
     point: "Point"
@@ -934,6 +951,7 @@ fra:
     prescription: "Prescription"
     prescriptor: "Prescripteur"
     pretax_amount: "Montant HT"
+    # previous_cultivation_residue_mineralization: "Previous cultivation residue mineralization"
     price: "Prix"
     # price_templates: "Price templates"
     prices: "Prix"
@@ -1070,6 +1088,7 @@ fra:
     scheduled: "Encaissement programmé"
     second_producer: "Second producer"
     second_producer_way: "Second producer way"
+    # selected: "Selected"
     sender: "Expéditeur"
     sent_at: "Expédié le"
     serial: "N°Lot"
@@ -1078,6 +1097,7 @@ fra:
     sign_in_count: "Nombre de connexions"
     siren: "N° SIREN"
     soil_nature: "Nature du sol" #?
+    # soil_production: "Soil production"
     source: "Source"
     # source_product: "Source product"
     spaced_iban: "IBAN"
@@ -1111,7 +1131,7 @@ fra:
     supplier: "Fournisseur"
     supplier_account: "Compte fournisseur associé"
     suppliers: "Fournisseurs"
-    # support: "Support"
+    support: "Support"
     supports: "Supports"
     suspended: "Suspendu"
     target: "Cible"
@@ -1178,6 +1198,7 @@ fra:
     work_number: "Numéro de travail"
     yield: "Rendement" #?
     # zone_memberships: "Zone memberships"
+    # zones: "Zones"
   models:
     account:
       label: "%{number} - %{name}"

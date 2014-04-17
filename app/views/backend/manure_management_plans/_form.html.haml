@@ -1,0 +1,15 @@
+= field_set do
+  = f.input :name
+  = f.referenced_association :campaign
+  = f.referenced_association :recommender
+  = f.input :default_computation_method
+  = f.input :opened_at
+  = f.input :selected
+  = f.input :annotation
+
+:ruby
+  f.object.build_missing_zones
+
+- for zone in f.object.zones
+  = field_set zone.name do
+    %h4

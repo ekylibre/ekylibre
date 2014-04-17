@@ -94,6 +94,7 @@ eng:
       show: "Building: %{name}"
     backend/calculators:
       # index: "Calculateurs"
+    backend/calculators/manure_management_plans: #?
     backend/calculators/nitrogen_inputs:
       # edit: "Calcul des apports d’azote"
       # show: "Calcul des apports d’azote"
@@ -291,6 +292,7 @@ eng:
       index: "Financial years"
       new: "Open a new financial year"
       show: "Financial year %{code}"
+    backend/fungi: #?
     backend/gaps:
       # index: "Pertes et profits"
       # show: "Perte ou profit N°%{number}"
@@ -411,6 +413,11 @@ eng:
       edit: "Edit the responsibility" #?
       index: "Responsibilities" #?
       new: "Add a responsibility" #?
+    backend/manure_management_plans:
+      # edit: "Modifier le plan de fumure\_: %{name}"
+      # index: "Plans de fumure"
+      # new: "Nouveau plan de fumure"
+      # show: "Plan de fumure\_: %{name}"
     backend/matters:
       edit: "Edit matter\_: %{name}"
       index: "Matters"
@@ -720,6 +727,8 @@ eng:
       unlock: "Unlock user"
     backend/wine_tanks:
       # index: "Cuverie"
+    backend/wine_transformers:
+      # index: "Produits oenologiques"
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"
@@ -780,7 +789,7 @@ eng:
     backend/incoming_delivery_modes: "Incoming delivery modes"
     backend/incoming_payment_modes: "Incoming payment modes"
     backend/incoming_payments: "Incoming payments"
-    backend/interfacers: "Interfacers"
+    backend/interfacers: "Interfacers" #?
     # backend/intervention_casts: "Acteurs d'intervention"
     # backend/interventions: "Interventions"
     backend/inventories: "Inventories"

@@ -17,11 +17,15 @@
       <item name="beet" varieties="beta" />
       <item name="carrot" varieties="daucus" />
       <item name="rape" varieties="brassica" />
+      <item name="crucifers" varieties="brassicaceae" />
+      <item name="leguminosae" varieties="fabaceae" />
       <item name="chicory" varieties="cichorium" />
       <item name="vetch" varieties="vicia"/>
       <item name="flax" varieties="linum" />
       <item name="alfalfa" varieties="medicago"/>
       <item name="corn" varieties="zea" />
+      <item name="sorghum" varieties="sorghum" />
+      <item name="corn_sorghum" varieties="zea,sorghum" />
       <item name="peas" varieties="pisum" />
       <item name="meadow" varieties="pisum" />
       <item name="bean" varieties="phaseolus" />
@@ -30,6 +34,8 @@
       <item name="grass" varieties="poaceae" />
       <item name="leguminous" varieties="fabaceae" />
       <item name="grass_leguminous" varieties="poaceae,fabaceae" />
+      <item name="secale_phacelia" varieties="secale,phacelia" />
+      
     </items>
   </nomenclature>
 </nomenclatures>

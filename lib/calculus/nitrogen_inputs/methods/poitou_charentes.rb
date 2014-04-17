@@ -55,7 +55,7 @@ module Calculus
           # @zone.mark(:absorbed_nitrogen_at_beginning_density, absorbed_nitrogen_at_beginning)
 
           # Ri
-          # @TODO between 0 and 35
+          # @TODO between 5 and 35
           mineral_nitrogen_at_beginning = 15.in_kilogram_per_hectare
 
           # Mh
