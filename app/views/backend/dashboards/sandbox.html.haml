@@ -1,47 +1,13 @@
-%h1= "Map test"
+:ruby
+  data = [{name: ""},{}]
 
-= backend_form_for(@cast) do |f|
-  = f.shape
-
-  = submit_tag
-
-
-#map{style: "height: 400px"}
-
-
-
-:javascript
-
-
-  var map = L.map('map', {zoomControl: false}).setView(#{[@coordinates.latitude, @coordinates.longitude].inspect}, 18);
-
-  map.addControl(L.control.zoom({position: 'topleft', zoomInText: '', zoomOutText: ''}))
-
-  // add an OpenStreetMap tile layer
-  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map);
-
-  // Initialize the FeatureGroup to store editable layers
-  var drawnItems = new L.FeatureGroup();
-  map.addLayer(drawnItems);
-
-  L.polygon(#{@points.inspect}).addTo(map);
-
-  var zone = L.polygon(#{@points.inspect}).addTo(drawnItems);
-
-  // Initialize the draw control and pass it the FeatureGroup of editable layers
-  var drawControl = new L.Control.Draw({
-    edit: {
-      featureGroup: drawnItems
-    }
-  });
-
-  map.on('draw:edited', function(e) {
-    var layers = e.layers;
-    $('#shape').val(JSON.stringify(layers.toGeoJSON()));
-  });
-
-  map.addControl(drawControl);
-
-= text_field_tag("shape")
+= visualization :my_cultivable_zone_of_hell, fullscreen: true do |v|
+  - v.background "OpenStreetMap.HOT"
+  - v.background "OpenWeather.Precipitation"
+  - v.dataset :zones, data
+  - v.layer :zones_of_fucking_hell, data, tooltip: true
+  - v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
+  - v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
+  - v.control :background
+  - v.control :layer_selector
+  - v.control :search
