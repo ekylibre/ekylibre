@@ -1363,7 +1363,6 @@ ActiveRecord::Schema.define(version: 20140415075729) do
   create_table "manure_management_plan_zones", force: true do |t|
     t.integer  "plan_id",                                                                              null: false
     t.integer  "support_id",                                                                           null: false
-    t.integer  "membership_id",                                                                        null: false
     t.string   "computation_method",                                                                   null: false
     t.decimal  "nitrogen_need",                                   precision: 19, scale: 4
     t.decimal  "absorbed_nitrogen_at_opening",                    precision: 19, scale: 4
@@ -1386,7 +1385,6 @@ ActiveRecord::Schema.define(version: 20140415075729) do
 
   add_index "manure_management_plan_zones", ["created_at"], :name => "index_manure_management_plan_zones_on_created_at"
   add_index "manure_management_plan_zones", ["creator_id"], :name => "index_manure_management_plan_zones_on_creator_id"
-  add_index "manure_management_plan_zones", ["membership_id"], :name => "index_manure_management_plan_zones_on_membership_id"
   add_index "manure_management_plan_zones", ["plan_id"], :name => "index_manure_management_plan_zones_on_plan_id"
   add_index "manure_management_plan_zones", ["support_id"], :name => "index_manure_management_plan_zones_on_support_id"
   add_index "manure_management_plan_zones", ["updated_at"], :name => "index_manure_management_plan_zones_on_updated_at"
@@ -1400,6 +1398,7 @@ ActiveRecord::Schema.define(version: 20140415075729) do
     t.string   "default_computation_method",                 null: false
     t.boolean  "locked",                     default: false, null: false
     t.boolean  "selected",                   default: false, null: false
+    t.string   "exploitation_typology"
     t.text     "annotation"
     t.datetime "created_at",                                 null: false
     t.datetime "updated_at",                                 null: false

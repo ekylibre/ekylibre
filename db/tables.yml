@@ -946,7 +946,6 @@ manure_management_plan_zones:
   irrigation_water_nitrogen: {type: decimal, precision: 19, scale: 4}
   lock_version: {type: integer, required: true, default: 0}
   meadow_humus_mineralization: {type: decimal, precision: 19, scale: 4}
-  membership_id: {type: integer, references: cultivable_zone_membership, required: true}
   mineral_nitrogen_at_opening: {type: decimal, precision: 19, scale: 4}
   nitrogen_at_closing: {type: decimal, precision: 19, scale: 4}
   nitrogen_input: {type: decimal, precision: 19, scale: 4}
@@ -965,6 +964,7 @@ manure_management_plans:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   default_computation_method: {type: string, required: true}
+  exploitation_typology: {type: string}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   locked: {type: boolean, required: true, default: false}

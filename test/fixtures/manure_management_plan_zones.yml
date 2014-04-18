@@ -31,7 +31,6 @@
 #  irrigation_water_nitrogen                       :decimal(19, 4)
 #  lock_version                                    :integer          default(0), not null
 #  meadow_humus_mineralization                     :decimal(19, 4)
-#  membership_id                                   :integer          not null
 #  mineral_nitrogen_at_opening                     :decimal(19, 4)
 #  nitrogen_at_closing                             :decimal(19, 4)
 #  nitrogen_input                                  :decimal(19, 4)
@@ -50,7 +49,6 @@
 # manure_management_plan_zones_001:
 #   computation_method: "Lorem ipsum"
 #   creator: users_001
-#   membership: memberships_001
 #   plan: plans_001
 #   support: supports_001
 #   updater: users_001
@@ -59,7 +57,6 @@
 manure_management_plan_zones_001:
   computation_method: "poitou_charentes"
   creator: users_001
-  membership: memberships_001
   plan: plans_001
   support: production_supports_001
   updater: users_001
@@ -67,7 +64,6 @@ manure_management_plan_zones_001:
 manure_management_plan_zones_002:
   computation_method: "poitou_charentes"
   creator: users_001
-  membership: memberships_002
   plan: plans_002
   support: production_supports_002
   updater: users_001

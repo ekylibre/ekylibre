@@ -1,5 +1,4 @@
-module Backend::VisualizationHelper
-
+module Backend::VisualizationsHelper
 
   # Example of how to use in HAML view:
   #   = visualization :vizu1 do |v|

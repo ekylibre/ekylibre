@@ -31,7 +31,6 @@
 #  irrigation_water_nitrogen                       :decimal(19, 4)
 #  lock_version                                    :integer          default(0), not null
 #  meadow_humus_mineralization                     :decimal(19, 4)
-#  membership_id                                   :integer          not null
 #  mineral_nitrogen_at_opening                     :decimal(19, 4)
 #  nitrogen_at_closing                             :decimal(19, 4)
 #  nitrogen_input                                  :decimal(19, 4)
@@ -47,17 +46,16 @@
 class ManureManagementPlanZone < Ekylibre::Record::Base
   belongs_to :plan, class_name: "ManureManagementPlan", inverse_of: :zones
   belongs_to :support, class_name: "ProductionSupport"
-  belongs_to :membership, class_name: "CultivableZoneMembership"
+  # belongs_to :membership, class_name: "CultivableZoneMembership"
   has_one :activity, through: :production
   has_one :campaign, through: :plan
-  has_one :cultivable_zone, through: :membership, source: :group
-  has_one :land_parcel, through: :membership, source: :member
+  has_one :cultivable_zone, through: :support, source: :storage
   has_one :production, through: :support
   enumerize :computation_method, in: Nomen::ManureManagementPlanComputationMethods.all
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :absorbed_nitrogen_at_opening, :humus_mineralization, :intermediate_cultivation_residue_mineralization, :irrigation_water_nitrogen, :meadow_humus_mineralization, :mineral_nitrogen_at_opening, :nitrogen_at_closing, :nitrogen_input, :nitrogen_need, :organic_fertilizer_mineral_fraction, :previous_cultivation_residue_mineralization, :soil_production, allow_nil: true
   validates_length_of :computation_method, allow_nil: true, maximum: 255
-  validates_presence_of :computation_method, :membership, :plan, :support
+  validates_presence_of :computation_method, :plan, :support
   #]VALIDATORS]
 
   delegate :locked?, to: :plan

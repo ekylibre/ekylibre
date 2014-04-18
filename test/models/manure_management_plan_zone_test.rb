@@ -31,7 +31,6 @@
 #  irrigation_water_nitrogen                       :decimal(19, 4)
 #  lock_version                                    :integer          default(0), not null
 #  meadow_humus_mineralization                     :decimal(19, 4)
-#  membership_id                                   :integer          not null
 #  mineral_nitrogen_at_opening                     :decimal(19, 4)
 #  nitrogen_at_closing                             :decimal(19, 4)
 #  nitrogen_input                                  :decimal(19, 4)

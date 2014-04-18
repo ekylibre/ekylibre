@@ -673,6 +673,7 @@ fra:
     execution_number: "N° d’exécution"
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"
+    # exploitation_typology: "Exploitation typology"
     exportable: "Exportable"
     exportable_columns: "Colonnes exportables"
     expression: "Expression" #?
@@ -792,7 +793,6 @@ fra:
     junctions: "Junctions"
     key: "Clé"
     label: "Libellé"
-    # land_parcel: "Land parcel"
     land_parcels: "Parcelle"
     language: "Langue"
     last_analysis: "Dernières analyses"
@@ -853,7 +853,6 @@ fra:
     meeting_origin: "Origine de la rencontre"
     member: "Membre"
     members: "Membres"
-    # membership: "Membership"
     memberships: "Membres du groupe"
     milk_withdrawal_period: "Délai d’attente (lait)" #?
     # mineral_nitrogen_at_opening: "Mineral nitrogen at opening"

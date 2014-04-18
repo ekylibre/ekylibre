@@ -8,6 +8,7 @@ class AddManureManagementPlanTables < ActiveRecord::Migration
       t.string     :default_computation_method, null: false
       t.boolean    :locked,         null: false, default: false
       t.boolean    :selected,       null: false, default: false
+      t.string     :exploitation_typology
       t.text       :annotation
       t.stamps
     end
@@ -15,7 +16,6 @@ class AddManureManagementPlanTables < ActiveRecord::Migration
     create_table :manure_management_plan_zones do |t|
       t.references :plan,                 null: false, index: true
       t.references :support,              null: false, index: true
-      t.references :membership,           null: false, index: true
       t.string     :computation_method,   null: false
       t.decimal    :nitrogen_need,                                   precision: 19, scale: 4
       t.decimal    :absorbed_nitrogen_at_opening,                    precision: 19, scale: 4
