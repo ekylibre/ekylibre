@@ -31,7 +31,7 @@ load_data :interventions do |loader|
                   end
 
                   # Sowing 15-10-N -> 30-10-N
-                  int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support) do |i|
+                  int = Ekylibre::FirstRun::Booker.intervene(:sowing, year - 1, 10, 15, 6.92 * coeff, range: 15, support: support, parameters: {readings: {"base-sowing-0-750-2" => {value: 200 + rand(25), unit: :unity_per_square_meter}}}) do |i|
                     i.add_cast(reference_name: 'seeds',        actor: i.find(Product, variety: :seed, derivative_of: variety))
                     i.add_cast(reference_name: 'seeds_to_sow', population: 20)
                     i.add_cast(reference_name: 'sower',        actor: i.find(Product, can: "sow"))
