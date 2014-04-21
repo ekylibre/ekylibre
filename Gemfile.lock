@@ -52,7 +52,7 @@ GEM
       beardley
     beardley-xml (1.1.1)
       beardley
-    bootstrap-sass (3.1.1.0)
+    bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.1.4)
     burisu-docsplit (0.7.6)
@@ -84,7 +84,7 @@ GEM
       execjs
     coffee-script-source (1.7.0)
     colored (1.2)
-    compass (0.12.5)
+    compass (0.12.6)
       chunky_png (~> 1.2)
       fssm (>= 0.2.7)
       sass (~> 3.2.19)
@@ -153,7 +153,7 @@ GEM
     jquery-turbolinks (2.0.2)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (4.2.0)
+    jquery-ui-rails (4.2.1)
       railties (>= 3.2.16)
     json (1.8.1)
     kgio (2.9.2)
@@ -221,7 +221,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
-    rake (10.2.2)
+    rake (10.3.1)
     rdoc (4.1.1)
       json (~> 1.4)
     ref (1.0.5)
