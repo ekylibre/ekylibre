@@ -17,6 +17,7 @@
       <item name="beet" varieties="beta" />
       <item name="carrot" varieties="daucus" />
       <item name="rape" varieties="brassica" />
+      <item name="rapeseed" varieties="brassica_napus" />
       <item name="crucifers" varieties="brassicaceae" />
       <item name="leguminosae" varieties="fabaceae" />
       <item name="chicory" varieties="cichorium" />

@@ -13,6 +13,7 @@
        <property-nature name="precipitations_stopped_period" type="string" required="false"/><!-- MM -->
        <property-nature name="precipitations_min" type="decimal" required="true"/><!-- en mm d'eau soit l/m2 -->
        <property-nature name="precipitations_max" type="decimal" required="true"/><!-- en mm d'eau soit l/m2 -->
+       <property-nature name="plant_developpment" type="choice" choices="small,medium,hight" required="false"/>
     </property-natures>
     <items>
       <!-- WHEAT -->
@@ -188,6 +189,58 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       />
+        <!-- RAPESEED -->
+      <item name="rapeseed_ru_min_1"
+       crop="rapeseed"
+       po="100"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="0"
+       precipitations_max="350"
+       plant_developpment="small"
+       />
+       <item name="rapeseed_ru_min_2"
+       crop="rapeseed"
+       po="85"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="350"
+       plant_developpment="small"
+       />
+       <item name="rapeseed_ru_med_1"
+       crop="rapeseed"
+       po="130"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="0"
+       precipitations_max="350"
+       plant_developpment="medium"
+       />
+       <item name="rapeseed_ru_med_2"
+       crop="rapeseed"
+       po="115"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="350"
+       plant_developpment="medium"
+       />
+       <item name="rapeseed_ru_max_1"
+       crop="rapeseed"
+       po="160"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="0"
+       precipitations_max="350"
+       plant_developpment="hight"
+       />
+       <item name="rapeseed_ru_max_2"
+       crop="rapeseed"
+       po="145"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="350"
+       plant_developpment="hight"
        />
     </items>
   </nomenclature>

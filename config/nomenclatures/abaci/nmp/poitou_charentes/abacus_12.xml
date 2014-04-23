@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <!-- root -->
+  <!-- Annexe 1 : Fertilisation des céréales à pailles - Arrêté du 31/08/2013 -->
+  <!--  abaque de valeur de Pi (kg de N / ha)  selon le nombre de talles  -->
+  <nomenclature name="nmp_poitou_charentes_abacus_twelve" hierarchical="false" translateable="false">
+    <property-natures>
+      <property-nature name="administrative_area"  type="choice" nomenclature="administrative_areas" requied="true"/>
+      <property-nature name="coefficient" type="integer" required="true"/>
+      
+      
+    </property-natures>
+    <items>
+      <item name="rapeseed_pc_coefficient" administrative_area="france_region_poitou_charentes" coefficient="65"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

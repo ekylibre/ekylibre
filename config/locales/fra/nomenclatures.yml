@@ -910,6 +910,7 @@ fra:
         nightshade: "Pomme de terre"
         peas: "Pois"
         rape: "Colza"
+        # rapeseed: "Rapeseed"
         secale_phacelia: "Seigle et phacélie"
         sorghum: "Sorgho"
         spring_crop: "Culture de printemps"
@@ -1464,6 +1465,7 @@ fra:
         fertility_index: "Index de fertilité"
         figure: "Forme"
         freezing_point_temperature: "Point de solidification"
+        # fresh_weight_plants_density: "Fresh weight plants density"
         geolocation: "Géolocalisation"
         grains_area_density: "Grains par surface"
         grains_count: "Grains"
@@ -1774,6 +1776,8 @@ fra:
       name: "Abaque 10 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_three:
       name: "Abaque 3 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_twelve:
+      # name: "Nmp poitou charentes abacus twelve"
     nmp_poitou_charentes_abacus_two:
       name: "Abaque 2 de la méthode de calcul de bilan azoté Poitou-Charentes"
     phosphorus_analysis_methods:

@@ -31,6 +31,9 @@
       <item name="seed_corn_crop"           cultivation_variety="zea"                         coefficient="4.0"/>
       <!-- Sorgho -->
       <item name="sorghum_crop"             cultivation_variety="sorghum"                     coefficient="2.4"/>
+      <!-- Colza -->
+      <item name="rapeseed_crop"            cultivation_variety="brassica_napus"              coefficient="6.5"/>
+      
     </items>
   </nomenclature>
 

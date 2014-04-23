@@ -8,6 +8,8 @@
       <property-nature name="minimum_leaf_count" type="integer" required="true"/>
       <property-nature name="maximum_leaf_count" type="integer" required="false"/>
       <property-nature name="absorbed_nitrogen" type="decimal" required="false"/><!-- en qt/ha -->
+      
+      
     </property-natures>
     <items>
       <item name="no_growth" minimum_leaf_count="0" maximum_leaf_count="1" absorbed_nitrogen="10"/>

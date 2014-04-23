@@ -1704,6 +1704,7 @@ arb:
       # name: "Abaque 10 de la méthode de calcul de bilan azoté Poitou-Charentes"
     nmp_poitou_charentes_abacus_three:
       # name: "Abaque 3 de la méthode de calcul de bilan azoté Poitou-Charentes"
+    nmp_poitou_charentes_abacus_twelve: #?
     nmp_poitou_charentes_abacus_two:
       # name: "Abaque 2 de la méthode de calcul de bilan azoté Poitou-Charentes"
     phosphorus_analysis_methods:
