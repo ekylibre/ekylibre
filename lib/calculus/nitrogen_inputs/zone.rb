@@ -17,7 +17,7 @@ module Calculus
         zones = []
         for campaign in campaigns
           for support in campaign.production_supports.includes(:storage).order(:production_id, "products.name")
-            # support.active return all activies except fallow_land
+            # support.active return all activities except fallow_land
             if support.storage.is_a?(CultivableZone) and support.active?
               for membership in support.storage.memberships
                 zones << new(support, membership)

@@ -963,14 +963,6 @@ form.search {
       @include use-icon(nth($field_set, 2));
     }
   }
-  &.collapsed .buttons .toggle     { @include use-icon(expand-alt); }
-  &.not-collapsed .buttons .toggle { @include use-icon(collapse-alt); }
-  &.error.collapsed .fieldset-legend {
-    &, *, label, span {
-      color: $invalid-color;
-    }
-  }
-  
   .fieldset-fields {
     // border-top: $fieldset-border;
     border-top: 2px solid $active-color;
@@ -1016,6 +1008,21 @@ form.search {
 
   }
 
+  &.collapsed {
+      .buttons .toggle { 
+	  @include use-icon(expand-alt); 
+      }
+      .fieldset-fields {
+	  display: none;
+      }
+  }
+  &.not-collapsed .buttons .toggle { @include use-icon(collapse-alt); }
+  &.error.collapsed .fieldset-legend {
+    &, *, label, span {
+      color: $invalid-color;
+    }
+  }
+  
 }
 
 .help-inline {

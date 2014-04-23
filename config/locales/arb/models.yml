@@ -1005,6 +1005,7 @@ arb:
     address: "العنوان"
     # addresses: "Adresses"
     admin: "مسؤول النظام" #?
+    # administrative_area: "Administrative area"
     # administrator: "Administrateur système"
     # affair: "Affaire"
     # affairs: "Affaires"
@@ -1181,6 +1182,7 @@ arb:
     crypt_key: "مفتاح التشفير" #?
     crypt_mode: "طؤيقة التشفير" #?
     # cultivable_zones: "Zones cultivables"
+    # cultivation_variety: "Cultivation variety"
     currencies: "العملات" #?
     currency: "عملة"
     # currency_precision: "Nombre de décimales"
@@ -1592,6 +1594,7 @@ arb:
     # of_company: "Dossier basé sur cette entreprise"
     office: "المكتب/الاستديو"
     old_password: "كلمة المرور الحالية"
+    # opened_at: "Opened at"
     operation: "العمل"
     operation_id: "عمل" #?
     operation_items: "الواردات/الصادرات" #?
@@ -1625,6 +1628,7 @@ arb:
     paid_amount: "خصمة من قيمة الضريبة الاضافية"
     paid_at: "سددت يوم"
     # paid_taxes: "Taxes payées"
+    # parameters: "Parameters"
     parent: "النسب"
     parent_id: "نسب" #?
     # participant: "Participant"

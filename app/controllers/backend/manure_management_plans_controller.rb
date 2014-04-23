@@ -18,7 +18,7 @@
 #
 
 class Backend::ManureManagementPlansController < BackendController
-  manage_restfully
+  manage_restfully redirect_to: "{action: :edit, id: 'id'}".c
 
   unroll
 

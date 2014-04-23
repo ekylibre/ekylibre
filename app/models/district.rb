@@ -31,7 +31,6 @@
 #  updater_id   :integer
 #
 
-
 class District < Ekylibre::Record::Base
   has_many :postal_zones
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.

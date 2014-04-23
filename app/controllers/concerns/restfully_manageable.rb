@@ -8,10 +8,10 @@ module RestfullyManageable
     def manage_restfully(defaults = {})
       name = self.controller_name
       options = defaults.extract!(:t3e, :redirect_to, :xhr, :destroy_to, :subclass_inheritance, :partial, :multipart, :except, :only)
-      url  = options[:redirect_to]
-      durl = options[:destroy_to]
-      actions = [:index, :show, :new, :create, :edit, :update, :destroy]
-      actions &= [options[:only]].flatten if options[:only]
+      after_save_url    = options[:redirect_to]
+      after_destroy_url = options[:destroy_to]
+      actions  = [:index, :show, :new, :create, :edit, :update, :destroy]
+      actions &= [options[:only]].flatten   if options[:only]
       actions -= [options[:except]].flatten if options[:except]
 
       record_name = name.to_s.singularize
@@ -21,18 +21,18 @@ module RestfullyManageable
       aname = self.controller_path.underscore
       base_url = aname.gsub(/\//, "_")
 
-      # url = base_url.singularize + "_url(@#{record_name})" if url.blank?
+      # url = base_url.singularize + "_url(@#{record_name})" if after_save_url.blank?
 
-      if url.blank?
+      if after_save_url.blank?
         named_url = base_url.singularize + "_url"
         if instance_methods(true).include?(:show)
-          url = "{:controller => :'#{aname}', :action => :show, :id => 'id'}"
+          after_save_url = "{controller: :'#{aname}', action: :show, id: 'id'}"
         else
           named_url = base_url + "_url"
-          url = named_url if instance_methods(true).include?(named_url.to_sym)
+          after_save_url = named_url if instance_methods(true).include?(named_url.to_sym)
         end
-      elsif url.is_a?(Code)
-        url.gsub!(/RECORD/, '@' + record_name)
+      elsif after_save_url.is_a?(Code)
+        after_save_url.gsub!(/RECORD/, '@' + record_name)
       end
 
 
@@ -127,7 +127,7 @@ module RestfullyManageable
       if actions.include?(:create)
         code << "def create\n"
         code << "  @#{record_name} = resource_model.new(permitted_params)\n"
-        code << "  return if save_and_redirect(@#{record_name}#{', url: (' + url + ')' if url})\n"
+        code << "  return if save_and_redirect(@#{record_name}#{', url: (' + after_save_url + ')' if after_save_url})\n"
         code << "  #{render_form}\n"
         code << "end\n"
       end
@@ -145,7 +145,7 @@ module RestfullyManageable
         code << "  return unless @#{record_name} = find_and_check(:#{name})\n"
         code << "  #{t3e_code}\n"
         code << "  @#{record_name}.attributes = permitted_params\n"
-        code << "  return if save_and_redirect(@#{record_name}#{', url: (' + url + ')' if url})\n"
+        code << "  return if save_and_redirect(@#{record_name}#{', url: (' + after_save_url + ')' if after_save_url})\n"
         code << "  #{render_form}\n"
         code << "end\n"
       end
@@ -166,8 +166,8 @@ module RestfullyManageable
           code << "  resource_model.destroy(@#{record_name}.id)\n"
           code << "  notify_success(:record_has_been_correctly_removed)\n"
         end
-        # code << "  redirect_to #{durl ? durl : model.name.underscore.pluralize+'_url'}\n"
-        code << "  " + (durl ? 'redirect_to(' + durl.inspect.gsub(/RECORD/, "@#{record_name}") + ')' : 'redirect_to_current') + "\n"
+        # code << "  redirect_to #{after_destroy_url ? after_destroy_url : model.name.underscore.pluralize+'_url'}\n"
+        code << "  " + (after_destroy_url ? 'redirect_to(' + after_destroy_url.inspect.gsub(/RECORD/, "@#{record_name}") + ')' : 'redirect_to_current') + "\n"
         code << "end\n"
       end
 

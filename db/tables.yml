@@ -937,9 +937,12 @@ listings:
 
 manure_management_plan_zones:
   absorbed_nitrogen_at_opening: {type: decimal, precision: 19, scale: 4}
+  administrative_area: {type: string}
   computation_method: {type: string, required: true}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
+  cultivation_variety: {type: string}
+  expected_yield: {type: decimal, precision: 19, scale: 4}
   humus_mineralization: {type: decimal, precision: 19, scale: 4}
   id: {type: integer, required: true}
   intermediate_cultivation_residue_mineralization: {type: decimal, precision: 19, scale: 4}
@@ -953,6 +956,7 @@ manure_management_plan_zones:
   organic_fertilizer_mineral_fraction: {type: decimal, precision: 19, scale: 4}
   plan_id: {type: integer, references: manure_management_plan, required: true}
   previous_cultivation_residue_mineralization: {type: decimal, precision: 19, scale: 4}
+  soil_nature: {type: string}
   soil_production: {type: decimal, precision: 19, scale: 4}
   support_id: {type: integer, references: production_support, required: true}
   updated_at: {type: datetime, required: true}

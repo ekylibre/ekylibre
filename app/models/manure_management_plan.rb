@@ -49,7 +49,7 @@ class ManureManagementPlan < Ekylibre::Record::Base
   #]VALIDATORS]
 
   accepts_nested_attributes_for :zones
-  selects_among_all scope: :campaign_id
+  selects_among_all :selected, scope: :campaign_id
 
   protect do
     self.locked?
@@ -58,21 +58,26 @@ class ManureManagementPlan < Ekylibre::Record::Base
   after_save :compute
 
   def compute
+    self.zones.map(&:compute)
   end
 
   def build_missing_zones
     active = false
     active = true if self.zones.empty?
+    return false unless self.campaign
     for support in campaign.production_supports.includes(:storage).order(:production_id, "products.name")
       # support.active? return all activies except fallow_land
       if support.storage.is_a?(CultivableZone) and support.active?
-        for membership in support.storage.memberships
-          unless self.zones.find_by(support: support, membership: membership)
-            self.zones.build(support: support, membership: membership, computation_method: self.default_computation_method)
-          end
+        unless self.zones.find_by(support: support)
+          zone = self.zones.build(support: support, computation_method: self.default_computation_method, administrative_area: support.storage.administrative_area, cultivation_variety: support.production_variant.variety, soil_nature: support.storage.soil_nature || support.storage.estimated_soil_nature)
+          zone.estimate_expected_yield
         end
       end
     end
+  end
+
+  def mass_density_unit
+    :quintal_per_hectare
   end
 
 end

@@ -411,6 +411,7 @@ fra:
     actual_number: "Numéro en cours"
     address: "Adresse"
     addresses: "Adresses"
+    administrative_area: "Administrative area"
     administrator: "Administrateur système"
     # advice_reference_name: "Advice reference name"
     affair: "Affaire"
@@ -553,6 +554,7 @@ fra:
     critic_stocks: "Stocks critiques" #?
     # cultivable_zone: "Cultivable zone"
     cultivable_zones: "Zones cultivables"
+    cultivation_variety: "Cultivation variety"
     # cumulated_absolute_credit: "Cumulated absolute credit"
     # cumulated_absolute_debit: "Cumulated absolute debit"
     currency: "Devise"
@@ -671,6 +673,7 @@ fra:
     # evolvable: "Evolvable"
     exclusive: "Exclusif"
     execution_number: "N° d’exécution"
+    # expected_yield: "Expected yield"
     expiration_delay: "Délai d’expiration"
     expired_at: "Date d’expiration"
     # exploitation_typology: "Exploitation typology"
@@ -888,7 +891,7 @@ fra:
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier" #?
     old_password: "Mot de passe actuel"
-    # opened_at: "Opened at"
+    opened_at: "Opened at"
     operation: "Travail"
     operations: "Travaux"
     # organic_fertilizer_mineral_fraction: "Organic fertilizer mineral fraction"
@@ -906,7 +909,7 @@ fra:
     paid_amount: "Montant payé" #?
     paid_at: "Réglé le"
     paid_taxes: "Taxes payées"
-    # parameters: "Parameters"
+    parameters: "Parameters"
     parent: "Parent"
     participant: "Participant"
     participants: "Participants"
@@ -1095,7 +1098,7 @@ fra:
     shape: "Shape"
     sign_in_count: "Nombre de connexions"
     siren: "N° SIREN"
-    soil_nature: "Nature du sol" #?
+    soil_nature: "Nature du sol"
     # soil_production: "Soil production"
     source: "Source"
     # source_product: "Source product"

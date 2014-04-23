@@ -802,7 +802,23 @@ eng:
     manure_management_plan:
 
     manure_management_plan_zone:
-
+      cultivation_variety:
+        animal: "Animal"
+        bioproduct: "Bioproduct"
+        equipment: "Equipment"
+        fungus: "Fungus"
+        immatter: "Immatter"
+        matter: "Matter"
+        mineral_matter: "Mineral matter"
+        organic_matter: "Organic matter"
+        phytosanitary: "Phytosanitary"
+        plant: "Plant"
+        product: "Product"
+        product_group: "Product group"
+        property_title: "Property title"
+        service: "Service"
+        worker: "Worker"
+        zone: "Zone"
     matter:
       variety:
         animal: "Animal"

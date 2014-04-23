@@ -735,7 +735,7 @@ spa:
     backend/wine_tanks:
       # index: "Cuverie"
     backend/wine_transformers:
-      # index: "Produits oenologiques"
+      # index: "Produits œnologiques"
     backend/workers:
       # edit: "Modifier l’équipier %{name}"
       # index: "Équipiers"

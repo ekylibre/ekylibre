@@ -596,6 +596,7 @@ eng:
     address: "Address"
     addresses: "Addresses"
     admin: "Admin" #?
+    # administrative_area: "Administrative area"
     # administrator: "Administrateur système"
     affair: "Affair"
     affairs: "Affairs"
@@ -769,6 +770,7 @@ eng:
     crypt_key: "Crypt key" #?
     crypt_mode: "Crypt mode" #?
     # cultivable_zones: "Zones cultivables"
+    # cultivation_variety: "Cultivation variety"
     currency: "Currency"
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
@@ -1169,6 +1171,7 @@ eng:
     of_company: "Of the company"
     office: "Office"
     old_password: "Old password"
+    # opened_at: "Opened at"
     operation: "Operation"
     operation_lines: "Operation lines" #?
     operation_nature: "Operation type" #?
@@ -1199,6 +1202,7 @@ eng:
     paid_amount: "Paid amount"
     paid_at: "Paid on"
     paid_taxes: "Paid taxes"
+    # parameters: "Parameters"
     parent: "Parent"
     parent_kinships: "Parent kinships" #?
     parent_land_parcel: "Parent land parcel" #?

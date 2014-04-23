@@ -8,16 +8,16 @@
   
   <nomenclature name="varieties-corylus_avellana" hierarchical="true">
     <items>
-      <item name="corabel" itis_tsn="00000"/>
-      <item name="ennis" itis_tsn="00000"/>
-      <item name="feriale" itis_tsn="00000"/>
-      <item name="fercoril_corabel" itis_tsn="00000"/>
-      <item name="fertile_coutard" itis_tsn="00000"/>
-      <item name="lewis" itis_tsn="00000"/>
-      <item name="merveille" itis_tsn="00000"/>
-      <item name="pauetet" itis_tsn="00000"/>
-      <item name="segorbe" itis_tsn="00000"/>
-      <item name="tonda_giffoni" itis_tsn="00000"/>
+      <item name="corylus_avellana_corabel" itis_tsn="00000"/>
+      <item name="corylus_avellana_ennis" itis_tsn="00000"/>
+      <item name="corylus_avellana_feriale" itis_tsn="00000"/>
+      <item name="corylus_avellana_fercoril_corabel" itis_tsn="00000"/>
+      <item name="corylus_avellana_fertile_coutard" itis_tsn="00000"/>
+      <item name="corylus_avellana_lewis" itis_tsn="00000"/>
+      <item name="corylus_avellana_merveille" itis_tsn="00000"/>
+      <item name="corylus_avellana_pauetet" itis_tsn="00000"/>
+      <item name="corylus_avellana_segorbe" itis_tsn="00000"/>
+      <item name="corylus_avellana_tonda_giffoni" itis_tsn="00000"/>
     </items>
   </nomenclature>
     
