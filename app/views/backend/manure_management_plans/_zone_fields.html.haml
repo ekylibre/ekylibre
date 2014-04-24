@@ -1,0 +1,9 @@
+= field_set f.object.name, collapsed: true, class: (f.object.expected_yield.to_f > 0 ? :valid : :error) do
+  = f.association :support, as: :hidden
+  = f.input :computation_method
+  = f.input :soil_nature
+  = f.input :administrative_area
+  = f.input :cultivation_variety, readonly: true
+  = f.input :expected_yield
+  
+-# Adds fields for given method

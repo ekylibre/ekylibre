@@ -160,4 +160,24 @@ class CultivableZone < Zone
     end
   end
 
+
+  def administrative_area
+    address = Entity.of_company.default_mail_address
+    # raise address.mail_country.inspect
+    if address.mail_country == "fr"
+      return Nomen::AdministrativeAreas.where(code: "FR-#{address.mail_postal_code.to_s[0..1]}").first.name
+    else
+      return nil
+    end
+  end
+
+  def estimated_soil_nature
+    for land_parcel in self.land_parcels
+      if nature = land_parcel.soil_nature
+        return nature
+      end
+    end
+    return nil
+  end
+
 end

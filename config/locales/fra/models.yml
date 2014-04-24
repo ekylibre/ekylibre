@@ -588,7 +588,9 @@ fra:
     address: "Adresse"
     addresses: "Adresses"
     # admin: "Admin"
-    administrator: "Administrateur système" #?
+    administrative_area: "Administrative area"
+    administrator: "Administrateur système"
+    # advice_reference_name: "Advice reference"
     affair: "Affaire"
     affairs: "Affaires"
     affected_at: "Affecté le" #?
@@ -756,11 +758,15 @@ fra:
     credit_lines: "Lignes d’avoir" #?
     credited_quantity: "Quantité déjà passée en avoir"
     credits: "Avoirs"
-    critic_quantity_min: "Quantité minimum critique"
-    critic_stocks: "Stocks critiques"
+    # critic_quantity_min: "Critic quantity min"
+    # critic_stocks: "Critic stocks"
     # crypt_key: "Crypt key"
     # crypt_mode: "Crypt mode"
-    cultivable_zones: "Zones cultivables" #?
+    # cultivable_zone: "Cultivable zone"
+    cultivable_zones: "Zones cultivables"
+    cultivation_variety: "Variété de la culture"
+    # cumulated_absolute_credit: "Cumulated absolute credit"
+    # cumulated_absolute_debit: "Cumulated absolute debit"
     currency: "Devise"
     currency_precision: "Nombre de décimales"
     currency_rate: "Taux de change"
@@ -1161,6 +1167,7 @@ fra:
     of_company: "Dossier basé sur cette entreprise"
     office: "Bureau/Atelier"
     old_password: "Mot de passe actuel"
+    opened_at: "Ouvert le"
     operation: "Travail"
     # operation_lines: "Operation lines"
     # operation_nature: "Operation type"
@@ -1191,6 +1198,7 @@ fra:
     paid_amount: "Montant payé"
     paid_at: "Réglé le"
     paid_taxes: "Taxes payées"
+    parameters: "Paramètres"
     parent: "Parent"
     # parent_kinships: "Parent kinships"
     # parent_land_parcel: "Parent land parcel"
@@ -1421,7 +1429,7 @@ fra:
     sign_in_count: "Nombre de connexions" #?
     siren: "N° SIREN"
     # siret: "Siret"
-    soil_nature: "Nature du sol" #?
+    soil_nature: "Nature du sol"
     # soundex: "Soundex"
     source: "Source"
     # source_quantity: "Source quantity"

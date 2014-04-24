@@ -6,42 +6,42 @@
   <nomenclature name="nmp_poitou_charentes_abacus_one" hierarchical="false" translateable="false">
     <property-natures>
       <property-nature name="cultivation_variety" type="choice" nomenclature="varieties" required="true"/> <!-- poaceae -->
-      <property-nature name="crop_yield" type="decimal" required="false"/><!-- in qt/ha -->
-      <property-nature name="administrative_area" type="string" required="true"/>
+      <property-nature name="expected_yield" type="decimal" required="false"/><!-- in qt/ha -->
+      <property-nature name="administrative_area" type="choice" nomenclature="administrative_areas" required="true"/>
       <property-nature name="irrigated" type="boolean" required="false"/>
     </property-natures>
     <items>
       <!-- AVOINE -->
-      <item name="avena_yield_16" cultivation_variety="avena" administrative_area="FR-16" crop_yield="43"/>
-      <item name="avena_yield_17" cultivation_variety="avena" administrative_area="FR-17" crop_yield="38"/>
-      <item name="avena_yield_79" cultivation_variety="avena" administrative_area="FR-79" crop_yield="42"/>
-      <item name="avena_yield_86" cultivation_variety="avena" administrative_area="FR-86" crop_yield="42"/>
+      <item name="avena_yield_16" cultivation_variety="avena" administrative_area="france_department_charente" expected_yield="43"/>
+      <item name="avena_yield_17" cultivation_variety="avena" administrative_area="france_department_charente_maritime" expected_yield="38"/>
+      <item name="avena_yield_79" cultivation_variety="avena" administrative_area="france_department_deux_sevres" expected_yield="42"/>
+      <item name="avena_yield_86" cultivation_variety="avena" administrative_area="france_department_vienne" expected_yield="42"/>
        <!-- SEIGLE -->
-      <item name="secale_yield_16" cultivation_variety="secale" administrative_area="FR-16" crop_yield="48"/>
-      <item name="secale_yield_17" cultivation_variety="secale" administrative_area="FR-17" crop_yield="49"/>
-      <item name="secale_yield_79" cultivation_variety="secale" administrative_area="FR-79" crop_yield="45"/>
-      <item name="secale_yield_86" cultivation_variety="secale" administrative_area="FR-86" crop_yield="50"/>
+      <item name="secale_yield_16" cultivation_variety="secale" administrative_area="france_department_charente" expected_yield="48"/>
+      <item name="secale_yield_17" cultivation_variety="secale" administrative_area="france_department_charente_maritime" expected_yield="49"/>
+      <item name="secale_yield_79" cultivation_variety="secale" administrative_area="france_department_deux_sevres" expected_yield="45"/>
+      <item name="secale_yield_86" cultivation_variety="secale" administrative_area="france_department_vienne" expected_yield="50"/>
        <!-- MELANGE DE CEREALES -->
-      <item name="poa_yield_16" cultivation_variety="poa" administrative_area="FR-16" crop_yield="48"/>
-      <item name="poa_yield_17" cultivation_variety="poa" administrative_area="FR-17" crop_yield="49"/>
-      <item name="poa_yield_79" cultivation_variety="poa" administrative_area="FR-79" crop_yield="45"/>
-      <item name="poa_yield_86" cultivation_variety="poa" administrative_area="FR-86" crop_yield="50"/>
+      <item name="poa_yield_16" cultivation_variety="poa" administrative_area="france_department_charente" expected_yield="48"/>
+      <item name="poa_yield_17" cultivation_variety="poa" administrative_area="france_department_charente_maritime" expected_yield="49"/>
+      <item name="poa_yield_79" cultivation_variety="poa" administrative_area="france_department_deux_sevres" expected_yield="45"/>
+      <item name="poa_yield_86" cultivation_variety="poa" administrative_area="france_department_vienne" expected_yield="50"/>
        <!-- Maïs semence -->
-       # @FIXME Find a way to replace cultivation variety by a crop set or a variant to make a difference between seed corn and grain corn
-      <item name="seed_corn_yield_16" cultivation_variety="zea" administrative_area="FR-16" crop_yield="35"/>
-      <item name="seed_corn_yield_17" cultivation_variety="zea" administrative_area="FR-17" crop_yield="35"/>
-      <item name="seed_corn_yield_79" cultivation_variety="zea" administrative_area="FR-79" crop_yield="35"/>
-      <item name="seed_corn_yield_86" cultivation_variety="zea" administrative_area="FR-86" crop_yield="35"/>
+       <!-- @FIXME Find a way to replace cultivation variety by a crop set or a variant to make a difference between seed corn and grain corn -->
+      <item name="seed_corn_yield_16" cultivation_variety="zea" administrative_area="france_department_charente" expected_yield="35"/>
+      <item name="seed_corn_yield_17" cultivation_variety="zea" administrative_area="france_department_charente_maritime" expected_yield="35"/>
+      <item name="seed_corn_yield_79" cultivation_variety="zea" administrative_area="france_department_deux_sevres" expected_yield="35"/>
+      <item name="seed_corn_yield_86" cultivation_variety="zea" administrative_area="france_department_vienne" expected_yield="35"/>
       <!-- Maïs fourrage -->
-      <item name="fodder_corn_yield_16" cultivation_variety="zea" administrative_area="FR-16" crop_yield="99"/>
-      <item name="fodder_corn_yield_17" cultivation_variety="zea" administrative_area="FR-17" crop_yield="118"/>
-      <item name="fodder_corn_yield_79" cultivation_variety="zea" administrative_area="FR-79" crop_yield="114"/>
-      <item name="fodder_corn_yield_86" cultivation_variety="zea" administrative_area="FR-86" crop_yield="110"/>
+      <item name="fodder_corn_yield_16" cultivation_variety="zea" administrative_area="france_department_charente" expected_yield="99"/>
+      <item name="fodder_corn_yield_17" cultivation_variety="zea" administrative_area="france_department_charente_maritime" expected_yield="118"/>
+      <item name="fodder_corn_yield_79" cultivation_variety="zea" administrative_area="france_department_deux_sevres" expected_yield="114"/>
+      <item name="fodder_corn_yield_86" cultivation_variety="zea" administrative_area="france_department_vienne" expected_yield="110"/>
       <!-- Sorgho grain -->
-      <item name="grain_sorghum_yield_16" cultivation_variety="sorghum" administrative_area="FR-16" crop_yield="52"/>
-      <item name="grain_sorghum_yield_17" cultivation_variety="sorghum" administrative_area="FR-17" crop_yield="56"/>
-      <item name="grain_sorghum_yield_79" cultivation_variety="sorghum" administrative_area="FR-79" crop_yield="53"/>
-      <item name="grain_sorghum_yield_86" cultivation_variety="sorghum" administrative_area="FR-86" crop_yield="53"/>
+      <item name="grain_sorghum_yield_16" cultivation_variety="sorghum" administrative_area="france_department_charente" expected_yield="52"/>
+      <item name="grain_sorghum_yield_17" cultivation_variety="sorghum" administrative_area="france_department_charente_maritime" expected_yield="56"/>
+      <item name="grain_sorghum_yield_79" cultivation_variety="sorghum" administrative_area="france_department_deux_sevres" expected_yield="53"/>
+      <item name="grain_sorghum_yield_86" cultivation_variety="sorghum" administrative_area="france_department_vienne" expected_yield="53"/>
     </items>
   </nomenclature>
 </nomenclatures>

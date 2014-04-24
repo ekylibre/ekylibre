@@ -58,6 +58,7 @@ class EntityAddress < Ekylibre::Record::Base
   has_many :subscriptions
   has_many :buildings
   enumerize :canal, in: [:mail, :email, :phone, :mobile, :fax, :website], default: :email, predicates: true
+  # enumerize :country, in: Nomen::Countries.all
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :mail_country, allow_nil: true, maximum: 2
@@ -68,7 +69,7 @@ class EntityAddress < Ekylibre::Record::Base
   validates_inclusion_of :by_default, :mail_auto_update, in: [true, false]
   validates_presence_of :canal, :coordinate, :entity
   #]VALIDATORS]
-  validates_format_of :coordinate, :with => /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: :email?
+  validates_format_of :coordinate, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, if: :email?
   validates_inclusion_of :canal, in: self.canal.values
   validates_presence_of :mail_country, if: :mail?
 
@@ -152,6 +153,7 @@ class EntityAddress < Ekylibre::Record::Base
   def mail_line_6_code
     self.mail_postal_zone.postal_code if self.mail_postal_zone
   end
+  alias :mail_postal_code :mail_line_6_code
 
   def mail_line_6_code=(value)
     self.mail_line_6 = (value.to_s+" "+self.mail_line_6.to_s).strip

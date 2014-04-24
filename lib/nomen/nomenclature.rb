@@ -176,9 +176,15 @@ module Nomen
           if value.is_a?(Array)
             one_found = false
             for val in value
-              one_found = true if item_value == val
+              if val.is_a?(Nomen::Item)
+                one_found = true if item_value == val.name.to_sym
+              else
+                one_found = true if item_value == val
+              end
             end
             valid = false unless one_found
+          elsif value.is_a?(Nomen::Item)
+            valid = false unless item_value == value.name.to_sym
           else
             valid = false unless item_value == value
           end

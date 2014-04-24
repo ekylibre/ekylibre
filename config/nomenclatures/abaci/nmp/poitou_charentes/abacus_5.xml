@@ -14,7 +14,7 @@
       <property-nature name="irrigated" type="boolean" required="false"/>
       <!--
       "farm_typology" choices="cereal_crop,livestock,mixed_crop,husbandry_with_mixed_crop"
-      mh_indicators_values="cereal_crop: ,husbandry: ,mixed_crop: ,husbandry_with_mixed_crop: "
+      mh_indicators_values="cereal_crop: ?, husbandry: ?, mixed_crop: ?, husbandry_with_mixed_crop: ?"
        -->
     </property-natures>
     <items>

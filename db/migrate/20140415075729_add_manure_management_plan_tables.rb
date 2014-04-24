@@ -17,6 +17,10 @@ class AddManureManagementPlanTables < ActiveRecord::Migration
       t.references :plan,                 null: false, index: true
       t.references :support,              null: false, index: true
       t.string     :computation_method,   null: false
+      t.string     :administrative_area
+      t.string     :cultivation_variety
+      t.string     :soil_nature
+      t.decimal    :expected_yield,                                  precision: 19, scale: 4
       t.decimal    :nitrogen_need,                                   precision: 19, scale: 4
       t.decimal    :absorbed_nitrogen_at_opening,                    precision: 19, scale: 4
       t.decimal    :mineral_nitrogen_at_opening,                     precision: 19, scale: 4

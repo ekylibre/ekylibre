@@ -1023,6 +1023,9 @@ arb:
     address: "العنوان"
     # addresses: "Addresses"
     admin: "مسؤول النظام"
+    # administrative_area: "Administrative area"
+    administrator: "مسؤول النظام"
+    # advice_reference_name: "Advice reference"
     # affair: "Affair"
     # affairs: "Affairs"
     # age: "Age"
@@ -1185,6 +1188,11 @@ arb:
     # critic_stocks: "Critic stocks"
     crypt_key: "مفتاح التشفير"
     crypt_mode: "طؤيقة التشفير"
+    # cultivable_zone: "Cultivable zone"
+    # cultivable_zones: "Cultivable zones"
+    # cultivation_variety: "Cultivation variety"
+    # cumulated_absolute_credit: "Cumulated absolute credit"
+    # cumulated_absolute_debit: "Cumulated absolute debit"
     currencies: "العملات" #?
     currency: "عملة"
     # currency_precision: "Currency precision"
@@ -1582,6 +1590,7 @@ arb:
     # of_company: "Of the company"
     office: "المكتب/الاستديو"
     old_password: "كلمة المرور الحالية"
+    # opened_at: "Opened at"
     operation: "العمل"
     operation_id: "عمل" #?
     operation_items: "الواردات/الصادرات" #?
@@ -1620,6 +1629,7 @@ arb:
     paid_amount: "خصمة من قيمة الضريبة الاضافية"
     paid_at: "سددت يوم"
     # paid_taxes: "Paid taxes"
+    # parameters: "Parameters"
     parent: "النسب"
     parent_id: "نسب" #?
     # parent_kinships: "Parent kinships"
@@ -1860,6 +1870,7 @@ arb:
     shipped_at: "شحنها يوم" #?
     siren: "رقم صفارة الانذار"
     siret: "SIRET رقم"
+    # soil_nature: "Soil nature"
     soundex: "خوارزمية مستخدمة لتشفير كلمات بطرقة تمكن مطابقة الكلمات مع الاصوات"
     source: "المصدر"
     # source_quantity: "Source quantity"

@@ -295,6 +295,12 @@ spa:
         # vegetal_crops: "Vegetal crops"
         # vine_wine: "Vine wine"
       # name: "Activity families"
+    administrative_area_natures:
+      items: #?
+      property_natures: #?
+    administrative_areas:
+      items: #?
+      property_natures: #?
     analysis_natures:
       choices: #?
       items:
@@ -1258,10 +1264,8 @@ spa:
       property_natures:
         # fallbacks: "Fallbacks"
         # password: "Password"
-    identifiers: #?
     indicators:
       choices:
-        choices: #?
         curve:
           # bar: "Bar"
           # line: "Line"
@@ -1287,7 +1291,6 @@ spa:
         related_to:
           # individual: "Individual"
           # whole: "Whole"
-      item_lists: #?
       items:
         # aluminium_concentration: "Aluminium concentration"
         # animal_life_state: "Animal life state"
@@ -1558,7 +1561,7 @@ spa:
     manure_management_plan_computation_methods:
       items:
         # external: "External"
-        # poitou_charentes: "Poitou charentes"
+        # poitou_charentes_2013: "Poitou-Charentes 2013"
       # name: "Manure management plan computation methods"
     molecules:
       items:
@@ -1611,41 +1614,19 @@ spa:
         # nature: "Nature"
         # url: "Url"
     nmp_methods:
-      items:
-        # poitou_charentes: "Poitou charentes"
-      # name: "Nmp methods"
-    nmp_poitou_charentes_abacus_1: #?
-    nmp_poitou_charentes_abacus_10: #?
-    nmp_poitou_charentes_abacus_2: #?
-    nmp_poitou_charentes_abacus_3: #?
-    nmp_poitou_charentes_abacus_4: #?
-    nmp_poitou_charentes_abacus_5: #?
-    nmp_poitou_charentes_abacus_6: #?
-    nmp_poitou_charentes_abacus_7: #?
-    nmp_poitou_charentes_abacus_8: #?
-    nmp_poitou_charentes_abacus_9: #?
-    nmp_poitou_charentes_abacus_eight:
-      # name: "Nmp poitou charentes abacus eight"
-    nmp_poitou_charentes_abacus_eleven:
-      # name: "Nmp poitou charentes abacus eleven"
-    nmp_poitou_charentes_abacus_five:
-      # name: "Nmp poitou charentes abacus five"
-    nmp_poitou_charentes_abacus_four:
-      # name: "Nmp poitou charentes abacus four"
-    nmp_poitou_charentes_abacus_nine:
-      # name: "Nmp poitou charentes abacus nine"
-    nmp_poitou_charentes_abacus_one:
-      # name: "Nmp poitou charentes abacus one"
-    nmp_poitou_charentes_abacus_seven:
-      # name: "Nmp poitou charentes abacus seven"
-    nmp_poitou_charentes_abacus_six:
-      # name: "Nmp poitou charentes abacus six"
-    nmp_poitou_charentes_abacus_ten:
-      # name: "Nmp poitou charentes abacus ten"
-    nmp_poitou_charentes_abacus_three:
-      # name: "Nmp poitou charentes abacus three"
-    nmp_poitou_charentes_abacus_two:
-      # name: "Nmp poitou charentes abacus two"
+      items: #?
+    nmp_poitou_charentes_abacus_eight: #?
+    nmp_poitou_charentes_abacus_eleven: #?
+    nmp_poitou_charentes_abacus_five: #?
+    nmp_poitou_charentes_abacus_four: #?
+    nmp_poitou_charentes_abacus_nine: #?
+    nmp_poitou_charentes_abacus_one: #?
+    nmp_poitou_charentes_abacus_seven: #?
+    nmp_poitou_charentes_abacus_six: #?
+    nmp_poitou_charentes_abacus_ten: #?
+    nmp_poitou_charentes_abacus_three: #?
+    nmp_poitou_charentes_abacus_twelve: #?
+    nmp_poitou_charentes_abacus_two: #?
     phosphorus_analysis_methods:
       items:
         # dyer: "Dyer"
@@ -1674,9 +1655,7 @@ spa:
         # swelling: "Swelling"
       # name: "Plant reproduction states"
     plants_growth_levels:
-      items:
-        # hight: "Hight"
-        # low: "Low"
+      items: #?
       # name: "Plants growth levels"
     procedure_natures:
       items:
@@ -2442,7 +2421,6 @@ spa:
         computation_method:
           # amount: "Amount"
           # percentage: "Percentage"
-        nature: #?
       items:
         # fr_vat_intermediate: "Fr vat intermediate"
         # fr_vat_normal: "Fr vat normal"
@@ -2461,7 +2439,6 @@ spa:
         # stopped_on: "Stopped on"
         # suffix: "Suffix"
     units:
-      choices: #?
       items:
         # acre: "Acre"
         # ampere: "Ampere"
@@ -2566,7 +2543,6 @@ spa:
         # dimension: "Dimension"
         # symbol: "Symbol"
     varieties:
-      choices: #?
       items:
         # acetal: "Acetal"
         # actilact: "Actilact"
@@ -2608,7 +2584,6 @@ spa:
         # cleaner: "Cleaner"
         # compost: "Compost"
         # concentrated_rectified_must: "Concentrated rectified must"
-        # corabel: "Corabel"
         # cork: "Cork"
         # cork_bottle: "Cork bottle"
         # corylus: "Corylus"
@@ -2623,16 +2598,11 @@ spa:
         # easement: "Easement"
         # egg: "Egg"
         # electricity: "Electricity"
-        # ennis: "Ennis"
         # equipment: "Equipment"
         # equus: "Equus"
-        # etincel: "Etincel"
         # excrement: "Excrement"
         # fabaceae: "Fabaceae"
-        # fercoril_corabel: "Fercoril corabel"
-        # feriale: "Feriale"
         # fermented_juice: "Fermented juice"
-        # fertile_coutard: "Fertile coutard"
         # ficus: "Ficus"
         # ficus_carica: "Ficus carica"
         # ficus_carica_saint_pierre: "Ficus carica saint pierre"
@@ -2682,7 +2652,6 @@ spa:
         # lavandula: "Lavandula"
         # lens: "Lens"
         # lepus: "Lepus"
-        # lewis: "Lewis"
         # liliaceae: "Liliaceae"
         # linaceae: "Linaceae"
         # linum: "Linum"
@@ -2694,7 +2663,6 @@ spa:
         # meat: "Meat"
         # medicago: "Medicago"
         # medicine: "Medicine"
-        # merveille: "Merveille"
         # milk: "Milk"
         # mineral_matter: "Mineral matter"
         # mix: "Mix"
@@ -2711,7 +2679,6 @@ spa:
         # ostreidae: "Ostreidae"
         # ovis: "Ovis"
         # packaged_matter: "Packaged matter"
-        # pauetet: "Pauetet"
         # peach: "Peach"
         # pear: "Pear"
         # phacelia: "Phacelia"
@@ -2767,7 +2734,6 @@ spa:
         # rubus: "Rubus"
         # rubus_idaeus: "Rubus idaeus"
         # rubus_idaeus_frida: "Rubus idaeus frida"
-        # rubus_idaeus_mailling_promise: "Rubus idaeus mailling promise"
         # rubus_idaeus_tulameen: "Rubus idaeus tulameen"
         # rubus_idaeus_willamette: "Rubus idaeus willamette"
         # rubus_idaeus_zeva: "Rubus idaeus zeva"
@@ -2784,7 +2750,6 @@ spa:
         # secale: "Secale"
         # seed: "Seed"
         # seedling: "Seedling"
-        # segorbe: "Segorbe"
         # service: "Service"
         # settlement: "Settlement"
         # silage: "Silage"
@@ -2803,7 +2768,6 @@ spa:
         # sugar: "Sugar"
         # sus: "Sus"
         # tank: "Tank"
-        # tonda_giffoni: "Tonda giffoni"
         # tractor: "Tractor"
         # trailer: "Trailer"
         # trifolium: "Trifolium"
@@ -2884,21 +2848,10 @@ spa:
         # zone: "Zone"
         # zone_property_title: "Zone property title"
       # name: "Name"
-      property_natures:
-        # derivative_of: "Derivative of"
-        # europa_tsn: "Europa tsn"
-        # itis_tsn: "Itis tsn"
-    varieties-animal: #?
-    varieties-asteraceae: #?
-    varieties-equipment: #?
-    varieties-plant: #?
-    varieties-poaceae: #?
-    varieties-triticum_aestivum: #?
+      property_natures: #?
     working_sets:
       items:
         # oenological_regulateds: "Oenological regulateds"
       # name: "Working sets"
       property_natures:
         # expression: "Expression"
-  procedures: #?
-  variables: #?

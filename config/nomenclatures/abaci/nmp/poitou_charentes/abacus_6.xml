@@ -4,35 +4,35 @@
   <!--  abaque de valeur de Mhp  -->
   <nomenclature name="nmp_poitou_charentes_abacus_six" hierarchical="false" translateable="false">
     <property-natures>
-      <property-nature name="minimum_age" type="integer" required="true"/><!-- en mois -->
-      <property-nature name="maximum_age" type="integer" required="false"/>
+      <property-nature name="minimum_age" type="integer" required="true" default="0"/><!-- en mois -->
+      <property-nature name="maximum_age" type="integer" required="true" default="1000"/>
       <property-nature name="cereal_typology" type="choice" nomenclature="crop_sets" required="false"/>
       <property-nature name="rank" type="integer" required="false"/>
-      <property-nature name="mhp" type="decimal" required="false"/><!-- en qt/ha -->
+      <property-nature name="quantity" type="decimal" required="false"/><!-- en qt/ha -->
     </property-natures>
     <items>
       <!-- PRINTEMPS  ligne 1 -->
-      <item name="spring_0_18_first" cereal_typology="spring_straw_cereal" minimum_age="0" maximum_age="18" rank="1" mhp="20"/>
-      <item name="spring_18_36_first" cereal_typology="spring_straw_cereal" minimum_age="18" maximum_age="36" rank="1" mhp="60"/>
-      <item name="spring_36_60_first" cereal_typology="spring_straw_cereal" minimum_age="36" maximum_age="60" rank="1" mhp="100"/>
-      <item name="spring_60_120_first" cereal_typology="spring_straw_cereal" minimum_age="60" maximum_age="120" rank="1" mhp="120"/>
-      <item name="spring_120_first" cereal_typology="spring_straw_cereal" minimum_age="120" rank="1" mhp="140"/>
+      <item name="spring_0_18_first"    cereal_typology="spring_straw_cereal"                   maximum_age="18"  rank="1" quantity="20"/>
+      <item name="spring_18_36_first"   cereal_typology="spring_straw_cereal" minimum_age="18"  maximum_age="36"  rank="1" quantity="60"/>
+      <item name="spring_36_60_first"   cereal_typology="spring_straw_cereal" minimum_age="36"  maximum_age="60"  rank="1" quantity="100"/>
+      <item name="spring_60_120_first"  cereal_typology="spring_straw_cereal" minimum_age="60"  maximum_age="120" rank="1" quantity="120"/>
+      <item name="spring_120_first"     cereal_typology="spring_straw_cereal" minimum_age="120"                   rank="1" quantity="140"/>
       <!-- ligne 2 -->
-      <item name="spring_0_36_second" cereal_typology="spring_straw_cereal" minimum_age="0" maximum_age="36" rank="2" mhp="0"/>
-      <item name="spring_36_60_second" cereal_typology="spring_straw_cereal" minimum_age="36" maximum_age="60" rank="2" mhp="25"/>
-      <item name="spring_60_120_second" cereal_typology="spring_straw_cereal" minimum_age="60" maximum_age="120" rank="2" mhp="35"/>
-      <item name="spring_120_second" cereal_typology="spring_straw_cereal" minimum_age="120" rank="2" mhp="40"/>
+      <item name="spring_0_36_second"   cereal_typology="spring_straw_cereal"                   maximum_age="36"  rank="2" quantity="0"/>
+      <item name="spring_36_60_second"  cereal_typology="spring_straw_cereal" minimum_age="36"  maximum_age="60"  rank="2" quantity="25"/>
+      <item name="spring_60_120_second" cereal_typology="spring_straw_cereal" minimum_age="60"  maximum_age="120" rank="2" quantity="35"/>
+      <item name="spring_120_second"    cereal_typology="spring_straw_cereal" minimum_age="120"                   rank="2" quantity="40"/>
       <!-- ligne 3 -->
-      <item name="spring_0_120_third" cereal_typology="spring_straw_cereal" minimum_age="0" rank="3" mhp="0"/>
+      <item name="spring_0_120_third"   cereal_typology="spring_straw_cereal"                                     rank="3" quantity="0"/>
       <!-- AUTOMNE  ligne 1 -->
-      <item name="autumn_0_18_first" cereal_typology="winter_straw_cereal" minimum_age="0" maximum_age="18" rank="1" mhp="10"/>
-      <item name="autumn_18_36_first" cereal_typology="winter_straw_cereal" minimum_age="18" maximum_age="36" rank="1" mhp="30"/>
-      <item name="autumn_36_60_first" cereal_typology="winter_straw_cereal" minimum_age="36" maximum_age="60" rank="1" mhp="50"/>
-      <item name="autumn_60_120_first" cereal_typology="winter_straw_cereal" minimum_age="60" maximum_age="120" rank="1" mhp="60"/>
-      <item name="autumn_120_first" cereal_typology="winter_straw_cereal" minimum_age="120" rank="1" mhp="70"/>
+      <item name="autumn_0_18_first"    cereal_typology="winter_straw_cereal"                   maximum_age="18"  rank="1" quantity="10"/>
+      <item name="autumn_18_36_first"   cereal_typology="winter_straw_cereal" minimum_age="18"  maximum_age="36"  rank="1" quantity="30"/>
+      <item name="autumn_36_60_first"   cereal_typology="winter_straw_cereal" minimum_age="36"  maximum_age="60"  rank="1" quantity="50"/>
+      <item name="autumn_60_120_first"  cereal_typology="winter_straw_cereal" minimum_age="60"  maximum_age="120" rank="1" quantity="60"/>
+      <item name="autumn_120_first"     cereal_typology="winter_straw_cereal" minimum_age="120"                   rank="1" quantity="70"/>
       <!-- ligne 2 et 3-->
-      <item name="autumn_0_120_second" cereal_typology="winter_straw_cereal" minimum_age="0" rank="2" mhp="0"/>
-      <item name="autumn_0_120_third" cereal_typology="winter_straw_cereal" minimum_age="0" rank="3" mhp="0"/>
+      <item name="autumn_0_120_second"  cereal_typology="winter_straw_cereal"                                     rank="2" quantity="0"/>
+      <item name="autumn_0_120_third"   cereal_typology="winter_straw_cereal"                                     rank="3" quantity="0"/>
     </items>
   </nomenclature>
 </nomenclatures>

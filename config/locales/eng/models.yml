@@ -568,8 +568,9 @@ eng:
     address: "Address"
     addresses: "Addresses"
     admin: "Admin" #?
-    # administrator: "Administrator"
-    # advice_reference_name: "Advice reference name"
+    administrative_area: "Administrative area"
+    administrator: "Administrator"
+    advice_reference_name: "Advice reference"
     affair: "Affair"
     affairs: "Affairs"
     # affectation_percentage: "Affectation percentage"
@@ -740,10 +741,11 @@ eng:
     critic_stocks: "Critic stocks" #?
     crypt_key: "Crypt key" #?
     crypt_mode: "Crypt mode" #?
-    # cultivable_zone: "Cultivable zone"
-    # cultivable_zones: "Cultivable zones"
-    # cumulated_absolute_credit: "Cumulated absolute credit"
-    # cumulated_absolute_debit: "Cumulated absolute debit"
+    cultivable_zone: "Cultivable zone"
+    cultivable_zones: "Cultivable zones"
+    cultivation_variety: "Cultivation variety"
+    cumulated_absolute_credit: "Cumulated absolute credit"
+    cumulated_absolute_debit: "Cumulated absolute debit"
     currency: "Currency"
     currency_precision: "Currency precision"
     currency_rate: "Currency rate"
@@ -899,6 +901,7 @@ eng:
     excise: "Excise" #?
     # exclusive: "Exclusive"
     # execution_number: "Execution number"
+    # expected_yield: "Expected yield"
     expense: "Expense" #?
     expense_type: "Expense type" #?
     expenses: "Expenses" #?
@@ -1159,7 +1162,7 @@ eng:
     of_company: "Of the company"
     office: "Office" #?
     old_password: "Old password"
-    # opened_at: "Opened at"
+    opened_at: "Opened at"
     operation: "Operation"
     operation_lines: "Operation lines" #?
     operation_nature: "Operation type" #?
@@ -1191,7 +1194,7 @@ eng:
     paid_amount: "Paid amount" #?
     paid_at: "Paid on"
     paid_taxes: "Paid taxes"
-    # parameters: "Parameters"
+    parameters: "Parameters"
     parent: "Parent"
     parent_kinships: "Parent kinships" #?
     parent_land_parcel: "Parent land parcel" #?
@@ -1454,6 +1457,7 @@ eng:
     # sign_in_count: "Sign in count"
     siren: "Siren"
     siret: "Siret" #?
+    soil_nature: "Soil nature"
     # soil_production: "Soil production"
     soundex: "Soundex" #?
     source: "Source"
