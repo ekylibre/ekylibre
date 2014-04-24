@@ -37,8 +37,8 @@ eng:
         cancel_my_account: "Cancel my account"
         leave_blank_if_you_don_t_want_to_change_it: "leave blank if you dont want to change it"
         title: "Edit %{resource}"
-        unhappy: "Unhappy" #?
-        update: "Update" #?
+        unhappy: "Unhappy"
+        update: "Update"
         we_need_your_current_password_to_confirm_your_changes: "we need your current password to confirm your changes"
       new:
         sign_up: "Sign up"

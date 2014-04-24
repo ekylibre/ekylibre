@@ -2,55 +2,57 @@ spa:
   devise:
     confirmations:
       new:
-        # resend_confirmation_instructions: "Renvoyer les instructions de confirmation"
+        # resend_confirmation_instructions: "Resend confirmation instructions"
     mailer:
       confirmation_instructions:
-        # action: "Confirmer mon email"
-        # greeting: "Bienvenue %{recipient}!"
-        # instruction: "Vous pouvez confirmer votre email grâce au lien ci-dessous:"
-        # subject: "Instructions pour confirmer votre compte"
+        # action: "Confirm my account"
+        # greeting: "Welcome %{recipient}!"
+        # instruction: "You can confirm your account email through the link below:"
+        # subject: "Confirmation instructions"
       reset_password_instructions:
-        # action: "Changer mon mot de passe"
-        # greeting: "Bonjour %{recipient}!"
-        # instruction: "Quelqu’un a demandé un lien pour changer votre mot de passe, le voici :"
-        # instruction_2: "Si vous n’avez pas émis cette demande, merci d’ignorer cet email."
-        # instruction_3: "Votre mot de passe ne changera pas tant que vous n’aurez pas cliqué sur ce lien et renseigné un nouveau mot de passe."
-        # subject: "Instructions pour réinitialiser votre mot de passe"
+        # action: "Change my password"
+        # greeting: "Hello %{recipient}!"
+        # instruction: "Someone has requested a link to change your password, and you can do this through the link below."
+        # instruction_2: "If you didn't request this, please ignore this email."
+        # instruction_3: "Your password won't change until you access the link above and create a new one."
+        # subject: "Reset password instructions"
       unlock_instructions:
-        # action: "Débloquer mon compte"
-        # greeting: "Bonjour %{recipient}!"
-        # instruction: "Suivez ce lien pour débloquer votre compte:"
-        # message: "Votre compte a été bloqué suite à un nombre d’essais de connexions manqués trop important"
-        # subject: "Instructions pour débloquer votre compte"
+        # action: "Unlock my account"
+        # greeting: "Hello %{recipient}!"
+        # instruction: "Click the link below to unlock your account:"
+        # message: "Your account has been locked due to an excessive amount of unsuccessful sign in attempts."
+        # subject: "Unlock Instructions"
     passwords:
       edit:
-        # change_my_password: "Changer mon mot de passe"
-        # change_your_password: "Changer votre mot de passe"
-        # confirm_new_password: "Confirmer votre nouveau mot de passe"
-        # new_password: "Nouveau mot de passe"
+        # change_my_password: "Change my password"
+        # change_your_password: "Change your password"
+        # confirm_new_password: "Confirm new password"
+        # new_password: "New password"
       new:
-        # forgot_your_password: "Mot de passe oublié ?"
-        # send_me_reset_password_instructions: "Envoyez-moi des instructions pour réinitialiser mon mot de passe"
+        # forgot_your_password: "Forgot your password?"
+        # send_me_reset_password_instructions: "Send me reset password instructions"
     registrations:
       edit:
-        # are_you_sure: "Êtes-vous sûr ?!"
-        # cancel_my_account: "Supprimer mon compte"
-        # leave_blank_if_you_don_t_want_to_change_it: "laissez ce champ vide pour le laisser inchangé"
-        # title: "Éditer %{resource}"
-        # we_need_your_current_password_to_confirm_your_changes: "nous avons besoin de votre mot de passe actuel pour valider ces modifications"
+        # are_you_sure: "Are you sure?"
+        # cancel_my_account: "Cancel my account"
+        # leave_blank_if_you_don_t_want_to_change_it: "leave blank if you dont want to change it"
+        # title: "Edit %{resource}"
+        # unhappy: "Unhappy"
+        # update: "Update"
+        # we_need_your_current_password_to_confirm_your_changes: "we need your current password to confirm your changes"
       new:
-        # sign_up: "Inscription"
+        # sign_up: "Sign up"
     sessions:
       new:
-        # sign_in: "Connexion"
+        # sign_in: "Sign in"
     shared:
       links:
-        # didn_t_receive_confirmation_instructions: "Vous n’avez pas reçu le mail de confirmation ?"
-        # didn_t_receive_unlock_instructions: "Vous n’avez pas reçu le mail de débloquage ?"
-        # forgot_your_password: "Mot de passe oublié ?"
-        # sign_in: "Connexion"
-        # sign_in_with_provider: "Connexion avec %{provider}"
-        # sign_up: "Inscription"
+        # didn_t_receive_confirmation_instructions: "Didn't receive confirmation instructions?"
+        # didn_t_receive_unlock_instructions: "Didn't receive unlock instructions?"
+        # forgot_your_password: "Forgot your password?"
+        # sign_in: "Sign in"
+        # sign_in_with_provider: "Sign in with %{provider}"
+        # sign_up: "Sign up"
     unlocks:
       new:
-        # resend_unlock_instructions: "Renvoyer les instructions de débloquage"
+        # resend_unlock_instructions: "Resend unlock instructions"

@@ -32,7 +32,7 @@ jpn:
         # one: "less than a minute"
       less_than_x_seconds:
         # many: "moins de %{count} secondes"
-        # one: "moins d’une seconde"
+        # one: "moins d'une seconde"
       over_x_years:
         # many: "over %{count} years"
         # one: "over 1 year"
@@ -49,28 +49,28 @@ jpn:
         many: "%{count}秒間"
         one: "%{count}秒間"
   form:
-    # new: "Nouveau…"
+    # new: "New…"
   list:
     columns: "列"
     export:
       false_value: "偽"
       formats:
         csv: "CSV"
-        # ods: "Classeur ODF"
+        # ods: "Spreadsheet ODF"
         xcsv: "ExcelのCSV"
-      # title: "Exporter"
+      # title: "Export"
       true_value: "真"
-    # export_as: "Exporter en %{exported}"
-    # items_per_page: "Éléments par page"
+    # export_as: "Export as %{exported}..."
+    # items_per_page: "Items per page"
     menu: "メニュー"
     next: "次へ" #?
     no_records: "空"
     pagination:
-      # first: "Début"
-      # last: "Fin"
-      # next: "Suivant"
-      # previous: "Précédent"
-      # showing_x_to_y_of_total: "Enregistrements %{x} à %{y} sur %{total}"
+      # first: "First page"
+      # last: "Last page"
+      # next: "Next page"
+      # previous: "Previous page"
+      # showing_x_to_y_of_total: "Showing %{x} to %{y} of %{total}"
     previous: "前へ" #?
     x_per_page:
       one: "ページあたり%{count}行"
@@ -80,7 +80,7 @@ jpn:
       format:
         delimiter: ""
         format: "%u%n"
-        # negative_format: "-%n%s%u"
+        # negative_format: "-%n%u"
         precision: 2
         separator: "."
         unit: "円"

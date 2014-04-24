@@ -1,12 +1,12 @@
 spa:
   formats:
-    # csv: "Texte CSV"
+    # csv: "CSV Text"
     # doc: "Microsoft Word 97/2000/XP/2003"
     # docx: "Microsoft Word 2007/2010"
     # json: "JSON"
-    # ods: "Tableau ODF"
-    # odt: "Texte ODF"
-    # pdf: "Document PDF"
+    # ods: "ODF Spreadsheet"
+    # odt: "ODF Text"
+    # pdf: "PDF Document"
     # xls: "Microsoft Excel 97/2000/XP/2003"
     # xlsx: "Microsoft Excel 2007/2010"
     # xml: "XML"

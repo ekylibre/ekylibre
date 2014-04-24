@@ -132,6 +132,26 @@ module Clean
         return code, count, total
       end
 
+      
+      def default_action_title(controller_path, action_name)
+        action_name = action_name.to_sym unless action_name.is_a?(Symbol)
+        controller_name = controller_path.split("/").last
+        text = if action_name == :index
+                 controller_name.humanize
+               elsif action_name == :show
+                 controller_name.humanize.singularize + ": %{name}"
+               elsif [:new].include? action_name
+                 "#{action_name} #{controller_name.humanize.singularize}".humanize
+               elsif [:list, :import, :export].include? action_name
+                 "#{action_name} #{controller_name}".humanize
+               else
+                 "#{action_name} #{controller_name.humanize.singularize}: %{name}".humanize
+               end
+        return text
+      end
+
+
+
       # Lists all actions of all controller by loading them and list action_methods
       def actions_hash
         controllers = controllers_in_file

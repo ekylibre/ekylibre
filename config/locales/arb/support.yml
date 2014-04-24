@@ -49,38 +49,38 @@ arb:
         many: "%{count} ثواني"
         one: "ثانية واحدة"
   form:
-    # new: "Nouveau…"
+    # new: "New…"
   list:
-    # columns: "Colonnes"
+    # columns: "Columns"
     export:
       false_value: "زائف"
       formats:
         csv: "CSV"
-        # ods: "Classeur ODF"
+        # ods: "Spreadsheet ODF"
         xcsv: "Excel CSV"
       title: "تصدير"
       true_value: "صحيح"
-    # export_as: "Exporter en %{exported}"
-    # items_per_page: "Éléments par page"
+    # export_as: "Export as %{exported}..."
+    # items_per_page: "Items per page"
     # menu: "Menu"
     next: "التالي" #?
     no_records: "ولا اية سجل"
     pagination:
-      # first: "Début"
-      # last: "Fin"
-      # next: "Suivant"
-      # previous: "Précédent"
-      # showing_x_to_y_of_total: "Enregistrements %{x} à %{y} sur %{total}"
+      # first: "First page"
+      # last: "Last page"
+      # next: "Next page"
+      # previous: "Previous page"
+      # showing_x_to_y_of_total: "Showing %{x} to %{y} of %{total}"
     previous: "السابق" #?
     x_per_page:
-      # one: "%{count} par page"
-      # other: "%{count} par page"
+      # one: "%{count} per page"
+      # other: "%{count} per page"
   number:
     currency:
       format:
         delimiter: ","
         format: "%u%n"
-        # negative_format: "-%n%s%u"
+        # negative_format: "-%n%u"
         precision: 2
         separator: "."
         unit: "$"

@@ -37,6 +37,8 @@ fra:
         cancel_my_account: "Supprimer mon compte"
         leave_blank_if_you_don_t_want_to_change_it: "laissez ce champ vide pour le laisser inchangé"
         title: "Éditer %{resource}"
+        # unhappy: "Unhappy"
+        # update: "Update"
         we_need_your_current_password_to_confirm_your_changes: "nous avons besoin de votre mot de passe actuel pour valider ces modifications"
       new:
         sign_up: "Inscription"

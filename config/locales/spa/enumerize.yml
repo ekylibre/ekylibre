@@ -1,133 +1,233 @@
 spa:
   enumerize:
     activity:
+      family:
+        # animal: "Animal"
+        # none: "None"
+        # perenne_vegetal: "Pluri-annual plant"
+        # processing: "Processing"
+        # service: "Service"
+        # vegetal: "Annual plant"
       nature:
-        # auxiliaire: "Auxiliaire"
-        # main: "Principale"
-        # none: "―"
-    asset: #?
+        # auxiliary: "Auxiliary"
+        # main: "Main"
+        # none: "None"
+    # animal: ""
+    # animal_group: ""
+    # animal_medicine: ""
+    asset:
+      depreciation_method:
+        # graduated: "Graduated"
+        # linear: "Linear"
+        # simplified_linear: "Simplified linear"
     cash:
       mode:
-        # bban: "Relevé d’identité bancaire (RIB)"
-        # iban: "IBAN"
+        # bban: "Basic Bank Account Number (BBAN)"
+        # iban: "International Bank Account Number (IBAN)"
       nature:
-        # bank_account: "Compte bancaire"
-        # cash_box: "Caisse"
+        # bank_account: "Bank account"
+        # cash_box: "Cash box"
+    # cultivable_zone: ""
     custom_field:
       nature:
-        # boolean: "Case à cocher"
-        # choice: "Liste de choix"
+        # boolean: "Check box"
+        # choice: "Choice list"
         # date: "Date"
-        # datetime: "Date et heure"
-        # decimal: "Chiffre (décimal)"
-        # text: "Texte"
+        # datetime: "Date and time"
+        # decimal: "Decimal"
+        # string: "Text"
+    # document: ""
     document_template:
-      archiving:
-        # all: "Tous du type"
-        # all_of_template: "Tous du modèle"
-        # first: "Premier du type"
-        # first_of_template: "Premier du modèle"
-        # last: "Dernier du type"
-        # last_of_template: "Dernier du modèle"
-        # none: "Aucun du type"
-        # none_of_template: "Aucun du modèle"
+      # archiving: ""
+      family:
+        # accountancy: "Accountancy"
+        # company: "Company"
+        # management: "Management"
+        # production: "Production"
+        # relations: "Relationships"
+        # resources: "Resources"
+      nature:
+        # animal: "Animal card"
+        # balance: "Balance"
+        # balance_sheet: "Balance sheet"
+        # deposit: "Deposit"
+        # entity: "Person"
+        # financial_year: "Financial year document"
+        # general_journal: "General journal"
+        # general_ledger: "Grand ledger"
+        # income_statement: "Income statement"
+        # inventory: "Inventory"
+        # journal: "Journal"
+        # other: "Other"
+        # purchase: "Purchase order"
+        # sales_invoice: "Sales invoice"
+        # sales_order: "Sales order"
+        # stocks: "Stocks"
+        # transport: "Transport"
+    # easement: ""
+    entity:
+      nature:
+        # association: "Association"
+        # civil_society: "Civil society"
+        # collectivity: "Collectivity"
+        # company: "Company"
+        # doctor: "Doctor"
+        # foundation: "Foundation"
+        # person: "Person"
+        # sir: "Sir"
     entity_address:
       canal:
-        # email: "E-mail"
+        # email: "Email"
         # fax: "Fax"
-        # mail: "Adresse postale"
-        # mobile: "Téléphone portable"
-        # phone: "Téléphone fixe"
-        # website: "Site web"
+        # mail: "Mail"
+        # mobile: "Mobile phone"
+        # phone: "Phone"
+        # website: "Website"
+    entity_event_nature:
+      usage:
+        # mailing: "Mailing"
+        # manual: "Manual"
+        # purchase: "Creation of a purchase"
+        # sale: "Creation of a sale"
+        # sales_invoice: "Creation of a sales invoice"
     event_nature:
       usage:
         # mailing: "Mailing"
-        # manual: "Manuelle"
-        # purchase: "Création d’un achat"
-        # sale: "Création d’un devis"
-        # sales_invoice: "Création d’une facture"
+        # manual: "Manual"
+        # purchase: "Creation of a purchase"
+        # sale: "Creation of a sale"
+        # sales_invoice: "Creation of a sales invoice"
     event_participation:
-      state:
-        # accepted: "Accepté"
-        # informative: "Pour information"
-        # refused: "Refusé"
-        # waiting: "En attente de réponse"
+      # state: ""
     financial_asset:
-      depreciation_method:
-        # graduated: "Dégressive"
-        # linear: "Linéaire"
-        # simplified_linear: "Linéaire simplifiée"
+      # depreciation_method: ""
     guide_analysis:
-      status:
-        # errored: "Erroné"
-        # failed: "Échoué"
-        # passed: "Passé"
-        # passed_with_warnings: "Passé avec remarques"
+      # status: ""
+    # immatter: ""
     intervention:
       state:
-        # done: "Réalisée"
-        # in_progress: "En cours"
-        # squeezed: "Non réalisée"
-        # undone: "Pas encore réalisée"
+        # done: "Done"
+        # in_progress: "In progress"
+        # squeezed: "Squeezed"
+        # undone: "Undone"
+    # intervention_cast: ""
+    # inventory_item: ""
     journal:
       nature:
-        # bank: "Banque"
-        # cash: "Caisse"
-        # forward: "Report à nouveaux"
-        # purchases: "Achats"
-        # sales: "Ventes"
-        # various: "Opérations diverses"
+        # bank: "Bank"
+        # cash: "Cash"
+        # forward: "Carried-forward"
+        # purchases: "Purchases"
+        # sales: "Sales"
+        # various: "Various operations"
+    # land_parcel_cluster: ""
+    # land_parcel_group: ""
+    # legal_entity: ""
+    # matter: ""
+    # medicine: ""
+    meeting_nature:
+      usage:
+        # mailing: "Mailing"
+        # manual: "Manual"
+        # purchase: "Creation of a purchase"
+        # sale: "Creation of a sale"
+        # sales_invoice: "Creation of a sales invoice"
     observation:
       importance:
-        # important: "Importante"
-        # normal: "Normale"
-        # notice: "Faible"
+        # important: "Important"
+        # normal: "Normal"
+        # notice: "Notice"
+    operation_item:
+      direction:
+        # in: "In"
+        # out: "Out"
+    operation_line:
+      direction:
+        # in: "In"
+        # out: "Out"
+    # person: ""
+    # plant: ""
+    # plant_medicine: ""
+    procedure:
+      state:
+        # done: "Done"
+        # in_progress: "In progress"
+        # squeezed: "Squeezed"
+        # undone: "Undone"
+    product:
+      arrival_reasons:
+        # birth: "Birth"
+        # housing: "Housing"
+        # other: "Other"
+        # purchase: "Purchase"
+    # product_group: ""
     product_localization:
-      arrival_cause: #?
-      departure_cause: #?
+      # arrival_cause: ""
+      # departure_cause: ""
+      # nature: ""
+    product_nature:
       nature:
-        # exterior: "Sortie"
-        # interior: "Entrée"
-        # transfer: "Transfert"
+        # product: "Product"
+        # service: "Service"
+        # subscription: "Subcription"
+        # transfer: "Transfer"
+    # product_nature_variant: ""
+    # product_reading: ""
+    product_transfer:
+      nature:
+        # gain: "Gain"
+        # transfer: "Transfer"
+        # waste: "Loss"
+    production_chain_work_center:
+      nature:
+        # input: "One in, many out"
+        # output: "Many in, one out"
     production_support_marker:
-      aim:
-        # maximum: "Maximum"
-        # minimum: "Minimum"
-        # perfect: "Idéal"
+      # aim: ""
+    products_nature:
+      nature:
+        # product: "Product"
+        # service: "Service"
+        # subscription: "Subcription"
+        # transfer: "Transfer"
+    # reading: ""
+    # sale_item: ""
     sequence:
       period:
-        # cweek: "Semaine"
-        # month: "Mois"
-        # number: "Pas de périodicité"
-        # year: "Année"
+        # cweek: "Commercial week"
+        # month: "Month"
+        # number: "No periodicity"
+        # year: "Year"
       usage:
-        # animals: "Numérotation des animaux"
-        # campaigns: "Numérotation des campagnes de productions"
-        # cash_transfers: "Numérotation des virements internes"
-        # deposits: "Numérotation des remises en banque"
-        # entities: "Numérotation des personnes"
-        # financial_assets: "Numérotation des immobilisations"
-        # incoming_deliveries: "Numérotation des bons de réceptions"
-        # incoming_payments: "Numérotation des encaissements"
-        # outgoing_deliveries: "Numérotation des bons de livraisons"
-        # outgoing_payments: "Numérotation des décaissements"
-        # plants: "Numérotation des cultures"
-        # purchases: "Numérotation des achats"
-        # sales: "Numérotation des ventes"
-        # sales_invoices: "Numérotation des factures"
-        # stock_transfers: "Numérotation des transferts de stock"
-        # subscriptions: "Numérotation des abonnements"
-        # transports: "Numérotation des transports"
-    sex: #?
-    subscription_nature:
-      entity_link_direction:
-        # all: "Bidirectionnel"
-        # direct: "Direct"
-        # indirect: "Indirect"
+        # assets: "Numeration of assets"
+        # cash_transfers: "Numeration of cash transfers"
+        # deposits: "Numeration of deposits"
+        # entities: "Numeration of people"
+        # incoming_deliveries: "Numeration of incoming deliveries"
+        # incoming_payments: "Numeration of payments"
+        # outgoing_deliveries: "Numeration of outgoing deliveries"
+        # outgoing_payments: "Numeration of payments"
+        # purchases: "Numeration of purchases"
+        # sales: "Numeration of sales"
+        # sales_invoices: "Numeration of sales invoices"
+        # stock_transfers: "Numeration of stock transfers"
+        # subscriptions: "Numeration of subscriptions"
+        # transports: "Numeration of transports"
+    sex:
+      # female: "Female"
+      # male: "Male"
+      # mixt: "Mixte"
+    stock_transfer:
       nature:
-        # period: "Par dates"
-        # quantity: "Par numéros"
+        # gain: "Gain"
+        # transfer: "Transfer"
+        # waste: "Loss"
+    subscription_nature:
+      # entity_link_direction: ""
+      nature:
+        # period: "Subscription by date"
+        # quantity: "Subscription by number"
     tax:
       nature:
-        # amount: "Montant"
-        # percentage: "Pourcentage"
+        # amount: "Amount"
+        # percentage: "Percentage"

@@ -112,19 +112,19 @@ task :locales => :environment do
   # Actions
   translation << "  actions:\n"
   # raise controllers_hash.inspect
-  for controller_name, actions in Clean::Support.actions_hash
-    existing_actions = ::I18n.translate("actions.#{controller_name}").stringify_keys.keys rescue []
+  for controller_path, actions in Clean::Support.actions_hash
+    existing_actions = ::I18n.translate("actions.#{controller_path}").stringify_keys.keys rescue []
     translateable_actions = []
-    translateable_actions += (actions.delete_if{ |a| [:update, :create, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) or a.to_s.match(/^(list|unroll)(\_|$)/)}|existing_actions).sort if controller_name != "backend/interfacers"
-    if translateable_actions.size > 0
-      translation << "    " + controller_name + ":\n"
+    translateable_actions += (actions.delete_if{ |a| [:update, :create, :picture, :destroy, :up, :down, :decrement, :increment, :duplicate, :reflect].include?(a.to_sym) or a.to_s.match(/^(list|unroll)(\_|$)/)}|existing_actions).sort
+    if translateable_actions.any?
+      translation << "    " + controller_path + ":\n"
       for action_name in translateable_actions
-        name = ::I18n.hardtranslate("actions.#{controller_name}.#{action_name}")
+        name = ::I18n.hardtranslate("actions.#{controller_path}.#{action_name}")
         to_translate += 1
         if actions.include?(action_name)
           untranslated += 1 if name.blank?
         end
-        translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? "#{action_name}#{'_'+controller_name.singularize unless action_name.match(/^list/)}".humanize : name, 3)
+        translation << "      #{missing_prompt if name.blank?}#{action_name}: " + Clean::Support.yaml_value(name.blank? ? Clean::Support.default_action_title(controller_path, action_name) : name, 3)
         translation << " #?" unless actions.include?(action_name)
         translation << "\n"
       end
@@ -133,11 +133,12 @@ task :locales => :environment do
 
   # Controllers
   translation << "  controllers:\n"
-  for controller_name, actions in Clean::Support.actions_hash
-    name = ::I18n.hardtranslate("controllers.#{controller_name}")
+  for controller_path, actions in Clean::Support.actions_hash
+    controller_name = controller_path.split("/").last
+    name = ::I18n.hardtranslate("controllers.#{controller_path}")
     untranslated += 1 if name.blank?
     to_translate += 1
-    translation << "    #{missing_prompt if name.blank?}#{controller_name}: " + Clean::Support.yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
+    translation << "    #{missing_prompt if name.blank?}#{controller_path}: " + Clean::Support.yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
   end
 
   # Errors
@@ -163,7 +164,7 @@ task :locales => :environment do
     end
   end
   to_translate += Clean::Support.hash_count(notifications) # .keys.size
-  for key, trans in notifications.sort{|a,b| a[0].to_s<=>b[0].to_s}
+  for key, trans in notifications.sort{|a,b| a[0].to_s <=> b[0].to_s}
     line = "    "
     if trans.blank?
       untranslated += 1
@@ -177,11 +178,11 @@ task :locales => :environment do
 
   # Preferences
   to_translate += Clean::Support.hash_count(::I18n.translate("preferences"))
-  translation << "  preferences:"+Clean::Support.hash_to_yaml(::I18n.translate("preferences"), 2) + "\n"
+  translation << "  preferences:" + Clean::Support.hash_to_yaml(::I18n.translate("preferences"), 2) + "\n"
 
   # Unroll
   to_translate += Clean::Support.hash_count(::I18n.translate("unroll"))
-  translation << "  unroll:"+Clean::Support.hash_to_yaml(::I18n.translate("unroll"), 2)
+  translation << "  unroll:" + Clean::Support.hash_to_yaml(::I18n.translate("unroll"), 2)
 
   File.open(locale_dir.join("action.yml"), "wb") do |file|
     file.write(translation)
@@ -325,7 +326,7 @@ task :locales => :environment do
               choices << Clean::Support.exp(ref, nomenclature.name, :choices, name.to_sym, choice.to_sym).dig
             end
           else
-            choices << "#! #{name}: Choices comes from nomenclature: #{property_nature.choices_nomenclature}\n"
+            # choices << "#! #{name}: Choices comes from nomenclature: #{property_nature.choices_nomenclature}\n"
           end
         elsif property_nature.type == :list and property_nature.choices_nomenclature.nil?
           item_lists << property_nature.name.to_sym
