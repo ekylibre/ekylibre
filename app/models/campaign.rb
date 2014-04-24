@@ -48,8 +48,8 @@ class Campaign < Ekylibre::Record::Base
   validates :harvest_year, length: {is: 4}, allow_nil: true
   before_validation :set_default_values, on: :create
 
-  acts_as_numbered :number, :readonly => false
-  scope :currents, -> { where(:closed => false).reorder(:harvest_year) }
+  acts_as_numbered :number, readonly: false
+  scope :currents, -> { where(closed: false).reorder(:harvest_year) }
 
   protect(on: :destroy) do
     self.productions.any? or self.interventions.any?
@@ -62,6 +62,10 @@ class Campaign < Ekylibre::Record::Base
 
   def shape_area
     return self.productions.map(&:shape_area).sum
+  end
+
+  def previous
+    self.class.where("harvest_year < ?", self.harvest_year)
   end
 
 end

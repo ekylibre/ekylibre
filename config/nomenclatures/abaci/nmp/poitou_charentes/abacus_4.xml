@@ -5,16 +5,14 @@
   <!--  abaque de valeur de Pi (kg de N / ha)  selon le nombre de talles  -->
   <nomenclature name="nmp_poitou_charentes_abacus_four" hierarchical="false" translateable="false">
     <property-natures>
-      <property-nature name="minimum_leaf_count" type="integer" required="true"/>
-      <property-nature name="maximum_leaf_count" type="integer" required="false"/>
-      <property-nature name="absorbed_nitrogen" type="decimal" required="false"/><!-- en qt/ha -->
-      
-      
+      <property-nature name="minimum_leaf_count" type="integer" required="true" default="0"/>
+      <property-nature name="maximum_leaf_count" type="integer" required="true" default="100"/>
+      <property-nature name="absorbed_nitrogen"  type="decimal" required="false"/><!-- en qt/ha -->
     </property-natures>
     <items>
-      <item name="no_growth" minimum_leaf_count="0" maximum_leaf_count="1" absorbed_nitrogen="10"/>
+      <item name="no_growth"     minimum_leaf_count="0" maximum_leaf_count="1" absorbed_nitrogen="10"/>
       <item name="little_growth" minimum_leaf_count="2" maximum_leaf_count="3" absorbed_nitrogen="30"/>
-      <item name="good_growth" minimum_leaf_count="4" absorbed_nitrogen="50"/>
+      <item name="good_growth"   minimum_leaf_count="4"                        absorbed_nitrogen="50"/>
     </items>
   </nomenclature>
 </nomenclatures>

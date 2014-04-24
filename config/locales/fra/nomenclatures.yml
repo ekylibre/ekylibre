@@ -297,20 +297,20 @@ fra:
     administrative_area_natures:
       name: "Types de territoires administratifs"
       property_natures:
-        # country: "Country"
+        country: "Pays"
         # parent: "Parent"
       choices:
         #! country: Choices comes from nomenclature: countries
         #! parent: Choices comes from nomenclature: administrative_area_natures
       items:
-        # france_commune: "France commune"
-        # france_department: "France department"
-        # france_region: "France region"
+        france_commune: "Commune de France"
+        france_department: "Département de France"
+        france_region: "Région de France"
     administrative_areas:
       name: "Territoires administratifs"
       property_natures:
-        # code: "Code"
-        # nature: "Nature"
+        code: "Code ISO"
+        nature: "Type"
         # parent: "Parent"
       choices:
         #! nature: Choices comes from nomenclature: administrative_area_natures
@@ -910,7 +910,7 @@ fra:
         nightshade: "Pomme de terre"
         peas: "Pois"
         rape: "Colza"
-        # rapeseed: "Rapeseed"
+        rapeseed: "Colza"
         secale_phacelia: "Seigle et phacélie"
         sorghum: "Sorgho"
         spring_crop: "Culture de printemps"
@@ -1465,7 +1465,7 @@ fra:
         fertility_index: "Index de fertilité"
         figure: "Forme"
         freezing_point_temperature: "Point de solidification"
-        # fresh_weight_plants_density: "Fresh weight plants density"
+        # fresh_mass: "Fresh mass"
         geolocation: "Géolocalisation"
         grains_area_density: "Grains par surface"
         grains_count: "Grains"
@@ -1810,7 +1810,7 @@ fra:
     plants_growth_levels:
       name: "Niveau de croissance des plantes"
       items:
-        hight: "Forte"
+        # high: "High"
         low: "Faible"
     procedure_natures:
       name: "Types de procédures"
@@ -2561,24 +2561,24 @@ fra:
     soil_natures:
       name: "Types de sols"
       items:
-        aubues_soil: "Sols sur craie Nord Vienne (Aubues)"
-        black_valley_soil: "Terres noires de vallées"
-        champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)"
-        chesnut_red_soil: "Terres rouges à chataigniers"
+        aubues_soil: "Sol sur craie Nord Vienne (Aubues)"
+        black_valley_soil: "Terre noire de vallées"
+        champagne_soil: "Sol sur craie Sud Charente et Charente-Martime (Terres de champagne)"
+        chesnut_red_soil: "Terre rouge à chataigniers"
         clay_limestone_soil: "Sol argilo-calcaire (Groies)"
-        clay_soil: "Terre d’argile lourde"
-        flap_silt_soil: "Limons battants"
+        clay_soil: "Sol d’argile lourde"
+        flap_silt_soil: "Sol limoneux battant"
         granite_arena_soil: "Sol sur arène granitique"
         hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe"
         sand_soil: "Sol sableux"
-        sandy_clay_loam_soil: "Sol limono-argileux"
-        sandy_clay_soil: "Sol argilo-sableux"
-        silt_schist_soil: "Limons sur schiste ou gneiss"
-        silt_soil: "Limon"
+        sandy_clay_loam_soil: "Sol sablo-limono-argileux"
+        sandy_clay_soil: "Sol sablo-argileux"
+        silt_schist_soil: "Sol limoneux sur schiste ou gneiss"
+        silt_soil: "Sol limoneux"
         silty_clay_loam_soil: "Sol limono-argileux"
         silty_clay_soil: "Sol argilo-limoneux"
         swamp_peaty_soil: "Terre de marais tourbeux"
-        valley_terrace_soil: "Sols de terrasse de vallée"
+        valley_terrace_soil: "Sol de terrasse de vallée"
     spatial_reference_systems:
       name: "Systèmes de coordonnées spatiales"
     taxes:

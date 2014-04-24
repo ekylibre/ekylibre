@@ -7,8 +7,6 @@
     <property-natures>
       <property-nature name="administrative_area"  type="choice" nomenclature="administrative_areas" requied="true"/>
       <property-nature name="coefficient" type="integer" required="true"/>
-      
-      
     </property-natures>
     <items>
       <item name="rapeseed_pc_coefficient" administrative_area="france_region_poitou_charentes" coefficient="65"/>

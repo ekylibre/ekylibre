@@ -38,7 +38,6 @@
 #  variant_id     :integer
 #
 class Production < Ekylibre::Record::Base
-  # attr_accessible :supports_attributes, :activity_id, :product_nature_id, :campaign_id, :static_support, :state, :started_at, :stopped_at
   enumerize :state, in: [:draft, :validated], default: :draft
   belongs_to :activity
   belongs_to :campaign

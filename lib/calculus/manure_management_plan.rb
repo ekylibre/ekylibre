@@ -1,14 +1,22 @@
 module Calculus
   module ManureManagementPlan
 
+    autoload :Method,              'calculus/manure_management_plan/method'
     autoload :External,            'calculus/manure_management_plan/external'
     autoload :PoitouCharentes2013, 'calculus/manure_management_plan/poitou_charentes_2013'
 
     class << self
 
-      # Redirect methods on given method
-      def method_missing(method_name, *args)
-        return "Calculus::ManureManagementPlan::#{options[:method].name.to_s.camelize}".constantize.send(method_name, *args)        
+      def estimate_expected_yield(options = {})
+        return find_method(options).estimate_expected_yield
+      end
+
+      def compute(options = {})
+        return find_method(options).compute
+      end
+
+      def find_method(options)
+        "Calculus::ManureManagementPlan::#{options[:method].name.to_s.camelize}".constantize.new(options)
       end
 
     end

@@ -297,9 +297,13 @@ spa:
       # name: "Familles d’activité"
     administrative_area_natures:
       choices: #?
-      items: #?
+      items:
+        # france_commune: "Commune de France"
+        # france_department: "Département de France"
+        # france_region: "Région de France"
       # name: "Types de territoires administratifs"
-      property_natures: #?
+      property_natures:
+        # country: "Pays"
     administrative_areas:
       choices: #?
       items:
@@ -432,7 +436,9 @@ spa:
         # france_region_reunion: "Réunion"
         # france_region_rhone_alpes: "Rhône-Alpes"
       # name: "Territoires administratifs"
-      property_natures: #?
+      property_natures:
+        # code: "Code ISO"
+        # nature: "Type"
     analysis_natures:
       choices: #?
       items:
@@ -893,6 +899,7 @@ spa:
         # nightshade: "Pomme de terre"
         # peas: "Pois"
         # rape: "Colza"
+        # rapeseed: "Colza"
         # secale_phacelia: "Seigle et phacélie"
         # sorghum: "Sorgho"
         # spring_crop: "Culture de printemps"
@@ -1733,7 +1740,6 @@ spa:
       # name: "États de la reproduction végétale"
     plants_growth_levels:
       items:
-        # hight: "Forte"
         # low: "Faible"
       # name: "Niveau de croissance des plantes"
     procedure_natures:
@@ -2474,24 +2480,24 @@ spa:
       # name: "États culturaux du sol"
     soil_natures:
       items:
-        # aubues_soil: "Sols sur craie Nord Vienne (Aubues)"
-        # black_valley_soil: "Terres noires de vallées"
-        # champagne_soil: "Sols sur craie Sud Charente et Charente-Martime (Terres de champagne)"
-        # chesnut_red_soil: "Terres rouges à chataigniers"
+        # aubues_soil: "Sol sur craie Nord Vienne (Aubues)"
+        # black_valley_soil: "Terre noire de vallées"
+        # champagne_soil: "Sol sur craie Sud Charente et Charente-Martime (Terres de champagne)"
+        # chesnut_red_soil: "Terre rouge à chataigniers"
         # clay_limestone_soil: "Sol argilo-calcaire (Groies)"
-        # clay_soil: "Terre d’argile lourde"
-        # flap_silt_soil: "Limons battants"
+        # clay_soil: "Sol d’argile lourde"
+        # flap_silt_soil: "Sol limoneux battant"
         # granite_arena_soil: "Sol sur arène granitique"
         # hydromorph_sandy_clay_loam_soil: "Sol sablo-argileux hydromorphe"
         # sand_soil: "Sol sableux"
-        # sandy_clay_loam_soil: "Sol limono-argileux"
-        # sandy_clay_soil: "Sol argilo-sableux"
-        # silt_schist_soil: "Limons sur schiste ou gneiss"
-        # silt_soil: "Limon"
+        # sandy_clay_loam_soil: "Sol sablo-limono-argileux"
+        # sandy_clay_soil: "Sol sablo-argileux"
+        # silt_schist_soil: "Sol limoneux sur schiste ou gneiss"
+        # silt_soil: "Sol limoneux"
         # silty_clay_loam_soil: "Sol limono-argileux"
         # silty_clay_soil: "Sol argilo-limoneux"
         # swamp_peaty_soil: "Terre de marais tourbeux"
-        # valley_terrace_soil: "Sols de terrasse de vallée"
+        # valley_terrace_soil: "Sol de terrasse de vallée"
       # name: "Types de sols"
     spatial_reference_systems:
       # name: "Systèmes de coordonnées spatiales"

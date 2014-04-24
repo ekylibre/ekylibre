@@ -3,7 +3,7 @@
   <nomenclature name="plants_growth_levels">
     <items>
       <item name="low"/>
-      <item name="hight"/>
+      <item name="high"/>
     </items>
   </nomenclature>
 </nomenclatures>

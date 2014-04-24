@@ -261,6 +261,11 @@ class ProductionSupport < Ekylibre::Record::Base
     return nil
   end
 
+  def cultivation
+    # FIXME How to get cultivation ?
+    nil
+  end
+
   def get(indicator, *args)
     unless indicator.is_a?(Nomen::Item) or indicator = Nomen::Indicators[indicator]
       raise ArgumentError, "Unknown indicator #{indicator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."

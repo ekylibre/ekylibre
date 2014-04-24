@@ -2,22 +2,18 @@ module Calculus
   module ManureManagementPlan
     
     # This method considers that values are not computed here so it does quite nothing
-    module External
-      
-      class << self
+    class External < Method
 
-        # Cannot estimate without any method, so zero...
-        def estimate_expected_yield(options = {})
-          return 0.0.in_quintal_per_hectare
-        end
-
-        # Compute nothing...
-        def compute(options = {})
-          return {}
-        end
-        
+      # Cannot estimate without any method, so zero...
+      def estimate_expected_yield
+        return 0.0.in_quintal_per_hectare
       end
 
+      # Compute nothing...
+      def compute
+        return @options
+      end
+      
     end
 
   end

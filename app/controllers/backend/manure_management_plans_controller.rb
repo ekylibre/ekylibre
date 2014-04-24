@@ -36,7 +36,6 @@ class Backend::ManureManagementPlansController < BackendController
   list :zones, model: :manure_management_plan_zones do |t|
     t.column :activity, url: true
     t.column :cultivable_zone, url: true
-    t.column :land_parcel, url: true
     t.column :nitrogen_need
     t.column :absorbed_nitrogen_at_opening, hidden: true
     t.column :mineral_nitrogen_at_opening, hidden: true

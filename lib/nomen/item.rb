@@ -67,6 +67,34 @@ module Nomen
       self.nomenclature.name <=> other.nomenclature.name and self.name <=> other.name
     end
 
+    def <(other)
+      unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
+        raise "Invalid operand to compare"
+      end
+      other.children.include?(self)
+    end
+
+    def >(other)
+      unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
+        raise "Invalid operand to compare"
+      end
+      self.children.include?(other)
+    end
+
+    def <=(other)
+      unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
+        raise "Invalid operand to compare"
+      end
+      other.self_and_children.include?(self)
+    end
+
+    def >=(other)
+      unless other = (other.is_a?(Item) ? other : self.nomenclature[other])
+        raise "Invalid operand to compare"
+      end
+      self.self_and_children.include?(other)
+    end
+
     def inspect
       "#{@nomenclature.name}-#{@name}"
     end

@@ -79,14 +79,17 @@ class ManureManagementPlanZone < Ekylibre::Record::Base
   end
 
   def compute
-    values = Calculus::ManureManagementPlan.compute(parameters)
-    raise values.inspect
+    for name, value in Calculus::ManureManagementPlan.compute(parameters)
+      self.send("#{name}=", value.to_f(:kilogram_per_hectare))
+    end
+    self.save!
   end
 
   def parameters
     hash = {
       available_water_capacity: self.available_water_capacity,
-      opened_at: self.opened_at
+      opened_at: self.opened_at,
+      support: self.support
     }
     if self.computation_method
       hash[:method] = Nomen::ManureManagementPlanComputationMethods[self.computation_method]
