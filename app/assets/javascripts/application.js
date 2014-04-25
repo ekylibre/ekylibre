@@ -36,6 +36,8 @@
 //= require leaflet
 //= require leaflet/draw
 //= require leaflet/wicket
+//= require leaflet/tilelegend
+//= require leaflet/staticlayerswitcher
 //= require leaflet/fullscreen
 //= require leaflet/providers
 //= require_tree .
