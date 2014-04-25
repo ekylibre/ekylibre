@@ -8,7 +8,7 @@ task :rights => :environment do
   ref = Clean::Support.actions_hash
 
   # Lecture du fichier existant
-  old_rights = YAML.load_file(User.rights_file)
+  old_rights = YAML.load_file(Ekylibre::Access.reference_file)
 
   read_exp =  /\#(list(\_\w+)*|index|show|unroll|picture)$/
 
@@ -34,7 +34,7 @@ task :rights => :environment do
   # Enregistrement du nouveau fichier
   yaml = ""
   if unused_actions.any?
-    yaml << "# This following actions are not accessible after login\n" 
+    yaml << "# THESE COMMENTED ACTIONS ARE ALL ACCESSIBLE AFTER LOGIN WITHOUT RESTRICTION\n" 
     for action in unused_actions.sort
       yaml << "#     - \"#{action}\"\n"
     end
@@ -62,7 +62,7 @@ task :rights => :environment do
     end
   end
 
-  File.open(User.rights_file, "wb") do |file|
+  File.open(Ekylibre::Access.reference_file, "wb") do |file|
     file.write yaml
   end
 

@@ -824,8 +824,8 @@ eng:
     description: "Description"
     detail_payments: "Detail payments"
     diagnostics: "Diagnostics" #?
-    diff_less: "Diff less"
-    diff_more: "Diff more"
+    diff_less: "Diff less" #?
+    diff_more: "Diff more" #?
     direct_links: "Direct links"
     direction: "Direction"
     direction_label: "Direction label" #?

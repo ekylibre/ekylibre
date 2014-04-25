@@ -39,65 +39,66 @@ class Role < Ekylibre::Record::Base
   validates_presence_of :name
   #]VALIDATORS]
   validates_uniqueness_of :name
-
-  before_validation do
-    self.rights_array = self.rights_array # Clean the rights
-  end
-
-  after_save(on: :update) do
-    old_rights_array = []
-    new_rights_array = []
-    old_rights = Role.find_by_id(self.id).rights.to_s.split(" ")
-
-    for right in old_rights
-      old_rights_array << right.to_sym
-    end
-    for right in self.rights.split(/\s+/)
-      new_rights_array << right.to_sym
-    end
-
-    added_rights = new_rights_array-old_rights_array
-    deleted_rights = old_rights_array- new_rights_array
-
-    for user in User.where(role_id: self.id, administrator: false)
-      # puts user.rights.inspect
-      user_rights_array = []
-      for right in user.rights.split(/\s+/)
-        user_rights_array << right.to_sym
-      end
-
-      user_rights_array.delete_if {|r| deleted_rights.include?(r) }
-      for added_right in added_rights
-        user_rights_array << added_right unless user_rights_array.include?(added_right)
-      end
-
-      user.rights = ""
-        for right in user_rights_array
-          user.rights += right.to_s+" "
-        end
-      user.save
-      # puts user.rights.inspect
-    end
-  end
-
-  def rights_array
-    self.rights.to_s.split(/\s+/).collect{|x| x.to_sym}
-  end
-
-  def rights_array=(array)
-    self.rights = array.select{|x| User.rights_list.include?(x.to_sym)}.join(" ")
-  end
+  serialize :rights
 
   protect(on: :destroy) do
     self.users.any?
   end
 
-  def diff_more
-    ''
+  before_validation do
+    self.rights = self.rights.to_hash
   end
 
-  def diff_less
-    ''
-  end
+  # after_save(on: :update) do
+  #   old_rights_array = []
+  #   new_rights_array = []
+  #   old_rights = Role.find_by_id(self.id).rights.to_s.split(" ")
+
+  #   for right in old_rights
+  #     old_rights_array << right.to_sym
+  #   end
+  #   for right in self.rights.split(/\s+/)
+  #     new_rights_array << right.to_sym
+  #   end
+
+  #   added_rights = new_rights_array-old_rights_array
+  #   deleted_rights = old_rights_array- new_rights_array
+
+  #   for user in User.where(role_id: self.id, administrator: false)
+  #     # puts user.rights.inspect
+  #     user_rights_array = []
+  #     for right in user.rights.split(/\s+/)
+  #       user_rights_array << right.to_sym
+  #     end
+
+  #     user_rights_array.delete_if {|r| deleted_rights.include?(r) }
+  #     for added_right in added_rights
+  #       user_rights_array << added_right unless user_rights_array.include?(added_right)
+  #     end
+
+  #     user.rights = ""
+  #       for right in user_rights_array
+  #         user.rights += right.to_s+" "
+  #       end
+  #     user.save
+  #     # puts user.rights.inspect
+  #   end
+  # end
+
+  # def rights_array
+  #   self.rights.to_s.split(/\s+/).collect{|x| x.to_sym}
+  # end
+
+  # def rights_array=(array)
+  #   self.rights = array.select{|x| User.rights_list.include?(x.to_sym)}.join(" ")
+  # end
+
+  # def diff_more
+  #   ''
+  # end
+
+  # def diff_less
+  #   ''
+  # end
 
 end

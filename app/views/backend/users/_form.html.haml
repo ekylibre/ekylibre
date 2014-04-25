@@ -3,9 +3,10 @@
   = f.input :first_name
   = f.input :language, :collection => languages
   = f.input :email
-  = f.input :password
-  = f.input :password_confirmation
-  = f.input :administrator, :hide => :rights
+  - if f.object.new_record?
+    = f.input :password
+    = f.input :password_confirmation
+  = f.input :administrator, :hide => :access
   = f.input :employed, :show => :employee
 
 = field_set(:employee) do
@@ -20,3 +21,4 @@
   -# input :credits
   -# partial :rights, :depend_at => :role
   -# #rights{"data-refresh" => url_for(action: :new, mode: :rights), "data-refresh-mode" => "update"}
+  = f.access_control_list

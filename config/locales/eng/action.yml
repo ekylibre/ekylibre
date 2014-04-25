@@ -1681,7 +1681,7 @@ eng:
       zero: "No entries has been validated"
     entity_columns_are_needed: "You need to specify at least one column for the person and in particular its family name."
     exception_raised: "An error occurred during the processing: %{message}"
-    expired_session: "Session expired. Please reconnect."
+    expired_session: "Session expired. Please reconnect." #?
     fails_to_extract_listing: "The listing can't be made: %{message}"
     # implemented_with_dummy_data: "Implemented with dummy data"
     importation_cancelled: "Your data was not imported. Import has been canceled" #?

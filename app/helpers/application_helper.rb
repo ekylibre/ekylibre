@@ -173,7 +173,7 @@ module ApplicationHelper
   def li_link_to(*args)
     options      = args[1] || {}
     # if authorized?({:controller => controller_name, :action => action_name}.merge(options))
-    if authorized?({:controller => controller_name, :action => :index}.merge(options))
+    if authorized?({:controller => controller_path, :action => :index}.merge(options))
       content_tag(:li, link_to(*args).html_safe)
     else
       ''
@@ -702,13 +702,13 @@ module ApplicationHelper
     record = args.shift
     url = {}
     url.update(options.delete(:params)) if options[:params].is_a? Hash
-    url[:controller] ||= controller_name
+    url[:controller] ||= controller_path
     url[:action] ||= action
     url[:id] = record.id if record and record.class < ActiveRecord::Base
     variants = options.delete(:variants)
     variants ||= {"actions.#{url[:controller]}.#{action}".to_sym.t({:default => "labels.#{action}".to_sym}.merge((record and record.class < ActiveRecord::Base) ? record.attributes.symbolize_keys : {})) => url} if authorized?(url)
     return dropdown_button do |l|
-      for name, url_options in variants
+      for name, url_options in variants || []
         variant_url = url.merge(url_options)
         l.link_to(name, variant_url, options) if authorized?(variant_url)
       end

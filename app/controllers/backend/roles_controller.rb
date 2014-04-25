@@ -18,46 +18,14 @@
 #
 
 class Backend::RolesController < BackendController
-  manage_restfully only: [:index, :destroy]
+  manage_restfully except: [:show]
+
   unroll
 
-  list(order: :name, :children => :users) do |t|
-    t.column :name, :children => :label
-    t.column :diff_more, class: 'rights more'
-    t.column :diff_less, class: 'rights less'
+  list(order: :name) do |t|
+    t.column :name, url: true
     t.action :edit
     t.action :destroy, if: :destroyable?
-  end
-
-  def new
-    @role = Role.new
-    @rights = User.rights_list
-    # render_restfully_form
-  end
-
-  def create
-    @role = Role.new(permitted_params[:role])
-    @role.rights_array = (params[:rights]||{}).keys
-    @rights = @role.rights_array
-    return if save_and_redirect(@role)
-    # render_restfully_form
-  end
-
-  def edit
-    return unless @role = find_and_check
-    @rights = @role.rights_array
-    t3e @role.attributes
-    # render_restfully_form
-  end
-
-  def update
-    return unless @role = find_and_check
-    @role.attributes = permitted_params[:role]
-    @role.rights_array = (params[:rights]||{}).keys
-    @rights = @role.rights_array
-    return if save_and_redirect(@role)
-    t3e @role.attributes
-    # render_restfully_form
   end
 
 end

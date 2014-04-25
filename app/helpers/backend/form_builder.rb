@@ -371,6 +371,38 @@ class Backend::FormBuilder < SimpleForm::FormBuilder
   end
 
 
+
+  def access_control_list(name = :rights)
+    prefix = @lookup_model_names.first + @lookup_model_names[1..-1].collect{|x| "[#{x}]"}.join
+    html = "".html_safe
+    reference = @object.send(name) || {}
+    for resource, accesses in Ekylibre::Access.list
+      resource_reference = reference[resource] || []
+      html << @template.content_tag(:div, class: "control-group booleans") do
+        @template.content_tag(:label, class: "control-label") do
+          Nomen::EnterpriseResources[resource].human_name
+        end +
+          @template.content_tag(:div, class: "controls") do
+          accesses.collect do |access, details|
+            checked = resource_reference.include?(access)
+            attributes = {class: "chk-access chk-access-#{access}", data: {access: "#{access}-#{resource}"}}
+            if details["depend-on"]
+              attributes[:data][:need_accesses] = details["depend-on"].join(" ")
+            end
+            attributes[:class] << " active" if checked
+            @template.content_tag(:label, attributes) do
+              @template.check_box_tag("#{prefix}[#{name}][#{resource}][]", access, checked) +
+                ERB::Util.h(Nomen::EnterpriseResourceActions[access].human_name.strip)
+            end
+          end.join.html_safe
+        end
+      end
+    end
+    return html
+  end
+
+
+
   def fields(partial = 'form')
     @template.content_tag(:div, @template.render(partial, f: self), class: "form-fields")
                         end

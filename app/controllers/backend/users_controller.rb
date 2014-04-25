@@ -18,7 +18,7 @@
 #
 
 class Backend::UsersController < BackendController
-  manage_restfully only: [:index, :show, :destroy]
+  manage_restfully
 
   unroll
 
@@ -35,40 +35,40 @@ class Backend::UsersController < BackendController
     t.action :destroy, if: 'RECORD.id != current_user.id'.c
   end
 
-  def new
-    if request.xhr? and params[:mode] == "rights"
-      role = Role.find(params[:user_role_id]) rescue nil
-      @rights = role.rights_array if role
-      render :partial => "rights_form"
-    else
-      role = Role.first
-      @user = User.new(administrator: false, role: role, employed: params[:employed], language: Preference[:language])
-      @rights = role ? role.rights_array : []
-    end
-  end
+  # def new
+  #   if request.xhr? and params[:mode] == "rights"
+  #     role = Role.find(params[:user_role_id]) rescue nil
+  #     @rights = role.rights_array if role
+  #     render :partial => "rights_form"
+  #   else
+  #     role = Role.first
+  #     @user = User.new(administrator: false, role: role, employed: params[:employed], language: Preference[:language])
+  #     @rights = role ? role.rights_array : []
+  #   end
+  # end
 
-  def create
-    @user = User.new permitted_params #(params[:user])
-    @user.rights_array = (params[:rights]||{}).keys
-    @rights = @user.rights_array
-    return if save_and_redirect(@user)
-  end
+  # def create
+  #   @user = User.new permitted_params #(params[:user])
+  #   @user.rights_array = (params[:rights]||{}).keys
+  #   @rights = @user.rights_array
+  #   return if save_and_redirect(@user)
+  # end
 
-  def edit
-    return unless @user = find_and_check
-    @rights = @user.rights_array
-    t3e @user.attributes
-    # render_restfully_form
-  end
+  # def edit
+  #   return unless @user = find_and_check
+  #   @rights = @user.rights_array
+  #   t3e @user.attributes
+  #   # render_restfully_form
+  # end
 
-  def update
-    return unless @user = find_and_check
-    @user.attributes = permitted_params
-    @user.rights_array = (params[:rights]||{}).keys
-    @rights = @user.rights_array
-    return if save_and_redirect(@user, url: {action: :index})
-    t3e @user.attributes
-  end
+  # def update
+  #   return unless @user = find_and_check
+  #   @user.attributes = permitted_params
+  #   @user.rights_array = (params[:rights]||{}).keys
+  #   @rights = @user.rights_array
+  #   return if save_and_redirect(@user, url: {action: :index})
+  #   t3e @user.attributes
+  # end
 
   def lock
     return unless @user = find_and_check

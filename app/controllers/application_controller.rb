@@ -65,7 +65,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authorized?(url_options = {})
-    return true # if url_options == "#" or current_user.administrator?
+    return true if url_options == "#" or current_user.administrator?
     if url_options.is_a?(Hash)
       url_options[:controller] ||= self.controller_path
       url_options[:action] ||= :index
@@ -76,10 +76,11 @@ class ApplicationController < ActionController::Base
       raise ArgumentError, "Invalid URL: " + url_options.inspect
     end
     if current_user
-      if url_options[:controller].blank? or url_options[:action].blank?
-        raise ArgumentErrorn "Uncheckable URL: " + url_options.inspect
-      end
-      return current_user.authorization(url_options[:controller], url_options[:action], session[:rights]).nil?
+      return current_user.can_access?(url_options)
+      # if url_options[:controller].blank? or url_options[:action].blank?
+      #   raise ArgumentError, "Uncheckable URL: " + url_options.inspect
+      # end
+      # return current_user.authorization(url_options[:controller], url_options[:action], session[:rights]).nil?
     else
       true
     end

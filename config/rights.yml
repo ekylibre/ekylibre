@@ -1,4 +1,4 @@
-# This following actions are not accessible after login
+# THESE COMMENTED ACTIONS ARE ALL ACCESSIBLE AFTER LOGIN WITHOUT RESTRICTION
 #     - "authentication/passwords#create"
 #     - "authentication/passwords#edit"
 #     - "authentication/passwords#new"
@@ -45,7 +45,6 @@
 #     - "backend/cells/placeholder_cells#show"
 #     - "backend/cells/revenues_by_product_nature_cells#show"
 #     - "backend/cells/rss_cells#show"
-#     - "backend/dashboards#accountancy"
 #     - "backend/dashboards#index"
 #     - "backend/dashboards#production"
 #     - "backend/dashboards#relationship"
@@ -103,6 +102,7 @@ accounts:
     - "backend/accounts#list_reconciliation"
     - "backend/accounts#show"
     - "backend/accounts#unroll"
+    - "backend/dashboards#accountancy"
   write:
     depend-on:
     - read-accounts
@@ -125,6 +125,7 @@ activities:
     - "backend/activities#list_productions"
     - "backend/activities#show"
     - "backend/activities#unroll"
+    - "backend/dashboards#accountancy"
   write:
     depend-on:
     - read-activities
@@ -1933,12 +1934,14 @@ sequences:
     - "backend/sequences#update"
 
 settings:
+  read:
+    actions:
+    - "backend/settings#about"
+    - "backend/settings#edit"
   write:
     depend-on:
     - read-settings
     actions:
-    - "backend/settings#about"
-    - "backend/settings#edit"
     - "backend/settings#import"
     - "backend/settings#update"
 

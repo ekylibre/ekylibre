@@ -12,7 +12,7 @@ fra:
       index: "Plan de comptes"
       load: "Charger un plan de compte"
       mark: "Lettrage du compte\_: %{number} - %{name}"
-      new: "Créer un nouveau compte"
+      new: "Nouveau compte"
       reconciliation: "Lettrage de comptes"
       show: "Compte\_: %{number} - %{name}"
       unmark: "Délettrer un compte"
@@ -232,7 +232,7 @@ fra:
     backend/equipments:
       edit: "Modifier l’équipement\_: %{name}"
       index: "Équipements"
-      new: "Ajouter un nouvel équipement"
+      new: "Nouvel équipement"
       show: "Équipement %{name}"
     backend/establishments:
       edit: "Modifier l’établissement\_: %{name}"
@@ -261,7 +261,7 @@ fra:
       edit: "Modifier un nouvel exercice"
       generate_last_journal_entry: "Générer l’écriture de fin de l’exercice %{code}"
       index: "Exercices comptables"
-      new: "Créer un nouvel exercice"
+      new: "Nouvel exercice"
       show: "Exercice comptable %{code}"
     backend/fungi:
       # edit: "Edit fungus: %{name}"
@@ -303,7 +303,7 @@ fra:
     backend/incoming_payment_modes:
       edit: "Modifier le mode d’encaissement\_: %{name}"
       index: "Modes d’encaissement"
-      new: "Ajouter un nouveau mode d’encaissement"
+      new: "Nouveau mode d’encaissement"
     backend/incoming_payments:
       edit: "Modifier l’encaissement n°%{number}"
       index: "Encaissements"
@@ -336,7 +336,7 @@ fra:
       new: "Ajouter une écriture"
       show: "Écriture\_: %{number}"
     backend/journal_entry_items:
-      new: "Ajouter une nouvelle ligne d’écriture"
+      new: "Nouvelle ligne d’écriture"
       # show: "Journal entry item: %{name}"
     backend/journals:
       balance: "Balance"
@@ -347,7 +347,7 @@ fra:
       general_ledger: "Grand livre"
       import: "Importer des données comptables"
       index: "Journaux"
-      new: "Créer un nouveau journal"
+      new: "Nouveau journal"
       reopen: "Déclôturer le journal\_: %{name}"
       reports: "Impression, exportation" #?
       show: "Journal\_: %{name} (%{code})"
@@ -356,21 +356,21 @@ fra:
     backend/land_parcel_clusters:
       edit: "Modifier l’îlot\_: %{name}"
       index: "Îlots"
-      new: "Ajouter un nouvel îlot"
+      new: "Nouvel îlot"
       show: "Îlot %{name}"
     backend/land_parcel_groups:
       divide: "Diviser le groupe de parcelle\_: %{name}" #?
       edit: "Modifier le groupe de parcelle\_: %{name}"
       index: "Groupes de parcelles"
       merge: "Fusionner des groupes de parcelles" #?
-      new: "Ajouter un nouveau groupe de parcelles"
+      new: "Nouveau groupe de parcelles"
       show: "Groupe de parcelles %{name}"
     backend/land_parcels:
       divide: "Diviser la parcelle\_: %{name}" #?
       edit: "Modifier la parcelle\_: %{name}"
       index: "Parcelles"
       merge: "Fusionner des parcelles" #?
-      new: "Ajouter une nouvelle parcelle"
+      new: "Nouvelle parcelle"
       show: "Parcelle %{name}"
     backend/legal_entities:
       # autocomplete_for_origin: "Autocomplete for origin legal entity: %{name}"
@@ -426,7 +426,7 @@ fra:
     backend/operations:
       edit: "Modifier le travail" #?
       index: "Travaux"
-      new: "Créer un nouveau travail" #?
+      new: "Nouveau travail" #?
       show: "Détails du travail"
       unvalidateds: "Travaux non validés" #?
     backend/organic_matters:
@@ -620,7 +620,7 @@ fra:
     backend/taxes:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
-      new: "Ajouter une nouvelle taxe"
+      new: "Nouvelle taxe"
     backend/teams:
       edit: "Modifier l’équipe\_: %{name}"
       index: "Équipes"

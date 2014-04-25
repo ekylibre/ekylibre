@@ -101,17 +101,18 @@ class User < Ekylibre::Record::Base
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable
   model_stamper # Needed to stamp.all records
   delegate :picture, :full_name, :participations, to: :person
+  serialize :rights
 
-  class << self
-    def rights_file; Rails.root.join("config", "rights.yml"); end
-    def minimum_right; :__minimum__; end
-    def rights; @@rights; end
-    def rights_list; @@rights_list; end
-  end
+  # class << self
+  #   def rights_file; Rails.root.join("config", "rights.yml"); end
+  #   def minimum_right; :__minimum__; end
+  #   def rights; @@rights; end
+  #   def rights_list; @@rights_list; end
+  # end
 
   before_validation do
     self.maximal_grantable_reduction_percentage ||= 0
-    self.rights_array = self.rights_array # Clean the rights
+    self.rights = self.rights.to_hash
   end
 
   validate on: :update do
@@ -136,26 +137,37 @@ class User < Ekylibre::Record::Base
     self.full_name
   end
 
-  def rights_array
-    self.rights.to_s.split(/\s+/).collect{|x| x.to_sym}
-  end
-
-  def rights_array=(array)
-    narray = array.select{|x| self.class.rights_list.include? x.to_sym}.collect{|x| x.to_sym}
-    self.rights = narray.join(" ")
-    return narray
-  end
-
-  def diff_more(right_markup = 'div', separator='')
-    return '<div>&infin;</div>'.html_safe if self.administrator?
-    (self.rights_array-self.role.rights_array).select{|x| self.class.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
+  def resource_actions
+    list = []
+    for resource, actions in self.rights
+      for action in actions
+        list << "#{action}-#{resource}"
+      end
+    end
+    return list
   end
 
 
-  def diff_less(right_markup = 'div', separator='')
-    return '' if self.administrator?
-    (self.role.rights_array-self.rights_array).select{|x| self.class.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
-  end
+  # def rights_array
+  #   self.rights.to_s.split(/\s+/).collect{|x| x.to_sym}
+  # end
+
+  # def rights_array=(array)
+  #   narray = array.select{|x| self.class.rights_list.include? x.to_sym}.collect{|x| x.to_sym}
+  #   self.rights = narray.join(" ")
+  #   return narray
+  # end
+
+  # def diff_more(right_markup = 'div', separator='')
+  #   return '<div>&infin;</div>'.html_safe if self.administrator?
+  #   (self.rights_array-self.role.rights_array).select{|x| self.class.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
+  # end
+
+
+  # def diff_less(right_markup = 'div', separator='')
+  #   return '' if self.administrator?
+  #   (self.role.rights_array-self.rights_array).select{|x| self.class.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
+  # end
 
 
   # Find or create preference for given name
@@ -210,6 +222,23 @@ class User < Ekylibre::Record::Base
     self.administrator? or self.rights.match(/(^|\s)#{right}(\s|$)/)
   end
 
+  def can_access?(url)
+    if url.is_a?(Hash)
+      unless url[:controller] and url[:action]
+        raise "Invalid URL for accessibility test: #{url.inspect}"
+      end
+      key = "#{url[:controller].to_s.gsub(/^\//, '')}##{url[:action]}"
+    else
+      key = url.to_s
+    end
+    unless list = Ekylibre::Access.reversed_list[key]
+      puts "Unable to check access for action: #{key.red}. #{url.inspect.yellow}"
+      return true
+    end
+    list &= self.resource_actions
+    return list.any?
+  end
+
   protect(on: :destroy) do
     self.class.count <= 1
   end
@@ -248,20 +277,20 @@ class User < Ekylibre::Record::Base
     password
   end
 
-  def self.initialize_rights
-    definition = YAML.load_file(self.rights_file)
-    @@rights_list = definition.keys.sort.delete_if{|k| k.match(/^__.*__$/)}.map(&:to_sym)
-    @@rights = HashWithIndifferentAccess.new
-    for right, actions in definition
-      for uniq_action in actions
-        controller, action = uniq_action.split(/\#/)[0..1]
-        @@rights[controller] ||= HashWithIndifferentAccess.new
-        @@rights[controller][action] ||= []
-        @@rights[controller][action] << right.to_sym
-      end if actions.is_a? Array
-    end
-  end
+  # def self.initialize_rights
+  #   definition = YAML.load_file(self.rights_file)
+  #   @@rights_list = definition.keys.sort.delete_if{|k| k.match(/^__.*__$/)}.map(&:to_sym)
+  #   @@rights = HashWithIndifferentAccess.new
+  #   for right, actions in definition
+  #     for uniq_action in actions
+  #       controller, action = uniq_action.split(/\#/)[0..1]
+  #       @@rights[controller] ||= HashWithIndifferentAccess.new
+  #       @@rights[controller][action] ||= []
+  #       @@rights[controller][action] << right.to_sym
+  #     end if actions.is_a? Array
+  #   end
+  # end
 
-  initialize_rights
+  # initialize_rights
 
 end

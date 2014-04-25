@@ -22,7 +22,8 @@ class BackendController < BaseController
   protect_from_forgery
 
   before_filter :authenticate_user!
-  before_filter :configure_versioner
+  before_filter :authorize_user!
+  before_filter :set_versioner
   before_filter :themize
 
   layout :dialog_or_not
@@ -120,13 +121,13 @@ class BackendController < BaseController
 
   private
 
-  def dialog_or_not()
+  def dialog_or_not
     return (request.xhr? ? "popover" : params[:dialog] ? "dialog" : "backend")
   end
 
 
   # Set HTTP headers to block page caching
-  def no_cache()
+  def no_cache
     # Change headers to force zero cache
     response.headers["Last-Modified"] = Time.now.httpdate
     response.headers["Expires"] = '0'
@@ -137,17 +138,17 @@ class BackendController < BaseController
   end
 
   # # Load current user
-  # def identify()
+  # def identify
   #   # Load current_user if connected
   #   @current_user = nil
   #   @current_user = User.find_by(id: session[:user_id]).readonly if session[:user_id]
   # end
 
-  def configure_versioner
+  def set_versioner
     Version.current_user = current_user
   end
 
-  def themize()
+  def themize
     # TODO: Dynamic theme choosing
     if current_user
       if %w(margarita tekyla tekyla-sunrise).include?(params[:theme])
@@ -161,70 +162,31 @@ class BackendController < BaseController
 
 
   # Controls access to every view in Ekylibre.
-  def authorize()
-    # Get action rights
-    controller_rights = {} unless controller_rights = User.rights[self.controller_name.to_sym]
-    action_rights = controller_rights[self.action_name.to_sym]||[]
+  def authorize_user!
+    unless current_user.administrator?
+      # Get accesses matching the current action
+      unless list = Ekylibre::Access.reversed_list["#{controller_path}##{action_name}"]
+        return true
+        notify_error(:access_denied, reason: "OUT OF SCOPE", url: request.url.inspect)
+        redirect_to root_url
+        return false
+      end
 
-    # Search help article
-    @article = "#{self.controller_path}-#{self.action_name}" # search_article
-
-    # Returns if action is public
-    return true if action_rights.include?(:__public__)
-
-    # Check current_user
-    unless current_user
-      notify_error(:access_denied, :reason => "NOT PUBLIC", :url => request.url.inspect)
-      redirect_to_login(request.url)
-      return false
-    end
-
-    # # Set session variables and check state
-    # session[:last_page] ||= {}
-    # if request.get? and not request.xhr? and not [:sessions, :help].include?(self.controller_name.to_sym)
-    #   session[:last_url] = request.path
-    # end
-
-    # # Check expiration
-    # if !session[:last_query].is_a?(Integer)
-    #   redirect_to_login(request.path)
-    #   return false
-    # elsif session[:last_query].to_i<Time.now.to_i-session[:expiration].to_i
-    #   notify(:expired_session)
-    #   if request.xhr?
-    #     render :text => "<script>window.location.replace('#{new_session_url}')</script>"
-    #   else
-    #     redirect_to_login(request.path)
-    #   end
-    #   return false
-    # else
-    #   session[:last_query] = Time.now.to_i
-    # end
-
-    # Check access for registered actions
-    return true if action_rights.include?(:__minimum__)
-
-    # Check rights before allowing access
-    if message = @current_user.authorization(self.controller_name, self.action_name, session[:rights])
-      if @current_user.admin
-        notify_error_now(:access_denied, :reason => message, :url => request.path.inspect)
-      else
-        notify_error(:access_denied, :reason => message, :url => request.path.inspect)
-        redirect_to_back
+      # Search for one of found access in rights of current user
+      list &= current_user.resource_actions
+      unless list.any?
+        notify_error(:access_denied, reason: "RESTRICTED", url: request.url.inspect)
+        redirect_to root_url
         return false
       end
     end
-
-    # Returns true if authorized
     return true
   end
 
 
 
-
-
   # # Fill the history array
-  # def historize()
+  # def historize
   #   if @current_user and request.get? and not request.xhr? and params[:format].blank?
   #     session[:history] = [] unless session[:history].is_a? Array
   #     session[:history].delete_if { |h| h[:path] == request.path }
