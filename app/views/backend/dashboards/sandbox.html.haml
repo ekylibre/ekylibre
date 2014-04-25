@@ -1,11 +1,11 @@
 :ruby
-  data = [{name: ""},{}]
+  data = JSON.parse(File.read(Rails.root.join("db", "visualization.json")))["features"]
 
 = visualization :my_cultivable_zone_of_hell, fullscreen: true do |v|
   - v.background "OpenStreetMap.HOT"
   - v.background "OpenWeatherMap.Precipitation"
   -# v.dataset :zones, data
-  -# v.layer :zones_of_fucking_hell, data, tooltip: true
+  -# v.layer :zones, data, tooltip: true
   -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
   -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
   -# v.control :background
