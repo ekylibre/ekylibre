@@ -30,6 +30,11 @@ module Backend::VisualizationsHelper
       @data[:layers] ||= {}.with_indifferent_access
       @data[:layers][name] = options
     end
+    
+    def datasets(name, datas = {})
+      @data[:datasets] ||= {}.with_indifferent_access
+      @data[:datasets][name] = datas
+    end
 
     def control(name, options = {})
       @data[:controls] ||= {}.with_indifferent_access

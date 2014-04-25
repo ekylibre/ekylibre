@@ -6,7 +6,7 @@
       box:
         height: 400
         width: null
-      back: "OpenStreetMap.HOT"
+      backgrounds:"OpenStreetMap.HOT"
       show: null
       edit: null
       change: null
@@ -30,21 +30,37 @@
             circle: false
             polygon:
               allowIntersection: false
-              showArea: true        
+              showArea: true 
+        tilelegend:
+          position: "bottomright"
+          title: "HOT style"
+          description: "Humanitarian focused OSM base layer."
+          sections: [
+            title: "Roads"
+            className: "roads"
+            keys: [
+              coordinates: [
+                19.67236
+                -72.11825
+                15
+              ]
+              text: "Paved primary road"
+            ]
+          ]       
         zoom:
           position: "topleft"
           zoomInText: ""
           zoomOutText: ""
         scale:
-          position: "bottomright"
+          position: "bottomleft"
           imperial: false
           maxWidth: 200
-
+                
     _create: ->
       this.oldElementType = this.element.attr "type"
       this.element.attr "type", "hidden"
 
-      $.extend(true, this.options, this.element.data("map-editor"))
+      $.extend(true, this.options, this.element.data("visualization"))
       
       this.mapElement = $("<div>", class: "map")
         .insertAfter(this.element)
@@ -56,18 +72,18 @@
 
       widget = this
       
-      this.map.on "draw:created", (e) ->
-        widget.edition.addLayer e.layer
-        widget._saveUpdates()
-        widget.element.trigger "mapchange"
-
-      this.map.on "draw:edited", (e) ->
-        widget._saveUpdates()
-        widget.element.trigger "mapchange"
-
-      this.map.on "draw:deleted", (e) ->
-        widget._saveUpdates()
-        widget.element.trigger "mapchange"
+      # this.map.on "draw:created", (e) ->
+        # widget.edition.addLayer e.layer
+        # widget._saveUpdates()
+        # widget.element.trigger "mapchange"
+# 
+      # this.map.on "draw:edited", (e) ->
+        # widget._saveUpdates()
+        # widget.element.trigger "mapchange"
+# 
+      # this.map.on "draw:deleted", (e) ->
+        # widget._saveUpdates()
+        # widget.element.trigger "mapchange"
 
       this._resize()
       # console.log "resized"
@@ -86,9 +102,9 @@
       this.element.attr this.oldElementType
       this.mapElement.remove()
       
-    back: (back) ->
-      return this.options.back unless back?
-      this.options.back = back
+    back: (backgrounds) ->
+      return this.options.backgrounds unless backgrounds?
+      this.options.backgrounds = backgrounds
       this._refreshBackgroundLayer()
 
     show: (geojson) ->
@@ -124,16 +140,16 @@
           this.mapElement.width this.options.box.width
         this._trigger "resize"
     
-    _refreshBackgroundLayer: ->
+     _refreshBackgroundLayer: ->
       if this.backgroundLayer?
         this.map.removeLayer(this.backgroundLayer)
-      if this.options.back?
-        if this.options.back.constructor.name is "String"
-          this.backgroundLayer = L.tileLayer.provider(this.options.back)
+      if this.options.backgrounds?
+        if this.options.backgrounds.constructor.name is "String"
+          this.backgroundLayer = L.tileLayer.provider(this.options.backgrounds)
           this.backgroundLayer.addTo this.map
         else
           console.log "How to set background with #{this.options.back}?"
-          console.log this.options.back
+          console.log this.options.backgrounds
       this
 
     _refreshReferenceLayerGroup: ->
@@ -205,12 +221,16 @@
       unless this.options.controls.fullscreen is false
         this.controls.fullscreen = new L.Control.FullScreen(this.options.controls.fullscreen)
         this.map.addControl this.controls.fullscreen
-      if this.edition?
-        this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}))
-        this.map.addControl this.controls.draw
+      # if this.edition?
+        # this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}))
+        # this.map.addControl this.controls.draw
       unless this.options.controls.scale is false
         this.controls.scale = new L.Control.Scale(this.options.controls.scale)
         this.map.addControl this.controls.scale
+      unless this.options.controls.tilegend is false
+        this.controls.tilelegend = new L.Control.TileLegend(this.options.controls.tilelegend)
+        this.map.addControl this.controls.tilelegend
+
 
     _saveUpdates: ->
       if this.edition?
@@ -218,7 +238,7 @@
       true
 
   $(document).ready ->
-    $("input[data-visualization]").each ->
+    $("*[data-visualization]").each ->
       $(this).visualization()
 
 ) jQuery
