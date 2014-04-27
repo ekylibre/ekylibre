@@ -893,6 +893,7 @@ eng:
         flax: "Flax"
         grass: "Grass"
         grass_leguminous: "Grass leguminous"
+        hemp: "Hemp"
         leguminosae: "Leguminosae"
         leguminous: "Leguminous"
         meadow: "Meadow"
@@ -2722,6 +2723,8 @@ eng:
         brassicaceae: "Brassicaceae"                       #< plant
         building: "Building"                               #< product_group
         building_division: "Building division"             #< sub_zone
+        cannabaceae: "Cannabaceae"                         #< plant
+        cannabis: "Cannabis"                               #< cannabaceae
         cap: "Cap"                                         #< packaged_matter
         capra: "Capra"                                     #< mammalia
         chemical_fertilizer: "Chemical fertilizer"         #< mineral_matter
@@ -2827,6 +2830,8 @@ eng:
         moraceae: "Moraceae"                               #< plant
         mower: "Mower"                                     #< equipment
         nicotiana: "Nicotiana"                             #< solanaceae
+        nicotiana_burley: "Nicotiana - burley"             #< nicotiana
+        nicotiana_virginie: "Nicotiana - virginie"         #< nicotiana
         numida: "Numida"                                   #< aves
         oil: "Oil"                                         #< organic_matter
         organic_matter: "Organic matter"                   #< matter
@@ -2889,11 +2894,11 @@ eng:
         rosaceae: "Rosaceae"                               #< plant
         rubus: "Rubus"                                     #< rosaceae
         rubus_idaeus: "Rubus idaeus"                       #< rubus
-        rubus_idaeus_frida: "Rubus idaeus - frida"           #< rubus_idaeus
+        rubus_idaeus_frida: "Rubus idaeus - frida"         #< rubus_idaeus
         rubus_idaeus_malling_promise: "Rubus idaeus - malling promise" #< rubus_idaeus
-        rubus_idaeus_tulameen: "Rubus idaeus - tulameen"     #< rubus_idaeus
+        rubus_idaeus_tulameen: "Rubus idaeus - tulameen"   #< rubus_idaeus
         rubus_idaeus_willamette: "Rubus idaeus - willamette" #< rubus_idaeus
-        rubus_idaeus_zeva: "Rubus idaeus - zeva"             #< rubus_idaeus
+        rubus_idaeus_zeva: "Rubus idaeus - zeva"           #< rubus_idaeus
         saccharomyces: "Saccharomyces"                     #< saccharomycetaceae
         saccharomyces_cerevisiae: "Saccharomyces cerevisiae" #< saccharomyces
         saccharomyces_cerevisiae_jb3: "Saccharomyces cerevisiae - jb3" #< saccharomyces_cerevisiae
@@ -2933,8 +2938,8 @@ eng:
         triticum_aestivum: "Triticum æstivum"              #< triticum
         triticum_aestivum_apache: "Triticum æstivum - apache" #< triticum_aestivum
         triticum_aestivum_ascott: "Triticum æstivum - ascott" #< triticum_aestivum
-        triticum_aestivum_autan: "Triticum æstivum - autan"  #< triticum_aestivum
-        triticum_aestivum_aztec: "Triticum æstivum - aztec"  #< triticum_aestivum
+        triticum_aestivum_autan: "Triticum æstivum - autan" #< triticum_aestivum
+        triticum_aestivum_aztec: "Triticum æstivum - aztec" #< triticum_aestivum
         triticum_aestivum_bussard: "Triticum æstivum - bussard" #< triticum_aestivum
         triticum_aestivum_caphorn: "Triticum æstivum - caphorn" #< triticum_aestivum
         triticum_aestivum_courtot: "Triticum æstivum - courtot" #< triticum_aestivum
@@ -2942,34 +2947,34 @@ eng:
         triticum_aestivum_euclide: "Triticum æstivum - euclide" #< triticum_aestivum
         triticum_aestivum_galibier: "Triticum æstivum - galibier" #< triticum_aestivum
         triticum_aestivum_isengrain: "Triticum æstivum - isengrain" #< triticum_aestivum
-        triticum_aestivum_levis: "Triticum æstivum - levis"  #< triticum_aestivum
-        triticum_aestivum_lona: "Triticum æstivum - lona"    #< triticum_aestivum
+        triticum_aestivum_levis: "Triticum æstivum - levis" #< triticum_aestivum
+        triticum_aestivum_lona: "Triticum æstivum - lona"  #< triticum_aestivum
         triticum_aestivum_manital: "Triticum æstivum - manital" #< triticum_aestivum
         triticum_aestivum_oratorio: "Triticum æstivum - oratorio" #< triticum_aestivum
         triticum_aestivum_qualital: "Triticum æstivum - qualital" #< triticum_aestivum
         triticum_aestivum_quality: "Triticum æstivum - quality" #< triticum_aestivum
         triticum_aestivum_quebon: "Triticum æstivum - quebon" #< triticum_aestivum
         triticum_aestivum_recital: "Triticum æstivum - recital" #< triticum_aestivum
-        triticum_aestivum_renan: "Triticum æstivum - renan"  #< triticum_aestivum
+        triticum_aestivum_renan: "Triticum æstivum - renan" #< triticum_aestivum
         triticum_aestivum_rubisko: "Triticum æstivum - rubisko" #< triticum_aestivum
-        triticum_aestivum_runal: "Triticum æstivum - runal"  #< triticum_aestivum
+        triticum_aestivum_runal: "Triticum æstivum - runal" #< triticum_aestivum
         triticum_aestivum_soissons: "Triticum æstivum - soissons" #< triticum_aestivum
         triticum_aestivum_tamaro: "Triticum æstivum - tamaro" #< triticum_aestivum
-        triticum_aestivum_texel: "Triticum æstivum - texel"  #< triticum_aestivum
+        triticum_aestivum_texel: "Triticum æstivum - texel" #< triticum_aestivum
         triticum_aestivum_tremie: "Triticum æstivum - tremie" #< triticum_aestivum
         triticum_durum: "Triticum durum"                   #< triticum
-        triticum_durum_alexis: "Triticum durum - alexis"     #< triticum_durum
-        triticum_durum_aventur: "Triticum durum - aventur"   #< triticum_durum
-        triticum_durum_biensur: "Triticum durum - biensur"   #< triticum_durum
-        triticum_durum_cultur: "Triticum durum - cultur"     #< triticum_durum
-        triticum_durum_fabulis: "Triticum durum - fabulis"   #< triticum_durum
-        triticum_durum_karur: "Triticum durum - karur"       #< triticum_durum
+        triticum_durum_alexis: "Triticum durum - alexis"   #< triticum_durum
+        triticum_durum_aventur: "Triticum durum - aventur" #< triticum_durum
+        triticum_durum_biensur: "Triticum durum - biensur" #< triticum_durum
+        triticum_durum_cultur: "Triticum durum - cultur"   #< triticum_durum
+        triticum_durum_fabulis: "Triticum durum - fabulis" #< triticum_durum
+        triticum_durum_karur: "Triticum durum - karur"     #< triticum_durum
         triticum_durum_miradoux: "Triticum durum - miradoux" #< triticum_durum
         triticum_durum_pescadou: "Triticum durum - pescadou" #< triticum_durum
         triticum_durum_sculptur: "Triticum durum - sculptur" #< triticum_durum
         triticum_durum_sy_banco: "Triticum durum - sy banco" #< triticum_durum
         triticum_durum_sy_cysco: "Triticum durum - sy cysco" #< triticum_durum
-        triticum_durum_tablur: "Triticum durum - tablur"     #< triticum_durum
+        triticum_durum_tablur: "Triticum durum - tablur"   #< triticum_durum
         triticum_spelta: "Triticum spelta"                 #< triticum
         vicia: "Vicia"                                     #< fabaceae
         vitis: "Vitis"                                     #< plant
