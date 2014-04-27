@@ -46,14 +46,11 @@
 #     - "backend/cells/revenues_by_product_nature_cells#show"
 #     - "backend/cells/rss_cells#show"
 #     - "backend/dashboards#index"
-#     - "backend/dashboards#production"
 #     - "backend/dashboards#relationship"
 #     - "backend/dashboards#sandbox"
 #     - "backend/dashboards#search"
 #     - "backend/dashboards#settings"
 #     - "backend/dashboards#stocks"
-#     - "backend/dashboards#tools"
-#     - "backend/dashboards#trade"
 #     - "backend/helps#index"
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
@@ -142,6 +139,7 @@ affairs:
     - "backend/affairs#index"
     - "backend/affairs#list"
     - "backend/affairs#show"
+    - "backend/dashboards#trade"
   write:
     depend-on:
     - read-affairs
@@ -156,6 +154,7 @@ aggregators:
     actions:
     - "backend/aggregators#index"
     - "backend/aggregators#show"
+    - "backend/dashboards#tools"
 
 analyses:
   read:
@@ -165,6 +164,7 @@ analyses:
     - "backend/analyses#list_items"
     - "backend/analyses#show"
     - "backend/analyses#unroll"
+    - "backend/dashboards#production"
   write:
     depend-on:
     - read-analyses
@@ -182,6 +182,7 @@ analytic_distributions:
     - "backend/analytic_distributions#list"
     - "backend/analytic_distributions#show"
     - "backend/analytic_distributions#unroll"
+    - "backend/dashboards#accountancy"
   write:
     depend-on:
     - read-analytic_distributions
@@ -197,6 +198,7 @@ animal_foods:
     actions:
     - "backend/animal_foods#index"
     - "backend/animal_foods#list"
+    - "backend/dashboards#production"
   write:
     depend-on:
     - read-animal_foods
@@ -210,6 +212,7 @@ animal_groups:
     - "backend/animal_groups#list_places"
     - "backend/animal_groups#show"
     - "backend/animal_groups#unroll"
+    - "backend/dashboards#production"
   write:
     depend-on:
     - read-animal_groups
@@ -239,6 +242,7 @@ animal_medicines:
     - "backend/animal_medicines#picture"
     - "backend/animal_medicines#show"
     - "backend/animal_medicines#unroll"
+    - "backend/dashboards#production"
   write:
     depend-on:
     - read-animal_medicines
@@ -254,6 +258,7 @@ animal_products:
     actions:
     - "backend/animal_products#index"
     - "backend/animal_products#list"
+    - "backend/dashboards#production"
   write:
     depend-on:
     - read-animal_products
@@ -278,6 +283,7 @@ animals:
     - "backend/animals#picture"
     - "backend/animals#show"
     - "backend/animals#unroll"
+    - "backend/dashboards#production"
   write:
     depend-on:
     - read-animals
