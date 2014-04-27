@@ -78,7 +78,7 @@ jpn:
       # new: "New building division"
       # show: "Building division: %{name}"
     backend/buildings:
-      # edit: "Edit the building: %{name}"
+      # edit: "Edit building: %{name}"
       # index: "Buildings"
       # new: "New building"
       # show: "Building: %{name}"
@@ -183,10 +183,10 @@ jpn:
       # new: "New cultivable zone"
       # show: "Cultivable zone: %{name}"
     backend/custom_field_choices:
-      # edit: "Edit the option: %{name}"
+      # edit: "Edit option: %{name}"
       # new: "New option for a choices list"
     backend/custom_fields:
-      # edit: "Edit the custom field: %{name}"
+      # edit: "Edit custom field: %{name}"
       # index: "Custom fields"
       # new: "New custom field"
       # show: "Custom field: %{name}"
@@ -196,7 +196,6 @@ jpn:
       # index: "General dashboard"
       # production: "Production dashboard"
       # relationship: "Relationship dashboard"
-      # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       # settings: "Settings dashboard"
       # stocks: "Stocks dashboard"
@@ -212,13 +211,13 @@ jpn:
       # show: "Deposit %{number} on %{created_at}"
       # unvalidateds: "Unvalidated deposits"
     backend/districts:
-      # edit: "Edit the district: %{name}"
+      # edit: "Edit district: %{name}"
       # index: "Districts"
       # new: "New district"
     backend/document_archives:
       # show: "Document archive: %{name}"
     backend/document_templates:
-      # edit: "Edit the document template: %{name}"
+      # edit: "Edit document template: %{name}"
       # index: "Document templates"
       # load: "Load default document templates (overwrite the old templates)"
       # new: "New document template"
@@ -228,7 +227,6 @@ jpn:
       # new: "New document"
       # show: "Document: %{name}"
     backend/entities:
-      # autocomplete_for_origin: "Autocomplete for origin entity: %{name}"
       # edit: "Edit person: %{full_name}"
       # export: "Export people"
       # import: "Import people"
@@ -255,7 +253,7 @@ jpn:
       # new: "New equipment"
       # show: "Equipment: %{name}"
     backend/establishments:
-      # edit: "Edit the establishment: %{name}"
+      # edit: "Edit establishment: %{name}"
       # index: "Establishments"
       # new: "New establishment"
     backend/event_natures: #?
@@ -263,9 +261,8 @@ jpn:
       # edit: "Edit event participation: %{name}"
       # new: "New event participation"
     backend/events:
-      # autocomplete_for_place: "Autocomplete for place event: %{name}"
       # change_minutes: "Change minutes for event"
-      # edit: "Edit the event"
+      # edit: "Edit event"
       # index: "Events"
       # new: "New event"
       # show: "Event: %{name}"
@@ -311,28 +308,27 @@ jpn:
       # show: "Identifier: %{name}"
     backend/incoming_deliveries:
       # confirm: "Confirm incoming delivery"
-      # edit: "Edit the incoming delivery"
+      # edit: "Edit incoming delivery"
       # index: "Incoming deliveries"
       # new: "New incoming delivery"
       # show: "Incoming delivery: %{name}"
     backend/incoming_delivery_items:
       # new: "New incoming delivery item"
     backend/incoming_delivery_modes:
-      # edit: "Edit the incoming delivery mode: %{name}"
+      # edit: "Edit incoming delivery mode: %{name}"
       # index: "Incoming delivery modes"
       # new: "New incoming delivery mode"
     backend/incoming_payment_modes:
-      # edit: "Edit the incoming payment mode: %{name}"
+      # edit: "Edit incoming payment mode: %{name}"
       # index: "Incoming payment modes"
       # new: "New incoming payment mode"
     backend/incoming_payments:
-      # edit: "Edit the incoming payment %{number}"
+      # edit: "Edit incoming payment %{number}"
       # index: "Incoming payments"
       # new: "New incoming payment"
       # show: "Incoming payment %{number} of %{entity}"
     backend/intervention_casts: #?
     backend/interventions:
-      # compute: "Compute intervention: %{name}"
       # edit: "Edit intervention: %{name}"
       # index: "Interventions"
       # new: "New intervention"
@@ -340,7 +336,7 @@ jpn:
       # set: "Set intervention: %{name}"
       # show: "Intervention: %{name}"
     backend/inventories:
-      # edit: "Edit the inventory"
+      # edit: "Edit inventory"
       # index: "Inventories"
       # new: "New inventory"
       # show: "Inventory: %{number}"
@@ -390,7 +386,6 @@ jpn:
       # new: "New land parcel"
       # show: "Land parcel %{name}"
     backend/legal_entities:
-      # autocomplete_for_origin: "Autocomplete for origin legal entity: %{name}"
       # edit: "Edit legal entity: %{name}"
       # export: "Export legal entities"
       # import: "Import legal entities"
@@ -402,7 +397,7 @@ jpn:
       # edit: "Edit listing node"
       # new: "New listing node"
     backend/listings:
-      # edit: "Edit the listing: %{name}"
+      # edit: "Edit listing: %{name}"
       # extract: "Extract listing: %{name}"
       # index: "Listings and mailings"
       # mail: "Send an email to: %{name}"
@@ -439,7 +434,7 @@ jpn:
       # new: "New net service"
       # show: "Net service: %{name}"
     backend/observations:
-      # edit: "Edit the observation"
+      # edit: "Edit observation"
       # new: "New observation"
     backend/operation_natures: #?
     backend/operation_tasks: #?
@@ -457,20 +452,19 @@ jpn:
       # new: "New outgoing delivery"
       # show: "Outgoing delivery: %{number}"
     backend/outgoing_delivery_modes:
-      # edit: "Edit the outgoing delivery mode: %{name}"
+      # edit: "Edit outgoing delivery mode: %{name}"
       # index: "Outgoing delivery modes"
       # new: "New outgoing delivery mode"
     backend/outgoing_payment_modes:
-      # edit: "Edit the disbursement mode"
+      # edit: "Edit disbursement mode"
       # index: "Disbursement modes"
       # new: "New disbursement mode"
     backend/outgoing_payments:
-      # edit: "Edit the disbursement: %{number}"
+      # edit: "Edit disbursement: %{number}"
       # index: "Disbursements"
       # new: "New disbursement"
       # show: "Disbursement %{number} for %{payee}"
     backend/people:
-      # autocomplete_for_origin: "Autocomplete for origin person: %{name}"
       # edit: "Edit person: %{name}"
       # export: "Export people"
       # import: "Import people"
@@ -496,7 +490,6 @@ jpn:
       # new: "Create plant"
       # show: "Plant: %{name} "
     backend/postal_zones:
-      # autocomplete_for_name: "Autocomplete for name postal zone: %{name}"
       # edit: "Edit postal zone: %{name}"
       # index: "Postal zones"
       # new: "New postal zone"
@@ -525,7 +518,7 @@ jpn:
     backend/product_moves: #?
     backend/product_nature_abilities: #?
     backend/product_nature_categories:
-      # edit: "Edit the product category: %{name}"
+      # edit: "Edit product category: %{name}"
       # incorporate: "Incorporate product nature category: %{name}"
       # index: "Product categories"
       # new: "New product category"
@@ -544,7 +537,7 @@ jpn:
       # pick: "Pick product nature variant: %{name}"
       # show: "Product variant: %{name}"
     backend/product_natures:
-      # edit: "Edit the product type: %{name}"
+      # edit: "Edit product type: %{name}"
       # incorporate: "Incorporate product nature: %{name}"
       # index: "Product types"
       # new: "New product type"
@@ -576,13 +569,13 @@ jpn:
       # new: "Create production"
       # show: "Production: %{name}"
     backend/products:
-      # edit: "Edit the product: %{name}"
+      # edit: "Edit product: %{name}"
       # index: "Products"
       # new: "New product"
       # show: "%{nature}: %{name}"
     backend/professions: #?
     backend/purchase_items:
-      # edit: "Edit the purhase order item"
+      # edit: "Edit purhase order item"
       # index: "Purchase items"
       # new: "Add a product to the purchase"
       # show: "Purchase item: %{name}"
@@ -595,7 +588,7 @@ jpn:
       # abort: "Abort"
       # confirm: "Confirm order and wait for deliveries"
       # correct: "Correct order"
-      # edit: "Edit the purchase: %{number}"
+      # edit: "Edit purchase: %{number}"
       # index: "Purchases"
       # invoice: "Receive invoice"
       # new: "New purchase"
@@ -603,7 +596,7 @@ jpn:
       # refuse: "Refused order"
       # show: "Purchase: %{number} - %{state}"
     backend/roles:
-      # edit: "Edit the role: %{name}"
+      # edit: "Edit role: %{name}"
       # index: "Roles"
       # new: "New role"
     backend/sale_items:
@@ -613,7 +606,7 @@ jpn:
       # new: "Add a product to the sale"
       # show: "Sale item: %{name}"
     backend/sale_natures:
-      # edit: "Edit the sale type: %{name}"
+      # edit: "Edit sale type: %{name}"
       # index: "Sale types"
       # new: "New type of sale"
       # show: "Sale type: %{name}"
@@ -623,7 +616,7 @@ jpn:
       # confirm: "Confirm estimate and go to deliveries"
       # contacts: "Contacts of sale"
       # correct: "Correct estimate"
-      # edit: "Edit the sale %{number}"
+      # edit: "Edit sale %{number}"
       # index: "Sales"
       # invoice: "Invoice sale"
       # new: "New sale"
@@ -632,7 +625,7 @@ jpn:
       # refuse: "Estimate refused"
       # show: "Sale: %{label} for %{client}"
     backend/sequences:
-      # edit: "Edit the sequence: %{name}"
+      # edit: "Edit sequence: %{name}"
       # index: "Sequences"
       # load: "Load missing sequences"
       # new: "New sequence"
@@ -649,7 +642,7 @@ jpn:
     backend/snippets:
       # toggle: "Toggle snippet: %{name}"
     backend/subscription_natures:
-      # edit: "Edit the subscription type: %{name}"
+      # edit: "Edit subscription type: %{name}"
       # index: "Subscription types"
       # new: "New subscription type"
       # show: "subscription type: %{name}"
@@ -676,7 +669,7 @@ jpn:
     backend/transformed_products:
       # index: "Transformed products"
     backend/transports:
-      # edit: "Edit the transport %{number}"
+      # edit: "Edit transport %{number}"
       # index: "Transports"
       # new: "New transport"
       # show: "Transport: %{number}"

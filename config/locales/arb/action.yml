@@ -224,7 +224,6 @@ arb:
       # index: "General dashboard"
       # production: "Production dashboard"
       # relationship: "Relationship dashboard"
-      # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       # settings: "Settings dashboard"
       # stocks: "Stocks dashboard"
@@ -265,7 +264,6 @@ arb:
       print: "طباعة وتصدير" #?
       # show: "Document: %{name}"
     backend/entities:
-      # autocomplete_for_origin: "Autocomplete for origin entity: %{name}"
       edit: "تعديل الملف : %{full_name}"
       export: "تصدير الملفات"
       import: "استيراد الملفات"
@@ -321,7 +319,6 @@ arb:
       # edit: "Edit event participation: %{name}"
       # new: "New event participation"
     backend/events:
-      # autocomplete_for_place: "Autocomplete for place event: %{name}"
       # change_minutes: "Change minutes for event"
       edit: "تعديل الحدث"
       index: "الاحداث"
@@ -371,14 +368,14 @@ arb:
       # show: "Identifier: %{name}"
     backend/incoming_deliveries:
       # confirm: "Confirm incoming delivery"
-      # edit: "Edit the incoming delivery"
+      # edit: "Edit incoming delivery"
       # index: "Incoming deliveries"
       # new: "New incoming delivery"
       # show: "Incoming delivery: %{name}"
     backend/incoming_delivery_items:
       # new: "New incoming delivery item"
     backend/incoming_delivery_modes:
-      # edit: "Edit the incoming delivery mode: %{name}"
+      # edit: "Edit incoming delivery mode: %{name}"
       # index: "Incoming delivery modes"
       # new: "New incoming delivery mode"
     backend/incoming_payment_modes:
@@ -395,7 +392,6 @@ arb:
     backend/interfacers: #?
     backend/intervention_casts: #?
     backend/interventions:
-      # compute: "Compute intervention: %{name}"
       # edit: "Edit intervention: %{name}"
       # index: "Interventions"
       # new: "New intervention"
@@ -455,7 +451,6 @@ arb:
       new: "اضافة نظام جديد"
       show: "نظام %{name}"
     backend/legal_entities:
-      # autocomplete_for_origin: "Autocomplete for origin legal entity: %{name}"
       # edit: "Edit legal entity: %{name}"
       # export: "Export legal entities"
       # import: "Import legal entities"
@@ -558,7 +553,6 @@ arb:
       new: "اضافة دفعة"
       show: "رقم الدفعة%{number} من اجل %{payee}"
     backend/people:
-      # autocomplete_for_origin: "Autocomplete for origin person: %{name}"
       # edit: "Edit person: %{name}"
       # export: "Export people"
       # import: "Import people"
@@ -585,7 +579,6 @@ arb:
       # show: "Plant: %{name} "
     backend/posologies: #?
     backend/postal_zones:
-      # autocomplete_for_name: "Autocomplete for name postal zone: %{name}"
       # edit: "Edit postal zone: %{name}"
       # index: "Postal zones"
       # new: "New postal zone"

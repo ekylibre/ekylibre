@@ -207,11 +207,11 @@ spa:
     backend/cultivations: #?
     backend/currencies: #?
     backend/custom_field_choices:
-      # edit: "Edit the option: %{name}"
+      # edit: "Edit option: %{name}"
       # new: "New option for a choices list"
     backend/custom_field_data: #?
     backend/custom_fields:
-      # edit: "Edit the custom field: %{name}"
+      # edit: "Edit custom field: %{name}"
       # index: "Custom fields"
       # new: "New custom field"
       # show: "Custom field: %{name}"
@@ -221,7 +221,6 @@ spa:
       # index: "General dashboard"
       # production: "Production dashboard"
       # relationship: "Relationship dashboard"
-      # sandbox: "Sandbox dashboard: %{name}"
       # search: "Search for: %{searched}"
       # settings: "Settings dashboard"
       # stocks: "Stocks dashboard"
@@ -248,7 +247,7 @@ spa:
     backend/diagnostics: #?
     backend/diseases: #?
     backend/districts:
-      # edit: "Edit the district: %{name}"
+      # edit: "Edit district: %{name}"
       # index: "Districts"
       # new: "New district"
     backend/document_archives:
@@ -265,7 +264,6 @@ spa:
       print: "Impresion, exportacion" #?
       # show: "Document: %{name}"
     backend/entities:
-      # autocomplete_for_origin: "Autocomplete for origin entity: %{name}"
       # edit: "Edit person: %{full_name}"
       # export: "Export people"
       # import: "Import people"
@@ -300,9 +298,8 @@ spa:
       # edit: "Edit event participation: %{name}"
       # new: "New event participation"
     backend/events:
-      # autocomplete_for_place: "Autocomplete for place event: %{name}"
       # change_minutes: "Change minutes for event"
-      # edit: "Edit the event"
+      # edit: "Edit event"
       # index: "Events"
       # new: "New event"
       # show: "Event: %{name}"
@@ -349,7 +346,7 @@ spa:
       # show: "Identifier: %{name}"
     backend/incoming_deliveries:
       # confirm: "Confirm incoming delivery"
-      # edit: "Edit the incoming delivery"
+      # edit: "Edit incoming delivery"
       # index: "Incoming deliveries"
       # new: "New incoming delivery"
       # show: "Incoming delivery: %{name}"
@@ -357,23 +354,22 @@ spa:
       # new: "New incoming delivery item"
     backend/incoming_delivery_lines: #?
     backend/incoming_delivery_modes:
-      # edit: "Edit the incoming delivery mode: %{name}"
+      # edit: "Edit incoming delivery mode: %{name}"
       # index: "Incoming delivery modes"
       # new: "New incoming delivery mode"
     backend/incoming_payment_modes:
-      # edit: "Edit the incoming payment mode: %{name}"
+      # edit: "Edit incoming payment mode: %{name}"
       # index: "Incoming payment modes"
       # new: "New incoming payment mode"
     backend/incoming_payment_uses: #?
     backend/incoming_payments:
-      # edit: "Edit the incoming payment %{number}"
+      # edit: "Edit incoming payment %{number}"
       # index: "Incoming payments"
       # new: "New incoming payment"
       # show: "Incoming payment %{number} of %{entity}"
     backend/interfacers: #?
     backend/intervention_casts: #?
     backend/interventions:
-      # compute: "Compute intervention: %{name}"
       # edit: "Edit intervention: %{name}"
       # index: "Interventions"
       # new: "New intervention"
@@ -434,7 +430,6 @@ spa:
       # new: "New land parcel"
       # show: "Land parcel %{name}"
     backend/legal_entities:
-      # autocomplete_for_origin: "Autocomplete for origin legal entity: %{name}"
       # edit: "Edit legal entity: %{name}"
       # export: "Export legal entities"
       # import: "Import legal entities"
@@ -488,7 +483,7 @@ spa:
       # new: "New net service"
       # show: "Net service: %{name}"
     backend/observations:
-      # edit: "Edit the observation"
+      # edit: "Edit observation"
       # new: "New observation"
     backend/operation_items: #?
     backend/operation_lines: #?
@@ -514,17 +509,16 @@ spa:
       index: "Modos de entrega"
       new: "Añadir un nuevo modo de entrega"
     backend/outgoing_payment_modes:
-      # edit: "Edit the disbursement mode"
+      # edit: "Edit disbursement mode"
       # index: "Disbursement modes"
       # new: "New disbursement mode"
     backend/outgoing_payment_uses: #?
     backend/outgoing_payments:
-      # edit: "Edit the disbursement: %{number}"
+      # edit: "Edit disbursement: %{number}"
       # index: "Disbursements"
       # new: "New disbursement"
       # show: "Disbursement %{number} for %{payee}"
     backend/people:
-      # autocomplete_for_origin: "Autocomplete for origin person: %{name}"
       # edit: "Edit person: %{name}"
       # export: "Export people"
       # import: "Import people"
@@ -551,7 +545,6 @@ spa:
       # show: "Plant: %{name} "
     backend/posologies: #?
     backend/postal_zones:
-      # autocomplete_for_name: "Autocomplete for name postal zone: %{name}"
       # edit: "Edit postal zone: %{name}"
       # index: "Postal zones"
       # new: "New postal zone"
@@ -586,7 +579,7 @@ spa:
     backend/product_moves: #?
     backend/product_nature_abilities: #?
     backend/product_nature_categories:
-      # edit: "Edit the product category: %{name}"
+      # edit: "Edit product category: %{name}"
       # incorporate: "Incorporate product nature category: %{name}"
       # index: "Product categories"
       # new: "New product category"
@@ -606,7 +599,7 @@ spa:
       # pick: "Pick product nature variant: %{name}"
       # show: "Product variant: %{name}"
     backend/product_natures:
-      # edit: "Edit the product type: %{name}"
+      # edit: "Edit product type: %{name}"
       # incorporate: "Incorporate product nature: %{name}"
       # index: "Product types"
       # new: "New product type"
@@ -641,14 +634,14 @@ spa:
       # new: "Create production"
       # show: "Production: %{name}"
     backend/products:
-      # edit: "Edit the product: %{name}"
+      # edit: "Edit product: %{name}"
       # index: "Products"
       # new: "New product"
       # show: "%{nature}: %{name}"
     backend/professions: #?
     backend/public: #?
     backend/purchase_items:
-      # edit: "Edit the purhase order item"
+      # edit: "Edit purhase order item"
       # index: "Purchase items"
       # new: "Add a product to the purchase"
       # show: "Purchase item: %{name}"
@@ -662,7 +655,7 @@ spa:
       # abort: "Abort"
       # confirm: "Confirm order and wait for deliveries"
       # correct: "Correct order"
-      # edit: "Edit the purchase: %{number}"
+      # edit: "Edit purchase: %{number}"
       # index: "Purchases"
       # invoice: "Receive invoice"
       # new: "New purchase"
@@ -681,7 +674,7 @@ spa:
       # show: "Sale item: %{name}"
     backend/sale_lines: #?
     backend/sale_natures:
-      # edit: "Edit the sale type: %{name}"
+      # edit: "Edit sale type: %{name}"
       # index: "Sale types"
       # new: "New type of sale"
       # show: "Sale type: %{name}"
@@ -691,7 +684,7 @@ spa:
       # confirm: "Confirm estimate and go to deliveries"
       # contacts: "Contacts of sale"
       # correct: "Correct estimate"
-      # edit: "Edit the sale %{number}"
+      # edit: "Edit sale %{number}"
       # index: "Sales"
       # invoice: "Invoice sale"
       # new: "New sale"
@@ -723,7 +716,7 @@ spa:
     backend/stock_transfers: #?
     backend/stocks: #?
     backend/subscription_natures:
-      # edit: "Edit the subscription type: %{name}"
+      # edit: "Edit subscription type: %{name}"
       # index: "Subscription types"
       # new: "New subscription type"
       # show: "subscription type: %{name}"
@@ -757,7 +750,7 @@ spa:
     backend/transformed_products:
       # index: "Transformed products"
     backend/transports:
-      # edit: "Edit the transport %{number}"
+      # edit: "Edit transport %{number}"
       # index: "Transports"
       # new: "New transport"
       # show: "Transport: %{number}"

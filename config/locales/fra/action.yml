@@ -59,7 +59,6 @@ fra:
       edit: "Modifier l’animal\_: %{name}"
       index: "Animaux"
       new: "Nouvel animal"
-      picture: "Photo" #?
       show: "%{nature}\_: %{name}"
     backend/bank_statements:
       edit: "Modifier le relevé N°%{number}"
@@ -70,12 +69,12 @@ fra:
     backend/building_divisions:
       edit: "Modifier la zone\_: %{name}"
       index: "Zones de bâtiments"
-      new: "Ajout d’une zone"
+      new: "Nouvelle zone"
       show: "Détail d’une zone\_: %{name}"
     backend/buildings:
       edit: "Modifier un bâtiment"
       index: "Bâtiments"
-      new: "Ajout d’un bâtiment"
+      new: "Nouveau bâtiment"
       show: "Détail du bâtiment\_: %{name}"
     backend/calculators:
       index: "Calculateurs"
@@ -164,11 +163,11 @@ fra:
       show: "Zone cultivable %{name}"
     backend/custom_field_choices:
       edit: "Modifier l’option\_: %{name}"
-      new: " Création d’une option pour une liste de choix"
+      new: "Nouvelle option pour une liste de choix"
     backend/custom_fields:
       edit: "Modifier le champ personnalisé\_: %{name}"
       index: "Champs personnalisés"
-      new: "Création d’un champ personnalisé"
+      new: "Nouveau champ personnalisé"
       show: "Champ personnalisé\_: %{name}"
       sort: "Trier les choix du champ personnalisé"
     backend/dashboards:
@@ -178,7 +177,6 @@ fra:
       purchases: "Tableau de bord des achats" #?
       relationship: "Tableau de bord de la gestion des relations"
       sales: "Tableau de bord des ventes" #?
-      # sandbox: "Sandbox dashboard: %{name}"
       search: "Recherche de\_: %{searched}"
       settings: "Configuration"
       stocks: "Tableau de bord des stocks"
@@ -194,14 +192,14 @@ fra:
     backend/districts:
       edit: "Modifier la zone administrative\_: %{name}"
       index: "Zones administratives"
-      new: "Ajouter une zone administrative"
+      new: "Nouvelle zone administrative"
     backend/document_archives:
-      show: "Voir l’archive\_: %{name} "
+      show: "Archive\_: %{name} "
     backend/document_templates:
       edit: "Modifier le modèle de document\_: %{name}"
       index: "Modèles de document"
       load: "Charger les modèles de document par défaut"
-      new: "Création d’un modèle de document"
+      new: "Nouveau modèle de document"
       print: "Imprimer un exemple" #?
     backend/documents:
       edit: "Modifier le document"
@@ -209,7 +207,6 @@ fra:
       new: "Nouveau document"
       show: "Document\_: %{name}"
     backend/entities:
-      # autocomplete_for_origin: "Autocomplete for origin entity: %{name}"
       destroy: "Supprimer la fiche" #?
       edit: "Modifier la fiche\_: %{full_name}"
       export: "Exportation de fiches"
@@ -222,12 +219,12 @@ fra:
     backend/entity_addresses:
       edit: "Modifier une coordonnée"
       # index: "Entity addresses"
-      new: "Ajouter une coordonnée"
+      new: "Nouvelle coordonnée"
       show: "Coordonnée"
     backend/entity_links:
       edit: "Modifier le lien"
       # index: "Entity links"
-      new: "Ajout d’un nouveau lien"
+      new: "Nouveau lien"
       show: "Lien"
     backend/equipments:
       edit: "Modifier l’équipement\_: %{name}"
@@ -237,12 +234,11 @@ fra:
     backend/establishments:
       edit: "Modifier l’établissement\_: %{name}"
       index: "Établissements"
-      new: "Ajout d’un nouvel etablissement"
+      new: "Nouvel établissement"
     backend/event_participations:
       # edit: "Edit event participation: %{name}"
       # new: "New event participation"
     backend/events:
-      # autocomplete_for_place: "Autocomplete for place event: %{name}"
       # change_minutes: "Change minutes for event"
       edit: "Modifier l’évènement\_: %{name}"
       index: "Évènements"
@@ -307,10 +303,9 @@ fra:
     backend/incoming_payments:
       edit: "Modifier l’encaissement n°%{number}"
       index: "Encaissements"
-      new: "Ajout d’un nouvel encaissement"
+      new: "Nouvel encaissement"
       show: "Encaissement n°%{number} de %{entity}"
     backend/interventions:
-      # compute: "Compute intervention: %{name}"
       edit: "Modifier l’intervention %{procedure_name} N°%{number}"
       index: "Interventions"
       new: "Nouvelle intervention"
@@ -333,7 +328,7 @@ fra:
     backend/journal_entries:
       edit: "Modifier l’écriture\_: %{number}"
       # index: "Journal entries"
-      new: "Ajouter une écriture"
+      new: "Nouvelle écriture"
       show: "Écriture\_: %{number}"
     backend/journal_entry_items:
       new: "Nouvelle ligne d’écriture"
@@ -373,7 +368,6 @@ fra:
       new: "Nouvelle parcelle"
       show: "Parcelle %{name}"
     backend/legal_entities:
-      # autocomplete_for_origin: "Autocomplete for origin legal entity: %{name}"
       # edit: "Edit legal entity: %{name}"
       # export: "Export legal entities"
       # import: "Import legal entities"
@@ -389,7 +383,7 @@ fra:
       extract: "Extraire les données de\_: %{name}"
       index: "Exportations et mailings"
       mail: "Envoyer un e-mail pour\_: %{name}"
-      new: "Création d’une nouvelle extraction"
+      new: "Nouvelle extraction"
     backend/manure_management_plans:
       edit: "Modifier le plan de fumure\_: %{name}"
       index: "Plans de fumure"
@@ -409,7 +403,7 @@ fra:
     backend/mineral_matters:
       edit: "Modifier la matière minérale\_: %{name}"
       index: "Matières minérales"
-      new: "Ajouter une matière minérale"
+      new: "Nouvelle matière minérale"
       show: "Matière minérale\_: %{name}"
     backend/myselves:
       change_password: "Changer de mot de passe" #?
@@ -422,7 +416,7 @@ fra:
       show: "Service en ligne\_: %{name}"
     backend/observations:
       edit: "Modifier une observation"
-      new: "Ajouter une observation"
+      new: "Nouvelle observation"
     backend/operations:
       edit: "Modifier le travail" #?
       index: "Travaux"
@@ -437,23 +431,22 @@ fra:
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
-      new: "Ajouter une livraison sortante"
+      new: "Nouvelle livraison sortante"
       show: "Livraison sortante\_: %{number}"
     backend/outgoing_delivery_modes:
       edit: "Modifier le mode de livraison\_: %{name}"
       index: "Modes de livraison"
-      new: "Ajout d’un nouveau mode de livraison"
+      new: "Nouveau mode de livraison"
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
-      new: "Ajouter un mode de décaissement"
+      new: "Nouveau mode de décaissement"
     backend/outgoing_payments:
       edit: "Modifier le décaissement\_: %{number}"
       index: "Décaissements"
-      new: "Ajout d’un décaissement"
+      new: "Nouveau décaissement"
       show: "Décaissement n°%{number} pour %{payee}"
     backend/people:
-      # autocomplete_for_origin: "Autocomplete for origin person: %{name}"
       edit: "Modifier la personne\_: %{full_name}"
       # export: "Export people"
       # import: "Import people"
@@ -478,7 +471,6 @@ fra:
       new: "Nouvelle culture"
       show: "Culture\_: %{name}"
     backend/postal_zones:
-      # autocomplete_for_name: "Autocomplete for name postal zone: %{name}"
       edit: "Modifier la zone postale\_: %{name}"
       index: "Zones postales"
       new: "Nouvelle zone postale"
@@ -539,7 +531,7 @@ fra:
     backend/purchase_items:
       edit: "Modifier une ligne de la commande"
       # index: "Purchase items"
-      new: "Ajouter un produit à la commande"
+      new: "Nouveau produit à la commande"
       # show: "Purchase item: %{name}"
     backend/purchase_natures:
       edit: "Modifier le type d’achat\_: %{name}"
@@ -561,17 +553,17 @@ fra:
     backend/roles:
       edit: "Modifier le rôle\_: %{name}"
       index: "Rôles"
-      new: "Ajouter un rôle"
+      new: "Nouveau rôle"
     backend/sale_items:
       detail: "Détailler une ligne de la vente"
       edit: "Modifier une ligne de la vente"
       # index: "Sale items"
-      new: "Ajouter un produit à la vente"
+      new: "Nouveau produit à la vente"
       # show: "Sale item: %{name}"
     backend/sale_natures:
       edit: "Modifier le type de vente\_: %{name}"
       index: "Types de ventes"
-      new: "Ajout d’un type de vente"
+      new: "Nouveau type de vente"
       show: "Type de vente\_: %{name}"
     backend/sales:
       abort: "Annuler la vente"
@@ -592,7 +584,7 @@ fra:
       edit: "Modifier la séquence\_: %{name}"
       index: "Séquences"
       load: "Charger les séquences manquantes"
-      new: "Création d’une nouvelle séquence"
+      new: "Nouvelle séquence"
     backend/settings:
       about: "À propos…"
       backup: "Faire une copie de sauvegarde" #?
@@ -610,13 +602,13 @@ fra:
     backend/subscription_natures:
       edit: "Modifier le type d’abonnement\_: %{name}"
       index: "Types d’abonnements"
-      new: "Ajouter un type d’abonnement"
+      new: "Nouveau type d’abonnement"
       show: "Type d’abonnement\_: %{name}"
     backend/subscriptions:
       coordinates: "Rafraîchir les coordonnées et la période"
       edit: "Modifier l’abonnement\_: N°%{number} du %{start} au %{finish}"
       index: "Abonnements"
-      new: "Création d’un abonnement"
+      new: "Nouvel abonnement"
     backend/taxes:
       edit: "Modifier la taxe\_: %{name}"
       index: "Taxes"
@@ -638,13 +630,13 @@ fra:
       delivery_delete: "Retirer la livraison du transport" #?
       edit: "Modifier le transport %{number}"
       index: "Transports"
-      new: "Ajout d’un nouveau transport"
+      new: "Nouveau transport"
       show: "Transport %{number}"
     backend/users:
       edit: "Modifier l’utilisateur\_: %{first_name} %{last_name}"
       index: "Utilisateurs"
       lock: "Verrouiller l’utilisateur"
-      new: "Création d’un nouvel utilisateur"
+      new: "Nouvel utilisateur"
       show: "Utilisateur\_: %{first_name} %{last_name}"
       unlock: "Déverrouiller l’utilisateur"
     backend/wine_tanks:
