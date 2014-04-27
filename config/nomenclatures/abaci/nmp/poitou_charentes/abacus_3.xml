@@ -94,8 +94,11 @@
       <!-- Tournesol -->
       <item name="sunflower_crop"           cultivation_variety="helianthus"                  coefficient="4.5"/>
       
-      <!-- Tournesol -->
+      <!-- Lin -->
       <item name="flax_crop"                cultivation_variety="linum"                       coefficient="4.5"/>
+      
+      <!-- Chanvre -->
+      <item name="hemp_crop"                cultivation_variety="cannabis"                    coefficient="1.2"/>
       
       <!-- Misc --> 
       <item name="oat_crop"                 cultivation_variety="avena"                       coefficient="2.2"/>

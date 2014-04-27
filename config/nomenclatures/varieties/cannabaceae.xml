@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-cannabaceae" hierarchical="true">
+    <items>
+      <item name="cannabis" itis_tsn="19108"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

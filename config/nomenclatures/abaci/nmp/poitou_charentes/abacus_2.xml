@@ -537,6 +537,80 @@
       <item name="flap_silt_flax_crop_min" soil_nature="flap_silt_soil" cultivation_variety="linum" expected_yield="18" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="flap_silt_flax_crop_med" soil_nature="flap_silt_soil" cultivation_variety="linum" expected_yield="20" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="flap_silt_flax_crop_max" soil_nature="flap_silt_soil" cultivation_variety="linum" expected_yield="35" minimum_available_water_capacity="120"/>
+      
+      <!-- CHANVRE -->
+      
+      <item name="clay_limestone_hemp_crop_min" soil_nature="clay_limestone_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="clay_limestone_hemp_crop_med" soil_nature="clay_limestone_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="clay_limestone_hemp_crop_max" soil_nature="clay_limestone_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="champagne_hemp_crop_min" soil_nature="champagne_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="champagne_hemp_crop_med" soil_nature="champagne_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="champagne_hemp_crop_max" soil_nature="champagne_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="aubues_hemp_crop_min" soil_nature="aubues_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="aubues_hemp_crop_med" soil_nature="aubues_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="aubues_hemp_crop_max" soil_nature="aubues_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="chesnut_red_hemp_crop_min" soil_nature="chesnut_red_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="chesnut_red_hemp_crop_med" soil_nature="chesnut_red_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="chesnut_red_hemp_crop_max" soil_nature="chesnut_red_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="granite_arena_hemp_crop_min" soil_nature="granite_arena_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="granite_arena_hemp_crop_med" soil_nature="granite_arena_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="granite_arena_hemp_crop_max" soil_nature="granite_arena_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="silt_schist_hemp_crop_min" soil_nature="silt_schist_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="silt_schist_hemp_crop_med" soil_nature="silt_schist_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="silt_schist_hemp_crop_max" soil_nature="silt_schist_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="swamp_peaty_hemp_crop_min" soil_nature="swamp_peaty_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="swamp_peaty_hemp_crop_med" soil_nature="swamp_peaty_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="swamp_peaty_hemp_crop_max" soil_nature="swamp_peaty_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="black_valley_hemp_crop_min" soil_nature="black_valley_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="black_valley_hemp_crop_med" soil_nature="black_valley_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="black_valley_hemp_crop_max" soil_nature="black_valley_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="valley_terrace_hemp_crop_min" soil_nature="valley_terrace_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="valley_terrace_hemp_crop_med" soil_nature="valley_terrace_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="valley_terrace_hemp_crop_max" soil_nature="valley_terrace_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="sandy_clay_loam_hemp_crop_min" soil_nature="sandy_clay_loam_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="sandy_clay_loam_hemp_crop_med" soil_nature="sandy_clay_loam_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="sandy_clay_loam_hemp_crop_max" soil_nature="sandy_clay_loam_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="hydromorph_sandy_clay_loam_hemp_crop_min" soil_nature="hydromorph_sandy_clay_loam_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="hydromorph_sandy_clay_loam_hemp_crop_med" soil_nature="hydromorph_sandy_clay_loam_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="hydromorph_sandy_clay_loam_hemp_crop_max" soil_nature="hydromorph_sandy_clay_loam_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="sandy_clay_hemp_crop_min" soil_nature="sandy_clay_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="sandy_clay_hemp_crop_med" soil_nature="sandy_clay_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="sandy_clay_hemp_crop_max" soil_nature="sandy_clay_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="clay_hemp_crop_min" soil_nature="clay_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="clay_hemp_crop_med" soil_nature="clay_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="clay_hemp_crop_max" soil_nature="clay_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="silty_clay_hemp_crop_min" soil_nature="silty_clay_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="silty_clay_hemp_crop_med" soil_nature="silty_clay_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="silty_clay_hemp_crop_max" soil_nature="silty_clay_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="silty_clay_loam_hemp_crop_min" soil_nature="silty_clay_loam_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="silty_clay_loam_hemp_crop_med" soil_nature="silty_clay_loam_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="silty_clay_loam_hemp_crop_max" soil_nature="silty_clay_loam_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="sand_hemp_crop_min" soil_nature="sand_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="sand_hemp_crop_med" soil_nature="sand_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="sand_hemp_crop_max" soil_nature="sand_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="silt_hemp_crop_min" soil_nature="silt_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="silt_hemp_crop_med" soil_nature="silt_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="silt_hemp_crop_max" soil_nature="silt_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <item name="flap_silt_hemp_crop_min" soil_nature="flap_silt_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
+      <item name="flap_silt_hemp_crop_med" soil_nature="flap_silt_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
+      <item name="flap_silt_hemp_crop_max" soil_nature="flap_silt_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
     </items>
   </nomenclature>
 </nomenclatures>

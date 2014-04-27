@@ -36,7 +36,7 @@
       <item name="leguminous" varieties="fabaceae" />
       <item name="grass_leguminous" varieties="poaceae,fabaceae" />
       <item name="secale_phacelia" varieties="secale,phacelia" />
-      
+      <item name="hemp" varieties="cannabis" />
     </items>
   </nomenclature>
 </nomenclatures>
