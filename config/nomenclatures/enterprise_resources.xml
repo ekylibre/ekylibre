@@ -64,7 +64,6 @@
       <item name="observations"/>
       <item name="organic_matters"/>
       <item name="outgoing_deliveries"/>
-      <item name="outgoing_delivery_items"/>
       <item name="outgoing_delivery_modes"/>
       <item name="outgoing_payment_modes"/>
       <item name="outgoing_payments"/>
@@ -75,7 +74,6 @@
       <item name="prescriptions"/>
       <item name="product_groups"/>
       <item name="productions"/>
-      <item name="product_memberships"/>
       <item name="product_nature_categories"/>
       <item name="product_natures"/>
       <item name="product_nature_variants"/>

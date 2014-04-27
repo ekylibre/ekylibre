@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+
   <nomenclature name="varieties-nicotiana" hierarchical="true">
     <items>
-      <item name="nicotiana_virginie" itis_tsn="30562"/>
-      <item name="nicotiana_burley" itis_tsn="30562"/>
+      <item name="nicotiana_tabacum" itis_tsn="30568"/>
+    </items>  
+  </nomenclature>
+
+  <nomenclature name="varieties-nicotiana_tabacum" hierarchical="true">
+    <items>
+      <item name="nicotiana_tabacum_virginie" itis_tsn="30568"/>
+      <item name="nicotiana_tabacum_burley"   itis_tsn="30568"/>
     </items>  
   </nomenclature>
   

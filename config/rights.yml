@@ -1430,11 +1430,6 @@ outgoing_deliveries:
     - "backend/outgoing_deliveries#new"
     - "backend/outgoing_deliveries#update"
 
-outgoing_delivery_items:
-  write:
-    depend-on:
-    - read-outgoing_delivery_items
-
 outgoing_delivery_modes:
   read:
     actions:
@@ -1650,11 +1645,6 @@ product_groups:
     - "backend/product_groups#edit"
     - "backend/product_groups#new"
     - "backend/product_groups#update"
-
-product_memberships:
-  write:
-    depend-on:
-    - read-product_memberships
 
 product_nature_categories:
   read:

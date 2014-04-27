@@ -101,10 +101,10 @@
       <item name="hemp_crop"                cultivation_variety="cannabis"                    coefficient="1.2"/>
       
       <!-- Tabac Virginie -->
-      <item name="virginie_tobacco_crop"    cultivation_variety="nicotiana_virginie"          coefficient="3"/>
+      <item name="virginie_tobacco_crop"    cultivation_variety="nicotiana_tabacum_virginie"          coefficient="3"/>
       
       <!-- Tabac Burley -->
-      <item name="burley_tobacco_crop"      cultivation_variety="nicotiana_burley"            coefficient="8.5"/>
+      <item name="burley_tobacco_crop"      cultivation_variety="nicotiana_tabacum_burley"            coefficient="8.5"/>
       
       <!-- Misc --> 
       <item name="oat_crop"                 cultivation_variety="avena"                       coefficient="2.2"/>

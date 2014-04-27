@@ -1256,7 +1256,6 @@ eng:
         observations: "Observations"
         organic_matters: "Organic matters"
         outgoing_deliveries: "Outgoing deliveries"
-        outgoing_delivery_items: "Outgoing delivery items"
         outgoing_delivery_modes: "Outgoing delivery modes"
         outgoing_payment_modes: "Outgoing payment modes"
         outgoing_payments: "Outgoing payments"
@@ -1266,7 +1265,6 @@ eng:
         postal_zones: "Postal zones"
         prescriptions: "Prescriptions"
         product_groups: "Product groups"
-        product_memberships: "Product memberships"
         product_nature_categories: "Product nature categories"
         product_nature_variants: "Product nature variants"
         product_natures: "Product natures"
@@ -1745,29 +1743,29 @@ eng:
       items:
         poitou_charentes: "Poitou charentes"
     nmp_poitou_charentes_abacus_eight:
-      # name: "Nmp poitou charentes abacus eight"
+      name: "Abacus 8 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_eleven:
-      # name: "Nmp poitou charentes abacus eleven"
+      name: "Abacus 11 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_five:
-      # name: "Nmp poitou charentes abacus five"
+      name: "Abacus 5 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_four:
-      # name: "Nmp poitou charentes abacus four"
+      name: "Abacus 4 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_nine:
-      # name: "Nmp poitou charentes abacus nine"
+      name: "Abacus 9 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_one:
-      # name: "Nmp poitou charentes abacus one"
+      name: "Abacus 1 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_seven:
-      # name: "Nmp poitou charentes abacus seven"
+      name: "Abacus 7 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_six:
-      # name: "Nmp poitou charentes abacus six"
+      name: "Abacus 6 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_ten:
-      # name: "Nmp poitou charentes abacus ten"
+      name: "Abacus 10 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_three:
-      # name: "Nmp poitou charentes abacus three"
+      name: "Abacus 3 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_twelve:
-      # name: "Nmp poitou charentes abacus twelve"
+      name: "Abacus 12 of the Poitou-Charentes manure management plan computation method"
     nmp_poitou_charentes_abacus_two:
-      # name: "Nmp poitou charentes abacus two"
+      name: "Abacus 2 of the Poitou-Charentes manure management plan computation method"
     phosphorus_analysis_methods:
       name: "Phosphorus analysis methods"
       items:
@@ -2705,10 +2703,10 @@ eng:
         apis: "Apis"                                       #< insecta
         asparagus: "Asparagus"                             #< liliaceae
         asteraceae: "Asteraceae"                           #< plant
-        avena: "Avena"                                     #< poaceae
-        aves: "Aves"                                       #< animal
+        avena: "Oat"                                       #< poaceae
+        aves: "Bird"                                       #< animal
         baler: "Baler"                                     #< equipment
-        bambusa: "Bambusa"                                 #< poaceae
+        bambusa: "Bamboo"                                  #< poaceae
         beta: "Beta"                                       #< amaranthaceae
         betulaceae: "Betulaceae"                           #< plant
         bioproduct: "Bioproduct"                           #< matter
@@ -2717,14 +2715,15 @@ eng:
         bottle: "Bottle"                                   #< packaged_matter
         bottling: "Bottling"                               #< equipment
         brassica: "Brassica"                               #< brassicaceae
-        brassica_napus: "Brassica napus"                   #< brassica
-        brassica_nigra: "Brassica nigra"                   #< brassica
+        brassica_napus: "Rapeseed"                         #< brassica
+        brassica_nigra: "Black mustard"                    #< brassica
         brassica_rapa: "Brassica rapa"                     #< brassica
         brassicaceae: "Brassicaceae"                       #< plant
         building: "Building"                               #< product_group
         building_division: "Building division"             #< sub_zone
         cannabaceae: "Cannabaceae"                         #< plant
         cannabis: "Cannabis"                               #< cannabaceae
+        cannabis_sativa: "Hemp"                            #< cannabis
         cap: "Cap"                                         #< packaged_matter
         capra: "Capra"                                     #< mammalia
         chemical_fertilizer: "Chemical fertilizer"         #< mineral_matter
@@ -2734,20 +2733,20 @@ eng:
         concentrated_rectified_must: "Concentrated rectified must" #< preparation
         cork: "Cork"                                       #< packaged_matter
         cork_bottle: "Cork bottle"                         #< bottle
-        corylus: "Corylus"                                 #< betulaceae
-        corylus_avellana: "Corylus avellana"               #< corylus
-        corylus_avellana_corabel: "Corylus avellana - corabel" #< corylus_avellana
-        corylus_avellana_ennis: "Corylus avellana - ennis" #< corylus_avellana
-        corylus_avellana_fercoril_corabel: "Corylus avellana - fercoril corabel" #< corylus_avellana
-        corylus_avellana_feriale: "Corylus avellana - feriale" #< corylus_avellana
-        corylus_avellana_fertile_coutard: "Corylus avellana - fertile coutard" #< corylus_avellana
-        corylus_avellana_lewis: "Corylus avellana - lewis" #< corylus_avellana
-        corylus_avellana_merveille: "Corylus avellana - merveille" #< corylus_avellana
-        corylus_avellana_pauetet: "Corylus avellana - pauetet" #< corylus_avellana
-        corylus_avellana_segorbe: "Corylus avellana - segorbe" #< corylus_avellana
-        corylus_avellana_tonda_giffoni: "Corylus avellana - tonda giffoni" #< corylus_avellana
+        corylus: "Hazel"                                   #< betulaceae
+        corylus_avellana: "Common hazel"                   #< corylus
+        corylus_avellana_corabel: "Common hazel Corabel"   #< corylus_avellana
+        corylus_avellana_ennis: "Common hazel Ennis"       #< corylus_avellana
+        corylus_avellana_fercoril_corabel: "Common hazel Fercoril Corabel" #< corylus_avellana
+        corylus_avellana_feriale: "Common hazel Feriale"   #< corylus_avellana
+        corylus_avellana_fertile_coutard: "Common hazel Fertile coutard" #< corylus_avellana
+        corylus_avellana_lewis: "Common hazel Lewis"       #< corylus_avellana
+        corylus_avellana_merveille: "Common hazel Merveille" #< corylus_avellana
+        corylus_avellana_pauetet: "Common hazel Pauetet"   #< corylus_avellana
+        corylus_avellana_segorbe: "Common hazel Segorbe"   #< corylus_avellana
+        corylus_avellana_tonda_giffoni: "Common hazel Tonda Giffoni" #< corylus_avellana
         crocus: "Crocus"                                   #< iridaceae
-        crocus_sativus: "Crocus sativus"                   #< crocus
+        crocus_sativus: "Saffron crocus"                   #< crocus
         cucumis: "Cucumis"                                 #< cucurbitaceae
         cucurbitaceae: "Cucurbitaceae"                     #< plant
         cultivable_zone: "Cultivable zone"                 #< zone
@@ -2757,19 +2756,19 @@ eng:
         egg: "Egg"                                         #< organic_matter
         electricity: "Electricity"                         #< matter
         equipment: "Equipment"                             #< matter
-        equus: "Equus"                                     #< mammalia
+        equus: "Equine"                                    #< mammalia
         excrement: "Excrement"                             #< organic_matter
         fabaceae: "Fabaceae"                               #< plant
         fermented_juice: "Fermented juice"                 #< preparation
         ficus: "Ficus"                                     #< moraceae
-        ficus_carica: "Ficus carica"                       #< ficus
-        ficus_carica_saint_pierre: "Ficus carica saint pierre" #< ficus_carica
+        ficus_carica: "Common fig"                         #< ficus
+        ficus_carica_saint_pierre: "Common fig Saint-Pierre" #< ficus_carica
         flower: "Flower"                                   #< organic_matter
         food_deliver: "Food deliver"                       #< equipment
         forager: "Forager"                                 #< equipment
         fragaria: "Fragaria"                               #< rosaceae
-        fragaria_ananassa: "Fragaria ananassa"             #< fragaria
-        fragaria_ananassa_mara_des_bois: "Fragaria ananassa mara des bois" #< fragaria_ananassa
+        fragaria_ananassa: "Fragaria × Ananassa"           #< fragaria
+        fragaria_ananassa_mara_des_bois: "Fragaria × Ananassa Mara des bois" #< fragaria_ananassa
         fruit: "Fruit"                                     #< organic_matter
         fuel: "Fuel"                                       #< organic_matter
         fungicide: "Fungicide"                             #< plant_medicine
@@ -2830,12 +2829,13 @@ eng:
         moraceae: "Moraceae"                               #< plant
         mower: "Mower"                                     #< equipment
         nicotiana: "Nicotiana"                             #< solanaceae
-        nicotiana_burley: "Nicotiana - burley"             #< nicotiana
-        nicotiana_virginie: "Nicotiana - virginie"         #< nicotiana
-        numida: "Numida"                                   #< aves
+        nicotiana_tabacum: "Cultivated tobacco"            #< nicotiana
+        nicotiana_tabacum_burley: "Cultivated tobacco Burley" #< nicotiana_tabacum
+        nicotiana_tabacum_virginie: "Cultivated tobacco Virginie" #< nicotiana_tabacum
+        numida: "Helmeted Guineafowl"                      #< aves
         oil: "Oil"                                         #< organic_matter
         organic_matter: "Organic matter"                   #< matter
-        oryza: "Oryza"                                     #< poaceae
+        oryza: "Rice"                                      #< poaceae
         osteichthyes: "Osteichthyes"                       #< animal
         ostreidae: "Ostreidae"                             #< mollusca
         ovis: "Ovis"                                       #< mammalia
@@ -2862,30 +2862,30 @@ eng:
         pruner: "Pruner"                                   #< equipment
         prunus: "Prunus"                                   #< rosaceae
         prunus_domestica: "Prunus domestica"               #< prunus
-        prunus_domestica_bernardina: "Prunus domestica bernardina" #< prunus_domestica
-        prunus_domestica_bluefre: "Prunus domestica bluefre" #< prunus_domestica
-        prunus_domestica_carpatin: "Prunus domestica carpatin" #< prunus_domestica
+        prunus_domestica_bernardina: "Prunus domestica Bernardina" #< prunus_domestica
+        prunus_domestica_bluefre: "Prunus domestica Bluefre" #< prunus_domestica
+        prunus_domestica_carpatin: "Prunus domestica Carpatin" #< prunus_domestica
         prunus_persica: "Prunus persica"                   #< prunus
-        prunus_persica_jh_hall: "Prunus persica jh hall"   #< prunus_persica
-        prunus_persica_madeleine: "Prunus persica madeleine" #< prunus_persica
-        prunus_persica_saint_hilaire: "Prunus persica saint hilaire" #< prunus_persica
+        prunus_persica_jh_hall: "Prunus persica JH Hall"   #< prunus_persica
+        prunus_persica_madeleine: "Prunus persica Madeleine" #< prunus_persica
+        prunus_persica_saint_hilaire: "Prunus persica Saint-Hilaire" #< prunus_persica
         prunus_salicina: "Prunus salicina"                 #< prunus
-        prunus_salicina_allo: "Prunus salicina allo"       #< prunus_salicina
-        prunus_salicina_anne_gold: "Prunus salicina anne gold" #< prunus_salicina
-        prunus_salicina_awaso: "Prunus salicina awaso"     #< prunus_salicina
-        prunus_salicina_beauty: "Prunus salicina beauty"   #< prunus_salicina
+        prunus_salicina_allo: "Prunus salicina Allo"       #< prunus_salicina
+        prunus_salicina_anne_gold: "Prunus salicina Anne gold" #< prunus_salicina
+        prunus_salicina_awaso: "Prunus salicina Awaso"     #< prunus_salicina
+        prunus_salicina_beauty: "Prunus salicina Beauty"   #< prunus_salicina
         pyrus: "Pyrus"                                     #< rosaceae
         pyrus_communis: "Pyrus communis"                   #< pyrus
-        pyrus_communis_beurre_hardy: "Pyrus communis beurre hardy" #< pyrus_communis
-        pyrus_communis_william: "Pyrus communis william"   #< pyrus_communis
-        pyrus_communis_william_bon_chretien: "Pyrus communis william bon chretien" #< pyrus_communis
+        pyrus_communis_beurre_hardy: "Pyrus communis Beurre Hardy" #< pyrus_communis
+        pyrus_communis_william: "Pyrus communis William"   #< pyrus_communis
+        pyrus_communis_william_bon_chretien: "Pyrus communis William Bon-Chretien" #< pyrus_communis
         raspberry: "Raspberry"                             #< fruit
         reaper: "Reaper"                                   #< equipment
         ribes: "Ribes"                                     #< grossulariaceae
-        ribes_nigrum: "Ribes nigrum"                       #< ribes
-        ribes_nigrum_andega: "Ribes nigrum andega"         #< ribes_nigrum
-        ribes_rubrum: "Ribes rubrum"                       #< ribes
-        ribes_rubrum_wilder: "Ribes rubrum wilder"         #< ribes_rubrum
+        ribes_nigrum: "Blackcurrant"                       #< ribes
+        ribes_nigrum_andega: "Blackcurrant Andega"         #< ribes_nigrum
+        ribes_rubrum: "Redcurrant"                         #< ribes
+        ribes_rubrum_wilder: "Redcurrant Wilder"           #< ribes_rubrum
         rosa: "Rosa"                                       #< rosaceae
         rosa_centifolia: "Rosa centifolia"                 #< rosa
         rosa_dades: "Rosa dades"                           #< rosa
@@ -2893,12 +2893,12 @@ eng:
         rosa_recht: "Rosa recht"                           #< rosa
         rosaceae: "Rosaceae"                               #< plant
         rubus: "Rubus"                                     #< rosaceae
-        rubus_idaeus: "Rubus idaeus"                       #< rubus
-        rubus_idaeus_frida: "Rubus idaeus - frida"         #< rubus_idaeus
-        rubus_idaeus_malling_promise: "Rubus idaeus - malling promise" #< rubus_idaeus
-        rubus_idaeus_tulameen: "Rubus idaeus - tulameen"   #< rubus_idaeus
-        rubus_idaeus_willamette: "Rubus idaeus - willamette" #< rubus_idaeus
-        rubus_idaeus_zeva: "Rubus idaeus - zeva"           #< rubus_idaeus
+        rubus_idaeus: "Red raspberry"                      #< rubus
+        rubus_idaeus_frida: "Red raspberry Frida"          #< rubus_idaeus
+        rubus_idaeus_malling_promise: "Red raspberry Malling Promise" #< rubus_idaeus
+        rubus_idaeus_tulameen: "Red raspberry Tulameen"    #< rubus_idaeus
+        rubus_idaeus_willamette: "Red raspberry Willamette" #< rubus_idaeus
+        rubus_idaeus_zeva: "Red raspberry Zeva"            #< rubus_idaeus
         saccharomyces: "Saccharomyces"                     #< saccharomycetaceae
         saccharomyces_cerevisiae: "Saccharomyces cerevisiae" #< saccharomyces
         saccharomyces_cerevisiae_jb3: "Saccharomyces cerevisiae - jb3" #< saccharomyces_cerevisiae
@@ -2918,8 +2918,8 @@ eng:
         slurry: "Slurry"                                   #< excrement
         solanaceae: "Solanaceae"                           #< plant
         solanum: "Solanum"                                 #< solanaceae
-        solanum_tuberosum: "Solanum tuberosum"             #< solanum
-        solanum_tuberosum_agata: "Solanum tuberosum agata" #< solanum_tuberosum
+        solanum_tuberosum: "Potato"                        #< solanum
+        solanum_tuberosum_agata: "Potato Agata"            #< solanum_tuberosum
         sorghum: "Sorghum"                                 #< poaceae
         sower: "Sower"                                     #< equipment
         sprayer: "Sprayer"                                 #< equipment
@@ -2932,81 +2932,81 @@ eng:
         tank: "Tank"                                       #< equipment
         tractor: "Tractor"                                 #< equipment
         trailer: "Trailer"                                 #< equipment
-        trifolium: "Trifolium"                             #< fabaceae
-        triticosecale: "Triticosecale"                     #< poaceae
-        triticum: "Triticum"                               #< poaceae
-        triticum_aestivum: "Triticum æstivum"              #< triticum
-        triticum_aestivum_apache: "Triticum æstivum - apache" #< triticum_aestivum
-        triticum_aestivum_ascott: "Triticum æstivum - ascott" #< triticum_aestivum
-        triticum_aestivum_autan: "Triticum æstivum - autan" #< triticum_aestivum
-        triticum_aestivum_aztec: "Triticum æstivum - aztec" #< triticum_aestivum
-        triticum_aestivum_bussard: "Triticum æstivum - bussard" #< triticum_aestivum
-        triticum_aestivum_caphorn: "Triticum æstivum - caphorn" #< triticum_aestivum
-        triticum_aestivum_courtot: "Triticum æstivum - courtot" #< triticum_aestivum
-        triticum_aestivum_esperia: "Triticum æstivum - esperia" #< triticum_aestivum
-        triticum_aestivum_euclide: "Triticum æstivum - euclide" #< triticum_aestivum
-        triticum_aestivum_galibier: "Triticum æstivum - galibier" #< triticum_aestivum
-        triticum_aestivum_isengrain: "Triticum æstivum - isengrain" #< triticum_aestivum
-        triticum_aestivum_levis: "Triticum æstivum - levis" #< triticum_aestivum
-        triticum_aestivum_lona: "Triticum æstivum - lona"  #< triticum_aestivum
-        triticum_aestivum_manital: "Triticum æstivum - manital" #< triticum_aestivum
-        triticum_aestivum_oratorio: "Triticum æstivum - oratorio" #< triticum_aestivum
-        triticum_aestivum_qualital: "Triticum æstivum - qualital" #< triticum_aestivum
-        triticum_aestivum_quality: "Triticum æstivum - quality" #< triticum_aestivum
-        triticum_aestivum_quebon: "Triticum æstivum - quebon" #< triticum_aestivum
-        triticum_aestivum_recital: "Triticum æstivum - recital" #< triticum_aestivum
-        triticum_aestivum_renan: "Triticum æstivum - renan" #< triticum_aestivum
-        triticum_aestivum_rubisko: "Triticum æstivum - rubisko" #< triticum_aestivum
-        triticum_aestivum_runal: "Triticum æstivum - runal" #< triticum_aestivum
-        triticum_aestivum_soissons: "Triticum æstivum - soissons" #< triticum_aestivum
-        triticum_aestivum_tamaro: "Triticum æstivum - tamaro" #< triticum_aestivum
-        triticum_aestivum_texel: "Triticum æstivum - texel" #< triticum_aestivum
-        triticum_aestivum_tremie: "Triticum æstivum - tremie" #< triticum_aestivum
-        triticum_durum: "Triticum durum"                   #< triticum
-        triticum_durum_alexis: "Triticum durum - alexis"   #< triticum_durum
-        triticum_durum_aventur: "Triticum durum - aventur" #< triticum_durum
-        triticum_durum_biensur: "Triticum durum - biensur" #< triticum_durum
-        triticum_durum_cultur: "Triticum durum - cultur"   #< triticum_durum
-        triticum_durum_fabulis: "Triticum durum - fabulis" #< triticum_durum
-        triticum_durum_karur: "Triticum durum - karur"     #< triticum_durum
-        triticum_durum_miradoux: "Triticum durum - miradoux" #< triticum_durum
-        triticum_durum_pescadou: "Triticum durum - pescadou" #< triticum_durum
-        triticum_durum_sculptur: "Triticum durum - sculptur" #< triticum_durum
-        triticum_durum_sy_banco: "Triticum durum - sy banco" #< triticum_durum
-        triticum_durum_sy_cysco: "Triticum durum - sy cysco" #< triticum_durum
-        triticum_durum_tablur: "Triticum durum - tablur"   #< triticum_durum
-        triticum_spelta: "Triticum spelta"                 #< triticum
+        trifolium: "Clover"                                #< fabaceae
+        triticosecale: "Triticale"                         #< poaceae
+        triticum: "Wheat"                                  #< poaceae
+        triticum_aestivum: "Common wheat"                  #< triticum
+        triticum_aestivum_apache: "Common wheat Apache"    #< triticum_aestivum
+        triticum_aestivum_ascott: "Common wheat Ascott"    #< triticum_aestivum
+        triticum_aestivum_autan: "Common wheat Autan"      #< triticum_aestivum
+        triticum_aestivum_aztec: "Common wheat Aztec"      #< triticum_aestivum
+        triticum_aestivum_bussard: "Common wheat Bussard"  #< triticum_aestivum
+        triticum_aestivum_caphorn: "Common wheat Caphorn"  #< triticum_aestivum
+        triticum_aestivum_courtot: "Common wheat Courtot"  #< triticum_aestivum
+        triticum_aestivum_esperia: "Common wheat Esperia"  #< triticum_aestivum
+        triticum_aestivum_euclide: "Common wheat Euclide"  #< triticum_aestivum
+        triticum_aestivum_galibier: "Common wheat Galibier" #< triticum_aestivum
+        triticum_aestivum_isengrain: "Common wheat Isengrain" #< triticum_aestivum
+        triticum_aestivum_levis: "Common wheat Levis"      #< triticum_aestivum
+        triticum_aestivum_lona: "Common wheat Lona"        #< triticum_aestivum
+        triticum_aestivum_manital: "Common wheat Manital"  #< triticum_aestivum
+        triticum_aestivum_oratorio: "Common wheat Oratorio" #< triticum_aestivum
+        triticum_aestivum_qualital: "Common wheat Qualital" #< triticum_aestivum
+        triticum_aestivum_quality: "Common wheat Quality"  #< triticum_aestivum
+        triticum_aestivum_quebon: "Common wheat Quebon"    #< triticum_aestivum
+        triticum_aestivum_recital: "Common wheat Recital"  #< triticum_aestivum
+        triticum_aestivum_renan: "Common wheat Renan"      #< triticum_aestivum
+        triticum_aestivum_rubisko: "Common wheat Rubisko"  #< triticum_aestivum
+        triticum_aestivum_runal: "Common wheat Runal"      #< triticum_aestivum
+        triticum_aestivum_soissons: "Common wheat Soissons" #< triticum_aestivum
+        triticum_aestivum_tamaro: "Common wheat Tamaro"    #< triticum_aestivum
+        triticum_aestivum_texel: "Common wheat Texel"      #< triticum_aestivum
+        triticum_aestivum_tremie: "Common wheat Tremie"    #< triticum_aestivum
+        triticum_durum: "Durum wheat"                      #< triticum
+        triticum_durum_alexis: "Durum wheat Alexis"        #< triticum_durum
+        triticum_durum_aventur: "Durum wheat Aventur"      #< triticum_durum
+        triticum_durum_biensur: "Durum wheat Biensur"      #< triticum_durum
+        triticum_durum_cultur: "Durum wheat Cultur"        #< triticum_durum
+        triticum_durum_fabulis: "Durum wheat Fabulis"      #< triticum_durum
+        triticum_durum_karur: "Durum wheat Karur"          #< triticum_durum
+        triticum_durum_miradoux: "Durum wheat Miradoux"    #< triticum_durum
+        triticum_durum_pescadou: "Durum wheat Pescadou"    #< triticum_durum
+        triticum_durum_sculptur: "Durum wheat Sculptur"    #< triticum_durum
+        triticum_durum_sy_banco: "Durum wheat Sy Banco"    #< triticum_durum
+        triticum_durum_sy_cysco: "Durum wheat Sy Cysco"    #< triticum_durum
+        triticum_durum_tablur: "Durum wheat Tablur"        #< triticum_durum
+        triticum_spelta: "Spelt"                           #< triticum
         vicia: "Vicia"                                     #< fabaceae
         vitis: "Vitis"                                     #< plant
-        vitis_vinifera: "Vitis vinifera"                   #< vitis
-        vitis_vinifera_cabernet_franc_noir: "Vitis vinifera - cabernet franc noir" #< vitis_vinifera
-        vitis_vinifera_cabernet_sauvignon_noir: "Vitis vinifera - cabernet sauvignon noir" #< vitis_vinifera
-        vitis_vinifera_carignan: "Vitis vinifera - carignan" #< vitis_vinifera
-        vitis_vinifera_carmenere_noir: "Vitis vinifera - carmenere noir" #< vitis_vinifera
-        vitis_vinifera_chardonnay: "Vitis vinifera - chardonnay" #< vitis_vinifera
-        vitis_vinifera_colombar_blanc: "Vitis vinifera - colombar blanc" #< vitis_vinifera
-        vitis_vinifera_cot_noir: "Vitis vinifera - cot noir" #< vitis_vinifera
-        vitis_vinifera_grenache: "Vitis vinifera - grenache" #< vitis_vinifera
-        vitis_vinifera_grenache_noir: "Vitis vinifera - grenache noir" #< vitis_vinifera
-        vitis_vinifera_merlot_blanc: "Vitis vinifera - merlot blanc" #< vitis_vinifera
-        vitis_vinifera_merlot_noir: "Vitis vinifera - merlot noir" #< vitis_vinifera
-        vitis_vinifera_muscadelle_blanc: "Vitis vinifera - muscadelle blanc" #< vitis_vinifera
-        vitis_vinifera_petit_verdot_noir: "Vitis vinifera - petit verdot noir" #< vitis_vinifera
-        vitis_vinifera_pinot_noir: "Vitis vinifera - pinot noir" #< vitis_vinifera
-        vitis_vinifera_sauvignon_blanc: "Vitis vinifera - sauvignon blanc" #< vitis_vinifera
-        vitis_vinifera_sauvignon_gris: "Vitis vinifera - sauvignon gris" #< vitis_vinifera
-        vitis_vinifera_sauvignon_noir: "Vitis vinifera - sauvignon noir" #< vitis_vinifera
-        vitis_vinifera_semillon_blanc: "Vitis vinifera - semillon blanc" #< vitis_vinifera
-        vitis_vinifera_syrah_noir: "Vitis vinifera - syrah noir" #< vitis_vinifera
-        vitis_vinifera_ugni_blanc: "Vitis vinifera - ugni blanc" #< vitis_vinifera
+        vitis_vinifera: "Common grape vine"                #< vitis
+        vitis_vinifera_cabernet_franc_noir: "Common grape vine Cabernet franc noir" #< vitis_vinifera
+        vitis_vinifera_cabernet_sauvignon_noir: "Common grape vine Cabernet sauvignon noir" #< vitis_vinifera
+        vitis_vinifera_carignan: "Common grape vine Carignan" #< vitis_vinifera
+        vitis_vinifera_carmenere_noir: "Common grape vine Carmenere noir" #< vitis_vinifera
+        vitis_vinifera_chardonnay: "Common grape vine Chardonnay" #< vitis_vinifera
+        vitis_vinifera_colombar_blanc: "Common grape vine Colombar blanc" #< vitis_vinifera
+        vitis_vinifera_cot_noir: "Common grape vine Cot noir" #< vitis_vinifera
+        vitis_vinifera_grenache: "Common grape vine Grenache" #< vitis_vinifera
+        vitis_vinifera_grenache_noir: "Common grape vine Grenache noir" #< vitis_vinifera
+        vitis_vinifera_merlot_blanc: "Common grape vine Merlot blanc" #< vitis_vinifera
+        vitis_vinifera_merlot_noir: "Common grape vine Merlot noir" #< vitis_vinifera
+        vitis_vinifera_muscadelle_blanc: "Common grape vine Muscadelle blanc" #< vitis_vinifera
+        vitis_vinifera_petit_verdot_noir: "Common grape vine Petit verdot noir" #< vitis_vinifera
+        vitis_vinifera_pinot_noir: "Common grape vine Pinot noir" #< vitis_vinifera
+        vitis_vinifera_sauvignon_blanc: "Common grape vine Sauvignon blanc" #< vitis_vinifera
+        vitis_vinifera_sauvignon_gris: "Common grape vine Sauvignon gris" #< vitis_vinifera
+        vitis_vinifera_sauvignon_noir: "Common grape vine Sauvignon noir" #< vitis_vinifera
+        vitis_vinifera_semillon_blanc: "Common grape vine Semillon blanc" #< vitis_vinifera
+        vitis_vinifera_syrah_noir: "Common grape vine Syrah noir" #< vitis_vinifera
+        vitis_vinifera_ugni_blanc: "Common grape vine Ugni blanc" #< vitis_vinifera
         walnut: "Walnut"                                   #< fruit
         water: "Water"                                     #< matter
         wine: "Wine"                                       #< fermented_juice
         worker: "Worker"                                   #< equipment
-        zea: "Zea"                                         #< poaceae
-        zea_aallexia: "Zea aallexia"                       #< zea
-        zea_bergxxon: "Zea bergxxon"                       #< zea
-        zea_lg3490: "Zea lg3490"                           #< zea
+        zea: "Corn"                                        #< poaceae
+        zea_aallexia: "Corn Aallexia"                      #< zea
+        zea_bergxxon: "Corn Bergxxon"                      #< zea
+        zea_lg3490: "Corn LG3490"                          #< zea
         zone: "Zone"                                       #< matter
         zone_property_title: "Zone property title"         #< property_title
     working_sets:

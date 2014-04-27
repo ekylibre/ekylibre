@@ -2,7 +2,7 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-solanaceae" hierarchical="true">
     <items>
-      <item name="solanum" itis_tsn="30412"/>
+      <item name="solanum"   itis_tsn="30412"/>
       <item name="nicotiana" itis_tsn="30562"/>
     </items>
   </nomenclature>
