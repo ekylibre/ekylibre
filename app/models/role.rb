@@ -46,7 +46,7 @@ class Role < Ekylibre::Record::Base
   end
 
   before_validation do
-    self.rights = self.rights.to_hash
+    self.rights = self.rights.to_hash if self.rights
   end
 
   # after_save(on: :update) do

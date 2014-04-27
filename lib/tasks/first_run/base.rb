@@ -53,7 +53,7 @@ load_data :base do |loader|
   if loader.can_load_default?(:roles)
     loader.manifest[:roles] = {
       default: {name: 'models.role.default.public'.t},
-      administrator: {name: 'models.role.default.administrator'.t, rights: User.rights_list.join(' ')}
+      administrator: {name: 'models.role.default.administrator'.t, rights: Ekylibre::Access.actions}
     }
   end
   loader.create_from_manifest(:roles)

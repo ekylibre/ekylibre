@@ -112,7 +112,12 @@ class User < Ekylibre::Record::Base
 
   before_validation do
     self.maximal_grantable_reduction_percentage ||= 0
-    self.rights = self.rights.to_hash
+    if self.role
+      self.rights ||= self.role.rights
+    end
+    if self.rights
+      self.rights = self.rights.to_hash
+    end
   end
 
   validate on: :update do
