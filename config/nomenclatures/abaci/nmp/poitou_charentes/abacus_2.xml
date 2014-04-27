@@ -611,6 +611,45 @@
       <item name="flap_silt_hemp_crop_min" soil_nature="flap_silt_soil" cultivation_variety="cannabis" expected_yield="6" minimum_available_water_capacity="0" maximum_available_water_capacity="80"/>
       <item name="flap_silt_hemp_crop_med" soil_nature="flap_silt_soil" cultivation_variety="cannabis" expected_yield="8" minimum_available_water_capacity="80" maximum_available_water_capacity="120"/>
       <item name="flap_silt_hemp_crop_max" soil_nature="flap_silt_soil" cultivation_variety="cannabis" expected_yield="12" minimum_available_water_capacity="120"/>
+      
+      <!-- TABAC -->
+      
+      <item name="clay_limestone_tobacco_crop_min" soil_nature="clay_limestone_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+      
+      <item name="champagne_tobacco_crop_min" soil_nature="champagne_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0"/>
+      
+      <item name="aubues_tobacco_crop_min" soil_nature="aubues_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+
+      <item name="chesnut_red_tobacco_crop_min" soil_nature="chesnut_red_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+      
+      <item name="granite_arena_tobacco_crop_min" soil_nature="granite_arena_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0"/>
+      
+      <item name="silt_schist_tobacco_crop_min" soil_nature="silt_schist_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+      
+      <item name="swamp_peaty_tobacco_crop_min" soil_nature="swamp_peaty_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+      
+      <item name="black_valley_tobacco_crop_min" soil_nature="black_valley_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0"/>
+      
+      <item name="valley_terrace_tobacco_crop_min" soil_nature="valley_terrace_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+
+      <item name="sandy_clay_loam_tobacco_crop_min" soil_nature="sandy_clay_loam_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0"/>
+      
+      <item name="hydromorph_sandy_clay_loam_tobacco_crop_min" soil_nature="hydromorph_sandy_clay_loam_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+      
+      <item name="sandy_clay_tobacco_crop_min" soil_nature="sandy_clay_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+      
+      <item name="clay_tobacco_crop_min" soil_nature="clay_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+
+      <item name="silty_clay_tobacco_crop_min" soil_nature="silty_clay_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+      
+      <item name="silty_clay_loam_tobacco_crop_min" soil_nature="silty_clay_loam_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0"/>
+      
+      <item name="sand_tobacco_crop_min" soil_nature="sand_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+      
+      <item name="silt_tobacco_crop_min" soil_nature="silt_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+      
+      <item name="flap_silt_tobacco_crop_min" soil_nature="flap_silt_soil" cultivation_variety="nicotiana" expected_yield="29" minimum_available_water_capacity="0" />
+      
     </items>
   </nomenclature>
 </nomenclatures>
