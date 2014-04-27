@@ -144,6 +144,7 @@ class User < Ekylibre::Record::Base
 
   def resource_actions
     list = []
+    return list unless self.rights
     for resource, actions in self.rights
       for action in actions
         list << "#{action}-#{resource}"
@@ -228,6 +229,7 @@ class User < Ekylibre::Record::Base
   end
 
   def can_access?(url)
+    return true if self.administrator?
     if url.is_a?(Hash)
       unless url[:controller] and url[:action]
         raise "Invalid URL for accessibility test: #{url.inspect}"
