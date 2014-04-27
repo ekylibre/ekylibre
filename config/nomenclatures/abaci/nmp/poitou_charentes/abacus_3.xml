@@ -91,6 +91,9 @@
       <!-- Colza -->
       <item name="rapeseed_crop"            cultivation_variety="brassica_napus"              coefficient="6.5"/>
       
+      <!-- Colza -->
+      <item name="sunflower_crop"            cultivation_variety="helianthus"              coefficient="4.5"/>
+      
       <!-- Misc --> 
       <item name="oat_crop"                 cultivation_variety="avena"                       coefficient="2.2"/>
       <item name="triticosecale_crop"       cultivation_variety="triticosecale"               coefficient="2.6"/>

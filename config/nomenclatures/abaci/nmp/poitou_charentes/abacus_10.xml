@@ -242,6 +242,62 @@
        precipitations_min="350"
        plant_developpment="hight"
        />
+       <!-- SUNFLOWER -->
+      <item name="sunflower_ru_min_1"
+       crop="sunflower"
+       po="75"
+       minimum_available_water_capacity="0"
+       maximum_available_water_capacity="80"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="0"
+       precipitations_max="350"
+       />
+       <item name="sunflower_ru_min_2"
+       crop="sunflower"
+       po="60"
+       minimum_available_water_capacity="0"
+       maximum_available_water_capacity="80"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="350"
+       />
+       <item name="sunflower_ru_med_1"
+       crop="sunflower"
+       po="85"
+       minimum_available_water_capacity="80"
+       maximum_available_water_capacity="120"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="0"
+       precipitations_max="400"
+       />
+       <item name="sunflower_ru_med_2"
+       crop="sunflower"
+       po="70"
+       minimum_available_water_capacity="80"
+       maximum_available_water_capacity="120"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="400"
+       />
+       <item name="sunflower_ru_max_1"
+       crop="sunflower"
+       po="95"
+       minimum_available_water_capacity="120"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="0"
+       precipitations_max="400"
+       />
+       <item name="sunflower_ru_max_2"
+       crop="sunflower"
+       po="80"
+       minimum_available_water_capacity="120"
+       precipitations_started_period="10"
+       precipitations_stopped_period="03"
+       precipitations_min="400"
+       />
     </items>
   </nomenclature>
 </nomenclatures>
