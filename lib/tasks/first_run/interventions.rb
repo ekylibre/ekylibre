@@ -234,7 +234,8 @@ load_data :interventions do |loader|
           # create an issue
           animal = intervention.casts.of_role(:'animal_illness_treatment-target').first.actor
           started_at = (intervention.started_at - 1.day) || Time.now
-          issue = Issue.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, name: ["Mammite", "Œdème", "Boiterie", "Fièvre", "Toux"].sample, nature: :animal_pathology, state: ["opened", "closed", "aborted"].sample)
+          nature = [:mammite, :edema, :limping, :fever, :cough, :diarrhea].sample
+          issue = Issue.create!(target_type: animal.class.name, target_id: animal.id, priority: 3, observed_at: started_at, name: Nomen::IssueNatures[nature].human_name, nature: nature, state: ["opened", "closed", "aborted"].sample)
           # add prescription on intervention
           intervention.issue = issue
           intervention.prescription = prescription

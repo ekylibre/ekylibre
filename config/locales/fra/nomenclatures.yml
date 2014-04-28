@@ -3,6 +3,7 @@ fra:
     abilities:
       items:
         acidify: "Acidifier"
+        administer_care: "Administrer des soins"
         alkalinize: "Alcaliniser"
         blow: "Souffler"
         bunch: "Boteller"
@@ -1540,18 +1541,25 @@ fra:
     issue_natures:
       items:
         accident: "Accident"
-        animal_pathology: "Pathologie animale"
         bacteria_disease: "Maladie bactérienne"
         climate_issue: "Incident climatique"
+        cough: "Toux"
         diarrhea: "Diarrhée"
+        disease: "Maladie"
+        edema: "Œdème"
+        empty_fuel_tank: "Panne sèche"
+        escape: "Fuite (d’animaux)"
         fecondity_problem: "Problème de fécondité"
+        fever: "Fièvre"
         fungus_disease: "Maladie cryptogamique"
         issue: "Incident"
+        limping: "Boîterie"
         mammite: "Mammite"
+        mechanical_issue: "Problème mécanique"
         nematoda_disease: "Maladie à nématodes"
+        piece_breakdown: "Défaillance d’une pièce"
         protozoa_disease: "Maladie virale"
         respiratory_problem: "Problème respiratoire"
-        vegetal_pathology: "Pathologie végétale"
       name: "Types d’incidents"
       property_natures:
         target: "Cible"
@@ -2875,6 +2883,7 @@ fra:
         pyrus_communis_william: "Poirier commun William"
         pyrus_communis_william_bon_chretien: "Poirier commun William Bon-Chrétien"
         raspberry: "Framboise"
+        raw_matter: "Matière première"
         reaper: "Moissonneuse-batteuse"
         ribes: "Groseiller"
         ribes_nigrum: "Cassissier"

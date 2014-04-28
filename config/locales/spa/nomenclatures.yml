@@ -4,6 +4,7 @@ spa:
     abilities:
       items:
         # acidify: "Acidify"
+        # administer_care: "Administer care"
         # alkalinize: "Alkalinize"
         # blow: "Blow"
         # bunch: "Bunch"
@@ -1550,18 +1551,25 @@ spa:
     issue_natures:
       items:
         # accident: "Accident"
-        # animal_pathology: "Animal pathology"
         # bacteria_disease: "Bacteria disease"
         # climate_issue: "Climate issue"
+        # cough: "Cough"
         # diarrhea: "Diarrhea"
+        # disease: "Disease"
+        # edema: "Edema"
+        # empty_fuel_tank: "Empty fuel tank"
+        # escape: "Escape"
         # fecondity_problem: "Fecondity problem"
+        # fever: "Fever"
         # fungus_disease: "Fungus disease"
         # issue: "Issue"
+        # limping: "Limping"
         # mammite: "Mammite"
+        # mechanical_issue: "Mechanical issue"
         # nematoda_disease: "Nematoda disease"
+        # piece_breakdown: "Piece breakdown"
         # protozoa_disease: "Protozoa disease"
         # respiratory_problem: "Respiratory problem"
-        # vegetal_pathology: "Vegetal pathology"
       # name: "Issue natures"
       property_natures:
         # target: "Target"
@@ -2873,6 +2881,7 @@ spa:
         # pyrus_communis_william: "Pyrus communis William"
         # pyrus_communis_william_bon_chretien: "Pyrus communis William Bon-Chretien"
         # raspberry: "Raspberry"
+        # raw_matter: "Raw matter"
         # reaper: "Reaper"
         # ribes: "Ribes"
         # ribes_nigrum: "Blackcurrant"

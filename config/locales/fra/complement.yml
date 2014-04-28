@@ -2958,18 +2958,25 @@ fra:
     issue:
       nature:
         accident: "Accident"
-        animal_pathology: "Pathologie animale"
         bacteria_disease: "Maladie bactérienne"
         climate_issue: "Incident climatique"
+        cough: "Toux"
         diarrhea: "Diarrhée"
+        disease: "Maladie"
+        edema: "Œdème"
+        empty_fuel_tank: "Panne sèche"
+        escape: "Fuite (d’animaux)"
         fecondity_problem: "Problème de fécondité"
+        fever: "Fièvre"
         fungus_disease: "Maladie cryptogamique"
         issue: "Incident"
+        limping: "Boîterie"
         mammite: "Mammite"
+        mechanical_issue: "Problème mécanique"
         nematoda_disease: "Maladie à nématodes"
+        piece_breakdown: "Défaillance d’une pièce"
         protozoa_disease: "Maladie virale"
         respiratory_problem: "Problème respiratoire"
-        vegetal_pathology: "Pathologie végétale"
     land_parcel_cluster:
       variety:
         acetal: "Acetal"

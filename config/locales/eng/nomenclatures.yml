@@ -6,7 +6,7 @@ eng:
         parameters: "Parameters"
       items:
         acidify: "Acidify"
-        # administer_care: "Administer care"
+        administer_care: "Administer care"
         alkalinize: "Alkalinize"
         blow: "Blow"
         bunch: "Bunch"
@@ -1542,18 +1542,25 @@ eng:
         treatments: "Treatments"
       items:
         accident: "Accident"                               #< issue
-        animal_pathology: "Animal pathology"               #< issue
-        bacteria_disease: "Bacteria disease"               #< vegetal_pathology
+        bacteria_disease: "Bacteria disease"               #< disease
         climate_issue: "Climate issue"                     #< issue
-        diarrhea: "Diarrhea"                               #< animal_pathology
-        fecondity_problem: "Fecondity problem"             #< animal_pathology
-        fungus_disease: "Fungus disease"                   #< vegetal_pathology
+        cough: "Cough"                                     #< disease
+        diarrhea: "Diarrhea"                               #< disease
+        disease: "Disease"                                 #< issue
+        edema: "Edema"                                     #< disease
+        empty_fuel_tank: "Empty fuel tank"                 #< mechanical_issue
+        escape: "Escape"                                   #< issue
+        fecondity_problem: "Fecondity problem"             #< disease
+        fever: "Fever"                                     #< disease
+        fungus_disease: "Fungus disease"                   #< disease
         issue: "Issue"
-        mammite: "Mammite"                                 #< animal_pathology
-        nematoda_disease: "Nematoda disease"               #< vegetal_pathology
-        protozoa_disease: "Protozoa disease"               #< vegetal_pathology
-        respiratory_problem: "Respiratory problem"         #< animal_pathology
-        vegetal_pathology: "Vegetal pathology"             #< issue
+        limping: "Limping"                                 #< disease
+        mammite: "Mammite"                                 #< disease
+        mechanical_issue: "Mechanical issue"               #< issue
+        nematoda_disease: "Nematoda disease"               #< disease
+        piece_breakdown: "Piece breakdown"                 #< mechanical_issue
+        protozoa_disease: "Protozoa disease"               #< disease
+        respiratory_problem: "Respiratory problem"         #< disease
     lands:
       name: "Lands"
       items:
@@ -2863,7 +2870,7 @@ eng:
         pyrus_communis_william: "Pyrus communis William"   #< pyrus_communis
         pyrus_communis_william_bon_chretien: "Pyrus communis William Bon-Chretien" #< pyrus_communis
         raspberry: "Raspberry"                             #< fruit
-        # raw_matter: "Raw matter"                         #< preparation
+        raw_matter: "Raw matter"                           #< preparation
         reaper: "Reaper"                                   #< equipment
         ribes: "Ribes"                                     #< grossulariaceae
         ribes_nigrum: "Blackcurrant"                       #< ribes

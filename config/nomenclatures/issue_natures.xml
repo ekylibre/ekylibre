@@ -14,31 +14,36 @@
   <!-- level 1 -->
   <nomenclature name="issue_natures-issue">
     <items>
-      <item name="animal_pathology"/>
-      <item name="vegetal_pathology"/>
+      <item name="disease"/>
       <item name="accident"/>
       <item name="climate_issue"/>
+      <item name="escape"/>
+      <item name="mechanical_issue"/>
     </items>
   </nomenclature>
 
   <!-- level 2 - branch 1 -->
-  <nomenclature name="issue_natures-animal_pathology">
+  <nomenclature name="issue_natures-disease">
     <items>
       <item name="mammite" target="mammalia"/>
-      <item name="fecondity_problem" target="mammalia"/>
-      <item name="diarrhea" target="mammalia"/>
-      <item name="respiratory_problem" target="mammalia"/>
-      <!-- <item name="other" target="mammalia"/> -->
+      <item name="edema" target="animal"/>
+      <item name="limping" target="animal"/>
+      <item name="fever" target="animal"/>
+      <item name="cough" target="animal"/>
+      <item name="fecondity_problem" target="bioproduct"/>
+      <item name="diarrhea" target="animal"/>
+      <item name="respiratory_problem" target="bioproduct"/>
+      <item name="bacteria_disease" target="bioproduct"/>
+      <item name="fungus_disease" target="bioproduct"/>
+      <item name="protozoa_disease" target="bioproduct"/>
+      <item name="nematoda_disease" target="bioproduct"/>
     </items>
   </nomenclature>
 
-  <!-- level 2 - branch 2 -->
-  <nomenclature name="issue_natures-vegetal_pathology">
+  <nomenclature name="issue_natures-mechanical_issue">
     <items>
-      <item name="bacteria_disease" target="plant"/>
-      <item name="fungus_disease" target="plant"/>
-      <item name="protozoa_disease" target="plant"/>
-      <item name="nematoda_disease" target="plant"/>
+      <item name="piece_breakdown"/>
+      <item name="empty_fuel_tank"/>
     </items>
   </nomenclature>
 
