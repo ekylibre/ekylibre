@@ -6,7 +6,7 @@
       box:
         height: 400
         width: null
-      backgrounds:[]
+      backgrounds: []
       show: null
       edit: null
       change: null
@@ -55,12 +55,9 @@
               ]
               text: "Paved primary road"
             ]
-          ]    
+          ]
                 
     _create: ->     
-      this.oldElementType = this.element.attr "type"
-      this.element.attr "type", "hidden"
- 
       $.extend(true, this.options, this.element.data("visualization"))
       console.log "Vive le Roi!"
        
@@ -72,27 +69,27 @@
         attributionControl: false 
       )
  
-      widget = this
+      # widget = this
       console.log "Vive le Roi!"
       
-      this.map.on "draw:created", (e) ->
-        widget.edition.addLayer e.layer
-        widget._saveUpdates()
-        widget.element.trigger "mapchange"
-#          
-      this.map.on "draw:edited", (e) ->
-        widget._saveUpdates()
-        widget.element.trigger "mapchange"
-# 
-      this.map.on "draw:deleted", (e) ->
-        widget._saveUpdates()
-        widget.element.trigger "mapchange"
+      # this.map.on "draw:created", (e) ->
+      #   widget.edition.addLayer e.layer
+      #   widget._saveUpdates()
+      #   widget.element.trigger "mapchange"
+          
+      # this.map.on "draw:edited", (e) ->
+      #   widget._saveUpdates()
+      #   widget.element.trigger "mapchange"
+ 
+      # this.map.on "draw:deleted", (e) ->
+      #   widget._saveUpdates()
+      #   widget.element.trigger "mapchange"
         
       this.back(backgrounds)
       
       this.show(geojson)
       
-      this.edit((geojson)
+      this.edit(geojson)
       
       this.view(view)
       
@@ -164,8 +161,8 @@
         this._trigger "resize"
      
     _refreshBackgroundLayer: ->
-       #if this.backgroundLayer?
-         #this.map.removeLayer(this.backgroundLayer)
+      # if this.backgroundLayer?
+      #   this.map.removeLayer(this.backgroundLayer)
       if this.options.backgrounds?
         i = 0
         while i < this.options.backgrounds.length
@@ -173,13 +170,13 @@
           this.backgroundLayer.addTo this.map
           console.log "Vive le Roi!"
           i++        
-         #if this.options.backgrounds.constructor.index is "Integer"
-          #if this.options.backgrounds.constructor.name is "String"
-            #this.backgroundLayer = L.tileLayer.provider(this.options.backgrounds)
-            #this.backgroundLayer.addTo this.map
-        #else
-          #console.log "How to set background with #{this.options.backgrounds}?"
-          #console.log this.options.backgrounds
+        # if this.options.backgrounds.constructor.index is "Integer"
+        #   if this.options.backgrounds.constructor.name is "String"
+        #     this.backgroundLayer = L.tileLayer.provider(this.options.backgrounds)
+        #     this.backgroundLayer.addTo this.map
+        # else
+        #   console.log "How to set background with #{this.options.backgrounds}?"
+        #   console.log this.options.backgrounds
       this
  
     _refreshReferenceLayerGroup: ->
@@ -251,9 +248,9 @@
       unless this.options.controls.fullscreen is false
         this.controls.fullscreen = new L.Control.FullScreen(this.options.controls.fullscreen)
         this.map.addControl this.controls.fullscreen
-       #if this.edition?
-         #this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}))
-         #this.map.addControl this.controls.draw
+        # if this.edition?
+        #   this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}))
+        #   this.map.addControl this.controls.draw
       unless this.options.controls.scale is false
         this.controls.scale = new L.Control.Scale(this.options.controls.scale)
         this.map.addControl this.controls.scale
