@@ -19,23 +19,7 @@
       - if resource.born_at
         .info
           %span.title= Animal.human_attribute_name(:age)
-          %span.value
-            :ruby
-              seconds = (resource.dead_at||Time.now) - resource.born_at
-              vals = []
-              if (seconds/1.year).floor > 0
-                vals << "labels.x_years".t(count: (seconds/1.year).floor)
-                seconds -= 1.year * (seconds/1.year).floor
-              end
-              if (seconds/1.month).floor > 0
-                vals << "labels.x_months".t(count: (seconds/1.month).floor)
-                seconds -= 1.month * (seconds/1.month).floor
-              end
-              if (seconds/1.day).floor > 0
-                vals << "labels.x_days".t(count: (seconds/1.day).floor)
-                seconds -= 1.day * (seconds/1.day).floor
-              end
-            = vals.to_sentence
+          %span.value= human_age(resource.age)
       - if resource.mother
         .info
           %span.title= Animal.human_attribute_name(:mother)

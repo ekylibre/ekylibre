@@ -12,6 +12,7 @@
     line-height: $topbar-height;
     vertical-align: middle;
     padding: 0 round($fs-normal * 1);
+    @include user-select(none);
     &, i {
       color: white;
     }
@@ -368,19 +369,21 @@ html.authentication {
             display: block;
             line-height: round(1.6*$fs-normal);
           }
-          input, select {
+          input[type="email"], input[type="password"], select {
             display: inline;
             width: 100%;
             @include box-sizing(border-box);
             height: 2 * $fs-normal;
           }
-          input {
-            &[type="submit"] {
+          input[type="submit"] {
+	      @include inline-block;
+              @include box-sizing(border-box);
+              width: 100%;
               text-align: center;
               margin: 10px auto;
 	      display: block;
               height: 3 * $fs-normal;
-            }
+              
           }
 	  .field {
             margin-bottom: $default-gap;

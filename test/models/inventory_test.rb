@@ -22,11 +22,13 @@
 # == Table: inventories
 #
 #  accounted_at     :datetime
+#  achieved_at      :datetime
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
+#  name             :string(255)      not null
 #  number           :string(20)
 #  reflected        :boolean          not null
 #  reflected_at     :datetime

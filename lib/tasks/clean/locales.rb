@@ -132,14 +132,14 @@ task :locales => :environment do
   end
 
   # Controllers
-  translation << "  controllers:\n"
-  for controller_path, actions in Clean::Support.actions_hash
-    controller_name = controller_path.split("/").last
-    name = ::I18n.hardtranslate("controllers.#{controller_path}")
-    untranslated += 1 if name.blank?
-    to_translate += 1
-    translation << "    #{missing_prompt if name.blank?}#{controller_path}: " + Clean::Support.yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
-  end
+  # translation << "  controllers:\n"
+  # for controller_path, actions in Clean::Support.actions_hash
+  #   controller_name = controller_path.split("/").last
+  #   name = ::I18n.hardtranslate("controllers.#{controller_path}")
+  #   untranslated += 1 if name.blank?
+  #   to_translate += 1
+  #   translation << "    #{missing_prompt if name.blank?}#{controller_path}: " + Clean::Support.yaml_value(name.blank? ? controller_name.humanize : name, 2) + "\n"
+  # end
 
   # Errors
   to_translate += Clean::Support.hash_count(::I18n.translate("errors"))
@@ -262,9 +262,9 @@ task :locales => :environment do
   translation  = locale.to_s+":\n"
   translation << "  activerecord:\n"
   to_translate += Clean::Support.hash_count(::I18n.translate("activerecord.attributes"))
-  translation << "    attributes:"+Clean::Support.hash_to_yaml(::I18n.translate("activerecord.attributes"), 3)+"\n"
+  translation << "    attributes:" + Clean::Support.hash_to_yaml(::I18n.translate("activerecord.attributes"), 3)+"\n"
   to_translate += Clean::Support.hash_count(::I18n.translate("activerecord.errors"))
-  translation << "    errors:"+Clean::Support.hash_to_yaml(::I18n.translate("activerecord.errors"), 3)+"\n"
+  translation << "    errors:" + Clean::Support.hash_to_yaml(::I18n.translate("activerecord.errors"), 3)+"\n"
   translation << "    models:\n"
   for model, definition in models.sort
     translation << "      "

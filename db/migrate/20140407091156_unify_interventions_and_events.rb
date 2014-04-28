@@ -1,6 +1,7 @@
 class UnifyInterventionsAndEvents < ActiveRecord::Migration
   def change
     add_reference :analysis_items, :product_reading
+
     add_reference :interventions, :event
     add_column :interventions, :number, :string
     add_column :interventions, :parameters, :text

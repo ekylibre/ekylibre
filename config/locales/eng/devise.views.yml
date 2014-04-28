@@ -35,7 +35,7 @@ eng:
       edit:
         are_you_sure: "Are you sure?"
         cancel_my_account: "Cancel my account"
-        leave_blank_if_you_don_t_want_to_change_it: "leave blank if you dont want to change it"
+        leave_blank_if_you_don_t_want_to_change_it: "Leave blank if you dont want to change it"
         title: "Edit %{resource}"
         unhappy: "Unhappy"
         update: "Update"

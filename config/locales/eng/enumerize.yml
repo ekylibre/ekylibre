@@ -1,25 +1,10 @@
 eng:
   enumerize:
     activity:
-      family:
-        animal: "Animal"
-        none: "None"
-        perenne_vegetal: "Pluri-annual plant"
-        processing: "Processing"
-        service: "Service"
-        vegetal: "Annual plant"
       nature:
         auxiliary: "Auxiliary"
         main: "Main"
         none: "None"
-    animal: ""
-    animal_group: ""
-    animal_medicine: ""
-    asset:
-      depreciation_method:
-        graduated: "Graduated"
-        linear: "Linear"
-        simplified_linear: "Simplified linear"
     cash:
       mode:
         bban: "Basic Bank Account Number (BBAN)"
@@ -27,7 +12,6 @@ eng:
       nature:
         bank_account: "Bank account"
         cash_box: "Cash box"
-    cultivable_zone: ""
     custom_field:
       nature:
         boolean: "Check box"
@@ -35,46 +19,17 @@ eng:
         date: "Date"
         datetime: "Date and time"
         decimal: "Decimal"
-        string: "Text"
-    document: ""
+        text: "Text"
     document_template:
-      archiving: ""
-      family:
-        accountancy: "Accountancy"
-        company: "Company"
-        management: "Management"
-        production: "Production"
-        relations: "Relationships"
-        resources: "Resources"
-      nature:
-        animal: "Animal card"
-        balance: "Balance"
-        balance_sheet: "Balance sheet"
-        deposit: "Deposit"
-        entity: "Person"
-        financial_year: "Financial year document"
-        general_journal: "General journal"
-        general_ledger: "Grand ledger"
-        income_statement: "Income statement"
-        inventory: "Inventory"
-        journal: "Journal"
-        other: "Other"
-        purchase: "Purchase order"
-        sales_invoice: "Sales invoice"
-        sales_order: "Sales order"
-        stocks: "Stocks"
-        transport: "Transport"
-    easement: ""
-    entity:
-      nature:
-        association: "Association"
-        civil_society: "Civil society"
-        collectivity: "Collectivity"
-        company: "Company"
-        doctor: "Doctor"
-        foundation: "Foundation"
-        person: "Person"
-        sir: "Sir"
+      archiving:
+        all: "Tous du type"
+        all_of_template: "All of template"
+        first: "First of type"
+        first_of_template: "First of template"
+        last: "Last of type"
+        last_of_template: "Last of template"
+        none: "None of type"
+        none_of_template: "None of template"
     entity_address:
       canal:
         email: "Email"
@@ -83,35 +38,29 @@ eng:
         mobile: "Mobile phone"
         phone: "Phone"
         website: "Website"
-    entity_event_nature:
-      usage:
-        mailing: "Mailing"
-        manual: "Manual"
-        purchase: "Creation of a purchase"
-        sale: "Creation of a sale"
-        sales_invoice: "Creation of a sales invoice"
-    event_nature:
-      usage:
-        mailing: "Mailing"
-        manual: "Manual"
-        purchase: "Creation of a purchase"
-        sale: "Creation of a sale"
-        sales_invoice: "Creation of a sales invoice"
     event_participation:
-      state: ""
+      state:
+        accepted: "Accepted"
+        informative: "Informative"
+        refused: "Refused"
+        waiting: "Waiting"
     financial_asset:
-      depreciation_method: ""
+      depreciation_method:
+        graduated: "Graduated"
+        linear: "Linear"
+        simplified_linear: "Simplified linear"
     guide_analysis:
-      status: ""
-    immatter: ""
+      status:
+        errored: "Errored"
+        failed: "Failed"
+        passed: "Passed"
+        passed_with_warnings: "Passed with warnings"
     intervention:
       state:
         done: "Done"
         in_progress: "In progress"
         squeezed: "Squeezed"
         undone: "Undone"
-    intervention_cast: ""
-    inventory_item: ""
     journal:
       nature:
         bank: "Bank"
@@ -120,78 +69,16 @@ eng:
         purchases: "Purchases"
         sales: "Sales"
         various: "Various operations"
-    land_parcel_cluster: ""
-    land_parcel_group: ""
-    legal_entity: ""
-    matter: ""
-    medicine: ""
-    meeting_nature:
-      usage:
-        mailing: "Mailing"
-        manual: "Manual"
-        purchase: "Creation of a purchase"
-        sale: "Creation of a sale"
-        sales_invoice: "Creation of a sales invoice"
     observation:
       importance:
         important: "Important"
         normal: "Normal"
         notice: "Notice"
-    operation_item:
-      direction:
-        in: "In"
-        out: "Out"
-    operation_line:
-      direction:
-        in: "In"
-        out: "Out"
-    person: ""
-    plant: ""
-    plant_medicine: ""
-    procedure:
-      state:
-        done: "Done"
-        in_progress: "In progress"
-        squeezed: "Squeezed"
-        undone: "Undone"
-    product:
-      arrival_reasons:
-        birth: "Birth"
-        housing: "Housing"
-        other: "Other"
-        purchase: "Purchase"
-    product_group: ""
-    product_localization:
-      arrival_cause: ""
-      departure_cause: ""
-      nature: ""
-    product_nature:
-      nature:
-        product: "Product"
-        service: "Service"
-        subscription: "Subcription"
-        transfer: "Transfer"
-    product_nature_variant: ""
-    product_reading: ""
-    product_transfer:
-      nature:
-        gain: "Gain"
-        transfer: "Transfer"
-        waste: "Loss"
-    production_chain_work_center:
-      nature:
-        input: "One in, many out"
-        output: "Many in, one out"
     production_support_marker:
-      aim: ""
-    products_nature:
-      nature:
-        product: "Product"
-        service: "Service"
-        subscription: "Subcription"
-        transfer: "Transfer"
-    reading: ""
-    sale_item: ""
+      aim:
+        maximum: "Maximum"
+        minimum: "Minimum"
+        perfect: "Perfect"
     sequence:
       period:
         cweek: "Commercial week"
@@ -199,31 +86,28 @@ eng:
         number: "No periodicity"
         year: "Year"
       usage:
-        assets: "Numeration of assets"
+        animals: "Numeration of animals"
+        campaigns: "Numeration of campaigns"
         cash_transfers: "Numeration of cash transfers"
         deposits: "Numeration of deposits"
         entities: "Numeration of people"
+        financial_assets: "Numeration of financial assets"
         incoming_deliveries: "Numeration of incoming deliveries"
         incoming_payments: "Numeration of payments"
         outgoing_deliveries: "Numeration of outgoing deliveries"
         outgoing_payments: "Numeration of payments"
+        plants: "Numeration of plants"
         purchases: "Numeration of purchases"
         sales: "Numeration of sales"
         sales_invoices: "Numeration of sales invoices"
         stock_transfers: "Numeration of stock transfers"
         subscriptions: "Numeration of subscriptions"
         transports: "Numeration of transports"
-    sex:
-      female: "Female"
-      male: "Male"
-      mixt: "Mixte"
-    stock_transfer:
-      nature:
-        gain: "Gain"
-        transfer: "Transfer"
-        waste: "Loss"
     subscription_nature:
-      entity_link_direction: ""
+      entity_link_direction:
+        all: "Bidirectional"
+        direct: "Direct"
+        indirect: "Indirect"
       nature:
         period: "Subscription by date"
         quantity: "Subscription by number"

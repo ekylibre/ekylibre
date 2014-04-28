@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140415075729) do
+ActiveRecord::Schema.define(version: 20140428085206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -1122,6 +1122,8 @@ ActiveRecord::Schema.define(version: 20140415075729) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                default: 0,     null: false
+    t.string   "name",                                        null: false
+    t.datetime "achieved_at"
   end
 
   add_index "inventories", ["created_at"], :name => "index_inventories_on_created_at"
@@ -1132,16 +1134,18 @@ ActiveRecord::Schema.define(version: 20140415075729) do
   add_index "inventories", ["updater_id"], :name => "index_inventories_on_updater_id"
 
   create_table "inventory_items", force: true do |t|
-    t.integer  "inventory_id",                                                 null: false
-    t.integer  "product_id",                                                   null: false
+    t.integer  "inventory_id",                                                                                       null: false
+    t.integer  "product_id",                                                                                         null: false
     t.integer  "product_reading_task_id"
-    t.decimal  "theoric_population",      precision: 19, scale: 4,             null: false
-    t.decimal  "population",              precision: 19, scale: 4,             null: false
-    t.datetime "created_at",                                                   null: false
-    t.datetime "updated_at",                                                   null: false
+    t.decimal  "expected_population",                                           precision: 19, scale: 4,             null: false
+    t.decimal  "population",                                                    precision: 19, scale: 4,             null: false
+    t.datetime "created_at",                                                                                         null: false
+    t.datetime "updated_at",                                                                                         null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                     default: 0, null: false
+    t.integer  "lock_version",                                                                           default: 0, null: false
+    t.spatial  "shape",                   limit: {:srid=>0, :type=>"geometry"}
+    t.spatial  "expected_shape",          limit: {:srid=>0, :type=>"geometry"}
   end
 
   add_index "inventory_items", ["created_at"], :name => "index_inventory_items_on_created_at"

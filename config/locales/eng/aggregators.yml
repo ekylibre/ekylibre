@@ -1,6 +1,4 @@
 eng:
   aggregators:
-    legends: ""
     parameters:
       campaigns: "Campaigns"
-    sections: ""

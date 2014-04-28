@@ -1,9 +1,13 @@
-= attributes_list do |l|
-  - l.attribute :number
-  - l.attribute :reponsible
-  - l.attribute :reflected
-  - l.attribute :moved_at
-  - l.attribute :description
+- main_toolbar do |t|
+  - t.edit resource
 
-%h2=Inventory.human_attribute_name("items")
-=list :items
+= beehive do |b|
+  - b.cell do
+    = attributes_list do |l|
+      - l.attribute :responsible, url: true
+      - l.attribute :achieved_at
+      - l.attribute :reflected
+      - l.attribute :reflected_at
+
+  - b.cell :items do
+    = list :items

@@ -1,26 +1,10 @@
 fra:
   enumerize:
     activity:
-      family:
-        # animal: "Animal"
-        # none: "None"
-        # perenne_vegetal: "Pluri-annual plant"
-        # processing: "Processing"
-        # service: "Service"
-        # vegetal: "Annual plant"
       nature:
-        auxiliaire: "Auxiliaire" #?
-        # auxiliary: "Auxiliary"
+        auxiliary: "Auxiliaire"
         main: "Principale"
         none: "―"
-    # animal: ""
-    # animal_group: ""
-    # animal_medicine: ""
-    asset:
-      depreciation_method:
-        # graduated: "Graduated"
-        # linear: "Linear"
-        # simplified_linear: "Simplified linear"
     cash:
       mode:
         bban: "Relevé d’identité bancaire (RIB)"
@@ -28,7 +12,6 @@ fra:
       nature:
         bank_account: "Compte bancaire"
         cash_box: "Caisse"
-    # cultivable_zone: ""
     custom_field:
       nature:
         boolean: "Case à cocher"
@@ -36,55 +19,17 @@ fra:
         date: "Date"
         datetime: "Date et heure"
         decimal: "Chiffre (décimal)"
-        # string: "Text"
-        text: "Texte" #?
-    # document: ""
+        text: "Texte"
     document_template:
-      archiving:  #? String excepted (Hash:{:all=>"Tous du type", :all_of_template=>"Tous du modèle", :first=>"Premier du type", :first_of_template=>"Premier du modèle", :last=>"Dernier du type", :last_of_template=>"Dernier du modèle", :none=>"Aucun du type", :none_of_template=>"Aucun du modèle"})
-        all: "Tous du type" #? String excepted (Hash:{:all=>"Tous du type", :all_of_template=>"Tous du modèle", :first=>"Premier du type", :first_of_template=>"Premier du modèle", :last=>"Dernier du type", :last_of_template=>"Dernier du modèle", :none=>"Aucun du type", :none_of_template=>"Aucun du modèle"})
-        all_of_template: "Tous du modèle" #? String excepted (Hash:{:all=>"Tous du type", :all_of_template=>"Tous du modèle", :first=>"Premier du type", :first_of_template=>"Premier du modèle", :last=>"Dernier du type", :last_of_template=>"Dernier du modèle", :none=>"Aucun du type", :none_of_template=>"Aucun du modèle"})
-        first: "Premier du type" #? String excepted (Hash:{:all=>"Tous du type", :all_of_template=>"Tous du modèle", :first=>"Premier du type", :first_of_template=>"Premier du modèle", :last=>"Dernier du type", :last_of_template=>"Dernier du modèle", :none=>"Aucun du type", :none_of_template=>"Aucun du modèle"})
-        first_of_template: "Premier du modèle" #? String excepted (Hash:{:all=>"Tous du type", :all_of_template=>"Tous du modèle", :first=>"Premier du type", :first_of_template=>"Premier du modèle", :last=>"Dernier du type", :last_of_template=>"Dernier du modèle", :none=>"Aucun du type", :none_of_template=>"Aucun du modèle"})
-        last: "Dernier du type" #? String excepted (Hash:{:all=>"Tous du type", :all_of_template=>"Tous du modèle", :first=>"Premier du type", :first_of_template=>"Premier du modèle", :last=>"Dernier du type", :last_of_template=>"Dernier du modèle", :none=>"Aucun du type", :none_of_template=>"Aucun du modèle"})
-        last_of_template: "Dernier du modèle" #? String excepted (Hash:{:all=>"Tous du type", :all_of_template=>"Tous du modèle", :first=>"Premier du type", :first_of_template=>"Premier du modèle", :last=>"Dernier du type", :last_of_template=>"Dernier du modèle", :none=>"Aucun du type", :none_of_template=>"Aucun du modèle"})
-        none: "Aucun du type" #? String excepted (Hash:{:all=>"Tous du type", :all_of_template=>"Tous du modèle", :first=>"Premier du type", :first_of_template=>"Premier du modèle", :last=>"Dernier du type", :last_of_template=>"Dernier du modèle", :none=>"Aucun du type", :none_of_template=>"Aucun du modèle"})
-        none_of_template: "Aucun du modèle" #? String excepted (Hash:{:all=>"Tous du type", :all_of_template=>"Tous du modèle", :first=>"Premier du type", :first_of_template=>"Premier du modèle", :last=>"Dernier du type", :last_of_template=>"Dernier du modèle", :none=>"Aucun du type", :none_of_template=>"Aucun du modèle"})
-      family:
-        # accountancy: "Accountancy"
-        # company: "Company"
-        # management: "Management"
-        # production: "Production"
-        # relations: "Relationships"
-        # resources: "Resources"
-      nature:
-        # animal: "Animal card"
-        # balance: "Balance"
-        # balance_sheet: "Balance sheet"
-        # deposit: "Deposit"
-        # entity: "Person"
-        # financial_year: "Financial year document"
-        # general_journal: "General journal"
-        # general_ledger: "Grand ledger"
-        # income_statement: "Income statement"
-        # inventory: "Inventory"
-        # journal: "Journal"
-        # other: "Other"
-        # purchase: "Purchase order"
-        # sales_invoice: "Sales invoice"
-        # sales_order: "Sales order"
-        # stocks: "Stocks"
-        # transport: "Transport"
-    # easement: ""
-    entity:
-      nature:
-        # association: "Association"
-        # civil_society: "Civil society"
-        # collectivity: "Collectivity"
-        # company: "Company"
-        # doctor: "Doctor"
-        # foundation: "Foundation"
-        # person: "Person"
-        # sir: "Sir"
+      archiving:
+        all: "Tous du type"
+        all_of_template: "Tous du modèle"
+        first: "Premier du type"
+        first_of_template: "Premier du modèle"
+        last: "Dernier du type"
+        last_of_template: "Dernier du modèle"
+        none: "Aucun du type"
+        none_of_template: "Aucun du modèle"
     entity_address:
       canal:
         email: "E-mail"
@@ -93,46 +38,29 @@ fra:
         mobile: "Téléphone portable"
         phone: "Téléphone fixe"
         website: "Site web"
-    entity_event_nature:
-      usage:
-        # mailing: "Mailing"
-        # manual: "Manual"
-        # purchase: "Creation of a purchase"
-        # sale: "Creation of a sale"
-        # sales_invoice: "Creation of a sales invoice"
-    event_nature:
-      usage:
-        mailing: "Mailing"
-        manual: "Manuelle"
-        purchase: "Création d’un achat"
-        sale: "Création d’un devis"
-        sales_invoice: "Création d’une facture"
     event_participation:
-      state:  #? String excepted (Hash:{:accepted=>"Accepté", :informative=>"Pour information", :refused=>"Refusé", :waiting=>"En attente de réponse"})
-        accepted: "Accepté" #? String excepted (Hash:{:accepted=>"Accepté", :informative=>"Pour information", :refused=>"Refusé", :waiting=>"En attente de réponse"})
-        informative: "Pour information" #? String excepted (Hash:{:accepted=>"Accepté", :informative=>"Pour information", :refused=>"Refusé", :waiting=>"En attente de réponse"})
-        refused: "Refusé" #? String excepted (Hash:{:accepted=>"Accepté", :informative=>"Pour information", :refused=>"Refusé", :waiting=>"En attente de réponse"})
-        waiting: "En attente de réponse" #? String excepted (Hash:{:accepted=>"Accepté", :informative=>"Pour information", :refused=>"Refusé", :waiting=>"En attente de réponse"})
+      state:
+        accepted: "Accepté"
+        informative: "Pour information"
+        refused: "Refusé"
+        waiting: "En attente de réponse"
     financial_asset:
-      depreciation_method:  #? String excepted (Hash:{:graduated=>"Dégressive", :linear=>"Linéaire", :simplified_linear=>"Linéaire simplifiée"})
-        graduated: "Dégressive" #? String excepted (Hash:{:graduated=>"Dégressive", :linear=>"Linéaire", :simplified_linear=>"Linéaire simplifiée"})
-        linear: "Linéaire" #? String excepted (Hash:{:graduated=>"Dégressive", :linear=>"Linéaire", :simplified_linear=>"Linéaire simplifiée"})
-        simplified_linear: "Linéaire simplifiée" #? String excepted (Hash:{:graduated=>"Dégressive", :linear=>"Linéaire", :simplified_linear=>"Linéaire simplifiée"})
+      depreciation_method:
+        graduated: "Dégressive"
+        linear: "Linéaire"
+        simplified_linear: "Linéaire simplifiée"
     guide_analysis:
-      status:  #? String excepted (Hash:{:errored=>"Erroné", :failed=>"Échoué", :passed=>"Passé", :passed_with_warnings=>"Passé avec remarques"})
-        errored: "Erroné" #? String excepted (Hash:{:errored=>"Erroné", :failed=>"Échoué", :passed=>"Passé", :passed_with_warnings=>"Passé avec remarques"})
-        failed: "Échoué" #? String excepted (Hash:{:errored=>"Erroné", :failed=>"Échoué", :passed=>"Passé", :passed_with_warnings=>"Passé avec remarques"})
-        passed: "Passé" #? String excepted (Hash:{:errored=>"Erroné", :failed=>"Échoué", :passed=>"Passé", :passed_with_warnings=>"Passé avec remarques"})
-        passed_with_warnings: "Passé avec remarques" #? String excepted (Hash:{:errored=>"Erroné", :failed=>"Échoué", :passed=>"Passé", :passed_with_warnings=>"Passé avec remarques"})
-    # immatter: ""
+      status:
+        errored: "Erroné"
+        failed: "Échoué"
+        passed: "Passé"
+        passed_with_warnings: "Passé avec remarques"
     intervention:
       state:
         done: "Réalisée"
         in_progress: "En cours"
         squeezed: "Non réalisée"
         undone: "Pas encore réalisée"
-    # intervention_cast: ""
-    # inventory_item: ""
     journal:
       nature:
         bank: "Banque"
@@ -141,84 +69,16 @@ fra:
         purchases: "Achats"
         sales: "Ventes"
         various: "Opérations diverses"
-    # land_parcel_cluster: ""
-    # land_parcel_group: ""
-    # legal_entity: ""
-    # matter: ""
-    # medicine: ""
-    meeting_nature:
-      usage:
-        # mailing: "Mailing"
-        # manual: "Manual"
-        # purchase: "Creation of a purchase"
-        # sale: "Creation of a sale"
-        # sales_invoice: "Creation of a sales invoice"
     observation:
       importance:
         important: "Importante"
         normal: "Normale"
         notice: "Faible"
-    operation_item:
-      direction:
-        # in: "In"
-        # out: "Out"
-    operation_line:
-      direction:
-        # in: "In"
-        # out: "Out"
-    # person: ""
-    # plant: ""
-    # plant_medicine: ""
-    procedure:
-      state:
-        # done: "Done"
-        # in_progress: "In progress"
-        # squeezed: "Squeezed"
-        # undone: "Undone"
-    product:
-      arrival_reasons:
-        # birth: "Birth"
-        # housing: "Housing"
-        # other: "Other"
-        # purchase: "Purchase"
-    # product_group: ""
-    product_localization:
-      # arrival_cause: ""
-      # departure_cause: ""
-      nature:  #? String excepted (Hash:{:exterior=>"Sortie", :interior=>"Entrée", :transfer=>"Transfert"})
-        exterior: "Sortie" #? String excepted (Hash:{:exterior=>"Sortie", :interior=>"Entrée", :transfer=>"Transfert"})
-        interior: "Entrée" #? String excepted (Hash:{:exterior=>"Sortie", :interior=>"Entrée", :transfer=>"Transfert"})
-        transfer: "Transfert" #? String excepted (Hash:{:exterior=>"Sortie", :interior=>"Entrée", :transfer=>"Transfert"})
-    product_nature:
-      nature:
-        # product: "Product"
-        # service: "Service"
-        # subscription: "Subcription"
-        # transfer: "Transfer"
-    # product_nature_variant: ""
-    # product_reading: ""
-    product_transfer:
-      nature:
-        # gain: "Gain"
-        # transfer: "Transfer"
-        # waste: "Loss"
-    production_chain_work_center:
-      nature:
-        # input: "One in, many out"
-        # output: "Many in, one out"
     production_support_marker:
-      aim:  #? String excepted (Hash:{:maximum=>"Maximum", :minimum=>"Minimum", :perfect=>"Idéal"})
-        maximum: "Maximum" #? String excepted (Hash:{:maximum=>"Maximum", :minimum=>"Minimum", :perfect=>"Idéal"})
-        minimum: "Minimum" #? String excepted (Hash:{:maximum=>"Maximum", :minimum=>"Minimum", :perfect=>"Idéal"})
-        perfect: "Idéal" #? String excepted (Hash:{:maximum=>"Maximum", :minimum=>"Minimum", :perfect=>"Idéal"})
-    products_nature:
-      nature:
-        # product: "Product"
-        # service: "Service"
-        # subscription: "Subcription"
-        # transfer: "Transfer"
-    # reading: ""
-    # sale_item: ""
+      aim:
+        maximum: "Maximum"
+        minimum: "Minimum"
+        perfect: "Idéal"
     sequence:
       period:
         cweek: "Semaine"
@@ -226,38 +86,28 @@ fra:
         number: "Pas de périodicité"
         year: "Année"
       usage:
-        animals: "Numérotation des animaux" #?
-        # assets: "Numeration of assets"
-        campaigns: "Numérotation des campagnes de productions" #?
+        animals: "Numérotation des animaux"
+        campaigns: "Numérotation des campagnes de productions"
         cash_transfers: "Numérotation des virements internes"
         deposits: "Numérotation des remises en banque"
         entities: "Numérotation des personnes"
-        financial_assets: "Numérotation des immobilisations" #?
+        financial_assets: "Numérotation des immobilisations"
         incoming_deliveries: "Numérotation des bons de réceptions"
         incoming_payments: "Numérotation des encaissements"
         outgoing_deliveries: "Numérotation des bons de livraisons"
         outgoing_payments: "Numérotation des décaissements"
-        plants: "Numérotation des cultures" #?
+        plants: "Numérotation des cultures"
         purchases: "Numérotation des achats"
         sales: "Numérotation des ventes"
         sales_invoices: "Numérotation des factures"
         stock_transfers: "Numérotation des transferts de stock"
         subscriptions: "Numérotation des abonnements"
         transports: "Numérotation des transports"
-    sex:
-      # female: "Female"
-      # male: "Male"
-      # mixt: "Mixte"
-    stock_transfer:
-      nature:
-        # gain: "Gain"
-        # transfer: "Transfer"
-        # waste: "Loss"
     subscription_nature:
-      entity_link_direction:  #? String excepted (Hash:{:all=>"Bidirectionnel", :direct=>"Direct", :indirect=>"Indirect"})
-        all: "Bidirectionnel" #? String excepted (Hash:{:all=>"Bidirectionnel", :direct=>"Direct", :indirect=>"Indirect"})
-        direct: "Direct" #? String excepted (Hash:{:all=>"Bidirectionnel", :direct=>"Direct", :indirect=>"Indirect"})
-        indirect: "Indirect" #? String excepted (Hash:{:all=>"Bidirectionnel", :direct=>"Direct", :indirect=>"Indirect"})
+      entity_link_direction:
+        all: "Bidirectionnel"
+        direct: "Direct"
+        indirect: "Indirect"
       nature:
         period: "Par dates"
         quantity: "Par numéros"

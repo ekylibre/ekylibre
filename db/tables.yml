@@ -761,11 +761,13 @@ interventions:
 
 inventories:
   accounted_at: {type: datetime}
+  achieved_at: {type: datetime}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   id: {type: integer, required: true}
   journal_entry_id: {type: integer, references: journal_entry}
   lock_version: {type: integer, required: true, default: 0}
+  name: {type: string, required: true}
   number: {type: string, limit: 20}
   reflected: {type: boolean, required: true, default: false}
   reflected_at: {type: datetime}
@@ -776,13 +778,15 @@ inventories:
 inventory_items:
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
+  expected_population: {type: decimal, precision: 19, scale: 4, required: true}
+  expected_shape: {type: spatial}
   id: {type: integer, required: true}
   inventory_id: {type: integer, references: inventory, required: true}
   lock_version: {type: integer, required: true, default: 0}
   population: {type: decimal, precision: 19, scale: 4, required: true}
   product_id: {type: integer, references: product, required: true}
   product_reading_task_id: {type: integer, references: product_reading_task}
-  theoric_population: {type: decimal, precision: 19, scale: 4, required: true}
+  shape: {type: spatial}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 

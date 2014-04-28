@@ -23,13 +23,15 @@
 #
 #  created_at              :datetime         not null
 #  creator_id              :integer
+#  expected_population     :decimal(19, 4)   not null
+#  expected_shape          :spatial({:srid=>
 #  id                      :integer          not null, primary key
 #  inventory_id            :integer          not null
 #  lock_version            :integer          default(0), not null
 #  population              :decimal(19, 4)   not null
 #  product_id              :integer          not null
 #  product_reading_task_id :integer
-#  theoric_population      :decimal(19, 4)   not null
+#  shape                   :spatial({:srid=>
 #  updated_at              :datetime         not null
 #  updater_id              :integer
 #
@@ -42,8 +44,8 @@ class InventoryItem < Ekylibre::Record::Base
   has_one :container, through: :product
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :population, :theoric_population, allow_nil: true
-  validates_presence_of :inventory, :population, :product, :theoric_population
+  validates_numericality_of :expected_population, :population, allow_nil: true
+  validates_presence_of :expected_population, :inventory, :population, :product
   #]VALIDATORS]
 
   delegate :unit_name, to: :product

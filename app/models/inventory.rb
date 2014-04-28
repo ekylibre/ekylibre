@@ -22,11 +22,13 @@
 # == Table: inventories
 #
 #  accounted_at     :datetime
+#  achieved_at      :datetime
 #  created_at       :datetime         not null
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  journal_entry_id :integer
 #  lock_version     :integer          default(0), not null
+#  name             :string(255)      not null
 #  number           :string(20)
 #  reflected        :boolean          not null
 #  reflected_at     :datetime
@@ -41,12 +43,19 @@ class Inventory < Ekylibre::Record::Base
   has_many :items, class_name: "InventoryItem", dependent: :destroy, inverse_of: :inventory
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :number, allow_nil: true, maximum: 20
+  validates_length_of :name, allow_nil: true, maximum: 255
   validates_inclusion_of :reflected, in: [true, false]
+  validates_presence_of :name
   #]VALIDATORS]
+  validates_presence_of :achieved_at
 
   scope :unreflecteds, -> { where(reflected: false) }
 
   accepts_nested_attributes_for :items
+
+  before_validation do
+    self.achieved_at ||= Time.now
+  end
 
   bookkeep on: :nothing do |b|
   end
@@ -59,13 +68,23 @@ class Inventory < Ekylibre::Record::Base
     !self.reflected? and self.class.unreflecteds.where(self.class.arel_table[:created_at].lt(self.created_at)).empty?
   end
 
-  def reflect(reflected_at = Time.now)
-    self.reflected_at = reflected_at
+  # Apply deltas on products ?
+  def reflect
+    self.reflected_at = Time.now
     self.reflected = true
     for item in self.items
       # item.confirm_stock_move(reflected_at)
     end
     self.save
+  end
+
+  def build_missing_items
+    self.achieved_at ||= Time.now
+    for product in Product.at(achieved_at).of_owner(Entity.of_company)
+      unless self.items.find_by(product_id: product.id)
+        self.items.build(product_id: product.id, population: product.population(at: self.achieved_at), theoric_population: product.population(at: self.achieved_at))
+      end
+    end
   end
 
 end

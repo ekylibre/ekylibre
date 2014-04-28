@@ -105,6 +105,24 @@ module ApplicationHelper
     return number.l
   end
 
+  def human_age(seconds, options = {})
+    return options[:default] || "&ndash;".html_safe if seconds.nil?
+    vals = []
+    if (seconds/1.year).floor > 0
+      vals << :x_years.tl(count: (seconds/1.year).floor)
+      seconds -= 1.year * (seconds/1.year).floor
+    end
+    if (seconds/1.month).floor > 0
+      vals << :x_months.tl(count: (seconds/1.month).floor)
+      seconds -= 1.month * (seconds/1.month).floor
+    end
+    if (seconds/1.day).floor > 0
+      vals << :x_days.tl(count: (seconds/1.day).floor)
+      seconds -= 1.day * (seconds/1.day).floor
+    end
+    return vals.to_sentence
+  end
+
   # def locale_selector
   #   # , :selected => ::I18n.locale)
   #   locales = ::I18n.available_locales.sort{|a,b| a.to_s <=> b.to_s}

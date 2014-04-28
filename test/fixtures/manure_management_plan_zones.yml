@@ -59,14 +59,14 @@
 #
 
 manure_management_plan_zones_001:
-  computation_method: "poitou_charentes"
+  computation_method: "external"
   creator: users_001
   plan: plans_001
   support: production_supports_001
   updater: users_001
 
 manure_management_plan_zones_002:
-  computation_method: "poitou_charentes"
+  computation_method: "external"
   creator: users_001
   plan: plans_002
   support: production_supports_002

@@ -7,19 +7,19 @@ fra:
       confirmation_instructions:
         action: "Confirmer mon email"
         greeting: "Bienvenue %{recipient}!"
-        instruction: "Vous pouvez confirmer votre email grâce au lien ci-dessous:"
+        instruction: "Vous pouvez confirmer votre email grâce au lien ci-dessous\_:"
         subject: "Instructions pour confirmer votre compte"
       reset_password_instructions:
         action: "Changer mon mot de passe"
         greeting: "Bonjour %{recipient}!"
-        instruction: "Quelqu’un a demandé un lien pour changer votre mot de passe, le voici :"
+        instruction: "Quelqu’un a demandé un lien pour changer votre mot de passe, le voici\_:"
         instruction_2: "Si vous n’avez pas émis cette demande, merci d’ignorer cet email."
         instruction_3: "Votre mot de passe ne changera pas tant que vous n’aurez pas cliqué sur ce lien et renseigné un nouveau mot de passe."
         subject: "Instructions pour réinitialiser votre mot de passe"
       unlock_instructions:
         action: "Débloquer mon compte"
         greeting: "Bonjour %{recipient}!"
-        instruction: "Suivez ce lien pour débloquer votre compte:"
+        instruction: "Suivez ce lien pour débloquer votre compte\_:"
         message: "Votre compte a été bloqué suite à un nombre d’essais de connexions manqués trop important"
         subject: "Instructions pour débloquer votre compte"
     passwords:
@@ -29,16 +29,16 @@ fra:
         confirm_new_password: "Confirmer votre nouveau mot de passe"
         new_password: "Nouveau mot de passe"
       new:
-        forgot_your_password: "Mot de passe oublié ?"
+        forgot_your_password: "Mot de passe oublié\_?"
         send_me_reset_password_instructions: "Envoyez-moi des instructions pour réinitialiser mon mot de passe"
     registrations:
       edit:
-        are_you_sure: "Êtes-vous sûr ?!"
+        are_you_sure: "Êtes-vous sûr\_⁈"
         cancel_my_account: "Supprimer mon compte"
-        leave_blank_if_you_don_t_want_to_change_it: "laissez ce champ vide pour le laisser inchangé"
+        leave_blank_if_you_don_t_want_to_change_it: "Laissez ce champ vide pour le laisser inchangé"
         title: "Éditer %{resource}"
-        # unhappy: "Unhappy"
-        # update: "Update"
+        unhappy: "Mécontent"
+        update: "Mettre à jour"
         we_need_your_current_password_to_confirm_your_changes: "nous avons besoin de votre mot de passe actuel pour valider ces modifications"
       new:
         sign_up: "Inscription"
@@ -47,9 +47,9 @@ fra:
         sign_in: "Connexion"
     shared:
       links:
-        didn_t_receive_confirmation_instructions: "Vous n’avez pas reçu le mail de confirmation ?"
-        didn_t_receive_unlock_instructions: "Vous n’avez pas reçu le mail de débloquage ?"
-        forgot_your_password: "Mot de passe oublié ?"
+        didn_t_receive_confirmation_instructions: "Vous n’avez pas reçu le mail de confirmation\_?"
+        didn_t_receive_unlock_instructions: "Vous n’avez pas reçu le mail de débloquage\_?"
+        forgot_your_password: "Mot de passe oublié\_?"
         sign_in: "Connexion"
         sign_in_with_provider: "Connexion avec %{provider}"
         sign_up: "Inscription"

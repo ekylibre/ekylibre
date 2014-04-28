@@ -56,7 +56,7 @@
 manure_management_plans_001:
   campaign: campaigns_001
   creator: users_001
-  default_computation_method: "none"
+  default_computation_method: "external"
   locked: false
   name: "PPF 2013"
   opened_at: 2013-10-26 18:34:04 +02:00
@@ -67,7 +67,7 @@ manure_management_plans_001:
 manure_management_plans_002:
   campaign: campaigns_001
   creator: users_001
-  default_computation_method: "none"
+  default_computation_method: "external"
   locked: false
   name: "PPF 2013 bis"
   opened_at: 2013-10-26 18:34:04 +02:00

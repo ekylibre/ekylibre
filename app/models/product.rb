@@ -152,6 +152,10 @@ class Product < Ekylibre::Record::Base
   scope :of_variant, lambda { |variant, at = Time.now|
     where(variant_id: variant.id)
   }
+  scope :at, lambda { |at| where(arel_table[:born_at].lteq(at).and(arel_table[:dead_at].eq(nil).or(arel_table[:dead_at].gt(at)))) }
+  scope :of_owner, lambda { |owner|
+    joins(:current_ownership).where("product_ownerships.owner_id" => Entity.of_company.id)
+  }
 
   scope :of_productions, lambda { |*productions|
     productions.flatten!
@@ -372,6 +376,14 @@ class Product < Ekylibre::Record::Base
   def price(options = {})
     return CatalogPrice.price(self, options)
   end
+
+
+  # Returns age in seconds of the product
+  def age(at = Time.now)
+    return nil if self.born_at.nil? or self.born_at >= at
+    return ((self.dead_at || at) - self.born_at)
+  end
+
 
   # Returns an evaluated price (without taxes) for the product in an intervention context
   # options could contains a parameter :at for the datetime of a catalog price

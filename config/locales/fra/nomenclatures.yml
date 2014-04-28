@@ -292,10 +292,9 @@ fra:
         stocks: "Stocks"
         straw_cereal_crops: "Céréales à paille"
         vegetal_crops: "Production végétale"
-        # vine_wine: "Vine wine"
+        vine_wine: "Vignes & vin"
       name: "Familles d’activité"
     administrative_area_natures:
-      choices: #?
       items:
         france_commune: "Commune de France"
         france_department: "Département de France"
@@ -303,9 +302,8 @@ fra:
       name: "Types de territoires administratifs"
       property_natures:
         country: "Pays"
-        # parent: "Parent"
+        parent: "Parent"
     administrative_areas:
-      choices: #?
       items:
         france_department_ain: "Ain"
         france_department_aisne: "Aisne"
@@ -439,9 +437,8 @@ fra:
       property_natures:
         code: "Code ISO"
         nature: "Type"
-        # parent: "Parent"
+        parent: "Parent"
     analysis_natures:
-      choices: #?
       items:
         cow_milk_analysis: "Analyse de lait de vache"
         soil_analysis: "Analyse de sol"
@@ -474,7 +471,6 @@ fra:
         label_rouge: "Label Rouge"
       name: "Labels"
     certifications:
-      choices: #?
       items:
         bordeaux_blanc: "Bordeaux blanc"
         bordeaux_blanc_avec_sucres: "Bordeaux blanc avec sucres"
@@ -1252,7 +1248,7 @@ fra:
         matters: "Matières"
         medicines: "Médicaments"
         mineral_matters: "Matière minérale"
-        # myselves: "Myselves"
+        myselves: "Mon compte"
         net_services: "Services en ligne"
         observations: "Observations"
         organic_matters: "Matières organiques"
@@ -1691,8 +1687,8 @@ fra:
     manure_management_plan_computation_methods:
       items:
         external: "Externe"
-        poitou_charentes_2013: "Poitou charentes 2013"
-      name: "Méthodes de calcul du PPF"
+        poitou_charentes_2013: "Poitou-Charentes 2013"
+      name: "Méthodes de calcul du plan de fumure"
     molecules:
       items:
         ammonia: "Ammoniac"
@@ -1984,7 +1980,7 @@ fra:
           plant: "Plant"
           room: "Salle"
           round_bale: "Botte ronde"
-          small_rectangular_bale: "Botte rectangulaire petit format (100*40*40)"
+          small_rectangular_bale: "Botte rectangulaire petit format (100×40×40)"
           square_meter: "Mètre carré"
           ton: "Tonne"
           unit: "Unité"
@@ -2438,7 +2434,6 @@ fra:
         variable_indicators: "Indicateurs variables"
         variety: "Variété"
     production_natures:
-      choices: #?
       items:
         administrative: "Administratif"
         annual_frost_fallow_land: "Gel annuel"
@@ -2583,7 +2578,6 @@ fra:
         stopped_on: "Arrêté le"
         suffix: "suffixe du compte comptable"
     units:
-      choices: #?
       items:
         acre: "Acre"
         ampere: "Ampère"
@@ -2973,7 +2967,7 @@ fra:
         triticum_durum_miradoux: "Blé dur Miradoux"
         triticum_durum_pescadou: "Blé dur Pescadou"
         triticum_durum_sculptur: "Blé dur Sculptur"
-        triticum_durum_sy_banco: "Blé dur sy Banco"
+        triticum_durum_sy_banco: "Blé dur Sy Banco"
         triticum_durum_sy_cysco: "Blé dur Sy Cysco"
         triticum_durum_tablur: "Blé dur Tablur"
         triticum_spelta: "Épeautre"

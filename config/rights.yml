@@ -973,8 +973,6 @@ inventories:
     - "backend/inventories#index"
     - "backend/inventories#list"
     - "backend/inventories#list_items"
-    - "backend/inventories#list_items_create"
-    - "backend/inventories#list_items_update"
     - "backend/inventories#show"
     - "backend/inventories#unroll"
   write:

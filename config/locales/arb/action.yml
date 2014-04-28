@@ -123,70 +123,45 @@ arb:
       # index: "Catalogs"
       # new: "New catalog"
       # show: "Catalog: %{name}"
-    backend/cells/bank_chart_cells:
-      # show: "Bank chart cell: %{name}"
-    backend/cells/calendar_cells:
-      # show: "Calendar cell: %{name}"
-    backend/cells/collected_taxes_cells:
-      # show: "Collected taxes cell: %{name}"
-    backend/cells/cropping_plan_cells:
-      # show: "Cropping plan cell: %{name}"
+    backend/cells/bank_chart_cells: #?
+    backend/cells/calendar_cells: #?
+    backend/cells/collected_taxes_cells: #?
+    backend/cells/cropping_plan_cells: #?
     backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
-    backend/cells/cropping_plan_on_cultivable_zones_cells:
-      # show: "Cropping plan on cultivable zones cell: %{name}"
+    backend/cells/cropping_plan_on_cultivable_zones_cells: #?
     backend/cells/current_stocks_by_product_nature_cells: #?
-    backend/cells/current_stocks_by_variety_cells:
-      # show: "Current stocks by variety cell: %{name}"
+    backend/cells/current_stocks_by_variety_cells: #?
     backend/cells/demo_bar_cells: #?
     backend/cells/demo_map_cells: #?
     backend/cells/demo_pie_cells: #?
-    backend/cells/elapsed_interventions_times_by_activities_cells:
-      # show: "Elapsed interventions times by activities cell: %{name}"
+    backend/cells/elapsed_interventions_times_by_activities_cells: #?
     backend/cells/elevage_rss_cells: #?
-    backend/cells/events_cells:
-      # show: "Events cell: %{name}"
+    backend/cells/events_cells: #?
     backend/cells/expense_chart_cells: #?
-    backend/cells/guide_evolution_cells:
-      # show: "Guide evolution cell: %{name}"
-    backend/cells/last_analyses_cells:
-      # show: "Last analyses cell: %{name}"
-    backend/cells/last_document_archives_cells:
-      # show: "Last document archives cell: %{name}"
-    backend/cells/last_entities_cells:
-      # show: "Last entities cell: %{name}"
-    backend/cells/last_events_cells:
-      # show: "Last events cell: %{name}"
-    backend/cells/last_incoming_deliveries_cells:
-      # show: "Last incoming deliveries cell: %{name}"
-    backend/cells/last_interventions_cells:
-      # show: "Last interventions cell: %{name}"
-    backend/cells/last_issues_cells:
-      # show: "Last issues cell: %{name}"
+    backend/cells/guide_evolution_cells: #?
+    backend/cells/last_analyses_cells: #?
+    backend/cells/last_document_archives_cells: #?
+    backend/cells/last_entities_cells: #?
+    backend/cells/last_events_cells: #?
+    backend/cells/last_incoming_deliveries_cells: #?
+    backend/cells/last_interventions_cells: #?
+    backend/cells/last_issues_cells: #?
     backend/cells/last_milk_result_cells: #?
-    backend/cells/last_outgoing_deliveries_cells:
-      # show: "Last outgoing deliveries cell: %{name}"
+    backend/cells/last_outgoing_deliveries_cells: #?
     backend/cells/last_procedures_cells: #?
-    backend/cells/last_products_cells:
-      # show: "Last products cell: %{name}"
-    backend/cells/last_purchases_cells:
-      # show: "Last purchases cell: %{name}"
-    backend/cells/last_sales_cells:
-      # show: "Last sales cell: %{name}"
-    backend/cells/map_cells:
-      # show: "Map cell: %{name}"
-    backend/cells/meteo_cells:
-      # show: "Meteo cell: %{name}"
-    backend/cells/placeholder_cells:
-      # show: "Placeholder cell: %{name}"
+    backend/cells/last_products_cells: #?
+    backend/cells/last_purchases_cells: #?
+    backend/cells/last_sales_cells: #?
+    backend/cells/map_cells: #?
+    backend/cells/meteo_cells: #?
+    backend/cells/placeholder_cells: #?
     backend/cells/product_bar_cells: #?
     backend/cells/product_pie_cells: #?
     backend/cells/purchases_bar_cells: #?
     backend/cells/purchases_expense_bar_cells: #?
-    backend/cells/revenues_by_product_nature_cells:
-      # show: "Revenues by product nature cell: %{name}"
+    backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
-    backend/cells/rss_cells:
-      # show: "Rss cell: %{name}"
+    backend/cells/rss_cells: #?
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?
@@ -273,9 +248,7 @@ arb:
       show: "ملف: %{full_name}"
     backend/entity_addresses:
       # edit: "Edit address: %{name}"
-      # index: "Entity addresses"
       # new: "Add a coordinate"
-      # show: "Entity address: %{name}"
     backend/entity_categories:  #?
       edit: "تعديل نوع الملف : %{name}" #?
       index: "انواع الملف" #?
@@ -295,9 +268,7 @@ arb:
       new: "اضافة نوع رابط جديد" #?
     backend/entity_links:
       edit: "تعديل الرابط"
-      # index: "Entity links"
       new: "اضافة رابط جديد"
-      # show: "Entity link: %{name}"
     backend/entity_natures:  #?
       edit: "تعديل نوع الملف : %{name}" #?
       index: "انواع الملفات" #?
@@ -402,7 +373,7 @@ arb:
       edit: "تعديل الجرد"
       index: "الجرد"
       new: "الجرد"
-      # show: "Inventory: %{number}"
+      # show: "Inventory: %{name}"
     backend/inventory_lines: #?
     backend/issues:
       # abort: "Abort issue: %{name}"
@@ -878,199 +849,71 @@ arb:
       # show: "Unlock: %{name}"
     public:
       # index: "Home"
-  controllers:
-    # application: "Application"
-    # authentication/passwords: "Passwords"
-    # authentication/sessions: "Sessions"
-    # backend: "Backend"
+  controllers:  #?
     backend/accountancy: "المحاسبة" #?
-    backend/accounts: "مخطط الحساب"
-    # backend/activities: "Activities"
-    # backend/affairs: "Affairs"
-    # backend/aggregators: "Aggregators"
-    # backend/analyses: "Analyses"
-    # backend/analytic_distributions: "Analytics distributions"
-    # backend/animal_foods: "Animal foods"
-    # backend/animal_groups: "Animal groups"
-    # backend/animal_medicines: "Animal medicines"
-    # backend/animal_products: "Animal products"
-    # backend/animals: "Animals"
+    backend/accounts: "مخطط الحساب" #?
     backend/application: "تطبيق" #?
     backend/areas: "العناوين البريد" #?
     backend/authentication: "المصادقة" #?
-    backend/bank_statements: "بيان الحساب المصرفي"
-    # backend/building_divisions: "Building divisions"
-    backend/buildings: "مواقع التخزين"
-    # backend/calculators: "Calculators"
-    # backend/calculators/nitrogen_inputs: "Nitrogen inputs"
-    # backend/campaigns: "Campaigns"
-    # backend/cash_transfers: "Cash transfers"
-    backend/cashes: "الخزينة"
-    # backend/catalog_prices: "Catalog prices"
-    # backend/catalogs: "Catalogs"
-    # backend/cells: "Cells"
-    # backend/cells/bank_chart_cells: "Bank chart cells"
-    # backend/cells/calendar_cells: "Calendar cells"
-    # backend/cells/collected_taxes_cells: "Collected taxes cells"
-    # backend/cells/cropping_plan_cells: "Cropping plan cells"
-    # backend/cells/cropping_plan_on_cultivable_zones_cells: "Cropping plan on cultivable zones cells"
-    # backend/cells/current_stocks_by_variety_cells: "Current stocks by variety cells"
-    # backend/cells/elapsed_interventions_times_by_activities_cells: "Elapsed interventions times by activities cells"
-    # backend/cells/events_cells: "Events cells"
-    # backend/cells/guide_evolution_cells: "Guide evolution cells"
-    # backend/cells/last_analyses_cells: "Last analyses cells"
-    # backend/cells/last_document_archives_cells: "Last document archives cells"
-    # backend/cells/last_entities_cells: "Last entities cells"
-    # backend/cells/last_events_cells: "Last events cells"
-    # backend/cells/last_incoming_deliveries_cells: "Last incoming deliveries cells"
-    # backend/cells/last_interventions_cells: "Last interventions cells"
-    # backend/cells/last_issues_cells: "Last issues cells"
-    # backend/cells/last_outgoing_deliveries_cells: "Last outgoing deliveries cells"
-    # backend/cells/last_products_cells: "Last products cells"
-    # backend/cells/last_purchases_cells: "Last purchases cells"
-    # backend/cells/last_sales_cells: "Last sales cells"
-    # backend/cells/map_cells: "Map cells"
-    # backend/cells/meteo_cells: "Meteo cells"
-    # backend/cells/placeholder_cells: "Placeholder cells"
-    # backend/cells/revenues_by_product_nature_cells: "Revenues by product nature cells"
-    # backend/cells/rss_cells: "Rss cells"
+    backend/bank_statements: "بيان الحساب المصرفي" #?
+    backend/buildings: "مواقع التخزين" #?
+    backend/cashes: "الخزينة" #?
     backend/company: "شركة" #?
-    # backend/cultivable_zones: "Cultivable zones"
-    # backend/custom_field_choices: "Custom field choices"
-    backend/custom_fields: "الحقول المخصصة"
-    # backend/dashboards: "Dashboards"
+    backend/custom_fields: "الحقول المخصصة" #?
     backend/delays: "مهلة" #?
     backend/departments: "الوظائف/المهام" #?
-    backend/deposits: "اقتطاعات البنك"
-    backend/districts: "المناطق الادارية"
-    # backend/document_archives: "Document archives"
-    backend/document_templates: "نماذج الوثيقة"
-    # backend/documents: "Documents"
-    backend/entities: "سجلات الاشخاص"
-    # backend/entity_addresses: "People addresses"
+    backend/deposits: "اقتطاعات البنك" #?
+    backend/districts: "المناطق الادارية" #?
+    backend/document_templates: "نماذج الوثيقة" #?
+    backend/entities: "سجلات الاشخاص" #?
     backend/entity_categories: "انواع الملف" #?
     backend/entity_event_natures: "انواع الاحداث" #?
     backend/entity_events: "الاحداث" #?
     backend/entity_link_natures: "انواع الرابط" #?
-    # backend/entity_links: "Entity links"
     backend/entity_natures: "انواع الملفات" #?
-    # backend/equipments: "Equipments"
-    backend/establishments: "مرافق"
+    backend/establishments: "مرافق" #?
     backend/event_natures: "انواع الاحداث" #?
-    # backend/event_participations: "Event participations"
-    backend/events: "الاحداث"
-    # backend/financial_assets: "Financial assets"
-    backend/financial_years: "ممارسة المحاسبة"
-    # backend/fungi: "Fungi"
-    # backend/gaps: "Gaps"
-    # backend/guide_analyses: "Guide analyses"
-    # backend/guides: "Guides"
+    backend/events: "الاحداث" #?
+    backend/financial_years: "ممارسة المحاسبة" #?
     backend/help: "المساعدة" #?
-    # backend/helps: "Helps"
-    # backend/identifiers: "Identifiers"
-    # backend/incoming_deliveries: "Incoming deliveries"
-    # backend/incoming_delivery_items: "Incoming delivery items"
-    # backend/incoming_delivery_modes: "Incoming delivery modes"
-    backend/incoming_payment_modes: "طرق تسديد الدفعات"
-    backend/incoming_payments: "الدفعات"
-    # backend/intervention_casts: "Intervention casts"
-    # backend/interventions: "Interventions"
-    backend/inventories: "الجرد"
-    # backend/inventory_items: "Inventory items"
-    # backend/issues: "Issues"
-    # backend/journal_entries: "Journal entries"
-    # backend/journal_entry_items: "Journal entry items"
-    backend/journals: "الدفاتر اليومية"
-    # backend/kujakus: "Kujakus"
-    # backend/land_parcel_clusters: "Land parcel clusters"
-    # backend/land_parcel_groups: "Land parcel groups"
-    backend/land_parcels: "انظمة"
-    # backend/legal_entities: "Legal entities"
-    # backend/listing_node_items: "Listing node items"
-    # backend/listing_nodes: "Listing nodes"
-    backend/listings: "الصادرات وارسال الرسائل"
+    backend/incoming_payment_modes: "طرق تسديد الدفعات" #?
+    backend/incoming_payments: "الدفعات" #?
+    backend/inventories: "الجرد" #?
+    backend/journals: "الدفاتر اليومية" #?
+    backend/land_parcels: "انظمة" #?
+    backend/listings: "الصادرات وارسال الرسائل" #?
     backend/management: "الادارة" #?
     backend/mandates: "تفويضات" #?
-    # backend/manure_management_plans: "Manure management plans"
-    # backend/matters: "Matters"
-    # backend/medicines: "Medicines"
-    # backend/mineral_matters: "Mineral matters"
-    # backend/myselves: "Myself"
-    # backend/net_services: "Net services"
-    # backend/observations: "Observations"
     backend/operation_natures: "اواع العمل" #?
-    backend/operations: "اعمال"
-    # backend/organic_matters: "Organic matters"
-    # backend/outgoing_deliveries: "Outgoing deliveries"
-    # backend/outgoing_delivery_items: "Outgoing delivery items"
-    backend/outgoing_delivery_modes: "وسائل التسليم"
-    backend/outgoing_payment_modes: "طرق تسديد الدفعات"
-    backend/outgoing_payments: "دفعات"
-    # backend/people: "People"
-    # backend/plant_fertilizers: "Plant fertilizers"
-    # backend/plant_medicines: "Plant medicines"
-    # backend/plant_products: "Plant products"
-    # backend/plant_seedlings: "Plant seedlings"
-    # backend/plants: "Plants"
-    # backend/postal_zones: "Postal zones"
-    # backend/prescriptions: "Prescriptions"
+    backend/operations: "اعمال" #?
+    backend/outgoing_delivery_modes: "وسائل التسليم" #?
+    backend/outgoing_payment_modes: "طرق تسديد الدفعات" #?
+    backend/outgoing_payments: "دفعات" #?
     backend/prices: "الاسعار" #?
     backend/product_categories: "فئات المنتج" #?
-    # backend/product_groups: "Product groups"
-    # backend/product_linkages: "Product linkages"
-    # backend/product_memberships: "Product memberships"
     backend/product_nature: "المنتجات" #?
-    backend/product_nature_categories: "فئات المنتج"
-    # backend/product_nature_variant_readings: "Product nature variant readings"
-    # backend/product_nature_variants: "Product nature variants"
-    backend/product_natures: "المنتجات"
-    # backend/product_ownerships: "Product ownerships"
-    # backend/product_phases: "Product phases"
+    backend/product_nature_categories: "فئات المنتج" #?
+    backend/product_natures: "المنتجات" #?
     backend/product_stocks: "وضع الاسهم" #?
     backend/product_transfers: "عمليات نقل وخسارة الاسهم" #?
     backend/production: "المنتج" #?
-    # backend/production_support_markers: "Production support markers"
-    # backend/production_supports: "Production supports"
-    # backend/productions: "Productions"
-    backend/products: "المنتجات"
+    backend/products: "المنتجات" #?
     backend/products_natures: "المنتجات" #?
-    # backend/purchase_items: "Purchase items"
-    # backend/purchase_natures: "Purchase types"
-    backend/purchases: "المستريات"
+    backend/purchases: "المستريات" #?
     backend/relations: "العلاقات" #?
-    backend/roles: "مهام"
-    # backend/sale_items: "Sale items"
-    backend/sale_natures: "انواع طلبات البيع"
-    backend/sales: "الطلبات وتحديد الاسعار"
-    backend/sequences: "التسلسلات"
-    # backend/settings: "Settings"
-    # backend/settlements: "Settlements"
-    # backend/snippets: "Snippets"
+    backend/roles: "مهام" #?
+    backend/sale_natures: "انواع طلبات البيع" #?
+    backend/sales: "الطلبات وتحديد الاسعار" #?
+    backend/sequences: "التسلسلات" #?
     backend/stock_transfers: "عمليات نقل وخسارة الاسهم" #?
     backend/stocks: "وضع الاسهم" #?
-    backend/subscription_natures: "انواع الاشتراك"
-    # backend/subscriptions: "Subscriptions"
+    backend/subscription_natures: "انواع الاشتراك" #?
     backend/tax_declarations: "تصريح عن قيمة الضريبة الاضافية" #?
-    backend/taxes: "الضرائب"
-    # backend/teams: "Teams"
+    backend/taxes: "الضرائب" #?
     backend/tools: "مادة" #?
-    # backend/trackings: "Trackings"
-    # backend/transfers: "Transfers"
-    # backend/transformed_products: "Transformed products"
-    backend/transports: "وسائل النقل"
+    backend/transports: "وسائل النقل" #?
     backend/units: "وحدات القياس" #?
-    backend/users: "المستخدمين"
-    # backend/wine_tanks: "Wine tanks"
-    # backend/wine_transformers: "Wine transformers"
-    # backend/workers: "Workers"
-    # base: "Base"
-    # devise: "Devise"
-    # devise/confirmations: "Confirmations"
-    # devise/passwords: "Passwords"
-    # devise/registrations: "Registrations"
-    # devise/sessions: "Sessions"
-    # devise/unlocks: "Unlocks"
-    # public: "Public"
+    backend/users: "المستخدمين" #?
   errors:
     messages:
       # already_confirmed: "was already confirmed, please try signing in"
@@ -1393,6 +1236,7 @@ arb:
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
     executed: "انجز"
     existing_part: "استخدام الدفعات الغير متضررة"
+    # expected_quantity_is_x: "Expected quantity: %{x}"
     # expedier: "Expedier"
     # expense_chart: "Expense chart"
     export: "اصدار الوثائق"
@@ -2156,6 +2000,8 @@ arb:
     bookkeeping_is_finished: "نهاية نطاق المحاسبة"
     bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
     cannot_delete_entity: "غير ممكن حذف هذا الملف لاحتوائه على محاسبة هامة"
+    # cannot_find_deal_to_attach: "Cannot find deal to attach"
+    # cannot_find_deal_to_detach: "Cannot find deal to detach"
     # cannot_find_document_template: "Cant find document template"
     # cannot_mark_entry_items: "Can not mark these entry lines"
     cannot_merge_an_entity_with_itself: "غير ممكن دمج الملف مع نفسه"
@@ -2177,6 +2023,7 @@ arb:
     exception_raised: "ظهور خطأ واحد اثناء المعالجة: %{message}"
     expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال"
     fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
+    # implemented_with_dummy_data: "Implemented with dummy data"
     import_succeeded: "نم استيراد بياناتك بشكل صحيح" #?
     importation_cancelled: "لم تم استيراد بياناتك، تم الغاء الاستيراد"
     importation_finished: "انتهاء الاستيراد"
@@ -2207,8 +2054,10 @@ arb:
     need_quantities_to_cancel_an_sales_invoice: "يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة" #?
     need_stocks_building_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج"
     need_stocks_to_create_inventories: "يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد"
+    # need_to_create_productions: "Need to create productions"
     need_to_create_subscription_nature: "يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك"
     new_actual_number: "الرقم الجديد الحالي هو %{actual_number}"
+    # new_values_are_calculated: "New values are calculated"
     no_authenticated: "ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة"
     no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد" #?
     no_building: "لم يتم التعرف على اي موقع للتخزين، الرجاء انشاء واحد لتتمكن من ادارة اسهمك"
@@ -2232,6 +2081,7 @@ arb:
     # purchase_already_invoiced: "Purchase already invoiced"
     record_cannot_be_removed: "لا يمكن حذف السجل"
     record_has_been_correctly_removed: "تم حذف السجل بشكل صحيح"
+    # record_has_been_imported: "Record has been imported"
     record_has_not_been_removed: "لم يتم حذف السجل بشكل صحيح"
     restoration_finished: "انتهاء استعادة النسخ الاحتياطية  ( بالثواني%{value}). رمزك بالشركة هو %{code}"
     sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم"
