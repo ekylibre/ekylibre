@@ -1,4 +1,4 @@
-# encoding:UTF-8
+# -*- coding: utf-8 -*-
 require 'test_helper'
 
 class AddANewAnimalTest < CapybaraIntegrationTest
@@ -22,7 +22,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     fill_unroll("animal-mother-input", with: "isa", select: "Isabelle", name: :animals)
     attach_file('animal[picture]', Rails.root.join("test", "fixtures", "files", "cow-photo.jpg"))
     shoot_screen "animals/new-before_create"
-    click_on("Créer")
+    click_on(:create.tl)
     shoot_screen "animals/new-after_create"
     visit('/backend/animals')
     assert has_content?('Linette'), "Linette must appear in animals list after its creation"
@@ -47,7 +47,7 @@ class AddANewAnimalTest < CapybaraIntegrationTest
     fill_in("issue_observed_at", with: '01/06/2013')
     choose("issue_priority_1")
     choose("issue_gravity_3")
-    click_on("Créer")
+    click_on(:create.tl)
     shoot_screen "issues/create"
   end
 

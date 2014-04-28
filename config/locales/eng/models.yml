@@ -178,6 +178,7 @@ eng:
       incoming_delivery_mode: "Incoming delivery mode"
       incoming_payment: "Incoming payment"
       incoming_payment_mode: "Incoming payment mode"
+      incoming_payment_use: "" #?
       intervention: "Intervention"
       intervention_cast: "Intervention cast"
       inventory: "Inventory"
@@ -223,7 +224,7 @@ eng:
       product_group: "Product group"
       product_junction: "Product junction"
       product_junction_way: "Product junction way"
-      product_link: "Product link"
+      # product_link: "Product link"
       product_linkage: "Product linkage"
       product_localization: "Product localization"
       product_membership: "Product membership"
@@ -380,11 +381,11 @@ eng:
     condition_operator: "Condition operator"
     condition_value: "Condition value"
     conditions: "Conditions"
-    confirmation_sent_at: "Confirmation sent at"
-    confirmation_token: "Confirmation token"
+    # confirmation_sent_at: "Confirmation sent at"
+    # confirmation_token: "Confirmation token"
     confirmed_at: "Confirmed on"
     consumer: "Consumer"
-    consumer_way: "Consumer way"
+    # consumer_way: "Consumer way"
     container: "Container"
     content: "Content"
     content_localizations: "Content localizations"
@@ -414,8 +415,8 @@ eng:
     current_mother_link: "Current mother link"
     current_ownership: "Current ownership"
     current_phase: "Current phase"
-    current_sign_in_at: "Current sign in at"
-    current_sign_in_ip: "Current sign in IP"
+    # current_sign_in_at: "Current sign in at"
+    # current_sign_in_ip: "Current sign in ip"
     custom_field: "Custom field"
     custom_fields: "Custom fields"
     customized_type: "Customized type"
@@ -514,7 +515,7 @@ eng:
     father: "Father"
     faxes: "Faxes"
     fifth_producer: "Fifth producer"
-    fifth_producer_way: "Fifth producer way"
+    # fifth_producer_way: "Fifth producer way"
     file_content_text: "File content text"
     file_content_type: "File content type"
     file_file_name: "File file name"
@@ -637,7 +638,7 @@ eng:
     lft: "Left"
     linkage_points_list: "Linkage points list"
     linkages: "Linkages"
-    linked: "Linked"
+    # linked: "Linked"
     links: "Links"
     listing: "Listing"
     local_balance: "Local balance"
@@ -852,8 +853,8 @@ eng:
     reminder_submissive: "Reminder submissive"
     reporter: "Reporter"
     required: "Required"
-    reset_password_sent_at: "Reset password sent at"
-    reset_password_token: "Reset password token"
+    # reset_password_sent_at: "Reset password sent at"
+    # reset_password_token: "Reset password token"
     resource: "Resource"
     resource_type: "Resource type"
     responsible: "Responsible"
@@ -950,7 +951,7 @@ eng:
     undelivered_quantity: "Undelivered quantity"
     unit_name: "Unit name"
     unit_price_amount: "Unit price amount"
-    unlock_token: "Unlock token"
+    # unlock_token: "Unlock token"
     unlocked_payments: "Unlocked payments"
     unpaid_sales: "Unpaid sales"
     updated_at: "Updated at"
@@ -984,8 +985,21 @@ eng:
   models:
     account:
       label: "%{number} - %{name}"
+    affair:
+      bookkeep: "[%{resource} %{number}] From %{third}"
     cash_transfer:
-      bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{description}"
+      bookkeep: "[%{resource} %{number}] From %{emission} to %{reception} %{description}"
+    catalog:
+      cost:
+        name: "Use cost prices catalog"
+      default:
+        name: "Default"
+      purchase:
+        name: "Purchase prices catalog"
+      sale:
+        name: "Sales prices catalog"
+    catalog_price:
+      label: "%{variant} %{amount}/%{unit}"
     deposit:
       bookkeep:
         one: "[%{resource} %{number}] %{count} payment %{mode} %{description}"
@@ -993,37 +1007,7 @@ eng:
         zero: "[%{resource} %{number}] No payments %{mode} %{description}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} from %{payer} (%{payment})"
     document_template:
-      default:
-        accountancy:
-          balance_sheet:
-            filename: "Balance sheet [code]"
-          general_journal:
-            filename: "General journal"
-          general_ledger:
-            filename: "General ledger"
-          income_statement:
-            filename: "Income statement [code]"
-          journal:
-            filename: "[name] (Journal)"
-        management:
-          deposit:
-            filename: "Deposit [number]"
-          inventory:
-            filename: "Inventory [number]"
-          purchase:
-            filename: "Purchase order [number]"
-          sales_invoice:
-            filename: "Sales invoice [number]"
-            to_archive: "true"
-          sales_order:
-            filename: "sale [number]"
-          stocks:
-            filename: "Stocks"
-          transport:
-            filename: "Transport [created_at]"
-        relations:
-          entity:
-            filename: "[full_name]"
+      document_name: "%{nature} %{key}"
       error_attribute: "The key word %{value} is incorrect. The possibilities are: %{possibilities}"
       invalid_filename: "File"
       nature_do_not_allow_to_use_attributes: "The type does not allow to use attributes"
@@ -1033,14 +1017,28 @@ eng:
       no_right_defined_for_this_part_of_the_application: "No right defined for this part of the application: %{controller}%{action}"
       no_right_defined_for_this_part_of_the_application_and_this_user: "You can not access to this page"
       supplier: "Supplier"
+    establishment:
+      default: "Main"
     financial_year:
       bookkeep: "[%{resource} %{number}] Depreciation of %{name} (%{position}/%{total})"
       code:
         double: "FY%{first_year}/%{second_year}"
         single: "FY%{first_year}"
+    gap:
+      bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
-      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} of %{payer} (%{expenses})"
-      label: "%{number}. %{usable_amount}/%{amount}, %{mode} of %{payer} on %{date}"
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} de %{payer}"
+      label: "%{number}. %{amount} du %{date} en %{mode} de %{payer}"
+    incoming_payment_mode:
+      default:
+        cash:
+          name: "Espèces"
+        check:
+          name: "Chèque"
+        transfer:
+          name: "Virement"
+    intervention:
+      name: "%{intervention} #%{number}"
     inventory_item:
       inventory: "Inventory"
     journal_entry:
@@ -1092,8 +1090,16 @@ eng:
     outgoing_delivery_item:
       sale: "Sale %{number}"
     outgoing_payment:
-      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee} (%{expenses})"
-      label: "%{number}. %{usable_amount}/%{amount}, %{mode} for %{payee} on %{date}"
+      bookkeep: "[%{resource} %{number}] %{mode} %{check_number} for %{payee}"
+      label: "%{number}. %{amount}, %{mode} for %{payee} on %{date}"
+    outgoing_payment_mode:
+      default:
+        cash:
+          name: "Cash"
+        check:
+          name: "Check"
+        transfer:
+          name: "Transfer"
     product:
       informations:
         with_components: "%{product} (%{unit}) (transformed material)"
@@ -1122,6 +1128,14 @@ eng:
         purchases: "Purchases"
         rent: "Location"
         sales: "Sales"
+    production:
+      bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      name: "%{variant}/%{activity} %{campaign} (%{state})"
+      states:
+        aborted: "Aborted"
+        draft: "Draft"
+        started: "Started"
+        validated: "Validated"
     purchase:
       bookkeep: "[%{resource} %{number}] %{products} of %{supplier}"
       label: "%{supplier} at %{address}"
@@ -1137,6 +1151,13 @@ eng:
       name: "%{product} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}), %{amount}%{currency}/%{unit}"
       tracking: "S/N: %{serial}"
+    purchase_nature:
+      default:
+        name: "Standard"
+    role:
+      default:
+        administrator: "Administrator"
+        public: "Public"
     sale:
       bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       label:
@@ -1168,43 +1189,28 @@ eng:
       no_product: "[No product]"
       reduction_at: "Reduction of %{percentage}%  on %{product}"
       tracking: "S/N: %{serial}"
+    sale_nature:
+      default:
+        name: "Standard"
     sequence:
       default:
-        assets:
-          number_format: "A[number|7]"
-        cash_transfers:
-          number_format: "CT[year|4][number|4]"
-          period: "year"
-        deposits:
-          number_format: "B[year|4][number|4]"
-          period: "year"
-        entities:
-          number_format: "[number|8]"
-        incoming_deliveries:
-          number_format: "ID[year|4][number|4]"
-          period: "year"
-        incoming_payments:
-          number_format: "P[year|4][number|6]"
-          period: "year"
-        outgoing_deliveries:
-          number_format: "OD[year|4][number|6]"
-          period: "year"
-        outgoing_payments:
-          number_format: "D[year|4][number|4]"
-          period: "year"
-        purchases:
-          number_format: "PO[year|4][month|2][number|4]"
-          period: "month"
-        sales:
-          number_format: "SO[year|4][month|2][number|6]"
-          period: "month"
-        sales_invoices:
-          number_format: "F[year|4][number|6]"
-          period: "year"
-        stock_transfers:
-          number_format: "ST[year|4][number|4]"
-          period: "year"
-        subscriptions:
-          number_format: "SUB[number|8]"
-        transports:
-          number_format: "SH[number|8]"
+        animals: "ANI[year|4][number|4]"
+        campaigns: "CAMP[number|4]"
+        cash_transfers: "CT[year|4][number|4]"
+        deposits: "D[year|4][number|4]"
+        entities: "[number|8]"
+        financial_assets: "FA[number|7]"
+        incoming_deliveries: "ID[year|4][number|4]"
+        incoming_payments: "IP[year|4][number|6]"
+        interventions: "[number]"
+        outgoing_deliveries: "OD[year|4][number|6]"
+        outgoing_payments: "D[year|4][number|4]"
+        plants: "PLANT[year|4][number|4]"
+        products: "PR[number|11]"
+        purchases: "PU[year|4][month|2][number|6]"
+        sales: "SA[year|4][month|2][number|6]"
+        sales_invoices: "SI[year|4][number|6]"
+        subscriptions: "SUB[number|8]"
+        transports: "TR[number|8]"
+    team:
+      default: "Main team"

@@ -42,10 +42,10 @@ spa:
       # index: "Aggregators"
       # show: "Aggregator: %{name}"
     backend/analyses:
-      # edit: "Edit analysis: %{name}"
+      # edit: "Edit analysis #%{number}"
       # index: "Analyses"
       # new: "New analysis"
-      # show: "Analysis: %{name}"
+      # show: "Analysis #%{number}"
     backend/analysis_items: #?
     backend/analytic_distributions:
       # edit: "Edit distribution: %{id}"
@@ -265,9 +265,7 @@ spa:
       index: "Establecimientos"
       new: "Añadido de un nuevo establecimiento"
     backend/event_natures: #?
-    backend/event_participations:
-      # edit: "Edit event participation: %{name}"
-      # new: "New event participation"
+    backend/event_participations: #?
     backend/events:
       # change_minutes: "Change minutes for event"
       # edit: "Edit event"
@@ -295,9 +293,9 @@ spa:
       # show: "Fungus: %{name}"
     backend/gaps:
       # index: "Gaps"
-      # show: "Gap: %{name}"
+      # show: "Gap: %{number}"
     backend/guide_analyses:
-      # show: "Guide analysis: %{name}"
+      # show: "Analysis #%{execution_number} of %{guide}"
     backend/guide_readings: #?
     backend/guides:
       # edit: "Edit guide: %{name}"
@@ -341,12 +339,12 @@ spa:
     backend/interfacers: #?
     backend/intervention_casts: #?
     backend/interventions:
-      # edit: "Edit intervention: %{name}"
+      # edit: "Edit %{procedure_name} #%{number}"
       # index: "Interventions"
       # new: "New intervention"
-      # run: "Run intervention: %{name}"
-      # set: "Set intervention: %{name}"
-      # show: "Intervention: %{name}"
+      # run: "Run intervention: %{procedure_name} #%{number}"
+      # set: "Set intervention: %{procedure_name} #%{number}"
+      # show: "Intervention: %{procedure_name} #%{number}"
     backend/inventories:
       edit: "Modificacion del inventario"
       index: "Inventarios"

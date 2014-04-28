@@ -672,8 +672,7 @@ arb:
         too_short: "%{attribute} قصير جدا (%{count}الحد الادنى للاحرف)"
         wrong_length: "%{attribute} الطول الخاطئ  ( %{count} يجب ان يكون عدد الاحرف)"
       models:
-        asset:  #?
- #?
+        asset: #?
         cash:
           # currency_does_not_match: "The currency of the %{journal} is different from that specified for the cash"
           unvalid_bban: ".مكون واحد أو اكثر من موجه قاعدة المعلومات غير صحيح"
@@ -830,7 +829,7 @@ arb:
       # incoming_delivery_mode: "Incoming delivery mode"
       incoming_payment: "الدفعة"
       incoming_payment_mode: "نوع الدفعة"
-      incoming_payment_use: "تأثير الدفعة" #?
+      incoming_payment_use: "تأثير الدفعة"
       # intervention: "Intervention"
       # intervention_cast: "Intervention cast"
       inventory: "عملية الجرد"
@@ -888,7 +887,6 @@ arb:
       # product_group: "Product group"
       # product_junction: "Product junction"
       # product_junction_way: "Product junction way"
-      # product_link: "Product link"
       # product_linkage: "Product linkage"
       # product_localization: "Product localization"
       # product_membership: "Product membership"
@@ -1117,12 +1115,9 @@ arb:
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
     conditions: "(SQL) شروط"
-    # confirmation_sent_at: "Confirmation sent at"
-    # confirmation_token: "Confirmation token"
     confirmed_at: "تم التأكيد عليه يوم"
     connected_at: "سجل الدخول في" #?
     # consumer: "Consumer"
-    # consumer_way: "Consumer way"
     consumption: "الاستهلاك" #?
     contact: "العنوان" #?
     contact_id: "العنوان" #?
@@ -1165,8 +1160,6 @@ arb:
     # current_mother_link: "Current mother link"
     # current_ownership: "Current ownership"
     # current_phase: "Current phase"
-    # current_sign_in_at: "Current sign in at"
-    # current_sign_in_ip: "Current sign in IP"
     custom_field: "حقول اضافية"
     custom_field_choices: "اختيارات الحقول الاضافية" #?
     custom_field_data: "تكملة بيانات الملف" #?
@@ -1329,7 +1322,6 @@ arb:
     fax: "فاكس" #?
     # faxes: "Faxes"
     # fifth_producer: "Fifth producer"
-    # fifth_producer_way: "Fifth producer way"
     # file_content_text: "File content text"
     # file_content_type: "File content type"
     # file_file_name: "File file name"
@@ -1492,7 +1484,6 @@ arb:
     lines: "طرق تسديد الفاتورة" #?
     # linkage_points_list: "Linkage points list"
     # linkages: "Linkages"
-    # linked: "Linked"
     # links: "Links"
     listing: "الاستخراج"
     listing_id: "استخاج" #?
@@ -1802,8 +1793,6 @@ arb:
     # reporter: "Reporter"
     required: "الزامي"
     reservoir: "المخزن" #?
-    # reset_password_sent_at: "Reset password sent at"
-    # reset_password_token: "Reset password token"
     resource: "المصدر الاصلي"
     resource_id: "المصدر الاصلي" #?
     resource_type: "نوع المصدر"
@@ -1972,7 +1961,6 @@ arb:
     # unit_price_amount: "Unit price amount"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
-    # unlock_token: "Unlock token"
     # unlocked_payments: "Unlocked payments"
     # unpaid_sales: "Unpaid sales"
     unquantifiable: "غير قابل للقياس" #?
@@ -2022,7 +2010,8 @@ arb:
       default_account_name: "دفتر الحسابات %{number}" #?
       error_delete: "لا يمكن حذف حساب لاحتوائه على حسابات فرعية" #?
       label: "%{number} - %{name}"
-    affair: #?
+    affair:
+      # bookkeep: "[%{resource} %{number}] From %{third}"
     bank_statement:  #?
       error_account_children: ".لا يمكن حذف دفتر الحسابات لاحتوائه على حسابات فرعية" #?
       error_journal_statement: "بيان بنكي محدد لدى الدفتر اليومي" #?
@@ -2036,9 +2025,18 @@ arb:
         bank_account: "حساب مصرفي" #?
         cash_box: "صندوق النقدي" #?
     cash_transfer:
-      # bookkeep: "[%{resource} %{number}] From %{emitter} to %{receiver} %{description}"
-    catalog: #?
-    catalog_price: #?
+      # bookkeep: "[%{resource} %{number}] From %{emission} to %{reception} %{description}"
+    catalog:
+      cost:
+        # name: "Use cost prices catalog"
+      default:
+        # name: "Default"
+      purchase:
+        # name: "Purchase prices catalog"
+      sale:
+        # name: "Sales prices catalog"
+    catalog_price:
+      # label: "%{variant} %{amount}/%{unit}"
     company:  #?
       cant_find_document_template: "لا يمكن العثور على نموذج مطابق للوثيقة" #?
       default: #?
@@ -2227,37 +2225,8 @@ arb:
         zero: "[%{resource} %{number}] ولا اية دفعة %{mode} %{comment}"
       bookkeep_with_payment: "[%{resource} %{number}] %{mode} %{check_number} من %{payer} (%{payment})"
     document_template:
-      default:
-        accountancy:
-          balance_sheet:
-            # filename: "Balance sheet [code]"
-          general_journal:
-            # filename: "General journal"
-          general_ledger:
-            # filename: "General ledger"
-          income_statement:
-            # filename: "Income statement [code]"
-          journal:
-            # filename: "[name] (Journal)"
-        management:
-          deposit:
-            # filename: "Deposit [number]"
-          inventory:
-            # filename: "Inventory [number]"
-          purchase:
-            # filename: "Purchase order [number]"
-          sales_invoice:
-            # filename: "Sales invoice [number]"
-            # to_archive: "true"
-          sales_order:
-            # filename: "sale [number]"
-          stocks:
-            # filename: "Stocks"
-          transport:
-            # filename: "Transport [created_at]"
-        relations:
-          entity:
-            # filename: "[full_name]"
+      default: #?
+      # document_name: "%{nature} %{key}"
       error_attribute: "الحقل %{value} غير صحيح.الاحتمالات هم%{possibilities}"
       families:  #?
         accountancy: "المحاسبة" #?
@@ -2305,7 +2274,8 @@ arb:
         other: "اخرى" #?
         towed: "اقتران" #?
         tractor: "تراكتور" #?
-    establishment: #?
+    establishment:
+      # default: "Main"
     event_nature:  #?
       usages: #?
         mailing: "البريدي" #?
@@ -2318,14 +2288,23 @@ arb:
       code:
         double: "EX%{first_year}/%{second_year}"
         single: "EX%{first_year}"
-    gap: #?
+    gap:
+      # bookkeep: "[%{resource} %{number}] %{entity}"
     incoming_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payer} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payer}"
-    incoming_payment_mode: #?
+    incoming_payment_mode:
+      default:
+        cash:
+          # name: "Espèces"
+        check:
+          # name: "Chèque"
+        transfer:
+          # name: "Virement"
     incoming_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{client} (%{expense_number})" #?
-    intervention: #?
+    intervention:
+      # name: "%{intervention} #%{number}"
     inventory_item:
       inventory: "عملية الجرد"
     inventory_line: #?
@@ -2412,7 +2391,14 @@ arb:
     outgoing_payment:
       bookkeep: "[%{resource} %{number}] %{mode} %{check_number} ل %{payee} (%{expenses})"
       label: "%{number}. %{amount} (%{usable_amount} restants) من %{date} بواسطة %{mode} ل %{payee}"
-    outgoing_payment_mode: #?
+    outgoing_payment_mode:
+      default:
+        cash:
+          # name: "Cash"
+        check:
+          # name: "Check"
+        transfer:
+          # name: "Transfer"
     outgoing_payment_use:  #?
       bookkeep: "[%{resource}] %{mode} (%{payment_number}) وردت من %{attorney} ل %{supplier} (%{expense_number})" #?
     price:  #?
@@ -2488,7 +2474,14 @@ arb:
       natures: #?
         transfer: "التحويل" #?
         waste: "الضائع" #?
-    production: #?
+    production:
+      # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
+      # name: "%{variant}/%{activity} %{campaign} (%{state})"
+      states:
+        # aborted: "Aborted"
+        # draft: "Draft"
+        # started: "Started"
+        # validated: "Validated"
     products_nature:  #?
       informations: #?
         with_components: "%{product} (%{unit}) (ليس هناك من فترة استراحة)" #?
@@ -2528,8 +2521,13 @@ arb:
       name_with_tracking: "%{product}/%{tracking} (%{quantity}%{unit}) لل %{amount}%{currency}/%{unit}"
       tracking: "رقم الحصة : %{serial}"
     purchase_line: #?
-    purchase_nature: #?
-    role: #?
+    purchase_nature:
+      default:
+        # name: "Standard"
+    role:
+      default:
+        # administrator: "Administrator"
+        # public: "Public"
     sale:
       # bookkeep: "[%{resource} %{number}] %{products} for %{client} (%{sale})"
       label:
@@ -2570,7 +2568,9 @@ arb:
       reduction_at: "تخفيض بنسبة %{percent}% على : %{product}"
       tracking: "رقم الحصة : %{serial}"
     sale_line: #?
-    sale_nature: #?
+    sale_nature:
+      default:
+        # name: "Standard"
     sales_invoice:  #?
       bookkeep: "[%{resource} %{number}] %{products} لاجل %{client} (%{sale})" #?
       label: #?
@@ -2580,44 +2580,26 @@ arb:
       no_product: "[لا لاي منتج]" #?
     sequence:
       default:
-        assets:
-          # number_format: "A[number|7]"
-        cash_transfers:
-          # number_format: "CT[year|4][number|4]"
-          # period: "year"
-        deposits:
-          # number_format: "B[year|4][number|4]"
-          # period: "year"
-        entities:
-          # number_format: "[number|8]"
-        incoming_deliveries:
-          # number_format: "ID[year|4][number|4]"
-          # period: "year"
-        incoming_payments:
-          # number_format: "P[year|4][number|6]"
-          # period: "year"
-        outgoing_deliveries:
-          # number_format: "OD[year|4][number|6]"
-          # period: "year"
-        outgoing_payments:
-          # number_format: "D[year|4][number|4]"
-          # period: "year"
-        purchases:
-          # number_format: "PO[year|4][month|2][number|4]"
-          # period: "month"
-        sales:
-          # number_format: "SO[year|4][month|2][number|6]"
-          # period: "month"
-        sales_invoices:
-          # number_format: "F[year|4][number|6]"
-          # period: "year"
-        stock_transfers:
-          # number_format: "ST[year|4][number|4]"
-          # period: "year"
-        subscriptions:
-          # number_format: "SUB[number|8]"
-        transports:
-          # number_format: "SH[number|8]"
+        # animals: "ANI[year|4][number|4]"
+        assets: #?
+        # campaigns: "CAMP[number|4]"
+        # cash_transfers: "CT[year|4][number|4]"
+        # deposits: "D[year|4][number|4]"
+        # entities: "[number|8]"
+        # financial_assets: "FA[number|7]"
+        # incoming_deliveries: "ID[year|4][number|4]"
+        # incoming_payments: "IP[year|4][number|6]"
+        # interventions: "[number]"
+        # outgoing_deliveries: "OD[year|4][number|6]"
+        # outgoing_payments: "D[year|4][number|4]"
+        # plants: "PLANT[year|4][number|4]"
+        # products: "PR[number|11]"
+        # purchases: "PU[year|4][month|2][number|6]"
+        # sales: "SA[year|4][month|2][number|6]"
+        # sales_invoices: "SI[year|4][number|6]"
+        stock_transfers: #?
+        # subscriptions: "SUB[number|8]"
+        # transports: "TR[number|8]"
       periods:  #?
         cweek: "اسبوع" #?
         month: "شهر" #?
@@ -2650,7 +2632,8 @@ arb:
       quarterly: "فصلي" #?
       simplified: "مبسط" #?
       yearly: "سنوي" #?
-    team: #?
+    team:
+      # default: "Main team"
     tool:  #?
       natures: #?
         other: "اخرى" #?

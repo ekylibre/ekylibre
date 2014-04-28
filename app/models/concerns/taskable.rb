@@ -11,10 +11,14 @@ module Taskable
     has_many :product_readings,       as: :originator, dependent: :destroy
     has_many :product_linkages,       as: :originator, dependent: :destroy
     has_many :product_localizations,  as: :originator, dependent: :destroy
-    has_many :product_reading_tasks,  as: :originator, dependent: :destroy
     has_many :product_memberships,    as: :originator, dependent: :destroy
     has_many :product_mixings,        as: :originator, dependent: :destroy
     has_many :product_ownerships,     as: :originator, dependent: :destroy
+    has_many :product_quadruple_mixings,       dependent: :destroy
+    has_many :product_quintuple_mixings,       dependent: :destroy
+    has_many :product_reading_tasks,  as: :originator, dependent: :destroy
+    has_many :product_triple_mixings,       dependent: :destroy
+    
     has_one :intervention, through: :operation
   end
 
