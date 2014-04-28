@@ -6,7 +6,7 @@
       <variable name="mother" variety="bos" abilities="produce(bos)" roles="viviparous_birth-target"/>
       <variable name="first_child"  variety="bos" new="produced-by: mother" indicators="father: ?, mass: ?, last_birth_children_count: twins" roles="viviparous_birth-output"/>
       <variable name="second_child" variety="bos" new="produced-by: mother" indicators="father: ?, mass: ?, last_birth_children_count: twins" roles="viviparous_birth-output"/>
-      <variable name="caregiver" variety="worker"/>
+      <variable name="caregiver" abilities="move, administer_care(bos)"/>
     </variables>
     <operations>
       <operation id="100">

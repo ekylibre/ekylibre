@@ -38,14 +38,17 @@
 #   name: "Lorem ipsum"
 #   updater: users_001
 #
----
+
 roles_001:
   creator: users_001
   name: Lorem ipsum
-  rights: ''
+  rights:
+    accounts: [read, write]
   updater: users_001
+
 roles_002:
   creator: users_001
   name: Lorem ipsum 2
-  rights: ''
+  rights:
+    accounts: [read, write]
   updater: users_001

@@ -135,7 +135,7 @@ eng:
       analytic_distribution: "Analytic distribution"
       animal: "Animal"
       animal_group: "Animal group"
-      animal_medicine: "Animal medicine"
+      animal_medicine: "Animal medicine" #?
       bank_statement: "Bank statement"
       bioproduct: "Living product"
       building: "Building"
@@ -197,12 +197,12 @@ eng:
       manure_management_plan: "Manure management plan"
       manure_management_plan_zone: "Manure management plan zone"
       matter: "Matter"
-      medicine: "Medicine"
-      mineral_matter: "Mineral matter"
+      medicine: "Medicine" #?
+      mineral_matter: "Mineral matter" #?
       net_service: "Net service"
       observation: "Observation"
       operation: "Operation"
-      organic_matter: "Organic matter"
+      organic_matter: "Organic matter" #?
       outgoing_delivery: "Outgoing delivery"
       outgoing_delivery_item: "Outgoing delivery item"
       outgoing_delivery_mode: "Outgoing delivery mode"
@@ -210,7 +210,7 @@ eng:
       outgoing_payment_mode: "Disbursement mode"
       person: "Person"
       plant: "Plant"
-      plant_medicine: "Plant medicine"
+      plant_medicine: "Plant medicine" #?
       postal_zone: "Postal zone"
       preference: "Preference"
       prescription: "Prescription"

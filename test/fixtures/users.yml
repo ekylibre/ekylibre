@@ -79,7 +79,7 @@
 #   role: roles_001
 #   updater: users_001
 #
----
+
 users_001:
   administrator: true
   confirmed_at: <%= Time.now %>
@@ -92,9 +92,11 @@ users_001:
   last_name: Makinous
   locked: false
   person: people_001
-  rights: ''
+  rights:
+    accounts: [read, write]
   role: roles_001
   updater: users_001
+
 users_002:
   administrator: false
   confirmed_at: <%= Time.now %>
@@ -107,6 +109,7 @@ users_002:
   last_name: Nakinous
   locked: false
   person: people_002
-  rights: ''
+  rights:
+    accounts: [read, write]
   role: roles_001
   updater: users_001

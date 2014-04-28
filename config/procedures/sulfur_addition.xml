@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="sulfur_addition" natures="addition" version="0" status="frozen">
     <variables>
-      <variable name="tank" variety="equipment" abilities="store(wine)" default-actor="storage"/>
+      <variable name="tank"          variety="equipment" abilities="store(wine)" default-actor="storage"/>
       <variable name="wine_to_treat" variety="wine" derivative-of="grape" roles="addition-target" default-actor="first-localized-in: tank" read-only="true" />
       
       <variable name="oenological_intrant"        variety="matter" abilities="sulfurize(wine)"/>

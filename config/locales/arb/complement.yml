@@ -11,8 +11,6 @@ arb:
 
     animal_group:
 
-    animal_medicine:
-
     building_division:
 
     catalog_price:
@@ -471,8 +469,6 @@ arb:
 
     matter:
 
-    medicine:
-
     net_service:
 
     operation_task:
@@ -480,8 +476,6 @@ arb:
     person:
 
     plant:
-
-    plant_medicine:
 
     product:
 

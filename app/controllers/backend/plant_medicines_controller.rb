@@ -17,14 +17,17 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::PlantMedicinesController < Backend::MedicinesController
+class Backend::PlantMedicinesController < BackendController
 
-  list do |t|
+  list model: :products, scope: "can('care(plant)')".c do |t|
     t.column :name, url: true
     t.column :population, datatype: :decimal
     t.column :net_volume, datatype: :measure
     t.column :net_mass, datatype: :measure
     t.column :container, url: true
+  end
+
+  def index
   end
 
 end

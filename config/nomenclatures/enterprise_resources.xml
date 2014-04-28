@@ -13,7 +13,7 @@
       <item name="analytic_distributions"/>
       <item name="animal_foods"/>
       <item name="animal_groups"/>
-      <item name="animal_medicines"/>
+      <item name="animal_medicines" accesses="read"/>
       <item name="animal_products"/>
       <item name="animals"/>
       <item name="bank_statements"/>
@@ -57,19 +57,16 @@
       <item name="listings" accesses="read, write, execute"/>
       <item name="manure_management_plans"/>
       <item name="matters"/>
-      <item name="medicines"/>
-      <item name="mineral_matters"/>
       <item name="myselves" accesses="read"/>
       <item name="net_services"/>
       <item name="observations"/>
-      <item name="organic_matters"/>
       <item name="outgoing_deliveries"/>
       <item name="outgoing_delivery_modes"/>
       <item name="outgoing_payment_modes"/>
       <item name="outgoing_payments"/>
       <item name="people" accesses="read, write, link"/>
       <item name="plants"/>
-      <item name="plant_medicines"/>
+      <item name="plant_medicines" accesses="read"/>
       <item name="postal_zones"/>
       <item name="prescriptions"/>
       <item name="product_groups"/>

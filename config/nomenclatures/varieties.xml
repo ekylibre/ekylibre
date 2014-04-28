@@ -21,6 +21,8 @@
       <item name="matter"/>
       <item name="immatter"/>
       <item name="product_group"/>
+      <item name="worker"/>
+      <item name="zone"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 1 -->
@@ -29,12 +31,8 @@
       <item name="bioproduct"/>
       <item name="equipment"/>
       <item name="preparation"/>
-      <item name="organic_matter"/>
-      <item name="mineral_matter"/>
-      <item name="packaged_matter"/>
       <item name="water"/>
       <item name="electricity"/>
-      <item name="zone"/>
     </items>
   </nomenclature>
   <!-- level 2 - branch 2 -->

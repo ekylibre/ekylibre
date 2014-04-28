@@ -11,8 +11,6 @@ jpn:
 
     animal_group:
 
-    animal_medicine:
-
     building_division:
 
     catalog_price:
@@ -388,8 +386,6 @@ jpn:
 
     matter:
 
-    medicine:
-
     net_service:
 
     operation_task:
@@ -397,8 +393,6 @@ jpn:
     person:
 
     plant:
-
-    plant_medicine:
 
     product:
 

@@ -8,7 +8,6 @@
 - analytic_distribution
 - animal
 - animal_group
-- animal_medicine
 - bank_statement
 - bioproduct
 - building
@@ -69,12 +68,9 @@
 - manure_management_plan
 - manure_management_plan_zone
 - matter
-- medicine
-- mineral_matter
 - net_service
 - observation
 - operation
-- organic_matter
 - outgoing_delivery
 - outgoing_delivery_item
 - outgoing_delivery_mode
@@ -82,7 +78,6 @@
 - outgoing_payment_mode
 - person
 - plant
-- plant_medicine
 - postal_zone
 - preference
 - prescription

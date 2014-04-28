@@ -1246,12 +1246,12 @@ fra:
         listings: "Extractions"
         manure_management_plans: "Plans de fumure"
         matters: "Matières"
-        medicines: "Médicaments"
-        mineral_matters: "Matière minérale"
+        medicines: "Médicaments" #?
+        mineral_matters: "Matière minérale" #?
         myselves: "Mon compte"
         net_services: "Services en ligne"
         observations: "Observations"
-        organic_matters: "Matières organiques"
+        organic_matters: "Matières organiques" #?
         outgoing_deliveries: "Apports"
         outgoing_delivery_modes: "Modes d’apport"
         outgoing_payment_modes: "Mode de décaissement"
@@ -2683,17 +2683,17 @@ fra:
         symbol: "Symbole"
     varieties:
       items:
-        acetal: "Acetal"
-        actilact: "Actilact"
-        additive: "Additif"
+        acetal: "Acetal" #?
+        actilact: "Actilact" #?
+        additive: "Additif" #?
         allium: "Ail"
         amaranthaceae: "Amaranthacée"
         amaryllidaceae: "Amaryllidacée"
         anas: "Palmipède"
         animal: "Animal"
         animal_group: "Troupeau"
-        animal_medicine: "Médicament vétérinaire"
-        antiseptic: "Antiseptique"
+        animal_medicine: "Médicament vétérinaire" #?
+        antiseptic: "Antiseptique" #?
         apiaceae: "Apiacée"
         apis: "Apidés"
         asparagus: "Asperge"
@@ -2721,7 +2721,7 @@ fra:
         cannabis_sativa: "Chanvre"
         cap: "Capsule"
         capra: "Caprin"
-        chemical_fertilizer: "Engrais minéral"
+        chemical_fertilizer: "Engrais minéral" #?
         cichorium: "Chicoré"
         cleaner: "Rabot"
         compost: "Compost"
@@ -2746,7 +2746,7 @@ fra:
         cucurbitaceae: "Cucurbitacée"
         cultivable_zone: "Zone cultivable"
         daucus: "Carotte"
-        disinfectant: "Désinfectant"
+        disinfectant: "Désinfectant" #?
         easement: "Aménagement foncier"
         egg: "Œuf"
         electricity: "Électricité"
@@ -2766,7 +2766,7 @@ fra:
         fragaria_ananassa_mara_des_bois: "Fraisier × Ananassa Mara des bois"
         fruit: "Fruit"
         fuel: "Gasoil"
-        fungicide: "Produit fongicide"
+        fungicide: "Produit fongicide" #?
         fungus: "Champignon"
         gallus: "Galinacée"
         gas: "Essence"
@@ -2779,7 +2779,7 @@ fra:
         harvester: "Moissonneuse"
         hay: "Foin"
         helianthus: "Tournesol"
-        herbicide: "Produit herbicide"
+        herbicide: "Produit herbicide" #?
         hordeum: "Orge"
         hordeum_hibernum: "Orge d’hiver"
         hordeum_hibernum_cerevisiae: "Orge d’hiver de brasserie"
@@ -2791,7 +2791,7 @@ fra:
         immatter: "Immatérialisable"
         implanter: "Planteuse"
         insecta: "Insecte"
-        insecticide: "Produit insecticide"
+        insecticide: "Produit insecticide" #?
         iridaceae: "Iridacée"
         item: "Pièce"
         juglandaceae: "Juglandacée"
@@ -2815,12 +2815,12 @@ fra:
         matter: "Matière"
         meat: "Viande"
         medicago: "Luzerne"
-        medicine: "Médicament"
+        medicine: "Médicament" #?
         milk: "Lait"
-        mineral_matter: "Matière minérale"
+        mineral_matter: "Matière minérale" #?
         mix: "Mélange"
         mollusca: "Mollusque"
-        molluscicide: "Produit molluscicide"
+        molluscicide: "Produit molluscicide" #?
         moraceae: "Moracée"
         mower: "Faucheuse"
         nicotiana: "Tabac"
@@ -2829,7 +2829,7 @@ fra:
         nicotiana_tabacum_virginie: "Tabac commun Virginie"
         numida: "Pintade de Numidie"
         oil: "Huile"
-        organic_matter: "Matière organique"
+        organic_matter: "Matière organique" #?
         oryza: "Riz"
         osteichthyes: "Poissons osseux"
         ostreidae: "Huître"
@@ -2840,8 +2840,8 @@ fra:
         phacelia: "Phacélie"
         phaseolus: "Haricot"
         pisum: "Pois"
-        plant: "Végétal"
-        plant_medicine: "Produit phytosanitaire"
+        plant: "Plante"
+        plant_medicine: "Produit phytosanitaire" #?
         plower: "Charrue"
         plum: "Prune"
         poa: "Prairie"

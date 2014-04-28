@@ -13,11 +13,11 @@
                  <!--  forward => plants = s * d -->
                  <!--  backward => d = plants / d -->
       </variable>
-      <variable name="implanter_tool"    abilities="implant" roles="implanting-tool"/>
-      <variable name="driver"       abilities="drive(equipment), move"/>
-      <variable name="implanter_man" abilities="drive(equipment), move" roles="implanting-doer"/>
-      <variable name="tractor"      abilities="tow(equipment), move" roles="implanting-tool"/>
-      <variable name="land_parcel"  abilities="store(plant)" roles="implanting-target" default-actor="storage"/>
+      <variable name="implanter_tool" abilities="implant" roles="implanting-tool"/>
+      <variable name="driver"         abilities="drive(tractor), move"/>
+      <variable name="implanter_man"  abilities="drive(equipment), move" roles="implanting-doer"/>
+      <variable name="tractor"        abilities="tow(equipment), move" roles="implanting-tool"/>
+      <variable name="land_parcel"    abilities="store(plant)" roles="implanting-target" default-actor="storage"/>
       <variable name="cultivation"  variety="derivative-of: plants" new="produced-by: land_parcel" roles="implanting-output" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" need="shape" default-shape=":land_parcel" default-variant="production">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>

@@ -11,8 +11,6 @@ spa:
 
     animal_group:
 
-    animal_medicine:
-
     building_division:
 
     catalog_price:
@@ -396,8 +394,6 @@ spa:
 
     matter:
 
-    medicine:
-
     net_service:
 
     operation_task:
@@ -405,8 +401,6 @@ spa:
     person:
 
     plant:
-
-    plant_medicine:
 
     product:
 

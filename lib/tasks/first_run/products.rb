@@ -12,7 +12,7 @@ load_data :products do |loader|
     loader.count :matters do |w|
       #############################################################################
 
-      CSV.foreach(path, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
+      CSV.foreach(path, headers: true) do |row|
         next if row[0].blank?
         r = OpenStruct.new(:name => row[0].blank? ? nil : row[0].to_s,
                            :variant_reference_name => row[1].downcase.to_sym,

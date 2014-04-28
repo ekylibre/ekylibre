@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="uncompacting" natures="plowing" version="0" status="frozen">
     <variables>
-      <variable name="driver" variety="worker" abilities="drive(tractor)" roles="plowing-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
+      <variable name="driver"                      abilities="drive(tractor)" roles="plowing-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow(equipment),catch"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="land_parcel" variety="cultivable_zone" roles="plowing-target" default-actor="storage" need="shape" default-shape=":land_parcel" >
         <handler indicator="shape">

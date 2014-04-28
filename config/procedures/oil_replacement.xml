@@ -3,10 +3,10 @@
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
   <procedure name="oil_replacement" natures="consummables_addition" version="0" status="frozen">
     <variables>
-      <variable name="equipment"      variety="equipment" abilities="consume(oil)" roles="consummables_addition-target"/>
+      <variable name="equipment"     variety="equipment" abilities="consume(oil)" roles="consummables_addition-target"/>
       <variable name="oil"           variety="oil" abilities="lubricate(equipment)"/>
       <variable name="oil_to_input"  new="parted-from: oil" roles="consummables_addition-input" need="population"/>
-      <variable name="mechanic"        variety="worker" abilities="repair(equipment)" roles="consummables_addition-doer"/>
+      <variable name="mechanic"      abilities="repair(equipment)" roles="consummables_addition-doer"/>
     </variables>
     <operations>
       <operation id="100">

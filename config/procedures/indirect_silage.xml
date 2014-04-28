@@ -2,8 +2,8 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="indirect_silage" natures="transformation" version="0" status="frozen">
     <variables>
-      <variable name="forager" variety="forager" abilities="harvest(plant)" roles="transformation-tool"/>
-      <variable name="forager_driver" variety="worker" abilities="drive(forager)" roles="transformation-doer"/>
+      <variable name="forager"        variety="forager" abilities="harvest(plant)" roles="transformation-tool"/>
+      <variable name="forager_driver" abilities="drive(forager)" roles="transformation-doer"/>
       <variable name="straw_to_bunch" variety="straw" derivative_of="poaceae" roles="transformation-input" />
       <variable name="silage"    variant=":straw_to_bunch" new="produced-by: straw_to_bunch" roles="transformation-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
     <handler indicator="population" />

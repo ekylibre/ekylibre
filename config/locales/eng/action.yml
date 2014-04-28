@@ -22,12 +22,12 @@ eng:
       new: "New activity"
       show: "Activity: %{name}"
     backend/affairs:
-      attach: "Attach affair: %{name}"
-      detach: "Detach affair: %{name}"
-      finish: "Finish affair: %{name}"
+      attach: "Attach to affair %{number}"
+      detach: "Detach from affair %{number}"
+      finish: "Finish affair %{number}"
       index: "Affairs"
-      select: "Select affair: %{name}"
-      show: "Affair: %{name}"
+      select: "Select for affair %{number}"
+      show: "Affair: %{number}"
     backend/aggregators:
       index: "Aggregators"
       show: "Aggregator: %{name}"
@@ -49,10 +49,10 @@ eng:
       new: "New animal group"
       show: "Animal group: %{name}"
     backend/animal_medicines:
-      edit: "Edit animal medicine: %{name}"
+      edit: "Edit animal medicine: %{name}" #?
       index: "Animal medicines"
-      new: "New animal medicine"
-      show: "Animal medicine: %{name}"
+      new: "New animal medicine" #?
+      show: "Animal medicine: %{name}" #?
     backend/animal_products:
       index: "Animal products"
     backend/animals:
@@ -281,10 +281,10 @@ eng:
       show: "Identifier: %{name}"
     backend/incoming_deliveries:
       confirm: "Confirm incoming delivery"
-      edit: "Edit incoming delivery"
+      edit: "Edit incoming delivery: %{number} (%{reference_number})"
       index: "Incoming deliveries"
       new: "New incoming delivery"
-      show: "Incoming delivery: %{name}"
+      show: "Incoming delivery: %{number} (%{reference_number})"
     backend/incoming_delivery_items:
       new: "New incoming delivery item"
     backend/incoming_delivery_modes:
@@ -360,13 +360,13 @@ eng:
       show: "Land parcel %{name}"
     backend/legal_entities:
       # autocomplete_for_origin: "Autocomplete for origin legal entity: %{name}"
-      edit: "Edit legal entity: %{name}"
+      edit: "Edit legal entity: %{full_name}"
       export: "Export legal entities"
       import: "Import legal entities"
       index: "Legal entities"
-      merge: "Merge legal entity: %{name}"
+      merge: "Merge legal entity: %{full_name}"
       new: "New legal entity"
-      show: "Legal entity: %{name}"
+      show: "Legal entity: %{full_name}"
     backend/listing_nodes:
       edit: "Edit listing node"
       new: "New listing node"
@@ -386,20 +386,10 @@ eng:
       index: "Matters"
       new: "Create matter"
       show: "Matter: %{name}"
-    backend/medicines:
-      edit: "Edit medicine: %{name}"
-      index: "Medicines"
-      new: "New medicine"
-      show: "Medicine: %{name}"
-    backend/mineral_matters:
-      edit: "Edit mineral matter: %{name}"
-      index: "Mineral matter"
-      new: "Add mineral matter"
-      show: "Mineral matter: %{name}"
     backend/myselves:
       show: "My informations"
     backend/net_services:
-      edit: "Edit net service: %{name}"
+      edit: "Edit net service"
       index: "Net services"
       new: "New net service"
       show: "Net service: %{name}"
@@ -409,11 +399,6 @@ eng:
     backend/operations:
       index: "Operations"
       show: "Operation Details %{name}"
-    backend/organic_matters:
-      edit: "Edit organic matter: %{name}"
-      index: "Organic matters"
-      new: "Create organic matter"
-      show: "Organic matter: %{name}"
     backend/outgoing_deliveries:
       edit: "Edit outgoing delivery: %{number}"
       index: "Outgoing deliveries"
@@ -434,20 +419,20 @@ eng:
       show: "Disbursement %{number} for %{payee}"
     backend/people:
       # autocomplete_for_origin: "Autocomplete for origin person: %{name}"
-      edit: "Edit person: %{name}"
+      edit: "Edit person: %{full_name}"
       export: "Export people"
       import: "Import people"
       index: "People"
-      merge: "Merge person: %{name}"
+      merge: "Merge person: %{full_name}"
       new: "New person"
       show: "Person: %{name}"
     backend/plant_fertilizers:
       index: "Plant fertilizers"
     backend/plant_medicines:
-      edit: "Edit plant medicine: %{name}"
+      edit: "Edit plant medicine: %{name}" #?
       index: "Plant medicines"
-      new: "Create plant medicine"
-      show: "Plant medicine: %{name}"
+      new: "Create plant medicine" #?
+      show: "Plant medicine: %{name}" #?
     backend/plant_products:
       index: "Plant products"
     backend/plant_seedlings:
@@ -463,10 +448,10 @@ eng:
       index: "Postal zones"
       new: "New postal zone"
     backend/prescriptions:
-      edit: "Edit prescription: %{name}"
+      edit: "Edit prescription: %{reference_number}"
       index: "Prescriptions"
       new: "New prescription"
-      show: "Prescription: %{name}"
+      show: "Prescription: %{reference_number}"
     backend/product_groups:
       edit: "Edit group: %{name} "
       index: "Product groups"
@@ -480,8 +465,8 @@ eng:
       pick: "Pick product nature category: %{name}"
       show: "Product category: %{name}"
     backend/product_nature_variant_readings:
-      edit: "Edit product nature variant reading: %{name}"
-      new: "New product nature variant reading"
+      # edit: "Edit product nature variant reading: %{name}"
+      # new: "New product nature variant reading"
     backend/product_nature_variants:
       edit: "Edit product variant: %{name}"
       incorporate: "Incorporate product nature variant: %{name}"
@@ -497,10 +482,10 @@ eng:
       pick: "Pick product nature: %{name}"
       show: "Product type: %{name}"
     backend/production_support_markers:
-      edit: "Edit production support marker: %{name}"
-      index: "Production support markers"
-      new: "New production support marker"
-      show: "Production support marker: %{name}"
+      # edit: "Edit production support marker: %{name}"
+      # index: "Production support markers"
+      # new: "New production support marker"
+      # show: "Production support marker: %{name}"
     backend/production_supports:
       edit: "Edit production support: %{name}"
       index: "Production supports"

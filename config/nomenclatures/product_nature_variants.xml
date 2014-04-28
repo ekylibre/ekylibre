@@ -983,7 +983,7 @@
       <item name="wine_vinasse"
             nature="organic_fertilizer"
             variety="grain"
-            derivative_of="organic_matter"
+            derivative_of="raw_matter"
             unit_name="cubic_meter"
             frozen_indicators_values="net_volume: 1.50cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 0.002percent"
             />

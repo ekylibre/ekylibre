@@ -3,16 +3,16 @@
   <procedure name="plowing" natures="plowing" version="0" status="frozen">
     <variables>
       <!-- paramètre réprésentant des objets de type Humain qui possède la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="driver" variety="worker" roles="plowing-doer"/>
+      <variable name="driver"      abilities="drive(tractor)" roles="plowing-doer"/>
       <!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="tractor" abilities="tow(equipment)"/>
+      <variable name="tractor"     abilities="tow(equipment)"/>
       <variable name="land_parcel" variety="cultivable_zone" roles="plowing-target" default-actor="storage" need="shape" default-shape=":land_parcel">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>
           <converter to="population" forward="area(value) / land_parcel..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="plow"  abilities="plow"/>
+      <variable name="plow"        abilities="plow"/>
     </variables>
     <operations>
       <operation id="100" duration="4 minutes">

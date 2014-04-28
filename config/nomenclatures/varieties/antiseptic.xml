@@ -1,8 +1,0 @@
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-antiseptic">
-    <!-- http://www.ircp.anmv.anses.fr/ -->
-    <items>
-      <item name="disinfectant"/>
-    </items>
-  </nomenclature>
-</nomenclatures>

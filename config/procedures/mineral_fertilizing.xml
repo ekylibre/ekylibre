@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="mineral_fertilizing" natures="soil_enrichment" version="0" status="frozen">
     <variables>
-      <variable name="fertilizer" variety="chemical_fertilizer" abilities="fertilize" roles="soil_enrichment-input_origin"/>
+      <variable name="fertilizer" variety="preparation" abilities="fertilize" roles="soil_enrichment-input_origin"/>
       <variable name="fertilizer_to_spread" new="parted-from: fertilizer" roles="soil_enrichment-input" default-population=":fertilizer">
 	<handler indicator="population" />
 	<handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="land_parcel? &amp; land_parcel.net_surface_area(hectare) >= 0.1"
@@ -39,7 +39,7 @@
         
       </variable>  
       <variable name="spreader" abilities="spread(mineral_matter)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
-      <variable name="driver" variety="worker" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
+      <variable name="driver"  abilities="drive(tractor)" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow(spreader)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="land_parcel" variety="cultivable_zone" roles="soil_enrichment-target" default-actor="storage" need="shape" default-shape=":land_parcel">
         <handler indicator="shape">

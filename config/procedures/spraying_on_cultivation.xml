@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="spraying_on_cultivation" natures="plant_illness_treatment" version="0" status="frozen">
     <variables>
-      <variable name="medicine" variety="plant_medicine"/>
+      <variable name="medicine"          variety="preparation" abilities="care(plant)"/>
       <variable name="medicine_to_spray" new="parted-from: medicine" roles="plant_illness_treatment-input" default-population=":medicine">
       <handler indicator="population" />
       <handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population" if="medicine_to_spray? &amp; medicine_to_spray..net_mass(kilogram) > 0"
@@ -15,9 +15,9 @@
                  backward="(value * self..net_volume(liter)) / cultivation.net_surface_area(hectare)"
                  /> <!-- l / ha -->
       </variable>
-      <variable name="tractor" variety="equipment" abilities="catch(sprayer)" roles="plant_illness_treatment-tool"/>
+      <variable name="tractor" variety="equipment" abilities="move, catch(sprayer)" roles="plant_illness_treatment-tool"/>
       <variable name="sprayer" abilities="spray" roles="plant_illness_treatment-tool"/>
-      <variable name="driver" variety="worker" roles="plant_illness_treatment-doer"/>
+      <variable name="driver"  abilities="move, drive(tractor), drive(sprayer)" roles="plant_illness_treatment-doer"/>
       <variable name="cultivation" variety="plant" roles="plant_illness_treatment-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>

@@ -17,9 +17,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-class Backend::AnimalMedicinesController < Backend::MedicinesController
+class Backend::AnimalMedicinesController < BackendController
 
-  list do |t|
+  list model: :products, scope: "can('care(animal)')".c do |t|
     t.column :name, url: true
     t.column :population, datatype: :decimal
     t.column :net_volume, datatype: :measure, hidden: true
@@ -27,6 +27,9 @@ class Backend::AnimalMedicinesController < Backend::MedicinesController
     t.column :container, url: true
     t.column :milk_withdrawal_period, datatype: :measure, hidden: true
     t.column :meat_withdrawal_period, datatype: :measure, hidden: true
+  end
+
+  def index
   end
 
 end

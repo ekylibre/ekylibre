@@ -41,9 +41,7 @@ class Backend::IncomingPaymentModesController < BackendController
 
   def reflect
     return unless incoming_payment_mode = find_and_check
-    incoming_payment_mode.unlocked_payments.find_each do |payment|
-      payment.update_attributes(commission_account_id: nil, commission_amount: nil)
-    end
+    incoming_payment_mode.reflect
     redirect_to action: :index
   end
 

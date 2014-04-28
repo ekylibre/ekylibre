@@ -31,7 +31,7 @@
       <variable name="corks_to_use" new="parted-from: corks" roles="bottling-input" default-name="{{variant}} ({{container}})">
 	<handler indicator="population" />
       </variable>
-      <variable name="wine_man"     variety="worker"    abilities="move" roles="bottling-doer"/>
+      <variable name="wine_man"                         abilities="drive(corker), drive(hand_drawn), move" roles="bottling-doer"/>
       <variable name="hand_drawn"   variety="equipment" abilities="fill(bottle)" roles="bottling-tool"/>
       <variable name="corker"       variety="equipment" abilities="close(bottle)" roles="bottling-tool"/>
       <variable name="wine_bottles" variety="wine" derivative-of=":wine_to_pack" new="produced-by: wine_to_pack" roles="bottling-output" hidden="true" default-name="{{variant}} [{{birth_month_abbr}}. {{birth_year}}] ({{container}})" >

@@ -99,7 +99,7 @@ product_nature_variants_005:
   number: PNV005
   unit_name: tas
   updater: users_001
-  variety: organic_matter
+  variety: raw_matter
 
 product_nature_variants_007:
   active: true

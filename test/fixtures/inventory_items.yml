@@ -46,18 +46,19 @@
 #   product: products_001
 #   updater: users_001
 #
----
+
 inventory_items_001:
   creator: users_001
   inventory: inventories_001
   population: 0
   product: products_001
-  theoric_population: 0
+  expected_population: 0
   updater: users_001
+
 inventory_items_002:
   creator: users_001
   inventory: inventories_001
   population: 0
   product: products_001
-  theoric_population: 0
+  expected_population: 0
   updater: users_001

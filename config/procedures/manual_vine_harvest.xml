@@ -2,11 +2,11 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="manual_vine_harvest" natures="harvest" version="0" status="frozen">
     <variables>
-      <variable name="grape_picker" variety="worker" abilities="pick(fruit)" roles="harvest-doer"/>
-      <variable name="pruner" variety="pruner" abilities="cut" roles="harvest-tool"/>
-      <variable name="tank" variety="tank" abilities="store_liquid" roles="harvest-tool"/>
-      <variable name="cultivation" variety="vitis" abilities="produce(fruit)" roles="harvest-target"/>
-      <variable name="fruits" variety="grape" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="grape_picker"                  abilities="pick(fruit)" roles="harvest-doer"/>
+      <variable name="pruner"       variety="pruner" abilities="cut" roles="harvest-tool"/>
+      <variable name="tank"         variety="tank"   abilities="store_liquid" roles="harvest-tool"/>
+      <variable name="cultivation"  variety="vitis"  abilities="produce(fruit)" roles="harvest-target"/>
+      <variable name="fruits"       variety="grape" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="ton"               to="population"
                  forward="value / self..net_mass(ton)"

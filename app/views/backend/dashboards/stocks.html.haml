@@ -3,12 +3,12 @@
     - cell :last_outgoing_deliveries
     - cell :last_incoming_deliveries
   - hbox do
-    - if Product.of_variety('chemical_fertilizer').collect(&:net_mass).sum.in_gram > 0.in_gram
-      - cell :current_stocks_by_variety, params: {variety: 'chemical_fertilizer', unit: 'ton'}
+    - if Product.of_variety('raw_matter').collect(&:net_mass).sum.in_gram > 0.in_gram
+      - cell :current_stocks_by_variety, params: {variety: 'raw_matter', unit: 'ton'}
     - if Product.of_variety('excrement').collect(&:net_mass).sum.in_gram > 0.in_gram
       - cell :current_stocks_by_variety, params: {variety: 'excrement', unit: 'ton'}
     -# cell :current_stocks_by_variety, params: {variety: 'grain', mass_unit: 'quintal'}
-  - hbox do
+  -# hbox do
     - if Product.of_variety('animal_medicine').collect(&:net_mass).sum.in_gram > 0.in_gram
       - cell :current_stocks_by_variety, params: {variety: 'animal_medicine'}
     - if Product.of_variety('plant_medicine').collect(&:net_mass).sum.in_gram > 0.in_gram

@@ -11,7 +11,7 @@ module Calculus
         @usage          = (options[:usage] || :grain).to_sym
         @soil_nature    = options[:soil_nature]
         @cultivation    = options[:cultivation]
-        @expected_yield = options[:expected_yield] || 0.0.kilogram_per_square_meter
+        @expected_yield = options[:expected_yield] || 0.0.in_kilogram_per_square_meter
       end
 
       def activity

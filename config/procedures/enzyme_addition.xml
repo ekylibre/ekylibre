@@ -2,7 +2,7 @@
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <procedure name="enzyme_addition" natures="addition" version="0" status="frozen">
     <variables>
-      <variable name="tank" variety="tank" abilities="store_liquid" default-actor="storage"/>
+      <variable name="tank"          variety="tank" abilities="store_liquid" default-actor="storage"/>
       <variable name="wine_to_treat" variety="wine" derivative-of="vitis" roles="addition-target" default-actor="first-localized-in: tank" read-only="true" />
       
       <variable name="oenological_intrant"        variety="matter" abilities="catalyze(wine)"/>

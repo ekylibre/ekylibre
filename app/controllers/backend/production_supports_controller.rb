@@ -18,7 +18,7 @@
 #
 
 class Backend::ProductionSupportsController < BackendController
-  manage_restfully(:t3e => {:name => :name})
+  manage_restfully(t3e: {name: :name})
 
   unroll includes: [{production: [:activity, :campaign, :variant]}, :storage]
 

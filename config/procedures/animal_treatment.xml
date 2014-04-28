@@ -4,9 +4,9 @@
   <procedure name="animal_treatment" natures="animal_curative_medicine_admission" version="0" status="frozen">
     <variables>
       <variable name="animal"           variety="animal" roles="animal_curative_medicine_admission-target"/>
-      <variable name="medicine"         variety="animal_medicine" abilities="care(animal)"/>
+      <variable name="medicine"         abilities="care(animal)"/>
       <variable name="medicine_to_give" new="parted-from: medicine" roles="animal_curative_medicine_admission-input" need="population"/>
-      <variable name="caregiver"        variety="worker" roles="animal_curative_medicine_admission-doer"/>
+      <variable name="caregiver"        abilities="administer_care(animal)" roles="animal_curative_medicine_admission-doer"/>
     </variables>
     <operations>
       <operation id="100">

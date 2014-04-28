@@ -19,7 +19,7 @@
 
 class Backend::TransformedProductsController < BackendController
 
-  list model: :products, scope: [:availables, "derivative_of(:organic_matter)".c] do |t|
+  list model: :products, scope: [:availables, "derivative_of(:raw_matter)".c] do |t|
     t.column :number, url: true
     t.column :tracking
     #t.column :identification_number

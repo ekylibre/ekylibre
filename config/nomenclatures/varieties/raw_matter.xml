@@ -1,6 +1,12 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-organic_matter">
+  <nomenclature name="varieties-raw_matter">
     <items>
+      <item name="salt"/>
+      <item name="sand"/>
+      <!-- 
+	   <item name="chemical_fertilizer"/>
+      -->
+      <item name="potassium_ferrocyanide"/>
       <!-- ANIMALS -->
       <item name="meat" derivative_of="animal"/>
       <item name="egg" derivative_of="aves"/>

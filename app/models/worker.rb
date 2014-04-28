@@ -62,7 +62,7 @@
 #  work_number           :string(255)
 #
 
-class Worker < Equipment
+class Worker < Product
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   #]VALIDATORS]
   validates_presence_of :person

@@ -26,7 +26,7 @@
                  backward="(value * self..net_mass(gram)) / self.thousand_grains_mass(gram)"
                  /> <!--  M    -->
       </variable>
-      <variable name="fertilizer" variety="chemical_fertilizer" abilities="fertilize" roles="soil_enrichment-input_origin"/>
+      <variable name="fertilizer"           variety="preparation" abilities="fertilize" roles="soil_enrichment-input_origin"/>
       <variable name="fertilizer_to_spread" new="parted-from: fertilizer" roles="soil_enrichment-input" default-population=":fertilizer">
         <handler indicator="population" />
 	<handler indicator="mass_area_density"   unit="kilogram_per_hectare"   to="population"
@@ -47,7 +47,7 @@
                  /> <!-- kg P/ha -->            
         
       </variable>
-      <variable name="insecticide" variety="insecticide"/>
+      <variable name="insecticide"          variety="preparation" abilities="kill(insecta)"/>
       <variable name="insecticide_to_input" new="parted-from: insecticide" roles="plant_illness_treatment-input" default-population=":insecticide">
 	
 	<handler indicator="population" />
@@ -61,7 +61,7 @@
                  /> <!-- kg/ha -->
 	
       </variable>
-      <variable name="molluscicide" variety="molluscicide"/>
+      <variable name="molluscicide"          variety="preparation" abilities="kill(mollusca)"/>
       <variable name="molluscicide_to_input" new="parted-from: molluscicide" roles="plant_illness_treatment-input" default-population=":molluscicide">
 	<handler indicator="population" />
         <handler indicator="net_mass"            unit="kilogram"               to="population"

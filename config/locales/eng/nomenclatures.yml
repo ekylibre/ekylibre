@@ -6,6 +6,7 @@ eng:
         parameters: "Parameters"
       items:
         acidify: "Acidify"
+        # administer_care: "Administer care"
         alkalinize: "Alkalinize"
         blow: "Blow"
         bunch: "Bunch"
@@ -1249,12 +1250,9 @@ eng:
         listings: "Listings"
         manure_management_plans: "Manure management plans"
         matters: "Matters"
-        medicines: "Medicines"
-        mineral_matters: "Mineral matters"
         myselves: "Myselves"
         net_services: "Net services"
         observations: "Observations"
-        organic_matters: "Organic matters"
         outgoing_deliveries: "Outgoing deliveries"
         outgoing_delivery_modes: "Outgoing delivery modes"
         outgoing_payment_modes: "Outgoing payment modes"
@@ -2688,17 +2686,12 @@ eng:
         europa_tsn: "Europa number id"
         itis_tsn: "Itis number id"
       items:
-        acetal: "Acetal"                                   #< animal_medicine
-        actilact: "Actilact"                               #< animal_medicine
-        additive: "Additive"                               #< plant_medicine
         allium: "Allium"                                   #< amaryllidaceae
         amaranthaceae: "Amaranthaceae"                     #< plant
         amaryllidaceae: "Amaryllidaceae"                   #< plant
         anas: "Anas"                                       #< aves
         animal: "Animal"                                   #< bioproduct
         animal_group: "Animal group"                       #< product_group
-        animal_medicine: "Animal medicine"                 #< medicine
-        antiseptic: "Antiseptic"                           #< medicine
         apiaceae: "Apiaceae"                               #< plant
         apis: "Apis"                                       #< insecta
         asparagus: "Asparagus"                             #< liliaceae
@@ -2726,7 +2719,6 @@ eng:
         cannabis_sativa: "Hemp"                            #< cannabis
         cap: "Cap"                                         #< packaged_matter
         capra: "Capra"                                     #< mammalia
-        chemical_fertilizer: "Chemical fertilizer"         #< mineral_matter
         cichorium: "Cichorium"                             #< asteraceae
         cleaner: "Cleaner"                                 #< equipment
         compost: "Compost"                                 #< excrement
@@ -2751,40 +2743,37 @@ eng:
         cucurbitaceae: "Cucurbitaceae"                     #< plant
         cultivable_zone: "Cultivable zone"                 #< zone
         daucus: "Daucus"                                   #< apiaceae
-        disinfectant: "Disinfectant"                       #< antiseptic
         easement: "Easement"                               #< zone
-        egg: "Egg"                                         #< organic_matter
+        egg: "Egg"                                         #< raw_matter
         electricity: "Electricity"                         #< matter
         equipment: "Equipment"                             #< matter
         equus: "Equine"                                    #< mammalia
-        excrement: "Excrement"                             #< organic_matter
+        excrement: "Excrement"                             #< raw_matter
         fabaceae: "Fabaceae"                               #< plant
         fermented_juice: "Fermented juice"                 #< preparation
         ficus: "Ficus"                                     #< moraceae
         ficus_carica: "Common fig"                         #< ficus
         ficus_carica_saint_pierre: "Common fig Saint-Pierre" #< ficus_carica
-        flower: "Flower"                                   #< organic_matter
+        flower: "Flower"                                   #< raw_matter
         food_deliver: "Food deliver"                       #< equipment
         forager: "Forager"                                 #< equipment
         fragaria: "Fragaria"                               #< rosaceae
         fragaria_ananassa: "Fragaria × Ananassa"           #< fragaria
         fragaria_ananassa_mara_des_bois: "Fragaria × Ananassa Mara des bois" #< fragaria_ananassa
-        fruit: "Fruit"                                     #< organic_matter
-        fuel: "Fuel"                                       #< organic_matter
-        fungicide: "Fungicide"                             #< plant_medicine
+        fruit: "Fruit"                                     #< raw_matter
+        fuel: "Fuel"                                       #< raw_matter
         fungus: "Fungus"                                   #< bioproduct
         gallus: "Gallus"                                   #< aves
-        gas: "Gas"                                         #< organic_matter
+        gas: "Gas"                                         #< raw_matter
         glycine: "Glycine"                                 #< fabaceae
         grain: "Grain"                                     #< fruit
         grape: "Grape"                                     #< fruit
-        grass: "Grass"                                     #< organic_matter
+        grass: "Grass"                                     #< raw_matter
         grossulariaceae: "Grossulariaceae"                 #< plant
         guano: "Guano"                                     #< excrement
         harvester: "Harvester"                             #< equipment
         hay: "Hay"                                         #< grass
         helianthus: "Helianthus"                           #< asteraceae
-        herbicide: "Herbicide"                             #< plant_medicine
         hordeum: "Hordeum"                                 #< poaceae
         hordeum_hibernum: "Hordeum hibernum"               #< hordeum
         hordeum_hibernum_cerevisiae: "Hordeum hibernum cerevisiae" #< hordeum_hibernum
@@ -2796,7 +2785,6 @@ eng:
         immatter: "Immatter"                               #< product
         implanter: "Implanter"                             #< equipment
         insecta: "Insecta"                                 #< animal
-        insecticide: "Insecticide"                         #< plant_medicine
         iridaceae: "Iridaceae"                             #< plant
         item: "Item"                                       #< equipment
         juglandaceae: "Juglandaceae"                       #< plant
@@ -2818,14 +2806,11 @@ eng:
         mammalia: "Mammalia"                               #< animal
         manure: "Manure"                                   #< excrement
         matter: "Matter"                                   #< product
-        meat: "Meat"                                       #< organic_matter
+        meat: "Meat"                                       #< raw_matter
         medicago: "Medicago"                               #< fabaceae
-        medicine: "Medicine"                               #< preparation
-        milk: "Milk"                                       #< organic_matter
-        mineral_matter: "Mineral matter"                   #< matter
+        milk: "Milk"                                       #< raw_matter
         mix: "Mix"                                         #< preparation
         mollusca: "Mollusca"                               #< animal
-        molluscicide: "Molluscicide"                       #< plant_medicine
         moraceae: "Moraceae"                               #< plant
         mower: "Mower"                                     #< equipment
         nicotiana: "Nicotiana"                             #< solanaceae
@@ -2833,27 +2818,25 @@ eng:
         nicotiana_tabacum_burley: "Cultivated tobacco Burley" #< nicotiana_tabacum
         nicotiana_tabacum_virginie: "Cultivated tobacco Virginie" #< nicotiana_tabacum
         numida: "Helmeted Guineafowl"                      #< aves
-        oil: "Oil"                                         #< organic_matter
-        organic_matter: "Organic matter"                   #< matter
+        oil: "Oil"                                         #< raw_matter
         oryza: "Rice"                                      #< poaceae
         osteichthyes: "Osteichthyes"                       #< animal
         ostreidae: "Ostreidae"                             #< mollusca
         ovis: "Ovis"                                       #< mammalia
-        packaged_matter: "Packaged matter"                 #< matter
+        packaged_matter: "Packaged matter"                 #< preparation
         peach: "Peach"                                     #< fruit
         pear: "Pear"                                       #< fruit
         phacelia: "Phacelia"                               #< boraginaceae
         phaseolus: "Phaseolus"                             #< fabaceae
         pisum: "Pisum"                                     #< fabaceae
         plant: "Plant"                                     #< bioproduct
-        plant_medicine: "Plant medicine"                   #< medicine
         plower: "Plower"                                   #< equipment
         plum: "Plum"                                       #< fruit
         poa: "Poa"                                         #< poaceae
         poaceae: "Poaceae"                                 #< plant
-        pollen: "Pollen"                                   #< organic_matter
+        pollen: "Pollen"                                   #< raw_matter
         pomace: "Pomace"                                   #< preparation
-        potassium_ferrocyanide: "Potassium ferrocyanide"   #< mineral_matter
+        potassium_ferrocyanide: "Potassium ferrocyanide"   #< raw_matter
         preparation: "Preparation"                         #< matter
         press: "Press"                                     #< equipment
         product: "Product"
@@ -2880,6 +2863,7 @@ eng:
         pyrus_communis_william: "Pyrus communis William"   #< pyrus_communis
         pyrus_communis_william_bon_chretien: "Pyrus communis William Bon-Chretien" #< pyrus_communis
         raspberry: "Raspberry"                             #< fruit
+        # raw_matter: "Raw matter"                         #< preparation
         reaper: "Reaper"                                   #< equipment
         ribes: "Ribes"                                     #< grossulariaceae
         ribes_nigrum: "Blackcurrant"                       #< ribes
@@ -2905,13 +2889,13 @@ eng:
         saccharomycetaceae: "Saccharomycetaceae"           #< fungus
         saccharose: "Saccharose"                           #< sugar
         salmo: "Salmo"                                     #< osteichthyes
-        salt: "Salt"                                       #< mineral_matter
-        sand: "Sand"                                       #< mineral_matter
+        salt: "Salt"                                       #< raw_matter
+        sand: "Sand"                                       #< raw_matter
         screw_bottle: "Screw bottle"                       #< bottle
         screw_cap: "Screw cap"                             #< cap
         secale: "Secale"                                   #< poaceae
-        seed: "Seed"                                       #< organic_matter
-        seedling: "Seedling"                               #< organic_matter
+        seed: "Seed"                                       #< raw_matter
+        seedling: "Seedling"                               #< raw_matter
         service: "Service"                                 #< immatter
         settlement: "Settlement"                           #< easement
         silage: "Silage"                                   #< preparation
@@ -2927,7 +2911,7 @@ eng:
         straw: "Straw"                                     #< grass
         strawberry: "Strawberry"                           #< fruit
         sub_zone: "Sub zone"                               #< zone
-        sugar: "Sugar"                                     #< organic_matter
+        sugar: "Sugar"                                     #< raw_matter
         sus: "Sus"                                         #< mammalia
         tank: "Tank"                                       #< equipment
         tractor: "Tractor"                                 #< equipment
@@ -3002,12 +2986,12 @@ eng:
         walnut: "Walnut"                                   #< fruit
         water: "Water"                                     #< matter
         wine: "Wine"                                       #< fermented_juice
-        worker: "Worker"                                   #< equipment
+        worker: "Worker"                                   #< product
         zea: "Corn"                                        #< poaceae
         zea_aallexia: "Corn Aallexia"                      #< zea
         zea_bergxxon: "Corn Bergxxon"                      #< zea
         zea_lg3490: "Corn LG3490"                          #< zea
-        zone: "Zone"                                       #< matter
+        zone: "Zone"                                       #< product
         zone_property_title: "Zone property title"         #< property_title
     working_sets:
       name: "Working sets"

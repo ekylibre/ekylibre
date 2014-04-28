@@ -3,9 +3,9 @@
   <procedure name="superficial_plowing" natures="raking" version="0" status="frozen">
     <variables>
       <!-- paramètre réprésentant des objets de type Humain qui possède la compétence "Conduire un ensemble tracteur + épandeur"  -->
-      <variable name="driver" variety="worker" roles="raking-doer"/>
+      <variable name="driver"  abilities="drive(tractor),move" roles="raking-doer"/>
       <!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
-      <variable name="tractor" abilities="tow(equipment)"/>
+      <variable name="tractor" abilities="tow(equipment),move"/>
       <variable name="land_parcel" variety="cultivable_zone" roles="raking-target" default-actor="storage"  need="shape" default-shape=":land_parcel">
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, land_parcel.shape)" backward="value"/>

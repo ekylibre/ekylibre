@@ -61,6 +61,6 @@
 #  variety               :string(120)      not null
 #  work_number           :string(255)
 #
-class Zone < Matter
+class Zone < Product
   has_shape
 end

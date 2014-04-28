@@ -24,7 +24,7 @@
                  backward="value * ( self..net_volume(cubic_meter) * self.dry_matter_rate(mass_percent) / 100)"
                  /> <!-- t de MS-->        
       </variable>
-      <variable name="driver"           variety="worker" roles="food_supply-doer"/>
+      <variable name="driver"           abilities="drive(tractor), move" roles="food_supply-doer"/>
       <variable name="tractor"          abilities="tow(equipment), move" roles="food_supply-tool"/>
       <variable name="silage_unloader"  abilities="deliver(silage)" roles="food_supply-tool"/>
     </variables>

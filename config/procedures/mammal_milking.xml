@@ -4,9 +4,9 @@
   <procedure name="mammal_milking" natures="milk_production" version="0" status="frozen">
     <variables>
       <variable name="mammal_to_milk" variety="mammalia" abilities="produce(milk)"  roles="milk_production-target"/>
-      <variable name="milk"   variety="milk" derivative-of="variety: mammal_to_milk" roles="milk_production-output" new="produced-by: mammal_to_milk" need="population" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}"/>
-      <variable name="caregiver" variety="worker" abilities="milk(mammalia)"   roles="milk_production-doer"/>
-      <variable name="container" abilities="store(milk)"/>
+      <variable name="milk"           variety="milk" derivative-of="variety: mammal_to_milk" roles="milk_production-output" new="produced-by: mammal_to_milk" need="population" default-name="{{variant}} {{birth_year}}-{{birth_month}}-{{birth_day}}"/>
+      <variable name="caregiver"      abilities="milk(mammalia)"   roles="milk_production-doer"/>
+      <variable name="container"      abilities="store(milk)"/>
     </variables>
     <operations>
       <operation id="100" duration="10 minutes">

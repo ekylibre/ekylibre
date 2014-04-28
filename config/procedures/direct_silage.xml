@@ -3,7 +3,7 @@
   <procedure name="direct_silage" natures="harvest" version="0" status="frozen">
     <variables>
       <variable name="forager"        abilities="harvest(plant)" roles="harvest-tool"/>
-      <variable name="forager_driver" abilities="drive(forager)" roles="harvest-doer"/>
+      <variable name="forager_driver" abilities="move,drive(forager)" roles="harvest-doer"/>
       <variable name="cultivation"    variety="poaceae" roles="harvest-target" need="shape" default-actor="variant-localized-in-storage" >
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>

@@ -339,13 +339,13 @@ fra:
       new: "Nouvelle parcelle"
       show: "Parcelle %{name}"
     backend/legal_entities:
-      # edit: "Edit legal entity: %{name}"
+      # edit: "Edit legal entity: %{full_name}"
       # export: "Export legal entities"
       # import: "Import legal entities"
       # index: "Legal entities"
-      # merge: "Merge legal entity: %{name}"
+      # merge: "Merge legal entity: %{full_name}"
       # new: "New legal entity"
-      # show: "Legal entity: %{name}"
+      # show: "Legal entity: %{full_name}"
     backend/listing_nodes:
       edit: "Modifier le nœud"
       new: "Nouveau nœud"
@@ -366,16 +366,16 @@ fra:
       new: "Nouvelle matière"
       picture: "Visuel" #?
       show: "Matière\_: %{name}"
-    backend/medicines:
-      edit: "Modifier le médicaments\_: %{name}"
-      index: "Médicaments"
-      new: "Nouveau médicaments"
-      show: "Médicament\_: %{name}"
-    backend/mineral_matters:
-      edit: "Modifier la matière minérale\_: %{name}"
-      index: "Matières minérales"
-      new: "Nouvelle matière minérale"
-      show: "Matière minérale\_: %{name}"
+    backend/medicines:  #?
+      edit: "Modifier le médicaments\_: %{name}" #?
+      index: "Médicaments" #?
+      new: "Nouveau médicaments" #?
+      show: "Médicament\_: %{name}" #?
+    backend/mineral_matters:  #?
+      edit: "Modifier la matière minérale\_: %{name}" #?
+      index: "Matières minérales" #?
+      new: "Nouvelle matière minérale" #?
+      show: "Matière minérale\_: %{name}" #?
     backend/myselves:
       change_password: "Changer de mot de passe" #?
       show: "Mes informations"
@@ -394,11 +394,11 @@ fra:
       new: "Nouveau travail" #?
       show: "Détails du travail"
       unvalidateds: "Travaux non validés" #?
-    backend/organic_matters:
-      edit: "Modifier la matière organique\_: %{name}"
-      index: "Matières organiques"
-      new: "Nouvelle matière organique"
-      show: "Matière organique\_: %{name}"
+    backend/organic_matters:  #?
+      edit: "Modifier la matière organique\_: %{name}" #?
+      index: "Matières organiques" #?
+      new: "Nouvelle matière organique" #?
+      show: "Matière organique\_: %{name}" #?
     backend/outgoing_deliveries:
       edit: "Modifier la livraison sortante\_: %{number}"
       index: "Livraisons sortantes"
@@ -422,7 +422,7 @@ fra:
       # export: "Export people"
       # import: "Import people"
       index: "Personnes"
-      # merge: "Merge person: %{name}"
+      # merge: "Merge person: %{full_name}"
       new: "Nouvelle personne"
       show: "Personne\_: %{full_name}"
     backend/plant_fertilizers:
@@ -462,9 +462,7 @@ fra:
       new: "Nouvelle catégorie"
       pick: "Importer une catégorie de produits"
       show: "Catégorie de produit\_: %{name}"
-    backend/product_nature_variant_readings:
-      # edit: "Edit product nature variant reading: %{name}"
-      # new: "New product nature variant reading"
+    backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       edit: "Modifier la variante de produit\_: %{name}"
       # incorporate: "Incorporate product nature variant: %{name}"
@@ -479,11 +477,7 @@ fra:
       new: "Nouveau type de produit"
       pick: "Importer un type de produit"
       show: "Type de produit\_: %{name}"
-    backend/production_support_markers:
-      # edit: "Edit production support marker: %{name}"
-      # index: "Production support markers"
-      # new: "New production support marker"
-      # show: "Production support marker: %{name}"
+    backend/production_support_markers: #?
     backend/production_supports:
       edit: "Modifier un support de production"
       index: "Supports de production"

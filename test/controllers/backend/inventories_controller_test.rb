@@ -19,5 +19,5 @@
 
 require 'test_helper'
 class Backend::InventoriesControllerTest < ActionController::TestCase
-  test_restfully_all_actions :reflect => :touch, :except => [:show, :new, :list_items_create, :list_items_update]
+  test_restfully_all_actions reflect: :touch
 end

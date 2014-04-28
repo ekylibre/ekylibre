@@ -6,7 +6,7 @@
       <variable name="equipment"      variety="equipment" abilities="consume(fuel)" roles="consummables_addition-target"/>
       <variable name="fuel"           variety="fuel" />
       <variable name="fuel_to_input"  new="parted-from: fuel" roles="consummables_addition-input" need="population"/>
-      <variable name="mechanic"       variety="worker" roles="consummables_addition-doer"/>
+      <variable name="mechanic"       abilities="care(equipment)" roles="consummables_addition-doer"/>
     </variables>
     <operations>
       <operation id="100">

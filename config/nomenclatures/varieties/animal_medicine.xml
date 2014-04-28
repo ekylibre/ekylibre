@@ -1,9 +1,0 @@
-<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
-  <nomenclature name="varieties-animal_medicine">
-    <!-- http://www.ircp.anmv.anses.fr/ -->
-    <items>
-      <item name="acetal"/>
-      <item name="actilact"/>
-    </items>
-  </nomenclature>
-</nomenclatures>

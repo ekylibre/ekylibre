@@ -59,7 +59,7 @@ intervention_casts_001:
   updater: users_001
 
 intervention_casts_002:
-  actor: organic_matters_003
+  actor: matters_003
   creator: users_001
   intervention: interventions_002
   population: 12
@@ -88,7 +88,7 @@ intervention_casts_004:
   updater: users_001
 
 intervention_casts_005:
-  actor: organic_matters_003
+  actor: matters_003
   creator: users_001
   intervention: interventions_001
   population: 12

@@ -228,30 +228,6 @@ animal_medicines:
     actions:
     - "backend/animal_medicines#index"
     - "backend/animal_medicines#list"
-    - "backend/animal_medicines#list_carried_linkages"
-    - "backend/animal_medicines#list_carrier_linkages"
-    - "backend/animal_medicines#list_contained_products"
-    - "backend/animal_medicines#list_groups"
-    - "backend/animal_medicines#list_intervention_casts"
-    - "backend/animal_medicines#list_issues"
-    - "backend/animal_medicines#list_markers"
-    - "backend/animal_medicines#list_members"
-    - "backend/animal_medicines#list_places"
-    - "backend/animal_medicines#list_reading_tasks"
-    - "backend/animal_medicines#list_readings"
-    - "backend/animal_medicines#picture"
-    - "backend/animal_medicines#show"
-    - "backend/animal_medicines#unroll"
-    - "backend/dashboards#production"
-  write:
-    depend-on:
-    - read-animal_medicines
-    actions:
-    - "backend/animal_medicines#create"
-    - "backend/animal_medicines#destroy"
-    - "backend/animal_medicines#edit"
-    - "backend/animal_medicines#new"
-    - "backend/animal_medicines#update"
 
 animal_products:
   read:
@@ -1295,64 +1271,6 @@ matters:
     - "backend/matters#new"
     - "backend/matters#update"
 
-medicines:
-  read:
-    actions:
-    - "backend/medicines#index"
-    - "backend/medicines#list"
-    - "backend/medicines#list_carried_linkages"
-    - "backend/medicines#list_carrier_linkages"
-    - "backend/medicines#list_contained_products"
-    - "backend/medicines#list_groups"
-    - "backend/medicines#list_intervention_casts"
-    - "backend/medicines#list_issues"
-    - "backend/medicines#list_markers"
-    - "backend/medicines#list_members"
-    - "backend/medicines#list_places"
-    - "backend/medicines#list_reading_tasks"
-    - "backend/medicines#list_readings"
-    - "backend/medicines#picture"
-    - "backend/medicines#show"
-    - "backend/medicines#unroll"
-  write:
-    depend-on:
-    - read-medicines
-    actions:
-    - "backend/medicines#create"
-    - "backend/medicines#destroy"
-    - "backend/medicines#edit"
-    - "backend/medicines#new"
-    - "backend/medicines#update"
-
-mineral_matters:
-  read:
-    actions:
-    - "backend/mineral_matters#index"
-    - "backend/mineral_matters#list"
-    - "backend/mineral_matters#list_carried_linkages"
-    - "backend/mineral_matters#list_carrier_linkages"
-    - "backend/mineral_matters#list_contained_products"
-    - "backend/mineral_matters#list_groups"
-    - "backend/mineral_matters#list_intervention_casts"
-    - "backend/mineral_matters#list_issues"
-    - "backend/mineral_matters#list_markers"
-    - "backend/mineral_matters#list_members"
-    - "backend/mineral_matters#list_places"
-    - "backend/mineral_matters#list_reading_tasks"
-    - "backend/mineral_matters#list_readings"
-    - "backend/mineral_matters#picture"
-    - "backend/mineral_matters#show"
-    - "backend/mineral_matters#unroll"
-  write:
-    depend-on:
-    - read-mineral_matters
-    actions:
-    - "backend/mineral_matters#create"
-    - "backend/mineral_matters#destroy"
-    - "backend/mineral_matters#edit"
-    - "backend/mineral_matters#new"
-    - "backend/mineral_matters#update"
-
 myselves:
   read:
     actions:
@@ -1386,35 +1304,6 @@ observations:
     - "backend/observations#edit"
     - "backend/observations#new"
     - "backend/observations#update"
-
-organic_matters:
-  read:
-    actions:
-    - "backend/organic_matters#index"
-    - "backend/organic_matters#list"
-    - "backend/organic_matters#list_carried_linkages"
-    - "backend/organic_matters#list_carrier_linkages"
-    - "backend/organic_matters#list_contained_products"
-    - "backend/organic_matters#list_groups"
-    - "backend/organic_matters#list_intervention_casts"
-    - "backend/organic_matters#list_issues"
-    - "backend/organic_matters#list_markers"
-    - "backend/organic_matters#list_members"
-    - "backend/organic_matters#list_places"
-    - "backend/organic_matters#list_reading_tasks"
-    - "backend/organic_matters#list_readings"
-    - "backend/organic_matters#picture"
-    - "backend/organic_matters#show"
-    - "backend/organic_matters#unroll"
-  write:
-    depend-on:
-    - read-organic_matters
-    actions:
-    - "backend/organic_matters#create"
-    - "backend/organic_matters#destroy"
-    - "backend/organic_matters#edit"
-    - "backend/organic_matters#new"
-    - "backend/organic_matters#update"
 
 outgoing_deliveries:
   read:
@@ -1533,29 +1422,6 @@ plant_medicines:
     actions:
     - "backend/plant_medicines#index"
     - "backend/plant_medicines#list"
-    - "backend/plant_medicines#list_carried_linkages"
-    - "backend/plant_medicines#list_carrier_linkages"
-    - "backend/plant_medicines#list_contained_products"
-    - "backend/plant_medicines#list_groups"
-    - "backend/plant_medicines#list_intervention_casts"
-    - "backend/plant_medicines#list_issues"
-    - "backend/plant_medicines#list_markers"
-    - "backend/plant_medicines#list_members"
-    - "backend/plant_medicines#list_places"
-    - "backend/plant_medicines#list_reading_tasks"
-    - "backend/plant_medicines#list_readings"
-    - "backend/plant_medicines#picture"
-    - "backend/plant_medicines#show"
-    - "backend/plant_medicines#unroll"
-  write:
-    depend-on:
-    - read-plant_medicines
-    actions:
-    - "backend/plant_medicines#create"
-    - "backend/plant_medicines#destroy"
-    - "backend/plant_medicines#edit"
-    - "backend/plant_medicines#new"
-    - "backend/plant_medicines#update"
 
 plants:
   read:

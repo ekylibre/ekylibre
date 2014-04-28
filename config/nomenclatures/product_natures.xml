@@ -319,7 +319,7 @@
        <!-- INTRANT -->      
       <item name="herbicide"
             category="plant_medicine"
-            variety="herbicide"
+            variety="preparation"
             population_counting="decimal"
             abilities="kill(plant)"
             variable_indicators="population"
@@ -327,7 +327,7 @@
             />
       <item name="fungicide"
             category="plant_medicine"
-            variety="fungicide"
+            variety="preparation"
             population_counting="decimal"
             abilities="kill(fungus)"
             variable_indicators="population"
@@ -335,7 +335,7 @@
             />
       <item name="additive"
             category="plant_medicine"
-            variety="additive"
+            variety="preparation"
             population_counting="decimal"
             abilities=""
             variable_indicators="population"
@@ -343,7 +343,7 @@
             />
       <item name="insecticide"
             category="plant_medicine"
-            variety="insecticide"
+            variety="preparation"
             population_counting="decimal"
             abilities="kill(insecta)"
             variable_indicators="population"
@@ -351,7 +351,7 @@
             />
       <item name="molluscicide"
             category="plant_medicine"
-            variety="molluscicide"
+            variety="preparation"
             population_counting="decimal"
             abilities="kill(mollusca)"
             variable_indicators="population"
@@ -359,7 +359,7 @@
             />
       <item name="chemical_fertilizer"
             category="fertilizer"
-            variety="chemical_fertilizer"
+            variety="preparation"
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population"
@@ -367,7 +367,7 @@
             />
       <item name="mixed_chemical_fertilizer"
             category="fertilizer"
-            variety="chemical_fertilizer"
+            variety="preparation"
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population, nitrogen_concentration, potassium_concentration, phosphorus_concentration"
@@ -375,7 +375,7 @@
             />
       <item name="mixed_liquid_fertilizer"
             category="fertilizer"
-            variety="chemical_fertilizer"
+            variety="preparation"
             population_counting="decimal"
             abilities="fertilize"
             variable_indicators="population, nitrogen_concentration, potassium_concentration, phosphorus_concentration, net_volume"
@@ -434,7 +434,7 @@
             />
        <item name="clarification_solution"
             category="oenological_product"
-            variety="matter"
+            variety="preparation"
             population_counting="decimal"
             abilities="clarify(fermented_juice), clarify(wine)"
             variable_indicators="population"
@@ -513,9 +513,9 @@
             />
       <item name="animal_medicine"
             category="animal_medicine"
-            variety="animal_medicine"
+            variety="preparation"
             population_counting="decimal"
-            abilities="kill(bacteria virus fungus), care(animal)"
+            abilities="kill(bacteria), kill(virus), kill(fungus), care(animal)"
             variable_indicators="population"
             frozen_indicators="net_mass, net_volume, meat_withdrawal_period, milk_withdrawal_period"
             />
@@ -529,7 +529,7 @@
             />
       <item name="mineral_cleaner"
             category="other_consumable"
-            variety="disinfectant"
+            variety="preparation"
             population_counting="decimal"
             abilities="clean"
             variable_indicators="population"

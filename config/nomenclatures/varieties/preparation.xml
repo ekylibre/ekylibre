@@ -1,8 +1,10 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="varieties-preparation">
     <items>
+      <item name="raw_matter"/>
+      <item name="packaged_matter"/>
       <item name="mix"/>
-      <item name="medicine"/>
+      <!-- <item name="medicine"/> -->
       <item name="silage" derivative_of="plant"/>
       <item name="concentrated_rectified_must" derivative_of="fruit"/>
       <item name="fermented_juice" derivative_of="fruit"/>
@@ -17,12 +19,14 @@
     </items>
   </nomenclature>
   
-   <nomenclature name="varieties-medicine">
+  <!--
+  <nomenclature name="varieties-medicine">
     <items>
       <item name="animal_medicine"/>
       <item name="plant_medicine"/>
       <item name="antiseptic"/>
     </items>
   </nomenclature>
-  
+  -->
+
 </nomenclatures>

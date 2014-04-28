@@ -52,7 +52,8 @@ class IncomingPaymentMode < Ekylibre::Record::Base
   belongs_to :depositables_journal, class_name: "Journal"
   has_many :depositable_payments, -> { where(:deposit_id => nil) }, class_name: "IncomingPayment", foreign_key: :mode_id
   has_many :payments, foreign_key: :mode_id, class_name: "IncomingPayment"
-  has_many :unlocked_payments, -> { where('journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})') }, foreign_key: :mode_id, class_name: "IncomingPayment"
+  # has_many :unlocked_payments, -> { where("journal_entry_id IN (SELECT id FROM #{JournalEntry.table_name} WHERE state=#{connection.quote("draft")})") }, foreign_key: :mode_id, class_name: "IncomingPayment"
+  has_many :unlocked_payments, -> { where(journal_entry_id: JournalEntry.where(state: "draft")) }, foreign_key: :mode_id, class_name: "IncomingPayment"
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :commission_base_amount, :commission_percentage, allow_nil: true
@@ -93,6 +94,10 @@ class IncomingPaymentMode < Ekylibre::Record::Base
 
   def commission_amount(amount)
     return (amount * self.commission_percentage * 0.01 + self.commission_base_amount).round(2)
+  end
+
+  def reflect
+    self.unlocked_payments.update_attributes(commission_account_id: nil, commission_amount: nil)
   end
 
 end

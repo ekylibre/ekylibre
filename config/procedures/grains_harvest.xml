@@ -3,7 +3,7 @@
   <procedure name="grains_harvest" natures="harvest" version="0" status="frozen">
     <variables>
       <!-- paramètre réprésentant des objets qui possede la compétence "Semer"  -->
-      <variable name="cropper_driver" variety="worker" abilities="drive(reaper)" roles="harvest-doer"/>
+      <variable name="cropper_driver" abilities="drive(reaper)" roles="harvest-doer"/>
       <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->
       <variable name="cropper" variety="reaper" abilities="harvest(plant)" roles="harvest-tool"/>
       <!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble de semis" -->

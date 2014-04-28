@@ -5,7 +5,7 @@
     <variables>
       <variable name="mother" variety="bos" abilities="produce(bos)" roles="viviparous_birth-target"/>
       <variable name="child"  variety="bos" new="produced-by: mother" before-run="work_number, identification_number, description, picture" roles="viviparous_birth-output"/>
-      <variable name="caregiver" variety="worker"/>
+      <variable name="caregiver" abilities="administer_care(bos)"/>
     </variables>
     <operations>
       <operation id="100">

@@ -8,7 +8,7 @@
     <!-- same-nature-of = "parameter" quand une variable interne est issue d'un objet passé en paramètre -->
     <!-- les compétences (abilities) sont notés sous la forme d'une compétence sur une variété : compétence(variété)-->
     <variables>
-      <variable name="manure" variety="organic_matter" abilities="fertilize" roles="soil_enrichment-input_origin"/>
+      <variable name="manure" variety="preparation" abilities="fertilize" roles="soil_enrichment-input_origin"/>
       <variable name="manure_to_spread" new="parted-from: manure" roles="soil_enrichment-input" default-population=":manure">
      <handler indicator="population" />
      <handler indicator="mass_area_density"   unit="ton_per_hectare"   to="population"
@@ -17,7 +17,7 @@
                  /> <!-- kg N/ha -->
       </variable> 
       <variable name="spreader" abilities="spread(organic_matter)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
-      <variable name="driver" variety="worker" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
+      <variable name="driver"  abilities="drive(tractor)" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="land_parcel" variety="cultivable_zone" roles="soil_enrichment-target" default-actor="storage" need="shape" default-shape=":land_parcel">
         <handler indicator="shape">
