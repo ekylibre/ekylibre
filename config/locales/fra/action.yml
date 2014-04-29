@@ -784,7 +784,7 @@ fra:
     add_marker: "Ajouter un objectif" #?
     add_mobile: "Ajouter un n° de portable"
     add_new_record: "Ajouter un nouveau enregistrement"
-    add_participation: "Ajouter une participation" #?
+    add_participation: "Ajouter une participation"
     add_passage: "Ajouter un produit" #?
     add_payment: "Ajouter un encaissement"
     add_phone: "Ajouter un n° de téléphone"
@@ -888,7 +888,6 @@ fra:
     cash_tabbox:
       bank_statements: "Relevés de compte"
       deposits: "Remises en banque"
-    # cash_update: "Update cash"
     casts: "Intervenants" #?
     catalog: "Description pour catalogue"
     category: "Catégorie"
@@ -954,7 +953,7 @@ fra:
     create: "Créer"
     create_journal: "— Créer le journal —"
     created_at: "Créée le"
-    created_at_by: "Créé le %{at} par %{by}." #?
+    created_at_by: "Créé le %{at} par %{by}."
     created_between: "Enregistré entre le %{started_at} et le %{stopped_at}"
     credit: "Crédit"
     credits: "Avoirs"
@@ -974,7 +973,6 @@ fra:
     current: "En cours"
     current_letter: "Lettre en cours\_: %{letter}"
     current_stocks_by_variety: "État des stocks" #?
-    # custom_field_update: "Custom field update"
     data_to_export: "Données à exporter"
     data_to_extract: "Données à extraire"
     dates: "Saisissez les dates de début et de fin de la période"
@@ -984,7 +982,6 @@ fra:
     # decision_making: "Decision-making"
     default_subject: "[%{company}]"
     delay: "Délai"
-    # delay_update: "Edit delay"
     # delays: "Delays"
     delete: "Supprimer"
     deliver: "Valider l’envoi des livraisons"
@@ -1011,7 +1008,6 @@ fra:
     document: "Document joint"
     document_natures: "Types de documents"
     document_templates: "Modèles de documents"
-    doer_evaluated_cost: "Coût main d’œuvre" #?
     dont_use_journal: "— Ne pas utiliser de journal —"
     down: "Descendre"
     down_to_level: "Détailler jusqu’au niveau"
@@ -1032,11 +1028,9 @@ fra:
     entities_import: "Importer un fichier CSV"
     entities_merge: "Fusionner des fiches"
     entity: "Personne"
-    # entity_category_update: "Update category"
     # entity_print: "Print person"
     entity_to_delete: "Doublon à fusionner (et faire disparaitre)"
     entity_to_update: "Fiche à mettre à jour avec les éléments du doublon"
-    # entity_update: "Person update"
     entries: "Écritures"
     entries_to_point: "Écritures à pointer"
     equipment_evaluated_cost: "Coût équipements" #?
@@ -1050,6 +1044,9 @@ fra:
     estimate: "Devis"
     estimate_to_order: "Passer le devis en commande"
     europe_out_export: "Exportations hors CE"
+    evaluated_doer_cost: "Coût main d’œuvre"
+    evaluated_input_cost: "Coût intrants"
+    evaluated_tool_cost: "Coût outils"
     events: "Évènements"
     example: "Exemple\_: %{value}"
     exchange_rate_from_x_to_y: "Taux de change de %{x} à %{y}"
@@ -1120,8 +1117,6 @@ fra:
     include_blank: "— Aucune organisation —"
     income_statement: "Comptes de résultats"
     incoming_payment_conditions: "Conditions d’encaissement"
-    # incoming_payment_update: "Update incoming payment"
-    # incoming_payment_use_create: "New incoming payment"
     incoming_payments: "Encaissements"
     incoming_payments_states:
       all: "Tous"
@@ -1138,7 +1133,6 @@ fra:
     info: "Information\_: %{value}"
     infos: "Information générales"
     inhibitors_presence: "Présence de résidus d’inhibiteurs" #?
-    input_evaluated_cost: "Coût intrants" #?
     insert_actual_password: "Saisissez votre mot de passe actuel"
     insert_password: "Saisissez votre nouveau mot de passe"
     international_normal_vat_collected: "Taux normal à 8,5%" #?
@@ -1160,14 +1154,12 @@ fra:
     journal_entries: "Écritures"
     journal_entries_states: "États des écritures utilisées"
     journal_name: "%{name}"
-    # journal_update: "Update journal"
     journal_view:
       entries: "Écritures"
       items: "Lignes d’écritures"
       mixed: "Écritures et lignes"
     journals: "Journaux"
     land_parcel_name: "Parcelle"
-    # land_parcel_update: "Update land parcel"
     land_parcels: "Parcelles"
     language: "Langue" #?
     last_analyses: "Dernières analyses"
@@ -1230,7 +1222,7 @@ fra:
     map: "Carte"
     markers: "Objectifs" #?
     mass: "Masse"
-    maximal_temperature: "Température maximale" #?
+    maximal_temperature: "Température maximale"
     measure_options: "Indicateur de type mesure" #?
     meat_withdrawal_period: "Période d’attente avant remise en vente de viande" #?
     medical_informations: "Informations médicales" #?
@@ -1260,7 +1252,7 @@ fra:
     meteo: "Météo"
     method: "Méthode" #?
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
-    minimal_temperature: "Température minimale" #?
+    minimal_temperature: "Température minimale"
     missing_help: "Page inexistante"
     mistake_on_quantities_sum: "La somme des quantités n’est pas égale à la quantité totale produite"
     mobile: "Portable"
@@ -1269,7 +1261,7 @@ fra:
     modules: "Modules"
     month_period: "%{code} — %{month} %{year}"
     monthly: "Mensuelle"
-    months: "Mois" #?
+    months: "Mois"
     moved_at: "Fait le"
     movements: "Mouvements"
     moves: "Mouvements de stocks"
@@ -1406,7 +1398,7 @@ fra:
     please_wait: "Merci de patienter…"
     population: "Population" #?
     postal_zone_x: "%{name} (%{postal_code})" #?
-    precipitation: "Précipitations" #?
+    precipitation: "Précipitations"
     preferences: "Préférences"
     pretax_amount: "Montant HT"
     previous: "Précédent"
@@ -1619,7 +1611,7 @@ fra:
     synthesis: "Documents de synthèse"
     target: "Cible"
     target_name: "Nom de la cible" #?
-    taxes: "Taxes" #?
+    taxes: "Taxes"
     temperature: "Température" #?
     theoric_quantity: "Quantité théorique"
     third_informations: "Informations tierces" #?
@@ -1630,8 +1622,6 @@ fra:
     to_deliver: "Livrer"
     to_deposit: "À encaisser"
     today: "Aujourd’hui"
-    tool_evaluated_cost: "Coût outils" #?
-    # tool_update: "Update tool"
     tools: "Outils"
     tools_list: "Liste d’outils"
     total: "Total"
@@ -1666,7 +1656,7 @@ fra:
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "Charger les unités de base manquantes" #?
     unknown_condition: "Type de condition inconnue"
-    unknown_user: "Utilisateur inconnu" #?
+    unknown_user: "Utilisateur inconnu"
     unknown_variant: "Variante de produit inconnue" #?
     unlock: "Déverrouiller"
     unpaid: "Impayées"
@@ -1683,7 +1673,7 @@ fra:
     up: "Monter"
     update: "Modifier"
     update_params: "Modifier la recherche"
-    updated_at_by: "Mis à jour le %{at} par %{by}\_:" #?
+    updated_at_by: "Mis à jour le %{at} par %{by}\_:"
     upload: "Téléversement"
     urea_concentration: "Teneur moyenne en urée" #?
     usage: "Utilisation"
@@ -1697,7 +1687,7 @@ fra:
     valid: "Valider"
     validate: "Valider"
     validate_selected_entries: "Valider les écritures sélectionnées"
-    values: "Valeurs" #?
+    values: "Valeurs"
     variants: "Variantes" #?
     vat: "Taxe à payer" #?
     vat_acquisitions: "Acquisitions intracommunautaires" #?
@@ -1710,7 +1700,7 @@ fra:
       printable: "Mode «\_Imprimable\_»"
       resized: "Mode «\_Tout à l’écran\_»"
     virtual_quantity: "Quantité virtuelle"
-    wind_speed: "Vitesse du vent" #?
+    wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     # with_assets_depreciations: "With assets depreciations"
     with_financial_assets_depreciations: "Inclure les amortissements des immobilisations" #?
@@ -1750,9 +1740,9 @@ fra:
       one: " %{count} évènement de type %{nature} d’une durée de %{duration} minutes"
       other: " %{count} évènements de type %{nature} pour une durée totale de %{duration} minutes"
       zero: " Aucun événement de type %{nature}"
-    x_has_been_cleared: "%{x} a été effacé (anciennement %{a})" #?
-    x_has_been_updated_from_a_to_b: "%{x} a été mis à jour de %{a} à %{b}" #?
-    x_has_been_updated_to_a: "%{x} a été mis à jour avec %{a}" #?
+    x_has_been_cleared: "%{x} a été effacé (anciennement %{a})"
+    x_has_been_updated_from_a_to_b: "%{x} a été mis à jour de %{a} à %{b}"
+    x_has_been_updated_to_a: "%{x} a été mis à jour avec %{a}"
     x_incoming_payments:
       one: "%{count} encaissement"
       other: "%{count} encaissements"

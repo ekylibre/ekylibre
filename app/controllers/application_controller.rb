@@ -43,6 +43,7 @@ class ApplicationController < ActionController::Base
   # end
 
   def self.human_name
+    raise "DEPRECATED"
     ::I18n.translate("controllers." + self.controller_path)
   end
 

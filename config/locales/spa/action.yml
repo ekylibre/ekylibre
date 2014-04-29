@@ -837,6 +837,7 @@ spa:
     # add_mail: "Add postal adress"
     # add_mobile: "Add mobile phone number"
     # add_new_record: "New record"
+    # add_participation: "Add participation"
     # add_payment: "Add payment"
     # add_phone: "Add phone number"
     # add_production: "Add production"
@@ -926,7 +927,7 @@ spa:
     cash_tabbox:
       bank_statements: "Leventar de cuento"
       deposits: "Entregas en banca"
-    cash_update: "Modificar la tresoreria"
+    cash_update: "Modificar la tresoreria" #?
     # catalog: "Catalog"
     # category: "Category"
     # category_name: "Category"
@@ -980,6 +981,7 @@ spa:
     # create: "Create"
     create_journal: "-- Crear el periodico --"
     # created_at: "Created on"
+    # created_at_by: "Created at %{at} by %{by}."
     # created_between: "Created between %{started_at} and %{stopped_at}"
     credit: "Credito"
     credits: "Activos"
@@ -994,7 +996,6 @@ spa:
     # currency_with_code: "%{name} (%{code})"
     # current: "Current"
     current_letter: "Carta en curso : %{carta}"
-    # custom_field_update: "Custom field update"
     data_to_export: "Datos a exportar"
     data_to_extract: "Datos para extraer"
     dates: "Marcar las fechas de empezo y termino por los periodos"
@@ -1004,7 +1005,7 @@ spa:
     default_subject: "[%{company}]"
     # delay: "Delay"
     delay_create: "Añadir un plazo" #?
-    delay_update: "Modifiar el plazo"
+    delay_update: "Modifiar el plazo" #?
     # delays: "Delays"
     # delete: "Delete"
     # deliver: "Delivered on"
@@ -1052,11 +1053,9 @@ spa:
     # entities_import: "Import person in CSV"
     # entities_merge: "Merge persons"
     # entity: "Person"
-    # entity_category_update: "Update category"
     # entity_print: "Print person"
     # entity_to_delete: "Person to delete"
     # entity_to_update: "Person to update"
-    # entity_update: "Person update"
     entries: "Escrituras"
     entries_to_point: "Escrituras a despuntar"
     # equipments: "Equipments"
@@ -1070,6 +1069,9 @@ spa:
     # estimate: "Estimate"
     # estimate_to_order: "Estimate to order"
     europe_out_export: "Exportaciones fuera de CC.EE"
+    # evaluated_doer_cost: "Evaluated labor cost"
+    # evaluated_input_cost: "Evaluated input cost"
+    # evaluated_tool_cost: "Evaluated tool cost"
     # events: "Events"
     # example: "Example: %{value}"
     # exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
@@ -1129,8 +1131,6 @@ spa:
     # include_blank: "Include blank"
     income_statement: "cuentos de résultos"
     # incoming_payment_conditions: "Conditions of payment"
-    # incoming_payment_update: "Update incoming payment"
-    # incoming_payment_use_create: "New incoming payment"
     # incoming_payments: "Incoming payments"
     incoming_payments_states:
       # all: "All"
@@ -1163,7 +1163,7 @@ spa:
     journal_entry_lines_states: "Estado de las escrituras utilizadas" #?
     journal_name: "%{name}"
     journal_record_update: "Modificar la pieza" #?
-    journal_update: "Modificar el periodico"
+    journal_update: "Modificar el periodico" #?
     journal_view:
       draft_entries: "Niebla" #?
       entries: "Éscrituras"
@@ -1172,7 +1172,6 @@ spa:
       records: "Piezas" #?
     journals: "Periodico general"
     # land_parcel_name: "Land parcel name"
-    # land_parcel_update: "Update land parcel"
     # land_parcels: "Land parcels"
     # last_analyses: "Last milk analysis"
     # last_animals: "Last birth"
@@ -1217,6 +1216,7 @@ spa:
     manual_period: "del %{empezo} al %{termino}"
     # map: "Map"
     # mass: "Mass"
+    # maximal_temperature: "Maximal temperature"
     # meeting: "Meeting"
     # meetings: "Meetings"
     # members: "Members"
@@ -1240,6 +1240,7 @@ spa:
       # trade: "Trade"
     # merge: "Merge"
     # meteo: "Weather"
+    # minimal_temperature: "Minimal temperature"
     missing_help: "La página no existe"
     # mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
     # mobile: "Mobile"
@@ -1248,6 +1249,7 @@ spa:
     modules: "Modulos"
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensual"
+    # months: "Months"
     # moved_at: "Made on"
     # movements: "Movements"
     moves: "Movimientos de depositos"
@@ -1375,6 +1377,7 @@ spa:
     # plant_productions: "Vegetal produtions"
     # play: "Play"
     # please_wait: "Please wait…"
+    # precipitation: "Precipitation"
     # preferences: "Preferences"
     # pretax_amount: "Pre-tax amount"
     # previous: "Previous"
@@ -1567,6 +1570,7 @@ spa:
     # target: "Target"
     tax_create: "Añadir una nueva tasa" #?
     tax_declaration_create: "Añadir una nueva declaración" #?
+    # taxes: "Taxes"
     theoric_quantity: "cantidad teorica"
     # time_zone: "Time zone"
     to: "Al"
@@ -1575,7 +1579,6 @@ spa:
     # to_deliver: "To deliver"
     # to_deposit: "To deposit"
     # today: "Today"
-    # tool_update: "Update tool"
     # tools: "Tools"
     # tools_list: "Tools"
     total: "Total"
@@ -1607,6 +1610,7 @@ spa:
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "Cargar las unidades de base que falten" #?
     # unknown_condition: "Unknown condition"
+    # unknown_user: "Unknown user"
     # unlock: "Unlock"
     # unpaid: "Unpaid"
     # unpaid_amount: "Unpaid amount"
@@ -1622,6 +1626,7 @@ spa:
     # up: "Up"
     # update: "Update"
     # update_params: "Update params"
+    # updated_at_by: "Updated at %{at} by %{by}:"
     upload: "Séleccionar el fichero de salvaguardia a cargar"
     # usage: "Usage"
     # use_incoming_payment: "Add incoming payment %{payment}"
@@ -1634,6 +1639,7 @@ spa:
     # valid: "Valid"
     validate: "Validar"
     validate_selected_entries: "Validar la escrituras seleccionadas"
+    # values: "Values"
     vat: "Tasa a pagar" #?
     vat_acquisitions: "Adquisición intracomunotarios" #?
     vat_amount: "Tasa deuda" #?
@@ -1644,6 +1650,7 @@ spa:
       # printable: "Printable mode"
       # resized: "Resized mode"
     # virtual_quantity: "Virtual quantity"
+    # wind_speed: "Wind speed"
     # with_assets_depreciations: "With assets depreciations"
     with_prints: "Incluir las impresiones (facturas, encargos...)"
     x_cashes:
@@ -1676,6 +1683,9 @@ spa:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
       # zero: "No events %{nature}"
+    # x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
+    # x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
+    # x_has_been_updated_to_a: "%{x} has been updated to %{a}"
     x_incoming_payments:
       # one: "%{count} incoming payment"
       # other: "%{count} incoming payments"

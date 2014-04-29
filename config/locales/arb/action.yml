@@ -959,6 +959,7 @@ arb:
     # add_mail: "Add postal adress"
     # add_mobile: "Add mobile phone number"
     # add_new_record: "New record"
+    # add_participation: "Add participation"
     add_payment: "اضافة دفعة"
     # add_phone: "Add phone number"
     # add_production: "Add production"
@@ -1051,7 +1052,7 @@ arb:
     cash_tabbox:
       # bank_statements: "Bank statements"
       # deposits: "Deposits"
-    cash_update: "تعديل الخزينة"
+    cash_update: "تعديل الخزينة" #?
     catalog: "مواصفات للفهرس"
     # category: "Category"
     # category_name: "Category"
@@ -1106,6 +1107,7 @@ arb:
     create: "انشاء"
     create_journal: "-- انشاء دفتر يومي --"
     created_at: "انشأ في"
+    # created_at_by: "Created at %{at} by %{by}."
     created_between: "تم التسجيل بين %{started_at} و %{stopped_at}"
     credit: "رصيد دائن"
     credits: "الائتمانات"
@@ -1123,7 +1125,7 @@ arb:
     custom_field_choice_create: "اضافة خيار جديد للقائمة" #?
     custom_field_create: "انشاء حقل مخصص جديد" #?
     custom_field_sort: "تفريزة الخيارات حسب الاسم" #?
-    custom_field_update: "تعديل الحقل المخصص"
+    custom_field_update: "تعديل الحقل المخصص" #?
     custom_fields: "الحقول المخصصة" #?
     data_to_export: "تصدير البيانات"
     data_to_extract: "استخراج البيانات"
@@ -1134,7 +1136,7 @@ arb:
     default_subject: "[%{company}]"
     # delay: "Delay"
     delay_create: "اضافة مهلة جديدة" #?
-    delay_update: "تعديل المهلة"
+    delay_update: "تعديل المهلة" #?
     delays: "التأخير"
     delete: "حذف"
     deliver: "التأكد من ارسال التسليم"
@@ -1184,7 +1186,7 @@ arb:
     entities_merge: "دمج السجلات"
     # entity: "Person"
     entity_category_create: "اضافة نوع الملف" #?
-    entity_category_update: "تعديل نوع الملف"
+    entity_category_update: "تعديل نوع الملف" #?
     entity_create: "انشاء سجل جديد" #?
     entity_link_create: "اضافة رابط جديد" #?
     entity_link_nature_create: "اضافة نوع رابط جديد" #?
@@ -1192,7 +1194,7 @@ arb:
     entity_print: "طباعة الملف"
     entity_to_delete: "( دمج التكرار (وجعله يختفي"
     entity_to_update: "وضع ملف اليوم مع العناصر المتكررة"
-    entity_update: "تعديل الملف"
+    entity_update: "تعديل الملف" #?
     entries: "السجلات"
     entries_to_point: "اعداد المدخلات"
     # equipments: "Equipments"
@@ -1206,6 +1208,9 @@ arb:
     # estimate: "Estimate"
     estimate_to_order: "المضي بطلب تحديد السعر"
     europe_out_export: "الاتحاد الاوروبي خارج الصادرات"
+    # evaluated_doer_cost: "Evaluated labor cost"
+    # evaluated_input_cost: "Evaluated input cost"
+    # evaluated_tool_cost: "Evaluated tool cost"
     event_create: "اضافة حدث" #?
     event_nature_create: "اضافة نوع الحدث" #?
     events:  #? String excepted (Hash:{:one=>"حدث واحد", :other=>"%{count} احداث اخرى", :zero=>"ولا حدث"})
@@ -1273,8 +1278,8 @@ arb:
     income_statement: "حسابات الناتج"
     # incoming_payment_conditions: "Conditions of payment"
     incoming_payment_create: "اضافة دفعة جديدة" #?
-    incoming_payment_update: "تعديل الدفعة"
-    incoming_payment_use_create: "اضافة دفعة للشراء"
+    incoming_payment_update: "تعديل الدفعة" #?
+    incoming_payment_use_create: "اضافة دفعة للشراء" #?
     # incoming_payments: "Incoming payments"
     incoming_payments_states:
       # all: "All"
@@ -1308,7 +1313,7 @@ arb:
     journal_entry_lines_states: "بيان المدخلات المستخدمة" #?
     journal_name: "%{name}"
     journal_record_update: "تعديل العينات" #?
-    journal_update: "تعديل الفاتر اليومية"
+    journal_update: "تعديل الفاتر اليومية" #?
     journal_view:
       draft: "المسودات" #?
       entries: "العينات"
@@ -1319,7 +1324,7 @@ arb:
     kame: "" #?
     land_parcel_create: "انشاء نظام جديد" #?
     land_parcel_name: "نظام"
-    land_parcel_update: "تعديل النظام"
+    land_parcel_update: "تعديل النظام" #?
     land_parcels: "قائمة بالنظام"
     # last_analyses: "Last milk analysis"
     # last_animals: "Last birth"
@@ -1367,6 +1372,7 @@ arb:
     manual_period: "من %{start} الى %{finish}"
     # map: "Map"
     mass: "الوزن"
+    # maximal_temperature: "Maximal temperature"
     meeting: "المقابلة(X)مكان"
     # meetings: "Meetings"
     # members: "Members"
@@ -1405,6 +1411,7 @@ arb:
       trade: "التجارة"
     merge: "دمج"
     # meteo: "Weather"
+    # minimal_temperature: "Minimal temperature"
     missing_help: "صفحات مفقودة"
     # mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
     # mobile: "Mobile"
@@ -1414,6 +1421,7 @@ arb:
     moment: "" #?
     # month_period: "%{code} - %{month} %{year}"
     monthly: "Mensuelle"
+    # months: "Months"
     # moved_at: "Made on"
     # movements: "Movements"
     moves: "حركات الاسهم"
@@ -1556,6 +1564,7 @@ arb:
     # plant_productions: "Vegetal produtions"
     # play: "Play"
     # please_wait: "Please wait…"
+    # precipitation: "Precipitation"
     # preferences: "Preferences"
     # pretax_amount: "Pre-tax amount"
     previous: "السابق"
@@ -1777,6 +1786,7 @@ arb:
     # target: "Target"
     tax_create: "اضافة ضريبة جديدة" #?
     tax_declaration_create: "اضافة تصريح جديد" #?
+    # taxes: "Taxes"
     theoric_quantity: "الكمية النظرية"
     # time_zone: "Time zone"
     to: "الى"
@@ -1786,7 +1796,7 @@ arb:
     # to_deposit: "To deposit"
     # today: "Today"
     tool_create: "اضافة مادة" #?
-    tool_update: "تعديل المادة"
+    tool_update: "تعديل المادة" #?
     tools: "مادة مستخدمة"
     # tools_list: "Tools"
     total: "المجموع"
@@ -1824,6 +1834,7 @@ arb:
     unit_price_amount_with_taxes: "PU TTC" #?
     units_load: "تحميل الوحدات الاساسية المفقودة" #?
     unknown_condition: "غير معروف نوع الشرط"
+    # unknown_user: "Unknown user"
     unlock: "فتح القفل"
     unpaid: "غير مسدد"
     unpaid_amount: "القيمة المتبقية"
@@ -1839,6 +1850,7 @@ arb:
     up: "يرتفع"
     update: "تعديل"
     update_params: "تعديل البحث"
+    # updated_at_by: "Updated at %{at} by %{by}:"
     upload: "تحميل الملفات"
     # usage: "Usage"
     # use_incoming_payment: "Add incoming payment %{payment}"
@@ -1851,6 +1863,7 @@ arb:
     valid: "الصلاحية"
     validate: "التعديل"
     validate_selected_entries: "التحقق من المدخلات المختارة"
+    # values: "Values"
     vat: "الضريبة المستحقة" #?
     vat_acquisitions: "المكاسب الداخلية" #?
     vat_amount: "الضرائب المستحقة" #?
@@ -1862,6 +1875,7 @@ arb:
       # resized: "Resized mode"
     virtual_quantity: "الكمية العملية"
     waiting: "أ€ التسدسد لاحقا" #?
+    # wind_speed: "Wind speed"
     # with_assets_depreciations: "With assets depreciations"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر"
     x_cashes:
@@ -1897,6 +1911,9 @@ arb:
       # one: "One event %{nature} for a total duration of %{duration} minutes"
       # other: "%{count} events %{nature} for a total duration of %{duration} minutes"
       # zero: "No events %{nature}"
+    # x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
+    # x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
+    # x_has_been_updated_to_a: "%{x} has been updated to %{a}"
     x_incoming_payments:
       one: "دفعة واحدة"
       other: "%{count} دفعات اخرى"

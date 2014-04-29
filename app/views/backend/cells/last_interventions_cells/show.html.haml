@@ -20,7 +20,7 @@
     - for type in [:input, :tool, :doer]
       - cost = @intervention.cost(type) || 0.0
       .info
-        %span.title= "#{type}_evaluated_cost".tl
+        %span.title= "evaluated_#{type}_cost".tl
         %span.value= cost.round(2).l(currency: Preference[:currency])
 
 - else

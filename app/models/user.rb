@@ -129,7 +129,7 @@ class User < Ekylibre::Record::Base
   end
 
   protect(on: :destroy) do
-    self.class.count <= 1
+    (self.administrator? and self.class.administrators.count <= 1) or self.class.count <= 1
   end
 
   def name
