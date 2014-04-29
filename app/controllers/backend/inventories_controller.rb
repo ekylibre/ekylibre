@@ -30,7 +30,8 @@ class Backend::InventoriesController < BackendController
     t.column :responsible, url: true
     # t.column :description
     # t.action :show, url: {format: :pdf}, image: :print
-    t.action :reflect, if: :reflectable?, image: "action", confirm: :are_you_sure
+    t.action :reset,   if: :editable?, method: :post, confirm: :are_you_sure
+    t.action :reflect, if: :reflectable?, method: :post, image: "action", confirm: :are_you_sure
     t.action :edit,    if: :editable?
     t.action :destroy, if: :destroyable?
   end
@@ -47,10 +48,15 @@ class Backend::InventoriesController < BackendController
     t.column :product, url: true
     # t.column :serial_number, through: :product
     t.column :expected_population, precision: 3
-    t.column :population, precision: 3
+    t.column :actual_population, precision: 3
     t.column :unit_name
   end
 
+  def reset
+    return unless @inventory = find_and_check
+    @inventory.reset!
+    redirect_to action: :edit, id: @inventory.id
+  end
 
   def reflect
     return unless @inventory = find_and_check

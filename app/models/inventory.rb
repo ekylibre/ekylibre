@@ -80,11 +80,19 @@ class Inventory < Ekylibre::Record::Base
 
   def build_missing_items
     self.achieved_at ||= Time.now
-    for product in Product.at(achieved_at).of_owner(Entity.of_company)
+    for product in Matter.at(achieved_at).of_owner(Entity.of_company)
       unless self.items.find_by(product_id: product.id)
-        self.items.build(product_id: product.id, population: product.population(at: self.achieved_at), expected_population: product.population(at: self.achieved_at))
+        population = product.population(at: self.achieved_at)
+        # shape = product.shape(at: self.achieved_at)
+        self.items.build(product_id: product.id, actual_population: population, expected_population: population)
       end
     end
+  end
+
+  def reset!
+    self.items.clear!
+    self.build_missing_items
+    self.save!
   end
 
 end

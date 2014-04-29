@@ -21,44 +21,43 @@
 #
 # == Table: inventory_items
 #
-#  created_at              :datetime         not null
-#  creator_id              :integer
-#  expected_population     :decimal(19, 4)   not null
-#  expected_shape          :spatial({:srid=>
-#  id                      :integer          not null, primary key
-#  inventory_id            :integer          not null
-#  lock_version            :integer          default(0), not null
-#  population              :decimal(19, 4)   not null
-#  product_id              :integer          not null
-#  product_reading_task_id :integer
-#  shape                   :spatial({:srid=>
-#  updated_at              :datetime         not null
-#  updater_id              :integer
+#  actual_population   :decimal(19, 4)   not null
+#  actual_shape        :spatial({:srid=>
+#  created_at          :datetime         not null
+#  creator_id          :integer
+#  expected_population :decimal(19, 4)   not null
+#  expected_shape      :spatial({:srid=>
+#  id                  :integer          not null, primary key
+#  inventory_id        :integer          not null
+#  lock_version        :integer          default(0), not null
+#  product_id          :integer          not null
+#  updated_at          :datetime         not null
+#  updater_id          :integer
 #
 #
 # == Fixture: inventory_items
 #
 # inventory_items_001:
+#   actual_population: 0
 #   creator: users_001
 #   expected_population: 0
 #   inventory: inventories_001
-#   population: 0
 #   product: products_001
 #   updater: users_001
 #
 
 inventory_items_001:
+  actual_population: 10
   creator: users_001
   inventory: inventories_001
-  population: 0
   product: products_001
-  expected_population: 0
+  expected_population: 15
   updater: users_001
 
 inventory_items_002:
+  actual_population: 0
   creator: users_001
   inventory: inventories_001
-  population: 0
   product: products_001
   expected_population: 0
   updater: users_001
