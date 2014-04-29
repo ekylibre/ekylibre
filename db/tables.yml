@@ -1478,6 +1478,7 @@ production_supports:
   id: {type: integer, required: true}
   irrigated: {type: boolean, required: true, default: false}
   lock_version: {type: integer, required: true, default: 0}
+  nature: {type: string}
   production_id: {type: integer, references: production, required: true}
   started_at: {type: datetime}
   stopped_at: {type: datetime}

@@ -27,6 +27,7 @@
 #  id            :integer          not null, primary key
 #  irrigated     :boolean          not null
 #  lock_version  :integer          default(0), not null
+#  nature        :string(255)
 #  production_id :integer          not null
 #  started_at    :datetime
 #  stopped_at    :datetime
@@ -35,6 +36,7 @@
 #  updater_id    :integer
 #
 class ProductionSupport < Ekylibre::Record::Base
+  enumerize :nature, in: [:main, :secondary, :nitrate_trap], default: :main
   belongs_to :storage, class_name: "Product", inverse_of: :supports
   belongs_to :production, inverse_of: :supports
   has_many :interventions
@@ -42,6 +44,7 @@ class ProductionSupport < Ekylibre::Record::Base
   has_one :activity, through: :production
   has_one :campaign, through: :production
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
+  validates_length_of :nature, allow_nil: true, maximum: 255
   validates_inclusion_of :exclusive, :irrigated, in: [true, false]
   validates_presence_of :production, :storage
   #]VALIDATORS]
