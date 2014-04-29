@@ -13,7 +13,7 @@ jpn:
       # index: "Plan of accounts"
       # load: "Load a plan of accounts"
       # mark: "Reconciliate account: %{number} - %{name}"
-      # new: "Create new account"
+      # new: "New account"
       # reconciliation: "Account reconciliation"
       # show: "Account: %{number} - %{name}"
       # unmark: "Unmark account"

@@ -64,7 +64,7 @@
     nature = Nomen::ProcedureNatures[params[:procedure_nature]]
     natures += (nature ? nature.children : Nomen::ProcedureNatures.roots)
     natures.delete_if{|n| Procedo.procedures_of_nature_and_its_children(n.name).empty?}
-    default_params = {}
+    default_params = {action: :new}
     for x in [:production_support_id, :issue_id, :prescription_id]
       if params[x]
         default_params[x] = params[x]

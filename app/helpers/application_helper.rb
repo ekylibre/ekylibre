@@ -725,7 +725,7 @@ module ApplicationHelper
     url[:id] = record.id if record and record.class < ActiveRecord::Base
     variants = options.delete(:variants)
     # variants ||= {"actions.#{url[:controller]}.#{action}".to_sym.t({:default => "labels.#{action}".to_sym}.merge((record and record.class < ActiveRecord::Base) ? record.attributes.symbolize_keys : {})) => url} if authorized?(url)
-    variants ||= {action.to_s.l => url} if authorized?(url)
+    variants ||= {action.to_s.tl => url} if authorized?(url)
     return dropdown_button do |l|
       for name, url_options in variants || []
         variant_url = url.merge(url_options)

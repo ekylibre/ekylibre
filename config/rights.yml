@@ -813,18 +813,12 @@ guides:
     - "backend/guides#destroy"
     - "backend/guides#edit"
     - "backend/guides#new"
-    - "backend/guides#run"
     - "backend/guides#update"
   execute:
     depend-on:
     - read-guides
     actions:
-    - "backend/guides#create"
-    - "backend/guides#destroy"
-    - "backend/guides#edit"
-    - "backend/guides#new"
     - "backend/guides#run"
-    - "backend/guides#update"
 
 identifiers:
   read:
