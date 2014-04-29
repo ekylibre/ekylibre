@@ -162,6 +162,7 @@ arb:
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
+    backend/cells/weather_cells: #?
     backend/companies:  #?
       register: "تسجيل شركة" #?
     backend/company:  #?
@@ -927,10 +928,9 @@ arb:
     account_other_assets: "موجودات اخرى" #?
     account_provision: "احتياطات لمواجهة المخاطر والتكاليف" #?
     account_supplier_to_create: "-- انشاء حساب للممول بشكل اوتوماتيكي --" #?
-    account_tabbox:
-      children: "الحسابات الفرعية"
-      entities: "أشخاص"
-      # journal_entry_items: "Journal entry items"
+    account_tabbox:  #?
+      children: "الحسابات الفرعية" #?
+      entities: "أشخاص" #?
       journal_entry_lines: "ادخالات الدفاتر اليومية" #?
     account_tangible_fixed_assets: "موجودات ثابتة وملموسة" #?
     account_untangible_fixed_assets: "موجودات ثابتة وغير ملموسة" #?
@@ -983,15 +983,11 @@ arb:
     # analytics: "Analytics"
     # animal: "Animal"
     # animal_bar: "Animals by category"
-    animal_group_tabbox:
-      # animals: "Animal"
-      # cares: "Cares on animal"
+    animal_group_tabbox: #?
     # animal_identification: "Animal identification"
     # animal_pie: "Animals by category"
     # animal_productions: "Animal productions"
-    animal_tabbox:
-      # cares: "Cares"
-      # childrens: "Childs"
+    animal_tabbox: #?
     # animals: "Animals"
     apply: "تطبيق"
     # archives: "Archives"
@@ -1037,21 +1033,16 @@ arb:
     building: "مكان التخزين"
     building_create: "اضافة موقع تخزين" #?
     building_name: "انتاج"
-    building_tabbox:
-      # stock_moves: "Stocks moves"
-      # stocks: "Stocks"
+    building_tabbox: #?
     building_update: "تعديل موقع التخزين" #?
     buildings: "النظر بقائمة مواقع التخزين"
     # calendar: "Calendar"
     canals: "التنسيق"
     cancel: "الغاء"
     cancelled: "تم الالغاء"
-    # care: "Cares"
     cash: "حسابات بنكية"
     cash_create: "اضافة حساب بنكي جديد" #?
-    cash_tabbox:
-      # bank_statements: "Bank statements"
-      # deposits: "Deposits"
+    cash_tabbox: #?
     cash_update: "تعديل الخزينة" #?
     catalog: "مواصفات للفهرس"
     # category: "Category"
@@ -1138,7 +1129,7 @@ arb:
     delay_create: "اضافة مهلة جديدة" #?
     delay_update: "تعديل المهلة" #?
     delays: "التأخير"
-    delete: "حذف"
+    delete: "حذف" #?
     deliver: "التأكد من ارسال التسليم"
     deliveries: "التسليم"
     # delivery: "Delivery"
@@ -1410,7 +1401,6 @@ arb:
       submenus: #?
       trade: "التجارة"
     merge: "دمج"
-    # meteo: "Weather"
     # minimal_temperature: "Minimal temperature"
     missing_help: "صفحات مفقودة"
     # mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
@@ -1591,11 +1581,7 @@ arb:
     product_component_create: "اضافة عنصر للمنتج" #?
     product_create: "اضافة منتج جديد" #?
     product_name: "المنتج"
-    product_tabbox:
-      # components: "Components"
-      # prices: "Prices"
-      # stock_moves: "Stock moves"
-      # stocks: "Stocks"
+    product_tabbox: #?
     product_update: "تعديل تفاصيل المنتج" #?
     production: "ادارة الانتاج"
     productions: "المنتجات"
@@ -1875,6 +1861,7 @@ arb:
       # resized: "Resized mode"
     virtual_quantity: "الكمية العملية"
     waiting: "أ€ التسدسد لاحقا" #?
+    # weather: "Weather"
     # wind_speed: "Wind speed"
     # with_assets_depreciations: "With assets depreciations"
     with_prints: "(وتشمل الطباعة (الفواتير والاوامر"

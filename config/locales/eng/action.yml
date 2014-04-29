@@ -148,14 +148,14 @@ eng:
       # show: "Last sales cell: %{name}"
     backend/cells/map_cells:
       # show: "Map cell: %{name}"
-    backend/cells/meteo_cells:
-      # show: "Meteo cell: %{name}"
     backend/cells/placeholder_cells:
       # show: "Placeholder cell: %{name}"
     backend/cells/revenues_by_product_nature_cells:
       # show: "Revenues by product nature cell: %{name}"
     backend/cells/rss_cells:
       # show: "Rss cell: %{name}"
+    backend/cells/weather_cells:
+      # show: "Weather cell: %{name}"
     backend/cultivable_zones:
       edit: "Edit cultivable zone: %{name}"
       index: "Cultivable zones"
@@ -648,10 +648,6 @@ eng:
   labels:
     account_name: "Account name"
     account_number: "Account number"
-    account_tabbox:
-      children: "Children Account"
-      entities: "People"
-      journal_entry_items: "Journal entry items"
     accounting_balance: "Accounting balance"
     accounts: "Accounts"
     accounts_to_load: "Accounts to load"
@@ -697,15 +693,9 @@ eng:
     analytics: "Analytics"
     animal: "Animal"
     animal_bar: "Animals by category"
-    animal_group_tabbox:
-      animals: "Animal"
-      cares: "Cares on animal"
     animal_identification: "Animal identification"
     animal_pie: "Animals by category"
     animal_productions: "Animal productions"
-    animal_tabbox:
-      cares: "Cares"
-      childrens: "Childs"
     animals: "Animals"
     apply: "Apply"
     archives: "Archives"
@@ -743,19 +733,12 @@ eng:
     body: "Body of the message"
     building: "Building"
     building_name: "Building name"
-    building_tabbox:
-      stock_moves: "Stocks moves"
-      stocks: "Stocks"
     buildings: "Buildings"
     calendar: "Calendar"
     canals: "Canals"
     cancel: "Cancel"
     cancelled: "Cancelled"
-    care: "Cares"
     cash: "Cash"
-    cash_tabbox:
-      bank_statements: "Bank statements"
-      deposits: "Deposits"
     catalog: "Catalog"
     category: "Category"
     category_name: "Category"
@@ -831,7 +814,6 @@ eng:
     default_subject: "[%{company}]"
     delay: "Delay"
     delays: "Delays"
-    delete: "Delete"
     deliver: "Delivered on"
     deliveries: "Deliveries"
     delivery: "Delivery"
@@ -898,8 +880,8 @@ eng:
     extract: "Extract"
     fax: "Fax"
     file_nature: "File type"
-    file_to_download: "File to upload"
-    file_to_import: "File to upload"
+    file_to_download: "File to download"
+    file_to_import: "File to import"
     file_to_upload: "File to upload"
     filter: "Filter"
     filter_entries_with: "Filter entries with"
@@ -1030,7 +1012,6 @@ eng:
       stocks: "Stocks"
       trade: "Trade"
     merge: "Merge"
-    meteo: "Weather"
     minimal_temperature: "Minimal temperature"
     missing_help: "Missing page"
     mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
@@ -1158,18 +1139,13 @@ eng:
     prices_for_suppliers: "Prices of purchase of supplier"
     prices_import: "Importer un fichier CSV"
     print: "Print"
-    print_at: "Print on"
+    print_at: "Print at"
     print_with_template: "Print %{name}"
     procedures: "Procedures"
     product: "Product"
     product_bar: "Product by categories"
     product_category: "Product category"
     product_name: "Product name"
-    product_tabbox:
-      components: "Components"
-      prices: "Prices"
-      stock_moves: "Stock moves"
-      stocks: "Stocks"
     production: "Production management"
     productions: "Productions"
     productions_states:
@@ -1384,6 +1360,7 @@ eng:
       printable: "Printable mode"
       resized: "Resized mode"
     virtual_quantity: "Virtual quantity"
+    weather: "Weather"
     wind_speed: "Wind speed"
     with_assets_depreciations: "With assets depreciations"
     with_prints: "Include printing archives (sales invoices, purchases…)"

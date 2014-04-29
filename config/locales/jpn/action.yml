@@ -152,6 +152,7 @@ jpn:
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
+    backend/cells/weather_cells: #?
     backend/cultivable_zones:
       # edit: "Edit cultivable zone: %{name}"
       # index: "Cultivable zones"
@@ -680,10 +681,7 @@ jpn:
   labels:
     # account_name: "Account name"
     # account_number: "Account number"
-    account_tabbox:
-      # children: "Children Account"
-      # entities: "People"
-      # journal_entry_items: "Journal entry items"
+    account_tabbox: #?
     # accounting_balance: "Accounting balance"
     # accounts: "Accounts"
     # accounts_to_load: "Accounts to load"
@@ -729,15 +727,11 @@ jpn:
     # analytics: "Analytics"
     # animal: "Animal"
     # animal_bar: "Animals by category"
-    animal_group_tabbox:
-      # animals: "Animal"
-      # cares: "Cares on animal"
+    animal_group_tabbox: #?
     # animal_identification: "Animal identification"
     # animal_pie: "Animals by category"
     # animal_productions: "Animal productions"
-    animal_tabbox:
-      # cares: "Cares"
-      # childrens: "Childs"
+    animal_tabbox: #?
     # animals: "Animals"
     apply: "適用する"
     # archives: "Archives"
@@ -776,19 +770,14 @@ jpn:
     # body: "Body of the message"
     # building: "Building"
     # building_name: "Building name"
-    building_tabbox:
-      # stock_moves: "Stocks moves"
-      # stocks: "Stocks"
+    building_tabbox: #?
     # buildings: "Buildings"
     # calendar: "Calendar"
     # canals: "Canals"
     cancel: "取り消す"
     # cancelled: "Cancelled"
-    # care: "Cares"
     # cash: "Cash"
-    cash_tabbox:
-      # bank_statements: "Bank statements"
-      # deposits: "Deposits"
+    cash_tabbox: #?
     # catalog: "Catalog"
     # category: "Category"
     # category_name: "Category"
@@ -865,7 +854,6 @@ jpn:
     # default_subject: "[%{company}]"
     # delay: "Delay"
     # delays: "Delays"
-    # delete: "Delete"
     # deliver: "Delivered on"
     # deliveries: "Deliveries"
     # delivery: "Delivery"
@@ -933,8 +921,8 @@ jpn:
     # extract: "Extract"
     # fax: "Fax"
     # file_nature: "File type"
-    # file_to_download: "File to upload"
-    # file_to_import: "File to upload"
+    # file_to_download: "File to download"
+    # file_to_import: "File to import"
     # file_to_upload: "File to upload"
     # filter: "Filter"
     # filter_entries_with: "Filter entries with"
@@ -1071,7 +1059,6 @@ jpn:
       submenus: #?
       # trade: "Trade"
     # merge: "Merge"
-    # meteo: "Weather"
     # minimal_temperature: "Minimal temperature"
     missing_help: "無意味なページ"
     # mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
@@ -1202,18 +1189,14 @@ jpn:
     # prices_for_suppliers: "Prices of purchase of supplier"
     # prices_import: "Importer un fichier CSV"
     # print: "Print"
-    # print_at: "Print on"
+    # print_at: "Print at"
     # print_with_template: "Print %{name}"
     # procedures: "Procedures"
     # product: "Product"
     # product_bar: "Product by categories"
     # product_category: "Product category"
     # product_name: "Product name"
-    product_tabbox:
-      # components: "Components"
-      # prices: "Prices"
-      # stock_moves: "Stock moves"
-      # stocks: "Stocks"
+    product_tabbox: #?
     # production: "Production management"
     # productions: "Productions"
     productions_states:
@@ -1429,6 +1412,7 @@ jpn:
       # printable: "Printable mode"
       # resized: "Resized mode"
     # virtual_quantity: "Virtual quantity"
+    # weather: "Weather"
     # wind_speed: "Wind speed"
     # with_assets_depreciations: "With assets depreciations"
     # with_prints: "Include printing archives (sales invoices, purchases…)"

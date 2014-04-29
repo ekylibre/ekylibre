@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-class Backend::Cells::MeteoCellsController < Backend::CellsController
+class Backend::Cells::WeatherCellsController < Backend::CellsController
 
   def show
 

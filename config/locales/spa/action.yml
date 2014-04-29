@@ -161,6 +161,7 @@ spa:
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
+    backend/cells/weather_cells: #?
     backend/companies:  #?
       register: "Registrar la sociedad" #?
     backend/company:  #?
@@ -805,11 +806,10 @@ spa:
     account_number: "Numero de cuenta"
     account_other_assets: "Autros" #?
     account_provision: "Provisiones para riesgos y cargas" #?
-    account_tabbox:
-      children: "subcuentos"
-      entities: "Personas"
+    account_tabbox:  #?
+      children: "subcuentos" #?
+      entities: "Personas" #?
       journal_entries: "Éscrituras" #?
-      # journal_entry_items: "Journal entry items"
     account_tangible_fixed_assets: "Inmobilisaciones corporales" #?
     account_untangible_fixed_assets: "Inmobilisacions incorporales" #?
     account_update: "Modificar el cuento" #?
@@ -861,15 +861,11 @@ spa:
     # analytics: "Analytics"
     # animal: "Animal"
     # animal_bar: "Animals by category"
-    animal_group_tabbox:
-      # animals: "Animal"
-      # cares: "Cares on animal"
+    animal_group_tabbox: #?
     # animal_identification: "Animal identification"
     # animal_pie: "Animals by category"
     # animal_productions: "Animal productions"
-    animal_tabbox:
-      # cares: "Cares"
-      # childrens: "Childs"
+    animal_tabbox: #?
     # animals: "Animals"
     # apply: "Apply"
     # archives: "Archives"
@@ -913,20 +909,17 @@ spa:
     # building: "Building"
     building_create: "Añadir un lugar de deposito" #?
     # building_name: "Building name"
-    building_tabbox:
-      # stock_moves: "Stocks moves"
-      # stocks: "Stocks"
+    building_tabbox: #?
     building_update: "Modifiar el lugar de deposito" #?
     buildings: "Ver la lista de los lugares de deposito"
     # calendar: "Calendar"
     # canals: "Canals"
     # cancel: "Cancel"
     cancelled: "Pasar en activos"
-    # care: "Cares"
     # cash: "Cash"
-    cash_tabbox:
-      bank_statements: "Leventar de cuento"
-      deposits: "Entregas en banca"
+    cash_tabbox:  #?
+      bank_statements: "Leventar de cuento" #?
+      deposits: "Entregas en banca" #?
     cash_update: "Modificar la tresoreria" #?
     # catalog: "Catalog"
     # category: "Category"
@@ -1007,7 +1000,6 @@ spa:
     delay_create: "Añadir un plazo" #?
     delay_update: "Modifiar el plazo" #?
     # delays: "Delays"
-    # delete: "Delete"
     # deliver: "Delivered on"
     # deliveries: "Deliveries"
     # delivery: "Delivery"
@@ -1086,7 +1078,7 @@ spa:
     # extract: "Extract"
     # fax: "Fax"
     file_nature: "Tipo de fichero"
-    # file_to_download: "File to upload"
+    # file_to_download: "File to download"
     file_to_import: "Fichero a importar"
     # file_to_upload: "File to upload"
     # filter: "Filter"
@@ -1239,7 +1231,6 @@ spa:
       submenus: #?
       # trade: "Trade"
     # merge: "Merge"
-    # meteo: "Weather"
     # minimal_temperature: "Minimal temperature"
     missing_help: "La página no existe"
     # mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
@@ -1398,11 +1389,7 @@ spa:
     # product_bar: "Product by categories"
     # product_category: "Product category"
     # product_name: "Product name"
-    product_tabbox:
-      # components: "Components"
-      # prices: "Prices"
-      # stock_moves: "Stock moves"
-      # stocks: "Stocks"
+    product_tabbox: #?
     production: "Administración de la producción"
     # productions: "Productions"
     productions_states:
@@ -1650,6 +1637,7 @@ spa:
       # printable: "Printable mode"
       # resized: "Resized mode"
     # virtual_quantity: "Virtual quantity"
+    # weather: "Weather"
     # wind_speed: "Wind speed"
     # with_assets_depreciations: "With assets depreciations"
     with_prints: "Incluir las impresiones (facturas, encargos...)"

@@ -127,10 +127,10 @@ fra:
     backend/cells/last_purchases_cells: #?
     backend/cells/last_sales_cells: #?
     backend/cells/map_cells: #?
-    backend/cells/meteo_cells: #?
     backend/cells/placeholder_cells: #?
     backend/cells/revenues_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
+    backend/cells/weather_cells: #?
     backend/cultivable_zones:
       edit: "Modifier la zone cultivable\_: %{name}"
       index: "Zones cultivables"
@@ -752,10 +752,10 @@ fra:
     account_other_assets: "Divers" #?
     account_provision: "Provisions pour risques et charges" #?
     account_supplier_to_create: "— Créer automatiquement un compte fournisseur —" #?
-    account_tabbox:
-      children: "Sous-comptes"
-      entities: "Personnes"
-      journal_entry_items: "Écritures"
+    account_tabbox:  #?
+      children: "Sous-comptes" #?
+      entities: "Personnes" #?
+      journal_entry_items: "Écritures" #?
     account_tangible_fixed_assets: "Immobilisations corporelles" #?
     account_untangible_fixed_assets: "Immobilisations incorporelles" #?
     account_value_current: "Brut" #?
@@ -818,16 +818,16 @@ fra:
     analytics: "Analytiques"
     animal: "Animal"
     animal_bar: "Animaux par lot"
-    animal_group_tabbox:
-      animals: "Animaux du lot"
-      cares: "Soins réalisés sur le lot"
+    animal_group_tabbox:  #?
+      animals: "Animaux du lot" #?
+      cares: "Soins réalisés sur le lot" #?
     animal_identification: "Identification animale"
     animal_life_state: "Phase du bioprocessus de vie d’un animal" #?
     animal_pie: "Animaux par lot"
     animal_productions: "Productions animales"
-    animal_tabbox:
-      cares: "Soins"
-      childrens: "Enfants"
+    animal_tabbox:  #?
+      cares: "Soins" #?
+      childrens: "Enfants" #?
     animals: "Animaux"
     apply: "Appliquer"
     archived_at: "Archivé à" #?
@@ -874,20 +874,20 @@ fra:
     body: "Corps du message"
     building: "Lieu de stockage"
     building_name: "Sortie de"
-    building_tabbox:
-      stock_moves: "Mouvements de stock"
-      stocks: "Stocks"
+    building_tabbox:  #?
+      stock_moves: "Mouvements de stock" #?
+      stocks: "Stocks" #?
     buildings: "Voir la liste des lieux de stockage"
     calculate: "Calculer" #?
     calendar: "Calendrier"
     canals: "Coordonnées"
     cancel: "Annuler"
     cancelled: "Passées en avoir"
-    care: "soins"
+    care: "soins" #?
     cash: "Compte bancaire"
-    cash_tabbox:
-      bank_statements: "Relevés de compte"
-      deposits: "Remises en banque"
+    cash_tabbox:  #?
+      bank_statements: "Relevés de compte" #?
+      deposits: "Remises en banque" #?
     casts: "Intervenants" #?
     catalog: "Description pour catalogue"
     category: "Catégorie"
@@ -983,7 +983,7 @@ fra:
     default_subject: "[%{company}]"
     delay: "Délai"
     # delays: "Delays"
-    delete: "Supprimer"
+    delete: "Supprimer" #?
     deliver: "Valider l’envoi des livraisons"
     deliveries: "Livraisons"
     delivery: "Livraison"
@@ -1249,7 +1249,6 @@ fra:
       stocks: "Stocks"
       trade: "Achats/Ventes"
     merge: "Fusionner"
-    meteo: "Météo"
     method: "Méthode" #?
     milk_withdrawal_period: "Période d’attente avant remise en vente de lait" #?
     minimal_temperature: "Température minimale"
@@ -1424,11 +1423,7 @@ fra:
     product_name: "Produit"
     product_price_listings: "Listes de prix" #?
     product_price_templates: "Types de prix" #?
-    product_tabbox:
-      # components: "Components"
-      # prices: "Prices"
-      # stock_moves: "Stock moves"
-      # stocks: "Stocks"
+    product_tabbox: #?
     production: "Production"
     productions: "Productions"
     productions_states:
@@ -1700,6 +1695,7 @@ fra:
       printable: "Mode «\_Imprimable\_»"
       resized: "Mode «\_Tout à l’écran\_»"
     virtual_quantity: "Quantité virtuelle"
+    weather: "Météo"
     wind_speed: "Vitesse du vent"
     wine_tanks: "Cuverie" #?
     # with_assets_depreciations: "With assets depreciations"
