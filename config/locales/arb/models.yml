@@ -770,7 +770,6 @@ arb:
       # analytic_distribution: "Analytic distribution"
       # animal: "Animal"
       # animal_group: "Animal group"
-      # animal_medicine: "Animal medicine"
       area: "المنطقة البريدية" #?
       bank_statement: "بيان الحساب المصرفي"
       # bioproduct: "Living product"
@@ -829,7 +828,7 @@ arb:
       # incoming_delivery_mode: "Incoming delivery mode"
       incoming_payment: "الدفعة"
       incoming_payment_mode: "نوع الدفعة"
-      incoming_payment_use: "تأثير الدفعة"
+      incoming_payment_use: "تأثير الدفعة" #?
       # intervention: "Intervention"
       # intervention_cast: "Intervention cast"
       inventory: "عملية الجرد"
@@ -850,17 +849,14 @@ arb:
       # manure_management_plan: "Manure management plan"
       # manure_management_plan_zone: "Manure management plan zone"
       # matter: "Matter"
-      # medicine: "Medicine"
       meeting: "الحدث" #?
       meeting_nature: "نوع الحدث" #?
-      # mineral_matter: "Mineral matter"
       # net_service: "Net service"
       observation: "ملاحظة"
       operation: "العمل"
       operation_item: "الواردات/الصادرات" #?
       operation_nature: "نوع العمل" #?
       operation_use: "الاداة المستخدمة" #?
-      # organic_matter: "Organic matter"
       # outgoing_delivery: "Outgoing delivery"
       # outgoing_delivery_item: "Outgoing delivery item"
       # outgoing_delivery_mode: "Outgoing delivery mode"
@@ -870,7 +866,6 @@ arb:
       parameter: "الاعدادات" #?
       # person: "Person"
       # plant: "Plant"
-      # plant_medicine: "Plant medicine"
       postal_zone: "المنطقة البريدية"
       # preference: "Preference"
       # prescription: "Prescription"
@@ -1703,7 +1698,6 @@ arb:
     # product_quadruple_mixings: "Product quadruple mixings"
     # product_quintuple_mixings: "Product quintuple mixings"
     # product_reading: "Product reading"
-    # product_reading_task: "Product reading task"
     # product_reading_tasks: "Product reading tasks"
     # product_readings: "Product readings"
     # product_triple_mixings: "Product triple mixings"

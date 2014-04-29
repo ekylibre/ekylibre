@@ -16,7 +16,10 @@
       .control-group
         %label.control-label= nested.object.product.name
         .controls
-          %span.input-append
-            = nested.input_field :population
-            %span.add-on= nested.object.unit_name
-          %span.help-block= :expected_quantity_is_x.tl x: nested.object.expected_population.l
+          - if nested.object.population_counting_unitary?
+            %span= "1"
+          - else
+            %span.input-append
+              = nested.input_field :actual_population
+              %span.add-on= nested.object.unit_name
+            %span.help-block= :expected_quantity_is_x.tl x: nested.object.expected_population.l
