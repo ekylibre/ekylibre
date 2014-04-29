@@ -929,7 +929,7 @@ eng:
     groups: "Groups"
     help: "Help"
     hint: "Hint: %{value}"
-    home: "Back to Help home"
+    home: "Home"
     hour_duration:
       one: "Total used time: 1 hour"
       other: "Total used time: 1 hour: %{count} hours"
