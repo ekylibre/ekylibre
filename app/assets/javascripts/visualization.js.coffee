@@ -6,7 +6,7 @@
       box:
         height: 400
         width: null
-      backgrounds: []
+      backgrounds: {}
       show: null
       edit: null
       change: null
@@ -59,7 +59,7 @@
                 
     _create: ->     
       $.extend(true, this.options, this.element.data("visualization"))
-      console.log "Vive le Roi!"
+      console.log "create"
        
       this.mapElement = $("<div>", class: "map")
         .insertAfter(this.element)
@@ -69,7 +69,7 @@
         attributionControl: false 
       )
  
-      # widget = this
+      widget = this
       console.log "Vive le Roi!"
       
       # this.map.on "draw:created", (e) ->
@@ -85,17 +85,17 @@
       #   widget._saveUpdates()
       #   widget.element.trigger "mapchange"
         
-      this.back(backgrounds)
+      this.back()
       
-      this.show(geojson)
+      this.show()
       
-      this.edit(geojson)
+      this.edit()
       
-      this.view(view)
+      this.view()
       
-      this.height(height)
+      this.height()
       
-      this.zoom(zoom)
+      this.zoom()
       
       this._saveUpdates()
       
@@ -117,14 +117,13 @@
     _destroy: ->
       this.element.attr this.oldElementType
       this.mapElement.remove()
-      console.log "Vive le Roi!"
        
       
     back: (backgrounds) ->
-      return this.options.backgrounds unless backgrounds?
+      #return this.options.backgrounds unless backgrounds?
+      console.log "backgrounds"
       this.options.backgrounds.push(backgrounds)
-      this._refreshBackgroundLayer()
-        
+      this._refreshBackgroundLayer()   
  
     show: (geojson) ->
       return this.options.show unless geojson?
@@ -147,12 +146,13 @@
       this._refreshZoom()
  
     height: (height) ->
-      return this.options.box.height() unless height?
+      return this.options.box.height unless height?
       this.options.view.box.height = height
       this._resize()
+      console.log this.options.view.box.height
  
     _resize: ->
-      console.log "Vive le Roi!"
+      console.log "resize"
       if this.options.box?
         if this.options.box.height?
           this.mapElement.height this.options.box.height
@@ -164,11 +164,12 @@
       # if this.backgroundLayer?
       #   this.map.removeLayer(this.backgroundLayer)
       if this.options.backgrounds?
+        console.log "refreshBackgroundLayer"
         i = 0
         while i < this.options.backgrounds.length
           this.backgroundLayer = L.tileLayer.provider(this.options.backgrounds[i].name)
           this.backgroundLayer.addTo this.map
-          console.log "Vive le Roi!"
+          console.log "refreshBackgroundLayer"
           i++        
         # if this.options.backgrounds.constructor.index is "Integer"
         #   if this.options.backgrounds.constructor.name is "String"
