@@ -64,6 +64,7 @@ gem 'exception_notification'
 gem 'haml'
 gem "calendar_helper", "~> 0.2.5"
 gem "simple_calendar"
+gem "active-list"
 
 # Models helpers
 gem 'acts_as_list'

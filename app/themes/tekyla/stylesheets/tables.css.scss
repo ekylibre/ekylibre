@@ -47,9 +47,7 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
           overflow: visible;
           width: 16px;
           height: 16px;
-          .icon {
-            @include margin-right($default-gap);
-          }
+          @include text-align(center);
           .list-menu {
             position: relative;
             background: none;
@@ -57,10 +55,11 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
               padding: 2px;
               width: 20px;
               height: 20px;
-              .icon {
+	      text-align: center;
+              i, .icon {
                 @include is-icon;
                 @include use-icon(wrench);
-                display: block;
+                @include inline-block;
               }
               .text { display: none; }
             }
@@ -72,10 +71,14 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
               }
             }
             ul {
+              .icon {
+                @include margin-right($default-gap);
+              }
               @include menu;
 	      z-index: 1000;
               li {
                 @include menu-item;
+		
                 ul {
                   & { right: $menu-width; }
                   html[dir="rtl"] & { left: $menu-width; }
@@ -112,7 +115,7 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
     tbody {
       tr {
         td {
-
+          @include transition(background 0.2s);
           padding: round($fs-normal*0.2) round($fs-normal*0.4);
           border-top: $menu-border-width solid mix($base-color, #FFF, 10%);
           border-bottom: none;
