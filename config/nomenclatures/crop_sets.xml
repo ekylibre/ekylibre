@@ -12,8 +12,8 @@
       <item name="spring_straw_cereal" varieties="hordeum_vernum" />
       <item name="straw_cereal" varieties="avena,hordeum,secale,triticosecale,triticum" />
       <item name="wheat" varieties="triticum" />
-      <item name="spring_crop" varieties="hordeum_vernum,zea,helianthus" />
-      <item name="autumn_crop" varieties="hordeum_hibernum,poa,secale,triticosecale,triticum,avena" />
+      <item name="spring_crop" varieties="hordeum_vernum,zea,helianthus,cannabis,nicotiana,linum" />
+      <item name="autumn_crop" varieties="hordeum_hibernum,poa,secale,triticosecale,triticum,avena,brassica_napus" />
       <item name="beet" varieties="beta" />
       <item name="carrot" varieties="daucus" />
       <item name="rape" varieties="brassica" />

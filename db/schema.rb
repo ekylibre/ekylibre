@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140428085206) do
+ActiveRecord::Schema.define(version: 20140429184401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -165,9 +165,9 @@ ActiveRecord::Schema.define(version: 20140428085206) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                                   default: 0,     null: false
+    t.integer  "product_reading_id"
     t.spatial  "geometry_value",               limit: {:srid=>4326, :type=>"geometry"}
     t.spatial  "point_value",                  limit: {:srid=>4326, :type=>"point"}
-    t.integer  "product_reading_id"
   end
 
   add_index "analysis_items", ["analysis_id"], :name => "index_analysis_items_on_analysis_id"
@@ -1056,8 +1056,8 @@ ActiveRecord::Schema.define(version: 20140428085206) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                             default: 0, null: false
-    t.spatial  "shape",                  limit: {:srid=>4326, :type=>"geometry"}
     t.integer  "event_participation_id"
+    t.spatial  "shape",                  limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "intervention_casts", ["actor_id"], :name => "index_intervention_casts_on_actor_id"
@@ -1134,25 +1134,23 @@ ActiveRecord::Schema.define(version: 20140428085206) do
   add_index "inventories", ["updater_id"], :name => "index_inventories_on_updater_id"
 
   create_table "inventory_items", force: true do |t|
-    t.integer  "inventory_id",                                                                                          null: false
-    t.integer  "product_id",                                                                                            null: false
-    t.integer  "product_reading_task_id"
-    t.decimal  "expected_population",                                              precision: 19, scale: 4,             null: false
-    t.decimal  "population",                                                       precision: 19, scale: 4,             null: false
-    t.datetime "created_at",                                                                                            null: false
-    t.datetime "updated_at",                                                                                            null: false
+    t.integer  "inventory_id",                                                                                      null: false
+    t.integer  "product_id",                                                                                        null: false
+    t.decimal  "expected_population",                                          precision: 19, scale: 4,             null: false
+    t.decimal  "actual_population",                                            precision: 19, scale: 4,             null: false
+    t.datetime "created_at",                                                                                        null: false
+    t.datetime "updated_at",                                                                                        null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                                                                              default: 0, null: false
-    t.spatial  "shape",                   limit: {:srid=>4326, :type=>"geometry"}
-    t.spatial  "expected_shape",          limit: {:srid=>4326, :type=>"geometry"}
+    t.integer  "lock_version",                                                                          default: 0, null: false
+    t.spatial  "actual_shape",        limit: {:srid=>4326, :type=>"geometry"}
+    t.spatial  "expected_shape",      limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "inventory_items", ["created_at"], :name => "index_inventory_items_on_created_at"
   add_index "inventory_items", ["creator_id"], :name => "index_inventory_items_on_creator_id"
   add_index "inventory_items", ["inventory_id"], :name => "index_inventory_items_on_inventory_id"
   add_index "inventory_items", ["product_id"], :name => "index_inventory_items_on_product_id"
-  add_index "inventory_items", ["product_reading_task_id"], :name => "index_inventory_items_on_product_reading_task_id"
   add_index "inventory_items", ["updated_at"], :name => "index_inventory_items_on_updated_at"
   add_index "inventory_items", ["updater_id"], :name => "index_inventory_items_on_updater_id"
 
@@ -2174,6 +2172,7 @@ ActiveRecord::Schema.define(version: 20140428085206) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",  default: 0,     null: false
+    t.string   "nature"
   end
 
   add_index "production_supports", ["created_at"], :name => "index_production_supports_on_created_at"
@@ -2250,8 +2249,8 @@ ActiveRecord::Schema.define(version: 20140428085206) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "lock_version",                                                                            default: 0,     null: false
-    t.spatial  "initial_shape",         limit: {:srid=>4326, :type=>"geometry"}
     t.integer  "person_id"
+    t.spatial  "initial_shape",         limit: {:srid=>4326, :type=>"geometry"}
   end
 
   add_index "products", ["address_id"], :name => "index_products_on_address_id"

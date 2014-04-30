@@ -41,7 +41,7 @@ fra:
       event_nature:  #?
         duration: "Durée par défaut (en min.)" #?
       financial_asset_depreciation:
-        # asset_amount: "Accountable value"
+        asset_amount: "Valeur comptable"
         depreciable_amount: "Valeur nette comptable (VNC)" #?
       financial_year:
         last_journal_entry: "Écriture de fin d’exercice" #?
@@ -261,7 +261,7 @@ fra:
       analytic_distribution: "Répartition analytique"
       animal: "Animal"
       animal_group: "Groupe d’animaux"
-      animal_medicine: "Produits vétérinaires"
+      animal_medicine: "Produits vétérinaires" #?
       bank_statement: "Relevé de compte bancaire"
       bioproduct: "Produit vivant"
       building: "Lieu de stockage"
@@ -304,7 +304,6 @@ fra:
       incoming_delivery_mode: "Mode d’approvisionnement"
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
-      # incoming_payment_use: ""
       intervention: "Intervention"
       intervention_cast: "Variable de procédure"
       inventory: "Inventaire"
@@ -323,12 +322,12 @@ fra:
       manure_management_plan: "Plan de fumure"
       manure_management_plan_zone: "Zone de plan de fumure"
       matter: "Matière"
-      medicine: "Médicament"
-      mineral_matter: "Matière minérale"
+      medicine: "Médicament" #?
+      mineral_matter: "Matière minérale" #?
       net_service: "Service en ligne"
       observation: "Observation"
       operation: "Opération"
-      organic_matter: "Matière organique"
+      organic_matter: "Matière organique" #?
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
       outgoing_delivery_mode: "Mode de livraison"
@@ -336,7 +335,7 @@ fra:
       outgoing_payment_mode: "Mode de décaissement"
       person: "Personne"
       plant: "Plante"
-      plant_medicine: "Produit phytosanitaire"
+      plant_medicine: "Produit phytosanitaire" #?
       postal_zone: "Zone postale"
       preference: "Préférence"
       prescription: "Prescription"
@@ -988,7 +987,6 @@ fra:
     # product_quadruple_mixings: "Product quadruple mixings"
     # product_quintuple_mixings: "Product quintuple mixings"
     # product_reading: "Product reading"
-    # product_reading_task: "Product reading task"
     product_reading_tasks: "Product reading_tasks"
     product_readings: "Product indicator data"
     # product_triple_mixings: "Product triple mixings"

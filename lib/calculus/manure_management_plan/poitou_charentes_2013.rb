@@ -145,7 +145,16 @@ module Calculus
       # Estimate "Mrci"
       def estimate_intermediate_cultivation_residue_mineralization
         quantity = 0.in_kilogram_per_hectare
-        # TODO
+        sets = crop_sets.map(&:name).map(&:to_s)
+        if sets.any? and sets.include?('spring_crop')
+          if storage
+            # TODO
+            # return the last plant on the storage
+            
+            # check if this plant is linked to a production with a nature <> "main"
+            
+          end
+        end
         return quantity
       end
 
@@ -153,7 +162,14 @@ module Calculus
       # Estimate Nirr
       def estimate_irrigation_water_nitrogen
         quantity = 0.in_kilogram_per_hectare
-        # TODO
+        if input_water = @support.get(:input_water) 
+          if input_water.to_d(:liter_per_square_meter) >= 100.00
+            # TODO find an analysis for nitrogen concentration of input water for irrigation 'c'
+            c = 40
+            v = input_water.to_d(:liter_per_square_meter)
+            quantity = ((v / 100) * (c / 4.43)).in_kilogram_per_hectare
+          end
+        end
         return quantity        
       end
 
@@ -162,6 +178,11 @@ module Calculus
       def estimate_organic_fertilizer_mineral_fraction
         quantity = 0.in_kilogram_per_hectare
         # TODO
+        started_at = Time.new(campaign.harvest_year-1,7,15)
+        stopped_at = @opened_at
+        if interventions = @support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(started_at,stopped_at).with_cast(:'soil_enrichment-target', storage)
+          # TODO
+        end
         return quantity        
       end
 

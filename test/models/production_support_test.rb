@@ -27,6 +27,7 @@
 #  id            :integer          not null, primary key
 #  irrigated     :boolean          not null
 #  lock_version  :integer          default(0), not null
+#  nature        :string(255)
 #  production_id :integer          not null
 #  started_at    :datetime
 #  stopped_at    :datetime

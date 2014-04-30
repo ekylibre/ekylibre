@@ -31,7 +31,7 @@ Ekylibre::Application.routes.draw do
       get :autocomplete_for_origin
       match "import", via: [:get, :post]
       match "export", via: [:get, :post]
-      match "merge", via: [:get, :post]
+      match "merge",  via: [:get, :post]
     end
     member do
       match "picture(/:style)", via: :get, action: :picture, as: :picture
@@ -68,7 +68,7 @@ Ekylibre::Application.routes.draw do
   # Backend
   namespace :backend do
 
-    resource :myself, :path => "me", only: [:show]
+    resource :myself, path: "me", only: [:show]
 
     resource :settings, only: [:edit, :update] do
       member do
@@ -310,10 +310,10 @@ Ekylibre::Application.routes.draw do
 
     resources :financial_assets, concerns: [:list, :unroll] do
       member do
-        get :cede
-        get :sell
+        get  :cede
+        get  :sell
         post :depreciate
-        get :list_depreciations
+        get  :list_depreciations
       end
     end
 
@@ -324,8 +324,8 @@ Ekylibre::Application.routes.draw do
         match "close", via: [:get, :post]
         match :generate_last_journal_entry, via: [:get, :post]
         post :compute_balances
-        get :list_account_balances
-        get :list_financial_asset_depreciations
+        get  :list_account_balances
+        get  :list_financial_asset_depreciations
       end
     end
 
@@ -333,13 +333,13 @@ Ekylibre::Application.routes.draw do
 
     resources :gaps, concerns: [:list, :unroll] do
       member do
-        get :list_items
+        get  :list_items
       end
     end
 
     resources :guide_analyses, concerns: [:list, :unroll] do
       member do
-        get :list_points
+        get  :list_points
       end
     end
 
@@ -354,7 +354,7 @@ Ekylibre::Application.routes.draw do
 
     resources :incoming_deliveries, concerns: [:list, :unroll] do
       member do
-        get :list_items
+        get  :list_items
         match "confirm", via: [:get, :post]
       end
     end
@@ -388,13 +388,10 @@ Ekylibre::Application.routes.draw do
     end
 
     resources :inventories, concerns: [:list, :unroll] do
-      collection do
-        get :list_items
-        get :list_items_create
-        get :list_items_update
-      end
       member do
-        match "reflect", via: [:get, :post]
+        post :reflect
+        post :reset
+        get  :list_items
       end
     end
 
@@ -403,7 +400,7 @@ Ekylibre::Application.routes.draw do
         post :abort
         post :close
         post :reopen
-        get :list_interventions
+        get  :list_interventions
       end
     end
 
@@ -412,16 +409,16 @@ Ekylibre::Application.routes.draw do
         match "draft", via: [:get, :post]
         match "bookkeep", via: [:get, :put, :post]
         match "import", via: [:get, :post]
-        get :reports
-        get :balance
-        get :general_ledger
-        get :list_draft_items
-        get :list_general_ledger
+        get  :reports
+        get  :balance
+        get  :general_ledger
+        get  :list_draft_items
+        get  :list_general_ledger
       end
       member do
-        get :list_mixed
-        get :list_items
-        get :list_entries
+        get  :list_mixed
+        get  :list_items
+        get  :list_entries
         match "close", via: [:get, :post]
         match "reopen", via: [:get, :post]
       end
@@ -433,10 +430,7 @@ Ekylibre::Application.routes.draw do
       end
     end
 
-    resources :journal_entry_items, only: [:new, :show], concerns: [:list, :unroll] do
-      collection do
-      end
-    end
+    resources :journal_entry_items, only: [:new, :show], concerns: [:list, :unroll]
 
     resources :kujakus, only: [], concerns: [:list, :unroll] do
       member do
@@ -470,10 +464,6 @@ Ekylibre::Application.routes.draw do
 
     resources :matters, concerns: :products
 
-    resources :medicines, concerns: :products
-
-    resources :mineral_matters, concerns: :products
-
     resources :net_services, concerns: [:list, :unroll] do
       member do
         get :list_identifiers
@@ -483,10 +473,6 @@ Ekylibre::Application.routes.draw do
     resources :observations
 
     resources :operations, concerns: [:list, :unroll]
-
-    resources :organic_matters, concerns: :products
-
-    resources :operation_tasks, concerns: [:list, :unroll]
 
     resources :outgoing_deliveries, concerns: [:list, :unroll] do
       member do
@@ -600,9 +586,9 @@ Ekylibre::Application.routes.draw do
 
     resources :purchases, concerns: [:list, :unroll] do
       member do
-        get :list_items
-        get :list_undelivered_items
-        get :list_deliveries
+        get  :list_items
+        get  :list_undelivered_items
+        get  :list_deliveries
         post :correct
         post :propose
         post :invoice
@@ -682,9 +668,6 @@ Ekylibre::Application.routes.draw do
     resources :teams, concerns: [:list, :unroll]
 
     resources :trackings, concerns: [:list, :unroll] do
-      # collection do
-      #   get :unroll
-      # end
       member do
         get :list_products
         #   get :list_sale_items
@@ -697,8 +680,6 @@ Ekylibre::Application.routes.draw do
 
     resources :transports, concerns: [:list, :unroll] do
       collection do
-        # match "deliveries", via: [:get, :post]
-        # match "delivery_delete", via: [:get, :post]
         get :list_transportable_deliveries
       end
       member do

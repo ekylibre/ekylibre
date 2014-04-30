@@ -519,6 +519,7 @@
         <page to="backend/inventories#list_items_update"/>
         <page to="backend/inventories#new"/>
         <page to="backend/inventories#reflect"/>
+        <page to="backend/inventories#reset"/>
         <page to="backend/inventories#show"/>
         <page to="backend/inventories#unroll"/>
         <page to="backend/inventories#update"/>

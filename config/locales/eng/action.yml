@@ -312,6 +312,7 @@ eng:
       edit: "Edit inventory"
       index: "Inventories"
       new: "New inventory"
+      # reset: "Reset inventory: %{name}"
       show: "Inventory: %{name}"
     backend/issues:
       abort: "Abort issue: %{name}"
