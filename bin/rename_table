@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+require 'rubygems'
+gem 'activesupport', '~> 4.0.4'
 require 'active_support/core_ext'
 require 'optparse'
 require 'pathname'

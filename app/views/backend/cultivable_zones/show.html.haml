@@ -10,7 +10,7 @@
         %span.title= CultivableZone.human_attribute_name(:net_surface_area)
         %span.value= resource.net_surface_area.in_hectare.round(2).l
 
-    - b.cell :meteo, params: {id: resource.id}
+    - b.cell :weather, params: {id: resource.id}
 
   - b.hbox do
     - b.cell(:markers) do

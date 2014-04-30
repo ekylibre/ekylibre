@@ -69,16 +69,14 @@ class User < Ekylibre::Record::Base
   belongs_to :establishment
   belongs_to :person
   belongs_to :role
-  # belongs_to :profession
-  # has_many :events, class_name: "Event" #, foreign_key: :responsible_id
-  # has_many :future_events, class_name: "Event", :conditions => ["started_at >= CURRENT_TIMESTAMP"] # , foreign_key: :responsible_id
   has_many :preferences, dependent: :destroy, foreign_key: :user_id
-  has_many :sales_invoices, -> { where(:state => "invoice") }, foreign_key: :responsible_id, class_name: "Sale"
-  has_many :sales, class_name: "Sale", foreign_key: :responsible_id
-  has_many :transports, class_name: "Transport", foreign_key: :responsible_id
-  has_many :unpaid_sales, -> { order("created_at").where("state IN ('order', 'invoice') AND paid_amount < amount AND lost = ? ", false) }, class_name: "Sale", foreign_key: :responsible_id
+  has_many :sales_invoices, -> { where(state: "invoice") }, foreign_key: :responsible_id, class_name: "Sale"
+  has_many :sales, foreign_key: :responsible_id
+  has_many :transports, foreign_key: :responsible_id
+  has_many :unpaid_sales, -> { order(:created_at).where(state: ['order', 'invoice']).where(lost: false).where("paid_amount < amount") }, class_name: "Sale", foreign_key: :responsible_id
 
-  scope :employees, -> { where(:employed => true) }
+  scope :employees, -> { where(employed: true) }
+  scope :administrators, -> { where(administrator: true) }
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_numericality_of :failed_attempts, allow_nil: true, only_integer: true
@@ -103,13 +101,6 @@ class User < Ekylibre::Record::Base
   delegate :picture, :full_name, :participations, to: :person
   serialize :rights
 
-  # class << self
-  #   def rights_file; Rails.root.join("config", "rights.yml"); end
-  #   def minimum_right; :__minimum__; end
-  #   def rights; @@rights; end
-  #   def rights_list; @@rights_list; end
-  # end
-
   before_validation do
     self.maximal_grantable_reduction_percentage ||= 0
     if self.role
@@ -121,6 +112,9 @@ class User < Ekylibre::Record::Base
   end
 
   validate on: :update do
+    if self.class.administrators.count <= 1 and old_record.administrator? and !self.administrator?
+      errors.add(:administrator, :accepted)
+    end
     if self.person and old_record.person
       if self.person_id != old_record.person_id
         errors.add(:person_id, :readonly)
@@ -132,6 +126,10 @@ class User < Ekylibre::Record::Base
     unless self.person
       self.create_person!(first_name: self.first_name, last_name: self.last_name, nature: Person.nature.default_value)
     end
+  end
+
+  protect(on: :destroy) do
+    (self.administrator? and self.class.administrators.count <= 1) or self.class.count <= 1
   end
 
   def name
@@ -152,29 +150,6 @@ class User < Ekylibre::Record::Base
     end
     return list
   end
-
-
-  # def rights_array
-  #   self.rights.to_s.split(/\s+/).collect{|x| x.to_sym}
-  # end
-
-  # def rights_array=(array)
-  #   narray = array.select{|x| self.class.rights_list.include? x.to_sym}.collect{|x| x.to_sym}
-  #   self.rights = narray.join(" ")
-  #   return narray
-  # end
-
-  # def diff_more(right_markup = 'div', separator='')
-  #   return '<div>&infin;</div>'.html_safe if self.administrator?
-  #   (self.rights_array-self.role.rights_array).select{|x| self.class.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
-  # end
-
-
-  # def diff_less(right_markup = 'div', separator='')
-  #   return '' if self.administrator?
-  #   (self.role.rights_array-self.rights_array).select{|x| self.class.rights_list.include?(x)}.collect{|x| "<#{right_markup}>"+::I18n.t("rights.#{x}")+"</#{right_markup}>"}.join(separator).html_safe
-  # end
-
 
   # Find or create preference for given name
   def preference(name, value = nil, nature = :string)
@@ -199,17 +174,6 @@ class User < Ekylibre::Record::Base
     p.save!
     return p
   end
-
-
-  # # Find and check user account
-  # def self.authenticate(user_name, password)
-  #   if user = self.find_by_user_name_and_loggable(user_name.to_s.downcase, true)
-  #     if user.locked or !user.authenticated?(password.to_s)
-  #       user = nil
-  #     end
-  #   end
-  #   return user
-  # end
 
   def authorization(controller_name, action_name, rights_list=nil)
     rights_list = self.rights_array if rights_list.blank?
@@ -246,25 +210,12 @@ class User < Ekylibre::Record::Base
     return list.any?
   end
 
-  protect(on: :destroy) do
-    self.class.count <= 1
-  end
-
-  # def authenticated?(password)
-  #   self.hashed_password == self.class.encrypted_password(password, self.salt)
-  # end
-
   # Used for generic password creation
   def self.give_password(length=8, mode=:complex)
     self.generate_password(length, mode)
   end
 
   private
-
-  # def self.encrypted_password(password, salt)
-  #   string_to_hash = "<"+password.to_s+":"+salt.to_s+"/>"
-  #   Digest::SHA256.hexdigest(string_to_hash)
-  # end
 
   def self.generate_password(password_length=8, mode=:normal)
     return '' if password_length.blank? or password_length<1
@@ -283,21 +234,5 @@ class User < Ekylibre::Record::Base
     password_length.times{password+=letters[(letters_length*rand).to_i]}
     password
   end
-
-  # def self.initialize_rights
-  #   definition = YAML.load_file(self.rights_file)
-  #   @@rights_list = definition.keys.sort.delete_if{|k| k.match(/^__.*__$/)}.map(&:to_sym)
-  #   @@rights = HashWithIndifferentAccess.new
-  #   for right, actions in definition
-  #     for uniq_action in actions
-  #       controller, action = uniq_action.split(/\#/)[0..1]
-  #       @@rights[controller] ||= HashWithIndifferentAccess.new
-  #       @@rights[controller][action] ||= []
-  #       @@rights[controller][action] << right.to_sym
-  #     end if actions.is_a? Array
-  #   end
-  # end
-
-  # initialize_rights
 
 end

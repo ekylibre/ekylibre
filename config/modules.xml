@@ -1725,8 +1725,8 @@
         <page to="backend/cells/map_cells#show"/>
         <page to="backend/cells/map_cells#update"/>
       </item>
-      <item name="meteo_cells">
-        <page to="backend/cells/meteo_cells#show"/>
+      <item name="weather_cells">
+        <page to="backend/cells/weather_cells#show"/>
       </item>
       <item name="revenues_by_product_nature_cells">
         <page to="backend/cells/revenues_by_product_nature_cells#show"/>

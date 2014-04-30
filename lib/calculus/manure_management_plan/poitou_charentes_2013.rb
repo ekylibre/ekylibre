@@ -52,7 +52,7 @@ module Calculus
       # Estimate "Pi"
       def estimate_absorbed_nitrogen_at_opening
         quantity = 10.in_kilogram_per_hectare
-        if @cultivation.blank? and @variety and (@variety <= :zea or @variety <= :sorghum)
+        if @cultivation.blank? and @variety and (@variety <= :zea or @variety <= :sorghum or @variety <= :helianthus or @variety <= :linum or @variety <= :cannabis or @variety <= :nicotiana)
           quantity = 0.in_kilogram_per_hectare
         elsif @cultivation 
           if count = @cultivation.leaf_count(at: @opened_at) and activity.nature.to_sym == :straw_cereal_crops
@@ -122,7 +122,7 @@ module Calculus
         end
         if rank > 0 and found and cultivation = found.cultivation
           age = (cultivation.dead_at - cultivation.born_at) / 1.month
-          season = ([9, 10, 11].include?(cultivation.dead_at.month) ? :autumn : [3, 4, 5, 6].include?(cultivation.dead_at.month) ? :spring : nil)
+          season = ([9, 10, 11, 12].include?(cultivation.dead_at.month) ? :autumn : [3, 4, 5, 6].include?(cultivation.dead_at.month) ? :spring : nil)
           items = Nomen::NmpPoitouCharentesAbacusSix.list.select do |item|
             item.minimum_age <= age and age <= item.maximum_age and
               item.rank == rank

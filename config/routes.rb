@@ -123,7 +123,7 @@ Ekylibre::Application.routes.draw do
       resource :last_purchases_cell, only: :show, concerns: :list
       resource :last_sales_cell, only: :show, concerns: :list
       resource :map_cell, only: [:show, :update]
-      resource :meteo_cell, only: :show
+      resource :weather_cell, only: :show
       resource :placeholder_cell, only: :show
       resource :product_bar_cell, only: :show
       resource :production_cropping_plan_cell, only: :show

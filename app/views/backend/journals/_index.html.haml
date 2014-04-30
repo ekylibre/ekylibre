@@ -1,5 +1,5 @@
 %dl#journals-nav
-  %dt= Backend::JournalsController.human_name
+  %dt= Backend::JournalsController.human_action_name(:index)
   - if JournalEntryItem.find_by_state("draft")
     - name = tc("draft").html_safe
     - activeness = (action_name == "draft" ? {class: "active"} : {})
