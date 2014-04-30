@@ -30,9 +30,9 @@ class Backend::InventoriesController < BackendController
     t.column :responsible, url: true
     # t.column :description
     # t.action :show, url: {format: :pdf}, image: :print
-    t.action :reset,   if: :editable?, method: :post, confirm: :are_you_sure
+    t.action :refresh,   if: :editable?, method: :post, confirm: :are_you_sure
     t.action :reflect, if: :reflectable?, method: :post, image: "action", confirm: :are_you_sure
-    t.action :edit,    if: :editable?
+    t.action :edit,    if: :updateable?
     t.action :destroy, if: :destroyable?
   end
 
@@ -52,9 +52,9 @@ class Backend::InventoriesController < BackendController
     t.column :unit_name
   end
 
-  def reset
+  def refresh
     return unless @inventory = find_and_check
-    @inventory.reset!
+    @inventory.refresh!
     redirect_to action: :edit, id: @inventory.id
   end
 

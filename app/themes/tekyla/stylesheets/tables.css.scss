@@ -303,6 +303,7 @@ $list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
         &.reflect     i { @include use-icon(cog); }
         &.refuse      i { @include use-icon(remove); }
         &.register    i { @include use-icon(plus); }
+        &.reset       i { @include use-icon(refresh); }
         &.restore     i { @include use-icon(chevron-left); }
         &.sort        i { @include use-icon(sort); }
         &.table       i { @include use-icon(table); }

@@ -776,7 +776,7 @@ fra:
     add_condition: "Ajouter la condition"
     add_conditions: "Ajoutez des conditions"
     add_delivery: "Ajouter une livraison"
-    add_diagnostic: "Ajouter un diagnostic"
+    add_diagnostic: "Ajouter un diagnostic" #?
     add_email: "Ajouter une adresse e-mail"
     add_fax: "Ajouter un n° de fax"
     add_item: "Ajouter un élément"
@@ -796,7 +796,7 @@ fra:
     add_reading: "Ajouter une mesure pour un indicateur"
     add_subscription_for_sale_line: "Ajouter un abonnement pour la ligne N°%{position}"
     add_support: "Ajouter un support de production" #?
-    add_treatment: "Ajouter un traitement"
+    add_treatment: "Ajouter un traitement" #?
     add_variant: "Ajouter une variante" #?
     add_watching: "Ajouter un produit de référence" #?
     add_website: "Ajouter un site Web"
@@ -1476,6 +1476,7 @@ fra:
     reproductor: "Reproducteur" #?
     reservoir: "Réservoir"
     reservoir_informations: "Informations sur le réservoir"
+    # reset: "Reset"
     resource: "Consulter la pièce d’origine\_: %{resource} %{number}"
     resources: "Gestion des ressources humaines"
     rest_to_pay: "Reste à payer"

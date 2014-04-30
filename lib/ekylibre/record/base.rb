@@ -51,7 +51,7 @@ module Ekylibre::Record
 
     # Returns a relation for all other records
     def others
-      self.class.where("id != ?", self.id || -1)
+      self.class.where.not(id: (self.id || -1))
     end
 
     # Returns a relation for the old record in DB

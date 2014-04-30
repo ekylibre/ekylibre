@@ -46,7 +46,13 @@ class InventoryItem < Ekylibre::Record::Base
   validates_presence_of :actual_population, :expected_population, :inventory, :product
   #]VALIDATORS]
 
-  delegate :unit_name, :population_counting_unitary?, to: :product
+  delegate :name, :unit_name, :population_counting_unitary?, to: :product
+
+  before_validation do
+    if self.population_counting_unitary?
+      self.actual_population = self.expected_population
+    end
+  end
 
   # acts_as_stockable :quantity => "self.quantity - self.theoric_quantity", :origin => :inventory
 

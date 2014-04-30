@@ -115,7 +115,7 @@ a.btn, button {
   }
 
   // Adds synonyms
-  @each $renaming in (abort trash) (cancel undo) (destroy remove) (down chevron-down) (new plus) (pick plus) (merge resize-small) (divide resize-full) (duplicate copy) (load refresh) (statistics bar-chart) (index print) (unvalidateds ok) (close lock) (people group) (veterinary_booklet medkit) (animal_husbandry_registry cow) (exchange_accountancy_file_fr file) (manure_management_plan book) (provisional_manure_management_plan book) (land_parcel_registry tractor) (phytosanitary_registry beaker) (vine_phytosanitary_registry beaker) (general_ledger money) (profit_and_loss_statement money) (activity_cost money){
+  @each $renaming in (abort trash) (cancel undo) (destroy remove) (down chevron-down) (new plus) (pick plus) (merge resize-small) (divide resize-full) (duplicate copy) (load refresh) (statistics bar-chart) (index print) (unvalidateds ok) (close lock) (people group) (veterinary_booklet medkit) (animal_husbandry_registry cow) (exchange_accountancy_file_fr file) (manure_management_plan book) (provisional_manure_management_plan book) (land_parcel_registry tractor) (phytosanitary_registry beaker) (vine_phytosanitary_registry beaker) (general_ledger money) (profit_and_loss_statement money) (activity_cost money) (reset refresh){
     &.btn-#{nth($renaming, 1)} {
       .icon, i {
         @include use-icon(nth($renaming, 2));

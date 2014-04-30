@@ -1,23 +1,22 @@
 = field_set do
+  = f.input :name
   = f.referenced_association :responsible, source: :employees
   = f.input :achieved_at
-  -# = f.input :description
-  -# = render 'items_form'
 
 :ruby
   f.object.build_missing_items
-  containers = f.object.items.collect(&:container).uniq
+  containers = f.object.items.collect(&:container).uniq.sort{|a,b| a.name <=> b.name }
 
 - for container in containers
   = field_set(container ? container.name : :undefined_container) do
-    = f.simple_fields_for :items, f.object.items.select{|i| i.container == container} do |nested|
+    = f.simple_fields_for :items, f.object.items.select{|i| i.container == container}.sort{|a,b| a.name <=> b.name} do |nested|
       = nested.association :product, as: :hidden
       = nested.input :expected_population, as: :hidden
       .control-group
         %label.control-label= nested.object.product.name
         .controls
           - if nested.object.population_counting_unitary?
-            %span= "1"
+            %span= link_to(:details.tl, controller: "/backend/products", action: :show, id: nested.object.product_id)
           - else
             %span.input-append
               = nested.input_field :actual_population

@@ -954,7 +954,7 @@ inventories:
     - "backend/inventories#edit"
     - "backend/inventories#new"
     - "backend/inventories#reflect"
-    - "backend/inventories#reset"
+    - "backend/inventories#refresh"
     - "backend/inventories#update"
 
 issues:

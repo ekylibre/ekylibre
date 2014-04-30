@@ -1,5 +1,9 @@
 - main_toolbar do |t|
-  - t.edit resource
+  - if resource.editable?
+    - t.edit    resource
+    - t.refresh resource, method: :post
+  - if resource.reflectable?
+    - t.reflect resource, method: :post
 
 = beehive do |b|
   - b.cell do
