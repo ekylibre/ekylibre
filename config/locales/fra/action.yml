@@ -6,7 +6,7 @@ fra:
     authentication/sessions:
       destroy: "Se déconnecter"
       new: "Connexion"
-      renew: "Renouveller la session"
+      renew: "Renouveller la session" #?
     backend/accounts:
       edit: "Modifier le compte\_: %{number} - %{name}"
       index: "Plan de comptes"
@@ -49,10 +49,10 @@ fra:
       new: "Nouveau groupe d’animaux"
       show: "Groupe\_: %{name}"
     backend/animal_medicines:
-      edit: "Modifier le produit vétérinaire\_: %{name}"
+      edit: "Modifier le produit vétérinaire\_: %{name}" #?
       index: "Produits vétérinaires"
-      new: "Nouveau produit vétérinaire"
-      show: "Produit vétérinaire\_: %{name}"
+      new: "Nouveau produit vétérinaire" #?
+      show: "Produit vétérinaire\_: %{name}" #?
     backend/animal_products:
       index: "Produits animaux"
     backend/animals:
@@ -428,10 +428,10 @@ fra:
     backend/plant_fertilizers:
       index: "Engrais"
     backend/plant_medicines:
-      edit: "Modifier le produit phytosanitaire\_: %{name}"
+      edit: "Modifier le produit phytosanitaire\_: %{name}" #?
       index: "Produits phytosanitaires"
-      new: "Nouveau produit phytosanitaire"
-      show: "Produit phytosanitaire\_: %{name}"
+      new: "Nouveau produit phytosanitaire" #?
+      show: "Produit phytosanitaire\_: %{name}" #?
     backend/plant_products:
       index: "Produits végétaux"
     backend/plant_seedlings:
@@ -856,16 +856,16 @@ fra:
     back: "Revenir à la page précédente"
     backup: "Sauvegarder"
     backups: "Sauvegardes"
-    bad_browser:
-      explanation: "Cette version de navigateur n’est pas supportée par Ekylibre. En utilisant ce navigateur, les pages ne seraient pas affichées correctement et des fonctionnalités seraient manquantes."
-      proposal: "S’il vous plait, envisagez de vous mettre à jour avec l’un de ces navigateurs récents\_:"
-      title: "Il semblerai que vous utilisiez un navigateur obsolète"
-      wb:
-        chrome: "Chrome"
-        firefox: "Firefox"
-        ie: "Internet Explorer"
-        opera: "Opéra"
-        safari: "Safari"
+    bad_browser:  #?
+      explanation: "Cette version de navigateur n’est pas supportée par Ekylibre. En utilisant ce navigateur, les pages ne seraient pas affichées correctement et des fonctionnalités seraient manquantes." #?
+      proposal: "S’il vous plait, envisagez de vous mettre à jour avec l’un de ces navigateurs récents\_:" #?
+      title: "Il semblerai que vous utilisiez un navigateur obsolète" #?
+      wb: #?
+        chrome: "Chrome" #?
+        firefox: "Firefox" #?
+        ie: "Internet Explorer" #?
+        opera: "Opéra" #?
+        safari: "Safari" #?
     balance: "Solde"
     bank_chart: "Évolution du solde des comptes de trésorerie"
     bban: "Relevé d’identité bancaire (RIB)"
@@ -1389,16 +1389,19 @@ fra:
     placeholder: "Espace réservé"
     places: "Lieux"
     planned_at: "Date prévisionnelle"
+    # plant: "Plant"
     plant_life_state: "Phase du bioprocessus de vie d’un végétal" #?
-    plant_medicines: "Produits phytosanitaires"
-    plant_productions: "Productions végétales"
+    plant_medicines: "Produits phytosanitaires" #?
+    plant_productions: "Productions végétales" #?
     plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal" #?
-    play: "Éxécuter"
+    play: "Éxécuter" #?
     please_wait: "Merci de patienter…"
-    population: "Population" #?
+    # point: "Point"
+    population: "Population"
     postal_zone_x: "%{name} (%{postal_code})" #?
     precipitation: "Précipitations"
     preferences: "Préférences"
+    # prescription: "Prescription"
     pretax_amount: "Montant HT"
     previous: "Précédent"
     previous_bank_statement: "Solde du relevé précédent N°%{number}"
@@ -1821,157 +1824,171 @@ fra:
     x_waiting_outgoing_deliveries:
       one: "%{count} livraison sortante en attente"
       other: "%{count} livraisons sortantes en attente"
-    x_years:  #?
-      one: "%{count} an" #?
-      other: "%{count} ans" #?
+    x_years:
+      one: "%{count} an"
+      other: "%{count} ans"
+      # zero: "0 years"
     y: "Oui"
     yearly: "Annuelle"
     years_count_in_historic: "Nombre d’années dans l’historique"
     yield: "Rendement" #?
   notifications:
-    access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
-    bad_file: "Le fichier ne semble pas correspondre."
-    bookkeeping_is_finished: "La bascule en comptabilité est finie."
-    bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
-    cannot_delete_entity: "Il n’est pas possible de supprimer cette fiche car elle possède un historique comptable"
-    # cannot_find_deal_to_attach: "Cannot find deal to attach"
-    # cannot_find_deal_to_detach: "Cannot find deal to detach"
-    cannot_find_document_template: "Impossible de trouver le modèle de document"
-    cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
-    cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"
-    cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."
-    changes_have_been_reflected: "Les changements ont été correctement répercutés sur l’état des stocks actuel"
-    changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
-    closed_financial_years: "L’exercice a été correctement clôturé"
-    columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
-    dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
-    draft_entry_items_are_validated:
-      one: "%{count} ligne de brouillard validée"
-      other: "%{count} lignes de brouillard validées"
-      zero: "Aucune ligne de brouillard validée"
-    entity_columns_are_needed: "Vous devez spécifier au moins une colonne pour la personne et notamment son nom de famille/dénomination sociale."
-    exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
-    expired_session: "Session expirée. Veuillez vous reconnecter."
-    fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
-    # implemented_with_dummy_data: "Implemented with dummy data"
-    import_succeeded: "Vos données ont été correctement importées" #?
-    importation_cancelled: "Vos données n’ont été pas été importées. L’importation a été annulée"
-    importation_finished: "L’importation est terminée."
-    impossible_to_add_items: "Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande"
-    impossible_to_add_items_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
-    invalid_file_nature: "Type de fichier invalide"
-    journal_closed_at: "Le %{journal} a été clôturé au %{closed_at} correctement."
-    journal_entry_already_validated: "La pièce a déjà été validée et ne peut plus être modifiée"
-    journal_entry_has_been_saved: "La pièce N°%{number} a été enregistrée correctement"
-    journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
-    journal_reopened_at: "Le %{journal} a été déclôturé au %{closed_at} correctement."
-    mails_are_sent: "Les courriels ont été envoyés"
-    need_balanced_journal_to_tax_declaration: "Tous vos journaux doivent être clôturés et équilibrés à cette date."
-    need_building_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat"
-    need_building_to_create_sale_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser une vente"
-    need_building_to_record_stock_moves: "Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage."
-    need_cash_to_record_statements: "Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte."
-    need_closed_financial_year_to_declaration: "Vous devez avoir un exercice clôturé pour créer une déclaration de TVA."
-    need_company_code_to_login: "Vous devez sélectionner votre société pour pouvoir vous connecter avec ce nom d’utilisateur"
-    need_entries_to_point: "Aucune écriture n’a été trouvé pour la période du relevé bancaire."
-    need_journal_to_manage_tax_declaration: "Vous devez avoir au moins un journal des opérations diverses et un journal de vente ou d’achat pour pouvoir enregistrer des déclarations de taxes."
-    need_payment_mode_to_create_deposit: "Vous devez spécifier un mode de réglement pour effectuer une remise en banque"
-    need_quantities_to_cancel_an_sale: "Vous devez spécifier une quantité pour pouvoir faire un avoir"
-    need_stocks_building_to_create_products: "Vous devez créer un lieu de stockage pour pouvoir créer un produit"
-    need_stocks_to_create_inventories: "Vous devez gérer les stocks d’au moins un produit pour pouvoir faire un inventaire"
-    need_to_create_activity: "Vous devez créer des activités pour pouvoir affecter vos écritures comptables" #?
-    need_to_create_productions: "Vous devez créer des productions"
-    need_to_create_subscription_nature: "Vous devez créer un type d’abonnement pour pouvoir gérer vos abonnements"
-    new_actual_number: "Le nouveau numéro en cours est %{actual_number}"
-    new_values_are_calculated: "De nouvelles valeurs ont été calculées"
-    no_authenticated: "Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le mot de passe doit être incorrect."
-    no_balance_template: "Pas de modèle de document pour la balance" #?
-    no_building: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks"
-    no_closable_financial_year: "Vous n’avez aucun exercice à clôturer."
-    no_closable_journal: "Vous ne pouvez pas clôturer ce journal."
-    no_depositable_payments: "Il n’y a pas de réglements à remettre en banque"
-    no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant"
-    no_financial_year: "Aucun exercice enregistré" #?
-    no_items_found: "Aucun pruduit n’a été ajouté à la commande "
-    no_payment_to_deposit: "Aucun règlement à encaisser"
-    no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
-    no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit."
-    no_template_journal: "Pas de modèle journal" #?
-    no_template_journal_by_id: "Pas de modèle journal" #?
-    no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé"
-    no_unvalidated_operations: "Aucun travail à réaliser"
-    password_successfully_changed: "Votre mot de passe a été mis à jour avec succès"
-    prices_import_succeeded: "Vos données ont été correctement importées"
-    print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})."
-    purchase_already_invoiced: "Achat déjà facturé"
-    record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
-    record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
-    # record_has_been_imported: "Record has been imported"
-    record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement"
-    restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)."
-    sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison"
-    sale_cannot_be_updated: "Le devis n’est plus modifiable."
-    sale_cant_be_deleted: "La vente ne peut plus être supprimée"
-    select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
-    specify_filter: "Vous choisir appliquer au moins un filtre de recherche"
-    specify_updates: "Vous devez spécifier au moins un champ à modifier"
-    unavailable_model: "%{model} indisponible ou inexistante (%{id})"
-    unknown_action: "La page demandée est indisponible (%{url})"
-    unknown_company: "Société inconnue"
-    unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel"
-    update_is_done: "La mise à jour a été effectuée"
-    validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau"
-    x_unpointed_journal_entry_items:
-      one: "Il y a une écriture à pointer"
-      other: "Il y a %{count} écritures à pointer"
-      zero: "Il n’y a pas d’écritures à pointer pour l’instant"
-    you_must_have_an_email_column: "Vous devez avoir une colonne Email dans votre extraction"
-    you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer"
-    you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?"
+    levels:
+      error: "Erreur"
+      information: "Information"
+      success: "Opération réalisée avec succès"
+      warning: "Attention!"
+    messages:
+      access_denied: "Vous n’avez pas le droit d’accéder à cette page. %{reason} (%{url})"
+      bad_file: "Le fichier ne semble pas correspondre." #?
+      bookkeeping_is_finished: "La bascule en comptabilité est finie."
+      bookkeeping_works_only_with: "La bascule en comptabilité ne peut se faire actuellement que pour\_: %{list}."
+      cannot_delete_entity: "Il n’est pas possible de supprimer cette fiche car elle possède un historique comptable" #?
+      # cannot_find_deal_to_attach: "Cannot find deal to attach"
+      # cannot_find_deal_to_detach: "Cannot find deal to detach"
+      cannot_find_document_template: "Impossible de trouver le modèle de document" #?
+      cannot_mark_entry_items: "Impossible de lettrer ces lignes d’écritures ensemble"
+      cannot_merge_an_entity_with_itself: "Il n’est pas possible de fusionner une fiche avec elle-même"
+      cannot_merge_entities: "Une erreur est survenue. Il n’est pas possible de fusionner ces fiches."
+      changes_have_been_reflected: "Les changements ont été correctement répercutés sur l’état des stocks actuel"
+      changes_have_not_been_reflected: "Les changements n’ont pas pu être correctement répercutés sur l’état des stocks actuel"
+      closed_financial_years: "L’exercice a été correctement clôturé"
+      columns_are_already_uses: "Une ou plusieurs colonnes à importer sont sélectionnées plusieurs fois"
+      dashboard_is_being_developed: "Les tableaux de bord sont en cours d’élaboration"
+      draft_entry_items_are_validated:
+        one: "%{count} ligne de brouillard validée"
+        other: "%{count} lignes de brouillard validées"
+        zero: "Aucune ligne de brouillard validée"
+      entity_columns_are_needed: "Vous devez spécifier au moins une colonne pour la personne et notamment son nom de famille/dénomination sociale."
+      exception_raised: "Une erreur est survenue durant le traitement\_: %{message}"
+      expired_session: "Session expirée. Veuillez vous reconnecter." #?
+      fails_to_extract_listing: "L’extraction n’a pas pu s’effectuer\_: %{message}"
+      # implemented_with_dummy_data: "Implemented with dummy data"
+      import_succeeded: "Vos données ont été correctement importées" #?
+      importation_cancelled: "Vos données n’ont été pas été importées. L’importation a été annulée" #?
+      importation_finished: "L’importation est terminée."
+      impossible_to_add_items: "Vous ne pouvez plus ajouter de produits à votre vente, le devis est passé en commande"
+      impossible_to_add_items_to_purchase: "Vous ne pouvez plus ajouter de produits à votre achat"
+      invalid_file_nature: "Type de fichier invalide"
+      journal_closed_at: "Le %{journal} a été clôturé au %{closed_at} correctement."
+      journal_entry_already_validated: "La pièce a déjà été validée et ne peut plus être modifiée"
+      journal_entry_has_been_saved: "La pièce N°%{number} a été enregistrée correctement"
+      journal_entry_items_marked_with_letter: "Les lignes d’écritures ont été lettrées avec la lettre %{letter}"
+      journal_reopened_at: "Le %{journal} a été déclôturé au %{closed_at} correctement."
+      levels: #?
+      mails_are_sent: "Les courriels ont été envoyés"
+      messages: #?
+      need_balanced_journal_to_tax_declaration: "Tous vos journaux doivent être clôturés et équilibrés à cette date." #?
+      need_building_to_create_purchase_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser un achat" #?
+      need_building_to_create_sale_item: "Vous devez créer un lieu de stockage pour pouvoir réaliser une vente" #?
+      need_building_to_record_stock_moves: "Pour pouvoir gérer vos stocks vous devez enregistrer vos lieux de stockage."
+      need_cash_to_record_statements: "Vous devez avoir au moins créer un compte bancaire pour pouvoir saisir un relevé de compte."
+      need_closed_financial_year_to_declaration: "Vous devez avoir un exercice clôturé pour créer une déclaration de TVA." #?
+      need_company_code_to_login: "Vous devez sélectionner votre société pour pouvoir vous connecter avec ce nom d’utilisateur" #?
+      need_entries_to_point: "Aucune écriture n’a été trouvé pour la période du relevé bancaire."
+      need_journal_to_manage_tax_declaration: "Vous devez avoir au moins un journal des opérations diverses et un journal de vente ou d’achat pour pouvoir enregistrer des déclarations de taxes." #?
+      need_payment_mode_to_create_deposit: "Vous devez spécifier un mode de réglement pour effectuer une remise en banque"
+      need_quantities_to_cancel_an_sale: "Vous devez spécifier une quantité pour pouvoir faire un avoir"
+      need_stocks_building_to_create_products: "Vous devez créer un lieu de stockage pour pouvoir créer un produit" #?
+      need_stocks_to_create_inventories: "Vous devez gérer les stocks d’au moins un produit pour pouvoir faire un inventaire"
+      need_to_create_activity: "Vous devez créer des activités pour pouvoir affecter vos écritures comptables" #?
+      need_to_create_productions: "Vous devez créer des productions"
+      need_to_create_subscription_nature: "Vous devez créer un type d’abonnement pour pouvoir gérer vos abonnements"
+      new_actual_number: "Le nouveau numéro en cours est %{actual_number}"
+      new_values_are_calculated: "De nouvelles valeurs ont été calculées"
+      no_authenticated: "Vous n’avez pas pu être identifié. Le nom d’utilisateur ou le mot de passe doit être incorrect."
+      no_balance_template: "Pas de modèle de document pour la balance" #?
+      no_building: "Aucun lieu de stockage n’est défini. Veuillez en créer un pour pouvoir gérer vos stocks" #?
+      no_closable_financial_year: "Vous n’avez aucun exercice à clôturer." #?
+      no_closable_journal: "Vous ne pouvez pas clôturer ce journal."
+      no_depositable_payments: "Il n’y a pas de réglements à remettre en banque"
+      no_existing_mandates: "Il n’y a pas de responsabilités enregistrées pour l’instant" #?
+      no_financial_year: "Aucun exercice enregistré" #?
+      no_items_found: "Aucun pruduit n’a été ajouté à la commande "
+      no_payment_to_deposit: "Aucun règlement à encaisser"
+      no_reopenable_journal: "Vous ne pouvez pas déclôturer ce journal."
+      no_stocks: "Vous n’avez aucun stock. Si vous désirez gérer le stock d’un produit, veuillez cocher l’option «\_Gérer les stocks\_» dans les caractéristiques de votre produit." #?
+      no_template_journal: "Pas de modèle journal" #?
+      no_template_journal_by_id: "Pas de modèle journal" #?
+      no_unconfirmed_stock_transfers: "Aucun transfert de stocks non-confirmé" #?
+      no_unvalidated_operations: "Aucun travail à réaliser" #?
+      password_successfully_changed: "Votre mot de passe a été mis à jour avec succès" #?
+      prices_import_succeeded: "Vos données ont été correctement importées" #?
+      print_failure: "Impossible d’imprimer. Essayer de recharger les modèles de documents pour corriger le problème. %{error} (%{class})." #?
+      purchase_already_invoiced: "Achat déjà facturé"
+      record_cannot_be_removed: "L’enregistrement ne peut pas être supprimé"
+      record_has_been_correctly_removed: "L’enregistrement a été supprimé correctement"
+      # record_has_been_imported: "Record has been imported"
+      record_has_not_been_removed: "L’enregistrement n’a pas être supprimé correctement" #?
+      restoration_finished: "La restauration de la sauvegarde s’est terminée (en %{value} secondes)."
+      sale_already_invoiced: "La vente a déjà été facturée: vous ne pouvez pas définir de livraison"
+      sale_cannot_be_updated: "Le devis n’est plus modifiable."
+      sale_cant_be_deleted: "La vente ne peut plus être supprimée"
+      select_entry_items_to_mark_together: "Sélectionnez des lignes d’écritures à lettrer ensemble"
+      specify_filter: "Vous choisir appliquer au moins un filtre de recherche" #?
+      specify_updates: "Vous devez spécifier au moins un champ à modifier" #?
+      unavailable_model: "%{model} indisponible ou inexistante (%{id})"
+      unknown_action: "La page demandée est indisponible (%{url})" #?
+      unknown_company: "Société inconnue" #?
+      unvalid_version_for_restore: "La version du logiciel utilisé pour effectuer la sauvegarde ne correspond pas à la version actuelle du logiciel"
+      update_is_done: "La mise à jour a été effectuée"
+      validates_old_inventories: "Il est conseillé de supprimer ou de valider les inventaires non validés avant d’en faire un nouveau" #?
+      x_unpointed_journal_entry_items:
+        one: "Il y a une écriture à pointer"
+        other: "Il y a %{count} écritures à pointer"
+        zero: "Il n’y a pas d’écritures à pointer pour l’instant"
+      you_must_have_an_email_column: "Vous devez avoir une colonne Email dans votre extraction"
+      you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
+      you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?" #?
   preferences:
-    # assets_sequence: "Numeration of assets"
-    bank_journal: "Journal de banque par défaut"
+    bank_journal: "Journal de banque par défaut" #?
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
-    capital_gains_accounts: "Résultat de l’exercice (bénéfice)"
-    capital_losses_accounts: "Résultat de l’exercice (perte)"
-    cash_journal: "Journal de caisse par défaut"
-    cash_transfers_sequence: "Numérotation des virements internes"
-    charges_accounts: "Comptes de charges"
-    deposits_sequence: "Numérotation des remises en banque"
+    capital_gains_accounts: "Résultat de l’exercice (bénéfice)" #?
+    capital_losses_accounts: "Résultat de l’exercice (perte)" #?
+    cash_journal: "Journal de caisse par défaut" #?
+    cash_transfers_sequence: "Numérotation des virements internes" #?
+    charges_accounts: "Comptes de charges" #?
+    # chart_of_account: "Chart of account"
+    # country: "Country"
+    # currency: "Currency"
+    deposits_sequence: "Numérotation des remises en banque" #?
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
-    entities_sequence: "Numérotation des fiches clients/fournisseurs"
+    entities_sequence: "Numérotation des fiches clients/fournisseurs" #?
     financial_assets_sequence: "Numérotation des immobilisations" #?
-    financial_banks_accounts: "Comptes de banque"
-    financial_cashes_accounts: "Comptes de caisse"
-    financial_internal_transfers_accounts: "Virements internes"
-    financial_payments_to_deposit_accounts: "Règlements à encaisser"
-    forward_journal: "Journal des reports à nouveau par défaut"
-    incoming_deliveries_sequence: "Numérotation des livraisons entrantes"
-    incoming_payments_sequence: "Numérotation des encaissements"
-    outgoing_deliveries_sequence: "Numérotation des livraisons sortantes"
-    outgoing_payments_sequence: "Numérotation des décaissements"
-    products_accounts: "Comptes de produits"
-    purchases_journal: "Journal des achats par défaut"
-    purchases_sequence: "Numérotation des achats"
-    sales_invoices_sequence: "Numérotation des factures"
-    sales_journal: "Journal des ventes par défaut"
-    sales_sequence: "Numérotation des ventes"
-    stock_transfers_sequence: "Numérotation des transferts et pertes de stock"
-    subscriptions_sequence: "Numérotation des abonnements"
-    taxes_acquisition_accounts: "Compte des taxes d’acquisitions intracommunautaires"
-    taxes_assimilated_accounts: "Compte des taxes assimilées"
-    taxes_balance_accounts: "Compte de taxe net"
-    taxes_collected_accounts: "Compte des taxes collectées"
-    taxes_paid_accounts: "Compte des taxes déductibles"
-    taxes_payback_accounts: "Compte de taxes de remboursement"
-    third_attorneys_accounts: "Comptes mandataires"
-    third_clients_accounts: "Comptes clients"
-    third_suppliers_accounts: "Comptes fournisseurs"
-    transports_sequence: "Numérotation des transports"
+    financial_banks_accounts: "Comptes de banque" #?
+    financial_cashes_accounts: "Comptes de caisse" #?
+    financial_internal_transfers_accounts: "Virements internes" #?
+    financial_payments_to_deposit_accounts: "Règlements à encaisser" #?
+    forward_journal: "Journal des reports à nouveau par défaut" #?
+    incoming_deliveries_sequence: "Numérotation des livraisons entrantes" #?
+    incoming_payments_sequence: "Numérotation des encaissements" #?
+    # language: "Language"
+    # map_measure_srid: "Map measure SRID"
+    outgoing_deliveries_sequence: "Numérotation des livraisons sortantes" #?
+    outgoing_payments_sequence: "Numérotation des décaissements" #?
+    products_accounts: "Comptes de produits" #?
+    purchases_journal: "Journal des achats par défaut" #?
+    purchases_sequence: "Numérotation des achats" #?
+    # sales_conditions: "Sales conditions"
+    sales_invoices_sequence: "Numérotation des factures" #?
+    sales_journal: "Journal des ventes par défaut" #?
+    sales_sequence: "Numérotation des ventes" #?
+    stock_transfers_sequence: "Numérotation des transferts et pertes de stock" #?
+    subscriptions_sequence: "Numérotation des abonnements" #?
+    taxes_acquisition_accounts: "Compte des taxes d’acquisitions intracommunautaires" #?
+    taxes_assimilated_accounts: "Compte des taxes assimilées" #?
+    taxes_balance_accounts: "Compte de taxe net" #?
+    taxes_collected_accounts: "Compte des taxes collectées" #?
+    taxes_paid_accounts: "Compte des taxes déductibles" #?
+    taxes_payback_accounts: "Compte de taxes de remboursement" #?
+    third_attorneys_accounts: "Comptes mandataires" #?
+    third_clients_accounts: "Comptes clients" #?
+    third_suppliers_accounts: "Comptes fournisseurs" #?
+    transports_sequence: "Numérotation des transports" #?
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
-    various_journal: "Journal des opérations diverses par défaut"
-  unroll:
+    various_journal: "Journal des opérations diverses par défaut" #?
+  unrolls:
     backend/accounts: "{number}. {name}"
     backend/activities: "{name}"
     backend/analytic_distributions: "{id}"
@@ -1981,21 +1998,18 @@ fra:
     backend/entity_links: "{started_at}"
     backend/events: "{name}"
     backend/journal_entry_items: "{name}"
-    backend/logs: "{observed_at}"
+    backend/logs: "{observed_at}" #?
     backend/matters: "{name} ‒ {work_number}"
     backend/observations: "{content}"
     backend/operations: "{reference_name} ({started_at})"
     backend/plants: "{name} ‒ {work_number}"
     backend/prescriptions: "{reference_number}"
-    backend/product_indicators: "{id}"
+    backend/product_indicators: "{id}" #?
     backend/product_memberships: "{started_at}"
-    # backend/product_nature_prices: "{amount} {currency} / {pretax_amount} {currency}"
     backend/product_nature_variants: "{name} ({unit_name})"
     backend/product_natures: "{name}"
-    backend/product_transfers: "{id}"
+    backend/product_transfers: "{id}" #?
     backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     backend/products: "{work_number} {name} ({!population} {!unit_name})"
     backend/trackings: "{serial} ‒ {name} ‒ {producer.name}" #?
-    # backend/units: "{label} ({name})"
     backend/users: "{first_name} {last_name}"
-    # bakend/entity_links: "{started_at}"
