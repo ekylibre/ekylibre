@@ -8,15 +8,30 @@
     <!-- same-nature-of = "parameter" quand une variable interne est issue d'un objet passé en paramètre -->
     <!-- les compétences (abilities) sont notés sous la forme d'une compétence sur une variété : compétence(variété)-->
     <variables>
-      <variable name="manure" variety="preparation" abilities="fertilize" roles="soil_enrichment-input_origin"/>
+      <variable name="manure" variety="excrement" abilities="fertilize" roles="soil_enrichment-input_origin"/>
       <variable name="manure_to_spread" new="parted-from: manure" roles="soil_enrichment-input" default-population=":manure">
      <handler indicator="population" />
      <handler indicator="mass_area_density"   unit="ton_per_hectare"   to="population"
                  forward="(value * land_parcel.net_surface_area(hectare)) / self..net_mass(ton)"
                  backward="(value * self..net_mass(ton)) / land_parcel.net_surface_area(hectare)"
-                 /> <!-- kg N/ha -->
+                 /> <!-- t /ha -->
+     <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population" 
+     if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(percent) > 0"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
+                 /> <!-- kg N/ha -->          
+  <handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare" to="population" 
+     if="self.phosphorus_concentration? &amp; self.phosphorus_concentration(percent) > 0"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
+                 /> <!-- kg P/ha -->         
+  <handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare" to="population"
+     if="self.potassium_concentration? &amp; self.potassium_concentration(percent) > 0"
+                 forward="(value * land_parcel.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / land_parcel.net_surface_area(hectare)"
+                 /> <!-- kg K/ha -->
       </variable> 
-      <variable name="spreader" abilities="spread(organic_matter)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
+      <variable name="spreader" abilities="spread(excrement)" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Epandre"  un produit de la variété "organic_matter"-->
       <variable name="driver"  abilities="drive(tractor)" roles="soil_enrichment-doer"/><!-- paramètre réprésentant des objets de type Humain qui possede la compétence "Conduire un ensemble tracteur + épandeur"  -->
       <variable name="tractor" variety="equipment" abilities="tow(equipment),catch" roles="soil_enrichment-tool"/><!-- paramètre réprésentant des objets qui possede la compétence "Tracter"  -->
       <variable name="land_parcel" variety="cultivable_zone" roles="soil_enrichment-target" default-actor="storage" need="shape" default-shape=":land_parcel">

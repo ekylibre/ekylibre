@@ -749,7 +749,7 @@
             category="equipment"
             variety="trailer"
             population_counting="unitary"
-            abilities="store(organic_matter), move, spread(organic_matter), store_fluid"
+            abilities="store(excrement), move, spread(excrement), store_fluid"
             variable_indicators="nominal_storable_net_mass, nominal_storable_net_volume"
             frozen_indicators="population"
             />

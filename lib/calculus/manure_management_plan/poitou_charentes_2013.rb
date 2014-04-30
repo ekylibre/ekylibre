@@ -111,7 +111,7 @@ module Calculus
         quantity = 0.in_kilogram_per_hectare
         rank, found = 1, nil
         for campaign in self.campaign.previous.reorder(harvest_year: :desc)
-          for support in campaign.production_supports.where(storage_id: storage.id)
+          for support in campaign.production_supports.where(storage_id: @support.storage.id)
             if support.production.variant_variety < sdsd
               found = support
               break
@@ -128,7 +128,7 @@ module Calculus
               item.rank == rank
           end
           if items.any?
-            items.first.quantity.in_kilogram_per_hectare
+            quantity = items.first.quantity.in_kilogram_per_hectare
           end
         end
         return quantity
@@ -147,7 +147,7 @@ module Calculus
         quantity = 0.in_kilogram_per_hectare
         sets = crop_sets.map(&:name).map(&:to_s)
         if sets.any? and sets.include?('spring_crop')
-          if storage
+          if @support.storage
             # TODO
             # return the last plant on the storage
             
@@ -162,7 +162,7 @@ module Calculus
       # Estimate Nirr
       def estimate_irrigation_water_nitrogen
         quantity = 0.in_kilogram_per_hectare
-        if input_water = @support.get(:input_water) 
+        if input_water = @support.get(:irrigation_water_input_area_density) 
           if input_water.to_d(:liter_per_square_meter) >= 100.00
             # TODO find an analysis for nitrogen concentration of input water for irrigation 'c'
             c = 40
@@ -177,12 +177,48 @@ module Calculus
       # Estimate Xa
       def estimate_organic_fertilizer_mineral_fraction
         quantity = 0.in_kilogram_per_hectare
-        # TODO
         started_at = Time.new(campaign.harvest_year-1,7,15)
         stopped_at = @opened_at
-        if interventions = @support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(started_at,stopped_at).with_cast(:'soil_enrichment-target', storage)
-          # TODO
+        global_xa = []
+        if interventions = @support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(started_at, stopped_at).with_cast(:'soil_enrichment-target', @support.storage)
+          for intervention in interventions
+            # get the working area (hectare)
+            working_area = intervention.casts.of_role(:'soil_enrichment-target').first.population
+            # get the population of each intrant
+            for input in intervention.casts.of_role(:'soil_enrichment-input')
+              if i = input.actor
+                # get nitrogen concentration (t) in percent
+                t = i.nitrogen_concentration(input).to_d(:percent)
+                # get the keq coefficient from abacus_8
+                  # get the variant reference_name
+                  variant = i.variant_reference_name
+                  # get the period (month of intervention)
+                  month = intervention.started_at.strftime("%m")
+                  # get the input method
+                  input_method = 'on_top'
+                  # get the crop_set
+                  sets = crop_sets.map(&:name).map(&:to_s)
+                # get keq
+                items = Nomen::NmpPoitouCharentesAbacusEight.list.select do |item|
+                  variant.to_s == item.variant.to_s and sets.include?(item.crop.to_s) and month.to_i >= item.input_period_start.to_i
+                end
+                if items.any?
+                  keq = items.first.keq.in_kilogram_per_hectare
+                end
+                # get net_mass (n) and working area for input density
+                n = i.net_mass(input).to_d(:ton)
+                if working_area != 0
+                  q = (n / working_area).in_ton_per_hectare
+                end
+                if t and keq and q
+                  xa = (t / 10) * keq * q
+                end
+                global_xa << xa
+              end
+            end
+          end
         end
+        quantity = global_xa.compact.sum.in_kilogram_per_hectare
         return quantity        
       end
 
