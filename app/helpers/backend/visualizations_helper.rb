@@ -20,6 +20,7 @@ module Backend::VisualizationsHelper
     def background(name,options = {})
       @data[:backgrounds] ||= {}.with_indifferent_access
       @data[:backgrounds][name] = options
+      
     end
 
     def layer(name, *args)
