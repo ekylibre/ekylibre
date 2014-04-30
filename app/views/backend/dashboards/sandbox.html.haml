@@ -2,8 +2,8 @@
   data = JSON.parse(File.read(Rails.root.join("db", "visualization.json")))["features"]
 
 = visualization :my_cultivable_zone_of_hell, fullscreen: true do |v|
-  - v.background "OpenStreetMap.HOT"
-  - v.background "OpenWeather.Precipitation"
+  - v.background "map de base","OpenStreetMap.HOT"
+  - v.background "précipitations","OpenWeather.Precipitation"
   -# v.dataset :zones, data
   -# v.layer :zones, data, tooltip: true
   -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
