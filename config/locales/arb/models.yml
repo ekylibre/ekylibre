@@ -1545,7 +1545,7 @@ arb:
     nature_label: "طبيعة الملصق" #?
     # nature_name: "Nature name"
     # natures: "Natures"
-    # net_mass: "Net mass (kg)"
+    # net_mass: "Net mass"
     # net_service: "Net service"
     nic: "واجهة بطاقة الشبكة" #?
     # nitrogen_at_closing: "Nitrogen at closing"

@@ -88,6 +88,12 @@ end
 desc "Update and sort translation files"
 task :locales => :environment do
 
+  # needed_labels = Clean::Support.look_for_labels("{app,lib}/**/*.{rb,yml,haml,erb}", "tmp/code/**/*{rb,yml,haml,erb}")
+  # puts needed_labels.to_sentence.yellow
+  # puts needed_labels.size.to_s.red
+  # # raise "Stop"
+
+
   stats = {}
 
   log = File.open(Rails.root.join("log", "clean-locales.log"), "wb")
@@ -146,44 +152,116 @@ task :locales => :environment do
   translation << "  errors:"+Clean::Support.hash_to_yaml(::I18n.translate("errors"), 2)+"\n"
 
   # Labels
-  to_translate += Clean::Support.hash_count(::I18n.translate("labels"))
-  translation << "  labels:"+Clean::Support.hash_to_yaml(::I18n.translate("labels"), 2)+"\n"
+  translation << "  labels:\n"
+  labels = ::I18n.t("labels")
+  # , "tmp/code/**/*{rb,yml,haml,erb}"
+  needed_labels = Clean::Support.look_for_labels("{app,config,db,lib,test}/**/*.{rb,haml,erb}").inject({}) do |hash, string|
+    hash[Regexp.new('\A' + string.split('.').first.gsub('*', '([\w\_]+)') + '\z')] = string.split('.').first
+    hash
+  end
+  unknown_labels = labels.keys
+  new_labels = []
+  for regexp, string in needed_labels
+    unless string =~ /\*/ or labels.has_key? string.to_sym
+      labels[string.to_sym] = string.humanize
+      new_labels << string.to_sym
+    end
+  end
+  for label in labels.keys
+    for regexp, string in needed_labels
+      if regexp.match(label)
+        unknown_labels.delete(label)
+      end
+    end
+  end
+  to_translate += Clean::Support.hash_count(labels)
+  for key, trans in labels.sort{|a,b| a[0].to_s <=> b[0].to_s}
+    line = "    "
+    if new_labels.include? key
+      untranslated += 1
+      line << missing_prompt
+    end
+    line << "#{key}: " + Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+    line.gsub!(/$/, " #?") if unknown_labels.include?(key)
+    translation << line + "\n"
+  end
+  warnings << "#{unknown_labels.size} unknown labels" if unknown_labels.any?
 
   # Notifications
   translation << "  notifications:\n"
-  notifications = ::I18n.t("notifications")
-  deleted_notifs = ::I18n.t("notifications").keys
+  to_translate += Clean::Support.hash_count(::I18n.translate("notifications.levels"))
+  translation << "    levels:" + Clean::Support.hash_to_yaml(::I18n.translate("notifications.levels"), 3) + "\n"
+  translation << "    messages:\n"
+  notifications = ::I18n.t("notifications.messages")
+  unknown_notifications = ::I18n.t("notifications.messages").keys
   for controller in Dir[Rails.root.join("app", "controllers", "**", "*.rb")]
     File.open(controller, "rb").each_line do |line|
       if line.match(/([\s\W]+|^)notify(_error|_warning|_success)?(_now)?\(\s*\:\w+/)
         key = line.split(/notify\w*\(\s*\:/)[1].split(/\W/)[0]
-        # raise "Notification :#{key} (#{line})"
-        deleted_notifs.delete(key.to_sym)
+        unknown_notifications.delete(key.to_sym)
         notifications[key.to_sym] = "" if notifications[key.to_sym].nil? or (notifications[key.to_sym].is_a? String and notifications[key.to_sym].match(/\(\(\(/))
       end
     end
   end
-  to_translate += Clean::Support.hash_count(notifications) # .keys.size
+  to_translate += Clean::Support.hash_count(notifications)
   for key, trans in notifications.sort{|a,b| a[0].to_s <=> b[0].to_s}
-    line = "    "
+    line = "      "
     if trans.blank?
       untranslated += 1
       line += missing_prompt
     end
-    line += "#{key}: "+Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
-    line.gsub!(/$/, " #?") if deleted_notifs.include?(key)
+    line += "#{key}: "+Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 3)
+    line.gsub!(/$/, " #?") if unknown_notifications.include?(key)
     translation << line+"\n"
   end
-  warnings << "#{deleted_notifs.size} bad notifications" if deleted_notifs.size > 0
+  warnings << "#{unknown_notifications.size} unknown notifications" if unknown_notifications.any?
 
   # Preferences
-  to_translate += Clean::Support.hash_count(::I18n.translate("preferences"))
-  translation << "  preferences:" + Clean::Support.hash_to_yaml(::I18n.translate("preferences"), 2) + "\n"
+  translation << "  preferences:\n"
+  preferences = ::I18n.t("preferences")
+  unknown_preferences = ::I18n.t("preferences").keys
+  new_preferences = []
+  for preference in Preference.reference.keys.map(&:to_sym)
+    if preferences[preference]
+      unknown_preferences.delete(preference)
+    else
+      preferences[preference] = preference.to_s.humanize
+      new_preferences << preference
+    end
+  end
+  to_translate += Clean::Support.hash_count(preferences)
+  for key, trans in preferences.sort{|a,b| a[0].to_s <=> b[0].to_s}
+    line = "    "
+    if new_preferences.include? key
+      untranslated += 1
+      line += missing_prompt
+    end
+    line += "#{key}: "+Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+    line.gsub!(/$/, " #?") if unknown_preferences.include?(key)
+    translation << line+"\n"
+  end
+  warnings << "#{unknown_preferences.size} unknown preferences" if unknown_preferences.any?
 
   # Unroll
-  to_translate += Clean::Support.hash_count(::I18n.translate("unroll"))
-  translation << "  unroll:" + Clean::Support.hash_to_yaml(::I18n.translate("unroll"), 2)
+  translation << "  unrolls:\n"
+  unrolls = ::I18n.t("unrolls")
+  unknown_unrolls = ::I18n.t("unrolls").keys
+  controllers = Clean::Support.actions_hash.keys
+  for unroll in unrolls.keys.map(&:to_sym)
+    if controllers.include?(unroll.to_s)
+      unknown_unrolls.delete(unroll)
+    end
+  end
+  to_translate += Clean::Support.hash_count(unrolls)
+  for key, trans in unrolls.sort{|a,b| a[0].to_s <=> b[0].to_s}
+    line = "    "
+    line += "#{key}: "+Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 2)
+    line.gsub!(/$/, " #?") if unknown_unrolls.include?(key)
+    translation << line+"\n"
+  end
+  warnings << "#{unknown_unrolls.size} unknown unrolls" if unknown_unrolls.any?
 
+  # Finishing...
   File.open(locale_dir.join("action.yml"), "wb") do |file|
     file.write(translation)
   end

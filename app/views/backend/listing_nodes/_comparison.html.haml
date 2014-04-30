@@ -1,11 +1,11 @@
--listing_node = comparison
-=tool_to(listing_node.comparison, "#", "data-toggle-with" => "##{listing_node.key}-comparator-form", :tool => "filter")
+- listing_node = comparison
+= tool_to(listing_node.comparison, "#", "data-toggle-with" => "##{listing_node.key}-comparator-form", :tool => "filter")
 %span{id: "#{listing_node.key}-comparator-form", :style => "display: none;"}
-  =select_tag("comparator", options_for_select(listing_node.comparators, listing_node.condition_operator))
-  -if listing_node.sql_type.to_s == "date"
-    -date = (listing_node.condition_value||listing_node.default_comparison_value).to_date rescue Date.today
-    =date_field_tag("comparison_value", date)
-  -elsif listing_node.sql_type.to_s != "boolean"
-    =text_field_tag("comparison_value", listing_node.condition_value||listing_node.default_comparison_value, :size => 15)
-  =link_to(tg(:validate), {controller: :listing_nodes, action: :update, id: listing_node.id, :type => "comparison"}, method: :put, :remote => true, "data-update" => "##{listing_node.key}_comparator", "data-type" => :html, "data-with" => "##{listing_node.key}-comparator-form select, ##{listing_node.key}-comparator-form input", class: "btn")
+  = select_tag("comparator", options_for_select(listing_node.comparators, listing_node.condition_operator))
+  - if listing_node.sql_type.to_s == "date"
+    - date = (listing_node.condition_value||listing_node.default_comparison_value).to_date rescue Date.today
+    = date_field_tag("comparison_value", date)
+  - elsif listing_node.sql_type.to_s != "boolean"
+    = text_field_tag("comparison_value", listing_node.condition_value||listing_node.default_comparison_value, :size => 15)
+  = link_to(tg(:validate), {controller: :listing_nodes, action: :update, id: listing_node.id, :type => "comparison"}, method: :put, :remote => true, "data-update" => "##{listing_node.key}_comparator", "data-type" => :html, "data-with" => "##{listing_node.key}-comparator-form select, ##{listing_node.key}-comparator-form input", class: "btn")
 

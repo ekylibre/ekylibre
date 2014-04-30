@@ -6,7 +6,6 @@ eng:
     authentication/sessions:
       destroy: "Log out" #?
       new: "New session"
-      renew: "Renew session" #?
     backend/accounts:
       edit: "Edit account: %{number} - %{name}"
       index: "Plan of accounts"
@@ -17,7 +16,7 @@ eng:
       show: "Account: %{number} - %{name}"
       unmark: "Unmark account"
     backend/activities:
-      edit: "Edit activity: %{name} "
+      edit: "Edit activity: %{name}"
       index: "Activities"
       new: "New activity"
       show: "Activity: %{name}"
@@ -49,10 +48,7 @@ eng:
       new: "New animal group"
       show: "Animal group: %{name}"
     backend/animal_medicines:
-      edit: "Edit animal medicine: %{name}" #?
       index: "Animal medicines"
-      new: "New animal medicine" #?
-      show: "Animal medicine: %{name}" #?
     backend/animal_products:
       index: "Animal products"
     backend/animals:
@@ -312,7 +308,7 @@ eng:
       edit: "Edit inventory"
       index: "Inventories"
       new: "New inventory"
-      # reset: "Reset inventory: %{name}"
+      # refresh: "Refresh inventory: %{name}"
       show: "Inventory: %{name}"
     backend/issues:
       abort: "Abort issue: %{name}"
@@ -430,10 +426,7 @@ eng:
     backend/plant_fertilizers:
       index: "Plant fertilizers"
     backend/plant_medicines:
-      edit: "Edit plant medicine: %{name}" #?
       index: "Plant medicines"
-      new: "Create plant medicine" #?
-      show: "Plant medicine: %{name}" #?
     backend/plant_products:
       index: "Plant products"
     backend/plant_seedlings:
@@ -442,7 +435,7 @@ eng:
       edit: "Edit plant: %{name}"
       index: "Plants"
       new: "Create plant"
-      show: "Plant: %{name} "
+      show: "Plant: %{name}"
     backend/postal_zones:
       # autocomplete_for_name: "Autocomplete for name postal zone: %{name}"
       edit: "Edit postal zone: %{name}"
@@ -454,7 +447,7 @@ eng:
       new: "New prescription"
       show: "Prescription: %{reference_number}"
     backend/product_groups:
-      edit: "Edit group: %{name} "
+      edit: "Edit group: %{name}"
       index: "Product groups"
       new: "New group"
       show: "Group: %{name}"
@@ -647,356 +640,354 @@ eng:
         one: "1 error prohibited this %{model} from being saved"
         other: "%{count} errors prohibited this %{model} from being saved"
   labels:
-    account_name: "Account name"
-    account_number: "Account number"
-    accounting_balance: "Accounting balance"
-    accounts: "Accounts"
-    accounts_to_load: "Accounts to load"
-    active: "Active"
-    active_balance_sheet: "Active Balance"
-    active_current_sum: "Total Financial Asset"
-    active_fixed_sum: "Total Fixed Asset"
-    active_sum: "Total Assets"
-    activity: "Activity"
+    account_name: "Account name" #?
+    account_number: "Account number" #?
+    accounting_balance: "Accounting balance" #?
+    accounts: "Accounts" #?
+    accounts_to_load: "Accounts to load" #?
+    active: "Active" #?
+    active_balance_sheet: "Active Balance" #?
+    active_current_sum: "Total Financial Asset" #?
+    active_fixed_sum: "Total Fixed Asset" #?
+    active_sum: "Total Assets" #?
+    activity: "Activity" #?
     add: "Add"
     add_choice: "Add choice"
     add_condition: "Add condition"
     add_conditions: "Add conditions"
     add_delivery: "Add delivery"
-    add_diagnostic: "Add diagnostic"
     add_email: "Add email"
     add_fax: "Add fax"
-    add_item: "New element"
+    add_item: "Add item"
     add_mail: "Add postal adress"
     add_mobile: "Add mobile phone number"
-    add_new_record: "New record"
+    add_new_record: "Add new record"
     add_participation: "Add participation"
     add_payment: "Add payment"
     add_phone: "Add phone number"
+    # add_product: "Add product"
     add_production: "Add production"
     add_quickly_a_line: "Add quickly a line of product"
     add_reading: "Add a value for an indicator"
     add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
-    add_treatment: "Add treatment"
     add_website: "Add website"
-    address: "Address"
-    affair: "Affair"
-    all: "All"
-    all_accounts: "All accounts"
-    all_areas: "All postal areas"
-    all_conditions: "All conditions"
-    all_periods: "All financial years"
-    already_credited_quantity: "Already credited quantity"
-    amount: "Amount with taxes"
-    amount_to_add: "Total to add"
-    amount_to_reduce: "Total to reduce"
-    amount_with_taxes: "Amount with taxes"
-    analytics: "Analytics"
-    animal: "Animal"
-    animal_bar: "Animals by category"
-    animal_identification: "Animal identification"
-    animal_pie: "Animals by category"
-    animal_productions: "Animal productions"
-    animals: "Animals"
-    apply: "Apply"
-    archives: "Archives"
+    address: "Address" #?
+    affair: "Affair" #?
+    all: "All" #?
+    all_accounts: "All accounts" #?
+    all_areas: "All postal areas" #?
+    all_conditions: "All conditions" #?
+    all_periods: "All financial years" #?
+    already_credited_quantity: "Already credited quantity" #?
+    amount: "Amount with taxes" #?
+    amount_to_add: "Total to add" #?
+    amount_to_reduce: "Total to reduce" #?
+    amount_with_taxes: "Amount with taxes" #?
+    analytics: "Analytics" #?
+    animal: "Animal" #?
+    animal_bar: "Animals by category" #?
+    animal_identification: "Animal identification" #?
+    animal_pie: "Animals by category" #?
+    animal_productions: "Animal productions" #?
+    animals: "Animals" #?
+    apply: "Apply" #?
+    archives: "Archives" #?
     are_you_sure: "Are you sure you want to do this?"
+    # are_you_sure_you_want_to: "Are you sure you want to"
     are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     are_you_sure_you_want_to_delete_delivery: "Are you sure you want to remove the delivery of transport?"
     are_you_sure_you_want_to_invoice: "Are you sure you want to invoice?"
     are_you_sure_you_want_to_send_mails: "Are you sure you want to send emails?"
-    area_x: "%{name} (%{postcode})"
-    assets: "Assets management"
-    attach_an_incoming_payment_to_expense: "Attach an incoming payment to %{type} %{number}"
-    attach_an_outgoing_payment_to_expense: "Attach an outgoing payment to %{type} %{number}"
+    area_x: "%{name} (%{postcode})" #?
+    assets: "Assets management" #?
+    attach_an_incoming_payment_to_expense: "Attach an incoming payment to %{type} %{number}" #?
+    attach_an_outgoing_payment_to_expense: "Attach an outgoing payment to %{type} %{number}" #?
     attach_deal: "Add a deal"
-    attachment: "Attachment"
-    attorney: "Attorney"
-    available_columns: "Available columns: %{columns}"
-    back: "Back to the previous page"
-    backup: "Backup"
-    backups: "Backups"
-    bad_browser:
-      explanation: "This browser version is not supported by Ekylibre. Using this browser, pages are not displayed correctly and features are missing."
-      proposal: "Please plan to update you with one of these browsers:"
-      title: "Your web browser seems to be obsolete"
-      wb:
-        chrome: "Chrome"
-        firefox: "Firefox"
-        ie: "Internet Explorer"
-        opera: "Opera"
-        safari: "Safari"
+    attachment: "Attachment" #?
+    attorney: "Attorney" #?
+    available_columns: "Available columns: %{columns}" #?
+    back: "Back to the previous page" #?
+    backup: "Backup" #?
+    backups: "Backups" #?
     balance: "Balance"
-    bank_chart: "Bank chart"
-    bban: "Basic Bank Account Number (BBAN)"
-    begins: "Starts with"
-    body: "Body of the message"
-    building: "Building"
-    building_name: "Building name"
-    buildings: "Buildings"
-    calendar: "Calendar"
-    canals: "Canals"
+    bank_chart: "Bank chart" #?
+    bban: "Basic Bank Account Number (BBAN)" #?
+    begins: "Starts with" #?
+    body: "Body of the message" #?
+    building: "Building" #?
+    building_name: "Building name" #?
+    buildings: "Buildings" #?
+    # calculate: "Calculate"
+    calendar: "Calendar" #?
+    canals: "Canals" #?
     cancel: "Cancel"
-    cancelled: "Cancelled"
-    cash: "Cash"
-    catalog: "Catalog"
-    category: "Category"
-    category_name: "Category"
-    centralize: "Centralize account"
-    centralized_account: "Centralized account %{name}"
-    change_price: "Change price"
-    check: "Check"
-    check_fields: "You have to check at least one box in order to update"
-    childrens: "Childrens"
-    choices: "Choices"
-    choose_a_type_of_product: "Choose a type of product"
-    choose_mail_column: "Choose email column"
-    city_name: "City name"
-    click_to_mail: "Click to email with your own mail software"
-    client: "Client"
-    client_balance: "Client balance"
-    client_code: "Client code"
-    client_informations: "Client informations"
-    client_phone: "Phone"
-    close: "Close"
-    close_financial_year: "Close financial year"
-    close_journal: "Close the journal"
-    closed: "Closed"
+    cancelled: "Cancelled" #?
+    cash: "Cash" #?
+    catalog: "Catalog" #?
+    category: "Category" #?
+    category_name: "Category" #?
+    centralize: "Centralize account" #?
+    centralized_account: "Centralized account %{name}" #?
+    change_price: "Change price" #?
+    check: "Check" #?
+    check_fields: "You have to check at least one box in order to update" #?
+    childrens: "Childrens" #?
+    choices: "Choices" #?
+    choose_a_type_of_product: "Choose a type of product" #?
+    choose_mail_column: "Choose email column" #?
+    city_name: "City name" #?
+    click_to_mail: "Click to email with your own mail software" #?
+    client: "Client" #?
+    client_balance: "Client balance" #?
+    client_code: "Client code" #?
+    client_informations: "Client informations" #?
+    client_phone: "Phone" #?
+    close: "Close" #?
+    close_financial_year: "Close financial year" #?
+    close_journal: "Close the journal" #?
+    closed: "Closed" #?
     column: "Column"
-    column_family: "Family"
-    column_organization: "Organization"
-    column_title: "Title"
-    columns: "Columns to import"
-    commission: "Commission"
-    complement_sort: "Complement sort"
-    complements: "Complements"
-    components: "Components"
-    conditions:
-      filter_on_attribute_of_class: "Filter on attribute of class"
-      special-subscriber: "Special-subscriber"
-    confirmed: "Confirmed"
-    confirmed_at: "Confirmed on"
-    connect: "Login"
-    consult: "Consult"
-    contact: "At"
-    contains: "Contains"
-    content_products: "Content products"
-    contextual_help: "Help on current page"
-    coordinates: "Coordinates"
-    copy_of: "Copy of %{source}"
-    cost_income_statement: "Cost Income Statement"
-    cost_sum: "Total Cost"
-    counts_by_nature: "Number of documents to account per type"
+    column_family: "Family" #?
+    column_organization: "Organization" #?
+    column_title: "Title" #?
+    columns: "Columns to import" #?
+    commission: "Commission" #?
+    complement_sort: "Complement sort" #?
+    complements: "Complements" #?
+    components: "Components" #?
+    conditions:  #?
+      filter_on_attribute_of_class: "Filter on attribute of class" #?
+      special-subscriber: "Special-subscriber" #?
+    confirmed: "Confirmed" #?
+    confirmed_at: "Confirmed on" #?
+    connect: "Login" #?
+    consult: "Consult" #?
+    contact: "At" #?
+    contains: "Contains" #?
+    content_products: "Content products" #?
+    contextual_help: "Help on current page" #?
+    # convert_balance_into: "Convert balance into"
+    coordinates: "Coordinates" #?
+    copy_of: "Copy of %{source}" #?
+    cost_income_statement: "Cost Income Statement" #?
+    cost_sum: "Total Cost" #?
+    # country: "Country"
+    counts_by_nature: "Number of documents to account per type" #?
     create: "Create"
-    create_journal: "— Create journal —"
-    created_at: "Created on"
-    created_at_by: "Created at %{at} by %{by}."
-    created_between: "Created between %{started_at} and %{stopped_at}"
-    credit: "Credit"
-    credits: "Credits"
-    criterion_modes:
-      all: "All"
-      confirmed: "Confirmed"
-      unconfirmed: "Unconfirmed"
-    critic_stock_min: "Critic stock min"
-    critic_stocks: "Stocks below critical threshold"
-    csv_statistics: "CSV statistics"
-    cumul: "Accumulation of tattle and previous balance N°%{number}"
-    currency_with_code: "%{name} (%{code})"
-    current: "Current"
-    current_letter: "Current letter: %{letter}"
-    data_to_export: "Data to export"
-    data_to_extract: "Data to extract"
-    dates: "Select period start date and Period end date"
-    debit: "Debit"
-    decimal_case: "Decimal case"
-    decision_making: "Decision-making"
-    default_subject: "[%{company}]"
-    delay: "Delay"
-    delays: "Delays"
-    deliver: "Delivered on"
-    deliveries: "Deliveries"
-    delivery: "Delivery"
-    departments: "Departments"
-    deposit: "Deposit"
-    depreciation: "Depreciation"
-    description: "Description"
+    create_journal: "— Create journal —" #?
+    created_at: "Created on" #?
+    created_at_by: "Created at %{at} by %{by}." #?
+    created_between: "Created between %{started_at} and %{stopped_at}" #?
+    credit: "Credit" #?
+    credits: "Credits" #?
+    criterion_modes:  #?
+      all: "All" #?
+      confirmed: "Confirmed" #?
+      unconfirmed: "Unconfirmed" #?
+    critic_stock_min: "Critic stock min" #?
+    critic_stocks: "Stocks below critical threshold" #?
+    csv_statistics: "CSV statistics" #?
+    cumul: "Accumulation of tattle and previous balance N°%{number}" #?
+    # currency: "Currency"
+    currency_with_code: "%{name} (%{code})" #?
+    current: "Current" #?
+    current_letter: "Current letter: %{letter}" #?
+    data_to_export: "Data to export" #?
+    data_to_extract: "Data to extract" #?
+    dates: "Select period start date and Period end date" #?
+    debit: "Debit" #?
+    decimal_case: "Decimal case" #?
+    decision_making: "Decision-making" #?
+    default_subject: "[%{company}]" #?
+    delay: "Delay" #?
+    delays: "Delays" #?
+    deliver: "Delivered on" #?
+    deliveries: "Deliveries" #?
+    delivery: "Delivery" #?
+    departments: "Departments" #?
+    deposit: "Deposit" #?
+    depreciation: "Depreciation" #?
+    description: "Description" #?
     destroy: "Destroy"
     details: "Details"
-    discount: "Discount (%)"
-    display: "Display"
-    display_help: "Display help"
-    district_x: "%{name} (%{code})"
-    divide: "Divide"
-    document: "Document"
-    document_natures: "Document types"
-    document_templates: "Document templates"
-    dont_use_journal: "— Do not use journal —"
-    down: "Down"
-    down_to_level: "Down to level"
-    download_firefox: "Download Mozilla Firefox…"
-    downpayment: "Downpayment"
-    draft: "Draft"
-    duplicate: "Duplicate"
+    discount: "Discount (%)" #?
+    display: "Display" #?
+    display_help: "Display help" #?
+    district_x: "%{name} (%{code})" #?
+    divide: "Divide" #?
+    document: "Document" #?
+    document_natures: "Document types" #?
+    document_templates: "Document templates" #?
+    dont_use_journal: "— Do not use journal —" #?
+    down: "Down" #?
+    down_to_level: "Down to level" #?
+    download_firefox: "Download Mozilla Firefox…" #?
+    downpayment: "Downpayment" #?
+    draft: "Draft" #?
+    duplicate: "Duplicate" #?
     duration: "Duration"
-    duration_in_hours_and_minutes: "%{hours}h %{minutes}min"
-    edit: "Edit"
-    ekylibre: "www.ekylibre.org"
-    email: "Email:"
-    employee_name: "Employee"
-    end: "to"
-    entities_export: "Export person in CSV"
-    entities_import: "Import person in CSV"
-    entities_merge: "Merge persons"
-    entity: "Person"
-    entity_print: "Print person"
-    entity_to_delete: "Person to delete"
-    entity_to_update: "Person to update"
-    entries: "Entries"
-    entries_to_point: "Entries pointing to"
-    equipments: "Equipments"
+    duration_in_hours_and_minutes: "%{hours}h %{minutes}min" #?
+    edit: "Edit" #?
+    ekylibre: "www.ekylibre.org" #?
+    email: "Email:" #?
+    employee_name: "Employee" #?
+    end: "to" #?
+    entities_export: "Export person in CSV" #?
+    entities_import: "Import person in CSV" #?
+    entities_merge: "Merge persons" #?
+    entity: "Person" #?
+    entity_print: "Print person" #?
+    entity_to_delete: "Person to delete" #?
+    entity_to_update: "Person to update" #?
+    entries: "Entries" #?
+    entries_to_point: "Entries pointing to" #?
+    equipments: "Equipments" #?
     error_no_file: "No help is available for this part of the application (%{article}). Help has not yet been written. You can visit online website for more information."
-    error_sale_already_paid: "The sale is already paid"
-    errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import."
-    establishment: "Establishment"
-    establishments: "Establishments"
-    estimate: "Estimate"
-    estimate_to_order: "Estimate to order"
-    europe_out_export: "Export outside Country"
+    error_sale_already_paid: "The sale is already paid" #?
+    errors_explanation: "There are errors in the file. If you do not correct them, the incorrect lines will be ignored during the import." #?
+    establishment: "Establishment" #?
+    establishments: "Establishments" #?
+    estimate: "Estimate" #?
+    estimate_to_order: "Estimate to order" #?
+    europe_out_export: "Export outside Country" #?
     evaluated_doer_cost: "Evaluated labor cost"
     evaluated_input_cost: "Evaluated input cost"
     evaluated_tool_cost: "Evaluated tool cost"
-    events: "Events"
-    example: "Example: %{value}"
+    events: "Events" #?
+    example: "Example: %{value}" #?
     exchange_rate_from_x_to_y: "Exchange rate from %{x} to %{y}"
-    executed: "Executed"
-    existing_part: "Existing part"
+    executed: "Executed" #?
+    existing_part: "Existing part" #?
     expected_quantity_is_x: "Expected quantity: %{x}"
-    expedier: "Expedier"
-    expense_chart: "Expense chart"
-    export: "Export documents"
-    export_backup: "Export backup"
-    exportation: "Exportation"
-    extract: "Extract"
-    fax: "Fax"
-    file_nature: "File type"
-    file_to_download: "File to download"
-    file_to_import: "File to import"
-    file_to_upload: "File to upload"
-    filter: "Filter"
-    filter_entries_with: "Filter entries with"
-    financial_assets: "Financial assets"
-    financial_state: "Financial state"
-    finish: "Finish"
-    finished_income_statement: "Income"
-    finished_sum: "Total Income"
-    finishes: "Finishes with"
-    first_contact: "Principal address"
-    format_date:
-      iso: "(YYYY-MM-DD)"
-    free_purchases: "Free purchases"
-    from: "From"
-    full_name: "Client"
-    fungi: "Fungi"
-    future_events: "Future events"
-    genealogy: "Genealogy"
-    general: "General"
-    general_informations: "General informations"
-    general_ledger: "General ledger"
+    expedier: "Expedier" #?
+    expense_chart: "Expense chart" #?
+    export: "Export documents" #?
+    export_backup: "Export backup" #?
+    exportation: "Exportation" #?
+    extract: "Extract" #?
+    fax: "Fax" #?
+    file_nature: "File type" #?
+    file_to_download: "File to download" #?
+    file_to_import: "File to import" #?
+    file_to_upload: "File to upload" #?
+    filter: "Filter" #?
+    filter_entries_with: "Filter entries with" #?
+    financial_assets: "Financial assets" #?
+    financial_state: "Financial state" #?
+    finish: "Finish" #?
+    finished_income_statement: "Income" #?
+    finished_sum: "Total Income" #?
+    finishes: "Finishes with" #?
+    first_contact: "Principal address" #?
+    format_date:  #?
+      iso: "(YYYY-MM-DD)" #?
+    free_purchases: "Free purchases" #?
+    from: "From" #?
+    full_name: "Client" #?
+    fungi: "Fungi" #?
+    future_events: "Future events" #?
+    genealogy: "Genealogy" #?
+    general: "General" #?
+    general_informations: "General informations" #?
+    general_ledger: "General ledger" #?
     generate: "Generate"
-    give_discount: "Give discount"
-    go: "Go"
-    graph_statistics: "Graph statistics"
-    group: "Group"
-    groups: "Groups"
+    give_discount: "Give discount" #?
+    go: "Go" #?
+    graph_statistics: "Graph statistics" #?
+    group: "Group" #?
+    groups: "Groups" #?
     help: "Help"
-    hint: "Hint: %{value}"
+    hint: "Hint: %{value}" #?
     home: "Home"
-    hour_duration:
-      one: "Total used time: 1 hour"
-      other: "Total used time: 1 hour: %{count} hours"
-      zero: "No Time used"
-    iban: "International Bank Account Number (IBAN)"
-    identification: "Identification"
+    hour_duration:  #?
+      one: "Total used time: 1 hour" #?
+      other: "Total used time: 1 hour: %{count} hours" #?
+      zero: "No Time used" #?
+    iban: "International Bank Account Number (IBAN)" #?
+    identification: "Identification" #?
+    # illness: "Illness"
     import: "Import"
-    import_backup: "Import backup"
-    importation_explanation: "Importation explanation"
-    include_blank: "Include blank"
-    income_statement: "Income Statement"
-    incoming_payment_conditions: "Conditions of payment"
-    incoming_payments: "Incoming payments"
-    incoming_payments_states:
-      all: "All"
-      undeposited: "Undeposited"
-      unparted: "Unused"
-      unreceived: "Unreceived"
-      waiting: "To deposit later"
+    import_backup: "Import backup" #?
+    importation_explanation: "Importation explanation" #?
+    # incident: "Incident"
+    include_blank: "Include blank" #?
+    income_statement: "Income Statement" #?
+    incoming_payment_conditions: "Conditions of payment" #?
+    incoming_payments: "Incoming payments" #?
+    incoming_payments_states:  #?
+      all: "All" #?
+      undeposited: "Undeposited" #?
+      unparted: "Unused" #?
+      unreceived: "Unreceived" #?
+      waiting: "To deposit later" #?
     indicator: "Indicators"
-    indicators: "Indicators"
-    info: "General parameters"
-    infos: "Product and quantity"
-    insert_actual_password: "Enter your actual password"
-    insert_password: "Enter your new password"
-    interval: "Personalized Interval"
-    inventories: "Inventories"
-    inventory: "Inventory"
-    inventory_print: "Printing inventory"
-    invoiced_amount: "Sales invoiced amount"
-    invoices_only: "Use only invoices"
-    is: "Is"
-    issues: "Issues"
-    journal: "Journal"
-    journal_detail: "Closing on %{closed_at}"
-    journal_entries: "Journal's entries"
-    journal_entries_states: "States of entries"
-    journal_name: "%{name}"
-    journal_view:
+    # indicator_value: "Indicator value"
+    indicators: "Indicators" #?
+    info: "General parameters" #?
+    infos: "Product and quantity" #?
+    insert_actual_password: "Enter your actual password" #?
+    insert_password: "Enter your new password" #?
+    interval: "Personalized Interval" #?
+    inventories: "Inventories" #?
+    inventory: "Inventory" #?
+    inventory_print: "Printing inventory" #?
+    invoiced_amount: "Sales invoiced amount" #?
+    invoices_only: "Use only invoices" #?
+    is: "Is" #?
+    issues: "Issues" #?
+    journal: "Journal" #?
+    journal_detail: "Closing on %{closed_at}" #?
+    journal_entries: "Journal's entries" #?
+    journal_entries_states: "States of entries" #?
+    journal_name: "%{name}" #?
+    journal_view: 
       entries: "Entries"
       items: "Items of entries"
       mixed: "Entries and items"
-    journals: "Journals"
-    land_parcel_name: "Land parcel name"
-    land_parcels: "Land parcels"
-    last_analyses: "Last milk analysis"
-    last_animals: "Last birth"
-    last_computed_balance: "Last computed balance"
-    last_events: "Last Events"
-    last_payment_amount: "Amount of the last payment"
-    last_payment_date: "Date of the last payment"
-    last_procedures: "Last procedures"
-    last_products: "Last products"
-    left_balance_amount: "Left Balance Amount"
-    letter: "Letter"
-    letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration."
-    letter_function_title: "Dear madam, dear sir"
-    letter_introduction: "Following our conversation, I give you the elements of the estimate."
-    letter_options: "Letter options"
-    line: "Line #%{index}:"
-    line_stock: "Building: %{building}, available quantity: %{virtual_q}"
-    listing_extract: "Extract"
-    listing_mail: "Send email"
-    listings: "Extract data"
-    load: "Load"
-    load_demo_data: "Load demo data"
+    journals: "Journals" #?
+    land_parcel_name: "Land parcel name" #?
+    land_parcels: "Land parcels" #?
+    # language: "Language"
+    last_analyses: "Last milk analysis" #?
+    last_animals: "Last birth" #?
+    last_computed_balance: "Last computed balance" #?
+    last_events: "Last events" #?
+    last_payment_amount: "Amount of the last payment" #?
+    last_payment_date: "Date of the last payment" #?
+    last_procedures: "Last procedures" #?
+    last_products: "Last products" #?
+    left_balance_amount: "Left Balance Amount" #?
+    letter: "Letter" #?
+    letter_conclusion: "Please accept, Dear Madam, Dear Sir, the assurances of my highest consideration." #?
+    letter_function_title: "Dear madam, dear sir" #?
+    letter_introduction: "Following our conversation, I give you the elements of the estimate." #?
+    letter_options: "Letter options" #?
+    line: "Line #%{index}:" #?
+    line_stock: "Building: %{building}, available quantity: %{virtual_q}" #?
+    listing_extract: "Extract" #?
+    listing_mail: "Send email" #?
+    listings: "Extract data" #?
+    load: "Load" #?
+    load_demo_data: "Load demo data" #?
     locale: "Language"
-    localization: "Localization"
-    lock: "Lock"
-    logout: "Logout"
-    mail: "Send an email"
-    mailing: "Mailing"
-    mails:
-      one: "One email"
-      other: "%{count} emails"
-      zero: "No emails"
-    manual_period: "from %{start} to %{finish}"
-    map: "Map"
-    mass: "Mass"
+    localization: "Localization" #?
+    lock: "Lock" #?
+    logout: "Logout" #?
+    mail: "Send an email" #?
+    mailing: "Mailing" #?
+    mails:  #?
+      one: "One email" #?
+      other: "%{count} emails" #?
+      zero: "No emails" #?
+    manual_period: "from %{start} to %{finish}" #?
+    map: "Map" #?
+    mass: "Mass" #?
     maximal_temperature: "Maximal temperature"
-    meeting: "Meeting"
-    meetings: "Meetings"
-    members: "Members"
-    menus:
+    meeting: "Meeting" #?
+    meetings: "Meetings" #?
+    members: "Members" #?
+    menus: 
       accountancy: "Accountancy"
       archives: "Archives"
       exchange: "Data exchanges"
@@ -1012,444 +1003,464 @@ eng:
       settings: "Settings"
       stocks: "Stocks"
       trade: "Trade"
-    merge: "Merge"
+    merge: "Merge" #?
+    # method: "Method"
     minimal_temperature: "Minimal temperature"
-    missing_help: "Missing page"
-    mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity"
-    mobile: "Mobile"
-    mode: "Mode"
-    modes: "Modes"
-    modules: "Modules"
-    month_period: "%{code} - %{month} %{year}"
-    monthly: "Monthly"
+    missing_help: "Missing page" #?
+    mistake_on_quantities_sum: "The sum of the quantities are not equals to the total produced quantity" #?
+    mobile: "Mobile" #?
+    mode: "Mode" #?
+    modes: "Modes" #?
+    modules: "Modules" #?
+    month_period: "%{code} - %{month} %{year}" #?
+    monthly: "Monthly" #?
     months: "Months"
-    moved_at: "Made on"
-    movements: "Movements"
-    moves: "Moves"
-    my_company: "About your company"
-    my_self: "About you"
-    n: "Non"
-    name: "Name"
-    nature: "Type"
+    moved_at: "Made on" #?
+    movements: "Movements" #?
+    moves: "Moves" #?
+    my_company: "About your company" #?
+    my_self: "About you" #?
+    n: "Non" #?
+    name: "Name" #?
+    nature: "Type" #?
+    # net_mass: "Net mass"
     new: "New"
-    new_deposit:
-      one: "Make a deposit %{mode}: 1 available payment"
-      other: "Make a deposit %{mode}: %{count} available payments"
-      zero: "Make a deposit %{mode}: no available payments"
-    new_family: "New family"
-    new_in_line: "New incoming product"
-    new_organization: "New organization"
-    new_out_line: "New outgoing product"
-    new_payment: "New payment"
-    new_purchase_price: "Add a purchase price"
-    new_reservoir: "New reservoir"
-    new_sale: "New sale"
-    new_sales_price: "Add a sales price"
-    new_title: "New title"
-    new_transport_of_x_deliveries:
+    new_deposit:  #?
+      one: "Make a deposit %{mode}: 1 available payment" #?
+      other: "Make a deposit %{mode}: %{count} available payments" #?
+      zero: "Make a deposit %{mode}: no available payments" #?
+    new_family: "New family" #?
+    new_in_line: "New incoming product" #?
+    new_organization: "New organization" #?
+    new_out_line: "New outgoing product" #?
+    new_payment: "New payment" #?
+    new_purchase_price: "Add a purchase price" #?
+    new_reservoir: "New reservoir" #?
+    new_sale: "New sale" #?
+    new_sales_price: "Add a sales price" #?
+    new_title: "New title" #?
+    new_transport_of_x_deliveries: 
       one: "New transport (%{count} delivery)"
       other: "New transport (%{count} deliveries)"
-    new_transport_of_x_deliveries_for_y:
+    new_transport_of_x_deliveries_for_y: 
       one: "New transport for %{transporter} (%{count} delivery)"
       other: "New transport for %{transporter} (%{count} deliveries)"
-    new_value: "New value"
-    next: "Next"
-    no_commercial: "No commercial"
-    no_contacts: "No address defined for %{name}"
-    no_deliveries: "No deliveries"
-    no_deliveries_for_this_sale: "No deliveries for this sale"
-    no_deposits: "No deposits"
-    no_filters: "— No filters —"
-    no_javascript: "Your web browser don't support javascript. You need to activate it in order to use Ekylibre."
-    no_origin: "No origin"
-    no_products: "No products"
-    no_proposer: "No proposer"
-    no_purchases: "No purchases"
-    no_records: "No records"
-    no_results: "No results"
-    no_tracking: "No tracking"
-    no_transfers: "No transfers"
-    normal: "Normal"
-    not_begins: "Do not start with"
-    not_contains: "Do not contains"
-    not_finishes: "Do not finish with"
-    not_is: "Is not"
-    notifications:
-      error: "Error"
-      information: "Information"
-      success: "Success"
-      warning: "Warning!"
-    number: "Number"
-    number_options: "Options Numbers"
-    on_account: "On account"
-    one_condition: "One condition"
-    operation_items: "Incoming and outgoing products"
-    operations: "Operations"
-    order: "Order"
-    order_amount_with_taxes: "Order amount with taxes"
-    order_print: "Print order"
-    other_results: "Other results…"
-    outgoing_payments_states:
-      all: "All"
-      undelivered: "Undelivered"
-      unparted: "Unused"
-      waiting: "To deposit later"
-    overflow: "Overflow"
-    page_title: "%{company_code} - %{menu} - %{action}"
-    page_title_by_default: "Ekylibre - %{action}"
-    page_title_special: "%{company_code} - %{action}"
-    paid_amount: "Paid amount"
-    paid_at: "Paid on"
-    parameters: "Parameters"
-    parts_amount: "Paid amount"
-    password: "Password"
-    payback: "Payback"
-    payment_amount: "Amount of payment"
-    payment_at: "Payment on"
-    payment_label: "Payment label"
-    payment_mode: "Payment mode"
-    payment_uses: "Payment parts"
-    payments: "Payments"
-    payments_amount: "Payments amount"
-    payments_count: "Payments count"
-    payments_number: "Payments number"
-    payments_total: "Payments total"
-    people: "People"
-    period: "Period"
-    permute: "Permute"
-    personalized_mail: "Send a personalized mail"
-    pertinence: "%{value}%"
-    phone: "Pho."
-    picture: "Picture"
-    placeholder: "Placeholder"
-    places: "Places"
-    planned_at: "Planned on"
-    plant_medicines: "Plant medicines"
-    plant_productions: "Vegetal produtions"
-    play: "Play"
+    new_value: "New value" #?
+    next: "Next" #?
+    no_commercial: "No commercial" #?
+    no_contacts: "No address defined for %{name}" #?
+    # no_data: "No data"
+    no_deliveries: "No deliveries" #?
+    no_deliveries_for_this_sale: "No deliveries for this sale" #?
+    no_deposits: "No deposits" #?
+    no_filters: "— No filters —" #?
+    no_javascript: "Your web browser don't support javascript. You need to activate it in order to use Ekylibre." #?
+    no_origin: "No origin" #?
+    no_products: "No products" #?
+    no_proposer: "No proposer" #?
+    no_purchases: "No purchases" #?
+    no_records: "No records" #?
+    no_results: "No results" #?
+    no_tracking: "No tracking" #?
+    no_transfers: "No transfers" #?
+    normal: "Normal" #?
+    not_begins: "Do not start with" #?
+    not_contains: "Do not contains" #?
+    not_finishes: "Do not finish with" #?
+    not_is: "Is not" #?
+    notifications:  #?
+      error: "Error" #?
+      information: "Information" #?
+      success: "Success" #?
+      warning: "Warning!" #?
+    number: "Number" #?
+    number_options: "Options Numbers" #?
+    on_account: "On account" #?
+    one_condition: "One condition" #?
+    operation_items: "Incoming and outgoing products" #?
+    operations: "Operations" #?
+    order: "Order" #?
+    order_amount_with_taxes: "Order amount with taxes" #?
+    order_print: "Print order" #?
+    other_results: "Other results…" #?
+    outgoing_payments_states:  #?
+      all: "All" #?
+      undelivered: "Undelivered" #?
+      unparted: "Unused" #?
+      waiting: "To deposit later" #?
+    overflow: "Overflow" #?
+    page_title: "%{company_code} - %{menu} - %{action}" #?
+    page_title_by_default: "Ekylibre - %{action}" #?
+    page_title_special: "%{company_code} - %{action}" #?
+    paid_amount: "Paid amount" #?
+    paid_at: "Paid on" #?
+    parameters: "Parameters" #?
+    parts_amount: "Paid amount" #?
+    password: "Password" #?
+    payback: "Payback" #?
+    payment_amount: "Amount of payment" #?
+    payment_at: "Payment on" #?
+    payment_label: "Payment label" #?
+    payment_mode: "Payment mode" #?
+    payment_uses: "Payment parts" #?
+    payments: "Payments" #?
+    payments_amount: "Payments amount" #?
+    payments_count: "Payments count" #?
+    payments_number: "Payments number" #?
+    payments_total: "Payments total" #?
+    people: "People" #?
+    period: "Period" #?
+    permute: "Permute" #?
+    personalized_mail: "Send a personalized mail" #?
+    pertinence: "%{value}%" #?
+    phone: "Pho." #?
+    picture: "Picture" #?
+    placeholder: "Placeholder" #?
+    places: "Places" #?
+    planned_at: "Planned on" #?
+    plant: "Plant" #?
     please_wait: "Please wait…"
+    point: "Point" #?
+    population: "Population"
     precipitation: "Precipitation"
-    preferences: "Preferences"
+    preferences: "Preferences" #?
+    prescription: "Prescription" #?
     pretax_amount: "Pre-tax amount"
-    previous: "Previous"
-    previous_bank_statement: "Previous account statement N°%{number}"
+    previous: "Previous" #?
+    previous_bank_statement: "Previous account statement N°%{number}" #?
     price: "Price"
-    prices_export: "Export your prices in CSV"
-    prices_for_all: "All the prices"
-    prices_for_clients: "Prices of sale"
-    prices_for_suppliers: "Prices of purchase of supplier"
-    prices_import: "Importer un fichier CSV"
+    prices_export: "Export your prices in CSV" #?
+    prices_for_all: "All the prices" #?
+    prices_for_clients: "Prices of sale" #?
+    prices_for_suppliers: "Prices of purchase of supplier" #?
+    prices_import: "Importer un fichier CSV" #?
     print: "Print"
-    print_at: "Print at"
-    print_with_template: "Print %{name}"
+    print_at: "Print at" #?
+    print_with_template: "Print %{name}" #?
     procedures: "Procedures"
-    product: "Product"
-    product_bar: "Product by categories"
-    product_category: "Product category"
-    product_name: "Product name"
-    production: "Production management"
-    productions: "Productions"
-    productions_states:
-      aborted: "Aborted"
-      all: "All"
-      draft: "Draft"
-      started: "Started"
-      validated: "Validated"
-    products: "Products"
-    products_states:
-      active: "Active"
-      all: "All"
-      inactive: "Inactive"
-    profitability: "Profitability"
-    purchase: "Purchase"
-    purchase_items: "Purchase items"
-    purchase_steps:
-      deliveries: "Incoming deliveries"
-      products: "Purchase"
-      summary: "Disbursements"
-    purchases: "Purchases"
-    purchases_bar: "Purchase by natures"
-    purchases_expense_bar: "Purchase Expenses by month"
-    quantity: "Quantity"
-    quantity_rest: "Remaining quantity"
-    quantity_to_credit: "Quantity to credit"
-    quarterly: "Quarterly"
-    query: "Query:"
-    received: "Received"
-    recent_events: "Recent events"
-    recent_historic: "Recent historic"
-    record_has_been_correctly_removed: "The record has been correctly removed"
-    record_has_not_been_removed: "The record has not been removed"
-    reflect: "Reflect"
-    reflected: "Reflected changes"
+    product: "Product" #?
+    product_bar: "Product by categories" #?
+    product_category: "Product category" #?
+    product_name: "Product name" #?
+    production: "Production management" #?
+    productions: "Productions" #?
+    productions_states:  #?
+      aborted: "Aborted" #?
+      all: "All" #?
+      draft: "Draft" #?
+      started: "Started" #?
+      validated: "Validated" #?
+    products: "Products" #?
+    products_states:  #?
+      active: "Active" #?
+      all: "All" #?
+      inactive: "Inactive" #?
+    profitability: "Profitability" #?
+    purchase: "Purchase" #?
+    purchase_items: "Purchase items" #?
+    purchase_steps:  #?
+      deliveries: "Incoming deliveries" #?
+      products: "Purchase" #?
+      summary: "Disbursements" #?
+    purchases: "Purchases" #?
+    purchases_bar: "Purchase by natures" #?
+    purchases_expense_bar: "Purchase Expenses by month" #?
+    quantity: "Quantity" #?
+    quantity_rest: "Remaining quantity" #?
+    quantity_to_credit: "Quantity to credit" #?
+    quarterly: "Quarterly" #?
+    query: "Query:" #?
+    received: "Received" #?
+    recent_events: "Recent events" #?
+    recent_historic: "Recent historic" #?
+    record_has_been_correctly_removed: "The record has been correctly removed" #?
+    record_has_not_been_removed: "The record has not been removed" #?
+    reflect: "Reflect" #?
+    reflected: "Reflected changes" #?
     refresh: "Refresh"
-    relationship: "Relationship management"
+    # related_people: "Related people"
+    relationship: "Relationship management" #?
+    # remove: "Remove"
     remove_diagnostic: "Remove diagnostic"
+    # remove_item: "Remove item"
     remove_reading: "Remove indicator value"
+    # remove_stock: "Remove stock"
+    # remove_subscription: "Remove subscription"
     remove_treatment: "Remove treatment"
+    # remove_use: "Remove use"
     remove_watching: "Remove product reference"
-    reopen: "Reopen"
-    reopen_journal: "Reopen the journal"
-    report: "Report"
-    reported_balance: "Reported Balance"
-    reservoir: "Reservoir"
-    reservoir_informations: "Reservoir informations"
-    resource: "View original document: %{resource} %{number}"
-    resources: "Resources management"
-    rest_to_pay: "Rest to pay"
-    restore: "Restore"
-    result: "Result"
-    results:
-      one: "1 result"
-      other: "%{count} results"
-      zero: "No results"
-    reverse: "Reverse condition"
-    rights: "Rights"
-    role: "Role"
-    role_name: "Fill the name and check all the needed rights"
-    roles: "Roles"
-    sale: "Sale"
-    sale_steps:
-      deliveries: "Deliveries"
-      estimate: "Estimate"
-      general: "General"
-      products: "Products"
-      summary: "Sales invoice"
-    sales: "Sales"
-    sales_conditions: "Conditions of sales"
-    sales_invoice: "Invoicing"
-    sales_invoice_number: "Sales invoice"
-    sales_invoices_states:
-      all: "All"
-      cancelled: "Cancelled"
-      credits: "Credits"
-    sales_invoices_total: "Sales invoices total"
-    sales_states:
-      all: "All"
-      current: "Current"
-      unpaid: "Unpaid"
-    save: "Save"
-    save_in_draft: "Save as draft"
-    scheduled: "Scheduled"
-    search: "Search"
-    search_account: "Search for accounts"
-    search_for_available_prices: "%{code} - %{name}, %{pretax_amount}"
-    search_go: "Search!"
-    search_placeholder: "Search…"
-    search_sales: "Search sales"
-    second_building_name: "Second building name"
-    second_contact: "Second address"
-    select_account_client: "Customer Account for lettering"
-    select_account_supplier: "Supplier Account for lettering"
-    select_area: "Select area"
-    select_building: "Select building"
-    select_closure_date: "Choose closing date"
-    select_columns: "Select columns"
-    select_date: "Select date"
-    select_date_generation: "Limit date for generation"
-    select_document: "Select document"
-    select_existing_payment: "Select existing payment"
-    select_file_to_upload: "Select file to upload"
-    select_financial_year: "Financial year"
-    select_number: "Select number"
-    select_number_or_date: "Select number or date"
-    select_organization: "Select organization"
-    select_renew_journal: "Selected Journal to renew"
-    send: "Send"
-    send_test: "Send test"
-    sequences_load: "Load missing sequences"
-    set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)"
-    ship: "Ship"
-    show: "Show"
-    sign_out: "Sign out"
-    simplified: "Simplified Accounting"
-    source: "Source"
-    start: "From"
-    state: "State"
-    stock_max: "Stock max"
-    stock_min: "Stock min"
+    reopen: "Reopen" #?
+    reopen_journal: "Reopen the journal" #?
+    report: "Report" #?
+    reported_balance: "Reported Balance" #?
+    reservoir: "Reservoir" #?
+    reservoir_informations: "Reservoir informations" #?
+    reset: "Reset" #?
+    resource: "View original document: %{resource} %{number}" #?
+    resources: "Resources management" #?
+    rest_to_pay: "Rest to pay" #?
+    restore: "Restore" #?
+    result: "Result" #?
+    results:  #?
+      one: "1 result" #?
+      other: "%{count} results" #?
+      zero: "No results" #?
+    reverse: "Reverse condition" #?
+    rights: "Rights" #?
+    role: "Role" #?
+    role_name: "Fill the name and check all the needed rights" #?
+    roles: "Roles" #?
+    # run: "Run"
+    sale: "Sale" #?
+    sale_steps:  #?
+      deliveries: "Deliveries" #?
+      estimate: "Estimate" #?
+      general: "General" #?
+      products: "Products" #?
+      summary: "Sales invoice" #?
+    sales: "Sales" #?
+    sales_conditions: "Conditions of sales" #?
+    sales_invoice: "Invoicing" #?
+    sales_invoice_number: "Sales invoice" #?
+    sales_invoices_states:  #?
+      all: "All" #?
+      cancelled: "Cancelled" #?
+      credits: "Credits" #?
+    sales_invoices_total: "Sales invoices total" #?
+    sales_states:  #?
+      all: "All" #?
+      current: "Current" #?
+      unpaid: "Unpaid" #?
+    # same_variant_as_x: "Same variant as x"
+    save: "Save" #?
+    save_in_draft: "Save as draft" #?
+    scheduled: "Scheduled" #?
+    search: "Search" #?
+    search_account: "Search for accounts" #?
+    search_for_available_prices: "%{code} - %{name}, %{pretax_amount}" #?
+    search_go: "Search!" #?
+    search_placeholder: "Search…" #?
+    search_sales: "Search sales" #?
+    second_building_name: "Second building name" #?
+    second_contact: "Second address" #?
+    # section_x: "Section x"
+    select_account_client: "Customer Account for lettering" #?
+    select_account_supplier: "Supplier Account for lettering" #?
+    select_area: "Select area" #?
+    select_building: "Select building" #?
+    select_closure_date: "Choose closing date" #?
+    select_columns: "Select columns" #?
+    select_date: "Select date" #?
+    select_date_generation: "Limit date for generation" #?
+    select_document: "Select document" #?
+    select_existing_payment: "Select existing payment" #?
+    select_file_to_upload: "Select file to upload" #?
+    select_financial_year: "Financial year" #?
+    select_number: "Select number" #?
+    select_number_or_date: "Select number or date" #?
+    select_organization: "Select organization" #?
+    select_renew_journal: "Selected Journal to renew" #?
+    send: "Send" #?
+    send_test: "Send test" #?
+    sequences_load: "Load missing sequences" #?
+    set_reconcilable_new_but_existing_third_accounts: "Set reconcilable the new but existing third accounts (clients, suppliers and attorneys)" #?
+    ship: "Ship" #?
+    show: "Show" #?
+    sign_out: "Sign out" #?
+    simplified: "Simplified Accounting" #?
+    source: "Source" #?
+    start: "From" #?
+    state: "State" #?
+    stock_max: "Stock max" #?
+    stock_min: "Stock min" #?
     stock_of_x: "Stock of %{x}"
-    stocks: "Stocks"
-    stocks_preferences: "Stock management"
-    stop: "Stop"
-    string_case: "String case"
-    string_options: "Text options"
-    subject: "Subject"
-    submit: "Submit"
-    subscriber_period: "Subscribed on %{subscribed_at}"
-    subscriber_quantity: "Subscribed at the number %{subscribed_at}"
-    subscription_nature: "Subscription type"
-    subscription_natures_down: "Decrement actual number (-1)"
-    subscription_natures_up: "Increment actual number (+1)"
-    subscriptions: "Subscriptions"
-    subtitle: "General parameters"
-    subtotal: "Sub-total %{name}"
-    subtotals_at_level: "Sub-total at level"
-    supplier: "Purchase prices of the supplier"
-    supplier_code: "Supplier code"
-    supplier_informations: "Supplier informations "
-    supply: "Supply"
-    support: "Support"
-    synthesis: "Synthesis Documents"
-    target: "Target"
+    stocks: "Stocks" #?
+    stocks_preferences: "Stock management" #?
+    stop: "Stop" #?
+    string_case: "String case" #?
+    string_options: "Text options" #?
+    subject: "Subject" #?
+    submit: "Submit" #?
+    subscriber_period: "Subscribed on %{subscribed_at}" #?
+    subscriber_quantity: "Subscribed at the number %{subscribed_at}" #?
+    subscription_nature: "Subscription type" #?
+    subscription_natures_down: "Decrement actual number (-1)" #?
+    subscription_natures_up: "Increment actual number (+1)" #?
+    subscriptions: "Subscriptions" #?
+    subtitle: "General parameters" #?
+    subtotal: "Sub-total %{name}" #?
+    subtotals_at_level: "Sub-total at level" #?
+    supplier: "Purchase prices of the supplier" #?
+    supplier_code: "Supplier code" #?
+    supplier_informations: "Supplier informations " #?
+    supply: "Supply" #?
+    support: "Support" #?
+    synthesis: "Synthesis Documents" #?
+    target: "Target" #?
     taxes: "Taxes"
-    theoric_quantity: "Theoric quantity"
+    theoric_quantity: "Theoric quantity" #?
     time_zone: "Time zone"
-    to: "to"
-    to_bank_at: "To bank on"
-    to_date: "To date"
-    to_deliver: "To deliver"
-    to_deposit: "To deposit"
-    today: "Today"
-    tools: "Tools"
-    tools_list: "Tools"
+    to: "to" #?
+    to_bank_at: "To bank on" #?
+    to_date: "To date" #?
+    to_deliver: "To deliver" #?
+    to_deposit: "To deposit" #?
+    today: "Today" #?
+    tools: "Tools" #?
+    tools_list: "Tools" #?
     total: "Total"
-    total_amount: "Total amount"
-    total_in_currency: "Total (%{currency})"
-    total_invoiced_amount: "Total invoiced amount"
-    total_paid_amount: "Total paid amount"
-    total_quantity: "Total quantity"
-    total_unpaid_amount: "Total unpaid amount"
-    totals: "Totals"
-    tracking: "Tracking"
-    transfer: "Transfer"
-    transformations: "Transformations"
-    transport: "Transport"
-    transport_deliveries: "Deliveries"
-    transport_states:
-      all: "All"
-      making: "Making"
-      ready: "Ready"
-      shipped: "Shipped"
-      waiting: "Waiting"
-    treatment: "Treatment"
-    undelivered: "Undelivered"
-    undeposited: "Undeposited"
-    uninvoiced_amount: "Uninvoiced amount"
-    unit: "Unit"
-    unknown_condition: "Unknown condition"
+    total_amount: "Total amount" #?
+    total_in_currency: "Total (%{currency})" #?
+    total_invoiced_amount: "Total invoiced amount" #?
+    total_paid_amount: "Total paid amount" #?
+    total_quantity: "Total quantity" #?
+    total_unpaid_amount: "Total unpaid amount" #?
+    totals: "Totals" #?
+    tracking: "Tracking" #?
+    transfer: "Transfer" #?
+    transformations: "Transformations" #?
+    transport: "Transport" #?
+    transport_deliveries: "Deliveries" #?
+    transport_states:  #?
+      all: "All" #?
+      making: "Making" #?
+      ready: "Ready" #?
+      shipped: "Shipped" #?
+      waiting: "Waiting" #?
+    treatment: "Treatment" #?
+    undelivered: "Undelivered" #?
+    undeposited: "Undeposited" #?
+    uninvoiced_amount: "Uninvoiced amount" #?
+    unit: "Unit" #?
+    unknown_condition: "Unknown condition" #?
     unknown_user: "Unknown user"
-    unlock: "Unlock"
-    unpaid: "Unpaid"
-    unpaid_amount: "Unpaid amount"
-    unpaid_days: "Unpaid since (in days)"
-    unpaid_sales: "Unpaid sale"
-    unpaid_sales_export: "Export unpaid sales in CSV"
-    unparted: "Unparted"
-    unreceived: "Unreceived"
-    unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)"
-    unused_payment: "Unused payment"
-    unvalid_date: "Invalid date"
-    unvalidated_operations: "Operations not validated"
-    up: "Up"
+    # unknown_variant: "Unknown variant"
+    unlock: "Unlock" #?
+    # unmark: "Unmark"
+    unpaid: "Unpaid" #?
+    unpaid_amount: "Unpaid amount" #?
+    unpaid_days: "Unpaid since (in days)" #?
+    unpaid_sales: "Unpaid sale" #?
+    unpaid_sales_export: "Export unpaid sales in CSV" #?
+    unparted: "Unparted" #?
+    unreceived: "Unreceived" #?
+    unset_reconcilable_old_third_accounts: "Unset reconcilable old third accounts (clients, suppliers and attorneys)" #?
+    unused_payment: "Unused payment" #?
+    unvalid_date: "Invalid date" #?
+    unvalidated_operations: "Operations not validated" #?
+    up: "Up" #?
     update: "Update"
-    update_params: "Update params"
-    updated_at_by: "Updated at %{at} by %{by}:"
-    upload: "Upload"
-    usage: "Usage"
-    use_incoming_payment: "Add incoming payment %{payment}"
-    use_renew: "Select the journal to carry over"
-    used_accounts: "Used accounts only"
-    user_name: "Username"
-    uses: "Tools"
-    valid: "Valid"
+    update_params: "Update params" #?
+    updated_at_by: "Updated at %{at} by %{by}:" #?
+    upload: "Upload" #?
+    usage: "Usage" #?
+    use_incoming_payment: "Add incoming payment %{payment}" #?
+    use_renew: "Select the journal to carry over" #?
+    used_accounts: "Used accounts only" #?
+    user_name: "Username" #?
+    uses: "Tools" #?
+    valid: "Valid" #?
     validate: "Validate"
-    validate_selected_entries: "Validate selected entries"
+    validate_selected_entries: "Validate selected entries" #?
     values: "Values"
-    view: "View"
-    view_modes:
-      printable: "Printable mode"
-      resized: "Resized mode"
-    virtual_quantity: "Virtual quantity"
-    weather: "Weather"
+    view: "View" #?
+    view_modes:  #?
+      printable: "Printable mode" #?
+      resized: "Resized mode" #?
+    virtual_quantity: "Virtual quantity" #?
+    weather: "Weather" #?
     wind_speed: "Wind speed"
-    with_assets_depreciations: "With assets depreciations"
-    with_prints: "Include printing archives (sales invoices, purchases…)"
-    x_cashes:
+    with_assets_depreciations: "With assets depreciations" #?
+    # with_financial_assets_depreciations: "With financial assets depreciations"
+    with_prints: "Include printing archives (sales invoices, purchases…)" #?
+    x_cashes: 
       one: "%{count} cash"
       other: "%{count} cashes"
-    x_contacts:
+    x_contacts: 
       one: "%{count} contact"
       other: "%{count} contacts"
-    x_depositable_payments:
+    # x_days: "X days"
+    x_depositable_payments: 
       one: "1 incoming payment to deposit"
       other: "%{count} incoming payments to deposit"
       zero: "No incoming payments to deposit"
-    x_deposits_to_validate:
+    x_deposits_to_validate: 
       one: "%{count} deposit to validate"
       other: "%{count} deposits to validate"
       zero: "No deposits to validate"
-    x_entities:
+    x_entities: 
       one: "%{count} person"
       other: "%{count} people"
       zero: "No people"
-    x_entity_links:
+    x_entity_links: 
       one: "%{count} link"
       other: "%{count} links"
-    x_events:
+    x_events: 
       one: "1 event"
       other: "%{count} events"
       zero: "0 events"
-    x_events_of_nature_y:
+    x_events_of_nature_y: 
       one: "One event %{nature} for a total duration of %{duration} minutes"
       other: "%{count} events %{nature} for a total duration of %{duration} minutes"
       zero: "No events %{nature}"
     x_has_been_cleared: "%{x} has been cleared (formerly %{a})"
     x_has_been_updated_from_a_to_b: "%{x} has been updated from %{a} to %{b}"
     x_has_been_updated_to_a: "%{x} has been updated to %{a}"
-    x_incoming_payments:
+    x_incoming_payments: 
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
       zero: "0 incoming payments"
-    x_journal_entries:
+    x_journal_entries: 
       one: "%{count} journal entries"
-      other: "%{count} journal entries "
-    x_mandates:
+      other: "%{count} journal entries"
+    x_mandates: 
       one: "%{count} mandate"
       other: "%{count} mandates"
       zero: "no mandate"
-    x_observations:
+    # x_months: "X months"
+    x_observations: 
       one: "%{count} observation"
       other: "%{count} observations"
-    x_operations:
+    # x_of_y: "X of y"
+    x_operations: 
       one: "1 operation"
       other: "%{count} operations"
       zero: "0 operations"
-    x_outgoing_payments:
+    x_outgoing_payments: 
       one: "%{count} disbursement"
       other: "%{count} disbursements"
-    x_performed_operations:
+    x_performed_operations: 
       one: "1 operation performed"
       other: "%{count} operation performed"
       zero: "No operation performed"
-    x_prices:
+    x_prices: 
       one: "1 price"
       other: "%{count} prices"
       zero: "0 prices"
-    x_purchases:
+    x_purchases: 
       one: "1 purchase"
       other: "%{count} purchases"
       zero: "0 purchases"
-    x_readings:
+    x_readings: 
       one: "%{count} indicator"
       other: "%{count} indicators"
       zero: "No indicator"
-    x_results:
+    x_results: 
       one: "%{count} result found"
       other: "%{count} results found"
       zero: "No results found"
-    x_sales:
+    x_sales: 
       one: "1 sale"
       other: "%{count} sales"
       zero: "0 sales"
-    x_sales_invoices:
+    x_sales_invoices: 
       one: "1 sales invoice"
       other: "%{count} sales invoices"
       zero: "0 sales invoices"
-    x_stock_transfers_to_confirm:
+    x_stock_transfers_to_confirm: 
       one: "%{count} stock transfer to confirm"
       other: "%{count} stock transfers to confirm"
-    x_subscriptions:
+    x_subscriptions: 
       one: "1 subscription"
       other: "%{count} subscriptions"
       zero: "0 subscriptions"
@@ -1457,152 +1468,102 @@ eng:
     x_unit_of_product_per_second: "%{quantity}%{unit}/s of %{product}"
     x_unit_per_second: "Flow: %{quantity}%{unit}/s"
     x_units_of_product_y: "%{quantity}%{unit} of %{product}"
-    x_waiting_incoming_deliveries:
+    x_waiting_incoming_deliveries: 
       one: "%{count} waiting incoming delivery"
       other: "%{count} waiting incoming deliveries"
-    x_waiting_outgoing_deliveries:
+    x_waiting_outgoing_deliveries: 
       one: "%{count} waiting outgoing delivery"
       other: "%{count} waiting outgoing deliveries"
-    y: "Yes"
-    yearly: "Yearly"
+    x_years: 
+      one: "1 year"
+      other: "%{count} years"
+      zero: "0 years"
+    y: "Yes" #?
+    yearly: "Yearly" #?
     years_count_in_historic: "Years count in historic"
   notifications:
-    access_denied: "Access denied. %{reason} (%{url})"
-    bad_file: "The file is incorrect." #?
-    bookkeeping_is_finished: "The commercial data transfer is finished."
-    bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
-    cannot_delete_entity: "This person can't be deleted because there is some accounting history." #?
-    cannot_find_deal_to_attach: "Cannot find deal to attach"
-    cannot_find_deal_to_detach: "Cannot find deal to detach"
-    cannot_find_document_template: "Cant find document template" #?
-    cannot_mark_entry_items: "Can not mark these entry lines"
-    cannot_merge_an_entity_with_itself: "It's impossible to merge a person with itself"
-    cannot_merge_entities: "It's impossible to merge these people."
-    changes_have_been_reflected: "The changes have been reflected in the stocks state"
-    changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
-    closed_financial_years: "The financial year has been closed successfully"
-    columns_are_already_uses: "One or many columns are selected many times"
-    dashboard_is_being_developed: "Dashboard is under heavy development"
-    draft_entry_items_are_validated: 
-      one: "One entry has been validated"
-      other: "%{count} entries have been validated"
-      zero: "No entries has been validated"
-    entity_columns_are_needed: "You need to specify at least one column for the person and in particular its family name."
-    exception_raised: "An error occurred during the processing: %{message}"
-    expired_session: "Session expired. Please reconnect." #?
-    fails_to_extract_listing: "The listing can't be made: %{message}"
-    implemented_with_dummy_data: "Implemented with dummy data"
-    importation_cancelled: "Your data was not imported. Import has been canceled" #?
-    importation_finished: "The import is complete."
-    impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
-    impossible_to_add_items_to_purchase: "You can not add products to your purchase "
-    invalid_file_nature: "Invalid file type"
-    journal_closed_at: "The journal “%{journal}” was closed on %{closed_at}."
-    journal_entry_already_validated: "The record has already been validated and can not be changed"
-    journal_entry_has_been_saved: "The record %{number} has been successfully saved"
-    journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-    journal_reopened_at: "The journal “%{journal}” has been re-opened on %{closed_at}."
-    mails_are_sent: "The emails were sent"
-    need_balanced_journal_to_tax_declaration: "All your journals must be closed and balanced at that date." #?
-    need_building_to_create_purchase_item: "You must create a building to be able to create a purchase." #?
-    need_building_to_create_sale_item: "You must create a building to be able to create a sale" #?
-    need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
-    need_cash_to_record_statements: "You must be at least create a bank account to enter a statement."
-    need_closed_financial_year_to_declaration: "You must have a closed financial year to create a VAT return." #?
-    need_company_code_to_login: "You must select your company in order to connect with that user_name." #?
-    need_entries_to_point: "No entry was found for the period of the bank statement."
-    need_journal_to_manage_tax_declaration: "You must have at least one journal of various operations and a journal of sales or purchases in order to save tax returns." #?
-    need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
-    need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice"
-    need_stocks_building_to_create_products: "You must create a building to be able to create a product" #?
-    need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
-    need_to_create_productions: "Need to create productions"
-    need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions"
-    new_actual_number: "The new number is being %{actual_number}"
-    new_values_are_calculated: "New values are calculated"
-    no_authenticated: "You could not be identified. The user_name or password must be incorrect."
-    no_building: "No building is defined. Please create one in order to manage your stocks" #?
-    no_closable_financial_year: "No closable financial year." #?
-    no_closable_journal: "No closable journal"
-    no_depositable_payments: "There are no payment to deposit"
-    no_existing_mandates: "There are no mandates" #?
-    no_items_found: "No product has been added to the order"
-    no_payment_to_deposit: "There are no payment to deposit"
-    no_reopenable_journal: "You can not re-open this journal."
-    no_stocks: "You have no stock. If you want to manage the stock of a product, please check the option “Manage stocks” in the characteristics of your product." #?
-    no_unconfirmed_stock_transfers: "No unconfirmed stock transfers" #?
-    no_unvalidated_operations: "No task to do" #?
-    password_successfully_changed: "Your password has been updated successfully" #?
-    prices_import_succeeded: "Your data have been successfully imported " #?
-    print_failure: "Print failure. Try to reload the templates to correct the problem. %{error} (%{class})." #?
-    purchase_already_invoiced: "Purchase already invoiced"
-    record_cannot_be_removed: "The record can not be deleted"
-    record_has_been_correctly_removed: "The record has been removed successfully"
-    record_has_been_imported: "Record has been imported"
-    record_has_not_been_removed: "The record has not been removed" #?
-    restoration_finished: "Restoring the backup has completed (in %{value} seconds)."
-    sale_already_invoiced: "The sale has already been invoiced: you can not define delivery "
-    sale_cannot_be_updated: "The estimate is no longer editable."
-    sale_cant_be_deleted: "The sale can not be deleted."
-    select_entry_items_to_mark_together: "Select entry items to mark together"
-    specify_filter: "You must choose at least one search filter" #?
-    specify_updates: "You must specify at least one field to edit" #?
-    unavailable_model: "Inexistent %{model} (%{id})"
-    unknown_action: "The requested page is unavailable (%{url})" #?
-    unknown_company: "Unknown company" #?
-    unvalid_version_for_restore: "The version of the software used to perform the backup does not match the current version of the software"
-    update_is_done: "The update has been made"
-    validates_old_inventories: "It is advisable to clear or validate uncommitted inventories before making a new" #?
-    x_unpointed_journal_entry_items: 
-      one: "There is one entry to point"
-      other: "There are %{count} entries to point"
-      zero: "There are no entries to point at the moment"
-    you_must_have_an_email_column: "You must have an email address in your extraction"
-    you_must_select_a_file_to_import: "You must select a file to import" #?
-    you_will_lose_all_your_current_data: "If you continue, you will lose all your data being entered. Would you continue?" #?
+    levels:
+      error: "Error"
+      information: "Information"
+      success: "Success"
+      warning: "Warning!"
+    messages:
+      access_denied: "Access denied. %{reason} (%{url})"
+      bookkeeping_is_finished: "The commercial data transfer is finished."
+      bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
+      cannot_find_deal_to_attach: "Cannot find deal to attach"
+      cannot_find_deal_to_detach: "Cannot find deal to detach"
+      cannot_mark_entry_items: "Can not mark these entry lines"
+      cannot_merge_an_entity_with_itself: "It's impossible to merge a person with itself"
+      cannot_merge_entities: "It's impossible to merge these people."
+      changes_have_been_reflected: "The changes have been reflected in the stocks state"
+      changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
+      closed_financial_years: "The financial year has been closed successfully"
+      columns_are_already_uses: "One or many columns are selected many times"
+      dashboard_is_being_developed: "Dashboard is under heavy development"
+      draft_entry_items_are_validated: 
+        one: "One entry has been validated"
+        other: "%{count} entries have been validated"
+        zero: "No entries has been validated"
+      entity_columns_are_needed: "You need to specify at least one column for the person and in particular its family name."
+      exception_raised: "An error occurred during the processing: %{message}"
+      fails_to_extract_listing: "The listing can't be made: %{message}"
+      implemented_with_dummy_data: "Implemented with dummy data"
+      importation_finished: "The import is complete."
+      impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
+      impossible_to_add_items_to_purchase: "You can not add products to your purchase"
+      invalid_file_nature: "Invalid file type"
+      journal_closed_at: "The journal “%{journal}” was closed on %{closed_at}."
+      journal_entry_already_validated: "The record has already been validated and can not be changed"
+      journal_entry_has_been_saved: "The record %{number} has been successfully saved"
+      journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
+      journal_reopened_at: "The journal “%{journal}” has been re-opened on %{closed_at}."
+      mails_are_sent: "The emails were sent"
+      need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
+      need_cash_to_record_statements: "You must be at least create a bank account to enter a statement."
+      need_entries_to_point: "No entry was found for the period of the bank statement."
+      need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
+      need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice"
+      need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
+      need_to_create_productions: "Need to create productions"
+      need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions"
+      new_actual_number: "The new number is being %{actual_number}"
+      new_values_are_calculated: "New values are calculated"
+      no_authenticated: "You could not be identified. The user_name or password must be incorrect."
+      no_closable_journal: "No closable journal"
+      no_depositable_payments: "There are no payment to deposit"
+      no_items_found: "No product has been added to the order"
+      no_payment_to_deposit: "There are no payment to deposit"
+      no_reopenable_journal: "You can not re-open this journal."
+      purchase_already_invoiced: "Purchase already invoiced"
+      record_cannot_be_removed: "The record can not be deleted"
+      record_has_been_correctly_removed: "The record has been removed successfully"
+      record_has_been_imported: "Record has been imported"
+      restoration_finished: "Restoring the backup has completed (in %{value} seconds)."
+      sale_already_invoiced: "The sale has already been invoiced: you can not define delivery"
+      sale_cannot_be_updated: "The estimate is no longer editable."
+      sale_cant_be_deleted: "The sale can not be deleted."
+      select_entry_items_to_mark_together: "Select entry items to mark together"
+      unavailable_model: "Inexistent %{model} (%{id})"
+      unvalid_version_for_restore: "The version of the software used to perform the backup does not match the current version of the software"
+      update_is_done: "The update has been made"
+      x_unpointed_journal_entry_items: 
+        one: "There is one entry to point"
+        other: "There are %{count} entries to point"
+        zero: "There are no entries to point at the moment"
+      you_must_have_an_email_column: "You must have an email address in your extraction"
   preferences:
-    assets_sequence: "Numeration of assets"
-    bank_journal: "Default bank journal"
     bookkeep_automatically: "Activate the automatic bookkeeping"
     bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
-    capital_gains_accounts: "Profit for the year (earnings)"
-    capital_losses_accounts: "Profit for the year (loss)"
-    cash_journal: "Default cash journal"
-    cash_transfers_sequence: "Numeration of cash transfers"
-    charges_accounts: "Charges accounts"
-    deposits_sequence: "Numeration of deposits"
+    chart_of_account: "Chart of account"
+    country: "Country"
+    currency: "Currency"
     detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
-    entities_sequence: "Numeration of people"
-    financial_banks_accounts: "Banks accounts"
-    financial_cashes_accounts: "Cashes accounts"
-    financial_internal_transfers_accounts: "Internal transfers"
-    financial_payments_to_deposit_accounts: "Payments to deposit accounts"
-    forward_journal: "Default carried-forward journal"
-    incoming_deliveries_sequence: "Numeration of incoming deliveries"
-    incoming_payments_sequence: "Numeration of incoming payments"
-    outgoing_deliveries_sequence: "Numeration of outgoing deliveries"
-    outgoing_payments_sequence: "Numeration of disbursements"
-    products_accounts: "Products accounts"
-    purchases_journal: "Default purchases journal"
-    purchases_sequence: "Numeration of purchases"
-    sales_invoices_sequence: "Numeration of sales invoices"
-    sales_journal: "Default sales journal"
-    sales_sequence: "Numeration of sales"
-    stock_transfers_sequence: "Numeration of stock transfers"
-    subscriptions_sequence: "Numeration of subscriptions"
-    taxes_acquisition_accounts: "Accounts of taxes for intra-Community acquisitions"
-    taxes_assimilated_accounts: "Assimilated taxes accounts"
-    taxes_balance_accounts: "Balance taxes accounts"
-    taxes_collected_accounts: "Collected taxes accounts"
-    taxes_paid_accounts: "Paid taxes account"
-    taxes_payback_accounts: "Payback taxes accounts"
-    third_attorneys_accounts: "Attorneys accounts"
-    third_clients_accounts: "Clients accounts"
-    third_suppliers_accounts: "Suppliers accounts"
-    transports_sequence: "Numeration of transports"
+    language: "Language"
+    map_measure_srid: "Map measure SRID"
+    sales_conditions: "Sales conditions"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
-    various_journal: "Default various operations journal"
-  unroll:
+  unrolls:
     backend/accounts: "{number}. {name}"
     backend/activities: "{name} ({family}/{nature})"
     backend/analytic_distributions: "{id}"
@@ -1611,20 +1572,14 @@ eng:
     backend/entity_links: "{started_at}"
     backend/events: "{name}"
     backend/journal_entry_items: "{name}"
-    backend/logs: "{observed_at}"
     backend/matters: "{name} ‒ {work_number}"
     backend/observations: "{content}"
     backend/operations: "{nature} ({created_at})"
     backend/plants: "{name} ‒ {work_number}"
     backend/prescriptions: "{reference_number}"
-    backend/product_indicators: "{id}"
     backend/product_memberships: "{started_at}"
-    backend/product_nature_prices: "{amount} {currency} / {pretax_amount} {currency}"
     backend/product_nature_variants: "{name} ({unit_name})"
     backend/product_natures: "{name}"
-    backend/product_transfers: "{id}"
     backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     backend/products: "{work_number} {name}"
-    backend/units: "{label} ({name})"
     backend/users: "{first_name} {last_name}"
-    bakend/entity_links: "{started_at}"

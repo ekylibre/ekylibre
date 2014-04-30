@@ -203,6 +203,7 @@
     line-height: $menu-text-height;
     height: $menu-text-height;
     vertical-align: middle;
+    @include ellipsis;
     i {
       @include is-icon();
       @include inline-block;

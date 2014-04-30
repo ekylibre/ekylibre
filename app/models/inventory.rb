@@ -61,27 +61,43 @@ class Inventory < Ekylibre::Record::Base
   end
 
   protect do
-    self.reflected?
+    self.old_record.reflected?
   end
 
   def reflectable?
-    !self.reflected? and self.class.unreflecteds.where(self.class.arel_table[:created_at].lt(self.created_at)).empty?
+    !self.reflected? and self.class.unreflecteds.where(self.class.arel_table[:achieved_at].lt(self.achieved_at)).empty?
   end
 
-  # Apply deltas on products ?
+  # Apply deltas on products
   def reflect
-    self.reflected_at = Time.now
-    self.reflected = true
-    for item in self.items
-      # item.confirm_stock_move(reflected_at)
+    unless self.reflectable?
+      raise StandardError, "Cannot reflect reflected inventory"
     end
-    self.save
+    self.class.transaction do
+      self.reflected_at = Time.now
+      self.reflected = true
+      self.save!
+      for item in self.items
+        if item.actual_population != item.expected_population and product = item.product
+          delta = item.actual_population - item.expected_population
+
+          # Adds reading now if not found before
+          product.read!(:population, item.actual_population, at: self.achieved_at, originator: item)
+
+          # Updates
+          for reading in product.readings.where(indicator_name: "population").where("read_at > ?", self.achieved_at)
+            reading.value += delta
+            reading.save!
+          end
+        end
+      end
+    end
   end
 
   def build_missing_items
     self.achieved_at ||= Time.now
     for product in Matter.at(achieved_at).of_owner(Entity.of_company)
-      unless self.items.find_by(product_id: product.id)
+      unless self.items.detect{|i| i.product_id == product.id }
         population = product.population(at: self.achieved_at)
         # shape = product.shape(at: self.achieved_at)
         self.items.build(product_id: product.id, actual_population: population, expected_population: population)
@@ -89,8 +105,11 @@ class Inventory < Ekylibre::Record::Base
     end
   end
 
-  def reset!
-    self.items.clear!
+  def refresh!
+    unless self.editable?
+      raise StandardError, "Cannot refresh uneditable inventory"
+    end
+    self.items.clear
     self.build_missing_items
     self.save!
   end

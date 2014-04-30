@@ -21,6 +21,10 @@ module Ekylibre::Record
             code  = "def #{callback}able?\n"
             code << "  !#{method_name}\n"
             code << "end\n"
+            
+            if callback == :update
+              code << "alias :editable? #{callback}able?\n"
+            end
 
             # class_eval "before_#{callback} {|record| record.#{method_name} }"
             # class_eval "before_#{callback} :#{method_name}"

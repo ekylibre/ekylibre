@@ -390,7 +390,7 @@ Ekylibre::Application.routes.draw do
     resources :inventories, concerns: [:list, :unroll] do
       member do
         post :reflect
-        post :reset
+        post :refresh
         get  :list_items
       end
     end

@@ -6,7 +6,6 @@ jpn:
     authentication/sessions:
       destroy: "ログアウト"
       new: "ログイン"
-      # renew: "Renew session"
     backend: #?
     backend/accounts:
       # edit: "Edit account: %{number} - %{name}"
@@ -18,12 +17,10 @@ jpn:
       # show: "Account: %{number} - %{name}"
       # unmark: "Unmark account"
     backend/activities:
-      # edit: "Edit activity: %{name} "
+      # edit: "Edit activity: %{name}"
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
-    backend/activity_distributions: #?
-    backend/activity_watchings: #?
     backend/affairs:
       # attach: "Attach to affair %{number}"
       # detach: "Detach from affair %{number}"
@@ -53,10 +50,7 @@ jpn:
       # new: "New animal group"
       # show: "Animal group: %{name}"
     backend/animal_medicines:
-      # edit: "Edit animal medicine: %{name}"
       # index: "Animal medicines"
-      # new: "New animal medicine"
-      # show: "Animal medicine: %{name}"
     backend/animal_products:
       # index: "Animal products"
     backend/animals:
@@ -64,8 +58,6 @@ jpn:
       # index: "Animals"
       # new: "Create animal"
       # show: "%{nature}: %{name}"
-    backend/areas: #?
-    backend/assets: #?
     backend/bank_statements:
       # edit: "Edit bank statement %{number}"
       # index: "Bank statements"
@@ -84,7 +76,6 @@ jpn:
       # show: "Building: %{name}"
     backend/calculators:
       # index: "Calculators"
-    backend/calculators/manure_management_plans: #?
     backend/calculators/nitrogen_inputs:
       # edit: "Edit nitrogen input: %{name}"
       # show: "Nitrogen input: %{name}"
@@ -117,17 +108,10 @@ jpn:
     backend/cells/calendar_cells: #?
     backend/cells/collected_taxes_cells: #?
     backend/cells/cropping_plan_cells: #?
-    backend/cells/cropping_plan_on_cultivable_land_parcels_cells: #?
     backend/cells/cropping_plan_on_cultivable_zones_cells: #?
-    backend/cells/current_stocks_by_product_nature_cells: #?
     backend/cells/current_stocks_by_variety_cells: #?
-    backend/cells/demo_bar_cells: #?
-    backend/cells/demo_map_cells: #?
-    backend/cells/demo_pie_cells: #?
     backend/cells/elapsed_interventions_times_by_activities_cells: #?
-    backend/cells/elevage_rss_cells: #?
     backend/cells/events_cells: #?
-    backend/cells/expense_chart_cells: #?
     backend/cells/guide_evolution_cells: #?
     backend/cells/last_analyses_cells: #?
     backend/cells/last_document_archives_cells: #?
@@ -136,21 +120,13 @@ jpn:
     backend/cells/last_incoming_deliveries_cells: #?
     backend/cells/last_interventions_cells: #?
     backend/cells/last_issues_cells: #?
-    backend/cells/last_milk_result_cells: #?
     backend/cells/last_outgoing_deliveries_cells: #?
-    backend/cells/last_procedures_cells: #?
     backend/cells/last_products_cells: #?
     backend/cells/last_purchases_cells: #?
     backend/cells/last_sales_cells: #?
     backend/cells/map_cells: #?
-    backend/cells/meteo_cells: #?
     backend/cells/placeholder_cells: #?
-    backend/cells/product_bar_cells: #?
-    backend/cells/product_pie_cells: #?
-    backend/cells/purchases_bar_cells: #?
-    backend/cells/purchases_expense_bar_cells: #?
     backend/cells/revenues_by_product_nature_cells: #?
-    backend/cells/revenus_by_product_nature_cells: #?
     backend/cells/rss_cells: #?
     backend/cells/weather_cells: #?
     backend/cultivable_zones:
@@ -177,9 +153,6 @@ jpn:
       # stocks: "Stocks dashboard"
       # tools: "Tools dashboard"
       # trade: "Trade dashboard"
-    backend/data_view/manure_management_plans: #?
-    backend/data_view/veterinary_booklets: #?
-    backend/departments: #?
     backend/deposits:
       # edit: "Edit deposit: %{number}"
       # index: "Deposits"
@@ -213,12 +186,9 @@ jpn:
     backend/entity_addresses:
       # edit: "Edit address: %{name}"
       # new: "Add a coordinate"
-    backend/entity_categories: #?
-    backend/entity_link_natures: #?
     backend/entity_links:
       # edit: "Edit link"
       # new: "New link"
-    backend/entity_natures: #?
     backend/equipments:
       # edit: "Edit equipment: %{name}"
       # index: "Equipments"
@@ -228,7 +198,6 @@ jpn:
       # edit: "Edit establishment: %{name}"
       # index: "Establishments"
       # new: "New establishment"
-    backend/event_natures: #?
     backend/event_participations: #?
     backend/events:
       # change_minutes: "Change minutes for event"
@@ -259,14 +228,12 @@ jpn:
       # show: "Gap: %{number}"
     backend/guide_analyses:
       # show: "Analysis #%{execution_number} of %{guide}"
-    backend/guide_readings: #?
     backend/guides:
       # edit: "Edit guide: %{name}"
       # index: "Guides"
       # new: "New guide"
       # run: "Run guide: %{name}"
       # show: "Guide: %{name}"
-    backend/help: #?
     backend/helps:
       # index: "Help"
       # show: "Help: %{name}"
@@ -297,7 +264,6 @@ jpn:
       # index: "Incoming payments"
       # new: "New incoming payment"
       # show: "Incoming payment %{number} of %{entity}"
-    backend/intervention_casts: #?
     backend/interventions:
       # edit: "Edit %{procedure_name} #%{number}"
       # index: "Interventions"
@@ -372,8 +338,6 @@ jpn:
       # index: "Listings and mailings"
       # mail: "Send an email to: %{name}"
       # new: "New listing"
-    backend/logs: #?
-    backend/mandates: #?
     backend/manure_management_plans:
       # edit: "Edit manure management plan: %{name}"
       # index: "Manure management plans"
@@ -384,10 +348,6 @@ jpn:
       # index: "Matters"
       # new: "Create matter"
       # show: "Matter: %{name}"
-    backend/medicines: #?
-    backend/meeting_natures: #?
-    backend/meetings: #?
-    backend/mineral_matters: #?
     backend/myselves:
       # show: "My informations"
     backend/net_services:
@@ -398,12 +358,9 @@ jpn:
     backend/observations:
       # edit: "Edit observation"
       # new: "New observation"
-    backend/operation_natures: #?
-    backend/operation_tasks: #?
     backend/operations:
       # index: "Operations"
       # show: "Operation Details %{name}"
-    backend/organic_matters: #?
     backend/outgoing_deliveries:
       # edit: "Edit outgoing delivery: %{number}"
       # index: "Outgoing deliveries"
@@ -430,14 +387,10 @@ jpn:
       # merge: "Merge person: %{full_name}"
       # new: "New person"
       # show: "Person: %{name}"
-    backend/places: #?
     backend/plant_fertilizers:
       # index: "Plant fertilizers"
     backend/plant_medicines:
-      # edit: "Edit plant medicine: %{name}"
       # index: "Plant medicines"
-      # new: "Create plant medicine"
-      # show: "Plant medicine: %{name}"
     backend/plant_products:
       # index: "Plant products"
     backend/plant_seedlings:
@@ -446,35 +399,21 @@ jpn:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
       # new: "Create plant"
-      # show: "Plant: %{name} "
+      # show: "Plant: %{name}"
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
       # index: "Postal zones"
       # new: "New postal zone"
-    backend/preferences: #?
     backend/prescriptions:
       # edit: "Edit prescription: %{reference_number}"
       # index: "Prescriptions"
       # new: "New prescription"
       # show: "Prescription: %{reference_number}"
-    backend/prices: #?
-    backend/procedure_natures: #?
-    backend/procedures: #?
-    backend/product_abilities: #?
     backend/product_groups:
-      # edit: "Edit group: %{name} "
+      # edit: "Edit group: %{name}"
       # index: "Product groups"
       # new: "New group"
       # show: "Group: %{name}"
-    backend/product_indicator_choices: #?
-    backend/product_indicator_nature_choices: #?
-    backend/product_indicator_natures: #?
-    backend/product_indicators: #?
-    backend/product_links: #?
-    backend/product_localizations: #?
-    backend/product_memberships: #?
-    backend/product_moves: #?
-    backend/product_nature_abilities: #?
     backend/product_nature_categories:
       # edit: "Edit product category: %{name}"
       # incorporate: "Incorporate product nature category: %{name}"
@@ -482,8 +421,6 @@ jpn:
       # new: "New product category"
       # pick: "Pick product nature category: %{name}"
       # show: "Product category: %{name}"
-    backend/product_nature_indicators: #?
-    backend/product_nature_prices: #?
     backend/product_nature_variant_readings: #?
     backend/product_nature_variants:
       # edit: "Edit product variant: %{name}"
@@ -499,16 +436,6 @@ jpn:
       # new: "New product type"
       # pick: "Pick product nature: %{name}"
       # show: "Product type: %{name}"
-    backend/product_ownerships: #?
-    backend/product_phases: #?
-    backend/product_price_listings: #?
-    backend/product_price_templates: #?
-    backend/product_prices: #?
-    backend/product_process_phases: #?
-    backend/product_processes: #?
-    backend/product_readings: #?
-    backend/product_transfers: #?
-    backend/production_support_marker_readings: #?
     backend/production_support_markers: #?
     backend/production_supports:
       # edit: "Edit production support: %{name}"
@@ -525,7 +452,6 @@ jpn:
       # index: "Products"
       # new: "New product"
       # show: "%{nature}: %{name}"
-    backend/professions: #?
     backend/purchase_items:
       # edit: "Edit purhase order item"
       # index: "Purchase items"
@@ -581,7 +507,6 @@ jpn:
       # index: "Sequences"
       # load: "Load missing sequences"
       # new: "New sequence"
-    backend/services: #?
     backend/settings:
       # about: "About Ekylibre"
       # edit: "Configuration"
@@ -603,7 +528,6 @@ jpn:
       # edit: "Edit subscription: %{number} from %{start} to %{finish}"
       # index: "Subscriptions"
       # new: "New subscription"
-    backend/tax_declarations: #?
     backend/taxes:
       # edit: "Edit tax: %{name}"
       # index: "Taxes"
@@ -612,7 +536,6 @@ jpn:
       # edit: "Edit team: %{name}"
       # index: "Teams"
       # new: "New team"
-    backend/tools: #?
     backend/trackings:
       # edit: "Edit tracking: %{name}"
       # index: "Trackings"
@@ -625,7 +548,6 @@ jpn:
       # index: "Transports"
       # new: "New transport"
       # show: "Transport: %{number}"
-    backend/units: #?
     backend/users:
       # edit: "Edit user: %{first_name} %{last_name}"
       # index: "Users"
@@ -633,7 +555,6 @@ jpn:
       # new: "New user"
       # show: "User: %{first_name} %{last_name}"
       # unlock: "Unlock user"
-    backend/vegetals: #?
     backend/wine_tanks:
       # index: "Wine tanks"
     backend/wine_transformers:
@@ -643,7 +564,6 @@ jpn:
       # index: "Workers"
       # new: "New worker"
       # show: "Worker: %{name}"
-    backend/working_sets: #?
     devise/confirmations:
       # new: "New confirmation"
       # show: "Confirmation: %{name}"
@@ -661,8 +581,6 @@ jpn:
       # show: "Unlock: %{name}"
     public:
       # index: "Home"
-  controllers:  #?
-    authentication: "認証" #?
   errors:
     messages:
       # already_confirmed: "was already confirmed, please try signing in"
@@ -681,7 +599,6 @@ jpn:
   labels:
     # account_name: "Account name"
     # account_number: "Account number"
-    account_tabbox: #?
     # accounting_balance: "Accounting balance"
     # accounts: "Accounts"
     # accounts_to_load: "Accounts to load"
@@ -696,13 +613,12 @@ jpn:
     # add_condition: "Add condition"
     # add_conditions: "Add conditions"
     # add_delivery: "Add delivery"
-    # add_diagnostic: "Add diagnostic"
     # add_email: "Add email"
     # add_fax: "Add fax"
-    # add_item: "New element"
+    # add_item: "Add item"
     # add_mail: "Add postal adress"
     # add_mobile: "Add mobile phone number"
-    # add_new_record: "New record"
+    # add_new_record: "Add new record"
     # add_participation: "Add participation"
     # add_payment: "Add payment"
     # add_phone: "Add phone number"
@@ -710,7 +626,6 @@ jpn:
     # add_quickly_a_line: "Add quickly a line of product"
     # add_reading: "Add a value for an indicator"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
-    # add_treatment: "Add treatment"
     # add_website: "Add website"
     # address: "Address"
     # affair: "Affair"
@@ -727,16 +642,13 @@ jpn:
     # analytics: "Analytics"
     # animal: "Animal"
     # animal_bar: "Animals by category"
-    animal_group_tabbox: #?
     # animal_identification: "Animal identification"
     # animal_pie: "Animals by category"
     # animal_productions: "Animal productions"
-    animal_tabbox: #?
     # animals: "Animals"
     apply: "適用する"
     # archives: "Archives"
     # are_you_sure: "Are you sure you want to do this?"
-    are_you_sure_you_want_to: #?
     # are_you_sure_you_want_to_confirm: "Are you sure you want to order"
     # are_you_sure_you_want_to_delete: "Are you sure you want to delete this record?"
     # are_you_sure_you_want_to_delete_delivery: "Are you sure you want to remove the delivery of transport?"
@@ -753,16 +665,6 @@ jpn:
     # back: "Back to the previous page"
     # backup: "Backup"
     # backups: "Backups"
-    bad_browser:
-      # explanation: "This browser version is not supported by Ekylibre. Using this browser, pages are not displayed correctly and features are missing."
-      # proposal: "Please plan to update you with one of these browsers:"
-      # title: "Your web browser seems to be obsolete"
-      wb:
-        # chrome: "Chrome"
-        # firefox: "Firefox"
-        # ie: "Internet Explorer"
-        # opera: "Opera"
-        # safari: "Safari"
     # balance: "Balance"
     # bank_chart: "Bank chart"
     # bban: "Basic Bank Account Number (BBAN)"
@@ -770,7 +672,6 @@ jpn:
     # body: "Body of the message"
     # building: "Building"
     # building_name: "Building name"
-    building_tabbox: #?
     # buildings: "Buildings"
     # calendar: "Calendar"
     # canals: "Canals"
@@ -1001,7 +902,7 @@ jpn:
     # last_analyses: "Last milk analysis"
     # last_animals: "Last birth"
     # last_computed_balance: "Last computed balance"
-    # last_events: "Last Events"
+    # last_events: "Last events"
     # last_payment_amount: "Amount of the last payment"
     # last_payment_date: "Date of the last payment"
     # last_procedures: "Last procedures"
@@ -1173,12 +1074,13 @@ jpn:
     # placeholder: "Placeholder"
     # places: "Places"
     # planned_at: "Planned on"
-    # plant_medicines: "Plant medicines"
-    # plant_productions: "Vegetal produtions"
-    # play: "Play"
+    # plant: "Plant"
     # please_wait: "Please wait…"
+    # point: "Point"
+    # population: "Population"
     # precipitation: "Precipitation"
     # preferences: "Preferences"
+    # prescription: "Prescription"
     # pretax_amount: "Pre-tax amount"
     previous: "前へ"
     # previous_bank_statement: "Previous account statement N°%{number}"
@@ -1244,6 +1146,7 @@ jpn:
     # reported_balance: "Reported Balance"
     # reservoir: "Reservoir"
     # reservoir_informations: "Reservoir informations"
+    # reset: "Reset"
     # resource: "View original document: %{resource} %{number}"
     # resources: "Resources management"
     # rest_to_pay: "Rest to pay"
@@ -1254,7 +1157,6 @@ jpn:
       # other: "%{count} results"
       # zero: "No results"
     # reverse: "Reverse condition"
-    right_modules: #?
     # rights: "Rights"
     # role: "Role"
     # role_name: "Fill the name and check all the needed rights"
@@ -1457,7 +1359,7 @@ jpn:
     x_items_remain_on_y: #?
     x_journal_entries:
       # one: "%{count} journal entries"
-      # other: "%{count} journal entries "
+      # other: "%{count} journal entries"
     x_mandates:
       # one: "%{count} mandate"
       # other: "%{count} mandates"
@@ -1519,172 +1421,112 @@ jpn:
     x_waiting_outgoing_deliveries:
       # one: "%{count} waiting outgoing delivery"
       # other: "%{count} waiting outgoing deliveries"
-    x_years: #?
+    x_years:
+      # one: "1 year"
+      # other: "%{count} years"
+      # zero: "0 years"
     # y: "Yes"
     # yearly: "Yearly"
     # years_count_in_historic: "Years count in historic"
   notifications:
-    # access_denied: "Access denied. %{reason} (%{url})"
-    # bad_file: "The file is incorrect."
-    # bookkeeping_is_finished: "The commercial data transfer is finished."
-    # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
-    # cannot_delete_entity: "This person can't be deleted because there is some accounting history."
-    # cannot_find_deal_to_attach: "Cannot find deal to attach"
-    # cannot_find_deal_to_detach: "Cannot find deal to detach"
-    # cannot_find_document_template: "Cant find document template"
-    # cannot_mark_entry_items: "Can not mark these entry lines"
-    # cannot_merge_an_entity_with_itself: "It's impossible to merge a person with itself"
-    # cannot_merge_entities: "It's impossible to merge these people."
-    # changes_have_been_reflected: "The changes have been reflected in the stocks state"
-    # changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
-    # closed_financial_years: "The financial year has been closed successfully"
-    # columns_are_already_uses: "One or many columns are selected many times"
-    # dashboard_is_being_developed: "Dashboard is under heavy development"
-    draft_entry_items_are_validated:
-      # one: "One entry has been validated"
-      # other: "%{count} entries have been validated"
-      # zero: "No entries has been validated"
-    draft_entry_lines_are_validated: #?
-    # entity_columns_are_needed: "You need to specify at least one column for the person and in particular its family name."
-    # exception_raised: "An error occurred during the processing: %{message}"
-    # expired_session: "Session expired. Please reconnect."
-    # fails_to_extract_listing: "The listing can't be made: %{message}"
-    # implemented_with_dummy_data: "Implemented with dummy data"
-    # importation_cancelled: "Your data was not imported. Import has been canceled"
-    # importation_finished: "The import is complete."
-    # impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
-    # impossible_to_add_items_to_purchase: "You can not add products to your purchase "
-    # invalid_file_nature: "Invalid file type"
-    # journal_closed_at: "The journal “%{journal}” was closed on %{closed_at}."
-    # journal_entry_already_validated: "The record has already been validated and can not be changed"
-    # journal_entry_has_been_saved: "The record %{number} has been successfully saved"
-    # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-    # journal_reopened_at: "The journal “%{journal}” has been re-opened on %{closed_at}."
-    # mails_are_sent: "The emails were sent"
-    # need_balanced_journal_to_tax_declaration: "All your journals must be closed and balanced at that date."
-    # need_building_to_create_purchase_item: "You must create a building to be able to create a purchase."
-    # need_building_to_create_sale_item: "You must create a building to be able to create a sale"
-    # need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
-    # need_cash_to_record_statements: "You must be at least create a bank account to enter a statement."
-    # need_closed_financial_year_to_declaration: "You must have a closed financial year to create a VAT return."
-    # need_company_code_to_login: "You must select your company in order to connect with that user_name."
-    # need_entries_to_point: "No entry was found for the period of the bank statement."
-    # need_journal_to_manage_tax_declaration: "You must have at least one journal of various operations and a journal of sales or purchases in order to save tax returns."
-    # need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
-    # need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice"
-    # need_stocks_building_to_create_products: "You must create a building to be able to create a product"
-    # need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
-    # need_to_create_productions: "Need to create productions"
-    # need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions"
-    # new_actual_number: "The new number is being %{actual_number}"
-    # new_values_are_calculated: "New values are calculated"
-    # no_authenticated: "You could not be identified. The user_name or password must be incorrect."
-    # no_building: "No building is defined. Please create one in order to manage your stocks"
-    # no_closable_financial_year: "No closable financial year."
-    # no_closable_journal: "No closable journal"
-    # no_depositable_payments: "There are no payment to deposit"
-    # no_existing_mandates: "There are no mandates"
-    # no_items_found: "No product has been added to the order"
-    # no_payment_to_deposit: "There are no payment to deposit"
-    # no_reopenable_journal: "You can not re-open this journal."
-    # no_stocks: "You have no stock. If you want to manage the stock of a product, please check the option “Manage stocks” in the characteristics of your product."
-    # no_unconfirmed_stock_transfers: "No unconfirmed stock transfers"
-    # no_unvalidated_operations: "No task to do"
-    # password_successfully_changed: "Your password has been updated successfully"
-    # prices_import_succeeded: "Your data have been successfully imported "
-    # print_failure: "Print failure. Try to reload the templates to correct the problem. %{error} (%{class})."
-    # purchase_already_invoiced: "Purchase already invoiced"
-    # record_cannot_be_removed: "The record can not be deleted"
-    # record_has_been_correctly_removed: "The record has been removed successfully"
-    # record_has_been_imported: "Record has been imported"
-    # record_has_not_been_removed: "The record has not been removed"
-    # restoration_finished: "Restoring the backup has completed (in %{value} seconds)."
-    # sale_already_invoiced: "The sale has already been invoiced: you can not define delivery "
-    # sale_cannot_be_updated: "The estimate is no longer editable."
-    # sale_cant_be_deleted: "The sale can not be deleted."
-    # select_entry_items_to_mark_together: "Select entry items to mark together"
-    # specify_filter: "You must choose at least one search filter"
-    # specify_updates: "You must specify at least one field to edit"
-    # unavailable_model: "Inexistent %{model} (%{id})"
-    # unknown_action: "The requested page is unavailable (%{url})"
-    # unknown_company: "Unknown company"
-    # unvalid_version_for_restore: "The version of the software used to perform the backup does not match the current version of the software"
-    # update_is_done: "The update has been made"
-    # validates_old_inventories: "It is advisable to clear or validate uncommitted inventories before making a new"
-    x_unpointed_journal_entry_items:
-      # one: "There is one entry to point"
-      # other: "There are %{count} entries to point"
-      # zero: "There are no entries to point at the moment"
-    x_unpointed_journal_entry_lines: #?
-    # you_must_have_an_email_column: "You must have an email address in your extraction"
-    # you_must_select_a_file_to_import: "You must select a file to import"
-    # you_will_lose_all_your_current_data: "If you continue, you will lose all your data being entered. Would you continue?"
+    levels:
+      # error: "Error"
+      # information: "Information"
+      # success: "Success"
+      # warning: "Warning!"
+    messages:
+      # access_denied: "Access denied. %{reason} (%{url})"
+      # bookkeeping_is_finished: "The commercial data transfer is finished."
+      # bookkeeping_works_only_with: "The transfer to accountancy can be done only for: %{list}."
+      # cannot_find_deal_to_attach: "Cannot find deal to attach"
+      # cannot_find_deal_to_detach: "Cannot find deal to detach"
+      # cannot_mark_entry_items: "Can not mark these entry lines"
+      # cannot_merge_an_entity_with_itself: "It's impossible to merge a person with itself"
+      # cannot_merge_entities: "It's impossible to merge these people."
+      # changes_have_been_reflected: "The changes have been reflected in the stocks state"
+      # changes_have_not_been_reflected: "The changes have not been reflected in the stocks state"
+      # closed_financial_years: "The financial year has been closed successfully"
+      # columns_are_already_uses: "One or many columns are selected many times"
+      # dashboard_is_being_developed: "Dashboard is under heavy development"
+      draft_entry_items_are_validated:
+        # one: "One entry has been validated"
+        # other: "%{count} entries have been validated"
+        # zero: "No entries has been validated"
+      # entity_columns_are_needed: "You need to specify at least one column for the person and in particular its family name."
+      # exception_raised: "An error occurred during the processing: %{message}"
+      # fails_to_extract_listing: "The listing can't be made: %{message}"
+      # implemented_with_dummy_data: "Implemented with dummy data"
+      # importation_finished: "The import is complete."
+      # impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
+      # impossible_to_add_items_to_purchase: "You can not add products to your purchase"
+      # invalid_file_nature: "Invalid file type"
+      # journal_closed_at: "The journal “%{journal}” was closed on %{closed_at}."
+      # journal_entry_already_validated: "The record has already been validated and can not be changed"
+      # journal_entry_has_been_saved: "The record %{number} has been successfully saved"
+      # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
+      # journal_reopened_at: "The journal “%{journal}” has been re-opened on %{closed_at}."
+      # mails_are_sent: "The emails were sent"
+      # need_building_to_record_stock_moves: "You must create a building to be able to manage stocks."
+      # need_cash_to_record_statements: "You must be at least create a bank account to enter a statement."
+      # need_entries_to_point: "No entry was found for the period of the bank statement."
+      # need_payment_mode_to_create_deposit: "You must specify a mode of payment in order to make deposits"
+      # need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice"
+      # need_stocks_to_create_inventories: "You have to manage some stocks in order to manage inventories"
+      # need_to_create_productions: "Need to create productions"
+      # need_to_create_subscription_nature: "You must create a type of subscription to manage your subscriptions"
+      # new_actual_number: "The new number is being %{actual_number}"
+      # new_values_are_calculated: "New values are calculated"
+      # no_authenticated: "You could not be identified. The user_name or password must be incorrect."
+      # no_closable_journal: "No closable journal"
+      # no_depositable_payments: "There are no payment to deposit"
+      # no_items_found: "No product has been added to the order"
+      # no_payment_to_deposit: "There are no payment to deposit"
+      # no_reopenable_journal: "You can not re-open this journal."
+      # purchase_already_invoiced: "Purchase already invoiced"
+      # record_cannot_be_removed: "The record can not be deleted"
+      # record_has_been_correctly_removed: "The record has been removed successfully"
+      # record_has_been_imported: "Record has been imported"
+      # restoration_finished: "Restoring the backup has completed (in %{value} seconds)."
+      # sale_already_invoiced: "The sale has already been invoiced: you can not define delivery"
+      # sale_cannot_be_updated: "The estimate is no longer editable."
+      # sale_cant_be_deleted: "The sale can not be deleted."
+      # select_entry_items_to_mark_together: "Select entry items to mark together"
+      # unavailable_model: "Inexistent %{model} (%{id})"
+      # unvalid_version_for_restore: "The version of the software used to perform the backup does not match the current version of the software"
+      # update_is_done: "The update has been made"
+      x_unpointed_journal_entry_items:
+        # one: "There is one entry to point"
+        # other: "There are %{count} entries to point"
+        # zero: "There are no entries to point at the moment"
+      # you_must_have_an_email_column: "You must have an email address in your extraction"
   preferences:
-    # assets_sequence: "Numeration of assets"
-    # bank_journal: "Default bank journal"
     # bookkeep_automatically: "Activate the automatic bookkeeping"
     # bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
-    # capital_gains_accounts: "Profit for the year (earnings)"
-    # capital_losses_accounts: "Profit for the year (loss)"
-    # cash_journal: "Default cash journal"
-    # cash_transfers_sequence: "Numeration of cash transfers"
-    # charges_accounts: "Charges accounts"
-    # deposits_sequence: "Numeration of deposits"
+    # chart_of_account: "Chart of account"
+    # country: "Country"
+    # currency: "Currency"
     # detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
-    # entities_sequence: "Numeration of people"
-    # financial_banks_accounts: "Banks accounts"
-    # financial_cashes_accounts: "Cashes accounts"
-    # financial_internal_transfers_accounts: "Internal transfers"
-    # financial_payments_to_deposit_accounts: "Payments to deposit accounts"
-    # forward_journal: "Default carried-forward journal"
-    # incoming_deliveries_sequence: "Numeration of incoming deliveries"
-    # incoming_payments_sequence: "Numeration of incoming payments"
-    # outgoing_deliveries_sequence: "Numeration of outgoing deliveries"
-    # outgoing_payments_sequence: "Numeration of disbursements"
-    # products_accounts: "Products accounts"
-    # purchases_journal: "Default purchases journal"
-    # purchases_sequence: "Numeration of purchases"
-    # sales_invoices_sequence: "Numeration of sales invoices"
-    # sales_journal: "Default sales journal"
-    # sales_sequence: "Numeration of sales"
-    # stock_transfers_sequence: "Numeration of stock transfers"
-    # subscriptions_sequence: "Numeration of subscriptions"
-    # taxes_acquisition_accounts: "Accounts of taxes for intra-Community acquisitions"
-    # taxes_assimilated_accounts: "Assimilated taxes accounts"
-    # taxes_balance_accounts: "Balance taxes accounts"
-    # taxes_collected_accounts: "Collected taxes accounts"
-    # taxes_paid_accounts: "Paid taxes account"
-    # taxes_payback_accounts: "Payback taxes accounts"
-    # third_attorneys_accounts: "Attorneys accounts"
-    # third_clients_accounts: "Clients accounts"
-    # third_suppliers_accounts: "Suppliers accounts"
-    # transports_sequence: "Numeration of transports"
+    # language: "Language"
+    # map_measure_srid: "Map measure SRID"
+    # sales_conditions: "Sales conditions"
     # use_entity_codes_for_account_numbers: "Use code for creating account numbers"
-    # various_journal: "Default various operations journal"
-  unroll:
+  unrolls:
     # backend/accounts: "{number}. {name}"
     # backend/activities: "{name} ({family}/{nature})"
-    backend/activity_distributions: #?
     # backend/analytic_distributions: "{id}"
     # backend/animals: "{name} #{work_number}"
     # backend/campaigns: "{name}"
     # backend/entity_links: "{started_at}"
     # backend/events: "{name}"
     # backend/journal_entry_items: "{name}"
-    # backend/logs: "{observed_at}"
     # backend/matters: "{name} ‒ {work_number}"
     # backend/observations: "{content}"
     # backend/operations: "{nature} ({created_at})"
     # backend/plants: "{name} ‒ {work_number}"
     # backend/prescriptions: "{reference_number}"
-    # backend/product_indicators: "{id}"
     # backend/product_memberships: "{started_at}"
-    # backend/product_nature_prices: "{amount} {currency} / {pretax_amount} {currency}"
     # backend/product_nature_variants: "{name} ({unit_name})"
     # backend/product_natures: "{name}"
-    # backend/product_transfers: "{id}"
     # backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     # backend/products: "{work_number} {name}"
-    # backend/units: "{label} ({name})"
     # backend/users: "{first_name} {last_name}"
-    # bakend/entity_links: "{started_at}"

@@ -6,7 +6,8 @@
       box:
         height: 400
         width: null
-      backgrounds: {}
+      backgrounds:
+        name:[]
       show: null
       edit: null
       change: null
@@ -87,19 +88,19 @@
         
       this.back()
       
-      this.show()
+      #this.show()
       
-      this.edit()
+      #this.edit()
       
-      this.view()
+      #this.view()
       
-      this.height()
+      #this.height()
       
-      this.zoom()
+      #this.zoom()
       
-      this._saveUpdates()
+      #this._saveUpdates()
       
-      this._setDefaultView()
+      #this._setDefaultView()
 
       this._resize()
       # console.log "resized"
@@ -120,10 +121,10 @@
        
       
     back: (backgrounds) ->
-      #return this.options.backgrounds unless backgrounds?
-      console.log "backgrounds"
-      this.options.backgrounds.push(backgrounds)
+      return this.options.backgrounds unless backgrounds?
+      this.options.backgrounds.name = backgrounds.name
       this._refreshBackgroundLayer()   
+
  
     show: (geojson) ->
       return this.options.show unless geojson?
@@ -164,20 +165,11 @@
       # if this.backgroundLayer?
       #   this.map.removeLayer(this.backgroundLayer)
       if this.options.backgrounds?
-        console.log "refreshBackgroundLayer"
-        i = 0
-        while i < this.options.backgrounds.length
-          this.backgroundLayer = L.tileLayer.provider(this.options.backgrounds[i].name)
-          this.backgroundLayer.addTo this.map
-          console.log "refreshBackgroundLayer"
-          i++        
-        # if this.options.backgrounds.constructor.index is "Integer"
-        #   if this.options.backgrounds.constructor.name is "String"
-        #     this.backgroundLayer = L.tileLayer.provider(this.options.backgrounds)
-        #     this.backgroundLayer.addTo this.map
-        # else
-        #   console.log "How to set background with #{this.options.backgrounds}?"
-        #   console.log this.options.backgrounds
+        console.log this.options.backgrounds.name[1]
+        #for name of this.options.backgrounds
+        #this.backgroundLayer = L.tileLayer.provider(name})
+        #this.backgroundLayer.addTo this.map
+        console.log "refreshBackgroundLayer"       
       this
  
     _refreshReferenceLayerGroup: ->
@@ -225,9 +217,9 @@
           this.map.setView(center, 12)
       else if view.bounds?
         this.map.fitBounds(view.bounds)
-      else
-        console.log "How to set view with #{view}?"
-        console.log view
+      #else
+        #console.log "How to set view with #{view}?"
+        #console.log view
       this
  
     _setDefaultView: ->

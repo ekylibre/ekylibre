@@ -6,7 +6,6 @@ arb:
     authentication/sessions:
       destroy: "الخروج"
       new: "الدخول"
-      # renew: "Renew session"
     backend: #?
     backend/account_balances: #?
     backend/accountancy:  #?
@@ -25,7 +24,7 @@ arb:
       show: "الحساب : %{number} - %{name}"
       # unmark: "Unmark account"
     backend/activities:
-      # edit: "Edit activity: %{name} "
+      # edit: "Edit activity: %{name}"
       # index: "Activities"
       # new: "New activity"
       # show: "Activity: %{name}"
@@ -60,10 +59,7 @@ arb:
       # new: "New animal group"
       # show: "Animal group: %{name}"
     backend/animal_medicines:
-      # edit: "Edit animal medicine: %{name}"
       # index: "Animal medicines"
-      # new: "New animal medicine"
-      # show: "Animal medicine: %{name}"
     backend/animal_products:
       # index: "Animal products"
     backend/animals:
@@ -522,10 +518,7 @@ arb:
     backend/plant_fertilizers:
       # index: "Plant fertilizers"
     backend/plant_medicines:
-      # edit: "Edit plant medicine: %{name}"
       # index: "Plant medicines"
-      # new: "Create plant medicine"
-      # show: "Plant medicine: %{name}"
     backend/plant_products:
       # index: "Plant products"
     backend/plant_seedlings:
@@ -534,7 +527,7 @@ arb:
       # edit: "Edit plant: %{name}"
       # index: "Plants"
       # new: "Create plant"
-      # show: "Plant: %{name} "
+      # show: "Plant: %{name}"
     backend/posologies: #?
     backend/postal_zones:
       # edit: "Edit postal zone: %{name}"
@@ -562,7 +555,7 @@ arb:
       edit: "تعديل عنصر المنتج %{product} " #?
       new: "اضافة عنصر الى المنتج %{product} " #?
     backend/product_groups:
-      # edit: "Edit group: %{name} "
+      # edit: "Edit group: %{name}"
       # index: "Product groups"
       # new: "New group"
       # show: "Group: %{name}"
@@ -952,13 +945,12 @@ arb:
     add_condition: "اضافة شرط"
     add_conditions: "اضف شروط"
     add_delivery: "اضافة وسيلة نقل"
-    # add_diagnostic: "Add diagnostic"
     # add_email: "Add email"
     # add_fax: "Add fax"
-    # add_item: "New element"
+    # add_item: "Add item"
     # add_mail: "Add postal adress"
     # add_mobile: "Add mobile phone number"
-    # add_new_record: "New record"
+    # add_new_record: "Add new record"
     # add_participation: "Add participation"
     add_payment: "اضافة دفعة"
     # add_phone: "Add phone number"
@@ -966,7 +958,6 @@ arb:
     # add_quickly_a_line: "Add quickly a line of product"
     # add_reading: "Add a value for an indicator"
     # add_subscription_for_sale_line: "Add subscription for sale line #%{position}"
-    # add_treatment: "Add treatment"
     # add_website: "Add website"
     address: "العنوان"
     # affair: "Affair"
@@ -1012,16 +1003,16 @@ arb:
     back: "التأكد من صحة واسترداد قائمة وسائل النقل"
     backup: "نسخ احتياطية"
     backups: "النسخ الاحتياطية"
-    bad_browser:
-      explanation: "لم يتم دعم هذا الاصدار من المتصفح من قبل ايكيلينغ لاستخدامه، ولم يتم عرض الصفحات بشكل صحيح والميزات اصبحت مفقودة. "
-      proposal: "رجاءا، خططو لانقاذ صفحة واحدة من هذه المتصفحات اليوم:"
-      title: "يبدو على متصفح الويب الخاص بك قديم"
-      wb:
-        chrome: "جوجل كروم"
-        firefox: "فاير فوكس"
-        ie: "انترنت اكسبلورير"
-        opera: "الاوبرا"
-        safari: "سفاري رحلة قنص"
+    bad_browser:  #?
+      explanation: "لم يتم دعم هذا الاصدار من المتصفح من قبل ايكيلينغ لاستخدامه، ولم يتم عرض الصفحات بشكل صحيح والميزات اصبحت مفقودة. " #?
+      proposal: "رجاءا، خططو لانقاذ صفحة واحدة من هذه المتصفحات اليوم:" #?
+      title: "يبدو على متصفح الويب الخاص بك قديم" #?
+      wb: #?
+        chrome: "جوجل كروم" #?
+        firefox: "فاير فوكس" #?
+        ie: "انترنت اكسبلورير" #?
+        opera: "الاوبرا" #?
+        safari: "سفاري رحلة قنص" #?
     balance: "رصيد الحساب"
     bank_accounts: "" #?
     # bank_chart: "Bank chart"
@@ -1320,7 +1311,7 @@ arb:
     # last_analyses: "Last milk analysis"
     # last_animals: "Last birth"
     # last_computed_balance: "Last computed balance"
-    # last_events: "Last Events"
+    # last_events: "Last events"
     # last_payment_amount: "Amount of the last payment"
     # last_payment_date: "Date of the last payment"
     # last_procedures: "Last procedures"
@@ -1550,12 +1541,13 @@ arb:
     # placeholder: "Placeholder"
     # places: "Places"
     planned_at: "قرر يوم"
-    # plant_medicines: "Plant medicines"
-    # plant_productions: "Vegetal produtions"
-    # play: "Play"
+    # plant: "Plant"
     # please_wait: "Please wait…"
+    # point: "Point"
+    # population: "Population"
     # precipitation: "Precipitation"
     # preferences: "Preferences"
+    # prescription: "Prescription"
     # pretax_amount: "Pre-tax amount"
     previous: "السابق"
     previous_bank_statement: "رقم الكشف المصرفي السابق%{number}"
@@ -1641,6 +1633,7 @@ arb:
     reservoir: "الاحتياطي"
     reservoir_informations: "معلومات عن خزان الاحتياطي"
     reservoirs_create: "اضافة خزان احتياطي" #?
+    # reset: "Reset"
     resource: "مراجعة السجلات الاصلية : %{resource} %{number}"
     resources: "ادارة الموارد البشرية"
     rest_to_pay: "القيمة المتبقية"
@@ -1974,124 +1967,131 @@ arb:
     x_waiting_outgoing_deliveries:
       # one: "%{count} waiting outgoing delivery"
       # other: "%{count} waiting outgoing deliveries"
-    x_years: #?
+    x_years:
+      # one: "1 year"
+      # other: "%{count} years"
+      # zero: "0 years"
     y: "نعم"
     yearly: "Annuelle"
     years_count_in_historic: "عدد السنوات عامة"
   notifications:
-    access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
-    bad_file: "لا يبدو ان الملفات متطابقة"
-    bookkeeping_is_finished: "نهاية نطاق المحاسبة"
-    bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
-    cannot_delete_entity: "غير ممكن حذف هذا الملف لاحتوائه على محاسبة هامة"
-    # cannot_find_deal_to_attach: "Cannot find deal to attach"
-    # cannot_find_deal_to_detach: "Cannot find deal to detach"
-    # cannot_find_document_template: "Cant find document template"
-    # cannot_mark_entry_items: "Can not mark these entry lines"
-    cannot_merge_an_entity_with_itself: "غير ممكن دمج الملف مع نفسه"
-    cannot_merge_entities: "Une erreur est survenue. غير ممكن دمج هذه الملفات"
-    changes_have_been_reflected: "كانت تنعكس التغييرات بشكل صحيح على الوضع الحالي للاسهم"
-    changes_have_not_been_reflected: "لم تكن تنعكس هذه التغييرات بشكل صحيح على الوضع الحالي للأسهم"
-    closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
-    columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
-    # dashboard_is_being_developed: "Dashboard is under heavy development"
-    draft_entry_items_are_validated:
-      # one: "One entry has been validated"
-      # other: "%{count} entries have been validated"
-      # zero: "No entries has been validated"
-    draft_entry_lines_are_validated:  #?
-      one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات" #?
-      other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى" #?
-      zero: "لم يتم التحقق من صحة اي ملف" #?
-    entity_columns_are_needed: ".يجب عليك تحديد عامود واحد كحد ادنى للفرد بما في ذلك اسمه"
-    exception_raised: "ظهور خطأ واحد اثناء المعالجة: %{message}"
-    expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال"
-    fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
-    # implemented_with_dummy_data: "Implemented with dummy data"
-    import_succeeded: "نم استيراد بياناتك بشكل صحيح" #?
-    importation_cancelled: "لم تم استيراد بياناتك، تم الغاء الاستيراد"
-    importation_finished: "انتهاء الاستيراد"
-    # impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
-    # impossible_to_add_items_to_purchase: "You can not add products to your purchase "
-    impossible_to_add_lines: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب" #?
-    impossible_to_add_lines_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك" #?
-    invalid_file_nature: "نوع الملف غير صحيح"
-    journal_closed_at: "  ال%{journal} تم اغلاقه في %{closed_at} بشكل صحيح."
-    journal_entry_already_validated: "قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه"
-    journal_entry_has_been_saved: "رقم السجل%{number} تم تسجيله بشكل صحيح"
-    # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
-    journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح."
-    mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
-    need_balanced_journal_to_tax_declaration: "يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ"
-    # need_building_to_create_purchase_item: "You must create a building to be able to create a purchase."
-    need_building_to_create_purchase_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء" #?
-    # need_building_to_create_sale_item: "You must create a building to be able to create a sale"
-    need_building_to_create_sale_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع" #?
-    need_building_to_record_stock_moves: "يجب عليك تسجيل مواقعك للتخزين لتتمكن من ادارة اسهمك"
-    need_cash_to_record_statements: "يجب عليك مشاء حساب مصرفي واحد كحد ادنى لاستلاء على بيانات الحساب"
-    need_closed_financial_year_to_declaration: "يجب عليك اغلاق السنة المالية لانشاء تصريح لقيمة الضريبة المضافة"
-    need_company_code_to_login: "يجب عليك اختيار شركتك لتتمكن من الاتصال باسم المستخدم"
-    need_entries_to_point: "لم يتم العثور على اي من المدخلات لمدة كشف الحساب المصرفي"
-    need_journal_to_manage_tax_declaration: "يجب ان يكون لديك دفتر الاجراءات المختلفة اليوميةكحد ادنى ودفتر مبيعات يومي او شراء لتتمكن من تسجيل تصاريح الضرائب"
-    need_payment_mode_to_create_deposit: "يجب عليك تحديد طريقة الدفع لتنفيذ عملية الاقتطاع المصرفي"
-    # need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice"
-    need_quantities_to_cancel_an_sales_invoice: "يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة" #?
-    need_stocks_building_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج"
-    need_stocks_to_create_inventories: "يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد"
-    # need_to_create_productions: "Need to create productions"
-    need_to_create_subscription_nature: "يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك"
-    new_actual_number: "الرقم الجديد الحالي هو %{actual_number}"
-    # new_values_are_calculated: "New values are calculated"
-    no_authenticated: "ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة"
-    no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد" #?
-    no_building: "لم يتم التعرف على اي موقع للتخزين، الرجاء انشاء واحد لتتمكن من ادارة اسهمك"
-    no_closable_financial_year: "ليس لديك اي سنة مالية قابلة للاغلاق "
-    no_closable_journal: "ليس باستطاعتك اغلاق هذا الدفتر اليومي"
-    no_depositable_payments: "لا يوجد دفعات لتقديمها للبنك"
-    no_existing_mandates: "ليس هنالك من تفويض مسجل في الوقت الحاضر"
-    no_financial_year: "لم يتم تسجيل اي سنة مالية" #?
-    # no_items_found: "No product has been added to the order"
-    no_lines_found: "لم يتم اضافة اي منتج الى الطلب" #?
-    no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
-    no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
-    no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك"
-    no_template_journal: "ليس هنالك من نموذج للدفتر اليومي" #?
-    no_template_journal_by_id: "ليس هنالك من نموذج للدفتر اليومي" #?
-    # no_unconfirmed_stock_transfers: "No unconfirmed stock transfers"
-    no_unvalidated_operations: "لم يتم تحقيق اية اجراء"
-    password_successfully_changed: "تم تغيير كلمة المرور الخاصة بك بنجاح"
-    prices_import_succeeded: "تم استيراد بياناتك بشكل صحيح"
-    print_failure: " غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة%{error} (%{class})."
-    # purchase_already_invoiced: "Purchase already invoiced"
-    record_cannot_be_removed: "لا يمكن حذف السجل"
-    record_has_been_correctly_removed: "تم حذف السجل بشكل صحيح"
-    # record_has_been_imported: "Record has been imported"
-    record_has_not_been_removed: "لم يتم حذف السجل بشكل صحيح"
-    restoration_finished: "انتهاء استعادة النسخ الاحتياطية  ( بالثواني%{value}). رمزك بالشركة هو %{code}"
-    sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم"
-    sale_cannot_be_updated: "الطلب غير قابل للتعديل"
-    sale_cant_be_deleted: "ليس بامكانك الغاء طلب البيع"
-    select_entries_to_letter_together: "اختر الادخالات للكتابة معا " #?
-    # select_entry_items_to_mark_together: "Select entry items to mark together"
-    specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث"
-    specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل"
-    unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})"
-    unknown_action: "الصفحة المطلوبة غير متوفرة (%{url})"
-    unknown_company: "شركة غير معروفة"
-    unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي"
-    update_is_done: "قد انجز اعداد التحديث"
-    validates_old_inventories: "ينصح بالغاء أو التحقق من صحة قوائم الجرد قبل اتخاذ جديد"
-    x_unpointed_journal_entry_items:
-      # one: "There is one entry to point"
-      # other: "There are %{count} entries to point"
-      # zero: "There are no entries to point at the moment"
-    x_unpointed_journal_entry_lines:  #?
-      one: "يوجد مدخل واحد مشار اليه" #?
-      other: "%{count} يوجد مدخلات اخرى مشار اليه" #?
-      zero: "ليس هنالك اية ادخال مشار اليه في هذه اللحظة" #?
-    you_must_have_an_email_column: "يجب ان يكون لديك عمود خاص بالبريد الالكتروني"
-    you_must_select_a_file_to_import: "يجب عليك اختيار ملف للاستيراد"
-    you_will_lose_all_your_current_data: "اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟"
+    levels:
+      error: "خطأ"
+      information: "معلومة"
+      success: "استكملت العملية بنجاح"
+      warning: "!تحذير"
+    messages:
+      access_denied: " ليس لديك الصلاحية لبلوغ هذه الصفحة %{reason} (%{url})"
+      bad_file: "لا يبدو ان الملفات متطابقة" #?
+      bookkeeping_is_finished: "نهاية نطاق المحاسبة"
+      bookkeeping_works_only_with: "يمكن جعل نطاق الماسبة الحالية ل : %{list}."
+      cannot_delete_entity: "غير ممكن حذف هذا الملف لاحتوائه على محاسبة هامة" #?
+      # cannot_find_deal_to_attach: "Cannot find deal to attach"
+      # cannot_find_deal_to_detach: "Cannot find deal to detach"
+      # cannot_mark_entry_items: "Can not mark these entry lines"
+      cannot_merge_an_entity_with_itself: "غير ممكن دمج الملف مع نفسه"
+      cannot_merge_entities: "Une erreur est survenue. غير ممكن دمج هذه الملفات"
+      changes_have_been_reflected: "كانت تنعكس التغييرات بشكل صحيح على الوضع الحالي للاسهم"
+      changes_have_not_been_reflected: "لم تكن تنعكس هذه التغييرات بشكل صحيح على الوضع الحالي للأسهم"
+      closed_financial_years: "تم اغلاق السنة المالية بشكل صحيح"
+      columns_are_already_uses: "تم اخيار عامود او اكثر للتحميل لمرات عدة"
+      # dashboard_is_being_developed: "Dashboard is under heavy development"
+      draft_entry_items_are_validated:
+        # one: "One entry has been validated"
+        # other: "%{count} entries have been validated"
+        # zero: "No entries has been validated"
+      draft_entry_lines_are_validated:  #?
+        one: "تم التحقق من صحة الملفات واخراجها من قائمة المسودات" #?
+        other: "واخراجها من قائمة المسودات %{count} تم التحقق من صحة الملفات الاخرى" #?
+        zero: "لم يتم التحقق من صحة اي ملف" #?
+      entity_columns_are_needed: ".يجب عليك تحديد عامود واحد كحد ادنى للفرد بما في ذلك اسمه"
+      exception_raised: "ظهور خطأ واحد اثناء المعالجة: %{message}"
+      expired_session: ".نهاية الدورة. الرجاء معاودة الاتصال" #?
+      fails_to_extract_listing: "لم يتمكن الاستخراج من اتمام التنفيذ : %{message}"
+      # implemented_with_dummy_data: "Implemented with dummy data"
+      import_succeeded: "نم استيراد بياناتك بشكل صحيح" #?
+      importation_cancelled: "لم تم استيراد بياناتك، تم الغاء الاستيراد" #?
+      importation_finished: "انتهاء الاستيراد"
+      # impossible_to_add_items: "You can add more products to your sale, the estimate is passed in order"
+      # impossible_to_add_items_to_purchase: "You can not add products to your purchase"
+      impossible_to_add_lines: "لا يمكنك اضافة منتجات اخرى لمبيعاتك، تم تمرير الاسعار مع الطلب" #?
+      impossible_to_add_lines_to_purchase: "لا يمكنك اضافة منتجات اخرى لمشترياتك" #?
+      invalid_file_nature: "نوع الملف غير صحيح"
+      journal_closed_at: "  ال%{journal} تم اغلاقه في %{closed_at} بشكل صحيح."
+      journal_entry_already_validated: "قد سبق التحقق من صحة الملف ولا يمكن اجراء اي تعديل اخر عليه"
+      journal_entry_has_been_saved: "رقم السجل%{number} تم تسجيله بشكل صحيح"
+      # journal_entry_items_marked_with_letter: "Journal entry items have been marked with letter %{letter}"
+      journal_reopened_at: "%{journal} تم اعادة فتحه في %{closed_at} بشكل صحيح."
+      levels: #?
+      mails_are_sent: "تم ارسال رسائل البريد الالكتروني"
+      messages: #?
+      need_balanced_journal_to_tax_declaration: "يجب ان تكون جميع دفاتركم اليومية مغلقة ومتوازنة مع هذا التاريخ" #?
+      need_building_to_create_purchase_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية الشراء" #?
+      need_building_to_create_sale_line: "يجب عليك انشاء موقع للتخزين لتتمكن من اجراء عملية البيع" #?
+      need_building_to_record_stock_moves: "يجب عليك تسجيل مواقعك للتخزين لتتمكن من ادارة اسهمك"
+      need_cash_to_record_statements: "يجب عليك مشاء حساب مصرفي واحد كحد ادنى لاستلاء على بيانات الحساب"
+      need_closed_financial_year_to_declaration: "يجب عليك اغلاق السنة المالية لانشاء تصريح لقيمة الضريبة المضافة" #?
+      need_company_code_to_login: "يجب عليك اختيار شركتك لتتمكن من الاتصال باسم المستخدم" #?
+      need_entries_to_point: "لم يتم العثور على اي من المدخلات لمدة كشف الحساب المصرفي"
+      need_journal_to_manage_tax_declaration: "يجب ان يكون لديك دفتر الاجراءات المختلفة اليوميةكحد ادنى ودفتر مبيعات يومي او شراء لتتمكن من تسجيل تصاريح الضرائب" #?
+      need_payment_mode_to_create_deposit: "يجب عليك تحديد طريقة الدفع لتنفيذ عملية الاقتطاع المصرفي"
+      # need_quantities_to_cancel_an_sale: "You must specify a quantity in order to cancel the sales invoice"
+      need_quantities_to_cancel_an_sales_invoice: "يجب عليك تحديد الكمية لتتمكن من اجراءات الفاتورة" #?
+      need_stocks_building_to_create_products: "يجب عليك انشاء موقع للتخزين لتتمكن من انشاء منتج" #?
+      need_stocks_to_create_inventories: "يجب عليك ادارة الاسهم لمنتج واحد كحد ادنى لتتمكن من اجراء عمليات الجرد"
+      # need_to_create_productions: "Need to create productions"
+      need_to_create_subscription_nature: "يجب عليك انشاء نوع اشتراك لتتمكن من ادارة اشتراكاتك"
+      new_actual_number: "الرقم الجديد الحالي هو %{actual_number}"
+      # new_values_are_calculated: "New values are calculated"
+      no_authenticated: "ليس بامكانك ان تكون محدد، ان اسم المستخدم او كلمة المرور غير صحيحة"
+      no_balance_template: "ليس هناك من نموذج لوثيقة الرصيد" #?
+      no_building: "لم يتم التعرف على اي موقع للتخزين، الرجاء انشاء واحد لتتمكن من ادارة اسهمك" #?
+      no_closable_financial_year: "ليس لديك اي سنة مالية قابلة للاغلاق " #?
+      no_closable_journal: "ليس باستطاعتك اغلاق هذا الدفتر اليومي"
+      no_depositable_payments: "لا يوجد دفعات لتقديمها للبنك"
+      no_existing_mandates: "ليس هنالك من تفويض مسجل في الوقت الحاضر" #?
+      no_financial_year: "لم يتم تسجيل اي سنة مالية" #?
+      # no_items_found: "No product has been added to the order"
+      no_lines_found: "لم يتم اضافة اي منتج الى الطلب" #?
+      no_payment_to_deposit: "ليس هنالك من دفعات للحصر"
+      no_reopenable_journal: "ليس بامكانك اعادة فتح الدفاتر اليومية"
+      no_stocks: "ليس لديك اية سهم، اذا رغبت بادارة سهم المنتج، الرجاء ضع علامة على خيار «ادارة الاسهم» في خصائص منتجاتك" #?
+      no_template_journal: "ليس هنالك من نموذج للدفتر اليومي" #?
+      no_template_journal_by_id: "ليس هنالك من نموذج للدفتر اليومي" #?
+      no_unvalidated_operations: "لم يتم تحقيق اية اجراء" #?
+      password_successfully_changed: "تم تغيير كلمة المرور الخاصة بك بنجاح" #?
+      prices_import_succeeded: "تم استيراد بياناتك بشكل صحيح" #?
+      print_failure: " غير قابل للطباعة، حاول تحديث نماذج الوئائق لتصحيح المشكلة%{error} (%{class})." #?
+      # purchase_already_invoiced: "Purchase already invoiced"
+      record_cannot_be_removed: "لا يمكن حذف السجل"
+      record_has_been_correctly_removed: "تم حذف السجل بشكل صحيح"
+      # record_has_been_imported: "Record has been imported"
+      record_has_not_been_removed: "لم يتم حذف السجل بشكل صحيح" #?
+      restoration_finished: "انتهاء استعادة النسخ الاحتياطية  ( بالثواني%{value}). رمزك بالشركة هو %{code}"
+      sale_already_invoiced: "قد سبق وتم فوترة البيع: ليس بامكانك تعري التسليم"
+      sale_cannot_be_updated: "الطلب غير قابل للتعديل"
+      sale_cant_be_deleted: "ليس بامكانك الغاء طلب البيع"
+      select_entries_to_letter_together: "اختر الادخالات للكتابة معا " #?
+      # select_entry_items_to_mark_together: "Select entry items to mark together"
+      specify_filter: "اختر تطبيق تصفية واحدة كحد ادنى للبحث" #?
+      specify_updates: "يجب عليك تحديد حقل واحد كحد ادنى للتعديل" #?
+      unavailable_model: "%{model} غير متوفر أو غير موجود (%{id})"
+      unknown_action: "الصفحة المطلوبة غير متوفرة (%{url})" #?
+      unknown_company: "شركة غير معروفة" #?
+      unvalid_version_for_restore: "ان اصدار البرنامج المستخدم لتنفيذ النسخ الاحتياطية لا يطابق اصدار البرنامج الحالي"
+      update_is_done: "قد انجز اعداد التحديث"
+      validates_old_inventories: "ينصح بالغاء أو التحقق من صحة قوائم الجرد قبل اتخاذ جديد" #?
+      x_unpointed_journal_entry_items:
+        # one: "There is one entry to point"
+        # other: "There are %{count} entries to point"
+        # zero: "There are no entries to point at the moment"
+      x_unpointed_journal_entry_lines:  #?
+        one: "يوجد مدخل واحد مشار اليه" #?
+        other: "%{count} يوجد مدخلات اخرى مشار اليه" #?
+        zero: "ليس هنالك اية ادخال مشار اليه في هذه اللحظة" #?
+      you_must_have_an_email_column: "يجب ان يكون لديك عمود خاص بالبريد الالكتروني"
+      you_must_select_a_file_to_import: "يجب عليك اختيار ملف للاستيراد" #?
+      you_will_lose_all_your_current_data: "اذا قمت بالمتابعة، فسوف تفقد جميع البيانات الحالية. فهل ترغب بالاستمرار؟" #?
   preferences:
     accountancy:  #?
       accounts: #?
@@ -2122,27 +2122,15 @@ arb:
         purchases: "مشتريات دورية افتراضية" #?
         sales: "مبيعات دورية افتراضية" #?
         various: "الاجراءات اليومية المختلفة افتراضيا" #?
-    # assets_sequence: "Numeration of assets"
-    # bank_journal: "Default bank journal"
     # bookkeep_automatically: "Activate the automatic bookkeeping"
     # bookkeep_in_draft: "Save the records in draft mode during bookkeeping"
-    # capital_gains_accounts: "Profit for the year (earnings)"
-    # capital_losses_accounts: "Profit for the year (loss)"
-    # cash_journal: "Default cash journal"
-    # cash_transfers_sequence: "Numeration of cash transfers"
-    # charges_accounts: "Charges accounts"
-    # deposits_sequence: "Numeration of deposits"
+    # chart_of_account: "Chart of account"
+    # country: "Country"
+    # currency: "Currency"
     # detail_payments_in_deposit_bookkeeping: "Detail all the payments in deposit bookkeeping"
-    # entities_sequence: "Numeration of people"
-    # financial_banks_accounts: "Banks accounts"
-    # financial_cashes_accounts: "Cashes accounts"
-    # financial_internal_transfers_accounts: "Internal transfers"
-    # financial_payments_to_deposit_accounts: "Payments to deposit accounts"
-    # forward_journal: "Default carried-forward journal"
     general:  #?
       language: "اللغة المفترضة" #?
-    # incoming_deliveries_sequence: "Numeration of incoming deliveries"
-    # incoming_payments_sequence: "Numeration of incoming payments"
+    # language: "Language"
     management:  #?
       deposits: #?
         days_before_warning_undone: "عدد الايام قبل منع الضرائب الفير تامة" #?
@@ -2158,59 +2146,29 @@ arb:
         numeration: "احصاء الفواتير" #?
       subscriptions: #?
         numeration: "احصاء الاشتراكات" #?
-    # outgoing_deliveries_sequence: "Numeration of outgoing deliveries"
-    # outgoing_payments_sequence: "Numeration of disbursements"
-    # products_accounts: "Products accounts"
-    # purchases_journal: "Default purchases journal"
-    # purchases_sequence: "Numeration of purchases"
+    # map_measure_srid: "Map measure SRID"
     relations:  #?
       entities: #?
         numeration: "احصاء ملفات العملاء / الممولين" #?
-    # sales_invoices_sequence: "Numeration of sales invoices"
-    # sales_journal: "Default sales journal"
-    # sales_sequence: "Numeration of sales"
-    # stock_transfers_sequence: "Numeration of stock transfers"
-    # subscriptions_sequence: "Numeration of subscriptions"
-    # taxes_acquisition_accounts: "Accounts of taxes for intra-Community acquisitions"
-    # taxes_assimilated_accounts: "Assimilated taxes accounts"
-    # taxes_balance_accounts: "Balance taxes accounts"
-    # taxes_collected_accounts: "Collected taxes accounts"
-    # taxes_paid_accounts: "Paid taxes account"
-    # taxes_payback_accounts: "Payback taxes accounts"
-    # third_attorneys_accounts: "Attorneys accounts"
-    # third_clients_accounts: "Clients accounts"
-    # third_suppliers_accounts: "Suppliers accounts"
-    # transports_sequence: "Numeration of transports"
+    # sales_conditions: "Sales conditions"
     # use_entity_codes_for_account_numbers: "Use code for creating account numbers"
-    # various_journal: "Default various operations journal"
-  unroll:
+  unrolls:
     # backend/accounts: "{number}. {name}"
     # backend/activities: "{name} ({family}/{nature})"
-    backend/activity_distributions: #?
     # backend/analytic_distributions: "{id}"
     # backend/animals: "{name} #{work_number}"
     # backend/campaigns: "{name}"
     # backend/entity_links: "{started_at}"
     # backend/events: "{name}"
     # backend/journal_entry_items: "{name}"
-    # backend/logs: "{observed_at}"
     # backend/matters: "{name} ‒ {work_number}"
     # backend/observations: "{content}"
     # backend/operations: "{nature} ({created_at})"
     # backend/plants: "{name} ‒ {work_number}"
     # backend/prescriptions: "{reference_number}"
-    # backend/product_indicators: "{id}"
     # backend/product_memberships: "{started_at}"
-    # backend/product_nature_prices: "{amount} {currency} / {pretax_amount} {currency}"
     # backend/product_nature_variants: "{name} ({unit_name})"
     # backend/product_natures: "{name}"
-    # backend/product_transfers: "{id}"
     # backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     # backend/products: "{work_number} {name}"
-    # backend/units: "{label} ({name})"
     # backend/users: "{first_name} {last_name}"
-    # bakend/entity_links: "{started_at}"
-    logs: #?
-    product_events: #?
-    products: #?
-    units: #?

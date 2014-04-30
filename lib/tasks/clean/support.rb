@@ -132,6 +132,34 @@ module Clean
         return code, count, total
       end
 
+
+      def look_for_labels(*paths)
+        list = []
+        for path in paths
+          for file in Dir.glob(path)
+            source = File.read(file)
+            source.gsub(/(\'[^\']+\'|\"[^\"]+\"|\:\w+)\.tl/) do |exp|
+              exp.gsub!(/\.tl\z/, '')
+              exp.gsub!(/\A\:/, '')
+              exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ or exp =~ /\A\".*\"\z/ 
+              exp.gsub!(/\#\{[^\}]+\}/, '*')
+              list << exp
+            end
+            source.gsub(/(\'labels\.[^\']+\'|\"labels\.[^\"]+\")\.t/) do |exp|
+              exp.gsub!(/\.t\z/, '')
+              exp = exp[1..-2] if exp =~ /\A\'.*\'\z/ or exp =~ /\A\".*\"\z/ 
+              exp.gsub!(/\Alabels\./, '')
+              exp.gsub!(/\#\{[^\}]+\}/, '*')
+              list << exp
+            end
+          end
+        end
+        # list += actions_hash.delete_if{|k,v| k == "backend/dashboards" }.values.flatten.uniq.delete_if{|a| a =~ /\Alist\_/ }
+        return list.delete_if{|l| l == "*" or l.underscore != l }.uniq.sort
+      end
+
+
+
       
       def default_action_title(controller_path, action_name)
         action_name = action_name.to_sym unless action_name.is_a?(Symbol)

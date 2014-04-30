@@ -58,7 +58,7 @@ end
 require 'reporting'
 require 'enumerize/xml'
 
-require 'active_list'
-::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)
-::ActionView::Base.send(:include, ActiveList::ActionPack::ViewsHelper)
+# require 'active_list'
+# ::ActionController::Base.send(:include, ActiveList::ActionPack::ActionController)
+# ::ActionView::Base.send(:include, ActiveList::ActionPack::ViewsHelper)
 
