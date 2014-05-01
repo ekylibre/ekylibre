@@ -35,6 +35,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="350"
+       precipitations_max="1000"
        />
        <item name="wheat_ru_med_1"
        crop="wheat"
@@ -54,6 +55,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
         <item name="wheat_ru_max_1"
        crop="wheat"
@@ -73,6 +75,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
        <!-- SPRING CEREAL -->
       <item name="spring_straw_cereal_ru_min_1"
@@ -93,6 +96,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="350"
+       precipitations_max="1000"
        />
        <item name="spring_straw_cereal_ru_med_1"
        crop="spring_straw_cereal"
@@ -112,6 +116,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
         <item name="spring_straw_cereal_ru_max_1"
        crop="spring_straw_cereal"
@@ -131,6 +136,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
        <!-- CORN -->
       <item name="corn_ru_min_1"
@@ -151,6 +157,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="350"
+       precipitations_max="1000"
        />
        <item name="corn_ru_med_1"
        crop="corn"
@@ -170,6 +177,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
         <item name="corn_ru_max_1"
        crop="corn"
@@ -189,11 +197,14 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
         <!-- RAPESEED -->
       <item name="rapeseed_ru_min_1"
        crop="rapeseed"
        po="100"
+       minimum_available_water_capacity="0"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="0"
@@ -203,14 +214,19 @@
        <item name="rapeseed_ru_min_2"
        crop="rapeseed"
        po="85"
+       minimum_available_water_capacity="0"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="350"
+       precipitations_max="1000"
        plant_developpment="small"
        />
        <item name="rapeseed_ru_med_1"
        crop="rapeseed"
        po="130"
+       minimum_available_water_capacity="0"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="0"
@@ -220,14 +236,19 @@
        <item name="rapeseed_ru_med_2"
        crop="rapeseed"
        po="115"
+       minimum_available_water_capacity="0"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="350"
+       precipitations_max="1000"
        plant_developpment="medium"
        />
        <item name="rapeseed_ru_max_1"
        crop="rapeseed"
        po="160"
+       minimum_available_water_capacity="0"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="0"
@@ -237,9 +258,12 @@
        <item name="rapeseed_ru_max_2"
        crop="rapeseed"
        po="145"
+       minimum_available_water_capacity="0"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="350"
+       precipitations_max="1000"
        plant_developpment="hight"
        />
        <!-- SUNFLOWER -->
@@ -261,6 +285,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="350"
+       precipitations_max="1000"
        />
        <item name="sunflower_ru_med_1"
        crop="sunflower"
@@ -280,11 +305,13 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
        <item name="sunflower_ru_max_1"
        crop="sunflower"
        po="95"
        minimum_available_water_capacity="120"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="0"
@@ -294,9 +321,11 @@
        crop="sunflower"
        po="80"
        minimum_available_water_capacity="120"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
        <!-- FLAX -->
       <item name="flax_ru_min_1"
@@ -317,6 +346,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="350"
+       precipitations_max="1000"
        />
        <item name="flax_ru_med_1"
        crop="flax"
@@ -336,11 +366,13 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
        <item name="flax_ru_max_1"
        crop="flax"
        po="70"
        minimum_available_water_capacity="120"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="0"
@@ -350,9 +382,11 @@
        crop="flax"
        po="55"
        minimum_available_water_capacity="120"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
        <!-- HEMP -->
       <item name="hemp_ru_min_1"
@@ -373,6 +407,7 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="350"
+       precipitations_max="1000"
        />
        <item name="hemp_ru_med_1"
        crop="hemp"
@@ -392,11 +427,13 @@
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
        <item name="hemp_ru_max_1"
        crop="hemp"
        po="95"
        minimum_available_water_capacity="120"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="0"
@@ -406,9 +443,11 @@
        crop="hemp"
        po="80"
        minimum_available_water_capacity="120"
+       maximum_available_water_capacity="200"
        precipitations_started_period="10"
        precipitations_stopped_period="03"
        precipitations_min="400"
+       precipitations_max="1000"
        />
     </items>
   </nomenclature>

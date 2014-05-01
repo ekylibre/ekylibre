@@ -188,7 +188,7 @@ module Calculus
             for input in intervention.casts.of_role(:'soil_enrichment-input')
               if i = input.actor
                 # get nitrogen concentration (t) in percent
-                t = i.nitrogen_concentration(input).to_d(:percent)
+                t = i.nitrogen_concentration.to_d(:percent)
                 # get the keq coefficient from abacus_8
                   # get the variant reference_name
                   variant = i.variant_reference_name
@@ -203,12 +203,12 @@ module Calculus
                   variant.to_s == item.variant.to_s and sets.include?(item.crop.to_s) and month.to_i >= item.input_period_start.to_i
                 end
                 if items.any?
-                  keq = items.first.keq.in_kilogram_per_hectare
+                  keq = items.first.keq.to_d
                 end
                 # get net_mass (n) and working area for input density
                 n = i.net_mass(input).to_d(:ton)
                 if working_area != 0
-                  q = (n / working_area).in_ton_per_hectare
+                  q = (n / working_area).to_d
                 end
                 if t and keq and q
                   xa = (t / 10) * keq * q
@@ -226,14 +226,49 @@ module Calculus
       # Estimate Rf
       def estimate_nitrogen_at_closing
         quantity = 0.in_kilogram_per_hectare
-        # TODO
+        if @variety and @variety <= :nicotiana
+          quantity = 50.in_kilogram_per_hectare
+        end
+        if @soil_nature and capacity = @options[:available_water_capacity].in_liter_per_square_meter
+          items = Nomen::NmpPoitouCharentesAbacusNine.list.select do |item|
+            @soil_nature <= item.soil_nature and item.minimum_available_water_capacity.in_liter_per_square_meter <= capacity and capacity < item.maximum_available_water_capacity.in_liter_per_square_meter
+          end
+          if items.any?
+            quantity = items.first.rf.in_kilogram_per_hectare
+          end
+        end
         return quantity        
       end
 
       # Estimate Po
       def estimate_soil_production
         quantity = 0.in_kilogram_per_hectare
-        # TODO
+        sets = crop_sets.map(&:name).map(&:to_s)
+        # TODO find a way to retrieve water falls
+        water_falls = 380.in_liter_per_square_meter
+        
+        if capacity = @options[:available_water_capacity].in_liter_per_square_meter and sets = crop_sets.map(&:name).map(&:to_s) 
+          if @variety and @variety <= :brassica_napus
+            
+            plant_growth_indicator = @cultivation.
+            
+            items = Nomen::NmpPoitouCharentesAbacusTen.list.select do |item|
+            item.plant_developpment == plant_growth_indicator.to_s and sets.include?(item.crop.to_s) and (item.precipitations_min.in_liter_per_square_meter <= water_falls and water_falls < item.precipitations_max.in_liter_per_square_meter)
+            end
+            
+            
+          elsif @variety
+            
+            items = Nomen::NmpPoitouCharentesAbacusTen.list.select do |item|
+            (item.minimum_available_water_capacity.in_liter_per_square_meter <= capacity and capacity < item.maximum_available_water_capacity.in_liter_per_square_meter) and sets.include?(item.crop.to_s) and (item.precipitations_min.in_liter_per_square_meter <= water_falls and water_falls < item.precipitations_max.in_liter_per_square_meter)
+            end
+          else
+            items = {}
+          end
+          if items.any?
+            quantity = items.first.po.in_kilogram_per_hectare
+          end
+        end
         return quantity        
       end
 
@@ -276,7 +311,7 @@ module Calculus
 
         # X
         values[:nitrogen_input] = nil
-        if soil_natures.include?(Nomen::SoilNatures[:clay_limestone_soil]) or soil_natures.include?(Nomen::SoilNatures[:chesnut_red_soil])
+        if soil_natures.include?(Nomen::SoilNatures[:clay_limestone_soil]) or soil_natures.include?(Nomen::SoilNatures[:chesnut_red_soil]) and @variety and @variety > :nicotiana
           # CAU = 0.8
           # X = [(Pf - Po - Mr - MrCi - Nirr) / CAU] - Xa
           fertilizer_apparent_use_coeffient = 0.8.to_d
