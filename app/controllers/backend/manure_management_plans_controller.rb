@@ -19,7 +19,9 @@
 
 class Backend::ManureManagementPlansController < BackendController
   manage_restfully redirect_to: "{action: :edit, id: 'id'}".c
-
+  
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+  
   unroll
 
   list do |t|
