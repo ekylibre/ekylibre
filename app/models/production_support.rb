@@ -40,6 +40,8 @@ class ProductionSupport < Ekylibre::Record::Base
   belongs_to :storage, class_name: "Product", inverse_of: :supports
   belongs_to :production, inverse_of: :supports
   has_many :interventions
+  has_many :manure_management_plan_zones, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
+  has_one :selected_manure_management_plan_zone, -> { selected }, class_name: "ManureManagementPlanZone", foreign_key: :support_id, inverse_of: :support
   has_many :markers, class_name: "ProductionSupportMarker", foreign_key: :support_id, inverse_of: :support
   has_one :activity, through: :production
   has_one :campaign, through: :production
@@ -122,22 +124,36 @@ class ProductionSupport < Ekylibre::Record::Base
 
   # @TODO for nitrogen balance but will be refactorize for any chemical components
   def nitrogen_balance
-    balance = []
+    #
     # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded
     # m = net_mass of the input at intervention time
     # n = nitrogen concentration (in %) of the input at intervention time
-    for intervention in self.interventions.real.of_nature(:soil_enrichment)
-      for input in intervention.casts.of_role('soil_enrichment-input')
-        m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
-        n = (input.actor ? input.actor.nitrogen_concentration(input).to_d(:unity) : 0.0)
-        balance <<  m * n
+    # 
+    # B = O - I
+    balance = 0.0
+    nitrogen_mass = []
+    nitrogen_unity_per_hectare = nil
+    if self.selected_manure_management_plan_zone
+    # get the output O aka nitrogen_input from opened_at (in kg N / Ha )
+    o = self.selected_manure_management_plan_zone.nitrogen_input.to_d
+    opened_at = self.selected_manure_management_plan_zone.opened_at
+    # get the nitrogen input I from opened_at to now (in kg N / Ha )
+      for intervention in self.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.now)
+        for input in intervention.casts.of_role('soil_enrichment-input')
+          m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
+          n = (input.actor ? input.actor.nitrogen_concentration.to_d(:unity) : 0.0)
+          nitrogen_mass <<  m * n
+        end
+      end
+      # if net_surface_area, make the division
+      if surface_area = self.storage_net_surface_area(self.started_at)
+        i = (nitrogen_mass.compact.sum / surface_area.to_d(:hectare)).to_d
+      end
+      if i and o
+        balance = o - i
       end
     end
-    # if net_surface_area, make the division
-    if surface_area = self.storage_net_surface_area(self.started_at)
-      nitrogen_unity_per_hectare = (balance.compact.sum / surface_area.to_d(:hectare))
-    end
-    return nitrogen_unity_per_hectare
+    return balance
   end
 
   def potassium_balance

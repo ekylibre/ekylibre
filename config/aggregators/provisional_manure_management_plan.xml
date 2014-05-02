@@ -31,9 +31,12 @@
             <property name="stopped_at" of="support" type="datetime"/>
             <property name="provisional_grains_yield" if="support.mass_area_yield" value="support.mass_area_yield" type="measure"/>
             <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
-            <property name="nitrogen_input_real" value="support.nitrogen_balance.in(:kilogram_per_hectare).round(2)" type="measure"/>
-            <property name="nitrogen_input_prev" if="support.nitrogen_area_density" value="support.nitrogen_area_density" type="measure"/>
-            <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
+            
+            <property name="nitrogen_input_prev" if="support.selected_manure_management_plan_zone" value="support.selected_manure_management_plan_zone.nitrogen_input"/>
+            <property name="nitrogen_balance" value="support.nitrogen_balance.in(:kilogram_per_hectare).round(2)" type="measure"/>
+            <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target 
+            
+            -->
             <!-- looking for all provisional soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="provisional_intervention" in="support.interventions.provisional.of_nature(:'soil_enrichment').with_cast(:'soil_enrichment-target', zone).order(:started_at)" of-type="record">
               <variable name="actor" value="provisional_intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>

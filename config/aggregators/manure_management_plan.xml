@@ -25,14 +25,15 @@
           <sections for="support" in="zone.supports.of_campaign(campaign)" of-type="record">
             <title name="storage.name" of="support"/>
             <property name="variant_name" value="support.production.variant_name"/>
-            <property name="variant_variety" value="support.production.variant_variety"/>
+            <property name="nitrogen_input_prev" if="support.selected_manure_management_plan_zone" value="support.selected_manure_management_plan_zone.nitrogen_input"/>
+            
+            <property name="variant_variety" if="support.production" value="support.production.variant_variety"/>
             <property name="sowed_at" value="support.implanted_at" type="datetime"/>
             <property name="harvested_at" value="support.harvested_at" type="datetime"/>
             <property name="grains_yield" value="support.grains_yield(:quintal)" type="measure"/>
             <property name="provisional_grains_yield" value="support.mass_area_yield" type="measure"/>
             <property name="previous_production_name" value="zone.last_production_before(support.production)"/>
             <property name="nitrogen_input_real" value="support.nitrogen_balance" type="measure"/>
-            <property name="nitrogen_input_prev" value="support.nitrogen_area_density" type="measure"/>
             <!-- looking for all real soil_enrichment Procedure in current production and with cultivable land parcel in target -->
             <sections for="intervention" in="support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).with_cast(:'soil_enrichment-target', zone)" of-type="record">
               <variable name="actor" value="intervention.casts.of_role(:'soil_enrichment-target').first.actor"/>
