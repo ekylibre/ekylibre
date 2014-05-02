@@ -1163,6 +1163,7 @@ eng:
         journal: "Journal"
         land_parcel_registry: "Land parcel registry"
         manure_management_plan: "Manure management plan"
+        # manure_management_plan_sheet: "Manure management plan sheet"
         outgoing_deliveries_journal: "Outgoing deliveries journal"
         outgoing_delivery_docket: "Outgoing delivery docket"
         phytosanitary_registry: "Phytosanitary registry"
@@ -1833,6 +1834,7 @@ eng:
         maintenance: "Maintenance"
         milk_production: "Milk production"                 #< animal_production
         oviparous_birth: "Oviparous birth"
+        # pasturing: "Pasturing"                           #< animal_feeding
         piece_replacement: "Piece replacement"             #< maintenance
         plant_fertilisation: "Plant fertilisation"
         plant_illness_treatment: "Plant illness treatment"

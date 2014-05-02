@@ -6,7 +6,7 @@
       <property-nature name="roles" type="list" nomenclature="procedure_roles" required="false"/>
     </property-natures>
     <items>
-      <item name="animal_feeding" roles="input, target"/>
+      <item name="animal_feeding" roles="input, target, doer, tool"/>
       <item name="animal_health" roles="input, target, doer"/>
       <item name="animal_production" roles="target, output, doer"/>
       <item name="viviparous_birth" roles="target, output"/>
@@ -87,6 +87,7 @@
   <nomenclature name="procedure_natures-animal_feeding">
     <items>
       <item name="food_supply" roles="input, target, doer, tool"/>
+      <item name="pasturing" roles="input, target"/>
     </items>
   </nomenclature>
 

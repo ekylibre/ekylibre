@@ -1,5 +1,7 @@
 = main_toolbar do |t|
   - t.edit resource
+  - t.export do |e|
+    - e.manure_management_plan_sheet resource.id.to_s, resource
 
 = beehive do |b|
   - b.cell do

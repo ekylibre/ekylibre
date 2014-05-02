@@ -3610,6 +3610,7 @@ eng:
         product_group: "Product group"
         product_junction: "Product junction"
         product_junction_way: "Product junction way"
+        product_link: "Product link"
         product_linkage: "Product linkage"
         product_localization: "Product localization"
         product_membership: "Product membership"

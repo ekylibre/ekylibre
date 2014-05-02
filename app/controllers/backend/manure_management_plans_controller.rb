@@ -49,5 +49,13 @@ class Backend::ManureManagementPlansController < BackendController
     t.column :soil_production, hidden: true
     t.column :nitrogen_input
   end
+  
+  # Show one animal with params_id
+  def show
+    return unless @manure_management_plan = find_and_check
+    t3e @manure_management_plan
+    respond_with(@manure_management_plan, :include => [:campaign, :recommender, {:zones => {:include => [:support, :activity,:production]}}])
 
+  end
+  
 end

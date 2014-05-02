@@ -37,6 +37,7 @@
       <item name="prescription" category="health"/>
       <item name="veterinary_booklet" category="health"/>
       <item name="manure_management_plan" category="land_parcel_management"/>
+      <item name="manure_management_plan_sheet" category="land_parcel_management"/>
       <item name="provisional_manure_management_plan" category="land_parcel_management"/>
       <item name="phytosanitary_registry" category="land_parcel_management"/>
       <item name="land_parcel_registry" category="land_parcel_management"/>

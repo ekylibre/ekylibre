@@ -7,97 +7,97 @@
     <property-natures>
       <property-nature name="intermediate_crop_variety" type="choice" nomenclature="crop_sets" required="true"/>
       <property-nature name="growth_level" type="choice" nomenclature="plants_growth_levels" required="false"/>
-      <property-nature name="intermediate_crop_destruction_period_start" type="string" required="false"/><!-- MM-JJ -->
-      <property-nature name="intermediate_crop_destruction_period_stop" type="string" required="false"/><!-- MM-JJ -->
+      <property-nature name="intermediate_crop_destruction_period_start" type="string" required="false"/><!-- MMJJ -->
+      <property-nature name="intermediate_crop_destruction_period_stop" type="string" required="false"/><!-- MMJJ -->
       <property-nature name="mrci" type="integer" required="true"/><!-- kg de N / ha -->
     </property-natures>
     <items>
       <!-- Seigle et Phacélie -->
       <item name="secale_phacelia_low" intermediate_crop_variety="secale_phacelia"
         growth_level="low"
-        intermediate_crop_destruction_period_start="11-01"
-        intermediate_crop_destruction_period_stop="12-31" 
+        intermediate_crop_destruction_period_start="1101"
+        intermediate_crop_destruction_period_stop="1231" 
         mrci="0"
       />
       <item name="secale_phacelia_low" intermediate_crop_variety="secale_phacelia"
         growth_level="low"
-        intermediate_crop_destruction_period_start="01-01"
-        intermediate_crop_destruction_period_stop="10-31" 
+        intermediate_crop_destruction_period_start="0101"
+        intermediate_crop_destruction_period_stop="1031" 
         mrci="5"
       />
       <item name="secale_phacelia_high" intermediate_crop_variety="secale_phacelia"
         growth_level="high"
-        intermediate_crop_destruction_period_start="01-01"
-        intermediate_crop_destruction_period_stop="12-31" 
+        intermediate_crop_destruction_period_start="0101"
+        intermediate_crop_destruction_period_stop="1231" 
         mrci="10"
       />
       <!-- Graminée -->
        <item name="grass_low" intermediate_crop_variety="grass"
         growth_level="low"
-        intermediate_crop_destruction_period_start="11-01"
-        intermediate_crop_destruction_period_stop="12-31" 
+        intermediate_crop_destruction_period_start="1101"
+        intermediate_crop_destruction_period_stop="1231" 
         mrci="10"
       />
       <item name="grass_low" intermediate_crop_variety="grass"
         growth_level="low"
-        intermediate_crop_destruction_period_start="01-01"
-        intermediate_crop_destruction_period_stop="10-31" 
+        intermediate_crop_destruction_period_start="0101"
+        intermediate_crop_destruction_period_stop="1031" 
         mrci="15"
       />
       <item name="grass_high" intermediate_crop_variety="grass"
         growth_level="high"
-        intermediate_crop_destruction_period_start="11-01"
-        intermediate_crop_destruction_period_stop="12-31" 
+        intermediate_crop_destruction_period_start="1101"
+        intermediate_crop_destruction_period_stop="1231" 
         mrci="15"
       />
       <item name="grass_high" intermediate_crop_variety="grass"
         growth_level="high"
-        intermediate_crop_destruction_period_start="01-01"
-        intermediate_crop_destruction_period_stop="10-31" 
+        intermediate_crop_destruction_period_start="0101"
+        intermediate_crop_destruction_period_stop="1031" 
         mrci="20"
       />
       <!-- Crucifères -->
        <item name="crucifers_low" intermediate_crop_variety="crucifers"
         growth_level="low"
-        intermediate_crop_destruction_period_start="11-01"
-        intermediate_crop_destruction_period_stop="12-31" 
+        intermediate_crop_destruction_period_start="1101"
+        intermediate_crop_destruction_period_stop="1231" 
         mrci="10"
       />
       <item name="crucifers_low" intermediate_crop_variety="crucifers"
         growth_level="low"
-        intermediate_crop_destruction_period_start="01-01"
-        intermediate_crop_destruction_period_stop="10-31" 
+        intermediate_crop_destruction_period_start="0101"
+        intermediate_crop_destruction_period_stop="1031" 
         mrci="15"
       />
       <item name="crucifers_high" intermediate_crop_variety="crucifers"
         growth_level="high"
-        intermediate_crop_destruction_period_start="11-01"
-        intermediate_crop_destruction_period_stop="12-31" 
+        intermediate_crop_destruction_period_start="1101"
+        intermediate_crop_destruction_period_stop="1231" 
         mrci="15"
       />
       <item name="crucifers_high" intermediate_crop_variety="crucifers"
         growth_level="high"
-        intermediate_crop_destruction_period_start="01-01"
-        intermediate_crop_destruction_period_stop="10-31" 
+        intermediate_crop_destruction_period_start="0101"
+        intermediate_crop_destruction_period_stop="1031" 
         mrci="20"
       />
       <!-- Légumineuses -->
        <item name="leguminosae_low" intermediate_crop_variety="leguminosae"
         growth_level="low"
-        intermediate_crop_destruction_period_start="11-01"
-        intermediate_crop_destruction_period_stop="12-31" 
+        intermediate_crop_destruction_period_start="1101"
+        intermediate_crop_destruction_period_stop="1231" 
         mrci="25"
       />
       <item name="leguminosae_low" intermediate_crop_variety="leguminosae"
         growth_level="low"
-        intermediate_crop_destruction_period_start="01-01"
-        intermediate_crop_destruction_period_stop="10-31" 
+        intermediate_crop_destruction_period_start="0101"
+        intermediate_crop_destruction_period_stop="1031" 
         mrci="30"
       />
       <item name="leguminosae_high" intermediate_crop_variety="leguminosae"
         growth_level="high"
-        intermediate_crop_destruction_period_start="01-01"
-        intermediate_crop_destruction_period_stop="12-31" 
+        intermediate_crop_destruction_period_start="0101"
+        intermediate_crop_destruction_period_stop="1231" 
         mrci="30"
       />
     </items>

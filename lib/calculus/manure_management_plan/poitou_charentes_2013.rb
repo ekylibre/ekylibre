@@ -92,14 +92,27 @@ module Calculus
       def estimate_humus_mineralization
         quantity = 30.in_kilogram_per_hectare
         sets = crop_sets.map(&:name).map(&:to_s)
+        campaigns = self.campaign.previous.reorder(harvest_year: :desc)
         if sets.any? and @soil_nature
           items = Nomen::NmpPoitouCharentesAbacusFive.list.select do |item|
             @soil_nature <= item.soil_nature and
               sets.include?(item.cereal_typology.to_s)
           end
           if items.any?
-            # TODO How to determine exploitation typology ?
-            typology = [:cereal_crop, :husbandry, :mixed_crop, :husbandry_with_mixed_crop].first
+            # if there are animal's activities on farm in campaign
+            if Activity.of_campaign(campaigns).of_families(:animal_farming).count > 0
+              # if animals moved on cultivable_zones in previous campaign then :husbandry_with_mixed_crop else :husbandry
+              if Intervention.of_campaign(campaigns).of_nature(:pasturing).count > 0
+                typology = :husbandry_with_mixed_crop
+              else
+                typology = :husbandry
+              end
+            # elsif all production on the campagin is link to a crop_set :cereals then :cereal_crop
+            elsif Activity.of_campaign(campaigns).of_families(:straw_cereal_crops).count == Activity.of_campaign(campaigns).of_families(:vegetal_crops).count
+              typology = :cereal_crop
+            else 
+              typology = :mixed_crop
+            end
             quantity = items.first.send(typology).in_kilogram_per_hectare
           end
         end
@@ -112,7 +125,7 @@ module Calculus
         rank, found = 1, nil
         for campaign in self.campaign.previous.reorder(harvest_year: :desc)
           for support in campaign.production_supports.where(storage_id: @support.storage.id)
-            if support.production.variant_variety < sdsd
+            if support.production.variant_variety <= :poa
               found = support
               break
             end
@@ -137,7 +150,65 @@ module Calculus
       # Estimate "Mr"
       def estimate_previous_cultivation_residue_mineralization
         quantity = 0.in_kilogram_per_hectare
-        # TODO
+        # get the previous cultivation variety on the current support storage
+        previous_variety = nil
+        for campaign in self.campaign.previous.reorder(harvest_year: :desc)
+          for support in campaign.production_supports.where(storage_id: @support.storage.id)
+            # if an implantation intervention exist, get the plant output
+            if previous_implantation_intervention = support.interventions.of_nature(:implantation).where(state: :done).order(:started_at).last
+              if previous_cultivation = previous_implantation_intervention.casts.of_role(:output).actor
+                previous_variety = previous_cultivation.variety
+                previous_cultivation_dead_at = previous_cultivation.dead_at
+                break
+              end
+              break if previous_variety
+            # elsif get the production_variant
+            elsif support.production_variant
+              previous_variety = support.production_variant.variety
+              break
+            end
+            break if previous_variety
+          end
+          break if previous_variety
+        end
+        
+        if previous_variety
+          # find corresponding crop_sets to previous_variety
+          previous_crop_sets = Nomen::CropSets.list.select do |i|
+            i.varieties.detect do |v|
+              previous_variety <= v
+            end
+          end
+          previous_sets = previous_crop_sets.map(&:name).map(&:to_s)
+        end
+        # build variables for abacus 7
+        # find the previous crop age in months
+        if previous_cultivation and previous_cultivation.dead_at and previous_cultivation.born_at
+          previous_crop_age = ((previous_cultivation.dead_at - previous_cultivation.born_at)/(3600*24*30)).to_i
+        else
+          previous_crop_age = 1
+        end
+        # find the previous crop destruction period date in format MMDD
+        if previous_cultivation and previous_cultivation.dead_at
+          previous_crop_destruction_period = previous_cultivation.dead_at.strftime("%m%d")
+        else
+          previous_crop_destruction_period = '0831'
+        end
+        # find the current crop implantation period date in format MMDD
+        if @cultivation
+          current_crop_implantation_period = @cultivation.born_at.strftime("%m%d")
+        else
+          current_crop_implantation_period = '0315'
+        end
+        # find items in abacus 7
+        if previous_sets and previous_crop_age and previous_crop_destruction_period and current_crop_implantation_period
+          items = Nomen::NmpPoitouCharentesAbacusSeven.list.select do |item|
+            previous_sets.include?(item.previous_crop.to_s) and (item.previous_crop_minimum_age <= previous_crop_age and previous_crop_age < item.previous_crop_maximum_age) and (item.previous_crop_destruction_period_start.to_i <= previous_crop_destruction_period and previous_crop_destruction_period < item.previous_crop_destruction_period_stop.to_i) and current_crop_implantation_period.to_i >= item.current_crop_implantation_period_start.to_i
+          end
+          if items.any?
+            quantity = items.first.quantity.in_kilogram_per_hectare
+          end
+        end
         return quantity
       end
 
@@ -148,11 +219,55 @@ module Calculus
         sets = crop_sets.map(&:name).map(&:to_s)
         if sets.any? and sets.include?('spring_crop')
           if @support.storage
-            # TODO
-            # return the last plant on the storage
+            previous_variety = nil
+            for campaign in self.campaign.previous.reorder(harvest_year: :desc)
+              for support in campaign.production_supports.where(storage_id: @support.storage.id)
+                # if an implantation intervention exist, get the plant output
+                if previous_implantation_intervention = support.interventions.of_nature(:implantation).where(state: :done).order(:started_at).last
+                  if previous_cultivation = previous_implantation_intervention.casts.of_role(:output).actor
+                    previous_variety = previous_cultivation.variety
+                    previous_cultivation_dead_at = previous_cultivation.dead_at
+                    break
+                  end
+                  break if previous_variety
+                # elsif get the production_variant
+                elsif support.production_variant
+                  previous_variety = support.production_variant.variety
+                  break
+                end
+                break if previous_variety
+              end
+              break if previous_variety
+            end
+
+            if previous_variety
+              # find corresponding crop_sets to previous_variety
+              previous_crop_sets = Nomen::CropSets.list.select do |i|
+                i.varieties.detect do |v|
+                  previous_variety <= v
+                end
+              end
+              previous_sets = previous_crop_sets.map(&:name).map(&:to_s)
+            end
             
-            # check if this plant is linked to a production with a nature <> "main"
-            
+            # build variables for abacus 11
+            previous_crop_destruction_period = '0831'
+            previous_crop_plants_growth_level = "hight"
+            if previous_cultivation and previous_cultivation.dead_at
+              previous_crop_destruction_period = previous_cultivation.dead_at.strftime("%m%d")
+              if previous_cultivation.get(:plant_growth_level)
+                previous_crop_plants_growth_level = previous_cultivation.get(:plant_growth_level)
+              end
+            end
+            if previous_sets and previous_crop_destruction_period and previous_crop_plants_growth_level
+              # get value from abacus 11
+              items = Nomen::NmpPoitouCharentesAbacusEleven.list.select do |item|
+            previous_sets.include?(item.intermediate_crop_variety.to_s) and (item.intermediate_crop_destruction_period_start.to_i <= previous_crop_destruction_period.to_i and previous_crop_destruction_period.to_i < item.intermediate_crop_destruction_period_stop.to_i) and previous_crop_plants_growth_level.to_s == item.growth_level.to_s
+              end
+              if items.any?
+                quantity = items.first.mrci.in_kilogram_per_hectare
+              end
+            end
           end
         end
         return quantity

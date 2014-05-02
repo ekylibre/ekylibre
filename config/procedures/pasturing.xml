@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
   <!-- ######################################## TRAITEMENT VETERINAIRE ########################################### -->
-  <procedure name="pasturing" natures="harvest,animal_feeding" version="0" status="frozen">
+  <procedure name="pasturing" natures="harvest,pasturing" version="0" status="frozen">
     <variables>
-      <variable name="herd"           variety="animal_group" derivative_of="animal" roles="harvest-tool,harvest-doer,animal_feeding-target" default-actor="variant-localized-in-storage"/> 
-      <variable name="cultivation"    variety="poaceae" roles="harvest-target" need="shape" default-actor="storage" >
+      <variable name="herd"           variety="animal_group" derivative_of="animal" roles="harvest-tool,harvest-doer,pasturing-target" default-actor="variant-localized-in-storage"/> 
+      <variable name="cultivation"    variety="poa" roles="harvest-target" need="shape" default-actor="storage" >
         <handler indicator="shape">
           <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
           <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
         </handler>
       </variable>
-      <variable name="grass"         variety="grass" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output,animal_feeding-input" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
+      <variable name="grass"         variety="grass" derivative-of="variety: cultivation" new="produced-by: cultivation" roles="harvest-output,pasturing-input" need="population" default-name="{{variant}} {{birth_year}} ({{container}})">
         <handler indicator="population" />
         <handler indicator="net_mass"            unit="ton"             to="population"
                  forward="value / self..net_mass(ton)"

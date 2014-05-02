@@ -882,6 +882,7 @@ arb:
       # product_group: "Product group"
       # product_junction: "Product junction"
       # product_junction_way: "Product junction way"
+      # product_link: "Product link"
       # product_linkage: "Product linkage"
       # product_localization: "Product localization"
       # product_membership: "Product membership"
@@ -1110,9 +1111,12 @@ arb:
     condition_operator: "المقارنة"
     condition_value: "قيمة المقارنة"
     conditions: "(SQL) شروط"
+    # confirmation_sent_at: "Confirmation sent at"
+    # confirmation_token: "Confirmation token"
     confirmed_at: "تم التأكيد عليه يوم"
     connected_at: "سجل الدخول في" #?
     # consumer: "Consumer"
+    # consumer_way: "Consumer way"
     consumption: "الاستهلاك" #?
     contact: "العنوان" #?
     contact_id: "العنوان" #?
@@ -1155,6 +1159,8 @@ arb:
     # current_mother_link: "Current mother link"
     # current_ownership: "Current ownership"
     # current_phase: "Current phase"
+    # current_sign_in_at: "Current sign in at"
+    # current_sign_in_ip: "Current sign in ip"
     custom_field: "حقول اضافية"
     custom_field_choices: "اختيارات الحقول الاضافية" #?
     custom_field_data: "تكملة بيانات الملف" #?
@@ -1317,6 +1323,7 @@ arb:
     fax: "فاكس" #?
     # faxes: "Faxes"
     # fifth_producer: "Fifth producer"
+    # fifth_producer_way: "Fifth producer way"
     # file_content_text: "File content text"
     # file_content_type: "File content type"
     # file_file_name: "File file name"
@@ -1479,6 +1486,7 @@ arb:
     lines: "طرق تسديد الفاتورة" #?
     # linkage_points_list: "Linkage points list"
     # linkages: "Linkages"
+    # linked: "Linked"
     # links: "Links"
     listing: "الاستخراج"
     listing_id: "استخاج" #?
@@ -1787,6 +1795,8 @@ arb:
     # reporter: "Reporter"
     required: "الزامي"
     reservoir: "المخزن" #?
+    # reset_password_sent_at: "Reset password sent at"
+    # reset_password_token: "Reset password token"
     resource: "المصدر الاصلي"
     resource_id: "المصدر الاصلي" #?
     resource_type: "نوع المصدر"
@@ -1955,6 +1965,7 @@ arb:
     # unit_price_amount: "Unit price amount"
     unit_quantity: "وحدة مساحة الكمية" #?
     units: "الوحدات" #?
+    # unlock_token: "Unlock token"
     # unlocked_payments: "Unlocked payments"
     # unpaid_sales: "Unpaid sales"
     unquantifiable: "غير قابل للقياس" #?
