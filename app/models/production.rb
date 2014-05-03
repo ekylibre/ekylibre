@@ -49,6 +49,7 @@ class Production < Ekylibre::Record::Base
   has_many :interventions, inverse_of: :production
   has_many :storages, through: :supports
   has_many :casts, through: :interventions, class_name: "InterventionCast"
+  # has_many :selected_manure_management_plan_zones, class_name: "ManureManagementPlanZone", through: :supports
   # has_many :land_parcel_groups, :through => :supports, class_name: "Product" #, :conditions => {:variety => "land_parcel_group"}
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
