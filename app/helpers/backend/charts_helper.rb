@@ -24,7 +24,7 @@ module Backend::ChartsHelper
     hash
   end.freeze
 
-  TYPES = [:line, :spline, :area, :area_spline, :column, :bar, :pie, :scatter, :area_range, :area_spline_range, :column_range].inject({}) do |hash, name|
+  TYPES = [:line, :spline, :area, :area_spline, :column, :bar, :pie, :scatter, :area_range, :area_spline_range, :column_range, :waterfall].inject({}) do |hash, name|
     hash[name] = name.to_s.gsub('_', '')
     hash
   end.freeze

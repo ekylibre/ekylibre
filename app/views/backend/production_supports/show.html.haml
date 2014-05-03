@@ -10,7 +10,46 @@
       - l.attribute :started_at
       - l.attribute :stopped_at
       - l.attribute :irrigated
+      
+  - if resource.selected_manure_management_plan_zone
+    - b.cell :manure_management_plan_chart do
+      - if resource.selected_manure_management_plan_zone
+        :ruby
+          # prepare an array of hash
+          
+          data_series = []
+          nitrogen_mass = []
+          
+          if resource.selected_manure_management_plan_zone.nitrogen_input > 0
+            o = resource.selected_manure_management_plan_zone.nitrogen_input.to_d
+          end
+          opened_at = resource.selected_manure_management_plan_zone.opened_at
 
+          data_series << { name: 'Fumure calculée (X) au' + opened_at.strftime("%d/%m/%Y"), y: o.to_s.to_f}
+          
+          # get the nitrogen input I from opened_at to now (in kg N / Ha )
+          
+            for intervention in resource.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(opened_at, Time.now).reorder(:started_at)  
+              i = 0
+              for input in intervention.casts.of_role('soil_enrichment-input')
+                m = (input.actor ? input.actor.net_mass(input).to_d(:kilogram) : 0.0)
+                n = (input.actor ? input.actor.nitrogen_concentration.to_d(:unity) : 0.0)
+                nitrogen_mass <<  m * n
+              end
+              if surface_area = intervention.casts.of_role('soil_enrichment-target').first.population
+                i = (nitrogen_mass.compact.sum / surface_area.to_d)
+                data_series << { name: intervention.name + ' du ' + intervention.started_at.strftime("%d/%m/%Y"), y: -i.to_s.to_f}
+              end
+            end
+            
+            data_series << { name: "Reste à apporter", isSum: true, color: cycle(*Backend::ChartsHelper::COLORS)}
+
+          series = []
+          series << {up_color: cycle(*Backend::ChartsHelper::COLORS), color: cycle(*Backend::ChartsHelper::COLORS), data: data_series, data_labels: {enabled: false}}
+
+        = waterfall_chart(series, tooltip: {point_format: '{point.y: 1.3f} kg N / Ha'}, title: {text: 'Bilan azote'}, legend: {enabled: false}, x_axis: {type: 'category'}, y_axis: {title: {text: 'kg N / Ha'}})
+      - else
+        = no_data
   - b.hbox do
     - b.cell(:interventions) do
       = toolbar do |t|
