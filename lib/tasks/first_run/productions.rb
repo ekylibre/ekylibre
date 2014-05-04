@@ -8,10 +8,10 @@ load_data :productions do |loader|
   if file.exist?
     loader.count :activities_import do |w|
       # Load file
-      CSV.foreach(file, :encoding => "UTF-8", :col_sep => ",", :headers => true, :quote_char => "'") do |row|
+      CSV.foreach(file, headers: true) do |row|
         next if row[0].blank?
         r = OpenStruct.new(:production_nature => Nomen::ProductionNatures[row[0]],
-                           :name => row[1].blank? ? nil : row[1].to_s,
+                           name: row[1].blank? ? nil : row[1].to_s,
                            :variant => Nomen::ProductNatureVariants[row[2]],
                            :nature => (row[3].blank? ? :main : row[3].to_sym || :none),
                            :campaign_harvest_year => row[4].blank? ? nil : row[4].to_i,

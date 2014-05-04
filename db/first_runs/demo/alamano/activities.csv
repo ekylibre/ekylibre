@@ -37,7 +37,7 @@ calf,Veau 8-15 J,calf,,2014,S07_D02,2014-01-01,2014-12-31,,
 milk_cattle,Bovins lait,female_adult_cow,,2014,S05_D04,2014-04-01,2015-03-31,,
 milk_cattle,Bovins lait,female_adult_cow,,2014,S05_D12,2014-04-01,2015-03-31,,
 milk_cattle,Bovins lait,female_adult_cow,,2014,S03_D11,2014-04-01,2015-03-31,,
-milk_cattle,,PRODUCTION VEGETALE,,,,,,,
+,,PRODUCTION VEGETALE,,,,,,,
 winter_barley,Orge hiver,winter_barley_crop,,2014,ZC01,2013-10-15,2014-08-01,Grain : 78qt/ha ; Straw : 2.5t/ha,nitrogen_area_density : 175kg/ha ; residue_elimination_method : burying
 spring_barley,Orge printemps,spring_barley_crop,,2014,ZC02,2014-02-01,2014-08-01,Grain : 64qt/ha ; Straw : 2.5t/ha,nitrogen_area_density : 150kg/ha ; residue_elimination_method : evacuation ; irrigation_water_input_area_density : 220l/m²
 winter_hard_wheat,Blé dur,tablur_hard_wheat_crop,,2014,ZC03,2013-10-15,2014-08-01,Grain : 78qt/ha ; Straw : 2.5t/ha,nitrogen_area_density : 175kg/ha ; residue_elimination_method : burying
