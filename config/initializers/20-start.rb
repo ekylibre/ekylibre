@@ -7,19 +7,6 @@ require 'delay'
 ActiveRecord::Base.send(:include, Delay::Validation::Validator)
 ActiveRecord::Base.send(:extend, Delay::Validation::ClassMethods)
 
-require 'code'
-class ::String
-  # Convert a String to a Code fragment
-  def to_code(language = nil)
-    Code.new(self, language)
-  end
-
-  def c(language = nil)
-    Code.new(self, language)
-  end
-end
-
-
 require 'safe_string'
 autoload :SymbolArray, 'symbol_array'
 
