@@ -128,7 +128,7 @@ class ProductionSupport < Ekylibre::Record::Base
     # get all intervention of nature 'soil_enrichment' and sum all nitrogen unity spreaded
     # m = net_mass of the input at intervention time
     # n = nitrogen concentration (in %) of the input at intervention time
-    # 
+    #
     # B = O - I
     balance = 0.0
     nitrogen_mass = []
