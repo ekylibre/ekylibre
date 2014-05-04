@@ -39,6 +39,7 @@ $hover-mask: transparentize($base-color, $hover-transparency);
 $active-color: $base-color !default;
 $link-color:   darken($base-color, 10%) !default;
 $title-color:  darken($base-color, 40%) !default;
+$selection-color:  $active-color;
 $base-font-color:  $text-color !default;
 $base-font-reversed-color: #FFF !default;
 

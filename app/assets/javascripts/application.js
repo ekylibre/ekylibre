@@ -16,7 +16,7 @@
 //= require jquery_ujs
 //= require jquery.turbolinks
 //= require turbolinks
-//= require active-list.jquery
+//= require active_list.jquery
 //= require formize/behave
 //= require formize/dialog
 //= require formize/unroll
