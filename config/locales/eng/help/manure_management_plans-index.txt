@@ -1,0 +1,5 @@
+====== Manure management plans ======
+
+You can [[>backend/manure_management_plans#new|create]] , update and view manure plan.
+
+!!! You must have productions and production's indicators well configured.
