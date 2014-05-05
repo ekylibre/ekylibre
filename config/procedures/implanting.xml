@@ -5,7 +5,7 @@
       <variable name="plants"       variety="seedling" derivative-of="plant" abilities="grow"/>
       <variable name="plants_to_fix" new="parted-from: plants" roles="implanting-input" default-population=":plants" default-name="{{variant}} - [{{derivative_of}}]">
         <handler indicator="population" />
-        <handler indicator="plants_density" unit="unity_per_hectare"   to="population"
+        <handler indicator="plants_count" unit="unity_per_hectare"   to="population"
                  forward="cultivation.net_surface_area(hectare) * value"
                  backward="value / cultivation.net_surface_area(hectare)"
                  />
@@ -56,7 +56,7 @@
         <task do="land_parcel|soil_cultural_state|covered is measured"/>
         <task do="cultivation|rows_interval is measured"/>
         <task do="cultivation|plants_interval is measured"/>
-        <task do="cultivation|plants_density is measured"/>
+        <task do="cultivation|plants_count is measured"/>
       </operation>
       <operation id="800" duration="18 minutes">
         <task do="[tractor] moves in default storage of [implanter_tool]"/>

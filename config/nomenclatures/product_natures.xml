@@ -140,7 +140,7 @@
             variety="plant"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(straw)"
-            variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_density"
+            variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_count, fresh_mass"
             frozen_indicators="net_surface_area"
             derivatives="straw"
             />
@@ -149,7 +149,7 @@
             variety="plant"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(grain)"
-            variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_density"
+            variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_count, fresh_mass"
             frozen_indicators="net_surface_area"
             derivatives="grain"
             />
@@ -158,7 +158,7 @@
             variety="plant"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(grain), produce(straw)"
-            variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_density"
+            variable_indicators="population, shape, tiller_count, plant_life_state, plant_reproduction_state, plants_count, fresh_mass"
             frozen_indicators="net_surface_area"
             derivatives="grain, straw"
             />
@@ -167,7 +167,7 @@
             variety="plant"
             population_counting="integer"
             abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
-            variable_indicators="population, shape, plant_life_state, plants_density, rows_interval, plants_interval"
+            variable_indicators="population, shape, plant_life_state, plants_count, rows_interval, plants_interval"
             frozen_indicators="net_surface_area"
             derivatives="fruit, straw"
             />
@@ -176,7 +176,7 @@
             variety="plant"
             population_counting="integer"
             abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
-            variable_indicators="population, shape, plant_life_state, plants_density, rows_interval, plants_interval"
+            variable_indicators="population, shape, plant_life_state, plants_count, rows_interval, plants_interval"
             frozen_indicators="net_surface_area"
             derivatives="walnut, straw"
             />
@@ -185,7 +185,7 @@
             variety="plant"
             population_counting="decimal"
             abilities="consume(water), consume(phytosanitary), produce(pollen), produce(flower), produce(straw), produce(grain)"
-            variable_indicators="population, shape, plant_life_state, plants_density"
+            variable_indicators="population, shape, plant_life_state, plants_count"
             frozen_indicators="net_surface_area"
             derivatives="pollen, flower, straw, grain"
             />
@@ -194,7 +194,7 @@
             variety="vitis"
             population_counting="integer"
             abilities="consume(water), consume(phytosanitary), produce(fruit), produce(straw)"
-            variable_indicators="population, shape, plant_life_state, woodstock_variety, certification, plants_density, rows_interval, plants_interval"
+            variable_indicators="population, shape, plant_life_state, woodstock_variety, certification, plants_count, rows_interval, plants_interval"
             frozen_indicators="net_surface_area"
             derivatives="fruit, straw"
             />

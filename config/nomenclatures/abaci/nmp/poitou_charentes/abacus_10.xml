@@ -13,7 +13,7 @@
        <property-nature name="precipitations_stopped_period" type="string" required="false"/><!-- MM -->
        <property-nature name="precipitations_min" type="decimal" required="true"/><!-- en mm d'eau soit l/m2 -->
        <property-nature name="precipitations_max" type="decimal" required="true"/><!-- en mm d'eau soit l/m2 -->
-       <property-nature name="plant_developpment" type="choice" choices="small,medium,hight" required="false"/>
+       <property-nature name="plant_developpment" type="choice" choices="low,medium,high" required="false"/>
     </property-natures>
     <items>
       <!-- WHEAT -->
@@ -209,7 +209,7 @@
        precipitations_stopped_period="03"
        precipitations_min="0"
        precipitations_max="350"
-       plant_developpment="small"
+       plant_developpment="low"
        />
        <item name="rapeseed_ru_min_2"
        crop="rapeseed"
@@ -220,7 +220,7 @@
        precipitations_stopped_period="03"
        precipitations_min="350"
        precipitations_max="1000"
-       plant_developpment="small"
+       plant_developpment="low"
        />
        <item name="rapeseed_ru_med_1"
        crop="rapeseed"
@@ -253,7 +253,7 @@
        precipitations_stopped_period="03"
        precipitations_min="0"
        precipitations_max="350"
-       plant_developpment="hight"
+       plant_developpment="high"
        />
        <item name="rapeseed_ru_max_2"
        crop="rapeseed"
@@ -264,7 +264,7 @@
        precipitations_stopped_period="03"
        precipitations_min="350"
        precipitations_max="1000"
-       plant_developpment="hight"
+       plant_developpment="high"
        />
        <!-- SUNFLOWER -->
       <item name="sunflower_ru_min_1"

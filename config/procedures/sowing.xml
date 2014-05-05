@@ -81,7 +81,7 @@
       <operation id="750">
         <task do="cultivation|population|superficial_count:cultivation is measured"/>
         <task do="land_parcel|soil_cultural_state|covered is measured"/>
-        <task do="cultivation|plants_density is measured"/>
+        <task do="cultivation|plants_count is measured"/>
       </operation>
       <operation id="800" duration="18 minutes">
         <task do="[tractor] moves in default storage of [sower]"/>

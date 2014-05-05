@@ -6,8 +6,8 @@
       box:
         height: 400
         width: null
-      backgrounds:
-        name:[]
+      backgrounds:{}
+      controls:{}
       show: null
       edit: null
       change: null
@@ -18,49 +18,50 @@
       editStyle:
         weight: 2
         color: "#33A"
-      controls:
-        draw:
-          edit:
-            featureGroup: null
-            edit:
-              color: "#A40"
-          draw:
-            marker: false
-            polyline: false
-            rectangle: false
-            circle: false
-            polygon:
-              allowIntersection: false
-              showArea: true 
+      #controls:
+        #draw:
+          #edit:
+            #featureGroup: null
+            #edit:
+              #color: "#A40"
+          #draw:
+            #marker: false
+            #polyline: false
+            #rectangle: false
+            #circle: false
+            #polygon:
+             #allowIntersection: false
+              #showArea: true 
            
-        zoom:
-          position: "topleft"
-          zoomInText: ""
-          zoomOutText: ""
-        scale:
-          position: "bottomleft"
-          imperial: false
-          maxWidth: 200
-        tilelegend:
-          position: "bottomright"
-          title: "HOT style"
-          description: "Humanitarian focused OSM base layer."
-          sections: [
-            title: "Roads"
-            className: "roads"
-            keys: [
-              coordinates: [
-                19.67236
-                -72.11825
-                15
-              ]
-              text: "Paved primary road"
-            ]
-          ]
+        #zoom:
+          #position: "topleft"
+          #zoomInText: ""
+          #zoomOutText: ""
+        #scale:
+          #position: "bottomleft"
+          #imperial: false
+          #maxWidth: 200
+        #tilelegend:
+          #position: "bottomright"
+          #title: "HOT style"
+          #description: "Humanitarian focused OSM base layer."
+          #sections: [
+            #title: "Roads"
+            #className: "roads"
+            #keys: [
+              #coordinates: [
+                #19.67236
+                #-72.11825
+                #15
+              #]
+              #text: "Paved primary road"
+            #]
+          #]
                 
     _create: ->     
       $.extend(true, this.options, this.element.data("visualization"))
       console.log "create"
+      console.log this.options
        
       this.mapElement = $("<div>", class: "map")
         .insertAfter(this.element)
@@ -70,7 +71,6 @@
         attributionControl: false 
       )
  
-      widget = this
       console.log "Vive le Roi!"
       
       # this.map.on "draw:created", (e) ->
@@ -86,7 +86,6 @@
       #   widget._saveUpdates()
       #   widget.element.trigger "mapchange"
         
-      this.back()
       
       #this.show()
       
@@ -103,29 +102,20 @@
       #this._setDefaultView()
 
       this._resize()
-      # console.log "resized"
+
       this._refreshBackgroundLayer()
-      # console.log "backgrounded"
-      this._refreshReferenceLayerGroup()
-      # console.log "shown"
-      this._refreshEditionLayerGroup()
-      # console.log "edited"
+
+
       this._refreshView()
-      # console.log "viewed"
+
       this._refreshControls()
-      # console.log "controlled"
+
      
     _destroy: ->
       this.element.attr this.oldElementType
       this.mapElement.remove()
        
-      
-    back: (backgrounds) ->
-      return this.options.backgrounds unless backgrounds?
-      this.options.backgrounds.name = backgrounds.name
-      this._refreshBackgroundLayer()   
-
- 
+       
     show: (geojson) ->
       return this.options.show unless geojson?
       this.options.show = geojson
@@ -162,15 +152,52 @@
         this._trigger "resize"
      
     _refreshBackgroundLayer: ->
-      # if this.backgroundLayer?
+      that= this
       #   this.map.removeLayer(this.backgroundLayer)
-      if this.options.backgrounds?
-        console.log this.options.backgrounds.name[1]
-        #for name of this.options.backgrounds
-        #this.backgroundLayer = L.tileLayer.provider(name})
-        #this.backgroundLayer.addTo this.map
-        console.log "refreshBackgroundLayer"       
+      if this.options.backgrounds? 
+        $.each this.options.backgrounds, ( index, value ) ->
+          #alert( index + ": " + value )
+          backgroundLayer = L.tileLayer.provider(value.provider_name)
+          backgroundLayer.addTo that.map     
       this
+      
+    _refreshControls: ->
+      that= this
+
+      if this.options.controls? 
+        $.each this.options.controls, ( index, value ) ->
+          #alert( index + ": " + value )            
+          if value.name == "zoom"
+            controls = new L.Control.Zoom(value.options)
+            #that.map.removeControl (controls)
+            that.map.addControl controls
+            #alert( index + ": " + description )
+          if value.name == "scale"
+            controls = new L.Control.Scale(value.options)
+            #that.map.removeControl (controls)
+            that.map.addControl controls
+            #alert( index + ": " + description )   
+      this
+
+        #for name, control of this.controls
+          #this.map.removeControl(control)
+      #this.controls = {}
+      #unless this.options.controls.zoom is false
+        #this.controls.zoom = new L.Control.Zoom(this.options.controls.zoom)
+        #this.map.addControl this.controls.zoom
+      #unless this.options.controls.fullscreen is false
+        #this.controls.fullscreen = new L.Control.FullScreen(this.options.controls.fullscreen)
+        #this.map.addControl this.controls.fullscreen
+        # if this.edition?
+        #   this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}))
+        #   this.map.addControl this.controls.draw
+      #unless this.options.controls.scale is false
+        #this.controls.scale = new L.Control.Scale(this.options.controls.scale)
+        #this.map.addControl this.controls.scale
+      #unless this.options.controls.tilegend is false
+        #this.controls.tilelegend = new L.Control.TileLegend(this.options.controls.tilelegend)
+        #this.map.addControl this.controls.tilelegend
+ 
  
     _refreshReferenceLayerGroup: ->
       if this.reference?
@@ -180,18 +207,6 @@
         this.reference.addTo this.map
       this
  
-    _refreshEditionLayerGroup: ->
-      if this.edition?
-        this.map.removeLayer this.edition
-      if this.options.edit?
-        this.edition = L.GeoJSON.geometryToLayer(this.options.edit)
-      else
-        this.edition = new L.GeoJSON()
-      this.edition.setStyle this.options.editStyle
-      this.edition.addTo this.map
-      this._refreshControls()
-      this._saveUpdates()
-      this
  
     _refreshView: (view) ->
       view ?= this.options.view
@@ -229,28 +244,6 @@
     _refreshZoom: ->
       if this.options.view.zoom?
         this.map.setZoom(this.options.view.zoom)
- 
-    _refreshControls: ->
-      if this.controls?
-        for name, control of this.controls
-          this.map.removeControl(control)
-      this.controls = {}
-      unless this.options.controls.zoom is false
-        this.controls.zoom = new L.Control.Zoom(this.options.controls.zoom)
-        this.map.addControl this.controls.zoom
-      unless this.options.controls.fullscreen is false
-        this.controls.fullscreen = new L.Control.FullScreen(this.options.controls.fullscreen)
-        this.map.addControl this.controls.fullscreen
-        # if this.edition?
-        #   this.controls.draw = new L.Control.Draw($.extend(true, {}, this.options.controls.draw, {edit: {featureGroup: this.edition}}))
-        #   this.map.addControl this.controls.draw
-      unless this.options.controls.scale is false
-        this.controls.scale = new L.Control.Scale(this.options.controls.scale)
-        this.map.addControl this.controls.scale
-      unless this.options.controls.tilegend is false
-        this.controls.tilelegend = new L.Control.TileLegend(this.options.controls.tilelegend)
-        this.map.addControl this.controls.tilelegend
- 
 
     _saveUpdates: ->
       if this.edition?
