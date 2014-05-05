@@ -420,7 +420,7 @@ fra:
     actual_number: "Numéro en cours"
     address: "Adresse"
     addresses: "Adresses"
-    administrative_area: "Administrative area"
+    administrative_area: "Zone administrative"
     administrator: "Administrateur système"
     advice_reference_name: "Référence du conseil"
     affair: "Affaire"
@@ -526,7 +526,7 @@ fra:
     commission_base_amount: "Montant fixe de la commission"
     commission_percentage: "Pourcentage de commission"
     commissioned_incoming_payment_modes: "Modes d’encaissement avec commission"
-    computation_method: "Computation method"
+    computation_method: "Méthode d'analyse"
     compute: "Dernière valeur"
     computed_at: "Calculé le" #?
     conclusion: "Conclusion"
@@ -594,7 +594,7 @@ fra:
     declared_at: "Déclarée le" #?
     deduction_account: "TVA déductible"
     deduction_taxes: "TVA déductible" #?
-    default_computation_method: "Default computation method"
+    default_computation_method: "Méthode de calcul"
     default_mail_address: "Adresse email par défaut"
     default_storage: "Emplacement par défaut"
     default_variant: "Variant par défault"

@@ -1163,7 +1163,7 @@ eng:
         journal: "Journal"
         land_parcel_registry: "Land parcel registry"
         manure_management_plan: "Manure management plan"
-        # manure_management_plan_sheet: "Manure management plan sheet"
+        manure_management_plan_sheet: "Manure management plan (detail)"
         outgoing_deliveries_journal: "Outgoing deliveries journal"
         outgoing_delivery_docket: "Outgoing delivery docket"
         phytosanitary_registry: "Phytosanitary registry"

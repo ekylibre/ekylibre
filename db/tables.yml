@@ -776,8 +776,6 @@ inventories:
   updater_id: {type: integer, references: user}
 
 inventory_items:
-  actual_population: {type: decimal, precision: 19, scale: 4, required: true}
-  actual_shape: {type: spatial}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   expected_population: {type: decimal, precision: 19, scale: 4, required: true}
@@ -785,7 +783,10 @@ inventory_items:
   id: {type: integer, required: true}
   inventory_id: {type: integer, references: inventory, required: true}
   lock_version: {type: integer, required: true, default: 0}
+  population: {type: decimal, precision: 19, scale: 4, required: true}
   product_id: {type: integer, references: product, required: true}
+  product_reading_task_id: {type: integer, references: product_reading_task}
+  shape: {type: spatial}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
