@@ -106,21 +106,21 @@
       <item name="fertility_index"                datatype="measure" unit="unity"/>
       <!-- for fertilization plant's and soil analysis -->
       <!-- macro-element -->
-      <item name="organic_matter_concentration"   datatype="measure" unit="percent"/>
-      <item name="nitrogen_concentration"         datatype="measure" unit="percent"/>
+      <item name="organic_matter_concentration"   datatype="measure" unit="mass_percent"/>
+      <item name="nitrogen_concentration"         datatype="measure" unit="mass_percent"/>
 
       <!-- K2O = 1.205 * K (mass approach) -->
-      <item name="potash_concentration"     datatype="measure" unit="percent"/>
+      <item name="potash_concentration"             datatype="measure" unit="mass_percent"/>
       <!-- K = 0.83 * K2O  (mass approach) --> 
-      <item name="potassium_concentration"  datatype="measure" unit="percent"/>
+      <item name="potassium_concentration"          datatype="measure" unit="mass_percent"/>
       <!-- P2O5 = 2.291 * P (mass approach) -->
-      <item name="phosphate_concentration"  datatype="measure" unit="percent"/>
+      <item name="phosphate_concentration"          datatype="measure" unit="mass_percent"/>
       <!-- P = 0.436 * P2O5 (mass approach) --> 
-      <item name="phosphorus_concentration" datatype="measure" unit="percent"/>
-      <item name="calcium_concentration"            datatype="measure" unit="percent"/>
-      <item name="magnesium_concentration"          datatype="measure" unit="percent"/>
-      <item name="sulfur_concentration"             datatype="measure" unit="percent"/>
-      <item name="sulfur_dioxide_concentration"     datatype="measure" unit="percent"/>
+      <item name="phosphorus_concentration"         datatype="measure" unit="mass_percent"/>
+      <item name="calcium_concentration"            datatype="measure" unit="mass_percent"/>
+      <item name="magnesium_concentration"          datatype="measure" unit="mass_percent"/>
+      <item name="sulfur_concentration"             datatype="measure" unit="mass_percent"/>
+      <item name="sulfur_dioxide_concentration"     datatype="measure" unit="mass_percent"/>
 
       <!-- oligo-element -->
       <item name="boron_concentration"      datatype="measure" unit="parts_per_million"/>

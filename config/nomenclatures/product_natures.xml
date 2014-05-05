@@ -899,7 +899,7 @@
             />
       <item name="hand_drawn"
             category="equipment"
-            variety="bottling"
+            variety="equipment"
             population_counting="unitary"
             abilities="fill(bottle)"
             variable_indicators="nominal_storable_net_volume"
@@ -907,7 +907,7 @@
             />
      <item name="corker"
             category="equipment"
-            variety="bottling"
+            variety="equipment"
             population_counting="unitary"
             abilities="close(bottle)"
             variable_indicators=""

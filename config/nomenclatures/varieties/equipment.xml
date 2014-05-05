@@ -20,7 +20,8 @@
       <item name="food_deliver"/>
       <item name="cleaner"/>
       <item name="press"/>
-      <item name="bottling"/>
+      <item name="corker"/>
+      <item name="bottler"/>
     </items>
   </nomenclature>
 </nomenclatures>
