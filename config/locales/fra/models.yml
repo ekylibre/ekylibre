@@ -1059,7 +1059,7 @@ fra:
     # reference_source_updated_at: "Reference source updated at"
     # reference_tax: "Reference tax"
     reflected: "Refléter les changements"
-    # reflected_at: "Reflected at"
+    reflected_at: "Reflété le"
     reflections: "Reflections"
     remaining_duration: "Durée d’utilisation prévue (heures)" #?
     # remember_created_at: "Remember created at"
