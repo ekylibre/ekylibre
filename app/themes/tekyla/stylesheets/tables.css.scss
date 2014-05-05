@@ -1,12 +1,13 @@
-@import "active-list/minimal";
-@import "active-list/background";
-@import "active-list/theme";
+@import "active_list/minimal";
+@import "active_list/background";
+@import "active_list/theme";
 
 $sort-mask: rgba(0, 18, 132, 0.05);
 
-$list-line-backgrounds:   ("&" rgba(#FFF, 1)) ("&.error, &.undone" rgba($invalid-color, 0.12)) ("&.warning, &.waiting" rgba($caution-color, 0.12)) ("&.in_progress, &.success" rgba($success-color, 0.12));
-$list-column-backgrounds: ("&" rgba(#FFF, 0)) ("&.act" rgba($link-color, 0.04)) ("&.sor" $sort-mask);
-$list-hover-backgrounds:  ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
+$list-line-backgrounds:      ("&" rgba(#FFF, 1)) ("&.error, &.undone" rgba($invalid-color, 0.12)) ("&.warning, &.waiting" rgba($caution-color, 0.12)) ("&.in_progress, &.success" rgba($success-color, 0.12));
+$list-column-backgrounds:    ("&" rgba(#FFF, 0)) ("&.act" rgba($link-color, 0.04)) ("&.sor" $sort-mask);
+$list-selection-backgrounds: ("&" rgba(#FFF, 0)) ("&.selected" rgba($selection-color, 0.22));
+$list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 
 // $default-border-color: $menu-border-color;
 // $zz-menu-width: 250px;

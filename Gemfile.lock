@@ -10,8 +10,6 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    active-list (6.0.0)
-      active_list (>= 6.0.0)
     active_list (6.0.1)
       code_string (>= 0.0.0)
       fastercsv (>= 1.5)
@@ -322,7 +320,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  active-list
+  active_list
   activerecord-postgis-adapter
   acts_as_list
   agric
@@ -340,6 +338,7 @@ DEPENDENCIES
   capybara
   capybara-webkit
   cocoon
+  code_string
   coffee-rails (~> 4.0.1)
   colored
   compass

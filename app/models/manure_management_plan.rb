@@ -50,9 +50,9 @@ class ManureManagementPlan < Ekylibre::Record::Base
 
   accepts_nested_attributes_for :zones
   selects_among_all :selected, scope: :campaign_id
-  
+
   scope :selected, -> { where(selected: true) }
-  
+
   protect do
     self.locked?
   end

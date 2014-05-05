@@ -9,6 +9,9 @@ gem 'activerecord-postgis-adapter'
 # gem 'activerecord-spatialite-adapter'
 # gem 'squeel'
 
+# Code manipulation
+gem 'code_string'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.1'
 
@@ -64,7 +67,7 @@ gem 'exception_notification'
 gem 'haml'
 gem "calendar_helper", "~> 0.2.5"
 gem "simple_calendar"
-gem "active-list"
+gem "active_list" # , path: "../active_list"
 
 # Models helpers
 gem 'acts_as_list'
