@@ -17,9 +17,9 @@ module Backend::VisualizationsHelper
       @data = data
     end
    
-    def background(name,options = {})
-      @data[:backgrounds] ||= {}.with_indifferent_access
-      @data[:backgrounds][name] = options
+    def background(name, provider_name)
+      @data[:backgrounds] ||= []
+      @data[:backgrounds] << {name: name, provider_name: provider_name}
       
     end
 
@@ -37,9 +37,15 @@ module Backend::VisualizationsHelper
       @data[:datasets][name] = datas
     end
 
-    def control(name, options = {})
-      @data[:controls] ||= {}.with_indifferent_access
-      @data[:controls][name] = options
+    #def control(name, options = {})
+     #@data[:controls] ||= {}.with_indifferent_access
+      #@data[:controls][name] = options
+    #end
+    
+    def control(name, options = {} )
+      @data[:controls] ||= []
+      @data[:controls] << {name: name, options: options}
+      
     end
 
     def to_json
