@@ -1131,7 +1131,7 @@ spa:
         # volume_flow: "Volume flow"
       # name: "Dimensions"
       property_natures:
-        # expression: "Expression"
+        # symbol: "Symbol"
     document_categories:
       items:
         # accountancy: "Accountancy"
@@ -1803,6 +1803,8 @@ spa:
         # stem_elongation: "Stem elongation"
         # tillering: "Tillering"
       # name: "Plant life states"
+      property_natures:
+        # order: "Order"
     plant_reproduction_states:
       items:
         # flowering: "Flowering"
@@ -1843,6 +1845,7 @@ spa:
         # maintenance: "Maintenance"
         # milk_production: "Milk production"
         # oviparous_birth: "Oviparous birth"
+        # pasturing: "Pasturing"
         # piece_replacement: "Piece replacement"
         # plant_fertilisation: "Plant fertilisation"
         # plant_illness_treatment: "Plant illness treatment"
@@ -2723,7 +2726,7 @@ spa:
         # boraginaceae: "Boraginaceae"
         # bos: "Bos"
         # bottle: "Bottle"
-        # bottling: "Bottling"
+        # bottler: "Bottler"
         # brassica: "Brassica"
         # brassica_napus: "Rapeseed"
         # brassica_nigra: "Black mustard"
@@ -2742,6 +2745,7 @@ spa:
         # concentrated_rectified_must: "Concentrated rectified must"
         # cork: "Cork"
         # cork_bottle: "Cork bottle"
+        # corker: "Corker"
         # corylus: "Hazel"
         # corylus_avellana: "Common hazel"
         # corylus_avellana_corabel: "Common hazel Corabel"

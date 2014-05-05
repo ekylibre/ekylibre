@@ -2,12 +2,24 @@
   data = JSON.parse(File.read(Rails.root.join("db", "visualization.json")))["features"]
 
 = visualization :my_cultivable_zone_of_hell, fullscreen: true do |v|
-  - v.background "map de base","OpenStreetMap.HOT"
-  - v.background "précipitations","OpenWeather.Precipitation"
+  -# The followings layers are base layers. Only one base layer(the last one) will appear.
+  -# v.background :default_base, "OpenStreetMap.HOT"
+  -# v.background :black_and_white_base, "OpenStreetMap.BlackAndWhite"
+  -# v.background :de_base, "OpenStreetMap.DE"
+  -# v.background :cycle_base, "OpenCycleMap"
+  -# v.background :forest_base, "Thunderforest" 
+  -# v.background :water_base, "Thunderforest.Transport" 
+  -# v.background :landscape_base, "Thunderforest.Landscape" 
+  - v.background :outdoors_base, "Thunderforest.Outdoors" 
+  -# The followings layers are additional layers. They can be combined.
+  - v.background :precipitations, "OpenWeatherMap.Precipitation"
+  - v.background :clouds, "OpenWeatherMap.Clouds"
   -# v.dataset :zones, data
   -# v.layer :zones, data, tooltip: true
   -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
   -# v.layer :nitrogen, :chloropeth, tooltip: false, on: :nitrogen_density
-  -# v.control :background
+  -# v.control :background_selector
+  - v.control :zoom, {position: "topleft",zoomInText: "",zoomOutText: ""}
+  - v.control :scale, {position: "bottomleft", imperial: false, maxWidth: 200}
   -# v.control :layer_selector
   -# v.control :search

@@ -2,41 +2,40 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="dimensions">
     <property-natures>
-      <property-nature name="expression" type="string" required="true"/>
+      <property-nature name="symbol" type="string" required="true"/>
     </property-natures>
     <items>
       <!-- Empty-dimension -->
-      <item name="none"  expression=""/>
-      <item name="angle" expression="rad"/>
+      <item name="none"                        symbol="."/>
+      <item name="angle"                       symbol="rad"/>
 
       <!-- SI first-level dimensions -->
-      <item name="temperature"         expression="K"/>
-      <item name="mass"                expression="kg"/>
-      <item name="distance"            expression="m"/>
-      <item name="time"                expression="s"/>
-      <item name="electric_current"    expression="A"/>
-      <item name="amount_of_substance" expression="mol"/>
-      <item name="luminous_intensity"  expression="cd"/>
+      <item name="temperature"                 symbol="K"/>
+      <item name="mass"                        symbol="kg"/>
+      <item name="distance"                    symbol="m"/>
+      <item name="time"                        symbol="s"/>
+      <item name="electric_current"            symbol="A"/>
+      <item name="amount_of_substance"         symbol="mol"/>
+      <item name="luminous_intensity"          symbol="cd"/>
 
       <!-- SI next-levels dimensions -->
-      <item name="surface_area"         expression="m2"/>
-      <item name="volume"               expression="m3"/>
-      <item name="mass_concentration"   expression="kg*m-3"/>
-      <item name="volume_concentration" expression="m-3*m-3"/>
-      <item name="mass_area_density"    expression="kg*m-2"/>
-      <item name="volume_area_density"  expression="m3*m-2"/>
-      <item name="specific_volume"      expression="m3*kg-1"/>
-      <item name="surface_area_density" expression="m-2"/>
-      <item name="concentration"        expression="m-3"/>
-      <item name="mass_density"         expression="kg-1"/>
-      <item name="energy"               expression="J"/>
-      <item name="power"                expression="J*s-1"/>
-      <item name="pressure"             expression="N.m-2"/>
-      <item name="distance_speed"       expression="m.s-1"/>
-      <item name="mass_flow"            expression="kg*s-1"/>
-      <item name="volume_flow"          expression="m3*s-1"/>
-      <item name="amount_of_substance_density" expression="mol*kg-1"/>
-      
+      <item name="surface_area"                symbol="m²"/>
+      <item name="volume"                      symbol="m³"/>
+      <item name="mass_concentration"          symbol="kg/m³"/>
+      <item name="volume_concentration"        symbol="m³/m³"/>
+      <item name="mass_area_density"           symbol="kg/m²"/>
+      <item name="volume_area_density"         symbol="m³/m²"/>
+      <item name="specific_volume"             symbol="m³/kg"/>
+      <item name="surface_area_density"        symbol="./m²"/>
+      <item name="concentration"               symbol="./m³"/>
+      <item name="mass_density"                symbol="./kg"/>
+      <item name="energy"                      symbol="J"/>
+      <item name="power"                       symbol="J/s"/>
+      <item name="pressure"                    symbol="N/m²"/>
+      <item name="distance_speed"              symbol="m/s"/>
+      <item name="mass_flow"                   symbol="kg/s"/>
+      <item name="volume_flow"                 symbol="m³/s"/>
+      <item name="amount_of_substance_density" symbol="mol/kg"/>
 
     </items>
   </nomenclature>

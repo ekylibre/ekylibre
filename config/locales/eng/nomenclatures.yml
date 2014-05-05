@@ -1093,7 +1093,7 @@ eng:
     dimensions:
       name: "Dimensions"
       property_natures:
-        expression: "Expression"
+        symbol: "Symbol"
       items:
         amount_of_substance: "Amount of substance"
         amount_of_substance_density: "Amount of substance density"
@@ -1780,6 +1780,8 @@ eng:
         olsen: "Olsen"
     plant_life_states:
       name: "Plant life states"
+      property_natures:
+        order: "Order"
       items:
         booting: "Booting"
         development_of_fruit: "Development of fruit"
@@ -1834,7 +1836,7 @@ eng:
         maintenance: "Maintenance"
         milk_production: "Milk production"                 #< animal_production
         oviparous_birth: "Oviparous birth"
-        # pasturing: "Pasturing"                           #< animal_feeding
+        pasturing: "Pasturing"                             #< animal_feeding
         piece_replacement: "Piece replacement"             #< maintenance
         plant_fertilisation: "Plant fertilisation"
         plant_illness_treatment: "Plant illness treatment"
@@ -2715,7 +2717,7 @@ eng:
         boraginaceae: "Boraginaceae"                       #< plant
         bos: "Bos"                                         #< mammalia
         bottle: "Bottle"                                   #< packaged_matter
-        bottling: "Bottling"                               #< equipment
+        bottler: "Bottler"                                 #< equipment
         brassica: "Brassica"                               #< brassicaceae
         brassica_napus: "Rapeseed"                         #< brassica
         brassica_nigra: "Black mustard"                    #< brassica
@@ -2734,6 +2736,7 @@ eng:
         concentrated_rectified_must: "Concentrated rectified must" #< preparation
         cork: "Cork"                                       #< packaged_matter
         cork_bottle: "Cork bottle"                         #< bottle
+        corker: "Corker"                                   #< equipment
         corylus: "Hazel"                                   #< betulaceae
         corylus_avellana: "Common hazel"                   #< corylus
         corylus_avellana_corabel: "Common hazel Corabel"   #< corylus_avellana

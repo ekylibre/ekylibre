@@ -1120,7 +1120,7 @@ fra:
         volume_flow: "Débit volumique"
       name: "Dimensions"
       property_natures:
-        expression: "Expression"
+        symbol: "Symbole"
     document_categories:
       items:
         accountancy: "Comptabilité"
@@ -1140,7 +1140,7 @@ fra:
         vinification: "Vinification"
       name: "Catégories de documents"
       property_natures:
-        acta_category: "Category"
+        acta_category: "Catégorie ACTA"
     document_natures:
       items:
         activity_cost: "Coût de production par activité et intervention"
@@ -1160,7 +1160,7 @@ fra:
         journal: "Journal"
         land_parcel_registry: "Cahier de tracabilité - Parcelles"
         manure_management_plan: "Cahier d’épandage"
-        # manure_management_plan_sheet: "Manure management plan (detail)"
+        manure_management_plan_sheet: "Plan prévisionnel de fumure détaillé"
         outgoing_deliveries_journal: "Journal de livraison"
         outgoing_delivery_docket: "Bon de livraison"
         phytosanitary_registry: "Registre phytosanitaire"
@@ -1794,6 +1794,8 @@ fra:
         stem_elongation: "Allongement de la tige"
         tillering: "Tallage"
       name: "États du développement végétal"
+      property_natures:
+        order: "Ordre"
     plant_reproduction_states:
       items:
         flowering: "Floraison"
@@ -1834,6 +1836,7 @@ fra:
         maintenance: "Maintenance"
         milk_production: "Production laitière"
         oviparous_birth: "Reproduction (ovipare)"
+        pasturing: "Pâturage"
         piece_replacement: "Remplacement de pièces"
         plant_fertilisation: "Fertilisation"
         plant_illness_treatment: "Protection des cultures"
@@ -2717,7 +2720,8 @@ fra:
         boraginaceae: "Boraginacée"
         bos: "Bovin"
         bottle: "Bouteille"
-        bottling: "Embouteillage"
+        bottler: "Embouteilleuse"
+        bottling: "Embouteillage" #?
         brassica: "Colza"
         brassica_napus: "Colza"
         brassica_nigra: "Moutarde noire"
@@ -2737,6 +2741,7 @@ fra:
         concentrated_rectified_must: "Moût concentré rectifié"
         cork: "Bouchon"
         cork_bottle: "Bouteille"
+        corker: "Boucheuse"
         corylus: "Noisetier"
         corylus_avellana: "Noisetier commun"
         corylus_avellana_corabel: "Noisetier commun Corabel"
@@ -2761,7 +2766,7 @@ fra:
         electricity: "Électricité"
         equipment: "Équipement"
         equus: "Équin"
-        excrement: "Engrais organiques"
+        excrement: "Engrais organique"
         fabaceae: "Fabacée"
         fermented_juice: "Jus fermenté"
         ficus: "Ficus"

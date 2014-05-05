@@ -17,7 +17,7 @@ module Unrollable
       else
         # base = "unroll." + self.controller_path
         # label = I18n.translate(base + ".#{name || :all}", :default => [(base + ".all").to_sym, ""])
-        label = I18n.translate("unroll." + self.controller_path, :default => "")
+        label = I18n.translate("unrolls." + self.controller_path, :default => "")
         if label.blank?
           label = '{' + [:title, :label, :full_name, :name, :code, :number].select{|x| available_methods.include?(x)}.first.to_s + ':%X%}'
         end

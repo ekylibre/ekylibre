@@ -2,17 +2,20 @@
 <nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
   <nomenclature name="plant_life_states">
     <!-- Before: germination, tillering, bolting, maturity, senescence -->
+    <property-natures>
+      <property-nature name="order" type="integer" required="true"/>
+    </property-natures>
     <items>
-      <item name="germination"/>
-      <item name="leaf_development"/>
-      <item name="tillering"/>
-      <item name="stem_elongation"/>
-      <item name="booting"/>
-      <item name="heading"/>
-      <item name="flowering"/>
-      <item name="development_of_fruit"/>
-      <item name="ripening"/>
-      <item name="senescence"/>
+      <item name="germination"          order="100"/>
+      <item name="leaf_development"     order="200"/>
+      <item name="tillering"            order="300"/>
+      <item name="stem_elongation"      order="400"/>
+      <item name="booting"              order="500"/>
+      <item name="heading"              order="600"/>
+      <item name="flowering"            order="700"/>
+      <item name="development_of_fruit" order="800"/>
+      <item name="ripening"             order="900"/>
+      <item name="senescence"           order="950"/>
     </items>
   </nomenclature>
 </nomenclatures>
