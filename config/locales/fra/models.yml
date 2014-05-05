@@ -852,6 +852,7 @@ fra:
     mails: "Emails"
     managed: "Géré par le système"
     mandates: "Responsabilités" #?
+    # manure_management_plan_zones: "Manure management plan zones"
     markers: "Repères"
     mass: "Poids (kg)"
     maximal_grantable_reduction_percentage: "Pourcentage maximal autorisé à etre effectué"
@@ -1099,6 +1100,7 @@ fra:
     second_producer: "Second producer"
     second_producer_way: "Second producer way"
     selected: "Sélectionné"
+    # selected_manure_management_plan_zone: "Selected manure management plan zone"
     sender: "Expéditeur"
     sent_at: "Expédié le"
     serial: "N°Lot"

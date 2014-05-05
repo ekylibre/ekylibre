@@ -1493,7 +1493,7 @@ fra:
         plant_growth_level: "Niveau de croissance d’une plante"
         plant_life_state: "Phase du bioprocessus de vie d’un végétal"
         plant_reproduction_state: "Phase du bioprocessus de reproduction d’un végétal"
-        plants_density: "Densité de plantation"
+        plants_density: "Densité de plantation" #?
         plants_interval: "Intervalle inter-pieds"
         population: "Population"
         potash_concentration: "Teneur en potasse (K2O)"

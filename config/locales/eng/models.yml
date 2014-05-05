@@ -285,6 +285,8 @@ eng:
     activity_code: "Activity code"
     actor: "Actor"
     actual_number: "Actual number"
+    # actual_population: "Actual population"
+    # actual_shape: "Actual shape"
     address: "Address"
     addresses: "Addresses"
     administrative_area: "Administrative area"

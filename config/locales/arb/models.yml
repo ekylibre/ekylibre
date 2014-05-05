@@ -1519,6 +1519,7 @@ arb:
     major_accounts: "الحسابات الئيسية" #?
     # managed: "Managed"
     mandates: "تفويضات" #?
+    # manure_management_plan_zones: "Manure management plan zones"
     # markers: "Markers"
     mass: "الوزن"
     master: "كتلة رئيسية" #?
@@ -1844,6 +1845,7 @@ arb:
     # second_producer: "Second producer"
     # second_producer_way: "Second producer way"
     # selected: "Selected"
+    # selected_manure_management_plan_zone: "Selected manure management plan zone"
     self_bank_accounts: "الحسابات المصرفية الخاصة" #?
     self_cashes: "الصناديق النقدية الخاصة" #?
     self_contacts: "الاتصالات الخاصة" #?
