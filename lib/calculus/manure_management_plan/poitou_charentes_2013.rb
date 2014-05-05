@@ -100,9 +100,9 @@ module Calculus
           end
           if items.any?
             # if there are animal's activities on farm in campaign
-            if Activity.of_campaign(campaigns).of_families(:animal_farming).count > 0
+            if Activity.of_campaign(campaigns).of_families(:animal_farming).any?
               # if animals moved on cultivable_zones in previous campaign then :husbandry_with_mixed_crop else :husbandry
-              if Intervention.of_campaign(campaigns).of_nature(:pasturing).count > 0
+              if Intervention.of_campaign(campaigns).of_nature(:pasturing).any?
                 typology = :husbandry_with_mixed_crop
               else
                 typology = :husbandry
@@ -292,15 +292,16 @@ module Calculus
       # Estimate Xa
       def estimate_organic_fertilizer_mineral_fraction
         quantity = 0.in_kilogram_per_hectare
+        # FIXME be careful : started_at forced to 15/07/N-1
         started_at = Time.new(campaign.harvest_year-1,7,15)
         stopped_at = @opened_at
         global_xa = []
-        if interventions = @support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(started_at, stopped_at).with_cast(:'soil_enrichment-target', @support.storage)
+        if interventions = @support.interventions.real.where(state: 'done').of_nature(:soil_enrichment).between(started_at, stopped_at).with_cast('soil_enrichment-target', @support.storage)
           for intervention in interventions
             # get the working area (hectare)
-            working_area = intervention.casts.of_role(:'soil_enrichment-target').first.population
+            working_area = intervention.casts.of_role('soil_enrichment-target').first.population
             # get the population of each intrant
-            for input in intervention.casts.of_role(:'soil_enrichment-input')
+            for input in intervention.casts.of_role('soil_enrichment-input')
               if i = input.actor
                 # get nitrogen concentration (t) in percent
                 t = i.nitrogen_concentration.to_d(:percent)
@@ -363,12 +364,20 @@ module Calculus
         water_falls = 380.in_liter_per_square_meter
         
         if capacity = @options[:available_water_capacity].in_liter_per_square_meter and sets = crop_sets.map(&:name).map(&:to_s) 
-          if @variety and @variety <= :brassica_napus
+          if @variety and @variety <= :brassica_napus and  plant_growth_indicator = @cultivation.density(:fresh_mass, :net_surface_area).to_d(:kilogram_per_hectare)
             
-            plant_growth_indicator = @cultivation.
+            if plant_growth_indicator <= 0.4
+              plant_growth = 'low'
+            elsif plant_growth_indicator > 0.4 and plant_growth_indicator <= 1.6
+              plant_growth = 'medium'
+            elsif plant_growth_indicator > 1.6
+              plant_growth = 'high'
+            else
+              plant_growth = 'low'
+            end
             
             items = Nomen::NmpPoitouCharentesAbacusTen.list.select do |item|
-            item.plant_developpment == plant_growth_indicator.to_s and sets.include?(item.crop.to_s) and (item.precipitations_min.in_liter_per_square_meter <= water_falls and water_falls < item.precipitations_max.in_liter_per_square_meter)
+            item.plant_developpment == plant_growth.to_s and sets.include?(item.crop.to_s) and (item.precipitations_min.in_liter_per_square_meter <= water_falls and water_falls < item.precipitations_max.in_liter_per_square_meter)
             end
             
             
