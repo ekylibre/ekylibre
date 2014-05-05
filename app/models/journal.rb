@@ -62,6 +62,9 @@ class Journal < Ekylibre::Record::Base
     end
     where(nature: nature.to_s)
   }
+  scope :opened_at, lambda { |at|
+    where(arel_table[:closed_at].lteq(at))
+  }
   scope :sales,     -> { where(nature: "sales") }
   scope :purchases, -> { where(nature: "purchases") }
   scope :banks,     -> { where(nature: "bank") }

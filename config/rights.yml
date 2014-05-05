@@ -1680,6 +1680,7 @@ purchases:
     depend-on:
     - read-purchases
     actions:
+    - "backend/incoming_deliveries#invoice"
     - "backend/purchase_items#create"
     - "backend/purchase_items#destroy"
     - "backend/purchase_items#edit"

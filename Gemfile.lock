@@ -10,9 +10,8 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    active_list (6.0.1)
+    active_list (6.1.0)
       code_string (>= 0.0.0)
-      fastercsv (>= 1.5)
       i18n-complements
       rails (>= 3.2, < 4.1)
       rubyzip (>= 1.0)

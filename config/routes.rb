@@ -356,6 +356,7 @@ Ekylibre::Application.routes.draw do
       member do
         get  :list_items
         match "confirm", via: [:get, :post]
+        post :invoice
       end
     end
 

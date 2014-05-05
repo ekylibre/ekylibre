@@ -36,10 +36,8 @@
 #  with_accounting :boolean          not null
 #
 class PurchaseNature < Ekylibre::Record::Base
-  # attr_accessible :name, :description, :active, :currency, :with_accounting, :journal_id
   belongs_to :journal
   has_many :purchases
-
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
   validates_length_of :currency, allow_nil: true, maximum: 3
   validates_length_of :name, allow_nil: true, maximum: 255
@@ -52,8 +50,7 @@ class PurchaseNature < Ekylibre::Record::Base
 
   selects_among_all
 
-  # default_scope -> { order(:by_default, :name) }
-  scope :actives, -> { where(:active => true) }
+  scope :actives, -> { where(active: true) }
 
   validate do
     self.journal = nil unless self.with_accounting?

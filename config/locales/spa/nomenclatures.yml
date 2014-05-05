@@ -1167,6 +1167,7 @@ spa:
         # income_statement: "Income statement"
         # incoming_delivery_docket: "Incoming delivery docket"
         # intervention_registry: "Intervention registry"
+        # inventory_sheet: "Inventory sheet"
         # journal: "Journal"
         # land_parcel_registry: "Land parcel registry"
         # manure_management_plan: "Manure management plan"
