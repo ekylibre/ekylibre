@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="mmp_sheet" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isTitleNewPage="true" uuid="9c1f11b7-03dd-4803-9e1b-41b87b9d23c0">
 	<property name="ireport.zoom" value="1.0000000000000002"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="336"/>
 	<template><![CDATA["/home/djoulin/ekylibre/config/corporate-identity/reports-style.jrtx"]]></template>
 	<style name="table">
 		<box>
@@ -164,11 +164,11 @@
 				<rectangle radius="10">
 					<reportElement style="title" x="2" y="0" width="554" height="95" uuid="0811f875-d02b-4ad8-bbaa-5cbfd2d6dc54"/>
 				</rectangle>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement style="strong" x="228" y="0" width="327" height="20" uuid="9af03ae1-171e-4b72-8f45-811fbee392f4"/>
 					<textFieldExpression><![CDATA[$F{production_name}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement style="strong" x="20" y="9" width="135" height="20" uuid="37028fce-eb13-4f16-a9f0-3fa077268dc3"/>
 					<textFieldExpression><![CDATA[$F{activity_name}]]></textFieldExpression>
 				</textField>
@@ -208,11 +208,11 @@
 					</textElement>
 					<text><![CDATA[Variété]]></text>
 				</staticText>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement style="label-strong" x="20" y="62" width="208" height="20" uuid="5d2558cf-e929-4449-b06e-1890cdc38ede"/>
 					<textFieldExpression><![CDATA[$F{storage_name}]]></textFieldExpression>
 				</textField>
-				<textField>
+				<textField isBlankWhenNull="true">
 					<reportElement style="label-strong" x="20" y="42" width="108" height="20" uuid="5ce0a147-801e-4d78-a320-764e65543414"/>
 					<textFieldExpression><![CDATA[$F{storage_work_number}]]></textFieldExpression>
 				</textField>
@@ -224,9 +224,6 @@
 	</group>
 	<title>
 		<band height="402" splitType="Stretch">
-			<rectangle radius="10">
-				<reportElement style="title" x="1" y="41" width="554" height="91" uuid="045a8c30-5257-42dc-945e-750819323869"/>
-			</rectangle>
 			<staticText>
 				<reportElement style="strong" mode="Opaque" x="0" y="33" width="545" height="2" backcolor="#7C9DDD" uuid="6b3b0803-00f0-48c7-b822-16a58f7bba05"/>
 				<textElement verticalAlignment="Middle">
@@ -234,36 +231,36 @@
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField>
-				<reportElement style="strong" x="112" y="47" width="215" height="22" uuid="6e95af2d-8119-4f23-a1ed-212a39858d51"/>
+			<textField isBlankWhenNull="true">
+				<reportElement style="strong" x="115" y="78" width="215" height="22" uuid="6e95af2d-8119-4f23-a1ed-212a39858d51"/>
 				<textElement verticalAlignment="Middle">
 					<paragraph firstLineIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="strong" x="445" y="73" width="100" height="22" uuid="2524edad-5835-4a84-9ccc-c33a38746210"/>
+			<textField isBlankWhenNull="true">
+				<reportElement style="strong" x="448" y="104" width="100" height="22" uuid="2524edad-5835-4a84-9ccc-c33a38746210"/>
 				<textElement verticalAlignment="Middle">
 					<paragraph firstLineIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{campaign_name}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="strong" x="112" y="73" width="215" height="22" uuid="1d2b7b4f-ca30-4317-9108-e1435a292a1f"/>
+			<textField isBlankWhenNull="true">
+				<reportElement style="strong" x="115" y="104" width="215" height="22" uuid="1d2b7b4f-ca30-4317-9108-e1435a292a1f"/>
 				<textElement verticalAlignment="Middle">
 					<paragraph firstLineIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{recommender_full_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy" isBlankWhenNull="true">
-				<reportElement style="strong" x="445" y="47" width="100" height="22" uuid="3c27d087-3abb-4992-9a7c-19c9032e3d1e"/>
+				<reportElement style="strong" x="448" y="78" width="100" height="22" uuid="3c27d087-3abb-4992-9a7c-19c9032e3d1e"/>
 				<textElement verticalAlignment="Middle">
 					<paragraph firstLineIndent="4"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{opened_at}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement style="strong" x="112" y="99" width="215" height="22" uuid="90e7bd87-5cab-4ace-8ee3-e4de65bf0c38"/>
+			<textField isBlankWhenNull="true">
+				<reportElement style="strong" x="115" y="130" width="215" height="22" uuid="90e7bd87-5cab-4ace-8ee3-e4de65bf0c38"/>
 				<textElement verticalAlignment="Middle">
 					<paragraph firstLineIndent="4"/>
 				</textElement>
@@ -277,7 +274,7 @@
 				<text><![CDATA[Plan prévisionnel de fumure détaillé (PPF)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="0" y="47" width="112" height="22" uuid="7e50687b-61ad-44d8-9e83-8d1cf7fb8f26"/>
+				<reportElement style="label" x="3" y="78" width="112" height="22" uuid="7e50687b-61ad-44d8-9e83-8d1cf7fb8f26"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -285,7 +282,7 @@
 				<text><![CDATA[Nom]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="333" y="73" width="112" height="22" uuid="811443f9-2af1-4699-b18f-58b5f8484e77"/>
+				<reportElement style="label" x="336" y="104" width="112" height="22" uuid="811443f9-2af1-4699-b18f-58b5f8484e77"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -293,7 +290,7 @@
 				<text><![CDATA[Campagne]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="0" y="73" width="112" height="22" uuid="35b11da5-3fc8-4ae7-b860-feaf33ed9afb"/>
+				<reportElement style="label" x="3" y="104" width="112" height="22" uuid="35b11da5-3fc8-4ae7-b860-feaf33ed9afb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -301,7 +298,7 @@
 				<text><![CDATA[Prescripteur]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="0" y="99" width="112" height="22" uuid="f478a469-8454-4639-886f-3fd17f1db050"/>
+				<reportElement style="label" x="3" y="130" width="112" height="22" uuid="f478a469-8454-4639-886f-3fd17f1db050"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -309,7 +306,7 @@
 				<text><![CDATA[Méthode réglementaire]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="333" y="47" width="112" height="22" uuid="55ba1330-d533-4b45-9006-9b5f69e457a9"/>
+				<reportElement style="label" x="336" y="78" width="112" height="22" uuid="55ba1330-d533-4b45-9006-9b5f69e457a9"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -336,12 +333,12 @@
 				</textElement>
 				<text><![CDATA[BROUILLON]]></text>
 			</staticText>
-			<textField evaluationTime="Report">
-				<reportElement style="strong" x="445" y="99" width="100" height="22" uuid="61e09708-b743-42c0-8d36-3e4734f5da1a"/>
+			<textField evaluationTime="Report" isBlankWhenNull="true">
+				<reportElement style="strong" x="448" y="130" width="100" height="22" uuid="61e09708-b743-42c0-8d36-3e4734f5da1a"/>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="label" x="333" y="99" width="112" height="22" uuid="db5a7a34-7d29-462f-a006-fddcb4c2bd3c"/>
+				<reportElement style="label" x="336" y="130" width="112" height="22" uuid="db5a7a34-7d29-462f-a006-fddcb4c2bd3c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -349,7 +346,7 @@
 				<text><![CDATA[Parcelles culturales]]></text>
 			</staticText>
 			<componentElement>
-				<reportElement key="table 1" style="table 1" x="0" y="155" width="556" height="233" uuid="2ffb1ec1-f0cb-4f18-a288-726b2ac257b9"/>
+				<reportElement key="table 1" style="table 1" x="0" y="295" width="556" height="93" uuid="2ffb1ec1-f0cb-4f18-a288-726b2ac257b9"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="zones" uuid="edd7d637-bfa0-4edd-927d-2a451e49e49b">
 						<parametersMapExpression><![CDATA[$P{REPORT_PARAMETERS_MAP}]]></parametersMapExpression>
@@ -365,13 +362,16 @@
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="180" uuid="f639ef29-f17e-4741-b933-67ef46cf7bda">
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="table-th" height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="table-th" x="0" y="0" width="180" height="30" uuid="1e281ffc-6eb7-49c2-8399-4fcb59e60f23"/>
+								<textElement>
+									<font fontName="Open Sans" isBold="false"/>
+								</textElement>
 								<text><![CDATA[Nom de la zone]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table-td" height="30" rowSpan="1">
 							<textField>
 								<reportElement style="table-td" x="0" y="0" width="180" height="30" uuid="63784299-bab4-4b44-ad31-ce57c40eb9eb"/>
 								<textElement verticalAlignment="Middle">
@@ -382,13 +382,16 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="92" uuid="e1cabe34-ba49-4253-aa77-19755f630d7e">
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="table-th" height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="table-th" x="0" y="0" width="92" height="30" uuid="caad6624-488b-4a97-a5ae-69af400dda4d"/>
+								<textElement>
+									<font fontName="Open Sans" isBold="false"/>
+								</textElement>
 								<text><![CDATA[Numéro de la zone]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table-td" height="30" rowSpan="1">
 							<textField>
 								<reportElement style="table-td" x="0" y="0" width="92" height="30" uuid="46f27d45-3334-4b09-a551-70714f260753"/>
 								<textElement verticalAlignment="Middle"/>
@@ -397,13 +400,16 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="189" uuid="0d352cb1-e3a3-44b0-9b4e-c8993730f459">
-						<jr:columnHeader style="table 1_CH" height="30" rowSpan="1">
+						<jr:columnHeader style="table-th" height="30" rowSpan="1">
 							<staticText>
 								<reportElement style="table-th" x="0" y="0" width="189" height="30" uuid="2e01eb26-2cb4-4211-ab12-d64c1ba93223"/>
+								<textElement>
+									<font fontName="Open Sans" isBold="false"/>
+								</textElement>
 								<text><![CDATA[Variété]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell style="table 1_TD" height="30" rowSpan="1">
+						<jr:detailCell style="table-td" height="30" rowSpan="1">
 							<textField>
 								<reportElement style="table-td" x="0" y="0" width="189" height="30" uuid="81601dd6-a527-42c5-bee7-697705388a5d"/>
 								<textElement verticalAlignment="Middle"/>
@@ -412,15 +418,18 @@
 						</jr:detailCell>
 					</jr:column>
 					<jr:column width="92" uuid="75f9eda0-d5ab-4bb7-80cf-8f65713b603a">
-						<jr:columnHeader height="30" rowSpan="1">
+						<jr:columnHeader style="table-th" height="30" rowSpan="1">
 							<staticText>
-								<reportElement style="table-th" x="0" y="0" width="90" height="30" uuid="0bf14539-c95d-4b02-97e8-cc87e1543565"/>
+								<reportElement style="table-th" x="0" y="0" width="92" height="30" uuid="0bf14539-c95d-4b02-97e8-cc87e1543565"/>
+								<textElement>
+									<font fontName="Open Sans" isBold="false"/>
+								</textElement>
 								<text><![CDATA[Apport calculé]]></text>
 							</staticText>
 						</jr:columnHeader>
-						<jr:detailCell height="30" rowSpan="1">
+						<jr:detailCell style="table-td" height="30" rowSpan="1">
 							<textField>
-								<reportElement style="table-td" x="0" y="0" width="90" height="30" uuid="2bdb88e8-a327-46db-acb5-0a8e3cb74072"/>
+								<reportElement style="table-td" x="0" y="0" width="92" height="30" uuid="2bdb88e8-a327-46db-acb5-0a8e3cb74072"/>
 								<textElement verticalAlignment="Middle"/>
 								<textFieldExpression><![CDATA[$F{nitrogen_input}]]></textFieldExpression>
 							</textField>
@@ -428,6 +437,48 @@
 					</jr:column>
 				</jr:table>
 			</componentElement>
+			<staticText>
+				<reportElement style="emphasis" x="21" y="226" width="495" height="18" uuid="dbbdcc09-6f6d-4e91-8562-7f9f66117e84">
+					<printWhenExpression><![CDATA[$F{default_computation_method_name}.toString() == "poitou_charentes_2013"]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph firstLineIndent="4"/>
+				</textElement>
+				<text><![CDATA[Arrêté préfectoral n°255 du 31/08/2012 (Poitou-Charentes)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="label-strong" x="2" y="174" width="498" height="22" uuid="16c61d3b-6c6d-4727-b09f-2931737acd25"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph firstLineIndent="4"/>
+				</textElement>
+				<text><![CDATA[Référence réglementaires]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="emphasis" x="23" y="207" width="495" height="18" uuid="56b2b089-bd68-4702-8fe8-23bf9b63cf83"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph firstLineIndent="4"/>
+				</textElement>
+				<text><![CDATA[Arrêté national 23/10/2013 modifiant l'arrêté national du 19/12/2011]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="label-strong" x="0" y="45" width="498" height="22" uuid="7d1f8e6b-fffc-4664-912e-414cc6ec06b4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph firstLineIndent="4"/>
+				</textElement>
+				<text><![CDATA[Informations générales]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="label-strong" x="3" y="273" width="498" height="22" uuid="c7f2777f-0391-4574-9998-ac755ea80af6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Open Sans" size="10"/>
+					<paragraph firstLineIndent="4"/>
+				</textElement>
+				<text><![CDATA[Synthèse]]></text>
+			</staticText>
 		</band>
 	</title>
 	<pageHeader>
@@ -437,14 +488,14 @@
 		<band height="7" splitType="Stretch"/>
 	</columnHeader>
 	<detail>
-		<band height="325">
+		<band height="408">
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="42" width="101" height="22" uuid="cfe0c99d-d313-4da4-b371-9d095857ea80"/>
+				<reportElement style="strong" x="453" y="114" width="101" height="22" uuid="cfe0c99d-d313-4da4-b371-9d095857ea80"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{nitrogen-need}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="label" x="61" y="42" width="394" height="22" uuid="0266c55b-8823-4932-aa77-c5d38dcf64db"/>
+				<reportElement style="label" x="59" y="114" width="394" height="22" uuid="0266c55b-8823-4932-aa77-c5d38dcf64db"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -452,12 +503,12 @@
 				<text><![CDATA[Quantité d’azote absorbé par la culture à la fermeture du bilan (Pf)]]></text>
 			</staticText>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="64" width="100" height="20" uuid="27b4714c-38eb-4ff1-ac9a-0e6b3d404d9c"/>
+				<reportElement style="strong" x="453" y="136" width="100" height="20" uuid="27b4714c-38eb-4ff1-ac9a-0e6b3d404d9c"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{absorbed-nitrogen-at-opening}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="label" x="61" y="64" width="394" height="22" uuid="73c4e034-335d-407e-ab65-6e16598a7768"/>
+				<reportElement style="label" x="59" y="136" width="394" height="22" uuid="73c4e034-335d-407e-ab65-6e16598a7768"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -465,12 +516,12 @@
 				<text><![CDATA[Quantité d’azote absorbé par la culture à l'ouverture du bilan (Pi)]]></text>
 			</staticText>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="84" width="100" height="20" uuid="3f4a7e60-3e9a-4ffe-bdde-4dac176edcc8"/>
+				<reportElement style="strong" x="453" y="156" width="100" height="20" uuid="3f4a7e60-3e9a-4ffe-bdde-4dac176edcc8"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{mineral-nitrogen-at-opening}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="label" x="61" y="84" width="394" height="22" uuid="124c3154-9eaa-4fe2-a617-7515eeac20e2"/>
+				<reportElement style="label" x="59" y="156" width="394" height="22" uuid="124c3154-9eaa-4fe2-a617-7515eeac20e2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -478,12 +529,12 @@
 				<text><![CDATA[Quantité d’azote minéral dans le sol à l’ouverture du bilan (Ri)]]></text>
 			</staticText>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="104" width="100" height="20" uuid="d786fc4e-6a11-4e54-9c54-5020b56e5128"/>
+				<reportElement style="strong" x="453" y="176" width="100" height="20" uuid="d786fc4e-6a11-4e54-9c54-5020b56e5128"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{humus-mineralization}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="label" x="61" y="104" width="394" height="22" uuid="c99503d7-e5ca-420a-b329-3cf0365a5e72"/>
+				<reportElement style="label" x="59" y="176" width="394" height="22" uuid="c99503d7-e5ca-420a-b329-3cf0365a5e72"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -491,7 +542,7 @@
 				<text><![CDATA[Minéralisation nette de l’humus du sol (Mh)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="61" y="124" width="394" height="22" uuid="c83f389e-f5e4-4c19-876b-4edec30833fc"/>
+				<reportElement style="label" x="59" y="196" width="394" height="22" uuid="c83f389e-f5e4-4c19-876b-4edec30833fc"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -499,7 +550,7 @@
 				<text><![CDATA[Minéralisation nette des résidus de récolte (Mr)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="61" y="144" width="394" height="22" uuid="47eecfac-788d-421d-816c-f35f87b4540c"/>
+				<reportElement style="label" x="59" y="216" width="394" height="22" uuid="47eecfac-788d-421d-816c-f35f87b4540c"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -507,7 +558,7 @@
 				<text><![CDATA[Minéralisation nette due à un retournement de prairie (Mhp)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="61" y="164" width="394" height="22" uuid="e4df02c6-7eea-4f3e-96c1-e408bdc9c9d9"/>
+				<reportElement style="label" x="59" y="236" width="394" height="22" uuid="e4df02c6-7eea-4f3e-96c1-e408bdc9c9d9"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -515,7 +566,7 @@
 				<text><![CDATA[Minéralisation nette des résidus de culture intermédiaire (MrCi)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="61" y="184" width="394" height="22" uuid="45e18275-8f60-4d91-8b77-83832052b971"/>
+				<reportElement style="label" x="59" y="256" width="394" height="22" uuid="45e18275-8f60-4d91-8b77-83832052b971"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -523,7 +574,7 @@
 				<text><![CDATA[Apport d'azote par l'eau d'irrigation (Nirr)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="61" y="204" width="394" height="22" uuid="4e6c54a2-9667-4081-8f7a-e5e90a388690"/>
+				<reportElement style="label" x="59" y="276" width="394" height="22" uuid="4e6c54a2-9667-4081-8f7a-e5e90a388690"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -531,7 +582,7 @@
 				<text><![CDATA[Equivalent engrais minéral de l'azote fourni par les produits résiduaires organiques (Xa)]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" x="61" y="248" width="394" height="22" uuid="8ba18e28-5f25-43fd-ae12-ecd69cea9f09"/>
+				<reportElement style="label" x="59" y="320" width="394" height="22" uuid="8ba18e28-5f25-43fd-ae12-ecd69cea9f09"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -539,37 +590,37 @@
 				<text><![CDATA[Quantité d’azote minéral dans le sol à la fermeture du bilan (Rf)]]></text>
 			</staticText>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="124" width="100" height="20" uuid="d364c590-6b8c-467d-b738-bee5ac834484"/>
+				<reportElement style="strong" x="453" y="196" width="100" height="20" uuid="d364c590-6b8c-467d-b738-bee5ac834484"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{previous-cultivation-residue-mineralization}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="144" width="100" height="20" uuid="b2fe5a44-a0af-46cf-9335-3669f083b00b"/>
+				<reportElement style="strong" x="453" y="216" width="100" height="20" uuid="b2fe5a44-a0af-46cf-9335-3669f083b00b"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{meadow-humus-mineralization}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="164" width="100" height="20" uuid="91806441-72a7-4212-9bcc-846ad61d5b51"/>
+				<reportElement style="strong" x="453" y="236" width="100" height="20" uuid="91806441-72a7-4212-9bcc-846ad61d5b51"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{intermediate-cultivation-residue-mineralization}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="184" width="100" height="20" uuid="9565a46b-7d0f-4286-9284-0255aac98550"/>
+				<reportElement style="strong" x="453" y="256" width="100" height="20" uuid="9565a46b-7d0f-4286-9284-0255aac98550"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{irrigation-water-nitrogen}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="204" width="100" height="22" uuid="50963000-97b8-4a95-9066-3d3904cf599f"/>
+				<reportElement style="strong" x="453" y="276" width="100" height="22" uuid="50963000-97b8-4a95-9066-3d3904cf599f"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{organic-fertilizer-mineral-fraction}]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="248" width="100" height="22" uuid="d97ee7fc-2985-444a-8037-bfedcdaca730"/>
+				<reportElement style="strong" x="453" y="320" width="100" height="22" uuid="d97ee7fc-2985-444a-8037-bfedcdaca730"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{nitrogen-at-closing}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="label" x="61" y="226" width="394" height="22" uuid="e9f81ed3-44cf-4237-91f5-12ac4151b4b2"/>
+				<reportElement style="label" x="59" y="298" width="394" height="22" uuid="e9f81ed3-44cf-4237-91f5-12ac4151b4b2"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -577,17 +628,17 @@
 				<text><![CDATA[Fourniture du sol (Po)]]></text>
 			</staticText>
 			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="455" y="226" width="100" height="22" uuid="68d13bb1-70a3-40fc-8e92-8b9f58f9ea34"/>
+				<reportElement style="strong" x="453" y="298" width="100" height="22" uuid="68d13bb1-70a3-40fc-8e92-8b9f58f9ea34"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{soil-production}]]></textFieldExpression>
 			</textField>
-			<textField pattern="###0.00" isBlankWhenNull="true">
-				<reportElement style="strong" x="454" y="284" width="100" height="20" uuid="4918c482-f82a-420b-b19a-c17bbf6c6ed0"/>
+			<textField pattern="###0.00 kg N / ha" isBlankWhenNull="true">
+				<reportElement style="strong" x="452" y="356" width="100" height="20" uuid="4918c482-f82a-420b-b19a-c17bbf6c6ed0"/>
 				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{nitrogen-input}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="label" x="61" y="284" width="394" height="20" uuid="4a07425b-d681-4768-91ba-c963788a2b43"/>
+				<reportElement style="label" x="59" y="356" width="394" height="20" uuid="4a07425b-d681-4768-91ba-c963788a2b43"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -595,14 +646,14 @@
 				<text><![CDATA[ Fertilisation azotée (X) = Pf - Pi - Ri - Mh - Mhp - Mr - MrCi - Nirr - Xa + Rf]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="strong" mode="Opaque" x="61" y="275" width="493" height="2" backcolor="#7C9DDD" uuid="34d7d8ea-a8ea-402e-adf3-216247ac607a"/>
+				<reportElement style="strong" mode="Opaque" x="59" y="347" width="493" height="2" backcolor="#7C9DDD" uuid="34d7d8ea-a8ea-402e-adf3-216247ac607a"/>
 				<textElement verticalAlignment="Middle">
 					<font pdfFontName="Open Sans"/>
 				</textElement>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" mode="Opaque" x="61" y="284" width="393" height="20" uuid="8c40f6d4-7c8b-4034-8697-fa853b7eab7c">
+				<reportElement style="label" mode="Opaque" x="59" y="356" width="393" height="20" uuid="8c40f6d4-7c8b-4034-8697-fa853b7eab7c">
 					<printWhenExpression><![CDATA[$F{zone_soil_nature_name} == "clay_limestone_soil" || $F{zone_soil_nature_name} == "chesnut_red_soil"]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -612,7 +663,7 @@
 				<text><![CDATA[ Fertilisation azotée (X) = [(Pf - Po- Mr - MrCi - Nirr) / CAU] – Xa]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="label" mode="Opaque" x="61" y="302" width="393" height="14" uuid="f7e66710-9aad-4fd4-b12f-b3c9ab8b5d0d">
+				<reportElement style="label" mode="Opaque" x="59" y="374" width="393" height="14" uuid="f7e66710-9aad-4fd4-b12f-b3c9ab8b5d0d">
 					<printWhenExpression><![CDATA[$F{zone_soil_nature_name} == "clay_limestone_soil" || $F{zone_soil_nature_name} == "chesnut_red_soil"]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -622,7 +673,7 @@
 				<text><![CDATA[ avec CAU = 0.8]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="emphasis" x="61" y="8" width="495" height="22" uuid="c364cb53-69a5-4a24-a01b-e175404a7e12"/>
+				<reportElement style="label-strong" x="58" y="92" width="495" height="22" uuid="c364cb53-69a5-4a24-a01b-e175404a7e12"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Open Sans" size="10"/>
 					<paragraph firstLineIndent="4"/>
@@ -699,75 +750,6 @@
 		</band>
 	</lastPageFooter>
 	<summary>
-		<band height="802">
-			<barChart>
-				<chart>
-					<reportElement x="0" y="23" width="552" height="297" uuid="c3e489b1-5058-4672-be6a-fa378e6dfe21"/>
-					<chartTitle>
-						<titleExpression><![CDATA["Fertilisation azotée selon la nature du sol et l'activité"]]></titleExpression>
-					</chartTitle>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<categoryDataset>
-					<categorySeries>
-						<seriesExpression><![CDATA[$F{activity_name}]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{zone_soil_nature_name}]]></categoryExpression>
-						<valueExpression><![CDATA[$F{nitrogen-input}]]></valueExpression>
-					</categorySeries>
-				</categoryDataset>
-				<barPlot>
-					<plot/>
-					<itemLabel/>
-					<categoryAxisLabelExpression><![CDATA["Code du type de sol"]]></categoryAxisLabelExpression>
-					<categoryAxisFormat>
-						<axisFormat/>
-					</categoryAxisFormat>
-					<valueAxisLabelExpression><![CDATA["Fertilisation (kg N / Ha)"]]></valueAxisLabelExpression>
-					<valueAxisFormat>
-						<axisFormat/>
-					</valueAxisFormat>
-				</barPlot>
-			</barChart>
-			<barChart>
-				<chart>
-					<reportElement x="0" y="399" width="552" height="403" uuid="c117a5f2-f3cf-4ec9-af47-0a6ad519730b"/>
-					<chartTitle>
-						<titleExpression><![CDATA["Fertilisation azotée selon la parcelle et l'activité"]]></titleExpression>
-					</chartTitle>
-					<chartSubtitle/>
-					<chartLegend/>
-				</chart>
-				<categoryDataset>
-					<categorySeries>
-						<seriesExpression><![CDATA[$F{activity_name}]]></seriesExpression>
-						<categoryExpression><![CDATA[$F{storage_work_number}]]></categoryExpression>
-						<valueExpression><![CDATA[$F{nitrogen-input}]]></valueExpression>
-						<labelExpression><![CDATA[$F{nitrogen-input}.toString()]]></labelExpression>
-					</categorySeries>
-				</categoryDataset>
-				<barPlot>
-					<plot/>
-					<itemLabel/>
-					<categoryAxisFormat>
-						<axisFormat>
-							<labelFont>
-								<font size="6"/>
-							</labelFont>
-							<tickLabelFont>
-								<font size="6"/>
-							</tickLabelFont>
-						</axisFormat>
-					</categoryAxisFormat>
-					<valueAxisFormat>
-						<axisFormat>
-							<labelFont>
-								<font size="6"/>
-							</labelFont>
-						</axisFormat>
-					</valueAxisFormat>
-				</barPlot>
-			</barChart>
-		</band>
+		<band height="802"/>
 	</summary>
 </jasperReport>

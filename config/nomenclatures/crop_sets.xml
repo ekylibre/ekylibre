@@ -32,7 +32,7 @@
       <item name="bean" varieties="phaseolus" />
       <item name="nightshade" varieties="solanum" />
       <item name="sunflower" varieties="helianthus" />
-      <item name="grass" varieties="poaceae" />
+      <item name="grass" varieties="poaceae,medicago,trifolium" />
       <item name="leguminous" varieties="fabaceae" />
       <item name="grass_leguminous" varieties="poaceae,fabaceae" />
       <item name="secale_phacelia" varieties="secale,phacelia" />
