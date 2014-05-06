@@ -725,7 +725,7 @@ module ApplicationHelper
     url[:id] = record.id if record and record.class < ActiveRecord::Base
     variants = options.delete(:variants)
     # variants ||= {"actions.#{url[:controller]}.#{action}".to_sym.t({:default => "labels.#{action}".to_sym}.merge((record and record.class < ActiveRecord::Base) ? record.attributes.symbolize_keys : {})) => url} if authorized?(url)
-    variants ||= {action.to_s.tl => url} if authorized?(url)
+    variants ||= {action.to_s.t(scope: 'rest.actions') => url} if authorized?(url)
     return dropdown_button do |l|
       for name, url_options in variants || []
         variant_url = url.merge(url_options)
@@ -897,22 +897,22 @@ module ApplicationHelper
   end
 
 
-  def steps_tag(record, steps, options={})
-    name = options[:name] || record.class.name.underscore
-    state_method = options[:state_method] || :state
-    state = record.send(state_method).to_s
-    code = ''
-    for step in steps
-      title = tc("#{name}_steps.#{step[:name]}")
-      classes  = "step"
-      classes << " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action => url.to_s} unless url.is_a? Hash
-      classes << " disabled" unless step[:states].include?(state)
-      title = link_to(title, (record.id ? step[:actions][0].merge(:id => record.id) : "#"))
-      code << content_tag(:div, '&nbsp;'.html_safe, :class => 'transition') unless code.blank?
-      code << content_tag(:div, title, :class => classes)
-    end
-    return content_tag(:div, code.html_safe, :class => "stepper stepper-#{steps.count}-steps")
-  end
+  # def steps_tag(record, steps, options={})
+  #   name = options[:name] || record.class.name.underscore
+  #   state_method = options[:state_method] || :state
+  #   state = record.send(state_method).to_s
+  #   code = ''
+  #   for step in steps
+  #     title = tc("#{name}_steps.#{step[:name]}")
+  #     classes  = "step"
+  #     classes << " active" if step[:actions].detect{ |url| not url.detect{|k, v| params[k].to_s != v.to_s}} # url = {:action => url.to_s} unless url.is_a? Hash
+  #     classes << " disabled" unless step[:states].include?(state)
+  #     title = link_to(title, (record.id ? step[:actions][0].merge(:id => record.id) : "#"))
+  #     code << content_tag(:div, '&nbsp;'.html_safe, :class => 'transition') unless code.blank?
+  #     code << content_tag(:div, title, :class => classes)
+  #   end
+  #   return content_tag(:div, code.html_safe, :class => "stepper stepper-#{steps.count}-steps")
+  # end
 
 
 

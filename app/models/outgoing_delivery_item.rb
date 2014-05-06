@@ -49,41 +49,35 @@ class OutgoingDeliveryItem < Ekylibre::Record::Base
   #]VALIDATORS]
 
   delegate :net_mass, to: :product
+  delegate :name, to: :source_product
 
   # acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
   sums :delivery, :items, :net_mass, from: :measure
 
   before_validation do
     if self.sale_item
-      self.source_product_id  = self.sale_item.product_id
+      self.source_product ||= self.sale_item.product
     end
-
     if self.source_product
-      maximum = self.source_product.population || 0
-      if self.population == maximum
-        # deliver all the product source_product == product
-        self.product = self.source_product
-      else
-        # deliver a part of the product (need to part-with) source_product <> product
-        # @TODO part source_product into (product, self.quantity) and (source_product, self.source_product.population - self.quantity)
-      end
+      self.product = self.source_product
+      self.population = self.product.population
     end
     true
   end
 
-  validate(on: :create) do
-    if self.source_product
-      maximum = self.source_product.population || 0
-      errors.add(:population, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.source_product.variant.unit_name, :product => self.source_product_name) if (self.population > maximum)
-    end
-    true
-  end
+  # validate(on: :create) do
+  #   if self.source_product
+  #     maximum = self.source_product.population || 0
+  #     errors.add(:population, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.source_product.variant.unit_name, :product => self.source_product_name) if (self.population > maximum)
+  #   end
+  #   true
+  # end
 
-  validate(on: :update) do
-    old_self = self.old_record
-    maximum = self.product.population || 0
-    errors.add(:population, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.variant.unit_name, :product => self.product_name) if (self.population > maximum)
-  end
+  # validate(on: :update) do
+  #   old_self = self.old_record
+  #   maximum = self.product.population || 0
+  #   errors.add(:population, :greater_than_undelivered_quantity, :maximum => maximum, :unit => self.product.variant.unit_name, :product => self.product_name) if (self.population > maximum)
+  # end
 
   # def undelivered_quantity
   #  self.sale_item.undelivered_quantity

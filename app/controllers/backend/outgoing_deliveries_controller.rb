@@ -23,7 +23,7 @@ class Backend::OutgoingDeliveriesController < BackendController
 
   unroll
 
-  list(conditions: search_conditions(:outgoing_deliveries => [:number, :reference_number, :net_mass], :entities => [:full_name, :code])) do |t|
+  list(conditions: search_conditions(outgoing_deliveries: [:number, :reference_number, :net_mass], entities: [:full_name, :code])) do |t|
     t.column :number, url: true
     t.column :transport, url: true
     t.column :transporter, url: true
@@ -34,17 +34,25 @@ class Backend::OutgoingDeliveriesController < BackendController
     # t.column :number, through: :sale, url: true
     t.column :net_mass
     # t.column :amount
-    t.action :edit, if: :updateable?
-    t.action :destroy, if: :destroyable?
+    t.column :sale, url: true
+    t.action :new,     on: :none
+    t.action :invoice, on: :both, method: :post
+    t.action :edit
+    t.action :destroy
   end
 
-  list(:items, model: :outgoing_delivery_items, conditions: {:delivery_id => 'params[:id]'.c}) do |t|
+  list(:items, model: :outgoing_delivery_items, conditions: {delivery_id: 'params[:id]'.c}) do |t|
     t.column :product, url: true
     t.column :product_work_number, through: :product, label_method: :work_number
     t.column :population
     t.column :unit_name, through: :variant
     t.column :net_mass, through: :product, datatype: :measure
     # t.column :name, through: :building, url: true
+  end
+
+  def invoice
+    sale = OutgoingDelivery.invoice(params[:id].split(','))
+    redirect_to backend_sale_url(sale)
   end
 
 end

@@ -13,6 +13,7 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 // $zz-menu-width: 250px;
 
 .active-list[data-list-source], .active-list {
+   overflow-x: auto; 
    table.list {
       border-collapse: collapse;
       width: 100%;
@@ -263,12 +264,8 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
       }
       td.act {
 	 width: 16px;
-//      padding-top: 0 !important;
 	 padding-bottom: 0 !important;
 	 a {
-        //color: transparent;
-        //display: block;
-
             font-size: 0;
             i {
                @include is-icon(18px);
@@ -281,13 +278,8 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 		  color: darken($base-color, 10%);
                }
             }
-        //height: 16px;
-        //width: 16px;
             margin: 0 auto;
             border: none;
-
-            &.show       i { @include use-icon(print); }
-            &.destroy    i { @include use-icon(remove); }
 
             &.abort       i { @include use-icon(remove); }
             &.action      i { @include use-icon(cog); }
@@ -310,6 +302,7 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
             &.firefox     i { @include use-icon(chevron-down); }
             &.help        i { @include use-icon(question-sign); }
             &.import      i { @include use-icon(upload-alt); }
+            &.invoice     i { @include use-icon(file-text-alt); }
             &.letter      i { @include use-icon(pencil); }
             &.load        i { @include use-icon(refresh); }
             &.logout      i { @include use-icon(off); }
@@ -323,6 +316,7 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
             &.register    i { @include use-icon(plus); }
             &.reset       i { @include use-icon(refresh); }
             &.restore     i { @include use-icon(chevron-left); }
+            &.show        i { @include use-icon(print); }
             &.sort        i { @include use-icon(sort); }
             &.table       i { @include use-icon(table); }
             &.unchecked   i { @include use-icon(check-empty); }

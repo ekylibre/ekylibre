@@ -354,9 +354,9 @@ Ekylibre::Application.routes.draw do
 
     resources :incoming_deliveries, concerns: [:list, :unroll] do
       member do
-        get  :list_items
         match "confirm", via: [:get, :post]
         post :invoice
+        get  :list_items
       end
     end
 
@@ -477,6 +477,7 @@ Ekylibre::Application.routes.draw do
 
     resources :outgoing_deliveries, concerns: [:list, :unroll] do
       member do
+        post :invoice
         get :list_items
       end
     end
@@ -590,11 +591,12 @@ Ekylibre::Application.routes.draw do
         get  :list_items
         get  :list_undelivered_items
         get  :list_deliveries
-        post :correct
-        post :propose
-        post :invoice
-        post :confirm
         post :abort
+        post :confirm
+        post :correct
+        post :invoice
+        post :propose
+        post :propose_and_invoice
         post :refuse
       end
     end
@@ -623,14 +625,14 @@ Ekylibre::Application.routes.draw do
         get :list_credits
         get :list_creditable_items
         match "cancel", via: [:get, :post]
-        post :duplicate
-        post :correct
-        post :propose
-        post :invoice
-        post :confirm
         post :abort
-        post :refuse
+        post :confirm
+        post :correct
+        post :duplicate
+        post :invoice
+        post :propose
         post :propose_and_invoice
+        post :refuse
       end
     end
 

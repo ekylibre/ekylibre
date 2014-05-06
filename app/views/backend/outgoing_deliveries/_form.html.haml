@@ -1,29 +1,20 @@
--
+= field_set :general_informations do
+  = f.referenced_association :recipient
+  = f.referenced_association :mode
+  = f.input :sent_at
+  = f.referenced_association :address, source: :mails
+  = f.referenced_association :sale
 
-= beehive do |b|
-  - b.tabbox do
-    - b.cell do
-      = f.referenced_association :recipient
-      = f.referenced_association :mode
-      = f.input :sent_at
-
-    - b.cell do
-      = f.referenced_association :address, source: :mails #, :new => {:entity_id => @outgoing_delivery.sale.client_id}
-
-    - b.cell do
-      = f.referenced_association :sale
-
-  - b.cell :outgoing_delivery_items do
-    %table
-      %thead
-        %tr
-          %th= OutgoingDeliveryItem.human_attribute_name(:product)
-          %th= OutgoingDeliveryItem.human_attribute_name(:quantity)
-          %th
-      %tbody#items
-        = f.simple_fields_for :items, @outgoing_delivery.items do |item|
-          = render 'item_fields', :f => item
-      %tfoot
-        %tr.total
-          %td= link_to_add_association "add_item".tl, f, :items, :partial => 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
-          %th
+= field_set OutgoingDelivery.human_attribute_name(:items) do
+  %table
+    %thead
+      %tr
+        %th= OutgoingDeliveryItem.human_attribute_name(:product)
+        %th
+    %tbody#items
+      = f.simple_fields_for :items, @outgoing_delivery.items do |item|
+        = render 'item_fields', f: item
+    %tfoot
+      %tr.total
+        %td= link_to_add_association "add_item".tl, f, :items, :partial => 'item_fields', 'data-association-insertion-node' => '#items', 'data-association-insertion-method' => :append, class: "btn"
+        %th

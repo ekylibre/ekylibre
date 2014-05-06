@@ -1,19 +1,17 @@
-= purchase_steps if params[:step]
-
 - main_toolbar do |t|
-  - t.export :purchase, @purchase
-  - t.edit @purchase if @purchase.draft?
-  - if @purchase.can_confirm?
-    - t.confirm @purchase, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
-  - if @purchase.can_invoice?
-    - t.invoice @purchase, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
+  - t.export :purchase, resource
+  - t.edit resource if resource.draft?
+  - if resource.can_confirm?
+    - t.confirm resource, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_confirm)
+  - if resource.can_invoice?
+    - t.invoice resource, method: :post, "data-confirm" => tc(:are_you_sure_you_want_to_invoice)
   - for event in [:propose, :correct, :refuse]
-    - t.send(event, @purchase, method: :post, "data-confirm" => tc(:are_you_sure)) if @purchase.send("can_#{event}?")
-  - t.abort(@purchase, method: :post, "data-confirm" => tc(:are_you_sure)) if @purchase.can_abort?
+    - t.send(event, resource, method: :post, "data-confirm" => tc(:are_you_sure)) if resource.send("can_#{event}?")
+  - t.abort(resource, method: :post, "data-confirm" => tc(:are_you_sure)) if resource.can_abort?
 
 = beehive do |b|
 
-  - b.tabbox do
+  - b.hbox do
     - b.cell do
       = attributes_list do |l|
         - l.attribute :supplier, :label => :label, url: true
@@ -24,29 +22,21 @@
         - l.attribute :created_at
         - l.attribute :confirmed_at
         - l.attribute :planned_at
-        - l.attribute :currency unless @purchase.currency == Entity.of_company.currency
+        - l.attribute :currency unless resource.currency == Entity.of_company.currency
         - l.attribute :description
         - l.attribute :delivery_address, :label => :coordinate
         - l.attribute :journal_entry, url: true
 
-  - if ["products", "summary", ""].include? params[:step].to_s
-    - b.cell Purchase.human_attribute_name("items") do
-      = list :items do
-        %tr.total
-          %th{:colspan => 5}
-          %td= @purchase.pretax_amount.l(currency: @purchase.currency)
-          %td= @purchase.amount.l(currency: @purchase.currency)
-          %th{:colspan => 3}
+  - b.cell Purchase.human_attribute_name("items") do
+    = list :items do
+      %tr.total
+        %th{:colspan => 5}
+        %td= resource.pretax_amount.l(currency: resource.currency)
+        %td= resource.amount.l(currency: resource.currency)
+        %th{:colspan => 3}
 
-  - if ["products", "summary", ""].include? params[:step].to_s
-    - b.cell tc(:affair) do
-      = affair_of(@purchase)
+  - b.cell tc(:affair) do
+    = affair_of(resource)
 
-  - if ["deliveries", ""].include? params[:step].to_s
-    -# if @purchase.deliverable?
-      - b.cell tc(:undelivered) do
-        = toolbar do |t|
-          - t.new(params: {controller: :incoming_deliveries, :purchase => @purchase.id})
-        = list :undelivered_items
-    - b.cell Purchase.human_attribute_name("deliveries") do
-      = list :deliveries
+  - b.cell Purchase.human_attribute_name("deliveries") do
+    = list :deliveries

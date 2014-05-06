@@ -38,8 +38,6 @@
 
 
 class IncomingDelivery < Ekylibre::Record::Base
-  acts_as_numbered
-
   belongs_to :address, class_name: "EntityAddress"
   belongs_to :mode, class_name: "IncomingDeliveryMode"
   belongs_to :purchase
@@ -54,6 +52,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   #]VALIDATORS]
   validates_presence_of :received_at, :address, :mode
 
+  acts_as_numbered
   accepts_nested_attributes_for :items
   delegate :order?, :draft?, to: :purchase
 
@@ -121,13 +120,15 @@ class IncomingDelivery < Ekylibre::Record::Base
       variants = {}
       for delivery in deliveries
         for item in delivery.items
-          # variants[item.variant.id] ||= []
-          # variants[item.variant.id] << item.id
-          purchase.items.create!(variant: item.variant,
-                                 unit_price_amount: item.variant.prices.first.amount,
-                                 tax: item.variant.category.purchase_taxes.first || Tax.first,
-                                 quantity: item.population)
+          next unless item.population > 0
+          item.purchase_item = purchase.items.create!(variant: item.variant,
+                                                      unit_price_amount: item.variant.prices.first.amount,
+                                                      tax: item.variant.category.purchase_taxes.first || Tax.first,
+                                                      indicator_name: "population",
+                                                      quantity: item.population)
+          item.save!
         end
+        delivery.reload
         delivery.purchase = purchase
         delivery.save!
       end

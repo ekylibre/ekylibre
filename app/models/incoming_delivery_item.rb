@@ -54,12 +54,6 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   acts_as_stockable :origin => :delivery
   delegate :variant, :name, to: :product, prefix: true
 
-  before_validation do
-    if self.purchase_item
-      self.product_id  = self.purchase_item.product_id
-    end
-  end
-
   before_validation(on: :create) do
     if self.product
       self.population = -999999

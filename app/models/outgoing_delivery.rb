@@ -145,4 +145,8 @@ class OutgoingDelivery < Ekylibre::Record::Base
     end
   end
 
+  def invoice
+    raise NotImplemented
+  end
+
 end

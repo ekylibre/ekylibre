@@ -2,9 +2,9 @@
 %tr.nested-fields
   %td
     .selector
-      = f.referenced_association :source_product, :source => :deliverables
+      = f.input_field(:source_product_id, as: :string, 'data-selector' => url_for(controller: :products, action: :unroll, scope: :deliverables))
+    -# = f.referenced_association :source_product, :source => :deliverables
     - if f.object.errors.any?
       .errors= f.object.errors.inspect
-  %td.decimal= f.input(:population, :size => 7, class: "item-pta")
   %td.action
     = link_to_remove_association(content_tag(:i) + h(:destroy.tl), f, 'data-no-turbolink' => true, class: 'remove-item')

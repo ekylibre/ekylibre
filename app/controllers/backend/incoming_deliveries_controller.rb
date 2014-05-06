@@ -26,7 +26,7 @@ class Backend::IncomingDeliveriesController < BackendController
 
   respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
 
-  list selector: true do |t|
+  list do |t|
     t.column :number, url: true
     t.column :sender, url: true
     t.column :reference_number, url: true

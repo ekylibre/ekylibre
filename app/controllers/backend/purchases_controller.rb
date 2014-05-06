@@ -18,7 +18,7 @@
 #
 
 class Backend::PurchasesController < BackendController
-  manage_restfully :planned_at => "Date.today+2".c, :redirect_to => '{action: :show, step: :products, id: "id"}'.c
+  manage_restfully :planned_at => "Date.today+2".c, :redirect_to => '{action: :show, id: "id"}'.c
 
   unroll
 
@@ -40,9 +40,26 @@ class Backend::PurchasesController < BackendController
     t.action :destroy, if: :destroyable?
   end
 
+  list(:items, model: :purchase_items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
+    t.column :variant, url: true
+    t.column :annotation
+    #t.column :tracking_serial
+    t.column :quantity
+    t.column :unit_price_amount
+    t.column :indicator_name
+    # t.column :pretax_amount, currency: true, through: :price
+    t.column :pretax_amount, currency: true
+    t.column :amount, currency: true
+    t.action :new, on: :none, url: {purchase_id: 'params[:id]'.c}, if: :draft?
+    t.action :edit, if: :draft?
+    t.action :destroy, if: :draft?
+  end
+
   list(:deliveries, model: :incoming_deliveries, :children => :items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
-    t.column :address, :children => :product_name
-    t.column :received_at, :children => false
+    t.column :number, url: true
+    t.column :reference_number, url: true
+    t.column :address, children: :product_name
+    t.column :received_at, children: false
     # t.column :population, :datatype => :decimal
     # t.column :pretax_amount, currency: true
     # t.column :amount, currency: true
@@ -58,21 +75,6 @@ class Backend::PurchasesController < BackendController
   #   t.column :amount, currency: true
   #   t.column :undelivered_quantity, :datatype => :decimal
   # end
-
-  list(:items, model: :purchase_items, conditions: {purchase_id: 'params[:id]'.c}) do |t|
-    t.column :variant, url: true
-    t.column :annotation
-    #t.column :tracking_serial
-    t.column :quantity
-    t.column :unit_price_amount
-    t.column :indicator_name
-    # t.column :pretax_amount, currency: true, through: :price
-    t.column :pretax_amount, currency: true
-    t.column :amount, currency: true
-          t.action :new, on: :none, url: {purchase_id: 'params[:id]'.c}, if: :draft?
-    t.action :edit, if: :draft?
-    t.action :destroy, if: :draft?
-  end
 
 
 
@@ -95,7 +97,7 @@ class Backend::PurchasesController < BackendController
             notify(:purchase_already_invoiced)
           elsif @purchase.items.size <= 0
             notify_warning(:no_items_found)
-            redirect_to action: :show, step: :products, id: @purchase.id
+            redirect_to action: :show, id: @purchase.id
           end
         end
         t3e @purchase.attributes, :supplier => @purchase.supplier.full_name, :state => @purchase.state_label
@@ -107,53 +109,51 @@ class Backend::PurchasesController < BackendController
 
   def abort
     return unless @purchase = find_and_check
-    if request.post?
-      @purchase.abort
-    end
+    @purchase.abort
     redirect_to action: :show, id: @purchase.id
   end
 
   def confirm
     return unless @purchase = find_and_check
-    step = :products
-    if request.post?
-      step = :deliveries if @purchase.confirm
-    end
-    redirect_to action: :show, step: step, id: @purchase.id
+    @purchase.confirm
+    redirect_to action: :show, id: @purchase.id
   end
 
   def correct
     return unless @purchase = find_and_check
-    if request.post?
-      @purchase.correct
-    end
-    redirect_to action: :show, step: :products, id: @purchase.id
+    @purchase.correct
+    redirect_to action: :show, id: @purchase.id
   end
 
   def invoice
     return unless @purchase = find_and_check
     ActiveRecord::Base.transaction do
       raise ActiveRecord::Rollback unless @purchase.invoice(params[:invoiced_at])
-      redirect_to action: :show, step: :summary, id: @purchase.id
-      return
     end
-    redirect_to action: :show, step: :products, id: @purchase.id
+    redirect_to action: :show, id: @purchase.id
   end
 
   def propose
     return unless @purchase = find_and_check
-    if request.post?
-      @purchase.propose
+    @purchase.propose
+    redirect_to action: :show, id: @purchase.id
+  end
+
+  def propose_and_invoice
+    return unless @purchase = find_and_check
+    ActiveRecord::Base.transaction do
+      raise ActiveRecord::Rollback unless @purchase.propose
+      raise ActiveRecord::Rollback unless @purchase.confirm
+      # raise ActiveRecord::Rollback unless @purchase.deliver
+      raise ActiveRecord::Rollback unless @purchase.invoice
     end
-    redirect_to action: :show, step: :products, id: @purchase.id
+    redirect_to action: :show, id: @purchase.id
   end
 
   def refuse
     return unless @purchase = find_and_check
-    if request.post?
-      @purchase.refuse
-    end
-    redirect_to action: :show, step: :products, id: @purchase.id
+    @purchase.refuse
+    redirect_to action: :show, id: @purchase.id
   end
 
 end

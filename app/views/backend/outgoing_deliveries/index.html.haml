@@ -1,8 +1,5 @@
-=kujaku do |k|
-  -k.text
-  -k.radio :unconfirmed, :confirmed, :all, :i18n_root => "labels.criterion_modes."
+= kujaku do |k|
+  - k.text
+  - k.radio :unconfirmed, :confirmed, :all, :i18n_root => "labels.criterion_modes."
 
-- main_toolbar do |t|
-  -t.new
-
-=list
+= list

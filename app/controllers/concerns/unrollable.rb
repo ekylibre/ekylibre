@@ -79,7 +79,7 @@ module Unrollable
       end
       haml << "  - if items.count > #{(max*1.5).round}\n"
       haml << "    %span.items-status.items-status-too-many-records\n"
-      haml << "      = I18n.t('labels.x_items_remain_on_y', :count => (items.count - #{max}))\n"
+      haml << "      = 'labels.x_items_remain'.t(count: (items.count - #{max}))\n"
       haml << "- else\n"
       haml << "  %ul.items-list\n"
       unless fill_in.nil?
