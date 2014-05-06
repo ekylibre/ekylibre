@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-helianthus" hierarchical="true">
+    <items>
+      <item name="helianthus_annuus" itis_tsn="36616"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-helianthus_annuus" hierarchical="true">
+    <items>
+      <!-- PRECOCE -->
+      <item name="helianthus_annuus_aurasol" itis_tsn="000000"/>
+      <item name="helianthus_annuus_es_ethic" itis_tsn="000000"/>
+      <item name="helianthus_annuus_es_magnific" itis_tsn="000000"/>
+      <item name="helianthus_annuus_extrasol" itis_tsn="000000"/>
+      <item name="helianthus_annuus_lg_5360_ho" itis_tsn="000000"/>
+      <item name="helianthus_annuus_lg_5450_ho" itis_tsn="000000"/>
+      <item name="helianthus_annuus_lg_5474_ho" itis_tsn="000000"/>
+      <item name="helianthus_annuus_lluna" itis_tsn="000000"/>
+      <item name="helianthus_annuus_p64he01" itis_tsn="000000"/>
+      <item name="helianthus_annuus_pr64h41" itis_tsn="000000"/>
+      <item name="helianthus_annuus_rapala" itis_tsn="000000"/>
+      <item name="helianthus_annuus_sy_valeo" itis_tsn="000000"/>
+    </items>
+  </nomenclature>
+  
+  
+</nomenclatures>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-avena" hierarchical="true">
+    <items>
+      <item name="avena_evora" itis_tsn="12345"/>
+      <item name="avena_une_de_mai" itis_tsn="12345"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

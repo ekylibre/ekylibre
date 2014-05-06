@@ -49,7 +49,7 @@ load_data :deliveries do |loader|
                            :ordered_on => Date.civil(*row[1].to_s.split(/\//).reverse.map(&:to_i)),
                            :product_nature_name => (variants_transcode[row[3].to_s] || "small_equipment"),
                            :matter_name => row[4],
-                           :coop_variant_reference_name => "coop:" + row[4].downcase.gsub(/\s+/, '_'),
+                           :coop_variant_reference_name => "coop:" + row[4].downcase.gsub(/\W+/, '_'),
                            :quantity => (row[5].blank? ? nil : row[5].to_d),
                            :product_deliver_quantity => (row[6].blank? ? nil : row[6].to_d),
                            :product_unit_price => (row[7].blank? ? nil : row[7].to_d),
