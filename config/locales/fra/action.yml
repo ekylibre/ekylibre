@@ -210,7 +210,6 @@ fra:
       new: "Nouvel établissement"
     backend/event_participations: #?
     backend/events:
-      # change_minutes: "Change minutes for event"
       edit: "Modifier l’évènement\_: %{name}"
       index: "Évènements"
       new: "Nouvel évènement"
@@ -804,7 +803,7 @@ fra:
     add_x_html: "Ajouter «\_%{x}\_»" #?
     address: "Adresse"
     affair: "Affaire"
-    affairs: "Affaires" #?
+    affairs: "Affaires"
     all: "Tous"
     all_accounts: "Tous les comptes"
     all_areas: "— Toutes les zones postales —"
@@ -943,6 +942,8 @@ fra:
     convert_balance_into:  #?
       loss: "Passer le solde en perte" #?
       profit: "Passer le solde en profit" #?
+    # convert_balance_into_loss: "Convert balance into loss"
+    # convert_balance_into_profit: "Convert balance into profit"
     coordinates: "Coordonnées"
     copy_of: "Copie de %{source}"
     cost: "Coût" #?
@@ -1746,14 +1747,14 @@ fra:
     x_incoming_payments:
       one: "%{count} encaissement"
       other: "%{count} encaissements"
-      zero: "0 encaissement"
+      zero: "0 encaissement" #?
     x_intervention_casts:  #?
       one: "%{count} intervention" #?
       other: "%{count} interventions" #?
       zero: "Aucune intervention" #?
-    x_items_remain_on_y:  #?
-      one: "%{count} élément restant." #?
-      other: "%{count} éléments non visibles. Affinez votre recherche." #?
+    x_items_remain:
+      one: "%{count} élément restant."
+      other: "%{count} éléments non visibles. Affinez votre recherche."
     x_journal_entries:
       one: "%{count} écriture"
       other: "%{count} écritures"
@@ -1769,7 +1770,7 @@ fra:
       one: "%{count} observation"
       other: "%{count} observations"
       zero: "0 observation" #?
-    x_of_y: "%{x} de %{y}" #?
+    x_of_y: "%{x} de %{y}"
     x_operations:
       one: "%{count} travail"
       other: "%{count} travaux"
@@ -1941,74 +1942,88 @@ fra:
       you_must_select_a_file_to_import: "Vous devez sélectionner un fichier à importer" #?
       you_will_lose_all_your_current_data: "Si vous continuez, vous allez perdre toutes vos données en cours de saisie. Voulez-vous poursuivre ?" #?
   preferences:
-    bank_journal: "Journal de banque par défaut" #?
     bookkeep_automatically: "Activer la bascule automatique des données comptables"
     bookkeep_in_draft: "Enregistrer les pièces dans le brouillard lors de la bascule automatique"
-    capital_gains_accounts: "Résultat de l’exercice (bénéfice)" #?
-    capital_losses_accounts: "Résultat de l’exercice (perte)" #?
-    cash_journal: "Journal de caisse par défaut" #?
-    cash_transfers_sequence: "Numérotation des virements internes" #?
-    charges_accounts: "Comptes de charges" #?
-    # chart_of_account: "Chart of account"
-    # country: "Country"
-    # currency: "Currency"
-    deposits_sequence: "Numérotation des remises en banque" #?
+    chart_of_account: "Plan comptable"
+    country: "Pays"
+    currency: "Monnaie"
     detail_payments_in_deposit_bookkeeping: "Détailler la liste des règlements lors de la comptabilisation d’une remise en banque"
-    entities_sequence: "Numérotation des fiches clients/fournisseurs" #?
-    financial_assets_sequence: "Numérotation des immobilisations" #?
-    financial_banks_accounts: "Comptes de banque" #?
-    financial_cashes_accounts: "Comptes de caisse" #?
-    financial_internal_transfers_accounts: "Virements internes" #?
-    financial_payments_to_deposit_accounts: "Règlements à encaisser" #?
-    forward_journal: "Journal des reports à nouveau par défaut" #?
-    incoming_deliveries_sequence: "Numérotation des livraisons entrantes" #?
-    incoming_payments_sequence: "Numérotation des encaissements" #?
-    # language: "Language"
-    # map_measure_srid: "Map measure SRID"
-    outgoing_deliveries_sequence: "Numérotation des livraisons sortantes" #?
-    outgoing_payments_sequence: "Numérotation des décaissements" #?
-    products_accounts: "Comptes de produits" #?
-    purchases_journal: "Journal des achats par défaut" #?
-    purchases_sequence: "Numérotation des achats" #?
-    # sales_conditions: "Sales conditions"
-    sales_invoices_sequence: "Numérotation des factures" #?
-    sales_journal: "Journal des ventes par défaut" #?
-    sales_sequence: "Numérotation des ventes" #?
-    stock_transfers_sequence: "Numérotation des transferts et pertes de stock" #?
-    subscriptions_sequence: "Numérotation des abonnements" #?
-    taxes_acquisition_accounts: "Compte des taxes d’acquisitions intracommunautaires" #?
-    taxes_assimilated_accounts: "Compte des taxes assimilées" #?
-    taxes_balance_accounts: "Compte de taxe net" #?
-    taxes_collected_accounts: "Compte des taxes collectées" #?
-    taxes_paid_accounts: "Compte des taxes déductibles" #?
-    taxes_payback_accounts: "Compte de taxes de remboursement" #?
-    third_attorneys_accounts: "Comptes mandataires" #?
-    third_clients_accounts: "Comptes clients" #?
-    third_suppliers_accounts: "Comptes fournisseurs" #?
-    transports_sequence: "Numérotation des transports" #?
+    language: "Langue"
+    map_measure_srid: "SRID de mesure cartographique"
+    sales_conditions: "Conditions de vente"
     use_entity_codes_for_account_numbers: "Utiliser le code personne pour composer les numéros de compte"
-    various_journal: "Journal des opérations diverses par défaut" #?
+  rest:
+    actions:
+      abort: "Stopper"
+      about: "À propos"
+      attach: "Attacher"
+      bookkeep: "Comptabiliser"
+      cancel: "Annuler"
+      close: "Fermer"
+      compute: "Calculer"
+      compute_balances: "Calculer la balance"
+      confirm: "Confirmer"
+      correct: "Corriger"
+      create: "Créer"
+      decrement: "Décrementer"
+      destroy: "Supprimer"
+      detach: "Détacher"
+      down: "Descendre"
+      duplicate: "Dupliquer"
+      edit: "Éditer"
+      export: "Exporter"
+      extract: "Extraire"
+      finish: "Finir"
+      generate_last_journal_entry: "Générer la dernière écriture"
+      import: "Importer"
+      incorporate: "Incorporer"
+      increment: "Incrémenter"
+      index: "Index"
+      invoice: "Facturer"
+      list: "Lister"
+      load: "Charger"
+      lock: "Verrouiller"
+      mail: "Écrire un courriel"
+      mark: "Marquer"
+      merge: "Fusionner"
+      new: "Nouveau"
+      pick: "Piocher"
+      point: "Pointer"
+      propose: "Proposer"
+      propose_and_invoice: "Facturer directement"
+      reconciliation: "Reconciliation"
+      reflect: "Refléter"
+      refresh: "Rafraîchir"
+      refuse: "Refuser"
+      reopen: "Réouvrir"
+      run: "Éxécuter"
+      select: "Selectionner"
+      set: "Définir"
+      show: "Afficher"
+      sort: "Trier"
+      toggle: "Basculer"
+      unlock: "Déverrouiller"
+      unmark: "Dé-marquer"
+      up: "Monter"
+      update: "Modifier"
   unrolls:
     backend/accounts: "{number}. {name}"
     backend/activities: "{name}"
     backend/analytic_distributions: "{id}"
     backend/animals: "{name} ‒ {work_number}"
     backend/campaigns: "{name}"
-    backend/catalog_prices: "{name}" #?
+    backend/catalog_prices: "{name}"
     backend/entity_links: "{started_at}"
     backend/events: "{name}"
     backend/journal_entry_items: "{name}"
-    backend/logs: "{observed_at}" #?
     backend/matters: "{name} ‒ {work_number}"
     backend/observations: "{content}"
     backend/operations: "{reference_name} ({started_at})"
     backend/plants: "{name} ‒ {work_number}"
     backend/prescriptions: "{reference_number}"
-    backend/product_indicators: "{id}" #?
     backend/product_memberships: "{started_at}"
     backend/product_nature_variants: "{name} ({unit_name})"
     backend/product_natures: "{name}"
-    backend/product_transfers: "{id}" #?
     backend/production_supports: "{storage.name} ‒ {production.variant.name} ({production.activity.name} {production.campaign.name})"
     backend/products: "{work_number} {name} ({!population} {!unit_name})"
     backend/trackings: "{serial} ‒ {name} ‒ {producer.name}" #?

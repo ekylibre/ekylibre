@@ -78,10 +78,10 @@ eng:
       format:
         delimiter: ","
         format: "%u%n"
-        negative_format: "-%n%u"
+        negative_format: "-%u%n"
         precision: 2
         separator: "."
-        unit: "$"
+        unit: "⁈"
     format:
       delimiter: " "
       precision: 3

@@ -242,6 +242,34 @@ task :locales => :environment do
   end
   warnings << "#{unknown_preferences.size} unknown preferences" if unknown_preferences.any?
 
+  # REST actions
+  translation << "  rest:\n"
+  translation << "    actions:\n"
+  actions = ::I18n.t("rest.actions")
+  actions = {} unless actions.is_a?(Hash)
+  unknown_actions = actions.keys
+  for action in Clean::Support.look_for_rest_actions.map(&:to_sym)
+    if actions.keys.include? action
+      unknown_actions.delete(action.to_sym)
+    else
+      actions[action] = ""
+    end
+  end
+  to_translate += Clean::Support.hash_count(actions)
+  for key, trans in actions.sort{|a,b| a[0].to_s <=> b[0].to_s}
+    line = "      "
+    if trans.blank?
+      untranslated += 1
+      line += missing_prompt
+    end
+    line += "#{key}: "+Clean::Support.yaml_value((trans.blank? ? key.to_s.humanize : trans), 3)
+    line.gsub!(/$/, " #?") if unknown_actions.include?(key)
+    translation << line+"\n"
+  end
+  warnings << "#{unknown_actions.size} unknown REST actions" if unknown_actions.any?
+ 
+
+
   # Unroll
   translation << "  unrolls:\n"
   unrolls = ::I18n.t("unrolls")

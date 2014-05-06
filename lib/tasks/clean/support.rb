@@ -159,6 +159,10 @@ module Clean
       end
 
 
+      def look_for_rest_actions
+        actions_hash.delete_if{|k,v| k == "backend/dashboards" }.values.flatten.uniq.delete_if{|a| a =~ /\Alist\_/ }
+      end
+
 
       
       def default_action_title(controller_path, action_name)

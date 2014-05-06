@@ -232,7 +232,7 @@ eng:
       # new: "New event participation"
     backend/events:
       # autocomplete_for_place: "Autocomplete for place event: %{name}"
-      change_minutes: "Change minutes for event"
+      # change_minutes: "Change minutes event: %{name}"
       edit: "Edit event"
       index: "Events"
       new: "New event"
@@ -674,6 +674,7 @@ eng:
     add_website: "Add website"
     address: "Address" #?
     affair: "Affair" #?
+    affairs: "Affairs" #?
     all: "All" #?
     all_accounts: "All accounts" #?
     all_areas: "All postal areas" #?
@@ -768,7 +769,8 @@ eng:
     contains: "Contains" #?
     content_products: "Content products" #?
     contextual_help: "Help on current page" #?
-    # convert_balance_into: "Convert balance into"
+    convert_balance_into_loss: "Convert balance into loss"
+    convert_balance_into_profit: "Convert balance into profit"
     coordinates: "Coordinates" #?
     copy_of: "Copy of %{source}" #?
     cost_income_statement: "Cost Income Statement" #?
@@ -1410,7 +1412,9 @@ eng:
     x_incoming_payments: 
       one: "%{count} incoming payment"
       other: "%{count} incoming payments"
-      zero: "0 incoming payments"
+    x_items_remain: 
+      one: "%{count} item remain"
+      other: "%{count} items remain"
     x_journal_entries: 
       one: "%{count} journal entries"
       other: "%{count} journal entries"
@@ -1422,7 +1426,7 @@ eng:
     x_observations: 
       one: "%{count} observation"
       other: "%{count} observations"
-    # x_of_y: "X of y"
+    x_of_y: "%{x} of %{y}"
     x_operations: 
       one: "1 operation"
       other: "%{count} operations"
@@ -1564,12 +1568,80 @@ eng:
     map_measure_srid: "Map measure SRID"
     sales_conditions: "Sales conditions"
     use_entity_codes_for_account_numbers: "Use code for creating account numbers"
+  rest:
+    actions:
+      abort: "Abort"
+      about: "About"
+      attach: "Attach"
+      # autocomplete_for_name: "Autocomplete for name"
+      # autocomplete_for_origin: "Autocomplete for origin"
+      # autocomplete_for_place: "Autocomplete for place"
+      # balance: "Balance"
+      bookkeep: "Bookkeep"
+      cancel: "Cancel"
+      # change_minutes: "Change minutes"
+      close: "Close"
+      compute: "Compute"
+      compute_balances: "Compute balances"
+      confirm: "Confirm"
+      # contacts: "Contacts"
+      # coordinates: "Coordinates"
+      correct: "Correct"
+      create: "Create"
+      decrement: "Decrement"
+      destroy: "Destroy"
+      detach: "Detach"
+      # detail: "Detail"
+      down: "Down"
+      # draft: "Draft"
+      duplicate: "Duplicate"
+      edit: "Edit"
+      export: "Export"
+      extract: "Extract"
+      finish: "Finish"
+      # general_ledger: "General ledger"
+      generate_last_journal_entry: "Generate last journal entry"
+      import: "Import"
+      incorporate: "Incorporate"
+      increment: "Increment"
+      index: "Index"
+      invoice: "Invoice"
+      list: "List"
+      load: "Load"
+      lock: "Lock"
+      mail: "Mail"
+      mark: "Mark"
+      merge: "Merge"
+      new: "New"
+      pick: "Pick"
+      # picture: "Picture"
+      point: "Point"
+      propose: "Propose"
+      propose_and_invoice: "Propose and invoice"
+      reconciliation: "Reconciliation"
+      reflect: "Reflect"
+      refresh: "Refresh"
+      refuse: "Refuse"
+      reopen: "Reopen"
+      run: "Run"
+      select: "Select"
+      set: "Set"
+      show: "Show"
+      sort: "Sort"
+      toggle: "Toggle"
+      unlock: "Unlock"
+      unmark: "Unmark"
+      # unroll: "Unroll"
+      # unvalidateds: "Unvalidateds"
+      up: "Up"
+      update: "Update"
   unrolls:
     backend/accounts: "{number}. {name}"
     backend/activities: "{name} ({family}/{nature})"
     backend/analytic_distributions: "{id}"
     backend/animals: "{name} #{work_number}"
     backend/campaigns: "{name}"
+    backend/catalog_prices: "{name}"
     backend/entity_links: "{started_at}"
     backend/events: "{name}"
     backend/journal_entry_items: "{name}"
