@@ -304,6 +304,7 @@
         <page to="backend/purchases#list_payment_uses"/>
         <page to="backend/purchases#list_undelivered_items"/>
         <page to="backend/purchases#propose"/>
+        <page to="backend/purchases#propose_and_invoice"/>
         <page to="backend/purchases#refuse"/>
         <page to="backend/purchases#show"/>
         <page to="backend/purchases#unroll"/>
@@ -546,6 +547,7 @@
         <page to="backend/outgoing_deliveries#create"/>
         <page to="backend/outgoing_deliveries#destroy"/>
         <page to="backend/outgoing_deliveries#edit"/>
+        <page to="backend/outgoing_deliveries#invoice"/>
         <page to="backend/outgoing_deliveries#list"/>
         <page to="backend/outgoing_deliveries#list_items"/>
         <page to="backend/outgoing_deliveries#new"/>
@@ -941,12 +943,14 @@
       <!-- </item> -->
     </group>
     <group name="decision_making" icon="compass">
+      <!--
       <item name="calculators">
         <page to="backend/calculators#index"/>
         <page to="backend/calculators/nitrogen_inputs#show"/>
         <page to="backend/calculators/nitrogen_inputs#edit"/>
         <page to="backend/calculators/nitrogen_inputs#update"/>
       </item>
+      -->
       <item name="aggregators">
         <page to="backend/aggregators#index"/>
         <page to="backend/aggregators#show"/>
