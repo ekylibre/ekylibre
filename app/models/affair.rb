@@ -47,10 +47,10 @@
 # SaleCredit      |    X    |         |
 # Purchase        |    X    |         |
 # PurchaseCredit  |         |    X    |
-# IncomingPayment |    X    |         |
 # OutgoingPayment |         |    X    |
-# ProfitGap       |         |    X    |
+# IncomingPayment |    X    |         |
 # LossGap         |    X    |         |
+# ProfitGap       |         |    X    |
 # Transfer        |         |    X    |
 #
 class Affair < Ekylibre::Record::Base
@@ -174,7 +174,7 @@ class Affair < Ekylibre::Record::Base
       for third in thirds
         attributes = {affair: self, amount: balance, currency: self.currency, entity: third, entity_role: self.third_role, direction: (losing? ? :loss : :profit), items: []}
         pretax_amount = 0.0.to_d
-        self.tax_items_for(third, distribution[third.id], :credit).each_with_index do |item, index|
+        self.tax_items_for(third, distribution[third.id], (!losing? ? :debit : :credit)).each_with_index do |item, index|
           raw_pretax_amount = (item[:tax] ? item[:tax].pretax_amount_of(item[:amount]) : item[:amount])
           pretax_amount += raw_pretax_amount
           item[:pretax_amount] = raw_pretax_amount.round(currency_precision)
@@ -188,7 +188,6 @@ class Affair < Ekylibre::Record::Base
           unless sum != pretax_amount
             attributes[:items].last.pretax_amount += (pretax_amount - sum)
           end
-
           Gap.create!(attributes)
         end
       end
@@ -283,7 +282,7 @@ class Affair < Ekylibre::Record::Base
   # deals are negatives and substracted to debit deals.
   def tax_items_for(third, amount, mode)
     totals = {}
-    # puts [third.name, self.deals_of(third)].inspect
+    # puts [third.name, self.deals_of(third)].inspect.green
     for deal in self.deals_of(third)
       for total in deal.deal_taxes(mode)
         total[:tax] ||= Tax.used_for_untaxed_deals

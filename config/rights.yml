@@ -1695,6 +1695,7 @@ purchases:
     - "backend/purchases#invoice"
     - "backend/purchases#new"
     - "backend/purchases#propose"
+    - "backend/purchases#propose_and_invoice"
     - "backend/purchases#refuse"
     - "backend/purchases#update"
 
@@ -1750,6 +1751,7 @@ sales:
     depend-on:
     - read-sales
     actions:
+    - "backend/outgoing_deliveries#invoice"
     - "backend/sale_items#create"
     - "backend/sale_items#destroy"
     - "backend/sale_items#detail"

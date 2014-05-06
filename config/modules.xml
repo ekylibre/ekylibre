@@ -1740,6 +1740,15 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group/>
+    <group>
+      <item name="calculators">
+        <page to="backend/calculators#index"/>
+      </item>
+      <item name="nitrogen_inputs">
+        <page to="backend/calculators/nitrogen_inputs#edit"/>
+        <page to="backend/calculators/nitrogen_inputs#show"/>
+        <page to="backend/calculators/nitrogen_inputs#update"/>
+      </item>
+    </group>
   </untreated-actions>
 </modules>

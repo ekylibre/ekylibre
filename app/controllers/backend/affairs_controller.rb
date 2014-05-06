@@ -66,7 +66,9 @@ class Backend::AffairsController < BackendController
 
   def finish
     return unless @affair = find_and_check
-    @affair.finish
+    unless @affair.finish
+      notify_error :cannot_finish_affair
+    end
     redirect_to(params[:redirect] || {controller: @affair.originator_type.tableize, action: :show, id: @affair.originator_id})
   end
 

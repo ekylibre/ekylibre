@@ -1,5 +1,3 @@
-= sale_steps if params[:step]
-
 - main_toolbar do |t|
   - t.export do |e|
     - if @sale.invoice?
@@ -24,24 +22,13 @@
 = beehive do |b|
 
   - b.tabbox do
-    - if ["products", "summary", ""].include?(params[:step].to_s)
-      - b.cell Sale.human_attribute_name(:items) do
-        -#.select-product
-          %span= "labels.add_product".t
-          %span.selector
-            = selector_tag("sale_item[product_id]", {controller: :products, action: :unroll_saleables}, {})
-          = button_tag(tl(:add), class: "btn")
-        -# @sale_item = @sale.items.new
-        -# if @sale.draft?
-          = toolbar do |t|
-            - t.new(controller: :sale_items, :sale_id => @sale.id)
-          = render :partial => "backend/sale_items/row_form"
-        = list :items do
-          %tr.total
-            %th{:colspan => 4}= tc(:total)
-            %td= @sale.pretax_amount.l(currency: @sale.currency)
-            %td= @sale.amount.l(currency: @sale.currency)
-            %th{:colspan => 3}
+    - b.cell Sale.human_attribute_name(:items) do
+      = list :items do
+        %tr.total
+          %th{:colspan => 4}= tc(:total)
+          %td= @sale.pretax_amount.l(currency: @sale.currency)
+          %td= @sale.amount.l(currency: @sale.currency)
+          %th{:colspan => 3}
 
     - b.cell do
       = attributes_list do |l|
@@ -70,7 +57,6 @@
           - l.attribute :conclusion, :field => :textarea
 
 
-
     - if @sale.subscriptions.any?
       - b.cell tl(:x_subscriptions, count: @sale.subscriptions.count) do
         - if @sale.draft?
@@ -80,21 +66,18 @@
                 - t.link :add_subscription_for_sale_item, {action: :new, controller: :subscriptions, :sale_item_id => item.id, :nature_id => item.product.subscription_nature_id}, :i18n => {:position => item.position}
         = list :subscriptions
 
-  - if ["products", "summary", ""].include?(params[:step].to_s)
-    - b.cell(Sale.human_attribute_name(:affair)) do
-      = affair_of(@sale)
+  - b.cell(Sale.human_attribute_name(:affair)) do
+    = affair_of(@sale)
 
-
-  - if ["deliveries", ""].include?(params[:step].to_s)
-    - if @sale.deliverable?
-      - b.cell tc(:undelivered) do
-        = toolbar do |t|
-          - t.new controller: :outgoing_deliveries, :sale_id => @sale.id
-        = list :undelivered_items
-      - if @sale.deliveries.count > 0
+  - if @sale.deliverable?
+    - b.hbox do
+      - if @sale.deliveries.any?
         - b.cell Sale.human_attribute_name("deliveries") do
           = list :deliveries
+      - b.cell tc(:undelivered) do
+        = toolbar do |t|
+          - t.new controller: :outgoing_deliveries, sale_id: @sale.id
+        = list :undelivered_items
 
-  - if ["products", "summary", ""].include?(params[:step].to_s) and @sale.credits.any?
-    - b.cell :credits do
-      = list :credits
+  - b.cell :credits do
+    = list :credits
