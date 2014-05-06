@@ -117,7 +117,7 @@ class IncomingDelivery < Ekylibre::Record::Base
                                   planned_at: planned_at,
                                   delivery_address: deliveries.last.address)
 
-      variants = {}
+      # Adds items
       for delivery in deliveries
         for item in delivery.items
           next unless item.population > 0
@@ -132,6 +132,9 @@ class IncomingDelivery < Ekylibre::Record::Base
         delivery.purchase = purchase
         delivery.save!
       end
+
+      # Refreshes affair
+      purchase.save!
     end
     return purchase
   end
