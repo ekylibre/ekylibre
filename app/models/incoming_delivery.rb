@@ -98,4 +98,41 @@ class IncomingDelivery < Ekylibre::Record::Base
     end
   end
 
+  def self.invoice(deliveries)
+    purchase = nil
+    transaction do
+      deliveries = deliveries.flatten.collect do |d|
+        (d.is_a?(self) ? d : self.find(d))
+      end.sort{|a,b| a.received_at <=> b.received_at }
+      senders = deliveries.map(&:sender_id).uniq
+      raise "Need unique sender (#{senders.inspect})" if senders.count > 1
+      planned_at = deliveries.map(&:received_at).last
+      unless nature = PurchaseNature.actives.first
+        unless journal = Journal.purchases.opened_at(planned_at).first
+          raise "No purchase journal"
+        end
+        nature = PurchaseNature.create!(active: true, currency: Preference[:currency], with_accounting: true, journal: journal, by_default: true, name: 'models.purchase_nature.default.name'.t(default: PurchaseNature.model_name.human))
+      end
+      purchase = Purchase.create!(supplier: Entity.find(senders.first),
+                                  nature: nature,
+                                  planned_at: planned_at,
+                                  delivery_address: deliveries.last.address)
+
+      variants = {}
+      for delivery in deliveries
+        for item in delivery.items
+          # variants[item.variant.id] ||= []
+          # variants[item.variant.id] << item.id
+          purchase.items.create!(variant: item.variant,
+                                 unit_price_amount: item.variant.prices.first.amount,
+                                 tax: item.variant.category.purchase_taxes.first || Tax.first,
+                                 quantity: item.population)
+        end
+        delivery.purchase = purchase
+        delivery.save!
+      end
+    end
+    return purchase
+  end
+
 end

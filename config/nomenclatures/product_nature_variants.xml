@@ -8,7 +8,7 @@
       <property-nature name="derivative_of" type="choice" nomenclature="varieties" required="false"/>
       <property-nature name="nature" type="choice" nomenclature="product_natures" required="true"/>
       <property-nature name="frozen_indicators_values" type="string" required="false"/>
-      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 12kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill" required="true" default="unit"/>
+      <property-nature name="unit_name" type="choice" choices="100g_dose, 1l_dose, 10ml_dose, 20ml_dose, 50ml_dose, 10kg_bag, 12kg_bag, 20kg_bag, 25kg_bag, 50tg_bag, 150tg_bag, 220tg_bag, bag, box, building, can, 24liter_can, cubic_meter, equipment, head, hectare, square_meter, hour, kilogram, kilowatt_hour, liter, person, room, ton, unit, hectoliter, band, round_bale, big_rectangular_bale, small_rectangular_bale, 75cl_bottle, 100cl_bottle, plant, gram, 2g_pill, 5g_pill" required="true" default="unit"/>
     </property-natures>
     <items>
       <!-- ANIMAL -->
@@ -1649,75 +1649,260 @@
       <!-- Coop variants -->
       
       <!-- SEED -->
+      <!-- AVENA -->
+      <item name="coop:avoine_d_hiver_n_evora_cel_net_s25kg"
+            nature="seed"
+            derivative_of="avena_evora"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 35gram"
+            />
+      <item name="coop:avoine_d_hiver_n_une_de_mai_en_s20kg"
+            nature="seed"
+            derivative_of="avena_une_de_mai"
+            unit_name="20kg_bag"
+            frozen_indicators_values="net_mass: 20.00kilogram, thousand_grains_mass: 35gram"
+            />     
+      <item name="coop:avoine_d_hiver_une_de_mai_red_25kg"
+            nature="seed"
+            derivative_of="avena_une_de_mai"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 35gram"
+            />
+      <!-- BARLEY -->      
+      <item name="coop:esc_s_etincel_r1_gau_red_s25kg"
+            nature="seed"
+            derivative_of="hordeum_hibernum_etincel"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 40gram"
+            />
+      <item name="coop:esc_s_arturio_r1_gau_red_25kg"
+            nature="seed"
+            derivative_of="hordeum_hibernum_arturio"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 40gram"
+            />
+      <item name="coop:op_s_traveler_r1_cel_orge_net_s25kg"
+            nature="seed"
+            derivative_of="hordeum_vernum_traveler"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 40gram"
+            />
+            
+      <!-- PEA -->
+      <item name="coop:pois_s_kayanne_print_wakil_xl_r1_s25kg"
+            nature="seed"
+            derivative_of="pisum_vernum_kayanne"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 245gram"
+            />
+      
+      <!-- SUNFLOWER -->
+      <item name="coop:to_ol_ferti_150mg"
+            nature="seed"
+            derivative_of="helianthus_annuus"
+            unit_name="150tg_bag"
+            frozen_indicators_values="net_mass: 7.50kilogram, thousand_grains_mass: 50gram"
+            />
+            
+      <!-- SORGHUM AND OTHER FODDER CROP -->
       <item name="coop:sorgho_ensilage_bmr_333_220mg"
             nature="seed"
             derivative_of="sorghum"
             unit_name="220tg_bag"
-            frozen_indicators_values="net_mass: 22.00kilogram, thousand_grains_mass: 100gram"
+            frozen_indicators_values="net_mass: 7.70kilogram, thousand_grains_mass: 35gram"
             />
+      <item name="coop:moha_10kg"
+            nature="seed"
+            derivative_of="setaria"
+            unit_name="10kg_bag"
+            frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 5gram"
+            />
+      <item name="coop:moha_25kg"
+            nature="seed"
+            derivative_of="setaria"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 5gram"
+            />
+      <item name="coop:da_lazuly_10kg"
+            nature="seed"
+            derivative_of="dactylis_lazuly"
+            unit_name="10kg_bag"
+            frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 1.2gram"
+            />
+      <item name="coop:ray_g__hyb__bahial_10kg"
+            nature="seed"
+            derivative_of="lolium_hybridum_bahial"
+            unit_name="10kg_bag"
+            frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram"
+            />
+       <item name="coop:luzerne_comete_s10k"
+            nature="seed"
+            derivative_of="medicago_comete"
+            unit_name="10kg_bag"
+            frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram"
+            />     
+       <item name="coop:trefle_alexandrie_s10k"
+            nature="seed"
+            derivative_of="trifolium_alexandrinum"
+            unit_name="10kg_bag"
+            frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram"
+            />
+       <item name="coop:trefle_v__segur_s10k"
+            nature="seed"
+            derivative_of="trifolium_pratense"
+            unit_name="10kg_bag"
+            frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 2gram"
+            />
+        <item name="coop:vesce_velue_savane_hiver_10k"
+            nature="seed"
+            derivative_of="vicia_villosa_savane"
+            unit_name="10kg_bag"
+            frozen_indicators_values="net_mass: 10.00kilogram, thousand_grains_mass: 32gram"
+            />
+            
       <!-- CORN -->
-      <item name="coop:ma.lg3490_50mg"
-            nature="seed"
-            derivative_of="zea_lg3490"
-            unit_name="50tg_bag"
-            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
-            />
-      <item name="coop:ma.lg3490_sonido_d50mg"
-            nature="seed"
-            derivative_of="zea_lg3490"
-            unit_name="50tg_bag"
-            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
-            />
-      <item name="coop:ma.aallexia_50mg"
+      <item name="coop:ma_aallexia_50mg"
             nature="seed"
             derivative_of="zea_aallexia"
             unit_name="50tg_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
-      <item name="coop:ma.bergxxon_duo_50mg"
+      <item name="coop:ma_bergxxon_50mg"
+            nature="seed"
+            derivative_of="zea_bergxxon"
+            unit_name="50tg_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma_bergxxon_duo_50mg"
             nature="seed"
             derivative_of="zea_bergxxon"
             unit_name="50tg_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />     
-      <item name="coop:ma.bergxxon_duo_sonido_d50mg"
+      <item name="coop:ma_bergxxon_duo_sonido_d50mg"
             nature="seed"
             derivative_of="zea_bergxxon"
             unit_name="50tg_bag"
             frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
             />
-      <!-- WHEAT -->     
-      <item name="coop:bth_s_caphorn_r1_gau+red_25kg"
+      <item name="coop:ma_boomer_50mg"
+            nature="seed"
+            derivative_of="zea_boomer"
+            unit_name="50tg_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma_dkc_3912_50mgr"
+            nature="seed"
+            derivative_of="zea_dkc3912"
+            unit_name="50tg_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma_lg30533_cruiser_50mg"
+            nature="seed"
+            derivative_of="zea_lg30533"
+            unit_name="50tg_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma_lg3490_50mg"
+            nature="seed"
+            derivative_of="zea_lg3490"
+            unit_name="50tg_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma_lg3490_cruiser_50mg"
+            nature="seed"
+            derivative_of="zea_lg3490"
+            unit_name="50tg_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma_lg3490_sonido_d50mg"
+            nature="seed"
+            derivative_of="zea_lg3490"
+            unit_name="50tg_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma_lg3530_cruiser_50mg"
+            nature="seed"
+            derivative_of="zea_lg3530"
+            unit_name="50tg_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <item name="coop:ma_shannon_50mg"
+            nature="seed"
+            derivative_of="zea_shannon"
+            unit_name="50tg_bag"
+            frozen_indicators_values="net_mass: 15.00kilogram, thousand_grains_mass: 300gram"
+            />
+      <!-- WHEAT -->
+      <item name="coop:bth_s_arezzo_r1_gau__red_lat_s25kg"
+            nature="seed"
+            derivative_of="triticum_aestivum_arezzo"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            />
+      <item name="coop:bth_s_ascott_r1_gau__red_25kg"
+            nature="seed"
+            derivative_of="triticum_aestivum_ascott"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            />    
+      <item name="coop:bth_s_caphorn_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_aestivum_caphorn"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="coop:bth_s_rubisko_r1_gau+red_25kg"
+      <item name="coop:bth_s_caphorn_r1_gau_red_25kg"
             nature="seed"
-            derivative_of="triticum_aestivum_rubisko"
+            derivative_of="triticum_aestivum_caphorn"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="coop:bth_s_euclide_r1_gau+red_25kg"
+      <item name="coop:bth_s_caphorn_r1_gau__red_lat_s25kg"
+            nature="seed"
+            derivative_of="triticum_aestivum_caphorn"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            />
+      <item name="coop:bth_s_euclide_r1_gau_red_25kg"
             nature="seed"
             derivative_of="triticum_aestivum_euclide"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="coop:bth_s_ascott_r1_gau+_red_25kg"
+      <item name="coop:bth_s_euclide_r1_cel_gold_net_25kg"
             nature="seed"
-            derivative_of="triticum_aestivum_ascott"
+            derivative_of="triticum_aestivum_euclide"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
+      <item name="coop:bth_s_premio_r1_gau_red_25kg"
+            nature="seed"
+            derivative_of="triticum_aestivum_premio"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            />
+      <item name="coop:bth_s_rubisko_r1_gau_red_25kg"
+            nature="seed"
+            derivative_of="triticum_aestivum_rubisko"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            />
+
+       <!-- HARD WHEAT -->      
       <item name="coop:bd_s_miradoux_r1_cel_gold_net_25kg"
             nature="seed"
             derivative_of="triticum_durum_miradoux"
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
             />
-      <item name="coop:bd_s_tablur_r1_gau+red_25kg"
+      <item name="coop:bd_s_miradoux_r1_gau_red_net_25kg"
+            nature="seed"
+            derivative_of="triticum_durum_miradoux"
+            unit_name="25kg_bag"
+            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 42gram"
+            />
+      <item name="coop:bd_s_tablur_r1_gau_red_25kg"
             nature="seed"
             derivative_of="triticum_durum_tablur"
             unit_name="25kg_bag"
@@ -1729,22 +1914,19 @@
             unit_name="25kg_bag"
             frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 48gram"
             />
-      <!-- BARLEY -->      
-      <item name="coop:esc_s_etincel_r1_gau+red_s25kg"
-            nature="seed"
-            derivative_of="hordeum_hibernum_etincel"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 40gram"
-            />
-      <!-- AVENA -->
-      <item name="coop:avoine_d'hiver_une_de_mai_red_25kg"
-            nature="seed"
-            derivative_of="avena"
-            unit_name="25kg_bag"
-            frozen_indicators_values="net_mass: 25.00kilogram, thousand_grains_mass: 35gram"
-            />
+      
       <!-- FERTILIZER -->
-      <item name="coop:ammonitre_33,5%_vr"
+      <item name="coop:ammonitre_27__vr"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 27percent, potassium_concentration: 27percent, phosphorus_concentration: 27percent"
+            />
+      <item name="coop:ammonitre_33_5__vr"
+            nature="chemical_fertilizer"
+            unit_name="ton"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 33.5percent, potassium_concentration: 33percent, phosphorus_concentration: 33percent"
+            />
+      <item name="coop:ammonitre_33_5__bb"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 33.5percent, potassium_concentration: 33percent, phosphorus_concentration: 33percent"
@@ -1754,23 +1936,82 @@
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 46percent"
             />
-      <item name="coop:super_46%_gr._vr"
+      <item name="coop:super_46__gr__vr"
             nature="chemical_fertilizer"
             unit_name="ton"
-            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 46percent"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, nitrogen_concentration: 46percent, potassium_concentration: 46percent, phosphorus_concentration: 46percent"
             />
-      <item name="coop:chlorure_60%_gr_vr"
+      <item name="coop:chlorure_60__gr_vr"
             nature="chemical_fertilizer"
             unit_name="ton"
             frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton, potassium_concentration: 60percent"
             />
       <!-- PLANT MEDICINE -->
+        <!-- ADDITIVE -->
+      <item name="coop:mix_in_5_l"
+            nature="additive"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:technomousse_500_ml"
+            nature="additive"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+        <!-- INSECTICIDE --> 
+        <!-- MOLLUSCICIDE -->    
       <item name="coop:metarex_rg_tds_20kg"
             nature="molluscicide"
-            unit_name="bag"
+            unit_name="20kg_bag"
             frozen_indicators_values="net_volume: 20.00liter, net_mass: 20.00kilogram"
             />
+      <item name="coop:metarex_ino_20_kg"
+            nature="molluscicide"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:extralugec_techn_o_15kg"
+            nature="molluscicide"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:mesurol_pro_5_kg"
+            nature="molluscicide"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:mesurol_pro_20_kg"
+            nature="molluscicide"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+        <!-- FUNGICIDE -->
+      <item name="coop:adexar_5_l"
+            nature="fungicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
       <item name="coop:aviator_xpro_5l"
+            nature="fungicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:balmora_5_l"
+            nature="fungicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:bell_star_5_l"
+            nature="fungicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:fandango_s_5_l"
+            nature="fungicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:fongistop_fl_5_l"
             nature="fungicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
@@ -1780,7 +2021,48 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-      <item name="coop:nikeyl_5_l"
+        <!-- HERBICIDE -->
+      <item name="coop:atlantis_wg_3_kg"
+            nature="herbicide"
+            unit_name="kilogram"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:atlantis_wg_600_gr"
+            nature="herbicide"
+            unit_name="box"
+            frozen_indicators_values="net_volume: 0.600liter, net_mass: 0.600kilogram"
+            />
+      <item name="coop:axial_pratic_5_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:boa_3_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:bofix_5_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:bofix_20_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:bromotril_225_5_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:callisto_5_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:chardex_5_l"
             nature="herbicide"
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
@@ -1790,18 +2072,64 @@
             unit_name="liter"
             frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
-      <item name="coop:metarex_ino_20kg"
-            nature="molluscicide"
-            unit_name="bag"
-            frozen_indicators_values="net_volume: 20.00liter, net_mass: 20.00kilogram"
+      <item name="coop:kalao_d__5dl"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
             />
+      <item name="coop:madit_dispersion_20_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:matin_el_10_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:mercantor_gold_5_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:mextra_5_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:nikeyl_5_l"
+            nature="herbicide"
+            unit_name="liter"
+            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            />
+      <item name="coop:presite_sx_300_gr"
+            nature="herbicide"
+            unit_name="box"
+            frozen_indicators_values="net_volume: 0.300liter, net_mass: 0.300kilogram"
+            />
+      <!-- SMALL EQUIPMENT -->
       <item name="coop:sel_mer_essore_la_baleine_sac_25kg"
             nature="animal_food"
             variety="mix"
             unit_name="bag"
-            frozen_indicators_values="net_mass: 25.00kilogram"
+            frozen_indicators_values="net_mass: 1.00ton"
             />
       <item name="coop:ficelle_filogamm_350_bob_5kg"
+            nature="small_equipment"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="coop:film_ensil_ensigamm_14m"
+            nature="small_equipment"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="coop:film_ensil_ensigamm_10m"
+            nature="small_equipment"
+            unit_name="unit"
+            frozen_indicators_values="population: 1"
+            />
+      <item name="coop:film_ensil_ensigamm_8m"
             nature="small_equipment"
             unit_name="unit"
             frozen_indicators_values="population: 1"

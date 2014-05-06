@@ -162,6 +162,31 @@ module Indicateable
   # end
 
 
+  def density(numerator, denominator, options = {})
+    # Check indicator
+    unless numerator.is_a?(Nomen::Item) or numerator = Nomen::Indicators[numerator]
+      raise ArgumentError, "Unknown indicator #{numerator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
+    unless denominator.is_a?(Nomen::Item) or denominator = Nomen::Indicators[denominator]
+      raise ArgumentError, "Unknown indicator #{denominator.inspect}. Expecting one of them: #{Nomen::Indicators.all.sort.to_sentence}."
+    end
+
+    # Find dimension and unit
+    numerator_dimension   = Nomen::Dimensions.find_by(symbol: numerator.symbol)
+    denominator_dimension = Nomen::Dimensions.find_by(symbol: denominator.symbol)
+    unless dimension = Nomen::Dimensions.find_by(symbol: "#{numerator_dimension.symbol}/#{denominator_dimension.symbol}")
+      raise "No dimension found for: #{numerator.symbol}/#{denominator.symbol}"
+    end
+    unless unit = Nomen::Units.find_by(dimension: dimension)
+      raise "No unit found for: #{dimension.inspect}"
+    end
+    
+    # Compute calculation
+    return (self.get(numerator, options).to_d(numerator_dimension.symbol) / 
+            self.get(denominator, options).to_d(denominator_dimension.symbol)).in(unit)
+  end
+
+
   # Copy individual indicators of the other at given times
   def copy_readings_of!(other, options = {})
     options[:at] ||= Time.now

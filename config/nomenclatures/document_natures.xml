@@ -24,7 +24,7 @@
       <item name="trial_balance" category="accountancy"/>
       <item name="tax_assessment" category="accountancy"/>
 
-      <item name="inventory" category="exploitation"/>
+      <item name="inventory_sheet" category="exploitation"/>
       <item name="stocks" category="exploitation"/>
       <item name="incoming_delivery_docket" category="exploitation"/>
       <item name="outgoing_delivery_docket" category="exploitation"/>

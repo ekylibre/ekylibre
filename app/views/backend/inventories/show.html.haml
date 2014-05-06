@@ -4,6 +4,8 @@
     - t.refresh resource, method: :post
   - if resource.reflectable?
     - t.reflect resource, method: :post
+  - t.export do |e|
+    - e.inventory_sheet resource.id.to_s, resource
 
 = beehive do |b|
   - b.cell do

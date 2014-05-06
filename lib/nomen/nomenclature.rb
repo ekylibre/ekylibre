@@ -193,6 +193,12 @@ module Nomen
       end
     end
 
+    def find_by(properties)
+      items = where(properties)
+      return nil unless items.any?
+      return items.first
+    end
+
     # Returns the best match on nomenclature properties
     def best_match(property_name, searched_item)
       items = []

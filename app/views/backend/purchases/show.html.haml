@@ -31,12 +31,9 @@
 
   - if ["products", "summary", ""].include? params[:step].to_s
     - b.cell Purchase.human_attribute_name("items") do
-      - if @purchase.draft?
-        = toolbar do |t|
-          - t.new(params: {controller: :purchase_items, :purchase_id => @purchase.id})
       = list :items do
         %tr.total
-          %th{:colspan => 6}
+          %th{:colspan => 5}
           %td= @purchase.pretax_amount.l(currency: @purchase.currency)
           %td= @purchase.amount.l(currency: @purchase.currency)
           %th{:colspan => 3}

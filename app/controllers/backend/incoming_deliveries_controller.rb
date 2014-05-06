@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # == License
 # Ekylibre - Simple ERP
-# Copyright (C) 2008-2011 Brice Texier, Thibaud Merigon
+# Copyright (C) 2008-2009 Brice Texier, Thibaud Merigon
+# Copyright (C) 2009-2012 Brice Texier
+# Copyright (C) 2012-2014 Brice Texier, David Joulin
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -32,6 +34,8 @@ class Backend::IncomingDeliveriesController < BackendController
     t.column :mode
     t.column :purchase, url: true
     # t.action :confirm, method: :post, if: :confirmable?, confirm: true
+    t.action :new,     on: :none
+    t.action :invoice, on: :both, method: :post
     t.action :edit
     t.action :destroy
   end
@@ -47,11 +51,15 @@ class Backend::IncomingDeliveriesController < BackendController
     t.column :created_at, hidden: true
   end
 
-
   def confirm
     return unless incoming_delivery = find_and_check
     incoming_delivery.execute if request.post?
     redirect_to action: :index, mode: :unconfirmed
+  end
+
+  def invoice
+    purchase = IncomingDelivery.invoice(params[:id].split(','))
+    redirect_to backend_purchase_url(purchase)
   end
 
 end

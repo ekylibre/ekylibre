@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="varieties-trifolium" hierarchical="true">
+    <items>
+      <item name="trifolium_repens" itis_tsn="26206"/>
+      <item name="trifolium_pratense" itis_tsn="26313"/>
+      <item name="trifolium_alexandrinum" itis_tsn="26210"/>
+      <item name="trifolium_incarnatum" itis_tsn="26262"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-trifolium_repens" hierarchical="true">
+    <items>
+      <item name="trifolium_repens_avalon" itis_tsn="12345"/>
+      <item name="trifolium_repens_abervantage" itis_tsn="12345"/>
+      <item name="trifolium_repens_apis" itis_tsn="12345"/>
+      <item name="trifolium_repens_barblanca" itis_tsn="12345"/>
+      <item name="trifolium_repens_chieftain" itis_tsn="12345"/>
+      <item name="trifolium_repens_crescendo" itis_tsn="12345"/>
+      <item name="trifolium_repens_crusader" itis_tsn="12345"/>
+      <item name="trifolium_repens_magnifico" itis_tsn="12345"/>
+      <item name="trifolium_repens_merida" itis_tsn="12345"/>
+      <item name="trifolium_repens_merwi" itis_tsn="12345"/>
+      <item name="trifolium_repens_milagro" itis_tsn="12345"/>
+      <item name="trifolium_repens_tasman" itis_tsn="12345"/>
+      <item name="trifolium_repens_triffid" itis_tsn="12345"/>
+      <item name="trifolium_repens_triple" itis_tsn="12345"/>
+    </items>
+  </nomenclature>
+  
+  <nomenclature name="varieties-trifolium_pratense" hierarchical="true">
+    <items>
+      <item name="trifolium_pratense_amos" itis_tsn="12345"/>
+      <item name="trifolium_pratense_atlantis" itis_tsn="12345"/>
+      <item name="trifolium_pratense_corvus" itis_tsn="12345"/>
+      <item name="trifolium_pratense_dafila" itis_tsn="12345"/>
+      <item name="trifolium_pratense_diadem" itis_tsn="12345"/>
+      <item name="trifolium_pratense_dimanche" itis_tsn="12345"/>
+      <item name="trifolium_pratense_diplo" itis_tsn="12345"/>
+      <item name="trifolium_pratense_diplomat" itis_tsn="12345"/>
+      <item name="trifolium_pratense_discovery" itis_tsn="12345"/>
+      <item name="trifolium_pratense_divin" itis_tsn="12345"/>
+      <item name="trifolium_pratense_harmonie" itis_tsn="12345"/>
+      <item name="trifolium_pratense_kindia" itis_tsn="12345"/>
+      <item name="trifolium_pratense_lemmon" itis_tsn="12345"/>
+      <item name="trifolium_pratense_merian" itis_tsn="12345"/>
+      <item name="trifolium_pratense_merula" itis_tsn="12345"/>
+      <item name="trifolium_pratense_pastor" itis_tsn="12345"/>
+      <item name="trifolium_pratense_ravvi" itis_tsn="12345"/>
+      <item name="trifolium_pratense_starfire" itis_tsn="12345"/>
+      <item name="trifolium_pratense_suez" itis_tsn="12345"/>
+      <item name="trifolium_pratense_trevvio" itis_tsn="12345"/>
+      <item name="trifolium_pratense_vendelin" itis_tsn="12345"/>
+    </items>
+  </nomenclature>
+  
+</nomenclatures>

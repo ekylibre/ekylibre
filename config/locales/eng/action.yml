@@ -279,6 +279,7 @@ eng:
       confirm: "Confirm incoming delivery"
       edit: "Edit incoming delivery: %{number} (%{reference_number})"
       index: "Incoming deliveries"
+      # invoice: "Invoice incoming delivery: %{name}"
       new: "New incoming delivery"
       show: "Incoming delivery: %{number} (%{reference_number})"
     backend/incoming_delivery_items:

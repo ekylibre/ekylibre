@@ -1,4 +1,6 @@
 // General mixin for buttons
+@import "compass/css3/images";
+
 @mixin button ($background-color: $neutral-background, $color: false, $focus-background-color: $base-color, $focus-color: false, $is-input: false) {
   @if $color == false {
     $color: visible-color($background-color);
@@ -69,12 +71,11 @@
     background: #CCC;
     cursor: default;
     pointer-events: none;
-    &, & > i {
-      @include text-shadow(none);
-    }
-    &:hover {
-      &, & > i { color: #666; }
-    }
+     &, &:hover, &:focus {
+	&, & > i {
+	   @include opacity(0.6);
+	}
+     }
   }
 }
 

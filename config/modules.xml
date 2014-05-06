@@ -532,6 +532,7 @@
         <page to="backend/incoming_deliveries#create"/>
         <page to="backend/incoming_deliveries#destroy"/>
         <page to="backend/incoming_deliveries#edit"/>
+        <page to="backend/incoming_deliveries#invoice"/>
         <page to="backend/incoming_deliveries#list"/>
         <page to="backend/incoming_deliveries#list_items"/>
         <page to="backend/incoming_deliveries#new"/>

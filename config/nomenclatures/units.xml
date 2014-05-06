@@ -63,7 +63,7 @@
       <item name="cubic_meter" dimension="volume" symbol="m³"/>
       <item name="hectoliter"  dimension="volume" symbol="hl" a="0.1"/>
       <item name="liter"       dimension="volume" symbol="l"  a="0.001"/>
-      <item name="centiliter"  dimension="volume" symbol="cl"  a="0.00001"/>
+      <item name="centiliter"  dimension="volume" symbol="cl" a="0.00001"/>
       <item name="milliliter"  dimension="volume" symbol="ml" a="0.000001"/>
 
       <!-- time -->
@@ -80,7 +80,7 @@
       <!-- amount_of_substance -->
       <item name="mole"               dimension="amount_of_substance" symbol="mol"/>
       <item name="centimole"          dimension="amount_of_substance" symbol="cmol" a="0.01"/>
-      <item name="milliequivalent"    dimension="amount_of_substance" symbol="meq" a="0.001"/>
+      <item name="milliequivalent"    dimension="amount_of_substance" symbol="meq"  a="0.001"/>
       
       <!-- luminous_intensity -->
       <item name="candela" dimension="luminous_intensity" symbol="cd"/>
@@ -115,11 +115,11 @@
       <item name="gram_per_kilogram"      dimension="none" symbol="g/kg"  d="10000"/>
       
       <!-- mass_concentration -->
-      <item name="microgram_per_liter" dimension="mass_concentration" symbol="µg/l" a="0.000001" d="0.001"/>
-      <item name="milligram_per_liter" dimension="mass_concentration" symbol="mg/l" a="0.001"    d="0.001"/>
-      <item name="gram_per_liter"      dimension="mass_concentration" symbol="g/l"  a="0.01"    d="0.001"/>
-      <item name="kilogram_per_liter"  dimension="mass_concentration" symbol="kg/l"              d="0.001"/>
-      <item name="gram_per_hectoliter"  dimension="mass_concentration" symbol="g/hl"   d="0.1"/>
+      <item name="microgram_per_liter"    dimension="mass_concentration" symbol="µg/l" a="0.000001" d="0.001"/>
+      <item name="milligram_per_liter"    dimension="mass_concentration" symbol="mg/l" a="0.001"    d="0.001"/>
+      <item name="gram_per_liter"         dimension="mass_concentration" symbol="g/l"  a="0.01"     d="0.001"/>
+      <item name="kilogram_per_liter"     dimension="mass_concentration" symbol="kg/l"              d="0.001"/>
+      <item name="gram_per_hectoliter"    dimension="mass_concentration" symbol="g/hl"              d="0.1"/>
        
        <!-- mass_area_density -->
       <item name="kilogram_per_square_meter" dimension="mass_area_density" symbol="kg/m²"/>
@@ -152,8 +152,8 @@
       <!-- mass_density -->
       <item name="unity_per_kilogram"      dimension="mass_density" symbol="./kg" />
       <item name="thousand_per_kilogram"   dimension="mass_density" symbol="k./kg" a="1000"/>
-      <item name="thousand_per_hectogram"  dimension="mass_density" symbol="k./hg" a="1000" d="0.1"/>
-      <item name="billion_per_gram"        dimension="mass_density" symbol="G./g" a="1000000000" d="1000"/>
+      <item name="thousand_per_hectogram"  dimension="mass_density" symbol="k./hg" a="1000"       d="0.1"/>
+      <item name="billion_per_gram"        dimension="mass_density" symbol="G./g"  a="1000000000" d="1000"/>
       
       <!-- distance_speed -->
       <item name="meter_per_second"        dimension="distance_speed" symbol="m/s"/>

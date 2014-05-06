@@ -19,7 +19,9 @@
 
 class Backend::InventoriesController < BackendController
   manage_restfully except: :index # only: [:show, :destroy]
-
+  
+  respond_to :pdf, :odt, :docx, :xml, :json, :html, :csv
+  
   unroll
 
   list do |t|
@@ -42,7 +44,14 @@ class Backend::InventoriesController < BackendController
       notify_now(:need_stocks_to_create_inventories)
     end
   end
+  
+  def show
+    return unless @inventory = find_and_check
+    t3e @inventory
+    respond_with(@inventory, :include => [:responsible, {:items => {:methods => :unit_name, :include => [:product , :container]}}])
 
+  end
+  
   list(:items, model: :inventory_items, conditions: {inventory_id: 'params[:id]'.c}, order: :id) do |t|
     # t.column :name, through: :building, url: true
     t.column :product, url: true
