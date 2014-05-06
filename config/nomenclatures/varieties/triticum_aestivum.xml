@@ -3,31 +3,33 @@
   <nomenclature name="varieties-triticum_aestivum" hierarchical="true">
     <items>
       <item name="triticum_aestivum_apache"/>
+      <item name="triticum_aestivum_arezzo"/>
       <item name="triticum_aestivum_ascott"/>
-      <item name="triticum_aestivum_tremie"/>
-      <item name="triticum_aestivum_caphorn"/>
-      <item name="triticum_aestivum_oratorio"/>
-      <item name="triticum_aestivum_texel"/>
-      <item name="triticum_aestivum_aztec"/>
-      <item name="triticum_aestivum_isengrain"/>
       <item name="triticum_aestivum_autan"/>
-      <item name="triticum_aestivum_recital"/>
-      <item name="triticum_aestivum_soissons"/>
-      <item name="triticum_aestivum_manital"/>
-      <item name="triticum_aestivum_renan"/>
-      <item name="triticum_aestivum_esperia"/>
-      <item name="triticum_aestivum_galibier"/>
-      <item name="triticum_aestivum_quality"/>
+      <item name="triticum_aestivum_aztec"/>
       <item name="triticum_aestivum_bussard"/>
+      <item name="triticum_aestivum_caphorn"/>
       <item name="triticum_aestivum_courtot"/>
+      <item name="triticum_aestivum_esperia"/>
+      <item name="triticum_aestivum_euclide"/>
+      <item name="triticum_aestivum_galibier"/>
+      <item name="triticum_aestivum_isengrain"/>
       <item name="triticum_aestivum_levis"/>
       <item name="triticum_aestivum_lona"/>
+      <item name="triticum_aestivum_manital"/>
+      <item name="triticum_aestivum_oratorio"/>
+      <item name="triticum_aestivum_premio"/>
+      <item name="triticum_aestivum_quality"/>
       <item name="triticum_aestivum_qualital"/>
       <item name="triticum_aestivum_quebon"/>
-      <item name="triticum_aestivum_runal"/>
-      <item name="triticum_aestivum_tamaro"/>
-      <item name="triticum_aestivum_euclide"/>
+      <item name="triticum_aestivum_recital"/>
+      <item name="triticum_aestivum_renan"/>
       <item name="triticum_aestivum_rubisko"/>
+      <item name="triticum_aestivum_runal"/>
+      <item name="triticum_aestivum_soissons"/>
+      <item name="triticum_aestivum_tamaro"/>
+      <item name="triticum_aestivum_texel"/>
+      <item name="triticum_aestivum_tremie"/>
     </items>
   </nomenclature>
 </nomenclatures>

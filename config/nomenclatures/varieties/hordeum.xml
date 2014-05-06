@@ -10,6 +10,7 @@
 
   <nomenclature name="varieties-hordeum_hibernum" hierarchical="true">
     <items>
+      <item name="hordeum_hibernum_arturio"/>
       <item name="hordeum_hibernum_cerevisiae"/>
       <item name="hordeum_hibernum_etincel"/>
     </items>
@@ -24,6 +25,7 @@
   <nomenclature name="varieties-hordeum_vernum" hierarchical="true">
     <items>
       <item name="hordeum_vernum_hypoproteinae"/>
+      <item name="hordeum_vernum_traveler"/>
     </items>
   </nomenclature>
 

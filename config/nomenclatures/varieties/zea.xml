@@ -3,8 +3,13 @@
   <nomenclature name="varieties-zea" hierarchical="true">
     <items>
       <item name="zea_aallexia" itis_tsn="00000"/>
+      <item name="zea_boomer" itis_tsn="00000"/>
       <item name="zea_bergxxon" itis_tsn="00000"/>
+      <item name="zea_dkc3912" itis_tsn="00000"/>
+      <item name="zea_lg30533" itis_tsn="00000"/>
       <item name="zea_lg3490" itis_tsn="00000"/>
+      <item name="zea_lg3530" itis_tsn="00000"/>
+      <item name="zea_shannon" itis_tsn="00000"/>
     </items>
   </nomenclature>
 </nomenclatures>
