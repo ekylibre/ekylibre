@@ -1,19 +1,24 @@
 :ruby
   data = JSON.parse(File.read(Rails.root.join("db", "visualization.json")))["features"]
 
-= visualization :my_cultivable_zone_of_hell, fullscreen: true do |v|
+= visualization :my_cultivable_zone_of_hell do |v|
   -# The followings layers are base layers. Only one base layer(the last one) will appear.
-  -# v.background :default_base, "OpenStreetMap.HOT"
-  -# v.background :black_and_white_base, "OpenStreetMap.BlackAndWhite"
-  -# v.background :de_base, "OpenStreetMap.DE"
-  -# v.background :cycle_base, "OpenCycleMap"
-  -# v.background :forest_base, "Thunderforest" 
-  -# v.background :water_base, "Thunderforest.Transport" 
-  -# v.background :landscape_base, "Thunderforest.Landscape" 
-  - v.background :outdoors_base, "Thunderforest.Outdoors" 
-  -# The followings layers are additional layers. They can be combined.
-  - v.background :precipitations, "OpenWeatherMap.Precipitation"
-  - v.background :clouds, "OpenWeatherMap.Clouds"
+  - v.background :default_base, "baseLayers", "OpenStreetMap.HOT"
+  - v.background :black_and_white_base, "baseLayers", "OpenStreetMap.BlackAndWhite"
+  - v.background :de_base, "baseLayers", "OpenStreetMap.DE"
+  - v.background :cycle_base, "baseLayers" , "OpenCycleMap"
+  - v.background :forest_base, "baseLayers", "Thunderforest" 
+  - v.background :water_base, "baseLayers", "Thunderforest.Transport" 
+  - v.background :landscape_base, "baseLayers", "Thunderforest.Landscape" 
+  - v.background :outdoors_base, "baseLayers", "Thunderforest.Outdoors" 
+  -# The followings layers are overlays . They can be combined.
+  - v.background :clouds, "overlays", "OpenWeatherMap.Clouds"
+  - v.background :precipitations, "overlays", "OpenWeatherMap.Precipitation"
+  - v.background :rains, "overlays", "OpenWeatherMap.Rain"
+  - v.background :pressures, "overlays", "OpenWeatherMap.Pressure"
+  - v.background :wind, "overlays", "OpenWeatherMap.Wind"
+  - v.background :temperature, "overlays", "OpenWeatherMap.Temperature"
+  - v.background :snow, "overlays", "OpenWeatherMap.Snow"
   -# v.dataset :zones, data
   -# v.layer :zones, data, tooltip: true
   -# v.layer :potash, :chloropeth, tooltip: false, on: :potash_density
@@ -21,5 +26,6 @@
   -# v.control :background_selector
   - v.control :zoom, {position: "topleft",zoomInText: "",zoomOutText: ""}
   - v.control :scale, {position: "bottomleft", imperial: false, maxWidth: 200}
-  -# v.control :layer_selector
+  - v.control :fullscreen, {}
+  - v.control :layer_selector,  {position: "topright", collapsed: true, AutoZIndex: true}
   -# v.control :search

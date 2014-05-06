@@ -17,9 +17,9 @@ module Backend::VisualizationsHelper
       @data = data
     end
    
-    def background(name, provider_name)
+    def background(name, type, provider_name)
       @data[:backgrounds] ||= []
-      @data[:backgrounds] << {name: name, provider_name: provider_name}
+      @data[:backgrounds] << {name: name, type: type, provider_name: provider_name}
       
     end
 
