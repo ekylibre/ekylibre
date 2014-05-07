@@ -385,7 +385,7 @@ jpn:
       # index: "People"
       # merge: "Merge person: %{full_name}"
       # new: "New person"
-      # show: "Person: %{name}"
+      # show: "Person: %{full_name}"
     backend/plant_fertilizers:
       # index: "Plant fertilizers"
     backend/plant_medicines:
