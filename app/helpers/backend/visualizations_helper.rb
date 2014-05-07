@@ -17,9 +17,15 @@ module Backend::VisualizationsHelper
       @data = data
     end
    
-    def background(name, type, provider_name)
+    def background(name, provider_name)
       @data[:backgrounds] ||= []
-      @data[:backgrounds] << {name: name, type: type, provider_name: provider_name}
+      @data[:backgrounds] << {name: name, provider_name: provider_name}
+      
+    end
+    
+    def overlay(name, provider_name)
+      @data[:overlays] ||= []
+      @data[:overlays] << {name: name, provider_name: provider_name}
       
     end
 
@@ -42,9 +48,9 @@ module Backend::VisualizationsHelper
       #@data[:controls][name] = options
     #end
     
-    def control(name, options = {} )
+    def control(name )
       @data[:controls] ||= []
-      @data[:controls] << {name: name, options: options}
+      @data[:controls] << {name: name}
       
     end
 

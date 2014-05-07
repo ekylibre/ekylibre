@@ -8009,11 +8009,14 @@ L.Map.include({
 
 L.Control.Zoom = L.Control.extend({
 	options: {
-		position: 'topleft',
-		zoomInText: '+',
-		zoomInTitle: 'Zoom in',
-		zoomOutText: '-',
-		zoomOutTitle: 'Zoom out'
+		position: "topleft",
+		zoomInText: "",
+		zoomOutText: ""
+		//position: 'topleft',
+		//zoomInText: '+',
+		//zoomInTitle: 'Zoom in',
+		//zoomOutText: '-',
+		//zoomOutTitle: 'Zoom out'
 	},
 
 	onAdd: function (map) {
@@ -8228,11 +8231,10 @@ L.control.attribution = function (options) {
 
 L.Control.Scale = L.Control.extend({
 	options: {
-		position: 'bottomleft',
-		maxWidth: 100,
+		position: "bottomleft",
 		metric: true,
-		imperial: true,
-		updateWhenIdle: false
+		imperial: false,
+		maxWidth: 200
 	},
 
 	onAdd: function (map) {

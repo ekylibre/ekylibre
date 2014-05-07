@@ -7,6 +7,7 @@
         height: 400
         width: null
       backgrounds:{}
+      overlays: {}
       controls:{}
       show: null
       edit: null
@@ -102,9 +103,6 @@
 
       this._resize()
 
-      this._refreshBackgroundLayer()
-
-
       this._refreshView()
 
       this._refreshControls()
@@ -149,36 +147,32 @@
         if this.options.box.width?
           this.mapElement.width this.options.box.width
         this._trigger "resize"
-     
-    _refreshBackgroundLayer: ->
-      that= this
-      #   this.map.removeLayer(this.backgroundLayer)
-      if this.options.backgrounds? 
-        $.each this.options.backgrounds, ( index, value ) ->
-          #alert( index + ": " + value )
-          if value.name == "default_base"
-            backgroundLayer = L.tileLayer.provider(value.provider_name)
-            backgroundLayer.addTo that.map     
-      this
-      
+           
     _refreshControls: ->
       that= this
       
       back = this.options.backgrounds
+      over = this.options.overlays
 
       if this.options.controls? 
         $.each this.options.controls, ( index, value ) ->
           if value.name == "fullscreen" 
-            controls = new L.Control.FullScreen(value.options)
+            #options = {position: "bottomleft", metric: true, imperial: false, maxWidth: 200}
+            controls = new L.Control.FullScreen(position: "bottomleft", metric: true, imperial: false, maxWidth: 200)
             that.map.addControl controls
           #alert( index + ": " + value )            
           if value.name == "zoom"
-            controls = new L.Control.Zoom(value.options)
+            controls = new L.Control.Zoom()
+            #that.map.removeControl (controls)
+            that.map.addControl controls
+            #alert( index + ": " + description )
+          if value.name == "tilelegend"
+            controls = new L.Control.TileLegend()
             #that.map.removeControl (controls)
             that.map.addControl controls
             #alert( index + ": " + description )
           if value.name == "scale"
-            controls = new L.Control.Scale(value.options)
+            controls = new L.Control.Scale()
             #that.map.removeControl (controls)
             that.map.addControl controls
             #alert( index + ": " + description )
@@ -188,15 +182,20 @@
             overlays = {}
             $.each back, ( index, value ) -> 
               backgroundLayer = L.tileLayer.provider(value.provider_name)
-              if value.type == "baseLayers"
-                baseLayers[value.name] = backgroundLayer;
-                #baseLayers.push( value.provider_name, value.name ) 
-              if value.type == "overlays"
-                overlays[value.name] = backgroundLayer; 
-            controls = new L.Control.Layers(baseLayers, overlays, value.options)
+              baseLayers[value.name] = backgroundLayer
+
+            $.each over, ( index, value ) -> 
+              overLayer = L.tileLayer.provider(value.provider_name)
+              overlays[value.name] = overLayer
+            controls = new L.Control.Layers(baseLayers, overlays)
+
             #that.map.removeControl (controls)
             that.map.addControl controls
-            #alert( index + ": " + description )        
+            $.each baseLayers, ( index, value ) -> 
+              #if value.name == "default_base"
+                
+            #alert( index + ": " + description )    
+          
 
       this
 
