@@ -55,7 +55,6 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/kujakus#toggle"
-#     - "backend/outgoing_deliveries#ship"
 #     - "backend/plant_fertilizers#index"
 #     - "backend/plant_fertilizers#list"
 #     - "backend/plant_products#index"
@@ -1905,6 +1904,7 @@ transports:
     depend-on:
     - read-transports
     actions:
+    - "backend/outgoing_deliveries#ship"
     - "backend/transports#create"
     - "backend/transports#destroy"
     - "backend/transports#edit"

@@ -1860,6 +1860,8 @@ eng:
         piece_replacement: "Piece replacement"             #< maintenance
         plant_fertilisation: "Plant fertilisation"
         plant_illness_treatment: "Plant illness treatment"
+        plant_irrigation: "Plant irrigation"               #< plant_fertilisation
+        plant_nutrition: "Plant nutrition"                 #< plant_fertilisation
         plowing: "Plowing"                                 #< tillage
         pressing: "Pressing"                               #< transformation
         pruning: "Pruning"
@@ -2030,7 +2032,6 @@ eng:
         actilact: "Actilact"
         additive: "Additive"
         air_compressor: "Air compressor"
-        alfalfa_crop: "Alfalfa crop"
         alfalfa_seed: "Alfalfa seed"
         all_inclusive_corn_sower: "All inclusive corn sower"
         animal_building: "Animal building"
@@ -2185,6 +2186,7 @@ eng:
         equipment: "Equipment"
         equipment_building_division: "Equipment building division"
         escourgeon_barley_crop: "Escourgeon barley crop"
+        # etincel_winter_barley_crop: "Etincel winter barley crop"
         euclide_wheat_crop: "Euclide wheat crop"
         euclide_wheat_seed_25: "Euclide wheat seed 25"
         ewe_milk: "Ewe milk"
@@ -2250,6 +2252,7 @@ eng:
         liquid_10_34_d1.4: "Liquid 10 34 d1.4"
         liquid_nitrogen_30_d1.3: "Liquid nitrogen 30 d1.3"
         livestock_cleanliness_product: "Livestock cleanliness product"
+        # lucerne_crop: "Lucerne crop"
         male_adult_cow: "Male adult cow"
         male_hen_band: "Male hen band"
         male_young_cow: "Male young cow"
@@ -2367,6 +2370,7 @@ eng:
         vine_grape_must: "Vine grape must"
         vine_residu: "Vine residu"
         walnut_crop: "Walnut crop"
+        water_spreader: "Water spreader"
         wheat_crop: "Wheat crop"
         wheat_grain: "Wheat grain"
         wheat_seed_25: "Wheat seed 25"
@@ -2514,6 +2518,7 @@ eng:
         trailer: "Trailer"
         usual_vine_seedling: "Usual vine seedling"
         walnut_crop: "Walnut crop"
+        water_spreader: "Water spreader"
         wine: "Wine"
         wine_acidifying: "Wine acidifying"
         wine_alkalinizing: "Wine alkalinizing"

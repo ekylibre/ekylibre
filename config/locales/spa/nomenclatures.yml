@@ -1,5 +1,4 @@
 spa:
-  enumerize: #?
   nomenclatures:
     abilities:
       items:
@@ -1871,6 +1870,8 @@ spa:
         # piece_replacement: "Piece replacement"
         # plant_fertilisation: "Plant fertilisation"
         # plant_illness_treatment: "Plant illness treatment"
+        # plant_irrigation: "Plant irrigation"
+        # plant_nutrition: "Plant nutrition"
         # plowing: "Plowing"
         # pressing: "Pressing"
         # pruning: "Pruning"
@@ -2037,7 +2038,6 @@ spa:
         # actilact: "Actilact"
         # additive: "Additive"
         # air_compressor: "Air compressor"
-        # alfalfa_crop: "Alfalfa crop"
         # alfalfa_seed: "Alfalfa seed"
         # all_inclusive_corn_sower: "All inclusive corn sower"
         # animal_building: "Animal building"
@@ -2374,6 +2374,7 @@ spa:
         # vine_grape_must: "Vine grape must"
         # vine_residu: "Vine residu"
         # walnut_crop: "Walnut crop"
+        # water_spreader: "Water spreader"
         # wheat_crop: "Wheat crop"
         # wheat_grain: "Wheat grain"
         # wheat_seed_25: "Wheat seed 25"
@@ -2516,6 +2517,7 @@ spa:
         # trailer: "Trailer"
         # usual_vine_seedling: "Usual vine seedling"
         # walnut_crop: "Walnut crop"
+        # water_spreader: "Water spreader"
         # wine: "Wine"
         # wine_acidifying: "Wine acidifying"
         # wine_alkalinizing: "Wine alkalinizing"

@@ -551,6 +551,7 @@
         <page to="backend/outgoing_deliveries#list"/>
         <page to="backend/outgoing_deliveries#list_items"/>
         <page to="backend/outgoing_deliveries#new"/>
+        <page to="backend/outgoing_deliveries#ship"/>
         <page to="backend/outgoing_deliveries#show"/>
         <page to="backend/outgoing_deliveries#unroll"/>
         <page to="backend/outgoing_deliveries#update"/>
@@ -1727,10 +1728,6 @@
     </group>
   </inaccessible-actions>
   <untreated-actions>
-    <group>
-      <item name="outgoing_deliveries">
-        <page to="backend/outgoing_deliveries#ship"/>
-      </item>
-    </group>
+    <group/>
   </untreated-actions>
 </modules>
