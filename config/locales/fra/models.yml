@@ -301,7 +301,7 @@ fra:
       immatter: "Immatériel"
       incoming_delivery: "Approvisionnement"
       incoming_delivery_item: "Élément d’approvisionnement"
-      incoming_delivery_mode: "Mode d’approvisionnement"
+      incoming_delivery_mode: "Mode d’approvisionnement" #?
       incoming_payment: "Encaissement"
       incoming_payment_mode: "Mode d’encaissement"
       intervention: "Intervention"
@@ -330,7 +330,7 @@ fra:
       organic_matter: "Matière organique" #?
       outgoing_delivery: "Livraison"
       outgoing_delivery_item: "Ligne de livraison"
-      outgoing_delivery_mode: "Mode de livraison"
+      outgoing_delivery_mode: "Mode de livraison" #?
       outgoing_payment: "Décaissement"
       outgoing_payment_mode: "Mode de décaissement"
       person: "Personne"
@@ -418,6 +418,8 @@ fra:
     activity_code: "Code APE/NAF"
     actor: "Acteur"
     actual_number: "Numéro en cours"
+    # actual_population: "Actual population"
+    # actual_shape: "Actual shape"
     address: "Adresse"
     addresses: "Adresses"
     administrative_area: "Zone administrative"
@@ -989,7 +991,7 @@ fra:
     product_memberships: "Product memberships"
     # product_mergings: "Product mergings"
     product_mixings: "Product mixings"
-    product_moves: "Product moves"
+    product_moves: "Product moves" #?
     product_nature: "Product nature"
     # product_nature_categories: "Product nature categories"
     product_ownerships: "Product ownerships"
@@ -1111,7 +1113,6 @@ fra:
     soil_nature: "Nature du sol"
     soil_production: " contribution en azote du sol (Po)"
     source: "Source"
-    # source_product: "Source product"
     spaced_iban: "IBAN"
     sql_type: "Type SQL"
     start: "Début"
@@ -1169,6 +1170,7 @@ fra:
     transfers: "Transferts"
     transport: "Transport"
     transporter: "Transporteur"
+    # transporter_purchase: "Transporter purchase"
     transporter_sales: "Ventes de transporteurs"
     transports: "Transports"
     type: "Type"

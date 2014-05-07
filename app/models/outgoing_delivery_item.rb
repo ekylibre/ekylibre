@@ -21,46 +21,44 @@
 #
 # == Table: outgoing_delivery_items
 #
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  delivery_id       :integer          not null
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  population        :decimal(19, 4)   default(1.0), not null
-#  product_id        :integer          not null
-#  sale_item_id      :integer
-#  source_product_id :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  container_id :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  delivery_id  :integer          not null
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  net_mass     :decimal(19, 4)
+#  population   :decimal(19, 4)
+#  product_id   :integer          not null
+#  sale_item_id :integer
+#  shape        :spatial({:srid=>
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 
 
 class OutgoingDeliveryItem < Ekylibre::Record::Base
   attr_readonly :sale_item_id, :product_id
+  belongs_to :container, class_name: "Product"
   belongs_to :delivery, class_name: "OutgoingDelivery", inverse_of: :items
-  belongs_to :source_product, class_name: "Product"
   belongs_to :product
   belongs_to :sale_item
   has_one :variant, through: :product
   has_many :interventions, class_name: "Intervention", :as => :ressource
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :population, allow_nil: true
-  validates_presence_of :delivery, :population, :product, :source_product
+  validates_numericality_of :net_mass, :population, allow_nil: true
+  validates_presence_of :delivery, :product
   #]VALIDATORS]
 
   delegate :net_mass, to: :product
-  delegate :name, to: :source_product
 
   # acts_as_stockable :quantity => '-self.quantity', :origin => :delivery
   sums :delivery, :items, :net_mass, from: :measure
 
   before_validation do
-    if self.sale_item
-      self.source_product ||= self.sale_item.product
-    end
-    if self.source_product
-      self.product = self.source_product
+    if self.product
       self.population = self.product.population
+      self.shape = self.product.population
     end
     true
   end

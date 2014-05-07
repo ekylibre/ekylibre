@@ -479,6 +479,7 @@ Ekylibre::Application.routes.draw do
       member do
         post :invoice
         get :list_items
+        post :ship
       end
     end
 

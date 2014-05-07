@@ -21,22 +21,20 @@
 #
 # == Table: transports
 #
-#  amount           :decimal(19, 4)   not null
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  departed_at      :datetime
-#  description      :text
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  net_mass         :decimal(19, 4)
-#  number           :string(255)
-#  pretax_amount    :decimal(19, 4)   not null
-#  purchase_id      :integer
-#  reference_number :string(255)
-#  responsible_id   :integer
-#  transporter_id   :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  annotation              :text
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  departed_at             :datetime
+#  id                      :integer          not null, primary key
+#  lock_version            :integer          default(0), not null
+#  net_mass                :decimal(19, 4)
+#  number                  :string(255)
+#  reference_number        :string(255)
+#  responsible_id          :integer
+#  transporter_id          :integer          not null
+#  transporter_purchase_id :integer
+#  updated_at              :datetime         not null
+#  updater_id              :integer
 #
 
 
@@ -44,12 +42,13 @@ class Transport < Ekylibre::Record::Base
   acts_as_numbered
   belongs_to :responsible, class_name: "Person"
   belongs_to :transporter, class_name: "Entity"
+  belongs_to :transporter_purchase, class_name: "Purchase"
   has_many :deliveries, class_name: "OutgoingDelivery", dependent: :nullify
 
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :amount, :net_mass, :pretax_amount, allow_nil: true
+  validates_numericality_of :net_mass, allow_nil: true
   validates_length_of :number, :reference_number, allow_nil: true, maximum: 255
-  validates_presence_of :amount, :pretax_amount, :transporter
+  validates_presence_of :transporter
   #]VALIDATORS]
 
   protect(on: :destroy) do

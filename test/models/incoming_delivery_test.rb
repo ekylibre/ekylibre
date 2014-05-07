@@ -26,7 +26,8 @@
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  mode_id          :integer
+#  mode             :string(255)
+#  net_mass         :decimal(19, 4)
 #  number           :string(255)      not null
 #  purchase_id      :integer
 #  received_at      :datetime

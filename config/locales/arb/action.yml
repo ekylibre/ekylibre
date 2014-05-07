@@ -339,10 +339,7 @@ arb:
       # show: "Incoming delivery: %{number} (%{reference_number})"
     backend/incoming_delivery_items:
       # new: "New incoming delivery item"
-    backend/incoming_delivery_modes:
-      # edit: "Edit incoming delivery mode: %{name}"
-      # index: "Incoming delivery modes"
-      # new: "New incoming delivery mode"
+    backend/incoming_delivery_modes: #?
     backend/incoming_payment_modes:
       edit: "تعديل طريقة الدفعة: %{name}"
       index: "طرق تسديد الدفعات"
@@ -490,10 +487,10 @@ arb:
       new: "اضافة تسليم"
       # show: "Outgoing delivery: %{number}"
     backend/outgoing_delivery_lines: #?
-    backend/outgoing_delivery_modes:
-      edit: "تعديل وسيلة التسليم : %{name}"
-      index: "وسائل التسليم"
-      new: "اضافة وسيلة جديدة للتسليم"
+    backend/outgoing_delivery_modes:  #?
+      edit: "تعديل وسيلة التسليم : %{name}" #?
+      index: "وسائل التسليم" #?
+      new: "اضافة وسيلة جديدة للتسليم" #?
     backend/outgoing_payment_modes:
       edit: "تعديل طريقة تسديد الفعة"
       index: "طرق تسديد الدفعات"
@@ -2205,6 +2202,7 @@ arb:
       # run: "Run"
       # select: "Select"
       # set: "Set"
+      # ship: "Ship"
       # show: "Show"
       # sort: "Sort"
       # toggle: "Toggle"

@@ -58,7 +58,7 @@ spa:
       outgoing_payment_mode: #?
       outgoing_payment_use: #?
       plant:
-        # born_at: "Created at"
+        # born_at: "Planted at"
       price: #?
       procedure: #?
       product: #?
@@ -91,7 +91,7 @@ spa:
       sale:
         # amount: "Amount with taxes"
         # contact: "Address for the estimate"
-        # has_downpayment: "Request a downpayment"
+        # has_downpayment: "Downpayment received"
       sale_item:
         # amount: "Amount with taxes"
       sale_line: #?
@@ -259,7 +259,6 @@ spa:
       # immatter: "Immatter"
       # incoming_delivery: "Incoming delivery"
       # incoming_delivery_item: "Incoming delivery item"
-      # incoming_delivery_mode: "Incoming delivery mode"
       # incoming_payment: "Incoming payment"
       # incoming_payment_mode: "Incoming payment mode"
       # intervention: "Intervention"
@@ -285,7 +284,6 @@ spa:
       # operation: "Operation"
       # outgoing_delivery: "Outgoing delivery"
       # outgoing_delivery_item: "Outgoing delivery item"
-      # outgoing_delivery_mode: "Outgoing delivery mode"
       # outgoing_payment: "Disbursement"
       # outgoing_payment_mode: "Disbursement mode"
       # person: "Person"
@@ -370,6 +368,8 @@ spa:
     # activity_code: "Activity code"
     # actor: "Actor"
     # actual_number: "Actual number"
+    # actual_population: "Actual population"
+    # actual_shape: "Actual shape"
     # address: "Address"
     # addresses: "Addresses"
     # administrative_area: "Administrative area"
@@ -474,7 +474,7 @@ spa:
     # coordinate: "Coordinate"
     # coordinate_columns: "Coordinate columns"
     # country: "Country"
-    # created_at: "Created on"
+    # created_at: "Created at"
     # creator: "Creator"
     # creator_name: "Creator name"
     # credit: "Credit"
@@ -863,7 +863,6 @@ spa:
     # product_memberships: "Product memberships"
     # product_mergings: "Product mergings"
     # product_mixings: "Product mixings"
-    # product_moves: "Product moves"
     # product_nature: "Product nature"
     # product_nature_categories: "Product nature categories"
     # product_ownerships: "Product ownerships"
@@ -977,7 +976,6 @@ spa:
     # soil_nature: "Soil nature"
     # soil_production: "Soil production"
     # source: "Source"
-    # source_product: "Source product"
     # spaced_iban: "Spaced iban"
     # sql_type: "Sql type"
     # start: "Start"
@@ -1027,6 +1025,7 @@ spa:
     # transfers: "Transfers"
     # transport: "Transport"
     # transporter: "Transporter"
+    # transporter_purchase: "Transporter purchase"
     # transporter_sales: "Transporter sales"
     # transports: "Transports"
     # type: "Type"

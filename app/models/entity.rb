@@ -268,7 +268,7 @@ class Entity < Ekylibre::Record::Base
 
   def add_event(usage, operator, at = Time.now)
     if operator and item = Nomen::EventNatures[usage]
-      Event.create!(name: item.human_name, started_at: at, duration: item.default_duration.to_i, participations_attributes: {"0" => {participant_id: self.id, state: "informative"}, "1" => {participant_id: operator, state: "accepted"}})
+      Event.create!(name: item.human_name, started_at: at, duration: item.default_duration.to_i, participations_attributes: {"0" => {participant_id: self.id, state: "informative"}, "1" => {participant_id: operator.id, state: "accepted"}})
     end
   end
 

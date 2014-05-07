@@ -284,10 +284,6 @@ eng:
       show: "Incoming delivery: %{number} (%{reference_number})"
     backend/incoming_delivery_items:
       new: "New incoming delivery item"
-    backend/incoming_delivery_modes:
-      edit: "Edit incoming delivery mode: %{name}"
-      index: "Incoming delivery modes"
-      new: "New incoming delivery mode"
     backend/incoming_payment_modes:
       edit: "Edit incoming payment mode: %{name}"
       index: "Incoming payment modes"
@@ -402,11 +398,8 @@ eng:
       index: "Outgoing deliveries"
       # invoice: "Invoice outgoing delivery: %{name}"
       new: "New outgoing delivery"
+      # ship: "Ship outgoing delivery: %{name}"
       show: "Outgoing delivery: %{number}"
-    backend/outgoing_delivery_modes:
-      edit: "Edit outgoing delivery mode: %{name}"
-      index: "Outgoing delivery modes"
-      new: "New outgoing delivery mode"
     backend/outgoing_payment_modes:
       edit: "Edit disbursement mode"
       index: "Disbursement modes"
@@ -1546,7 +1539,7 @@ eng:
       record_has_been_correctly_removed: "The record has been removed successfully"
       record_has_been_imported: "Record has been imported"
       restoration_finished: "Restoring the backup has completed (in %{value} seconds)."
-      sale_already_invoiced: "The sale has already been invoiced: you can not define delivery"
+      sale_already_invoiced: "The sale has already been invoiced: you can not define delivery" #?
       sale_cannot_be_updated: "The estimate is no longer editable."
       sale_cant_be_deleted: "The sale can not be deleted."
       select_entry_items_to_mark_together: "Select entry items to mark together"
@@ -1627,6 +1620,7 @@ eng:
       run: "Run"
       select: "Select"
       set: "Set"
+      ship: "Ship"
       show: "Show"
       sort: "Sort"
       toggle: "Toggle"

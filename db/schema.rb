@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140429184401) do
+ActiveRecord::Schema.define(version: 20140507065135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -910,40 +910,42 @@ ActiveRecord::Schema.define(version: 20140429184401) do
   add_index "identifiers", ["updater_id"], :name => "index_identifiers_on_updater_id"
 
   create_table "incoming_deliveries", force: true do |t|
-    t.string   "number",                       null: false
-    t.integer  "sender_id",                    null: false
+    t.string   "number",                                                null: false
+    t.integer  "sender_id",                                             null: false
     t.string   "reference_number"
     t.integer  "purchase_id"
     t.integer  "address_id"
     t.datetime "received_at"
-    t.integer  "mode_id"
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",     default: 0, null: false
+    t.integer  "lock_version",                              default: 0, null: false
+    t.decimal  "net_mass",         precision: 19, scale: 4
+    t.string   "mode"
   end
 
   add_index "incoming_deliveries", ["address_id"], :name => "index_incoming_deliveries_on_address_id"
   add_index "incoming_deliveries", ["created_at"], :name => "index_incoming_deliveries_on_created_at"
   add_index "incoming_deliveries", ["creator_id"], :name => "index_incoming_deliveries_on_creator_id"
-  add_index "incoming_deliveries", ["mode_id"], :name => "index_incoming_deliveries_on_mode_id"
   add_index "incoming_deliveries", ["purchase_id"], :name => "index_incoming_deliveries_on_purchase_id"
   add_index "incoming_deliveries", ["sender_id"], :name => "index_incoming_deliveries_on_sender_id"
   add_index "incoming_deliveries", ["updated_at"], :name => "index_incoming_deliveries_on_updated_at"
   add_index "incoming_deliveries", ["updater_id"], :name => "index_incoming_deliveries_on_updater_id"
 
   create_table "incoming_delivery_items", force: true do |t|
-    t.integer  "delivery_id",                                             null: false
+    t.integer  "delivery_id",                                                                                    null: false
     t.integer  "purchase_item_id"
-    t.integer  "product_id",                                              null: false
-    t.decimal  "population",       precision: 19, scale: 4, default: 1.0, null: false
+    t.integer  "product_id",                                                                                     null: false
+    t.decimal  "population",                                                precision: 19, scale: 4
     t.integer  "container_id"
-    t.datetime "created_at",                                              null: false
-    t.datetime "updated_at",                                              null: false
+    t.datetime "created_at",                                                                                     null: false
+    t.datetime "updated_at",                                                                                     null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                              default: 0,   null: false
+    t.integer  "lock_version",                                                                       default: 0, null: false
+    t.spatial  "shape",            limit: {:srid=>4326, :type=>"geometry"}
+    t.decimal  "net_mass",                                                  precision: 19, scale: 4
   end
 
   add_index "incoming_delivery_items", ["container_id"], :name => "index_incoming_delivery_items_on_container_id"
@@ -954,22 +956,6 @@ ActiveRecord::Schema.define(version: 20140429184401) do
   add_index "incoming_delivery_items", ["purchase_item_id"], :name => "index_incoming_delivery_items_on_purchase_item_id"
   add_index "incoming_delivery_items", ["updated_at"], :name => "index_incoming_delivery_items_on_updated_at"
   add_index "incoming_delivery_items", ["updater_id"], :name => "index_incoming_delivery_items_on_updater_id"
-
-  create_table "incoming_delivery_modes", force: true do |t|
-    t.string   "name",                                null: false
-    t.string   "code",         limit: 30,             null: false
-    t.text     "description"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",            default: 0, null: false
-  end
-
-  add_index "incoming_delivery_modes", ["created_at"], :name => "index_incoming_delivery_modes_on_created_at"
-  add_index "incoming_delivery_modes", ["creator_id"], :name => "index_incoming_delivery_modes_on_creator_id"
-  add_index "incoming_delivery_modes", ["updated_at"], :name => "index_incoming_delivery_modes_on_updated_at"
-  add_index "incoming_delivery_modes", ["updater_id"], :name => "index_incoming_delivery_modes_on_updater_id"
 
   create_table "incoming_payment_modes", force: true do |t|
     t.string   "name",                    limit: 50,                                          null: false
@@ -1479,27 +1465,27 @@ ActiveRecord::Schema.define(version: 20140429184401) do
   add_index "operations", ["updater_id"], :name => "index_operations_on_updater_id"
 
   create_table "outgoing_deliveries", force: true do |t|
-    t.string   "number",                                                null: false
-    t.integer  "recipient_id",                                          null: false
+    t.string   "number",                                                    null: false
+    t.integer  "recipient_id",                                              null: false
     t.string   "reference_number"
-    t.integer  "mode_id"
     t.integer  "sale_id"
-    t.integer  "address_id",                                            null: false
+    t.integer  "address_id",                                                null: false
     t.datetime "sent_at"
     t.decimal  "net_mass",         precision: 19, scale: 4
     t.integer  "transport_id"
     t.integer  "transporter_id"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.datetime "created_at",                                                null: false
+    t.datetime "updated_at",                                                null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                              default: 0, null: false
+    t.integer  "lock_version",                              default: 0,     null: false
+    t.boolean  "with_transport",                            default: false, null: false
+    t.string   "mode",                                                      null: false
   end
 
   add_index "outgoing_deliveries", ["address_id"], :name => "index_outgoing_deliveries_on_address_id"
   add_index "outgoing_deliveries", ["created_at"], :name => "index_outgoing_deliveries_on_created_at"
   add_index "outgoing_deliveries", ["creator_id"], :name => "index_outgoing_deliveries_on_creator_id"
-  add_index "outgoing_deliveries", ["mode_id"], :name => "index_outgoing_deliveries_on_mode_id"
   add_index "outgoing_deliveries", ["recipient_id"], :name => "index_outgoing_deliveries_on_recipient_id"
   add_index "outgoing_deliveries", ["sale_id"], :name => "index_outgoing_deliveries_on_sale_id"
   add_index "outgoing_deliveries", ["transport_id"], :name => "index_outgoing_deliveries_on_transport_id"
@@ -1508,16 +1494,18 @@ ActiveRecord::Schema.define(version: 20140429184401) do
   add_index "outgoing_deliveries", ["updater_id"], :name => "index_outgoing_deliveries_on_updater_id"
 
   create_table "outgoing_delivery_items", force: true do |t|
-    t.integer  "delivery_id",                                              null: false
+    t.integer  "delivery_id",                                                                                null: false
     t.integer  "sale_item_id"
-    t.decimal  "population",        precision: 19, scale: 4, default: 1.0, null: false
-    t.integer  "product_id",                                               null: false
-    t.integer  "source_product_id",                                        null: false
-    t.datetime "created_at",                                               null: false
-    t.datetime "updated_at",                                               null: false
+    t.decimal  "population",                                            precision: 19, scale: 4
+    t.integer  "product_id",                                                                                 null: false
+    t.datetime "created_at",                                                                                 null: false
+    t.datetime "updated_at",                                                                                 null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                               default: 0,   null: false
+    t.integer  "lock_version",                                                                   default: 0, null: false
+    t.spatial  "shape",        limit: {:srid=>4326, :type=>"geometry"}
+    t.decimal  "net_mass",                                              precision: 19, scale: 4
+    t.integer  "container_id"
   end
 
   add_index "outgoing_delivery_items", ["created_at"], :name => "index_outgoing_delivery_items_on_created_at"
@@ -1525,26 +1513,8 @@ ActiveRecord::Schema.define(version: 20140429184401) do
   add_index "outgoing_delivery_items", ["delivery_id"], :name => "index_outgoing_delivery_items_on_delivery_id"
   add_index "outgoing_delivery_items", ["product_id"], :name => "index_outgoing_delivery_items_on_product_id"
   add_index "outgoing_delivery_items", ["sale_item_id"], :name => "index_outgoing_delivery_items_on_sale_item_id"
-  add_index "outgoing_delivery_items", ["source_product_id"], :name => "index_outgoing_delivery_items_on_source_product_id"
   add_index "outgoing_delivery_items", ["updated_at"], :name => "index_outgoing_delivery_items_on_updated_at"
   add_index "outgoing_delivery_items", ["updater_id"], :name => "index_outgoing_delivery_items_on_updater_id"
-
-  create_table "outgoing_delivery_modes", force: true do |t|
-    t.string   "name",                                      null: false
-    t.string   "code",           limit: 10,                 null: false
-    t.text     "description"
-    t.boolean  "with_transport",            default: false, null: false
-    t.datetime "created_at",                                null: false
-    t.datetime "updated_at",                                null: false
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.integer  "lock_version",              default: 0,     null: false
-  end
-
-  add_index "outgoing_delivery_modes", ["created_at"], :name => "index_outgoing_delivery_modes_on_created_at"
-  add_index "outgoing_delivery_modes", ["creator_id"], :name => "index_outgoing_delivery_modes_on_creator_id"
-  add_index "outgoing_delivery_modes", ["updated_at"], :name => "index_outgoing_delivery_modes_on_updated_at"
-  add_index "outgoing_delivery_modes", ["updater_id"], :name => "index_outgoing_delivery_modes_on_updater_id"
 
   create_table "outgoing_payment_modes", force: true do |t|
     t.string   "name",            limit: 50,                 null: false
@@ -2682,28 +2652,26 @@ ActiveRecord::Schema.define(version: 20140429184401) do
   add_index "transfers", ["updater_id"], :name => "index_transfers_on_updater_id"
 
   create_table "transports", force: true do |t|
-    t.integer  "transporter_id",                                        null: false
+    t.integer  "transporter_id",                                               null: false
     t.integer  "responsible_id"
-    t.decimal  "net_mass",         precision: 19, scale: 4
+    t.decimal  "net_mass",                precision: 19, scale: 4
     t.datetime "departed_at"
-    t.text     "description"
+    t.text     "annotation"
     t.string   "number"
     t.string   "reference_number"
-    t.integer  "purchase_id"
-    t.decimal  "pretax_amount",    precision: 19, scale: 4,             null: false
-    t.decimal  "amount",           precision: 19, scale: 4,             null: false
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.integer  "transporter_purchase_id"
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.integer  "lock_version",                              default: 0, null: false
+    t.integer  "lock_version",                                     default: 0, null: false
   end
 
   add_index "transports", ["created_at"], :name => "index_transports_on_created_at"
   add_index "transports", ["creator_id"], :name => "index_transports_on_creator_id"
-  add_index "transports", ["purchase_id"], :name => "index_transports_on_purchase_id"
   add_index "transports", ["responsible_id"], :name => "index_transports_on_responsible_id"
   add_index "transports", ["transporter_id"], :name => "index_transports_on_transporter_id"
+  add_index "transports", ["transporter_purchase_id"], :name => "index_transports_on_transporter_purchase_id"
   add_index "transports", ["updated_at"], :name => "index_transports_on_updated_at"
   add_index "transports", ["updater_id"], :name => "index_transports_on_updater_id"
 

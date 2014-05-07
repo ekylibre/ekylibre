@@ -42,7 +42,6 @@
       <item name="guides" accesses="read, write, execute"/>
       <item name="identifiers"/>
       <item name="incoming_deliveries"/>
-      <item name="incoming_delivery_modes"/>
       <item name="incoming_payment_modes"/>
       <item name="incoming_payments"/>
       <item name="interventions" accesses="read, write, execute"/>
@@ -61,7 +60,6 @@
       <item name="net_services"/>
       <item name="observations"/>
       <item name="outgoing_deliveries"/>
-      <item name="outgoing_delivery_modes"/>
       <item name="outgoing_payment_modes"/>
       <item name="outgoing_payments"/>
       <item name="people" accesses="read, write, link"/>

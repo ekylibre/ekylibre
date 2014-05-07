@@ -47,7 +47,6 @@
 - immatter
 - incoming_delivery
 - incoming_delivery_item
-- incoming_delivery_mode
 - incoming_payment
 - incoming_payment_mode
 - intervention
@@ -73,7 +72,6 @@
 - operation
 - outgoing_delivery
 - outgoing_delivery_item
-- outgoing_delivery_mode
 - outgoing_payment
 - outgoing_payment_mode
 - person

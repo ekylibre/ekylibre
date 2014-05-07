@@ -13,7 +13,6 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
 // $zz-menu-width: 250px;
 
 .active-list[data-list-source], .active-list {
-   overflow-x: auto; 
    table.list {
       border-collapse: collapse;
       width: 100%;
@@ -316,6 +315,7 @@ $list-hover-backgrounds:     ("&" rgba(#FFF, 0)) ("&:hover" $hover-mask);
             &.register    i { @include use-icon(plus); }
             &.reset       i { @include use-icon(refresh); }
             &.restore     i { @include use-icon(chevron-left); }
+            &.ship        i { @include use-icon(truck); }
             &.show        i { @include use-icon(print); }
             &.sort        i { @include use-icon(sort); }
             &.table       i { @include use-icon(table); }

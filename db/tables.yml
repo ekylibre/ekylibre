@@ -633,7 +633,8 @@ incoming_deliveries:
   creator_id: {type: integer, references: user}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
-  mode_id: {type: integer, references: incoming_delivery_mode}
+  mode: {type: string}
+  net_mass: {type: decimal, precision: 19, scale: 4}
   number: {type: string, required: true}
   purchase_id: {type: integer, references: purchase}
   received_at: {type: datetime}
@@ -649,20 +650,11 @@ incoming_delivery_items:
   delivery_id: {type: integer, references: incoming_delivery, required: true}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
-  population: {type: decimal, precision: 19, scale: 4, required: true, default: 1.0}
+  net_mass: {type: decimal, precision: 19, scale: 4}
+  population: {type: decimal, precision: 19, scale: 4}
   product_id: {type: integer, references: product, required: true}
   purchase_item_id: {type: integer, references: purchase_item}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-
-incoming_delivery_modes:
-  code: {type: string, limit: 30, required: true}
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  description: {type: text}
-  id: {type: integer, required: true}
-  lock_version: {type: integer, required: true, default: 0}
-  name: {type: string, required: true}
+  shape: {type: spatial}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 
@@ -1024,7 +1016,7 @@ outgoing_deliveries:
   creator_id: {type: integer, references: user}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
-  mode_id: {type: integer, references: outgoing_delivery_mode}
+  mode: {type: string, required: true}
   net_mass: {type: decimal, precision: 19, scale: 4}
   number: {type: string, required: true}
   recipient_id: {type: integer, references: entity, required: true}
@@ -1035,31 +1027,22 @@ outgoing_deliveries:
   transporter_id: {type: integer, references: entity}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
+  with_transport: {type: boolean, required: true, default: false}
 
 outgoing_delivery_items:
+  container_id: {type: integer, references: product}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   delivery_id: {type: integer, references: outgoing_delivery, required: true}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
-  population: {type: decimal, precision: 19, scale: 4, required: true, default: 1.0}
+  net_mass: {type: decimal, precision: 19, scale: 4}
+  population: {type: decimal, precision: 19, scale: 4}
   product_id: {type: integer, references: product, required: true}
   sale_item_id: {type: integer, references: sale_item}
-  source_product_id: {type: integer, references: product, required: true}
+  shape: {type: spatial}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
-
-outgoing_delivery_modes:
-  code: {type: string, limit: 10, required: true}
-  created_at: {type: datetime, required: true}
-  creator_id: {type: integer, references: user}
-  description: {type: text}
-  id: {type: integer, required: true}
-  lock_version: {type: integer, required: true, default: 0}
-  name: {type: string, required: true}
-  updated_at: {type: datetime, required: true}
-  updater_id: {type: integer, references: user}
-  with_transport: {type: boolean, required: true, default: false}
 
 outgoing_payment_modes:
   active: {type: boolean, required: true, default: false}
@@ -1825,20 +1808,18 @@ transfers:
   updater_id: {type: integer, references: user}
 
 transports:
-  amount: {type: decimal, precision: 19, scale: 4, required: true}
+  annotation: {type: text}
   created_at: {type: datetime, required: true}
   creator_id: {type: integer, references: user}
   departed_at: {type: datetime}
-  description: {type: text}
   id: {type: integer, required: true}
   lock_version: {type: integer, required: true, default: 0}
   net_mass: {type: decimal, precision: 19, scale: 4}
   number: {type: string}
-  pretax_amount: {type: decimal, precision: 19, scale: 4, required: true}
-  purchase_id: {type: integer, references: purchase}
   reference_number: {type: string}
   responsible_id: {type: integer, references: person}
   transporter_id: {type: integer, references: entity, required: true}
+  transporter_purchase_id: {type: integer, references: purchase}
   updated_at: {type: datetime, required: true}
   updater_id: {type: integer, references: user}
 

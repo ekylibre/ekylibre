@@ -250,10 +250,7 @@ jpn:
       # show: "Incoming delivery: %{number} (%{reference_number})"
     backend/incoming_delivery_items:
       # new: "New incoming delivery item"
-    backend/incoming_delivery_modes:
-      # edit: "Edit incoming delivery mode: %{name}"
-      # index: "Incoming delivery modes"
-      # new: "New incoming delivery mode"
+    backend/incoming_delivery_modes: #?
     backend/incoming_payment_modes:
       # edit: "Edit incoming payment mode: %{name}"
       # index: "Incoming payment modes"
@@ -365,10 +362,7 @@ jpn:
       # index: "Outgoing deliveries"
       # new: "New outgoing delivery"
       # show: "Outgoing delivery: %{number}"
-    backend/outgoing_delivery_modes:
-      # edit: "Edit outgoing delivery mode: %{name}"
-      # index: "Outgoing delivery modes"
-      # new: "New outgoing delivery mode"
+    backend/outgoing_delivery_modes: #?
     backend/outgoing_payment_modes:
       # edit: "Edit disbursement mode"
       # index: "Disbursement modes"
@@ -1562,6 +1556,7 @@ jpn:
       # run: "Run"
       # select: "Select"
       # set: "Set"
+      # ship: "Ship"
       # show: "Show"
       # sort: "Sort"
       # toggle: "Toggle"

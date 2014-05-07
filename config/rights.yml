@@ -55,6 +55,7 @@
 #     - "backend/helps#show"
 #     - "backend/helps#toggle"
 #     - "backend/kujakus#toggle"
+#     - "backend/outgoing_deliveries#ship"
 #     - "backend/plant_fertilizers#index"
 #     - "backend/plant_fertilizers#list"
 #     - "backend/plant_products#index"
@@ -857,22 +858,6 @@ incoming_deliveries:
     - "backend/incoming_deliveries#new"
     - "backend/incoming_deliveries#update"
 
-incoming_delivery_modes:
-  read:
-    actions:
-    - "backend/incoming_delivery_modes#index"
-    - "backend/incoming_delivery_modes#list"
-    - "backend/incoming_delivery_modes#unroll"
-  write:
-    depend-on:
-    - read-incoming_delivery_modes
-    actions:
-    - "backend/incoming_delivery_modes#create"
-    - "backend/incoming_delivery_modes#destroy"
-    - "backend/incoming_delivery_modes#edit"
-    - "backend/incoming_delivery_modes#new"
-    - "backend/incoming_delivery_modes#update"
-
 incoming_payment_modes:
   read:
     actions:
@@ -1317,22 +1302,6 @@ outgoing_deliveries:
     - "backend/outgoing_deliveries#edit"
     - "backend/outgoing_deliveries#new"
     - "backend/outgoing_deliveries#update"
-
-outgoing_delivery_modes:
-  read:
-    actions:
-    - "backend/outgoing_delivery_modes#index"
-    - "backend/outgoing_delivery_modes#list"
-    - "backend/outgoing_delivery_modes#unroll"
-  write:
-    depend-on:
-    - read-outgoing_delivery_modes
-    actions:
-    - "backend/outgoing_delivery_modes#create"
-    - "backend/outgoing_delivery_modes#destroy"
-    - "backend/outgoing_delivery_modes#edit"
-    - "backend/outgoing_delivery_modes#new"
-    - "backend/outgoing_delivery_modes#update"
 
 outgoing_payment_modes:
   read:

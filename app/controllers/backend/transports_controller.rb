@@ -21,9 +21,9 @@ class Backend::TransportsController < BackendController
   manage_restfully only: [:index, :show, :destroy]
   unroll
 
-  list(:children => :deliveries, conditions: search_conditions(:transports => [:number, :description], :entities => [:number, :full_name])) do |t|
+  list(:children => :deliveries, conditions: search_conditions(:transports => [:number, :annotation], :entities => [:number, :full_name])) do |t|
     t.column :number, url: true
-    t.column :description
+    t.column :annotation
     #t.column :created_at, :children => :planned_at
     #t.column :departed_at, :children => :moved_at
     t.column :transporter, label_method: :full_name, :children => :default_mail_coordinate, url: true
@@ -34,14 +34,9 @@ class Backend::TransportsController < BackendController
   end
 
   list(:deliveries, model: :outgoing_deliveries, :children => :items, conditions: {:transport_id => 'params[:id]'.c}) do |t|
+    t.column :number, url: true, children: false
     t.column :address, label_method: :coordinate, :children => :product_name
     t.column :sent_at, children: false
-    #t.column :moved_at, children: false
-    t.column :number, url: true, children: false
-    # t.column :number, through: :sale, url: true, children: false
-    #t.column :quantity
-    #t.column :pretax_amount
-    #t.column :amount
     t.column :net_mass, children: false
   end
 

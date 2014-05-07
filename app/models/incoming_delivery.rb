@@ -26,7 +26,8 @@
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  mode_id          :integer
+#  mode             :string(255)
+#  net_mass         :decimal(19, 4)
 #  number           :string(255)      not null
 #  purchase_id      :integer
 #  received_at      :datetime
@@ -39,15 +40,18 @@
 
 class IncomingDelivery < Ekylibre::Record::Base
   belongs_to :address, class_name: "EntityAddress"
-  belongs_to :mode, class_name: "IncomingDeliveryMode"
+  # belongs_to :mode, class_name: "IncomingDeliveryMode"
   belongs_to :purchase
   belongs_to :sender, class_name: "Entity"
   has_many :items, class_name: "IncomingDeliveryItem", inverse_of: :delivery, foreign_key: :delivery_id, dependent: :destroy
   has_many :products, through: :items
-  has_many :product_moves, :as => :origin
   has_many :issues, as: :target
+
+  enumerize :mode, in: Nomen::DeliveryModes.all
+
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_length_of :number, :reference_number, allow_nil: true, maximum: 255
+  validates_numericality_of :net_mass, allow_nil: true
+  validates_length_of :mode, :number, :reference_number, allow_nil: true, maximum: 255
   validates_presence_of :number, :sender
   #]VALIDATORS]
   validates_presence_of :received_at, :address, :mode
@@ -66,7 +70,7 @@ class IncomingDelivery < Ekylibre::Record::Base
   after_initialize do
     if self.new_record?
       self.address ||= Entity.of_company.default_mail_address
-      self.mode    ||= IncomingDeliveryMode.by_default
+      # self.mode    ||= IncomingDeliveryMode.by_default
       self.received_at ||= Time.now
     end
   end

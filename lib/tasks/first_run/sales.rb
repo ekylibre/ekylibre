@@ -94,7 +94,7 @@ load_data :sales do |loader|
           if !rand(25).zero?
             d += rand(5).days
             sale.invoice
-            Sale.where(id: sale.id).update_all(:invoiced_at => d)
+            Sale.where(id: sale.id).update_all(:invoiced_at => d, :payment_at => (d + 30.days))
             if !rand(4).zero? and sale.amount > 0
               payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: sale.invoiced_at + rand(60))
               sale.affair.attach(payment)
@@ -175,7 +175,7 @@ load_data :sales do |loader|
           if !rand(25).zero?
             d += rand(5).days
             sale.invoice
-            Sale.where(id: sale.id).update_all(:invoiced_at => d)
+            Sale.where(id: sale.id).update_all(:invoiced_at => d, :payment_at => (d + 30.days))
             if !rand(4).zero? and sale.amount > 0
               payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: sale.invoiced_at + rand(60))
               sale.affair.attach(payment)
@@ -250,7 +250,7 @@ load_data :sales do |loader|
           unless rand(96).zero?
             d += rand(5).days
             sale.invoice
-            Sale.where(id: sale.id).update_all(:invoiced_at => d)
+            Sale.where(id: sale.id).update_all(:invoiced_at => d, :payment_at => (d + 30.days))
             if !rand(4).zero? and sale.amount > 0
               payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: sale.invoiced_at + rand(60))
               sale.affair.attach(payment)
@@ -332,7 +332,7 @@ load_data :sales do |loader|
           if !rand(25).zero?
             d += rand(5).days
             sale.invoice
-            Sale.where(id: sale.id).update_all(:invoiced_at => d)
+            Sale.where(id: sale.id).update_all(:invoiced_at => d, :payment_at => (d + 30.days))
             if !rand(4).zero? and sale.amount > 0
               payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: sale.invoiced_at + rand(60))
               sale.affair.attach(payment)
@@ -413,7 +413,7 @@ load_data :sales do |loader|
           if !rand(25).zero?
             d += rand(5).days
             sale.invoice
-            Sale.where(id: sale.id).update_all(:invoiced_at => d)
+            Sale.where(id: sale.id).update_all(:invoiced_at => d, :payment_at => (d + 30.days))
             if !rand(4).zero? and sale.amount > 0
               payment = sale.client.incoming_payments.create!(mode: IncomingPaymentMode.all.sample, amount: (sale.amount / (1.0 + rand(3))).to_s.to_f.round(2), to_bank_at: sale.invoiced_at + rand(60))
               sale.affair.attach(payment)

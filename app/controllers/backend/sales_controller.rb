@@ -28,18 +28,19 @@ class Backend::SalesController < BackendController
   def self.sales_conditions
     code = ""
     code = search_conditions(:sales => [:pretax_amount, :amount, :number, :initial_number, :description], :entities => [:number, :full_name]) + " ||= []\n"
+
     code << "unless params[:s].blank?\n"
-    code << "  if params[:s] == 'all'\n"
-    code << "    c[0] += \" AND state IN ('estimate', 'order', 'invoice')\"\n"
-    # code << "  elsif params[:s] == 'unpaid'\n"
-    # code << "    c[0] += \" AND state IN ('order', 'invoice') AND paid_amount < amount AND lost = ?\"\n"
-    # code << "    c << false\n"
+    code << "  if params[:s] == 'current'\n"
+    code << "    c[0] += \" AND affair_id IN (SELECT id FROM affairs WHERE NOT closed AND credit > 0 AND debit > 0)\"\n"
+    code << "  elsif params[:s] == 'unpaid'\n"
+    code << "    c[0] += \" AND state IN ('order', 'invoice') AND (payment_at IS NULL OR payment_at <= CURRENT_TIMESTAMP) AND affair_id NOT IN (SELECT id FROM affairs WHERE closed)\"\n"
     code << "  end\n "
-    code << "  if params[:responsible_id].to_i > 0\n"
-    code << "    c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
-    code << "    c << params[:responsible_id]\n"
-    code << "  end\n"
-    code << "end\n "
+    code << "end\n"
+
+    code << "if params[:responsible_id].to_i > 0\n"
+    code << "  c[0] += \" AND \#{Sale.table_name}.responsible_id = ?\"\n"
+    code << "  c << params[:responsible_id]\n"
+    code << "end\n"
     code << "c\n "
     return code.c
   end
@@ -81,12 +82,13 @@ class Backend::SalesController < BackendController
   end
 
   list(:deliveries, model: :outgoing_deliveries, :children => :items, conditions: {:sale_id => 'params[:id]'.c}) do |t|
-    t.column :number, :children => :product_name
+    t.column :number, :children => :product_name, url: true
     t.column :transporter, children: false, url: true
     t.column :address, label_method: :coordinate, children: false
+    t.column :sent_at, children: false, hidden: true
     # t.column :planned_at, children: false
     # t.column :moved_at, children: false
-    t.column :population
+    # t.column :population
     # t.column :pretax_amount, currency: true
     # t.column :amount, currency: true
     t.action :edit, if: :updateable?
@@ -117,7 +119,7 @@ class Backend::SalesController < BackendController
     t.action :destroy
   end
 
-  list(:undelivered_items, model: :sale_items, conditions: {:sale_id => 'params[:id]'.c, :reduced_item_id => nil}) do |t|
+  list(:undelivered_items, model: :sale_items, conditions: {:sale_id => 'params[:id]'.c}) do |t|
     t.column :name, through: :variant
     # t.column :pretax_amount, currency: true, through: :price
     t.column :quantity
@@ -155,23 +157,7 @@ class Backend::SalesController < BackendController
                                      }
                                      ) do |format|
       format.html do
-        session[:current_sale_id] = @sale.id
-        session[:current_currency] = @sale.currency
-        if params[:step] and not ["products", "deliveries", "summary"].include? params[:step]
-          state  = @sale.state
-          params[:step] = (@sale.invoice? ? :summary : @sale.order? ? :deliveries : :products).to_s
-        end
-        if params[:step] == "deliveries"
-          if @sale.deliveries.size <= 0 and @sale.order? and @sale.has_content?
-            redirect_to controller: :outgoing_deliveries, action: :new, :sale_id => @sale.id
-          elsif @sale.deliveries.size <= 0 and @sale.invoice?
-            notify(:sale_already_invoiced)
-          elsif @sale.items.size <= 0
-            notify_warning(:no_items_found)
-            redirect_to action: :show, id: @sale.id
-          end
-        end
-        t3e @sale.attributes, :client => @sale.client.full_name, :state => @sale.state_label, :label => @sale.label
+        t3e @sale.attributes, client: @sale.client.full_name, state: @sale.state_label, label: @sale.label
       end
       # format.json { render :json => @sale, :include => {:items => {:include => :variant}} }
       # format.xml  { render  :xml => @sale, :include => {:invoice_address => {}, :items => {:include => :variant}} }

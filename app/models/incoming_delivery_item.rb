@@ -27,9 +27,11 @@
 #  delivery_id      :integer          not null
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  population       :decimal(19, 4)   default(1.0), not null
+#  net_mass         :decimal(19, 4)
+#  population       :decimal(19, 4)
 #  product_id       :integer          not null
 #  purchase_item_id :integer
+#  shape            :spatial({:srid=>
 #  updated_at       :datetime         not null
 #  updater_id       :integer
 #
@@ -45,8 +47,8 @@ class IncomingDeliveryItem < Ekylibre::Record::Base
   has_one :variant, through: :product
   has_one :product_localization, as: :originator
   #[VALIDATORS[ Do not edit these lines directly. Use `rake clean:validations`.
-  validates_numericality_of :population, allow_nil: true
-  validates_presence_of :delivery, :population, :product
+  validates_numericality_of :net_mass, :population, allow_nil: true
+  validates_presence_of :delivery, :product
   #]VALIDATORS]
   validates_presence_of :product, :container
 

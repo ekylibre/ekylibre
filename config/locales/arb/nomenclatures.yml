@@ -1103,6 +1103,28 @@ arb:
         # number: "Number"
         # precision: "Precision"
         # symbol: "Symbol"
+    delivery_modes:
+      choices:
+        incoterm:
+          # CFR: "CFR"
+          # CIF: "CIF"
+          # CIP: "CIP"
+          # CPT: "CPT"
+          # DAP: "DAP"
+          # DAT: "DAT"
+          # DDP: "DDP"
+          # EXW: "EXW"
+          # FAS: "FAS"
+          # FCA: "FCA"
+          # FOB: "FOB"
+      items:
+        # delivered_at_place: "Delivered at place"
+        # delivered_duty_paid: "Delivered duty paid"
+        # ex_works: "Ex works"
+        # free_carrier: "Free carrier"
+      # name: "Delivery modes"
+      property_natures:
+        # incoterm: "Incoterm"
     designation_origins: #?
     dimensions:
       items:
@@ -1247,7 +1269,6 @@ arb:
         # guides: "Guides"
         # identifiers: "Identifiers"
         # incoming_deliveries: "Incoming deliveries"
-        # incoming_delivery_modes: "Incoming delivery modes"
         # incoming_payment_modes: "Incoming payment modes"
         # incoming_payments: "Incoming payments"
         # interventions: "Interventions"
@@ -1266,7 +1287,6 @@ arb:
         # net_services: "Net services"
         # observations: "Observations"
         # outgoing_deliveries: "Outgoing deliveries"
-        # outgoing_delivery_modes: "Outgoing delivery modes"
         # outgoing_payment_modes: "Outgoing payment modes"
         # outgoing_payments: "Outgoing payments"
         # people: "People"
@@ -2834,6 +2854,8 @@ arb:
         # cucumis: "Cucumis"
         # cucurbitaceae: "Cucurbitaceae"
         # cultivable_zone: "Cultivable zone"
+        # dactylis: "Dactylis"
+        # dactylis_lazuly: "Dactylis Lazuly"
         # daucus: "Daucus"
         # easement: "Easement"
         # egg: "Egg"

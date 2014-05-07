@@ -26,7 +26,7 @@
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  mode_id          :integer
+#  mode             :string(255)      not null
 #  net_mass         :decimal(19, 4)
 #  number           :string(255)      not null
 #  recipient_id     :integer          not null
@@ -37,6 +37,7 @@
 #  transporter_id   :integer
 #  updated_at       :datetime         not null
 #  updater_id       :integer
+#  with_transport   :boolean          not null
 #
 
 

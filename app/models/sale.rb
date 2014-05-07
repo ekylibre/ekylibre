@@ -184,7 +184,7 @@ class Sale < Ekylibre::Record::Base
   end
 
   after_create do
-    self.client.add_event(:sale_creation, self.updater.person) if self.updater
+    self.client.add_event(:sale_creation, self.updater.person) if self.updater and self.updater.person
   end
 
   # This method bookkeeps the sale depending on its state

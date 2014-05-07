@@ -373,6 +373,8 @@ spa:
 
     immatter:
 
+    incoming_delivery:
+
     intervention:
 
     intervention_cast:
@@ -397,6 +399,8 @@ spa:
     net_service:
 
     operation_task:
+
+    outgoing_delivery:
 
     person:
 

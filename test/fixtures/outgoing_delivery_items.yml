@@ -21,17 +21,19 @@
 #
 # == Table: outgoing_delivery_items
 #
-#  created_at        :datetime         not null
-#  creator_id        :integer
-#  delivery_id       :integer          not null
-#  id                :integer          not null, primary key
-#  lock_version      :integer          default(0), not null
-#  population        :decimal(19, 4)   default(1.0), not null
-#  product_id        :integer          not null
-#  sale_item_id      :integer
-#  source_product_id :integer          not null
-#  updated_at        :datetime         not null
-#  updater_id        :integer
+#  container_id :integer
+#  created_at   :datetime         not null
+#  creator_id   :integer
+#  delivery_id  :integer          not null
+#  id           :integer          not null, primary key
+#  lock_version :integer          default(0), not null
+#  net_mass     :decimal(19, 4)
+#  population   :decimal(19, 4)
+#  product_id   :integer          not null
+#  sale_item_id :integer
+#  shape        :spatial({:srid=>
+#  updated_at   :datetime         not null
+#  updater_id   :integer
 #
 #
 # == Fixture: outgoing_delivery_items
@@ -39,23 +41,20 @@
 # outgoing_delivery_items_001:
 #   creator: users_001
 #   delivery: deliveries_001
-#   population: 0
 #   product: products_001
-#   source_product: source_products_001
 #   updater: users_001
 #
----
+
 outgoing_delivery_items_001:
   creator: users_001
   delivery: outgoing_deliveries_001
-  population: 0
-  product: products_010
-  source_product: products_010
+  population: 1
+  product: animals_001
   updater: users_001
+
 outgoing_delivery_items_002:
   creator: users_001
   delivery: outgoing_deliveries_001
   population: 1
-  product: products_010
-  source_product: products_010
+  product: animals_002
   updater: users_001

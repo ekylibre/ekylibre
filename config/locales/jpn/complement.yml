@@ -365,6 +365,8 @@ jpn:
 
     immatter:
 
+    incoming_delivery:
+
     intervention:
 
     intervention_cast:
@@ -389,6 +391,8 @@ jpn:
     net_service:
 
     operation_task:
+
+    outgoing_delivery:
 
     person:
 

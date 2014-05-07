@@ -26,7 +26,8 @@
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  mode_id          :integer
+#  mode             :string(255)
+#  net_mass         :decimal(19, 4)
 #  number           :string(255)      not null
 #  purchase_id      :integer
 #  received_at      :datetime
@@ -44,25 +45,27 @@
 #   sender: senders_001
 #   updater: users_001
 #
----
+
 incoming_deliveries_001:
   address: entity_addresses_003
   creator: users_001
-  mode: incoming_delivery_modes_001
+  mode: ex_works
   number: INDEL000001
   sender: legal_entities_001
   updater: users_001
+
 incoming_deliveries_002:
   address: entity_addresses_003
   creator: users_001
-  mode: incoming_delivery_modes_001
+  mode: ex_works
   number: INDEL000002
   sender: legal_entities_001
   updater: users_001
+
 incoming_deliveries_003:
   address: entity_addresses_003
   creator: users_001
-  mode: incoming_delivery_modes_001
+  mode: ex_works
   number: INDEL000003
   purchase: purchases_001
   sender: legal_entities_001

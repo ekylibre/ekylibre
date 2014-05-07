@@ -21,45 +21,38 @@
 #
 # == Table: transports
 #
-#  amount           :decimal(19, 4)   not null
-#  created_at       :datetime         not null
-#  creator_id       :integer
-#  departed_at      :datetime
-#  description      :text
-#  id               :integer          not null, primary key
-#  lock_version     :integer          default(0), not null
-#  net_mass         :decimal(19, 4)
-#  number           :string(255)
-#  pretax_amount    :decimal(19, 4)   not null
-#  purchase_id      :integer
-#  reference_number :string(255)
-#  responsible_id   :integer
-#  transporter_id   :integer          not null
-#  updated_at       :datetime         not null
-#  updater_id       :integer
+#  annotation              :text
+#  created_at              :datetime         not null
+#  creator_id              :integer
+#  departed_at             :datetime
+#  id                      :integer          not null, primary key
+#  lock_version            :integer          default(0), not null
+#  net_mass                :decimal(19, 4)
+#  number                  :string(255)
+#  reference_number        :string(255)
+#  responsible_id          :integer
+#  transporter_id          :integer          not null
+#  transporter_purchase_id :integer
+#  updated_at              :datetime         not null
+#  updater_id              :integer
 #
 #
 # == Fixture: transports
 #
 # transports_001:
-#   amount: 0
 #   creator: users_001
-#   pretax_amount: 0
 #   transporter: transporters_001
 #   updater: users_001
 #
----
+
 transports_001:
-  amount: 0
   creator: users_001
   number: TR0001
-  pretax_amount: 0
   transporter: legal_entities_001
   updater: users_001
+
 transports_002:
-  amount: 0
   creator: users_001
   number: TR0002
-  pretax_amount: 0
   transporter: legal_entities_001
   updater: users_001

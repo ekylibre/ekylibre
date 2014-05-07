@@ -3,7 +3,7 @@
   = f.input :reference_number
   = f.referenced_association :sender,  source: :suppliers
   = f.referenced_association :address, source: :own_mails
-  = f.referenced_association :mode
+  = f.input :mode
   = f.input :received_at
 
 .add

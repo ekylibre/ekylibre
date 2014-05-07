@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nomenclatures xmlns="http://www.ekylibre.org/XML/2013/nomenclatures">
+  <nomenclature name="delivery_modes">
+    <property-natures>
+      <property-nature name="incoterm" type="choice" choices="EXW,FCA,CPT,CIP,DAT,DAP,DDP,FAS,FOB,CFR,CIF"/>
+    </property-natures>
+    <items>
+      <item name="ex_works"            incoterm="EXW"/>
+      <item name="free_carrier"        incoterm="FCA"/>
+      <item name="delivered_at_place"  incoterm="DAT"/>
+      <item name="delivered_duty_paid" incoterm="DDP"/>
+    </items>
+  </nomenclature>
+</nomenclatures>

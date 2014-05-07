@@ -2,18 +2,15 @@
   - t.export :transport, resource
   - t.edit resource
 
-= attributes_list do |l|
-  - l.attribute :number
-  - l.attribute :transporter, url: true
-  - l.attribute :reference_number
-  - l.attribute :created_at
-  - l.attribute :departed_at
-  - l.attribute :pretax_amount
-  - l.attribute :amount
-  - l.attribute :net_mass
-  - l.attribute :responsible, url: true
-  - l.attribute :description
-
-
-%h2= tc :deliveries
-= list :deliveries
+= beehive do |b|
+  - b.cell :general_informations do
+    = attributes_list do |l|
+      - l.attribute :number
+      - l.attribute :transporter, url: true
+      - l.attribute :reference_number
+      - l.attribute :departed_at
+      - l.attribute :net_mass
+      - l.attribute :responsible, url: true
+      - l.attribute :annotation
+  - b.cell :deliveries do
+    = list :deliveries

@@ -351,6 +351,8 @@ arb:
 
     immatter:
 
+    incoming_delivery:
+
     intervention:
 
     intervention_cast:
@@ -472,6 +474,8 @@ arb:
     net_service:
 
     operation_task:
+
+    outgoing_delivery:
 
     person:
 

@@ -262,10 +262,10 @@ fra:
       show: "Approvisionnement %{number} (%{reference_number})"
     backend/incoming_delivery_items:
       new: "Nouvel item"
-    backend/incoming_delivery_modes:
-      edit: "Modifier le mode d’approvisionnement: %{name}"
-      index: "Modes d’approvisionnement"
-      new: "Créer un mode d’approvisionnement"
+    backend/incoming_delivery_modes:  #?
+      edit: "Modifier le mode d’approvisionnement: %{name}" #?
+      index: "Modes d’approvisionnement" #?
+      new: "Créer un mode d’approvisionnement" #?
     backend/incoming_payment_modes:
       edit: "Modifier le mode d’encaissement\_: %{name}"
       index: "Modes d’encaissement"
@@ -403,10 +403,10 @@ fra:
       index: "Livraisons sortantes"
       new: "Nouvelle livraison sortante"
       show: "Livraison sortante\_: %{number}"
-    backend/outgoing_delivery_modes:
-      edit: "Modifier le mode de livraison\_: %{name}"
-      index: "Modes de livraison"
-      new: "Nouveau mode de livraison"
+    backend/outgoing_delivery_modes:  #?
+      edit: "Modifier le mode de livraison\_: %{name}" #?
+      index: "Modes de livraison" #?
+      new: "Nouveau mode de livraison" #?
     backend/outgoing_payment_modes:
       edit: "Modifier un mode de décaissement"
       index: "Modes de décaissement"
@@ -1999,6 +1999,7 @@ fra:
       run: "Éxécuter"
       select: "Selectionner"
       set: "Définir"
+      # ship: "Ship"
       show: "Afficher"
       sort: "Trier"
       toggle: "Basculer"

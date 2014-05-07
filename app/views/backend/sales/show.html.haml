@@ -74,7 +74,7 @@
       - if @sale.deliveries.any?
         - b.cell Sale.human_attribute_name("deliveries") do
           = list :deliveries
-      - b.cell tc(:undelivered) do
+      -# b.cell tc(:undelivered) do
         = toolbar do |t|
           - t.new controller: :outgoing_deliveries, sale_id: @sale.id
         = list :undelivered_items

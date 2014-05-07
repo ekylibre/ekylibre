@@ -26,7 +26,7 @@
 #  creator_id       :integer
 #  id               :integer          not null, primary key
 #  lock_version     :integer          default(0), not null
-#  mode_id          :integer
+#  mode             :string(255)      not null
 #  net_mass         :decimal(19, 4)
 #  number           :string(255)      not null
 #  recipient_id     :integer          not null
@@ -37,6 +37,7 @@
 #  transporter_id   :integer
 #  updated_at       :datetime         not null
 #  updater_id       :integer
+#  with_transport   :boolean          not null
 #
 #
 # == Fixture: outgoing_deliveries
@@ -44,28 +45,35 @@
 # outgoing_deliveries_001:
 #   address: addresses_001
 #   creator: users_001
+#   mode: "Lorem ipsum"
 #   number: "Lorem ipsum"
 #   recipient: recipients_001
 #   updater: users_001
+#   with_transport: true
 #
----
+
 outgoing_deliveries_001:
   address: entity_addresses_001
   creator: users_001
+  mode: ex_works
   number: OUTDEL000001
   recipient: legal_entities_001
   sent_at: <%=Time.now-7.days %>
   updater: users_001
+
 outgoing_deliveries_002:
   address: entity_addresses_001
   creator: users_001
+  mode: ex_works
   number: OUTDEL000002
   recipient: legal_entities_001
   sent_at: <%=Time.now%>
   updater: users_001
+
 outgoing_deliveries_003:
   address: entity_addresses_001
   creator: users_001
+  mode: ex_works
   number: OUTDEL000003
   recipient: legal_entities_001
   sale: sales_003

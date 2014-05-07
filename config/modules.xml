@@ -1371,29 +1371,6 @@
         <page to="backend/catalog_prices#update"/>
       </item>
     </group>
-    <group name="stocks" icon="truck">
-      <item name="incoming_delivery_modes">
-        <page to="backend/incoming_delivery_modes#index"/>
-        <page to="backend/incoming_delivery_modes#create"/>
-        <page to="backend/incoming_delivery_modes#destroy"/>
-        <page to="backend/incoming_delivery_modes#edit"/>
-        <page to="backend/incoming_delivery_modes#list"/>
-        <page to="backend/incoming_delivery_modes#new"/>
-        <page to="backend/incoming_delivery_modes#unroll"/>
-        <page to="backend/incoming_delivery_modes#update"/>
-      </item>
-      <item name="outgoing_delivery_modes">
-        <page to="backend/outgoing_delivery_modes#index"/>
-        <page to="backend/outgoing_delivery_modes#create"/>
-        <page to="backend/outgoing_delivery_modes#destroy"/>
-        <page to="backend/outgoing_delivery_modes#edit"/>
-        <page to="backend/outgoing_delivery_modes#list"/>
-        <page to="backend/outgoing_delivery_modes#new"/>
-        <page to="backend/outgoing_delivery_modes#show"/>
-        <page to="backend/outgoing_delivery_modes#unroll"/>
-        <page to="backend/outgoing_delivery_modes#update"/>
-      </item>
-    </group>
     <group name="production" icon="cogs">
       <item name="backend/campaigns">
         <page to="backend/campaigns#index"/>
@@ -1738,8 +1715,6 @@
         <page to="backend/cells/revenues_by_product_nature_cells#show"/>
       </item>
     </group>
-  </inaccessible-actions>
-  <untreated-actions>
     <group>
       <item name="calculators">
         <page to="backend/calculators#index"/>
@@ -1748,6 +1723,13 @@
         <page to="backend/calculators/nitrogen_inputs#edit"/>
         <page to="backend/calculators/nitrogen_inputs#show"/>
         <page to="backend/calculators/nitrogen_inputs#update"/>
+      </item>
+    </group>
+  </inaccessible-actions>
+  <untreated-actions>
+    <group>
+      <item name="outgoing_deliveries">
+        <page to="backend/outgoing_deliveries#ship"/>
       </item>
     </group>
   </untreated-actions>

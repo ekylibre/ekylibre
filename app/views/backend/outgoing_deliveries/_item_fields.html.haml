@@ -2,7 +2,7 @@
 %tr.nested-fields
   %td
     .selector
-      = f.input_field(:source_product_id, as: :string, 'data-selector' => url_for(controller: :products, action: :unroll, scope: :deliverables))
+      = f.input_field(:product_id, as: :string, 'data-selector' => url_for(controller: :products, action: :unroll, scope: :deliverables))
     -# = f.referenced_association :source_product, :source => :deliverables
     - if f.object.errors.any?
       .errors= f.object.errors.inspect

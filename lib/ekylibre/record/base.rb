@@ -22,6 +22,12 @@
 
 module Ekylibre::Record
 
+  class RecordNotUpdateable < ActiveRecord::RecordNotSaved
+  end
+
+  class RecordNotDestroyable < ActiveRecord::RecordNotSaved
+  end
+
   class Scope < Struct.new(:name, :arity)
   end
 
@@ -37,8 +43,16 @@ module Ekylibre::Record
     # Make all models stampables
     self.stampable
 
-    before_update  :updateable?
-    before_destroy :destroyable?
+    before_update  :check_if_updateable?
+    before_destroy :check_if_destroyable?
+
+    def check_if_updateable?
+      raise RecordNotUpdateable unless self.updateable?
+    end
+
+    def check_if_destroyable?
+      raise RecordNotDestroyable unless self.destroyable?
+    end
 
     def destroyable?
       true

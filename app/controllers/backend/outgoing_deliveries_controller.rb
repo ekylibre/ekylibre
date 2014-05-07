@@ -25,18 +25,17 @@ class Backend::OutgoingDeliveriesController < BackendController
 
   list(conditions: search_conditions(outgoing_deliveries: [:number, :reference_number, :net_mass], entities: [:full_name, :code])) do |t|
     t.column :number, url: true
+    t.column :with_transport
     t.column :transport, url: true
-    t.column :transporter, url: true
-    t.column :reference_number
+    t.column :transporter, url: true, hidden: true
+    t.column :reference_number, hidden: true
     t.column :sent_at
-    # t.column :moved_at
     t.column :mode
-    # t.column :number, through: :sale, url: true
-    t.column :net_mass
-    # t.column :amount
+    t.column :net_mass, hidden: true
     t.column :sale, url: true
     t.action :new,     on: :none
     t.action :invoice, on: :both, method: :post
+    t.action :ship,    on: :both, method: :post
     t.action :edit
     t.action :destroy
   end
@@ -49,10 +48,15 @@ class Backend::OutgoingDeliveriesController < BackendController
     t.column :net_mass, through: :product, datatype: :measure
     # t.column :name, through: :building, url: true
   end
-
+ 
   def invoice
     sale = OutgoingDelivery.invoice(params[:id].split(','))
     redirect_to backend_sale_url(sale)
+  end
+ 
+  def ship
+    transport = OutgoingDelivery.ship(params[:id].split(','))
+    redirect_to backend_transport_url(transport)
   end
 
 end

@@ -318,10 +318,7 @@ spa:
     backend/incoming_delivery_items:
       # new: "New incoming delivery item"
     backend/incoming_delivery_lines: #?
-    backend/incoming_delivery_modes:
-      # edit: "Edit incoming delivery mode: %{name}"
-      # index: "Incoming delivery modes"
-      # new: "New incoming delivery mode"
+    backend/incoming_delivery_modes: #?
     backend/incoming_payment_modes:
       # edit: "Edit incoming payment mode: %{name}"
       # index: "Incoming payment modes"
@@ -457,10 +454,10 @@ spa:
       new: "Añadir una entrega"
       # show: "Outgoing delivery: %{number}"
     backend/outgoing_delivery_lines: #?
-    backend/outgoing_delivery_modes:
-      edit: "Modificacion del modo de entrega : %{name}"
-      index: "Modos de entrega"
-      new: "Añadir un nuevo modo de entrega"
+    backend/outgoing_delivery_modes:  #?
+      edit: "Modificacion del modo de entrega : %{name}" #?
+      index: "Modos de entrega" #?
+      new: "Añadir un nuevo modo de entrega" #?
     backend/outgoing_payment_modes:
       # edit: "Edit disbursement mode"
       # index: "Disbursement modes"
@@ -1893,6 +1890,7 @@ spa:
       # run: "Run"
       # select: "Select"
       # set: "Set"
+      # ship: "Ship"
       # show: "Show"
       # sort: "Sort"
       # toggle: "Toggle"
