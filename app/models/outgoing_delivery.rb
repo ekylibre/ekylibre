@@ -145,7 +145,7 @@ class OutgoingDelivery < Ekylibre::Record::Base
     end
   end
 
-  def invoice
+  def self.invoice(*args)
     raise NotImplemented
   end
 
