@@ -91,11 +91,10 @@
     </items>
   </nomenclature>
 
-  <nomenclature name="procedure_natures-plant_feeding">
+  <nomenclature name="procedure_natures-plant_fertilisation">
     <items>
       <item name="plant_irrigation" roles="input, target"/>
       <item name="plant_nutrition" roles="input, target, doer"/>
-      <item name="plant_growth_inflector_feeding" roles="input, target, doer"/>
     </items>
   </nomenclature>
 

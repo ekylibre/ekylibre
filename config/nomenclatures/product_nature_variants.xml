@@ -167,6 +167,12 @@
             unit_name="hectare"
             frozen_indicators_values="net_surface_area: 1.00hectare"
             />
+      <item name="etincel_winter_barley_crop"
+            nature="cereal_crop"
+            variety="hordeum_hibernum_etincel"
+            unit_name="hectare"
+            frozen_indicators_values="net_surface_area: 1.00hectare"
+            />
       <item name="escourgeon_barley_crop"
             nature="cereal_crop"
             variety="hordeum_vulgare"
@@ -194,7 +200,7 @@
             />
       <!-- OTHER CROP -->
 
-      <item name="alfalfa_crop"
+      <item name="lucerne_crop"
             nature="crop"
             variety="medicago"
             unit_name="hectare"
@@ -1443,6 +1449,11 @@
             unit_name="equipment"
             frozen_indicators_values="population: 1"
             />
+      <item name="water_spreader"
+            nature="water_spreader"
+            unit_name="equipment"
+            frozen_indicators_values="population: 1"
+            />
       <item name="baler"
             nature="baler"
             unit_name="equipment"
@@ -1597,8 +1608,8 @@
       <!-- GENERIC PRODUCT -->
       <item name="running_water"
             nature="running_water"
-            unit_name="liter"
-            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
             />
       <item name="irrigation_water"
             nature="irrigation_water"
@@ -1607,8 +1618,8 @@
             />
       <item name="natural_water"
             nature="natural_water"
-            unit_name="liter"
-            frozen_indicators_values="net_volume: 1.00liter, net_mass: 1.00kilogram"
+            unit_name="cubic_meter"
+            frozen_indicators_values="net_volume: 1.00cubic_meter, net_mass: 1.00ton"
             />
       <item name="electricity"
             nature="electricity"

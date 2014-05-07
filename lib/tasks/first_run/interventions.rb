@@ -2,7 +2,11 @@
 load_data :interventions do |loader|
 
   # interventions for all poaceae
-  sowables = [:poa, :hordeum, :secale, :triticosecale, :triticum].collect do |n|
+  sowables = [:poa, :hordeum_hibernum, :secale, :triticosecale, :triticum, :brassica_napus, :pisum_hibernum].collect do |n|
+    Nomen::Varieties[n]
+  end
+  
+  spring_sowables = [:zea, :hordeum_vernum, :pisum_vernum].collect do |n|
     Nomen::Varieties[n]
   end
 
@@ -82,6 +86,42 @@ load_data :interventions do |loader|
               w.check_point
             end
           end
+        end
+      end
+    end
+
+  loader.count :irrigation_interventions do |w|
+      for production in Production.all
+        if production.active?
+          variety = production.variant.variety
+            year = production.campaign.name.to_i
+            Ekylibre::FirstRun::Booker.production = production
+            for support in production.supports
+              # for active and irrigated support only
+              if support.active? and support.irrigated?
+                land_parcel = support.storage
+                if area = land_parcel.shape_area
+                  coeff = (area.to_s.to_f / 10000.0) / 6.0
+                  
+                  if sowing_intervention = support.interventions.of_nature(:sowing).reorder(:started_at).last
+                    
+                    cultivation = sowing_intervention.casts.find_by(reference_name: 'cultivation').actor
+                    
+                    # Watering  01-05-M -> 31-08-M
+                    Ekylibre::FirstRun::Booker.intervene(:watering, year, 5, 15, 0.96 * coeff, support: support) do |i|
+                      i.add_cast(reference_name: 'water',      actor: i.find(Product, variety: :water))
+                      i.add_cast(reference_name: 'water_to_spread', population: 2 * coeff)
+                      i.add_cast(reference_name: 'spreader',    actor: i.find(Product, can: "spread(water)"))
+                      i.add_cast(reference_name: 'driver',      actor: i.find(Worker))
+                      i.add_cast(reference_name: 'land_parcel', actor: land_parcel)
+                      i.add_cast(reference_name: 'cultivation', actor: cultivation)
+                    end
+                  end
+                
+                end
+              end
+              w.check_point
+            end
         end
       end
     end

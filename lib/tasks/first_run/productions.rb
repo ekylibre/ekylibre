@@ -18,11 +18,12 @@ load_data :productions do |loader|
                            :work_number_storage => row[5].blank? ? nil : row[5].to_s,
                            :started_at => (row[6].blank? ? Date.civil(2000, 2, 2) : row[6]).to_datetime,
                            :stopped_at => (row[7].blank? ? Date.civil(2000, 2, 2) : row[7]).to_datetime,
-                           :mass_area_yield_markers => row[8].blank? ? {} : row[8].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                           :irrigated => (row[8].blank? ? :false : :true),
+                           :mass_area_yield_markers => row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
                              h[i.first.strip.downcase.to_sym] = i.second
                              h
                            },
-                           :support_markers => row[9].blank? ? {} : row[9].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
+                           :support_markers => row[10].blank? ? {} : row[10].to_s.strip.split(/[[:space:]]*\;[[:space:]]*/).collect{|i| i.split(/[[:space:]]*\:[[:space:]]*/)}.inject({}) { |h, i|
                              h[i.first.strip.downcase.to_sym] = i.second
                              h
                            }                           
@@ -71,6 +72,10 @@ load_data :productions do |loader|
             # and create a support for this production
             support = production.supports.create!(storage_id: product_support.id, :started_at => r.started_at, :stopped_at => r.stopped_at)
             # if the support is a CultivableZone
+            if r.irrigated == true
+              support.irrigated = true
+              support.save!
+            end
             if product_support.is_a?(CultivableZone)
               # create mass_area_yield_markers
               for derivative, value in r.mass_area_yield_markers

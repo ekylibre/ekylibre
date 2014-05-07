@@ -761,6 +761,14 @@
             variable_indicators="nominal_storable_net_volume, application_width"
             frozen_indicators="population"
             />
+      <item name="water_spreader"
+            category="equipment"
+            variety="spreader"
+            population_counting="unitary"
+            abilities="spread(water)"
+            variable_indicators="application_width"
+            frozen_indicators="population"
+            />
       <item name="sower"
             category="equipment"
             variety="sower"

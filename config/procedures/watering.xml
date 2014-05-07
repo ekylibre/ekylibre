@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<procedures xmlns="http://www.ekylibre.org/XML/2013/procedures">
+  <!-- ############################## EPANDRE DU FUMIER ######################################## -->
+  <!-- name avec namespace séparé par ; natures appelle les noms de procedure fichier procedure-nature-->
+  <procedure name="watering" version="0" status="frozen" natures="plant_irrigation,soil_enrichment">
+    <!-- les variables non transmises seront obligatoirement demandées lors de l'utilisation de la procédure-->
+    <!-- parameter = false , alors la variable ne sera pas demandée et peut servir de variable interne -->
+    <!-- same-nature-of = "parameter" quand une variable interne est issue d'un objet passé en paramètre -->
+    <!-- les compétences (abilities) sont notés sous la forme d'une compétence sur une variété : compétence(variété)-->
+    <variables>
+      <variable name="water" variety="water" roles="soil_enrichment-input_origin"/>
+      <variable name="water_to_spread" new="parted-from: water" roles="soil_enrichment-input,plant_irrigation-input" >
+     <handler indicator="population" />
+     <handler indicator="mass_area_density"   unit="liter_per_square_meter"   to="population"
+                 forward="(value * cultivation.net_surface_area(hectare)) / self..net_mass(ton)"
+                 backward="(value * self..net_mass(ton)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- l /m² -->
+     <handler indicator="mass_area_density"   name="nitrogen_unities_density" unit="kilogram_per_hectare"   to="population" 
+     if="self.nitrogen_concentration? &amp; self.nitrogen_concentration(percent) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.nitrogen_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.nitrogen_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg N/ha -->          
+  <handler indicator="mass_area_density"   name="phosphorus_unities_density" unit="kilogram_per_hectare" to="population" 
+     if="self.phosphorus_concentration? &amp; self.phosphorus_concentration(percent) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.phosphorus_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.phosphorus_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg P/ha -->         
+  <handler indicator="mass_area_density"   name="potassium_unities_density" unit="kilogram_per_hectare" to="population"
+     if="self.potassium_concentration? &amp; self.potassium_concentration(percent) > 0"
+                 forward="(value * cultivation.net_surface_area(hectare)) / (self..net_mass(kilogram) * self.potassium_concentration(percent) / 100)"
+                 backward="(value * self..net_mass(kilogram) * (self.potassium_concentration(percent) / 100)) / cultivation.net_surface_area(hectare)"
+                 /> <!-- kg K/ha -->
+      </variable> 
+      <variable name="spreader" abilities="spread(water)" roles="soil_enrichment-tool"/>
+      <variable name="driver"   abilities="drive(tractor)" roles="soil_enrichment-doer"/>
+      <variable name="land_parcel" variety="cultivable_zone" roles="soil_enrichment-target" default-actor="storage" default-shape=":land_parcel">
+      </variable>
+      <variable name="cultivation" variety="plant" roles="plant_irrigation-target" need="shape" default-actor="variant-localized-in-storage" default-shape=":cultivation">
+        <handler indicator="shape">
+          <converter to="shape"      forward="intersection(value, cultivation.shape)" backward="value"/>
+          <converter to="population" forward="area(value) / cultivation..net_surface_area(square_meter)"/>
+        </handler>
+      </variable>
+    </variables>
+    <operations>
+      <operation id="100" duration="4 minutes">
+        <task do="[driver] moves at [spreader]"/><!-- le chauffeur se déplace vers le tracteur et rentre dedans (?) -->
+      </operation>
+      <operation id="200" duration="1 minutes">
+        <task do="[water] parts with [water_to_spread]"/><!--  on sépare le fumier que l'on va mettre dans l'épandeur du tas global -->
+      </operation>
+      <operation id="300" duration="4 minutes">
+        <task do="[water_to_spread] moves in [spreader]"/><!-- le chauffeur charge du fumier dans l'épandeur qui est un lieu de stockage temporaire (normalement plus complexe que cela)-->
+      </operation>
+      <operation id="400" repeatable="true">
+        <!-- Tant que le [tractor] travaille (? = sous-entendu le tracteur tourne,le conducteur roule, l'épandeur tourne) les task tournent -->
+        <task do="[water_to_spread] moves in [land_parcel]"/><!-- le fumier tombe par terre car l'épandeur tourne (?) -->
+        <task do="[land_parcel] consumes [water_to_spread]"/><!-- la parcelle consomme le fumier épandu -->
+        <!-- À terme, on devrait être capable de faire IF l'épandeur est vide alors j'arrete de travailler -->
+        <!-- et je retourne charger du fumier sur le tas global-->
+      </operation><!-- a terme, on devrait être capable de faire une boucle WHILE tant que la parcelle n'a pas eu la dose de fumier , je continue de charger et épandre  -->
+      <operation id="500" duration="4 minutes">
+        <task do="[driver] moves in default storage"/>
+      </operation>
+    </operations>
+  </procedure>
+  <!--
+      Journal de culture [land_parcel] à la fin :      le 01/01/2013 = Ma parcelle 1 a reçu une dose de XX Tonne de fumier
+      Journal d'entretien [tractor] à la fin :         le 01/01/2013 = Mon tracteur a travaillé pendant YY Heures pour épandre du fumier dans la parcelle 1
+      Journal des temps de travaux [driver] à la fin : le 01/01/2013 = J'ai épandu du fumier pendant YY Heures dans la parcelle 1
+  -->
+</procedures>
