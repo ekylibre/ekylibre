@@ -20,7 +20,7 @@
 module Backend::JournalsHelper
 
   def journals_tag
-    render :partial => "backend/journals/index"
+    render partial: "backend/journals/index"
   end
 
   # Show the 3 modes of view for a journal
@@ -102,7 +102,7 @@ module Backend::JournalsHelper
   # Create a widget to select some journals
   def journals_crit
     code, field = "", :journals
-    code << content_tag(:label, Backend::JournalsController.human_name)
+    code << content_tag(:label, Backend::JournalsController.human_action_name(:index))
     journals = Journal.all
     params[field] = {} unless params[field].is_a? Hash
     no_journal = !journals.detect{|x| params[field].has_key?(x.id.to_s)}
