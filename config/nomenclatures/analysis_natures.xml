@@ -21,7 +21,11 @@
             />
       <item name="soil_analysis"
             target_variety="land_parcel"
-            items="soil_nature, organic_matter_concentration, potential_hydrogen, cation_exchange_capacity, phosphate_concentration, potash_concentration, magnesium_concentration, boron_concentration, zinc_concentration, manganese_concentration, copper_concentration, iron_concentration"
+            items="soil_nature, organic_matter_concentration, nitrogen_concentration, potential_hydrogen, cation_exchange_capacity, phosphate_concentration, potash_concentration, magnesium_concentration, boron_concentration, zinc_concentration, manganese_concentration, copper_concentration, iron_concentration"
+            />
+      <item name="water_analysis"
+            target_variety="water"
+            items="nitrogen_concentration, phosphate_concentration, potash_concentration, magnesium_concentration, boron_concentration, zinc_concentration, manganese_concentration, copper_concentration, iron_concentration"
             />
     </items>
 

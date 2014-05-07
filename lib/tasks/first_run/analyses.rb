@@ -106,6 +106,65 @@ load_data :analyses do |loader|
     end
   end
   
+  file = loader.path("charentes_alliance", "analyses_eau.txt")
+  if file.exist?
+    loader.count :water_analyses_import do |w|
+
+      unless analyser = LegalEntity.where("LOWER(full_name) LIKE ?", "%AGRO-Systèmes%".mb_chars.downcase).first
+        analyser = LegalEntity.create!(last_name: "AGRO-Systèmes",
+                                       nature: :legal_entity,
+                                       vat_number: "FR00123456789",
+                                       supplier: true, client: false,
+                                       mails_attributes: {
+                                         0 => {
+                                           canal: "mail",
+                                           mail_line_4: "Route de Saint Roch",
+                                           mail_line_6: "37390 La Membrolle Choisille",
+                                           mail_country: :fr
+                                         }
+                                       },
+                                       emails_attributes: {
+                                         0 => {
+                                           canal: "email",
+                                           coordinate: "contact@agro-systemes.fr"
+                                         }
+                                       })
+      end
+
+      CSV.foreach(file, :encoding => "CP1252", :col_sep => "\t", :headers => true) do |row|
+        r = OpenStruct.new(:code_distri => (row[0].blank? ? nil : row[0].to_s),
+                           :reference_number => row[6].to_s,
+                           :at => (row[7].blank? ? nil : Date.civil(*row[7].to_s.split(/\//).reverse.map(&:to_i))),
+                           :water_work_number => row[8].blank? ? nil : landparcels_transcode[row[8]],
+                           :potential_hydrogen => row[9].blank? ? nil : row[9].to_d,
+                           :nitrogen_concentration => row[10].blank? ? nil : (row[10].to_d).in_percent,
+                           :sampled_at => (row[12].blank? ? nil : Date.civil(*row[12].to_s.split(/\//).reverse.map(&:to_i)))                           
+                           )
+        
+        unless analysis = Analysis.where(reference_number: r.reference_number, analyser: analyser).first
+          analysis = Analysis.create!(reference_number: r.reference_number, nature: "water_analysis",
+                                      analyser: analyser, sampled_at: r.sampled_at, analysed_at: r.at
+                                      )
+
+          analysis.read!(:potential_hydrogen, r.potential_hydrogen) if r.potential_hydrogen
+          analysis.read!(:nitrogen_concentration, r.nitrogen_concentration) if r.nitrogen_concentration
+
+        end
+        # if an lan_parcel exist, link to analysis
+        if land_parcel = LandParcel.find_by_work_number(r.landparcel_work_number)
+          analysis.product = land_parcel
+          analysis.save!
+          land_parcel.read!(:soil_nature, r.analyse_soil_nature, at: r.sampled_at) if r.analyse_soil_nature
+          land_parcel.read!(:phosphorus_concentration, r.p_ppm_value, at: r.sampled_at) if r.p_ppm_value
+          land_parcel.read!(:potassium_concentration, r.k_ppm_value, at: r.sampled_at) if r.k_ppm_value
+        end
+        
+        w.check_point
+      end
+    end
+  end
+  
+  
   file = loader.path("lilco", "HistoIP_V.csv")
   if file.exist?
     loader.count :milk_analyses_import do |w|
