@@ -5,6 +5,12 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
 
+# Permits to test locales
+if ENV['LOCALE']
+  I18n.locale = ENV['LOCALE']
+end
+
+
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
 

@@ -52,7 +52,7 @@
 #   required: true
 #   updater: users_001
 #
----
+
 custom_fields_001:
   active: true
   column_name: _favorite_color
@@ -62,6 +62,7 @@ custom_fields_001:
   nature: choice
   required: false
   updater: users_001
+
 custom_fields_002:
   active: true
   column_name: _useless
