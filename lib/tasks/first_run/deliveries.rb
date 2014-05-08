@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 load_data :deliveries do |loader|
 
-  unless IncomingDeliveryMode.count > 1
-    IncomingDeliveryMode.find_or_create_by!(code: "EXW", name: "Récupéré chez le fournisseur")
-    IncomingDeliveryMode.find_or_create_by!(code: "DAP", name: "Livré sur l'exploitation")
-  end
-
   #############################################################################
   # import Coop Order to make automatic purchase
 
@@ -58,7 +53,7 @@ load_data :deliveries do |loader|
         # create an incoming deliveries if not exist and status = 2
         if r.order_status == :order
           order   = IncomingDelivery.find_by_reference_number(r.order_number)
-          order ||= IncomingDelivery.create!(reference_number: r.order_number, received_at: r.ordered_on, sender: cooperative, address: Entity.of_company.default_mail_address, mode: IncomingDeliveryMode.all.sample)
+          order ||= IncomingDelivery.create!(reference_number: r.order_number, received_at: r.ordered_on, sender: cooperative, address: Entity.of_company.default_mail_address, mode: :ex_works)
           # find a product_nature_variant by mapping current name of matter in coop file in coop reference_name
           product_nature_variant = ProductNatureVariant.find_by_reference_name(r.coop_variant_reference_name)
           product_nature_variant ||= ProductNatureVariant.import_from_nomenclature(r.coop_variant_reference_name) if item = Nomen::ProductNatureVariants.find(r.coop_variant_reference_name)

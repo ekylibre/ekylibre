@@ -7,7 +7,8 @@
     <items>
       <item name="ex_works"            incoterm="EXW"/>
       <item name="free_carrier"        incoterm="FCA"/>
-      <item name="delivered_at_place"  incoterm="DAT"/>
+      <item name="delivered_at_place"  incoterm="DAP"/>
+      <item name="delivered_at_terminal"  incoterm="DAT"/>
       <item name="delivered_duty_paid" incoterm="DDP"/>
     </items>
   </nomenclature>
